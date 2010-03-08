@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/clients/patent_office/patent_patent_obj.aw:14
+msgid "autori &otilde;igusj&auml;rglane"
+msgstr ""
+
+#: classes/applications/clients/patent_office/patent_patent_obj.aw:15
+msgid "isik vastavalt t&ouml;&ouml;lepingule"
+msgstr ""
+
+#: classes/applications/clients/patent_office/patent_patent_obj.aw:16
+msgid "isik vastavalt lepingule, v&auml;lja arvatud t&ouml;&ouml;lepingule"
+msgstr ""

@@ -1,0 +1,282 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/mrp/mrp_prisma_browser.aw:class_1176_help
+msgid "Klassi Reusneri andmete sirvimine help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_cust_n
+msgid "Omaduse Kliendi nimi (s_cust_n) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_cust_n_comment
+msgid "Omaduse Kliendi nimi (s_cust_n) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_cust_n_help
+msgid "Omaduse Kliendi nimi (s_cust_n) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_ord_num
+msgid "Omaduse Number (s_ord_num) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_ord_num_comment
+msgid "Omaduse Number (s_ord_num) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_ord_num_help
+msgid "Omaduse Number (s_ord_num) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_date_from
+msgid "Omaduse Kuup&auml;ev alates (s_date_from) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_date_from_comment
+msgid "Omaduse Kuup&auml;ev alates (s_date_from) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_date_from_help
+msgid "Omaduse Kuup&auml;ev alates (s_date_from) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_date_to
+msgid "Omaduse Kuup&auml;ev kuni (s_date_to) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_date_to_comment
+msgid "Omaduse Kuup&auml;ev kuni (s_date_to) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_date_to_help
+msgid "Omaduse Kuup&auml;ev kuni (s_date_to) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_salesp_name
+msgid "Omaduse M&uuml;&uuml;gimehe nimi (s_salesp_name) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_salesp_name_comment
+msgid "Omaduse M&uuml;&uuml;gimehe nimi (s_salesp_name) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_salesp_name_help
+msgid "Omaduse M&uuml;&uuml;gimehe nimi (s_salesp_name) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_btn
+msgid "Omaduse Otsi (s_btn) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_btn_comment
+msgid "Omaduse Otsi (s_btn) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_btn_help
+msgid "Omaduse Otsi (s_btn) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_res
+msgid "Omaduse  (s_res) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_res_comment
+msgid "Omaduse  (s_res) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_s_res_help
+msgid "Omaduse  (s_res) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_cust_n
+msgid "Omaduse Kliendi nimi (ts_cust_n) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_cust_n_comment
+msgid "Omaduse Kliendi nimi (ts_cust_n) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_cust_n_help
+msgid "Omaduse Kliendi nimi (ts_cust_n) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_ord_num
+msgid "Omaduse Number (ts_ord_num) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_ord_num_comment
+msgid "Omaduse Number (ts_ord_num) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_ord_num_help
+msgid "Omaduse Number (ts_ord_num) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_date_from
+msgid "Omaduse Kuup&auml;ev alates (ts_date_from) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_date_from_comment
+msgid "Omaduse Kuup&auml;ev alates (ts_date_from) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_date_from_help
+msgid "Omaduse Kuup&auml;ev alates (ts_date_from) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_date_to
+msgid "Omaduse Kuup&auml;ev kuni (ts_date_to) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_date_to_comment
+msgid "Omaduse Kuup&auml;ev kuni (ts_date_to) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_date_to_help
+msgid "Omaduse Kuup&auml;ev kuni (ts_date_to) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_salesp_name
+msgid "Omaduse M&uuml;&uuml;gimehe nimi (ts_salesp_name) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_salesp_name_comment
+msgid "Omaduse M&uuml;&uuml;gimehe nimi (ts_salesp_name) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_salesp_name_help
+msgid "Omaduse M&uuml;&uuml;gimehe nimi (ts_salesp_name) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_btn
+msgid "Omaduse Otsi (ts_btn) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_btn_comment
+msgid "Omaduse Otsi (ts_btn) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_btn_help
+msgid "Omaduse Otsi (ts_btn) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_res
+msgid "Omaduse  (ts_res) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_res_comment
+msgid "Omaduse  (ts_res) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_ts_res_help
+msgid "Omaduse  (ts_res) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_view_hp
+msgid "Omaduse  (view_hp) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_view_hp_comment
+msgid "Omaduse  (view_hp) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_view_hp_help
+msgid "Omaduse  (view_hp) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_view_tm
+msgid "Omaduse  (view_tm) caption"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_view_tm_comment
+msgid "Omaduse  (view_tm) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:prop_view_tm_help
+msgid "Omaduse  (view_tm) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:group_hinnap
+msgid "Grupi Hinnapakkumised (hinnap) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:group_hinnap_help
+msgid "Grupi Hinnapakkumised (hinnap) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:group_tellim
+msgid "Grupi Tellimused (tellim) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:group_tellim_help
+msgid "Grupi Tellimused (tellim) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:group_view_hp
+msgid "Grupi Vaata hinnapakkumist (view_hp) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:group_view_hp_help
+msgid "Grupi Vaata hinnapakkumist (view_hp) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:group_view_tm
+msgid "Grupi Vaata tellimust (view_tm) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:group_view_tm_help
+msgid "Grupi Vaata tellimust (view_tm) help"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:136
+msgid "Logi v&auml;lja"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:146
+msgid "hinnapakkumise number"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:154 classes/mrp/mrp_prisma_browser.aw:338
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:165
+msgid "Kliendi nimi"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:171 classes/mrp/mrp_prisma_browser.aw:362
+msgid "T&ouml;&ouml; nimi"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:177
+msgid "M&uuml;&uuml;gimees"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:330
+msgid "Tellimuse number"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:349
+msgid "M&uuml;&uuml;gimees/naine"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:356
+msgid "Tellija"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:368
+msgid "T&ouml;&ouml; algus"
+msgstr ""
+
+#: classes/mrp/mrp_prisma_browser.aw:374
+msgid "Tellimuse t&auml;htaeg"
+msgstr ""

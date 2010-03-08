@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="personnel_management_candidate" folder="www/dev/terryf/automatweb_dev/classes/applications/personnel_management" extends="class_base">
+		<action name="view_intro">
+			<function name="view_intro">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new" nologin="1" all_args="1">
+			<function name="pnew">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change" nologin="1" all_args="1">
+			<function name="pchange">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit" nologin="1" all_args="1">
+			<function name="psubmit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

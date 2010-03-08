@@ -1,0 +1,120 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="export" folder="www/dev/terryf/automatweb_dev/classes/export" extends="aw_template">
+		<action name="export">
+			<function name="orb_export">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_export">
+			<function name="submit_export">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_export" nologin="1">
+			<function name="do_export">
+				<arguments>
+					<optional name="rule_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new">
+			<function name="add_rule">
+				<arguments>
+					<required name="parent" acl="add" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_rule">
+			<function name="submit_rule">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change">
+			<function name="change_rule">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="stop_rule">
+			<function name="stop_rule">
+				<arguments>
+					<optional name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pick_active_version">
+			<function name="pick_active">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_pick_active">
+			<function name="submit_pick_active">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="view_log">
+			<function name="view_log">
+				<arguments>
+					<optional name="page" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="view_log_entry">
+			<function name="view_log_entry">
+				<arguments>
+					<required name="id" />
+					<optional name="type" default="errors" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_log_entry">
+			<function name="del_log_entry">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_version">
+			<function name="delete_version">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="iexport">
+			<function name="iexport">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_iexport">
+			<function name="submit_iexport">
+				<arguments>
+					<optional name="urls" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

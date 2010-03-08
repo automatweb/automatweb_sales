@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_recommendation.aw:class_1406_help
+msgid "Klassi Soovitus help"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_person
+msgid "Omaduse Soovitav isik (person) caption"
+msgstr "Recommended by"
+
+#: classes/applications/crm/crm_recommendation.aw:prop_person_comment
+msgid "Omaduse Soovitav isik (person) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_person_help
+msgid "Omaduse Soovitav isik (person) help"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_relation
+msgid "Omaduse Suhe soovitajaga (relation) caption"
+msgstr "Relation"
+
+#: classes/applications/crm/crm_recommendation.aw:prop_relation_comment
+msgid "Omaduse Suhe soovitajaga (relation) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_relation_help
+msgid "Omaduse Suhe soovitajaga (relation) help"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_phones
+msgid "Omaduse Telefon (phones) caption"
+msgstr "Phone"
+
+#: classes/applications/crm/crm_recommendation.aw:prop_phones_comment
+msgid "Omaduse Telefon (phones) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_phones_help
+msgid "Omaduse Telefon (phones) help"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_emails
+msgid "Omaduse E-postiaadress (emails) caption"
+msgstr "E-mail"
+
+#: classes/applications/crm/crm_recommendation.aw:prop_emails_comment
+msgid "Omaduse E-postiaadress (emails) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_emails_help
+msgid "Omaduse E-postiaadress (emails) help"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_org
+msgid "Omaduse T&ouml;&ouml;koht (org) caption"
+msgstr "Workplace"
+
+#: classes/applications/crm/crm_recommendation.aw:prop_org_comment
+msgid "Omaduse T&ouml;&ouml;koht (org) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_org_help
+msgid "Omaduse T&ouml;&ouml;koht (org) help"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_profession
+msgid "Omaduse Amet (profession) caption"
+msgstr "Position"
+
+#: classes/applications/crm/crm_recommendation.aw:prop_profession_comment
+msgid "Omaduse Amet (profession) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_profession_help
+msgid "Omaduse Amet (profession) help"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_contact_lang
+msgid "Omaduse Soovitaja poole p&ouml;&ouml;rduda (contact_lang) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_contact_lang_comment
+msgid "Omaduse Soovitaja poole p&ouml;&ouml;rduda (contact_lang) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:prop_contact_lang_help
+msgid "Omaduse Soovitaja poole p&ouml;&ouml;rduda (contact_lang) help"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:rel_RELTYPE_PERSON
+msgid "Seose Soovitav isik (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:rel_RELTYPE_RELATION
+msgid "Seose Suhe soovitajaga (RELTYPE_RELATION) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:rel_RELTYPE_CONTACT_LANGUAGE
+msgid "Seose Soovitaja poole p&ouml;&ouml;rduda (RELTYPE_CONTACT_LANGUAGE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:407
+msgid "Vigane argument '"
+msgstr ""
+
+#: classes/applications/crm/crm_recommendation.aw:443
+msgid "soovitus isikule"
+msgstr "recommendation to"

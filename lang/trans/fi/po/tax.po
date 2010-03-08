@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/pank/tax.aw:class_807_help
+msgid "Klassi Maks help"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_jrk
+msgid "Omaduse Järjekord (jrk) caption"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_jrk_comment
+msgid "Omaduse Järjekord (jrk) kommentaar"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_jrk_help
+msgid "Omaduse Järjekord (jrk) help"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_tax_type
+msgid "Omaduse Maksu tüüp (tax_type) caption"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_tax_type_comment
+msgid "Omaduse Maksu tüüp (tax_type) kommentaar"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_tax_type_help
+msgid "Omaduse Maksu tüüp (tax_type) help"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_tax_percentage
+msgid "Omaduse Suhtarv (tax_percentage) caption"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_tax_percentage_comment
+msgid "Omaduse Suhtarv (tax_percentage) kommentaar"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_tax_percentage_help
+msgid "Omaduse Suhtarv (tax_percentage) help"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_tax_amount
+msgid "Omaduse Tüüparv (tax_amount) caption"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_tax_amount_comment
+msgid "Omaduse Tüüparv (tax_amount) kommentaar"
+msgstr ""
+
+#: classes/pank/tax.aw:prop_tax_amount_help
+msgid "Omaduse Tüüparv (tax_amount) help"
+msgstr ""
+

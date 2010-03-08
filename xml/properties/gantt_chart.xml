@@ -1,0 +1,9 @@
+<?xml version='1.0'?>
+<properties>
+      <classinfo>
+            <syslog_type>ST_GANTT_CHART</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>voldemar</maintainer>
+      </classinfo>
+</properties>
+

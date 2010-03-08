@@ -1,0 +1,208 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/awmyadmin/db_table_admin.aw:class_152_help
+msgid "Klassi Andmebaasitabeli muutmine help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_db_base
+msgid "Omaduse Vali andmebaas (db_base) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_db_base_comment
+msgid "Omaduse Vali andmebaas (db_base) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_db_base_help
+msgid "Omaduse Vali andmebaas (db_base) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_db_table
+msgid "Omaduse Vali tabel (db_table) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_db_table_comment
+msgid "Omaduse Vali tabel (db_table) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_db_table_help
+msgid "Omaduse Vali tabel (db_table) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_column_toolbar
+msgid "Omaduse  (column_toolbar) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_column_toolbar_comment
+msgid "Omaduse  (column_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_column_toolbar_help
+msgid "Omaduse  (column_toolbar) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_column_table
+msgid "Omaduse  (column_table) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_column_table_comment
+msgid "Omaduse  (column_table) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_column_table_help
+msgid "Omaduse  (column_table) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_index_toolbar
+msgid "Omaduse  (index_toolbar) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_index_toolbar_comment
+msgid "Omaduse  (index_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_index_toolbar_help
+msgid "Omaduse  (index_toolbar) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_index_table
+msgid "Omaduse  (index_table) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_index_table_comment
+msgid "Omaduse  (index_table) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:prop_index_table_help
+msgid "Omaduse  (index_table) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:group_columns
+msgid "Grupi Tulbad (columns) pealkiri"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:group_columns_help
+msgid "Grupi Tulbad (columns) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:group_indexes
+msgid "Grupi Indeksid (indexes) pealkiri"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:group_indexes_help
+msgid "Grupi Indeksid (indexes) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:rel_RELTYPE_DB_LOGIN
+msgid "Seose DB Login (RELTYPE_DB_LOGIN) tekst"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:75
+msgid "Tagasi"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:77
+msgid "Tulbad"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:94 classes/applications/awmyadmin/db_table_admin.aw:141
+msgid "Muuda tulpa"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:94 classes/applications/awmyadmin/db_table_admin.aw:141
+msgid "Lisa tulp"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:100 classes/applications/awmyadmin/db_table_admin.aw:244 classes/applications/awmyadmin/db_table_admin.aw:333 classes/applications/awmyadmin/db_table_admin.aw:420
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:106 classes/applications/awmyadmin/db_table_admin.aw:338
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:115
+msgid "Pikkus"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:122 classes/applications/awmyadmin/db_table_admin.aw:348
+msgid "NULL"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:128
+msgid "Vaikimisi"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:134
+msgid "Extra"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:210 classes/applications/awmyadmin/db_table_admin.aw:358 classes/applications/awmyadmin/db_table_admin.aw:435 classes/applications/awmyadmin/db_table_admin.aw:449
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:213 classes/applications/awmyadmin/db_table_admin.aw:238 classes/applications/awmyadmin/db_table_admin.aw:258
+msgid "Lisa indeks"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:213 classes/applications/awmyadmin/db_table_admin.aw:238 classes/applications/awmyadmin/db_table_admin.aw:258
+msgid "Muuda indeksit"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:252
+msgid "Tulbale"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:317
+msgid "Lisa uus tulp"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:323
+msgid "Oled kindel et soovid valitud tulpi kustutada?"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:324
+msgid "Kustuta valitud tulbad"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:343
+msgid "Attribuudid"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:353
+msgid "Default"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:362 classes/applications/awmyadmin/db_table_admin.aw:439
+msgid "Vali"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:404
+msgid "Lisa uus indeks"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:410
+msgid "Oled kindel et soovid valitud indekseid kustutada?"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:411
+msgid "Kustuta valitud indeksid"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:425
+msgid "Tulba nimi"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_admin.aw:430
+msgid "Unikaalne"
+msgstr ""
+

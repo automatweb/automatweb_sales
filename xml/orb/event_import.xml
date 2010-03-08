@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="event_import" folder="www/dev/terryf/automatweb_dev/classes/import" extends="class_base">
+		<action name="ignore">
+			<function name="ignore">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="auto_change">
+			<function name="auto_change">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_changes">
+			<function name="make_changes">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="import_events" nologin="1">
+			<function name="import_events">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

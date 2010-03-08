@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>xml_file_url</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>100</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>XML faili asukoht</caption>
+      </property>
+      <property>
+            <name>update_cache</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>update_cache</field>
+      </property>
+      <property>
+            <name>content_table</name>
+            <table>objects</table>
+            <group>content</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>content_table</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_OTV_DS_ROADINFO</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+      </classinfo>
+      <groupinfo>
+            <content>
+                  <caption>Sisu</caption>
+            </content>
+      </groupinfo>
+</properties>
+

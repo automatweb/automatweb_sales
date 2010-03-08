@@ -1,0 +1,61 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/help/help.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/help/help.aw:39 classes/core/help/help.aw:206
+#: classes/core/help/help.aw:430
+msgid "Selle klassil puudub abiinfo"
+msgstr ""
+
+#: classes/core/help/help.aw:78 classes/core/help/help.aw:106
+#: classes/core/help/help.aw:120 classes/core/help/help.aw:146
+#: classes/core/help/help.aw:267
+msgid "root"
+msgstr ""
+
+#: classes/core/help/help.aw:92
+msgid "AW KLASSIDE ABI"
+msgstr ""
+
+#: classes/core/help/help.aw:182 classes/core/help/help.aw:338
+msgid "Klassi '%s' abiinfo"
+msgstr ""
+
+#: classes/core/help/help.aw:185 classes/core/help/help.aw:341
+msgid "AW abiinfo"
+msgstr ""
+
+#: classes/core/help/help.aw:439
+msgid "Sellist gruppi pole"
+msgstr ""
+
+#: classes/core/help/help.aw:458
+msgid "t&otilde;lgitud nimi puudub"
+msgstr ""
+
+#: classes/core/help/help.aw:459 classes/core/help/help.aw:492
+msgid "kommentaar puudub"
+msgstr ""
+
+#: classes/core/help/help.aw:460
+msgid "abitekst puudub"
+msgstr ""
+
+#: classes/core/help/help.aw:491
+msgid "tõlgitud nimi puudub"
+msgstr ""
+
+#: classes/core/help/help.aw:506
+msgid "Omadused"
+msgstr ""

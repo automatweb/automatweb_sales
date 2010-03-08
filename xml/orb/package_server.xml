@@ -1,0 +1,91 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="package_server" folder="applications/package_management" extends="class_base">
+		<action name="_delete_packages">
+			<function name="_delete_packages">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="download_package_list" nologin="1" is_public="1" all_args="1">
+			<function name="download_package_list">
+				<arguments>
+					<required name="filter" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="download_package_properties" nologin="1" is_public="1" all_args="1">
+			<function name="download_package_properties">
+				<arguments>
+					<required name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="download_package_files" nologin="1" is_public="1" all_args="1">
+			<function name="download_package_files">
+				<arguments>
+					<required name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="download_package_dependences_list" nologin="1" is_public="1" all_args="1">
+			<function name="download_package_dependences">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="download_package_description_list" nologin="1" is_public="1" all_args="1">
+			<function name="download_package_description">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="download_package" nologin="1" is_public="1" all_args="1">
+			<function name="download_package">
+				<arguments>
+					<required name="pid" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="upload_package" nologin="1" is_public="1" all_args="1">
+			<function name="upload_package">
+				<arguments>
+					<required name="id" type="oid" />
+					<required name="site_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_package_server">
+			<function name="get_package_server">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="download_package_file" nologin="1" is_public="1" all_args="1">
+			<function name="download_package_file">
+				<arguments>
+					<required name="id" type="oid" />
+					<required name="site_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_package_file_size" nologin="1" is_public="1" all_args="1">
+			<function name="get_package_file_size">
+				<arguments>
+					<required name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

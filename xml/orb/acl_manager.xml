@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="acl_manager" folder="www/dev/terryf/automatweb_dev/classes/vcl" extends="class_base">
+		<action name="disp_manager">
+			<function name="disp_manager">
+				<arguments>
+					<required name="id" type="int" acl="admin" />
+					<optional name="grp_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_mgr">
+			<function name="submit_mgr">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

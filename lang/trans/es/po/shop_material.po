@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_material.aw:class_1436_help
+msgid "Klassi Lao materjal help"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_material_type
+msgid "Omaduse Materjali t&uuml;&uuml;p (material_type) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_material_type_comment
+msgid "Omaduse Materjali t&uuml;&uuml;p (material_type) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_material_type_help
+msgid "Omaduse Materjali t&uuml;&uuml;p (material_type) help"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_desc
+msgid "Omaduse Kirjeldus (desc) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_desc_comment
+msgid "Omaduse Kirjeldus (desc) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_desc_help
+msgid "Omaduse Kirjeldus (desc) help"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_images
+msgid "Omaduse Pildid (images) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_images_comment
+msgid "Omaduse Pildid (images) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:prop_images_help
+msgid "Omaduse Pildid (images) help"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:rel_RELTYPE_MATERIAL_TYPE
+msgid "Seose Materjali t&uuml;&uuml;p (RELTYPE_MATERIAL_TYPE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_material.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+

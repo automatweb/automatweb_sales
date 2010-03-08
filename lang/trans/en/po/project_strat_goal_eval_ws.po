@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:class_1088_help
+msgid "Klassi Projekti eesm&auml;rkide hindamislaud help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_eval_dl
+msgid "Omaduse Hindamise t&auml;htaeg (eval_dl) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_eval_dl_comment
+msgid "Omaduse Hindamise t&auml;htaeg (eval_dl) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_eval_dl_help
+msgid "Omaduse Hindamise t&auml;htaeg (eval_dl) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_strat_a
+msgid "Omaduse  (strat_a) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_strat_a_comment
+msgid "Omaduse  (strat_a) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_strat_a_help
+msgid "Omaduse  (strat_a) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_strat_res
+msgid "Omaduse  (strat_res) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_strat_res_comment
+msgid "Omaduse  (strat_res) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_strat_res_help
+msgid "Omaduse  (strat_res) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_srt
+msgid "Omaduse  (srt) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_srt_comment
+msgid "Omaduse  (srt) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_srt_help
+msgid "Omaduse  (srt) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_srt_tbl
+msgid "Omaduse  (srt_tbl) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_srt_tbl_comment
+msgid "Omaduse  (srt_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_srt_tbl_help
+msgid "Omaduse  (srt_tbl) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_strat_wt
+msgid "Omaduse  (strat_wt) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_strat_wt_comment
+msgid "Omaduse  (strat_wt) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:prop_strat_wt_help
+msgid "Omaduse  (strat_wt) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_strat_res_wt
+msgid "Grupi Hindajad (strat_res_wt) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_strat_res_wt_help
+msgid "Grupi Hindajad (strat_res_wt) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_eval
+msgid "Grupi Hindamine (eval) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_eval_help
+msgid "Grupi Hindamine (eval) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_strat_res
+msgid "Grupi Hindamise tulemused (strat_res) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_strat_res_help
+msgid "Grupi Hindamise tulemused (strat_res) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_strat_res_tree
+msgid "Grupi Hindajad (strat_res_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_strat_res_tree_help
+msgid "Grupi Hindajad (strat_res_tree) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_strat_res_avg
+msgid "Grupi Keskmised hinded (strat_res_avg) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:group_strat_res_avg_help
+msgid "Grupi Keskmised hinded (strat_res_avg) help"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:119
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:183
+msgid "Toimetus"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:142
+msgid "Teie ei ole m&auml;&auml;ratud hindajaks!"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:203
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:269
+msgid "<b>Summa</b>"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:293
+msgid "Hinnang projektile %s"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:389
+msgid "Meeskonna liige"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:394
+msgid "Hindaja?"
+msgstr ""
+
+#: classes/applications/groupware/project_strat_goal_eval_ws.aw:399
+msgid "Hindaja hinde kaal protsentides"
+msgstr ""

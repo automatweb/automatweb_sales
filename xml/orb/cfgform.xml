@@ -1,0 +1,114 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="cfgform" folder="www/automatweb_cvs/classes/cfg" extends="class_base">
+		<action name="remove_tbl_field">
+			<function name="remove_tbl_field">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_grp">
+			<function name="delete_grp">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="name" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_layouts">
+			<function name="delete_layouts">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="selection" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_new_layout">
+			<function name="add_new_layout">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="merge">
+			<function name="merge_cfg_changes">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="scope" type="string" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="reload">
+			<function name="reload_cfg">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="scope" type="string" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="disable_property">
+			<function name="disable_property">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="property" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="hide_property">
+			<function name="hide_property">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="property" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_property">
+			<function name="remove_property">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="property" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_default_cfg_proplist">
+			<function name="get_default_proplist">
+				<arguments>
+					<optional name="o" type="object" acl="view" />
+					<optional name="oid" type="oid" acl="view" />
+					<optional name="clid" type="class_id" default="CL_CRM_PERSON" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cfadm_click_prop">
+			<function name="cfadm_click_prop">
+				<arguments>
+					<required name="oid" />
+					<required name="prop" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cfadm_click_group">
+			<function name="cfadm_click_group">
+				<arguments>
+					<required name="oid" />
+					<required name="group" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

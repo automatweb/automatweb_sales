@@ -1,0 +1,160 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/quickmessage/quickmessage.aw:class_335_help
+msgid "Klassi Kiirteade help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_name
+msgid "Omaduse  (name) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_name_comment
+msgid "Omaduse  (name) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_name_help
+msgid "Omaduse  (name) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_to
+msgid "Omaduse  (to) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_to_comment
+msgid "Omaduse  (to) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_to_help
+msgid "Omaduse  (to) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_from
+msgid "Omaduse  (from) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_from_comment
+msgid "Omaduse  (from) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_from_help
+msgid "Omaduse  (from) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_box
+msgid "Omaduse  (box) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_box_comment
+msgid "Omaduse  (box) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_box_help
+msgid "Omaduse  (box) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_html
+msgid "Omaduse  (html) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_html_comment
+msgid "Omaduse  (html) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_html_help
+msgid "Omaduse  (html) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_url
+msgid "Omaduse  (url) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_url_comment
+msgid "Omaduse  (url) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_url_help
+msgid "Omaduse  (url) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_from_display
+msgid "Omaduse From (from_display) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_from_display_comment
+msgid "Omaduse From (from_display) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_from_display_help
+msgid "Omaduse From (from_display) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_to_display
+msgid "Omaduse To (to_display) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_to_display_comment
+msgid "Omaduse To (to_display) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_to_display_help
+msgid "Omaduse To (to_display) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_msg
+msgid "Omaduse Message (msg) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_msg_comment
+msgid "Omaduse Message (msg) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_msg_help
+msgid "Omaduse Message (msg) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_msg_display
+msgid "Omaduse Message (msg_display) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_msg_display_comment
+msgid "Omaduse Message (msg_display) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_msg_display_help
+msgid "Omaduse Message (msg_display) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_send
+msgid "Omaduse Send (send) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_send_comment
+msgid "Omaduse Send (send) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:prop_send_help
+msgid "Omaduse Send (send) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:74
+msgid "Specified messagebox id is invalid."
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:96
+msgid "Message too long. Only %s characters allowed."
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessage.aw:137
+msgid "Can't post to '%s'. %s"
+msgstr ""
+

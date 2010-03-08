@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/admin/scheduler_obj.aw:class_108_help
+#: classes/admin/scheduler_obj.aw:class_108_help
+msgid "Klassi Scheduler help"
+msgstr ""
+
+# classes/admin/scheduler_obj.aw:prop_login_uid
+#: classes/admin/scheduler_obj.aw:prop_login_uid
+msgid "Omaduse Kasutaja (login_uid) caption"
+msgstr "User"
+
+# classes/admin/scheduler_obj.aw:prop_login_uid_comment
+#: classes/admin/scheduler_obj.aw:prop_login_uid_comment
+msgid "Omaduse Kasutaja (login_uid) kommentaar"
+msgstr ""
+
+# classes/admin/scheduler_obj.aw:prop_login_uid_help
+#: classes/admin/scheduler_obj.aw:prop_login_uid_help
+msgid "Omaduse Kasutaja (login_uid) help"
+msgstr ""
+
+# classes/admin/scheduler_obj.aw:prop_login_password
+#: classes/admin/scheduler_obj.aw:prop_login_password
+msgid "Omaduse Parool (login_password) caption"
+msgstr "Password"
+
+# classes/admin/scheduler_obj.aw:prop_login_password_comment
+#: classes/admin/scheduler_obj.aw:prop_login_password_comment
+msgid "Omaduse Parool (login_password) kommentaar"
+msgstr ""
+
+# classes/admin/scheduler_obj.aw:prop_login_password_help
+#: classes/admin/scheduler_obj.aw:prop_login_password_help
+msgid "Omaduse Parool (login_password) help"
+msgstr ""
+
+# classes/admin/scheduler_obj.aw:prop_recurrence
+#: classes/admin/scheduler_obj.aw:prop_recurrence
+msgid "Omaduse Kordused (recurrence) caption"
+msgstr "Recurrence"
+
+# classes/admin/scheduler_obj.aw:prop_recurrence_comment
+#: classes/admin/scheduler_obj.aw:prop_recurrence_comment
+msgid "Omaduse Kordused (recurrence) kommentaar"
+msgstr ""
+
+# classes/admin/scheduler_obj.aw:prop_recurrence_help
+#: classes/admin/scheduler_obj.aw:prop_recurrence_help
+msgid "Omaduse Kordused (recurrence) help"
+msgstr ""
+
+# classes/admin/scheduler_obj.aw:group_recurrence
+#: classes/admin/scheduler_obj.aw:group_recurrence
+msgid "Grupi Kordused (recurrence) pealkiri"
+msgstr "Recurrence"
+
+# classes/admin/scheduler_obj.aw:group_recurrence_help
+#: classes/admin/scheduler_obj.aw:group_recurrence_help
+msgid "Grupi Kordused (recurrence) help"
+msgstr ""
+
+# classes/admin/scheduler_obj.aw:rel_RELTYPE_TARGET_OBJ
+#: classes/admin/scheduler_obj.aw:rel_RELTYPE_TARGET_OBJ
+msgid "Seose Sihtobjekt (RELTYPE_TARGET_OBJ) tekst"
+msgstr "Target object"
+
+# classes/admin/scheduler_obj.aw:rel_RELTYPE_RECURRENCE
+#: classes/admin/scheduler_obj.aw:rel_RELTYPE_RECURRENCE
+msgid "Seose Kordus (RELTYPE_RECURRENCE) tekst"
+msgstr "Recurrence"
+
+# classes/admin/scheduler_obj.aw:rel_RELTYPE_AW_LOGIN
+#: classes/admin/scheduler_obj.aw:rel_RELTYPE_AW_LOGIN
+msgid "Seose AW login (RELTYPE_AW_LOGIN) tekst"
+msgstr "AW Login"

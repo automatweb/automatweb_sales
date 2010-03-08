@@ -1,0 +1,6972 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# aw.ini:class_1
+#: aw.ini:class_1
+msgid "Klassi Kaust (1) nimi"
+msgstr ""
+
+# aw.ini:class_2
+#: aw.ini:class_2
+msgid "Klassi Vorm (2) nimi"
+msgstr ""
+
+# aw.ini:class_3
+#: aw.ini:class_3
+msgid "Klassi Tabel (3) nimi"
+msgstr ""
+
+# aw.ini:class_6
+#: aw.ini:class_6
+msgid "Klassi Pilt (6) nimi"
+msgstr ""
+
+# aw.ini:class_7
+#: aw.ini:class_7
+msgid "Klassi Dokument (7) nimi"
+msgstr ""
+
+# aw.ini:class_8
+#: aw.ini:class_8
+msgid "Klassi Sisestus (8) nimi"
+msgstr ""
+
+# aw.ini:class_10
+#: aw.ini:class_10
+msgid "Klassi Element (10) nimi"
+msgstr ""
+
+# aw.ini:class_11
+#: aw.ini:class_11
+msgid "Klassi Stiil (11) nimi"
+msgstr ""
+
+#: aw.ini:class_12
+msgid "Klassi Lamev&auml;ljund (12) nimi"
+msgstr ""
+
+# aw.ini:class_14
+#: aw.ini:class_14
+msgid "Klassi Toiming (14) nimi"
+msgstr ""
+
+# aw.ini:class_21
+#: aw.ini:class_21
+msgid "Klassi Link (21) nimi"
+msgstr ""
+
+# aw.ini:class_22
+#: aw.ini:class_22
+msgid "Klassi Konteiner (22) nimi"
+msgstr ""
+
+#: aw.ini:class_23
+msgid "Klassi Konteineri n&auml;itamine (23) nimi"
+msgstr ""
+
+#: aw.ini:class_28
+msgid "Klassi Graafik (28) nimi"
+msgstr ""
+
+# aw.ini:class_29
+#: aw.ini:class_29
+msgid "Klassi Dokument(p) (29) nimi"
+msgstr ""
+
+# aw.ini:class_31
+#: aw.ini:class_31
+msgid "Klassi Vana galerii (31) nimi"
+msgstr ""
+
+#: aw.ini:class_33
+msgid "Klassi Kiirk&uuml;sitlus (33) nimi"
+msgstr ""
+
+# aw.ini:class_34
+#: aw.ini:class_34
+msgid "Klassi Foorumi teema (34) nimi"
+msgstr ""
+
+# aw.ini:class_37
+#: aw.ini:class_37
+msgid "Klassi Kasutajagrupp (37) nimi"
+msgstr ""
+
+# aw.ini:class_38
+#: aw.ini:class_38
+msgid "Klassi Kasutaja1 (38) nimi"
+msgstr ""
+
+#: aw.ini:class_39
+msgid "Klassi Men&uuml;&uuml;(vend) (39) nimi"
+msgstr ""
+
+# aw.ini:class_40
+#: aw.ini:class_40
+msgid "Klassi Dokument(vend) (40) nimi"
+msgstr ""
+
+# aw.ini:class_41
+#: aw.ini:class_41
+msgid "Klassi Fail (41) nimi"
+msgstr ""
+
+#: aw.ini:class_45
+msgid "Klassi XML v&auml;ljund (45) nimi"
+msgstr ""
+
+# aw.ini:class_52
+#: aw.ini:class_52
+msgid "Klassi Message (52) nimi"
+msgstr ""
+
+# aw.ini:class_54
+#: aw.ini:class_54
+msgid "Klassi Banner (54) nimi"
+msgstr ""
+
+# aw.ini:class_55
+#: aw.ini:class_55
+msgid "Klassi Banneri asukoht (55) nimi"
+msgstr ""
+
+# aw.ini:class_59
+#: aw.ini:class_59
+msgid "Klassi Kalendrivaade (59) nimi"
+msgstr ""
+
+#: aw.ini:class_66
+msgid "Klassi Tabelv&auml;ljund (66) nimi"
+msgstr ""
+
+# aw.ini:class_67
+#: aw.ini:class_67
+msgid "Klassi Valuutakurss (67) nimi"
+msgstr ""
+
+#: aw.ini:class_68
+msgid "Klassi Vormip&auml;rg (68) nimi"
+msgstr ""
+
+# aw.ini:class_69
+#: aw.ini:class_69
+msgid "Klassi Foorum (vana) (69) nimi"
+msgstr ""
+
+# aw.ini:class_71
+#: aw.ini:class_71
+msgid "Klassi Stiil CSS (71) nimi"
+msgstr ""
+
+# aw.ini:class_72
+#: aw.ini:class_72
+msgid "Klassi Mailinglist (72) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_72
+msgid "Klassi tooteperekonna Mailinglist (72) nimi"
+msgstr ""
+
+# aw.ini:class_73
+#: aw.ini:class_73
+msgid "Klassi Meiliaadress (73) nimi"
+msgstr ""
+
+# aw.ini:class_78
+#: aw.ini:class_78
+msgid "Klassi Otsimise filter (78) nimi"
+msgstr ""
+
+# aw.ini:class_80
+#: aw.ini:class_80
+msgid "Klassi Popup (80) nimi"
+msgstr ""
+
+#: aw.ini:class_82
+msgid "Klassi V&otilde;tmes&otilde;na (82) nimi"
+msgstr ""
+
+# aw.ini:class_85
+#: aw.ini:class_85
+msgid "Klassi Pullout (85) nimi"
+msgstr ""
+
+#: aw.ini:class_90
+msgid "Klassi AW sissep&auml;&auml;s (90) nimi"
+msgstr ""
+
+#: aw.ini:class_92
+msgid "Klassi P&auml;rja sisestus (92) nimi"
+msgstr ""
+
+# aw.ini:class_93
+#: aw.ini:class_93
+msgid "Klassi Sisukaart (93) nimi"
+msgstr ""
+
+# aw.ini:class_94
+#: aw.ini:class_94
+msgid "Klassi Kontroller (94) nimi"
+msgstr ""
+
+# aw.ini:class_95
+#: aw.ini:class_95
+msgid "Klassi Siseraam (95) nimi"
+msgstr ""
+
+# aw.ini:class_97
+#: aw.ini:class_97
+msgid "Klassi XML import (97) nimi"
+msgstr ""
+
+# aw.ini:class_98
+#: aw.ini:class_98
+msgid "Klassi Datasource (98) nimi"
+msgstr ""
+
+# aw.ini:class_99
+#: aw.ini:class_99
+msgid "Klassi Stat table (99) nimi"
+msgstr ""
+
+# aw.ini:class_103
+#: aw.ini:class_103
+msgid "Klassi Ekspordi ruul (103) nimi"
+msgstr ""
+
+# aw.ini:class_108
+#: aw.ini:class_108
+msgid "Klassi Scheduler (108) nimi"
+msgstr ""
+
+#: aw.ini:class_115
+msgid "Klassi Objekti t&uuml;&uuml;p (115) nimi"
+msgstr ""
+
+# aw.ini:class_118
+#: aw.ini:class_118
+msgid "Klassi Lisamise puu seaded (118) nimi"
+msgstr ""
+
+# aw.ini:class_119
+#: aw.ini:class_119
+msgid "Klassi Seadete vorm (119) nimi"
+msgstr ""
+
+# aw.ini:class_122
+#: aw.ini:class_122
+msgid "Klassi Seadete haldur (122) nimi"
+msgstr ""
+
+#: aw.ini:class_124
+msgid "Klassi Objekti otsing (124) nimi"
+msgstr ""
+
+# aw.ini:class_126
+#: aw.ini:class_126
+msgid "Klassi Kalender (126) nimi"
+msgstr ""
+
+# aw.ini:class_129
+#: aw.ini:class_129
+msgid "Klassi Organisatsioon (129) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_129
+msgid "Klassi tooteperekonna Kliendihaldus (129) nimi"
+msgstr ""
+
+# aw.ini:class_130
+#: aw.ini:class_130
+msgid "Klassi Kliendibaas (130) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_130
+msgid "Klassi tooteperekonna Asutuste andmebaas (130) nimi"
+msgstr ""
+
+# aw.ini:class_131
+#: aw.ini:class_131
+msgid "Klassi Tegevusala (131) nimi"
+msgstr ""
+
+# aw.ini:class_133
+#: aw.ini:class_133
+msgid "Klassi Mailinglisti seaded (133) nimi"
+msgstr ""
+
+# aw.ini:class_134
+#: aw.ini:class_134
+msgid "Klassi Riik (134) nimi"
+msgstr ""
+
+#: aw.ini:class_135
+msgid "Klassi &Otilde;iguslik vorm (135) nimi"
+msgstr ""
+
+# aw.ini:class_137
+#: aw.ini:class_137
+msgid "Klassi Puu (137) nimi"
+msgstr ""
+
+# aw.ini:class_139
+#: aw.ini:class_139
+msgid "Klassi Linn (139) nimi"
+msgstr ""
+
+# aw.ini:class_140
+#: aw.ini:class_140
+msgid "Klassi Maakond (140) nimi"
+msgstr ""
+
+# aw.ini:class_145
+#: aw.ini:class_145
+msgid "Klassi Isik (145) nimi"
+msgstr ""
+
+# aw.ini:class_146
+#: aw.ini:class_146
+msgid "Klassi Aadress (146) nimi"
+msgstr ""
+
+#: aw.ini:class_148
+msgid "Klassi Andmebaasi sissep&auml;&auml;s (148) nimi"
+msgstr ""
+
+#: aw.ini:class_149
+msgid "Klassi Andmebaasiserveri sissep&auml;&auml;s (149) nimi"
+msgstr ""
+
+# aw.ini:class_150
+#: aw.ini:class_150
+msgid "Klassi DB Server explorer conf (150) nimi"
+msgstr ""
+
+# aw.ini:class_151
+#: aw.ini:class_151
+msgid "Klassi DB Server explorer (151) nimi"
+msgstr ""
+
+# aw.ini:class_152
+#: aw.ini:class_152
+msgid "Klassi Andmebaasitabeli muutmine (152) nimi"
+msgstr ""
+
+# aw.ini:class_153
+#: aw.ini:class_153
+msgid "Klassi Andmebaasitabeli sisu (153) nimi"
+msgstr ""
+
+#: aw.ini:class_154
+msgid "Klassi SQL P&auml;ring (154) nimi"
+msgstr ""
+
+# aw.ini:class_161
+#: aw.ini:class_161
+msgid "Klassi Toode (161) nimi"
+msgstr ""
+
+# aw.ini:class_162
+#: aw.ini:class_162
+msgid "Klassi Statistika (162) nimi"
+msgstr ""
+
+# aw.ini:class_163
+#: aw.ini:class_163
+msgid "Klassi Statistika seaded (163) nimi"
+msgstr ""
+
+# aw.ini:class_164
+#: aw.ini:class_164
+msgid "Klassi AW_Log (164) nimi"
+msgstr ""
+
+# aw.ini:class_166
+#: aw.ini:class_166
+msgid "Klassi Polli vastus (166) nimi"
+msgstr ""
+
+# aw.ini:class_168
+#: aw.ini:class_168
+msgid "Klassi IP Aadress (168) nimi"
+msgstr ""
+
+# aw.ini:class_169
+#: aw.ini:class_169
+msgid "Klassi Valim (169) nimi"
+msgstr ""
+
+# aw.ini:class_170
+#: aw.ini:class_170
+msgid "Klassi AW Sait (170) nimi"
+msgstr ""
+
+# aw.ini:class_172
+#: aw.ini:class_172
+msgid "Klassi Tegija (172) nimi"
+msgstr ""
+
+# aw.ini:class_173
+#: aw.ini:class_173
+msgid "Klassi Tegevus (173) nimi"
+msgstr ""
+
+#: aw.ini:class_174
+msgid "Klassi Juhtumi t&uuml;&uuml;p (174) nimi"
+msgstr ""
+
+# aw.ini:class_175
+#: aw.ini:class_175
+msgid "Klassi Protsess (175) nimi"
+msgstr ""
+
+# aw.ini:class_176
+#: aw.ini:class_176
+msgid "Klassi Protsessivaade (176) nimi"
+msgstr ""
+
+# aw.ini:class_177
+#: aw.ini:class_177
+msgid "Klassi Protsessivaate seaded (177) nimi"
+msgstr ""
+
+# aw.ini:class_178
+#: aw.ini:class_178
+msgid "Klassi Tabel (178) nimi"
+msgstr ""
+
+# aw.ini:class_179
+#: aw.ini:class_179
+msgid "Klassi Seoseobjekt (179) nimi"
+msgstr ""
+
+#: aw.ini:class_180
+msgid "Klassi Men&uuml;&uuml;piirkond (180) nimi"
+msgstr ""
+
+# aw.ini:class_182
+#: aw.ini:class_182
+msgid "Klassi Sisu (182) nimi"
+msgstr ""
+
+#: aw.ini:class_183
+msgid "Klassi Men&uuml;&uuml;piirkonna tase (183) nimi"
+msgstr ""
+
+# aw.ini:class_187
+#: aw.ini:class_187
+msgid "Klassi Galerii seaded (187) nimi"
+msgstr ""
+
+#: aw.ini:class_188
+msgid "Klassi H&auml;&auml;letuse skaala (188) nimi"
+msgstr ""
+
+#: aw.ini:class_189
+msgid "Klassi H&auml;&auml;letus (189) nimi"
+msgstr ""
+
+# aw.ini:class_190
+#: aw.ini:class_190
+msgid "Klassi Galerii (190) nimi"
+msgstr ""
+
+# aw.ini:class_191
+#: aw.ini:class_191
+msgid "Klassi Tegevuste tabel (191) nimi"
+msgstr ""
+
+# aw.ini:class_194
+#: aw.ini:class_194
+msgid "Klassi Flash (194) nimi"
+msgstr ""
+
+#: aw.ini:class_195
+msgid "Klassi FTP sissep&auml;&auml;s (195) nimi"
+msgstr ""
+
+# aw.ini:class_196
+#: aw.ini:class_196
+msgid "Klassi Livelinki import (196) nimi"
+msgstr ""
+
+# aw.ini:class_197
+#: aw.ini:class_197
+msgid "Klassi Kasutaja (197) nimi"
+msgstr ""
+
+# aw.ini:class_203
+#: aw.ini:class_203
+msgid "Klassi Klassifikaator (203) nimi"
+msgstr ""
+
+# aw.ini:class_204
+#: aw.ini:class_204
+msgid "Klassi AW Saidi loomise log (204) nimi"
+msgstr ""
+
+# aw.ini:class_205
+#: aw.ini:class_205
+msgid "Klassi Saidi otsing (205) nimi"
+msgstr ""
+
+# aw.ini:class_207
+#: aw.ini:class_207
+msgid "Klassi Periood (207) nimi"
+msgstr ""
+
+# aw.ini:class_208
+#: aw.ini:class_208
+msgid "Klassi Kommentaar (208) nimi"
+msgstr ""
+
+# aw.ini:class_209
+#: aw.ini:class_209
+msgid "Klassi Objektide nimekiri (209) nimi"
+msgstr ""
+
+# aw.ini:class_211
+#: aw.ini:class_211
+msgid "Klassi Foorum (211) nimi"
+msgstr ""
+
+# aw.ini:class_218
+#: aw.ini:class_218
+msgid "Klassi Saidi hooldus (218) nimi"
+msgstr ""
+
+# aw.ini:class_219
+#: aw.ini:class_219
+msgid "Klassi Telefon (219) nimi"
+msgstr ""
+
+# aw.ini:class_220
+#: aw.ini:class_220
+msgid "Klassi Ametinimetus (220) nimi"
+msgstr ""
+
+# aw.ini:class_221
+#: aw.ini:class_221
+msgid "Klassi Dokumentide import (221) nimi"
+msgstr ""
+
+#: aw.ini:class_222
+msgid "Klassi Leping (222) nimi"
+msgstr ""
+
+#: aw.ini:class_223
+msgid "Klassi K&otilde;ne (223) nimi"
+msgstr ""
+
+# aw.ini:class_224
+#: aw.ini:class_224
+msgid "Klassi Kohtumine (224) nimi"
+msgstr "Kohtumine"
+
+# aw.ini:class_225
+#: aw.ini:class_225
+msgid "Klassi Pakkumine (225) nimi"
+msgstr ""
+
+# aw.ini:class_226
+#: aw.ini:class_226
+msgid "Klassi Meiliseaded (226) nimi"
+msgstr ""
+
+# aw.ini:class_227
+#: aw.ini:class_227
+msgid "Klassi Meilikast (227) nimi"
+msgstr ""
+
+#: aw.ini:class_228
+msgid "Klassi POP3 sissep&auml;&auml;s (228) nimi"
+msgstr ""
+
+#: aw.ini:class_229
+msgid "Klassi IMAP sissep&auml;&auml;s (229) nimi"
+msgstr ""
+
+# aw.ini:class_230
+#: aw.ini:class_230
+msgid "Klassi Maili reegel (230) nimi"
+msgstr ""
+
+# aw.ini:class_231
+#: aw.ini:class_231
+msgid "Klassi Saidi sisu otsing (231) nimi"
+msgstr ""
+
+# aw.ini:class_232
+#: aw.ini:class_232
+msgid "Klassi Saidi sisu otsingu grupp (232) nimi"
+msgstr ""
+
+# aw.ini:class_233
+#: aw.ini:class_233
+msgid "Klassi Intranet (233) nimi"
+msgstr ""
+
+#: aw.ini:class_236
+msgid "Klassi Taket Spikker (236) nimi"
+msgstr ""
+
+#: aw.ini:class_237
+msgid "Klassi Taket tellimuste nimekiri (237) nimi"
+msgstr ""
+
+# aw.ini:class_239
+#: aw.ini:class_239
+msgid "Klassi Projekt (239) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_239
+msgid "Klassi tooteperekonna Projektide haldus (239) nimi"
+msgstr ""
+
+# aw.ini:class_240
+#: aw.ini:class_240
+msgid "Klassi Messengeri identiteet (240) nimi"
+msgstr ""
+
+#: aw.ini:class_241
+msgid "Klassi Taket Ostukorv (241) nimi"
+msgstr ""
+
+#: aw.ini:class_242
+msgid "Klassi Taketi Otsing (242) nimi"
+msgstr ""
+
+#: aw.ini:class_243
+msgid "Klassi Taketi tellimus (243) nimi"
+msgstr ""
+
+# aw.ini:class_244
+#: aw.ini:class_244
+msgid "Klassi Toimetus (244) nimi"
+msgstr ""
+
+#: aw.ini:class_245
+msgid "Klassi Taketi Ostukorvi Rida (245) nimi"
+msgstr ""
+
+#: aw.ini:class_246
+msgid "Klassi Taketi Ostukorvi Objekt (246) nimi"
+msgstr ""
+
+#: aw.ini:class_247
+msgid "Klassi Taketi kasutajate import (247) nimi"
+msgstr ""
+
+#: aw.ini:class_248
+msgid "Klassi Taketi JS Parser (248) nimi"
+msgstr ""
+
+#: aw.ini:class_249
+msgid "Klassi Taketi tellimuse item (249) nimi"
+msgstr ""
+
+#: aw.ini:class_250
+msgid "Klassi Taketi Otsingu piirangud (250) nimi"
+msgstr ""
+
+#: aw.ini:class_251
+msgid "Klassi Login men&uuml;&uuml;d (251) nimi"
+msgstr ""
+
+# aw.ini:class_252
+#: aw.ini:class_252
+msgid "Klassi Dokumendi Template (252) nimi"
+msgstr ""
+
+#: aw.ini:class_253
+msgid "Klassi J&auml;rgnevus (253) nimi"
+msgstr ""
+
+# aw.ini:class_254
+#: aw.ini:class_254
+msgid "Klassi Protsessi kulg (254) nimi"
+msgstr ""
+
+# aw.ini:class_255
+#: aw.ini:class_255
+msgid "Klassi Kaustade nimekiri (255) nimi"
+msgstr ""
+
+#: aw.ini:class_266
+msgid "Klassi S&uuml;steemikeel (266) nimi"
+msgstr ""
+
+# aw.ini:class_275
+#: aw.ini:class_275
+msgid "Klassi Personalikeskkond (275) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_275
+msgid "Klassi tooteperekonna V&auml;rbamiskeskkond (275) nimi"
+msgstr ""
+
+#: aw.ini:class_285
+msgid "Klassi T&ouml;&ouml;pakkumine (285) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_285
+msgid "Klassi tooteperekonna V&auml;rbamiskeskkond (285) nimi"
+msgstr ""
+
+# aw.ini:class_277
+#: aw.ini:class_277
+msgid "Klassi Muutuja (277) nimi"
+msgstr ""
+
+# aw.ini:class_278
+#: aw.ini:class_278
+msgid "Klassi Serveri Kataloog (278) nimi"
+msgstr ""
+
+# aw.ini:class_279
+#: aw.ini:class_279
+msgid "Klassi Muutujate haldus (279) nimi"
+msgstr ""
+
+# aw.ini:class_286
+#: aw.ini:class_286
+msgid "Klassi Kordus (286) nimi"
+msgstr ""
+
+# aw.ini:class_287
+#: aw.ini:class_287
+msgid "Klassi Saidiga Liitumine (287) nimi"
+msgstr ""
+
+# aw.ini:class_288
+#: aw.ini:class_288
+msgid "Klassi Liitumise Reegel (288) nimi"
+msgstr ""
+
+# aw.ini:class_289
+#: aw.ini:class_289
+msgid "Klassi Ladu (289) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_289
+msgid "Klassi tooteperekonna Laovara (289) nimi"
+msgstr ""
+
+# aw.ini:class_290
+#: aw.ini:class_290
+msgid "Klassi Tootekoodid (290) nimi"
+msgstr ""
+
+# aw.ini:class_291
+#: aw.ini:class_291
+msgid "Klassi Ajaseaded (291) nimi"
+msgstr ""
+
+# aw.ini:class_292
+#: aw.ini:class_292
+msgid "Klassi Maksud (292) nimi"
+msgstr ""
+
+# aw.ini:class_293
+#: aw.ini:class_293
+msgid "Klassi Toote Hind (293) nimi"
+msgstr ""
+
+# aw.ini:class_294
+#: aw.ini:class_294
+msgid "Klassi Hinnakujundus (294) nimi"
+msgstr ""
+
+# aw.ini:class_295
+#: aw.ini:class_295
+msgid "Klassi Lao toode (295) nimi"
+msgstr ""
+
+# aw.ini:class_296
+#: aw.ini:class_296
+msgid "Klassi Lao konfiguratsioon (296) nimi"
+msgstr ""
+
+# aw.ini:class_297
+#: aw.ini:class_297
+msgid "Klassi Pakett (297) nimi"
+msgstr ""
+
+# aw.ini:class_298
+#: aw.ini:class_298
+msgid "Klassi Lao sissetulek (298) nimi"
+msgstr ""
+
+#: aw.ini:class_299
+msgid "Klassi Lao v&auml;ljaminek (299) nimi"
+msgstr ""
+
+#: aw.ini:class_300
+msgid "Klassi Toote t&uuml;&uuml;p (300) nimi"
+msgstr ""
+
+# aw.ini:class_301
+#: aw.ini:class_301
+msgid "Klassi Autori artiklid (301) nimi"
+msgstr ""
+
+# aw.ini:class_302
+#: aw.ini:class_302
+msgid "Klassi Tellimus (302) nimi"
+msgstr ""
+
+# aw.ini:class_303
+#: aw.ini:class_303
+msgid "Klassi Dokumentide vaatamise statistika (303) nimi"
+msgstr ""
+
+# aw.ini:class_305
+#: aw.ini:class_305
+msgid "Klassi Saidi sisukord (305) nimi"
+msgstr ""
+
+# aw.ini:class_313
+#: aw.ini:class_313
+msgid "Klassi Dokumendiarhiiv (313) nimi"
+msgstr ""
+
+#: aw.ini:class_314
+msgid "Klassi E-pood (314) nimi"
+msgstr ""
+
+# aw.ini:class_315
+#: aw.ini:class_315
+msgid "Klassi Lao toote kujundus (315) nimi"
+msgstr ""
+
+# aw.ini:class_316
+#: aw.ini:class_316
+msgid "Klassi Lao toodete tabeli kujundus (316) nimi"
+msgstr ""
+
+# aw.ini:class_317
+#: aw.ini:class_317
+msgid "Klassi AW Saitide nimekiri (317) nimi"
+msgstr ""
+
+# aw.ini:class_318
+#: aw.ini:class_318
+msgid "Klassi Minigalerii (318) nimi"
+msgstr ""
+
+# aw.ini:class_319
+#: aw.ini:class_319
+msgid "Klassi Poe ostukorv (319) nimi"
+msgstr ""
+
+# aw.ini:class_320
+#: aw.ini:class_320
+msgid "Klassi Klassidisainer (320) nimi"
+msgstr ""
+
+#: aw.ini:class_321
+msgid "Klassi &Uuml;ksus (321) nimi"
+msgstr ""
+
+# aw.ini:class_322
+#: aw.ini:class_322
+msgid "Klassi Teadete tahvel (322) nimi"
+msgstr ""
+
+# aw.ini:class_323
+#: aw.ini:class_323
+msgid "Klassi AWDocGen (323) nimi"
+msgstr ""
+
+# aw.ini:class_324
+#: aw.ini:class_324
+msgid "Klassi Objektide nimekiri v2 (324) nimi"
+msgstr ""
+
+# aw.ini:class_325
+#: aw.ini:class_325
+msgid "Klassi Objektinimekirja AW andmeallikas (325) nimi"
+msgstr ""
+
+# aw.ini:class_326
+#: aw.ini:class_326
+msgid "Klassi Objektinimekirja Postipoisi andmeallikas (326) nimi"
+msgstr ""
+
+# aw.ini:class_327
+#: aw.ini:class_327
+msgid "Klassi Toote pakend (327) nimi"
+msgstr ""
+
+# aw.ini:class_328
+#: aw.ini:class_328
+msgid "Klassi CV Otsing (328) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_328
+msgid "Klassi tooteperekonna V&auml;rbamiskeskkond (328) nimi"
+msgstr ""
+
+# aw.ini:class_329
+#: aw.ini:class_329
+msgid "Klassi Objektide Import (329) nimi"
+msgstr ""
+
+# aw.ini:class_331
+#: aw.ini:class_331
+msgid "Klassi Klasside nimekiri (331) nimi"
+msgstr ""
+
+# aw.ini:class_335
+#: aw.ini:class_335
+msgid "Klassi Kiirteade (335) nimi"
+msgstr ""
+
+# aw.ini:class_336
+#: aw.ini:class_336
+msgid "Klassi Sisseastujate haldus (336) nimi"
+msgstr ""
+
+# aw.ini:class_337
+#: aw.ini:class_337
+msgid "Klassi Avaldus (337) nimi"
+msgstr ""
+
+# aw.ini:class_338
+#: aw.ini:class_338
+msgid "Klassi Sisseastuja (338) nimi"
+msgstr ""
+
+# aw.ini:class_339
+#: aw.ini:class_339
+msgid "Klassi Andmeallikas (339) nimi"
+msgstr ""
+
+# aw.ini:class_340
+#: aw.ini:class_340
+msgid "Klassi Tundmatud andmed (340) nimi"
+msgstr ""
+
+# aw.ini:class_341
+#: aw.ini:class_341
+msgid "Klassi Register (341) nimi"
+msgstr ""
+
+# aw.ini:class_342
+#: aw.ini:class_342
+msgid "Klassi Registri andmed (342) nimi"
+msgstr ""
+
+# aw.ini:class_343
+#: aw.ini:class_343
+msgid "Klassi Registri otsing (343) nimi"
+msgstr ""
+
+# aw.ini:class_344
+#: aw.ini:class_344
+msgid "Klassi Poe eripakkumine (344) nimi"
+msgstr ""
+
+#: aw.ini:class_345
+msgid "Klassi Poe ostukorvi v&auml;&auml;rtus (345) nimi"
+msgstr ""
+
+# aw.ini:class_346
+#: aw.ini:class_346
+msgid "Klassi Projekti tulu (346) nimi"
+msgstr ""
+
+# aw.ini:class_347
+#: aw.ini:class_347
+msgid "Klassi Projekti kulu (347) nimi"
+msgstr ""
+
+# aw.ini:class_348
+#: aw.ini:class_348
+msgid "Klassi Projekti kuluartikkel (348) nimi"
+msgstr ""
+
+# aw.ini:class_349
+#: aw.ini:class_349
+msgid "Klassi Ankeet (349) nimi"
+msgstr ""
+
+# aw.ini:class_350
+#: aw.ini:class_350
+msgid "Klassi Ankeetide haldur (350) nimi"
+msgstr ""
+
+#: aw.ini:class_351
+msgid "Klassi T&ouml;&ouml;soov (351) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_351
+msgid "Klassi tooteperekonna V&auml;rbamiskeskkond (351) nimi"
+msgstr ""
+
+# aw.ini:class_428
+#: aw.ini:class_428
+msgid "Klassi Classbase otsing (428) nimi"
+msgstr ""
+
+# aw.ini:class_449
+#: aw.ini:class_449
+msgid "Klassi Kirja template (449) nimi"
+msgstr ""
+
+# aw.ini:class_477
+#: aw.ini:class_477
+msgid "Klassi Objektide eksport (477) nimi"
+msgstr ""
+
+# aw.ini:class_478
+#: aw.ini:class_478
+msgid "Klassi Objektide impordi erand (478) nimi"
+msgstr ""
+
+# aw.ini:class_479
+#: aw.ini:class_479
+msgid "Klassi AW Sysconfig (479) nimi"
+msgstr ""
+
+# aw.ini:class_480
+#: aw.ini:class_480
+msgid "Klassi AW skript (480) nimi"
+msgstr ""
+
+# aw.ini:class_482
+#: aw.ini:class_482
+msgid "Klassi Meeldetuletuse reegel (482) nimi"
+msgstr ""
+
+# aw.ini:class_483
+#: aw.ini:class_483
+msgid "Klassi Kategooria (483) nimi"
+msgstr ""
+
+# aw.ini:class_484
+#: aw.ini:class_484
+msgid "Klassi Kalendri meeldetuletus (484) nimi"
+msgstr ""
+
+# aw.ini:class_486
+#: aw.ini:class_486
+msgid "Klassi Registri otsingu tulemused (486) nimi"
+msgstr ""
+
+# aw.ini:class_487
+#: aw.ini:class_487
+msgid "Klassi Haridus (487) nimi"
+msgstr ""
+
+# aw.ini:class_488
+#: aw.ini:class_488
+msgid "Klassi Otto toodete import (488) nimi"
+msgstr ""
+
+# aw.ini:class_489
+#: aw.ini:class_489
+msgid "Klassi Keeleoskus (489) nimi"
+msgstr ""
+
+#: aw.ini:class_491
+msgid "Klassi Arvutioskus (491) nimi"
+msgstr ""
+
+# aw.ini:class_558
+#: aw.ini:class_558
+msgid "Klassi Pank (558) nimi"
+msgstr ""
+
+# aw.ini:class_640
+#: aw.ini:class_640
+msgid "Klassi Konto (640) nimi"
+msgstr ""
+
+#: aw.ini:class_645
+msgid "Klassi T&auml;ienduskoolitus (645) nimi"
+msgstr ""
+
+#: aw.ini:class_650
+msgid "Klassi &Uuml;lekanne (650) nimi"
+msgstr ""
+
+# aw.ini:class_655
+#: aw.ini:class_655
+msgid "Klassi Objektinimekirja Maanteeinfo andmeallikas (655) nimi"
+msgstr ""
+
+# aw.ini:class_798
+#: aw.ini:class_798
+msgid "Klassi Otto toodete otsing (798) nimi"
+msgstr ""
+
+# aw.ini:class_802
+#: aw.ini:class_802
+msgid "Klassi Vakants (802) nimi"
+msgstr ""
+
+# aw.ini:class_804
+#: aw.ini:class_804
+msgid "Klassi Abitekst (804) nimi"
+msgstr ""
+
+# aw.ini:class_807
+#: aw.ini:class_807
+msgid "Klassi Maks (807) nimi"
+msgstr ""
+
+# aw.ini:class_806
+#: aw.ini:class_806
+msgid "Klassi Maanteeinfo otsing (806) nimi"
+msgstr ""
+
+#: aw.ini:class_808
+msgid "Klassi Maksu p&auml;rg (808) nimi"
+msgstr ""
+
+# aw.ini:class_809
+#: aw.ini:class_809
+msgid "Klassi Piltide muundaja (809) nimi"
+msgstr ""
+
+# aw.ini:class_810
+#: aw.ini:class_810
+msgid "Klassi Kontroller(Classbase) (810) nimi"
+msgstr ""
+
+# aw.ini:class_811
+#: aw.ini:class_811
+msgid "Klassi Aadressiraamat (811) nimi"
+msgstr ""
+
+# aw.ini:class_812
+#: aw.ini:class_812
+msgid "Klassi Kandidatuur (812) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_812
+msgid "Klassi tooteperekonna V&auml;rbamiskeskkond (812) nimi"
+msgstr ""
+
+# aw.ini:class_814
+#: aw.ini:class_814
+msgid "Klassi Saidi backup (814) nimi"
+msgstr ""
+
+# aw.ini:class_816
+#: aw.ini:class_816
+msgid "Klassi Kiirteadete haldus (816) nimi"
+msgstr ""
+
+# aw.ini:class_817
+#: aw.ini:class_817
+msgid "Klassi XML editor (817) nimi"
+msgstr ""
+
+# aw.ini:class_818
+#: aw.ini:class_818
+msgid "Klassi Klientide manageerija (818) nimi"
+msgstr ""
+
+#: aw.ini:class_819
+msgid "Klassi Kalendri s&uuml;ndmus (819) nimi"
+msgstr ""
+
+# aw.ini:class_820
+#: aw.ini:class_820
+msgid "Klassi Objektinimekirja pp andmeallika otsing (820) nimi"
+msgstr ""
+
+# aw.ini:class_825
+#: aw.ini:class_825
+msgid "Klassi Ressurss (825) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_825
+msgid "Klassi tooteperekonna Ressursiplaneerija (825) nimi"
+msgstr ""
+
+# aw.ini:class_826
+#: aw.ini:class_826
+msgid "Klassi Tegevus (826) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_826
+msgid "Klassi tooteperekonna Ressursiplaneerija (826) nimi"
+msgstr ""
+
+# aw.ini:class_827
+#: aw.ini:class_827
+msgid "Klassi Ressursiplaneerija (827) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_827
+msgid "Klassi tooteperekonna Ressursiplaneerija (827) nimi"
+msgstr ""
+
+# aw.ini:class_828
+#: aw.ini:class_828
+msgid "Klassi Arendustoode (828) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_828
+msgid "Klassi tooteperekonna Ressursiplaneerija (828) nimi"
+msgstr ""
+
+#: aw.ini:class_830
+msgid "Klassi Classbase otsingu s&uuml;non&uuml;mid (830) nimi"
+msgstr ""
+
+# aw.ini:class_831
+#: aw.ini:class_831
+msgid "Klassi Lavastus (831) nimi"
+msgstr ""
+
+#: aw.ini:class_832
+msgid "Klassi &Uuml;ksus veebis (832) nimi"
+msgstr ""
+
+# aw.ini:class_833
+#: aw.ini:class_833
+msgid "Klassi Video (833) nimi"
+msgstr ""
+
+#: aw.ini:class_834
+msgid "Klassi Omaduste p&auml;rimise reegel (834) nimi"
+msgstr ""
+
+# aw.ini:class_835
+#: aw.ini:class_835
+msgid "Klassi Maja XML-i editor (835) nimi"
+msgstr ""
+
+#: aw.ini:class_836
+msgid "Klassi Kalendri s&uuml;ndmusele registreerumine (836) nimi"
+msgstr ""
+
+# aw.ini:class_839
+#: aw.ini:class_839
+msgid "Klassi Tellimus 2 (839) nimi"
+msgstr ""
+
+# aw.ini:class_840
+#: aw.ini:class_840
+msgid "Klassi Tellimuse rida (840) nimi"
+msgstr ""
+
+# aw.ini:class_841
+#: aw.ini:class_841
+msgid "Klassi Tellimuse vorm (841) nimi"
+msgstr ""
+
+# aw.ini:class_842
+#: aw.ini:class_842
+msgid "Klassi Tellimuste haldus (842) nimi"
+msgstr ""
+
+# aw.ini:class_843
+#: aw.ini:class_843
+msgid "Klassi Autentimise Seaded (843) nimi"
+msgstr ""
+
+# aw.ini:class_844
+#: aw.ini:class_844
+msgid "Klassi Autentimisserver Active Directory (844) nimi"
+msgstr ""
+
+# aw.ini:class_845
+#: aw.ini:class_845
+msgid "Klassi Autentimsserver Kohalik (845) nimi"
+msgstr ""
+
+# aw.ini:class_847
+#: aw.ini:class_847
+msgid "Klassi CSS Stiilide generaator (847) nimi"
+msgstr ""
+
+#: aw.ini:class_848
+msgid "Klassi S&uuml;ndmusele registreerimise sisestus (848) nimi"
+msgstr ""
+
+#: aw.ini:class_849
+msgid "Klassi S&uuml;ndmusele registreerimine (849) nimi"
+msgstr ""
+
+#: aw.ini:class_856
+msgid "Klassi Pr&uuml;gikast (856) nimi"
+msgstr ""
+
+#: aw.ini:class_850
+msgid "Klassi S&uuml;ndmuste otsing (850) nimi"
+msgstr ""
+
+# aw.ini:class_852
+#: aw.ini:class_852
+msgid "Klassi Ressursihalduskeskkond (852) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_852
+msgid "Klassi tooteperekonna Ressursiplaneerija (852) nimi"
+msgstr ""
+
+# aw.ini:class_858
+#: aw.ini:class_858
+msgid "Klassi Ajaline aktiivsus (858) nimi"
+msgstr ""
+
+# aw.ini:class_864
+#: aw.ini:class_864
+msgid "Klassi Rolli kirje (864) nimi"
+msgstr ""
+
+#: aw.ini:class_865
+msgid "Klassi N&auml;itamise kontroller (865) nimi"
+msgstr ""
+
+# aw.ini:class_866
+#: aw.ini:class_866
+msgid "Klassi Veebivorm (866) nimi"
+msgstr ""
+
+# aw.ini:class_867
+#: aw.ini:class_867
+msgid "Klassi BugTrack (867) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_867
+msgid "Klassi tooteperekonna Arendus&uuml;lesanded (867) nimi"
+msgstr ""
+
+# aw.ini:class_868
+#: aw.ini:class_868
+msgid "Klassi Bugi (868) nimi"
+msgstr ""
+
+# aw.ini:class_869
+#: aw.ini:class_869
+msgid "Klassi Gantti diagramm (869) nimi"
+msgstr ""
+
+# aw.ini:class_871
+#: aw.ini:class_871
+msgid "Klassi Meeldetuletus (871) nimi"
+msgstr ""
+
+# aw.ini:class_872
+#: aw.ini:class_872
+msgid "Klassi Operaator (872) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_872
+msgid "Klassi tooteperekonna Ressursiplaneerija (872) nimi"
+msgstr ""
+
+# aw.ini:class_874
+#: aw.ini:class_874
+msgid "Klassi Autentimisserver NDS (874) nimi"
+msgstr ""
+
+# aw.ini:class_875
+#: aw.ini:class_875
+msgid "Klassi Persona import (875) nimi"
+msgstr ""
+
+# aw.ini:class_876
+#: aw.ini:class_876
+msgid "Klassi Puhkus (876) nimi"
+msgstr ""
+
+#: aw.ini:class_877
+msgid "Klassi T&ouml;&ouml;lepingu peatamine (877) nimi"
+msgstr ""
+
+# aw.ini:class_878
+#: aw.ini:class_878
+msgid "Klassi Prisma import (878) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_878
+msgid "Klassi tooteperekonna Ressursiplaneerija (878) nimi"
+msgstr ""
+
+#: aw.ini:class_879
+msgid "Klassi Automaatne sissep&auml;&auml;s (879) nimi"
+msgstr ""
+
+# aw.ini:class_880
+#: aw.ini:class_880
+msgid "Klassi Vormi grupp (880) nimi"
+msgstr ""
+
+#: aw.ini:class_881
+msgid "Klassi Tekstiv&auml;li (881) nimi"
+msgstr ""
+
+# aw.ini:class_882
+#: aw.ini:class_882
+msgid "Klassi Grid (882) nimi"
+msgstr ""
+
+# aw.ini:class_883
+#: aw.ini:class_883
+msgid "Klassi Valik (883) nimi"
+msgstr ""
+
+# aw.ini:class_884
+#: aw.ini:class_884
+msgid "Klassi Valikuruut (884) nimi"
+msgstr ""
+
+# aw.ini:class_885
+#: aw.ini:class_885
+msgid "Klassi Uudistevoog (885) nimi"
+msgstr ""
+
+# aw.ini:class_886
+#: aw.ini:class_886
+msgid "Klassi Tabel (886) nimi"
+msgstr ""
+
+# aw.ini:class_887
+#: aw.ini:class_887
+msgid "Klassi Tabeli veerg (887) nimi"
+msgstr ""
+
+# aw.ini:class_888
+#: aw.ini:class_888
+msgid "Klassi Tekstikast (888) nimi"
+msgstr ""
+
+# aw.ini:class_889
+#: aw.ini:class_889
+msgid "Klassi Loend (889) nimi"
+msgstr ""
+
+# aw.ini:class_890
+#: aw.ini:class_890
+msgid "Klassi Import Kultuuriaknast (890) nimi"
+msgstr ""
+
+# aw.ini:class_891
+#: aw.ini:class_891
+msgid "Klassi Cache uuendamine (891) nimi"
+msgstr ""
+
+# aw.ini:class_892
+#: aw.ini:class_892
+msgid "Klassi Puu (892) nimi"
+msgstr ""
+
+# aw.ini:class_893
+#: aw.ini:class_893
+msgid "Klassi Seos (893) nimi"
+msgstr ""
+
+# aw.ini:class_894
+#: aw.ini:class_894
+msgid "Klassi Toolbar (894) nimi"
+msgstr ""
+
+# aw.ini:class_895
+#: aw.ini:class_895
+msgid "Klassi Toolbari nupp (895) nimi"
+msgstr ""
+
+# aw.ini:class_896
+#: aw.ini:class_896
+msgid "Klassi XML eksport (896) nimi"
+msgstr ""
+
+# aw.ini:class_898
+#: aw.ini:class_898
+msgid "Klassi Andmeallika andmete muundaja (898) nimi"
+msgstr ""
+
+# aw.ini:class_900
+#: aw.ini:class_900
+msgid "Klassi Puu oks (900) nimi"
+msgstr ""
+
+# aw.ini:class_901
+#: aw.ini:class_901
+msgid "Klassi Objektinimekirja otsing (901) nimi"
+msgstr ""
+
+# aw.ini:class_902
+#: aw.ini:class_902
+msgid "Klassi Kasutaja parooli muutmine (902) nimi"
+msgstr ""
+
+# aw.ini:class_903
+#: aw.ini:class_903
+msgid "Klassi Pakkumiste haldus (903) nimi"
+msgstr ""
+
+#: aw.ini:class_907
+msgid "Klassi Pakkumise peat&uuml;kk (907) nimi"
+msgstr ""
+
+#: aw.ini:class_908
+msgid "Klassi Pakkumise eesm&auml;rk (908) nimi"
+msgstr ""
+
+# aw.ini:class_909
+#: aw.ini:class_909
+msgid "Klassi Pakkumise maksetingimused (909) nimi"
+msgstr ""
+
+# aw.ini:class_910
+#: aw.ini:class_910
+msgid "Klassi Pakkumise toodete nimekiri (910) nimi"
+msgstr ""
+
+# aw.ini:class_913
+#: aw.ini:class_913
+msgid "Klassi Koomiks (913) nimi"
+msgstr ""
+
+# aw.ini:class_914
+#: aw.ini:class_914
+msgid "Klassi Pidu (914) nimi"
+msgstr ""
+
+# aw.ini:class_915
+#: aw.ini:class_915
+msgid "Klassi Koomiksi skript (915) nimi"
+msgstr ""
+
+# aw.ini:class_920
+#: aw.ini:class_920
+msgid "Klassi Lao toodete otsing (920) nimi"
+msgstr ""
+
+# aw.ini:class_922
+#: aw.ini:class_922
+msgid "Klassi Flaier (922) nimi"
+msgstr ""
+
+#: aw.ini:class_924
+msgid "Klassi Pakkumise v&otilde;rdlustabel (924) nimi"
+msgstr ""
+
+#: aw.ini:class_925
+msgid "Klassi Pakkumise v&otilde;rdlustabeli tulp (925) nimi"
+msgstr ""
+
+#: aw.ini:class_926
+msgid "Klassi Pakkumise v&otilde;rdlustabeli rida (926) nimi"
+msgstr ""
+
+# aw.ini:class_929
+#: aw.ini:class_929
+msgid "Klassi Klasside brauser (929) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_929
+msgid "Klassi tooteperekonna Tarkvarahaldus (929) nimi"
+msgstr ""
+
+# aw.ini:class_930
+#: aw.ini:class_930
+msgid "Klassi Omadus (930) nimi"
+msgstr ""
+
+# aw.ini:class_935
+#: aw.ini:class_935
+msgid "Klassi Kinnisvarahalduse keskkond (935) nimi"
+msgstr ""
+
+# aw.ini:class_936
+#: aw.ini:class_936
+msgid "Klassi Kinnisvaraobjekt (936) nimi"
+msgstr ""
+
+# aw.ini:class_938
+#: aw.ini:class_938
+msgid "Klassi Verstapost (938) nimi"
+msgstr ""
+
+# aw.ini:class_943
+#: aw.ini:class_943
+msgid "Klassi Korter (943) nimi"
+msgstr ""
+
+# aw.ini:class_944
+#: aw.ini:class_944
+msgid "Klassi Maja (944) nimi"
+msgstr ""
+
+#: aw.ini:class_945
+msgid "Klassi Maat&uuml;kk (945) nimi"
+msgstr ""
+
+# aw.ini:class_946
+#: aw.ini:class_946
+msgid "Klassi Garaaz (946) nimi"
+msgstr ""
+
+#: aw.ini:class_947
+msgid "Klassi &Auml;ripind (947) nimi"
+msgstr ""
+
+# aw.ini:class_948
+#: aw.ini:class_948
+msgid "Klassi Aadress v2 (948) nimi"
+msgstr ""
+
+# aw.ini:class_949
+#: aw.ini:class_949
+msgid "Klassi Riik v2 (949) nimi"
+msgstr ""
+
+#: aw.ini:class_953
+msgid "Klassi Halduspiirkond v2 (953) nimi"
+msgstr ""
+
+# aw.ini:class_955
+#: aw.ini:class_955
+msgid "Klassi Autentimisserver OpenLDAP (955) nimi"
+msgstr ""
+
+# aw.ini:class_958
+#: aw.ini:class_958
+msgid "Klassi Linn v2 (958) nimi"
+msgstr ""
+
+# aw.ini:class_959
+#: aw.ini:class_959
+msgid "Klassi Linnaosa v2 (959) nimi"
+msgstr ""
+
+#: aw.ini:class_960
+msgid "Klassi T&auml;nav v2 (960) nimi"
+msgstr ""
+
+# aw.ini:class_961
+#: aw.ini:class_961
+msgid "Klassi Riigi haldusjaotus v2 (961) nimi"
+msgstr ""
+
+# aw.ini:class_963
+#: aw.ini:class_963
+msgid "Klassi Vormiahel (963) nimi"
+msgstr ""
+
+# aw.ini:class_965
+#: aw.ini:class_965
+msgid "Klassi Vormiahela sisestus (965) nimi"
+msgstr ""
+
+# aw.ini:class_966
+#: aw.ini:class_966
+msgid "Klassi Kontekst (966) nimi"
+msgstr ""
+
+# aw.ini:class_967
+#: aw.ini:class_967
+msgid "Klassi Akna hinnakujundus (967) nimi"
+msgstr ""
+
+# aw.ini:class_975
+#: aw.ini:class_975
+msgid "Klassi Otsingu html indekseerija (975) nimi"
+msgstr ""
+
+#: aw.ini:class_976
+msgid "Klassi Otsingu failis&uuml;steemi indekseerija (976) nimi"
+msgstr ""
+
+#: aw.ini:class_978
+msgid "Klassi Suvila (978) nimi"
+msgstr ""
+
+#: aw.ini:class_979
+msgid "Klassi Majaosa (979) nimi"
+msgstr ""
+
+#: aw.ini:class_980
+msgid "Klassi Tabeli filter (980) nimi"
+msgstr ""
+
+#: aw.ini:class_981
+msgid "Klassi Kinnisvaraobjektide otsing (981) nimi"
+msgstr ""
+
+#: aw.ini:class_982
+msgid "Klassi Kinnisvaraobjektide Import (982) nimi"
+msgstr ""
+
+#: aw.ini:class_983
+msgid "Klassi Expp Jupp (983) nimi"
+msgstr ""
+
+#: aw.ini:class_984
+msgid "Klassi Expp tyybid (984) nimi"
+msgstr ""
+
+#: aw.ini:class_985
+msgid "Klassi Expp liigid (985) nimi"
+msgstr ""
+
+#: aw.ini:class_986
+msgid "Klassi Expp short basket (986) nimi"
+msgstr ""
+
+#: aw.ini:class_987
+msgid "Klassi Expp liigi list (987) nimi"
+msgstr ""
+
+#: aw.ini:class_988
+msgid "Klassi Expp tyybi list (988) nimi"
+msgstr ""
+
+#: aw.ini:class_989
+msgid "Klassi Expp v&auml;ljaanne (989) nimi"
+msgstr ""
+
+#: aw.ini:class_990
+msgid "Klassi Expp tellimise periood (990) nimi"
+msgstr ""
+
+#: aw.ini:class_991
+msgid "Klassi Expp tootekorv (991) nimi"
+msgstr ""
+
+#: aw.ini:class_992
+msgid "Klassi Ridaelamu (992) nimi"
+msgstr ""
+
+#: aw.ini:class_993
+msgid "Klassi Kuhu minna (993) nimi"
+msgstr ""
+
+#: aw.ini:class_994
+msgid "Klassi Organisatsiooni eripakkumine (994) nimi"
+msgstr ""
+
+#: aw.ini:class_995
+msgid "Klassi Organisatsiooni eripakkumiste haldus (995) nimi"
+msgstr ""
+
+#: aw.ini:class_996
+msgid "Klassi E-kaardi haldur (996) nimi"
+msgstr ""
+
+#: aw.ini:class_997
+msgid "Klassi E-kaart (997) nimi"
+msgstr ""
+
+#: aw.ini:class_998
+msgid "Klassi Saidi stiilid (998) nimi"
+msgstr ""
+
+#: aw.ini:class_999
+msgid "Klassi Zanr (999) nimi"
+msgstr ""
+
+#: aw.ini:class_1000
+msgid "Klassi Koht (1000) nimi"
+msgstr ""
+
+#: aw.ini:class_1002
+msgid "Klassi Kinnisvaraobjektide eksport (1002) nimi"
+msgstr ""
+
+#: aw.ini:class_1003
+msgid "Klassi Kasutajate haldus (1003) nimi"
+msgstr ""
+
+#: aw.ini:class_1004
+msgid "Klassi Expp URL parser (1004) nimi"
+msgstr ""
+
+#: aw.ini:class_1005
+msgid "Klassi Expp import (1005) nimi"
+msgstr ""
+
+#: aw.ini:class_1006
+msgid "Klassi P&auml;eva raport (1006) nimi"
+msgstr ""
+
+#: aw.ini:class_1007
+msgid "Klassi CRM Dokument (1007) nimi"
+msgstr ""
+
+#: aw.ini:class_1008
+msgid "Klassi Memo (1008) nimi"
+msgstr ""
+
+#: aw.ini:class_1009
+msgid "Klassi Arve (1009) nimi"
+msgstr ""
+
+#: aw.ini:class_1010
+msgid "Klassi V&auml;ljaannete haldus (1010) nimi"
+msgstr ""
+
+#: aw.ini:class_1011
+msgid "Klassi V&auml;ljaanne (1011) nimi"
+msgstr ""
+
+#: aw.ini:class_1012
+msgid "Klassi T&uuml;&uuml;bilist (1012) nimi"
+msgstr ""
+
+#: aw.ini:class_1013
+msgid "Klassi Organisatsioonid veebis (1013) nimi"
+msgstr ""
+
+#: aw.ini:class_1014
+msgid "Klassi Avamisajad (1014) nimi"
+msgstr ""
+
+#: aw.ini:class_1015
+msgid "Klassi Expp JAH (1015) nimi"
+msgstr ""
+
+#: aw.ini:class_1016
+msgid "Klassi Expp telli (1016) nimi"
+msgstr ""
+
+#: aw.ini:class_1017
+msgid "Klassi Expp isik (1017) nimi"
+msgstr ""
+
+#: aw.ini:class_1018
+msgid "Klassi Expp arve (1018) nimi"
+msgstr ""
+
+#: aw.ini:class_1019
+msgid "Klassi Audio (1019) nimi"
+msgstr ""
+
+#: aw.ini:class_1020
+msgid "Klassi Expp site_logo (1020) nimi"
+msgstr ""
+
+#: aw.ini:class_1021
+msgid "Klassi expp_site_content (nimi) (1021) nimi"
+msgstr ""
+
+#: aw.ini:class_1022
+msgid "Klassi Expp makse (1022) nimi"
+msgstr ""
+
+#: aw.ini:class_1023
+msgid "Klassi CRM Pank (1023) nimi"
+msgstr ""
+
+#: aw.ini:class_1024
+msgid "Klassi CRM Pangakonto (1024) nimi"
+msgstr ""
+
+#: aw.ini:class_1025
+msgid "Klassi Majutusettev&otilde;te (valdkond) (1025) nimi"
+msgstr ""
+
+#: aw.ini:class_1026
+msgid "Klassi Klientide valim (1026) nimi"
+msgstr ""
+
+#: aw.ini:class_1027
+msgid "Klassi Property Test (1027) nimi"
+msgstr ""
+
+#: aw.ini:class_1028
+msgid "Klassi Kliendisuhe (1028) nimi"
+msgstr ""
+
+#: aw.ini:class_1029
+msgid "Klassi Meelelahutusettev&otilde;te (valdkond) (1029) nimi"
+msgstr ""
+
+#: aw.ini:class_1030
+msgid "Klassi Toitlustus (valdkond) (1030) nimi"
+msgstr ""
+
+#: aw.ini:class_1031
+msgid "Klassi Konverentsiruum (valdkond) (1031) nimi"
+msgstr ""
+
+#: aw.ini:class_1033
+msgid "Klassi Haldusjaotuse kodeering (1033) nimi"
+msgstr ""
+
+#: aw.ini:class_1034
+msgid "Klassi Haldus&uuml;ksus v2 (1034) nimi"
+msgstr ""
+
+#: aw.ini:class_1035
+msgid "Klassi T88 kirje (1035) nimi"
+msgstr ""
+
+#: aw.ini:class_1036
+msgid "Klassi Kliendibaasi seaded (1036) nimi"
+msgstr ""
+
+#: aw.ini:class_1037
+msgid "Klassi Ostu-saateleht (1037) nimi"
+msgstr ""
+
+#: aw.ini:class_1038
+msgid "Klassi Ostu arve (1038) nimi"
+msgstr ""
+
+#: aw.ini:class_1039
+msgid "Klassi M&uuml;&uuml;gi-saateleht (1039) nimi"
+msgstr ""
+
+#: aw.ini:class_1040
+msgid "Klassi Ostutellimus (1040) nimi"
+msgstr ""
+
+#: aw.ini:class_1041
+msgid "Klassi M&uuml;&uuml;gitellimus (1041) nimi"
+msgstr ""
+
+#: aw.ini:class_1042
+msgid "Klassi Soodustus (1042) nimi"
+msgstr ""
+
+#: aw.ini:class_1043
+msgid "Klassi Isikutunnistus (1043) nimi"
+msgstr ""
+
+#: aw.ini:class_1044
+msgid "Klassi Inventuur (1044) nimi"
+msgstr ""
+
+#: aw.ini:class_1045
+msgid "Klassi Tootegrupp (1045) nimi"
+msgstr ""
+
+#: aw.ini:class_1046
+msgid "Klassi Maksum&auml;&auml;r (1046) nimi"
+msgstr ""
+
+#: aw.ini:class_1047
+msgid "Klassi Taavi import (1047) nimi"
+msgstr ""
+
+#: aw.ini:class_1048
+msgid "Klassi CRM Numbriseeria (1048) nimi"
+msgstr ""
+
+#: aw.ini:class_1049
+msgid "Klassi Kliendibaasi otsingu grupp (1049) nimi"
+msgstr ""
+
+#: aw.ini:class_1050
+msgid "Klassi Toimetuse rida (1050) nimi"
+msgstr ""
+
+#: aw.ini:class_1051
+msgid "Klassi CRM Dokumendi tegevus (1051) nimi"
+msgstr ""
+
+#: aw.ini:class_1052
+msgid "Klassi Aruanne (1052) nimi"
+msgstr ""
+
+#: aw.ini:class_1053
+msgid "Klassi Vaheleht (1053) nimi"
+msgstr ""
+
+#: aw.ini:class_1054
+msgid "Klassi Arve rida (1054) nimi"
+msgstr ""
+
+#: aw.ini:class_1055
+msgid "Klassi Isikud veebis (1055) nimi"
+msgstr ""
+
+#: aw.ini:class_1056
+msgid "Klassi Kinnisvaraobjekti lisamine (1056) nimi"
+msgstr ""
+
+#: aw.ini:class_1057
+msgid "Klassi CRM Meil (1057) nimi"
+msgstr ""
+
+#: aw.ini:class_1058
+msgid "Klassi Bugi kommentaar (1058) nimi"
+msgstr ""
+
+#: aw.ini:class_1060
+msgid "Klassi T&ouml;&ouml;suhe (1060) nimi"
+msgstr ""
+
+#: aw.ini:class_1061
+msgid "Klassi IPT Failide konvertimine (1061) nimi"
+msgstr ""
+
+#: aw.ini:class_1062
+msgid "Klassi Lingikogu (1062) nimi"
+msgstr ""
+
+#: aw.ini:class_1063
+msgid "Klassi Sihtr&uuml;hm (1063) nimi"
+msgstr ""
+
+#: aw.ini:class_1064
+msgid "Klassi Sisu t&uuml;&uuml;p (1064) nimi"
+msgstr ""
+
+#: aw.ini:class_1065
+msgid "Klassi Hankekeskkond (1065) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1065
+msgid "Klassi tooteperekonna HANKEKESKKOND (1065) nimi"
+msgstr ""
+
+#: aw.ini:class_1066
+msgid "Klassi Hange (1066) nimi"
+msgstr ""
+
+#: aw.ini:class_1067
+msgid "Klassi N&otilde;ue (1067) nimi"
+msgstr ""
+
+#: aw.ini:class_1068
+msgid "Klassi Hanngete keskkond pakkujale (1068) nimi"
+msgstr ""
+
+#: aw.ini:class_1069
+msgid "Klassi Pakkumine hankele (1069) nimi"
+msgstr ""
+
+#: aw.ini:class_1070
+msgid "Klassi Kiire toimetuse lisamine (1070) nimi"
+msgstr ""
+
+#: aw.ini:class_1071
+msgid "Klassi Hangete administreerimiskeskkond (1071) nimi"
+msgstr ""
+
+#: aw.ini:class_1072
+msgid "Klassi N&otilde;ude lahendus (1072) nimi"
+msgstr ""
+
+#: aw.ini:class_1073
+msgid "Klassi Siduss&uuml;steem (1073) nimi"
+msgstr ""
+
+#: aw.ini:class_1074
+msgid "Klassi Sidestus (1074) nimi"
+msgstr ""
+
+#: aw.ini:class_1075
+msgid "Klassi Hanke prioriteet (1075) nimi"
+msgstr ""
+
+#: aw.ini:class_1076
+msgid "Klassi Pakkumise hindamise kriteerium (1076) nimi"
+msgstr ""
+
+#: aw.ini:class_1077
+msgid "Klassi Pangamakse (1077) nimi"
+msgstr ""
+
+#: aw.ini:class_950
+msgid "Klassi Eesm&auml;rk (950) nimi"
+msgstr ""
+
+#: aw.ini:class_1078
+msgid "Klassi Eesm&auml;rkide hindamine (1078) nimi"
+msgstr ""
+
+#: aw.ini:class_1079
+msgid "Klassi Projekti risk (1079) nimi"
+msgstr ""
+
+#: aw.ini:class_1080
+msgid "Klassi Projekti riskide hindamine (1080) nimi"
+msgstr ""
+
+#: aw.ini:class_1081
+msgid "Klassi Veotellimuste haldus (1081) nimi"
+msgstr ""
+
+#: aw.ini:class_1082
+msgid "Klassi Veotellimus (1082) nimi"
+msgstr ""
+
+#: aw.ini:class_1083
+msgid "Klassi Vedu (1083) nimi"
+msgstr ""
+
+#: aw.ini:class_1084
+msgid "Klassi Marsruut (1084) nimi"
+msgstr ""
+
+#: aw.ini:class_1085
+msgid "Klassi Veoauto (1085) nimi"
+msgstr ""
+
+#: aw.ini:class_1086
+msgid "Klassi Haagis (1086) nimi"
+msgstr ""
+
+#: aw.ini:class_1087
+msgid "Klassi Automark (1087) nimi"
+msgstr ""
+
+#: aw.ini:class_1088
+msgid "Klassi Projekti eesm&auml;rkide hindamislaud (1088) nimi"
+msgstr ""
+
+#: aw.ini:class_1089
+msgid "Klassi Riskide hindamise t&ouml;&ouml;laud (1089) nimi"
+msgstr ""
+
+#: aw.ini:class_1090
+msgid "Klassi Spordiv&otilde;istluste haldus (1090) nimi"
+msgstr ""
+
+#: aw.ini:class_1091
+msgid "Klassi Spordiv&otilde;istluste korraldaja (1091) nimi"
+msgstr ""
+
+#: aw.ini:class_1092
+msgid "Klassi V&otilde;istleja (1092) nimi"
+msgstr ""
+
+#: aw.ini:class_1093
+msgid "Klassi Paremusj&auml;rjestuse t&uuml;&uuml;p (1093) nimi"
+msgstr ""
+
+#: aw.ini:class_1094
+msgid "Klassi Spordiala (1094) nimi"
+msgstr ""
+
+#: aw.ini:class_1095
+msgid "Klassi Toimumiskoht (1095) nimi"
+msgstr ""
+
+#: aw.ini:class_1096
+msgid "Klassi V&otilde;istlussari (1096) nimi"
+msgstr ""
+
+#: aw.ini:class_1097
+msgid "Klassi Punktis&uuml;steem (1097) nimi"
+msgstr ""
+
+#: aw.ini:class_1098
+msgid "Klassi V&otilde;istlusklass (1098) nimi"
+msgstr ""
+
+#: aw.ini:class_1099
+msgid "Klassi V&otilde;istlus (1099) nimi"
+msgstr ""
+
+#: aw.ini:class_1100
+msgid "Klassi Tulemus (1100) nimi"
+msgstr ""
+
+#: aw.ini:class_1101
+msgid "Klassi Projekti tiim (1101) nimi"
+msgstr ""
+
+#: aw.ini:class_1102
+msgid "Klassi Hankijasuhe (1102) nimi"
+msgstr ""
+
+#: aw.ini:class_1103
+msgid "Klassi Eelarvestaja t&ouml;&ouml;laud (1103) nimi"
+msgstr ""
+
+#: aw.ini:class_1104
+msgid "Klassi Hange (1104) nimi"
+msgstr ""
+
+#: aw.ini:class_1105
+msgid "Klassi Hankijagrupp (1105) nimi"
+msgstr ""
+
+#: aw.ini:class_1106
+msgid "Klassi Pakkumise rida (1106) nimi"
+msgstr ""
+
+#: aw.ini:class_1107
+msgid "Klassi Piirkond (1107) nimi"
+msgstr ""
+
+#: aw.ini:class_1108
+msgid "Klassi &Uuml;hik (1108) nimi"
+msgstr ""
+
+#: aw.ini:class_1110
+msgid "Klassi Projekti anal&uuml;&uuml;si t&ouml;&ouml;laud (1110) nimi"
+msgstr ""
+
+#: aw.ini:class_1111
+msgid "Klassi Projekti anal&uuml;&uuml;si tulp (1111) nimi"
+msgstr ""
+
+#: aw.ini:class_1112
+msgid "Klassi Projekti anal&uuml;&uuml;si rida (1112) nimi"
+msgstr ""
+
+#: aw.ini:class_1113
+msgid "Klassi Projekti anal&uuml;&uuml;si sisestus (1113) nimi"
+msgstr ""
+
+#: aw.ini:class_1114
+msgid "Klassi Muu (valdkond) (1114) nimi"
+msgstr ""
+
+#: aw.ini:class_1115
+msgid "Klassi Meeskond (1115) nimi"
+msgstr ""
+
+#: aw.ini:class_1116
+msgid "Klassi Asukoht (1116) nimi"
+msgstr ""
+
+#: aw.ini:class_1117
+msgid "Klassi Vees&otilde;iduk (1117) nimi"
+msgstr ""
+
+#: aw.ini:class_1118
+msgid "Klassi Vees&otilde;idukite haldus (1118) nimi"
+msgstr ""
+
+#: aw.ini:class_1119
+msgid "Klassi Vees&otilde;idukite otsing (1119) nimi"
+msgstr ""
+
+#: aw.ini:class_1124
+msgid "Klassi Kontrollpilt (1124) nimi"
+msgstr ""
+
+#: aw.ini:class_1126
+msgid "Klassi &Uuml;hik (1126) nimi"
+msgstr ""
+
+#: aw.ini:class_1127
+msgid "Klassi Pakkumise rida (1127) nimi"
+msgstr ""
+
+#: aw.ini:class_1128
+msgid "Klassi Ost (1128) nimi"
+msgstr ""
+
+#: aw.ini:class_1129
+msgid "Klassi Kliendi tagasiside sisestus (1129) nimi"
+msgstr ""
+
+#: aw.ini:class_1130
+msgid "Klassi Kliendi tagasiside (1130) nimi"
+msgstr ""
+
+#: aw.ini:class_1131
+msgid "Klassi Kasutaja j&auml;rjehoidjad (1131) nimi"
+msgstr ""
+
+#: aw.ini:class_1132
+msgid "Klassi AW Objektide otsing (1132) nimi"
+msgstr ""
+
+#: aw.ini:class_1133
+msgid "Klassi Kiirlisamine (1133) nimi"
+msgstr ""
+
+#: aw.ini:class_1134
+msgid "Klassi Administreerimisliides (1134) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1134
+msgid "Klassi tooteperekonna Culture in database (1134) nimi"
+msgstr ""
+
+#: aw.ini:class_1135
+msgid "Klassi T&ouml;&ouml;aja planeerimine (1135) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1135
+msgid "Klassi tooteperekonna T&ouml;&ouml;aja planeerimine (1135) nimi"
+msgstr ""
+
+#: aw.ini:class_1136
+msgid "Klassi P&auml;devus (1136) nimi"
+msgstr ""
+
+#: aw.ini:class_1137
+msgid "Klassi Scala import (1137) nimi"
+msgstr ""
+
+#: aw.ini:class_1138
+msgid "Klassi P&auml;devuse kehtivus (1138) nimi"
+msgstr ""
+
+#: aw.ini:class_1139
+msgid "Klassi T&ouml;&ouml;ts&uuml;kkel (1139) nimi"
+msgstr ""
+
+#: aw.ini:class_1140
+msgid "Klassi Planeerimise stsenaarium (1140) nimi"
+msgstr ""
+
+#: aw.ini:class_1141
+msgid "Klassi Vahetus (1141) nimi"
+msgstr ""
+
+#: aw.ini:class_1142
+msgid "Klassi T&ouml;&ouml;koht (1142) nimi"
+msgstr ""
+
+#: aw.ini:class_1143
+msgid "Klassi Konverentsiruum (1143) nimi"
+msgstr ""
+
+#: aw.ini:class_1144
+msgid "Klassi Kulu (1144) nimi"
+msgstr ""
+
+#: aw.ini:class_1145
+msgid "Klassi Statistika (1145) nimi"
+msgstr ""
+
+#: aw.ini:class_1146
+msgid "Klassi Statistika arhiivi staatus (1146) nimi"
+msgstr ""
+
+#: aw.ini:class_1153
+msgid "Klassi K&uuml;simustik (1153) nimi"
+msgstr ""
+
+#: aw.ini:class_1154
+msgid "Klassi K&uuml;simustegrupp (1154) nimi"
+msgstr ""
+
+#: aw.ini:class_1155
+msgid "Klassi K&uuml;simus (1155) nimi"
+msgstr ""
+
+#: aw.ini:class_1157
+msgid "Klassi T&otilde;lkimise t&ouml;&ouml;laud (1157) nimi"
+msgstr ""
+
+#: aw.ini:class_1158
+msgid "Klassi K&uuml;simustiku vastus (1158) nimi"
+msgstr ""
+
+#: aw.ini:class_1159
+msgid "Klassi Rostering graafik (1159) nimi"
+msgstr ""
+
+#: aw.ini:class_1160
+msgid "Klassi T&ouml;&ouml;aegade sisestus (1160) nimi"
+msgstr ""
+
+#: aw.ini:class_1161
+msgid "Klassi Tasu liik (1161) nimi"
+msgstr ""
+
+#: aw.ini:class_1162
+msgid "Klassi Ruum (1162) nimi"
+msgstr ""
+
+#: aw.ini:class_1164
+msgid "Klassi Ruumi hind (1164) nimi"
+msgstr ""
+
+#: aw.ini:class_1165
+msgid "Klassi Broneering (1165) nimi"
+msgstr ""
+
+#: aw.ini:class_1166
+msgid "Klassi Konverents (1166) nimi"
+msgstr ""
+
+#: aw.ini:class_1167
+msgid "Klassi Vanade aadresside suunamine (1167) nimi"
+msgstr ""
+
+#: aw.ini:class_1168
+msgid "Klassi Vees&otilde;iduki lisamine (1168) nimi"
+msgstr ""
+
+#: aw.ini:class_1169
+msgid "Klassi Vastaja (1169) nimi"
+msgstr ""
+
+#: aw.ini:class_1170
+msgid "Klassi Saidi templatede t&otilde;lkimine (1170) nimi"
+msgstr ""
+
+#: aw.ini:class_1171
+msgid "Klassi Konverentsi planeerimine (1171) nimi"
+msgstr ""
+
+#: aw.ini:class_1172
+msgid "Klassi N&otilde;ude kategooria (1172) nimi"
+msgstr ""
+
+#: aw.ini:class_1173
+msgid "Klassi N&otilde;ude protsess (1173) nimi"
+msgstr ""
+
+#: aw.ini:class_1174
+msgid "Klassi Ruumi broneerimine (1174) nimi"
+msgstr ""
+
+#: aw.ini:class_1175
+msgid "Klassi Konverentsitellimus (1175) nimi"
+msgstr ""
+
+#: aw.ini:class_1176
+msgid "Klassi Reusneri andmete sirvimine (1176) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1176
+msgid "Klassi tooteperekonna Ressursiplaneerija (1176) nimi"
+msgstr ""
+
+#: aw.ini:class_1177
+msgid "Klassi IP lokaator (1177) nimi"
+msgstr ""
+
+#: aw.ini:class_1178
+msgid "Klassi DigiDoci OSCP teenus (1178) nimi"
+msgstr ""
+
+#: aw.ini:class_1179
+msgid "Klassi SPA Reisib&uuml;roo liides (1179) nimi"
+msgstr ""
+
+#: aw.ini:class_1180
+msgid "Klassi Turismipakett (1180) nimi"
+msgstr ""
+
+#: aw.ini:class_1181
+msgid "Klassi Trademark (1181) nimi"
+msgstr ""
+
+#: aw.ini:class_1182
+msgid "Klassi DigiDoc Parser (1182) nimi"
+msgstr ""
+
+#: aw.ini:class_1183
+msgid "Klassi Arendustellimus (1183) nimi"
+msgstr ""
+
+#: aw.ini:class_1184
+msgid "Klassi Arendustellimuste kataloog (1184) nimi"
+msgstr ""
+
+#: aw.ini:class_1185
+msgid "Klassi Probleem (1185) nimi"
+msgstr ""
+
+#: aw.ini:class_1186
+msgid "Klassi DigiDoc (1186) nimi"
+msgstr ""
+
+#: aw.ini:class_1187
+msgid "Klassi Broneeringute &uuml;levaade (1187) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1187
+msgid "Klassi tooteperekonna Broneeringute haldus (1187) nimi"
+msgstr ""
+
+#: aw.ini:class_1188
+msgid "Klassi Ruumi seaded (1188) nimi"
+msgstr ""
+
+#: aw.ini:class_1189
+msgid "Klassi Kaubam&auml;rgi veebist lisamine (1189) nimi"
+msgstr ""
+
+#: aw.ini:class_1190
+msgid "Klassi Patendiameti keskkond (1190) nimi"
+msgstr ""
+
+#: aw.ini:class_1191
+msgid "Klassi Autentimisserver kasutajadefineeritud (1191) nimi"
+msgstr ""
+
+#: aw.ini:class_1192
+msgid "Klassi Konverentsihaldus (1192) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1192
+msgid "Klassi tooteperekonna Konverentsihaldus (1192) nimi"
+msgstr ""
+
+#: aw.ini:class_1193
+msgid "Klassi ID-Kaardi konfiguratsioon (1193) nimi"
+msgstr ""
+
+#: aw.ini:class_1194
+msgid "Klassi RFP Ajalugu veebis (1194) nimi"
+msgstr ""
+
+#: aw.ini:class_1195
+msgid "Klassi Trademark status (1195) nimi"
+msgstr ""
+
+#: aw.ini:class_1196
+msgid "Klassi Expp kampaania (1196) nimi"
+msgstr ""
+
+#: aw.ini:class_1198
+msgid "Klassi SPA Kliendi liides (1198) nimi"
+msgstr ""
+
+#: aw.ini:class_1200
+msgid "Klassi Otsingu kasutajadefineeritud indekseerija (1200) nimi"
+msgstr ""
+
+#: aw.ini:class_1201
+msgid "Klassi Objektide korv (1201) nimi"
+msgstr ""
+
+#: aw.ini:class_1202
+msgid "Klassi Eelarvestamise konto (1202) nimi"
+msgstr ""
+
+#: aw.ini:class_1203
+msgid "Klassi Eelarvestamise &uuml;lekanne (1203) nimi"
+msgstr ""
+
+#: aw.ini:class_1204
+msgid "Klassi Eelarvestamise fond (1204) nimi"
+msgstr ""
+
+#: aw.ini:class_1205
+msgid "Klassi Eelarvestamise t&ouml;&ouml;laud (1205) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1205
+msgid "Klassi tooteperekonna Rahavoogude Juhtimine (1205) nimi"
+msgstr ""
+
+#: aw.ini:class_1206
+msgid "Klassi Eelarvestamise maks (1206) nimi"
+msgstr ""
+
+#: aw.ini:class_1207
+msgid "Klassi OCSP p&auml;ring (1207) nimi"
+msgstr ""
+
+#: aw.ini:class_1209
+msgid "Klassi S&uuml;ndmuste halduse keskkond (1209) nimi"
+msgstr ""
+
+#: aw.ini:class_1210
+msgid "Klassi Konverentsi kalendrivaade (1210) nimi"
+msgstr ""
+
+#: aw.ini:class_1211
+msgid "Klassi Pakiserver (1211) nimi"
+msgstr ""
+
+#: aw.ini:class_1212
+msgid "Klassi CRM Teenuse liik (1212) nimi"
+msgstr ""
+
+#: aw.ini:class_1213
+msgid "Klassi Eelarve (1213) nimi"
+msgstr ""
+
+#: aw.ini:class_1214
+msgid "Klassi Sisselogimiskast (1214) nimi"
+msgstr ""
+
+#: aw.ini:class_1220
+msgid "Klassi Andmeklass (1220) nimi"
+msgstr ""
+
+#: aw.ini:class_1223
+msgid "Klassi Vaade (1223) nimi"
+msgstr ""
+
+#: aw.ini:class_1245
+msgid "Klassi Saidi sisu otsingu grupp mitu saiti (1245) nimi"
+msgstr ""
+
+#: aw.ini:class_1246
+msgid "Klassi Eelarvestamise maksu grupp (1246) nimi"
+msgstr ""
+
+#: aw.ini:class_1248
+msgid "Klassi Broneeringute toitlustuse haldus (1248) nimi"
+msgstr ""
+
+#: aw.ini:class_1249
+msgid "Klassi Teenuse liigi kategooria (1249) nimi"
+msgstr ""
+
+#: aw.ini:class_1250
+msgid "Klassi Bannerite haldus (1250) nimi"
+msgstr ""
+
+#: aw.ini:class_1251
+msgid "Klassi T&otilde;lkekeskkond (1251) nimi"
+msgstr ""
+
+#: aw.ini:class_1252
+msgid "Klassi XML V&auml;ljund (1252) nimi"
+msgstr ""
+
+#: aw.ini:class_1306
+msgid "Klassi Dokumentide kalendrivaade (1306) nimi"
+msgstr ""
+
+#: aw.ini:class_1319
+msgid "Klassi Eelarvestamise maksu kausta seos (1319) nimi"
+msgstr ""
+
+#: aw.ini:class_1322
+msgid "Klassi Toimumisaeg (1322) nimi"
+msgstr ""
+
+#: aw.ini:class_1337
+msgid "Klassi S&uuml;ndmuste import (1337) nimi"
+msgstr ""
+
+#: aw.ini:class_1338
+msgid "Klassi Impordi logi (1338) nimi"
+msgstr ""
+
+#: aw.ini:class_1323
+msgid "Klassi OWS Broneeringukeskus (1323) nimi"
+msgstr ""
+
+#: aw.ini:class_1324
+msgid "Klassi Kindlustus (1324) nimi"
+msgstr ""
+
+#: aw.ini:class_1325
+msgid "Klassi Eelarvestamise stsenaarium (1325) nimi"
+msgstr ""
+
+#: aw.ini:class_1326
+msgid "Klassi Kindlustuse t&uuml;&uuml;p (1326) nimi"
+msgstr ""
+
+#: aw.ini:class_1327
+msgid "Klassi Kliendikategooria (1327) nimi"
+msgstr ""
+
+#: aw.ini:class_1329
+msgid "Klassi Failide &uuml;leslaadimise seaded (1329) nimi"
+msgstr ""
+
+#: aw.ini:class_1332
+msgid "Klassi Sisuhalduse statistika (1332) nimi"
+msgstr ""
+
+#: aw.ini:class_1344
+msgid "Klassi OWS Broneering (1344) nimi"
+msgstr ""
+
+#: aw.ini:class_1341
+msgid "Klassi &Uuml;lesannete kuvamine (1341) nimi"
+msgstr ""
+
+#: aw.ini:class_1342
+msgid "Klassi Bugtracki rakendus (1342) nimi"
+msgstr ""
+
+#: aw.ini:class_1343
+msgid "Klassi Expp remote makse (1343) nimi"
+msgstr ""
+
+#: aw.ini:class_1346
+msgid "Klassi Expp meilid (1346) nimi"
+msgstr ""
+
+#: aw.ini:class_1347
+msgid "Klassi M&uuml;&uuml;gikeskkond (1347) nimi"
+msgstr ""
+
+#: aw.ini:class_1348
+msgid "Klassi S&uuml;ndmuste eksport (iCal) (1348) nimi"
+msgstr ""
+
+#: aw.ini:class_1349
+msgid "Klassi S&uuml;ndmuste import (iCal) (1349) nimi"
+msgstr ""
+
+#: aw.ini:class_1350
+msgid "Klassi Eelarvestamise maksumaatriks (1350) nimi"
+msgstr ""
+
+#: aw.ini:class_1351
+msgid "Klassi Impordi minu MP3d (1351) nimi"
+msgstr ""
+
+#: aw.ini:class_1352
+msgid "Klassi MP3 (1352) nimi"
+msgstr ""
+
+#: aw.ini:class_1353
+msgid "Klassi MP3 pleier (1353) nimi"
+msgstr ""
+
+#: aw.ini:class_1354
+msgid "Klassi Syndmuste XML andmeallikas (1354) nimi"
+msgstr ""
+
+#: aw.ini:class_1355
+msgid "Klassi JSON andmeallikas (1355) nimi"
+msgstr ""
+
+#: aw.ini:class_1356
+msgid "Klassi S&uuml;ndmuste import (1356) nimi"
+msgstr ""
+
+#: aw.ini:class_1357
+msgid "Klassi Aiesec import (1357) nimi"
+msgstr ""
+
+#: aw.ini:class_1362
+msgid "Klassi Paki css ja javascript (1362) nimi"
+msgstr ""
+
+#: aw.ini:class_1364
+msgid "Klassi Ilmateade (1364) nimi"
+msgstr ""
+
+#: aw.ini:class_1365
+msgid "Klassi Transportation type (1365) nimi"
+msgstr ""
+
+#: aw.ini:class_1366
+msgid "Klassi Hind (1366) nimi"
+msgstr ""
+
+#: aw.ini:class_1367
+msgid "Klassi L&auml;hetustingimus (1367) nimi"
+msgstr ""
+
+#: aw.ini:class_1368
+msgid "Klassi Volitus (1368) nimi"
+msgstr ""
+
+#: aw.ini:class_1369
+msgid "Klassi Surmakaunter (1369) nimi"
+msgstr ""
+
+#: aw.ini:class_1370
+msgid "Klassi The Terminator (1370) nimi"
+msgstr ""
+
+#: aw.ini:class_1371
+msgid "Klassi Pakk (1371) nimi"
+msgstr ""
+
+#: aw.ini:class_1372
+msgid "Klassi Rahvus (1372) nimi"
+msgstr ""
+
+#: aw.ini:class_1384
+msgid "Klassi Broneeringu kiirlisamine (1384) nimi"
+msgstr ""
+
+#: aw.ini:class_1373
+msgid "Klassi Geoinfo haldus (1373) nimi"
+msgstr ""
+
+#: aw.ini:class_1374
+msgid "Klassi Geoinfo andmed (1374) nimi"
+msgstr ""
+
+#: aw.ini:class_1376
+msgid "Klassi del.icio.us import (1376) nimi"
+msgstr ""
+
+#: aw.ini:class_1377
+msgid "Klassi Citizenship (1377) nimi"
+msgstr ""
+
+#: aw.ini:class_1378
+msgid "Klassi Organisatsioonide otsing (1378) nimi"
+msgstr ""
+
+#: aw.ini:class_1381
+msgid "Klassi OWS Kliendiprofiil (1381) nimi"
+msgstr ""
+
+#: aw.ini:class_1382
+msgid "Klassi FLV video (1382) nimi"
+msgstr ""
+
+#: aw.ini:class_1383
+msgid "Klassi Laekumine (1383) nimi"
+msgstr ""
+
+#: aw.ini:class_1385
+msgid "Klassi Kraad (1385) nimi"
+msgstr ""
+
+#: aw.ini:class_1386
+msgid "Klassi Personali import (1386) nimi"
+msgstr ""
+
+#: aw.ini:class_1387
+msgid "Klassi Broneeringu kiirlisamine (1387) nimi"
+msgstr ""
+
+#: aw.ini:class_1388
+msgid "Klassi V&auml;ljasaadetud meilid (1388) nimi"
+msgstr ""
+
+#: aw.ini:class_1389
+msgid "Klassi Saadetud meil (1389) nimi"
+msgstr ""
+
+#: aw.ini:class_1390
+msgid "Klassi Isikute otsing (1390) nimi"
+msgstr ""
+
+#: aw.ini:class_1391
+msgid "Klassi XML andmeallikas (1391) nimi"
+msgstr ""
+
+#: aw.ini:class_1392
+msgid "Klassi T&ouml;&ouml;aegade stsenaarium (1392) nimi"
+msgstr ""
+
+#: aw.ini:class_1393
+msgid "Klassi D&uuml;naamiline k&uuml;simustik (1393) nimi"
+msgstr ""
+
+#: aw.ini:class_1394
+msgid "Klassi D&uuml;naamilise k&uuml;simustiku k&uuml;simus (1394) nimi"
+msgstr ""
+
+#: aw.ini:class_1395
+msgid "Klassi D&uuml;naamilise k&uuml;simustiku vastus (1395) nimi"
+msgstr ""
+
+#: aw.ini:class_1396
+msgid "Klassi D&uuml;naamilise k&uuml;simustiku vastaja (1396) nimi"
+msgstr ""
+
+#: aw.ini:class_1397
+msgid "Klassi AW v&auml;line teenus (1397) nimi"
+msgstr ""
+
+#: aw.ini:class_1398
+msgid "Klassi Haridustase (1398) nimi"
+msgstr ""
+
+#: aw.ini:class_1399
+msgid "Klassi Keel (1399) nimi"
+msgstr ""
+
+#: aw.ini:class_1400
+msgid "Klassi Oskus (1400) nimi"
+msgstr ""
+
+#: aw.ini:class_1401
+msgid "Klassi Oskuse tase (1401) nimi"
+msgstr ""
+
+#: aw.ini:class_1405
+msgid "Klassi Organisatoorne kuuluvus (1405) nimi"
+msgstr ""
+
+#: aw.ini:class_1406
+msgid "Klassi Soovitus (1406) nimi"
+msgstr ""
+
+#: aw.ini:class_1407
+msgid "Klassi Oskuste haldur (1407) nimi"
+msgstr ""
+
+#: aw.ini:class_1408
+msgid "Klassi Salvestatud CV otsing (1408) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1408
+msgid "Klassi tooteperekonna V&auml;rbamiskeskkond (1408) nimi"
+msgstr ""
+
+#: aw.ini:class_1410
+msgid "Klassi Sugulusside (1410) nimi"
+msgstr ""
+
+#: aw.ini:class_1411
+msgid "Klassi Reval Klienditsoon (1411) nimi"
+msgstr ""
+
+#: aw.ini:class_1412
+msgid "Klassi Tellimiskeskkonna toodete filter (1412) nimi"
+msgstr ""
+
+#: aw.ini:class_1413
+msgid "Klassi S&uuml;ndmuste import 2 (1413) nimi"
+msgstr ""
+
+#: aw.ini:class_1414
+msgid "Klassi Delfi JSON v&auml;ljund (1414) nimi"
+msgstr ""
+
+#: aw.ini:class_1415
+msgid "Klassi Tellimuse rida (1415) nimi"
+msgstr ""
+
+#: aw.ini:class_1416
+msgid "Klassi Mobi SMS haldur (1416) nimi"
+msgstr ""
+
+#: aw.ini:class_1417
+msgid "Klassi SMS (1417) nimi"
+msgstr ""
+
+#: aw.ini:class_1421
+msgid "Klassi T&ouml;&ouml;pakkumised veebis (1421) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1421
+msgid "Klassi tooteperekonna V&auml;rbamiskeskkond (1421) nimi"
+msgstr ""
+
+#: aw.ini:class_1418
+msgid "Klassi AW Spetsifikatsioon (1418) nimi"
+msgstr ""
+
+#: aw.ini:class_1422
+msgid "Klassi SMSi saatmine (1422) nimi"
+msgstr ""
+
+#: aw.ini:class_1420
+msgid "Klassi Postiindeksid (1420) nimi"
+msgstr ""
+
+#: aw.ini:class_1423
+msgid "Klassi Revali klientide meilisaatjs (1423) nimi"
+msgstr ""
+
+#: aw.ini:class_1425
+msgid "Klassi AW Spetsifikatsiooni klass (1425) nimi"
+msgstr ""
+
+#: aw.ini:class_1426
+msgid "Klassi AW Spetsifikatsiooni grupp (1426) nimi"
+msgstr ""
+
+#: aw.ini:class_1427
+msgid "Klassi AW Spetsifikatsiooni layout (1427) nimi"
+msgstr ""
+
+#: aw.ini:class_1428
+msgid "Klassi AW Spetsifikatsiooni omadus (1428) nimi"
+msgstr ""
+
+#: aw.ini:class_1429
+msgid "Klassi AW Spetsifikatsiooni seos (1429) nimi"
+msgstr ""
+
+#: aw.ini:class_1430
+msgid "Klassi Lao ostutellimus (1430) nimi"
+msgstr ""
+
+#: aw.ini:class_1431
+msgid "Klassi Lao m&uuml;&uuml;gitellimus (1431) nimi"
+msgstr ""
+
+#: aw.ini:class_1432
+msgid "Klassi Patent (1432) nimi"
+msgstr ""
+
+#: aw.ini:class_1433
+msgid "Klassi Kasulik mudel (1433) nimi"
+msgstr ""
+
+#: aw.ini:class_1434
+msgid "Klassi Kasuliku mudeli veebist lisamine (1434) nimi"
+msgstr ""
+
+#: aw.ini:class_1435
+msgid "Klassi Artiklikategooria (1435) nimi"
+msgstr ""
+
+#: aw.ini:class_1436
+msgid "Klassi Lao materjal (1436) nimi"
+msgstr ""
+
+#: aw.ini:class_1437
+msgid "Klassi Lao materjali t&uuml;&uuml;p (1437) nimi"
+msgstr ""
+
+#: aw.ini:class_1438
+msgid "Klassi Lao toote v&auml;rv (1438) nimi"
+msgstr ""
+
+#: aw.ini:class_1439
+msgid "Klassi Lao ostujuhi t&ouml;&ouml;laud (1439) nimi"
+msgstr ""
+
+#: aw.ini:class_1440
+msgid "Klassi Lao m&uuml;&uuml;gijuhi t&ouml;&ouml;laud (1440) nimi"
+msgstr ""
+
+#: aw.ini:class_1441
+msgid "Klassi Intellektuaalne omand (1441) nimi"
+msgstr ""
+
+#: aw.ini:class_1442
+msgid "Klassi Lao kliendikaart (1442) nimi"
+msgstr ""
+
+#: aw.ini:class_1443
+msgid "Klassi Lao br&auml;nd (1443) nimi"
+msgstr ""
+
+#: aw.ini:class_1444
+msgid "Klassi Lao br&auml;ndiseeria (1444) nimi"
+msgstr ""
+
+#: aw.ini:class_1446
+msgid "Klassi Patenditaotluse veebist lisamine (1446) nimi"
+msgstr ""
+
+#: aw.ini:class_1447
+msgid "Klassi Maksu tingimus (1447) nimi"
+msgstr ""
+
+#: aw.ini:class_1448
+msgid "Klassi P&auml;devuste haldur (1448) nimi"
+msgstr ""
+
+#: aw.ini:class_1449
+msgid "Klassi  (1449) nimi"
+msgstr ""
+
+#: aw.ini:class_1450
+msgid "Klassi Pakihalduse klient (1450) nimi"
+msgstr ""
+
+#: aw.ini:class_1451
+msgid "Klassi iAW (1451) nimi"
+msgstr ""
+
+#: aw.ini:class_1452
+msgid "Klassi T&ouml;&ouml;stusdisainilahendus (1452) nimi"
+msgstr ""
+
+#: aw.ini:class_1453
+msgid "Klassi EP patent (1453) nimi"
+msgstr ""
+
+#: aw.ini:class_1454
+msgid "Klassi EP patendi veebist lisamine (1454) nimi"
+msgstr ""
+
+#: aw.ini:class_1455
+msgid "Klassi T&ouml;&ouml;stusdisainilahenduse veebist lisamine (1455) nimi"
+msgstr ""
+
+#: aw.ini:class_1456
+msgid "Klassi AW Spetsifikatsiooni versioon (1456) nimi"
+msgstr ""
+
+#: aw.ini:class_1457
+msgid "Klassi Hinnastaja (1457) nimi"
+msgstr ""
+
+#: aw.ini:class_1458
+msgid "Klassi Laoseis (1458) nimi"
+msgstr ""
+
+#: aw.ini:class_1459
+msgid "Klassi Saateleht (1459) nimi"
+msgstr ""
+
+#: aw.ini:class_1461
+msgid "Klassi Lao liikumine (1461) nimi"
+msgstr ""
+
+#: aw.ini:class_1462
+msgid "Klassi &Uuml;ksiktoode (1462) nimi"
+msgstr ""
+
+#: aw.ini:class_1464
+msgid "Klassi Otseviidete manageerija (1464) nimi"
+msgstr ""
+
+#: aw.ini:class_1465
+msgid "Klassi Tegevuse statistika t&uuml;&uuml;p (1465) nimi"
+msgstr ""
+
+#: aw.ini:class_1466
+msgid "Klassi Objekt teisest saidist (1466) nimi"
+msgstr ""
+
+#: aw.ini:class_1467
+msgid "Klassi Paketi Saidi seos (1467) nimi"
+msgstr ""
+
+#: aw.ini:class_1468
+msgid "Klassi Kiirklahv (1468) nimi"
+msgstr ""
+
+#: aw.ini:class_1469
+msgid "Klassi &Uuml;hikute valem (1469) nimi"
+msgstr ""
+
+#: aw.ini:class_1470
+msgid "Klassi Saatelehe rida (1470) nimi"
+msgstr ""
+
+#: aw.ini:class_1471
+msgid "Klassi AW Spetisifikatsiooni kasutuslugu (1471) nimi"
+msgstr ""
+
+#: aw.ini:class_1472
+msgid "Klassi Kiirklahvide set (1472) nimi"
+msgstr ""
+
+#: aw.ini:class_1473
+msgid "Klassi L&auml;hetusviis (1473) nimi"
+msgstr ""
+
+#: aw.ini:class_1474
+msgid "Klassi L&auml;hetustingimus (1474) nimi"
+msgstr ""
+
+#: aw.ini:class_1475
+msgid "Klassi S&uuml;ndmused veebis (1475) nimi"
+msgstr ""
+
+#: aw.ini:class_1476
+msgid "Klassi DomPDF (1476) nimi"
+msgstr ""
+
+#: aw.ini:class_1477
+msgid "Klassi Sisupakett (1477) nimi"
+msgstr ""
+
+#: aw.ini:class_1478
+msgid "Klassi Sisutingimus (1478) nimi"
+msgstr ""
+
+#: aw.ini:class_1479
+msgid "Klassi Ajahalduse Installatsioonimoodul (1479) nimi"
+msgstr ""
+
+#: aw.ini:class_1480
+msgid "Klassi Pakkumise T&uuml;&uuml;p (1480) nimi"
+msgstr ""
+
+#: aw.ini:class_1481
+msgid "Klassi Grupikuuluvus (1481) nimi"
+msgstr ""
+
+#: aw.ini:class_1485
+msgid "Klassi Reval extranet (1485) nimi"
+msgstr ""
+
+#: aw.ini:class_1486
+msgid "Klassi Saitide v&otilde;rdlus (1486) nimi"
+msgstr ""
+
+#: aw.ini:class_1487
+msgid "Klassi Saitide kopeerimine (1487) nimi"
+msgstr ""
+
+#: aw.ini:class_1488
+msgid "Klassi Saidi kopeerimine (1488) nimi"
+msgstr ""
+
+#: aw.ini:class_1489
+msgid "Klassi Kopeeritud sait (1489) nimi"
+msgstr ""
+
+#: aw.ini:class_1490
+msgid "Klassi Osapool (1490) nimi"
+msgstr ""
+
+#: aw.ini:class_1491
+msgid "Klassi D&uuml;naamilise k&uuml;simustiku tekst (1491) nimi"
+msgstr ""
+
+#: aw.ini:class_1492
+msgid "Klassi Tekstipeksja (1492) nimi"
+msgstr ""
+
+#: aw.ini:class_1493
+msgid "Klassi SM Klasside statisika t&ouml;&ouml;laud (1493) nimi"
+msgstr ""
+
+#: aw.ini:class_1494
+msgid "Klassi SM Klassi statistika grupp (1494) nimi"
+msgstr ""
+
+#: aw.ini:class_1496
+msgid "Klassi Taketi toodete import (1496) nimi"
+msgstr ""
+
+#: aw.ini:class_1497
+msgid "Klassi Property mustand (1497) nimi"
+msgstr ""
+
+#: aw.ini:class_1498
+msgid "Klassi AW Saidi kirje (1498) nimi"
+msgstr ""
+
+#: aw.ini:class_1499
+msgid "Klassi AW Serveri kirje (1499) nimi"
+msgstr ""
+
+#: aw.ini:class_1500
+msgid "Klassi Toote tarnetingimus (1500) nimi"
+msgstr ""
+
+#: aw.ini:class_1501
+msgid "Klassi Projektikategooria (1501) nimi"
+msgstr ""
+
+#: aw.ini:class_1502
+msgid "Klassi Saidi teavituse reegel (1502) nimi"
+msgstr ""
+
+#: aw.ini:class_1503
+msgid "Klassi Saidi kohta saadetud teavitus (1503) nimi"
+msgstr ""
+
+#: aw.ini:class_1504
+msgid "Klassi Mailinglisti liikmelisuse haldus (1504) nimi"
+msgstr ""
+
+#: aw.ini:class_1505
+msgid "Klassi SM Omaduse statistika grupp (1505) nimi"
+msgstr ""
+
+#: aw.ini:class_1506
+msgid "Klassi AW Klassi omadus (1506) nimi"
+msgstr ""
+
+#: aw.ini:class_1507
+msgid "Klassi Kliendisuhetegeneraator (1507) nimi"
+msgstr ""
+
+#: aw.ini:class_1508
+msgid "Klassi AW Saitide grupp (1508) nimi"
+msgstr ""
+
+#: aw.ini:class_1509
+msgid "Klassi Isiku t&ouml;&ouml;tundide tabel (1509) nimi"
+msgstr ""
+
+#: aw.ini:class_1510
+msgid "Klassi Isiku t&ouml;&ouml;tundide tabeli sisestus (1510) nimi"
+msgstr ""
+
+#: aw.ini:class_1511
+msgid "Klassi Materjali kulutingimus (1511) nimi"
+msgstr ""
+
+#: aw.ini:class_1512
+msgid "Klassi Isiku n&otilde;utud tundide kirje (1512) nimi"
+msgstr ""
+
+#: aw.ini:class_1513
+msgid "Klassi Materjalikulu (1513) nimi"
+msgstr ""
+
+#: aw.ini:class_1514
+msgid "Klassi Isiku t&ouml;&ouml;tundide sisestuse rida (1514) nimi"
+msgstr ""
+
+#: aw.ini:class_1515
+msgid "Klassi Organisatsiooni seadete vormi seadistaja (1515) nimi"
+msgstr ""
+
+#: aw.ini:class_1516
+msgid "Klassi Materjali liikumisseos (1516) nimi"
+msgstr ""
+
+#: aw.ini:class_1517
+msgid "Klassi Objekti kommentaar (1517) nimi"
+msgstr ""
+
+#: aw.ini:class_1518
+msgid "Klassi ERP Tellimuste haldus (1518) nimi"
+msgstr ""
+
+#: aw.ini:class_prodfamily_1518
+msgid "Klassi tooteperekonna Tr&uuml;kise m&uuml;&uuml;gikeskkond (1518) nimi"
+msgstr ""
+
+#: aw.ini:class_1519
+msgid "Klassi ERP Tellimus (1519) nimi"
+msgstr ""
+
+#: aw.ini:class_1520
+msgid "Klassi ERP Tr&uuml;kit&ouml;&ouml;stuse tellimus (1520) nimi"
+msgstr ""
+
+#: aw.ini:class_1521
+msgid "Klassi ERP Hinnakiri (1521) nimi"
+msgstr ""
+
+#: aw.ini:class_1522
+msgid "Klassi ERP Hinnakirja rida (1522) nimi"
+msgstr ""
+
+#: aw.ini:class_1523
+msgid "Klassi ERP Hinna kate (1523) nimi"
+msgstr ""
+
+#: aw.ini:class_1524
+msgid "Klassi Organisatsiooni seos tegevusalaga (1524) nimi"
+msgstr ""
+
+#: aw.ini:class_1525
+msgid "Klassi Praktikad (1525) nimi"
+msgstr ""
+
+#: aw.ini:class_1526
+msgid "Klassi Praktika (1526) nimi"
+msgstr ""
+
+#: aw.ini:class_1527
+msgid "Klassi SmartPOST pakiautomaadid (1527) nimi"
+msgstr ""
+
+#: aw.ini:class_1528
+msgid "Klassi ERP Tellumuste veebiliides (1528) nimi"
+msgstr ""
+
+#: aw.ini:class_1529
+msgid "Klassi ERP Paberi formaat (1529) nimi"
+msgstr ""
+
+#: aw.ini:class_1530
+msgid "Klassi Kogusepiirang (1530) nimi"
+msgstr ""
+
+#: aw.ini:class_1531
+msgid "Klassi RSS Lugeja (1531) nimi"
+msgstr ""
+
+#: aw.ini:class_1532
+msgid "Klassi Saidi koopia tellija (1532) nimi"
+msgstr ""
+
+#: aw.ini:class_1533
+msgid "Klassi ERP Saadetud tellimus (1533) nimi"
+msgstr ""
+
+#: aw.ini:class_1534
+msgid "Klassi Kliendigrupi allahindlus (1534) nimi"
+msgstr ""
+
+#: aw.ini:class_1535
+msgid "Klassi Lao import (1535) nimi"
+msgstr ""
+
+#: aw.ini:class_1536
+msgid "Klassi ERP Tellimuses kasutatav materjal (1536) nimi"
+msgstr ""
+
+#: aw.ini:class_1537
+msgid "Klassi ERP M&uuml;&uuml;gi katte grupp (1537) nimi"
+msgstr ""
+
+#: aw.ini:class_1538
+msgid "Klassi Tulukoht (1538) nimi"
+msgstr ""
+
+#: aw.ini:class_1539
+msgid "Klassi Kulukoht (1539) nimi"
+msgstr ""
+
+#: aw.ini:class_1540
+msgid "Klassi Kulukoha rida (1540) nimi"
+msgstr ""
+
+#: aw.ini:class_1541
+msgid "Klassi Klientide import (1541) nimi"
+msgstr ""
+
+#: aw.ini:class_1542
+msgid "Klassi Infrastruktuuri import (1542) nimi"
+msgstr ""
+
+#: aw.ini:class_1543
+msgid "Klassi Sisupaketi hinnatingimused (1543) nimi"
+msgstr ""
+
+#: aw.ini:class_1544
+msgid "Klassi T&ouml;&ouml;pakkumise tingimuste grupp (1544) nimi"
+msgstr ""
+
+#: aw.ini:class_1545
+msgid "Klassi T&ouml;&ouml;pakkumise tingimus (1545) nimi"
+msgstr ""
+
+#: aw.ini:class_1546
+msgid "Klassi ERP Ressursi seade (1546) nimi"
+msgstr ""
+
+#: aw.ini:class_1547
+msgid "Klassi MRP Ressursi seade kategooria (1547) nimi"
+msgstr ""
+
+#: aw.ini:class_1548
+msgid "Klassi ERP Formaadi kategooria (1548) nimi"
+msgstr ""
+
+#: aw.ini:class_1549
+msgid "Klassi MRP Formaadi kehtivus ressursile (1549) nimi"
+msgstr ""
+
+#: aw.ini:class_1551
+msgid "Klassi ERP Ressursi j&otilde;udluse kirje (1551) nimi"
+msgstr ""
+
+#: aw.ini:class_1553
+msgid "Klassi Kampaania (1553) nimi"
+msgstr ""
+
+#: aw.ini:class_1554
+msgid "Klassi Objektide allalaadimine (1554) nimi"
+msgstr ""
+
+#: aw.ini:class_1555
+msgid "Klassi Objektide &uuml;leslaadimine (1555) nimi"
+msgstr ""
+
+#: aw.ini:class_1556
+msgid "Klassi Lao tellimused veebis (1556) nimi"
+msgstr ""
+
+#: aw.ini:class_1557
+msgid "Klassi J&auml;relmaksukalkulaator (1557) nimi"
+msgstr ""
+
+#: aw.ini:class_1558
+msgid "Klassi K&auml;ttetoimetamise viis (1558) nimi"
+msgstr ""
+
+#: aw.ini:class_1559
+msgid "Klassi J&auml;relmaksu tingimused (1559) nimi"
+msgstr ""
+
+#: aw.ini:class_1560
+msgid "Klassi Esitlus (1560) nimi"
+msgstr ""
+
+#: aw.ini:class_1561
+msgid "Klassi K&auml;ttetoimetamise viisi tingimused (1561) nimi"
+msgstr ""
+
+#: aw.ini:class_1562
+msgid "Klassi CSV import (1562) nimi"
+msgstr ""
+
+#: aw.ini:class_1563
+msgid "Klassi Lao tagastus (1563) nimi"
+msgstr ""
+
+#: aw.ini:class_1564
+msgid "Klassi Reklamatsioon (1564) nimi"
+msgstr ""
+
+#: aw.ini:class_1565
+msgid "Klassi Lao tagastuse rida (1565) nimi"
+msgstr ""
+
+#: aw.ini:class_1566
+msgid "Klassi Reklamatsiooni rida (1566) nimi"
+msgstr ""
+
+#: aw.ini:class_1567
+msgid "Klassi Kliendi andmete veebis kuvamine (1567) nimi"
+msgstr ""
+
+#: aw.ini:class_1568
+msgid "Klassi Kliendi tellimuste veebis kuvamine (1568) nimi"
+msgstr ""
+
+#: aw.ini:class_1569
+msgid "Klassi Kliendi arvete veebis kuvamine (1569) nimi"
+msgstr ""
+
+#: aw.ini:class_1570
+msgid "Klassi Kliendi kasutajate veebis kuvamine (1570) nimi"
+msgstr ""
+
+#: aw.ini:class_1571
+msgid "Klassi Kliendi tagastuste veebis kuvamine (1571) nimi"
+msgstr ""
+
+#: aw.ini:class_1572
+msgid "Klassi Kliendi saatelehtede veebis kuvamine (1572) nimi"
+msgstr ""
+
+#: aw.ini:class_1573
+msgid "Klassi Hinnakirja tingimus (1573) nimi"
+msgstr ""
+
+#: aw.ini:class_1574
+msgid "Klassi Hinnakirja tingimuse t&uuml;&uuml;p (1574) nimi"
+msgstr ""
+
+#: aw.ini:class_1575
+msgid "Klassi Tootekategooria t&uuml;&uuml;p (1575) nimi"
+msgstr ""
+
+#: aw.ini:class_1576
+msgid "Klassi Toodete n&auml;itamine (1576) nimi"
+msgstr ""
+
+#: aw.ini:class_1577
+msgid "Klassi J&auml;relmaksukonfiguratsioon (1577) nimi"
+msgstr ""
+
+# aw.ini:classfolder_29
+#: aw.ini:classfolder_29
+msgid "Klassi kataloogi Dokumendid (29) nimi"
+msgstr ""
+
+# aw.ini:classfolder_1
+#: aw.ini:classfolder_1
+msgid "Klassi kataloogi Sisuhaldus (1) nimi"
+msgstr ""
+
+# aw.ini:classfolder_36
+#: aw.ini:classfolder_36
+msgid "Klassi kataloogi Liikuv kontor (36) nimi"
+msgstr ""
+
+# aw.ini:classfolder_43
+#: aw.ini:classfolder_43
+msgid "Klassi kataloogi Tugiteenused (43) nimi"
+msgstr ""
+
+# aw.ini:classfolder_39
+#: aw.ini:classfolder_39
+msgid "Klassi kataloogi Sisuobjektid (39) nimi"
+msgstr ""
+
+# aw.ini:classfolder_56
+#: aw.ini:classfolder_56
+msgid "Klassi kataloogi Kiirteade (56) nimi"
+msgstr ""
+
+# aw.ini:classfolder_3
+#: aw.ini:classfolder_3
+msgid "Klassi kataloogi Ajahaldus (3) nimi"
+msgstr ""
+
+# aw.ini:classfolder_5
+#: aw.ini:classfolder_5
+msgid "Klassi kataloogi Meilinglistid (5) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_6
+msgid "Klassi kataloogi T&otilde;lked (6) nimi"
+msgstr ""
+
+# aw.ini:classfolder_7
+#: aw.ini:classfolder_7
+msgid "Klassi kataloogi Poed (7) nimi"
+msgstr ""
+
+# aw.ini:classfolder_8
+#: aw.ini:classfolder_8
+msgid "Klassi kataloogi Bannerid (8) nimi"
+msgstr ""
+
+# aw.ini:classfolder_13
+#: aw.ini:classfolder_13
+msgid "Klassi kataloogi Import / eksport (13) nimi"
+msgstr ""
+
+# aw.ini:classfolder_14
+#: aw.ini:classfolder_14
+msgid "Klassi kataloogi Seadistused (14) nimi"
+msgstr ""
+
+# aw.ini:classfolder_15
+#: aw.ini:classfolder_15
+msgid "Klassi kataloogi Kasutajate haldus (15) nimi"
+msgstr ""
+
+# aw.ini:classfolder_16
+#: aw.ini:classfolder_16
+msgid "Klassi kataloogi Stiilid (16) nimi"
+msgstr ""
+
+# aw.ini:classfolder_17
+#: aw.ini:classfolder_17
+msgid "Klassi kataloogi Visuaalne arenduskeskkond (17) nimi"
+msgstr ""
+
+# aw.ini:classfolder_20
+#: aw.ini:classfolder_20
+msgid "Klassi kataloogi Klientide objektid (20) nimi"
+msgstr ""
+
+# aw.ini:classfolder_24
+#: aw.ini:classfolder_24
+msgid "Klassi kataloogi Kliendihaldus (24) nimi"
+msgstr ""
+
+# aw.ini:classfolder_25
+#: aw.ini:classfolder_25
+msgid "Klassi kataloogi MySQL (25) nimi"
+msgstr ""
+
+# aw.ini:classfolder_26
+#: aw.ini:classfolder_26
+msgid "Klassi kataloogi Kasutusstatistika (26) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_28
+msgid "Klassi kataloogi T&ouml;&ouml;voogude juhtimine (28) nimi"
+msgstr ""
+
+# aw.ini:classfolder_31
+#: aw.ini:classfolder_31
+msgid "Klassi kataloogi Kujundus (31) nimi"
+msgstr ""
+
+# aw.ini:classfolder_32
+#: aw.ini:classfolder_32
+msgid "Klassi kataloogi Galeriid (32) nimi"
+msgstr ""
+
+# aw.ini:classfolder_34
+#: aw.ini:classfolder_34
+msgid "Klassi kataloogi SWOT (34) nimi"
+msgstr ""
+
+# aw.ini:classfolder_37
+#: aw.ini:classfolder_37
+msgid "Klassi kataloogi Arendajatele (37) nimi"
+msgstr ""
+
+# aw.ini:classfolder_38
+#: aw.ini:classfolder_38
+msgid "Klassi kataloogi Meilid (38) nimi"
+msgstr ""
+
+# aw.ini:classfolder_40
+#: aw.ini:classfolder_40
+msgid "Klassi kataloogi Foorumid (40) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_4
+msgid "Klassi kataloogi Varia & Vanad (4) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_10
+msgid "Klassi kataloogi S&uuml;steemi haldus (10) nimi"
+msgstr ""
+
+# aw.ini:classfolder_33
+#: aw.ini:classfolder_33
+msgid "Klassi kataloogi Muu sisu (33) nimi"
+msgstr ""
+
+# aw.ini:classfolder_27
+#: aw.ini:classfolder_27
+msgid "Klassi kataloogi Saidi ehitamine (27) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_18
+msgid "Klassi kataloogi Varia & Vanad (18) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_41
+msgid "Klassi kataloogi V&otilde;tmes&otilde;nad (41) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_30
+msgid "Klassi kataloogi Varia & Vanad (30) nimi"
+msgstr ""
+
+# aw.ini:classfolder_2
+#: aw.ini:classfolder_2
+msgid "Klassi kataloogi Toetavad objektid (2) nimi"
+msgstr ""
+
+# aw.ini:classfolder_42
+#: aw.ini:classfolder_42
+msgid "Klassi kataloogi Objektide haldus (42) nimi"
+msgstr ""
+
+# aw.ini:classfolder_23
+#: aw.ini:classfolder_23
+msgid "Klassi kataloogi Objektid A-Z (23) nimi"
+msgstr ""
+
+# aw.ini:classfolder_35
+#: aw.ini:classfolder_35
+msgid "Klassi kataloogi Otsingud (35) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_19
+msgid "Klassi kataloogi T&ouml;&ouml;solevad klassid (19) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_21
+msgid "Klassi kataloogi N&auml;htamatud objektid (21) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_12
+msgid "Klassi kataloogi Proovit&ouml;&ouml;d (12) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_22
+msgid "Klassi kataloogi Sissep&auml;&auml;sud (22) nimi"
+msgstr ""
+
+# aw.ini:classfolder_11
+#: aw.ini:classfolder_11
+msgid "Klassi kataloogi Sorteerimata (11) nimi"
+msgstr ""
+
+# aw.ini:classfolder_45
+#: aw.ini:classfolder_45
+msgid "Klassi kataloogi Profiil (45) nimi"
+msgstr ""
+
+# aw.ini:classfolder_46
+#: aw.ini:classfolder_46
+msgid "Klassi kataloogi Ladu (46) nimi"
+msgstr ""
+
+# aw.ini:classfolder_47
+#: aw.ini:classfolder_47
+msgid "Klassi kataloogi Personalihaldus (47) nimi"
+msgstr ""
+
+# aw.ini:classfolder_48
+#: aw.ini:classfolder_48
+msgid "Klassi kataloogi Kommuun (48) nimi"
+msgstr ""
+
+# aw.ini:classfolder_49
+#: aw.ini:classfolder_49
+msgid "Klassi kataloogi Objektide nimekiri (49) nimi"
+msgstr ""
+
+# aw.ini:classfolder_50
+#: aw.ini:classfolder_50
+msgid "Klassi kataloogi Prisma (50) nimi"
+msgstr ""
+
+# aw.ini:classfolder_51
+#: aw.ini:classfolder_51
+msgid "Klassi kataloogi Registrid (51) nimi"
+msgstr ""
+
+# aw.ini:classfolder_52
+#: aw.ini:classfolder_52
+msgid "Klassi kataloogi Otto (52) nimi"
+msgstr ""
+
+# aw.ini:classfolder_53
+#: aw.ini:classfolder_53
+msgid "Klassi kataloogi Pank (53) nimi"
+msgstr ""
+
+# aw.ini:classfolder_54
+#: aw.ini:classfolder_54
+msgid "Klassi kataloogi Ressursihaldus (54) nimi"
+msgstr ""
+
+# aw.ini:classfolder_55
+#: aw.ini:classfolder_55
+msgid "Klassi kataloogi Autentimine (55) nimi"
+msgstr ""
+
+# aw.ini:classfolder_57
+#: aw.ini:classfolder_57
+msgid "Klassi kataloogi Toetavad objektid (57) nimi"
+msgstr ""
+
+# aw.ini:classfolder_58
+#: aw.ini:classfolder_58
+msgid "Klassi kataloogi Tellimused (58) nimi"
+msgstr ""
+
+# aw.ini:classfolder_59
+#: aw.ini:classfolder_59
+msgid "Klassi kataloogi Bug-o-matic 3000 (59) nimi"
+msgstr ""
+
+# aw.ini:classfolder_60
+#: aw.ini:classfolder_60
+msgid "Klassi kataloogi Kinnisvarahaldus (60) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_61
+msgid "Klassi kataloogi Hankekeskkond (61) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_62
+msgid "Klassi kataloogi Siduss&uuml;steemid (62) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_63
+msgid "Klassi kataloogi Spordiv&otilde;istluste haldus (63) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_64
+msgid "Klassi kataloogi T&ouml;&ouml;aja planeerimine (64) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_65
+msgid "Klassi kataloogi Eelarvestamine (65) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_66
+msgid "Klassi kataloogi Pleier (66) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_67
+msgid "Klassi kataloogi Fun (67) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_68
+msgid "Klassi kataloogi Geoinfo (68) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_69
+msgid "Klassi kataloogi Infohaldus (69) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_70
+msgid "Klassi kataloogi Tellimused (70) nimi"
+msgstr ""
+
+#: aw.ini:classfolder_71
+msgid "Klassi kataloogi Praktikad (71) nimi"
+msgstr ""
+
+#: aw.ini:acl_can_edit
+msgid "ACL tegevuse Muutmine (can_edit) nimi"
+msgstr ""
+
+#: aw.ini:acl_can_add
+msgid "ACL tegevuse Lisamine (can_add) nimi"
+msgstr ""
+
+#: aw.ini:acl_can_admin
+msgid "ACL tegevuse ACL Muutmine (can_admin) nimi"
+msgstr ""
+
+#: aw.ini:acl_can_delete
+msgid "ACL tegevuse Kustutamine (can_delete) nimi"
+msgstr ""
+
+#: aw.ini:acl_can_view
+msgid "ACL tegevuse Vaatamine (can_view) nimi"
+msgstr ""
+
+#: aw.ini:acl_can_subs
+msgid "ACL tegevuse Kehtib alamobjektidele (can_subs) nimi"
+msgstr ""
+
+#: aw.ini:syslogtypes_1
+msgid "syslog.type.ST_ML_VAR"
+msgstr ""
+
+#: aw.ini:syslogtypes_2
+msgid "syslog.type.ST_ML_STAMP"
+msgstr ""
+
+#: aw.ini:syslogtypes_3
+msgid "syslog.type.ST_ML_CAT"
+msgstr ""
+
+#: aw.ini:syslogtypes_4
+msgid "syslog.type.ST_CORE"
+msgstr ""
+
+#: aw.ini:syslogtypes_5
+msgid "syslog.type.ST_USERS"
+msgstr ""
+
+#: aw.ini:syslogtypes_6
+msgid "syslog.type.ST_GROUPS"
+msgstr ""
+
+#: aw.ini:syslogtypes_8
+msgid "syslog.type.ST_AWTABLE"
+msgstr ""
+
+#: aw.ini:syslogtypes_9
+msgid "syslog.type.ST_REFERER"
+msgstr ""
+
+#: aw.ini:syslogtypes_10
+msgid "syslog.type.ST_STYLE"
+msgstr ""
+
+#: aw.ini:syslogtypes_11
+msgid "syslog.type.ST_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_14 aw.ini:syslogtypes_238
+msgid "syslog.type.ST_PERIOD"
+msgstr ""
+
+#: aw.ini:syslogtypes_15
+msgid "syslog.type.ST_ML_USER"
+msgstr ""
+
+#: aw.ini:syslogtypes_16
+msgid "syslog.type.ST_MENUEDIT"
+msgstr ""
+
+#: aw.ini:syslogtypes_17
+msgid "syslog.type.ST_MAILINGLIST_STAMP"
+msgstr ""
+
+#: aw.ini:syslogtypes_19
+msgid "syslog.type.ST_MAILINGLIST_MEMBER"
+msgstr ""
+
+#: aw.ini:syslogtypes_21
+msgid "syslog.type.ST_MAILINGLIST"
+msgstr ""
+
+#: aw.ini:syslogtypes_22
+msgid "syslog.type.ST_ML_LIST"
+msgstr ""
+
+#: aw.ini:syslogtypes_23
+msgid "syslog.type.ST_IFRAME"
+msgstr ""
+
+#: aw.ini:syslogtypes_24
+msgid "syslog.type.ST_FORM_OP"
+msgstr ""
+
+#: aw.ini:syslogtypes_25
+msgid "syslog.type.ST_FORM_ENRTY"
+msgstr ""
+
+#: aw.ini:syslogtypes_26
+msgid "syslog.type.ST_FORM"
+msgstr ""
+
+#: aw.ini:syslogtypes_27
+msgid "syslog.type.ST_FORM_ACTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_28
+msgid "syslog.type.ST_EXTLINK"
+msgstr ""
+
+#: aw.ini:syslogtypes_29
+msgid "syslog.type.ST_ML_MAIL"
+msgstr ""
+
+#: aw.ini:syslogtypes_30
+msgid "syslog.type.ST_ML_MAIL_LINK"
+msgstr ""
+
+#: aw.ini:syslogtypes_31
+msgid "syslog.type.ST_DOCUMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_32
+msgid "syslog.type.ST_CONFIG"
+msgstr ""
+
+#: aw.ini:syslogtypes_33 aw.ini:syslogtypes_868
+msgid "syslog.type.ST_BUG"
+msgstr ""
+
+#: aw.ini:syslogtypes_34
+msgid "syslog.type.ST_DRONLINE"
+msgstr ""
+
+#: aw.ini:syslogtypes_35
+msgid "syslog.type.ST_GRAPH_NG"
+msgstr ""
+
+#: aw.ini:syslogtypes_36
+msgid "syslog.type.ST_IPADDRESS"
+msgstr ""
+
+#: aw.ini:syslogtypes_37
+msgid "syslog.type.ST_PROMO"
+msgstr ""
+
+#: aw.ini:syslogtypes_38
+msgid "syslog.type.ST_SITE"
+msgstr ""
+
+#: aw.ini:syslogtypes_40
+msgid "syslog.type.ST_SITE_LIST"
+msgstr ""
+
+#: aw.ini:syslogtypes_41
+msgid "syslog.type.ST_MENU"
+msgstr ""
+
+#: aw.ini:syslogtypes_42
+msgid "syslog.type.ST_IMAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_43
+msgid "syslog.type.ST_ACTOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_44
+msgid "syslog.type.ST_ACTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_45
+msgid "syslog.type.ST_ENTITY"
+msgstr ""
+
+#: aw.ini:syslogtypes_46
+msgid "syslog.type.ST_PROCESS"
+msgstr ""
+
+#: aw.ini:syslogtypes_47
+msgid "syslog.type.ST_WORKFLOW"
+msgstr ""
+
+#: aw.ini:syslogtypes_48
+msgid "syslog.type.ST_LAYOUT"
+msgstr ""
+
+#: aw.ini:syslogtypes_49
+msgid "syslog.type.ST_WORKFLOW_CONFIG"
+msgstr ""
+
+#: aw.ini:syslogtypes_50
+msgid "syslog.type.ST_RELATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_51
+msgid "syslog.type.ST_MENU_AREA"
+msgstr ""
+
+#: aw.ini:syslogtypes_52
+msgid "syslog.type.ST_YAH_LINE"
+msgstr ""
+
+#: aw.ini:syslogtypes_53
+msgid "syslog.type.ST_SITE_CONTENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_54
+msgid "syslog.type.ST_MENU_AREA_LEVEL"
+msgstr ""
+
+#: aw.ini:syslogtypes_55
+msgid "syslog.type.ST_AIP_CONF"
+msgstr ""
+
+#: aw.ini:syslogtypes_56
+msgid "syslog.type.ST_AIP"
+msgstr ""
+
+#: aw.ini:syslogtypes_57
+msgid "syslog.type.ST_AIP_CHANGE_SHOW"
+msgstr ""
+
+#: aw.ini:syslogtypes_58
+msgid "syslog.type.ST_GALLERY_CONF"
+msgstr ""
+
+#: aw.ini:syslogtypes_59
+msgid "syslog.type.ST_RATE_SCALE"
+msgstr ""
+
+#: aw.ini:syslogtypes_60
+msgid "syslog.type.ST_RATE"
+msgstr ""
+
+#: aw.ini:syslogtypes_61
+msgid "syslog.type.ST_GALLERY"
+msgstr ""
+
+#: aw.ini:syslogtypes_62 aw.ini:syslogtypes_64 aw.ini:syslogtypes_114
+msgid "syslog.type."
+msgstr ""
+
+#: aw.ini:syslogtypes_63
+msgid "syslog.type.ST_CAL_CONTENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_65
+msgid "syslog.type.ST_FLASH"
+msgstr ""
+
+#: aw.ini:syslogtypes_66
+msgid "syslog.type.ST_FTP_LOGIN"
+msgstr ""
+
+#: aw.ini:syslogtypes_67
+msgid "syslog.type.ST_LIVELINK_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_69
+msgid "syslog.type.ST_SWOT"
+msgstr ""
+
+#: aw.ini:syslogtypes_70
+msgid "syslog.type.ST_SWOT_STRENGTH"
+msgstr ""
+
+#: aw.ini:syslogtypes_71
+msgid "syslog.type.ST_SWOT_WEAKNESS"
+msgstr ""
+
+#: aw.ini:syslogtypes_72
+msgid "syslog.type.ST_SWOT_THREAT"
+msgstr ""
+
+#: aw.ini:syslogtypes_73
+msgid "syslog.type.ST_SWOT_OPPORTUNITY"
+msgstr ""
+
+#: aw.ini:syslogtypes_74
+msgid "syslog.type.ST_CLASSIFICATOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_75
+msgid "syslog.type.ST_AW_SITE_GEN_LOG"
+msgstr ""
+
+#: aw.ini:syslogtypes_76
+msgid "syslog.type.ST_SITE_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_77
+msgid "syslog.type.ST_CSS"
+msgstr ""
+
+#: aw.ini:syslogtypes_78
+msgid "syslog.type.ST_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_79
+msgid "syslog.type.ST_COMMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_82
+msgid "syslog.type.ST_OBJECT_TREE"
+msgstr ""
+
+#: aw.ini:syslogtypes_83
+msgid "syslog.type.ST_DESKTOP"
+msgstr ""
+
+#: aw.ini:syslogtypes_84
+msgid "syslog.type.ST_FORUM"
+msgstr ""
+
+#: aw.ini:syslogtypes_85
+msgid "syslog.type.ST_EKOMAR"
+msgstr ""
+
+#: aw.ini:syslogtypes_86
+msgid "syslog.type.ST_MENU_SEPARATOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_87
+msgid "syslog.type.ST_SHORTCUT"
+msgstr ""
+
+#: aw.ini:syslogtypes_88
+msgid "syslog.type.ST_TRANSLATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_89
+msgid "syslog.type.ST_OBJECT_TRANSLATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_91
+msgid "syslog.type.ST_MAITENANCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_92
+msgid "syslog.type.ST_CRM_PHONE"
+msgstr ""
+
+#: aw.ini:syslogtypes_93
+msgid "syslog.type.ST_CRM_PROFESSION"
+msgstr ""
+
+#: aw.ini:syslogtypes_94
+msgid "syslog.type.ST_DOCUMENT_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_95
+msgid "syslog.type.ST_CRM_DEAL"
+msgstr ""
+
+#: aw.ini:syslogtypes_96
+msgid "syslog.type.ST_CRM_CALL"
+msgstr ""
+
+#: aw.ini:syslogtypes_97
+msgid "syslog.type.ST_CRM_MEETING"
+msgstr ""
+
+#: aw.ini:syslogtypes_98
+msgid "syslog.type.ST_CRM_OFFER"
+msgstr ""
+
+#: aw.ini:syslogtypes_99
+msgid "syslog.type.ST_MESSENGER_CONFIG"
+msgstr ""
+
+#: aw.ini:syslogtypes_100
+msgid "syslog.type.ST_MESSENGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_101
+msgid "syslog.type.ST_PROTO_POP3"
+msgstr ""
+
+#: aw.ini:syslogtypes_102
+msgid "syslog.type.ST_PROTO_IMAP"
+msgstr ""
+
+#: aw.ini:syslogtypes_103
+msgid "syslog.type.ST_MAIL_RULE"
+msgstr ""
+
+#: aw.ini:syslogtypes_104
+msgid "syslog.type.ST_SITE_SEARCH_CONTENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_105
+msgid "syslog.type.ST_SITE_SEARCH_CONTENT_GRP"
+msgstr ""
+
+#: aw.ini:syslogtypes_106
+msgid "syslog.type.ST_INTRANET"
+msgstr ""
+
+#: aw.ini:syslogtypes_107
+msgid "syslog.type.ST_WORKBENCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_108
+msgid "syslog.type.ST_RTE"
+msgstr ""
+
+#: aw.ini:syslogtypes_112
+msgid "syslog.type.ST_PROJECT"
+msgstr ""
+
+#: aw.ini:syslogtypes_113
+msgid "syslog.type.ST_MESSENGER_IDENTITY"
+msgstr ""
+
+#: aw.ini:syslogtypes_117
+msgid "syslog.type.ST_TASK"
+msgstr ""
+
+#: aw.ini:syslogtypes_124
+msgid "syslog.type.ST_POLL"
+msgstr ""
+
+#: aw.ini:syslogtypes_125
+msgid "syslog.type.ST_CONFIG_LOGIN_MENUS"
+msgstr ""
+
+#: aw.ini:syslogtypes_126
+msgid "syslog.type.ST_CONFIG_AW_DOCUMENT_TEMPLATE"
+msgstr ""
+
+#: aw.ini:syslogtypes_127
+msgid "syslog.type.ST_WORKFLOW_TRANSITION"
+msgstr ""
+
+#: aw.ini:syslogtypes_128
+msgid "syslog.type.ST_WORKFLOW_ENTITY_INSTANCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_129
+msgid "syslog.type.ST_FOLDER_LIST"
+msgstr ""
+
+#: aw.ini:syslogtypes_130
+msgid "syslog.type.ST_PROFILE"
+msgstr ""
+
+#: aw.ini:syslogtypes_131
+msgid "syslog.type.ST_SEXUAL_ORIENTATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_132
+msgid "syslog.type.ST_HAIR_COLOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_133
+msgid "syslog.type.ST_PROFILE_HAIR_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_134
+msgid "syslog.type.ST_PROFILE_EYES_COLOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_135
+msgid "syslog.type.ST_PROFILE_BODY_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_136
+msgid "syslog.type.ST_PROFILE_ALCOHOL"
+msgstr ""
+
+#: aw.ini:syslogtypes_137
+msgid "syslog.type.ST_PROFILE_TOBACCO"
+msgstr ""
+
+#: aw.ini:syslogtypes_138
+msgid "syslog.type.ST_PROFILE_HEIGHT"
+msgstr ""
+
+#: aw.ini:syslogtypes_139
+msgid "syslog.type.ST_PROFILE_WEIGHT"
+msgstr ""
+
+#: aw.ini:syslogtypes_140 aw.ini:syslogtypes_531
+msgid "syslog.type.ST_LANGUAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_141
+msgid "syslog.type.ST_CALENDAR_VIEW"
+msgstr ""
+
+#: aw.ini:syslogtypes_142
+msgid "syslog.type.ST_META"
+msgstr ""
+
+#: aw.ini:syslogtypes_143
+msgid "syslog.type.ST_SERVER_FOLDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_144
+msgid "syslog.type.ST_METAMGR"
+msgstr ""
+
+#: aw.ini:syslogtypes_145
+msgid "syslog.type.ST_AW_TEST"
+msgstr ""
+
+#: aw.ini:syslogtypes_146
+msgid "syslog.type.ST_CURRENCY"
+msgstr ""
+
+#: aw.ini:syslogtypes_147
+msgid "syslog.type.ST_RECURRENCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_148
+msgid "syslog.type.ST_JOIN_SITE"
+msgstr ""
+
+#: aw.ini:syslogtypes_149
+msgid "syslog.type.ST_JOIN_SITE_RULE"
+msgstr ""
+
+#: aw.ini:syslogtypes_150
+msgid "syslog.type.ST_SHOP_WAREHOUSE"
+msgstr ""
+
+#: aw.ini:syslogtypes_151
+msgid "syslog.type.ST_SHOP_PROD_CODES"
+msgstr ""
+
+#: aw.ini:syslogtypes_152
+msgid "syslog.type.ST_SHOP_PERIOD_SETTINGS"
+msgstr ""
+
+#: aw.ini:syslogtypes_153
+msgid "syslog.type.ST_SHOP_TAXES"
+msgstr ""
+
+#: aw.ini:syslogtypes_154
+msgid "syslog.type.ST_SHOP_ITEM_PRICE"
+msgstr ""
+
+#: aw.ini:syslogtypes_155
+msgid "syslog.type.ST_SHOP_PRICE_MODIFIER"
+msgstr ""
+
+#: aw.ini:syslogtypes_156
+msgid "syslog.type.ST_SHOP_PRODUCT"
+msgstr ""
+
+#: aw.ini:syslogtypes_157
+msgid "syslog.type.ST_SHOP_WAREHOUSE_CONFIG"
+msgstr ""
+
+#: aw.ini:syslogtypes_158
+msgid "syslog.type.ST_SHOP_PACKET"
+msgstr ""
+
+#: aw.ini:syslogtypes_159
+msgid "syslog.type.ST_SHOP_WAREHOUSE_RECEPTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_160
+msgid "syslog.type.ST_SHOP_WAREHOUSE_EXPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_161
+msgid "syslog.type.ST_SHOP_PRODUCT_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_162
+msgid "syslog.type.ST_AUTHOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_163
+msgid "syslog.type.ST_SHOP_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_164
+msgid "syslog.type.ST_DOCUMENT_STATISTICS"
+msgstr ""
+
+#: aw.ini:syslogtypes_165
+msgid "syslog.type.ST_STAT_REPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_166
+msgid "syslog.type.ST_CONTENTS"
+msgstr ""
+
+#: aw.ini:syslogtypes_167
+msgid "syslog.type.ST_COMMUNE"
+msgstr ""
+
+#: aw.ini:syslogtypes_168
+msgid "syslog.type.ST_BANNER"
+msgstr ""
+
+#: aw.ini:syslogtypes_169
+msgid "syslog.type.ST_BANNER_LOCATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_170
+msgid "syslog.type.ST_AGRI_REGISTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_171
+msgid "syslog.type.ST_AGRI_DATA"
+msgstr ""
+
+#: aw.ini:syslogtypes_172
+msgid "syslog.type.ST_AGRI_PROD_CODES"
+msgstr ""
+
+#: aw.ini:syslogtypes_173
+msgid "syslog.type.ST_AGRI_PROD_CODE"
+msgstr ""
+
+#: aw.ini:syslogtypes_174
+msgid "syslog.type.ST_AGRI_PROD_DATA"
+msgstr ""
+
+#: aw.ini:syslogtypes_175
+msgid "syslog.type.ST_AGRI_STAT_REPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_176
+msgid "syslog.type.ST_DOCUMENT_ARCHIVE"
+msgstr ""
+
+#: aw.ini:syslogtypes_177
+msgid "syslog.type.ST_SHOP_ORDER_CENTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_178
+msgid "syslog.type.ST_SHOP_PRODUCT_LAYOUT"
+msgstr ""
+
+#: aw.ini:syslogtypes_179
+msgid "syslog.type.ST_SHOP_PRODUCT_TABLE_LAYOUT"
+msgstr ""
+
+#: aw.ini:syslogtypes_180
+msgid "syslog.type.ST_MINI_GALLERY"
+msgstr ""
+
+#: aw.ini:syslogtypes_181
+msgid "syslog.type.ST_SHOP_ORDER_CART"
+msgstr ""
+
+#: aw.ini:syslogtypes_182
+msgid "syslog.type.ST_CLASS_DESIGNER"
+msgstr ""
+
+#: aw.ini:syslogtypes_183
+msgid "syslog.type.ST_CRM_SECTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_184
+msgid "syslog.type.ST_MESSAGEBOARD"
+msgstr ""
+
+#: aw.ini:syslogtypes_185
+msgid "syslog.type.ST_AW_DOCGEN_VIEWER"
+msgstr ""
+
+#: aw.ini:syslogtypes_186
+msgid "syslog.type.ST_OBJECT_TREEVIEW_V2"
+msgstr ""
+
+#: aw.ini:syslogtypes_187
+msgid "syslog.type.ST_OTV_DS_OBJ"
+msgstr ""
+
+#: aw.ini:syslogtypes_188
+msgid "syslog.type.ST_OTV_DS_POSTIPOISS"
+msgstr ""
+
+#: aw.ini:syslogtypes_189
+msgid "syslog.type.ST_SHOP_PRODUCT_PACKAGING"
+msgstr ""
+
+#: aw.ini:syslogtypes_190
+msgid "syslog.type.ST_PERSONNEL_MANAGEMENT_CV_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_191
+msgid "syslog.type.ST_OBJECT_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_192
+msgid "syslog.type.ST_CLASS_LIST"
+msgstr ""
+
+#: aw.ini:syslogtypes_193
+msgid "syslog.type.ST_PRINTAL_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_194
+msgid "syslog.type.ST_WORKFLOW_RESOURCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_195
+msgid "syslog.type.ST_PRISMA_CENTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_196
+msgid "syslog.type.ST_QUICKMESSAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_197
+msgid "syslog.type.ST_VASTUV6TT_KESKKOND"
+msgstr ""
+
+#: aw.ini:syslogtypes_198
+msgid "syslog.type.ST_VASTUV6TT_AVALDUS"
+msgstr ""
+
+#: aw.ini:syslogtypes_199
+msgid "syslog.type.ST_VASTUV6TT_SISSEASTUJA"
+msgstr ""
+
+#: aw.ini:syslogtypes_200
+msgid "syslog.type.ST_ABSTRACT_DATASOURCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_201
+msgid "syslog.type.ST_ABSTRACT_DATA_CLASS"
+msgstr ""
+
+#: aw.ini:syslogtypes_202
+msgid "syslog.type.ST_DB_SERVER_LOGIN"
+msgstr ""
+
+#: aw.ini:syslogtypes_203
+msgid "syslog.type.ST_DB_LOGIN"
+msgstr ""
+
+#: aw.ini:syslogtypes_204
+msgid "syslog.type.ST_DB_SERVER_EXPLORER_CONF"
+msgstr ""
+
+#: aw.ini:syslogtypes_205
+msgid "syslog.type.ST_DB_SERVER_EXPLORER"
+msgstr ""
+
+#: aw.ini:syslogtypes_206
+msgid "syslog.type.ST_OBJECT_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_207
+msgid "syslog.type.ST_ADD_TREE_CONF"
+msgstr ""
+
+#: aw.ini:syslogtypes_208
+msgid "syslog.type.ST_TREE_ROOT"
+msgstr ""
+
+#: aw.ini:syslogtypes_209
+msgid "syslog.type.ST_SCHEDULER_OBJ"
+msgstr ""
+
+#: aw.ini:syslogtypes_210
+msgid "syslog.type.ST_STAT_UPLOADER"
+msgstr ""
+
+#: aw.ini:syslogtypes_211
+msgid "syslog.type.ST_MAIL_MESSAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_212
+msgid "syslog.type.ST_APACHE_ALIAS"
+msgstr ""
+
+#: aw.ini:syslogtypes_213
+msgid "syslog.type.ST_PLANNER"
+msgstr ""
+
+#: aw.ini:syslogtypes_214
+msgid "syslog.type.ST_BACKUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_215
+msgid "syslog.type.ST_RECYCLE_BIN"
+msgstr ""
+
+#: aw.ini:syslogtypes_216
+msgid "syslog.type.ST_DATASOURCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_217
+msgid "syslog.type.ST_UT_XML_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_219
+msgid "syslog.type.ST_CFGFORM"
+msgstr ""
+
+#: aw.ini:syslogtypes_220
+msgid "syslog.type.ST_CFGMANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_221
+msgid "syslog.type.ST_FORUM_TOPIC"
+msgstr ""
+
+#: aw.ini:syslogtypes_222
+msgid "syslog.type.ST_HTML_POPUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_223
+msgid "syslog.type.ST_MENU_TREE"
+msgstr ""
+
+#: aw.ini:syslogtypes_224
+msgid "syslog.type.ST_LINKS"
+msgstr ""
+
+#: aw.ini:syslogtypes_225
+msgid "syslog.type.ST_DOCGEN_VIEWER"
+msgstr ""
+
+#: aw.ini:syslogtypes_226
+msgid "syslog.type.ST_CRM_ADDRESS"
+msgstr ""
+
+#: aw.ini:syslogtypes_227
+msgid "syslog.type.ST_CRM_CITY"
+msgstr ""
+
+#: aw.ini:syslogtypes_228
+msgid "syslog.type.ST_CRM_COMPANY"
+msgstr ""
+
+#: aw.ini:syslogtypes_229
+msgid "syslog.type.ST_CRM_CORPFORM"
+msgstr ""
+
+#: aw.ini:syslogtypes_230
+msgid "syslog.type.ST_CRM_COUNTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_231
+msgid "syslog.type.ST_CRM_DB"
+msgstr ""
+
+#: aw.ini:syslogtypes_232
+msgid "syslog.type.ST_CRM_PERSON"
+msgstr ""
+
+#: aw.ini:syslogtypes_233
+msgid "syslog.type.ST_CRM_PRODUCT"
+msgstr ""
+
+#: aw.ini:syslogtypes_234
+msgid "syslog.type.ST_CRM_SECTOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_235
+msgid "syslog.type.ST_CRM_SELECTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_236
+msgid "syslog.type.ST_FILE"
+msgstr ""
+
+#: aw.ini:syslogtypes_237
+msgid "syslog.type.ST_OBJ_TABLE_CONF"
+msgstr ""
+
+#: aw.ini:syslogtypes_239
+msgid "syslog.type.ST_POLL_NG"
+msgstr ""
+
+#: aw.ini:syslogtypes_240
+msgid "syslog.type.ST_PULLOUT"
+msgstr ""
+
+#: aw.ini:syslogtypes_241
+msgid "syslog.type.ST_SITE_THREEPANE"
+msgstr ""
+
+#: aw.ini:syslogtypes_242
+msgid "syslog.type.ST_PAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_243
+msgid "syslog.type.ST_TREEVIEW"
+msgstr ""
+
+#: aw.ini:syslogtypes_244
+msgid "syslog.type.ST_OBJECT_CHAIN"
+msgstr ""
+
+#: aw.ini:syslogtypes_245
+msgid "syslog.type.ST_GRAPH"
+msgstr ""
+
+#: aw.ini:syslogtypes_341
+msgid "syslog.type.ST_REGISTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_342
+msgid "syslog.type.ST_REGISTER_DATA"
+msgstr ""
+
+#: aw.ini:syslogtypes_343
+msgid "syslog.type.ST_REGISTER_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_344
+msgid "syslog.type.ST_SHOP_SPECIAL_OFFER"
+msgstr ""
+
+#: aw.ini:syslogtypes_345
+msgid "syslog.type.ST_SHOP_ORDER_CART_VALUE"
+msgstr ""
+
+#: aw.ini:syslogtypes_346
+msgid "syslog.type.ST_PROJECT_INCOME"
+msgstr ""
+
+#: aw.ini:syslogtypes_347
+msgid "syslog.type.ST_PROJECT_COST"
+msgstr ""
+
+#: aw.ini:syslogtypes_348
+msgid "syslog.type.ST_PROJECT_COST_ARTICLE"
+msgstr ""
+
+#: aw.ini:syslogtypes_349
+msgid "syslog.type.ST_SURVEY"
+msgstr ""
+
+#: aw.ini:syslogtypes_350
+msgid "syslog.type.ST_SURVEY_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_351
+msgid "syslog.type.ST_PERSONNEL_MANAGEMENT_JOB_WANTED"
+msgstr ""
+
+#: aw.ini:syslogtypes_428
+msgid "syslog.type.ST_CB_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_449
+msgid "syslog.type.ST_MESSAGE_TEMPLATE"
+msgstr ""
+
+#: aw.ini:syslogtypes_477
+msgid "syslog.type.ST_OBJECT_EXPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_478
+msgid "syslog.type.ST_OBJECT_IMPORT_EXCEPTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_479
+msgid "syslog.type.ST_AW_SYSCONFIG"
+msgstr ""
+
+#: aw.ini:syslogtypes_480
+msgid "syslog.type.ST_AW_SCRIPT"
+msgstr ""
+
+#: aw.ini:syslogtypes_482
+msgid "syslog.type.ST_CALENDAR_REMINDER_RULE"
+msgstr ""
+
+#: aw.ini:syslogtypes_483
+msgid "syslog.type.ST_CRM_CATEGORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_484
+msgid "syslog.type.ST_CALENDAR_REMINDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_485
+msgid "syslog.type.ST_COMMUNITY"
+msgstr ""
+
+#: aw.ini:syslogtypes_486
+msgid "syslog.type.ST_REGISTER_SEARCH_RESULT"
+msgstr ""
+
+#: aw.ini:syslogtypes_488
+msgid "syslog.type.ST_OTTO_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_540
+msgid "syslog.type.ST_SKILL"
+msgstr ""
+
+#: aw.ini:syslogtypes_558
+msgid "syslog.type.ST_CRM_PANK"
+msgstr ""
+
+#: aw.ini:syslogtypes_560
+msgid "syslog.type.ST_CLASS"
+msgstr ""
+
+#: aw.ini:syslogtypes_566
+msgid "syslog.type.ST_AW_TABLE"
+msgstr ""
+
+#: aw.ini:syslogtypes_571
+msgid "syslog.type.ST_AW_COLUMN"
+msgstr ""
+
+#: aw.ini:syslogtypes_581
+msgid "syslog.type.ST_AW_CLASS"
+msgstr ""
+
+#: aw.ini:syslogtypes_619
+msgid "syslog.type.ST_AW_TEXTBOX"
+msgstr ""
+
+#: aw.ini:syslogtypes_640
+msgid "syslog.type.ST_ACCOUNT"
+msgstr ""
+
+#: aw.ini:syslogtypes_650
+msgid "syslog.type.ST_TRANSACTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_657
+msgid "syslog.type.ST_AW_CHECKBOX"
+msgstr ""
+
+#: aw.ini:syslogtypes_658
+msgid "syslog.type.ST_AW_SELECT"
+msgstr ""
+
+#: aw.ini:syslogtypes_660
+msgid "syslog.type.ST_AW_CHOOSER"
+msgstr ""
+
+#: aw.ini:syslogtypes_662
+msgid "syslog.type.ST_AW_TEXTAREA"
+msgstr ""
+
+#: aw.ini:syslogtypes_689
+msgid "syslog.type.ST_AW_OPTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_777
+msgid "syslog.type.ST_AW_TAB"
+msgstr ""
+
+#: aw.ini:syslogtypes_798
+msgid "syslog.type.ST_OTTO_PROD_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_800
+msgid "syslog.type.ST_METHOD"
+msgstr ""
+
+#: aw.ini:syslogtypes_802
+msgid "syslog.type.ST_CALENDAR_VACANCY"
+msgstr ""
+
+#: aw.ini:syslogtypes_807
+msgid "syslog.type.ST_TAX"
+msgstr ""
+
+#: aw.ini:syslogtypes_808
+msgid "syslog.type.ST_TAX_CHAIN"
+msgstr ""
+
+#: aw.ini:syslogtypes_809
+msgid "syslog.type.ST_IMAGE_RESIZER"
+msgstr ""
+
+#: aw.ini:syslogtypes_811
+msgid "syslog.type.ST_CONTACT_LIST"
+msgstr ""
+
+#: aw.ini:syslogtypes_816
+msgid "syslog.type.ST_QUICKMESSAGEBOX"
+msgstr ""
+
+#: aw.ini:syslogtypes_818
+msgid "syslog.type.ST_CRM_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_819
+msgid "syslog.type.ST_CALENDAR_EVENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_820
+msgid "syslog.type.ST_OTV_DS_PP_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_825
+msgid "syslog.type.ST_MRP_RESOURCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_826
+msgid "syslog.type.ST_MRP_JOB"
+msgstr ""
+
+#: aw.ini:syslogtypes_827
+msgid "syslog.type.ST_MRP_SCHEDULE"
+msgstr ""
+
+#: aw.ini:syslogtypes_828
+msgid "syslog.type.ST_MRP_CASE"
+msgstr ""
+
+#: aw.ini:syslogtypes_830
+msgid "syslog.type.ST_CB_SEARCH_SYNONYMS"
+msgstr ""
+
+#: aw.ini:syslogtypes_831
+msgid "syslog.type.ST_STAGING"
+msgstr ""
+
+#: aw.ini:syslogtypes_832
+msgid "syslog.type.ST_CRM_SECTION_WEBSIDE"
+msgstr ""
+
+#: aw.ini:syslogtypes_833
+msgid "syslog.type.ST_VIDEO"
+msgstr ""
+
+#: aw.ini:syslogtypes_834
+msgid "syslog.type.ST_OBJ_INHERIT_PROPS_CONF"
+msgstr ""
+
+#: aw.ini:syslogtypes_651 aw.ini:syslogtypes_652 aw.ini:syslogtypes_655
+msgid "syslog.type.ST_OTV_DS_ROADINFO"
+msgstr ""
+
+#: aw.ini:syslogtypes_806
+msgid "syslog.type.ST_SEARCH_ROADINFO"
+msgstr ""
+
+#: aw.ini:syslogtypes_817
+msgid "syslog.type.ST_XML_EDITOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_835
+msgid "syslog.type.ST_MAJA_XML_EDITOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_836
+msgid "syslog.type.ST_CALENDAR_REGISTRATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_843
+msgid "syslog.type.ST_AUTH_CONFIG"
+msgstr ""
+
+#: aw.ini:syslogtypes_844
+msgid "syslog.type.ST_AUTH_SERVER_LDAP"
+msgstr ""
+
+#: aw.ini:syslogtypes_845
+msgid "syslog.type.ST_AUTH_SERVER_LOCAL"
+msgstr ""
+
+#: aw.ini:syslogtypes_847
+msgid "syslog.type.ST_CSS_STYLE_GEN"
+msgstr ""
+
+#: aw.ini:syslogtypes_848
+msgid "syslog.type.ST_CALENDAR_REGISTRATION_FORM"
+msgstr ""
+
+#: aw.ini:syslogtypes_849
+msgid "syslog.type.ST_CALENDAR_REGISTRATION_FORM_CONF"
+msgstr ""
+
+#: aw.ini:syslogtypes_852
+msgid "syslog.type.ST_MRP_WORKSPACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_864
+msgid "syslog.type.ST_CRM_COMPANY_ROLE_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_866
+msgid "syslog.type.ST_WEBFORM"
+msgstr ""
+
+#: aw.ini:syslogtypes_867
+msgid "syslog.type.ST_BUG_TRACKER"
+msgstr ""
+
+#: aw.ini:syslogtypes_869
+msgid "syslog.type.ST_GANTT_CHART"
+msgstr ""
+
+#: aw.ini:syslogtypes_871
+msgid "syslog.type.ST_REMINDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_872
+msgid "syslog.type.ST_MRP_RESOURCE_OPERATOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_874
+msgid "syslog.type.ST_AUTH_SERVER_NDS"
+msgstr ""
+
+#: aw.ini:syslogtypes_875
+msgid "syslog.type.ST_PERSONA_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_876
+msgid "syslog.type.ST_CRM_VACATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_877
+msgid "syslog.type.ST_CRM_CONTRACT_STOP"
+msgstr ""
+
+#: aw.ini:syslogtypes_878
+msgid "syslog.type.ST_MRP_PRISMA_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_879
+msgid "syslog.type.ST_AUTH_REMOTE_SETTINGS"
+msgstr ""
+
+#: aw.ini:syslogtypes_880
+msgid "syslog.type.ST_PROPERTY_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_881
+msgid "syslog.type.ST_PROPERTY_TEXTBOX"
+msgstr ""
+
+#: aw.ini:syslogtypes_882
+msgid "syslog.type.ST_PROPERTY_GRID"
+msgstr ""
+
+#: aw.ini:syslogtypes_883
+msgid "syslog.type.ST_PROPERTY_CHOOSER"
+msgstr ""
+
+#: aw.ini:syslogtypes_884
+msgid "syslog.type.ST_PROPERTY_CHECKBOX"
+msgstr ""
+
+#: aw.ini:syslogtypes_885
+msgid "syslog.type.ST_NEWSFEED"
+msgstr ""
+
+#: aw.ini:syslogtypes_886
+msgid "syslog.type.ST_PROPERTY_TABLE"
+msgstr ""
+
+#: aw.ini:syslogtypes_887
+msgid "syslog.type.ST_PROPERTY_TABLE_COLUMN"
+msgstr ""
+
+#: aw.ini:syslogtypes_888
+msgid "syslog.type.ST_PROPERTY_TEXTAREA"
+msgstr ""
+
+#: aw.ini:syslogtypes_889
+msgid "syslog.type.ST_PROPERTY_SELECT"
+msgstr ""
+
+#: aw.ini:syslogtypes_890
+msgid "syslog.type.ST_OTV_DS_KULTUURIAKEN"
+msgstr ""
+
+#: aw.ini:syslogtypes_891
+msgid "syslog.type.ST_CACHE_UPDATER"
+msgstr ""
+
+#: aw.ini:syslogtypes_892
+msgid "syslog.type.ST_PROPERTY_TREE"
+msgstr ""
+
+#: aw.ini:syslogtypes_893
+msgid "syslog.type.ST_CLASS_DESIGNER_RELATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_894
+msgid "syslog.type.ST_PROPERTY_TOOLBAR"
+msgstr ""
+
+#: aw.ini:syslogtypes_895
+msgid "syslog.type.ST_PROPERTY_TOOLBAR_BUTTON"
+msgstr ""
+
+#: aw.ini:syslogtypes_896
+msgid "syslog.type.ST_XML_EXPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_898
+msgid "syslog.type.ST_OTV_DATA_FILTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_900
+msgid "syslog.type.ST_PROPERTY_TREE_BRANCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_901
+msgid "syslog.type.ST_OBJECT_TREEVIEW_V2_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_902
+msgid "syslog.type.ST_USER_CHANGE_PASSWORD"
+msgstr ""
+
+#: aw.ini:syslogtypes_903
+msgid "syslog.type.ST_CRM_OFFER_MGR"
+msgstr ""
+
+#: aw.ini:syslogtypes_907
+msgid "syslog.type.ST_CRM_OFFER_CHAPTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_908
+msgid "syslog.type.ST_CRM_OFFER_GOAL"
+msgstr ""
+
+#: aw.ini:syslogtypes_909
+msgid "syslog.type.ST_CRM_OFFER_PAYMENT_TERMS"
+msgstr ""
+
+#: aw.ini:syslogtypes_910
+msgid "syslog.type.ST_CRM_OFFER_PRODUCTS_LIST"
+msgstr ""
+
+#: aw.ini:syslogtypes_911
+msgid "syslog.type.ST_SIMPLE_SHOP"
+msgstr ""
+
+#: aw.ini:syslogtypes_912
+msgid "syslog.type.ST_SIMPLE_SHOP_PRODUCT"
+msgstr ""
+
+#: aw.ini:syslogtypes_913
+msgid "syslog.type.ST_COMICS"
+msgstr ""
+
+#: aw.ini:syslogtypes_914
+msgid "syslog.type.ST_PARTY"
+msgstr ""
+
+#: aw.ini:syslogtypes_915
+msgid "syslog.type.ST_COMICS_SCRIPT"
+msgstr ""
+
+#: aw.ini:syslogtypes_920
+msgid "syslog.type.ST_SHOP_PRODUCT_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_922
+msgid "syslog.type.ST_FLYER"
+msgstr ""
+
+#: aw.ini:syslogtypes_924
+msgid "syslog.type.ST_CRM_OFFER_COMPARE_TABLE"
+msgstr ""
+
+#: aw.ini:syslogtypes_925
+msgid "syslog.type.ST_CRM_OFFER_COMPARE_TABLE_COLUMN"
+msgstr ""
+
+#: aw.ini:syslogtypes_926
+msgid "syslog.type.ST_CRM_OFFER_COMPARE_TABLE_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_929
+msgid "syslog.type.ST_CLASS_DESIGNER_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_930
+msgid "syslog.type.ST_PROPERTY"
+msgstr ""
+
+#: aw.ini:syslogtypes_931
+msgid "syslog.type.ST_SIMPLE_SHOP_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_935
+msgid "syslog.type.ST_REALESTATE_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_936
+msgid "syslog.type.ST_REALESTATE_PROPERTY"
+msgstr ""
+
+#: aw.ini:syslogtypes_938
+msgid "syslog.type.ST_PROJECT_GOAL"
+msgstr ""
+
+#: aw.ini:syslogtypes_943
+msgid "syslog.type.ST_REALESTATE_APARTMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_944
+msgid "syslog.type.ST_REALESTATE_HOUSE"
+msgstr ""
+
+#: aw.ini:syslogtypes_945
+msgid "syslog.type.ST_REALESTATE_LAND"
+msgstr ""
+
+#: aw.ini:syslogtypes_946
+msgid "syslog.type.ST_REALESTATE_GARAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_947
+msgid "syslog.type.ST_REALESTATE_COMMERCIAL"
+msgstr ""
+
+#: aw.ini:syslogtypes_948
+msgid "syslog.type.ST_ADDRESS"
+msgstr ""
+
+#: aw.ini:syslogtypes_949
+msgid "syslog.type.ST_COUNTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_953
+msgid "syslog.type.ST_COUNTRY_ADMINISTRATIVE_UNIT"
+msgstr ""
+
+#: aw.ini:syslogtypes_955
+msgid "syslog.type.ST_AUTH_SERVER_OPENLDAP"
+msgstr ""
+
+#: aw.ini:syslogtypes_958
+msgid "syslog.type.ST_COUNTRY_CITY"
+msgstr ""
+
+#: aw.ini:syslogtypes_959
+msgid "syslog.type.ST_COUNTRY_CITYDISTRICT"
+msgstr ""
+
+#: aw.ini:syslogtypes_960
+msgid "syslog.type.ST_ADDRESS_STREET"
+msgstr ""
+
+#: aw.ini:syslogtypes_961
+msgid "syslog.type.ST_COUNTRY_ADMINISTRATIVE_STRUCTURE"
+msgstr ""
+
+#: aw.ini:syslogtypes_963
+msgid "syslog.type.ST_CB_FORM_CHAIN"
+msgstr ""
+
+#: aw.ini:syslogtypes_965
+msgid "syslog.type.ST_CB_FORM_CHAIN_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_966
+msgid "syslog.type.ST_FOLDER_CONTEXT"
+msgstr ""
+
+#: aw.ini:syslogtypes_967
+msgid "syslog.type.ST_SHOP_PRICE_MODIFIER_WINDOW"
+msgstr ""
+
+#: aw.ini:syslogtypes_975
+msgid "syslog.type.ST_SITE_SEARCH_CONTENT_GRP_HTML"
+msgstr ""
+
+#: aw.ini:syslogtypes_976
+msgid "syslog.type.ST_SITE_SEARCH_CONTENT_GRP_FS"
+msgstr ""
+
+#: aw.ini:syslogtypes_978
+msgid "syslog.type.ST_REALESTATE_COTTAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_979
+msgid "syslog.type.ST_REALESTATE_HOUSEPART"
+msgstr ""
+
+#: aw.ini:syslogtypes_980
+msgid "syslog.type.ST_TABLE_FILTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_981
+msgid "syslog.type.ST_REALESTATE_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_982
+msgid "syslog.type.ST_REALESTATE_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_992
+msgid "syslog.type.ST_REALESTATE_ROWHOUSE"
+msgstr ""
+
+#: aw.ini:syslogtypes_993
+msgid "syslog.type.ST_WHERE_TO_GO"
+msgstr ""
+
+#: aw.ini:syslogtypes_994
+msgid "syslog.type.ST_CRM_SPECIAL_OFFER"
+msgstr ""
+
+#: aw.ini:syslogtypes_995
+msgid "syslog.type.ST_CRM_SPECIAL_OFFER_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_996
+msgid "syslog.type.ST_ECARD_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_997
+msgid "syslog.type.ST_ECARD"
+msgstr ""
+
+#: aw.ini:syslogtypes_998
+msgid "syslog.type.ST_SITE_STYLES"
+msgstr ""
+
+#: aw.ini:syslogtypes_999
+msgid "syslog.type.ST_GENRE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1000
+msgid "syslog.type.ST_PLACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1002
+msgid "syslog.type.ST_REALESTATE_EXPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1003
+msgid "syslog.type.ST_USER_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1006
+msgid "syslog.type.ST_CRM_DAY_REPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1007
+msgid "syslog.type.ST_CRM_DOCUMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1008
+msgid "syslog.type.ST_CRM_MEMO"
+msgstr ""
+
+#: aw.ini:syslogtypes_1009
+msgid "syslog.type.ST_CRM_BILL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1010
+msgid "syslog.type.ST_EXPP_JOURNAL_MANAGEMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1011
+msgid "syslog.type.ST_EXPP_PUBLICATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1013
+msgid "syslog.type.ST_CRM_COMPANY_WEBVIEW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1014
+msgid "syslog.type.ST_OPENHOURS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1019
+msgid "syslog.type.ST_AUDIO"
+msgstr ""
+
+#: aw.ini:syslogtypes_1023
+msgid "syslog.type.ST_CRM_BANK"
+msgstr ""
+
+#: aw.ini:syslogtypes_1024
+msgid "syslog.type.ST_CRM_BANK_ACCOUNT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1025
+msgid "syslog.type.ST_CRM_FIELD_ACCOMMODATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1026
+msgid "syslog.type.ST_REALESTATE_CLIENT_SELECTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1027
+msgid "syslog.type.ST_PROPTEST"
+msgstr ""
+
+#: aw.ini:syslogtypes_1028
+msgid "syslog.type.ST_CRM_COMPANY_CUSTOMER_DATA"
+msgstr ""
+
+#: aw.ini:syslogtypes_1029
+msgid "syslog.type.ST_CRM_FIELD_ENTERTAINMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1030
+msgid "syslog.type.ST_CRM_FIELD_FOOD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1031
+msgid "syslog.type.ST_CRM_FIELD_CONFERENCE_ROOM"
+msgstr ""
+
+#: aw.ini:syslogtypes_1033
+msgid "syslog.type.ST_COUNTRY_ADMINISTRATIVE_STRUCTURE_ENCODING"
+msgstr ""
+
+#: aw.ini:syslogtypes_1034
+msgid "syslog.type.ST_COUNTRY_ADMINISTRATIVE_DIVISION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1035
+msgid "syslog.type.ST_CRM_JOB_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1036
+msgid "syslog.type.ST_CRM_SETTINGS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1037
+msgid "syslog.type.ST_PURCHASE_SHEET"
+msgstr ""
+
+#: aw.ini:syslogtypes_1038
+msgid "syslog.type.ST_PURCHASE_BILL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1039
+msgid "syslog.type.ST_SHOP_WAREHOUSE_SELLING_SHEET"
+msgstr ""
+
+#: aw.ini:syslogtypes_1040
+msgid "syslog.type.ST_SHOP_WAREHOUSE_PURCHASE_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1041
+msgid "syslog.type.ST_SHOP_WAREHOUSE_SELLING_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1042
+msgid "syslog.type.ST_SHOP_WAREHOUSE_FAVOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_1043
+msgid "syslog.type.ST_CRM_PERSONAL_ID"
+msgstr ""
+
+#: aw.ini:syslogtypes_1044
+msgid "syslog.type.ST_SHOP_WAREHOUSE_INVENTORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1045
+msgid "syslog.type.ST_SHOP_WAREHOUSE_PRODUCT_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1046
+msgid "syslog.type.ST_CRM_TAX_RATE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1047
+msgid "syslog.type.ST_TAAVI_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1048
+msgid "syslog.type.ST_CRM_NUMBER_SERIES"
+msgstr ""
+
+#: aw.ini:syslogtypes_1049
+msgid "syslog.type.ST_CRM_DB_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_1050
+msgid "syslog.type.ST_TASK_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1051
+msgid "syslog.type.ST_CRM_DOCUMENT_ACTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1052
+msgid "syslog.type.ST_CRM_REPORT_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1053
+msgid "syslog.type.ST_INTERIM_PAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1054
+msgid "syslog.type.ST_CRM_BILL_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1057
+msgid "syslog.type.ST_CRM_EMAIL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1058
+msgid "syslog.type.ST_BUG_COMMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1060
+msgid "syslog.type.ST_CRM_PERSON_WORK_RELATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1061
+msgid "syslog.type.ST_IPT_FILE_CONVERT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1062
+msgid "syslog.type.ST_LINK_COLLECTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1063
+msgid "syslog.type.ST_TARGET_AUDIENCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1064
+msgid "syslog.type.ST_DOCUMENT_CONTENT_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1065
+msgid "syslog.type.ST_PROCUREMENT_CENTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1066
+msgid "syslog.type.ST_PROCUREMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1067
+msgid "syslog.type.ST_PROCUREMENT_REQUIREMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1068
+msgid "syslog.type.ST_PROCUREMENT_IMPLEMENTOR_CENTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1069
+msgid "syslog.type.ST_PROCUREMENT_OFFER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1070
+msgid "syslog.type.ST_TASK_QUICK_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1071
+msgid "syslog.type.ST_PROCUREMENT_CENTER_ADMIN"
+msgstr ""
+
+#: aw.ini:syslogtypes_1072
+msgid "syslog.type.ST_PROCUREMENT_REQUIREMENT_SOLUTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1073
+msgid "syslog.type.ST_EXTERNAL_SYSTEM"
+msgstr ""
+
+#: aw.ini:syslogtypes_1074
+msgid "syslog.type.ST_EXTERNAL_SYSTEM_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1075
+msgid "syslog.type.ST_PROCUREMENT_PRIORITY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1076
+msgid "syslog.type.ST_PROCUREMENT_CRITERIA"
+msgstr ""
+
+#: aw.ini:syslogtypes_1077
+msgid "syslog.type.ST_PROJECT_STRAT_GOAL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1078
+msgid "syslog.type.ST_PROJECT_STRAT_EVALUATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1079
+msgid "syslog.type.ST_PROJECT_RISK"
+msgstr ""
+
+#: aw.ini:syslogtypes_1080
+msgid "syslog.type.ST_PROJECT_RISK_EVALUATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1081
+msgid "syslog.type.ST_TRANSPORT_MANAGEMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1082
+msgid "syslog.type.ST_CARRIAGE_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1083
+msgid "syslog.type.ST_CARRIAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1084
+msgid "syslog.type.ST_ROUTE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1085
+msgid "syslog.type.ST_CRM_TRANSPORT_MANAGEMENT_TRUCK"
+msgstr ""
+
+#: aw.ini:syslogtypes_1086
+msgid "syslog.type.ST_CRM_TRANSPORT_MANAGEMENT_TRAILER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1087
+msgid "syslog.type.ST_CRM_TRANSPORT_MANAGEMENT_CAR_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1088
+msgid "syslog.type.ST_PROJECT_STRAT_GOAL_EVAL_WS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1089
+msgid "syslog.type.ST_PROJECT_RISK_EVAL_WS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1090
+msgid "syslog.type.ST_SCM_ADMIN"
+msgstr ""
+
+#: aw.ini:syslogtypes_1091
+msgid "syslog.type.ST_SCM_ORGANIZER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1092
+msgid "syslog.type.ST_SCM_CONTESTANT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1093
+msgid "syslog.type.ST_SCM_RESULT_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1094
+msgid "syslog.type.ST_SCM_EVENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1095
+msgid "syslog.type.ST_SCM_LOCATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1096
+msgid "syslog.type.ST_SCM_TOURNAMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1097
+msgid "syslog.type.ST_SCM_SCORE_CALC"
+msgstr ""
+
+#: aw.ini:syslogtypes_1098
+msgid "syslog.type.ST_SCM_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1099
+msgid "syslog.type.ST_SCM_COMPETITION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1100
+msgid "syslog.type.ST_SCM_RESULT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1101
+msgid "syslog.type.ST_PROJECT_TEAM"
+msgstr ""
+
+#: aw.ini:syslogtypes_1102
+msgid "syslog.type.ST_CRM_BUILDING_MANAGEMENT_SUPPLIER_RELATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1103
+msgid "syslog.type.ST_ESTIMATERS_WORKBENCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_1104
+msgid "syslog.type.ST_CRM_BUILDING_MANAGEMENT_PURCHASE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1105
+msgid "syslog.type.ST_CRM_BUILDING_MANAGEMENT_SUPPLIER_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1106
+msgid "syslog.type.ST_CRM_BUILDING_MANAGEMENT_OFFER_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1107
+msgid "syslog.type.ST_CRM_BUILDING_MANAGEMENT_AREA"
+msgstr ""
+
+#: aw.ini:syslogtypes_1108
+msgid "syslog.type.ST_CRM_BUILDING_MANAGEMENT_UNIT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1110
+msgid "syslog.type.ST_PROJECT_ANALYSIS_WS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1111
+msgid "syslog.type.ST_PROJECT_ANALYSIS_COL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1112
+msgid "syslog.type.ST_PROJECT_ANALYSIS_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1113
+msgid "syslog.type.ST_PROJECT_ANALYSIS_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1114
+msgid "syslog.type.ST_CRM_FIELD_OTHER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1115
+msgid "syslog.type.ST_SCM_TEAM"
+msgstr ""
+
+#: aw.ini:syslogtypes_1116
+msgid "syslog.type.ST_LOCATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1117
+msgid "syslog.type.ST_WATERCRAFT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1118
+msgid "syslog.type.ST_WATERCRAFT_MANAGEMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1119
+msgid "syslog.type.ST_WATERCRAFT_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_1124
+msgid "syslog.type.ST_IMAGE_VERIFICATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1129
+msgid "syslog.type.ST_CUSTOMER_FEEDBACK_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1130
+msgid "syslog.type.ST_CUSTOMER_FEEDBACK_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1131
+msgid "syslog.type.ST_USER_BOOKMARKS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1132
+msgid "syslog.type.ST_AW_OBJECT_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_1133
+msgid "syslog.type.ST_OBJ_QUICK_ADD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1134
+msgid "syslog.type.ST_ADMIN_IF"
+msgstr ""
+
+#: aw.ini:syslogtypes_1135
+msgid "syslog.type.ST_ROSTERING_WORKBENCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_1136
+msgid "syslog.type.ST_PERSON_SKILL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1137
+msgid "syslog.type.ST_SCALA_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1138
+msgid "syslog.type.ST_PERSON_HAS_SKILL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1139
+msgid "syslog.type.ST_PERSON_WORK_CYCLE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1140
+msgid "syslog.type.ST_ROSTERING_SCENARIO"
+msgstr ""
+
+#: aw.ini:syslogtypes_1141
+msgid "syslog.type.ST_ROSTERING_SHIFT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1142
+msgid "syslog.type.ST_ROSTERING_WORKPLACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1145
+msgid "syslog.type.ST_STATS_VIEWER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1146
+msgid "syslog.type.ST_STATS_ARCH_STATUS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1153
+msgid "syslog.type.ST_QUESTIONARY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1154
+msgid "syslog.type.ST_QUESTION_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1155
+msgid "syslog.type.ST_QUESTION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1157
+msgid "syslog.type.ST_TRANSLATION_WORKPLACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1158
+msgid "syslog.type.ST_QUESTIONARY_RESULT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1159
+msgid "syslog.type.ST_ROSTERING_SCHEDULE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1160
+msgid "syslog.type.ST_ROSTERING_WORK_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1161
+msgid "syslog.type.ST_ROSTERING_PAYMENT_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1162
+msgid "syslog.type.ST_ROOM"
+msgstr ""
+
+#: aw.ini:syslogtypes_1164
+msgid "syslog.type.ST_ROOM_PRICE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1166
+msgid "syslog.type.ST_CONFERENCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1167
+msgid "syslog.type.ST_CONFIG_OLD_REDIRECT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1168
+msgid "syslog.type.ST_WATERCRAFT_ADD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1169
+msgid "syslog.type.ST_ANSWERER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1170
+msgid "syslog.type.ST_SITE_TEMPLATE_TRANS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1171
+msgid "syslog.type.ST_CONFERENCE_PLANNING"
+msgstr ""
+
+#: aw.ini:syslogtypes_1172
+msgid "syslog.type.ST_REQUIREMENT_CATEGORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1173
+msgid "syslog.type.ST_PROCUREMENT_PROCESS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1175
+msgid "syslog.type.ST_RFP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1176
+msgid "syslog.type.ST_MRP_PRISMA_BROWSER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1177
+msgid "syslog.type.ST_IP_LOCATOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_1178
+msgid "syslog.type.ST_DIGIDOC"
+msgstr ""
+
+#: aw.ini:syslogtypes_1179
+msgid "syslog.type.ST_SPA_BOOKIGS_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1180
+msgid "syslog.type.ST_SPA_BOOKING"
+msgstr ""
+
+#: aw.ini:syslogtypes_1182
+msgid "syslog.type.ST_DDOC_PARSER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1183
+msgid "syslog.type.ST_DEVELOPMENT_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1184
+msgid "syslog.type.ST_DEVELOPMENT_ORDER_CAT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1185
+msgid "syslog.type.ST_CUSTOMER_PROBLEM_TICKET"
+msgstr ""
+
+#: aw.ini:syslogtypes_1186
+msgid "syslog.type.ST_DDOC"
+msgstr ""
+
+#: aw.ini:syslogtypes_1187
+msgid "syslog.type.ST_SPA_BOOKINGS_OVERVIEW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1189 aw.ini:syslogtypes_1446
+msgid "syslog.type.ST_PATENT_ADD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1190
+msgid "syslog.type.ST_PATENT_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1191
+msgid "syslog.type.ST_AUTH_SERVER_USERDEFINED"
+msgstr ""
+
+#: aw.ini:syslogtypes_1192
+msgid "syslog.type.ST_RFP_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1193
+msgid "syslog.type.ST_ID_CONFIG"
+msgstr ""
+
+#: aw.ini:syslogtypes_1195
+msgid "syslog.type.ST_TRADEMARK_STATUS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1194
+msgid "syslog.type.ST_RFP_HISTORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1197
+msgid "syslog.type.ST_DOT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1198
+msgid "syslog.type.ST_SPA_CUSTOMER_INTERFACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1200
+msgid "syslog.type.ST_SITE_SEARCH_CONTENT_GRP_DB"
+msgstr ""
+
+#: aw.ini:syslogtypes_1201
+msgid "syslog.type.ST_OBJECT_BASKET"
+msgstr ""
+
+#: aw.ini:syslogtypes_1202
+msgid "syslog.type.ST_ROSTERING_ACCOUNT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1203
+msgid "syslog.type.ST_BUDGETING_TRANSFER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1204
+msgid "syslog.type.ST_BUDGETING_FUND"
+msgstr ""
+
+#: aw.ini:syslogtypes_1205
+msgid "syslog.type.ST_BUDGETING_WORKSPACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1206
+msgid "syslog.type.ST_BUDGETING_TAX"
+msgstr ""
+
+#: aw.ini:syslogtypes_1207
+msgid "syslog.type.ST_OCSP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1211
+msgid "syslog.type.ST_PACKAGE_SERVER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1212
+msgid "syslog.type.ST_CRM_SERVICE_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1213
+msgid "syslog.type.ST_BUDGET"
+msgstr ""
+
+#: aw.ini:syslogtypes_1214
+msgid "syslog.type.ST_LOGIN_BOX"
+msgstr ""
+
+#: aw.ini:syslogtypes_1215
+msgid "syslog.type.ST_SITE_SEARCH_CONTENT_GRP_MULTISITE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1246
+msgid "syslog.type.ST_BUDGETING_TAX_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1248
+msgid "syslog.type.ST_SPA_PRODUCTS_OVERVIEW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1249
+msgid "syslog.type.ST_CRM_SERVICE_TYPE_CATEGORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1250
+msgid "syslog.type.ST_BANNER_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1252
+msgid "syslog.type.ST_XML_OUTPUT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1251
+msgid "syslog.type.ST_CB_TRANSLATE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1306
+msgid "syslog.type.ST_DOCUMENT_CALENDAR_VIEW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1314
+msgid "syslog.type.ST_KOOLITUSE_ANDMETE_KUVAMINE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1319
+msgid "syslog.type.ST_BUDGETING_TAX_FOLDER_RELATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1324
+msgid "syslog.type.ST_CRM_INSURANCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1325
+msgid "syslog.type.ST_BUDGETING_SCENARIO"
+msgstr ""
+
+#: aw.ini:syslogtypes_1323
+msgid "syslog.type.ST_OWS_BRON"
+msgstr ""
+
+#: aw.ini:syslogtypes_1328
+msgid "syslog.type.ST_CRM_INSURANCE_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1329
+msgid "syslog.type.ST_FILE_UPLOAD_CONFIG"
+msgstr ""
+
+#: aw.ini:syslogtypes_1327
+msgid "syslog.type.ST_CRM_COMPANY_STATUS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1332
+msgid "syslog.type.ST_CONTENTMGMT_STATISTICS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1341
+msgid "syslog.type.ST_BUGTRACK_DISPLAY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1342
+msgid "syslog.type.ST_BUG_APP_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1344
+msgid "syslog.type.ST_OWS_RESERVATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1348
+msgid "syslog.type.ST_ICAL_EXPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1349
+msgid "syslog.type.ST_ICAL_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1350
+msgid "syslog.type.ST_BUDGETING_TAX_MATRIX"
+msgstr ""
+
+#: aw.ini:syslogtypes_1354
+msgid "syslog.type.ST_XML_SOURCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1355
+msgid "syslog.type.ST_JSON_SOURCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1356
+msgid "syslog.type.ST_EVENT_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1361
+msgid "syslog.type.ST_EVENT_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogtypes_1364
+msgid "syslog.type.ST_WEATHER_REPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1373
+msgid "syslog.type.ST_GEOINFO_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1374
+msgid "syslog.type.ST_GEOINFO_DATA"
+msgstr ""
+
+#: aw.ini:syslogtypes_1381
+msgid "syslog.type.ST_OWS_PROFILE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1388
+msgid "syslog.type.ST_SENT_MAIL_DATABASE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1389
+msgid "syslog.type.ST_AW_SENT_MAIL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1391
+msgid "syslog.type.ST_RSS_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1416
+msgid "syslog.type.ST_MOBI_HANDLER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1417
+msgid "syslog.type.ST_SMS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1413
+msgid "syslog.type.ST_EVENT_IMPORT_2"
+msgstr ""
+
+#: aw.ini:syslogtypes_1414
+msgid "syslog.type.ST_JSON_DELFI"
+msgstr ""
+
+#: aw.ini:syslogtypes_1411
+msgid "syslog.type.ST_REVAL_CUSTOMER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1421
+msgid "syslog.type.ST_PERSONNEL_MANAGEMENT_JOB_OFFER_WEBVIEW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1412
+msgid "syslog.type.ST_SHOP_ORDER_CENTER_FILTER_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1418
+msgid "syslog.type.ST_AW_SPEC"
+msgstr ""
+
+#: aw.ini:syslogtypes_1422
+msgid "syslog.type.ST_SMS_SENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1420
+msgid "syslog.type.ST_POSTAL_CODES"
+msgstr ""
+
+#: aw.ini:syslogtypes_1423
+msgid "syslog.type.ST_REVAL_CUSTOMER_MAILER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1424
+msgid "syslog.type.ST_SHOP_ORDER_POSTAL_PRICE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1425
+msgid "syslog.type.ST_AW_SPEC_CLASS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1426
+msgid "syslog.type.ST_AW_SPEC_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1427
+msgid "syslog.type.ST_AW_SPEC_LAYOUT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1428
+msgid "syslog.type.ST_AW_SPEC_PROPERTY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1429
+msgid "syslog.type.ST_AW_SPEC_RELATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1430
+msgid "syslog.type.ST_SHOP_PURCHASE_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1431
+msgid "syslog.type.ST_SHOP_SELL_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1435
+msgid "syslog.type.ST_SHOP_PRODUCT_CATEGORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1436
+msgid "syslog.type.ST_SHOP_MATERIAL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1437
+msgid "syslog.type.ST_SHOP_MATERIAL_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1438
+msgid "syslog.type.ST_SHOP_COLOUR"
+msgstr ""
+
+#: aw.ini:syslogtypes_1439
+msgid "syslog.type.ST_SHOP_PURCHASE_MANAGER_WORKSPACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1440
+msgid "syslog.type.ST_SHOP_SALES_MANAGER_WORKSPACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1442
+msgid "syslog.type.ST_SHOP_CUSTOMER_CARD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1443
+msgid "syslog.type.ST_SHOP_BRAND"
+msgstr ""
+
+#: aw.ini:syslogtypes_1444
+msgid "syslog.type.ST_SHOP_BRAND_SERIES"
+msgstr ""
+
+#: aw.ini:syslogtypes_1432
+msgid "syslog.type.ST_PATENT_PATENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1433
+msgid "syslog.type.ST_UTILITY_MODEL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1434
+msgid "syslog.type.ST_UTILITY_MODEL_ADD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1441
+msgid "syslog.type.ST_INTELLECTUAL_PROPERTY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1449
+msgid "syslog.type.ST_SITE_LOGINMENU"
+msgstr ""
+
+#: aw.ini:syslogtypes_1451
+msgid "syslog.type.ST_IAW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1452
+msgid "syslog.type.ST_INDUSTRIAL_DESIGN"
+msgstr ""
+
+#: aw.ini:syslogtypes_1453
+msgid "syslog.type.ST_EURO_PATENT_ET_DESC"
+msgstr ""
+
+#: aw.ini:syslogtypes_1454
+msgid "syslog.type.ST_EURO_PATENT_ET_DESC_ADD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1455
+msgid "syslog.type.ST_INDUSTRIAL_DESIGN_ADD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1456
+msgid "syslog.type.ST_AW_SPEC_VERSION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1457
+msgid "syslog.type.ST_SHOP_PRICE_LIST"
+msgstr ""
+
+#: aw.ini:syslogtypes_1458
+msgid "syslog.type.ST_SHOP_WAREHOUSE_AMOUNT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1459
+msgid "syslog.type.ST_SHOP_DELIVERY_NOTE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1461
+msgid "syslog.type.ST_SHOP_WAREHOUSE_MOVEMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1462
+msgid "syslog.type.ST_SHOP_PRODUCT_SINGLE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1465
+msgid "syslog.type.ST_CRM_ACTIVITY_STATS_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1466
+msgid "syslog.type.ST_REMOTE_OBJECT_INCLUDE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1469
+msgid "syslog.type.ST_SHOP_UNIT_FORMULA"
+msgstr ""
+
+#: aw.ini:syslogtypes_1470
+msgid "syslog.type.ST_SHOP_DELIVERY_NOTE_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1471
+msgid "syslog.type.ST_AW_SPEC_USE_CASE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1473
+msgid "syslog.type.ST_CRM_TRANSFER_METHOD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1474
+msgid "syslog.type.ST_CRM_TRANSFER_CONDITION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1475
+msgid "syslog.type.ST_EVENT_WEBVIEW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1476
+msgid "syslog.type.ST_DOMPDF"
+msgstr ""
+
+#: aw.ini:syslogtypes_1477
+msgid "syslog.type.ST_CONTENT_PACKAGE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1478
+msgid "syslog.type.ST_CONTENT_ITEM"
+msgstr ""
+
+#: aw.ini:syslogtypes_1481
+msgid "syslog.type.ST_GROUP_MEMBERSHIP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1485
+msgid "syslog.type.ST_REVAL_EXTRANET"
+msgstr ""
+
+#: aw.ini:syslogtypes_1486
+msgid "syslog.type.ST_SITE_DIFF"
+msgstr ""
+
+#: aw.ini:syslogtypes_1487
+msgid "syslog.type.ST_SITE_COPY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1488
+msgid "syslog.type.ST_SITE_COPY_TODO"
+msgstr ""
+
+#: aw.ini:syslogtypes_1489
+msgid "syslog.type.ST_SITE_COPY_SITE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1491
+msgid "syslog.type.ST_QUESTIONNAIRE_TXT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1492
+msgid "syslog.type.ST_HTML_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1493
+msgid "syslog.type.ST_SM_CLASS_STATS_WORKSPACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1494
+msgid "syslog.type.ST_SM_CLASS_STATS_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1496
+msgid "syslog.type.ST_TAKET_AFP_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1497
+msgid "syslog.type.ST_DRAFT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1498
+msgid "syslog.type.ST_AW_SITE_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1499
+msgid "syslog.type.ST_AW_SERVER_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1500
+msgid "syslog.type.ST_SHOP_PRODUCT_PURVEYANCE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1501
+msgid "syslog.type.ST_PROJECT_CATEGORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1502
+msgid "syslog.type.ST_SITE_NOTIFICATION_RULE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1503
+msgid "syslog.type.ST_SITE_NOTIFICATION_SENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1504
+msgid "syslog.type.ST_ML_MEMBERSHIP_MANAGER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1505
+msgid "syslog.type.ST_SM_PROP_STATS_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1506
+msgid "syslog.type.ST_AW_CLASS_PROPERTY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1508
+msgid "syslog.type.ST_SM_SITE_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1507
+msgid "syslog.type.ST_CRM_COMPANY_CUSTOMER_DATA_GENERATOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_1509
+msgid "syslog.type.ST_CRM_PERSON_WH_TABLE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1510
+msgid "syslog.type.ST_CRM_PERSON_WH_TABLE_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1511
+msgid "syslog.type.ST_MATERIAL_EXPENSE_CONDITION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1512
+msgid "syslog.type.ST_CRM_PERSON_REQUIRED_WH_ENTRY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1513
+msgid "syslog.type.ST_MATERIAL_EXPENSE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1514
+msgid "syslog.type.ST_CRM_PERSON_WH_TABLE_ENTRY_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1515
+msgid "syslog.type.ST_CRM_COMPANY_CFGFORM_CONFIGURATOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_1517
+msgid "syslog.type.ST_CRM_COMMENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1516
+msgid "syslog.type.ST_MATERIAL_MOVEMENT_RELATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1518
+msgid "syslog.type.ST_MRP_ORDER_CENTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1519
+msgid "syslog.type.ST_MRP_ORDER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1520
+msgid "syslog.type.ST_MRP_ORDER_PRINT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1521
+msgid "syslog.type.ST_MRP_PRICELIST"
+msgstr ""
+
+#: aw.ini:syslogtypes_1522
+msgid "syslog.type.ST_MRP_PRICELIST_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1523
+msgid "syslog.type.ST_MRP_ORDER_COVER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1524
+msgid "syslog.type.ST_CRM_COMPANY_SECTOR_MEMBERSHIP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1525
+msgid "syslog.type.ST_PRACTICES"
+msgstr ""
+
+#: aw.ini:syslogtypes_1526
+msgid "syslog.type.ST_PRACTICE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1527
+msgid "syslog.type.ST_SMART_POST"
+msgstr ""
+
+#: aw.ini:syslogtypes_1534
+msgid "syslog.type.ST_SHOP_PRICE_LIST_CUSTOMER_DISCOUNT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1528
+msgid "syslog.type.ST_MRP_ORDER_PRINT_WEB_INTERFACE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1529
+msgid "syslog.type.ST_MRP_ORDER_PRINT_FORMAT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1530
+msgid "syslog.type.ST_SHOP_AMOUNT_LIMIT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1531
+msgid "syslog.type.ST_RSS_READER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1532
+msgid "syslog.type.ST_SITE_COPY_CLIENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1535
+msgid "syslog.type.ST_WAREHOUSE_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1533
+msgid "syslog.type.ST_MRP_ORDER_SENT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1536
+msgid "syslog.type.ST_MRP_ORDER_REQUESTED_MATERIAL"
+msgstr ""
+
+#: aw.ini:syslogtypes_1537
+msgid "syslog.type.ST_MRP_ORDER_COVER_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1541
+msgid "syslog.type.ST_CUSTOMER_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1542
+msgid "syslog.type.ST_INFRASTRUCTURE_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1543
+msgid "syslog.type.ST_CONTENT_PACKAGE_PRICE_CONDITIONS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1544
+msgid "syslog.type.ST_PERSONNEL_MANAGEMENT_JOB_OFFER_CONDITION_GROUP"
+msgstr ""
+
+#: aw.ini:syslogtypes_1545
+msgid "syslog.type.ST_PERSONNEL_MANAGEMENT_JOB_OFFER_CONDITION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1547
+msgid "syslog.type.ST_MRP_RESOURCE_SETTING_CATEGORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1548
+msgid "syslog.type.ST_MRP_RESOURCE_FORMAT_CATEGORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1549
+msgid "syslog.type.ST_MRP_RESOURCE_FORMAT_APPLIES"
+msgstr ""
+
+#: aw.ini:syslogtypes_1550
+msgid "syslog.type.ST_ROOM_CATEGORY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1551
+msgid "syslog.type.ST_MRP_RESOURCE_ABILITY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1553
+msgid "syslog.type.ST_DISCOUNT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1554
+msgid "syslog.type.ST_ADMIN_OBJECT_EXPORTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1555
+msgid "syslog.type.ST_ADMIN_OBJECT_IMPORTER"
+msgstr ""
+
+#: aw.ini:syslogtypes_1556
+msgid "syslog.type.ST_SHOP_ORDER_DISPLAY"
+msgstr ""
+
+#: aw.ini:syslogtypes_1557
+msgid "syslog.type.ST_SHOP_RENT_CALCULATOR"
+msgstr ""
+
+#: aw.ini:syslogtypes_1558
+msgid "syslog.type.ST_SHOP_DELIVERY_METHOD"
+msgstr ""
+
+#: aw.ini:syslogtypes_1559
+msgid "syslog.type.ST_SHOP_RENT_CONDITIONS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1560
+msgid "syslog.type.ST_CRM_PRESENTATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1562
+msgid "syslog.type.ST_CSV_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogtypes_1561
+msgid "syslog.type.ST_SHOP_DELIVERY_METHOD_CONDITIONS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1563
+msgid "syslog.type.ST_SHOP_WAREHOUSE_RETURN"
+msgstr ""
+
+#: aw.ini:syslogtypes_1564
+msgid "syslog.type.ST_REKLAMATSIOON"
+msgstr ""
+
+#: aw.ini:syslogtypes_1565
+msgid "syslog.type.ST_SHOP_WAREHOUSE_RETURN_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1566
+msgid "syslog.type.ST_REKLAMATSIOON_ROW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1567
+msgid "syslog.type.ST_SHOP_ORDERER_DATA_SITE_SHOW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1568
+msgid "syslog.type.ST_SHOP_ORDERER_DATA_SITE_SHOW_ORDERS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1569
+msgid "syslog.type.ST_SHOP_ORDERER_DATA_SITE_SHOW_BILLS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1570
+msgid "syslog.type.ST_SHOP_ORDERER_DATA_SITE_SHOW_USERS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1571
+msgid "syslog.type.ST_SHOP_ORDERER_DATA_SITE_SHOW_RETURNS"
+msgstr ""
+
+#: aw.ini:syslogtypes_1572
+msgid "syslog.type.ST_SHOP_ORDERER_DATA_SITE_SHOW_DELIVERY_NOTES"
+msgstr ""
+
+#: aw.ini:syslogtypes_1573
+msgid "syslog.type.ST_SHOP_PRICE_LIST_CONDITION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1574
+msgid "syslog.type.ST_SHOP_PRICE_LIST_CONDITION_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1575
+msgid "syslog.type.ST_SHOP_PRODUCT_CATEGORY_TYPE"
+msgstr ""
+
+#: aw.ini:syslogtypes_1576
+msgid "syslog.type.ST_PRODUCTS_SHOW"
+msgstr ""
+
+#: aw.ini:syslogtypes_1577
+msgid "syslog.type.ST_SHOP_RENT_CONFIGURATION"
+msgstr ""
+
+#: aw.ini:syslogtypes_1589
+msgid "syslog.type.ST_PRODUCT_BRAND"
+msgstr ""
+
+#: aw.ini:syslogactions_1
+msgid "syslog.action."
+msgstr ""
+
+#: aw.ini:syslogactions_2
+msgid "syslog.action.SA_DELETE"
+msgstr ""
+
+#: aw.ini:syslogactions_3
+msgid "syslog.action.SA_ADD"
+msgstr ""
+
+#: aw.ini:syslogactions_4
+msgid "syslog.action.SA_ADD_ALIAS"
+msgstr ""
+
+#: aw.ini:syslogactions_5
+msgid "syslog.action.SA_CHANGE_ALIAS"
+msgstr ""
+
+#: aw.ini:syslogactions_6
+msgid "syslog.action.SA_RAISE_ERROR"
+msgstr ""
+
+#: aw.ini:syslogactions_7
+msgid "syslog.action.SA_LOGIN_FAILED"
+msgstr ""
+
+#: aw.ini:syslogactions_8
+msgid "syslog.action.SA_LOGIN"
+msgstr ""
+
+#: aw.ini:syslogactions_9
+msgid "syslog.action.SA_LOGOUT"
+msgstr ""
+
+#: aw.ini:syslogactions_10
+msgid "syslog.action.SA_CHANGE_GRP_USERS"
+msgstr ""
+
+#: aw.ini:syslogactions_11
+msgid "syslog.action.SA_GRP_ADD_SUBGRP"
+msgstr ""
+
+#: aw.ini:syslogactions_12
+msgid "syslog.action.SA_GRP_DEL_SUBGRP"
+msgstr ""
+
+#: aw.ini:syslogactions_13
+msgid "syslog.action.SA_CHANGE_PWD"
+msgstr ""
+
+#: aw.ini:syslogactions_14
+msgid "syslog.action.SA_BLOCK_USER"
+msgstr ""
+
+#: aw.ini:syslogactions_15
+msgid "syslog.action.SA_REMIND_PWD"
+msgstr ""
+
+#: aw.ini:syslogactions_16
+msgid "syslog.action.SA_DO_SEARCH"
+msgstr ""
+
+#: aw.ini:syslogactions_17
+msgid "syslog.action.SA_ACTIVATE_PERIOD"
+msgstr ""
+
+#: aw.ini:syslogactions_18
+msgid "syslog.action.SA_IMPORT"
+msgstr ""
+
+#: aw.ini:syslogactions_19
+msgid "syslog.action.SA_PAGEVIEW"
+msgstr ""
+
+#: aw.ini:syslogactions_20
+msgid "syslog.action.SA_ACL_ERROR"
+msgstr ""
+
+#: aw.ini:syslogactions_21
+msgid "syslog.action.SA_NOTEXIST"
+msgstr ""
+
+#: aw.ini:syslogactions_22
+msgid "syslog.action.SA_SEND"
+msgstr ""
+
+#: aw.ini:syslogactions_23
+msgid "syslog.action.SA_CLICK"
+msgstr ""
+
+#: aw.ini:syslogactions_24
+msgid "syslog.action.SA_PRINT"
+msgstr ""
+
+#: aw.ini:syslogactions_25
+msgid "syslog.action.SA_ASSIGN"
+msgstr ""
+
+#: aw.ini:syslogactions_26
+msgid "syslog.action.SA_FINAL_DELETE"
+msgstr ""
+
+#: aw.ini:languages_list_1
+msgid "languages.list.et"
+msgstr ""
+
+#: aw.ini:languages_list_2
+msgid "languages.list.en"
+msgstr ""
+
+#: aw.ini:languages_list_3
+msgid "languages.list.ru"
+msgstr ""
+
+#: aw.ini:languages_list_4
+msgid "languages.list.es"
+msgstr ""
+
+#: aw.ini:languages_list_5
+msgid "languages.list.fr"
+msgstr ""
+
+#: aw.ini:languages_list_6
+msgid "languages.list.de"
+msgstr ""
+
+#: aw.ini:languages_list_7
+msgid "languages.list.lv"
+msgstr ""
+
+#: aw.ini:languages_list_8
+msgid "languages.list.lt"
+msgstr ""
+
+#: aw.ini:languages_list_9
+msgid "languages.list.el"
+msgstr ""
+
+#: aw.ini:languages_list_10
+msgid "languages.list.nl"
+msgstr ""
+
+#: aw.ini:languages_list_11
+msgid "languages.list.it"
+msgstr ""
+
+#: aw.ini:languages_list_12
+msgid "languages.list.sv"
+msgstr ""
+
+#: aw.ini:languages_list_13
+msgid "languages.list.fi"
+msgstr ""
+
+#: aw.ini:languages_list_14
+msgid "languages.list.da"
+msgstr ""
+
+#: aw.ini:languages_list_15
+msgid "languages.list.no"
+msgstr ""
+
+#: aw.ini:languages_list_16
+msgid "languages.list.bg"
+msgstr ""
+
+#: aw.ini:languages_list_17
+msgid "languages.list.la"
+msgstr ""
+
+#: aw.ini:languages_list_18
+msgid "languages.list.zh"
+msgstr ""
+
+#~ msgid "Klassi Kohtumine (224) comment"
+#~ msgstr "See on kohtumise klassi abiteksti kommentaari väli 11"
+
+#~ msgid "Klassi Kohtumine (224) help"
+#~ msgstr "Ja see on abiteksti pikem tekstiväli"
+
+#~ msgid "Klassi Kohtumine 22 (224) nimi"
+#~ msgstr "Kohtumine 334"
+
+#~ msgid "Klassi Kohtumine 22 (224) comment"
+#~ msgstr "334"
+
+#~ msgid "Klassi Kohtumine 22 (224) help"
+#~ msgstr "444"

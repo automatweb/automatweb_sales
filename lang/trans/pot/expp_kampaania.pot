@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/expp/expp_kampaania.aw:class_1196_help
+msgid "Klassi Expp kampaania help"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:prop_kampaaniad_tabel
+msgid "Omaduse Kampaaniad (kampaaniad_tabel) caption"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:prop_kampaaniad_tabel_comment
+msgid "Omaduse Kampaaniad (kampaaniad_tabel) kommentaar"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:prop_kampaaniad_tabel_help
+msgid "Omaduse Kampaaniad (kampaaniad_tabel) help"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:55
+msgid "ID"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:60
+msgid "Kampaania nimetus"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:65
+msgid "Tellimine"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:70
+msgid "Kampaania"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:75
+msgid "Kirjeldus"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:80
+msgid "e-mail kohustuslik"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:87
+msgid "Kustuta"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:103 classes/expp/expp_kampaania.aw:108 classes/expp/expp_kampaania.aw:160 classes/expp/expp_kampaania.aw:164
+msgid "Algus:"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:136 classes/expp/expp_kampaania.aw:141 classes/expp/expp_kampaania.aw:176 classes/expp/expp_kampaania.aw:180
+msgid "L&otilde;pp:"
+msgstr ""
+
+#: classes/expp/expp_kampaania.aw:155 classes/expp/expp_kampaania.aw:175
+msgid "Uus"
+msgstr ""
+

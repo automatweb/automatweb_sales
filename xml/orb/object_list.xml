@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="object_list" folder="www/automatweb_cvs/classes/core/obj" extends="_int_obj_container_base">
+		<action name="slice">
+			<function name="slice">
+				<arguments>
+					<required name="offset" type="int" />
+					<optional name="length" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

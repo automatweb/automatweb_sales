@@ -1,0 +1,166 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/awmyadmin/db_table_contents.aw:class_153_help
+msgid "Klassi Andmebaasitabeli sisu help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_db_base
+msgid "Omaduse Andmebaas (db_base) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_db_base_comment
+msgid "Omaduse Andmebaas (db_base) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_db_base_help
+msgid "Omaduse Andmebaas (db_base) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_db_table
+msgid "Omaduse Tabel (db_table) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_db_table_comment
+msgid "Omaduse Tabel (db_table) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_db_table_help
+msgid "Omaduse Tabel (db_table) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_sproc_params
+msgid "Omaduse Protseduuri parameetrid (sproc_params) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_sproc_params_comment
+msgid "Omaduse Protseduuri parameetrid (sproc_params) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_sproc_params_help
+msgid "Omaduse Protseduuri parameetrid (sproc_params) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_per_page
+msgid "Omaduse Mitu rida lehel (per_page) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_per_page_comment
+msgid "Omaduse Mitu rida lehel (per_page) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_per_page_help
+msgid "Omaduse Mitu rida lehel (per_page) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_content_pager
+msgid "Omaduse  (content_pager) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_content_pager_comment
+msgid "Omaduse  (content_pager) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_content_pager_help
+msgid "Omaduse  (content_pager) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_content
+msgid "Omaduse  (content) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_content_comment
+msgid "Omaduse  (content) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_content_help
+msgid "Omaduse  (content) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_toolbar
+msgid "Omaduse  (admcontent_toolbar) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_toolbar_comment
+msgid "Omaduse  (admcontent_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_toolbar_help
+msgid "Omaduse  (admcontent_toolbar) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_pager
+msgid "Omaduse  (admcontent_pager) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_pager_comment
+msgid "Omaduse  (admcontent_pager) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_pager_help
+msgid "Omaduse  (admcontent_pager) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent
+msgid "Omaduse  (admcontent) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_comment
+msgid "Omaduse  (admcontent) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_help
+msgid "Omaduse  (admcontent) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_addr
+msgid "Omaduse  (admcontent_addr) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_addr_comment
+msgid "Omaduse  (admcontent_addr) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:prop_admcontent_addr_help
+msgid "Omaduse  (admcontent_addr) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:group_content
+msgid "Grupi Sisu (content) pealkiri"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:group_content_help
+msgid "Grupi Sisu (content) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:group_admcontent
+msgid "Grupi Muuda sisu (admcontent) pealkiri"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:group_admcontent_help
+msgid "Grupi Muuda sisu (admcontent) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:rel_RELTYPE_DB_LOGIN
+msgid "Seose andmebaasi login (RELTYPE_DB_LOGIN) tekst"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:rel_RELTYPE_TRANSFORM
+msgid "Seose andmete muundaja (RELTYPE_TRANSFORM) tekst"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:137
+msgid "Tabeli %s sisu serverist %s"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_table_contents.aw:209
+msgid "Salvesta"
+msgstr ""

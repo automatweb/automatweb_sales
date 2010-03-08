@@ -1,0 +1,55 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="file_manager" folder="admin/editor" extends="aw_editor_manager_base">
+		<action name="manage" default="1">
+			<function name="manage">
+				<arguments>
+					<required name="doc" />
+					<optional name="link_url" />
+					<optional name="file_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="topf">
+			<function name="topf">
+				<arguments>
+					<required name="doc" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="manager">
+			<function name="manager">
+				<arguments>
+					<optional name="docid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="attach_to_message">
+			<function name="attach_to_message">
+				<arguments>
+					<optional name="message" />
+					<optional name="file" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="compress" all_args="1">
+			<function name="compress">
+				<arguments>
+					<optional name="files" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="compress_submit" all_args="1">
+			<function name="compress_submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

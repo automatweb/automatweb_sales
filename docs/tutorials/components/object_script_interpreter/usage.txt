@@ -1,0 +1,36 @@
+Object scripts are line-oriented programs that can create objects. Each line can be empty, have only a comment, create an object or define an aw.ini setting. 
+Lines can contain variables in the form of ${variable_name} and variable assignments in the beginning of the line.
+
+Comments begin with # and extend to the end of the line. 
+Example:
+
+# this is a comment
+obj { name="foo"} # this is another comment
+
+
+
+Object creating lines look like this:
+
+$users = obj { property="value", property="value", ... }
+
+the variable assgnment in the beginning of the line is optional, but if it is given, then the oid of the object that was created by that line will be assigned to the variable given. 
+
+property values do not have to be quoted if they do not contain spaces. if they contain spaces, they have to be quoted. Property values can also be constants that are define()'d in AutomatWeb. Property values can contain variables in the form ${variable_name}
+
+property names can be either object table fields or defined properties. each object must have the class_id and parent properties defined. metadata fields can be set using meta.meta_field_name as the property name
+
+variable names can contain anything besides spaces
+
+object creating lines must end with a closing }
+
+
+Ini file entry creating lines look like this:
+
+ini { site_rootmenu=${site_root} }
+
+they must start with the string "ini {" and must contain an ini file key=value pair within the curly braces. Variables can be used within the value.
+
+The values created are not actually written to the ini file, the executor of the script must take care of that.
+
+
+For examples, the script used by the aw installer to create new aw sites, can be found in $AW_ROOT/scripts/install/object_scripts/simple.ojs

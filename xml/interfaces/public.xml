@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<interface>
+	<class id="document" name="Dokumendid"/>
+	<class id="doc" name="Dokument 2.0"/>
+	<class id="auth" name="Autentimine"/>
+	<class id="users" name="Kasutajad"/>
+	<class id="period" name="Perioodid"/>
+	<class id="contents" name="Sisukaart"/>
+	<class id="messenger_v2" name="E-post"/>
+	<class id="planner" name="Kalender"/>
+	<class id="menu" name="Kaust"/>
+	<class id="shop_order_center" name="Lao tellimused"/>
+	<class id="simple_shop" name="Lihtne pood"/>
+	<class id="file" name="Fail"/>
+</interface>

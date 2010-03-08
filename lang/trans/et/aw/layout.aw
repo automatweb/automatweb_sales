@@ -1,0 +1,30 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Ridu (rows) kommentaar"] = "tabeli ridade arv";
+$GLOBALS["TRANS"]["Omaduse Ridu (rows) help"] = "tabeli ridade arv";
+$GLOBALS["TRANS"]["Omaduse Tulpi (columns) kommentaar"] = "tabeli tulpade arv";
+$GLOBALS["TRANS"]["Omaduse Tulpi (columns) help"] = "tabeli tulpade arv";
+$GLOBALS["TRANS"]["Omaduse Stiilide kataloogid (cell_style_folders) kommentaar"] = "kui seostehalduri abil on seotud seose tüüp \"celli stiilide kataloog\", siis on võimalik valida, millistest kaustadest stiilid võetakse.";
+$GLOBALS["TRANS"]["Omaduse Stiilide kataloogid (cell_style_folders) help"] = "kui seostehalduri abil on seotud seose tüüp \"celli stiilide kataloog\", siis on võimalik valida, millistest kaustadest stiilid võetakse.";
+$GLOBALS["TRANS"]["Omaduse Tabel (grid) kommentaar"] = "Tabel vaates on võimalik tabeli lahtreid valida ning omavahel ühendada ja lahutada.";
+$GLOBALS["TRANS"]["Omaduse Tabel (grid) help"] = "Tabel vaates on võimalik tabeli lahtreid valida ning omavahel ühendada ja lahutada.";
+$GLOBALS["TRANS"]["Omaduse Vali vaikimisi tabeli stiil (table_style) kommentaar"] = "võimaldab valida tabelile üldise stiili.";
+$GLOBALS["TRANS"]["Omaduse Vali vaikimisi tabeli stiil (table_style) help"] = "võimaldab valida tabelile üldise stiili.";
+$GLOBALS["TRANS"]["Omaduse Vali elemendi stiil (sel_style) kommentaar"] = "võimaldab selekteeritud lahtritele või tervetele tulpadele/ridadele eraldi stiile rakendada.";
+$GLOBALS["TRANS"]["Omaduse Vali elemendi stiil (sel_style) help"] = "võimaldab selekteeritud lahtritele või tervetele tulpadele/ridadele eraldi stiile rakendada.";
+$GLOBALS["TRANS"]["Omaduse Vali element (grid_styles) kommentaar"] = "lahtrite, tulpade ja/või ridade selekteerimine.";
+$GLOBALS["TRANS"]["Omaduse Vali element (grid_styles) help"] = "lahtrite, tulpade ja/või ridade selekteerimine.";
+$GLOBALS["TRANS"]["Omaduse Aliased (grid_aliases) kommentaar"] = "tabeli täitmine sisuga. Sisuks võib olla nii tekst kui ka alloleva seostehalduri abil tekitatud aliased.";
+$GLOBALS["TRANS"]["Omaduse Aliased (grid_aliases) help"] = "tabeli täitmine sisuga. Sisuks võib olla nii tekst kui ka alloleva seostehalduri abil tekitatud aliased.";
+$GLOBALS["TRANS"]["Omaduse Eelvaade (grid_preview) kommentaar"] = "võimaldab tabeli sisu eelvaadet.";
+$GLOBALS["TRANS"]["Omaduse Eelvaade (grid_preview) help"] = "võimaldab tabeli sisu eelvaadet.";
+$GLOBALS["TRANS"]["Omaduse Uploadi .csv fail (import_file) kommentaar"] = "võimaldab tekitada tabeli arvutist lisatud csv failist.";
+$GLOBALS["TRANS"]["Omaduse Uploadi .csv fail (import_file) help"] = "võimaldab tekitada tabeli arvutist lisatud csv failist.";
+$GLOBALS["TRANS"]["Omaduse Mis m&auml;rgiga on tulbad eraldatud? (import_sep) kommentaar"] = "tulpade tekitamiseks tuleb ette anda eraldav sümbol.";
+$GLOBALS["TRANS"]["Omaduse Mis m&auml;rgiga on tulbad eraldatud? (import_sep) help"] = "tulpade tekitamiseks tuleb ette anda eraldav sümbol.";
+$GLOBALS["TRANS"]["Omaduse Millistes kataloogides n&auml;idatakse (show_in_folders) kommentaar"] = "kui seostehalduri abil on seotud seose tüüp \"Näita selles kataloogis\", siis on võimalik valida, millistes seda tabelit näidatakse. Kui ei ole midagi valitud siis ei ole tabelil mingit näitamise piirangut.";
+$GLOBALS["TRANS"]["Omaduse Millistes kataloogides n&auml;idatakse (show_in_folders) help"] = "kui seostehalduri abil on seotud seose tüüp \"Näita selles kataloogis\", siis on võimalik valida, millistes seda tabelit näidatakse. Kui ei ole midagi valitud siis ei ole tabelil mingit näitamise piirangut.";
+$GLOBALS["TRANS"]["Omaduse P&auml;is (header) kommentaar"] = "võimaldab tabelile tekitada päise.";
+$GLOBALS["TRANS"]["Omaduse P&auml;is (header) help"] = "võimaldab tabelile tekitada päise.";
+$GLOBALS["TRANS"]["Omaduse Jalus (footer) kommentaar"] = "võimaldab tabelile tekitada jaluse.";
+$GLOBALS["TRANS"]["Omaduse Jalus (footer) help"] = "võimaldab tabelile tekitada jaluse.";
+?>

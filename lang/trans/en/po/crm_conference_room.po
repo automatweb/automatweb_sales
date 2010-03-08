@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/crm/crm_conference_room.aw:class_1143_help
+msgid "Klassi Konverentsiruum help"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_area
+msgid "Omaduse Pindala (area) caption"
+msgstr "Area"
+
+#: classes/crm/crm_conference_room.aw:prop_area_comment
+msgid "Omaduse Pindala (area) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_area_help
+msgid "Omaduse Pindala (area) help"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_description
+msgid "Omaduse Kirjeldus (description) caption"
+msgstr "Description"
+
+#: classes/crm/crm_conference_room.aw:prop_description_comment
+msgid "Omaduse Kirjeldus (description) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_description_help
+msgid "Omaduse Kirjeldus (description) help"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_chair
+msgid "Omaduse Toolid (type_chair) caption"
+msgstr "Chairs"
+
+#: classes/crm/crm_conference_room.aw:prop_type_chair_comment
+msgid "Omaduse Toolid (type_chair) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_chair_help
+msgid "Omaduse Toolid (type_chair) help"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_chair_table
+msgid "Omaduse Tool + Laud (type_chair_table) caption"
+msgstr "Chair + table"
+
+#: classes/crm/crm_conference_room.aw:prop_type_chair_table_comment
+msgid "Omaduse Tool + Laud (type_chair_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_chair_table_help
+msgid "Omaduse Tool + Laud (type_chair_table) help"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_conference_table
+msgid "Omaduse N&otilde;upidamislaud (type_conference_table) caption"
+msgstr "Conference atble"
+
+#: classes/crm/crm_conference_room.aw:prop_type_conference_table_comment
+msgid "Omaduse N&otilde;upidamislaud (type_conference_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_conference_table_help
+msgid "Omaduse N&otilde;upidamislaud (type_conference_table) help"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_u_table
+msgid "Omaduse U-kujuline laud (type_u_table) caption"
+msgstr "U-shaped table"
+
+#: classes/crm/crm_conference_room.aw:prop_type_u_table_comment
+msgid "Omaduse U-kujuline laud (type_u_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_u_table_help
+msgid "Omaduse U-kujuline laud (type_u_table) help"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_oval_table
+msgid "Omaduse &Uuml;marlaud (type_oval_table) caption"
+msgstr "Round table"
+
+#: classes/crm/crm_conference_room.aw:prop_type_oval_table_comment
+msgid "Omaduse &Uuml;marlaud (type_oval_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_oval_table_help
+msgid "Omaduse &Uuml;marlaud (type_oval_table) help"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_chair_diag
+msgid "Omaduse Ainult toolid diagonaalis (type_chair_diag) caption"
+msgstr "Only chairs in diagonal"
+
+#: classes/crm/crm_conference_room.aw:prop_type_chair_diag_comment
+msgid "Omaduse Ainult toolid diagonaalis (type_chair_diag) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:prop_type_chair_diag_help
+msgid "Omaduse Ainult toolid diagonaalis (type_chair_diag) help"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:layout_left
+msgid "Kujundusosa &Uuml;ldine (left) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_conference_room.aw:layout_right
+msgid "Kujundusosa Maks.kohti (right) pealkiri"
+msgstr ""

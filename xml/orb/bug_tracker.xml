@@ -1,0 +1,209 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="bug_tracker" folder="www/dev/hannes/automatweb_dev/classes/applications/bug_o_matic_3000" extends="class_base">
+		<action name="proj_tree_level" all_args="1">
+			<function name="proj_tree_level">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_project">
+			<function name="cut_project">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_project">
+			<function name="copy_project">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_project">
+			<function name="paste_project">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_node" all_args="1">
+			<function name="get_node">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_node_cat" all_args="1">
+			<function name="get_node_cat">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete">
+			<function name="delete">
+				<arguments>
+					<optional name="cat" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="assign_bugs">
+			<function name="assign_bugs">
+				<arguments>
+					<optional name="sel" />
+					<optional name="post_ru" />
+					<optional name="assign_to" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_bug_status">
+			<function name="set_bug_status">
+				<arguments>
+					<optional name="sel" />
+					<optional name="post_ru" />
+					<optional name="assign_to" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_b">
+			<function name="cut_b">
+				<arguments>
+					<optional name="sel" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_b">
+			<function name="paste_b">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fetch_structure_in_xml">
+			<function name="fetch_structure_in_xml">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_search" all_args="1">
+			<function name="save_search">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="list_only_fetch" all_args="1">
+			<function name="list_only_fetch">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="aw_firefoxtools_gantt">
+			<function name="aw_firefoxtools_gantt">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="aw_firefoxtools_bugs_history">
+			<function name="aw_firefoxtools_bugs_history">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="aw_firefoxtools_new_bug_url">
+			<function name="aw_firefoxtools_new_bug_url">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="bug_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_s_res_to_p_list">
+			<function name="add_s_res_to_p_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_p_from_l_list">
+			<function name="remove_p_from_l_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="co_autocomplete_source">
+			<function name="co_autocomplete_source">
+				<arguments>
+					<optional name="sp_p_co" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="p_autocomplete_source">
+			<function name="p_autocomplete_source">
+				<arguments>
+					<optional name="sp_p_p" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_node_monitor" all_args="1">
+			<function name="get_node_monitor">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="nag_about_unestimated_bugs" nologin="1">
+			<function name="nag_about_unestimated_bugs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="f">
+			<function name="disp_wh">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="export_req">
+			<function name="export_req">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mail_scanner" nologin="1">
+			<function name="mail_scanner">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_feedback_bug" all_args="1">
+			<function name="create_feedback_bug">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

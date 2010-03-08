@@ -1,0 +1,1033 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/webform.aw:class_866_help
+msgid "Klassi Veebivorm help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_on_init
+msgid "Omaduse Initsialiseeri objekt (on_init) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_on_init_comment
+msgid "Omaduse Initsialiseeri objekt (on_init) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_on_init_help
+msgid "Omaduse Initsialiseeri objekt (on_init) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_form_type
+msgid "Omaduse Vormi t&uuml;&uuml;p (form_type) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_form_type_comment
+msgid "Omaduse Vormi t&uuml;&uuml;p (form_type) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_form_type_help
+msgid "Omaduse Vormi t&uuml;&uuml;p (form_type) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_form_type_value
+msgid "Omaduse Vormi t&uuml;&uuml;p (form_type_value) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_form_type_value_comment
+msgid "Omaduse Vormi t&uuml;&uuml;p (form_type_value) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_form_type_value_help
+msgid "Omaduse Vormi t&uuml;&uuml;p (form_type_value) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_name
+msgid "Omaduse Saatja nimi (def_name) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_name_comment
+msgid "Omaduse Saatja nimi (def_name) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_name_help
+msgid "Omaduse Saatja nimi (def_name) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_mail
+msgid "Omaduse Saatja e-mail (def_mail) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_mail_comment
+msgid "Omaduse Saatja e-mail (def_mail) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_mail_help
+msgid "Omaduse Saatja e-mail (def_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_obj_name
+msgid "Omaduse Millised sisestatud v&auml;&auml;rtused pannakse nimeks (obj_name) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_obj_name_comment
+msgid "Omaduse Millised sisestatud v&auml;&auml;rtused pannakse nimeks (obj_name) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_obj_name_help
+msgid "Omaduse Millised sisestatud v&auml;&auml;rtused pannakse nimeks (obj_name) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_error_location
+msgid "Omaduse Kuva veateateid (error_location) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_error_location_comment
+msgid "Omaduse Kuva veateateid (error_location) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_error_location_help
+msgid "Omaduse Kuva veateateid (error_location) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_show_confirm_page
+msgid "Omaduse Kinnitusvaade? (show_confirm_page) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_show_confirm_page_comment
+msgid "Omaduse Kinnitusvaade? (show_confirm_page) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_show_confirm_page_help
+msgid "Omaduse Kinnitusvaade? (show_confirm_page) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_confirm_page_template
+msgid "Omaduse Kinnitusvaate templeit (confirm_page_template) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_confirm_page_template_comment
+msgid "Omaduse Kinnitusvaate templeit (confirm_page_template) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_confirm_page_template_help
+msgid "Omaduse Kinnitusvaate templeit (confirm_page_template) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_after_confirm_edit
+msgid "Omaduse Peale kinnitusvaadet mine muutmisele (after_confirm_edit) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_after_confirm_edit_comment
+msgid "Omaduse Peale kinnitusvaadet mine muutmisele (after_confirm_edit) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_after_confirm_edit_help
+msgid "Omaduse Peale kinnitusvaadet mine muutmisele (after_confirm_edit) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_send_all_rows_to_mail
+msgid "Omaduse Saada k&otilde;ik read meilile (send_all_rows_to_mail) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_send_all_rows_to_mail_comment
+msgid "Omaduse Saada k&otilde;ik read meilile (send_all_rows_to_mail) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_send_all_rows_to_mail_help
+msgid "Omaduse Saada k&otilde;ik read meilile (send_all_rows_to_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_redirect
+msgid "Omaduse Kuhu suunata peale t&auml;tmist (redirect) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_redirect_comment
+msgid "Omaduse Kuhu suunata peale t&auml;tmist (redirect) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_redirect_help
+msgid "Omaduse Kuhu suunata peale t&auml;tmist (redirect) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_disp_after_entry
+msgid "Omaduse L&otilde;puvaade template (disp_after_entry) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_disp_after_entry_comment
+msgid "Omaduse L&otilde;puvaade template (disp_after_entry) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_disp_after_entry_help
+msgid "Omaduse L&otilde;puvaade template (disp_after_entry) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_disp_after_entry_print
+msgid "Omaduse L&otilde;pu printvaate template (disp_after_entry_print) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_disp_after_entry_print_comment
+msgid "Omaduse L&otilde;pu printvaate template (disp_after_entry_print) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_disp_after_entry_print_help
+msgid "Omaduse L&otilde;pu printvaate template (disp_after_entry_print) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_mails_tb
+msgid "Omaduse  (mails_tb) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_mails_tb_comment
+msgid "Omaduse  (mails_tb) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_mails_tb_help
+msgid "Omaduse  (mails_tb) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_mails_tbl
+msgid "Omaduse  (mails_tbl) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_mails_tbl_comment
+msgid "Omaduse  (mails_tbl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_mails_tbl_help
+msgid "Omaduse  (mails_tbl) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_mail_info
+msgid "Omaduse  (search_mail_info) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_mail_info_comment
+msgid "Omaduse  (search_mail_info) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_mail_info_help
+msgid "Omaduse  (search_mail_info) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_mail_name
+msgid "Omaduse Nimi (search_mail_name) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_mail_name_comment
+msgid "Omaduse Nimi (search_mail_name) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_mail_name_help
+msgid "Omaduse Nimi (search_mail_name) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_mail_email
+msgid "Omaduse E-mail (search_mail_email) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_mail_email_comment
+msgid "Omaduse E-mail (search_mail_email) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_mail_email_help
+msgid "Omaduse E-mail (search_mail_email) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_navtoolbar
+msgid "Omaduse Toolbar (navtoolbar) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_navtoolbar_comment
+msgid "Omaduse Toolbar (navtoolbar) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_navtoolbar_help
+msgid "Omaduse Toolbar (navtoolbar) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_form
+msgid "Omaduse Vorm (form) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_form_comment
+msgid "Omaduse Vorm (form) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_form_help
+msgid "Omaduse Vorm (form) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_subaction
+msgid "Omaduse Subaction (subaction) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_subaction_comment
+msgid "Omaduse Subaction (subaction) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_subaction_help
+msgid "Omaduse Subaction (subaction) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_aliasmgr2
+msgid "Omaduse Seostehaldur (aliasmgr2) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_aliasmgr2_comment
+msgid "Omaduse Seostehaldur (aliasmgr2) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_aliasmgr2_help
+msgid "Omaduse Seostehaldur (aliasmgr2) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_availtoolbar
+msgid "Omaduse Toolbar (availtoolbar) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_availtoolbar_comment
+msgid "Omaduse Toolbar (availtoolbar) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_availtoolbar_help
+msgid "Omaduse Toolbar (availtoolbar) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_props
+msgid "Omaduse Omadused (props) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_props_comment
+msgid "Omaduse Omadused (props) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_props_help
+msgid "Omaduse Omadused (props) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_style_folder
+msgid "Omaduse Stiilide kaust (style_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_style_folder_comment
+msgid "Omaduse Stiilide kaust (style_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_style_folder_help
+msgid "Omaduse Stiilide kaust (style_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_caption_style
+msgid "Omaduse Vaikimisi pealkirja stiil (def_caption_style) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_caption_style_comment
+msgid "Omaduse Vaikimisi pealkirja stiil (def_caption_style) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_caption_style_help
+msgid "Omaduse Vaikimisi pealkirja stiil (def_caption_style) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_comment_style
+msgid "Omaduse Vaikimisi kommentaari stiil (def_comment_style) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_comment_style_comment
+msgid "Omaduse Vaikimisi kommentaari stiil (def_comment_style) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_comment_style_help
+msgid "Omaduse Vaikimisi kommentaari stiil (def_comment_style) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_prop_style
+msgid "Omaduse Vaikimisi elemendi stiil (def_prop_style) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_prop_style_comment
+msgid "Omaduse Vaikimisi elemendi stiil (def_prop_style) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_prop_style_help
+msgid "Omaduse Vaikimisi elemendi stiil (def_prop_style) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_form_style
+msgid "Omaduse Tabeli stiil (def_form_style) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_form_style_comment
+msgid "Omaduse Tabeli stiil (def_form_style) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_def_form_style_help
+msgid "Omaduse Tabeli stiil (def_form_style) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_styles
+msgid "Omaduse Stiilid (styles) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_styles_comment
+msgid "Omaduse Stiilid (styles) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_styles_help
+msgid "Omaduse Stiilid (styles) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_preview
+msgid "Omaduse Eelvaade (preview) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_preview_comment
+msgid "Omaduse Eelvaade (preview) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_preview_help
+msgid "Omaduse Eelvaade (preview) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_entries_toolbar
+msgid "Omaduse Sisestuste toolbar (entries_toolbar) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_entries_toolbar_comment
+msgid "Omaduse Sisestuste toolbar (entries_toolbar) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_entries_toolbar_help
+msgid "Omaduse Sisestuste toolbar (entries_toolbar) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search
+msgid "Omaduse Otsing (search) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_comment
+msgid "Omaduse Otsing (search) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_search_help
+msgid "Omaduse Otsing (search) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_entries
+msgid "Omaduse Sisestused (entries) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_entries_comment
+msgid "Omaduse Sisestused (entries) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_entries_help
+msgid "Omaduse Sisestused (entries) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_set_controller_folder
+msgid "Omaduse Kontrollerite kaust (set_controller_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_set_controller_folder_comment
+msgid "Omaduse Kontrollerite kaust (set_controller_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_set_controller_folder_help
+msgid "Omaduse Kontrollerite kaust (set_controller_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_submit_controllers
+msgid "Omaduse Kontrollerid (submit_controllers) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_submit_controllers_comment
+msgid "Omaduse Kontrollerid (submit_controllers) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_submit_controllers_help
+msgid "Omaduse Kontrollerid (submit_controllers) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_get_controller_folder
+msgid "Omaduse Kontrollerite kaust (get_controller_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_get_controller_folder_comment
+msgid "Omaduse Kontrollerite kaust (get_controller_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_get_controller_folder_help
+msgid "Omaduse Kontrollerite kaust (get_controller_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_view_controllers
+msgid "Omaduse Kontrollerid (view_controllers) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_view_controllers_comment
+msgid "Omaduse Kontrollerid (view_controllers) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_view_controllers_help
+msgid "Omaduse Kontrollerid (view_controllers) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_general_sub
+msgid "Grupi &Uuml;ldine (general_sub) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_general_sub_help
+msgid "Grupi &Uuml;ldine (general_sub) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_general_redir
+msgid "Grupi Suunamine (general_redir) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_general_redir_help
+msgid "Grupi Suunamine (general_redir) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_send_mails
+msgid "Grupi Saada meilid (send_mails) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_send_mails_help
+msgid "Grupi Saada meilid (send_mails) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_form
+msgid "Grupi Vorm (form) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_form_help
+msgid "Grupi Vorm (form) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_props
+msgid "Grupi Omadused (props) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_props_help
+msgid "Grupi Omadused (props) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_styles
+msgid "Grupi Stiilid (styles) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_styles_help
+msgid "Grupi Stiilid (styles) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_preview
+msgid "Grupi Eelvaade (preview) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_preview_help
+msgid "Grupi Eelvaade (preview) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_show_entries
+msgid "Grupi Sisestused (show_entries) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_show_entries_help
+msgid "Grupi Sisestused (show_entries) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_search
+msgid "Grupi Otsing (search) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_search_help
+msgid "Grupi Otsing (search) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_entries
+msgid "Grupi N&auml;ita sisestusi (entries) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_entries_help
+msgid "Grupi N&auml;ita sisestusi (entries) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_controllers
+msgid "Grupi Kontrollerid (controllers) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_controllers_help
+msgid "Grupi Kontrollerid (controllers) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_set_controllers
+msgid "Grupi Salvestamine (set_controllers) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_set_controllers_help
+msgid "Grupi Salvestamine (set_controllers) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_get_controllers
+msgid "Grupi N&auml;itamine (get_controllers) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_get_controllers_help
+msgid "Grupi N&auml;itamine (get_controllers) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_METAMGR
+msgid "Seose Muutujate haldur (RELTYPE_METAMGR) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_CFGFORM
+msgid "Seose Seadete vorm (RELTYPE_CFGFORM) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_CONTROLLER
+msgid "Seose Salvestamise kontroller (RELTYPE_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_VIEWCONTROLLER
+msgid "Seose N&auml;itamise kontroller (RELTYPE_VIEWCONTROLLER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_EMAIL
+msgid "Seose Meiliaadress (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_OBJECT_TYPE
+msgid "Seose Objekti t&uuml;&uuml;p (RELTYPE_OBJECT_TYPE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_REGISTER
+msgid "Seose Register (RELTYPE_REGISTER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_STYLE
+msgid "Seose Stiil (RELTYPE_STYLE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_STYLE_FOLDER
+msgid "Seose Stiilide kaust (RELTYPE_STYLE_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_CONTROLLER_FOLDER
+msgid "Seose Kontrollerite kaust (RELTYPE_CONTROLLER_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_OBJECT_EXPORT
+msgid "Seose Objektide eksport (RELTYPE_OBJECT_EXPORT) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_CAL_REG_FORM
+msgid "Seose S&uuml;ndmuse vorm (RELTYPE_CAL_REG_FORM) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_CAL_REG_FORM_CONF
+msgid "Seose S&uuml;ndmuse vormi konf (RELTYPE_CAL_REG_FORM_CONF) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:rel_RELTYPE_AFTER_SAVE_CONTROLLER
+msgid "Seose p&auml;rast salvestamist kontroller (RELTYPE_AFTER_SAVE_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:267
+msgid "Tekst"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:268
+msgid "V&auml;ike tekstikast"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:269
+msgid "Valikv&auml;li"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:270
+msgid "Kuup&auml;evavalik"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:271
+msgid "Liitu mailinglistiga"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:272
+msgid "Suur tekstikast"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:273
+msgid "Peidetud v&auml;li"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:274
+msgid "Saada nupp"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:275
+msgid "T&uuml;hista nupp"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:276
+msgid "Prindi nupp"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:277
+msgid "Pildi &uuml;leslaadimine"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:278
+msgid "Faili &uuml;leslaadimine"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:281
+msgid "Eesnimi"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:282
+msgid "Perekonnanimi"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:283
+msgid "Organisatsioon"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:284 classes/contentmgmt/webform.aw:2948
+msgid "Aadress"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:285
+msgid "Telefon"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:286
+msgid "Faks"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:287
+msgid "E-post"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:290
+msgid "Tavaline vorm"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:291
+msgid "S&uuml;ndmusele registreerimine"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:292
+msgid "Toode"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:376
+msgid "Elementide kohale"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:377
+msgid "Vormi kohale"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:378
+msgid "Vormi alla"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:495
+msgid "Salvesta"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:502
+msgid "Kustuta valitud omadused"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:505
+msgid "Oled kindel, et tahad antud omadused kustutada?"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:515 classes/contentmgmt/webform.aw:1326
+msgid "--vali--"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:519
+msgid "Otsi aadressit"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:768
+msgid "Andmed"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:778
+msgid "Objekti t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:892 classes/contentmgmt/webform.aw:913
+msgid "%caption peab olema t&auml;idetud"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:893 classes/contentmgmt/webform.aw:919
+msgid "%caption peab olema valitud"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:894 classes/contentmgmt/webform.aw:925
+msgid "%caption sisestatud e-mailiaadress pole korrektne"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:903
+msgid "M&auml;&auml;ra saaja aadressiks"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:907
+msgid "M&auml;&auml;ra saatja aadressiks"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:911
+msgid "*elemendinimi* peab olema t&auml;idetud"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:917
+msgid "*elemendinimi* peab olema valitud"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:923
+msgid "Kontrolli e-maili &otilde;igsust"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:929 classes/contentmgmt/webform.aw:940
+msgid "Kuva sisestaja IP ja host aadress"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:933 classes/contentmgmt/webform.aw:944
+msgid "Sisesta dokumendi pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:948
+msgid "Sisselogitud isiku eesnimi"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:952
+msgid "Sisselogitud isiku perekonnanimi"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:997
+msgid "Otsi"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1005
+msgid "Muuda otsingu seadeid"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1015
+msgid "Kustuta valitud sisestused"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1018
+msgid "Oled kindel, et tahad valitud sisestused kustutada?"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1022
+msgid "Ekspordi objektid"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1143 classes/contentmgmt/webform.aw:1574
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1144
+msgid "Mitu elementi"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1145
+msgid "Kasutus"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1159
+msgid "kasutusel"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1160
+msgid "alles"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1319
+msgid "-- vali --"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1320
+msgid "Mitmerealine rippmen&uuml;&uuml;"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1321
+msgid "Rippmen&uuml;&uuml;"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1322
+msgid "M&auml;rkeruut"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1323
+msgid "Raadionupp"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1327
+msgid "J&auml;rjekord (kasvav)"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1328
+msgid "J&auml;rjekord (kahanev)"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1329
+msgid "Nimi (kasvav)"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1330
+msgid "Nimi (kahanev)"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1331
+msgid "Loomisaeg (kasvav)"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1332
+msgid "Loomisaeg (kahanev)"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1334
+msgid "horisontaalne"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1334
+msgid "vertikaalne"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1513 classes/contentmgmt/webform.aw:1522
+#: classes/contentmgmt/webform.aw:1531
+msgid "Valik"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1514 classes/contentmgmt/webform.aw:1523
+#: classes/contentmgmt/webform.aw:1532
+msgid "Tekstikast"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1515 classes/contentmgmt/webform.aw:1524
+#: classes/contentmgmt/webform.aw:1533
+msgid "Ei n&auml;idata"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1548
+msgid "K&otilde;rgus"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1555
+msgid "Laius"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1570
+msgid "Jrk"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1571
+msgid "Kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1572
+msgid "Pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1573
+msgid "Pealkirja asukoht"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1575
+msgid "K&otilde;rvale"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1576
+msgid "Vahe"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1577
+msgid "Vali"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1578
+msgid "Ei n&auml;ita veebis"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1579
+msgid "Ei n&auml;ita nime"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1652
+msgid "Veateate stiil"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1661
+msgid "%s pealkirja stiil"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1668
+msgid "%s kommentaari stiil"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1675
+msgid "%s elemendi stiil"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1715 classes/contentmgmt/webform.aw:1738
+msgid "-- Vali --"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:1844
+msgid "Registreeru"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:2030
+msgid "Saada"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:2718
+msgid "Kinnita"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:2723
+msgid "Tagasi"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:2845
+msgid "Liigu edasi &raquo;"
+msgstr ""
+
+#: classes/contentmgmt/webform.aw:2944
+msgid "Nimi"
+msgstr ""

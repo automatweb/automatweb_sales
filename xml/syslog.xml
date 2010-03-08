@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<definitions>
+<header_normal   value="sl_title"/>
+<header_sortable value="sl_title"/>
+<header_sorted   value="sl_title_sorted"/>
+<content_style1  value="sl_plain"/>
+<content_style2  value="sl_plain_2"/>
+<style_alfa	 value="fcontent_line2"/>
+<content_style1_selected value="sl_plain_sel"/>
+<content_style2_selected value="sl_plain_2_sel"/>
+<default_order value="when"/>
+</definitions>
+
+<data>
+<field name="when" caption="Millal" talign="left" type="time" format="H:i d-M-Y" nowrap="1" sortable="1"/>
+<field name="uid" caption="Kes" talign="left" nowrap="1" sortable="1" />
+<field name="ip" caption="IP" talign="left" nowrap="1" sortable="1"/>
+<field name="uid_c" caption="UID (c)" talign="left" nowrap="1" sortable="1"/>
+<field name="email_c" caption="E-MAIL (c)" talign="left" nowrap="1" sortable="1"/>
+<field name="action" caption="Mida" talign="left" sortable="1"/>
+</data>
+
+</tabledef>

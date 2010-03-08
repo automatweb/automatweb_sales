@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="site_search_content_grp_userdefined" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/site_search" extends="run_in_background">
+	</class>
+</orb>

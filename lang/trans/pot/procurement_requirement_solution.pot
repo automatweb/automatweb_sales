@@ -1,0 +1,192 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:class_1072_help
+msgid "Klassi N&otilde;ude lahendus help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_readyness
+msgid "Omaduse Valmidus (readyness) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_readyness_comment
+msgid "Omaduse Valmidus (readyness) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_readyness_help
+msgid "Omaduse Valmidus (readyness) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_price
+msgid "Omaduse Hind (price) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_price_comment
+msgid "Omaduse Hind (price) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_price_help
+msgid "Omaduse Hind (price) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_time_to_install
+msgid "Omaduse Seadistamise aeg (time_to_install) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_time_to_install_comment
+msgid "Omaduse Seadistamise aeg (time_to_install) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_time_to_install_help
+msgid "Omaduse Seadistamise aeg (time_to_install) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_solution
+msgid "Omaduse Lahendus (solution) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_solution_comment
+msgid "Omaduse Lahendus (solution) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_solution_help
+msgid "Omaduse Lahendus (solution) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_offerer_co
+msgid "Omaduse Pakkuja organisatsioon (offerer_co) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_offerer_co_comment
+msgid "Omaduse Pakkuja organisatsioon (offerer_co) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_offerer_co_help
+msgid "Omaduse Pakkuja organisatsioon (offerer_co) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_offerer_p
+msgid "Omaduse Pakkuja isik (offerer_p) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_offerer_p_comment
+msgid "Omaduse Pakkuja isik (offerer_p) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_offerer_p_help
+msgid "Omaduse Pakkuja isik (offerer_p) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_completion_date
+msgid "Omaduse Valmimiskuup&auml;ev (completion_date) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_completion_date_comment
+msgid "Omaduse Valmimiskuup&auml;ev (completion_date) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_completion_date_help
+msgid "Omaduse Valmimiskuup&auml;ev (completion_date) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_requirement
+msgid "Omaduse N&otilde;ue (requirement) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_requirement_comment
+msgid "Omaduse N&otilde;ue (requirement) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_requirement_help
+msgid "Omaduse N&otilde;ue (requirement) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_offer
+msgid "Omaduse Pakkumine (offer) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_offer_comment
+msgid "Omaduse Pakkumine (offer) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_offer_help
+msgid "Omaduse Pakkumine (offer) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_team_tb
+msgid "Omaduse  (team_tb) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_team_tb_comment
+msgid "Omaduse  (team_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:prop_team_tb_help
+msgid "Omaduse  (team_tb) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:group_ppl
+msgid "Grupi Isikud (ppl) pealkiri"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:group_ppl_help
+msgid "Grupi Isikud (ppl) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:rel_RELTYPE_CO
+msgid "Seose Organisatsioon (RELTYPE_CO) tekst"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:rel_RELTYPE_P
+msgid "Seose Isik (RELTYPE_P) tekst"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:67
+msgid "Kohe olemas"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:68
+msgid "Vajab seadistamist"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:69
+msgid "Uus arendus"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:206
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:211
+msgid "Telefon"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:216
+msgid "E-post"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:221
+msgid "&Uuml;ksus"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:226
+msgid "Ametinimetus"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:231
+msgid "Tunnihind"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement_solution.aw:236
+msgid "T&ouml;&ouml;tunnid"
+msgstr ""
+

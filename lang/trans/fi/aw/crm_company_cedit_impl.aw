@@ -1,0 +1,4 @@
+<?php
+$GLOBALS["TRANS"]["Jah"] = "=====: classes/applications/crm/crm_company_cedit_impl.aw:6: classes/applications/crm/crm_company_cedit_impl.aw:7: classes/applications/crm/crm_company_cedit_impl.aw:15: classes/applications/crm/crm_company_cedit_impl.aw:16: classes/applications/crm/crm_company_cedit_impl.aw:33: classes/applications/crm/crm_company_cedit_impl.aw:34: classes/applications/crm/crm_company_cedit_impl.aw:46: classes/applications/crm/crm_company_cedit_impl.aw:48: classes/applications/crm/crm_company_cedit_impl.aw:60: classes/applications/crm/crm_company_cedit_impl.aw:62: classes/applications/crm/crm_company_cedit_impl.aw:73: classes/applications/crm/crm_company_cedit_impl.aw:81: classes/applications/crm/crm_company_cedit_impl.aw:83sgid \"Muudasgstr ";
+$GLOBALS["TRANS"]["Jah"] = ">>>>>> 1.";
+?>

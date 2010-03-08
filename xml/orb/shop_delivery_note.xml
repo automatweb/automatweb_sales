@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_delivery_note" folder="www/dev/robert/automatweb_dev/classes/applications/shop" extends="class_base">
+		<action name="del_article_rels" all_args="1">
+			<function name="del_article_rels">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="articles_set_no_autocomplete_source" all_args="1">
+			<function name="articles_set_no_autocomplete_source">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="articles_serial_no_autocomplete_source" all_args="1">
+			<function name="articles_serial_no_autocomplete_source">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_movement" all_args="1">
+			<function name="create_movement">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_bill" all_args="1">
+			<function name="create_bill">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

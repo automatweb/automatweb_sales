@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/vcl/date_edit.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/date_edit.aw:220
+msgid "Jaanuar"
+msgstr "January"
+
+#: classes/vcl/date_edit.aw:221
+msgid "Veebruar"
+msgstr "February"
+
+#: classes/vcl/date_edit.aw:222
+msgid "M&auml;rts"
+msgstr "March"
+
+#: classes/vcl/date_edit.aw:223
+msgid "Aprill"
+msgstr "April"
+
+#: classes/vcl/date_edit.aw:224
+msgid "Mai"
+msgstr "May"
+
+#: classes/vcl/date_edit.aw:225
+msgid "Juuni"
+msgstr "June"
+
+#: classes/vcl/date_edit.aw:226
+msgid "Juuli"
+msgstr "July"
+
+#: classes/vcl/date_edit.aw:227
+msgid "August"
+msgstr "August"
+
+#: classes/vcl/date_edit.aw:228
+msgid "September"
+msgstr "September"
+
+#: classes/vcl/date_edit.aw:229
+msgid "Oktoober"
+msgstr "October"
+
+#: classes/vcl/date_edit.aw:230
+msgid "November"
+msgstr "November"
+
+#: classes/vcl/date_edit.aw:231
+msgid "Detsember"
+msgstr "December"

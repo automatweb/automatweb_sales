@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="package_client_obj" folder="www/automatweb_cvs/classes/applications/package_management" extends="_int_object">
+		<action name="download_package_properties">
+			<function name="download_package_properties">
+				<arguments>
+					<required name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

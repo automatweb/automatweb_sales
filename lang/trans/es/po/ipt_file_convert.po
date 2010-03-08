@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:class_1061_help
+msgid "Klassi IPT Failide konvertimine help"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:prop_file
+msgid "Omaduse Fail (file) caption"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:prop_file_comment
+msgid "Omaduse Fail (file) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:prop_file_help
+msgid "Omaduse Fail (file) help"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:prop_res
+msgid "Omaduse Tulemus (res) caption"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:prop_res_comment
+msgid "Omaduse Tulemus (res) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:prop_res_help
+msgid "Omaduse Tulemus (res) help"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:prop_files
+msgid "Omaduse  (files) caption"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:prop_files_comment
+msgid "Omaduse  (files) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:prop_files_help
+msgid "Omaduse  (files) help"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:group_files
+msgid "Grupi Failid (files) pealkiri"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:group_files_help
+msgid "Grupi Failid (files) help"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:rel_RELTYPE_FILE
+msgid "Seose Fail (RELTYPE_FILE) tekst"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:59
+msgid "Downloadi tulemus"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:145
+msgid "error, unrecognized line %s"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:357
+msgid "Viga faili parsimisel, andmete neljas tulp peaks olema kas H v6i P, hetkel on %s"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:441
+msgid "Originaalfail"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:446
+msgid "Tulemusfailid"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:451
+msgid "Kes"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:456
+msgid "Millal"
+msgstr ""
+
+#: classes/applications/clients/ipt/ipt_file_convert.aw:480
+msgid "ipt.zip"
+msgstr ""
+

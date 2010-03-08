@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_delivery_note_obj" folder="www/automatweb_cvs/classes/applications/shop" extends="_int_object">
+		<action name="create_movement">
+			<function name="create_movement">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

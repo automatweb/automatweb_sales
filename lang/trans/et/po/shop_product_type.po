@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/shop/shop_product_type.aw:class_300_help
+#: classes/applications/shop/shop_product_type.aw:class_300_help
+msgid "Klassi Toote t&uuml;&uuml;p help"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_sp_cfgform
+#: classes/applications/shop/shop_product_type.aw:prop_sp_cfgform
+msgid "Omaduse Vorm, millega toodet sisestatakse (sp_cfgform) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_sp_cfgform_comment
+#: classes/applications/shop/shop_product_type.aw:prop_sp_cfgform_comment
+msgid "Omaduse Vorm, millega toodet sisestatakse (sp_cfgform) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_sp_cfgform_help
+#: classes/applications/shop/shop_product_type.aw:prop_sp_cfgform_help
+msgid "Omaduse Vorm, millega toodet sisestatakse (sp_cfgform) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_sp_object_type
+#: classes/applications/shop/shop_product_type.aw:prop_sp_object_type
+msgid "Omaduse Objekti t&uuml;&uuml;p, millega toodet sisestatakse (sp_object_type) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_sp_object_type_comment
+#: classes/applications/shop/shop_product_type.aw:prop_sp_object_type_comment
+msgid "Omaduse Objekti t&uuml;&uuml;p, millega toodet sisestatakse (sp_object_type) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_sp_object_type_help
+#: classes/applications/shop/shop_product_type.aw:prop_sp_object_type_help
+msgid "Omaduse Objekti t&uuml;&uuml;p, millega toodet sisestatakse (sp_object_type) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_packaging_cfgform
+#: classes/applications/shop/shop_product_type.aw:prop_packaging_cfgform
+msgid "Omaduse Vorm, millega toote pakendit sisestatakse (packaging_cfgform) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_packaging_cfgform_comment
+#: classes/applications/shop/shop_product_type.aw:prop_packaging_cfgform_comment
+msgid "Omaduse Vorm, millega toote pakendit sisestatakse (packaging_cfgform) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_packaging_cfgform_help
+#: classes/applications/shop/shop_product_type.aw:prop_packaging_cfgform_help
+msgid "Omaduse Vorm, millega toote pakendit sisestatakse (packaging_cfgform) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_image_folder
+#: classes/applications/shop/shop_product_type.aw:prop_image_folder
+msgid "Omaduse Toodete piltide kataloog (image_folder) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_image_folder_comment
+#: classes/applications/shop/shop_product_type.aw:prop_image_folder_comment
+msgid "Omaduse Toodete piltide kataloog (image_folder) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_image_folder_help
+#: classes/applications/shop/shop_product_type.aw:prop_image_folder_help
+msgid "Omaduse Toodete piltide kataloog (image_folder) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_file_folder
+#: classes/applications/shop/shop_product_type.aw:prop_file_folder
+msgid "Omaduse Toodete failide kataloog (file_folder) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_file_folder_comment
+#: classes/applications/shop/shop_product_type.aw:prop_file_folder_comment
+msgid "Omaduse Toodete failide kataloog (file_folder) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:prop_file_folder_help
+#: classes/applications/shop/shop_product_type.aw:prop_file_folder_help
+msgid "Omaduse Toodete failide kataloog (file_folder) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_type.aw:prop_default_product_folder
+msgid "Omaduse Vaikimisi toodete kataloog (default_product_folder) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_type.aw:prop_default_product_folder_comment
+msgid "Omaduse Vaikimisi toodete kataloog (default_product_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_type.aw:prop_default_product_folder_help
+msgid "Omaduse Vaikimisi toodete kataloog (default_product_folder) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:rel_RELTYPE_SP_CFGFORM
+#: classes/applications/shop/shop_product_type.aw:rel_RELTYPE_SP_CFGFORM
+msgid "Seose seadete vorm (RELTYPE_SP_CFGFORM) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:rel_RELTYPE_SP_OBJECT_TYPE
+#: classes/applications/shop/shop_product_type.aw:rel_RELTYPE_SP_OBJECT_TYPE
+msgid "Seose objektit&uuml;&uuml;p (RELTYPE_SP_OBJECT_TYPE) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product_type.aw:rel_RELTYPE_FOLDER
+#: classes/applications/shop/shop_product_type.aw:rel_RELTYPE_FOLDER
+msgid "Seose kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""

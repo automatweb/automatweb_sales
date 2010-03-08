@@ -1,0 +1,622 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:class_187_help
+msgid "Klassi Galerii seaded help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_conf_folders
+msgid "Omaduse Kataloogid, kus konf kehtib (conf_folders) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_conf_folders_comment
+msgid "Omaduse Kataloogid, kus konf kehtib (conf_folders) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_conf_folders_help
+msgid "Omaduse Kataloogid, kus konf kehtib (conf_folders) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_conf_ratings
+msgid "Omaduse Hindamisobjektid (conf_ratings) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_conf_ratings_comment
+msgid "Omaduse Hindamisobjektid (conf_ratings) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_conf_ratings_help
+msgid "Omaduse Hindamisobjektid (conf_ratings) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_images_folder
+msgid "Omaduse Piltide asukoht (images_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_images_folder_comment
+msgid "Omaduse Piltide asukoht (images_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_images_folder_help
+msgid "Omaduse Piltide asukoht (images_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_def_layout
+msgid "Omaduse Default layout: (def_layout) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_def_layout_comment
+msgid "Omaduse Default layout: (def_layout) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_def_layout_help
+msgid "Omaduse Default layout: (def_layout) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_apply_image
+msgid "Omaduse Kehtib ka pildiobjektidele (apply_image) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_apply_image_comment
+msgid "Omaduse Kehtib ka pildiobjektidele (apply_image) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_apply_image_help
+msgid "Omaduse Kehtib ka pildiobjektidele (apply_image) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_send_from_addr
+msgid "Omaduse Meili From aadress (send_from_addr) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_send_from_addr_comment
+msgid "Omaduse Meili From aadress (send_from_addr) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_send_from_addr_help
+msgid "Omaduse Meili From aadress (send_from_addr) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_controller
+msgid "Omaduse Pildi muundamise kontroller (controller) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_controller_comment
+msgid "Omaduse Pildi muundamise kontroller (controller) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_controller_help
+msgid "Omaduse Pildi muundamise kontroller (controller) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_comm_edit_grp
+msgid "Omaduse Kommentaaride muutmise grupid (comm_edit_grp) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_comm_edit_grp_comment
+msgid "Omaduse Kommentaaride muutmise grupid (comm_edit_grp) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_comm_edit_grp_help
+msgid "Omaduse Kommentaaride muutmise grupid (comm_edit_grp) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_resize_before_crop
+msgid "Omaduse Muuda suurust enne kadreerimist (resize_before_crop) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_resize_before_crop_comment
+msgid "Omaduse Muuda suurust enne kadreerimist (resize_before_crop) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_resize_before_crop_help
+msgid "Omaduse Muuda suurust enne kadreerimist (resize_before_crop) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_img_vert
+msgid "Omaduse Kui pilt on k&otilde;rgem kui laiem (img_vert) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_img_vert_comment
+msgid "Omaduse Kui pilt on k&otilde;rgem kui laiem (img_vert) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_img_vert_help
+msgid "Omaduse Kui pilt on k&otilde;rgem kui laiem (img_vert) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage
+msgid "Omaduse Kas v&auml;ike pilt on kadreeritud (v_tn_subimage) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_comment
+msgid "Omaduse Kas v&auml;ike pilt on kadreeritud (v_tn_subimage) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_help
+msgid "Omaduse Kas v&auml;ike pilt on kadreeritud (v_tn_subimage) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_stretch
+msgid "Omaduse V&auml;ikest pilti ei venitata (v_tn_subimage_stretch) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_stretch_comment
+msgid "Omaduse V&auml;ikest pilti ei venitata (v_tn_subimage_stretch) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_stretch_help
+msgid "Omaduse V&auml;ikest pilti ei venitata (v_tn_subimage_stretch) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_subimage_stretch
+msgid "Omaduse Suurt pilti ei venitata (v_subimage_stretch) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_subimage_stretch_comment
+msgid "Omaduse Suurt pilti ei venitata (v_subimage_stretch) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_subimage_stretch_help
+msgid "Omaduse Suurt pilti ei venitata (v_subimage_stretch) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_left
+msgid "Omaduse Mitu pikslit vasakult kaader algab (v_tn_subimage_left) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_left_comment
+msgid "Omaduse Mitu pikslit vasakult kaader algab (v_tn_subimage_left) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_left_help
+msgid "Omaduse Mitu pikslit vasakult kaader algab (v_tn_subimage_left) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_top
+msgid "Omaduse Mitu pikslit &uuml;levalt kaader algab (v_tn_subimage_top) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_top_comment
+msgid "Omaduse Mitu pikslit &uuml;levalt kaader algab (v_tn_subimage_top) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_top_help
+msgid "Omaduse Mitu pikslit &uuml;levalt kaader algab (v_tn_subimage_top) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_width
+msgid "Omaduse Kaadri laius (v_tn_subimage_width) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_width_comment
+msgid "Omaduse Kaadri laius (v_tn_subimage_width) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_width_help
+msgid "Omaduse Kaadri laius (v_tn_subimage_width) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_height
+msgid "Omaduse Kaadri k&otilde;rgus (v_tn_subimage_height) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_height_comment
+msgid "Omaduse Kaadri k&otilde;rgus (v_tn_subimage_height) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_subimage_height_help
+msgid "Omaduse Kaadri k&otilde;rgus (v_tn_subimage_height) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_width
+msgid "Omaduse V&auml;ikese pildi laius (v_tn_width) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_width_comment
+msgid "Omaduse V&auml;ikese pildi laius (v_tn_width) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_width_help
+msgid "Omaduse V&auml;ikese pildi laius (v_tn_width) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_height
+msgid "Omaduse V&auml;ikese pildi k&otilde;rgus (v_tn_height) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_height_comment
+msgid "Omaduse V&auml;ikese pildi k&otilde;rgus (v_tn_height) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_tn_height_help
+msgid "Omaduse V&auml;ikese pildi k&otilde;rgus (v_tn_height) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_width
+msgid "Omaduse Suure pildi laius (v_width) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_width_comment
+msgid "Omaduse Suure pildi laius (v_width) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_width_help
+msgid "Omaduse Suure pildi laius (v_width) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_height
+msgid "Omaduse Suure pildi k&otilde;rgus (v_height) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_height_comment
+msgid "Omaduse Suure pildi k&otilde;rgus (v_height) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_v_height_help
+msgid "Omaduse Suure pildi k&otilde;rgus (v_height) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_img_horiz
+msgid "Omaduse Kui pilt on laiem kui k&otilde;rgem  (img_horiz) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_img_horiz_comment
+msgid "Omaduse Kui pilt on laiem kui k&otilde;rgem  (img_horiz) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_img_horiz_help
+msgid "Omaduse Kui pilt on laiem kui k&otilde;rgem  (img_horiz) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage
+msgid "Omaduse Kas v&auml;ike pilt on kadreeritud (h_tn_subimage) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_comment
+msgid "Omaduse Kas v&auml;ike pilt on kadreeritud (h_tn_subimage) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_help
+msgid "Omaduse Kas v&auml;ike pilt on kadreeritud (h_tn_subimage) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_stretch
+msgid "Omaduse V&auml;ikest pilti ei venitata (h_tn_subimage_stretch) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_stretch_comment
+msgid "Omaduse V&auml;ikest pilti ei venitata (h_tn_subimage_stretch) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_stretch_help
+msgid "Omaduse V&auml;ikest pilti ei venitata (h_tn_subimage_stretch) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_subimage_stretch
+msgid "Omaduse Suurt pilti ei venitata (h_subimage_stretch) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_subimage_stretch_comment
+msgid "Omaduse Suurt pilti ei venitata (h_subimage_stretch) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_subimage_stretch_help
+msgid "Omaduse Suurt pilti ei venitata (h_subimage_stretch) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_left
+msgid "Omaduse Mitu pikslit vasakult kaader algab (h_tn_subimage_left) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_left_comment
+msgid "Omaduse Mitu pikslit vasakult kaader algab (h_tn_subimage_left) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_left_help
+msgid "Omaduse Mitu pikslit vasakult kaader algab (h_tn_subimage_left) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_top
+msgid "Omaduse Mitu pikslit &uuml;levalt kaader algab (h_tn_subimage_top) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_top_comment
+msgid "Omaduse Mitu pikslit &uuml;levalt kaader algab (h_tn_subimage_top) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_top_help
+msgid "Omaduse Mitu pikslit &uuml;levalt kaader algab (h_tn_subimage_top) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_width
+msgid "Omaduse Kaadri laius (h_tn_subimage_width) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_width_comment
+msgid "Omaduse Kaadri laius (h_tn_subimage_width) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_width_help
+msgid "Omaduse Kaadri laius (h_tn_subimage_width) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_height
+msgid "Omaduse Kaadri k&otilde;rgus (h_tn_subimage_height) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_height_comment
+msgid "Omaduse Kaadri k&otilde;rgus (h_tn_subimage_height) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_subimage_height_help
+msgid "Omaduse Kaadri k&otilde;rgus (h_tn_subimage_height) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_width
+msgid "Omaduse V&auml;ikese pildi laius (h_tn_width) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_width_comment
+msgid "Omaduse V&auml;ikese pildi laius (h_tn_width) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_width_help
+msgid "Omaduse V&auml;ikese pildi laius (h_tn_width) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_height
+msgid "Omaduse V&auml;ikese pildi k&otilde;rgus (h_tn_height) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_height_comment
+msgid "Omaduse V&auml;ikese pildi k&otilde;rgus (h_tn_height) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_tn_height_help
+msgid "Omaduse V&auml;ikese pildi k&otilde;rgus (h_tn_height) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_width
+msgid "Omaduse Suure pildi laius (h_width) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_width_comment
+msgid "Omaduse Suure pildi laius (h_width) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_width_help
+msgid "Omaduse Suure pildi laius (h_width) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_height
+msgid "Omaduse Suure pildi k&otilde;rgus (h_height) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_height_comment
+msgid "Omaduse Suure pildi k&otilde;rgus (h_height) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_h_height_help
+msgid "Omaduse Suure pildi k&otilde;rgus (h_height) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_insert_logo
+msgid "Omaduse Kas suurele pildile kleepida lisapilt (insert_logo) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_insert_logo_comment
+msgid "Omaduse Kas suurele pildile kleepida lisapilt (insert_logo) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_insert_logo_help
+msgid "Omaduse Kas suurele pildile kleepida lisapilt (insert_logo) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_img
+msgid "Omaduse Lisapilt (logo_img) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_img_comment
+msgid "Omaduse Lisapilt (logo_img) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_img_help
+msgid "Omaduse Lisapilt (logo_img) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_corner
+msgid "Omaduse Mis nurgas (logo_corner) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_corner_comment
+msgid "Omaduse Mis nurgas (logo_corner) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_corner_help
+msgid "Omaduse Mis nurgas (logo_corner) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_dist_x
+msgid "Omaduse Mitu pikslit vertikaalsest servast (logo_dist_x) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_dist_x_comment
+msgid "Omaduse Mitu pikslit vertikaalsest servast (logo_dist_x) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_dist_x_help
+msgid "Omaduse Mitu pikslit vertikaalsest servast (logo_dist_x) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_dist_y
+msgid "Omaduse Mitu pikslit horisontaalsest servast (logo_dist_y) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_dist_y_comment
+msgid "Omaduse Mitu pikslit horisontaalsest servast (logo_dist_y) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_dist_y_help
+msgid "Omaduse Mitu pikslit horisontaalsest servast (logo_dist_y) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_transparency
+msgid "Omaduse Lisapildi l&auml;bipaistvus, 0-100 (0 -0 t&auml;iesti l&auml;bipaistev) (logo_transparency) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_transparency_comment
+msgid "Omaduse Lisapildi l&auml;bipaistvus, 0-100 (0 -0 t&auml;iesti l&auml;bipaistev) (logo_transparency) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_transparency_help
+msgid "Omaduse Lisapildi l&auml;bipaistvus, 0-100 (0 -0 t&auml;iesti l&auml;bipaistev) (logo_transparency) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_text
+msgid "Omaduse Lisapildi tekst (%nimi% asendatakse galerii nimega) (logo_text) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_text_comment
+msgid "Omaduse Lisapildi tekst (%nimi% asendatakse galerii nimega) (logo_text) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_logo_text_help
+msgid "Omaduse Lisapildi tekst (%nimi% asendatakse galerii nimega) (logo_text) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_insert_logo
+msgid "Omaduse Kas v&auml;ikesele pildile kleepida lisapilt (tn_insert_logo) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_insert_logo_comment
+msgid "Omaduse Kas v&auml;ikesele pildile kleepida lisapilt (tn_insert_logo) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_insert_logo_help
+msgid "Omaduse Kas v&auml;ikesele pildile kleepida lisapilt (tn_insert_logo) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_img
+msgid "Omaduse Lisapilt (tn_logo_img) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_img_comment
+msgid "Omaduse Lisapilt (tn_logo_img) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_img_help
+msgid "Omaduse Lisapilt (tn_logo_img) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_corner
+msgid "Omaduse Mis nurgas (tn_logo_corner) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_corner_comment
+msgid "Omaduse Mis nurgas (tn_logo_corner) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_corner_help
+msgid "Omaduse Mis nurgas (tn_logo_corner) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_dist_x
+msgid "Omaduse Mitu pikslit vertikaalsest servast (tn_logo_dist_x) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_dist_x_comment
+msgid "Omaduse Mitu pikslit vertikaalsest servast (tn_logo_dist_x) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_dist_x_help
+msgid "Omaduse Mitu pikslit vertikaalsest servast (tn_logo_dist_x) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_dist_y
+msgid "Omaduse Mitu pikslit horisontaalsest servast (tn_logo_dist_y) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_dist_y_comment
+msgid "Omaduse Mitu pikslit horisontaalsest servast (tn_logo_dist_y) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_dist_y_help
+msgid "Omaduse Mitu pikslit horisontaalsest servast (tn_logo_dist_y) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_transparency
+msgid "Omaduse Lisapildi l&auml;bipaistvus, 1-100 (1-t&auml;iesti l&auml;bipaistev) (tn_logo_transparency) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_transparency_comment
+msgid "Omaduse Lisapildi l&auml;bipaistvus, 1-100 (1-t&auml;iesti l&auml;bipaistev) (tn_logo_transparency) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_transparency_help
+msgid "Omaduse Lisapildi l&auml;bipaistvus, 1-100 (1-t&auml;iesti l&auml;bipaistev) (tn_logo_transparency) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_text
+msgid "Omaduse Lisapildi tekst (%nimi% asendatakse galerii nimega) (tn_logo_text) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_text_comment
+msgid "Omaduse Lisapildi tekst (%nimi% asendatakse galerii nimega) (tn_logo_text) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:prop_tn_logo_text_help
+msgid "Omaduse Lisapildi tekst (%nimi% asendatakse galerii nimega) (tn_logo_text) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:group_imgsize
+msgid "Grupi Piltide&nbsp;suurused (imgsize) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:group_imgsize_help
+msgid "Grupi Piltide&nbsp;suurused (imgsize) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:group_logo
+msgid "Grupi Lisapilt (logo) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:group_logo_help
+msgid "Grupi Lisapilt (logo) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:rel_RELTYPE_FOLDER
+msgid "Seose hallatav kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:rel_RELTYPE_RATE
+msgid "Seose Hindamisobjektid (RELTYPE_RATE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:rel_RELTYPE_IMAGES_FOLDER
+msgid "Seose galerii piltide kataloog (RELTYPE_IMAGES_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:rel_RELTYPE_LOGO
+msgid "Seose logo pilt (RELTYPE_LOGO) tekst"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:rel_RELTYPE_LAYOUT
+msgid "Seose galerii lehe layout (RELTYPE_LAYOUT) tekst"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:rel_RELTYPE_CONTROLLER
+msgid "Seose Kontroller (RELTYPE_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_conf.aw:rel_RELTYPE_EDIT_GRP
+msgid "Seose Muutmise grupp (RELTYPE_EDIT_GRP) tekst"
+msgstr ""

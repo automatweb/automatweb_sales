@@ -1,0 +1,39 @@
+
+On 2 ini faili: AutomatWeb'i ini  ja  saidi ini fail. AutomatWeb'i ini failis on default v&auml;&auml;rtused, mida saab saidi ini failis &uuml;le kirjutada. Saidi ini fail asub failis&uuml;steemis saidi root kataloogis. 
+
+<b> Muutujad, mille v&auml;&auml;rtusi reeglina saidi ini failis pole vaja muuta.</b> -  Need m&auml;&auml;rab AW saidi loomisel ise korrektselt.
+
+cache.page_cache &#8211;  failis&uuml;steemis asuv kataloog, kuhu kirjutatakse cache faile. Weebiserveril peab olemema sellesse kataloogi kirjutamise &otilde;igus.
+
+tpldir &#8211; Kataloog  failis&uuml;steemis ,kus hoitakse k&otilde;iki template.
+
+site_id -  Saidi id , mis on register.automatweb.com 'is. See on andmebaas k\x{00F5}igist aw saitidest ja serveritest kus AW on paigaldatud. Saidi objekti loomisel v&otilde;eti &uuml;hendust register.automatweb.com' iga ja registeeriti see sait seal. 
+
+db.user, db.host, db.base, db.pass &#8211; Andmebaasi kasutajanimi, server, andmebasi nimi ja password.
+
+auth.md5_passwords &#8211; Kas hoida kasutajate paroole andmebaasis kr&uuml;pteeritult md5 hashina(v&auml;&auml;rtus 1) v&otilde;i tavalise tekstina(v&auml;&auml;rtus 0). Turvalisuse m&otilde;ttes on soovitav hoida passworde kr&uuml;pteeritult. Kui saidi testimise k&auml;igus tekib vajadus logida sisse m&otilde;ne teise olemasoleva kasutajana siis , kui eelnevalt oli salas&otilde;na andmebaasis kr&uuml;pteeritult, siis pannes auth.md5_passwords  v&auml;&auml;rtuseks 0 saab saidile sisse logida sellesama hashiga, sisestades selle paroolikasti. 
+
+<b>Muutujad, mis tuleb ise m&auml;&auml;rata. </b>
+
+PS. AW objekti(kataloogi) id teadasaamiseks lihtsaim on vaadata tema linki objektide nimekirjas. 
+
+groups.all_users_grp   - Kasutajagrupp  t&uuml;&uuml;pi objeki  id AW's ,  kuhu kuuluvad k&otilde;ik kasutajad. Obekti nimeks on &#8220;K&otilde;ik kasutajad&#8221;. 
+
+rootmenu &#8211; rootmen&uuml;&uuml; id. Ehk siis selle objekti id kust objektis&uuml;steem algab.
+
+per_oid &#8211; perioodi objektide kataloogi id.
+
+amenustart -  Kataloog id kus asuvad administraatorite programmid. Ehk siis objektis&uuml;steemis oleva kataloogi /AutomatWeb  id. 
+
+frontpage &#8211; Kataloog mis saidile tulles aktiivne. Eh siis on v&otilde;imalus , et tulles saidile avaneb n&auml;iteks m&otilde;ni teise v&otilde;i kolmandal men&uuml;&uuml; tasemel  asuv dokument. 
+
+menuedit.menu_defs[id] &#8211; Anname nimed men&uuml;&uuml;piirkondadele, mida hiljem kasutame templatede kirjeldamises.  id on objektis&uuml;steemis oleva vastava kataloogi id. 
+
+n&auml;iteks:
+menuedit.menu_defs[13] = YLEMINE
+menuedit.menu_defs[16] = VASAK
+menuedit.menu_defs[20] = LOGGED
+
+groups.tree_root &#8211; Kataloogi id , kus asuvad kasutajagrupp t&uuml;&uuml;pi objektid.
+
+users.root_folder &#8211; Kataloogi id , kus asuvad kasutaja t&uuml;&uuml;pi objektid.

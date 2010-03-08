@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_family_relation" folder="applications/crm" extends="class_base">
+		<action name="person_ac" all_args="1">
+			<function name="person_ac">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,12 @@
+How to convert acl to v2:
+
+1) ALTER TABLE objects ADD acldata mediumtext;
+2) GET http://site/automatweb/orb.aw?class=converters&action=acl_to_objtbl
+3) wait
+4) GET http://site/automatweb/orb.aw?class=converters&action=test_acl
+5) wait even longer
+6) set acl.use_new_acl = 1 in ini file
+7) check if permissions are correct in admin interface
+
+and that's it. 
+

@@ -1,0 +1,122 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/util/ip_locator/ip_locator.aw:class_1177_help
+msgid "Klassi IP lokaator help"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_csv_file_location
+msgid "Omaduse CSV faili asukoht (csv_file_location) caption"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_csv_file_location_comment
+msgid "Omaduse CSV faili asukoht (csv_file_location) kommentaar"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_csv_file_location_help
+msgid "Omaduse CSV faili asukoht (csv_file_location) help"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_info
+msgid "Omaduse Info (info) caption"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_info_comment
+msgid "Omaduse Info (info) kommentaar"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_info_help
+msgid "Omaduse Info (info) help"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_update_db
+msgid "Omaduse Uuenda andmebaasi (update_db) caption"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_update_db_comment
+msgid "Omaduse Uuenda andmebaasi (update_db) kommentaar"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_update_db_help
+msgid "Omaduse Uuenda andmebaasi (update_db) help"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_ip
+msgid "Omaduse IP aadress (ip) caption"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_ip_comment
+msgid "Omaduse IP aadress (ip) kommentaar"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_ip_help
+msgid "Omaduse IP aadress (ip) help"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_search_result
+msgid "Omaduse Tulemus (search_result) caption"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_search_result_comment
+msgid "Omaduse Tulemus (search_result) kommentaar"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_search_result_help
+msgid "Omaduse Tulemus (search_result) help"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_search_ip
+msgid "Omaduse Otsi  (search_ip) caption"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_search_ip_comment
+msgid "Omaduse Otsi  (search_ip) kommentaar"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:prop_search_ip_help
+msgid "Omaduse Otsi  (search_ip) help"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:group_search
+msgid "Grupi Otsing (search) pealkiri"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:group_search_help
+msgid "Grupi Otsing (search) help"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:59
+msgid "Faili viimati muudetud:"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:64
+msgid "Uuenda baasi"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:101
+msgid "Sellist IP-d ei leitud andmebaasist"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:105
+msgid "Maa: <strong>%s</strong> <br />"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:106
+msgid "Kahekohaline kood: <strong>%s</strong> <br />"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:107
+msgid "Kolmekohaline kood: <strong>%s</strong> <br />"
+msgstr ""
+
+#: classes/core/util/ip_locator/ip_locator.aw:108
+msgid "Vastavalt ISO 3166 standardile"
+msgstr ""

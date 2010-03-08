@@ -1,0 +1,153 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_order_cart" folder="www/automatweb_cvs/classes/applications/shop" extends="class_base">
+		<action name="show_cart" nologin="1">
+			<function name="show">
+				<arguments>
+					<optional name="id" type="int" acl="view" />
+					<optional name="oc" type="int" />
+					<optional name="cart" type="int" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_add_cart" nologin="1">
+			<function name="submit_add_cart">
+				<arguments>
+					<required name="oc" type="int" acl="view" />
+					<optional name="add_to_cart" />
+					<optional name="is_update" type="int" />
+					<optional name="order_data" />
+					<optional name="go_to_after" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pre_finish_order" nologin="1">
+			<function name="pre_finish_order">
+				<arguments>
+					<required name="oc" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="final_finish_order" nologin="1">
+			<function name="final_finish_order">
+				<arguments>
+					<optional name="oc" />
+					<optional name="cart" />
+					<optional name="section" />
+					<optional name="confirm_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="clear_cart" nologin="1">
+			<function name="orb_clear_cart">
+				<arguments>
+					<required name="oc" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pay_cart" nologin="1">
+			<function name="pay_cart">
+				<arguments>
+					<required name="oc" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bank_return" nologin="1">
+			<function name="bank_return">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_prod_to_cart" nologin="1">
+			<function name="add_prod_to_cart">
+				<arguments>
+					<required name="oc" type="int" acl="view" />
+					<optional name="add_to_cart" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_product" nologin="1">
+			<function name="add_product">
+				<arguments>
+					<required name="oc" type="int" acl="view" />
+					<optional name="product" />
+					<optional name="amount" />
+					<optional name="return_url" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_product" nologin="1">
+			<function name="show_product">
+				<arguments>
+					<required name="cart" type="int" acl="view" />
+					<optional name="product" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="orderer_data" nologin="1">
+			<function name="orderer_data">
+				<arguments>
+					<required name="cart" type="int" acl="view" />
+					<optional name="next_view" />
+					<optional name="confirm_url" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="order_data" nologin="1">
+			<function name="order_data">
+				<arguments>
+					<required name="cart" type="int" acl="view" />
+					<optional name="next_view" />
+					<optional name="confirm_url" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_order_data" nologin="1" all_args="1">
+			<function name="submit_order_data">
+				<arguments>
+					<optional name="next_action" type="string" />
+					<optional name="confirm_url" type="string" />
+					<optional name="section" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_product" nologin="1">
+			<function name="remove_product">
+				<arguments>
+					<required name="cart" type="oid" />
+					<optional name="product" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="confirm_order" nologin="1">
+			<function name="confirm_order">
+				<arguments>
+					<required name="cart" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

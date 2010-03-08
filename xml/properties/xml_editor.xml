@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>xml_file</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>XML fail</caption>
+      </property>
+      <property>
+            <name>xml_content</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>xml_content</field>
+            <caption>xml-i sisu tabel</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_XML_EDITOR</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <no_comment>1</no_comment>
+            <prop_cb>1</prop_cb>
+            <maintainer>dragut</maintainer>
+      </classinfo>
+</properties>
+

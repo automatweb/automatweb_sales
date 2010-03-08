@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/fun/deathcounter.aw:class_1369_help
+msgid "Klassi Surmakaunter help"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_days_to_live
+msgid "Omaduse Päevi elada (days_to_live) caption"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_days_to_live_comment
+msgid "Omaduse Päevi elada (days_to_live) kommentaar"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_days_to_live_help
+msgid "Omaduse Päevi elada (days_to_live) help"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_death_year
+msgid "Omaduse Suremise aasta (death_year) caption"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_death_year_comment
+msgid "Omaduse Suremise aasta (death_year) kommentaar"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_death_year_help
+msgid "Omaduse Suremise aasta (death_year) help"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_death_month
+msgid "Omaduse Suremise kuu (death_month) caption"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_death_month_comment
+msgid "Omaduse Suremise kuu (death_month) kommentaar"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_death_month_help
+msgid "Omaduse Suremise kuu (death_month) help"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_death_day
+msgid "Omaduse Suremise p&auml;ev (death_day) caption"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_death_day_comment
+msgid "Omaduse Suremise p&auml;ev (death_day) kommentaar"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:prop_death_day_help
+msgid "Omaduse Suremise p&auml;ev (death_day) help"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:72
+msgid "Jaanuar"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:73
+msgid "Veebruar"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:74
+msgid "M&auml;rts"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:75
+msgid "Aprill"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:76
+msgid "Mai"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:77
+msgid "Juuni"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:78
+msgid "Juuli"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:79
+msgid "August"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:80
+msgid "September"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:81
+msgid "Oktoober"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:82
+msgid "November"
+msgstr ""
+
+#: classes/fun/deathcounter.aw:83
+msgid "Detsember"
+msgstr ""
+

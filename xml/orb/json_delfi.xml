@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="json_delfi" folder="applications/event_import_2" extends="class_base">
+		<action name="make_master_import_happy">
+			<function name="make_master_import_happy">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="from" type="int" />
+					<optional name="charset" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_output" all_args="1">
+			<function name="show_output">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

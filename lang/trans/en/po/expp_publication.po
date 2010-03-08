@@ -1,0 +1,38 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/clients/expp/expp_publication.aw:class_1011_help
+msgid "Klassi V&auml;ljaanne help"
+msgstr ""
+
+#: classes/applications/clients/expp/expp_publication.aw:prop_description_from_reggy
+msgid "Omaduse Kirjeldus Reggy-st (description_from_reggy) caption"
+msgstr ""
+
+#: classes/applications/clients/expp/expp_publication.aw:prop_description_from_reggy_comment
+msgid "Omaduse Kirjeldus Reggy-st (description_from_reggy) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/expp/expp_publication.aw:prop_description_from_reggy_help
+msgid "Omaduse Kirjeldus Reggy-st (description_from_reggy) help"
+msgstr ""
+
+#: classes/applications/clients/expp/expp_publication.aw:prop_description
+msgid "Omaduse Kirjeldus (description) caption"
+msgstr ""
+
+#: classes/applications/clients/expp/expp_publication.aw:prop_description_comment
+msgid "Omaduse Kirjeldus (description) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/expp/expp_publication.aw:prop_description_help
+msgid "Omaduse Kirjeldus (description) help"
+msgstr ""

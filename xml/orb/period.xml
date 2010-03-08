@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="period" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="list" default="1" nologin="1" is_public="1" caption="List">
+			<function name="site_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

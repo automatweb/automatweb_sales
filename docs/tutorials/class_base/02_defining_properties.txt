@@ -1,0 +1,78 @@
+Defining properties
+
+When you open your new class file in your text editor, you'll see the following pseudocode at the start 
+of the file.
+<pre class="programlisting">
+
+@classinfo syslog_type=ST_[class_name] relationmgr=yes
+
+@default table=objects
+@default group=general
+
+</pre>
+</p><p>
+<div class="cmdsynopsis" id="id2747670"><a name="id2747670"></a><b><tt>@property</tt></b>  {name} {type=<i><tt>typestring</tt></i>} [group=<i><tt>groupid</tt></i>] [parent=<i><tt>propname</tt></i>] 
+[default=<i><tt>value</tt></i>] [rel=1] [trans=1] [table=<i><tt>tablename</tt></i>] [field=<i><tt>fieldname</tt></i>] [method= [serialize | bitmask]] [no_caption=1] [store=no] [editonly=1] [newonly=1] [warning=<i><tt>warninglevel</tt></i>]</div>
+
+This is the single most important tag, it's used to define all the different properties. Additionaly to the attributes described here some properties have their own attributes.
+</p><div class="variablelist"><dl><dt><a name="id2797041"></a><span class="term">type</span></dt><dd><p><a name="id2797048"></a>type of the property</p></dd><dt><a name="id2797057"></a><span class="term">group</span></dt><dd><p><a name="id2797064"></a>id of the group (or groups) this property belongs to
+</p></dd>
+<dt><span class="term">parent</span></dt><dd><p>Name of a container property. If specified, this property will be put on the same line with the container element. Multiple properties can share the same parent, in which case they all will be on a single line.
+</p></dd>
+<dt><a name="id2797075"></a><span class="term">default</span></dt><dd><p><a name="id2797082"></a>default value for a property
+</p></dd><dt><a name="id2797091"></a><span class="term">rel</span></dt><dd><p><a name="id2797098"></a>if set to 1, then the value of this property can be overriden by a relation object
+</p></dd><dt><a name="id2797109"></a><span class="term">trans</span></dt><dd><p><a name="id2797117"></a>if set to 1, then the value of this property can be translated (only makes sense for properties which have some kind of textual value, like textboxes and textareas)
+</p></dd><dt><a name="id2797129"></a><span class="term">table</span></dt><dd><p><a name="id2797136"></a>name of the table into which the value of the property will be saved
+</p></dd><dt><a name="id2797147"></a><span class="term">field</span></dt><dd><p><a name="id2797154"></a>name of the field in that table, if omitted defaults to the name of the property. This means you do not have to specify a field if the property and the table field have the same name.
+</p></dd><dt><a name="id2797167"></a><span class="term">method</span></dt><dd><p><a name="id2797175"></a>which method to use to save data, it's needed for situations where multiple values will be packed into one field. serialize - means that aw_serialize function is used, bitmask - that a single bit in an integer field will be used for saving the value.
+
+</p></dd><dt><a name="id2797189"></a><span class="term">no_caption</span></dt><dd><p><a name="id2797196"></a>If set to 1, then the caption is ignored for this propery,  whole width of the form will be allocated to the property. Useful for example tables or other long elements. Nevertheless you should not omit the caption, it will at least be used in configuration forms.
+</p></dd><dt><a name="id2797210"></a><span class="term">store</span></dt><dd><p><a name="id2797218"></a>If set to "no", this property will neither be read or written to/from the database. An attempt to read (select) a non-existant property will result in an SQL error. <a href="ch04s02.html" title="get_property">get_property</a> / <a href="ch05.html#set_property" title="set_property">set_property</a> will still be invoked for this kind of property.
+</p></dd><dt><a name="id2797366"></a><span class="term">editonly</span></dt><dd><p><a name="id2797373"></a>If set to 1, the property will be shown only if an existing object is being edited (it's ignored for when an object is created)
+</p></dd><dt><a name="id2797385"></a><span class="term">newonly</span></dt><dd><p><a name="id2797392"></a>If set to 1, the property will be shown only if a new object is being created (is ignored when editing an object).
+</p></dd><dt><a name="id2797383"></a><span class="term">warning</span></dt><dd><p><a name="id2797393"></a>If set to 0, warnings will be ignored for this prop, any other integer set's the props warning level to corresponding number.
+</p></dd></dl></div><p>
+<div class="cmdsynopsis" id="id2797408"><a name="id2797408"></a><b><tt>@caption</tt></b>  {string}</div>
+
+This defines the caption for the property, it should be as short as possible while still making some sense and it has to follow the @property tag (be on the next line).
+</p><p>
+<div class="cmdsynopsis" id="id2797438"><a name="id2797438"></a><b><tt>@comment</tt></b>  {string}</div>
+Description (or comment) of the property, can be used to give a longer explanation (help text) about the property.
+</p><p>
+<div class="cmdsynopsis" id="id2797468"><a name="id2797468"></a><b><tt>@default</tt></b>  {
+	 [group=<i><tt>group_id</tt></i> | table=<i><tt>tablename</tt></i> | field=<i><tt>fieldname</tt></i> | method=<i><tt>methodname</tt></i>]
+}</div>
+
+Used to give a default value to a property attribute. Saves typing. For example, all properties following the @default table=objects tag will have the table attribute set to "objects".
+</p><p>
+<div class="cmdsynopsis" id="id2797556"><a name="id2797556"></a><b><tt>@groupinfo</tt></b>  {group_id} {caption=<i><tt>string</tt></i>} [default=1] [parent=<i><tt>group_id</tt></i>] [submit=<i><tt>no</tt></i>]</div>
+Used to define additional information about a group.
+</p><div class="variablelist"><dl><dt><a name="id2797630"></a><span class="term">caption</span></dt><dd><p><a name="id2797637"></a>Human readable name of the group</p></dd><dt><a name="id2797646"></a><span class="term">default</span></dt><dd><p><a name="id2797653"></a>Is this group the default?</p></dd><dt><a name="id2797663"></a><span class="term">parent</span></dt><dd><p><a name="id2797670"></a>if specified, this group will be nested (second level) inside the parent group</p></dd><dt><a name="id2797681"></a><span class="term">submit</span></dt><dd><p><a name="id2797688"></a>if specified, submit button will be omitted from this group</p></dd></dl></div><p>
+
+<div class="cmdsynopsis" id="id2797703"><a name="id2797703"></a><b><tt>@classinfo</tt></b>  {
+	 [relationmgr=yes] [trans=1] [syslog_type=<i><tt>ST_EXAMPLE</tt></i>] [no_status=1] [no_comment=1]
+}</div>
+Used to define additional information about the class.
+</p><div class="variablelist"><dl><dt><a name="id2797772"></a><span class="term">relationmgr</span></dt><dd><p>Does this class use a relation manager? (Most classes do)</p></dd><dt><span class="term">trans</span></dt><dd><p><a name="id2797796"></a>Can the properties of this class be translated?</p></dd><dt><span class="term">syslog_type</span></dt><dd><p>Generated automagically, used when logging things</p></dd>
+<dt><span class="term">no_status</span></dt><dd>If specified, then the status property will be omitted from the form and the status of the object will always set to STAT_ACTIVE when saving</p></dd>
+<dt><span class="term">no_comment</span></dt><dd>If specified, then the comment property will be omitted from the form.</p></dd>
+</dl></div><p>
+<div class="cmdsynopsis" id="id2797829"><a name="id2797829"></a><b><tt>@tableinfo</tt></b>  {tablename} {master_table=tablename} {master_index=indexname}</div>
+
+Used to define additional about a table (how it's related to the master (objects) table)
+</p>
+
+<p>
+<div class="cmdsynopsis"><b><tt>@layout</tt></b> {name} [type=<i><tt>hbox | vbox</tt></i>] [width=Left%:Right%] [group=<i><tt>groupid</tt></i>] [parent=<i><tt>parentid</tt></i>] </div>
+Used to define visual structure for properties
+<div class="variablelist">
+<dl>
+<dt> <span class="term">type</span></dt> <dd><p>Layout division style - horizontal or vertical box</p></dd>
+<dt> <span class="term">width</span></dt> <dd><p>For hbox, sets width of either side... eg width=20%:80%</p></dd>
+</dl></div><p>
+
+
+<div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title"><a name="id2797873"></a>Important</h3><p>
+Execute "make properties" each time you change any of the property definitions, this will update 
+the property files.
+</p></div></div></div>

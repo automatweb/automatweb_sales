@@ -1,0 +1,168 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:class_1198_help
+msgid "Klassi SPA Kliendi liides help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_prod_folders
+msgid "Omaduse Toodete kataloogid (prod_folders) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_prod_folders_comment
+msgid "Omaduse Toodete kataloogid (prod_folders) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_prod_folders_help
+msgid "Omaduse Toodete kataloogid (prod_folders) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_rooms
+msgid "Omaduse Ruumid (rooms) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_rooms_comment
+msgid "Omaduse Ruumid (rooms) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_rooms_help
+msgid "Omaduse Ruumid (rooms) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_bank_payment
+msgid "Omaduse Pangamakse objekt (bank_payment) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_bank_payment_comment
+msgid "Omaduse Pangamakse objekt (bank_payment) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_bank_payment_help
+msgid "Omaduse Pangamakse objekt (bank_payment) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_if_section
+msgid "Omaduse Liidese kaust (if_section) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_if_section_comment
+msgid "Omaduse Liidese kaust (if_section) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_if_section_help
+msgid "Omaduse Liidese kaust (if_section) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_if_wb
+msgid "Omaduse T&ouml;&ouml;laud (if_wb) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_if_wb_comment
+msgid "Omaduse T&ouml;&ouml;laud (if_wb) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_if_wb_help
+msgid "Omaduse T&ouml;&ouml;laud (if_wb) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_discount
+msgid "Omaduse Allahindlus (discount) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_discount_comment
+msgid "Omaduse Allahindlus (discount) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_discount_help
+msgid "Omaduse Allahindlus (discount) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_favorites
+msgid "Omaduse Lemmikteenuste objektikorv (favorites) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_favorites_comment
+msgid "Omaduse Lemmikteenuste objektikorv (favorites) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:prop_favorites_help
+msgid "Omaduse Lemmikteenuste objektikorv (favorites) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:rel_RELTYPE_FOLDER
+msgid "Seose Toodete kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:rel_RELTYPE_ROOM
+msgid "Seose Ruum (RELTYPE_ROOM) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:rel_RELTYPE_BANK_PAYMENT
+msgid "Seose Pangamakse (RELTYPE_BANK_PAYMENT) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:rel_RELTYPE_IF_SECT
+msgid "Seose Liidese kaust (RELTYPE_IF_SECT) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:rel_RELTYPE_IF_WB
+msgid "Seose T&ouml;&ouml;laud (RELTYPE_IF_WB) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:rel_RELTYPE_DISCOUNT
+msgid "Seose Allahindlus (RELTYPE_DISCOUNT) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:rel_RELTYPE_FAVORITES
+msgid "Seose Lemmikteenuste objektikorv (RELTYPE_FAVORITES) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:155
+msgid "Broneering %s / %s"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:201
+msgid "Lisa teenus"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:212
+msgid "Kinnita"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:213
+msgid "Maksa"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:222
+msgid "Prindi"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:420
+msgid "T&uuml;hista"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:479
+msgid "Lisa lemmikute hulka"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:1013 classes/applications/spa_bookings/spa_customer_interface.aw:1112
+msgid "%s - Sorry, but Your payment was made too late and another person has already booked this time!"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:1186
+msgid "Mees"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_customer_interface.aw:1186
+msgid "Naine"
+msgstr ""
+

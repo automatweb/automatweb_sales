@@ -1,0 +1,417 @@
+<TABLE cellspacing="0" border="0" width="100%">
+
+<!-- 
+<TR>
+<TD class="aw04contentcellsubtitle" style="font-size:16px; background-color:#FFF;" colspan="2">Avaldused ja hinded</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Sisseastumisavaldused</TD>
+<TD class="aw04contentcellright">{VAR:avaldused_tbl_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Sisseastumiskatsete konkursilehed</TD>
+<TD class="aw04contentcellright">{VAR:konkursilehed_tbl_show}</TD>
+</TR>
+ -->
+ <TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Nimi</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Eesnimi</TD>
+<TD class="aw04contentcellright">{VAR:firstname_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Perenimi</TD>
+<TD class="aw04contentcellright">{VAR:lastname_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Riigieksamite tulemused</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Kirjand</TD>
+<TD class="aw04contentcellright">{VAR:ex_kirjand_hinne_show} ({VAR:ex_kirjand_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Inglise keel</TD>
+<TD class="aw04contentcellright">{VAR:ex_ingl_hinne_show} ({VAR:ex_ingl_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Saksa keel</TD>
+<TD class="aw04contentcellright">{VAR:ex_sks_hinne_show} ({VAR:ex_sks_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Prantsuse keel</TD>
+<TD class="aw04contentcellright">{VAR:ex_pr_hinne_show} ({VAR:ex_pr_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Eesti keel v&otilde;&otilde;rkeelena</TD>
+<TD class="aw04contentcellright">{VAR:ex_eesti_hinne_show} ({VAR:ex_eesti_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Vene keel v&otilde;&otilde;rkeelena</TD>
+<TD class="aw04contentcellright">{VAR:ex_vene_hinne_show} ({VAR:ex_vene_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">&uuml;hiskonna&otilde;petus</TD>
+<TD class="aw04contentcellright">{VAR:ex_yhisk_hinne_show} ({VAR:ex_yhisk_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Ajalugu</TD>
+<TD class="aw04contentcellright">{VAR:ex_ajalugu_hinne_show} ({VAR:ex_ajalugu_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Bioloogia</TD>
+<TD class="aw04contentcellright">{VAR:ex_bio_hinne_show} ({VAR:ex_bio_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">F&uuml;&uuml;sika</TD>
+<TD class="aw04contentcellright">{VAR:ex_fyysika_hinne_show} ({VAR:ex_fyysika_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Keemia</TD>
+<TD class="aw04contentcellright">{VAR:ex_keemia_hinne_show} ({VAR:ex_keemia_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Matemaatika</TD>
+<TD class="aw04contentcellright">{VAR:ex_mat_hinne_show} ({VAR:ex_mat_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Geograafia</TD>
+<TD class="aw04contentcellright">{VAR:ex_geo_hinne_show} ({VAR:ex_geo_aasta_show})</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">&nbsp;</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">&otilde;ppekeel keskkoolis</TD>
+<TD class="aw04contentcellright">{VAR:oppekeel_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Hinded keskharidust t&otilde;endaval dokumendil</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">viisi</TD>
+<TD class="aw04contentcellright">{VAR:kk_hinne_5_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">neljasid</TD>
+<TD class="aw04contentcellright">{VAR:kk_hinne_4_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">kolmesid</TD>
+<TD class="aw04contentcellright">{VAR:kk_hinne_3_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">kahtesid</TD>
+<TD class="aw04contentcellright">{VAR:kk_hinne_2_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Keskmine hinne</TD>
+<TD class="aw04contentcellright">{VAR:keskhinne_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellsubtitle" style="font-size:16px; background-color:#FFF;" colspan="2">Andmed</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Sisseastuja number</TD>
+<TD class="aw04contentcellright">{VAR:sisseastuja_nr_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">&otilde;ppetase</TD>
+<TD class="aw04contentcellright">{VAR:oppetase_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Isikuandmed</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Kodakondsus</TD>
+<TD class="aw04contentcellright">{VAR:kodakondsus_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Elamisluba</TD>
+<TD class="aw04contentcellright">{VAR:elamisluba_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Elukohamaa</TD>
+<TD class="aw04contentcellright">{VAR:elukohamaa_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Isikukood</TD>
+<TD class="aw04contentcellright">{VAR:personal_id_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">S&uuml;nniaeg</TD>
+<TD class="aw04contentcellright">{VAR:birthday_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Sugu</TD>
+<TD class="aw04contentcellright">{VAR:gender_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Perekonnaseis</TD>
+<TD class="aw04contentcellright">{VAR:social_status_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Laste arv</TD>
+<TD class="aw04contentcellright">{VAR:laste_arv_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Alaline elukoht</TD>
+<TD class="aw04contentcellright">{VAR:elukoht_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Eelnevalt omandatud haridus</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Eelnevalt omandatud haridusastme kood</TD>
+<TD class="aw04contentcellright">{VAR:haridus_kood_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Eelmise haridusasutuse l&otilde;petamise aasta</TD>
+<TD class="aw04contentcellright">{VAR:haridus_aasta_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Haridus omandatud v&auml;lismaal</TD>
+<TD class="aw04contentcellright">{VAR:haridus_v2lismaal_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">L&otilde;petatud medaliga</TD>
+<TD class="aw04contentcellright">{VAR:haridus_medal_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Kool, mille l&otilde;putunnistus esitatud</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Kooli t&uuml;&uuml;p</TD>
+<TD class="aw04contentcellright">{VAR:haridus_kool_tyyp_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">L&otilde;petamise aasta</TD>
+<TD class="aw04contentcellright">{VAR:haridus_kool_aasta_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Kooli kood</TD>
+<TD class="aw04contentcellright">{VAR:haridus_kool_kood_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">&otilde;ppevorm koolis</TD>
+<TD class="aw04contentcellright">{VAR:haridus_kool_6ppevorm_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Sisseastuja info</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Kohustuslik v&otilde;&otilde;rkeel</TD>
+<TD class="aw04contentcellright">{VAR:v66rkeel_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Kontaktandmed</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Kood</TD>
+<TD class="aw04contentcellright">{VAR:aadress_kood_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">T&auml;nav, maja, korter/k&uuml;la</TD>
+<TD class="aw04contentcellright">{VAR:aadress_t2nav_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Sidejaoskond</TD>
+<TD class="aw04contentcellright">{VAR:aadress_sjsk_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Indeks</TD>
+<TD class="aw04contentcellright">{VAR:aadress_indeks_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Linn</TD>
+<TD class="aw04contentcellright">{VAR:aadress_linn_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Maakond</TD>
+<TD class="aw04contentcellright">{VAR:aadress_maakond_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Telefoninumbrid</TD>
+<TD class="aw04contentcellright">{VAR:phone_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">E-posti aadressid</TD>
+<TD class="aw04contentcellright">{VAR:email_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Andmed vanemate ja abikaasa kohta</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Isa</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Nimi</TD>
+<TD class="aw04contentcellright">{VAR:pere_isa_nimi_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Telefon</TD>
+<TD class="aw04contentcellright">{VAR:pere_isa_tel_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Aadress</TD>
+<TD class="aw04contentcellright">{VAR:pere_isa_aadress_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Ema</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Nimi</TD>
+<TD class="aw04contentcellright">{VAR:pere_ema_nimi_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Telefon</TD>
+<TD class="aw04contentcellright">{VAR:pere_ema_tel_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Aadress</TD>
+<TD class="aw04contentcellright">{VAR:pere_ema_aadress_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">Abikaasa</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Nimi</TD>
+<TD class="aw04contentcellright">{VAR:pere_abikaasa_nimi_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Telefon</TD>
+<TD class="aw04contentcellright">{VAR:pere_abikaasa_tel_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Aadress</TD>
+<TD class="aw04contentcellright">{VAR:pere_abikaasa_aadress_show}</TD>
+</TR>
+
+<TR>
+<TD colspan="2" class="aw04contentcellsubtitle">T&ouml;&ouml;koht</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">T&ouml;&ouml;koht, amet</TD>
+<TD class="aw04contentcellright">{VAR:t88koht_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Telefon t&ouml;&ouml;kohas</TD>
+<TD class="aw04contentcellright">{VAR:t88tel_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellsubtitle" style="font-size:16px; background-color:#FFF;" colspan="2">Katsetulemused</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Eesti keele test</TD>
+<TD class="aw04contentcellright">{VAR:tulemus_ek_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Maastikuarhitektuuri joonistuseksam</TD>
+<TD class="aw04contentcellright">{VAR:tulemus_kk_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Maastikuarhitektuuri erialatest</TD>
+<TD class="aw04contentcellright">{VAR:tulemus_vk_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Liha- ja piimatehnoloogia eriala vestlus</TD>
+<TD class="aw04contentcellright">{VAR:tulemus_vl_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Maastikukaitse- ja hoolduse eriala vestlus</TD>
+<TD class="aw04contentcellright">{VAR:tulemus_vm_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Veterinaarmeditsiini eriala vestlus</TD>
+<TD class="aw04contentcellright">{VAR:tulemus_vv_show}</TD>
+</TR>
+
+<TR>
+<TD class="aw04contentcellleft" width="20%">Rakendush&uuml;drobioloogia eriala vestlus</TD>
+<TD class="aw04contentcellright">{VAR:tulemus_vr_show}</TD>
+</TR>
+
+</TABLE>

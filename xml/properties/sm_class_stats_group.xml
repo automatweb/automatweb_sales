@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>class_list</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <multiple>1</multiple>
+            <size>20</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Valitud klassid</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SM_CLASS_STATS_GROUP</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_sm_class_stats_group>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_sm_class_stats_group>
+      </tableinfo>
+</properties>
+

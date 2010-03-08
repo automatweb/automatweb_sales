@@ -1,0 +1,35 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse J&auml;rjehoidjate jagamine (sharing) caption"] = "Bookmarks sharing";
+$GLOBALS["TRANS"]["Omaduse Jagatud j&auml;rjehoidjaid n&auml;idatakse (shared_show) caption"] = "Show shared bookmarks";
+$GLOBALS["TRANS"]["Grupi J&auml;rjehoidja (bms) pealkiri"] = "Bookmark";
+$GLOBALS["TRANS"]["Grupi Jagatud j&auml;rjehoidjad (shared) pealkiri"] = "Shared bookmarks";
+$GLOBALS["TRANS"]["Kujundusosa Puu (bm_tree) pealkiri"] = "Tree";
+$GLOBALS["TRANS"]["Kujundusosa Puu (shared_tree) pealkiri"] = "Tree";
+$GLOBALS["TRANS"]["&Uuml;ksteise all"] = "Below each-other";
+$GLOBALS["TRANS"]["Kasutajate kaupa"] = "By users";
+$GLOBALS["TRANS"]["%s j&auml;rjehoidja"] = "%s bookmark";
+$GLOBALS["TRANS"]["Uus"] = "New";
+$GLOBALS["TRANS"]["Kataloog"] = "Folder";
+$GLOBALS["TRANS"]["Link"] = "Link";
+$GLOBALS["TRANS"]["Salvesta"] = "Save";
+$GLOBALS["TRANS"]["Kustuta"] = "Delete";
+$GLOBALS["TRANS"]["Kopeeri"] = "Copy";
+$GLOBALS["TRANS"]["L&otilde;ika"] = "Cut";
+$GLOBALS["TRANS"]["Kleebi"] = "Paste";
+$GLOBALS["TRANS"]["Jaga"] = "Share";
+$GLOBALS["TRANS"]["Ikoon"] = "Icon";
+$GLOBALS["TRANS"]["Objekti nimi"] = "Object name";
+$GLOBALS["TRANS"]["Grupp"] = "Group";
+$GLOBALS["TRANS"]["Tee kohustuslikuks"] = "Make obligatory";
+$GLOBALS["TRANS"]["J&auml;rjekord"] = "Order";
+$GLOBALS["TRANS"]["Kasutaja tekst"] = "User-defined text";
+$GLOBALS["TRANS"]["Otsi"] = "Search";
+$GLOBALS["TRANS"]["j&auml;rjehoidja"] = "bookmark";
+$GLOBALS["TRANS"]["Kuva endal"] = "Show to yourself";
+$GLOBALS["TRANS"]["Kasutaja"] = "User";
+$GLOBALS["TRANS"]["j&auml;rjehoidjad"] = "bookmarks";
+$GLOBALS["TRANS"]["Pane j&auml;rjehoidjasse"] = "Add bookmark";
+$GLOBALS["TRANS"]["Eemalda j&auml;rjehoidjast"] = "Remove bookmark";
+$GLOBALS["TRANS"]["Toimeta j&auml;rjehoidjat"] = "Edit bookmarks";
+$GLOBALS["TRANS"]["J&auml;rjehoidja"] = "Bookmark";
+?>

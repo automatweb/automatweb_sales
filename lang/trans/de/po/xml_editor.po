@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/xml_editor/xml_editor.aw:class_817_help
+msgid "Klassi XML editor help"
+msgstr ""
+
+#: classes/applications/xml_editor/xml_editor.aw:prop_xml_file
+msgid "Omaduse XML fail (xml_file) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/xml_editor.aw:prop_xml_file_comment
+msgid "Omaduse XML fail (xml_file) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/xml_editor.aw:prop_xml_file_help
+msgid "Omaduse XML fail (xml_file) help"
+msgstr ""
+
+#: classes/applications/xml_editor/xml_editor.aw:prop_xml_content
+msgid "Omaduse xml-i sisu tabel (xml_content) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/xml_editor.aw:prop_xml_content_comment
+msgid "Omaduse xml-i sisu tabel (xml_content) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/xml_editor.aw:prop_xml_content_help
+msgid "Omaduse xml-i sisu tabel (xml_content) help"
+msgstr ""
+
+#: classes/applications/xml_editor/xml_editor.aw:88
+msgid "XML fail ei ole kirjutatav"
+msgstr ""
+
+#: classes/applications/xml_editor/xml_editor.aw:99
+msgid "xml elements"
+msgstr ""

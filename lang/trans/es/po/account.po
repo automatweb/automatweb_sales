@@ -1,0 +1,176 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/pank/account.aw:class_640_help
+msgid "Klassi Konto help"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_type
+msgid "Omaduse Konto tüüp (account_type) caption"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_type_comment
+msgid "Omaduse Konto tüüp (account_type) kommentaar"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_type_help
+msgid "Omaduse Konto tüüp (account_type) help"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_balance
+msgid "Omaduse Konto saldo (account_balance) caption"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_balance_comment
+msgid "Omaduse Konto saldo (account_balance) kommentaar"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_balance_help
+msgid "Omaduse Konto saldo (account_balance) help"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_transactions_incoming
+msgid "Omaduse Ülekanded (account_transactions_incoming) caption"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_transactions_incoming_comment
+msgid "Omaduse Ülekanded (account_transactions_incoming) kommentaar"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_transactions_incoming_help
+msgid "Omaduse Ülekanded (account_transactions_incoming) help"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_balance_outgoing
+msgid "Omaduse Konto saldo (account_balance_outgoing) caption"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_balance_outgoing_comment
+msgid "Omaduse Konto saldo (account_balance_outgoing) kommentaar"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_balance_outgoing_help
+msgid "Omaduse Konto saldo (account_balance_outgoing) help"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_transactions_outgoing
+msgid "Omaduse Ülekanded (account_transactions_outgoing) caption"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_transactions_outgoing_comment
+msgid "Omaduse Ülekanded (account_transactions_outgoing) kommentaar"
+msgstr ""
+
+#: classes/pank/account.aw:prop_account_transactions_outgoing_help
+msgid "Omaduse Ülekanded (account_transactions_outgoing) help"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_balance_incoming
+msgid "Omaduse Konto saldo (other_account_balance_incoming) caption"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_balance_incoming_comment
+msgid "Omaduse Konto saldo (other_account_balance_incoming) kommentaar"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_balance_incoming_help
+msgid "Omaduse Konto saldo (other_account_balance_incoming) help"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_transactions_incoming
+msgid "Omaduse Ülekanded (other_account_transactions_incoming) caption"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_transactions_incoming_comment
+msgid "Omaduse Ülekanded (other_account_transactions_incoming) kommentaar"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_transactions_incoming_help
+msgid "Omaduse Ülekanded (other_account_transactions_incoming) help"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_balance_outgoing
+msgid "Omaduse Konto saldo (other_account_balance_outgoing) caption"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_balance_outgoing_comment
+msgid "Omaduse Konto saldo (other_account_balance_outgoing) kommentaar"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_balance_outgoing_help
+msgid "Omaduse Konto saldo (other_account_balance_outgoing) help"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_transactions_outgoing
+msgid "Omaduse Ülekanded (other_account_transactions_outgoing) caption"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_transactions_outgoing_comment
+msgid "Omaduse Ülekanded (other_account_transactions_outgoing) kommentaar"
+msgstr ""
+
+#: classes/pank/account.aw:prop_other_account_transactions_outgoing_help
+msgid "Omaduse Ülekanded (other_account_transactions_outgoing) help"
+msgstr ""
+
+#: classes/pank/account.aw:group_account_overview
+msgid "Grupi Konto ülevaade (account_overview) pealkiri"
+msgstr ""
+
+#: classes/pank/account.aw:group_account_overview_help
+msgid "Grupi Konto ülevaade (account_overview) help"
+msgstr ""
+
+#: classes/pank/account.aw:group_account_overview_incoming
+msgid "Grupi Sissemaksed (account_overview_incoming) pealkiri"
+msgstr ""
+
+#: classes/pank/account.aw:group_account_overview_incoming_help
+msgid "Grupi Sissemaksed (account_overview_incoming) help"
+msgstr ""
+
+#: classes/pank/account.aw:group_account_overview_outgoing
+msgid "Grupi Väljamaksed (account_overview_outgoing) pealkiri"
+msgstr ""
+
+#: classes/pank/account.aw:group_account_overview_outgoing_help
+msgid "Grupi Väljamaksed (account_overview_outgoing) help"
+msgstr ""
+
+#: classes/pank/account.aw:group_other_account_overview
+msgid "Grupi Konto ülevaade (other_account_overview) pealkiri"
+msgstr ""
+
+#: classes/pank/account.aw:group_other_account_overview_help
+msgid "Grupi Konto ülevaade (other_account_overview) help"
+msgstr ""
+
+#: classes/pank/account.aw:group_other_account_overview_incoming
+msgid "Grupi Sissemaksed (other_account_overview_incoming) pealkiri"
+msgstr ""
+
+#: classes/pank/account.aw:group_other_account_overview_incoming_help
+msgid "Grupi Sissemaksed (other_account_overview_incoming) help"
+msgstr ""
+
+#: classes/pank/account.aw:group_other_account_overview_outgoing
+msgid "Grupi Väljamaksed (other_account_overview_outgoing) pealkiri"
+msgstr ""
+
+#: classes/pank/account.aw:group_other_account_overview_outgoing_help
+msgid "Grupi Väljamaksed (other_account_overview_outgoing) help"
+msgstr ""
+
+#: classes/pank/account.aw:rel_RELTYPE_TAX_CHAIN
+msgid "Seose Maksu pärg (RELTYPE_TAX_CHAIN) tekst"
+msgstr ""
+

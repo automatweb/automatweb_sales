@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_person_add_education.aw:class_645_help
+msgid "Klassi T&auml;ienduskoolitus help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_org
+msgid "Omaduse Ettev&otilde;te (org) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_org_comment
+msgid "Omaduse Ettev&otilde;te (org) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_org_help
+msgid "Omaduse Ettev&otilde;te (org) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_field
+msgid "Omaduse Teema (field) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_field_comment
+msgid "Omaduse Teema (field) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_field_help
+msgid "Omaduse Teema (field) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_time
+msgid "Omaduse Algus (time) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_time_comment
+msgid "Omaduse Algus (time) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_time_help
+msgid "Omaduse Algus (time) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_time_end
+msgid "Omaduse L&otilde;pp (time_end) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_time_end_comment
+msgid "Omaduse L&otilde;pp (time_end) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_time_end_help
+msgid "Omaduse L&otilde;pp (time_end) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_time_text
+msgid "Omaduse Aeg (time_text) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_time_text_comment
+msgid "Omaduse Aeg (time_text) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_time_text_help
+msgid "Omaduse Aeg (time_text) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_length_hrs
+msgid "Omaduse Kestvus tundides (length_hrs) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_length_hrs_comment
+msgid "Omaduse Kestvus tundides (length_hrs) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_length_hrs_help
+msgid "Omaduse Kestvus tundides (length_hrs) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_length
+msgid "Omaduse Kestvus p&auml;evades (length) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_length_comment
+msgid "Omaduse Kestvus p&auml;evades (length) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_add_education.aw:prop_length_help
+msgid "Omaduse Kestvus p&auml;evades (length) help"
+msgstr ""

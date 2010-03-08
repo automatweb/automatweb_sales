@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="group_membership" folder="core/users" extends="class_base">
+		<action name="brother_destroyer">
+			<function name="brother_destroyer">
+				<arguments>
+					<required name="id" type="oid" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="brother_creator">
+			<function name="brother_creator">
+				<arguments>
+					<required name="id" type="oid" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gms_valid">
+			<function name="gms_valid">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

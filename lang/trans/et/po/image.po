@@ -1,0 +1,567 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2015-06-01 20:54+0200\n"
+"Last-Translator: ergo\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/image.aw:class_6_help
+#: classes/contentmgmt/image.aw:class_6_help
+msgid "Klassi Pilt help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_needs_translation
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_needs_translation_comment
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_needs_translation_help
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) help"
+msgstr ""
+
+# classes/image.aw:prop_subclass
+#: classes/contentmgmt/image.aw:prop_subclass
+msgid "Omaduse  (subclass) caption"
+msgstr ""
+
+# classes/image.aw:prop_subclass_comment
+#: classes/contentmgmt/image.aw:prop_subclass_comment
+msgid "Omaduse  (subclass) kommentaar"
+msgstr ""
+
+# classes/image.aw:prop_subclass_help
+#: classes/contentmgmt/image.aw:prop_subclass_help
+msgid "Omaduse  (subclass) help"
+msgstr ""
+
+# classes/image.aw:prop_file
+#: classes/contentmgmt/image.aw:prop_file
+msgid "Omaduse Pilt (file) caption"
+msgstr ""
+
+# classes/image.aw:prop_file_comment
+#: classes/contentmgmt/image.aw:prop_file_comment
+msgid "Omaduse Pilt (file) kommentaar"
+msgstr "v‰lja j‰rel oleval Browse nupul klikkides avaneb vıimalus valida k‰ttesaadavalt andmekandjalt soovitud pildifail"
+
+# classes/image.aw:prop_file_help
+#: classes/contentmgmt/image.aw:prop_file_help
+msgid "Omaduse Pilt (file) help"
+msgstr "v‰lja j‰rel oleval Browse nupul klikkides avaneb vıimalus valida k‰ttesaadavalt andmekandjalt soovitud pildifail"
+
+#: classes/contentmgmt/image.aw:prop_dimensions
+msgid "Omaduse M&otilde;&otilde;tmed (dimensions) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_dimensions_comment
+msgid "Omaduse M&otilde;&otilde;tmed (dimensions) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_dimensions_help
+msgid "Omaduse M&otilde;&otilde;tmed (dimensions) help"
+msgstr ""
+
+# classes/image.aw:prop_comment
+#: classes/contentmgmt/image.aw:prop_comment
+msgid "Omaduse Pildi allkiri (comment) caption"
+msgstr ""
+
+# classes/image.aw:prop_comment_comment
+#: classes/contentmgmt/image.aw:prop_comment_comment
+msgid "Omaduse Pildi allkiri (comment) kommentaar"
+msgstr " vıimaldab lisada pildile kommentaari. Pildi allkirja n‰idatakse veebilehel pildi all v‰ikeses kirjas"
+
+# classes/image.aw:prop_comment_help
+#: classes/contentmgmt/image.aw:prop_comment_help
+msgid "Omaduse Pildi allkiri (comment) help"
+msgstr " vıimaldab lisada pildile kommentaari. Pildi allkirja n‰idatakse veebilehel pildi all v‰ikeses kirjas"
+
+# classes/image.aw:prop_author
+#: classes/contentmgmt/image.aw:prop_author
+msgid "Omaduse Pildi autor (author) caption"
+msgstr ""
+
+# classes/image.aw:prop_author_comment
+#: classes/contentmgmt/image.aw:prop_author_comment
+msgid "Omaduse Pildi autor (author) kommentaar"
+msgstr "vıimaldab pildi juures autori nime, vastaval kujundusega kokkulepitud kohal."
+
+# classes/image.aw:prop_author_help
+#: classes/contentmgmt/image.aw:prop_author_help
+msgid "Omaduse Pildi autor (author) help"
+msgstr "vıimaldab pildi juures autori nime, vastaval kujundusega kokkulepitud kohal.(ei pruugi kıigi kujunduste tulla veebilehel n‰htavale)"
+
+# classes/image.aw:prop_alt
+#: classes/contentmgmt/image.aw:prop_alt
+msgid "Omaduse Alt (alt) caption"
+msgstr ""
+
+# classes/image.aw:prop_alt_comment
+#: classes/contentmgmt/image.aw:prop_alt_comment
+msgid "Omaduse Alt (alt) kommentaar"
+msgstr "tekst, mida kuvatakse veebilehel, kui kasutaja liigub kursoriga pildi peale."
+
+# classes/image.aw:prop_alt_help
+#: classes/contentmgmt/image.aw:prop_alt_help
+msgid "Omaduse Alt (alt) help"
+msgstr "tekst, mida kuvatakse veebilehel, kui kasutaja liigub kursoriga pildi peale. Vıimalus lisada pildile kommentaari"
+
+#: classes/contentmgmt/image.aw:prop_longdesc
+msgid "Omaduse Pikk kirjeldus (longdesc) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_longdesc_comment
+msgid "Omaduse Pikk kirjeldus (longdesc) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_longdesc_help
+msgid "Omaduse Pikk kirjeldus (longdesc) help"
+msgstr ""
+
+# classes/image.aw:prop_link
+#: classes/contentmgmt/image.aw:prop_link
+msgid "Omaduse Link (link) caption"
+msgstr ""
+
+# classes/image.aw:prop_link_comment
+#: classes/contentmgmt/image.aw:prop_link_comment
+msgid "Omaduse Link (link) kommentaar"
+msgstr "vıimalus suunata kasutaja peale pildil klikkimist antud v‰lja sisestatud veebiaadressile"
+
+# classes/image.aw:prop_link_help
+#: classes/contentmgmt/image.aw:prop_link_help
+msgid "Omaduse Link (link) help"
+msgstr "vıimalus suunata kasutaja peale pildil klikkimist antud v‰lja sisestatud veebiaadressile. Kui tegemist on v‰ljaspoole antud veebilehte viiva lingiga siis tuleb aadress sisestada kujul http://... (N: http://www.struktuur.ee). Veebilehe sisese lingi puhul piisab kui kirjutada / ja objekti ID "
+
+#: classes/contentmgmt/image.aw:prop_date_taken
+msgid "Omaduse Pildistamise aeg (date_taken) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_date_taken_comment
+msgid "Omaduse Pildistamise aeg (date_taken) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_date_taken_help
+msgid "Omaduse Pildistamise aeg (date_taken) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_can_comment
+msgid "Omaduse K&otilde;ikjal kommenteeritav (can_comment) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_can_comment_comment
+msgid "Omaduse K&otilde;ikjal kommenteeritav (can_comment) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_can_comment_help
+msgid "Omaduse K&otilde;ikjal kommenteeritav (can_comment) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_no_apply_gal_conf
+msgid "Omaduse &Auml;ra kasuta galerii seadeid (no_apply_gal_conf) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_no_apply_gal_conf_comment
+msgid "Omaduse &Auml;ra kasuta galerii seadeid (no_apply_gal_conf) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_no_apply_gal_conf_help
+msgid "Omaduse &Auml;ra kasuta galerii seadeid (no_apply_gal_conf) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_show_conditions
+msgid "Omaduse Tingimused (show_conditions) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_show_conditions_comment
+msgid "Omaduse Tingimused (show_conditions) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_show_conditions_help
+msgid "Omaduse Tingimused (show_conditions) help"
+msgstr ""
+
+# classes/image.aw:prop_newwindow
+#: classes/contentmgmt/image.aw:prop_newwindow
+msgid "Omaduse Uues aknas (newwindow) caption"
+msgstr ""
+
+# classes/image.aw:prop_newwindow_comment
+#: classes/contentmgmt/image.aw:prop_newwindow_comment
+msgid "Omaduse Uues aknas (newwindow) kommentaar"
+msgstr "m‰rkides v‰lja valituks vıimaldab avada Link v‰lja sisesatud aadressil asuva veebilehe uude Internetilehitseja aknasse "
+
+# classes/image.aw:prop_newwindow_help
+#: classes/contentmgmt/image.aw:prop_newwindow_help
+msgid "Omaduse Uues aknas (newwindow) help"
+msgstr "m‰rkides v‰lja valituks vıimaldab avada Link v‰lja sisesatud aadressil asuva veebilehe uude Internetilehitseja aknasse "
+
+#: classes/contentmgmt/image.aw:prop_no_print
+msgid "Omaduse &Auml;ra n&auml;ita print-vaates (no_print) caption"
+msgstr ""
+
+# classes/image.aw:prop_no_print_comment
+#: classes/contentmgmt/image.aw:prop_no_print_comment
+msgid "Omaduse &Auml;ra n&auml;ita print-vaates (no_print) kommentaar"
+msgstr "m‰rkides v‰lja valituks ei kuvata pilti Print-vaates"
+
+# classes/image.aw:prop_no_print_help
+#: classes/contentmgmt/image.aw:prop_no_print_help
+msgid "Omaduse &Auml;ra n&auml;ita print-vaates (no_print) help"
+msgstr "m‰rkides v‰lja valituks ei kuvata pilti Print-vaates"
+
+#: classes/contentmgmt/image.aw:prop_ord
+msgid "Omaduse J&auml;rjekord (ord) caption"
+msgstr ""
+
+# classes/image.aw:prop_ord_comment
+#: classes/contentmgmt/image.aw:prop_ord_comment
+msgid "Omaduse J&auml;rjekord (ord) kommentaar"
+msgstr "pildi puhul, mıjutab j‰rjekord veebil kuvamist juhul, kui pilti kuvatakse minigalerii abil."
+
+# classes/image.aw:prop_ord_help
+#: classes/contentmgmt/image.aw:prop_ord_help
+msgid "Omaduse J&auml;rjekord (ord) help"
+msgstr "pildi puhul, mıjutab j‰rjekord veebil kuvamist juhul, kui pilti kuvatakse minigalerii abil."
+
+# classes/image.aw:prop_file2
+#: classes/contentmgmt/image.aw:prop_file2
+msgid "Omaduse Suur pilt (file2) caption"
+msgstr ""
+
+# classes/image.aw:prop_file2_comment
+#: classes/contentmgmt/image.aw:prop_file2_comment
+msgid "Omaduse Suur pilt (file2) kommentaar"
+msgstr "v‰lja j‰rel oleval Browse nupul klikkides avaneb vıimalus valida k‰ttesaadavalt andmekandjalt soovitud pildifail. "
+
+# classes/image.aw:prop_file2_help
+#: classes/contentmgmt/image.aw:prop_file2_help
+msgid "Omaduse Suur pilt (file2) help"
+msgstr "v‰lja j‰rel oleval Browse nupul klikkides avaneb vıimalus valida k‰ttesaadavalt andmekandjalt soovitud pildifail. "
+
+# classes/image.aw:prop_file2_del
+#: classes/contentmgmt/image.aw:prop_file2_del
+msgid "Omaduse Kustuta suur pilt (file2_del) caption"
+msgstr ""
+
+# classes/image.aw:prop_file2_del_comment
+#: classes/contentmgmt/image.aw:prop_file2_del_comment
+msgid "Omaduse Kustuta suur pilt (file2_del) kommentaar"
+msgstr "m‰rkides v‰lja valituks Suur pilt kustutakse"
+
+# classes/image.aw:prop_file2_del_help
+#: classes/contentmgmt/image.aw:prop_file2_del_help
+msgid "Omaduse Kustuta suur pilt (file2_del) help"
+msgstr "m‰rkides v‰lja valituks Suur pilt kustutakse"
+
+#: classes/contentmgmt/image.aw:prop_big_flash
+msgid "Omaduse Flash  (big_flash) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_big_flash_comment
+msgid "Omaduse Flash  (big_flash) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_big_flash_help
+msgid "Omaduse Flash  (big_flash) help"
+msgstr ""
+
+# classes/image.aw:prop_new_w
+#: classes/contentmgmt/image.aw:prop_new_w
+msgid "Omaduse Uus laius (new_w) caption"
+msgstr ""
+
+# classes/image.aw:prop_new_w_comment
+#: classes/contentmgmt/image.aw:prop_new_w_comment
+msgid "Omaduse Uus laius (new_w) kommentaar"
+msgstr "vıimaldab m‰‰rata ‹ldine vaates sisestatud pildi uue laiuse"
+
+# classes/image.aw:prop_new_w_help
+#: classes/contentmgmt/image.aw:prop_new_w_help
+msgid "Omaduse Uus laius (new_w) help"
+msgstr "vıimaldab m‰‰rata ‹ldine vaates sisestatud pildi uue laiuse"
+
+#: classes/contentmgmt/image.aw:prop_new_h
+msgid "Omaduse Uus k&otilde;rgus (new_h) caption"
+msgstr ""
+
+# classes/image.aw:prop_new_h_comment
+#: classes/contentmgmt/image.aw:prop_new_h_comment
+msgid "Omaduse Uus k&otilde;rgus (new_h) kommentaar"
+msgstr "vıimaldab m‰‰rata ‹ldine vaates sisestatud pildi uue kırguse"
+
+# classes/image.aw:prop_new_h_help
+#: classes/contentmgmt/image.aw:prop_new_h_help
+msgid "Omaduse Uus k&otilde;rgus (new_h) help"
+msgstr "vıimaldab m‰‰rata ‹ldine vaates sisestatud pildi uue kırguse"
+
+#: classes/contentmgmt/image.aw:prop_do_resize
+msgid "Omaduse Muuda (do_resize) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_do_resize_comment
+msgid "Omaduse Muuda (do_resize) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_do_resize_help
+msgid "Omaduse Muuda (do_resize) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_dimensions_big
+msgid "Omaduse M&otilde;&otilde;tmed (dimensions_big) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_dimensions_big_comment
+msgid "Omaduse M&otilde;&otilde;tmed (dimensions_big) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_dimensions_big_help
+msgid "Omaduse M&otilde;&otilde;tmed (dimensions_big) help"
+msgstr ""
+
+# classes/image.aw:prop_new_w_big
+#: classes/contentmgmt/image.aw:prop_new_w_big
+msgid "Omaduse Uus laius (suur) (new_w_big) caption"
+msgstr ""
+
+# classes/image.aw:prop_new_w_big_comment
+#: classes/contentmgmt/image.aw:prop_new_w_big_comment
+msgid "Omaduse Uus laius (suur) (new_w_big) kommentaar"
+msgstr "vıimaldab m‰‰rata Suur pilt vaates sisestatud pildi uue laiuse"
+
+# classes/image.aw:prop_new_w_big_help
+#: classes/contentmgmt/image.aw:prop_new_w_big_help
+msgid "Omaduse Uus laius (suur) (new_w_big) help"
+msgstr "vıimaldab m‰‰rata Suur pilt vaates sisestatud pildi uue laiuse"
+
+#: classes/contentmgmt/image.aw:prop_new_h_big
+msgid "Omaduse Uus k&otilde;rgus (suur) (new_h_big) caption"
+msgstr ""
+
+# classes/image.aw:prop_new_h_big_comment
+#: classes/contentmgmt/image.aw:prop_new_h_big_comment
+msgid "Omaduse Uus k&otilde;rgus (suur) (new_h_big) kommentaar"
+msgstr "vıimaldab m‰‰rata Suur pilt vaates sisestatud pildi uue kırguse"
+
+# classes/image.aw:prop_new_h_big_help
+#: classes/contentmgmt/image.aw:prop_new_h_big_help
+msgid "Omaduse Uus k&otilde;rgus (suur) (new_h_big) help"
+msgstr "vıimaldab m‰‰rata Suur pilt vaates sisestatud pildi uue kırguse"
+
+# classes/image.aw:prop_resize_warn
+#: classes/contentmgmt/image.aw:prop_resize_warn
+msgid "Omaduse Info (resize_warn) caption"
+msgstr ""
+
+# classes/image.aw:prop_resize_warn_comment
+#: classes/contentmgmt/image.aw:prop_resize_warn_comment
+msgid "Omaduse Info (resize_warn) kommentaar"
+msgstr ""
+
+# classes/image.aw:prop_resize_warn_help
+#: classes/contentmgmt/image.aw:prop_resize_warn_help
+msgid "Omaduse Info (resize_warn) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_grkeywords2
+msgid "Omaduse AW M&auml;rks&otilde;nad (grkeywords2) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_grkeywords2_comment
+msgid "Omaduse AW M&auml;rks&otilde;nad (grkeywords2) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_grkeywords2_help
+msgid "Omaduse AW M&auml;rks&otilde;nad (grkeywords2) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_comments_tb
+msgid "Omaduse  (comments_tb) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_comments_tb_comment
+msgid "Omaduse  (comments_tb) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_comments_tb_help
+msgid "Omaduse  (comments_tb) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_comments_tbl
+msgid "Omaduse  (comments_tbl) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_comments_tbl_comment
+msgid "Omaduse  (comments_tbl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_comments_tbl_help
+msgid "Omaduse  (comments_tbl) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_show
+msgid "Grupi N&auml;itamine (show) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_show_help
+msgid "Grupi N&auml;itamine (show) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_show_def
+msgid "Grupi N&auml;itamine (show_def) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_show_def_help
+msgid "Grupi N&auml;itamine (show_def) help"
+msgstr ""
+
+# classes/image.aw:group_img2
+#: classes/contentmgmt/image.aw:group_img2
+msgid "Grupi Suur pilt (img2) pealkiri"
+msgstr ""
+
+# classes/image.aw:group_img2_help
+#: classes/contentmgmt/image.aw:group_img2_help
+msgid "Grupi Suur pilt (img2) help"
+msgstr ""
+
+# classes/image.aw:group_resize
+#: classes/contentmgmt/image.aw:group_resize
+msgid "Grupi Muuda suurust (resize) pealkiri"
+msgstr ""
+
+# classes/image.aw:group_resize_help
+#: classes/contentmgmt/image.aw:group_resize_help
+msgid "Grupi Muuda suurust (resize) help"
+msgstr ""
+
+# classes/image.aw:group_resize_big
+#: classes/contentmgmt/image.aw:group_resize_big
+msgid "Grupi Muuda suure pildi suurust (resize_big) pealkiri"
+msgstr ""
+
+# classes/image.aw:group_resize_big_help
+#: classes/contentmgmt/image.aw:group_resize_big_help
+msgid "Grupi Muuda suure pildi suurust (resize_big) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_keywords
+msgid "Grupi M&auml;rk&otilde;nad (keywords) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_keywords_help
+msgid "Grupi M&auml;rk&otilde;nad (keywords) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_comments
+msgid "Grupi Kommentaarid (comments) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_comments_help
+msgid "Grupi Kommentaarid (comments) help"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+# classes/image.aw:rel_RELTYPE_MOD_COMMENT
+#: classes/contentmgmt/image.aw:rel_RELTYPE_MOD_COMMENT
+msgid "Seose Moderaatori kommentaar (RELTYPE_MOD_COMMENT) tekst"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:rel_RELTYPE_FLASH
+msgid "Seose Flash (RELTYPE_FLASH) tekst"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:rel_RELTYPE_KEYWORD
+msgid "Seose M&auml;rks&otilde;na (RELTYPE_KEYWORD) tekst"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:392
+msgid "kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:392
+msgid "kommentaari"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:1167
+msgid "Uues aknas"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:1168
+msgid "&Auml;ra n&auml;ita print-vaates"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:1181
+msgid "Piltide automaatset suurendamist kontrollib objekt"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:1222
+msgid "Kustuta pilt"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:1835
+msgid "Lisa"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:2428
+msgid "Salvesta ja paiguta dokumenti"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:2556
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:2560
+msgid "Sisu"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:2564
+msgid "Autor"
+msgstr ""
+
+#: classes/contentmgmt/image.aw:2571
+msgid "Aeg"
+msgstr ""
+
+# classes/image.aw:prop_dimensions_comment
+#~ msgid "Omaduse Mııtmed (dimensions) kommentaar"
+#~ msgstr "siin kuvatakse sisestatud pildi suurust pixlites (laius X kırgus). V‰li ilmub peale pildi esmakordset salvestamist"
+
+# classes/image.aw:prop_dimensions_help
+#~ msgid "Omaduse Mııtmed (dimensions) help"
+#~ msgstr "siin kuvatakse sisestatud pildi suurust pixlites (laius X kırgus). V‰li ilmub peale pildi esmakordset salvestamist"
+
+# classes/image.aw:prop_dimensions_big_comment
+#~ msgid "Omaduse Mııtmed (dimensions_big) kommentaar"
+#~ msgstr "siin kuvatakse ‹ldine vaates sisestatud pildi suurust pixlites (laius X kırgus)"
+
+# classes/image.aw:prop_dimensions_big_help
+#~ msgid "Omaduse Mııtmed (dimensions_big) help"
+#~ msgstr "siin kuvatakse ‹ldine vaates sisestatud pildi suurust pixlites (laius X kırgus)"

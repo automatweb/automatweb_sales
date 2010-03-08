@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="bugtrack" folder="www/dev/terryf/automatweb_dev/classes/applications/class_designer" extends="core">
+		<action name="add_error" nologin="1">
+			<function name="add_error">
+				<arguments>
+					<required name="site_url" />
+					<required name="err_type" />
+					<required name="err_msg" />
+					<required name="err_content" />
+					<required name="err_uid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

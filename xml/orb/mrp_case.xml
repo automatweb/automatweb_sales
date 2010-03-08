@@ -1,0 +1,83 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mrp_case" folder="www/dev/terryf/automatweb_dev/classes/mrp" extends="class_base">
+		<action name="order_jobs">
+			<function name="order_jobs">
+				<arguments>
+					<required name="oid" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_job">
+			<function name="_add_job">
+				<arguments>
+					<required name="oid" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete">
+			<function name="delete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="start">
+			<function name="start">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="finish">
+			<function name="finish">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="abort">
+			<function name="abort">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="archive">
+			<function name="archive">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="plan">
+			<function name="plan">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_on_hold">
+			<function name="set_on_hold">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_material" all_args="1">
+			<function name="add_material">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

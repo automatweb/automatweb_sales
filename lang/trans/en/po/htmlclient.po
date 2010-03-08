@@ -1,0 +1,143 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/cfg/htmlclient.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/cfg/htmlclient.aw:279
+msgid "Viga sisendandmetes"
+msgstr "Error in data"
+
+#: classes/cfg/htmlclient.aw:302
+msgid "Jah"
+msgstr "Yes"
+
+#: classes/cfg/htmlclient.aw:303
+msgid "Ei"
+msgstr "No"
+
+#: classes/cfg/htmlclient.aw:331
+msgid "K&otilde;ik"
+msgstr "All"
+
+#: classes/cfg/htmlclient.aw:332
+msgid "Aktiivne"
+msgstr "Active"
+
+#: classes/cfg/htmlclient.aw:333
+msgid "Deaktiivne"
+msgstr "Not active"
+
+#: classes/cfg/htmlclient.aw:367
+msgid "Vali"
+msgstr "Select"
+
+#: classes/cfg/htmlclient.aw:551 classes/cfg/htmlclient.aw:685
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/cfg/htmlclient.aw:700
+msgid "&lt;&lt;&lt; Tagasi"
+msgstr "&lt;&lt;&lt; Go back"
+
+#: classes/cfg/htmlclient.aw:701
+msgid "submit_and_back"
+msgstr "Submit and go back"
+
+#: classes/cfg/htmlclient.aw:711
+msgid "Edasi &gt;&gt;&gt;"
+msgstr "Forward &gt;&gt;&gt;"
+
+#: classes/cfg/htmlclient.aw:712
+msgid "submit_and_forward"
+msgstr "Submit and go forward"
+
+#: classes/cfg/htmlclient.aw:931
+msgid "Andmed on salvestamata, kas soovite andmed enne lahkumist salvestada?"
+msgstr "Data is not saved, do you wish to save before you continue?"
+
+#: classes/cfg/htmlclient.aw:932
+msgid "Andmete salvestamine kahjuks ei &otilde;nnestunud"
+msgstr ""
+
+#: classes/cfg/htmlclient.aw:997
+msgid "Tagasiside"
+msgstr "Feedback"
+
+#: classes/cfg/htmlclient.aw:999
+msgid "Kasutajatugi"
+msgstr "Support"
+
+#: classes/cfg/htmlclient.aw:1000
+msgid "Abi"
+msgstr "Help"
+
+#: classes/cfg/htmlclient.aw:1001
+msgid "Otsi"
+msgstr "Search"
+
+#: classes/cfg/htmlclient.aw:1004
+msgid "J&auml;rjehoidja"
+msgstr "Bookmarks"
+
+#: classes/cfg/htmlclient.aw:1008
+msgid "Ajalugu"
+msgstr "History"
+
+#: classes/cfg/htmlclient.aw:1012
+msgid "Lisa kiiresti"
+msgstr "Add quickly"
+
+#: classes/cfg/htmlclient.aw:1514 classes/cfg/htmlclient.aw:1516
+#: classes/cfg/htmlclient.aw:1592 classes/cfg/htmlclient.aw:1594
+#: classes/cfg/htmlclient.aw:1671 classes/cfg/htmlclient.aw:1673
+msgid "Kinni"
+msgstr "Close"
+
+#: classes/cfg/htmlclient.aw:1515 classes/cfg/htmlclient.aw:1516
+#: classes/cfg/htmlclient.aw:1593 classes/cfg/htmlclient.aw:1594
+#: classes/cfg/htmlclient.aw:1672 classes/cfg/htmlclient.aw:1673
+msgid "Lahti"
+msgstr "Open"
+
+#~ msgid "Toimetus"
+#~ msgstr "Task"
+
+#~ msgid "K&otilde;ne"
+#~ msgstr "Call"
+
+#~ msgid "Kohtumine"
+#~ msgstr "Meeting"
+
+#~ msgid "Pakkumine"
+#~ msgstr "Offer"
+
+#~ msgid "Lisa"
+#~ msgstr "Add"
+
+#~ msgid "Projekt"
+#~ msgstr "Project"
+
+#~ msgid "Arve"
+#~ msgstr "Invoice"
+
+#~ msgid "Logi v&auml;lja"
+#~ msgstr "Log out"
+
+#~ msgid "Uus t&ouml;&ouml;"
+#~ msgstr "New case"
+
+#~ msgid "Klient"
+#~ msgstr "Customer"
+
+#~ msgid "Klient (eraisik)"
+#~ msgstr "Customer (Person)"

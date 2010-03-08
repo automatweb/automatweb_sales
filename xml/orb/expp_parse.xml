@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="expp_parse" folder="www/dev/terryf/automatweb_dev/classes/expp" extends="class_base">
+		<action name="show" default="1" nologin="1" is_public="1" all_args="1" caption="Expp">
+			<function name="show">
+				<arguments>
+					<type=int name="id" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

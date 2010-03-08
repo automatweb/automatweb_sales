@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/questionary/questionary.aw:class_1153_help
+msgid "Klassi K&uuml;simustik help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_answer_count
+msgid "Omaduse Valikvastuste arv (answer_count) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_answer_count_comment
+msgid "Omaduse Valikvastuste arv (answer_count) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_answer_count_help
+msgid "Omaduse Valikvastuste arv (answer_count) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_gr_tb
+msgid "Omaduse  (gr_tb) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_gr_tb_comment
+msgid "Omaduse  (gr_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_gr_tb_help
+msgid "Omaduse  (gr_tb) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_groups
+msgid "Omaduse  (groups) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_groups_comment
+msgid "Omaduse  (groups) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_groups_help
+msgid "Omaduse  (groups) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_results_tbl
+msgid "Omaduse  (results_tbl) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_results_tbl_comment
+msgid "Omaduse  (results_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_results_tbl_help
+msgid "Omaduse  (results_tbl) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:group_groups
+msgid "Grupi Grupid (groups) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:group_groups_help
+msgid "Grupi Grupid (groups) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:group_results
+msgid "Grupi Vastatud (results) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:group_results_help
+msgid "Grupi Vastatud (results) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:rel_RELTYPE_GROUP
+msgid "Seose K&uml;simustegrupp (RELTYPE_GROUP) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:52
+msgid "Uus grupp"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:65
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:182
+msgid "Ei vasta"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:187
+msgid "topic\question"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:239
+msgid "Vasta"
+msgstr ""
+

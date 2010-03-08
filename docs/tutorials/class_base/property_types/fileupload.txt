@@ -1,0 +1,6 @@
+<h2>fileupload</h2>
+
+File upload field. You'll have to implement the code that will receive and store the file yourself. 
+
+Are you sure you really want this? file and image class provided by AW are quite handy for most
+purposes and can be used through releditor (for example)

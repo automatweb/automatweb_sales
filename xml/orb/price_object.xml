@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="price_object" folder="www/dev/terryf/automatweb_dev/classes/common" extends="_int_object">
+		<action name="get_price_objects" all_args="1">
+			<function name="get_price_objects">
+				<arguments>
+					<required name="object" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add" all_args="1">
+			<function name="add">
+				<arguments>
+					<required name="object" type="oid" />
+					<optional name="name" type="String" />
+					<optional name="parent" type="oid" default="object" />
+					<optional name="currency" type="oid" />
+					<optional name="sum" type="double" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_data" all_args="1">
+			<function name="set_data">
+				<arguments>
+					<optional name="data" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

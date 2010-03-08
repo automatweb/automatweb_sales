@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mrp_resource" folder="www/dev/terryf/automatweb_dev/classes/mrp" extends="class_base">
+		<action name="remove_materials" all_args="1">
+			<function name="remove_materials">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_materials_tree_level" all_args="1">
+			<function name="get_materials_tree_level">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="project_category" folder="applications/groupware" extends="class_base">
+	</class>
+</orb>
+		

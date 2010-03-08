@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/groupware/project_req_impl.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:18
+msgid "Lisa"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:33
+msgid "Toimetus"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:48
+msgid "K&otilde;ne"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:63
+msgid "Kohtumine"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:78
+msgid "Arendus&uuml;lesanne"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:94
+msgid "N&otilde;ue"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:109
+msgid "Kategooria"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:116
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:122
+msgid "Ekspordi"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:206
+msgid "N&otilde;uded"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:214
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:220
+msgid "Looja"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:226
+msgid "Loodud"
+msgstr ""
+
+#: classes/applications/groupware/project_req_impl.aw:235
+msgid "Osalejad"
+msgstr ""

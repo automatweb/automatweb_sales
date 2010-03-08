@@ -1,0 +1,138 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/vcl/rte.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/rte.aw:103
+msgid "RTE"
+msgstr ""
+
+#: classes/vcl/rte.aw:112
+msgid "Bold"
+msgstr ""
+
+#: classes/vcl/rte.aw:119
+msgid "Italic"
+msgstr ""
+
+#: classes/vcl/rte.aw:126
+msgid "Underline"
+msgstr ""
+
+#: classes/vcl/rte.aw:135
+msgid "Align left"
+msgstr ""
+
+#: classes/vcl/rte.aw:142
+msgid "Align center"
+msgstr ""
+
+#: classes/vcl/rte.aw:149
+msgid "Align right"
+msgstr ""
+
+#: classes/vcl/rte.aw:158
+msgid "Numbered list"
+msgstr ""
+
+#: classes/vcl/rte.aw:165
+msgid "Bulleted list"
+msgstr ""
+
+#: classes/vcl/rte.aw:174
+msgid "Outdent"
+msgstr ""
+
+#: classes/vcl/rte.aw:181
+msgid "Indent"
+msgstr ""
+
+#: classes/vcl/rte.aw:190
+msgid "link"
+msgstr ""
+
+#: classes/vcl/rte.aw:200
+msgid "Tabel"
+msgstr ""
+
+#: classes/vcl/rte.aw:206
+msgid "Lisa tabel"
+msgstr ""
+
+#: classes/vcl/rte.aw:214
+msgid "Lisa tulp"
+msgstr ""
+
+#: classes/vcl/rte.aw:220
+msgid "Lisa rida"
+msgstr ""
+
+#: classes/vcl/rte.aw:228
+msgid "Kustuta tulp"
+msgstr ""
+
+#: classes/vcl/rte.aw:234
+msgid "Kustuta rida"
+msgstr ""
+
+#: classes/vcl/rte.aw:242
+msgid "Poolita rida"
+msgstr ""
+
+#: classes/vcl/rte.aw:247
+msgid "Poolita tulp"
+msgstr ""
+
+#: classes/vcl/rte.aw:257
+msgid "HTML"
+msgstr ""
+
+#: classes/vcl/rte.aw:266
+msgid "Päised"
+msgstr ""
+
+#: classes/vcl/rte.aw:272
+msgid "Heading 1"
+msgstr ""
+
+#: classes/vcl/rte.aw:278
+msgid "Heading 2"
+msgstr ""
+
+#: classes/vcl/rte.aw:284
+msgid "Heading 3"
+msgstr ""
+
+#: classes/vcl/rte.aw:290
+msgid "Heading 4"
+msgstr ""
+
+#: classes/vcl/rte.aw:296
+msgid "Heading 5"
+msgstr ""
+
+#: classes/vcl/rte.aw:302
+msgid "Heading 6"
+msgstr ""
+
+#: classes/vcl/rte.aw:308
+msgid "Teksti värv"
+msgstr ""
+
+#: classes/vcl/rte.aw:314
+msgid "Sinine"
+msgstr ""
+
+#: classes/vcl/rte.aw:320
+msgid "Punane"
+msgstr ""

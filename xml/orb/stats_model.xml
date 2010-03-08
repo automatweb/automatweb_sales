@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="stats_model" folder="www/dev/terryf/automatweb_dev/classes/applications/stats" extends="core">
+		<action name="nightly_move" nologin="1">
+			<function name="nightly_move">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="monthly_archive" nologin="1">
+			<function name="monthly_archive">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

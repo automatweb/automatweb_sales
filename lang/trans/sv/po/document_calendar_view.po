@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/document_calendar_view.aw:class_1306_help
+msgid "Klassi Dokumentide kalendrivaade help"
+msgstr ""
+
+#: classes/contentmgmt/document_calendar_view.aw:prop_folder
+msgid "Omaduse Dokumentide kataloog (folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_calendar_view.aw:prop_folder_comment
+msgid "Omaduse Dokumentide kataloog (folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_calendar_view.aw:prop_folder_help
+msgid "Omaduse Dokumentide kataloog (folder) help"
+msgstr ""
+
+#: classes/contentmgmt/document_calendar_view.aw:prop_do_subs
+msgid "Omaduse Ka alamkataloogid (do_subs) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_calendar_view.aw:prop_do_subs_comment
+msgid "Omaduse Ka alamkataloogid (do_subs) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_calendar_view.aw:prop_do_subs_help
+msgid "Omaduse Ka alamkataloogid (do_subs) help"
+msgstr ""
+
+#: classes/contentmgmt/document_calendar_view.aw:rel_RELTYPE_FOLDER
+msgid "Seose Kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+

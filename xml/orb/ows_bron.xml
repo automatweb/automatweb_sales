@@ -1,0 +1,98 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ows_bron" folder="www/automatweb_cvs/classes/applications/ows_bron" extends="class_base">
+		<action name="show_cancel_page" nologin="1" all_args="1">
+			<function name="show_cancel_page">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_booking_details" nologin="1" all_args="1">
+			<function name="show_booking_details">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_confirm_view" nologin="1" all_args="1">
+			<function name="show_confirm_view">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="handle_pay_submit" nologin="1">
+			<function name="handle_pay_submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ask_confirm" nologin="1">
+			<function name="ask_confirm">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="display_final_page" nologin="1" all_args="1">
+			<function name="display_final_page">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_available_rooms" nologin="1" all_args="1">
+			<function name="show_available_rooms">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_roominfo" nologin="1" all_args="1">
+			<function name="get_roominfo">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_room_desc" nologin="1" all_args="1">
+			<function name="get_room_desc">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="go_to_cc_payment" nologin="1" all_args="1">
+			<function name="go_to_cc_payment">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cancel_booking" nologin="1" all_args="1">
+			<function name="cancel_booking">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fetch_currency_prices" nologin="1" all_args="1">
+			<function name="fetch_currency_prices">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="check_fc_card">
+			<function name="check_fc_card">
+				<arguments>
+					<required name="card" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

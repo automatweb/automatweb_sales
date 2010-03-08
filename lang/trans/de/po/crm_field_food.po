@@ -1,0 +1,458 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_field_food.aw:class_1030_help
+msgid "Klassi Toitlustus (valdkond) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_national_cuisine
+msgid "Omaduse Rahvusk&ouml;&ouml;k (national_cuisine) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_national_cuisine_comment
+msgid "Omaduse Rahvusk&ouml;&ouml;k (national_cuisine) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_national_cuisine_help
+msgid "Omaduse Rahvusk&ouml;&ouml;k (national_cuisine) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_location
+msgid "Omaduse Asukoht (location) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_location_comment
+msgid "Omaduse Asukoht (location) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_location_help
+msgid "Omaduse Asukoht (location) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_loc_fromcity
+msgid "Omaduse Kaugus linnast (km) (loc_fromcity) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_loc_fromcity_comment
+msgid "Omaduse Kaugus linnast (km) (loc_fromcity) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_loc_fromcity_help
+msgid "Omaduse Kaugus linnast (km) (loc_fromcity) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_languages
+msgid "Omaduse Teeninduskeeled (languages) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_languages_comment
+msgid "Omaduse Teeninduskeeled (languages) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_languages_help
+msgid "Omaduse Teeninduskeeled (languages) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_num_places
+msgid "Omaduse Kohtade arv (num_places) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_num_places_comment
+msgid "Omaduse Kohtade arv (num_places) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_num_places_help
+msgid "Omaduse Kohtade arv (num_places) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_num_tables
+msgid "Omaduse Laudade arv (num_tables) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_num_tables_comment
+msgid "Omaduse Laudade arv (num_tables) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_num_tables_help
+msgid "Omaduse Laudade arv (num_tables) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_num_rooms
+msgid "Omaduse Ruumide arv (num_rooms) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_num_rooms_comment
+msgid "Omaduse Ruumide arv (num_rooms) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_num_rooms_help
+msgid "Omaduse Ruumide arv (num_rooms) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_ccards
+msgid "Omaduse Aktsepteeritakse krediitkaarte (has_ccards) caption"
+msgstr "Zahlung per Kreditkarte möglich"
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_ccards_comment
+msgid "Omaduse Aktsepteeritakse krediitkaarte (has_ccards) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_ccards_help
+msgid "Omaduse Aktsepteeritakse krediitkaarte (has_ccards) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_ign_spacer
+msgid "Omaduse  (ign_spacer) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_ign_spacer_comment
+msgid "Omaduse  (ign_spacer) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_ign_spacer_help
+msgid "Omaduse  (ign_spacer) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_for_disabled
+msgid "Omaduse Sobib liikumispuudega inimestele (for_disabled) caption"
+msgstr "Für körperbehinderte Personen geeignet"
+
+#: classes/applications/crm/crm_field_food.aw:prop_for_disabled_comment
+msgid "Omaduse Sobib liikumispuudega inimestele (for_disabled) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_for_disabled_help
+msgid "Omaduse Sobib liikumispuudega inimestele (for_disabled) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_for_groups
+msgid "Omaduse Sobib gruppidele (alates 10 inimest) (for_groups) caption"
+msgstr "Für Gruppen geeignet (ab 10 Personen)"
+
+#: classes/applications/crm/crm_field_food.aw:prop_for_groups_comment
+msgid "Omaduse Sobib gruppidele (alates 10 inimest) (for_groups) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_for_groups_help
+msgid "Omaduse Sobib gruppidele (alates 10 inimest) (for_groups) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_for_kids
+msgid ""
+"Omaduse Sobib lastele (lastemen&uuml;&uuml;, lastetoolid) (for_kids) caption"
+msgstr "Für Kinder geeignet (Kindermenüs, Kinderstühle)"
+
+#: classes/applications/crm/crm_field_food.aw:prop_for_kids_comment
+msgid ""
+"Omaduse Sobib lastele (lastemen&uuml;&uuml;, lastetoolid) (for_kids) "
+"kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_for_kids_help
+msgid ""
+"Omaduse Sobib lastele (lastemen&uuml;&uuml;, lastetoolid) (for_kids) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_nonsmoker_rooms
+msgid "Omaduse Suitsuvabad ruumid  (has_nonsmoker_rooms) caption"
+msgstr "Nichtraucherräume"
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_nonsmoker_rooms_comment
+msgid "Omaduse Suitsuvabad ruumid  (has_nonsmoker_rooms) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_nonsmoker_rooms_help
+msgid "Omaduse Suitsuvabad ruumid  (has_nonsmoker_rooms) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_ign_spacer2
+msgid "Omaduse  (ign_spacer2) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_ign_spacer2_comment
+msgid "Omaduse  (ign_spacer2) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_ign_spacer2_help
+msgid "Omaduse  (ign_spacer2) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_parking_places
+msgid "Omaduse Parkimiskohad (has_parking_places) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_parking_places_comment
+msgid "Omaduse Parkimiskohad (has_parking_places) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_parking_places_help
+msgid "Omaduse Parkimiskohad (has_parking_places) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_parking
+msgid "Omaduse Parkla (has_parking) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_parking_comment
+msgid "Omaduse Parkla (has_parking) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_parking_help
+msgid "Omaduse Parkla (has_parking) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_veg
+msgid "Omaduse Men&uuml;&uuml; taimetoitlastele (has_veg) caption"
+msgstr "Vegetarische Menüs"
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_veg_comment
+msgid "Omaduse Men&uuml;&uuml; taimetoitlastele (has_veg) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_veg_help
+msgid "Omaduse Men&uuml;&uuml; taimetoitlastele (has_veg) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_catering
+msgid "Omaduse Catering teenus (has_catering) caption"
+msgstr "Catering-Dienste"
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_catering_comment
+msgid "Omaduse Catering teenus (has_catering) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_catering_help
+msgid "Omaduse Catering teenus (has_catering) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_takeaway
+msgid "Omaduse Toidu kaasa ostmise v&otilde;imalus (has_takeaway) caption"
+msgstr "Speisen zum Mitnehmen"
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_takeaway_comment
+msgid "Omaduse Toidu kaasa ostmise v&otilde;imalus (has_takeaway) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_takeaway_help
+msgid "Omaduse Toidu kaasa ostmise v&otilde;imalus (has_takeaway) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_delivery
+msgid "Omaduse Toidu koju tellimise v&otilde;imalus (has_delivery) caption"
+msgstr "Bestell- und Lieferservice für Speisen"
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_delivery_comment
+msgid "Omaduse Toidu koju tellimise v&otilde;imalus (has_delivery) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_delivery_help
+msgid "Omaduse Toidu koju tellimise v&otilde;imalus (has_delivery) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_live_music
+msgid "Omaduse Elav muusika (has_live_music) caption"
+msgstr "Live-Musik"
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_live_music_comment
+msgid "Omaduse Elav muusika (has_live_music) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_live_music_help
+msgid "Omaduse Elav muusika (has_live_music) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_tv
+msgid "Omaduse TV (has_tv) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_tv_comment
+msgid "Omaduse TV (has_tv) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_tv_help
+msgid "Omaduse TV (has_tv) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_wifi
+msgid "Omaduse WiFi leviala (has_wifi) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_wifi_comment
+msgid "Omaduse WiFi leviala (has_wifi) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_wifi_help
+msgid "Omaduse WiFi leviala (has_wifi) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_internet
+msgid "Omaduse Interneti kasutamise v&otide;imalus (has_internet) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_internet_comment
+msgid "Omaduse Interneti kasutamise v&otide;imalus (has_internet) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_internet_help
+msgid "Omaduse Interneti kasutamise v&otide;imalus (has_internet) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_outside_seating
+msgid "Omaduse V&auml;likohvik (hooajaliselt) (has_outside_seating) caption"
+msgstr "Freiluftcafé (saisonabhängig)"
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_outside_seating_comment
+msgid "Omaduse V&auml;likohvik (hooajaliselt) (has_outside_seating) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_outside_seating_help
+msgid "Omaduse V&auml;likohvik (hooajaliselt) (has_outside_seating) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_terrace
+msgid "Omaduse Terrass (has_terrace) caption"
+msgstr "Terrasse"
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_terrace_comment
+msgid "Omaduse Terrass (has_terrace) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_has_terrace_help
+msgid "Omaduse Terrass (has_terrace) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_phone_id
+msgid "Omaduse Telefon (phone_id) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_phone_id_comment
+msgid "Omaduse Telefon (phone_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_phone_id_help
+msgid "Omaduse Telefon (phone_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_telefax_id
+msgid "Omaduse Faks (telefax_id) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_telefax_id_comment
+msgid "Omaduse Faks (telefax_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_telefax_id_help
+msgid "Omaduse Faks (telefax_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_email_id
+msgid "Omaduse E-posti aadressid (email_id) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_email_id_comment
+msgid "Omaduse E-posti aadressid (email_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_email_id_help
+msgid "Omaduse E-posti aadressid (email_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_images
+msgid "Omaduse Pildid (images) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_images_comment
+msgid "Omaduse Pildid (images) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:prop_images_help
+msgid "Omaduse Pildid (images) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:group_extrainfo
+msgid "Grupi Lisainfo (extrainfo) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:group_extrainfo_help
+msgid "Grupi Lisainfo (extrainfo) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:group_cedit
+msgid "Grupi Kontaktandmed (cedit) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:group_cedit_help
+msgid "Grupi Kontaktandmed (cedit) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:group_images
+msgid "Grupi Pildid (images) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:group_images_help
+msgid "Grupi Pildid (images) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:rel_RELTYPE_EMAIL
+msgid "Seose E-post (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:rel_RELTYPE_PHONE
+msgid "Seose Telefon (RELTYPE_PHONE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:rel_RELTYPE_TELEFAX
+msgid "Seose Fax (RELTYPE_TELEFAX) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:151
+msgid "-- vali --"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:152
+msgid "Eesti"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:153
+msgid "Vene"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:154
+msgid "Gruusia"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:155
+msgid "Hiina"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:156
+msgid "Itaalia"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:157
+msgid "Tai"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:162
+msgid "Kesklinnas"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:163
+msgid "V&auml;ljaspool kesklinna"
+msgstr ""
+
+#: classes/applications/crm/crm_field_food.aw:164
+msgid "V&auml;ljaspool linna"
+msgstr ""

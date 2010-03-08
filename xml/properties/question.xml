@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>jrk</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>jrk</field>
+            <size>3</size>
+            <caption>Jrk</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_QUESTION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>tarvo</maintainer>
+      </classinfo>
+</properties>
+

@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/formgen/form_table.aw:class_66_help
+msgid "Klassi Tabelv&auml;ljund help"
+msgstr ""
+
+#: classes/formgen/form_table.aw:16
+msgid "Change"
+msgstr ""
+
+#: classes/formgen/form_table.aw:17
+msgid "View"
+msgstr ""
+
+#: classes/formgen/form_table.aw:18
+msgid "Special"
+msgstr ""
+
+#: classes/formgen/form_table.aw:19
+msgid "Delete"
+msgstr ""
+
+#: classes/formgen/form_table.aw:20
+msgid "Created"
+msgstr ""
+
+#: classes/formgen/form_table.aw:21
+msgid "Modified"
+msgstr ""
+
+#: classes/formgen/form_table.aw:22
+msgid "UID"
+msgstr ""
+
+#: classes/formgen/form_table.aw:23
+msgid "Active"
+msgstr ""
+
+#: classes/formgen/form_table.aw:24
+msgid "Move"
+msgstr ""
+
+#: classes/formgen/form_table.aw:25
+msgid "Order"
+msgstr ""
+
+#: classes/formgen/form_table.aw:26
+msgid "Select"
+msgstr ""
+
+#: classes/formgen/form_table.aw:27
+msgid "Peidetud Select"
+msgstr ""
+
+#: classes/formgen/form_table.aw:28
+msgid "Jrk"
+msgstr ""
+
+#: classes/formgen/form_table.aw:29
+msgid "Count"
+msgstr ""
+
+#: classes/formgen/form_table.aw:30
+msgid "Koguse element"
+msgstr ""
+
+#: classes/formgen/form_table.aw:31
+msgid "Hinna element"
+msgstr ""
+
+#: classes/formgen/form_table.aw:32
+msgid "Sisestuse ID"
+msgstr ""
+
+#: classes/formgen/form_table.aw:33
+msgid "Tekst"
+msgstr ""
+
+#: classes/formgen/form_table.aw:37
+msgid "Salvesta"
+msgstr ""
+
+#: classes/formgen/form_table.aw:37
+msgid "Lisa"
+msgstr ""
+
+#: classes/formgen/form_table.aw:37
+msgid "Kustuta"
+msgstr ""
+
+#: classes/formgen/form_table.aw:37
+msgid "Liiguta"
+msgstr ""

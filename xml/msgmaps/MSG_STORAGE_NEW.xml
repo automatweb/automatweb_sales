@@ -1,0 +1,18 @@
+<?xml version='1.0'?>
+<xml>
+<num_0>
+      <class>/core/users/user_manager</class>
+      <func>on_create_group</func>
+      <param>CL_GROUP</param>
+</num_0>
+<num_1>
+      <class>/crm/crm_company</class>
+      <func>on_save_address</func>
+      <param>CL_CRM_ADDRESS</param>
+</num_1>
+<num_2>
+      <class>/crm/crm_company</class>
+      <func>on_create_company</func>
+      <param>CL_CRM_COMPANY</param>
+</num_2>
+</xml>

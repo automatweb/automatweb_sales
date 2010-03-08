@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/register/register_search_result.aw:class_486_help
+#: classes/applications/register/register_search_result.aw:class_486_help
+msgid "Klassi Registri otsingu tulemused help"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:prop_search
+#: classes/applications/register/register_search_result.aw:prop_search
+msgid "Omaduse Registri otsing (search) caption"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:prop_search_comment
+#: classes/applications/register/register_search_result.aw:prop_search_comment
+msgid "Omaduse Registri otsing (search) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:prop_search_help
+#: classes/applications/register/register_search_result.aw:prop_search_help
+msgid "Omaduse Registri otsing (search) help"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:prop_search_data
+#: classes/applications/register/register_search_result.aw:prop_search_data
+msgid "Omaduse  (search_data) caption"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:prop_search_data_comment
+#: classes/applications/register/register_search_result.aw:prop_search_data_comment
+msgid "Omaduse  (search_data) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:prop_search_data_help
+#: classes/applications/register/register_search_result.aw:prop_search_data_help
+msgid "Omaduse  (search_data) help"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:prop_search_res
+#: classes/applications/register/register_search_result.aw:prop_search_res
+msgid "Omaduse  (search_res) caption"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:prop_search_res_comment
+#: classes/applications/register/register_search_result.aw:prop_search_res_comment
+msgid "Omaduse  (search_res) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:prop_search_res_help
+#: classes/applications/register/register_search_result.aw:prop_search_res_help
+msgid "Omaduse  (search_res) help"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:group_search
+#: classes/applications/register/register_search_result.aw:group_search
+msgid "Grupi Otsing (search) pealkiri"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:group_search_help
+#: classes/applications/register/register_search_result.aw:group_search_help
+msgid "Grupi Otsing (search) help"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:group_search_res
+#: classes/applications/register/register_search_result.aw:group_search_res
+msgid "Grupi Tulemused (search_res) pealkiri"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:group_search_res_help
+#: classes/applications/register/register_search_result.aw:group_search_res_help
+msgid "Grupi Tulemused (search_res) help"
+msgstr ""
+
+# classes/applications/register/register_search_result.aw:rel_RELTYPE_SEARCH
+#: classes/applications/register/register_search_result.aw:rel_RELTYPE_SEARCH
+msgid "Seose registri otsing (RELTYPE_SEARCH) tekst"
+msgstr ""

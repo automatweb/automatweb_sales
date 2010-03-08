@@ -1,0 +1,243 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>org_cfgform</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ORG_CFGFORM</reltype>
+            <store>connect</store>
+            <field>org_cfgform</field>
+            <caption>Organisatsiooni seadete vorm</caption>
+      </property>
+      <property>
+            <name>cfgview_action</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>select</type>
+            <store>no</store>
+            <field>cfgview_action</field>
+            <caption>Lisamine/muutmine</caption>
+      </property>
+      <property>
+            <name>ca_change</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>chooser</type>
+            <field>aw_ca_change</field>
+            <caption>Millist organisatsiooni muutmisvaates kuvada?</caption>
+      </property>
+      <property>
+            <name>ca_change_org</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CHANGE_ORG</reltype>
+            <store>connect</store>
+            <field>ca_change_org</field>
+            <caption>Muutmisvaates kuvatav organisatsioon</caption>
+      </property>
+      <property>
+            <name>org_parent</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ORG_PARENT</reltype>
+            <store>connect</store>
+            <field>org_parent</field>
+            <caption>Kaust, kuhu organisatsioon salvestatakse</caption>
+      </property>
+      <property>
+            <name>make_user</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_make_user</field>
+            <caption>Tee organisatsioonile kasutaja</caption>
+      </property>
+      <property>
+            <name>mu_add_to_groups</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ADD_TO_GROUP</reltype>
+            <multiple>1</multiple>
+            <store>connect</store>
+            <field>mu_add_to_groups</field>
+            <caption>Grupid, millega organisatsioonile loodud kasutaja liitub</caption>
+      </property>
+      <property>
+            <name>mu_send_welcome_mail</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_mu_send_welcome_mail</field>
+            <caption>Saada kasutajale logimisandmetega e-kiri</caption>
+      </property>
+      <property>
+            <name>mu_welcome_mail_to</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_mu_welcome_mail_to</field>
+            <caption>Omadus, kust v&amp;amp;otilde;etakse e-postiaadress, millele logimisandmed saata</caption>
+      </property>
+      <property>
+            <name>mu_welcome_mail_from</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_mu_welcome_mail_from</field>
+            <caption>Logimisandmetega e-kirja saatja</caption>
+      </property>
+      <property>
+            <name>mu_welcome_mail_subject</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_mu_welcome_mail_subject</field>
+            <caption>Logimisandmetega e-kirja pealkiri</caption>
+      </property>
+      <property>
+            <name>mu_welcome_mail_content</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>textarea</type>
+            <field>aw_mu_welcome_mail_content</field>
+            <caption>Logimisandmetega e-kirja sisu</caption>
+            <comment>Kirja sisus saab kasutada %user ja %passwd. Nende asemele parsitakse kirja saatmisel vastavalt kasutajanimi ja parool.</comment>
+      </property>
+      <property>
+            <name>mu_login</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_mu_login</field>
+            <caption>Logi p&amp;amp;auml;rast organisatsiooni salvestamist sisse</caption>
+      </property>
+      <property>
+            <name>mu_generate_username</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_mu_generate_username</field>
+            <caption>Kasutajanime genereerimise meetod</caption>
+      </property>
+      <property>
+            <name>check_email</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_check_email</field>
+            <default>1</default>
+            <caption>Kontrolli e-postiaadressi &amp;amp;otilde;igsust</caption>
+      </property>
+      <property>
+            <name>sector_limit</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_sector_limit</field>
+            <caption>Tegevusalade maksimaalne arv</caption>
+            <comment>0 - Kasutaja v&amp;amp;otilde;ib valida piiramatult tegevusalasid</comment>
+      </property>
+      <property>
+            <name>create_customer_data</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_create_customer_data</field>
+            <default>1</default>
+            <caption>Loo kliendisuhe</caption>
+      </property>
+      <property>
+            <name>ccd_sample_object</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CUSTOMER_DATA</reltype>
+            <store>connect</store>
+            <field>ccd_sample_object</field>
+            <caption>N&amp;amp;auml;idiskliendisuhe</caption>
+      </property>
+      <property>
+            <name>controller_add_user</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_controller_add_user</field>
+            <caption>Organisatsioonile kasutaja tegemise kontroller</caption>
+      </property>
+      <property>
+            <name>controller_check_email</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_controller_check_email</field>
+            <caption>E-postiaadressi &amp;amp;otilde;igsust kontrolliv kontroller</caption>
+      </property>
+      <property>
+            <name>controller_sector_limit</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_controller_sector_limit</field>
+            <caption>Tegevusalade arvu piirang</caption>
+      </property>
+      <property>
+            <name>controller_customer_data</name>
+            <table>aw_crm_company_cfgform_configurator</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_controller_customer_data</field>
+            <caption>Kliendisuhte kontroller</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_COMPANY_CFGFORM_CONFIGURATOR</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>instrumental</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_crm_company_cfgform_configurator>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_crm_company_cfgform_configurator>
+      </tableinfo>
+      <reltypes>
+            <ORG_CFGFORM>
+                  <value>1</value>
+                  <clid>CL_CFGFORM</clid>
+                  <caption>Organisatsiooni seadete vorm</caption>
+            </ORG_CFGFORM>
+            <ORG_PARENT>
+                  <value>2</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Kaust, kuhu organisatsioon salvestatakse</caption>
+            </ORG_PARENT>
+            <CHANGE_ORG>
+                  <value>3</value>
+                  <clid>CL_CRM_COMPANY</clid>
+                  <caption>Muutmisvaates kuvatav organisatsioon</caption>
+            </CHANGE_ORG>
+            <STM_LISTS>
+                  <value>4</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Meilinglistid, millega liituda</caption>
+            </STM_LISTS>
+            <ADD_TO_GROUP>
+                  <value>5</value>
+                  <clid>CL_GROUP</clid>
+                  <caption>Kasutajagrupp, kuhu lisatakse loodud kasutaja</caption>
+            </ADD_TO_GROUP>
+            <CUSTOMER_DATA>
+                  <value>6</value>
+                  <clid>CL_CRM_COMPANY_CUSTOMER_DATA</clid>
+                  <caption>N&amp;amp;auml;idiskliendisuhe</caption>
+            </CUSTOMER_DATA>
+      </reltypes>
+</properties>
+

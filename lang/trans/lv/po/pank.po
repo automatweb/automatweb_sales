@@ -1,0 +1,240 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/pank/pank.aw:class_558_help
+msgid "Klassi Pank help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_account_balance
+msgid "Omaduse Kontod (account_balance) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_account_balance_comment
+msgid "Omaduse Kontod (account_balance) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_account_balance_help
+msgid "Omaduse Kontod (account_balance) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_accounts_table
+msgid "Omaduse Kontod (accounts_table) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_accounts_table_comment
+msgid "Omaduse Kontod (accounts_table) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_accounts_table_help
+msgid "Omaduse Kontod (accounts_table) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_toolbar
+msgid "Omaduse Suurepärane toolbar (main_toolbar) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_toolbar_comment
+msgid "Omaduse Suurepärane toolbar (main_toolbar) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_toolbar_help
+msgid "Omaduse Suurepärane toolbar (main_toolbar) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_treeview
+msgid "Omaduse Treeview (main_treeview) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_treeview_comment
+msgid "Omaduse Treeview (main_treeview) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_treeview_help
+msgid "Omaduse Treeview (main_treeview) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_company_info
+msgid "Omaduse Firma info (main_company_info) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_company_info_comment
+msgid "Omaduse Firma info (main_company_info) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_company_info_help
+msgid "Omaduse Firma info (main_company_info) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_company_projects_info
+msgid "Omaduse Firma projektide info (main_company_projects_info) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_company_projects_info_comment
+msgid "Omaduse Firma projektide info (main_company_projects_info) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_company_projects_info_help
+msgid "Omaduse Firma projektide info (main_company_projects_info) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_table
+msgid "Omaduse Tabel (main_table) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_table_comment
+msgid "Omaduse Tabel (main_table) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_main_table_help
+msgid "Omaduse Tabel (main_table) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_konto_caption
+msgid "Omaduse kapten (konto_caption) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_konto_caption_comment
+msgid "Omaduse kapten (konto_caption) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_konto_caption_help
+msgid "Omaduse kapten (konto_caption) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_from_account
+msgid "Omaduse Konto (from_account) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_from_account_comment
+msgid "Omaduse Konto (from_account) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_from_account_help
+msgid "Omaduse Konto (from_account) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_to_company_caption
+msgid "Omaduse kapten (to_company_caption) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_to_company_caption_comment
+msgid "Omaduse kapten (to_company_caption) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_to_company_caption_help
+msgid "Omaduse kapten (to_company_caption) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_to_company
+msgid "Omaduse Kellele (to_company) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_to_company_comment
+msgid "Omaduse Kellele (to_company) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_to_company_help
+msgid "Omaduse Kellele (to_company) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_summa_caption
+msgid "Omaduse kapten (summa_caption) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_summa_caption_comment
+msgid "Omaduse kapten (summa_caption) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_summa_caption_help
+msgid "Omaduse kapten (summa_caption) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_summa
+msgid "Omaduse Summa (summa) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_summa_comment
+msgid "Omaduse Summa (summa) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_summa_help
+msgid "Omaduse Summa (summa) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_submit_caption
+msgid "Omaduse  (submit_caption) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_submit_caption_comment
+msgid "Omaduse  (submit_caption) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_submit_caption_help
+msgid "Omaduse  (submit_caption) help"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_submit
+msgid "Omaduse Soorita (submit) caption"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_submit_comment
+msgid "Omaduse Soorita (submit) kommentaar"
+msgstr ""
+
+#: classes/pank/pank.aw:prop_submit_help
+msgid "Omaduse Soorita (submit) help"
+msgstr ""
+
+#: classes/pank/pank.aw:group_account_overview
+msgid "Grupi Konto ülevaade (account_overview) pealkiri"
+msgstr ""
+
+#: classes/pank/pank.aw:group_account_overview_help
+msgid "Grupi Konto ülevaade (account_overview) help"
+msgstr ""
+
+#: classes/pank/pank.aw:group_accounts
+msgid "Grupi Kontod (accounts) pealkiri"
+msgstr ""
+
+#: classes/pank/pank.aw:group_accounts_help
+msgid "Grupi Kontod (accounts) help"
+msgstr ""
+
+#: classes/pank/pank.aw:group_pank_owner_group
+msgid "Grupi ... (pank_owner_group) pealkiri"
+msgstr ""
+
+#: classes/pank/pank.aw:group_pank_owner_group_help
+msgid "Grupi ... (pank_owner_group) help"
+msgstr ""
+
+#: classes/pank/pank.aw:group_pank_owner_group_main_sub
+msgid "Grupi ... (pank_owner_group_main_sub) pealkiri"
+msgstr ""
+
+#: classes/pank/pank.aw:group_pank_owner_group_main_sub_help
+msgid "Grupi ... (pank_owner_group_main_sub) help"
+msgstr ""
+
+#: classes/pank/pank.aw:group_pank_make_trans
+msgid "Grupi Tee ülekanne (pank_make_trans) pealkiri"
+msgstr ""
+
+#: classes/pank/pank.aw:group_pank_make_trans_help
+msgid "Grupi Tee ülekanne (pank_make_trans) help"
+msgstr ""
+
+#: classes/pank/pank.aw:rel_RELTYPE_OWNER
+msgid "Seose Kellele kuulub (RELTYPE_OWNER) tekst"
+msgstr ""
+

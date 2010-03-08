@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/interim_page.aw:class_1053_help
+msgid "Klassi Vaheleht help"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:prop_template
+msgid "Omaduse Template (template) caption"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:prop_template_comment
+msgid "Omaduse Template (template) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:prop_template_help
+msgid "Omaduse Template (template) help"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:prop_register_data
+msgid "Omaduse Registri andmed (register_data) caption"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:prop_register_data_comment
+msgid "Omaduse Registri andmed (register_data) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:prop_register_data_help
+msgid "Omaduse Registri andmed (register_data) help"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:prop_cfg_form
+msgid "Omaduse Seadete vorm (cfg_form) caption"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:prop_cfg_form_comment
+msgid "Omaduse Seadete vorm (cfg_form) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:prop_cfg_form_help
+msgid "Omaduse Seadete vorm (cfg_form) help"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:rel_RELTYPE_REGISTER_DATA
+msgid "Seose Registri andmed (RELTYPE_REGISTER_DATA) tekst"
+msgstr ""
+
+#: classes/contentmgmt/interim_page.aw:rel_RELTYPE_CFGFORM
+msgid "Seose Seadete vorm (RELTYPE_CFGFORM) tekst"
+msgstr ""
+

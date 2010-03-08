@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<definitions>
+<header_normal   value="textsmall"/>
+<header_sortable value="textsmall"/>
+<header_sorted   value="textsmall"/>
+<content_style1  value="textsmall" bgcolor="#FFFFFF"/>
+<content_style2  value="textsmall" bgcolor="#EEEEEE"/>
+<content_style1_selected value="sl_plain_sel" bgcolor="#EEEEEE"/>
+<content_style2_selected value="sl_plain_2_sel" bgcolor="#DDDDDD"/>
+<default_order value="when"/>
+</definitions>
+
+</tabledef>

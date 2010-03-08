@@ -1,0 +1,50 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>confirm</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kinnita</caption>
+      </property>
+      <property>
+            <name>export</name>
+            <table>objects</table>
+            <group>export</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SHOP_WAREHOUSE_EXPORT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <export>
+                  <caption>V&amp;amp;auml;ljamineku sisu</caption>
+            </export>
+      </groupinfo>
+      <reltypes>
+            <PRODUCT>
+                  <value>1</value>
+                  <clid>
+                        <num_0>CL_SHOP_PRODUCT</num_0>
+                        <num_1>CL_SHOP_PACKET</num_1>
+                  </clid>
+                  <caption>v&amp;amp;auml;lja l&amp;amp;auml;inud toode</caption>
+            </PRODUCT>
+            <ORDER>
+                  <value>2</value>
+                  <clid>CL_SHOP_ORDER</clid>
+                  <caption>tellimus</caption>
+            </ORDER>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/banner/banner_client.aw:class_55_help
+msgid "Klassi Banneri asukoht help"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_cont_place
+msgid "Omaduse Koht veebis (cont_place) caption"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_cont_place_comment
+msgid "Omaduse Koht veebis (cont_place) kommentaar"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_cont_place_help
+msgid "Omaduse Koht veebis (cont_place) help"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_cont_doc_tpl
+msgid "Omaduse Dokumendi template (cont_doc_tpl) caption"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_cont_doc_tpl_comment
+msgid "Omaduse Dokumendi template (cont_doc_tpl) kommentaar"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_cont_doc_tpl_help
+msgid "Omaduse Dokumendi template (cont_doc_tpl) help"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_dynamic_switch_interval
+msgid "Omaduse D&uuml;naamilise vaheldumise intervall (dynamic_switch_interval) caption"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_dynamic_switch_interval_comment
+msgid "Omaduse D&uuml;naamilise vaheldumise intervall (dynamic_switch_interval) kommentaar"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_dynamic_switch_interval_help
+msgid "Omaduse D&uuml;naamilise vaheldumise intervall (dynamic_switch_interval) help"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_html
+msgid "Omaduse Asukoha HTML (html) caption"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_html_comment
+msgid "Omaduse Asukoha HTML (html) kommentaar"
+msgstr ""
+
+#: classes/applications/banner/banner_client.aw:prop_html_help
+msgid "Omaduse Asukoha HTML (html) help"
+msgstr ""

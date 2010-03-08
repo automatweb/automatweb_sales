@@ -1,0 +1,206 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/class_designer/property_toolbar_button.aw:class_895_help
+#: classes/applications/class_designer/property_toolbar_button.aw:class_895_help
+msgid "Klassi Toolbari nupp help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_ord
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_ord
+msgid "Omaduse J&auml;rjekord (ord) caption"
+msgstr "Order"
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_ord_comment
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_ord_comment
+msgid "Omaduse J&auml;rjekord (ord) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_ord_help
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_ord_help
+msgid "Omaduse J&auml;rjekord (ord) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_b_type
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_b_type
+msgid "Omaduse Nupu t&uuml;&uuml;p (b_type) caption"
+msgstr "Button type"
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_b_type_comment
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_b_type_comment
+msgid "Omaduse Nupu t&uuml;&uuml;p (b_type) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_b_type_help
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_b_type_help
+msgid "Omaduse Nupu t&uuml;&uuml;p (b_type) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_action
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_action
+msgid "Omaduse Action (but_action) caption"
+msgstr "Action"
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_action_comment
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_action_comment
+msgid "Omaduse Action (but_action) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_action_help
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_action_help
+msgid "Omaduse Action (but_action) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_tooltip
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_tooltip
+msgid "Omaduse Tooltip (but_tooltip) caption"
+msgstr "Tooltip"
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_tooltip_comment
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_tooltip_comment
+msgid "Omaduse Tooltip (but_tooltip) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_tooltip_help
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_tooltip_help
+msgid "Omaduse Tooltip (but_tooltip) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_img
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_img
+msgid "Omaduse Pilt (but_img) caption"
+msgstr "Image"
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_img_comment
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_img_comment
+msgid "Omaduse Pilt (but_img) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_img_help
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_img_help
+msgid "Omaduse Pilt (but_img) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_confirm
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_confirm
+msgid "Omaduse Kinnitus (but_confirm) caption"
+msgstr "Confirmation"
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_confirm_comment
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_confirm_comment
+msgid "Omaduse Kinnitus (but_confirm) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_but_confirm_help
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_but_confirm_help
+msgid "Omaduse Kinnitus (but_confirm) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_men_toolbar
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_men_toolbar
+msgid "Omaduse  (men_toolbar) caption"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_men_toolbar_comment
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_men_toolbar_comment
+msgid "Omaduse  (men_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_men_toolbar_help
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_men_toolbar_help
+msgid "Omaduse  (men_toolbar) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_men_tree
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_men_tree
+msgid "Omaduse Puu (men_tree) caption"
+msgstr "Tree"
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_men_tree_comment
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_men_tree_comment
+msgid "Omaduse Puu (men_tree) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_men_tree_help
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_men_tree_help
+msgid "Omaduse Puu (men_tree) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_men_list
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_men_list
+msgid "Omaduse Tabel (men_list) caption"
+msgstr "Table"
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_men_list_comment
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_men_list_comment
+msgid "Omaduse Tabel (men_list) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:prop_men_list_help
+#: classes/applications/class_designer/property_toolbar_button.aw:prop_men_list_help
+msgid "Omaduse Tabel (men_list) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:group_but_props
+#: classes/applications/class_designer/property_toolbar_button.aw:group_but_props
+msgid "Grupi Nupu m&auml;&auml;rangud (but_props) pealkiri"
+msgstr "Button settings"
+
+# classes/applications/class_designer/property_toolbar_button.aw:group_but_props_help
+#: classes/applications/class_designer/property_toolbar_button.aw:group_but_props_help
+msgid "Grupi Nupu m&auml;&auml;rangud (but_props) help"
+msgstr ""
+
+# classes/applications/class_designer/property_toolbar_button.aw:group_men_props
+#: classes/applications/class_designer/property_toolbar_button.aw:group_men_props
+msgid "Grupi Nupu m&auml;&auml;rangud (men_props) pealkiri"
+msgstr "Button settings"
+
+# classes/applications/class_designer/property_toolbar_button.aw:group_men_props_help
+#: classes/applications/class_designer/property_toolbar_button.aw:group_men_props_help
+msgid "Grupi Nupu m&auml;&auml;rangud (men_props) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_toolbar_button.aw:65
+msgid "Eraldaja"
+msgstr "Separator"
+
+#: classes/applications/class_designer/property_toolbar_button.aw:66
+msgid "Nupp"
+msgstr "Button"
+
+#: classes/applications/class_designer/property_toolbar_button.aw:67
+msgid "Menu&uuml;&uuml;"
+msgstr "Folder"
+
+#: classes/applications/class_designer/property_toolbar_button.aw:273
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/class_designer/property_toolbar_button.aw:279
+msgid "J&auml;rjekord"
+msgstr "Order"
+
+#: classes/applications/class_designer/property_toolbar_button.aw:285
+msgid "URL"
+msgstr "URL"
+
+#: classes/applications/class_designer/property_toolbar_button.aw:291
+msgid "Eraldaja?"
+msgstr "Separator?"
+
+#: classes/applications/class_designer/property_toolbar_button.aw:371
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/applications/class_designer/property_toolbar_button.aw:378
+msgid "Kustuta"
+msgstr "Delete"

@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="orders_manager" folder="www/dev/terryf/automatweb_dev/classes/applications/orders" extends="class_base">
+		<action name="delete_orders">
+			<function name="delete_orders">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="group" />
+					<required name="sel" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="export_to_file" nologin="1">
+			<function name="export_to_file">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="undone_xls" all_args="1">
+			<function name="undone_xls">
+				<arguments>
+					<optional name="undone_xls" type="id" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="confirm_orders" all_args="1">
+			<function name="confirm_orders">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="print_orders" all_args="1">
+			<function name="print_orders">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

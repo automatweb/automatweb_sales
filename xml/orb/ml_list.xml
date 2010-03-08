@@ -1,0 +1,149 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ml_list" folder="www/dev/terryf/automatweb_dev/classes/applications/mailinglist" extends="class_base">
+		<action name="submit_choose_addresses" all_args="1">
+			<function name="submit_choose_addresses">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="post_message">
+			<function name="post_message">
+				<arguments>
+					<required name="id" />
+					<optional name="targets" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_post_message">
+			<function name="submit_post_message">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="subscribe" nologin="1">
+			<function name="subscribe">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="rel_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="msg_preview">
+			<function name="msg_preview">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="msg_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="unsubscribe" all_args="1">
+			<function name="unsubscribe">
+				<arguments>
+					<required name="usr" type="int" />
+					<optional name="list_source" />
+					<required name="list" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="export_members">
+			<function name="export_members">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="filename" />
+					<optional name="export_type" type="int" />
+					<optional name="export_date" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_gen_sched">
+			<function name="add_gen_sched">
+				<arguments>
+					<required name="mid" type="mail" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_queue_items">
+			<function name="delete_queue_items">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_mails">
+			<function name="delete_mails">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="group" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_members">
+			<function name="delete_members">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="exp_to_file">
+			<function name="exp_to_file">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_old">
+			<function name="delete_old">
+				<arguments>
+					<required name="ml" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="register_data">
+			<function name="register_data">
+				<arguments>
+					<required name="ml" type="oid" />
+					<optional name="ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_subscription_mail">
+			<function name="send_subscription_mail">
+				<arguments>
+					<required name="ml_list" type="int" acl="view" />
+					<required name="dir" type="array/oid" acl="view" />
+					<required name="to_mail" type="string" />
+					<optional name="froma" type="string" />
+					<optional name="fromn" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_unsubscription_mail">
+			<function name="send_unsubscription_mail">
+				<arguments>
+					<required name="ml_list" type="int" acl="view" />
+					<required name="dir" type="array/oid" acl="view" />
+					<required name="to_mail" type="string" />
+					<optional name="froma" type="string" />
+					<optional name="fromn" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

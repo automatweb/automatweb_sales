@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="pank" folder="www/dev/terryf/automatweb_dev/classes/pank" extends="class_base">
+		<action name="submit_make_transaction">
+			<function name="submit_make_transaction">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

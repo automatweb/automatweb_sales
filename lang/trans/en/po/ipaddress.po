@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/syslog/ipaddress.aw:class_168_help
+#: classes/syslog/ipaddress.aw:class_168_help
+msgid "Klassi IP Aadress help"
+msgstr ""
+
+# classes/syslog/ipaddress.aw:prop_addr
+#: classes/syslog/ipaddress.aw:prop_addr
+msgid "Omaduse IP Aadress (addr) caption"
+msgstr "IP Address"
+
+# classes/syslog/ipaddress.aw:prop_addr_comment
+#: classes/syslog/ipaddress.aw:prop_addr_comment
+msgid "Omaduse IP Aadress (addr) kommentaar"
+msgstr ""
+
+# classes/syslog/ipaddress.aw:prop_addr_help
+#: classes/syslog/ipaddress.aw:prop_addr_help
+msgid "Omaduse IP Aadress (addr) help"
+msgstr ""
+
+#: classes/syslog/ipaddress.aw:prop_range
+msgid "Omaduse Vahemik (range) caption"
+msgstr ""
+
+#: classes/syslog/ipaddress.aw:prop_range_comment
+msgid "Omaduse Vahemik (range) kommentaar"
+msgstr ""
+
+#: classes/syslog/ipaddress.aw:prop_range_help
+msgid "Omaduse Vahemik (range) help"
+msgstr ""
+
+# classes/syslog/ipaddress.aw:group_general
+#: classes/syslog/ipaddress.aw:group_general
+msgid "Grupi Üldine (general) pealkiri"
+msgstr ""
+
+# classes/syslog/ipaddress.aw:group_general_help
+#: classes/syslog/ipaddress.aw:group_general_help
+msgid "Grupi Üldine (general) help"
+msgstr ""
+
+#: classes/syslog/ipaddress.aw:154
+msgid ""
+"ipaddress::match(%s, %s): the second parameter must be a complete ip "
+"address, it can not be a mask!"
+msgstr ""
+"ipaddress::match(%s, %s): the second parameter must be a complete ip "
+"address, it can not be a mask!"

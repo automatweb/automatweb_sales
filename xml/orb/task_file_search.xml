@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="task_file_search" folder="www/dev/terryf/automatweb_dev/classes/applications/groupware" extends="popup_search">
+	</class>
+</orb>

@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="personnel_management_obj" folder="www/automatweb_cvs/classes/applications/personnel_management" extends="_int_object">
+		<action name="notify_of_new_cv">
+			<function name="notify_of_new_cv">
+				<arguments>
+					<required name="person_obj" type="object" acl="view" />
+					<required name="to" type="string" />
+					<optional name="pm_obj" type="object" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_cv_by_email">
+			<function name="send_cv_by_email">
+				<arguments>
+					<required name="person_obj" type="object" />
+					<optional name="pm_obj" type="object" />
+					<optional name="to" type="string" />
+					<optional name="cc" type="string" />
+					<optional name="bcc" type="string" />
+					<optional name="lang" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

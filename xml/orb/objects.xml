@@ -1,0 +1,93 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="objects" folder="www/dev/marko/automatweb_dev/classes/core" extends="core">
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="db_query">
+			<function name="orb_db_query">
+				<arguments>
+					<required name="sql" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="storage_query" all_args="1">
+			<function name="storage_query">
+				<arguments>
+					<optional name="name" />
+					<optional name="class_id" type="int" />
+					<optional name="comment" />
+					<optional name="site_id" />
+					<optional name="createdby" />
+					<optional name="modifiedby" />
+					<optional name="status" type="int" />
+					<optional name="lang_id" type="int" />
+					<optional name="oid" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_object">
+			<function name="orb_delete_object">
+				<arguments>
+					<required name="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_bd">
+			<function name="get_bd">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="aw_ini_get_mult" nologin="1">
+			<function name="aw_ini_get_mult">
+				<arguments>
+					<required name="vals" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_list" nologin="1" all_args="1">
+			<function name="orb_get_list">
+				<arguments>
+					<optional name="ignore_langmenus" />
+					<optional name="empty" />
+					<optional name="rootobj" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="serialize" nologin="1">
+			<function name="orb_serialize">
+				<arguments>
+					<required name="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_xml">
+			<function name="get_xml">
+				<arguments>
+					<required name="oid" type="oid" />
+					<optional name="encode" type="boolean" />
+					<optional name="copy_subobjects" type="bool" />
+					<optional name="copy_subfolders" type="bool" />
+					<optional name="copy_subdocs" type="bool" />
+					<optional name="copy_rels" type="bool" />
+					<optional name="new_rels" type="bool" />
+					<optional name="no_header" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

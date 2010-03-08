@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="admin_object_exporter" folder="www/dev/terryf/automatweb_dev/classes/admin" extends="class_base">
+		<action name="mkdload">
+			<function name="mkdload">
+				<arguments>
+					<required name="id" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

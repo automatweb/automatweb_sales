@@ -1,0 +1,125 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/folder_list.aw:class_255_help
+#: classes/contentmgmt/folder_list.aw:class_255_help
+msgid "Klassi Kaustade nimekiri help"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_rootmenu
+#: classes/contentmgmt/folder_list.aw:prop_rootmenu
+msgid "Omaduse Juurkaust (rootmenu) caption"
+msgstr "Root folder"
+
+# classes/contentmgmt/folder_list.aw:prop_rootmenu_comment
+#: classes/contentmgmt/folder_list.aw:prop_rootmenu_comment
+msgid "Omaduse Juurkaust (rootmenu) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_rootmenu_help
+#: classes/contentmgmt/folder_list.aw:prop_rootmenu_help
+msgid "Omaduse Juurkaust (rootmenu) help"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_template
+#: classes/contentmgmt/folder_list.aw:prop_template
+msgid "Omaduse Kujundusmall (template) caption"
+msgstr "Template"
+
+# classes/contentmgmt/folder_list.aw:prop_template_comment
+#: classes/contentmgmt/folder_list.aw:prop_template_comment
+msgid "Omaduse Kujundusmall (template) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_template_help
+#: classes/contentmgmt/folder_list.aw:prop_template_help
+msgid "Omaduse Kujundusmall (template) help"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_sort_by
+#: classes/contentmgmt/folder_list.aw:prop_sort_by
+msgid "Omaduse Kuidas sortida (sort_by) caption"
+msgstr "Sort by"
+
+# classes/contentmgmt/folder_list.aw:prop_sort_by_comment
+#: classes/contentmgmt/folder_list.aw:prop_sort_by_comment
+msgid "Omaduse Kuidas sortida (sort_by) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_sort_by_help
+#: classes/contentmgmt/folder_list.aw:prop_sort_by_help
+msgid "Omaduse Kuidas sortida (sort_by) help"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_show_comment
+#: classes/contentmgmt/folder_list.aw:prop_show_comment
+msgid "Omaduse N&auml;ita kausta all (show_comment) caption"
+msgstr "Show under folder"
+
+# classes/contentmgmt/folder_list.aw:prop_show_comment_comment
+#: classes/contentmgmt/folder_list.aw:prop_show_comment_comment
+msgid "Omaduse N&auml;ita kausta all (show_comment) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_show_comment_help
+#: classes/contentmgmt/folder_list.aw:prop_show_comment_help
+msgid "Omaduse N&auml;ita kausta all (show_comment) help"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_no_folder_links
+#: classes/contentmgmt/folder_list.aw:prop_no_folder_links
+msgid "Omaduse &Auml;ra lingi kaustu (no_folder_links) caption"
+msgstr "Do not link folders"
+
+# classes/contentmgmt/folder_list.aw:prop_no_folder_links_comment
+#: classes/contentmgmt/folder_list.aw:prop_no_folder_links_comment
+msgid "Omaduse &Auml;ra lingi kaustu (no_folder_links) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_no_folder_links_help
+#: classes/contentmgmt/folder_list.aw:prop_no_folder_links_help
+msgid "Omaduse &Auml;ra lingi kaustu (no_folder_links) help"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_only_act
+#: classes/contentmgmt/folder_list.aw:prop_only_act
+msgid "Omaduse N&auml;ita ainult aktiivseid kaustu (only_act) caption"
+msgstr "Show only active folders"
+
+# classes/contentmgmt/folder_list.aw:prop_only_act_comment
+#: classes/contentmgmt/folder_list.aw:prop_only_act_comment
+msgid "Omaduse N&auml;ita ainult aktiivseid kaustu (only_act) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_only_act_help
+#: classes/contentmgmt/folder_list.aw:prop_only_act_help
+msgid "Omaduse N&auml;ita ainult aktiivseid kaustu (only_act) help"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_link_only_act
+#: classes/contentmgmt/folder_list.aw:prop_link_only_act
+msgid "Omaduse Lingi ainult aktiivsed kaustad (link_only_act) caption"
+msgstr "Link only active folders"
+
+# classes/contentmgmt/folder_list.aw:prop_link_only_act_comment
+#: classes/contentmgmt/folder_list.aw:prop_link_only_act_comment
+msgid "Omaduse Lingi ainult aktiivsed kaustad (link_only_act) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:prop_link_only_act_help
+#: classes/contentmgmt/folder_list.aw:prop_link_only_act_help
+msgid "Omaduse Lingi ainult aktiivsed kaustad (link_only_act) help"
+msgstr ""
+
+# classes/contentmgmt/folder_list.aw:rel_RELTYPE_FOLDER
+#: classes/contentmgmt/folder_list.aw:rel_RELTYPE_FOLDER
+msgid "Seose juurkaust (RELTYPE_FOLDER) tekst"
+msgstr "root folder"

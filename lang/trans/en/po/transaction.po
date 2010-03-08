@@ -1,0 +1,219 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/pank/transaction.aw:class_650_help
+msgid "Klassi &Uuml;lekanne help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_name
+#: classes/pank/transaction.aw:prop_name
+msgid "Omaduse Selgitus (name) caption"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_name_comment
+#: classes/pank/transaction.aw:prop_name_comment
+msgid "Omaduse Selgitus (name) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_name_help
+#: classes/pank/transaction.aw:prop_name_help
+msgid "Omaduse Selgitus (name) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_from_object
+#: classes/pank/transaction.aw:prop_trans_from_object
+msgid "Omaduse Kandja (trans_from_object) caption"
+msgstr "From"
+
+# classes/pank/transaction.aw:prop_trans_from_object_comment
+#: classes/pank/transaction.aw:prop_trans_from_object_comment
+msgid "Omaduse Kandja (trans_from_object) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_from_object_help
+#: classes/pank/transaction.aw:prop_trans_from_object_help
+msgid "Omaduse Kandja (trans_from_object) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_from_account_hr
+#: classes/pank/transaction.aw:prop_trans_from_account_hr
+msgid "Omaduse Kandja konto (trans_from_account_hr) caption"
+msgstr "From account"
+
+# classes/pank/transaction.aw:prop_trans_from_account_hr_comment
+#: classes/pank/transaction.aw:prop_trans_from_account_hr_comment
+msgid "Omaduse Kandja konto (trans_from_account_hr) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_from_account_hr_help
+#: classes/pank/transaction.aw:prop_trans_from_account_hr_help
+msgid "Omaduse Kandja konto (trans_from_account_hr) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_from_account
+#: classes/pank/transaction.aw:prop_trans_from_account
+msgid "Omaduse Kandja konto (trans_from_account) caption"
+msgstr "From account"
+
+# classes/pank/transaction.aw:prop_trans_from_account_comment
+#: classes/pank/transaction.aw:prop_trans_from_account_comment
+msgid "Omaduse Kandja konto (trans_from_account) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_from_account_help
+#: classes/pank/transaction.aw:prop_trans_from_account_help
+msgid "Omaduse Kandja konto (trans_from_account) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_to_object
+#: classes/pank/transaction.aw:prop_trans_to_object
+msgid "Omaduse Saaja (trans_to_object) caption"
+msgstr "Reciever"
+
+# classes/pank/transaction.aw:prop_trans_to_object_comment
+#: classes/pank/transaction.aw:prop_trans_to_object_comment
+msgid "Omaduse Saaja (trans_to_object) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_to_object_help
+#: classes/pank/transaction.aw:prop_trans_to_object_help
+msgid "Omaduse Saaja (trans_to_object) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_to_account_hr
+#: classes/pank/transaction.aw:prop_trans_to_account_hr
+msgid "Omaduse Saaja konto (trans_to_account_hr) caption"
+msgstr "Reciever account"
+
+# classes/pank/transaction.aw:prop_trans_to_account_hr_comment
+#: classes/pank/transaction.aw:prop_trans_to_account_hr_comment
+msgid "Omaduse Saaja konto (trans_to_account_hr) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_to_account_hr_help
+#: classes/pank/transaction.aw:prop_trans_to_account_hr_help
+msgid "Omaduse Saaja konto (trans_to_account_hr) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_to_account
+#: classes/pank/transaction.aw:prop_trans_to_account
+msgid "Omaduse Saaja konto (trans_to_account) caption"
+msgstr "Reciever account"
+
+# classes/pank/transaction.aw:prop_trans_to_account_comment
+#: classes/pank/transaction.aw:prop_trans_to_account_comment
+msgid "Omaduse Saaja konto (trans_to_account) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_trans_to_account_help
+#: classes/pank/transaction.aw:prop_trans_to_account_help
+msgid "Omaduse Saaja konto (trans_to_account) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_sum
+#: classes/pank/transaction.aw:prop_sum
+msgid "Omaduse Summa (sum) caption"
+msgstr "Sum"
+
+# classes/pank/transaction.aw:prop_sum_comment
+#: classes/pank/transaction.aw:prop_sum_comment
+msgid "Omaduse Summa (sum) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_sum_help
+#: classes/pank/transaction.aw:prop_sum_help
+msgid "Omaduse Summa (sum) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_time
+#: classes/pank/transaction.aw:prop_time
+msgid "Omaduse Kellaaeg (time) caption"
+msgstr "Time"
+
+# classes/pank/transaction.aw:prop_time_comment
+#: classes/pank/transaction.aw:prop_time_comment
+msgid "Omaduse Kellaaeg (time) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_time_help
+#: classes/pank/transaction.aw:prop_time_help
+msgid "Omaduse Kellaaeg (time) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_time_hr
+#: classes/pank/transaction.aw:prop_time_hr
+msgid "Omaduse Kellaaeg (time_hr) caption"
+msgstr "Time"
+
+# classes/pank/transaction.aw:prop_time_hr_comment
+#: classes/pank/transaction.aw:prop_time_hr_comment
+msgid "Omaduse Kellaaeg (time_hr) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_time_hr_help
+#: classes/pank/transaction.aw:prop_time_hr_help
+msgid "Omaduse Kellaaeg (time_hr) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_is_completed
+#: classes/pank/transaction.aw:prop_is_completed
+msgid "Omaduse Kinnitatud (is_completed) caption"
+msgstr "Confirmed"
+
+# classes/pank/transaction.aw:prop_is_completed_comment
+#: classes/pank/transaction.aw:prop_is_completed_comment
+msgid "Omaduse Kinnitatud (is_completed) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_is_completed_help
+#: classes/pank/transaction.aw:prop_is_completed_help
+msgid "Omaduse Kinnitatud (is_completed) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_completion_confirmation
+#: classes/pank/transaction.aw:prop_completion_confirmation
+msgid "Omaduse Completion confirmation (completion_confirmation) caption"
+msgstr "Completion confirmation"
+
+# classes/pank/transaction.aw:prop_completion_confirmation_comment
+#: classes/pank/transaction.aw:prop_completion_confirmation_comment
+msgid "Omaduse Completion confirmation (completion_confirmation) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_completion_confirmation_help
+#: classes/pank/transaction.aw:prop_completion_confirmation_help
+msgid "Omaduse Completion confirmation (completion_confirmation) help"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_soorita
+#: classes/pank/transaction.aw:prop_soorita
+msgid "Omaduse  (soorita) caption"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_soorita_comment
+#: classes/pank/transaction.aw:prop_soorita_comment
+msgid "Omaduse  (soorita) kommentaar"
+msgstr ""
+
+# classes/pank/transaction.aw:prop_soorita_help
+#: classes/pank/transaction.aw:prop_soorita_help
+msgid "Omaduse  (soorita) help"
+msgstr ""
+
+# classes/pank/transaction.aw:group_general
+#: classes/pank/transaction.aw:group_general
+msgid "Grupi Üldine (general) pealkiri"
+msgstr ""
+
+# classes/pank/transaction.aw:group_general_help
+#: classes/pank/transaction.aw:group_general_help
+msgid "Grupi Üldine (general) help"
+msgstr ""

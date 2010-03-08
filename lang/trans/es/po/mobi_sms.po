@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/common/mobi_sms.aw:class_1417_help
+msgid "Klassi Mobi SMS help"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:prop_name
+msgid "Omaduse Number (name) caption"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:prop_name_comment
+msgid "Omaduse Number (name) kommentaar"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:prop_name_help
+msgid "Omaduse Number (name) help"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:prop_comment
+msgid "Omaduse S&otilde;num (comment) caption"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:prop_comment_comment
+msgid "Omaduse S&otilde;num (comment) kommentaar"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:prop_comment_help
+msgid "Omaduse S&otilde;num (comment) help"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:prop_sent_tbl
+msgid "Omaduse  (sent_tbl) caption"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:prop_sent_tbl_comment
+msgid "Omaduse  (sent_tbl) kommentaar"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:prop_sent_tbl_help
+msgid "Omaduse  (sent_tbl) help"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:group_sent
+msgid "Grupi Saatmised (sent) pealkiri"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:group_sent_help
+msgid "Grupi Saatmised (sent) help"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:50
+msgid "Aeg"
+msgstr ""
+
+#: classes/common/mobi_sms.aw:55
+msgid "Mobi vastus"
+msgstr ""
+

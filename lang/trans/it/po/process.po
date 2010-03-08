@@ -1,0 +1,180 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/workflow/process.aw:class_175_help
+msgid "Klassi Protsess help"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_ptype
+msgid "Omaduse Protsessi tüüp (ptype) caption"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_ptype_comment
+msgid "Omaduse Protsessi tüüp (ptype) kommentaar"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_ptype_help
+msgid "Omaduse Protsessi tüüp (ptype) help"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_description
+msgid "Omaduse Kirjeldus (description) caption"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_description_comment
+msgid "Omaduse Kirjeldus (description) kommentaar"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_description_help
+msgid "Omaduse Kirjeldus (description) help"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_goal
+msgid "Omaduse Eesmärk (goal) caption"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_goal_comment
+msgid "Omaduse Eesmärk (goal) kommentaar"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_goal_help
+msgid "Omaduse Eesmärk (goal) help"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_root_action
+msgid "Omaduse Juurtegevus (root_action) caption"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_root_action_comment
+msgid "Omaduse Juurtegevus (root_action) kommentaar"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_root_action_help
+msgid "Omaduse Juurtegevus (root_action) help"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_end_action
+msgid "Omaduse L&otilde;pptegevus (end_action) caption"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_end_action_comment
+msgid "Omaduse L&otilde;pptegevus (end_action) kommentaar"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_end_action_help
+msgid "Omaduse L&otilde;pptegevus (end_action) help"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_transition_folder
+msgid "Omaduse J&auml;rgnevuste kataloog (transition_folder) caption"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_transition_folder_comment
+msgid "Omaduse J&auml;rgnevuste kataloog (transition_folder) kommentaar"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_transition_folder_help
+msgid "Omaduse J&auml;rgnevuste kataloog (transition_folder) help"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_id
+msgid "Omaduse  (id) caption"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_id_comment
+msgid "Omaduse  (id) kommentaar"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_id_help
+msgid "Omaduse  (id) help"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_action_list
+msgid "Omaduse Tegevused (action_list) caption"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_action_list_comment
+msgid "Omaduse Tegevused (action_list) kommentaar"
+msgstr ""
+
+#: classes/workflow/process.aw:prop_action_list_help
+msgid "Omaduse Tegevused (action_list) help"
+msgstr ""
+
+#: classes/workflow/process.aw:group_actions
+msgid "Grupi Tegevused (actions) pealkiri"
+msgstr ""
+
+#: classes/workflow/process.aw:group_actions_help
+msgid "Grupi Tegevused (actions) help"
+msgstr ""
+
+#: classes/workflow/process.aw:rel_RELTYPE_INSTRUCTION
+msgid "Seose instruktsioon (RELTYPE_INSTRUCTION) tekst"
+msgstr ""
+
+#: classes/workflow/process.aw:rel_RELTYPE_TRANSITION
+msgid "Seose j&auml;rgnevus (RELTYPE_TRANSITION) tekst"
+msgstr ""
+
+#: classes/workflow/process.aw:rel_RELTYPE_FOLDER
+msgid "Seose j&auml;rgnevuste kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/workflow/process.aw:rel_RELTYPE_ACTION
+msgid "Seose tegevus (RELTYPE_ACTION) tekst"
+msgstr ""
+
+#: classes/workflow/process.aw:77
+msgid "--vali--"
+msgstr ""
+
+#: classes/workflow/process.aw:78
+msgid "põhiprotsess"
+msgstr ""
+
+#: classes/workflow/process.aw:79
+msgid "tugiprotsess"
+msgstr ""
+
+#: classes/workflow/process.aw:191
+msgid "Muuda"
+msgstr ""
+
+#: classes/workflow/process.aw:213
+msgid "lisa j&auml;rgnevus"
+msgstr ""
+
+#: classes/workflow/process.aw:237
+msgid "J&auml;rgnevuse otsad ei tohi samad olla!"
+msgstr ""
+
+#: classes/workflow/process.aw:250
+msgid "Selline j&auml;rgnevus on juba olemas!"
+msgstr ""
+
+#: classes/workflow/process.aw:287
+msgid "Juurtegevus on valimata"
+msgstr ""
+
+#: classes/workflow/process.aw:297
+msgid "L&otilde;pptegevus on valimata"
+msgstr ""
+
+#: classes/workflow/process.aw:303
+msgid "J&auml;rgnevuste kataloog on valimata!"
+msgstr ""
+
+#: classes/workflow/process.aw:315
+msgid "Objektil puuduvad 'tegevus' tüüpi seosed"
+msgstr ""
+

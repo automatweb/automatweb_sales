@@ -1,0 +1,72 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>subheading</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Vahepealkiri</caption>
+            <comment>Kui oskus on vahepealkiri, ei saa teda siduda isikuga ega m&amp;amp;auml;&amp;amp;auml;rata tema taset.</comment>
+      </property>
+      <property>
+            <name>lvl</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Saab m&amp;amp;auml;&amp;amp;auml;rata taset</caption>
+      </property>
+      <property>
+            <name>lvl_meta</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_LEVELS</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Tasemed</caption>
+      </property>
+      <property>
+            <name>other</name>
+            <table>kliendibaas_oskus</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>other_capt</field>
+            <caption>Muu oskus caption</caption>
+      </property>
+      <property>
+            <name>other_jrk</name>
+            <table>kliendibaas_oskus</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>other_jrk</field>
+            <caption>Muu oskus jrk</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_SKILL</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <kliendibaas_oskus>
+                  <index>oid</index>
+                  <master_table>objects</master_table>
+                  <master_index>oid</master_index>
+            </kliendibaas_oskus>
+      </tableinfo>
+      <reltypes>
+            <LEVELS>
+                  <value>1</value>
+                  <clid>CL_META</clid>
+                  <caption>Tasemed</caption>
+            </LEVELS>
+      </reltypes>
+</properties>
+

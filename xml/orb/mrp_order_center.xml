@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mrp_order_center" folder="www/dev/terryf/automatweb_dev/classes/mrp/orders" extends="class_base">
+		<action name="copy_covers">
+			<function name="copy_covers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_covers">
+			<function name="paste_covers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

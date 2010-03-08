@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="form_config" folder="www/dev/terryf/automatweb_dev/classes/formgen" extends="form_base">
+		<action name="config">
+			<function name="config">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit">
+			<function name="submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

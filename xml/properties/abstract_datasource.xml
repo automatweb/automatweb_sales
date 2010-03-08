@@ -1,0 +1,104 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>ds</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_DS</reltype>
+            <caption>Andmed objektist</caption>
+      </property>
+      <property>
+            <name>row_cnt</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <store>no</store>
+            <caption>Mitu rida andmeid</caption>
+      </property>
+      <property>
+            <name>name_field</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Nime tulp</caption>
+      </property>
+      <property>
+            <name>id_field</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>ID tulp</caption>
+      </property>
+      <property>
+            <name>file_has_header</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Esimesel real on pealkirjad</caption>
+      </property>
+      <property>
+            <name>file_separator</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>5</size>
+            <caption>Eraldaja</caption>
+      </property>
+      <property>
+            <name>max_lines</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>5</size>
+            <caption>Mitu rida maksimaalselt importida</caption>
+      </property>
+      <property>
+            <name>controller</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CTR</reltype>
+            <caption>Kontroller</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_ABSTRACT_DATASOURCE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <reltypes>
+            <DS>
+                  <value>1</value>
+                  <clid>
+                        <num_0>CL_FILE</num_0>
+                        <num_1>CL_OTV_DS_POSTIPOISS</num_1>
+                        <num_2>CL_OTV_DS_OBJ</num_2>
+                        <num_3>CL_DB_TABLE_CONTENTS</num_3>
+                  </clid>
+                  <caption>andmed objektist</caption>
+            </DS>
+            <CTR>
+                  <value>2</value>
+                  <clid>CL_FORM_CONTROLLER</clid>
+                  <caption>Kontroller</caption>
+            </CTR>
+      </reltypes>
+</properties>
+

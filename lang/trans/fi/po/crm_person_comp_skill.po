@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_person_comp_skill.aw:class_491_help
+msgid "Klassi Arvutioskus help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:prop_program
+msgid "Omaduse Keel/Programm (program) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:prop_program_comment
+msgid "Omaduse Keel/Programm (program) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:prop_program_help
+msgid "Omaduse Keel/Programm (program) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:prop_level
+msgid "Omaduse Tase (level) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:prop_level_comment
+msgid "Omaduse Tase (level) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:prop_level_help
+msgid "Omaduse Tase (level) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:39
+msgid "-- vali --"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:40
+msgid "algaja"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:41
+msgid "tavakasutaja"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:42
+msgid "edasijõudnu"
+msgstr ""
+
+#: classes/applications/crm/crm_person_comp_skill.aw:43
+msgid "ekspert"
+msgstr ""
+

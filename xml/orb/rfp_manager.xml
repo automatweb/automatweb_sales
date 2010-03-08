@@ -1,0 +1,90 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="rfp_manager" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="create_new_room_price">
+			<function name="handle_new_room_price">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_overview" all_args="1">
+			<function name="show_overview">
+				<arguments>
+					<required name="oid" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="unarchive" all_args="1">
+			<function name="unarchive">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="archive" all_args="1">
+			<function name="archive">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_rfp" all_args="1">
+			<function name="del_rfp">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rfp_reload" all_args="1">
+			<function name="rfp_reload">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="reload_rfp" all_args="1">
+			<function name="reload_rfp">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="export_stats" all_args="1">
+			<function name="export_stats">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_prices" all_args="1">
+			<function name="remove_prices">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="archive_prices" all_args="1">
+			<function name="archive_prices">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_result_print_output" all_args="1">
+			<function name="search_result_print_output">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_result_export_pdf" all_args="1">
+			<function name="search_result_export_pdf">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

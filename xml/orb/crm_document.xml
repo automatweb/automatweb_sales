@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_document" folder="www/dev/terryf/automatweb_dev/classes/applications/crm" extends="class_base">
+		<action name="add_s_res_to_p_list">
+			<function name="add_s_res_to_p_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_p_from_l_list">
+			<function name="remove_p_from_l_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="co_autocomplete_source">
+			<function name="co_autocomplete_source">
+				<arguments>
+					<optional name="sp_p_co" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="p_autocomplete_source">
+			<function name="p_autocomplete_source">
+				<arguments>
+					<optional name="sp_p_p" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_notify_mail">
+			<function name="send_notify_mail">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

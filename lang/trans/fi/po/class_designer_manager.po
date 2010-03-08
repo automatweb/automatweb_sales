@@ -1,0 +1,1211 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/class_designer/class_designer_manager.aw:class_929_help
+msgid "Klassi Klasside brauser help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_mgr_tb
+msgid "Omaduse  (mgr_tb) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_mgr_tb_comment
+msgid "Omaduse  (mgr_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_mgr_tb_help
+msgid "Omaduse  (mgr_tb) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_mgr_tree
+msgid "Omaduse  (mgr_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_mgr_tree_comment
+msgid "Omaduse  (mgr_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_mgr_tree_help
+msgid "Omaduse  (mgr_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_mgr_tbl
+msgid "Omaduse  (mgr_tbl) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_mgr_tbl_comment
+msgid "Omaduse  (mgr_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_mgr_tbl_help
+msgid "Omaduse  (mgr_tbl) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_rels_tb
+msgid "Omaduse  (rels_tb) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_rels_tb_comment
+msgid "Omaduse  (rels_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_rels_tb_help
+msgid "Omaduse  (rels_tb) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_rels_tree
+msgid "Omaduse  (rels_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_rels_tree_comment
+msgid "Omaduse  (rels_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_rels_tree_help
+msgid "Omaduse  (rels_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_rels_tbl
+msgid "Omaduse  (rels_tbl) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_rels_tbl_comment
+msgid "Omaduse  (rels_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_rels_tbl_help
+msgid "Omaduse  (rels_tbl) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_toolbar
+msgid "Omaduse  (toolbar) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_toolbar_comment
+msgid "Omaduse  (toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_toolbar_help
+msgid "Omaduse  (toolbar) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_tree
+msgid "Omaduse  (classes_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_tree_comment
+msgid "Omaduse  (classes_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_tree_help
+msgid "Omaduse  (classes_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_groups
+msgid "Omaduse  (classes_groups) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_groups_comment
+msgid "Omaduse  (classes_groups) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_groups_help
+msgid "Omaduse  (classes_groups) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_list
+msgid "Omaduse  (classes_list) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_list_comment
+msgid "Omaduse  (classes_list) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_list_help
+msgid "Omaduse  (classes_list) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_props_toolbar
+msgid "Omaduse  (props_toolbar) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_props_toolbar_comment
+msgid "Omaduse  (props_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_props_toolbar_help
+msgid "Omaduse  (props_toolbar) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_props_tree
+msgid "Omaduse  (classes_props_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_props_tree_comment
+msgid "Omaduse  (classes_props_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_props_tree_help
+msgid "Omaduse  (classes_props_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_props_groups
+msgid "Omaduse  (classes_props_groups) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_props_groups_comment
+msgid "Omaduse  (classes_props_groups) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_props_groups_help
+msgid "Omaduse  (classes_props_groups) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_props_list
+msgid "Omaduse  (classes_props_list) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_props_list_comment
+msgid "Omaduse  (classes_props_list) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_classes_props_list_help
+msgid "Omaduse  (classes_props_list) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_tree
+msgid "Omaduse  (cl_usage_stats_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_tree_comment
+msgid "Omaduse  (cl_usage_stats_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_tree_help
+msgid "Omaduse  (cl_usage_stats_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_groups
+msgid "Omaduse  (cl_usage_stats_groups) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_groups_comment
+msgid "Omaduse  (cl_usage_stats_groups) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_groups_help
+msgid "Omaduse  (cl_usage_stats_groups) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_list_gpx
+msgid "Omaduse  (cl_usage_stats_list_gpx) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_list_gpx_comment
+msgid "Omaduse  (cl_usage_stats_list_gpx) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_list_gpx_help
+msgid "Omaduse  (cl_usage_stats_list_gpx) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_list
+msgid "Omaduse  (cl_usage_stats_list) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_list_comment
+msgid "Omaduse  (cl_usage_stats_list) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_list_help
+msgid "Omaduse  (cl_usage_stats_list) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_site_usage_stats_list_gpx
+msgid "Omaduse  (site_usage_stats_list_gpx) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_site_usage_stats_list_gpx_comment
+msgid "Omaduse  (site_usage_stats_list_gpx) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_site_usage_stats_list_gpx_help
+msgid "Omaduse  (site_usage_stats_list_gpx) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_site_usage_stats_list
+msgid "Omaduse  (site_usage_stats_list) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_site_usage_stats_list_comment
+msgid "Omaduse  (site_usage_stats_list) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_site_usage_stats_list_help
+msgid "Omaduse  (site_usage_stats_list) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_tree
+msgid "Omaduse  (cl_usage_props_stats_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_tree_comment
+msgid "Omaduse  (cl_usage_props_stats_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_tree_help
+msgid "Omaduse  (cl_usage_props_stats_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_groups
+msgid "Omaduse  (cl_usage_props_stats_groups) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_groups_comment
+msgid "Omaduse  (cl_usage_props_stats_groups) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_groups_help
+msgid "Omaduse  (cl_usage_props_stats_groups) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_list_gpx
+msgid "Omaduse  (cl_usage_props_stats_list_gpx) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_list_gpx_comment
+msgid "Omaduse  (cl_usage_props_stats_list_gpx) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_list_gpx_help
+msgid "Omaduse  (cl_usage_props_stats_list_gpx) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_list
+msgid "Omaduse  (cl_usage_props_stats_list) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_list_comment
+msgid "Omaduse  (cl_usage_props_stats_list) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_props_stats_list_help
+msgid "Omaduse  (cl_usage_props_stats_list) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_tms_tree
+msgid "Omaduse  (cl_usage_stats_tms_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_tms_tree_comment
+msgid "Omaduse  (cl_usage_stats_tms_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_tms_tree_help
+msgid "Omaduse  (cl_usage_stats_tms_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_tms_list
+msgid "Omaduse  (cl_usage_stats_tms_list) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_tms_list_comment
+msgid "Omaduse  (cl_usage_stats_tms_list) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_cl_usage_stats_tms_list_help
+msgid "Omaduse  (cl_usage_stats_tms_list) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_tree
+msgid "Omaduse  (errors_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_tree_comment
+msgid "Omaduse  (errors_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_tree_help
+msgid "Omaduse  (errors_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_list_grapx
+msgid "Omaduse  (errors_list_grapx) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_list_grapx_comment
+msgid "Omaduse  (errors_list_grapx) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_list_grapx_help
+msgid "Omaduse  (errors_list_grapx) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_list_grapx_days
+msgid "Omaduse  (errors_list_grapx_days) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_list_grapx_days_comment
+msgid "Omaduse  (errors_list_grapx_days) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_list_grapx_days_help
+msgid "Omaduse  (errors_list_grapx_days) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_list
+msgid "Omaduse  (errors_list) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_list_comment
+msgid "Omaduse  (errors_list) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_errors_list_help
+msgid "Omaduse  (errors_list) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_sites_toolbar
+msgid "Omaduse  (sites_sites_toolbar) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_sites_toolbar_comment
+msgid "Omaduse  (sites_sites_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_sites_toolbar_help
+msgid "Omaduse  (sites_sites_toolbar) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_sites_grp_tree
+msgid "Omaduse  (sites_sites_grp_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_sites_grp_tree_comment
+msgid "Omaduse  (sites_sites_grp_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_sites_grp_tree_help
+msgid "Omaduse  (sites_sites_grp_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_list_grapx
+msgid "Omaduse  (sites_list_grapx) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_list_grapx_comment
+msgid "Omaduse  (sites_list_grapx) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_list_grapx_help
+msgid "Omaduse  (sites_list_grapx) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_list
+msgid "Omaduse  (sites_list) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_list_comment
+msgid "Omaduse  (sites_list) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_list_help
+msgid "Omaduse  (sites_list) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_servers_grp_tree
+msgid "Omaduse  (sites_servers_grp_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_servers_grp_tree_comment
+msgid "Omaduse  (sites_servers_grp_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_servers_grp_tree_help
+msgid "Omaduse  (sites_servers_grp_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_servers_grapx
+msgid "Omaduse  (sites_servers_grapx) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_servers_grapx_comment
+msgid "Omaduse  (sites_servers_grapx) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_servers_grapx_help
+msgid "Omaduse  (sites_servers_grapx) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_servers
+msgid "Omaduse  (sites_servers) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_servers_comment
+msgid "Omaduse  (sites_servers) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_sites_servers_help
+msgid "Omaduse  (sites_servers) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notif_tb
+msgid "Omaduse  (notif_tb) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notif_tb_comment
+msgid "Omaduse  (notif_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notif_tb_help
+msgid "Omaduse  (notif_tb) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_rules
+msgid "Omaduse Reeglid (notifications_rules) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_rules_comment
+msgid "Omaduse Reeglid (notifications_rules) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_rules_help
+msgid "Omaduse Reeglid (notifications_rules) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_site_tree
+msgid "Omaduse  (notifications_sent_site_tree) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_site_tree_comment
+msgid "Omaduse  (notifications_sent_site_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_site_tree_help
+msgid "Omaduse  (notifications_sent_site_tree) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_site_tree_rules
+msgid "Omaduse  (notifications_sent_site_tree_rules) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_site_tree_rules_comment
+msgid "Omaduse  (notifications_sent_site_tree_rules) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_site_tree_rules_help
+msgid "Omaduse  (notifications_sent_site_tree_rules) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_grapx
+msgid "Omaduse  (notifications_sent_grapx) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_grapx_comment
+msgid "Omaduse  (notifications_sent_grapx) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_grapx_help
+msgid "Omaduse  (notifications_sent_grapx) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent
+msgid "Omaduse  (notifications_sent) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_comment
+msgid "Omaduse  (notifications_sent) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_notifications_sent_help
+msgid "Omaduse  (notifications_sent) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_ns_next
+msgid "Omaduse J&auml;rgmine k&auml;ivitus\t (ns_next) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_ns_next_comment
+msgid "Omaduse J&auml;rgmine k&auml;ivitus\t (ns_next) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_ns_next_help
+msgid "Omaduse J&auml;rgmine k&auml;ivitus\t (ns_next) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_ns_manual
+msgid "Omaduse K&auml;ivita kohe (ns_manual) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_ns_manual_comment
+msgid "Omaduse K&auml;ivita kohe (ns_manual) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:prop_ns_manual_help
+msgid "Omaduse K&auml;ivita kohe (ns_manual) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_classes
+msgid "Grupi Klassid (classes) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_classes_help
+msgid "Grupi Klassid (classes) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_classes_classes
+msgid "Grupi Klassid (classes_classes) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_classes_classes_help
+msgid "Grupi Klassid (classes_classes) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_classes_props
+msgid "Grupi Omadused (classes_props) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_classes_props_help
+msgid "Grupi Omadused (classes_props) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_mgr
+msgid "Grupi Lisamise puu (mgr) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_mgr_help
+msgid "Grupi Lisamise puu (mgr) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_rels
+msgid "Grupi Seosed (rels) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_rels_help
+msgid "Grupi Seosed (rels) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_cl_usage_stats
+msgid "Grupi Statistika (cl_usage_stats) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_cl_usage_stats_help
+msgid "Grupi Statistika (cl_usage_stats) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_cl_usage_stats_clids
+msgid "Grupi Klasside TOP (cl_usage_stats_clids) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_cl_usage_stats_clids_help
+msgid "Grupi Klasside TOP (cl_usage_stats_clids) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_cl_usage_stats_props
+msgid "Grupi Omadused (cl_usage_stats_props) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_cl_usage_stats_props_help
+msgid "Grupi Omadused (cl_usage_stats_props) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_cl_usage_stats_tms
+msgid "Grupi Ajad (cl_usage_stats_tms) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_cl_usage_stats_tms_help
+msgid "Grupi Ajad (cl_usage_stats_tms) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_errors
+msgid "Grupi Vead (errors) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_errors_help
+msgid "Grupi Vead (errors) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_sites
+msgid "Grupi Saidid (sites) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_sites_help
+msgid "Grupi Saidid (sites) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_sites_sites
+msgid "Grupi Saidid (sites_sites) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_sites_sites_help
+msgid "Grupi Saidid (sites_sites) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_sites_servers
+msgid "Grupi Serverid (sites_servers) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_sites_servers_help
+msgid "Grupi Serverid (sites_servers) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_notifications
+msgid "Grupi Teavitus (notifications) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_notifications_help
+msgid "Grupi Teavitus (notifications) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_notifications_sent
+msgid "Grupi Saadetud teavitused (notifications_sent) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_notifications_sent_help
+msgid "Grupi Saadetud teavitused (notifications_sent) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_notifications_rules
+msgid "Grupi Reeglid (notifications_rules) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_notifications_rules_help
+msgid "Grupi Reeglid (notifications_rules) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_notifications_status
+msgid "Grupi Staatus (notifications_status) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:group_notifications_status_help
+msgid "Grupi Staatus (notifications_status) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:rel_RELTYPE_NOTIFICATION_RULE
+msgid "Seose Teavituse reegel (RELTYPE_NOTIFICATION_RULE) tekst"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_mgr_tree_box
+msgid "Kujundusosa Klasside&nbsp;kaustad (mgr_tree_box) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_rels_tree_box
+msgid "Kujundusosa Klasside&nbsp;kaustad (rels_tree_box) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_classes_tree
+msgid "Kujundusosa Klasside&nbsp;puu (classes_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_classes_groups
+msgid "Kujundusosa Klasside&nbsp;grupid (classes_groups) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_classes_props_tree
+msgid "Kujundusosa Klasside&nbsp;puu (classes_props_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_classes_props_groups
+msgid "Kujundusosa Omaduste&nbsp;grupid (classes_props_groups) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_cl_usage_stats_tree
+msgid "Kujundusosa Klasside&nbsp;puu (cl_usage_stats_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_cl_usage_stats_groups
+msgid "Kujundusosa Klasside&nbsp;grupid (cl_usage_stats_groups) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_cl_usage_stats_right_split_1_v
+msgid "Kujundusosa Graafikud (cl_usage_stats_right_split_1_v) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_cl_usage_stats_right_split_2_v
+msgid "Kujundusosa Graafikud (cl_usage_stats_right_split_2_v) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_cl_usage_props_stats_tree
+msgid "Kujundusosa Klasside&nbsp;puu (cl_usage_props_stats_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_cl_usage_props_stats_groups
+msgid "Kujundusosa Klasside&nbsp;grupid (cl_usage_props_stats_groups) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_cl_usage_props_stats_right_split_v
+msgid "Kujundusosa Graafikud (cl_usage_props_stats_right_split_v) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_cl_usage_stats_tms_tree
+msgid "Kujundusosa Saidid (cl_usage_stats_tms_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_errors_tree
+msgid "Kujundusosa Saidid (errors_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_errors_right_split_gp
+msgid "Kujundusosa Graafikud (errors_right_split_gp) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_sites_sites_tree
+msgid "Kujundusosa Grupid (sites_sites_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_sites_sites_right_split_t
+msgid "Kujundusosa Graafikud (sites_sites_right_split_t) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_sites_servers_tree
+msgid "Kujundusosa Filter (sites_servers_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_sites_servers_right_split_g
+msgid "Kujundusosa Graafikud (sites_servers_right_split_g) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_notifications_sent_tree
+msgid "Kujundusosa Saitide&nbsp;grupid (notifications_sent_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_notifications_sent_tree_rules
+msgid "Kujundusosa Teavituse&nbsp;reeglid (notifications_sent_tree_rules) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:layout_notifications_sent_grapx
+msgid "Kujundusosa Teavituste&nbsp;TOP&nbsp;10 (notifications_sent_grapx) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:364
+msgid "Lisa klass"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:377
+msgid "Lisa perekond"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:385
+#: classes/applications/class_designer/class_designer_manager.aw:996
+#: classes/applications/class_designer/class_designer_manager.aw:1024
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:393
+#: classes/applications/class_designer/class_designer_manager.aw:994
+#: classes/applications/class_designer/class_designer_manager.aw:1022
+msgid "L&otilde;ika"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:400
+#: classes/applications/class_designer/class_designer_manager.aw:995
+#: classes/applications/class_designer/class_designer_manager.aw:1023
+msgid "Kopeeri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:413
+msgid "Kleebi"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:451
+#: classes/applications/class_designer/class_designer_manager.aw:1777
+#: classes/applications/class_designer/class_designer_manager.aw:2255
+#: classes/applications/class_designer/class_designer_manager.aw:2426
+#: classes/applications/class_designer/class_designer_manager.aw:3028
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:457
+#: classes/applications/class_designer/class_designer_manager.aw:1442
+#: classes/applications/class_designer/class_designer_manager.aw:2248
+msgid "ID"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:464
+msgid "Suurus"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:471
+msgid "Tegevus"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:477
+#: classes/applications/class_designer/class_designer_manager.aw:618
+msgid "Vali"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:584
+msgid "Lisa"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:600
+msgid "Klassi nimi"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:606
+msgid "Seose nimi"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:612
+msgid "Seos klassiga"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:672
+msgid "Lisa seos"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:993
+#: classes/applications/class_designer/class_designer_manager.aw:1012
+msgid "Muuda nime"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1011
+msgid "Demo objekt"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1016
+msgid "Disaini"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1020
+msgid "Loo disainer"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1294
+#: classes/applications/class_designer/class_designer_manager.aw:1593
+#: classes/applications/class_designer/class_designer_manager.aw:1739
+#: classes/applications/class_designer/class_designer_manager.aw:2983
+msgid "Klassid"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1378
+msgid "Summa"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1449
+msgid "Name"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1455
+msgid "Fail"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1462
+msgid "Omadusi"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1469
+msgid "Seoset&uuml;&uuml;pe"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1476
+msgid "Omadusi tabelis"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1483
+msgid "Omadusi metadatas"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1490
+#: classes/applications/class_designer/class_designer_manager.aw:2303
+#: classes/applications/class_designer/class_designer_manager.aw:3080
+msgid "Grupid"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1644
+msgid "Klass"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1650
+#: classes/applications/class_designer/class_designer_manager.aw:1668
+msgid "Objekte kokku"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1655
+msgid "Klasside kaupa"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1662
+#: classes/applications/class_designer/class_designer_manager.aw:1891
+#: classes/applications/class_designer/class_designer_manager.aw:2063
+#: classes/applications/class_designer/class_designer_manager.aw:2125
+#: classes/applications/class_designer/class_designer_manager.aw:2213
+#: classes/applications/class_designer/class_designer_manager.aw:2703
+msgid "Sait"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1673
+msgid "Saitide kaupa"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1783
+#: classes/applications/class_designer/class_designer_manager.aw:3022
+msgid "Omadus"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1789
+msgid "Kasutusel saitides"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1796
+msgid "Kokku objekte"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1803
+msgid "Kasutusel objektides"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1810
+msgid "Kasutuse % saitide kaupa"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1817
+msgid "Kasutuse % objektide kaupa"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1861
+msgid "Tundmatu"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1885
+#: classes/applications/class_designer/class_designer_manager.aw:2267
+msgid "Server"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1897
+msgid "Lehevaatamisi"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1904
+msgid "Keskmine lehe aeg"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1911
+msgid "Pikim lehe aeg"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:1918
+msgid "V&auml;ikseim lehe aeg"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2010
+msgid "%s saidil %s t&uuml;&uuml;biga %s"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2013
+#: classes/applications/class_designer/class_designer_manager.aw:2171
+msgid "Vead"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2035
+#: classes/applications/class_designer/class_designer_manager.aw:2137
+#: classes/applications/class_designer/class_designer_manager.aw:2201
+#: classes/applications/class_designer/class_designer_manager.aw:2239
+#: classes/applications/class_designer/class_designer_manager.aw:2724
+msgid "Vaata"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2056
+#: classes/applications/class_designer/class_designer_manager.aw:2131
+#: classes/applications/class_designer/class_designer_manager.aw:2219
+#: classes/applications/class_designer/class_designer_manager.aw:3034
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2069
+#: classes/applications/class_designer/class_designer_manager.aw:2110
+msgid "Kasutaja"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2076
+#: classes/applications/class_designer/class_designer_manager.aw:2116
+#: classes/applications/class_designer/class_designer_manager.aw:2709
+msgid "Millal"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2083
+msgid "Sisu"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2100
+msgid "Viga"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2168
+msgid "%s saidil %s"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2182
+msgid "Vigade &uuml;levaade"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2225
+msgid "Kokku"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2232
+msgid "P&auml;evas"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2261
+msgid "URL"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2273
+msgid "Kasutusel"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2279
+msgid "Koodiversioon"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2285
+msgid "Viimane uuendus"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2294
+msgid "Muudetud"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2359
+msgid "Jah"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2359
+msgid "Ei"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2432
+msgid "IP"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2438
+#: classes/applications/class_designer/class_designer_manager.aw:2568
+#: classes/applications/class_designer/class_designer_manager.aw:3058
+msgid "Klient"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2444
+msgid "Kliendi kontaktisik"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2450
+#: classes/applications/class_designer/class_designer_manager.aw:2536
+msgid "Haldaja"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2456
+msgid "Haldaja kontaktisik"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2462
+msgid "Saite"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2528
+msgid "AW Serverite nimekiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2602
+msgid "Saitide arv"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2718
+msgid "Kellele"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2745
+msgid "Saadetud teavitused saidile %s"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2758
+msgid "Saadetud teavitused saitide grupile %s"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2767
+msgid "Saadetud teavitused reeglist %s"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2771
+msgid "Saadetud teavitused"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2809
+msgid "K&auml;ivita kohe"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2888
+msgid "All done"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2912
+msgid "Sait maas!"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:2925
+msgid "Viga saidil %s"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3040
+msgid "Salvestatav?"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3046
+msgid "Tabel"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3052
+msgid "Tulp"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3064
+msgid "Projekt"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3070
+msgid "Salvestamise meetod"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3111
+msgid "Klassi %s omadused"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3381
+msgid "Saitide jaotus serverites TOP 10"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3413
+msgid "Vigade jaotus saitides TOP 10"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3448
+msgid "Vigade jaotus viimase kuu p&auml;evade l&otilde;ikes TOP 10"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3479
+msgid "Objektide kasutuse TOP 10"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3512
+msgid "Objektide kasutus saitide kaupa TOP 10"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3553
+msgid "Omaduste kasutus TOP 10"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3630
+msgid "Teavituste saatmise reeglid"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_manager.aw:3730
+msgid "Teavituste TOP 10 saitide kaupa"
+msgstr ""

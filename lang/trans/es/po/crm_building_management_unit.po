@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/building_management/crm_building_management_unit.aw:class_1108_help
+msgid "Klassi &Uuml;hik help"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_unit.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_unit.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_unit.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+

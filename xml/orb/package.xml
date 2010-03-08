@@ -1,0 +1,44 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="package" folder="www/dev/marko/automatweb_dev/classes/applications/package_management" extends="class_base">
+		<action name="get_file_names" all_args="1">
+			<function name="get_file_names">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_package" all_args="1">
+			<function name="create_new_package">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_content_zip">
+			<function name="create_content_zip">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_content_class">
+			<function name="remove_content_class">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_dep_packages">
+			<function name="remove_dep_packages">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

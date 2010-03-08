@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>content</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textarea</type>
+            <rows>20</rows>
+            <cols>80</cols>
+            <field>content</field>
+            <caption>Sisu</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_OFFER_PAYMENT_TERMS</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>markop</maintainer>
+      </classinfo>
+</properties>
+

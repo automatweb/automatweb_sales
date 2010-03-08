@@ -1,0 +1,39 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="site_search_content" folder="contentmgmt/site_search" extends="class_base">
+		<action name="generate_static" nologin="1">
+			<function name="generate_static">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_search_if" nologin="1" all_args="1">
+			<function name="do_search_if">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_search" nologin="1">
+			<function name="do_search">
+				<arguments>
+					<optional name="id" />
+					<optional name="group" />
+					<optional name="page" />
+					<optional name="str" />
+					<optional name="sort_by" />
+					<optional name="opts" />
+					<optional name="s_date" />
+					<optional name="field" />
+					<optional name="area" />
+					<optional name="county" />
+					<optional name="city" />
+					<optional name="keyword" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

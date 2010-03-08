@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="budgeting_transfer" folder="www/dev/terryf/automatweb_dev/classes/applications/budgeting" extends="class_base">
+		<action name="apply_transfer">
+			<function name="apply_transfer">
+				<arguments>
+					<required name="id" />
+					<required name="r" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

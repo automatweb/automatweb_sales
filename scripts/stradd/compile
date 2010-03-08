@@ -1,0 +1,1 @@
+gcc -DMYSQL_SERVER -DDEFAULT_MYSQL_HOME="\"/usr/local/bin/mysql\"" -DDATADIR="\"/db\"" -DSHAREDIR="\"/usr/local/share/mysql/\"" -DHAVE_CONFIG_H -DUSE_ALARM_THREAD -O3 -DDBUG_OFF -I/usr/local/mysql/include/mysql -shared -o stradd.so stradd.c

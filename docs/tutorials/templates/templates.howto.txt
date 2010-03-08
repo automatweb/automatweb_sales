@@ -1,0 +1,13 @@
+Templeitide mõte seisneb selles, et hoida saidi kujundust ja koodi lahus, mis teeb lihtsamaks nii progeja , kui disaineri elu ja hiljem ka saidi muutmise.
+
+AW Templeitide mootor on tehtud võimalikult lihtne, et sellesse ei saaks kirjutada funktsionaalsust ega loogikat ja et ka programmeerimisega mitte kokkupuutunud inimene saaks sellega hakkama. Põhierinevus võrreldes näiteks Smarty templeidi mootoriga seisnebki lihtsuses ja selles et AW templeidesse ei saa kirjutada loogikat ja funktsionaalsust ja see on oluliselt lihtsam.  
+#code#
+Template kirjeldatakse  muutujate ja blokkide abil. Blokid asuvad märikde  <!-- ja --> vahel, eh siis HTML'i kommentaaride vahel. Kusjuures eristatakse suuri ja väikeseid tähti ning tühikuid.  Blokkides on  korduv osa html ist.  Blokk algab reaga  <!-- SUB: bloki_nimi --> ja lõpeb reaga <!-- END SUB: bloki_nimi --> . Muutujad  kirjeldatakse nii: {VAR:muutuja_nimi}. 
+#/code#
+
+Igal objektil on oma template, lisaks on veel raam template ja menüüpiirkondade template kus on kireldatud menüüpiirkonnad, tasemed, konteinerid jne..
+
+Template failid asuvad saidi juures kataloogis /templates ja AW koodi juures ,sammuti kataloogis templates. 
+Kui on vaja mõnele objektile saidil teha default kujundusest erinev disain, tuleb saidi juurde, templates kataloogi tekitada samanimeline(ja samas kataloogis) asuv .tpl  fail, nagu on koodi juures. Ehk, kui saidi juures templates kataloogis on vastava objekti template olemas, kasutatakse seda, kui pole,  siis võetakse see template AW koodi juurest.  Vaikimisi luuakse saidi tegemisel, saidi templates kataloogi, menüüpiirkondade - , dokumendi-  ning raam template.  
+
+Fail index.tpl on niiöelda saidi raam ehk siis põhiliselt HTML'i headeris asuv osa.  Menüüpiirkondade kirjeldamine toimub failis templates/automatweb/menuedit/main.tpl dokumentide templated asuvad kataloogis templates/automatweb/documents.  

@@ -1,0 +1,74 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/weather_report.aw:class_1364_help
+msgid "Klassi Ilmateade help"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_report_type
+msgid "Omaduse Allikas (report_type) caption"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_report_type_comment
+msgid "Omaduse Allikas (report_type) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_report_type_help
+msgid "Omaduse Allikas (report_type) help"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_feed_url
+msgid "Omaduse Feedi URL (feed_url) caption"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_feed_url_comment
+msgid "Omaduse Feedi URL (feed_url) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_feed_url_help
+msgid "Omaduse Feedi URL (feed_url) help"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_cache_time
+msgid "Omaduse Cache uuendusaeg (h) (cache_time) caption"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_cache_time_comment
+msgid "Omaduse Cache uuendusaeg (h) (cache_time) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_cache_time_help
+msgid "Omaduse Cache uuendusaeg (h) (cache_time) help"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_pic_url
+msgid "Omaduse Piltide url (pic_url) caption"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_pic_url_comment
+msgid "Omaduse Piltide url (pic_url) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_pic_url_help
+msgid "Omaduse Piltide url (pic_url) help"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_pic_list
+msgid "Omaduse Pildid (nt Light rain=rain.gif) (pic_list) caption"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_pic_list_comment
+msgid "Omaduse Pildid (nt Light rain=rain.gif) (pic_list) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/weather_report.aw:prop_pic_list_help
+msgid "Omaduse Pildid (nt Light rain=rain.gif) (pic_list) help"
+msgstr ""

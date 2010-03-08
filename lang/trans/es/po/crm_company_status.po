@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_company_status.aw:class_1327_help
+msgid "Klassi Kliendikategooria help"
+msgstr ""
+
+#: classes/crm/crm_company_status.aw:prop_category
+msgid "Omaduse Tüüp (category) caption"
+msgstr ""
+
+#: classes/crm/crm_company_status.aw:prop_category_comment
+msgid "Omaduse Tüüp (category) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_company_status.aw:prop_category_help
+msgid "Omaduse Tüüp (category) help"
+msgstr ""
+
+#: classes/crm/crm_company_status.aw:32
+msgid "Tegevusvaldkond"
+msgstr ""
+
+#: classes/crm/crm_company_status.aw:33
+msgid "Suhte vanus/t&uuml&uuml;p"
+msgstr ""
+
+#: classes/crm/crm_company_status.aw:34
+msgid "Suhte iseloom"
+msgstr ""
+
+#: classes/crm/crm_company_status.aw:35
+msgid "Majanduslik skaala"
+msgstr ""
+
+#: classes/crm/crm_company_status.aw:36
+msgid "B2B mudel"
+msgstr ""
+
+#: classes/crm/crm_company_status.aw:37
+msgid "M&uuml;&uuml;gipotentsiaal"
+msgstr ""
+

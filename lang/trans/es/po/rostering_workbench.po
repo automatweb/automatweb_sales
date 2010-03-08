@@ -1,0 +1,672 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/rostering/rostering_workbench.aw:class_1135_help
+msgid "Klassi T&ouml;&ouml;aja planeerimine help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_owner
+msgid "Omaduse Omanik (owner) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_owner_comment
+msgid "Omaduse Omanik (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_owner_help
+msgid "Omaduse Omanik (owner) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cedit_tb
+msgid "Omaduse  (cedit_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cedit_tb_comment
+msgid "Omaduse  (cedit_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cedit_tb_help
+msgid "Omaduse  (cedit_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cedit_tree
+msgid "Omaduse  (cedit_tree) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cedit_tree_comment
+msgid "Omaduse  (cedit_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cedit_tree_help
+msgid "Omaduse  (cedit_tree) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cedit_table
+msgid "Omaduse  (cedit_table) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cedit_table_comment
+msgid "Omaduse  (cedit_table) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cedit_table_help
+msgid "Omaduse  (cedit_table) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cycles_tb
+msgid "Omaduse  (cycles_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cycles_tb_comment
+msgid "Omaduse  (cycles_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cycles_tb_help
+msgid "Omaduse  (cycles_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cycles_table
+msgid "Omaduse  (cycles_table) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cycles_table_comment
+msgid "Omaduse  (cycles_table) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_cycles_table_help
+msgid "Omaduse  (cycles_table) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sc_tb
+msgid "Omaduse  (sc_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sc_tb_comment
+msgid "Omaduse  (sc_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sc_tb_help
+msgid "Omaduse  (sc_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sc_table
+msgid "Omaduse  (sc_table) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sc_table_comment
+msgid "Omaduse  (sc_table) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sc_table_help
+msgid "Omaduse  (sc_table) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_wa_tb
+msgid "Omaduse  (wa_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_wa_tb_comment
+msgid "Omaduse  (wa_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_wa_tb_help
+msgid "Omaduse  (wa_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_wa_table
+msgid "Omaduse  (wa_table) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_wa_table_comment
+msgid "Omaduse  (wa_table) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_wa_table_help
+msgid "Omaduse  (wa_table) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sh_tb
+msgid "Omaduse  (sh_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sh_tb_comment
+msgid "Omaduse  (sh_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sh_tb_help
+msgid "Omaduse  (sh_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sh_table
+msgid "Omaduse  (sh_table) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sh_table_comment
+msgid "Omaduse  (sh_table) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sh_table_help
+msgid "Omaduse  (sh_table) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sk_tb
+msgid "Omaduse  (sk_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sk_tb_comment
+msgid "Omaduse  (sk_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sk_tb_help
+msgid "Omaduse  (sk_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sk_tree
+msgid "Omaduse  (sk_tree) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sk_tree_comment
+msgid "Omaduse  (sk_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sk_tree_help
+msgid "Omaduse  (sk_tree) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sk_table
+msgid "Omaduse  (sk_table) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sk_table_comment
+msgid "Omaduse  (sk_table) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_sk_table_help
+msgid "Omaduse  (sk_table) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_stats_wp
+msgid "Omaduse  (stats_wp) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_stats_wp_comment
+msgid "Omaduse  (stats_wp) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_stats_wp_help
+msgid "Omaduse  (stats_wp) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_stats_overtime
+msgid "Omaduse  (stats_overtime) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_stats_overtime_comment
+msgid "Omaduse  (stats_overtime) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_stats_overtime_help
+msgid "Omaduse  (stats_overtime) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_skl_tree
+msgid "Omaduse  (skl_tree) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_skl_tree_comment
+msgid "Omaduse  (skl_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_skl_tree_help
+msgid "Omaduse  (skl_tree) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_skl_table
+msgid "Omaduse  (skl_table) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_skl_table_comment
+msgid "Omaduse  (skl_table) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_skl_table_help
+msgid "Omaduse  (skl_table) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_g_tb
+msgid "Omaduse  (g_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_g_tb_comment
+msgid "Omaduse  (g_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_g_tb_help
+msgid "Omaduse  (g_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_graph_tree
+msgid "Omaduse  (graph_tree) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_graph_tree_comment
+msgid "Omaduse  (graph_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_graph_tree_help
+msgid "Omaduse  (graph_tree) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_graph_tbl
+msgid "Omaduse  (graph_tbl) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_graph_tbl_comment
+msgid "Omaduse  (graph_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_graph_tbl_help
+msgid "Omaduse  (graph_tbl) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_work_hrs_tb
+msgid "Omaduse  (work_hrs_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_work_hrs_tb_comment
+msgid "Omaduse  (work_hrs_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_work_hrs_tb_help
+msgid "Omaduse  (work_hrs_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_work_hrs
+msgid "Omaduse  (work_hrs) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_work_hrs_comment
+msgid "Omaduse  (work_hrs) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_work_hrs_help
+msgid "Omaduse  (work_hrs) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_payment_types_tb
+msgid "Omaduse  (payment_types_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_payment_types_tb_comment
+msgid "Omaduse  (payment_types_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_payment_types_tb_help
+msgid "Omaduse  (payment_types_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_payment_types
+msgid "Omaduse  (payment_types) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_payment_types_comment
+msgid "Omaduse  (payment_types) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_payment_types_help
+msgid "Omaduse  (payment_types) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_holidays
+msgid "Omaduse Riigip&uuml;had (holidays) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_holidays_comment
+msgid "Omaduse Riigip&uuml;had (holidays) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:prop_holidays_help
+msgid "Omaduse Riigip&uuml;had (holidays) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_ppl
+msgid "Grupi Isikud (ppl) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_ppl_help
+msgid "Grupi Isikud (ppl) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_cycles
+msgid "Grupi Ts&uuml;klid (cycles) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_cycles_help
+msgid "Grupi Ts&uuml;klid (cycles) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_scenarios
+msgid "Grupi Stsenaariumid (scenarios) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_scenarios_help
+msgid "Grupi Stsenaariumid (scenarios) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_wa
+msgid "Grupi T&ouml;&ouml;kohad (wa) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_wa_help
+msgid "Grupi T&ouml;&ouml;kohad (wa) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_shifts
+msgid "Grupi Vahetused (shifts) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_shifts_help
+msgid "Grupi Vahetused (shifts) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_skills
+msgid "Grupi P&auml;devused (skills) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_skills_help
+msgid "Grupi P&auml;devused (skills) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_skills_losing
+msgid "Grupi P&auml;devuste kadumine (skills_losing) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_skills_losing_help
+msgid "Grupi P&auml;devuste kadumine (skills_losing) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_payment_types
+msgid "Grupi Tasu liigid (payment_types) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_payment_types_help
+msgid "Grupi Tasu liigid (payment_types) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_other
+msgid "Grupi Muud seaded (other) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_other_help
+msgid "Grupi Muud seaded (other) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_stats
+msgid "Grupi Statistika (stats) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_stats_help
+msgid "Grupi Statistika (stats) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_stats_wp
+msgid "Grupi T&ouml;&ouml;postid (stats_wp) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_stats_wp_help
+msgid "Grupi T&ouml;&ouml;postid (stats_wp) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_stats_overtime
+msgid "Grupi &Uuml;letunnid (stats_overtime) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_stats_overtime_help
+msgid "Grupi &Uuml;letunnid (stats_overtime) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_graph
+msgid "Grupi Graafikud (graph) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_graph_help
+msgid "Grupi Graafikud (graph) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_work_hrs
+msgid "Grupi T&ouml;&ouml;aruanded (work_hrs) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:group_work_hrs_help
+msgid "Grupi T&ouml;&ouml;aruanded (work_hrs) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:rel_RELTYPE_OWNER
+msgid "Seose Omanik (RELTYPE_OWNER) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:rel_RELTYPE_CYCLE
+msgid "Seose Omanik (RELTYPE_CYCLE) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:rel_RELTYPE_SCENARIO
+msgid "Seose Stsenaarium (RELTYPE_SCENARIO) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:rel_RELTYPE_WORKPLACE
+msgid "Seose T&ouml;&ouml;koht (RELTYPE_WORKPLACE) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:rel_RELTYPE_SHIFT
+msgid "Seose Vahetus (RELTYPE_SHIFT) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:rel_RELTYPE_SKILL
+msgid "Seose P&auml;devus (RELTYPE_SKILL) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:rel_RELTYPE_GRAPH_FOLDER
+msgid "Seose Graafikute kataloog (RELTYPE_GRAPH_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:rel_RELTYPE_PAYMENT_TYPE
+msgid "Seose Tasu liik (RELTYPE_PAYMENT_TYPE) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:layout_contacts_edit_tree
+msgid "Kujundusosa Struktuur (contacts_edit_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:layout_sk_tree
+msgid "Kujundusosa P&auml;devuste&nbsp;puu (sk_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:layout_skl_tree
+msgid "Kujundusosa Organisatsiooni&nbsp;struktuur (skl_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:layout_graph_tree
+msgid "Kujundusosa Graafikud (graph_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:408 classes/applications/rostering/rostering_workbench.aw:465 classes/applications/rostering/rostering_workbench.aw:550 classes/applications/rostering/rostering_workbench.aw:621 classes/applications/rostering/rostering_workbench.aw:710 classes/applications/rostering/rostering_workbench.aw:1050 classes/applications/rostering/rostering_workbench.aw:1158
+msgid "Lisa"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:414
+msgid "Kustuta ts&uuml;klid"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:422
+msgid "Ts&uuml;kkel"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:428
+msgid "Prioriteet"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:471
+msgid "Kustuta stsenaarium"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:479 classes/applications/rostering/rostering_workbench.aw:1126
+msgid "Stsenaarium"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:485
+msgid "Ts&uuml;klid"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:491
+msgid "T&ouml;&ouml;tunde n&auml;dalas"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:497
+msgid "&Auml;ra planeeri &ouml;&ouml;seks"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:503
+msgid "Maksimaalne &uuml;letundide arv"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:509
+msgid "Vabu p&auml;evi peale &ouml;&ouml;t&ouml;&ouml;d"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:532
+msgid "X"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:556
+msgid "Kustuta t&ouml;&ouml;kohad"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:564
+msgid "T&ouml;&ouml;koht"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:570 classes/applications/rostering/rostering_workbench.aw:889 classes/applications/rostering/rostering_workbench.aw:921
+msgid "P&auml;devused"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:576
+msgid "Aadress"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:582
+msgid "Mitu t&ouml;&ouml;tajat"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:627
+msgid "Kustuta vahetused"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:635
+msgid "Vahetus"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:641
+msgid "Kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:647
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:653 classes/applications/rostering/rostering_workbench.aw:983 classes/applications/rostering/rostering_workbench.aw:1101
+msgid "Algus"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:659 classes/applications/rostering/rostering_workbench.aw:991 classes/applications/rostering/rostering_workbench.aw:1110
+msgid "L&otilde;pp"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:716
+msgid "Kustuta p&auml;devused"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:724
+msgid "P&auml;devus"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:758
+msgid "&nbsp;"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:808 classes/applications/rostering/rostering_workbench.aw:977 classes/applications/rostering/rostering_workbench.aw:1119
+msgid "&Uuml;ksus"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:814
+msgid "&Uuml;letunde"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:865
+msgid "<font color=red>Kriitiline</font>"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:883 classes/applications/rostering/rostering_workbench.aw:1074
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:965
+msgid "Graafiku nimi"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:971
+msgid "Koostaja"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:999
+msgid "Kinnitatud"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:1031
+msgid "%s graafikud"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:1054
+msgid "Kaust"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:1059 classes/applications/rostering/rostering_workbench.aw:1095
+msgid "Graafik"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:1066
+msgid "Kustuta graafikud"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:1080
+msgid "Looja"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:1086
+msgid "Loodud"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:1208
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workbench.aw:1246
+msgid "Graafiku %s t&ouml;&ouml;aruanne"
+msgstr ""
+

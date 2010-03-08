@@ -1,0 +1,114 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/object_basket.aw:class_1201_help
+msgid "Klassi Objektide korv help"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_basket_type
+msgid "Omaduse Korvi t&uuml;&uuml;p (basket_type) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_basket_type_comment
+msgid "Omaduse Korvi t&uuml;&uuml;p (basket_type) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_basket_type_help
+msgid "Omaduse Korvi t&uuml;&uuml;p (basket_type) help"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_export
+msgid "Omaduse Ekspordiobjekt (export) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_export_comment
+msgid "Omaduse Ekspordiobjekt (export) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_export_help
+msgid "Omaduse Ekspordiobjekt (export) help"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_max_items
+msgid "Omaduse Maksimaalne kirjete arv (max_items) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_max_items_comment
+msgid "Omaduse Maksimaalne kirjete arv (max_items) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_max_items_help
+msgid "Omaduse Maksimaalne kirjete arv (max_items) help"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_perpage
+msgid "Omaduse Mitu objekti lehel (perpage) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_perpage_comment
+msgid "Omaduse Mitu objekti lehel (perpage) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_perpage_help
+msgid "Omaduse Mitu objekti lehel (perpage) help"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_object_basket
+msgid "Omaduse Objektide korv (object_basket) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_object_basket_comment
+msgid "Omaduse Objektide korv (object_basket) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_object_basket_help
+msgid "Omaduse Objektide korv (object_basket) help"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_object_shop_product_show
+msgid "Omaduse Toote puhul kasuta tootekuva (object_shop_product_show) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_object_shop_product_show_comment
+msgid "Omaduse Toote puhul kasuta tootekuva (object_shop_product_show) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_object_shop_product_show_help
+msgid "Omaduse Toote puhul kasuta tootekuva (object_shop_product_show) help"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_object_shop_product_template
+msgid "Omaduse Kasuta toote kuvamisek (object_shop_product_template) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_object_shop_product_template_comment
+msgid "Omaduse Kasuta toote kuvamisek (object_shop_product_template) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:prop_object_shop_product_template_help
+msgid "Omaduse Kasuta toote kuvamisek (object_shop_product_template) help"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:rel_RELTYPE_EXPORT
+msgid "Seose iCal eksport (RELTYPE_EXPORT) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:rel_RELTYPE_OBJECT_BASKET
+msgid "Seose Objektide korv (RELTYPE_OBJECT_BASKET) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:51
+msgid "Sessioonip&otilde;hine"
+msgstr ""
+
+#: classes/contentmgmt/object_basket.aw:52
+msgid "Kasutajap&otilde;hine"
+msgstr ""

@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_warehouse_purchase_bill.aw:class_1038_help
+msgid "Klassi Ostu arve help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_bill.aw:prop_confirmed
+msgid "Omaduse Kinnitatud (confirmed) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_bill.aw:prop_confirmed_comment
+msgid "Omaduse Kinnitatud (confirmed) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_bill.aw:prop_confirmed_help
+msgid "Omaduse Kinnitatud (confirmed) help"
+msgstr ""
+

@@ -1,0 +1,336 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/scm/location.aw:class_1116_help
+msgid "Klassi Asukoht help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_address
+msgid "Omaduse Aadress (address) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_address_comment
+msgid "Omaduse Aadress (address) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_address_help
+msgid "Omaduse Aadress (address) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_owner
+msgid "Omaduse Omanik (owner) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_owner_comment
+msgid "Omaduse Omanik (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_owner_help
+msgid "Omaduse Omanik (owner) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_chairman
+msgid "Omaduse Juhataja (chairman) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_chairman_comment
+msgid "Omaduse Juhataja (chairman) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_chairman_help
+msgid "Omaduse Juhataja (chairman) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_contact_person
+msgid "Omaduse Kontaktisik (contact_person) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_contact_person_comment
+msgid "Omaduse Kontaktisik (contact_person) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_contact_person_help
+msgid "Omaduse Kontaktisik (contact_person) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_phone
+msgid "Omaduse Telefon (phone) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_phone_comment
+msgid "Omaduse Telefon (phone) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_phone_help
+msgid "Omaduse Telefon (phone) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_fax
+msgid "Omaduse Faks (fax) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_fax_comment
+msgid "Omaduse Faks (fax) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_fax_help
+msgid "Omaduse Faks (fax) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_web
+msgid "Omaduse Veebiaadress (web) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_web_comment
+msgid "Omaduse Veebiaadress (web) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_web_help
+msgid "Omaduse Veebiaadress (web) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_email
+msgid "Omaduse E-posti aadress (email) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_email_comment
+msgid "Omaduse E-posti aadress (email) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_email_help
+msgid "Omaduse E-posti aadress (email) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_map
+msgid "Omaduse Asukohakaart (map) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_map_comment
+msgid "Omaduse Asukohakaart (map) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_map_help
+msgid "Omaduse Asukohakaart (map) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_photo
+msgid "Omaduse Foto kohast (photo) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_photo_comment
+msgid "Omaduse Foto kohast (photo) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_photo_help
+msgid "Omaduse Foto kohast (photo) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_open_times
+msgid "Omaduse Lahtioleku ajad (open_times) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_open_times_comment
+msgid "Omaduse Lahtioleku ajad (open_times) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_open_times_help
+msgid "Omaduse Lahtioleku ajad (open_times) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_prices
+msgid "Omaduse Hinnad (prices) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_prices_comment
+msgid "Omaduse Hinnad (prices) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_prices_help
+msgid "Omaduse Hinnad (prices) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_bank_payment
+msgid "Omaduse Pangamakse (bank_payment) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_bank_payment_comment
+msgid "Omaduse Pangamakse (bank_payment) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_bank_payment_help
+msgid "Omaduse Pangamakse (bank_payment) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_short_description
+msgid "Omaduse L&uuml;hikirjeldus (short_description) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_short_description_comment
+msgid "Omaduse L&uuml;hikirjeldus (short_description) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_short_description_help
+msgid "Omaduse L&uuml;hikirjeldus (short_description) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_description
+msgid "Omaduse Kirjeldus (description) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_description_comment
+msgid "Omaduse Kirjeldus (description) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_description_help
+msgid "Omaduse Kirjeldus (description) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_add_text
+msgid "Omaduse Lisaandmed (add_text) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_add_text_comment
+msgid "Omaduse Lisaandmed (add_text) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_add_text_help
+msgid "Omaduse Lisaandmed (add_text) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_images
+msgid "Omaduse Pildid (images) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_images_comment
+msgid "Omaduse Pildid (images) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_images_help
+msgid "Omaduse Pildid (images) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_single_count
+msgid "Omaduse &Uuml;hekohaliste arv (single_count) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_single_count_comment
+msgid "Omaduse &Uuml;hekohaliste arv (single_count) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_single_count_help
+msgid "Omaduse &Uuml;hekohaliste arv (single_count) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_double_count
+msgid "Omaduse Kahekohaliste arv (double_count) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_double_count_comment
+msgid "Omaduse Kahekohaliste arv (double_count) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_double_count_help
+msgid "Omaduse Kahekohaliste arv (double_count) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_suite_count
+msgid "Omaduse Sviitide arv (suite_count) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_suite_count_comment
+msgid "Omaduse Sviitide arv (suite_count) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_suite_count_help
+msgid "Omaduse Sviitide arv (suite_count) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_rooms_description
+msgid "Omaduse Ruumide kirjeldus (rooms_description) caption"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_rooms_description_comment
+msgid "Omaduse Ruumide kirjeldus (rooms_description) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/location.aw:prop_rooms_description_help
+msgid "Omaduse Ruumide kirjeldus (rooms_description) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:group_images
+msgid "Grupi Pildid (images) pealkiri"
+msgstr ""
+
+#: classes/applications/scm/location.aw:group_images_help
+msgid "Grupi Pildid (images) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:group_accommondation
+msgid "Grupi Majutus (accommondation) pealkiri"
+msgstr ""
+
+#: classes/applications/scm/location.aw:group_accommondation_help
+msgid "Grupi Majutus (accommondation) help"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_MAP
+msgid "Seose Kaart (RELTYPE_MAP) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_PHOTO
+msgid "Seose Foto (RELTYPE_PHOTO) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_ADDRESS
+msgid "Seose Aadress (RELTYPE_ADDRESS) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_BANK_PAYMENT
+msgid "Seose Pangalink (RELTYPE_BANK_PAYMENT) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_OWNER
+msgid "Seose Omanik (RELTYPE_OWNER) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_PHONE
+msgid "Seose Telefon (RELTYPE_PHONE) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_FAX
+msgid "Seose Faks (RELTYPE_FAX) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_WEB
+msgid "Seose Veebiaadress (RELTYPE_WEB) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_EMAIL
+msgid "Seose E-post (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_CONTACT_PERSON
+msgid "Seose Kontaktisik (RELTYPE_CONTACT_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:rel_RELTYPE_CHAIRMAN
+msgid "Seose Juhataja (RELTYPE_CHAIRMAN) tekst"
+msgstr ""
+
+#: classes/applications/scm/location.aw:136
+msgid "tooltip"
+msgstr ""
+

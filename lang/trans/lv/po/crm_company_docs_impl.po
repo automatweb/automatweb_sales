@@ -1,0 +1,162 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_company_docs_impl.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:15
+msgid "Kaust"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:16
+msgid "CRM Dokument"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:17
+msgid "Leping"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:18
+msgid "Memo"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:19
+msgid "Sisuhalduse dokument"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:20
+msgid "Fail"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:21
+msgid "Pakkumine"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:37
+msgid "dokumendid"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:56
+msgid "uudised"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:73
+msgid "Uus"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:117
+msgid "Kustuta valitud"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:124
+msgid "L&otilde;ika"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:133
+msgid "Kleebi"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:145
+msgid "Impordi faile"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:436
+msgid "Osasid dokumente ei saanud kustutada, &otilde;igused puuduvad:"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:506
+#: classes/applications/crm/crm_company_docs_impl.aw:1038
+#: classes/applications/crm/crm_company_docs_impl.aw:1162
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:513
+msgid "Kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:522
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:530
+#: classes/applications/crm/crm_company_docs_impl.aw:1052
+msgid "Looja"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:537
+#: classes/applications/crm/crm_company_docs_impl.aw:1059
+msgid "Loodud"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:549
+#: classes/applications/crm/crm_company_docs_impl.aw:1069
+#: classes/applications/crm/crm_company_docs_impl.aw:1183
+msgid "Muutja"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:557
+#: classes/applications/crm/crm_company_docs_impl.aw:1076
+msgid "Muudetud"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:617
+msgid "folder"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:678
+msgid "Dokumentide kataloogile puudub juurdep&auml;&auml;su&otilde;igus"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:686
+msgid "%s dokumendid"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:779
+msgid "Ava internetist"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:783
+msgid "Ava serverist"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:787
+msgid "Laadi uus versioon"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:1028
+msgid "Lisa dokument"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:1045
+msgid "Lead"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:1086
+#: classes/applications/crm/crm_company_docs_impl.aw:1115
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:1097
+msgid "%s siseuudised"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:1169
+msgid "Failid"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:1176
+msgid "Asukoht"
+msgstr ""
+
+#: classes/applications/crm/crm_company_docs_impl.aw:1190
+msgid "Muutmisaeg"
+msgstr ""

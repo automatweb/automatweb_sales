@@ -1,0 +1,61 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>changes_desc</name>
+            <group>general</group>
+            <table>objects</table>
+            <type>text</type>
+            <store>no</store>
+            <field>changes_desc</field>
+            <caption>Muudetavad &amp;amp;otilde;igused</caption>
+      </property>
+      <property>
+            <name>changes</name>
+            <group>general</group>
+            <table>objects</table>
+            <type>callback</type>
+            <callback>get_changeables</callback>
+            <store>no</store>
+            <field>changes</field>
+            <caption>Muudetavad &amp;amp;otilde;igused</caption>
+      </property>
+      <property>
+            <name>acls</name>
+            <group>acls</group>
+            <table>objects</table>
+            <type>callback</type>
+            <callback>get_acls</callback>
+            <store>no</store>
+            <field>acls</field>
+            <caption>Lubatud</caption>
+      </property>
+      <property>
+            <name>save_acl_sep</name>
+            <group>acls</group>
+            <table>objects</table>
+            <type>text</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>save_acl_sep</field>
+            <caption></caption>
+      </property>
+      <property>
+            <name>save_acl</name>
+            <group>acls</group>
+            <table>objects</table>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <store>no</store>
+            <field>save_acl</field>
+            <caption>Uuenda ACL</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_ROLE</syslog_type>
+      </classinfo>
+      <groupinfo>
+            <acls>
+                  <caption>Lubatud &amp;amp;otilde;igused</caption>
+            </acls>
+      </groupinfo>
+</properties>
+

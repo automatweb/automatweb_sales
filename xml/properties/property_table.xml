@@ -1,0 +1,95 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>demo_data_source</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <caption>Demo andmete allikas</caption>
+      </property>
+      <property>
+            <name>demo_data_source_rel</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <caption>Seose t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>design_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>designer</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <caption>Veerud</caption>
+      </property>
+      <property>
+            <name>demo_data_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <caption>Demo andmed</caption>
+      </property>
+      <property>
+            <name>demo_rels_data_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_rels</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <caption>Demo seoste andmed</caption>
+      </property>
+      <property>
+            <name>default_sort_col</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings</group>
+            <type>select</type>
+            <caption>Default sortimine</caption>
+      </property>
+      <property>
+            <name>vertical_group_t</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings</group>
+            <type>table</type>
+            <store>no</store>
+            <caption>Vertikaalne grupeerimine</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_PROPERTY_TABLE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <designer>
+                  <caption>Tulbad</caption>
+            </designer>
+            <data>
+                  <caption>Demo andmed</caption>
+            </data>
+            <data_rels>
+                  <caption>Demo andmed</caption>
+            </data_rels>
+            <settings>
+                  <caption>Seaded</caption>
+            </settings>
+      </groupinfo>
+</properties>
+

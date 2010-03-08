@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_company_cust_impl" folder="www/automatweb_cvs/classes/applications/crm" extends="class_base">
+		<action name="get_offers_tree_branch" all_args="1">
+			<function name="get_offers_tree_branch">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_cust_contact_table">
+			<function name="get_cust_contact_table">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_from_cust_grp">
+			<function name="remove_from_cust_grp">
+				<arguments>
+					<required name="id" />
+					<required name="cgrp" />
+					<required name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

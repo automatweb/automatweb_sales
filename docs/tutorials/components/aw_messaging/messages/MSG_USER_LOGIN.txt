@@ -1,0 +1,6 @@
+MSG_USER_LOGIN
+
+This message will get posted when an user logs in.
+
+arguments:
+uid - the uid of the user that logged in. 

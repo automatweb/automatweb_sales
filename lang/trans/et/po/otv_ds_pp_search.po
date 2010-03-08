@@ -1,0 +1,272 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:class_820_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:class_820_help
+msgid "Klassi Objektinimekirja pp andmeallika otsing help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_pp
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_pp
+msgid "Omaduse Postipoisi andmeallikas, kust otsida (pp) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_pp_comment
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_pp_comment
+msgid "Omaduse Postipoisi andmeallikas, kust otsida (pp) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_pp_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_pp_help
+msgid "Omaduse Postipoisi andmeallikas, kust otsida (pp) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_sform_t
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_sform_t
+msgid "Omaduse Otsinguvorm (sform_t) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_sform_t_comment
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_sform_t_comment
+msgid "Omaduse Otsinguvorm (sform_t) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_sform_t_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_sform_t_help
+msgid "Omaduse Otsinguvorm (sform_t) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_submit
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_submit
+msgid "Omaduse &Auml;ra n&auml;ita otsi nuppu (no_submit) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_submit_comment
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_submit_comment
+msgid "Omaduse &Auml;ra n&auml;ita otsi nuppu (no_submit) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_submit_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_submit_help
+msgid "Omaduse &Auml;ra n&auml;ita otsi nuppu (no_submit) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_search_form
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_search_form
+msgid "Omaduse &Auml;ra n&auml;ita otsingu vormi (otsing ainult urli kaudu) (no_search_form) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_search_form_comment
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_search_form_comment
+msgid "Omaduse &Auml;ra n&auml;ita otsingu vormi (otsing ainult urli kaudu) (no_search_form) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_search_form_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_no_search_form_help
+msgid "Omaduse &Auml;ra n&auml;ita otsingu vormi (otsing ainult urli kaudu) (no_search_form) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_stbl_t
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_stbl_t
+msgid "Omaduse Otsinguvormi tulemuste tabel (stbl_t) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_stbl_t_comment
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_stbl_t_comment
+msgid "Omaduse Otsinguvormi tulemuste tabel (stbl_t) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_stbl_t_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_stbl_t_help
+msgid "Omaduse Otsinguvormi tulemuste tabel (stbl_t) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_result_default_order
+msgid "Omaduse Otsinguvormi vaikimisi j&auml;rjestuse suund (result_default_order) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_result_default_order_comment
+msgid "Omaduse Otsinguvormi vaikimisi j&auml;rjestuse suund (result_default_order) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_result_default_order_help
+msgid "Omaduse Otsinguvormi vaikimisi j&auml;rjestuse suund (result_default_order) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch
+msgid "Omaduse  (srch) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_comment
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_comment
+msgid "Omaduse  (srch) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_help
+msgid "Omaduse  (srch) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_res
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_res
+msgid "Omaduse  (srch_res) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_res_comment
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_res_comment
+msgid "Omaduse  (srch_res) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_res_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:prop_srch_res_help
+msgid "Omaduse  (srch_res) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_sform
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_sform
+msgid "Grupi Otsinguvorm (sform) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_sform_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_sform_help
+msgid "Grupi Otsinguvorm (sform) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_stbl
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_stbl
+msgid "Grupi Tulemuste tabel (stbl) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_stbl_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_stbl_help
+msgid "Grupi Tulemuste tabel (stbl) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_srch
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_srch
+msgid "Grupi Otsi (srch) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_srch_help
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:group_srch_help
+msgid "Grupi Otsi (srch) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:rel_RELTYPE_PP
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:rel_RELTYPE_PP
+msgid "Seose postipoisi andmeallikas (RELTYPE_PP) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:rel_RELTYPE_CONTROLLER
+msgid "Seose Kontroller (RELTYPE_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:65
+msgid "Tekstikast"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:66
+msgid "Valik olemasolevatest"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:67
+msgid "Ajavahemik"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:68
+msgid "Kuup&auml;eva vahemik"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:90
+msgid "Kasvav"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:90
+msgid "kahanev"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:117
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:212
+msgid "Element"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:121
+msgid "Otsitav"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:126
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:246
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:131
+msgid "Otsinguv&auml;lja t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:136
+msgid "Kontroller"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:141
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:251
+msgid "Tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:166
+msgid "T&auml;istekstiotsing"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:216
+msgid "Tabelis"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:221
+msgid "Sorditav"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:226
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:231
+msgid "Number"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:236
+msgid "Vaikimisi sorteeritud"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:241
+msgid "Vaatamise tulp"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:354
+msgid "-- Vali --"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:376
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:392
+msgid "alates"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:383
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:399
+msgid "kuni"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:620
+msgid "otv_ds_pp_search: postipoisi andmeallikas on valimata!"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_pp_search.aw:664
+msgid "Otsi"
+msgstr ""

@@ -1,0 +1,21 @@
+<P> </P>
+<P>Menyysid saab importida textifailist, iga imporditava menyy kohta k2ib yks rida. </P>
+<P>Rea alguses on number, mis t2histab menyy asukohta puustruktuuris, mis m22rab 2ra menyy j2rjekorra mingil tasemel. Iga taseme kohta on eraldi number, mis on eraldatud eelmise taseme numbrist punktiga. Menyyd peavad olema 6iges j2rjekorras, see t2hendab et ylemise taseme menyy peab olema defineeritud enne alamtaseme menyyd. </P>
+<P>Numbrile j2rgneb menyy nimi, mis l6peb kas [ m2rgiga v6i reavahtusega. </P>
+<P>Menyy nime taha v6ib panna nurksulgude vahele menyy m22ranguid, iga m22rangu ette k2ib kas + v6i - m2rk, mis m22ravad kas see m22rang on peal v6i maas. Kui m22rangule on vaja ka v22rtust sisestada (n2iteks kommentaarile), siis pannakse v22rtus jutum2rkide vahele ja eraldatakse m22rangust v6rdusm2rgiga. </P>
+<P>Menyy m22rangud on j2rgmised:</P>
+<P><STRONG>act</STRONG> - aktiivsus, kas jah v6i ei</P>
+<P><STRONG>comment </STRONG>- menyy kommentaar, suvalise v22rtusega</P>
+<P><STRONG>alias </STRONG>- menyy alias, suvalise v22rtusega</P>
+<P><STRONG>per -</STRONG> kas menyy on perioodiline , jah v6i ei</P>
+<P><STRONG>link</STRONG> - menyy link, suvaline v22rtus</P>
+<P><STRONG>click </STRONG>- kas menyy on klikitav, jah v6i ei</P>
+<P><STRONG>target</STRONG> - kas menyy avaneb uues aknas, jah v6i ei</P>
+<P><STRONG>mid</STRONG> - kas menyy asub keskel, jah, v6i ei</P>
+<P><STRONG>makdp</STRONG> - MitteAktiivne Kui Dokumente Pole, kas jah v6i ei</P>
+<P><STRONG>width </STRONG>- laius pikslites, suvaline v22rtus</P>
+<P><STRONG>rp</STRONG> - kas parem paan on n2ha, jah v6i ei</P>
+<P><STRONG>lp</STRONG> - kas vasak paan on n2ha, jah v6i ei</P>
+<P><STRONG>fn</STRONG> - AIP pdf uploadi jaoks failinime algus, suvaline v22rtus</P>
+<P>N2ide:</P>
+<P>1 t88riistad [ +act +comment="p6hiline menyy" +per ]<BR>1.1 haamrid [ +act +center ]<BR>1.2 kirved [ +act ]<BR>1.2.1 ymmargused [ -act ]<BR>1.3 saed [ +act -per ]</P>

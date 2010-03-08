@@ -1,0 +1,78 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="bug" folder="www/dev/terryf/automatweb_dev/classes/applications/bug_o_matic_3000" extends="class_base">
+		<action name="handle_bug_change_status">
+			<function name="hadle_bug_change_status">
+				<arguments>
+					<required name="bug" type="oid" />
+					<required name="status" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_autocomplete">
+			<function name="get_autocomplete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="handle_commit" nologin="1">
+			<function name="handle_commit">
+				<arguments>
+					<required name="bugno" type="int" />
+					<optional name="msg" />
+					<optional name="set_fixed" />
+					<optional name="time_add" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_commit_mail_to_maintainer" nologin="1" all_args="1">
+			<function name="send_commit_mail_to_maintainer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="start_auto_test" nologin="1" all_args="1">
+			<function name="start_auto_test">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="maintainer_ajax" all_args="1">
+			<function name="maintainer_ajax">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="check_multiple_content">
+			<function name="check_multiple_content">
+				<arguments>
+					<optional name="bug_content" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="quick_add" all_args="1">
+			<function name="quick_add">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="orderer_autocomplete_source">
+			<function name="orderer_autocomplete_source">
+				<arguments>
+					<optional name="customer" />
+					<optional name="customer_name" />
+					<optional name="orderer" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

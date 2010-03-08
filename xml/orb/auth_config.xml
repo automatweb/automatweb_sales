@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="auth_config" folder="www/dev/terryf/automatweb_dev/classes/core/users/auth" extends="class_base">
+		<action name="show_login" nologin="1">
+			<function name="show_login">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

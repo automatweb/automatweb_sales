@@ -1,0 +1,163 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="task" folder="www/automatweb_cvs/classes/applications/groupware" extends="class_base">
+		<action name="stopper_pop" all_args="1">
+			<function name="stopper_pop">
+				<arguments>
+					<optional name="id" />
+					<optional name="s_action" />
+					<optional name="type" />
+					<optional name="name" />
+					<optional name="desc" />
+					<optional name="source" />
+					<optional name="ident" />
+					<optional name="null_stos" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="provide_addon_data" all_args="1">
+			<function name="provide_addon_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="error_popup">
+			<function name="error_popup">
+				<arguments>
+					<optional name="text" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_for_proj">
+			<function name="search_for_proj">
+				<arguments>
+					<optional name="retf" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_file_rel">
+			<function name="del_file_rel">
+				<arguments>
+					<required name="fid" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_task_rows" all_args="1">
+			<function name="copy_task_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_task_rows" all_args="1">
+			<function name="cut_task_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_task_rows" all_args="1">
+			<function name="paste_task_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_bill_from_task">
+			<function name="create_bill_from_task">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_stop_type">
+			<function name="change_stop_type">
+				<arguments>
+					<optional name="ident" type="int" />
+					<optional name="type" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_contacts">
+			<function name="search_contacts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_participant_search_results">
+			<function name="save_participant_search_results">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_participants_from_calendar">
+			<function name="submit_delete_participants_from_calendar">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_proj_for_cust">
+			<function name="get_proj_for_cust">
+				<arguments>
+					<optional name="cust" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_task_rows">
+			<function name="delete_task_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_part_popup" all_args="1">
+			<function name="add_part_popup">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_project_popup" all_args="1">
+			<function name="add_project_popup">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_files_on_demand" all_args="1">
+			<function name="new_files_on_demand_____redeclared">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_rels">
+			<function name="delete_rels">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_parts">
+			<function name="delete_parts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

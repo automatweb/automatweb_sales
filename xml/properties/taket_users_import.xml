@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>import</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <method>Import</method>
+            <field>import</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_TAKET_USERS_IMPORT</syslog_type>
+            <relationmgr>yes</relationmgr>
+      </classinfo>
+</properties>
+

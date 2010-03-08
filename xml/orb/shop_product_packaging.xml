@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_product_packaging" folder="www/automatweb_cvs/classes/applications/shop" extends="class_base">
+		<action name="get_ammuot_limits">
+			<function name="get_amount_limits">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="group" type="array(oid),oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_amounts">
+			<function name="delete_amounts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

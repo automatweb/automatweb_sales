@@ -1,0 +1,12 @@
+map2($format,$array,$type=0,$empty=false)
+
+Basically the same as map() except that this one allows to specify a format
+character for the array keys as well.
+
+Calling map("%s=%d",array("foo" => 1,"bar" => 2)) returns
+array("foo=1","bar=2")
+
+If $type is set to 1, then key and value will be reversed before
+formatting
+
+if $empty is set to true, then empty values are not skipped.

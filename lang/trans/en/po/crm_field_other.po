@@ -1,0 +1,192 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_field_other.aw:class_1114_help
+msgid "Klassi Muu (valdkond) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_location
+msgid "Omaduse Asukoht (location) caption"
+msgstr "Location"
+
+#: classes/applications/crm/crm_field_other.aw:prop_location_comment
+msgid "Omaduse Asukoht (location) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_location_help
+msgid "Omaduse Asukoht (location) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_languages
+msgid "Omaduse Teeninduskeeled (languages) caption"
+msgstr "Service languages"
+
+#: classes/applications/crm/crm_field_other.aw:prop_languages_comment
+msgid "Omaduse Teeninduskeeled (languages) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_languages_help
+msgid "Omaduse Teeninduskeeled (languages) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_price_level
+msgid "Omaduse Hinnaklass (price_level) caption"
+msgstr "Price level"
+
+#: classes/applications/crm/crm_field_other.aw:prop_price_level_comment
+msgid "Omaduse Hinnaklass (price_level) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_price_level_help
+msgid "Omaduse Hinnaklass (price_level) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_comment
+msgid "Omaduse Kirjeldus (comment) caption"
+msgstr "Description"
+
+#: classes/applications/crm/crm_field_other.aw:prop_comment_comment
+msgid "Omaduse Kirjeldus (comment) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_comment_help
+msgid "Omaduse Kirjeldus (comment) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_crm_field
+msgid "Omaduse Tegevusala (crm_field) caption"
+msgstr "Field"
+
+#: classes/applications/crm/crm_field_other.aw:prop_crm_field_comment
+msgid "Omaduse Tegevusala (crm_field) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_crm_field_help
+msgid "Omaduse Tegevusala (crm_field) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_phone_id
+msgid "Omaduse Telefon (phone_id) caption"
+msgstr "Phone"
+
+#: classes/applications/crm/crm_field_other.aw:prop_phone_id_comment
+msgid "Omaduse Telefon (phone_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_phone_id_help
+msgid "Omaduse Telefon (phone_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_telefax_id
+msgid "Omaduse Faks (telefax_id) caption"
+msgstr "Fax"
+
+#: classes/applications/crm/crm_field_other.aw:prop_telefax_id_comment
+msgid "Omaduse Faks (telefax_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_telefax_id_help
+msgid "Omaduse Faks (telefax_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_email_id
+msgid "Omaduse E-posti aadressid (email_id) caption"
+msgstr "E-mail addresses"
+
+#: classes/applications/crm/crm_field_other.aw:prop_email_id_comment
+msgid "Omaduse E-posti aadressid (email_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_email_id_help
+msgid "Omaduse E-posti aadressid (email_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_images
+msgid "Omaduse Pildid (images) caption"
+msgstr "Images"
+
+#: classes/applications/crm/crm_field_other.aw:prop_images_comment
+msgid "Omaduse Pildid (images) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:prop_images_help
+msgid "Omaduse Pildid (images) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:group_cedit
+msgid "Grupi Kontaktandmed (cedit) pealkiri"
+msgstr "Contact data"
+
+#: classes/applications/crm/crm_field_other.aw:group_cedit_help
+msgid "Grupi Kontaktandmed (cedit) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:group_images
+msgid "Grupi Pildid (images) pealkiri"
+msgstr "Images"
+
+#: classes/applications/crm/crm_field_other.aw:group_images_help
+msgid "Grupi Pildid (images) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:rel_RELTYPE_EMAIL
+msgid "Seose E-post (RELTYPE_EMAIL) tekst"
+msgstr "E-mail"
+
+#: classes/applications/crm/crm_field_other.aw:rel_RELTYPE_PHONE
+msgid "Seose Telefon (RELTYPE_PHONE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:rel_RELTYPE_TELEFAX
+msgid "Seose Fax (RELTYPE_TELEFAX) tekst"
+msgstr "Fax"
+
+#: classes/applications/crm/crm_field_other.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:77
+msgid "Kesklinnas"
+msgstr "Centre"
+
+#: classes/applications/crm/crm_field_other.aw:78
+msgid "V&auml;ljaspool kesklinna"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:79
+msgid "V&auml;ljaspool linna"
+msgstr ""
+
+#: classes/applications/crm/crm_field_other.aw:84
+msgid "A"
+msgstr "A"
+
+#: classes/applications/crm/crm_field_other.aw:85
+msgid "B"
+msgstr "B"
+
+#: classes/applications/crm/crm_field_other.aw:86
+msgid "C"
+msgstr "C"
+
+#: classes/applications/crm/crm_field_other.aw:87
+msgid "D"
+msgstr "D"
+
+#: classes/applications/crm/crm_field_other.aw:88
+msgid "E"
+msgstr "E"
+
+#~ msgid "V&amp;auml;ljaspool kesklinna"
+#~ msgstr "Outside centre"
+
+#~ msgid "V&amp;auml;ljaspool linna"
+#~ msgstr "Outside town"

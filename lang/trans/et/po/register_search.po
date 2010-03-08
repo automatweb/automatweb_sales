@@ -1,0 +1,346 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/register/register_search.aw:class_343_help
+#: classes/applications/register/register_search.aw:class_343_help
+msgid "Klassi Registri otsing help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_register
+#: classes/applications/register/register_search.aw:prop_register
+msgid "Omaduse Register, millest otsida (register) caption"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_register_comment
+#: classes/applications/register/register_search.aw:prop_register_comment
+msgid "Omaduse Register, millest otsida (register) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_register_help
+#: classes/applications/register/register_search.aw:prop_register_help
+msgid "Omaduse Register, millest otsida (register) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_per_page
+#: classes/applications/register/register_search.aw:prop_per_page
+msgid "Omaduse Mitu kirjet lehel (per_page) caption"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_per_page_comment
+#: classes/applications/register/register_search.aw:prop_per_page_comment
+msgid "Omaduse Mitu kirjet lehel (per_page) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_per_page_help
+#: classes/applications/register/register_search.aw:prop_per_page_help
+msgid "Omaduse Mitu kirjet lehel (per_page) help"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_all_in_empty_search
+msgid "Omaduse T&uuml;hi otsing n&auml;itab k&otilde;iki (show_all_in_empty_search) caption"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_all_in_empty_search_comment
+msgid "Omaduse T&uuml;hi otsing n&auml;itab k&otilde;iki (show_all_in_empty_search) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_all_in_empty_search_help
+msgid "Omaduse T&uuml;hi otsing n&auml;itab k&otilde;iki (show_all_in_empty_search) help"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_only_act
+msgid "Omaduse N&auml;ita ainult aktiivseid objekte (show_only_act) caption"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_only_act_comment
+msgid "Omaduse N&auml;ita ainult aktiivseid objekte (show_only_act) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_only_act_help
+msgid "Omaduse N&auml;ita ainult aktiivseid objekte (show_only_act) help"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_all_right_away
+msgid "Omaduse Otsingus n&auml;idatakse ilma otsimata k&otilde;iki (show_all_right_away) caption"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_all_right_away_comment
+msgid "Omaduse Otsingus n&auml;idatakse ilma otsimata k&otilde;iki (show_all_right_away) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_all_right_away_help
+msgid "Omaduse Otsingus n&auml;idatakse ilma otsimata k&otilde;iki (show_all_right_away) help"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_notfound_text
+msgid "Omaduse Mida n&auml;idatakse kui midagi ei leita (%s on otsing) (notfound_text) caption"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_notfound_text_comment
+msgid "Omaduse Mida n&auml;idatakse kui midagi ei leita (%s on otsing) (notfound_text) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_notfound_text_help
+msgid "Omaduse Mida n&auml;idatakse kui midagi ei leita (%s on otsing) (notfound_text) help"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_date
+msgid "Omaduse Tulemuste all on kuup&auml;ev (show_date) caption"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_date_comment
+msgid "Omaduse Tulemuste all on kuup&auml;ev (show_date) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_show_date_help
+msgid "Omaduse Tulemuste all on kuup&auml;ev (show_date) help"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_results_from_all_langs
+msgid "Omaduse Tulemused k&otilde;ikidest keeltest (results_from_all_langs) caption"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_results_from_all_langs_comment
+msgid "Omaduse Tulemused k&otilde;ikidest keeltest (results_from_all_langs) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:prop_results_from_all_langs_help
+msgid "Omaduse Tulemused k&otilde;ikidest keeltest (results_from_all_langs) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_sform_frm
+#: classes/applications/register/register_search.aw:prop_sform_frm
+msgid "Omaduse  (sform_frm) caption"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_sform_frm_comment
+#: classes/applications/register/register_search.aw:prop_sform_frm_comment
+msgid "Omaduse  (sform_frm) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_sform_frm_help
+#: classes/applications/register/register_search.aw:prop_sform_frm_help
+msgid "Omaduse  (sform_frm) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_butt_text
+#: classes/applications/register/register_search.aw:prop_butt_text
+msgid "Omaduse Otsi nupu tekst (butt_text) caption"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_butt_text_comment
+#: classes/applications/register/register_search.aw:prop_butt_text_comment
+msgid "Omaduse Otsi nupu tekst (butt_text) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_butt_text_help
+#: classes/applications/register/register_search.aw:prop_butt_text_help
+msgid "Omaduse Otsi nupu tekst (butt_text) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_sform_tbl
+#: classes/applications/register/register_search.aw:prop_sform_tbl
+msgid "Omaduse  (sform_tbl) caption"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_sform_tbl_comment
+#: classes/applications/register/register_search.aw:prop_sform_tbl_comment
+msgid "Omaduse  (sform_tbl) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_sform_tbl_help
+#: classes/applications/register/register_search.aw:prop_sform_tbl_help
+msgid "Omaduse  (sform_tbl) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_search
+#: classes/applications/register/register_search.aw:prop_search
+msgid "Omaduse  (search) caption"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_search_comment
+#: classes/applications/register/register_search.aw:prop_search_comment
+msgid "Omaduse  (search) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_search_help
+#: classes/applications/register/register_search.aw:prop_search_help
+msgid "Omaduse  (search) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_search_res
+#: classes/applications/register/register_search.aw:prop_search_res
+msgid "Omaduse  (search_res) caption"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_search_res_comment
+#: classes/applications/register/register_search.aw:prop_search_res_comment
+msgid "Omaduse  (search_res) kommentaar"
+msgstr ""
+
+# classes/applications/register/register_search.aw:prop_search_res_help
+#: classes/applications/register/register_search.aw:prop_search_res_help
+msgid "Omaduse  (search_res) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:group_mkfrm
+#: classes/applications/register/register_search.aw:group_mkfrm
+msgid "Grupi Koosta otsinguvorm (mkfrm) pealkiri"
+msgstr ""
+
+# classes/applications/register/register_search.aw:group_mkfrm_help
+#: classes/applications/register/register_search.aw:group_mkfrm_help
+msgid "Grupi Koosta otsinguvorm (mkfrm) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:group_mktbl
+#: classes/applications/register/register_search.aw:group_mktbl
+msgid "Grupi Koosta tulemuste tabel (mktbl) pealkiri"
+msgstr ""
+
+# classes/applications/register/register_search.aw:group_mktbl_help
+#: classes/applications/register/register_search.aw:group_mktbl_help
+msgid "Grupi Koosta tulemuste tabel (mktbl) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:group_search
+#: classes/applications/register/register_search.aw:group_search
+msgid "Grupi Otsi (search) pealkiri"
+msgstr ""
+
+# classes/applications/register/register_search.aw:group_search_help
+#: classes/applications/register/register_search.aw:group_search_help
+msgid "Grupi Otsi (search) help"
+msgstr ""
+
+# classes/applications/register/register_search.aw:rel_RELTYPE_REGISTER
+#: classes/applications/register/register_search.aw:rel_RELTYPE_REGISTER
+msgid "Seose register millest otsida (RELTYPE_REGISTER) tekst"
+msgstr ""
+
+# classes/applications/register/register_search.aw:rel_RELTYPE_SEARCH_FOLDER
+#: classes/applications/register/register_search.aw:rel_RELTYPE_SEARCH_FOLDER
+msgid "Seose kaust millest otsida (RELTYPE_SEARCH_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:141
+#: classes/applications/register/register_search.aw:257
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:148
+#: classes/applications/register/register_search.aw:264
+msgid "Element"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:154
+msgid "Otsitav"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:160
+msgid "Numbrite vahemiku otsing"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:166
+msgid "Valik olemasolevatest"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:172
+msgid "Elemendi t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:178
+msgid "Elemendi tekst"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:195
+msgid "T&auml;istekstiotsing"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:196
+#: classes/applications/register/register_search.aw:546
+msgid "Loodud"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:197
+#: classes/applications/register/register_search.aw:556
+msgid "Muudetud"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:198
+#: classes/applications/register/register_search.aw:551
+msgid "Looja"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:199
+#: classes/applications/register/register_search.aw:561
+msgid "Muutja"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:238
+msgid "--vormist--"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:239
+msgid "Rippmen&uuml;&uuml;"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:240
+msgid "Mitmene rippmen&uuml;&uuml;"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:241
+msgid "Valikuruudud"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:242
+msgid "Raadionupp"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:270
+msgid "Tabelis"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:276
+msgid "Sorditav"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:282
+msgid "Vaikimisi sort"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:288
+msgid "Vaata tulp"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:294
+msgid "Muuda tulp"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:300
+msgid "Tulba pealkiri"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:1077
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:1091
+msgid "Vaata"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:1102
+msgid "Kustutada objekt?"
+msgstr ""
+
+#: classes/applications/register/register_search.aw:1103
+msgid "Kustuta"
+msgstr ""

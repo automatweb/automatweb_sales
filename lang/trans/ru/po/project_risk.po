@@ -1,0 +1,106 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/groupware/project_risk.aw:class_1079_help
+msgid "Klassi Projekti risk help"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_owner
+msgid "Omaduse Omanik (owner) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_owner_comment
+msgid "Omaduse Omanik (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_owner_help
+msgid "Omaduse Omanik (owner) help"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_comment
+msgid "Omaduse Kirjeldus (comment) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_comment_comment
+msgid "Omaduse Kirjeldus (comment) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_comment_help
+msgid "Omaduse Kirjeldus (comment) help"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_type
+msgid "Omaduse T&uuml;&uuml;p (type) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_type_comment
+msgid "Omaduse T&uuml;&uuml;p (type) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_type_help
+msgid "Omaduse T&uuml;&uuml;p (type) help"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_identification_date
+msgid "Omaduse Tuvastamise kuup&auml;ev (identification_date) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_identification_date_comment
+msgid "Omaduse Tuvastamise kuup&auml;ev (identification_date) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_identification_date_help
+msgid "Omaduse Tuvastamise kuup&auml;ev (identification_date) help"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_last_eval_date
+msgid "Omaduse Viimase hindamise kuup&auml;ev (last_eval_date) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_last_eval_date_comment
+msgid "Omaduse Viimase hindamise kuup&auml;ev (last_eval_date) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_last_eval_date_help
+msgid "Omaduse Viimase hindamise kuup&auml;ev (last_eval_date) help"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_countermeasure
+msgid "Omaduse Vastumeede (countermeasure) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_countermeasure_comment
+msgid "Omaduse Vastumeede (countermeasure) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:prop_countermeasure_help
+msgid "Omaduse Vastumeede (countermeasure) help"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:rel_RELTYPE_OWNER
+msgid "Seose Omanik (RELTYPE_OWNER) tekst"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:43
+msgid "&Auml;ririsk"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:44
+msgid "Projekti risk"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:45
+msgid "Etapi risk"
+msgstr ""
+
+#: classes/applications/groupware/project_risk.aw:65
+msgid "--vali--"
+msgstr ""

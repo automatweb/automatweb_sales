@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_person_obj" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="_int_object">
+		<action name="get_sections">
+			<function name="get_section_id">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_companies">
+			<function name="get_companies">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="handle_show_cnt">
+			<function name="handle_show_cnt">
+				<arguments>
+					<required name="action" type="string" />
+					<required name="id" type="OID" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

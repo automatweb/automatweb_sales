@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/core/users/auth/auth_config.aw:class_843_help
+#: classes/core/users/auth/auth_config.aw:class_843_help
+msgid "Klassi Autentimise Seaded help"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:prop_servers
+#: classes/core/users/auth/auth_config.aw:prop_servers
+msgid "Omaduse  (servers) caption"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:prop_servers_comment
+#: classes/core/users/auth/auth_config.aw:prop_servers_comment
+msgid "Omaduse  (servers) kommentaar"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:prop_servers_help
+#: classes/core/users/auth/auth_config.aw:prop_servers_help
+msgid "Omaduse  (servers) help"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:prop_activity
+#: classes/core/users/auth/auth_config.aw:prop_activity
+msgid "Omaduse Aktiivsus (activity) caption"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:prop_activity_comment
+#: classes/core/users/auth/auth_config.aw:prop_activity_comment
+msgid "Omaduse Aktiivsus (activity) kommentaar"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:prop_activity_help
+#: classes/core/users/auth/auth_config.aw:prop_activity_help
+msgid "Omaduse Aktiivsus (activity) help"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:group_servers
+#: classes/core/users/auth/auth_config.aw:group_servers
+msgid "Grupi Autentimine (servers) pealkiri"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:group_servers_help
+#: classes/core/users/auth/auth_config.aw:group_servers_help
+msgid "Grupi Autentimine (servers) help"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:group_activity
+#: classes/core/users/auth/auth_config.aw:group_activity
+msgid "Grupi Aktiivsus (activity) pealkiri"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:group_activity_help
+#: classes/core/users/auth/auth_config.aw:group_activity_help
+msgid "Grupi Aktiivsus (activity) help"
+msgstr ""
+
+# classes/core/users/auth/auth_config.aw:rel_RELTYPE_AUTH_SERVER
+#: classes/core/users/auth/auth_config.aw:rel_RELTYPE_AUTH_SERVER
+msgid "Seose autentimisserver (RELTYPE_AUTH_SERVER) tekst"
+msgstr ""
+
+#: classes/core/users/auth/auth_config.aw:114
+msgid "Serveri t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/core/users/auth/auth_config.aw:120
+msgid "Nimi"
+msgstr ""
+
+#: classes/core/users/auth/auth_config.aw:126
+msgid "Kasuta?"
+msgstr ""
+
+#: classes/core/users/auth/auth_config.aw:131
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/core/users/auth/auth_config.aw:136
+msgid "Nimetus"
+msgstr ""

@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_insurance.aw:class_1324_help
+msgid "Klassi Kindlustus help"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_expires
+msgid "Omaduse Insurance expires (expires) caption"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_expires_comment
+msgid "Omaduse Insurance expires (expires) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_expires_help
+msgid "Omaduse Insurance expires (expires) help"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_insurance_type
+msgid "Omaduse Insurance type (insurance_type) caption"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_insurance_type_comment
+msgid "Omaduse Insurance type (insurance_type) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_insurance_type_help
+msgid "Omaduse Insurance type (insurance_type) help"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_certificate
+msgid "Omaduse Upload insurance certificate (certificate) caption"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_certificate_comment
+msgid "Omaduse Upload insurance certificate (certificate) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_certificate_help
+msgid "Omaduse Upload insurance certificate (certificate) help"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_company
+msgid "Omaduse Company (company) caption"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_company_comment
+msgid "Omaduse Company (company) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_company_help
+msgid "Omaduse Company (company) help"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_broker
+msgid "Omaduse Broker (broker) caption"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_broker_comment
+msgid "Omaduse Broker (broker) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_broker_help
+msgid "Omaduse Broker (broker) help"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_insurance_sum
+msgid "Omaduse Insurance sum (insurance_sum) caption"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_insurance_sum_comment
+msgid "Omaduse Insurance sum (insurance_sum) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:prop_insurance_sum_help
+msgid "Omaduse Insurance sum (insurance_sum) help"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:rel_RELTYPE_COMPANY
+msgid "Seose Company (RELTYPE_COMPANY) tekst"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:rel_RELTYPE_BROKER
+msgid "Seose Broker (RELTYPE_BROKER) tekst"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:rel_RELTYPE_FILE
+msgid "Seose File (RELTYPE_FILE) tekst"
+msgstr ""
+
+#: classes/crm/crm_insurance.aw:rel_RELTYPE_INSURANCE_TYPE
+msgid "Seose Type (RELTYPE_INSURANCE_TYPE) tekst"
+msgstr ""
+

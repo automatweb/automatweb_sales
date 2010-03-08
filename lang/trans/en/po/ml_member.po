@@ -1,0 +1,487 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/mailinglist/ml_member.aw:class_73_help
+#: classes/applications/mailinglist/ml_member.aw:class_73_help
+msgid "Klassi Meiliaadress help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:prop_conn_id
+msgid "Omaduse  (conn_id) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:prop_conn_id_comment
+msgid "Omaduse  (conn_id) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:prop_conn_id_help
+msgid "Omaduse  (conn_id) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_mail
+#: classes/applications/mailinglist/ml_member.aw:prop_mail
+msgid "Omaduse E-post (mail) caption"
+msgstr "E-mail"
+
+# classes/applications/mailinglist/ml_member.aw:prop_mail_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_mail_comment
+msgid "Omaduse E-post (mail) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_mail_help
+#: classes/applications/mailinglist/ml_member.aw:prop_mail_help
+msgid "Omaduse E-post (mail) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox1
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox1
+msgid "Omaduse Textbox 1 (udef_txbox1) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox1_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox1_comment
+msgid "Omaduse Textbox 1 (udef_txbox1) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox1_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox1_help
+msgid "Omaduse Textbox 1 (udef_txbox1) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox2
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox2
+msgid "Omaduse Textbox 2 (udef_txbox2) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox2_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox2_comment
+msgid "Omaduse Textbox 2 (udef_txbox2) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox2_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox2_help
+msgid "Omaduse Textbox 2 (udef_txbox2) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox3
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox3
+msgid "Omaduse Textbox 3 (udef_txbox3) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox3_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox3_comment
+msgid "Omaduse Textbox 3 (udef_txbox3) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox3_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox3_help
+msgid "Omaduse Textbox 3 (udef_txbox3) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox4
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox4
+msgid "Omaduse Textbox 4 (udef_txbox4) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox4_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox4_comment
+msgid "Omaduse Textbox 4 (udef_txbox4) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox4_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox4_help
+msgid "Omaduse Textbox 4 (udef_txbox4) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox5
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox5
+msgid "Omaduse Textbox 5 (udef_txbox5) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox5_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox5_comment
+msgid "Omaduse Textbox 5 (udef_txbox5) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox5_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox5_help
+msgid "Omaduse Textbox 5 (udef_txbox5) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox6
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox6
+msgid "Omaduse Textbox 6 (udef_txbox6) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox6_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox6_comment
+msgid "Omaduse Textbox 6 (udef_txbox6) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox6_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox6_help
+msgid "Omaduse Textbox 6 (udef_txbox6) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox7
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox7
+msgid "Omaduse Textbox 7 (udef_txbox7) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox7_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox7_comment
+msgid "Omaduse Textbox 7 (udef_txbox7) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox7_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox7_help
+msgid "Omaduse Textbox 7 (udef_txbox7) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox8
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox8
+msgid "Omaduse Textbox 8 (udef_txbox8) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox8_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox8_comment
+msgid "Omaduse Textbox 8 (udef_txbox8) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox8_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox8_help
+msgid "Omaduse Textbox 8 (udef_txbox8) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox9
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox9
+msgid "Omaduse Textbox 9 (udef_txbox9) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox9_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox9_comment
+msgid "Omaduse Textbox 9 (udef_txbox9) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox9_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox9_help
+msgid "Omaduse Textbox 9 (udef_txbox9) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox10
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox10
+msgid "Omaduse Textbox 10 (udef_txbox10) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox10_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox10_comment
+msgid "Omaduse Textbox 10 (udef_txbox10) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txbox10_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txbox10_help
+msgid "Omaduse Textbox 10 (udef_txbox10) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea1
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea1
+msgid "Omaduse Textarea 1 (udef_txarea1) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea1_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea1_comment
+msgid "Omaduse Textarea 1 (udef_txarea1) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea1_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea1_help
+msgid "Omaduse Textarea 1 (udef_txarea1) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea2
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea2
+msgid "Omaduse Textarea 2 (udef_txarea2) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea2_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea2_comment
+msgid "Omaduse Textarea 2 (udef_txarea2) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea2_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea2_help
+msgid "Omaduse Textarea 2 (udef_txarea2) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea3
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea3
+msgid "Omaduse Textarea 3 (udef_txarea3) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea3_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea3_comment
+msgid "Omaduse Textarea 3 (udef_txarea3) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea3_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea3_help
+msgid "Omaduse Textarea 3 (udef_txarea3) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea4
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea4
+msgid "Omaduse Textarea 4 (udef_txarea4) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea4_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea4_comment
+msgid "Omaduse Textarea 4 (udef_txarea4) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea4_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea4_help
+msgid "Omaduse Textarea 4 (udef_txarea4) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea5
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea5
+msgid "Omaduse Textarea 5 (udef_txarea5) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea5_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea5_comment
+msgid "Omaduse Textarea 5 (udef_txarea5) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_txarea5_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_txarea5_help
+msgid "Omaduse Textarea 5 (udef_txarea5) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox1
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox1
+msgid "Omaduse Checkbox 1 (udef_checkbox1) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox1_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox1_comment
+msgid "Omaduse Checkbox 1 (udef_checkbox1) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox1_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox1_help
+msgid "Omaduse Checkbox 1 (udef_checkbox1) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox2
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox2
+msgid "Omaduse Checkbox 2 (udef_checkbox2) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox2_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox2_comment
+msgid "Omaduse Checkbox 2 (udef_checkbox2) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox2_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox2_help
+msgid "Omaduse Checkbox 2 (udef_checkbox2) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox3
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox3
+msgid "Omaduse Checkbox 3 (udef_checkbox3) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox3_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox3_comment
+msgid "Omaduse Checkbox 3 (udef_checkbox3) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox3_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox3_help
+msgid "Omaduse Checkbox 3 (udef_checkbox3) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox4
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox4
+msgid "Omaduse Checkbox 4 (udef_checkbox4) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox4_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox4_comment
+msgid "Omaduse Checkbox 4 (udef_checkbox4) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox4_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox4_help
+msgid "Omaduse Checkbox 4 (udef_checkbox4) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox5
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox5
+msgid "Omaduse Checkbox 5 (udef_checkbox5) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox5_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox5_comment
+msgid "Omaduse Checkbox 5 (udef_checkbox5) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox5_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_checkbox5_help
+msgid "Omaduse Checkbox 5 (udef_checkbox5) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator1
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator1
+msgid "Omaduse Klassifikaator 1 (udef_classificator1) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator1_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator1_comment
+msgid "Omaduse Klassifikaator 1 (udef_classificator1) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator1_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator1_help
+msgid "Omaduse Klassifikaator 1 (udef_classificator1) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator2
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator2
+msgid "Omaduse Klassifikaator 2 (udef_classificator2) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator2_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator2_comment
+msgid "Omaduse Klassifikaator 2 (udef_classificator2) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator2_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator2_help
+msgid "Omaduse Klassifikaator 2 (udef_classificator2) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator3
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator3
+msgid "Omaduse Klassifikaator 3 (udef_classificator3) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator3_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator3_comment
+msgid "Omaduse Klassifikaator 3 (udef_classificator3) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator3_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator3_help
+msgid "Omaduse Klassifikaator 3 (udef_classificator3) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator4
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator4
+msgid "Omaduse Klassifikaator 4 (udef_classificator4) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator4_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator4_comment
+msgid "Omaduse Klassifikaator 4 (udef_classificator4) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator4_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator4_help
+msgid "Omaduse Klassifikaator 4 (udef_classificator4) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator5
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator5
+msgid "Omaduse Klassifikaator 5 (udef_classificator5) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator5_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator5_comment
+msgid "Omaduse Klassifikaator 5 (udef_classificator5) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_classificator5_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_classificator5_help
+msgid "Omaduse Klassifikaator 5 (udef_classificator5) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_date1
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_date1
+msgid "Omaduse Kuup&auml;ev 1 (udef_date1) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_date1_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_date1_comment
+msgid "Omaduse Kuup&auml;ev 1 (udef_date1) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_date1_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_date1_help
+msgid "Omaduse Kuup&auml;ev 1 (udef_date1) help"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_date2
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_date2
+msgid "Omaduse Kuup&auml;ev 2 (udef_date2) caption"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_date2_comment
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_date2_comment
+msgid "Omaduse Kuup&auml;ev 2 (udef_date2) kommentaar"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:prop_udef_date2_help
+#: classes/applications/mailinglist/ml_member.aw:prop_udef_date2_help
+msgid "Omaduse Kuup&auml;ev 2 (udef_date2) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:prop_contact_type
+msgid "Omaduse Aadressi t&uuml;&uuml;p (contact_type) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:prop_contact_type_comment
+msgid "Omaduse Aadressi t&uuml;&uuml;p (contact_type) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:prop_contact_type_help
+msgid "Omaduse Aadressi t&uuml;&uuml;p (contact_type) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:group_udef_fields
+msgid "Grupi Muud v&auml;ljad (udef_fields) pealkiri"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:group_udef_fields_help
+msgid "Grupi Muud v&auml;ljad (udef_fields) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:rel_RELTYPE_BELONGTO
+msgid "Seose E-postiaadressiga seotud objekt (RELTYPE_BELONGTO) tekst"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:130
+msgid "&Uuml;ldkontakt"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:131
+msgid "E-mail arvete saatmiseks"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_member.aw:132
+msgid "Projektijuhtimise kontakt"
+msgstr ""
+
+# classes/applications/mailinglist/ml_member.aw:group_udef_fields
+#~ msgid "Grupi Muud (udef_fields) pealkiri"
+#~ msgstr "Other"

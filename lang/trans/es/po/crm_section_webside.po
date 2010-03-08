@@ -1,0 +1,176 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_section_webside.aw:class_832_help
+msgid "Klassi &Uuml;ksus veebis help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_section_picker
+msgid "Omaduse Üksus (section_picker) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_section_picker_comment
+msgid "Omaduse Üksus (section_picker) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_section_picker_help
+msgid "Omaduse Üksus (section_picker) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_sub_sections
+msgid "Omaduse Võta alamüksustest (show_sub_sections) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_sub_sections_comment
+msgid "Omaduse Võta alamüksustest (show_sub_sections) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_sub_sections_help
+msgid "Omaduse Võta alamüksustest (show_sub_sections) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_cols
+msgid "Omaduse Tulpasid (cols) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_cols_comment
+msgid "Omaduse Tulpasid (cols) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_cols_help
+msgid "Omaduse Tulpasid (cols) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_persons_order_table
+msgid "Omaduse  (persons_order_table) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_persons_order_table_comment
+msgid "Omaduse  (persons_order_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_persons_order_table_help
+msgid "Omaduse  (persons_order_table) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_label
+msgid "Omaduse Milliseid alljärgnevaid omadusi näidata?  (show_label) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_label_comment
+msgid "Omaduse Milliseid alljärgnevaid omadusi näidata?  (show_label) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_label_help
+msgid "Omaduse Milliseid alljärgnevaid omadusi näidata?  (show_label) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_name
+msgid "Omaduse Nimi (show_name) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_name_comment
+msgid "Omaduse Nimi (show_name) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_name_help
+msgid "Omaduse Nimi (show_name) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_rank
+msgid "Omaduse Ametikoht (show_rank) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_rank_comment
+msgid "Omaduse Ametikoht (show_rank) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_rank_help
+msgid "Omaduse Ametikoht (show_rank) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_picture
+msgid "Omaduse Pilt (show_picture) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_picture_comment
+msgid "Omaduse Pilt (show_picture) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_picture_help
+msgid "Omaduse Pilt (show_picture) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_phone
+msgid "Omaduse Telefon (show_phone) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_phone_comment
+msgid "Omaduse Telefon (show_phone) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_phone_help
+msgid "Omaduse Telefon (show_phone) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_email
+msgid "Omaduse E-mail (show_email) caption"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_email_comment
+msgid "Omaduse E-mail (show_email) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:prop_show_email_help
+msgid "Omaduse E-mail (show_email) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:group_order
+msgid "Grupi Järjekord (order) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:group_order_help
+msgid "Grupi Järjekord (order) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:group_view
+msgid "Grupi Näitamine (view) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:group_view_help
+msgid "Grupi Näitamine (view) help"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:rel_RELTYPE_SECTION
+msgid "Seose &uuml;ksus (RELTYPE_SECTION) tekst"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:rel_RELTYPE_ORG
+msgid "Seose Organisatsioon (RELTYPE_ORG) tekst"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:108
+msgid "Piltidega vaade"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:109
+msgid "Tabelina"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:139
+msgid "Nimi"
+msgstr ""
+
+#: classes/crm/crm_section_webside.aw:145
+msgid "Järjekord"
+msgstr ""
+

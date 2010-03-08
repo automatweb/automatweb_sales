@@ -1,0 +1,10 @@
+Folders and INI Files
+
+
+Each component should have it's own folder in the classes folder, if it is an application, then in the classes/applications folder. If the component is a part of a larger group of components, then there should be a folder for the group and in that a folder for each component if that component can consist of several class files. 
+
+When adding a new class, you should use the command "make class" in the root folder of the automatweb code. 
+
+If a module requires use of ini file settings, then it should have its own ini file in the config/ini folder. 
+
+

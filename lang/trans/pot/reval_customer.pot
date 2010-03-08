@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:class_1411_help
+msgid "Klassi Reval Klienditsoon help"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:601 classes/applications/clients/reval/customer/reval_customer.aw:642 classes/applications/clients/reval/customer/reval_customer.aw:655 classes/applications/clients/reval/customer/reval_customer.aw:688
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:602
+msgid "Eesti"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:603
+msgid "L&auml;ti"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:604
+msgid "Leedu"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:605
+msgid "Inglise"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:606
+msgid "Vene"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:607
+msgid "Saksa"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:608
+msgid "Soome"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:619 classes/applications/clients/reval/customer/reval_customer.aw:629
+msgid "Ei ole eelistust"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:619
+msgid "&Uuml;lemine korrus"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:619
+msgid "Alumine korrus"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:629
+msgid "Suitsuvaba"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:629
+msgid "Suitsetav"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:665 classes/applications/clients/reval/customer/reval_customer.aw:670
+msgid "Ei soovi avaldada"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:665
+msgid "Abielus"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:665
+msgid "Lahutatud"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:665
+msgid "Vallaline"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:670
+msgid "Mees"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:670
+msgid "Naine"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:1083
+msgid "No such booking found!"
+msgstr ""
+
+#: classes/applications/clients/reval/customer/reval_customer.aw:1320
+msgid "Your registration on revalhotels.com"
+msgstr ""
+

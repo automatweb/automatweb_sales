@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ecard_manager" folder="www/dev/terryf/automatweb_dev/classes/applications/ecard" extends="class_base">
+		<action name="send_card" nologin="1">
+			<function name="send_card">
+				<arguments>
+					<required name="card" type="int" class_id="CL_ECARD" acl="view" />
+					<required name="doc_id" type="int" class_id="CL_MENU" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

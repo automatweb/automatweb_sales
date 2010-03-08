@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="cache_updater" folder="www/dev/terryf/automatweb_dev/classes/core" extends="class_base">
+		<action name="do_clear" nologin="1">
+			<function name="do_clear">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

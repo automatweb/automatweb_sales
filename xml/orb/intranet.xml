@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="intranet" folder="www/dev/terryf/automatweb_dev/classes/intranet" extends="class_base">
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

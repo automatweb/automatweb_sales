@@ -1,0 +1,656 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/common/bank_payment.aw:class_1077_help
+msgid "Klassi Pangamakse help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_cancel_url
+msgid "Omaduse Url, kuhu tagasi tulla eba&otilde;nnestunud makse puhul (cancel_url) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_cancel_url_comment
+msgid "Omaduse Url, kuhu tagasi tulla eba&otilde;nnestunud makse puhul (cancel_url) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_cancel_url_help
+msgid "Omaduse Url, kuhu tagasi tulla eba&otilde;nnestunud makse puhul (cancel_url) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_default_unit_sum
+msgid "Omaduse Vaikimisi &uuml;hiku summa (default_unit_sum) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_default_unit_sum_comment
+msgid "Omaduse Vaikimisi &uuml;hiku summa (default_unit_sum) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_default_unit_sum_help
+msgid "Omaduse Vaikimisi &uuml;hiku summa (default_unit_sum) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_template
+msgid "Omaduse Pangavormide template (template) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_template_comment
+msgid "Omaduse Pangavormide template (template) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_template_help
+msgid "Omaduse Pangavormide template (template) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_private_key
+msgid "Omaduse Privaatv&otilde;ti (private_key) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_private_key_comment
+msgid "Omaduse Privaatv&otilde;ti (private_key) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_private_key_help
+msgid "Omaduse Privaatv&otilde;ti (private_key) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_nordea_private_key
+msgid "Omaduse Nordea privaatv&otilde;ti (nordea_private_key) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_nordea_private_key_comment
+msgid "Omaduse Nordea privaatv&otilde;ti (nordea_private_key) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_nordea_private_key_help
+msgid "Omaduse Nordea privaatv&otilde;ti (nordea_private_key) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_bank_return_url
+msgid "Omaduse Url, kuhu tagasi tulla eduka makse puhul (bank_return_url) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_bank_return_url_comment
+msgid "Omaduse Url, kuhu tagasi tulla eduka makse puhul (bank_return_url) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_bank_return_url_help
+msgid "Omaduse Url, kuhu tagasi tulla eduka makse puhul (bank_return_url) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_expl
+msgid "Omaduse Selgitus (expl) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_expl_comment
+msgid "Omaduse Selgitus (expl) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_expl_help
+msgid "Omaduse Selgitus (expl) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_expl_controller
+msgid "Omaduse Selgituse kontroller (expl_controller) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_expl_controller_comment
+msgid "Omaduse Selgituse kontroller (expl_controller) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_expl_controller_help
+msgid "Omaduse Selgituse kontroller (expl_controller) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_imap
+msgid "Omaduse Imap (imap) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_imap_comment
+msgid "Omaduse Imap (imap) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_imap_help
+msgid "Omaduse Imap (imap) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_currency
+msgid "Omaduse Vaikimisi valuuta (currency) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_currency_comment
+msgid "Omaduse Vaikimisi valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_currency_help
+msgid "Omaduse Vaikimisi valuuta (currency) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_test
+msgid "Omaduse testre&#382;iim (toimib ainult nende pankadega , millel on olemas testkeskkond) (test) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_test_comment
+msgid "Omaduse testre&#382;iim (toimib ainult nende pankadega , millel on olemas testkeskkond) (test) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_test_help
+msgid "Omaduse testre&#382;iim (toimib ainult nende pankadega , millel on olemas testkeskkond) (test) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_not_clickable_ref
+msgid "Omaduse &Auml;ra kuva viitenumbrit lingina (not_clickable_ref) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_not_clickable_ref_comment
+msgid "Omaduse &Auml;ra kuva viitenumbrit lingina (not_clickable_ref) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_not_clickable_ref_help
+msgid "Omaduse &Auml;ra kuva viitenumbrit lingina (not_clickable_ref) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_credit_card_log_upload
+msgid "Omaduse Lisa reproduktsioon (credit_card_log_upload) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_credit_card_log_upload_comment
+msgid "Omaduse Lisa reproduktsioon (credit_card_log_upload) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_credit_card_log_upload_help
+msgid "Omaduse Lisa reproduktsioon (credit_card_log_upload) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_bank
+msgid "Omaduse  (bank) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_bank_comment
+msgid "Omaduse  (bank) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_bank_help
+msgid "Omaduse  (bank) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_test_priv_key
+msgid "Omaduse test privaatv&otilde;ti (test_priv_key) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_test_priv_key_comment
+msgid "Omaduse test privaatv&otilde;ti (test_priv_key) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_test_priv_key_help
+msgid "Omaduse test privaatv&otilde;ti (test_priv_key) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_bank_test
+msgid "Omaduse  (bank_test) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_bank_test_comment
+msgid "Omaduse  (bank_test) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_bank_test_help
+msgid "Omaduse  (bank_test) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_date_start
+msgid "Omaduse Alates (find_date_start) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_date_start_comment
+msgid "Omaduse Alates (find_date_start) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_date_start_help
+msgid "Omaduse Alates (find_date_start) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_date_end
+msgid "Omaduse Kuni (find_date_end) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_date_end_comment
+msgid "Omaduse Kuni (find_date_end) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_date_end_help
+msgid "Omaduse Kuni (find_date_end) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_name
+msgid "Omaduse Maksja nimi (find_name) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_name_comment
+msgid "Omaduse Maksja nimi (find_name) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_name_help
+msgid "Omaduse Maksja nimi (find_name) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_ref
+msgid "Omaduse viide (find_ref) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_ref_comment
+msgid "Omaduse viide (find_ref) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_ref_help
+msgid "Omaduse viide (find_ref) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_one
+msgid "Omaduse 1 rida makse kohta (find_one) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_one_comment
+msgid "Omaduse 1 rida makse kohta (find_one) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_find_one_help
+msgid "Omaduse 1 rida makse kohta (find_one) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_do_find
+msgid "Omaduse Otsi (do_find) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_do_find_comment
+msgid "Omaduse Otsi (do_find) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_do_find_help
+msgid "Omaduse Otsi (do_find) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_log
+msgid "Omaduse  (log) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_log_comment
+msgid "Omaduse  (log) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_log_help
+msgid "Omaduse  (log) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_doc
+msgid "Omaduse Dokumentatsioon (doc) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_doc_comment
+msgid "Omaduse Dokumentatsioon (doc) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_doc_help
+msgid "Omaduse Dokumentatsioon (doc) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_amount
+msgid "Omaduse Summa (alias_amount) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_amount_comment
+msgid "Omaduse Summa (alias_amount) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_amount_help
+msgid "Omaduse Summa (alias_amount) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_amount_ctr
+msgid "Omaduse Summa kontrollerist (alias_amount_ctr) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_amount_ctr_comment
+msgid "Omaduse Summa kontrollerist (alias_amount_ctr) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_amount_ctr_help
+msgid "Omaduse Summa kontrollerist (alias_amount_ctr) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_desc
+msgid "Omaduse Kirjeldus (alias_desc) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_desc_comment
+msgid "Omaduse Kirjeldus (alias_desc) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_desc_help
+msgid "Omaduse Kirjeldus (alias_desc) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_desc_ctr
+msgid "Omaduse Kirjeldus kontrollerist (alias_desc_ctr) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_desc_ctr_comment
+msgid "Omaduse Kirjeldus kontrollerist (alias_desc_ctr) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_desc_ctr_help
+msgid "Omaduse Kirjeldus kontrollerist (alias_desc_ctr) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_return_ctr
+msgid "Omaduse Makse kinnituse kontroller (alias_return_ctr) caption"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_return_ctr_comment
+msgid "Omaduse Makse kinnituse kontroller (alias_return_ctr) kommentaar"
+msgstr ""
+
+#: classes/common/bank_payment.aw:prop_alias_return_ctr_help
+msgid "Omaduse Makse kinnituse kontroller (alias_return_ctr) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_bank
+msgid "Grupi Pankade info (bank) pealkiri"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_bank_help
+msgid "Grupi Pankade info (bank) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_log
+msgid "Grupi Logi (log) pealkiri"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_log_help
+msgid "Grupi Logi (log) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_test
+msgid "Grupi Test (test) pealkiri"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_test_help
+msgid "Grupi Test (test) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_doc
+msgid "Grupi Teadmiseks (doc) pealkiri"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_doc_help
+msgid "Grupi Teadmiseks (doc) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_as_alias
+msgid "Grupi Aliasena (as_alias) pealkiri"
+msgstr ""
+
+#: classes/common/bank_payment.aw:group_as_alias_help
+msgid "Grupi Aliasena (as_alias) help"
+msgstr ""
+
+#: classes/common/bank_payment.aw:rel_RELTYPE_KEY
+msgid "Seose Privaatv&otilde;ti (RELTYPE_KEY) tekst"
+msgstr ""
+
+#: classes/common/bank_payment.aw:rel_RELTYPE_P_KEY
+msgid "Seose Privaatv&otilde;ti (RELTYPE_P_KEY) tekst"
+msgstr ""
+
+#: classes/common/bank_payment.aw:rel_RELTYPE_AMT_CTR
+msgid "Seose Summa kontroller (RELTYPE_AMT_CTR) tekst"
+msgstr ""
+
+#: classes/common/bank_payment.aw:rel_RELTYPE_DESC_CTR
+msgid "Seose Kirjelduse kontroller (RELTYPE_DESC_CTR) tekst"
+msgstr ""
+
+#: classes/common/bank_payment.aw:rel_RELTYPE_CTR
+msgid "Seose Kontroller (RELTYPE_CTR) tekst"
+msgstr ""
+
+#: classes/common/bank_payment.aw:rel_RELTYPE_RETURN_CTR
+msgid "Seose Makse kinnituse kontroller (RELTYPE_RETURN_CTR) tekst"
+msgstr ""
+
+#: classes/common/bank_payment.aw:rel_RELTYPE_IMAP
+msgid "Seose Reproduktsioon (RELTYPE_IMAP) tekst"
+msgstr ""
+
+#: classes/common/bank_payment.aw:rel_RELTYPE_CCL_UPLOAD
+msgid "Seose Reproduktsioon (RELTYPE_CCL_UPLOAD) tekst"
+msgstr ""
+
+#: classes/common/bank_payment.aw:rel_RELTYPE_CURRENCY
+msgid "Seose Valuuta (RELTYPE_CURRENCY) tekst"
+msgstr ""
+
+#: classes/common/bank_payment.aw:layout_general_left
+msgid "Kujundusosa N&otilde;utavad (general_left) pealkiri"
+msgstr ""
+
+#: classes/common/bank_payment.aw:layout_general_right
+msgid "Kujundusosa &nbsp; (general_right) pealkiri"
+msgstr ""
+
+#: classes/common/bank_payment.aw:716
+msgid "(Makse info)"
+msgstr ""
+
+#: classes/common/bank_payment.aw:764
+msgid "&otilde;nnestus"
+msgstr ""
+
+#: classes/common/bank_payment.aw:764
+msgid "eba&otilde;nnestus"
+msgstr ""
+
+#: classes/common/bank_payment.aw:765
+msgid "ok"
+msgstr ""
+
+#: classes/common/bank_payment.aw:773
+msgid "Kokku:"
+msgstr ""
+
+#: classes/common/bank_payment.aw:784
+msgid "Logifaili suurus on hetkel"
+msgstr ""
+
+#: classes/common/bank_payment.aw:784
+msgid "baiti"
+msgstr ""
+
+#: classes/common/bank_payment.aw:788
+msgid "Mingine jama on failiga"
+msgstr ""
+
+#: classes/common/bank_payment.aw:788
+msgid "Kas pole &otilde;igusi, v&otilde; faili"
+msgstr ""
+
+#: classes/common/bank_payment.aw:812
+msgid "Hetkel pole kataloogis"
+msgstr ""
+
+#: classes/common/bank_payment.aw:812
+msgid "&uuml;htegi temleidi faili"
+msgstr ""
+
+#: classes/common/bank_payment.aw:875
+msgid "Aeg"
+msgstr ""
+
+#: classes/common/bank_payment.aw:881
+msgid "Maksja"
+msgstr ""
+
+#: classes/common/bank_payment.aw:887
+msgid "Viitenumber"
+msgstr ""
+
+#: classes/common/bank_payment.aw:893
+msgid "Summa"
+msgstr ""
+
+#: classes/common/bank_payment.aw:899
+msgid "Seletus"
+msgstr ""
+
+#: classes/common/bank_payment.aw:905 classes/common/bank_payment.aw:982
+msgid "Pank"
+msgstr ""
+
+#: classes/common/bank_payment.aw:911
+msgid "Arve"
+msgstr ""
+
+#: classes/common/bank_payment.aw:917
+msgid "IP"
+msgstr ""
+
+#: classes/common/bank_payment.aw:923
+msgid "&Otilde;nnestus"
+msgstr ""
+
+#: classes/common/bank_payment.aw:928
+msgid "SK"
+msgstr ""
+
+#: classes/common/bank_payment.aw:1238
+msgid "Kui suunamist mingil p&otilde;hjusel ei toimu, palun vajutage"
+msgstr ""
+
+#: classes/common/bank_payment.aw:1238
+msgid "siia"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2186
+msgid "Veidi olulisemat infot"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2188
+msgid "Alustamiseks:"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2192
+msgid "Vaja s&otilde;lmida pangalingi leping pankadega - ilma ei juhtu midagi..."
+msgstr ""
+
+#: classes/common/bank_payment.aw:2196
+msgid "Vaja tekitada kaupmehele privaatv&otilde;ti ja sertifikaadi p&auml;ring"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2200
+msgid "privkey.pem on tekkinud privaatv&otilde;ti mis peab saama asukohaks"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2204
+msgid "cert_req.pem on tekkinud sertifikaadip&auml;ring mis tuleb saata pankadele"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2212
+msgid "Vastu saadakse avalikud v&otilde;tmed, mis peavad j&otilde;udma kataloogi"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2216
+msgid "failide nimed peaksid olema vastavalt pankadele:"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2221
+msgid "Tab'i \"Pankade info\" alla pangalt saadud kaupmehe ID, \n<br>kui kindlale arvele vaja raha saata, siis oleks vaja m&auml;rkida ka arve number ja saaja nimi (toimib pankadel millel on ka selline v&otilde;imalus olemas)"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2225
+msgid "Kontrolli , et kataloogis"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2225
+msgid "oleks olemas ja kirjutamis&otilde;igustega fail nimega bank_log.txt"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2229
+msgid "Lihtsamal juhul peaks n&uuml;&uuml;d maksmine toimima, keerulisemal on vaja templeitides v&ouml;i koodis mudida"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2233
+msgid "Kasutab lihtsalt &uuml;ht MAC v&otilde;tit, mis peaks asuma v&otilde;tmete kataloogis nimega nordea.mac"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2237
+msgid "Neile vaja saata tagasiside url, milleks on"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2239
+msgid "Vaja teha veel testv&otilde;ti ja sertifikaadi p&auml;ring testimiseks(seal tuleb enne katsetada testkeskkonnas ja vastavad tegelased (Kaardikeskusest) peaks saama &uuml;le vaadata kas k&otilde;ik on nagu peab)"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2243
+msgid "Toimib vaid Krediitkaardi , SEB &uuml;hispanga ja Nordea'ga"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2244
+msgid "Nordea puhul peab pangast saama testkasutaja andmed &uuml;hekordsete testmaksete jaoks (k&otilde;ik toimib nagu p&auml;riselt, lihtsalt raha ei tule arvele)\n<br>"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2245
+msgid "Krediitkaardi puhul peab lisama testprivaatv&ouml;tme Tab'i test alla"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2246
+msgid "SEB puhul peab lisama testprivaatv&ouml;tmeks SEB testkaupmehe privaatv&otilde;tme"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2247
+msgid "Nii krediitkaardi kui ka SEB puhul on eraldi testkeskkond, kus saab tegutseda pangalt saadud testkasutajaga.. et suunamine sinna toimuks, vaja m&auml;rkida testrezhiim linnuke"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2250
+msgid "Kaupluse avaleht"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2251
+msgid "Kauluse avalehel tahavad pangad n&auml;ha viidet selle kohta, et saidil saab maksta nende pangalingiga.. selleks peaks olema avalehel vastav ikoon. Neid saab :"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2252 classes/common/bank_payment.aw:2254
+msgid "panga kood"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2253
+msgid "Maksmisele minnes tuleks &uuml;ldjuhul kasutada ka pankade poolt antud ikoone. Neid saab :"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2257
+msgid "Panga koodid"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2258
+msgid "(Neid l&auml;heb vaja templeitide valmistamisel m&otilde;nel juhul)"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2344
+msgid "Ei suutnud imap seadistust leida"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2422
+msgid "makse kinnitus krediitkaardi saadetud logidest"
+msgstr ""
+
+#: classes/common/bank_payment.aw:2423
+msgid "Krediitkaart"
+msgstr ""
+

@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ical_export" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="sync_google" nologin="1" all_args="1">
+			<function name="sync_google">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="cal_parent" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="export" nologin="1" all_args="1">
+			<function name="export">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

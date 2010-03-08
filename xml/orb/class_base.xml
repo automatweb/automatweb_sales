@@ -1,0 +1,246 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="class_base" folder="www/automatweb_cvs/classes" extends="aw_template">
+		<action name="new" all_args="1">
+			<function name="new_change">
+				<arguments>
+					<required name="class" />
+					<optional name="parent" type="int" acl="add" />
+					<optional name="period" />
+					<optional name="alias_to" />
+					<optional name="alias_to_prop" />
+					<optional name="return_url" />
+					<optional name="reltype" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change" all_args="1">
+			<function name="change">
+				<arguments>
+					<optional name="id" type="int" acl="edit" />
+					<optional name="group" />
+					<optional name="period" />
+					<optional name="alias_to" />
+					<optional name="alias_to_prop" />
+					<optional name="return_url" />
+					<optional name="view_property" />
+					<optional name="view_laoyout" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="draft">
+			<function name="draft">
+				<arguments>
+					<required name="prop" type="string" />
+					<optional name="id" type="int" />
+					<optional name="class" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_draft">
+			<function name="set_draft">
+				<arguments>
+					<required name="prop" type="string" />
+					<required name="value" type="string" />
+					<optional name="id" type="int" />
+					<optional name="class" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_drafts">
+			<function name="remove_drafts">
+				<arguments>
+					<optional name="id" type="int" />
+					<optional name="class" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit">
+			<function name="submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_and_return">
+			<function name="submit_and_return">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="parse_properties">
+			<function name="parse_properties">
+				<arguments>
+					<optional name="properties" />
+					<optional name="classinfo" />
+					<optional name="obj_inst" />
+					<optional name="target_obj" />
+					<optional name="name_prefix" />
+					<optional name="object_type_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ng_serialize">
+			<function name="_serialize">
+				<arguments>
+					<required name="oid" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="view" all_args="1">
+			<function name="view">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="group" />
+					<optional name="period" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rel_cut">
+			<function name="rel_cut">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rel_copy">
+			<function name="rel_copy">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rel_paste">
+			<function name="rel_paste">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_objects">
+			<function name="delete_objects">
+				<arguments>
+					<optional name="sel" type="array" />
+					<optional name="check" type="array" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_rels">
+			<function name="delete_rels">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="sel" type="array" />
+					<optional name="check" type="array" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_rels_id">
+			<function name="delete_rels_id">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="sel" type="array" />
+					<optional name="check" type="array" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rel_reverse" all_args="1">
+			<function name="rel_reverse">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="generic_cut">
+			<function name="generic_cut">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="generic_paste">
+			<function name="generic_paste">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="object_name_autocomplete_source" all_args="1">
+			<function name="object_name_autocomplete_source">
+				<arguments>
+					<optional name="class_ids" />
+					<optional name="parent" />
+					<required name="param" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="co_autocomplete_source">
+			<function name="co_autocomplete_source">
+				<arguments>
+					<optional name="sp_p_co" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="p_autocomplete_source">
+			<function name="p_autocomplete_source">
+				<arguments>
+					<optional name="sp_p_p" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_s_res_to_p_list">
+			<function name="add_s_res_to_p_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_p_from_l_list">
+			<function name="remove_p_from_l_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_notify_mail">
+			<function name="send_notify_mail">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gt_change">
+			<function name="gt_change">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_object" all_args="1">
+			<function name="create_new_object">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

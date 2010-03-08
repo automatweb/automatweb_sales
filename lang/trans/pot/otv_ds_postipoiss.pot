@@ -1,0 +1,140 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:class_326_help
+msgid "Klassi Objektinimekirja Postipoisi andmeallikas help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_xml_fld
+msgid "Omaduse Serveri kataloog, kus asuvad xml failid (xml_fld) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_xml_fld_comment
+msgid "Omaduse Serveri kataloog, kus asuvad xml failid (xml_fld) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_xml_fld_help
+msgid "Omaduse Serveri kataloog, kus asuvad xml failid (xml_fld) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_ct_fld
+msgid "Omaduse Serveri kataloog, kus asuvad sisu failid (ct_fld) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_ct_fld_comment
+msgid "Omaduse Serveri kataloog, kus asuvad sisu failid (ct_fld) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_ct_fld_help
+msgid "Omaduse Serveri kataloog, kus asuvad sisu failid (ct_fld) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_subj_xml
+msgid "Omaduse Teemade xml fail (subj_xml) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_subj_xml_comment
+msgid "Omaduse Teemade xml fail (subj_xml) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_subj_xml_help
+msgid "Omaduse Teemade xml fail (subj_xml) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_update_cache
+msgid "Omaduse  (update_cache) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_update_cache_comment
+msgid "Omaduse  (update_cache) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_update_cache_help
+msgid "Omaduse  (update_cache) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_db_to_xml_connections
+msgid "Omaduse Andmebaasi tabeli ja XML faili v&auml;ljade seosed (db_to_xml_connections) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_db_to_xml_connections_comment
+msgid "Omaduse Andmebaasi tabeli ja XML faili v&auml;ljade seosed (db_to_xml_connections) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_db_to_xml_connections_help
+msgid "Omaduse Andmebaasi tabeli ja XML faili v&auml;ljade seosed (db_to_xml_connections) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_ct
+msgid "Omaduse Sisu (ct) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_ct_comment
+msgid "Omaduse Sisu (ct) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:prop_ct_help
+msgid "Omaduse Sisu (ct) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:group_content
+msgid "Grupi Sisu (content) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:group_content_help
+msgid "Grupi Sisu (content) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:rel_RELTYPE_TRANSFORM
+msgid "Seose andmete muundaja (RELTYPE_TRANSFORM) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:122
+msgid "Uuenda cache"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:162
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:172
+msgid "<b>Kataloogid</b>"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:188
+msgid "<b>Failid</b>"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:348
+msgid "the subject xml file (%s) does not exist!"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:791
+msgid "Andmebaasi v&auml;li"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:795
+msgid "XML v&auml;li"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw:799
+msgid "Kuup&auml;ev tekstina"
+msgstr ""
+

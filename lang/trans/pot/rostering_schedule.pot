@@ -1,0 +1,396 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/rostering/rostering_schedule.aw:class_1159_help
+msgid "Klassi Rostering graafik help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_final
+msgid "Omaduse Kinnitatud (final) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_final_comment
+msgid "Omaduse Kinnitatud (final) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_final_help
+msgid "Omaduse Kinnitatud (final) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_start
+msgid "Omaduse Algus (g_start) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_start_comment
+msgid "Omaduse Algus (g_start) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_start_help
+msgid "Omaduse Algus (g_start) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_end
+msgid "Omaduse L&otilde;pp (g_end) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_end_comment
+msgid "Omaduse L&otilde;pp (g_end) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_end_help
+msgid "Omaduse L&otilde;pp (g_end) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_scenario
+msgid "Omaduse Stsenaarium (g_scenario) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_scenario_comment
+msgid "Omaduse Stsenaarium (g_scenario) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_scenario_help
+msgid "Omaduse Stsenaarium (g_scenario) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_unit
+msgid "Omaduse &Uuml;ksus (g_unit) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_unit_comment
+msgid "Omaduse &Uuml;ksus (g_unit) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_unit_help
+msgid "Omaduse &Uuml;ksus (g_unit) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_wp
+msgid "Omaduse T&ouml;&ouml;laud (g_wp) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_wp_comment
+msgid "Omaduse T&ouml;&ouml;laud (g_wp) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_g_wp_help
+msgid "Omaduse T&ouml;&ouml;laud (g_wp) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_admin_act_tb
+msgid "Omaduse  (admin_act_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_admin_act_tb_comment
+msgid "Omaduse  (admin_act_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_admin_act_tb_help
+msgid "Omaduse  (admin_act_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_admin_act_cal
+msgid "Omaduse  (admin_act_cal) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_admin_act_cal_comment
+msgid "Omaduse  (admin_act_cal) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_admin_act_cal_help
+msgid "Omaduse  (admin_act_cal) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_op_act_cal
+msgid "Omaduse  (op_act_cal) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_op_act_cal_comment
+msgid "Omaduse  (op_act_cal) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_op_act_cal_help
+msgid "Omaduse  (op_act_cal) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_op_act_problems
+msgid "Omaduse Vali t&ouml;&ouml;taja (op_act_problems) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_op_act_problems_comment
+msgid "Omaduse Vali t&ouml;&ouml;taja (op_act_problems) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_op_act_problems_help
+msgid "Omaduse Vali t&ouml;&ouml;taja (op_act_problems) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_skg_tbl
+msgid "Omaduse  (skg_tbl) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_skg_tbl_comment
+msgid "Omaduse  (skg_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_skg_tbl_help
+msgid "Omaduse  (skg_tbl) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_shifts_g_tbl
+msgid "Omaduse  (shifts_g_tbl) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_shifts_g_tbl_comment
+msgid "Omaduse  (shifts_g_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_shifts_g_tbl_help
+msgid "Omaduse  (shifts_g_tbl) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_shifts_g2_tbl
+msgid "Omaduse  (shifts_g2_tbl) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_shifts_g2_tbl_comment
+msgid "Omaduse  (shifts_g2_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_shifts_g2_tbl_help
+msgid "Omaduse  (shifts_g2_tbl) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_day_g_tbl
+msgid "Omaduse  (day_g_tbl) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_day_g_tbl_comment
+msgid "Omaduse  (day_g_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_day_g_tbl_help
+msgid "Omaduse  (day_g_tbl) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_mn_g_tbl
+msgid "Omaduse  (mn_g_tbl) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_mn_g_tbl_comment
+msgid "Omaduse  (mn_g_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_mn_g_tbl_help
+msgid "Omaduse  (mn_g_tbl) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_work_hrs
+msgid "Omaduse  (work_hrs) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_work_hrs_comment
+msgid "Omaduse  (work_hrs) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:prop_work_hrs_help
+msgid "Omaduse  (work_hrs) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_act
+msgid "Grupi Tegevused (act) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_act_help
+msgid "Grupi Tegevused (act) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_admin_act
+msgid "Grupi Administratiivsed tegevused (admin_act) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_admin_act_help
+msgid "Grupi Administratiivsed tegevused (admin_act) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_op_act
+msgid "Grupi Operatiivsed tegevused (op_act) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_op_act_help
+msgid "Grupi Operatiivsed tegevused (op_act) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_skills_g
+msgid "Grupi P&auml;devused (skills_g) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_skills_g_help
+msgid "Grupi P&auml;devused (skills_g) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_shifts_g
+msgid "Grupi Vahetused (shifts_g) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_shifts_g_help
+msgid "Grupi Vahetused (shifts_g) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_shifts_g_1
+msgid "Grupi T&ouml;&ouml;postid ja vahetused (shifts_g_1) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_shifts_g_1_help
+msgid "Grupi T&ouml;&ouml;postid ja vahetused (shifts_g_1) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_shifts_g_2
+msgid "Grupi Vahetused ja t&ouml;&ouml;postid (shifts_g_2) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_shifts_g_2_help
+msgid "Grupi Vahetused ja t&ouml;&ouml;postid (shifts_g_2) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_day_g
+msgid "Grupi P&auml;eva vaade (day_g) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_day_g_help
+msgid "Grupi P&auml;eva vaade (day_g) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_mn_g
+msgid "Grupi Kuu vaade (mn_g) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_mn_g_help
+msgid "Grupi Kuu vaade (mn_g) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_work_hrs
+msgid "Grupi T&ouml;&ouml;aruanded (work_hrs) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:group_work_hrs_help
+msgid "Grupi T&ouml;&ouml;aruanded (work_hrs) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:rel_RELTYPE_SCENARIO
+msgid "Seose Stsenaarium (RELTYPE_SCENARIO) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:rel_RELTYPE_WORKBENCH
+msgid "Seose T&ouml;&ouml;laud (RELTYPE_WORKBENCH) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:rel_RELTYPE_UNIT
+msgid "Seose &Uuml;ksus (RELTYPE_UNIT) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:308
+msgid "T&ouml;&ouml;post"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:397
+msgid "Planeerimata : %s - %s"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:542
+msgid "<<"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:543
+msgid "5 tagasi"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:547
+msgid "Eelmine"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:551
+msgid "T&auml;na"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:555
+msgid "J&auml;rgmine"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:559
+msgid ">>"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:560
+msgid "5 edasi"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:564
+msgid "&nbsp;&nbsp;Periood: %s &nbsp;&nbsp;P&auml;evi perioodis: %s"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:570
+msgid "Kaota valik"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:574
+msgid "&nbsp;&nbsp;Valitud projekt:"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:579
+msgid "Kuuvaade"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:600
+msgid "Vali t&ouml;&ouml;taja: <br>"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:613
+msgid "Vali uus t&ouml;&ouml;aeg: <br>"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:614
+msgid "Alates:<br>"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:618
+msgid "Kuni:<br>"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:622
+msgid "K&auml;sitsi m&auml;&auml;ratud:<br>"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:659
+msgid "T&ouml;&ouml;taja"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:703
+msgid "Aeg"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:820
+msgid "Vahetus"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:907 classes/applications/rostering/rostering_schedule.aw:986
+msgid "Puudu inimene"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:1078
+msgid "Isik"
+msgstr ""
+
+#: classes/applications/rostering/rostering_schedule.aw:1084
+msgid "P&auml;devused"
+msgstr ""
+

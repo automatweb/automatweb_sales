@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/login_box.aw:class_1214_help
+msgid "Klassi Sisselogimiskast help"
+msgstr ""
+
+#: classes/contentmgmt/login_box.aw:prop_template
+msgid "Omaduse Kujundusmall (template) caption"
+msgstr ""
+
+#: classes/contentmgmt/login_box.aw:prop_template_comment
+msgid "Omaduse Kujundusmall (template) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/login_box.aw:prop_template_help
+msgid "Omaduse Kujundusmall (template) help"
+msgstr ""
+
+#: classes/contentmgmt/login_box.aw:prop_redir
+msgid "Omaduse Kuhu suunata p&auml;rast logimist (redir) caption"
+msgstr ""
+
+#: classes/contentmgmt/login_box.aw:prop_redir_comment
+msgid "Omaduse Kuhu suunata p&auml;rast logimist (redir) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/login_box.aw:prop_redir_help
+msgid "Omaduse Kuhu suunata p&auml;rast logimist (redir) help"
+msgstr ""
+

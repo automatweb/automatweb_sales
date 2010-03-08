@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_selection.aw:class_169_help
+msgid "Klassi Valim help"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_template
+msgid "Omaduse Näitamise template (template) caption"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_template_comment
+msgid "Omaduse Näitamise template (template) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_template_help
+msgid "Omaduse Näitamise template (template) help"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_forms
+msgid "Omaduse Tagasiside vormid (forms) caption"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_forms_comment
+msgid "Omaduse Tagasiside vormid (forms) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_forms_help
+msgid "Omaduse Tagasiside vormid (forms) help"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_selection_toolbar
+msgid "Omaduse Objektide toolbar (selection_toolbar) caption"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_selection_toolbar_comment
+msgid "Omaduse Objektide toolbar (selection_toolbar) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_selection_toolbar_help
+msgid "Omaduse Objektide toolbar (selection_toolbar) help"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_selection_objects
+msgid "Omaduse Objektid (selection_objects) caption"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_selection_objects_comment
+msgid "Omaduse Objektid (selection_objects) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_selection_objects_help
+msgid "Omaduse Objektid (selection_objects) help"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_contents
+msgid "Omaduse  (contents) caption"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_contents_comment
+msgid "Omaduse  (contents) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:prop_contents_help
+msgid "Omaduse  (contents) help"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:group_contents
+msgid "Grupi Objektid (contents) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:group_contents_help
+msgid "Grupi Objektid (contents) help"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:group_preview
+msgid "Grupi Näita (preview) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:group_preview_help
+msgid "Grupi Näita (preview) help"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:rel_RELTYPE_BACKFORMS2
+msgid "Seose Tagasisidevorm (RELTYPE_BACKFORMS2) tekst"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:rel_RELTYPE_RELATED_SELECTIONS
+msgid "Seose Seotud valimid (RELTYPE_RELATED_SELECTIONS) tekst"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:145
+msgid "nimi"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:153
+msgid "jrk"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:170
+msgid "tüüp"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:176
+msgid "kommentaar"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:278
+msgid "Objektide kopeerimine valimisse"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:308
+msgid "Objektide liigutamine valimisse"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:442
+msgid "Liiguta"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:450
+msgid "Kopeeri"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:456
+msgid "aktiveeri"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:465
+msgid "Salvesta"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:472
+msgid "Kustuta valitud objektid valimist"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:473
+msgid "Kustutada valitud objektid sellest valimist?"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:558
+msgid "templiit määramata"
+msgstr ""
+
+#: classes/crm/crm_selection.aw:598
+msgid "valim tühi, või objekte pole aktiivseks tehtud"
+msgstr ""
+

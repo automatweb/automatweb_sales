@@ -1,0 +1,135 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/quickmessage/contact_list.aw:class_811_help
+msgid "Klassi Aadressiraamat help"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_contact_list_toolbar
+msgid "Omaduse  (contact_list_toolbar) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_contact_list_toolbar_comment
+msgid "Omaduse  (contact_list_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_contact_list_toolbar_help
+msgid "Omaduse  (contact_list_toolbar) help"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_Aadressiraamatu
+msgid "Omaduse  (Aadressiraamatu) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_Aadressiraamatu_comment
+msgid "Omaduse  (Aadressiraamatu) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_Aadressiraamatu_help
+msgid "Omaduse  (Aadressiraamatu) help"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_contact_list
+msgid "Omaduse Aadressiraamat (contact_list) caption"
+msgstr "Addressbook"
+
+#: classes/applications/quickmessage/contact_list.aw:prop_contact_list_comment
+msgid "Omaduse Aadressiraamat (contact_list) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_contact_list_help
+msgid "Omaduse Aadressiraamat (contact_list) help"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_new_name
+msgid "Omaduse Nimi (new_name) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_new_name_comment
+msgid "Omaduse Nimi (new_name) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_new_name_help
+msgid "Omaduse Nimi (new_name) help"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_new_mail
+msgid "Omaduse E-mail (new_mail) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_new_mail_comment
+msgid "Omaduse E-mail (new_mail) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:prop_new_mail_help
+msgid "Omaduse E-mail (new_mail) help"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:group_contact_list
+msgid "Grupi Aadressiraamat (contact_list) pealkiri"
+msgstr "Addresbook"
+
+#: classes/applications/quickmessage/contact_list.aw:group_contact_list_help
+msgid "Grupi Aadressiraamat (contact_list) help"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:group_test
+msgid "Grupi test (test) pealkiri"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:group_test_help
+msgid "Grupi test (test) help"
+msgstr ""
+
+#: classes/applications/quickmessage/contact_list.aw:rel_RELTYPE_LIST_OWNER
+msgid "Seose Aadressiraamatu omanik (RELTYPE_LIST_OWNER) tekst"
+msgstr "Addresbook owner"
+
+#: classes/applications/quickmessage/contact_list.aw:rel_RELTYPE_ADDED_PERSON
+msgid "Seose Lisatud aadress (RELTYPE_ADDED_PERSON) tekst"
+msgstr "Adddress"
+
+#: classes/applications/quickmessage/contact_list.aw:rel_RELTYPE_LIST_PROFILE_SEARCH
+msgid "Seose Profiilide otsing (RELTYPE_LIST_PROFILE_SEARCH) tekst"
+msgstr "Profile search"
+
+#: classes/applications/quickmessage/contact_list.aw:73
+msgid "Lisa aadressiraamatusse"
+msgstr "Add to addressbook"
+
+#: classes/applications/quickmessage/contact_list.aw:82
+msgid "Otsi kontakte"
+msgstr "Search contacts"
+
+#: classes/applications/quickmessage/contact_list.aw:90
+msgid "Kustuta kontakte"
+msgstr "Delete contacts"
+
+#: classes/applications/quickmessage/contact_list.aw:93
+msgid "Oled kindel, et tahad valitud eemaldada?"
+msgstr "Are you sure you want to delete selected?"
+
+#: classes/applications/quickmessage/contact_list.aw:100
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/quickmessage/contact_list.aw:104
+msgid "E-Mail"
+msgstr ""
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "E-post"
+#~ msgstr "E-mail"
+
+#~ msgid "Saada sõnum"
+#~ msgstr "Send message"

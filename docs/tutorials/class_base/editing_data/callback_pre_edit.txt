@@ -1,0 +1,23 @@
+callback_pre_edit
+
+Is called before the form generation starts and can be used to modify the loaded object in some way or do some initialization, for example loading some kind of information that is needed by multiple properties.
+
+<b>Example 4.1.</b>
+After this you can then access the contents of this $this->fubar in your get_property calls.
+
+#php#
+function callback_pre_edit($arr)
+{
+	$this->fubar = $this->load_some_data();
+}
+#/php#
+
+
+<b>Arguments passed to callback_pre_edit</b>
+
+<b>obj_inst</b>
+    Pointer to the loaded object.
+
+<b>request</b>
+    Arguments passed to the script. Use this instead of the $_GET superglobal.
+

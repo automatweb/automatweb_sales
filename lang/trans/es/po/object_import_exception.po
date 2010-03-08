@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/admin/import/object_import_exception.aw:class_478_help
+msgid "Klassi Objektide impordi erand help"
+msgstr ""
+
+#: classes/admin/import/object_import_exception.aw:prop_exc
+msgid "Omaduse  (exc) caption"
+msgstr ""
+
+#: classes/admin/import/object_import_exception.aw:prop_exc_comment
+msgid "Omaduse  (exc) kommentaar"
+msgstr ""
+
+#: classes/admin/import/object_import_exception.aw:prop_exc_help
+msgid "Omaduse  (exc) help"
+msgstr ""
+
+#: classes/admin/import/object_import_exception.aw:group_exc
+msgid "Grupi Erandid (exc) pealkiri"
+msgstr ""
+
+#: classes/admin/import/object_import_exception.aw:group_exc_help
+msgid "Grupi Erandid (exc) help"
+msgstr ""
+
+#: classes/admin/import/object_import_exception.aw:71
+msgid "Mis asendada"
+msgstr ""
+
+#: classes/admin/import/object_import_exception.aw:76
+msgid "Millega asendada"
+msgstr ""

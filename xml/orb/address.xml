@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="address" folder="www/dev/terryf/automatweb_dev/classes/common/address" extends="class_base">
+		<action name="location_autocomplete" all_args="1">
+			<function name="location_autocomplete">
+				<arguments>
+					<required name="country" type="oid" acl="view" />
+					<optional name="typed_text" type="string" />
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

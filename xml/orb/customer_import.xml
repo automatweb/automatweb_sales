@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="customer_import" folder="www/dev/terryf/automatweb_dev/classes/applications/customer_import" extends="class_base">
+		<action name="reset_import">
+			<function name="reset_import">
+				<arguments>
+					<required name="id" />
+					<required name="type" />
+					<optional name="wh_id" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="stop_import">
+			<function name="stop_import">
+				<arguments>
+					<required name="type" />
+					<optional name="wh_id" />
+					<required name="id" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="run_backgrounded" nologin="1">
+			<function name="do_run_bg">
+				<arguments>
+					<required name="id" />
+					<optional name="wh_id" />
+					<required name="act" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_customer_import">
+			<function name="do_customer_import">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

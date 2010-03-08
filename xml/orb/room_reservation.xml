@@ -1,0 +1,102 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="room_reservation" folder="www/dev/terryf/automatweb_dev/classes/common" extends="class_base">
+		<action name="parse_alias" nologin="1" is_public="1" caption="Change">
+			<function name="parse_alias">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_data" nologin="1">
+			<function name="submit_data">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="return_to" type="string" />
+					<optional name="level" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_web_products_table" nologin="1">
+			<function name="get_web_products_table">
+				<arguments>
+					<required name="room" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_web_products_table" nologin="1">
+			<function name="submit_web_products_table">
+				<arguments>
+					<optional name="amount" type="array" />
+					<required name="room" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_web_calendar_table" nologin="1">
+			<function name="get_web_calendar_table">
+				<arguments>
+					<optional name="room" type="int" />
+					<optional name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_web_calendar_table" nologin="1">
+			<function name="submit_web_calendar_table">
+				<arguments>
+					<optional name="bron" type="array" />
+					<required name="room" type="oid" />
+					<optional name="room_res" type="oid" />
+					<optional name="room_reservation_length" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="affirm_reservation" nologin="1">
+			<function name="affirm_reservation">
+				<arguments>
+					<optional name="bron_id" type="array" />
+					<required name="room" type="oid,array" />
+					<optional name="section" type="string" />
+					<optional name="level" type="int" />
+					<optional name="res" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pay_reservation" nologin="1">
+			<function name="pay_reservation">
+				<arguments>
+					<optional name="bron_id" type="array" />
+					<required name="room" type="oid" />
+					<optional name="section" type="string" />
+					<optional name="level" type="int" />
+					<optional name="res" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bank_return" nologin="1">
+			<function name="bank_return">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="revoke_reservation" nologin="1">
+			<function name="revoke_reservation">
+				<arguments>
+					<optional name="bron_id" type="array" />
+					<required name="room" type="oid" />
+					<optional name="room_res" type="oid" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,60 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="bank_payment" folder="www/automatweb_cvs/classes/common" extends="class_base">
+		<action name="form_test_case" nologin="1" is_public="1" all_args="1">
+			<function name="form_test_case">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bank_forms" default="1" nologin="1" is_public="1" all_args="1">
+			<function name="bank_forms">
+				<arguments>
+					<optional name="id" type="oid" />
+					<optional name="amount" type="int" />
+					<optional name="units" type="int" />
+					<optional name="reference_nr" type="int" />
+					<optional name="service" type="int" default="1002" />
+					<optional name="sender_id" type="string" />
+					<optional name="stamp" type="string" />
+					<optional name="expl" type="string" />
+					<optional name="return_url" type="string" />
+					<optional name="cancel_url" type="string" default="$return_url" />
+					<optional name="lang" type="string" default="EST" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="redir_to_cc">
+			<function name="redir_to_cc">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_nordea_stats" all_args="1">
+			<function name="get_nordea_stats">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pay_site" is_public="1" caption="Change">
+			<function name="pay_site">
+				<arguments>
+					<optional name="die" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="check_response" is_public="1" caption="Change">
+			<function name="check_response">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

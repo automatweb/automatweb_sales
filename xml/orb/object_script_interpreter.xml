@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="object_script_interpreter" folder="www/dev/terryf/automatweb_dev/classes/install" extends="class_base">
+		<action name="exec_file">
+			<function name="exec_file">
+				<arguments>
+					<required name="file" type="string" />
+					<optional name="vars" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="exec">
+			<function name="exec">
+				<arguments>
+					<required name="script" type="string" />
+					<optional name="vars" type="array" />
+					<optional name="silent" type="bool" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

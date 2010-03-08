@@ -1,0 +1,298 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/where_to_go/where_to_go.aw:class_993_help
+msgid "Klassi Kuhu minna help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_show_season_from
+msgid "Omaduse Kuvatav hooaeg alates (show_season_from) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_show_season_from_comment
+msgid "Omaduse Kuvatav hooaeg alates (show_season_from) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_show_season_from_help
+msgid "Omaduse Kuvatav hooaeg alates (show_season_from) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_show_season_to
+msgid "Omaduse Kuvatav hooaeg kuni (show_season_to) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_show_season_to_comment
+msgid "Omaduse Kuvatav hooaeg kuni (show_season_to) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_show_season_to_help
+msgid "Omaduse Kuvatav hooaeg kuni (show_season_to) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_languages
+msgid "Omaduse Keeled (languages) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_languages_comment
+msgid "Omaduse Keeled (languages) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_languages_help
+msgid "Omaduse Keeled (languages) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_languages_to_folders
+msgid "Omaduse Keelte seosed kaustadega (languages_to_folders) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_languages_to_folders_comment
+msgid "Omaduse Keelte seosed kaustadega (languages_to_folders) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_languages_to_folders_help
+msgid "Omaduse Keelte seosed kaustadega (languages_to_folders) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_organisations_folder
+msgid "Omaduse Organisatsioonide kaust (organisations_folder) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_organisations_folder_comment
+msgid "Omaduse Organisatsioonide kaust (organisations_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_organisations_folder_help
+msgid "Omaduse Organisatsioonide kaust (organisations_folder) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_management_toolbar
+msgid "Omaduse Haldamise t&ouml;&ouml;riistariba  (management_toolbar) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_management_toolbar_comment
+msgid "Omaduse Haldamise t&ouml;&ouml;riistariba  (management_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_management_toolbar_help
+msgid "Omaduse Haldamise t&ouml;&ouml;riistariba  (management_toolbar) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_events_tree
+msgid "Omaduse &Uuml;rituste puu (events_tree) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_events_tree_comment
+msgid "Omaduse &Uuml;rituste puu (events_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_events_tree_help
+msgid "Omaduse &Uuml;rituste puu (events_tree) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_events_table
+msgid "Omaduse &Uuml;rituste puu (events_table) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_events_table_comment
+msgid "Omaduse &Uuml;rituste puu (events_table) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_events_table_help
+msgid "Omaduse &Uuml;rituste puu (events_table) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_genres_table
+msgid "Omaduse &zcaron;anrite tabel (genres_table) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_genres_table_comment
+msgid "Omaduse &zcaron;anrite tabel (genres_table) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_genres_table_help
+msgid "Omaduse &zcaron;anrite tabel (genres_table) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_add_genre
+msgid "Omaduse &#142;anr (add_genre) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_add_genre_comment
+msgid "Omaduse &#142;anr (add_genre) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_add_genre_help
+msgid "Omaduse &#142;anr (add_genre) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_places_table
+msgid "Omaduse Toimumiskohtade tabel (places_table) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_places_table_comment
+msgid "Omaduse Toimumiskohtade tabel (places_table) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_places_table_help
+msgid "Omaduse Toimumiskohtade tabel (places_table) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_organisers
+msgid "Omaduse Korraldajad (organisers) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_organisers_comment
+msgid "Omaduse Korraldajad (organisers) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_organisers_help
+msgid "Omaduse Korraldajad (organisers) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_add_item
+msgid "Omaduse Uus (add_item) caption"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_add_item_comment
+msgid "Omaduse Uus (add_item) kommentaar"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:prop_add_item_help
+msgid "Omaduse Uus (add_item) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_management
+msgid "Grupi Haldamine (management) pealkiri"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_management_help
+msgid "Grupi Haldamine (management) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_events
+msgid "Grupi &Uuml;ritused (events) pealkiri"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_events_help
+msgid "Grupi &Uuml;ritused (events) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_genres
+msgid "Grupi &#142;anrid (genres) pealkiri"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_genres_help
+msgid "Grupi &#142;anrid (genres) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_places
+msgid "Grupi Toimumiskohad (places) pealkiri"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_places_help
+msgid "Grupi Toimumiskohad (places) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_organisers
+msgid "Grupi Korraldajad (organisers) pealkiri"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_organisers_help
+msgid "Grupi Korraldajad (organisers) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_add_item
+msgid "Grupi Uus (add_item) pealkiri"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:group_add_item_help
+msgid "Grupi Uus (add_item) help"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:rel_RELTYPE_PLACES_FOLDER
+msgid "Seose Toimumispaikade kaust (RELTYPE_PLACES_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:rel_RELTYPE_EVENTS_FOLDER
+msgid "Seose &Uuml;rituste kaust (RELTYPE_EVENTS_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:rel_RELTYPE_FORUM
+msgid "Seose Foorum (RELTYPE_FORUM) tekst"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:rel_RELTYPE_ORGANISATIONS_FOLDER
+msgid "Seose Organisatsioonide kaust (RELTYPE_ORGANISATIONS_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:rel_RELTYPE_ORGANISER
+msgid "Seose Korraldaja (RELTYPE_ORGANISER) tekst"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:rel_RELTYPE_GENRE
+msgid "Seose &#142;anr (RELTYPE_GENRE) tekst"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:186
+msgid "Keel"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:191
+msgid "Toimumispaigad"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:196
+msgid "&Uuml;ritused"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:201
+msgid "Foorum"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:314
+msgid "Lisa"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:319
+msgid "&#142;anr"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:328
+msgid "Toimumiskoht"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:337
+msgid "Lavastus"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:349
+msgid "Salvesta"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:356
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:363
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/where_to_go/where_to_go.aw:440
+msgid "Sellist klassi ei saa lisada!"
+msgstr ""

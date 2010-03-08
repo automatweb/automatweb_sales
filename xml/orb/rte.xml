@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="rte" folder="www/dev/terryf/automatweb_dev/classes/vcl" extends="aw_template">
+		<action name="table_dialog" all_args="1">
+			<function name="table_dialog">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="link_dialog">
+			<function name="link_dialog">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_rte_toolbar">
+			<function name="get_rte_toolbar">
+				<arguments>
+					<required name="toolbar" type="object" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="draw_editor">
+			<function name="draw_editor">
+				<arguments>
+					<required name="name" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

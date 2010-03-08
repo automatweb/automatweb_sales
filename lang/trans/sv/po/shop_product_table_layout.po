@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_product_table_layout.aw:class_316_help
+msgid "Klassi Lao toodete tabeli kujundus help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_columns
+msgid "Omaduse Tulpi (columns) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_columns_comment
+msgid "Omaduse Tulpi (columns) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_columns_help
+msgid "Omaduse Tulpi (columns) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_rows
+msgid "Omaduse Ridu (rows) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_rows_comment
+msgid "Omaduse Ridu (rows) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_rows_help
+msgid "Omaduse Ridu (rows) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_per_page
+msgid "Omaduse Tooteid lehel (per_page) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_per_page_comment
+msgid "Omaduse Tooteid lehel (per_page) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_per_page_help
+msgid "Omaduse Tooteid lehel (per_page) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_template
+msgid "Omaduse Template (template) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_template_comment
+msgid "Omaduse Template (template) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_table_layout.aw:prop_template_help
+msgid "Omaduse Template (template) help"
+msgstr ""
+

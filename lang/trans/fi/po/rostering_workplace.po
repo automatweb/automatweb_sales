@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/rostering/rostering_workplace.aw:class_1142_help
+msgid "Klassi T&ouml;&ouml;koht help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_skills
+msgid "Omaduse P&auml;devused (skills) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_skills_comment
+msgid "Omaduse P&auml;devused (skills) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_skills_help
+msgid "Omaduse P&auml;devused (skills) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_professions
+msgid "Omaduse Ametinimetused (professions) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_professions_comment
+msgid "Omaduse Ametinimetused (professions) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_professions_help
+msgid "Omaduse Ametinimetused (professions) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_address
+msgid "Omaduse Aadress (address) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_address_comment
+msgid "Omaduse Aadress (address) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_address_help
+msgid "Omaduse Aadress (address) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_num_empl
+msgid "Omaduse Mitu t&ouml;&ouml;tajat korraga (num_empl) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_num_empl_comment
+msgid "Omaduse Mitu t&ouml;&ouml;tajat korraga (num_empl) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_num_empl_help
+msgid "Omaduse Mitu t&ouml;&ouml;tajat korraga (num_empl) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_stats_tbl
+msgid "Omaduse  (stats_tbl) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_stats_tbl_comment
+msgid "Omaduse  (stats_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:prop_stats_tbl_help
+msgid "Omaduse  (stats_tbl) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:group_stats
+msgid "Grupi Statistika (stats) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:group_stats_help
+msgid "Grupi Statistika (stats) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:rel_RELTYPE_SKILL
+msgid "Seose P&auml;devus (RELTYPE_SKILL) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:rel_RELTYPE_ADDRESS
+msgid "Seose Aadress (RELTYPE_ADDRESS) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:rel_RELTYPE_PROFESSION
+msgid "Seose Ametinimetus (RELTYPE_PROFESSION) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:103
+msgid "Isik"
+msgstr ""
+
+#: classes/applications/rostering/rostering_workplace.aw:108
+msgid "T&ouml;&ouml;ajad"
+msgstr ""
+

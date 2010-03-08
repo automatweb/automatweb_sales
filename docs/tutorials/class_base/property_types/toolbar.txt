@@ -1,0 +1,149 @@
+<h2>toolbar</h2>
+
+Things you can add to the toolbar:
+<ul>
+	<li>buttons
+	<li>separators
+	<li>drop down menus
+	<li>plain text (but please try to avoid this)
+</ul>
+
+Gets it's contents from a get_property call. You should probably set no_caption=1 for this property (so that it looks better)
+
+<b>Example toolbar</b>
+<pre>
+#php#
+function get_property($arr)
+{
+	$prop = &$arrr["prop"];
+	$retval = PROP_OK;
+	switch($data["name"])
+	{
+		case "navtoolbar":
+			$toolbar = &$data["toolbar"];
+			$toolbar->add_button(array(
+				"name" => "save",
+				"tooltip" => "Salvesta",
+				"url" => "javascript:do_something();",
+				"img" => "save.gif",
+			));
+			$toolbar->add_separator();
+			$toolbar->add_cdata("some text");
+			break;
+	}
+	return $retval;
+};
+#/php#
+</pre>
+
+Arguments for add_button method
+<ul>
+	<li>name - unique name for the button
+	<li>tooltip - shown when the mouse is hovered over the button
+	<li>url - what to do if the button is clicked
+	<li>img - image to use for the button
+</ul>
+There are some optional attributes as well
+<ul>
+	<li>action - submit a form to a new ORB action (not submit!). If action is specifed, then you can omit URL
+	<li>confirm - ask for confirm before executing the assigned action
+	<li>disabled - makes the button inactive (boolean)
+</ul>
+
+#php#
+$toolbar->add_button(array(
+	"name" => "export",
+	"action" => "delete_data",
+	"confirm" => "Are you sure you want to delete selected objects?",
+));
+#/php#
+
+You can also create drop-down menus with the toolbar class.  It works like this:
+
+#php#
+$toolbar->add_menu_button(array(
+        "name" => "yourmenu",
+        "tooltip" => "Click this button to see the menu",
+));
+#/php#
+
+You can additionaly specify an "img" attribute, in which case that image will be used instead of the default "new.gif" (green rectangle).
+<pre>
+#php#
+$toolbar->add_menu_button(array(
+        "name" => "searchmenu",
+        "tooltip" => "Click to see search types",
+        "img" => "search.gif",
+));
+
+#/php#
+</pre>
+
+menu_button looks similar to all other buttons on the toolbar, except that it has a small black rectangle next to it and if you click on it, a menu will pop up below it.
+
+Adding items to the menu:
+<pre>
+#php#
+$toolbar->add_menu_item(array(
+        "parent" => "yourmenu",
+        "title" => "Automatweb.com",
+        "link" => "http://www.automatweb.com",
+));
+#/php#
+</pre>
+
+Parent attribute specifies the name of the menu under which the item should be added. The rest of the attributes are self-explanatory.
+
+Adding a disabled menu item (let's say some prerequisite for invoking that action is not met) goes like this:
+<pre>
+#php#
+$toolbar->add_menu_item(array(
+        "parent" => "yourmenu",
+        "title" => "Pangalink",
+        "link" => "https://www.hanza.net",
+        "text" => "You do not have sufficient privileges for this",
+        "disabled" => true,
+));
+#/php#
+
+</pre>
+Disabled item will be rendered with grayed out text and it's impossible to click the item. text attribute will be shown as tooltip if the mouse is hovering over the item and is ment to be used as an explanation about why the item is disabled.
+
+You can also add nested menus which arbitrary number of levels.
+<pre>
+#php#
+$toolbar->add_sub_menu(array(
+        "name" => "submenu",
+        "parent" => "yourmenu",
+        "text" => "Click here to see more options",
+));
+#/php#
+</pre>
+
+To add items to a submenu, simply use the name of the submenu as the parent attribute.
+<pre>
+#php#
+$toolbar->add_menu_button(array(
+        "parent" => "submenu",
+        "title" => "Struktuur Meedia",
+        "link" => "http://www.struktuur.ee",
+));
+#/php#
+</pre>
+
+Icons you can use:
+save.gif
+archive.gif
+cut.gif
+copy.gif
+paste.gif
+import.gif
+new.gif
+preview.gif
+refresh.gif
+save.gif
+search.gif
+settings.gif
+
+
+

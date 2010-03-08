@@ -1,0 +1,76 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/messenger/messenger_identity.aw:class_240_help
+#: classes/applications/messenger/messenger_identity.aw:class_240_help
+msgid "Klassi Messengeri identiteet help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_identity.aw:prop_mail
+msgid "Omaduse E-post (mail) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_identity.aw:prop_mail_comment
+msgid "Omaduse E-post (mail) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_identity.aw:prop_mail_help
+msgid "Omaduse E-post (mail) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_identity.aw:prop_reply_to
+#: classes/applications/messenger/messenger_identity.aw:prop_reply_to
+msgid "Omaduse Reply To (reply_to) caption"
+msgstr "Reply to"
+
+# classes/applications/messenger/messenger_identity.aw:prop_reply_to_comment
+#: classes/applications/messenger/messenger_identity.aw:prop_reply_to_comment
+msgid "Omaduse Reply To (reply_to) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_identity.aw:prop_reply_to_help
+#: classes/applications/messenger/messenger_identity.aw:prop_reply_to_help
+msgid "Omaduse Reply To (reply_to) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_identity.aw:prop_organization
+#: classes/applications/messenger/messenger_identity.aw:prop_organization
+msgid "Omaduse Organisatsioon (organization) caption"
+msgstr "Company"
+
+# classes/applications/messenger/messenger_identity.aw:prop_organization_comment
+#: classes/applications/messenger/messenger_identity.aw:prop_organization_comment
+msgid "Omaduse Organisatsioon (organization) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_identity.aw:prop_organization_help
+#: classes/applications/messenger/messenger_identity.aw:prop_organization_help
+msgid "Omaduse Organisatsioon (organization) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_identity.aw:prop_signature
+#: classes/applications/messenger/messenger_identity.aw:prop_signature
+msgid "Omaduse Signatuur (signature) caption"
+msgstr "Signature"
+
+# classes/applications/messenger/messenger_identity.aw:prop_signature_comment
+#: classes/applications/messenger/messenger_identity.aw:prop_signature_comment
+msgid "Omaduse Signatuur (signature) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_identity.aw:prop_signature_help
+#: classes/applications/messenger/messenger_identity.aw:prop_signature_help
+msgid "Omaduse Signatuur (signature) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_identity.aw:prop_email
+#~ msgid "Omaduse E-post (email) caption"
+#~ msgstr "E-mail"

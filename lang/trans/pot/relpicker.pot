@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/vcl/relpicker.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:105 classes/vcl/relpicker.aw:271
+msgid "--vali--"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:167 classes/vcl/relpicker.aw:372
+msgid "Otsi"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:181 classes/vcl/relpicker.aw:387
+msgid "Muuda"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:227 classes/vcl/relpicker.aw:533
+msgid "Lisa"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:246 classes/vcl/relpicker.aw:552
+msgid "Lisa uus %s"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:471
+msgid "Kustuta valitud objektid"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:472
+msgid "Oled kindel, et soovid valitud objektid kustutada?"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:487 classes/vcl/relpicker.aw:622
+msgid "Kustuta valitud seosed"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:488
+msgid "Oled kindel, et soovid valitud seosed kustutada?"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:597
+msgid "Seotud objekt"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:608
+msgid "Kustuta seos"
+msgstr ""
+
+#: classes/vcl/relpicker.aw:617
+msgid "Kustuta"
+msgstr ""
+

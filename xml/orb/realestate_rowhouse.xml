@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="realestate_rowhouse" folder="www/dev/terryf/automatweb_dev/classes/applications/realestate_management" extends="realestate_property">
+		<action name="pictures_view" nologin="1">
+			<function name="pictures_view">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="print" nologin="1">
+			<function name="print_view">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="contact_type" />
+					<optional name="show_pictures" />
+					<optional name="view_type" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

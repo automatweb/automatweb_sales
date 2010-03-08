@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="xml_export" folder="www/dev/terryf/automatweb_dev/classes/export" extends="class_base">
+		<action name="fetch" nologin="1" all_args="1">
+			<function name="fetch">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="modified" type="int" />
+					<optional name="obj_count" type="int" />
+					<optional name="called_from" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

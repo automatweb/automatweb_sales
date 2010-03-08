@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/rate/rate_scale.aw:class_188_help
+msgid "Klassi H&auml;&auml;letuse skaala help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_rate_clid
+msgid "Omaduse Mis objektit&uuml;&uuml;bile skaala kehtib (rate_clid) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_rate_clid_comment
+msgid "Omaduse Mis objektit&uuml;&uuml;bile skaala kehtib (rate_clid) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_rate_clid_help
+msgid "Omaduse Mis objektit&uuml;&uuml;bile skaala kehtib (rate_clid) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_rate_folders
+msgid "Omaduse Mis kataloogidele skaala kehtib (rate_folders) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_rate_folders_comment
+msgid "Omaduse Mis kataloogidele skaala kehtib (rate_folders) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_rate_folders_help
+msgid "Omaduse Mis kataloogidele skaala kehtib (rate_folders) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_from
+msgid "Omaduse Alates (nr_from) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_from_comment
+msgid "Omaduse Alates (nr_from) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_from_help
+msgid "Omaduse Alates (nr_from) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_to
+msgid "Omaduse Kuni (nr_to) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_to_comment
+msgid "Omaduse Kuni (nr_to) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_to_help
+msgid "Omaduse Kuni (nr_to) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_step
+msgid "Omaduse Aste (nr_step) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_step_comment
+msgid "Omaduse Aste (nr_step) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_step_help
+msgid "Omaduse Aste (nr_step) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_descs
+msgid "Omaduse Tekst hindele (nr_descs) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_descs_comment
+msgid "Omaduse Tekst hindele (nr_descs) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_nr_descs_help
+msgid "Omaduse Tekst hindele (nr_descs) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_no_rate
+msgid "Omaduse Lisa \"ei hinda\" valik (no_rate) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_no_rate_comment
+msgid "Omaduse Lisa \"ei hinda\" valik (no_rate) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:prop_no_rate_help
+msgid "Omaduse Lisa \"ei hinda\" valik (no_rate) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:group_scale
+msgid "Grupi Skaala (scale) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:group_scale_help
+msgid "Grupi Skaala (scale) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:rel_RELTYPE_FOLDER
+msgid "Seose Kehtiv kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate_scale.aw:192
+msgid "ei hinda"
+msgstr ""
+

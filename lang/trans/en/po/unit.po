@@ -1,0 +1,82 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/common/unit.aw:class_1126_help
+msgid "Klassi &Uuml;hik help"
+msgstr ""
+
+#: classes/common/unit.aw:prop_unit_code
+msgid "Omaduse &Uuml;hiku kood (unit_code) caption"
+msgstr "Unit code"
+
+#: classes/common/unit.aw:prop_unit_code_comment
+msgid "Omaduse &Uuml;hiku kood (unit_code) kommentaar"
+msgstr ""
+
+#: classes/common/unit.aw:prop_unit_code_help
+msgid "Omaduse &Uuml;hiku kood (unit_code) help"
+msgstr ""
+
+#: classes/common/unit.aw:prop_unit_sort
+msgid "Omaduse &Uuml;hiku liik (unit_sort) caption"
+msgstr "Unit type"
+
+#: classes/common/unit.aw:prop_unit_sort_comment
+msgid "Omaduse &Uuml;hiku liik (unit_sort) kommentaar"
+msgstr ""
+
+#: classes/common/unit.aw:prop_unit_sort_help
+msgid "Omaduse &Uuml;hiku liik (unit_sort) help"
+msgstr ""
+
+#: classes/common/unit.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/common/unit.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/common/unit.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/common/unit.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/common/unit.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/common/unit.aw:43
+msgid "pikkus&uuml;hik"
+msgstr "lenght unit"
+
+#: classes/common/unit.aw:43
+msgid "massi&uuml;hik"
+msgstr "weight unit"
+
+#: classes/common/unit.aw:43
+msgid "koguse&uuml;hik"
+msgstr "amount unit"
+
+#: classes/common/unit.aw:43
+msgid "mahu&uuml;hik"
+msgstr "capacity unit"
+
+#: classes/common/unit.aw:43
+msgid "aja&uuml;hik"
+msgstr "time unit"
+
+#: classes/common/unit.aw:92
+msgid "--vali--"
+msgstr ""

@@ -1,0 +1,83 @@
+<?xml version='1.0'?>
+<xml>
+<num_0>
+      <class>/core/users/user</class>
+      <func>on_delete_user</func>
+      <param>CL_USER</param>
+</num_0>
+<num_1>
+      <class>/core/users/group</class>
+      <func>on_delete_grp</func>
+      <param>CL_GROUP</param>
+</num_1>
+<num_2>
+      <class>/crm/crm_company</class>
+      <func>on_delete_company</func>
+      <param>CL_CRM_COMPANY</param>
+</num_2>
+<num_3>
+      <class>/applications/crm/crm_bill</class>
+      <func>on_delete_bill</func>
+      <param>CL_CRM_BILL</param>
+</num_3>
+<num_4>
+      <class>/applications/groupware/reservation</class>
+      <func>on_delete_reservation</func>
+      <param>CL_RESERVATION</param>
+</num_4>
+<num_5>
+      <class>/applications/realestate_management/realestate_apartment</class>
+      <func>on_delete</func>
+      <param>CL_REALESTATE_PROPERTY</param>
+</num_5>
+<num_6>
+      <class>/applications/realestate_management/realestate_commercial</class>
+      <func>on_delete</func>
+      <param>CL_REALESTATE_PROPERTY</param>
+</num_6>
+<num_7>
+      <class>/applications/realestate_management/realestate_cottage</class>
+      <func>on_delete</func>
+      <param>CL_REALESTATE_PROPERTY</param>
+</num_7>
+<num_8>
+      <class>/applications/realestate_management/realestate_garage</class>
+      <func>on_delete</func>
+      <param>CL_REALESTATE_PROPERTY</param>
+</num_8>
+<num_9>
+      <class>/applications/realestate_management/realestate_house</class>
+      <func>on_delete</func>
+      <param>CL_REALESTATE_PROPERTY</param>
+</num_9>
+<num_10>
+      <class>/applications/realestate_management/realestate_housepart</class>
+      <func>on_delete</func>
+      <param>CL_REALESTATE_PROPERTY</param>
+</num_10>
+<num_11>
+      <class>/applications/realestate_management/realestate_land</class>
+      <func>on_delete</func>
+      <param>CL_REALESTATE_PROPERTY</param>
+</num_11>
+<num_12>
+      <class>/applications/realestate_management/realestate_property</class>
+      <func>on_delete</func>
+      <param>CL_REALESTATE_PROPERTY</param>
+</num_12>
+<num_13>
+      <class>/applications/realestate_management/realestate_rowhouse</class>
+      <func>on_delete</func>
+      <param>CL_REALESTATE_PROPERTY</param>
+</num_13>
+<num_14>
+      <class>/contentmgmt/site_search/site_search_content_grp</class>
+      <func>on_delete_menu</func>
+      <param>CL_DOCUMENT</param>
+</num_14>
+<num_15>
+      <class>/contentmgmt/promo</class>
+      <func>on_delete_document</func>
+      <param>CL_DOCUMENT</param>
+</num_15>
+</xml>

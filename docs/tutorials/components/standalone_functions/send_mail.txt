@@ -1,0 +1,14 @@
+send_mail($to,$subject,$msg,$headers)
+
+Instead of the PHP mail() function use this if you need to send
+mail from your class/application. This way all the outgoing messages
+go through a single code path, which makes it easy to put
+any additonal headers into the message or do some other or
+change the way sending mail works.
+
+For example, in some situations it may be required to send
+mail through a SMTP server. If that need raises then it
+will be implemented in this function instead of changing
+code in tens of places.
+
+Returns nothing

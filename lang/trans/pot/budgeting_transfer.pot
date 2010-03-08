@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/budgeting/budgeting_transfer.aw:class_1203_help
+msgid "Klassi Eelarvestamise &uuml;lekanne help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_from_acct
+msgid "Omaduse Kontolt (from_acct) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_from_acct_comment
+msgid "Omaduse Kontolt (from_acct) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_from_acct_help
+msgid "Omaduse Kontolt (from_acct) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_to_acct
+msgid "Omaduse Kontole (to_acct) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_to_acct_comment
+msgid "Omaduse Kontole (to_acct) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_to_acct_help
+msgid "Omaduse Kontole (to_acct) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_in_project
+msgid "Omaduse Seoses projektiga (in_project) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_in_project_comment
+msgid "Omaduse Seoses projektiga (in_project) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_in_project_help
+msgid "Omaduse Seoses projektiga (in_project) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_amount
+msgid "Omaduse Summa (amount) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_amount_comment
+msgid "Omaduse Summa (amount) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_amount_help
+msgid "Omaduse Summa (amount) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_when
+msgid "Omaduse Millal (when) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_when_comment
+msgid "Omaduse Millal (when) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_when_help
+msgid "Omaduse Millal (when) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_do_transfer
+msgid "Omaduse Millal (do_transfer) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_do_transfer_comment
+msgid "Omaduse Millal (do_transfer) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:prop_do_transfer_help
+msgid "Omaduse Millal (do_transfer) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:rel_RELTYPE_FROM_ACCT
+msgid "Seose Kontolt (RELTYPE_FROM_ACCT) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:rel_RELTYPE_TO_ACCT
+msgid "Seose Kontole (RELTYPE_TO_ACCT) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:rel_RELTYPE_IN_PROJECT
+msgid "Seose Seoses projektiga (RELTYPE_IN_PROJECT) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_transfer.aw:60
+msgid "Teosta &uuml;lekanne kohe"
+msgstr ""
+

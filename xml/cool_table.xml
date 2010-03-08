@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<definitions>
+<header_normal   value="awmenuedittablehead"/>
+<header_sortable value="awmenuedittablehead"/>
+<header_sorted   value="awmenuedittablehead"/>
+
+<content_style1  value="awmenuedittabletext"/>
+<content_style2  value="awmenuedittabletext"/>
+<content_style1_selected value="awmenuedittabletext"/>
+<content_style2_selected value="awmenuedittabletext"/>
+
+<content_tr_style1  value="cooltablerow"/>
+<content_tr_style2  value="cooltablerow2"/>
+
+<tableattribs border="0" width="100%" cellspacing="1" cellpadding="3"/>
+</definitions>
+
+</tabledef>

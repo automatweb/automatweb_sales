@@ -1,0 +1,81 @@
+Creating classes
+
+
+<tt>duke@debian:~/dev/aw/automatweb_dev$</tt>
+make class
+</tt> </div>
+<pre class="programlisting">
+Hello! I am the AW class-o-maker 3000!
+You will answer these questions:
+
+</pre>
+<div class="cmdsynopsis" id="id2796899"><a name="id2796899"></a><tt><tt>Class def (CL_FOO_BAR):</tt>CL_EXAMPLE
+</tt> </div>
+<div class="cmdsynopsis" id="id2796917"><a name="id2796917"></a><tt><tt>Folder where the class file is (created under AWROOT/classes):</tt>
+</tt> </div>
+<div class="cmdsynopsis" id="id2747471"><a name="id2747471"></a><tt><tt>Class file (foo_bar):</tt>example
+</tt> </div>
+<div class="cmdsynopsis" id="id2747489"><a name="id2747489"></a><tt><tt>Class name, users see this, so be nice (Foo bar):</tt>Example class
+</tt> </div>
+
+<div class="cmdsynopsis" id="id2747509"><a name="id2747509"></a><tt><tt>Can the user add this class? (1/0):</tt>
+</tt> </div>
+<div class="cmdsynopsis" id="id2747527"><a name="id2747527"></a><tt><tt>Class parent folder id(s) (from classfolders.ini):</tt>
+</tt> </div>
+<div class="cmdsynopsis" id="id2747547"><a name="id2747547"></a><tt><tt>Alias (if you leave this empty, then the class can't be added as an alias):</tt>
+</tt> </div>
+<div class="cmdsynopsis" id="id2747567"><a name="id2747567"></a><tt><tt>Syslog type (ST_FOO , goes to syslog.ini):</tt>
+</tt> </div>
+<pre class="programlisting">
+
+Parsing and writing config/ini/classes.ini...
+...got new class_id = 232 ...
+writing to classes.ini:...
+
+classes[232][def] = CL_EXAMPLE
+classes[232][name] = Example class
+classes[232][file] = example
+classes[232][can_add] = 1
+classes[232][parents] = 18
+
+parsing and adding to config/ini/syslog.ini..
+wrote...syslog.types[105][def] = ST_EXAMPLE
+wrote...syslog.types[105][name] = Example class
+
+
+making class example.aw...
+
+created classes/example.aw...
+created xml/orb/example.xml...
+
+
+making ini file...
+
+make[1]: Entering directory `/home/duke/dev/aw/automatweb_dev'
+Generating AW ini file
+make[1]: Leaving directory `/home/duke/dev/aw/automatweb_dev'
+
+
+making properties...
+
+make[1]: Entering directory `/home/duke/dev/aw/automatweb_dev'
+Generating property definitions
+Creating /home/duke/dev/aw/automatweb_dev/xml/properties/example.xml
+
+Updated 1 files out of 142
+All done.
+make[1]: Leaving directory `/home/duke/dev/aw/automatweb_dev'
+
+all done!
+
+</pre>
+And as it said, all is done. A new class file was generated for you along with the orb and property
+definitions and the new class was registered in the classes.ini file. At this point you should go
+and commit classes.ini and syslog.ini in the config/ini folder - this will reserve the class_id for
+you.
+</p><p>
+After this you can go and try out the new class you just created (by creating new object), granted
+there is not much to see there, only a few basic fields and the relation manager, but hey, it's a start 
+and this is where the interesting part - coding additional functionality - begins.
+</p></div>
+

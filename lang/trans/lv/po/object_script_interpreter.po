@@ -1,0 +1,38 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/install/object_script_interpreter.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/install/object_script_interpreter.aw:76
+msgid "object_script_interpreter::exec_file(%s): file does not exist!"
+msgstr ""
+
+#: classes/install/object_script_interpreter.aw:210
+msgid "object_script_interpreter::_get_sym(%s): no variable by the name %s defined on line %s!"
+msgstr ""
+
+#: classes/install/object_script_interpreter.aw:274
+msgid "object_script_interpreter::_tokenize_line(%s): parse error - unrecognized command on line %s!"
+msgstr ""
+
+#: classes/install/object_script_interpreter.aw:282
+msgid "object_script_interpreter::_tokenize_line(%s): parse error no opening brace after command on line %s!"
+msgstr ""
+
+#: classes/install/object_script_interpreter.aw:287
+msgid "object_script_interpreter::_tokenize_line(%s): parse error no closing brace on line %s!"
+msgstr ""
+
+#: classes/install/object_script_interpreter.aw:507
+msgid "object_script_interpreter::_exec_toks(): relation must have both ends defined!"
+msgstr ""

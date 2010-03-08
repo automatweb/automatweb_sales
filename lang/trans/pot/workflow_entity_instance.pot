@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/workflow/workflow_entity_instance.aw:class_254_help
+msgid "Klassi Protsessi kulg help"
+msgstr ""
+
+#: classes/workflow/workflow_entity_instance.aw:prop_entity_type
+msgid "Omaduse Juhtumi t&uuml;&uuml;p (entity_type) caption"
+msgstr ""
+
+#: classes/workflow/workflow_entity_instance.aw:prop_entity_type_comment
+msgid "Omaduse Juhtumi t&uuml;&uuml;p (entity_type) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow_entity_instance.aw:prop_entity_type_help
+msgid "Omaduse Juhtumi t&uuml;&uuml;p (entity_type) help"
+msgstr ""
+
+#: classes/workflow/workflow_entity_instance.aw:prop_state
+msgid "Omaduse Olek (state) caption"
+msgstr ""
+
+#: classes/workflow/workflow_entity_instance.aw:prop_state_comment
+msgid "Omaduse Olek (state) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow_entity_instance.aw:prop_state_help
+msgid "Omaduse Olek (state) help"
+msgstr ""
+
+#: classes/workflow/workflow_entity_instance.aw:prop_obj_id
+msgid "Omaduse Sisuobjekt (obj_id) caption"
+msgstr ""
+
+#: classes/workflow/workflow_entity_instance.aw:prop_obj_id_comment
+msgid "Omaduse Sisuobjekt (obj_id) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow_entity_instance.aw:prop_obj_id_help
+msgid "Omaduse Sisuobjekt (obj_id) help"
+msgstr ""
+

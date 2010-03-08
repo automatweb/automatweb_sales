@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="minify_js_and_css" folder="www/dev/terryf/automatweb_dev/classes/core/util" extends="class_base">
+		<action name="get_js" nologin="1" is_public="1">
+			<function name="get_js">
+				<arguments>
+					<required name="name" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_css" nologin="1" is_public="1">
+			<function name="get_css">
+				<arguments>
+					<required name="name" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

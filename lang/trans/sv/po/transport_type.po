@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/transport_type.aw:class_1365_help
+msgid "Klassi Transportation type help"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_provider
+msgid "Omaduse Transpordi osutaja (provider) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_provider_comment
+msgid "Omaduse Transpordi osutaja (provider) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_provider_help
+msgid "Omaduse Transpordi osutaja (provider) help"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_currency
+msgid "Omaduse Valuutad (currency) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_currency_comment
+msgid "Omaduse Valuutad (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_currency_help
+msgid "Omaduse Valuutad (currency) help"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_prices_tb
+msgid "Omaduse Hindade toolbar (prices_tb) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_prices_tb_comment
+msgid "Omaduse Hindade toolbar (prices_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_prices_tb_help
+msgid "Omaduse Hindade toolbar (prices_tb) help"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_prices_table
+msgid "Omaduse Hindade tabel (prices_table) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_prices_table_comment
+msgid "Omaduse Hindade tabel (prices_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:prop_prices_table_help
+msgid "Omaduse Hindade tabel (prices_table) help"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:rel_RELTYPE_CURRENCY
+msgid "Seose valuutad (RELTYPE_CURRENCY) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:rel_RELTYPE_PROVIDER
+msgid "Seose Transpordi osutaja (RELTYPE_PROVIDER) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:rel_RELTYPE_PRICE
+msgid "Seose Transpordi hind (RELTYPE_PRICE) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:108
+msgid "Lisa uus hind"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:110
+msgid "Lisan uue hinna?"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:115
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:117
+msgid "Oled kindel, et kustutada?"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:165
+msgid "Algus"
+msgstr ""
+
+#: classes/applications/crm/transport_type.aw:169
+msgid "L&otilde;pp"
+msgstr ""
+

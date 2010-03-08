@@ -1,0 +1,132 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:class_1130_help
+msgid "Klassi Kliendi tagasiside help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:prop_fb_tb
+msgid "Omaduse  (fb_tb) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:prop_fb_tb_comment
+msgid "Omaduse  (fb_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:prop_fb_tb_help
+msgid "Omaduse  (fb_tb) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:prop_fb_t
+msgid "Omaduse  (fb_t) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:prop_fb_t_comment
+msgid "Omaduse  (fb_t) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:prop_fb_t_help
+msgid "Omaduse  (fb_t) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:prop_contact_text
+msgid "Omaduse  (contact_text) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:prop_contact_text_comment
+msgid "Omaduse  (contact_text) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:prop_contact_text_help
+msgid "Omaduse  (contact_text) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:group_fb
+msgid "Grupi Tagasiside (fb) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:group_fb_help
+msgid "Grupi Tagasiside (fb) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:group_unsolved
+msgid "Grupi Lahendamisel (unsolved) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:group_unsolved_help
+msgid "Grupi Lahendamisel (unsolved) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:group_solved
+msgid "Grupi Lahendatud (solved) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:group_solved_help
+msgid "Grupi Lahendatud (solved) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:group_contact
+msgid "Grupi Kontaktid (contact) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:group_contact_help
+msgid "Grupi Kontaktid (contact) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:49
+msgid "Struktuur Meedia<br>Automatweb<br><br>P&auml;rnu maantee 145, Tallinn, Estonia<br><a href='http://www.struktuur.ee'>http://www.struktuur.ee</a><Br><a href='mailto:support@automatweb.com'>support@automatweb.com</a>"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:107
+msgid "Isik"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:113
+msgid "ORG"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:119
+msgid "Domeen"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:125
+msgid "Klass"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:131
+msgid "Objekt"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:137
+msgid "Lisatud"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:146
+msgid "T&otilde;sidus"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:152
+msgid "Staatus"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:158
+msgid "Lahendamise aeg"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:167 classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:223
+msgid "Vaata"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:174 classes/applications/customer_satisfaction_center/customer_feedback_manager.aw:227
+msgid "Muuda"
+msgstr ""
+

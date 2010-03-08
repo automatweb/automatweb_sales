@@ -1,0 +1,204 @@
+<?xml version='1.0'?>
+<doctags>
+
+<tag id='stiiltaust'>
+<![CDATA[
+<span class="stiiltaust">\1</span>
+]]>
+</tag>
+
+<tag id='stiilkast'>
+<![CDATA[
+<div class="stiilkast">\1</div>
+]]>
+</tag>
+
+<tag id='peida'>
+<![CDATA[
+]]>
+</tag>
+
+<tag id='ala'>
+<![CDATA[
+<span class="biggertext">\1</span>
+]]>
+</tag>
+
+<tag id='alapealkiri'>
+<![CDATA[
+</font></td><tr><td colspan="3" bgcolor="#004040" valign="middle">
+<font face="tahoma, arial" size="2">
+<b>\1</b>
+</font></td>
+</tr><tr>
+<td colspan="3" valign="middle">
+<font face="tahoma, arial" size="2">
+]]>
+</tag>
+
+<tag id='star'>
+<![CDATA[
+<b><font size="5" face="Tahoma, Arial" color="#FF9900">\1</font></b>
+]]>
+</tag>
+
+<tag id='costar'>
+<![CDATA[
+<b><font face="Tahoma, Arial" size="4" color="#FF9900">\1</font></b>
+]]>
+</tag>
+
+<tag id='sub'>
+<![CDATA[
+<sub>\1</sub>
+]]>
+</tag>
+
+<tag id='sup'>
+<![CDATA[
+<sup>\1</sup>
+]]>
+</tag>
+
+
+<tag id='h3'>
+<![CDATA[
+<font face="Tahoma, Arial" size="3" color="#FFCC33"><b>\1</b></font>
+]]>
+</tag>
+
+<tag id='general'>
+<![CDATA[
+<font size="2" face="Tahoma, Arial"><b><font color="#CCCCCC">\1</font></b></font>
+]]>
+</tag>
+
+<tag id='label'>
+<![CDATA[
+<font size="2" face="Tahoma, Arial"><b><font color="#FFFFFF">\1</font></b></font>
+]]>
+</tag>
+
+<tag id='room'>
+<![CDATA[
+<font size="2" face="Tahoma, Arial"><u><b><font color="#FF6633">\1</font></b></u></font>
+]]>
+</tag>
+
+<tag id='special'>
+<![CDATA[
+<font size="2" face="Tahoma, Arial" color="#FFCC33"><b>\1</b></font>
+]]>
+</tag>
+
+<tag id='info'>
+<![CDATA[
+<div align="justify"><font size="1" face="Arial, Helvetica, sans-serif" color="#C0C0C0">\1</font></div>
+]]>
+</tag>
+
+<tag id='aine'>
+<![CDATA[
+<li>\1</li>
+]]>
+</tag>
+
+<tag id='vasakul'>
+<![CDATA[
+<div align="left">\1</div>
+]]>
+</tag>
+
+<tag id='keskel'>
+<![CDATA[
+<div align="center">\1</div>
+]]>
+</tag>
+
+<tag id='paremal'>
+<![CDATA[
+<div align="right">\1</div>
+]]>
+</tag>
+
+<tag id='ap'>
+<![CDATA[
+<i><b>\1</b></i>
+]]>
+</tag>
+
+<tag id='aw_kast'>
+<![CDATA[
+<div style="width: 100%; border: 1px solid #DCEFE6; padding: 2px; background-color: #FFFFFF">
+<span class="text2">
+\1
+</span>
+</div>
+]]>
+</tag>
+
+<tag id='aw_kast_pealkiri'>
+<![CDATA[
+<div style="width: 100%; background-color: #DCEFE6; height: 20px;">
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr>
+<td class="text2" height="20px;">
+<strong>&nbsp;&nbsp;\1</strong>
+</td>
+</tr>
+</table>
+</div>
+]]>
+</tag>
+
+<tag id='aw_kast_alapealkiri'>
+<![CDATA[
+<div style="width: 100%; border-bottom: 1px solid #DCEFE6;">
+<span class="text"><strong>\1</strong></span>
+</div>
+]]>
+</tag>
+
+<tag id='ala1'>
+<![CDATA[
+<span class="text1">\1</span>
+]]>
+</tag>
+
+<tag id='ala2'>
+<![CDATA[
+<span class="text2">\1</span>
+]]>
+</tag>
+
+<tag id='blocktitle'>
+<![CDATA[
+<table border="0" cellspacing="0" cellpadding="0"><tr><td class="blocktitle">\1</td></tr></table>
+]]>
+</tag>
+
+<tag id='ap'>
+<![CDATA[
+<span class="alapealkiri">\1</span>
+]]>
+</tag>
+
+<tag id='heading3'>
+<![CDATA[
+<span class="heading3">\1</span>
+]]>
+</tag>
+
+<tag id='pun'>
+<![CDATA[
+<span class="textpun">\1</span>
+]]>
+</tag>
+
+<tag id='sin'>
+<![CDATA[
+<span class="textsin">\1</span>
+]]>
+</tag>
+
+</doctags>

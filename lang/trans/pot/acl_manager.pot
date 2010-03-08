@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/vcl/acl_manager.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:25
+msgid "Muuda"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:45
+msgid "Grupp"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:65
+msgid "Jah"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:65
+msgid "Ei"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:92
+msgid "Tabeli legend:<Br>M - %s<br>L - %s<Br>ACL - %s<br>K - %s<br>V - %s<br>Alam - %s<br>J - %s"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:93
+msgid "Muutmine"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:94
+msgid "Lisamine"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:95
+msgid "ACL Muutmine"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:96
+msgid "Kustutamine"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:97
+msgid "Vaatamine"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:98
+msgid "Kehtib alamobjektidele"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:99 classes/vcl/acl_manager.aw:165
+msgid "Juurkaust"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:137
+msgid "Nimi"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:141
+msgid "M"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:142
+msgid "L"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:143
+msgid "ACL"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:144
+msgid "K"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:145
+msgid "V"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:146
+msgid "ALAM"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:164
+msgid "J"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:171
+msgid "M&auml;&auml;ra"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:215 classes/vcl/acl_manager.aw:305
+msgid "no group for user %s!"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:254
+msgid "Salvesta &otilde;igused"
+msgstr ""
+
+#: classes/vcl/acl_manager.aw:276
+msgid "Teil ei ole &otilde;igust muuta objekti %s &otilde;igusi!"
+msgstr ""
+

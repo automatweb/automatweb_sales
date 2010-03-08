@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_product_single.aw:class_1462_help
+msgid "Klassi &Uuml;ksiktoode help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:prop_product
+msgid "Omaduse Artikkel (product) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:prop_product_comment
+msgid "Omaduse Artikkel (product) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:prop_product_help
+msgid "Omaduse Artikkel (product) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:prop_type
+msgid "Omaduse T&uuml;&uuml;p (type) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:prop_type_comment
+msgid "Omaduse T&uuml;&uuml;p (type) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:prop_type_help
+msgid "Omaduse T&uuml;&uuml;p (type) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:rel_RELTYPE_PRODUCT
+msgid "Seose Artikkel (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:66
+msgid "&Uuml;ksiktoode"
+msgstr ""
+
+#: classes/applications/shop/shop_product_single.aw:67
+msgid "Partii"
+msgstr ""
+

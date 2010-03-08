@@ -1,0 +1,230 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/groupware/task_quick_entry.aw:class_1070_help
+msgid "Klassi Kiire toimetuse lisamine help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_date
+msgid "Omaduse Aeg (date) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_date_comment
+msgid "Omaduse Aeg (date) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_date_help
+msgid "Omaduse Aeg (date) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_orderer
+msgid "Omaduse Tellija (orderer) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_orderer_comment
+msgid "Omaduse Tellija (orderer) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_orderer_help
+msgid "Omaduse Tellija (orderer) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_cust_type
+msgid "Omaduse Kliendi t&uuml;&uuml;p (cust_type) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_cust_type_comment
+msgid "Omaduse Kliendi t&uuml;&uuml;p (cust_type) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_cust_type_help
+msgid "Omaduse Kliendi t&uuml;&uuml;p (cust_type) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_customer_name
+msgid "Omaduse Klient - vaid olemasolev mitte lisamiseks (customer_name) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_customer_name_comment
+msgid "Omaduse Klient - vaid olemasolev mitte lisamiseks (customer_name) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_customer_name_help
+msgid "Omaduse Klient - vaid olemasolev mitte lisamiseks (customer_name) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_custp_fn
+msgid "Omaduse Eesnimi (custp_fn) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_custp_fn_comment
+msgid "Omaduse Eesnimi (custp_fn) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_custp_fn_help
+msgid "Omaduse Eesnimi (custp_fn) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_custp_ln
+msgid "Omaduse Perenimi (custp_ln) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_custp_ln_comment
+msgid "Omaduse Perenimi (custp_ln) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_custp_ln_help
+msgid "Omaduse Perenimi (custp_ln) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_project
+msgid "Omaduse Projekt (project) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_project_comment
+msgid "Omaduse Projekt (project) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_project_help
+msgid "Omaduse Projekt (project) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_task
+msgid "Omaduse Toimetus (task) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_task_comment
+msgid "Omaduse Toimetus (task) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_task_help
+msgid "Omaduse Toimetus (task) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_duration
+msgid "Omaduse Kestvus (duration) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_duration_comment
+msgid "Omaduse Kestvus (duration) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_duration_help
+msgid "Omaduse Kestvus (duration) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_submit_but
+msgid "Omaduse Salvesta (submit_but) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_submit_but_comment
+msgid "Omaduse Salvesta (submit_but) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_submit_but_help
+msgid "Omaduse Salvesta (submit_but) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_submit_and_add
+msgid "Omaduse &nbsp; (submit_and_add) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_submit_and_add_comment
+msgid "Omaduse &nbsp; (submit_and_add) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_submit_and_add_help
+msgid "Omaduse &nbsp; (submit_and_add) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_parts
+msgid "Omaduse Osalejad (parts) caption"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_parts_comment
+msgid "Omaduse Osalejad (parts) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:prop_parts_help
+msgid "Omaduse Osalejad (parts) help"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:layout_general_up
+msgid "Kujundusosa &Uuml;ldinfo (general_up) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:layout_general_down
+msgid "Kujundusosa Osalejad (general_down) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:107
+msgid "Salvesta ja lisa uus"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:153
+msgid "Organisatsioon"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:153
+msgid "Isik"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:183
+msgid "--Vali--"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:219
+msgid "K&otilde;ik v&auml;ljad peavad olema t&auml;idetud!"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:777
+msgid "klient"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:777
+msgid "puudub andmebaasist!"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:862
+msgid "Klienti nimega %s ei ole olemas, kui vajutate ok, lisatakse\n"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:884
+msgid "Projekti nimega %s ei ole olemas, kui vajutate ok, lisatakse\n"
+msgstr ""
+
+#: classes/applications/groupware/task_quick_entry.aw:907
+msgid "Toimetust nimega %s ei ole olemas, kui vajutate ok, lisatakse\n"
+msgstr ""

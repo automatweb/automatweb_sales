@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="id_config" folder="www/dev/terryf/automatweb_dev/classes/core/users" extends="class_base">
+		<action name="rem_pid" all_args="1">
+			<function name="rem_pid">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

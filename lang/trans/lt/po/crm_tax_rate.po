@@ -1,0 +1,108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_tax_rate.aw:class_1046_help
+msgid "Klassi Maksum&auml;&auml;r help"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_tax_type
+msgid "Omaduse Maksu liik (tax_type) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_tax_type_comment
+msgid "Omaduse Maksu liik (tax_type) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_tax_type_help
+msgid "Omaduse Maksu liik (tax_type) help"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_tax_amt
+msgid "Omaduse Maksum&auml;&auml;r (%) (tax_amt) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_tax_amt_comment
+msgid "Omaduse Maksum&auml;&auml;r (%) (tax_amt) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_tax_amt_help
+msgid "Omaduse Maksum&auml;&auml;r (%) (tax_amt) help"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_act_from
+msgid "Omaduse Kehtib alates (act_from) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_act_from_comment
+msgid "Omaduse Kehtib alates (act_from) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_act_from_help
+msgid "Omaduse Kehtib alates (act_from) help"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_act_to
+msgid "Omaduse Kehtib kuni (act_to) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_act_to_comment
+msgid "Omaduse Kehtib kuni (act_to) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_act_to_help
+msgid "Omaduse Kehtib kuni (act_to) help"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_code
+msgid "Omaduse K&auml;ibemaksukood (code) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_code_comment
+msgid "Omaduse K&auml;ibemaksukood (code) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_code_help
+msgid "Omaduse K&auml;ibemaksukood (code) help"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_acct
+msgid "Omaduse Kontonumber (acct) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_acct_comment
+msgid "Omaduse Kontonumber (acct) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:prop_acct_help
+msgid "Omaduse Kontonumber (acct) help"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:42
+msgid "K&auml;ibemaks"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:43
+msgid "&Uuml;ksikisiku tulumaks"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:44
+msgid "Ettev&otilde;tte tulumaks"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:45
+msgid "Sotsiaalmaks"
+msgstr ""
+
+#: classes/applications/crm/crm_tax_rate.aw:46
+msgid "T&ouml;&ouml;tuskindlustusmaks"
+msgstr ""
+

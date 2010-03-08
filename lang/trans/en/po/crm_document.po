@@ -1,0 +1,355 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2005-12-04 21:58+0200\n"
+"Last-Translator: Erki <erki@struktuur.ee>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_document.aw:class_1007_help
+msgid "Klassi CRM Dokument help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_project
+msgid "Omaduse Projekt (project) caption"
+msgstr "Project"
+
+#: classes/applications/crm/crm_document.aw:prop_project_comment
+msgid "Omaduse Projekt (project) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_project_help
+msgid "Omaduse Projekt (project) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_task
+msgid "Omaduse &Uuml;lesanne (task) caption"
+msgstr "Task"
+
+#: classes/applications/crm/crm_document.aw:prop_task_comment
+msgid "Omaduse &Uuml;lesanne (task) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_task_help
+msgid "Omaduse &Uuml;lesanne (task) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr "Customer"
+
+#: classes/applications/crm/crm_document.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_creator
+msgid "Omaduse Koostaja (creator) caption"
+msgstr "Created by"
+
+#: classes/applications/crm/crm_document.aw:prop_creator_comment
+msgid "Omaduse Koostaja (creator) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_creator_help
+msgid "Omaduse Koostaja (creator) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_reader
+msgid "Omaduse Lugeja (reader) caption"
+msgstr "Reader"
+
+#: classes/applications/crm/crm_document.aw:prop_reader_comment
+msgid "Omaduse Lugeja (reader) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_reader_help
+msgid "Omaduse Lugeja (reader) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_state
+msgid "Omaduse Staatus (state) caption"
+msgstr "Status"
+
+#: classes/applications/crm/crm_document.aw:prop_state_comment
+msgid "Omaduse Staatus (state) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_state_help
+msgid "Omaduse Staatus (state) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_reg_date
+msgid "Omaduse Reg kuup&auml;ev (reg_date) caption"
+msgstr "Registration date"
+
+#: classes/applications/crm/crm_document.aw:prop_reg_date_comment
+msgid "Omaduse Reg kuup&auml;ev (reg_date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_reg_date_help
+msgid "Omaduse Reg kuup&auml;ev (reg_date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_make_date
+msgid "Omaduse Koostamise kuup&auml;ev (make_date) caption"
+msgstr "Creation date"
+
+#: classes/applications/crm/crm_document.aw:prop_make_date_comment
+msgid "Omaduse Koostamise kuup&auml;ev (make_date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_make_date_help
+msgid "Omaduse Koostamise kuup&auml;ev (make_date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_reg_nr
+msgid "Omaduse Registreerimisnumber (reg_nr) caption"
+msgstr "Registration no"
+
+#: classes/applications/crm/crm_document.aw:prop_reg_nr_comment
+msgid "Omaduse Registreerimisnumber (reg_nr) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_reg_nr_help
+msgid "Omaduse Registreerimisnumber (reg_nr) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_comment
+msgid "Omaduse Kirjeldus (comment) caption"
+msgstr "Description"
+
+#: classes/applications/crm/crm_document.aw:prop_comment_comment
+msgid "Omaduse Kirjeldus (comment) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_comment_help
+msgid "Omaduse Kirjeldus (comment) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_files
+msgid "Omaduse Failid (files) caption"
+msgstr "Files"
+
+#: classes/applications/crm/crm_document.aw:prop_files_comment
+msgid "Omaduse Failid (files) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_files_help
+msgid "Omaduse Failid (files) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_parts_tb
+msgid "Omaduse  (parts_tb) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_parts_tb_comment
+msgid "Omaduse  (parts_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_parts_tb_help
+msgid "Omaduse  (parts_tb) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_acts
+msgid "Omaduse Tegevused (acts) caption"
+msgstr "Actions"
+
+#: classes/applications/crm/crm_document.aw:prop_acts_comment
+msgid "Omaduse Tegevused (acts) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_acts_help
+msgid "Omaduse Tegevused (acts) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_acl
+msgid "Omaduse &Otilde;igused (acl) caption"
+msgstr "Rights"
+
+#: classes/applications/crm/crm_document.aw:prop_acl_comment
+msgid "Omaduse &Otilde;igused (acl) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_acl_help
+msgid "Omaduse &Otilde;igused (acl) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_tb
+msgid "Omaduse  (sp_tb) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_tb_comment
+msgid "Omaduse  (sp_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_tb_help
+msgid "Omaduse  (sp_tb) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_table
+msgid "Omaduse Valitud isikud (sp_table) caption"
+msgstr "Selected persons"
+
+#: classes/applications/crm/crm_document.aw:prop_sp_table_comment
+msgid "Omaduse Valitud isikud (sp_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_table_help
+msgid "Omaduse Valitud isikud (sp_table) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_p_name
+msgid "Omaduse Isik (sp_p_name) caption"
+msgstr "Person"
+
+#: classes/applications/crm/crm_document.aw:prop_sp_p_name_comment
+msgid "Omaduse Isik (sp_p_name) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_p_name_help
+msgid "Omaduse Isik (sp_p_name) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_p_co
+msgid "Omaduse Organisatsioon (sp_p_co) caption"
+msgstr "Organisation"
+
+#: classes/applications/crm/crm_document.aw:prop_sp_p_co_comment
+msgid "Omaduse Organisatsioon (sp_p_co) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_p_co_help
+msgid "Omaduse Organisatsioon (sp_p_co) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_sbt
+msgid "Omaduse Otsi (sp_sbt) caption"
+msgstr "Search"
+
+#: classes/applications/crm/crm_document.aw:prop_sp_sbt_comment
+msgid "Omaduse Otsi (sp_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_sbt_help
+msgid "Omaduse Otsi (sp_sbt) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_s_res
+msgid "Omaduse Otsingu tulemused (sp_s_res) caption"
+msgstr "Search results"
+
+#: classes/applications/crm/crm_document.aw:prop_sp_s_res_comment
+msgid "Omaduse Otsingu tulemused (sp_s_res) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:prop_sp_s_res_help
+msgid "Omaduse Otsingu tulemused (sp_s_res) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:group_acl
+msgid "Grupi &Otilde;igused (acl) pealkiri"
+msgstr "Rights"
+
+#: classes/applications/crm/crm_document.aw:group_acl_help
+msgid "Grupi &Otilde;igused (acl) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:group_files
+msgid "Grupi Failid (files) pealkiri"
+msgstr "Files"
+
+#: classes/applications/crm/crm_document.aw:group_files_help
+msgid "Grupi Failid (files) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:group_parts_main
+msgid "Grupi Osalejad (parts_main) pealkiri"
+msgstr "Participants"
+
+#: classes/applications/crm/crm_document.aw:group_parts_main_help
+msgid "Grupi Osalejad (parts_main) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:group_parts
+msgid "Grupi Osalejad (parts) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:group_parts_help
+msgid "Grupi Osalejad (parts) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:group_notify
+msgid "Grupi Teavitamine (notify) pealkiri"
+msgstr "Notifications"
+
+#: classes/applications/crm/crm_document.aw:group_notify_help
+msgid "Grupi Teavitamine (notify) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document.aw:rel_RELTYPE_FILE
+msgid "Seose fail (RELTYPE_FILE) tekst"
+msgstr "file"
+
+#: classes/applications/crm/crm_document.aw:rel_RELTYPE_CREATOR
+msgid "Seose looja (RELTYPE_CREATOR) tekst"
+msgstr "created by"
+
+#: classes/applications/crm/crm_document.aw:rel_RELTYPE_READER
+msgid "Seose lugeja (RELTYPE_READER) tekst"
+msgstr "reader"
+
+#: classes/applications/crm/crm_document.aw:rel_RELTYPE_ACTION
+msgid "Seose Tegevus (RELTYPE_ACTION) tekst"
+msgstr "Action"
+
+#: classes/applications/crm/crm_document.aw:181
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/applications/crm/crm_document.aw:187
+msgid "Kustuta"
+msgstr "Delete"
+
+#: classes/applications/crm/crm_document.aw:194
+msgid "Saada teavitusmeil"
+msgstr "Send notification"
+
+#: classes/applications/crm/crm_document.aw:205
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/crm/crm_document.aw:210
+msgid "Organisatsioon"
+msgstr "Organisation"
+
+#: classes/applications/crm/crm_document.aw:215
+msgid "Telefon"
+msgstr "Phone"
+
+#: classes/applications/crm/crm_document.aw:220
+msgid "E-mail"
+msgstr "E-mail"
+
+#: classes/applications/crm/crm_document.aw:380
+msgid "Teavitus muutunud dokumendist"
+msgstr "Notification about modified document"
+
+#: classes/applications/crm/crm_document.aw:381
+msgid ""
+\"Uuendati dokumenti \"%s\". Palun kliki siia:\n"
+"%s\n"
+"et dokumenti näha!"
+msgstr "Document \"%s\" was changed. Please click here:\n"
+"%s\n"
+"to view this!"
+
+#~ msgid "Grupi Üldine (general) pealkiri"
+#~ msgstr "General"

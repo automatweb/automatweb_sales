@@ -1,0 +1,58 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="scheduler" folder="www/dev/terryf/automatweb_dev/classes/core" extends="aw_template">
+		<action name="update_repeaters" nologin="1">
+			<function name="update_repeaters">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_events" default="1" nologin="1">
+			<function name="do_events">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<optional name="sortby" />
+					<optional name="sort_order" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_log">
+			<function name="show_log">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_log_entry">
+			<function name="show_log_entry">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="list_entries">
+			<function name="list_entries">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="static_sched" nologin="1">
+			<function name="static_sched">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

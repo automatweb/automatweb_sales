@@ -1,0 +1,4 @@
+is_date($param)
+
+Returns: true or false depending on whether the argument is a date
+formatted as DD-MM-YYYY

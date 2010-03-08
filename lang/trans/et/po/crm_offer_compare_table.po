@@ -1,0 +1,127 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/crm/crm_offer_compare_table.aw:class_924_help
+#: classes/crm/crm_offer_compare_table.aw:class_924_help
+msgid "Klassi Pakkumise v&otilde;rdlustabel help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:prop_columns
+#: classes/crm/crm_offer_compare_table.aw:prop_columns
+msgid "Omaduse Tulbad (columns) caption"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:prop_columns_comment
+#: classes/crm/crm_offer_compare_table.aw:prop_columns_comment
+msgid "Omaduse Tulbad (columns) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:prop_columns_help
+#: classes/crm/crm_offer_compare_table.aw:prop_columns_help
+msgid "Omaduse Tulbad (columns) help"
+msgstr ""
+
+#: classes/crm/crm_offer_compare_table.aw:prop_rows
+msgid "Omaduse Read (rows) caption"
+msgstr ""
+
+#: classes/crm/crm_offer_compare_table.aw:prop_rows_comment
+msgid "Omaduse Read (rows) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_offer_compare_table.aw:prop_rows_help
+msgid "Omaduse Read (rows) help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:prop_content
+#: classes/crm/crm_offer_compare_table.aw:prop_content
+msgid "Omaduse  (content) caption"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:prop_content_comment
+#: classes/crm/crm_offer_compare_table.aw:prop_content_comment
+msgid "Omaduse  (content) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:prop_content_help
+#: classes/crm/crm_offer_compare_table.aw:prop_content_help
+msgid "Omaduse  (content) help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:prop_preview
+#: classes/crm/crm_offer_compare_table.aw:prop_preview
+msgid "Omaduse  (preview) caption"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:prop_preview_comment
+#: classes/crm/crm_offer_compare_table.aw:prop_preview_comment
+msgid "Omaduse  (preview) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:prop_preview_help
+#: classes/crm/crm_offer_compare_table.aw:prop_preview_help
+msgid "Omaduse  (preview) help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:group_columns
+#: classes/crm/crm_offer_compare_table.aw:group_columns
+msgid "Grupi Tulbad (columns) pealkiri"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:group_columns_help
+#: classes/crm/crm_offer_compare_table.aw:group_columns_help
+msgid "Grupi Tulbad (columns) help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:group_rows
+#: classes/crm/crm_offer_compare_table.aw:group_rows
+msgid "Grupi Read (rows) pealkiri"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:group_rows_help
+#: classes/crm/crm_offer_compare_table.aw:group_rows_help
+msgid "Grupi Read (rows) help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:group_content
+#: classes/crm/crm_offer_compare_table.aw:group_content
+msgid "Grupi Sisu (content) pealkiri"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:group_content_help
+#: classes/crm/crm_offer_compare_table.aw:group_content_help
+msgid "Grupi Sisu (content) help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:group_preview
+#: classes/crm/crm_offer_compare_table.aw:group_preview
+msgid "Grupi Eelvaade (preview) pealkiri"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:group_preview_help
+#: classes/crm/crm_offer_compare_table.aw:group_preview_help
+msgid "Grupi Eelvaade (preview) help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:rel_RELTYPE_COLUMN
+#: classes/crm/crm_offer_compare_table.aw:rel_RELTYPE_COLUMN
+msgid "Seose tulp (RELTYPE_COLUMN) tekst"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table.aw:rel_RELTYPE_ROW
+#: classes/crm/crm_offer_compare_table.aw:rel_RELTYPE_ROW
+msgid "Seose rida (RELTYPE_ROW) tekst"
+msgstr ""
+
+#: classes/crm/crm_offer_compare_table.aw:95
+#: classes/crm/crm_offer_compare_table.aw:101
+msgid "&nbsp;"
+msgstr ""

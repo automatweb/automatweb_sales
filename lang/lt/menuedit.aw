@@ -1,0 +1,108 @@
+<?php
+define("MN_ROOT","Root");
+define("MN_PERIODIC_ROOT","Period ");
+
+define("MN_ACTIVE"," A");
+define("MN_PERIODIC","Nonperiodic");
+
+define("MN_E_NO_HOMEFOLDER","No home folder defined for '%s'");
+
+global $lc_menuedit;
+$lc_menuedit["LC_JOIN_LIST"] = "Join mailinglist";
+$lc_menuedit["LC_MENUEDIT_CLASS"] = "Class";
+$lc_menuedit["LC_MENUEDIT_COMMENT"] = "Comment";
+$lc_menuedit["LC_MENUEDIT_SAVE"] = "Save";
+$lc_menuedit["LC_MENUEDIT_NAME"] = "Name";
+$lc_menuedit["LC_MENUEDIT_PROMO_WHERE"] = "Choose, under which menus the box will be shown";
+$lc_menuedit["LC_MENUEDIT_PROMO_ALL"] = "All menus";
+$lc_menuedit["LC_MENUEDIT_LINK"] = "Link";
+$lc_menuedit["LC_MENUEDIT_TYPE"] = "Type";
+$lc_menuedit["LC_MENUEDIT_RIGHT"] = "Right";
+$lc_menuedit["LC_MENUEDIT_LEFT"] = "Left";
+$lc_menuedit["LC_MENUEDIT_PROMO_SCROLL"] = "Scrolling";
+$lc_menuedit["LC_MENUEDIT_TEMPL_EDIT"] = "Template (to edit)";
+$lc_menuedit["LC_MENUEDIT_TEMPL_SHOW"] = "Template (to show)";
+$lc_menuedit["LC_MENUEDIT_MENU_GENERAL"] = "General";
+$lc_menuedit["LC_MENUEDIT_MENU_TEMPLATES"] = "Templates";
+$lc_menuedit["LC_MENUEDIT_MENU_AUTOMATIC"] = "Automatic actions";
+$lc_menuedit["LC_MENUEDIT_BROTHERING"] = "Brothering";
+$lc_menuedit["LC_MENUEDIT_DOCUMENTS"] = "Documents";
+$lc_menuedit["LC_MENUEDIT_OBJECT"] = "Object";
+$lc_menuedit["LC_MENUEDIT_CREATED"] = "Created";
+$lc_menuedit["LC_MENUEDIT_MODIFIED"] = "Modified";
+$lc_menuedit["LC_MENUEDIT_SETTINGS"] = "Settings";
+$lc_menuedit["LC_MENUEDIT_ACTIVE"] = "Active";
+$lc_menuedit["LC_MENUEDIT_CLICKABLE"] = "Clickable";
+$lc_menuedit["LC_MENUEDIT_NEW_WINDOW"] = "New window";
+$lc_menuedit["LC_MENUEDIT_HIDE_NOACT"] = "NaIND";
+$lc_menuedit["LC_MENUEDIT_CENTERED"] = "Centered";
+$lc_menuedit["LC_MENUEDIT_BROTHER_WHICH"] = "This is brothered menu, which older brother is";
+$lc_menuedit["LC_MENUEDIT_HERE"] = "here";
+$lc_menuedit["LC_MENUEDIT_TEMPL_SHORT"] = "Short / lead only";
+$lc_menuedit["LC_MENUEDIT_ACTIVATE"] = "Activate";
+$lc_menuedit["LC_MENUEDIT_DEACTIVATE"] = "Deactivate";
+$lc_menuedit["LC_MENUEDIT_MENU_SECTIONS"] = "Choose, under which menus this menu is also shown";
+$lc_menuedit["LC_MENUEDIT_LAST_DOCUMENTS"] = "Choose from which menus documents are taken";
+$lc_menuedit["LC_MENUEDIT_LAST_DOCUMENTS_AMOUNT"] = "How many last documents";
+$lc_menuedit["LC_MENUEDIT_SECTIONS"] = "Sections";
+$lc_menuedit["LC_MENUEDIT_PERIODS"] = "Periods";
+$lc_menuedit["LC_MENUEDIT_SURE_DELETE_DOCUMENT"] = "Are You sure, You wish to delete this document";
+$lc_menuedit["LC_MENUEDIT_FORMS_CHOOSE_OUTPUT"] = "Choose output style from lisbox!";
+$lc_menuedit["LC_MENUEDIT_FORMS_CHOOSE_ENTRY"] = "Chose form entry!";
+$lc_menuedit["LC_MENUEDIT_SHOW"] = "Show";
+$lc_menuedit["LC_MENUEDIT_MODIFY"] = "Modify";
+$lc_menuedit["LC_MENUEDIT_REFRESH"] = "Refresh";
+$lc_menuedit["LC_MENUEDIT_FORM_FILLER"] = "Filler";
+$lc_menuedit["LC_MENUEDIT_FORM_VIEWS"] = "Views";
+$lc_menuedit["LC_MENUEDIT_FORM_NAME"] = "Form name";
+$lc_menuedit["LC_MENUEDIT_CHOOSE"] = "Choose";
+$lc_menuedit["LC_MENUEDIT_IMPORT_MENUS"] = "Import menus";
+$lc_menuedit["LC_MENUEDIT_CHOOSE_FILE"] = "Choose file";
+$lc_menuedit["LC_MENUEDIT_IMPORT"] = "Import";
+$lc_menuedit["LC_MENUEDIT_STYLE"] = "Style";
+$lc_menuedit["LC_MENUEDIT_RADIOBUTTONS"] = "Radiobuttons";
+$lc_menuedit["LC_MENUEDIT_CHECKBOXES"] = "Checkboxes";
+$lc_menuedit["LC_MENUEDIT_LISTBOX"] = "Listbox";
+$lc_menuedit["LC_MENUEDIT_ADD"] = "Add";
+$lc_menuedit["LC_MENUEDIT_OBJECTS"] = "OBJECTS";
+$lc_menuedit["LC_MENUEDIT_CHANGE"] = "Change";
+$lc_menuedit["LC_MENUEDIT_DELETE"] = "Delete";
+$lc_menuedit["LC_MENUEDIT_ORDER"] = "Order";
+$lc_menuedit["LC_MENUEDIT_MODIFIED_BY"] = "Modified by";
+$lc_menuedit["LC_MENUEDIT_LEAD"] = "Lead";
+$lc_menuedit["LC_MENUEDIT_FORUM"] = "Forum";
+$lc_menuedit["LC_MENUEDIT_FRONTPAGE"] = "Front page";
+$lc_menuedit["LC_MENUEDIT_TEXT"] = "Text";
+$lc_menuedit["LC_MENUEDIT_PICTURES"] = "Pictures";
+$lc_menuedit["LC_MENUEDIT_MENU_LOOK_MORE"] = "See also";
+$lc_menuedit["LC_MENUEDIT_PICTURE"] = "Picture";
+$lc_menuedit["LC_MENUEDIT_EXPORT"] = "Eksport";
+$lc_menuedit["LC_MENUEDIT_NO_TEST"] = "Number for tests";
+$lc_menuedit["LC_MENUEDIT_WIDTH"] = "Width";
+$lc_menuedit["LC_MENUEDIT_ICON"] = "Icon";
+$lc_menuedit["LC_MENUEDIT_CHOOSE_PROGRAM"] = "Choose program";
+$lc_menuedit["LC_MENUEDIT_LINK_COLLECTION"] = "Link collection";
+$lc_menuedit["LC_MENUEDIT_LEFT_PANE"] = "Left pane";
+$lc_menuedit["LC_MENUEDIT_RIGHT_PANE"] = "Right pane";
+$lc_menuedit["LC_MENUEDIT_ITEMS_SBS"] = "Items sbs";
+$lc_menuedit["LC_MENUEDIT_IGNORE_NEXT"] = "Ignore next";
+$lc_menuedit["LC_MENUEDIT_CHOOSE_MENUS"] = "Choose menus";
+$lc_menuedit["LC_MENUEDIT_SELECT_ALL_MENUS"] = "Mark all menus active";
+$lc_menuedit["LC_MENUEDIT_EXPORT_ICONS"] = "Export icons";
+$lc_menuedit["LC_MENUEDIT_SELECT_SUBMENUS"] = "Choose menus, which should be submenus on left";
+$lc_menuedit["LC_MENUEDIT_MENU_CAPS"] = "MENU";
+$lc_menuedit["LC_MENUEDIT_ADD_PROMO_BOX"] = "Add promo box";
+$lc_menuedit["LC_MENUEDIT_PERIODIC"] = "Periodical";
+$lc_menuedit["LC_MENUEDIT_ACTION"] = "Action";
+$lc_menuedit["LC_MENUEDIT_PROPERTIES"] = "Properties";
+$lc_menuedit["LC_MENUEDIT_SURE_DELETE_MENU"] = "Are You sure You wish to delete this menu?";
+$lc_menuedit["LC_MENUEDIT_PERIOD"] = "Period";
+$lc_menuedit["LC_MENUEDIT_CHOOSE_KEYWORDS"] = "Keywords";
+$lc_menuedit["LC_MENUEDIT_DISPLAY"] = "Display";
+$lc_menuedit["LC_MENUEDIT_OTHER_SETTINGS"] = "Other Settings";
+$lc_menuedit["LC_LOGIN_CAPTION"] = "Log in";
+
+
+
+
+?>

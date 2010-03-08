@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mrp_schedule" folder="www/dev/terryf/automatweb_dev/classes/mrp" extends="db_connector">
+		<action name="create">
+			<function name="create">
+				<arguments>
+					<required name="mrp_workspace" type="oid" />
+					<optional name="mrp_force_replan" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

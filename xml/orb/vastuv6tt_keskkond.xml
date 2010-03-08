@@ -1,0 +1,26 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="vastuv6tt_keskkond" folder="www/dev/terryf/automatweb_dev/classes/vastuv6tt" extends="class_base">
+		<action name="search">
+			<function name="sisseastuja_otsing">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mydelete">
+			<function name="kustuta_minu_sisseastuja">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="generate_html">
+			<function name="veebiv2ljund">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

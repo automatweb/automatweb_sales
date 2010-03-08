@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="awplayer" folder="applications/awplayer" extends="class_base">
+		<action name="play" nologin="1" is_public="1">
+			<function name="play">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="playlist" nologin="1" is_public="1">
+			<function name="playlist">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

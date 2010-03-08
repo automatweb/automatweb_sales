@@ -1,0 +1,472 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/cfg/cb_search.aw:class_428_help
+#: classes/cfg/cb_search.aw:class_428_help
+msgid "Klassi Classbase otsing help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_root_class
+#: classes/cfg/cb_search.aw:prop_root_class
+msgid "Omaduse Juurklass (root_class) caption"
+msgstr "Root class"
+
+# classes/cfg/cb_search.aw:prop_root_class_comment
+#: classes/cfg/cb_search.aw:prop_root_class_comment
+msgid "Omaduse Juurklass (root_class) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_root_class_help
+#: classes/cfg/cb_search.aw:prop_root_class_help
+msgid "Omaduse Juurklass (root_class) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_root_class_cf
+#: classes/cfg/cb_search.aw:prop_root_class_cf
+msgid "Omaduse Seadete vorm (root_class_cf) caption"
+msgstr "Configuration form"
+
+# classes/cfg/cb_search.aw:prop_root_class_cf_comment
+#: classes/cfg/cb_search.aw:prop_root_class_cf_comment
+msgid "Omaduse Seadete vorm (root_class_cf) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_root_class_cf_help
+#: classes/cfg/cb_search.aw:prop_root_class_cf_help
+msgid "Omaduse Seadete vorm (root_class_cf) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_root_class_ot
+#: classes/cfg/cb_search.aw:prop_root_class_ot
+msgid "Omaduse Objektit&uuml;&uuml;p (root_class_ot) caption"
+msgstr "Object type"
+
+# classes/cfg/cb_search.aw:prop_root_class_ot_comment
+#: classes/cfg/cb_search.aw:prop_root_class_ot_comment
+msgid "Omaduse Objektit&uuml;&uuml;p (root_class_ot) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_root_class_ot_help
+#: classes/cfg/cb_search.aw:prop_root_class_ot_help
+msgid "Omaduse Objektit&uuml;&uuml;p (root_class_ot) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_next_connection
+#: classes/cfg/cb_search.aw:prop_next_connection
+msgid "Omaduse Where do you want to go from here? (next_connection) caption"
+msgstr "Where do you want to go from here?"
+
+# classes/cfg/cb_search.aw:prop_next_connection_comment
+#: classes/cfg/cb_search.aw:prop_next_connection_comment
+msgid "Omaduse Where do you want to go from here? (next_connection) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_next_connection_help
+#: classes/cfg/cb_search.aw:prop_next_connection_help
+msgid "Omaduse Where do you want to go from here? (next_connection) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_view_cf
+#: classes/cfg/cb_search.aw:prop_view_cf
+msgid "Omaduse Vaatamise seadete vorm (view_cf) caption"
+msgstr "Display configuration form"
+
+# classes/cfg/cb_search.aw:prop_view_cf_comment
+#: classes/cfg/cb_search.aw:prop_view_cf_comment
+msgid "Omaduse Vaatamise seadete vorm (view_cf) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_view_cf_help
+#: classes/cfg/cb_search.aw:prop_view_cf_help
+msgid "Omaduse Vaatamise seadete vorm (view_cf) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_show_non_cf_fields
+#: classes/cfg/cb_search.aw:prop_show_non_cf_fields
+msgid "Omaduse N&auml;ita ka v&auml;lju, mis ei ole seadete vormis (show_non_cf_fields) caption"
+msgstr "Display fields not in config form"
+
+# classes/cfg/cb_search.aw:prop_show_non_cf_fields_comment
+#: classes/cfg/cb_search.aw:prop_show_non_cf_fields_comment
+msgid "Omaduse N&auml;ita ka v&auml;lju, mis ei ole seadete vormis (show_non_cf_fields) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_show_non_cf_fields_help
+#: classes/cfg/cb_search.aw:prop_show_non_cf_fields_help
+msgid "Omaduse N&auml;ita ka v&auml;lju, mis ei ole seadete vormis (show_non_cf_fields) help"
+msgstr ""
+
+#: classes/cfg/cb_search.aw:prop_max_results
+msgid "Omaduse Tulemuste arv (max_results) caption"
+msgstr ""
+
+#: classes/cfg/cb_search.aw:prop_max_results_comment
+msgid "Omaduse Tulemuste arv (max_results) kommentaar"
+msgstr ""
+
+#: classes/cfg/cb_search.aw:prop_max_results_help
+msgid "Omaduse Tulemuste arv (max_results) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_choose_fields
+#: classes/cfg/cb_search.aw:prop_choose_fields
+msgid "Omaduse Vali omadused (choose_fields) caption"
+msgstr "Select properties"
+
+# classes/cfg/cb_search.aw:prop_choose_fields_comment
+#: classes/cfg/cb_search.aw:prop_choose_fields_comment
+msgid "Omaduse Vali omadused (choose_fields) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_choose_fields_help
+#: classes/cfg/cb_search.aw:prop_choose_fields_help
+msgid "Omaduse Vali omadused (choose_fields) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_sform_tbl
+#: classes/cfg/cb_search.aw:prop_sform_tbl
+msgid "Omaduse  (sform_tbl) caption"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_sform_tbl_comment
+#: classes/cfg/cb_search.aw:prop_sform_tbl_comment
+msgid "Omaduse  (sform_tbl) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_sform_tbl_help
+#: classes/cfg/cb_search.aw:prop_sform_tbl_help
+msgid "Omaduse  (sform_tbl) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_parents
+#: classes/cfg/cb_search.aw:prop_parents
+msgid "Omaduse Kataloogid, ksut otsida (parents) caption"
+msgstr "Folders where to search from"
+
+# classes/cfg/cb_search.aw:prop_parents_comment
+#: classes/cfg/cb_search.aw:prop_parents_comment
+msgid "Omaduse Kataloogid, ksut otsida (parents) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_parents_help
+#: classes/cfg/cb_search.aw:prop_parents_help
+msgid "Omaduse Kataloogid, ksut otsida (parents) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_search
+#: classes/cfg/cb_search.aw:prop_search
+msgid "Omaduse Otsi (search) caption"
+msgstr "Search"
+
+# classes/cfg/cb_search.aw:prop_search_comment
+#: classes/cfg/cb_search.aw:prop_search_comment
+msgid "Omaduse Otsi (search) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_search_help
+#: classes/cfg/cb_search.aw:prop_search_help
+msgid "Omaduse Otsi (search) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_sbt
+#: classes/cfg/cb_search.aw:prop_sbt
+msgid "Omaduse Otsi (sbt) caption"
+msgstr "Search"
+
+# classes/cfg/cb_search.aw:prop_sbt_comment
+#: classes/cfg/cb_search.aw:prop_sbt_comment
+msgid "Omaduse Otsi (sbt) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_sbt_help
+#: classes/cfg/cb_search.aw:prop_sbt_help
+msgid "Omaduse Otsi (sbt) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_results
+#: classes/cfg/cb_search.aw:prop_results
+msgid "Omaduse Tulemused (results) caption"
+msgstr "Results"
+
+# classes/cfg/cb_search.aw:prop_results_comment
+#: classes/cfg/cb_search.aw:prop_results_comment
+msgid "Omaduse Tulemused (results) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_results_help
+#: classes/cfg/cb_search.aw:prop_results_help
+msgid "Omaduse Tulemused (results) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_show_submit
+#: classes/cfg/cb_search.aw:prop_show_submit
+msgid "Omaduse N&auml;ita salvesta nuppu (show_submit) caption"
+msgstr "Display submit button"
+
+# classes/cfg/cb_search.aw:prop_show_submit_comment
+#: classes/cfg/cb_search.aw:prop_show_submit_comment
+msgid "Omaduse N&auml;ita salvesta nuppu (show_submit) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_show_submit_help
+#: classes/cfg/cb_search.aw:prop_show_submit_help
+msgid "Omaduse N&auml;ita salvesta nuppu (show_submit) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_submit_button_text
+#: classes/cfg/cb_search.aw:prop_submit_button_text
+msgid "Omaduse Salvesta nupu tekst (submit_button_text) caption"
+msgstr "Submit button text"
+
+# classes/cfg/cb_search.aw:prop_submit_button_text_comment
+#: classes/cfg/cb_search.aw:prop_submit_button_text_comment
+msgid "Omaduse Salvesta nupu tekst (submit_button_text) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_submit_button_text_help
+#: classes/cfg/cb_search.aw:prop_submit_button_text_help
+msgid "Omaduse Salvesta nupu tekst (submit_button_text) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_submit_handler_controller
+#: classes/cfg/cb_search.aw:prop_submit_handler_controller
+msgid "Omaduse Salvestamise kontroller (submit_handler_controller) caption"
+msgstr "Submit controller"
+
+# classes/cfg/cb_search.aw:prop_submit_handler_controller_comment
+#: classes/cfg/cb_search.aw:prop_submit_handler_controller_comment
+msgid "Omaduse Salvestamise kontroller (submit_handler_controller) kommentaar"
+msgstr ""
+
+# classes/cfg/cb_search.aw:prop_submit_handler_controller_help
+#: classes/cfg/cb_search.aw:prop_submit_handler_controller_help
+msgid "Omaduse Salvestamise kontroller (submit_handler_controller) help"
+msgstr ""
+
+#: classes/cfg/cb_search.aw:group_props
+msgid "Grupi V&auml;ljad (props) pealkiri"
+msgstr ""
+
+#: classes/cfg/cb_search.aw:group_props_help
+msgid "Grupi V&auml;ljad (props) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:group_mktbl
+#: classes/cfg/cb_search.aw:group_mktbl
+msgid "Grupi Koosta tulemuste tabel (mktbl) pealkiri"
+msgstr "Create result table"
+
+# classes/cfg/cb_search.aw:group_mktbl_help
+#: classes/cfg/cb_search.aw:group_mktbl_help
+msgid "Grupi Koosta tulemuste tabel (mktbl) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:group_parents
+#: classes/cfg/cb_search.aw:group_parents
+msgid "Grupi Kataloogid (parents) pealkiri"
+msgstr "Folders"
+
+# classes/cfg/cb_search.aw:group_parents_help
+#: classes/cfg/cb_search.aw:group_parents_help
+msgid "Grupi Kataloogid (parents) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:group_search
+#: classes/cfg/cb_search.aw:group_search
+msgid "Grupi Otsi (search) pealkiri"
+msgstr "Search"
+
+# classes/cfg/cb_search.aw:group_search_help
+#: classes/cfg/cb_search.aw:group_search_help
+msgid "Grupi Otsi (search) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:group_submit_after
+#: classes/cfg/cb_search.aw:group_submit_after
+msgid "Grupi Tulemuste salvestamine (submit_after) pealkiri"
+msgstr "Result saving"
+
+# classes/cfg/cb_search.aw:group_submit_after_help
+#: classes/cfg/cb_search.aw:group_submit_after_help
+msgid "Grupi Tulemuste salvestamine (submit_after) help"
+msgstr ""
+
+# classes/cfg/cb_search.aw:rel_RELTYPE_SYN
+#: classes/cfg/cb_search.aw:rel_RELTYPE_SYN
+msgid "Seose s&uuml;non&uuml;mid (RELTYPE_SYN) tekst"
+msgstr "synonyms"
+
+# classes/cfg/cb_search.aw:rel_RELTYPE_PARENT
+#: classes/cfg/cb_search.aw:rel_RELTYPE_PARENT
+msgid "Seose kataloog, kust otsida (RELTYPE_PARENT) tekst"
+msgstr "folder to search"
+
+# classes/cfg/cb_search.aw:rel_RELTYPE_RESULT_CONTROLLER
+#: classes/cfg/cb_search.aw:rel_RELTYPE_RESULT_CONTROLLER
+msgid "Seose tulemuste kontroller (RELTYPE_RESULT_CONTROLLER) tekst"
+msgstr "result controller"
+
+# classes/cfg/cb_search.aw:rel_RELTYPE_ROW_CONTROLLER
+#: classes/cfg/cb_search.aw:rel_RELTYPE_ROW_CONTROLLER
+msgid "Seose rea kontroller (RELTYPE_ROW_CONTROLLER) tekst"
+msgstr "row controller"
+
+# classes/cfg/cb_search.aw:rel_RELTYPE_SUBMIT_CTR
+#: classes/cfg/cb_search.aw:rel_RELTYPE_SUBMIT_CTR
+msgid "Seose salvestamise kontroller (RELTYPE_SUBMIT_CTR) tekst"
+msgstr "save controller"
+
+# classes/cfg/cb_search.aw:rel_RELTYPE_SEARCH_VALID_CTR
+#: classes/cfg/cb_search.aw:rel_RELTYPE_SEARCH_VALID_CTR
+msgid "Seose otsingu valideerimise kontroller (RELTYPE_SEARCH_VALID_CTR) tekst"
+msgstr "search validation controller"
+
+#: classes/cfg/cb_search.aw:rel_RELTYPE_ADDITIONAL_OBJECT_TYPE
+msgid "Seose lisaks leitav objektit&uuml;&uuml;p (RELTYPE_ADDITIONAL_OBJECT_TYPE) tekst"
+msgstr ""
+
+#: classes/cfg/cb_search.aw:204
+msgid "Klass"
+msgstr "Class"
+
+#: classes/cfg/cb_search.aw:208
+msgid "Omadus"
+msgstr "Property"
+
+#: classes/cfg/cb_search.aw:212
+msgid "N&auml;ita vormis"
+msgstr ""
+
+#: classes/cfg/cb_search.aw:217
+msgid "Otsing komaga eraldatud"
+msgstr "Search separated by comma"
+
+#: classes/cfg/cb_search.aw:222
+msgid "Tekstikast otsimiseks"
+msgstr "Textbox for search"
+
+#: classes/cfg/cb_search.aw:227
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/cfg/cb_search.aw:232
+msgid "Vaikimisi"
+msgstr "Default"
+
+#: classes/cfg/cb_search.aw:237
+msgid "Tekst"
+msgstr "Text"
+
+#: classes/cfg/cb_search.aw:242 classes/cfg/cb_search.aw:1017
+msgid "J&auml;rjekord"
+msgstr "Order"
+
+#: classes/cfg/cb_search.aw:257
+msgid "Rippmen&uuml;&uuml;"
+msgstr "Select"
+
+#: classes/cfg/cb_search.aw:258
+msgid "Mitmerealine rippmen&uuml;&uuml;"
+msgstr "Multiple select"
+
+#: classes/cfg/cb_search.aw:259
+msgid "M&auml;rkeruut"
+msgstr "Checkbox"
+
+#: classes/cfg/cb_search.aw:260
+msgid "Raadionupp"
+msgstr "Radiobutton"
+
+#: classes/cfg/cb_search.aw:362
+msgid "--vali--"
+msgstr "--select--"
+
+#: classes/cfg/cb_search.aw:976
+msgid "T&auml;istekstiotsing"
+msgstr "Fulltext search"
+
+#: classes/cfg/cb_search.aw:982
+msgid "Kataloog"
+msgstr "Folder"
+
+#: classes/cfg/cb_search.aw:988
+msgid "Mitu kirjet lehel"
+msgstr "How many rows per page"
+
+#: classes/cfg/cb_search.aw:1024
+msgid "Element"
+msgstr "Element"
+
+#: classes/cfg/cb_search.aw:1030
+msgid "Tabelis"
+msgstr "In table"
+
+#: classes/cfg/cb_search.aw:1036
+msgid "Hind"
+msgstr "Price"
+
+#: classes/cfg/cb_search.aw:1042
+msgid "Sorditav"
+msgstr "Sortable"
+
+#: classes/cfg/cb_search.aw:1048
+msgid "Vaikimisi sort"
+msgstr "Default sort"
+
+#: classes/cfg/cb_search.aw:1054
+msgid "Vaata tulp"
+msgstr "View column"
+
+#: classes/cfg/cb_search.aw:1060
+msgid "Tulba pealkiri"
+msgstr "Column title"
+
+#: classes/cfg/cb_search.aw:1076
+msgid "Muuda"
+msgstr "Change"
+
+#: classes/cfg/cb_search.aw:1077
+msgid "Vaata"
+msgstr "View"
+
+#: classes/cfg/cb_search.aw:1078
+msgid "Kustuta"
+msgstr "Delete"
+
+#: classes/cfg/cb_search.aw:1173
+msgid "Otsi"
+msgstr "Search"
+
+#: classes/cfg/cb_search.aw:1466
+msgid "OID"
+msgstr "OID"
+
+#: classes/cfg/cb_search.aw:1473
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/cfg/cb_search.aw:1480
+msgid "Kasuta?"
+msgstr "Use?"
+
+#: classes/cfg/cb_search.aw:1486
+msgid "K.A. Alamkataloogid?"
+msgstr "Incl. subfolders?"
+
+# classes/cfg/cb_search.aw:group_props
+#~ msgid "Grupi Väljad (props) pealkiri"
+#~ msgstr "Fields"
+
+#~ msgid "Näita vormis"
+#~ msgstr "Display in form"
+
+#~ msgid "Tüüp"
+#~ msgstr "Type"

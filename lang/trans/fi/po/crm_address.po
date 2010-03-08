@@ -1,0 +1,1121 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/crm/crm_address.aw:class_146_help
+msgid "Klassi Aadress help"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_aadress
+msgid "Omaduse T&auml;nav/K&uuml;la (aadress) caption"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_aadress_comment
+msgid "Omaduse T&auml;nav/K&uuml;la (aadress) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_aadress_help
+msgid "Omaduse T&auml;nav/K&uuml;la (aadress) help"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_aadress2
+msgid "Omaduse T&auml;nav/K&uuml;la2 (aadress2) caption"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_aadress2_comment
+msgid "Omaduse T&auml;nav/K&uuml;la2 (aadress2) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_aadress2_help
+msgid "Omaduse T&auml;nav/K&uuml;la2 (aadress2) help"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_postiindeks
+msgid "Omaduse Postiindeks (postiindeks) caption"
+msgstr "Postinro"
+
+#: classes/crm/crm_address.aw:prop_postiindeks_comment
+msgid "Omaduse Postiindeks (postiindeks) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_postiindeks_help
+msgid "Omaduse Postiindeks (postiindeks) help"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_linn
+msgid "Omaduse Linn/Vald/Alev (linn) caption"
+msgstr "Kaupunki/Kunta/Alev"
+
+#: classes/crm/crm_address.aw:prop_linn_comment
+msgid "Omaduse Linn/Vald/Alev (linn) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_linn_help
+msgid "Omaduse Linn/Vald/Alev (linn) help"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_maakond
+msgid "Omaduse Maakond (maakond) caption"
+msgstr "L&auml;&auml;ni"
+
+#: classes/crm/crm_address.aw:prop_maakond_comment
+msgid "Omaduse Maakond (maakond) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_maakond_help
+msgid "Omaduse Maakond (maakond) help"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_piirkond
+msgid "Omaduse Piirkond (piirkond) caption"
+msgstr "Piiri"
+
+#: classes/crm/crm_address.aw:prop_piirkond_comment
+msgid "Omaduse Piirkond (piirkond) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_piirkond_help
+msgid "Omaduse Piirkond (piirkond) help"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_riik
+msgid "Omaduse Riik (riik) caption"
+msgstr "Maa"
+
+#: classes/crm/crm_address.aw:prop_riik_comment
+msgid "Omaduse Riik (riik) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_address.aw:prop_riik_help
+msgid "Omaduse Riik (riik) help"
+msgstr ""
+
+#: classes/crm/crm_address.aw:group_settings
+msgid "Grupi Seadistused (settings) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_address.aw:group_settings_help
+msgid "Grupi Seadistused (settings) help"
+msgstr ""
+
+#: classes/crm/crm_address.aw:rel_RELTYPE_LINN
+msgid "Seose Linn (RELTYPE_LINN) tekst"
+msgstr "Kaupunki"
+
+#: classes/crm/crm_address.aw:rel_RELTYPE_RIIK
+msgid "Seose Riik (RELTYPE_RIIK) tekst"
+msgstr "Maa"
+
+#: classes/crm/crm_address.aw:rel_RELTYPE_MAAKOND
+msgid "Seose Maakond (RELTYPE_MAAKOND) tekst"
+msgstr "L&auml;&auml;ni"
+
+#: classes/crm/crm_address.aw:rel_RELTYPE_PIIRKOND
+msgid "Seose Piirkond (RELTYPE_PIIRKOND) tekst"
+msgstr "Piiri"
+
+#: classes/crm/crm_address.aw:rel_RELTYPE_BELONGTO
+msgid "Seose Seosobjekt (RELTYPE_BELONGTO) tekst"
+msgstr ""
+
+#: classes/crm/crm_address.aw:105
+msgid "Otsi postiindeksit"
+msgstr ""
+
+#: classes/crm/crm_address.aw:123
+msgid "--vali--"
+msgstr ""
+
+#: classes/crm/crm_address.aw:169
+msgid "tel:"
+msgstr "Puhelin"
+
+#: classes/crm/crm_address.aw:371
+msgid "Andorra"
+msgstr "Andorra"
+
+#: classes/crm/crm_address.aw:372
+msgid "United Arab Emirates"
+msgstr "Arabiamiirikunnat"
+
+#: classes/crm/crm_address.aw:373
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+#: classes/crm/crm_address.aw:374
+msgid "Antigua and Barbuda"
+msgstr "Antigua ja Barbuda"
+
+#: classes/crm/crm_address.aw:375
+msgid "Anguilla"
+msgstr "Anquilla"
+
+#: classes/crm/crm_address.aw:376
+msgid "Albania"
+msgstr "Albania"
+
+#: classes/crm/crm_address.aw:377
+msgid "Armenia"
+msgstr "Armenia"
+
+#: classes/crm/crm_address.aw:378
+msgid "Netherlands Antilles"
+msgstr "Alankomaiden Antillit"
+
+#: classes/crm/crm_address.aw:379
+msgid "Angola"
+msgstr "Angola"
+
+#: classes/crm/crm_address.aw:380
+msgid "Antarctica"
+msgstr "Antarktis"
+
+#: classes/crm/crm_address.aw:381
+msgid "Argentina"
+msgstr "Argentiina"
+
+#: classes/crm/crm_address.aw:382
+msgid "American Samoa"
+msgstr "Amerikan Samoa"
+
+#: classes/crm/crm_address.aw:383
+msgid "Austria"
+msgstr "It&auml;valta"
+
+#: classes/crm/crm_address.aw:384
+msgid "Australia"
+msgstr "Australia"
+
+#: classes/crm/crm_address.aw:385
+msgid "Aruba"
+msgstr "Aruba"
+
+#: classes/crm/crm_address.aw:386
+msgid "Azerbaijan"
+msgstr "Aserbaidzan"
+
+#: classes/crm/crm_address.aw:387
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnia ja Hertsegovina"
+
+#: classes/crm/crm_address.aw:388
+msgid "Barbados"
+msgstr "Barbados"
+
+#: classes/crm/crm_address.aw:389
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: classes/crm/crm_address.aw:390
+msgid "Belgium"
+msgstr "Belgia"
+
+#: classes/crm/crm_address.aw:391
+msgid "Burkina Faso"
+msgstr "Burkina"
+
+#: classes/crm/crm_address.aw:392
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: classes/crm/crm_address.aw:393
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: classes/crm/crm_address.aw:394
+msgid "Burundi"
+msgstr "Burundi"
+
+#: classes/crm/crm_address.aw:395
+msgid "Benin"
+msgstr "Benin"
+
+#: classes/crm/crm_address.aw:396
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: classes/crm/crm_address.aw:397
+msgid "Brunei Darussalam"
+msgstr "Brunei"
+
+#: classes/crm/crm_address.aw:398
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: classes/crm/crm_address.aw:399
+msgid "Brazil"
+msgstr "Brasilia"
+
+#: classes/crm/crm_address.aw:400
+msgid "Bahamas"
+msgstr "Bahama"
+
+#: classes/crm/crm_address.aw:401
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: classes/crm/crm_address.aw:402
+msgid "Bouvet Island"
+msgstr ""
+
+#: classes/crm/crm_address.aw:403
+msgid "Botswana"
+msgstr "Bouvet'nsaari"
+
+#: classes/crm/crm_address.aw:404
+msgid "Belarus"
+msgstr "Valko-Ven&auml;j&auml;"
+
+#: classes/crm/crm_address.aw:405
+msgid "Belize"
+msgstr "Belize'"
+
+#: classes/crm/crm_address.aw:406
+msgid "Canada"
+msgstr "Canada"
+
+#: classes/crm/crm_address.aw:407
+msgid "Cocos (Keeling) Islands"
+msgstr "Kookossaaret"
+
+#: classes/crm/crm_address.aw:408
+msgid "Central African Republic"
+msgstr "Keski-Afrikan tasavalta"
+
+#: classes/crm/crm_address.aw:409
+msgid "Congo"
+msgstr "Kongo"
+
+#: classes/crm/crm_address.aw:410
+msgid "Switzerland"
+msgstr "Sveitsi"
+
+#: classes/crm/crm_address.aw:411
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "Norsunluurannikko"
+
+#: classes/crm/crm_address.aw:412
+msgid "Cook Islands"
+msgstr "Cookinsaaret"
+
+#: classes/crm/crm_address.aw:413
+msgid "Chile"
+msgstr "Chile"
+
+#: classes/crm/crm_address.aw:414
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: classes/crm/crm_address.aw:415
+msgid "China"
+msgstr "Kiina"
+
+#: classes/crm/crm_address.aw:416
+msgid "Colombia"
+msgstr "Kolumbia"
+
+#: classes/crm/crm_address.aw:417
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: classes/crm/crm_address.aw:418
+msgid "Czechoslovakia (former)"
+msgstr ""
+
+#: classes/crm/crm_address.aw:419
+msgid "Cuba"
+msgstr "Kuuba"
+
+#: classes/crm/crm_address.aw:420
+msgid "Cape Verde"
+msgstr ""
+
+#: classes/crm/crm_address.aw:421
+msgid "Christmas Island"
+msgstr "Joulusaari"
+
+#: classes/crm/crm_address.aw:422
+msgid "Cyprus"
+msgstr "Kypros"
+
+#: classes/crm/crm_address.aw:423
+msgid "Czech Republic"
+msgstr "Tsekki"
+
+#: classes/crm/crm_address.aw:424
+msgid "Germany"
+msgstr "Saksa"
+
+#: classes/crm/crm_address.aw:425
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: classes/crm/crm_address.aw:426
+msgid "Denmark"
+msgstr "Tanska"
+
+#: classes/crm/crm_address.aw:427
+msgid "Dominica"
+msgstr "Dominica"
+
+#: classes/crm/crm_address.aw:428
+msgid "Dominican Republic"
+msgstr "Dominikaaninen tasavalta"
+
+#: classes/crm/crm_address.aw:429
+msgid "Algeria"
+msgstr "Algeria"
+
+#: classes/crm/crm_address.aw:430
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: classes/crm/crm_address.aw:431
+msgid "Estonia"
+msgstr "Viro"
+
+#: classes/crm/crm_address.aw:432
+msgid "Egypt"
+msgstr "Egypti"
+
+#: classes/crm/crm_address.aw:433
+msgid "Western Sahara"
+msgstr "L&auml;nsi Sahara"
+
+#: classes/crm/crm_address.aw:434
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: classes/crm/crm_address.aw:435
+msgid "Spain"
+msgstr "Espanja"
+
+#: classes/crm/crm_address.aw:436
+msgid "Ethiopia"
+msgstr "Etiopia"
+
+#: classes/crm/crm_address.aw:437
+msgid "Finland"
+msgstr "Suomi"
+
+#: classes/crm/crm_address.aw:438
+msgid "Fiji"
+msgstr "Fidzi"
+
+#: classes/crm/crm_address.aw:439
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falklandinsaaret"
+
+#: classes/crm/crm_address.aw:440
+msgid "Micronesia"
+msgstr "Mikronesia"
+
+#: classes/crm/crm_address.aw:441
+msgid "Faroe Islands"
+msgstr "F&auml;rsaaret"
+
+#: classes/crm/crm_address.aw:442
+msgid "France"
+msgstr "Ranska"
+
+#: classes/crm/crm_address.aw:443
+msgid "France, Metropolitan"
+msgstr "Ranska, Metropolitan"
+
+#: classes/crm/crm_address.aw:444
+msgid "Gabon"
+msgstr "Gabon"
+
+#: classes/crm/crm_address.aw:445
+msgid "Great Britain (UK)"
+msgstr "Yhdistynyt kuningaskunta"
+
+#: classes/crm/crm_address.aw:446
+msgid "Grenada"
+msgstr "Grenada"
+
+#: classes/crm/crm_address.aw:447
+msgid "Georgia"
+msgstr "Georgia"
+
+#: classes/crm/crm_address.aw:448
+msgid "French Guiana"
+msgstr "Ranskan Guayana"
+
+#: classes/crm/crm_address.aw:449
+msgid "Ghana"
+msgstr "Ghana"
+
+#: classes/crm/crm_address.aw:450
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: classes/crm/crm_address.aw:451
+msgid "Greenland"
+msgstr "Gr&ouml;nlanti"
+
+#: classes/crm/crm_address.aw:452
+msgid "Gambia"
+msgstr "Gambia"
+
+#: classes/crm/crm_address.aw:453
+msgid "Guinea"
+msgstr "Guinea"
+
+#: classes/crm/crm_address.aw:454
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: classes/crm/crm_address.aw:455
+msgid "Equatorial Guinea"
+msgstr "P&auml;iv&auml;ntasaajan Guinea"
+
+#: classes/crm/crm_address.aw:456
+msgid "Greece"
+msgstr "Kreikka"
+
+#: classes/crm/crm_address.aw:457
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "Etel&auml; Georgia ja Etel&auml;iset Sandwichsaaret"
+
+#: classes/crm/crm_address.aw:458
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: classes/crm/crm_address.aw:459
+msgid "Guam"
+msgstr "Guam"
+
+#: classes/crm/crm_address.aw:460
+msgid "Guinea-Bissau"
+msgstr "Guinea Bissau"
+
+#: classes/crm/crm_address.aw:461
+msgid "Guyana"
+msgstr "Guyana"
+
+#: classes/crm/crm_address.aw:462
+msgid "Hong Kong"
+msgstr "Hongkong"
+
+#: classes/crm/crm_address.aw:463
+msgid "Heard and McDonald Islands"
+msgstr "Heard ja McDonaldinsaaret"
+
+#: classes/crm/crm_address.aw:464
+msgid "Honduras"
+msgstr "Honduras"
+
+#: classes/crm/crm_address.aw:465
+msgid "Croatia (Hrvatska)"
+msgstr "Kroatia"
+
+#: classes/crm/crm_address.aw:466
+msgid "Haiti"
+msgstr "Haiti"
+
+#: classes/crm/crm_address.aw:467
+msgid "Hungary"
+msgstr "Unkari"
+
+#: classes/crm/crm_address.aw:468
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: classes/crm/crm_address.aw:469
+msgid "Ireland"
+msgstr "Irlanti"
+
+#: classes/crm/crm_address.aw:470
+msgid "Israel"
+msgstr "Israel"
+
+#: classes/crm/crm_address.aw:471
+msgid "India"
+msgstr "Intia"
+
+#: classes/crm/crm_address.aw:472
+msgid "British Indian Ocean Territory"
+msgstr "Brittil&auml;inen Intian valtameren alue"
+
+#: classes/crm/crm_address.aw:473
+msgid "Iraq"
+msgstr "Irak"
+
+#: classes/crm/crm_address.aw:474
+msgid "Iran"
+msgstr "Iran"
+
+#: classes/crm/crm_address.aw:475
+msgid "Iceland"
+msgstr "Islanti"
+
+#: classes/crm/crm_address.aw:476
+msgid "Italy"
+msgstr "Italia"
+
+#: classes/crm/crm_address.aw:477
+msgid "Jamaica"
+msgstr "Jamaika"
+
+#: classes/crm/crm_address.aw:478
+msgid "Jordan"
+msgstr "Jordania"
+
+#: classes/crm/crm_address.aw:479
+msgid "Japan"
+msgstr "Japani"
+
+#: classes/crm/crm_address.aw:480
+msgid "Kenya"
+msgstr "Kenia"
+
+#: classes/crm/crm_address.aw:481
+msgid "Kyrgyzstan"
+msgstr "Kirgisia"
+
+#: classes/crm/crm_address.aw:482
+msgid "Cambodia"
+msgstr "Kambod"
+
+#: classes/crm/crm_address.aw:483
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: classes/crm/crm_address.aw:484
+msgid "Comoros"
+msgstr "Komorit"
+
+#: classes/crm/crm_address.aw:485
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts ja Nevis"
+
+#: classes/crm/crm_address.aw:486
+msgid "Korea (North)"
+msgstr "Korean (Pohja)"
+
+#: classes/crm/crm_address.aw:487
+msgid "Korea (South)"
+msgstr "Korean (Etel&auml;)"
+
+#: classes/crm/crm_address.aw:488
+msgid "Kosovo"
+msgstr ""
+
+#: classes/crm/crm_address.aw:489
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: classes/crm/crm_address.aw:490
+msgid "Cayman Islands"
+msgstr "Caymansaaret"
+
+#: classes/crm/crm_address.aw:491
+msgid "Kazakhstan"
+msgstr "Kazakstan"
+
+#: classes/crm/crm_address.aw:492
+msgid "Laos"
+msgstr ""
+
+#: classes/crm/crm_address.aw:493
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: classes/crm/crm_address.aw:494
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: classes/crm/crm_address.aw:495
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: classes/crm/crm_address.aw:496
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: classes/crm/crm_address.aw:497
+msgid "Liberia"
+msgstr "Liberia"
+
+#: classes/crm/crm_address.aw:498
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: classes/crm/crm_address.aw:499
+msgid "Lithuania"
+msgstr "Liettua"
+
+#: classes/crm/crm_address.aw:500
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+#: classes/crm/crm_address.aw:501
+msgid "Latvia"
+msgstr "Latvia"
+
+#: classes/crm/crm_address.aw:502
+msgid "Libya"
+msgstr ""
+
+#: classes/crm/crm_address.aw:503
+msgid "Morocco"
+msgstr "Marokko"
+
+#: classes/crm/crm_address.aw:504
+msgid "Monaco"
+msgstr "Monaco"
+
+#: classes/crm/crm_address.aw:505
+msgid "Moldova"
+msgstr "Moldova"
+
+#: classes/crm/crm_address.aw:506
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: classes/crm/crm_address.aw:507
+msgid "Marshall Islands"
+msgstr "Marshallinsaaret"
+
+#: classes/crm/crm_address.aw:508
+msgid "Macedonia"
+msgstr "Makedonia"
+
+#: classes/crm/crm_address.aw:509
+msgid "Mali"
+msgstr "Mali"
+
+#: classes/crm/crm_address.aw:510
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: classes/crm/crm_address.aw:511
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: classes/crm/crm_address.aw:512
+msgid "Macau"
+msgstr "Macao"
+
+#: classes/crm/crm_address.aw:513
+msgid "Northern Mariana Islands"
+msgstr "Pohjos Mariaanit"
+
+#: classes/crm/crm_address.aw:514
+msgid "Martinique"
+msgstr "Martinique"
+
+#: classes/crm/crm_address.aw:515
+msgid "Mauritania"
+msgstr "Mauritania"
+
+#: classes/crm/crm_address.aw:516
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: classes/crm/crm_address.aw:517
+msgid "Malta"
+msgstr "Malta"
+
+#: classes/crm/crm_address.aw:518
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: classes/crm/crm_address.aw:519
+msgid "Maldives"
+msgstr "Malediiwit"
+
+#: classes/crm/crm_address.aw:520
+msgid "Malawi"
+msgstr "Malawi"
+
+#: classes/crm/crm_address.aw:521
+msgid "Mexico"
+msgstr "Meksiko"
+
+#: classes/crm/crm_address.aw:522
+msgid "Malaysia"
+msgstr "Malesia"
+
+#: classes/crm/crm_address.aw:523
+msgid "Mozambique"
+msgstr "Mosambik"
+
+#: classes/crm/crm_address.aw:524
+msgid "Namibia"
+msgstr "Namibia"
+
+#: classes/crm/crm_address.aw:525
+msgid "New Caledonia"
+msgstr "Uusi-Kaledonia"
+
+#: classes/crm/crm_address.aw:526
+msgid "Niger"
+msgstr "Niger"
+
+#: classes/crm/crm_address.aw:527
+msgid "Norfolk Island"
+msgstr "Norfolkinsaari"
+
+#: classes/crm/crm_address.aw:528
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: classes/crm/crm_address.aw:529
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: classes/crm/crm_address.aw:530
+msgid "Netherlands"
+msgstr "Alankomaat"
+
+#: classes/crm/crm_address.aw:531
+msgid "Norway"
+msgstr "Norja"
+
+#: classes/crm/crm_address.aw:532
+msgid "Nepal"
+msgstr "Nepal"
+
+#: classes/crm/crm_address.aw:533
+msgid "Nauru"
+msgstr "Nauru"
+
+#: classes/crm/crm_address.aw:534
+msgid "Neutral Zone"
+msgstr ""
+
+#: classes/crm/crm_address.aw:535
+msgid "Niue"
+msgstr "Niue"
+
+#: classes/crm/crm_address.aw:536
+msgid "New Zealand (Aotearoa)"
+msgstr "Uusi-Seelanti"
+
+#: classes/crm/crm_address.aw:537
+msgid "Oman"
+msgstr "Oman"
+
+#: classes/crm/crm_address.aw:538
+msgid "Panama"
+msgstr "Panama"
+
+#: classes/crm/crm_address.aw:539
+msgid "Peru"
+msgstr "Peru"
+
+#: classes/crm/crm_address.aw:540
+msgid "French Polynesia"
+msgstr "Ranskan Polynesia"
+
+#: classes/crm/crm_address.aw:541
+msgid "Papua New Guinea"
+msgstr "Papua-Uusi-Guinea"
+
+#: classes/crm/crm_address.aw:542
+msgid "Philippines"
+msgstr "Filippiinit"
+
+#: classes/crm/crm_address.aw:543
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: classes/crm/crm_address.aw:544
+msgid "Poland"
+msgstr "Puola"
+
+#: classes/crm/crm_address.aw:545
+msgid "St. Pierre and Miquelon"
+msgstr "St. Pierre and Miquelon"
+
+#: classes/crm/crm_address.aw:546
+msgid "Pitcairn"
+msgstr "Pitcaim"
+
+#: classes/crm/crm_address.aw:547
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: classes/crm/crm_address.aw:548
+msgid "Portugal"
+msgstr "Portugali"
+
+#: classes/crm/crm_address.aw:549
+msgid "Palau"
+msgstr "Palau"
+
+#: classes/crm/crm_address.aw:550
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: classes/crm/crm_address.aw:551
+msgid "Qatar"
+msgstr "Qatar"
+
+#: classes/crm/crm_address.aw:552
+msgid "Reunion"
+msgstr "Reunion"
+
+#: classes/crm/crm_address.aw:553
+msgid "Romania"
+msgstr "Romania"
+
+#: classes/crm/crm_address.aw:554
+msgid "Serbia"
+msgstr ""
+
+#: classes/crm/crm_address.aw:555
+msgid "Russian Federation"
+msgstr "Ven&auml;j&auml;"
+
+#: classes/crm/crm_address.aw:556
+msgid "Rwanda"
+msgstr "Ruanda"
+
+#: classes/crm/crm_address.aw:557
+msgid "Saudi Arabia"
+msgstr "Saudi-Araabia"
+
+#: classes/crm/crm_address.aw:558
+msgid "Solomon Islands"
+msgstr "Salomonsaaret"
+
+#: classes/crm/crm_address.aw:559
+msgid "Seychelles"
+msgstr "Seychellit"
+
+#: classes/crm/crm_address.aw:560
+msgid "Sudan"
+msgstr "Sudan"
+
+#: classes/crm/crm_address.aw:561
+msgid "Sweden"
+msgstr "Ruotsi"
+
+#: classes/crm/crm_address.aw:562
+msgid "Singapore"
+msgstr "Singapore"
+
+#: classes/crm/crm_address.aw:563
+msgid "St. Helena"
+msgstr "Saint Helena"
+
+#: classes/crm/crm_address.aw:564
+msgid "Slovenia"
+msgstr "Slovenia"
+
+#: classes/crm/crm_address.aw:565
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Huippuvuores ja Jan Mayen "
+
+#: classes/crm/crm_address.aw:566
+msgid "Slovak Republic"
+msgstr "Slovakia"
+
+#: classes/crm/crm_address.aw:567
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: classes/crm/crm_address.aw:568
+msgid "San Marino"
+msgstr "San Marino"
+
+#: classes/crm/crm_address.aw:569
+msgid "Senegal"
+msgstr "Senegal"
+
+#: classes/crm/crm_address.aw:570
+msgid "Somalia"
+msgstr "Somalia"
+
+#: classes/crm/crm_address.aw:571
+msgid "Suriname"
+msgstr "Suriname"
+
+#: classes/crm/crm_address.aw:572
+msgid "Sao Tome and Principe"
+msgstr "Sao Tomé ja Principe"
+
+#: classes/crm/crm_address.aw:573
+msgid "USSR (former)"
+msgstr ""
+
+#: classes/crm/crm_address.aw:574
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: classes/crm/crm_address.aw:575
+msgid "Syria"
+msgstr "Syyria"
+
+#: classes/crm/crm_address.aw:576
+msgid "Swaziland"
+msgstr "Swazimaa"
+
+#: classes/crm/crm_address.aw:577
+msgid "Turks and Caicos Islands"
+msgstr "Turks ja Caicossaaret"
+
+#: classes/crm/crm_address.aw:578
+msgid "Chad"
+msgstr "Tsad"
+
+#: classes/crm/crm_address.aw:579
+msgid "French Southern Territories"
+msgstr "Ranskan etel&auml;iset aluet"
+
+#: classes/crm/crm_address.aw:580
+msgid "Togo"
+msgstr "Togo"
+
+#: classes/crm/crm_address.aw:581
+msgid "Thailand"
+msgstr "Thaimaa"
+
+#: classes/crm/crm_address.aw:582
+msgid "Tajikistan"
+msgstr "Tadzikistan"
+
+#: classes/crm/crm_address.aw:583
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: classes/crm/crm_address.aw:584
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: classes/crm/crm_address.aw:585
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: classes/crm/crm_address.aw:586
+msgid "Tonga"
+msgstr "Tonga"
+
+#: classes/crm/crm_address.aw:587
+msgid "East Timor"
+msgstr "It&auml;-Timor"
+
+#: classes/crm/crm_address.aw:588
+msgid "Turkey"
+msgstr "Turkki"
+
+#: classes/crm/crm_address.aw:589
+msgid "Trinidad and Tobago"
+msgstr "Trinidad ja Tobago"
+
+#: classes/crm/crm_address.aw:590
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: classes/crm/crm_address.aw:591
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: classes/crm/crm_address.aw:592
+msgid "Tanzania"
+msgstr "Tunsania"
+
+#: classes/crm/crm_address.aw:593
+msgid "Ukraine"
+msgstr "Ukraina"
+
+#: classes/crm/crm_address.aw:594
+msgid "Uganda"
+msgstr "Uganda"
+
+#: classes/crm/crm_address.aw:595
+msgid "United Kingdom"
+msgstr "Yhdistynyt kuningaskunta"
+
+#: classes/crm/crm_address.aw:596
+msgid "US Minor Outlying Islands"
+msgstr "US Minor Outlying Islands"
+
+#: classes/crm/crm_address.aw:597
+msgid "United States"
+msgstr ""
+
+#: classes/crm/crm_address.aw:598
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: classes/crm/crm_address.aw:599
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: classes/crm/crm_address.aw:600
+msgid "Vatican City State (Holy See)"
+msgstr ""
+
+#: classes/crm/crm_address.aw:601
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent ja Grenadiinit"
+
+#: classes/crm/crm_address.aw:602
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: classes/crm/crm_address.aw:603
+msgid "Virgin Islands (British)"
+msgstr "Brittil&auml;iset Neitstytsaaret"
+
+#: classes/crm/crm_address.aw:604
+msgid "Virgin Islands (U.S.)"
+msgstr "Yhdysvaltain Neitstytsaaret"
+
+#: classes/crm/crm_address.aw:605
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: classes/crm/crm_address.aw:606
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: classes/crm/crm_address.aw:607
+msgid "Wallis and Futuna Islands"
+msgstr "Wallis ja Futuna"
+
+#: classes/crm/crm_address.aw:608
+msgid "Samoa"
+msgstr "Samoa"
+
+#: classes/crm/crm_address.aw:609
+msgid "Yemen"
+msgstr "Jemen"
+
+#: classes/crm/crm_address.aw:610
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: classes/crm/crm_address.aw:611
+msgid "Yugoslavia"
+msgstr "Jugoslavia"
+
+#: classes/crm/crm_address.aw:612
+msgid "South Africa"
+msgstr "Etel&auml; Afrikka"
+
+#: classes/crm/crm_address.aw:613
+msgid "Zambia"
+msgstr "Sambia"
+
+#: classes/crm/crm_address.aw:614
+msgid "Zaire"
+msgstr ""
+
+#: classes/crm/crm_address.aw:615
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#~ msgid "Omaduse T�av/Kla (aadress) caption"
+#~ msgstr "Katu/Kyl&auml;"

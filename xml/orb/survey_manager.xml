@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="survey_manager" folder="www/dev/terryf/automatweb_dev/classes/applications/survey" extends="class_base">
+		<action name="process_survey" nologin="1" all_args="1">
+			<function name="process_survey">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_surveys">
+			<function name="delete_surveys">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

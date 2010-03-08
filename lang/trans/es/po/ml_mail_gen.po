@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/mailinglist/ml_mail_gen.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_mail_gen.aw:prop_background_status_display
+msgid "Omaduse  (background_status_display) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_mail_gen.aw:prop_background_status_display_comment
+msgid "Omaduse  (background_status_display) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_mail_gen.aw:prop_background_status_display_help
+msgid "Omaduse  (background_status_display) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_mail_gen.aw:prop_background
+msgid "Omaduse  (background) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_mail_gen.aw:prop_background_comment
+msgid "Omaduse  (background) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_mail_gen.aw:prop_background_help
+msgid "Omaduse  (background) help"
+msgstr ""
+

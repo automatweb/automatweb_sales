@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/questionary/questionnaire_answer.aw:class_1395_help
+msgid "Klassi D&uuml;naamilise k&uuml;simustiku vastus help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_name
+msgid "Omaduse Vastus (name) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_name_comment
+msgid "Omaduse Vastus (name) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_name_help
+msgid "Omaduse Vastus (name) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_jrk
+msgid "Omaduse J&auml;rjekord (jrk) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_jrk_comment
+msgid "Omaduse J&auml;rjekord (jrk) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_jrk_help
+msgid "Omaduse J&auml;rjekord (jrk) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_correct
+msgid "Omaduse &Otilde;ige vastus (correct) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_correct_comment
+msgid "Omaduse &Otilde;ige vastus (correct) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_correct_help
+msgid "Omaduse &Otilde;ige vastus (correct) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_comm
+msgid "Omaduse Kommentaar (comm) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_comm_comment
+msgid "Omaduse Kommentaar (comm) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answer.aw:prop_comm_help
+msgid "Omaduse Kommentaar (comm) help"
+msgstr ""

@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="property_select" folder="www/dev/terryf/automatweb_dev/classes/applications/class_designer" extends="class_base">
+	</class>
+</orb>

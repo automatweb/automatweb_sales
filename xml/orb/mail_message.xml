@@ -1,0 +1,108 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mail_message" folder="www/dev/terryf/automatweb_dev/classes/applications/messenger" extends="class_base">
+		<action name="get_autocomplete">
+			<function name="get_autocomplete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="deliver">
+			<function name="deliver">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_part">
+			<function name="get_part">
+				<arguments>
+					<required name="msgrid" type="int" />
+					<required name="msgid" type="int" />
+					<required name="mailbox" />
+					<required name="part" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_draft">
+			<function name="create_draft">
+				<arguments>
+					<required name="msgrid" type="int" />
+					<optional name="cb_part" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="register_event">
+			<function name="register_event">
+				<arguments>
+					<required name="msgrid" type="int" />
+					<required name="msgid" type="int" />
+					<required name="mailbox" />
+					<required name="create_class" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_register_event" all_args="1">
+			<function name="submit_register_event">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mail_delete" all_args="1">
+			<function name="mail_delete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mail_send">
+			<function name="mail_send">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mail_reply" all_args="1">
+			<function name="mail_reply">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mail_reply_all">
+			<function name="mail_reply_all">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mail_forward">
+			<function name="mail_forward">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_bug_from_mail">
+			<function name="create_bug_from_mail">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mails_from_persons_and_companies">
+			<function name="mails_from_persons_and_companies">
+				<arguments>
+					<required name="ids" type="array(oid)" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

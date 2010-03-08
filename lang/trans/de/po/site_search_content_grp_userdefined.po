@@ -1,0 +1,208 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:class_1200_help
+msgid "Klassi Otsingu kasutajadefineeritud indekseerija help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_meta_ctr
+msgid "Omaduse Metaandmete kontroller (meta_ctr) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_meta_ctr_comment
+msgid "Omaduse Metaandmete kontroller (meta_ctr) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_meta_ctr_help
+msgid "Omaduse Metaandmete kontroller (meta_ctr) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_i_status
+msgid "Omaduse Staatus (i_status) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_i_status_comment
+msgid "Omaduse Staatus (i_status) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_i_status_help
+msgid "Omaduse Staatus (i_status) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_run
+msgid "Omaduse  (run) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_run_comment
+msgid "Omaduse  (run) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_run_help
+msgid "Omaduse  (run) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_indexer_sleep
+msgid "Omaduse Mitu sekundit oodata lehtede vahel (indexer_sleep) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_indexer_sleep_comment
+msgid "Omaduse Mitu sekundit oodata lehtede vahel (indexer_sleep) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_indexer_sleep_help
+msgid "Omaduse Mitu sekundit oodata lehtede vahel (indexer_sleep) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_bg_run_always
+msgid "Omaduse Indekseerija k&auml;ib pidevalt (bg_run_always) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_bg_run_always_comment
+msgid "Omaduse Indekseerija k&auml;ib pidevalt (bg_run_always) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_bg_run_always_help
+msgid "Omaduse Indekseerija k&auml;ib pidevalt (bg_run_always) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_rc_txt
+msgid "Omaduse Kordus indekseerija k&auml;ivitamiseks (rc_txt) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_rc_txt_comment
+msgid "Omaduse Kordus indekseerija k&auml;ivitamiseks (rc_txt) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_rc_txt_help
+msgid "Omaduse Kordus indekseerija k&auml;ivitamiseks (rc_txt) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_recur_edit
+msgid "Omaduse Automaatse impordi seadistamine (recur_edit) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_recur_edit_comment
+msgid "Omaduse Automaatse impordi seadistamine (recur_edit) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_recur_edit_help
+msgid "Omaduse Automaatse impordi seadistamine (recur_edit) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_init
+msgid "Omaduse bg_run_init (code_bg_run_init) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_init_comment
+msgid "Omaduse bg_run_init (code_bg_run_init) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_init_help
+msgid "Omaduse bg_run_init (code_bg_run_init) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_continue
+msgid "Omaduse bg_run_continue (code_bg_run_continue) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_continue_comment
+msgid "Omaduse bg_run_continue (code_bg_run_continue) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_continue_help
+msgid "Omaduse bg_run_continue (code_bg_run_continue) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_step
+msgid "Omaduse bg_run_step (code_bg_run_step) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_step_comment
+msgid "Omaduse bg_run_step (code_bg_run_step) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_step_help
+msgid "Omaduse bg_run_step (code_bg_run_step) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_checkpoint
+msgid "Omaduse bg_checkpoint (code_bg_checkpoint) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_checkpoint_comment
+msgid "Omaduse bg_checkpoint (code_bg_checkpoint) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_checkpoint_help
+msgid "Omaduse bg_checkpoint (code_bg_checkpoint) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_finish
+msgid "Omaduse bg_run_finish (code_bg_run_finish) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_finish_comment
+msgid "Omaduse bg_run_finish (code_bg_run_finish) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_finish_help
+msgid "Omaduse bg_run_finish (code_bg_run_finish) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_get_log_entry
+msgid "Omaduse bg_run_get_log_entry (code_bg_run_get_log_entry) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_get_log_entry_comment
+msgid "Omaduse bg_run_get_log_entry (code_bg_run_get_log_entry) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_run_get_log_entry_help
+msgid "Omaduse bg_run_get_log_entry (code_bg_run_get_log_entry) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_halt
+msgid "Omaduse bg_halt (code_bg_halt) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_halt_comment
+msgid "Omaduse bg_halt (code_bg_halt) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:prop_code_bg_halt_help
+msgid "Omaduse bg_halt (code_bg_halt) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:group_indexer
+msgid "Grupi Indekseerija (indexer) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:group_indexer_help
+msgid "Grupi Indekseerija (indexer) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:group_ctr
+msgid "Grupi Kood (ctr) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:group_ctr_help
+msgid "Grupi Kood (ctr) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:rel_RELTYPE_RECURRENCE
+msgid "Seose kordus (RELTYPE_RECURRENCE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp_userdefined.aw:rel_RELTYPE_META_CTR
+msgid "Seose metaandmete kontroller (RELTYPE_META_CTR) tekst"
+msgstr ""
+

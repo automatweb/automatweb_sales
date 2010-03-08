@@ -1,0 +1,2 @@
+{VAR:tabs}
+{VAR:content}

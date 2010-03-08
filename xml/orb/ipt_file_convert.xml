@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ipt_file_convert" folder="www/dev/terryf/automatweb_dev/classes/applications/clients/ipt" extends="class_base">
+		<action name="get_orig_file">
+			<function name="get_orig_file">
+				<arguments>
+					<required name="file" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

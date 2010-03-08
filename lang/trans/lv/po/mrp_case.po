@@ -1,0 +1,948 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/mrp/mrp_case.aw:class_828_help
+msgid "Klassi Arendustoode help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_workflow_toolbar
+msgid "Omaduse  (workflow_toolbar) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_workflow_toolbar_comment
+msgid "Omaduse  (workflow_toolbar) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_workflow_toolbar_help
+msgid "Omaduse  (workflow_toolbar) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_workflow_errors
+msgid "Omaduse  (workflow_errors) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_workflow_errors_comment
+msgid "Omaduse  (workflow_errors) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_workflow_errors_help
+msgid "Omaduse  (workflow_errors) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_header
+msgid "Omaduse  (header) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_header_comment
+msgid "Omaduse  (header) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_header_help
+msgid "Omaduse  (header) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_name
+msgid "Omaduse Projekti nr. (name) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_name_comment
+msgid "Omaduse Projekti nr. (name) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_name_help
+msgid "Omaduse Projekti nr. (name) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_comment
+msgid "Omaduse Projekti nimetus (comment) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_comment_comment
+msgid "Omaduse Projekti nimetus (comment) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_comment_help
+msgid "Omaduse Projekti nimetus (comment) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_starttime
+msgid "Omaduse Alustamisaeg (materjalide saabumine) (starttime) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_starttime_comment
+msgid "Omaduse Alustamisaeg (materjalide saabumine) (starttime) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_starttime_help
+msgid "Omaduse Alustamisaeg (materjalide saabumine) (starttime) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_due_date
+msgid "Omaduse Valmimistähtaeg (due_date) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_due_date_comment
+msgid "Omaduse Valmimistähtaeg (due_date) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_due_date_help
+msgid "Omaduse Valmimistähtaeg (due_date) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_project_priority
+msgid "Omaduse Projekti prioriteet (project_priority) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_project_priority_comment
+msgid "Omaduse Projekti prioriteet (project_priority) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_project_priority_help
+msgid "Omaduse Projekti prioriteet (project_priority) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_state
+msgid "Omaduse Staatus (state) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_state_comment
+msgid "Omaduse Staatus (state) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_state_help
+msgid "Omaduse Staatus (state) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_progress
+msgid "Omaduse  (progress) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_progress_comment
+msgid "Omaduse  (progress) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_progress_help
+msgid "Omaduse  (progress) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_extern_id
+msgid "Omaduse  (extern_id) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_extern_id_comment
+msgid "Omaduse  (extern_id) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_extern_id_help
+msgid "Omaduse  (extern_id) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_planned_date
+msgid "Omaduse Planeeritud valmimisaeg (planned_date) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_planned_date_comment
+msgid "Omaduse Planeeritud valmimisaeg (planned_date) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_planned_date_help
+msgid "Omaduse Planeeritud valmimisaeg (planned_date) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_finished
+msgid "Omaduse Lõpetatud (finished) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_finished_comment
+msgid "Omaduse Lõpetatud (finished) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_finished_help
+msgid "Omaduse Lõpetatud (finished) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_archived
+msgid "Omaduse Arhiveeritud (archived) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_archived_comment
+msgid "Omaduse Arhiveeritud (archived) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_archived_help
+msgid "Omaduse Arhiveeritud (archived) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sales_priority
+msgid "Omaduse Prioriteedihinnang müügimehelt (sales_priority) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sales_priority_comment
+msgid "Omaduse Prioriteedihinnang müügimehelt (sales_priority) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sales_priority_help
+msgid "Omaduse Prioriteedihinnang müügimehelt (sales_priority) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_format
+msgid "Omaduse Formaat (format) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_format_comment
+msgid "Omaduse Formaat (format) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_format_help
+msgid "Omaduse Formaat (format) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_lk_arv
+msgid "Omaduse Sisu lk arv (sisu_lk_arv) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_lk_arv_comment
+msgid "Omaduse Sisu lk arv (sisu_lk_arv) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_lk_arv_help
+msgid "Omaduse Sisu lk arv (sisu_lk_arv) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_lk_arv
+msgid "Omaduse Kaane lk arv (kaane_lk_arv) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_lk_arv_comment
+msgid "Omaduse Kaane lk arv (kaane_lk_arv) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_lk_arv_help
+msgid "Omaduse Kaane lk arv (kaane_lk_arv) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_varvid
+msgid "Omaduse Sisu värvid (sisu_varvid) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_varvid_comment
+msgid "Omaduse Sisu värvid (sisu_varvid) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_varvid_help
+msgid "Omaduse Sisu värvid (sisu_varvid) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_varvid_notes
+msgid "Omaduse Sisu värvid Notes (sisu_varvid_notes) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_varvid_notes_comment
+msgid "Omaduse Sisu värvid Notes (sisu_varvid_notes) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_varvid_notes_help
+msgid "Omaduse Sisu värvid Notes (sisu_varvid_notes) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_lakk_muu
+msgid "Omaduse Sisu lakk/muu (sisu_lakk_muu) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_lakk_muu_comment
+msgid "Omaduse Sisu lakk/muu (sisu_lakk_muu) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_lakk_muu_help
+msgid "Omaduse Sisu lakk/muu (sisu_lakk_muu) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_varvid
+msgid "Omaduse Kaane värvid (kaane_varvid) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_varvid_comment
+msgid "Omaduse Kaane värvid (kaane_varvid) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_varvid_help
+msgid "Omaduse Kaane värvid (kaane_varvid) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_varvid_notes
+msgid "Omaduse Kaane värvid Notes (kaane_varvid_notes) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_varvid_notes_comment
+msgid "Omaduse Kaane värvid Notes (kaane_varvid_notes) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_varvid_notes_help
+msgid "Omaduse Kaane värvid Notes (kaane_varvid_notes) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_lakk_muu
+msgid "Omaduse Kaane lakk/muu (kaane_lakk_muu) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_lakk_muu_comment
+msgid "Omaduse Kaane lakk/muu (kaane_lakk_muu) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_lakk_muu_help
+msgid "Omaduse Kaane lakk/muu (kaane_lakk_muu) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_paber
+msgid "Omaduse Sisu paber (sisu_paber) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_paber_comment
+msgid "Omaduse Sisu paber (sisu_paber) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_sisu_paber_help
+msgid "Omaduse Sisu paber (sisu_paber) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_paber
+msgid "Omaduse Kaane paber (kaane_paber) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_paber_comment
+msgid "Omaduse Kaane paber (kaane_paber) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kaane_paber_help
+msgid "Omaduse Kaane paber (kaane_paber) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_trykiarv
+msgid "Omaduse Trükiarv (trykiarv) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_trykiarv_comment
+msgid "Omaduse Trükiarv (trykiarv) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_trykiarv_help
+msgid "Omaduse Trükiarv (trykiarv) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_trykise_ehitus
+msgid "Omaduse Trükise ehitus (trykise_ehitus) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_trykise_ehitus_comment
+msgid "Omaduse Trükise ehitus (trykise_ehitus) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_trykise_ehitus_help
+msgid "Omaduse Trükise ehitus (trykise_ehitus) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kromaliin
+msgid "Omaduse Kromalin (kromaliin) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kromaliin_comment
+msgid "Omaduse Kromalin (kromaliin) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_kromaliin_help
+msgid "Omaduse Kromalin (kromaliin) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_makett
+msgid "Omaduse Makett (makett) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_makett_comment
+msgid "Omaduse Makett (makett) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_makett_help
+msgid "Omaduse Makett (makett) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_naidis
+msgid "Omaduse Näidis (naidis) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_naidis_comment
+msgid "Omaduse Näidis (naidis) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_naidis_help
+msgid "Omaduse Näidis (naidis) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_plaate
+msgid "Omaduse Plaate (plaate) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_plaate_comment
+msgid "Omaduse Plaate (plaate) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_plaate_help
+msgid "Omaduse Plaate (plaate) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_transport
+msgid "Omaduse Transport (transport) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_transport_comment
+msgid "Omaduse Transport (transport) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_transport_help
+msgid "Omaduse Transport (transport) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_soodustus
+msgid "Omaduse Soodustus (soodustus) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_soodustus_comment
+msgid "Omaduse Soodustus (soodustus) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_soodustus_help
+msgid "Omaduse Soodustus (soodustus) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_markused
+msgid "Omaduse Märkused (markused) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_markused_comment
+msgid "Omaduse Märkused (markused) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_markused_help
+msgid "Omaduse Märkused (markused) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_allahindlus
+msgid "Omaduse Allahindlus (allahindlus) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_allahindlus_comment
+msgid "Omaduse Allahindlus (allahindlus) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_allahindlus_help
+msgid "Omaduse Allahindlus (allahindlus) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_vahendustasu
+msgid "Omaduse Vahendustasu (vahendustasu) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_vahendustasu_comment
+msgid "Omaduse Vahendustasu (vahendustasu) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_vahendustasu_help
+msgid "Omaduse Vahendustasu (vahendustasu) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_myygi_hind
+msgid "Omaduse Müügi hind (myygi_hind) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_myygi_hind_comment
+msgid "Omaduse Müügi hind (myygi_hind) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_myygi_hind_help
+msgid "Omaduse Müügi hind (myygi_hind) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_user_comments
+msgid "Omaduse Kommentaarid juhtumi ja tööde kohta (user_comments) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_user_comments_comment
+msgid "Omaduse Kommentaarid juhtumi ja tööde kohta (user_comments) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_user_comments_help
+msgid "Omaduse Kommentaarid juhtumi ja tööde kohta (user_comments) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_resource_tree
+msgid "Omaduse  (resource_tree) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_resource_tree_comment
+msgid "Omaduse  (resource_tree) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_resource_tree_help
+msgid "Omaduse  (resource_tree) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_workflow_table
+msgid "Omaduse  (workflow_table) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_workflow_table_comment
+msgid "Omaduse  (workflow_table) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_workflow_table_help
+msgid "Omaduse  (workflow_table) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_chart_navigation
+msgid "Omaduse  (chart_navigation) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_chart_navigation_comment
+msgid "Omaduse  (chart_navigation) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_chart_navigation_help
+msgid "Omaduse  (chart_navigation) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_schedule_chart
+msgid "Omaduse  (schedule_chart) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_schedule_chart_comment
+msgid "Omaduse  (schedule_chart) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_schedule_chart_help
+msgid "Omaduse  (schedule_chart) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_chart_legend
+msgid "Omaduse Legend (chart_legend) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_chart_legend_comment
+msgid "Omaduse Legend (chart_legend) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_chart_legend_help
+msgid "Omaduse Legend (chart_legend) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_log
+msgid "Omaduse  (log) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_log_comment
+msgid "Omaduse  (log) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_log_help
+msgid "Omaduse  (log) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_case_view
+msgid "Omaduse  (case_view) caption"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_case_view_comment
+msgid "Omaduse  (case_view) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:prop_case_view_help
+msgid "Omaduse  (case_view) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_general
+msgid "Grupi Üldine (grp_general) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_general_help
+msgid "Grupi Üldine (grp_general) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_data
+msgid "Grupi Projekti andmed (grp_case_data) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_data_help
+msgid "Grupi Projekti andmed (grp_case_data) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_workflow
+msgid "Grupi Ressursid ja töövoog (grp_case_workflow) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_workflow_help
+msgid "Grupi Ressursid ja töövoog (grp_case_workflow) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_view
+msgid "Grupi Vaatleja töölaud (grp_case_view) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_view_help
+msgid "Grupi Vaatleja töölaud (grp_case_view) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_schedule
+msgid "Grupi Kalender (grp_case_schedule) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_schedule_help
+msgid "Grupi Kalender (grp_case_schedule) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_comments
+msgid "Grupi Kommentaarid (grp_case_comments) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_comments_help
+msgid "Grupi Kommentaarid (grp_case_comments) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_log
+msgid "Grupi Ajalugu (grp_case_log) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:group_grp_case_log_help
+msgid "Grupi Ajalugu (grp_case_log) help"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:rel_RELTYPE_MRP_MANAGER
+msgid "Seose Müügimees/Projektijuht (RELTYPE_MRP_MANAGER) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:rel_RELTYPE_MRP_CUSTOMER
+msgid "Seose Klient (RELTYPE_MRP_CUSTOMER) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:rel_RELTYPE_MRP_PROJECT_JOB
+msgid "Seose Töö (RELTYPE_MRP_PROJECT_JOB) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:rel_RELTYPE_MRP_USED_RESOURCE
+msgid "Seose Kasutatav ressurss (RELTYPE_MRP_USED_RESOURCE) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:rel_RELTYPE_MRP_OWNER
+msgid "Seose Projekti omanik (RELTYPE_MRP_OWNER) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:237
+msgid "Uus"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:238
+msgid "Planeeritud"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:239
+msgid "Töös"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:240
+msgid "Katkestatud"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:241 classes/mrp/mrp_case.aw:1114
+msgid "Valmis"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:242
+msgid "Lukustatud"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:243
+msgid "Paus"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:244
+msgid "Kustutatud"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:245
+msgid "Plaanist väljas"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:246
+msgid "Arhiveeritud"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:276
+msgid "Uut projekti saab luua vaid ressursihalduskeskkonnast."
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:286
+msgid "Projektil puudub ressursihalduskeskkond."
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:292
+msgid "Viga!"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:335
+msgid "Esinenud tõrked:"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:365
+msgid "Pole veel lõpetatud"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:369
+msgid "Pole veel arhiveeritud"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:400
+msgid "Projekt pole plaanis"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:501
+msgid "Ei tohi olla rohkem kui &uuml;ks sama nimega projekt!"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:571
+msgid "Ressursihalduskeskkond defineerimata või katkine"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:713
+msgid "Kinnine aeg %s - %s"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:933
+msgid "<< Tagasi"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:937
+msgid "Algusesse"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:941
+msgid "Edasi >>"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1004
+msgid "Salvesta"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1012
+msgid "Kustuta valitud töö(d)"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1013
+msgid "Kustutada kõik valitud tööd?"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1023
+msgid "Testi/hinda valmimisaega"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1046
+msgid "Planeeri"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1069
+msgid "Plaanist v&auml;lja"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1091
+msgid "Katkesta"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1092
+msgid "Katkesta projekt?"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1137
+msgid "Arhiveeri"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1151
+msgid "Nr."
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1155
+msgid "Eel&shy;dus&shy;tööd"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1159
+msgid "Nimi"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1163
+msgid "P"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1164
+msgid "Pikkus (h)"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1168
+msgid "EP"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1169
+msgid "Eel&shy;puh&shy;ver (h)"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1173
+msgid "JP"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1174
+msgid "Järel&shy;puh&shy;ver (h)"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1178
+msgid "Kommen&shy;taar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1183
+msgid "Min. algusaeg"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1188 classes/mrp/mrp_case.aw:2380
+msgid "Staatus"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1192
+msgid "Töösse"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1252
+msgid "Eeldustöö pole objekti id või puudub sellele objektile vaatamisõigus, mis siin peaks kindlasti olemas olema (oid: %s, prerequisites: %s)."
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1417
+msgid "Lisas kommentaari"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1427
+msgid "Töö objekti-id katkine"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1455 classes/mrp/mrp_case.aw:1861
+msgid "Ressursihalduskeskkond defineerimata"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1523
+msgid "Töövoog ei sisalda kõiki projekti töid"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1559
+msgid "Töövoog sisaldab tsüklit"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1757
+msgid "Millal"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1767
+msgid "T&ouml;&ouml"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1774
+msgid "Kasutaja"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1781
+msgid "sisu"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1788
+msgid "Kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1912 classes/mrp/mrp_case.aw:1971 classes/mrp/mrp_case.aw:2057 classes/mrp/mrp_case.aw:2129 classes/mrp/mrp_case.aw:2191 classes/mrp/mrp_case.aw:2270
+msgid "Projekti id vale"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1924
+msgid "Projekt pole planeeritud"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:1997
+msgid "Projekti ei saa lõpetada. Kõik projekti tööd pole valmis"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2007 classes/mrp/mrp_case.aw:2069
+msgid "Projekt pole töös"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2098 classes/mrp/mrp_case.aw:2235 classes/mrp/mrp_case.aw:2312
+msgid "Ressursihalduskeskkond defineerimata."
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2141
+msgid "Projekt pole valmis"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2206
+msgid "Projekt pole planeerimiseks valmis"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2283
+msgid "Projekti staatus sobimatu"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2365
+msgid "Jrk"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2370
+msgid "Eeldust&ouml;&ouml;d"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2375
+msgid "Ressurss"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2385
+msgid "Planeeritud ketvus"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2390
+msgid "Tegelik ketvus"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2395
+msgid "Algus"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2402
+msgid "L&otilde;pp"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2409
+msgid "T&ouml;&ouml;taja"
+msgstr ""
+
+#: classes/mrp/mrp_case.aw:2446
+msgid "Eeldust\xf6\xf6 pole objekti id v\xf5i puudub sellele objektile vaatamis\xf5igus, mis siin peaks kindlasti olemas olema (oid: %s, prerequisites: %s)."
+msgstr ""
+

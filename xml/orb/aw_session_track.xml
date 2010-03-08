@@ -1,0 +1,51 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="aw_session_track" folder="www/dev/terryf/automatweb_dev/classes/core" extends="class_base">
+		<action name="list" default="1">
+			<function name="orb_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_site">
+			<function name="show_site">
+				<arguments>
+					<required name="url" />
+					<optional name="logged" type="int" />
+					<optional name="time" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_sess">
+			<function name="del_sess">
+				<arguments>
+					<required name="sess" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_redir">
+			<function name="do_redir">
+				<arguments>
+					<required name="sess" />
+					<required name="return_url" />
+					<required name="redir_to" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_msg">
+			<function name="do_msg">
+				<arguments>
+					<required name="sess" />
+					<required name="return_url" />
+					<required name="msg" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

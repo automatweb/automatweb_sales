@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="event_import_2" folder="www/dev/terryf/automatweb_dev/classes/applications/event_import_2" extends="class_base">
+		<action name="invoke">
+			<function name="invoke">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="return_url" type="string" />
+					<optional name="verbose" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,71 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="task_quick_entry" folder="applications/groupware" extends="class_base">
+		<action name="cust_autocomplete_source">
+			<function name="cust_autocomplete_source">
+				<arguments>
+					<optional name="customer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="proj_autocomplete_source">
+			<function name="proj_autocomplete_source">
+				<arguments>
+					<optional name="customer" />
+					<optional name="customer_name" />
+					<optional name="project" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="orderer_autocomplete_source">
+			<function name="orderer_autocomplete_source">
+				<arguments>
+					<optional name="customer" />
+					<optional name="customer_name" />
+					<optional name="orderer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="name_autocomplete_source">
+			<function name="name_autocomplete_source">
+				<arguments>
+					<optional name="custp_fn" />
+					<optional name="custp_ln" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="task_autocomplete_source">
+			<function name="task_autocomplete_source">
+				<arguments>
+					<optional name="customer" />
+					<optional name="customer_name" />
+					<optional name="project" />
+					<optional name="task" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="is_there_customer">
+			<function name="is_there_customer">
+				<arguments>
+					<optional name="customer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="check_existing">
+			<function name="check_existing">
+				<arguments>
+					<optional name="c" />
+					<optional name="p" />
+					<optional name="t" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_packet" folder="www/automatweb_cvs/classes/applications/shop" extends="class_base">
+		<action name="del_from_pkt">
+			<function name="del_from_pkt">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_data" nologin="1" is_public="1" all_args="1">
+			<function name="get_data">
+				<arguments>
+					<required name="prop" type="string" />
+					<required name="code" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

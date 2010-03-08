@@ -1,0 +1,95 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>basket_type</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>chooser</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <multiple>1</multiple>
+            <caption>Korvi t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>export</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <reltype>RELTYPE_EXPORT</reltype>
+            <store>connect</store>
+            <caption>Ekspordiobjekt</caption>
+      </property>
+      <property>
+            <name>max_items</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Maksimaalne kirjete arv</caption>
+      </property>
+      <property>
+            <name>perpage</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Mitu objekti lehel</caption>
+      </property>
+      <property>
+            <name>object_basket</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <store>connect</store>
+            <reltype>RELTYPE_OBJECT_BASKET</reltype>
+            <field>object_basket</field>
+            <caption>Objektide korv</caption>
+      </property>
+      <property>
+            <name>object_shop_product_show</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>meta</field>
+            <mothod>serialize</mothod>
+            <default>0</default>
+            <ch_value>1</ch_value>
+            <caption>Toote puhul kasuta tootekuva</caption>
+      </property>
+      <property>
+            <name>object_shop_product_template</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kasuta toote kuvamisek</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_OBJECT_BASKET</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>robert</maintainer>
+      </classinfo>
+      <reltypes>
+            <EXPORT>
+                  <clid>CL_ICAL_EXPORT</clid>
+                  <value>1</value>
+                  <caption>iCal eksport</caption>
+            </EXPORT>
+            <OBJECT_BASKET>
+                  <clid>CL_OBJECT_BASKET</clid>
+                  <value>2</value>
+                  <caption>Objektide korv</caption>
+            </OBJECT_BASKET>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,17 @@
+You are here... eh n&auml;itab kuskohas sa parajasti lehel asud.
+
+
+<b>N&auml;ide</b>
+Esimest taset n&auml;itame ilma / m&auml;rgita alguses. 
+#code#
+<!-- SUB: YAH_LINK_BEGIN -->
+	<a href="{VAR:link}">{VAR:text}</a>
+<!-- END SUB: YAH_LINK_BEGIN -->
+#/code#
+
+Ja k&otilde;igil &uuml;lej&auml;&auml;nutel on / m&auml;rk alguses
+#code#
+<!-- SUB: YAH_LINK -->
+	/ <a href="{VAR:link}">{VAR:text}</a> 
+<!-- END SUB: YAH_LINK -->
+#/code#

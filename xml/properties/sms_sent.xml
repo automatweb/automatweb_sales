@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>phone</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PHONE</reltype>
+            <store>connect</store>
+            <field>phone</field>
+            <caption>Telefon</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SMS_SENT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <reltypes>
+            <PHONE>
+                  <value>1</value>
+                  <clid>CL_CRM_PHONE</clid>
+                  <caption>Telefon</caption>
+            </PHONE>
+            <MOBI_HANDLER>
+                  <value>2</value>
+                  <clid>CL_MOBI_HANDLER</clid>
+                  <caption>Mobi SMSi haldur</caption>
+            </MOBI_HANDLER>
+      </reltypes>
+</properties>
+

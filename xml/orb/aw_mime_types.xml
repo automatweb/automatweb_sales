@@ -1,0 +1,29 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="aw_mime_types" folder="www/dev/terryf/automatweb_dev/classes/core" extends="">
+		<action name="type_for_ext">
+			<function name="type_for_ext">
+				<arguments>
+					<required name="ext" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="type_for_file">
+			<function name="type_for_file">
+				<arguments>
+					<required name="file" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ext_for_type">
+			<function name="ext_for_type">
+				<arguments>
+					<required name="type" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

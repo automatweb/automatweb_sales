@@ -1,0 +1,162 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/scm/scm_score_calc.aw:class_1097_help
+msgid "Klassi Punktis&uuml;steem help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_score_calculator
+msgid "Omaduse Vali koodialus (score_calculator) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_score_calculator_comment
+msgid "Omaduse Vali koodialus (score_calculator) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_score_calculator_help
+msgid "Omaduse Vali koodialus (score_calculator) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_active_calc
+msgid "Omaduse Aktiivne kood (active_calc) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_active_calc_comment
+msgid "Omaduse Aktiivne kood (active_calc) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_active_calc_help
+msgid "Omaduse Aktiivne kood (active_calc) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_max_points
+msgid "Omaduse Maksimumpunktid (max_points) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_max_points_comment
+msgid "Omaduse Maksimumpunktid (max_points) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_max_points_help
+msgid "Omaduse Maksimumpunktid (max_points) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_points_step
+msgid "Omaduse Samm (points_step) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_points_step_comment
+msgid "Omaduse Samm (points_step) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_points_step_help
+msgid "Omaduse Samm (points_step) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_points_exception
+msgid "Omaduse Erandid (points_exception) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_points_exception_comment
+msgid "Omaduse Erandid (points_exception) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_points_exception_help
+msgid "Omaduse Erandid (points_exception) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_points_others
+msgid "Omaduse &Uuml;lej&auml;&auml;nud v&otilde;istlejad (points_others) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_points_others_comment
+msgid "Omaduse &Uuml;lej&auml;&auml;nud v&otilde;istlejad (points_others) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_points_others_help
+msgid "Omaduse &Uuml;lej&auml;&auml;nud v&otilde;istlejad (points_others) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_cntr_formula
+msgid "Omaduse Kood (cntr_formula) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_cntr_formula_comment
+msgid "Omaduse Kood (cntr_formula) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_cntr_formula_help
+msgid "Omaduse Kood (cntr_formula) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_man_count
+msgid "Omaduse Punkte saavad x esimest (man_count) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_man_count_comment
+msgid "Omaduse Punkte saavad x esimest (man_count) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_man_count_help
+msgid "Omaduse Punkte saavad x esimest (man_count) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_man_points
+msgid "Omaduse Punktid (man_points) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_man_points_comment
+msgid "Omaduse Punktid (man_points) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:prop_man_points_help
+msgid "Omaduse Punktid (man_points) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:group_algorithm
+msgid "Grupi Algoritm (algorithm) pealkiri"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:group_algorithm_help
+msgid "Grupi Algoritm (algorithm) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:group_manual_points
+msgid "Grupi Kohapunktid (manual_points) pealkiri"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:group_manual_points_help
+msgid "Grupi Kohapunktid (manual_points) help"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:rel_RELTYPE_CFGCONTROLLER
+msgid "Seose Kontroller (RELTYPE_CFGCONTROLLER) tekst"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:106
+msgid "Koht nr %s:"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:108
+msgid "&Uuml;lej&auml;&auml;nud:"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:279
+msgid "Esimesed 5 (10p alates, astmega 2)"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:280
+msgid "Esimesed 3 (15p alates, astmega 4)"
+msgstr ""
+
+#: classes/applications/scm/scm_score_calc.aw:281
+msgid "Esimesed 3 (5p alates, astmega 2)"
+msgstr ""

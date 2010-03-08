@@ -1,0 +1,181 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/meta/metamgr.aw:class_279_help
+#: classes/meta/metamgr.aw:class_279_help
+msgid "Klassi Muutujate haldus help"
+msgstr ""
+
+#: classes/meta/metamgr.aw:prop_transyes
+msgid "Omaduse Vajab t&otilde;lget (transyes) caption"
+msgstr ""
+
+#: classes/meta/metamgr.aw:prop_transyes_comment
+msgid "Omaduse Vajab t&otilde;lget (transyes) kommentaar"
+msgstr ""
+
+#: classes/meta/metamgr.aw:prop_transyes_help
+msgid "Omaduse Vajab t&otilde;lget (transyes) help"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_mgrtoolbar
+#: classes/meta/metamgr.aw:prop_mgrtoolbar
+msgid "Omaduse Toolbar (mgrtoolbar) caption"
+msgstr "Toolbar"
+
+# classes/meta/metamgr.aw:prop_mgrtoolbar_comment
+#: classes/meta/metamgr.aw:prop_mgrtoolbar_comment
+msgid "Omaduse Toolbar (mgrtoolbar) kommentaar"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_mgrtoolbar_help
+#: classes/meta/metamgr.aw:prop_mgrtoolbar_help
+msgid "Omaduse Toolbar (mgrtoolbar) help"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_mupload
+#: classes/meta/metamgr.aw:prop_mupload
+msgid "Omaduse Vali muutujatega fail (mupload) caption"
+msgstr "Select file with variables"
+
+# classes/meta/metamgr.aw:prop_mupload_comment
+#: classes/meta/metamgr.aw:prop_mupload_comment
+msgid "Omaduse Vali muutujatega fail (mupload) kommentaar"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_mupload_help
+#: classes/meta/metamgr.aw:prop_mupload_help
+msgid "Omaduse Vali muutujatega fail (mupload) help"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_treeview
+#: classes/meta/metamgr.aw:prop_treeview
+msgid "Omaduse  (treeview) caption"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_treeview_comment
+#: classes/meta/metamgr.aw:prop_treeview_comment
+msgid "Omaduse  (treeview) kommentaar"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_treeview_help
+#: classes/meta/metamgr.aw:prop_treeview_help
+msgid "Omaduse  (treeview) help"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_metalist
+#: classes/meta/metamgr.aw:prop_metalist
+msgid "Omaduse  (metalist) caption"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_metalist_comment
+#: classes/meta/metamgr.aw:prop_metalist_comment
+msgid "Omaduse  (metalist) kommentaar"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_metalist_help
+#: classes/meta/metamgr.aw:prop_metalist_help
+msgid "Omaduse  (metalist) help"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_meta
+#: classes/meta/metamgr.aw:prop_meta
+msgid "Omaduse Metainfo (meta) caption"
+msgstr "Metainfo"
+
+# classes/meta/metamgr.aw:prop_meta_comment
+#: classes/meta/metamgr.aw:prop_meta_comment
+msgid "Omaduse Metainfo (meta) kommentaar"
+msgstr ""
+
+# classes/meta/metamgr.aw:prop_meta_help
+#: classes/meta/metamgr.aw:prop_meta_help
+msgid "Omaduse Metainfo (meta) help"
+msgstr ""
+
+# classes/meta/metamgr.aw:group_manager
+#: classes/meta/metamgr.aw:group_manager
+msgid "Grupi Muutujad (manager) pealkiri"
+msgstr "Variables"
+
+# classes/meta/metamgr.aw:group_manager_help
+#: classes/meta/metamgr.aw:group_manager_help
+msgid "Grupi Muutujad (manager) help"
+msgstr ""
+
+#: classes/meta/metamgr.aw:group_translate
+msgid "Grupi translate (translate) pealkiri"
+msgstr ""
+
+#: classes/meta/metamgr.aw:group_translate_help
+msgid "Grupi translate (translate) help"
+msgstr ""
+
+#: classes/meta/metamgr.aw:143
+msgid "ID"
+msgstr "ID"
+
+#: classes/meta/metamgr.aw:148
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/meta/metamgr.aw:176
+msgid "V&auml;&auml;rtus"
+msgstr ""
+
+#: classes/meta/metamgr.aw:183
+msgid "Jrk"
+msgstr "Ord"
+
+#: classes/meta/metamgr.aw:301
+msgid "$file_name"
+msgstr ""
+
+#: classes/meta/metamgr.aw:472
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/meta/metamgr.aw:480
+msgid "Liiguta valitud omadused gruppi"
+msgstr "Move selected properties to group"
+
+#: classes/meta/metamgr.aw:536
+msgid "Export"
+msgstr "Export"
+
+#: classes/meta/metamgr.aw:545
+msgid "Import"
+msgstr "Import"
+
+#: classes/meta/metamgr.aw:554
+msgid "Kustuta valitud muutujad"
+msgstr "Delete selected variables"
+
+#: classes/meta/metamgr.aw:555
+msgid "Kustuta valitud muutujad?"
+msgstr "Delete selected variables?"
+
+#~ msgid "Omaduse Vajab t&amp;otilde;lget (transyes) caption"
+#~ msgstr "Needs translation"
+
+#~ msgid "V&amp;auml;&amp;auml;rtus"
+#~ msgstr "Value"
+
+# classes/meta/metamgr.aw:prop_manager
+#~ msgid "Omaduse Manager (manager) caption"
+#~ msgstr "Manager"
+
+# classes/meta/metamgr.aw:group_import
+#~ msgid "Grupi Import (import) pealkiri"
+#~ msgstr "Import"
+
+#~ msgid "V‰‰rtus"
+#~ msgstr "Value"

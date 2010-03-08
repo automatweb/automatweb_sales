@@ -1,0 +1,323 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:class_1083_help
+msgid "Klassi Vedu help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_start_date
+msgid "Omaduse Alguskuup&auml;ev (start_date) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_start_date_comment
+msgid "Omaduse Alguskuup&auml;ev (start_date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_start_date_help
+msgid "Omaduse Alguskuup&auml;ev (start_date) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_end_date
+msgid "Omaduse L&otilde;pukuup&auml;ev (end_date) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_end_date_comment
+msgid "Omaduse L&otilde;pukuup&auml;ev (end_date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_end_date_help
+msgid "Omaduse L&otilde;pukuup&auml;ev (end_date) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_return_deadline
+msgid "Omaduse Tagasisaabumise t&auml;htaeg (return_deadline) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_return_deadline_comment
+msgid "Omaduse Tagasisaabumise t&auml;htaeg (return_deadline) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_return_deadline_help
+msgid "Omaduse Tagasisaabumise t&auml;htaeg (return_deadline) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_route
+msgid "Omaduse Marsruut (route) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_route_comment
+msgid "Omaduse Marsruut (route) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_route_help
+msgid "Omaduse Marsruut (route) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_start_location
+msgid "Omaduse Alguspunkt (start_location) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_start_location_comment
+msgid "Omaduse Alguspunkt (start_location) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_start_location_help
+msgid "Omaduse Alguspunkt (start_location) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_end_location
+msgid "Omaduse Sihtpunkt (end_location) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_end_location_comment
+msgid "Omaduse Sihtpunkt (end_location) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_end_location_help
+msgid "Omaduse Sihtpunkt (end_location) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_trucks_table
+msgid "Omaduse Veoautod (trucks_table) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_trucks_table_comment
+msgid "Omaduse Veoautod (trucks_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_trucks_table_help
+msgid "Omaduse Veoautod (trucks_table) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_trailer
+msgid "Omaduse Haagise nr.\t (trailer) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_trailer_comment
+msgid "Omaduse Haagise nr.\t (trailer) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_trailer_help
+msgid "Omaduse Haagise nr.\t (trailer) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_transporter
+msgid "Omaduse Vedaja (transporter) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_transporter_comment
+msgid "Omaduse Vedaja (transporter) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_transporter_help
+msgid "Omaduse Vedaja (transporter) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_dispatcher
+msgid "Omaduse Ekspediitor (dispatcher) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_dispatcher_comment
+msgid "Omaduse Ekspediitor (dispatcher) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_dispatcher_help
+msgid "Omaduse Ekspediitor (dispatcher) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_code
+msgid "Omaduse Kood (tuletatakse ekspediitori kasutajanimest + autoincremental number) (code) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_code_comment
+msgid "Omaduse Kood (tuletatakse ekspediitori kasutajanimest + autoincremental number) (code) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_code_help
+msgid "Omaduse Kood (tuletatakse ekspediitori kasutajanimest + autoincremental number) (code) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_carriage_status
+msgid "Omaduse Veo staatus (carriage_status) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_carriage_status_comment
+msgid "Omaduse Veo staatus (carriage_status) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_carriage_status_help
+msgid "Omaduse Veo staatus (carriage_status) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_income
+msgid "Omaduse Tulud (income) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_income_comment
+msgid "Omaduse Tulud (income) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_income_help
+msgid "Omaduse Tulud (income) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_costs
+msgid "Omaduse Kulud (costs) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_costs_comment
+msgid "Omaduse Kulud (costs) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_costs_help
+msgid "Omaduse Kulud (costs) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_profit
+msgid "Omaduse Kasum (profit) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_profit_comment
+msgid "Omaduse Kasum (profit) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_profit_help
+msgid "Omaduse Kasum (profit) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_orders_table
+msgid "Omaduse Tellimuste tabel (orders_table) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_orders_table_comment
+msgid "Omaduse Tellimuste tabel (orders_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_orders_table_help
+msgid "Omaduse Tellimuste tabel (orders_table) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_costs_table
+msgid "Omaduse Kulude tabel (costs_table) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_costs_table_comment
+msgid "Omaduse Kulude tabel (costs_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_costs_table_help
+msgid "Omaduse Kulude tabel (costs_table) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_incomes_table
+msgid "Omaduse Tulude tabel (incomes_table) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_incomes_table_comment
+msgid "Omaduse Tulude tabel (incomes_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:prop_incomes_table_help
+msgid "Omaduse Tulude tabel (incomes_table) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:group_orders
+msgid "Grupi Tellimused (orders) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:group_orders_help
+msgid "Grupi Tellimused (orders) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:group_costs
+msgid "Grupi Kulud (costs) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:group_costs_help
+msgid "Grupi Kulud (costs) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:group_income
+msgid "Grupi Tulud (income) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:group_income_help
+msgid "Grupi Tulud (income) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:rel_RELTYPE_ROUTE
+msgid "Seose Marsruut (RELTYPE_ROUTE) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:rel_RELTYPE_START_ADDRESS
+msgid "Seose Alguspunkt (RELTYPE_START_ADDRESS) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:rel_RELTYPE_END_ADDRESS
+msgid "Seose Sihtpunkt (RELTYPE_END_ADDRESS) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:rel_RELTYPE_TRUCK
+msgid "Seose Veoauto (RELTYPE_TRUCK) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:rel_RELTYPE_TRAILER
+msgid "Seose Haagis (RELTYPE_TRAILER) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:rel_RELTYPE_TRANSPORTER
+msgid "Seose Vedaja (RELTYPE_TRANSPORTER) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:rel_RELTYPE_DISPATCHER
+msgid "Seose Ekspediitor (RELTYPE_DISPATCHER) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:118
+msgid "Komplekteerimisel"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:119
+msgid "Kinnitatud"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:120
+msgid "Hetkel t&ouml;&ouml;s"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:121
+msgid "Valmis"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:122
+msgid "Arhiveeritud"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:176
+msgid "Veoauto"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:190
+msgid "Tellimus"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:204
+msgid "Nimetus"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:209
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:238
+msgid "Summa"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_carriage.aw:233
+msgid "Kliendi nimi"
+msgstr ""

@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="otto_prod_search" folder="www/automatweb_cvs/classes/applications/shop/otto" extends="class_base">
+		<action name="do_minisearch" nologin="1">
+			<function name="do_minisearch">
+				<arguments>
+					<optional name="str" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="exts" nologin="1">
+			<function name="exts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

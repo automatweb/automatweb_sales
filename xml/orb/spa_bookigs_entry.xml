@@ -1,0 +1,126 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="spa_bookigs_entry" folder="www/dev/terryf/automatweb_dev/classes/applications/spa_bookings" extends="class_base">
+		<action name="select_room_booking">
+			<function name="select_room_booking">
+				<arguments>
+					<required name="booking" type="int" />
+					<required name="prod" type="int" />
+					<required name="prod_num" type="int" />
+					<optional name="pkt" type="int" />
+					<optional name="_not_verified" />
+					<optional name="rooms" />
+					<optional name="retf" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_reservation">
+			<function name="make_reservation">
+				<arguments>
+					<required name="start" type="int" />
+					<required name="end" type="int" />
+					<required name="prod" type="int" />
+					<required name="prod_num" type="int" />
+					<required name="booking" type="int" />
+					<optional name="_not_verified" type="int" />
+					<optional name="retf" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="proforma">
+			<function name="proforma">
+				<arguments>
+					<required name="id" />
+					<required name="wb" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="print_booking">
+			<function name="print_booking">
+				<arguments>
+					<required name="id" />
+					<required name="wb" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="clear_booking">
+			<function name="clear_booking">
+				<arguments>
+					<required name="return_url" />
+					<required name="booking" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_booking">
+			<function name="delete_booking">
+				<arguments>
+					<required name="return_url" />
+					<required name="booking" type="int" />
+					<required name="spa_bron" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_prod_to_bron">
+			<function name="add_prod_to_bron">
+				<arguments>
+					<required name="bron" type="int" acl="edit" />
+					<required name="wb" type="int" acl="edit" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fin_add_prod_to_bron">
+			<function name="fin_add_prod_to_bron">
+				<arguments>
+					<required name="bron" type="int" acl="edit" />
+					<required name="wb" type="int" acl="edit" />
+					<required name="prod" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="enter_cust_data_pop">
+			<function name="enter_cust_data_pop">
+				<arguments>
+					<required name="bron" type="int" acl="edit" />
+					<optional name="props" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_cust_data_pop" all_args="1">
+			<function name="save_cust_data_pop">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_package_service" nologin="1" all_args="1">
+			<function name="add_package_service">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="packet_list_service" nologin="1" all_args="1">
+			<function name="packet_list_service">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_package_service_example" nologin="1" all_args="1">
+			<function name="add_package_service_example">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

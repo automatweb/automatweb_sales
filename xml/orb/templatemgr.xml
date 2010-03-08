@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="templatemgr" folder="www/dev/terryf/automatweb_dev/classes/core/util" extends="aw_template">
+		<action name="get_template_folder_list" nologin="1">
+			<function name="get_template_folder_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

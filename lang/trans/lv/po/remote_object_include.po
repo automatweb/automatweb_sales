@@ -1,0 +1,172 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/remote_object_include.aw:class_1466_help
+msgid "Klassi Objekt teisest saidist help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_site
+msgid "Omaduse Sait (site) caption"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_site_comment
+msgid "Omaduse Sait (site) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_site_help
+msgid "Omaduse Sait (site) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_object_type
+msgid "Omaduse Objektit&uuml;&uuml;p (object_type) caption"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_object_type_comment
+msgid "Omaduse Objektit&uuml;&uuml;p (object_type) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_object_type_help
+msgid "Omaduse Objektit&uuml;&uuml;p (object_type) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_s_name
+msgid "Omaduse Nimi (s_name) caption"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_s_name_comment
+msgid "Omaduse Nimi (s_name) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_s_name_help
+msgid "Omaduse Nimi (s_name) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_s_oid
+msgid "Omaduse OID (s_oid) caption"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_s_oid_comment
+msgid "Omaduse OID (s_oid) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_s_oid_help
+msgid "Omaduse OID (s_oid) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_search
+msgid "Omaduse Otsi (search) caption"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_search_comment
+msgid "Omaduse Otsi (search) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_search_help
+msgid "Omaduse Otsi (search) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_result_table
+msgid "Omaduse Otsingu tulemused (result_table) caption"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_result_table_comment
+msgid "Omaduse Otsingu tulemused (result_table) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_result_table_help
+msgid "Omaduse Otsingu tulemused (result_table) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_sel_s_res
+msgid "Omaduse Vali (sel_s_res) caption"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_sel_s_res_comment
+msgid "Omaduse Vali (sel_s_res) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_sel_s_res_help
+msgid "Omaduse Vali (sel_s_res) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_sel_object
+msgid "Omaduse Valitud objekt (sel_object) caption"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_sel_object_comment
+msgid "Omaduse Valitud objekt (sel_object) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_sel_object_help
+msgid "Omaduse Valitud objekt (sel_object) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_preview
+msgid "Omaduse  (preview) caption"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_preview_comment
+msgid "Omaduse  (preview) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:prop_preview_help
+msgid "Omaduse  (preview) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:group_search
+msgid "Grupi Otsi (search) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:group_search_help
+msgid "Grupi Otsi (search) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:group_preview
+msgid "Grupi Eelvaade (preview) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:group_preview_help
+msgid "Grupi Eelvaade (preview) help"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:175
+msgid "Name"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:180
+msgid "Loodud"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:188
+msgid "Looja"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:194
+msgid "Muudetud"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:202
+msgid "Muutja"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:208
+msgid "Asukoht"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:214
+msgid "Vali"
+msgstr ""
+
+#: classes/contentmgmt/remote_object_include.aw:217
+msgid "Otsingu tulemused"
+msgstr ""
+

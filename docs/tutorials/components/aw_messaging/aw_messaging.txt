@@ -1,0 +1,90 @@
+<b>AWMessaging</b>
+
+What is the problem that AWMessages solve?
+
+The problem of upcalling and notifying modules of changes in core data. 
+
+
+<b>What is the problem with upcalling?</b>
+
+The problem is, that classes in lower levels of the inheritance tree sometimes need to notify their parent classes of some changes. But they can not call the classes directly, because the current object might not implement that particular function. There needs to be a way to let lower level classes notify upper level classes of events. 
+
+<b>What is the problem of notifying?</b>
+
+Storage needs a way to tell modules that their data has changed. For instance, if an user object is cut-pasted to another location, the user object must gain control and move the object from one group to another. There needs a way to send these notifications without creating a dependency from storage to notofoed modules. 
+
+
+The solution to both problems - messaging. 
+
+The idea behind messaging is, that it can connect several classes tohether, without creating explicit dependencies between them, just dependencies on the messaging subsystem, but that is part of the core and everything depends on core anyway. Messages are posted from the class that wants to notify other classes of an event and other classes can subscribe to messages. The message sender does not know who will listen to the message and the message recievers do not know who sent the message. This enables the message dispatcher to check what modules are present on the system and which of those modules wants to listen to the message. When a new module is added, it can start recieving messages and the sender of the message will not even know that a listener has been added. Thus, the modules are not dependent on each other, but they can communicate. 
+
+
+There is another problem though - all listeners might not want to listen to all messages of a given type. For instance, storage sends a message whenever an object is modified. But most classes will only want to listen to that message when an object of their type is modified. The document class only wants to know when documents are modified. The user class only wants to know when users are copy-pasted. Therefore the concept of parametrized messages exists. The sender of the message can add a parameter to the message and all the recievers can define that they only want to recieve the message if the parameter matches. 
+
+
+
+<b>How does the message dispatcher work?</b>
+
+The message dispatcher reads message sending/recieving information from class file headers. It stores the messages in xml files in the $AW/xml/msgmaps folder, one file per message. When a message reciever/new message is defined, the command "make msg" must be activated from the $AW folder.
+
+<b>How are messages defined?</b>
+
+Messages are defined in the header of the class that sends them. 
+
+The format is:
+
+/*
+
+EMIT_MESSAGE(MSG_FOO)
+
+*/
+
+Any messages can be posted with or without a parameter. 
+
+
+<b>How is message reception defined?</b>
+
+Message reception is defined in the header of the class that wants to recieve the message. 
+
+The format is:
+
+/*
+
+// for regular messages:
+
+HANDLE_MESSAGE(MSG_FOO, on_foo)
+
+// for messages with parameter
+
+HANDLE_MESSAGE_WITH_PARAM(MSG_BAR, CL_USER, on_bar_user)
+
+*/
+
+This defines that the class wants to recieve two messages, MSG_FOO and MSG_BAR. The class wants to recieve all messages of type MSG_FOO and messages of type MSG_BAR, that have CL_USER as the message parameter. define()'d constants can be used as message parameters - they are automatically detected and resolved. When a message of type MSG_BAR is recieved, an instance of this class will be created and the function on_bar_user will be called with the message agruments. Message arguments are given by the sender of the message and are defined separately for each message. 
+
+
+<b>How are messages posted?</b>
+
+To post a message, the class must forst define the message in is't header. To post the message, there are two functions available:
+
+- post_message($msg, $params)
+
+to post a simple message, use this function. The arguments are:
+   $msg - the message to post 
+   $params - an array of arguments to pass to the handler function. 
+
+- post_message_with_param($msg, $param, $params)
+
+to post a message with a parameter, use this function. the message will only be delivered to the classes that want to recieve the message with that paramter. 
+
+arguments:
+   $msg - the message to post
+   $param - the message parameter
+   $params - an array of arguments to pass to the handler function
+
+
+
+<b>What messages exist?</b>
+
+All the messages in AutomatWeb are defined in the documents on the right
+

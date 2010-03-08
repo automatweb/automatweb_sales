@@ -1,0 +1,248 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/calendar/recurrence.aw:class_286_help
+msgid "Klassi Kordus help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_start
+msgid "Omaduse Alates (start) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_start_comment
+msgid "Omaduse Alates (start) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_start_help
+msgid "Omaduse Alates (start) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_time
+msgid "Omaduse Kellaaeg (tund:minut) (time) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_time_comment
+msgid "Omaduse Kellaaeg (tund:minut) (time) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_time_help
+msgid "Omaduse Kellaaeg (tund:minut) (time) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_length
+msgid "Omaduse Pikkus (h) (length) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_length_comment
+msgid "Omaduse Pikkus (h) (length) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_length_help
+msgid "Omaduse Pikkus (h) (length) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_recur_type
+msgid "Omaduse Korduse tüüp (recur_type) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_recur_type_comment
+msgid "Omaduse Korduse tüüp (recur_type) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_recur_type_help
+msgid "Omaduse Korduse tüüp (recur_type) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_minutely
+msgid "Omaduse Iga X minuti järel (interval_minutely) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_minutely_comment
+msgid "Omaduse Iga X minuti järel (interval_minutely) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_minutely_help
+msgid "Omaduse Iga X minuti järel (interval_minutely) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_hourly
+msgid "Omaduse Iga X tunni järel (interval_hourly) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_hourly_comment
+msgid "Omaduse Iga X tunni järel (interval_hourly) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_hourly_help
+msgid "Omaduse Iga X tunni järel (interval_hourly) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_daily
+msgid "Omaduse Iga X päeva järel (interval_daily) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_daily_comment
+msgid "Omaduse Iga X päeva järel (interval_daily) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_daily_help
+msgid "Omaduse Iga X päeva järel (interval_daily) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_weekly
+msgid "Omaduse Iga X nädala järel (interval_weekly) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_weekly_comment
+msgid "Omaduse Iga X nädala järel (interval_weekly) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_weekly_help
+msgid "Omaduse Iga X nädala järel (interval_weekly) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_monthly
+msgid "Omaduse Iga X kuu järel (interval_monthly) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_monthly_comment
+msgid "Omaduse Iga X kuu järel (interval_monthly) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_monthly_help
+msgid "Omaduse Iga X kuu järel (interval_monthly) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_yearly
+msgid "Omaduse Iga X aasta järel (interval_yearly) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_yearly_comment
+msgid "Omaduse Iga X aasta järel (interval_yearly) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_interval_yearly_help
+msgid "Omaduse Iga X aasta järel (interval_yearly) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_weekdays
+msgid "Omaduse Nendel päevadel (weekdays) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_weekdays_comment
+msgid "Omaduse Nendel päevadel (weekdays) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_weekdays_help
+msgid "Omaduse Nendel päevadel (weekdays) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_month_days
+msgid "Omaduse Kindlatel päevadel (month_days) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_month_days_comment
+msgid "Omaduse Kindlatel päevadel (month_days) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_month_days_help
+msgid "Omaduse Kindlatel päevadel (month_days) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_month_rel_weekdays
+msgid "Omaduse Valitud nädalapäevadel (month_rel_weekdays) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_month_rel_weekdays_comment
+msgid "Omaduse Valitud nädalapäevadel (month_rel_weekdays) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_month_rel_weekdays_help
+msgid "Omaduse Valitud nädalapäevadel (month_rel_weekdays) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_month_weekdays
+msgid "Omaduse Nädalapäevad (month_weekdays) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_month_weekdays_comment
+msgid "Omaduse Nädalapäevad (month_weekdays) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_month_weekdays_help
+msgid "Omaduse Nädalapäevad (month_weekdays) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_end
+msgid "Omaduse Kuni (end) caption"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_end_comment
+msgid "Omaduse Kuni (end) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:prop_end_help
+msgid "Omaduse Kuni (end) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:group_test
+msgid "Grupi Test (test) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:group_test_help
+msgid "Grupi Test (test) help"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:154
+msgid "esimesel"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:155
+msgid "teisel"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:156
+msgid "kolmandal"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:157
+msgid "neljandal"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:158
+msgid "viimasel"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:165
+msgid "päev"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:166
+msgid "nädal"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:167
+msgid "kuu"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:168
+msgid "aasta"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:169
+msgid "minut"
+msgstr ""
+
+#: classes/applications/calendar/recurrence.aw:170
+msgid "tund"
+msgstr ""
+

@@ -1,0 +1,21 @@
+aw_url_change_var($name,$value)
+
+Takes the current URL and changes a value in it or adds a new variable to it.
+
+For example: If the request URL is
+http://www.site.ee/orb.aw?class=dodo&action=list&type=3
+
+then doing aw_url_change_var("type",66) yields
+http://www.site.ee/orb.aw?class=dodo&action=list&type=66
+
+If the argument with $name is not present in the URL, it
+will be added to the end.
+
+You can also change multiple vars at once:
+
+aw_url_change_var(array(
+	"type" => 66,
+	"mark" => 99,
+));
+
+Returns: modified URL

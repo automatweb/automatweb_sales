@@ -1,0 +1,40 @@
+get_property
+
+Will be called once each property that is to be shown in the form. Properties with newonly attribute set to 1 will not be shown when editing an existing object. Properties with editonly attribute set to 1 will not be shown for new objects.
+
+<b>Example 4.2. Reference implementation</b>
+#php#
+function get_property($arr)
+{
+	$data = &$arr["prop"];
+	$retval = PROP_OK;
+	switch($data["name"])
+	{
+		case "name":
+			$data["value"] = "fubar";
+			break;
+
+		case "comment":
+			$data["value"] = "some text";
+			break;
+	};
+	return $retval;
+}
+#/php#
+
+Arguments passed to get_property
+
+<b>obj_inst</b>
+    Pointer to the loaded object.
+
+<b>request</b>
+    Array containing the arguments to the script. Use this instead of $_GET superglobal.
+
+<b>prop</b>
+    Array containing infromation about the current property, this mean all attributes in the property definition
+
+<b>Important</b>
+get_property has to return one of the predefined constants: PROP_OK, PROP_IGNORE, PROP_ERROR or PROP_FATAL_ERROR. If you return PROP_IGNORE that property will be left out from the form. This is useful if you need to show properties depending on a value of for example another property.
+
+<b>Important</b>
+Do not assume that get_property calls will arrive in a certain order, they almost certainly will not. 

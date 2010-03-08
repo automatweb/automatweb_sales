@@ -1,0 +1,348 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_sell_order.aw:class_1431_help
+msgid "Klassi Lao m&uuml;&uuml;gitellimus help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_number
+msgid "Omaduse Number (number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_number_comment
+msgid "Omaduse Number (number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_number_help
+msgid "Omaduse Number (number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_purchaser
+msgid "Omaduse Tellija (purchaser) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_purchaser_comment
+msgid "Omaduse Tellija (purchaser) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_purchaser_help
+msgid "Omaduse Tellija (purchaser) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_job
+msgid "Omaduse T&ouml;&ouml; (job) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_job_comment
+msgid "Omaduse T&ouml;&ouml; (job) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_job_help
+msgid "Omaduse T&ouml;&ouml; (job) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_related_orders
+msgid "Omaduse Seotud ostutellimused			 (related_orders) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_related_orders_comment
+msgid "Omaduse Seotud ostutellimused			 (related_orders) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_related_orders_help
+msgid "Omaduse Seotud ostutellimused			 (related_orders) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_date
+msgid "Omaduse Kuup&auml;ev (date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_date_comment
+msgid "Omaduse Kuup&auml;ev (date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_date_help
+msgid "Omaduse Kuup&auml;ev (date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_deal_date
+msgid "Omaduse Tegelemise kuup&auml;ev (deal_date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_deal_date_comment
+msgid "Omaduse Tegelemise kuup&auml;ev (deal_date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_deal_date_help
+msgid "Omaduse Tegelemise kuup&auml;ev (deal_date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_planned_date
+msgid "Omaduse Planeeritud saatmise kuup&auml;ev (planned_date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_planned_date_comment
+msgid "Omaduse Planeeritud saatmise kuup&auml;ev (planned_date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_planned_date_help
+msgid "Omaduse Planeeritud saatmise kuup&auml;ev (planned_date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_buyer_rep
+msgid "Omaduse Tellija esindaja (buyer_rep) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_buyer_rep_comment
+msgid "Omaduse Tellija esindaja (buyer_rep) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_buyer_rep_help
+msgid "Omaduse Tellija esindaja (buyer_rep) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_our_rep
+msgid "Omaduse Meie esindaja (our_rep) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_our_rep_comment
+msgid "Omaduse Meie esindaja (our_rep) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_our_rep_help
+msgid "Omaduse Meie esindaja (our_rep) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_trans_cost
+msgid "Omaduse Transpordikulu (trans_cost) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_trans_cost_comment
+msgid "Omaduse Transpordikulu (trans_cost) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_trans_cost_help
+msgid "Omaduse Transpordikulu (trans_cost) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_customs_cost
+msgid "Omaduse Tollikulu (customs_cost) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_customs_cost_comment
+msgid "Omaduse Tollikulu (customs_cost) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_customs_cost_help
+msgid "Omaduse Tollikulu (customs_cost) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_transp_type
+msgid "Omaduse L&auml;hetusviis (transp_type) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_transp_type_comment
+msgid "Omaduse L&auml;hetusviis (transp_type) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_transp_type_help
+msgid "Omaduse L&auml;hetusviis (transp_type) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_currency
+msgid "Omaduse Valuuta (currency) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_currency_comment
+msgid "Omaduse Valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_currency_help
+msgid "Omaduse Valuuta (currency) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_warehouse
+msgid "Omaduse Ladu (warehouse) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_warehouse_comment
+msgid "Omaduse Ladu (warehouse) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_warehouse_help
+msgid "Omaduse Ladu (warehouse) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_delivery_address
+msgid "Omaduse Kohaletoimetamise aadress (delivery_address) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_delivery_address_comment
+msgid "Omaduse Kohaletoimetamise aadress (delivery_address) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_delivery_address_help
+msgid "Omaduse Kohaletoimetamise aadress (delivery_address) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_order_status
+msgid "Omaduse Staatus (order_status) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_order_status_comment
+msgid "Omaduse Staatus (order_status) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_order_status_help
+msgid "Omaduse Staatus (order_status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_taxed
+msgid "Omaduse Maks (taxed) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_taxed_comment
+msgid "Omaduse Maks (taxed) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_taxed_help
+msgid "Omaduse Maks (taxed) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_payment_type
+msgid "Omaduse Maksetingimus (payment_type) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_payment_type_comment
+msgid "Omaduse Maksetingimus (payment_type) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_payment_type_help
+msgid "Omaduse Maksetingimus (payment_type) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_sell_channel
+msgid "Omaduse M&uuml;&uuml;gikanal (sell_channel) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_sell_channel_comment
+msgid "Omaduse M&uuml;&uuml;gikanal (sell_channel) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_sell_channel_help
+msgid "Omaduse M&uuml;&uuml;gikanal (sell_channel) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_art_toolbar
+msgid "Omaduse  (art_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_art_toolbar_comment
+msgid "Omaduse  (art_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_art_toolbar_help
+msgid "Omaduse  (art_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_articles
+msgid "Omaduse  (articles) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_articles_comment
+msgid "Omaduse  (articles) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:prop_articles_help
+msgid "Omaduse  (articles) help"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_PURCHASER
+msgid "Seose Hankija (RELTYPE_PURCHASER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_BUYER_REP
+msgid "Seose Hankija esindaja (RELTYPE_BUYER_REP) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_PURCHASE_ORDER
+msgid "Seose Ostutellimus (RELTYPE_PURCHASE_ORDER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_OUR_REP
+msgid "Seose Meie esindaja (RELTYPE_OUR_REP) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_CURRENCY
+msgid "Seose Valuuta (RELTYPE_CURRENCY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_WAREHOUSE
+msgid "Seose Ladu (RELTYPE_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_TRANSFER_METHOD
+msgid "Seose L&auml;hetusviis (RELTYPE_TRANSFER_METHOD) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_PRODUCT
+msgid "Seose Artikkel (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_ROW
+msgid "Seose Rida (RELTYPE_ROW) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_JOB
+msgid "Seose T&ouml;&ouml; (RELTYPE_JOB) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:rel_RELTYPE_ADDRESS
+msgid "Seose Aadress (RELTYPE_ADDRESS) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:116
+msgid "Koostamisel"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:117
+msgid "Kinnitatud"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:118
+msgid "Katkestatud"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:119
+msgid "Saadetud"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:120
+msgid "T&auml;idetud"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:230
+msgid "Toode"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:235
+msgid "Kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:240
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/shop/shop_sell_order.aw:245
+msgid "Summa"
+msgstr ""
+

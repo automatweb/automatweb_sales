@@ -1,0 +1,5 @@
+
+is_oid($arg)
+
+Returns: true or false depending on whether the argument is a valid
+object id or not.

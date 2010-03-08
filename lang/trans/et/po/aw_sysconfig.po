@@ -1,0 +1,53 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/core/aw_sysconfig.aw:class_479_help
+#: classes/core/aw_sysconfig.aw:class_479_help
+msgid "Klassi AW Sysconfig help"
+msgstr ""
+
+# classes/core/aw_sysconfig.aw:prop_matchmaker
+#: classes/core/aw_sysconfig.aw:prop_matchmaker
+msgid "Omaduse Seadistamise tabel (matchmaker) caption"
+msgstr ""
+
+# classes/core/aw_sysconfig.aw:prop_matchmaker_comment
+#: classes/core/aw_sysconfig.aw:prop_matchmaker_comment
+msgid "Omaduse Seadistamise tabel (matchmaker) kommentaar"
+msgstr ""
+
+# classes/core/aw_sysconfig.aw:prop_matchmaker_help
+#: classes/core/aw_sysconfig.aw:prop_matchmaker_help
+msgid "Omaduse Seadistamise tabel (matchmaker) help"
+msgstr ""
+
+# classes/core/aw_sysconfig.aw:group_configure
+#: classes/core/aw_sysconfig.aw:group_configure
+msgid "Grupi Seadistamine (configure) pealkiri"
+msgstr ""
+
+# classes/core/aw_sysconfig.aw:group_configure_help
+#: classes/core/aw_sysconfig.aw:group_configure_help
+msgid "Grupi Seadistamine (configure) help"
+msgstr ""
+
+# classes/core/aw_sysconfig.aw:rel_RELTYPE_SCRIPT
+#: classes/core/aw_sysconfig.aw:rel_RELTYPE_SCRIPT
+msgid "Seose Skript (RELTYPE_SCRIPT) tekst"
+msgstr ""
+
+#: classes/core/aw_sysconfig.aw:62
+msgid "Teade"
+msgstr ""
+
+#: classes/core/aw_sysconfig.aw:79
+msgid "Vali skriptid"
+msgstr ""

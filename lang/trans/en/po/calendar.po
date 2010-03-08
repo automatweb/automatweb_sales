@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/vcl/calendar.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/calendar.aw:743
+msgid "T&auml;na"
+msgstr "Today"
+
+#: classes/vcl/calendar.aw:744
+msgid "P&auml;ev"
+msgstr "Day"
+
+#: classes/vcl/calendar.aw:745
+msgid "N&auml;dal"
+msgstr "Week"
+
+#: classes/vcl/calendar.aw:746
+msgid "Kuu"
+msgstr "Month"
+
+#: classes/vcl/calendar.aw:747
+msgid "&Uuml;levaade"
+msgstr "Overview"
+
+#: classes/vcl/calendar.aw:808
+msgid "Toimetused"
+msgstr "Events"
+
+#: classes/vcl/calendar.aw:1427
+msgid "Viimased"
+msgstr "Last"
+
+#: classes/vcl/calendar.aw:1428
+msgid "J&auml;rgmised"
+msgstr "Next"
+
+#: classes/vcl/calendar.aw:1904
+msgid "Lisas [%s] %s /  Muutis [%s] %s"
+msgstr "Added by [%s] %s / Modified by [%s] %s"
+
+#~ msgid "Täna"
+#~ msgstr "Today"
+
+#~ msgid "Päev"
+#~ msgstr "Day"
+
+#~ msgid "Nädal"
+#~ msgstr "Week"
+
+#~ msgid "Ülevaade"
+#~ msgstr "Overview"
+
+#~ msgid "Eelmine kuu"
+#~ msgstr "Last month"
+
+#~ msgid "Järgmine kuu"
+#~ msgstr "Next month"

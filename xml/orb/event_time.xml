@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="event_time" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="locations_search">
+			<function name="locations_search">
+				<arguments>
+					<optional name="loc" />
+					<optional name="location_name" type="string" />
+					<optional name="field" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

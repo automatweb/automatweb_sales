@@ -1,0 +1,148 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/timing.aw:class_858_help
+msgid "Klassi Ajaline aktiivsus help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_activate
+msgid "Omaduse Aktiveerida (activate) caption"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_activate_comment
+msgid "Omaduse Aktiveerida (activate) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_activate_help
+msgid "Omaduse Aktiveerida (activate) help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_deactivate
+msgid "Omaduse Deaktiveerida (deactivate) caption"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_deactivate_comment
+msgid "Omaduse Deaktiveerida (deactivate) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_deactivate_help
+msgid "Omaduse Deaktiveerida (deactivate) help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_apply_langs
+msgid "Omaduse Kehtib keeltele (apply_langs) caption"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_apply_langs_comment
+msgid "Omaduse Kehtib keeltele (apply_langs) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_apply_langs_help
+msgid "Omaduse Kehtib keeltele (apply_langs) help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_archive_time
+msgid "Omaduse Arhiveerimise aeg (archive_time) caption"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_archive_time_comment
+msgid "Omaduse Arhiveerimise aeg (archive_time) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_archive_time_help
+msgid "Omaduse Arhiveerimise aeg (archive_time) help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_archive_folder
+msgid "Omaduse Arhiivi kaust (archive_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_archive_folder_comment
+msgid "Omaduse Arhiivi kaust (archive_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_archive_folder_help
+msgid "Omaduse Arhiivi kaust (archive_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_delete_object
+msgid "Omaduse Kustuta objekt (delete_object) caption"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_delete_object_comment
+msgid "Omaduse Kustuta objekt (delete_object) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_delete_object_help
+msgid "Omaduse Kustuta objekt (delete_object) help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_objects_toolbar
+msgid "Omaduse Objektide toolbar (objects_toolbar) caption"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_objects_toolbar_comment
+msgid "Omaduse Objektide toolbar (objects_toolbar) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_objects_toolbar_help
+msgid "Omaduse Objektide toolbar (objects_toolbar) help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_objects
+msgid "Omaduse Seotud objektid (objects) caption"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_objects_comment
+msgid "Omaduse Seotud objektid (objects) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:prop_objects_help
+msgid "Omaduse Seotud objektid (objects) help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:group_objects
+msgid "Grupi Seotud objektid (objects) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:group_objects_help
+msgid "Grupi Seotud objektid (objects) help"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:rel_RELTYPE_TIMING_OBJECT
+msgid "Seose Seotud objekt (RELTYPE_TIMING_OBJECT) tekst"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:278
+msgid "Eemalda valitud objektid"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:280
+msgid "Oled kindel, et soovid valitud objektid ajastamiselt eemaldada?"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:290
+msgid "ID"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:291
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:292
+msgid "Tüüp"
+msgstr ""
+
+#: classes/contentmgmt/timing.aw:437 classes/contentmgmt/timing.aw:452
+msgid "%s ajaline aktiivsus"
+msgstr ""
+

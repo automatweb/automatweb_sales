@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="contents" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="show" default="1" nologin="1" is_public="1" caption="Show">
+			<function name="show">
+				<arguments>
+					<optional name="leadonly" type="int" />
+					<optional name="max" type="int" />
+					<optional name="tpl" />
+					<optional name="d_tpl" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

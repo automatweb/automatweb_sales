@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="language" folder="www/dev/terryf/automatweb_dev/classes/core" extends="class_base">
+		<action name="lang_pop">
+			<function name="lang_pop">
+				<arguments>
+					<optional name="url" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

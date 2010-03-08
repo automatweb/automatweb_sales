@@ -1,0 +1,74 @@
+<?xml version='1.0'?>
+<map rows="2" cols="2">
+	<row>
+		<col class="celltext">
+			<caption src="LC_OBJ_NAME"/>
+		</col>
+		<col class="celltext">
+			<element src="name"/>
+		</col>
+	</row>
+
+	<row>
+		<col class="celltext">
+			<caption src="LC_OBJ_COMMENT"/>
+		</col>
+		<col class="celltext">
+			<element src="comment"/>
+		</col>
+	</row>
+	
+	<row>
+		<col class="celltext">
+			<caption src="LC_OBJ_TYPE"/>
+		</col>
+		<col class="celltext">
+			<element src="type"/>
+		</col>
+	</row>
+	
+	<row>
+		<col class="celltext">
+			<caption src="LC_OBJ_PARENT"/>
+		</col>
+		<col class="celltext">
+			<element src="parent"/>
+		</col>
+	</row>
+	
+	<row>
+		<col class="celltext">
+			<caption src="LC_OBJ_CREATEDBY"/>
+		</col>
+		<col class="celltext">
+			<element src="createdby"/>
+		</col>
+	</row>
+	
+	<row>
+		<col class="celltext">
+			<caption src="LC_OBJ_MODIFIEDBY"/>
+		</col>
+		<col class="celltext">
+			<element src="modifiedby"/>
+		</col>
+	</row>
+	
+	<row>
+		<col class="celltext">
+			<caption src="LC_OBJ_ACTIVE"/>
+		</col>
+		<col class="celltext">
+			<element src="active"/>
+		</col>
+	</row>
+	
+	<row>
+		<col class="celltext">
+			<caption src="LC_OBJ_ALIAS"/>
+		</col>
+		<col class="celltext">
+			<element src="alias"/>
+		</col>
+	</row>
+</map>

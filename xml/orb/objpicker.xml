@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="objpicker" folder="classes/vcl" extends="core">
+		<action name="get_options">
+			<function name="get_options">
+				<arguments>
+					<required name="clids" type="string" />
+					<optional name="typed_text" type="string" />
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

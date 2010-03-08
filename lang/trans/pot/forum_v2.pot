@@ -1,0 +1,1204 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/forum/forum_v2.aw:class_211_help
+msgid "Klassi Foorum help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_folder
+msgid "Omaduse Teemade kaust (topic_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_folder_comment
+msgid "Omaduse Teemade kaust (topic_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_folder_help
+msgid "Omaduse Teemade kaust (topic_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_address_folder
+msgid "Omaduse Listiliikmete kaust (address_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_address_folder_comment
+msgid "Omaduse Listiliikmete kaust (address_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_address_folder_help
+msgid "Omaduse Listiliikmete kaust (address_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_images_folder
+msgid "Omaduse Piltide kaust (images_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_images_folder_comment
+msgid "Omaduse Piltide kaust (images_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_images_folder_help
+msgid "Omaduse Piltide kaust (images_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_faq_folder
+msgid "Omaduse KKK kaust (faq_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_faq_folder_comment
+msgid "Omaduse KKK kaust (faq_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_faq_folder_help
+msgid "Omaduse KKK kaust (faq_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_answers_to_mail
+msgid "Omaduse Soovi korral vastused meiliga (answers_to_mail) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_answers_to_mail_comment
+msgid "Omaduse Soovi korral vastused meiliga (answers_to_mail) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_answers_to_mail_help
+msgid "Omaduse Soovi korral vastused meiliga (answers_to_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_from
+msgid "Omaduse E-mail kellelt (mail_from) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_from_comment
+msgid "Omaduse E-mail kellelt (mail_from) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_from_help
+msgid "Omaduse E-mail kellelt (mail_from) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_address
+msgid "Omaduse E-maili aadress kellelt (mail_address) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_address_comment
+msgid "Omaduse E-maili aadress kellelt (mail_address) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_address_help
+msgid "Omaduse E-maili aadress kellelt (mail_address) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_subject
+msgid "Omaduse Maili subject (mail_subject) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_subject_comment
+msgid "Omaduse Maili subject (mail_subject) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_subject_help
+msgid "Omaduse Maili subject (mail_subject) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_required_fields
+msgid "Omaduse Kohustuslikud v&auml;ljad (required_fields) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_required_fields_comment
+msgid "Omaduse Kohustuslikud v&auml;ljad (required_fields) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_required_fields_help
+msgid "Omaduse Kohustuslikud v&auml;ljad (required_fields) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_logged
+msgid "Omaduse Luba kasutajal oma andmeid muuta (show_logged) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_logged_comment
+msgid "Omaduse Luba kasutajal oma andmeid muuta (show_logged) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_logged_help
+msgid "Omaduse Luba kasutajal oma andmeid muuta (show_logged) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_limit_anonymous_posting
+msgid "Omaduse Anon&uuml;&uuml;mse postitamise piiramine (limit_anonymous_posting) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_limit_anonymous_posting_comment
+msgid "Omaduse Anon&uuml;&uuml;mse postitamise piiramine (limit_anonymous_posting) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_limit_anonymous_posting_help
+msgid "Omaduse Anon&uuml;&uuml;mse postitamise piiramine (limit_anonymous_posting) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_post_name
+msgid "Omaduse Postituste autori nimi (post_name) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_post_name_comment
+msgid "Omaduse Postituste autori nimi (post_name) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_post_name_help
+msgid "Omaduse Postituste autori nimi (post_name) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_general_subtitle
+msgid "Omaduse &Uuml;ldine (style_general_subtitle) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_general_subtitle_comment
+msgid "Omaduse &Uuml;ldine (style_general_subtitle) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_general_subtitle_help
+msgid "Omaduse &Uuml;ldine (style_general_subtitle) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_donor
+msgid "Omaduse Stiilidoonor (style_donor) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_donor_comment
+msgid "Omaduse Stiilidoonor (style_donor) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_donor_help
+msgid "Omaduse Stiilidoonor (style_donor) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_caption
+msgid "Omaduse Tabeli pealkirja stiil (style_caption) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_caption_comment
+msgid "Omaduse Tabeli pealkirja stiil (style_caption) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_caption_help
+msgid "Omaduse Tabeli pealkirja stiil (style_caption) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_forum_yah
+msgid "Omaduse Foorumi asukohariba stiil (style_forum_yah) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_forum_yah_comment
+msgid "Omaduse Foorumi asukohariba stiil (style_forum_yah) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_forum_yah_help
+msgid "Omaduse Foorumi asukohariba stiil (style_forum_yah) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_thread_folder_subtitle
+msgid "Omaduse Teema kaust (thread_folder_subtitle) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_thread_folder_subtitle_comment
+msgid "Omaduse Teema kaust (thread_folder_subtitle) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_thread_folder_subtitle_help
+msgid "Omaduse Teema kaust (thread_folder_subtitle) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_l1_folder
+msgid "Omaduse Teema kausta stiil (style_l1_folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_l1_folder_comment
+msgid "Omaduse Teema kausta stiil (style_l1_folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_l1_folder_help
+msgid "Omaduse Teema kausta stiil (style_l1_folder) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_caption
+msgid "Omaduse Teema kausta pealkirja stiil (style_folder_caption) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_caption_comment
+msgid "Omaduse Teema kausta pealkirja stiil (style_folder_caption) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_caption_help
+msgid "Omaduse Teema kausta pealkirja stiil (style_folder_caption) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_topic_count
+msgid "Omaduse Teema kausta arvu stiil (style_folder_topic_count) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_topic_count_comment
+msgid "Omaduse Teema kausta arvu stiil (style_folder_topic_count) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_topic_count_help
+msgid "Omaduse Teema kausta arvu stiil (style_folder_topic_count) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_comment_count
+msgid "Omaduse Teema kausta vastuste arvu stiil (style_folder_comment_count) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_comment_count_comment
+msgid "Omaduse Teema kausta vastuste arvu stiil (style_folder_comment_count) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_comment_count_help
+msgid "Omaduse Teema kausta vastuste arvu stiil (style_folder_comment_count) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_last_post
+msgid "Omaduse Teema kausta viimase vastuse stiil (style_folder_last_post) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_last_post_comment
+msgid "Omaduse Teema kausta viimase vastuse stiil (style_folder_last_post) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_folder_last_post_help
+msgid "Omaduse Teema kausta viimase vastuse stiil (style_folder_last_post) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_thread_styles_subtitle
+msgid "Omaduse Teema (thread_styles_subtitle) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_thread_styles_subtitle_comment
+msgid "Omaduse Teema (thread_styles_subtitle) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_thread_styles_subtitle_help
+msgid "Omaduse Teema (thread_styles_subtitle) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_new_topic_row
+msgid "Omaduse Teema lisamise stiil (style_new_topic_row) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_new_topic_row_comment
+msgid "Omaduse Teema lisamise stiil (style_new_topic_row) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_new_topic_row_help
+msgid "Omaduse Teema lisamise stiil (style_new_topic_row) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_caption
+msgid "Omaduse Teema pealkirja stiil (style_topic_caption) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_caption_comment
+msgid "Omaduse Teema pealkirja stiil (style_topic_caption) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_caption_help
+msgid "Omaduse Teema pealkirja stiil (style_topic_caption) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_replies
+msgid "Omaduse Teema vastuste arvu stiil (style_topic_replies) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_replies_comment
+msgid "Omaduse Teema vastuste arvu stiil (style_topic_replies) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_replies_help
+msgid "Omaduse Teema vastuste arvu stiil (style_topic_replies) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_author
+msgid "Omaduse Teema autori stiil (style_topic_author) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_author_comment
+msgid "Omaduse Teema autori stiil (style_topic_author) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_author_help
+msgid "Omaduse Teema autori stiil (style_topic_author) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_last_post
+msgid "Omaduse Teema viimase vastuse stiil (style_topic_last_post) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_last_post_comment
+msgid "Omaduse Teema viimase vastuse stiil (style_topic_last_post) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_topic_last_post_help
+msgid "Omaduse Teema viimase vastuse stiil (style_topic_last_post) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_creator
+msgid "Omaduse Teema autori stiil (style_comment_creator) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_creator_comment
+msgid "Omaduse Teema autori stiil (style_comment_creator) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_creator_help
+msgid "Omaduse Teema autori stiil (style_comment_creator) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_answer_style_subtitle
+msgid "Omaduse Vastus (answer_style_subtitle) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_answer_style_subtitle_comment
+msgid "Omaduse Vastus (answer_style_subtitle) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_answer_style_subtitle_help
+msgid "Omaduse Vastus (answer_style_subtitle) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_count
+msgid "Omaduse Vastuste arvu stiil (style_comment_count) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_count_comment
+msgid "Omaduse Vastuste arvu stiil (style_comment_count) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_count_help
+msgid "Omaduse Vastuste arvu stiil (style_comment_count) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_user
+msgid "Omaduse Vastuse autori stiil (style_comment_user) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_user_comment
+msgid "Omaduse Vastuse autori stiil (style_comment_user) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_user_help
+msgid "Omaduse Vastuse autori stiil (style_comment_user) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_time
+msgid "Omaduse Vastuse aja stiil (style_comment_time) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_time_comment
+msgid "Omaduse Vastuse aja stiil (style_comment_time) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_time_help
+msgid "Omaduse Vastuse aja stiil (style_comment_time) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_text
+msgid "Omaduse Vastuse teksti stiil (style_comment_text) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_text_comment
+msgid "Omaduse Vastuse teksti stiil (style_comment_text) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_comment_text_help
+msgid "Omaduse Vastuse teksti stiil (style_comment_text) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_input_form_subtitle
+msgid "Omaduse Sisestusvorm (input_form_subtitle) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_input_form_subtitle_comment
+msgid "Omaduse Sisestusvorm (input_form_subtitle) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_input_form_subtitle_help
+msgid "Omaduse Sisestusvorm (input_form_subtitle) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_form_caption
+msgid "Omaduse Sisestusvormi pealkirja stiil (style_form_caption) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_form_caption_comment
+msgid "Omaduse Sisestusvormi pealkirja stiil (style_form_caption) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_form_caption_help
+msgid "Omaduse Sisestusvormi pealkirja stiil (style_form_caption) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_form_text
+msgid "Omaduse Sisestusvormi teksti stiil (style_form_text) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_form_text_comment
+msgid "Omaduse Sisestusvormi teksti stiil (style_form_text) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_form_text_help
+msgid "Omaduse Sisestusvormi teksti stiil (style_form_text) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_form_element
+msgid "Omaduse Sisestusvormi elemendi stiil (style_form_element) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_form_element_comment
+msgid "Omaduse Sisestusvormi elemendi stiil (style_form_element) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_style_form_element_help
+msgid "Omaduse Sisestusvormi elemendi stiil (style_form_element) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_jrks
+msgid "Omaduse  (jrks) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_jrks_comment
+msgid "Omaduse  (jrks) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_jrks_help
+msgid "Omaduse  (jrks) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_form_fields
+msgid "Omaduse Teema lisamise vormi v&auml;ljad (topic_form_fields) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_form_fields_comment
+msgid "Omaduse Teema lisamise vormi v&auml;ljad (topic_form_fields) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_form_fields_help
+msgid "Omaduse Teema lisamise vormi v&auml;ljad (topic_form_fields) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topics_on_page
+msgid "Omaduse Teemasid lehel (topics_on_page) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topics_on_page_comment
+msgid "Omaduse Teemasid lehel (topics_on_page) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topics_on_page_help
+msgid "Omaduse Teemasid lehel (topics_on_page) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topics_sort_order
+msgid "Omaduse Teemade j&auml;rjekord (topics_sort_order) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topics_sort_order_comment
+msgid "Omaduse Teemade j&auml;rjekord (topics_sort_order) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topics_sort_order_help
+msgid "Omaduse Teemade j&auml;rjekord (topics_sort_order) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_activation
+msgid "Omaduse Teemade aktiveerimine (activation) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_activation_comment
+msgid "Omaduse Teemade aktiveerimine (activation) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_activation_help
+msgid "Omaduse Teemade aktiveerimine (activation) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_comments_on_page
+msgid "Omaduse Kommentaare lehel (comments_on_page) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_comments_on_page_comment
+msgid "Omaduse Kommentaare lehel (comments_on_page) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_comments_on_page_help
+msgid "Omaduse Kommentaare lehel (comments_on_page) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topics_editable
+msgid "Omaduse  (topics_editable) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topics_editable_comment
+msgid "Omaduse  (topics_editable) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topics_editable_help
+msgid "Omaduse  (topics_editable) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_comments_editable
+msgid "Omaduse  (comments_editable) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_comments_editable_comment
+msgid "Omaduse  (comments_editable) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_comments_editable_help
+msgid "Omaduse  (comments_editable) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_posts_editable
+msgid "Omaduse Postitused muudetavad (posts_editable) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_posts_editable_comment
+msgid "Omaduse Postitused muudetavad (posts_editable) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_posts_editable_help
+msgid "Omaduse Postitused muudetavad (posts_editable) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_depth
+msgid "Omaduse Teemade s&uuml;gavus (topic_depth) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_depth_comment
+msgid "Omaduse Teemade s&uuml;gavus (topic_depth) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_depth_help
+msgid "Omaduse Teemade s&uuml;gavus (topic_depth) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_last_author
+msgid "Omaduse Viimane autor (topic_last_author) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_last_author_comment
+msgid "Omaduse Viimane autor (topic_last_author) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_last_author_help
+msgid "Omaduse Viimane autor (topic_last_author) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_link_max_len
+msgid "Omaduse Lingi maksimaalne pikkus (link_max_len) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_link_max_len_comment
+msgid "Omaduse Lingi maksimaalne pikkus (link_max_len) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_link_max_len_help
+msgid "Omaduse Lingi maksimaalne pikkus (link_max_len) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_last_posts_count
+msgid "Omaduse Viimaseid postitusi kuva (show_last_posts_count) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_last_posts_count_comment
+msgid "Omaduse Viimaseid postitusi kuva (show_last_posts_count) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_last_posts_count_help
+msgid "Omaduse Viimaseid postitusi kuva (show_last_posts_count) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_selector
+msgid "Omaduse Teemade tasemed (topic_selector) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_selector_comment
+msgid "Omaduse Teemade tasemed (topic_selector) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_selector_help
+msgid "Omaduse Teemade tasemed (topic_selector) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_image_upload_subtitle
+msgid "Omaduse Pildi &uuml;leslaadimise v&auml;li (image_upload_subtitle) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_image_upload_subtitle_comment
+msgid "Omaduse Pildi &uuml;leslaadimise v&auml;li (image_upload_subtitle) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_image_upload_subtitle_help
+msgid "Omaduse Pildi &uuml;leslaadimise v&auml;li (image_upload_subtitle) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_image_upload_in_add_topic_form
+msgid "Omaduse Teema lisamise vormis (show_image_upload_in_add_topic_form) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_image_upload_in_add_topic_form_comment
+msgid "Omaduse Teema lisamise vormis (show_image_upload_in_add_topic_form) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_image_upload_in_add_topic_form_help
+msgid "Omaduse Teema lisamise vormis (show_image_upload_in_add_topic_form) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_image_upload_in_add_comment_form
+msgid "Omaduse Kommentaari lisamise vormis (show_image_upload_in_add_comment_form) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_image_upload_in_add_comment_form_comment
+msgid "Omaduse Kommentaari lisamise vormis (show_image_upload_in_add_comment_form) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_image_upload_in_add_comment_form_help
+msgid "Omaduse Kommentaari lisamise vormis (show_image_upload_in_add_comment_form) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_use_image_verification
+msgid "Omaduse Kasuta kontrollpilti (use_image_verification) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_use_image_verification_comment
+msgid "Omaduse Kasuta kontrollpilti (use_image_verification) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_use_image_verification_help
+msgid "Omaduse Kasuta kontrollpilti (use_image_verification) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_verification_image
+msgid "Omaduse Kontrollpilt (verification_image) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_verification_image_comment
+msgid "Omaduse Kontrollpilt (verification_image) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_verification_image_help
+msgid "Omaduse Kontrollpilt (verification_image) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_verification_image_oid
+msgid "Omaduse Kontrollpildi ID (verification_image_oid) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_verification_image_oid_comment
+msgid "Omaduse Kontrollpildi ID (verification_image_oid) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_verification_image_oid_help
+msgid "Omaduse Kontrollpildi ID (verification_image_oid) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_import_xml_file
+msgid "Omaduse Vali XML fail (import_xml_file) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_import_xml_file_comment
+msgid "Omaduse Vali XML fail (import_xml_file) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_import_xml_file_help
+msgid "Omaduse Vali XML fail (import_xml_file) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_add_admin_mail
+msgid "Omaduse Uued teemad adminile meiliga (add_admin_mail) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_add_admin_mail_comment
+msgid "Omaduse Uued teemad adminile meiliga (add_admin_mail) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_add_admin_mail_help
+msgid "Omaduse Uued teemad adminile meiliga (add_admin_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_from
+msgid "Omaduse E-mail kellelt (a_mail_from) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_from_comment
+msgid "Omaduse E-mail kellelt (a_mail_from) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_from_help
+msgid "Omaduse E-mail kellelt (a_mail_from) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_address
+msgid "Omaduse E-maili aadress kellelt (a_mail_address) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_address_comment
+msgid "Omaduse E-maili aadress kellelt (a_mail_address) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_address_help
+msgid "Omaduse E-maili aadress kellelt (a_mail_address) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_subject
+msgid "Omaduse Maili subject (a_mail_subject) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_subject_comment
+msgid "Omaduse Maili subject (a_mail_subject) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_subject_help
+msgid "Omaduse Maili subject (a_mail_subject) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_vars
+msgid "Omaduse Maili sisu muutujad (mail_vars) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_vars_comment
+msgid "Omaduse Maili sisu muutujad (mail_vars) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_mail_vars_help
+msgid "Omaduse Maili sisu muutujad (mail_vars) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_body
+msgid "Omaduse Maili sisu (a_mail_body) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_body_comment
+msgid "Omaduse Maili sisu (a_mail_body) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_a_mail_body_help
+msgid "Omaduse Maili sisu (a_mail_body) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic
+msgid "Omaduse Topic ID (sys) (topic) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_comment
+msgid "Omaduse Topic ID (sys) (topic) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_topic_help
+msgid "Omaduse Topic ID (sys) (topic) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show
+msgid "Omaduse Foorumi sisu (show) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_comment
+msgid "Omaduse Foorumi sisu (show) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show_help
+msgid "Omaduse Foorumi sisu (show) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_last_posts
+msgid "Omaduse Foorumi viimased postitused (last_posts) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_last_posts_comment
+msgid "Omaduse Foorumi viimased postitused (last_posts) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_last_posts_help
+msgid "Omaduse Foorumi viimased postitused (last_posts) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show2
+msgid "Omaduse Otsing (show2) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show2_comment
+msgid "Omaduse Otsing (show2) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:prop_show2_help
+msgid "Omaduse Otsing (show2) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_general_sub
+msgid "Grupi &Uuml;ldine (general_sub) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_general_sub_help
+msgid "Grupi &Uuml;ldine (general_sub) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_mail_settings
+msgid "Grupi Meiliseaded (mail_settings) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_mail_settings_help
+msgid "Grupi Meiliseaded (mail_settings) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_required_fields
+msgid "Grupi Kohustuslikud v&auml;ljad (required_fields) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_required_fields_help
+msgid "Grupi Kohustuslikud v&auml;ljad (required_fields) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_users
+msgid "Grupi Kasutajad (users) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_users_help
+msgid "Grupi Kasutajad (users) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_look
+msgid "Grupi V&auml;limus (look) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_look_help
+msgid "Grupi V&auml;limus (look) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_styles
+msgid "Grupi Stiilid (styles) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_styles_help
+msgid "Grupi Stiilid (styles) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_jrks
+msgid "Grupi J&auml;rjekorrad (jrks) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_jrks_help
+msgid "Grupi J&auml;rjekorrad (jrks) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_topic_form_fields
+msgid "Grupi Teema vormi v&auml;ljad (topic_form_fields) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_topic_form_fields_help
+msgid "Grupi Teema vormi v&auml;ljad (topic_form_fields) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_settings
+msgid "Grupi Sisu seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_settings_help
+msgid "Grupi Sisu seaded (settings) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_topic_selector
+msgid "Grupi Teemad (topic_selector) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_topic_selector_help
+msgid "Grupi Teemad (topic_selector) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_image_verification
+msgid "Grupi Kontrollpilt (image_verification) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_image_verification_help
+msgid "Grupi Kontrollpilt (image_verification) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_import
+msgid "Grupi Import (import) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_import_help
+msgid "Grupi Import (import) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_actv_settings
+msgid "Grupi Aktiiverimine (actv_settings) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_actv_settings_help
+msgid "Grupi Aktiiverimine (actv_settings) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_views
+msgid "Grupi Vaated (views) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_views_help
+msgid "Grupi Vaated (views) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_contents
+msgid "Grupi Eelvaade (contents) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_contents_help
+msgid "Grupi Eelvaade (contents) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_last_posts
+msgid "Grupi Viimased postitused (last_posts) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_last_posts_help
+msgid "Grupi Viimased postitused (last_posts) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_search
+msgid "Grupi Otsing (search) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:group_search_help
+msgid "Grupi Otsing (search) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_TOPIC_FOLDER
+msgid "Seose Teemade kaust (RELTYPE_TOPIC_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_ADDRESS_FOLDER
+msgid "Seose Listiliikmete kaust (RELTYPE_ADDRESS_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_STYLE
+msgid "Seose Stiil (RELTYPE_STYLE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_STYLE_DONOR
+msgid "Seose Stiilidoonor (RELTYPE_STYLE_DONOR) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_FORUM_ADMIN
+msgid "Seose Administraator (RELTYPE_FORUM_ADMIN) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_FAQ_FOLDER
+msgid "Seose KKK kaust (RELTYPE_FAQ_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_IMAGES_FOLDER
+msgid "Seose Piltide kaust (RELTYPE_IMAGES_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_EMAIL
+msgid "Seose Meiliaadress (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_IMAGE_VERIFICATION
+msgid "Seose Kontrollpilt (RELTYPE_IMAGE_VERIFICATION) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:rel_RELTYPE_ICON
+msgid "Seose Teema ikoon (RELTYPE_ICON) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:351
+msgid "Uuemad teemad eespool"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:352
+msgid "T&auml;hestikulises j&auml;rjekorras (A-Z)"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:353
+msgid "Viimati kommenteeritud eespool"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:354
+msgid "Enim kommenteeritud eespool"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:355
+msgid "Objektide jrk. nr. j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:359
+msgid "vastus"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:360
+msgid "teema"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:368 classes/contentmgmt/forum/forum_v2.aw:376 classes/contentmgmt/forum/forum_v2.aw:2552
+msgid "Pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:369 classes/contentmgmt/forum/forum_v2.aw:2562 classes/contentmgmt/forum/forum_v2.aw:2742
+msgid "Autor"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:370 classes/contentmgmt/forum/forum_v2.aw:377
+msgid "Autori nimi"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:371 classes/contentmgmt/forum/forum_v2.aw:378
+msgid "Autori e-mail"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:372 classes/contentmgmt/forum/forum_v2.aw:380 classes/contentmgmt/forum/forum_v2.aw:2675
+msgid "Kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:379
+msgid "Vastused e-mailile"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:423
+msgid "teemad"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:424
+msgid "vastused"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:447
+msgid "Teemade kaust on valimata"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:1924
+msgid "Sisestatud kontrollnumber on vale! <br />"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:1928
+msgid "Pealkirja v&auml;li peab olema t&auml;idetud! <br />"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:1932
+msgid "Nime v&auml;li peab olema t&auml;idetud! <br />"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:1936
+msgid "E-mail ei ole korrektne! <br />"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:1940
+msgid "Kommentaari v&auml;li peab olema t&auml;idetud!"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:1944
+msgid "Anon&uuml;&uuml;mselt saab postitada ainult Eesti IP-lt"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2227 classes/contentmgmt/forum/forum_v2.aw:2680 classes/contentmgmt/forum/forum_v2.aw:2735
+msgid "Teema"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2232
+msgid "J&auml;ta v&auml;lja"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2239
+msgid "k.a. alamkaustad"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2399
+msgid "Teema muutmine"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2399
+msgid "Kommentaari muutmine"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2464 classes/contentmgmt/forum/forum_v2.aw:2916
+msgid "Pilt"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2472
+msgid "Muuda"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2557
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2567
+msgid "Aeg"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2713
+msgid "Otsingus&otilde;na"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2719
+msgid "Kuup&auml;ev alates"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2726
+msgid "Kuup&auml;ev kuni"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2748
+msgid "&Uuml;he teema postitusi ei korrata"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2754
+msgid "Otsitakse"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2756
+msgid "K&otilde;iki"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2757
+msgid "Teemasid"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2758
+msgid "Kommentaare"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2765
+msgid "Otsi"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2848
+msgid "Uus teema"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2928
+msgid "Kontrollnumber"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:2997
+msgid "Lisa"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:3555
+msgid "teemade kaust"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:3562
+msgid "aadresside kaust"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_v2.aw:3817
+msgid "Nimetu"
+msgstr ""
+

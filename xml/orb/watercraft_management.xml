@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="watercraft_management" folder="www/dev/terryf/automatweb_dev/classes/applications/watercraft_management" extends="class_base">
+		<action name="_delete_objects">
+			<function name="_delete_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

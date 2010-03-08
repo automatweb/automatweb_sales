@@ -1,0 +1,993 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/join/join_site.aw:class_287_help
+#: classes/contentmgmt/join/join_site.aw:class_287_help
+msgid "Klassi Saidiga Liitumine help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_after_join_url
+#: classes/contentmgmt/join/join_site.aw:prop_after_join_url
+msgid "Omaduse P&auml;rast liitumist mine aadressile (after_join_url) caption"
+msgstr "Go to address after joining"
+
+#: classes/contentmgmt/join/join_site.aw:prop_after_join_url_comment
+msgid "Omaduse P&auml;rast liitumist mine aadressile (after_join_url) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_after_join_url_help
+msgid "Omaduse P&auml;rast liitumist mine aadressile (after_join_url) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_obj_folder
+#: classes/contentmgmt/join/join_site.aw:prop_obj_folder
+msgid "Omaduse Kataloog, kuhu salvestatakse objektid (obj_folder) caption"
+msgstr "Folder where objects are stored"
+
+# classes/contentmgmt/join/join_site.aw:prop_obj_folder_comment
+#: classes/contentmgmt/join/join_site.aw:prop_obj_folder_comment
+msgid "Omaduse Kataloog, kuhu salvestatakse objektid (obj_folder) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_obj_folder_help
+#: classes/contentmgmt/join/join_site.aw:prop_obj_folder_help
+msgid "Omaduse Kataloog, kuhu salvestatakse objektid (obj_folder) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_autologin
+#: classes/contentmgmt/join/join_site.aw:prop_autologin
+msgid "Omaduse Kas kasutaja logitakse automaatselt sisse liitumisel (autologin) caption"
+msgstr "Log the user in automatically after join"
+
+# classes/contentmgmt/join/join_site.aw:prop_autologin_comment
+#: classes/contentmgmt/join/join_site.aw:prop_autologin_comment
+msgid "Omaduse Kas kasutaja logitakse automaatselt sisse liitumisel (autologin) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_autologin_help
+#: classes/contentmgmt/join/join_site.aw:prop_autologin_help
+msgid "Omaduse Kas kasutaja logitakse automaatselt sisse liitumisel (autologin) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_send_join_mail
+msgid "Omaduse Kas 7.05.2009saadetakse meil (send_join_mail) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_send_join_mail_comment
+msgid "Omaduse Kas 7.05.2009saadetakse meil (send_join_mail) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_send_join_mail_help
+msgid "Omaduse Kas 7.05.2009saadetakse meil (send_join_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_users_blocked_by_default
+msgid "Omaduse Kasutajad vaikimisi blokeeritud (users_blocked_by_default) caption"
+msgstr "Users are blocked by default"
+
+#: classes/contentmgmt/join/join_site.aw:prop_users_blocked_by_default_comment
+msgid "Omaduse Kasutajad vaikimisi blokeeritud (users_blocked_by_default) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_users_blocked_by_default_help
+msgid "Omaduse Kasutajad vaikimisi blokeeritud (users_blocked_by_default) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_check_sbt_controller
+msgid "Omaduse Andmete valideerimise kontroller (check_sbt_controller) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_check_sbt_controller_comment
+msgid "Omaduse Andmete valideerimise kontroller (check_sbt_controller) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_check_sbt_controller_help
+msgid "Omaduse Andmete valideerimise kontroller (check_sbt_controller) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_properties
+#: classes/contentmgmt/join/join_site.aw:prop_join_properties
+msgid "Omaduse Liitumisel k&uuml;sitavad v&auml;ljad (join_properties) caption"
+msgstr "Join data properties"
+
+#: classes/contentmgmt/join/join_site.aw:prop_join_properties_comment
+msgid "Omaduse Liitumisel k&uuml;sitavad v&auml;ljad (join_properties) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_join_properties_help
+msgid "Omaduse Liitumisel k&uuml;sitavad v&auml;ljad (join_properties) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_generate_password
+msgid "Omaduse Genereeri parool (generate_password) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_generate_password_comment
+msgid "Omaduse Genereeri parool (generate_password) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_generate_password_help
+msgid "Omaduse Genereeri parool (generate_password) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_sep_pages
+#: classes/contentmgmt/join/join_site.aw:prop_join_sep_pages
+msgid "Omaduse Eraldi lehtedel (join_sep_pages) caption"
+msgstr "Seprate pages"
+
+# classes/contentmgmt/join/join_site.aw:prop_join_sep_pages_comment
+#: classes/contentmgmt/join/join_site.aw:prop_join_sep_pages_comment
+msgid "Omaduse Eraldi lehtedel (join_sep_pages) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_sep_pages_help
+#: classes/contentmgmt/join/join_site.aw:prop_join_sep_pages_help
+msgid "Omaduse Eraldi lehtedel (join_sep_pages) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_but_text
+#: classes/contentmgmt/join/join_site.aw:prop_join_but_text
+msgid "Omaduse Liitumise nupu tekst (join_but_text) caption"
+msgstr "Join button text"
+
+# classes/contentmgmt/join/join_site.aw:prop_join_but_text_comment
+#: classes/contentmgmt/join/join_site.aw:prop_join_but_text_comment
+msgid "Omaduse Liitumise nupu tekst (join_but_text) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_but_text_help
+#: classes/contentmgmt/join/join_site.aw:prop_join_but_text_help
+msgid "Omaduse Liitumise nupu tekst (join_but_text) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_save_but_text
+msgid "Omaduse Salvestamise nupu tekst (save_but_text) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_save_but_text_comment
+msgid "Omaduse Salvestamise nupu tekst (save_but_text) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_save_but_text_help
+msgid "Omaduse Salvestamise nupu tekst (save_but_text) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_cancel_but_text
+msgid "Omaduse T&uuml;hista nupu tekst (cancel_but_text) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_cancel_but_text_comment
+msgid "Omaduse T&uuml;hista nupu tekst (cancel_but_text) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_cancel_but_text_help
+msgid "Omaduse T&uuml;hista nupu tekst (cancel_but_text) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_properties_pages
+#: classes/contentmgmt/join/join_site.aw:prop_join_properties_pages
+msgid "Omaduse Liitumisel k&uuml;sitavad v&auml;ljad (join_properties_pages) caption"
+msgstr "Join properties pages"
+
+#: classes/contentmgmt/join/join_site.aw:prop_join_properties_pages_comment
+msgid "Omaduse Liitumisel k&uuml;sitavad v&auml;ljad (join_properties_pages) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_join_properties_pages_help
+msgid "Omaduse Liitumisel k&uuml;sitavad v&auml;ljad (join_properties_pages) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_properties_page_titles
+#: classes/contentmgmt/join/join_site.aw:prop_join_properties_page_titles
+msgid "Omaduse Liitumise Lehtede Pealkirjad (join_properties_page_titles) caption"
+msgstr "Join properties page titles"
+
+# classes/contentmgmt/join/join_site.aw:prop_join_properties_page_titles_comment
+#: classes/contentmgmt/join/join_site.aw:prop_join_properties_page_titles_comment
+msgid "Omaduse Liitumise Lehtede Pealkirjad (join_properties_page_titles) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_properties_page_titles_help
+#: classes/contentmgmt/join/join_site.aw:prop_join_properties_page_titles_help
+msgid "Omaduse Liitumise Lehtede Pealkirjad (join_properties_page_titles) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_seps
+#: classes/contentmgmt/join/join_site.aw:prop_join_seps
+msgid "Omaduse Vahepealkirjad (join_seps) caption"
+msgstr "Separators"
+
+# classes/contentmgmt/join/join_site.aw:prop_join_seps_comment
+#: classes/contentmgmt/join/join_site.aw:prop_join_seps_comment
+msgid "Omaduse Vahepealkirjad (join_seps) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_join_seps_help
+#: classes/contentmgmt/join/join_site.aw:prop_join_seps_help
+msgid "Omaduse Vahepealkirjad (join_seps) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_username_element
+msgid "Omaduse Kasutajanime element (username_element) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_username_element_comment
+msgid "Omaduse Kasutajanime element (username_element) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_username_element_help
+msgid "Omaduse Kasutajanime element (username_element) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_prop_settings
+msgid "Omaduse  (prop_settings) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_prop_settings_comment
+msgid "Omaduse  (prop_settings) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_prop_settings_help
+msgid "Omaduse  (prop_settings) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_rules_show
+#: classes/contentmgmt/join/join_site.aw:prop_rules_show
+msgid "Omaduse Reeglid (rules_show) caption"
+msgstr "Rules"
+
+# classes/contentmgmt/join/join_site.aw:prop_rules_show_comment
+#: classes/contentmgmt/join/join_site.aw:prop_rules_show_comment
+msgid "Omaduse Reeglid (rules_show) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_rules_show_help
+#: classes/contentmgmt/join/join_site.aw:prop_rules_show_help
+msgid "Omaduse Reeglid (rules_show) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_rule_name
+#: classes/contentmgmt/join/join_site.aw:prop_rule_name
+msgid "Omaduse Reegli nimi (rule_name) caption"
+msgstr "Rule name"
+
+# classes/contentmgmt/join/join_site.aw:prop_rule_name_comment
+#: classes/contentmgmt/join/join_site.aw:prop_rule_name_comment
+msgid "Omaduse Reegli nimi (rule_name) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_rule_name_help
+#: classes/contentmgmt/join/join_site.aw:prop_rule_name_help
+msgid "Omaduse Reegli nimi (rule_name) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_rules_add
+#: classes/contentmgmt/join/join_site.aw:prop_rules_add
+msgid "Omaduse Lisa Reegel (rules_add) caption"
+msgstr "Add rule"
+
+# classes/contentmgmt/join/join_site.aw:prop_rules_add_comment
+#: classes/contentmgmt/join/join_site.aw:prop_rules_add_comment
+msgid "Omaduse Lisa Reegel (rules_add) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_rules_add_help
+#: classes/contentmgmt/join/join_site.aw:prop_rules_add_help
+msgid "Omaduse Lisa Reegel (rules_add) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_rule_to_grp
+#: classes/contentmgmt/join/join_site.aw:prop_rule_to_grp
+msgid "Omaduse Vali grupp, kuhu reegel kasutaja paneb (rule_to_grp) caption"
+msgstr "Select group where rule moves user"
+
+# classes/contentmgmt/join/join_site.aw:prop_rule_to_grp_comment
+#: classes/contentmgmt/join/join_site.aw:prop_rule_to_grp_comment
+msgid "Omaduse Vali grupp, kuhu reegel kasutaja paneb (rule_to_grp) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_rule_to_grp_help
+#: classes/contentmgmt/join/join_site.aw:prop_rule_to_grp_help
+msgid "Omaduse Vali grupp, kuhu reegel kasutaja paneb (rule_to_grp) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_preview
+#: classes/contentmgmt/join/join_site.aw:prop_preview
+msgid "Omaduse  (preview) caption"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_preview_comment
+#: classes/contentmgmt/join/join_site.aw:prop_preview_comment
+msgid "Omaduse  (preview) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_preview_help
+#: classes/contentmgmt/join/join_site.aw:prop_preview_help
+msgid "Omaduse  (preview) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_joinmail_legend
+#: classes/contentmgmt/join/join_site.aw:prop_joinmail_legend
+msgid "Omaduse Meili legend (joinmail_legend) caption"
+msgstr "E-mail legend"
+
+# classes/contentmgmt/join/join_site.aw:prop_joinmail_legend_comment
+#: classes/contentmgmt/join/join_site.aw:prop_joinmail_legend_comment
+msgid "Omaduse Meili legend (joinmail_legend) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_joinmail_legend_help
+#: classes/contentmgmt/join/join_site.aw:prop_joinmail_legend_help
+msgid "Omaduse Meili legend (joinmail_legend) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_join_requires_confirm
+msgid "Omaduse Liitumine n&otilde;uab kinnitust (join_requires_confirm) caption"
+msgstr "Joining requires confirmation"
+
+#: classes/contentmgmt/join/join_site.aw:prop_join_requires_confirm_comment
+msgid "Omaduse Liitumine n&otilde;uab kinnitust (join_requires_confirm) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_join_requires_confirm_help
+msgid "Omaduse Liitumine n&otilde;uab kinnitust (join_requires_confirm) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_legend
+msgid "Omaduse Kinnitusmeili legend (confirm_mail_legend) caption"
+msgstr "Legend for confirmation mail"
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_legend_comment
+msgid "Omaduse Kinnitusmeili legend (confirm_mail_legend) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_legend_help
+msgid "Omaduse Kinnitusmeili legend (confirm_mail_legend) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_from_name
+msgid "Omaduse Kinnitusmeili kellelt nimi (confirm_mail_from_name) caption"
+msgstr "Confirmation mail from-name"
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_from_name_comment
+msgid "Omaduse Kinnitusmeili kellelt nimi (confirm_mail_from_name) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_from_name_help
+msgid "Omaduse Kinnitusmeili kellelt nimi (confirm_mail_from_name) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_from
+msgid "Omaduse Kinnitusmeili kellelt (confirm_mail_from) caption"
+msgstr "Confirmation mail from-mail"
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_from_comment
+msgid "Omaduse Kinnitusmeili kellelt (confirm_mail_from) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_from_help
+msgid "Omaduse Kinnitusmeili kellelt (confirm_mail_from) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_subj
+msgid "Omaduse Kinnitusmeili teema (confirm_mail_subj) caption"
+msgstr "Confirmation mail subject"
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_subj_comment
+msgid "Omaduse Kinnitusmeili teema (confirm_mail_subj) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_subj_help
+msgid "Omaduse Kinnitusmeili teema (confirm_mail_subj) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail
+msgid "Omaduse Kinnitusmeili sisu (confirm_mail) caption"
+msgstr "Confirmation mail content"
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_comment
+msgid "Omaduse Kinnitusmeili sisu (confirm_mail) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_mail_help
+msgid "Omaduse Kinnitusmeili sisu (confirm_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_redir
+msgid "Omaduse Kuhu suunata p&auml;rast liitumist (confirm_redir) caption"
+msgstr "Where to direct after joining"
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_redir_comment
+msgid "Omaduse Kuhu suunata p&auml;rast liitumist (confirm_redir) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_confirm_redir_help
+msgid "Omaduse Kuhu suunata p&auml;rast liitumist (confirm_redir) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_from_addr
+msgid "Omaduse From aadress (mf_mail_from_addr) caption"
+msgstr "From address"
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_from_addr_comment
+msgid "Omaduse From aadress (mf_mail_from_addr) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_from_addr_help
+msgid "Omaduse From aadress (mf_mail_from_addr) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_from_name
+msgid "Omaduse From nimi (mf_mail_from_name) caption"
+msgstr "From name"
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_from_name_comment
+msgid "Omaduse From nimi (mf_mail_from_name) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_from_name_help
+msgid "Omaduse From nimi (mf_mail_from_name) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_to
+msgid "Omaduse Kellele saata (mf_mail_to) caption"
+msgstr "Send to"
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_to_comment
+msgid "Omaduse Kellele saata (mf_mail_to) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_to_help
+msgid "Omaduse Kellele saata (mf_mail_to) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_subj
+msgid "Omaduse Meili teema (mf_mail_subj) caption"
+msgstr "Mail subject"
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_subj_comment
+msgid "Omaduse Meili teema (mf_mail_subj) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_subj_help
+msgid "Omaduse Meili teema (mf_mail_subj) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail
+msgid "Omaduse Meili sisu (mf_mail) caption"
+msgstr "Mail content"
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_comment
+msgid "Omaduse Meili sisu (mf_mail) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_help
+msgid "Omaduse Meili sisu (mf_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_legend
+msgid "Omaduse Legend (mf_mail_legend) caption"
+msgstr "Legend"
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_legend_comment
+msgid "Omaduse Legend (mf_mail_legend) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_mf_mail_legend_help
+msgid "Omaduse Legend (mf_mail_legend) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_jm_texts
+#: classes/contentmgmt/join/join_site.aw:prop_jm_texts
+msgid "Omaduse  (jm_texts) caption"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_jm_texts_comment
+#: classes/contentmgmt/join/join_site.aw:prop_jm_texts_comment
+msgid "Omaduse  (jm_texts) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_jm_texts_help
+#: classes/contentmgmt/join/join_site.aw:prop_jm_texts_help
+msgid "Omaduse  (jm_texts) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_trans_tb
+msgid "Omaduse  (trans_tb) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_trans_tb_comment
+msgid "Omaduse  (trans_tb) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_trans_tb_help
+msgid "Omaduse  (trans_tb) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_trans_ttl_t
+msgid "Omaduse  (trans_ttl_t) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_trans_ttl_t_comment
+msgid "Omaduse  (trans_ttl_t) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_trans_ttl_t_help
+msgid "Omaduse  (trans_ttl_t) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_trans_errs
+msgid "Omaduse  (trans_errs) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_trans_errs_comment
+msgid "Omaduse  (trans_errs) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:prop_trans_errs_help
+msgid "Omaduse  (trans_errs) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_general_sub
+msgid "Grupi &Uuml;ldine (general_sub) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_general_sub_help
+msgid "Grupi &Uuml;ldine (general_sub) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_general_ctrl
+msgid "Grupi Kontrollerid (general_ctrl) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_general_ctrl_help
+msgid "Grupi Kontrollerid (general_ctrl) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:group_props
+#: classes/contentmgmt/join/join_site.aw:group_props
+msgid "Grupi Vormid (props) pealkiri"
+msgstr "Forms"
+
+# classes/contentmgmt/join/join_site.aw:group_props_help
+#: classes/contentmgmt/join/join_site.aw:group_props_help
+msgid "Grupi Vormid (props) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:group_sel_props
+#: classes/contentmgmt/join/join_site.aw:group_sel_props
+msgid "Grupi Vali elemendid (sel_props) pealkiri"
+msgstr "Select elements"
+
+# classes/contentmgmt/join/join_site.aw:group_sel_props_help
+#: classes/contentmgmt/join/join_site.aw:group_sel_props_help
+msgid "Grupi Vali elemendid (sel_props) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:group_mk_pages
+#: classes/contentmgmt/join/join_site.aw:group_mk_pages
+msgid "Grupi Koosta lehed (mk_pages) pealkiri"
+msgstr "Create pages"
+
+# classes/contentmgmt/join/join_site.aw:group_mk_pages_help
+#: classes/contentmgmt/join/join_site.aw:group_mk_pages_help
+msgid "Grupi Koosta lehed (mk_pages) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:group_page_titles
+#: classes/contentmgmt/join/join_site.aw:group_page_titles
+msgid "Grupi Lehtede Pealkirjad (page_titles) pealkiri"
+msgstr "Page titles"
+
+# classes/contentmgmt/join/join_site.aw:group_page_titles_help
+#: classes/contentmgmt/join/join_site.aw:group_page_titles_help
+msgid "Grupi Lehtede Pealkirjad (page_titles) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:group_seps
+#: classes/contentmgmt/join/join_site.aw:group_seps
+msgid "Grupi Vahepealkirjad (seps) pealkiri"
+msgstr "Separators"
+
+# classes/contentmgmt/join/join_site.aw:group_seps_help
+#: classes/contentmgmt/join/join_site.aw:group_seps_help
+msgid "Grupi Vahepealkirjad (seps) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_prop_settings
+msgid "Grupi Elementide seaded (prop_settings) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_prop_settings_help
+msgid "Grupi Elementide seaded (prop_settings) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:group_rules
+#: classes/contentmgmt/join/join_site.aw:group_rules
+msgid "Grupi Reeglid (rules) pealkiri"
+msgstr "Rules"
+
+# classes/contentmgmt/join/join_site.aw:group_rules_help
+#: classes/contentmgmt/join/join_site.aw:group_rules_help
+msgid "Grupi Reeglid (rules) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:group_rules_show
+#: classes/contentmgmt/join/join_site.aw:group_rules_show
+msgid "Grupi Nimekiri reeglitest (rules_show) pealkiri"
+msgstr "List of rules"
+
+# classes/contentmgmt/join/join_site.aw:group_rules_show_help
+#: classes/contentmgmt/join/join_site.aw:group_rules_show_help
+msgid "Grupi Nimekiri reeglitest (rules_show) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:group_rules_add
+#: classes/contentmgmt/join/join_site.aw:group_rules_add
+msgid "Grupi Lisa Reegel (rules_add) pealkiri"
+msgstr "Add rule"
+
+# classes/contentmgmt/join/join_site.aw:group_rules_add_help
+#: classes/contentmgmt/join/join_site.aw:group_rules_add_help
+msgid "Grupi Lisa Reegel (rules_add) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:group_preview
+#: classes/contentmgmt/join/join_site.aw:group_preview
+msgid "Grupi Eelvaade (preview) pealkiri"
+msgstr "Preview"
+
+# classes/contentmgmt/join/join_site.aw:group_preview_help
+#: classes/contentmgmt/join/join_site.aw:group_preview_help
+msgid "Grupi Eelvaade (preview) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_mails
+msgid "Grupi Meilid (mails) pealkiri"
+msgstr "Mails"
+
+#: classes/contentmgmt/join/join_site.aw:group_mails_help
+msgid "Grupi Meilid (mails) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_joinmail
+msgid "Grupi Meil liitujale (joinmail) pealkiri"
+msgstr "Mail to joiner"
+
+#: classes/contentmgmt/join/join_site.aw:group_joinmail_help
+msgid "Grupi Meil liitujale (joinmail) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_confirm_mail
+msgid "Grupi Kinnitamine (confirm_mail) pealkiri"
+msgstr "Confirmation"
+
+#: classes/contentmgmt/join/join_site.aw:group_confirm_mail_help
+msgid "Grupi Kinnitamine (confirm_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_notify_mail
+msgid "Grupi Meil administraatorile (notify_mail) pealkiri"
+msgstr "Mail to administrator"
+
+#: classes/contentmgmt/join/join_site.aw:group_notify_mail_help
+msgid "Grupi Meil administraatorile (notify_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_trans
+msgid "Grupi T&otilde;lgi (trans) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_trans_help
+msgid "Grupi T&otilde;lgi (trans) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_trans_eld
+msgid "Grupi Elemendid (trans_eld) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_trans_eld_help
+msgid "Grupi Elemendid (trans_eld) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_trans_ttl
+msgid "Grupi Vahepealkirjad (trans_ttl) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_trans_ttl_help
+msgid "Grupi Vahepealkirjad (trans_ttl) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_trans_errs
+msgid "Grupi Veateated (trans_errs) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:group_trans_errs_help
+msgid "Grupi Veateated (trans_errs) help"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:rel_RELTYPE_JOIN_CLASS
+#: classes/contentmgmt/join/join_site.aw:rel_RELTYPE_JOIN_CLASS
+msgid "Seose liitumise vorm (RELTYPE_JOIN_CLASS) tekst"
+msgstr "join form"
+
+# classes/contentmgmt/join/join_site.aw:rel_RELTYPE_JOIN_RULE
+#: classes/contentmgmt/join/join_site.aw:rel_RELTYPE_JOIN_RULE
+msgid "Seose gruppi kuuluvuse reegel (RELTYPE_JOIN_RULE) tekst"
+msgstr "group membership rule"
+
+# classes/contentmgmt/join/join_site.aw:rel_RELTYPE_OBJ_FOLDER
+#: classes/contentmgmt/join/join_site.aw:rel_RELTYPE_OBJ_FOLDER
+msgid "Seose objektide kataloog (RELTYPE_OBJ_FOLDER) tekst"
+msgstr "objects folder"
+
+# classes/contentmgmt/join/join_site.aw:rel_RELTYPE_RULE_GRP
+#: classes/contentmgmt/join/join_site.aw:rel_RELTYPE_RULE_GRP
+msgid "Seose reegli grupp (RELTYPE_RULE_GRP) tekst"
+msgstr "rule group"
+
+# classes/contentmgmt/join/join_site.aw:rel_RELTYPE_REL_OBJ
+#: classes/contentmgmt/join/join_site.aw:rel_RELTYPE_REL_OBJ
+msgid "Seose default seoste objektid (RELTYPE_REL_OBJ) tekst"
+msgstr "default connection objects"
+
+#: classes/contentmgmt/join/join_site.aw:rel_RELTYPE_MAILADDR
+msgid "Seose Kellele (RELTYPE_MAILADDR) tekst"
+msgstr "To"
+
+#: classes/contentmgmt/join/join_site.aw:rel_RELTYPE_VALIDATE_CTR
+msgid "Seose Valideerimise kontroller (RELTYPE_VALIDATE_CTR) tekst"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:230
+msgid "#edit_link# - link kasutajale"
+msgstr "#edit_link# - link to user"
+
+#: classes/contentmgmt/join/join_site.aw:230
+msgid "#user_data# - kasutaja andmed"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:268
+msgid "E-maili sisu, mis saadetakse kasutajale liitumisel (kasutajanime alias #kasutaja#, parooli alias #parool# ja parooli muutmise lingi alias #pwd_hash#)."
+msgstr "E-mail content that gets sent on join (username alias #kasutaja#, password alias #parool#, password change link alias #pwd_hash#)."
+
+#: classes/contentmgmt/join/join_site.aw:383
+msgid "Reegel"
+msgstr "Rule"
+
+#: classes/contentmgmt/join/join_site.aw:389
+msgid "Grupp"
+msgstr "Group"
+
+#: classes/contentmgmt/join/join_site.aw:395
+#: classes/contentmgmt/join/join_site.aw:416
+msgid "Muuda"
+msgstr "Change"
+
+#: classes/contentmgmt/join/join_site.aw:426
+#: classes/contentmgmt/join/join_site.aw:445
+#: classes/contentmgmt/join/join_site.aw:2586
+#: classes/contentmgmt/join/join_site.aw:2706
+msgid "Omadus"
+msgstr "Property"
+
+#: classes/contentmgmt/join/join_site.aw:430
+msgid "T&auml;idetav"
+msgstr "Fillable"
+
+#: classes/contentmgmt/join/join_site.aw:435
+msgid "N&otilde;utav"
+msgstr "Required"
+
+#: classes/contentmgmt/join/join_site.aw:449
+msgid "Lehek&uuml;lg"
+msgstr "Page"
+
+#: classes/contentmgmt/join/join_site.aw:454
+msgid "J&auml;rjekord"
+msgstr "Order"
+
+#: classes/contentmgmt/join/join_site.aw:464
+msgid "Sisestatud number"
+msgstr "Number entered"
+
+#: classes/contentmgmt/join/join_site.aw:469
+msgid "Lehe nimi"
+msgstr "Page name"
+
+#: classes/contentmgmt/join/join_site.aw:495
+msgid "Tekst"
+msgstr "Text"
+
+#: classes/contentmgmt/join/join_site.aw:602
+msgid "<b>Vahepealkirjad</b>"
+msgstr "<b>Subtitles</b>"
+
+#: classes/contentmgmt/join/join_site.aw:829
+#: classes/contentmgmt/join/join_site.aw:1785
+msgid "Maa"
+msgstr "Country"
+
+#: classes/contentmgmt/join/join_site.aw:836
+#: classes/contentmgmt/join/join_site.aw:1792
+msgid "Postiindeks"
+msgstr "Postal index"
+
+#: classes/contentmgmt/join/join_site.aw:841
+#: classes/contentmgmt/join/join_site.aw:1798
+msgid "Linn"
+msgstr "City"
+
+#: classes/contentmgmt/join/join_site.aw:846
+#: classes/contentmgmt/join/join_site.aw:1804
+msgid "Maakond"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:851
+#: classes/contentmgmt/join/join_site.aw:1810
+msgid "T&auml;nava nimi"
+msgstr "Street address"
+
+#: classes/contentmgmt/join/join_site.aw:1077
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/contentmgmt/join/join_site.aw:1091
+#: classes/contentmgmt/join/join_site.aw:1144
+msgid "T&uuml;hista"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:1130
+msgid "Liitun"
+msgstr "Join"
+
+#: classes/contentmgmt/join/join_site.aw:2466
+msgid "Liitumise meili from aadress (%s)"
+msgstr "Join mail from address (%s)"
+
+#: classes/contentmgmt/join/join_site.aw:2477
+msgid "Liitumise meili subjekt (%s)"
+msgstr "Join mail subject (%s)"
+
+#: classes/contentmgmt/join/join_site.aw:2490
+msgid "Liitumise meil (%s)"
+msgstr "Join mail (%s)"
+
+#: classes/contentmgmt/join/join_site.aw:2559
+msgid "Sellise koodiga kasutajat pole olemas!"
+msgstr "A user with this code does not exist"
+
+#: classes/contentmgmt/join/join_site.aw:2591
+msgid "T&uuml;&uuml;p"
+msgstr "Type"
+
+#: classes/contentmgmt/join/join_site.aw:2596
+msgid "Vaikimisi valitud"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2601
+msgid "Reavahetus sisu vahel"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2615
+#: classes/contentmgmt/join/join_site.aw:2871
+msgid "--vali--"
+msgstr "--select--"
+
+#: classes/contentmgmt/join/join_site.aw:2616
+msgid "Tekstikast"
+msgstr "Texbox"
+
+#: classes/contentmgmt/join/join_site.aw:2617
+msgid "Listbox"
+msgstr "Listbox"
+
+#: classes/contentmgmt/join/join_site.aw:2618
+msgid "Raadionupp"
+msgstr "Radiobutton"
+
+#: classes/contentmgmt/join/join_site.aw:2619
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: classes/contentmgmt/join/join_site.aw:2768
+msgid "Liitu nupu tekst"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2769
+#: classes/contentmgmt/join/join_site.aw:2788
+#: classes/contentmgmt/join/join_site.aw:2808
+msgid "<b>Nuppude tekstid</b>"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2787
+msgid "Salvesta nupu tekst"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2807
+msgid "T&uuml;hista nupu tekst"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2828
+msgid "Suunamine"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2829
+msgid "<b>Suuna p&auml;rast registreerumist</b>"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2848
+msgid "T&otilde;lgi omaduste tekste"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2893
+msgid "Veateade"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2918
+msgid "J&auml;rgnev v&auml;li peab olema t&auml;idetud!"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2919
+#: classes/contentmgmt/join/join_site.aw:3051
+msgid "Sellise kasutajanimega kasutaja on juba olemas!"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2920
+#: classes/contentmgmt/join/join_site.aw:3073
+msgid "Sisestatud paroolid on erinevad!"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2921
+#: classes/contentmgmt/join/join_site.aw:3084
+msgid "Parool tohib sisaldada ainult numbreid, t&auml;hti ja alakriipsu!"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2922
+#: classes/contentmgmt/join/join_site.aw:3095
+msgid "Kasutajanimes peab olema v&auml;hemalt 3 t&auml;hte!"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2923
+#: classes/contentmgmt/join/join_site.aw:3106
+msgid "Paroolis peab olema v&auml;hemalt 3 t&auml;hte!"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2924
+msgid "Palun sisestage korrektne e-maili aadress!"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2942
+msgid "T&otilde;lgi veateateid"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2949
+msgid "Pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:2999
+msgid "T&otilde;lgi vahepealkiri"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site.aw:3062
+msgid "Kasutajanimes tohivad sisalduda ainult t&auml;hed, numbrid ja alakriips!"
+msgstr ""
+
+# classes/contentmgmt/join/join_site.aw:prop_send_join_mail
+#~ msgid "Omaduse Kas liitumisel saadetakse meil (send_join_mail) caption"
+#~ msgstr "Send e-mail on join"
+
+#~ msgid "<font color='#FF0000'>J&auml;rgnev v&auml;li peab olema t&auml;idetud!</font>"
+#~ msgstr "<font color='#FF0000'>Following field must be filled!</font>"
+
+# classes/contentmgmt/join/join_site.aw:group_joinmail
+#~ msgid "Grupi Meil (joinmail) pealkiri"
+#~ msgstr "E-mail"

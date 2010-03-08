@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/clients/patent_office/trademark_status.aw:class_1195_help
+msgid "Klassi Trademark status help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_verified
+msgid "Omaduse Kinnitatud (verified) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_verified_comment
+msgid "Omaduse Kinnitatud (verified) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_verified_help
+msgid "Omaduse Kinnitatud (verified) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_verified_date
+msgid "Omaduse Kinnitamise kuup&auml;ev (verified_date) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_verified_date_comment
+msgid "Omaduse Kinnitamise kuup&auml;ev (verified_date) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_verified_date_help
+msgid "Omaduse Kinnitamise kuup&auml;ev (verified_date) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_exported
+msgid "Omaduse Eksporditud (exported) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_exported_comment
+msgid "Omaduse Eksporditud (exported) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_exported_help
+msgid "Omaduse Eksporditud (exported) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_export_date
+msgid "Omaduse Ekspordi kuup&auml;ev (export_date) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_export_date_comment
+msgid "Omaduse Ekspordi kuup&auml;ev (export_date) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_export_date_help
+msgid "Omaduse Ekspordi kuup&auml;ev (export_date) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_nr
+msgid "Omaduse Taotluse number (nr) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_nr_comment
+msgid "Omaduse Taotluse number (nr) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_nr_help
+msgid "Omaduse Taotluse number (nr) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_sent_date
+msgid "Omaduse Saatmise kuup&auml;ev (sent_date) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_sent_date_comment
+msgid "Omaduse Saatmise kuup&auml;ev (sent_date) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_sent_date_help
+msgid "Omaduse Saatmise kuup&auml;ev (sent_date) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_modified
+msgid "Omaduse  (modified) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_modified_comment
+msgid "Omaduse  (modified) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/trademark_status.aw:prop_modified_help
+msgid "Omaduse  (modified) help"
+msgstr ""
+

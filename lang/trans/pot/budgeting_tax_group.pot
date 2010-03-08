@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:class_1246_help
+msgid "Klassi Eelarvestamise maksu grupp help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_tree
+msgid "Omaduse  (tax_tree) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_tree_comment
+msgid "Omaduse  (tax_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_tree_help
+msgid "Omaduse  (tax_tree) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_from_acct
+msgid "Omaduse Kontolt (tax_s_from_acct) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_from_acct_comment
+msgid "Omaduse Kontolt (tax_s_from_acct) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_from_acct_help
+msgid "Omaduse Kontolt (tax_s_from_acct) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_to_acct
+msgid "Omaduse Kontole (tax_s_to_acct) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_to_acct_comment
+msgid "Omaduse Kontole (tax_s_to_acct) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_to_acct_help
+msgid "Omaduse Kontole (tax_s_to_acct) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_date_from
+msgid "Omaduse Alates (tax_s_date_from) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_date_from_comment
+msgid "Omaduse Alates (tax_s_date_from) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_date_from_help
+msgid "Omaduse Alates (tax_s_date_from) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_date_to
+msgid "Omaduse Kuni (tax_s_date_to) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_date_to_comment
+msgid "Omaduse Kuni (tax_s_date_to) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_date_to_help
+msgid "Omaduse Kuni (tax_s_date_to) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_sbt
+msgid "Omaduse Otsi (tax_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_sbt_comment
+msgid "Omaduse Otsi (tax_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_tax_s_sbt_help
+msgid "Omaduse Otsi (tax_s_sbt) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_flow_table
+msgid "Omaduse  (flow_table) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_flow_table_comment
+msgid "Omaduse  (flow_table) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:prop_flow_table_help
+msgid "Omaduse  (flow_table) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:group_flow
+msgid "Grupi &Uuml;lekanded (flow) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:group_flow_help
+msgid "Grupi &Uuml;lekanded (flow) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:layout_tax_tree
+msgid "Kujundusosa Maksude&nbsp;puu (tax_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:layout_tax_search
+msgid "Kujundusosa Otsing (tax_search) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_group.aw:195
+msgid "Kokku:"
+msgstr ""
+

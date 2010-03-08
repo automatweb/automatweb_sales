@@ -1,0 +1,34 @@
+<?php
+$GLOBALS["TRANS"]["Kuup&auml;ev"] = "Date";
+$GLOBALS["TRANS"]["Nimetus"] = "Name";
+$GLOBALS["TRANS"]["Osalejad"] = "Participants";
+$GLOBALS["TRANS"]["Staatus"] = "Status";
+$GLOBALS["TRANS"]["Tunde"] = "Hours";
+$GLOBALS["TRANS"]["Summa"] = "Sum";
+$GLOBALS["TRANS"]["Tehtud"] = "Done";
+$GLOBALS["TRANS"]["T&ouml;&ouml;s"] = "In progress";
+$GLOBALS["TRANS"]["Kliendi &uuml;ldandmed"] = "Customer info";
+$GLOBALS["TRANS"]["Alguskuup&auml;ev"] = "From";
+$GLOBALS["TRANS"]["Kood"] = "Code";
+$GLOBALS["TRANS"]["Suhte looja"] = "Customer relationship creator";
+$GLOBALS["TRANS"]["Registrikood"] = "Register code";
+$GLOBALS["TRANS"]["Kliendisuhe"] = "Customer relationship";
+$GLOBALS["TRANS"]["Sissetuleku meetod"] = "Referal method";
+$GLOBALS["TRANS"]["KMK nr"] = "KMK nr";
+$GLOBALS["TRANS"]["Kliendihaldur"] = "Client manager";
+$GLOBALS["TRANS"]["Tegevuse kirjeldus"] = "Description";
+$GLOBALS["TRANS"]["Kaubam&auml;rgid"] = "Trademarks";
+$GLOBALS["TRANS"]["Kontaktandmed"] = "Contact data";
+$GLOBALS["TRANS"]["Kontaktisikud"] = "Contact persons";
+$GLOBALS["TRANS"]["Aadress"] = "Address";
+$GLOBALS["TRANS"]["Telefon"] = "Phone";
+$GLOBALS["TRANS"]["Faks"] = "Fax";
+$GLOBALS["TRANS"]["E-post"] = "E-mail";
+$GLOBALS["TRANS"]["WWW"] = "WWW";
+$GLOBALS["TRANS"]["Tulud"] = "Income";
+$GLOBALS["TRANS"]["Ajavahemikul"] = "Timespan";
+$GLOBALS["TRANS"]["T&ouml;&ouml;tunde kokku"] = "Total working hours";
+$GLOBALS["TRANS"]["Arvele l&auml;inud t&ouml;&ouml;tunde"] = "Working hours on bill";
+$GLOBALS["TRANS"]["Tehtud t&ouml;id summas"] = "Total work sum";
+$GLOBALS["TRANS"]["Esitatud arveid summas"] = "Invoices sent for sum";
+?>

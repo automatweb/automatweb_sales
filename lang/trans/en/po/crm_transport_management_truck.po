@@ -1,0 +1,410 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:class_1085_help
+msgid "Klassi Veoauto help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_nr
+msgid "Omaduse Auto nr. (nr) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_nr_comment
+msgid "Omaduse Auto nr. (nr) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_nr_help
+msgid "Omaduse Auto nr. (nr) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_car_type
+msgid "Omaduse Mark (car_type) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_car_type_comment
+msgid "Omaduse Mark (car_type) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_car_type_help
+msgid "Omaduse Mark (car_type) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_model
+msgid "Omaduse Mudel (model) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_model_comment
+msgid "Omaduse Mudel (model) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_model_help
+msgid "Omaduse Mudel (model) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_bodytype
+msgid "Omaduse Keret&uuml;&uuml;p (bodytype) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_bodytype_comment
+msgid "Omaduse Keret&uuml;&uuml;p (bodytype) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_bodytype_help
+msgid "Omaduse Keret&uuml;&uuml;p (bodytype) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_color
+msgid "Omaduse V&auml;rvus (color) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_color_comment
+msgid "Omaduse V&auml;rvus (color) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_color_help
+msgid "Omaduse V&auml;rvus (color) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_year
+msgid "Omaduse V&auml;ljalaskeaasta (year) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_year_comment
+msgid "Omaduse V&auml;ljalaskeaasta (year) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_year_help
+msgid "Omaduse V&auml;ljalaskeaasta (year) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_price
+msgid "Omaduse Hind (price) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_price_comment
+msgid "Omaduse Hind (price) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_price_help
+msgid "Omaduse Hind (price) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_transmission
+msgid "Omaduse K&auml;igukast (transmission) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_transmission_comment
+msgid "Omaduse K&auml;igukast (transmission) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_transmission_help
+msgid "Omaduse K&auml;igukast (transmission) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_driving_axle
+msgid "Omaduse Vedav sild (driving_axle) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_driving_axle_comment
+msgid "Omaduse Vedav sild (driving_axle) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_driving_axle_help
+msgid "Omaduse Vedav sild (driving_axle) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_transit
+msgid "Omaduse L&auml;bis&otilde;it (transit) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_transit_comment
+msgid "Omaduse L&auml;bis&otilde;it (transit) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_transit_help
+msgid "Omaduse L&auml;bis&otilde;it (transit) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_superstructure
+msgid "Omaduse Pealisehitus (superstructure) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_superstructure_comment
+msgid "Omaduse Pealisehitus (superstructure) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_superstructure_help
+msgid "Omaduse Pealisehitus (superstructure) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_length
+msgid "Omaduse Pikkus (length) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_length_comment
+msgid "Omaduse Pikkus (length) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_length_help
+msgid "Omaduse Pikkus (length) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_width
+msgid "Omaduse Laius (width) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_width_comment
+msgid "Omaduse Laius (width) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_width_help
+msgid "Omaduse Laius (width) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_height
+msgid "Omaduse K&otilde;rgus (height) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_height_comment
+msgid "Omaduse K&otilde;rgus (height) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_height_help
+msgid "Omaduse K&otilde;rgus (height) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_deadweight
+msgid "Omaduse Kandev&otilde;ime (deadweight) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_deadweight_comment
+msgid "Omaduse Kandev&otilde;ime (deadweight) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_deadweight_help
+msgid "Omaduse Kandev&otilde;ime (deadweight) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_full_weight
+msgid "Omaduse T&auml;ismass (full_weight) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_full_weight_comment
+msgid "Omaduse T&auml;ismass (full_weight) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_full_weight_help
+msgid "Omaduse T&auml;ismass (full_weight) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_fuel_tank_capacity
+msgid "Omaduse K&uuml;tusepaagi maht  (fuel_tank_capacity) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_fuel_tank_capacity_comment
+msgid "Omaduse K&uuml;tusepaagi maht  (fuel_tank_capacity) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_fuel_tank_capacity_help
+msgid "Omaduse K&uuml;tusepaagi maht  (fuel_tank_capacity) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_fuel_type
+msgid "Omaduse K&uuml;tus (fuel_type) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_fuel_type_comment
+msgid "Omaduse K&uuml;tus (fuel_type) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_fuel_type_help
+msgid "Omaduse K&uuml;tus (fuel_type) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_fuel_consumption
+msgid "Omaduse K&uuml;tusekulu (fuel_consumption) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_fuel_consumption_comment
+msgid "Omaduse K&uuml;tusekulu (fuel_consumption) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_fuel_consumption_help
+msgid "Omaduse K&uuml;tusekulu (fuel_consumption) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_engine_power
+msgid "Omaduse Mootori v&otilde;imsus (hj) (engine_power) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_engine_power_comment
+msgid "Omaduse Mootori v&otilde;imsus (hj) (engine_power) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_engine_power_help
+msgid "Omaduse Mootori v&otilde;imsus (hj) (engine_power) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_refrigerator
+msgid "Omaduse K&uuml;lmutusseade\t (refrigerator) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_refrigerator_comment
+msgid "Omaduse K&uuml;lmutusseade\t (refrigerator) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_refrigerator_help
+msgid "Omaduse K&uuml;lmutusseade\t (refrigerator) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_conditioner
+msgid "Omaduse Konditsioneer (conditioner) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_conditioner_comment
+msgid "Omaduse Konditsioneer (conditioner) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_conditioner_help
+msgid "Omaduse Konditsioneer (conditioner) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_drivers_table
+msgid "Omaduse Juhtide tabel (drivers_table) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_drivers_table_comment
+msgid "Omaduse Juhtide tabel (drivers_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_drivers_table_help
+msgid "Omaduse Juhtide tabel (drivers_table) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_costs_table
+msgid "Omaduse Kulude tabel (costs_table) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_costs_table_comment
+msgid "Omaduse Kulude tabel (costs_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:prop_costs_table_help
+msgid "Omaduse Kulude tabel (costs_table) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:group_technical_data
+msgid "Grupi Tehnilised andmed (technical_data) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:group_technical_data_help
+msgid "Grupi Tehnilised andmed (technical_data) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:group_accessory
+msgid "Grupi Lisavarustus (accessory) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:group_accessory_help
+msgid "Grupi Lisavarustus (accessory) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:group_drivers
+msgid "Grupi Juhid (drivers) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:group_drivers_help
+msgid "Grupi Juhid (drivers) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:group_costs
+msgid "Grupi Kulud (costs) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:group_costs_help
+msgid "Grupi Kulud (costs) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:rel_RELTYPE_CAR_TYPE
+msgid "Seose Auto mark (RELTYPE_CAR_TYPE) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:132
+msgid "Sadul"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:133
+msgid "Veok"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:137
+msgid "Madel"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:138
+msgid "Furgoon"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:139
+msgid "Kallur"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:140
+msgid "Tent"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:141
+msgid "Tsistern"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:142
+msgid "Konteinerveok"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:143
+msgid "Muu"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:147
+msgid "Esivedu"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:148
+msgid "Tagavedu"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:149
+msgid "Nelivedu"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:211
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:222
+msgid "Nr"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:228
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:232
+msgid "Nimetus"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:236
+msgid "Summa"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_truck.aw:268
+msgid "Summa: %s"
+msgstr ""

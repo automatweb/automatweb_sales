@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="maitenance" folder="www/dev/terryf/automatweb_dev/classes/core" extends="class_base">
+		<action name="cache_clear" nologin="1">
+			<function name="cache_clear">
+				<arguments>
+					<optional name="clear" />
+					<optional name="list" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="clear_all_sites" nologin="1">
+			<function name="clear_all_sites">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cache_update" nologin="1">
+			<function name="cache_update">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

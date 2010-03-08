@@ -1,0 +1,252 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_warehouse_favor.aw:class_1042_help
+msgid "Klassi Soodustus help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_start
+msgid "Omaduse Kehtivuse algus (start) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_start_comment
+msgid "Omaduse Kehtivuse algus (start) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_start_help
+msgid "Omaduse Kehtivuse algus (start) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_end
+msgid "Omaduse Kehtivuse l&otilde;pp (end) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_end_comment
+msgid "Omaduse Kehtivuse l&otilde;pp (end) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_end_help
+msgid "Omaduse Kehtivuse l&otilde;pp (end) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_group_name
+msgid "Omaduse Tootegrupi nimi (product_group_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_group_name_comment
+msgid "Omaduse Tootegrupi nimi (product_group_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_group_name_help
+msgid "Omaduse Tootegrupi nimi (product_group_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_group_result
+msgid "Omaduse Tootegrupid (product_group_result) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_group_result_comment
+msgid "Omaduse Tootegrupid (product_group_result) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_group_result_help
+msgid "Omaduse Tootegrupid (product_group_result) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_name
+msgid "Omaduse Toote nimetus (product_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_name_comment
+msgid "Omaduse Toote nimetus (product_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_name_help
+msgid "Omaduse Toote nimetus (product_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_code
+msgid "Omaduse Tootekood (product_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_code_comment
+msgid "Omaduse Tootekood (product_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_code_help
+msgid "Omaduse Tootekood (product_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_barcode
+msgid "Omaduse Ribakood (product_barcode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_barcode_comment
+msgid "Omaduse Ribakood (product_barcode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_barcode_help
+msgid "Omaduse Ribakood (product_barcode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_result
+msgid "Omaduse Tooted (product_result) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_result_comment
+msgid "Omaduse Tooted (product_result) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_product_result_help
+msgid "Omaduse Tooted (product_result) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_group_name
+msgid "Omaduse Kliendigrupi nimi (client_group_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_group_name_comment
+msgid "Omaduse Kliendigrupi nimi (client_group_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_group_name_help
+msgid "Omaduse Kliendigrupi nimi (client_group_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_group_result
+msgid "Omaduse Kliendi grupid (client_group_result) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_group_result_comment
+msgid "Omaduse Kliendi grupid (client_group_result) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_group_result_help
+msgid "Omaduse Kliendi grupid (client_group_result) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_name
+msgid "Omaduse Kliendi nimi (client_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_name_comment
+msgid "Omaduse Kliendi nimi (client_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_name_help
+msgid "Omaduse Kliendi nimi (client_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_group
+msgid "Omaduse Kliendi grupp (client_group) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_group_comment
+msgid "Omaduse Kliendi grupp (client_group) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_group_help
+msgid "Omaduse Kliendi grupp (client_group) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_result
+msgid "Omaduse Kliendid (client_result) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_result_comment
+msgid "Omaduse Kliendid (client_result) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:prop_client_result_help
+msgid "Omaduse Kliendid (client_result) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_products
+msgid "Grupi Tooted (products) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_products_help
+msgid "Grupi Tooted (products) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_product_groups
+msgid "Grupi Tootegrupid (product_groups) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_product_groups_help
+msgid "Grupi Tootegrupid (product_groups) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_product_items
+msgid "Grupi Tooted (product_items) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_product_items_help
+msgid "Grupi Tooted (product_items) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_clients
+msgid "Grupi Kliendid (clients) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_clients_help
+msgid "Grupi Kliendid (clients) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_client_groups
+msgid "Grupi Kliendigrupid (client_groups) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_client_groups_help
+msgid "Grupi Kliendigrupid (client_groups) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_client_items
+msgid "Grupi Kliendid (client_items) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:group_client_items_help
+msgid "Grupi Kliendid (client_items) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:170
+msgid "Tootegrupp"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:174 classes/applications/shop/shop_warehouse_favor.aw:193
+msgid "Soodustus (%)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:178 classes/applications/shop/shop_warehouse_favor.aw:197
+msgid "Soodustus (summa)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:189
+msgid "Toode"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:208 classes/applications/shop/shop_warehouse_favor.aw:231
+msgid "Kliendigrupp"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:212 classes/applications/shop/shop_warehouse_favor.aw:235
+msgid "Seaded"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:216 classes/applications/shop/shop_warehouse_favor.aw:239
+msgid "Vali"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_favor.aw:227
+msgid "Kliendi nimi"
+msgstr ""
+

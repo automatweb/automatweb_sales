@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/core/abstract_datasource.aw:class_339_help
+#: classes/core/abstract_datasource.aw:class_339_help
+msgid "Klassi Andmeallikas help"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_ds
+#: classes/core/abstract_datasource.aw:prop_ds
+msgid "Omaduse Andmed objektist (ds) caption"
+msgstr "Data from object"
+
+# classes/core/abstract_datasource.aw:prop_ds_comment
+#: classes/core/abstract_datasource.aw:prop_ds_comment
+msgid "Omaduse Andmed objektist (ds) kommentaar"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_ds_help
+#: classes/core/abstract_datasource.aw:prop_ds_help
+msgid "Omaduse Andmed objektist (ds) help"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_row_cnt
+#: classes/core/abstract_datasource.aw:prop_row_cnt
+msgid "Omaduse Mitu rida andmeid (row_cnt) caption"
+msgstr "Row count"
+
+# classes/core/abstract_datasource.aw:prop_row_cnt_comment
+#: classes/core/abstract_datasource.aw:prop_row_cnt_comment
+msgid "Omaduse Mitu rida andmeid (row_cnt) kommentaar"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_row_cnt_help
+#: classes/core/abstract_datasource.aw:prop_row_cnt_help
+msgid "Omaduse Mitu rida andmeid (row_cnt) help"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_name_field
+#: classes/core/abstract_datasource.aw:prop_name_field
+msgid "Omaduse Nime tulp (name_field) caption"
+msgstr "Name column"
+
+# classes/core/abstract_datasource.aw:prop_name_field_comment
+#: classes/core/abstract_datasource.aw:prop_name_field_comment
+msgid "Omaduse Nime tulp (name_field) kommentaar"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_name_field_help
+#: classes/core/abstract_datasource.aw:prop_name_field_help
+msgid "Omaduse Nime tulp (name_field) help"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_id_field
+#: classes/core/abstract_datasource.aw:prop_id_field
+msgid "Omaduse ID tulp (id_field) caption"
+msgstr "ID column"
+
+# classes/core/abstract_datasource.aw:prop_id_field_comment
+#: classes/core/abstract_datasource.aw:prop_id_field_comment
+msgid "Omaduse ID tulp (id_field) kommentaar"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_id_field_help
+#: classes/core/abstract_datasource.aw:prop_id_field_help
+msgid "Omaduse ID tulp (id_field) help"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_file_has_header
+#: classes/core/abstract_datasource.aw:prop_file_has_header
+msgid "Omaduse Esimesel real on pealkirjad (file_has_header) caption"
+msgstr "First line has captions"
+
+# classes/core/abstract_datasource.aw:prop_file_has_header_comment
+#: classes/core/abstract_datasource.aw:prop_file_has_header_comment
+msgid "Omaduse Esimesel real on pealkirjad (file_has_header) kommentaar"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_file_has_header_help
+#: classes/core/abstract_datasource.aw:prop_file_has_header_help
+msgid "Omaduse Esimesel real on pealkirjad (file_has_header) help"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_file_separator
+#: classes/core/abstract_datasource.aw:prop_file_separator
+msgid "Omaduse Eraldaja (file_separator) caption"
+msgstr "Field seprator"
+
+# classes/core/abstract_datasource.aw:prop_file_separator_comment
+#: classes/core/abstract_datasource.aw:prop_file_separator_comment
+msgid "Omaduse Eraldaja (file_separator) kommentaar"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_file_separator_help
+#: classes/core/abstract_datasource.aw:prop_file_separator_help
+msgid "Omaduse Eraldaja (file_separator) help"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_max_lines
+#: classes/core/abstract_datasource.aw:prop_max_lines
+msgid "Omaduse Mitu rida maksimaalselt importida (max_lines) caption"
+msgstr "Maximum number of lines to import"
+
+# classes/core/abstract_datasource.aw:prop_max_lines_comment
+#: classes/core/abstract_datasource.aw:prop_max_lines_comment
+msgid "Omaduse Mitu rida maksimaalselt importida (max_lines) kommentaar"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:prop_max_lines_help
+#: classes/core/abstract_datasource.aw:prop_max_lines_help
+msgid "Omaduse Mitu rida maksimaalselt importida (max_lines) help"
+msgstr ""
+
+#: classes/core/abstract_datasource.aw:prop_controller
+msgid "Omaduse Kontroller (controller) caption"
+msgstr ""
+
+#: classes/core/abstract_datasource.aw:prop_controller_comment
+msgid "Omaduse Kontroller (controller) kommentaar"
+msgstr ""
+
+#: classes/core/abstract_datasource.aw:prop_controller_help
+msgid "Omaduse Kontroller (controller) help"
+msgstr ""
+
+# classes/core/abstract_datasource.aw:rel_RELTYPE_DS
+#: classes/core/abstract_datasource.aw:rel_RELTYPE_DS
+msgid "Seose andmed objektist (RELTYPE_DS) tekst"
+msgstr "data from object"
+
+#: classes/core/abstract_datasource.aw:rel_RELTYPE_CTR
+msgid "Seose Kontroller (RELTYPE_CTR) tekst"
+msgstr ""

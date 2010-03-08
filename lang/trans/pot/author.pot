@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/author.aw:class_301_help
+msgid "Klassi Autori artiklid help"
+msgstr ""
+
+#: classes/contentmgmt/author.aw:prop_limit
+msgid "Omaduse Mitu viimast (limit) caption"
+msgstr ""
+
+#: classes/contentmgmt/author.aw:prop_limit_comment
+msgid "Omaduse Mitu viimast (limit) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/author.aw:prop_limit_help
+msgid "Omaduse Mitu viimast (limit) help"
+msgstr ""
+
+#: classes/contentmgmt/author.aw:prop_only_active_period
+msgid "Omaduse Ainult aktiivsest perioodist (only_active_period) caption"
+msgstr ""
+
+#: classes/contentmgmt/author.aw:prop_only_active_period_comment
+msgid "Omaduse Ainult aktiivsest perioodist (only_active_period) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/author.aw:prop_only_active_period_help
+msgid "Omaduse Ainult aktiivsest perioodist (only_active_period) help"
+msgstr ""
+

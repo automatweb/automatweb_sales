@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>entity_type</name>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_entity_type_id</field>
+            <table>aw_wf_entities</table>
+            <caption>Juhtumi t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>state</name>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_state</field>
+            <table>aw_wf_entities</table>
+            <caption>Olek</caption>
+      </property>
+      <property>
+            <name>obj_id</name>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_obj_id</field>
+            <table>aw_wf_entities</table>
+            <caption>Sisuobjekt</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_WORKFLOW_ENTITY_INSTANCE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_wf_entities>
+                  <index>aw_id</index>
+                  <master_table>objects</master_table>
+                  <master_index>brother_of</master_index>
+            </aw_wf_entities>
+      </tableinfo>
+</properties>
+

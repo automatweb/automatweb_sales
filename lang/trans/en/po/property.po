@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2005-12-06 12:47+0200\n"
+"Last-Translator: Erki <erki@struktuur.ee>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/class_designer/property.aw:class_930_help
+#: classes/applications/class_designer/property.aw:class_930_help
+msgid "Klassi Omadus help"
+msgstr ""
+
+# classes/applications/class_designer/property.aw:prop_int_ref
+#: classes/applications/class_designer/property.aw:prop_int_ref
+msgid "Omaduse Sisemine seos (int_ref) caption"
+msgstr "Inner relation"
+
+# classes/applications/class_designer/property.aw:prop_int_ref_comment
+#: classes/applications/class_designer/property.aw:prop_int_ref_comment
+msgid "Omaduse Sisemine seos (int_ref) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property.aw:prop_int_ref_help
+#: classes/applications/class_designer/property.aw:prop_int_ref_help
+msgid "Omaduse Sisemine seos (int_ref) help"
+msgstr ""
+
+# classes/applications/class_designer/property.aw:prop_ext_ref
+#: classes/applications/class_designer/property.aw:prop_ext_ref
+msgid "Omaduse Väline seos (ext_ref) caption"
+msgstr "Extern relation"
+
+# classes/applications/class_designer/property.aw:prop_ext_ref_comment
+#: classes/applications/class_designer/property.aw:prop_ext_ref_comment
+msgid "Omaduse Väline seos (ext_ref) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property.aw:prop_ext_ref_help
+#: classes/applications/class_designer/property.aw:prop_ext_ref_help
+msgid "Omaduse Väline seos (ext_ref) help"
+msgstr ""
+
+# classes/applications/class_designer/property.aw:prop_property_type
+#: classes/applications/class_designer/property.aw:prop_property_type
+msgid "Omaduse Omaduse tüüp (property_type) caption"
+msgstr "Property type"
+
+# classes/applications/class_designer/property.aw:prop_property_type_comment
+#: classes/applications/class_designer/property.aw:prop_property_type_comment
+msgid "Omaduse Omaduse tüüp (property_type) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property.aw:prop_property_type_help
+#: classes/applications/class_designer/property.aw:prop_property_type_help
+msgid "Omaduse Omaduse tüüp (property_type) help"
+msgstr ""
+
+# classes/applications/class_designer/property.aw:rel_RELTYPE_REAL_PROPERTY
+#: classes/applications/class_designer/property.aw:rel_RELTYPE_REAL_PROPERTY
+msgid "Seose Tegelik omadus (RELTYPE_REAL_PROPERTY) tekst"
+msgstr ""
+
+#: classes/applications/class_designer/property.aw:49
+msgid "--vali--"
+msgstr "--select--"

@@ -1,0 +1,87 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="popup_search" folder="classes/vcl" extends="aw_template">
+		<action name="do_unlink">
+			<function name="do_unlink">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="pn" />
+					<optional name="rem" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_search">
+			<function name="do_search">
+				<arguments>
+					<optional name="id" />
+					<required name="pn" />
+					<optional name="multiple" />
+					<optional name="clid" />
+					<optional name="s" />
+					<optional name="append_html" />
+					<optional name="tbl_props" />
+					<optional name="no_submit" />
+					<optional name="start_empty" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="final_submit" all_args="1">
+			<function name="final_submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomplete_source" all_args="1">
+			<function name="autocomplete_source">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_ajax_search">
+			<function name="do_ajax_search">
+				<arguments>
+					<optional name="id" />
+					<optional name="multiple" />
+					<optional name="clid" />
+					<optional name="property" />
+					<optional name="reload_property" type="string" />
+					<optional name="reload_layout" type="string" />
+					<optional name="tbl_props" />
+					<optional name="no_submit" />
+					<optional name="start_empty" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_set_property">
+			<function name="ajax_set_property">
+				<arguments>
+					<optional name="id" />
+					<optional name="property" />
+					<optional name="value" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_search_results">
+			<function name="get_search_results">
+				<arguments>
+					<optional name="id" />
+					<optional name="oid" />
+					<optional name="name" />
+					<optional name="multiple" />
+					<optional name="clid" />
+					<optional name="property" />
+					<optional name="reload_layout" type="string" />
+					<optional name="tbl_props" />
+					<optional name="no_submit" />
+					<optional name="start_empty" type="bool" />
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

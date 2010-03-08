@@ -1,0 +1,60 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="webform" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="save_form_data" nologin="1" all_args="1">
+			<function name="save_form_data">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_entries">
+			<function name="remove_entries">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="group" />
+					<required name="select" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_form" nologin="1">
+			<function name="show_form">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="fid" type="int" acl="view" />
+					<required name="url" />
+					<optional name="format" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mail_email_autocomplete_source">
+			<function name="mail_email_autocomplete_source">
+				<arguments>
+					<optional name="search_mail_email" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mail_name_autocomplete_source">
+			<function name="mail_name_autocomplete_source">
+				<arguments>
+					<optional name="search_mail_name" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_get_mail_field">
+			<function name="ajax_get_mail_field">
+				<arguments>
+					<required name="val" />
+					<required name="find" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

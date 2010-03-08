@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/backup/backup.aw:class_814_help
+msgid "Klassi Saidi backup help"
+msgstr ""
+
+#: classes/applications/backup/backup.aw:prop_folder
+msgid "Omaduse Serveri kataloog, kuhu backupi fail kirjutatakse (folder) caption"
+msgstr ""
+
+#: classes/applications/backup/backup.aw:prop_folder_comment
+msgid "Omaduse Serveri kataloog, kuhu backupi fail kirjutatakse (folder) kommentaar"
+msgstr ""
+
+#: classes/applications/backup/backup.aw:prop_folder_help
+msgid "Omaduse Serveri kataloog, kuhu backupi fail kirjutatakse (folder) help"
+msgstr ""
+
+#: classes/applications/backup/backup.aw:prop_do_bup
+msgid "Omaduse Loo backup (do_bup) caption"
+msgstr ""
+
+#: classes/applications/backup/backup.aw:prop_do_bup_comment
+msgid "Omaduse Loo backup (do_bup) kommentaar"
+msgstr ""
+
+#: classes/applications/backup/backup.aw:prop_do_bup_help
+msgid "Omaduse Loo backup (do_bup) help"
+msgstr ""
+
+#: classes/applications/backup/backup.aw:59
+msgid "backup::do_backup(): no server folder set for backup!"
+msgstr ""
+

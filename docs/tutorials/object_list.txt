@@ -1,0 +1,117 @@
+From: 	Kristo Iila <kristo@struktuur.ee>
+Reply-To: 	dev@lists.struktuur.ee
+To: 	dev@struktuur.ee
+Subject: 	[Dev] object_list
+Date: 	Wed, 7 Dec 2005 11:43:53 +0200 (EET)
+
+
+omk!
+
+kuna ma pole sellest asjast j6udnud pikemalt dokusid kirjutada, siis 
+esialgu kirjutan siin.
+
+millised v6imalused on object_list'i filtrites kasutatavad?
+
+k6ige lihtsam variant, omaduse j2rgi otsimine:
+
+$ol = new object_list(array(
+        "class_id" => CL_MENU,
+        "target" => 1
+));
+
+otsib siis menyyd, mille omadus target = 1
+
+seoste kaudu otsimine:
+
+$ol = new object_list(array(
+        "class_id" => CL_CRM_PERSON,
+        "CL_CRM_PERSON.RELTYPE_WORK" => 666
+));
+
+
+otsib yles k6ik isikud, kellel on seos RELTYPE_WORK objektiga 666
+
+
+omaduste kaudu otsimine:
+
+$ol = new object_list(array(
+        "class_id" => CL_CRM_PERSON,
+        "CL_CRM_PERSON.address.linn" => 666
+));
+
+
+otsib siis k6ik isikud, mille adress omaduses valitud objekti omadus linn 
+on 666.
+
+neid saab ka kombineerida, suvalise sygavuseni:
+
+$ol = new object_list(array(
+        "class_id" => CL_CRM_PERSON,
+        "CL_CRM_PERSON.RELTYPE_ADDRESS.linn.name" => "Tallinn"
+));
+
+
+loomulikult saab neid igatepidi kombineerida ja mitut korraga kasutada 
+jne. taustal kirjutatakse need ymber sqli JOIN'ideks, niiet serializetud 
+v2ljade j2rgi ei saa selliseid otsinguid teha.
+
+
+siiani on olnud jutt siis filtri vasakust poolest. nyyd siis filtri 
+paremast poolest ka veel.
+
+v6imalused on:
+
+=> "a" - otsib = "a"
+=> "%a" - otsib stringe, mis l6pevad a t2hega
+=> "%a%" - otsib stringe, milles sisaldub a t2ht, ysnaga sql'i LIKE k2sk 
+on see
+=> new obj_predicate_prop("id") - ytleb, et yks omadus peab olema sama, 
+mis teine. ntx kui tahad ainult originaalobjekte, mitte vendi, siis:
+"brother_of" => new obj_predicate_prop("id")
+=> new obj_predicate_not(1) - ytleb et omadus ei tohi v6rduda parameetriga
+=> new obj_predicate_compare(v6rdlus, data1, data2,type) - < > jms v6rdlused, 
+parameetrid on:
+v6rdlus: OBJ_COMP_LESS - <  data1, OBJ_COMP_GREATER - > data1, 
+OBJ_COMP_LESS_OR_EQ - <= data1, OBJ_COMP_GREATER_OR_EQ - >= data1, 
+OBJ_COMP_BETWEEN - > data1 and < data2, OBJ_COMP_BETWEEN_INCLUDING - >= data1 and <= data2,
+OBJ_COMP_EQUAL - = data1
+kui type väärtuseks panna int, siis võrdleb nagu arve, muidu teeb stringivõrdlust
+
+lisaks on siis veel object_list_filter, millega saab emuleerida sulgude 
+kasutamist sqlis, nii:
+
+$ol = new object_list(array(
+        "class_id" => CL_MENU,
+        new object_list_filter(array(
+                "logic" => "OR",
+                "conditions" => array(
+                        "type" => MN_CLIENT,
+                        "lang_id" => aw_global_get("lang_id")
+                )
+        ))
+));
+
+see leiab siis k6ik menyyd, mille tyyp on klient v6i keel on parajasti 
+aktiivne. "logic" v22rtuseks v6ib siis olla "OR" v6i "AND" ja conditions 
+sees k6ik object_list'is kasutatavad asjad. loomulikult v6ib filtreid ka 
+nestida suvalise sygavuseni.
+
+
+k6ik otsingud acceptivad ka array'sid v6i aw_array()'sid parameetrina, 
+ntx:
+
+$ol = new object_list(array(
+        "class_id" => array(CL_MENU,CL_DOCUMENT),
+        "name" => array("%a%", "%b%")
+));
+
+
+leab siis k6ik dokumendid v6i menyyd, mille nimes sisaldab kas a v6i b
+
+
+see oli siis kiire ylevaade object_list v6imalustest, kasutage siis k6ik 
+julgelt neid :)
+
+        Kristo.
+
+

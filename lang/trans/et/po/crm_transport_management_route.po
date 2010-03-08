@@ -1,0 +1,114 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:class_1084_help
+msgid "Klassi Marsruut help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_start_location
+msgid "Omaduse Alguspunkt (start_location) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_start_location_comment
+msgid "Omaduse Alguspunkt (start_location) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_start_location_help
+msgid "Omaduse Alguspunkt (start_location) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_end_location
+msgid "Omaduse Sihtpunkt (end_location) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_end_location_comment
+msgid "Omaduse Sihtpunkt (end_location) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_end_location_help
+msgid "Omaduse Sihtpunkt (end_location) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_route_status
+msgid "Omaduse Staatus (route_status) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_route_status_comment
+msgid "Omaduse Staatus (route_status) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_route_status_help
+msgid "Omaduse Staatus (route_status) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_route_tree
+msgid "Omaduse Puu (route_tree) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_route_tree_comment
+msgid "Omaduse Puu (route_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_route_tree_help
+msgid "Omaduse Puu (route_tree) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_route_table
+msgid "Omaduse Tabel (route_table) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_route_table_comment
+msgid "Omaduse Tabel (route_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:prop_route_table_help
+msgid "Omaduse Tabel (route_table) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:group_route_content
+msgid "Grupi Marsruudi sisu (route_content) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:group_route_content_help
+msgid "Grupi Marsruudi sisu (route_content) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:rel_RELTYPE_START_LOCATION
+msgid "Seose Alguspunkt (RELTYPE_START_LOCATION) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:rel_RELTYPE_END_LOCATION
+msgid "Seose Sihtpunkt (RELTYPE_END_LOCATION) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:rel_RELTYPE_ADDRESS
+msgid "Seose Aadress (RELTYPE_ADDRESS) tekst"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:64
+msgid "Aktiivne"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:65
+msgid "Arhiveeritud"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:175
+msgid "Riik"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:179
+msgid "Linn"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_route.aw:183
+msgid "J&auml;rjekord"
+msgstr ""

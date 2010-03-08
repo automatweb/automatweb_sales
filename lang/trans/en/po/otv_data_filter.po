@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:class_898_help
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:class_898_help
+msgid "Klassi Andmeallika andmete muundaja help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_str_replace
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_str_replace
+msgid "Omaduse  (str_replace) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_str_replace_comment
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_str_replace_comment
+msgid "Omaduse  (str_replace) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_str_replace_help
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_str_replace_help
+msgid "Omaduse  (str_replace) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_char_replace
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_char_replace
+msgid "Omaduse  (char_replace) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_char_replace_comment
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_char_replace_comment
+msgid "Omaduse  (char_replace) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_char_replace_help
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_char_replace_help
+msgid "Omaduse  (char_replace) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_controller
+msgid "Omaduse  (controller) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_controller_comment
+msgid "Omaduse  (controller) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:prop_controller_help
+msgid "Omaduse  (controller) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:group_str_replace
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:group_str_replace
+msgid "Grupi Teksti asendused (str_replace) pealkiri"
+msgstr "Text replacements"
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:group_str_replace_help
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:group_str_replace_help
+msgid "Grupi Teksti asendused (str_replace) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_data_filter.aw:group_char_replace
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:group_char_replace
+msgid "Grupi T&auml;htede asendused (char_replace) pealkiri"
+msgstr "Character replacements"
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:group_char_replace_help
+msgid "Grupi T&auml;htede asendused (char_replace) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:group_controller
+msgid "Grupi Kontroller (controller) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:group_controller_help
+msgid "Grupi Kontroller (controller) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:80
+msgid "Mis asendada"
+msgstr "Replace what"
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:86
+msgid "Millega asendada"
+msgstr "Replace with what"
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:132
+msgid "T&auml;hekoodid, mis asendada"
+msgstr "Character codes to replace"
+
+#: classes/contentmgmt/object_treeview/otv_data_filter.aw:138
+msgid "T&auml;hekoodid, millega asendada"
+msgstr "Carater codes to replace with"

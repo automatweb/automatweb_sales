@@ -1,0 +1,463 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/common/external/xml_source.aw:class_1354_help
+msgid "Klassi Syndmuste XML andmeallikas help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_url
+msgid "Omaduse URL (url) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_url_comment
+msgid "Omaduse URL (url) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_url_help
+msgid "Omaduse URL (url) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_event
+msgid "Omaduse Sündmus (tag_event) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_event_comment
+msgid "Omaduse Sündmus (tag_event) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_event_help
+msgid "Omaduse Sündmus (tag_event) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_id
+msgid "Omaduse ID (tag_id) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_id_comment
+msgid "Omaduse ID (tag_id) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_id_help
+msgid "Omaduse ID (tag_id) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_encoding
+msgid "Omaduse Encoding (encoding) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_encoding_comment
+msgid "Omaduse Encoding (encoding) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_encoding_help
+msgid "Omaduse Encoding (encoding) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_event
+msgid "Omaduse S&uuml;ndmuste siduss&uuml;steem (external_system_event) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_event_comment
+msgid "Omaduse S&uuml;ndmuste siduss&uuml;steem (external_system_event) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_event_help
+msgid "Omaduse S&uuml;ndmuste siduss&uuml;steem (external_system_event) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_event_time
+msgid "Omaduse Toimumisaegade siduss&uuml;steem (external_system_event_time) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_event_time_comment
+msgid "Omaduse Toimumisaegade siduss&uuml;steem (external_system_event_time) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_event_time_help
+msgid "Omaduse Toimumisaegade siduss&uuml;steem (external_system_event_time) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_location
+msgid "Omaduse Toimumiskohtade siduss&uuml;steem (external_system_location) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_location_comment
+msgid "Omaduse Toimumiskohtade siduss&uuml;steem (external_system_location) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_location_help
+msgid "Omaduse Toimumiskohtade siduss&uuml;steem (external_system_location) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_sector
+msgid "Omaduse Valdkondade siduss&uuml;steem (external_system_sector) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_sector_comment
+msgid "Omaduse Valdkondade siduss&uuml;steem (external_system_sector) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_external_system_sector_help
+msgid "Omaduse Valdkondade siduss&uuml;steem (external_system_sector) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_lang
+msgid "Omaduse Keel (tag_lang) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_lang_comment
+msgid "Omaduse Keel (tag_lang) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_lang_help
+msgid "Omaduse Keel (tag_lang) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_available_langs
+msgid "Omaduse Keeled (available_langs) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_available_langs_comment
+msgid "Omaduse Keeled (available_langs) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_available_langs_help
+msgid "Omaduse Keeled (available_langs) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_public_event
+msgid "Omaduse Sündmus avaldatud (tag_public_event) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_public_event_comment
+msgid "Omaduse Sündmus avaldatud (tag_public_event) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_public_event_help
+msgid "Omaduse Sündmus avaldatud (tag_public_event) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_val_public_event
+msgid "Omaduse \"Jah\"-väärtus (val_public_event) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_val_public_event_comment
+msgid "Omaduse \"Jah\"-väärtus (val_public_event) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_val_public_event_help
+msgid "Omaduse \"Jah\"-väärtus (val_public_event) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_delete_event
+msgid "Omaduse Sündmus kustutatud (tag_delete_event) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_delete_event_comment
+msgid "Omaduse Sündmus kustutatud (tag_delete_event) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_delete_event_help
+msgid "Omaduse Sündmus kustutatud (tag_delete_event) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_val_delete_event
+msgid "Omaduse \"Jah\"-väärtus (val_delete_event) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_val_delete_event_comment
+msgid "Omaduse \"Jah\"-väärtus (val_delete_event) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_val_delete_event_help
+msgid "Omaduse \"Jah\"-väärtus (val_delete_event) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_delete_time
+msgid "Omaduse Toimumisaeg kustutatud (tag_delete_time) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_delete_time_comment
+msgid "Omaduse Toimumisaeg kustutatud (tag_delete_time) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_tag_delete_time_help
+msgid "Omaduse Toimumisaeg kustutatud (tag_delete_time) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_val_delete_time
+msgid "Omaduse \"Jah\"-väärtus (val_delete_time) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_val_delete_time_comment
+msgid "Omaduse \"Jah\"-väärtus (val_delete_time) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_val_delete_time_help
+msgid "Omaduse \"Jah\"-väärtus (val_delete_time) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_start_timestamp_unix
+msgid "Omaduse Alguse timestamp (UNIX) (start_timestamp_unix) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_start_timestamp_unix_comment
+msgid "Omaduse Alguse timestamp (UNIX) (start_timestamp_unix) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_start_timestamp_unix_help
+msgid "Omaduse Alguse timestamp (UNIX) (start_timestamp_unix) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_start_timestamp
+msgid "Omaduse Alguse timestamp (YYYYMMDDHHMMSS) (start_timestamp) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_start_timestamp_comment
+msgid "Omaduse Alguse timestamp (YYYYMMDDHHMMSS) (start_timestamp) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_start_timestamp_help
+msgid "Omaduse Alguse timestamp (YYYYMMDDHHMMSS) (start_timestamp) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_end_timestamp_unix
+msgid "Omaduse Lõpu timestamp (UNIX) (end_timestamp_unix) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_end_timestamp_unix_comment
+msgid "Omaduse Lõpu timestamp (UNIX) (end_timestamp_unix) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_end_timestamp_unix_help
+msgid "Omaduse Lõpu timestamp (UNIX) (end_timestamp_unix) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_end_timestamp
+msgid "Omaduse Lõpu timestamp (YYYYMMDDHHMMSS) (end_timestamp) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_end_timestamp_comment
+msgid "Omaduse Lõpu timestamp (YYYYMMDDHHMMSS) (end_timestamp) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_end_timestamp_help
+msgid "Omaduse Lõpu timestamp (YYYYMMDDHHMMSS) (end_timestamp) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_language
+msgid "Omaduse Keel (language) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_language_comment
+msgid "Omaduse Keel (language) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_language_help
+msgid "Omaduse Keel (language) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_subtag_table
+msgid "Omaduse  (subtag_table) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_subtag_table_comment
+msgid "Omaduse  (subtag_table) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_subtag_table_help
+msgid "Omaduse  (subtag_table) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_arguement_table
+msgid "Omaduse  (arguement_table) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_arguement_table_comment
+msgid "Omaduse  (arguement_table) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_arguement_table_help
+msgid "Omaduse  (arguement_table) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_language_table
+msgid "Omaduse  (language_table) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_language_table_comment
+msgid "Omaduse  (language_table) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_language_table_help
+msgid "Omaduse  (language_table) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_level_table
+msgid "Omaduse  (level_table) caption"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_level_table_comment
+msgid "Omaduse  (level_table) kommentaar"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:prop_level_table_help
+msgid "Omaduse  (level_table) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_sub_general
+msgid "Grupi &Uuml;ldine (sub_general) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_sub_general_help
+msgid "Grupi &Uuml;ldine (sub_general) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_sub_extsys
+msgid "Grupi Siduss&uuml;steemid (sub_extsys) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_sub_extsys_help
+msgid "Grupi Siduss&uuml;steemid (sub_extsys) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_sub_lang
+msgid "Grupi Keeled (sub_lang) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_sub_lang_help
+msgid "Grupi Keeled (sub_lang) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_sub_public
+msgid "Grupi Kehtivus (sub_public) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_sub_public_help
+msgid "Grupi Kehtivus (sub_public) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_parameters
+msgid "Grupi Parameetrid (parameters) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_parameters_help
+msgid "Grupi Parameetrid (parameters) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_tags
+msgid "Grupi T&auml;&auml;gid (tags) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_tags_help
+msgid "Grupi T&auml;&auml;gid (tags) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_arguements
+msgid "Grupi T&auml;&auml;gide atribuudid (arguements) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_arguements_help
+msgid "Grupi T&auml;&auml;gide atribuudid (arguements) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_values
+msgid "Grupi V&auml;&auml;rtused (values) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_values_help
+msgid "Grupi V&auml;&auml;rtused (values) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_languages
+msgid "Grupi Keeled (languages) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_languages_help
+msgid "Grupi Keeled (languages) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_levels
+msgid "Grupi Tasemed (levels) pealkiri"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:group_levels_help
+msgid "Grupi Tasemed (levels) help"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:rel_RELTYPE_EXTERNAL_SYSTEM_EVENT
+msgid "Seose Sündmuste sidussüsteem (RELTYPE_EXTERNAL_SYSTEM_EVENT) tekst"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:rel_RELTYPE_EXTERNAL_SYSTEM_SECTOR
+msgid "Seose Valdkondade sidussüsteem (RELTYPE_EXTERNAL_SYSTEM_SECTOR) tekst"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:rel_RELTYPE_EXTERNAL_SYSTEM_LOCATION
+msgid "Seose Toimumiskohtade sidussüsteem (RELTYPE_EXTERNAL_SYSTEM_LOCATION) tekst"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:rel_RELTYPE_EXTERNAL_SYSTEM_EVENT_TIME
+msgid "Seose Toimumisaegade sidussüsteem (RELTYPE_EXTERNAL_SYSTEM_EVENT_TIME) tekst"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:174
+msgid "-- XML väljund on ainult eesti keeles --"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:179
+msgid "-- Keel defineeritakse URLi parameetri abil --"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:306
+msgid "Keel"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:310
+msgid "Parameetri väärtus"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:334
+msgid "Tase"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:338
+msgid "Väärtused allikas (komaga eraldatud)"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:344
+msgid "&Uuml;leriikliku t&auml;htsusega"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:351
+msgid "Kohaliku t&auml;htsusega"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:358
+msgid "V&auml;lismaal toimuv"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:450
+#: classes/common/external/xml_source.aw:485
+msgid "T&auml;&auml;g"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:454
+msgid "Subt&auml;&auml;gid"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:458
+msgid "Mitu"
+msgstr ""
+
+#: classes/common/external/xml_source.aw:489
+msgid "Argumendid"
+msgstr ""

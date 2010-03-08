@@ -1,0 +1,197 @@
+<?php
+
+class taket_afp_import_obj extends _int_object
+{
+	private $prod_fld;
+	private $warehouse;
+
+	function get_data($arr)
+	{
+		$wh = $this->prop("warehouse");
+
+		if($this->can("view", $wh))
+		{
+			$who = obj($wh);
+			$cid = $who->prop("conf");
+			$this->warehouse = $wh;
+		}
+		if($this->can("view", $cid))
+		{
+			$co = obj($cid);
+			$prod_fld = $co->prop("prod_fld");
+		}
+
+		if(!$prod_fld)
+		{
+			die(t("Lao toodete kataloog on m&auml;&auml;ramata"));
+		}
+		elseif(!$this->can("add", $prod_fld))
+		{
+			die(t("Lao toodete kataloogi alla ei ole &otilde;igusi lisamiseks"));
+		}
+
+
+		$org_fld = $this->prop("org_fld");
+
+		if(!$org_fld)
+		{
+			die(t("Organisatsioonide kataloog on m&auml;&auml;ramata"));
+		}
+		elseif(!$this->can("add", $org_fld))
+		{
+			die(t("Organisatsioonide kataloogi alla ei ole &otilde;igusi lisamiseks"));
+		}
+
+		$ol = new object_list(array(
+			"class_id" => CL_TAKET_SEARCH,
+			"site_id" => array(),
+			"lang_id" => array(),
+		));
+		$s_o = $ol->begin();
+		if(!$s_o)
+		{
+			die(t("S&uuml;steemis puudub taketi otsingu objekt"));
+		}
+		$this->whs[0] = $s_o->prop("warehouse0");
+		$this->whs[1] = $s_o->prop("warehouse1");
+		$this->whs[2] = $s_o->prop("warehouse2");
+		$this->whs[3] = $s_o->prop("warehouse3");
+		$this->whs[4] = $s_o->prop("warehouse4");
+		$this->whs[5] = $s_o->prop("warehouse5");
+
+		$this->prod_fld = $prod_fld;
+		$this->org_fld = $org_fld;
+
+		define('AMOUNT', $this->prop("amount"));
+		
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+	
+		$c = new IXR_Client("84.50.96.150", "/xmlrpc/index.php", "8080");
+		$c2 = new IXR_Client("84.50.96.150", "/xmlrpc/index.php", "8080");
+
+		$this->download($c, $c2);
+	}
+	
+	private function download($c, $c2)
+	{
+		aw_set_exec_time(AW_LONG_PROCESS);
+		echo "---------------------------------------------------------------------------\n";
+		$prod_offset = 0;
+		$overall_start = $this->microtime_float();
+		$start = $end = 0;
+		
+		if($cid = $this->prop("code_ctrl"))
+		{
+			$ctrli = get_instance(CL_CFGCONTROLLER);	
+		}
+
+		while(true)
+		{
+			$start = $this->microtime_float();
+			echo "Getting ".AMOUNT." products from server with offset ".$prod_offset." ... <br>\n";
+			$c->query("server.getProductList", array('limit' => $prod_offset.','.AMOUNT));
+			echo "[ok]<br>\n";
+			$prods = $c->getResponse();
+			echo "Got ".count($prods)." products:<br>\n";
+			foreach($prods as $k => $v)
+			{
+				$code = urldecode($v["product_code"]);
+				$ol = new object_list(array(
+					"class_id" => CL_SHOP_PRODUCT,
+					"code" => $code,
+				));
+				$o = $ol->begin();
+				if(!$o)
+				{
+					$o = obj();
+					$o->set_class_id(CL_SHOP_PRODUCT);
+					$o->set_parent($this->prod_fld);
+					$o->save();
+
+					$o->connect(array(
+						"type" => "RELTYPE_WAREHOUSE",
+						"to" => $this->warehouse,
+					));
+
+					$org_id = urldecode($v["supplier_id"]);
+					$ol = new object_list(array(
+						"class_id" => CL_CRM_COMPANY,
+						"site_id" => array(),
+						"lang_id" => array(),
+						"code" => $org_id,
+					));
+					$org = $ol->begin();
+	
+					if(!$org)
+					{
+						$org = obj();
+						$org->set_class_id(CL_CRM_COMPANY);
+						$org->set_name(urldecode($v["supplier_name"]));
+						$org->set_parent($this->org_fld);
+						$org->set_prop("code", $org_id);
+						$org->save();
+					}
+
+					for($i = 0; $i < 6; $i++)
+					{
+						$p_o = obj();
+						$p_o->set_class_id(CL_SHOP_PRODUCT_PURVEYANCE);
+						$p_o->set_parent($o->id());
+						$p_o->set_name(sprintf(t("%s tarnetingimus"), $o->name()));
+						$p_o->set_prop("warehouse", $this->whs[$i]);
+						$p_o->set_prop("company", $org->id());
+						$p_o->set_prop("product", $o->id());
+						$p_o->save();
+					}
+
+					echo $k.' -- '.urldecode($v['product_name']).' ('.$code.') created ...<br>'."\n";
+				}
+				else
+				{
+					echo $k.' -- '.urldecode($v['product_name']).' ('.$code.') already existed ...<br>'."\n";
+				}
+
+				$o->set_name(urldecode($v["product_name"]));
+				$o->set_prop("code", $code);
+				if($ctrli)
+				{
+					$short_code = $ctrli->check_property($cid, null, $code, null, null, null);
+					$o->set_prop("short_code", $short_code);
+				}
+				$o->set_prop("search_term", urldecode($v["search_term"]));
+				$o->set_prop("user1", urldecode($v["replacement_product_code"]));
+				$c2->query("server.getPrices", array("product_codes" => $prodcodes));
+				$prices = $c->getResponse();arr($v);
+				die(arr($prices));
+
+				$o->save();
+				flush();
+			}
+			$end = $this->microtime_float();
+			echo "[Iteration: ".$prod_offset/AMOUNT." | Time: ".(float)($end - $start)."]<br>\n";
+			echo "Waiting for 5 seconds just in case before making new query to server ... <br>\n";
+			sleep(5);
+			echo "[ok]<br>\n";
+			if (count($prods) < AMOUNT){
+				echo "Thats all, exit.<br>\n";
+				break;
+			}
+			$prod_offset += AMOUNT;
+			flush();
+
+			//remove the next line when the class is complete
+		}
+		$overall_end = $this->microtime_float();
+		echo "---------------------------------------------------------------------------<br>\n";
+		echo "[Iterations count: ".(float)($prod_offset / AMOUNT)." Overall time: ".(float)($overall_end - $overall_start)."]\n";
+		die();
+	}
+
+	private function microtime_float()
+	{
+		list($usec, $sec) = explode(" ", microtime());
+		return ((float)$usec + (float)$sec);
+	}
+}
+
+?>

@@ -1,0 +1,114 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="document" folder="www/automatweb_cvs/classes/contentmgmt" extends="aw_template">
+		<action name="fetch">
+			<function name="fetch">
+				<arguments>
+					<required name="docid" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new" is_public="1" caption="New document">
+			<function name="add">
+				<arguments>
+					<required name="parent" acl="add" />
+					<optional name="period" />
+					<optional name="alias_to" />
+					<optional name="alias_to_prop" />
+					<optional name="return_url" />
+					<optional name="reltype" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change" is_public="1" caption="Edit document">
+			<function name="change">
+				<arguments>
+					<required name="id" type="int" acl="edit;view" />
+					<optional name="section" />
+					<optional name="period" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search" nologin="1">
+			<function name="do_search">
+				<arguments>
+					<optional name="parent" />
+					<optional name="str" />
+					<optional name="section" />
+					<optional name="sortby" />
+					<optional name="from" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="lookup" nologin="1">
+			<function name="lookup">
+				<arguments>
+					<required name="id" />
+					<optional name="sortby" />
+					<optional name="origin" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send" nologin="1">
+			<function name="send">
+				<arguments>
+					<required name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_send" nologin="1">
+			<function name="submit_send">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="feedback" nologin="1">
+			<function name="feedback">
+				<arguments>
+					<required name="section" />
+					<optional name="e" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_feedback" nologin="1">
+			<function name="submit_feedback">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="thanks" nologin="1">
+			<function name="thanks">
+				<arguments>
+					<optional name="eesnimi" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="print" nologin="1">
+			<function name="do_print">
+				<arguments>
+					<required name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_comment_stats" nologin="1">
+			<function name="get_comment_stats">
+				<arguments>
+					<required name="start" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

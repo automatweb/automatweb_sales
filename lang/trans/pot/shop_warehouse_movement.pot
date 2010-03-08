@@ -1,0 +1,200 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_warehouse_movement.aw:class_1461_help
+msgid "Klassi Lao liikumine help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_from_wh
+msgid "Omaduse Laost (from_wh) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_from_wh_comment
+msgid "Omaduse Laost (from_wh) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_from_wh_help
+msgid "Omaduse Laost (from_wh) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_to_wh
+msgid "Omaduse Lattu (to_wh) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_to_wh_comment
+msgid "Omaduse Lattu (to_wh) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_to_wh_help
+msgid "Omaduse Lattu (to_wh) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_product
+msgid "Omaduse Artikkel (product) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_product_comment
+msgid "Omaduse Artikkel (product) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_product_help
+msgid "Omaduse Artikkel (product) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_single
+msgid "Omaduse &Uuml;ksiktoode (single) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_single_comment
+msgid "Omaduse &Uuml;ksiktoode (single) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_single_help
+msgid "Omaduse &Uuml;ksiktoode (single) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_amount
+msgid "Omaduse Kogus (amount) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_amount_comment
+msgid "Omaduse Kogus (amount) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_amount_help
+msgid "Omaduse Kogus (amount) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_unit
+msgid "Omaduse &Uuml;hik (unit) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_unit_comment
+msgid "Omaduse &Uuml;hik (unit) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_unit_help
+msgid "Omaduse &Uuml;hik (unit) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_currency
+msgid "Omaduse Valuuta (currency) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_currency_comment
+msgid "Omaduse Valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_currency_help
+msgid "Omaduse Valuuta (currency) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_price
+msgid "Omaduse Hind (price) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_price_comment
+msgid "Omaduse Hind (price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_price_help
+msgid "Omaduse Hind (price) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_base_price
+msgid "Omaduse Hind p&otilde;hivaluutas (base_price) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_base_price_comment
+msgid "Omaduse Hind p&otilde;hivaluutas (base_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_base_price_help
+msgid "Omaduse Hind p&otilde;hivaluutas (base_price) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_transport
+msgid "Omaduse Transport (transport) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_transport_comment
+msgid "Omaduse Transport (transport) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_transport_help
+msgid "Omaduse Transport (transport) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_customs
+msgid "Omaduse Toll (customs) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_customs_comment
+msgid "Omaduse Toll (customs) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_customs_help
+msgid "Omaduse Toll (customs) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_date
+msgid "Omaduse Kuup&auml;ev (date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_date_comment
+msgid "Omaduse Kuup&auml;ev (date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_date_help
+msgid "Omaduse Kuup&auml;ev (date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_delivery_note
+msgid "Omaduse Saateleht (delivery_note) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_delivery_note_comment
+msgid "Omaduse Saateleht (delivery_note) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:prop_delivery_note_help
+msgid "Omaduse Saateleht (delivery_note) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:rel_RELTYPE_FROM_WAREHOUSE
+msgid "Seose Ladu (RELTYPE_FROM_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:rel_RELTYPE_TO_WAREHOUSE
+msgid "Seose Ladu (RELTYPE_TO_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:rel_RELTYPE_PRODUCT
+msgid "Seose Artikkel (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:rel_RELTYPE_SINGLE
+msgid "Seose &Uuml;ksiktoode (RELTYPE_SINGLE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:rel_RELTYPE_UNIT
+msgid "Seose &Uuml;hik (RELTYPE_UNIT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:rel_RELTYPE_DELIVERY_NOTE
+msgid "Seose Saateleht (RELTYPE_DELIVERY_NOTE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_movement.aw:rel_RELTYPE_CURRENCY
+msgid "Seose Valuuta (RELTYPE_CURRENCY) tekst"
+msgstr ""
+

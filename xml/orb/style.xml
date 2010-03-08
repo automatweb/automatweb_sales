@@ -1,0 +1,52 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="style" folder="contentmgmt" extends="aw_template">
+		<action name="list">
+			<function name="glist">
+				<arguments>
+					<required name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new">
+			<function name="add">
+				<arguments>
+					<required name="parent" acl="add" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change">
+			<function name="change">
+				<arguments>
+					<required name="id" acl="view;edit" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_sel">
+			<function name="submit_sel">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit">
+			<function name="submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete">
+			<function name="delete">
+				<arguments>
+					<required name="parent" />
+					<required name="id" acl="delete" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

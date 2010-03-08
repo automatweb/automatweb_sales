@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/obj/object_tree.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/obj/object_tree.aw:47
+msgid "object_tree:constructor(): if you specify a parameter, it must be a filter array!"
+msgstr "object_tree:constructor(): if you specify a parameter, it must be a filter array!"
+
+#: classes/core/obj/object_tree.aw:98
+msgid "object_tree::filter(): filter parameter must be an array!"
+msgstr "object_tree::filter(): filter parameter must be an array!"
+
+#: classes/core/obj/object_tree.aw:189
+msgid "object_tree::foreach_o(): parameter must be an array"
+msgstr "object_tree::foreach_o(): parameter must be an array"
+
+#: classes/core/obj/object_tree.aw:204
+msgid "object_tree::foreach_o(): %s is not a member function of the object class!"
+msgstr "object_tree::foreach_o(): %s is not a member function of the object class!"
+
+#: classes/core/obj/object_tree.aw:273
+msgid "object_tree::foreach_cb(): parameter must be an array!"
+msgstr "object_tree::foreach_cb(): parameter must be an array!"
+
+#: classes/core/obj/object_tree.aw:288
+msgid "object_tree::foreach_cb(): callback method %s does not exist in class %s!"
+msgstr "object_tree::foreach_cb(): callback method %s does not exist in class %s!"
+
+#: classes/core/obj/object_tree.aw:297
+msgid "object_tree::foreach_cb(): callback function %s does not exist!"
+msgstr "object_tree::foreach_cb(): callback function %s does not exist!"
+
+#: classes/core/obj/object_tree.aw:574
+msgid "object_tree::filter(): parent filter parameter mut always be passed!"
+msgstr "object_tree::filter(): parent filter parameter mut always be passed!"

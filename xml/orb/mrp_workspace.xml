@@ -1,0 +1,204 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mrp_workspace" folder="www/dev/terryf/automatweb_dev/classes/mrp" extends="class_base">
+		<action name="save_pj_comment">
+			<function name="save_pj_comment">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_pj_material">
+			<function name="save_pj_material">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete">
+			<function name="delete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_relations">
+			<function name="submit_delete_relations">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_p">
+			<function name="cut_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mark_p_as_important">
+			<function name="mark_p_as_important">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_p">
+			<function name="copy_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_p">
+			<function name="paste_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_user_mgr_save">
+			<function name="submit_user_mgr_save">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="import_project">
+			<function name="import_project">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="start">
+			<function name="start">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="done">
+			<function name="done">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="abort">
+			<function name="abort">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pause">
+			<function name="pause">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="scontinue">
+			<function name="scontinue">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="acontinue">
+			<function name="acontinue">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="end_shift">
+			<function name="end_shift">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_resources">
+			<function name="cut_resources">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_resources">
+			<function name="copy_resources">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_resources">
+			<function name="paste_resources">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_update_projects_table" all_args="1">
+			<function name="ajax_update_projects_table">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cust_search_pop">
+			<function name="cust_search_pop">
+				<arguments>
+					<optional name="s_name" />
+					<optional name="s_content" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="archive_projects">
+			<function name="archive_projects">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_save_priors" all_args="1">
+			<function name="ajax_save_priors">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_projects_subtree">
+			<function name="get_projects_subtree">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="parent" />
+					<required name="url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_update_prop" all_args="1">
+			<function name="ajax_update_prop">
+				<arguments>
+					<optional name="id" type="int" />
+					<optional name="prop" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

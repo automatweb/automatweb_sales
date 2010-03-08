@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2005-12-04 19:40+0200\n"
+"Last-Translator: Erki <erki@struktuur.ee>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_company_objects_impl.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/crm/crm_company_objects_impl.aw:47
+msgid "Uus"
+msgstr "New"
+
+#: classes/applications/crm/crm_company_objects_impl.aw:84
+msgid "Kustuta valitud objektid"
+msgstr "Delete selected objects"
+
+#: classes/applications/crm/crm_company_objects_impl.aw:91
+msgid "Cut"
+msgstr "Cut"
+
+#: classes/applications/crm/crm_company_objects_impl.aw:100
+msgid "Paste"
+msgstr "Paste"
+
+#: classes/applications/crm/crm_company_objects_impl.aw:120
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/crm/crm_company_objects_impl.aw:126
+msgid "Muudetud"
+msgstr "Modified"
+
+#: classes/applications/crm/crm_company_objects_impl.aw:136
+msgid "Tüüp"
+msgstr "Type"

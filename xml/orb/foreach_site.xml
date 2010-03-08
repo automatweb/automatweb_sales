@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="foreach_site" folder="admin" extends="class_base">
+		<action name="exec" default="1">
+			<function name="exec">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_exec">
+			<function name="do_call">
+				<arguments>
+					<required name="eurl" type="string" />
+					<optional name="same_code" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

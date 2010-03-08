@@ -1,0 +1,369 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2015-06-01 21:13+0200\n"
+"Last-Translator: ergo\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/layout.aw:class_178_help
+#: classes/contentmgmt/layout.aw:class_178_help
+msgid "Klassi Tabel help"
+msgstr ""
+
+# classes/layout.aw:prop_rows
+#: classes/contentmgmt/layout.aw:prop_rows
+msgid "Omaduse Ridu (rows) caption"
+msgstr ""
+
+# classes/layout.aw:prop_rows_comment
+#: classes/contentmgmt/layout.aw:prop_rows_comment
+msgid "Omaduse Ridu (rows) kommentaar"
+msgstr "tabeli ridade arv"
+
+# classes/layout.aw:prop_rows_help
+#: classes/contentmgmt/layout.aw:prop_rows_help
+msgid "Omaduse Ridu (rows) help"
+msgstr "tabeli ridade arv"
+
+# classes/layout.aw:prop_columns
+#: classes/contentmgmt/layout.aw:prop_columns
+msgid "Omaduse Tulpi (columns) caption"
+msgstr ""
+
+# classes/layout.aw:prop_columns_comment
+#: classes/contentmgmt/layout.aw:prop_columns_comment
+msgid "Omaduse Tulpi (columns) kommentaar"
+msgstr "tabeli tulpade arv"
+
+# classes/layout.aw:prop_columns_help
+#: classes/contentmgmt/layout.aw:prop_columns_help
+msgid "Omaduse Tulpi (columns) help"
+msgstr "tabeli tulpade arv"
+
+# classes/layout.aw:prop_cell_style_folders
+#: classes/contentmgmt/layout.aw:prop_cell_style_folders
+msgid "Omaduse Stiilide kataloogid (cell_style_folders) caption"
+msgstr ""
+
+# classes/layout.aw:prop_cell_style_folders_comment
+#: classes/contentmgmt/layout.aw:prop_cell_style_folders_comment
+msgid "Omaduse Stiilide kataloogid (cell_style_folders) kommentaar"
+msgstr "kui seostehalduri abil on seotud seose tüüp \"celli stiilide kataloog\", siis on võimalik valida, millistest kaustadest stiilid võetakse."
+
+# classes/layout.aw:prop_cell_style_folders_help
+#: classes/contentmgmt/layout.aw:prop_cell_style_folders_help
+msgid "Omaduse Stiilide kataloogid (cell_style_folders) help"
+msgstr "kui seostehalduri abil on seotud seose tüüp \"celli stiilide kataloog\", siis on võimalik valida, millistest kaustadest stiilid võetakse."
+
+# classes/layout.aw:prop_grid
+#: classes/contentmgmt/layout.aw:prop_grid
+msgid "Omaduse Tabel (grid) caption"
+msgstr ""
+
+# classes/layout.aw:prop_grid_comment
+#: classes/contentmgmt/layout.aw:prop_grid_comment
+msgid "Omaduse Tabel (grid) kommentaar"
+msgstr "Tabel vaates on võimalik tabeli lahtreid valida ning omavahel ühendada ja lahutada."
+
+# classes/layout.aw:prop_grid_help
+#: classes/contentmgmt/layout.aw:prop_grid_help
+msgid "Omaduse Tabel (grid) help"
+msgstr "Tabel vaates on võimalik tabeli lahtreid valida ning omavahel ühendada ja lahutada."
+
+# classes/layout.aw:prop_table_style
+#: classes/contentmgmt/layout.aw:prop_table_style
+msgid "Omaduse Vali vaikimisi tabeli stiil (table_style) caption"
+msgstr ""
+
+# classes/layout.aw:prop_table_style_comment
+#: classes/contentmgmt/layout.aw:prop_table_style_comment
+msgid "Omaduse Vali vaikimisi tabeli stiil (table_style) kommentaar"
+msgstr "võimaldab valida tabelile üldise stiili."
+
+# classes/layout.aw:prop_table_style_help
+#: classes/contentmgmt/layout.aw:prop_table_style_help
+msgid "Omaduse Vali vaikimisi tabeli stiil (table_style) help"
+msgstr "võimaldab valida tabelile üldise stiili."
+
+# classes/layout.aw:prop_sel_style
+#: classes/contentmgmt/layout.aw:prop_sel_style
+msgid "Omaduse Vali elemendi stiil (sel_style) caption"
+msgstr ""
+
+# classes/layout.aw:prop_sel_style_comment
+#: classes/contentmgmt/layout.aw:prop_sel_style_comment
+msgid "Omaduse Vali elemendi stiil (sel_style) kommentaar"
+msgstr "võimaldab selekteeritud lahtritele või tervetele tulpadele/ridadele eraldi stiile rakendada."
+
+# classes/layout.aw:prop_sel_style_help
+#: classes/contentmgmt/layout.aw:prop_sel_style_help
+msgid "Omaduse Vali elemendi stiil (sel_style) help"
+msgstr "võimaldab selekteeritud lahtritele või tervetele tulpadele/ridadele eraldi stiile rakendada."
+
+# classes/layout.aw:prop_grid_styles
+#: classes/contentmgmt/layout.aw:prop_grid_styles
+msgid "Omaduse Vali element (grid_styles) caption"
+msgstr ""
+
+# classes/layout.aw:prop_grid_styles_comment
+#: classes/contentmgmt/layout.aw:prop_grid_styles_comment
+msgid "Omaduse Vali element (grid_styles) kommentaar"
+msgstr "lahtrite, tulpade ja/või ridade selekteerimine."
+
+# classes/layout.aw:prop_grid_styles_help
+#: classes/contentmgmt/layout.aw:prop_grid_styles_help
+msgid "Omaduse Vali element (grid_styles) help"
+msgstr "lahtrite, tulpade ja/või ridade selekteerimine."
+
+# classes/layout.aw:prop_row_widths
+#: classes/contentmgmt/layout.aw:prop_row_widths
+msgid "Omaduse Ridade laiused (row_widths) caption"
+msgstr ""
+
+# classes/layout.aw:prop_row_widths_comment
+#: classes/contentmgmt/layout.aw:prop_row_widths_comment
+msgid "Omaduse Ridade laiused (row_widths) kommentaar"
+msgstr ""
+
+# classes/layout.aw:prop_row_widths_help
+#: classes/contentmgmt/layout.aw:prop_row_widths_help
+msgid "Omaduse Ridade laiused (row_widths) help"
+msgstr ""
+
+# classes/layout.aw:prop_row_heights
+#: classes/contentmgmt/layout.aw:prop_row_heights
+msgid "Omaduse Ridade k&otilde;rgused (row_heights) caption"
+msgstr ""
+
+# classes/layout.aw:prop_row_heights_comment
+#: classes/contentmgmt/layout.aw:prop_row_heights_comment
+msgid "Omaduse Ridade k&otilde;rgused (row_heights) kommentaar"
+msgstr ""
+
+# classes/layout.aw:prop_row_heights_help
+#: classes/contentmgmt/layout.aw:prop_row_heights_help
+msgid "Omaduse Ridade k&otilde;rgused (row_heights) help"
+msgstr ""
+
+# classes/layout.aw:prop_grid_aliases
+#: classes/contentmgmt/layout.aw:prop_grid_aliases
+msgid "Omaduse Aliased (grid_aliases) caption"
+msgstr ""
+
+# classes/layout.aw:prop_grid_aliases_comment
+#: classes/contentmgmt/layout.aw:prop_grid_aliases_comment
+msgid "Omaduse Aliased (grid_aliases) kommentaar"
+msgstr "tabeli täitmine sisuga. Sisuks võib olla nii tekst kui ka alloleva seostehalduri abil tekitatud aliased."
+
+# classes/layout.aw:prop_grid_aliases_help
+#: classes/contentmgmt/layout.aw:prop_grid_aliases_help
+msgid "Omaduse Aliased (grid_aliases) help"
+msgstr "tabeli täitmine sisuga. Sisuks võib olla nii tekst kui ka alloleva seostehalduri abil tekitatud aliased."
+
+# classes/layout.aw:prop_grid_aliases_list
+#: classes/contentmgmt/layout.aw:prop_grid_aliases_list
+msgid "Omaduse Aliaste manager (grid_aliases_list) caption"
+msgstr ""
+
+# classes/layout.aw:prop_grid_aliases_list_comment
+#: classes/contentmgmt/layout.aw:prop_grid_aliases_list_comment
+msgid "Omaduse Aliaste manager (grid_aliases_list) kommentaar"
+msgstr ""
+
+# classes/layout.aw:prop_grid_aliases_list_help
+#: classes/contentmgmt/layout.aw:prop_grid_aliases_list_help
+msgid "Omaduse Aliaste manager (grid_aliases_list) help"
+msgstr ""
+
+# classes/layout.aw:prop_grid_preview
+#: classes/contentmgmt/layout.aw:prop_grid_preview
+msgid "Omaduse Eelvaade (grid_preview) caption"
+msgstr ""
+
+# classes/layout.aw:prop_grid_preview_comment
+#: classes/contentmgmt/layout.aw:prop_grid_preview_comment
+msgid "Omaduse Eelvaade (grid_preview) kommentaar"
+msgstr "võimaldab tabeli sisu eelvaadet."
+
+# classes/layout.aw:prop_grid_preview_help
+#: classes/contentmgmt/layout.aw:prop_grid_preview_help
+msgid "Omaduse Eelvaade (grid_preview) help"
+msgstr "võimaldab tabeli sisu eelvaadet."
+
+# classes/layout.aw:prop_import_file
+#: classes/contentmgmt/layout.aw:prop_import_file
+msgid "Omaduse Uploadi .csv fail (import_file) caption"
+msgstr ""
+
+# classes/layout.aw:prop_import_file_comment
+#: classes/contentmgmt/layout.aw:prop_import_file_comment
+msgid "Omaduse Uploadi .csv fail (import_file) kommentaar"
+msgstr "võimaldab tekitada tabeli arvutist lisatud csv failist."
+
+# classes/layout.aw:prop_import_file_help
+#: classes/contentmgmt/layout.aw:prop_import_file_help
+msgid "Omaduse Uploadi .csv fail (import_file) help"
+msgstr "võimaldab tekitada tabeli arvutist lisatud csv failist."
+
+# classes/layout.aw:prop_import_remove_empty
+#: classes/contentmgmt/layout.aw:prop_import_remove_empty
+msgid "Omaduse Kas eemaldame t&uuml;hjad read l&otilde;pust (import_remove_empty) caption"
+msgstr ""
+
+# classes/layout.aw:prop_import_remove_empty_comment
+#: classes/contentmgmt/layout.aw:prop_import_remove_empty_comment
+msgid "Omaduse Kas eemaldame t&uuml;hjad read l&otilde;pust (import_remove_empty) kommentaar"
+msgstr ""
+
+# classes/layout.aw:prop_import_remove_empty_help
+#: classes/contentmgmt/layout.aw:prop_import_remove_empty_help
+msgid "Omaduse Kas eemaldame t&uuml;hjad read l&otilde;pust (import_remove_empty) help"
+msgstr ""
+
+# classes/layout.aw:prop_import_sep
+#: classes/contentmgmt/layout.aw:prop_import_sep
+msgid "Omaduse Mis m&auml;rgiga on tulbad eraldatud? (import_sep) caption"
+msgstr ""
+
+# classes/layout.aw:prop_import_sep_comment
+#: classes/contentmgmt/layout.aw:prop_import_sep_comment
+msgid "Omaduse Mis m&auml;rgiga on tulbad eraldatud? (import_sep) kommentaar"
+msgstr "tulpade tekitamiseks tuleb ette anda eraldav sümbol."
+
+# classes/layout.aw:prop_import_sep_help
+#: classes/contentmgmt/layout.aw:prop_import_sep_help
+msgid "Omaduse Mis m&auml;rgiga on tulbad eraldatud? (import_sep) help"
+msgstr "tulpade tekitamiseks tuleb ette anda eraldav sümbol."
+
+# classes/layout.aw:prop_show_in_folders
+#: classes/contentmgmt/layout.aw:prop_show_in_folders
+msgid "Omaduse Millistes kataloogides n&auml;idatakse (show_in_folders) caption"
+msgstr ""
+
+# classes/layout.aw:prop_show_in_folders_comment
+#: classes/contentmgmt/layout.aw:prop_show_in_folders_comment
+msgid "Omaduse Millistes kataloogides n&auml;idatakse (show_in_folders) kommentaar"
+msgstr "kui seostehalduri abil on seotud seose tüüp \"Näita selles kataloogis\", siis on võimalik valida, millistes seda tabelit näidatakse. Kui ei ole midagi valitud siis ei ole tabelil mingit näitamise piirangut."
+
+# classes/layout.aw:prop_show_in_folders_help
+#: classes/contentmgmt/layout.aw:prop_show_in_folders_help
+msgid "Omaduse Millistes kataloogides n&auml;idatakse (show_in_folders) help"
+msgstr "kui seostehalduri abil on seotud seose tüüp \"Näita selles kataloogis\", siis on võimalik valida, millistes seda tabelit näidatakse. Kui ei ole midagi valitud siis ei ole tabelil mingit näitamise piirangut."
+
+# classes/layout.aw:prop_header
+#: classes/contentmgmt/layout.aw:prop_header
+msgid "Omaduse P&auml;is (header) caption"
+msgstr ""
+
+# classes/layout.aw:prop_header_comment
+#: classes/contentmgmt/layout.aw:prop_header_comment
+msgid "Omaduse P&auml;is (header) kommentaar"
+msgstr "võimaldab tabelile tekitada päise."
+
+# classes/layout.aw:prop_header_help
+#: classes/contentmgmt/layout.aw:prop_header_help
+msgid "Omaduse P&auml;is (header) help"
+msgstr "võimaldab tabelile tekitada päise."
+
+# classes/layout.aw:prop_footer
+#: classes/contentmgmt/layout.aw:prop_footer
+msgid "Omaduse Jalus (footer) caption"
+msgstr ""
+
+# classes/layout.aw:prop_footer_comment
+#: classes/contentmgmt/layout.aw:prop_footer_comment
+msgid "Omaduse Jalus (footer) kommentaar"
+msgstr "võimaldab tabelile tekitada jaluse."
+
+# classes/layout.aw:prop_footer_help
+#: classes/contentmgmt/layout.aw:prop_footer_help
+msgid "Omaduse Jalus (footer) help"
+msgstr "võimaldab tabelile tekitada jaluse."
+
+#: classes/contentmgmt/layout.aw:group_settings
+msgid "Grupi M&auml;&auml;rangud (settings) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/layout.aw:group_settings_help
+msgid "Grupi M&auml;&auml;rangud (settings) help"
+msgstr ""
+
+# classes/layout.aw:group_layout
+#: classes/contentmgmt/layout.aw:group_layout
+msgid "Grupi Tabel (layout) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/layout.aw:group_layout_help
+#: classes/contentmgmt/layout.aw:group_layout_help
+msgid "Grupi Tabel (layout) help"
+msgstr ""
+
+# classes/layout.aw:group_styles
+#: classes/contentmgmt/layout.aw:group_styles
+msgid "Grupi Stiilid (styles) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/layout.aw:group_styles_help
+#: classes/contentmgmt/layout.aw:group_styles_help
+msgid "Grupi Stiilid (styles) help"
+msgstr ""
+
+# classes/layout.aw:group_aliases
+#: classes/contentmgmt/layout.aw:group_aliases
+msgid "Grupi Tabeli sisu (aliases) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/layout.aw:group_aliases_help
+#: classes/contentmgmt/layout.aw:group_aliases_help
+msgid "Grupi Tabeli sisu (aliases) help"
+msgstr ""
+
+#: classes/contentmgmt/layout.aw:group_hfoot
+msgid "Grupi P&auml;is ja jalus (hfoot) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/layout.aw:group_hfoot_help
+msgid "Grupi P&auml;is ja jalus (hfoot) help"
+msgstr ""
+
+# classes/layout.aw:group_import
+#: classes/contentmgmt/layout.aw:group_import
+msgid "Grupi Import (import) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/layout.aw:group_import_help
+#: classes/contentmgmt/layout.aw:group_import_help
+msgid "Grupi Import (import) help"
+msgstr ""
+
+# classes/layout.aw:group_preview
+#: classes/contentmgmt/layout.aw:group_preview
+msgid "Grupi Eelvaade (preview) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/layout.aw:group_preview_help
+#: classes/contentmgmt/layout.aw:group_preview_help
+msgid "Grupi Eelvaade (preview) help"
+msgstr ""
+
+# classes/layout.aw:rel_RELTYPE_CELLSTYLE_FOLDER
+#: classes/contentmgmt/layout.aw:rel_RELTYPE_CELLSTYLE_FOLDER
+msgid "Seose celli stiilide kataloog (RELTYPE_CELLSTYLE_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/layout.aw:rel_RELTYPE_SHOW_FOLDER
+msgid "Seose näita selles kataloogis (RELTYPE_SHOW_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/layout.aw:394
+msgid "%d tulba laius"
+msgstr ""
+
+#: classes/contentmgmt/layout.aw:416
+msgid "%d tulba k&otilde;rgus"
+msgstr ""

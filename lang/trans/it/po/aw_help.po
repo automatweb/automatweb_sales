@@ -1,0 +1,144 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/core/aw_help.aw:class_804_help
+msgid "Klassi Abitekst help"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_hclass
+msgid "Omaduse  (hclass) caption"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_hclass_comment
+msgid "Omaduse  (hclass) kommentaar"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_hclass_help
+msgid "Omaduse  (hclass) help"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_about
+msgid "Omaduse Klassi kirjeldus (about) caption"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_about_comment
+msgid "Omaduse Klassi kirjeldus (about) kommentaar"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_about_help
+msgid "Omaduse Klassi kirjeldus (about) help"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_help_tb
+msgid "Omaduse  (help_tb) caption"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_help_tb_comment
+msgid "Omaduse  (help_tb) kommentaar"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_help_tb_help
+msgid "Omaduse  (help_tb) help"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_htab
+msgid "Omaduse  (htab) caption"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_htab_comment
+msgid "Omaduse  (htab) kommentaar"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_htab_help
+msgid "Omaduse  (htab) help"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_classname
+msgid "Omaduse  (classname) caption"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_classname_comment
+msgid "Omaduse  (classname) kommentaar"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_classname_help
+msgid "Omaduse  (classname) help"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_tab_tree
+msgid "Omaduse  (tab_tree) caption"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_tab_tree_comment
+msgid "Omaduse  (tab_tree) kommentaar"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_tab_tree_help
+msgid "Omaduse  (tab_tree) help"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_group_props
+msgid "Omaduse  (group_props) caption"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_group_props_comment
+msgid "Omaduse  (group_props) kommentaar"
+msgstr ""
+
+#: classes/core/aw_help.aw:prop_group_props_help
+msgid "Omaduse  (group_props) help"
+msgstr ""
+
+#: classes/core/aw_help.aw:group_help_ui
+msgid "Grupi Omadused (help_ui) pealkiri"
+msgstr ""
+
+#: classes/core/aw_help.aw:group_help_ui_help
+msgid "Grupi Omadused (help_ui) help"
+msgstr ""
+
+#: classes/core/aw_help.aw:48
+msgid "Klass on määramata"
+msgstr ""
+
+#: classes/core/aw_help.aw:89
+msgid "Abiinfo tabi kohta"
+msgstr ""
+
+#: classes/core/aw_help.aw:98
+msgid "Klassi omaduste kirjeldused"
+msgstr ""
+
+#: classes/core/aw_help.aw:128
+msgid "Lühike kirjeldus"
+msgstr ""
+
+#: classes/core/aw_help.aw:136
+msgid "Pikem kirjeldus"
+msgstr ""
+
+#: classes/core/aw_help.aw:243
+msgid "Klass on määramata!"
+msgstr ""
+
+#: classes/core/aw_help.aw:306
+msgid "Muuda"
+msgstr ""
+
+#: classes/core/aw_help.aw:434 classes/core/aw_help.aw:441
+msgid "Salvesta"
+msgstr ""
+
+#: classes/core/aw_help.aw:463
+msgid "AutomatWeb"
+msgstr ""
+

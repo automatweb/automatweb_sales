@@ -1,0 +1,7 @@
+parse_obj_name($string)
+
+Parses a string as an object name. Quotes will be replace with entities
+and if the $string is empty then "(no name)" will be returned. Every time
+you need to ouput a name of the object, please use this function.
+
+Returns: processed string

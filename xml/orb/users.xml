@@ -1,0 +1,101 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="users" folder="www/automatweb_cvs/classes/core/users" extends="users_user">
+		<action name="change_pwd" is_public="1" caption="Change password">
+			<function name="change_pwd">
+				<arguments>
+					<optional name="error" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_password_not_logged" nologin="1" is_public="1">
+			<function name="change_password_not_logged">
+				<arguments>
+					<required name="uid" />
+					<optional name="error" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_change_password_not_logged" nologin="1" is_public="1">
+			<function name="submit_change_password_not_logged">
+				<arguments>
+					<optional name="username" />
+					<optional name="old_pass" />
+					<optional name="new_pass" />
+					<optional name="new_pass_repeat" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_change_pwd">
+			<function name="submit_change_pwd">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_hash" nologin="1">
+			<function name="send_hash">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_send_hash" nologin="1">
+			<function name="submit_send_hash">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pwhash" nologin="1">
+			<function name="password_hash">
+				<arguments>
+					<required name="k" />
+					<required name="u" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_password_hash" nologin="1">
+			<function name="submit_password_hash">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="id_pre_login" nologin="1">
+			<function name="id_pre_login">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="login" nologin="1" is_public="1" caption="Logi sisse">
+			<function name="login">
+				<arguments>
+					<required name="uid" />
+					<optional name="password" />
+					<optional name="remote_ip" />
+					<optional name="reforb" />
+					<optional name="remote_host" />
+					<optional name="return" />
+					<optional name="hash" />
+					<optional name="server" />
+					<optional name="remote_auth" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="logout" nologin="1" is_public="1" caption="Logi v&amp;auml;lja">
+			<function name="orb_logout">
+				<arguments>
+					<optional name="redir_to" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

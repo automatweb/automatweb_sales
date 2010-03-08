@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="vastuv6tt_avaldus" folder="www/dev/terryf/automatweb_dev/classes/vastuv6tt" extends="class_base">
+		<action name="konkursipunktid">
+			<function name="konkursipunktid">
+				<arguments>
+					<required name="avaldus_id" />
+					<required name="sisseastuja_id" />
+					<optional name="konkursipunktid_final" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="print">
+			<function name="prindi_t6end">
+				<arguments>
+					<required name="sisseastuja_id" type="int" />
+					<required name="avaldus_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

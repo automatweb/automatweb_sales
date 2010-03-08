@@ -1,0 +1,4 @@
+
+get_ip()
+
+Returns the IP of the current (REMOTE) user.

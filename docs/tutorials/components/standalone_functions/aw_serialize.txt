@@ -1,0 +1,12 @@
+
+aw_serialize($arr,$type = SERIALIZE_PHP,$flags = array())
+
+Serializes an array. $type is one of the following:
+SERIALIZE_PHP (generates php code out of the array)
+SERIALIZE_PHP_FILE
+SERIALIZE_PHP_NOINDEX
+SERIALIZE_XML (generates plain XML)
+SERIALIZE_NATIVE (equivalent of php's own serialize() )
+SERIALIZE_XMLRPC (generates a XMLRPC packet)
+
+Returns serialized array.

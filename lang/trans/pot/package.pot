@@ -1,0 +1,284 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/package_management/package.aw:class_1371_help
+msgid "Klassi Pakk help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_package_tb
+msgid "Omaduse  (package_tb) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_package_tb_comment
+msgid "Omaduse  (package_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_package_tb_help
+msgid "Omaduse  (package_tb) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_version
+msgid "Omaduse Versioon (version) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_version_comment
+msgid "Omaduse Versioon (version) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_version_help
+msgid "Omaduse Versioon (version) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_description
+msgid "Omaduse Kirjeldus (description) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_description_comment
+msgid "Omaduse Kirjeldus (description) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_description_help
+msgid "Omaduse Kirjeldus (description) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_file_names
+msgid "Omaduse Failid (file_names) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_file_names_comment
+msgid "Omaduse Failid (file_names) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_file_names_help
+msgid "Omaduse Failid (file_names) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_installed
+msgid "Omaduse installitud (installed) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_installed_comment
+msgid "Omaduse installitud (installed) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_installed_help
+msgid "Omaduse installitud (installed) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_available
+msgid "Omaduse Valmis alla laadimiseks ja kasutamiseks (available) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_available_comment
+msgid "Omaduse Valmis alla laadimiseks ja kasutamiseks (available) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_available_help
+msgid "Omaduse Valmis alla laadimiseks ja kasutamiseks (available) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_tb
+msgid "Omaduse  (contents_tb) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_tb_comment
+msgid "Omaduse  (contents_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_tb_help
+msgid "Omaduse  (contents_tb) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_classes_tree
+msgid "Omaduse  (contents_classes_tree) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_classes_tree_comment
+msgid "Omaduse  (contents_classes_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_classes_tree_help
+msgid "Omaduse  (contents_classes_tree) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_classes_tbl
+msgid "Omaduse  (contents_classes_tbl) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_classes_tbl_comment
+msgid "Omaduse  (contents_classes_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_classes_tbl_help
+msgid "Omaduse  (contents_classes_tbl) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_tbl
+msgid "Omaduse  (contents_tbl) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_tbl_comment
+msgid "Omaduse  (contents_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_contents_tbl_help
+msgid "Omaduse  (contents_tbl) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_dep_toolbar
+msgid "Omaduse Seoste toolbar (dep_toolbar) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_dep_toolbar_comment
+msgid "Omaduse Seoste toolbar (dep_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_dep_toolbar_help
+msgid "Omaduse Seoste toolbar (dep_toolbar) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_dependencies
+msgid "Omaduse S&otilde;ltuvused (dependencies) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_dependencies_comment
+msgid "Omaduse S&otilde;ltuvused (dependencies) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_dependencies_help
+msgid "Omaduse S&otilde;ltuvused (dependencies) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_used_tbl
+msgid "Omaduse Kasutusel tabel (used_tbl) caption"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_used_tbl_comment
+msgid "Omaduse Kasutusel tabel (used_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:prop_used_tbl_help
+msgid "Omaduse Kasutusel tabel (used_tbl) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:group_package_contents
+msgid "Grupi Paki sisu (package_contents) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:group_package_contents_help
+msgid "Grupi Paki sisu (package_contents) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:group_dependencies
+msgid "Grupi S&otilde;ltuvused (dependencies) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:group_dependencies_help
+msgid "Grupi S&otilde;ltuvused (dependencies) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:group_used
+msgid "Grupi Kasutuses (used) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:group_used_help
+msgid "Grupi Kasutuses (used) help"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:rel_RELTYPE_DEPENDENCY
+msgid "Seose S&otilde;ltuvus (RELTYPE_DEPENDENCY) tekst"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:rel_RELTYPE_FILE
+msgid "Seose Fail (RELTYPE_FILE) tekst"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:rel_RELTYPE_SITE_RELATION
+msgid "Seose Seos saidiga (RELTYPE_SITE_RELATION) tekst"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:layout_contents_tree_lay
+msgid "Kujundusosa Kaustad (contents_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:layout_contents_tbl_top
+msgid "Kujundusosa Failid (contents_tbl_top) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:layout_contents_tbl_bottom
+msgid "Kujundusosa Pakk (contents_tbl_bottom) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:113
+msgid "Loo uus pakett"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:122
+msgid "Uuenda failide nimekiri"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:146
+msgid "Id"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:151 classes/applications/package_management/package.aw:202 classes/applications/package_management/package.aw:279 classes/applications/package_management/package.aw:441
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:156
+msgid "Url"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:178
+msgid "Eemalda klassid"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:180
+msgid "Oled kindel et soovid valitud klassid eemaldada?"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:186
+msgid "Loo zip-fail"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:197
+msgid "Lisa"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:276
+msgid "Paki sisu"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:378
+msgid "Uus pakk"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:395
+msgid "Kustuta s&otilde;ltuvused"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:397
+msgid "Oled kindel et soovid valitud s&otilde;ltuvused kustutada?"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:437
+msgid "Pakkide nimekiri"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:445
+msgid "Versioon"
+msgstr ""
+
+#: classes/applications/package_management/package.aw:450
+msgid "Kirjeldus"
+msgstr ""
+

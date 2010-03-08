@@ -1,0 +1,22 @@
+<h2>datetime_select</h2>
+
+Basic widget for selecting time and date (day, month, year, hour, minute)
+
+Default year range at the time of writing this is from 2001 to 2008.  If you need a wider range, then you can do it like this
+
+#php#
+@property birthday type=date_select year_from=1930 year_to=2030
+@caption Birth-day
+#/php#
+
+By default dates are stored as UNIX timestamps (seconds from the start of the epoch, which usually is 1970). This means that you should use "int" or "bigint" as the type of database field
+
+If you need to store a wider range of dates, then do this
+
+#php#
+@property payday type=date_select save_format=iso8601
+@caption Pay-Day
+#/php#
+
+then dates get saved as in the "YYYY-MM-DD" format as specified in ISO-8601. Also, make sure that the database field can contain data in this format (char is fine)
+

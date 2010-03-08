@@ -1,0 +1,109 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/mrp/mrp_resource_operator.aw:class_872_help
+#: classes/mrp/mrp_resource_operator.aw:class_872_help
+msgid "Klassi Operaator help"
+msgstr ""
+
+# classes/mrp/mrp_resource_operator.aw:prop_profession
+#: classes/mrp/mrp_resource_operator.aw:prop_profession
+msgid "Omaduse Ametinimetus (profession) caption"
+msgstr "Profession"
+
+# classes/mrp/mrp_resource_operator.aw:prop_profession_comment
+#: classes/mrp/mrp_resource_operator.aw:prop_profession_comment
+msgid "Omaduse Ametinimetus (profession) kommentaar"
+msgstr ""
+
+# classes/mrp/mrp_resource_operator.aw:prop_profession_help
+#: classes/mrp/mrp_resource_operator.aw:prop_profession_help
+msgid "Omaduse Ametinimetus (profession) help"
+msgstr ""
+
+# classes/mrp/mrp_resource_operator.aw:prop_unit
+#: classes/mrp/mrp_resource_operator.aw:prop_unit
+msgid "Omaduse &Uuml;ksus (unit) caption"
+msgstr "Unit"
+
+# classes/mrp/mrp_resource_operator.aw:prop_unit_comment
+#: classes/mrp/mrp_resource_operator.aw:prop_unit_comment
+msgid "Omaduse &Uuml;ksus (unit) kommentaar"
+msgstr ""
+
+# classes/mrp/mrp_resource_operator.aw:prop_unit_help
+#: classes/mrp/mrp_resource_operator.aw:prop_unit_help
+msgid "Omaduse &Uuml;ksus (unit) help"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:prop_resource
+msgid "Omaduse Ressurss (resource) caption"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:prop_resource_comment
+msgid "Omaduse Ressurss (resource) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:prop_resource_help
+msgid "Omaduse Ressurss (resource) help"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:prop_all_resources
+msgid "Omaduse N&auml;ita k&otilde;ikide ressurside t&ouml;id (all_resources) caption"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:prop_all_resources_comment
+msgid "Omaduse N&auml;ita k&otilde;ikide ressurside t&ouml;id (all_resources) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:prop_all_resources_help
+msgid "Omaduse N&auml;ita k&otilde;ikide ressurside t&ouml;id (all_resources) help"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:prop_all_section_resources
+msgid "Omaduse N&auml;ita osakonna ressurside t&ouml;id (all_section_resources) caption"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:prop_all_section_resources_comment
+msgid "Omaduse N&auml;ita osakonna ressurside t&ouml;id (all_section_resources) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:prop_all_section_resources_help
+msgid "Omaduse N&auml;ita osakonna ressurside t&ouml;id (all_section_resources) help"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:rel_RELTYPE_PROFESSION
+msgid "Seose Ametinimetus (RELTYPE_PROFESSION) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:rel_RELTYPE_RESOURCE
+msgid "Seose Ressurss (RELTYPE_RESOURCE) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_resource_operator.aw:rel_RELTYPE_UNIT
+msgid "Seose Osakond (RELTYPE_UNIT) tekst"
+msgstr ""
+
+# classes/mrp/mrp_resource_operator.aw:prop_resource
+#~ msgid "Omaduse Resurss (resource) caption"
+#~ msgstr "Resource"
+
+# classes/mrp/mrp_resource_operator.aw:rel_RELTYPE_PROFESSION
+#~ msgid "Seose ametinimetus (RELTYPE_PROFESSION) tekst"
+#~ msgstr "profession"
+
+# classes/mrp/mrp_resource_operator.aw:rel_RELTYPE_RESOURCE
+#~ msgid "Seose resurss (RELTYPE_RESOURCE) tekst"
+#~ msgstr "resource"
+
+# classes/mrp/mrp_resource_operator.aw:rel_RELTYPE_UNIT
+#~ msgid "Seose osakond (RELTYPE_UNIT) tekst"
+#~ msgstr "unit"

@@ -1,0 +1,15 @@
+<b>URL params for debugging</b>
+
+&INTENSE_DUKE=1
+Shows which db queries are made and more importantly, where the queries are made.
+
+&DUKE=1
+Shows which db queries are made.
+
+&TPL=1
+Shows which templates are loaded/used.
+
+&TPL=2
+Shows which templates are loaded/used and which variables are defined for these templates.
+
+

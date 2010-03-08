@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="translation_workplace" folder="www/dev/terryf/automatweb_dev/classes/translate" extends="class_base">
+		<action name="get_node">
+			<function name="get_node">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="url" />
+					<required name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,59 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/server_folder.aw:class_278_help
+msgid "Klassi Serveri Kataloog help"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:prop_folder
+msgid "Omaduse Kataloog serveris kust failid v&otilde;tta (folder) caption"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:prop_folder_comment
+msgid "Omaduse Kataloog serveris kust failid v&otilde;tta (folder) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:prop_folder_help
+msgid "Omaduse Kataloog serveris kust failid v&otilde;tta (folder) help"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:72
+msgid "server_folder::show_file(%s): the fid parameter does not contain a valid object id!"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:99
+msgid "server_folder::del_file(%s): the fid parameter does not contain a valid object id!"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:127
+#: classes/contentmgmt/server_folder.aw:150
+msgid "server_folder::change_file(%s): the fid parameter does not contain a valid object id!"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:226
+msgid "server_folder::submit_addfile(%s): the id parameter does not contain a valid object id!"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:304
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:305
+msgid "Faili suurus"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:306
+msgid "Loomise kuup&auml;ev"
+msgstr ""
+
+#: classes/contentmgmt/server_folder.aw:307
+msgid "Muutmise kuup&auml;ev"
+msgstr ""

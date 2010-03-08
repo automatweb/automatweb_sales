@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<definitions>
+
+<header_normal value="title"/>
+<header_sortable value="title"/>
+<header_sorted value="title"/>
+<content_style1 value="fgtext"/>
+<content_style2 value="fgtext"/>
+<content_style1_selected value="fgtext"/>
+<content_style2_selected value="fgtext"/>
+<tableattribs border="0" cellpadding="0" cellspacing="1" width="100%" bgcolor="#e0e0e0"/>
+<default_order value="uid"/>
+
+</definitions>
+
+<actions>
+<action link="type=change" field="uuid" caption="Muuda"/>
+<action link="type=change_pwd" field="uuid" caption="Muuda passwordi"/>
+<action link="type=delete" field="uuid" caption="Kustuta"/>
+</actions>
+
+<userlist>
+<field name="check" caption="Vali" talign="center" align="left" />
+<field name="uuid" caption="UID" talign="center" align="left" sortable="1" />
+<field name="logins" caption="Logs" talign="center" align="left" sortable="1" numeric="1"/>
+<field name="online" caption="Online" talign="center" align="center" sortable="1"  />
+<field name="lastaction" caption="Viimati" talign="center" align="left" sortable="1" type="time" format="H:i d-M-Y"/>
+</userlist>
+
+
+</tabledef>

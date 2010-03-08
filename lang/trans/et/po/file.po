@@ -1,0 +1,528 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2015-06-01 19:19+0200\n"
+"Last-Translator: ergo\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/file.aw:class_41_help
+#: classes/contentmgmt/file.aw:class_41_help
+msgid "Klassi Fail help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_needs_translation
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_needs_translation_comment
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_needs_translation_help
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) help"
+msgstr ""
+
+# classes/file.aw:prop_filename
+#: classes/contentmgmt/file.aw:prop_filename
+msgid "Omaduse Faili nimi (filename) caption"
+msgstr ""
+
+# classes/file.aw:prop_filename_comment
+#: classes/contentmgmt/file.aw:prop_filename_comment
+msgid "Omaduse Faili nimi (filename) kommentaar"
+msgstr "kuvatakse automaatselt peale faili lisamist."
+
+# classes/file.aw:prop_filename_help
+#: classes/contentmgmt/file.aw:prop_filename_help
+msgid "Omaduse Faili nimi (filename) help"
+msgstr "kuvatakse automaatselt peale faili lisamist."
+
+#: classes/contentmgmt/file.aw:prop_alias
+msgid "Omaduse Alias (alias) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_alias_comment
+msgid "Omaduse Alias (alias) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_alias_help
+msgid "Omaduse Alias (alias) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_signed
+msgid "Omaduse Allkirjastatud (signed) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_signed_comment
+msgid "Omaduse Allkirjastatud (signed) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_signed_help
+msgid "Omaduse Allkirjastatud (signed) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_signatures
+msgid "Omaduse Allkirjastajad (signatures) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_signatures_comment
+msgid "Omaduse Allkirjastajad (signatures) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_signatures_help
+msgid "Omaduse Allkirjastajad (signatures) help"
+msgstr ""
+
+# classes/file.aw:prop_file
+#: classes/contentmgmt/file.aw:prop_file
+msgid "Omaduse Vali fail (file) caption"
+msgstr ""
+
+# classes/file.aw:prop_file_comment
+#: classes/contentmgmt/file.aw:prop_file_comment
+msgid "Omaduse Vali fail (file) kommentaar"
+msgstr "võimaldab valida faili arvutist."
+
+# classes/file.aw:prop_file_help
+#: classes/contentmgmt/file.aw:prop_file_help
+msgid "Omaduse Vali fail (file) help"
+msgstr "võimaldab valida faili arvutist."
+
+# classes/file.aw:prop_type
+#: classes/contentmgmt/file.aw:prop_type
+msgid "Omaduse  (type) caption"
+msgstr ""
+
+# classes/file.aw:prop_type_comment
+#: classes/contentmgmt/file.aw:prop_type_comment
+msgid "Omaduse  (type) kommentaar"
+msgstr ""
+
+# classes/file.aw:prop_type_help
+#: classes/contentmgmt/file.aw:prop_type_help
+msgid "Omaduse  (type) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_ord
+msgid "Omaduse J&auml;rjekord (ord) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_ord_comment
+msgid "Omaduse J&auml;rjekord (ord) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_ord_help
+msgid "Omaduse J&auml;rjekord (ord) help"
+msgstr "saab määrata objektide järjekorda administreerimisliideses. Veebil avaldab järjekorranumber mõju, kui faile kuvatakse läbi objektinimekirja."
+
+# classes/file.aw:prop_comment
+#: classes/contentmgmt/file.aw:prop_comment
+msgid "Omaduse Faili allkiri (comment) caption"
+msgstr ""
+
+# classes/file.aw:prop_comment_comment
+#: classes/contentmgmt/file.aw:prop_comment_comment
+msgid "Omaduse Faili allkiri (comment) kommentaar"
+msgstr "lingi nimi, millel klikkimine faili avab."
+
+# classes/file.aw:prop_comment_help
+#: classes/contentmgmt/file.aw:prop_comment_help
+msgid "Omaduse Faili allkiri (comment) help"
+msgstr "lingi nimi, millel klikkimine faili avab."
+
+# classes/file.aw:prop_file_url
+#: classes/contentmgmt/file.aw:prop_file_url
+msgid "Omaduse Url, kust saadakse faili sisu (file_url) caption"
+msgstr ""
+
+# classes/file.aw:prop_file_url_comment
+#: classes/contentmgmt/file.aw:prop_file_url_comment
+msgid "Omaduse Url, kust saadakse faili sisu (file_url) kommentaar"
+msgstr "Interneti aadress, kust fail võetakse. Kui on tehtud valik ka „Vali fail“ lahtris, siis URLina viitamine ei toimi."
+
+# classes/file.aw:prop_file_url_help
+#: classes/contentmgmt/file.aw:prop_file_url_help
+msgid "Omaduse Url, kust saadakse faili sisu (file_url) help"
+msgstr "Interneti aadress, kust fail võetakse. Kui on tehtud valik ka „Vali fail“ lahtris, siis URLina viitamine ei toimi."
+
+#: classes/contentmgmt/file.aw:prop_showal
+msgid "Omaduse N&auml;ita kohe (showal) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_showal_comment
+msgid "Omaduse N&auml;ita kohe (showal) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_showal_help
+msgid "Omaduse N&auml;ita kohe (showal) help"
+msgstr "valiku märkimisel ei kuvata faili lingina vaid üritatakse seda kohe näidata."
+
+# classes/file.aw:prop_newwindow
+#: classes/contentmgmt/file.aw:prop_newwindow
+msgid "Omaduse Uues aknas (newwindow) caption"
+msgstr ""
+
+# classes/file.aw:prop_newwindow_comment
+#: classes/contentmgmt/file.aw:prop_newwindow_comment
+msgid "Omaduse Uues aknas (newwindow) kommentaar"
+msgstr "faili uues aknas."
+
+# classes/file.aw:prop_newwindow_help
+#: classes/contentmgmt/file.aw:prop_newwindow_help
+msgid "Omaduse Uues aknas (newwindow) help"
+msgstr "avab faili uues aknas."
+
+#: classes/contentmgmt/file.aw:prop_show_framed
+msgid "Omaduse N&auml;ita saidi raamis (show_framed) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_show_framed_comment
+msgid "Omaduse N&auml;ita saidi raamis (show_framed) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_show_framed_help
+msgid "Omaduse N&auml;ita saidi raamis (show_framed) help"
+msgstr "üritatakse faili kuvada veebilehe kujunduse sisse. Igat tüüpi faili niimoodi kuvada ei saa. Võimalik näiteks .txt ja .html laienditega failide puhul."
+
+#: classes/contentmgmt/file.aw:prop_show_icon
+msgid "Omaduse N&auml;ita ikooni (show_icon) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_show_icon_comment
+msgid "Omaduse N&auml;ita ikooni (show_icon) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_show_icon_help
+msgid "Omaduse N&auml;ita ikooni (show_icon) help"
+msgstr "määrangust sõltub, kas veebilehel kuvatakse faili ette faili ikooni või mitte"
+
+#: classes/contentmgmt/file.aw:prop_udef1
+msgid "Omaduse User-defined 1 (udef1) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_udef1_comment
+msgid "Omaduse User-defined 1 (udef1) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_udef1_help
+msgid "Omaduse User-defined 1 (udef1) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_udef2
+msgid "Omaduse User-defined 2 (udef2) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_udef2_comment
+msgid "Omaduse User-defined 2 (udef2) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_udef2_help
+msgid "Omaduse User-defined 2 (udef2) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr "v&otilde;imalus t&otilde;lkida objekt teise keelde. Vajalik juhul, kui kasutatakse erinevate keelte all sama objekti. Tõlkimiseks tuleb kirjutada vastavanimelistesse tekstiväljadesse sobilikud võõrkeelsed vasted. Kui see tehtud, siis teha märge välja Tõlge aktiivne."
+
+#: classes/contentmgmt/file.aw:prop_grkeywords2
+msgid "Omaduse AW M&auml;rks&otilde;nad (grkeywords2) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_grkeywords2_comment
+msgid "Omaduse AW M&auml;rks&otilde;nad (grkeywords2) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_grkeywords2_help
+msgid "Omaduse AW M&auml;rks&otilde;nad (grkeywords2) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_toolbar
+msgid "Omaduse Maili teavituse toolbar (mail_notify_toolbar) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_toolbar_comment
+msgid "Omaduse Maili teavituse toolbar (mail_notify_toolbar) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_toolbar_help
+msgid "Omaduse Maili teavituse toolbar (mail_notify_toolbar) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_table
+msgid "Omaduse Maili teavituse tabel (mail_notify_table) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_table_comment
+msgid "Omaduse Maili teavituse tabel (mail_notify_table) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_table_help
+msgid "Omaduse Maili teavituse tabel (mail_notify_table) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_mail_settings
+msgid "Omaduse Maili seaded (mail_notify_mail_settings) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_mail_settings_comment
+msgid "Omaduse Maili seaded (mail_notify_mail_settings) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_mail_settings_help
+msgid "Omaduse Maili seaded (mail_notify_mail_settings) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_text
+msgid "Omaduse Maili seaded (mail_notify_text) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_text_comment
+msgid "Omaduse Maili seaded (mail_notify_text) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_text_help
+msgid "Omaduse Maili seaded (mail_notify_text) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_subject
+msgid "Omaduse Maili subjekt (mail_notify_subject) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_subject_comment
+msgid "Omaduse Maili subjekt (mail_notify_subject) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_subject_help
+msgid "Omaduse Maili subjekt (mail_notify_subject) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_from
+msgid "Omaduse Kellelt (mail_notify_from) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_from_comment
+msgid "Omaduse Kellelt (mail_notify_from) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_from_help
+msgid "Omaduse Kellelt (mail_notify_from) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_content
+msgid "Omaduse Sisu (mail_notify_content) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_content_comment
+msgid "Omaduse Sisu (mail_notify_content) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_mail_notify_content_help
+msgid "Omaduse Sisu (mail_notify_content) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_acl
+msgid "Omaduse &Otilde;igused (acl) caption"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_acl_comment
+msgid "Omaduse &Otilde;igused (acl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:prop_acl_help
+msgid "Omaduse &Otilde;igused (acl) help"
+msgstr ""
+
+# classes/file.aw:group_settings
+#: classes/contentmgmt/file.aw:group_settings
+msgid "Grupi Seadistused (settings) pealkiri"
+msgstr ""
+
+# classes/file.aw:group_settings_help
+#: classes/contentmgmt/file.aw:group_settings_help
+msgid "Grupi Seadistused (settings) help"
+msgstr ""
+
+# classes/file.aw:group_dates
+#: classes/contentmgmt/file.aw:group_dates
+msgid "Grupi Ajad (dates) pealkiri"
+msgstr ""
+
+# classes/file.aw:group_dates_help
+#: classes/contentmgmt/file.aw:group_dates_help
+msgid "Grupi Ajad (dates) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:group_keywords
+msgid "Grupi M&auml;rks&otilde;nad (keywords) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:group_keywords_help
+msgid "Grupi M&auml;rks&otilde;nad (keywords) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:group_acl
+msgid "Grupi &Otilde;igused (acl) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:group_acl_help
+msgid "Grupi &Otilde;igused (acl) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:group_notify
+msgid "Grupi Teavitamine (notify) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:group_notify_help
+msgid "Grupi Teavitamine (notify) help"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:rel_RELTYPE_KEYWORD
+msgid "Seose M&auml;rks&otilde;na (RELTYPE_KEYWORD) tekst"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:205
+msgid "%s, %s (%s) - %s"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:225
+msgid "Lisa allkiri"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:226 classes/contentmgmt/file.aw:264
+msgid "Faili: %s, allkirjastamine"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:233
+msgid "DigiDoc konteinerisse"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:244
+msgid "Allkirjasta"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:245
+msgid "Allkirjastamine"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:252
+msgid "DigiDoc konteiner"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:263
+msgid "Allkirjasta fail"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:313
+msgid "fail puudub"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:409
+msgid "Paiguta dokumenti"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:431
+msgid "V&otilde;imalikud asendused<br>"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:432
+msgid "#file# - faili nimi <br>"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:433
+msgid "#file_url# - link failile <br>"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:434
+msgid "#user_name# - muutja nimi"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:447
+msgid ""
+"User %s has added/changed the following file %s. Please click the link below to view the document \n"
+" %s"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:457
+msgid "Teavitus muutunud dokumendist"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:531
+msgid "Faili t&uuml;&uuml;p ei ole lubatud!"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:800
+msgid "faili ikoon"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:919
+msgid "Vale objekti id!"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1561
+msgid "Need either id or parent"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1784
+msgid "Salvesta ja indekseeri otsingusse"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1792
+msgid "Salvesta ja paiguta dokumenti"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1867
+msgid "Salvesta"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1873
+msgid "Kustuta"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1880
+msgid "Saada teavitusmeil"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1890
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1895
+msgid "Organisatsioon"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1900
+msgid "Telefon"
+msgstr ""
+
+#: classes/contentmgmt/file.aw:1905
+msgid "E-mail"
+msgstr ""
+
+# classes/file.aw:prop_showal_comment
+#~ msgid "Omaduse Näita kohe (showal) kommentaar"
+#~ msgstr "valiku märkimisel ei kuvata faili lingina vaid üritatakse seda kohe näidata."
+
+# classes/file.aw:prop_showal_help
+#~ msgid "Omaduse Näita kohe (showal) help"
+#~ msgstr "valiku märkimisel ei kuvata faili lingina vaid üritatakse seda kohe näidata."

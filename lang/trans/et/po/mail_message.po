@@ -1,0 +1,417 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/messenger/mail_message.aw:class_52_help
+#: classes/applications/messenger/mail_message.aw:class_52_help
+msgid "Klassi Message help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_uidl
+#: classes/applications/messenger/mail_message.aw:prop_uidl
+msgid "Omaduse UIDL (uidl) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_uidl_comment
+#: classes/applications/messenger/mail_message.aw:prop_uidl_comment
+msgid "Omaduse UIDL (uidl) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_uidl_help
+#: classes/applications/messenger/mail_message.aw:prop_uidl_help
+msgid "Omaduse UIDL (uidl) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mfrom_name
+#: classes/applications/messenger/mail_message.aw:prop_mfrom_name
+msgid "Omaduse Kellelt nimi (mfrom_name) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mfrom_name_comment
+#: classes/applications/messenger/mail_message.aw:prop_mfrom_name_comment
+msgid "Omaduse Kellelt nimi (mfrom_name) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mfrom_name_help
+#: classes/applications/messenger/mail_message.aw:prop_mfrom_name_help
+msgid "Omaduse Kellelt nimi (mfrom_name) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mfrom
+#: classes/applications/messenger/mail_message.aw:prop_mfrom
+msgid "Omaduse Kellelt (mfrom) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mfrom_comment
+#: classes/applications/messenger/mail_message.aw:prop_mfrom_comment
+msgid "Omaduse Kellelt (mfrom) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mfrom_help
+#: classes/applications/messenger/mail_message.aw:prop_mfrom_help
+msgid "Omaduse Kellelt (mfrom) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mto
+#: classes/applications/messenger/mail_message.aw:prop_mto
+msgid "Omaduse Kellele (mto) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mto_comment
+#: classes/applications/messenger/mail_message.aw:prop_mto_comment
+msgid "Omaduse Kellele (mto) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mto_help
+#: classes/applications/messenger/mail_message.aw:prop_mto_help
+msgid "Omaduse Kellele (mto) help"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_mto_relpicker
+msgid "Omaduse Kellele (mto_relpicker) caption"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_mto_relpicker_comment
+msgid "Omaduse Kellele (mto_relpicker) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_mto_relpicker_help
+msgid "Omaduse Kellele (mto_relpicker) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_cc
+#: classes/applications/messenger/mail_message.aw:prop_cc
+msgid "Omaduse Koopia (cc) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_cc_comment
+#: classes/applications/messenger/mail_message.aw:prop_cc_comment
+msgid "Omaduse Koopia (cc) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_cc_help
+#: classes/applications/messenger/mail_message.aw:prop_cc_help
+msgid "Omaduse Koopia (cc) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_bcc
+#: classes/applications/messenger/mail_message.aw:prop_bcc
+msgid "Omaduse Pimekoopia (bcc) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_bcc_comment
+#: classes/applications/messenger/mail_message.aw:prop_bcc_comment
+msgid "Omaduse Pimekoopia (bcc) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_bcc_help
+#: classes/applications/messenger/mail_message.aw:prop_bcc_help
+msgid "Omaduse Pimekoopia (bcc) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_name
+#: classes/applications/messenger/mail_message.aw:prop_name
+msgid "Omaduse Teema (name) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_name_comment
+#: classes/applications/messenger/mail_message.aw:prop_name_comment
+msgid "Omaduse Teema (name) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_name_help
+#: classes/applications/messenger/mail_message.aw:prop_name_help
+msgid "Omaduse Teema (name) help"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_project
+msgid "Omaduse Projekt (project) caption"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_project_comment
+msgid "Omaduse Projekt (project) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_project_help
+msgid "Omaduse Projekt (project) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_html_mail
+#: classes/applications/messenger/mail_message.aw:prop_html_mail
+msgid "Omaduse HTML kiri (html_mail) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_html_mail_comment
+#: classes/applications/messenger/mail_message.aw:prop_html_mail_comment
+msgid "Omaduse HTML kiri (html_mail) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_html_mail_help
+#: classes/applications/messenger/mail_message.aw:prop_html_mail_help
+msgid "Omaduse HTML kiri (html_mail) help"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_add_contacts
+msgid "Omaduse Lisa kontaktandmed (add_contacts) caption"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_add_contacts_comment
+msgid "Omaduse Lisa kontaktandmed (add_contacts) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:prop_add_contacts_help
+msgid "Omaduse Lisa kontaktandmed (add_contacts) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_message
+#: classes/applications/messenger/mail_message.aw:prop_message
+msgid "Omaduse Sisu (message) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_message_comment
+#: classes/applications/messenger/mail_message.aw:prop_message_comment
+msgid "Omaduse Sisu (message) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_message_help
+#: classes/applications/messenger/mail_message.aw:prop_message_help
+msgid "Omaduse Sisu (message) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_attachments
+#: classes/applications/messenger/mail_message.aw:prop_attachments
+msgid "Omaduse Manused (attachments) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_attachments_comment
+#: classes/applications/messenger/mail_message.aw:prop_attachments_comment
+msgid "Omaduse Manused (attachments) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_attachments_help
+#: classes/applications/messenger/mail_message.aw:prop_attachments_help
+msgid "Omaduse Manused (attachments) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msgrid
+#: classes/applications/messenger/mail_message.aw:prop_msgrid
+msgid "Omaduse Msgrid (msgrid) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msgrid_comment
+#: classes/applications/messenger/mail_message.aw:prop_msgrid_comment
+msgid "Omaduse Msgrid (msgrid) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msgrid_help
+#: classes/applications/messenger/mail_message.aw:prop_msgrid_help
+msgid "Omaduse Msgrid (msgrid) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msgid
+#: classes/applications/messenger/mail_message.aw:prop_msgid
+msgid "Omaduse Msgid (msgid) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msgid_comment
+#: classes/applications/messenger/mail_message.aw:prop_msgid_comment
+msgid "Omaduse Msgid (msgid) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msgid_help
+#: classes/applications/messenger/mail_message.aw:prop_msgid_help
+msgid "Omaduse Msgid (msgid) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mailbox
+#: classes/applications/messenger/mail_message.aw:prop_mailbox
+msgid "Omaduse Mailbox (mailbox) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mailbox_comment
+#: classes/applications/messenger/mail_message.aw:prop_mailbox_comment
+msgid "Omaduse Mailbox (mailbox) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_mailbox_help
+#: classes/applications/messenger/mail_message.aw:prop_mailbox_help
+msgid "Omaduse Mailbox (mailbox) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_cb_part
+#: classes/applications/messenger/mail_message.aw:prop_cb_part
+msgid "Omaduse Cb part (cb_part) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_cb_part_comment
+#: classes/applications/messenger/mail_message.aw:prop_cb_part_comment
+msgid "Omaduse Cb part (cb_part) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_cb_part_help
+#: classes/applications/messenger/mail_message.aw:prop_cb_part_help
+msgid "Omaduse Cb part (cb_part) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msg_contener_title
+#: classes/applications/messenger/mail_message.aw:prop_msg_contener_title
+msgid "Omaduse Konteineri pealkiri (msg_contener_title) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msg_contener_title_comment
+#: classes/applications/messenger/mail_message.aw:prop_msg_contener_title_comment
+msgid "Omaduse Konteineri pealkiri (msg_contener_title) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msg_contener_title_help
+#: classes/applications/messenger/mail_message.aw:prop_msg_contener_title_help
+msgid "Omaduse Konteineri pealkiri (msg_contener_title) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msg_contener_content
+#: classes/applications/messenger/mail_message.aw:prop_msg_contener_content
+msgid "Omaduse Konteineri sisu (msg_contener_content) caption"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msg_contener_content_comment
+#: classes/applications/messenger/mail_message.aw:prop_msg_contener_content_comment
+msgid "Omaduse Konteineri sisu (msg_contener_content) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:prop_msg_contener_content_help
+#: classes/applications/messenger/mail_message.aw:prop_msg_contener_content_help
+msgid "Omaduse Konteineri sisu (msg_contener_content) help"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:group_add
+msgid "Grupi Lisa (add) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:group_add_help
+msgid "Grupi Lisa (add) help"
+msgstr ""
+
+# classes/applications/messenger/mail_message.aw:rel_RELTYPE_ATTACHMENT
+#: classes/applications/messenger/mail_message.aw:rel_RELTYPE_ATTACHMENT
+msgid "Seose Manus (RELTYPE_ATTACHMENT) tekst"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:rel_RELTYPE_MAIL_ADDRESS
+msgid "Seose Meiliaadress (RELTYPE_MAIL_ADDRESS) tekst"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:rel_RELTYPE_REGISTER_DATA
+msgid "Seose Registri andmed (RELTYPE_REGISTER_DATA) tekst"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:rel_RELTYPE_RELTYPE_REGISTER_DATA
+msgid "Seose Registri andmed (RELTYPE_RELTYPE_REGISTER_DATA) tekst"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:rel_RELTYPE_CUSTOMER
+msgid "Seose Klient (RELTYPE_CUSTOMER) tekst"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:rel_RELTYPE_PROJECT
+msgid "Seose Projekt (RELTYPE_PROJECT) tekst"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:rel_RELTYPE_TO_MAIL_ADDRESS
+msgid "Seose Meiliaadress (kellele) (RELTYPE_TO_MAIL_ADDRESS) tekst"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:235
+msgid "couldn't retrieve message %s, perhaps it has been deleted or moved?<bR>"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:379
+msgid "Kahjuks sinu meililugeja ei oska n&auml;idata HTML formaadis kirju"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:932
+msgid "Saada"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:939
+msgid "Salvesta"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:962
+msgid "Vasta"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:969
+msgid "Vasta/k&otilde;igile"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:976
+msgid "Edasta"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:984
+msgid "Kustutada see kiri? (tagasi ei saa!)"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:985
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1007
+msgid "Lisa kalendrisse"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1039
+#: classes/applications/messenger/mail_message.aw:1109
+msgid "Lisa bugiks"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1121
+msgid "P&auml;ised"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1126
+msgid "Tavaline"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1132
+msgid "K&otilde;ik p&auml;ised"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1201
+msgid "Meilide kaust"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1508
+msgid "kustutatud!"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1510
+msgid "sulge aken"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1592
+msgid "saadetud<p>"
+msgstr ""
+
+#: classes/applications/messenger/mail_message.aw:1717
+msgid "----Forwarded message-----\n"
+msgstr ""

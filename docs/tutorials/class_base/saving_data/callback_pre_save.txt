@@ -1,0 +1,27 @@
+callback_pre_save
+
+Will be invoked after set_property calls and before saving the object data. This is your last chance to modify the object in some way.
+
+<b>Example 5.2. One possible use</b>
+
+#php#
+function callback_pre_save($arr)
+{
+	if (!empty($arr["request"]["trans"]))
+	{
+		$arr["obj_inst"]->set_meta("trans",$arr["request"]["trans"]);
+	};
+}
+#/php#
+
+
+Arguments passed to callback_pre_save
+
+<b>obj_inst</b>
+    Pointer to the loaded object. If a new object was created then at this point it already exists in the memory, so you can do your usual set_prop,etc calls on it.
+
+<b>request</b>
+    Array containing the arguments to the script. Use this instead of $_POST superglobal.
+
+<b>new</b>
+    Set to 1, if this is a new object.

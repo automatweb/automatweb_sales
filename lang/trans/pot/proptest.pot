@@ -1,0 +1,160 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/cfg/proptest.aw:class_1027_help
+msgid "Klassi Property Test help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_textbox1
+msgid "Omaduse Textbox1 (textbox1) caption"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_textbox1_comment
+msgid "Omaduse Textbox1 (textbox1) kommentaar"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_textbox1_help
+msgid "Omaduse Textbox1 (textbox1) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_img1
+msgid "Omaduse Image 1 (img1) caption"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_img1_comment
+msgid "Omaduse Image 1 (img1) kommentaar"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_img1_help
+msgid "Omaduse Image 1 (img1) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_img2
+msgid "Omaduse Image 2 (img2) caption"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_img2_comment
+msgid "Omaduse Image 2 (img2) kommentaar"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_img2_help
+msgid "Omaduse Image 2 (img2) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_cb
+msgid "Omaduse Callback element (cb) caption"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_cb_comment
+msgid "Omaduse Callback element (cb) kommentaar"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_cb_help
+msgid "Omaduse Callback element (cb) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_get_property_prop_ignore
+msgid "Omaduse This should be blocked by get_property (get_property_prop_ignore) caption"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_get_property_prop_ignore_comment
+msgid "Omaduse This should be blocked by get_property (get_property_prop_ignore) kommentaar"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_get_property_prop_ignore_help
+msgid "Omaduse This should be blocked by get_property (get_property_prop_ignore) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_get_property_prop_error
+msgid "Omaduse This should be flagged as error by get_property (get_property_prop_error) caption"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_get_property_prop_error_comment
+msgid "Omaduse This should be flagged as error by get_property (get_property_prop_error) kommentaar"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_get_property_prop_error_help
+msgid "Omaduse This should be flagged as error by get_property (get_property_prop_error) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_dummy
+msgid "Omaduse A property on a hidden tab (dummy) caption"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_dummy_comment
+msgid "Omaduse A property on a hidden tab (dummy) kommentaar"
+msgstr ""
+
+#: classes/cfg/proptest.aw:prop_dummy_help
+msgid "Omaduse A property on a hidden tab (dummy) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_parentgroup1
+msgid "Grupi Parent Group 1 (parentgroup1) pealkiri"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_parentgroup1_help
+msgid "Grupi Parent Group 1 (parentgroup1) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_childgroup1
+msgid "Grupi Child Group 1 (childgroup1) pealkiri"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_childgroup1_help
+msgid "Grupi Child Group 1 (childgroup1) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_childgroup2
+msgid "Grupi Child Group 2 (childgroup2) pealkiri"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_childgroup2_help
+msgid "Grupi Child Group 2 (childgroup2) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_empty_group
+msgid "Grupi No properties, should be hidden (empty_group) pealkiri"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_empty_group_help
+msgid "Grupi No properties, should be hidden (empty_group) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_hidden_by_mod_tab
+msgid "Grupi Hidden by callback_mod_tab (hidden_by_mod_tab) pealkiri"
+msgstr ""
+
+#: classes/cfg/proptest.aw:group_hidden_by_mod_tab_help
+msgid "Grupi Hidden by callback_mod_tab (hidden_by_mod_tab) help"
+msgstr ""
+
+#: classes/cfg/proptest.aw:rel_RELTYPE_MENU
+msgid "Seose Link to menu (RELTYPE_MENU) tekst"
+msgstr ""
+
+#: classes/cfg/proptest.aw:rel_RELTYPE_MULTI
+msgid "Seose Link with 2 clids (RELTYPE_MULTI) tekst"
+msgstr ""
+
+#: classes/cfg/proptest.aw:rel_RELTYPE_IMAGE
+msgid "Seose Image (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/cfg/proptest.aw:103
+msgid "CB1"
+msgstr ""
+
+#: classes/cfg/proptest.aw:110
+msgid "CB2"
+msgstr ""
+

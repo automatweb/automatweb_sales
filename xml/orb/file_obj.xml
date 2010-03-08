@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="file_obj" folder="www/automatweb_cvs/classes/contentmgmt" extends="_int_object">
+		<action name="get_url">
+			<function name="get_url">
+				<arguments>
+					<optional name="name" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

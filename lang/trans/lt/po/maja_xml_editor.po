@@ -1,0 +1,390 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:class_835_help
+msgid "Klassi Maja XML-i editor help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_orig_xml_file
+msgid "Omaduse Originaal xml fail (orig_xml_file) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_orig_xml_file_comment
+msgid "Omaduse Originaal xml fail (orig_xml_file) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_orig_xml_file_help
+msgid "Omaduse Originaal xml fail (orig_xml_file) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_new_xml_file
+msgid "Omaduse Uus xml fail (new_xml_file) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_new_xml_file_comment
+msgid "Omaduse Uus xml fail (new_xml_file) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_new_xml_file_help
+msgid "Omaduse Uus xml fail (new_xml_file) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_contents
+msgid "Omaduse Andmebaasitabeli sisu objekt (db_table_contents) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_contents_comment
+msgid "Omaduse Andmebaasitabeli sisu objekt (db_table_contents) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_contents_help
+msgid "Omaduse Andmebaasitabeli sisu objekt (db_table_contents) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_house_name
+msgid "Omaduse Maja nimi/aadress (house_name) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_house_name_comment
+msgid "Omaduse Maja nimi/aadress (house_name) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_house_name_help
+msgid "Omaduse Maja nimi/aadress (house_name) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_to_db_connections
+msgid "Omaduse XML ja DB v&auml;ljade vahelised seosed (xml_to_db_connections) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_to_db_connections_comment
+msgid "Omaduse XML ja DB v&auml;ljade vahelised seosed (xml_to_db_connections) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_to_db_connections_help
+msgid "Omaduse XML ja DB v&auml;ljade vahelised seosed (xml_to_db_connections) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_additional_info_table
+msgid "Omaduse Additional info (additional_info_table) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_additional_info_table_comment
+msgid "Omaduse Additional info (additional_info_table) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_additional_info_table_help
+msgid "Omaduse Additional info (additional_info_table) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_01
+msgid "Omaduse Sisu tabel 01 (content_table_01) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_01_comment
+msgid "Omaduse Sisu tabel 01 (content_table_01) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_01_help
+msgid "Omaduse Sisu tabel 01 (content_table_01) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_01
+msgid "Omaduse Parent XMl-ist (xml_field_01) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_01_comment
+msgid "Omaduse Parent XMl-ist (xml_field_01) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_01_help
+msgid "Omaduse Parent XMl-ist (xml_field_01) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_01
+msgid "Omaduse Andmebaasi tabel (db_table_01) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_01_comment
+msgid "Omaduse Andmebaasi tabel (db_table_01) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_01_help
+msgid "Omaduse Andmebaasi tabel (db_table_01) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_02
+msgid "Omaduse Sisu tabel 02 (content_table_02) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_02_comment
+msgid "Omaduse Sisu tabel 02 (content_table_02) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_02_help
+msgid "Omaduse Sisu tabel 02 (content_table_02) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_02
+msgid "Omaduse Parent XML-ist (xml_field_02) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_02_comment
+msgid "Omaduse Parent XML-ist (xml_field_02) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_02_help
+msgid "Omaduse Parent XML-ist (xml_field_02) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_02
+msgid "Omaduse Andmebaasi tabel (db_table_02) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_02_comment
+msgid "Omaduse Andmebaasi tabel (db_table_02) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_02_help
+msgid "Omaduse Andmebaasi tabel (db_table_02) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_03
+msgid "Omaduse Sisu tabel 03 (content_table_03) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_03_comment
+msgid "Omaduse Sisu tabel 03 (content_table_03) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_03_help
+msgid "Omaduse Sisu tabel 03 (content_table_03) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_03
+msgid "Omaduse Parent XML-ist (xml_field_03) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_03_comment
+msgid "Omaduse Parent XML-ist (xml_field_03) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_03_help
+msgid "Omaduse Parent XML-ist (xml_field_03) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_03
+msgid "Omaduse Andmebaasi tabel (db_table_03) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_03_comment
+msgid "Omaduse Andmebaasi tabel (db_table_03) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_03_help
+msgid "Omaduse Andmebaasi tabel (db_table_03) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_04
+msgid "Omaduse Sisu tabel 04 (content_table_04) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_04_comment
+msgid "Omaduse Sisu tabel 04 (content_table_04) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_04_help
+msgid "Omaduse Sisu tabel 04 (content_table_04) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_04
+msgid "Omaduse parent XML-ist (xml_field_04) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_04_comment
+msgid "Omaduse parent XML-ist (xml_field_04) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_04_help
+msgid "Omaduse parent XML-ist (xml_field_04) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_04
+msgid "Omaduse Andmebaasi tabel (db_table_04) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_04_comment
+msgid "Omaduse Andmebaasi tabel (db_table_04) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_04_help
+msgid "Omaduse Andmebaasi tabel (db_table_04) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_05
+msgid "Omaduse Sisu tabel 05 (content_table_05) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_05_comment
+msgid "Omaduse Sisu tabel 05 (content_table_05) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_content_table_05_help
+msgid "Omaduse Sisu tabel 05 (content_table_05) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_05
+msgid "Omaduse parent XML-ist (xml_field_05) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_05_comment
+msgid "Omaduse parent XML-ist (xml_field_05) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_xml_field_05_help
+msgid "Omaduse parent XML-ist (xml_field_05) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_05
+msgid "Omaduse Andmebaasi tabel (db_table_05) caption"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_05_comment
+msgid "Omaduse Andmebaasi tabel (db_table_05) kommentaar"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:prop_db_table_05_help
+msgid "Omaduse Andmebaasi tabel (db_table_05) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_db_saving_settings
+msgid "Grupi Baasi salvestamise seaded (db_saving_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_db_saving_settings_help
+msgid "Grupi Baasi salvestamise seaded (db_saving_settings) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_additional_info
+msgid "Grupi Lisainfo korterite tabeli jaoks (additional_info) pealkiri"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_additional_info_help
+msgid "Grupi Lisainfo korterite tabeli jaoks (additional_info) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_content_change
+msgid "Grupi XML-i muutmine (content_change) pealkiri"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_content_change_help
+msgid "Grupi XML-i muutmine (content_change) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_01
+msgid "Grupi Tab 01 (group_01) pealkiri"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_01_help
+msgid "Grupi Tab 01 (group_01) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_02
+msgid "Grupi Tab 02 (group_02) pealkiri"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_02_help
+msgid "Grupi Tab 02 (group_02) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_03
+msgid "Grupi Tab 03 (group_03) pealkiri"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_03_help
+msgid "Grupi Tab 03 (group_03) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_04
+msgid "Grupi Tab 04 (group_04) pealkiri"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_04_help
+msgid "Grupi Tab 04 (group_04) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_05
+msgid "Grupi Tab 05 (group_05) pealkiri"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:group_group_05_help
+msgid "Grupi Tab 05 (group_05) help"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:rel_RELTYPE_DB_TABLE_CONTENTS
+msgid "Seose Andmebaasitabeli sisu objekt (RELTYPE_DB_TABLE_CONTENTS) tekst"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:379
+msgid "---"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:383
+msgid "Ei Salvestata"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:447
+msgid "Korteri nr."
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:448
+msgid "Alternatiivne korteri nr."
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:449
+msgid "Korruse nr."
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:450
+msgid "Korruse nimi"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:451
+msgid "Alternatiivne staatus"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:452
+msgid "Panipaik"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:453
+msgid "Terrass"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:454
+msgid "R&otilde;du"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:455
+msgid "Korteriomand"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:456
+msgid "Parklakoht"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:722
+msgid "Couldn't open the file (%s) to write"
+msgstr ""
+
+#: classes/applications/xml_editor/maja_xml_editor.aw:728
+msgid "Cannot write to this file: %s"
+msgstr ""

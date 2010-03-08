@@ -1,0 +1,64 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="obj_quick_add" folder="www/dev/terryf/automatweb_dev/classes/applications/customer_satisfaction_center" extends="class_base">
+		<action name="delete_bms">
+			<function name="delete_bms">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_quick_adds">
+			<function name="copy_quick_adds">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_quick_adds">
+			<function name="cut_quick_adds">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_quick_adds">
+			<function name="paste_quick_adds">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="qa_lod">
+			<function name="qa_lod">
+				<arguments>
+					<optional name="url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_to_bm">
+			<function name="add_to_bm">
+				<arguments>
+					<optional name="url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_from_bm">
+			<function name="remove_from_bm">
+				<arguments>
+					<optional name="url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_bms">
+			<function name="save_bms">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

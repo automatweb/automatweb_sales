@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_person_wh_table_entry_row" folder="applications/crm" extends="class_base">
+	</class>
+</orb>
+		

@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="auth_remote_settings" folder="www/dev/terryf/automatweb_dev/classes/core/users/auth" extends="class_base">
+		<action name="check_hash">
+			<function name="check_hash">
+				<arguments>
+					<required name="c_uid" />
+					<required name="c_hash" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autologin" nologin="1">
+			<function name="autologin">
+				<arguments>
+					<required name="remote_uid" />
+					<required name="remote_hash" />
+					<required name="remote_site" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remote_login" default="1">
+			<function name="remote_login">
+				<arguments>
+					<required name="url" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

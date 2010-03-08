@@ -1,0 +1,4 @@
+<h2>time_select</h2>
+
+Basic widget for selecting a time (hour and minute). Will be rendered as 2 select elements.
+

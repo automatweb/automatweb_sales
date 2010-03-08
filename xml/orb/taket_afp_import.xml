@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="taket_afp_import" folder="www/dev/terryf/automatweb_dev/classes/applications/clients/taket" extends="class_base">
+		<action name="import_data" all_args="1">
+			<function name="import_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="import_amounts" all_args="1">
+			<function name="import_amounts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="import_prices" all_args="1">
+			<function name="import_prices">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_users_data" all_args="1">
+			<function name="make_master_import_happy">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

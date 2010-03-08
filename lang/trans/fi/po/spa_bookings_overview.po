@@ -1,0 +1,1165 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:class_1187_help
+msgid "Klassi Broneeringute &uuml;levaade help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rooms_folder
+msgid "Omaduse Ruumide kaust (rooms_folder) caption"
+msgstr "Roomite volderi"
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rooms_folder_comment
+msgid "Omaduse Ruumide kaust (rooms_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rooms_folder_help
+msgid "Omaduse Ruumide kaust (rooms_folder) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_owner
+msgid "Omaduse Omanik (owner) caption"
+msgstr "Ouneri"
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_owner_comment
+msgid "Omaduse Omanik (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_owner_help
+msgid "Omaduse Omanik (owner) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_groups
+msgid "Omaduse Kasutajagrupid (groups) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_groups_comment
+msgid "Omaduse Kasutajagrupid (groups) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_groups_help
+msgid "Omaduse Kasutajagrupid (groups) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_tb
+msgid "Omaduse  (room_management_tb) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_tb_comment
+msgid "Omaduse  (room_management_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_tb_help
+msgid "Omaduse  (room_management_tb) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_tree
+msgid "Omaduse  (room_management_tree) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_tree_comment
+msgid "Omaduse  (room_management_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_tree_help
+msgid "Omaduse  (room_management_tree) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_type_tree
+msgid "Omaduse  (room_management_type_tree) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_type_tree_comment
+msgid "Omaduse  (room_management_type_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_type_tree_help
+msgid "Omaduse  (room_management_type_tree) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_capacity_from_tree
+msgid "Omaduse  (room_management_capacity_from_tree) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_capacity_from_tree_comment
+msgid "Omaduse  (room_management_capacity_from_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_capacity_from_tree_help
+msgid "Omaduse  (room_management_capacity_from_tree) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_capacity_to_tree
+msgid "Omaduse  (room_management_capacity_to_tree) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_capacity_to_tree_comment
+msgid "Omaduse  (room_management_capacity_to_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_capacity_to_tree_help
+msgid "Omaduse  (room_management_capacity_to_tree) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_name
+msgid "Omaduse Ruumi nimi (room_management_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_name_comment
+msgid "Omaduse Ruumi nimi (room_management_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_name_help
+msgid "Omaduse Ruumi nimi (room_management_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_rs_btn
+msgid "Omaduse Otsi (room_management_rs_btn) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_rs_btn_comment
+msgid "Omaduse Otsi (room_management_rs_btn) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_rs_btn_help
+msgid "Omaduse Otsi (room_management_rs_btn) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_list
+msgid "Omaduse  (room_management_list) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_list_comment
+msgid "Omaduse  (room_management_list) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_room_management_list_help
+msgid "Omaduse  (room_management_list) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_tb
+msgid "Omaduse  (reservation_management_tb) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_tb_comment
+msgid "Omaduse  (reservation_management_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_tb_help
+msgid "Omaduse  (reservation_management_tb) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_tree
+msgid "Omaduse  (reservation_management_tree) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_tree_comment
+msgid "Omaduse  (reservation_management_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_tree_help
+msgid "Omaduse  (reservation_management_tree) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_time_tree
+msgid "Omaduse  (reservation_management_time_tree) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_time_tree_comment
+msgid "Omaduse  (reservation_management_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_time_tree_help
+msgid "Omaduse  (reservation_management_time_tree) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_name
+msgid "Omaduse Ruumi nimi (reservation_management_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_name_comment
+msgid "Omaduse Ruumi nimi (reservation_management_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_name_help
+msgid "Omaduse Ruumi nimi (reservation_management_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_rs_btn
+msgid "Omaduse Otsi (reservation_management_rs_btn) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_rs_btn_comment
+msgid "Omaduse Otsi (reservation_management_rs_btn) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_rs_btn_help
+msgid "Omaduse Otsi (reservation_management_rs_btn) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_list
+msgid "Omaduse  (reservation_management_list) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_list_comment
+msgid "Omaduse  (reservation_management_list) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_reservation_management_list_help
+msgid "Omaduse  (reservation_management_list) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_tb
+msgid "Omaduse  (r_tb) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_tb_comment
+msgid "Omaduse  (r_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_tb_help
+msgid "Omaduse  (r_tb) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rooms_tree
+msgid "Omaduse  (rooms_tree) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rooms_tree_comment
+msgid "Omaduse  (rooms_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rooms_tree_help
+msgid "Omaduse  (rooms_tree) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_name
+msgid "Omaduse Ruumi nimi (rs_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_name_comment
+msgid "Omaduse Ruumi nimi (rs_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_name_help
+msgid "Omaduse Ruumi nimi (rs_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_booker_name
+msgid "Omaduse Broneerija nimi (rs_booker_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_booker_name_comment
+msgid "Omaduse Broneerija nimi (rs_booker_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_booker_name_help
+msgid "Omaduse Broneerija nimi (rs_booker_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_booking_from
+msgid "Omaduse Broneering alates (rs_booking_from) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_booking_from_comment
+msgid "Omaduse Broneering alates (rs_booking_from) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_booking_from_help
+msgid "Omaduse Broneering alates (rs_booking_from) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_booking_to
+msgid "Omaduse Broneering kuni (rs_booking_to) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_booking_to_comment
+msgid "Omaduse Broneering kuni (rs_booking_to) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_booking_to_help
+msgid "Omaduse Broneering kuni (rs_booking_to) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_unconfirmed
+msgid "Omaduse Kinnitamata (rs_unconfirmed) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_unconfirmed_comment
+msgid "Omaduse Kinnitamata (rs_unconfirmed) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_unconfirmed_help
+msgid "Omaduse Kinnitamata (rs_unconfirmed) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_btn
+msgid "Omaduse Otsi (rs_btn) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_btn_comment
+msgid "Omaduse Otsi (rs_btn) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rs_btn_help
+msgid "Omaduse Otsi (rs_btn) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_list
+msgid "Omaduse  (r_list) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_list_comment
+msgid "Omaduse  (r_list) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_list_help
+msgid "Omaduse  (r_list) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_name
+msgid "Omaduse Kliendi nimi (stats_rs_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_name_comment
+msgid "Omaduse Kliendi nimi (stats_rs_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_name_help
+msgid "Omaduse Kliendi nimi (stats_rs_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_booker_name
+msgid "Omaduse Reisib&uuml;roo nimi (stats_rs_booker_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_booker_name_comment
+msgid "Omaduse Reisib&uuml;roo nimi (stats_rs_booker_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_booker_name_help
+msgid "Omaduse Reisib&uuml;roo nimi (stats_rs_booker_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_booking_from
+msgid "Omaduse Broneering alates (stats_rs_booking_from) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_booking_from_comment
+msgid "Omaduse Broneering alates (stats_rs_booking_from) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_booking_from_help
+msgid "Omaduse Broneering alates (stats_rs_booking_from) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_booking_to
+msgid "Omaduse Broneering kuni (stats_rs_booking_to) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_booking_to_comment
+msgid "Omaduse Broneering kuni (stats_rs_booking_to) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_booking_to_help
+msgid "Omaduse Broneering kuni (stats_rs_booking_to) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_package
+msgid "Omaduse Pakett (stats_rs_package) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_package_comment
+msgid "Omaduse Pakett (stats_rs_package) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_package_help
+msgid "Omaduse Pakett (stats_rs_package) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_btn
+msgid "Omaduse Otsi (stats_rs_btn) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_btn_comment
+msgid "Omaduse Otsi (stats_rs_btn) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_rs_btn_help
+msgid "Omaduse Otsi (stats_rs_btn) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_r_list
+msgid "Omaduse  (stats_r_list) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_r_list_comment
+msgid "Omaduse  (stats_r_list) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_stats_r_list_help
+msgid "Omaduse  (stats_r_list) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_ra_tb
+msgid "Omaduse  (ra_tb) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_ra_tb_comment
+msgid "Omaduse  (ra_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_ra_tb_help
+msgid "Omaduse  (ra_tb) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_name
+msgid "Omaduse Ruumi nimi (r_ra_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_name_comment
+msgid "Omaduse Ruumi nimi (r_ra_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_name_help
+msgid "Omaduse Ruumi nimi (r_ra_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_booker_name
+msgid "Omaduse Broneerija nimi (r_ra_booker_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_booker_name_comment
+msgid "Omaduse Broneerija nimi (r_ra_booker_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_booker_name_help
+msgid "Omaduse Broneerija nimi (r_ra_booker_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_project
+msgid "Omaduse Projekt (r_ra_project) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_project_comment
+msgid "Omaduse Projekt (r_ra_project) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_project_help
+msgid "Omaduse Projekt (r_ra_project) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_location
+msgid "Omaduse Asukoht (r_ra_location) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_location_comment
+msgid "Omaduse Asukoht (r_ra_location) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_location_help
+msgid "Omaduse Asukoht (r_ra_location) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_worker
+msgid "Omaduse T&otilde;&otilde;taja (r_ra_worker) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_worker_comment
+msgid "Omaduse T&otilde;&otilde;taja (r_ra_worker) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_worker_help
+msgid "Omaduse T&otilde;&otilde;taja (r_ra_worker) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_seller
+msgid "Omaduse Vahendaja (r_ra_seller) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_seller_comment
+msgid "Omaduse Vahendaja (r_ra_seller) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_seller_help
+msgid "Omaduse Vahendaja (r_ra_seller) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_booking_from
+msgid "Omaduse Broneering alates (r_ra_booking_from) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_booking_from_comment
+msgid "Omaduse Broneering alates (r_ra_booking_from) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_booking_from_help
+msgid "Omaduse Broneering alates (r_ra_booking_from) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_booking_to
+msgid "Omaduse Broneering kuni (r_ra_booking_to) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_booking_to_comment
+msgid "Omaduse Broneering kuni (r_ra_booking_to) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_booking_to_help
+msgid "Omaduse Broneering kuni (r_ra_booking_to) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_only_done
+msgid "Omaduse Kohale ilmunud (r_ra_only_done) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_only_done_comment
+msgid "Omaduse Kohale ilmunud (r_ra_only_done) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_only_done_help
+msgid "Omaduse Kohale ilmunud (r_ra_only_done) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_only_paid
+msgid "Omaduse Maksnud (r_ra_only_paid) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_only_paid_comment
+msgid "Omaduse Maksnud (r_ra_only_paid) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_only_paid_help
+msgid "Omaduse Maksnud (r_ra_only_paid) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_unconfirmed
+msgid "Omaduse K.A Kinnitamata (r_ra_unconfirmed) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_unconfirmed_comment
+msgid "Omaduse K.A Kinnitamata (r_ra_unconfirmed) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_unconfirmed_help
+msgid "Omaduse K.A Kinnitamata (r_ra_unconfirmed) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_res_type
+msgid "Omaduse Tulemused (r_ra_res_type) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_res_type_comment
+msgid "Omaduse Tulemused (r_ra_res_type) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_res_type_help
+msgid "Omaduse Tulemused (r_ra_res_type) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_res_style
+msgid "Omaduse  (r_ra_res_style) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_res_style_comment
+msgid "Omaduse  (r_ra_res_style) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_res_style_help
+msgid "Omaduse  (r_ra_res_style) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_btn
+msgid "Omaduse Otsi (r_ra_btn) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_btn_comment
+msgid "Omaduse Otsi (r_ra_btn) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_btn_help
+msgid "Omaduse Otsi (r_ra_btn) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_list
+msgid "Omaduse  (r_ra_list) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_list_comment
+msgid "Omaduse  (r_ra_list) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_list_help
+msgid "Omaduse  (r_ra_list) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_days_projects_tab
+msgid "Omaduse  (r_ra_days_projects_tab) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_days_projects_tab_comment
+msgid "Omaduse  (r_ra_days_projects_tab) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_ra_days_projects_tab_help
+msgid "Omaduse  (r_ra_days_projects_tab) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rr_tb
+msgid "Omaduse  (rr_tb) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rr_tb_comment
+msgid "Omaduse  (rr_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_rr_tb_help
+msgid "Omaduse  (rr_tb) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_name
+msgid "Omaduse Ruumi nimi (r_rs_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_name_comment
+msgid "Omaduse Ruumi nimi (r_rs_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_name_help
+msgid "Omaduse Ruumi nimi (r_rs_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_booker_name
+msgid "Omaduse Broneerija nimi (r_rs_booker_name) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_booker_name_comment
+msgid "Omaduse Broneerija nimi (r_rs_booker_name) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_booker_name_help
+msgid "Omaduse Broneerija nimi (r_rs_booker_name) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_booking_from
+msgid "Omaduse Broneering alates (r_rs_booking_from) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_booking_from_comment
+msgid "Omaduse Broneering alates (r_rs_booking_from) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_booking_from_help
+msgid "Omaduse Broneering alates (r_rs_booking_from) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_booking_to
+msgid "Omaduse Broneering kuni (r_rs_booking_to) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_booking_to_comment
+msgid "Omaduse Broneering kuni (r_rs_booking_to) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_booking_to_help
+msgid "Omaduse Broneering kuni (r_rs_booking_to) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_btn
+msgid "Omaduse Otsi (r_rs_btn) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_btn_comment
+msgid "Omaduse Otsi (r_rs_btn) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_rs_btn_help
+msgid "Omaduse Otsi (r_rs_btn) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_r_list
+msgid "Omaduse  (r_r_list) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_r_list_comment
+msgid "Omaduse  (r_r_list) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:prop_r_r_list_help
+msgid "Omaduse  (r_r_list) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_room_management
+msgid "Grupi Ruumide&nbsp;haldus (room_management) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_room_management_help
+msgid "Grupi Ruumide&nbsp;haldus (room_management) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_reservation_management
+msgid "Grupi Broneeringute&nbsp;haldus (reservation_management) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_reservation_management_help
+msgid "Grupi Broneeringute&nbsp;haldus (reservation_management) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_rooms
+msgid "Grupi Ruumid (rooms) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_rooms_help
+msgid "Grupi Ruumid (rooms) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_stats
+msgid "Grupi Statistika (stats) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_stats_help
+msgid "Grupi Statistika (stats) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_spa_reports
+msgid "Grupi SpaAruanded (spa_reports) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_spa_reports_help
+msgid "Grupi SpaAruanded (spa_reports) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_reports
+msgid "Grupi Aruanded (reports) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_reports_help
+msgid "Grupi Aruanded (reports) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_reports_all
+msgid "Grupi Aruanded (reports_all) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:group_reports_all_help
+msgid "Grupi Aruanded (reports_all) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:rel_RELTYPE_RF
+msgid "Seose Ruumide kaust (RELTYPE_RF) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:rel_RELTYPE_OWNER
+msgid "Seose Omanik (RELTYPE_OWNER) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:rel_RELTYPE_GROUP
+msgid "Seose Kasutajagrupp (RELTYPE_GROUP) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_room_management_tree
+msgid "Kujundusosa Kategooriad (room_management_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_room_management_type_tree
+msgid "Kujundusosa T&uuml;&uuml;bid (room_management_type_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_room_management_capacity_from_tree
+msgid "Kujundusosa mahutavus&nbsp;alates (room_management_capacity_from_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_room_management_capacity_to_tree
+msgid "Kujundusosa Mahutavus&nbsp;kuni (room_management_capacity_to_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_room_management_srch
+msgid "Kujundusosa Otsing (room_management_srch) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_reservation_management_tree
+msgid "Kujundusosa Ruumid&nbsp;kategooria&nbsp;kaupa (reservation_management_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_reservation_management_time_tree
+msgid "Kujundusosa Vali&nbsp;ajavahemik (reservation_management_time_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_reservation_management_srch
+msgid "Kujundusosa Otsing (reservation_management_srch) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_r_tree
+msgid "Kujundusosa Ruumid (r_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_r_srch
+msgid "Kujundusosa Otsing (r_srch) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_stats_r_srch
+msgid "Kujundusosa Otsing (stats_r_srch) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_ra_srch
+msgid "Kujundusosa Otsing (ra_srch) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:layout_rr_srch
+msgid "Kujundusosa Otsing (rr_srch) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:302
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:306
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:737
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:785
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1964
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2522
+msgid "K&otilde;ik"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:302
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:306
+msgid "Ei"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:302
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:306
+msgid "Jah"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:332
+msgid "Ei grupeeri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:333
+msgid "Ruumide aruanne"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:334
+msgid "Vahendajate aruanne"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:335
+msgid "T&ouml;&ouml;tajate aruanne"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:336
+msgid "aruanne"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:336
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:337
+msgid "Projektide aruanne"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:337
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:345
+msgid "P&auml;evade kaupa"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:343
+msgid "Statistika"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:344
+msgid "N&auml;dalap&auml;evade kaupa"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:346
+msgid "Nimekiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:594
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:649
+msgid "K&otilde;ik kategooriad"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:719
+msgid "K&otilde;ik t&uuml;&uuml;bid"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:821
+msgid "Broneeringute nimekiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:824
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:911
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:830
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1373
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1420
+msgid "Aeg"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:837
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:917
+msgid "Korrus"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:843
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:923
+msgid "Korpus"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:849
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:929
+msgid "Number"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:856
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3231
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:936
+msgid "Normaalne mahutavus"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:942
+msgid "Maksimaalne mahutavus"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:976
+msgid "&nbsp;"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:983
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1348
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1405
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1874
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3203
+msgid "Ruum"
+msgstr "Tila"
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:989
+msgid "Broneering"
+msgstr "Varaus"
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1053
+msgid "Projekt"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1058
+msgid "Broneerija"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1079
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1342
+msgid "aeg"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1117
+msgid "(M&auml;&auml;ramata)"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1121
+msgid "(Nimetu)"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1132
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1335
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1476
+msgid "Kokku"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1146
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1251
+msgid "Kokku:"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1154
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1163
+msgid "Vahendajad"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1179
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1186
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1195
+msgid "T&ouml;&ouml;tajad"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1211
+msgid "Projektid"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1360
+msgid "Mitteilmumise p&otilde;hjus"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1368
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1415
+msgid "Broneeringuid"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1378
+msgid "&Uuml;mber registreeritud"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1389
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1398
+msgid "Ruumid"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1410
+msgid "T&ouml;&ouml;taja"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1467
+msgid "kokku"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1782
+msgid "Prindi"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1863
+msgid "Uus"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1868
+msgid "Kategooria"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1879
+msgid "Make room copy"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1881
+msgid "Loo ruumist koopia"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1902
+msgid "L&otilde;ika"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1908
+msgid "Kopeeri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1916
+msgid "Kleebi"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1929
+msgid "Kalender"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:1931
+msgid "Valige palun v&auml;hemalt &uuml;ks ruum!"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2204
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2214
+msgid "Sisesta kategooria nimi"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2343
+msgid "Mees"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2343
+msgid "Naine"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2707
+msgid "kuni"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2868
+msgid "Klient saabus"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2868
+msgid "Klient ei saabunud"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2910
+msgid "Valitud"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2922
+msgid "Eile"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2934
+msgid "T&auml;na"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2946
+msgid "Homme"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:2971
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3119
+msgid "Reisib&uuml;roo"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3156
+msgid "%s tk"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3209
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3218
+msgid "Kellaajad"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3224
+msgid "Tunde"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3452
+msgid "<b>Summa:</b>"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3591
+msgid "K&otilde;ik ajavahemikud"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3597
+msgid "Eelmine n&auml;dal"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3598
+msgid "K&auml;esolev n&auml;dal"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3599
+msgid "&Uuml;leelmine kuu"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3600
+msgid "Eelmine kuu"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3601
+msgid "K&auml;esolev kuu"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3602
+msgid "J&auml;rgmine kuu"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3603
+msgid "Eelmine aasta"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_bookings_overview.aw:3604
+msgid "K&auml;esolev aasta"
+msgstr ""

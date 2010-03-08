@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/simple_shop/simple_shop_product.aw:class_912_help
+msgid "Klassi Lihtne toode help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_name
+msgid "Omaduse Nimetus (name) caption"
+msgstr "Name"
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_name_comment
+msgid "Omaduse Nimetus (name) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_name_help
+msgid "Omaduse Nimetus (name) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_prod_code
+msgid "Omaduse Tootekood (prod_code) caption"
+msgstr "Product code"
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_prod_code_comment
+msgid "Omaduse Tootekood (prod_code) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_prod_code_help
+msgid "Omaduse Tootekood (prod_code) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_unit
+msgid "Omaduse Ühik (unit) caption"
+msgstr "Unit"
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_unit_comment
+msgid "Omaduse Ühik (unit) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_unit_help
+msgid "Omaduse Ühik (unit) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_price
+msgid "Omaduse Hind (price) caption"
+msgstr "Price"
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_price_comment
+msgid "Omaduse Hind (price) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop_product.aw:prop_price_help
+msgid "Omaduse Hind (price) help"
+msgstr ""

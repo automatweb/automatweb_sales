@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="scala_import" folder="www/dev/terryf/automatweb_dev/classes/import" extends="class_base">
+		<action name="do_import" nologin="1">
+			<function name="do_import">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="pricing" type="int" />
+					<optional name="users" type="int" />
+					<optional name="categories" type="int" />
+					<optional name="availability" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

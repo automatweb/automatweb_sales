@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="stat" folder="www/dev/terryf/automatweb_dev/classes/syslog" extends="db_stat">
+		<action name="show" default="1">
+			<function name="show">
+				<arguments>
+					<optional name="from" />
+					<optional name="to" />
+					<optional name="month" />
+					<optional name="day" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="graph">
+			<function name="graph">
+				<arguments>
+					<optional name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="compare">
+			<function name="compare">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cgraph">
+			<function name="cgraph">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

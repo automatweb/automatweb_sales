@@ -1,0 +1,622 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/css.aw:class_71_help
+#: classes/contentmgmt/css.aw:class_71_help
+msgid "Klassi Stiil CSS help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_ffamily1
+#: classes/contentmgmt/css.aw:prop_ffamily1
+msgid "Omaduse Font 1 (ffamily1) caption"
+msgstr "Font 1"
+
+# classes/contentmgmt/css.aw:prop_ffamily1_comment
+#: classes/contentmgmt/css.aw:prop_ffamily1_comment
+msgid "Omaduse Font 1 (ffamily1) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_ffamily1_help
+#: classes/contentmgmt/css.aw:prop_ffamily1_help
+msgid "Omaduse Font 1 (ffamily1) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_ffamily2
+#: classes/contentmgmt/css.aw:prop_ffamily2
+msgid "Omaduse Font 3 (ffamily2) caption"
+msgstr "Font 2"
+
+# classes/contentmgmt/css.aw:prop_ffamily2_comment
+#: classes/contentmgmt/css.aw:prop_ffamily2_comment
+msgid "Omaduse Font 3 (ffamily2) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_ffamily2_help
+#: classes/contentmgmt/css.aw:prop_ffamily2_help
+msgid "Omaduse Font 3 (ffamily2) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_ffamily3
+#: classes/contentmgmt/css.aw:prop_ffamily3
+msgid "Omaduse Font 3 (ffamily3) caption"
+msgstr "Font 3"
+
+# classes/contentmgmt/css.aw:prop_ffamily3_comment
+#: classes/contentmgmt/css.aw:prop_ffamily3_comment
+msgid "Omaduse Font 3 (ffamily3) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_ffamily3_help
+#: classes/contentmgmt/css.aw:prop_ffamily3_help
+msgid "Omaduse Font 3 (ffamily3) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_ffamily
+#: classes/contentmgmt/css.aw:prop_ffamily
+msgid "Omaduse  (ffamily) caption"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_ffamily_comment
+#: classes/contentmgmt/css.aw:prop_ffamily_comment
+msgid "Omaduse  (ffamily) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_ffamily_help
+#: classes/contentmgmt/css.aw:prop_ffamily_help
+msgid "Omaduse  (ffamily) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_italic
+#: classes/contentmgmt/css.aw:prop_italic
+msgid "Omaduse <i>Italic</i> (italic) caption"
+msgstr "<i>Italic</i>"
+
+# classes/contentmgmt/css.aw:prop_italic_comment
+#: classes/contentmgmt/css.aw:prop_italic_comment
+msgid "Omaduse <i>Italic</i> (italic) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_italic_help
+#: classes/contentmgmt/css.aw:prop_italic_help
+msgid "Omaduse <i>Italic</i> (italic) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_bold
+#: classes/contentmgmt/css.aw:prop_bold
+msgid "Omaduse <b>Bold</b> (bold) caption"
+msgstr "<b>Bold</b>"
+
+# classes/contentmgmt/css.aw:prop_bold_comment
+#: classes/contentmgmt/css.aw:prop_bold_comment
+msgid "Omaduse <b>Bold</b> (bold) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_bold_help
+#: classes/contentmgmt/css.aw:prop_bold_help
+msgid "Omaduse <b>Bold</b> (bold) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_underline
+#: classes/contentmgmt/css.aw:prop_underline
+msgid "Omaduse <u>Underline</u> (underline) caption"
+msgstr "<u>Underline</u>"
+
+# classes/contentmgmt/css.aw:prop_underline_comment
+#: classes/contentmgmt/css.aw:prop_underline_comment
+msgid "Omaduse <u>Underline</u> (underline) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_underline_help
+#: classes/contentmgmt/css.aw:prop_underline_help
+msgid "Omaduse <u>Underline</u> (underline) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_size
+#: classes/contentmgmt/css.aw:prop_size
+msgid "Omaduse Kirja suurus (px) (size) caption"
+msgstr "Text size (px)"
+
+# classes/contentmgmt/css.aw:prop_size_comment
+#: classes/contentmgmt/css.aw:prop_size_comment
+msgid "Omaduse Kirja suurus (px) (size) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_size_help
+#: classes/contentmgmt/css.aw:prop_size_help
+msgid "Omaduse Kirja suurus (px) (size) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_fgcolor
+#: classes/contentmgmt/css.aw:prop_fgcolor
+msgid "Omaduse Teksti v&auml;rv (fgcolor) caption"
+msgstr "Text colour"
+
+# classes/contentmgmt/css.aw:prop_fgcolor_comment
+#: classes/contentmgmt/css.aw:prop_fgcolor_comment
+msgid "Omaduse Teksti v&auml;rv (fgcolor) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_fgcolor_help
+#: classes/contentmgmt/css.aw:prop_fgcolor_help
+msgid "Omaduse Teksti v&auml;rv (fgcolor) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_bgcolor
+#: classes/contentmgmt/css.aw:prop_bgcolor
+msgid "Omaduse Tausta v&auml;rv (bgcolor) caption"
+msgstr "Background colour"
+
+# classes/contentmgmt/css.aw:prop_bgcolor_comment
+#: classes/contentmgmt/css.aw:prop_bgcolor_comment
+msgid "Omaduse Tausta v&auml;rv (bgcolor) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_bgcolor_help
+#: classes/contentmgmt/css.aw:prop_bgcolor_help
+msgid "Omaduse Tausta v&auml;rv (bgcolor) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_lineheight
+#: classes/contentmgmt/css.aw:prop_lineheight
+msgid "Omaduse Joone k&otilde;rgus  (lineheight) caption"
+msgstr "Line height"
+
+# classes/contentmgmt/css.aw:prop_lineheight_comment
+#: classes/contentmgmt/css.aw:prop_lineheight_comment
+msgid "Omaduse Joone k&otilde;rgus  (lineheight) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_lineheight_help
+#: classes/contentmgmt/css.aw:prop_lineheight_help
+msgid "Omaduse Joone k&otilde;rgus  (lineheight) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_border
+#: classes/contentmgmt/css.aw:prop_border
+msgid "Omaduse &Auml;&auml;rejoone j&auml;medus (border) caption"
+msgstr "Border width"
+
+# classes/contentmgmt/css.aw:prop_border_comment
+#: classes/contentmgmt/css.aw:prop_border_comment
+msgid "Omaduse &Auml;&auml;rejoone j&auml;medus (border) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_border_help
+#: classes/contentmgmt/css.aw:prop_border_help
+msgid "Omaduse &Auml;&auml;rejoone j&auml;medus (border) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_bordercolor
+#: classes/contentmgmt/css.aw:prop_bordercolor
+msgid "Omaduse &Auml;&auml;rejoone v&auml;rv (bordercolor) caption"
+msgstr "Border colour"
+
+# classes/contentmgmt/css.aw:prop_bordercolor_comment
+#: classes/contentmgmt/css.aw:prop_bordercolor_comment
+msgid "Omaduse &Auml;&auml;rejoone v&auml;rv (bordercolor) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_bordercolor_help
+#: classes/contentmgmt/css.aw:prop_bordercolor_help
+msgid "Omaduse &Auml;&auml;rejoone v&auml;rv (bordercolor) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_align
+#: classes/contentmgmt/css.aw:prop_align
+msgid "Omaduse Align (align) caption"
+msgstr "Align"
+
+# classes/contentmgmt/css.aw:prop_align_comment
+#: classes/contentmgmt/css.aw:prop_align_comment
+msgid "Omaduse Align (align) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_align_help
+#: classes/contentmgmt/css.aw:prop_align_help
+msgid "Omaduse Align (align) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_valign
+#: classes/contentmgmt/css.aw:prop_valign
+msgid "Omaduse Valign (valign) caption"
+msgstr "Valign"
+
+# classes/contentmgmt/css.aw:prop_valign_comment
+#: classes/contentmgmt/css.aw:prop_valign_comment
+msgid "Omaduse Valign (valign) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_valign_help
+#: classes/contentmgmt/css.aw:prop_valign_help
+msgid "Omaduse Valign (valign) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_width
+#: classes/contentmgmt/css.aw:prop_width
+msgid "Omaduse Laius (width) caption"
+msgstr "Width"
+
+# classes/contentmgmt/css.aw:prop_width_comment
+#: classes/contentmgmt/css.aw:prop_width_comment
+msgid "Omaduse Laius (width) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_width_help
+#: classes/contentmgmt/css.aw:prop_width_help
+msgid "Omaduse Laius (width) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_height
+#: classes/contentmgmt/css.aw:prop_height
+msgid "Omaduse K&otilde;rgus (height) caption"
+msgstr "Height"
+
+# classes/contentmgmt/css.aw:prop_height_comment
+#: classes/contentmgmt/css.aw:prop_height_comment
+msgid "Omaduse K&otilde;rgus (height) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_height_help
+#: classes/contentmgmt/css.aw:prop_height_help
+msgid "Omaduse K&otilde;rgus (height) help"
+msgstr ""
+
+#: classes/contentmgmt/css.aw:prop_nowrap
+msgid "Omaduse Nowrap (nowrap) caption"
+msgstr ""
+
+#: classes/contentmgmt/css.aw:prop_nowrap_comment
+msgid "Omaduse Nowrap (nowrap) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/css.aw:prop_nowrap_help
+msgid "Omaduse Nowrap (nowrap) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_padding
+#: classes/contentmgmt/css.aw:prop_padding
+msgid "Omaduse Elementide vahe (cellspacing) (px) (padding) caption"
+msgstr "Cell spacing"
+
+# classes/contentmgmt/css.aw:prop_padding_comment
+#: classes/contentmgmt/css.aw:prop_padding_comment
+msgid "Omaduse Elementide vahe (cellspacing) (px) (padding) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_padding_help
+#: classes/contentmgmt/css.aw:prop_padding_help
+msgid "Omaduse Elementide vahe (cellspacing) (px) (padding) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_margin
+#: classes/contentmgmt/css.aw:prop_margin
+msgid "Omaduse Sisu kaugus joontest (cellspadding) (px) (margin) caption"
+msgstr "Cell padding"
+
+# classes/contentmgmt/css.aw:prop_margin_comment
+#: classes/contentmgmt/css.aw:prop_margin_comment
+msgid "Omaduse Sisu kaugus joontest (cellspadding) (px) (margin) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_margin_help
+#: classes/contentmgmt/css.aw:prop_margin_help
+msgid "Omaduse Sisu kaugus joontest (cellspadding) (px) (margin) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_a_style
+#: classes/contentmgmt/css.aw:prop_a_style
+msgid "Omaduse Lingi stiil (a_style) caption"
+msgstr "Link style"
+
+# classes/contentmgmt/css.aw:prop_a_style_comment
+#: classes/contentmgmt/css.aw:prop_a_style_comment
+msgid "Omaduse Lingi stiil (a_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_a_style_help
+#: classes/contentmgmt/css.aw:prop_a_style_help
+msgid "Omaduse Lingi stiil (a_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_a_hover_style
+#: classes/contentmgmt/css.aw:prop_a_hover_style
+msgid "Omaduse Lingi stiil (hover) (a_hover_style) caption"
+msgstr "Link style (hover)"
+
+# classes/contentmgmt/css.aw:prop_a_hover_style_comment
+#: classes/contentmgmt/css.aw:prop_a_hover_style_comment
+msgid "Omaduse Lingi stiil (hover) (a_hover_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_a_hover_style_help
+#: classes/contentmgmt/css.aw:prop_a_hover_style_help
+msgid "Omaduse Lingi stiil (hover) (a_hover_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_a_visited_style
+#: classes/contentmgmt/css.aw:prop_a_visited_style
+msgid "Omaduse Lingi stiil (visited) (a_visited_style) caption"
+msgstr "Link style (visited)"
+
+# classes/contentmgmt/css.aw:prop_a_visited_style_comment
+#: classes/contentmgmt/css.aw:prop_a_visited_style_comment
+msgid "Omaduse Lingi stiil (visited) (a_visited_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_a_visited_style_help
+#: classes/contentmgmt/css.aw:prop_a_visited_style_help
+msgid "Omaduse Lingi stiil (visited) (a_visited_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_a_active_style
+#: classes/contentmgmt/css.aw:prop_a_active_style
+msgid "Omaduse Lingi stiil (active) (a_active_style) caption"
+msgstr "Link style (active)"
+
+# classes/contentmgmt/css.aw:prop_a_active_style_comment
+#: classes/contentmgmt/css.aw:prop_a_active_style_comment
+msgid "Omaduse Lingi stiil (active) (a_active_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_a_active_style_help
+#: classes/contentmgmt/css.aw:prop_a_active_style_help
+msgid "Omaduse Lingi stiil (active) (a_active_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_user_css
+#: classes/contentmgmt/css.aw:prop_user_css
+msgid "Omaduse Kasutaja css (user_css) caption"
+msgstr "User css"
+
+# classes/contentmgmt/css.aw:prop_user_css_comment
+#: classes/contentmgmt/css.aw:prop_user_css_comment
+msgid "Omaduse Kasutaja css (user_css) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_user_css_help
+#: classes/contentmgmt/css.aw:prop_user_css_help
+msgid "Omaduse Kasutaja css (user_css) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_site_css
+#: classes/contentmgmt/css.aw:prop_site_css
+msgid "Omaduse Saidi css failis defineeritud stiil (site_css) caption"
+msgstr "Name of style defined in the site css file"
+
+# classes/contentmgmt/css.aw:prop_site_css_comment
+#: classes/contentmgmt/css.aw:prop_site_css_comment
+msgid "Omaduse Saidi css failis defineeritud stiil (site_css) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_site_css_help
+#: classes/contentmgmt/css.aw:prop_site_css_help
+msgid "Omaduse Saidi css failis defineeritud stiil (site_css) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_frow_style
+#: classes/contentmgmt/css.aw:prop_frow_style
+msgid "Omaduse Esimeste ridade stiil (frow_style) caption"
+msgstr "First row style"
+
+# classes/contentmgmt/css.aw:prop_frow_style_comment
+#: classes/contentmgmt/css.aw:prop_frow_style_comment
+msgid "Omaduse Esimeste ridade stiil (frow_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_frow_style_help
+#: classes/contentmgmt/css.aw:prop_frow_style_help
+msgid "Omaduse Esimeste ridade stiil (frow_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_num_frows
+#: classes/contentmgmt/css.aw:prop_num_frows
+msgid "Omaduse Mitmele esimesele reale (num_frows) caption"
+msgstr "Howm many first rows"
+
+# classes/contentmgmt/css.aw:prop_num_frows_comment
+#: classes/contentmgmt/css.aw:prop_num_frows_comment
+msgid "Omaduse Mitmele esimesele reale (num_frows) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_num_frows_help
+#: classes/contentmgmt/css.aw:prop_num_frows_help
+msgid "Omaduse Mitmele esimesele reale (num_frows) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_fcol_style
+#: classes/contentmgmt/css.aw:prop_fcol_style
+msgid "Omaduse Esimeste tulpade stiil (fcol_style) caption"
+msgstr "First column style"
+
+# classes/contentmgmt/css.aw:prop_fcol_style_comment
+#: classes/contentmgmt/css.aw:prop_fcol_style_comment
+msgid "Omaduse Esimeste tulpade stiil (fcol_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_fcol_style_help
+#: classes/contentmgmt/css.aw:prop_fcol_style_help
+msgid "Omaduse Esimeste tulpade stiil (fcol_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_num_fcols
+#: classes/contentmgmt/css.aw:prop_num_fcols
+msgid "Omaduse Mitmele esimesele tulbale (num_fcols) caption"
+msgstr "How many first columns"
+
+# classes/contentmgmt/css.aw:prop_num_fcols_comment
+#: classes/contentmgmt/css.aw:prop_num_fcols_comment
+msgid "Omaduse Mitmele esimesele tulbale (num_fcols) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_num_fcols_help
+#: classes/contentmgmt/css.aw:prop_num_fcols_help
+msgid "Omaduse Mitmele esimesele tulbale (num_fcols) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_lrow_style
+#: classes/contentmgmt/css.aw:prop_lrow_style
+msgid "Omaduse Viimaste ridade stiil (lrow_style) caption"
+msgstr "Last row style"
+
+# classes/contentmgmt/css.aw:prop_lrow_style_comment
+#: classes/contentmgmt/css.aw:prop_lrow_style_comment
+msgid "Omaduse Viimaste ridade stiil (lrow_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_lrow_style_help
+#: classes/contentmgmt/css.aw:prop_lrow_style_help
+msgid "Omaduse Viimaste ridade stiil (lrow_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_num_lrows
+#: classes/contentmgmt/css.aw:prop_num_lrows
+msgid "Omaduse Mitmele viimasele reale (num_lrows) caption"
+msgstr "How many last rows"
+
+# classes/contentmgmt/css.aw:prop_num_lrows_comment
+#: classes/contentmgmt/css.aw:prop_num_lrows_comment
+msgid "Omaduse Mitmele viimasele reale (num_lrows) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_num_lrows_help
+#: classes/contentmgmt/css.aw:prop_num_lrows_help
+msgid "Omaduse Mitmele viimasele reale (num_lrows) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_lcol_style
+#: classes/contentmgmt/css.aw:prop_lcol_style
+msgid "Omaduse Viimaste tulpade stiil (lcol_style) caption"
+msgstr "Last column style"
+
+# classes/contentmgmt/css.aw:prop_lcol_style_comment
+#: classes/contentmgmt/css.aw:prop_lcol_style_comment
+msgid "Omaduse Viimaste tulpade stiil (lcol_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_lcol_style_help
+#: classes/contentmgmt/css.aw:prop_lcol_style_help
+msgid "Omaduse Viimaste tulpade stiil (lcol_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_num_lcols
+#: classes/contentmgmt/css.aw:prop_num_lcols
+msgid "Omaduse Mitmele viimasele tulbale (num_lcols) caption"
+msgstr "How many last columns"
+
+# classes/contentmgmt/css.aw:prop_num_lcols_comment
+#: classes/contentmgmt/css.aw:prop_num_lcols_comment
+msgid "Omaduse Mitmele viimasele tulbale (num_lcols) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_num_lcols_help
+#: classes/contentmgmt/css.aw:prop_num_lcols_help
+msgid "Omaduse Mitmele viimasele tulbale (num_lcols) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_header_style
+#: classes/contentmgmt/css.aw:prop_header_style
+msgid "Omaduse P&auml;ise stiil (header_style) caption"
+msgstr "Header style"
+
+# classes/contentmgmt/css.aw:prop_header_style_comment
+#: classes/contentmgmt/css.aw:prop_header_style_comment
+msgid "Omaduse P&auml;ise stiil (header_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_header_style_help
+#: classes/contentmgmt/css.aw:prop_header_style_help
+msgid "Omaduse P&auml;ise stiil (header_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_footer_style
+#: classes/contentmgmt/css.aw:prop_footer_style
+msgid "Omaduse Jaluse stiil (footer_style) caption"
+msgstr "Footer style"
+
+# classes/contentmgmt/css.aw:prop_footer_style_comment
+#: classes/contentmgmt/css.aw:prop_footer_style_comment
+msgid "Omaduse Jaluse stiil (footer_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_footer_style_help
+#: classes/contentmgmt/css.aw:prop_footer_style_help
+msgid "Omaduse Jaluse stiil (footer_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_odd_style
+#: classes/contentmgmt/css.aw:prop_odd_style
+msgid "Omaduse Paaritu rea stiil (odd_style) caption"
+msgstr "Odd line style"
+
+# classes/contentmgmt/css.aw:prop_odd_style_comment
+#: classes/contentmgmt/css.aw:prop_odd_style_comment
+msgid "Omaduse Paaritu rea stiil (odd_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_odd_style_help
+#: classes/contentmgmt/css.aw:prop_odd_style_help
+msgid "Omaduse Paaritu rea stiil (odd_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_even_style
+#: classes/contentmgmt/css.aw:prop_even_style
+msgid "Omaduse Paaris rea stiil (even_style) caption"
+msgstr "Even line style"
+
+# classes/contentmgmt/css.aw:prop_even_style_comment
+#: classes/contentmgmt/css.aw:prop_even_style_comment
+msgid "Omaduse Paaris rea stiil (even_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_even_style_help
+#: classes/contentmgmt/css.aw:prop_even_style_help
+msgid "Omaduse Paaris rea stiil (even_style) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_pre
+#: classes/contentmgmt/css.aw:prop_pre
+msgid "Omaduse Eelvaade (pre) caption"
+msgstr "Preview"
+
+# classes/contentmgmt/css.aw:prop_pre_comment
+#: classes/contentmgmt/css.aw:prop_pre_comment
+msgid "Omaduse Eelvaade (pre) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/css.aw:prop_pre_help
+#: classes/contentmgmt/css.aw:prop_pre_help
+msgid "Omaduse Eelvaade (pre) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:group_table
+#: classes/contentmgmt/css.aw:group_table
+msgid "Grupi Tabel (table) pealkiri"
+msgstr "Table"
+
+# classes/contentmgmt/css.aw:group_table_help
+#: classes/contentmgmt/css.aw:group_table_help
+msgid "Grupi Tabel (table) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:group_preview
+#: classes/contentmgmt/css.aw:group_preview
+msgid "Grupi Eelvaade (preview) pealkiri"
+msgstr "Preview"
+
+# classes/contentmgmt/css.aw:group_preview_help
+#: classes/contentmgmt/css.aw:group_preview_help
+msgid "Grupi Eelvaade (preview) help"
+msgstr ""
+
+# classes/contentmgmt/css.aw:rel_RELTYPE_CSS
+#: classes/contentmgmt/css.aw:rel_RELTYPE_CSS
+msgid "Seose css stiil (RELTYPE_CSS) tekst"
+msgstr "css style"

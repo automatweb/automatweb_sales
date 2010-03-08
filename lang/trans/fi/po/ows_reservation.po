@@ -1,0 +1,606 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/ows_bron/ows_reservation.aw:class_1344_help
+msgid "Klassi OWS Broneering help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_is_confirmed
+msgid "Omaduse Kinnitatud (is_confirmed) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_is_confirmed_comment
+msgid "Omaduse Kinnitatud (is_confirmed) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_is_confirmed_help
+msgid "Omaduse Kinnitatud (is_confirmed) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_ows_bron
+msgid "Omaduse Broneeringukeskus (ows_bron) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_ows_bron_comment
+msgid "Omaduse Broneeringukeskus (ows_bron) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_ows_bron_help
+msgid "Omaduse Broneeringukeskus (ows_bron) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_hotel_id
+msgid "Omaduse Hotell (hotel_id) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_hotel_id_comment
+msgid "Omaduse Hotell (hotel_id) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_hotel_id_help
+msgid "Omaduse Hotell (hotel_id) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_id
+msgid "Omaduse Rate (rate_id) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_id_comment
+msgid "Omaduse Rate (rate_id) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_id_help
+msgid "Omaduse Rate (rate_id) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_arrival_date
+msgid "Omaduse Saabumine (arrival_date) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_arrival_date_comment
+msgid "Omaduse Saabumine (arrival_date) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_arrival_date_help
+msgid "Omaduse Saabumine (arrival_date) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_departure_date
+msgid "Omaduse Lahkumine (departure_date) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_departure_date_comment
+msgid "Omaduse Lahkumine (departure_date) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_departure_date_help
+msgid "Omaduse Lahkumine (departure_date) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_num_rooms
+msgid "Omaduse Tube (num_rooms) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_num_rooms_comment
+msgid "Omaduse Tube (num_rooms) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_num_rooms_help
+msgid "Omaduse Tube (num_rooms) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_adults_per_room
+msgid "Omaduse Adults per room (adults_per_room) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_adults_per_room_comment
+msgid "Omaduse Adults per room (adults_per_room) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_adults_per_room_help
+msgid "Omaduse Adults per room (adults_per_room) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_child_per_room
+msgid "Omaduse Children per room (child_per_room) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_child_per_room_comment
+msgid "Omaduse Children per room (child_per_room) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_child_per_room_help
+msgid "Omaduse Children per room (child_per_room) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_promo_code
+msgid "Omaduse Promo kood (promo_code) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_promo_code_comment
+msgid "Omaduse Promo kood (promo_code) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_promo_code_help
+msgid "Omaduse Promo kood (promo_code) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_currency
+msgid "Omaduse Valuuta (currency) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_currency_comment
+msgid "Omaduse Valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_currency_help
+msgid "Omaduse Valuuta (currency) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_title
+msgid "Omaduse Guest title (guest_title) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_title_comment
+msgid "Omaduse Guest title (guest_title) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_title_help
+msgid "Omaduse Guest title (guest_title) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_firstname
+msgid "Omaduse Guest first name (guest_firstname) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_firstname_comment
+msgid "Omaduse Guest first name (guest_firstname) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_firstname_help
+msgid "Omaduse Guest first name (guest_firstname) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_lastname
+msgid "Omaduse Guest last name (guest_lastname) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_lastname_comment
+msgid "Omaduse Guest last name (guest_lastname) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_lastname_help
+msgid "Omaduse Guest last name (guest_lastname) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_country
+msgid "Omaduse Guest country (guest_country) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_country_comment
+msgid "Omaduse Guest country (guest_country) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_country_help
+msgid "Omaduse Guest country (guest_country) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_state
+msgid "Omaduse Guest state (guest_state) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_state_comment
+msgid "Omaduse Guest state (guest_state) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_state_help
+msgid "Omaduse Guest state (guest_state) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_city
+msgid "Omaduse Guest city (guest_city) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_city_comment
+msgid "Omaduse Guest city (guest_city) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_city_help
+msgid "Omaduse Guest city (guest_city) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_postal_code
+msgid "Omaduse Guest postal code (guest_postal_code) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_postal_code_comment
+msgid "Omaduse Guest postal code (guest_postal_code) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_postal_code_help
+msgid "Omaduse Guest postal code (guest_postal_code) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_adr_1
+msgid "Omaduse Guest address line 1 (guest_adr_1) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_adr_1_comment
+msgid "Omaduse Guest address line 1 (guest_adr_1) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_adr_1_help
+msgid "Omaduse Guest address line 1 (guest_adr_1) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_adr_2
+msgid "Omaduse Guest address line 2 (guest_adr_2) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_adr_2_comment
+msgid "Omaduse Guest address line 2 (guest_adr_2) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_adr_2_help
+msgid "Omaduse Guest address line 2 (guest_adr_2) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_phone
+msgid "Omaduse Guest phone (guest_phone) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_phone_comment
+msgid "Omaduse Guest phone (guest_phone) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_phone_help
+msgid "Omaduse Guest phone (guest_phone) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_email
+msgid "Omaduse Guest email (guest_email) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_email_comment
+msgid "Omaduse Guest email (guest_email) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_email_help
+msgid "Omaduse Guest email (guest_email) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_comments
+msgid "Omaduse Guest comments (guest_comments) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_comments_comment
+msgid "Omaduse Guest comments (guest_comments) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_comments_help
+msgid "Omaduse Guest comments (guest_comments) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_bd
+msgid "Omaduse S&uuml;nnip&auml;ev (guest_bd) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_bd_comment
+msgid "Omaduse S&uuml;nnip&auml;ev (guest_bd) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guest_bd_help
+msgid "Omaduse S&uuml;nnip&auml;ev (guest_bd) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_smoking
+msgid "Omaduse Smoking (smoking) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_smoking_comment
+msgid "Omaduse Smoking (smoking) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_smoking_help
+msgid "Omaduse Smoking (smoking) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_high_floor
+msgid "Omaduse High floor (high_floor) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_high_floor_comment
+msgid "Omaduse High floor (high_floor) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_high_floor_help
+msgid "Omaduse High floor (high_floor) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_low_floor
+msgid "Omaduse Low floor (low_floor) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_low_floor_comment
+msgid "Omaduse Low floor (low_floor) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_low_floor_help
+msgid "Omaduse Low floor (low_floor) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_is_allergic
+msgid "Omaduse Allergic (is_allergic) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_is_allergic_comment
+msgid "Omaduse Allergic (is_allergic) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_is_allergic_help
+msgid "Omaduse Allergic (is_allergic) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_is_handicapped
+msgid "Omaduse Handicapped (is_handicapped) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_is_handicapped_comment
+msgid "Omaduse Handicapped (is_handicapped) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_is_handicapped_help
+msgid "Omaduse Handicapped (is_handicapped) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_type
+msgid "Omaduse Cuarantee type (guarantee_type) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_type_comment
+msgid "Omaduse Cuarantee type (guarantee_type) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_type_help
+msgid "Omaduse Cuarantee type (guarantee_type) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_type
+msgid "Omaduse Cuarantee CC type (guarantee_cc_type) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_type_comment
+msgid "Omaduse Cuarantee CC type (guarantee_cc_type) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_type_help
+msgid "Omaduse Cuarantee CC type (guarantee_cc_type) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_holder_name
+msgid "Omaduse Cuarantee CC holder name (guarantee_cc_holder_name) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_holder_name_comment
+msgid "Omaduse Cuarantee CC holder name (guarantee_cc_holder_name) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_holder_name_help
+msgid "Omaduse Cuarantee CC holder name (guarantee_cc_holder_name) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_num
+msgid "Omaduse Cuarantee CC number (guarantee_cc_num) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_num_comment
+msgid "Omaduse Cuarantee CC number (guarantee_cc_num) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_num_help
+msgid "Omaduse Cuarantee CC number (guarantee_cc_num) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_exp_date
+msgid "Omaduse Cuarantee CC exp date (guarantee_cc_exp_date) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_exp_date_comment
+msgid "Omaduse Cuarantee CC exp date (guarantee_cc_exp_date) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_guarantee_cc_exp_date_help
+msgid "Omaduse Cuarantee CC exp date (guarantee_cc_exp_date) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_payment_type
+msgid "Omaduse Payment type (payment_type) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_payment_type_comment
+msgid "Omaduse Payment type (payment_type) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_payment_type_help
+msgid "Omaduse Payment type (payment_type) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_title
+msgid "Omaduse Rate title (rate_title) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_title_comment
+msgid "Omaduse Rate title (rate_title) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_title_help
+msgid "Omaduse Rate title (rate_title) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_long_note
+msgid "Omaduse Rate long note (rate_long_note) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_long_note_comment
+msgid "Omaduse Rate long note (rate_long_note) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_long_note_help
+msgid "Omaduse Rate long note (rate_long_note) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_room_type_code
+msgid "Omaduse Rate room type code (rate_room_type_code) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_room_type_code_comment
+msgid "Omaduse Rate room type code (rate_room_type_code) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_rate_room_type_code_help
+msgid "Omaduse Rate room type code (rate_room_type_code) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_confirmation_code
+msgid "Omaduse Confirmation code (confirmation_code) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_confirmation_code_comment
+msgid "Omaduse Confirmation code (confirmation_code) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_confirmation_code_help
+msgid "Omaduse Confirmation code (confirmation_code) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_booking_id
+msgid "Omaduse booking id (booking_id) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_booking_id_comment
+msgid "Omaduse booking id (booking_id) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_booking_id_help
+msgid "Omaduse booking id (booking_id) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_cancel_deadline
+msgid "Omaduse Cancel deadline (cancel_deadline) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_cancel_deadline_comment
+msgid "Omaduse Cancel deadline (cancel_deadline) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_cancel_deadline_help
+msgid "Omaduse Cancel deadline (cancel_deadline) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_total_room_charge
+msgid "Omaduse Total room charge (total_room_charge) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_total_room_charge_comment
+msgid "Omaduse Total room charge (total_room_charge) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_total_room_charge_help
+msgid "Omaduse Total room charge (total_room_charge) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_total_tax_charge
+msgid "Omaduse Total tax charge (total_tax_charge) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_total_tax_charge_comment
+msgid "Omaduse Total tax charge (total_tax_charge) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_total_tax_charge_help
+msgid "Omaduse Total tax charge (total_tax_charge) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_total_charge
+msgid "Omaduse Total charge (total_charge) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_total_charge_comment
+msgid "Omaduse Total charge (total_charge) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_total_charge_help
+msgid "Omaduse Total charge (total_charge) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_charge_currency
+msgid "Omaduse Charge currency (charge_currency) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_charge_currency_comment
+msgid "Omaduse Charge currency (charge_currency) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_charge_currency_help
+msgid "Omaduse Charge currency (charge_currency) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_cancel_type
+msgid "Omaduse T&uuml;histamise p&otilde;hjus (cancel_type) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_cancel_type_comment
+msgid "Omaduse T&uuml;histamise p&otilde;hjus (cancel_type) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_cancel_type_help
+msgid "Omaduse T&uuml;histamise p&otilde;hjus (cancel_type) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_cancel_other
+msgid "Omaduse Muu p&otilde;hjus (cancel_other) caption"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_cancel_other_comment
+msgid "Omaduse Muu p&otilde;hjus (cancel_other) kommentaar"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:prop_cancel_other_help
+msgid "Omaduse Muu p&otilde;hjus (cancel_other) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:group_cust_data
+msgid "Grupi Sisestatud andmed (cust_data) pealkiri"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:group_cust_data_help
+msgid "Grupi Sisestatud andmed (cust_data) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:group_bron_data
+msgid "Grupi Reserveeringu andmed (bron_data) pealkiri"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:group_bron_data_help
+msgid "Grupi Reserveeringu andmed (bron_data) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:group_cancel_data
+msgid "Grupi T&uuml;histamise p&otilde;hjus (cancel_data) pealkiri"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:group_cancel_data_help
+msgid "Grupi T&uuml;histamise p&otilde;hjus (cancel_data) help"
+msgstr ""
+
+#: classes/applications/ows_bron/ows_reservation.aw:rel_RELTYPE_OWS_BRON
+msgid "Seose Reserveeringukeskus (RELTYPE_OWS_BRON) tekst"
+msgstr ""

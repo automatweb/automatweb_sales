@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="pid" folder="common" extends="">
+		<action name="get">
+			<function name="get">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set">
+			<function name="set">
+				<arguments>
+					<required name="pid" type="string" />
+					<optional name="errors" type="bool" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="is_valid">
+			<function name="is_valid">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

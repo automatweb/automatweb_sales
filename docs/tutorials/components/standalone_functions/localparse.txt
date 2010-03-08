@@ -1,0 +1,19 @@
+localparse($src,$vars)
+
+Parses a piece of text as a template. Does not support subtemplates.
+if $src is
+#code#
+<h2>Name: {VAR:name}</h2>
+<h3>E-mail: {VAR:email}</h3>
+#/code#
+and you invoke this function as
+
+#php#
+$parsed = localparse($src,array("name" => "Arthur","email" => "arthur@example.com"));
+#/php#
+then the following is returned:
+#code#
+<h2>Name: Arthur</h2>
+<h3>E-mail: arthur@example.com</h3>
+#/code#
+Returns: processed text, where variable tags have been replaces with their values.

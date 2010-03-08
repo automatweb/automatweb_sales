@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="recycle_bin" folder="www/dev/terryf/automatweb_dev/classes/applications/recycle_bin" extends="class_base">
+		<action name="restore_object" all_args="1">
+			<function name="restore_object">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="restore_objects">
+			<function name="restore_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="final_delete">
+			<function name="final_delete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="clear_all">
+			<function name="clear_all">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_autoclean" nologin="1">
+			<function name="do_autoclean">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<tabledef>
+<data>
+<field name="from" caption="Kust"  align="center"/>
+<field name="name" caption="Nimi" nowrap="1" sortable="1" align="center"/>
+<field name="to" caption="Kuhu"  align="center"/>
+<field name="edit" caption="Muuda"  align="center"/>
+<field name="del" caption="Kustuta"  align="center"/>
+</data>
+</tabledef>

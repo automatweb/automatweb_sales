@@ -1,0 +1,29 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Konfiguratsioon: (conf_id) caption"] = "Configration";
+$GLOBALS["TRANS"]["Omaduse Uuenda layout (kustutab k&otilde;ik pildid!) (reinit_layout) caption"] = "Reinitialize layout";
+$GLOBALS["TRANS"]["Omaduse Mitu lehte: (num_pages) caption"] = "Number of pages";
+$GLOBALS["TRANS"]["Omaduse Impordi FTP serverist (import_ftp) caption"] = "Import from FTP server";
+$GLOBALS["TRANS"]["Omaduse FTP Server (ftp_login) caption"] = "FTP Server";
+$GLOBALS["TRANS"]["Omaduse FTP Serveri kataloog (ftp_folder) caption"] = "FTP Server folder";
+$GLOBALS["TRANS"]["Omaduse Impordi kataloogist (import_local) caption"] = "Import from folder";
+$GLOBALS["TRANS"]["Omaduse Kataloog (local_folder) caption"] = "Folder";
+$GLOBALS["TRANS"]["Omaduse Impordi ZIP failist (import_zip) caption"] = "Import from ZIP file";
+$GLOBALS["TRANS"]["Omaduse Uploadi ZIP fail (zip_file) caption"] = "Upload ZIP file";
+$GLOBALS["TRANS"]["Omaduse Importimisel kirjuta olemasolevad pildid &uuml;le (import_overwrite) caption"] = "When importing, overwrite existing images";
+$GLOBALS["TRANS"]["Omaduse Importimisel lisa vajadusel lehek&uuml;lgi (import_add_pages) caption"] = "When importing, add pages as needed";
+$GLOBALS["TRANS"]["Omaduse Teosta import (do_import) caption"] = "Do import";
+$GLOBALS["TRANS"]["Grupi Lehek&uuml;lg&nbsp;1 (page_1) pealkiri"] = "Page 1";
+$GLOBALS["TRANS"]["Grupi Lehek&uuml;lg&nbsp;2 (page_2) pealkiri"] = "Page 2";
+$GLOBALS["TRANS"]["Grupi Lehek&uuml;lg&nbsp;3 (page_3) pealkiri"] = "Page 3";
+$GLOBALS["TRANS"]["Grupi Lehek&uuml;lg&nbsp;4 (page_4) pealkiri"] = "Page 4";
+$GLOBALS["TRANS"]["Grupi Lehek&uuml;lg&nbsp;5 (page_5) pealkiri"] = "Page 5";
+$GLOBALS["TRANS"]["Grupi Lehek&uuml;lg&nbsp;6 (page_6) pealkiri"] = "Page 6";
+$GLOBALS["TRANS"]["Grupi Lehek&uuml;lg&nbsp;7 (page_7) pealkiri"] = "Page 7";
+$GLOBALS["TRANS"]["Grupi Lehek&uuml;lg&nbsp;8 (page_8) pealkiri"] = "Page 8";
+$GLOBALS["TRANS"]["Grupi Lehek&uuml;lg&nbsp;9 (page_9) pealkiri"] = "Page 9";
+$GLOBALS["TRANS"]["Grupi Impordi (import) pealkiri"] = "Import";
+$GLOBALS["TRANS"]["Grupi Eelvaade (preview) pealkiri"] = "Preview";
+$GLOBALS["TRANS"]["Seose ftp login (RELTYPE_FTP_LOGIN) tekst"] = "ftp login";
+$GLOBALS["TRANS"]["Sellele kataloogile pole konfiguratsiooni valitud!"] = "This folder has no configration set!";
+$GLOBALS["TRANS"]["Sellist kataloogi pole serveris! (%s)"] = "No such folder in server (%s)";
+?>

@@ -1,0 +1,435 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/survey/survey.aw:class_349_help
+#: classes/applications/survey/survey.aw:class_349_help
+msgid "Klassi Ankeet help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext1
+#: classes/applications/survey/survey.aw:prop_utext1
+msgid "Omaduse Utext1 (utext1) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext1_comment
+#: classes/applications/survey/survey.aw:prop_utext1_comment
+msgid "Omaduse Utext1 (utext1) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext1_help
+#: classes/applications/survey/survey.aw:prop_utext1_help
+msgid "Omaduse Utext1 (utext1) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext2
+#: classes/applications/survey/survey.aw:prop_utext2
+msgid "Omaduse Utext2 (utext2) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext2_comment
+#: classes/applications/survey/survey.aw:prop_utext2_comment
+msgid "Omaduse Utext2 (utext2) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext2_help
+#: classes/applications/survey/survey.aw:prop_utext2_help
+msgid "Omaduse Utext2 (utext2) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext3
+#: classes/applications/survey/survey.aw:prop_utext3
+msgid "Omaduse Utext3 (utext3) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext3_comment
+#: classes/applications/survey/survey.aw:prop_utext3_comment
+msgid "Omaduse Utext3 (utext3) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext3_help
+#: classes/applications/survey/survey.aw:prop_utext3_help
+msgid "Omaduse Utext3 (utext3) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext4
+#: classes/applications/survey/survey.aw:prop_utext4
+msgid "Omaduse Utext4 (utext4) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext4_comment
+#: classes/applications/survey/survey.aw:prop_utext4_comment
+msgid "Omaduse Utext4 (utext4) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext4_help
+#: classes/applications/survey/survey.aw:prop_utext4_help
+msgid "Omaduse Utext4 (utext4) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice1
+#: classes/applications/survey/survey.aw:prop_uchoice1
+msgid "Omaduse Uchoice1 (uchoice1) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice1_comment
+#: classes/applications/survey/survey.aw:prop_uchoice1_comment
+msgid "Omaduse Uchoice1 (uchoice1) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice1_help
+#: classes/applications/survey/survey.aw:prop_uchoice1_help
+msgid "Omaduse Uchoice1 (uchoice1) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice2
+#: classes/applications/survey/survey.aw:prop_uchoice2
+msgid "Omaduse Uchoice2 (uchoice2) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice2_comment
+#: classes/applications/survey/survey.aw:prop_uchoice2_comment
+msgid "Omaduse Uchoice2 (uchoice2) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice2_help
+#: classes/applications/survey/survey.aw:prop_uchoice2_help
+msgid "Omaduse Uchoice2 (uchoice2) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice3
+#: classes/applications/survey/survey.aw:prop_uchoice3
+msgid "Omaduse Uchoice3 (uchoice3) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice3_comment
+#: classes/applications/survey/survey.aw:prop_uchoice3_comment
+msgid "Omaduse Uchoice3 (uchoice3) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice3_help
+#: classes/applications/survey/survey.aw:prop_uchoice3_help
+msgid "Omaduse Uchoice3 (uchoice3) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice4
+#: classes/applications/survey/survey.aw:prop_uchoice4
+msgid "Omaduse Uchoice4 (uchoice4) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice4_comment
+#: classes/applications/survey/survey.aw:prop_uchoice4_comment
+msgid "Omaduse Uchoice4 (uchoice4) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice4_help
+#: classes/applications/survey/survey.aw:prop_uchoice4_help
+msgid "Omaduse Uchoice4 (uchoice4) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice5
+#: classes/applications/survey/survey.aw:prop_uchoice5
+msgid "Omaduse Uchoice5 (uchoice5) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice5_comment
+#: classes/applications/survey/survey.aw:prop_uchoice5_comment
+msgid "Omaduse Uchoice5 (uchoice5) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice5_help
+#: classes/applications/survey/survey.aw:prop_uchoice5_help
+msgid "Omaduse Uchoice5 (uchoice5) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice6
+#: classes/applications/survey/survey.aw:prop_uchoice6
+msgid "Omaduse Uchoice6 (uchoice6) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice6_comment
+#: classes/applications/survey/survey.aw:prop_uchoice6_comment
+msgid "Omaduse Uchoice6 (uchoice6) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice6_help
+#: classes/applications/survey/survey.aw:prop_uchoice6_help
+msgid "Omaduse Uchoice6 (uchoice6) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice7
+#: classes/applications/survey/survey.aw:prop_uchoice7
+msgid "Omaduse Uchoice7 (uchoice7) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice7_comment
+#: classes/applications/survey/survey.aw:prop_uchoice7_comment
+msgid "Omaduse Uchoice7 (uchoice7) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice7_help
+#: classes/applications/survey/survey.aw:prop_uchoice7_help
+msgid "Omaduse Uchoice7 (uchoice7) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice8
+#: classes/applications/survey/survey.aw:prop_uchoice8
+msgid "Omaduse Uchoice8 (uchoice8) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice8_comment
+#: classes/applications/survey/survey.aw:prop_uchoice8_comment
+msgid "Omaduse Uchoice8 (uchoice8) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice8_help
+#: classes/applications/survey/survey.aw:prop_uchoice8_help
+msgid "Omaduse Uchoice8 (uchoice8) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice9
+#: classes/applications/survey/survey.aw:prop_uchoice9
+msgid "Omaduse Uchoice9 (uchoice9) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice9_comment
+#: classes/applications/survey/survey.aw:prop_uchoice9_comment
+msgid "Omaduse Uchoice9 (uchoice9) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice9_help
+#: classes/applications/survey/survey.aw:prop_uchoice9_help
+msgid "Omaduse Uchoice9 (uchoice9) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice10
+#: classes/applications/survey/survey.aw:prop_uchoice10
+msgid "Omaduse Uchoice10 (uchoice10) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice10_comment
+#: classes/applications/survey/survey.aw:prop_uchoice10_comment
+msgid "Omaduse Uchoice10 (uchoice10) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice10_help
+#: classes/applications/survey/survey.aw:prop_uchoice10_help
+msgid "Omaduse Uchoice10 (uchoice10) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice11
+#: classes/applications/survey/survey.aw:prop_uchoice11
+msgid "Omaduse Uchoice11 (uchoice11) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice11_comment
+#: classes/applications/survey/survey.aw:prop_uchoice11_comment
+msgid "Omaduse Uchoice11 (uchoice11) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice11_help
+#: classes/applications/survey/survey.aw:prop_uchoice11_help
+msgid "Omaduse Uchoice11 (uchoice11) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice12
+#: classes/applications/survey/survey.aw:prop_uchoice12
+msgid "Omaduse Uchoice12 (uchoice12) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice12_comment
+#: classes/applications/survey/survey.aw:prop_uchoice12_comment
+msgid "Omaduse Uchoice12 (uchoice12) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_uchoice12_help
+#: classes/applications/survey/survey.aw:prop_uchoice12_help
+msgid "Omaduse Uchoice12 (uchoice12) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext1
+#: classes/applications/survey/survey.aw:prop_ubigtext1
+msgid "Omaduse Ubigtext1 (ubigtext1) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext1_comment
+#: classes/applications/survey/survey.aw:prop_ubigtext1_comment
+msgid "Omaduse Ubigtext1 (ubigtext1) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext1_help
+#: classes/applications/survey/survey.aw:prop_ubigtext1_help
+msgid "Omaduse Ubigtext1 (ubigtext1) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext2
+#: classes/applications/survey/survey.aw:prop_ubigtext2
+msgid "Omaduse Ubigtext2 (ubigtext2) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext2_comment
+#: classes/applications/survey/survey.aw:prop_ubigtext2_comment
+msgid "Omaduse Ubigtext2 (ubigtext2) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext2_help
+#: classes/applications/survey/survey.aw:prop_ubigtext2_help
+msgid "Omaduse Ubigtext2 (ubigtext2) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext3
+#: classes/applications/survey/survey.aw:prop_ubigtext3
+msgid "Omaduse Ubigtext3 (ubigtext3) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext3_comment
+#: classes/applications/survey/survey.aw:prop_ubigtext3_comment
+msgid "Omaduse Ubigtext3 (ubigtext3) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext3_help
+#: classes/applications/survey/survey.aw:prop_ubigtext3_help
+msgid "Omaduse Ubigtext3 (ubigtext3) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext4
+#: classes/applications/survey/survey.aw:prop_ubigtext4
+msgid "Omaduse Ubigtext4 (ubigtext4) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext4_comment
+#: classes/applications/survey/survey.aw:prop_ubigtext4_comment
+msgid "Omaduse Ubigtext4 (ubigtext4) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ubigtext4_help
+#: classes/applications/survey/survey.aw:prop_ubigtext4_help
+msgid "Omaduse Ubigtext4 (ubigtext4) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ucheckgroup1
+#: classes/applications/survey/survey.aw:prop_ucheckgroup1
+msgid "Omaduse Ucheckgroup1 (ucheckgroup1) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ucheckgroup1_comment
+#: classes/applications/survey/survey.aw:prop_ucheckgroup1_comment
+msgid "Omaduse Ucheckgroup1 (ucheckgroup1) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_ucheckgroup1_help
+#: classes/applications/survey/survey.aw:prop_ucheckgroup1_help
+msgid "Omaduse Ucheckgroup1 (ucheckgroup1) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext5
+#: classes/applications/survey/survey.aw:prop_utext5
+msgid "Omaduse Utext5 (utext5) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext5_comment
+#: classes/applications/survey/survey.aw:prop_utext5_comment
+msgid "Omaduse Utext5 (utext5) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext5_help
+#: classes/applications/survey/survey.aw:prop_utext5_help
+msgid "Omaduse Utext5 (utext5) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext6
+#: classes/applications/survey/survey.aw:prop_utext6
+msgid "Omaduse Utext6 (utext6) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext6_comment
+#: classes/applications/survey/survey.aw:prop_utext6_comment
+msgid "Omaduse Utext6 (utext6) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext6_help
+#: classes/applications/survey/survey.aw:prop_utext6_help
+msgid "Omaduse Utext6 (utext6) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext7
+#: classes/applications/survey/survey.aw:prop_utext7
+msgid "Omaduse utext7 (utext7) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext7_comment
+#: classes/applications/survey/survey.aw:prop_utext7_comment
+msgid "Omaduse utext7 (utext7) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext7_help
+#: classes/applications/survey/survey.aw:prop_utext7_help
+msgid "Omaduse utext7 (utext7) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext8
+#: classes/applications/survey/survey.aw:prop_utext8
+msgid "Omaduse utext8 (utext8) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext8_comment
+#: classes/applications/survey/survey.aw:prop_utext8_comment
+msgid "Omaduse utext8 (utext8) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_utext8_help
+#: classes/applications/survey/survey.aw:prop_utext8_help
+msgid "Omaduse utext8 (utext8) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_remote_host
+#: classes/applications/survey/survey.aw:prop_remote_host
+msgid "Omaduse Remote host (remote_host) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_remote_host_comment
+#: classes/applications/survey/survey.aw:prop_remote_host_comment
+msgid "Omaduse Remote host (remote_host) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_remote_host_help
+#: classes/applications/survey/survey.aw:prop_remote_host_help
+msgid "Omaduse Remote host (remote_host) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_sbt
+#: classes/applications/survey/survey.aw:prop_sbt
+msgid "Omaduse Submit (sbt) caption"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_sbt_comment
+#: classes/applications/survey/survey.aw:prop_sbt_comment
+msgid "Omaduse Submit (sbt) kommentaar"
+msgstr ""
+
+# classes/applications/survey/survey.aw:prop_sbt_help
+#: classes/applications/survey/survey.aw:prop_sbt_help
+msgid "Omaduse Submit (sbt) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:group_survey
+#: classes/applications/survey/survey.aw:group_survey
+msgid "Grupi Küsimused (survey) pealkiri"
+msgstr ""
+
+# classes/applications/survey/survey.aw:group_survey_help
+#: classes/applications/survey/survey.aw:group_survey_help
+msgid "Grupi Küsimused (survey) help"
+msgstr ""
+
+# classes/applications/survey/survey.aw:rel_RELTYPE_OWNER
+#: classes/applications/survey/survey.aw:rel_RELTYPE_OWNER
+msgid "Seose Omanik (RELTYPE_OWNER) tekst"
+msgstr ""

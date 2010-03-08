@@ -1,0 +1,5 @@
+<h2>text</h2>
+
+Simple text element. If you want subtitles for the form, then add
+"subtitle=1" attribute
+

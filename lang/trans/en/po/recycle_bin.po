@@ -1,0 +1,385 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:class_856_help
+msgid "Klassi Pr&uuml;gikast help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_toolbar
+msgid "Omaduse  (toolbar) caption"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_toolbar_comment
+msgid "Omaduse  (toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_toolbar_help
+msgid "Omaduse  (toolbar) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_recycle_table
+msgid "Omaduse  (recycle_table) caption"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_recycle_table_comment
+msgid "Omaduse  (recycle_table) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_recycle_table_help
+msgid "Omaduse  (recycle_table) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_name
+msgid "Omaduse Nimi (s_name) caption"
+msgstr "Name"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_name_comment
+msgid "Omaduse Nimi (s_name) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_name_help
+msgid "Omaduse Nimi (s_name) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_comment
+msgid "Omaduse Kommentaar (s_comment) caption"
+msgstr "Comment"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_comment_comment
+msgid "Omaduse Kommentaar (s_comment) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_comment_help
+msgid "Omaduse Kommentaar (s_comment) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_class_id
+msgid "Omaduse Objektit&uuml;&uuml;p (s_class_id) caption"
+msgstr "Object type"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_class_id_comment
+msgid "Omaduse Objektit&uuml;&uuml;p (s_class_id) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_class_id_help
+msgid "Omaduse Objektit&uuml;&uuml;p (s_class_id) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_oid
+msgid "Omaduse OID (s_oid) caption"
+msgstr "OID"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_oid_comment
+msgid "Omaduse OID (s_oid) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_oid_help
+msgid "Omaduse OID (s_oid) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_modifiedby
+msgid "Omaduse Kustutaja (s_modifiedby) caption"
+msgstr "Deleted by"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_modifiedby_comment
+msgid "Omaduse Kustutaja (s_modifiedby) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_modifiedby_help
+msgid "Omaduse Kustutaja (s_modifiedby) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_modified_from
+msgid "Omaduse Kustutatud alates (s_modified_from) caption"
+msgstr "Deleted from"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_modified_from_comment
+msgid "Omaduse Kustutatud alates (s_modified_from) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_modified_from_help
+msgid "Omaduse Kustutatud alates (s_modified_from) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_modified_to
+msgid "Omaduse Kustutatud kuni (s_modified_to) caption"
+msgstr "Deleted until"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_modified_to_comment
+msgid "Omaduse Kustutatud kuni (s_modified_to) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_modified_to_help
+msgid "Omaduse Kustutatud kuni (s_modified_to) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_submit_btn
+msgid "Omaduse Otsi (submit_btn) caption"
+msgstr "Search"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_submit_btn_comment
+msgid "Omaduse Otsi (submit_btn) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_submit_btn_help
+msgid "Omaduse Otsi (submit_btn) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_inf
+msgid "Omaduse Otsingu tulemused (s_inf) caption"
+msgstr "Search results"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_inf_comment
+msgid "Omaduse Otsingu tulemused (s_inf) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_inf_help
+msgid "Omaduse Otsingu tulemused (s_inf) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_res
+msgid "Omaduse  (s_res) caption"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_res_comment
+msgid "Omaduse  (s_res) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_s_res_help
+msgid "Omaduse  (s_res) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_delete_grps
+msgid "Omaduse Grupid, kes saavad kustutada (delete_grps) caption"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_delete_grps_comment
+msgid "Omaduse Grupid, kes saavad kustutada (delete_grps) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_delete_grps_help
+msgid "Omaduse Grupid, kes saavad kustutada (delete_grps) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_admin_grps
+msgid "Omaduse Grupid, kes saavad m&auml;&auml;ranguid muuta (admin_grps) caption"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_admin_grps_comment
+msgid "Omaduse Grupid, kes saavad m&auml;&auml;ranguid muuta (admin_grps) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_admin_grps_help
+msgid "Omaduse Grupid, kes saavad m&auml;&auml;ranguid muuta (admin_grps) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_do_autoclean
+msgid "Omaduse T&uuml;hjenda automaatselt (do_autoclean) caption"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_do_autoclean_comment
+msgid "Omaduse T&uuml;hjenda automaatselt (do_autoclean) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_do_autoclean_help
+msgid "Omaduse T&uuml;hjenda automaatselt (do_autoclean) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_autoclean_age
+msgid "Omaduse Kui vanad automaatselt kustutatakse (autoclean_age) caption"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_autoclean_age_comment
+msgid "Omaduse Kui vanad automaatselt kustutatakse (autoclean_age) kommentaar"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:prop_autoclean_age_help
+msgid "Omaduse Kui vanad automaatselt kustutatakse (autoclean_age) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle
+msgid "Grupi Pr&uuml;gikast (recycle) pealkiri"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_help
+msgid "Grupi Pr&uuml;gikast (recycle) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_list
+msgid "Grupi Nimekiri (recycle_list) pealkiri"
+msgstr "List"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_list_help
+msgid "Grupi Nimekiri (recycle_list) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_search
+msgid "Grupi Otsing (recycle_search) pealkiri"
+msgstr "Search"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_search_help
+msgid "Grupi Otsing (recycle_search) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_settings
+msgid "Grupi M&auml;&auml;rangud (recycle_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_settings_help
+msgid "Grupi M&auml;&auml;rangud (recycle_settings) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_groups
+msgid "Grupi Grupid (recycle_groups) pealkiri"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_groups_help
+msgid "Grupi Grupid (recycle_groups) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_autoclean
+msgid "Grupi Automaatne t&uuml;hjendamine (recycle_autoclean) pealkiri"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:group_recycle_autoclean_help
+msgid "Grupi Automaatne t&uuml;hjendamine (recycle_autoclean) help"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:rel_RELTYPE_DEL_GRP
+msgid "Seose Kustutaja grupp (RELTYPE_DEL_GRP) tekst"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:rel_RELTYPE_ADM_GRP
+msgid "Seose Admin grupp (RELTYPE_ADM_GRP) tekst"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:rel_RELTYPE_RESTORE_FOLDER
+msgid "Seose Taastamise kaust (RELTYPE_RESTORE_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:167
+msgid "1 N&auml;dal"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:168
+msgid "2 N&auml;dalat"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:169
+msgid "3 N&auml;dalat"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:170
+msgid "1 Kuu"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:171
+msgid "2 Kuud"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:172
+msgid "3 Kuud"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:173
+msgid "4 Kuud"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:174
+msgid "5 Kuud"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:175
+msgid "6 Kuud"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:176
+msgid "1 aasta"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:177
+msgid "2 aastat"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:191
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:197
+msgid "ID"
+msgstr "ID"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:205
+msgid "Tegevus"
+msgstr "Action"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:210
+msgid "Objektit&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:217
+msgid "Kustutaja"
+msgstr "Deleted by"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:225
+msgid "Kustutatud"
+msgstr "Deleted"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:237
+msgid "Vali"
+msgstr "Select"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:293
+#: classes/applications/recycle_bin/recycle_bin.aw:316
+#: classes/applications/recycle_bin/recycle_bin.aw:337
+msgid "Taasta"
+msgstr "Restore"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:301
+msgid "Taasta ka alamobjektid"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:342
+msgid "Valitud objektid"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:348
+msgid "Objektid ja alamobjektid"
+msgstr ""
+
+#: classes/applications/recycle_bin/recycle_bin.aw:355
+msgid "Uuenda"
+msgstr "Refresh"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:380
+msgid "Kustuta"
+msgstr "Delete"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:382
+msgid "Kas olete 100% kindel et soovite valitud objekte l&otilde;plikult kustutada?"
+msgstr "Are you 100% sure that you want to permanently delete the selected objects?"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:388
+msgid "T&uuml;hjenda"
+msgstr "Empty"
+
+#: classes/applications/recycle_bin/recycle_bin.aw:390
+msgid "Ettevaatust! Objektid kustutatakse j&auml;&auml;davalt!"
+msgstr "Warning! Objects will be permananetly deleted!"
+
+#~ msgid "Grupi Prügikast (recycle) pealkiri"
+#~ msgstr "Recycle bin"
+
+#~ msgid "Objektitüüp"
+#~ msgstr "Object type"
+
+#~ msgid "Taasta valitud objektid"
+#~ msgstr "Restore selected objects"

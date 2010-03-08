@@ -1,0 +1,108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/simple_shop/simple_shop_order.aw:class_931_help
+msgid "Klassi Lihtne tellimus help"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_orderer
+msgid "Omaduse Tellija andmed (orderer) caption"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_orderer_comment
+msgid "Omaduse Tellija andmed (orderer) kommentaar"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_orderer_help
+msgid "Omaduse Tellija andmed (orderer) help"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_order_tb
+msgid "Omaduse Tellimuste toolbar (order_tb) caption"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_order_tb_comment
+msgid "Omaduse Tellimuste toolbar (order_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_order_tb_help
+msgid "Omaduse Tellimuste toolbar (order_tb) help"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_order
+msgid "Omaduse Tellimuste tabel (order) caption"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_order_comment
+msgid "Omaduse Tellimuste tabel (order) kommentaar"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_order_help
+msgid "Omaduse Tellimuste tabel (order) help"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_order_sum
+msgid "Omaduse Kogusumma (order_sum) caption"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_order_sum_comment
+msgid "Omaduse Kogusumma (order_sum) kommentaar"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:prop_order_sum_help
+msgid "Omaduse Kogusumma (order_sum) help"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:group_orderer
+msgid "Grupi Tellija andmed (orderer) pealkiri"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:group_orderer_help
+msgid "Grupi Tellija andmed (orderer) help"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:group_order
+msgid "Grupi Tellimus (order) pealkiri"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:group_order_help
+msgid "Grupi Tellimus (order) help"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:rel_RELTYPE_ORDERITEM
+msgid "Seose Toode (RELTYPE_ORDERITEM) tekst"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:rel_RELTYPE_ORDERER
+msgid "Seose Tellija (RELTYPE_ORDERER) tekst"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:rel_RELTYPE_ORDERER_INFO
+msgid "Seose  (RELTYPE_ORDERER_INFO) tekst"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:106
+msgid "Eemalda tooted"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:107
+msgid "Oled kindel, et sooovid tooted tellimusest eemaldada?"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:113
+msgid "Salvesta"
+msgstr ""
+
+#: classes/applications/simple_shop/simple_shop_order.aw:133
+msgid "Kogus"
+msgstr ""
+

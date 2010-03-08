@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/vcl/reminder.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_remind
+#: classes/vcl/reminder.aw:prop_remind
+msgid "Omaduse Millal meelde tuletab (remind) caption"
+msgstr "When to remind"
+
+# classes/vcl/reminder.aw:prop_remind_comment
+#: classes/vcl/reminder.aw:prop_remind_comment
+msgid "Omaduse Millal meelde tuletab (remind) kommentaar"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_remind_help
+#: classes/vcl/reminder.aw:prop_remind_help
+msgid "Omaduse Millal meelde tuletab (remind) help"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_sender
+#: classes/vcl/reminder.aw:prop_sender
+msgid "Omaduse Saatja e-mail  (sender) caption"
+msgstr "Sender e-mail"
+
+# classes/vcl/reminder.aw:prop_sender_comment
+#: classes/vcl/reminder.aw:prop_sender_comment
+msgid "Omaduse Saatja e-mail  (sender) kommentaar"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_sender_help
+#: classes/vcl/reminder.aw:prop_sender_help
+msgid "Omaduse Saatja e-mail  (sender) help"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_emails_text
+#: classes/vcl/reminder.aw:prop_emails_text
+msgid "Omaduse Saaja e-mail(id) (eraldada komaga) (emails_text) caption"
+msgstr "Reciever e-mail"
+
+# classes/vcl/reminder.aw:prop_emails_text_comment
+#: classes/vcl/reminder.aw:prop_emails_text_comment
+msgid "Omaduse Saaja e-mail(id) (eraldada komaga) (emails_text) kommentaar"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_emails_text_help
+#: classes/vcl/reminder.aw:prop_emails_text_help
+msgid "Omaduse Saaja e-mail(id) (eraldada komaga) (emails_text) help"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_subject
+#: classes/vcl/reminder.aw:prop_subject
+msgid "Omaduse Teade (subject) caption"
+msgstr "Subject"
+
+# classes/vcl/reminder.aw:prop_subject_comment
+#: classes/vcl/reminder.aw:prop_subject_comment
+msgid "Omaduse Teade (subject) kommentaar"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_subject_help
+#: classes/vcl/reminder.aw:prop_subject_help
+msgid "Omaduse Teade (subject) help"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_objects_toolbar
+#: classes/vcl/reminder.aw:prop_objects_toolbar
+msgid "Omaduse Objektide toolbar (objects_toolbar) caption"
+msgstr "Objects toolbar"
+
+# classes/vcl/reminder.aw:prop_objects_toolbar_comment
+#: classes/vcl/reminder.aw:prop_objects_toolbar_comment
+msgid "Omaduse Objektide toolbar (objects_toolbar) kommentaar"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_objects_toolbar_help
+#: classes/vcl/reminder.aw:prop_objects_toolbar_help
+msgid "Omaduse Objektide toolbar (objects_toolbar) help"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_objects
+#: classes/vcl/reminder.aw:prop_objects
+msgid "Omaduse Seotud objektid (objects) caption"
+msgstr "Connected bbjects"
+
+# classes/vcl/reminder.aw:prop_objects_comment
+#: classes/vcl/reminder.aw:prop_objects_comment
+msgid "Omaduse Seotud objektid (objects) kommentaar"
+msgstr ""
+
+# classes/vcl/reminder.aw:prop_objects_help
+#: classes/vcl/reminder.aw:prop_objects_help
+msgid "Omaduse Seotud objektid (objects) help"
+msgstr ""
+
+# classes/vcl/reminder.aw:group_objects
+#: classes/vcl/reminder.aw:group_objects
+msgid "Grupi Seotud objektid (objects) pealkiri"
+msgstr "Connected objects"
+
+# classes/vcl/reminder.aw:group_objects_help
+#: classes/vcl/reminder.aw:group_objects_help
+msgid "Grupi Seotud objektid (objects) help"
+msgstr ""
+
+# classes/vcl/reminder.aw:rel_RELTYPE_REMINDER_OBJECT
+#: classes/vcl/reminder.aw:rel_RELTYPE_REMINDER_OBJECT
+msgid "Seose Seotud objekt (RELTYPE_REMINDER_OBJECT) tekst"
+msgstr "Connected object"
+
+#: classes/vcl/reminder.aw:40
+msgid "Meeldetuletus e-postiga"
+msgstr ""
+
+#: classes/vcl/reminder.aw:57
+msgid "E-posti aadress"
+msgstr ""
+
+#: classes/vcl/reminder.aw:64
+msgid "Minutid"
+msgstr ""
+
+#: classes/vcl/reminder.aw:79
+msgid "Saadetud?"
+msgstr ""
+
+#~ msgid "Eemalda valitud objektid"
+#~ msgstr "Remove selected objects"
+
+#~ msgid "Oled kindel, et soovid valitud objektid ajastamiselt eemaldada?"
+#~ msgstr "Are you sure you want to remove selected objects from the reminder?"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Nimi"
+#~ msgstr "Name"
+
+#~ msgid "Tüüp"
+#~ msgstr "Type"
+
+#~ msgid "aw"
+#~ msgstr "aw"
+
+#~ msgid "Meeldetuletus"
+#~ msgstr "Reminder"

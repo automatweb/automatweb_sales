@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_memo.aw:class_1008_help
+msgid "Klassi Memo help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_project
+msgid "Omaduse Projekt (project) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_project_comment
+msgid "Omaduse Projekt (project) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_project_help
+msgid "Omaduse Projekt (project) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_task
+msgid "Omaduse &Uuml;lesanne (task) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_task_comment
+msgid "Omaduse &Uuml;lesanne (task) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_task_help
+msgid "Omaduse &Uuml;lesanne (task) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_creator
+msgid "Omaduse Koostaja (creator) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_creator_comment
+msgid "Omaduse Koostaja (creator) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_creator_help
+msgid "Omaduse Koostaja (creator) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_reader
+msgid "Omaduse Lugeja (reader) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_reader_comment
+msgid "Omaduse Lugeja (reader) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_reader_help
+msgid "Omaduse Lugeja (reader) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_reg_date
+msgid "Omaduse Reg kuup&auml;ev (reg_date) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_reg_date_comment
+msgid "Omaduse Reg kuup&auml;ev (reg_date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_reg_date_help
+msgid "Omaduse Reg kuup&auml;ev (reg_date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_comment
+msgid "Omaduse Kirjeldus (comment) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_comment_comment
+msgid "Omaduse Kirjeldus (comment) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_comment_help
+msgid "Omaduse Kirjeldus (comment) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_files
+msgid "Omaduse Failid (files) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_files_comment
+msgid "Omaduse Failid (files) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_files_help
+msgid "Omaduse Failid (files) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_parts_tb
+msgid "Omaduse  (parts_tb) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_parts_tb_comment
+msgid "Omaduse  (parts_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_parts_tb_help
+msgid "Omaduse  (parts_tb) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_acts
+msgid "Omaduse Tegevused (acts) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_acts_comment
+msgid "Omaduse Tegevused (acts) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_acts_help
+msgid "Omaduse Tegevused (acts) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_acl
+msgid "Omaduse &Otilde;igused (acl) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_acl_comment
+msgid "Omaduse &Otilde;igused (acl) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:prop_acl_help
+msgid "Omaduse &Otilde;igused (acl) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:group_files
+msgid "Grupi Failid (files) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:group_files_help
+msgid "Grupi Failid (files) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:group_parts
+msgid "Grupi Osalejad (parts) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:group_parts_help
+msgid "Grupi Osalejad (parts) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:group_acl
+msgid "Grupi &Otilde;igused (acl) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:group_acl_help
+msgid "Grupi &Otilde;igused (acl) help"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:rel_RELTYPE_FILE
+msgid "Seose fail (RELTYPE_FILE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:rel_RELTYPE_CREATOR
+msgid "Seose looja (RELTYPE_CREATOR) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:rel_RELTYPE_READER
+msgid "Seose lugeja (RELTYPE_READER) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_memo.aw:rel_RELTYPE_ACTION
+msgid "Seose Tegevus (RELTYPE_ACTION) tekst"
+msgstr ""
+

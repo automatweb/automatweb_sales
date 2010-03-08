@@ -1,0 +1,66 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>cont_tb</name>
+            <table>objects</table>
+            <group>contestants</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <caption>Osalejate t66tiistariba</caption>
+      </property>
+      <property>
+            <name>cont_tbl</name>
+            <table>objects</table>
+            <group>contestants</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <caption>Osalejate nimekiri</caption>
+      </property>
+      <property>
+            <name>org_tb</name>
+            <table>objects</table>
+            <group>organizers</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <caption>Korraldajate t66riistariba</caption>
+      </property>
+      <property>
+            <name>org_tbl</name>
+            <table>objects</table>
+            <group>organizers</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <caption>Korraldajate nimekiri</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SCM_ADMIN</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>tarvo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <contestants>
+                  <caption>V&amp;amp;otilde;istlejad</caption>
+                  <submit>no</submit>
+            </contestants>
+            <organizers>
+                  <caption>Korraldajad</caption>
+                  <submit>no</submit>
+            </organizers>
+      </groupinfo>
+</properties>
+

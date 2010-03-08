@@ -1,0 +1,131 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="docgen_viewer" folder="www/automatweb_cvs/classes/applications/docgen" extends="class_base">
+		<action name="iniviewer">
+			<function name="iniviewer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_ini_setting">
+			<function name="show_ini_setting">
+				<arguments>
+					<required name="setting" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="intro">
+			<function name="intro">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="class_list">
+			<function name="class_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="frames" default="1">
+			<function name="frameset">
+				<arguments>
+					<optional name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="prop_info">
+			<function name="prop_info">
+				<arguments>
+					<required name="option" />
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="class_info" caption="N&amp;auml;ita klassi infot">
+			<function name="class_info">
+				<arguments>
+					<required name="file" />
+					<optional name="api_only" />
+					<optional name="disp" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="view_source">
+			<function name="view_source">
+				<arguments>
+					<required name="file" />
+					<required name="v_class" />
+					<optional name="func" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="doclist">
+			<function name="doclist">
+				<arguments>
+					<optional name="type" default="classes" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_doc">
+			<function name="show_doc">
+				<arguments>
+					<required name="file" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="topf">
+			<function name="topf">
+				<arguments>
+					<optional name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="interface_list">
+			<function name="interface_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="maintainer_class_list">
+			<function name="maintainer_class_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="exception_list">
+			<function name="exception_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="proplist">
+			<function name="doc_proplist">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="api_class_list">
+			<function name="api_class_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

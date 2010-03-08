@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>comments</name>
+            <table>objects</table>
+            <group>comments</group>
+            <type>comments</type>
+            <store>no</store>
+            <field>comments</field>
+            <caption>Kommentaarid</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_MESSAGEBOARD</syslog_type>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <comments>
+                  <caption>Kommentaarid</caption>
+            </comments>
+      </groupinfo>
+</properties>
+

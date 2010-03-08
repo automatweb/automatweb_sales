@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:61
+msgid "Kalendrid, millest otsida"
+msgstr ""
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:85 classes/applications/calendar/vcl/multi_calendar.aw:237
+msgid "Alates"
+msgstr ""
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:94 classes/applications/calendar/vcl/multi_calendar.aw:242
+msgid "Kuni"
+msgstr ""
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:107
+msgid "Otsitava aja pikkus (hh:mm)"
+msgstr ""
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:116
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:232
+msgid "Kalender"
+msgstr ""
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:247
+msgid "XX"
+msgstr ""
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:271
+msgid "Leitud ajad"
+msgstr ""
+
+#: classes/applications/calendar/vcl/multi_calendar.aw:277
+msgid "Kinnita"
+msgstr ""
+

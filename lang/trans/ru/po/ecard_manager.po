@@ -1,0 +1,148 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/ecard/ecard_manager.aw:class_996_help
+msgid "Klassi E-kaardi haldur help"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:prop_dir_images
+msgid "Omaduse Piltide kataloog (dir_images) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:prop_dir_images_comment
+msgid "Omaduse Piltide kataloog (dir_images) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:prop_dir_images_help
+msgid "Omaduse Piltide kataloog (dir_images) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:prop_dir_ecards
+msgid "Omaduse E-kaartide salvestamise kataloog (dir_ecards) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:prop_dir_ecards_comment
+msgid "Omaduse E-kaartide salvestamise kataloog (dir_ecards) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:prop_dir_ecards_help
+msgid "Omaduse E-kaartide salvestamise kataloog (dir_ecards) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:prop_gallery
+msgid "Omaduse Minigalerii (gallery) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:prop_gallery_comment
+msgid "Omaduse Minigalerii (gallery) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:prop_gallery_help
+msgid "Omaduse Minigalerii (gallery) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:rel_RELTYPE_DIR_IMAGES
+msgid "Seose Piltide kataloog (RELTYPE_DIR_IMAGES) tekst"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:rel_RELTYPE_DIR_ECARDS
+msgid "Seose E-kaartide salvestamise kataloog (RELTYPE_DIR_ECARDS) tekst"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:rel_RELTYPE_GALLERY
+msgid "Seose Minigalerii objekt  (RELTYPE_GALLERY) tekst"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:64
+msgid "Teie nimi"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:65
+msgid "Teie e-post"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:66
+msgid "Saaja nimi"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:67
+msgid "Saaja e-post"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:68
+msgid "Tekst kaardil"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:69
+msgid "Millal saata"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:70
+msgid "Paigutus"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:70
+msgid "Tekst all"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:70
+msgid "Tekst k&otilde;rval"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:71
+msgid "Teata vaatamisest meiliga"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:72
+msgid "Edasi eelvaatele"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:194
+msgid "Esimesed"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:266
+msgid "Viga"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:319
+msgid "Kaart saadetud"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:331
+msgid "Kaart salvestatud"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:345
+msgid "Väli peab olema täidetud"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:360
+msgid "Teie e-posti aadress vigane"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:365
+msgid "Saaja e-posti aadress vigane"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:371
+msgid "Kuupäev vigane"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:382
+msgid "Saada"
+msgstr ""
+
+#: classes/applications/ecard/ecard_manager.aw:384
+msgid "Tagasi"
+msgstr ""
+

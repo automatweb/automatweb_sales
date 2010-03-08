@@ -1,0 +1,339 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/object_treeview.aw:class_209_help
+msgid "Klassi Objektide nimekiri help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_status
+msgid "Omaduse Staatus (status) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_status_comment
+msgid "Omaduse Staatus (status) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_status_help
+msgid "Omaduse Staatus (status) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_folders
+msgid "Omaduse Kataloogid (folders) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_folders_comment
+msgid "Omaduse Kataloogid (folders) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_folders_help
+msgid "Omaduse Kataloogid (folders) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_show_folders
+msgid "Omaduse N&auml;ita katalooge (show_folders) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_show_folders_comment
+msgid "Omaduse N&auml;ita katalooge (show_folders) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_show_folders_help
+msgid "Omaduse N&auml;ita katalooge (show_folders) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_show_add
+msgid "Omaduse N&auml;ita toolbari (show_add) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_show_add_comment
+msgid "Omaduse N&auml;ita toolbari (show_add) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_show_add_help
+msgid "Omaduse N&auml;ita toolbari (show_add) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_tree_type
+msgid "Omaduse Puu n&auml;itamise meetod (tree_type) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_tree_type_comment
+msgid "Omaduse Puu n&auml;itamise meetod (tree_type) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_tree_type_help
+msgid "Omaduse Puu n&auml;itamise meetod (tree_type) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_groupfolder_acl
+msgid "Omaduse &Otilde;igused piiratud grupi kataloogide j&auml;rgi (groupfolder_acl) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_groupfolder_acl_comment
+msgid "Omaduse &Otilde;igused piiratud grupi kataloogide j&auml;rgi (groupfolder_acl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_groupfolder_acl_help
+msgid "Omaduse &Otilde;igused piiratud grupi kataloogide j&auml;rgi (groupfolder_acl) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_show_notact
+msgid "Omaduse N&auml;ita mitteaktiivseid objekte (show_notact) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_show_notact_comment
+msgid "Omaduse N&auml;ita mitteaktiivseid objekte (show_notact) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_show_notact_help
+msgid "Omaduse N&auml;ita mitteaktiivseid objekte (show_notact) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_sort_by
+msgid "Omaduse Objekte sorteeritakse (sort_by) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_sort_by_comment
+msgid "Omaduse Objekte sorteeritakse (sort_by) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_sort_by_help
+msgid "Omaduse Objekte sorteeritakse (sort_by) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_tree_on_left
+msgid "Omaduse Puu vasakul (tree_on_left) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_tree_on_left_comment
+msgid "Omaduse Puu vasakul (tree_on_left) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_tree_on_left_help
+msgid "Omaduse Puu vasakul (tree_on_left) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_clids
+msgid "Omaduse Klassid (clids) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_clids_comment
+msgid "Omaduse Klassid (clids) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_clids_help
+msgid "Omaduse Klassid (clids) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_style_donor
+msgid "Omaduse Stiilide doonor (style_donor) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_style_donor_comment
+msgid "Omaduse Stiilide doonor (style_donor) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_style_donor_help
+msgid "Omaduse Stiilide doonor (style_donor) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_title_bgcolor
+msgid "Omaduse Pealkirja taustav&auml;rv (title_bgcolor) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_title_bgcolor_comment
+msgid "Omaduse Pealkirja taustav&auml;rv (title_bgcolor) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_title_bgcolor_help
+msgid "Omaduse Pealkirja taustav&auml;rv (title_bgcolor) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_even_bgcolor
+msgid "Omaduse Paaris rea taustav&auml;rv (even_bgcolor) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_even_bgcolor_comment
+msgid "Omaduse Paaris rea taustav&auml;rv (even_bgcolor) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_even_bgcolor_help
+msgid "Omaduse Paaris rea taustav&auml;rv (even_bgcolor) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_odd_bgcolor
+msgid "Omaduse Paaritu rea taustav&auml;rv (odd_bgcolor) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_odd_bgcolor_comment
+msgid "Omaduse Paaritu rea taustav&auml;rv (odd_bgcolor) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_odd_bgcolor_help
+msgid "Omaduse Paaritu rea taustav&auml;rv (odd_bgcolor) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_header_css
+msgid "Omaduse Pealkirja stiil (header_css) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_header_css_comment
+msgid "Omaduse Pealkirja stiil (header_css) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_header_css_help
+msgid "Omaduse Pealkirja stiil (header_css) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_line_css
+msgid "Omaduse a stiil (line_css) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_line_css_comment
+msgid "Omaduse a stiil (line_css) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_line_css_help
+msgid "Omaduse a stiil (line_css) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_columns
+msgid "Omaduse Tulbad (columns) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_columns_comment
+msgid "Omaduse Tulbad (columns) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:prop_columns_help
+msgid "Omaduse Tulbad (columns) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:group_folders
+msgid "Grupi Kaustad (folders) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:group_folders_help
+msgid "Grupi Kaustad (folders) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:group_clids
+msgid "Grupi Objektit&uuml;&uuml;bid (clids) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:group_clids_help
+msgid "Grupi Objektit&uuml;&uuml;bid (clids) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:group_styles
+msgid "Grupi Stiilid (styles) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:group_styles_help
+msgid "Grupi Stiilid (styles) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:group_columns
+msgid "Grupi Tulbad (columns) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:group_columns_help
+msgid "Grupi Tulbad (columns) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:rel_RELTYPE_FOLDER
+msgid "Seose kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:rel_RELTYPE_ADD_TYPE
+msgid "Seose lisatav objektit&uuml;&uuml;p (RELTYPE_ADD_TYPE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:rel_RELTYPE_ALL_ACSS_GRP
+msgid "Seose projekti haldaja grupp (RELTYPE_ALL_ACSS_GRP) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:rel_RELTYPE_CSS
+msgid "Seose css stiil (RELTYPE_CSS) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:rel_RELTYPE_STYLE_DONOR
+msgid "Seose stiilide doonor (RELTYPE_STYLE_DONOR) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:95
+msgid "Ikoon"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:96
+#: classes/contentmgmt/object_treeview.aw:793
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:97
+msgid "Suurus"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:98
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:99
+msgid "Muutmise kuup&auml;ev"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:100
+msgid "Muutja"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:101
+msgid "Muuda"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:102
+msgid "Vali"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:785
+msgid "ID"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:798
+msgid "k.a. alammenüüd"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:805
+msgid "&auml;ra n&auml;ita peamen&uuml;&uuml;d"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:870
+msgid "Uus"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:898
+msgid "Kustuta"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:900
+msgid "Oled kindel et soovid objekte kustutada?"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:924
+msgid "object_treeview::obj_delete(): no object id specified!"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:1015
+msgid "Objekti muutmise kuup&auml;eva j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview.aw:1016
+msgid "Objektide j&auml;rjekorra j&auml;rgi"
+msgstr ""

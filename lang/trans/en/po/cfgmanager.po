@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/cfg/cfgmanager.aw:class_122_help
+#: classes/cfg/cfgmanager.aw:class_122_help
+msgid "Klassi Seadete haldur help"
+msgstr ""
+
+# classes/cfg/cfgmanager.aw:prop_def_cfgmanager
+#: classes/cfg/cfgmanager.aw:prop_def_cfgmanager
+msgid "Omaduse Default seadete haldur (def_cfgmanager) caption"
+msgstr "Default config manager for property"
+
+# classes/cfg/cfgmanager.aw:prop_def_cfgmanager_comment
+#: classes/cfg/cfgmanager.aw:prop_def_cfgmanager_comment
+msgid "Omaduse Default seadete haldur (def_cfgmanager) kommentaar"
+msgstr ""
+
+# classes/cfg/cfgmanager.aw:prop_def_cfgmanager_help
+#: classes/cfg/cfgmanager.aw:prop_def_cfgmanager_help
+msgid "Omaduse Default seadete haldur (def_cfgmanager) help"
+msgstr ""
+
+# classes/cfg/cfgmanager.aw:prop_config
+#: classes/cfg/cfgmanager.aw:prop_config
+msgid "Omaduse Tabel (config) caption"
+msgstr "Table"
+
+# classes/cfg/cfgmanager.aw:prop_config_comment
+#: classes/cfg/cfgmanager.aw:prop_config_comment
+msgid "Omaduse Tabel (config) kommentaar"
+msgstr ""
+
+# classes/cfg/cfgmanager.aw:prop_config_help
+#: classes/cfg/cfgmanager.aw:prop_config_help
+msgid "Omaduse Tabel (config) help"
+msgstr ""
+
+# classes/cfg/cfgmanager.aw:group_config
+#: classes/cfg/cfgmanager.aw:group_config
+msgid "Grupi Seaded (config) pealkiri"
+msgstr "Settings"
+
+# classes/cfg/cfgmanager.aw:group_config_help
+#: classes/cfg/cfgmanager.aw:group_config_help
+msgid "Grupi Seaded (config) help"
+msgstr ""
+
+# classes/cfg/cfgmanager.aw:rel_RELTYPE_C_GROUP
+#: classes/cfg/cfgmanager.aw:rel_RELTYPE_C_GROUP
+msgid "Seose Grupp (RELTYPE_C_GROUP) tekst"
+msgstr "Group"
+
+# classes/cfg/cfgmanager.aw:rel_RELTYPE_C_CFGFORM
+#: classes/cfg/cfgmanager.aw:rel_RELTYPE_C_CFGFORM
+msgid "Seose Seadete vorm (RELTYPE_C_CFGFORM) tekst"
+msgstr "Configuration form"
+
+#: classes/cfg/cfgmanager.aw:70
+msgid "Grupp"
+msgstr "Group"
+
+#~ msgid "Seadete vorm"
+#~ msgstr "Configuration form"

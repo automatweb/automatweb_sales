@@ -1,0 +1,305 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/shop/shop_order_cart.aw:class_319_help
+#: classes/applications/shop/shop_order_cart.aw:class_319_help
+msgid "Klassi Poe ostukorv help"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_prod_layout
+#: classes/applications/shop/shop_order_cart.aw:prop_prod_layout
+msgid "Omaduse Kujundus, mida korvis kasutatakse (prod_layout) caption"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_prod_layout_comment
+#: classes/applications/shop/shop_order_cart.aw:prop_prod_layout_comment
+msgid "Omaduse Kujundus, mida korvis kasutatakse (prod_layout) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_prod_layout_help
+#: classes/applications/shop/shop_order_cart.aw:prop_prod_layout_help
+msgid "Omaduse Kujundus, mida korvis kasutatakse (prod_layout) help"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_email_subj
+#: classes/applications/shop/shop_order_cart.aw:prop_email_subj
+msgid "Omaduse Tellimuse e-maili subjekt (email_subj) caption"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_email_subj_comment
+#: classes/applications/shop/shop_order_cart.aw:prop_email_subj_comment
+msgid "Omaduse Tellimuse e-maili subjekt (email_subj) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_email_subj_help
+#: classes/applications/shop/shop_order_cart.aw:prop_email_subj_help
+msgid "Omaduse Tellimuse e-maili subjekt (email_subj) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_postal_price
+msgid "Omaduse Vaikimisi postikulu (postal_price) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_postal_price_comment
+msgid "Omaduse Vaikimisi postikulu (postal_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_postal_price_help
+msgid "Omaduse Vaikimisi postikulu (postal_price) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_subject_handler
+msgid "Omaduse Subjekti kontroller (subject_handler) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_subject_handler_comment
+msgid "Omaduse Subjekti kontroller (subject_handler) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_subject_handler_help
+msgid "Omaduse Subjekti kontroller (subject_handler) help"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_update_handler
+#: classes/applications/shop/shop_order_cart.aw:prop_update_handler
+msgid "Omaduse Korvi uuendamise kontroller (update_handler) caption"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_update_handler_comment
+#: classes/applications/shop/shop_order_cart.aw:prop_update_handler_comment
+msgid "Omaduse Korvi uuendamise kontroller (update_handler) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_update_handler_help
+#: classes/applications/shop/shop_order_cart.aw:prop_update_handler_help
+msgid "Omaduse Korvi uuendamise kontroller (update_handler) help"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_finish_handler
+#: classes/applications/shop/shop_order_cart.aw:prop_finish_handler
+msgid "Omaduse Tellimise kontroller (finish_handler) caption"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_finish_handler_comment
+#: classes/applications/shop/shop_order_cart.aw:prop_finish_handler_comment
+msgid "Omaduse Tellimise kontroller (finish_handler) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_order_cart.aw:prop_finish_handler_help
+#: classes/applications/shop/shop_order_cart.aw:prop_finish_handler_help
+msgid "Omaduse Tellimise kontroller (finish_handler) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_order_show_controller
+msgid "Omaduse Tellimuse n&auml;itamise kontroller (order_show_controller) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_order_show_controller_comment
+msgid "Omaduse Tellimuse n&auml;itamise kontroller (order_show_controller) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_order_show_controller_help
+msgid "Omaduse Tellimuse n&auml;itamise kontroller (order_show_controller) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_product_template
+msgid "Omaduse Ostukorvi &uuml;he toote vaate templeit (product_template) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_product_template_comment
+msgid "Omaduse Ostukorvi &uuml;he toote vaate templeit (product_template) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_product_template_help
+msgid "Omaduse Ostukorvi &uuml;he toote vaate templeit (product_template) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_orderer_data_template
+msgid "Omaduse Ostukorvi kasutaja andmete templeit (orderer_data_template) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_orderer_data_template_comment
+msgid "Omaduse Ostukorvi kasutaja andmete templeit (orderer_data_template) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_orderer_data_template_help
+msgid "Omaduse Ostukorvi kasutaja andmete templeit (orderer_data_template) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_delivery_method_add
+msgid "Omaduse  (delivery_method_add) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_delivery_method_add_comment
+msgid "Omaduse  (delivery_method_add) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_delivery_method_add_help
+msgid "Omaduse  (delivery_method_add) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_delivery_method_tlb
+msgid "Omaduse  (delivery_method_tlb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_delivery_method_tlb_comment
+msgid "Omaduse  (delivery_method_tlb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_delivery_method_tlb_help
+msgid "Omaduse  (delivery_method_tlb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_delivery_method_tbl
+msgid "Omaduse  (delivery_method_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_delivery_method_tbl_comment
+msgid "Omaduse  (delivery_method_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:prop_delivery_method_tbl_help
+msgid "Omaduse  (delivery_method_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:group_delivery_methods
+msgid "Grupi K&auml;ttetoimetamise viisid (delivery_methods) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:group_delivery_methods_help
+msgid "Grupi K&auml;ttetoimetamise viisid (delivery_methods) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:rel_RELTYPE_PROD_LAYOUT
+msgid "Seose toote kujundus (RELTYPE_PROD_LAYOUT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:rel_RELTYPE_CONTROLLER
+msgid "Seose kontroller (RELTYPE_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:rel_RELTYPE_DELIVERY_METHOD
+msgid "Seose K&auml;ttetoimetamise viis (RELTYPE_DELIVERY_METHOD) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:68
+msgid "Kliendi number"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:69
+msgid "S&uuml;nnikuup&auml;ev"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:70
+msgid "Perekonnanimi"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:71
+msgid "Eesnimi"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:72
+msgid "Aadress"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:73
+msgid "Postiindeks"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:74
+msgid "Linn"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:75
+msgid "E-mail"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:76
+msgid "Telefon kodus"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:77
+msgid "Telefon t&ouml;&ouml;l"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:78
+msgid "Mobiil"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:79
+msgid "T&ouml;&ouml;koht"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:80
+msgid "T&ouml;&ouml;staa"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:81
+msgid "Amet"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:82
+msgid "Isikukood"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:143
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:149
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:154
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:159
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:327
+#: classes/applications/shop/shop_order_cart.aw:1608
+#: classes/applications/shop/shop_order_cart.aw:1880
+msgid "shop_order_cart::show(): no product layout set for cart (%s)"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:842
+msgid "%s minimaalne tellimiskogus on %s, hetkel korvis %s."
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:862
+msgid "%s maksimaalne tellimiskogus on %s, hetkel korvis %s."
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:884
+msgid "%s peab tellima %s kaupa, hetkel kokku %s!"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:1293
+msgid "shop_order_cart::do_creat_order_from_cart(): no warehouse set for cart %s!"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:1344
+msgid "M&uuml;&uuml;gitellimus"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:2673
+msgid "PP"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:2674
+msgid "KK"
+msgstr ""
+
+#: classes/applications/shop/shop_order_cart.aw:2675
+msgid "AAAA"
+msgstr ""

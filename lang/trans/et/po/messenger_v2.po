@@ -1,0 +1,893 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/messenger/messenger_v2.aw:class_227_help
+#: classes/applications/messenger/messenger_v2.aw:class_227_help
+msgid "Klassi Meilikast help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_status
+#: classes/applications/messenger/messenger_v2.aw:prop_status
+msgid "Omaduse Staatus (status) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_status_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_status_comment
+msgid "Omaduse Staatus (status) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_status_help
+#: classes/applications/messenger/messenger_v2.aw:prop_status_help
+msgid "Omaduse Staatus (status) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_fromname
+#: classes/applications/messenger/messenger_v2.aw:prop_fromname
+msgid "Omaduse Kellelt (fromname) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_fromname_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_fromname_comment
+msgid "Omaduse Kellelt (fromname) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_fromname_help
+#: classes/applications/messenger/messenger_v2.aw:prop_fromname_help
+msgid "Omaduse Kellelt (fromname) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_config
+#: classes/applications/messenger/messenger_v2.aw:prop_config
+msgid "Omaduse Konfiguratsioon (config) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_config_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_config_comment
+msgid "Omaduse Konfiguratsioon (config) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_config_help
+#: classes/applications/messenger/messenger_v2.aw:prop_config_help
+msgid "Omaduse Konfiguratsioon (config) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_msg_outbox
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_outbox
+msgid "Omaduse Saadetud kirjad (msg_outbox) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_msg_outbox_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_outbox_comment
+msgid "Omaduse Saadetud kirjad (msg_outbox) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_msg_outbox_help
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_outbox_help
+msgid "Omaduse Saadetud kirjad (msg_outbox) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_msg_drafts
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_drafts
+msgid "Omaduse Mustandite kataloog (msg_drafts) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_msg_drafts_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_drafts_comment
+msgid "Omaduse Mustandite kataloog (msg_drafts) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_msg_drafts_help
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_drafts_help
+msgid "Omaduse Mustandite kataloog (msg_drafts) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_page_reload
+msgid "Omaduse Kirjade v&auml;rskendamine (sekundites) (page_reload) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_page_reload_comment
+msgid "Omaduse Kirjade v&auml;rskendamine (sekundites) (page_reload) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_page_reload_help
+msgid "Omaduse Kirjade v&auml;rskendamine (sekundites) (page_reload) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_mail_rte
+msgid "Omaduse Kirjade RTE (mail_rte) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_mail_rte_comment
+msgid "Omaduse Kirjade RTE (mail_rte) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_mail_rte_help
+msgid "Omaduse Kirjade RTE (mail_rte) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_num_attachments
+#: classes/applications/messenger/messenger_v2.aw:prop_num_attachments
+msgid "Omaduse Manuste arv (num_attachments) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_num_attachments_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_num_attachments_comment
+msgid "Omaduse Manuste arv (num_attachments) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_num_attachments_help
+#: classes/applications/messenger/messenger_v2.aw:prop_num_attachments_help
+msgid "Omaduse Manuste arv (num_attachments) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_text
+msgid "Omaduse Kontaktinfo (contact_text) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_text_comment
+msgid "Omaduse Kontaktinfo (contact_text) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_text_help
+msgid "Omaduse Kontaktinfo (contact_text) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_grouping
+msgid "Omaduse Kirjade ajaline grupeerimine (grouping) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_grouping_comment
+msgid "Omaduse Kirjade ajaline grupeerimine (grouping) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_grouping_help
+msgid "Omaduse Kirjade ajaline grupeerimine (grouping) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_mail_toolbar
+#: classes/applications/messenger/messenger_v2.aw:prop_mail_toolbar
+msgid "Omaduse Msg. toolbar (mail_toolbar) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_mail_toolbar_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_mail_toolbar_comment
+msgid "Omaduse Msg. toolbar (mail_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_mail_toolbar_help
+#: classes/applications/messenger/messenger_v2.aw:prop_mail_toolbar_help
+msgid "Omaduse Msg. toolbar (mail_toolbar) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_treeview
+#: classes/applications/messenger/messenger_v2.aw:prop_treeview
+msgid "Omaduse Folderid (treeview) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_treeview_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_treeview_comment
+msgid "Omaduse Folderid (treeview) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_treeview_help
+#: classes/applications/messenger/messenger_v2.aw:prop_treeview_help
+msgid "Omaduse Folderid (treeview) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_message_contents
+msgid "Omaduse  (message_contents) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_message_contents_comment
+msgid "Omaduse  (message_contents) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_message_contents_help
+msgid "Omaduse  (message_contents) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_message_list
+#: classes/applications/messenger/messenger_v2.aw:prop_message_list
+msgid "Omaduse Kirjad (message_list) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_message_list_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_message_list_comment
+msgid "Omaduse Kirjad (message_list) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_message_list_help
+#: classes/applications/messenger/messenger_v2.aw:prop_message_list_help
+msgid "Omaduse Kirjad (message_list) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_new_mail_toolbar
+msgid "Omaduse uue maili tuulbar (new_mail_toolbar) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_new_mail_toolbar_comment
+msgid "Omaduse uue maili tuulbar (new_mail_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_new_mail_toolbar_help
+msgid "Omaduse uue maili tuulbar (new_mail_toolbar) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_message_info
+msgid "Omaduse Maili andmed (message_info) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_message_info_comment
+msgid "Omaduse Maili andmed (message_info) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_message_info_help
+msgid "Omaduse Maili andmed (message_info) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_from
+msgid "Omaduse Kellelt (msg_new2_from) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_from_comment
+msgid "Omaduse Kellelt (msg_new2_from) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_from_help
+msgid "Omaduse Kellelt (msg_new2_from) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_to
+msgid "Omaduse Kellele (msg_new2_to) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_to_comment
+msgid "Omaduse Kellele (msg_new2_to) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_to_help
+msgid "Omaduse Kellele (msg_new2_to) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_cc
+msgid "Omaduse Koopia (msg_new2_cc) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_cc_comment
+msgid "Omaduse Koopia (msg_new2_cc) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_cc_help
+msgid "Omaduse Koopia (msg_new2_cc) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_subject
+msgid "Omaduse Teema (msg_new2_subject) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_subject_comment
+msgid "Omaduse Teema (msg_new2_subject) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_subject_help
+msgid "Omaduse Teema (msg_new2_subject) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_msg
+msgid "Omaduse Sisu (msg_new2_msg) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_msg_comment
+msgid "Omaduse Sisu (msg_new2_msg) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_new2_msg_help
+msgid "Omaduse Sisu (msg_new2_msg) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_tmp
+msgid "Omaduse  (tmp) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_tmp_comment
+msgid "Omaduse  (tmp) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_tmp_help
+msgid "Omaduse  (tmp) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_ab_contents
+msgid "Omaduse Aadressiraamat (msg_ab_contents) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_ab_contents_comment
+msgid "Omaduse Aadressiraamat (msg_ab_contents) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_ab_contents_help
+msgid "Omaduse Aadressiraamat (msg_ab_contents) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_calendar
+msgid "Omaduse Kalender (msg_calendar) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_calendar_comment
+msgid "Omaduse Kalender (msg_calendar) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_msg_calendar_help
+msgid "Omaduse Kalender (msg_calendar) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_toolbar
+#: classes/applications/messenger/messenger_v2.aw:prop_s_toolbar
+msgid "Omaduse Otsingu toolbar (s_toolbar) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_toolbar_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_s_toolbar_comment
+msgid "Omaduse Otsingu toolbar (s_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_toolbar_help
+#: classes/applications/messenger/messenger_v2.aw:prop_s_toolbar_help
+msgid "Omaduse Otsingu toolbar (s_toolbar) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_from
+#: classes/applications/messenger/messenger_v2.aw:prop_s_from
+msgid "Omaduse From (s_from) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_from_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_s_from_comment
+msgid "Omaduse From (s_from) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_from_help
+#: classes/applications/messenger/messenger_v2.aw:prop_s_from_help
+msgid "Omaduse From (s_from) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_subject
+#: classes/applications/messenger/messenger_v2.aw:prop_s_subject
+msgid "Omaduse Subject (s_subject) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_subject_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_s_subject_comment
+msgid "Omaduse Subject (s_subject) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_subject_help
+#: classes/applications/messenger/messenger_v2.aw:prop_s_subject_help
+msgid "Omaduse Subject (s_subject) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_submit
+#: classes/applications/messenger/messenger_v2.aw:prop_s_submit
+msgid "Omaduse Otsi (s_submit) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_submit_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_s_submit_comment
+msgid "Omaduse Otsi (s_submit) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_submit_help
+#: classes/applications/messenger/messenger_v2.aw:prop_s_submit_help
+msgid "Omaduse Otsi (s_submit) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_no_reforb
+#: classes/applications/messenger/messenger_v2.aw:prop_no_reforb
+msgid "Omaduse lolo (no_reforb) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_no_reforb_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_no_reforb_comment
+msgid "Omaduse lolo (no_reforb) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_no_reforb_help
+#: classes/applications/messenger/messenger_v2.aw:prop_no_reforb_help
+msgid "Omaduse lolo (no_reforb) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_results
+#: classes/applications/messenger/messenger_v2.aw:prop_s_results
+msgid "Omaduse Tulemused (s_results) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_results_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_s_results_comment
+msgid "Omaduse Tulemused (s_results) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_s_results_help
+#: classes/applications/messenger/messenger_v2.aw:prop_s_results_help
+msgid "Omaduse Tulemused (s_results) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_imap
+#: classes/applications/messenger/messenger_v2.aw:prop_imap
+msgid "Omaduse IMAP (imap) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_imap_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_imap_comment
+msgid "Omaduse IMAP (imap) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_imap_help
+#: classes/applications/messenger/messenger_v2.aw:prop_imap_help
+msgid "Omaduse IMAP (imap) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_testfilters
+#: classes/applications/messenger/messenger_v2.aw:prop_testfilters
+msgid "Omaduse Testi filtreid (testfilters) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_testfilters_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_testfilters_comment
+msgid "Omaduse Testi filtreid (testfilters) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_testfilters_help
+#: classes/applications/messenger/messenger_v2.aw:prop_testfilters_help
+msgid "Omaduse Testi filtreid (testfilters) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_rule_editor
+#: classes/applications/messenger/messenger_v2.aw:prop_rule_editor
+msgid "Omaduse Reeglid (rule_editor) caption"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_rule_editor_comment
+#: classes/applications/messenger/messenger_v2.aw:prop_rule_editor_comment
+msgid "Omaduse Reeglid (rule_editor) kommentaar"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:prop_rule_editor_help
+#: classes/applications/messenger/messenger_v2.aw:prop_rule_editor_help
+msgid "Omaduse Reeglid (rule_editor) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_add_rule
+msgid "Omaduse Lisa reegel (add_rule) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_add_rule_comment
+msgid "Omaduse Lisa reegel (add_rule) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_add_rule_help
+msgid "Omaduse Lisa reegel (add_rule) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_lists
+msgid "Omaduse Aadressiraamat (contact_lists) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_lists_comment
+msgid "Omaduse Aadressiraamat (contact_lists) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_lists_help
+msgid "Omaduse Aadressiraamat (contact_lists) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_name
+msgid "Omaduse Nimi (contact_name) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_name_comment
+msgid "Omaduse Nimi (contact_name) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_name_help
+msgid "Omaduse Nimi (contact_name) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_mail
+msgid "Omaduse E-Mail (contact_mail) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_mail_comment
+msgid "Omaduse E-Mail (contact_mail) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_mail_help
+msgid "Omaduse E-Mail (contact_mail) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_list
+msgid "Omaduse Aadressiraamat (contact_list) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_list_comment
+msgid "Omaduse Aadressiraamat (contact_list) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:prop_contact_list_help
+msgid "Omaduse Aadressiraamat (contact_list) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_main_view
+#: classes/applications/messenger/messenger_v2.aw:group_main_view
+msgid "Grupi Kirjad (main_view) pealkiri"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_main_view_help
+#: classes/applications/messenger/messenger_v2.aw:group_main_view_help
+msgid "Grupi Kirjad (main_view) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_settings
+#: classes/applications/messenger/messenger_v2.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_settings_help
+#: classes/applications/messenger/messenger_v2.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_advanced
+#: classes/applications/messenger/messenger_v2.aw:group_advanced
+msgid "Grupi Lisaks (advanced) pealkiri"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_advanced_help
+#: classes/applications/messenger/messenger_v2.aw:group_advanced_help
+msgid "Grupi Lisaks (advanced) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_grouping
+msgid "Grupi Grupeerimine (grouping) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_grouping_help
+msgid "Grupi Grupeerimine (grouping) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_imap
+#: classes/applications/messenger/messenger_v2.aw:group_imap
+msgid "Grupi IMAP (imap) pealkiri"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_imap_help
+#: classes/applications/messenger/messenger_v2.aw:group_imap_help
+msgid "Grupi IMAP (imap) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_search
+#: classes/applications/messenger/messenger_v2.aw:group_search
+msgid "Grupi Otsing (search) pealkiri"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_search_help
+#: classes/applications/messenger/messenger_v2.aw:group_search_help
+msgid "Grupi Otsing (search) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_rules
+#: classes/applications/messenger/messenger_v2.aw:group_rules
+msgid "Grupi Reeglid (rules) pealkiri"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_rules_help
+#: classes/applications/messenger/messenger_v2.aw:group_rules_help
+msgid "Grupi Reeglid (rules) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_rules_add
+msgid "Grupi Lisa reegel (rules_add) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_rules_add_help
+msgid "Grupi Lisa reegel (rules_add) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_rules_editor
+msgid "Grupi Reeglid (rules_editor) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_rules_editor_help
+msgid "Grupi Reeglid (rules_editor) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_rules_settings
+#: classes/applications/messenger/messenger_v2.aw:group_rules_settings
+msgid "Grupi Seaded (rules_settings) pealkiri"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:group_rules_settings_help
+#: classes/applications/messenger/messenger_v2.aw:group_rules_settings_help
+msgid "Grupi Seaded (rules_settings) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_a_book
+msgid "Grupi Aadressiraamat (a_book) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_a_book_help
+msgid "Grupi Aadressiraamat (a_book) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_book_add
+msgid "Grupi Lisa (book_add) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_book_add_help
+msgid "Grupi Lisa (book_add) help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_book_view
+msgid "Grupi Aadressid (book_view) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:group_book_view_help
+msgid "Grupi Aadressid (book_view) help"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_MAIL_IDENTITY
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_MAIL_IDENTITY
+msgid "Seose messengeri identiteet (RELTYPE_MAIL_IDENTITY) tekst"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_MAIL_SOURCE
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_MAIL_SOURCE
+msgid "Seose mailikonto (RELTYPE_MAIL_SOURCE) tekst"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_MAIL_CONFIG
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_MAIL_CONFIG
+msgid "Seose messengeri konfiguratsioon (RELTYPE_MAIL_CONFIG) tekst"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_FOLDER
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_FOLDER
+msgid "Seose kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_ADDRESS
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_ADDRESS
+msgid "Seose adressaat (RELTYPE_ADDRESS) tekst"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_RULE
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_RULE
+msgid "Seose maili ruul (RELTYPE_RULE) tekst"
+msgstr ""
+
+# classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_MESSENGER_OWNERSHIP
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_MESSENGER_OWNERSHIP
+msgid "Seose Omanik (RELTYPE_MESSENGER_OWNERSHIP) tekst"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_FROMNAME
+msgid "Seose Saatja (RELTYPE_FROMNAME) tekst"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_BUGTRACKER
+msgid "Seose Bugtrack (RELTYPE_BUGTRACKER) tekst"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_CONTACT_LIST
+msgid "Seose Aadressiraamat (RELTYPE_CONTACT_LIST) tekst"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:rel_RELTYPE_MAIL_MESSAGE
+msgid "Seose Maili andmed (RELTYPE_MAIL_MESSAGE) tekst"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:layout_msg_tree
+msgid "Kujundusosa Kaustad (msg_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:layout_msg_contents
+msgid "Kujundusosa Kiri (msg_contents) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:layout_msg_new
+msgid "Kujundusosa Kirja&nbsp;sisu (msg_new) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:layout_msg_new2
+msgid "Kujundusosa Uus&nbsp;kiri (msg_new2) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:layout_msg_search
+msgid "Kujundusosa Otsing (msg_search) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:layout_msg_address_book
+msgid "Kujundusosa Aadressiraamat (msg_address_book) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:layout_msg_calendar
+msgid "Kujundusosa Kalender (msg_calendar) pealkiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:237
+msgid "kulla mees, sa pole omale default messengeri ju valinud?"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:386
+msgid "Kustutada?"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:387
+#: classes/applications/messenger/messenger_v2.aw:1517
+msgid "Kustuta m&auml;rgitud kirjad"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:394
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:398
+msgid "E-Mail"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:451
+msgid "Saada kiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:481
+msgid "Vasta"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:487
+msgid "Vasta/k&otilde;igile"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:494
+msgid "Edasta"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:502
+msgid "Kustutada see kiri? (tagasi ei saa!)"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:503
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:527
+msgid "J&auml;rgmine kiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:532
+msgid "%s of %s"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:535
+msgid "Eelmine kiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:543
+msgid "Salvesta"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:578
+msgid "Ei kuva"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:579
+msgid "FCKeditor"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:885
+msgid "IMAP extension not available"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:897
+msgid "IMAP sissep&auml;&auml;s on konfigureerimata"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:971
+msgid "Vast."
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:980
+msgid "A"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:988
+msgid "Kellelt"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:995
+msgid "Teema"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1001
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1012
+msgid "KB"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1023
+msgid "G"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1047
+#: classes/applications/messenger/messenger_v2.aw:1409
+msgid "Login failed, check whether server name, user and password are correct.<br>"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1234
+msgid "ei"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1234
+msgid "jah"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1420
+msgid "Uus kiri"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1436
+msgid "Kustuta valitud kirjad"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1448
+msgid "addressbook"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1457
+msgid "search bar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1484
+msgid "Otsi kirju"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1490
+msgid "Vii kirjad"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1504
+msgid "Vii valitud kirjad kataloogi"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1518
+msgid "Kustutada m&auml;rgitud kirjad?"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1602
+msgid "&uuml;kski kiri INBOXis ei matchinud &uuml;hegi ruuliga<br>"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1619
+msgid "&uuml;htegi ruuli pole seostatud"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1701
+#: classes/applications/messenger/messenger_v2.aw:1714
+msgid "<strong>message with subject: %s</strong><br>"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1703
+msgid "&nbsp; &nbsp; uid = %s, matches subject rule %s, moving to %s folder<br>"
+msgstr ""
+
+#: classes/applications/messenger/messenger_v2.aw:1716
+msgid "&nbsp; &nbsp; matches from rule %s, moving to %s folder<br>"
+msgstr ""

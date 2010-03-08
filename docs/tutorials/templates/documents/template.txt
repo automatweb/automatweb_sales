@@ -1,0 +1,93 @@
+Dokumendi templated
+Sven Eller
+10.12.2003
+
+Dokumendi templeidid asuvad saidi juures kataloogis /templates/documents. Dokumendil v&otilde;ib olla ka mitu templeiti.  Kui  saidi erinevates osades on vaja dokumente erinevalt n&auml;idata, saab template  valida kataloogi muutmisel, tabi n&auml;itamine alt.  Dokumentide templeite saab lisada Adminni programmiga DokTemplate mgr.
+
+Failis&uuml;steemis  ,saidi kataloogis /templates/documents on 2 faili:  plain.tpl ja lead.tpl. Need on templeit failid, mida kasutatakse vaikimisi. Faili plain.tpl  kasutatakse juhul, kui kaustas on vaid &uuml;ks aktiivne dokument. 
+Lead.tpl'i kasutatakse juhul, kui &uuml;hes kaustas asub rohkem kui &uuml;ks aktiivne dokument. Sel juhul n&auml;idatakse dokumentide nimekirja(pealkirja ja leadiga).
+
+Objekte nagu foorumid jne... n&auml;idatakse l&auml;bi dokumendi.  Saidi raami templates t&auml;histab dokumendi osa muutuja.  {VAR:content}
+
+
+<b>Muutujad dokumendi templates:</b>
+
+{VAR:docid} - Dokumendi objekti id.
+
+{VAR:title} - Dokumendi pealkiri.
+
+{VAR:text} - Dokumendi sisu
+
+{VAR:modified} - Kuup&auml;ev millal dokumenti viimati muudeti.
+
+{VAR:date2} - Ka kuup&auml;ev, millal dokumenti viimati muudeti, aga aastaarv on 4 numbriga. 
+
+{VAR:author} - Dokumendi autor
+
+{VAR:createdby} - Kasutaja kes l&otilde;i dokumendiobjekti
+
+{VAR:locale_date} - Dokumendi muutmise kuupäev lokaliseeritud kujul (s.t. kuu nimi on tõlgitud (kui on) ja kirjutatud sellele keele vastavate reeglite kohaselt
+
+<b>N&auml;idis template:</b> 
+#code#
+<div class="title">{VAR:title}</div>
+<div class="text">{VAR:text}</div><br>
+#/code#
+
+
+<b>Subid dokumendi templates</b>
+
+<b>image</b>
+Image subis saab kirjeldada kuidas dokumendis n&auml;idata pilte. Kuidas neid joondada,  jne.
+
+N&auml;ide: 
+#code#
+<!-- SUB: image -->
+<div style="position: relative; float: {VAR:alignstr};">
+<img src="{VAR:imgref}" alt="{VAR:alt}" title="{VAR:alt}" />
+{VAR:imgcaption}
+</div>
+<!-- END SUB: image -->
+#/code#
+
+<b>image_has_big</b>
+Juhul kui pildist on olemas ka suurem varjant, siis kasutatakse seda subi. 
+
+N&auml;ide:
+#code#
+<!-- SUB: image_has_big -->
+<div style="position: relative; float: {VAR:alignstr};">
+<a href="VAR:bigurl">
+<img src="{VAR:imgref}"/></a><br>
+{VAR:imgcaption}
+</div>
+<!-- END SUB: image_has_big -->
+#/code#
+
+
+
+<b>PRINTANDSEND</b>#code#
+Subi j&auml;&auml;vat linki n&auml;idatakse vaid siis kui dokumendi sedetest on valitud, et n&auml;idata prindi nuppu. 
+
+<!-- SUB: PRINTANDSEND -->
+
+<a href="{VAR:baseurl}/?class=document&action=print&
+section={VAR:docid}" >[PRINT]</a>
+
+<!-- END SUB: PRINTANDSEND -->
+#/code#
+
+<b>LINK "&Uuml;LES"</b>
+#code#
+
+<!-- SUB: top_link -->
+<br><span class="textsmall"><a href='#'>&Yuml;les</a></span>
+<!-- END SUB: top_link -->
+#/code#
+<b>N&Auml;ITA VIIMATI MUUDETUD KUUP&Auml;EVA</b>
+#code#
+<!-- SUB: SHOW_MODIFIED -->
+<br><span class="textsmall"><I>Viimati muudetud: </I></span>
+<!-- END SUB: SHOW_MODIFIED -->
+
+#/code#

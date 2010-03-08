@@ -1,0 +1,279 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/register/register.aw:class_341_help
+msgid "Klassi Register help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_cfgform
+msgid "Omaduse Andmete seadete vorm (data_cfgform) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_cfgform_comment
+msgid "Omaduse Andmete seadete vorm (data_cfgform) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_cfgform_help
+msgid "Omaduse Andmete seadete vorm (data_cfgform) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_default_cfgform
+msgid "Omaduse Tee seadete vorm andmetele default'iks (default_cfgform) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_default_cfgform_comment
+msgid "Omaduse Tee seadete vorm andmetele default'iks (default_cfgform) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_default_cfgform_help
+msgid "Omaduse Tee seadete vorm andmetele default'iks (default_cfgform) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_return_url
+msgid "Omaduse Kuhu &uuml;mbersuunata peale andmete salvestamist (data_return_url) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_return_url_comment
+msgid "Omaduse Kuhu &uuml;mbersuunata peale andmete salvestamist (data_return_url) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_return_url_help
+msgid "Omaduse Kuhu &uuml;mbersuunata peale andmete salvestamist (data_return_url) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_rootmenu
+msgid "Omaduse Andmete kataloog (data_rootmenu) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_rootmenu_comment
+msgid "Omaduse Andmete kataloog (data_rootmenu) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_rootmenu_help
+msgid "Omaduse Andmete kataloog (data_rootmenu) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_tree_field
+msgid "Omaduse Andmete puu struktuuri v&auml;li (data_tree_field) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_tree_field_comment
+msgid "Omaduse Andmete puu struktuuri v&auml;li (data_tree_field) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_tree_field_help
+msgid "Omaduse Andmete puu struktuuri v&auml;li (data_tree_field) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_search_o
+msgid "Omaduse Otsingu konfiguratsioon (search_o) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_search_o_comment
+msgid "Omaduse Otsingu konfiguratsioon (search_o) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_search_o_help
+msgid "Omaduse Otsingu konfiguratsioon (search_o) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_show_all
+msgid "Omaduse Kui pole valitud, n&auml;ita k&otilde;iki sisestusi (show_all) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_show_all_comment
+msgid "Omaduse Kui pole valitud, n&auml;ita k&otilde;iki sisestusi (show_all) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_show_all_help
+msgid "Omaduse Kui pole valitud, n&auml;ita k&otilde;iki sisestusi (show_all) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_per_page
+msgid "Omaduse Mitu kirjet lehel (per_page) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_per_page_comment
+msgid "Omaduse Mitu kirjet lehel (per_page) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_per_page_help
+msgid "Omaduse Mitu kirjet lehel (per_page) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_cfgform_name_in_field
+msgid "Omaduse Kirje lisamisel pane seadete vormi nimi v&auml;lja (cfgform_name_in_field) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_cfgform_name_in_field_comment
+msgid "Omaduse Kirje lisamisel pane seadete vormi nimi v&auml;lja (cfgform_name_in_field) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_cfgform_name_in_field_help
+msgid "Omaduse Kirje lisamisel pane seadete vormi nimi v&auml;lja (cfgform_name_in_field) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_tb
+msgid "Omaduse  (data_tb) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_tb_comment
+msgid "Omaduse  (data_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_tb_help
+msgid "Omaduse  (data_tb) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_tree
+msgid "Omaduse  (data_tree) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_tree_comment
+msgid "Omaduse  (data_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_tree_help
+msgid "Omaduse  (data_tree) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data
+msgid "Omaduse  (data) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_comment
+msgid "Omaduse  (data) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_data_help
+msgid "Omaduse  (data) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_mail_address_to
+msgid "Omaduse E-maili aadress, (to) (mail_address_to) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_mail_address_to_comment
+msgid "Omaduse E-maili aadress, (to) (mail_address_to) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_mail_address_to_help
+msgid "Omaduse E-maili aadress, (to) (mail_address_to) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_mail_address_from
+msgid "Omaduse E-maili aadress, (from) (mail_address_from) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_mail_address_from_comment
+msgid "Omaduse E-maili aadress, (from) (mail_address_from) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_mail_address_from_help
+msgid "Omaduse E-maili aadress, (from) (mail_address_from) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_mail_subject
+msgid "Omaduse Subject (mail_subject) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_mail_subject_comment
+msgid "Omaduse Subject (mail_subject) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_mail_subject_help
+msgid "Omaduse Subject (mail_subject) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_search
+msgid "Omaduse  (search) caption"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_search_comment
+msgid "Omaduse  (search) kommentaar"
+msgstr ""
+
+#: classes/applications/register/register.aw:prop_search_help
+msgid "Omaduse  (search) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:group_data
+msgid "Grupi Andmed (data) pealkiri"
+msgstr ""
+
+#: classes/applications/register/register.aw:group_data_help
+msgid "Grupi Andmed (data) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:group_mail_send_settings
+msgid "Grupi E-maili saatmise seaded (mail_send_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/register/register.aw:group_mail_send_settings_help
+msgid "Grupi E-maili saatmise seaded (mail_send_settings) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:group_search
+msgid "Grupi Otsing (search) pealkiri"
+msgstr ""
+
+#: classes/applications/register/register.aw:group_search_help
+msgid "Grupi Otsing (search) help"
+msgstr ""
+
+#: classes/applications/register/register.aw:rel_RELTYPE_CFGFORM
+msgid "Seose andmete seadete vorm (RELTYPE_CFGFORM) tekst"
+msgstr ""
+
+#: classes/applications/register/register.aw:rel_RELTYPE_MENU
+msgid "Seose andmete kataloog (RELTYPE_MENU) tekst"
+msgstr ""
+
+#: classes/applications/register/register.aw:rel_RELTYPE_SEARCH
+msgid "Seose registri otsing (RELTYPE_SEARCH) tekst"
+msgstr ""
+
+#: classes/applications/register/register.aw:rel_RELTYPE_MAIL
+msgid "Seose e-maili aadress (RELTYPE_MAIL) tekst"
+msgstr ""
+
+#: classes/applications/register/register.aw:120
+msgid "Otsingu konfiguratsioon valimatta!"
+msgstr ""
+
+#: classes/applications/register/register.aw:172
+msgid "Uus"
+msgstr ""
+
+#: classes/applications/register/register.aw:198
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/register/register.aw:204
+msgid "Looja"
+msgstr ""
+
+#: classes/applications/register/register.aw:211
+msgid "Loodud"
+msgstr ""
+
+#: classes/applications/register/register.aw:220
+msgid "Muutja"
+msgstr ""
+
+#: classes/applications/register/register.aw:227
+msgid "Muudetud"
+msgstr ""
+
+#: classes/applications/register/register.aw:236
+#: classes/applications/register/register.aw:326
+msgid "Muuda"
+msgstr ""

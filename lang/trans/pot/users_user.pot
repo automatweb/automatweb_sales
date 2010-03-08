@@ -1,0 +1,24 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/core/users/users_user.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/users/users_user.aw:86
+msgid "oid for uid is empty uid = '%s'!"
+msgstr ""
+
+#: classes/core/users/users_user.aw:219
+msgid "Vigane kasutajanimi v&otilde;i parool"
+msgstr ""
+

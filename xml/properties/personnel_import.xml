@@ -1,0 +1,91 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>slave_obj</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_SLAVE_OBJ</reltype>
+            <caption>Massiivi vormistaja</caption>
+      </property>
+      <property>
+            <name>last_import</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <caption>Viimane import toimus</caption>
+      </property>
+      <property>
+            <name>import</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <store>no</store>
+            <caption>Import</caption>
+      </property>
+      <property>
+            <name>crm_db_id</name>
+            <table>objects</table>
+            <group>settings</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CRM_DB</reltype>
+            <caption>Kasutatav kliendibaas</caption>
+      </property>
+      <property>
+            <name>recur_edit</name>
+            <table>objects</table>
+            <group>autoimport</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>releditor</type>
+            <reltype>RELTYPE_RECURRENCE</reltype>
+            <use_form>emb</use_form>
+            <rel_id>first</rel_id>
+            <caption>Automaatse impordi seadistamine</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_PERSONNEL_IMPORT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kaarel</maintainer>
+      </classinfo>
+      <groupinfo>
+            <settings>
+                  <caption>Seaded</caption>
+            </settings>
+            <autoimport>
+                  <caption>Automaatne import</caption>
+            </autoimport>
+      </groupinfo>
+      <reltypes>
+            <SLAVE_OBJ>
+                  <value>1</value>
+                  <clid>
+                        <num_0>CL_UT_IMPORT</num_0>
+                        <num_1>CL_TAKET_AFP_IMPORT</num_1>
+                  </clid>
+                  <caption>Massiivi vormistaja</caption>
+            </SLAVE_OBJ>
+            <CRM_DB>
+                  <value>2</value>
+                  <clid>CL_CRM_DB</clid>
+                  <caption>kliendibaas</caption>
+            </CRM_DB>
+            <RECURRENCE>
+                  <value>3</value>
+                  <clid>CL_RECURRENCE</clid>
+                  <caption>Kordus</caption>
+            </RECURRENCE>
+      </reltypes>
+</properties>
+

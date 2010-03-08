@@ -1,0 +1,2342 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/shop/shop_product.aw:class_295_help
+#: classes/applications/shop/shop_product.aw:class_295_help
+msgid "Klassi Lao toode help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_description
+msgid "Omaduse Kirjeldus (description) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_description_comment
+msgid "Omaduse Kirjeldus (description) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_description_help
+msgid "Omaduse Kirjeldus (description) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_content_package
+msgid "Omaduse Sisupaketi tooteobjekt (content_package) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_content_package_comment
+msgid "Omaduse Sisupaketi tooteobjekt (content_package) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_content_package_help
+msgid "Omaduse Sisupaketi tooteobjekt (content_package) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_short_name
+msgid "Omaduse L&uuml;hinimetus (short_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_short_name_comment
+msgid "Omaduse L&uuml;hinimetus (short_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_short_name_help
+msgid "Omaduse L&uuml;hinimetus (short_name) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_item_type
+#: classes/applications/shop/shop_product.aw:prop_item_type
+msgid "Omaduse Toote t&uuml;&uuml;p (item_type) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_item_type_comment
+#: classes/applications/shop/shop_product.aw:prop_item_type_comment
+msgid "Omaduse Toote t&uuml;&uuml;p (item_type) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_item_type_help
+#: classes/applications/shop/shop_product.aw:prop_item_type_help
+msgid "Omaduse Toote t&uuml;&uuml;p (item_type) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_price_settings
+#: classes/applications/shop/shop_product.aw:prop_price_settings
+msgid "Omaduse Hinnakujundus (price_settings) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_price_settings_comment
+#: classes/applications/shop/shop_product.aw:prop_price_settings_comment
+msgid "Omaduse Hinnakujundus (price_settings) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_price_settings_help
+#: classes/applications/shop/shop_product.aw:prop_price_settings_help
+msgid "Omaduse Hinnakujundus (price_settings) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_tax_rate
+msgid "Omaduse Maksum&auml;&auml;r (tax_rate) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_tax_rate_comment
+msgid "Omaduse Maksum&auml;&auml;r (tax_rate) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_tax_rate_help
+msgid "Omaduse Maksum&auml;&auml;r (tax_rate) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_price
+#: classes/applications/shop/shop_product.aw:prop_price
+msgid "Omaduse Hind (price) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_price_comment
+#: classes/applications/shop/shop_product.aw:prop_price_comment
+msgid "Omaduse Hind (price) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_price_help
+#: classes/applications/shop/shop_product.aw:prop_price_help
+msgid "Omaduse Hind (price) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_purchase_price
+msgid "Omaduse Ostu hind (purchase_price) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_purchase_price_comment
+msgid "Omaduse Ostu hind (purchase_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_purchase_price_help
+msgid "Omaduse Ostu hind (purchase_price) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_special_price
+msgid "Omaduse Erihind (special_price) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_special_price_comment
+msgid "Omaduse Erihind (special_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_special_price_help
+msgid "Omaduse Erihind (special_price) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_prev_sales_price_tbl
+msgid "Omaduse  (prev_sales_price_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_prev_sales_price_tbl_comment
+msgid "Omaduse  (prev_sales_price_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_prev_sales_price_tbl_help
+msgid "Omaduse  (prev_sales_price_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_prev_purchase_price_tbl
+msgid "Omaduse  (prev_purchase_price_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_prev_purchase_price_tbl_comment
+msgid "Omaduse  (prev_purchase_price_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_prev_purchase_price_tbl_help
+msgid "Omaduse  (prev_purchase_price_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_price_cur
+msgid "Omaduse  (price_cur) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_price_cur_comment
+msgid "Omaduse  (price_cur) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_price_cur_help
+msgid "Omaduse  (price_cur) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_short_code
+msgid "Omaduse L&uuml;hikood (short_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_short_code_comment
+msgid "Omaduse L&uuml;hikood (short_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_short_code_help
+msgid "Omaduse L&uuml;hikood (short_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_barcode
+msgid "Omaduse Ribakood (barcode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_barcode_comment
+msgid "Omaduse Ribakood (barcode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_barcode_help
+msgid "Omaduse Ribakood (barcode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_type_code
+msgid "Omaduse T&uuml;&uuml;bi kood (type_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_type_code_comment
+msgid "Omaduse T&uuml;&uuml;bi kood (type_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_type_code_help
+msgid "Omaduse T&uuml;&uuml;bi kood (type_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brand
+msgid "Omaduse Brand (brand) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brand_comment
+msgid "Omaduse Brand (brand) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brand_help
+msgid "Omaduse Brand (brand) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brand_series
+msgid "Omaduse Brandisarjad (brand_series) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brand_series_comment
+msgid "Omaduse Brandisarjad (brand_series) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brand_series_help
+msgid "Omaduse Brandisarjad (brand_series) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_min_order_amt
+msgid "Omaduse Minimaalne tellimiskogus (min_order_amt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_min_order_amt_comment
+msgid "Omaduse Minimaalne tellimiskogus (min_order_amt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_min_order_amt_help
+msgid "Omaduse Minimaalne tellimiskogus (min_order_amt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_max_order_amt
+msgid "Omaduse Maksimaalne tellimiskogus (max_order_amt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_max_order_amt_comment
+msgid "Omaduse Maksimaalne tellimiskogus (max_order_amt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_max_order_amt_help
+msgid "Omaduse Maksimaalne tellimiskogus (max_order_amt) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_must_order_num
+#: classes/applications/shop/shop_product.aw:prop_must_order_num
+msgid "Omaduse Mitu peab korraga tellima (must_order_num) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_must_order_num_comment
+#: classes/applications/shop/shop_product.aw:prop_must_order_num_comment
+msgid "Omaduse Mitu peab korraga tellima (must_order_num) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_must_order_num_help
+#: classes/applications/shop/shop_product.aw:prop_must_order_num_help
+msgid "Omaduse Mitu peab korraga tellima (must_order_num) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_min_wh_order_amt
+msgid "Omaduse Minimaalne sisseostu kogus (min_wh_order_amt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_min_wh_order_amt_comment
+msgid "Omaduse Minimaalne sisseostu kogus (min_wh_order_amt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_min_wh_order_amt_help
+msgid "Omaduse Minimaalne sisseostu kogus (min_wh_order_amt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_serial_number_based
+msgid "Omaduse Seerianumbrip&otilde;hine arvestus (serial_number_based) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_serial_number_based_comment
+msgid "Omaduse Seerianumbrip&otilde;hine arvestus (serial_number_based) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_serial_number_based_help
+msgid "Omaduse Seerianumbrip&otilde;hine arvestus (serial_number_based) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_order_based
+msgid "Omaduse Partiip&otilde;hine arvestus (order_based) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_order_based_comment
+msgid "Omaduse Partiip&otilde;hine arvestus (order_based) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_order_based_help
+msgid "Omaduse Partiip&otilde;hine arvestus (order_based) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_units_tbl
+msgid "Omaduse  (units_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_units_tbl_comment
+msgid "Omaduse  (units_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_units_tbl_help
+msgid "Omaduse  (units_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_balance
+msgid "Omaduse  (balance) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_balance_comment
+msgid "Omaduse  (balance) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_balance_help
+msgid "Omaduse  (balance) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_item_count
+#: classes/applications/shop/shop_product.aw:prop_item_count
+msgid "Omaduse Mitu laos (item_count) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_item_count_comment
+#: classes/applications/shop/shop_product.aw:prop_item_count_comment
+msgid "Omaduse Mitu laos (item_count) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_item_count_help
+#: classes/applications/shop/shop_product.aw:prop_item_count_help
+msgid "Omaduse Mitu laos (item_count) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_categories_toolbar
+msgid "Omaduse  (categories_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_categories_toolbar_comment
+msgid "Omaduse  (categories_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_categories_toolbar_help
+msgid "Omaduse  (categories_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_categories_table
+msgid "Omaduse  (categories_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_categories_table_comment
+msgid "Omaduse  (categories_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_categories_table_help
+msgid "Omaduse  (categories_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_categories
+msgid "Omaduse  (categories) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_categories_comment
+msgid "Omaduse  (categories) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_categories_help
+msgid "Omaduse  (categories) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_reservation_time
+msgid "Omaduse Broneeritav aeg (reservation_time) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_reservation_time_comment
+msgid "Omaduse Broneeritav aeg (reservation_time) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_reservation_time_help
+msgid "Omaduse Broneeritav aeg (reservation_time) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_reservation_time_unit
+msgid "Omaduse  (reservation_time_unit) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_reservation_time_unit_comment
+msgid "Omaduse  (reservation_time_unit) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_reservation_time_unit_help
+msgid "Omaduse  (reservation_time_unit) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_buffer_time_before
+msgid "Omaduse Puhveraeg enne (buffer_time_before) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_buffer_time_before_comment
+msgid "Omaduse Puhveraeg enne (buffer_time_before) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_buffer_time_before_help
+msgid "Omaduse Puhveraeg enne (buffer_time_before) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_buffer_time_after
+msgid "Omaduse Puhveraeg p&auml;rast (buffer_time_after) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_buffer_time_after_comment
+msgid "Omaduse Puhveraeg p&auml;rast (buffer_time_after) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_buffer_time_after_help
+msgid "Omaduse Puhveraeg p&auml;rast (buffer_time_after) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_buffer_time_unit
+msgid "Omaduse  (buffer_time_unit) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_buffer_time_unit_comment
+msgid "Omaduse  (buffer_time_unit) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_buffer_time_unit_help
+msgid "Omaduse  (buffer_time_unit) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits
+msgid "Omaduse  (amount_limits) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_comment
+msgid "Omaduse  (amount_limits) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_help
+msgid "Omaduse  (amount_limits) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_tb
+msgid "Omaduse  (amount_limits_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_tb_comment
+msgid "Omaduse  (amount_limits_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_tb_help
+msgid "Omaduse  (amount_limits_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_aml_inheritable
+msgid "Omaduse P&auml;ritav (aml_inheritable) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_aml_inheritable_comment
+msgid "Omaduse P&auml;ritav (aml_inheritable) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_aml_inheritable_help
+msgid "Omaduse P&auml;ritav (aml_inheritable) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_inherit_aml_from
+msgid "Omaduse P&auml;ri kogusepiirangud (inherit_aml_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_inherit_aml_from_comment
+msgid "Omaduse P&auml;ri kogusepiirangud (inherit_aml_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_inherit_aml_from_help
+msgid "Omaduse P&auml;ri kogusepiirangud (inherit_aml_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_tbl
+msgid "Omaduse  (amount_limits_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_tbl_comment
+msgid "Omaduse  (amount_limits_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_tbl_help
+msgid "Omaduse  (amount_limits_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_wh_minimum
+msgid "Omaduse Miinimumkogus laos (wh_minimum) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_wh_minimum_comment
+msgid "Omaduse Miinimumkogus laos (wh_minimum) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_wh_minimum_help
+msgid "Omaduse Miinimumkogus laos (wh_minimum) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_wh_maximum
+msgid "Omaduse Maksimumkogus laos (wh_maximum) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_wh_maximum_comment
+msgid "Omaduse Maksimumkogus laos (wh_maximum) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_wh_maximum_help
+msgid "Omaduse Maksimumkogus laos (wh_maximum) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_re
+msgid "Omaduse Kogusepiirangud (amount_limits_re) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_re_comment
+msgid "Omaduse Kogusepiirangud (amount_limits_re) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_amount_limits_re_help
+msgid "Omaduse Kogusepiirangud (amount_limits_re) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_match_prod
+msgid "Omaduse Kokkusobivad tooted (match_prod) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_match_prod_comment
+msgid "Omaduse Kokkusobivad tooted (match_prod) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_match_prod_help
+msgid "Omaduse Kokkusobivad tooted (match_prod) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_replacement_prods_tb
+msgid "Omaduse Asendustoodete t&ouml;&ouml;riistariba (replacement_prods_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_replacement_prods_tb_comment
+msgid "Omaduse Asendustoodete t&ouml;&ouml;riistariba (replacement_prods_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_replacement_prods_tb_help
+msgid "Omaduse Asendustoodete t&ouml;&ouml;riistariba (replacement_prods_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_replacement_prods
+msgid "Omaduse Asendustooted (replacement_prods) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_replacement_prods_comment
+msgid "Omaduse Asendustooted (replacement_prods) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_replacement_prods_help
+msgid "Omaduse Asendustooted (replacement_prods) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_purveyance_tb
+msgid "Omaduse  (purveyance_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_purveyance_tb_comment
+msgid "Omaduse  (purveyance_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_purveyance_tb_help
+msgid "Omaduse  (purveyance_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_purveyance_tbl
+msgid "Omaduse  (purveyance_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_purveyance_tbl_comment
+msgid "Omaduse  (purveyance_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_purveyance_tbl_help
+msgid "Omaduse  (purveyance_tbl) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_packaging
+#: classes/applications/shop/shop_product.aw:prop_packaging
+msgid "Omaduse Pakendid (packaging) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_packaging_comment
+#: classes/applications/shop/shop_product.aw:prop_packaging_comment
+msgid "Omaduse Pakendid (packaging) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_packaging_help
+#: classes/applications/shop/shop_product.aw:prop_packaging_help
+msgid "Omaduse Pakendid (packaging) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_singles_toolbar
+msgid "Omaduse  (singles_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_singles_toolbar_comment
+msgid "Omaduse  (singles_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_singles_toolbar_help
+msgid "Omaduse  (singles_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_singles_table
+msgid "Omaduse  (singles_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_singles_table_comment
+msgid "Omaduse  (singles_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_singles_table_help
+msgid "Omaduse  (singles_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_color
+msgid "Omaduse V&auml;rvus (color) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_color_comment
+msgid "Omaduse V&auml;rvus (color) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_color_help
+msgid "Omaduse V&auml;rvus (color) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_height
+msgid "Omaduse K&otilde;rgus (height) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_height_comment
+msgid "Omaduse K&otilde;rgus (height) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_height_help
+msgid "Omaduse K&otilde;rgus (height) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_width
+msgid "Omaduse Laius (width) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_width_comment
+msgid "Omaduse Laius (width) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_width_help
+msgid "Omaduse Laius (width) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_depth
+msgid "Omaduse S&uuml;gavus (depth) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_depth_comment
+msgid "Omaduse S&uuml;gavus (depth) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_depth_help
+msgid "Omaduse S&uuml;gavus (depth) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_wideness
+msgid "Omaduse Paksus (wideness) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_wideness_comment
+msgid "Omaduse Paksus (wideness) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_wideness_help
+msgid "Omaduse Paksus (wideness) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_density
+msgid "Omaduse Tihedus (density) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_density_comment
+msgid "Omaduse Tihedus (density) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_density_help
+msgid "Omaduse Tihedus (density) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_weight
+msgid "Omaduse Kaal (weight) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_weight_comment
+msgid "Omaduse Kaal (weight) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_weight_help
+msgid "Omaduse Kaal (weight) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_gramweight
+msgid "Omaduse Grammkaal (gramweight) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_gramweight_comment
+msgid "Omaduse Grammkaal (gramweight) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_gramweight_help
+msgid "Omaduse Grammkaal (gramweight) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_raster
+msgid "Omaduse Rasteritihedus (raster) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_raster_comment
+msgid "Omaduse Rasteritihedus (raster) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_raster_help
+msgid "Omaduse Rasteritihedus (raster) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_bulk
+msgid "Omaduse Mahulisus (bulk) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_bulk_comment
+msgid "Omaduse Mahulisus (bulk) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_bulk_help
+msgid "Omaduse Mahulisus (bulk) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_guarantee
+msgid "Omaduse Garantii kuudes (guarantee) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_guarantee_comment
+msgid "Omaduse Garantii kuudes (guarantee) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_guarantee_help
+msgid "Omaduse Garantii kuudes (guarantee) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch1
+#: classes/applications/shop/shop_product.aw:prop_userch1
+msgid "Omaduse User-defined checkbox 1 (userch1) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch1_comment
+#: classes/applications/shop/shop_product.aw:prop_userch1_comment
+msgid "Omaduse User-defined checkbox 1 (userch1) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch1_help
+#: classes/applications/shop/shop_product.aw:prop_userch1_help
+msgid "Omaduse User-defined checkbox 1 (userch1) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch2
+#: classes/applications/shop/shop_product.aw:prop_userch2
+msgid "Omaduse User-defined checkbox 2 (userch2) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch2_comment
+#: classes/applications/shop/shop_product.aw:prop_userch2_comment
+msgid "Omaduse User-defined checkbox 2 (userch2) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch2_help
+#: classes/applications/shop/shop_product.aw:prop_userch2_help
+msgid "Omaduse User-defined checkbox 2 (userch2) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch3
+#: classes/applications/shop/shop_product.aw:prop_userch3
+msgid "Omaduse User-defined checkbox 3 (userch3) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch3_comment
+#: classes/applications/shop/shop_product.aw:prop_userch3_comment
+msgid "Omaduse User-defined checkbox 3 (userch3) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch3_help
+#: classes/applications/shop/shop_product.aw:prop_userch3_help
+msgid "Omaduse User-defined checkbox 3 (userch3) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch4
+#: classes/applications/shop/shop_product.aw:prop_userch4
+msgid "Omaduse User-defined checkbox 4 (userch4) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch4_comment
+#: classes/applications/shop/shop_product.aw:prop_userch4_comment
+msgid "Omaduse User-defined checkbox 4 (userch4) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch4_help
+#: classes/applications/shop/shop_product.aw:prop_userch4_help
+msgid "Omaduse User-defined checkbox 4 (userch4) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch5
+#: classes/applications/shop/shop_product.aw:prop_userch5
+msgid "Omaduse User-defined checkbox 5 (userch5) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch5_comment
+#: classes/applications/shop/shop_product.aw:prop_userch5_comment
+msgid "Omaduse User-defined checkbox 5 (userch5) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userch5_help
+#: classes/applications/shop/shop_product.aw:prop_userch5_help
+msgid "Omaduse User-defined checkbox 5 (userch5) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch6
+msgid "Omaduse User-defined checkbox 6 (userch6) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch6_comment
+msgid "Omaduse User-defined checkbox 6 (userch6) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch6_help
+msgid "Omaduse User-defined checkbox 6 (userch6) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch7
+msgid "Omaduse User-defined checkbox 7 (userch7) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch7_comment
+msgid "Omaduse User-defined checkbox 7 (userch7) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch7_help
+msgid "Omaduse User-defined checkbox 7 (userch7) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch8
+msgid "Omaduse User-defined checkbox 8 (userch8) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch8_comment
+msgid "Omaduse User-defined checkbox 8 (userch8) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch8_help
+msgid "Omaduse User-defined checkbox 8 (userch8) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch9
+msgid "Omaduse User-defined checkbox 9 (userch9) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch9_comment
+msgid "Omaduse User-defined checkbox 9 (userch9) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch9_help
+msgid "Omaduse User-defined checkbox 9 (userch9) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch10
+msgid "Omaduse User-defined checkbox 10 (userch10) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch10_comment
+msgid "Omaduse User-defined checkbox 10 (userch10) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_userch10_help
+msgid "Omaduse User-defined checkbox 10 (userch10) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user1
+#: classes/applications/shop/shop_product.aw:prop_user1
+msgid "Omaduse User-defined 1 (user1) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user1_comment
+#: classes/applications/shop/shop_product.aw:prop_user1_comment
+msgid "Omaduse User-defined 1 (user1) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user1_help
+#: classes/applications/shop/shop_product.aw:prop_user1_help
+msgid "Omaduse User-defined 1 (user1) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user2
+#: classes/applications/shop/shop_product.aw:prop_user2
+msgid "Omaduse User-defined 2 (user2) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user2_comment
+#: classes/applications/shop/shop_product.aw:prop_user2_comment
+msgid "Omaduse User-defined 2 (user2) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user2_help
+#: classes/applications/shop/shop_product.aw:prop_user2_help
+msgid "Omaduse User-defined 2 (user2) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user3
+#: classes/applications/shop/shop_product.aw:prop_user3
+msgid "Omaduse User-defined 3 (user3) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user3_comment
+#: classes/applications/shop/shop_product.aw:prop_user3_comment
+msgid "Omaduse User-defined 3 (user3) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user3_help
+#: classes/applications/shop/shop_product.aw:prop_user3_help
+msgid "Omaduse User-defined 3 (user3) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user4
+#: classes/applications/shop/shop_product.aw:prop_user4
+msgid "Omaduse User-defined 4 (user4) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user4_comment
+#: classes/applications/shop/shop_product.aw:prop_user4_comment
+msgid "Omaduse User-defined 4 (user4) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user4_help
+#: classes/applications/shop/shop_product.aw:prop_user4_help
+msgid "Omaduse User-defined 4 (user4) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user5
+#: classes/applications/shop/shop_product.aw:prop_user5
+msgid "Omaduse User-defined 5 (user5) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user5_comment
+#: classes/applications/shop/shop_product.aw:prop_user5_comment
+msgid "Omaduse User-defined 5 (user5) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user5_help
+#: classes/applications/shop/shop_product.aw:prop_user5_help
+msgid "Omaduse User-defined 5 (user5) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user6
+#: classes/applications/shop/shop_product.aw:prop_user6
+msgid "Omaduse User-defined 6 (user6) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user6_comment
+#: classes/applications/shop/shop_product.aw:prop_user6_comment
+msgid "Omaduse User-defined 6 (user6) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user6_help
+#: classes/applications/shop/shop_product.aw:prop_user6_help
+msgid "Omaduse User-defined 6 (user6) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user7
+#: classes/applications/shop/shop_product.aw:prop_user7
+msgid "Omaduse User-defined 7 (user7) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user7_comment
+#: classes/applications/shop/shop_product.aw:prop_user7_comment
+msgid "Omaduse User-defined 7 (user7) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user7_help
+#: classes/applications/shop/shop_product.aw:prop_user7_help
+msgid "Omaduse User-defined 7 (user7) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user8
+#: classes/applications/shop/shop_product.aw:prop_user8
+msgid "Omaduse User-defined 8 (user8) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user8_comment
+#: classes/applications/shop/shop_product.aw:prop_user8_comment
+msgid "Omaduse User-defined 8 (user8) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user8_help
+#: classes/applications/shop/shop_product.aw:prop_user8_help
+msgid "Omaduse User-defined 8 (user8) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user9
+#: classes/applications/shop/shop_product.aw:prop_user9
+msgid "Omaduse User-defined 9 (user9) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user9_comment
+#: classes/applications/shop/shop_product.aw:prop_user9_comment
+msgid "Omaduse User-defined 9 (user9) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user9_help
+#: classes/applications/shop/shop_product.aw:prop_user9_help
+msgid "Omaduse User-defined 9 (user9) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user10
+#: classes/applications/shop/shop_product.aw:prop_user10
+msgid "Omaduse User-defined 10 (user10) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user10_comment
+#: classes/applications/shop/shop_product.aw:prop_user10_comment
+msgid "Omaduse User-defined 10 (user10) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user10_help
+#: classes/applications/shop/shop_product.aw:prop_user10_help
+msgid "Omaduse User-defined 10 (user10) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user11
+#: classes/applications/shop/shop_product.aw:prop_user11
+msgid "Omaduse User-defined 11 (user11) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user11_comment
+#: classes/applications/shop/shop_product.aw:prop_user11_comment
+msgid "Omaduse User-defined 11 (user11) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user11_help
+#: classes/applications/shop/shop_product.aw:prop_user11_help
+msgid "Omaduse User-defined 11 (user11) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user12
+#: classes/applications/shop/shop_product.aw:prop_user12
+msgid "Omaduse User-defined 12 (user12) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user12_comment
+#: classes/applications/shop/shop_product.aw:prop_user12_comment
+msgid "Omaduse User-defined 12 (user12) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user12_help
+#: classes/applications/shop/shop_product.aw:prop_user12_help
+msgid "Omaduse User-defined 12 (user12) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user13
+#: classes/applications/shop/shop_product.aw:prop_user13
+msgid "Omaduse User-defined 13 (user13) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user13_comment
+#: classes/applications/shop/shop_product.aw:prop_user13_comment
+msgid "Omaduse User-defined 13 (user13) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user13_help
+#: classes/applications/shop/shop_product.aw:prop_user13_help
+msgid "Omaduse User-defined 13 (user13) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user14
+#: classes/applications/shop/shop_product.aw:prop_user14
+msgid "Omaduse User-defined 14 (user14) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user14_comment
+#: classes/applications/shop/shop_product.aw:prop_user14_comment
+msgid "Omaduse User-defined 14 (user14) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user14_help
+#: classes/applications/shop/shop_product.aw:prop_user14_help
+msgid "Omaduse User-defined 14 (user14) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user15
+#: classes/applications/shop/shop_product.aw:prop_user15
+msgid "Omaduse User-defined 15 (user15) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user15_comment
+#: classes/applications/shop/shop_product.aw:prop_user15_comment
+msgid "Omaduse User-defined 15 (user15) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user15_help
+#: classes/applications/shop/shop_product.aw:prop_user15_help
+msgid "Omaduse User-defined 15 (user15) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user16
+#: classes/applications/shop/shop_product.aw:prop_user16
+msgid "Omaduse User-defined 16 (user16) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user16_comment
+#: classes/applications/shop/shop_product.aw:prop_user16_comment
+msgid "Omaduse User-defined 16 (user16) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user16_help
+#: classes/applications/shop/shop_product.aw:prop_user16_help
+msgid "Omaduse User-defined 16 (user16) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user17
+#: classes/applications/shop/shop_product.aw:prop_user17
+msgid "Omaduse User-defined 17 (user17) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user17_comment
+#: classes/applications/shop/shop_product.aw:prop_user17_comment
+msgid "Omaduse User-defined 17 (user17) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user17_help
+#: classes/applications/shop/shop_product.aw:prop_user17_help
+msgid "Omaduse User-defined 17 (user17) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user18
+#: classes/applications/shop/shop_product.aw:prop_user18
+msgid "Omaduse User-defined 18 (user18) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user18_comment
+#: classes/applications/shop/shop_product.aw:prop_user18_comment
+msgid "Omaduse User-defined 18 (user18) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user18_help
+#: classes/applications/shop/shop_product.aw:prop_user18_help
+msgid "Omaduse User-defined 18 (user18) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user19
+#: classes/applications/shop/shop_product.aw:prop_user19
+msgid "Omaduse User-defined 19 (user19) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user19_comment
+#: classes/applications/shop/shop_product.aw:prop_user19_comment
+msgid "Omaduse User-defined 19 (user19) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user19_help
+#: classes/applications/shop/shop_product.aw:prop_user19_help
+msgid "Omaduse User-defined 19 (user19) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user20
+#: classes/applications/shop/shop_product.aw:prop_user20
+msgid "Omaduse User-defined 20 (user20) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user20_comment
+#: classes/applications/shop/shop_product.aw:prop_user20_comment
+msgid "Omaduse User-defined 20 (user20) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_user20_help
+#: classes/applications/shop/shop_product.aw:prop_user20_help
+msgid "Omaduse User-defined 20 (user20) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta1
+#: classes/applications/shop/shop_product.aw:prop_userta1
+msgid "Omaduse User-defined ta 1 (userta1) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta1_comment
+#: classes/applications/shop/shop_product.aw:prop_userta1_comment
+msgid "Omaduse User-defined ta 1 (userta1) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta1_help
+#: classes/applications/shop/shop_product.aw:prop_userta1_help
+msgid "Omaduse User-defined ta 1 (userta1) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta2
+#: classes/applications/shop/shop_product.aw:prop_userta2
+msgid "Omaduse User-defined ta 2 (userta2) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta2_comment
+#: classes/applications/shop/shop_product.aw:prop_userta2_comment
+msgid "Omaduse User-defined ta 2 (userta2) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta2_help
+#: classes/applications/shop/shop_product.aw:prop_userta2_help
+msgid "Omaduse User-defined ta 2 (userta2) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta3
+#: classes/applications/shop/shop_product.aw:prop_userta3
+msgid "Omaduse User-defined ta 3 (userta3) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta3_comment
+#: classes/applications/shop/shop_product.aw:prop_userta3_comment
+msgid "Omaduse User-defined ta 3 (userta3) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta3_help
+#: classes/applications/shop/shop_product.aw:prop_userta3_help
+msgid "Omaduse User-defined ta 3 (userta3) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta4
+#: classes/applications/shop/shop_product.aw:prop_userta4
+msgid "Omaduse User-defined ta 4 (userta4) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta4_comment
+#: classes/applications/shop/shop_product.aw:prop_userta4_comment
+msgid "Omaduse User-defined ta 4 (userta4) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta4_help
+#: classes/applications/shop/shop_product.aw:prop_userta4_help
+msgid "Omaduse User-defined ta 4 (userta4) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta5
+#: classes/applications/shop/shop_product.aw:prop_userta5
+msgid "Omaduse User-defined ta 5 (userta5) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta5_comment
+#: classes/applications/shop/shop_product.aw:prop_userta5_comment
+msgid "Omaduse User-defined ta 5 (userta5) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta5_help
+#: classes/applications/shop/shop_product.aw:prop_userta5_help
+msgid "Omaduse User-defined ta 5 (userta5) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta6
+#: classes/applications/shop/shop_product.aw:prop_userta6
+msgid "Omaduse User-defined ta 6 (userta6) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta6_comment
+#: classes/applications/shop/shop_product.aw:prop_userta6_comment
+msgid "Omaduse User-defined ta 6 (userta6) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta6_help
+#: classes/applications/shop/shop_product.aw:prop_userta6_help
+msgid "Omaduse User-defined ta 6 (userta6) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta7
+#: classes/applications/shop/shop_product.aw:prop_userta7
+msgid "Omaduse User-defined ta 7 (userta7) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta7_comment
+#: classes/applications/shop/shop_product.aw:prop_userta7_comment
+msgid "Omaduse User-defined ta 7 (userta7) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta7_help
+#: classes/applications/shop/shop_product.aw:prop_userta7_help
+msgid "Omaduse User-defined ta 7 (userta7) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta8
+#: classes/applications/shop/shop_product.aw:prop_userta8
+msgid "Omaduse User-defined ta 8 (userta8) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta8_comment
+#: classes/applications/shop/shop_product.aw:prop_userta8_comment
+msgid "Omaduse User-defined ta 8 (userta8) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta8_help
+#: classes/applications/shop/shop_product.aw:prop_userta8_help
+msgid "Omaduse User-defined ta 8 (userta8) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta9
+#: classes/applications/shop/shop_product.aw:prop_userta9
+msgid "Omaduse User-defined ta 9 (userta9) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta9_comment
+#: classes/applications/shop/shop_product.aw:prop_userta9_comment
+msgid "Omaduse User-defined ta 9 (userta9) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta9_help
+#: classes/applications/shop/shop_product.aw:prop_userta9_help
+msgid "Omaduse User-defined ta 9 (userta9) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta10
+#: classes/applications/shop/shop_product.aw:prop_userta10
+msgid "Omaduse User-defined ta 10 (userta10) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta10_comment
+#: classes/applications/shop/shop_product.aw:prop_userta10_comment
+msgid "Omaduse User-defined ta 10 (userta10) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_userta10_help
+#: classes/applications/shop/shop_product.aw:prop_userta10_help
+msgid "Omaduse User-defined ta 10 (userta10) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar1
+#: classes/applications/shop/shop_product.aw:prop_uservar1
+msgid "Omaduse User-defined var 1 (uservar1) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar1_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar1_comment
+msgid "Omaduse User-defined var 1 (uservar1) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar1_help
+#: classes/applications/shop/shop_product.aw:prop_uservar1_help
+msgid "Omaduse User-defined var 1 (uservar1) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar2
+#: classes/applications/shop/shop_product.aw:prop_uservar2
+msgid "Omaduse User-defined var 2 (uservar2) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar2_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar2_comment
+msgid "Omaduse User-defined var 2 (uservar2) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar2_help
+#: classes/applications/shop/shop_product.aw:prop_uservar2_help
+msgid "Omaduse User-defined var 2 (uservar2) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar3
+#: classes/applications/shop/shop_product.aw:prop_uservar3
+msgid "Omaduse User-defined var 3 (uservar3) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar3_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar3_comment
+msgid "Omaduse User-defined var 3 (uservar3) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar3_help
+#: classes/applications/shop/shop_product.aw:prop_uservar3_help
+msgid "Omaduse User-defined var 3 (uservar3) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar4
+#: classes/applications/shop/shop_product.aw:prop_uservar4
+msgid "Omaduse User-defined var 4 (uservar4) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar4_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar4_comment
+msgid "Omaduse User-defined var 4 (uservar4) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar4_help
+#: classes/applications/shop/shop_product.aw:prop_uservar4_help
+msgid "Omaduse User-defined var 4 (uservar4) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar5
+#: classes/applications/shop/shop_product.aw:prop_uservar5
+msgid "Omaduse User-defined var 5 (uservar5) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar5_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar5_comment
+msgid "Omaduse User-defined var 5 (uservar5) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar5_help
+#: classes/applications/shop/shop_product.aw:prop_uservar5_help
+msgid "Omaduse User-defined var 5 (uservar5) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar6
+#: classes/applications/shop/shop_product.aw:prop_uservar6
+msgid "Omaduse User-defined var 6 (uservar6) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar6_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar6_comment
+msgid "Omaduse User-defined var 6 (uservar6) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar6_help
+#: classes/applications/shop/shop_product.aw:prop_uservar6_help
+msgid "Omaduse User-defined var 6 (uservar6) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar7
+#: classes/applications/shop/shop_product.aw:prop_uservar7
+msgid "Omaduse User-defined var 7 (uservar7) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar7_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar7_comment
+msgid "Omaduse User-defined var 7 (uservar7) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar7_help
+#: classes/applications/shop/shop_product.aw:prop_uservar7_help
+msgid "Omaduse User-defined var 7 (uservar7) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar8
+#: classes/applications/shop/shop_product.aw:prop_uservar8
+msgid "Omaduse User-defined var 8 (uservar8) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar8_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar8_comment
+msgid "Omaduse User-defined var 8 (uservar8) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar8_help
+#: classes/applications/shop/shop_product.aw:prop_uservar8_help
+msgid "Omaduse User-defined var 8 (uservar8) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar9
+#: classes/applications/shop/shop_product.aw:prop_uservar9
+msgid "Omaduse User-defined var 9 (uservar9) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar9_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar9_comment
+msgid "Omaduse User-defined var 9 (uservar9) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar9_help
+#: classes/applications/shop/shop_product.aw:prop_uservar9_help
+msgid "Omaduse User-defined var 9 (uservar9) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar10
+#: classes/applications/shop/shop_product.aw:prop_uservar10
+msgid "Omaduse User-defined var 10 (uservar10) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar10_comment
+#: classes/applications/shop/shop_product.aw:prop_uservar10_comment
+msgid "Omaduse User-defined var 10 (uservar10) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservar10_help
+#: classes/applications/shop/shop_product.aw:prop_uservar10_help
+msgid "Omaduse User-defined var 10 (uservar10) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm1
+#: classes/applications/shop/shop_product.aw:prop_uservarm1
+msgid "Omaduse User-defined var (multiple) 1 (uservarm1) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm1_comment
+#: classes/applications/shop/shop_product.aw:prop_uservarm1_comment
+msgid "Omaduse User-defined var (multiple) 1 (uservarm1) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm1_help
+#: classes/applications/shop/shop_product.aw:prop_uservarm1_help
+msgid "Omaduse User-defined var (multiple) 1 (uservarm1) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm2
+#: classes/applications/shop/shop_product.aw:prop_uservarm2
+msgid "Omaduse User-defined var (multiple) 2 (uservarm2) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm2_comment
+#: classes/applications/shop/shop_product.aw:prop_uservarm2_comment
+msgid "Omaduse User-defined var (multiple) 2 (uservarm2) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm2_help
+#: classes/applications/shop/shop_product.aw:prop_uservarm2_help
+msgid "Omaduse User-defined var (multiple) 2 (uservarm2) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm3
+#: classes/applications/shop/shop_product.aw:prop_uservarm3
+msgid "Omaduse User-defined var (multiple) 3 (uservarm3) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm3_comment
+#: classes/applications/shop/shop_product.aw:prop_uservarm3_comment
+msgid "Omaduse User-defined var (multiple) 3 (uservarm3) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm3_help
+#: classes/applications/shop/shop_product.aw:prop_uservarm3_help
+msgid "Omaduse User-defined var (multiple) 3 (uservarm3) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm4
+#: classes/applications/shop/shop_product.aw:prop_uservarm4
+msgid "Omaduse User-defined var (multiple) 4 (uservarm4) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm4_comment
+#: classes/applications/shop/shop_product.aw:prop_uservarm4_comment
+msgid "Omaduse User-defined var (multiple) 4 (uservarm4) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm4_help
+#: classes/applications/shop/shop_product.aw:prop_uservarm4_help
+msgid "Omaduse User-defined var (multiple) 4 (uservarm4) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm5
+#: classes/applications/shop/shop_product.aw:prop_uservarm5
+msgid "Omaduse User-defined var (multiple) 5 (uservarm5) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm5_comment
+#: classes/applications/shop/shop_product.aw:prop_uservarm5_comment
+msgid "Omaduse User-defined var (multiple) 5 (uservarm5) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm5_help
+#: classes/applications/shop/shop_product.aw:prop_uservarm5_help
+msgid "Omaduse User-defined var (multiple) 5 (uservarm5) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm6
+#: classes/applications/shop/shop_product.aw:prop_uservarm6
+msgid "Omaduse User-defined var (multiple) 6 (uservarm6) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm6_comment
+#: classes/applications/shop/shop_product.aw:prop_uservarm6_comment
+msgid "Omaduse User-defined var (multiple) 6 (uservarm6) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm6_help
+#: classes/applications/shop/shop_product.aw:prop_uservarm6_help
+msgid "Omaduse User-defined var (multiple) 6 (uservarm6) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm7
+#: classes/applications/shop/shop_product.aw:prop_uservarm7
+msgid "Omaduse User-defined var (multiple) 7 (uservarm7) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm7_comment
+#: classes/applications/shop/shop_product.aw:prop_uservarm7_comment
+msgid "Omaduse User-defined var (multiple) 7 (uservarm7) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm7_help
+#: classes/applications/shop/shop_product.aw:prop_uservarm7_help
+msgid "Omaduse User-defined var (multiple) 7 (uservarm7) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm8
+#: classes/applications/shop/shop_product.aw:prop_uservarm8
+msgid "Omaduse User-defined var (multiple) 8 (uservarm8) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm8_comment
+#: classes/applications/shop/shop_product.aw:prop_uservarm8_comment
+msgid "Omaduse User-defined var (multiple) 8 (uservarm8) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_uservarm8_help
+#: classes/applications/shop/shop_product.aw:prop_uservarm8_help
+msgid "Omaduse User-defined var (multiple) 8 (uservarm8) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_uservarm9
+msgid "Omaduse User-defined var (multiple) 9 (uservarm9) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_uservarm9_comment
+msgid "Omaduse User-defined var (multiple) 9 (uservarm9) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_uservarm9_help
+msgid "Omaduse User-defined var (multiple) 9 (uservarm9) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_uservarm10
+msgid "Omaduse User-defined var (multiple) 10 (uservarm10) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_uservarm10_comment
+msgid "Omaduse User-defined var (multiple) 10 (uservarm10) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_uservarm10_help
+msgid "Omaduse User-defined var (multiple) 10 (uservarm10) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_search_term
+msgid "Omaduse  (search_term) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_search_term_comment
+msgid "Omaduse  (search_term) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_search_term_help
+msgid "Omaduse  (search_term) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_images
+#: classes/applications/shop/shop_product.aw:prop_images
+msgid "Omaduse Pildid (images) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_images_comment
+#: classes/applications/shop/shop_product.aw:prop_images_comment
+msgid "Omaduse Pildid (images) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_images_help
+#: classes/applications/shop/shop_product.aw:prop_images_help
+msgid "Omaduse Pildid (images) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_files
+#: classes/applications/shop/shop_product.aw:prop_files
+msgid "Omaduse Failid (files) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_files_comment
+#: classes/applications/shop/shop_product.aw:prop_files_comment
+msgid "Omaduse Failid (files) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_files_help
+#: classes/applications/shop/shop_product.aw:prop_files_help
+msgid "Omaduse Failid (files) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_docs
+#: classes/applications/shop/shop_product.aw:prop_docs
+msgid "Omaduse Dokumendid (docs) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_docs_comment
+#: classes/applications/shop/shop_product.aw:prop_docs_comment
+msgid "Omaduse Dokumendid (docs) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_docs_help
+#: classes/applications/shop/shop_product.aw:prop_docs_help
+msgid "Omaduse Dokumendid (docs) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_lnk
+#: classes/applications/shop/shop_product.aw:prop_lnk
+msgid "Omaduse Lingid (lnk) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_lnk_comment
+#: classes/applications/shop/shop_product.aw:prop_lnk_comment
+msgid "Omaduse Lingid (lnk) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:prop_lnk_help
+#: classes/applications/shop/shop_product.aw:prop_lnk_help
+msgid "Omaduse Lingid (lnk) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_companies_tb
+msgid "Omaduse  (companies_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_companies_tb_comment
+msgid "Omaduse  (companies_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_companies_tb_help
+msgid "Omaduse  (companies_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_companies_tbl
+msgid "Omaduse  (companies_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_companies_tbl_comment
+msgid "Omaduse  (companies_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_companies_tbl_help
+msgid "Omaduse  (companies_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_materials_tb
+msgid "Omaduse  (materials_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_materials_tb_comment
+msgid "Omaduse  (materials_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_materials_tb_help
+msgid "Omaduse  (materials_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_materials_tbl
+msgid "Omaduse  (materials_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_materials_tbl_comment
+msgid "Omaduse  (materials_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_materials_tbl_help
+msgid "Omaduse  (materials_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brands_tb
+msgid "Omaduse  (brands_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brands_tb_comment
+msgid "Omaduse  (brands_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brands_tb_help
+msgid "Omaduse  (brands_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brands_tbl
+msgid "Omaduse  (brands_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brands_tbl_comment
+msgid "Omaduse  (brands_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_brands_tbl_help
+msgid "Omaduse  (brands_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_general
+msgid "Grupi &Uuml;ldine (general_general) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_general_help
+msgid "Grupi &Uuml;ldine (general_general) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_categories
+msgid "Grupi Kategooriad (general_categories) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_categories_help
+msgid "Grupi Kategooriad (general_categories) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_time_settings
+msgid "Grupi Ajaseaded (general_time_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_time_settings_help
+msgid "Grupi Ajaseaded (general_time_settings) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_limits
+msgid "Grupi Kogusepiirangud (general_limits) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_limits_help
+msgid "Grupi Kogusepiirangud (general_limits) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_match_prod
+msgid "Grupi Kokkusobivad tooted (general_match_prod) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_match_prod_help
+msgid "Grupi Kokkusobivad tooted (general_match_prod) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_replacement_prods
+msgid "Grupi Asendustooted (general_replacement_prods) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_replacement_prods_help
+msgid "Grupi Asendustooted (general_replacement_prods) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_purveyance
+msgid "Grupi Tarneajad (general_purveyance) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_general_purveyance_help
+msgid "Grupi Tarneajad (general_purveyance) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_packaging
+#: classes/applications/shop/shop_product.aw:group_packaging
+msgid "Grupi Pakendid (packaging) pealkiri"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_packaging_help
+#: classes/applications/shop/shop_product.aw:group_packaging_help
+msgid "Grupi Pakendid (packaging) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_singles
+msgid "Grupi &Uuml;ksiktooted (singles) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_singles_help
+msgid "Grupi &Uuml;ksiktooted (singles) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_moreinfo
+msgid "Grupi Lisainfo (moreinfo) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_moreinfo_help
+msgid "Grupi Lisainfo (moreinfo) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_img
+#: classes/applications/shop/shop_product.aw:group_img
+msgid "Grupi Pildid (img) pealkiri"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_img_help
+#: classes/applications/shop/shop_product.aw:group_img_help
+msgid "Grupi Pildid (img) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_fls
+#: classes/applications/shop/shop_product.aw:group_fls
+msgid "Grupi Failid (fls) pealkiri"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_fls_help
+#: classes/applications/shop/shop_product.aw:group_fls_help
+msgid "Grupi Failid (fls) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_doc
+#: classes/applications/shop/shop_product.aw:group_doc
+msgid "Grupi Dokumendid (doc) pealkiri"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_doc_help
+#: classes/applications/shop/shop_product.aw:group_doc_help
+msgid "Grupi Dokumendid (doc) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_lnk
+#: classes/applications/shop/shop_product.aw:group_lnk
+msgid "Grupi Lingid (lnk) pealkiri"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:group_lnk_help
+#: classes/applications/shop/shop_product.aw:group_lnk_help
+msgid "Grupi Lingid (lnk) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_data
+msgid "Grupi Andmed (data) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_data_help
+msgid "Grupi Andmed (data) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_purveyors
+msgid "Grupi Tarnijad (purveyors) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_purveyors_help
+msgid "Grupi Tarnijad (purveyors) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_materials
+msgid "Grupi Materjalid (materials) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_materials_help
+msgid "Grupi Materjalid (materials) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_brands
+msgid "Grupi Br&auml;ndid (brands) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_brands_help
+msgid "Grupi Br&auml;ndid (brands) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_IMAGE
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_IMAGE
+msgid "Seose pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_PACKAGING
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_PACKAGING
+msgid "Seose pakend (RELTYPE_PACKAGING) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM1
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM1
+msgid "Seose kasutajadefineeritud muutuja 1 (RELTYPE_VARUSERM1) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM2
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM2
+msgid "Seose kasutajadefineeritud muutuja 2 (RELTYPE_VARUSERM2) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM3
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM3
+msgid "Seose kasutajadefineeritud muutuja 3 (RELTYPE_VARUSERM3) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM4
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM4
+msgid "Seose kasutajadefineeritud muutuja 4 (RELTYPE_VARUSERM4) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM5
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM5
+msgid "Seose kasutajadefineeritud muutuja 5 (RELTYPE_VARUSERM5) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_FILE
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_FILE
+msgid "Seose fail (RELTYPE_FILE) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_DOC
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_DOC
+msgid "Seose dokument (RELTYPE_DOC) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_LNK
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_LNK
+msgid "Seose link (RELTYPE_LNK) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_KW
+msgid "Seose v&otilde;tmes&otilde;na (RELTYPE_KW) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM6
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM6
+msgid "Seose kasutajadefineeritud muutuja 6 (RELTYPE_VARUSERM6) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM7
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM7
+msgid "Seose kasutajadefineeritud muutuja 7 (RELTYPE_VARUSERM7) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM8
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM8
+msgid "Seose kasutajadefineeritud muutuja 8 (RELTYPE_VARUSERM8) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_product.aw:rel_RELTYPE_PRICE_SETTINGS
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_PRICE_SETTINGS
+msgid "Seose hinnakujundus (RELTYPE_PRICE_SETTINGS) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM9
+msgid "Seose kasutajadefineeritud muutuja 9 (RELTYPE_VARUSERM9) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_VARUSERM10
+msgid "Seose kasutajadefineeritud muutuja 10 (RELTYPE_VARUSERM10) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_TAX_RATE
+msgid "Seose Maksum&auml;&auml;r (RELTYPE_TAX_RATE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_MATCH_PROD
+msgid "Seose Kokkusobiv toode (RELTYPE_MATCH_PROD) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_BRAND
+msgid "Seose Brand (RELTYPE_BRAND) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_ITEM_TYPE
+msgid "Seose Toote t&uuml;&uuml;p (RELTYPE_ITEM_TYPE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_REPLACEMENT_PROD
+msgid "Seose Asendustoode (RELTYPE_REPLACEMENT_PROD) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_CATEGORY
+msgid "Seose Kategooria (RELTYPE_CATEGORY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_PRICE
+msgid "Seose Hind (RELTYPE_PRICE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_WAREHOUSE
+msgid "Seose Ladu (RELTYPE_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_COLOR
+msgid "Seose V&auml;rvus (RELTYPE_COLOR) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_PURVEYOR
+msgid "Seose Tarnija (RELTYPE_PURVEYOR) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_MATERIAL
+msgid "Seose Materjal (RELTYPE_MATERIAL) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_INHERIT_AML_FROM
+msgid "Seose P&auml;ri kogusepiirangud (RELTYPE_INHERIT_AML_FROM) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_UNIT_FORMULA
+msgid "Seose &Uuml;hikute valem (RELTYPE_UNIT_FORMULA) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:rel_RELTYPE_AMOUNT_LIMIT
+msgid "Seose Kogusepiirang (RELTYPE_AMOUNT_LIMIT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:layout_gen_gen
+msgid "Kujundusosa &Uuml;ldine (gen_gen) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:layout_gen_prices
+msgid "Kujundusosa Hinnad (gen_prices) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:layout_gen_data
+msgid "Kujundusosa Andmed (gen_data) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:layout_gen_wh
+msgid "Kujundusosa Lao&nbsp;andmed (gen_wh) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:layout_reservation
+msgid "Kujundusosa Broneeritav&nbsp;aeg (reservation) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:layout_buffer
+msgid "Kujundusosa Puhveraeg (buffer) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:669
+#: classes/applications/shop/shop_product.aw:1534
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:678
+msgid "Minutit"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:679
+msgid "Tundi"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:718
+msgid "Jah"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:719
+msgid "Ei"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:747
+msgid "&Uuml;hikud"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:767
+msgid "Alternatiiv&uuml;hik %s"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:767
+msgid "P&otilde;hi&uuml;hik"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:806
+#: classes/applications/shop/shop_product.aw:868
+#: classes/applications/shop/shop_product.aw:922
+#: classes/applications/shop/shop_product.aw:1387
+#: classes/applications/shop/shop_product.aw:1457
+#: classes/applications/shop/shop_product.aw:2820
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:811
+msgid "Tootja"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:873
+msgid "Kirjeldus"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:927
+msgid "Sarjad"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1030
+#: classes/applications/shop/shop_product.aw:1147
+#: classes/applications/shop/shop_product.aw:1274
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1035
+#: classes/applications/shop/shop_product.aw:1152
+#: classes/applications/shop/shop_product.aw:1279
+msgid "Valuuta"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1040
+msgid "Alates"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1047
+msgid "Kuni"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1052
+msgid "M&uuml;&uuml;gihinnad"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1122
+msgid "%s hind"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1157
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1162
+msgid "Ostuhinnad"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1201
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1204
+msgid "Kas olete kindel, et soovite kustutada kogusepiirangud valitud gruppidele?"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1218
+msgid "Kasutajagrupp"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1223
+msgid "Minimaalne kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1228
+msgid "Maksimaalne kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1289
+msgid "Hinnad valuutades"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1315
+msgid "Otsi asendustoode"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1325
+msgid "Kustuta asendustoodete seos"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1326
+msgid "Oled sa kindel, et tahad asendustoote seose kustutada?"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1378
+msgid "Toote <strong>%s (%s)</strong> asendustooted"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1392
+msgid "Tootekood"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1397
+msgid "Toote t&uuml;&uuml;bi kood (Peatoode)"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1402
+msgid "Seose t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1413
+msgid "T&uuml;&uuml;bi kood"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1422
+msgid "Seos"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1462
+msgid "Tarnefirma"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1467
+msgid "Tarneaeg p&auml;evades"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1471
+msgid "Tarneaegade muutmise tabel"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1477
+msgid "Tootel pole m&auml;&auml;ratud ladu"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1485
+msgid "Toote laol pole m&auml;&auml;ratud tarnefirmade kausta"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1499
+msgid "Tarnefirmade kaustas pole &uuml;htegi firmat"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1536
+msgid "Uus tarnetingimus"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:1739
+msgid "shop_product::draw(): no layout set!"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:2724
+msgid "Loo saateleht valitud ridadega"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:2748
+msgid "Kood"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:2759
+msgid "Kogus %s"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:2766
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:2810
+msgid "(Puudub)"
+msgstr ""
+
+#: classes/applications/shop/shop_product.aw:2825
+msgid "Asukoht"
+msgstr ""

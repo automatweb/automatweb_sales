@@ -1,0 +1,150 @@
+Calendar component:
+
+#php#
+$cal_inst = get_instance("vcl/calendar");
+#/php#
+
+First (but optionally) you should define callback functions,
+that give contents to the <b>overview calendar</b> (the little calendars
+at the right side) and <b>tasklist</b> (right below the little calendars)
+
+#php#
+$cal_inst->configure(array(
+|       "tasklist_func" => array(&$this,"get_tasklist"),
+|       "overview_func" => array(&$this,"get_overview"),
+));
+#/php#
+
+If you omit one or both of these attributes or do not use the configure
+method at all, then those the calendar component will NOT draw those
+areas in the resulting calendar.
+
+Drawing an overview calendar only requires information about whether any
+events take place on any given day and not any details about those events.
+Using a separate callback gives you the possibility to use
+different/more optimized code to gather that information.
+
+Drawing a task list also requires different approach from the events
+in the main calendar, because in that list there might be events from
+outside the current range, and again a different code path will
+likely yield better perfomance.
+
+After you have configured the calendar, you need to know the date range
+to create a list of events.
+
+#php#
+$range = $cal_inst->get_range(array(
+|       "date" => $arr["request"]["date"],
+|       "viewtype" => $arr["request"]["viewtype"] ? $arr["request"]["viewtype"] : "month",
+));
+#/php#
+date comes from the request URL and will default to today if it has no value.
+viewtype is one of "day", "week", "month" or "relative" and will default to "week"
+if not defined or omitted.
+
+Now $range contains some information about the selected range, the only values
+of interest are "start" and "end", which are represented as UNIX timestamps.
+
+Using that information you can now create a list of events.
+
+#php#
+$events = $this->get_events_between(array(
+|       "start" => $range["start"],
+|       "end" => $range["end"],
+));
+#/php#
+
+and let the calendar component know about them.
+
+#php#
+foreach($events as $event)
+{
+|       $cal_inst->add_item(array(
+|       |       "timestamp" => $event["start"],
+|       |       "data" => array(
+|       |       |       "name" => $event["name"],
+|       |       |       "icon" => $event["event_icon_url"],
+|       |       |       "url" => $event["url"],
+|       |       ),
+|       ));
+};
+#/php#
+
+timestamp is the start time of the event (needs to be an UNIX timestamp)
+and data contains the rest of information.
+
+name - name of the events
+url - URL of the event
+event_icon_url - URL of the icon, output of icons::get_class_icon() is fine
+And finally;
+
+#php#
+$html = $cal_inst->get_html();
+#/php#
+
+returns the resulting calendar. All other URL-s besides the event
+URL-s are generated automatically by changing variables in the
+current request URL.
+
+Overview calendar:
+
+If you configured an 'overview_func' for the calendar, you also need
+to create the correspondending method in your class. If you need any
+additional data in those callback functions, you need set them inside
+your class instance. In the following example $this->calendar_inst
+was created in the main event gathering function
+
+#php#
+function get_overview($arr = array())
+{
+|       $events = $this->get_event_list(array(
+|       |       "id" => $this->calendar_inst->id(),
+|       |       "start" => $arr["start"],
+|       |       "end" => $arr["end"],
+|       ));
+|       $rv = array();
+|       foreach($events as $event)
+|       {
+|       |       $rv[$event["start"]] = 1;
+|       };
+|       return $rv;
+};
+#/php#
+
+It needs to return an array, where the keys are event timestamps, calendar
+component will take of converting them as needed.
+
+Task list:
+
+If you configured 'tasklist_func', you also need a correspondending
+method. And again, any additional data should be passed as intance variables.
+
+#php#
+function get_tasklist()
+{
+|       $tasklist = new object_list(array(
+|       |       "class_id" => CL_TASK,
+|       |       "parent" => $this->calendar_inst->prop("event_folder"),
+|       |       "flags" => array(
+|       |       |       "mask" => OBJ_IS_DONE,
+|       |       |       "flags" => 0,
+|       |       ),
+|       ));
+
+|       $rv = array();
+|       foreach($tasklist->arr() as $task)
+|       {
+|       |       $rv[] = array(
+|       |       |       "name" => $task->prop("name"),
+|       |       |       "url" => $this->get_event_edit_link(array(
+|       |       |       |       "cal_id" => $this->calendar_inst->id(),
+|       |       |       |       "event_id" => $task->id(),
+|       |       |       )),
+|       |       );
+|       };
+|       return $rv;
+};
+#/php#
+
+It needs to return an array of arrays, where the second level arrays need to
+have 'name' and 'url' arguments.

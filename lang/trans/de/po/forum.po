@@ -1,0 +1,186 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/forum/forum.aw:class_69_help
+msgid "Klassi Foorum (vana) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_topicsonpage
+msgid "Omaduse Teemasid lehel (topicsonpage) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_topicsonpage_comment
+msgid "Omaduse Teemasid lehel (topicsonpage) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_topicsonpage_help
+msgid "Omaduse Teemasid lehel (topicsonpage) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_comments
+msgid "Omaduse Kommenteeritav (comments) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_comments_comment
+msgid "Omaduse Kommenteeritav (comments) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_comments_help
+msgid "Omaduse Kommenteeritav (comments) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_onpage
+msgid "Omaduse Kommentaare lehel (onpage) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_onpage_comment
+msgid "Omaduse Kommentaare lehel (onpage) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_onpage_help
+msgid "Omaduse Kommentaare lehel (onpage) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_rated
+msgid "Omaduse Hinnatav (rated) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_rated_comment
+msgid "Omaduse Hinnatav (rated) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_rated_help
+msgid "Omaduse Hinnatav (rated) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_template
+msgid "Omaduse Template (template) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_template_comment
+msgid "Omaduse Template (template) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_template_help
+msgid "Omaduse Template (template) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_preview
+msgid "Omaduse Eelvaade (preview) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_preview_comment
+msgid "Omaduse Eelvaade (preview) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_preview_help
+msgid "Omaduse Eelvaade (preview) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_export
+msgid "Omaduse Ekspordi XML (export) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_export_comment
+msgid "Omaduse Ekspordi XML (export) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_export_help
+msgid "Omaduse Ekspordi XML (export) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_rates
+msgid "Omaduse Hinded (rates) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_rates_comment
+msgid "Omaduse Hinded (rates) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_rates_help
+msgid "Omaduse Hinded (rates) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_addresslist
+msgid "Omaduse E-posti aadressid (addresslist) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_addresslist_comment
+msgid "Omaduse E-posti aadressid (addresslist) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_addresslist_help
+msgid "Omaduse E-posti aadressid (addresslist) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_language
+msgid "Omaduse Keel (language) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_language_comment
+msgid "Omaduse Keel (language) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:prop_language_help
+msgid "Omaduse Keel (language) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:group_rates
+msgid "Grupi Hinded (rates) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:group_rates_help
+msgid "Grupi Hinded (rates) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:group_languages
+msgid "Grupi Keel (languages) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:group_languages_help
+msgid "Grupi Keel (languages) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:196
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:204
+msgid "Aadress"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:212
+msgid "Vali"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:1311
+msgid "Nime v&auml;li peab olema t&auml;idetud"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:1315
+msgid "Kommentaari v&auml;li peab olema t&auml;idetud"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:1319
+msgid "Sisestatud kontrollkood on vale"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:2439
+msgid "N&auml;ita"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:2447
+msgid "Ekspordi XML"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum.aw:2453
+msgid "E-posti aadressid"
+msgstr ""

@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/workflow/action.aw:class_173_help
+#: classes/workflow/action.aw:class_173_help
+msgid "Klassi Tegevus help"
+msgstr ""
+
+# classes/workflow/action.aw:prop_description
+#: classes/workflow/action.aw:prop_description
+msgid "Omaduse Kirjeldus (description) caption"
+msgstr ""
+
+# classes/workflow/action.aw:prop_description_comment
+#: classes/workflow/action.aw:prop_description_comment
+msgid "Omaduse Kirjeldus (description) kommentaar"
+msgstr ""
+
+# classes/workflow/action.aw:prop_description_help
+#: classes/workflow/action.aw:prop_description_help
+msgid "Omaduse Kirjeldus (description) help"
+msgstr ""
+
+# classes/workflow/action.aw:prop_goal
+#: classes/workflow/action.aw:prop_goal
+msgid "Omaduse Eesmärk (goal) caption"
+msgstr ""
+
+# classes/workflow/action.aw:prop_goal_comment
+#: classes/workflow/action.aw:prop_goal_comment
+msgid "Omaduse Eesmärk (goal) kommentaar"
+msgstr ""
+
+# classes/workflow/action.aw:prop_goal_help
+#: classes/workflow/action.aw:prop_goal_help
+msgid "Omaduse Eesmärk (goal) help"
+msgstr ""
+
+# classes/workflow/action.aw:prop_entity_actor
+#: classes/workflow/action.aw:prop_entity_actor
+msgid "Omaduse Tegija (entity_actor) caption"
+msgstr ""
+
+# classes/workflow/action.aw:prop_entity_actor_comment
+#: classes/workflow/action.aw:prop_entity_actor_comment
+msgid "Omaduse Tegija (entity_actor) kommentaar"
+msgstr ""
+
+# classes/workflow/action.aw:prop_entity_actor_help
+#: classes/workflow/action.aw:prop_entity_actor_help
+msgid "Omaduse Tegija (entity_actor) help"
+msgstr ""
+
+# classes/workflow/action.aw:group_general
+#: classes/workflow/action.aw:group_general
+msgid "Grupi Üldine (general) pealkiri"
+msgstr ""
+
+# classes/workflow/action.aw:group_general_help
+#: classes/workflow/action.aw:group_general_help
+msgid "Grupi Üldine (general) help"
+msgstr ""
+
+# classes/workflow/action.aw:rel_RELTYPE_INSTRUCTION
+#: classes/workflow/action.aw:rel_RELTYPE_INSTRUCTION
+msgid "Seose instruktsioon (RELTYPE_INSTRUCTION) tekst"
+msgstr ""
+
+# classes/workflow/action.aw:rel_RELTYPE_ACTOR
+#: classes/workflow/action.aw:rel_RELTYPE_ACTOR
+msgid "Seose tegija (RELTYPE_ACTOR) tekst"
+msgstr ""

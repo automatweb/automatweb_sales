@@ -1,0 +1,696 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/mrp/mrp_job.aw:class_826_help
+msgid "Klassi Tegevus help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_job_toolbar
+msgid "Omaduse  (job_toolbar) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_job_toolbar_comment
+msgid "Omaduse  (job_toolbar) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_job_toolbar_help
+msgid "Omaduse  (job_toolbar) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_name
+msgid "Omaduse Projekti nr: (project_name) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_name_comment
+msgid "Omaduse Projekti nr: (project_name) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_name_help
+msgid "Omaduse Projekti nr: (project_name) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_comment
+msgid "Omaduse Projekti nimetus: (project_comment) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_comment_comment
+msgid "Omaduse Projekti nimetus: (project_comment) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_comment_help
+msgid "Omaduse Projekti nimetus: (project_comment) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_due_date
+msgid "Omaduse Projekti valmimist&auml;htaeg: (project_due_date) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_due_date_comment
+msgid "Omaduse Projekti valmimist&auml;htaeg: (project_due_date) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_due_date_help
+msgid "Omaduse Projekti valmimist&auml;htaeg: (project_due_date) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_customer
+msgid "Omaduse Klient: (project_customer) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_customer_comment
+msgid "Omaduse Klient: (project_customer) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_customer_help
+msgid "Omaduse Klient: (project_customer) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_resource
+msgid "Omaduse Ressurss: (resource) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_resource_comment
+msgid "Omaduse Ressurss: (resource) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_resource_help
+msgid "Omaduse Ressurss: (resource) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_prerequisites
+msgid "Omaduse Eeldust&ouml;&ouml;d: (prerequisites) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_prerequisites_comment
+msgid "Omaduse Eeldust&ouml;&ouml;d: (prerequisites) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_prerequisites_help
+msgid "Omaduse Eeldust&ouml;&ouml;d: (prerequisites) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_comment
+msgid "Omaduse Tootmise kommentaar (comment) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_comment_comment
+msgid "Omaduse Tootmise kommentaar (comment) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_comment_help
+msgid "Omaduse Tootmise kommentaar (comment) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_sales_comment
+msgid "Omaduse M&uuml;&uuml;gi kommentaar (sales_comment) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_sales_comment_comment
+msgid "Omaduse M&uuml;&uuml;gi kommentaar (sales_comment) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_sales_comment_help
+msgid "Omaduse M&uuml;&uuml;gi kommentaar (sales_comment) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_length
+msgid "Omaduse T&ouml;&ouml; pikkus (h) (length) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_length_comment
+msgid "Omaduse T&ouml;&ouml; pikkus (h) (length) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_length_help
+msgid "Omaduse T&ouml;&ouml; pikkus (h) (length) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_pre_buffer
+msgid "Omaduse Eelpuhveraeg (h) (pre_buffer) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_pre_buffer_comment
+msgid "Omaduse Eelpuhveraeg (h) (pre_buffer) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_pre_buffer_help
+msgid "Omaduse Eelpuhveraeg (h) (pre_buffer) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_post_buffer
+msgid "Omaduse J&auml;relpuhveraeg (h) (post_buffer) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_post_buffer_comment
+msgid "Omaduse J&auml;relpuhveraeg (h) (post_buffer) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_post_buffer_help
+msgid "Omaduse J&auml;relpuhveraeg (h) (post_buffer) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_minstart
+msgid "Omaduse Varaseim alustusaeg (minstart) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_minstart_comment
+msgid "Omaduse Varaseim alustusaeg (minstart) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_minstart_help
+msgid "Omaduse Varaseim alustusaeg (minstart) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_remaining_length
+msgid "Omaduse L&otilde;petamiseks kuluv aeg (h) (remaining_length) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_remaining_length_comment
+msgid "Omaduse L&otilde;petamiseks kuluv aeg (h) (remaining_length) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_remaining_length_help
+msgid "Omaduse L&otilde;petamiseks kuluv aeg (h) (remaining_length) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_component_quantity
+msgid "Omaduse Vajalik eksemplaride arv (component_quantity) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_component_quantity_comment
+msgid "Omaduse Vajalik eksemplaride arv (component_quantity) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_component_quantity_help
+msgid "Omaduse Vajalik eksemplaride arv (component_quantity) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_batch_size
+msgid "Omaduse T&ouml;&ouml;tluspartii suurus (batch_size) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_batch_size_comment
+msgid "Omaduse T&ouml;&ouml;tluspartii suurus (batch_size) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_batch_size_help
+msgid "Omaduse T&ouml;&ouml;tluspartii suurus (batch_size) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_min_batches_to_continue_wf
+msgid "Omaduse Partiisid j&auml;rgmisel ressursil alustamiseks (min_batches_to_continue_wf) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_min_batches_to_continue_wf_comment
+msgid "Omaduse Partiisid j&auml;rgmisel ressursil alustamiseks (min_batches_to_continue_wf) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_min_batches_to_continue_wf_help
+msgid "Omaduse Partiisid j&auml;rgmisel ressursil alustamiseks (min_batches_to_continue_wf) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_workflow_errors
+msgid "Omaduse  (workflow_errors) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_workflow_errors_comment
+msgid "Omaduse  (workflow_errors) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_workflow_errors_help
+msgid "Omaduse  (workflow_errors) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_starttime
+msgid "Omaduse Plaanitud t&ouml;&ouml;sseminekuaeg (starttime) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_starttime_comment
+msgid "Omaduse Plaanitud t&ouml;&ouml;sseminekuaeg (starttime) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_starttime_help
+msgid "Omaduse Plaanitud t&ouml;&ouml;sseminekuaeg (starttime) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_planned_length
+msgid "Omaduse Planeeritud kestus (h) (planned_length) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_planned_length_comment
+msgid "Omaduse Planeeritud kestus (h) (planned_length) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_planned_length_help
+msgid "Omaduse Planeeritud kestus (h) (planned_length) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_person
+msgid "Omaduse Isikud, kes on seda t&ouml;&ouml;d teinud (person) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_person_comment
+msgid "Omaduse Isikud, kes on seda t&ouml;&ouml;d teinud (person) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_person_help
+msgid "Omaduse Isikud, kes on seda t&ouml;&ouml;d teinud (person) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_started
+msgid "Omaduse Alustatud (started) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_started_comment
+msgid "Omaduse Alustatud (started) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_started_help
+msgid "Omaduse Alustatud (started) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_finished
+msgid "Omaduse L&otilde;petatud (finished) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_finished_comment
+msgid "Omaduse L&otilde;petatud (finished) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_finished_help
+msgid "Omaduse L&otilde;petatud (finished) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_aborted
+msgid "Omaduse Katkestatud (aborted) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_aborted_comment
+msgid "Omaduse Katkestatud (aborted) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_aborted_help
+msgid "Omaduse Katkestatud (aborted) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_done
+msgid "Omaduse Valminud eksemplare (done) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_done_comment
+msgid "Omaduse Valminud eksemplare (done) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_done_help
+msgid "Omaduse Valminud eksemplare (done) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project
+msgid "Omaduse Projekt (project) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_comment
+msgid "Omaduse Projekt (project) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_project_help
+msgid "Omaduse Projekt (project) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_real_length
+msgid "Omaduse Tegelik kestus (real_length) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_real_length_comment
+msgid "Omaduse Tegelik kestus (real_length) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_real_length_help
+msgid "Omaduse Tegelik kestus (real_length) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_length_deviation
+msgid "Omaduse Kestuse absoluutne h&auml;lve (length_deviation) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_length_deviation_comment
+msgid "Omaduse Kestuse absoluutne h&auml;lve (length_deviation) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_length_deviation_help
+msgid "Omaduse Kestuse absoluutne h&auml;lve (length_deviation) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_exec_order
+msgid "Omaduse T&ouml;&ouml; jrk. nr. (exec_order) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_exec_order_comment
+msgid "Omaduse T&ouml;&ouml; jrk. nr. (exec_order) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_exec_order_help
+msgid "Omaduse T&ouml;&ouml; jrk. nr. (exec_order) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_state
+msgid "Omaduse Staatus (state) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_state_comment
+msgid "Omaduse Staatus (state) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_state_help
+msgid "Omaduse Staatus (state) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_real_material_table
+msgid "Omaduse Materjalikulu (real_material_table) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_real_material_table_comment
+msgid "Omaduse Materjalikulu (real_material_table) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_real_material_table_help
+msgid "Omaduse Materjalikulu (real_material_table) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_materials_sel_tbl
+msgid "Omaduse  (materials_sel_tbl) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_materials_sel_tbl_comment
+msgid "Omaduse  (materials_sel_tbl) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_materials_sel_tbl_help
+msgid "Omaduse  (materials_sel_tbl) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_materials_tbl
+msgid "Omaduse  (materials_tbl) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_materials_tbl_comment
+msgid "Omaduse  (materials_tbl) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_materials_tbl_help
+msgid "Omaduse  (materials_tbl) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_advised_starttime
+msgid "Omaduse Soovitav algusaeg (advised_starttime) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_advised_starttime_comment
+msgid "Omaduse Soovitav algusaeg (advised_starttime) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_advised_starttime_help
+msgid "Omaduse Soovitav algusaeg (advised_starttime) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_used_materials
+msgid "Omaduse  (used_materials) caption"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_used_materials_comment
+msgid "Omaduse  (used_materials) kommentaar"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:prop_used_materials_help
+msgid "Omaduse  (used_materials) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:group_workflow
+msgid "Grupi T&ouml;&ouml;voog (workflow) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:group_workflow_help
+msgid "Grupi T&ouml;&ouml;voog (workflow) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:group_materials
+msgid "Grupi Materjalid (materials) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:group_materials_help
+msgid "Grupi Materjalid (materials) help"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:rel_RELTYPE_MRP_RESOURCE
+msgid "Seose T&ouml;&ouml;ks kasutatav ressurss (RELTYPE_MRP_RESOURCE) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:rel_RELTYPE_MRP_PROJECT
+msgid "Seose Projekt (RELTYPE_MRP_PROJECT) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:rel_RELTYPE_PERSON
+msgid "Seose Isik, kes on seda t&ouml;&ouml;d teinud (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:layout_general_left
+msgid "Kujundusosa T&ouml;&ouml;&nbsp;&uuml;ldandmed (general_left) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:layout_general_left_general
+msgid "Kujundusosa Nimi&nbsp;ja&nbsp;kommentaarid (general_left_general) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:layout_general_left_time
+msgid "Kujundusosa Ajalised&nbsp;seaded (general_left_time) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:layout_general_left_quantity
+msgid "Kujundusosa T&uuml;kiarvestuse&nbsp;seaded (general_left_quantity) pealkiri"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:219
+msgid "Uut t&ouml;&ouml;d saab luua vaid ressursihalduskeskkonnas."
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:235
+msgid "T&ouml;&ouml;l puudub ressurss, projekt v&otilde;i ressursihalduskeskkond."
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:242
+msgid "T&ouml;&ouml;l puudub ressurss."
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:246
+msgid "T&ouml;&ouml;l puudub projekt."
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:250
+msgid "T&ouml;&ouml;l puudub ressurss ja projekt."
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:257
+msgid "Viga!"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:336
+msgid "Esinenud t&otilde;rked:"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:364
+msgid "Ei saa alustada sest:"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:365
+msgid "Planeerimata"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:369
+msgid "T&ouml;&ouml;d pole veel alustatud"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:373
+msgid "T&ouml;&ouml;d pole veel l&otilde;petatud"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:466
+msgid "Alusta"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:468
+msgid "Oled kindel et soovid t&ouml;&ouml;d alustada?"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:492
+msgid "partii"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:492
+msgid "partiid"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:500
+msgid "Valmis"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:502
+msgid "Oled kindel et soovid t&ouml;&ouml;d l&otilde;petada?"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:507
+msgid "Paus"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:509
+msgid "Oled kindel et soovid t&ouml;&ouml;d pausile panna?"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:514
+msgid "L&otilde;peta vahetus ja logi v&auml;lja?"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:515
+msgid "Vahetuse l&otilde;pp"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:539
+msgid "J&auml;tka"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:542
+msgid "Oled kindel et soovid t&ouml;&ouml;d j&auml;tkata?"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:547
+msgid "Katkesta"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:550
+msgid "Katkesta t&ouml;&ouml;?"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:551
+msgid "Kommentaar peab olema t&auml;idetud!"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:557 classes/mrp/mrp_job.aw:559 classes/mrp/mrp_job.aw:572 classes/mrp/mrp_job.aw:1260
+msgid "Salvesta materjali kulu"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:568
+msgid "Materjali kulu salvestatud"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:609 classes/mrp/mrp_job.aw:677 classes/mrp/mrp_job.aw:748 classes/mrp/mrp_job.aw:810 classes/mrp/mrp_job.aw:860 classes/mrp/mrp_job.aw:910 classes/mrp/mrp_job.aw:997
+msgid "T&ouml;&ouml; id vale"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:622
+msgid "Projekt pole t&ouml;&ouml;s ega planeeritud"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:626
+msgid "T&ouml;&ouml; pole planeeritud"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:630 classes/mrp/mrp_job.aw:931
+msgid "Eeldust&ouml;&ouml;d tegemata"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:634 classes/mrp/mrp_job.aw:765 classes/mrp/mrp_job.aw:935
+msgid "Ressurss kinni"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:638 classes/mrp/mrp_job.aw:769
+msgid "Projekti alustamine eba&otilde;nnestus"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:642 classes/mrp/mrp_job.aw:712 classes/mrp/mrp_job.aw:943
+msgid "Ressurssil esines viga"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:646 classes/mrp/mrp_job.aw:716 classes/mrp/mrp_job.aw:777 classes/mrp/mrp_job.aw:827 classes/mrp/mrp_job.aw:877 classes/mrp/mrp_job.aw:947 classes/mrp/mrp_job.aw:1014
+msgid "Tundmatu viga"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:687
+msgid "Sellist tk. arvestuse valikut ei ole"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:708
+msgid "T&ouml;&ouml; staatus sobimatu"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:761 classes/mrp/mrp_job.aw:823 classes/mrp/mrp_job.aw:1010
+msgid "T&ouml;&ouml; pole tegemisel"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:773
+msgid "Ressurssil esines viga. Ressursi vabastamine v&otilde;is eba&otilde;nnestuda"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:873
+msgid "T&ouml;&ouml; pole pausil"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:923
+msgid "Projekt pole j&auml;tkatav"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:927
+msgid "T&ouml;&ouml; pole katkestatud"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:939
+msgid "Projektil esines viga"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1043 classes/mrp/mrp_job.aw:1224
+msgid "Materjal"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1048
+msgid "Planeeritud kogus"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1054 classes/mrp/mrp_job.aw:1242
+msgid "&Uuml;hik"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1060
+msgid "Tarnetingimus planeerimisel"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1066
+msgid "Materjali liikumine materjalilaost"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1077
+msgid "Tooteretsepti x poolt t&ouml;&ouml;s %s kasutatavad materjalid"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1119
+msgid "Ressursil %s kasutatavad materjalid"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1230
+msgid "Prognoositud kulu"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1236
+msgid "Tegelik kulu"
+msgstr ""
+
+#: classes/mrp/mrp_job.aw:1248
+msgid "Materjali kulu"
+msgstr ""
+

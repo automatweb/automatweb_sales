@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<data>
+<field name="id" caption="ID" align="center" talign="center" sortable="1" numeric="1" />
+<field name="name" caption="Kirjeldus" talign="center" sortable="1" />
+<field name="active" caption="Aktiivne" talign="center" align="center" sortable="1" />
+</data>
+
+</tabledef>

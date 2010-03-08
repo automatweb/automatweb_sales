@@ -1,0 +1,71 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="taket_ebasket" folder="www/automatweb_cvs/classes/applications/clients/taket" extends="class_base">
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<optional name="id" />
+					<optional name="product_code" />
+					<optional name="product_name" />
+					<optional name="price" />
+					<optional name="discount" />
+					<optional name="finalprice" />
+					<optional name="quantity" />
+					<optional name="check_all_stocks" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_order">
+			<function name="send_order">
+				<arguments>
+					<optional name="transport" />
+					<optional name="kontakttelefon" />
+					<optional name="eesperenimi" />
+					<optional name="transport_name" />
+					<optional name="info" />
+					<required name="ebasket_name" />
+					<optional name="location" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_items">
+			<function name="add_items">
+				<arguments>
+					<optional name="productId" />
+					<optional name="quantity" />
+					<optional name="valitud" />
+					<optional name="ebasket_name" />
+					<optional name="ebasket_name_list" />
+					<optional name="asukoht" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_ebasket">
+			<function name="save_ebasket">
+				<arguments>
+					<required name="ebasket_name" />
+					<optional name="productId" />
+					<optional name="quantity" />
+					<optional name="seesperenimi" />
+					<optional name="skontakttelefon" />
+					<optional name="stransport" />
+					<optional name="sort" />
+					<optional name="dir" />
+					<optional name="sinfo" />
+					<optional name="check_all_stocks" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="products_from_csv">
+			<function name="products_from_csv">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

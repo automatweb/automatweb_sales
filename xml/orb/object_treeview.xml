@@ -1,0 +1,29 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="object_treeview" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_show">
+			<function name="submit_show">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete">
+			<function name="obj_delete">
+				<arguments>
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

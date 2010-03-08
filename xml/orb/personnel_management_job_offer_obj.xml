@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="personnel_management_job_offer_obj" folder="www/automatweb_cvs/classes/applications/personnel_management" extends="_int_object">
+		<action name="handle_show_cnt">
+			<function name="handle_show_cnt">
+				<arguments>
+					<required name="action" type="string" />
+					<required name="id" type="OID" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

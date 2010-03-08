@@ -1,0 +1,72 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="procurement_center" folder="www/dev/terryf/automatweb_dev/classes/applications/procurement_center" extends="class_base">
+		<action name="delete_procurements">
+			<function name="delete_procurements">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_procurements_to_session">
+			<function name="add_procurements_to_session">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_tree_stuff" all_args="1">
+			<function name="get_tree_stuff">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_procurement_offer">
+			<function name="add_procurement_offer">
+				<arguments>
+					<optional name="p_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_to_compare">
+			<function name="add_to_compare">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="sel" />
+					<optional name="group" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="insert_offer">
+			<function name="insert_offer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="insert_purchase">
+			<function name="insert_purchase">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_mails">
+			<function name="send_mails">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_cos">
+			<function name="delete_cos">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<config>
+	<key type="select" name="default_view" caption="Default vaade">
+		<option id="" name="default"/>
+		<option id="day" name="day"/>
+		<option id="overview" name="overview"/>
+		<option id="week" name="week"/>
+		<option id="month" name="month"/>
+	</key>
+	<key type="time" name="day_start" caption="Tööpäev algab"/>
+	<key type="time" name="day_end" caption="Tööpäev lõpeb"/>
+	<key type="checkbox" name="tab_add_visible" caption="Lisa event nähtav"/>
+	<key type="checkbox" name="tab_today_visible" caption="Täna nähtav"/>
+	<key type="checkbox" name="tab_overview_visible" caption="Ülevaade nähtav"/>
+	<key type="checkbox" name="tab_day_visible" caption="Päev nähtav"/>
+	<key type="checkbox" name="tab_week_visible" caption="Nädal nähtav"/>
+	<key type="checkbox" name="tab_month_visible" caption="Kuu nähtav"/>
+	<key type="checkbox" name="navigator_visible" caption="Näita navigaatorit"/>
+	<key type="select" name="navigator_months" caption="Kuud navigaatoris">
+		<option id="" name="default"/>
+		<option id="1" name="1"/>
+		<option id="2" name="2"/>
+	</key>
+	<key type="checkbox" name="workday" index="1" caption="Esmaspäev"/>
+	<key type="checkbox" name="workday" index="2" caption="Teisipäev"/>
+	<key type="checkbox" name="workday" index="3" caption="Kolmapäev"/>
+	<key type="checkbox" name="workday" index="4" caption="Neljapäev"/>
+	<key type="checkbox" name="workday" index="5" caption="Reede"/>
+	<key type="checkbox" name="workday" index="6" caption="Laupäev"/>
+	<key type="checkbox" name="workday" index="0" caption="Pühapäev"/>
+	<key type="textbox" name="max_events" caption="Max eventeid perioodis"/>
+	<key type="submit" name="submit" caption="Salvesta"/>
+</config>

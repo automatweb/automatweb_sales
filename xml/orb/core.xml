@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="core" folder="www/dev/terryf/automatweb_dev/classes" extends="acl_base">
+		<action name="site_log">
+			<function name="site_log">
+				<arguments>
+					<required name="type" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

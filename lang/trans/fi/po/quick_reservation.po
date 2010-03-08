@@ -1,0 +1,174 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/groupware/quick_reservation.aw:class_1384_help
+msgid "Klassi Broneeringu kiirlisamine help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_start1
+msgid "Omaduse Algusaeg (start1) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_start1_comment
+msgid "Omaduse Algusaeg (start1) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_start1_help
+msgid "Omaduse Algusaeg (start1) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_end
+msgid "Omaduse L&otilde;ppaeg (end) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_end_comment
+msgid "Omaduse L&otilde;ppaeg (end) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_end_help
+msgid "Omaduse L&otilde;ppaeg (end) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_firstname
+msgid "Omaduse Eesnimi (firstname) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_firstname_comment
+msgid "Omaduse Eesnimi (firstname) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_firstname_help
+msgid "Omaduse Eesnimi (firstname) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_lastname
+msgid "Omaduse Perenimi (lastname) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_lastname_comment
+msgid "Omaduse Perenimi (lastname) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_lastname_help
+msgid "Omaduse Perenimi (lastname) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_company
+msgid "Omaduse Organisatsioon (company) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_company_comment
+msgid "Omaduse Organisatsioon (company) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_company_help
+msgid "Omaduse Organisatsioon (company) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_phone
+msgid "Omaduse Telefon (phone) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_phone_comment
+msgid "Omaduse Telefon (phone) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_phone_help
+msgid "Omaduse Telefon (phone) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_comment
+msgid "Omaduse M&auml;rkused (comment) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_comment_comment
+msgid "Omaduse M&auml;rkused (comment) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_comment_help
+msgid "Omaduse M&auml;rkused (comment) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_people
+msgid "Omaduse Meie esindaja (people) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_people_comment
+msgid "Omaduse Meie esindaja (people) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_people_help
+msgid "Omaduse Meie esindaja (people) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_other_rooms
+msgid "Omaduse Broneeri lisaks ruumid (other_rooms) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_other_rooms_comment
+msgid "Omaduse Broneeri lisaks ruumid (other_rooms) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_other_rooms_help
+msgid "Omaduse Broneeri lisaks ruumid (other_rooms) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_id
+msgid "Omaduse ID (id) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_id_comment
+msgid "Omaduse ID (id) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_id_help
+msgid "Omaduse ID (id) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_parent
+msgid "Omaduse Parent (parent) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_parent_comment
+msgid "Omaduse Parent (parent) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_parent_help
+msgid "Omaduse Parent (parent) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_resource
+msgid "Omaduse Ruum (resource) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_resource_comment
+msgid "Omaduse Ruum (resource) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_resource_help
+msgid "Omaduse Ruum (resource) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_product
+msgid "Omaduse Toode (product) caption"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_product_comment
+msgid "Omaduse Toode (product) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:prop_product_help
+msgid "Omaduse Toode (product) help"
+msgstr ""
+
+#: classes/applications/groupware/quick_reservation.aw:132
+msgid "Sellisele ajale ei saa broneerida ruume:"
+msgstr ""

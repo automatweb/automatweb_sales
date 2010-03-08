@@ -1,0 +1,30 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Pilt (file) kommentaar"] = "välja järel oleval Browse nupul klikkides avaneb võimalus valida kättesaadavalt andmekandjalt soovitud pildifail";
+$GLOBALS["TRANS"]["Omaduse Pilt (file) help"] = "välja järel oleval Browse nupul klikkides avaneb võimalus valida kättesaadavalt andmekandjalt soovitud pildifail";
+$GLOBALS["TRANS"]["Omaduse Pildi allkiri (comment) kommentaar"] = " võimaldab lisada pildile kommentaari. Pildi allkirja näidatakse veebilehel pildi all väikeses kirjas";
+$GLOBALS["TRANS"]["Omaduse Pildi allkiri (comment) help"] = " võimaldab lisada pildile kommentaari. Pildi allkirja näidatakse veebilehel pildi all väikeses kirjas";
+$GLOBALS["TRANS"]["Omaduse Pildi autor (author) kommentaar"] = "võimaldab pildi juures autori nime, vastaval kujundusega kokkulepitud kohal.";
+$GLOBALS["TRANS"]["Omaduse Pildi autor (author) help"] = "võimaldab pildi juures autori nime, vastaval kujundusega kokkulepitud kohal.(ei pruugi kõigi kujunduste tulla veebilehel nähtavale)";
+$GLOBALS["TRANS"]["Omaduse Alt (alt) kommentaar"] = "tekst, mida kuvatakse veebilehel, kui kasutaja liigub kursoriga pildi peale.";
+$GLOBALS["TRANS"]["Omaduse Alt (alt) help"] = "tekst, mida kuvatakse veebilehel, kui kasutaja liigub kursoriga pildi peale. Võimalus lisada pildile kommentaari";
+$GLOBALS["TRANS"]["Omaduse Link (link) kommentaar"] = "võimalus suunata kasutaja peale pildil klikkimist antud välja sisestatud veebiaadressile";
+$GLOBALS["TRANS"]["Omaduse Link (link) help"] = "võimalus suunata kasutaja peale pildil klikkimist antud välja sisestatud veebiaadressile. Kui tegemist on väljaspoole antud veebilehte viiva lingiga siis tuleb aadress sisestada kujul http://... (N: http://www.struktuur.ee). Veebilehe sisese lingi puhul piisab kui kirjutada / ja objekti ID ";
+$GLOBALS["TRANS"]["Omaduse Uues aknas (newwindow) kommentaar"] = "märkides välja valituks võimaldab avada Link välja sisesatud aadressil asuva veebilehe uude Internetilehitseja aknasse ";
+$GLOBALS["TRANS"]["Omaduse Uues aknas (newwindow) help"] = "märkides välja valituks võimaldab avada Link välja sisesatud aadressil asuva veebilehe uude Internetilehitseja aknasse ";
+$GLOBALS["TRANS"]["Omaduse &Auml;ra n&auml;ita print-vaates (no_print) kommentaar"] = "märkides välja valituks ei kuvata pilti Print-vaates";
+$GLOBALS["TRANS"]["Omaduse &Auml;ra n&auml;ita print-vaates (no_print) help"] = "märkides välja valituks ei kuvata pilti Print-vaates";
+$GLOBALS["TRANS"]["Omaduse J&auml;rjekord (ord) kommentaar"] = "pildi puhul, mõjutab järjekord veebil kuvamist juhul, kui pilti kuvatakse minigalerii abil.";
+$GLOBALS["TRANS"]["Omaduse J&auml;rjekord (ord) help"] = "pildi puhul, mõjutab järjekord veebil kuvamist juhul, kui pilti kuvatakse minigalerii abil.";
+$GLOBALS["TRANS"]["Omaduse Suur pilt (file2) kommentaar"] = "välja järel oleval Browse nupul klikkides avaneb võimalus valida kättesaadavalt andmekandjalt soovitud pildifail. ";
+$GLOBALS["TRANS"]["Omaduse Suur pilt (file2) help"] = "välja järel oleval Browse nupul klikkides avaneb võimalus valida kättesaadavalt andmekandjalt soovitud pildifail. ";
+$GLOBALS["TRANS"]["Omaduse Kustuta suur pilt (file2_del) kommentaar"] = "märkides välja valituks Suur pilt kustutakse";
+$GLOBALS["TRANS"]["Omaduse Kustuta suur pilt (file2_del) help"] = "märkides välja valituks Suur pilt kustutakse";
+$GLOBALS["TRANS"]["Omaduse Uus laius (new_w) kommentaar"] = "võimaldab määrata Üldine vaates sisestatud pildi uue laiuse";
+$GLOBALS["TRANS"]["Omaduse Uus laius (new_w) help"] = "võimaldab määrata Üldine vaates sisestatud pildi uue laiuse";
+$GLOBALS["TRANS"]["Omaduse Uus k&otilde;rgus (new_h) kommentaar"] = "võimaldab määrata Üldine vaates sisestatud pildi uue kõrguse";
+$GLOBALS["TRANS"]["Omaduse Uus k&otilde;rgus (new_h) help"] = "võimaldab määrata Üldine vaates sisestatud pildi uue kõrguse";
+$GLOBALS["TRANS"]["Omaduse Uus laius (suur) (new_w_big) kommentaar"] = "võimaldab määrata Suur pilt vaates sisestatud pildi uue laiuse";
+$GLOBALS["TRANS"]["Omaduse Uus laius (suur) (new_w_big) help"] = "võimaldab määrata Suur pilt vaates sisestatud pildi uue laiuse";
+$GLOBALS["TRANS"]["Omaduse Uus k&otilde;rgus (suur) (new_h_big) kommentaar"] = "võimaldab määrata Suur pilt vaates sisestatud pildi uue kõrguse";
+$GLOBALS["TRANS"]["Omaduse Uus k&otilde;rgus (suur) (new_h_big) help"] = "võimaldab määrata Suur pilt vaates sisestatud pildi uue kõrguse";
+?>

@@ -1,0 +1,26 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="conference" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="remove_reservations" all_args="1">
+			<function name="remove_reservations">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_room_and_reservation" all_args="1">
+			<function name="create_new_room_and_reservation">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rem_presenters" all_args="1">
+			<function name="rem_presenters">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

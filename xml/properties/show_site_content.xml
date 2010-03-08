@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+<properties>
+      <classinfo>
+            <syslog_type>ST_SITE_CONTENT</syslog_type>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

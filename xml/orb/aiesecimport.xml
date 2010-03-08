@@ -1,0 +1,102 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="aiesecimport" folder="www/dev/terryf/automatweb_dev/classes/import" extends="class_base">
+		<action name="do_import_finish">
+			<function name="do_import_finish">
+				<arguments>
+					<required name="vars_ok" type="integer" />
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_import">
+			<function name="do_import">
+				<arguments>
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_import_aiesec_members_and_alumni">
+			<function name="ajax_import_aiesec_members_and_alumni">
+				<arguments>
+					<optional name="begin" type="integer" />
+					<optional name="end" type="integer" />
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_import_other_contact">
+			<function name="ajax_import_other_contact">
+				<arguments>
+					<optional name="begin" type="integer" />
+					<optional name="end" type="integer" />
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_import_positions">
+			<function name="ajax_import_positions">
+				<arguments>
+					<optional name="begin" type="integer" />
+					<optional name="end" type="integer" />
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_import_companies">
+			<function name="ajax_import_companies">
+				<arguments>
+					<optional name="begin" type="integer" />
+					<optional name="end" type="integer" />
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_import_meetings">
+			<function name="ajax_import_meetings">
+				<arguments>
+					<optional name="begin" type="integer" />
+					<optional name="end" type="integer" />
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_import_phonecalls">
+			<function name="ajax_import_phonecalls">
+				<arguments>
+					<optional name="begin" type="integer" />
+					<optional name="end" type="integer" />
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_import_persons">
+			<function name="ajax_import_persons">
+				<arguments>
+					<optional name="begin" type="integer" />
+					<optional name="step" type="integer" />
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_recursive_url_persons_import">
+			<function name="do_recursive_url_persons_import">
+				<arguments>
+					<optional name="begin" type="integer" />
+					<optional name="step" type="integer" />
+					<required name="import_parent" type="integer" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

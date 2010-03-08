@@ -1,0 +1,78 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_offer" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="class_base">
+		<action name="save_cl">
+			<function name="save_cl">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_parts">
+			<function name="del_parts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_to_typical_component_list">
+			<function name="add_to_typical_component_list">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="co" type="int" acl="view" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_from_typical_component_list">
+			<function name="remove_from_typical_component_list">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="co" type="int" acl="view" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_based_on_typical">
+			<function name="add_based_on_typical">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="parent" />
+					<required name="based_on" type="int" acl="view" />
+					<optional name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_file_rel" all_args="1">
+			<function name="del_file_rel">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_parts" all_args="1">
+			<function name="remove_parts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_parts" all_args="1">
+			<function name="save_parts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="customer_contact_person_options_autocomplete_source" all_args="1">
+			<function name="customer_contact_person_options_autocomplete_source">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

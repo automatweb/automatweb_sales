@@ -1,0 +1,82 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/msg/msg_scanner.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/msg/msg_scanner.aw:62
+msgid ""
+"ERROR: function %s already defined as message handler\n"
+"       for message %s, can not define several recievers\n"
+"       for one message in the same class!\n"
+"\n"
+msgstr ""
+"ERROR: function %s already defined as message handler\n"
+"       for message %s, can not define several recievers\n"
+"       for one message in the same class!\n"
+"\n"
+
+#: classes/core/msg/msg_scanner.aw:74
+msgid ""
+"ERROR: function %s already defined as message handler\n"
+"       for message %s with param %s, can not define several recievers\n"
+"       for one message with same param in the same class!\n"
+"\n"
+msgstr ""
+"ERROR: function %s already defined as message handler\n"
+"       for message %s with param %s, can not define several recievers\n"
+"       for one message with same param in the same class!\n"
+"\n"
+
+#: classes/core/msg/msg_scanner.aw:94 classes/core/msg/msg_scanner.aw:119
+msgid ""
+"ERROR: message %s is not defined, but recieved by class%s %s!\n"
+"\n"
+msgstr ""
+"ERROR: message %s is not defined, but recieved by class%s %s!\n"
+"\n"
+
+#: classes/core/msg/msg_scanner.aw:103
+msgid ""
+"ERROR: class %s defines function %s as message handler for message %s,\n"
+"       but the function does not exist in that class!\n"
+"\n"
+msgstr ""
+"ERROR: class %s defines function %s as message handler for message %s,\n"
+"       but the function does not exist in that class!\n"
+"\n"
+
+#: classes/core/msg/msg_scanner.aw:130
+msgid ""
+"ERROR: class %s defines function %s as message handler for message %s (with param %s),\n"
+"       but the function does not exist in that class!\n"
+"\n"
+msgstr ""
+"ERROR: class %s defines function %s as message handler for message %s (with param %s),\n"
+"       but the function does not exist in that class!\n"
+"\n"
+
+#: classes/core/msg/msg_scanner.aw:186 classes/core/msg/msg_scanner.aw:202
+msgid ""
+"ERROR: no write access to file %s!\n"
+"\n"
+msgstr ""
+"ERROR: no write access to file %s!\n"
+"\n"
+
+#: classes/core/msg/msg_scanner.aw:195
+msgid ""
+"ERROR: folder %s where message maps are stored, does not exist!\n"
+"\n"
+msgstr ""
+"ERROR: folder %s where message maps are stored, does not exist!\n"
+"\n"

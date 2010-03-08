@@ -1,0 +1,280 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:class_1086_help
+msgid "Klassi Haagis help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_nr
+msgid "Omaduse Haagise nr. (nr) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_nr_comment
+msgid "Omaduse Haagise nr. (nr) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_nr_help
+msgid "Omaduse Haagise nr. (nr) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_manufacturer_and_model
+msgid "Omaduse Tootja ja mudel (manufacturer_and_model) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_manufacturer_and_model_comment
+msgid "Omaduse Tootja ja mudel (manufacturer_and_model) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_manufacturer_and_model_help
+msgid "Omaduse Tootja ja mudel (manufacturer_and_model) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_bodytype
+msgid "Omaduse Keret&uuml;&uuml;p (bodytype) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_bodytype_comment
+msgid "Omaduse Keret&uuml;&uuml;p (bodytype) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_bodytype_help
+msgid "Omaduse Keret&uuml;&uuml;p (bodytype) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_axle_count
+msgid "Omaduse Sildade arv (axle_count) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_axle_count_comment
+msgid "Omaduse Sildade arv (axle_count) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_axle_count_help
+msgid "Omaduse Sildade arv (axle_count) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_color
+msgid "Omaduse V&auml;rvus (color) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_color_comment
+msgid "Omaduse V&auml;rvus (color) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_color_help
+msgid "Omaduse V&auml;rvus (color) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_year
+msgid "Omaduse V&auml;ljalaskeaasta (year) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_year_comment
+msgid "Omaduse V&auml;ljalaskeaasta (year) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_year_help
+msgid "Omaduse V&auml;ljalaskeaasta (year) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_price
+msgid "Omaduse Hind (price) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_price_comment
+msgid "Omaduse Hind (price) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_price_help
+msgid "Omaduse Hind (price) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_superstructure
+msgid "Omaduse Pealisehitus  (superstructure) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_superstructure_comment
+msgid "Omaduse Pealisehitus  (superstructure) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_superstructure_help
+msgid "Omaduse Pealisehitus  (superstructure) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_length
+msgid "Omaduse Pikkus (length) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_length_comment
+msgid "Omaduse Pikkus (length) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_length_help
+msgid "Omaduse Pikkus (length) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_width
+msgid "Omaduse Laius (width) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_width_comment
+msgid "Omaduse Laius (width) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_width_help
+msgid "Omaduse Laius (width) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_height
+msgid "Omaduse K&otilde;rgus (height) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_height_comment
+msgid "Omaduse K&otilde;rgus (height) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_height_help
+msgid "Omaduse K&otilde;rgus (height) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_capacity
+msgid "Omaduse Kaubaruumi maht (merchant_space_capacity) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_capacity_comment
+msgid "Omaduse Kaubaruumi maht (merchant_space_capacity) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_capacity_help
+msgid "Omaduse Kaubaruumi maht (merchant_space_capacity) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_length
+msgid "Omaduse Kaubaruumi pikkus (merchant_space_length) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_length_comment
+msgid "Omaduse Kaubaruumi pikkus (merchant_space_length) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_length_help
+msgid "Omaduse Kaubaruumi pikkus (merchant_space_length) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_width
+msgid "Omaduse Kaubaruumi laius (merchant_space_width) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_width_comment
+msgid "Omaduse Kaubaruumi laius (merchant_space_width) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_width_help
+msgid "Omaduse Kaubaruumi laius (merchant_space_width) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_height
+msgid "Omaduse Kaubaruumi k&otilde;rgus (merchant_space_height) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_height_comment
+msgid "Omaduse Kaubaruumi k&otilde;rgus (merchant_space_height) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_merchant_space_height_help
+msgid "Omaduse Kaubaruumi k&otilde;rgus (merchant_space_height) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_suspension
+msgid "Omaduse Vedrustus (suspension) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_suspension_comment
+msgid "Omaduse Vedrustus (suspension) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_suspension_help
+msgid "Omaduse Vedrustus (suspension) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_deadweight
+msgid "Omaduse Kandev&otilde;ime (deadweight) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_deadweight_comment
+msgid "Omaduse Kandev&otilde;ime (deadweight) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_deadweight_help
+msgid "Omaduse Kandev&otilde;ime (deadweight) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_empty_weight
+msgid "Omaduse T&uuml;himass (empty_weight) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_empty_weight_comment
+msgid "Omaduse T&uuml;himass (empty_weight) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_empty_weight_help
+msgid "Omaduse T&uuml;himass (empty_weight) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_full_weight
+msgid "Omaduse T&auml;ismass (full_weight) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_full_weight_comment
+msgid "Omaduse T&auml;ismass (full_weight) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:prop_full_weight_help
+msgid "Omaduse T&auml;ismass (full_weight) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:group_technical_data
+msgid "Grupi Tehnilised andmed (technical_data) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:group_technical_data_help
+msgid "Grupi Tehnilised andmed (technical_data) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:97
+msgid "Madel"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:98
+msgid "Furgoon"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:99
+msgid "Kallur"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:100
+msgid "Tent"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:101
+msgid "Tsistern"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:102
+msgid "Konteinerveok"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_trailer.aw:103
+msgid "Muu"
+msgstr ""
+

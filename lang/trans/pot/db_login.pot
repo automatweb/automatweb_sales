@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/awmyadmin/db_login.aw:class_148_help
+msgid "Klassi Andmebaasi sissep&auml;&auml;s help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_server
+msgid "Omaduse Server (db_server) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_server_comment
+msgid "Omaduse Server (db_server) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_server_help
+msgid "Omaduse Server (db_server) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_base
+msgid "Omaduse Andmebaas (db_base) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_base_comment
+msgid "Omaduse Andmebaas (db_base) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_base_help
+msgid "Omaduse Andmebaas (db_base) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_user
+msgid "Omaduse Kasutajanimi (db_user) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_user_comment
+msgid "Omaduse Kasutajanimi (db_user) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_user_help
+msgid "Omaduse Kasutajanimi (db_user) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_pass
+msgid "Omaduse Parool (db_pass) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_pass_comment
+msgid "Omaduse Parool (db_pass) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_pass_help
+msgid "Omaduse Parool (db_pass) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_create_ifnexist
+msgid "Omaduse Loo kui olemas pole (db_create_ifnexist) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_create_ifnexist_comment
+msgid "Omaduse Loo kui olemas pole (db_create_ifnexist) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:prop_db_create_ifnexist_help
+msgid "Omaduse Loo kui olemas pole (db_create_ifnexist) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:rel_RELTYPE_SERVER_LOGIN
+msgid "Seose db serveri login (RELTYPE_SERVER_LOGIN) tekst"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_login.aw:50
+msgid "The admin user for the database server has not been set!"
+msgstr ""
+

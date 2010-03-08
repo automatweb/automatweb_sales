@@ -1,0 +1,576 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_company" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="class_base">
+		<action name="delete_selected_objects">
+			<function name="delete_selected_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_new_task">
+			<function name="submit_new_task">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_for_contacts">
+			<function name="search_for_contacts">
+				<arguments>
+					<optional name="cat" />
+					<optional name="unit" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_new_call">
+			<function name="submit_new_call">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_new_meeting">
+			<function name="submit_new_meeting">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_ppl">
+			<function name="submit_delete_ppl">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="unit" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_from_category" all_args="1">
+			<function name="remove_from_category">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_cust_relations" all_args="1">
+			<function name="remove_cust_relations">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_relations">
+			<function name="submit_delete_relations">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="unit" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_my_customers_relations">
+			<function name="submit_delete_my_customers_relations">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_customer_relations">
+			<function name="submit_delete_customer_relations">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="customer" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cust_bds">
+			<function name="cust_bds">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_company" all_args="1">
+			<function name="create_new_company">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_search_results">
+			<function name="save_search_results">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_employee">
+			<function name="add_employee">
+				<arguments>
+					<required name="id" type="oid" />
+					<required name="profession" type="oid" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut">
+			<function name="cut">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste" all_args="1">
+			<function name="paste">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_p">
+			<function name="cut_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_p">
+			<function name="copy_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_p">
+			<function name="paste_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mark_proj_done">
+			<function name="mark_proj_done">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mark_tasks_done">
+			<function name="mark_tasks_done">
+				<arguments>
+					<optional name="sel" />
+					<required name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_time" all_args="1">
+			<function name="save_time">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_bill" all_args="1">
+			<function name="create_bill">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_proj_to_co_as_ord">
+			<function name="add_proj_to_co_as_ord">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_proj_to_co_as_impl">
+			<function name="add_proj_to_co_as_impl">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_docs">
+			<function name="submit_delete_docs">
+				<arguments>
+					<optional name="sel" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_task_to_co">
+			<function name="add_task_to_co">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_meeting_to_co">
+			<function name="add_meeting_to_co">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_offer_to_co">
+			<function name="add_offer_to_co">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_task_to_proj">
+			<function name="add_task_to_proj">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_meeting_to_proj">
+			<function name="add_meeting_to_proj">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_offer_to_proj">
+			<function name="add_offer_to_proj">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mark_p_as_important">
+			<function name="mark_p_as_important">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="unmark_p_as_important">
+			<function name="unmark_p_as_important">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="tasks_switch_to_cal_view">
+			<function name="tasks_switch_to_cal_view">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="tasks_switch_to_table_view">
+			<function name="tasks_switch_to_table_view">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="go_to_create_bill">
+			<function name="go_to_create_bill">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_projs">
+			<function name="delete_projs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_bills">
+			<function name="delete_bills">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_bill_list">
+			<function name="save_bill_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_tasks">
+			<function name="delete_tasks">
+				<arguments>
+					<optional name="sel" />
+					<required name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_monthly_bill">
+			<function name="create_new_monthly_bill">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="co" type="int" acl="view" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_docs">
+			<function name="cut_docs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_paste_docs">
+			<function name="submit_paste_docs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="res_delete">
+			<function name="res_delete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="res_paste">
+			<function name="res_paste">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="res_cut">
+			<function name="res_cut">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_company_count_by_name">
+			<function name="get_company_count_by_name">
+				<arguments>
+					<optional name="co_name" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="go_to_first_co_by_name">
+			<function name="go_to_first_co_by_name">
+				<arguments>
+					<optional name="co_name" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="disp_conflict_pop">
+			<function name="disp_conflict_pop">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="proj_autocomplete_source" all_args="1">
+			<function name="proj_autocomplete_source">
+				<arguments>
+					<optional name="stats_s_cust" />
+					<optional name="stats_s_proj" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="unit_options_autocomplete_source" all_args="1">
+			<function name="unit_options_autocomplete_source">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="worker_options_autocomplete_source" all_args="1">
+			<function name="worker_options_autocomplete_source">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="name_autocomplete_source">
+			<function name="name_autocomplete_source">
+				<arguments>
+					<optional name="name" />
+					<optional name="stats_s_cust" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="keywords_autocomplete_source">
+			<function name="keywords_autocomplete_source">
+				<arguments>
+					<optional name="customer_search_keywords" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_as_customer">
+			<function name="save_as_customer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_report">
+			<function name="save_report">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="p_view_switch">
+			<function name="p_view_switch">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="vm_set_act_ver">
+			<function name="vm_set_act_ver">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="vm_delete_versions">
+			<function name="vm_delete_versions">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="view">
+			<function name="view">
+				<arguments>
+					<required name="id" />
+					<optional name="cfgform" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_default_poll">
+			<function name="save_default_poll">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_mails">
+			<function name="send_mails">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_phone">
+			<function name="add_phone">
+				<arguments>
+					<required name="organisation_object" type="object" />
+					<optional name="phone_object" type="object" />
+					<optional name="phone_number" type="string" />
+					<optional name="active" type="bool" />
+					<optional name="type" type="string" default="phone" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_web_address">
+			<function name="add_web_address">
+				<arguments>
+					<required name="organisation_object" type="object" />
+					<optional name="web_address_object" type="object" />
+					<optional name="web_address" type="string" />
+					<optional name="active" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_project_to_mail" nologin="1" is_public="1" all_args="1">
+			<function name="set_project_to_mail">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_rows" all_args="1">
+			<function name="save_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="statuses_save" all_args="1">
+			<function name="statuses_save">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_customer_buyer" all_args="1">
+			<function name="add_customer_buyer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_contact_rels" all_args="1">
+			<function name="save_contact_rels">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_payment" all_args="1">
+			<function name="add_payment">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="company_data" all_args="1">
+			<function name="company_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_comment">
+			<function name="del_comment">
+				<arguments>
+					<required name="id" type="oid" acl="delete" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="commix" all_args="1">
+			<function name="commix">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

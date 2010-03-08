@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="site_logger" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="core">
+	</class>
+</orb>

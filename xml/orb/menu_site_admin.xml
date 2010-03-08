@@ -1,0 +1,59 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="menu_site_admin" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="core">
+		<action name="hide_menu">
+			<function name="hide_menu">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_menu">
+			<function name="cut_menu">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_menu">
+			<function name="paste_menu">
+				<arguments>
+					<required name="after" type="int" acl="edit" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="hide_doc">
+			<function name="hide_doc">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_doc">
+			<function name="cut_doc">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_doc">
+			<function name="paste_doc">
+				<arguments>
+					<required name="after" type="int" acl="edit" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

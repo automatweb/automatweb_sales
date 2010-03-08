@@ -1,0 +1,94 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="search_conf" folder="contentmgmt/site_search" extends="aw_template">
+		<action name="search" nologin="1">
+			<function name="search">
+				<arguments>
+					<optional name="s_parent" />
+					<optional name="s_parent_arr" />
+					<optional name="s_keywords" />
+					<optional name="sstring_title" />
+					<optional name="sstring_author" />
+					<optional name="date_from" />
+					<optional name="date_to" />
+					<optional name="sstring" />
+					<optional name="a2c_log" />
+					<optional name="t2c_log" />
+					<optional name="c2k_log" />
+					<optional name="d2k_log" />
+					<optional name="search" />
+					<optional name="page" />
+					<optional name="t_type" />
+					<optional name="c_type" />
+					<optional name="sortby" />
+					<optional name="section" />
+					<optional name="search_all" />
+					<optional name="max_results" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="upd_dox" nologin="1">
+			<function name="upd_dox">
+				<arguments>
+					<optional name="s_parent" />
+					<optional name="s_keywords" />
+					<optional name="sstring_title" />
+					<optional name="sstring" />
+					<optional name="t2c_log" />
+					<optional name="c2k_log" />
+					<optional name="search" />
+					<optional name="page" />
+					<optional name="t_type" />
+					<optional name="c_type" />
+					<optional name="sortby" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change">
+			<function name="change">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_conf">
+			<function name="submit_conf">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_grp">
+			<function name="change_grp">
+				<arguments>
+					<optional name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_change_grp">
+			<function name="submit_change_grp">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_grp">
+			<function name="delete_grp">
+				<arguments>
+					<optional name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_log">
+			<function name="search_log">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

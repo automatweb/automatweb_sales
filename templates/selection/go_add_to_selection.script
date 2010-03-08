@@ -1,0 +1,32 @@
+<script language='JavaScript'>
+function go_manage_selection(oid,backto,action,paren)
+	{
+		document.changeform.reforb.value = '1';
+		document.changeform.elements['class'].value = 'crm_selection';
+		document.changeform.elements['action'].value = action;
+
+		if ((action == 'add_to_selection') && (oid == '0'))
+		{
+			namn = prompt('anna uuele valimile nimi');
+
+			if (!namn)
+			{
+				alert('nimi on vajalik!');
+				return false;
+			}
+			document.changeform.new_selection_name.value = namn;
+		}
+		else
+		{
+  			document.changeform.id.value = oid;
+		}
+		//document.changeform.alias_to.value = '';
+		document.changeform.return_url.value = backto;
+		document.changeform.parent.value = paren;
+		document.changeform.submit();
+
+		return true;
+	}
+
+
+</script>

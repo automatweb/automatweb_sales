@@ -1,0 +1,65 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/awmyadmin/db_sql_query.aw:class_154_help
+#: classes/applications/awmyadmin/db_sql_query.aw:class_154_help
+msgid "Klassi SQL P&auml;ring help"
+msgstr ""
+
+# classes/applications/awmyadmin/db_sql_query.aw:prop_db_base
+#: classes/applications/awmyadmin/db_sql_query.aw:prop_db_base
+msgid "Omaduse Andmebaas (db_base) caption"
+msgstr ""
+
+# classes/applications/awmyadmin/db_sql_query.aw:prop_db_base_comment
+#: classes/applications/awmyadmin/db_sql_query.aw:prop_db_base_comment
+msgid "Omaduse Andmebaas (db_base) kommentaar"
+msgstr ""
+
+# classes/applications/awmyadmin/db_sql_query.aw:prop_db_base_help
+#: classes/applications/awmyadmin/db_sql_query.aw:prop_db_base_help
+msgid "Omaduse Andmebaas (db_base) help"
+msgstr ""
+
+# classes/applications/awmyadmin/db_sql_query.aw:prop_sql
+#: classes/applications/awmyadmin/db_sql_query.aw:prop_sql
+msgid "Omaduse SQL (sql) caption"
+msgstr ""
+
+# classes/applications/awmyadmin/db_sql_query.aw:prop_sql_comment
+#: classes/applications/awmyadmin/db_sql_query.aw:prop_sql_comment
+msgid "Omaduse SQL (sql) kommentaar"
+msgstr ""
+
+# classes/applications/awmyadmin/db_sql_query.aw:prop_sql_help
+#: classes/applications/awmyadmin/db_sql_query.aw:prop_sql_help
+msgid "Omaduse SQL (sql) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_sql_query.aw:prop_res
+msgid "Omaduse Tulemused (res) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_sql_query.aw:prop_res_comment
+msgid "Omaduse Tulemused (res) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_sql_query.aw:prop_res_help
+msgid "Omaduse Tulemused (res) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_sql_query.aw:rel_RELTYPE_DB
+msgid "Seose Andmebaas (RELTYPE_DB) tekst"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_sql_query.aw:124
+msgid "P&auml;ringu tulemused"
+msgstr ""

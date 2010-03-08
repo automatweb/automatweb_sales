@@ -1,0 +1,23 @@
+<h2>classificator</h2>
+
+interface to variable management
+
+#php#
+@property client_status type=classificator store=connect reltype=RELTYPE_BLAH 
+@caption Kliendi staatus
+#/php#
+
+0. define some classificator properties in your code (like the above example)
+1. create a new metamgr (Muutujate haldus) object
+2. use that object to create a variable structure (you can nest variables!)
+3. create an object_type object
+4. connect variable categories to that object
+5. now you can assign connections to each of your classificator properties
+6. select default object_type object
+
+That should do it.
+
+Now, if you view your class, it should show variables from the matched category
+as options of the property (otherwise it looks like a chooser)
+
+

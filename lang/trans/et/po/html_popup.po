@@ -1,0 +1,153 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2015-06-01 20:57+0200\n"
+"Last-Translator: ergo\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/html_popup.aw:class_80_help
+#: classes/contentmgmt/html_popup.aw:class_80_help
+msgid "Klassi Popup help"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_show_obj
+#: classes/contentmgmt/html_popup.aw:prop_show_obj
+msgid "Omaduse Sisu  (show_obj) caption"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_show_obj_comment
+#: classes/contentmgmt/html_popup.aw:prop_show_obj_comment
+msgid "Omaduse Sisu  (show_obj) kommentaar"
+msgstr "läbi seostehalduri seostatud sisuobjekt (dokument, fail või pilt) mida kuvatakse popup-akna sees"
+
+# classes/contentmgmt/html_popup.aw:prop_show_obj_help
+#: classes/contentmgmt/html_popup.aw:prop_show_obj_help
+msgid "Omaduse Sisu  (show_obj) help"
+msgstr "läbi seostehalduri seostatud sisuobjekt (dokument, fail või pilt) mida kuvatakse popup-akna sees"
+
+# classes/contentmgmt/html_popup.aw:prop_popup_type
+#: classes/contentmgmt/html_popup.aw:prop_popup_type
+msgid "Omaduse Kasuta layerit (popup_type) caption"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_popup_type_comment
+#: classes/contentmgmt/html_popup.aw:prop_popup_type_comment
+msgid "Omaduse Kasuta layerit (popup_type) kommentaar"
+msgstr "dhtml-tehnoloogias valmistatud erikujuline popup-aken, mille kuvamiseks ei avata uut internetilehitseja akent"
+
+# classes/contentmgmt/html_popup.aw:prop_popup_type_help
+#: classes/contentmgmt/html_popup.aw:prop_popup_type_help
+msgid "Omaduse Kasuta layerit (popup_type) help"
+msgstr "dhtml-tehnoloogias valmistatud erikujuline popup-aken, mille kuvamiseks ei avata uut internetilehitseja akent"
+
+# classes/contentmgmt/html_popup.aw:prop_width
+#: classes/contentmgmt/html_popup.aw:prop_width
+msgid "Omaduse Laius (width) caption"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_width_comment
+#: classes/contentmgmt/html_popup.aw:prop_width_comment
+msgid "Omaduse Laius (width) kommentaar"
+msgstr "avaneva akna või layeri laius"
+
+# classes/contentmgmt/html_popup.aw:prop_width_help
+#: classes/contentmgmt/html_popup.aw:prop_width_help
+msgid "Omaduse Laius (width) help"
+msgstr "avaneva akna või layeri laius"
+
+#: classes/contentmgmt/html_popup.aw:prop_height
+msgid "Omaduse K&otilde;rgus (height) caption"
+msgstr ""
+
+#: classes/contentmgmt/html_popup.aw:prop_height_comment
+msgid "Omaduse K&otilde;rgus (height) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/html_popup.aw:prop_height_help
+msgid "Omaduse K&otilde;rgus (height) help"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_scrollbars
+#: classes/contentmgmt/html_popup.aw:prop_scrollbars
+msgid "Omaduse Kerimisribad (scrollbars) caption"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_scrollbars_comment
+#: classes/contentmgmt/html_popup.aw:prop_scrollbars_comment
+msgid "Omaduse Kerimisribad (scrollbars) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_scrollbars_help
+#: classes/contentmgmt/html_popup.aw:prop_scrollbars_help
+msgid "Omaduse Kerimisribad (scrollbars) help"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_only_once
+#: classes/contentmgmt/html_popup.aw:prop_only_once
+msgid "Omaduse Ainult &uuml;he korra sessiooni jooksul (only_once) caption"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_only_once_comment
+#: classes/contentmgmt/html_popup.aw:prop_only_once_comment
+msgid "Omaduse Ainult &uuml;he korra sessiooni jooksul (only_once) kommentaar"
+msgstr "popup-aknent kuvatakse samale külastajale vaid üks kord (kuni sessiooniküpsise aegumiseni)"
+
+# classes/contentmgmt/html_popup.aw:prop_only_once_help
+#: classes/contentmgmt/html_popup.aw:prop_only_once_help
+msgid "Omaduse Ainult &uuml;he korra sessiooni jooksul (only_once) help"
+msgstr "popup-aknent kuvatakse samale külastajale vaid üks kord (kuni sessiooniküpsise aegumiseni)"
+
+#: classes/contentmgmt/html_popup.aw:prop_menus
+msgid "Omaduse Men&uuml;&uuml;d (menus) caption"
+msgstr ""
+
+#: classes/contentmgmt/html_popup.aw:prop_menus_comment
+msgid "Omaduse Men&uuml;&uuml;d (menus) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/html_popup.aw:prop_menus_help
+msgid "Omaduse Men&uuml;&uuml;d (menus) help"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:rel_RELTYPE_OBJ
+#: classes/contentmgmt/html_popup.aw:rel_RELTYPE_OBJ
+msgid "Seose sisu objekt (RELTYPE_OBJ) tekst"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:rel_RELTYPE_FOLDER
+#: classes/contentmgmt/html_popup.aw:rel_RELTYPE_FOLDER
+msgid "Seose kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/html_popup.aw:81
+msgid "ID"
+msgstr ""
+
+#: classes/contentmgmt/html_popup.aw:89
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/html_popup.aw:94
+msgid "k.a. alammen&uuml;&uuml;d"
+msgstr ""
+
+# classes/contentmgmt/html_popup.aw:prop_height_comment
+#~ msgid "Omaduse Kõrgus (height) kommentaar"
+#~ msgstr "avaneva akna või layeri kõrgus"
+
+# classes/contentmgmt/html_popup.aw:prop_height_help
+#~ msgid "Omaduse Kõrgus (height) help"
+#~ msgstr "avaneva akna või layeri kõrgus"
+
+# classes/contentmgmt/html_popup.aw:prop_menus_comment
+#~ msgid "Omaduse Menüüd (menus) kommentaar"
+#~ msgstr "nimekiri läbi seostehalduri seostatud kaustadest, mille alla liikudes popup-aken nähtavale ilmub. "
+
+# classes/contentmgmt/html_popup.aw:prop_menus_help
+#~ msgid "Omaduse Menüüd (menus) help"
+#~ msgstr "nimekiri läbi seostehalduri seostatud kaustadest, mille alla liikudes popup-aken nähtavale ilmub. "

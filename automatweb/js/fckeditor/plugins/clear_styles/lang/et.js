@@ -1,0 +1,1 @@
+﻿FCKLang.ClearStylesBtn = 'Tühista stiilid';

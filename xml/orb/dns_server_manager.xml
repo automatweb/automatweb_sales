@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="dns_server_manager" folder="www/dev/terryf/automatweb_dev/classes/install" extends="class_base">
+		<action name="can_manage_server" nologin="1">
+			<function name="can_manage_server">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_or_update_site" nologin="1" all_args="1">
+			<function name="add_or_update_site">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

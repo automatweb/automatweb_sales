@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="purchase" folder="www/dev/terryf/automatweb_dev/classes/applications/procurement_center" extends="class_base">
+		<action name="get_sum">
+			<function name="get_sum">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_offers">
+			<function name="remove_offers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

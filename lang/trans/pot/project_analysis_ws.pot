@@ -1,0 +1,540 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/groupware/project_analysis_ws.aw:class_1110_help
+msgid "Klassi Projekti anal&uuml;&uuml;si t&ouml;&ouml;laud help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_eval_dl
+msgid "Omaduse Hindamise t&auml;htaeg (eval_dl) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_eval_dl_comment
+msgid "Omaduse Hindamise t&auml;htaeg (eval_dl) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_eval_dl_help
+msgid "Omaduse Hindamise t&auml;htaeg (eval_dl) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_eval_req
+msgid "Omaduse Hindamine kohustuslik (eval_req) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_eval_req_comment
+msgid "Omaduse Hindamine kohustuslik (eval_req) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_eval_req_help
+msgid "Omaduse Hindamine kohustuslik (eval_req) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_sum_average
+msgid "Omaduse Summaks v&otilde;etakse keskmine (sum_average) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_sum_average_comment
+msgid "Omaduse Summaks v&otilde;etakse keskmine (sum_average) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_sum_average_help
+msgid "Omaduse Summaks v&otilde;etakse keskmine (sum_average) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_a
+msgid "Omaduse  (strat_a) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_a_comment
+msgid "Omaduse  (strat_a) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_a_help
+msgid "Omaduse  (strat_a) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_res_p_weight
+msgid "Omaduse Hindajate kaal (strat_res_p_weight) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_res_p_weight_comment
+msgid "Omaduse Hindajate kaal (strat_res_p_weight) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_res_p_weight_help
+msgid "Omaduse Hindajate kaal (strat_res_p_weight) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_res_c_weight
+msgid "Omaduse Tulpade kaal (strat_res_c_weight) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_res_c_weight_comment
+msgid "Omaduse Tulpade kaal (strat_res_c_weight) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_res_c_weight_help
+msgid "Omaduse Tulpade kaal (strat_res_c_weight) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_res
+msgid "Omaduse  (strat_res) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_res_comment
+msgid "Omaduse  (strat_res) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_res_help
+msgid "Omaduse  (strat_res) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_srt
+msgid "Omaduse  (srt) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_srt_comment
+msgid "Omaduse  (srt) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_srt_help
+msgid "Omaduse  (srt) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_srt_tbl
+msgid "Omaduse  (srt_tbl) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_srt_tbl_comment
+msgid "Omaduse  (srt_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_srt_tbl_help
+msgid "Omaduse  (srt_tbl) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_wt_tb
+msgid "Omaduse  (strat_wt_tb) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_wt_tb_comment
+msgid "Omaduse  (strat_wt_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_wt_tb_help
+msgid "Omaduse  (strat_wt_tb) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_wt
+msgid "Omaduse  (strat_wt) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_wt_comment
+msgid "Omaduse  (strat_wt) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_strat_wt_help
+msgid "Omaduse  (strat_wt) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_cols_tb
+msgid "Omaduse  (cols_tb) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_cols_tb_comment
+msgid "Omaduse  (cols_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_cols_tb_help
+msgid "Omaduse  (cols_tb) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_cols_table
+msgid "Omaduse  (cols_table) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_cols_table_comment
+msgid "Omaduse  (cols_table) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_cols_table_help
+msgid "Omaduse  (cols_table) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_cols_s_table
+msgid "Omaduse  (cols_s_table) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_cols_s_table_comment
+msgid "Omaduse  (cols_s_table) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_cols_s_table_help
+msgid "Omaduse  (cols_s_table) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_tb
+msgid "Omaduse  (rows_tb) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_tb_comment
+msgid "Omaduse  (rows_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_tb_help
+msgid "Omaduse  (rows_tb) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_top
+msgid "Omaduse  (rows_top) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_top_comment
+msgid "Omaduse  (rows_top) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_top_help
+msgid "Omaduse  (rows_top) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_table
+msgid "Omaduse  (rows_table) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_table_comment
+msgid "Omaduse  (rows_table) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_table_help
+msgid "Omaduse  (rows_table) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search
+msgid "Omaduse  (rows_search) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_comment
+msgid "Omaduse  (rows_search) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_help
+msgid "Omaduse  (rows_search) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_what
+msgid "Omaduse Lisa (rows_search_what) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_what_comment
+msgid "Omaduse Lisa (rows_search_what) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_what_help
+msgid "Omaduse Lisa (rows_search_what) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_str
+msgid "Omaduse Otsingus&otilde;na (rows_search_str) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_str_comment
+msgid "Omaduse Otsingus&otilde;na (rows_search_str) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_str_help
+msgid "Omaduse Otsingus&otilde;na (rows_search_str) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_tbl
+msgid "Omaduse  (rows_search_tbl) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_tbl_comment
+msgid "Omaduse  (rows_search_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:prop_rows_search_tbl_help
+msgid "Omaduse  (rows_search_tbl) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_strat_res_wt
+msgid "Grupi Hindajad (strat_res_wt) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_strat_res_wt_help
+msgid "Grupi Hindajad (strat_res_wt) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_cols
+msgid "Grupi Tulbad (cols) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_cols_help
+msgid "Grupi Tulbad (cols) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_cols_cols
+msgid "Grupi Tulbad (cols_cols) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_cols_cols_help
+msgid "Grupi Tulbad (cols_cols) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_cols_settings
+msgid "Grupi Seaded (cols_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_cols_settings_help
+msgid "Grupi Seaded (cols_settings) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_rows
+msgid "Grupi Read (rows) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_rows_help
+msgid "Grupi Read (rows) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_eval
+msgid "Grupi Hindamine (eval) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_eval_help
+msgid "Grupi Hindamine (eval) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_strat_res
+msgid "Grupi Hindamise tulemused (strat_res) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_strat_res_help
+msgid "Grupi Hindamise tulemused (strat_res) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_strat_res_tree
+msgid "Grupi Hindajad (strat_res_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_strat_res_tree_help
+msgid "Grupi Hindajad (strat_res_tree) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_strat_res_avg
+msgid "Grupi Keskmised hinded (strat_res_avg) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:group_strat_res_avg_help
+msgid "Grupi Keskmised hinded (strat_res_avg) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:rel_RELTYPE_COL
+msgid "Seose Tulp (RELTYPE_COL) tekst"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:rel_RELTYPE_ROW
+msgid "Seose Rida (RELTYPE_ROW) tekst"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:rel_RELTYPE_PARTICIPANT
+msgid "Seose Hindaja (RELTYPE_PARTICIPANT) tekst"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:layout_srt_tree
+msgid "Kujundusosa Hindajad (srt_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:168
+msgid "Read"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:172
+msgid "Ridade lisamine"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:177
+msgid "Alamobjekte"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:178
+msgid "Seostest"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:282
+msgid "Meeskonna liige"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:287
+msgid "Hindaja?"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:292
+msgid "Hindaja hinde kaal protsentides"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:297
+msgid "Hindamise t&auml;htaeg"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:302
+msgid "Hindamine kohustuslik"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:307
+msgid "Meeldetuletuse aeg (p&auml;eva)"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:411 classes/applications/groupware/project_analysis_ws.aw:663
+msgid "Tulp"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:418 classes/applications/groupware/project_analysis_ws.aw:560 classes/applications/groupware/project_analysis_ws.aw:677
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:426
+msgid "Tulba nimi"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:432
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:439
+msgid "Grupi nimi"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:445
+msgid "Prioriteet"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:451
+msgid "Kaal"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:457 classes/applications/groupware/project_analysis_ws.aw:702
+msgid "Looja nimi"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:463 classes/applications/groupware/project_analysis_ws.aw:708
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:504 classes/applications/groupware/project_analysis_ws.aw:829
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:509
+msgid "Arvestatakse summas"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:514
+msgid "Hindamise skaala"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:519
+msgid "Hindamise t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:524
+msgid "Hinnete nimed"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:540
+msgid "Skaala on m&auml;&auml;ramata"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:544 classes/applications/groupware/project_analysis_ws.aw:873 classes/applications/groupware/project_analysis_ws.aw:1076
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:551
+msgid "Lisa"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:573
+msgid "Skaala on liiga suur"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:587
+msgid "kuni"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:596
+msgid "Tekstikast"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:597
+msgid "Valik"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:686
+msgid "Kasutusel"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:690
+msgid "Rea nimi"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:696
+msgid "Rea kirjeldus"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:794
+msgid "%s rida"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:819
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:824
+msgid "OID"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:834
+msgid "Muutja"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:839
+msgid "Muudeti"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:848
+msgid "Seoset&uuml;&uuml;bid"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:1024
+msgid "Summa"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:1038
+msgid "Teie ei ole m&auml;&auml;ratud hindajaks!"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:1126
+msgid "Hinnang projektile %s"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:1145
+msgid "%s hindamise skaala on %s - %s"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:1333 classes/applications/groupware/project_analysis_ws.aw:1365
+msgid "<b>Summa</b>"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_ws.aw:1381
+msgid "Teil on kohustus anda oma hinnang anal&uuml;&uuml;sit&ouml;&ouml;laual. Hindamiseks klikake <a href=\"%s\">siia</a>."
+msgstr ""
+

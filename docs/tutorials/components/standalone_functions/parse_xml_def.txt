@@ -1,0 +1,6 @@
+parse_xml_def($arr)
+
+Runs xml_parse_into_struct on a text formatted as XML and returns
+$keys and $values. Saves a bit of typing.
+
+Returns: array, first element contains the $keys and the second $values

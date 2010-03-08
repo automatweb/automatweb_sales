@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/common/country/country.aw:class_949_help
+msgid "Klassi Riik v2 help"
+msgstr ""
+
+#: classes/common/country/country.aw:prop_administrative_structure
+msgid "Omaduse Haldusjaotus (administrative_structure) caption"
+msgstr ""
+
+#: classes/common/country/country.aw:prop_administrative_structure_comment
+msgid "Omaduse Haldusjaotus (administrative_structure) kommentaar"
+msgstr ""
+
+#: classes/common/country/country.aw:prop_administrative_structure_help
+msgid "Omaduse Haldusjaotus (administrative_structure) help"
+msgstr ""
+
+#: classes/common/country/country.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/common/country/country.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/common/country/country.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+
+#: classes/common/country/country.aw:group_grp_settings
+msgid "Grupi Seaded (grp_settings) pealkiri"
+msgstr ""
+
+#: classes/common/country/country.aw:group_grp_settings_help
+msgid "Grupi Seaded (grp_settings) help"
+msgstr ""
+
+#: classes/common/country/country.aw:rel_RELTYPE_ADMINISTRATIVE_STRUCTURE
+msgid "Seose Haldusjaotus (RELTYPE_ADMINISTRATIVE_STRUCTURE) tekst"
+msgstr ""
+
+#: classes/common/country/country.aw:60
+msgid "%s aadressi kasutab hetkel valitud haldusjaotust! Muudatuste salvestamisel ..."
+msgstr ""
+
+#: classes/common/country/country.aw:84
+msgid "Riigi adminstratiivjaotuse objekt peab asuma riigiobjekti all"
+msgstr ""

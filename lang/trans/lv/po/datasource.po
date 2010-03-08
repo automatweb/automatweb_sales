@@ -1,0 +1,82 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:class_98_help
+msgid "Klassi Datasource help"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_subclass
+msgid "Omaduse Andmete tüüp (subclass) caption"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_subclass_comment
+msgid "Omaduse Andmete tüüp (subclass) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_subclass_help
+msgid "Omaduse Andmete tüüp (subclass) help"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_type
+msgid "Omaduse Source tüüp (type) caption"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_type_comment
+msgid "Omaduse Source tüüp (type) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_type_help
+msgid "Omaduse Source tüüp (type) help"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_fullpath
+msgid "Omaduse Faili asukoht (fullpath) caption"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_fullpath_comment
+msgid "Omaduse Faili asukoht (fullpath) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_fullpath_help
+msgid "Omaduse Faili asukoht (fullpath) help"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_url
+msgid "Omaduse Faili url (url) caption"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_url_comment
+msgid "Omaduse Faili url (url) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:prop_url_help
+msgid "Omaduse Faili url (url) help"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:46
+msgid "lokaalne fail (serveris)"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:47
+msgid "http"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:48
+msgid "https"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:54
+msgid "XML"
+msgstr ""
+
+#: classes/applications/clients/ut/xml_import/datasource.aw:101
+msgid "%s not found"
+msgstr ""

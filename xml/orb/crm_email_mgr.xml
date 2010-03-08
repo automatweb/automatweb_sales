@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_email_mgr" folder="www/dev/terryf/automatweb_dev/classes/applications/crm" extends="aw_template">
+		<action name="upd_mails" nologin="1">
+			<function name="upd_mails">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

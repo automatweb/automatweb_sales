@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="reval_extranet" folder="applications/clients/reval" extends="class_base">
+		<action name="show_tab1" nologin="1">
+			<function name="show">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_tab2" nologin="1">
+			<function name="show_tab2">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="disp_evmgr" nologin="1">
+			<function name="disp_evmgr">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_view1" nologin="1">
+			<function name="submit_view1">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

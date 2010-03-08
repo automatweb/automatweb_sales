@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/mailinglist/ml_queue.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:prop_q_status
+msgid "Omaduse Staatus (q_status) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:prop_q_status_comment
+msgid "Omaduse Staatus (q_status) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:prop_q_status_help
+msgid "Omaduse Staatus (q_status) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:445
+msgid "adding scheduler ! <br />"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:536
+msgid "Sending"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:539
+msgid "Nothing to send..."
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:542
+msgid "Not sent:"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:547
+msgid "Now sending next"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:646
+msgid "done\n<br>"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:714
+msgid "couldn't send mail<br />\n"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_queue.aw:809
+msgid "sending mail to:"
+msgstr ""
+

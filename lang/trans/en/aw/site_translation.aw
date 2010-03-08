@@ -1,0 +1,35 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse TB (utr_toolbar) caption"] = "TB";
+$GLOBALS["TRANS"]["Omaduse TB (tr_toolbar) caption"] = "TB";
+$GLOBALS["TRANS"]["Omaduse TB (inp_toolbar) caption"] = "TB";
+$GLOBALS["TRANS"]["Omaduse Baaskeel (baselang) caption"] = "Base language";
+$GLOBALS["TRANS"]["Omaduse Sihtkeel (targetlang) caption"] = "Target language";
+$GLOBALS["TRANS"]["Omaduse Kas kasutada k&otilde;iki keeli sihtkeelteks (targetlang_all) caption"] = "Use all languages as target languages";
+$GLOBALS["TRANS"]["Omaduse Kas objekt ilmub T&otilde;lgitud tabi alla ainult siis kui on t&otilde;litud k&otilde;kidesse keeltesse (translated_all_langs) caption"] = "Object appears in translated tab only if all languages are translated";
+$GLOBALS["TRANS"]["Omaduse Tõlgitud (translated) caption"] = "Translated";
+$GLOBALS["TRANS"]["Omaduse Tõlkimata (untranslated) caption"] = "Untranslated";
+$GLOBALS["TRANS"]["Omaduse T&ouml;&ouml;s (in_progress) caption"] = "In progress";
+$GLOBALS["TRANS"]["Grupi Tõlgitud (translated) pealkiri"] = "Translated";
+$GLOBALS["TRANS"]["Grupi Tõlkimata (untranslated) pealkiri"] = "Untranslated";
+$GLOBALS["TRANS"]["Grupi T&ouml;&ouml;s (in_progress) pealkiri"] = "In progress";
+$GLOBALS["TRANS"]["Grupi Kõik (utr_all) pealkiri"] = "All";
+$GLOBALS["TRANS"]["Grupi Viimane päev (utr_day) pealkiri"] = "Last day";
+$GLOBALS["TRANS"]["Grupi Viimane nädal (utr_week) pealkiri"] = "Last week";
+$GLOBALS["TRANS"]["Grupi Viimane kuu (utr_month) pealkiri"] = "Last month";
+$GLOBALS["TRANS"]["Grupi Kõik (ipr_all) pealkiri"] = "All";
+$GLOBALS["TRANS"]["Grupi Viimane päev (ipr_day) pealkiri"] = "Last day";
+$GLOBALS["TRANS"]["Grupi Viimane nädal (ipr_week) pealkiri"] = "Last week";
+$GLOBALS["TRANS"]["Grupi Viimane kuu (ipr_month) pealkiri"] = "Last month";
+$GLOBALS["TRANS"]["Grupi Kõik (tr_all) pealkiri"] = "All";
+$GLOBALS["TRANS"]["Grupi Viimane päev (tr_day) pealkiri"] = "Last day";
+$GLOBALS["TRANS"]["Grupi Viimane nädal (tr_week) pealkiri"] = "Last week";
+$GLOBALS["TRANS"]["Grupi Viimane kuu (tr_month) pealkiri"] = "Last month";
+$GLOBALS["TRANS"]["Seose klass (RELTYPE_CLASS) tekst"] = "class";
+$GLOBALS["TRANS"]["ID"] = "ID";
+$GLOBALS["TRANS"]["Originaali nimi"] = "Original name";
+$GLOBALS["TRANS"]["Klass"] = "Class";
+$GLOBALS["TRANS"]["Baaskeel"] = "Base language";
+$GLOBALS["TRANS"]["T&otilde;lgi"] = "Translate";
+$GLOBALS["TRANS"]["Vaata t&otilde;lkeid"] = "View translations";
+$GLOBALS["TRANS"]["Salvesta"] = "Save";
+?>

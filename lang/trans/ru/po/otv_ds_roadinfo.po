@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:class_655_help
+msgid "Klassi Objektinimekirja Maanteeinfo andmeallikas help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:prop_xml_file_url
+msgid "Omaduse XML faili asukoht (xml_file_url) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:prop_xml_file_url_comment
+msgid "Omaduse XML faili asukoht (xml_file_url) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:prop_xml_file_url_help
+msgid "Omaduse XML faili asukoht (xml_file_url) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:prop_update_cache
+msgid "Omaduse  (update_cache) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:prop_update_cache_comment
+msgid "Omaduse  (update_cache) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:prop_update_cache_help
+msgid "Omaduse  (update_cache) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:prop_content_table
+msgid "Omaduse  (content_table) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:prop_content_table_comment
+msgid "Omaduse  (content_table) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:prop_content_table_help
+msgid "Omaduse  (content_table) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:group_content
+msgid "Grupi Sisu (content) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw:group_content_help
+msgid "Grupi Sisu (content) help"
+msgstr ""
+

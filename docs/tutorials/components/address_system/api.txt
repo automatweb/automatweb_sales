@@ -1,0 +1,38 @@
+<PRE>
+// load object of class CL_COUNTRY_ADMINISTRATIVE_STRUCTURE:
+$admin_structure =  obj(42);
+
+// get admin unit by name:
+$param = array(
+	"prop" => "unit_by_name", // required. string. virtual prop name.
+	"name" => "Harjumaa", // required. string.
+	"parent" => $parent, // required. aw object or oid
+	"type" => CL_COUNTRY_ADMINISTRATIVE_DIVISION, // required. int. class id of unit to be searched for
+);
+$unit_obj = $admin_structure->prop($param);
+
+
+// get AW object list of admin units corresponding to $division (under $parent if specified):
+$param = array(
+	"prop" => "units_by_division", // required. string. virtual prop name.
+	"division" => $admin_division, // required. aw object or oid
+	"parent" => $parent, // optional. int. aw oid
+);
+$unit_objlist = $admin_structure->prop($param);
+
+// get structure array
+// returns array($division1->ord() => $division1, ...) sorted by key:
+$address_array = $admin_structure->prop("structure_array");
+
+
+// add admin unit by name under $parent and belonging to $division (won't overwrite existing):
+// returns Created unit object. If existing unit with name was found that will be returned.
+// division is object or oid of object from class CL_COUNTRY_ADMINISTRATIVE_DIVISION or ADDRESS_STREET_TYPE in case a street is to be added
+$param = array(
+	"name" => "Tartumaa", // required. string.
+	"parent" => $parent, // required. aw object or oid
+	"division" => $admin_division, // required. aw object or oid
+	"type" => CL_COUNTRY_ADMINISTRATIVE_DIVISION, // required. int. class id of unit to be searched for
+);
+$unit_obj = $admin_structure->set_prop("unit_by_name", $param);
+</PRE>

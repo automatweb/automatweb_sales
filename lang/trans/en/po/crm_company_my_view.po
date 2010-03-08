@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_company_my_view.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/crm/crm_company_my_view.aw:33
+msgid "Toimetus"
+msgstr "Task"
+
+#: classes/applications/crm/crm_company_my_view.aw:82
+#: classes/applications/crm/crm_company_my_view.aw:285
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/crm/crm_company_my_view.aw:89
+msgid "Kommentaar"
+msgstr "Comment"
+
+#: classes/applications/crm/crm_company_my_view.aw:96
+msgid "Aeg"
+msgstr "Time"
+
+#: classes/applications/crm/crm_company_my_view.aw:105
+msgid "Klient"
+msgstr "Client"
+
+#: classes/applications/crm/crm_company_my_view.aw:112
+msgid "Projekt"
+msgstr "Project"
+
+#: classes/applications/crm/crm_company_my_view.aw:119
+msgid "Osalejad"
+msgstr "Participants"
+
+#: classes/applications/crm/crm_company_my_view.aw:231
+msgid "Teema"
+msgstr "Subject"
+
+#: classes/applications/crm/crm_company_my_view.aw:237
+msgid "Vastuseid"
+msgstr "Replies"
+
+#: classes/applications/crm/crm_company_my_view.aw:244
+msgid "Autor"
+msgstr "Author"
+
+#: classes/applications/crm/crm_company_my_view.aw:250
+msgid "Viimane kommentaar"
+msgstr "Last comment"
+
+#: classes/applications/crm/crm_company_my_view.aw:264
+msgid "Lisa kiirk&uuml;sitlus"
+msgstr "Add poll"
+
+#: classes/applications/crm/crm_company_my_view.aw:270
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/applications/crm/crm_company_my_view.aw:276
+msgid "Kustuta valitud pollid"
+msgstr "Delete selected polls"
+
+#: classes/applications/crm/crm_company_my_view.aw:291
+msgid "Looja"
+msgstr "Created by"
+
+#: classes/applications/crm/crm_company_my_view.aw:297
+msgid "Loodud"
+msgstr "Created"
+
+#: classes/applications/crm/crm_company_my_view.aw:306
+msgid "Aktiivne"
+msgstr "Active"
+
+#~ msgid "Kommentaare"
+#~ msgstr "Comments"

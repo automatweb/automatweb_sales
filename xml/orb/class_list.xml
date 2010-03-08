@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="class_list" folder="www/dev/terryf/automatweb_dev/classes/core" extends="class_base">
+		<action name="register_new_class_id" nologin="1">
+			<function name="register_new_class_id">
+				<arguments>
+					<required name="data" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_class_def">
+			<function name="update_class_def">
+				<arguments>
+					<required name="data" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_list">
+			<function name="get_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

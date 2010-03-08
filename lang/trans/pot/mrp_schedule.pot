@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/mrp/mrp_schedule.aw:class_827_help
+msgid "Klassi Ressursiplaneerija help"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:274 classes/mrp/mrp_schedule.aw:282 classes/mrp/mrp_schedule.aw:307 classes/mrp/mrp_schedule.aw:317 classes/mrp/mrp_schedule.aw:801 classes/mrp/mrp_schedule.aw:811
+msgid "error@%s"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:276
+msgid "Planeerimisluku lukustamiseta kustutamine eba&otilde;nnestus!"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:284
+msgid "Planeerimiseks lukustamine eba&otilde;nnestus!"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:309
+msgid "Planeerimisluku avamine eba&otilde;nnestus!"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:319
+msgid "Planeerimisluku kustutamine eba&otilde;nnestus!"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:610
+msgid "Viga tegemisel oleva t&ouml;&ouml; (id: %s) planeerimisel: sobivat algusaega ei leitud, t&ouml;&ouml;d ei planeeritud."
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:766
+msgid "Viga t&ouml;&ouml; (id: %s) planeerimisel: sobivat algusaega ei leitud, t&ouml;&ouml;d ei planeeritud."
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:803
+msgid "Planeerimisluku avamine peale planeerimist eba&otilde;nnestus!"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:813
+msgid "Planeerimisluku kustutamine peale planeerimist eba&otilde;nnestus!"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:921
+msgid "Viga projektide planeeritud aegade salvestamisel."
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:975
+msgid "error@%s. db error: %s<br>"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:977
+msgid "Viga t&ouml;&ouml;de planeeritud aegade salvestamisel."
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:1119
+msgid "Sobivat aega ei leidunud tervest kalendrist! resource-tag: %s, job: %s"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:1139
+msgid "Samale algusajale on mitu t88d reserveeritud! resource-tag: %s, job: %s"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:1274
+msgid "error@%s. res: %s, job: %s<br>"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:1276
+msgid "Unavailable times covered by reserved exceeded reasonable limit (%s). Resource %s, job %s"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:1557
+msgid "error@%s. job: %s<br>"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:1559
+msgid "Timerange search exceeded reasonable limit (%s) of cycles. Job %s"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:1628
+msgid "error@%s. res: %s, job %s<br>"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:1630 classes/mrp/mrp_schedule.aw:1634
+msgid "Ressursil id-ga %s pole piirangu ulatuses vabu aegu. V&otilde;imalik on ka viga v&otilde;i etten&auml;gematu seadistus ressursi t&ouml;&ouml;aegades. T&ouml;&ouml; id: %s"
+msgstr ""
+
+#: classes/mrp/mrp_schedule.aw:1931
+msgid "Search for unavailable times for range exceeded reasonable limit (%s) of cycles. Resource %s"
+msgstr ""
+

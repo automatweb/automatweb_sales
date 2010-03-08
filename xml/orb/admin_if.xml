@@ -1,0 +1,102 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="admin_if" folder="www/dev/terryf/automatweb_dev/classes/admin" extends="class_base">
+		<action name="gen_folders">
+			<function name="gen_folders">
+				<arguments>
+					<optional name="period" />
+					<optional name="parent" />
+					<optional name="curl" />
+					<optional name="selp" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_if">
+			<function name="save_if">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="if_cut" all_args="1">
+			<function name="if_cut">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="if_copy" all_args="1">
+			<function name="if_copy">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_feedback">
+			<function name="copy_feedback">
+				<arguments>
+					<optional name="parent" />
+					<optional name="period" />
+					<optional name="sel" />
+					<optional name="return_url" />
+					<optional name="login" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_copy_feedback">
+			<function name="submit_copy_feedback">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="if_paste" all_args="1">
+			<function name="if_paste">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="if_delete" all_args="1">
+			<function name="if_delete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="redir">
+			<function name="redir">
+				<arguments>
+					<optional name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="handle_upload">
+			<function name="handle_upload">
+				<arguments>
+					<required name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="import">
+			<function name="import">
+				<arguments>
+					<required name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_import">
+			<function name="submit_import">
+				<arguments>
+					<required name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

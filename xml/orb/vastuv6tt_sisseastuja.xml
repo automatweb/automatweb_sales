@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="vastuv6tt_sisseastuja" folder="www/dev/terryf/automatweb_dev/classes/vastuv6tt" extends="class_base">
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="kustuta_avaldus">
+			<function name="kustuta_avaldus">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="print">
+			<function name="prindi_konkursileht">
+				<arguments>
+					<required name="sisseastuja_id" type="int" />
+					<required name="avaldus_id" type="int" />
+					<required name="keskkond_id" type="int" />
+					<required name="katse" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

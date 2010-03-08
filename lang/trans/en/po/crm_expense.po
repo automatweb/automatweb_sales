@@ -1,0 +1,134 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_expense.aw:class_1144_help
+msgid "Klassi Kulu help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_cost
+msgid "Omaduse Maksumus (cost) caption"
+msgstr "Cost"
+
+#: classes/applications/crm/crm_expense.aw:prop_cost_comment
+msgid "Omaduse Maksumus (cost) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_cost_help
+msgid "Omaduse Maksumus (cost) help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_date
+msgid "Omaduse Kuup&auml;ev (date) caption"
+msgstr "Date"
+
+#: classes/applications/crm/crm_expense.aw:prop_date_comment
+msgid "Omaduse Kuup&auml;ev (date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_date_help
+msgid "Omaduse Kuup&auml;ev (date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_task
+msgid "Omaduse Toimetus (task) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_task_comment
+msgid "Omaduse Toimetus (task) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_task_help
+msgid "Omaduse Toimetus (task) help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_on_bill
+msgid "Omaduse Arvele (on_bill) caption"
+msgstr "To Invoice"
+
+#: classes/applications/crm/crm_expense.aw:prop_on_bill_comment
+msgid "Omaduse Arvele (on_bill) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_on_bill_help
+msgid "Omaduse Arvele (on_bill) help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_bill_id
+msgid "Omaduse Arve (bill_id) caption"
+msgstr "Invoice"
+
+#: classes/applications/crm/crm_expense.aw:prop_bill_id_comment
+msgid "Omaduse Arve (bill_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_bill_id_help
+msgid "Omaduse Arve (bill_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_to_bill_date
+msgid "Omaduse Arvele m&auml;&auml;ramise kuup&auml;ev (to_bill_date) caption"
+msgstr "Date selected to invoice"
+
+#: classes/applications/crm/crm_expense.aw:prop_to_bill_date_comment
+msgid "Omaduse Arvele m&auml;&auml;ramise kuup&auml;ev (to_bill_date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_to_bill_date_help
+msgid "Omaduse Arvele m&auml;&auml;ramise kuup&auml;ev (to_bill_date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_who
+msgid "Omaduse Kes tegi (who) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_who_comment
+msgid "Omaduse Kes tegi (who) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_who_help
+msgid "Omaduse Kes tegi (who) help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_has_tax
+msgid "Omaduse Lisandub k&auml;ibemaks? (has_tax) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_has_tax_comment
+msgid "Omaduse Lisandub k&auml;ibemaks? (has_tax) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_has_tax_help
+msgid "Omaduse Lisandub k&auml;ibemaks? (has_tax) help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_currency
+msgid "Omaduse Valuuta (currency) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_currency_comment
+msgid "Omaduse Valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:prop_currency_help
+msgid "Omaduse Valuuta (currency) help"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:rel_RELTYPE_BILL
+msgid "Seose Arve (RELTYPE_BILL) tekst"
+msgstr "Invoice"
+
+#: classes/applications/crm/crm_expense.aw:rel_RELTYPE_PEOPLE
+msgid "Seose Isik (RELTYPE_PEOPLE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_expense.aw:rel_RELTYPE_TASK
+msgid "Seose Toimetus (RELTYPE_TASK) tekst"
+msgstr ""

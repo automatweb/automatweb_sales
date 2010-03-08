@@ -1,0 +1,45 @@
+<h2>chooser</h2>
+
+#php#
+@property choices1 type=chooser
+#/php#
+will be rendered as a <b>horizontal</b> group of radiobuttons. You can select exactly one option
+
+
+#php#
+@property choices2 type=chooser multiple=1
+#/php#
+will be rendered as a <b>horizontal</b> group of checkboxes. You can select <b>multiple</b> options
+
+#php#
+@property choices3 type=chooser orient=vertical
+#/php#
+will be rendered as a <b>vertical</b> group of radiobuttons
+
+Attributes:
+
+multiple=1 
+
+orient=vertical (optional), if omitted options will be rendered below each other. If specified properties will be rendered from left to right.
+
+Definining options
+<pre>
+#php#
+function get_property($arr)
+{
+	$data = &$args["prop"];
+	$retval = PROP_OK;
+	switch($data["name"])
+	{
+		case "organizations":
+			$toolbar = &$data["toolbar"];
+			$data["options"] = array(
+                            1 => "UN",
+                            2 => "NATO",
+                            3 => "EU",
+                        );
+			break;
+	}
+};
+#/php#
+</pre>

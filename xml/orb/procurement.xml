@@ -1,0 +1,49 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="procurement" folder="www/dev/terryf/automatweb_dev/classes/applications/procurement_center" extends="class_base">
+		<action name="print_procurements">
+			<function name="print_procurements">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="product_autocomplete_source">
+			<function name="product_autocomplete_source">
+				<arguments>
+					<optional name="product" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_type">
+			<function name="set_type">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_procurements">
+			<function name="delete_procurements">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="select_winning_offer">
+			<function name="select_winning_offer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="check_existing">
+			<function name="check_existing">
+				<arguments>
+					<optional name="p" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

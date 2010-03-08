@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/budgeting/budgeting_account.aw:class_1202_help
+msgid "Klassi Eelarvestamise konto help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_owner
+msgid "Omaduse Omanik (owner) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_owner_comment
+msgid "Omaduse Omanik (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_owner_help
+msgid "Omaduse Omanik (owner) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_balance
+msgid "Omaduse Saldo (balance) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_balance_comment
+msgid "Omaduse Saldo (balance) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_balance_help
+msgid "Omaduse Saldo (balance) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_min_amt
+msgid "Omaduse Kohustuslik varu (min_amt) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_min_amt_comment
+msgid "Omaduse Kohustuslik varu (min_amt) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_min_amt_help
+msgid "Omaduse Kohustuslik varu (min_amt) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_transfers_tb
+msgid "Omaduse  (transfers_tb) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_transfers_tb_comment
+msgid "Omaduse  (transfers_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_transfers_tb_help
+msgid "Omaduse  (transfers_tb) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_transfers_tbl
+msgid "Omaduse  (transfers_tbl) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_transfers_tbl_comment
+msgid "Omaduse  (transfers_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_transfers_tbl_help
+msgid "Omaduse  (transfers_tbl) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_taxes_tb
+msgid "Omaduse  (taxes_tb) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_taxes_tb_comment
+msgid "Omaduse  (taxes_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_taxes_tb_help
+msgid "Omaduse  (taxes_tb) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_taxes_tbl
+msgid "Omaduse  (taxes_tbl) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_taxes_tbl_comment
+msgid "Omaduse  (taxes_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:prop_taxes_tbl_help
+msgid "Omaduse  (taxes_tbl) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:group_transfers
+msgid "Grupi Tehingud (transfers) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:group_transfers_help
+msgid "Grupi Tehingud (transfers) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:group_taxes
+msgid "Grupi Maksud (taxes) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:group_taxes_help
+msgid "Grupi Maksud (taxes) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_account.aw:rel_RELTYPE_OWNER
+msgid "Seose Omanik (RELTYPE_OWNER) tekst"
+msgstr ""
+

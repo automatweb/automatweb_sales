@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mini_gallery" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/gallery" extends="class_base">
+		<action name="save_image_list">
+			<function name="save_image_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_images">
+			<function name="delete_images">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

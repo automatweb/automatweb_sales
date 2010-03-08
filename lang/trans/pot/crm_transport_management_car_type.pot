@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/transport_management/crm_transport_management_car_type.aw:class_1087_help
+msgid "Klassi Automark help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_car_type.aw:prop_type
+msgid "Omaduse T&uuml;&uuml;p (type) caption"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_car_type.aw:prop_type_comment
+msgid "Omaduse T&uuml;&uuml;p (type) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_car_type.aw:prop_type_help
+msgid "Omaduse T&uuml;&uuml;p (type) help"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_car_type.aw:35
+msgid "S&otilde;iduauto"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_car_type.aw:36
+msgid "Veoauto"
+msgstr ""
+
+#: classes/applications/crm/transport_management/crm_transport_management_car_type.aw:37
+msgid "Maastur"
+msgstr ""
+

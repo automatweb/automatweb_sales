@@ -1,0 +1,34 @@
+<h2>releditor</h2>
+
+To edit a single connection (usually the first of that type)
+#php#
+@property oneimage type=releditor rel_id=first reltype=RELTYPE_IMAGE props=name,file
+@caption Pilt
+#/php#
+
+NB! You can override rel_id from your get_property method, with a id of an other
+existing connection
+
+To edit multiple connections (a kind of mini relation mgr)
+#php#
+@property imagemanager type=releditor mode=manager reltype=RELTYPE_IMAGE props=name,file
+@caption Pilt
+#/php#
+
+<b>props</b> - list of properties you want to embed from the /other/ class
+<b>reltype</b>
+<b>mode</b> manager|
+<b>table_fields</b>
+<b>table_edit_fields</b>
+<b>rel_id</b>
+<b>override_parent</b> - <i>this|ID|default</i> set parent for objects created by releditor. Value <i>this</i> means the current object will be parent. ID means an oid. <i>default</i> means the default - current object's parent
+<b>direct_links</b> - <i>boolean</i> if true, links will go directly to object creating/changing pages = these won't be embedded into current form
+
+#php#
+@property images type=releditor reltype=RELTYPE_IMAGE field=meta method=serialize mode=manager props=name,ord,status,file,file2,new_w,new_h,new_w_big,new_h_big,comment table_fields=name,ord table_edit_fields=ord override_parent=this direct_links=1 
+@caption Pildid
+#/php#
+
+Note, that releditor properties will automatically get store=no attribute, because
+there really isn't anything to save into the object for those. All the data goes elsewhere. 
+

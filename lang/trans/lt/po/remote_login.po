@@ -1,0 +1,54 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/remote_login.aw:class_90_help
+msgid "Klassi AW sissep&auml;&auml;s help"
+msgstr ""
+
+#: classes/core/remote_login.aw:prop_login_uid
+msgid "Omaduse Kasutajanimi (login_uid) caption"
+msgstr ""
+
+#: classes/core/remote_login.aw:prop_login_uid_comment
+msgid "Omaduse Kasutajanimi (login_uid) kommentaar"
+msgstr ""
+
+#: classes/core/remote_login.aw:prop_login_uid_help
+msgid "Omaduse Kasutajanimi (login_uid) help"
+msgstr ""
+
+#: classes/core/remote_login.aw:prop_login_password
+msgid "Omaduse Parool (login_password) caption"
+msgstr ""
+
+#: classes/core/remote_login.aw:prop_login_password_comment
+msgid "Omaduse Parool (login_password) kommentaar"
+msgstr ""
+
+#: classes/core/remote_login.aw:prop_login_password_help
+msgid "Omaduse Parool (login_password) help"
+msgstr ""
+
+#: classes/core/remote_login.aw:prop_server
+msgid "Omaduse Server (server) caption"
+msgstr ""
+
+#: classes/core/remote_login.aw:prop_server_comment
+msgid "Omaduse Server (server) kommentaar"
+msgstr ""
+
+#: classes/core/remote_login.aw:prop_server_help
+msgid "Omaduse Server (server) help"
+msgstr ""
+
+#: classes/core/remote_login.aw:78
+msgid "Relax, take a cookie."
+msgstr ""

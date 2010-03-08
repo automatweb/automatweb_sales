@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:class_806_help
+msgid "Klassi Maanteeinfo otsing help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_MI
+msgid "Omaduse Suurendatud piirkiirusega teel&otilde;igud (MI) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_MI_comment
+msgid "Omaduse Suurendatud piirkiirusega teel&otilde;igud (MI) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_MI_help
+msgid "Omaduse Suurendatud piirkiirusega teel&otilde;igud (MI) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_MT
+msgid "Omaduse Massipiiranguga teel&otilde;igud (MT) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_MT_comment
+msgid "Omaduse Massipiiranguga teel&otilde;igud (MT) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_MT_help
+msgid "Omaduse Massipiiranguga teel&otilde;igud (MT) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_MM
+msgid "Omaduse Liikluspiirangutega teel&otilde;igud (MM) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_MM_comment
+msgid "Omaduse Liikluspiirangutega teel&otilde;igud (MM) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_MM_help
+msgid "Omaduse Liikluspiirangutega teel&otilde;igud (MM) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_county
+msgid "Omaduse Maakond (county) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_county_comment
+msgid "Omaduse Maakond (county) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_county_help
+msgid "Omaduse Maakond (county) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_date_from
+msgid "Omaduse alates (date_from) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_date_from_comment
+msgid "Omaduse alates (date_from) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_date_from_help
+msgid "Omaduse alates (date_from) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_date_to
+msgid "Omaduse kuni (date_to) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_date_to_comment
+msgid "Omaduse kuni (date_to) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:prop_date_to_help
+msgid "Omaduse kuni (date_to) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:group_search_elements
+msgid "Grupi Otsingu elemendid (search_elements) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:group_search_elements_help
+msgid "Grupi Otsingu elemendid (search_elements) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:group_search_results
+msgid "Grupi Otsingu tulemused (search_results) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:group_search_results_help
+msgid "Grupi Otsingu tulemused (search_results) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:rel_RELTYPE_ROADINFO_DS
+msgid "Seose Maanteeinfo andmeallikas (RELTYPE_ROADINFO_DS) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:rel_RELTYPE_OTV
+msgid "Seose Objektinimekiri v2 (RELTYPE_OTV) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/search_roadinfo.aw:rel_RELTYPE_RELTYPE_OTV
+msgid "Seose Objektinimekiri v2 (RELTYPE_RELTYPE_OTV) tekst"
+msgstr ""
+

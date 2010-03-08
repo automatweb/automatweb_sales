@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="trademark_manager" folder="www/dev/terryf/automatweb_dev/classes/applications/clients/patent_office" extends="class_base">
+		<action name="delete_procurators">
+			<function name="delete_procurators">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_applications">
+			<function name="delete_applications">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="verify" all_args="1">
+			<function name="verify">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="nightly_export" nologin="1">
+			<function name="nightly_export">
+				<arguments>
+					<optional name="from" type="int" />
+					<optional name="to" type="int" />
+					<optional name="test_id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

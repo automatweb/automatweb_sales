@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<definitions>
+<header_normal   value="realestatemenuedittablehead"/>
+<header_sortable value="realestatemenuedittablehead"/>
+<header_sorted   value="realestatemenuedittablehead"/>
+
+<titlebar   style="realestatemenuedittablehead"/>
+
+<content_style1  value="realestatemenuedittabletext"/>
+<content_style2  value="realestatemenuedittabletext"/>
+<content_style1_selected value="realestatemenuedittabletext"/>
+<content_style2_selected value="realestatemenuedittabletext"/>
+
+<content_tr_style1  value="realestatemenuedittablerow"/>
+<content_tr_style2  value="realestatemenuedittablerow"/>
+
+<content_tr_sel value="realestatemenuedittablerowsel"/>
+
+<content_tr_active value="realestatemenuedittablerowactive"/>
+
+
+<frameattribs border="0" cellspacing="0" cellpadding="0" width="100%"/>
+<framebgcolor bgcolor="#E2E2DB" class="realestatemenuedittableframeclass"/>
+
+<tableattribs border="0" width="100%" cellspacing="1" cellpadding="3"/>
+
+<filter_normal   value="realestatemenuedittableFilterNormal"/>
+<filter_active   value="realestatemenuedittableFilterActive"/>
+</definitions>
+
+</tabledef>

@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="questionary" folder="www/dev/terryf/automatweb_dev/classes/applications/questionary" extends="class_base">
+		<action name="add_result" nologin="1" all_args="1">
+			<function name="add_result">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_csv_output" all_args="1">
+			<function name="gen_csv_output">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

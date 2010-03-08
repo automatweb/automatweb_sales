@@ -1,0 +1,18 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="banner" folder="www/automatweb_cvs/classes/applications/banner" extends="class_base">
+		<action name="proc_banner" nologin="1">
+			<function name="proc_banner">
+				<arguments>
+					<optional name="id" />
+					<optional name="bid" />
+					<optional name="gid" />
+					<optional name="html" />
+					<optional name="ss" />
+					<optional name="click" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

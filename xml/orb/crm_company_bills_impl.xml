@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_company_bills_impl" folder="www/dev/terryf/automatweb_dev/classes/applications/crm" extends="class_base">
+		<action name="search_bill">
+			<function name="search_bill">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_bill_bug_popup" all_args="1">
+			<function name="create_bill_bug_popup">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

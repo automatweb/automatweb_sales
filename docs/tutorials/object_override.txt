@@ -1,0 +1,70 @@
+Storagel selline v6imalus, et saab extendida objektiklasse. Näiteks kasutaja klassi laiendamiseks tuleb classes.ini-s määrata:
+
+classes[197][object_override] = core/users/user_object
+
+luua klassikataloogis fail classes/core/users/user_object.aw, mille sisuks:
+
+<?php
+class user_object extends _int_object
+{
+	public function __construct($param)
+	{
+		parent::_int_object($param);
+	}
+}
+?>
+
+user_object on _int_object spetsialiseeritud klass (child, extension, ...)
+
+Atribuutide get/set meetodid tuleb lisada vastavalt kujul awobj_get_{atribuudi nimi} / awobj_set_{atribuudi nimi}:
+
+class user_object extends _int_object
+{
+	public function awobj_get_password_expires()
+	{
+		return $this->prop("password_hash_timestamp") + $this->prop("password_change_interval");
+	}
+}
+
+class crm_person_object extends _int_object
+{
+	public function awobj_set_firstname($name = "")
+	{
+		parent::set_prop("firstname", $name);
+		$this->set_name($name . " " . $this->prop("lastname"));
+	}
+}
+
+Kui object klassil kutsutakse välja meetod, mida seal pole defineeritud, üritatakse seda spetsialiseeritud klassist kutsuda:
+
+class user_object extends _int_object
+{
+	public function password_valid()
+	{
+		return time() < $this->prop("password_expires");
+	}
+}
+
+$user_obj = new object($user_obj_id);
+$user_age = $user_obj->age();
+
+Teisisõnu, saab lisada klassispetsiifilisi meetodeid.
+
+Spetsialiseeritud klassi kuulub selline funktsionaalsus, mis lubab selle klassi objekti loomist, muutmist, kustutamist jm. operatsioone koodist, kasutaja sekkumiseta. Objekt peab olema kasutatav ka ilma classbase liideseta. object_override'i ei ole mõtet kasutada liideseklassidel vaid ainult sellistel, mis vastavad mingitele reaalsetele objektidele andmemudelis. Näiteks erinevad keskkonnad (mrp_workspace, events_manager jmt.) ei ole 'andmeklassid', mrp_resource, crm_person, calendar_event jne. aga on.
+
+
+Näited object_override kasutusvõimalustest
+
+file klassis save_file(), is_signed() jpm. meetodid peaks asuma spetsialiseeritud klassis. set_property() case "file": võiks kutsuda spetsialiseeritud objektist salvestamismeetodi, mitte teha andmetöötlust liidese kuvamise meetodis.
+
+Meetodid, mida kutsutakse luues klassi isendi ning andes argumendiks storage objekti, saab viia spetsialiseeritud klassi. Meetodite kutsumisel otse objektil kaob vajadus luua staatilist klassiinstantsi ning eraldi tegelda objektiinstantsi muutujaga. Ka staatilised meetodid saab panna spetsialiseeritud klassi.
+
+crm_person klassis isiku nime muutmine. Eesnime muutmine saaks muuta kohe ka nime kui meetodil oleks spetsiifiline kood.
+
+Uue meiliaadressi loomine object_override'i kasutades võiks toimuda nii:
+
+$mail = new mail_address("dev@struktuur.ee");
+$mail->save();
+
+
+

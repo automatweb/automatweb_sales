@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="su_exec" folder="www/dev/terryf/automatweb_dev/classes/install" extends="class_base">
+	</class>
+</orb>

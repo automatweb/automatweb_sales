@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_role_manager.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:145
+msgid "Vali roll"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:190
+msgid "Anna rollid"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:287
+msgid "Vali"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:293
+msgid "Halda"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:307
+msgid "Kustuta"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:321
+msgid "Nimi"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:327
+msgid "Telefon"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:333
+msgid "E-post"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:339
+msgid "&Uuml;ksus"
+msgstr ""
+
+#: classes/crm/crm_role_manager.aw:345
+msgid "Ametinimetus"
+msgstr ""
+

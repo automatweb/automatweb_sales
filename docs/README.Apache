@@ -1,0 +1,24 @@
+mod_rewrite rules for Apache 1:
+
+RewriteEngine on
+RewriteLogLevel 0
+RewriteRule !(xmlrpc|css|login|index|img|vv|automatweb|orb) /index.aw%{REQUEST_URI}
+
+
+mod_rewrite rules for Apache 2:
+
+RewriteEngine on
+RewriteLogLevel 0
+
+RewriteCond %{REQUEST_URI} !(~|orb.aw|vvfiles|xmlrpc|css|login|index|img|vv|automatweb|orb|alias)
+RewriteRule ^/(.*) /index.aw?$1
+
+
+
+///////////
+
+apache 2.0 jaoks et / urlis oleks sama mis & ja ?
+
+http://httpd.apache.org/docs-2.0/mod/core.html#acceptpathinfo
+
+AcceptPathInfo On

@@ -1,0 +1,59 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="doc" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_act_ver">
+			<function name="set_act_ver">
+				<arguments>
+					<required name="docid" type="int" />
+					<required name="ver" />
+					<required name="retu" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_versions">
+			<function name="delete_versions">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_comments">
+			<function name="delete_comments">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_fckstyles_path">
+			<function name="get_fckstyles_path">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_fckstyles_css">
+			<function name="get_fckstyles_css">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mark_leave_editor" nologin="1">
+			<function name="mark_leave_editor">
+				<arguments>
+					<optional name="oid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

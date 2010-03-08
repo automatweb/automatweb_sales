@@ -1,0 +1,2 @@
+if you want to install AW on PHP5, make sure that in php.ini your default_charset is set to "iso-8859-1". it will work otherwise also, but makes the all non-english character look ugly as hell.
+that's it, otherwise do the same as installing on php4 :)

@@ -1,0 +1,26 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/menuedit.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/menuedit.aw:496
+msgid "&uuml;ritas accessida olematut objekti id-ga '%s'. Suunati esilehele."
+msgstr ""
+
+#: classes/menuedit.aw:617
+msgid "&uuml;ritas accessida objekti id-ga '%s'. Kr&auml;kkimiskatse?"
+msgstr ""
+
+#: classes/menuedit.aw:643
+msgid "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"> <html><head><title>404</title><meta name=\"robots\" content=\"noindex, nofollow\"></head><body><h1>404 Sellist sektsiooni pole</h1></body></html>"
+msgstr ""

@@ -1,0 +1,3 @@
+get_lc_weekday($daynum)
+
+Returns localized name for a weekday

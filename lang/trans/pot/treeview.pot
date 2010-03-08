@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/vcl/treeview.aw:class_137_help
+msgid "Klassi Puu help"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_root
+msgid "Omaduse Root objekt (root) caption"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_root_comment
+msgid "Omaduse Root objekt (root) kommentaar"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_root_help
+msgid "Omaduse Root objekt (root) help"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_rootcaption
+msgid "Omaduse Root objekti nimi (rootcaption) caption"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_rootcaption_comment
+msgid "Omaduse Root objekti nimi (rootcaption) kommentaar"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_rootcaption_help
+msgid "Omaduse Root objekti nimi (rootcaption) help"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_icon_root
+msgid "Omaduse Root objekti ikoon (icon_root) caption"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_icon_root_comment
+msgid "Omaduse Root objekti ikoon (icon_root) kommentaar"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_icon_root_help
+msgid "Omaduse Root objekti ikoon (icon_root) help"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_treetype
+msgid "Omaduse Puu t&uuml;&uuml;p (treetype) caption"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_treetype_comment
+msgid "Omaduse Puu t&uuml;&uuml;p (treetype) kommentaar"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_treetype_help
+msgid "Omaduse Puu t&uuml;&uuml;p (treetype) help"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_icon_folder_open
+msgid "Omaduse Lahtise kausta ikoon (icon_folder_open) caption"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_icon_folder_open_comment
+msgid "Omaduse Lahtise kausta ikoon (icon_folder_open) kommentaar"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_icon_folder_open_help
+msgid "Omaduse Lahtise kausta ikoon (icon_folder_open) help"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_icon_folder_closed
+msgid "Omaduse Kinnise kausta ikoon (icon_folder_closed) caption"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_icon_folder_closed_comment
+msgid "Omaduse Kinnise kausta ikoon (icon_folder_closed) kommentaar"
+msgstr ""
+
+#: classes/vcl/treeview.aw:prop_icon_folder_closed_help
+msgid "Omaduse Kinnise kausta ikoon (icon_folder_closed) help"
+msgstr ""
+
+#: classes/vcl/treeview.aw:rel_RELTYPE_FOLDER
+msgid "Seose root kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/vcl/treeview.aw:rel_RELTYPE_ICON
+msgid "Seose ikoon (RELTYPE_ICON) tekst"
+msgstr ""
+
+#: classes/vcl/treeview.aw:1560
+msgid "(M)"
+msgstr ""
+

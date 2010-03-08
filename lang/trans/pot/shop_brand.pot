@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_brand.aw:class_1443_help
+msgid "Klassi Lao br&auml;nd help"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_company
+msgid "Omaduse Organisatsioon (company) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_company_comment
+msgid "Omaduse Organisatsioon (company) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_company_help
+msgid "Omaduse Organisatsioon (company) help"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_art_groups
+msgid "Omaduse Artikligrupid (art_groups) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_art_groups_comment
+msgid "Omaduse Artikligrupid (art_groups) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_art_groups_help
+msgid "Omaduse Artikligrupid (art_groups) help"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_logo
+msgid "Omaduse Logo (logo) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_logo_comment
+msgid "Omaduse Logo (logo) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_logo_help
+msgid "Omaduse Logo (logo) help"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_desc
+msgid "Omaduse Kirjeldus (desc) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_desc_comment
+msgid "Omaduse Kirjeldus (desc) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_desc_help
+msgid "Omaduse Kirjeldus (desc) help"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_desc_doc
+msgid "Omaduse Kirjeldav dokument (desc_doc) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_desc_doc_comment
+msgid "Omaduse Kirjeldav dokument (desc_doc) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_desc_doc_help
+msgid "Omaduse Kirjeldav dokument (desc_doc) help"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_brand_series
+msgid "Omaduse Seeriad (brand_series) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_brand_series_comment
+msgid "Omaduse Seeriad (brand_series) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:prop_brand_series_help
+msgid "Omaduse Seeriad (brand_series) help"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:rel_RELTYPE_COMPANY
+msgid "Seose Organisatsioon (RELTYPE_COMPANY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:rel_RELTYPE_ARTICLE_GROUPS
+msgid "Seose Artikligrupp (RELTYPE_ARTICLE_GROUPS) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:rel_RELTYPE_LOGO
+msgid "Seose Logo (RELTYPE_LOGO) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:rel_RELTYPE_DOC
+msgid "Seose Dokument (RELTYPE_DOC) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_brand.aw:rel_RELTYPE_BRAND_SERIES
+msgid "Seose Br&auml;ndiseeria (RELTYPE_BRAND_SERIES) tekst"
+msgstr ""
+

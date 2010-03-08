@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/graph/graph_base.aw:17
+msgid "ERROR: graph_base::get_module_name not overriden!"
+msgstr ""
+
+#: classes/graph/graph_base.aw:31
+msgid "X-telje v&auml;&auml;rtused"
+msgstr ""

@@ -1,0 +1,126 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_working_time_scenario.aw:class_1392_help
+msgid "Klassi T&ouml;&ouml;aegade stsenaarium help"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:prop_weekdays
+msgid "Omaduse N&auml;dalap&auml;evad (weekdays) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:prop_weekdays_comment
+msgid "Omaduse N&auml;dalap&auml;evad (weekdays) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:prop_weekdays_help
+msgid "Omaduse N&auml;dalap&auml;evad (weekdays) help"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:prop_days
+msgid "Omaduse P&auml;evade plaan (days) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:prop_days_comment
+msgid "Omaduse P&auml;evade plaan (days) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:prop_days_help
+msgid "Omaduse P&auml;evade plaan (days) help"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:rel_RELTYPE_CURRENCY
+msgid "Seose valuuta (RELTYPE_CURRENCY) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:28
+#: classes/applications/crm/crm_working_time_scenario.aw:49
+#: classes/applications/crm/crm_working_time_scenario.aw:348
+msgid "Esmasp&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:28
+#: classes/applications/crm/crm_working_time_scenario.aw:54
+#: classes/applications/crm/crm_working_time_scenario.aw:353
+msgid "Teisip&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:28
+#: classes/applications/crm/crm_working_time_scenario.aw:59
+#: classes/applications/crm/crm_working_time_scenario.aw:358
+msgid "Kolmap&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:28
+#: classes/applications/crm/crm_working_time_scenario.aw:64
+#: classes/applications/crm/crm_working_time_scenario.aw:363
+msgid "Neljap&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:28
+#: classes/applications/crm/crm_working_time_scenario.aw:69
+#: classes/applications/crm/crm_working_time_scenario.aw:368
+msgid "Reede"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:28
+#: classes/applications/crm/crm_working_time_scenario.aw:74
+msgid "Laup&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:28
+#: classes/applications/crm/crm_working_time_scenario.aw:79
+#: classes/applications/crm/crm_working_time_scenario.aw:378
+msgid "P&uuml;hap&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:82
+#: classes/applications/crm/crm_working_time_scenario.aw:84
+#: classes/applications/crm/crm_working_time_scenario.aw:90
+#: classes/applications/crm/crm_working_time_scenario.aw:96
+msgid "Vabu aegu"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:88
+msgid "Alates"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:94
+msgid "Kuni"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:160
+msgid "P&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:164
+msgid "Algus"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:168
+msgid "L&otilde;pp"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:172
+msgid "Suletud"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:177
+msgid "Suletud p&otilde;hjus"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:373
+msgid "laup&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_working_time_scenario.aw:415
+msgid "Moodusta eelbroneeringud"
+msgstr ""

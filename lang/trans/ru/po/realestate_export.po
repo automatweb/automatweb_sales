@@ -1,0 +1,164 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/realestate_management/realestate_export.aw:class_1002_help
+msgid "Klassi Kinnisvaraobjektide eksport help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_realestate_manager
+msgid "Omaduse Kinnisvarahalduskeskkond (realestate_manager) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_realestate_manager_comment
+msgid "Omaduse Kinnisvarahalduskeskkond (realestate_manager) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_realestate_manager_help
+msgid "Omaduse Kinnisvarahalduskeskkond (realestate_manager) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_city24export_xsl
+msgid "Omaduse City24 ekspordi xsl faili url (city24export_xsl) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_city24export_xsl_comment
+msgid "Omaduse City24 ekspordi xsl faili url (city24export_xsl) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_city24export_xsl_help
+msgid "Omaduse City24 ekspordi xsl faili url (city24export_xsl) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_city24export_encoding
+msgid "Omaduse Koodid aadresside City24 ekspordi jaoks (city24export_encoding) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_city24export_encoding_comment
+msgid "Omaduse Koodid aadresside City24 ekspordi jaoks (city24export_encoding) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_city24export_encoding_help
+msgid "Omaduse Koodid aadresside City24 ekspordi jaoks (city24export_encoding) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_last_city24export
+msgid "Omaduse Viimase ekspordi staatus City24 (last_city24export) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_last_city24export_comment
+msgid "Omaduse Viimase ekspordi staatus City24 (last_city24export) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_last_city24export_help
+msgid "Omaduse Viimase ekspordi staatus City24 (last_city24export) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_last_city24export_time
+msgid "Omaduse Viimane eksport City24 (last_city24export_time) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_last_city24export_time_comment
+msgid "Omaduse Viimane eksport City24 (last_city24export_time) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_last_city24export_time_help
+msgid "Omaduse Viimane eksport City24 (last_city24export_time) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_last_city24export_error
+msgid "Omaduse Viimasel ekspordil esinenud vead (last_city24export_error) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_last_city24export_error_comment
+msgid "Omaduse Viimasel ekspordil esinenud vead (last_city24export_error) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_last_city24export_error_help
+msgid "Omaduse Viimasel ekspordil esinenud vead (last_city24export_error) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_box
+msgid "Omaduse  (box) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_box_comment
+msgid "Omaduse  (box) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_box_help
+msgid "Omaduse  (box) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_user_names_definition_tree
+msgid "Omaduse  (user_names_definition_tree) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_user_names_definition_tree_comment
+msgid "Omaduse  (user_names_definition_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_user_names_definition_tree_help
+msgid "Omaduse  (user_names_definition_tree) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_user_names_definition_table
+msgid "Omaduse  (user_names_definition_table) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_user_names_definition_table_comment
+msgid "Omaduse  (user_names_definition_table) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:prop_user_names_definition_table_help
+msgid "Omaduse  (user_names_definition_table) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:group_grp_settings
+msgid "Grupi Seaded (grp_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:group_grp_settings_help
+msgid "Grupi Seaded (grp_settings) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:group_grp_users
+msgid "Grupi Kasutajanimed (grp_users) pealkiri"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:group_grp_users_help
+msgid "Grupi Kasutajanimed (grp_users) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:rel_RELTYPE_OWNER
+msgid "Seose Kinnisvaraobjektide halduskeskkond (RELTYPE_OWNER) tekst"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:rel_RELTYPE_ENCODING
+msgid "Seose Aadresside vastavuskoodid (RELTYPE_ENCODING) tekst"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:89
+msgid "Kinnisvarahalduskeskkond m22ramata v6i puudub juurdep22su6igus.\n"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:130
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:136
+msgid "Kasutajanimi City24 s&uuml;steemis"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_export.aw:364
+msgid ""
+"Viga objekti ekspordil. AW id: %s.\n"
+"<blockquote>%s</blockquote>"
+msgstr ""

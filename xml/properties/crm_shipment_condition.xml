@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>whos_paying</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Transpordi eest tasub (meie/klient)</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_SHIPMENT_CONDITION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>markop</maintainer>
+      </classinfo>
+</properties>
+

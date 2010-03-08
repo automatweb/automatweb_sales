@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/class_designer/property_chooser.aw:class_883_help
+msgid "Klassi Valik help"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_ord
+msgid "Omaduse Jrk (ord) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_ord_comment
+msgid "Omaduse Jrk (ord) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_ord_help
+msgid "Omaduse Jrk (ord) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_multiple
+msgid "Omaduse Saab teha mitu valikut (multiple) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_multiple_comment
+msgid "Omaduse Saab teha mitu valikut (multiple) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_multiple_help
+msgid "Omaduse Saab teha mitu valikut (multiple) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_orient
+msgid "Omaduse Elemendid on vertikaalis (orient) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_orient_comment
+msgid "Omaduse Elemendid on vertikaalis (orient) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_orient_help
+msgid "Omaduse Elemendid on vertikaalis (orient) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_options
+msgid "Omaduse Valikud (iga valik eraldi real) (options) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_options_comment
+msgid "Omaduse Valikud (iga valik eraldi real) (options) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_chooser.aw:prop_options_help
+msgid "Omaduse Valikud (iga valik eraldi real) (options) help"
+msgstr ""
+

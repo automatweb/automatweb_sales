@@ -1,0 +1,347 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/calendar/staging.aw:class_831_help
+#: classes/applications/calendar/staging.aw:class_831_help
+msgid "Klassi Lavastus help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_needs_translation
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_needs_translation_comment
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_needs_translation_help
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) help"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_start1
+#: classes/applications/calendar/staging.aw:prop_start1
+msgid "Omaduse Algab (start1) caption"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_start1_comment
+#: classes/applications/calendar/staging.aw:prop_start1_comment
+msgid "Omaduse Algab (start1) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_start1_help
+#: classes/applications/calendar/staging.aw:prop_start1_help
+msgid "Omaduse Algab (start1) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_end
+msgid "Omaduse L&otilde;ppeb (end) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_end_comment
+msgid "Omaduse L&otilde;ppeb (end) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_end_help
+msgid "Omaduse L&otilde;ppeb (end) help"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_img
+#: classes/applications/calendar/staging.aw:prop_img
+msgid "Omaduse Pilt (img) caption"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_img_comment
+#: classes/applications/calendar/staging.aw:prop_img_comment
+msgid "Omaduse Pilt (img) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_img_help
+#: classes/applications/calendar/staging.aw:prop_img_help
+msgid "Omaduse Pilt (img) help"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_utextarea1
+#: classes/applications/calendar/staging.aw:prop_utextarea1
+msgid "Omaduse Kirjeldus (utextarea1) caption"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_utextarea1_comment
+#: classes/applications/calendar/staging.aw:prop_utextarea1_comment
+msgid "Omaduse Kirjeldus (utextarea1) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_utextarea1_help
+#: classes/applications/calendar/staging.aw:prop_utextarea1_help
+msgid "Omaduse Kirjeldus (utextarea1) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox1
+msgid "Omaduse Userdefined textbox 1 (utextbox1) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox1_comment
+msgid "Omaduse Userdefined textbox 1 (utextbox1) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox1_help
+msgid "Omaduse Userdefined textbox 1 (utextbox1) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox2
+msgid "Omaduse Userdefined textbox 2 (utextbox2) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox2_comment
+msgid "Omaduse Userdefined textbox 2 (utextbox2) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox2_help
+msgid "Omaduse Userdefined textbox 2 (utextbox2) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox3
+msgid "Omaduse Userdefined textbox 3 (utextbox3) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox3_comment
+msgid "Omaduse Userdefined textbox 3 (utextbox3) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox3_help
+msgid "Omaduse Userdefined textbox 3 (utextbox3) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox4
+msgid "Omaduse Userdefined textbox 4 (utextbox4) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox4_comment
+msgid "Omaduse Userdefined textbox 4 (utextbox4) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox4_help
+msgid "Omaduse Userdefined textbox 4 (utextbox4) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox5
+msgid "Omaduse Userdefined textbox 5 (utextbox5) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox5_comment
+msgid "Omaduse Userdefined textbox 5 (utextbox5) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox5_help
+msgid "Omaduse Userdefined textbox 5 (utextbox5) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox6
+msgid "Omaduse Userdefined textbox 6 (utextbox6) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox6_comment
+msgid "Omaduse Userdefined textbox 6 (utextbox6) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox6_help
+msgid "Omaduse Userdefined textbox 6 (utextbox6) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox7
+msgid "Omaduse Userdefined textbox 7 (utextbox7) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox7_comment
+msgid "Omaduse Userdefined textbox 7 (utextbox7) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox7_help
+msgid "Omaduse Userdefined textbox 7 (utextbox7) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox8
+msgid "Omaduse Userdefined textbox 8 (utextbox8) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox8_comment
+msgid "Omaduse Userdefined textbox 8 (utextbox8) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_utextbox8_help
+msgid "Omaduse Userdefined textbox 8 (utextbox8) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_place
+msgid "Omaduse Vali toimumispaik (place) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_place_comment
+msgid "Omaduse Vali toimumispaik (place) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_place_help
+msgid "Omaduse Vali toimumispaik (place) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_new_place
+msgid "Omaduse Uus toimumispaik (new_place) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_new_place_comment
+msgid "Omaduse Uus toimumispaik (new_place) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_new_place_help
+msgid "Omaduse Uus toimumispaik (new_place) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_price
+msgid "Omaduse Hind (price) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_price_comment
+msgid "Omaduse Hind (price) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_price_help
+msgid "Omaduse Hind (price) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_aliasmanager
+msgid "Omaduse Seostehaldur (aliasmanager) caption"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_aliasmanager_comment
+msgid "Omaduse Seostehaldur (aliasmanager) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:prop_aliasmanager_help
+msgid "Omaduse Seostehaldur (aliasmanager) help"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_project_selector
+#: classes/applications/calendar/staging.aw:prop_project_selector
+msgid "Omaduse Projektid (project_selector) caption"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_project_selector_comment
+#: classes/applications/calendar/staging.aw:prop_project_selector_comment
+msgid "Omaduse Projektid (project_selector) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_project_selector_help
+#: classes/applications/calendar/staging.aw:prop_project_selector_help
+msgid "Omaduse Projektid (project_selector) help"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_trans
+#: classes/applications/calendar/staging.aw:prop_trans
+msgid "Omaduse Tlkimine (trans) caption"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_trans_comment
+#: classes/applications/calendar/staging.aw:prop_trans_comment
+msgid "Omaduse Tlkimine (trans) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_trans_help
+#: classes/applications/calendar/staging.aw:prop_trans_help
+msgid "Omaduse Tlkimine (trans) help"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_times
+#: classes/applications/calendar/staging.aw:prop_times
+msgid "Omaduse Ajad (times) caption"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_times_comment
+#: classes/applications/calendar/staging.aw:prop_times_comment
+msgid "Omaduse Ajad (times) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:prop_times_help
+#: classes/applications/calendar/staging.aw:prop_times_help
+msgid "Omaduse Ajad (times) help"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:group_projects
+#: classes/applications/calendar/staging.aw:group_projects
+msgid "Grupi Projektid (projects) pealkiri"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:group_projects_help
+#: classes/applications/calendar/staging.aw:group_projects_help
+msgid "Grupi Projektid (projects) help"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:group_trans
+msgid "Grupi T&otilde;lkimine (trans) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:group_trans_help
+msgid "Grupi T&otilde;lkimine (trans) help"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:group_times
+#: classes/applications/calendar/staging.aw:group_times
+msgid "Grupi Ajad (times) pealkiri"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:group_times_help
+#: classes/applications/calendar/staging.aw:group_times_help
+msgid "Grupi Ajad (times) help"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:rel_RELTYPE_PICTURE
+#: classes/applications/calendar/staging.aw:rel_RELTYPE_PICTURE
+msgid "Seose Pilt (RELTYPE_PICTURE) tekst"
+msgstr ""
+
+# classes/applications/calendar/staging.aw:rel_RELTYPE_COPY
+#: classes/applications/calendar/staging.aw:rel_RELTYPE_COPY
+msgid "Seose Koopia (RELTYPE_COPY) tekst"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:rel_RELTYPE_DOCUMENT
+msgid "Seose Dokument (RELTYPE_DOCUMENT) tekst"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:144
+msgid "Aktiivne objekt"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:154
+msgid "Originaalobjekti ID"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:161
+msgid "Originaalobjekt"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:169
+msgid "Koopia"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:172
+msgid "(Aktiivne)"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:198
+msgid "Uued"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:208
+msgid "Uus %s"
+msgstr ""
+
+#: classes/applications/calendar/staging.aw:218
+msgid "Tee s&uuml;ndmus %s"
+msgstr ""

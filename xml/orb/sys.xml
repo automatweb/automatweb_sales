@@ -1,0 +1,192 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="sys" folder="" extends="aw_template">
+		<action name="gen_db_struct" nologin="1">
+			<function name="gen_db_struct">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_table_sizes">
+			<function name="show_table_sizes">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_create_tbl" nologin="1">
+			<function name="gen_create_tbl">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="dbsync">
+			<function name="db_compare_choose_donor">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="db_compare_dbs">
+			<function name="_db_compare_dbs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_compare_db" nologin="1">
+			<function name="submit_compare_db">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="check_indexes" nologin="1">
+			<function name="do_check_indexes">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="has_objects" nologin="1">
+			<function name="has_objects">
+				<arguments>
+					<required name="clid" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="last_mod">
+			<function name="last_mod">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="perf">
+			<function name="perf">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="test_object_types">
+			<function name="test_object_types">
+				<arguments>
+					<required name="parent" acl="view;add" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="test_sites" nologin="1">
+			<function name="test_sites">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_dump">
+			<function name="db_dump">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="site_gzip">
+			<function name="site_gzip">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_test_dump" nologin="1">
+			<function name="do_test_dump">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_prop">
+			<function name="make_property_definitions">
+				<arguments>
+					<optional name="classes" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_orb">
+			<function name="make_orb_definitions">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_msg">
+			<function name="make_message_maps">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_ini">
+			<function name="make_ini_file">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_trans">
+			<function name="make_translations">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="list_untrans">
+			<function name="list_missing_translations">
+				<arguments>
+					<optional name="lang" />
+					<optional name="in_class" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_class">
+			<function name="make_class">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_class">
+			<function name="save_class">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="consolidate_template_logs" nologin="1">
+			<function name="consolidate_template_logs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="prop_stats" nologin="1">
+			<function name="prop_stats">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="clid_stats" nologin="1">
+			<function name="clid_stats">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

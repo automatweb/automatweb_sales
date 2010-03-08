@@ -1,0 +1,83 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="forum_v2" folder="www/automatweb_cvs/classes/contentmgmt/forum" extends="class_base">
+		<action name="edit_post" nologin="1" all_args="1">
+			<function name="edit_post">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search" nologin="1" all_args="1">
+			<function name="forum_search">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_results" nologin="1" all_args="1">
+			<function name="search_results">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_topic" nologin="1" all_args="1">
+			<function name="add_topic">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_post_edit" nologin="1" all_args="1">
+			<function name="submit_post_edit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_topic" nologin="1" all_args="1">
+			<function name="submit_topic">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_comment" nologin="1" all_args="1">
+			<function name="submit_comment">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_comments">
+			<function name="delete_comments">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change" nologin="1" all_args="1">
+			<function name="change">
+				<arguments>
+					<optional name="id" type="int" />
+					<optional name="group" />
+					<optional name="period" />
+					<optional name="alias_to" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_faq" nologin="1">
+			<function name="add_faq">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<required name="topic" type="int" acl="edit" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

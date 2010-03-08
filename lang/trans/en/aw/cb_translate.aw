@@ -1,0 +1,36 @@
+<?php
+$GLOBALS["TRANS"]["Grupi T&otilde;lkimine (translation) pealkiri"] = "Translations";
+$GLOBALS["TRANS"]["Kujundusosa Klassihierarhia (translation_vsplit_left) pealkiri"] = "Class hierarhy";
+$GLOBALS["TRANS"]["AW KLASSIDE T&Otilde;LKIMINE"] = "Translation of AW classes";
+$GLOBALS["TRANS"]["Salvesta"] = "Save";
+$GLOBALS["TRANS"]["Otsi"] = "Search";
+$GLOBALS["TRANS"]["Kujundusosad"] = "Layouts";
+$GLOBALS["TRANS"]["Nimetu"] = "No name";
+$GLOBALS["TRANS"]["Seosed"] = "Connections";
+$GLOBALS["TRANS"]["CVS commit"] = "CVS commit";
+$GLOBALS["TRANS"]["N&auml;ita muutusi"] = "Show changes";
+$GLOBALS["TRANS"]["AW t&otilde;lkimine"] = "AW translation";
+$GLOBALS["TRANS"]["Selle klassil puudub abiinfo"] = "This class has no help";
+$GLOBALS["TRANS"]["Klassi '%s' abiinfo"] = "Class '%s' help";
+$GLOBALS["TRANS"]["AW abiinfo"] = "AW help";
+$GLOBALS["TRANS"]["Tekst"] = "Text";
+$GLOBALS["TRANS"]["Keel"] = "Language";
+$GLOBALS["TRANS"]["Seose nimi"] = "Name of relation";
+$GLOBALS["TRANS"]["Kausta"] = "Folder";
+$GLOBALS["TRANS"]["Klassi"] = "Class";
+$GLOBALS["TRANS"]["Nimi"] = "Name";
+$GLOBALS["TRANS"]["Kommentaar"] = "Comment";
+$GLOBALS["TRANS"]["Abitekst"] = "Help text";
+$GLOBALS["TRANS"]["Grupi nimi"] = "Group name";
+$GLOBALS["TRANS"]["Omaduse nimi"] = "Property name";
+$GLOBALS["TRANS"]["Kujundusosa nimi"] = "Layout name";
+$GLOBALS["TRANS"]["Element"] = "Element";
+$GLOBALS["TRANS"]["Ennem"] = "Before";
+$GLOBALS["TRANS"]["P&auml;rast"] = "After";
+$GLOBALS["TRANS"]["tekst puudus"] = "text missing";
+$GLOBALS["TRANS"]["tekst eemaldati"] = "text removed";
+$GLOBALS["TRANS"]["Muudetud faile ei ole!"] = "No files modified";
+$GLOBALS["TRANS"]["Seletus"] = "Explanation";
+$GLOBALS["TRANS"]["Commitimisele minevad failid"] = "Files to commit";
+$GLOBALS["TRANS"]["Otsitav s&otilde;na"] = "Searchable word";
+?>

@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="flyer" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="show_flyer" nologin="1">
+			<function name="show_flyer">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<optional name="side" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,5366 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/shop/shop_warehouse.aw:class_289_help
+#: classes/applications/shop/shop_warehouse.aw:class_289_help
+msgid "Klassi Ladu help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_short_name
+msgid "Omaduse L&uuml;hend (short_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_short_name_comment
+msgid "Omaduse L&uuml;hend (short_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_short_name_help
+msgid "Omaduse L&uuml;hend (short_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_no_new_config
+msgid "Omaduse &Auml;ra loo seadeteobjekti (no_new_config) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_no_new_config_comment
+msgid "Omaduse &Auml;ra loo seadeteobjekti (no_new_config) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_no_new_config_help
+msgid "Omaduse &Auml;ra loo seadeteobjekti (no_new_config) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_conf
+msgid "Omaduse Seaded (conf) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_conf_comment
+msgid "Omaduse Seaded (conf) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_conf_help
+msgid "Omaduse Seaded (conf) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_center
+#: classes/applications/shop/shop_warehouse.aw:prop_order_center
+msgid "Omaduse Tellimiskeskkond tellimuste jaoks (order_center) caption"
+msgstr "Ordering center for orders"
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_center_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_order_center_comment
+msgid "Omaduse Tellimiskeskkond tellimuste jaoks (order_center) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_center_help
+#: classes/applications/shop/shop_warehouse.aw:prop_order_center_help
+msgid "Omaduse Tellimiskeskkond tellimuste jaoks (order_center) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_entry_form
+msgid "Omaduse Kategooria lisamise vorm (category_entry_form) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_entry_form_comment
+msgid "Omaduse Kategooria lisamise vorm (category_entry_form) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_entry_form_help
+msgid "Omaduse Kategooria lisamise vorm (category_entry_form) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_calc_type
+msgid "Omaduse Laoseisu arvestus (status_calc_type) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_calc_type_comment
+msgid "Omaduse Laoseisu arvestus (status_calc_type) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_calc_type_help
+msgid "Omaduse Laoseisu arvestus (status_calc_type) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_productgroups_toolbar
+#: classes/applications/shop/shop_warehouse.aw:prop_productgroups_toolbar
+msgid "Omaduse  (productgroups_toolbar) caption"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_productgroups_toolbar_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_productgroups_toolbar_comment
+msgid "Omaduse  (productgroups_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_productgroups_toolbar_help
+#: classes/applications/shop/shop_warehouse.aw:prop_productgroups_toolbar_help
+msgid "Omaduse  (productgroups_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_productgroups_tree
+msgid "Omaduse  (productgroups_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_productgroups_tree_comment
+msgid "Omaduse  (productgroups_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_productgroups_tree_help
+msgid "Omaduse  (productgroups_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_productgroups_list
+msgid "Omaduse Tootegruppide nimekiri (productgroups_list) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_productgroups_list_comment
+msgid "Omaduse Tootegruppide nimekiri (productgroups_list) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_productgroups_list_help
+msgid "Omaduse Tootegruppide nimekiri (productgroups_list) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_management_toolbar
+msgid "Omaduse  (product_management_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_management_toolbar_comment
+msgid "Omaduse  (product_management_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_management_toolbar_help
+msgid "Omaduse  (product_management_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managementtree
+msgid "Omaduse  (product_managementtree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managementtree_comment
+msgid "Omaduse  (product_managementtree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managementtree_help
+msgid "Omaduse  (product_managementtree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managementcat_tree
+msgid "Omaduse  (product_managementcat_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managementcat_tree_comment
+msgid "Omaduse  (product_managementcat_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managementcat_tree_help
+msgid "Omaduse  (product_managementcat_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_name
+msgid "Omaduse Nimi (product_managements_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_name_comment
+msgid "Omaduse Nimi (product_managements_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_name_help
+msgid "Omaduse Nimi (product_managements_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_code
+msgid "Omaduse Kood (product_managements_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_code_comment
+msgid "Omaduse Kood (product_managements_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_code_help
+msgid "Omaduse Kood (product_managements_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_barcode
+msgid "Omaduse Ribakood (product_managements_barcode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_barcode_comment
+msgid "Omaduse Ribakood (product_managements_barcode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_barcode_help
+msgid "Omaduse Ribakood (product_managements_barcode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_count
+msgid "Omaduse Laoseis (product_managements_count) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_count_comment
+msgid "Omaduse Laoseis (product_managements_count) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_count_help
+msgid "Omaduse Laoseis (product_managements_count) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_price_from
+msgid "Omaduse Hind alates (product_managements_price_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_price_from_comment
+msgid "Omaduse Hind alates (product_managements_price_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_price_from_help
+msgid "Omaduse Hind alates (product_managements_price_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_price_to
+msgid "Omaduse Hind kuni (product_managements_price_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_price_to_comment
+msgid "Omaduse Hind kuni (product_managements_price_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_price_to_help
+msgid "Omaduse Hind kuni (product_managements_price_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_show_pieces
+msgid "Omaduse Kuva t&uuml;kkidena (product_managements_show_pieces) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_show_pieces_comment
+msgid "Omaduse Kuva t&uuml;kkidena (product_managements_show_pieces) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_show_pieces_help
+msgid "Omaduse Kuva t&uuml;kkidena (product_managements_show_pieces) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_show_batches
+msgid "Omaduse Kuva partiidena (product_managements_show_batches) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_show_batches_comment
+msgid "Omaduse Kuva partiidena (product_managements_show_batches) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_show_batches_help
+msgid "Omaduse Kuva partiidena (product_managements_show_batches) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_sbt
+msgid "Omaduse Otsi (product_managements_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_sbt_comment
+msgid "Omaduse Otsi (product_managements_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_managements_sbt_help
+msgid "Omaduse Otsi (product_managements_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_management_list
+msgid "Omaduse Toodete nimekiri (product_management_list) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_management_list_comment
+msgid "Omaduse Toodete nimekiri (product_management_list) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_product_management_list_help
+msgid "Omaduse Toodete nimekiri (product_management_list) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_products_toolbar
+#: classes/applications/shop/shop_warehouse.aw:prop_products_toolbar
+msgid "Omaduse  (products_toolbar) caption"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_products_toolbar_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_products_toolbar_comment
+msgid "Omaduse  (products_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_products_toolbar_help
+#: classes/applications/shop/shop_warehouse.aw:prop_products_toolbar_help
+msgid "Omaduse  (products_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_tree
+msgid "Omaduse  (prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_tree_comment
+msgid "Omaduse  (prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_tree_help
+msgid "Omaduse  (prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_cat_tree
+msgid "Omaduse  (prod_cat_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_cat_tree_comment
+msgid "Omaduse  (prod_cat_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_cat_tree_help
+msgid "Omaduse  (prod_cat_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_name
+msgid "Omaduse Nimi (prod_s_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_name_comment
+msgid "Omaduse Nimi (prod_s_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_name_help
+msgid "Omaduse Nimi (prod_s_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_code
+msgid "Omaduse Kood (prod_s_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_code_comment
+msgid "Omaduse Kood (prod_s_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_code_help
+msgid "Omaduse Kood (prod_s_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_barcode
+msgid "Omaduse Ribakood (prod_s_barcode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_barcode_comment
+msgid "Omaduse Ribakood (prod_s_barcode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_barcode_help
+msgid "Omaduse Ribakood (prod_s_barcode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_cat
+msgid "Omaduse Kategooria (prod_s_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_cat_comment
+msgid "Omaduse Kategooria (prod_s_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_cat_help
+msgid "Omaduse Kategooria (prod_s_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_count
+msgid "Omaduse Laoseis (prod_s_count) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_count_comment
+msgid "Omaduse Laoseis (prod_s_count) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_count_help
+msgid "Omaduse Laoseis (prod_s_count) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_price_from
+msgid "Omaduse Hind alates (prod_s_price_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_price_from_comment
+msgid "Omaduse Hind alates (prod_s_price_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_price_from_help
+msgid "Omaduse Hind alates (prod_s_price_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_price_to
+msgid "Omaduse Hind kuni (prod_s_price_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_price_to_comment
+msgid "Omaduse Hind kuni (prod_s_price_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_price_to_help
+msgid "Omaduse Hind kuni (prod_s_price_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_pricelist
+msgid "Omaduse Hinnakiri (prod_s_pricelist) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_pricelist_comment
+msgid "Omaduse Hinnakiri (prod_s_pricelist) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_pricelist_help
+msgid "Omaduse Hinnakiri (prod_s_pricelist) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_show_pieces
+msgid "Omaduse Kuva t&uuml;kkidena (prod_s_show_pieces) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_show_pieces_comment
+msgid "Omaduse Kuva t&uuml;kkidena (prod_s_show_pieces) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_show_pieces_help
+msgid "Omaduse Kuva t&uuml;kkidena (prod_s_show_pieces) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_show_batches
+msgid "Omaduse Kuva partiidena (prod_s_show_batches) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_show_batches_comment
+msgid "Omaduse Kuva partiidena (prod_s_show_batches) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_show_batches_help
+msgid "Omaduse Kuva partiidena (prod_s_show_batches) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_sbt
+msgid "Omaduse Otsi (prod_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_sbt_comment
+msgid "Omaduse Otsi (prod_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_prod_s_sbt_help
+msgid "Omaduse Otsi (prod_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_products_list
+msgid "Omaduse Toodete nimekiri (products_list) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_products_list_comment
+msgid "Omaduse Toodete nimekiri (products_list) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_products_list_help
+msgid "Omaduse Toodete nimekiri (products_list) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_tb
+msgid "Omaduse  (category_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_tb_comment
+msgid "Omaduse  (category_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_tb_help
+msgid "Omaduse  (category_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_tree
+msgid "Omaduse  (category_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_tree_comment
+msgid "Omaduse  (category_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_tree_help
+msgid "Omaduse  (category_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_list
+msgid "Omaduse  (category_list) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_list_comment
+msgid "Omaduse  (category_list) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_category_list_help
+msgid "Omaduse  (category_list) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_packets_toolbar
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_toolbar
+msgid "Omaduse  (packets_toolbar) caption"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_packets_toolbar_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_toolbar_comment
+msgid "Omaduse  (packets_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_packets_toolbar_help
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_toolbar_help
+msgid "Omaduse  (packets_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_tree
+msgid "Omaduse  (packets_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_tree_comment
+msgid "Omaduse  (packets_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_tree_help
+msgid "Omaduse  (packets_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_cat_tree
+msgid "Omaduse  (packets_cat_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_cat_tree_comment
+msgid "Omaduse  (packets_cat_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_cat_tree_help
+msgid "Omaduse  (packets_cat_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_name
+msgid "Omaduse Nimi (packets_s_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_name_comment
+msgid "Omaduse Nimi (packets_s_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_name_help
+msgid "Omaduse Nimi (packets_s_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_code
+msgid "Omaduse Kood (packets_s_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_code_comment
+msgid "Omaduse Kood (packets_s_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_code_help
+msgid "Omaduse Kood (packets_s_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_barcode
+msgid "Omaduse Ribakood (packets_s_barcode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_barcode_comment
+msgid "Omaduse Ribakood (packets_s_barcode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_barcode_help
+msgid "Omaduse Ribakood (packets_s_barcode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_cat
+msgid "Omaduse Kategooria (packets_s_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_cat_comment
+msgid "Omaduse Kategooria (packets_s_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_cat_help
+msgid "Omaduse Kategooria (packets_s_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_count
+msgid "Omaduse Laoseis (packets_s_count) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_count_comment
+msgid "Omaduse Laoseis (packets_s_count) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_count_help
+msgid "Omaduse Laoseis (packets_s_count) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_price_from
+msgid "Omaduse Hind alates (packets_s_price_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_price_from_comment
+msgid "Omaduse Hind alates (packets_s_price_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_price_from_help
+msgid "Omaduse Hind alates (packets_s_price_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_pricelist
+msgid "Omaduse Hinnakiri (packets_s_pricelist) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_pricelist_comment
+msgid "Omaduse Hinnakiri (packets_s_pricelist) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_pricelist_help
+msgid "Omaduse Hinnakiri (packets_s_pricelist) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_sbt
+msgid "Omaduse Otsi (packets_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_sbt_comment
+msgid "Omaduse Otsi (packets_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_s_sbt_help
+msgid "Omaduse Otsi (packets_s_sbt) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_packets_list
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_list
+msgid "Omaduse Pakettide nimekiri (packets_list) caption"
+msgstr "Packets list"
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_list_comment
+msgid "Omaduse Pakettide nimekiri (packets_list) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_packets_list_help
+msgid "Omaduse Pakettide nimekiri (packets_list) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_brand_toolbar
+msgid "Omaduse Kaubam&auml;rkide toolbar (brand_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_brand_toolbar_comment
+msgid "Omaduse Kaubam&auml;rkide toolbar (brand_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_brand_toolbar_help
+msgid "Omaduse Kaubam&auml;rkide toolbar (brand_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_brand_list
+msgid "Omaduse Kaubam&auml;rkide nimekiri (brand_list) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_brand_list_comment
+msgid "Omaduse Kaubam&auml;rkide nimekiri (brand_list) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_brand_list_help
+msgid "Omaduse Kaubam&auml;rkide nimekiri (brand_list) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrivals_tb
+msgid "Omaduse  (arrivals_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrivals_tb_comment
+msgid "Omaduse  (arrivals_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrivals_tb_help
+msgid "Omaduse  (arrivals_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_tree
+msgid "Omaduse  (arrival_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_tree_comment
+msgid "Omaduse  (arrival_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_tree_help
+msgid "Omaduse  (arrival_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_cat_tree
+msgid "Omaduse  (arrival_prod_cat_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_cat_tree_comment
+msgid "Omaduse  (arrival_prod_cat_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_cat_tree_help
+msgid "Omaduse  (arrival_prod_cat_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_name
+msgid "Omaduse Nimi (arrival_prod_s_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_name_comment
+msgid "Omaduse Nimi (arrival_prod_s_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_name_help
+msgid "Omaduse Nimi (arrival_prod_s_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_code
+msgid "Omaduse Kood (arrival_prod_s_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_code_comment
+msgid "Omaduse Kood (arrival_prod_s_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_code_help
+msgid "Omaduse Kood (arrival_prod_s_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_barcode
+msgid "Omaduse Ribakood (arrival_prod_s_barcode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_barcode_comment
+msgid "Omaduse Ribakood (arrival_prod_s_barcode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_barcode_help
+msgid "Omaduse Ribakood (arrival_prod_s_barcode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_cat
+msgid "Omaduse Kategooria (arrival_prod_s_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_cat_comment
+msgid "Omaduse Kategooria (arrival_prod_s_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_cat_help
+msgid "Omaduse Kategooria (arrival_prod_s_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_sbt
+msgid "Omaduse Otsi (arrival_prod_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_sbt_comment
+msgid "Omaduse Otsi (arrival_prod_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_prod_s_sbt_help
+msgid "Omaduse Otsi (arrival_prod_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_products_list
+msgid "Omaduse Toodete nimekiri (arrival_products_list) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_products_list_comment
+msgid "Omaduse Toodete nimekiri (arrival_products_list) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrival_products_list_help
+msgid "Omaduse Toodete nimekiri (arrival_products_list) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrivals_bc_info
+msgid "Omaduse Info (arrivals_bc_info) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrivals_bc_info_comment
+msgid "Omaduse Info (arrivals_bc_info) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrivals_bc_info_help
+msgid "Omaduse Info (arrivals_bc_info) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrivals_bc_table
+msgid "Omaduse  (arrivals_bc_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrivals_bc_table_comment
+msgid "Omaduse  (arrivals_bc_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_arrivals_bc_table_help
+msgid "Omaduse  (arrivals_bc_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_toolbar
+msgid "Omaduse  (storage_movements_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_toolbar_comment
+msgid "Omaduse  (storage_movements_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_toolbar_help
+msgid "Omaduse  (storage_movements_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_tree2
+msgid "Omaduse  (storage_movements_tree2) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_tree2_comment
+msgid "Omaduse  (storage_movements_tree2) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_tree2_help
+msgid "Omaduse  (storage_movements_tree2) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_tree
+msgid "Omaduse  (storage_movements_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_tree_comment
+msgid "Omaduse  (storage_movements_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_tree_help
+msgid "Omaduse  (storage_movements_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_warehouse
+msgid "Omaduse Ladu (storage_movements_s_warehouse) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_warehouse_comment
+msgid "Omaduse Ladu (storage_movements_s_warehouse) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_warehouse_help
+msgid "Omaduse Ladu (storage_movements_s_warehouse) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_direction
+msgid "Omaduse Liikumise suund (storage_movements_s_direction) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_direction_comment
+msgid "Omaduse Liikumise suund (storage_movements_s_direction) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_direction_help
+msgid "Omaduse Liikumise suund (storage_movements_s_direction) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_number
+msgid "Omaduse Saatelehe number (storage_movements_s_number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_number_comment
+msgid "Omaduse Saatelehe number (storage_movements_s_number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_number_help
+msgid "Omaduse Saatelehe number (storage_movements_s_number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_from
+msgid "Omaduse Alates (storage_movements_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_from_comment
+msgid "Omaduse Alates (storage_movements_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_from_help
+msgid "Omaduse Alates (storage_movements_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_to
+msgid "Omaduse Kuni (storage_movements_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_to_comment
+msgid "Omaduse Kuni (storage_movements_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_to_help
+msgid "Omaduse Kuni (storage_movements_s_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_article
+msgid "Omaduse Artikkel (storage_movements_s_article) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_article_comment
+msgid "Omaduse Artikkel (storage_movements_s_article) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_article_help
+msgid "Omaduse Artikkel (storage_movements_s_article) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_articlecode
+msgid "Omaduse Artiklikood (storage_movements_s_articlecode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_articlecode_comment
+msgid "Omaduse Artiklikood (storage_movements_s_articlecode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_articlecode_help
+msgid "Omaduse Artiklikood (storage_movements_s_articlecode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_art_cat
+msgid "Omaduse Artikli kategooria (storage_movements_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_art_cat_comment
+msgid "Omaduse Artikli kategooria (storage_movements_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_art_cat_help
+msgid "Omaduse Artikli kategooria (storage_movements_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_sbt
+msgid "Omaduse Otsi (storage_movements_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_sbt_comment
+msgid "Omaduse Otsi (storage_movements_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_s_sbt_help
+msgid "Omaduse Otsi (storage_movements_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements
+msgid "Omaduse V&auml;ljaminekud (storage_movements) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_comment
+msgid "Omaduse V&auml;ljaminekud (storage_movements) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_movements_help
+msgid "Omaduse V&auml;ljaminekud (storage_movements) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_toolbar
+msgid "Omaduse  (storage_writeoffs_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_toolbar_comment
+msgid "Omaduse  (storage_writeoffs_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_toolbar_help
+msgid "Omaduse  (storage_writeoffs_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_tree2
+msgid "Omaduse  (storage_writeoffs_tree2) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_tree2_comment
+msgid "Omaduse  (storage_writeoffs_tree2) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_tree2_help
+msgid "Omaduse  (storage_writeoffs_tree2) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_tree
+msgid "Omaduse  (storage_writeoffs_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_tree_comment
+msgid "Omaduse  (storage_writeoffs_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_tree_help
+msgid "Omaduse  (storage_writeoffs_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_warehouse
+msgid "Omaduse Ladu (storage_writeoffs_s_warehouse) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_warehouse_comment
+msgid "Omaduse Ladu (storage_writeoffs_s_warehouse) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_warehouse_help
+msgid "Omaduse Ladu (storage_writeoffs_s_warehouse) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_number
+msgid "Omaduse Saatelehe number (storage_writeoffs_s_number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_number_comment
+msgid "Omaduse Saatelehe number (storage_writeoffs_s_number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_number_help
+msgid "Omaduse Saatelehe number (storage_writeoffs_s_number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_from
+msgid "Omaduse Alates (storage_writeoffs_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_from_comment
+msgid "Omaduse Alates (storage_writeoffs_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_from_help
+msgid "Omaduse Alates (storage_writeoffs_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_to
+msgid "Omaduse Kuni (storage_writeoffs_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_to_comment
+msgid "Omaduse Kuni (storage_writeoffs_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_to_help
+msgid "Omaduse Kuni (storage_writeoffs_s_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_article
+msgid "Omaduse Artikkel (storage_writeoffs_s_article) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_article_comment
+msgid "Omaduse Artikkel (storage_writeoffs_s_article) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_article_help
+msgid "Omaduse Artikkel (storage_writeoffs_s_article) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_articlecode
+msgid "Omaduse Artiklikood (storage_writeoffs_s_articlecode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_articlecode_comment
+msgid "Omaduse Artiklikood (storage_writeoffs_s_articlecode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_articlecode_help
+msgid "Omaduse Artiklikood (storage_writeoffs_s_articlecode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_art_cat
+msgid "Omaduse Artikli kategooria (storage_writeoffs_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_art_cat_comment
+msgid "Omaduse Artikli kategooria (storage_writeoffs_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_art_cat_help
+msgid "Omaduse Artikli kategooria (storage_writeoffs_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_sbt
+msgid "Omaduse Otsi (storage_writeoffs_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_sbt_comment
+msgid "Omaduse Otsi (storage_writeoffs_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_s_sbt_help
+msgid "Omaduse Otsi (storage_writeoffs_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs
+msgid "Omaduse Mahakandmised (storage_writeoffs) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_comment
+msgid "Omaduse Mahakandmised (storage_writeoffs) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_writeoffs_help
+msgid "Omaduse Mahakandmised (storage_writeoffs) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_toolbar
+msgid "Omaduse  (storage_status_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_toolbar_comment
+msgid "Omaduse  (storage_status_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_toolbar_help
+msgid "Omaduse  (storage_status_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_tree
+msgid "Omaduse  (storage_status_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_tree_comment
+msgid "Omaduse  (storage_status_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_tree_help
+msgid "Omaduse  (storage_status_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_tree2
+msgid "Omaduse  (storage_status_tree2) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_tree2_comment
+msgid "Omaduse  (storage_status_tree2) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_tree2_help
+msgid "Omaduse  (storage_status_tree2) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_name
+msgid "Omaduse Nimi (storage_status_s_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_name_comment
+msgid "Omaduse Nimi (storage_status_s_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_name_help
+msgid "Omaduse Nimi (storage_status_s_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_code
+msgid "Omaduse Kood (storage_status_s_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_code_comment
+msgid "Omaduse Kood (storage_status_s_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_code_help
+msgid "Omaduse Kood (storage_status_s_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_barcode
+msgid "Omaduse Ribakood (storage_status_s_barcode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_barcode_comment
+msgid "Omaduse Ribakood (storage_status_s_barcode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_barcode_help
+msgid "Omaduse Ribakood (storage_status_s_barcode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_art_cat
+msgid "Omaduse Kategooria (storage_status_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_art_cat_comment
+msgid "Omaduse Kategooria (storage_status_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_art_cat_help
+msgid "Omaduse Kategooria (storage_status_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_count
+msgid "Omaduse Laoseis (storage_status_s_count) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_count_comment
+msgid "Omaduse Laoseis (storage_status_s_count) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_count_help
+msgid "Omaduse Laoseis (storage_status_s_count) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_price
+msgid "Omaduse Hind (storage_status_s_price) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_price_comment
+msgid "Omaduse Hind (storage_status_s_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_price_help
+msgid "Omaduse Hind (storage_status_s_price) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_pricelist
+msgid "Omaduse Hinnakiri (storage_status_s_pricelist) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_pricelist_comment
+msgid "Omaduse Hinnakiri (storage_status_s_pricelist) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_pricelist_help
+msgid "Omaduse Hinnakiri (storage_status_s_pricelist) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_below_min
+msgid "Omaduse Alla miinimumi (storage_status_s_below_min) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_below_min_comment
+msgid "Omaduse Alla miinimumi (storage_status_s_below_min) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_below_min_help
+msgid "Omaduse Alla miinimumi (storage_status_s_below_min) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_show_pieces
+msgid "Omaduse Kuva t&uuml;kkidena (storage_status_s_show_pieces) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_show_pieces_comment
+msgid "Omaduse Kuva t&uuml;kkidena (storage_status_s_show_pieces) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_show_pieces_help
+msgid "Omaduse Kuva t&uuml;kkidena (storage_status_s_show_pieces) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_show_batches
+msgid "Omaduse Kuva partiidena (storage_status_s_show_batches) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_show_batches_comment
+msgid "Omaduse Kuva partiidena (storage_status_s_show_batches) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_show_batches_help
+msgid "Omaduse Kuva partiidena (storage_status_s_show_batches) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_sbt
+msgid "Omaduse Otsi (storage_status_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_sbt_comment
+msgid "Omaduse Otsi (storage_status_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_s_sbt_help
+msgid "Omaduse Otsi (storage_status_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status
+msgid "Omaduse  (storage_status) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_comment
+msgid "Omaduse  (storage_status) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_status_help
+msgid "Omaduse  (storage_status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_toolbar
+msgid "Omaduse  (storage_inventories_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_toolbar_comment
+msgid "Omaduse  (storage_inventories_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_toolbar_help
+msgid "Omaduse  (storage_inventories_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_tree
+msgid "Omaduse  (storage_inventories_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_tree_comment
+msgid "Omaduse  (storage_inventories_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_tree_help
+msgid "Omaduse  (storage_inventories_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_name
+msgid "Omaduse Nimi (storage_inventories_s_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_name_comment
+msgid "Omaduse Nimi (storage_inventories_s_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_name_help
+msgid "Omaduse Nimi (storage_inventories_s_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_from
+msgid "Omaduse Alates (storage_inventories_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_from_comment
+msgid "Omaduse Alates (storage_inventories_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_from_help
+msgid "Omaduse Alates (storage_inventories_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_to
+msgid "Omaduse Kuni (storage_inventories_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_to_comment
+msgid "Omaduse Kuni (storage_inventories_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_to_help
+msgid "Omaduse Kuni (storage_inventories_s_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_sbt
+msgid "Omaduse Otsi (storage_inventories_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_sbt_comment
+msgid "Omaduse Otsi (storage_inventories_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_s_sbt_help
+msgid "Omaduse Otsi (storage_inventories_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories
+msgid "Omaduse Inventuurid (storage_inventories) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_comment
+msgid "Omaduse Inventuurid (storage_inventories) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_storage_inventories_help
+msgid "Omaduse Inventuurid (storage_inventories) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_toolbar
+msgid "Omaduse  (status_orders_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_toolbar_comment
+msgid "Omaduse  (status_orders_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_toolbar_help
+msgid "Omaduse  (status_orders_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_time_tree
+msgid "Omaduse  (status_orders_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_time_tree_comment
+msgid "Omaduse  (status_orders_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_time_tree_help
+msgid "Omaduse  (status_orders_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_case_tree
+msgid "Omaduse  (status_orders_case_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_case_tree_comment
+msgid "Omaduse  (status_orders_case_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_case_tree_help
+msgid "Omaduse  (status_orders_case_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_prod_tree
+msgid "Omaduse  (status_orders_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_prod_tree_comment
+msgid "Omaduse  (status_orders_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_prod_tree_help
+msgid "Omaduse  (status_orders_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_res_tree
+msgid "Omaduse  (status_orders_res_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_res_tree_comment
+msgid "Omaduse  (status_orders_res_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_res_tree_help
+msgid "Omaduse  (status_orders_res_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_opt1
+msgid "Omaduse Kuvatakse tooteid, mis... (status_orders_opt1) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_opt1_comment
+msgid "Omaduse Kuvatakse tooteid, mis... (status_orders_opt1) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_opt1_help
+msgid "Omaduse Kuvatakse tooteid, mis... (status_orders_opt1) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_name
+msgid "Omaduse Toote nimi (status_orders_s_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_name_comment
+msgid "Omaduse Toote nimi (status_orders_s_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_name_help
+msgid "Omaduse Toote nimi (status_orders_s_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_code
+msgid "Omaduse Toote kood (status_orders_s_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_code_comment
+msgid "Omaduse Toote kood (status_orders_s_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_code_help
+msgid "Omaduse Toote kood (status_orders_s_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_art_cat
+msgid "Omaduse Toote kategooria (status_orders_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_art_cat_comment
+msgid "Omaduse Toote kategooria (status_orders_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_art_cat_help
+msgid "Omaduse Toote kategooria (status_orders_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_case_no
+msgid "Omaduse Tellimuse nr (status_orders_s_case_no) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_case_no_comment
+msgid "Omaduse Tellimuse nr (status_orders_s_case_no) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_case_no_help
+msgid "Omaduse Tellimuse nr (status_orders_s_case_no) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_start
+msgid "Omaduse Ajavahemiku algus (status_orders_s_start) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_start_comment
+msgid "Omaduse Ajavahemiku algus (status_orders_s_start) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_start_help
+msgid "Omaduse Ajavahemiku algus (status_orders_s_start) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_end
+msgid "Omaduse Ajavahemiku l&otilde;pp (status_orders_s_end) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_end_comment
+msgid "Omaduse Ajavahemiku l&otilde;pp (status_orders_s_end) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_end_help
+msgid "Omaduse Ajavahemiku l&otilde;pp (status_orders_s_end) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_sbt
+msgid "Omaduse Otsi (status_orders_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_sbt_comment
+msgid "Omaduse Otsi (status_orders_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_s_sbt_help
+msgid "Omaduse Otsi (status_orders_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders
+msgid "Omaduse  (status_orders) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_comment
+msgid "Omaduse  (status_orders) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_status_orders_help
+msgid "Omaduse  (status_orders) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_toolbar
+msgid "Omaduse  (purchase_orders_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_toolbar_comment
+msgid "Omaduse  (purchase_orders_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_toolbar_help
+msgid "Omaduse  (purchase_orders_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_tree
+msgid "Omaduse  (purchase_orders_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_tree_comment
+msgid "Omaduse  (purchase_orders_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_tree_help
+msgid "Omaduse  (purchase_orders_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_time_tree
+msgid "Omaduse  (purchase_orders_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_time_tree_comment
+msgid "Omaduse  (purchase_orders_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_time_tree_help
+msgid "Omaduse  (purchase_orders_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_cust_tree
+msgid "Omaduse  (purchase_orders_cust_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_cust_tree_comment
+msgid "Omaduse  (purchase_orders_cust_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_cust_tree_help
+msgid "Omaduse  (purchase_orders_cust_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_purchaser
+msgid "Omaduse Tarnija (purchase_orders_s_purchaser) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_purchaser_comment
+msgid "Omaduse Tarnija (purchase_orders_s_purchaser) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_purchaser_help
+msgid "Omaduse Tarnija (purchase_orders_s_purchaser) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_number
+msgid "Omaduse Number (purchase_orders_s_number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_number_comment
+msgid "Omaduse Number (purchase_orders_s_number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_number_help
+msgid "Omaduse Number (purchase_orders_s_number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_status
+msgid "Omaduse Staatus (purchase_orders_s_status) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_status_comment
+msgid "Omaduse Staatus (purchase_orders_s_status) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_status_help
+msgid "Omaduse Staatus (purchase_orders_s_status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_from
+msgid "Omaduse Alates (purchase_orders_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_from_comment
+msgid "Omaduse Alates (purchase_orders_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_from_help
+msgid "Omaduse Alates (purchase_orders_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_to
+msgid "Omaduse Kuni (purchase_orders_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_to_comment
+msgid "Omaduse Kuni (purchase_orders_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_to_help
+msgid "Omaduse Kuni (purchase_orders_s_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_art
+msgid "Omaduse Artikkel (purchase_orders_s_art) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_art_comment
+msgid "Omaduse Artikkel (purchase_orders_s_art) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_art_help
+msgid "Omaduse Artikkel (purchase_orders_s_art) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_art_cat
+msgid "Omaduse Artikli kategooria (purchase_orders_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_art_cat_comment
+msgid "Omaduse Artikli kategooria (purchase_orders_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_art_cat_help
+msgid "Omaduse Artikli kategooria (purchase_orders_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_sbt
+msgid "Omaduse Otsi (purchase_orders_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_sbt_comment
+msgid "Omaduse Otsi (purchase_orders_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_s_sbt_help
+msgid "Omaduse Otsi (purchase_orders_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders
+msgid "Omaduse Ostutellimused (purchase_orders) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_comment
+msgid "Omaduse Ostutellimused (purchase_orders) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_orders_help
+msgid "Omaduse Ostutellimused (purchase_orders) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_toolbar
+msgid "Omaduse  (purchase_notes_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_toolbar_comment
+msgid "Omaduse  (purchase_notes_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_toolbar_help
+msgid "Omaduse  (purchase_notes_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_status_tree
+msgid "Omaduse  (purchase_notes_status_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_status_tree_comment
+msgid "Omaduse  (purchase_notes_status_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_status_tree_help
+msgid "Omaduse  (purchase_notes_status_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_time_tree
+msgid "Omaduse  (purchase_notes_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_time_tree_comment
+msgid "Omaduse  (purchase_notes_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_time_tree_help
+msgid "Omaduse  (purchase_notes_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_prod_tree
+msgid "Omaduse  (purchase_notes_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_prod_tree_comment
+msgid "Omaduse  (purchase_notes_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_prod_tree_help
+msgid "Omaduse  (purchase_notes_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_cust_tree
+msgid "Omaduse  (purchase_notes_cust_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_cust_tree_comment
+msgid "Omaduse  (purchase_notes_cust_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_cust_tree_help
+msgid "Omaduse  (purchase_notes_cust_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_acquiredby
+msgid "Omaduse Tarnija (purchase_notes_s_acquiredby) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_acquiredby_comment
+msgid "Omaduse Tarnija (purchase_notes_s_acquiredby) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_acquiredby_help
+msgid "Omaduse Tarnija (purchase_notes_s_acquiredby) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_number
+msgid "Omaduse Number (purchase_notes_s_number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_number_comment
+msgid "Omaduse Number (purchase_notes_s_number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_number_help
+msgid "Omaduse Number (purchase_notes_s_number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_status
+msgid "Omaduse Staatus (purchase_notes_s_status) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_status_comment
+msgid "Omaduse Staatus (purchase_notes_s_status) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_status_help
+msgid "Omaduse Staatus (purchase_notes_s_status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_from
+msgid "Omaduse Alates (purchase_notes_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_from_comment
+msgid "Omaduse Alates (purchase_notes_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_from_help
+msgid "Omaduse Alates (purchase_notes_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_to
+msgid "Omaduse Kuni (purchase_notes_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_to_comment
+msgid "Omaduse Kuni (purchase_notes_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_to_help
+msgid "Omaduse Kuni (purchase_notes_s_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_article
+msgid "Omaduse Artikkel (purchase_notes_s_article) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_article_comment
+msgid "Omaduse Artikkel (purchase_notes_s_article) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_article_help
+msgid "Omaduse Artikkel (purchase_notes_s_article) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_articlecode
+msgid "Omaduse Artikli kood (purchase_notes_s_articlecode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_articlecode_comment
+msgid "Omaduse Artikli kood (purchase_notes_s_articlecode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_articlecode_help
+msgid "Omaduse Artikli kood (purchase_notes_s_articlecode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_art_cat
+msgid "Omaduse Artikli kategooria (purchase_notes_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_art_cat_comment
+msgid "Omaduse Artikli kategooria (purchase_notes_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_art_cat_help
+msgid "Omaduse Artikli kategooria (purchase_notes_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_sbt
+msgid "Omaduse Otsi (purchase_notes_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_sbt_comment
+msgid "Omaduse Otsi (purchase_notes_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_s_sbt_help
+msgid "Omaduse Otsi (purchase_notes_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes
+msgid "Omaduse  (purchase_notes) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_comment
+msgid "Omaduse  (purchase_notes) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_notes_help
+msgid "Omaduse  (purchase_notes) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_toolbar
+msgid "Omaduse  (purchase_bills_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_toolbar_comment
+msgid "Omaduse  (purchase_bills_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_toolbar_help
+msgid "Omaduse  (purchase_bills_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_status_tree
+msgid "Omaduse  (purchase_bills_status_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_status_tree_comment
+msgid "Omaduse  (purchase_bills_status_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_status_tree_help
+msgid "Omaduse  (purchase_bills_status_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_time_tree
+msgid "Omaduse  (purchase_bills_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_time_tree_comment
+msgid "Omaduse  (purchase_bills_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_time_tree_help
+msgid "Omaduse  (purchase_bills_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_prod_tree
+msgid "Omaduse  (purchase_bills_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_prod_tree_comment
+msgid "Omaduse  (purchase_bills_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_prod_tree_help
+msgid "Omaduse  (purchase_bills_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_cust_tree
+msgid "Omaduse  (purchase_bills_cust_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_cust_tree_comment
+msgid "Omaduse  (purchase_bills_cust_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_cust_tree_help
+msgid "Omaduse  (purchase_bills_cust_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_acquiredby
+msgid "Omaduse Tarnija (purchase_bills_s_acquiredby) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_acquiredby_comment
+msgid "Omaduse Tarnija (purchase_bills_s_acquiredby) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_acquiredby_help
+msgid "Omaduse Tarnija (purchase_bills_s_acquiredby) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_number
+msgid "Omaduse Number (purchase_bills_s_number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_number_comment
+msgid "Omaduse Number (purchase_bills_s_number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_number_help
+msgid "Omaduse Number (purchase_bills_s_number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_status
+msgid "Omaduse Staatus (purchase_bills_s_status) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_status_comment
+msgid "Omaduse Staatus (purchase_bills_s_status) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_status_help
+msgid "Omaduse Staatus (purchase_bills_s_status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_from
+msgid "Omaduse Alates (purchase_bills_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_from_comment
+msgid "Omaduse Alates (purchase_bills_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_from_help
+msgid "Omaduse Alates (purchase_bills_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_to
+msgid "Omaduse Kuni (purchase_bills_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_to_comment
+msgid "Omaduse Kuni (purchase_bills_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_to_help
+msgid "Omaduse Kuni (purchase_bills_s_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_article
+msgid "Omaduse Artikkel (purchase_bills_s_article) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_article_comment
+msgid "Omaduse Artikkel (purchase_bills_s_article) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_article_help
+msgid "Omaduse Artikkel (purchase_bills_s_article) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_articlecode
+msgid "Omaduse Artikli kood (purchase_bills_s_articlecode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_articlecode_comment
+msgid "Omaduse Artikli kood (purchase_bills_s_articlecode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_articlecode_help
+msgid "Omaduse Artikli kood (purchase_bills_s_articlecode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_art_cat
+msgid "Omaduse Artikli kategooria (purchase_bills_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_art_cat_comment
+msgid "Omaduse Artikli kategooria (purchase_bills_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_art_cat_help
+msgid "Omaduse Artikli kategooria (purchase_bills_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_sbt
+msgid "Omaduse Otsi (purchase_bills_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_sbt_comment
+msgid "Omaduse Otsi (purchase_bills_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_s_sbt_help
+msgid "Omaduse Otsi (purchase_bills_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills
+msgid "Omaduse  (purchase_bills) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_comment
+msgid "Omaduse  (purchase_bills) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_purchase_bills_help
+msgid "Omaduse  (purchase_bills) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_toolbar
+msgid "Omaduse  (sell_orders_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_toolbar_comment
+msgid "Omaduse  (sell_orders_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_toolbar_help
+msgid "Omaduse  (sell_orders_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_tree
+msgid "Omaduse  (sell_orders_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_tree_comment
+msgid "Omaduse  (sell_orders_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_tree_help
+msgid "Omaduse  (sell_orders_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_time_tree
+msgid "Omaduse  (sell_orders_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_time_tree_comment
+msgid "Omaduse  (sell_orders_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_time_tree_help
+msgid "Omaduse  (sell_orders_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_cust_tree
+msgid "Omaduse  (sell_orders_cust_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_cust_tree_comment
+msgid "Omaduse  (sell_orders_cust_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_cust_tree_help
+msgid "Omaduse  (sell_orders_cust_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_buyer
+msgid "Omaduse Ostja (sell_orders_s_buyer) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_buyer_comment
+msgid "Omaduse Ostja (sell_orders_s_buyer) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_buyer_help
+msgid "Omaduse Ostja (sell_orders_s_buyer) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_number
+msgid "Omaduse Number (sell_orders_s_number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_number_comment
+msgid "Omaduse Number (sell_orders_s_number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_number_help
+msgid "Omaduse Number (sell_orders_s_number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_status
+msgid "Omaduse Staatus (sell_orders_s_status) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_status_comment
+msgid "Omaduse Staatus (sell_orders_s_status) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_status_help
+msgid "Omaduse Staatus (sell_orders_s_status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_from
+msgid "Omaduse Alates (sell_orders_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_from_comment
+msgid "Omaduse Alates (sell_orders_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_from_help
+msgid "Omaduse Alates (sell_orders_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_to
+msgid "Omaduse Kuni (sell_orders_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_to_comment
+msgid "Omaduse Kuni (sell_orders_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_to_help
+msgid "Omaduse Kuni (sell_orders_s_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_art
+msgid "Omaduse Artikkel (sell_orders_s_art) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_art_comment
+msgid "Omaduse Artikkel (sell_orders_s_art) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_art_help
+msgid "Omaduse Artikkel (sell_orders_s_art) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_art_cat
+msgid "Omaduse Artikli kategooria (sell_orders_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_art_cat_comment
+msgid "Omaduse Artikli kategooria (sell_orders_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_art_cat_help
+msgid "Omaduse Artikli kategooria (sell_orders_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_sbt
+msgid "Omaduse Otsi (sell_orders_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_sbt_comment
+msgid "Omaduse Otsi (sell_orders_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_s_sbt_help
+msgid "Omaduse Otsi (sell_orders_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders
+msgid "Omaduse M&uuml;&uuml;gitellimused (sell_orders) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_comment
+msgid "Omaduse M&uuml;&uuml;gitellimused (sell_orders) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sell_orders_help
+msgid "Omaduse M&uuml;&uuml;gitellimused (sell_orders) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_toolbar
+msgid "Omaduse  (campaigns_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_toolbar_comment
+msgid "Omaduse  (campaigns_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_toolbar_help
+msgid "Omaduse  (campaigns_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_time_tree
+msgid "Omaduse  (campaigns_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_time_tree_comment
+msgid "Omaduse  (campaigns_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_time_tree_help
+msgid "Omaduse  (campaigns_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_groups_tree
+msgid "Omaduse  (campaigns_groups_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_groups_tree_comment
+msgid "Omaduse  (campaigns_groups_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_groups_tree_help
+msgid "Omaduse  (campaigns_groups_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_product_tree
+msgid "Omaduse  (campaigns_product_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_product_tree_comment
+msgid "Omaduse  (campaigns_product_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_product_tree_help
+msgid "Omaduse  (campaigns_product_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns
+msgid "Omaduse Kampaaniad (campaigns) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_comment
+msgid "Omaduse Kampaaniad (campaigns) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_campaigns_help
+msgid "Omaduse Kampaaniad (campaigns) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_toolbar
+msgid "Omaduse  (sales_notes_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_toolbar_comment
+msgid "Omaduse  (sales_notes_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_toolbar_help
+msgid "Omaduse  (sales_notes_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_status_tree
+msgid "Omaduse  (sales_notes_status_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_status_tree_comment
+msgid "Omaduse  (sales_notes_status_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_status_tree_help
+msgid "Omaduse  (sales_notes_status_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_time_tree
+msgid "Omaduse  (sales_notes_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_time_tree_comment
+msgid "Omaduse  (sales_notes_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_time_tree_help
+msgid "Omaduse  (sales_notes_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_prod_tree
+msgid "Omaduse  (sales_notes_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_prod_tree_comment
+msgid "Omaduse  (sales_notes_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_prod_tree_help
+msgid "Omaduse  (sales_notes_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_cust_tree
+msgid "Omaduse  (sales_notes_cust_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_cust_tree_comment
+msgid "Omaduse  (sales_notes_cust_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_cust_tree_help
+msgid "Omaduse  (sales_notes_cust_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_acquiredby
+msgid "Omaduse Tarnija (sales_notes_s_acquiredby) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_acquiredby_comment
+msgid "Omaduse Tarnija (sales_notes_s_acquiredby) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_acquiredby_help
+msgid "Omaduse Tarnija (sales_notes_s_acquiredby) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_number
+msgid "Omaduse Number (sales_notes_s_number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_number_comment
+msgid "Omaduse Number (sales_notes_s_number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_number_help
+msgid "Omaduse Number (sales_notes_s_number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_status
+msgid "Omaduse Staatus (sales_notes_s_status) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_status_comment
+msgid "Omaduse Staatus (sales_notes_s_status) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_status_help
+msgid "Omaduse Staatus (sales_notes_s_status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_from
+msgid "Omaduse Alates (sales_notes_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_from_comment
+msgid "Omaduse Alates (sales_notes_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_from_help
+msgid "Omaduse Alates (sales_notes_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_to
+msgid "Omaduse Kuni (sales_notes_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_to_comment
+msgid "Omaduse Kuni (sales_notes_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_to_help
+msgid "Omaduse Kuni (sales_notes_s_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_article
+msgid "Omaduse Artikkel (sales_notes_s_article) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_article_comment
+msgid "Omaduse Artikkel (sales_notes_s_article) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_article_help
+msgid "Omaduse Artikkel (sales_notes_s_article) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_articlecode
+msgid "Omaduse Artikli kood (sales_notes_s_articlecode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_articlecode_comment
+msgid "Omaduse Artikli kood (sales_notes_s_articlecode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_articlecode_help
+msgid "Omaduse Artikli kood (sales_notes_s_articlecode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_art_cat
+msgid "Omaduse Artikli kategooria (sales_notes_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_art_cat_comment
+msgid "Omaduse Artikli kategooria (sales_notes_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_art_cat_help
+msgid "Omaduse Artikli kategooria (sales_notes_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_sbt
+msgid "Omaduse Otsi (sales_notes_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_sbt_comment
+msgid "Omaduse Otsi (sales_notes_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_s_sbt_help
+msgid "Omaduse Otsi (sales_notes_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes
+msgid "Omaduse  (sales_notes) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_comment
+msgid "Omaduse  (sales_notes) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_notes_help
+msgid "Omaduse  (sales_notes) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_toolbar
+msgid "Omaduse  (sales_bills_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_toolbar_comment
+msgid "Omaduse  (sales_bills_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_toolbar_help
+msgid "Omaduse  (sales_bills_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_status_tree
+msgid "Omaduse  (sales_bills_status_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_status_tree_comment
+msgid "Omaduse  (sales_bills_status_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_status_tree_help
+msgid "Omaduse  (sales_bills_status_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_time_tree
+msgid "Omaduse  (sales_bills_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_time_tree_comment
+msgid "Omaduse  (sales_bills_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_time_tree_help
+msgid "Omaduse  (sales_bills_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_prod_tree
+msgid "Omaduse  (sales_bills_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_prod_tree_comment
+msgid "Omaduse  (sales_bills_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_prod_tree_help
+msgid "Omaduse  (sales_bills_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_cust_tree
+msgid "Omaduse  (sales_bills_cust_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_cust_tree_comment
+msgid "Omaduse  (sales_bills_cust_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_cust_tree_help
+msgid "Omaduse  (sales_bills_cust_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_acquiredby
+msgid "Omaduse Tarnija (sales_bills_s_acquiredby) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_acquiredby_comment
+msgid "Omaduse Tarnija (sales_bills_s_acquiredby) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_acquiredby_help
+msgid "Omaduse Tarnija (sales_bills_s_acquiredby) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_number
+msgid "Omaduse Number (sales_bills_s_number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_number_comment
+msgid "Omaduse Number (sales_bills_s_number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_number_help
+msgid "Omaduse Number (sales_bills_s_number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_status
+msgid "Omaduse Staatus (sales_bills_s_status) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_status_comment
+msgid "Omaduse Staatus (sales_bills_s_status) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_status_help
+msgid "Omaduse Staatus (sales_bills_s_status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_from
+msgid "Omaduse Alates (sales_bills_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_from_comment
+msgid "Omaduse Alates (sales_bills_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_from_help
+msgid "Omaduse Alates (sales_bills_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_to
+msgid "Omaduse Kuni (sales_bills_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_to_comment
+msgid "Omaduse Kuni (sales_bills_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_to_help
+msgid "Omaduse Kuni (sales_bills_s_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_article
+msgid "Omaduse Artikkel (sales_bills_s_article) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_article_comment
+msgid "Omaduse Artikkel (sales_bills_s_article) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_article_help
+msgid "Omaduse Artikkel (sales_bills_s_article) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_articlecode
+msgid "Omaduse Artikli kood (sales_bills_s_articlecode) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_articlecode_comment
+msgid "Omaduse Artikli kood (sales_bills_s_articlecode) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_articlecode_help
+msgid "Omaduse Artikli kood (sales_bills_s_articlecode) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_art_cat
+msgid "Omaduse Artikli kategooria (sales_bills_s_art_cat) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_art_cat_comment
+msgid "Omaduse Artikli kategooria (sales_bills_s_art_cat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_art_cat_help
+msgid "Omaduse Artikli kategooria (sales_bills_s_art_cat) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_sbt
+msgid "Omaduse Otsi (sales_bills_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_sbt_comment
+msgid "Omaduse Otsi (sales_bills_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_s_sbt_help
+msgid "Omaduse Otsi (sales_bills_s_sbt) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills
+msgid "Omaduse  (sales_bills) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_comment
+msgid "Omaduse  (sales_bills) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_sales_bills_help
+msgid "Omaduse  (sales_bills) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_toolbar
+msgid "Omaduse  (clients_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_toolbar_comment
+msgid "Omaduse  (clients_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_toolbar_help
+msgid "Omaduse  (clients_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_groups_tree
+msgid "Omaduse  (clients_groups_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_groups_tree_comment
+msgid "Omaduse  (clients_groups_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_groups_tree_help
+msgid "Omaduse  (clients_groups_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_alphabet_tree
+msgid "Omaduse  (clients_alphabet_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_alphabet_tree_comment
+msgid "Omaduse  (clients_alphabet_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_alphabet_tree_help
+msgid "Omaduse  (clients_alphabet_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_tbl
+msgid "Omaduse  (clients_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_tbl_comment
+msgid "Omaduse  (clients_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_clients_tbl_help
+msgid "Omaduse  (clients_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_toolbar
+msgid "Omaduse  (shop_orders_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_toolbar_comment
+msgid "Omaduse  (shop_orders_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_toolbar_help
+msgid "Omaduse  (shop_orders_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_tree
+msgid "Omaduse  (shop_orders_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_tree_comment
+msgid "Omaduse  (shop_orders_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_tree_help
+msgid "Omaduse  (shop_orders_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_uname
+msgid "Omaduse Tellija kasutajanimi (shop_orders_s_uname) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_uname_comment
+msgid "Omaduse Tellija kasutajanimi (shop_orders_s_uname) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_uname_help
+msgid "Omaduse Tellija kasutajanimi (shop_orders_s_uname) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_pname
+msgid "Omaduse Tellija isikunimi (shop_orders_s_pname) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_pname_comment
+msgid "Omaduse Tellija isikunimi (shop_orders_s_pname) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_pname_help
+msgid "Omaduse Tellija isikunimi (shop_orders_s_pname) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_oname
+msgid "Omaduse Organisatsiooni nimi (shop_orders_s_oname) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_oname_comment
+msgid "Omaduse Organisatsiooni nimi (shop_orders_s_oname) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_oname_help
+msgid "Omaduse Organisatsiooni nimi (shop_orders_s_oname) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_oid
+msgid "Omaduse Tellimuse ID (shop_orders_s_oid) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_oid_comment
+msgid "Omaduse Tellimuse ID (shop_orders_s_oid) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_oid_help
+msgid "Omaduse Tellimuse ID (shop_orders_s_oid) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_prod
+msgid "Omaduse Toote nimi (shop_orders_s_prod) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_prod_comment
+msgid "Omaduse Toote nimi (shop_orders_s_prod) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_prod_help
+msgid "Omaduse Toote nimi (shop_orders_s_prod) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_from
+msgid "Omaduse Tellimuse ajavahemik (alates) (shop_orders_s_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_from_comment
+msgid "Omaduse Tellimuse ajavahemik (alates) (shop_orders_s_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_from_help
+msgid "Omaduse Tellimuse ajavahemik (alates) (shop_orders_s_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_to
+msgid "Omaduse Tellimuse ajavahemik (kuni) (shop_orders_s_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_to_comment
+msgid "Omaduse Tellimuse ajavahemik (kuni) (shop_orders_s_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_s_to_help
+msgid "Omaduse Tellimuse ajavahemik (kuni) (shop_orders_s_to) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_submit
+#: classes/applications/shop/shop_warehouse.aw:prop_osearch_submit
+msgid "Omaduse Otsi (osearch_submit) caption"
+msgstr "Search"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_submit_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_osearch_submit_comment
+msgid "Omaduse Otsi (osearch_submit) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_submit_help
+#: classes/applications/shop/shop_warehouse.aw:prop_osearch_submit_help
+msgid "Omaduse Otsi (osearch_submit) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_table
+msgid "Omaduse  (shop_orders_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_table_comment
+msgid "Omaduse  (shop_orders_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_shop_orders_table_help
+msgid "Omaduse  (shop_orders_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_order_undone_tb
+msgid "Omaduse  (order_undone_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_order_undone_tb_comment
+msgid "Omaduse  (order_undone_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_order_undone_tb_help
+msgid "Omaduse  (order_undone_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_order_undone
+msgid "Omaduse  (order_undone) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_order_undone_comment
+msgid "Omaduse  (order_undone) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_order_undone_help
+msgid "Omaduse  (order_undone) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_tree
+#: classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_tree
+msgid "Omaduse  (order_orderer_cos_tree) caption"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_tree_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_tree_comment
+msgid "Omaduse  (order_orderer_cos_tree) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_tree_help
+#: classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_tree_help
+msgid "Omaduse  (order_orderer_cos_tree) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos
+#: classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos
+msgid "Omaduse  (order_orderer_cos) caption"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_comment
+msgid "Omaduse  (order_orderer_cos) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_help
+#: classes/applications/shop/shop_warehouse.aw:prop_order_orderer_cos_help
+msgid "Omaduse  (order_orderer_cos) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_tb
+#: classes/applications/shop/shop_warehouse.aw:prop_search_tb
+msgid "Omaduse Otsingu toolbar (search_tb) caption"
+msgstr "Search toolbar"
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_tb_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_search_tb_comment
+msgid "Omaduse Otsingu toolbar (search_tb) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_tb_help
+#: classes/applications/shop/shop_warehouse.aw:prop_search_tb_help
+msgid "Omaduse Otsingu toolbar (search_tb) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_form
+#: classes/applications/shop/shop_warehouse.aw:prop_search_form
+msgid "Omaduse Otsinguvorm (search_form) caption"
+msgstr "Search form"
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_form_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_search_form_comment
+msgid "Omaduse Otsinguvorm (search_form) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_form_help
+#: classes/applications/shop/shop_warehouse.aw:prop_search_form_help
+msgid "Omaduse Otsinguvorm (search_form) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_res
+#: classes/applications/shop/shop_warehouse.aw:prop_search_res
+msgid "Omaduse Otsingu tulemused (search_res) caption"
+msgstr "Search results"
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_res_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_search_res_comment
+msgid "Omaduse Otsingu tulemused (search_res) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_res_help
+#: classes/applications/shop/shop_warehouse.aw:prop_search_res_help
+msgid "Omaduse Otsingu tulemused (search_res) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_text
+#: classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_text
+msgid "Omaduse Hetke tellimus text (search_cur_ord_text) caption"
+msgstr "Current order text"
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_text_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_text_comment
+msgid "Omaduse Hetke tellimus text (search_cur_ord_text) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_text_help
+#: classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_text_help
+msgid "Omaduse Hetke tellimus text (search_cur_ord_text) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord
+#: classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord
+msgid "Omaduse Hetke tellimus tabel (search_cur_ord) caption"
+msgstr "Current order table"
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_comment
+msgid "Omaduse Hetke tellimus tabel (search_cur_ord) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_help
+#: classes/applications/shop/shop_warehouse.aw:prop_search_cur_ord_help
+msgid "Omaduse Hetke tellimus tabel (search_cur_ord) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_toolbar
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_toolbar
+msgid "Omaduse  (order_current_toolbar) caption"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_toolbar_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_toolbar_comment
+msgid "Omaduse  (order_current_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_toolbar_help
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_toolbar_help
+msgid "Omaduse  (order_current_toolbar) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_table
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_table
+msgid "Omaduse  (order_current_table) caption"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_table_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_table_comment
+msgid "Omaduse  (order_current_table) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_table_help
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_table_help
+msgid "Omaduse  (order_current_table) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_org
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_org
+msgid "Omaduse Tellija organisatsioon (order_current_org) caption"
+msgstr "Orderer company"
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_org_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_org_comment
+msgid "Omaduse Tellija organisatsioon (order_current_org) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_org_help
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_org_help
+msgid "Omaduse Tellija organisatsioon (order_current_org) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_person
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_person
+msgid "Omaduse Tellija isik (order_current_person) caption"
+msgstr "Orderer person"
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_person_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_person_comment
+msgid "Omaduse Tellija isik (order_current_person) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_person_help
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_person_help
+msgid "Omaduse Tellija isik (order_current_person) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_form
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_form
+msgid "Omaduse Tellimuse info vorm (order_current_form) caption"
+msgstr "Order info form"
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_form_comment
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_form_comment
+msgid "Omaduse Tellimuse info vorm (order_current_form) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_order_current_form_help
+#: classes/applications/shop/shop_warehouse.aw:prop_order_current_form_help
+msgid "Omaduse Tellimuse info vorm (order_current_form) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_toolbar
+msgid "Omaduse  (stats_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_toolbar_comment
+msgid "Omaduse  (stats_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_toolbar_help
+msgid "Omaduse  (stats_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_time_tree
+msgid "Omaduse  (stats_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_time_tree_comment
+msgid "Omaduse  (stats_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_time_tree_help
+msgid "Omaduse  (stats_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_prod_tree
+msgid "Omaduse  (stats_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_prod_tree_comment
+msgid "Omaduse  (stats_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_prod_tree_help
+msgid "Omaduse  (stats_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_cat_tree
+msgid "Omaduse  (stats_cat_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_cat_tree_comment
+msgid "Omaduse  (stats_cat_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_cat_tree_help
+msgid "Omaduse  (stats_cat_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_table
+msgid "Omaduse Statistika tabel (stats_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_table_comment
+msgid "Omaduse Statistika tabel (stats_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_table_help
+msgid "Omaduse Statistika tabel (stats_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_toolbar
+msgid "Omaduse  (stats_balance_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_toolbar_comment
+msgid "Omaduse  (stats_balance_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_toolbar_help
+msgid "Omaduse  (stats_balance_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_time_tree
+msgid "Omaduse  (stats_balance_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_time_tree_comment
+msgid "Omaduse  (stats_balance_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_time_tree_help
+msgid "Omaduse  (stats_balance_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_prod_tree
+msgid "Omaduse  (stats_balance_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_prod_tree_comment
+msgid "Omaduse  (stats_balance_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_prod_tree_help
+msgid "Omaduse  (stats_balance_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_cat_tree
+msgid "Omaduse  (stats_balance_cat_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_cat_tree_comment
+msgid "Omaduse  (stats_balance_cat_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_cat_tree_help
+msgid "Omaduse  (stats_balance_cat_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_table
+msgid "Omaduse Statistika tabel (stats_balance_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_table_comment
+msgid "Omaduse Statistika tabel (stats_balance_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_balance_table_help
+msgid "Omaduse Statistika tabel (stats_balance_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_toolbar
+msgid "Omaduse  (stats_day_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_toolbar_comment
+msgid "Omaduse  (stats_day_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_toolbar_help
+msgid "Omaduse  (stats_day_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_tree
+msgid "Omaduse  (stats_day_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_tree_comment
+msgid "Omaduse  (stats_day_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_tree_help
+msgid "Omaduse  (stats_day_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_time_tree
+msgid "Omaduse  (stats_day_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_time_tree_comment
+msgid "Omaduse  (stats_day_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_time_tree_help
+msgid "Omaduse  (stats_day_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_prod_tree
+msgid "Omaduse  (stats_day_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_prod_tree_comment
+msgid "Omaduse  (stats_day_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_prod_tree_help
+msgid "Omaduse  (stats_day_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_cat_tree
+msgid "Omaduse  (stats_day_cat_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_cat_tree_comment
+msgid "Omaduse  (stats_day_cat_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_cat_tree_help
+msgid "Omaduse  (stats_day_cat_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_table
+msgid "Omaduse Statistika tabel (stats_day_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_table_comment
+msgid "Omaduse Statistika tabel (stats_day_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_day_table_help
+msgid "Omaduse Statistika tabel (stats_day_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_toolbar
+msgid "Omaduse  (stats_inventory_repair_toolbar) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_toolbar_comment
+msgid "Omaduse  (stats_inventory_repair_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_toolbar_help
+msgid "Omaduse  (stats_inventory_repair_toolbar) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_time_tree
+msgid "Omaduse  (stats_inventory_repair_time_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_time_tree_comment
+msgid "Omaduse  (stats_inventory_repair_time_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_time_tree_help
+msgid "Omaduse  (stats_inventory_repair_time_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_prod_tree
+msgid "Omaduse  (stats_inventory_repair_prod_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_prod_tree_comment
+msgid "Omaduse  (stats_inventory_repair_prod_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_prod_tree_help
+msgid "Omaduse  (stats_inventory_repair_prod_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_cat_tree
+msgid "Omaduse  (stats_inventory_repair_cat_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_cat_tree_comment
+msgid "Omaduse  (stats_inventory_repair_cat_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_repair_cat_tree_help
+msgid "Omaduse  (stats_inventory_repair_cat_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_rapair_table
+msgid "Omaduse Statistika tabel (stats_inventory_rapair_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_rapair_table_comment
+msgid "Omaduse Statistika tabel (stats_inventory_rapair_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:prop_stats_inventory_rapair_table_help
+msgid "Omaduse Statistika tabel (stats_inventory_rapair_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_general_sub
+msgid "Grupi &Uuml;ldine (general_sub) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_general_sub_help
+msgid "Grupi &Uuml;ldine (general_sub) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_general_settings
+msgid "Grupi Seaded (general_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_general_settings_help
+msgid "Grupi Seaded (general_settings) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:group_productgroups
+#: classes/applications/shop/shop_warehouse.aw:group_productgroups
+msgid "Grupi Tootegrupid (productgroups) pealkiri"
+msgstr "Product groups"
+
+# classes/applications/shop/shop_warehouse.aw:group_productgroups_help
+#: classes/applications/shop/shop_warehouse.aw:group_productgroups_help
+msgid "Grupi Tootegrupid (productgroups) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_search_search
+msgid "Grupi A Otsing (search_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_search_search_help
+msgid "Grupi A Otsing (search_search) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_order_current
+msgid "Grupi A Pakkumine (order_current) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_order_current_help
+msgid "Grupi A Pakkumine (order_current) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_articles
+msgid "Grupi Artiklid (articles) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_articles_help
+msgid "Grupi Artiklid (articles) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_product_management
+msgid "Grupi Artiklid (product_management) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_product_management_help
+msgid "Grupi Artiklid (product_management) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_category
+msgid "Grupi Tootekategooriad (category) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_category_help
+msgid "Grupi Tootekategooriad (category) help"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:group_packets
+#: classes/applications/shop/shop_warehouse.aw:group_packets
+msgid "Grupi Paketid (packets) pealkiri"
+msgstr "Packets"
+
+# classes/applications/shop/shop_warehouse.aw:group_packets_help
+#: classes/applications/shop/shop_warehouse.aw:group_packets_help
+msgid "Grupi Paketid (packets) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_brand
+msgid "Grupi Kaubam&auml;rk (brand) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_brand_help
+msgid "Grupi Kaubam&auml;rk (brand) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_products
+msgid "Grupi A Artiklid (products) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_products_help
+msgid "Grupi A Artiklid (products) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_status
+msgid "Grupi Laoseis (status) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_status_help
+msgid "Grupi Laoseis (status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_status_status
+msgid "Grupi Laoseis (status_status) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_status_status_help
+msgid "Grupi Laoseis (status_status) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_storage_movements
+msgid "Grupi Liikumised (storage_movements) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_storage_movements_help
+msgid "Grupi Liikumised (storage_movements) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_storage_writeoffs
+msgid "Grupi Mahakandmised (storage_writeoffs) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_storage_writeoffs_help
+msgid "Grupi Mahakandmised (storage_writeoffs) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_status_inventories
+msgid "Grupi Inventuurid (status_inventories) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_status_inventories_help
+msgid "Grupi Inventuurid (status_inventories) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_status_orders
+msgid "Grupi Vajadused (status_orders) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_status_orders_help
+msgid "Grupi Vajadused (status_orders) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchases
+msgid "Grupi Ost (purchases) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchases_help
+msgid "Grupi Ost (purchases) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchase_orders
+msgid "Grupi Ostutellimused (purchase_orders) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchase_orders_help
+msgid "Grupi Ostutellimused (purchase_orders) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchase_notes
+msgid "Grupi Ostusaatelehed (purchase_notes) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchase_notes_help
+msgid "Grupi Ostusaatelehed (purchase_notes) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchase_bills
+msgid "Grupi Ostuarved (purchase_bills) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchase_bills_help
+msgid "Grupi Ostuarved (purchase_bills) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchase_clients
+msgid "Grupi Ostukliendid (purchase_clients) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_purchase_clients_help
+msgid "Grupi Ostukliendid (purchase_clients) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_arrivals
+msgid "Grupi Tarneajad (arrivals) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_arrivals_help
+msgid "Grupi Tarneajad (arrivals) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_arrivals_by_company
+msgid "Grupi Firmade tarneajad (arrivals_by_company) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_arrivals_by_company_help
+msgid "Grupi Firmade tarneajad (arrivals_by_company) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sales
+msgid "Grupi M&uuml;&uuml;k (sales) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sales_help
+msgid "Grupi M&uuml;&uuml;k (sales) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sell_orders
+msgid "Grupi M&uuml;&uuml;gitellimused (sell_orders) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sell_orders_help
+msgid "Grupi M&uuml;&uuml;gitellimused (sell_orders) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sales_notes
+msgid "Grupi M&uuml;&uuml;gisaatelehed (sales_notes) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sales_notes_help
+msgid "Grupi M&uuml;&uuml;gisaatelehed (sales_notes) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sales_bills
+msgid "Grupi M&uuml;&uuml;giarved (sales_bills) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sales_bills_help
+msgid "Grupi M&uuml;&uuml;giarved (sales_bills) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sales_clients
+msgid "Grupi M&uuml;&uuml;gikliendid (sales_clients) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_sales_clients_help
+msgid "Grupi M&uuml;&uuml;gikliendid (sales_clients) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_shop_orders
+msgid "Grupi Poe tellimused (shop_orders) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_shop_orders_help
+msgid "Grupi Poe tellimused (shop_orders) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_order_undone
+msgid "Grupi T&auml;itmata poe tellimused (order_undone) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_order_undone_help
+msgid "Grupi T&auml;itmata poe tellimused (order_undone) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_order_orderer_cos
+msgid "Grupi A Tellijad (order_orderer_cos) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_order_orderer_cos_help
+msgid "Grupi A Tellijad (order_orderer_cos) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_campaigns
+msgid "Grupi Kampaaniad (campaigns) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_campaigns_help
+msgid "Grupi Kampaaniad (campaigns) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats
+msgid "Grupi Aruanded (stats) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats_help
+msgid "Grupi Aruanded (stats) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats_general
+msgid "Grupi &Uuml;ldine aruanne (stats_general) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats_general_help
+msgid "Grupi &Uuml;ldine aruanne (stats_general) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats_balance
+msgid "Grupi Saldo aruanne (stats_balance) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats_balance_help
+msgid "Grupi Saldo aruanne (stats_balance) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats_day
+msgid "Grupi P&auml;evade aruanne (stats_day) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats_day_help
+msgid "Grupi P&auml;evade aruanne (stats_day) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats_inventory_repair
+msgid "Grupi Inventuuri parandused (stats_inventory_repair) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:group_stats_inventory_repair_help
+msgid "Grupi Inventuuri parandused (stats_inventory_repair) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_CONFIG
+msgid "Seose Konfiguratsioon (RELTYPE_CONFIG) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_PRODUCT
+msgid "Seose Toode (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_PACKET
+msgid "Seose Pakett (RELTYPE_PACKET) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_STORAGE_INCOME
+msgid "Seose Lao sissetulek (RELTYPE_STORAGE_INCOME) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_STORAGE_EXPORT
+msgid "Seose Lao v&auml;jaminek (RELTYPE_STORAGE_EXPORT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_ORDER
+msgid "Seose Tellimus (RELTYPE_ORDER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_ORDER_CENTER
+msgid "Seose Tellimiskeskkond (RELTYPE_ORDER_CENTER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_EMAIL
+msgid "Seose Saada tellimused (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_CFGMANAGER
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_CFGMANAGER
+msgid "Seose Seadete haldur (RELTYPE_CFGMANAGER) tekst"
+msgstr "configuration mananger"
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_CAT_ENTRY_FORM
+msgid "Seose Kategooria lisamise vorm (RELTYPE_CAT_ENTRY_FORM) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_PURCHASE_ORDER
+msgid "Seose Ostutellimus (RELTYPE_PURCHASE_ORDER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_SELL_ORDER
+msgid "Seose M&uuml;&uuml;gitellimus (RELTYPE_SELL_ORDER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_INVENTORY
+msgid "Seose Inventuur (RELTYPE_INVENTORY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_productgroups_l
+msgid "Kujundusosa Tootegrupid (productgroups_l) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_product_managementtree_lay
+msgid "Kujundusosa Tooted (product_managementtree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_product_managementtree_lay2
+msgid "Kujundusosa Kategooriate&nbsp;t&uuml;&uuml;bid (product_managementtree_lay2) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_product_managementleft_search
+msgid "Kujundusosa Otsing (product_managementleft_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_prod_tree_lay
+msgid "Kujundusosa Toodete&nbsp;puu (prod_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_prod_left_search
+msgid "Kujundusosa Otsing (prod_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_category_treel
+msgid "Kujundusosa Kategooriad (category_treel) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_packets_tree_lay
+msgid "Kujundusosa Pakettide&nbsp;puu (packets_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_packets_tree_lay2
+msgid "Kujundusosa Kategooriate&nbsp;t&uuml;&uuml;bid (packets_tree_lay2) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_packets_left_search
+msgid "Kujundusosa Otsing (packets_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_brand_list
+msgid "Kujundusosa Kaubam&auml;rkide&nbsp;nimekiri (brand_list) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_arrival_prod_tree_lay
+msgid "Kujundusosa Toodete&nbsp;puu (arrival_prod_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_arrival_prod_left_search
+msgid "Kujundusosa Otsing (arrival_prod_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_storage_movements_tree_lay
+msgid "Kujundusosa Filtreeri (storage_movements_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_storage_movements_left_search
+msgid "Kujundusosa Otsing (storage_movements_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_storage_writeoffs_tree_lay
+msgid "Kujundusosa Filtreeri (storage_writeoffs_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_storage_writeoffs_left_search
+msgid "Kujundusosa Otsing (storage_writeoffs_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_storage_status_tree_lay
+msgid "Kujundusosa Filtreeri (storage_status_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_storage_status_left_search
+msgid "Kujundusosa Otsing (storage_status_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_storage_inventories_tree_lay
+msgid "Kujundusosa Filtreeri (storage_inventories_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_storage_inventories_left_search
+msgid "Kujundusosa Otsing (storage_inventories_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_status_orders_time_tree_lay
+msgid "Kujundusosa Vali&nbsp;ajavahemik (status_orders_time_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_status_orders_case_tree_lay
+msgid "Kujundusosa Vali&nbsp;tellimus (status_orders_case_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_status_orders_prod_tree_lay
+msgid "Kujundusosa Vali&nbsp;tootegrupp (status_orders_prod_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_status_orders_res_tree_lay
+msgid "Kujundusosa Vali&nbsp;ressurss (status_orders_res_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_status_orders_opt_lay
+msgid "Kujundusosa Lisavalikud (status_orders_opt_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_status_orders_left_search
+msgid "Kujundusosa Otsing (status_orders_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_orders_tree_lay
+msgid "Kujundusosa Filtreeri&nbsp;staatuse&nbsp;j&auml;rgi (purchase_orders_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_orders_time_lay
+msgid "Kujundusosa Filtreeri&nbsp;ajavahemiku&nbsp;j&auml;rgi (purchase_orders_time_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_orders_cust_lay
+msgid "Kujundusosa Filtreeri&nbsp;kliendigrupi&nbsp;j&auml;rgi (purchase_orders_cust_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_orders_left_search
+msgid "Kujundusosa Otsing (purchase_orders_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_notes_status
+msgid "Kujundusosa Filtreeri&nbsp;staatuse&nbsp;j&auml;rgi (purchase_notes_status) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_notes_time
+msgid "Kujundusosa Filtreeri&nbsp;perioodi&nbsp;j&auml;rgi (purchase_notes_time) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_notes_prod
+msgid "Kujundusosa Filtreeri&nbsp;tootegrupi&nbsp;j&auml;rgi (purchase_notes_prod) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_notes_cust
+msgid "Kujundusosa Filtreeri&nbsp;kliendigrupi&nbsp;j&auml;rgi (purchase_notes_cust) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_notes_left_search
+msgid "Kujundusosa Filtreeri&nbsp;otsinguga (purchase_notes_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_bills_status
+msgid "Kujundusosa Filtreeri&nbsp;staatuse&nbsp;j&auml;rgi (purchase_bills_status) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_bills_time
+msgid "Kujundusosa Filtreeri&nbsp;perioodi&nbsp;j&auml;rgi (purchase_bills_time) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_bills_prod
+msgid "Kujundusosa Filtreeri&nbsp;tootegrupi&nbsp;j&auml;rgi (purchase_bills_prod) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_bills_cust
+msgid "Kujundusosa Filtreeri&nbsp;kliendigrupi&nbsp;j&auml;rgi (purchase_bills_cust) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_purchase_bills_left_search
+msgid "Kujundusosa Filtreeri&nbsp;otsinguga (purchase_bills_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sell_orders_tree_lay
+msgid "Kujundusosa Filtreeri (sell_orders_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sell_orders_time_lay
+msgid "Kujundusosa Filtreeri&nbsp;ajavahemiku&nbsp;j&auml;rgi (sell_orders_time_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sell_orders_cust_lay
+msgid "Kujundusosa Filtreeri&nbsp;kliendigrupi&nbsp;j&auml;rgi (sell_orders_cust_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sell_orders_left_search
+msgid "Kujundusosa Otsing (sell_orders_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_campaigns_time_lay
+msgid "Kujundusosa Ajavahemik (campaigns_time_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_campaigns_cust_lay
+msgid "Kujundusosa Kasutajagrupid (campaigns_cust_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_campaigns_product_lay
+msgid "Kujundusosa Tooted (campaigns_product_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_notes_status
+msgid "Kujundusosa Filtreeri&nbsp;staatuse&nbsp;j&auml;rgi (sales_notes_status) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_notes_time
+msgid "Kujundusosa Filtreeri&nbsp;perioodi&nbsp;j&auml;rgi (sales_notes_time) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_notes_prod
+msgid "Kujundusosa Filtreeri&nbsp;tootegrupi&nbsp;j&auml;rgi (sales_notes_prod) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_notes_cust
+msgid "Kujundusosa Filtreeri&nbsp;kliendigrupi&nbsp;j&auml;rgi (sales_notes_cust) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_notes_left_search
+msgid "Kujundusosa Filtreeri&nbsp;otsinguga (sales_notes_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_bills_status
+msgid "Kujundusosa Filtreeri&nbsp;staatuse&nbsp;j&auml;rgi (sales_bills_status) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_bills_time
+msgid "Kujundusosa Filtreeri&nbsp;perioodi&nbsp;j&auml;rgi (sales_bills_time) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_bills_prod
+msgid "Kujundusosa Filtreeri&nbsp;tootegrupi&nbsp;j&auml;rgi (sales_bills_prod) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_bills_cust
+msgid "Kujundusosa Filtreeri&nbsp;kliendigrupi&nbsp;j&auml;rgi (sales_bills_cust) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_sales_bills_left_search
+msgid "Kujundusosa Filtreeri&nbsp;otsinguga (sales_bills_left_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_clients_groups_lay
+msgid "Kujundusosa Filtreeri&nbsp;kliendigrupi&nbsp;j&auml;rgi (clients_groups_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_clients_alphabet_lay
+msgid "Kujundusosa Filtreeri&nbsp;nime&nbsp;j&auml;rgi (clients_alphabet_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_shop_orders_tree
+msgid "Kujundusosa Poe&nbsp;tellimuste&nbsp;staatused (shop_orders_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_shop_orders_search
+msgid "Kujundusosa Poe&nbsp;tellimuste&nbsp;otsing (shop_orders_search) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_stats_time_lay
+msgid "Kujundusosa Ajavahemik (stats_time_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_stats_prod_lay
+msgid "Kujundusosa Toode (stats_prod_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_stats_balance_time_lay
+msgid "Kujundusosa Ajavahemik (stats_balance_time_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_stats_balance_prod_lay
+msgid "Kujundusosa Toode (stats_balance_prod_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_stats_day_tree_lay
+msgid "Kujundusosa Filtreeri (stats_day_tree_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_stats_day_time_lay
+msgid "Kujundusosa Ajavahemik (stats_day_time_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_stats_day_prod_lay
+msgid "Kujundusosa Toode (stats_day_prod_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_stats_inventory_repair_time_lay
+msgid "Kujundusosa Ajavahemik (stats_inventory_repair_time_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:layout_stats_inventory_repair_prod_lay
+msgid "Kujundusosa Toode (stats_inventory_repair_prod_lay) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1266
+#: classes/applications/shop/shop_warehouse.aw:9002
+msgid "K&otilde;ik ajavahemikud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1272
+#: classes/applications/shop/shop_warehouse.aw:9011
+msgid "Eelmine n&auml;dal"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1273
+#: classes/applications/shop/shop_warehouse.aw:9012
+#: classes/applications/shop/shop_warehouse.aw:9280
+msgid "K&auml;esolev n&auml;dal"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1274
+#: classes/applications/shop/shop_warehouse.aw:9013
+msgid "&Uuml;leelmine kuu"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1275
+#: classes/applications/shop/shop_warehouse.aw:9014
+msgid "Eelmine kuu"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1276
+#: classes/applications/shop/shop_warehouse.aw:9015
+#: classes/applications/shop/shop_warehouse.aw:9292
+msgid "K&auml;esolev kuu"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1277
+#: classes/applications/shop/shop_warehouse.aw:9016
+#: classes/applications/shop/shop_warehouse.aw:9298
+msgid "J&auml;rgmine kuu"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1278
+#: classes/applications/shop/shop_warehouse.aw:9017
+msgid "Eelmine aasta"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1279
+#: classes/applications/shop/shop_warehouse.aw:9018
+msgid "K&auml;esolev aasta"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1336
+#: classes/applications/shop/shop_warehouse.aw:1495
+#: classes/applications/shop/shop_warehouse.aw:1544
+#: classes/applications/shop/shop_warehouse.aw:1549
+#: classes/applications/shop/shop_warehouse.aw:1559
+#: classes/applications/shop/shop_warehouse.aw:1568
+#: classes/applications/shop/shop_warehouse.aw:2595
+#: classes/applications/shop/shop_warehouse.aw:3462
+#: classes/applications/shop/shop_warehouse.aw:3693
+#: classes/applications/shop/shop_warehouse.aw:8223
+#: classes/applications/shop/shop_warehouse.aw:9334
+#: classes/applications/shop/shop_warehouse.aw:9400
+#: classes/applications/shop/shop_warehouse.aw:9415
+#: classes/applications/shop/shop_warehouse.aw:9512
+#: classes/applications/shop/shop_warehouse.aw:10505
+#: classes/applications/shop/shop_warehouse.aw:10543
+#: classes/applications/shop/shop_warehouse.aw:10791
+#: classes/applications/shop/shop_warehouse.aw:10982
+msgid "K&otilde;ik"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1463
+msgid "<br><br>Hetkel pakkumises olevad tooted:"
+msgstr "<br><Br>Products in current offer:"
+
+#: classes/applications/shop/shop_warehouse.aw:1496
+msgid "< 0"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1497
+msgid "= 0"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1498
+msgid "> 0"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1529
+#: classes/applications/shop/shop_warehouse.aw:2968
+#: classes/applications/shop/shop_warehouse.aw:7376
+#: classes/applications/shop/shop_warehouse.aw:9043
+#: classes/applications/shop/shop_warehouse.aw:9080
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1550
+#: classes/applications/shop/shop_warehouse.aw:2585
+#: classes/applications/shop/shop_warehouse.aw:2679
+#: classes/applications/shop/shop_warehouse.aw:5657
+#: classes/applications/shop/shop_warehouse.aw:7445
+#: classes/applications/shop/shop_warehouse.aw:7463
+#: classes/applications/shop/shop_warehouse.aw:8041
+#: classes/applications/shop/shop_warehouse.aw:8104
+#: classes/applications/shop/shop_warehouse.aw:10500
+msgid "Kinnitatud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1551
+#: classes/applications/shop/shop_warehouse.aw:2590
+#: classes/applications/shop/shop_warehouse.aw:2679
+#: classes/applications/shop/shop_warehouse.aw:5657
+#: classes/applications/shop/shop_warehouse.aw:7439
+#: classes/applications/shop/shop_warehouse.aw:7457
+#: classes/applications/shop/shop_warehouse.aw:8035
+#: classes/applications/shop/shop_warehouse.aw:8104
+#: classes/applications/shop/shop_warehouse.aw:10495
+msgid "Kinnitamata"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1560
+msgid "Sissetulekud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1561
+msgid "V&auml;ljaminekud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1569
+#: classes/applications/shop/shop_warehouse.aw:7451
+msgid "Arved"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1570
+#: classes/applications/shop/shop_warehouse.aw:7433
+msgid "Saatelehed"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1691
+#: classes/applications/shop/shop_warehouse.aw:1709
+#: classes/applications/shop/shop_warehouse.aw:1840
+#: classes/applications/shop/shop_warehouse.aw:1959
+#: classes/applications/shop/shop_warehouse.aw:2121
+#: classes/applications/shop/shop_warehouse.aw:2132
+#: classes/applications/shop/shop_warehouse.aw:2933
+#: classes/applications/shop/shop_warehouse.aw:3186
+#: classes/applications/shop/shop_warehouse.aw:3269
+#: classes/applications/shop/shop_warehouse.aw:7552
+msgid "Artikkel"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1695
+#: classes/applications/shop/shop_warehouse.aw:1844
+#: classes/applications/shop/shop_warehouse.aw:1963
+#: classes/applications/shop/shop_warehouse.aw:2136
+msgid "Nimetus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1696
+#: classes/applications/shop/shop_warehouse.aw:1773
+#: classes/applications/shop/shop_warehouse.aw:1845
+#: classes/applications/shop/shop_warehouse.aw:1964
+#: classes/applications/shop/shop_warehouse.aw:2137
+msgid "kaal (gr/m2)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1697
+#: classes/applications/shop/shop_warehouse.aw:1774
+#: classes/applications/shop/shop_warehouse.aw:1846
+#: classes/applications/shop/shop_warehouse.aw:1965
+#: classes/applications/shop/shop_warehouse.aw:2138
+msgid "Laius (mm)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1710
+#: classes/applications/shop/shop_warehouse.aw:1832
+msgid "Perioodi algsaldo (kg)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1711
+#: classes/applications/shop/shop_warehouse.aw:1833
+msgid "Kogus (kg)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1712
+msgid "Kogus (jm)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1713
+msgid "hind (EEK/t)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1714
+msgid "Hetke saldo (EEK)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1715
+msgid "Parandus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1775
+#: classes/applications/shop/shop_warehouse.aw:2122
+msgid "Perioodi algsaldo"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1776
+msgid "Kogus kg"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1777
+#: classes/applications/shop/shop_warehouse.aw:1834
+msgid "Kogus jm."
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1778
+#: classes/applications/shop/shop_warehouse.aw:1835
+msgid "hind EEK/t"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1830
+msgid "Lao saldo"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1836
+msgid "Hetke saldo"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1867
+msgid "Sisse"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1868
+#: classes/applications/shop/shop_warehouse.aw:1870
+msgid "Tell.nr."
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1869
+msgid "V&auml;lja"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1871
+msgid "J&auml;&auml;k"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:1978
+#: classes/applications/shop/shop_warehouse.aw:5719
+#: classes/applications/shop/shop_warehouse.aw:8130
+#: classes/applications/shop/shop_warehouse.aw:8612
+msgid "Summa"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2040
+msgid "Toodete liikumine laos p&auml;evade l&otilde;ikes"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2120
+#: classes/applications/shop/shop_warehouse.aw:2215
+#: classes/applications/shop/shop_warehouse.aw:2540
+#: classes/applications/shop/shop_warehouse.aw:2609
+#: classes/applications/shop/shop_warehouse.aw:8186
+msgid "Tellimus"
+msgstr "Order"
+
+#: classes/applications/shop/shop_warehouse.aw:2123
+msgid "Perioodi sissetulek"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2124
+msgid "Perioodi v&auml;ljaminek"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2125
+msgid "Inventuuri parandus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2126
+msgid "Perioodi l&otilde;ppsaldo"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2127
+msgid "Perioodi l&otilde;ppsaldo kontroll"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2208
+msgid "Materjalide hulga muutus laos"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2216
+#: classes/applications/shop/shop_warehouse.aw:2462
+#: classes/applications/shop/shop_warehouse.aw:11618
+msgid "Toode"
+msgstr "Product"
+
+#: classes/applications/shop/shop_warehouse.aw:2217
+#: classes/applications/shop/shop_warehouse.aw:2621
+msgid "Kasutaja"
+msgstr "User"
+
+#: classes/applications/shop/shop_warehouse.aw:2218
+#: classes/applications/shop/shop_warehouse.aw:2627
+msgid "Isik"
+msgstr "Person"
+
+#: classes/applications/shop/shop_warehouse.aw:2219
+#: classes/applications/shop/shop_warehouse.aw:2633
+#: classes/applications/shop/shop_warehouse.aw:2938
+#: classes/applications/shop/shop_warehouse.aw:3071
+#: classes/applications/shop/shop_warehouse.aw:11022
+msgid "Organisatsioon"
+msgstr "Organisation"
+
+#: classes/applications/shop/shop_warehouse.aw:2220
+#: classes/applications/shop/shop_warehouse.aw:2645
+msgid "Telliti"
+msgstr "Ordered"
+
+#: classes/applications/shop/shop_warehouse.aw:2311
+msgid "<center>Leiti"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2353
+msgid "<center>Otsingule vastab"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2364
+#: classes/applications/shop/shop_warehouse.aw:8813
+#: classes/applications/shop/shop_warehouse.aw:12247
+#: classes/applications/shop/shop_warehouse.aw:12248
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/applications/shop/shop_warehouse.aw:2373
+msgid "Genereeri HTML pakkumine"
+msgstr "Generate HTML offer"
+
+#: classes/applications/shop/shop_warehouse.aw:2381
+msgid "Saada meilile"
+msgstr "Send to e-mail"
+
+#: classes/applications/shop/shop_warehouse.aw:2388
+msgid "Uus pakkumine"
+msgstr "New offer"
+
+#: classes/applications/shop/shop_warehouse.aw:2399
+msgid "Lehek&uuml;lg"
+msgstr "Page"
+
+#: classes/applications/shop/shop_warehouse.aw:2406
+#: classes/applications/shop/shop_warehouse.aw:3634
+#: classes/applications/shop/shop_warehouse.aw:4359
+#: classes/applications/shop/shop_warehouse.aw:4680
+#: classes/applications/shop/shop_warehouse.aw:5067
+#: classes/applications/shop/shop_warehouse.aw:5254
+#: classes/applications/shop/shop_warehouse.aw:5938
+#: classes/applications/shop/shop_warehouse.aw:7865
+#: classes/applications/shop/shop_warehouse.aw:8114
+#: classes/applications/shop/shop_warehouse.aw:8486
+#: classes/applications/shop/shop_warehouse.aw:8673
+#: classes/applications/shop/shop_warehouse.aw:9774
+#: classes/applications/shop/shop_warehouse.aw:11078
+#: classes/applications/shop/shop_warehouse.aw:11336
+#: classes/applications/shop/shop_warehouse.aw:11679
+#: classes/applications/shop/shop_warehouse.aw:11838
+#: classes/applications/shop/shop_warehouse.aw:12198
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/shop/shop_warehouse.aw:2411
+#: classes/applications/shop/shop_warehouse.aw:4741
+#: classes/applications/shop/shop_warehouse.aw:5109
+#: classes/applications/shop/shop_warehouse.aw:7581
+#: classes/applications/shop/shop_warehouse.aw:7900
+#: classes/applications/shop/shop_warehouse.aw:8488
+#: classes/applications/shop/shop_warehouse.aw:9839
+msgid "Kogus"
+msgstr "Amount"
+
+#: classes/applications/shop/shop_warehouse.aw:2456
+#: classes/applications/shop/shop_warehouse.aw:4687
+#: classes/applications/shop/shop_warehouse.aw:5074
+#: classes/applications/shop/shop_warehouse.aw:7872
+#: classes/applications/shop/shop_warehouse.aw:8487
+#: classes/applications/shop/shop_warehouse.aw:11845
+msgid "Kood"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2467
+msgid "M&otilde;&otilde;t&uuml;hik"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2473
+#: classes/applications/shop/shop_warehouse.aw:3200
+#: classes/applications/shop/shop_warehouse.aw:11624
+msgid "Pakend"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2479
+msgid "Tellitav Kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2486
+msgid "Soovitav tarne t&auml;itmine"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2493
+#: classes/applications/shop/shop_warehouse.aw:2500
+msgid "Tellimuse kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2507
+msgid "Klient"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2514
+msgid "Tellimuse nr."
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2535
+msgid "Uus tellimus"
+msgstr "New order"
+
+#: classes/applications/shop/shop_warehouse.aw:2550
+msgid "Prindi tellimused"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2562
+#: classes/applications/shop/shop_warehouse.aw:2789
+msgid "Kinnita tellimused"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2564
+#: classes/applications/shop/shop_warehouse.aw:2791
+msgid "Oled kindel, et soovid valitud tellimused kinnitada?"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2615
+#: classes/applications/shop/shop_warehouse.aw:5081
+msgid "Tooted"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2639
+#: classes/applications/shop/shop_warehouse.aw:5728
+#: classes/applications/shop/shop_warehouse.aw:8137
+#: classes/applications/shop/shop_warehouse.aw:8620
+msgid "Staatus"
+msgstr "Status"
+
+#: classes/applications/shop/shop_warehouse.aw:2652
+msgid "Poe tellimuste otsingu tulemused"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2674
+#: classes/applications/shop/shop_warehouse.aw:11177
+msgid "(nimetu)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2778
+msgid "Exceli-tabeli vormis"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2889
+msgid "Kokku:"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2928
+msgid "Nr"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2943
+msgid "P&auml;ev"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2948
+#: classes/applications/shop/shop_warehouse.aw:3081
+msgid "Tarneaeg p&auml;evades"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2953
+#: classes/applications/shop/shop_warehouse.aw:3086
+msgid "Kuup&auml;ev 1"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:2958
+#: classes/applications/shop/shop_warehouse.aw:3091
+msgid "Kuup&auml;ev 2"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3046
+msgid "%s tarnetingimus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3061
+msgid "Selle vaate salvestamine kirjutab &uuml;le k&otilde;ik vastavate organisatsioonide tarnetingimused"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3062
+msgid "<br />"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3063
+msgid "Selles vaates olevaid ettev&otilde;ttedi n&auml;idatakse &quot;Tarnefirmade kaust&quot; kausta alt ja seda saab m&auml;&auml;rata lao seadete objektist"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3076
+msgid "Tarnep&auml;ev"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3169
+#: classes/applications/shop/shop_warehouse.aw:4916
+#: classes/applications/shop/shop_warehouse.aw:5756
+#: classes/applications/shop/shop_warehouse.aw:7473
+#: classes/applications/shop/shop_warehouse.aw:7977
+#: classes/applications/shop/shop_warehouse.aw:8152
+#: classes/applications/shop/shop_warehouse.aw:10591
+#: classes/applications/shop/shop_warehouse.aw:11000
+#: classes/applications/shop/shop_warehouse.aw:11518
+#: classes/applications/shop/shop_warehouse.aw:11613
+msgid "Uus"
+msgstr "New"
+
+#: classes/applications/shop/shop_warehouse.aw:3226
+#: classes/applications/shop/shop_warehouse.aw:4949
+msgid "Kopeeri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3233
+#: classes/applications/shop/shop_warehouse.aw:4956
+msgid "L&otilde;ika"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3240
+#: classes/applications/shop/shop_warehouse.aw:4963
+msgid "Kleebi"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3252
+msgid "Artiklikategooria"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3295
+msgid "Uuenda toodete otsingu indeksit"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3306
+msgid "Tootegrupp"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3353
+#: classes/applications/shop/shop_warehouse.aw:3735
+msgid "Artiklid"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3384
+msgid "Artiklikategooriad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3624
+#: classes/applications/shop/shop_warehouse.aw:3638
+#: classes/applications/shop/shop_warehouse.aw:4605
+#: classes/applications/shop/shop_warehouse.aw:4845
+#: classes/applications/shop/shop_warehouse.aw:5039
+#: classes/applications/shop/shop_warehouse.aw:5175
+#: classes/applications/shop/shop_warehouse.aw:8723
+#: classes/applications/shop/shop_warehouse.aw:8805
+#: classes/applications/shop/shop_warehouse.aw:11536
+#: classes/applications/shop/shop_warehouse.aw:11964
+msgid "Muuda"
+msgstr "Change"
+
+#: classes/applications/shop/shop_warehouse.aw:3694
+msgid "Ostud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3695
+msgid "Terved v&auml;lja"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3696
+msgid "Tagastus lattu"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:3697
+msgid "Poolikud v&auml;lja"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4351
+#: classes/applications/shop/shop_warehouse.aw:4779
+#: classes/applications/shop/shop_warehouse.aw:5137
+#: classes/applications/shop/shop_warehouse.aw:11877
+msgid "J&auml;rjekord"
+msgstr "Order"
+
+#: classes/applications/shop/shop_warehouse.aw:4365
+#: classes/applications/shop/shop_warehouse.aw:5943
+msgid "Hind"
+msgstr "Price"
+
+#: classes/applications/shop/shop_warehouse.aw:4375
+#: classes/applications/shop/shop_warehouse.aw:4814
+#: classes/applications/shop/shop_warehouse.aw:9863
+msgid "Tarnijad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4389
+msgid "Toote '%s' pakendid"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4475
+msgid "Artiklid kategoorias %s"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4486
+msgid "Artiklid kaustas %s"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4541
+msgid "Kaust"
+msgstr "Folder"
+
+#: classes/applications/shop/shop_warehouse.aw:4562
+#: classes/applications/shop/shop_warehouse.aw:4832
+#: classes/applications/shop/shop_warehouse.aw:5020
+#: classes/applications/shop/shop_warehouse.aw:5162
+#: classes/applications/shop/shop_warehouse.aw:5227
+#: classes/applications/shop/shop_warehouse.aw:5274
+msgid "V&otilde;ta laost"
+msgstr "Get from warehouse"
+
+#: classes/applications/shop/shop_warehouse.aw:4574
+#: classes/applications/shop/shop_warehouse.aw:4838
+#: classes/applications/shop/shop_warehouse.aw:5048
+#: classes/applications/shop/shop_warehouse.aw:5168
+#: classes/applications/shop/shop_warehouse.aw:5241
+#: classes/applications/shop/shop_warehouse.aw:5280
+msgid "Vii lattu"
+msgstr "Take to warehouse"
+
+#: classes/applications/shop/shop_warehouse.aw:4629
+#: classes/applications/shop/shop_warehouse.aw:11982
+msgid "&Uuml;ksiktooted"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4674
+#: classes/applications/shop/shop_warehouse.aw:5061
+#: classes/applications/shop/shop_warehouse.aw:7859
+#: classes/applications/shop/shop_warehouse.aw:11832
+msgid "&nbsp;"
+msgstr "&nbsp;"
+
+#: classes/applications/shop/shop_warehouse.aw:4694
+#: classes/applications/shop/shop_warehouse.aw:5088
+#: classes/applications/shop/shop_warehouse.aw:7879
+#: classes/applications/shop/shop_warehouse.aw:11852
+msgid "Ostuhind"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4701
+#: classes/applications/shop/shop_warehouse.aw:5095
+#: classes/applications/shop/shop_warehouse.aw:7886
+#: classes/applications/shop/shop_warehouse.aw:11859
+msgid "FIFO"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4709
+#: classes/applications/shop/shop_warehouse.aw:5102
+#: classes/applications/shop/shop_warehouse.aw:7893
+#: classes/applications/shop/shop_warehouse.aw:11867
+msgid "M&uuml;&uuml;gihind"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4741
+msgid "Kogus %s"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4746
+msgid "%s kogus %s"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4746
+msgid "%s kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4757
+msgid "Saldo"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4762
+msgid "%s saldo"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4789
+#: classes/applications/shop/shop_warehouse.aw:11040
+#: classes/applications/shop/shop_warehouse.aw:11887
+msgid "Kategooria"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4805
+#: classes/applications/shop/shop_warehouse.aw:5144
+#: classes/applications/shop/shop_warehouse.aw:5260
+#: classes/applications/shop/shop_warehouse.aw:5678
+#: classes/applications/shop/shop_warehouse.aw:7929
+#: classes/applications/shop/shop_warehouse.aw:8491
+msgid "T&uuml;&uuml;p"
+msgstr "Type"
+
+#: classes/applications/shop/shop_warehouse.aw:4825
+#: classes/applications/shop/shop_warehouse.aw:5155
+msgid "Kogus laos"
+msgstr "Amount in warehouse"
+
+#: classes/applications/shop/shop_warehouse.aw:4862
+msgid "VIGA: konfiguratsioon on valimata!"
+msgstr "ERROR: configuration not set!"
+
+#: classes/applications/shop/shop_warehouse.aw:4871
+msgid "VIGA: konfiguratsioonist on toodete kataloog valimata!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4872
+msgid "VIGA: konfiguratsioonist on pakettide kataloog valimata!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4873
+msgid "VIGA: konfiguratsioonist on sissetulekute kataloog valimata!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4874
+msgid "VIGA: konfiguratsioonist on v&auml;jaminekute kataloog valimata!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4875
+msgid "VIGA: konfiguratsioonist on toodete t&uuml;&uuml;pide kataloog valimata!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4876
+msgid "VIGA: konfiguratsioonist on tellimuste kataloog valimata!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4877
+msgid "VIGA: konfiguratsioonist on tellijate kataloog valimata!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4878
+msgid "VIGA: konfiguratsioonist on vaikimisi valuuta valimata!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:4921
+#: classes/applications/shop/shop_warehouse.aw:5205
+msgid "Pakett"
+msgstr "Package"
+
+#: classes/applications/shop/shop_warehouse.aw:4933
+msgid "Kustuta valitud"
+msgstr "Delete selected"
+
+#: classes/applications/shop/shop_warehouse.aw:4942
+msgid "Lisa korvi"
+msgstr "Add to basket"
+
+#: classes/applications/shop/shop_warehouse.aw:5116
+#: classes/applications/shop/shop_warehouse.aw:7907
+msgid "&Uuml;hik"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5123
+#: classes/applications/shop/shop_warehouse.aw:7914
+msgid "Kogus 2"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5130
+#: classes/applications/shop/shop_warehouse.aw:7921
+msgid "&Uuml;hik 2"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5182
+msgid "Paketiga seotud tootekategooriad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5267
+msgid "Laoseis"
+msgstr "Warehouse status"
+
+#: classes/applications/shop/shop_warehouse.aw:5618
+#: classes/applications/shop/shop_warehouse.aw:7784
+#: classes/applications/shop/shop_warehouse.aw:7793
+#: classes/applications/shop/shop_warehouse.aw:8387
+#: classes/applications/shop/shop_warehouse.aw:8501
+msgid "(Number puudub)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5651
+msgid "(Puudub)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5652
+#: classes/applications/shop/shop_warehouse.aw:5802
+#: classes/applications/shop/shop_warehouse.aw:7593
+#: classes/applications/shop/shop_warehouse.aw:10641
+msgid "Arve"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5652
+#: classes/applications/shop/shop_warehouse.aw:5793
+#: classes/applications/shop/shop_warehouse.aw:7523
+#: classes/applications/shop/shop_warehouse.aw:7587
+#: classes/applications/shop/shop_warehouse.aw:10630
+msgid "Saateleht"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5671
+#: classes/applications/shop/shop_warehouse.aw:8576
+msgid "Number"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5687
+msgid "Ostja"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5696
+#: classes/applications/shop/shop_warehouse.aw:8585
+msgid "Tarnija"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5704
+#: classes/applications/shop/shop_warehouse.aw:7575
+#: classes/applications/shop/shop_warehouse.aw:8121
+#: classes/applications/shop/shop_warehouse.aw:8594
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5712
+#: classes/applications/shop/shop_warehouse.aw:8604
+msgid "Seosed"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:5863
+msgid "Lao v&auml;ljaminek: %s"
+msgstr "Warehouse export: %s"
+
+#: classes/applications/shop/shop_warehouse.aw:5910
+msgid "Lao sissetulek: %s"
+msgstr "Warehouse income: %s"
+
+#: classes/applications/shop/shop_warehouse.aw:5947
+msgid "Kes"
+msgstr "Who"
+
+#: classes/applications/shop/shop_warehouse.aw:5951
+msgid "Millal"
+msgstr "When"
+
+#: classes/applications/shop/shop_warehouse.aw:5955
+#: classes/applications/shop/shop_warehouse.aw:6046
+msgid "Vaata"
+msgstr "View"
+
+#: classes/applications/shop/shop_warehouse.aw:6351
+msgid "shop_warehouse::gen_order(): no order center object selected!"
+msgstr "shop_warehouse::gen_order(): no order center object selected!"
+
+#: classes/applications/shop/shop_warehouse.aw:6393
+msgid "Lisa pakkumisse"
+msgstr "Add to offer"
+
+#: classes/applications/shop/shop_warehouse.aw:6400
+msgid "Moodusta pakkumine"
+msgstr "Create offer"
+
+#: classes/applications/shop/shop_warehouse.aw:6655
+msgid "shop_warehouse::get_order_folder(%s): the warehouse has not configuration object set!"
+msgstr "shop_warehouse::get_order_folder(%s): the warehouse has not configuration object set!"
+
+#: classes/applications/shop/shop_warehouse.aw:6663
+msgid "shop_warehouse::get_order_folder(%s): the warehouse configuration has no order folder set!"
+msgstr "shop_warehouse::get_order_folder(%s): the warehouse configuration has no order folder set!"
+
+#: classes/applications/shop/shop_warehouse.aw:6680
+msgid "shop_warehouse::get_products_folder(%s): the warehouse has not configuration object set!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:6688
+msgid "shop_warehouse::get_products_folder(%s): the warehouse configuration has no products folder set!"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:6891
+msgid "Tellimus laost %s"
+msgstr "Order from warehouse %s"
+
+#: classes/applications/shop/shop_warehouse.aw:7111
+msgid "Sisesta kategooria nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:7120
+msgid "Sisesta kategooria liigi nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:7165
+msgid "Sisesta toote nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:7360
+msgid "Pole midagi printida"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:7496
+msgid "V&auml;ljaminek"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:7501
+msgid "Sissetulek"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:7558
+msgid "Laost"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:7568
+msgid "Lattu"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:7806
+msgid "Kokku (%s):"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:7839
+#: classes/applications/shop/shop_warehouse.aw:7949
+msgid "Uuenda"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8006
+msgid "Uus inventuur"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8407
+msgid "Kommentaarid:"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8489
+msgid "Saadud kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8490
+#: classes/applications/shop/shop_warehouse.aw:9795
+msgid "Vajadus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8492
+msgid "Kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8496
+msgid "Artiklid:"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8554
+msgid "%s kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8630
+msgid "Algus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8638
+msgid "T&ouml;&ouml;"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8682
+msgid "Allahindluse %"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8691
+msgid "Kestus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8699
+msgid "Kehtib"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8707
+msgid "Toode/kategooria"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8715
+msgid "Kasutajaruppidele"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8738
+msgid "Valitud ajavahemikul grupile \"%s\" m&otilde;juvad kampaaniad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8757
+msgid "Aktiivne"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8757
+msgid "Mitteaktiivne"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8797
+msgid "-- Vali --"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8853
+msgid "K&otilde;ik tooted"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:8941
+msgid "K&otilde;ik grupid"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9248
+msgid "Ajavahemikud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9286
+msgid "J&auml;rgmine n&auml;dal"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9426
+msgid "On broneeritud antud ajavahemikuks"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9427
+msgid "Tuleb tellida antud ajavahemikus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9708
+msgid "Lisa ostutellimuse reaks"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9714
+msgid "See n&auml;dal loodud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9720
+msgid "Eelmine n&auml;dal loodud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9726
+msgid "2 n&auml;dalat tagasi loodud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9732
+msgid "3 n&auml;dalat tagasi loodud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9749
+msgid "Tundmatu tarnija"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9758
+msgid "Loo ostutellimus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9782
+msgid "Vajadused"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9787
+#: classes/applications/shop/shop_warehouse.aw:9806
+msgid "Tellitud"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9819
+msgid "Kogused"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9824
+msgid "Vahed"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9850
+msgid "Vahe"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:9868
+msgid "Kogusevajaduste tabel"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10320
+msgid "%s seaded"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10321
+msgid "Toodete kataloog"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10322
+msgid "Pakettide kataloog"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10323
+msgid "Sissetulekute kataloog"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10324
+msgid "V&auml;ljaminekute kataloog"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10325
+msgid "Tootet&uuml;&uuml;pide kataloog"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10326
+msgid "Seadetevormide kataloog"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10327
+msgid "Tellimuste kataloog"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10328
+msgid "Tellijate kataloog"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10706
+msgid "Kliendigrupid"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:10959
+msgid "T&auml;hestik"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11085
+msgid "Aadress"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11091
+msgid "Kontakt"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11098
+msgid "Telefon"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11104
+msgid "Faks"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11110
+msgid "Kliendihaldur"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11117
+msgid "Kliendisuhte looja"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11124
+msgid "Kliendisuhe"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11191
+msgid "(muuda)"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11330
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11342
+msgid "Seotud tootekategooriate t&uuml;&uuml;bid"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11351
+#: classes/applications/shop/shop_warehouse.aw:11380
+msgid "Lao \"%s\" tootekategooriad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11362
+msgid "T&uuml;&uuml;bi %s tootekategooriad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11366
+msgid "Tootekategooria %s alamkategooriad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11376
+msgid "Lao \"%s\" tootet&uuml;&uuml;bid"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11433
+#: classes/applications/shop/shop_warehouse.aw:11715
+msgid "Tootet&uuml;&uuml;bid"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11477
+msgid "K&otilde;ik kategooriad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11523
+msgid "Tootekategooria"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11529
+msgid "Tootekategooria t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11553
+msgid "Salvesta kategooriad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11561
+msgid "Otsi kategooriaid"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11569
+#: classes/applications/shop/shop_warehouse.aw:11594
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11574
+msgid "Valitud kategooriad"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11593
+msgid "Lisa kategooriale kategooria t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11631
+msgid "Kopeeri tooted teise kategooriasse"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11638
+msgid "T&otilde;sta tooted teise kategooriasse"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11647
+msgid "Paigalda kopeeritud/l&otilde;igatud tooted valitud kategooriatesse"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11662
+msgid "Sisesta uue objekti nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11673
+msgid "Logo"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:11894
+msgid "Pakendid"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:12161
+msgid "Kategooria nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:12168
+msgid "ID"
+msgstr "ID"
+
+#: classes/applications/shop/shop_warehouse.aw:12173
+#: classes/applications/shop/shop_warehouse.aw:12174
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse.aw:12225
+msgid "Vali see"
+msgstr ""
+
+# classes/applications/shop/shop_warehouse.aw:prop_productgroups_list
+#~ msgid "Omaduse Tootegruppide nimekiri  (productgroups_list) caption"
+#~ msgstr "Product groups list"
+
+# classes/applications/shop/shop_warehouse.aw:prop_products_list
+#~ msgid "Omaduse Toodete nimekiri  (products_list) caption"
+#~ msgstr "Products list"
+
+# classes/applications/shop/shop_warehouse.aw:prop_storage_income
+#~ msgid "Omaduse Sissetulekud (storage_income) caption"
+#~ msgstr "Receptions"
+
+# classes/applications/shop/shop_warehouse.aw:prop_storage_export
+#~ msgid "Omaduse V&auml;ljaminekud (storage_export) caption"
+#~ msgstr "Exports"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_uname
+#~ msgid "Omaduse Tellija kasutajanimi (osearch_uname) caption"
+#~ msgstr "Orderer username"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_pname
+#~ msgid "Omaduse Tellija isikunimi (osearch_pname) caption"
+#~ msgstr "Orderer person name"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_oname
+#~ msgid "Omaduse Organisatsiooni nimi (osearch_oname) caption"
+#~ msgstr "Organisation name"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_oid
+#~ msgid "Omaduse Tellimuse ID (osearch_oid) caption"
+#~ msgstr "Order ID"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_prodname
+#~ msgid "Omaduse Toote nimi (osearch_prodname) caption"
+#~ msgstr "Product name"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_odates
+#~ msgid "Omaduse Tellimuse ajavahemik (alates) (osearch_odates) caption"
+#~ msgstr "Order time (from)"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_odatee
+#~ msgid "Omaduse Tellimuse ajavahemik (kuni) (osearch_odatee) caption"
+#~ msgstr "Order time (to)"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_hidden
+#~ msgid "Omaduse Otsing (osearch_hidden) caption"
+#~ msgstr "Search"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_table
+#~ msgid "Omaduse Tulemuste tabel (osearch_table) caption"
+#~ msgstr "Result table"
+
+# classes/applications/shop/shop_warehouse.aw:group_order
+#~ msgid "Grupi Tellimused (order) pealkiri"
+#~ msgstr "Orders"
+
+# classes/applications/shop/shop_warehouse.aw:group_order_unconfirmed
+#~ msgid "Grupi Kinnitamata (order_unconfirmed) pealkiri"
+#~ msgstr "Unconfirmed"
+
+# classes/applications/shop/shop_warehouse.aw:group_order_confirmed
+#~ msgid "Grupi Kinnitatud (order_confirmed) pealkiri"
+#~ msgstr "Confirmed"
+
+# classes/applications/shop/shop_warehouse.aw:group_order_orderer_cos
+#~ msgid "Grupi Tellijad (order_orderer_cos) pealkiri"
+#~ msgstr "Orderers"
+
+# classes/applications/shop/shop_warehouse.aw:group_order_search
+#~ msgid "Grupi Otsing (order_search) pealkiri"
+#~ msgstr "Search"
+
+# classes/applications/shop/shop_warehouse.aw:group_search
+#~ msgid "Grupi Otsing (search) pealkiri"
+#~ msgstr "Search"
+
+# classes/applications/shop/shop_warehouse.aw:group_search_search
+#~ msgid "Grupi Otsing (search_search) pealkiri"
+#~ msgstr "Search"
+
+# classes/applications/shop/shop_warehouse.aw:group_order_current
+#~ msgid "Grupi Pakkumine (order_current) pealkiri"
+#~ msgstr "Offer"
+
+# classes/applications/shop/shop_warehouse.aw:group_storage_income
+#~ msgid "Grupi Sissetulekud (storage_income) pealkiri"
+#~ msgstr "Receptions"
+
+# classes/applications/shop/shop_warehouse.aw:group_storage_export
+#~ msgid "Grupi V&auml;ljaminekud (storage_export) pealkiri"
+#~ msgstr "Exports"
+
+#~ msgid "k&otilde;ik"
+#~ msgstr "all"
+
+#~ msgid "kinnitatud"
+#~ msgstr "confirmed"
+
+#~ msgid "kinnitamata"
+#~ msgstr "unconfirmed"
+
+#~ msgid "Lisa uus tootegrupp"
+#~ msgstr "Add new product group"
+
+#~ msgid "Lisa pakett"
+#~ msgstr "Add package"
+
+#~ msgid "Lisa tellimus"
+#~ msgstr "Add order"
+
+#~ msgid "Kinnita"
+#~ msgstr "Confirm"
+
+#~ msgid "Kinnitas"
+#~ msgstr "Confirmed"
+
+#~ msgid "Lisa sissetulek"
+#~ msgstr "Add income"
+
+#~ msgid "Sissetulek kinnitatud"
+#~ msgstr "Income confirmed"
+
+# classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_CONFIG
+#~ msgid "Seose konfiguratsioon (RELTYPE_CONFIG) tekst"
+#~ msgstr "configuration"
+
+# classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_PRODUCT
+#~ msgid "Seose toode (RELTYPE_PRODUCT) tekst"
+#~ msgstr "product"
+
+# classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_PACKET
+#~ msgid "Seose pakett (RELTYPE_PACKET) tekst"
+#~ msgstr "packet"
+
+# classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_STORAGE_INCOME
+#~ msgid "Seose lao sissetulek (RELTYPE_STORAGE_INCOME) tekst"
+#~ msgstr "warehouse reception"
+
+# classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_STORAGE_EXPORT
+#~ msgid "Seose lao v&auml;jaminek (RELTYPE_STORAGE_EXPORT) tekst"
+#~ msgstr "warehouse export"
+
+# classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_ORDER
+#~ msgid "Seose tellimus (RELTYPE_ORDER) tekst"
+#~ msgstr "order"
+
+# classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_ORDER_CENTER
+#~ msgid "Seose tellimiskeskkond (RELTYPE_ORDER_CENTER) tekst"
+#~ msgstr "ordering center"
+
+# classes/applications/shop/shop_warehouse.aw:rel_RELTYPE_EMAIL
+#~ msgid "Seose saada tellimused (RELTYPE_EMAIL) tekst"
+#~ msgstr "send offers"
+
+#~ msgid "Lisa kaust"
+#~ msgstr "Add folder"
+
+#~ msgid "Lisa v&auml;ljaminek"
+#~ msgstr "Add export"
+
+# classes/applications/shop/shop_warehouse.aw:prop_conf
+#~ msgid "Omaduse Konfiguratsioon (conf) caption"
+#~ msgstr "Configuration"
+
+# classes/applications/shop/shop_warehouse.aw:prop_storage_list
+#~ msgid "Omaduse Laoseis (storage_list) caption"
+#~ msgstr "Warehouse status"
+
+# classes/applications/shop/shop_warehouse.aw:prop_osearch_from
+#~ msgid "Omaduse Otsi staatuse järgi (osearch_from) caption"
+#~ msgstr "Search by status"
+
+# classes/applications/shop/shop_warehouse.aw:group_products
+#~ msgid "Grupi Tooted (products) pealkiri"
+#~ msgstr "Products"
+
+# classes/applications/shop/shop_warehouse.aw:group_storage
+#~ msgid "Grupi Laoseis (storage) pealkiri"
+#~ msgstr "Warehouse status"
+
+# classes/applications/shop/shop_warehouse.aw:group_storage_storage
+#~ msgid "Grupi Laoseis (storage_storage) pealkiri"
+#~ msgstr "Warehouse status"
+
+#~ msgid "Vali"
+#~ msgstr "Select"
+
+#~ msgid "<center>Leiti "
+#~ msgstr "<center>Found "
+
+# classes/applications/shop/shop_warehouse.aw:prop_search_tb
+#~ msgid "Omaduse Otsingo toolbar (search_tb) caption"
+#~ msgstr "Search toolbar"

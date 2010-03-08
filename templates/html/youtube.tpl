@@ -1,0 +1,1 @@
+<object width="297" height="249"><param name="movie" value="{VAR:link}&rel=1"></param><param name="wmode" value="transparent"></param><embed src="{VAR:link}&rel=1" type="application/x-shockwave-flash" wmode="transparent" width="297" height="249"></embed></object>

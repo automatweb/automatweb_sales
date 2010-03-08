@@ -1,0 +1,225 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/calendar/party.aw:class_914_help
+#: classes/applications/calendar/party.aw:class_914_help
+msgid "Klassi Pidu help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_start1
+#: classes/applications/calendar/party.aw:prop_start1
+msgid "Omaduse Algus (start1) caption"
+msgstr "Start"
+
+# classes/applications/calendar/party.aw:prop_start1_comment
+#: classes/applications/calendar/party.aw:prop_start1_comment
+msgid "Omaduse Algus (start1) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_start1_help
+#: classes/applications/calendar/party.aw:prop_start1_help
+msgid "Omaduse Algus (start1) help"
+msgstr ""
+
+#: classes/applications/calendar/party.aw:prop_end
+msgid "Omaduse L&otilde;pp (end) caption"
+msgstr ""
+
+#: classes/applications/calendar/party.aw:prop_end_comment
+msgid "Omaduse L&otilde;pp (end) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/party.aw:prop_end_help
+msgid "Omaduse L&otilde;pp (end) help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_image
+#: classes/applications/calendar/party.aw:prop_image
+msgid "Omaduse Flyer (image) caption"
+msgstr "Flyer"
+
+# classes/applications/calendar/party.aw:prop_image_comment
+#: classes/applications/calendar/party.aw:prop_image_comment
+msgid "Omaduse Flyer (image) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_image_help
+#: classes/applications/calendar/party.aw:prop_image_help
+msgid "Omaduse Flyer (image) help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_content
+#: classes/applications/calendar/party.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr "Content"
+
+# classes/applications/calendar/party.aw:prop_content_comment
+#: classes/applications/calendar/party.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_content_help
+#: classes/applications/calendar/party.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr ""
+
+#: classes/applications/calendar/party.aw:prop_from_artist
+msgid "Omaduse V&otilde;ta esineja objektist &uuml;rituse (from_artist) caption"
+msgstr ""
+
+#: classes/applications/calendar/party.aw:prop_from_artist_comment
+msgid "Omaduse V&otilde;ta esineja objektist &uuml;rituse (from_artist) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/party.aw:prop_from_artist_help
+msgid "Omaduse V&otilde;ta esineja objektist &uuml;rituse (from_artist) help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_relman
+#: classes/applications/calendar/party.aw:prop_relman
+msgid "Omaduse Seostehaldur (relman) caption"
+msgstr "Connection manager"
+
+# classes/applications/calendar/party.aw:prop_relman_comment
+#: classes/applications/calendar/party.aw:prop_relman_comment
+msgid "Omaduse Seostehaldur (relman) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_relman_help
+#: classes/applications/calendar/party.aw:prop_relman_help
+msgid "Omaduse Seostehaldur (relman) help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_artists_toolbar
+#: classes/applications/calendar/party.aw:prop_artists_toolbar
+msgid "Omaduse Esinejate toolbar (artists_toolbar) caption"
+msgstr "Performer toolbar"
+
+# classes/applications/calendar/party.aw:prop_artists_toolbar_comment
+#: classes/applications/calendar/party.aw:prop_artists_toolbar_comment
+msgid "Omaduse Esinejate toolbar (artists_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_artists_toolbar_help
+#: classes/applications/calendar/party.aw:prop_artists_toolbar_help
+msgid "Omaduse Esinejate toolbar (artists_toolbar) help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_artists
+#: classes/applications/calendar/party.aw:prop_artists
+msgid "Omaduse Esinejad (artists) caption"
+msgstr "Performers"
+
+# classes/applications/calendar/party.aw:prop_artists_comment
+#: classes/applications/calendar/party.aw:prop_artists_comment
+msgid "Omaduse Esinejad (artists) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_artists_help
+#: classes/applications/calendar/party.aw:prop_artists_help
+msgid "Omaduse Esinejad (artists) help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_project_selector
+#: classes/applications/calendar/party.aw:prop_project_selector
+msgid "Omaduse Projektid (project_selector) caption"
+msgstr "Projects"
+
+# classes/applications/calendar/party.aw:prop_project_selector_comment
+#: classes/applications/calendar/party.aw:prop_project_selector_comment
+msgid "Omaduse Projektid (project_selector) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/party.aw:prop_project_selector_help
+#: classes/applications/calendar/party.aw:prop_project_selector_help
+msgid "Omaduse Projektid (project_selector) help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:group_artists
+#: classes/applications/calendar/party.aw:group_artists
+msgid "Grupi Esinejad (artists) pealkiri"
+msgstr "Performers"
+
+# classes/applications/calendar/party.aw:group_artists_help
+#: classes/applications/calendar/party.aw:group_artists_help
+msgid "Grupi Esinejad (artists) help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:group_projects
+#: classes/applications/calendar/party.aw:group_projects
+msgid "Grupi Projektid (projects) pealkiri"
+msgstr "Projects"
+
+# classes/applications/calendar/party.aw:group_projects_help
+#: classes/applications/calendar/party.aw:group_projects_help
+msgid "Grupi Projektid (projects) help"
+msgstr ""
+
+# classes/applications/calendar/party.aw:rel_RELTYPE_FLYER
+#: classes/applications/calendar/party.aw:rel_RELTYPE_FLYER
+msgid "Seose Flaier (RELTYPE_FLYER) tekst"
+msgstr "Flyer"
+
+# classes/applications/calendar/party.aw:rel_RELTYPE_ARTIST
+#: classes/applications/calendar/party.aw:rel_RELTYPE_ARTIST
+msgid "Seose Esineja (RELTYPE_ARTIST) tekst"
+msgstr "Performer"
+
+#: classes/applications/calendar/party.aw:93
+msgid "--vali--"
+msgstr "--select--"
+
+#: classes/applications/calendar/party.aw:94
+msgid "Pilt"
+msgstr "Image"
+
+#: classes/applications/calendar/party.aw:95
+msgid "Sisu"
+msgstr "Content"
+
+#: classes/applications/calendar/party.aw:132
+msgid "Lisa uus esineja"
+msgstr "Add new performer"
+
+#: classes/applications/calendar/party.aw:138
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/applications/calendar/party.aw:149
+msgid "Eemalda esineja"
+msgstr "Remove performer"
+
+#: classes/applications/calendar/party.aw:151
+msgid "Oled kindel, et soovid valitud esinejad eemaldada?"
+msgstr "Are you sure you want to delete selected performers?"
+
+#: classes/applications/calendar/party.aw:161
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/calendar/party.aw:166
+msgid "Jrk"
+msgstr "Order"
+
+#: classes/applications/calendar/party.aw:171
+msgid "Amet"
+msgstr "Profession"
+
+# classes/applications/calendar/party.aw:prop_end
+#~ msgid "Omaduse Lõpp (end) caption"
+#~ msgstr "End"
+
+# classes/applications/calendar/party.aw:prop_from_artist
+#~ msgid "Omaduse Võta esineja objektist ürituse (from_artist) caption"
+#~ msgstr "From performer object get"
+
+#~ msgid "Otsi"
+#~ msgstr "Search"

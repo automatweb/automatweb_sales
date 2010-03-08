@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="events_manager" folder="www/dev/terryf/automatweb_dev/classes/applications/events_manager" extends="class_base">
+		<action name="delete" is_public="1" caption="Change">
+			<function name="delete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_new_editor" is_public="1" caption="Change">
+			<function name="add_new_editor">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="publish" is_public="1" all_args="1">
+			<function name="publish">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_copy" is_public="1" all_args="1">
+			<function name="make_copy">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="events_xml" is_public="1" all_args="1">
+			<function name="events_xml">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

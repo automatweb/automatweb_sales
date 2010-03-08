@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_presentation" folder="applications/crm/sales" extends="task">
+		<action name="submit_and_return">
+			<function name="submit_and_return" all_args="1">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>
+

@@ -1,0 +1,124 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/personnel_import/personnel_import.aw:class_1386_help
+msgid "Klassi Personali import help"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_slave_obj
+msgid "Omaduse Massiivi vormistaja (slave_obj) caption"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_slave_obj_comment
+msgid "Omaduse Massiivi vormistaja (slave_obj) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_slave_obj_help
+msgid "Omaduse Massiivi vormistaja (slave_obj) help"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_last_import
+msgid "Omaduse Viimane import toimus (last_import) caption"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_last_import_comment
+msgid "Omaduse Viimane import toimus (last_import) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_last_import_help
+msgid "Omaduse Viimane import toimus (last_import) help"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_import
+msgid "Omaduse Import (import) caption"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_import_comment
+msgid "Omaduse Import (import) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_import_help
+msgid "Omaduse Import (import) help"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_crm_db_id
+msgid "Omaduse Kasutatav kliendibaas (crm_db_id) caption"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_crm_db_id_comment
+msgid "Omaduse Kasutatav kliendibaas (crm_db_id) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_crm_db_id_help
+msgid "Omaduse Kasutatav kliendibaas (crm_db_id) help"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_recur_edit
+msgid "Omaduse Automaatse impordi seadistamine (recur_edit) caption"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_recur_edit_comment
+msgid "Omaduse Automaatse impordi seadistamine (recur_edit) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:prop_recur_edit_help
+msgid "Omaduse Automaatse impordi seadistamine (recur_edit) help"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:group_autoimport
+msgid "Grupi Automaatne import (autoimport) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:group_autoimport_help
+msgid "Grupi Automaatne import (autoimport) help"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:rel_RELTYPE_SLAVE_OBJ
+msgid "Seose Massiivi vormistaja (RELTYPE_SLAVE_OBJ) tekst"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:rel_RELTYPE_CRM_DB
+msgid "Seose kliendibaas (RELTYPE_CRM_DB) tekst"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:rel_RELTYPE_RECURRENCE
+msgid "Seose Kordus (RELTYPE_RECURRENCE) tekst"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:68
+msgid "K&auml;ivita import"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:107
+msgid "Kliendibaas valimata!"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:117
+msgid "Isikute kataloog valimata!"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:123
+msgid "Aadresside kataloog valimata!"
+msgstr ""
+
+#: classes/applications/personnel_import/personnel_import.aw:129
+msgid "Default kataloog valimata!"
+msgstr ""
+

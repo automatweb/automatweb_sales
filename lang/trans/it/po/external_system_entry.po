@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/common/external/external_system_entry.aw:class_1074_help
+msgid "Klassi Sidestus help"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:prop_ext_sys_id
+msgid "Omaduse Siduss&uuml;steem (ext_sys_id) caption"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:prop_ext_sys_id_comment
+msgid "Omaduse Siduss&uuml;steem (ext_sys_id) kommentaar"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:prop_ext_sys_id_help
+msgid "Omaduse Siduss&uuml;steem (ext_sys_id) help"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:prop_obj
+msgid "Omaduse AW Objekt (obj) caption"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:prop_obj_comment
+msgid "Omaduse AW Objekt (obj) kommentaar"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:prop_obj_help
+msgid "Omaduse AW Objekt (obj) help"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:prop_value
+msgid "Omaduse V&auml;&auml;rtus (value) caption"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:prop_value_comment
+msgid "Omaduse V&auml;&auml;rtus (value) kommentaar"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:prop_value_help
+msgid "Omaduse V&auml;&auml;rtus (value) help"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:rel_RELTYPE_EXTSYS
+msgid "Seose Siduss&uuml;steem (RELTYPE_EXTSYS) tekst"
+msgstr ""
+
+#: classes/common/external/external_system_entry.aw:rel_RELTYPE_OBJ
+msgid "Seose AW Objekt (RELTYPE_OBJ) tekst"
+msgstr ""
+

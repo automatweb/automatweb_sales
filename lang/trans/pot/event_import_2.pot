@@ -1,0 +1,396 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/event_import_2/event_import_2.aw:class_1413_help
+msgid "Klassi S&uuml;ndmuste import 2 help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_slave_obj
+msgid "Omaduse Allikas (slave_obj) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_slave_obj_comment
+msgid "Omaduse Allikas (slave_obj) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_slave_obj_help
+msgid "Omaduse Allikas (slave_obj) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_events_manager
+msgid "Omaduse S&uuml;ndmuste halduse keskkond (events_manager) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_events_manager_comment
+msgid "Omaduse S&uuml;ndmuste halduse keskkond (events_manager) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_events_manager_help
+msgid "Omaduse S&uuml;ndmuste halduse keskkond (events_manager) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_language
+msgid "Omaduse Keel (language) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_language_comment
+msgid "Omaduse Keel (language) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_language_help
+msgid "Omaduse Keel (language) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_translations
+msgid "Omaduse T&otilde;lked (translations) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_translations_comment
+msgid "Omaduse T&otilde;lked (translations) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_translations_help
+msgid "Omaduse T&otilde;lked (translations) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_last_import
+msgid "Omaduse Viimane import (last_import) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_last_import_comment
+msgid "Omaduse Viimane import (last_import) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_last_import_help
+msgid "Omaduse Viimane import (last_import) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_event_times_as_events
+msgid "Omaduse Toimumisajad s&uuml;ndmustena (event_times_as_events) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_event_times_as_events_comment
+msgid "Omaduse Toimumisajad s&uuml;ndmustena (event_times_as_events) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_event_times_as_events_help
+msgid "Omaduse Toimumisajad s&uuml;ndmustena (event_times_as_events) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_from_start
+msgid "Omaduse Impordi k&otilde;ik (from_start) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_from_start_comment
+msgid "Omaduse Impordi k&otilde;ik (from_start) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_from_start_help
+msgid "Omaduse Impordi k&otilde;ik (from_start) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_invoke
+msgid "Omaduse Import (invoke) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_invoke_comment
+msgid "Omaduse Import (invoke) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_invoke_help
+msgid "Omaduse Import (invoke) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_event
+msgid "Omaduse S&uuml;ndmused (extsys_event) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_event_comment
+msgid "Omaduse S&uuml;ndmused (extsys_event) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_event_help
+msgid "Omaduse S&uuml;ndmused (extsys_event) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_event_time
+msgid "Omaduse Toimumisajad (extsys_event_time) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_event_time_comment
+msgid "Omaduse Toimumisajad (extsys_event_time) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_event_time_help
+msgid "Omaduse Toimumisajad (extsys_event_time) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_location
+msgid "Omaduse Toimumiskohad (extsys_location) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_location_comment
+msgid "Omaduse Toimumiskohad (extsys_location) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_location_help
+msgid "Omaduse Toimumiskohad (extsys_location) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_organizer
+msgid "Omaduse Korraldajad (extsys_organizer) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_organizer_comment
+msgid "Omaduse Korraldajad (extsys_organizer) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_organizer_help
+msgid "Omaduse Korraldajad (extsys_organizer) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_sector
+msgid "Omaduse Valdkonnad (extsys_sector) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_sector_comment
+msgid "Omaduse Valdkonnad (extsys_sector) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_extsys_sector_help
+msgid "Omaduse Valdkonnad (extsys_sector) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_event
+msgid "Omaduse S&uuml;ndmus (cfgform_event) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_event_comment
+msgid "Omaduse S&uuml;ndmus (cfgform_event) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_event_help
+msgid "Omaduse S&uuml;ndmus (cfgform_event) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_event_time
+msgid "Omaduse Toimumisaeg (cfgform_event_time) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_event_time_comment
+msgid "Omaduse Toimumisaeg (cfgform_event_time) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_event_time_help
+msgid "Omaduse Toimumisaeg (cfgform_event_time) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_location
+msgid "Omaduse Toimumiskoht (cfgform_location) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_location_comment
+msgid "Omaduse Toimumiskoht (cfgform_location) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_location_help
+msgid "Omaduse Toimumiskoht (cfgform_location) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_organizer
+msgid "Omaduse Korraldaja (cfgform_organizer) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_organizer_comment
+msgid "Omaduse Korraldaja (cfgform_organizer) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_organizer_help
+msgid "Omaduse Korraldaja (cfgform_organizer) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_sector
+msgid "Omaduse Valdkond (cfgform_sector) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_sector_comment
+msgid "Omaduse Valdkond (cfgform_sector) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_cfgform_sector_help
+msgid "Omaduse Valdkond (cfgform_sector) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_event
+msgid "Omaduse  (urt_event) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_event_comment
+msgid "Omaduse  (urt_event) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_event_help
+msgid "Omaduse  (urt_event) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_event_time
+msgid "Omaduse  (urt_event_time) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_event_time_comment
+msgid "Omaduse  (urt_event_time) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_event_time_help
+msgid "Omaduse  (urt_event_time) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_location
+msgid "Omaduse  (urt_location) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_location_comment
+msgid "Omaduse  (urt_location) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_location_help
+msgid "Omaduse  (urt_location) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_organizer
+msgid "Omaduse  (urt_organizer) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_organizer_comment
+msgid "Omaduse  (urt_organizer) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_organizer_help
+msgid "Omaduse  (urt_organizer) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_sector
+msgid "Omaduse  (urt_sector) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_sector_comment
+msgid "Omaduse  (urt_sector) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:prop_urt_sector_help
+msgid "Omaduse  (urt_sector) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:group_general2
+msgid "Grupi &Uuml;ldised seaded (general2) pealkiri"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:group_general2_help
+msgid "Grupi &Uuml;ldised seaded (general2) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:group_extsys
+msgid "Grupi Siduss&uuml;steemid (extsys) pealkiri"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:group_extsys_help
+msgid "Grupi Siduss&uuml;steemid (extsys) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:group_cfgforms
+msgid "Grupi Seadete vormid (cfgforms) pealkiri"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:group_cfgforms_help
+msgid "Grupi Seadete vormid (cfgforms) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:group_update_rules
+msgid "Grupi Muudatuste reeglid (update_rules) pealkiri"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:group_update_rules_help
+msgid "Grupi Muudatuste reeglid (update_rules) help"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_SLAVE
+msgid "Seose Allikas (RELTYPE_SLAVE) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_EVENTS_MANAGER
+msgid "Seose S&uuml;ndmuste halduse keskkond (RELTYPE_EVENTS_MANAGER) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_EVENT_LANGUAGE
+msgid "Seose Keel (RELTYPE_EVENT_LANGUAGE) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_EXT_SYS_EVENT
+msgid "Seose S&uuml;ndmuste siduss&uuml;steem (RELTYPE_EXT_SYS_EVENT) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_EXT_SYS_EVENT_TIME
+msgid "Seose Toimumisaegade siduss&uuml;steem (RELTYPE_EXT_SYS_EVENT_TIME) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_EXT_SYS_LOCATION
+msgid "Seose Toimumiskohtade siduss&uuml;steem (RELTYPE_EXT_SYS_LOCATION) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_EXT_SYS_ORGANIZER
+msgid "Seose Korraldajate siduss&uuml;steem (RELTYPE_EXT_SYS_ORGANIZER) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_EXT_SYS_SECTOR
+msgid "Seose Valdkondade siduss&uuml;steem (RELTYPE_EXT_SYS_SECTOR) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_CFGFORM_EVENT
+msgid "Seose S&uuml;ndmuse seadete vorm (RELTYPE_CFGFORM_EVENT) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_CFGFORM_EVENT_TIME
+msgid "Seose Toimumisaja seadete vorm (RELTYPE_CFGFORM_EVENT_TIME) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_CFGFORM_LOCATION
+msgid "Seose Toimumiskoha seadete vorm (RELTYPE_CFGFORM_LOCATION) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_CFGFORM_ORGANIZER
+msgid "Seose Korraldaja seadete vorm (RELTYPE_CFGFORM_ORGANIZER) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:rel_RELTYPE_CFGFORM_SECTOR
+msgid "Seose Valdkonna seadete vorm (RELTYPE_CFGFORM_SECTOR) tekst"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:306
+msgid "K&auml;ivita import"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:320
+msgid "Property"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:325
+msgid "Uuenda property sisu, ka siis kui nii AWs kui allikas on sisu muudetud"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:913
+msgid "You must set dir for %s"
+msgstr ""
+
+#: classes/applications/event_import_2/event_import_2.aw:922
+msgid "You must set external system for %s"
+msgstr ""
+

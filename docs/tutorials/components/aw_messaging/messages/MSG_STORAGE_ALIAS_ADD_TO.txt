@@ -1,0 +1,7 @@
+MSG_STORAGE_ALIAS_ADD_TO
+
+This message will get posted after a new alias is created.
+The message parameter is the class_id of the object on the "to" end of the connection.
+
+arguments:
+connection - instance of the connection class containing the added connection 

@@ -1,0 +1,41 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_order" folder="www/dev/terryf/automatweb_dev/classes/applications/shop" extends="class_base">
+		<action name="bank_return" nologin="1">
+			<function name="bank_return">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_pdf" nologin="1">
+			<function name="gen_pdf">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="html" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_items">
+			<function name="remove_items">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="group" />
+					<optional name="return_url" />
+					<required name="sel" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

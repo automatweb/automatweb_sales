@@ -1,0 +1,11 @@
+if [ -f ../../scripts/php ]
+then
+	if [ -f ../../scripts/mk_class/mk_class.aw ]
+	then
+		../../scripts/php -d register_argc_argv=1 -q -f ../../scripts/mk_class/mk_class.aw $1 $2 $3
+	else
+		echo "could not find class making script AWROOT/scripts/mk_class/mk_class.aw"
+	fi
+else
+	echo "could not find cli php as AWROOT/scripts/php "
+fi

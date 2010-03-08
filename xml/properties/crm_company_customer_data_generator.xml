@@ -1,0 +1,83 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>dirs</name>
+            <table>aw_crm_company_customer_data_generator</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_DIR</reltype>
+            <store>connect</store>
+            <multiple>1</multiple>
+            <field>dirs</field>
+            <caption>Organisatsioonide kaustad</caption>
+      </property>
+      <property>
+            <name>subdirs</name>
+            <table>aw_crm_company_customer_data_generator</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>aw_subdirs</field>
+            <caption>Kasuta alamkaustasid</caption>
+      </property>
+      <property>
+            <name>sample_object</name>
+            <table>aw_crm_company_customer_data_generator</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_SAMPLE_OBJECT</reltype>
+            <store>connect</store>
+            <field>sample_object</field>
+            <caption>N&amp;amp;auml;idisobjekt</caption>
+      </property>
+      <property>
+            <name>seller_vs_buyer</name>
+            <table>aw_crm_company_customer_data_generator</table>
+            <group>general</group>
+            <type>chooser</type>
+            <field>aw_seller_vs_buyer</field>
+            <caption>Organisatsioon kaustast on</caption>
+      </property>
+      <property>
+            <name>start_generating</name>
+            <table>aw_crm_company_customer_data_generator</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>start_generating</field>
+            <caption>Kliendisuhete genereerimine</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_COMPANY_CUSTOMER_DATA_GENERATOR</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>instrumental</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_crm_company_customer_data_generator>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_crm_company_customer_data_generator>
+      </tableinfo>
+      <reltypes>
+            <DIR>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Organisatsioonide kaust</caption>
+            </DIR>
+            <CFGFORM>
+                  <value>2</value>
+                  <clid>CL_CFGFORM</clid>
+                  <caption>Seadete vorm</caption>
+            </CFGFORM>
+            <SAMPLE_OBJECT>
+                  <value>3</value>
+                  <clid>CL_CRM_COMPANY_CUSTOMER_DATA</clid>
+                  <caption>N&amp;amp;auml;idisobjekt</caption>
+            </SAMPLE_OBJECT>
+      </reltypes>
+</properties>
+

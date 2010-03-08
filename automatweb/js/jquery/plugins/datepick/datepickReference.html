@@ -1,0 +1,888 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+     "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>jQuery Datepicker Reference</title>
+</head>
+<body>
+<h1>jQuery Datepicker Reference</h1>
+<p>A <a href="http://jquery.com">jQuery</a> <a href="http://jquery.com/plugins/project/datepick">plugin</a>
+	that attaches a popup calendar to your input fields or shows an
+	inline calendar for selecting individual dates or date ranges.
+	If you find this plugin useful please
+	<a href="http://jquery.com/plugins/project/datepick">vote for it</a> on the jQuery site.</p>
+<p>This page provides a documentation reference for working
+	with the plugin <span class="version">v3.7.0</span>.
+	<a href="zip/jquery.datepick.doc-3.7.0.zip">Download a copy</a> for your own reference -
+	just add jQuery JavaScript for full functionality.</p>
+<p>See a <a href="datepick.html">demonstration</a> of the
+	datepicker plugin and download the code from there.
+	Or see a <a href="datepickBasics.html">minimal page</a> that you could
+	use as a basis for your own investigations.</p>
+<p style="text-align: center;"><span id="bookmark"></span></p>
+<div id="tabs">
+	<ul>
+		<li><a href="#options"><span>Settings</span></a></li>
+		<li><a href="#l10n"><span>Localisation</span></a></li>
+		<li><a href="#global"><span>Global</span></a></li>
+		<li><a href="#validation"><span>Validation</span></a></li>
+	</ul>
+	<div id="options" class="feature">
+		<h2><a name="settingsHeader"></a>Instance Settings</h2>
+		<p>A separate datepicker instance is created for each targetted control:
+			<code class="js">$(selector).datepick();</code>.
+			When applied to a <code>div</code> or <code>span</code> the datepicker
+			is rendered inline. Otherwise it appears as a popup on demand.</p>
+		<p>Each instance may have different settings,
+			e.g. <code class="js">$(selector).datepick({minDate: new Date()});</code>.</p>
+		<p>Alternately, you can specify the settings per control by including the
+			<a href="http://plugins.jquery.com/project/metadata">jQuery Metadata</a>
+			plugin in your page and adding options to the <code>class</code> attribute,
+			e.g. <code class="html">&lt;input type="text" class="{minDate: new Date()}"/&gt;</code>.</p>
+		<p>Below are the settings that may be applied to each datepicker instance.
+			All are optional.</p>
+		<p class="quickref">
+			<a href="#alignment">alignment</a>&nbsp;|
+			<a href="#altField">altField</a>&nbsp;|
+			<a href="#altFormat">altFormat</a>&nbsp;|
+			<a href="#appendText">appendText</a>&nbsp;|
+			<a href="#beforeShow">beforeShow</a>&nbsp;|
+			<a href="#beforeShowDay">beforeShowDay</a>&nbsp;|
+			<a href="#buttonImage">buttonImage</a>&nbsp;|
+			<a href="#buttonImageOnly">buttonImageOnly</a>&nbsp;|
+			<a href="#buttonText">buttonText</a>&nbsp;|
+			<a href="#calculateWeek">calculateWeek</a>&nbsp;|
+			<a href="#changeFirstDay">changeFirstDay</a>&nbsp;|
+			<a href="#changeMonth">changeMonth</a>&nbsp;|
+			<a href="#changeYear">changeYear</a>&nbsp;|
+			<a href="#closeAtTop">closeAtTop</a>&nbsp;|
+			<a href="#constrainInput">constrainInput</a>&nbsp;|
+			<a href="#defaultDate">defaultDate</a>&nbsp;|
+			<a href="#duration">duration</a>&nbsp;|
+			<a href="#gotoCurrent">gotoCurrent</a>&nbsp;|
+			<a href="#hideIfNoPrevNext">hideIfNoPrevNext</a>&nbsp;|
+			<a href="#highlightWeek">highlightWeek</a>&nbsp;|
+			<a href="#mandatory">mandatory</a>&nbsp;|
+			<a href="#maxDate">maxDate</a>&nbsp;|
+			<a href="#minDate">minDate</a>&nbsp;|
+			<a href="#multiSelect">multiSelect</a>&nbsp;|
+			<a href="#multiSeparator">multiSeparator</a>&nbsp;|
+			<a href="#navigationAsDateFormat">navigationAsDateFormat</a>&nbsp;|
+			<a href="#numberOfMonths">numberOfMonths</a>&nbsp;|
+			<a href="#onChangeMonthYear">onChangeMonthYear</a>&nbsp;|
+			<a href="#onClose">onClose</a>&nbsp;|
+			<a href="#onHover">onHover</a>&nbsp;|
+			<a href="#onSelect">onSelect</a>&nbsp;|
+			<a href="#rangeSelect">rangeSelect</a>&nbsp;|
+			<a href="#rangeSeparator">rangeSeparator</a>&nbsp;|
+			<a href="#selectOtherMonths">selectOtherMonths</a>&nbsp;|
+			<a href="#shortYearCutoff">shortYearCutoff</a>&nbsp;|
+			<a href="#showAnim">showAnim</a>&nbsp;|
+			<a href="#showBigPrevNext">showBigPrevNext</a>&nbsp;|
+			<a href="#showCurrentAtPos">showCurrentAtPos</a>&nbsp;|
+			<a href="#showDefault">showDefault</a>&nbsp;|
+			<a href="#showOn">showOn</a>&nbsp;|
+			<a href="#showOptions">showOptions</a>&nbsp;|
+			<a href="#showOtherMonths">showOtherMonths</a>&nbsp;|
+			<a href="#showStatus">showStatus</a>&nbsp;|
+			<a href="#showWeeks">showWeeks</a>&nbsp;|
+			<a href="#statusForDate">statusForDate</a>&nbsp;|
+			<a href="#stepBigMonths">stepBigMonths</a>&nbsp;|
+			<a href="#stepMonths">stepMonths</a>&nbsp;|
+			<a href="#useThemeRoller">useThemeRoller</a>&nbsp;|
+			<a href="#yearRange">yearRange</a>
+		</p>
+		<p style="clear: both;"></p>
+		<table border="0">
+		<tr><th>Name</th><th>Type</th><th>Default</th><th>Comments</th></tr>
+		<tr><td><a name="useThemeRoller"></a>useThemeRoller</td><td>boolean</td><td>false</td>
+			<td>Set to <code>true</code> to use <a href="http://ui.jquery.com/themeroller">ThemeRoller</a>
+				CSS classes for styling, or <code>false</code> to use the original plugin CSS classes.
+				Include a corresponding <a href="datepick.html#styling">stylesheet</a> (and ThemeRoller
+				stylesheets if appropriate) in your page to render the datepicker.<br>
+				<span class="version">Since 3.7.0</span>.</td></tr>
+		<tr><td><a name="showOn"></a>showOn</td><td>string</td><td>'focus'</td>
+			<td>Control when the datepicker appears. The options are
+				'focus' for when the input field receives focus,
+				'button' for when an associated button is clicked, or
+				'both' for both of the above. This setting is ignored
+				for inline datepickers.</td></tr>
+		<tr><td><a name="showAnim"></a>showAnim</td><td>string</td><td>'show'</td>
+			<td>Specify the animation used when the datepicker is shown and hidden.
+				The options are 'show' for the standard expand down and to the left,
+				'fadeIn' for fade in and out, 'slideDown' for expanding downwards,
+				or any of the <a href="http://docs.jquery.com/UI/Effects">jQuery UI effects</a>,
+				such as 'clip', 'fold', or 'slide', provided you
+				include the jQuery UI effects module.</td></tr>
+		<tr><td><a name="showOptions"></a>showOptions</td><td>object</td><td>{}</td>
+			<td>When using one of the jQuery UI effects as the animation to show
+				the datepicker, you can pass additional settings to that animation
+				via this setting. For example, for the 'clip' animation you could
+				specify horizontal movement: <code>{direction: 'horizontal'}</code>.</td></tr>
+		<tr><td><a name="duration"></a>duration</td><td>string or number</td><td>'normal'</td>
+			<td>Set the speed of the animation. The options are
+				'slow', 'normal', 'fast', or the number of milliseconds.</td></tr>
+		<tr><td><a name="buttonText"></a>buttonText</td><td>string</td><td>'...'</td>
+			<td>Provide the text to display on a button to open the datepicker.</td></tr>
+		<tr><td><a name="buttonImage"></a>buttonImage</td><td>string</td><td>''</td>
+			<td>To display an image on the trigger button, specify its URL
+				in this setting.</td></tr>
+		<tr><td><a name="buttonImageOnly"></a>buttonImageOnly</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not the image (given above) should appear
+				by itself (<code>true</code>) or on a button (<code>false</code>).</td></tr>
+		<tr><td><a name="alignment"></a>alignment</td><td>string</td><td>'bottom'</td>
+			<td>Set the alignment of the datepicker popup to an edge or corner
+				of its input field. The options are 'top', 'bottom', 'topLeft',
+				'topRight', 'bottomLeft', or 'bottomRight'. The first two align left
+				or right depending on the language direction and available space,
+				and may swap edges to keep the datepicker in view.
+				The remainder do not reposition themselves.<br>
+				<span class="version">Since 3.7.0</span>.</td></tr>
+		<tr><td><a name="defaultDate"></a>defaultDate</td><td>Date or number or string</td><td>null</td>
+			<td>Specify the date shown when no other date has been selected.
+				You can provide an actual date via a Date object
+				(<code>new Date(2009, 1 - 1, 26)</code>), a date string in the current format,
+				a number of days before or after today (<code>+7</code>), or a string of periods
+				and units to offset from today (<code>'+1M +10D'</code>). For the last,
+				use 'D' for days, 'W' for weeks, 'M' for months, or 'Y' for years.
+				Upper or lower case may be used.
+				Leave as <code>null</code> to have the default date be today.<br>
+				<span class="version">Since 3.7.0</span> - added date string.</td></tr>
+		<tr><td><a name="showDefault"></a>showDefault</td><td>boolean</td><td>false</td>
+			<td>When <code>true</code> the default date is set into the
+				input field whenever no other date has been selected.<br>
+				<span class="version">Since 3.6.0</span>.</td></tr>
+		<tr><td><a name="appendText"></a>appendText</td><td>string</td><td>''</td>
+			<td>Provide any text that should be displayed after each datepicker input.
+				For example, you may want to describe the date format.</td></tr>
+		<tr><td><a name="closeAtTop"></a>closeAtTop</td><td>boolean</td><td>true</td>
+			<td>Indicate whether the <i>Clear/Close</i> links should appear
+				at the top of the datepicker (<code>true</code>)
+				or at the bottom (<code>false</code>).</td></tr>
+		<tr><td><a name="mandatory"></a>mandatory</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not the date field is mandatory.
+				If so (<code>true</code>) the <i>Clear</i> link is hidden.</td></tr>
+		<tr><td><a name="hideIfNoPrevNext"></a>hideIfNoPrevNext</td><td>boolean</td><td>false</td>
+			<td>Indicate whether the <i>Prev/Next</i> links should be
+				disabled (<code>false</code>) or hidden (<code>true</code>)
+				when they do not apply.</td></tr>
+		<tr><td><a name="navigationAsDateFormat"></a>navigationAsDateFormat</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not the
+				<a href="#" onclick="jumpTo('global', 'formatDate')"><code>formatDate</code></a>
+				function should be applied to the <i>Prev/Current/Next</i> links.
+				When <code>true</code>, the function is applied, allowing you to
+				have these links labelled for the months that they would show.</td></tr>
+		<tr><td><a name="showBigPrevNext"></a>showBigPrevNext</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not to show a second set of <i>Prev/Next</i>
+				links that move by a larger number of months (12 by default, see
+				<a href="#stepBigMonths"><code>stepBigMonths</code></a>).</td></tr>
+		<tr><td><a name="stepMonths"></a>stepMonths</td><td>number</td><td>1</td>
+			<td>Specify how many months to move when the <i>Prev/Next</i> links
+				are clicked.</td></tr>
+		<tr><td><a name="stepBigMonths"></a>stepBigMonths</td><td>number</td><td>12</td>
+			<td>If showing the large <i>Prev/Next</i> links (see
+				<a href="#showBigPrevNext"><code>showBigPrevNext</code></a>),
+				specify how many months to move when these are clicked.</td></tr>
+		<tr><td><a name="gotoCurrent"></a>gotoCurrent</td><td>boolean</td><td>false</td>
+			<td>Indicate whether the <i>Current</i> link should show the month
+				for today (<code>false</code>) or the month for the currently
+				selected date (<code>true</code>).</td></tr>
+		<tr><td><a name="changeMonth"></a>changeMonth</td><td>boolean</td><td>true</td>
+			<td>Indicate whether or not the month may be changed from a drop-down of all
+				the months in the year. You can always use the <i>Prev/Next</i> links.</td></tr>
+		<tr><td><a name="changeYear"></a>changeYear</td><td>boolean</td><td>true</td>
+			<td>Indicate whether or not the year may be changed from a drop-down of
+				possible years. Use the <a href="#yearRange"><code>yearRange</code></a>
+				setting to control which years appear.</td></tr>
+		<tr><td><a name="yearRange"></a>yearRange</td><td>string</td><td>'-10:+10'</td>
+			<td>Specify which years to show in the year drop-down.
+				The range can be expressed as relative to the currently
+				selected year, '-5:+5', or as two absolute
+				years, e.g. '1980:2010'.</td></tr>
+		<tr><td><a name="changeFirstDay"></a>changeFirstDay</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not clicking on a day name column header
+				causes a change to that day as the first of the week. Use the
+				<a href="#" onclick="jumpTo('l10n', 'firstDay')"><code>firstDay</code></a>
+				setting to set the first day of the week.</td></tr>
+		<tr><td><a name="showOtherMonths"></a>showOtherMonths</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not to show days from other months that precede
+				or follow the current month. These dates are not selectable by default -
+				see <a href="#selectOtherMonths"><code>selectOtherMonths</code></a>.</td></tr>
+		<tr><td><a name="selectOtherMonths"></a>selectOtherMonths</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not days from other months that precede or follow
+				the current month are selectable. This setting has no effect unless
+				<a href="#showOtherMonths"><code>showOtherMonths</code></a> is <code>true</code>.<br>
+				<span class="version">Since 3.5.0</span>.</td></tr>
+		<tr><td><a name="highlightWeek"></a>highlightWeek</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not to highlight the entire week when hovering
+				over any day in that week.</td></tr>
+		<tr><td><a name="showWeeks"></a>showWeeks</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not to add a column showing the week of the year.
+				The method of calculating a week is determined by the
+				<a href="#calculateWeek"><code>calculateWeek</code></a>
+				setting. Note that the calculation is performed
+				only for the first day of each week as displayed.</td></tr>
+		<tr><td><a name="calculateWeek"></a>calculateWeek</td><td>function</td>
+			<td><a href="#" onclick="jumpTo('global', 'iso8601Week')">$.datepick.<br>iso8601Week</a></td>
+			<td>Provide the function that calculates the week of the year for
+				a given date. The function takes a Date as a parameter and
+				returns the number of the week for that date. The default uses the
+				<a href="http://en.wikipedia.org/wiki/ISO_8601#Week_dates">ISO 8601 definition</a>
+				of a week: weeks start on a Monday; the first week of the year
+				contains January 4; up to three days from the previous/next year
+				may be included in the first/last week of the year;
+				weeks are numbered 1 through 53.</td></tr>
+		<tr><td><a name="shortYearCutoff"></a>shortYearCutoff</td><td>string or number</td><td>'+10'</td>
+			<td>When a two-digit year format is used (see
+				<a href="#" onclick="jumpTo('l10n', 'dateFormat')"><code>dateFormat</code></a>),
+				this value helps determine the century for a given date.
+				If expressed as a number (0 to 99) it is the year beyond which
+				the century should be the last one instead of the current one.
+				If expressed as a string, it is converted to a number and added
+				to the current year before making the comparison above.
+				If set to -1 the year is always in the 1900s.<br>
+				<span class="version">Since 3.5.2</span> - disable with -1.</td></tr>
+		<tr><td><a name="showStatus"></a>showStatus</td><td>boolean</td><td>false</td>
+			<td>Indicate whether or not to show the status bar at the bottom
+				of the datepicker that contains more detailed explanations of
+				the function of each component.</td></tr>
+		<tr><td><a name="statusForDate"></a>statusForDate</td><td>function</td>
+			<td><a href="#" onclick="jumpTo('global', 'dateStatusF')">$.datepick.<br>dateStatus</a></td>
+			<td>Provide a function to construct the status message for a given date.
+				The function takes the date as a parameter and return a string.
+				The message may contain HTML markup. The default function uses the
+				<a href="#" onclick="jumpTo('l10n', 'dateStatus')"><code>dateStatus</code></a>
+				setting for the given date.</td></tr>
+		<tr><td><a name="minDate"></a>minDate</td><td>Date or number or string</td><td>null</td>
+			<td>Specify a lower limit on the dates that may be selected
+				or leave as <code>null</code> for no such restriction.
+				You can provide an actual date via a Date object
+				(<code>new Date(2009, 1 - 1, 26)</code>), a date string in the current format,
+				a number of days before or after today (<code>-7</code>), or a string of periods
+				and units to offset from today (<code>'-1M -10D'</code>). For the last,
+				use 'D' for days, 'W' for weeks, 'M' for months, or 'Y' for years.
+				Upper or lower case may be used.<br>
+				<span class="version">Since 3.7.0</span> - added date string.</td></tr>
+		<tr><td><a name="maxDate"></a>maxDate</td><td>Date or number or string</td><td>null</td>
+			<td>Specify an upper limit on the dates that may be selected
+				or leave as <code>null</code> for no such restriction.
+				You can provide an actual date via a Date object
+				(<code>new Date(2009, 1 - 1, 26)</code>), a date string in the current format,
+				a number of days before or after today (<code>+7</code>), or a string of periods
+				and units to offset from today (<code>'+1M +10D'</code>). For the last,
+				use 'D' for days, 'W' for weeks, 'M' for months, or 'Y' for years.
+				Upper or lower case may be used.<br>
+				<span class="version">Since 3.7.0</span> - added date string.</td></tr>
+		<tr><td><a name="numberOfMonths"></a>numberOfMonths</td><td>number or number[2]</td><td>1</td>
+			<td>Specify the number of months to display in the datepicker.
+				If expressed as a single number these are shown horizontally.
+				If expressed as a two-entry array, these are the number of
+				rows and columns to show, e.g. <code>{numberOfMonths: [2, 3]}</code>.</td></tr>
+		<tr><td><a name="showCurrentAtPos"></a>showCurrentAtPos</td><td>number</td><td>0</td>
+			<td>When showing multiple months, use this setting to indicate
+				in which position the current month should appear,
+				starting at zero. For example, to show three months with the
+				current one in the middle:
+				<code>{numberOfMonths: 3, showCurrentAtPos: 1}</code>.</td></tr>
+		<tr><td><a name="rangeSelect"></a>rangeSelect</td><td>boolean</td><td>false</td>
+			<td>Indicate whether to allow selection of a single date
+				(<code>false</code>) or a range of values (<code>true</code>).
+				For the latter, the first click selects the starting date
+				and the second selects the ending date.</td></tr>
+		<tr><td><a name="rangeSeparator"></a>rangeSeparator</td><td>string</td><td>' - '</td>
+			<td>When selecting date ranges, this setting controls what
+				separates the two dates in the range when displayed in
+				the input field or passed to the <a href="#onSelect"><code>onSelect</code></a>
+				or <a href="#onClose"><code>onClose</code></a> callbacks.</td></tr>
+		<tr><td><a name="multiSelect"></a>multiSelect</td><td>number</td><td>0</td>
+			<td>To allow selection of multiple individual dates, set this to the
+				maximum number of allowed selections. The first click on a date
+				selects it and a second click de-selects it. This setting is ignored if
+				<a href="#rangeSelect"><code>rangeSelect</code></a> is <code>true</code>.<br>
+				<span class="version">Since 3.6.0</span>.</td></tr>
+		<tr><td><a name="multiSeparator"></a>multiSeparator</td><td>string</td><td>','</td>
+			<td>When selecting multiple individual dates, this setting controls what
+				separates those dates when displayed in the input field or passed to the
+				<a href="#onSelect"><code>onSelect</code></a> or
+				<a href="#onClose"><code>onClose</code></a> callbacks.<br>
+				<span class="version">Since 3.6.0</span>.</td></tr>
+		<tr><td><a name="altField"></a>altField</td><td>string or element</td><td>''</td>
+			<td>As well as the input field and its format (see
+				<a href="#" onclick="jumpTo('l10n', 'dateFormat')"><code>dateFormat</code></a>),
+				you can specify an alternate field to also be updated with the
+				selected date (or range). The setting value is either the
+				jQuery selector for the field or the element itself.</td></tr>
+		<tr><td><a name="altFormat"></a>altFormat</td><td>string</td><td>''</td>
+			<td>The alternate field above can have its own date format.
+				You can use these two settings to display the date in one
+				format to the user, but have a different field carry the
+				date in a more useable format through for further processing. See the
+				<a href="#" onclick="jumpTo('global', 'formatDate')"><code>formatDate</code></a>
+				function for the formatting possibilities.</td></tr>
+		<tr><td><a name="beforeShow"></a>beforeShow</td><td>function</td><td>null</td>
+			<td>Specify a function that is called just before the datepicker
+				shows itself, allowing you to adjust its settings.
+				For example, you can use this function to synchronise
+				two input fields that constitute a date range.
+				The function takes the input field or division/span to which
+				the datepicker is attached and the datepicker instance
+				object as parameters, and returns an object containing
+				settings that are applied to that instance.<br>
+				For example:<br>
+				<code class="js">$(selector).datepick({beforeShow: setMin});
+
+function setMin(input, inst) {
+	return {minDate: ...};
+}</code></td></tr>
+		<tr><td><a name="beforeShowDay"></a>beforeShowDay</td><td>function</td><td>null</td>
+			<td>Provide a function that is called for each date being displayed.
+				The function takes a date as a parameter and returns an array
+				of values where [0] is <code>true</code> if this date is selectable
+				or <code>false</code> if it is not, [1] is any custom CSS class
+				name(s) or '' for none, and [2] is an optional tooltip value
+				for this date. For example, it would return <code>[false, '']</code>
+				to make the date unselectable, or <code>[true, 'birthday', 'Mum\'s birthday']</code>
+				to change its appearance via CSS as the 'birthday' class and to
+				describe whose birthday in a popup tooltip. One standard function is defined:
+				<a href="#" onclick="jumpTo('global', 'noWeekends')"><code>$.datepick.noWeekends</code></a>
+				prevents the selection of any Saturday or Sunday.<br>
+				For example:<br>
+				<code class="js">$(selector).datepick({beforeShowDay: noSundays});
+
+function noSundays(date) {
+	return [date.getDay() != 0, ''];
+}</code></td></tr>
+		<tr><td><a name="onChangeMonthYear"></a>onChangeMonthYear</td><td>function</td><td>null</td>
+			<td>Specify a function that is called whenever the displayed
+				month and/or year are changed. The function takes the new year,
+				new month (1 to 12), the first of that month as a Date, and the current
+				datepicker instance object as parameters. Within this function,
+				<code>this</code> refers to the input field for this datepicker.<br>
+				For example:<br>
+				<code class="js">$(selector).datepick(
+	{onChangeMonthYear: trackMonth});
+
+function trackMonth(year, month, date, inst) {
+	...
+}</code><br>
+				<span class="version">Since 3.5.2</span> - added Date type parameter.</td></tr>
+		<tr><td><a name="onHover"></a>onHover</td><td>function</td><td>null</td>
+			<td>Provide a function that is called when the mouse hovers over a day.
+				The function takes the covered date as a string (in the format given by
+				<a href="#" onclick="jumpTo('l10n', 'dateFormat')"><code>dateFormat</code></a>)
+				and as a Date, and the current datepicker instance object as parameters.
+				A second call to the function is made on exit with the date
+				values set to <code>null</code>. Within this function, <code>this</code>
+				refers to the input field for this datepicker.<br>
+				For example:<br>
+				<code class="js">$(selector).datepick({onHover: trackDay});
+
+function trackDay(value, date, inst) {
+	...
+}</code><br>
+				<span class="version">Since 3.5.0</span>.<br>
+				<span class="version">Since 3.5.2</span> - added Date type parameter.</td></tr>
+		<tr><td><a name="onSelect"></a>onSelect</td><td>function</td><td>null</td>
+			<td>Set a function that is called whenever a date is selected
+				within the datepicker. The function takes the chosen date
+				as a string (in the format given by
+				<a href="#" onclick="jumpTo('l10n', 'dateFormat')"><code>dateFormat</code></a>)
+				and as a Date or Date array (for range or multiple selects),
+				and the current datepicker instance object as parameters.
+				For date ranges, the function is called for both the start
+				and end selections and the date string contains both dates
+				separated by <a href="#rangeSeparator"><code>rangeSeparator</code></a>.
+				For multiple dates, the function is called for each selection and
+				de-selection and the date string contains the dates
+				separated by <a href="#multiSeparator"><code>multiSeparator</code></a>.
+				Within this function, <code>this</code> refers to the
+				input field for this datepicker.<br>
+				For example:<br>
+				<code class="js">$(selector).datepick({onSelect: pickedDate});
+
+function pickedDate(value, date, inst) {
+	...
+}</code><br>
+				<span class="version">Since 3.5.2</span> - added Date type parameter.</td></tr>
+		<tr><td><a name="onClose"></a>onClose</td><td>function</td><td>null</td>
+			<td>Provide a function that is called whenever the datepicker
+				is closed. The function takes the current date
+				as a string (in the format given by
+				<a href="#" onclick="jumpTo('l10n', 'dateFormat')"><code>dateFormat</code></a>)
+				and as a Date or Date array (for range multiple selects),
+				and the current datepicker instance object as parameters.
+				For date ranges, the date string contains both dates
+				separated by <a href="#rangeSeparator"><code>rangeSeparator</code></a>.
+				For multiple dates, the date string contains all the dates
+				separated by <a href="#multiSeparator"><code>multiSeparator</code></a>.
+				Within this function, <code>this</code> refers to the
+				input field for this datepicker.<br>
+				For example:<br>
+				<code class="js">$(selector).datepick({onClose: closedDate});
+
+function closedDate(value, date, inst) {
+	...
+}</code><br>
+				<span class="version">Since 3.5.2</span> - added Date type parameter.</td></tr>
+		<tr><td><a name="constrainInput"></a>constrainInput</td><td>boolean</td><td>true</td>
+			<td>Indicate whether or not any characters entered directly into the input
+				field should be restricted to those allowed by the current format (see
+				<a href="#" onclick="jumpTo('l10n', 'dateFormat')"><code>dateFormat</code></a>).</td></tr>
+		</table>
+	</div>
+	<div id="l10n" class="feature">
+		<h2><a name="l10nHeader"></a>Localisation Settings</h2>
+		<p>Below are the localisation settings that may be applied to each datepicker instance.
+			All are optional. These options are designed to be updated when localising
+			the datepicker for a given language and locale.</p>
+		<p>Use a localisation package (see the
+			<a href="datepick.html#l10nPkgs">list on the demo page</a>)
+			by loading the appropriate file after the datepicker plugin itself.
+			This adds a language set (<code>$.datepick.<a href="#" onclick="jumpTo('global', 'regional')">regional</a>[langCode]</code>) and
+			automatically sets this language as the default for all datepicker fields.</p>
+		<pre><code class="html">&lt;script type="text/javascript" src="jquery.datepick-fr.js"&gt;&lt;/script&gt;</code></pre>
+		<p>Thereafter, if desired, you can restore the original language settings.</p>
+		<pre><code>$.datepick.<a href="#" onclick="jumpTo('global', 'setDefaults')">setDefaults</a>($.datepick.regional['']);</code></pre>
+		<p>And then configure the language per datepicker field.</p>
+		<pre><code class="js">$('#l10nDatepicker').datepick($.datepick.regional['fr']);</code></pre>
+		<p class="quickref">
+			<a href="#clearStatus">clearStatus</a>&nbsp;|
+			<a href="#clearText">clearText</a>&nbsp;|
+			<a href="#closeStatus">closeStatus</a>&nbsp;|
+			<a href="#closeText">closeText</a>&nbsp;|
+			<a href="#currentStatus">currentStatus</a>&nbsp;|
+			<a href="#currentText">currentText</a>&nbsp;|
+			<a href="#dateFormat">dateFormat</a>&nbsp;|
+			<a href="#dateStatusF">dateStatus</a>&nbsp;|
+			<a href="#dayNames">dayNames</a>&nbsp;|
+			<a href="#dayNamesMin">dayNamesMin</a>&nbsp;|
+			<a href="#dayNamesShort">dayNamesShort</a>&nbsp;|
+			<a href="#dayStatus">dayStatus</a>&nbsp;|
+			<a href="#firstDay">firstDay</a>&nbsp;|
+			<a href="#initStatus">initStatus</a>&nbsp;|
+			<a href="#isRTL">isRTL</a>&nbsp;|
+			<a href="#monthNames">monthNames</a>&nbsp;|
+			<a href="#monthNamesShort">monthNamesShort</a>&nbsp;|
+			<a href="#monthStatus">monthStatus</a>&nbsp;|
+			<a href="#nextBigStatus">nextBigStatus</a>&nbsp;|
+			<a href="#nextBigText">nextBigText</a>&nbsp;|
+			<a href="#nextStatus">nextStatus</a>&nbsp;|
+			<a href="#nextText">nextText</a>&nbsp;|
+			<a href="#prevBigStatus">prevBigStatus</a>&nbsp;|
+			<a href="#prevBigText">prevBigText</a>&nbsp;|
+			<a href="#prevStatus">prevStatus</a>&nbsp;|
+			<a href="#prevText">prevText</a>&nbsp;|
+			<a href="#showMonthAfterYear">showMonthAfterYear</a>&nbsp;|
+			<a href="#weekHeader">weekHeader</a>&nbsp;|
+			<a href="#weekStatus">weekStatus</a>&nbsp;|
+			<a href="#yearStatus">yearStatus</a>&nbsp;|
+			<a href="#yearSuffix">yearSuffix</a>
+		</p>
+		<p style="clear: both;"></p>
+		<table border="0">
+		<tr><th>Name</th><th>Type</th><th>Default</th><th>Comments</th></tr>
+		<tr><td><a name="clearText"></a>clearText</td><td>string</td><td>'Clear'</td>
+			<td>The text to display for the link to clear the input field
+				and close the datepicker. Use the
+				<a href="#" onclick="jumpTo('options', 'mandatory')"><code>mandatory</code></a>
+				setting to control the link's presence.</td></tr>
+		<tr><td><a name="clearStatus"></a>clearStatus</td><td>string</td><td>'Erase the current date'</td>
+			<td>The text to display in the datepicker's status bar for the above link.</td></tr>
+		<tr><td><a name="closeText"></a>closeText</td><td>string</td><td>'Close'</td>
+			<td>The text to display for the link to close the datepicker
+				without changing the field value.</td></tr>
+		<tr><td><a name="closeStatus"></a>closeStatus</td><td>string</td><td>'Close without change'</td>
+			<td>The text to display in the datepicker's status bar for the above link.</td></tr>
+		<tr><td><a name="prevText"></a>prevText</td><td>string</td><td>'&#x3c;Prev'</td>
+			<td>The text to display for the link to move to the previous month.
+				Use the <a href="#" onclick="jumpTo('options', 'stepMonths')"><code>stepMonths</code></a>
+				setting to specify how many months to move at one time.</td></tr>
+		<tr><td><a name="prevStatus"></a>prevStatus</td><td>string</td><td>'Show the previous month'</td>
+			<td>The text to display in the datepicker's status bar for the above link.</td></tr>
+		<tr><td><a name="prevBigText"></a>prevBigText</td><td>string</td><td>'&#x3c;&#x3c;'</td>
+			<td>The text to display for the link to move to the previous year.
+				Use the <a href="#" onclick="jumpTo('options', 'stepBigMonths')"><code>stepBigMonths</code></a>
+				setting to specify how many months to move at one time and the
+				<a href="#" onclick="jumpTo('options', 'showBigPrevNext')"><code>showBigPrevNext</code></a>
+				setting to control its presence.</td></tr>
+		<tr><td><a name="prevBigStatus"></a>prevBigStatus</td><td>string</td><td>'Show the previous year'</td>
+			<td>The text to display in the datepicker's status bar for the above link.</td></tr>
+		<tr><td><a name="nextText"></a>nextText</td><td>string</td><td>'Next&#x3e;'</td>
+			<td>The text to display for the link to move to the next month.
+				Use the <a href="#" onclick="jumpTo('options', 'stepMonths')"><code>stepMonths</code></a>
+				setting to specify how many months to move at one time.</td></tr>
+		<tr><td><a name="nextStatus"></a>nextStatus</td><td>string</td><td>'Show the next month'</td>
+			<td>The text to display in the datepicker's status bar for the above link.</td></tr>
+		<tr><td><a name="nextBigText"></a>nextBigText</td><td>string</td><td>'&#x3e;&#x3e;'</td>
+			<td>The text to display for the link to move to the next year.
+				Use the <a href="#" onclick="jumpTo('options', 'stepBigMonths')"><code>stepBigMonths</code></a>
+				setting to specify how many months to move at one time and the
+				<a href="#" onclick="jumpTo('options', 'showBigPrevNext')"><code>showBigPrevNext</code></a>
+				setting to control its presence.</td></tr>
+		<tr><td><a name="nextBigStatus"></a>nextBigStatus</td><td>string</td><td>'Show the next year'</td>
+			<td>The text to display in the datepicker's status bar for the above link.</td></tr>
+		<tr><td><a name="currentText"></a>currentText</td><td>string</td><td>'Today'</td>
+			<td>The text to display for the link to show the month containing today.
+				Use the <a href="#" onclick="jumpTo('options', 'gotoCurrent')"><code>gotoCurrent</code></a>
+				setting to show the month of the current selection instead.</td></tr>
+		<tr><td><a name="currentStatus"></a>currentStatus</td><td>string</td><td>'Show the current month'</td>
+			<td>The text to display in the datepicker's status bar for the above link.</td></tr>
+		<tr><td><a name="monthNames"></a>monthNames</td><td>string[12]</td><td>['January', 'February', 'March',
+			'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']</td>
+			<td>The names of the months. These are used for display in the month
+				selection drop-down, as well as for formatting and parsing dates.</td></tr>
+		<tr><td><a name="monthNamesShort"></a>monthNamesShort</td><td>string[12]</td>
+			<td>['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']</td>
+			<td>The abbreviated names of the months for formatting and parsing dates.</td></tr>
+		<tr><td><a name="monthStatus"></a>monthStatus</td><td>string</td><td>'Show a different month'</td>
+			<td>The text to display in the datepicker's status bar
+				for the month selection drop-down. Use the
+				<a href="#" onclick="jumpTo('options', 'changeMonth')"><code>changeMonth</code></a>
+				setting to allow the month to be changed with this drop-down.</td></tr>
+		<tr><td><a name="yearStatus"></a>yearStatus</td><td>string</td><td>'Show a different year'</td>
+			<td>The text to display in the datepicker's status bar
+				for the year selection drop-down. Use the
+				<a href="#" onclick="jumpTo('options', 'changeYear')"><code>changeYear</code></a>
+				setting to allow the year to be changed with this drop-down.</td></tr>
+		<tr><td><a name="weekHeader"></a>weekHeader</td><td>string</td><td>'Wk'</td>
+			<td>The text to display in the header for the week-of-the-year column. Use the
+				<a href="#" onclick="jumpTo('options', 'showWeeks')"><code>showWeeks</code></a>
+				setting to control this column's presence.</td></tr>
+		<tr><td><a name="weekStatus"></a>weekStatus</td><td>string</td><td>'Week of the year'</td>
+			<td>The text to display in the datepicker's status bar
+				for the week-of-the-year column.</td></tr>
+		<tr><td><a name="dayNames"></a>dayNames</td><td>string[7]</td>
+			<td>['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']</td>
+			<td>The names of the days, starting at Sunday. These are used for
+				formatting and parsing dates and in various status bar messages.</td></tr>
+		<tr><td><a name="dayNamesShort"></a>dayNamesShort</td><td>string[7]</td>
+			<td>['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']</td>
+			<td>The abbreviated names of the days, starting at Sunday. These are used for
+				formatting and parsing dates and in various status bar messages.</td></tr>
+		<tr><td><a name="dayNamesMin"></a>dayNamesMin</td><td>string[7]</td>
+			<td>['Su','Mo','Tu','We','Th','Fr','Sa']</td>
+			<td>The minimal names of the days for display as column headings. Use the
+				<a href="#firstDay"><code>firstDay</code></a>
+				setting to specify the first day of the week and the
+				<a href="#" onclick="jumpTo('options', 'changeFirstDay')"><code>changeFirstDay</code></a>
+				setting to allow the user to change it themselves.</td></tr>
+		<tr><td><a name="dayStatus"></a>dayStatus</td><td>string</td><td>'Set DD as first week day'</td>
+			<td>The text to display in the datepicker's status bar for the
+				day column headers. 'D' is replaced by the abbreviated
+				day name and 'DD' is replaced by the full day name.</td></tr>
+		<tr><td><a name="dateStatusF"></a>dateStatus</td><td>string</td><td>'Select DD, M d'</td>
+			<td>The text to display in the datepicker's status bar for the
+				selectable days in a month. The
+				<a href="#" onclick="jumpTo('global', 'formatDate')"><code>formatDate</code></a>
+				function is applied to the text before display.
+				This setting is used by the standard implementation
+				(<a href="#" onclick="jumpTo('global', 'dateStatusF')"><code>dateStatus</code></a>)
+				of the <a href="#" onclick="jumpTo('options', 'statusForDate')"><code>statusForDate</code></a>
+				callback.</td></tr>
+		<tr><td><a name="dateFormat"></a>dateFormat</td><td>string</td><td>'mm/dd/yy'</td>
+			<td>The format in which dates are presented in the input field.
+				See the formatting possibilities in the
+				<a href="#" onclick="jumpTo('global', 'formatDate')"><code>formatDate</code></a>
+				function.</td></tr>
+		<tr><td><a name="firstDay"></a>firstDay</td><td>number</td><td>0</td>
+			<td>The first day of the week: 0 is Sunday, 1 is Monday,
+				through to 6 is Saturday.</td></tr>
+		<tr><td><a name="initStatus"></a>initStatus</td><td>string</td><td>'Select a date'</td>
+			<td>The text to display in the datepicker's status bar
+				when no other status bar message applies.</td></tr>
+		<tr><td><a name="isRTL"></a>isRTL</td><td>boolean</td><td>false</td>
+			<td>Set to <code>true</code> to indicate that this localisation's
+				language reads right-to-left. This affects the positioning
+				of various elements as well as the text itself.</td></tr>
+		<tr><td><a name="showMonthAfterYear"></a>showMonthAfterYear</td><td>boolean</td><td>false</td>
+			<td>Indicate whether the month drop-down should appear after
+				(<code>true</code>) the year drop-down, or before it (<code>false</code>).<br>
+				<span class="version">Since 3.5.2</span> - moved to localisation settings.</td></tr>
+		<tr><td><a name="yearSuffix"></a>yearSuffix</td><td>string</td><td>''</td>
+			<td>Text to append to the year in each month's header.<br>
+				<span class="version">Since 3.5.2</span>.</td></tr>
+		</table>
+	</div>
+	<div id="global" class="feature">
+		<h2>Global Settings</h2>
+		<p>Below are the fields and functions available from the datepicker
+			manager (<code>$.datepick</code>).</p>
+		<h3>Fields</h3>
+		<table border="0">
+		<tr><th>Name</th><th>Type</th><th>Default</th><th>Comments</th></tr>
+		<tr><td><a name="regional"></a>regional</td><td>object[]</td><td></td>
+			<td>The set of localisation settings for the datepicker.
+				Entries are indexed by the country/region code with '' providing the default
+				(English) settings. Each entry is an object with the properties listed
+				on the <a href="#" onclick="jumpTo('l10n', 'l10nHeader')">Localisation</a> tab.
+				Language packages load new entries into this array and
+				automatically apply them as global defaults. If necessary,
+				you can then revert to the default language settings with<br>
+				<code>$.datepick.<a href="#setDefaults">setDefaults</a>($.datepick.regional['']);</code><br>
+				and apply the language settings to individual fields with<br>
+				<code>$('#frenchDatepick').datepick($.datepick.regional['fr']);</code>.<br>
+				Check out the list of available
+				<a href="datepick.html#l10nPkgs">localisation packages</a>.</td></tr>
+		<tr><td>ATOM</td><td>string</td><td>'yy-mm-dd'</td><td>RFC 3339 (ISO 8601)<br>
+			This and the fields below are designed to be used for the
+			<a href="#" onclick="jumpTo('l10n', 'dateFormat')"><code>dateFormat</code></a> and
+			<a href="#" onclick="jumpTo('l10n', 'altFormat')"><code>altFormat</code></a> settings,
+			as well as with the <a href="#formatDate">formatDate</a> and
+			<a href="#parseDate">parseDate</a> functions.</td></tr>
+		<tr><td>COOKIE</td><td>string</td><td>'D,&nbsp;dd&nbsp;M&nbsp;yy'</td><td></td></tr>
+		<tr><td>ISO_8601</td><td>string</td><td>'yy-mm-dd'</td><td></td></tr>
+		<tr><td>RFC_822</td><td>string</td><td>'D,&nbsp;d&nbsp;M&nbsp;y'</td><td></td></tr>
+		<tr><td>RFC_850</td><td>string</td><td>'DD,&nbsp;dd-M-y'</td><td></td></tr>
+		<tr><td>RFC_1036</td><td>string</td><td>'D,&nbsp;d&nbsp;M&nbsp;y'</td><td></td></tr>
+		<tr><td>RFC_1123</td><td>string</td><td>'D,&nbsp;d&nbsp;M&nbsp;yy'</td><td></td></tr>
+		<tr><td>RFC_2822</td><td>string</td><td>'D,&nbsp;d&nbsp;M&nbsp;yy'</td><td></td></tr>
+		<tr><td>RSS</td><td>string</td><td>'D,&nbsp;d&nbsp;M&nbsp;y'</td><td>RFC 822</td></tr>
+		<tr><td>TICKS</td><td>string</td><td>'!'</td><td><span class="version">Since 3.5.2</span>.</td></tr>
+		<tr><td>TIMESTAMP</td><td>string</td><td>'@'</td><td></td></tr>
+		<tr><td>W3C</td><td>string</td><td>'yy-mm-dd'</td><td>ISO 8601</td></tr>
+		</table>
+		<h3>Functions</h3>
+		<p class="quickref">
+			<a href="#dateStatus">dateStatus</a>&nbsp;|
+			<a href="#destroy">destroy</a>&nbsp;|
+			<a href="#dialog">dialog</a>&nbsp;|
+			<a href="#disable">disable</a>&nbsp;|
+			<a href="#enable">enable</a>&nbsp;|
+			<a href="#errorPlacement">errorPlacement</a>&nbsp;|
+			<a href="#formatDate">formatDate</a>&nbsp;|
+			<a href="#getDate">getDate</a>&nbsp;|
+			<a href="#hide">hide</a>&nbsp;|
+			<a href="#isDisabled">isDisabled</a>&nbsp;|
+			<a href="#iso8601Week">iso8601Week</a>&nbsp;|
+			<a href="#noWeekends">noWeekends</a>&nbsp;|
+			<a href="#option">option</a>&nbsp;|
+			<a href="#parseDate">parseDate</a>&nbsp;|
+			<a href="#refresh">refresh</a>&nbsp;|
+			<a href="#setDate">setDate</a>&nbsp;|
+			<a href="#setDefaults">setDefaults</a>&nbsp;|
+			<a href="#show">show</a>
+		</p>
+		<p style="clear: both;"></p>
+		<table border="0">
+		<tr><th>Signature</th><th>Returns</th><th>Comments</th></tr>
+		<tr><td><a name="setDefaults"></a>$.datepick.setDefaults(settings)</td><td>void</td>
+			<td>Update the default instance settings (see
+				<a href="#" onclick="jumpTo('options', 'settingsHeader')">Settings</a> and
+				<a href="#" onclick="jumpTo('l10n', 'l10nHeader')">Localisation</a> tabs)
+				to use with all datepicker instances.</td></tr>
+		<tr><td><a name="option"></a>$(selector).datepick('option', settings)</td><td>jQuery object</td>
+			<td>Update the settings for the datepicker instances attached to the
+				given controls.<br>
+				<code>settings</code> (object) is the set of changed options</td></tr>
+		<tr><td>$(selector).datepick('option', name, value)</td><td>jQuery object</td>
+			<td>Update the setting for a single property on the datepicker instances
+				attached to the given controls.<br>
+				<code>name</code> (string) is the name of the option<br>
+				<code>value</code> (any) is the new value of the option</td></tr>
+		<tr><td>$(selector).datepick('option', name)</td><td>any</td>
+			<td>Retrieve the datepicker instance setting(s) from the first of the given
+				controls. All settings are returned as an object if a name of 'all' is provided.
+				All global default settings are returned as an object if the name is 'defaults'.
+				If there is no appropriate setting, <code>null</code> is returned.<br>
+				<code>name</code> (string) is the name of an individual setting,
+				'all' for all instance settings, or 'defaults' for all global defaults<br>
+				<span class="version">Since 3.5.2</span>.</td></tr>
+		<tr><td><a name="dialog"></a>$(selector).datepick('dialog', date, onSelect, settings, pos)</td>
+			<td>jQuery object</td>
+			<td>Display the datepicker in a "dialog" box.<br>
+				<code>date</code> (string or Date) is the initial date
+				to display (in the current format)<br>
+				<code>onSelect</code> (function) is the
+				<a href="#" onclick="jumpTo('options', 'onSelect')">function</a>
+				to call when a date is selected<br>
+				<code>settings</code> (object, optional) is any additional options
+				for the dialog date picker instance<br>
+				<code>pos</code> (int[2], optional) is left and top coordinates
+				for the dialog's position within the screen or (event) an event
+				with x/y coordinates or omitted for the screen centre<br>
+				<span class="version">Since 3.7.0</span> - initial date as <code>Date</code>.</td></tr>
+		<tr><td><a name="destroy"></a>$(selector).datepick('destroy')</td><td>jQuery object</td>
+			<td>Remove the datepicker functionality from the given controls.</td></tr>
+		<tr><td><a name="enable"></a>$(selector).datepick('enable')</td><td>jQuery object</td>
+			<td>Enable the datepickers for the given controls.</td></tr>
+		<tr><td><a name="disable"></a>$(selector).datepick('disable')</td><td>jQuery object</td>
+			<td>Disable the datepickers for the given controls.</td></tr>
+		<tr><td><a name="isDisabled"></a>$(selector).datepick('isDisabled')</td><td>boolean</td>
+			<td>Returns <code>true</code> if the first datepicker selected is currently
+				disabled or <code>false</code> if it is enabled.</td></tr>
+		<tr><td><a name="show"></a>$(selector).datepick('show')</td><td>jQuery object</td>
+			<td>Open the datpicker for the specified field.</td></tr>
+		<tr><td><a name="hide"></a>$(selector).datepick('hide')</td><td>jQuery object</td>
+			<td>Close the datepicker for the specified field.</td></tr>
+		<tr><td><a name="refresh"></a>$(selector).datepick('refresh')</td><td>jQuery object</td>
+			<td>Redraw the datepickers for the given controls.
+				You shouldn't need to invoke this command as the datepicker
+				refreshes when its options are changed. But just in case...</td></tr>
+		<tr><td><a name="setDate"></a>$(selector).datepick('setDate', date, endDate)</td><td>jQuery object</td>
+			<td>Set the current date for the datepickers for the given controls.<br>
+				<code>date</code> (Date, optional) is the new selected date,
+				and defaults to today if omitted<br>
+				<code>endDate</code> (Date, optional) is the end date for a
+				<a href="#" onclick="jumpTo('options', 'rangeSelect')">date range</a> -
+				it is ignored if not selecting a range, and defaults to the start date
+				if omitted otherwise<br>
+				For each parameter, you can provide an actual date via a Date object
+				(<code>new Date(2009, 1 - 1, 26)</code>), a number of days
+				before or after today (<code>+7</code>), or a string of periods
+				and units to offset from today (<code>'+1M +10D'</code>). For the last,
+				use 'D' for days, 'W' for weeks, 'M' for months, or 'Y' for years.</td></tr>
+		<tr><td><a name="getDate"></a>$(selector).datepick('getDate')</td><td>Date or Date[2]</td>
+			<td>For the first element selected, retrieve the currently selected date,
+				or null if no date has been chosen yet.
+				If selecting a <a href="#" onclick="jumpTo('options', 'rangeSelect')">date range</a>
+				the start and end dates are returned in an array.</td></tr>
+		<tr><td><a name="dateStatus"></a>$.datepick.dateStatus(date, inst)</td><td>string</td>
+			<td>Returns the default status bar entry when hovering over a date.
+				It applies the
+				<a href="#" onclick="jumpTo('l10n', 'dateStatus')"><code>dateStatus</code></a>
+				setting to the current date. You can change the way the status text
+				for a date is determined by providing your own function for the
+				<a href="#" onclick="jumpTo('options', 'statusForDate')"><code>statusForDate</code></a>
+				setting.</td></tr>
+		<tr><td><a name="iso8601Week"></a>$.datepick.iso8601Week(date)</td><td>number</td>
+			<td>Calculate the week of the year for the given date based on the
+				<a href="http://en.wikipedia.org/wiki/ISO_8601#Week_dates">ISO 8601 definition</a>.
+				You can change the way the week of the year is calculated
+				by providing your own function for the
+				<a href="#" onclick="jumpTo('options', 'calculateWeek')"><code>calculateWeek</code></a>
+				setting.</td></tr>
+		<tr><td><a name="noWeekends"></a>$.datepick.noWeekends(date)</td><td>array</td>
+			<td>A function that can be used for the
+				<a href="#" onclick="jumpTo('options', 'beforeShowDay')"><code>beforeShowDay</code></a>
+				setting that does not allow selection of days on weekends.</td></tr>
+		<tr><td><a name="formatDate"></a>$.datepick.formatDate(format, date, settings)</td><td>string</td>
+			<td>Convert a Date value into a string following a given format.<br>
+				<code>format</code> (string) is the format for display - any combination of:<br>
+				<ul>
+					<li>d  - day of month (no leading zero)</li>
+					<li>dd - day of month (two digit)</li>
+					<li>o  - day of year (no leading zeros)</li>
+					<li>oo - day of year (three digit)</li>
+					<li>D  - day name short</li>
+					<li>DD - day name long</li>
+					<li>w  - week of year (no leading zero)</li>
+					<li>ww - week of year (two digit)</li>
+					<li>m  - month of year (no leading zero)</li>
+					<li>mm - month of year (two digit)</li>
+					<li>M  - month name short</li>
+					<li>MM - month name long</li>
+					<li>y  - year (two digit)</li>
+					<li>yy - year (four digit)</li>
+					<li>@ - Unix timestamp (ms since 01/01/1970)</li>
+					<li>! - Windows ticks (100ns since 01/01/0001)</li>
+					<li>'...' - literal text</li>
+					<li>'' - single quote</li>
+				</ul>
+				<code>date</code> (Date) is the date to display<br>
+				<code>settings</code> (object, optional) is any additional settings for the
+				conversion - this object may contain the following attributes (all optional):
+				<code>dayNames</code> (string[7]) is the full names
+				of the days starting from Sunday;
+				<code>dayNamesShort</code> (string[7]) is the abbreviated names
+				of the days starting from Sunday;
+				<code>monthNames</code> (string[12]) is the full names of the months;
+				<code>monthNamesShort</code> (string[12]) is the abbreviated names of the months;
+				<code>calculateWeek</code> (function) is a function to calculate
+				the week of the year (see <a href="#iso8601Week">iso8601Week</a>) -
+				if any of these are omitted, the corresponding value from the
+				datepicker defaults is used instead<br>
+				<span class="version">Since 3.5.2</span> - added Windows ticks.<br>
+				<span class="version">Since 3.7.0</span> - added week of the year.</td></tr>
+		<tr><td><a name="parseDate"></a>$.datepick.parseDate(format, value, settings)</td><td>Date</td>
+			<td>Convert a string value into a Date object following a given format.
+				Various exceptions may be thrown if error conditions are encountered.<br>
+				<code>format</code> (string) is the format that describes the expected date -
+				see the possibilities under the <a href="#formatDate"><code>formatDate</code></a> function.<br>
+				<code>value</code> (string) is the date text to convert<br>
+				<code>settings</code> (object, optional) is any additional settings for the
+				conversion - this object may contain the following attributes (all optional):
+				<code>shortYearCutoff</code> (number) is the cutoff year for determining the century;
+				<code>dayNames</code> (string[7]) is the full names of the days from Sunday;
+				<code>dayNamesShort</code> (string[7]) is the abbreviated names of the days from Sunday;
+				<code>monthNames</code> (string[12]) is the full names of the months;
+				<code>monthNamesShort</code> (string[12]) is the abbreviated names of the months -
+				if any of these are omitted, the corresponding value from the
+				datepicker defaults is used instead</td></tr>
+		<tr><td><a name="errorPlacement"></a>$.datepick.errorPlacement(error, element)</td><td>void</td>
+			<td>Correctly places a validation error message after any trigger button or icon.
+				It should be assigned as the <code>errorPlacement</code> setting for the
+				<a href="#" onclick="jumpTo('validation', 'validate')"><code>validate</code></a> call.<br>
+				<span class="version">Since 3.5.1</span> - only available with the validation extension.</td></tr>
+		</table>
+	</div>
+	<div id="validation" class="feature">
+		<h2><a name="validate"></a>Validation Integration</h2>
+		<p>Datepicker can be integrated with Jörn Zaefferer's
+			<a href="http://plugins.jquery.com/project/validate">validation plugin</a> by
+			adding the <code>jquery.datepick-validation.js</code> extension to your page.</p>
+		<p><span class="version">Since 3.5.1</span>.</p>
+		<p>Four new validations are defined, as listed below. All automatically handle date ranges
+			(including checking that the start date is not after the end date) and multiple dates.
+			The first may be added as a class to your datepicker fields, while the others must
+			be defined in the <code>validate</code> settings and be passed an empty array.</p>
+		<ul>
+			<li><code>dpDate</code> - basic format validation</li>
+			<li><code>dpMinDate</code> - validation against a minimum date limit only</li>
+			<li><code>dpMaxDate</code> - validation against a maximum date limit only</li>
+			<li><code>dpMinMaxDate</code> - validation against minimum and maximum date limits</li>
+		</ul>
+		<p>There is also a custom <code>errorPlacement</code> function defined so that
+			the error messages appear after any trigger button or icon.</p>
+		<p>You can customise the error messages via the datepicker defaults:
+			<code>$.datepick.<a href="#" onclick="jumpTo('global', 'setDefaults')">setDefaults</a>({...})</code>.
+			The message fields are <code>validateDate</code>, <code>validateDateMin</code>,
+			<code>validateDateMax</code>, and <code>validateDateMinMax</code>.
+			Within the latter use '{0}' and/or '{1}' for substituting in
+			minimum/maximum date values.</p>
+		<p>The sample page below show how the validations would be used.
+			It defines three datepicker fields: one plain, one a date range, and
+			one with a maximum limit. The validations are applied to the first two
+			by including the <code>dpDate</code> class on the fields.
+			For the last one the validation is defined in the <code>validate</code>
+			call on the form, linking the field to the <code>dpMaxDate</code> rule.
+			Also note that a custom message is defined for the date range field.</p>
+		<pre><code class="html">&lt;head&gt;
+&lt;script type="text/javascript" src="jquery-1.3.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="jquery.validate.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="jquery.datepick.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="jquery.datepick-validation.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+$(function() {
+	$('#favDate').datepick();
+	$('#holidayDates').datepick({rangeSelect: true});
+	$('#birthDate').datepick({maxDate: new Date()});
+
+	$('#validateForm').validate({
+		errorPlacement: $.datepick.errorPlacement,
+		rules: {
+			birthDate: {dpMaxDate: []}
+		},
+		messages: {
+			holidayDates: 'Please enter a valid date range'}
+		});
+});
+&lt;/script&gt;
+&lt;style type="text/css"&gt;@import "jquery.datepick.css";&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;form id="validateForm"&gt;
+		&lt;p&gt;Favourite date: &lt;input type="text" id="favDate"
+			name="favDate" size="10" class="dpDate"/&gt;&lt;/p&gt;
+		&lt;p&gt;Period of last holiday: &lt;input type="text" id="holidayDates"
+			name="holidayDates" size="24" class="dpDate"/&gt;&lt;/p&gt;
+		&lt;p&gt;Date of birth: &lt;input type="text" id="birthDate"
+			name="birthDate" size="10"/&gt;&lt;/p&gt;
+	&lt;/form&gt;
+&lt;/body&gt;</code></pre>
+	</div>
+</div>
+<p>Contact <a href="index.html">Keith Wood</a> at kbwood{at}iinet.com.au
+	with comments or suggestions.</p>
+</body>
+</html>

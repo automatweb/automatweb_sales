@@ -1,0 +1,331 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/budgeting/budgeting_tax.aw:class_1206_help
+msgid "Klassi Eelarvestamise maks help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_from_place
+msgid "Omaduse Kust (from_place) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_from_place_comment
+msgid "Omaduse Kust (from_place) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_from_place_help
+msgid "Omaduse Kust (from_place) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_to_acct
+msgid "Omaduse Kontole (to_acct) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_to_acct_comment
+msgid "Omaduse Kontole (to_acct) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_to_acct_help
+msgid "Omaduse Kontole (to_acct) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_amount
+msgid "Omaduse Summa (Kui l&otilde;peb % m&auml;rgiga, siis protsentides) (amount) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_amount_comment
+msgid "Omaduse Summa (Kui l&otilde;peb % m&auml;rgiga, siis protsentides) (amount) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_amount_help
+msgid "Omaduse Summa (Kui l&otilde;peb % m&auml;rgiga, siis protsentides) (amount) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_max_deviation_minus
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus - (max_deviation_minus) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_max_deviation_minus_comment
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus - (max_deviation_minus) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_max_deviation_minus_help
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus - (max_deviation_minus) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_max_deviation_plus
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus + (max_deviation_plus) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_max_deviation_plus_comment
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus + (max_deviation_plus) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_max_deviation_plus_help
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus + (max_deviation_plus) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_pri
+msgid "Omaduse Prioriteet (pri) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_pri_comment
+msgid "Omaduse Prioriteet (pri) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_pri_help
+msgid "Omaduse Prioriteet (pri) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_when_type
+msgid "Omaduse Aja t&uuml;&uuml;p (when_type) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_when_type_comment
+msgid "Omaduse Aja t&uuml;&uuml;p (when_type) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_when_type_help
+msgid "Omaduse Aja t&uuml;&uuml;p (when_type) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_when_date
+msgid "Omaduse Millal (when_date) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_when_date_comment
+msgid "Omaduse Millal (when_date) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_when_date_help
+msgid "Omaduse Millal (when_date) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_penalty_pct
+msgid "Omaduse Viivis (%) (penalty_pct) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_penalty_pct_comment
+msgid "Omaduse Viivis (%) (penalty_pct) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_penalty_pct_help
+msgid "Omaduse Viivis (%) (penalty_pct) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_tax_grp
+msgid "Omaduse Maksugrupp (tax_grp) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_tax_grp_comment
+msgid "Omaduse Maksugrupp (tax_grp) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_tax_grp_help
+msgid "Omaduse Maksugrupp (tax_grp) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_tax_scenario
+msgid "Omaduse Stsenaarium (tax_scenario) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_tax_scenario_comment
+msgid "Omaduse Stsenaarium (tax_scenario) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_tax_scenario_help
+msgid "Omaduse Stsenaarium (tax_scenario) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_from_place_toolbar
+msgid "Omaduse Kust toolbar (from_place_toolbar) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_from_place_toolbar_comment
+msgid "Omaduse Kust toolbar (from_place_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_from_place_toolbar_help
+msgid "Omaduse Kust toolbar (from_place_toolbar) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_from_place_table
+msgid "Omaduse Kust (from_place_table) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_from_place_table_comment
+msgid "Omaduse Kust (from_place_table) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_from_place_table_help
+msgid "Omaduse Kust (from_place_table) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_flow_tb
+msgid "Omaduse  (flow_tb) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_flow_tb_comment
+msgid "Omaduse  (flow_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_flow_tb_help
+msgid "Omaduse  (flow_tb) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_start
+msgid "Omaduse Alates (start) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_start_comment
+msgid "Omaduse Alates (start) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_start_help
+msgid "Omaduse Alates (start) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_to
+msgid "Omaduse Kuni (to) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_to_comment
+msgid "Omaduse Kuni (to) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_to_help
+msgid "Omaduse Kuni (to) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_flow_s_sbt
+msgid "Omaduse Otsi (flow_s_sbt) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_flow_s_sbt_comment
+msgid "Omaduse Otsi (flow_s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_flow_s_sbt_help
+msgid "Omaduse Otsi (flow_s_sbt) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_flow_table
+msgid "Omaduse  (flow_table) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_flow_table_comment
+msgid "Omaduse  (flow_table) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:prop_flow_table_help
+msgid "Omaduse  (flow_table) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:group_locs
+msgid "Grupi Kust (locs) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:group_locs_help
+msgid "Grupi Kust (locs) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:group_flow
+msgid "Grupi Rahavood (flow) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:group_flow_help
+msgid "Grupi Rahavood (flow) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:rel_RELTYPE_FROM_ACCT
+msgid "Seose Kontolt (RELTYPE_FROM_ACCT) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:rel_RELTYPE_TO_ACCT
+msgid "Seose Kontole (RELTYPE_TO_ACCT) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:rel_RELTYPE_TAX_GRP
+msgid "Seose Maksugrupp (RELTYPE_TAX_GRP) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:rel_RELTYPE_SCENARIO
+msgid "Seose Stsenaarium (RELTYPE_SCENARIO) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:layout_flow_group
+msgid "Kujundusosa Otsing (flow_group) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:218
+msgid "&Uuml;hekordne"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:219
+msgid "Korduv"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:236
+#: classes/applications/budgeting/budgeting_tax.aw:528
+msgid "Seos maksu %s ja kausta %s vahel"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:270
+msgid "Kust"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:277
+msgid "T&auml;isarvuline summa"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:281
+msgid "Summa protsentides"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:285
+msgid "Miinus tolerants"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:289
+msgid "Pluss tolerants"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:293
+msgid "Tingimus"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:297
+msgid "Kasuta eraldi seadeid"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:302
+msgid "Kasuta olemasolevaid seadeid"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:307
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:457
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:463
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:469
+msgid "Summa"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax.aw:514
+msgid "Kokku"
+msgstr ""

@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_import
+msgid "Omaduse Import (import) caption"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_import_comment
+msgid "Omaduse Import (import) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_import_help
+msgid "Omaduse Import (import) help"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_show_xml
+msgid "Omaduse XML (show_xml) caption"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_show_xml_comment
+msgid "Omaduse XML (show_xml) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_show_xml_help
+msgid "Omaduse XML (show_xml) help"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_http_xml_structure_file
+msgid "Omaduse Struktuuride XML (http_xml_structure_file) caption"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_http_xml_structure_file_comment
+msgid "Omaduse Struktuuride XML (http_xml_structure_file) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_http_xml_structure_file_help
+msgid "Omaduse Struktuuride XML (http_xml_structure_file) help"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_http_xml_personnel_file
+msgid "Omaduse Personali XML (http_xml_personnel_file) caption"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_http_xml_personnel_file_comment
+msgid "Omaduse Personali XML (http_xml_personnel_file) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:prop_http_xml_personnel_file_help
+msgid "Omaduse Personali XML (http_xml_personnel_file) help"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:65
+msgid "N&auml;ita XMLi"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:72
+msgid "K&auml;ivita import"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:99 classes/applications/personnel_import/ut_xml/ut_import.aw:134
+msgid "You forgot to enter server data"
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:141
+msgid "You forgot to enter personnel XML file info."
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:147
+msgid "You forgot to enter structure XML file info."
+msgstr ""
+
+#: classes/applications/personnel_import/ut_xml/ut_import.aw:218
+msgid "Not enough data to process."
+msgstr ""
+

@@ -1,0 +1,75 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="rfp" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="get_pdf_file" all_args="1">
+			<function name="get_pdf_file">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="handle_new_reservation" all_args="1">
+			<function name="handle_new_reservation">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="handle_calendar_show_reservation" all_args="1">
+			<function name="handle_calendar_show_reservation">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="connect_reservation" all_args="1">
+			<function name="connect_reservation">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_objects" all_args="1">
+			<function name="delete_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="_get_ac_data_subm_name" all_args="1">
+			<function name="_get_ac_data_subm_name">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="_get_ac_data_subm_organisation" all_args="1">
+			<function name="_get_ac_data_subm_organisation">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="_get_ac_data_subm_organizer" all_args="1">
+			<function name="_get_ac_data_subm_organizer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="_get_ac_data_billing_company" all_args="1">
+			<function name="_get_ac_data_billing_company">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="_get_ac_data_billing_contact" all_args="1">
+			<function name="_get_ac_data_billing_contact">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

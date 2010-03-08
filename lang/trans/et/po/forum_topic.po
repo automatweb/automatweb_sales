@@ -1,0 +1,189 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/forum/forum_topic.aw:class_34_help
+#: classes/contentmgmt/forum/forum_topic.aw:class_34_help
+msgid "Klassi Foorumi teema help"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_name
+#: classes/contentmgmt/forum/forum_topic.aw:prop_name
+msgid "Omaduse Pealkiri (name) caption"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_name_comment
+#: classes/contentmgmt/forum/forum_topic.aw:prop_name_comment
+msgid "Omaduse Pealkiri (name) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_name_help
+#: classes/contentmgmt/forum/forum_topic.aw:prop_name_help
+msgid "Omaduse Pealkiri (name) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_active
+msgid "Omaduse Aktiivne (active) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_active_comment
+msgid "Omaduse Aktiivne (active) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_active_help
+msgid "Omaduse Aktiivne (active) help"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_comment
+#: classes/contentmgmt/forum/forum_topic.aw:prop_comment
+msgid "Omaduse Sisu (comment) caption"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_comment_comment
+#: classes/contentmgmt/forum/forum_topic.aw:prop_comment_comment
+msgid "Omaduse Sisu (comment) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_comment_help
+#: classes/contentmgmt/forum/forum_topic.aw:prop_comment_help
+msgid "Omaduse Sisu (comment) help"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_author_name
+#: classes/contentmgmt/forum/forum_topic.aw:prop_author_name
+msgid "Omaduse Autori nimi (author_name) caption"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_author_name_comment
+#: classes/contentmgmt/forum/forum_topic.aw:prop_author_name_comment
+msgid "Omaduse Autori nimi (author_name) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_author_name_help
+#: classes/contentmgmt/forum/forum_topic.aw:prop_author_name_help
+msgid "Omaduse Autori nimi (author_name) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_author_email
+msgid "Omaduse Autori e-post (author_email) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_author_email_comment
+msgid "Omaduse Autori e-post (author_email) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_author_email_help
+msgid "Omaduse Autori e-post (author_email) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_ip
+msgid "Omaduse IP (ip) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_ip_comment
+msgid "Omaduse IP (ip) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_ip_help
+msgid "Omaduse IP (ip) help"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_locked
+#: classes/contentmgmt/forum/forum_topic.aw:prop_locked
+msgid "Omaduse Teema lukus (locked) caption"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_locked_comment
+#: classes/contentmgmt/forum/forum_topic.aw:prop_locked_comment
+msgid "Omaduse Teema lukus (locked) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_locked_help
+#: classes/contentmgmt/forum/forum_topic.aw:prop_locked_help
+msgid "Omaduse Teema lukus (locked) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_answers_to_mail
+msgid "Omaduse Soovin vastuseid e-postiga (answers_to_mail) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_answers_to_mail_comment
+msgid "Omaduse Soovin vastuseid e-postiga (answers_to_mail) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_answers_to_mail_help
+msgid "Omaduse Soovin vastuseid e-postiga (answers_to_mail) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_image
+msgid "Omaduse Pilt (image) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_image_comment
+msgid "Omaduse Pilt (image) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_image_help
+msgid "Omaduse Pilt (image) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_image_verification
+msgid "Omaduse Kontrollkood (image_verification) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_image_verification_comment
+msgid "Omaduse Kontrollkood (image_verification) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:prop_image_verification_help
+msgid "Omaduse Kontrollkood (image_verification) help"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_subscribers_editor
+#: classes/contentmgmt/forum/forum_topic.aw:prop_subscribers_editor
+msgid "Omaduse  (subscribers_editor) caption"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_subscribers_editor_comment
+#: classes/contentmgmt/forum/forum_topic.aw:prop_subscribers_editor_comment
+msgid "Omaduse  (subscribers_editor) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:prop_subscribers_editor_help
+#: classes/contentmgmt/forum/forum_topic.aw:prop_subscribers_editor_help
+msgid "Omaduse  (subscribers_editor) help"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:group_subscribers
+#: classes/contentmgmt/forum/forum_topic.aw:group_subscribers
+msgid "Grupi Mailinglist (subscribers) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:group_subscribers_help
+#: classes/contentmgmt/forum/forum_topic.aw:group_subscribers_help
+msgid "Grupi Mailinglist (subscribers) help"
+msgstr ""
+
+# classes/contentmgmt/forum/forum_topic.aw:rel_RELTYPE_SUBSCRIBER
+#: classes/contentmgmt/forum/forum_topic.aw:rel_RELTYPE_SUBSCRIBER
+msgid "Seose Tellija (RELTYPE_SUBSCRIBER) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:rel_RELTYPE_FORUM_IMAGE
+msgid "Seose Pilt (RELTYPE_FORUM_IMAGE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:154
+msgid "Anon&uuml;&uuml;mselt saab postitada ainult Eesti IP-lt"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_topic.aw:170
+msgid "Sisestatud kontrollnumber on vale!"
+msgstr ""

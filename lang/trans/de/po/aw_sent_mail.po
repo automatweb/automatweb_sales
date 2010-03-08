@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/admin/aw_sent_mail.aw:class_1389_help
+msgid "Klassi Saadetud meil help"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_app
+msgid "Omaduse Aplikatsioon (app) caption"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_app_comment
+msgid "Omaduse Aplikatsioon (app) kommentaar"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_app_help
+msgid "Omaduse Aplikatsioon (app) help"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_from
+msgid "Omaduse Kellelt (from) caption"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_from_comment
+msgid "Omaduse Kellelt (from) kommentaar"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_from_help
+msgid "Omaduse Kellelt (from) help"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_to
+msgid "Omaduse Kellele (to) caption"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_to_comment
+msgid "Omaduse Kellele (to) kommentaar"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_to_help
+msgid "Omaduse Kellele (to) help"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_subject
+msgid "Omaduse Teema (subject) caption"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_subject_comment
+msgid "Omaduse Teema (subject) kommentaar"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_subject_help
+msgid "Omaduse Teema (subject) help"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_headers
+msgid "Omaduse Headerid (headers) caption"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_headers_comment
+msgid "Omaduse Headerid (headers) kommentaar"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_headers_help
+msgid "Omaduse Headerid (headers) help"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_arguments
+msgid "Omaduse Argumendid (arguments) caption"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_arguments_comment
+msgid "Omaduse Argumendid (arguments) kommentaar"
+msgstr ""
+
+#: classes/admin/aw_sent_mail.aw:prop_arguments_help
+msgid "Omaduse Argumendid (arguments) help"
+msgstr ""
+

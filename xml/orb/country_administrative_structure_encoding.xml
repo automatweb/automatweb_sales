@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="country_administrative_structure_encoding" folder="www/dev/terryf/automatweb_dev/classes/common/country" extends="class_base">
+	</class>
+</orb>

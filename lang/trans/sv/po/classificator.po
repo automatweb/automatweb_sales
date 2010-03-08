@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/cfg/classificator.aw:class_203_help
+msgid "Klassi Klassifikaator help"
+msgstr ""
+
+#: classes/cfg/classificator.aw:prop_folders
+msgid "Omaduse Kus kehtib (folders) caption"
+msgstr ""
+
+#: classes/cfg/classificator.aw:prop_folders_comment
+msgid "Omaduse Kus kehtib (folders) kommentaar"
+msgstr ""
+
+#: classes/cfg/classificator.aw:prop_folders_help
+msgid "Omaduse Kus kehtib (folders) help"
+msgstr ""
+
+#: classes/cfg/classificator.aw:prop_clids
+msgid "Omaduse Klassid millele kehtib (clids) caption"
+msgstr ""
+
+#: classes/cfg/classificator.aw:prop_clids_comment
+msgid "Omaduse Klassid millele kehtib (clids) kommentaar"
+msgstr ""
+
+#: classes/cfg/classificator.aw:prop_clids_help
+msgid "Omaduse Klassid millele kehtib (clids) help"
+msgstr ""
+
+#: classes/cfg/classificator.aw:rel_RELTYPE_FOLDER
+msgid "Seose hallatav kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""
+

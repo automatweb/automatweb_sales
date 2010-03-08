@@ -1,0 +1,222 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="project" folder="www/dev/terryf/automatweb_dev/classes/applications/groupware" extends="class_base">
+		<action name="wtf">
+			<function name="wtf">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="test_it_out" all_args="1">
+			<function name="test_it_out">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_bill" all_args="1">
+			<function name="create_bill">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_goals">
+			<function name="del_goals">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_sides">
+			<function name="del_sides">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pop_side_search">
+			<function name="pop_side_search">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_pop_s_res">
+			<function name="save_pop_s_res">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_participants">
+			<function name="del_participants">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_participants">
+			<function name="add_participants">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_file_rel">
+			<function name="del_file_rel">
+				<arguments>
+					<required name="fid" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_create_prepayment_bill">
+			<function name="do_create_prepayment_bill">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_goals">
+			<function name="cut_goals">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_goals">
+			<function name="paste_goals">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_team_mem">
+			<function name="copy_team_mem">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_team_mem">
+			<function name="paste_team_mem">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_team_mem">
+			<function name="del_team_mem">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_files">
+			<function name="cut_files">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_files">
+			<function name="paste_files">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_rels">
+			<function name="delete_rels">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="export_req">
+			<function name="export_req">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="daily_stats_type_check" nologin="1">
+			<function name="daily_stats_type_check">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_cash_cow">
+			<function name="add_cash_cow">
+				<arguments>
+					<required name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_expense_spot">
+			<function name="add_expense_spot">
+				<arguments>
+					<required name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_income_spot_table">
+			<function name="get_income_spot_table">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="die" type="boolean" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_income_table" all_args="1">
+			<function name="save_income_table">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_expense" all_args="1">
+			<function name="delete_expense">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_expense_spot_table" all_args="1">
+			<function name="save_expense_spot_table">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="draw_expense_spots_table">
+			<function name="draw_expense_spots_table">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="die" type="boolean" />
+					<optional name="change" type="boolean" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="draw_expense_spot_table">
+			<function name="draw_expense_spot_table">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="die" type="boolean" />
+					<optional name="change" type="boolean" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

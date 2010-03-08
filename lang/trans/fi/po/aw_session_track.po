@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/aw_session_track.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:28 classes/core/aw_session_track.aw:175
+msgid "Saidid"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:102
+msgid "<b>KOKKU:</b><Br>Sessioone: %s<br>Tr&auml;kitud sessioone: %s<br>Logitud: %s<br>60 sek: %s<br>600 sek: %s<br>"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:114
+msgid "Sait"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:121
+msgid "Mitu tr2kitud kasutajat"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:129
+msgid "Mitu sisse loginud tr2kitud kasutajat"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:137
+msgid "Viimati minuti jooksul"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:145
+msgid "Viimati 10 minuti jooksul"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:153
+msgid "Sisse loginud kasutajad"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:213 classes/core/aw_session_track.aw:354
+msgid "Logi v&auml;lja"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:232 classes/core/aw_session_track.aw:342
+msgid "Saada teade"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:240 classes/core/aw_session_track.aw:348
+msgid "Suuna"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:241
+msgid "Aadress, kuhu suunata"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:264 classes/core/aw_session_track.aw:290
+msgid "Kasutaja ip"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:268 classes/core/aw_session_track.aw:294
+msgid "Kellele"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:272
+msgid "Teade"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:298
+msgid "Kuhu suunata"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:311
+msgid "<br>Saatmata teated: %s <br>Tegemata suunamised: %s"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:318
+msgid "Kasutaja IP aadress"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:325
+msgid "Kasutaja"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:335
+msgid "Millal viimati"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:360
+msgid "Url, mida vaadatakse"
+msgstr ""
+
+#: classes/core/aw_session_track.aw:366
+msgid "Referer"
+msgstr ""

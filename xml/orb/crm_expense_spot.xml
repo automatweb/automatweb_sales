@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_expense_spot" folder="www/automatweb_cvs/classes/applications/crm" extends="class_base">
+		<action name="add_expense_spot_row">
+			<function name="add_expense_spot_row">
+				<arguments>
+					<required name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

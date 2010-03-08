@@ -1,0 +1,262 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_person_work_relation.aw:class_1060_help
+msgid "Klassi T&ouml;&ouml;suhe help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_org
+msgid "Omaduse Organisatsioon (org) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_org_comment
+msgid "Omaduse Organisatsioon (org) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_org_help
+msgid "Omaduse Organisatsioon (org) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_section
+msgid "Omaduse &Uuml;ksus (section) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_section_comment
+msgid "Omaduse &Uuml;ksus (section) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_section_help
+msgid "Omaduse &Uuml;ksus (section) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_section2
+msgid "Omaduse &Uuml;ksus (section2) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_section2_comment
+msgid "Omaduse &Uuml;ksus (section2) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_section2_help
+msgid "Omaduse &Uuml;ksus (section2) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_profession
+msgid "Omaduse Amet (profession) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_profession_comment
+msgid "Omaduse Amet (profession) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_profession_help
+msgid "Omaduse Amet (profession) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_field
+msgid "Omaduse Valdkond (field) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_field_comment
+msgid "Omaduse Valdkond (field) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_field_help
+msgid "Omaduse Valdkond (field) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_room
+msgid "Omaduse T&ouml;&ouml;ruum (room) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_room_comment
+msgid "Omaduse T&ouml;&ouml;ruum (room) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_room_help
+msgid "Omaduse T&ouml;&ouml;ruum (room) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_start
+msgid "Omaduse Suhte algus (start) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_start_comment
+msgid "Omaduse Suhte algus (start) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_start_help
+msgid "Omaduse Suhte algus (start) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_end
+msgid "Omaduse Suhte l&otilde;pp (end) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_end_comment
+msgid "Omaduse Suhte l&otilde;pp (end) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_end_help
+msgid "Omaduse Suhte l&otilde;pp (end) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_tasks
+msgid "Omaduse &Uuml;lesanded (tasks) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_tasks_comment
+msgid "Omaduse &Uuml;lesanded (tasks) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_tasks_help
+msgid "Omaduse &Uuml;lesanded (tasks) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_load
+msgid "Omaduse Koormus (load) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_load_comment
+msgid "Omaduse Koormus (load) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_load_help
+msgid "Omaduse Koormus (load) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_salary
+msgid "Omaduse Kuutasu (salary) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_salary_comment
+msgid "Omaduse Kuutasu (salary) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_salary_help
+msgid "Omaduse Kuutasu (salary) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_salary_currency
+msgid "Omaduse Valuuta (salary_currency) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_salary_currency_comment
+msgid "Omaduse Valuuta (salary_currency) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_salary_currency_help
+msgid "Omaduse Valuuta (salary_currency) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_benefits
+msgid "Omaduse Soodustused ja eritingimused (benefits) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_benefits_comment
+msgid "Omaduse Soodustused ja eritingimused (benefits) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_benefits_help
+msgid "Omaduse Soodustused ja eritingimused (benefits) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_directive_link
+msgid "Omaduse Viit ametijuhendile (directive_link) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_directive_link_comment
+msgid "Omaduse Viit ametijuhendile (directive_link) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_directive_link_help
+msgid "Omaduse Viit ametijuhendile (directive_link) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_directive
+msgid "Omaduse Ametijuhend (directive) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_directive_comment
+msgid "Omaduse Ametijuhend (directive) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_directive_help
+msgid "Omaduse Ametijuhend (directive) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_contract_stop
+msgid "Omaduse T&ouml;&ouml;lepingu peatumine (contract_stop) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_contract_stop_comment
+msgid "Omaduse T&ouml;&ouml;lepingu peatumine (contract_stop) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:prop_contract_stop_help
+msgid "Omaduse T&ouml;&ouml;lepingu peatumine (contract_stop) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_ORG
+msgid "Seose Organisatsioon (RELTYPE_ORG) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_PERSON
+msgid "Seose Isik (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_PROFESSION
+msgid "Seose Amet (RELTYPE_PROFESSION) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_SUBSITUTE
+msgid "Seose Asendaja (RELTYPE_SUBSITUTE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_DESC_FILE
+msgid "Seose Ametijuhend (RELTYPE_DESC_FILE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_CONTRACT_STOP
+msgid "Seose T&ouml;&ouml;lepingu peatamine (RELTYPE_CONTRACT_STOP) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_SECTION
+msgid "Seose &Uuml;ksus (RELTYPE_SECTION) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_PHONE
+msgid "Seose Telefon (RELTYPE_PHONE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_EMAIL
+msgid "Seose E-post (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_FAX
+msgid "Seose Faks (RELTYPE_FAX) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_CURRENCY
+msgid "Seose Valuuta (RELTYPE_CURRENCY) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:rel_RELTYPE_FIELD
+msgid "Seose Valdkond (RELTYPE_FIELD) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:137
+msgid "Algus ei saa olla suurem kui l&otilde;pp!"
+msgstr ""
+
+#: classes/applications/crm/crm_person_work_relation.aw:147
+msgid "L&otilde;pp ei saa olla v&auml;iksem kui algus!"
+msgstr ""

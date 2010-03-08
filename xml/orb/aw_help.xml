@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="aw_help" folder="www/dev/terryf/automatweb_dev/classes/core" extends="class_base">
+		<action name="show" all_args="1">
+			<function name="show">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="write_to_help_file" all_args="1">
+			<function name="write_to_help_file">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_help" all_args="1">
+			<function name="show_help">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_prop_help" all_args="1">
+			<function name="show_prop_help">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="classes_tree" all_args="1">
+			<function name="classes_tree">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

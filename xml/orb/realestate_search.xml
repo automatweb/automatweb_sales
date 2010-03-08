@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="realestate_search" folder="www/dev/terryf/automatweb_dev/classes/applications/realestate_management" extends="class_base">
+		<action name="get_select_options" nologin="1">
+			<function name="get_select_options">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="reAddressSelected" />
+					<optional name="reAddressDivision" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_session_data" nologin="1">
+			<function name="get_session_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

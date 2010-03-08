@@ -1,0 +1,5 @@
+<h2>hidden</h2>
+
+Your basic hidden field, can be used to put additional values in the reforb block. The other way to accomplish
+this is to use callback_mod_reforb, but that probably means you need to implement some additional checks there.
+

@@ -1,0 +1,471 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:class_1441_help
+msgid "Klassi Intellektuaalne omand help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_applicant
+msgid "Omaduse Taotleja (applicant) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_applicant_comment
+msgid "Omaduse Taotleja (applicant) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_applicant_help
+msgid "Omaduse Taotleja (applicant) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_signed
+msgid "Omaduse Allkirja staatus (signed) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_signed_comment
+msgid "Omaduse Allkirja staatus (signed) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_signed_help
+msgid "Omaduse Allkirja staatus (signed) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_signatures
+msgid "Omaduse Allkirjastajad (signatures) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_signatures_comment
+msgid "Omaduse Allkirjastajad (signatures) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_signatures_help
+msgid "Omaduse Allkirjastajad (signatures) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_job
+msgid "Omaduse Allkirjastaja amet (job) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_job_comment
+msgid "Omaduse Allkirjastaja amet (job) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_job_help
+msgid "Omaduse Allkirjastaja amet (job) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_procurator
+msgid "Omaduse Volinik (procurator) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_procurator_comment
+msgid "Omaduse Volinik (procurator) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_procurator_help
+msgid "Omaduse Volinik (procurator) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_warrant
+msgid "Omaduse Volikiri (warrant) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_warrant_comment
+msgid "Omaduse Volikiri (warrant) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_warrant_help
+msgid "Omaduse Volikiri (warrant) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_authorized_person
+msgid "Omaduse Volitatud isik (authorized_person) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_authorized_person_comment
+msgid "Omaduse Volitatud isik (authorized_person) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_authorized_person_help
+msgid "Omaduse Volitatud isik (authorized_person) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_authorized_codes
+msgid "Omaduse Volitatud isikute isikukoodid (authorized_codes) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_authorized_codes_comment
+msgid "Omaduse Volitatud isikute isikukoodid (authorized_codes) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_authorized_codes_help
+msgid "Omaduse Volitatud isikute isikukoodid (authorized_codes) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_additional_info
+msgid "Omaduse Lisainfo (additional_info) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_additional_info_comment
+msgid "Omaduse Lisainfo (additional_info) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_additional_info_help
+msgid "Omaduse Lisainfo (additional_info) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_verified
+msgid "Omaduse Kinnitatud (verified) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_verified_comment
+msgid "Omaduse Kinnitatud (verified) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_verified_help
+msgid "Omaduse Kinnitatud (verified) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_exported
+msgid "Omaduse Eksporditud (exported) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_exported_comment
+msgid "Omaduse Eksporditud (exported) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_exported_help
+msgid "Omaduse Eksporditud (exported) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_export_date
+msgid "Omaduse Ekspordi kuup&auml;ev (export_date) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_export_date_comment
+msgid "Omaduse Ekspordi kuup&auml;ev (export_date) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_export_date_help
+msgid "Omaduse Ekspordi kuup&auml;ev (export_date) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_nr
+msgid "Omaduse Taotluse number (nr) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_nr_comment
+msgid "Omaduse Taotluse number (nr) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_nr_help
+msgid "Omaduse Taotluse number (nr) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_request_fee
+msgid "Omaduse Taotlusl&otilde;iv (request_fee) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_request_fee_comment
+msgid "Omaduse Taotlusl&otilde;iv (request_fee) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_request_fee_help
+msgid "Omaduse Taotlusl&otilde;iv (request_fee) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_fee_sum
+msgid "Omaduse Kokku (fee_sum) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_fee_sum_comment
+msgid "Omaduse Kokku (fee_sum) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_fee_sum_help
+msgid "Omaduse Kokku (fee_sum) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_payer
+msgid "Omaduse Maksja nimi (payer) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_payer_comment
+msgid "Omaduse Maksja nimi (payer) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_payer_help
+msgid "Omaduse Maksja nimi (payer) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_doc_nr
+msgid "Omaduse Maksedokumendi number (doc_nr) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_doc_nr_comment
+msgid "Omaduse Maksedokumendi number (doc_nr) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_doc_nr_help
+msgid "Omaduse Maksedokumendi number (doc_nr) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_payment_date
+msgid "Omaduse Makse kuup&auml;ev (payment_date) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_payment_date_comment
+msgid "Omaduse Makse kuup&auml;ev (payment_date) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_payment_date_help
+msgid "Omaduse Makse kuup&auml;ev (payment_date) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_payment_order
+msgid "Omaduse Maksekorraldus (payment_order) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_payment_order_comment
+msgid "Omaduse Maksekorraldus (payment_order) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:prop_payment_order_help
+msgid "Omaduse Maksekorraldus (payment_order) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:group_priority
+msgid "Grupi Prioriteet (priority) pealkiri"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:group_priority_help
+msgid "Grupi Prioriteet (priority) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:group_fee
+msgid "Grupi Riigil&otilde;iv (fee) pealkiri"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:group_fee_help
+msgid "Grupi Riigil&otilde;iv (fee) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_APPLICANT
+msgid "Seose Taotleja (RELTYPE_APPLICANT) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_PROCURATOR
+msgid "Seose Volinik (RELTYPE_PROCURATOR) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_WARRANT
+msgid "Seose Volikiri (RELTYPE_WARRANT) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_PHONE
+msgid "Seose Telefon (RELTYPE_PHONE) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_FAX
+msgid "Seose Faks (RELTYPE_FAX) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_EMAIL
+msgid "Seose E-mail (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_PROCURATOR_MENU
+msgid "Seose Volinike kaust (RELTYPE_PROCURATOR_MENU) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_AUTHORIZED_PERSON
+msgid "Seose Volitatud isik (RELTYPE_AUTHORIZED_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_BANK_PAYMENT
+msgid "Seose Pangalingi objekt (RELTYPE_BANK_PAYMENT) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_PAYMENT_ORDER
+msgid "Seose Maksekorraldus (RELTYPE_PAYMENT_ORDER) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:rel_RELTYPE_TRADEMARK_STATUS
+msgid "Seose Staatus (RELTYPE_TRADEMARK_STATUS) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:167
+msgid "Lisa allkiri"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:168
+#: classes/applications/clients/patent_office/intellectual_property.aw:187
+#: classes/applications/clients/patent_office/intellectual_property.aw:206
+#: classes/applications/clients/patent_office/intellectual_property.aw:2100
+msgid "Allkirjastamine"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:175
+msgid "DigiDoc konteinerisse"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:186
+#: classes/applications/clients/patent_office/intellectual_property.aw:531
+#: classes/applications/clients/patent_office/intellectual_property.aw:563
+msgid "Allkirjasta"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:194
+msgid "DigiDoc konteiner"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:205
+msgid "Allkirjasta fail"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:227
+msgid "%s, %s (%s) - %s"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:250
+msgid "Eksporditud"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:270
+msgid "Vale objekti id!"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:507
+msgid "Prindi"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:536
+msgid "Saadan taotluse"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:801
+#: classes/applications/clients/patent_office/intellectual_property.aw:1490
+#: classes/applications/clients/patent_office/intellectual_property.aw:2251
+#: classes/applications/clients/patent_office/intellectual_property.aw:2309
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:815
+#: classes/applications/clients/patent_office/intellectual_property.aw:1482
+msgid "Nimetus"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:816
+#: classes/applications/clients/patent_office/intellectual_property.aw:1483
+msgid "Reg.kood"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:1491
+msgid "Isikukood"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:1820
+msgid "%s, %s  - %s"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:1901
+msgid "Eesti"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:1906
+msgid "&nbsp;&nbsp;&nbsp;&nbsp;V&auml;lismaa"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:1919
+msgid "F&uuml;&uuml;siline isik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:1934
+msgid "&nbsp;&nbsp;&nbsp;&nbsp; Juriidiline isik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:1970
+#: classes/applications/clients/patent_office/intellectual_property.aw:2024
+msgid "Vali"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:1987
+msgid "Eemalda"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2258
+msgid "&Uuml;hine esindaja"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2288
+#: classes/applications/clients/patent_office/intellectual_property.aw:2322
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2291
+#: classes/applications/clients/patent_office/intellectual_property.aw:2325
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2542
+msgid "P&auml;ritolumaa peab olema valitud"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2547
+msgid "F&uuml;&uuml;siline v&otilde;i juriidiline isik peab olema valitud"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2554
+msgid "Nimi on kohustuslik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2562
+msgid "Eesnimi on kohustuslik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2566
+msgid "Perekonnanimi on kohustuslik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2572
+msgid "Linn on kohustuslik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2577
+msgid "Maakond on kohustuslik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2582
+msgid "T&auml;nav on kohustuslik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2587
+msgid "Riik on kohustuslik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:2592
+msgid "Postiindeks on kohustuslik"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:3406
+#: classes/applications/clients/patent_office/intellectual_property.aw:3605
+#: classes/applications/clients/patent_office/intellectual_property.aw:3801
+#: classes/applications/clients/patent_office/intellectual_property.aw:3999
+#: classes/applications/clients/patent_office/intellectual_property.aw:4197
+msgid "Vastu v&otilde;etud"
+msgstr ""
+
+#: classes/applications/clients/patent_office/intellectual_property.aw:3406
+#: classes/applications/clients/patent_office/intellectual_property.aw:3605
+#: classes/applications/clients/patent_office/intellectual_property.aw:3801
+#: classes/applications/clients/patent_office/intellectual_property.aw:3999
+#: classes/applications/clients/patent_office/intellectual_property.aw:4197
+msgid "Esitatud"
+msgstr ""

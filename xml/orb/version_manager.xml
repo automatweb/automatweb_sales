@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="version_manager" folder="www/dev/terryf/automatweb_dev/classes/vcl" extends="class_base">
+		<action name="view_diff">
+			<function name="view_diff">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="vers" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

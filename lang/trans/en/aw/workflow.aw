@@ -1,0 +1,32 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Konfiguratsioon (config) caption"] = "Configuration";
+$GLOBALS["TRANS"]["Omaduse Juhtumid (show_entities) caption"] = "Entities";
+$GLOBALS["TRANS"]["Omaduse Tegevused (show_actions) caption"] = "Actions";
+$GLOBALS["TRANS"]["Omaduse Protsessid (show_processes) caption"] = "Processes";
+$GLOBALS["TRANS"]["Omaduse Tegijad (show_actors) caption"] = "Actors";
+$GLOBALS["TRANS"]["Omaduse Juhendmaterjalid (show_documentation) caption"] = "Documentation";
+$GLOBALS["TRANS"]["Grupi Juhtumid (show_entities) pealkiri"] = "Entities";
+$GLOBALS["TRANS"]["Grupi Protessid (show_processes) pealkiri"] = "Processes";
+$GLOBALS["TRANS"]["Grupi Tegevused (show_actions) pealkiri"] = "Actions";
+$GLOBALS["TRANS"]["Grupi Tegijad (show_actors) pealkiri"] = "Actors";
+$GLOBALS["TRANS"]["Grupi Juhendmaterjalid (show_documentation) pealkiri"] = "Documentation";
+$GLOBALS["TRANS"]["Seose Konfiguratsioon  (RELTYPE_WORKFLOW_CONFIG) tekst"] = "Configuration";
+$GLOBALS["TRANS"]["Näita"] = "Display";
+$GLOBALS["TRANS"]["Konfiguratsiooniobjekt on valimata!"] = "configuration object not selected!";
+$GLOBALS["TRANS"]["Juhtumite rootmenüü on valimata!"] = "Entity rootmenu not selected!";
+$GLOBALS["TRANS"]["Juhtumite sisestuste rootmenüü on valimata!"] = "Entity instance rootmenu not selected!";
+$GLOBALS["TRANS"]["Tegevuste rootmenüü on valimata!"] = "Action rootmenu not selected!";
+$GLOBALS["TRANS"]["Protsesside rootmenüü on valimata!"] = "Process rootmenu not selected!";
+$GLOBALS["TRANS"]["Tegijate rootmenüü on valimata!"] = "Actor rootmenu not selected!";
+$GLOBALS["TRANS"]["Salvesta"] = "Save";
+$GLOBALS["TRANS"]["Uus"] = "New";
+$GLOBALS["TRANS"]["you did not pick a process<br />"] = "you did not pick a process<br />";
+$GLOBALS["TRANS"]["Log"] = "Log";
+$GLOBALS["TRANS"]["Uus protsess"] = "New process";
+$GLOBALS["TRANS"]["create ent"] = "create ent";
+$GLOBALS["TRANS"]["Protsess on l&otilde;ppenud!"] = "Process has finished!";
+$GLOBALS["TRANS"]["Juhtumid"] = "Entities";
+$GLOBALS["TRANS"]["Protsessid"] = "Processes";
+$GLOBALS["TRANS"]["Tegevused"] = "Actions";
+$GLOBALS["TRANS"]["Tegijad"] = "Actors";
+?>

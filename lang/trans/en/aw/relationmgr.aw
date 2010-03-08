@@ -1,0 +1,37 @@
+<?php
+$GLOBALS["TRANS"]["Alias"] = "Alias";
+$GLOBALS["TRANS"]["Too vend"] = "Brother";
+$GLOBALS["TRANS"]["&Otilde;igus"] = "Permission";
+$GLOBALS["TRANS"]["Objekti t&uuml;&uuml;p"] = "Type";
+$GLOBALS["TRANS"]["Nimi"] = "Name";
+$GLOBALS["TRANS"]["Kommentaar"] = "Comment";
+$GLOBALS["TRANS"]["OID"] = "OID";
+$GLOBALS["TRANS"]["Looja"] = "Created by";
+$GLOBALS["TRANS"]["Muutja"] = "Modifiedby";
+$GLOBALS["TRANS"]["Asukoht"] = "Location";
+$GLOBALS["TRANS"]["Staatus"] = "Status";
+$GLOBALS["TRANS"]["K&otilde;ik"] = "All";
+$GLOBALS["TRANS"]["Aktiivsed"] = "Active";
+$GLOBALS["TRANS"]["Deaktiivsed"] = "Deactive";
+$GLOBALS["TRANS"]["Keel"] = "Language";
+$GLOBALS["TRANS"]["Otsi vendi"] = "Search brother";
+$GLOBALS["TRANS"]["Otsi"] = "Search";
+$GLOBALS["TRANS"]["ID"] = "ID";
+$GLOBALS["TRANS"]["T&uuml;&uuml;p"] = "Type";
+$GLOBALS["TRANS"]["Loodud"] = "Created";
+$GLOBALS["TRANS"]["Muudetud"] = "Modified";
+$GLOBALS["TRANS"]["<a href='javascript:selall(\"sel\")'>Vali</a>"] = "<a href='javascript:selall(\"sel\")'>Select</a>";
+$GLOBALS["TRANS"]["Vali"] = "Choose";
+$GLOBALS["TRANS"]["Seose t&uuml;&uuml;p"] = "Relation type";
+$GLOBALS["TRANS"]["Lisa uus objekt"] = "Add new object";
+$GLOBALS["TRANS"]["Uuenda"] = "Renew";
+$GLOBALS["TRANS"]["Loo seos(ed)"] = "Create connection(s)";
+$GLOBALS["TRANS"]["Salvesta"] = "Save";
+$GLOBALS["TRANS"]["Kustuta seos(ed)"] = "Delete connection(s)";
+$GLOBALS["TRANS"]["L&otilde;ika seos(ed)"] = "Cut relations";
+$GLOBALS["TRANS"]["Kopeeri seos(ed)"] = "Copy relations";
+$GLOBALS["TRANS"]["Kleebi seos(ed)"] = "Paste relations";
+$GLOBALS["TRANS"]["Muu info"] = "Other info";
+$GLOBALS["TRANS"]["Link"] = "Link";
+$GLOBALS["TRANS"]["Cache"] = "Cache";
+?>

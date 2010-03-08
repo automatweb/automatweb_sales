@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/vcl/toolbar.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:53 classes/vcl/toolbar.aw:105 classes/vcl/toolbar.aw:163 classes/vcl/toolbar.aw:190 classes/vcl/toolbar.aw:381
+msgid "Kustuta"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:110
+msgid "fail"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:111
+msgid "kustuta fail"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:195
+msgid "text"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:196
+msgid "tiitel"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:201
+msgid "suubmenuuu"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:205
+msgid "teine tekst"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:206
+msgid "teine tiitel"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:283
+msgid "neti.ee"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:284
+msgid "Oled sa kindel et tahad ikka sinna saidile minna?"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:546 classes/vcl/toolbar.aw:795
+msgid "Otsi"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:593
+msgid "Lisa %s"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:601
+msgid "Lisa"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:627 classes/vcl/toolbar.aw:635
+msgid "Sisesta uue objekti nimi"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:690
+msgid "Kustuta valitud objektid"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:691
+msgid "Oled kindel et soovit valitud objektid kustutada?"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:705 classes/vcl/toolbar.aw:719
+msgid "Kustuta valitud seosed"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:706 classes/vcl/toolbar.aw:720
+msgid "Oled kindel et soovid valitud seosed kustutada?"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:733
+msgid "Salvesta"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:821
+msgid "L&otilde;ika"
+msgstr ""
+
+#: classes/vcl/toolbar.aw:843
+msgid "Kleebi"
+msgstr ""
+

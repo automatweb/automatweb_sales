@@ -1,0 +1,132 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/watercraft_management/watercraft_add.aw:class_1168_help
+msgid "Klassi Vees&otilde;iduki lisamine help"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_watercraft_type
+msgid "Omaduse Aluse t&uuml;&uuml;p  (watercraft_type) caption"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_watercraft_type_comment
+msgid "Omaduse Aluse t&uuml;&uuml;p  (watercraft_type) kommentaar"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_watercraft_type_help
+msgid "Omaduse Aluse t&uuml;&uuml;p  (watercraft_type) help"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_watercraft_management
+msgid "Omaduse Vees&otilde;idukite haldus (watercraft_management) caption"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_watercraft_management_comment
+msgid "Omaduse Vees&otilde;idukite haldus (watercraft_management) kommentaar"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_watercraft_management_help
+msgid "Omaduse Vees&otilde;idukite haldus (watercraft_management) help"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_redir_after_publish
+msgid "Omaduse Peale avaldamist suuna (redir_after_publish) caption"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_redir_after_publish_comment
+msgid "Omaduse Peale avaldamist suuna (redir_after_publish) kommentaar"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_redir_after_publish_help
+msgid "Omaduse Peale avaldamist suuna (redir_after_publish) help"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_required_fields_table
+msgid "Omaduse Kohustuslikud v&auml;ljad (required_fields_table) caption"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_required_fields_table_comment
+msgid "Omaduse Kohustuslikud v&auml;ljad (required_fields_table) kommentaar"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_required_fields_table_help
+msgid "Omaduse Kohustuslikud v&auml;ljad (required_fields_table) help"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_pages_table
+msgid "Omaduse Lehek&uuml;ljed (pages_table) caption"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_pages_table_comment
+msgid "Omaduse Lehek&uuml;ljed (pages_table) kommentaar"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:prop_pages_table_help
+msgid "Omaduse Lehek&uuml;ljed (pages_table) help"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:group_required_fields
+msgid "Grupi Kohustuslikud v&auml;ljad (required_fields) pealkiri"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:group_required_fields_help
+msgid "Grupi Kohustuslikud v&auml;ljad (required_fields) help"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:group_pages
+msgid "Grupi Lehek&uuml;ljed (pages) pealkiri"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:group_pages_help
+msgid "Grupi Lehek&uuml;ljed (pages) help"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:rel_RELTYPE_WATERCRAFT_MANAGEMENT
+msgid "Seose Vees&otilde;idukite haldus (RELTYPE_WATERCRAFT_MANAGEMENT) tekst"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:85
+msgid "Kohustuslik"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:91
+msgid "Arv"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:97
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:101
+msgid "Templeidi muutuja"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:161
+msgid "Lehek&uuml;lg"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:167
+msgid "Pealkiri"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:172
+msgid "&Uuml;levaade"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:177
+msgid "Templeit"
+msgstr ""
+
+#: classes/applications/watercraft_management/watercraft_add.aw:802
+msgid "(Nimetu)"
+msgstr ""
+

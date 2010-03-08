@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>date_format</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <default>1</default>
+            <caption>Kuup&amp;auml;eva formaat</caption>
+      </property>
+      <property>
+            <name>contents</name>
+            <table>objects</table>
+            <group>test</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>callback</type>
+            <callback>callback_get_contents</callback>
+            <caption>Test</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_DOCUMENT_ARCHIVE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <test>
+                  <caption>Test</caption>
+            </test>
+      </groupinfo>
+      <reltypes>
+            <SOURCE>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>V&amp;otilde;ta dokumente</caption>
+            </SOURCE>
+      </reltypes>
+</properties>
+

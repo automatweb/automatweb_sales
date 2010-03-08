@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="server_folder_selector" folder="www/dev/terryf/automatweb_dev/classes/vcl" extends="core">
+		<action name="select_folder">
+			<function name="select_folder">
+				<arguments>
+					<required name="pn" type="String" />
+					<optional name="fld" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

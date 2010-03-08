@@ -1,0 +1,12 @@
+callback_mod_retval
+
+Can be used to change the information that will be returned from the save handler
+
+<b>Example 5.4. This causes fubar=1 added to the end of the URL returned by save handler.</b>
+
+#php#
+function callback_mod_retval($arr)
+{
+	$arr["args"]["fubar"] = 1;
+}
+#/php#

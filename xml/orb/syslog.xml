@@ -1,0 +1,26 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="syslog" folder="www/dev/terryf/automatweb_dev/classes/syslog" extends="db_syslog">
+		<action name="block">
+			<function name="block">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="saveblock">
+			<function name="saveblock">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_syslog">
+			<function name="convert_syslog">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

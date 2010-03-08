@@ -1,0 +1,495 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:class_190_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:class_190_help
+msgid "Klassi Galerii help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_conf_id
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_conf_id
+msgid "Omaduse Konfiguratsioon: (conf_id) caption"
+msgstr "Configration"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_conf_id_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_conf_id_comment
+msgid "Omaduse Konfiguratsioon: (conf_id) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_conf_id_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_conf_id_help
+msgid "Omaduse Konfiguratsioon: (conf_id) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_reinit_layout
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_reinit_layout
+msgid "Omaduse Uuenda layout (kustutab k&otilde;ik pildid!) (reinit_layout) caption"
+msgstr "Reinitialize layout"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_reinit_layout_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_reinit_layout_comment
+msgid "Omaduse Uuenda layout (kustutab k&otilde;ik pildid!) (reinit_layout) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_reinit_layout_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_reinit_layout_help
+msgid "Omaduse Uuenda layout (kustutab k&otilde;ik pildid!) (reinit_layout) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_num_pages
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_num_pages
+msgid "Omaduse Mitu lehte: (num_pages) caption"
+msgstr "Number of pages"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_num_pages_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_num_pages_comment
+msgid "Omaduse Mitu lehte: (num_pages) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_num_pages_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_num_pages_help
+msgid "Omaduse Mitu lehte: (num_pages) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_rate_redir
+msgid "Omaduse Suuna p&auml;rast h&auml;&auml;letamist (rate_redir) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_rate_redir_comment
+msgid "Omaduse Suuna p&auml;rast h&auml;&auml;letamist (rate_redir) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_rate_redir_help
+msgid "Omaduse Suuna p&auml;rast h&auml;&auml;letamist (rate_redir) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_1_content
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_1_content
+msgid "Omaduse  (pg_1_content) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_1_content_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_1_content_comment
+msgid "Omaduse  (pg_1_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_1_content_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_1_content_help
+msgid "Omaduse  (pg_1_content) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_2_content
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_2_content
+msgid "Omaduse  (pg_2_content) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_2_content_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_2_content_comment
+msgid "Omaduse  (pg_2_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_2_content_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_2_content_help
+msgid "Omaduse  (pg_2_content) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_3_content
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_3_content
+msgid "Omaduse  (pg_3_content) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_3_content_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_3_content_comment
+msgid "Omaduse  (pg_3_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_3_content_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_3_content_help
+msgid "Omaduse  (pg_3_content) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_4_content
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_4_content
+msgid "Omaduse  (pg_4_content) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_4_content_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_4_content_comment
+msgid "Omaduse  (pg_4_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_4_content_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_4_content_help
+msgid "Omaduse  (pg_4_content) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_5_content
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_5_content
+msgid "Omaduse  (pg_5_content) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_5_content_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_5_content_comment
+msgid "Omaduse  (pg_5_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_5_content_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_5_content_help
+msgid "Omaduse  (pg_5_content) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_6_content
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_6_content
+msgid "Omaduse  (pg_6_content) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_6_content_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_6_content_comment
+msgid "Omaduse  (pg_6_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_6_content_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_6_content_help
+msgid "Omaduse  (pg_6_content) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_7_content
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_7_content
+msgid "Omaduse  (pg_7_content) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_7_content_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_7_content_comment
+msgid "Omaduse  (pg_7_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_7_content_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_7_content_help
+msgid "Omaduse  (pg_7_content) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_8_content
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_8_content
+msgid "Omaduse  (pg_8_content) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_8_content_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_8_content_comment
+msgid "Omaduse  (pg_8_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_8_content_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_8_content_help
+msgid "Omaduse  (pg_8_content) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_9_content
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_9_content
+msgid "Omaduse  (pg_9_content) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_9_content_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_9_content_comment
+msgid "Omaduse  (pg_9_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_9_content_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_pg_9_content_help
+msgid "Omaduse  (pg_9_content) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_preview
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_preview
+msgid "Omaduse  (preview) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_preview_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_preview_comment
+msgid "Omaduse  (preview) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_preview_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_preview_help
+msgid "Omaduse  (preview) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_ftp
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_ftp
+msgid "Omaduse Impordi FTP serverist (import_ftp) caption"
+msgstr "Import from FTP server"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_ftp_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_ftp_comment
+msgid "Omaduse Impordi FTP serverist (import_ftp) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_ftp_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_ftp_help
+msgid "Omaduse Impordi FTP serverist (import_ftp) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_login
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_login
+msgid "Omaduse FTP Server (ftp_login) caption"
+msgstr "FTP Server"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_login_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_login_comment
+msgid "Omaduse FTP Server (ftp_login) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_login_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_login_help
+msgid "Omaduse FTP Server (ftp_login) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_folder
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_folder
+msgid "Omaduse FTP Serveri kataloog (ftp_folder) caption"
+msgstr "FTP Server folder"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_folder_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_folder_comment
+msgid "Omaduse FTP Serveri kataloog (ftp_folder) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_folder_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_ftp_folder_help
+msgid "Omaduse FTP Serveri kataloog (ftp_folder) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_local
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_local
+msgid "Omaduse Impordi kataloogist (import_local) caption"
+msgstr "Import from folder"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_local_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_local_comment
+msgid "Omaduse Impordi kataloogist (import_local) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_local_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_local_help
+msgid "Omaduse Impordi kataloogist (import_local) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_local_folder
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_local_folder
+msgid "Omaduse Kataloog (local_folder) caption"
+msgstr "Folder"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_local_folder_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_local_folder_comment
+msgid "Omaduse Kataloog (local_folder) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_local_folder_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_local_folder_help
+msgid "Omaduse Kataloog (local_folder) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_zip
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_zip
+msgid "Omaduse Impordi ZIP failist (import_zip) caption"
+msgstr "Import from ZIP file"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_zip_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_zip_comment
+msgid "Omaduse Impordi ZIP failist (import_zip) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_zip_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_zip_help
+msgid "Omaduse Impordi ZIP failist (import_zip) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_zip_file
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_zip_file
+msgid "Omaduse Uploadi ZIP fail (zip_file) caption"
+msgstr "Upload ZIP file"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_zip_file_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_zip_file_comment
+msgid "Omaduse Uploadi ZIP fail (zip_file) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_zip_file_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_zip_file_help
+msgid "Omaduse Uploadi ZIP fail (zip_file) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_overwrite
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_overwrite
+msgid "Omaduse Importimisel kirjuta olemasolevad pildid &uuml;le (import_overwrite) caption"
+msgstr "When importing, overwrite existing images"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_overwrite_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_overwrite_comment
+msgid "Omaduse Importimisel kirjuta olemasolevad pildid &uuml;le (import_overwrite) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_overwrite_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_overwrite_help
+msgid "Omaduse Importimisel kirjuta olemasolevad pildid &uuml;le (import_overwrite) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_add_pages
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_add_pages
+msgid "Omaduse Importimisel lisa vajadusel lehek&uuml;lgi (import_add_pages) caption"
+msgstr "When importing, add pages as needed"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_add_pages_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_add_pages_comment
+msgid "Omaduse Importimisel lisa vajadusel lehek&uuml;lgi (import_add_pages) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_import_add_pages_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_import_add_pages_help
+msgid "Omaduse Importimisel lisa vajadusel lehek&uuml;lgi (import_add_pages) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_do_import
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_do_import
+msgid "Omaduse Teosta import (do_import) caption"
+msgstr "Do import"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_do_import_comment
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_do_import_comment
+msgid "Omaduse Teosta import (do_import) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:prop_do_import_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:prop_do_import_help
+msgid "Omaduse Teosta import (do_import) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_1
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_1
+msgid "Grupi Lehek&uuml;lg&nbsp;1 (page_1) pealkiri"
+msgstr "Page 1"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_1_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_1_help
+msgid "Grupi Lehek&uuml;lg&nbsp;1 (page_1) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_2
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_2
+msgid "Grupi Lehek&uuml;lg&nbsp;2 (page_2) pealkiri"
+msgstr "Page 2"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_2_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_2_help
+msgid "Grupi Lehek&uuml;lg&nbsp;2 (page_2) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_3
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_3
+msgid "Grupi Lehek&uuml;lg&nbsp;3 (page_3) pealkiri"
+msgstr "Page 3"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_3_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_3_help
+msgid "Grupi Lehek&uuml;lg&nbsp;3 (page_3) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_4
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_4
+msgid "Grupi Lehek&uuml;lg&nbsp;4 (page_4) pealkiri"
+msgstr "Page 4"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_4_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_4_help
+msgid "Grupi Lehek&uuml;lg&nbsp;4 (page_4) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_5
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_5
+msgid "Grupi Lehek&uuml;lg&nbsp;5 (page_5) pealkiri"
+msgstr "Page 5"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_5_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_5_help
+msgid "Grupi Lehek&uuml;lg&nbsp;5 (page_5) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_6
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_6
+msgid "Grupi Lehek&uuml;lg&nbsp;6 (page_6) pealkiri"
+msgstr "Page 6"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_6_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_6_help
+msgid "Grupi Lehek&uuml;lg&nbsp;6 (page_6) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_7
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_7
+msgid "Grupi Lehek&uuml;lg&nbsp;7 (page_7) pealkiri"
+msgstr "Page 7"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_7_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_7_help
+msgid "Grupi Lehek&uuml;lg&nbsp;7 (page_7) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_8
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_8
+msgid "Grupi Lehek&uuml;lg&nbsp;8 (page_8) pealkiri"
+msgstr "Page 8"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_8_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_8_help
+msgid "Grupi Lehek&uuml;lg&nbsp;8 (page_8) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_9
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_9
+msgid "Grupi Lehek&uuml;lg&nbsp;9 (page_9) pealkiri"
+msgstr "Page 9"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_page_9_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_page_9_help
+msgid "Grupi Lehek&uuml;lg&nbsp;9 (page_9) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_import
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_import
+msgid "Grupi Impordi (import) pealkiri"
+msgstr "Import"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_import_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_import_help
+msgid "Grupi Impordi (import) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_preview
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_preview
+msgid "Grupi Eelvaade (preview) pealkiri"
+msgstr "Preview"
+
+# classes/contentmgmt/gallery/gallery_v2.aw:group_preview_help
+#: classes/contentmgmt/gallery/gallery_v2.aw:group_preview_help
+msgid "Grupi Eelvaade (preview) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/gallery_v2.aw:rel_RELTYPE_FTP_LOGIN
+#: classes/contentmgmt/gallery/gallery_v2.aw:rel_RELTYPE_FTP_LOGIN
+msgid "Seose ftp login (RELTYPE_FTP_LOGIN) tekst"
+msgstr "ftp login"
+
+#: classes/contentmgmt/gallery/gallery_v2.aw:175
+msgid "Sellele kataloogile pole konfiguratsiooni valitud!"
+msgstr "This folder has no configration set!"
+
+#: classes/contentmgmt/gallery/gallery_v2.aw:418
+msgid "Sellist kataloogi pole serveris! (%s)"
+msgstr "No such folder in server (%s)"

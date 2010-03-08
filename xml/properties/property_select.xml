@@ -1,0 +1,39 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>multiple</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Saab teha mitu valikut</caption>
+      </property>
+      <property>
+            <name>size</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>2</size>
+            <datatype>int</datatype>
+            <caption>Pikkus (kui on mitu valikut)</caption>
+      </property>
+      <property>
+            <name>options</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textarea</type>
+            <caption>Valikud</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_PROPERTY_SELECT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

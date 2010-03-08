@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<definitions>
+<header_normal   value="aste05"/>
+<header_sortable value="aste05"/>
+<header_sorted   value="aste04"/>
+
+<content_style1  value="aste07"/>
+<content_style2  value="aste07"/>
+<content_style1_selected value="aste05"/>
+<content_style2_selected value="aste05"/>
+<tableattribs border="0" width="100%" cellspacing="1" cellpadding="1" bgcolor="#FFFFFF"/>
+</definitions>
+
+<actions>
+</actions>
+
+<data>
+<field name="name" caption="Nimi" align="left" talign="center" sortable="1"/>
+<field name="class_id" caption="Klass" talign="center" align="center"/>
+<field name="modifiedby" caption="Muutja" width="50" align="center" talign="center" sortable="1"/>
+<field name="modified" caption="Muudetud" width="100" align="center" talign="center" type="time" format="d-M-y / H:i" sortable="1" numeric="yea"/>
+<field name="select" caption="&lt;a href='javascript:selall()'&gt;Vali&lt;/a&gt;" talign="center" width="30" align="center"/>
+</data>
+
+</tabledef>

@@ -1,0 +1,7 @@
+MSG_ON_SITE_SHOW_IMPORT_VARS
+
+
+This message will get posted when we are showing the site.
+arguments:
+inst - instance to which to import the variables
+params - array of parameters passed to site_show

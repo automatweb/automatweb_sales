@@ -1,0 +1,194 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/rate/rate.aw:class_189_help
+#: classes/contentmgmt/rate/rate.aw:class_189_help
+msgid "Klassi H&auml;&auml;letus help"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_top
+#: classes/contentmgmt/rate/rate.aw:prop_top
+msgid "Omaduse Mitu topis (top) caption"
+msgstr "Number of entries in top"
+
+# classes/contentmgmt/rate/rate.aw:prop_top_comment
+#: classes/contentmgmt/rate/rate.aw:prop_top_comment
+msgid "Omaduse Mitu topis (top) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_top_help
+#: classes/contentmgmt/rate/rate.aw:prop_top_help
+msgid "Omaduse Mitu topis (top) help"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_top_type
+#: classes/contentmgmt/rate/rate.aw:prop_top_type
+msgid "Omaduse J&auml;rjestatakse (top_type) caption"
+msgstr "Sort by"
+
+# classes/contentmgmt/rate/rate.aw:prop_top_type_comment
+#: classes/contentmgmt/rate/rate.aw:prop_top_type_comment
+msgid "Omaduse J&auml;rjestatakse (top_type) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_top_type_help
+#: classes/contentmgmt/rate/rate.aw:prop_top_type_help
+msgid "Omaduse J&auml;rjestatakse (top_type) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from
+msgid "Omaduse Objektide piirang (objects_from) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_comment
+msgid "Omaduse Objektide piirang (objects_from) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_help
+msgid "Omaduse Objektide piirang (objects_from) help"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from_clid
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_clid
+msgid "Omaduse Vali klass (objects_from_clid) caption"
+msgstr "Select class"
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from_clid_comment
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_clid_comment
+msgid "Omaduse Vali klass (objects_from_clid) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from_clid_help
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_clid_help
+msgid "Omaduse Vali klass (objects_from_clid) help"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from_folder
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_folder
+msgid "Omaduse Vali kataloogid (objects_from_folder) caption"
+msgstr "Select folders"
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from_folder_comment
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_folder_comment
+msgid "Omaduse Vali kataloogid (objects_from_folder) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from_folder_help
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_folder_help
+msgid "Omaduse Vali kataloogid (objects_from_folder) help"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from_oid
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_oid
+msgid "Omaduse Vali objekt (objects_from_oid) caption"
+msgstr "Select object"
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from_oid_comment
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_oid_comment
+msgid "Omaduse Vali objekt (objects_from_oid) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from_oid_help
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_oid_help
+msgid "Omaduse Vali objekt (objects_from_oid) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_rate_scale
+msgid "Omaduse Vali skaala (objects_from_rate_scale) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_rate_scale_comment
+msgid "Omaduse Vali skaala (objects_from_rate_scale) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:prop_objects_from_rate_scale_help
+msgid "Omaduse Vali skaala (objects_from_rate_scale) help"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:prop_url_to
+msgid "Omaduse Aadress, kuhu suunata (url_to) caption"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:prop_url_to_comment
+msgid "Omaduse Aadress, kuhu suunata (url_to) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:prop_url_to_help
+msgid "Omaduse Aadress, kuhu suunata (url_to) help"
+msgstr ""
+
+# classes/contentmgmt/rate/rate.aw:rel_RELTYPE_RATE_FOLDER
+#: classes/contentmgmt/rate/rate.aw:rel_RELTYPE_RATE_FOLDER
+msgid "Seose Hinnatavate objektide kataloog (RELTYPE_RATE_FOLDER) tekst"
+msgstr "Ratable objects folder"
+
+# classes/contentmgmt/rate/rate.aw:rel_RELTYPE_RATE_OID
+#: classes/contentmgmt/rate/rate.aw:rel_RELTYPE_RATE_OID
+msgid "Seose Hinnatav objekt (RELTYPE_RATE_OID) tekst"
+msgstr "ratable object"
+
+#: classes/contentmgmt/rate/rate.aw:rel_RELTYPE_RATE_SCALE
+msgid "Seose Arvestatav skaala (RELTYPE_RATE_SCALE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:82
+msgid "Hindamisskaala j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:83
+msgid "Klassi j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:84
+msgid "Kataloogi j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:85
+msgid "Objektist"
+msgstr "From object"
+
+#: classes/contentmgmt/rate/rate.aw:107
+msgid "K&otilde;rgeima hinde j&auml;rgi"
+msgstr "Highest rating"
+
+#: classes/contentmgmt/rate/rate.aw:108
+msgid "Keskmise hinde j&auml;rgi"
+msgstr "Average rating"
+
+#: classes/contentmgmt/rate/rate.aw:109
+msgid "Vaatamiste j&auml;rgi"
+msgstr "Number of views"
+
+#: classes/contentmgmt/rate/rate.aw:110
+msgid "Madalaima hinde j&auml;rgi"
+msgstr "Lowest rating"
+
+#: classes/contentmgmt/rate/rate.aw:111
+msgid "V&auml;him vaadatud"
+msgstr "Least viewed"
+
+#: classes/contentmgmt/rate/rate.aw:546
+msgid "H&auml;&auml;leta"
+msgstr ""
+
+#: classes/contentmgmt/rate/rate.aw:564
+msgid "Hinda"
+msgstr ""
+
+#~ msgid "Klassi järgi"
+#~ msgstr "By class"
+
+#~ msgid "Kataloogi järgi"
+#~ msgstr "By folder"
+
+# classes/contentmgmt/rate/rate.aw:prop_objects_from
+#~ msgid "Omaduse Millistele objektidele kehtib (objects_from) caption"
+#~ msgstr "Which obects rating applies to"

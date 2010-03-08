@@ -1,0 +1,26 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="xml_output" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="xml" nologin="1">
+			<function name="xml">
+				<arguments>
+					<required name="params" />
+					<required name="parent" />
+					<optional name="status" />
+					<optional name="recursive" />
+					<required name="class_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="format_doc_content">
+			<function name="format_doc_content">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="leadonly" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,11 @@
+
+is_valid($set,$string)
+
+Checks whether a string matches a set of rules. Possible values
+for $set are "password" and "uid".
+
+calling is_valid("uid",$some_arbitrary_string) returns true
+if the string is a valid username
+
+calling is_valid("password",$some_arbitrary_string) returns true
+if the string is a valid password

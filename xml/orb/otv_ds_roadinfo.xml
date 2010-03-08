@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="otv_ds_roadinfo" folder="contentmgmt/object_treeview" extends="class_base">
+		<action name="update_cache" nologin="1">
+			<function name="update_cache">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

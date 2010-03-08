@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="range" folder="www/dev/terryf/automatweb_dev/classes/vcl" extends="class_base">
+		<action name="set_textbox_size">
+			<function name="set_textbox_size">
+				<arguments>
+					<type=int name="from" />
+					<type=int name="to" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_range">
+			<function name="set_range">
+				<arguments>
+					<type=int name="from" />
+					<type=int name="to" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

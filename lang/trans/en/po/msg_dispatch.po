@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/msg/msg_dispatch.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/msg/msg_dispatch.aw:24 classes/core/msg/msg_dispatch.aw:59
+msgid "msg_dispatch::post_message - no message posted!"
+msgstr "msg_dispatch::post_message - no message posted!"
+
+#: classes/core/msg/msg_dispatch.aw:36 classes/core/msg/msg_dispatch.aw:81
+msgid "msg_dispatch::post_message - no handler function (%s) in class (%s) for message %s!"
+msgstr "msg_dispatch::post_message - no handler function (%s) in class (%s) for message %s!"
+
+#: classes/core/msg/msg_dispatch.aw:64
+msgid "msg_dispatch::post_message - no parameter for message posted!"
+msgstr "msg_dispatch::post_message - no parameter for message posted!"
+
+#: classes/core/msg/msg_dispatch.aw:107
+msgid "msg_dispatch::post_message - no such message (%s) defined!"
+msgstr "msg_dispatch::post_message - no such message (%s) defined!"

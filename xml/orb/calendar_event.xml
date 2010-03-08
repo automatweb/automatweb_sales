@@ -1,0 +1,60 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="calendar_event" folder="www/automatweb_cvs/classes/applications/calendar" extends="class_base">
+		<action name="new" nologin="1" all_args="1">
+			<function name="new_change">
+				<arguments>
+					<required name="class" />
+					<optional name="parent" type="int" acl="add" />
+					<optional name="period" />
+					<optional name="alias_to" />
+					<optional name="alias_to_prop" />
+					<optional name="return_url" />
+					<optional name="reltype" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="locations_autocomplete_source">
+			<function name="locations_autocomplete_source">
+				<arguments>
+					<optional name="location" />
+					<optional name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="organizer_autocomplete_source">
+			<function name="organizer_autocomplete_source">
+				<arguments>
+					<optional name="organizer" />
+					<optional name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_event_time">
+			<function name="delete_items">
+				<arguments>
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show" all_args="1">
+			<function name="show">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_organizers">
+			<function name="remove_organizers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

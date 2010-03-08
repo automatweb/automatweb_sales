@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="taavi_import" folder="www/dev/terryf/automatweb_dev/classes/import" extends="class_base">
+		<action name="import">
+			<function name="import">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_raw">
+			<function name="get_raw">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

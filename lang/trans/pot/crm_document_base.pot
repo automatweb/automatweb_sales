@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_document_base.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:39 classes/applications/crm/crm_document_base.aw:259
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:184
+msgid "Salvesta"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:190
+msgid "Kustuta eeldustedevused"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:199
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:205
+msgid "Eeldustegevus(ed)"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:211
+msgid "Tehtud"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:217
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:223
+msgid "Tegija"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:229
+msgid "Tegevus"
+msgstr ""
+
+#: classes/applications/crm/crm_document_base.aw:329
+msgid "Otsi"
+msgstr ""
+

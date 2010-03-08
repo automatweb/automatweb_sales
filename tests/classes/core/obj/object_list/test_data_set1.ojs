@@ -1,0 +1,21 @@
+
+$o0 = obj { class_id=CL_MENU, parent=${parent}, name="Testobject 0", status=STAT_ACTIVE, jrk=3, comment="testcomment2" }
+$o1 = obj { class_id=CL_MENU, parent=${parent}, name="Testobject 1", status=STAT_INACTIVE, jrk=1 }
+$o2 = obj { class_id=CL_MENU, parent=${o1}, name="Testobject 2", status=STAT_ACTIVE, comment="testcomment", jrk=2 }
+$o3 = obj { class_id=CL_MENU, parent=${o2}, name="Testobject 3", status=STAT_INACTIVE, change_pri=0.8, jrk=2 }
+$o4 = obj { class_id=CL_DOCUMENT, parent=${o2}, name="Testobject 4", status=STAT_INACTIVE, title="82djnslsamz.b[;dcwvkw# ksadfkoefefe28fa;gj92E@$aDdDAFakeufa" }
+$o5 = obj { class_id=CL_IMAGE, parent=${o3}, name="Testobject 5", status=STAT_INACTIVE }
+$o6 = obj { class_id=CL_DOCUMENT, parent=${o3}, name="Testobject 6", status=STAT_INACTIVE, subtitle="testsubtitle" }
+$o7 = obj { class_id=CL_DOCUMENT, parent=${o3}, name="Testobject 7", status=STAT_INACTIVE, subtitle="testsubtitle" }
+$o8 = obj { class_id=CL_DOCUMENT, parent=${o3}, name="Testobject 8", status=STAT_ACTIVE, subtitle="testsubtitle2" }
+$o9 = obj { class_id=CL_IMAGE, parent=${o3}, name="Testobject 9", status=STAT_INACTIVE }
+
+rel { from=${o1}, to=${o5}, reltype=14 }
+rel { from=${o2}, to=${o3}, reltype=5 }
+rel { from=${o2}, to=${o1}, reltype=5 }
+rel { from=${o3}, to=${o9}, reltype=14 }
+
+$o10 = obj { class_id=CL_MENU, parent=${parent}, name="Writetestobject 0", status=STAT_ACTIVE }
+$o11 = obj { class_id=CL_MENU, parent=${parent}, name="Writetestobject 1", status=STAT_INACTIVE }
+$o12 = obj { class_id=CL_MENU, parent=${o11}, name="Writetestobject 2", status=STAT_ACTIVE, comment="writetestcomment" }
+$o13 = obj { class_id=CL_MENU, parent=${o12}, name="Writetestobject 3", status=STAT_INACTIVE }

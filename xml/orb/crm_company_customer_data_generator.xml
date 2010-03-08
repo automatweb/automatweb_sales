@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_company_customer_data_generator" folder="www/dev/terryf/automatweb_dev/classes/applications/crm" extends="class_base">
+		<action name="generate">
+			<function name="generate">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

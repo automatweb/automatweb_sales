@@ -1,0 +1,224 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/calendar/ical_export.aw:class_1348_help
+msgid "Klassi S&uuml;ndmuste eksport (iCal) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_export_tb
+msgid "Omaduse  (export_tb) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_export_tb_comment
+msgid "Omaduse  (export_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_export_tb_help
+msgid "Omaduse  (export_tb) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_calendar
+msgid "Omaduse Kalender (calendar) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_calendar_comment
+msgid "Omaduse Kalender (calendar) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_calendar_help
+msgid "Omaduse Kalender (calendar) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_startdate
+msgid "Omaduse Ajavahemiku algus (startdate) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_startdate_comment
+msgid "Omaduse Ajavahemiku algus (startdate) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_startdate_help
+msgid "Omaduse Ajavahemiku algus (startdate) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_enddate
+msgid "Omaduse Ajavahemiku l&otilde;pp (enddate) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_enddate_comment
+msgid "Omaduse Ajavahemiku l&otilde;pp (enddate) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_enddate_help
+msgid "Omaduse Ajavahemiku l&otilde;pp (enddate) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_personal_not
+msgid "Omaduse &Auml;ra ekspordi isiklikke s&uuml;ndmusi (personal_not) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_personal_not_comment
+msgid "Omaduse &Auml;ra ekspordi isiklikke s&uuml;ndmusi (personal_not) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_personal_not_help
+msgid "Omaduse &Auml;ra ekspordi isiklikke s&uuml;ndmusi (personal_not) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_url
+msgid "Omaduse Faili url (url) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_url_comment
+msgid "Omaduse Faili url (url) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_url_help
+msgid "Omaduse Faili url (url) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_calendar
+msgid "Omaduse Vali Google kalender (google_calendar_settings_calendar) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_calendar_comment
+msgid "Omaduse Vali Google kalender (google_calendar_settings_calendar) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_calendar_help
+msgid "Omaduse Vali Google kalender (google_calendar_settings_calendar) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_newcalname
+msgid "Omaduse Uue kalendri nimi (google_calendar_settings_newcalname) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_newcalname_comment
+msgid "Omaduse Uue kalendri nimi (google_calendar_settings_newcalname) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_newcalname_help
+msgid "Omaduse Uue kalendri nimi (google_calendar_settings_newcalname) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_color
+msgid "Omaduse V&auml;rv (google_calendar_settings_color) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_color_comment
+msgid "Omaduse V&auml;rv (google_calendar_settings_color) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_color_help
+msgid "Omaduse V&auml;rv (google_calendar_settings_color) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_calendar_url
+msgid "Omaduse  (google_calendar_settings_calendar_url) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_calendar_url_comment
+msgid "Omaduse  (google_calendar_settings_calendar_url) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_settings_calendar_url_help
+msgid "Omaduse  (google_calendar_settings_calendar_url) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_uid
+msgid "Omaduse Kasutaja (google_calendar_uid) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_uid_comment
+msgid "Omaduse Kasutaja (google_calendar_uid) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_uid_help
+msgid "Omaduse Kasutaja (google_calendar_uid) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_password_1
+msgid "Omaduse Parool (google_calendar_password_1) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_password_1_comment
+msgid "Omaduse Parool (google_calendar_password_1) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_password_1_help
+msgid "Omaduse Parool (google_calendar_password_1) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_password_2
+msgid "Omaduse Parool uuesti (google_calendar_password_2) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_password_2_comment
+msgid "Omaduse Parool uuesti (google_calendar_password_2) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:prop_google_calendar_password_2_help
+msgid "Omaduse Parool uuesti (google_calendar_password_2) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:group_google_calendar
+msgid "Grupi Google kalender (google_calendar) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:group_google_calendar_help
+msgid "Grupi Google kalender (google_calendar) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:group_google_calendar_settings
+msgid "Grupi Seaded (google_calendar_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:group_google_calendar_settings_help
+msgid "Grupi Seaded (google_calendar_settings) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:group_google_calendar_user
+msgid "Grupi Kasutaja (google_calendar_user) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:group_google_calendar_user_help
+msgid "Grupi Kasutaja (google_calendar_user) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:rel_RELTYPE_CALENDAR
+msgid "Seose Kalender (RELTYPE_CALENDAR) tekst"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:136
+msgid "Loo uus kalender..."
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:216
+msgid "Vali..."
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:615
+msgid "&uuml;le 15 s&uuml;mboli (ka t&uuml;hikud) ei soovita nimeks, kuna pikem tekst j&auml;&auml;b Google kalendris paani taha peitu."
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:627
+msgid "aw kalender"
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:696
+msgid "n&auml;iteks Tallinn v&otilde;i Haapsalu. Kui Google kalender on avalik, siis see aitab inimestel Sinu s&uuml;ndmusi paremini leida."
+msgstr ""
+
+#: classes/applications/calendar/ical_export.aw:733
+msgid "Paroolid ei &uuml;hti"
+msgstr ""
+

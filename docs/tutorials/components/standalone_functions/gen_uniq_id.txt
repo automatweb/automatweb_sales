@@ -1,0 +1,3 @@
+gen_uniq_id()
+
+Returns an unique id (a string 32 characters long)

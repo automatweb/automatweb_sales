@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="form_stat_table" folder="www/dev/terryf/automatweb_dev/classes/formgen" extends="form_base">
+		<action name="new">
+			<function name="add">
+				<arguments>
+					<required name="parent" acl="add" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit">
+			<function name="submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change">
+			<function name="change">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

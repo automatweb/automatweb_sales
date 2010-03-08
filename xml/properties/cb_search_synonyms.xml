@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>desc</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>
+            <![CDATA["text"]]>
+            </type>
+            <store>no</store>
+            <field>desc</field>
+      </property>
+      <property>
+            <name>syntb</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>callback</type>
+            <callback>callback_get_syntb</callback>
+            <store>no</store>
+            <field>syntb</field>
+            <caption>S&amp;amp;uuml;non&amp;amp;uuml;mise sisestamine</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CB_SEARCH_SYNONYMS</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

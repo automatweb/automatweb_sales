@@ -1,0 +1,66 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/site_show.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:1188
+msgid "Ei ole &otilde;igust n&auml;ha"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:2311
+msgid "site_show::do_draw_menus(): no compiled filename set!"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:2396
+msgid "site_show::exec_subtemplate_handlers(): could not find subtemplate handler in %s"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:2637
+msgid "site_show::make_final_vars(): need JOIN_FORM sub back!"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:3186
+msgid "Sellelt aadressilt pole lubatud seda lehte vaadata, vabandame.<br>Aadress:"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:3381
+msgid "Lisa uus k&otilde;rvale"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:3391
+msgid "Lisa uus alamkaust"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:3401
+msgid "Muuda"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:3411
+msgid "Muuda &otilde;igusi"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:3420
+msgid "Peida"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:3424
+msgid "L&otilde;ika"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:3432 classes/contentmgmt/site_show.aw:3465
+msgid "Kleebi"
+msgstr ""
+
+#: classes/contentmgmt/site_show.aw:3453
+msgid "Lisa uus"
+msgstr ""

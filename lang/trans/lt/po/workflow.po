@@ -1,0 +1,224 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/workflow/workflow.aw:class_176_help
+msgid "Klassi Protsessivaade help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_config
+msgid "Omaduse Konfiguratsioon (config) caption"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_config_comment
+msgid "Omaduse Konfiguratsioon (config) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_config_help
+msgid "Omaduse Konfiguratsioon (config) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_id
+msgid "Omaduse  (id) caption"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_id_comment
+msgid "Omaduse  (id) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_id_help
+msgid "Omaduse  (id) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_entities
+msgid "Omaduse Juhtumid (show_entities) caption"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_entities_comment
+msgid "Omaduse Juhtumid (show_entities) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_entities_help
+msgid "Omaduse Juhtumid (show_entities) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_actions
+msgid "Omaduse Tegevused (show_actions) caption"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_actions_comment
+msgid "Omaduse Tegevused (show_actions) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_actions_help
+msgid "Omaduse Tegevused (show_actions) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_processes
+msgid "Omaduse Protsessid (show_processes) caption"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_processes_comment
+msgid "Omaduse Protsessid (show_processes) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_processes_help
+msgid "Omaduse Protsessid (show_processes) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_actors
+msgid "Omaduse Tegijad (show_actors) caption"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_actors_comment
+msgid "Omaduse Tegijad (show_actors) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_actors_help
+msgid "Omaduse Tegijad (show_actors) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_documentation
+msgid "Omaduse Juhendmaterjalid (show_documentation) caption"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_documentation_comment
+msgid "Omaduse Juhendmaterjalid (show_documentation) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow.aw:prop_show_documentation_help
+msgid "Omaduse Juhendmaterjalid (show_documentation) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_general
+msgid "Grupi Üldine (general) pealkiri"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_general_help
+msgid "Grupi Üldine (general) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_entities
+msgid "Grupi Juhtumid (show_entities) pealkiri"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_entities_help
+msgid "Grupi Juhtumid (show_entities) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_processes
+msgid "Grupi Protessid (show_processes) pealkiri"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_processes_help
+msgid "Grupi Protessid (show_processes) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_actions
+msgid "Grupi Tegevused (show_actions) pealkiri"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_actions_help
+msgid "Grupi Tegevused (show_actions) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_actors
+msgid "Grupi Tegijad (show_actors) pealkiri"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_actors_help
+msgid "Grupi Tegijad (show_actors) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_documentation
+msgid "Grupi Juhendmaterjalid (show_documentation) pealkiri"
+msgstr ""
+
+#: classes/workflow/workflow.aw:group_show_documentation_help
+msgid "Grupi Juhendmaterjalid (show_documentation) help"
+msgstr ""
+
+#: classes/workflow/workflow.aw:rel_RELTYPE_WORKFLOW_CONFIG
+msgid "Seose Konfiguratsioon  (RELTYPE_WORKFLOW_CONFIG) tekst"
+msgstr ""
+
+#: classes/workflow/workflow.aw:69
+msgid "Näita"
+msgstr ""
+
+#: classes/workflow/workflow.aw:119
+msgid "Konfiguratsiooniobjekt on valimata!"
+msgstr ""
+
+#: classes/workflow/workflow.aw:129
+msgid "Juhtumite rootmenüü on valimata!"
+msgstr ""
+
+#: classes/workflow/workflow.aw:140
+msgid "Juhtumite sisestuste rootmenüü on valimata!"
+msgstr ""
+
+#: classes/workflow/workflow.aw:151
+msgid "Tegevuste rootmenüü on valimata!"
+msgstr ""
+
+#: classes/workflow/workflow.aw:161
+msgid "Protsesside rootmenüü on valimata!"
+msgstr ""
+
+#: classes/workflow/workflow.aw:171
+msgid "Tegijate rootmenüü on valimata!"
+msgstr ""
+
+#: classes/workflow/workflow.aw:250 classes/workflow/workflow.aw:351 classes/workflow/workflow.aw:471 classes/workflow/workflow.aw:662
+msgid "Salvesta"
+msgstr ""
+
+#: classes/workflow/workflow.aw:439 classes/workflow/workflow.aw:875
+msgid "Uus"
+msgstr ""
+
+#: classes/workflow/workflow.aw:543 classes/workflow/workflow.aw:799
+msgid "you did not pick a process<br />"
+msgstr ""
+
+#: classes/workflow/workflow.aw:588
+msgid "Log"
+msgstr ""
+
+#: classes/workflow/workflow.aw:672
+msgid "Uus protsess"
+msgstr ""
+
+#: classes/workflow/workflow.aw:796
+msgid "create ent"
+msgstr ""
+
+#: classes/workflow/workflow.aw:996
+msgid "Protsess on l&otilde;ppenud!"
+msgstr ""
+
+#: classes/workflow/workflow.aw:1214
+msgid "Juhtumid"
+msgstr ""
+
+#: classes/workflow/workflow.aw:1215
+msgid "Protsessid"
+msgstr ""
+
+#: classes/workflow/workflow.aw:1216
+msgid "Tegevused"
+msgstr ""
+
+#: classes/workflow/workflow.aw:1217
+msgid "Tegijad"
+msgstr ""
+

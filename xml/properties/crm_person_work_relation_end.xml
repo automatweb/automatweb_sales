@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>date_start</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>date</type>
+            <caption>Alguse kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>date_end</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>date_select</type>
+            <caption>L&amp;otilde;pu kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>end_type</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Peatumise liik</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_PERSON_WORK_RELATION_END</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <reltypes>
+            <SUBSITUTE>
+                  <value>1</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>Asendaja</caption>
+            </SUBSITUTE>
+      </reltypes>
+</properties>
+

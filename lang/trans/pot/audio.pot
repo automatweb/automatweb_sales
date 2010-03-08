@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/audio.aw:class_1019_help
+msgid "Klassi Audio help"
+msgstr ""
+
+#: classes/contentmgmt/audio.aw:prop_author
+msgid "Omaduse Autor (author) caption"
+msgstr ""
+
+#: classes/contentmgmt/audio.aw:prop_author_comment
+msgid "Omaduse Autor (author) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/audio.aw:prop_author_help
+msgid "Omaduse Autor (author) help"
+msgstr ""
+

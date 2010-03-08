@@ -1,0 +1,135 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Thu,  7 Apr 2005 16:09:38 +0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/calendar/calendar_registration.aw:prop_event_comment
+msgid "Omaduse S&uuml;ndmuse kommentaari (event_comment) caption"
+msgstr "Event comment"
+
+#: classes/applications/calendar/calendar_registration.aw:prop_event_comment_comment
+msgid "Omaduse S&uuml;ndmuse kommentaari (event_comment) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_event_comment_help
+msgid "Omaduse S&uuml;ndmuse kommentaari (event_comment) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_from_addr
+msgid "Omaduse Maili From aadress (mail_from_addr) caption"
+msgstr "Mail from address"
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_from_addr_comment
+msgid "Omaduse Maili From aadress (mail_from_addr) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_from_addr_help
+msgid "Omaduse Maili From aadress (mail_from_addr) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_from_name
+msgid "Omaduse Maili From nimi (mail_from_name) caption"
+msgstr "Mail from name"
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_from_name_comment
+msgid "Omaduse Maili From nimi (mail_from_name) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_from_name_help
+msgid "Omaduse Maili From nimi (mail_from_name) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_subj
+msgid "Omaduse Maili subjekt (mail_subj) caption"
+msgstr "Mail subject"
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_subj_comment
+msgid "Omaduse Maili subjekt (mail_subj) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_subj_help
+msgid "Omaduse Maili subjekt (mail_subj) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_legend
+msgid "Omaduse Asenduste legend (mail_legend) caption"
+msgstr "Replacement legend"
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_legend_comment
+msgid "Omaduse Asenduste legend (mail_legend) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_legend_help
+msgid "Omaduse Asenduste legend (mail_legend) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_content
+msgid "Omaduse Maili sisu (mail_content) caption"
+msgstr "Mail content"
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_content_comment
+msgid "Omaduse Maili sisu (mail_content) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:prop_mail_content_help
+msgid "Omaduse Maili sisu (mail_content) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration.aw:group_emails
+msgid "Grupi Meilid (emails) pealkiri"
+msgstr "Mails"
+
+#: classes/applications/calendar/calendar_registration.aw:rel_RELTYPE_CALENDAR
+msgid "Seose kalender (RELTYPE_CALENDAR) tekst"
+msgstr "Calendar"
+
+#: classes/applications/calendar/calendar_registration.aw:61
+msgid "Meili sisus on v&otilde;imalik kasutada j&auml;rgnevaid asendusi:<br><br>#reg_data# - registreeruja andmed ja sisu<br>
+					#name# - kalendri omaniku nimi<br>
+					#phone# - kalendri omaniku telefon<br>
+					#email# - kalendri omaniku e-mail<br>
+					#addr# - kalendri omaniku aadress<br>
+					#date# - kohtumise kuup&auml;ev<br>
+					#time_from# - kohtumise alguskellaaeg<br>
+					#time_to# - kohtumise k&otilde;ppkellaaeg<br>"
+msgstr ""
+"You can use the following tags in the mail content:<br><br>#reg_data# - registrant name and data<br>"
+"					#name# - calendar owner's name<br>"
+"					#phone# - calendar owner's phone<br>"
+"					#email# - calendar owner's email<br>"
+"					#addr# - calendar owner's address<br>"
+"					#date# - event date<br>"
+"					#time_from# - event start time<br>"
+"					#time_to# - event end time<br>"
+
+#: classes/applications/calendar/calendar_registration.aw:229
+msgid "Eesnimi:\n"
+msgstr "First name:\n"
+
+#: classes/applications/calendar/calendar_registration.aw:230
+msgid "Perekonnanimi:\n"
+msgstr "Last name:\n"
+
+#: classes/applications/calendar/calendar_registration.aw:231
+msgid "E-mai:\n"
+msgstr "E-mail:\n"
+
+#: classes/applications/calendar/calendar_registration.aw:232
+msgid "Telefon:\n"
+msgstr "Phone:\n"
+
+#: classes/applications/calendar/calendar_registration.aw:233
+msgid "Isikukood:\n"
+msgstr "Personal coode:\n"
+
+#: classes/applications/calendar/calendar_registration.aw:234
+msgid "Kohtumise sisu:\n"
+msgstr "Event content:\n"
+

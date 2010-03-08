@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="document_periodic" folder="contentmgmt" extends="document">
+	</class>
+</orb>

@@ -1,0 +1,5 @@
+<?php
+$GLOBALS["TRANS"]["Vallaline"] = "neprecçjies";
+$GLOBALS["TRANS"]["Abielus"] = "precçjies";
+$GLOBALS["TRANS"]["Lahutatud"] = "ðíîries";
+?>

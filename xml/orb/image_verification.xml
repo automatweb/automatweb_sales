@@ -1,0 +1,26 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="image_verification" folder="www/dev/terryf/automatweb_dev/classes/core/util/image_verification" extends="class_base">
+		<action name="draw_image" nologin="1">
+			<function name="draw_image">
+				<arguments>
+					<optional name="obj_inst" type="CL_IMAGE_VERIFICATION" />
+					<optional name="width" type="int" />
+					<optional name="height" type="int" />
+					<optional name="text_color" type="string" />
+					<optional name="background_color" type="string" />
+					<optional name="font_size" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="validate">
+			<function name="validate">
+				<arguments>
+					<required name="code" type="string" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

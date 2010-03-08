@@ -1,0 +1,202 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/survey/survey_manager.aw:class_350_help
+msgid "Klassi Ankeetide haldur help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_folder
+msgid "Omaduse Millisesse kataloogi täidetud ankeedid salvestada? (survey_folder) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_folder_comment
+msgid "Omaduse Millisesse kataloogi täidetud ankeedid salvestada? (survey_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_folder_help
+msgid "Omaduse Millisesse kataloogi täidetud ankeedid salvestada? (survey_folder) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_use_cfgform
+msgid "Omaduse Millist seadete vormi kasutada? (use_cfgform) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_use_cfgform_comment
+msgid "Omaduse Millist seadete vormi kasutada? (use_cfgform) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_use_cfgform_help
+msgid "Omaduse Millist seadete vormi kasutada? (use_cfgform) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_redirect_to
+msgid "Omaduse Kuhu ümber suunata (redirect_to) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_redirect_to_comment
+msgid "Omaduse Kuhu ümber suunata (redirect_to) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_redirect_to_help
+msgid "Omaduse Kuhu ümber suunata (redirect_to) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_users_only
+msgid "Omaduse Täita saavad ainult registreeritud kasutajad (users_only) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_users_only_comment
+msgid "Omaduse Täita saavad ainult registreeritud kasutajad (users_only) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_users_only_help
+msgid "Omaduse Täita saavad ainult registreeritud kasutajad (users_only) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_name
+msgid "Omaduse Ankeedi nimi (survey_name) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_name_comment
+msgid "Omaduse Ankeedi nimi (survey_name) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_name_help
+msgid "Omaduse Ankeedi nimi (survey_name) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_toolbar
+msgid "Omaduse Nimekirja toolbar (survey_toolbar) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_toolbar_comment
+msgid "Omaduse Nimekirja toolbar (survey_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_toolbar_help
+msgid "Omaduse Nimekirja toolbar (survey_toolbar) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_list
+msgid "Omaduse Täidetud ankeedid (survey_list) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_list_comment
+msgid "Omaduse Täidetud ankeedid (survey_list) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_survey_list_help
+msgid "Omaduse Täidetud ankeedid (survey_list) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_search_form
+msgid "Omaduse Otsi (search_form) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_search_form_comment
+msgid "Omaduse Otsi (search_form) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_search_form_help
+msgid "Omaduse Otsi (search_form) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_search_results_toolbar
+msgid "Omaduse Otsingutulemuste toolbar (search_results_toolbar) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_search_results_toolbar_comment
+msgid "Omaduse Otsingutulemuste toolbar (search_results_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_search_results_toolbar_help
+msgid "Omaduse Otsingutulemuste toolbar (search_results_toolbar) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_search_results
+msgid "Omaduse Tulemus (search_results) caption"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_search_results_comment
+msgid "Omaduse Tulemus (search_results) kommentaar"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:prop_search_results_help
+msgid "Omaduse Tulemus (search_results) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:group_survey_list
+msgid "Grupi Nimekiri (survey_list) pealkiri"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:group_survey_list_help
+msgid "Grupi Nimekiri (survey_list) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:group_survey_search
+msgid "Grupi Otsing (survey_search) pealkiri"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:group_survey_search_help
+msgid "Grupi Otsing (survey_search) help"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:rel_RELTYPE_SURVEY_FOLDER
+msgid "Seose Kataloog (RELTYPE_SURVEY_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:rel_RELTYPE_SURVEY_CFGFORM
+msgid "Seose Seadete vorm (RELTYPE_SURVEY_CFGFORM) tekst"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:rel_RELTYPE_REDIRECT_TO
+msgid "Seose Kuhu peale täitmist suunata (RELTYPE_REDIRECT_TO) tekst"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:125
+#: classes/applications/survey/survey_manager.aw:142
+msgid "Kustuta valitud ankeedid"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:127
+#: classes/applications/survey/survey_manager.aw:144
+msgid "Kustutada valitud ankeedid?"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:150
+msgid "Ekspordi ankeedid"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:202
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:233
+#: classes/applications/survey/survey_manager.aw:299
+#: classes/applications/survey/survey_manager.aw:494
+msgid "Vaata"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:447
+msgid "id"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:456
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:480
+msgid "Host"
+msgstr ""
+
+#: classes/applications/survey/survey_manager.aw:485
+msgid "Loodud"
+msgstr ""

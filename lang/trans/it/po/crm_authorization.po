@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_authorization.aw:class_1368_help
+msgid "Klassi Volitus help"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_our_company
+msgid "Omaduse Meie firma (our_company) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_our_company_comment
+msgid "Omaduse Meie firma (our_company) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_our_company_help
+msgid "Omaduse Meie firma (our_company) help"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_customer_company
+msgid "Omaduse Klientfirma (customer_company) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_customer_company_comment
+msgid "Omaduse Klientfirma (customer_company) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_customer_company_help
+msgid "Omaduse Klientfirma (customer_company) help"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_authorized_person
+msgid "Omaduse Volitatav isik (authorized_person) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_authorized_person_comment
+msgid "Omaduse Volitatav isik (authorized_person) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_authorized_person_help
+msgid "Omaduse Volitatav isik (authorized_person) help"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_start
+msgid "Omaduse Kehtib alates (start) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_start_comment
+msgid "Omaduse Kehtib alates (start) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_start_help
+msgid "Omaduse Kehtib alates (start) help"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_end
+msgid "Omaduse Kehtib kuni (end) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_end_comment
+msgid "Omaduse Kehtib kuni (end) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_end_help
+msgid "Omaduse Kehtib kuni (end) help"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_authorization_add
+msgid "Omaduse Lisa volitus (authorization_add) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_authorization_add_comment
+msgid "Omaduse Lisa volitus (authorization_add) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:prop_authorization_add_help
+msgid "Omaduse Lisa volitus (authorization_add) help"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:rel_RELTYPE_PERSON
+msgid "Seose Isik (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:rel_RELTYPE_OUR_COMPANY
+msgid "Seose Organisatsioon (RELTYPE_OUR_COMPANY) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_authorization.aw:rel_RELTYPE_CUSTOMER_COMPANY
+msgid "Seose Organisatsioon (RELTYPE_CUSTOMER_COMPANY) tekst"
+msgstr ""
+

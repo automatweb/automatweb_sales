@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="db_table_admin" folder="applications/awmyadmin" extends="class_base">
+		<action name="admin_col">
+			<function name="admin_col">
+				<arguments>
+					<required name="id" />
+					<optional name="field" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_admin_col">
+			<function name="submit_admin_col">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="admin_index">
+			<function name="admin_index">
+				<arguments>
+					<required name="id" />
+					<optional name="index" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_admin_index">
+			<function name="submit_admin_index">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

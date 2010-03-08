@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_product" folder="www/automatweb_cvs/classes/applications/shop" extends="class_base">
+		<action name="delete_replacement_prods_rels">
+			<function name="delete_replacement_prods_rels">
+				<arguments>
+					<required name="sel" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_prod" nologin="1">
+			<function name="show_prod">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="template" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_ammuot_limits">
+			<function name="get_amount_limits">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="group" type="array(oid),oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_amounts">
+			<function name="delete_amounts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_dn">
+			<function name="create_new_dn">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

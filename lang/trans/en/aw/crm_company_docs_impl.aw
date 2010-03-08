@@ -1,0 +1,33 @@
+<?php
+$GLOBALS["TRANS"]["Kaust"] = "Folder";
+$GLOBALS["TRANS"]["CRM Dokument"] = "Document";
+$GLOBALS["TRANS"]["Leping"] = "Contract";
+$GLOBALS["TRANS"]["Memo"] = "Memo";
+$GLOBALS["TRANS"]["Sisuhalduse dokument"] = "CMS document";
+$GLOBALS["TRANS"]["Fail"] = "File";
+$GLOBALS["TRANS"]["Pakkumine"] = "Offer";
+$GLOBALS["TRANS"]["dokumendid"] = "documents";
+$GLOBALS["TRANS"]["uudised"] = "news";
+$GLOBALS["TRANS"]["Uus"] = "New";
+$GLOBALS["TRANS"]["Kustuta valitud"] = "Delete selected";
+$GLOBALS["TRANS"]["L&otilde;ika"] = "Cut";
+$GLOBALS["TRANS"]["Kleebi"] = "Paste";
+$GLOBALS["TRANS"]["Impordi faile"] = "Import files";
+$GLOBALS["TRANS"]["Nimi"] = "Name";
+$GLOBALS["TRANS"]["T&uuml;&uuml;p"] = "Type";
+$GLOBALS["TRANS"]["Looja"] = "Creator";
+$GLOBALS["TRANS"]["Loodud"] = "Created";
+$GLOBALS["TRANS"]["Muutja"] = "Modifier";
+$GLOBALS["TRANS"]["Muudetud"] = "Modified";
+$GLOBALS["TRANS"]["%s dokumendid"] = "%s documents";
+$GLOBALS["TRANS"]["Ava internetist"] = "Open from Internet";
+$GLOBALS["TRANS"]["Ava serverist"] = "Open from server";
+$GLOBALS["TRANS"]["Laadi uus versioon"] = "Upload new version";
+$GLOBALS["TRANS"]["Lisa dokument"] = "Add document";
+$GLOBALS["TRANS"]["Lead"] = "Lead";
+$GLOBALS["TRANS"]["Muuda"] = "Change";
+$GLOBALS["TRANS"]["%s siseuudised"] = "%s news";
+$GLOBALS["TRANS"]["Failid"] = "Files";
+$GLOBALS["TRANS"]["Asukoht"] = "Location";
+$GLOBALS["TRANS"]["Muutmisaeg"] = "Modified";
+?>

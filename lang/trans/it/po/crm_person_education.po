@@ -1,0 +1,308 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_person_education.aw:class_487_help
+msgid "Klassi Haridus help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_person
+msgid "Omaduse Isik (person) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_person_comment
+msgid "Omaduse Isik (person) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_person_help
+msgid "Omaduse Isik (person) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_school1
+msgid "Omaduse Kool (school1) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_school1_comment
+msgid "Omaduse Kool (school1) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_school1_help
+msgid "Omaduse Kool (school1) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_school2
+msgid "Omaduse Muu kool (school2) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_school2_comment
+msgid "Omaduse Muu kool (school2) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_school2_help
+msgid "Omaduse Muu kool (school2) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_faculty
+msgid "Omaduse Teaduskond (faculty) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_faculty_comment
+msgid "Omaduse Teaduskond (faculty) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_faculty_help
+msgid "Omaduse Teaduskond (faculty) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_degree
+msgid "Omaduse Akadeemiline kraad (degree) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_degree_comment
+msgid "Omaduse Akadeemiline kraad (degree) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_degree_help
+msgid "Omaduse Akadeemiline kraad (degree) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_field
+msgid "Omaduse Valdkond (field) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_field_comment
+msgid "Omaduse Valdkond (field) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_field_help
+msgid "Omaduse Valdkond (field) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_speciality
+msgid "Omaduse Eriala (speciality) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_speciality_comment
+msgid "Omaduse Eriala (speciality) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_speciality_help
+msgid "Omaduse Eriala (speciality) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_addspeciality
+msgid "Omaduse K&otilde;rvaleriala (addspeciality) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_addspeciality_comment
+msgid "Omaduse K&otilde;rvaleriala (addspeciality) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_addspeciality_help
+msgid "Omaduse K&otilde;rvaleriala (addspeciality) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_main_speciality
+msgid "Omaduse P&otilde;hieriala (main_speciality) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_main_speciality_comment
+msgid "Omaduse P&otilde;hieriala (main_speciality) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_main_speciality_help
+msgid "Omaduse P&otilde;hieriala (main_speciality) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_in_progress
+msgid "Omaduse Omandamisel (in_progress) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_in_progress_comment
+msgid "Omaduse Omandamisel (in_progress) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_in_progress_help
+msgid "Omaduse Omandamisel (in_progress) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_dnf
+msgid "Omaduse Alustatud, kuid j&auml;&auml;nud l&otilde;petamata (dnf) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_dnf_comment
+msgid "Omaduse Alustatud, kuid j&auml;&auml;nud l&otilde;petamata (dnf) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_dnf_help
+msgid "Omaduse Alustatud, kuid j&auml;&auml;nud l&otilde;petamata (dnf) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_obtain_language
+msgid "Omaduse Omandamise keel (obtain_language) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_obtain_language_comment
+msgid "Omaduse Omandamise keel (obtain_language) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_obtain_language_help
+msgid "Omaduse Omandamise keel (obtain_language) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_start
+msgid "Omaduse Algus (start) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_start_comment
+msgid "Omaduse Algus (start) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_start_help
+msgid "Omaduse Algus (start) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_end
+msgid "Omaduse L&otilde;pp (end) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_end_comment
+msgid "Omaduse L&otilde;pp (end) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_end_help
+msgid "Omaduse L&otilde;pp (end) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_end_date
+msgid "Omaduse L&otilde;petamise kuup&auml;ev (end_date) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_end_date_comment
+msgid "Omaduse L&otilde;petamise kuup&auml;ev (end_date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_end_date_help
+msgid "Omaduse L&otilde;petamise kuup&auml;ev (end_date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_diploma_nr
+msgid "Omaduse Diplomi number (diploma_nr) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_diploma_nr_comment
+msgid "Omaduse Diplomi number (diploma_nr) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:prop_diploma_nr_help
+msgid "Omaduse Diplomi number (diploma_nr) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:rel_RELTYPE_FIELD
+msgid "Seose Valdkond (RELTYPE_FIELD) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:rel_RELTYPE_SCHOOL
+msgid "Seose Kool (RELTYPE_SCHOOL) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:rel_RELTYPE_LANGUAGE
+msgid "Seose Omandamise keel (RELTYPE_LANGUAGE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:rel_RELTYPE_PERSON
+msgid "Seose Isik (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:rel_RELTYPE_FACULTY
+msgid "Seose Teaduskond (RELTYPE_FACULTY) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:98
+#: classes/applications/crm/crm_person_education.aw:113
+msgid "P&otilde;hiharidus"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:99
+#: classes/applications/crm/crm_person_education.aw:114
+msgid "Keskharidus"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:100
+#: classes/applications/crm/crm_person_education.aw:115
+msgid "Kutsekeskharidus"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:101
+#: classes/applications/crm/crm_person_education.aw:116
+msgid "Kesk-eriharidus"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:102
+#: classes/applications/crm/crm_person_education.aw:117
+msgid "Kutsek&otilde;rgharidus"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:103
+#: classes/applications/crm/crm_person_education.aw:118
+msgid "Rakendusk&otilde;rgharidus"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:104
+#: classes/applications/crm/crm_person_education.aw:120
+msgid "K&otilde;rghariduse diplom"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:105
+#: classes/applications/crm/crm_person_education.aw:121
+msgid "Bakalaureus"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:106
+#: classes/applications/crm/crm_person_education.aw:122
+msgid "Magister"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:107
+#: classes/applications/crm/crm_person_education.aw:123
+msgid "Doktor"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:108
+#: classes/applications/crm/crm_person_education.aw:124
+msgid "Teaduste kandidaat"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:112
+#: classes/applications/crm/crm_person_education.aw:206
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:119
+msgid "K&otilde;rgharidus"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:170
+msgid "Algus ei saa olla suurem kui l&otilde;pp!"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:180
+msgid "L&otilde;pp ei saa olla v&auml;iksem kui algus!"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:185
+#: classes/applications/crm/crm_person_education.aw:193
+msgid "Jah"
+msgstr ""
+
+#: classes/applications/crm/crm_person_education.aw:186
+#: classes/applications/crm/crm_person_education.aw:194
+msgid "Ei"
+msgstr ""

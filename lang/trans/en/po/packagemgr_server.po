@@ -1,0 +1,35 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/pkmgr/packagemgr_server.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/pkmgr/packagemgr_server.aw:33
+msgid "Lisa uus"
+msgstr "Add new"
+
+#: classes/core/pkmgr/packagemgr_server.aw:40
+msgid "ID"
+msgstr "ID"
+
+#: classes/core/pkmgr/packagemgr_server.aw:45
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/core/pkmgr/packagemgr_server.aw:50
+msgid "Viimane versioon"
+msgstr "Last version"
+
+#: classes/core/pkmgr/packagemgr_server.aw:55
+#: classes/core/pkmgr/packagemgr_server.aw:72
+msgid "Muuda"
+msgstr "Change"

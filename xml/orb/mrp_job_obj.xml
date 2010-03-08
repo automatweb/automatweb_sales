@@ -1,0 +1,71 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mrp_job_obj" folder="www/dev/terryf/automatweb_dev/classes/mrp" extends="_int_object">
+		<action name="save_materials">
+			<function name="save_materials">
+				<arguments>
+					<required name="amount" type="array" />
+					<required name="unit" type="array" />
+					<optional name="movement" type="array" />
+					<optional name="planning" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_person_work_hours">
+			<function name="get_person_hours">
+				<arguments>
+					<optional name="from" type="int" />
+					<optional name="to" type="int" />
+					<optional name="state" type="int/array" />
+					<optional name="person" type="int/array" />
+					<optional name="person_handling" type="int" default="PRSN_HNDL_S" />
+					<optional name="job" type="int/array" />
+					<optional name="by_job" type="boolean" default="false" />
+					<optional name="average" type="boolean" />
+					<optional name="count" type="boolean" />
+					<optional name="convert_to_hours" type="boolean" default="true" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_resource_hours">
+			<function name="get_resource_hours">
+				<arguments>
+					<optional name="from" type="int" />
+					<optional name="to" type="int" />
+					<optional name="state" type="int/array" />
+					<optional name="resource" type="int/array" />
+					<optional name="job" type="int/array" />
+					<optional name="average" type="boolean" />
+					<optional name="count" type="boolean" />
+					<optional name="convert_to_hours" type="boolean" default="true" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_material_expenses">
+			<function name="get_material_expenses">
+				<arguments>
+					<required name="id" type="int/array" />
+					<optional name="odl" type="bool" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_progress_for_id">
+			<function name="get_progress_for_params">
+				<arguments>
+					<optional name="job" type="int/array" />
+					<optional name="case" type="int/array" />
+					<optional name="resource" type="int/array" />
+					<optional name="person" type="int/array" />
+					<optional name="from" type="int" />
+					<optional name="to" type="int" />
+					<optional name="groupby" type="string/array" default="job" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

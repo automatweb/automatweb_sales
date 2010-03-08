@@ -1,0 +1,278 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/common/room_reservation.aw:class_1174_help
+msgid "Klassi Ruumi broneerimine help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_rooms
+msgid "Omaduse Ruumid (rooms) caption"
+msgstr "Rooms"
+
+#: classes/common/room_reservation.aw:prop_rooms_comment
+msgid "Omaduse Ruumid (rooms) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_rooms_help
+msgid "Omaduse Ruumid (rooms) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_prices
+msgid "Omaduse N&auml;ita hindu valuutades (prices) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_prices_comment
+msgid "Omaduse N&auml;ita hindu valuutades (prices) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_prices_help
+msgid "Omaduse N&auml;ita hindu valuutades (prices) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_multiple_reservations
+msgid "Omaduse Ruume saab samal ajal broneerida mitu (multiple_reservations) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_multiple_reservations_comment
+msgid "Omaduse Ruume saab samal ajal broneerida mitu (multiple_reservations) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_multiple_reservations_help
+msgid "Omaduse Ruume saab samal ajal broneerida mitu (multiple_reservations) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_reservation_template
+msgid "Omaduse Broneeringu template (reservation_template) caption"
+msgstr "Reservation template"
+
+#: classes/common/room_reservation.aw:prop_reservation_template_comment
+msgid "Omaduse Broneeringu template (reservation_template) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_reservation_template_help
+msgid "Omaduse Broneeringu template (reservation_template) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_ver_mail_template
+msgid "Omaduse Kinnitusmaili template (ver_mail_template) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_ver_mail_template_comment
+msgid "Omaduse Kinnitusmaili template (ver_mail_template) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_ver_mail_template_help
+msgid "Omaduse Kinnitusmaili template (ver_mail_template) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_revoke_url
+msgid "Omaduse Broneerimise katkestamise url (revoke_url) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_revoke_url_comment
+msgid "Omaduse Broneerimise katkestamise url (revoke_url) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_revoke_url_help
+msgid "Omaduse Broneerimise katkestamise url (revoke_url) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_levels
+msgid "Omaduse Tasemed (levels) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_levels_comment
+msgid "Omaduse Tasemed (levels) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_levels_help
+msgid "Omaduse Tasemed (levels) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_trans
+msgid "Omaduse T&otilde;lgi (trans) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_trans_comment
+msgid "Omaduse T&otilde;lgi (trans) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_trans_help
+msgid "Omaduse T&otilde;lgi (trans) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_from
+msgid "Omaduse Meili from aadress (order_mail_from) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_from_comment
+msgid "Omaduse Meili from aadress (order_mail_from) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_from_help
+msgid "Omaduse Meili from aadress (order_mail_from) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_from_name
+msgid "Omaduse Meili from nimi (order_mail_from_name) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_from_name_comment
+msgid "Omaduse Meili from nimi (order_mail_from_name) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_from_name_help
+msgid "Omaduse Meili from nimi (order_mail_from_name) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_subj
+msgid "Omaduse Meili subjekt (order_mail_subj) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_subj_comment
+msgid "Omaduse Meili subjekt (order_mail_subj) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_subj_help
+msgid "Omaduse Meili subjekt (order_mail_subj) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_legend
+msgid "Omaduse Meili sisu legend (order_mail_legend) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_legend_comment
+msgid "Omaduse Meili sisu legend (order_mail_legend) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_legend_help
+msgid "Omaduse Meili sisu legend (order_mail_legend) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_to
+msgid "Omaduse Kellele tellimuse kohta meil saata (order_mail_to) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_to_comment
+msgid "Omaduse Kellele tellimuse kohta meil saata (order_mail_to) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_to_help
+msgid "Omaduse Kellele tellimuse kohta meil saata (order_mail_to) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_groups
+msgid "Omaduse Kasutajagrupid, kelle poolt tehtud broneeringute kohta meil saadetakse (order_mail_groups) caption"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_groups_comment
+msgid "Omaduse Kasutajagrupid, kelle poolt tehtud broneeringute kohta meil saadetakse (order_mail_groups) kommentaar"
+msgstr ""
+
+#: classes/common/room_reservation.aw:prop_order_mail_groups_help
+msgid "Omaduse Kasutajagrupid, kelle poolt tehtud broneeringute kohta meil saadetakse (order_mail_groups) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:group_trans
+msgid "Grupi T&otilde;lgi (trans) pealkiri"
+msgstr ""
+
+#: classes/common/room_reservation.aw:group_trans_help
+msgid "Grupi T&otilde;lgi (trans) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:group_order_email
+msgid "Grupi Tellimusmeil (order_email) pealkiri"
+msgstr ""
+
+#: classes/common/room_reservation.aw:group_order_email_help
+msgid "Grupi Tellimusmeil (order_email) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:group_transl
+msgid "Grupi transl (transl) pealkiri"
+msgstr ""
+
+#: classes/common/room_reservation.aw:group_transl_help
+msgid "Grupi transl (transl) help"
+msgstr ""
+
+#: classes/common/room_reservation.aw:rel_RELTYPE_ROOM
+msgid "Seose Ruum mida broneerida (RELTYPE_ROOM) tekst"
+msgstr ""
+
+#: classes/common/room_reservation.aw:105
+msgid "sisu tuleb common/room/preview.tpl failist"
+msgstr ""
+
+#: classes/common/room_reservation.aw:115
+#: classes/common/room_reservation.aw:128
+msgid "\n"
+msgstr ""
+
+#: classes/common/room_reservation.aw:117
+#: classes/common/room_reservation.aw:130
+msgid "Template fail peab asuma kataloogis :"
+msgstr "Template file should be in folder:"
+
+#: classes/common/room_reservation.aw:203
+msgid "Tase"
+msgstr "Level"
+
+#: classes/common/room_reservation.aw:208
+msgid "Etapi nimi"
+msgstr "Stage name"
+
+#: classes/common/room_reservation.aw:228
+msgid "Template"
+msgstr "Template"
+
+#: classes/common/room_reservation.aw:453
+#: classes/common/room_reservation.aw:454
+msgid "Vali enne j&auml;tkamist sobiv aeg!"
+msgstr "Before continuing, please select suitable time"
+
+#: classes/common/room_reservation.aw:691
+msgid "Kinnitatud"
+msgstr "Confirmed"
+
+#: classes/common/room_reservation.aw:691
+msgid "Kinnitamata"
+msgstr "Not confirmed"
+
+#: classes/common/room_reservation.aw:1086
+msgid "Nimi on kohustuslik"
+msgstr "Name is mandatory"
+
+#: classes/common/room_reservation.aw:1090
+msgid "Telefon on kohustuslik"
+msgstr "Phone is mandatory"
+
+#: classes/common/room_reservation.aw:1094
+msgid "E-Mail on kohustuslik"
+msgstr "E-mail is mandatory"
+
+#: classes/common/room_reservation.aw:1302
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/common/room_reservation.aw:1593
+msgid "Broneeringut ei &otilde;nnestunud kinnitada"
+msgstr "Confirmation did not succeed"
+
+#: classes/common/room_reservation.aw:1671
+#: classes/common/room_reservation.aw:1730
+msgid "Broneering: %s"
+msgstr "Reservation: %s"
+
+#: classes/common/room_reservation.aw:1788
+msgid "%s - Sorry, but Your payment was made too late and another person has already booked this time!"
+msgstr ""

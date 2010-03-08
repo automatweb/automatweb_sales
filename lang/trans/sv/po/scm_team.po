@@ -1,0 +1,264 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/scm/scm_team.aw:class_1115_help
+msgid "Klassi Meeskond help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_tb
+msgid "Omaduse Liikemete halduse t&ouml;&ouml;riistariba (members_tb) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_tb_comment
+msgid "Omaduse Liikemete halduse t&ouml;&ouml;riistariba (members_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_tb_help
+msgid "Omaduse Liikemete halduse t&ouml;&ouml;riistariba (members_tb) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_tbl
+msgid "Omaduse Liikmete tabel (members_tbl) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_tbl_comment
+msgid "Omaduse Liikmete tabel (members_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_tbl_help
+msgid "Omaduse Liikmete tabel (members_tbl) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_search_result
+msgid "Omaduse Otsingutulemuste hoidja (search_result) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_search_result_comment
+msgid "Omaduse Otsingutulemuste hoidja (search_result) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_search_result_help
+msgid "Omaduse Otsingutulemuste hoidja (search_result) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_unreg
+msgid "Omaduse Eemalda v&otilde;istkonnast (members_unreg) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_unreg_comment
+msgid "Omaduse Eemalda v&otilde;istkonnast (members_unreg) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_unreg_help
+msgid "Omaduse Eemalda v&otilde;istkonnast (members_unreg) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_registration_tb
+msgid "Omaduse  (registration_tb) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_registration_tb_comment
+msgid "Omaduse  (registration_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_registration_tb_help
+msgid "Omaduse  (registration_tb) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_tree
+msgid "Omaduse  (members_tree) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_tree_comment
+msgid "Omaduse  (members_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_tree_help
+msgid "Omaduse  (members_tree) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_list
+msgid "Omaduse  (members_list) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_list_comment
+msgid "Omaduse  (members_list) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_members_list_help
+msgid "Omaduse  (members_list) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_registered_tbl
+msgid "Omaduse  (registered_tbl) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_registered_tbl_comment
+msgid "Omaduse  (registered_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:prop_registered_tbl_help
+msgid "Omaduse  (registered_tbl) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:group_members
+msgid "Grupi Liikmed (members) pealkiri"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:group_members_help
+msgid "Grupi Liikmed (members) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:group_competitions
+msgid "Grupi V&otilde;istlused (competitions) pealkiri"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:group_competitions_help
+msgid "Grupi V&otilde;istlused (competitions) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:group_registration
+msgid "Grupi Registreerumine (registration) pealkiri"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:group_registration_help
+msgid "Grupi Registreerumine (registration) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:group_registered
+msgid "Grupi V&otilde;istlused (registered) pealkiri"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:group_registered_help
+msgid "Grupi V&otilde;istlused (registered) help"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:rel_RELTYPE_SCM_TEAM_MEMBER
+msgid "Seose V&otilde;istkonna liige (RELTYPE_SCM_TEAM_MEMBER) tekst"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:91
+msgid "Lisa liige"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:119 classes/applications/scm/scm_team.aw:234 classes/applications/scm/scm_team.aw:886 classes/applications/scm/scm_team.aw:1068
+msgid "Mees"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:119 classes/applications/scm/scm_team.aw:234 classes/applications/scm/scm_team.aw:887 classes/applications/scm/scm_team.aw:1068
+msgid "Naine"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:119 classes/applications/scm/scm_team.aw:120 classes/applications/scm/scm_team.aw:122 classes/applications/scm/scm_team.aw:233 classes/applications/scm/scm_team.aw:235 classes/applications/scm/scm_team.aw:1081 classes/applications/scm/scm_team.aw:1082 classes/applications/scm/scm_team.aw:1083
+msgid "M&auml;&auml;ramata"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:140
+msgid "M&auml;&auml;ra v&otilde;istkonnale klass"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:141
+msgid "Eemalda v&otilde;istkond klassist"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:153
+msgid "Organisaatorid"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:171
+msgid "Palun vali v&otilde;istlus"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:186
+msgid "V&otilde;istluse '%s' haldamine"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:234
+msgid "Sugu m&auml;&auml;ramata"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:244
+msgid "V&otilde;istlus"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:250 classes/applications/scm/scm_team.aw:876
+msgid "V&otilde;istluse staatus"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:254
+msgid "Toimumisaeg"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:260
+msgid "Korraldaja"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:317
+msgid "Liikmed"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:766
+msgid "Spordiala m&auml;&auml;ramata"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:777
+msgid "Individuaalsed v&otilde;istlused"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:833
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:838 classes/applications/scm/scm_team.aw:1015
+msgid "Sugu"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:843 classes/applications/scm/scm_team.aw:893 classes/applications/scm/scm_team.aw:1020
+msgid "S&uuml;nniaeg (vanus)"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:850 classes/applications/scm/scm_team.aw:1011
+msgid "Firma"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:865
+msgid "Liige"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:870
+msgid "Registreerunud"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:882
+msgid "sugu"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:900 classes/applications/scm/scm_team.aw:1026
+msgid "V&otilde;istlusklassid"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:905
+msgid "S&uuml;nniaeg"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:1007
+msgid "V&otilde;istleja"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:1032
+msgid "S&auml;rgi nr"
+msgstr ""
+
+#: classes/applications/scm/scm_team.aw:1069
+msgid "S&uuml;nniaeg m&auml;&auml;ramata"
+msgstr ""
+

@@ -1,0 +1,688 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:class_276_help
+msgid "Klassi CV help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_active_until
+msgid "Omaduse Aktiivne kuni (active_until) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_active_until_comment
+msgid "Omaduse Aktiivne kuni (active_until) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_active_until_help
+msgid "Omaduse Aktiivne kuni (active_until) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_comuter_skills_tb
+msgid "Omaduse  (comuter_skills_tb) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_comuter_skills_tb_comment
+msgid "Omaduse  (comuter_skills_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_comuter_skills_tb_help
+msgid "Omaduse  (comuter_skills_tb) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_previous_jobs_tb
+msgid "Omaduse  (previous_jobs_tb) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_previous_jobs_tb_comment
+msgid "Omaduse  (previous_jobs_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_previous_jobs_tb_help
+msgid "Omaduse  (previous_jobs_tb) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_lang_skills_tb
+msgid "Omaduse  (lang_skills_tb) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_lang_skills_tb_comment
+msgid "Omaduse  (lang_skills_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_lang_skills_tb_help
+msgid "Omaduse  (lang_skills_tb) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs
+msgid "Omaduse  (jobs) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_comment
+msgid "Omaduse  (jobs) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_help
+msgid "Omaduse  (jobs) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_comp_skill_label
+msgid "Omaduse  (comp_skill_label) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_comp_skill_label_comment
+msgid "Omaduse  (comp_skill_label) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_comp_skill_label_help
+msgid "Omaduse  (comp_skill_label) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_kogemused
+msgid "Omaduse Kogemused (kogemused) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_kogemused_comment
+msgid "Omaduse Kogemused (kogemused) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_kogemused_help
+msgid "Omaduse Kogemused (kogemused) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_juhiload
+msgid "Omaduse Juhiload (juhiload) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_juhiload_comment
+msgid "Omaduse Juhiload (juhiload) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_juhiload_help
+msgid "Omaduse Juhiload (juhiload) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_soovitajad
+msgid "Omaduse Soovitajad (soovitajad) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_soovitajad_comment
+msgid "Omaduse Soovitajad (soovitajad) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_soovitajad_help
+msgid "Omaduse Soovitajad (soovitajad) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_stats_table
+msgid "Omaduse  (stats_table) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_stats_table_comment
+msgid "Omaduse  (stats_table) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_stats_table_help
+msgid "Omaduse  (stats_table) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_cv_view_tb
+msgid "Omaduse  (cv_view_tb) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_cv_view_tb_comment
+msgid "Omaduse  (cv_view_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_cv_view_tb_help
+msgid "Omaduse  (cv_view_tb) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_cv_view
+msgid "Omaduse  (cv_view) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_cv_view_comment
+msgid "Omaduse  (cv_view) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_cv_view_help
+msgid "Omaduse  (cv_view) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_computer_skills
+msgid "Omaduse  (computer_skills) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_computer_skills_comment
+msgid "Omaduse  (computer_skills) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_computer_skills_help
+msgid "Omaduse  (computer_skills) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_arvutioskus
+msgid "Omaduse Arvutioskus (arvutioskus) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_arvutioskus_comment
+msgid "Omaduse Arvutioskus (arvutioskus) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_arvutioskus_help
+msgid "Omaduse Arvutioskus (arvutioskus) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_computer_skills
+msgid "Omaduse  (other_computer_skills) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_computer_skills_comment
+msgid "Omaduse  (other_computer_skills) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_computer_skills_help
+msgid "Omaduse  (other_computer_skills) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_compterskills_label
+msgid "Omaduse Teised arvutioskused (other_compterskills_label) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_compterskills_label_comment
+msgid "Omaduse Teised arvutioskused (other_compterskills_label) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_compterskills_label_help
+msgid "Omaduse Teised arvutioskused (other_compterskills_label) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_keeleoskused
+msgid "Omaduse  (keeleoskused) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_keeleoskused_comment
+msgid "Omaduse  (keeleoskused) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_keeleoskused_help
+msgid "Omaduse  (keeleoskused) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_lang_skill_label
+msgid "Omaduse  (lang_skill_label) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_lang_skill_label_comment
+msgid "Omaduse  (lang_skill_label) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_lang_skill_label_help
+msgid "Omaduse  (lang_skill_label) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_language_skills
+msgid "Omaduse Keeleoskus (language_skills) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_language_skills_comment
+msgid "Omaduse Keeleoskus (language_skills) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_language_skills_help
+msgid "Omaduse Keeleoskus (language_skills) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_languages_label
+msgid "Omaduse  (other_languages_label) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_languages_label_comment
+msgid "Omaduse  (other_languages_label) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_languages_label_help
+msgid "Omaduse  (other_languages_label) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_languages
+msgid "Omaduse Teised keeled (other_languages) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_languages_comment
+msgid "Omaduse Teised keeled (other_languages) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_other_languages_help
+msgid "Omaduse Teised keeled (other_languages) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_tb
+msgid "Omaduse  (jobs_wanted_tb) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_tb_comment
+msgid "Omaduse  (jobs_wanted_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_tb_help
+msgid "Omaduse  (jobs_wanted_tb) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_table
+msgid "Omaduse  (jobs_wanted_table) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_table_comment
+msgid "Omaduse  (jobs_wanted_table) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_table_help
+msgid "Omaduse  (jobs_wanted_table) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted
+msgid "Omaduse  (jobs_wanted) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_comment
+msgid "Omaduse  (jobs_wanted) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_help
+msgid "Omaduse  (jobs_wanted) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_label
+msgid "Omaduse Lisa uus töösoov (jobs_wanted_label) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_label_comment
+msgid "Omaduse Lisa uus töösoov (jobs_wanted_label) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_jobs_wanted_label_help
+msgid "Omaduse Lisa uus töösoov (jobs_wanted_label) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_tb
+msgid "Omaduse  (education_tb) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_tb_comment
+msgid "Omaduse  (education_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_tb_help
+msgid "Omaduse  (education_tb) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_educationtabel
+msgid "Omaduse  (educationtabel) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_educationtabel_comment
+msgid "Omaduse  (educationtabel) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_educationtabel_help
+msgid "Omaduse  (educationtabel) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_haridus_label
+msgid "Omaduse  (haridus_label) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_haridus_label_comment
+msgid "Omaduse  (haridus_label) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_haridus_label_help
+msgid "Omaduse  (haridus_label) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education
+msgid "Omaduse  (education) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_comment
+msgid "Omaduse  (education) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_help
+msgid "Omaduse  (education) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_additional_tb
+msgid "Omaduse  (education_additional_tb) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_additional_tb_comment
+msgid "Omaduse  (education_additional_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_additional_tb_help
+msgid "Omaduse  (education_additional_tb) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_additional_table
+msgid "Omaduse  (education_additional_table) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_additional_table_comment
+msgid "Omaduse  (education_additional_table) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_additional_table_help
+msgid "Omaduse  (education_additional_table) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_additional
+msgid "Omaduse  (education_additional) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_additional_comment
+msgid "Omaduse  (education_additional) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_education_additional_help
+msgid "Omaduse  (education_additional) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_additional_skills
+msgid "Omaduse Muud oskused  (additional_skills) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_additional_skills_comment
+msgid "Omaduse Muud oskused  (additional_skills) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_additional_skills_help
+msgid "Omaduse Muud oskused  (additional_skills) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_driving_since
+msgid "Omaduse Juhistaa¾ alates aastast (driving_since) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_driving_since_comment
+msgid "Omaduse Juhistaa¾ alates aastast (driving_since) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:prop_driving_since_help
+msgid "Omaduse Juhistaa¾ alates aastast (driving_since) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_skills
+msgid "Grupi Oskused (skills) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_skills_help
+msgid "Grupi Oskused (skills) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_arvutioskus
+msgid "Grupi Arvutioskus (arvutioskus) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_arvutioskus_help
+msgid "Grupi Arvutioskus (arvutioskus) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_keeleoskused
+msgid "Grupi Keeleoskus (keeleoskused) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_keeleoskused_help
+msgid "Grupi Keeleoskus (keeleoskused) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_driving_licenses
+msgid "Grupi Juhiload (driving_licenses) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_driving_licenses_help
+msgid "Grupi Juhiload (driving_licenses) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_other_skills
+msgid "Grupi Muud oskused (other_skills) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_other_skills_help
+msgid "Grupi Muud oskused (other_skills) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_education_main
+msgid "Grupi Hariduskäik (education_main) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_education_main_help
+msgid "Grupi Hariduskäik (education_main) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_haridustee
+msgid "Grupi Hariduskäik (haridustee) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_haridustee_help
+msgid "Grupi Hariduskäik (haridustee) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_taienduskoolitus
+msgid "Grupi Täienduskoolitus (taienduskoolitus) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_taienduskoolitus_help
+msgid "Grupi Täienduskoolitus (taienduskoolitus) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_soovitajad
+msgid "Grupi Soovitajad (soovitajad) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_soovitajad_help
+msgid "Grupi Soovitajad (soovitajad) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_tookogemus
+msgid "Grupi Töökogemused (tookogemus) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_tookogemus_help
+msgid "Grupi Töökogemused (tookogemus) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_toosoov
+msgid "Grupi Soovitud töö (toosoov) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_toosoov_help
+msgid "Grupi Soovitud töö (toosoov) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_statistika
+msgid "Grupi Statistika (statistika) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_statistika_help
+msgid "Grupi Statistika (statistika) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_cv_view
+msgid "Grupi Vaata CV-d (cv_view) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:group_cv_view_help
+msgid "Grupi Vaata CV-d (cv_view) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:rel_RELTYPE_EDUCATION
+msgid "Seose Haridus (RELTYPE_EDUCATION) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:rel_RELTYPE_LANG
+msgid "Seose Keeleoskus (RELTYPE_LANG) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:rel_RELTYPE_ARVUTIOSKUS
+msgid "Seose Arvutioskus (RELTYPE_ARVUTIOSKUS) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:rel_RELTYPE_KOGEMUS
+msgid "Seose Kogemus (RELTYPE_KOGEMUS) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:rel_RELTYPE_JUHILUBA
+msgid "Seose Juhiluba (RELTYPE_JUHILUBA) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:rel_RELTYPE_JOBWANTED
+msgid "Seose T&ouml;&ouml;soov (RELTYPE_JOBWANTED) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:202
+msgid "Teised arvutioskused"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:209
+msgid "Arvutioskuse muutmine"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:224
+msgid "Mõni muu keel"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:242
+msgid "Muuda töösoovi"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:409 classes/applications/personnel_management/personnel_management_cv.aw:1196
+msgid "Genereeri pdf"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:426
+msgid "Ametinimetus"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:454
+msgid "Kool"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:460 classes/applications/personnel_management/personnel_management_cv.aw:585
+msgid "Periood"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:466
+msgid "Hariduse liik"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:526 classes/applications/personnel_management/personnel_management_cv.aw:560 classes/applications/personnel_management/personnel_management_cv.aw:643
+msgid "Kustuta &otilde;pingud"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:528
+msgid "Kas soovid kustutada valitud täienduskoolitused?"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:534
+msgid "Muuda valitud täienduskoolitust"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:546 classes/applications/personnel_management/personnel_management_cv.aw:637
+msgid "Uus"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:551 classes/applications/personnel_management/personnel_management_cv.aw:552
+msgid "Töösoov"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:562
+msgid "Kas soovid kustutada valitud töösoovid?"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:568
+msgid "Muuda valitud töösoovi"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:579
+msgid "Haridusasutus"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:645
+msgid "Kas soovid kustutada valitud õpingud?"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:651
+msgid "Muuda valitud haridust"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:690
+msgid "Kustuta keeleoskused"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:697
+msgid "Muuda keeleoskust"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:708
+msgid "Keel"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:714 classes/applications/personnel_management/personnel_management_cv.aw:863
+msgid "Tase"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:750
+msgid "Kustuta t&ouml;&ouml;kogemused"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:757
+msgid "Muuda t&ouml;&ouml;kogemust"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:768
+msgid "Asutus"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:774
+msgid "Ametikoht"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:780
+msgid "Alates"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:786
+msgid "Kuni"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:818
+msgid "Kustuta arvutioskused"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:825
+msgid "Muuda oskust"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:857
+msgid "Oskus"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:1221
+msgid "Kes vaatas:"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_cv.aw:1227
+msgid "Vaatamisi"
+msgstr ""
+

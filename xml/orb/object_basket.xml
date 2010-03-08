@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="object_basket" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="add_object" nologin="1">
+			<function name="add_object">
+				<arguments>
+					<required name="oid" type="int" acl="view" />
+					<required name="basket" type="int" acl="view" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_all" nologin="1">
+			<function name="remove_all">
+				<arguments>
+					<required name="basket" type="int" acl="view" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_single" nologin="1">
+			<function name="remove_single">
+				<arguments>
+					<required name="basket" type="int" acl="view" />
+					<required name="item" type="int" acl="view" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,16 @@
+Dokumentide nimekiri
+Sven Eller
+15.12.2003
+
+Juhul , kui &uuml;hes kaustas asub rohkem kui &uuml;ks aktiivne dokument, n&auml;idab AW dokumentide nimekirja, ja leade. Dokumentide nimekirja default template on saidi juures failis templates/automatweb/documents/lead.tpl  . Dokumentide nimekirjal nagu ka dokumendil v\x{00F5}ib olla mittu template ja neid saab lisada sammuti lisada adminni programmiga DokTemplate mgr.
+
+<b>N&auml;ide:</b>
+#code#
+<a href='{VAR:baseurl}/{VAR:docid}'>
+{VAR:title}</a>
+<div class="text">
+{VAR:text}
+</div>
+#/code#
+
+

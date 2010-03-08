@@ -1,0 +1,41 @@
+<h2>relpicker</h2>
+
+Allows to pick one or many relations.
+
+<b>reltype</b>
+    Symbolic name of a relation type. See using relation manager
+
+<b>clid</b>
+    Symbolic id of a class. Displays only the relations belonging to that class
+
+<b>multiple</b>
+    If set to 1, allows to select multiple relations
+
+<b>size</b>
+    Makes sense only if "multiple" is used, specifies the height of the selection list
+
+<b>display</b>
+    if set to "radio", choices are shown as a list of radiobuttons. If you want them
+    to be laid out vertically, then set orient=vertical
+
+<b>automatic</b> If set to 1, displays all objects of this type and relation to selected object is created automatically after saving. 
+
+
+<b>Example Displays all relations of type RELTYPE_SEEALSO and allows to pick one</b>
+
+@property pickrel reltype=RELTYPE_SEEALSO 
+@caption Vali seos
+
+<b> Example Displays all relations of class CL_IMAGE and allows to pick some</b>
+
+@property pickrel clid=CL_IMAGE multiple=1 size=5
+@caption Vali pildid
+
+<b>Example</b> - Displays all objects of CL_CRM_CALL type in system.
+
+@reltype TASK_CALL value=2 clid=CL_CRM_CALL
+@caption Call
+
+@property call_picker type=relpicker reltype=RELTYPE_TASK_CALL automatic=1
+@caption Select call
+

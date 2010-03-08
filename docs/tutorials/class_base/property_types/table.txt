@@ -1,0 +1,254 @@
+<h2>table</h2>
+
+Table is a VCL component which makes it easy to present any kind of data in tabular fashion.
+
+It is recommended to use this through classbase, which takes care of class initialization for you.
+
+You start by definining a property with a type of table
+
+#php#
+@property mytable type=table caption=no group=general
+@caption My table
+#/php#
+
+Next step is to define the layout of your table and also provide contents for it. This is accomplished through a hook in get_property method.
+
+#php#
+function get_property($arr)
+{
+	$prop = &$arr["prop"];
+	$retval = PROP_OK;
+	switch($data["name"])
+	{
+		case "mytable":
+                        $this->mk_my_table($arr);
+                        break;
+        };
+        return $retval;
+
+}
+function mk_my_table($arr)
+{
+    $t = &$data["vcl_inst"]; // get an instance of the table object
+    $t->parse_xml_def("messenger/mailbox_view"); // define table rows
+    // put 10 rows of data into the table.
+    for($i = 1; $i <= 10; $i++)
+    {
+				$t->define_data(array(
+					"idx" => $i,
+				));
+			};
+			break;
+	}
+};
+#/php#
+
+The above example has a separate method for defining and filling the table, because this makes it easier to read the code.
+
+There are 2 ways to define the layout of your table. One is to create a XML file with row definitions and the other is to define
+the rows from your code. Defining rows from your code is the recommended option, but sometimes it might be desirable
+to read row definitions from an external file.
+
+To accomplish that create an XML file with the following structure in the automatweb_dev/xml/yourclass folder
+
+#code#
+<?xml version='1.0'>
+<tabledef>
+<data>
+<field name="answered" caption="Vast." talign="center" align="center" width="20" nowrap="1" sortable="1"/>
+<field name="attach" caption="A" talign="center" align="center" width="10" nowrap="1" />
+<field name="from" caption="Kellelt" talign="center" sortable="1" nowrap="1"/>
+<field name="subject" caption="Teema" talign="center" sortable="1"/>
+</data>
+</tabledef>
+</xml>
+#/code#
+
+Each field tag defines a single row. Rows will be laid out in the order they appear in the file. Field tags can have the following attributes (only name and caption are required, the rest is optional)
+
+<em>name</em> - the most important attribute. It has to be unique inside a table definiton and it is used to define the contents of that cell.
+
+<em>caption</em> - this will be shown in the header of the table (column caption)
+
+<em>tooltip</em> - header tooltip (string)
+
+<em>talign</em> - align of the column header (left|center|right)
+
+<em>align</em> - align of the cell content (data) (left|center|right)
+
+<em>width</em> - width of the column (in pixels or a percentage of the table width)
+
+<em>nowrap</em> - if set to 1, then the contents of this cell will not wrap to multiple lines if the cell is not wide enough for data.
+
+<em>sortable</em> - if set to 1, then then this column becomes sortable - e.g. data rows can be reordered by clicking on the column header.
+
+<em>numeric</em> - extends 'sortable' attribute, use this if a column contains number (default sorting method is alphabetic)
+
+<em>type</em> - currently only one type is supported and that's 'date'. This allows you to define cell content as Unix timestamp and the table class will take care of converting this to a human readable date.
+
+<em>format</em> - can be used to customize the format of date column, you can use all format characters of the date() function here - format="H:i d-M"
+
+<em>filter</em> - column values the table can be filtered by. array of values ("All" filter is added automatically). Works with non-splitted columns only. Filters must be defined before defining data.
+
+<em>filter_options</em> - array of filter options:
+<code>selected</code> - filter value selected by default.
+
+The other and really the recommended way of defining rows is from the code:
+
+#php#
+function mk_my_table($arr)
+{
+    $t = &$data["vcl_inst"]; // get an instance of the table object
+    $t->define_field(array(
+        "name" => "from",
+        "caption" => "Sender",
+        "width" => 200,
+    ));
+
+     // etc.. one define_field for each column
+}
+#/php#
+
+You can use all the attributes described above in define_field calls, they work exactly the same way.
+
+Next, final and most important step is to give some content to the table.
+
+Let's assume you want to show some type of relations the currently loaded object has.
+
+#php#
+function mk_my_table($arr)
+{
+// .. field definitions here
+// please refer to Storage documentation for the explanation of connections_from method.
+$ob = $arr["obj_inst"];
+$conn = $ob->connections_from(array(
+     "type" => "RELTYPE_MESSAGE",
+));
+// iterate over all connections with this type
+foreach($conn as $c)
+{
+    // aquire a reference to the target object
+    $c_o = $c->to();
+    // define a row of data
+    $t->define_data(array(
+         "name" => $c_o->name();
+         "modified" => $c_o->modified();
+    ));
+}
+$t->set_default_sortby("modified");
+$t->set_default_sorder("desc");
+#/php#
+The above should be rather self-explanatory. define_data takes it's arguments in array form and expects name => value pairs where name is the name of the column the data belongs to.
+
+set_default_sortby and set_default_sorder are optional, you don't have to use them, but if you do then they define the initial sort order for the table.
+
+If you want the data to appear in the exactly same order you put it in the table then do
+#php#
+$t->set_sortable(false);
+#/php#
+
+Note that the fields you use in define_data do not have to be defined by define_field. If a field is not defined, then it will not be shown, but you can still use it's value if needed.
+
+And that pretty much is it. You don't need to do anything else, the rest (drawing the table) will be done by class_base and the table class. If your table had any sortable columns then clicking on the column headers will reload the page and display the table ordered by that column. You don't need to add any additional code for that.
+
+<b><big>Advanced usage</big></b>.
+
+<b>Filters</b>
+You can add easily filters to table headers. Filters can be textboxes or selectors.
+Textbox filter:
+#php#
+$t->define_field(array(
+	'name' => 'fieldname',
+	'caption' => t("Field name, translatable"),
+	'filter' => "text",
+));
+#/php#
+Automatic selector filter:
+#php#
+$t->define_field(array(
+	'name' => 'fieldname',
+	'caption' => t("Field name, translatable"),
+	'filter' => "automatic",
+));
+#/php#
+Manual selector filter:
+#php#
+$t->define_field(array(
+	'name' => 'fieldname',
+	'caption' => t("Field name, translatable"),
+	'filter' => array(
+		2 => "Thing1",
+		3 => "Zhing1",
+		4 => "Ping1",
+	),
+));
+#/php#
+Upon filtering textual value (selected or typed) is compared to 'value' of row. You can override this by defining alternative value for row with prefix 'filtervalue-'
+eg:
+#php#
+$t->define_data(array(
+	'name' => $url_with_html_et_shit,
+	'filtervalue-name' => $name_clean,
+));
+#/php#
+
+<b>Paging</b>
+If you have lots of data to present (more than 100 rows) then it's impractical to put them all on one page. Fortunetaly the table class has a built-in paging methods (for example, you can have 4 pages with 25 rows on each, or whatever combination suits you)
+
+For paging to work you need to know how many rows You want on one page.
+
+The following code should be placed _after_ field definitions and _before_ defining data.
+#php#
+$perpage = 25; // rows on a single page
+$type = "lb"; // pageselector type (see below for available types)
+$t->define_pageselector (array (
+ "records_per_page" => $perpage,
+ "type" = $type,
+));
+#/php#
+This will put a listbox with 4 items in it above your table and by default the first page will be active. Selecting any other page from the listbox will display that page. And again, you do not need to write any additional code for this to work.
+
+There are 3 types of pageselectors defined currently:
+<em>lb</em> - draws a listbox with pages
+<em>text</em> - textual links for each page. Clicking loads the correspondending page.
+<em>buttons</em> - buttons for each page. Clicking on the button loads the correspondending page.
+
+<b>Selectors</b>
+Sometimes you need to let the user pick rows from a table by putting a checkbox on each line. Table class has a method to make this easy - put the following code after defining data for the table.
+
+#php#
+$t->define_chooser(array(
+    "name" => "mark",
+    "field" => "id",
+));
+#/php#
+
+This causes a checkbox to appear on the right end of each row.
+
+Attributes:
+<em>name</em> - defines the name for the checkboxes
+<em>field</em> - one the defined column names. the value will be given to the checkbox.
+
+For example if you have 2 rows of data in your table:
+
+#php#
+$t->define_data(array(
+    "id" => 22,
+));
+$t->define_data(array(
+     "id" => 33,
+));
+#/php#
+Then the HTML for the checkbox will look something like this:
+#code#
+<input type='checkbox' name='mark[22]' value='22' />
+#/code#
+
+When the user selects some rows from the table and submits the form, then you can retrieve the id-s of selected rows like this:
+
+#php#
+$sel_rows = $arr["request"]["mark"];
+#/php#
+
+and do whatever you need to do with that resulting array.
+

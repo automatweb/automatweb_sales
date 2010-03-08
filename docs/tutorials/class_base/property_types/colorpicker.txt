@@ -1,0 +1,3 @@
+<h2>colorpicker</h2>
+
+Allows the user to pick a color. The property will be rendered as a small textbox with a button next to it. Clicking that button will display a small popup window with a color palette from which a color can be chosen.

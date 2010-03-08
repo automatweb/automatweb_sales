@@ -1,0 +1,184 @@
+Creating a toolbar object:
+
+#php#
+$tb = get_instance("vcl/toolbar");
+#/php#
+
+Adding a button
+---------------
+
+#php#
+$tb->add_button(array(
+	"name" => "new",
+	"img" => "new.gif",
+	"tooltip" => "Click this button to create a new object",
+	"url" => $this->mk_my_orb("do_something",array()),
+	"target" => "contentframe",
+	"side" => "right",
+
+));
+#/php#
+
+Where
+
+name - symbolic name for the button, has to be unique for a single
+toolbar instance.
+
+img - name of an image file from automatweb/images/icons directory,
+is used to render the button. If not specified, tooltip is shown
+on the face of the button. Note that you only need a single image
+for each button, the "hover" effect is done entirely with CSS.
+
+tooltip - freeform text, should describe the action triggered by
+a click on the button. Is shown if the mouse is hovered on the
+button.
+
+url - this defines the action that is invoked when the button is
+clicked.
+
+target - optional. If specified, it's value will be used as the
+'target' attribute of the link created by 'url' argument.
+
+side - optional, 2 values are accepted - 'left' and 'right', with
+'left' being the default. If 'right' is specified, the button
+is added to the right end of the toolbar.
+
+Adding a separator
+------------------
+
+#php#
+$tb->add_separator();
+#/php#
+
+Adds a vertical line to the toolbar, useful for separating
+groups of buttons with similar purposes from each other.
+
+Takes one optional argument - side.
+
+#php#
+$tb->add_separator(array("side" => "right"));
+#/php#
+
+If specified, the separator will be added to the right side
+of the toolbar.
+
+Adding custom text
+------------------
+
+#php#
+$tb->add($html_code,$side = "right");
+#/php#
+
+Where
+
+html_code - arbitrary HTML, like for example a html::select.
+Be careful with this, since you can add _any_ HTML, it is
+easy to screw up the layout of the toolbar or that of the
+entire page
+
+side - optional. If specified, the data will be added to the
+right side of the toolbar.
+
+Adding drop-down menus
+----------------------
+
+Start by adding a menu button, which - when clicked - will
+show your menu with all the items you added to it.
+
+#php#
+$tb->add_menu_button(array(
+	"name" => "mymenu",
+	"tooltip" => "Click here to see more choices",
+	"img" => "new.gif",
+));
+#/php#
+
+Where
+
+name - unique symbolic name, you need this to add items to the
+menu later.
+
+tooltip - freeform text, used to describe the purpose of the menu,
+is shown when the user hovers a mouse over the button
+
+img - optional, name of an image file from the automatweb/images/icons
+directory. If not specified, the default image - new.gif - is used.
+
+Adding menu items to drop-down menus
+------------------------------------
+
+#php#
+$tb->add_menu_item(array(
+	"parent" => "mymenu",
+	"text" => "Menu item #1",
+	"title" => "Click me, to add a new object",
+	"url" => $this->mk_my_orb("change",array()),
+	"disabled" => false,
+));
+#/php#
+
+Where
+
+parent - is the name of the menu button (or submenu),
+text - text to show as caption of the item
+title - freeform text, used as tooltip
+url - what to do when the item is clicked
+disabled - optional, if specified and set to true, the
+item can not be clicked.
+
+Note that menu items to not have or need name attribute.
+
+Adding a submenu
+----------------
+
+#php#
+$tb->add_sub_menu(array(
+	"parent" => "mymenu",
+	"name" => "mysubmenu",
+	"text" => "More items",
+	"title" => "Hovering on me causes the submenu to be shown",
+));
+#/php#
+
+Where
+
+parent - is the name of a menu_button or another sub_menu,
+name - unique symbolic name for the sub menu
+text - text to show as caption
+title - freeform text, used as tooltip
+
+submenus are rendered as usual menu items, except that
+they have an arrow on the right side, indicating the
+availability of more items. They also cannot be clicked,
+and hovering on them causes the submenu to open.
+
+Note that you can have an arbitrary number of submenus, there
+are no physical limitations for that.
+
+Adding a horizontal separator
+-----------------------------
+#php#
+$tb->add_menu_separator(array(
+	"parent" => "mymenu",
+));
+#/php#
+
+Where
+
+parent - is the name of the sub_menu
+
+Getting results
+---------------
+
+Finally, after you added all your buttons, separators and menus
+(if any) you probably want to show the toolbar.
+
+#php#
+$tbcode = $tb->get_toolbar();
+#/php#
+
+now $tbcode contains all the HTML for the toolbar, put it
+where you want to to appear - a VAR in a template would
+be a good choice.
+
+

@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/procurement_center/procurement_criteria.aw:class_1076_help
+msgid "Klassi Pakkumise hindamise kriteerium help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_criteria.aw:prop_type
+msgid "Omaduse T&uuml;p (type) caption"
+msgstr "Type"
+
+#: classes/applications/procurement_center/procurement_criteria.aw:prop_type_comment
+msgid "Omaduse T&uuml;p (type) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_criteria.aw:prop_type_help
+msgid "Omaduse T&uuml;p (type) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_criteria.aw:prop_pct
+msgid "Omaduse T&auml;htsusprotsent (pct) caption"
+msgstr "Percent"
+
+#: classes/applications/procurement_center/procurement_criteria.aw:prop_pct_comment
+msgid "Omaduse T&auml;htsusprotsent (pct) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_criteria.aw:prop_pct_help
+msgid "Omaduse T&auml;htsusprotsent (pct) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_criteria.aw:32
+msgid "Kiire valmimine"
+msgstr "Fast readyness"
+
+#: classes/applications/procurement_center/procurement_criteria.aw:33
+msgid "Madal hind"
+msgstr "Low price"
+
+#: classes/applications/procurement_center/procurement_criteria.aw:34
+msgid "K&otilde;rged hinded"
+msgstr "High marks"
+
+#: classes/applications/procurement_center/procurement_criteria.aw:147
+msgid "procurement_criteria::get_score_for_crit(): no type set for criteria %s"
+msgstr ""
+

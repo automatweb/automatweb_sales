@@ -1,0 +1,138 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="room" folder="www/dev/terryf/automatweb_dev/classes/common" extends="class_base">
+		<action name="set_bron_cust_arrived_status">
+			<function name="set_bron_cust_arrived_status">
+				<arguments>
+					<required name="bron" />
+					<required name="status" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_images" all_args="1">
+			<function name="remove_images">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="admin_add_bron_popup" all_args="1">
+			<function name="admin_add_bron_popup">
+				<arguments>
+					<required name="start1" />
+					<required name="parent" type="oid" />
+					<required name="end" />
+					<required name="resource" type="int" />
+					<optional name="product" />
+					<optional name="return_url" type="string" />
+					<optional name="bron_data" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="admin_add_bron_popup_table" all_args="1">
+			<function name="admin_add_bron_popup_table">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_calendar_table">
+			<function name="update_calendar_table">
+				<arguments>
+					<required name="room" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_add_reservation" all_args="1">
+			<function name="do_add_reservation">
+				<arguments>
+					<optional name="id" />
+					<optional name="bron" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_reservation" all_args="1">
+			<function name="make_reservation">
+				<arguments>
+					<required name="id" />
+					<optional name="res_id" />
+					<required name="data" />
+					<optional name="not_verified" type="int" />
+					<optional name="meta" type="array" />
+					<optional name="tpl" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_bron_time" nologin="1" all_args="1">
+			<function name="_get_bron_time">
+				<arguments>
+					<required name="id" />
+					<optional name="bron" />
+					<optional name="room_reservation_length" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_products" all_args="1">
+			<function name="save_products">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="parse_alias" is_public="1" caption="Change">
+			<function name="parse_alias">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cal_product_reserved_time" nologin="1" all_args="1">
+			<function name="cal_product_reserved_time">
+				<arguments>
+					<required name="room" type="oid" />
+					<required name="oid" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_cos">
+			<function name="delete_cos">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="group_can_do_bron">
+			<function name="group_can_do_bron">
+				<arguments>
+					<required name="s" type="object" />
+					<required name="tm" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_prod_data_for_room">
+			<function name="get_prod_data_for_room">
+				<arguments>
+					<required name="room" type="object" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_day_workers">
+			<function name="get_day_workers">
+				<arguments>
+					<required name="o" type="object" />
+					<required name="time" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

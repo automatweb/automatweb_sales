@@ -1,0 +1,226 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/calendar/calendar_vacancy.aw:class_802_help
+#: classes/applications/calendar/calendar_vacancy.aw:class_802_help
+msgid "Klassi Vakants help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_start
+#: classes/applications/calendar/calendar_vacancy.aw:prop_start
+msgid "Omaduse Algab (start) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_start_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_start_comment
+msgid "Omaduse Algab (start) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_start_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_start_help
+msgid "Omaduse Algab (start) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_vacancy.aw:prop_end
+msgid "Omaduse L&otilde;peb (end) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_vacancy.aw:prop_end_comment
+msgid "Omaduse L&otilde;peb (end) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_vacancy.aw:prop_end_help
+msgid "Omaduse L&otilde;peb (end) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_info_on_object
+#: classes/applications/calendar/calendar_vacancy.aw:prop_info_on_object
+msgid "Omaduse Osalejad (info_on_object) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_info_on_object_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_info_on_object_comment
+msgid "Omaduse Osalejad (info_on_object) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_info_on_object_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_info_on_object_help
+msgid "Omaduse Osalejad (info_on_object) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_morph_to
+#: classes/applications/calendar/calendar_vacancy.aw:prop_morph_to
+msgid "Omaduse Muuda (morph_to) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_morph_to_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_morph_to_comment
+msgid "Omaduse Muuda (morph_to) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_morph_to_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_morph_to_help
+msgid "Omaduse Muuda (morph_to) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_task_toolbar
+#: classes/applications/calendar/calendar_vacancy.aw:prop_task_toolbar
+msgid "Omaduse \"Toolbar\" (task_toolbar) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_task_toolbar_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_task_toolbar_comment
+msgid "Omaduse \"Toolbar\" (task_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_task_toolbar_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_task_toolbar_help
+msgid "Omaduse \"Toolbar\" (task_toolbar) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_participant
+#: classes/applications/calendar/calendar_vacancy.aw:prop_participant
+msgid "Omaduse Osalejad (participant) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_participant_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_participant_comment
+msgid "Omaduse Osalejad (participant) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_participant_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_participant_help
+msgid "Omaduse Osalejad (participant) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_company
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_company
+msgid "Omaduse Organisatsioon (search_contact_company) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_company_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_company_comment
+msgid "Omaduse Organisatsioon (search_contact_company) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_company_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_company_help
+msgid "Omaduse Organisatsioon (search_contact_company) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_firstname
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_firstname
+msgid "Omaduse Eesnimi (search_contact_firstname) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_firstname_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_firstname_comment
+msgid "Omaduse Eesnimi (search_contact_firstname) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_firstname_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_firstname_help
+msgid "Omaduse Eesnimi (search_contact_firstname) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_lastname
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_lastname
+msgid "Omaduse Perenimi (search_contact_lastname) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_lastname_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_lastname_comment
+msgid "Omaduse Perenimi (search_contact_lastname) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_lastname_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_lastname_help
+msgid "Omaduse Perenimi (search_contact_lastname) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_code
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_code
+msgid "Omaduse Isikukood (search_contact_code) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_code_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_code_comment
+msgid "Omaduse Isikukood (search_contact_code) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_code_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_code_help
+msgid "Omaduse Isikukood (search_contact_code) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_button
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_button
+msgid "Omaduse Otsi (search_contact_button) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_button_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_button_comment
+msgid "Omaduse Otsi (search_contact_button) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_button_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_button_help
+msgid "Omaduse Otsi (search_contact_button) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_results
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_results
+msgid "Omaduse Tulemuste tabel (search_contact_results) caption"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_results_comment
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_results_comment
+msgid "Omaduse Tulemuste tabel (search_contact_results) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_results_help
+#: classes/applications/calendar/calendar_vacancy.aw:prop_search_contact_results_help
+msgid "Omaduse Tulemuste tabel (search_contact_results) help"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:group_participants
+#: classes/applications/calendar/calendar_vacancy.aw:group_participants
+msgid "Grupi Osalejad (participants) pealkiri"
+msgstr ""
+
+# classes/applications/calendar/calendar_vacancy.aw:group_participants_help
+#: classes/applications/calendar/calendar_vacancy.aw:group_participants_help
+msgid "Grupi Osalejad (participants) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_vacancy.aw:143
+msgid "Uus kohtumine"
+msgstr ""
+
+#: classes/applications/calendar/calendar_vacancy.aw:150
+msgid "Uus k&otilde;ne"
+msgstr ""
+
+#: classes/applications/calendar/calendar_vacancy.aw:157
+msgid "Uus toimetus"
+msgstr ""
+
+#: classes/applications/calendar/calendar_vacancy.aw:235
+msgid "Kustuta valitud"
+msgstr ""
+
+#: classes/applications/calendar/calendar_vacancy.aw:244
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/calendar/calendar_vacancy.aw:253
+msgid "Salvesta"
+msgstr ""

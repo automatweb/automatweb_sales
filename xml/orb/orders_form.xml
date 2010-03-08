@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="orders_form" folder="www/dev/terryf/automatweb_dev/classes/applications/orders" extends="class_base">
+		<action name="delete_from_order" nologin="1">
+			<function name="delete_from_order">
+				<arguments>
+					<required name="id" type="int" acl="delete" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change" nologin="1" all_args="1">
+			<function name="change">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

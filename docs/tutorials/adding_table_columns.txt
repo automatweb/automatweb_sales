@@ -1,0 +1,53 @@
+how to add table columns to the database and make sure that they will be created in all databases.
+
+
+
+1) add the property that reads/writes to that table
+@property new_prop type=textbox table table=foo field=aw_field
+
+2) define a function in your class like this:
+function do_db_upgrade($tbl, $field, $q, $err)
+
+parameters are:
+
+$tbl - the table that is lacking a field
+$field - the field that is missing
+$q - the query that failed
+$err - error message from mysql
+
+3) fill in the function so that if it can create the new field, it should return true, else false
+
+
+now, what happens is:
+
+- storage tries to load the object and issues a query that leads to an error
+- database layer parses the error and notices that it means a missing column
+- it then finds the class that uses the table
+- checks if that class contains the method
+- if it does, calls the method and retries the query until the query succeeds or the method returns false
+- if the query still errors, then the error message is displayed to the user. 
+
+
+example from crm_person class:
+
+@property udef_ta1 type=textarea rows=5 cols=50
+@caption Kasutajadefineeritud TA1
+
+
+	function do_db_upgrade($tbl, $field, $q, $err)
+	{
+		switch($field)
+		{
+			case "udef_ta1":
+			case "udef_ta2":
+			case "udef_ta3":
+			case "udef_ta4":
+			case "udef_ta5":
+				$this->db_add_col($tbl, array(
+					"name" => $field,
+					"type" => "text"
+				));
+				return true;
+		}
+		return false;
+	}

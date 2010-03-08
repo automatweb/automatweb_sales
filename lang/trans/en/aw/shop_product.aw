@@ -1,0 +1,37 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Toote t&uuml;&uuml;p (item_type) caption"] = "Product type";
+$GLOBALS["TRANS"]["Omaduse Hinnakujundus (price_settings) caption"] = "Price style";
+$GLOBALS["TRANS"]["Omaduse Maksum&auml;&auml;r (tax_rate) caption"] = "Tax rate";
+$GLOBALS["TRANS"]["Omaduse Hind (price) caption"] = "Price";
+$GLOBALS["TRANS"]["Omaduse Ostu hind (purchase_price) caption"] = "Buying price";
+$GLOBALS["TRANS"]["Omaduse Mitu peab korraga tellima (must_order_num) caption"] = "Amount must be divisible by this";
+$GLOBALS["TRANS"]["Omaduse Mitu laos (item_count) caption"] = "Numer in stock";
+$GLOBALS["TRANS"]["Omaduse Broneeritav aeg (reservation_time) caption"] = "Booking time ";
+$GLOBALS["TRANS"]["Omaduse Puhveraeg enne (buffer_time_before) caption"] = "Buffer time before";
+$GLOBALS["TRANS"]["Omaduse Puhveraeg p&auml;rast (buffer_time_after) caption"] = "Buffer time after";
+$GLOBALS["TRANS"]["Omaduse Pakendid (packaging) caption"] = "Packaging";
+$GLOBALS["TRANS"]["Omaduse Pildid (images) caption"] = "Images";
+$GLOBALS["TRANS"]["Omaduse Failid (files) caption"] = "Files";
+$GLOBALS["TRANS"]["Omaduse Dokumendid (docs) caption"] = "Documents";
+$GLOBALS["TRANS"]["Omaduse Lingid (lnk) caption"] = "Links";
+$GLOBALS["TRANS"]["Grupi Pakendid (packaging) pealkiri"] = "Packaging";
+$GLOBALS["TRANS"]["Grupi Pildid (img) pealkiri"] = "Images";
+$GLOBALS["TRANS"]["Grupi Failid (fls) pealkiri"] = "Files";
+$GLOBALS["TRANS"]["Grupi Dokumendid (doc) pealkiri"] = "Documents";
+$GLOBALS["TRANS"]["Grupi Lingid (lnk) pealkiri"] = "Links";
+$GLOBALS["TRANS"]["Seose pilt (RELTYPE_IMAGE) tekst"] = "image";
+$GLOBALS["TRANS"]["Seose pakend (RELTYPE_PACKAGING) tekst"] = "packaging";
+$GLOBALS["TRANS"]["Seose kasutajadefineeritud muutuja 1 (RELTYPE_VARUSERM1) tekst"] = " ";
+$GLOBALS["TRANS"]["Seose kasutajadefineeritud muutuja 2 (RELTYPE_VARUSERM2) tekst"] = " ";
+$GLOBALS["TRANS"]["Seose kasutajadefineeritud muutuja 3 (RELTYPE_VARUSERM3) tekst"] = " ";
+$GLOBALS["TRANS"]["Seose kasutajadefineeritud muutuja 4 (RELTYPE_VARUSERM4) tekst"] = " ";
+$GLOBALS["TRANS"]["Seose kasutajadefineeritud muutuja 5 (RELTYPE_VARUSERM5) tekst"] = " ";
+$GLOBALS["TRANS"]["Seose fail (RELTYPE_FILE) tekst"] = "file";
+$GLOBALS["TRANS"]["Seose dokument (RELTYPE_DOC) tekst"] = "document";
+$GLOBALS["TRANS"]["Seose link (RELTYPE_LNK) tekst"] = "link";
+$GLOBALS["TRANS"]["Minutit"] = "Minutes";
+$GLOBALS["TRANS"]["Tundi"] = "Hours";
+$GLOBALS["TRANS"]["Hind"] = "Price";
+$GLOBALS["TRANS"]["Valuuta"] = "Currency";
+$GLOBALS["TRANS"]["shop_product::draw(): no layout set!"] = "shop_product::draw(): no layout set!";
+?>

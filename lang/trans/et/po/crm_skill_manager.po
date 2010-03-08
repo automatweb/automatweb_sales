@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_skill_manager.aw:class_1407_help
+msgid "Klassi Oskuste haldur help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_default_lvls
+msgid "Omaduse Default tasemed (default_lvls) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_default_lvls_comment
+msgid "Omaduse Default tasemed (default_lvls) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_default_lvls_help
+msgid "Omaduse Default tasemed (default_lvls) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skills_tlb
+msgid "Omaduse  (skills_tlb) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skills_tlb_comment
+msgid "Omaduse  (skills_tlb) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skills_tlb_help
+msgid "Omaduse  (skills_tlb) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skills_tree
+msgid "Omaduse  (skills_tree) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skills_tree_comment
+msgid "Omaduse  (skills_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skills_tree_help
+msgid "Omaduse  (skills_tree) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skills_tbl
+msgid "Omaduse  (skills_tbl) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skills_tbl_comment
+msgid "Omaduse  (skills_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skills_tbl_help
+msgid "Omaduse  (skills_tbl) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skill
+msgid "Omaduse  (skill) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skill_comment
+msgid "Omaduse  (skill) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:prop_skill_help
+msgid "Omaduse  (skill) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:group_skills
+msgid "Grupi Oskused (skills) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:group_skills_help
+msgid "Grupi Oskused (skills) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:rel_RELTYPE_LEVELS
+msgid "Seose Tasemed (RELTYPE_LEVELS) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:131
+msgid "ID"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:137
+#: classes/applications/crm/crm_skill_manager.aw:150
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:158
+msgid "Vahepealkiri (ei saa siduda isikuga)"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:166
+msgid "Saab m&auml;&auml;rata taset"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:171
+msgid "Tasemed"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:177
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_manager.aw:207
+msgid "--vali--"
+msgstr ""

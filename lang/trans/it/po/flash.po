@@ -1,0 +1,108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/flash.aw:class_194_help
+msgid "Klassi Flash help"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_file
+msgid "Omaduse Vali fail (file) caption"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_file_comment
+msgid "Omaduse Vali fail (file) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_file_help
+msgid "Omaduse Vali fail (file) help"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_file_url
+msgid "Omaduse Sisesta faili aadress (file_url) caption"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_file_url_comment
+msgid "Omaduse Sisesta faili aadress (file_url) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_file_url_help
+msgid "Omaduse Sisesta faili aadress (file_url) help"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_click_tag
+msgid "Omaduse Link (Click Tag) (click_tag) caption"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_click_tag_comment
+msgid "Omaduse Link (Click Tag) (click_tag) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_click_tag_help
+msgid "Omaduse Link (Click Tag) (click_tag) help"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_width
+msgid "Omaduse Laius (width) caption"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_width_comment
+msgid "Omaduse Laius (width) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_width_help
+msgid "Omaduse Laius (width) help"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_height
+msgid "Omaduse K&otilde;rgus (height) caption"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_height_comment
+msgid "Omaduse K&otilde;rgus (height) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_height_help
+msgid "Omaduse K&otilde;rgus (height) help"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_preview
+msgid "Omaduse Eelvaade (preview) caption"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_preview_comment
+msgid "Omaduse Eelvaade (preview) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_preview_help
+msgid "Omaduse Eelvaade (preview) help"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/flash.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+

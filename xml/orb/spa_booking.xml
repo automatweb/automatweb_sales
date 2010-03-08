@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="spa_booking" folder="www/dev/terryf/automatweb_dev/classes/applications/spa_bookings" extends="class_base">
+		<action name="bank_return" is_public="1" all_args="1">
+			<function name="bank_return">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

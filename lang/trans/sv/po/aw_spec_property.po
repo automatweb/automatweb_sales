@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/aw_spec/aw_spec_property.aw:class_1428_help
+msgid "Klassi AW Spetsifikatsiooni omadus help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_prop_type
+msgid "Omaduse Omaduse t&uuml;&uuml;p (prop_type) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_prop_type_comment
+msgid "Omaduse Omaduse t&uuml;&uuml;p (prop_type) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_prop_type_help
+msgid "Omaduse Omaduse t&uuml;&uuml;p (prop_type) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_prop_desc
+msgid "Omaduse Omaduse kirjeldus (prop_desc) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_prop_desc_comment
+msgid "Omaduse Omaduse kirjeldus (prop_desc) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_prop_desc_help
+msgid "Omaduse Omaduse kirjeldus (prop_desc) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_errors_and_messages
+msgid "Omaduse Teated ja vead (errors_and_messages) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_errors_and_messages_comment
+msgid "Omaduse Teated ja vead (errors_and_messages) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_errors_and_messages_help
+msgid "Omaduse Teated ja vead (errors_and_messages) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_longdesc
+msgid "Omaduse Pikem kirjeldus (longdesc) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_longdesc_comment
+msgid "Omaduse Pikem kirjeldus (longdesc) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_longdesc_help
+msgid "Omaduse Pikem kirjeldus (longdesc) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_use_cases
+msgid "Omaduse  (use_cases) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_use_cases_comment
+msgid "Omaduse  (use_cases) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:prop_use_cases_help
+msgid "Omaduse  (use_cases) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:group_longdesc
+msgid "Grupi Kirjeldus (longdesc) pealkiri"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:group_longdesc_help
+msgid "Grupi Kirjeldus (longdesc) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:group_use_cases
+msgid "Grupi Kasutuslood (use_cases) pealkiri"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:group_use_cases_help
+msgid "Grupi Kasutuslood (use_cases) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_property.aw:rel_RELTYPE_USE_CASE
+msgid "Seose Kasutuslugu (RELTYPE_USE_CASE) tekst"
+msgstr ""

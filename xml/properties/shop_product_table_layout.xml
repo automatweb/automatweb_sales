@@ -1,0 +1,49 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>columns</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Tulpi</caption>
+      </property>
+      <property>
+            <name>rows</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Ridu</caption>
+      </property>
+      <property>
+            <name>per_page</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Tooteid lehel</caption>
+      </property>
+      <property>
+            <name>template</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Template</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SHOP_PRODUCT_TABLE_LAYOUT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

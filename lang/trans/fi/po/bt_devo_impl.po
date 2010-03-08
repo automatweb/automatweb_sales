@@ -1,0 +1,59 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:19
+msgid "Lisa"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:24
+msgid "Kategooria"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:31
+msgid "Arendustellimus"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:38
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:41
+msgid "Oled kindel, et soovid tellimusi kustutada?"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:46
+msgid "L&otilde;ika"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:54
+msgid "Kleebi"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:142
+msgid "Arendustellimused kategoorias %s"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:172
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:241
+msgid "Muud t&ouml;&ouml;d"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:211
+msgid "Arendustellimused projektile %s"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_devo_impl.aw:280
+msgid "Arendustellimused tellijale %s"
+msgstr ""

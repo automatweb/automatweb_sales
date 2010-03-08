@@ -1,0 +1,257 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/core/obj_inherit_props_conf.aw:class_834_help
+#: classes/core/obj_inherit_props_conf.aw:class_834_help
+msgid "Klassi Omaduste p&auml;rimise reegel help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_inherit_from
+#: classes/core/obj_inherit_props_conf.aw:prop_inherit_from
+msgid "Omaduse Vali doonorid (inherit_from) caption"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_inherit_from_comment
+#: classes/core/obj_inherit_props_conf.aw:prop_inherit_from_comment
+msgid "Omaduse Vali doonorid (inherit_from) kommentaar"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_inherit_from_help
+#: classes/core/obj_inherit_props_conf.aw:prop_inherit_from_help
+msgid "Omaduse Vali doonorid (inherit_from) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_inherit_to
+#: classes/core/obj_inherit_props_conf.aw:prop_inherit_to
+msgid "Omaduse Vali sihtobjektid (inherit_to) caption"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_inherit_to_comment
+#: classes/core/obj_inherit_props_conf.aw:prop_inherit_to_comment
+msgid "Omaduse Vali sihtobjektid (inherit_to) kommentaar"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_inherit_to_help
+#: classes/core/obj_inherit_props_conf.aw:prop_inherit_to_help
+msgid "Omaduse Vali sihtobjektid (inherit_to) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tree
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tree
+msgid "Omaduse  (ihf_donor_tree) caption"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tree_comment
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tree_comment
+msgid "Omaduse  (ihf_donor_tree) kommentaar"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tree_help
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tree_help
+msgid "Omaduse  (ihf_donor_tree) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tbl
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tbl
+msgid "Omaduse  (ihf_donor_tbl) caption"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tbl_comment
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tbl_comment
+msgid "Omaduse  (ihf_donor_tbl) kommentaar"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tbl_help
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_donor_tbl_help
+msgid "Omaduse  (ihf_donor_tbl) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tree
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tree
+msgid "Omaduse  (ihf_destination_tree) caption"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tree_comment
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tree_comment
+msgid "Omaduse  (ihf_destination_tree) kommentaar"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tree_help
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tree_help
+msgid "Omaduse  (ihf_destination_tree) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tbl
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tbl
+msgid "Omaduse  (ihf_destination_tbl) caption"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tbl_comment
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tbl_comment
+msgid "Omaduse  (ihf_destination_tbl) kommentaar"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tbl_help
+#: classes/core/obj_inherit_props_conf.aw:prop_ihf_destination_tbl_help
+msgid "Omaduse  (ihf_destination_tbl) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_if_ov_toolbar
+#: classes/core/obj_inherit_props_conf.aw:prop_if_ov_toolbar
+msgid "Omaduse  (if_ov_toolbar) caption"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_if_ov_toolbar_comment
+#: classes/core/obj_inherit_props_conf.aw:prop_if_ov_toolbar_comment
+msgid "Omaduse  (if_ov_toolbar) kommentaar"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_if_ov_toolbar_help
+#: classes/core/obj_inherit_props_conf.aw:prop_if_ov_toolbar_help
+msgid "Omaduse  (if_ov_toolbar) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_if_ov_table
+#: classes/core/obj_inherit_props_conf.aw:prop_if_ov_table
+msgid "Omaduse  (if_ov_table) caption"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_if_ov_table_comment
+#: classes/core/obj_inherit_props_conf.aw:prop_if_ov_table_comment
+msgid "Omaduse  (if_ov_table) kommentaar"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:prop_if_ov_table_help
+#: classes/core/obj_inherit_props_conf.aw:prop_if_ov_table_help
+msgid "Omaduse  (if_ov_table) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_donor
+#: classes/core/obj_inherit_props_conf.aw:group_donor
+msgid "Grupi Doonorklass (donor) pealkiri"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_donor_help
+#: classes/core/obj_inherit_props_conf.aw:group_donor_help
+msgid "Grupi Doonorklass (donor) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_destination
+#: classes/core/obj_inherit_props_conf.aw:group_destination
+msgid "Grupi Sihtklass (destination) pealkiri"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_destination_help
+#: classes/core/obj_inherit_props_conf.aw:group_destination_help
+msgid "Grupi Sihtklass (destination) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_ihf
+#: classes/core/obj_inherit_props_conf.aw:group_ihf
+msgid "Grupi P&auml;rimine (ihf) pealkiri"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_ihf_help
+#: classes/core/obj_inherit_props_conf.aw:group_ihf_help
+msgid "Grupi P&auml;rimine (ihf) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_ihf_donor
+#: classes/core/obj_inherit_props_conf.aw:group_ihf_donor
+msgid "Grupi Doonorklass (ihf_donor) pealkiri"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_ihf_donor_help
+#: classes/core/obj_inherit_props_conf.aw:group_ihf_donor_help
+msgid "Grupi Doonorklass (ihf_donor) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_ihf_destination
+#: classes/core/obj_inherit_props_conf.aw:group_ihf_destination
+msgid "Grupi Sihtklass (ihf_destination) pealkiri"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_ihf_destination_help
+#: classes/core/obj_inherit_props_conf.aw:group_ihf_destination_help
+msgid "Grupi Sihtklass (ihf_destination) help"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_if_ov
+#: classes/core/obj_inherit_props_conf.aw:group_if_ov
+msgid "Grupi Tingimused (if_ov) pealkiri"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:group_if_ov_help
+#: classes/core/obj_inherit_props_conf.aw:group_if_ov_help
+msgid "Grupi Tingimused (if_ov) help"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:rel_RELTYPE_INHERIT_FROM
+msgid "Seose p&auml;ritav objekt (RELTYPE_INHERIT_FROM) tekst"
+msgstr ""
+
+# classes/core/obj_inherit_props_conf.aw:rel_RELTYPE_INHERIT_TO
+#: classes/core/obj_inherit_props_conf.aw:rel_RELTYPE_INHERIT_TO
+msgid "Seose kirjutatav objekt (RELTYPE_INHERIT_TO) tekst"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:84
+msgid "Kustuta valitud"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:270
+msgid "Omadus"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:274
+msgid "Omaduse t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:279
+#: classes/core/obj_inherit_props_conf.aw:471
+msgid "Kasuta"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:384
+msgid "Mis klassist"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:389
+msgid "Mis omadusest"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:394
+msgid "Mis klassi"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:399
+msgid "Mis omadusse"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:440
+msgid "Nimi"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:447
+msgid "Klass"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:454
+msgid "Muutja"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:461
+msgid "Muutmise aeg"
+msgstr ""
+
+#: classes/core/obj_inherit_props_conf.aw:543
+msgid "--Vali--"
+msgstr ""

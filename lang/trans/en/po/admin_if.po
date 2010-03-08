@@ -1,0 +1,320 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/admin/admin_if.aw:class_1134_help
+msgid "Klassi Administreerimisliides help"
+msgstr "This view is for editing content objects. To edit folders, You have to select Change from action-button on the object row. To edit other objects You can click on the name of the object.<br /><br />To add a new object, use the green button on the left of the toolbar.<br /><br />You can move in site structure by clicking on the tree or on folder names.<br /><br />You can see preview of the current location on the web by clickin Preview button on the right of the toolbar"
+
+#: classes/admin/admin_if.aw:prop_o_tb
+msgid "Omaduse  (o_tb) caption"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_o_tb_comment
+msgid "Omaduse  (o_tb) kommentaar"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_o_tb_help
+msgid "Omaduse  (o_tb) help"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_o_tree
+msgid "Omaduse  (o_tree) caption"
+msgstr "Folders"
+
+#: classes/admin/admin_if.aw:prop_o_tree_comment
+msgid "Omaduse  (o_tree) kommentaar"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_o_tree_help
+msgid "Omaduse  (o_tree) help"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_o_tbl
+msgid "Omaduse  (o_tbl) caption"
+msgstr "Content objects"
+
+#: classes/admin/admin_if.aw:prop_o_tbl_comment
+msgid "Omaduse  (o_tbl) kommentaar"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_o_tbl_help
+msgid "Omaduse  (o_tbl) help"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_info_text
+msgid "Omaduse Info (info_text) caption"
+msgstr "Info"
+
+#: classes/admin/admin_if.aw:prop_info_text_comment
+msgid "Omaduse Info (info_text) kommentaar"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_info_text_help
+msgid "Omaduse Info (info_text) help"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_zip_upload
+msgid "Omaduse Laadi ZIP fail (zip_upload) caption"
+msgstr "Upload ZIP file"
+
+#: classes/admin/admin_if.aw:prop_zip_upload_comment
+msgid "Omaduse Laadi ZIP fail (zip_upload) kommentaar"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_zip_upload_help
+msgid "Omaduse Laadi ZIP fail (zip_upload) help"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_uploader
+msgid "Omaduse Lae faile (uploader) caption"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_uploader_comment
+msgid "Omaduse Lae faile (uploader) kommentaar"
+msgstr ""
+
+#: classes/admin/admin_if.aw:prop_uploader_help
+msgid "Omaduse Lae faile (uploader) help"
+msgstr ""
+
+#: classes/admin/admin_if.aw:group_o
+msgid "Grupi Objektid (o) pealkiri"
+msgstr "Objects"
+
+#: classes/admin/admin_if.aw:group_o_help
+msgid "Grupi Objektid (o) help"
+msgstr "This view is for editing content objects. To edit folders, You have to select Change from action-button on the object row. To edit other objects You can click on the name of the object.<br /><br />To add a new object, use the green button on the left of the toolbar.<br /><br />You can move in site structure by clicking on the tree or on folder names.<br /><br />You can see preview of the current location on the web by clickin Preview button on the right of the toolbar"
+
+#: classes/admin/admin_if.aw:group_fu
+msgid "Grupi Failide &uuml;leslaadimine (fu) pealkiri"
+msgstr "File upload"
+
+#: classes/admin/admin_if.aw:group_fu_help
+msgid "Grupi Failide &uuml;leslaadimine (fu) help"
+msgstr ""
+
+#: classes/admin/admin_if.aw:layout_o_bot_left
+msgid "Kujundusosa Kataloogid (o_bot_left) pealkiri"
+msgstr "Layout folders"
+
+#: classes/admin/admin_if.aw:150
+msgid "Lisa"
+msgstr "Add"
+
+#: classes/admin/admin_if.aw:158
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/admin/admin_if.aw:167 classes/admin/admin_if.aw:890
+msgid "L&otilde;ika"
+msgstr "Cut"
+
+#: classes/admin/admin_if.aw:174 classes/admin/admin_if.aw:896
+#: classes/admin/admin_if.aw:1148
+msgid "Kopeeri"
+msgstr "Copy"
+
+#: classes/admin/admin_if.aw:183
+msgid "Kleebi"
+msgstr "Paste"
+
+#: classes/admin/admin_if.aw:191 classes/admin/admin_if.aw:906
+msgid "Kustuta"
+msgstr "Delete"
+
+#: classes/admin/admin_if.aw:192 classes/admin/admin_if.aw:902
+msgid "Kustutada valitud objektid?"
+msgstr "Delete selected objects, are You sure?"
+
+#: classes/admin/admin_if.aw:200
+msgid "Uuenda"
+msgstr "Refresh"
+
+#: classes/admin/admin_if.aw:207 classes/admin/admin_if.aw:1736
+#: classes/admin/admin_if.aw:1753
+msgid "Impordi"
+msgstr "Import"
+
+#: classes/admin/admin_if.aw:215 classes/admin/admin_if.aw:216
+#: classes/admin/admin_if.aw:218
+msgid "Impordi kaustu"
+msgstr "Import folders"
+
+#: classes/admin/admin_if.aw:224 classes/admin/admin_if.aw:225
+#: classes/admin/admin_if.aw:227
+msgid "Impordi faile"
+msgstr "Import files"
+
+#: classes/admin/admin_if.aw:234
+msgid "Eelvaade"
+msgstr "Preview"
+
+#: classes/admin/admin_if.aw:248
+msgid "Vali periood"
+msgstr "Select period"
+
+#: classes/admin/admin_if.aw:255
+msgid "Valitud periood: %s"
+msgstr "Selected period: %s"
+
+#: classes/admin/admin_if.aw:255 classes/admin/admin_if.aw:2030
+msgid "(A)"
+msgstr "(A)"
+
+#: classes/admin/admin_if.aw:296
+msgid "<b>AutomatWeb</b>"
+msgstr "<b>AutomatWeb</b>"
+
+#: classes/admin/admin_if.aw:572
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/admin/admin_if.aw:581
+msgid "Jrk"
+msgstr "Order"
+
+#: classes/admin/admin_if.aw:588 classes/admin/admin_if.aw:778
+msgid "Aktiivne"
+msgstr "Active"
+
+#: classes/admin/admin_if.aw:598
+msgid "Muutja"
+msgstr "Modifier"
+
+#: classes/admin/admin_if.aw:608
+msgid "Muudetud"
+msgstr "Modified"
+
+#: classes/admin/admin_if.aw:621
+msgid "T&uuml;&uuml;p"
+msgstr "Type"
+
+#: classes/admin/admin_if.aw:631
+msgid "Tegevus"
+msgstr "Action"
+
+#: classes/admin/admin_if.aw:736
+msgid "Objekti id on %s"
+msgstr "Object id is %s"
+
+#: classes/admin/admin_if.aw:778
+msgid "Mitteaktiivne"
+msgstr "Non-active"
+
+#: classes/admin/admin_if.aw:870
+msgid "Ava"
+msgstr "Open"
+
+#: classes/admin/admin_if.aw:885
+msgid "Muuda"
+msgstr "Change"
+
+#: classes/admin/admin_if.aw:1102
+msgid "Vali kuidas objekte kopeerida"
+msgstr "Select how objects are copied"
+
+#: classes/admin/admin_if.aw:1109
+msgid "Objekti kopeerimine"
+msgstr "Object copying"
+
+#: classes/admin/admin_if.aw:1116
+msgid "Objektid"
+msgstr "Objects"
+
+#: classes/admin/admin_if.aw:1123
+msgid "Kopeeri alamobjektid"
+msgstr "Copy sub-objects"
+
+#: classes/admin/admin_if.aw:1124
+msgid "Kopeeri alammen&uuml;&uuml;d"
+msgstr "Copy sub-menus"
+
+#: classes/admin/admin_if.aw:1125
+msgid "Kopeeri dokumendid"
+msgstr "Copy documents"
+
+#: classes/admin/admin_if.aw:1133
+msgid "Seosed"
+msgstr "Relations"
+
+#: classes/admin/admin_if.aw:1140
+msgid "Seosta samade objektidega"
+msgstr "Create relations with same objects"
+
+#: classes/admin/admin_if.aw:1141
+msgid "Loo uued seotud objektid"
+msgstr "Create relations to new objects"
+
+#: classes/admin/admin_if.aw:1363
+msgid "Administreerimisliides"
+msgstr "Administrative interface"
+
+#: classes/admin/admin_if.aw:1394
+msgid "Logi v&auml;lja"
+msgstr "Log out"
+
+#: classes/admin/admin_if.aw:1395
+msgid "Asukoht:"
+msgstr "You are here:"
+
+#: classes/admin/admin_if.aw:1396
+msgid "AutomatWeb&reg; on Struktuur Meedia registreeritud kaubam&auml;rk. K&otilde;ik &otilde;igused kaitstud, &copy; 1999-%s."
+msgstr "AutomatWeb® is the registered trademark of Struktuur Meedia. All rights reserved, © 1999-%s."
+
+#: classes/admin/admin_if.aw:1397
+msgid "Palun k&uuml;lasta meie kodulehek&uuml;lgi:"
+msgstr "Please visit our websites"
+
+#: classes/admin/admin_if.aw:1398
+msgid "Seaded"
+msgstr "Settings"
+
+#: classes/admin/admin_if.aw:1465 classes/admin/admin_if.aw:1517
+msgid "Leidsin faili %s, l&otilde;in AW objekti %s<br>\n"
+msgstr "File %s found and saved<br />\n"
+
+#: classes/admin/admin_if.aw:1715
+msgid "Impordi men&uuml;&uuml;sid"
+msgstr "Import menus"
+
+#: classes/admin/admin_if.aw:1722
+msgid "Vali fail"
+msgstr "Choose file"
+
+#: classes/admin/admin_if.aw:1727
+msgid "Vali faili t&uuml;&uuml;p"
+msgstr "Choose file type"
+
+#: classes/admin/admin_if.aw:1729
+msgid "Eksporditud AW'st"
+msgstr "Exported from AW"
+
+#: classes/admin/admin_if.aw:1730
+msgid "Tekstifail"
+msgstr "Textfile"
+
+#: classes/admin/admin_if.aw:1877
+msgid "Menyyde importimisel tekkis viga real %s"
+msgstr "Menu import failed on line %s"
+
+#: classes/admin/admin_if.aw:1894
+msgid "Menyyde importimisel ei leidnud parent menyyd real %s"
+msgstr "Parent menu not found on line %s in menu import file"
+
+#: classes/admin/admin_if.aw:2038
+msgid "Mitteperioodilised"
+msgstr "Non-periodic"
+
+#~ msgid "Omaduse Lae faile\t (uploader) caption"
+#~ msgstr "Upload files\t"
+
+#~ msgid "Leidsin faili %s, l&otilde;in AW objekti %s&lt;br&gt;\n"
+#~ msgstr "File %s found and saved<br />\n"

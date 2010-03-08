@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_company_webview" folder="www/dev/terryf/automatweb_dev/classes/applications/crm" extends="class_base">
+		<action name="show_sect" nologin="1">
+			<function name="show_sect">
+				<arguments>
+					<required name="section" type="int" acl="view" />
+					<required name="wv" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_co" nologin="1">
+			<function name="show_co">
+				<arguments>
+					<required name="section" type="int" acl="view" />
+					<required name="wv" type="int" acl="view" />
+					<required name="org" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_sect_doc" nologin="1">
+			<function name="show_sect_doc">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

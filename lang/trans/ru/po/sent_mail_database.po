@@ -1,0 +1,106 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/admin/sent_mail_database.aw:class_1388_help
+msgid "Klassi V&auml;ljasaadetud meilid help"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_ml_tb
+msgid "Omaduse  (ml_tb) caption"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_ml_tb_comment
+msgid "Omaduse  (ml_tb) kommentaar"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_ml_tb_help
+msgid "Omaduse  (ml_tb) help"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_date_from
+msgid "Omaduse Alates (date_from) caption"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_date_from_comment
+msgid "Omaduse Alates (date_from) kommentaar"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_date_from_help
+msgid "Omaduse Alates (date_from) help"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_date_to
+msgid "Omaduse Kuni (date_to) caption"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_date_to_comment
+msgid "Omaduse Kuni (date_to) kommentaar"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_date_to_help
+msgid "Omaduse Kuni (date_to) help"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_s_sbt
+msgid "Omaduse Otsi (s_sbt) caption"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_s_sbt_comment
+msgid "Omaduse Otsi (s_sbt) kommentaar"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_s_sbt_help
+msgid "Omaduse Otsi (s_sbt) help"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_mail_table
+msgid "Omaduse  (mail_table) caption"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_mail_table_comment
+msgid "Omaduse  (mail_table) kommentaar"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:prop_mail_table_help
+msgid "Omaduse  (mail_table) help"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:group_mails
+msgid "Grupi Meilid (mails) pealkiri"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:group_mails_help
+msgid "Grupi Meilid (mails) help"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:layout_mail_left_pane
+msgid "Kujundusosa Otsing (mail_left_pane) pealkiri"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:97
+msgid "Programm"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:103
+msgid "Millal"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:112
+msgid "Kes"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:118
+msgid "Kellele"
+msgstr ""
+
+#: classes/admin/sent_mail_database.aw:124
+msgid "Teema"
+msgstr ""

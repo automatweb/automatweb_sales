@@ -1,0 +1,34 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Postikulu (postal_fee) caption"] = "Postal fee";
+$GLOBALS["TRANS"]["Omaduse Mail kuhu tellimus saata (orders_post_to) caption"] = "E-mail to send order to";
+$GLOBALS["TRANS"]["Omaduse Lisa tellimus manusena (add_attach) caption"] = "Add order as attachment";
+$GLOBALS["TRANS"]["Omaduse Saada e-mail tellijale (orders_to_mail) caption"] = "Send e-mail to orderer";
+$GLOBALS["TRANS"]["Omaduse Kliendile saatja (e-mail) (orders_post_from) caption"] = "E-mail";
+$GLOBALS["TRANS"]["Omaduse Kasutajaandmed isikust (no_pdata_check) caption"] = "User data from person";
+$GLOBALS["TRANS"]["Omaduse Tellimuse seadetevorm (orderform) caption"] = "Order configuration form";
+$GLOBALS["TRANS"]["Omaduse Tellimuse rea seadetevorm (itemform) caption"] = "Order line configuration form";
+$GLOBALS["TRANS"]["Omaduse Mitu rida saab korraga korvi lisada (num_rows) caption"] = "Maximum number of rows in basket";
+$GLOBALS["TRANS"]["Omaduse Mail tellijale (ordemail) caption"] = "Mail to orderer";
+$GLOBALS["TRANS"]["Omaduse Dokument kuhu suunata peale esitamist (thankudoc) caption"] = "Document to redirect to";
+$GLOBALS["TRANS"]["Omaduse Saab maksta j&auml;relmaksuga (has_rent) caption"] = "Can rent";
+$GLOBALS["TRANS"]["Omaduse J&auml;relmasu min. summa (rent_min_amt) caption"] = "Rent min amount";
+$GLOBALS["TRANS"]["Omaduse &Uuml;he makse miinimumsumma (rent_min_amt_payment) caption"] = "Payment minimum amount";
+$GLOBALS["TRANS"]["Omaduse Miinimumsumma veateade (rent_min_amt_payment_text) caption"] = "Minimum amount error message";
+$GLOBALS["TRANS"]["Omaduse J&auml;relmaksu maksimaalne summa (rent_max_amt_warn) caption"] = "Maximum amount";
+$GLOBALS["TRANS"]["Omaduse Maksimaalse summa &uuml;letamise hoiatus (rent_max_amt_warn_text) caption"] = "Over maximum amount warning";
+$GLOBALS["TRANS"]["Omaduse Makseperioodid (rent_item_types) caption"] = "Rent periods";
+$GLOBALS["TRANS"]["Grupi Seaded (config) pealkiri"] = "Settings";
+$GLOBALS["TRANS"]["Grupi Tellimine (ordering) pealkiri"] = "Ordering";
+$GLOBALS["TRANS"]["Grupi Makseviisid (payment) pealkiri"] = "Payment types";
+$GLOBALS["TRANS"]["Seose Tellimuse seadetevorm (RELTYPE_ORDERFORM) tekst"] = "Order configuration form";
+$GLOBALS["TRANS"]["Seose Tellimuse rea seadetevorm (RELTYPE_ITEMFORM) tekst"] = "Order line configuration form";
+$GLOBALS["TRANS"]["Seose Dokument (RELTYPE_THANKU) tekst"] = "Document";
+$GLOBALS["TRANS"]["Seose Tellimuse lisa (RELTYPE_ADDORDER) tekst"] = "Order attachment";
+$GLOBALS["TRANS"]["Seose Mail (RELTYPE_MAIL) tekst"] = "Mail";
+$GLOBALS["TRANS"]["Kustuta"] = "Delete";
+$GLOBALS["TRANS"]["Kauba t&uuml;&uuml;p"] = "Product type";
+$GLOBALS["TRANS"]["Min. Kuud"] = "Min. Months";
+$GLOBALS["TRANS"]["Max. Kuud"] = "Max. Months";
+$GLOBALS["TRANS"]["Esmase sissemakse %"] = "First payment %";
+$GLOBALS["TRANS"]["Intressi %"] = "Interest %";
+?>

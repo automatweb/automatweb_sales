@@ -1,0 +1,31 @@
+<h2>textbox</h2>
+
+single line text input control
+
+<b>size</b>
+
+    width of the element.
+
+<b>disabled</b>
+
+	if set to 1, property value editing will be disabled.
+
+<b>textsize</b>
+
+	examples: "10px", "0.7em", "smaller".
+
+<b>autocomplete_source</b>
+
+	relative URL (to web root -- it seems that certain browsers don't allow javascript http connections to absolute paths) that refers to source of autocomplete options. See documentation for argument <b>option_is_tuple</b> about options data format.
+
+<b>autocomplete_params</b>
+
+	comma separated list of valid property names whose values will be passed to orb method used to get autocomplete options. Additionally, the name of property requesting autocomplete options will always be available under $requester in request to the method returning options.
+
+<b>option_is_tuple</b>
+
+	indicates whether autocomplete options are values (set to 0) or names associated with values (set to 1) iow autocomplete options are key/value pairs. If set to 1, <b>content</b> should be set to what the user will see in the textbox. Autocomplete options are expected as strings separated by newline characters (\n). If set to 1 then the expected format is: key=>value ($key will be posted as property value) and the value returned by POST request under property name is $key if an autocomplete option was selected, $value if new value was entered. default setting for this argument is 0.
+
+<b>content</b>
+
+	text visible to user in the textbox when <b>option_is_tuple</b> is set to 1. Mentioned here only for informative purposes. Set value for this argument from get_prop ().

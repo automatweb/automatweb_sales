@@ -1,0 +1,14 @@
+warnings
+
+Warings are used mostly to notify user about empty properties among these propvalues that were queried during last request. Also they can be used manually from code for specific warnings.
+
+Warnings are shown if their level exceeds user specified level. Every property has a default warning level 1 (except relpicker which has 2, and checkboxes etc which have 0). These warning levels can be overrided from property definition, for example:
+
+@property foo type=textbox warning=4
+@caption bar
+
+In user object, there is a 'warning level show' property, so user can set the level from where he/she wants to see the warnings. for example when a property has a warning level 4 and user sets his level to4, he sees warning. when user sets his level to 6, he doesn't. simple as that.
+
+From code warnings can be used through static warning($msg, $level) function, where $msg is the warning message and $level is the warning level. warning level is optional, with default value 1.
+
+Warnings are shown on the AW UI aside backfeed, help etc buttons(at least for now)

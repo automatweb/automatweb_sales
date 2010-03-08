@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/shop/otto/otto_prod_search.aw:class_798_help
+#: classes/applications/shop/otto/otto_prod_search.aw:class_798_help
+msgid "Klassi Otto toodete otsing help"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld
+msgid "Omaduse Otsingu kataloogid (EE) (search_fld) caption"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_comment
+msgid "Omaduse Otsingu kataloogid (EE) (search_fld) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_help
+msgid "Omaduse Otsingu kataloogid (EE) (search_fld) help"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_fin
+msgid "Omaduse Otsingu kataloogid (FIN) (search_fld_fin) caption"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_fin_comment
+msgid "Omaduse Otsingu kataloogid (FIN) (search_fld_fin) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_fin_help
+msgid "Omaduse Otsingu kataloogid (FIN) (search_fld_fin) help"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_lat
+msgid "Omaduse Otsingu kataloogid (LAT) (search_fld_lat) caption"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_lat_comment
+msgid "Omaduse Otsingu kataloogid (LAT) (search_fld_lat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_lat_help
+msgid "Omaduse Otsingu kataloogid (LAT) (search_fld_lat) help"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_bp_ee
+msgid "Omaduse Otsingu kataloogid (BP EE) (search_fld_bp_ee) caption"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_bp_ee_comment
+msgid "Omaduse Otsingu kataloogid (BP EE) (search_fld_bp_ee) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_bp_ee_help
+msgid "Omaduse Otsingu kataloogid (BP EE) (search_fld_bp_ee) help"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_bp_lat
+msgid "Omaduse Otsingu kataloogid (BP LAT) (search_fld_bp_lat) caption"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_bp_lat_comment
+msgid "Omaduse Otsingu kataloogid (BP LAT) (search_fld_bp_lat) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:prop_search_fld_bp_lat_help
+msgid "Omaduse Otsingu kataloogid (BP LAT) (search_fld_bp_lat) help"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:861
+msgid "Prioriteet"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:868
+msgid "Kaustade IDd"
+msgstr ""
+
+#: classes/applications/shop/otto/otto_prod_search.aw:873
+msgid "Caption"
+msgstr ""

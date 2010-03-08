@@ -1,0 +1,217 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2005-12-04 22:16+0200\n"
+"Last-Translator: Erki <erki@struktuur.ee>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/crm/crm_sector.aw:class_131_help
+#: classes/crm/crm_sector.aw:class_131_help
+msgid "Klassi Tegevusala help"
+msgstr ""
+
+# classes/crm/crm_sector.aw:prop_tegevusala
+#: classes/crm/crm_sector.aw:prop_tegevusala
+msgid "Omaduse Tegevusala nimetus (tegevusala) caption"
+msgstr "Area of activity"
+
+# classes/crm/crm_sector.aw:prop_tegevusala_comment
+#: classes/crm/crm_sector.aw:prop_tegevusala_comment
+msgid "Omaduse Tegevusala nimetus (tegevusala) kommentaar"
+msgstr ""
+
+# classes/crm/crm_sector.aw:prop_tegevusala_help
+#: classes/crm/crm_sector.aw:prop_tegevusala_help
+msgid "Omaduse Tegevusala nimetus (tegevusala) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_alias
+msgid "Omaduse Alias (alias) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_alias_comment
+msgid "Omaduse Alias (alias) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_alias_help
+msgid "Omaduse Alias (alias) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_link
+msgid "Omaduse Link (link) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_link_comment
+msgid "Omaduse Link (link) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_link_help
+msgid "Omaduse Link (link) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_ord
+msgid "Omaduse J&auml;rjekord (ord) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_ord_comment
+msgid "Omaduse J&auml;rjekord (ord) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_ord_help
+msgid "Omaduse J&auml;rjekord (ord) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_parent_sector
+msgid "Omaduse Parent (parent_sector) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_parent_sector_comment
+msgid "Omaduse Parent (parent_sector) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_parent_sector_help
+msgid "Omaduse Parent (parent_sector) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_tegevusala_en
+msgid "Omaduse Inglisekeelne nimetus (tegevusala_en) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_tegevusala_en_comment
+msgid "Omaduse Inglisekeelne nimetus (tegevusala_en) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_tegevusala_en_help
+msgid "Omaduse Inglisekeelne nimetus (tegevusala_en) help"
+msgstr ""
+
+# classes/crm/crm_sector.aw:prop_comment
+#: classes/crm/crm_sector.aw:prop_comment
+msgid "Omaduse Kirjeldus (comment) caption"
+msgstr "Description"
+
+# classes/crm/crm_sector.aw:prop_comment_comment
+#: classes/crm/crm_sector.aw:prop_comment_comment
+msgid "Omaduse Kirjeldus (comment) kommentaar"
+msgstr ""
+
+# classes/crm/crm_sector.aw:prop_comment_help
+#: classes/crm/crm_sector.aw:prop_comment_help
+msgid "Omaduse Kirjeldus (comment) help"
+msgstr ""
+
+# classes/crm/crm_sector.aw:prop_kood
+#: classes/crm/crm_sector.aw:prop_kood
+msgid "Omaduse Tegevusala kood (kood) caption"
+msgstr "Area of activity code"
+
+# classes/crm/crm_sector.aw:prop_kood_comment
+#: classes/crm/crm_sector.aw:prop_kood_comment
+msgid "Omaduse Tegevusala kood (kood) kommentaar"
+msgstr ""
+
+# classes/crm/crm_sector.aw:prop_kood_help
+#: classes/crm/crm_sector.aw:prop_kood_help
+msgid "Omaduse Tegevusala kood (kood) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_emtak_2008
+msgid "Omaduse EMTAK2008 kood (emtak_2008) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_emtak_2008_comment
+msgid "Omaduse EMTAK2008 kood (emtak_2008) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_emtak_2008_help
+msgid "Omaduse EMTAK2008 kood (emtak_2008) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_image
+msgid "Omaduse Pilt (image) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_image_comment
+msgid "Omaduse Pilt (image) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_image_help
+msgid "Omaduse Pilt (image) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_active_image
+msgid "Omaduse Aktiivse men&uuml;&uuml; pilt (active_image) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_active_image_comment
+msgid "Omaduse Aktiivse men&uuml;&uuml; pilt (active_image) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_active_image_help
+msgid "Omaduse Aktiivse men&uuml;&uuml; pilt (active_image) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_info_document
+msgid "Omaduse Tutvustus (info_document) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_info_document_comment
+msgid "Omaduse Tutvustus (info_document) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_info_document_help
+msgid "Omaduse Tutvustus (info_document) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_ext_id
+msgid "Omaduse V&auml;line ID (ext_id) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_ext_id_comment
+msgid "Omaduse V&auml;line ID (ext_id) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_ext_id_help
+msgid "Omaduse V&auml;line ID (ext_id) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:rel_RELTYPE_DOCUMENT
+msgid "Seose Dokument (RELTYPE_DOCUMENT) tekst"
+msgstr ""
+
+#: classes/crm/crm_sector.aw:rel_RELTYPE_PARENT
+msgid "Seose Parent (RELTYPE_PARENT) tekst"
+msgstr ""
+
+# classes/crm/crm_sector.aw:prop_tegevusala_en
+#~ msgid "Omaduse Inglise keelne nimetus (tegevusala_en) caption"
+#~ msgstr "Area of activity (en)"

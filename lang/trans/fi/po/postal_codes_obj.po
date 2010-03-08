@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/common/postal_codes_obj.aw:208
+msgid "Riik"
+msgstr ""
+
+#: classes/common/postal_codes_obj.aw:209
+msgid "Maakond"
+msgstr ""
+
+#: classes/common/postal_codes_obj.aw:210
+msgid "Vald"
+msgstr ""
+
+#: classes/common/postal_codes_obj.aw:211
+msgid "Linn / Alev / K&uuml;la"
+msgstr ""
+
+#: classes/common/postal_codes_obj.aw:212
+msgid "T&auml;nav / Talu"
+msgstr ""
+
+#: classes/common/postal_codes_obj.aw:213
+msgid "Maja nr algus"
+msgstr ""
+
+#: classes/common/postal_codes_obj.aw:214
+msgid "Maja nr l&otilde;pp"
+msgstr ""
+
+#: classes/common/postal_codes_obj.aw:215
+msgid "T&uuml;&uuml;p (linn / alev / k&uuml;la)"
+msgstr ""
+
+#: classes/common/postal_codes_obj.aw:216
+msgid "Postiindeks"
+msgstr ""

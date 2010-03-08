@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="user_object" folder="www/dev/terryf/automatweb_dev/classes/core/users" extends="_int_object">
+		<action name="generate_password">
+			<function name="generate_password">
+				<arguments>
+					<optional name="lenght" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_user_name">
+			<function name="get_user_name">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_user_mail_address">
+			<function name="get_user_mail_address">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

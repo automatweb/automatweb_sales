@@ -1,0 +1,81 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>site</name>
+            <table>aw_site_notification_sent</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_SITE</reltype>
+            <field>aw_site</field>
+            <caption>Sait mille kohta saadeti</caption>
+      </property>
+      <property>
+            <name>rule</name>
+            <table>aw_site_notification_sent</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_RULE</reltype>
+            <field>aw_rule</field>
+            <caption>Teavituse reegel</caption>
+      </property>
+      <property>
+            <name>when</name>
+            <table>aw_site_notification_sent</table>
+            <group>general</group>
+            <type>datetime_select</type>
+            <field>aw_when</field>
+            <caption>Millal saadeti</caption>
+      </property>
+      <property>
+            <name>who</name>
+            <table>aw_site_notification_sent</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_who</field>
+            <caption>Kellele saadeti</caption>
+      </property>
+      <property>
+            <name>content</name>
+            <table>aw_site_notification_sent</table>
+            <group>general</group>
+            <type>text</type>
+            <field>aw_content</field>
+            <caption>Sisu</caption>
+      </property>
+      <property>
+            <name>error</name>
+            <table>aw_site_notification_sent</table>
+            <group>general</group>
+            <type>text</type>
+            <field>aw_error</field>
+            <caption>Viga</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SITE_NOTIFICATION_SENT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_site_notification_sent>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_site_notification_sent>
+      </tableinfo>
+      <reltypes>
+            <SITE>
+                  <value>1</value>
+                  <clid>CL_AW_SITE_ENTRY</clid>
+                  <caption>Sait</caption>
+            </SITE>
+            <RULE>
+                  <value>2</value>
+                  <clid>CL_SITE_NOTIFICATION_RULE</clid>
+                  <caption>Teavituse reegel</caption>
+            </RULE>
+      </reltypes>
+</properties>
+

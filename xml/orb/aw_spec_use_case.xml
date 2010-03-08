@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="aw_spec_use_case" folder="applications/aw_spec" extends="class_base">
+	</class>
+</orb>

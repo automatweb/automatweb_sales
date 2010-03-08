@@ -1,0 +1,418 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/export/xml_export.aw:class_896_help
+#: classes/export/xml_export.aw:class_896_help
+msgid "Klassi XML eksport help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_do_export
+#: classes/export/xml_export.aw:prop_do_export
+msgid "Omaduse Teosta eksport (do_export) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_do_export_comment
+#: classes/export/xml_export.aw:prop_do_export_comment
+msgid "Omaduse Teosta eksport (do_export) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_do_export_help
+#: classes/export/xml_export.aw:prop_do_export_help
+msgid "Omaduse Teosta eksport (do_export) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_last_export
+#: classes/export/xml_export.aw:prop_last_export
+msgid "Omaduse Viimane eksport (last_export) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_last_export_comment
+#: classes/export/xml_export.aw:prop_last_export_comment
+msgid "Omaduse Viimane eksport (last_export) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_last_export_help
+#: classes/export/xml_export.aw:prop_last_export_help
+msgid "Omaduse Viimane eksport (last_export) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_last_object_change_time
+#: classes/export/xml_export.aw:prop_last_object_change_time
+msgid "Omaduse Esimese objekti muutmise kuup&auml;ev (last_object_change_time) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_last_object_change_time_comment
+#: classes/export/xml_export.aw:prop_last_object_change_time_comment
+msgid "Omaduse Esimese objekti muutmise kuup&auml;ev (last_object_change_time) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_last_object_change_time_help
+#: classes/export/xml_export.aw:prop_last_object_change_time_help
+msgid "Omaduse Esimese objekti muutmise kuup&auml;ev (last_object_change_time) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_last_changed_obj_count
+#: classes/export/xml_export.aw:prop_last_changed_obj_count
+msgid "Omaduse Mitu viimati muudeetud objekti exportida (last_changed_obj_count) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_last_changed_obj_count_comment
+#: classes/export/xml_export.aw:prop_last_changed_obj_count_comment
+msgid "Omaduse Mitu viimati muudeetud objekti exportida (last_changed_obj_count) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_last_changed_obj_count_help
+#: classes/export/xml_export.aw:prop_last_changed_obj_count_help
+msgid "Omaduse Mitu viimati muudeetud objekti exportida (last_changed_obj_count) help"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_remove_aliases
+msgid "Omaduse Eemalda aliased (remove_aliases) caption"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_remove_aliases_comment
+msgid "Omaduse Eemalda aliased (remove_aliases) kommentaar"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_remove_aliases_help
+msgid "Omaduse Eemalda aliased (remove_aliases) help"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_user_readable_output
+msgid "Omaduse Loetav v&auml;ljund (user_readable_output) caption"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_user_readable_output_comment
+msgid "Omaduse Loetav v&auml;ljund (user_readable_output) kommentaar"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_user_readable_output_help
+msgid "Omaduse Loetav v&auml;ljund (user_readable_output) help"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_filter
+msgid "Omaduse Andmete filter (filter) caption"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_filter_comment
+msgid "Omaduse Andmete filter (filter) kommentaar"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_filter_help
+msgid "Omaduse Andmete filter (filter) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_local_file
+#: classes/export/xml_export.aw:prop_local_file
+msgid "Omaduse Fail salvestatakse kohalikku serverisse (local_file) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_local_file_comment
+#: classes/export/xml_export.aw:prop_local_file_comment
+msgid "Omaduse Fail salvestatakse kohalikku serverisse (local_file) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_local_file_help
+#: classes/export/xml_export.aw:prop_local_file_help
+msgid "Omaduse Fail salvestatakse kohalikku serverisse (local_file) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_local_file_location
+#: classes/export/xml_export.aw:prop_local_file_location
+msgid "Omaduse Serveri kataloog (local_file_location) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_local_file_location_comment
+#: classes/export/xml_export.aw:prop_local_file_location_comment
+msgid "Omaduse Serveri kataloog (local_file_location) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_local_file_location_help
+#: classes/export/xml_export.aw:prop_local_file_location_help
+msgid "Omaduse Serveri kataloog (local_file_location) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_file
+#: classes/export/xml_export.aw:prop_ftp_file
+msgid "Omaduse Fail salvestatakse FTP-kataloogi (ftp_file) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_file_comment
+#: classes/export/xml_export.aw:prop_ftp_file_comment
+msgid "Omaduse Fail salvestatakse FTP-kataloogi (ftp_file) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_file_help
+#: classes/export/xml_export.aw:prop_ftp_file_help
+msgid "Omaduse Fail salvestatakse FTP-kataloogi (ftp_file) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_host
+#: classes/export/xml_export.aw:prop_ftp_host
+msgid "Omaduse FTP aadress (ftp_host) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_host_comment
+#: classes/export/xml_export.aw:prop_ftp_host_comment
+msgid "Omaduse FTP aadress (ftp_host) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_host_help
+#: classes/export/xml_export.aw:prop_ftp_host_help
+msgid "Omaduse FTP aadress (ftp_host) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_user
+#: classes/export/xml_export.aw:prop_ftp_user
+msgid "Omaduse FTP kasutaja (ftp_user) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_user_comment
+#: classes/export/xml_export.aw:prop_ftp_user_comment
+msgid "Omaduse FTP kasutaja (ftp_user) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_user_help
+#: classes/export/xml_export.aw:prop_ftp_user_help
+msgid "Omaduse FTP kasutaja (ftp_user) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_password
+#: classes/export/xml_export.aw:prop_ftp_password
+msgid "Omaduse FTP parool (ftp_password) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_password_comment
+#: classes/export/xml_export.aw:prop_ftp_password_comment
+msgid "Omaduse FTP parool (ftp_password) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_password_help
+#: classes/export/xml_export.aw:prop_ftp_password_help
+msgid "Omaduse FTP parool (ftp_password) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_file_location
+#: classes/export/xml_export.aw:prop_ftp_file_location
+msgid "Omaduse FTP kataloog (ftp_file_location) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_file_location_comment
+#: classes/export/xml_export.aw:prop_ftp_file_location_comment
+msgid "Omaduse FTP kataloog (ftp_file_location) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_ftp_file_location_help
+#: classes/export/xml_export.aw:prop_ftp_file_location_help
+msgid "Omaduse FTP kataloog (ftp_file_location) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_parents_table
+#: classes/export/xml_export.aw:prop_parents_table
+msgid "Omaduse Kaustad, mille alt objekte v&otilde;etakse (parents_table) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_parents_table_comment
+#: classes/export/xml_export.aw:prop_parents_table_comment
+msgid "Omaduse Kaustad, mille alt objekte v&otilde;etakse (parents_table) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_parents_table_help
+#: classes/export/xml_export.aw:prop_parents_table_help
+msgid "Omaduse Kaustad, mille alt objekte v&otilde;etakse (parents_table) help"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_xml_root_tag_name
+msgid "Omaduse Juurm&auml;rgendi nimi (xml_root_tag_name) caption"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_xml_root_tag_name_comment
+msgid "Omaduse Juurm&auml;rgendi nimi (xml_root_tag_name) kommentaar"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_xml_root_tag_name_help
+msgid "Omaduse Juurm&auml;rgendi nimi (xml_root_tag_name) help"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_xml_root_tag_attrs
+msgid "Omaduse Juurm&auml;rgendi atribuudid (xml_root_tag_attrs) caption"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_xml_root_tag_attrs_comment
+msgid "Omaduse Juurm&auml;rgendi atribuudid (xml_root_tag_attrs) kommentaar"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_xml_root_tag_attrs_help
+msgid "Omaduse Juurm&auml;rgendi atribuudid (xml_root_tag_attrs) help"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_xml_object_tag_name
+msgid "Omaduse Objekti m&auml;rgendi nimi (xml_object_tag_name) caption"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_xml_object_tag_name_comment
+msgid "Omaduse Objekti m&auml;rgendi nimi (xml_object_tag_name) kommentaar"
+msgstr ""
+
+#: classes/export/xml_export.aw:prop_xml_object_tag_name_help
+msgid "Omaduse Objekti m&auml;rgendi nimi (xml_object_tag_name) help"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_xml_struct_table
+#: classes/export/xml_export.aw:prop_xml_struct_table
+msgid "Omaduse Seadete vormi v&auml;ljad (xml_struct_table) caption"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_xml_struct_table_comment
+#: classes/export/xml_export.aw:prop_xml_struct_table_comment
+msgid "Omaduse Seadete vormi v&auml;ljad (xml_struct_table) kommentaar"
+msgstr ""
+
+# classes/export/xml_export.aw:prop_xml_struct_table_help
+#: classes/export/xml_export.aw:prop_xml_struct_table_help
+msgid "Omaduse Seadete vormi v&auml;ljad (xml_struct_table) help"
+msgstr ""
+
+# classes/export/xml_export.aw:group_config
+#: classes/export/xml_export.aw:group_config
+msgid "Grupi Seaded (config) pealkiri"
+msgstr ""
+
+# classes/export/xml_export.aw:group_config_help
+#: classes/export/xml_export.aw:group_config_help
+msgid "Grupi Seaded (config) help"
+msgstr ""
+
+# classes/export/xml_export.aw:group_locations
+#: classes/export/xml_export.aw:group_locations
+msgid "Grupi Asukohad (locations) pealkiri"
+msgstr ""
+
+# classes/export/xml_export.aw:group_locations_help
+#: classes/export/xml_export.aw:group_locations_help
+msgid "Grupi Asukohad (locations) help"
+msgstr ""
+
+# classes/export/xml_export.aw:group_xml_struct
+#: classes/export/xml_export.aw:group_xml_struct
+msgid "Grupi XML struktuur (xml_struct) pealkiri"
+msgstr ""
+
+# classes/export/xml_export.aw:group_xml_struct_help
+#: classes/export/xml_export.aw:group_xml_struct_help
+msgid "Grupi XML struktuur (xml_struct) help"
+msgstr ""
+
+# classes/export/xml_export.aw:rel_RELTYPE_EXP_OBJECT_TYPE
+#: classes/export/xml_export.aw:rel_RELTYPE_EXP_OBJECT_TYPE
+msgid "Seose Eksporditav objekt (RELTYPE_EXP_OBJECT_TYPE) tekst"
+msgstr ""
+
+# classes/export/xml_export.aw:rel_RELTYPE_EXP_RECURRENCE
+#: classes/export/xml_export.aw:rel_RELTYPE_EXP_RECURRENCE
+msgid "Seose Faili genereerimise kordus (RELTYPE_EXP_RECURRENCE) tekst"
+msgstr ""
+
+#: classes/export/xml_export.aw:rel_RELTYPE_PARENT
+msgid "Seose S&uuml;ndmuste asukoht (RELTYPE_PARENT) tekst"
+msgstr ""
+
+#: classes/export/xml_export.aw:rel_RELTYPE_CONTROLLER
+msgid "Seose Kontroller (RELTYPE_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/export/xml_export.aw:rel_RELTYPE_OBJ_PREPEND_CONTROLLER
+msgid "Seose Kontroller andmete lisamiseks obj. ette (RELTYPE_OBJ_PREPEND_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/export/xml_export.aw:rel_RELTYPE_OBJ_APPEND_CONTROLLER
+msgid "Seose Kontroller andmete lisamiseks obj. j2rele (RELTYPE_OBJ_APPEND_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/export/xml_export.aw:rel_RELTYPE_PREPEND_CONTROLLER
+msgid "Seose Kontroller andmete lisamiseks sisu ette (RELTYPE_PREPEND_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/export/xml_export.aw:rel_RELTYPE_APPEND_CONTROLLER
+msgid "Seose Kontroller andmete lisamiseks sisu j2rele (RELTYPE_APPEND_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/export/xml_export.aw:138
+msgid "Teosta eksport"
+msgstr ""
+
+#: classes/export/xml_export.aw:143
+msgid "Ekspordi AW objektid"
+msgstr ""
+
+#: classes/export/xml_export.aw:161
+msgid "Faili/kausta ei saa kirjutada"
+msgstr ""
+
+#: classes/export/xml_export.aw:199
+msgid "Faili ei saa kirjutada"
+msgstr ""
+
+#: classes/export/xml_export.aw:358
+msgid "Kaust"
+msgstr ""
+
+#: classes/export/xml_export.aw:363
+msgid "Kaasaarvatud alamkaustad"
+msgstr ""
+
+#: classes/export/xml_export.aw:395
+msgid "Vali"
+msgstr ""
+
+#: classes/export/xml_export.aw:399
+msgid "Seadete vormi v&auml;li"
+msgstr ""
+
+#: classes/export/xml_export.aw:404
+msgid "jrk"
+msgstr ""
+
+#: classes/export/xml_export.aw:412
+msgid "XML v&auml;lja nimetus"
+msgstr ""
+
+#: classes/export/xml_export.aw:417
+msgid "XML v&auml;lja sisu"
+msgstr ""
+
+#: classes/export/xml_export.aw:422
+msgid "Parameetrid"
+msgstr ""
+
+#: classes/export/xml_export.aw:427
+msgid "Kontroller"
+msgstr ""
+
+#: classes/export/xml_export.aw:431
+msgid "CDATA"
+msgstr ""
+
+#: classes/export/xml_export.aw:986
+msgid "Omadus"
+msgstr ""
+
+#: classes/export/xml_export.aw:991
+msgid "V&auml;&auml;rtus"
+msgstr ""
+
+#: classes/export/xml_export.aw:996
+msgid "T&auml;pne"
+msgstr ""
+
+#: classes/export/xml_export.aw:1014
+msgid "--vali--"
+msgstr ""

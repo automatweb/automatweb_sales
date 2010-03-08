@@ -1,0 +1,132 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/questionary/answerer.aw:class_1169_help
+msgid "Klassi Vastaja help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_gender
+msgid "Omaduse Sugu (gender) caption"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_gender_comment
+msgid "Omaduse Sugu (gender) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_gender_help
+msgid "Omaduse Sugu (gender) help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_age
+msgid "Omaduse Vanus (age) caption"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_age_comment
+msgid "Omaduse Vanus (age) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_age_help
+msgid "Omaduse Vanus (age) help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_area
+msgid "Omaduse Tegevusala (area) caption"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_area_comment
+msgid "Omaduse Tegevusala (area) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_area_help
+msgid "Omaduse Tegevusala (area) help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_school
+msgid "Omaduse &Otilde;ppimine/T&ouml;&ouml;tamine k&otilde;rgkoolis (school) caption"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_school_comment
+msgid "Omaduse &Otilde;ppimine/T&ouml;&ouml;tamine k&otilde;rgkoolis (school) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_school_help
+msgid "Omaduse &Otilde;ppimine/T&ouml;&ouml;tamine k&otilde;rgkoolis (school) help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_intrests
+msgid "Omaduse Huvivaldkond (intrests) caption"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_intrests_comment
+msgid "Omaduse Huvivaldkond (intrests) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_intrests_help
+msgid "Omaduse Huvivaldkond (intrests) help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_visit_recur
+msgid "Omaduse Rahvusraamatukogu k&uuml;lastan (visit_recur) caption"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_visit_recur_comment
+msgid "Omaduse Rahvusraamatukogu k&uuml;lastan (visit_recur) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_visit_recur_help
+msgid "Omaduse Rahvusraamatukogu k&uuml;lastan (visit_recur) help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_usage
+msgid "Omaduse Raamatukogu teenuseid kasutan (usage) caption"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_usage_comment
+msgid "Omaduse Raamatukogu teenuseid kasutan (usage) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_usage_help
+msgid "Omaduse Raamatukogu teenuseid kasutan (usage) help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_questionary_comment
+msgid "Omaduse comment (questionary_comment) caption"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_questionary_comment_comment
+msgid "Omaduse comment (questionary_comment) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_questionary_comment_help
+msgid "Omaduse comment (questionary_comment) help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_questionary
+msgid "Omaduse K&uuml;simustik (questionary) caption"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_questionary_comment
+msgid "Omaduse K&uuml;simustik (questionary) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:prop_questionary_help
+msgid "Omaduse K&uuml;simustik (questionary) help"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:rel_RELTYPE_ANSWER
+msgid "Seose Vastus (RELTYPE_ANSWER) tekst"
+msgstr ""
+
+#: classes/applications/questionary/answerer.aw:rel_RELTYPE_QUESTIONARY
+msgid "Seose K&uuml;simustik (RELTYPE_QUESTIONARY) tekst"
+msgstr ""
+

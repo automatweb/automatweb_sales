@@ -1,0 +1,177 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/calendar/comics.aw:class_913_help
+#: classes/applications/calendar/comics.aw:class_913_help
+msgid "Klassi Koomiks help"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_start1
+#: classes/applications/calendar/comics.aw:prop_start1
+msgid "Omaduse Avaldatakse (start1) caption"
+msgstr "Publication date"
+
+# classes/applications/calendar/comics.aw:prop_start1_comment
+#: classes/applications/calendar/comics.aw:prop_start1_comment
+msgid "Omaduse Avaldatakse (start1) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_start1_help
+#: classes/applications/calendar/comics.aw:prop_start1_help
+msgid "Omaduse Avaldatakse (start1) help"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_image
+#: classes/applications/calendar/comics.aw:prop_image
+msgid "Omaduse Pilt (image) caption"
+msgstr "Image"
+
+# classes/applications/calendar/comics.aw:prop_image_comment
+#: classes/applications/calendar/comics.aw:prop_image_comment
+msgid "Omaduse Pilt (image) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_image_help
+#: classes/applications/calendar/comics.aw:prop_image_help
+msgid "Omaduse Pilt (image) help"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_num
+#: classes/applications/calendar/comics.aw:prop_num
+msgid "Omaduse Koomiksi number (num) caption"
+msgstr "Comic number"
+
+# classes/applications/calendar/comics.aw:prop_num_comment
+#: classes/applications/calendar/comics.aw:prop_num_comment
+msgid "Omaduse Koomiksi number (num) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_num_help
+#: classes/applications/calendar/comics.aw:prop_num_help
+msgid "Omaduse Koomiksi number (num) help"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_content
+#: classes/applications/calendar/comics.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr "Content"
+
+# classes/applications/calendar/comics.aw:prop_content_comment
+#: classes/applications/calendar/comics.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_content_help
+#: classes/applications/calendar/comics.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_relman
+#: classes/applications/calendar/comics.aw:prop_relman
+msgid "Omaduse Seostehaldur (relman) caption"
+msgstr "Connection manager"
+
+# classes/applications/calendar/comics.aw:prop_relman_comment
+#: classes/applications/calendar/comics.aw:prop_relman_comment
+msgid "Omaduse Seostehaldur (relman) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_relman_help
+#: classes/applications/calendar/comics.aw:prop_relman_help
+msgid "Omaduse Seostehaldur (relman) help"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:prop_calendar_selector
+msgid "Omaduse Kalendrid (calendar_selector) caption"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:prop_calendar_selector_comment
+msgid "Omaduse Kalendrid (calendar_selector) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:prop_calendar_selector_help
+msgid "Omaduse Kalendrid (calendar_selector) help"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_scripts
+#: classes/applications/calendar/comics.aw:prop_scripts
+msgid "Omaduse  (scripts) caption"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_scripts_comment
+#: classes/applications/calendar/comics.aw:prop_scripts_comment
+msgid "Omaduse  (scripts) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_scripts_help
+#: classes/applications/calendar/comics.aw:prop_scripts_help
+msgid "Omaduse  (scripts) help"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:prop_com_edit
+msgid "Omaduse  (com_edit) caption"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:prop_com_edit_comment
+msgid "Omaduse  (com_edit) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:prop_com_edit_help
+msgid "Omaduse  (com_edit) help"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:group_calendars
+msgid "Grupi Kalendrid (calendars) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:group_calendars_help
+msgid "Grupi Kalendrid (calendars) help"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:group_scripts
+#: classes/applications/calendar/comics.aw:group_scripts
+msgid "Grupi Skriptid (scripts) pealkiri"
+msgstr "Scripts"
+
+# classes/applications/calendar/comics.aw:group_scripts_help
+#: classes/applications/calendar/comics.aw:group_scripts_help
+msgid "Grupi Skriptid (scripts) help"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:group_comments
+msgid "Grupi Kommentaarid (comments) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/comics.aw:group_comments_help
+msgid "Grupi Kommentaarid (comments) help"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:rel_RELTYPE_PICTURE
+#: classes/applications/calendar/comics.aw:rel_RELTYPE_PICTURE
+msgid "Seose Pilt (RELTYPE_PICTURE) tekst"
+msgstr "Image"
+
+# classes/applications/calendar/comics.aw:rel_RELTYPE_SCRIPT
+#: classes/applications/calendar/comics.aw:rel_RELTYPE_SCRIPT
+msgid "Seose Skript (RELTYPE_SCRIPT) tekst"
+msgstr "Script"
+
+#: classes/applications/calendar/comics.aw:rel_RELTYPE_COMMENT
+msgid "Seose Kommentaar (RELTYPE_COMMENT) tekst"
+msgstr ""
+
+# classes/applications/calendar/comics.aw:prop_project_selector
+#~ msgid "Omaduse Projektid (project_selector) caption"
+#~ msgstr "Projects"
+
+# classes/applications/calendar/comics.aw:group_projects
+#~ msgid "Grupi Projektid (projects) pealkiri"
+#~ msgstr "Projects"

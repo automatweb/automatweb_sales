@@ -1,0 +1,520 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_special_offer.aw:class_344_help
+msgid "Klassi Poe eripakkumine help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_general_tb
+msgid "Omaduse  (general_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_general_tb_comment
+msgid "Omaduse  (general_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_general_tb_help
+msgid "Omaduse  (general_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_from_date
+msgid "Omaduse Kehtib alates (valid_from_date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_from_date_comment
+msgid "Omaduse Kehtib alates (valid_from_date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_from_date_help
+msgid "Omaduse Kehtib alates (valid_from_date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_until_date
+msgid "Omaduse  (valid_until_date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_until_date_comment
+msgid "Omaduse  (valid_until_date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_until_date_help
+msgid "Omaduse  (valid_until_date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_Kehtib
+msgid "Omaduse  (Kehtib) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_Kehtib_comment
+msgid "Omaduse  (Kehtib) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_Kehtib_help
+msgid "Omaduse  (Kehtib) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_weekdays
+msgid "Omaduse N&auml;dalap&auml;evad (weekdays) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_weekdays_comment
+msgid "Omaduse N&auml;dalap&auml;evad (weekdays) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_weekdays_help
+msgid "Omaduse N&auml;dalap&auml;evad (weekdays) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_from_time
+msgid "Omaduse Kehtib alates kellaajast (valid_from_time) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_from_time_comment
+msgid "Omaduse Kehtib alates kellaajast (valid_from_time) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_from_time_help
+msgid "Omaduse Kehtib alates kellaajast (valid_from_time) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_until_time
+msgid "Omaduse Kehtib kuni kellaajani (valid_until_time) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_until_time_comment
+msgid "Omaduse Kehtib kuni kellaajani (valid_until_time) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_until_time_help
+msgid "Omaduse Kehtib kuni kellaajani (valid_until_time) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_transaction_start_date
+msgid "Omaduse Tehing toimunud alates (transaction_start_date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_transaction_start_date_comment
+msgid "Omaduse Tehing toimunud alates (transaction_start_date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_transaction_start_date_help
+msgid "Omaduse Tehing toimunud alates (transaction_start_date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_transaction_end_date
+msgid "Omaduse Tehing toimunud kuni (transaction_end_date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_transaction_end_date_comment
+msgid "Omaduse Tehing toimunud kuni (transaction_end_date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_transaction_end_date_help
+msgid "Omaduse Tehing toimunud kuni (transaction_end_date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_repeats
+msgid "Omaduse Kordub (repeats) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_repeats_comment
+msgid "Omaduse Kordub (repeats) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_repeats_help
+msgid "Omaduse Kordub (repeats) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid
+msgid "Omaduse Kehtib (valid) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_comment
+msgid "Omaduse Kehtib (valid) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_help
+msgid "Omaduse Kehtib (valid) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_discount_precentage
+msgid "Omaduse Soodus-% (discount_precentage) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_discount_precentage_comment
+msgid "Omaduse Soodus-% (discount_precentage) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_discount_precentage_help
+msgid "Omaduse Soodus-% (discount_precentage) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_priority
+msgid "Omaduse Prioriteet (priority) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_priority_comment
+msgid "Omaduse Prioriteet (priority) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_priority_help
+msgid "Omaduse Prioriteet (priority) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_everywhere
+msgid "Omaduse Kehtib igal pool (valid_everywhere) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_everywhere_comment
+msgid "Omaduse Kehtib igal pool (valid_everywhere) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_valid_everywhere_help
+msgid "Omaduse Kehtib igal pool (valid_everywhere) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_warehouses
+msgid "Omaduse Laod (warehouses) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_warehouses_comment
+msgid "Omaduse Laod (warehouses) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_warehouses_help
+msgid "Omaduse Laod (warehouses) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_order_centers
+msgid "Omaduse Tellimiskeskkonnad (order_centers) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_order_centers_comment
+msgid "Omaduse Tellimiskeskkonnad (order_centers) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_order_centers_help
+msgid "Omaduse Tellimiskeskkonnad (order_centers) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_brands
+msgid "Omaduse Br&auml;ndid (brands) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_brands_comment
+msgid "Omaduse Br&auml;ndid (brands) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_brands_help
+msgid "Omaduse Br&auml;ndid (brands) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_user_groups
+msgid "Omaduse Kasuajagrupid (user_groups) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_user_groups_comment
+msgid "Omaduse Kasuajagrupid (user_groups) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_user_groups_help
+msgid "Omaduse Kasuajagrupid (user_groups) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_organizations_persons
+msgid "Omaduse Organisatsioonid ja isikud (organizations_persons) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_organizations_persons_comment
+msgid "Omaduse Organisatsioonid ja isikud (organizations_persons) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_organizations_persons_help
+msgid "Omaduse Organisatsioonid ja isikud (organizations_persons) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_client_groups
+msgid "Omaduse Kliendigrupid (client_groups) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_client_groups_comment
+msgid "Omaduse Kliendigrupid (client_groups) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_client_groups_help
+msgid "Omaduse Kliendigrupid (client_groups) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_discount_scheme
+msgid "Omaduse Skeem (discount_scheme) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_discount_scheme_comment
+msgid "Omaduse Skeem (discount_scheme) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_discount_scheme_help
+msgid "Omaduse Skeem (discount_scheme) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_discount_scheme_tbl
+msgid "Omaduse  (discount_scheme_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_discount_scheme_tbl_comment
+msgid "Omaduse  (discount_scheme_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_discount_scheme_tbl_help
+msgid "Omaduse  (discount_scheme_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_product_groups_tbl
+msgid "Omaduse  (product_groups_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_product_groups_tbl_comment
+msgid "Omaduse  (product_groups_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_product_groups_tbl_help
+msgid "Omaduse  (product_groups_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_template
+msgid "Omaduse Kujundusmall (template) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_template_comment
+msgid "Omaduse Kujundusmall (template) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_template_help
+msgid "Omaduse Kujundusmall (template) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_use_controller
+msgid "Omaduse Kasuta toodete n&auml;itamiseks kontrollerit (use_controller) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_use_controller_comment
+msgid "Omaduse Kasuta toodete n&auml;itamiseks kontrollerit (use_controller) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_use_controller_help
+msgid "Omaduse Kasuta toodete n&auml;itamiseks kontrollerit (use_controller) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_products_tb
+msgid "Omaduse  (products_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_products_tb_comment
+msgid "Omaduse  (products_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_products_tb_help
+msgid "Omaduse  (products_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_products_table
+msgid "Omaduse  (products_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_products_table_comment
+msgid "Omaduse  (products_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:prop_products_table_help
+msgid "Omaduse  (products_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:group_vis
+msgid "Grupi N&auml;itamine (vis) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:group_vis_help
+msgid "Grupi N&auml;itamine (vis) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:group_prods
+msgid "Grupi Tooted (prods) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:group_prods_help
+msgid "Grupi Tooted (prods) help"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:rel_RELTYPE_PRODUCT
+msgid "Seose toode (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:rel_RELTYPE_ITEM_LAYOUT
+msgid "Seose toote kujundusmall (RELTYPE_ITEM_LAYOUT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:rel_RELTYPE_CONTROLLER
+msgid "Seose kontroller (RELTYPE_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:rel_RELTYPE_WAREHOUSES
+msgid "Seose Laod (RELTYPE_WAREHOUSES) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:rel_RELTYPE_ORDER_CENTERS
+msgid "Seose Tellimiskeskkonnad (RELTYPE_ORDER_CENTERS) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:rel_RELTYPE_BRANDS
+msgid "Seose Br&auml;ndid (RELTYPE_BRANDS) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:rel_RELTYPE_USER_GROUPS
+msgid "Seose Kasuajagrupid (RELTYPE_USER_GROUPS) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:rel_RELTYPE_ORGS_PERSONS
+msgid "Seose Organisatsioonid ja isikud (RELTYPE_ORGS_PERSONS) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:rel_RELTYPE_CLIENT_GROUPS
+msgid "Seose Kliendigrupid (RELTYPE_CLIENT_GROUPS) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:layout_left_top
+msgid "Kujundusosa &Uuml;ldseaded (left_top) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:layout_right_top
+msgid "Kujundusosa S&uuml;steemsed&nbsp;seaded (right_top) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:layout_mid_box
+msgid "Kujundusosa Skeemivalik (mid_box) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:layout_down_box
+msgid "Kujundusosa Artiklikategooriate&nbsp;soodustused (down_box) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:166
+msgid "Osta x, saad y"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:167
+msgid "Soodustus ostusumma pealt"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:168
+msgid "Soodustus ostes teatud toodet teatud koguses"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:169
+msgid "Soodustus ostes teatud tootesarja/brandi/kategooria toodet teatud koguses"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:175 classes/applications/shop/shop_special_offer.aw:213
+msgid "Ostad toote"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:180
+msgid "Saad toote"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:187
+msgid "Ostad summa eest"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:192
+msgid "Saad soodust"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:197
+msgid "Allahindluse t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:199
+msgid "%"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:200
+msgid "kr"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:225
+msgid "Ostetav &uuml;hik"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:231 classes/applications/shop/shop_special_offer.aw:290
+msgid "Ostetav kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:241 classes/applications/shop/shop_special_offer.aw:312
+msgid "Soodustoode"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:253
+msgid "Soodus&uuml;hik"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:259 classes/applications/shop/shop_special_offer.aw:318
+msgid "Sooduskogus"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:272
+msgid "Ostetav kategooria/brand/..."
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:284
+msgid "Ostetav toode"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:300
+msgid "Sooduskategooria, -brand..."
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:458
+msgid "Palun valida v&auml;lja '%s' korrektne objekt."
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:462
+msgid "Palun t&auml;ita v&auml;i: '%s'"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:522
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:537
+msgid "Soodus %"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:681
+msgid "Artikligrupp"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:685
+msgid "Soodustus"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:755
+msgid "shop_special_offer::show(): no layout set for product display in special offer!"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:868 classes/applications/shop/shop_special_offer.aw:971
+msgid "Teadmata viga!"
+msgstr ""
+
+#: classes/applications/shop/shop_special_offer.aw:1007
+msgid "Valige toode"
+msgstr ""
+

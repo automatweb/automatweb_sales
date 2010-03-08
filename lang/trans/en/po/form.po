@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/formgen/form.aw:class_2_help
+msgid "Klassi Vorm help"
+msgstr ""
+
+#: classes/formgen/form.aw:2261
+msgid "Sessioonist lugemise formi pole valitud v&auml;ljundile %s"
+msgstr ""
+
+#: classes/formgen/form.aw:3028
+msgid "No table selected for showing search results for form %s!"
+msgstr "No table selected for showing search results for form %s!"
+
+#: classes/formgen/form.aw:3379
+msgid "form->search(%s): no forms selected as search targets!"
+msgstr "form->search(%s): no forms selected as search targets!"
+
+#: classes/formgen/form.aw:3567
+msgid "No forms selected as search targets!"
+msgstr "No forms selected as search targets!"
+
+#: classes/formgen/form.aw:3773
+msgid "No table selected for showing data!"
+msgstr "No table selected for showing data!"
+
+#: classes/formgen/form.aw:3821
+msgid "Tulemuste kuvamise tabelis pole yhtegi elementi!"
+msgstr "No elements in result table!"
+
+#: classes/formgen/form.aw:4728
+msgid "form->metainfo(): weird error!"
+msgstr "form->metainfo(): weird error!"
+
+#~ msgid "Sessioonist lugemise formi pole valitud v&auml;ljundile %s "
+#~ msgstr "No session reading form is set for output %s"

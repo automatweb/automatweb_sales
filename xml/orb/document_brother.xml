@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="document_brother" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="document">
+		<action name="new" is_public="1">
+			<function name="add">
+				<arguments>
+					<required name="parent" />
+					<optional name="period" />
+					<optional name="s_name" />
+					<optional name="s_content" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_bro">
+			<function name="create_bro">
+				<arguments>
+					<required name="parent" />
+					<required name="id" />
+					<optional name="s_name" />
+					<optional name="s_content" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

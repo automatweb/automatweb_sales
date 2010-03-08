@@ -1,0 +1,96 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>tv</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_OTV</reltype>
+            <caption>Objektinimekiri</caption>
+      </property>
+      <property>
+            <name>predicate</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <caption>Otsinguloogika</caption>
+      </property>
+      <property>
+            <name>search_fields</name>
+            <table>objects</table>
+            <group>search_form</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <caption>Otsingu v&amp;amp;auml;ljad</caption>
+      </property>
+      <property>
+            <name>search_tbl_fields</name>
+            <table>objects</table>
+            <group>search_table</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <caption>Tabeli v&amp;amp;auml;ljad</caption>
+      </property>
+      <property>
+            <name>search_show</name>
+            <table>objects</table>
+            <group>search_show</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>callback</type>
+            <callback>search_gen_els</callback>
+            <caption>Tabeli v&amp;amp;auml;ljad</caption>
+      </property>
+      <property>
+            <name>search_res</name>
+            <table>objects</table>
+            <group>search_show</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_OBJECT_TREEVIEW_V2_SEARCH</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <search_form>
+                  <caption>Koosta vorm</caption>
+            </search_form>
+            <search_table>
+                  <caption>Koosta tulemuste tabel</caption>
+            </search_table>
+            <search_show>
+                  <caption>Otsi</caption>
+                  <submit_method>get</submit_method>
+            </search_show>
+      </groupinfo>
+      <reltypes>
+            <OTV>
+                  <value>1</value>
+                  <clid>CL_OBJECT_TREEVIEW_V2</clid>
+                  <caption>objektinimekiri</caption>
+            </OTV>
+            <CTR>
+                  <value>2</value>
+                  <clid>CL_FORM_CONTROLLER</clid>
+                  <caption>kontroller</caption>
+            </CTR>
+      </reltypes>
+</properties>
+

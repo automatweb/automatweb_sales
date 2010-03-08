@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_org_search" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="class_base">
+		<action name="test" all_args="1">
+			<function name="test">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

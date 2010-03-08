@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="link_manager" folder="admin/editor" extends="aw_editor_manager_base">
+		<action name="manage" default="1">
+			<function name="manage">
+				<arguments>
+					<required name="doc" />
+					<optional name="link_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="topf">
+			<function name="topf">
+				<arguments>
+					<required name="doc" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="manager">
+			<function name="manager">
+				<arguments>
+					<required name="docid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

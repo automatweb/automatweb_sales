@@ -1,0 +1,234 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_warehouse" folder="www/automatweb_cvs/classes/applications/shop" extends="class_base">
+		<action name="unsent_table">
+			<function name="unsent_table">
+				<arguments>
+					<optional name="client" type="id" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="undone_xls">
+			<function name="undone_xls">
+				<arguments>
+					<optional name="undone_xls" type="id" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_prodg_tree_level" all_args="1">
+			<function name="get_prodg_tree_level">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_prod_tree_level" all_args="1">
+			<function name="get_prod_tree_level">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_update_products_table" all_args="1">
+			<function name="ajax_update_products_table">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_export">
+			<function name="create_export">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="product" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_reception">
+			<function name="create_reception">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="product" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_order">
+			<function name="gen_order">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="user_data" />
+					<optional name="html" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_order_folder">
+			<function name="get_order_folder">
+				<arguments>
+					<required name="id" type="object" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_products_folder">
+			<function name="get_products_folder">
+				<arguments>
+					<required name="id" type="object" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_to_cart">
+			<function name="add_to_cart">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="sel" />
+					<optional name="group" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_products" all_args="1">
+			<function name="cut_products">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_products" all_args="1">
+			<function name="copy_products">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_products" all_args="1">
+			<function name="paste_products">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_cur_order">
+			<function name="sent_cur_order">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="clear_order">
+			<function name="clear_order">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="confirm_orders" all_args="1">
+			<function name="confirm_orders">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="print_orders" all_args="1">
+			<function name="print_orders">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_status_orders_time_tree_level" all_args="1">
+			<function name="get_status_orders_time_tree_level">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_purchase_order">
+			<function name="create_purchase_order">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="post_campaign_row" all_args="1">
+			<function name="post_campaign_row">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_clients_groups_tree_level" all_args="1">
+			<function name="_get_clients_groups_tree_level">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_products_index">
+			<function name="update_products_index">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_category" all_args="1">
+			<function name="create_new_category">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_category_type" all_args="1">
+			<function name="create_new_category_type">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_product" all_args="1">
+			<function name="create_new_product">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_type_to_categories" all_args="1">
+			<function name="add_type_to_categories">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rem_type_from_category" all_args="1">
+			<function name="rem_type_from_category">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_categories" all_args="1">
+			<function name="save_categories">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_categories">
+			<function name="search_categories">
+				<arguments>
+					<optional name="category" />
+					<optional name="name" type="string" />
+					<optional name="oid" type="int" />
+					<optional name="result" type="int/array" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

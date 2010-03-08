@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>exc</name>
+            <table>objects</table>
+            <group>exc</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>exc</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_OBJECT_IMPORT_EXCEPTION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <no_comment>1</no_comment>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <exc>
+                  <caption>Erandid</caption>
+            </exc>
+      </groupinfo>
+</properties>
+

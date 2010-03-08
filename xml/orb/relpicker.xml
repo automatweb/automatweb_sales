@@ -1,0 +1,44 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="relpicker" folder="www/automatweb_cvs/classes/vcl" extends="core">
+		<action name="create_relpicker">
+			<function name="create_relpicker">
+				<arguments>
+					<required name="name" type="string" />
+					<required name="reltype" type="string" />
+					<required name="oid" type="int" />
+					<required name="property" type="int" />
+					<optional name="multiple" type="int" />
+					<optional name="size" type="int" />
+					<optional name="no_sel" type="int" />
+					<optional name="automatic" type="int" />
+					<optional name="no_edit" type="int" />
+					<optional name="options" type="array" />
+					<optional name="buttonspos" type="string" />
+					<optional name="value" />
+					<optional name="width" type="int" />
+					<optional name="disabled" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rels_del_popup">
+			<function name="rels_del_popup">
+				<arguments>
+					<required name="reltype" type="string" />
+					<required name="id" type="oid" />
+					<required name="return_url" type="string" />
+					<optional name="del_rels" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_relp_opts" all_args="1">
+			<function name="get_relp_opts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

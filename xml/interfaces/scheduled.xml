@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<interface>
+	<class id="xml_import" action="invoke" cldef="CL_XML_IMPORT"/>
+	<class id="livelink_import" action="invoke" cldef="CL_LIVELINK_IMPORT"/>
+</interface>

@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_degree.aw:class_1385_help
+msgid "Klassi Kraad help"
+msgstr ""
+
+#: classes/applications/crm/crm_degree.aw:prop_name
+msgid "Omaduse Kraad (name) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_degree.aw:prop_name_comment
+msgid "Omaduse Kraad (name) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_degree.aw:prop_name_help
+msgid "Omaduse Kraad (name) help"
+msgstr ""
+
+#: classes/applications/crm/crm_degree.aw:prop_subject
+msgid "Omaduse Haru (subject) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_degree.aw:prop_subject_comment
+msgid "Omaduse Haru (subject) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_degree.aw:prop_subject_help
+msgid "Omaduse Haru (subject) help"
+msgstr ""
+

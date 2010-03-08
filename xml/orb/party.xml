@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="party" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="remove_artist">
+			<function name="remove_artist">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<optional name="group" />
+					<optional name="sel" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,51 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>toode</name>
+            <table>kliendibaas_toode</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>40</size>
+            <field>toode</field>
+            <caption>Toote nimetus</caption>
+      </property>
+      <property>
+            <name>toode_en</name>
+            <table>kliendibaas_toode</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>40</size>
+            <field>toode_en</field>
+            <caption>Inglise keelne tootenimetus</caption>
+      </property>
+      <property>
+            <name>comment</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textarea</type>
+            <field>comment</field>
+            <caption>Kirjeldus</caption>
+      </property>
+      <property>
+            <name>kood</name>
+            <table>kliendibaas_toode</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>8</size>
+            <field>kood</field>
+            <caption>Toote kood	</caption>
+      </property>
+      <classinfo>
+            <no_status>1</no_status>
+            <syslog_type>ST_CRM_PRODUCT</syslog_type>
+            <maintainer>markop</maintainer>
+      </classinfo>
+      <tableinfo>
+            <kliendibaas_toode>
+                  <index>oid</index>
+                  <master_table>objects</master_table>
+                  <master_index>oid</master_index>
+            </kliendibaas_toode>
+      </tableinfo>
+</properties>
+

@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_company_obj" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="_int_object">
+		<action name="get_comments">
+			<function name="get_comments">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

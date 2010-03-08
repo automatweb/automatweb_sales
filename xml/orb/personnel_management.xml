@@ -1,0 +1,167 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="personnel_management" folder="www/automatweb_cvs/classes/applications/personnel_management" extends="class_base">
+		<action name="cut_offers">
+			<function name="cut_offers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_offers">
+			<function name="paste_offers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_offers">
+			<function name="save_offers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add2list">
+			<function name="add2list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_udef_skills">
+			<function name="get_udef_skills">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_languages">
+			<function name="get_languages">
+				<arguments>
+					<optional name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_cands">
+			<function name="delete_cands">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="archive">
+			<function name="archive">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cmp_function">
+			<function name="cmp_function">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="check_special_acl_for_cat">
+			<function name="check_special_acl_for_cat">
+				<arguments>
+					<required name="object" type="object/oid" />
+					<optional name="clid" type="class_id" />
+					<optional name="personnel_management" type="object" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="check_special_acl">
+			<function name="check_special_acl_for_obj">
+				<arguments>
+					<required name="object" type="object" />
+					<optional name="personnel_management" type="object" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cv_search_filter">
+			<function name="cv_search_filter">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="on_add_person">
+			<function name="on_add_person">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_employers" all_args="1">
+			<function name="search_employers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_employers">
+			<function name="delete_employers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_email">
+			<function name="send_email">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_valid_job_offers">
+			<function name="get_valid_job_offers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_locations">
+			<function name="get_locations">
+				<arguments>
+					<required name="class_id" type="class_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_employers">
+			<function name="get_professions">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_cv_email" all_args="1">
+			<function name="send_cv_email">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_cv_employer" all_args="1">
+			<function name="send_cv_employer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_cv_to_employer">
+			<function name="send_cv_to_employer">
+				<arguments>
+					<required name="sel" type="array(oid)" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,15 @@
+It is not possible to turn off the whole cache with one move, but it is possible to turn off separate parts of it. For that you can add several rules to aw.ini:
+
+
+objects.default_datasource = mysql
+
+this value might also be for example cache,mysql, in that case, leave only mysql
+
+
+template_compiler.no_menu_area_cache = 1
+
+Turns off menu area cache, significant slow down in site speed
+
+cache.use_page_cache = false
+cache.use_html_cache = 0
+

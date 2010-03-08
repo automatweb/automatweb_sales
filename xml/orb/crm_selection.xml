@@ -1,0 +1,61 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_selection" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="class_base">
+		<action name="navigate">
+			<function name="navigate">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_objects">
+			<function name="copy_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="move_objects">
+			<function name="move_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_from_selection">
+			<function name="delete_from_selection">
+				<arguments>
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_selection">
+			<function name="save_selection">
+				<arguments>
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_to_selection">
+			<function name="add_to_selection">
+				<arguments>
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,176 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/questionary/questionary.aw:class_1153_help
+msgid "Klassi K&uuml;simustik help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_answer_count
+msgid "Omaduse Valikvastuste arv (answer_count) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_answer_count_comment
+msgid "Omaduse Valikvastuste arv (answer_count) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_answer_count_help
+msgid "Omaduse Valikvastuste arv (answer_count) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_thank_you_doc
+msgid "Omaduse T&auml;nudokument (thank_you_doc) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_thank_you_doc_comment
+msgid "Omaduse T&auml;nudokument (thank_you_doc) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_thank_you_doc_help
+msgid "Omaduse T&auml;nudokument (thank_you_doc) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_gr_tb
+msgid "Omaduse  (gr_tb) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_gr_tb_comment
+msgid "Omaduse  (gr_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_gr_tb_help
+msgid "Omaduse  (gr_tb) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_groups
+msgid "Omaduse  (groups) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_groups_comment
+msgid "Omaduse  (groups) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_groups_help
+msgid "Omaduse  (groups) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_results
+msgid "Omaduse Vastuseid (results) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_results_comment
+msgid "Omaduse Vastuseid (results) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_results_help
+msgid "Omaduse Vastuseid (results) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_get_results
+msgid "Omaduse Ekspordi vastused (get_results) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_get_results_comment
+msgid "Omaduse Ekspordi vastused (get_results) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:prop_get_results_help
+msgid "Omaduse Ekspordi vastused (get_results) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:group_groups
+msgid "Grupi Grupid (groups) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:group_groups_help
+msgid "Grupi Grupid (groups) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:group_results
+msgid "Grupi Vastatud (results) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:group_results_help
+msgid "Grupi Vastatud (results) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:rel_RELTYPE_GROUP
+msgid "Seose K&uml;simustegrupp (RELTYPE_GROUP) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:rel_RELTYPE_DOC
+msgid "Seose T&auml;nudokument (RELTYPE_DOC) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:63
+msgid "Uus grupp"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:76
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:98
+msgid "Ekspordi tulemused"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:181
+msgid "Ei oska &ouml;elda"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:186
+msgid "topic\question"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:317
+msgid "Vasta"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:659
+msgid "Aeg"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:663
+msgid "ID"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:667
+msgid "Sugu"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:671
+msgid "Vanus"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:675
+msgid "Tegevusala"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:679
+msgid "Õimine/&oõpetamine koolis"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:683
+msgid "Huvivaldkond"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:687
+msgid "Rahvusraamatukogu külastan"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:691
+msgid "Rahvusraamatukogu teenuseid kasutan"
+msgstr ""
+
+#: classes/applications/questionary/questionary.aw:695
+msgid "Kommentaar"
+msgstr ""
+

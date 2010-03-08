@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_country.aw:class_134_help
+msgid "Klassi Riik help"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_name
+msgid "Omaduse Riigi nimetus (name) caption"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_name_comment
+msgid "Omaduse Riigi nimetus (name) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_name_help
+msgid "Omaduse Riigi nimetus (name) help"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_area_code
+msgid "Omaduse Suunakood (area_code) caption"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_area_code_comment
+msgid "Omaduse Suunakood (area_code) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_area_code_help
+msgid "Omaduse Suunakood (area_code) help"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_name_en
+msgid "Omaduse Nimetus inglise keeles (name_en) caption"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_name_en_comment
+msgid "Omaduse Nimetus inglise keeles (name_en) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_name_en_help
+msgid "Omaduse Nimetus inglise keeles (name_en) help"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_name_native
+msgid "Omaduse Nimetus kohalikus keeles (name_native) caption"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_name_native_comment
+msgid "Omaduse Nimetus kohalikus keeles (name_native) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_name_native_help
+msgid "Omaduse Nimetus kohalikus keeles (name_native) help"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_country.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/crm/crm_country.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_country.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+

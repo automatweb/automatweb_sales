@@ -1,0 +1,223 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/poll.aw:class_33_help
+msgid "Klassi Kiirk&uuml;sitlus help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_needs_translation
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_needs_translation_comment
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_needs_translation_help
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_clicks
+msgid "Omaduse Klikid (clicks) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_clicks_comment
+msgid "Omaduse Klikid (clicks) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_clicks_help
+msgid "Omaduse Klikid (clicks) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_clicks_stats
+msgid "Omaduse Statistika (clicks_stats) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_clicks_stats_comment
+msgid "Omaduse Statistika (clicks_stats) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_clicks_stats_help
+msgid "Omaduse Statistika (clicks_stats) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_in_archive
+msgid "Omaduse Arhiivis (in_archive) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_in_archive_comment
+msgid "Omaduse Arhiivis (in_archive) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_in_archive_help
+msgid "Omaduse Arhiivis (in_archive) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_question
+msgid "Omaduse K&uuml;simus (question) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_question_comment
+msgid "Omaduse K&uuml;simus (question) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_question_help
+msgid "Omaduse K&uuml;simus (question) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_answers
+msgid "Omaduse Vastused (answers) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_answers_comment
+msgid "Omaduse Vastused (answers) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_answers_help
+msgid "Omaduse Vastused (answers) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_activity
+msgid "Omaduse Aktiivsus (activity) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_activity_comment
+msgid "Omaduse Aktiivsus (activity) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_activity_help
+msgid "Omaduse Aktiivsus (activity) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_translate
+msgid "Omaduse T&otilde;lgi (translate) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_translate_comment
+msgid "Omaduse T&otilde;lgi (translate) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_translate_help
+msgid "Omaduse T&otilde;lgi (translate) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_tpl_question
+msgid "Omaduse Kujundusp&otilde;hi kuvamiseks (tpl_question) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_tpl_question_comment
+msgid "Omaduse Kujundusp&otilde;hi kuvamiseks (tpl_question) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_tpl_question_help
+msgid "Omaduse Kujundusp&otilde;hi kuvamiseks (tpl_question) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_tpl_results
+msgid "Omaduse Kujundusp&otilde;hi tulemustele (tpl_results) caption"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_tpl_results_comment
+msgid "Omaduse Kujundusp&otilde;hi tulemustele (tpl_results) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:prop_tpl_results_help
+msgid "Omaduse Kujundusp&otilde;hi tulemustele (tpl_results) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_clicks
+msgid "Grupi Klikke (clicks) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_clicks_help
+msgid "Grupi Klikke (clicks) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_clicks_stats
+msgid "Grupi Statistika (clicks_stats) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_clicks_stats_help
+msgid "Grupi Statistika (clicks_stats) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_clicks_detail
+msgid "Grupi Vastajad (clicks_detail) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_clicks_detail_help
+msgid "Grupi Vastajad (clicks_detail) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_translate
+msgid "Grupi T&otilde;lgi (translate) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_translate_help
+msgid "Grupi T&otilde;lgi (translate) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_activity
+msgid "Grupi Aktiivsus (activity) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_activity_help
+msgid "Grupi Aktiivsus (activity) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_data
+msgid "Grupi Andmed (data) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_data_help
+msgid "Grupi Andmed (data) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:523
+msgid "UID"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:530
+msgid "IP"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:537
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:547 classes/contentmgmt/poll.aw:577
+msgid "Vastus"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:584
+msgid "Klikke"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:593
+msgid "Protsent"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:680 classes/contentmgmt/poll.aw:692
+#: classes/contentmgmt/poll.aw:893
+msgid "Vastus nr %s"
+msgstr ""
+
+#: classes/contentmgmt/poll.aw:883
+msgid "K&uuml;simus"
+msgstr ""

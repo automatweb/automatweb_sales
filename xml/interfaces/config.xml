@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<interface>
+	<class id="document"/>
+	<class id="links"/>
+	<class id="calendar"/>
+	<class id="forum"/>
+</interface>

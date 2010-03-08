@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="join_site" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/join" extends="class_base">
+		<action name="submit_join_form" nologin="1">
+			<function name="submit_join_form">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_update_form">
+			<function name="orb_submit_update_form">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_confirm_user" nologin="1">
+			<function name="do_confirm_user">
+				<arguments>
+					<required name="h" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

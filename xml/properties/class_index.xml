@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <comment>Checks whether $parent is among class parents</comment>
+      </property>
+      <classinfo>
+            <maintainer>voldemar</maintainer>
+      </classinfo>
+</properties>
+

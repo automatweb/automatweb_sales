@@ -1,0 +1,816 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:class_1132_help
+msgid "Klassi AW Objektide otsing help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tb
+msgid "Omaduse  (s_tb) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tb_comment
+msgid "Omaduse  (s_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tb_help
+msgid "Omaduse  (s_tb) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_name
+msgid "Omaduse Nimi (s_name) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_name_comment
+msgid "Omaduse Nimi (s_name) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_name_help
+msgid "Omaduse Nimi (s_name) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_comment
+msgid "Omaduse Kommentaar (s_comment) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_comment_comment
+msgid "Omaduse Kommentaar (s_comment) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_comment_help
+msgid "Omaduse Kommentaar (s_comment) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_clid
+msgid "Omaduse T&uuml;&uuml;p (s_clid) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_clid_comment
+msgid "Omaduse T&uuml;&uuml;p (s_clid) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_clid_help
+msgid "Omaduse T&uuml;&uuml;p (s_clid) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_oid
+msgid "Omaduse OID (s_oid) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_oid_comment
+msgid "Omaduse OID (s_oid) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_oid_help
+msgid "Omaduse OID (s_oid) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_parent_search
+msgid "Omaduse Asukoht (s_parent_search) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_parent_search_comment
+msgid "Omaduse Asukoht (s_parent_search) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_parent_search_help
+msgid "Omaduse Asukoht (s_parent_search) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_status
+msgid "Omaduse Aktiivsus (s_status) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_status_comment
+msgid "Omaduse Aktiivsus (s_status) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_status_help
+msgid "Omaduse Aktiivsus (s_status) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_alias
+msgid "Omaduse Alias (s_alias) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_alias_comment
+msgid "Omaduse Alias (s_alias) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_alias_help
+msgid "Omaduse Alias (s_alias) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_language
+msgid "Omaduse Keel (s_language) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_language_comment
+msgid "Omaduse Keel (s_language) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_language_help
+msgid "Omaduse Keel (s_language) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_period
+msgid "Omaduse Periood (s_period) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_period_comment
+msgid "Omaduse Periood (s_period) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_period_help
+msgid "Omaduse Periood (s_period) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_site_id
+msgid "Omaduse Saidi ID (s_site_id) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_site_id_comment
+msgid "Omaduse Saidi ID (s_site_id) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_site_id_help
+msgid "Omaduse Saidi ID (s_site_id) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_find_bros
+msgid "Omaduse Leia vendi (s_find_bros) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_find_bros_comment
+msgid "Omaduse Leia vendi (s_find_bros) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_find_bros_help
+msgid "Omaduse Leia vendi (s_find_bros) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator
+msgid "Omaduse Looja (s_creator) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator_comment
+msgid "Omaduse Looja (s_creator) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator_help
+msgid "Omaduse Looja (s_creator) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator_from
+msgid "Omaduse Otsida loojat (s_creator_from) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator_from_comment
+msgid "Omaduse Otsida loojat (s_creator_from) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator_from_help
+msgid "Omaduse Otsida loojat (s_creator_from) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_from
+msgid "Omaduse Lisatud alates (s_crea_from) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_from_comment
+msgid "Omaduse Lisatud alates (s_crea_from) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_from_help
+msgid "Omaduse Lisatud alates (s_crea_from) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_to
+msgid "Omaduse Lisatud kuni (s_crea_to) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_to_comment
+msgid "Omaduse Lisatud kuni (s_crea_to) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_to_help
+msgid "Omaduse Lisatud kuni (s_crea_to) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier
+msgid "Omaduse Muutja (s_modifier) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier_comment
+msgid "Omaduse Muutja (s_modifier) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier_help
+msgid "Omaduse Muutja (s_modifier) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier_from
+msgid "Omaduse Otsida muutjat (s_modifier_from) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier_from_comment
+msgid "Omaduse Otsida muutjat (s_modifier_from) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier_from_help
+msgid "Omaduse Otsida muutjat (s_modifier_from) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_from
+msgid "Omaduse Muudetud alates (s_mod_from) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_from_comment
+msgid "Omaduse Muudetud alates (s_mod_from) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_from_help
+msgid "Omaduse Muudetud alates (s_mod_from) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_to
+msgid "Omaduse Muudetud kuni (s_mod_to) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_to_comment
+msgid "Omaduse Muudetud kuni (s_mod_to) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_to_help
+msgid "Omaduse Muudetud kuni (s_mod_to) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_kws
+msgid "Omaduse M&auml;rks&otilde;nad (s_kws) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_kws_comment
+msgid "Omaduse M&auml;rks&otilde;nad (s_kws) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_kws_help
+msgid "Omaduse M&auml;rks&otilde;nad (s_kws) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_login
+msgid "Omaduse Logimise objekt (login) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_login_comment
+msgid "Omaduse Logimise objekt (login) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_login_help
+msgid "Omaduse Logimise objekt (login) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_sbt
+msgid "Omaduse Otsi (s_sbt) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_sbt_comment
+msgid "Omaduse Otsi (s_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_sbt_help
+msgid "Omaduse Otsi (s_sbt) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_res
+msgid "Omaduse  (s_res) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_res_comment
+msgid "Omaduse  (s_res) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_res_help
+msgid "Omaduse  (s_res) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tb1
+msgid "Omaduse  (s_tb1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tb1_comment
+msgid "Omaduse  (s_tb1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tb1_help
+msgid "Omaduse  (s_tb1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_name1
+msgid "Omaduse Nimi (s_name1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_name1_comment
+msgid "Omaduse Nimi (s_name1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_name1_help
+msgid "Omaduse Nimi (s_name1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_comment1
+msgid "Omaduse Kommentaar (s_comment1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_comment1_comment
+msgid "Omaduse Kommentaar (s_comment1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_comment1_help
+msgid "Omaduse Kommentaar (s_comment1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_clid1
+msgid "Omaduse T&uuml;&uuml;p (s_clid1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_clid1_comment
+msgid "Omaduse T&uuml;&uuml;p (s_clid1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_clid1_help
+msgid "Omaduse T&uuml;&uuml;p (s_clid1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_oid1
+msgid "Omaduse OID (s_oid1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_oid1_comment
+msgid "Omaduse OID (s_oid1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_oid1_help
+msgid "Omaduse OID (s_oid1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_parent_search1
+msgid "Omaduse Asukoht (s_parent_search1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_parent_search1_comment
+msgid "Omaduse Asukoht (s_parent_search1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_parent_search1_help
+msgid "Omaduse Asukoht (s_parent_search1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_status1
+msgid "Omaduse Aktiivsus (s_status1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_status1_comment
+msgid "Omaduse Aktiivsus (s_status1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_status1_help
+msgid "Omaduse Aktiivsus (s_status1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_alias1
+msgid "Omaduse Alias (s_alias1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_alias1_comment
+msgid "Omaduse Alias (s_alias1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_alias1_help
+msgid "Omaduse Alias (s_alias1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_language1
+msgid "Omaduse Keel (s_language1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_language1_comment
+msgid "Omaduse Keel (s_language1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_language1_help
+msgid "Omaduse Keel (s_language1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_period1
+msgid "Omaduse Periood (s_period1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_period1_comment
+msgid "Omaduse Periood (s_period1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_period1_help
+msgid "Omaduse Periood (s_period1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_site_id1
+msgid "Omaduse Saidi ID (s_site_id1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_site_id1_comment
+msgid "Omaduse Saidi ID (s_site_id1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_site_id1_help
+msgid "Omaduse Saidi ID (s_site_id1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_find_bros1
+msgid "Omaduse Leia vendi (s_find_bros1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_find_bros1_comment
+msgid "Omaduse Leia vendi (s_find_bros1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_find_bros1_help
+msgid "Omaduse Leia vendi (s_find_bros1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_rel_type1
+msgid "Omaduse Seose t&uuml;&uuml;p (s_rel_type1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_rel_type1_comment
+msgid "Omaduse Seose t&uuml;&uuml;p (s_rel_type1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_rel_type1_help
+msgid "Omaduse Seose t&uuml;&uuml;p (s_rel_type1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_rel_obj_oid1
+msgid "Omaduse Seotud objekti id (s_rel_obj_oid1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_rel_obj_oid1_comment
+msgid "Omaduse Seotud objekti id (s_rel_obj_oid1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_rel_obj_oid1_help
+msgid "Omaduse Seotud objekti id (s_rel_obj_oid1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_rel_obj_name1
+msgid "Omaduse Seotud objekti nimi (s_rel_obj_name1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_rel_obj_name1_comment
+msgid "Omaduse Seotud objekti nimi (s_rel_obj_name1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_rel_obj_name1_help
+msgid "Omaduse Seotud objekti nimi (s_rel_obj_name1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator1
+msgid "Omaduse Looja (s_creator1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator1_comment
+msgid "Omaduse Looja (s_creator1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator1_help
+msgid "Omaduse Looja (s_creator1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator_from1
+msgid "Omaduse Otsida loojat (s_creator_from1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator_from1_comment
+msgid "Omaduse Otsida loojat (s_creator_from1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_creator_from1_help
+msgid "Omaduse Otsida loojat (s_creator_from1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_from1
+msgid "Omaduse Lisatud alates (s_crea_from1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_from1_comment
+msgid "Omaduse Lisatud alates (s_crea_from1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_from1_help
+msgid "Omaduse Lisatud alates (s_crea_from1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_to1
+msgid "Omaduse Lisatud kuni (s_crea_to1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_to1_comment
+msgid "Omaduse Lisatud kuni (s_crea_to1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_crea_to1_help
+msgid "Omaduse Lisatud kuni (s_crea_to1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier1
+msgid "Omaduse Muutja (s_modifier1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier1_comment
+msgid "Omaduse Muutja (s_modifier1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier1_help
+msgid "Omaduse Muutja (s_modifier1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier_from1
+msgid "Omaduse Otsida muutjat (s_modifier_from1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier_from1_comment
+msgid "Omaduse Otsida muutjat (s_modifier_from1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_modifier_from1_help
+msgid "Omaduse Otsida muutjat (s_modifier_from1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_from1
+msgid "Omaduse Muudetud alates (s_mod_from1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_from1_comment
+msgid "Omaduse Muudetud alates (s_mod_from1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_from1_help
+msgid "Omaduse Muudetud alates (s_mod_from1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_to1
+msgid "Omaduse Muudetud kuni (s_mod_to1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_to1_comment
+msgid "Omaduse Muudetud kuni (s_mod_to1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_mod_to1_help
+msgid "Omaduse Muudetud kuni (s_mod_to1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_kws1
+msgid "Omaduse M&auml;rks&otilde;nad (s_kws1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_kws1_comment
+msgid "Omaduse M&auml;rks&otilde;nad (s_kws1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_kws1_help
+msgid "Omaduse M&auml;rks&otilde;nad (s_kws1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_activate_from1
+msgid "Omaduse Aktiveeri alates (s_tmg_activate_from1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_activate_from1_comment
+msgid "Omaduse Aktiveeri alates (s_tmg_activate_from1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_activate_from1_help
+msgid "Omaduse Aktiveeri alates (s_tmg_activate_from1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_activate_to1
+msgid "Omaduse Aktiveeri kuni (s_tmg_activate_to1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_activate_to1_comment
+msgid "Omaduse Aktiveeri kuni (s_tmg_activate_to1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_activate_to1_help
+msgid "Omaduse Aktiveeri kuni (s_tmg_activate_to1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_deactivate_from1
+msgid "Omaduse Deaktiveeri alates (s_tmg_deactivate_from1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_deactivate_from1_comment
+msgid "Omaduse Deaktiveeri alates (s_tmg_deactivate_from1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_deactivate_from1_help
+msgid "Omaduse Deaktiveeri alates (s_tmg_deactivate_from1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_deactivate_to1
+msgid "Omaduse Deaktiveeri kuni (s_tmg_deactivate_to1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_deactivate_to1_comment
+msgid "Omaduse Deaktiveeri kuni (s_tmg_deactivate_to1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_tmg_deactivate_to1_help
+msgid "Omaduse Deaktiveeri kuni (s_tmg_deactivate_to1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_sbt1
+msgid "Omaduse Otsi (s_sbt1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_sbt1_comment
+msgid "Omaduse Otsi (s_sbt1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_sbt1_help
+msgid "Omaduse Otsi (s_sbt1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_res1
+msgid "Omaduse  (s_res1) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_res1_comment
+msgid "Omaduse  (s_res1) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:prop_s_res1_help
+msgid "Omaduse  (s_res1) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:group_srch
+msgid "Grupi Otsing (srch) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:group_srch_help
+msgid "Grupi Otsing (srch) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:group_srch_complex
+msgid "Grupi Detailne otsing (srch_complex) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:group_srch_complex_help
+msgid "Grupi Detailne otsing (srch_complex) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:layout_left_side
+msgid "Kujundusosa &Uuml;ldandmed (left_side) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:layout_creamod
+msgid "Kujundusosa Muutmine&nbsp;ja&nbsp;lisamine (creamod) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:layout_keywords
+msgid "Kujundusosa M&auml;rks&otilde;nad (keywords) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:layout_login
+msgid "Kujundusosa teise&nbsp;saiti&nbsp;sisse&nbsp;logimise&nbsp;objekt (login) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:layout_left_side_top
+msgid "Kujundusosa &Uuml;ldine (left_side_top) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:layout_left_side_bottom
+msgid "Kujundusosa Seosed (left_side_bottom) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:layout_creamod1
+msgid "Kujundusosa Muutmine&nbsp;ja&nbsp;lisamine (creamod1) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:layout_keywords1
+msgid "Kujundusosa M&auml;rks&otilde;nad (keywords1) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:layout_l_timing1
+msgid "Kujundusosa Ajaline&nbsp;aktiivsus (l_timing1) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:252
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:265
+msgid "Kasutajatest"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:266
+msgid "Gruppidest"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:316 classes/applications/customer_satisfaction_center/aw_object_search.aw:334
+msgid "K&otilde;ik"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:317
+msgid "Aktiivsed"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:318
+msgid "Deaktiivsed"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:353 classes/applications/customer_satisfaction_center/aw_object_search.aw:366
+msgid "Igalt poolt"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:399
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:401
+msgid "Oled kindel et soovid valitud objektid kustutada?"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:407
+msgid "L&otilde;ika"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:413
+msgid "Kopeeri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:430
+msgid "OID"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:442
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:448
+msgid "Keel"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:454
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:460
+msgid "Asukoht"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:466
+msgid "Loodud"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:475
+msgid "Looja"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:481
+msgid "Muudetud"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:490
+msgid "Muutja"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:496 classes/applications/customer_satisfaction_center/aw_object_search.aw:605 classes/applications/customer_satisfaction_center/aw_object_search.aw:643
+msgid "Ava"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:574 classes/applications/customer_satisfaction_center/aw_object_search.aw:615
+msgid "Leiti %s objekti"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:587 classes/applications/customer_satisfaction_center/aw_object_search.aw:588
+msgid "Objekti id on %s"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:915
+msgid "AW Objektide otsing"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/aw_object_search.aw:999
+msgid "--vali--"
+msgstr ""
+

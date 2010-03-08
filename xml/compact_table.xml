@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<definitions>
+<header_normal   value="awCompactTblHeaderNormal"/>
+<header_sortable value="awmenuedittablehead"/>
+<header_sorted   value="awmenuedittablehead"/>
+
+<titlebar   style="awmenuedittablehead"/>
+
+<group_style  value="awmenuedittablegroup"/>
+
+<content_style1  value="awCompactTblContent1"/>
+<content_style2  value="awCompactTblContent2"/>
+<content_style1_selected value="awmenuedittabletext"/>
+<content_style2_selected value="awmenuedittabletext"/>
+
+<content_tr_style1  value="awmenuedittablerow"/>
+<content_tr_style2  value="awmenuedittablerow"/>
+
+<content_tr_sel value="awmenuedittablerowsel"/>
+
+<content_tr_active value="awmenuedittablerowactive"/>
+
+
+<frameattribs border="0" cellspacing="0" cellpadding="0" width="100%"/>
+<framebgcolor bgcolor="#E2E2DB" class="awmenuedittableframeclass"/>
+
+<tableattribs border="0" width="100%" cellspacing="1" cellpadding="1"/>
+
+<filter_normal   value="awmenuedittableFilterNormal"/>
+<filter_active   value="awmenuedittableFilterActive"/>
+</definitions>
+
+</tabledef>

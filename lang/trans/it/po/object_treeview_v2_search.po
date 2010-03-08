@@ -1,0 +1,180 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:class_901_help
+msgid "Klassi Objektinimekirja otsing help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_tv
+msgid "Omaduse Objektinimekiri (tv) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_tv_comment
+msgid "Omaduse Objektinimekiri (tv) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_tv_help
+msgid "Omaduse Objektinimekiri (tv) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_predicate
+msgid "Omaduse Otsinguloogika (predicate) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_predicate_comment
+msgid "Omaduse Otsinguloogika (predicate) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_predicate_help
+msgid "Omaduse Otsinguloogika (predicate) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_fields
+msgid "Omaduse Otsingu v&auml;ljad (search_fields) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_fields_comment
+msgid "Omaduse Otsingu v&auml;ljad (search_fields) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_fields_help
+msgid "Omaduse Otsingu v&auml;ljad (search_fields) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_tbl_fields
+msgid "Omaduse Tabeli v&auml;ljad (search_tbl_fields) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_tbl_fields_comment
+msgid "Omaduse Tabeli v&auml;ljad (search_tbl_fields) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_tbl_fields_help
+msgid "Omaduse Tabeli v&auml;ljad (search_tbl_fields) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_show
+msgid "Omaduse Tabeli v&auml;ljad (search_show) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_show_comment
+msgid "Omaduse Tabeli v&auml;ljad (search_show) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_show_help
+msgid "Omaduse Tabeli v&auml;ljad (search_show) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_res
+msgid "Omaduse  (search_res) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_res_comment
+msgid "Omaduse  (search_res) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:prop_search_res_help
+msgid "Omaduse  (search_res) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:group_search_form
+msgid "Grupi Koosta vorm (search_form) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:group_search_form_help
+msgid "Grupi Koosta vorm (search_form) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:group_search_table
+msgid "Grupi Koosta tulemuste tabel (search_table) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:group_search_table_help
+msgid "Grupi Koosta tulemuste tabel (search_table) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:group_search_show
+msgid "Grupi Otsi (search_show) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:group_search_show_help
+msgid "Grupi Otsi (search_show) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:rel_RELTYPE_OTV
+msgid "Seose objektinimekiri (RELTYPE_OTV) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:rel_RELTYPE_CTR
+msgid "Seose kontroller (RELTYPE_CTR) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:57
+msgid "V&Otilde;I"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:58
+msgid "JA"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:204
+msgid "Omadus"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:210
+msgid "N&auml;ita vormis"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:216
+msgid "Tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:222 classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:270
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:241
+msgid "T&auml;istekstiotsing"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:277
+msgid "Element"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:283
+msgid "Tabelis"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:289
+msgid "Sorditav"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:295
+msgid "Vaata tulp"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:301
+msgid "Tulba pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:307
+msgid "Kontroller"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:322
+msgid "--Vali--"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:395 classes/contentmgmt/object_treeview/object_treeview_v2_search.aw:396
+msgid "Otsi"
+msgstr ""
+

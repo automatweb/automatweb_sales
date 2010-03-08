@@ -1,0 +1,140 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:class_1319_help
+msgid "Klassi Eelarvestamise maksu kausta seos help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_tax
+msgid "Omaduse Maks (tax) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_tax_comment
+msgid "Omaduse Maks (tax) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_tax_help
+msgid "Omaduse Maks (tax) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_folder
+msgid "Omaduse Asukoht (folder) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_folder_comment
+msgid "Omaduse Asukoht (folder) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_folder_help
+msgid "Omaduse Asukoht (folder) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_use_different_settings
+msgid "Omaduse Kasuta eraldi seadeid (use_different_settings) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_use_different_settings_comment
+msgid "Omaduse Kasuta eraldi seadeid (use_different_settings) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_use_different_settings_help
+msgid "Omaduse Kasuta eraldi seadeid (use_different_settings) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_use_used_settings
+msgid "Omaduse Kasuta olemasolevaid seadeid (use_used_settings) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_use_used_settings_comment
+msgid "Omaduse Kasuta olemasolevaid seadeid (use_used_settings) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_use_used_settings_help
+msgid "Omaduse Kasuta olemasolevaid seadeid (use_used_settings) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_amount_final
+msgid "Omaduse Summa t&auml;isarv (amount_final) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_amount_final_comment
+msgid "Omaduse Summa t&auml;isarv (amount_final) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_amount_final_help
+msgid "Omaduse Summa t&auml;isarv (amount_final) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_amount
+msgid "Omaduse Summa % (amount) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_amount_comment
+msgid "Omaduse Summa % (amount) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_amount_help
+msgid "Omaduse Summa % (amount) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_max_deviation_minus
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus - (max_deviation_minus) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_max_deviation_minus_comment
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus - (max_deviation_minus) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_max_deviation_minus_help
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus - (max_deviation_minus) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_max_deviation_plus
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus + (max_deviation_plus) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_max_deviation_plus_comment
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus + (max_deviation_plus) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_max_deviation_plus_help
+msgid "Omaduse Maksimaalne projektip&otilde;hine muudatus + (max_deviation_plus) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_pri
+msgid "Omaduse Prioriteet (pri) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_pri_comment
+msgid "Omaduse Prioriteet (pri) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_pri_help
+msgid "Omaduse Prioriteet (pri) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_term
+msgid "Omaduse Tingimus (term) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_term_comment
+msgid "Omaduse Tingimus (term) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:prop_term_help
+msgid "Omaduse Tingimus (term) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_folder_relation.aw:rel_RELTYPE_TAX
+msgid "Seose Maks (RELTYPE_TAX) tekst"
+msgstr ""
+

@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/scm/scm_result.aw:class_1100_help
+msgid "Klassi Tulemus help"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_result
+msgid "Omaduse Tulemus (result) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_result_comment
+msgid "Omaduse Tulemus (result) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_result_help
+msgid "Omaduse Tulemus (result) help"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_competition
+msgid "Omaduse V&otilde;istlus (competition) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_competition_comment
+msgid "Omaduse V&otilde;istlus (competition) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_competition_help
+msgid "Omaduse V&otilde;istlus (competition) help"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_contestant
+msgid "Omaduse V&otilde;istleja (contestant) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_contestant_comment
+msgid "Omaduse V&otilde;istleja (contestant) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_contestant_help
+msgid "Omaduse V&otilde;istleja (contestant) help"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_team
+msgid "Omaduse Meeskond (team) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_team_comment
+msgid "Omaduse Meeskond (team) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:prop_team_help
+msgid "Omaduse Meeskond (team) help"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:rel_RELTYPE_CONTESTANT
+msgid "Seose V&otilde;istleja (RELTYPE_CONTESTANT) tekst"
+msgstr ""
+
+#: classes/applications/scm/scm_result.aw:rel_RELTYPE_COMPETITION
+msgid "Seose V&otilde;istlus (RELTYPE_COMPETITION) tekst"
+msgstr ""

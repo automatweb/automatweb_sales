@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ml_member_obj" folder="www/dev/terryf/automatweb_dev/classes/applications/mailinglist" extends="_int_object">
+		<action name="get_persons">
+			<function name="get_persons">
+				<arguments>
+					<required name="id" type="oid,array(oid)" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,119 @@
+
+$do = obj { class_id=CL_MENU, parent=${parent}, name="N&auml;idisobjektid", status=STAT_ACTIVE }
+	
+	$forum = obj { class_id=CL_MENU, parent=${do}, name="Foorum", status=STAT_ACTIVE }
+
+		$ftf = obj { class_id=CL_MENU, parent=${forum}, name="Foorumi teemade kaust" }
+		$fadf = obj { class_id=CL_MENU, parent=${forum}, name="Foorumi listliikmete kaust" }
+		$fqf = obj { class_id=CL_MENU, parent=${forum}, name="Foorumi FAQ kaust" }
+
+		$forum_o = obj { class_id=CL_FORUM_V2, parent=${forum}, name="Foorum", status=STAT_ACTIVE, topic_folder=${ftf},  address_folder=${fadf}, faq_folder=${fqf}, topics_on_page=5, comments_on_page=20 }
+
+
+		$forum_doc = obj { class_id=CL_DOCUMENT, parent=${forum}, name="Foorum", title="Foorum", status=STAT_ACTIVE, lead="Demo foorum", content="#forum1#" }
+		rel { from=${forum_doc}, to=${forum_o} }
+
+
+	$poll = obj { class_id=CL_MENU, parent=${do}, name="Kiirk&uuml;sitlus", status=STAT_ACTIVE }
+
+		$poll_o = obj { class_id=CL_POLL, parent=${poll}, name="Kiirk&uuml;sitlus", status=STAT_ACTIVE }
+			# generate answers in code, because poll sucks
+
+		$poll_doc = obj { class_id=CL_DOCUMENT, parent=${poll}, name="Kiirk&uuml;sitlus", title="Kiirk&uuml;sitlus", status=STAT_ACTIVE, lead="Demo poll", content="#poll1#" }
+		rel { from=${poll_doc}, to=${poll_o} }
+
+
+	$sitemap = obj { class_id=CL_MENU, parent=${do}, name="Sisukaart", status=STAT_ACTIVE }
+
+		$sm_o = obj { class_id=CL_MENU_TREE, parent=${sitemap}, name="Sisukaart", status=STAT_ACTIVE, children_only=1 }
+
+		$sm_doc = obj { class_id=CL_DOCUMENT, parent=${sitemap}, name="Sisukaart", title="Sisukaart", status=STAT_ACTIVE, lead="Demo sisukaart", content="#sitemap1#" }
+		rel { from=${sm_doc}, to=${sm_o} }
+
+
+	$ml = obj { class_id=CL_MENU, parent=${do}, name="Meilinglist", status=STAT_ACTIVE }
+
+		$ml_mem_f = obj { class_id=CL_MENU, parent=${ml}, name="Listi liikmete kaust", status=STAT_ACTIVE }
+
+		$ml_o = obj { class_id=CL_ML_LIST, parent=${ml}, name="Meilinglist", status=STAT_ACTIVE, choose_menu=${ml_mem_f} }
+
+		$ml_doc = obj { class_id=CL_DOCUMENT, parent=${ml}, name="Meilinglist", title="Meilinglist", status=STAT_ACTIVE, lead="Demo meilinglist", content="#list1#" }
+		rel { from=${ml_doc}, to=${ml_o} }
+
+
+	$mg = obj { class_id=CL_MENU, parent=${do}, name="Minigalerii", status=STAT_ACTIVE }
+
+		$mg_img_f = obj { class_id=CL_MENU, parent=${mg}, name="Minigalerii pildid" }
+
+		$mg_img_1 = obj { class_id=CL_IMAGE, parent=${mg_img_f}, file="ee7fd86e55c0a069a5c7b4a4c2e7ea30.gif", file2="22eaea1e4a0d87ac4e7f727b86aa4685.gif" }
+		$mg_img_2 = obj { class_id=CL_IMAGE, parent=${mg_img_f}, file="03a2b72e1cb38cf63de376445e247813.gif", file2="14e8e29e8422df5345e15414c7a6f498.gif" }
+		$mg_img_3 = obj { class_id=CL_IMAGE, parent=${mg_img_f}, file="5608295822b54d1af56df71eb4d23cc4.gif", file2="853999251f5c8eddfbff3a2ce31bdf66.gif" }
+
+		$mg_o = obj { class_id=CL_MINI_GALLERY, parent=${mg}, name="Minigalerii", status=STAT_ACTIVE, folder=${mg_img_f}, cols=2, rows=4 }
+
+		$mg_doc = obj { class_id=CL_DOCUMENT, parent=${mg}, name="Minigalerii", title="Minigalerii", status=STAT_ACTIVE, lead="Demo minigalerii", content="#minigalerii1#" }
+		rel { from=${mg_doc}, to=${mg_o} }
+
+
+	$doc = obj { class_id=CL_MENU, parent=${do}, name="Dokument", status=STAT_ACTIVE }
+
+		$doc_im_r = obj { class_id=CL_IMAGE, parent=${doc}, name="Pilt paremal", file="ee7fd86e55c0a069a5c7b4a4c2e7ea30.gif" }
+		$doc_im_linked = obj { class_id=CL_IMAGE, parent=${doc}, name="Pilt lingitud",  file="03a2b72e1cb38cf63de376445e247813.gif", link="http://www.struktuur.ee" }
+		$doc_im_big = obj { class_id=CL_IMAGE, parent=${doc}, name="Pilt suur", file="5608295822b54d1af56df71eb4d23cc4.gif", file2="853999251f5c8eddfbff3a2ce31bdf66.gif" }
+		$doc_link = obj { class_id=CL_EXTLINK, parent=${doc}, name="Link saidile www.struktuur.ee", url="http://www.struktuur.ee" }
+		$doc_file = obj { class_id=CL_FILE, parent=${doc}, name="Fail" }
+
+		$doc_o = obj { class_id=CL_DOCUMENT, parent=${doc}, name="Dokument", title="Dokument", status=STAT_ACTIVE, lead="Demo dokument", content="tekst tekst tekst #pict1p# tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst #pict2v# tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst #pict3# tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst tekst<br>Link:#link1#<br>Fail:#file1#" }
+
+		rel { from=${doc_o}, to=${doc_im_r} }
+		rel { from=${doc_o}, to=${doc_im_linked} }
+		rel { from=${doc_o}, to=${doc_im_big} }
+		rel { from=${doc_o}, to=${doc_link} }
+		rel { from=${doc_o}, to=${doc_file} }
+
+		$doc_o_2 = obj { class_id=CL_DOCUMENT, parent=${doc}, name="Dokument 2", title="Dokument 2", status=STAT_ACTIVE, lead="Demo dokument 2", content="sisu" }
+
+
+	$tbl = obj { class_id=CL_MENU, parent=${do}, name="Tabel", status=STAT_ACTIVE }
+
+		$css1 = obj { class_id=CL_CSS, parent=${tbl}, name="pealkirja stiil", bold=1 }
+		$css2 = obj { class_id=CL_CSS, parent=${tbl}, name="I rea stiil", italic=1 }
+		$css3 = obj { class_id=CL_CSS, parent=${tbl}, name="II rea stiil", underline=1 }
+
+		$tbl_o = obj { class_id=CL_LAYOUT, parent=${tbl}, name="Tabel", cell_style_folders=${tbl} }
+
+		$tbl_doc = obj { class_id=CL_DOCUMENT, parent=${tbl}, name="Tabel", title="Tabel", status=STAT_ACTIVE, lead="Demo tabel", content="#layout1#" }
+		rel { from=${tbl_doc}, to=${tbl_o} }
+
+	$banner = obj { class_id=CL_MENU, parent=${do}, name="Banner", status=STAT_ACTIVE }
+
+		$banner_o = obj { class_id=CL_BANNER, parent=${banner}, name="Demo banner", status=STAT_ACTIVE, url="http://www.struktuur.ee", banner_file=${doc_im_r} }
+		$banner_loc = obj { class_id=CL_BANNER_CLIENT, parent=${banner}, name="Demo banneri asukoht", status=STAT_ACTIVE }
+
+		rel { from=${banner_o}, to=${banner_loc}, reltype=1 }
+
+		$banner_doc = obj { class_id=CL_DOCUMENT, parent=${banner}, name="Banner", title="Banner", status=STAT_ACTIVE, lead="Demo bannerabel", content="#bannerplace1#" }
+		rel { from=${banner_doc}, to=${banner_loc} }
+
+	$wf = obj { class_id=CL_MENU, parent=${do}, name="Veebivorm", status=STAT_ACTIVE }
+
+		$wf_o = obj { class_id=CL_WEBFORM, parent=${wf}, name="Veebivorm", status=STAT_ACTIVE, style_folder=${tbl}, def_caption_style=${css1} }
+
+		$wf_doc = obj { class_id=CL_DOCUMENT, parent=${wf}, name="Veebivorm", title="Veebivorm", status=STAT_ACTIVE, lead="Demo veebivorm", content="#webform1#" }
+		rel { from=${wf_doc}, to=${wf_o} }
+
+
+	#autentimise seaded
+		$auth_folder = obj { class_id=CL_MENU, parent=${mn_conf} name="Autentimine", status=STAT_ACTIVE, type=MN_CLIENT }
+
+			$auth_local = obj { class_id=CL_AUTH_SERVER_LOCAL, parent=${auth_folder}, name="AutomatWebi kasutajad", status=STAT_ACTIVE }
+
+			$auth_kirke = obj { class_id=CL_AUTH_SERVER_OPENLDAP, parent=${auth_folder}, name="Struktuur Meedia LDAP", status=STAT_ACTIVE, server="kirke.automatweb.com", ad_base_dn="ou=People,dc=automatweb,dc=com", grp_base_dn="dc=automatweb,dc=com", ad_grp="site_access", auto_create_user=1, break_chain=1, no_save_pwd=1, aw_user_prefix="struktuur", no_user_grp=${groups.admins} }
+
+				rel { from=${auth_kirke}, to=${groups.admins}, reltype=2 }
+
+			# server rels
+			$auth_config = obj { class_id=CL_AUTH_CONFIG, parent=${auth_folder}, name="!{url} autentimise seaded", status=STAT_ACTIVE, flags=16, metadata="$arr = array('auth'=>array('!{auth_kirke}'=>array('use'=>'1','jrk'=>'2','int_name'=>''),'!{auth_local}'=>array('use'=>'1','jrk'=>'1','int_name'=>'')));" }
+
+				rel { from=${auth_config}, to=${auth_local}, reltype=1 }
+				rel { from=${auth_config}, to=${auth_kirke}, reltype=1 }

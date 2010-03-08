@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/calendar/comics_script.aw:class_915_help
+#: classes/applications/calendar/comics_script.aw:class_915_help
+msgid "Klassi Koomiksi skript help"
+msgstr ""
+
+# classes/applications/calendar/comics_script.aw:prop_name
+#: classes/applications/calendar/comics_script.aw:prop_name
+msgid "Omaduse Pealkiri (name) caption"
+msgstr ""
+
+# classes/applications/calendar/comics_script.aw:prop_name_comment
+#: classes/applications/calendar/comics_script.aw:prop_name_comment
+msgid "Omaduse Pealkiri (name) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/comics_script.aw:prop_name_help
+#: classes/applications/calendar/comics_script.aw:prop_name_help
+msgid "Omaduse Pealkiri (name) help"
+msgstr ""
+
+# classes/applications/calendar/comics_script.aw:prop_comment
+#: classes/applications/calendar/comics_script.aw:prop_comment
+msgid "Omaduse Sisukokkuvõte (comment) caption"
+msgstr ""
+
+# classes/applications/calendar/comics_script.aw:prop_comment_comment
+#: classes/applications/calendar/comics_script.aw:prop_comment_comment
+msgid "Omaduse Sisukokkuvõte (comment) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/comics_script.aw:prop_comment_help
+#: classes/applications/calendar/comics_script.aw:prop_comment_help
+msgid "Omaduse Sisukokkuvõte (comment) help"
+msgstr ""
+
+# classes/applications/calendar/comics_script.aw:prop_content
+#: classes/applications/calendar/comics_script.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr ""
+
+# classes/applications/calendar/comics_script.aw:prop_content_comment
+#: classes/applications/calendar/comics_script.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/comics_script.aw:prop_content_help
+#: classes/applications/calendar/comics_script.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr ""

@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ows_reservation" folder="www/dev/terryf/automatweb_dev/classes/applications/ows_bron" extends="class_base">
+	</class>
+</orb>

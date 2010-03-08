@@ -1,0 +1,144 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:class_1040_help
+msgid "Klassi Ostutellimus help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_date
+msgid "Omaduse Kuup&auml;ev (date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_date_comment
+msgid "Omaduse Kuup&auml;ev (date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_date_help
+msgid "Omaduse Kuup&auml;ev (date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_supplier
+msgid "Omaduse Hankija (supplier) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_supplier_comment
+msgid "Omaduse Hankija (supplier) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_supplier_help
+msgid "Omaduse Hankija (supplier) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_order_nr
+msgid "Omaduse Tellimuse nr. (order_nr) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_order_nr_comment
+msgid "Omaduse Tellimuse nr. (order_nr) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_order_nr_help
+msgid "Omaduse Tellimuse nr. (order_nr) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_deadline
+msgid "Omaduse T&auml;itmist&auml;htaeg (deadline) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_deadline_comment
+msgid "Omaduse T&auml;itmist&auml;htaeg (deadline) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_deadline_help
+msgid "Omaduse T&auml;itmist&auml;htaeg (deadline) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_create_purchase_sheet
+msgid "Omaduse Mooduste ostu-saateleht (create_purchase_sheet) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_create_purchase_sheet_comment
+msgid "Omaduse Mooduste ostu-saateleht (create_purchase_sheet) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_create_purchase_sheet_help
+msgid "Omaduse Mooduste ostu-saateleht (create_purchase_sheet) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_append_to_purchase_sheet
+msgid "Omaduse Lisa ostu-saatelehele (append_to_purchase_sheet) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_append_to_purchase_sheet_comment
+msgid "Omaduse Lisa ostu-saatelehele (append_to_purchase_sheet) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_append_to_purchase_sheet_help
+msgid "Omaduse Lisa ostu-saatelehele (append_to_purchase_sheet) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_confirm
+msgid "Omaduse Kinnitatud (confirm) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_confirm_comment
+msgid "Omaduse Kinnitatud (confirm) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_confirm_help
+msgid "Omaduse Kinnitatud (confirm) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_products_table
+msgid "Omaduse Toodete tabel (products_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_products_table_comment
+msgid "Omaduse Toodete tabel (products_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:prop_products_table_help
+msgid "Omaduse Toodete tabel (products_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:group_products
+msgid "Grupi Tooted (products) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:group_products_help
+msgid "Grupi Tooted (products) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:rel_RELTYPE_SUPPLIER
+msgid "Seose Hankija (RELTYPE_SUPPLIER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:118
+msgid "Kood"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:122
+msgid "Ribakood"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:126
+msgid "Nimetus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:130
+msgid "Kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_purchase_order.aw:134
+msgid "&Uuml;hik"
+msgstr ""
+

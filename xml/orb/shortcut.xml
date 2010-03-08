@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shortcut" folder="www/dev/terryf/automatweb_dev/classes/admin/shortcut_manager" extends="class_base">
+		<action name="get_action">
+			<function name="get_action">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

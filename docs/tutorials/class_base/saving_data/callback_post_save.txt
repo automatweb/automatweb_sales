@@ -1,0 +1,23 @@
+callback_post_save
+
+Will be invoked after the object is saved, this is the place where you can do some post-save operations, like notifying someone about the changed object, flushing some cache or just generally just do about anything that does not involve changing the object.
+
+<b>Example 5.3. Possible example</b>
+
+#php#
+function callback_post_save($arr)
+{
+	$this->notify_users_about_object_change();
+}
+#/php#
+
+Arguments passed to callback_post_save
+
+<b>obj_inst</b>
+    Pointer to the object. You should use it only for reading properties.
+
+<b>request</b>
+    Array containing the arguments to the script. Use this instead of $_POST superglobal.
+
+<b>new</b>
+    Set to 1, if this was a new object.

@@ -1,0 +1,28 @@
+Kuidas kasutada aw.ini muutujaid oma koodis
+
+Aw's on project/aw.ini, project/automatweb/aw.ini, project/automatweb/aw.ini.root. Tundub keeruline. No see dokument seletab natukene lahti nende võimalusi ja räägib kuidas nendega opereerida.
+
+Projekti kataloogis automatweb/aw.ini on koodi default konstandid. aw.ini ei ole mõeldud käsitsi muutmiseks ja see genereeritakse käsuga 'make ini' projekti automatweb kataloogis. Genereerides pannakse aw.ini kokku aw.ini.root failist pluss katalogiseeritud ini failid kataloogist automatweb/config/ini/.
+
+Projekti kataloogis olev aw.ini on mõeldud default konstantide overridimiseks(ülelaadimiseks:), mingi konkreetse saidi määranguteks ja pikemas perspektiivis mitte kasulikke konstantide defineerimiseks(mõne saidi spetsiifiliste klasside jaoks, mis aw pea puusse kunagi ei jõua).
+
+Lugemisel loetakse kõigepealt sisse automatweb/aw.ini ja siis projekti kataloogis olev aw.ini ja samade nimedega konstandid saavad projekti kataloogi aw.ini's määratud väärtused.
+
+Nende konstantide kasutamiseks on kaks varianti:
+
+1) aw_ini_get("ini.setting"); See funktsioon tagastab selle muutuja väärtuse.
+
+
+2) $this->cfg["setting"];
+See töötab ainult osade muutujatega. Näide: On klass nimega "binokkel". Oletame, et aw.ini's on 3 määrangut:
+foobar = 1
+binokkel.color = kollane
+kuukulgur.exists = false
+
+Nüüd kui teha $inst = get_instance("binokkel") siis see objekt $inst saab üheks väljaks array(järjendi:) nimega "cfg", mis koosneb järgnevatest väärtustest:
+"foobar" => 1
+"color" => kollane
+
+Nagu võib sellest näha, ei jõudnud selle objekti välja muutuja "exists". Muutuja "exists" oli klassi "kuukulgur" spetsiifiline väli. Kui oleks teinud klassist "kuukulgur" objekti siis oleks see objekt oma "cfg" välja saanud järjendi milles oleks eksisteerinud "exists".
+
+Nagu näidetest näha, eksiteerivad klassi spetsfiilised konstandid ja globaalsed konstandid.

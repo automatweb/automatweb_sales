@@ -1,0 +1,66 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:class_1351_help
+msgid "Klassi Impordi minu MP3d help"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:prop_importfolder
+msgid "Omaduse Impordikaust (importfolder) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:prop_importfolder_comment
+msgid "Omaduse Impordikaust (importfolder) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:prop_importfolder_help
+msgid "Omaduse Impordikaust (importfolder) help"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:prop_do_import
+msgid "Omaduse Impordi (do_import) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:prop_do_import_comment
+msgid "Omaduse Impordi (do_import) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:prop_do_import_help
+msgid "Omaduse Impordi (do_import) help"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:prop_import_list_table
+msgid "Omaduse  (import_list_table) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:prop_import_list_table_comment
+msgid "Omaduse  (import_list_table) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:prop_import_list_table_help
+msgid "Omaduse  (import_list_table) help"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:group_import_list
+msgid "Grupi Nimekiri imporditavatest failidest (import_list) pealkiri"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:group_import_list_help
+msgid "Grupi Nimekiri imporditavatest failidest (import_list) help"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:rel_RELTYPE_IMPORTFOLDER
+msgid "Seose Impordi kaust (RELTYPE_IMPORTFOLDER) tekst"
+msgstr ""
+
+#: classes/applications/mp3player/mass_mp3_upload.aw:72
+msgid "Nimi"
+msgstr ""

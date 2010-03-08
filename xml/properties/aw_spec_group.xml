@@ -1,0 +1,39 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>use_cases</name>
+            <table>objects</table>
+            <group>use_cases</group>
+            <type>releditor</type>
+            <mode>manager</mode>
+            <reltype>RELTYPE_USE_CASE</reltype>
+            <no_caption>1</no_caption>
+            <store>connect</store>
+            <props>name</props>
+            <table_fields>name</table_fields>
+            <direct_links>1</direct_links>
+            <field>use_cases</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_AW_SPEC_GROUP</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+            <allow_rte>2</allow_rte>
+      </classinfo>
+      <groupinfo>
+            <use_cases>
+                  <caption>Kasutuslood</caption>
+            </use_cases>
+      </groupinfo>
+      <reltypes>
+            <USE_CASE>
+                  <value>10</value>
+                  <clid>CL_AW_SPEC_USE_CASE</clid>
+                  <caption>Kasutuslugu</caption>
+            </USE_CASE>
+      </reltypes>
+</properties>
+

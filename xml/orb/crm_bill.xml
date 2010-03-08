@@ -1,0 +1,160 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_bill" folder="www/automatweb_cvs/classes/applications/crm" extends="class_base">
+		<action name="add_payment" all_args="1">
+			<function name="add_payment">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="post_row" all_args="1">
+			<function name="post_row">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_row_change_fields" all_args="1">
+			<function name="ajax_get_row_change_fields">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_get_row_html" all_args="1">
+			<function name="ajax_get_row_html">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_task_row_to_bill_row">
+			<function name="add_task_row_to_bill_row">
+				<arguments>
+					<optional name="row" type="oid" />
+					<optional name="task_row" />
+					<optional name="content" type="string" />
+					<optional name="task" type="string" />
+					<optional name="project" type="string" />
+					<optional name="customer" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="unit_options_autocomplete_source" all_args="1">
+			<function name="unit_options_autocomplete_source">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="preview" all_args="1">
+			<function name="preview">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="_preview_popup">
+			<function name="_preview_popup">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_row">
+			<function name="add_row">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<optional name="retu" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_bill">
+			<function name="create_bill">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_comment_for_prod">
+			<function name="get_comment_for_prod">
+				<arguments>
+					<optional name="prod" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_rows">
+			<function name="delete_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="writeoff_rows">
+			<function name="writeoff_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_rows_from_bill">
+			<function name="remove_rows_from_bill">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="reorder_rows">
+			<function name="reorder_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="form_new_bill">
+			<function name="form_new_bill">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="reconcile_rows">
+			<function name="reconcile_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_bill" all_args="1">
+			<function name="send_bill">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="preview_add" type="int" />
+					<optional name="preview_add_pdf" type="int" />
+					<optional name="reminder" type="int" />
+					<optional name="preview_pdf" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bug_search" all_args="1">
+			<function name="bug_search">
+				<arguments>
+					<optional name="customer" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="move_rows_to_dn" all_args="1">
+			<function name="move_rows_to_dn">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,51 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>Vastus</caption>
+      </property>
+      <property>
+            <name>jrk</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>4</size>
+            <field>jrk</field>
+            <caption>J&amp;amp;auml;rjekord</caption>
+      </property>
+      <property>
+            <name>correct</name>
+            <table>aw_questionnaire_answer</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>correct</field>
+            <caption>&amp;amp;Otilde;ige vastus</caption>
+      </property>
+      <property>
+            <name>comm</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>comment</field>
+            <caption>Kommentaar</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_QUESTIONNAIRE_ANSWER</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_questionnaire_answer>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_questionnaire_answer>
+      </tableinfo>
+</properties>
+

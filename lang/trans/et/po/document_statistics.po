@@ -1,0 +1,292 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/document_statistics.aw:class_303_help
+#: classes/contentmgmt/document_statistics.aw:class_303_help
+msgid "Klassi Dokumentide vaatamise statistika help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_timespan
+#: classes/contentmgmt/document_statistics.aw:prop_timespan
+msgid "Omaduse Ajavahemik (timespan) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_timespan_comment
+#: classes/contentmgmt/document_statistics.aw:prop_timespan_comment
+msgid "Omaduse Ajavahemik (timespan) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_timespan_help
+#: classes/contentmgmt/document_statistics.aw:prop_timespan_help
+msgid "Omaduse Ajavahemik (timespan) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_count
+#: classes/contentmgmt/document_statistics.aw:prop_count
+msgid "Omaduse Mitu esimest (count) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_count_comment
+#: classes/contentmgmt/document_statistics.aw:prop_count_comment
+msgid "Omaduse Mitu esimest (count) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_count_help
+#: classes/contentmgmt/document_statistics.aw:prop_count_help
+msgid "Omaduse Mitu esimest (count) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_stats
+#: classes/contentmgmt/document_statistics.aw:prop_stats
+msgid "Omaduse TOP (stats) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_stats_comment
+#: classes/contentmgmt/document_statistics.aw:prop_stats_comment
+msgid "Omaduse TOP (stats) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_stats_help
+#: classes/contentmgmt/document_statistics.aw:prop_stats_help
+msgid "Omaduse TOP (stats) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_folders
+#: classes/contentmgmt/document_statistics.aw:prop_folders
+msgid "Omaduse Kataloogid (folders) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_folders_comment
+#: classes/contentmgmt/document_statistics.aw:prop_folders_comment
+msgid "Omaduse Kataloogid (folders) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_folders_help
+#: classes/contentmgmt/document_statistics.aw:prop_folders_help
+msgid "Omaduse Kataloogid (folders) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_periods
+#: classes/contentmgmt/document_statistics.aw:prop_periods
+msgid "Omaduse Perioodid (periods) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_periods_comment
+#: classes/contentmgmt/document_statistics.aw:prop_periods_comment
+msgid "Omaduse Perioodid (periods) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_periods_help
+#: classes/contentmgmt/document_statistics.aw:prop_periods_help
+msgid "Omaduse Perioodid (periods) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_period_type
+#: classes/contentmgmt/document_statistics.aw:prop_period_type
+msgid "Omaduse Milliseid perioode kasutada (period_type) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_period_type_comment
+#: classes/contentmgmt/document_statistics.aw:prop_period_type_comment
+msgid "Omaduse Milliseid perioode kasutada (period_type) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_period_type_help
+#: classes/contentmgmt/document_statistics.aw:prop_period_type_help
+msgid "Omaduse Milliseid perioode kasutada (period_type) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_to
+#: classes/contentmgmt/document_statistics.aw:prop_mail_to
+msgid "Omaduse Meiliaadressid (mail_to) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_to_comment
+#: classes/contentmgmt/document_statistics.aw:prop_mail_to_comment
+msgid "Omaduse Meiliaadressid (mail_to) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_to_help
+#: classes/contentmgmt/document_statistics.aw:prop_mail_to_help
+msgid "Omaduse Meiliaadressid (mail_to) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_info
+#: classes/contentmgmt/document_statistics.aw:prop_mail_info
+msgid "Omaduse Legend (mail_info) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_info_comment
+#: classes/contentmgmt/document_statistics.aw:prop_mail_info_comment
+msgid "Omaduse Legend (mail_info) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_info_help
+#: classes/contentmgmt/document_statistics.aw:prop_mail_info_help
+msgid "Omaduse Legend (mail_info) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_subj
+#: classes/contentmgmt/document_statistics.aw:prop_mail_subj
+msgid "Omaduse Kirja teema (mail_subj) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_subj_comment
+#: classes/contentmgmt/document_statistics.aw:prop_mail_subj_comment
+msgid "Omaduse Kirja teema (mail_subj) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_subj_help
+#: classes/contentmgmt/document_statistics.aw:prop_mail_subj_help
+msgid "Omaduse Kirja teema (mail_subj) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_content
+#: classes/contentmgmt/document_statistics.aw:prop_mail_content
+msgid "Omaduse Kirja sisu (mail_content) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_content_comment
+#: classes/contentmgmt/document_statistics.aw:prop_mail_content_comment
+msgid "Omaduse Kirja sisu (mail_content) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_mail_content_help
+#: classes/contentmgmt/document_statistics.aw:prop_mail_content_help
+msgid "Omaduse Kirja sisu (mail_content) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_text_style
+#: classes/contentmgmt/document_statistics.aw:prop_text_style
+msgid "Omaduse Dokumendi pealkirja stiil (text_style) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_text_style_comment
+#: classes/contentmgmt/document_statistics.aw:prop_text_style_comment
+msgid "Omaduse Dokumendi pealkirja stiil (text_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_text_style_help
+#: classes/contentmgmt/document_statistics.aw:prop_text_style_help
+msgid "Omaduse Dokumendi pealkirja stiil (text_style) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_comment_style
+#: classes/contentmgmt/document_statistics.aw:prop_comment_style
+msgid "Omaduse Vaatamiste arvu stiil (comment_style) caption"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_comment_style_comment
+#: classes/contentmgmt/document_statistics.aw:prop_comment_style_comment
+msgid "Omaduse Vaatamiste arvu stiil (comment_style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:prop_comment_style_help
+#: classes/contentmgmt/document_statistics.aw:prop_comment_style_help
+msgid "Omaduse Vaatamiste arvu stiil (comment_style) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:group_folders
+#: classes/contentmgmt/document_statistics.aw:group_folders
+msgid "Grupi Kataloogid ja perioodid (folders) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:group_folders_help
+#: classes/contentmgmt/document_statistics.aw:group_folders_help
+msgid "Grupi Kataloogid ja perioodid (folders) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:group_mail
+#: classes/contentmgmt/document_statistics.aw:group_mail
+msgid "Grupi E-mail (mail) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:group_mail_help
+#: classes/contentmgmt/document_statistics.aw:group_mail_help
+msgid "Grupi E-mail (mail) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:group_styles
+#: classes/contentmgmt/document_statistics.aw:group_styles
+msgid "Grupi Stiilid (styles) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:group_styles_help
+#: classes/contentmgmt/document_statistics.aw:group_styles_help
+msgid "Grupi Stiilid (styles) help"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:rel_RELTYPE_SHOW_FOLDER
+#: classes/contentmgmt/document_statistics.aw:rel_RELTYPE_SHOW_FOLDER
+msgid "Seose kataloog (RELTYPE_SHOW_FOLDER) tekst"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:rel_RELTYPE_SHOW_PERIOD
+#: classes/contentmgmt/document_statistics.aw:rel_RELTYPE_SHOW_PERIOD
+msgid "Seose periood (RELTYPE_SHOW_PERIOD) tekst"
+msgstr ""
+
+# classes/contentmgmt/document_statistics.aw:rel_RELTYPE_CSS
+#: classes/contentmgmt/document_statistics.aw:rel_RELTYPE_CSS
+msgid "Seose css stiil (RELTYPE_CSS) tekst"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:82
+msgid "#sisu# asendatakse statistika tabeliga."
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:87
+msgid "P&auml;ev"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:88
+msgid "N&auml;dal"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:89
+msgid "Kuu"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:95
+msgid "Seostatud perioodid"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:96
+msgid "K&otilde;ik perioodid"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:97
+msgid "Mitteperioodilised"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:98
+msgid "Aktiivne periood"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:111
+msgid "Dokument"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:116
+msgid "Vaatamisi"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:166
+msgid "Kataloog"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:171
+msgid "K.A. Alamkataloogid"
+msgstr ""
+
+#: classes/contentmgmt/document_statistics.aw:201
+msgid "Periood"
+msgstr ""

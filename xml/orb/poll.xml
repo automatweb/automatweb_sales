@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="poll" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="poll_id" type="int" />
+					<optional name="answer_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_archive" nologin="1">
+			<function name="show_archive">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

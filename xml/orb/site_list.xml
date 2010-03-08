@@ -1,0 +1,134 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="site_list" folder="www/dev/terryf/automatweb_dev/classes/install" extends="class_base">
+		<action name="site_list" default="1">
+			<function name="orb_list">
+				<arguments>
+					<optional name="actonly" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="server_list">
+			<function name="orb_server_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_site" all_args="1">
+			<function name="orb_update_site">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_server" all_args="1">
+			<function name="orb_update_server">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_site_list">
+			<function name="orb_get_site_list">
+				<arguments>
+					<optional name="server_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="orb_get_server_list" nologin="1">
+			<function name="orb_get_server_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_server_id_by_ip" all_args="1">
+			<function name="get_server_id_by_ip">
+				<arguments>
+					<required name="ip" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_site_id_by_url" all_args="1">
+			<function name="get_site_id_by_url">
+				<arguments>
+					<required name="url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_site_data">
+			<function name="get_site_data">
+				<arguments>
+					<required name="site_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_site">
+			<function name="change_site">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_change_site">
+			<function name="submit_change_site">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_server">
+			<function name="change_server">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_change_server">
+			<function name="submit_change_server">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_site_info">
+			<function name="get_site_info">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fetch_site_data">
+			<function name="fetch_site_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_session_key">
+			<function name="create_session_key">
+				<arguments>
+					<required name="site_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_auto_update">
+			<function name="do_auto_update">
+				<arguments>
+					<required name="site_id" type="int" />
+					<required name="data" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2006-02-23 20:54+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_bank_account.aw:class_1024_help
+msgid "Klassi CRM Pangakonto help"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_acct_no
+msgid "Omaduse Arve number (acct_no) caption"
+msgstr "Account no"
+
+#: classes/applications/crm/crm_bank_account.aw:prop_acct_no_comment
+msgid "Omaduse Arve number (acct_no) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_acct_no_help
+msgid "Omaduse Arve number (acct_no) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_iban_code
+msgid "Omaduse IBAN kood (iban_code) caption"
+msgstr "IBAN code"
+
+#: classes/applications/crm/crm_bank_account.aw:prop_iban_code_comment
+msgid "Omaduse IBAN kood (iban_code) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_iban_code_help
+msgid "Omaduse IBAN kood (iban_code) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_sort_code
+msgid "Omaduse Kodukontori kood (sort_code) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_sort_code_comment
+msgid "Omaduse Kodukontori kood (sort_code) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_sort_code_help
+msgid "Omaduse Kodukontori kood (sort_code) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_bank
+msgid "Omaduse Pank (bank) caption"
+msgstr "Bank"
+
+#: classes/applications/crm/crm_bank_account.aw:prop_bank_comment
+msgid "Omaduse Pank (bank) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_bank_help
+msgid "Omaduse Pank (bank) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_currency
+msgid "Omaduse Valuuta (currency) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_currency_comment
+msgid "Omaduse Valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:prop_currency_help
+msgid "Omaduse Valuuta (currency) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bank_account.aw:rel_RELTYPE_BANK
+msgid "Seose pank (RELTYPE_BANK) tekst"
+msgstr "Bank"
+
+#: classes/applications/crm/crm_bank_account.aw:rel_RELTYPE_CURRENCY
+msgid "Seose Valuuta (RELTYPE_CURRENCY) tekst"
+msgstr ""
+
+#~ msgid "Grupi Üldine (general) pealkiri"
+#~ msgstr "General"

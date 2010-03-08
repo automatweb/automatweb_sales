@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_number_series.aw:class_1048_help
+msgid "Klassi CRM Numbriseeria help"
+msgstr ""
+
+#: classes/applications/crm/crm_number_series.aw:prop_series
+msgid "Omaduse  (series) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_number_series.aw:prop_series_comment
+msgid "Omaduse  (series) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_number_series.aw:prop_series_help
+msgid "Omaduse  (series) help"
+msgstr ""
+
+#: classes/applications/crm/crm_number_series.aw:66
+msgid "Klass"
+msgstr ""
+
+#: classes/applications/crm/crm_number_series.aw:72
+msgid "Alates"
+msgstr ""
+
+#: classes/applications/crm/crm_number_series.aw:78
+msgid "Kuni"
+msgstr ""
+
+#: classes/applications/crm/crm_number_series.aw:84
+msgid "Seeria esimene number"
+msgstr ""
+
+#: classes/applications/crm/crm_number_series.aw:90
+msgid "Seeria viimane number"
+msgstr ""
+
+#: classes/applications/crm/crm_number_series.aw:105
+#: classes/applications/crm/crm_number_series.aw:107
+msgid "vali"
+msgstr ""

@@ -1,0 +1,356 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/package_management/package_client.aw:class_1450_help
+msgid "Klassi Pakihalduse klient help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_packages_server
+msgid "Omaduse Pakiserveri url (packages_server) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_packages_server_comment
+msgid "Omaduse Pakiserveri url (packages_server) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_packages_server_help
+msgid "Omaduse Pakiserveri url (packages_server) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_toolbar
+msgid "Omaduse T&ouml;&ouml;riistariba (toolbar) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_toolbar_comment
+msgid "Omaduse T&ouml;&ouml;riistariba (toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_toolbar_help
+msgid "Omaduse T&ouml;&ouml;riistariba (toolbar) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_name
+msgid "Omaduse Nimi (search_name) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_name_comment
+msgid "Omaduse Nimi (search_name) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_name_help
+msgid "Omaduse Nimi (search_name) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_version
+msgid "Omaduse Versioon (search_version) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_version_comment
+msgid "Omaduse Versioon (search_version) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_version_help
+msgid "Omaduse Versioon (search_version) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_file
+msgid "Omaduse Fail (search_file) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_file_comment
+msgid "Omaduse Fail (search_file) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_file_help
+msgid "Omaduse Fail (search_file) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_button
+msgid "Omaduse Otsi (search_button) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_button_comment
+msgid "Omaduse Otsi (search_button) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_button_help
+msgid "Omaduse Otsi (search_button) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_list
+msgid "Omaduse Pakkide nimekiri (list) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_list_comment
+msgid "Omaduse Pakkide nimekiri (list) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_list_help
+msgid "Omaduse Pakkide nimekiri (list) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_files_list
+msgid "Omaduse Failide nimekiri (files_list) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_files_list_comment
+msgid "Omaduse Failide nimekiri (files_list) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_files_list_help
+msgid "Omaduse Failide nimekiri (files_list) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_made_toolbar
+msgid "Omaduse T&ouml;&ouml;riistariba (made_toolbar) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_made_toolbar_comment
+msgid "Omaduse T&ouml;&ouml;riistariba (made_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_made_toolbar_help
+msgid "Omaduse T&ouml;&ouml;riistariba (made_toolbar) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_made_list
+msgid "Omaduse Pakkide nimekiri (made_list) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_made_list_comment
+msgid "Omaduse Pakkide nimekiri (made_list) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_made_list_help
+msgid "Omaduse Pakkide nimekiri (made_list) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_made_files_list
+msgid "Omaduse Failide nimekiri (made_files_list) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_made_files_list_comment
+msgid "Omaduse Failide nimekiri (made_files_list) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_made_files_list_help
+msgid "Omaduse Failide nimekiri (made_files_list) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_my_list
+msgid "Omaduse Pakkide nimekiri (my_list) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_my_list_comment
+msgid "Omaduse Pakkide nimekiri (my_list) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_my_list_help
+msgid "Omaduse Pakkide nimekiri (my_list) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_my_files_list
+msgid "Omaduse Minu Failide nimekiri (my_files_list) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_my_files_list_comment
+msgid "Omaduse Minu Failide nimekiri (my_files_list) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_my_files_list_help
+msgid "Omaduse Minu Failide nimekiri (my_files_list) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_file_name
+msgid "Omaduse Nimi (search_file_name) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_file_name_comment
+msgid "Omaduse Nimi (search_file_name) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_search_file_name_help
+msgid "Omaduse Nimi (search_file_name) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_old_files
+msgid "Omaduse Vanad (Mitte t&ouml;&ouml;tavad) (old_files) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_old_files_comment
+msgid "Omaduse Vanad (Mitte t&ouml;&ouml;tavad) (old_files) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_old_files_help
+msgid "Omaduse Vanad (Mitte t&ouml;&ouml;tavad) (old_files) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_files_search_button
+msgid "Omaduse Otsi (files_search_button) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_files_search_button_comment
+msgid "Omaduse Otsi (files_search_button) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_files_search_button_help
+msgid "Omaduse Otsi (files_search_button) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_my_files
+msgid "Omaduse Failide nimekiri (my_files) caption"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_my_files_comment
+msgid "Omaduse Failide nimekiri (my_files) kommentaar"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:prop_my_files_help
+msgid "Omaduse Failide nimekiri (my_files) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:group_packages
+msgid "Grupi Saadaval paketid (packages) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:group_packages_help
+msgid "Grupi Saadaval paketid (packages) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:group_made_packages
+msgid "Grupi Loodud paketid (made_packages) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:group_made_packages_help
+msgid "Grupi Loodud paketid (made_packages) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:group_my_packages
+msgid "Grupi Kasutusel paketid (my_packages) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:group_my_packages_help
+msgid "Grupi Kasutusel paketid (my_packages) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:group_my_files
+msgid "Grupi Paigaldatud failid (my_files) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:group_my_files_help
+msgid "Grupi Paigaldatud failid (my_files) help"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:layout_packages_search
+msgid "Kujundusosa Pakkide&nbsp;otsing (packages_search) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:layout_packages_list
+msgid "Kujundusosa &nbsp; (packages_list) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:layout_made_packages_list
+msgid "Kujundusosa &nbsp; (made_packages_list) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:layout_files_search
+msgid "Kujundusosa Failide&nbsp;otsing (files_search) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:layout_files_list
+msgid "Kujundusosa &nbsp; (files_list) pealkiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:208
+msgid "Failid:"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:306
+msgid "Pakkide nimekiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:317 classes/applications/package_management/package_client.aw:436 classes/applications/package_management/package_client.aw:573
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:322 classes/applications/package_management/package_client.aw:384 classes/applications/package_management/package_client.aw:441 classes/applications/package_management/package_client.aw:578
+msgid "Versioon"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:328 classes/applications/package_management/package_client.aw:447 classes/applications/package_management/package_client.aw:584
+msgid "Kirjeldus"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:334 classes/applications/package_management/package_client.aw:453 classes/applications/package_management/package_client.aw:590
+msgid "S&otilde;ltuvused"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:340 classes/applications/package_management/package_client.aw:596
+msgid "x"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:363 classes/applications/package_management/package_client.aw:550
+msgid "Download"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:373
+msgid "Paigaldatud failide nimekiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:377
+msgid "Fail"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:390
+msgid "Pakett"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:397
+msgid "paketi versioon"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:403
+msgid "Paigaldamise aeg"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:425
+msgid "Minu alla t&otilde;mmatud pakettide nimekiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:459
+msgid "Viimane versioon"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:465
+msgid "Tegevused"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:536
+msgid "Eemalda"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:540
+msgid "Paigalda"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:562
+msgid "Tehtud pakettide nimekiri"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:633
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/package_management/package_client.aw:633
+msgid "Upload"
+msgstr ""
+

@@ -1,0 +1,139 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:class_1133_help
+msgid "Klassi Kiirlisamine help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:prop_bm_tb
+msgid "Omaduse  (bm_tb) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:prop_bm_tb_comment
+msgid "Omaduse  (bm_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:prop_bm_tb_help
+msgid "Omaduse  (bm_tb) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:prop_bm_tree
+msgid "Omaduse  (bm_tree) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:prop_bm_tree_comment
+msgid "Omaduse  (bm_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:prop_bm_tree_help
+msgid "Omaduse  (bm_tree) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:prop_bm_table
+msgid "Omaduse  (bm_table) caption"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:prop_bm_table_comment
+msgid "Omaduse  (bm_table) kommentaar"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:prop_bm_table_help
+msgid "Omaduse  (bm_table) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:group_bms
+msgid "Grupi Kiirmen&uuml;&uuml; (bms) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:group_bms_help
+msgid "Grupi Kiirmen&uuml;&uuml; (bms) help"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:rel_RELTYPE_PERSON
+msgid "Seose Omanik (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:layout_bm_tree
+msgid "Kujundusosa Puu (bm_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:64
+msgid "Uus"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:68
+msgid "Kataloog"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:73
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:216
+msgid "Objekti t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:80
+msgid "Salvesta"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:86
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:93
+msgid "Kopeeri"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:100
+msgid "L&otilde;ika"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:109
+msgid "Kleebi"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:205
+msgid "Ikoon"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:211
+msgid "Objekti nimi"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:221
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:226
+msgid "Kasutaja tekst"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:232
+msgid "Objektid pannakse"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:370
+msgid "Pane kiirmen&uuml;&uuml;sse"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:374
+msgid "Eemalda kiirmen&uuml;&uuml;st"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:378
+msgid "Toimeta kiirmen&uuml;&uuml;d"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:427
+msgid "Lisa kiiresti"
+msgstr ""
+
+#: classes/applications/customer_satisfaction_center/obj_quick_add.aw:456
+msgid "%s kiirlisamine"
+msgstr ""

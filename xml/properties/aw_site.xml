@@ -1,0 +1,169 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>site_url</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Saidi url</caption>
+      </property>
+      <property>
+            <name>default_user</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Default kasutaja</caption>
+      </property>
+      <property>
+            <name>default_user_pwd</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>password</type>
+            <caption>Default kasutaja parool</caption>
+      </property>
+      <property>
+            <name>use_existing_database</name>
+            <table>objects</table>
+            <group>db</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Kasuta olemasolevat andmebaasi</caption>
+      </property>
+      <property>
+            <name>select_db</name>
+            <table>objects</table>
+            <group>db</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Vali andmebaas</caption>
+      </property>
+      <property>
+            <name>select_parent_folder</name>
+            <table>objects</table>
+            <group>db</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Vali kataloog olemasolevas baasis, kuhu alla sait lisatakse</caption>
+      </property>
+      <property>
+            <name>use_existing_templates</name>
+            <table>objects</table>
+            <group>templates</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Vali olemasolevad templated</caption>
+      </property>
+      <property>
+            <name>select_tpl_sites</name>
+            <table>objects</table>
+            <group>templates</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <multiple>1</multiple>
+            <size>10</size>
+            <caption>Vali saidid, mille templatesid valida saad</caption>
+      </property>
+      <property>
+            <name>select_tpl_folders</name>
+            <table>objects</table>
+            <group>templates</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <multiple>1</multiple>
+            <size>20</size>
+            <caption>Vali templatede kataloogid, mis uude saiti kopeerida</caption>
+      </property>
+      <property>
+            <name>select_imgcss_sites</name>
+            <table>objects</table>
+            <group>templates</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Vali sait, millelt v&amp;amp;otilde;tta css ja pildid</caption>
+      </property>
+      <property>
+            <name>gen_site</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Genereeri sait!</caption>
+      </property>
+      <property>
+            <name>upd_site</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Uuenda saidi m&amp;amp;auml;&amp;amp;auml;rangud!</caption>
+      </property>
+      <property>
+            <name>ch_warnings</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <store>no</store>
+            <caption>Uuendamise hoiatused</caption>
+      </property>
+      <property>
+            <name>site_errmsg</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <caption>Miks saiti ei saa genereerida</caption>
+      </property>
+      <property>
+            <name>site_warnmsg</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <caption>Hoiatused:</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SITE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <templates>
+                  <caption>Templated</caption>
+            </templates>
+            <db>
+                  <caption>Andmebaas</caption>
+            </db>
+      </groupinfo>
+      <reltypes>
+            <LAYOUT>
+                  <value>1</value>
+                  <clid>CL_LAYOUT</clid>
+                  <caption>saidi layout</caption>
+            </LAYOUT>
+      </reltypes>
+</properties>
+

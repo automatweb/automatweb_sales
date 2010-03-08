@@ -1,0 +1,7 @@
+MSG_STORAGE_SAVE
+
+This message will get posted when an object is saved.
+The message parameter is the class_id of the object.
+
+arguments:
+oid - the id of the object saved 

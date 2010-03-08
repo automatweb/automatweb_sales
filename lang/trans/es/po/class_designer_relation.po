@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/class_designer/class_designer_relation.aw:class_893_help
+msgid "Klassi Seos help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_relation.aw:prop_r_class_id
+msgid "Omaduse Seostatav klass (r_class_id) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_relation.aw:prop_r_class_id_comment
+msgid "Omaduse Seostatav klass (r_class_id) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_relation.aw:prop_r_class_id_help
+msgid "Omaduse Seostatav klass (r_class_id) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_relation.aw:prop_value
+msgid "Omaduse Number (value) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_relation.aw:prop_value_comment
+msgid "Omaduse Number (value) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer_relation.aw:prop_value_help
+msgid "Omaduse Number (value) help"
+msgstr ""
+

@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="calendar_registration_form_conf" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="submit_register" nologin="1">
+			<function name="submit_register">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_data" nologin="1">
+			<function name="show_data">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="data" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,80 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>name</field>
+            <type>textbox</type>
+            <caption>Kasutajanimi</caption>
+      </property>
+      <property>
+            <name>links_count</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>links_count</field>
+            <caption>Linkide arv</caption>
+      </property>
+      <property>
+            <name>import_time_estimate</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>import_time_estimate</field>
+            <caption>Umbkaudne impordi aeg</caption>
+      </property>
+      <property>
+            <name>import_folder</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kuhu importida</caption>
+      </property>
+      <property>
+            <name>document_cfgform</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CFGFORM</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Dokumendivorm</caption>
+      </property>
+      <property>
+            <name>do_import</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <store>no</store>
+            <field>do_import</field>
+            <caption>Impordi</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_DELICIOUSIMPORT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>hannes</maintainer>
+      </classinfo>
+      <reltypes>
+            <FOLDER>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Impordikaust</caption>
+            </FOLDER>
+            <CFGFORM>
+                  <value>2</value>
+                  <clid>CL_CFGFORM</clid>
+                  <caption>Dokumendi seadetevorm</caption>
+            </CFGFORM>
+      </reltypes>
+</properties>
+

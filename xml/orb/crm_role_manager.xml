@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_role_manager" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="class_base">
+		<action name="change">
+			<function name="change">
+				<arguments>
+					<required name="from_org" type="int" acl="view" />
+					<optional name="to_org" type="int" acl="view" />
+					<optional name="to_project" type="int" acl="view" />
+					<optional name="unit" />
+					<optional name="cat" />
+					<optional name="list" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit">
+			<function name="submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_list">
+			<function name="submit_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

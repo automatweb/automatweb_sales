@@ -1,0 +1,1046 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/crm/crm_call.aw:class_223_help
+msgid "Klassi K&otilde;ne help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_predicates
+msgid "Omaduse Eeldustegevused (predicates) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_predicates_comment
+msgid "Omaduse Eeldustegevused (predicates) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_predicates_help
+msgid "Omaduse Eeldustegevused (predicates) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_goal
+msgid "Omaduse Verstapost (is_goal) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_goal_comment
+msgid "Omaduse Verstapost (is_goal) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_goal_help
+msgid "Omaduse Verstapost (is_goal) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_call_tools
+msgid "Omaduse K&otilde;ne toimingud (call_tools) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_call_tools_comment
+msgid "Omaduse K&otilde;ne toimingud (call_tools) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_call_tools_help
+msgid "Omaduse K&otilde;ne toimingud (call_tools) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_phone
+msgid "Omaduse Number (phone) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_phone_comment
+msgid "Omaduse Number (phone) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_phone_help
+msgid "Omaduse Number (phone) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_result
+msgid "Omaduse K&otilde;ne tulemus (result) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_result_comment
+msgid "Omaduse K&otilde;ne tulemus (result) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_result_help
+msgid "Omaduse K&otilde;ne tulemus (result) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_new_call_date
+msgid "Omaduse Uue k&otilde;ne aeg (new_call_date) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_new_call_date_comment
+msgid "Omaduse Uue k&otilde;ne aeg (new_call_date) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_new_call_date_help
+msgid "Omaduse Uue k&otilde;ne aeg (new_call_date) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_add_clauses
+msgid "Omaduse Lisatingimused (add_clauses) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_add_clauses_comment
+msgid "Omaduse Lisatingimused (add_clauses) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_add_clauses_help
+msgid "Omaduse Lisatingimused (add_clauses) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_start1
+msgid "Omaduse Algus (start1) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_start1_comment
+msgid "Omaduse Algus (start1) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_start1_help
+msgid "Omaduse Algus (start1) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_end
+msgid "Omaduse L&otilde;peb (end) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_end_comment
+msgid "Omaduse L&otilde;peb (end) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_end_help
+msgid "Omaduse L&otilde;peb (end) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deadline
+msgid "Omaduse T&auml;htaeg (deadline) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deadline_comment
+msgid "Omaduse T&auml;htaeg (deadline) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deadline_help
+msgid "Omaduse T&auml;htaeg (deadline) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_real_start
+msgid "Omaduse Tegelik algus (real_start) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_real_start_comment
+msgid "Omaduse Tegelik algus (real_start) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_real_start_help
+msgid "Omaduse Tegelik algus (real_start) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_real_duration
+msgid "Omaduse Tegelik kestus (h) (real_duration) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_real_duration_comment
+msgid "Omaduse Tegelik kestus (h) (real_duration) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_real_duration_help
+msgid "Omaduse Tegelik kestus (h) (real_duration) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_sales_assigned_salesman
+msgid "Omaduse M&uuml;&uuml;giesindaja (sales_assigned_salesman) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_sales_assigned_salesman_comment
+msgid "Omaduse M&uuml;&uuml;giesindaja (sales_assigned_salesman) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_sales_assigned_salesman_help
+msgid "Omaduse M&uuml;&uuml;giesindaja (sales_assigned_salesman) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_sales_lead_source
+msgid "Omaduse Soovitaja/allikas (sales_lead_source) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_sales_lead_source_comment
+msgid "Omaduse Soovitaja/allikas (sales_lead_source) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_sales_lead_source_help
+msgid "Omaduse Soovitaja/allikas (sales_lead_source) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_sales_schedule_job
+msgid "Omaduse  (sales_schedule_job) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_sales_schedule_job_comment
+msgid "Omaduse  (sales_schedule_job) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_sales_schedule_job_help
+msgid "Omaduse  (sales_schedule_job) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_hrs_table
+msgid "Omaduse  (hrs_table) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_hrs_table_comment
+msgid "Omaduse  (hrs_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_hrs_table_help
+msgid "Omaduse  (hrs_table) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_center_bit_vis
+msgid "Omaduse  (center_bit_vis) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_center_bit_vis_comment
+msgid "Omaduse  (center_bit_vis) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_center_bit_vis_help
+msgid "Omaduse  (center_bit_vis) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_content
+msgid "Omaduse  (content) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_content_comment
+msgid "Omaduse  (content) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_content_help
+msgid "Omaduse  (content) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_co_tb
+msgid "Omaduse  (co_tb) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_co_tb_comment
+msgid "Omaduse  (co_tb) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_co_tb_help
+msgid "Omaduse  (co_tb) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_co_table
+msgid "Omaduse  (co_table) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_co_table_comment
+msgid "Omaduse  (co_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_co_table_help
+msgid "Omaduse  (co_table) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_project_tb
+msgid "Omaduse  (project_tb) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_project_tb_comment
+msgid "Omaduse  (project_tb) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_project_tb_help
+msgid "Omaduse  (project_tb) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_proj_table
+msgid "Omaduse  (proj_table) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_proj_table_comment
+msgid "Omaduse  (proj_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_proj_table_help
+msgid "Omaduse  (proj_table) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_impl_tb
+msgid "Omaduse  (impl_tb) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_impl_tb_comment
+msgid "Omaduse  (impl_tb) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_impl_tb_help
+msgid "Omaduse  (impl_tb) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_parts_table
+msgid "Omaduse  (parts_table) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_parts_table_comment
+msgid "Omaduse  (parts_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_parts_table_help
+msgid "Omaduse  (parts_table) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_files_tb
+msgid "Omaduse  (files_tb) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_files_tb_comment
+msgid "Omaduse  (files_tb) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_files_tb_help
+msgid "Omaduse  (files_tb) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_files_table
+msgid "Omaduse  (files_table) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_files_table_comment
+msgid "Omaduse  (files_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_files_table_help
+msgid "Omaduse  (files_table) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_bills_tb
+msgid "Omaduse  (bills_tb) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_bills_tb_comment
+msgid "Omaduse  (bills_tb) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_bills_tb_help
+msgid "Omaduse  (bills_tb) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_bills_table
+msgid "Omaduse  (bills_table) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_bills_table_comment
+msgid "Omaduse  (bills_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_bills_table_help
+msgid "Omaduse  (bills_table) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_project
+msgid "Omaduse Projekt (project) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_project_comment
+msgid "Omaduse Projekt (project) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_project_help
+msgid "Omaduse Projekt (project) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_done
+msgid "Omaduse Tehtud (is_done) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_done_comment
+msgid "Omaduse Tehtud (is_done) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_done_help
+msgid "Omaduse Tehtud (is_done) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_personal
+msgid "Omaduse Isiklik (is_personal) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_personal_comment
+msgid "Omaduse Isiklik (is_personal) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_personal_help
+msgid "Omaduse Isiklik (is_personal) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_promoter
+msgid "Omaduse Korraldaja (promoter) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_promoter_comment
+msgid "Omaduse Korraldaja (promoter) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_promoter_help
+msgid "Omaduse Korraldaja (promoter) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_work
+msgid "Omaduse T&ouml;&ouml;aeg (is_work) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_work_comment
+msgid "Omaduse T&ouml;&ouml;aeg (is_work) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_is_work_help
+msgid "Omaduse T&ouml;&ouml;aeg (is_work) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_bill_no
+msgid "Omaduse Arve number (bill_no) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_bill_no_comment
+msgid "Omaduse Arve number (bill_no) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_bill_no_help
+msgid "Omaduse Arve number (bill_no) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_hr_price
+msgid "Omaduse Tunni hind (hr_price) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_hr_price_comment
+msgid "Omaduse Tunni hind (hr_price) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_hr_price_help
+msgid "Omaduse Tunni hind (hr_price) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_in_budget
+msgid "Omaduse Eelarvesse (in_budget) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_in_budget_comment
+msgid "Omaduse Eelarvesse (in_budget) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_in_budget_help
+msgid "Omaduse Eelarvesse (in_budget) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_time_guess
+msgid "Omaduse Prognoositav tundide arv (time_guess) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_time_guess_comment
+msgid "Omaduse Prognoositav tundide arv (time_guess) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_time_guess_help
+msgid "Omaduse Prognoositav tundide arv (time_guess) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_time_real
+msgid "Omaduse Tegelik tundide arv (time_real) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_time_real_comment
+msgid "Omaduse Tegelik tundide arv (time_real) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_time_real_help
+msgid "Omaduse Tegelik tundide arv (time_real) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_time_to_cust
+msgid "Omaduse Tundide arv kliendile (time_to_cust) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_time_to_cust_comment
+msgid "Omaduse Tundide arv kliendile (time_to_cust) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_time_to_cust_help
+msgid "Omaduse Tundide arv kliendile (time_to_cust) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_priority
+msgid "Omaduse Prioriteet (priority) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_priority_comment
+msgid "Omaduse Prioriteet (priority) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_priority_help
+msgid "Omaduse Prioriteet (priority) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_hr_price_currency
+msgid "Omaduse Valuuta (hr_price_currency) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_hr_price_currency_comment
+msgid "Omaduse Valuuta (hr_price_currency) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_hr_price_currency_help
+msgid "Omaduse Valuuta (hr_price_currency) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_unit
+msgid "Omaduse &Uuml;hik (deal_unit) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_unit_comment
+msgid "Omaduse &Uuml;hik (deal_unit) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_unit_help
+msgid "Omaduse &Uuml;hik (deal_unit) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_amount
+msgid "Omaduse Kogus (deal_amount) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_amount_comment
+msgid "Omaduse Kogus (deal_amount) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_amount_help
+msgid "Omaduse Kogus (deal_amount) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_price
+msgid "Omaduse Kokkuleppehind (deal_price) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_price_comment
+msgid "Omaduse Kokkuleppehind (deal_price) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_price_help
+msgid "Omaduse Kokkuleppehind (deal_price) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_has_tax
+msgid "Omaduse Sisestati koos k&auml;ibemaksuga (deal_has_tax) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_has_tax_comment
+msgid "Omaduse Sisestati koos k&auml;ibemaksuga (deal_has_tax) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_deal_has_tax_help
+msgid "Omaduse Sisestati koos k&auml;ibemaksuga (deal_has_tax) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_send_bill
+msgid "Omaduse Saata arve (send_bill) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_send_bill_comment
+msgid "Omaduse Saata arve (send_bill) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_send_bill_help
+msgid "Omaduse Saata arve (send_bill) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_customer_relation
+msgid "Omaduse Kliendisuhe (customer_relation) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_customer_relation_comment
+msgid "Omaduse Kliendisuhe (customer_relation) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_customer_relation_help
+msgid "Omaduse Kliendisuhe (customer_relation) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_presentation
+msgid "Omaduse Presentatsioon (presentation) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_presentation_comment
+msgid "Omaduse Presentatsioon (presentation) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_presentation_help
+msgid "Omaduse Presentatsioon (presentation) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_task_toolbar
+msgid "Omaduse Toolbar (task_toolbar) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_task_toolbar_comment
+msgid "Omaduse Toolbar (task_toolbar) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_task_toolbar_help
+msgid "Omaduse Toolbar (task_toolbar) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_recurrence
+msgid "Omaduse Kordused (recurrence) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_recurrence_comment
+msgid "Omaduse Kordused (recurrence) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_recurrence_help
+msgid "Omaduse Kordused (recurrence) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_calendar_selector
+msgid "Omaduse Kalendrid (calendar_selector) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_calendar_selector_comment
+msgid "Omaduse Kalendrid (calendar_selector) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_calendar_selector_help
+msgid "Omaduse Kalendrid (calendar_selector) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_project_selector
+msgid "Omaduse Projektid (project_selector) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_project_selector_comment
+msgid "Omaduse Projektid (project_selector) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_project_selector_help
+msgid "Omaduse Projektid (project_selector) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_comment_list
+msgid "Omaduse Kommentaarid (comment_list) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_comment_list_comment
+msgid "Omaduse Kommentaarid (comment_list) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_comment_list_help
+msgid "Omaduse Kommentaarid (comment_list) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_participant
+msgid "Omaduse Osalejad (participant) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_participant_comment
+msgid "Omaduse Osalejad (participant) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_participant_help
+msgid "Omaduse Osalejad (participant) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_company
+msgid "Omaduse Organisatsioon (search_contact_company) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_company_comment
+msgid "Omaduse Organisatsioon (search_contact_company) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_company_help
+msgid "Omaduse Organisatsioon (search_contact_company) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_firstname
+msgid "Omaduse Eesnimi (search_contact_firstname) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_firstname_comment
+msgid "Omaduse Eesnimi (search_contact_firstname) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_firstname_help
+msgid "Omaduse Eesnimi (search_contact_firstname) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_lastname
+msgid "Omaduse Perenimi (search_contact_lastname) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_lastname_comment
+msgid "Omaduse Perenimi (search_contact_lastname) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_lastname_help
+msgid "Omaduse Perenimi (search_contact_lastname) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_code
+msgid "Omaduse Isikukood (search_contact_code) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_code_comment
+msgid "Omaduse Isikukood (search_contact_code) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_code_help
+msgid "Omaduse Isikukood (search_contact_code) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_button
+msgid "Omaduse Otsi (search_contact_button) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_button_comment
+msgid "Omaduse Otsi (search_contact_button) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_button_help
+msgid "Omaduse Otsi (search_contact_button) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_results
+msgid "Omaduse Tulemuste tabel (search_contact_results) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_results_comment
+msgid "Omaduse Tulemuste tabel (search_contact_results) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_search_contact_results_help
+msgid "Omaduse Tulemuste tabel (search_contact_results) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_other_calls
+msgid "Omaduse  (other_calls) caption"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_other_calls_comment
+msgid "Omaduse  (other_calls) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_call.aw:prop_other_calls_help
+msgid "Omaduse  (other_calls) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_recurrence
+msgid "Grupi Kordumine (recurrence) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_recurrence_help
+msgid "Grupi Kordumine (recurrence) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_calendars
+msgid "Grupi Kalendrid (calendars) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_calendars_help
+msgid "Grupi Kalendrid (calendars) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_projects
+msgid "Grupi Projektid (projects) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_projects_help
+msgid "Grupi Projektid (projects) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_comments
+msgid "Grupi Kommentaarid (comments) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_comments_help
+msgid "Grupi Kommentaarid (comments) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_participants
+msgid "Grupi Osalejad (participants) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_participants_help
+msgid "Grupi Osalejad (participants) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_other_calls
+msgid "Grupi Eelmised k&otilde;ned (other_calls) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_other_calls_help
+msgid "Grupi Eelmised k&otilde;ned (other_calls) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_predicates
+msgid "Grupi Eeldused (predicates) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_predicates_help
+msgid "Grupi Eeldused (predicates) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_other_settings
+msgid "Grupi Muud seaded (other_settings) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:group_other_settings_help
+msgid "Grupi Muud seaded (other_settings) help"
+msgstr ""
+
+#: classes/crm/crm_call.aw:rel_RELTYPE_RECURRENCE
+msgid "Seose Kordus (RELTYPE_RECURRENCE) tekst"
+msgstr ""
+
+#: classes/crm/crm_call.aw:rel_RELTYPE_CUSTOMER_RELATION
+msgid "Seose Kliendisuhe (RELTYPE_CUSTOMER_RELATION) tekst"
+msgstr ""
+
+#: classes/crm/crm_call.aw:rel_RELTYPE_CUSTOMER
+msgid "Seose Klient (RELTYPE_CUSTOMER) tekst"
+msgstr ""
+
+#: classes/crm/crm_call.aw:rel_RELTYPE_PROJECT
+msgid "Seose Projekt (RELTYPE_PROJECT) tekst"
+msgstr ""
+
+#: classes/crm/crm_call.aw:rel_RELTYPE_PREDICATE
+msgid "Seose Eeldustegevus (RELTYPE_PREDICATE) tekst"
+msgstr ""
+
+#: classes/crm/crm_call.aw:rel_RELTYPE_FILE
+msgid "Seose Fail (RELTYPE_FILE) tekst"
+msgstr ""
+
+#: classes/crm/crm_call.aw:rel_RELTYPE_ROW
+msgid "Seose Rida (RELTYPE_ROW) tekst"
+msgstr ""
+
+#: classes/crm/crm_call.aw:rel_RELTYPE_RESULT_PRESENTATION
+msgid "Seose Presentatsioon (RELTYPE_RESULT_PRESENTATION) tekst"
+msgstr ""
+
+#: classes/crm/crm_call.aw:rel_RELTYPE_RESULT_CALL
+msgid "Seose Uus k&otilde;ne (RELTYPE_RESULT_CALL) tekst"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_top_bit
+msgid "Kujundusosa P&otilde;hiandmed (top_bit) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_center_bit_left_ct
+msgid "Kujundusosa Sisu (center_bit_left_ct) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_center_bit_right_top
+msgid "Kujundusosa Osapooled (center_bit_right_top) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_center_bit_right_bottom
+msgid "Kujundusosa Manused (center_bit_right_bottom) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_content_bit
+msgid "Kujundusosa Sisu (content_bit) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_customer_bit
+msgid "Kujundusosa Tellijad (customer_bit) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_project_bit
+msgid "Kujundusosa Projektid (project_bit) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_impl_bit
+msgid "Kujundusosa Osalejad (impl_bit) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_files_bit
+msgid "Kujundusosa Manused (files_bit) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:layout_bills_bit
+msgid "Kujundusosa Arved (bills_bit) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_call.aw:305 classes/crm/crm_call.aw:692
+msgid "Salvesta"
+msgstr ""
+
+#: classes/crm/crm_call.aw:316
+msgid "Alusta k&otilde;net"
+msgstr ""
+
+#: classes/crm/crm_call.aw:325
+msgid "L&otilde;peta k&otilde;ne ja salvesta andmed"
+msgstr ""
+
+#: classes/crm/crm_call.aw:460
+msgid "Aktiivne"
+msgstr ""
+
+#: classes/crm/crm_call.aw:461 classes/crm/crm_call.aw:1071
+msgid "Tehtud"
+msgstr ""
+
+#: classes/crm/crm_call.aw:462
+msgid "Isiklik"
+msgstr ""
+
+#: classes/crm/crm_call.aw:463 classes/crm/crm_call.aw:1078
+msgid "Arvele"
+msgstr ""
+
+#: classes/crm/crm_call.aw:464 classes/crm/crm_call.aw:475
+msgid "T&ouml;&ouml;aeg"
+msgstr ""
+
+#: classes/crm/crm_call.aw:674
+msgid "Kustuta valitud"
+msgstr ""
+
+#: classes/crm/crm_call.aw:683
+msgid "Otsi"
+msgstr ""
+
+#: classes/crm/crm_call.aw:770
+msgid "Uue k&otilde;ne aeg peab olema m&auml;&auml;ratud"
+msgstr ""
+
+#: classes/crm/crm_call.aw:808
+msgid "Uee k&otilde;ne aeg ei tohi olla minevikus!"
+msgstr ""
+
+#: classes/crm/crm_call.aw:846
+msgid "Tulemus peab olema m&auml;&auml;ratud"
+msgstr ""
+
+#: classes/crm/crm_call.aw:994
+msgid "Nimi, osaleja ja projekt peavad olema t&auml;idetud!"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1054
+msgid "Nimi"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1059
+msgid "Osaleja"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1065 classes/crm/crm_call.aw:1657
+msgid "Projekt"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1083
+msgid "Kirjeldus"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1214
+msgid "Millal"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1221 classes/crm/crm_call.aw:1627
+msgid "Sisu"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1226
+msgid "Vaata"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1305
+msgid "Prognoositav tundide arv"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1310
+msgid "Tegelik tundide arv"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1315
+msgid "Tundide arv kliendile"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1320
+msgid "Arve number"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1354
+msgid "Loo uus arve"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1594
+msgid "L&uuml;hikirjeldus"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1600
+msgid "Algus"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1607
+msgid "L&otilde;pp"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1614
+msgid "Tunnihind"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1620
+msgid "K&otilde;ne suund"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1621
+msgid "Tuli sisse"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1621
+msgid "L&auml;ks v&auml;lja"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1635
+msgid "Klient"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1642
+msgid "Organisatsioon"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1649
+msgid "Isik"
+msgstr ""
+
+#: classes/crm/crm_call.aw:1665 classes/crm/crm_call.aw:1667
+msgid "Lisa uus K&otilde;ne!"
+msgstr ""

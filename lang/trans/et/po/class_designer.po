@@ -1,0 +1,805 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/class_designer/class_designer.aw:class_320_help
+#: classes/applications/class_designer/class_designer.aw:class_320_help
+msgid "Klassi Klassidisainer help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_is_registered
+#: classes/applications/class_designer/class_designer.aw:prop_is_registered
+msgid "Omaduse Klass on registreeritud (is_registered) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_is_registered_comment
+#: classes/applications/class_designer/class_designer.aw:prop_is_registered_comment
+msgid "Omaduse Klass on registreeritud (is_registered) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_is_registered_help
+#: classes/applications/class_designer/class_designer.aw:prop_is_registered_help
+msgid "Omaduse Klass on registreeritud (is_registered) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_infomsg
+#: classes/applications/class_designer/class_designer.aw:prop_infomsg
+msgid "Omaduse Info (infomsg) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_infomsg_comment
+#: classes/applications/class_designer/class_designer.aw:prop_infomsg_comment
+msgid "Omaduse Info (infomsg) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_infomsg_help
+#: classes/applications/class_designer/class_designer.aw:prop_infomsg_help
+msgid "Omaduse Info (infomsg) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_visualize
+#: classes/applications/class_designer/class_designer.aw:prop_visualize
+msgid "Omaduse Eelvaade (visualize) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_visualize_comment
+#: classes/applications/class_designer/class_designer.aw:prop_visualize_comment
+msgid "Omaduse Eelvaade (visualize) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_visualize_help
+#: classes/applications/class_designer/class_designer.aw:prop_visualize_help
+msgid "Omaduse Eelvaade (visualize) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_from_existing_class
+#: classes/applications/class_designer/class_designer.aw:prop_from_existing_class
+msgid "Omaduse Olemasoleva klassi p&otilde;hjal (from_existing_class) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_from_existing_class_comment
+#: classes/applications/class_designer/class_designer.aw:prop_from_existing_class_comment
+msgid "Omaduse Olemasoleva klassi p&otilde;hjal (from_existing_class) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_from_existing_class_help
+#: classes/applications/class_designer/class_designer.aw:prop_from_existing_class_help
+msgid "Omaduse Olemasoleva klassi p&otilde;hjal (from_existing_class) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:prop_from_existing_class_file
+msgid "Omaduse Olemasoleva klassi fail (from_existing_class_file) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:prop_from_existing_class_file_comment
+msgid "Omaduse Olemasoleva klassi fail (from_existing_class_file) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:prop_from_existing_class_file_help
+msgid "Omaduse Olemasoleva klassi fail (from_existing_class_file) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_reg_class_id
+#: classes/applications/class_designer/class_designer.aw:prop_reg_class_id
+msgid "Omaduse CLID (reg_class_id) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_reg_class_id_comment
+#: classes/applications/class_designer/class_designer.aw:prop_reg_class_id_comment
+msgid "Omaduse CLID (reg_class_id) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_reg_class_id_help
+#: classes/applications/class_designer/class_designer.aw:prop_reg_class_id_help
+msgid "Omaduse CLID (reg_class_id) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_object_name
+#: classes/applications/class_designer/class_designer.aw:prop_object_name
+msgid "Omaduse Objekti nime omadus (object_name) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_object_name_comment
+#: classes/applications/class_designer/class_designer.aw:prop_object_name_comment
+msgid "Omaduse Objekti nime omadus (object_name) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_object_name_help
+#: classes/applications/class_designer/class_designer.aw:prop_object_name_help
+msgid "Omaduse Objekti nime omadus (object_name) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_can_add
+#: classes/applications/class_designer/class_designer.aw:prop_can_add
+msgid "Omaduse Saab lisada (can_add) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_can_add_comment
+#: classes/applications/class_designer/class_designer.aw:prop_can_add_comment
+msgid "Omaduse Saab lisada (can_add) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_can_add_help
+#: classes/applications/class_designer/class_designer.aw:prop_can_add_help
+msgid "Omaduse Saab lisada (can_add) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_class_folder
+#: classes/applications/class_designer/class_designer.aw:prop_class_folder
+msgid "Omaduse Asukoht lisamismenüüs (class_folder) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_class_folder_comment
+#: classes/applications/class_designer/class_designer.aw:prop_class_folder_comment
+msgid "Omaduse Asukoht lisamismenüüs (class_folder) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_class_folder_help
+#: classes/applications/class_designer/class_designer.aw:prop_class_folder_help
+msgid "Omaduse Asukoht lisamismenüüs (class_folder) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_relationmgr
+#: classes/applications/class_designer/class_designer.aw:prop_relationmgr
+msgid "Omaduse Seostehaldur (relationmgr) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_relationmgr_comment
+#: classes/applications/class_designer/class_designer.aw:prop_relationmgr_comment
+msgid "Omaduse Seostehaldur (relationmgr) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_relationmgr_help
+#: classes/applications/class_designer/class_designer.aw:prop_relationmgr_help
+msgid "Omaduse Seostehaldur (relationmgr) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_no_comment
+#: classes/applications/class_designer/class_designer.aw:prop_no_comment
+msgid "Omaduse Kommentaari muuta ei saa (no_comment) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_no_comment_comment
+#: classes/applications/class_designer/class_designer.aw:prop_no_comment_comment
+msgid "Omaduse Kommentaari muuta ei saa (no_comment) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_no_comment_help
+#: classes/applications/class_designer/class_designer.aw:prop_no_comment_help
+msgid "Omaduse Kommentaari muuta ei saa (no_comment) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_no_status
+#: classes/applications/class_designer/class_designer.aw:prop_no_status
+msgid "Omaduse Aktiivsust muuta ei saa (no_status) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_no_status_comment
+#: classes/applications/class_designer/class_designer.aw:prop_no_status_comment
+msgid "Omaduse Aktiivsust muuta ei saa (no_status) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_no_status_help
+#: classes/applications/class_designer/class_designer.aw:prop_no_status_help
+msgid "Omaduse Aktiivsust muuta ei saa (no_status) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_classdef
+#: classes/applications/class_designer/class_designer.aw:prop_classdef
+msgid "Omaduse Klassi definitsioon (classdef) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_classdef_comment
+#: classes/applications/class_designer/class_designer.aw:prop_classdef_comment
+msgid "Omaduse Klassi definitsioon (classdef) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_classdef_help
+#: classes/applications/class_designer/class_designer.aw:prop_classdef_help
+msgid "Omaduse Klassi definitsioon (classdef) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:prop_create_sql
+msgid "Omaduse SQL definitsioon (create_sql) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:prop_create_sql_comment
+msgid "Omaduse SQL definitsioon (create_sql) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:prop_create_sql_help
+msgid "Omaduse SQL definitsioon (create_sql) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:prop_alter_sql
+msgid "Omaduse SQL definitsioon (alter_sql) caption"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:prop_alter_sql_comment
+msgid "Omaduse SQL definitsioon (alter_sql) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:prop_alter_sql_help
+msgid "Omaduse SQL definitsioon (alter_sql) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_planner_toolbar
+#: classes/applications/class_designer/class_designer.aw:prop_planner_toolbar
+msgid "Omaduse Planeerija toolbar (planner_toolbar) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_planner_toolbar_comment
+#: classes/applications/class_designer/class_designer.aw:prop_planner_toolbar_comment
+msgid "Omaduse Planeerija toolbar (planner_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_planner_toolbar_help
+#: classes/applications/class_designer/class_designer.aw:prop_planner_toolbar_help
+msgid "Omaduse Planeerija toolbar (planner_toolbar) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_el_defs_toolbar
+#: classes/applications/class_designer/class_designer.aw:prop_el_defs_toolbar
+msgid "Omaduse Elementide toolbar (el_defs_toolbar) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_el_defs_toolbar_comment
+#: classes/applications/class_designer/class_designer.aw:prop_el_defs_toolbar_comment
+msgid "Omaduse Elementide toolbar (el_defs_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_el_defs_toolbar_help
+#: classes/applications/class_designer/class_designer.aw:prop_el_defs_toolbar_help
+msgid "Omaduse Elementide toolbar (el_defs_toolbar) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_int_refs_toolbar
+#: classes/applications/class_designer/class_designer.aw:prop_int_refs_toolbar
+msgid "Omaduse Sisemiste seoste toolbar (int_refs_toolbar) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_int_refs_toolbar_comment
+#: classes/applications/class_designer/class_designer.aw:prop_int_refs_toolbar_comment
+msgid "Omaduse Sisemiste seoste toolbar (int_refs_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_int_refs_toolbar_help
+#: classes/applications/class_designer/class_designer.aw:prop_int_refs_toolbar_help
+msgid "Omaduse Sisemiste seoste toolbar (int_refs_toolbar) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_ext_refs_toolbar
+#: classes/applications/class_designer/class_designer.aw:prop_ext_refs_toolbar
+msgid "Omaduse Väliste seoste toolbar (ext_refs_toolbar) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_ext_refs_toolbar_comment
+#: classes/applications/class_designer/class_designer.aw:prop_ext_refs_toolbar_comment
+msgid "Omaduse Väliste seoste toolbar (ext_refs_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_ext_refs_toolbar_help
+#: classes/applications/class_designer/class_designer.aw:prop_ext_refs_toolbar_help
+msgid "Omaduse Väliste seoste toolbar (ext_refs_toolbar) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_planner_tree
+#: classes/applications/class_designer/class_designer.aw:prop_planner_tree
+msgid "Omaduse Planeerija puu (planner_tree) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_planner_tree_comment
+#: classes/applications/class_designer/class_designer.aw:prop_planner_tree_comment
+msgid "Omaduse Planeerija puu (planner_tree) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_planner_tree_help
+#: classes/applications/class_designer/class_designer.aw:prop_planner_tree_help
+msgid "Omaduse Planeerija puu (planner_tree) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_planner_list
+#: classes/applications/class_designer/class_designer.aw:prop_planner_list
+msgid "Omaduse Planeerija elemendid (planner_list) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_planner_list_comment
+#: classes/applications/class_designer/class_designer.aw:prop_planner_list_comment
+msgid "Omaduse Planeerija elemendid (planner_list) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_planner_list_help
+#: classes/applications/class_designer/class_designer.aw:prop_planner_list_help
+msgid "Omaduse Planeerija elemendid (planner_list) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_el_defs_table
+#: classes/applications/class_designer/class_designer.aw:prop_el_defs_table
+msgid "Omaduse Elementide tabel (el_defs_table) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_el_defs_table_comment
+#: classes/applications/class_designer/class_designer.aw:prop_el_defs_table_comment
+msgid "Omaduse Elementide tabel (el_defs_table) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_el_defs_table_help
+#: classes/applications/class_designer/class_designer.aw:prop_el_defs_table_help
+msgid "Omaduse Elementide tabel (el_defs_table) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_int_refs_table
+#: classes/applications/class_designer/class_designer.aw:prop_int_refs_table
+msgid "Omaduse Sisemiste seoste tabel (int_refs_table) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_int_refs_table_comment
+#: classes/applications/class_designer/class_designer.aw:prop_int_refs_table_comment
+msgid "Omaduse Sisemiste seoste tabel (int_refs_table) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_int_refs_table_help
+#: classes/applications/class_designer/class_designer.aw:prop_int_refs_table_help
+msgid "Omaduse Sisemiste seoste tabel (int_refs_table) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_ext_refs_table
+#: classes/applications/class_designer/class_designer.aw:prop_ext_refs_table
+msgid "Omaduse Väliste seoste tabel (ext_refs_table) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_ext_refs_table_comment
+#: classes/applications/class_designer/class_designer.aw:prop_ext_refs_table_comment
+msgid "Omaduse Väliste seoste tabel (ext_refs_table) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_ext_refs_table_help
+#: classes/applications/class_designer/class_designer.aw:prop_ext_refs_table_help
+msgid "Omaduse Väliste seoste tabel (ext_refs_table) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_designer_toolbar
+#: classes/applications/class_designer/class_designer.aw:prop_designer_toolbar
+msgid "Omaduse Disaineri toolbar (designer_toolbar) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_designer_toolbar_comment
+#: classes/applications/class_designer/class_designer.aw:prop_designer_toolbar_comment
+msgid "Omaduse Disaineri toolbar (designer_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_designer_toolbar_help
+#: classes/applications/class_designer/class_designer.aw:prop_designer_toolbar_help
+msgid "Omaduse Disaineri toolbar (designer_toolbar) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_layout_tree
+#: classes/applications/class_designer/class_designer.aw:prop_layout_tree
+msgid "Omaduse Grupid (layout_tree) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_layout_tree_comment
+#: classes/applications/class_designer/class_designer.aw:prop_layout_tree_comment
+msgid "Omaduse Grupid (layout_tree) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_layout_tree_help
+#: classes/applications/class_designer/class_designer.aw:prop_layout_tree_help
+msgid "Omaduse Grupid (layout_tree) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_element_list
+#: classes/applications/class_designer/class_designer.aw:prop_element_list
+msgid "Omaduse Elemendid (element_list) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_element_list_comment
+#: classes/applications/class_designer/class_designer.aw:prop_element_list_comment
+msgid "Omaduse Elemendid (element_list) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_element_list_help
+#: classes/applications/class_designer/class_designer.aw:prop_element_list_help
+msgid "Omaduse Elemendid (element_list) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_helper
+#: classes/applications/class_designer/class_designer.aw:prop_helper
+msgid "Omaduse  (helper) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_helper_comment
+#: classes/applications/class_designer/class_designer.aw:prop_helper_comment
+msgid "Omaduse  (helper) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_helper_help
+#: classes/applications/class_designer/class_designer.aw:prop_helper_help
+msgid "Omaduse  (helper) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_group_parent
+#: classes/applications/class_designer/class_designer.aw:prop_group_parent
+msgid "Omaduse  (group_parent) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_group_parent_comment
+#: classes/applications/class_designer/class_designer.aw:prop_group_parent_comment
+msgid "Omaduse  (group_parent) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_group_parent_help
+#: classes/applications/class_designer/class_designer.aw:prop_group_parent_help
+msgid "Omaduse  (group_parent) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_tmp_name
+#: classes/applications/class_designer/class_designer.aw:prop_tmp_name
+msgid "Omaduse  (tmp_name) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_tmp_name_comment
+#: classes/applications/class_designer/class_designer.aw:prop_tmp_name_comment
+msgid "Omaduse  (tmp_name) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_tmp_name_help
+#: classes/applications/class_designer/class_designer.aw:prop_tmp_name_help
+msgid "Omaduse  (tmp_name) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_element_type
+#: classes/applications/class_designer/class_designer.aw:prop_element_type
+msgid "Omaduse  (element_type) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_element_type_comment
+#: classes/applications/class_designer/class_designer.aw:prop_element_type_comment
+msgid "Omaduse  (element_type) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_element_type_help
+#: classes/applications/class_designer/class_designer.aw:prop_element_type_help
+msgid "Omaduse  (element_type) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_relations_mgr
+#: classes/applications/class_designer/class_designer.aw:prop_relations_mgr
+msgid "Omaduse Seosed (relations_mgr) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_relations_mgr_comment
+#: classes/applications/class_designer/class_designer.aw:prop_relations_mgr_comment
+msgid "Omaduse Seosed (relations_mgr) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_relations_mgr_help
+#: classes/applications/class_designer/class_designer.aw:prop_relations_mgr_help
+msgid "Omaduse Seosed (relations_mgr) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_temp
+#: classes/applications/class_designer/class_designer.aw:prop_temp
+msgid "Omaduse temp (temp) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_temp_comment
+#: classes/applications/class_designer/class_designer.aw:prop_temp_comment
+msgid "Omaduse temp (temp) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_temp_help
+#: classes/applications/class_designer/class_designer.aw:prop_temp_help
+msgid "Omaduse temp (temp) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_temp1
+#: classes/applications/class_designer/class_designer.aw:prop_temp1
+msgid "Omaduse temp (temp1) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_temp1_comment
+#: classes/applications/class_designer/class_designer.aw:prop_temp1_comment
+msgid "Omaduse temp (temp1) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_temp1_help
+#: classes/applications/class_designer/class_designer.aw:prop_temp1_help
+msgid "Omaduse temp (temp1) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_temp2
+#: classes/applications/class_designer/class_designer.aw:prop_temp2
+msgid "Omaduse temp (temp2) caption"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_temp2_comment
+#: classes/applications/class_designer/class_designer.aw:prop_temp2_comment
+msgid "Omaduse temp (temp2) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:prop_temp2_help
+#: classes/applications/class_designer/class_designer.aw:prop_temp2_help
+msgid "Omaduse temp (temp2) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_general_sub
+#: classes/applications/class_designer/class_designer.aw:group_general_sub
+msgid "Grupi Üldine (general_sub) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_general_sub_help
+#: classes/applications/class_designer/class_designer.aw:group_general_sub_help
+msgid "Grupi Üldine (general_sub) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_settings
+#: classes/applications/class_designer/class_designer.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_settings_help
+#: classes/applications/class_designer/class_designer.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_planner
+#: classes/applications/class_designer/class_designer.aw:group_planner
+msgid "Grupi Planeerija (planner) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_planner_help
+#: classes/applications/class_designer/class_designer.aw:group_planner_help
+msgid "Grupi Planeerija (planner) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_relations
+#: classes/applications/class_designer/class_designer.aw:group_relations
+msgid "Grupi Seosed (relations) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_relations_help
+#: classes/applications/class_designer/class_designer.aw:group_relations_help
+msgid "Grupi Seosed (relations) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_relations_sub
+#: classes/applications/class_designer/class_designer.aw:group_relations_sub
+msgid "Grupi Seosed (relations_sub) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_relations_sub_help
+#: classes/applications/class_designer/class_designer.aw:group_relations_sub_help
+msgid "Grupi Seosed (relations_sub) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_int_refs
+#: classes/applications/class_designer/class_designer.aw:group_int_refs
+msgid "Grupi Sisemised seosed (int_refs) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_int_refs_help
+#: classes/applications/class_designer/class_designer.aw:group_int_refs_help
+msgid "Grupi Sisemised seosed (int_refs) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_ext_refs
+#: classes/applications/class_designer/class_designer.aw:group_ext_refs
+msgid "Grupi Välised seosed (ext_refs) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_ext_refs_help
+#: classes/applications/class_designer/class_designer.aw:group_ext_refs_help
+msgid "Grupi Välised seosed (ext_refs) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_designer
+#: classes/applications/class_designer/class_designer.aw:group_designer
+msgid "Grupi Disainer (designer) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_designer_help
+#: classes/applications/class_designer/class_designer.aw:group_designer_help
+msgid "Grupi Disainer (designer) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_el_defs
+#: classes/applications/class_designer/class_designer.aw:group_el_defs
+msgid "Grupi Elemendid (el_defs) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_el_defs_help
+#: classes/applications/class_designer/class_designer.aw:group_el_defs_help
+msgid "Grupi Elemendid (el_defs) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_dev_request
+#: classes/applications/class_designer/class_designer.aw:group_dev_request
+msgid "Grupi Arendusvajadus (dev_request) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_dev_request_help
+#: classes/applications/class_designer/class_designer.aw:group_dev_request_help
+msgid "Grupi Arendusvajadus (dev_request) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_in_search
+#: classes/applications/class_designer/class_designer.aw:group_in_search
+msgid "Grupi Otsing (in_search) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_in_search_help
+#: classes/applications/class_designer/class_designer.aw:group_in_search_help
+msgid "Grupi Otsing (in_search) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_data
+#: classes/applications/class_designer/class_designer.aw:group_data
+msgid "Grupi Andmed (data) pealkiri"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:group_data_help
+#: classes/applications/class_designer/class_designer.aw:group_data_help
+msgid "Grupi Andmed (data) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:group_defs
+msgid "Grupi Definitsioonid (defs) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:group_defs_help
+msgid "Grupi Definitsioonid (defs) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:group_classdef
+msgid "Grupi Klassi kirjeldus (classdef) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:group_classdef_help
+msgid "Grupi Klassi kirjeldus (classdef) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:group_create_sql
+msgid "Grupi Create SQL (create_sql) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:group_create_sql_help
+msgid "Grupi Create SQL (create_sql) help"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:group_alter_sql
+msgid "Grupi Alter SQL (alter_sql) pealkiri"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:group_alter_sql_help
+msgid "Grupi Alter SQL (alter_sql) help"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:rel_RELTYPE_RELATION
+#: classes/applications/class_designer/class_designer.aw:rel_RELTYPE_RELATION
+msgid "Seose seos (RELTYPE_RELATION) tekst"
+msgstr ""
+
+# classes/applications/class_designer/class_designer.aw:rel_RELTYPE_CL_REVIEW
+#: classes/applications/class_designer/class_designer.aw:rel_RELTYPE_CL_REVIEW
+msgid "Seose Eelvaade (RELTYPE_CL_REVIEW) tekst"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:338
+msgid "SQL table is up to date"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:361
+#: classes/applications/class_designer/class_designer.aw:368
+#: classes/applications/class_designer/class_designer.aw:458
+#: classes/applications/class_designer/class_designer.aw:462
+msgid "Eelvaade"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:403
+msgid "Väljundkataloog ei ole kirjutatav!"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:619
+msgid "Uus"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:631
+#: classes/applications/class_designer/class_designer.aw:935
+msgid "Grupp"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:642
+msgid "Omadus"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:663
+msgid "tab"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:674
+#: classes/applications/class_designer/class_designer.aw:967
+msgid "vbox"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:686
+msgid "hbox"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:789
+msgid "Save"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:799
+msgid "Cut"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:809
+msgid "Paste"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:818
+msgid "Delete"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:821
+msgid "Kustutada valitud objektid?"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:831
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:837
+#: classes/applications/class_designer/class_designer.aw:1840
+#: classes/applications/class_designer/class_designer.aw:1865
+#: classes/applications/class_designer/class_designer.aw:1919
+#: classes/applications/class_designer/class_designer.aw:2003
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:842
+#: classes/applications/class_designer/class_designer.aw:1923
+#: classes/applications/class_designer/class_designer.aw:2007
+msgid "Tüüp"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:847
+#: classes/applications/class_designer/class_designer.aw:903
+#: classes/applications/class_designer/class_designer.aw:1938
+#: classes/applications/class_designer/class_designer.aw:1982
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:1886
+#: classes/applications/class_designer/class_designer.aw:1897
+#: classes/applications/class_designer/class_designer.aw:1908
+msgid "Salvesta"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:1928
+msgid "Sisemine seos"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:1933
+msgid "Väline seos"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:1950
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:1995
+msgid "ID"
+msgstr ""
+
+#: classes/applications/class_designer/class_designer.aw:1999
+msgid "Parent"
+msgstr ""

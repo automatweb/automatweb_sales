@@ -1,0 +1,215 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/period.aw:class_207_help
+#: classes/contentmgmt/period.aw:class_207_help
+msgid "Klassi Periood help"
+msgstr ""
+
+# classes/period.aw:prop_name
+#: classes/contentmgmt/period.aw:prop_name
+msgid "Omaduse Nimetus (aasta,kuu) (name) caption"
+msgstr ""
+
+# classes/period.aw:prop_name_comment
+#: classes/contentmgmt/period.aw:prop_name_comment
+msgid "Omaduse Nimetus (aasta,kuu) (name) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_name_help
+#: classes/contentmgmt/period.aw:prop_name_help
+msgid "Omaduse Nimetus (aasta,kuu) (name) help"
+msgstr ""
+
+# classes/period.aw:prop_comment
+#: classes/contentmgmt/period.aw:prop_comment
+msgid "Omaduse Kommentaar (teema) (comment) caption"
+msgstr ""
+
+# classes/period.aw:prop_comment_comment
+#: classes/contentmgmt/period.aw:prop_comment_comment
+msgid "Omaduse Kommentaar (teema) (comment) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_comment_help
+#: classes/contentmgmt/period.aw:prop_comment_help
+msgid "Omaduse Kommentaar (teema) (comment) help"
+msgstr ""
+
+# classes/period.aw:prop_perimage
+#: classes/contentmgmt/period.aw:prop_perimage
+msgid "Omaduse Pilt2 (perimage) caption"
+msgstr "Image 2"
+
+# classes/period.aw:prop_perimage_comment
+#: classes/contentmgmt/period.aw:prop_perimage_comment
+msgid "Omaduse Pilt2 (perimage) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_perimage_help
+#: classes/contentmgmt/period.aw:prop_perimage_help
+msgid "Omaduse Pilt2 (perimage) help"
+msgstr ""
+
+# classes/period.aw:prop_status
+#: classes/contentmgmt/period.aw:prop_status
+msgid "Omaduse Arhiivis (status) caption"
+msgstr ""
+
+# classes/period.aw:prop_status_comment
+#: classes/contentmgmt/period.aw:prop_status_comment
+msgid "Omaduse Arhiivis (status) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_status_help
+#: classes/contentmgmt/period.aw:prop_status_help
+msgid "Omaduse Arhiivis (status) help"
+msgstr ""
+
+# classes/period.aw:prop_syear
+#: classes/contentmgmt/period.aw:prop_syear
+msgid "Omaduse  (syear) caption"
+msgstr ""
+
+# classes/period.aw:prop_syear_comment
+#: classes/contentmgmt/period.aw:prop_syear_comment
+msgid "Omaduse  (syear) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_syear_help
+#: classes/contentmgmt/period.aw:prop_syear_help
+msgid "Omaduse  (syear) help"
+msgstr ""
+
+# classes/period.aw:prop_per_id
+#: classes/contentmgmt/period.aw:prop_per_id
+msgid "Omaduse Perioodi id. (per_id) caption"
+msgstr "Period id"
+
+# classes/period.aw:prop_per_id_comment
+#: classes/contentmgmt/period.aw:prop_per_id_comment
+msgid "Omaduse Perioodi id. (per_id) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_per_id_help
+#: classes/contentmgmt/period.aw:prop_per_id_help
+msgid "Omaduse Perioodi id. (per_id) help"
+msgstr ""
+
+# classes/period.aw:prop_per_oid
+#: classes/contentmgmt/period.aw:prop_per_oid
+msgid "Omaduse Oid (per_oid) caption"
+msgstr "Oid"
+
+# classes/period.aw:prop_per_oid_comment
+#: classes/contentmgmt/period.aw:prop_per_oid_comment
+msgid "Omaduse Oid (per_oid) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_per_oid_help
+#: classes/contentmgmt/period.aw:prop_per_oid_help
+msgid "Omaduse Oid (per_oid) help"
+msgstr ""
+
+# classes/period.aw:prop_image_link
+#: classes/contentmgmt/period.aw:prop_image_link
+msgid "Omaduse Pildi link (image_link) caption"
+msgstr "Image link"
+
+# classes/period.aw:prop_image_link_comment
+#: classes/contentmgmt/period.aw:prop_image_link_comment
+msgid "Omaduse Pildi link (image_link) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_image_link_help
+#: classes/contentmgmt/period.aw:prop_image_link_help
+msgid "Omaduse Pildi link (image_link) help"
+msgstr ""
+
+# classes/period.aw:prop_pyear
+#: classes/contentmgmt/period.aw:prop_pyear
+msgid "Omaduse Aasta (pyear) caption"
+msgstr "Year"
+
+# classes/period.aw:prop_pyear_comment
+#: classes/contentmgmt/period.aw:prop_pyear_comment
+msgid "Omaduse Aasta (pyear) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_pyear_help
+#: classes/contentmgmt/period.aw:prop_pyear_help
+msgid "Omaduse Aasta (pyear) help"
+msgstr ""
+
+# classes/period.aw:prop_contents_doc
+#: classes/contentmgmt/period.aw:prop_contents_doc
+msgid "Omaduse Sisukorra dokument (contents_doc) caption"
+msgstr "Content document"
+
+# classes/period.aw:prop_contents_doc_comment
+#: classes/contentmgmt/period.aw:prop_contents_doc_comment
+msgid "Omaduse Sisukorra dokument (contents_doc) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_contents_doc_help
+#: classes/contentmgmt/period.aw:prop_contents_doc_help
+msgid "Omaduse Sisukorra dokument (contents_doc) help"
+msgstr ""
+
+# classes/period.aw:prop_preview
+#: classes/contentmgmt/period.aw:prop_preview
+msgid "Omaduse Eelvaade (preview) caption"
+msgstr "Preview"
+
+# classes/period.aw:prop_preview_comment
+#: classes/contentmgmt/period.aw:prop_preview_comment
+msgid "Omaduse Eelvaade (preview) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_preview_help
+#: classes/contentmgmt/period.aw:prop_preview_help
+msgid "Omaduse Eelvaade (preview) help"
+msgstr ""
+
+# classes/period.aw:prop_activity
+#: classes/contentmgmt/period.aw:prop_activity
+msgid "Omaduse Aktiivsus (activity) caption"
+msgstr "Activity"
+
+# classes/period.aw:prop_activity_comment
+#: classes/contentmgmt/period.aw:prop_activity_comment
+msgid "Omaduse Aktiivsus (activity) kommentaar"
+msgstr ""
+
+# classes/period.aw:prop_activity_help
+#: classes/contentmgmt/period.aw:prop_activity_help
+msgid "Omaduse Aktiivsus (activity) help"
+msgstr ""
+
+# classes/period.aw:group_activity
+#: classes/contentmgmt/period.aw:group_activity
+msgid "Grupi Aktiivsus (activity) pealkiri"
+msgstr "Activity"
+
+# classes/period.aw:group_activity_help
+#: classes/contentmgmt/period.aw:group_activity_help
+msgid "Grupi Aktiivsus (activity) help"
+msgstr ""
+
+# classes/period.aw:rel_RELTYPE_IMAGE
+#: classes/contentmgmt/period.aw:rel_RELTYPE_IMAGE
+msgid "Seose Perioodi pilt (RELTYPE_IMAGE) tekst"
+msgstr "Period image"
+
+# classes/period.aw:rel_RELTYPE_CONTENTS_DOC
+#: classes/contentmgmt/period.aw:rel_RELTYPE_CONTENTS_DOC
+msgid "Seose Sisukorra dokument (RELTYPE_CONTENTS_DOC) tekst"
+msgstr "Content document"

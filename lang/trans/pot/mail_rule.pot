@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/messenger/mail_rule.aw:class_230_help
+msgid "Klassi Maili reegel help"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_rule_from
+msgid "Omaduse From (rule_from) caption"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_rule_from_comment
+msgid "Omaduse From (rule_from) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_rule_from_help
+msgid "Omaduse From (rule_from) help"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_rule_subject
+msgid "Omaduse Subject (rule_subject) caption"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_rule_subject_comment
+msgid "Omaduse Subject (rule_subject) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_rule_subject_help
+msgid "Omaduse Subject (rule_subject) help"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_target_folder
+msgid "Omaduse Liiguta folderisse (target_folder) caption"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_target_folder_comment
+msgid "Omaduse Liiguta folderisse (target_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_target_folder_help
+msgid "Omaduse Liiguta folderisse (target_folder) help"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_on_server
+msgid "Omaduse Salvesta serverisse (on_server) caption"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_on_server_comment
+msgid "Omaduse Salvesta serverisse (on_server) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:prop_on_server_help
+msgid "Omaduse Salvesta serverisse (on_server) help"
+msgstr ""
+
+#: classes/applications/messenger/mail_rule.aw:97
+msgid "FTP extension is required for this feature"
+msgstr ""
+

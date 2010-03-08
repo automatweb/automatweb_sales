@@ -1,0 +1,68 @@
+&Uuml;levaade AW template mootori kasutamisest
+
+Templatede kasutamine on j&auml;rgmine.
+
+Antud klassi template kataloog m&auml;&auml;ratakse &auml;ra klassi konstruktoris kutsudes v&auml;lja meetodit init($array). Parameetriks oleva j&auml;rjendi &uuml;heks elemendiks peaks olema kirje, mille 'key' oleks &quot;tpldir&quot; ja mille v&auml;&auml;rtuseks kataloogi relatiivne asukoht antud automatwebist. N&auml;ide
+
+$this-&gt;init(array(
+  &quot;tpldir&quot; =&gt; &quot;kataloog&quot;
+));
+
+Kuidas n&uuml;&uuml;d kasutada m&otilde;nda templatet? Template kasutamiseks tuleb template esiteks sisse lugeda. Seda saab teha k&auml;suga
+
+$this-&gt;read_template(&quot;templatefailinimi.laiend&quot;);
+
+Tuleb t&auml;helepanna, et fail peab eksisteerima kataloogis, millega sai v&auml;lja kutsutud init() meetod.
+
+Template faili struktuur on j&auml;rgmine. Template failis v&otilde;ivad olla muutujad kujul &quot;{VAR:olenmuutuja}&quot; ja blokid. Blokk algab reaga &quot;&lt;!-- SUB: olen_blokk --&gt;&quot; ja l&otilde;peb reaga &quot;&lt;!-- END SUB: olen_blokk --&gt;&quot;.
+
+Muutujate v&auml;&auml;rtustamiseks templates on meetod vars($array). J&auml;rjendi key on muutuja nimi ja antud key v&auml;&auml;rtus on muutujale omistatav v&auml;&auml;rtus. N&auml;ide:
+
+testtemplate.tpl
+&lt;table&gt;
+ &lt;tr&gt;
+  &lt;td&gt;{VAR: olenmuutuja}&lt;/td&gt;
+ &lt;/tr&gt;
+&lt;/table&gt;
+
+testskript.aw
+//eelneb template kohustuslikud initsialiseerimis
+//operatsioonid
+..
+$this-&gt;vars(array(
+ &quot;olenmuutuja&quot;=&gt;&quot;You rule...&quot;
+));
+....
+
+Templates blokkide l&auml;bik&auml;imine on j&auml;rgmine. Kui templates on defineeritud sub, kus see on muutujad, siis selle sub'i l&auml;bi k&auml;imisel tuleb meelde j&auml;tta blokki parsitud v&auml;&auml;rtus. Sub parsimine k&auml;ib meetodiga $this-&gt;parse($subname). Kui parameeter j&auml;tta t&uuml;hjaks siis eeldatakse, et toimub template viimane l&auml;bi k&auml;iminie ehk justkui root bloki v&auml;&auml;rtustamine. Ei ole nii keeruline kui tundub :) N&auml;ide:
+
+testtemplate2.tpl
+&lt;table&gt;
+ &lt;!-- SUB: reakene --&gt;
+ &lt;tr&gt;
+  &lt;td&gt;{VAR:rida}&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;!-- END SUB: reakene
+ {VAR:blokkvalue}
+&lt;/table&gt;
+
+testskript2.aw
+//eelneb template kohustusliku initsialiseerimis
+//operatsioonid
+$tmp='';
+for($i=0;$i&lt;100;$i++)
+{
+  $this-&gt;vars(array(
+    &quot;rida&quot;=&gt;$i
+  ));
+  $tmp.=$this-&gt;parse('reakene');
+}
+$this-&gt;vars(array(
+  &quot;blokkvalue&quot;=&gt;$tmp
+));
+
+Nagu on n&auml;itest n&auml;ha, v&auml;&auml;rtustatakse iga ts&uuml;kli reaga blokis olev muutuja, parsitakse blokk &auml;ra ja salvestatakse parsitud bloki v&auml;&auml;rtus muutujasse $tmp, mis koguaeg kasvab. Kui blokki rohkem ei ole vaja parsida omistatakse $tmp v&auml;&auml;rtus root blokkis olnud muutujale &quot;blokkvalue&quot;.
+
+On v&otilde;imalik realiseerida ka bloki parsimine ilma vahemuutujateta. Selle jaoks peab template initsialiseerimisel peale template sisselugemist v&auml;&auml;rtustada muutuja $this-&gt;submerge v&auml;&auml;rtusega 1. Ehk siis $this-&gt;submerge=1; See n&uuml;&uuml;d t&auml;hendab seda, et kui parsitakse blokki siis ka parsitud blokk satub v&auml;ljundisse(tuleb muidugi silmas pidada, et parsimata bloki see parsitud blokk kohe ju v&auml;ljundisse ei satu).
+
+Template funktsionaalsus p&auml;rineb klassist aw_template'st. Kui klass extendib class_base't on ka template funktsionaalsus olemas, sest class_base extendib aw_templatet.

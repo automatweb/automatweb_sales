@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/groupware/project_teams_impl.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/groupware/project_teams_impl.aw:21
+msgid "Tiim"
+msgstr "Team"
+
+#: classes/applications/groupware/project_teams_impl.aw:37
+#: classes/applications/groupware/project_teams_impl.aw:97
+msgid "Kustuta"
+msgstr "Delete"
+
+#: classes/applications/groupware/project_teams_impl.aw:49
+#: classes/applications/groupware/project_teams_impl.aw:108
+msgid "Kopeeri"
+msgstr "Copy"
+
+#: classes/applications/groupware/project_teams_impl.aw:59
+#: classes/applications/groupware/project_teams_impl.aw:117
+msgid "Kleebi"
+msgstr "Paste"
+
+#: classes/applications/groupware/project_teams_impl.aw:71
+msgid "Uus Meeskond"
+msgstr "New team"
+
+#: classes/applications/groupware/project_teams_impl.aw:87
+msgid "Lisa valitud isikud meeskonda"
+msgstr "Add seleted persons into team"
+
+#: classes/applications/groupware/project_teams_impl.aw:134
+#: classes/applications/groupware/project_teams_impl.aw:187
+msgid "T&ouml;&ouml;perekonnad"
+msgstr "Teams"
+
+#: classes/applications/groupware/project_teams_impl.aw:162
+#: classes/applications/groupware/project_teams_impl.aw:204
+msgid "Projekti meeskond"
+msgstr "Project team"
+
+#: classes/applications/groupware/project_teams_impl.aw:211
+msgid "T&ouml;&ouml;perekonna"
+msgstr "Team"
+
+#: classes/applications/groupware/project_teams_impl.aw:211
+msgid "liikmed"
+msgstr "members"
+
+#: classes/applications/groupware/project_teams_impl.aw:291
+#: classes/applications/groupware/project_teams_impl.aw:381
+#: classes/applications/groupware/project_teams_impl.aw:436
+msgid "Rollid"
+msgstr "Roles"
+
+#: classes/applications/groupware/project_teams_impl.aw:303
+msgid "Otsingu tulemused"
+msgstr "Search results"
+
+#: classes/applications/groupware/project_teams_impl.aw:396
+#: classes/applications/groupware/project_teams_impl.aw:452
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/groupware/project_teams_impl.aw:404
+msgid "Organisatsioon"
+msgstr "Organisation"
+
+#: classes/applications/groupware/project_teams_impl.aw:412
+msgid "Ametinimetus"
+msgstr "Title"
+
+#: classes/applications/groupware/project_teams_impl.aw:420
+msgid "Telefon"
+msgstr "Phone"
+
+#: classes/applications/groupware/project_teams_impl.aw:428
+msgid "E-post"
+msgstr "E-mail"

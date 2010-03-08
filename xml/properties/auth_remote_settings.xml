@@ -1,0 +1,56 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>sites</name>
+            <table>objects</table>
+            <group>sel_sites</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>sites</field>
+      </property>
+      <property>
+            <name>users</name>
+            <table>objects</table>
+            <group>sel_users</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>users</field>
+      </property>
+      <property>
+            <name>activity</name>
+            <table>objects</table>
+            <group>activity</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>activity</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_AUTH_REMOTE_SETTINGS</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <sel_sites>
+                  <caption>Vali saidid</caption>
+            </sel_sites>
+            <sel_users>
+                  <caption>Vali kasutajad</caption>
+            </sel_users>
+            <activity>
+                  <caption>Aktiivsus</caption>
+            </activity>
+      </groupinfo>
+      <reltypes>
+            <USER>
+                  <value>1</value>
+                  <clid>CL_USER</clid>
+                  <caption>kasutaja</caption>
+            </USER>
+      </reltypes>
+</properties>
+

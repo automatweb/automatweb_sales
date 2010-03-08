@@ -1,0 +1,159 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/formgen/currency.aw:class_67_help
+#: classes/formgen/currency.aw:class_67_help
+msgid "Klassi Valuutakurss help"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_ord
+msgid "Omaduse J&auml;rjekord (ord) caption"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_ord_comment
+msgid "Omaduse J&auml;rjekord (ord) kommentaar"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_ord_help
+msgid "Omaduse J&auml;rjekord (ord) help"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_comment
+msgid "Omaduse Kurss euro suhtes (comment) caption"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_comment_comment
+msgid "Omaduse Kurss euro suhtes (comment) kommentaar"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_comment_help
+msgid "Omaduse Kurss euro suhtes (comment) help"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_unit_name
+msgid "Omaduse Raha&uuml;hiku nimetus (unit_name) caption"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_unit_name_comment
+msgid "Omaduse Raha&uuml;hiku nimetus (unit_name) kommentaar"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_unit_name_help
+msgid "Omaduse Raha&uuml;hiku nimetus (unit_name) help"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_small_unit_name
+msgid "Omaduse Peenraha&uuml;hiku nimetus (small_unit_name) caption"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_small_unit_name_comment
+msgid "Omaduse Peenraha&uuml;hiku nimetus (small_unit_name) kommentaar"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_small_unit_name_help
+msgid "Omaduse Peenraha&uuml;hiku nimetus (small_unit_name) help"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_symbol
+msgid "Omaduse S&uuml;mbol (symbol) caption"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_symbol_comment
+msgid "Omaduse S&uuml;mbol (symbol) kommentaar"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_symbol_help
+msgid "Omaduse S&uuml;mbol (symbol) help"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_rates
+msgid "Omaduse Kaustad kust otsida (rates) caption"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_rates_comment
+msgid "Omaduse Kaustad kust otsida (rates) kommentaar"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_rates_help
+msgid "Omaduse Kaustad kust otsida (rates) help"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_translate
+msgid "Omaduse  (translate) caption"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_translate_comment
+msgid "Omaduse  (translate) kommentaar"
+msgstr ""
+
+#: classes/formgen/currency.aw:prop_translate_help
+msgid "Omaduse  (translate) help"
+msgstr ""
+
+#: classes/formgen/currency.aw:group_rates
+msgid "Grupi Kursid (rates) pealkiri"
+msgstr ""
+
+#: classes/formgen/currency.aw:group_rates_help
+msgid "Grupi Kursid (rates) help"
+msgstr ""
+
+#: classes/formgen/currency.aw:group_translate
+msgid "Grupi T&otilde;lge (translate) pealkiri"
+msgstr ""
+
+#: classes/formgen/currency.aw:group_translate_help
+msgid "Grupi T&otilde;lge (translate) help"
+msgstr ""
+
+#: classes/formgen/currency.aw:97
+msgid "Keel"
+msgstr ""
+
+#: classes/formgen/currency.aw:102
+msgid "&Uuml;hik"
+msgstr ""
+
+#: classes/formgen/currency.aw:106
+msgid "Peenraha"
+msgstr ""
+
+#: classes/formgen/currency.aw:184
+msgid "Alguskuup&auml;ev"
+msgstr ""
+
+#: classes/formgen/currency.aw:188
+msgid "L&otilde;ppkuup&auml;ev"
+msgstr ""
+
+#: classes/formgen/currency.aw:192
+msgid "Valuuta"
+msgstr ""
+
+#: classes/formgen/currency.aw:196
+msgid "Kurss"
+msgstr ""
+
+#: classes/formgen/currency.aw:200
+msgid "Ostukurss"
+msgstr ""
+
+#: classes/formgen/currency.aw:204
+msgid "M&uuml;&uuml;gikurss"
+msgstr ""
+
+#: classes/formgen/currency.aw:243
+msgid "Kursid"
+msgstr ""
+
+#: classes/formgen/currency.aw:321
+msgid "currency::convert - kas %s v&otilde;i %s pole valuutadaobjektide id'd"
+msgstr ""

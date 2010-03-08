@@ -1,0 +1,10 @@
+aw_global_set($var,$value)
+
+Assigns a value to a global variable. Use this instead of fiddling with $GLOBALS
+if you need to use global variables at all. Additionally all session and cookie
+variables are registered as globals so they can be accessed with aw_global_get
+
+Also, if any of the following is present in the request URL:
+lang_id, tafkap, DEBUG, no_menus, section, class, action, fastcall, reforb,
+set_lang_id,admin_lang,admin_lang_lc,LC,period,oid,print,sortby,sort_order,
+cal,date,trid,project it will be available through aw_global_get too

@@ -1,0 +1,76 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:17
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:533
+msgid "Isik"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:32
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:548
+msgid "Summa"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:220
+msgid "T&ouml;&ouml;tundide statistika aastate ja kuude kaupa"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:229
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:235
+msgid "Bugi"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:241
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:249
+msgid "Aeg"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:388
+msgid "%s t&ouml;&ouml;tunnid ajavahemikul %s - %s"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:420
+msgid "rida"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:469
+msgid "Bug"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:474
+msgid "Kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:479
+msgid "T&ouml;&ouml;tunde"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:798
+msgid "T&ouml;&ouml;tundide statistika projektide ja kuude kaupa"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:803
+msgid "<b>Summa</b>"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bt_stat_impl.aw:951
+msgid "%s t&ouml;&ouml;tunnid projektis %s ajavahemikul %s - %s"
+msgstr ""

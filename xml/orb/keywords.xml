@@ -1,0 +1,66 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="keywords" folder="contentmgmt" extends="class_base">
+		<action name="show_documents" nologin="1">
+			<function name="show_documents">
+				<arguments>
+					<required name="id" />
+					<optional name="only_document_content" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="doclist">
+			<function name="doclist">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="listmembers">
+			<function name="listmembers">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="notify">
+			<function name="notify">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_interests" nologin="1">
+			<function name="submit_interests">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="list">
+			<function name="list_keywords">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_keywords">
+			<function name="delete_keywords">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="select_keywords" nologin="1">
+			<function name="select_keywords">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

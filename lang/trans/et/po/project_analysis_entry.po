@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/groupware/project_analysis_entry.aw:class_1113_help
+msgid "Klassi Projekti anal&uuml;&uuml;si sisestus help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_entry.aw:prop_proj
+msgid "Omaduse Projekt (proj) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_entry.aw:prop_proj_comment
+msgid "Omaduse Projekt (proj) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_entry.aw:prop_proj_help
+msgid "Omaduse Projekt (proj) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_entry.aw:prop_evaluator
+msgid "Omaduse Hindaja (evaluator) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_entry.aw:prop_evaluator_comment
+msgid "Omaduse Hindaja (evaluator) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_entry.aw:prop_evaluator_help
+msgid "Omaduse Hindaja (evaluator) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_entry.aw:rel_RELTYPE_PROJECT
+msgid "Seose Projekt (RELTYPE_PROJECT) tekst"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_entry.aw:rel_RELTYPE_EVAL
+msgid "Seose Hindaja (RELTYPE_EVAL) tekst"
+msgstr ""

@@ -1,0 +1,58 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="scm_competition" folder="www/dev/terryf/automatweb_dev/classes/applications/scm" extends="class_base">
+		<action name="change_grp" all_args="1">
+			<function name="change_grp">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="unregister_cnt" all_args="1">
+			<function name="unregister_cnt">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="unregister_team" all_args="1">
+			<function name="unregister_team">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="prep_new_team" all_args="1">
+			<function name="prep_new_team">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_contestant_to_team_and_register" all_args="1">
+			<function name="add_contestant_to_team_and_register">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_protocol_html">
+			<function name="gen_protocol_html">
+				<arguments>
+					<required name="competition" type="int" />
+					<required name="group" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_protocol_pdf">
+			<function name="gen_protocol_pdf">
+				<arguments>
+					<required name="competition" type="int" />
+					<required name="group" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

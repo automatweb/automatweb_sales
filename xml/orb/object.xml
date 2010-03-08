@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="object" folder="www/automatweb_cvs/classes/core/obj" extends="">
+		<action name="trans_get_val">
+			<function name="trans_get_val">
+				<arguments>
+					<required name="property" type="string" />
+					<optional name="language_id" type="boolean" />
+					<optional name="ignore_status" type="boolean" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

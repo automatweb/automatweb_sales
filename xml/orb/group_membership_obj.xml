@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="group_membership_obj" folder="www/dev/terryf/automatweb_dev/classes/core/users" extends="_int_object">
+		<action name="get_valid_memberships">
+			<function name="get_valid_memberships">
+				<arguments>
+					<optional name="group" type="array/oid" />
+					<optional name="user" type="array/oid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,32 @@
+<?php
+$GLOBALS["TRANS"]["Bold"] = "Bold";
+$GLOBALS["TRANS"]["Italic"] = "Italic";
+$GLOBALS["TRANS"]["Underline"] = "Underline";
+$GLOBALS["TRANS"]["Align left"] = "Align left";
+$GLOBALS["TRANS"]["Align center"] = "Align center";
+$GLOBALS["TRANS"]["Align right"] = "Align right";
+$GLOBALS["TRANS"]["Numbered list"] = "Numbered list";
+$GLOBALS["TRANS"]["Bulleted list"] = "Bulleted list";
+$GLOBALS["TRANS"]["Outdent"] = "Outdent";
+$GLOBALS["TRANS"]["Indent"] = "Indent";
+$GLOBALS["TRANS"]["link"] = "link";
+$GLOBALS["TRANS"]["Tabel"] = "Table";
+$GLOBALS["TRANS"]["Lisa tabel"] = "Add table";
+$GLOBALS["TRANS"]["Lisa tulp"] = "Add column";
+$GLOBALS["TRANS"]["Lisa rida"] = "Add row";
+$GLOBALS["TRANS"]["Kustuta tulp"] = "Delete column";
+$GLOBALS["TRANS"]["Kustuta rida"] = "Delete row";
+$GLOBALS["TRANS"]["Poolita rida"] = "Split row";
+$GLOBALS["TRANS"]["Poolita tulp"] = "Split column";
+$GLOBALS["TRANS"]["HTML"] = "HTML";
+$GLOBALS["TRANS"]["Päised"] = "Headings";
+$GLOBALS["TRANS"]["Heading 1"] = "Heading 1";
+$GLOBALS["TRANS"]["Heading 2"] = "Heading 2";
+$GLOBALS["TRANS"]["Heading 3"] = "Heading 3";
+$GLOBALS["TRANS"]["Heading 4"] = "Heading 4";
+$GLOBALS["TRANS"]["Heading 5"] = "Heading 5";
+$GLOBALS["TRANS"]["Heading 6"] = "Heading 6";
+$GLOBALS["TRANS"]["Teksti värv"] = "Text colour";
+$GLOBALS["TRANS"]["Sinine"] = "Blue";
+$GLOBALS["TRANS"]["Punane"] = "Red";
+?>

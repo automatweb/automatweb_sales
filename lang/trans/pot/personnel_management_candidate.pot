@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:class_812_help
+msgid "Klassi Kandidatuur help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_person
+msgid "Omaduse Isik (person) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_person_comment
+msgid "Omaduse Isik (person) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_person_help
+msgid "Omaduse Isik (person) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_job_offer
+msgid "Omaduse T&ouml;&ouml;pakkumine (job_offer) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_job_offer_comment
+msgid "Omaduse T&ouml;&ouml;pakkumine (job_offer) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_job_offer_help
+msgid "Omaduse T&ouml;&ouml;pakkumine (job_offer) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_intro_file
+msgid "Omaduse Kaaskiri failina (intro_file) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_intro_file_comment
+msgid "Omaduse Kaaskiri failina (intro_file) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_intro_file_help
+msgid "Omaduse Kaaskiri failina (intro_file) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_intro
+msgid "Omaduse Kaaskiri tekstina (intro) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_intro_comment
+msgid "Omaduse Kaaskiri tekstina (intro) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_intro_help
+msgid "Omaduse Kaaskiri tekstina (intro) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_addinfo
+msgid "Omaduse Lisainfo (addinfo) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_addinfo_comment
+msgid "Omaduse Lisainfo (addinfo) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_addinfo_help
+msgid "Omaduse Lisainfo (addinfo) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_recommendations
+msgid "Omaduse Soovitajad (recommendations) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_recommendations_comment
+msgid "Omaduse Soovitajad (recommendations) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:prop_recommendations_help
+msgid "Omaduse Soovitajad (recommendations) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:rel_RELTYPE_PERSON
+msgid "Seose Kandideerja (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:rel_RELTYPE_FILE
+msgid "Seose Kaaskiri failina (RELTYPE_FILE) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:rel_RELTYPE_JOB_OFFER
+msgid "Seose T&ouml;&ouml;pakkumine (RELTYPE_JOB_OFFER) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:rel_RELTYPE_RECOMMENDATION
+msgid "Seose Soovitus (RELTYPE_RECOMMENDATION) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:92
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_candidate.aw:102
+msgid "%s kandidatuur kohale %s"
+msgstr ""
+

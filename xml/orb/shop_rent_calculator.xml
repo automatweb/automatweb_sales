@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_rent_calculator" folder="www/automatweb_cvs/classes/applications/shop" extends="class_base">
+		<action name="calculate">
+			<function name="calculate">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="post_ru" type="string" />
+					<optional name="rent_period" type="int" />
+					<optional name="rent_sum_core" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/vcl/popup_search.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/popup_search.aw:158
+msgid "--Vali--"
+msgstr ""
+
+#: classes/vcl/popup_search.aw:168 classes/vcl/popup_search.aw:500
+#: classes/vcl/popup_search.aw:501 classes/vcl/popup_search.aw:923
+msgid "Otsi"
+msgstr "Search"
+
+#: classes/vcl/popup_search.aw:177
+msgid "Muuda"
+msgstr "Change"
+
+#: classes/vcl/popup_search.aw:217
+msgid "Lisa"
+msgstr "Add"
+
+#: classes/vcl/popup_search.aw:235
+msgid "Lisa uus %s"
+msgstr "Add new %s"
+
+#: classes/vcl/popup_search.aw:251
+msgid "Eemalda"
+msgstr "Remove"
+
+#: classes/vcl/popup_search.aw:336
+msgid "Vali eemaldatavad objektid"
+msgstr "Select objects to remove"
+
+#: classes/vcl/popup_search.aw:352 classes/vcl/popup_search.aw:634
+#: classes/vcl/popup_search.aw:638 classes/vcl/popup_search.aw:721
+msgid "Vali"
+msgstr "Select"
+
+#: classes/vcl/popup_search.aw:437
+msgid "Organisatsioon"
+msgstr "Organisation"
+
+#: classes/vcl/popup_search.aw:467 classes/vcl/popup_search.aw:610
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/vcl/popup_search.aw:474
+msgid "Objekti id"
+msgstr "Object ID"
+
+#: classes/vcl/popup_search.aw:577
+msgid "&nbsp;"
+msgstr ""
+
+#: classes/vcl/popup_search.aw:603
+msgid "OID"
+msgstr "OID"
+
+#: classes/vcl/popup_search.aw:616
+msgid "Asukoht"
+msgstr "Location in system"
+
+#: classes/vcl/popup_search.aw:622
+msgid "Muutja"
+msgstr "Modifiedby"
+
+#: classes/vcl/popup_search.aw:626
+msgid "Muudetud"
+msgstr "Modified"
+
+#: classes/vcl/popup_search.aw:703
+msgid "Vali see"
+msgstr "Select this"
+
+#~ msgid "Kommentaar"
+#~ msgstr "Comment"

@@ -1,0 +1,132 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/aw_spec/aw_spec_class.aw:class_1425_help
+msgid "Klassi AW Spetsifikatsiooni klass help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_desc
+msgid "Omaduse Kirjeldus (desc) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_desc_comment
+msgid "Omaduse Kirjeldus (desc) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_desc_help
+msgid "Omaduse Kirjeldus (desc) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_pri
+msgid "Omaduse Prioriteet (pri) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_pri_comment
+msgid "Omaduse Prioriteet (pri) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_pri_help
+msgid "Omaduse Prioriteet (pri) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_ini_settings
+msgid "Omaduse INI settingud (ini_settings) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_ini_settings_comment
+msgid "Omaduse INI settingud (ini_settings) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_ini_settings_help
+msgid "Omaduse INI settingud (ini_settings) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_errors_and_messages
+msgid "Omaduse Teated ja vead (errors_and_messages) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_errors_and_messages_comment
+msgid "Omaduse Teated ja vead (errors_and_messages) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_errors_and_messages_help
+msgid "Omaduse Teated ja vead (errors_and_messages) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_use_cases
+msgid "Omaduse  (use_cases) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_use_cases_comment
+msgid "Omaduse  (use_cases) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:prop_use_cases_help
+msgid "Omaduse  (use_cases) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:group_use_cases
+msgid "Grupi Kasutuslood (use_cases) pealkiri"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:group_use_cases_help
+msgid "Grupi Kasutuslood (use_cases) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:rel_RELTYPE_USE_CASE
+msgid "Seose Kasutuslugu (RELTYPE_USE_CASE) tekst"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:50
+msgid "Sisesta klassi %s grupid"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:81
+#: classes/applications/aw_spec/aw_spec_class.aw:115
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:91
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:103
+#: classes/applications/aw_spec/aw_spec_class.aw:259
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:107
+msgid "Grupi nimi"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:111
+msgid "Parent grupp"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:177
+msgid "Grupp: %s"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:178
+msgid "Parent grupp: %s"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:220
+msgid "Sisesta klassi %s seosed"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:263
+msgid "Soese nimi"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_class.aw:267
+msgid "Seos klassiga"
+msgstr ""

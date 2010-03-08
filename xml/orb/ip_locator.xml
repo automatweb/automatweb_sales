@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ip_locator" folder="www/dev/terryf/automatweb_dev/classes/core/util/ip_locator" extends="class_base">
+		<action name="search">
+			<function name="search">
+				<arguments>
+					<required name="ip" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_db">
+			<function name="update_db">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="debug" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

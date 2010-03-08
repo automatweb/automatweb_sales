@@ -1,0 +1,43 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>auto_create_user</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kas lastakse sisse logida kasutajatel, keda kohalikus s&amp;amp;uuml;steemis pole</caption>
+      </property>
+      <property>
+            <name>no_save_pwd</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Auml;ra salvesta AW'sse kasutaja parooli</caption>
+      </property>
+      <property>
+            <name>code</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textarea</type>
+            <rows>50</rows>
+            <cols>100</cols>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kood</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_AUTH_SERVER_USERDEFINED</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

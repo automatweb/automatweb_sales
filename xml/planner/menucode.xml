@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<planner>
+	<config>
+		<caption>Configure calendar</caption>
+		<link>?class=planner&amp;action=configure&amp;id={VAR:id}</link>
+	</config>
+	<add>
+		<caption>Add event</caption>
+		<link>?class=planner&amp;action=new_event&amp;parent={VAR:id}&amp;date={VAR:date}</link>
+	</add>
+	<today>
+		<caption>Today</caption>
+		<link>{VAR:view_today}</link>
+	</today>
+	<overview>
+		<caption>Overview</caption>
+		<link>{VAR:view_overview}</link>
+	</overview>
+	<day>
+		<caption>Day</caption>
+		<link>{VAR:view_day}</link>
+	</day>
+	<week>
+		<caption>Week</caption>
+		<link>{VAR:view_week}</link>
+	</week>
+	<month>
+		<caption>Month</caption>
+		<link>{VAR:view_month}</link>
+	</month>
+</planner>

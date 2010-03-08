@@ -1,0 +1,1625 @@
+.kuulutus {
+font-size: 14pt;
+}
+
+BODY{
+	scrollbar-face-color : #A4A4A4;
+	scrollbar-shadow-color : #A4A4A4;
+	scrollbar-highlight-color : #FFFFFF;
+	scrollbar-3dlight-color : #000000;
+	scrollbar-darkshadow-color : #000000;
+	scrollbar-arrow-color : #FFFFFF;
+	margin:0px;
+}
+
+.chformleftcol {
+font-family: verdana, sans-serif;
+font-size: 11px;
+font-weight: normal;
+text-align: right;
+color: #000000;
+height: 28px;
+background-color: #DAE8F0;
+padding-right: 6px;
+}
+.chformleftcol a {color: #000000; text-decoration:underline;}
+.chformleftcol a:hover {color: #000000; text-decoration:underline;}
+
+
+.chformrightcol {
+font-family: verdana, sans-serif;
+font-size: 11px;
+color: #000000;
+background-color: #FFFFFF;
+padding-left: 6px;
+}
+.chformrightcol a {color: #1664B9; text-decoration:underline;}
+.chformrightcol a:hover {color: #000000; text-decoration:underline;}
+
+.chformsubheader {
+font-family: verdana, sans-serif;
+font-size: 11px;
+font-weight: normal;
+text-align: center;
+color: #000000;
+height: 28px;
+background-color: #DAE8F0;
+padding-right: 6px;
+}
+.chformsubheader a {color: #FFFFFF; text-decoration:underline;}
+.chformsubheader a:hover {color: #000000; text-decoration:underline;}
+
+.mlang {
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-decoration: none;
+	height: 16px;
+	color: #BBB;
+}
+
+.mlang a {color: #0078FF; text-decoration: none;}
+.mlang a:hover {color: #0078FF; text-decoration: underline;}
+.mlang a:visited {color: #0078FF; text-decoration: none;}
+.mlang a:active {color: #0078FF; text-decoration: none;}
+
+
+.msgboardtab {
+font-family: Arial, Helvetica, sans-serif;
+color: #000000;
+font-size: 13px;
+font-weight: bold;
+text-decoration: none;
+}
+.msgboardtab a {color: #FFFFFF;}
+.msgboardtab a:hover {color: #CFFF60; text-decoration: none;}
+
+
+
+.mboardtextsmall {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: #676767;
+font-size: 9px;
+text-decoration: none;
+}
+.mboardtextsmall a {color: #113789; text-decoration: none;}
+.mboardtextsmall a:hover {color: #113789; text-decoration: underline;}
+
+.mboard {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: #000000;
+font-size: 9px;
+text-decoration: none;
+}
+.mboard a {color: #113789; text-decoration: none;}
+.mboard a:hover {color: #113789; text-decoration: underline;}
+
+
+.tableborder {
+background: #8AABBE;
+}
+
+.tableshadow {
+background: #FFFFFF;
+}
+
+.tableinside {
+background: #DBE8EE;
+}
+
+.cell {
+background: #DBE8EE;
+}
+
+.tab {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	color: #000000;
+	background: #DBE8EE;
+	background-image: URL('/automatweb/images/blue/tab_taust.gif');
+}
+
+.tab a {color: #000000; text-decoration: none;}
+.tab a:hover {color: #0000FF; text-decoration: none;}
+
+.tabsel {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	color: #000000;
+	background: #8AABBE;
+	background-image: URL('/automatweb/images/blue/tabsel_taust.gif');
+}
+
+.tabsel a {color: #000000; text-decoration: none;}
+.tabsel a:hover {color: #0000FF; text-decoration: none;}
+
+.tab2 {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	color: #000000;
+	background: #DBE8EE;
+	background-image: URL('/automatweb/images/blue/tab2_taust.gif');
+}
+
+.tab2 a {color: #000000; text-decoration: none;}
+.tab2 a:hover {color: #0000FF; text-decoration: none;}
+.tab2 a:visited {color: #0000FF; text-decoration: none;}
+.tab2 a:active {color: #0000FF; text-decoration: none;}
+
+.aste00 {background: #FFFFFF;}
+.aste01 {background: #DBE8EE;}
+.aste02 {background: #95B4C5;}
+.aste03 {
+	background: #A2BCCC;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	text-decoration: none;
+}
+.aste04 {
+	background: #B0C8D4;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	text-decoration: none;
+}
+.aste05 {
+	background: #BDD2DC;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	text-decoration: none;
+}
+.aste06 {background: #CADBE4;}
+.aste07 {
+	background: #DBE8EE;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	text-decoration: none;
+}
+
+
+
+.link {
+
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	color: #000000;
+	background: #8AABBE;
+
+	}
+
+.celltitle {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	font-weight: bold;
+	text-decoration: none;
+	height: 17px;
+}
+
+.celltext {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	text-decoration: none;
+}
+
+.cellcomment {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #6D7477;
+	text-decoration: none;
+}
+
+
+.icontext {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+
+
+.formselect {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #001A8B;
+font-weight: bold;
+text-decoration: none;
+background-color: #DBE8EE;
+height: 22px
+border-style: solid;
+border-width: 1px;
+border-color: #000000;
+}
+
+.formselect2 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #000000;
+text-decoration: none;
+background: #FFFFFF;
+height: 22px
+border-style: solid;
+border-color: #D9D9D9;
+border-width: 1px;
+}
+
+.formtext21 {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: #000000;
+font-size: 11px;
+text-decoration: none;
+background: #FFFFFF;
+border-color: #D9D9D9;
+border-width: 1px;
+}
+
+
+.formbutton {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: #000000;
+font-size: 10px;
+font-weight: bold;
+text-decoration: none;
+text-transform: uppercase;
+background: #D9D9D9;
+border-color: #D9D9D9;
+border-width: 1px;
+}
+
+
+.formfile {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: #000000;
+font-size: 9px;
+text-decoration: none;
+background: #D9D9D9;
+border-color: #D9D9D9;
+border-width: 1px;
+}
+
+.formtext {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+color: #000000;
+font-size: 11px;
+text-decoration: none;
+background: #FFFFFF;
+border-color: #D9D9D9;
+border-width: 1px;
+}
+
+
+
+
+
+.tablegen_link {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-size: 8pt;
+}
+.fcaption2 {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-size: 8pt;
+        color: black;
+        text-decoration: none;
+        background: #FFFFFF;
+}
+.fcaption2_nt {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-size: 8pt;
+        color: black;
+        text-decoration: none;
+}
+.fcaption5 {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-size: 0.6em;
+        color: black;
+        text-decoration: none;
+		background: #FFFFFF;
+}
+.fcaption5_hele_taust {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-size: 0.6em;
+        color: black;
+        text-decoration: none;
+		background: #fafafa;
+}
+.fcaption5_hele {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-size: 0.6em;
+        color: black;
+        text-decoration: none;
+		background: #f5f5f5;
+}
+
+
+
+.ftitle2 {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-weight: bold;
+        font-size: 9pt;
+        color: black;
+        text-decoration: none;
+        background: #E5E8F7;
+}
+
+
+.title {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	background: #eeeeee;
+}
+
+
+.titlesel {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.6em;
+	font-weight: bold;
+	text-decoration: none;
+	background: #cccccc;
+}
+
+.plain {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.6em;
+	background: #FFFFFF;
+}
+.selected {
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-size: 0.6em;
+	background: #FFCCCC;
+};
+.fform {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-size: 8pt;
+        color:black;
+        background: #FFFFFF;
+}
+.hele_hall_taust {
+        font-family: Verdana,Arial,Helvetica,sans-serif;
+        font-size: 8pt;
+        color:black;
+        background: #f5f5f5;
+}
+.ftitle {
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	font-weight: bold;
+        font-size: 10pt;
+        color:black;
+        text-decoration: none;
+        background: #66CC66;
+}
+a {
+        text-decoration: none;
+        color: #041CB2;
+}
+a:hover {
+        color: #041CB2;
+        text-decoration: underline;
+}
+.header1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+	background: #EEEEEE;
+	text-decoration: none;
+}
+
+
+.cut {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.6em;
+	background: #a0a0a0;
+}
+
+.small {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	background: #ffffff;
+}
+
+.small_sub {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	background: #e00000;
+}
+
+.fgen_text {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+.fgtitle {
+BACKGROUND: #eeeeee; COLOR: black; FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; FONT-SIZE: 0.6em; TEXT-DECORATION: none
+}
+
+.fgtextsel {
+
+BACKGROUND: #EEEEEE; COLOR: black; FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 11px; FONT-WEIGHT: normal; TEXT-DECORATION: none
+}
+
+.cut {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.6em;
+	background: #a0a0a0;
+}
+
+.small {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	background: #ffffff;
+}
+
+.small_sub {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	background: #e00000;
+}
+
+.fgen_text {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+.fgtitle {
+BACKGROUND: #eeeeee; COLOR: black; FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; FONT-SIZE: 0.6em; TEXT-DECORATION: none
+}
+.fgtitle_new {
+BACKGROUND: #1c629d; COLOR: black; FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; FONT-SIZE: 0.6em; TEXT-DECORATION: none
+}
+
+.fgtitlenew {
+BACKGROUND: #1c629d; COLOR: black; FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; FONT-SIZE: 0.6em; TEXT-DECORATION: none
+}
+
+.fgtitle_text {
+BACKGROUND: #1c629d; COLOR: #e0e7f0; FONT-FAMILY: Verdana,Arial,Helvetica,sans-serif; TEXT-DECORATION: none
+}
+
+.fgtitle_button {
+color: #e0e7f0;
+background-color: #1c629d;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 7pt;
+font-weight: bold;
+}
+
+.fgtitlebutton {
+color: #e0e7f0;
+background-color: #1c629d;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 7pt;
+font-weight: bold;
+}
+
+.fgtitle_link {
+ COLOR: #e0e7f0;
+}
+.fgtitle_link:hover {
+ COLOR: #FFFFFF;
+}
+
+
+
+.fgtext {
+
+BACKGROUND: #FFFFFF; COLOR: black; FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 11px; FONT-WEIGHT: normal; TEXT-DECORATION: none
+}
+.fgtextsel {
+
+BACKGROUND: #EEEEEE; COLOR: black; FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 11px; FONT-WEIGHT: normal; TEXT-DECORATION: none
+}
+.fgtext_bad {
+
+COLOR: black; FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 11px; FONT-WEIGHT: normal; TEXT-DECORATION: none
+}
+.fgtext_g {
+
+BACKGROUND: #f5f5f5; COLOR: black; FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 11px; FONT-WEIGHT: normal; TEXT-DECORATION: none
+}
+
+.fgtext_bold {
+
+BACKGROUND: #FFFFFF; COLOR: black; FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 11px; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+
+.fgtext2 {
+
+BACKGROUND: #eeeeee; COLOR: black; FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 0.6em; TEXT-DECORATION: none
+}
+
+
+.chkbox {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.6em;
+	background: #EEEEEE;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.small_button {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 7pt;
+}
+
+.tekstikast
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #FFFFFF;
+	border: #CCCCCC solid;
+	border-width: 1px 1px 1px 1px;
+	margin-left: 0px;
+	padding-left: 3px;
+	padding-top: 3px;
+	padding-right: 3px;
+	padding-bottom: 3px;
+}
+.doc_button
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #CCCCCC;
+	border: #CCCCCC solid;
+	border-width: 1px 1px 1px 1px;
+}
+.tekstikast_n
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	background-color: #F5F5F5;
+	border: #CCCCCC solid;
+	border-width: 0px 0px 0px 0px;
+}
+
+
+.titlesel {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.6em;
+	font-weight: bold;
+	text-decoration: none;
+	background: #cccccc;
+}
+
+.fgtextsel {
+
+BACKGROUND: #EEEEEE; COLOR: black; FONT-FAMILY: Arial,Helvetica,sans-serif; FONT-SIZE: 11px; FONT-WEIGHT: normal; TEXT-DECORATION: none
+}
+
+
+.alamLingid {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #0000f0; text-decoration: none}
+.muh { position: relative; visibility: visible; }
+.mainmenu {
+        position: absolute;
+        left: 10px;
+        top: 15px;
+        visibility: visible;
+}
+.alammenyy {
+        position: absolute;
+        left: 0px;
+        top: 54;
+        height: 21px;
+        width: 750px;
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 0.6em;
+		color: #666666;
+        text-decoration: none;
+        visibility: hidden;
+}
+.menyy1 {position: absolute; left: 7px; top: 28px; text-decoration: none; visibility: hidden;}
+.menyy2 {position: absolute; left: 58px; top: 28px; text-decoration: none; visibility: hidden;}
+
+
+
+.textsmall {
+font-family: verdana, sans-serif;
+font-size: 10px;
+color: #B58D47;
+}
+.textsmall a {color: #B58D47; text-decoration:none;}
+.textsmall a:hover {color: #000000; text-decoration:none;}
+
+
+.awmenuedittableborder {
+background-color: #E2E2DB;
+}
+
+.awmenuedittablehead, .awmenuedittableFilterNormal, .awmenuedittableFilterActive  {
+font-family: Arial, Verdana, sans-serif;
+font-size: 11px;
+color: #000000;
+/*background-color: #478EB6;*/
+background-color: #91DA52;
+}
+.awmenuedittablehead a {color: #FFFFFF; text-decoration:none;}
+.awmenuedittablehead a:hover {color: #FFFFFF; text-decoration:underline;}
+
+.awmenuedittableFilterNormal, .awmenuedittableFilterActive
+{
+	padding: 0;
+}
+
+.awmenuedittableFilterNormal select, .awmenuedittableFilterActive select
+{
+	background-color: #91DA52;
+	font-size: 10px;
+}
+
+.awmenuedittableFilterActive select
+{
+	background-color: #FFDFC6;
+}
+
+.awmenuedittabletext {
+font-family: Arial, Verdana, sans-serif;
+font-size: 11px;
+color: #000000;
+}
+.awmenuedittabletext a {color: #0018AF; text-decoration:none;}
+.awmenuedittabletext a:hover {color: #0018AF; text-decoration:underline;}
+
+.awformtext {
+font-family: verdana, sans-serif;
+font-size: 10px;
+}
+
+
+.awmenuedittablerow {
+	background-color: #FCFCF4;
+	font-family: Arial,Verdana,sans-serif;
+	font-size: 11px;
+}
+.awmenuedittablerowsel {
+	background-color: #BBB;
+	font-family: Arial,Verdana,sans-serif;
+	font-size: 11px;
+}
+
+
+.awmenuedittablerowactive {
+background-color: #12E2DB;
+/*background-color: #E2E2DB;*/
+}
+
+.awmenuedittablegroup td {
+        background-color: #ECECE4;
+        font-family: Arial,Verdana,sans-serif;
+        font-size: 11px;
+	font-weight: bold;
+}
+
+div.menuBar,
+div.menuBar a.menuButton,
+div.menu,
+div.menu a.menuItem {
+  font-family: "MS Sans Serif", Arial, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  color: #000000;
+}
+
+div.menuBar {
+  background-color: #d0d0d0;
+  border: 2px solid;
+  border-color: #f0f0f0 #909090 #909090 #f0f0f0;
+  padding: 4px 0px 2px 0px;
+  text-align: left;
+height:17px;
+}
+
+div.menuBar a.menuButton {
+  background-color: transparent;
+  border: 1px solid #d0d0d0;
+  color: #000000;
+  cursor: default;
+  left: 0px;
+  margin: 1px;
+  margin-right: 0px;
+  padding: 4px 0px 2px 3px;
+  position: relative;
+  text-decoration: none;
+
+  top: 0px;
+  z-index: 1000;
+
+}
+
+div.menuBar a.menuButton:hover {
+  background-color: transparent;
+  border-color: #f0f0f0 #909090 #909090 #f0f0f0;
+  color: #000000;
+}
+
+div.menuBar a.menuButtonActive,
+div.menuBar a.menuButtonActive:hover {
+  background-color: #a0a0a0;
+  border-color: #909090 #f0f0f0 #f0f0f0 #909090;
+  color: #ffffff;
+  left: 0px;
+  top: 1px;
+
+}
+
+div.menu {
+  background-color: #d0d0d0;
+  border: 1px solid;
+  border-color: #f0f0f0 #909090 #909090 #f0f0f0;
+  left: 0px;
+  padding: 0px 1px 1px 0px;
+  position: absolute;
+  top: 0px;
+  visibility: hidden;
+  z-index: 1001;
+}
+
+div.menu a.menuItem {
+  border:transparent 1px;
+  color: #000000;
+  cursor: default;
+  display: block;
+  padding: 3px 1em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+div.menu a.menuItem:hover, div.menu a.menuItemHighlight {
+  background-color: #000080;
+  border-color: #ffffff;
+  border:solid 1px;
+  color: #ffffff;
+}
+
+div.menu a.menuItem span.menuItemText {}
+
+div.menu a.menuItem span.menuItemArrow {
+  margin-right: -.55em;
+height:16px;
+}
+
+div.menu div.menuItemSep {
+  border-top: 1px solid #909090;
+  border-bottom: 1px solid #f0f0f0;
+  margin: 4px 2px;
+}
+
+div.menu .menuItemTextSep {
+  border:transparent 1px;
+  color: #333333;
+  cursor: default;
+  display: block;
+  padding: 3px 1em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.toolbarbutton {
+        /*float: left;*/
+        margin-left: 5px;
+	/*height: 23px;*/
+	margin-top: 2px;
+        padding-left: 4px;
+        padding-right: 4px;
+	vertical-align: middle;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #EEE;
+}
+
+.toolbarbuttonhover {
+        /*float: left;*/
+        margin-left: 5px;
+        cursor: pointer;
+	/*height: 23px;*/
+        border-width: 1px;
+        border-style: solid;
+        padding-left: 4px;
+        padding-right: 4px;
+        border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+}
+.toolbarbuttondown {
+        /*float: left;*/
+        margin-left: 5;
+        border-width: 1px;
+	/*height: 23px;*/
+        border-style: solid;
+        padding-left: 4px;
+        padding-right: 4px;
+        border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
+}
+
+
+.aw04yah {
+margin: 0px;
+padding: 3px;
+padding-left: 6px;
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: normal;
+color:#5D5D5D;
+vertical-align: middle;
+background-color: #E1E1E1;
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+}
+
+.aw04yah a {
+color: #5D5D5D;
+text-decoration:none;
+}
+
+.aw04yah a:hover {
+color: #000000;
+text-decoration:underline;
+}
+
+
+.aw04toolbar {
+border-top: 1px solid #FFFFFF;
+border-left: 1px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-right: 1px solid #BDBDBD;
+padding:0px;
+background-color: #E1E1E1;
+}
+
+.aw04buttongroup {
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+margin: 0px;
+padding: 0px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 9px;
+font-weight: normal;
+color:#000000;
+}
+
+.aw04buttonsep {
+border-left: 0px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+background: #FFFFFF;
+margin: 0px;
+padding: 0px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 9px;
+font-weight: normal;
+color:#000000;
+}
+
+
+.aw04toolbarbutton {
+        /*float: left;*/
+		width: 22px;
+		height: 22px;
+        padding: 4px;
+		font-family: Arial, sans-serif;
+		font-size: 11px;
+		text-align: center;
+		border-style: solid;
+        border-width: 1px;
+        border-color: #E1E1E1;
+}
+
+.aw04toolbardata {
+        /*float: left;*/
+		/*margin-top: 2px;*/
+        padding: 4px;
+		font-family: Arial, sans-serif;
+		font-size: 11px;
+		text-align: center;
+		border-style: solid;
+        border-width: 1px;
+        border-color: #E1E1E1;
+}
+
+.aw04toolbarbuttonhover {
+        /*float: left;*/
+        /*margin: 4px;*/
+		width: 22px;
+		height: 22px;
+		padding: 4px;
+		font-family: Arial, sans-serif;
+		font-size: 11px;
+		text-align: center;
+        border-width: 1px;
+        border-style: solid;
+        border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+        cursor: pointer;
+}
+.aw04toolbarbuttondown {
+        /*float: left;*/
+		margin: 4px;
+		padding: 4px;
+		font-family: Arial, sans-serif;
+		font-size: 11px;
+		width: 22px;
+		height: 22px;
+		text-align: center;
+        border-width: 1px;
+        border-style: solid;
+        border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
+}
+
+/* TAB 2 BIGGER ONES */
+
+.aw04tab2div {
+border-top: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+height: 24px;
+padding-top: 6px;
+padding-left: 6px;
+background-color: #E1E1E1;
+background-repeat: repeat-x;
+}
+
+.aw04tab2content {
+height: 24px;
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color:#5D5D5D;
+vertical-align: middle;
+}
+
+.aw04tab2content a {
+color: #0017AF;
+text-decoration:none;
+}
+
+.aw04tab2content a:hover {
+color: #0017AF;
+text-decoration:underline;
+}
+
+
+
+
+.aw04tab2selcontent {
+height: 24px;
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color:#FFFFFF;
+vertical-align: middle;
+}
+
+.aw04tab2selcontent a {
+color: #FFFFFF;
+text-decoration:none;
+}
+
+.aw04tab2selcontent a:link {
+color: #FFFFFF;
+text-decoration:none;
+}
+
+.aw04tab2selcontent a:hover {
+color: #FFFFFF;
+text-decoration:underline;
+}
+
+
+
+.aw04tab2discontent {
+height: 24px;
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color:#7E7E7E;
+vertical-align: middle;
+}
+
+.aw04tab2divvahe {
+height:0px;
+margin: 0px;
+background-color: #91DA52;
+}
+
+.aw04tab2divl2 {
+padding-top: 0px;
+padding-bottom: 0px;
+padding-left: 25px;
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color:#000000;
+background-color: #91DA52;
+}
+
+
+.aw04tab2divl2 a {
+color: #0017AF;
+text-decoration:none;
+}
+
+.aw04tab2divl2 a:hover {
+color: #0017AF;
+text-decoration:underline;
+}
+
+/* END TAB 2 BIGGER ONES */
+
+/* TAB SMALLER */
+
+
+.aw04tab2smallcontent {
+height: 18px;
+font-family: Arial, sans-serif;
+font-size: 11px;
+color:#FFFFFF;
+vertical-align: middle;
+}
+
+.aw04tab2smallcontent a {
+color: #000000;
+text-decoration:none;
+}
+
+.aw04tab2smallcontent a:hover {
+color: #0017AF;
+text-decoration:underline;
+}
+
+
+/* END TAB SMALLER */
+
+.aw04content {
+padding-top: 0px;
+padding-bottom: 8px;
+padding-left: 8px;
+padding-right: 8px;
+background: #F7F7F7;
+background-repeat: repeat-x;
+}
+
+
+.aw04contenttable {
+width: 98%;
+}
+
+.aw04contentcellleft {
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #D0D0D0;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #D0D0D0;
+background-color: #E1E1E1;
+text-align: right;
+padding: 8px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 11px;
+color:#000000;
+}
+
+.aw04contentcellleft a {
+color: #005FC9;
+text-decoration:underline;
+}
+
+.aw04contentcellleft a:hover {
+color: #00438E;
+text-decoration:underline;
+}
+
+.aw04contentcellright {
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #D0D0D0;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #D0D0D0;
+background-color: #F0F0F0;
+padding: 8px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 11px;
+color:#000000;
+}
+
+.aw04contentcellright a {
+color: #005FC9;
+text-decoration:underline;
+}
+
+.aw04contentcellright a:hover {
+color: #00438E;
+text-decoration:underline;
+}
+
+.aw04contentcellsubheader {
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #D0D0D0;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #D0D0D0;
+background-color: #E1E1E1;
+padding: 8px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 11px;
+color:#000000;
+}
+
+
+.aw04contentcellsubtitle {
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #D0D0D0;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #D0D0D0;
+background-color: #C1C1C1;
+padding-top: 5px;
+padding-bottom: 5px;
+padding-left: 8px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 12px;
+font-weight: bold;
+color:#000000;
+}
+
+
+
+
+.aw04contentcellcontent {
+border-top: 0px solid #FFFFFF;
+border-bottom: 0px solid #BDBDBD;
+border-left: 0px solid #FFFFFF;
+border-right: 0px solid #BDBDBD;
+background-color: #F0F0F0;
+padding: 0px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 11px;
+color:#000000;
+}
+
+.aw04gridcell_no_caption {
+background-color: #F0F0F0;
+padding: 0px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 11px;
+color:#000000;
+}
+
+.aw04gridcell_caption {
+padding: 2px;
+margin: 2px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 11px;
+color:#000000;
+
+}
+
+.aw04formbutton {
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #000000;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #000000;
+background-color: #0078FF;
+padding: 2px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color:#FFFFFF;
+}
+
+/* 4/16/2004 */
+/* KALENER */
+
+
+
+.aw04kalender01 {
+margin: 0px;
+padding-top: 6px;
+padding-left: 6px;
+padding-right: 6px;
+padding-bottom: 0px;
+background-color: #E1E1E1;
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+}
+
+.aw04kalender02 {
+padding-bottom: 5px;
+font-family: Arial, sans-serif;
+font-size: 12px;
+font-weight: bold;
+color:#000000;
+vertical-align: middle;
+}
+
+.aw04kalender02 a {
+color: #0017AF;
+text-decoration:none;
+}
+
+.aw04kalender02 a:hover {
+color: #0017AF;
+text-decoration:underline;
+}
+
+.aw04kalenderkast01 {
+font-family: Arial, verdana, sans-serif;
+font-size: 11px;
+color: #000000;
+margin: 0px;
+padding: 4px;
+background-color: #EFEFEF;
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+}
+
+.aw04kalenderkast01today {
+margin: 0px;
+padding: 4px;
+background-color: #E1E1E1;
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+}
+
+.aw04kalenderkast02 {
+margin: 0px;
+padding: 2px;
+background-color: #FFFFFF;
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+}
+
+.aw04kalenderkast02today {
+margin: 0px;
+padding: 2px;
+background-color: #EFEFEF;
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+}
+
+.aw04kalenderkast03 {
+margin: 0px;
+padding: 5px;
+background-color: #FFFFFF;
+border-top: 0px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+}
+
+.aw04kalenderkast03today {
+margin: 0px;
+padding: 5px;
+background-color: #EFEFEF;
+border-top: 0px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+}
+
+.aw04kalenderkast04 {
+font-family: Arial, verdana, sans-serif;
+font-size: 11px;
+color: #000000;
+margin: 0px;
+padding: 4px;
+background-color: #D0D0D0;
+border-top: 1px solid #FFFFFF;
+border-bottom: 1px solid #BDBDBD;
+border-left: 1px solid #FFFFFF;
+border-right: 1px solid #BDBDBD;
+}
+
+
+.aw04kalendersubevent {
+margin: 2px;
+padding: 2px;
+font-family: Arial, verdana, sans-serif;
+font-size: 11px;
+color: #000000;
+/*background-color: #FFFFFF;*/
+border: 1px solid #DFDFDF;
+}
+
+.aw04kalendersubeventnobg {
+margin: 2px;
+padding: 2px;
+font-family: Arial, verdana, sans-serif;
+font-size: 11px;
+color: #000000;
+}
+
+
+.aw04kalendersubevent a {
+color: #000000;
+text-decoration:none;
+}
+
+.aw04kalendersubevent a:hover {
+color: #0017AF;
+text-decoration:underline;
+}
+
+.aw04kalendermini {
+background-color:#BDBDBD;
+}
+
+.aw04kalendertext {
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: normal;
+color:#000000;
+text-align: center;
+}
+
+.aw04kalendertextevent {
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: normal;
+color:#000000;
+}
+
+.aw04kalendertextday {
+font-family: Arial, sans-serif;
+font-size: 11px;
+font-weight: bold;
+color:#000000;
+}
+
+.aw04kalendertask {
+font-family: Arial, verdana, sans-serif;
+font-size: 11px;
+color: #000000;
+background: #FFFFFF;
+padding: 4px;
+}
+
+.aw04kalendertask a {
+color: #000000;
+text-decoration:none;
+}
+
+.aw04kalendertask a:hover {
+color: #0017AF;
+text-decoration:underline;
+}
+
+/* END KALENDER */
+
+.reallysmall {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 10px;
+
+}
+
+.awmenuedittableframeclass {
+background-color: #E2E2DB
+}
+
+
+.chaintab2selcontent {
+height: 24px;
+font-family: Arial, sans-serif;
+font-size: 12px;
+font-weight: bold;
+color:#FFFFFF;
+vertical-align: top;
+}
+
+.chaintab2selcontent a {
+color: #FFFFFF;
+text-decoration:none;
+}
+
+.chaintab2selcontent a:link {
+color: #FFFFFF;
+text-decoration:none;
+}
+
+.chaintab2selcontent a:hover {
+color: #FFFFFF;
+text-decoration:underline;
+}
+
+.chaintab2selcontent a:visited {
+color: #FFFFFF;
+text-decoration:none;
+}
+
+.awtable tbody tr.awtableheader td {
+	background-color: #91DA52;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	color: #000000;
+}
+
+.awtable tbody tr.awtableheader td a {
+	color: #FFFFFF;
+	text-decoration:none;
+}
+
+.awtable tbody tr.awtableheader td a:hover {
+	color: #FFFFFF;
+	text-decoration:none;
+}
+
+.awtable tbody tr.awmenuedittablerow td {
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	background-color: #FCFCF4;
+}
+
+.awtable tbody tr.awmenuedittablerow td a {
+	color: #0018AF;
+	text-decoration:none;
+}
+
+.awtable tbody tr.awmenuedittablerow td a:hover {
+	color: #0018AF;
+	text-decoration:none;
+}
+
+
+
+/********** RATE **********/
+
+.rate_rowbgcolor_odd {
+background-color: #FFF1DC;
+}
+
+.rate_rowbgcolor_even {
+background-color: #FEFAEF;
+}
+
+.rate_aw04contentcellleft {
+text-align: left;
+padding: 2px;
+padding-left: 8px;
+padding-right: 8px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 11px;
+color:#000003;
+font-weight: normal;
+width: 160px;
+height: 20px;
+}
+
+.rate_aw04contentcellleft a {
+color: #005FC9;
+text-decoration:underline;
+}
+
+.rate_aw04contentcellleft a:hover {
+color: #00438E;
+text-decoration:underline;
+}
+
+.rate_aw04contentcellright {
+padding: 2px;
+padding-left: 8px;
+font-family: Verdana, Arial, sans-serif;
+font-size: 12px;
+color:#000003;
+}
+
+.rate_aw04contentcellright a {
+color: #005FC9;
+text-decoration:underline;
+}
+
+.rate_aw04contentcellright a:hover {
+color: #00438E;
+text-decoration:underline;
+}
+
+/******* END RATE ***********/
+
+
+/****** AUTOCOMPLETE ********/
+	table.awActbOptionList
+	{
+		background-color: window;
+		border: 1px solid windowtext;
+		font-family : 'arial narrow', Arial, Helvetica, Verdana, Geneva, sans-serif;
+	}
+
+	td.awActbOption
+	{
+			/*c.align='center';**/
+		background-color: window;
+		color: windowtext;
+	}
+
+	td.awActbActiveOption
+	{
+		background-color: highlight;
+		color: highlighttext;
+	}
+
+	span.awActbTypedTextMatch
+	{
+	}
+/**** END AUTOCOMPLETE *******/
+
+
+.cb_form_chain {width: 100%; border-collapse: collapse; margin-top: 10px; border-left: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0;}
+.cb_form_chain td { padding: 1px 6px 1px 6px; font-family: verdana, sans-serif; font-size: 11px; text-align: left; background-color: #fcfcf4; border-top: 1px solid #f0f0f0; border-right: 1px solid #f0f0f0; line-height: 16px; vertical-align: top; }
+.cb_form_chain td.caption {width: 250px; white-space: nowrap; }
+.cd_form_chain td.value {}
+
+.leftcontainer {
+	width: 200px;
+	margin-top: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border: solid 1px #DBDBDB;
+}
+
+.leftcontainer .header {
+	background-color: #DBDBDB;
+	padding: 5px;
+	font-weight: bold;
+	height: 30px;
+}
+
+.leftcontainer .body {
+	background-color: #FFFFFF;
+	padding: 7px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	padding-bottom: 10px;
+}
+
+.leftcontainer .body .caption {
+	font-weight: bold;
+}
+
+.leftcontainer .body a {
+	font-weight: bold;
+	margin-left: 10px;
+	line-height: 14px;
+}
+
+.rightcontainer {
+	margin-top: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border: solid 1px #DBDBDB;
+}
+
+.rightcontainer .header {
+	background-color: #DBDBDB;
+	padding: 5px;
+	font-weight: bold;
+	height: 30px;
+}
+
+.rightcontainer .tablebody {
+	background-color: #FFFFFF;
+	font-size: 11px;
+}
+
+#teiste_paev {
+	font-size: 11px;
+
+} 
+
+#column_head {
+	background-color: #91DA52;
+
+}

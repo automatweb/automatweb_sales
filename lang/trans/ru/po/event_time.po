@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/calendar/event_time.aw:class_1322_help
+msgid "Klassi Toimumisaeg help"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_start
+msgid "Omaduse Algab (start) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_start_comment
+msgid "Omaduse Algab (start) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_start_help
+msgid "Omaduse Algab (start) help"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_end
+msgid "Omaduse L&otilde;peb (end) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_end_comment
+msgid "Omaduse L&otilde;peb (end) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_end_help
+msgid "Omaduse L&otilde;peb (end) help"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_location
+msgid "Omaduse Toimumiskoht (location) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_location_comment
+msgid "Omaduse Toimumiskoht (location) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_location_help
+msgid "Omaduse Toimumiskoht (location) help"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_event
+msgid "Omaduse S&uuml;ndmus (event) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_event_comment
+msgid "Omaduse S&uuml;ndmus (event) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:prop_event_help
+msgid "Omaduse S&uuml;ndmus (event) help"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:rel_RELTYPE_LOCATION
+msgid "Seose Toimumiskoht (RELTYPE_LOCATION) tekst"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:rel_RELTYPE_EVENT
+msgid "Seose Toimumiskoht (RELTYPE_EVENT) tekst"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:80
+msgid "Otsi toimumiskohti"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:191
+#: classes/applications/calendar/event_time.aw:211
+msgid "Toimumiskoht"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:196
+#: classes/applications/calendar/event_time.aw:197
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:238
+msgid "Vali see"
+msgstr ""
+
+#: classes/applications/calendar/event_time.aw:259
+#: classes/applications/calendar/event_time.aw:260
+msgid "Vali"
+msgstr ""

@@ -1,0 +1,276 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/syslog/dronline_conf.aw:class_163_help
+msgid "Klassi Statistika seaded help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_from
+msgid "Omaduse Alates (from) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_from_comment
+msgid "Omaduse Alates (from) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_from_help
+msgid "Omaduse Alates (from) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_to
+msgid "Omaduse Kuni (to) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_to_comment
+msgid "Omaduse Kuni (to) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_to_help
+msgid "Omaduse Kuni (to) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_user
+msgid "Omaduse kasutaja (user) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_user_comment
+msgid "Omaduse kasutaja (user) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_user_help
+msgid "Omaduse kasutaja (user) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_address
+msgid "Omaduse IP Aadress (address) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_address_comment
+msgid "Omaduse IP Aadress (address) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_address_help
+msgid "Omaduse IP Aadress (address) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_email_uid
+msgid "Omaduse Listi UID (email_uid) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_email_uid_comment
+msgid "Omaduse Listi UID (email_uid) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_email_uid_help
+msgid "Omaduse Listi UID (email_uid) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_email_email
+msgid "Omaduse Listi email (email_email) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_email_email_comment
+msgid "Omaduse Listi email (email_email) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_email_email_help
+msgid "Omaduse Listi email (email_email) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_textfilter
+msgid "Omaduse Mida tegi  (textfilter) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_textfilter_comment
+msgid "Omaduse Mida tegi  (textfilter) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_textfilter_help
+msgid "Omaduse Mida tegi  (textfilter) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_numlines
+msgid "Omaduse Mitu rida (numlines) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_numlines_comment
+msgid "Omaduse Mitu rida (numlines) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_numlines_help
+msgid "Omaduse Mitu rida (numlines) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_sites
+msgid "Omaduse Saidid (sites) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_sites_comment
+msgid "Omaduse Saidid (sites) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_sites_help
+msgid "Omaduse Saidid (sites) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_languages
+msgid "Omaduse Keeled (languages) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_languages_comment
+msgid "Omaduse Keeled (languages) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_languages_help
+msgid "Omaduse Keeled (languages) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_use_filter
+msgid "Omaduse Kas kasutada Tegevuste filtrit (use_filter) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_use_filter_comment
+msgid "Omaduse Kas kasutada Tegevuste filtrit (use_filter) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_use_filter_help
+msgid "Omaduse Kas kasutada Tegevuste filtrit (use_filter) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_filter_types
+msgid "Omaduse T&uuml;&uuml;bid (filter_types) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_filter_types_comment
+msgid "Omaduse T&uuml;&uuml;bid (filter_types) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_filter_types_help
+msgid "Omaduse T&uuml;&uuml;bid (filter_types) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_filter_actions
+msgid "Omaduse Tegevused (filter_actions) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_filter_actions_comment
+msgid "Omaduse Tegevused (filter_actions) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_filter_actions_help
+msgid "Omaduse Tegevused (filter_actions) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_filter_combo
+msgid "Omaduse Tegevused (filter_combo) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_filter_combo_comment
+msgid "Omaduse Tegevused (filter_combo) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_filter_combo_help
+msgid "Omaduse Tegevused (filter_combo) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_save_folder
+msgid "Omaduse Kataloog, kuhu salvestatakse IP aadressid (ip_save_folder) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_save_folder_comment
+msgid "Omaduse Kataloog, kuhu salvestatakse IP aadressid (ip_save_folder) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_save_folder_help
+msgid "Omaduse Kataloog, kuhu salvestatakse IP aadressid (ip_save_folder) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_block_folders
+msgid "Omaduse Blokeeritavate aadresside kataloogid (ip_block_folders) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_block_folders_comment
+msgid "Omaduse Blokeeritavate aadresside kataloogid (ip_block_folders) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_block_folders_help
+msgid "Omaduse Blokeeritavate aadresside kataloogid (ip_block_folders) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_block_folders_subs
+msgid "Omaduse Kas kehtestada ka alamkaustadele (ip_block_folders_subs) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_block_folders_subs_comment
+msgid "Omaduse Kas kehtestada ka alamkaustadele (ip_block_folders_subs) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_block_folders_subs_help
+msgid "Omaduse Kas kehtestada ka alamkaustadele (ip_block_folders_subs) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_allow_folders
+msgid "Omaduse N&auml;idatavate aadresside kataloogid (ip_allow_folders) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_allow_folders_comment
+msgid "Omaduse N&auml;idatavate aadresside kataloogid (ip_allow_folders) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_allow_folders_help
+msgid "Omaduse N&auml;idatavate aadresside kataloogid (ip_allow_folders) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_allow_folders_subs
+msgid "Omaduse Kas n&auml;idata ka alamkataloogid (ip_allow_folders_subs) caption"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_allow_folders_subs_comment
+msgid "Omaduse Kas n&auml;idata ka alamkataloogid (ip_allow_folders_subs) kommentaar"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:prop_ip_allow_folders_subs_help
+msgid "Omaduse Kas n&auml;idata ka alamkataloogid (ip_allow_folders_subs) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:group_types
+msgid "Grupi T&uuml;&uuml;bid (types) pealkiri"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:group_types_help
+msgid "Grupi T&uuml;&uuml;bid (types) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:group_actions
+msgid "Grupi Tegevused (actions) pealkiri"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:group_actions_help
+msgid "Grupi Tegevused (actions) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:group_combo
+msgid "Grupi Kombineeritud (combo) pealkiri"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:group_combo_help
+msgid "Grupi Kombineeritud (combo) help"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:group_ipfilter
+msgid "Grupi IPfilter (ipfilter) pealkiri"
+msgstr ""
+
+#: classes/syslog/dronline_conf.aw:group_ipfilter_help
+msgid "Grupi IPfilter (ipfilter) help"
+msgstr ""
+

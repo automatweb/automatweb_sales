@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<tabledef>
+<data>
+<field name="tm" caption="Kuupäev" align="center" nowrap="1"/>
+<field name="actor" caption="Tegija"/>
+<field name="action" caption="Tegevus"/>
+<field name="process" caption="Protsess"/>
+<field name="uid" caption="Kasutaja"/>
+</data>
+</tabledef>

@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_delivery_method_conditions" folder="applications/shop/" extends="class_base">
+	</class>
+</orb>
+		

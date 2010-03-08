@@ -1,0 +1,11 @@
+<h2>radiobutton</h2>
+
+Radiobutton. Quite useless as a separate property type but can be used in callback properties.
+
+<b>value</b>
+
+    Value is handled a differently from other property types, it's not shown, but if the radiobutton is checked, you'll get that as the value of the property
+
+<b>rb_value</b>
+
+    If equal to value, the radiobutton will be checked

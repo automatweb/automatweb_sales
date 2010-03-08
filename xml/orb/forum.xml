@@ -1,0 +1,185 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="forum" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/forum" extends="class_base">
+		<action name="notify_list">
+			<function name="notify_list">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="sortby" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_notify_list">
+			<function name="submit_notify_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_topic" nologin="1">
+			<function name="add_topic">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_topic" nologin="1">
+			<function name="submit_topic">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="board" type="int" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_vote" nologin="1">
+			<function name="submit_vote">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_threaded" nologin="1">
+			<function name="show_threaded">
+				<arguments>
+					<required name="board" type="int" />
+					<optional name="section" />
+					<optional name="cid" type="int" />
+					<optional name="from" type="int" />
+					<optional name="no_comments" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_messages">
+			<function name="submit_messages">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="reply" nologin="1">
+			<function name="reply">
+				<arguments>
+					<required name="parent" type="int" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_comment" nologin="1">
+			<function name="submit_comment">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="export_xml">
+			<function name="export_xml">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="topics" nologin="1">
+			<function name="topics">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="from" type="int" />
+					<optional name="section" />
+					<optional name="archive" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="topics_detail" nologin="1">
+			<function name="topics_detail">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="from" type="int" />
+					<optional name="cid" type="int" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_topics" nologin="1">
+			<function name="submit_topics">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search" nologin="1">
+			<function name="search">
+				<arguments>
+					<optional name="id" type="int" />
+					<optional name="board" type="int" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_search" nologin="1" all_args="1">
+			<function name="submit_search">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mark_all_read" nologin="1">
+			<function name="mark_all_read">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_topic">
+			<function name="del_topic">
+				<arguments>
+					<required name="forum_id" type="int" />
+					<required name="board" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_topic">
+			<function name="change_topic">
+				<arguments>
+					<required name="board" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_topic">
+			<function name="save_topic">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_msg">
+			<function name="del_msg">
+				<arguments>
+					<required name="comment" type="int" />
+					<required name="board" type="int" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

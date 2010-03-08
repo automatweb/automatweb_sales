@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:class_1412_help
+msgid "Klassi Tellimiskeskkonna toodete filter help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:prop_oc
+msgid "Omaduse Tellimiskeskkond (oc) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:prop_oc_comment
+msgid "Omaduse Tellimiskeskkond (oc) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:prop_oc_help
+msgid "Omaduse Tellimiskeskkond (oc) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:prop_filter_params
+msgid "Omaduse Filtri parameetrid (filter_params) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:prop_filter_params_comment
+msgid "Omaduse Filtri parameetrid (filter_params) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:prop_filter_params_help
+msgid "Omaduse Filtri parameetrid (filter_params) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:prop_filter
+msgid "Omaduse  (filter) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:prop_filter_comment
+msgid "Omaduse  (filter) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:prop_filter_help
+msgid "Omaduse  (filter) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:group_filter
+msgid "Grupi Koosta filter (filter) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:group_filter_help
+msgid "Grupi Koosta filter (filter) help"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:110
+msgid "Tulba nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:113
+msgid "Tulba valikud"
+msgstr ""
+
+#: classes/applications/shop/shop_order_center_filter_entry.aw:138
+msgid "Vali aktiivsed filtrite v&auml;&auml;rtused"
+msgstr ""

@@ -1,0 +1,66 @@
+# menyyd on root/klient/$url
+	$klient = obj { class_id=CL_MENU, parent=${parent}, name=${url}, type=MN_CLIENT, status=STAT_ACTIVE }
+		$site_root = obj { class_id=CL_MENU, parent=${klient}, jrk="2", name=${url}, type=MN_CLIENT, status=STAT_ACTIVE }
+
+
+			# login menyy
+			$loginm = obj { class_id=CL_MENU, parent=${site_root}, name="Login men&uuml;&uuml;", status=STAT_ACTIVE, type=MN_CLIENT }
+
+				$logged = obj { class_id=CL_MENU, parent=${loginm}, name="Sisse loginud", status=STAT_ACTIVE, type=MN_CLIENT }
+					$logged_admins = obj { class_id=CL_MENU, parent=${logged}, jrk="1", name="Administraatorid", status=STAT_ACTIVE, type=MN_CLIENT }
+
+						$work = obj { class_id=CL_MENU, parent=${logged_admins}, jrk="1", name="Administreeri", status=STAT_ACTIVE, type=MN_CONTENT,  }
+
+							obj { class_id=CL_MENU, parent=${work}, name="Automatweb", jrk="1", status=STAT_ACTIVE, type=MN_CONTENT, link="/automatweb/" }
+							obj { class_id=CL_MENU, parent=${work}, name="Lisa Dokument", jrk="2", status=STAT_ACTIVE, type=MN_PMETHOD, meta.pclass="document/new", meta.pm_url_admin=1 }
+							obj { class_id=CL_MENU, parent=${work}, name="Muuda Dokumenti", jrk="3", status=STAT_ACTIVE, type=MN_PMETHOD, meta.pclass="document/change", meta.pm_url_admin=1 }
+
+						$me = obj { class_id=CL_MENU, parent=${logged_admins}, jrk="2", name="Minu tegevused", status=STAT_ACTIVE, type=MN_CONTENT }
+							obj { class_id=CL_MENU, parent=${me}, name="Muuda Parooli", jrk="1", status=STAT_ACTIVE, type=MN_PMETHOD, meta.pclass="users/change_pwd"}
+							obj { class_id=CL_MENU, parent=${me}, name="Logi v&auml;lja", jrk="2", status=STAT_ACTIVE, type=MN_PMETHOD, meta.pclass="users/logout"}
+
+					$logged_users = obj { class_id=CL_MENU, parent=${logged}, name="Tavaskasutajad", status=STAT_ACTIVE, type=MN_PMETHOD,  }
+						$me_u = obj { class_id=CL_MENU, parent=${logged_users}, name="Minu Tegevused", status=STAT_ACTIVE, type=MN_CONTENT }
+							obj { class_id=CL_MENU, parent=${me_u}, name="Muuda Parooli", jrk="1", status=STAT_ACTIVE, type=MN_PMETHOD meta.pclass="users/change_pwd" }
+							obj { class_id=CL_MENU, parent=${me_u}, name="Logi v&auml;lja", jrk="2", status=STAT_ACTIVE, type=MN_PMETHOD meta.pclass="users/logout" }
+
+					$logged_editors = obj { class_id=CL_MENU, parent=${logged}, jrk="1", name="Toimetajad", status=STAT_ACTIVE, type=MN_CLIENT }
+
+						$e_work = obj { class_id=CL_MENU, parent=${logged_editors}, jrk="1", name="Administreeri", status=STAT_ACTIVE, type=MN_CONTENT,  }
+
+							obj { class_id=CL_MENU, parent=${e_work}, name="Automatweb", jrk="1", status=STAT_ACTIVE, type=MN_CONTENT, link="/automatweb/" }
+							obj { class_id=CL_MENU, parent=${e_work}, name="Lisa Dokument", jrk="2", status=STAT_ACTIVE, type=MN_PMETHOD, meta.pclass="document/new", meta.pm_url_admin=1 }
+							obj { class_id=CL_MENU, parent=${e_work}, name="Muuda Dokumenti", jrk="3", status=STAT_ACTIVE, type=MN_PMETHOD, meta.pclass="document/change", meta.pm_url_admin=1 }
+
+						$e_me = obj { class_id=CL_MENU, parent=${logged_editors}, jrk="2", name="Minu tegevused", status=STAT_ACTIVE, type=MN_CONTENT }
+							obj { class_id=CL_MENU, parent=${me}, name="Muuda Parooli", jrk="1", status=STAT_ACTIVE, type=MN_PMETHOD, meta.pclass="users/change_pwd"}
+							obj { class_id=CL_MENU, parent=${me}, name="Logi v&auml;lja", jrk="2", status=STAT_ACTIVE, type=MN_PMETHOD, meta.pclass="users/logout"}
+
+		# AW objektide menyy
+		$aw_obj = obj { class_id=CL_MENU, parent=${klient}, jrk="3", name="AW Objektid", type=MN_CLIENT, status=STAT_ACTIVE }
+
+			$cont = obj { class_id=CL_MENU, parent=${aw_obj}, name="Konteinerid", type=MN_CLIENT, status=STAT_ACTIVE }
+
+			# siia peaks tulema 
+			$mn_conf = obj { class_id=CL_MENU, parent=${aw_obj}, name="Seaded", type=MN_CLIENT, status=STAT_ACTIVE }
+
+				$loginm = obj { class_id=CL_MENU, parent=${mn_conf}, name="Login men&uuml;&uuml;", type=MN_CLIENT, status=STAT_ACTIVE }
+					obj { class_id=CL_CONFIG_LOGIN_MENUS, status=STAT_ACTIVE, parent=${loginm}, name="Login men&uuml;&uuml;" }
+
+		# adminni proged. - config only. could be none soon
+		$admin_root = obj { class_id=CL_MENU, parent=${klient}, jrk="1", name="AutomatWeb" type=MN_ADMIN1, status=STAT_ACTIVE }
+			obj { class_id=CL_MENU, parent=${admin_root}, name="Config" type=MN_ADMIN1, admin_feature=PRG_CONFIG, status=STAT_ACTIVE }
+
+ini { site_rootmenu=${site_root} }
+
+ini { rootmenu=${site_root} }
+
+ini { frontpage=${site_root} }
+
+ini { per_oid=${site_root} }
+
+ini { menuedit.menu_defs[${logged}]="LOGGED" }
+
+ini { admin_rootmenu2=${klient} }
+
+ini { amenustart=${admin_root} }

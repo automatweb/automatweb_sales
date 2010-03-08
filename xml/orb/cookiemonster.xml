@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="cookiemonster" folder="core/dbg" extends="class_base">
+		<action name="list" default="1">
+			<function name="gen_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="munch">
+			<function name="munch">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

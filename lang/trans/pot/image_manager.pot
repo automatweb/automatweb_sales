@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/admin/editor/image_manager.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/admin/editor/image_manager.aw:124
+msgid "Uus pilt"
+msgstr ""
+
+#: classes/admin/editor/image_manager.aw:125
+msgid "Vali olemasolev pilt"
+msgstr ""
+
+#: classes/admin/editor/image_manager.aw:138
+msgid "Pilt"
+msgstr ""
+
+#: classes/admin/editor/image_manager.aw:179
+msgid "Vali see"
+msgstr ""
+

@@ -1,0 +1,14 @@
+arr($arr,$die)
+
+Debugging function. Outputs the contents of $arr and terminates
+the flow of the program if $die is set to true (by default
+it does not terminate)
+
+Equivalent of doing
+#code#
+print "<pre>";
+print_r($arr);
+print "</pre>";
+#/code#
+
+Returns: nothing

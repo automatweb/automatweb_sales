@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="quickmessagebox" folder="www/dev/terryf/automatweb_dev/classes/applications/quickmessage" extends="class_base">
+		<action name="delete_message">
+			<function name="delete_message">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="sel" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_new_msgs_count">
+			<function name="get_new_msgs_count">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="redir_userbox" all_args="1">
+			<function name="redir_userbox">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="redir_popup_url" all_args="1">
+			<function name="redir_popup_url">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,12 @@
+<h2>textarea</h2>
+
+Multiline editor.
+
+<b>cols</b>
+    width of the editor
+
+<b>rows</b>
+    height of the editor
+
+<b>richtext</b>
+    if set to 1, the editor becomes a Rich Text Editor

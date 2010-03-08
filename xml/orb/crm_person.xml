@@ -1,0 +1,173 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_person" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="class_base">
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_image" nologin="1">
+			<function name="show_image">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<optional name="side" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_objects">
+			<function name="delete_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_obj">
+			<function name="delete_obj">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="edit_my_person_obj" is_public="1" caption="Muuda isikuobjekti andmeid">
+			<function name="edit_my_person_obj">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_person_count_by_name">
+			<function name="get_person_count_by_name">
+				<arguments>
+					<optional name="co_name" />
+					<optional name="ignore_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="go_to_first_person_by_name">
+			<function name="go_to_first_person_by_name">
+				<arguments>
+					<optional name="co_name" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_job_pdf" nologin="1">
+			<function name="gen_job_pdf">
+				<arguments>
+					<optional name="id" type="int" />
+					<optional name="cv_tpl" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_cv" all_args="1">
+			<function name="show_cv">
+				<arguments>
+					<optional name="cv" type="string" />
+					<optional name="cfgform" type="oid" />
+					<optional name="die" type="boolean" />
+					<optional name="job_offer" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_docs">
+			<function name="submit_delete_docs">
+				<arguments>
+					<optional name="sel" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_new_citizenship" all_args="1">
+			<function name="add_new_citizenship">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="c2wr">
+			<function name="c2wr">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="wrid" type="int" />
+					<required name="toid" type="int" />
+					<required name="reltype" type="int" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_skill">
+			<function name="add_skill">
+				<arguments>
+					<required name="id" type="oid" />
+					<required name="skill_id" type="oid" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_lang_skill">
+			<function name="add_lang_skill">
+				<arguments>
+					<required name="id" type="oid" />
+					<required name="lang_id" type="oid" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_work_relation">
+			<function name="new_work_relation">
+				<arguments>
+					<required name="id" type="oid" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_docs">
+			<function name="cut_docs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_paste_docs">
+			<function name="submit_paste_docs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="on_connect_to_meeting">
+			<function name="on_connect_to_task">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="phones">
+			<function name="phones">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="emails">
+			<function name="emails">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,6 @@
+<h2>submit</h2>
+
+Submit button. Can be used to make multiple submit buttons, useful if you want to execute different actions for different buttons. The value of the submit property can be used to determine which button was clicked.
+
+First added submit button overrides the one with default caption provided by class_base. So, if you want to change
+the text on the default submit button, then do it by adding a "submit" property to the group

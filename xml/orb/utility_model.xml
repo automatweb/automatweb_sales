@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="utility_model" folder="www/dev/terryf/automatweb_dev/classes/applications/clients/patent_office" extends="intellectual_property">
+	</class>
+</orb>

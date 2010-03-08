@@ -1,0 +1,828 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/realestate_management/realestate_search.aw:class_981_help
+msgid "Klassi Kinnisvaraobjektide otsing help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_template
+msgid ""
+"Omaduse N&amp;auml;itamise p&amp;otilde;hi (template) (template) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_template_comment
+msgid ""
+"Omaduse N&amp;auml;itamise p&amp;otilde;hi (template) (template) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_template_help
+msgid "Omaduse N&amp;auml;itamise p&amp;otilde;hi (template) (template) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_result_format
+msgid ""
+"Omaduse Otsingutulemuste n&amp;auml;itamise formaat (result_format) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_result_format_comment
+msgid ""
+"Omaduse Otsingutulemuste n&amp;auml;itamise formaat (result_format) "
+"kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_result_format_help
+msgid ""
+"Omaduse Otsingutulemuste n&amp;auml;itamise formaat (result_format) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_result_no_form
+msgid "Omaduse Tulemused otsinguvormita (result_no_form) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_result_no_form_comment
+msgid "Omaduse Tulemused otsinguvormita (result_no_form) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_result_no_form_help
+msgid "Omaduse Tulemused otsinguvormita (result_no_form) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_result_no_redirect
+msgid "Omaduse Suunamiseta (search_result_no_redirect) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_result_no_redirect_comment
+msgid "Omaduse Suunamiseta (search_result_no_redirect) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_result_no_redirect_help
+msgid "Omaduse Suunamiseta (search_result_no_redirect) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_result_pageselector_pos
+msgid "Omaduse Tabeli navigatsiooni asukoht (result_pageselector_pos) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_result_pageselector_pos_comment
+msgid ""
+"Omaduse Tabeli navigatsiooni asukoht (result_pageselector_pos) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_result_pageselector_pos_help
+msgid "Omaduse Tabeli navigatsiooni asukoht (result_pageselector_pos) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchform_select_size
+msgid ""
+"Omaduse Otsinguvormi valikuelementide suurus (searchform_select_size) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchform_select_size_comment
+msgid ""
+"Omaduse Otsinguvormi valikuelementide suurus (searchform_select_size) "
+"kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchform_select_size_help
+msgid ""
+"Omaduse Otsinguvormi valikuelementide suurus (searchform_select_size) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchform_columns
+msgid "Omaduse Otsinguvormi tulpade arv (searchform_columns) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchform_columns_comment
+msgid "Omaduse Otsinguvormi tulpade arv (searchform_columns) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchform_columns_help
+msgid "Omaduse Otsinguvormi tulpade arv (searchform_columns) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchform_pagesize
+msgid "Omaduse Otsingutulemusi lehel (searchform_pagesize) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchform_pagesize_comment
+msgid "Omaduse Otsingutulemusi lehel (searchform_pagesize) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchform_pagesize_help
+msgid "Omaduse Otsingutulemusi lehel (searchform_pagesize) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_realestate_mgr
+msgid "Omaduse Kinnisvarahalduskeskkond (realestate_mgr) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_realestate_mgr_comment
+msgid "Omaduse Kinnisvarahalduskeskkond (realestate_mgr) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_realestate_mgr_help
+msgid "Omaduse Kinnisvarahalduskeskkond (realestate_mgr) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_administrative_structure
+msgid "Omaduse Haldusjaotus (administrative_structure) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_administrative_structure_comment
+msgid "Omaduse Haldusjaotus (administrative_structure) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_administrative_structure_help
+msgid "Omaduse Haldusjaotus (administrative_structure) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_default_searchparam_sort_by
+msgid ""
+"Omaduse Default j&amp;auml;rjestus (default_searchparam_sort_by) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_default_searchparam_sort_by_comment
+msgid ""
+"Omaduse Default j&amp;auml;rjestus (default_searchparam_sort_by) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_default_searchparam_sort_by_help
+msgid "Omaduse Default j&amp;auml;rjestus (default_searchparam_sort_by) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_default_searchparam_sort_order
+msgid ""
+"Omaduse Default j&amp;auml;rjestuse suund (default_searchparam_sort_order) "
+"caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_default_searchparam_sort_order_comment
+msgid ""
+"Omaduse Default j&amp;auml;rjestuse suund (default_searchparam_sort_order) "
+"kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_default_searchparam_sort_order_help
+msgid ""
+"Omaduse Default j&amp;auml;rjestuse suund (default_searchparam_sort_order) "
+"help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_default_per_page
+msgid "Omaduse Vaikimisi kuulutusi lehe kohta (default_per_page) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_default_per_page_comment
+msgid "Omaduse Vaikimisi kuulutusi lehe kohta (default_per_page) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_default_per_page_help
+msgid "Omaduse Vaikimisi kuulutusi lehe kohta (default_per_page) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_save_search
+msgid "Omaduse Salvesta otsingutulemus (save_search) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_save_search_comment
+msgid "Omaduse Salvesta otsingutulemus (save_search) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_save_search_help
+msgid "Omaduse Salvesta otsingutulemus (save_search) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_sort_by_options
+msgid "Omaduse  (sort_by_options) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_sort_by_options_comment
+msgid "Omaduse  (sort_by_options) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_sort_by_options_help
+msgid "Omaduse  (sort_by_options) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_max_results
+msgid "Omaduse Maksimaalselt otsingutulemusi (max_results) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_max_results_comment
+msgid "Omaduse Maksimaalselt otsingutulemusi (max_results) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_max_results_help
+msgid "Omaduse Maksimaalselt otsingutulemusi (max_results) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_class_id
+msgid "Omaduse Objekt (search_class_id) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_class_id_comment
+msgid "Omaduse Objekt (search_class_id) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_class_id_help
+msgid "Omaduse Objekt (search_class_id) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_city24_id
+msgid "Omaduse City24 ID (search_city24_id) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_city24_id_comment
+msgid "Omaduse City24 ID (search_city24_id) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_city24_id_help
+msgid "Omaduse City24 ID (search_city24_id) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_transaction_type
+msgid ""
+"Omaduse Tehingu t&amp;uuml;&amp;uuml;p (search_transaction_type) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_transaction_type_comment
+msgid ""
+"Omaduse Tehingu t&amp;uuml;&amp;uuml;p (search_transaction_type) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_transaction_type_help
+msgid "Omaduse Tehingu t&amp;uuml;&amp;uuml;p (search_transaction_type) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_transaction_price_min
+msgid "Omaduse Hind min (search_transaction_price_min) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_transaction_price_min_comment
+msgid "Omaduse Hind min (search_transaction_price_min) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_transaction_price_min_help
+msgid "Omaduse Hind min (search_transaction_price_min) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_transaction_price_max
+msgid "Omaduse Hind max (search_transaction_price_max) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_transaction_price_max_comment
+msgid "Omaduse Hind max (search_transaction_price_max) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_transaction_price_max_help
+msgid "Omaduse Hind max (search_transaction_price_max) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_total_floor_area_min
+msgid "Omaduse &amp;Uuml;ldpind min (search_total_floor_area_min) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_total_floor_area_min_comment
+msgid "Omaduse &amp;Uuml;ldpind min (search_total_floor_area_min) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_total_floor_area_min_help
+msgid "Omaduse &amp;Uuml;ldpind min (search_total_floor_area_min) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_total_floor_area_max
+msgid "Omaduse &amp;Uuml;ldpind max (search_total_floor_area_max) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_total_floor_area_max_comment
+msgid "Omaduse &amp;Uuml;ldpind max (search_total_floor_area_max) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_total_floor_area_max_help
+msgid "Omaduse &amp;Uuml;ldpind max (search_total_floor_area_max) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_number_of_rooms
+msgid "Omaduse Tubade arv (search_number_of_rooms) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_number_of_rooms_comment
+msgid "Omaduse Tubade arv (search_number_of_rooms) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_number_of_rooms_help
+msgid "Omaduse Tubade arv (search_number_of_rooms) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address1
+msgid "Omaduse Maakond (searchparam_address1) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address1_comment
+msgid "Omaduse Maakond (searchparam_address1) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address1_help
+msgid "Omaduse Maakond (searchparam_address1) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address2
+msgid "Omaduse Linn (searchparam_address2) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address2_comment
+msgid "Omaduse Linn (searchparam_address2) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address2_help
+msgid "Omaduse Linn (searchparam_address2) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address3
+msgid "Omaduse Linnaosa (searchparam_address3) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address3_comment
+msgid "Omaduse Linnaosa (searchparam_address3) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address3_help
+msgid "Omaduse Linnaosa (searchparam_address3) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address4
+msgid "Omaduse Vald (searchparam_address4) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address4_comment
+msgid "Omaduse Vald (searchparam_address4) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address4_help
+msgid "Omaduse Vald (searchparam_address4) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address5
+msgid "Omaduse Asula (searchparam_address5) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address5_comment
+msgid "Omaduse Asula (searchparam_address5) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_address5_help
+msgid "Omaduse Asula (searchparam_address5) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_condition
+msgid "Omaduse Valmidus (search_condition) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_condition_comment
+msgid "Omaduse Valmidus (search_condition) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_condition_help
+msgid "Omaduse Valmidus (search_condition) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_fromdate
+msgid "Omaduse Alates kuup&amp;auml;evast (searchparam_fromdate) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_fromdate_comment
+msgid "Omaduse Alates kuup&amp;auml;evast (searchparam_fromdate) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_fromdate_help
+msgid "Omaduse Alates kuup&amp;auml;evast (searchparam_fromdate) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_usage_purpose
+msgid ""
+"Omaduse &amp;Auml;ripinna t&amp;uuml;&amp;uuml;p (search_usage_purpose) "
+"caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_usage_purpose_comment
+msgid ""
+"Omaduse &amp;Auml;ripinna t&amp;uuml;&amp;uuml;p (search_usage_purpose) "
+"kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_usage_purpose_help
+msgid ""
+"Omaduse &amp;Auml;ripinna t&amp;uuml;&amp;uuml;p (search_usage_purpose) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_agent
+msgid "Omaduse Maakler (search_agent) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_agent_comment
+msgid "Omaduse Maakler (search_agent) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_agent_help
+msgid "Omaduse Maakler (search_agent) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_special_status
+msgid "Omaduse Eristaatus (search_special_status) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_special_status_comment
+msgid "Omaduse Eristaatus (search_special_status) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_special_status_help
+msgid "Omaduse Eristaatus (search_special_status) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_is_middle_floor
+msgid ""
+"Omaduse Pole esimene ega viimane korrus (search_is_middle_floor) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_is_middle_floor_comment
+msgid ""
+"Omaduse Pole esimene ega viimane korrus (search_is_middle_floor) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_is_middle_floor_help
+msgid "Omaduse Pole esimene ega viimane korrus (search_is_middle_floor) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_onlywithpictures
+msgid ""
+"Omaduse N&amp;auml;ita ainult pildiga kuulutusi "
+"(searchparam_onlywithpictures) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_onlywithpictures_comment
+msgid ""
+"Omaduse N&amp;auml;ita ainult pildiga kuulutusi "
+"(searchparam_onlywithpictures) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_onlywithpictures_help
+msgid ""
+"Omaduse N&amp;auml;ita ainult pildiga kuulutusi "
+"(searchparam_onlywithpictures) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_sort_by
+msgid "Omaduse J&amp;auml;rjestus (searchparam_sort_by) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_sort_by_comment
+msgid "Omaduse J&amp;auml;rjestus (searchparam_sort_by) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_sort_by_help
+msgid "Omaduse J&amp;auml;rjestus (searchparam_sort_by) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_sort_order
+msgid "Omaduse J&amp;auml;rjestuse suund (searchparam_sort_order) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_sort_order_comment
+msgid "Omaduse J&amp;auml;rjestuse suund (searchparam_sort_order) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchparam_sort_order_help
+msgid "Omaduse J&amp;auml;rjestuse suund (searchparam_sort_order) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_per_page
+msgid "Omaduse Kuulutusi lehe kohta (per_page) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_per_page_comment
+msgid "Omaduse Kuulutusi lehe kohta (per_page) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_per_page_help
+msgid "Omaduse Kuulutusi lehe kohta (per_page) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_button
+msgid "Omaduse Otsi (search_button) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_button_comment
+msgid "Omaduse Otsi (search_button) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_search_button_help
+msgid "Omaduse Otsi (search_button) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchresult
+msgid "Omaduse Otsingutulemused (searchresult) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchresult_comment
+msgid "Omaduse Otsingutulemused (searchresult) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_searchresult_help
+msgid "Omaduse Otsingutulemused (searchresult) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_formelements
+msgid "Omaduse Otsinguparameetrid (formelements) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_formelements_comment
+msgid "Omaduse Otsinguparameetrid (formelements) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_formelements_help
+msgid "Omaduse Otsinguparameetrid (formelements) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_formdesign_sort_options
+msgid "Omaduse J&amp;auml;rjestamise valik (formdesign_sort_options) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_formdesign_sort_options_comment
+msgid ""
+"Omaduse J&amp;auml;rjestamise valik (formdesign_sort_options) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_formdesign_sort_options_help
+msgid "Omaduse J&amp;auml;rjestamise valik (formdesign_sort_options) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_agent_sections
+msgid "Omaduse Maaklerite osakonnad (agent_sections) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_agent_sections_comment
+msgid "Omaduse Maaklerite osakonnad (agent_sections) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:prop_agent_sections_help
+msgid "Omaduse Maaklerite osakonnad (agent_sections) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:group_grp_search
+msgid "Grupi Otsing (grp_search) pealkiri"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:group_grp_search_help
+msgid "Grupi Otsing (grp_search) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:group_grp_formdesign
+msgid "Grupi Parameetrite valik (grp_formdesign) pealkiri"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:group_grp_formdesign_help
+msgid "Grupi Parameetrite valik (grp_formdesign) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:rel_RELTYPE_OWNER
+msgid "Seose Kinnisvaraobjektide halduskeskkond (RELTYPE_OWNER) tekst"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:rel_RELTYPE_ADMINISTRATIVE_STRUCTURE
+msgid "Seose Haldusjaotus (RELTYPE_ADMINISTRATIVE_STRUCTURE) tekst"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:201
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:202
+msgid "Objekti t&amp;uuml;&amp;uuml;p"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:203
+msgid "Loodud"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:204
+#: classes/applications/realestate_management/realestate_search.aw:2550
+msgid "Muudetud"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:205
+#: classes/applications/realestate_management/realestate_search.aw:865
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:208
+msgid "Kasvav"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:209
+msgid "Kahanev"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:254
+msgid "Kinnisvarahalduskeskkond m&amp;auml;&amp;auml;ramata"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:268
+msgid "Haldusjaotus m&amp;auml;&amp;auml;ramata"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:282
+#: classes/applications/realestate_management/realestate_search.aw:294
+msgid "valik kataloogist:"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:306
+msgid "&amp;Uuml;leval"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:307
+msgid "All"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:308
+msgid "&amp;Uuml;leval ja all"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:314
+#: classes/applications/realestate_management/realestate_search.aw:1566
+msgid "Maja"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:315
+#: classes/applications/realestate_management/realestate_search.aw:1567
+msgid "Ridaelamu"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:316
+#: classes/applications/realestate_management/realestate_search.aw:1568
+msgid "Suvila"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:317
+#: classes/applications/realestate_management/realestate_search.aw:1569
+msgid "Majaosa"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:318
+#: classes/applications/realestate_management/realestate_search.aw:1570
+msgid "Korter"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:319
+#: classes/applications/realestate_management/realestate_search.aw:1571
+msgid "&amp;Auml;ripind"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:320
+#: classes/applications/realestate_management/realestate_search.aw:1572
+msgid "Garaaz"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:321
+#: classes/applications/realestate_management/realestate_search.aw:1573
+msgid "Maat&amp;uuml;kk"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:722
+msgid "Kinnisvarahalduskeskkond m&amp;auml;&amp;auml;ramata."
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:866
+#: classes/applications/realestate_management/realestate_search.aw:896
+msgid " kuni "
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:895
+msgid "&amp;Uuml;ldpind"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:949
+#: classes/applications/realestate_management/realestate_search.aw:1634
+#: classes/applications/realestate_management/realestate_search.aw:2620
+msgid "K&amp;otilde;ik linnad"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:982
+#: classes/applications/realestate_management/realestate_search.aw:1658
+#: classes/applications/realestate_management/realestate_search.aw:2621
+msgid "K&amp;otilde;ik linnaosad"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1004
+#: classes/applications/realestate_management/realestate_search.aw:1677
+#: classes/applications/realestate_management/realestate_search.aw:2622
+msgid "K&amp;otilde;ik vallad"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1037
+#: classes/applications/realestate_management/realestate_search.aw:1700
+#: classes/applications/realestate_management/realestate_search.aw:2623
+msgid "K&amp;otilde;ik asulad"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1406
+msgid "Otsinguparameetritele vastavaid kuulutusi ei leitud!"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1428
+#: classes/applications/realestate_management/realestate_search.aw:1500
+msgid "Otsinguparameetritele vastavaid objekte ei leitud"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1428
+#: classes/applications/realestate_management/realestate_search.aw:1500
+msgid "Leitud %s objekti"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1536
+msgid "Kinnisvarahalduskeskkond otsinguobjektil defineerimata."
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1558
+msgid ""
+"Haldusjaotus otsinguobjektil ja kinnisvarahalduskeskkonnas defineerimata."
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1576
+msgid "K&amp;otilde;ik objektid"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1593
+msgid "K&amp;otilde;ik tehingud"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1610
+msgid "K&amp;otilde;ik maakonnad"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1715
+msgid "K&amp;otilde;ik valmidused"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1730
+msgid "K&amp;otilde;ik t&amp;uuml;&amp;uuml;bid"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1745
+msgid "K&amp;otilde;ik"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:1792
+msgid "K&amp;otilde;ik maaklerid"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2513
+msgid "T&amp;uuml;&amp;uuml;p"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2518
+msgid "Maa&amp;shy;kond"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2524
+msgid "Linn"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2530
+msgid "Vald"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2536
+msgid "Tehing"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2542
+msgid "Lisatud"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2558
+msgid "Omanik"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2564
+msgid "Maakler"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2571
+msgid "N&auml;h&amp;shy;tav"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2572
+msgid "K&amp;otilde;ik read: vali/kaota valik"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_search.aw:2577
+msgid "Arhi&amp;shy;veeri&amp;shy;tud"
+msgstr ""

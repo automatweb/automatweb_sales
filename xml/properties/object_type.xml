@@ -1,0 +1,69 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>type</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>subclass</field>
+            <caption>Objektit&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>use_cfgform</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_OBJECT_CFGFORM</reltype>
+            <caption>Kasuta seadete vormi</caption>
+      </property>
+      <property>
+            <name>configuration</name>
+            <table>objects</table>
+            <group>settings</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>callback</type>
+            <callback>gen_config</callback>
+            <store>no</store>
+            <caption>Klassi konfiguratsioon</caption>
+      </property>
+      <property>
+            <name>default_object</name>
+            <table>objects</table>
+            <group>defobj</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <store>no</store>
+            <orient>vertical</orient>
+            <caption>Vaikimisi objekt</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <syslog_type>ST_OBJECT_TYPE</syslog_type>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <settings>
+                  <caption>Klassi konfiguratsioon</caption>
+            </settings>
+            <defobj>
+                  <caption>Aktiivne objekt</caption>
+            </defobj>
+      </groupinfo>
+      <reltypes>
+            <OBJECT_CFGFORM>
+                  <value>1</value>
+                  <clid>CL_CFGFORM</clid>
+                  <caption>Seadete vorm</caption>
+            </OBJECT_CFGFORM>
+            <META_ELEMENTS>
+                  <value>2</value>
+                  <clid>CL_META</clid>
+                  <caption>Muutuja</caption>
+            </META_ELEMENTS>
+      </reltypes>
+</properties>
+

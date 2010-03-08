@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<tabledef>
+<data>
+<field name="name" caption="Juhtum" align="center" nowrap="1" sortable="1"/>
+<field name="type" caption="Juhtumi tüüp" align="center" nowrap="1" sortable="1"/>
+<field name="actor" caption="Tegija" align="center" nowrap="1" sortable="1"/>
+<field name="modifiedby" caption="Kasutaja" align="center" sortable="1"/>
+<field name="process" caption="Protsess" sortable="1"/>
+<field name="action" caption="Hetkeseis" sortable="1"/>
+<field name="next_action" caption="Järgmine tegevus" sortable="1"/>
+</data>
+</tabledef>

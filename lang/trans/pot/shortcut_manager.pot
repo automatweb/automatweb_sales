@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/admin/shortcut_manager.aw:class_1464_help
+msgid "Klassi Otseviidete manageerija help"
+msgstr ""
+
+#: classes/admin/shortcut_manager.aw:prop_shortcut_sets
+msgid "Omaduse Aktiivne set (shortcut_sets) caption"
+msgstr ""
+
+#: classes/admin/shortcut_manager.aw:prop_shortcut_sets_comment
+msgid "Omaduse Aktiivne set (shortcut_sets) kommentaar"
+msgstr ""
+
+#: classes/admin/shortcut_manager.aw:prop_shortcut_sets_help
+msgid "Omaduse Aktiivne set (shortcut_sets) help"
+msgstr ""
+
+#: classes/admin/shortcut_manager.aw:prop_shortcuts
+msgid "Omaduse Shortcutid (shortcuts) caption"
+msgstr ""
+
+#: classes/admin/shortcut_manager.aw:prop_shortcuts_comment
+msgid "Omaduse Shortcutid (shortcuts) kommentaar"
+msgstr ""
+
+#: classes/admin/shortcut_manager.aw:prop_shortcuts_help
+msgid "Omaduse Shortcutid (shortcuts) help"
+msgstr ""
+
+#: classes/admin/shortcut_manager.aw:33
+msgid "Kirjeldus"
+msgstr ""
+
+#: classes/admin/shortcut_manager.aw:37
+msgid "Shortcut"
+msgstr ""
+

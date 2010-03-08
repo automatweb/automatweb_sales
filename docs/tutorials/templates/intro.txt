@@ -1,0 +1,9 @@
+Klasside templated
+Sven Eller
+13.01.2004
+
+Klassidel on default templeidid, mis asuvad AW koodi juures kataloogis templates ning saidi juures on v&otilde;imalik teha default templeidist erinev kujundus, ehk siis kui saidi juures templates kataloogis on vastava klassi template olemas kasutatakse seda, kui pole siis kasutatakse AW koodi juures olevat default templeiti. 
+
+Objekte, mis ei asu saidi raamis n&auml;idatakse l&auml;bi dokumendi objekti. Selleks tuleb dokumendi objektis luua alias t&uuml;&uuml;pi seosed objektidega, mida on vaja dokumendis n&auml;idata ning paigutada need aliased dokumenti.  
+
+<b>Dokumendi templated</b> - Dokumendi objektil v&otilde;ib olla &uuml;ksk&otilde;ik kui palju template. Juhul kui kaustas on rohkem aktiivseid dokumente kui &uuml;ks kasutatakse dokumendi leadide templeiti.  

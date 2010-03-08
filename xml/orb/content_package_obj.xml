@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="content_package_obj" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/content_package" extends="_int_object">
+		<action name="update_acl_for_usergroup">
+			<function name="update_acl_for_usergroup">
+				<arguments>
+					<required name="id" type="oid/array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_acl_for_objects">
+			<function name="remove_acl_for_objects">
+				<arguments>
+					<required name="id" type="oid/array" />
+					<required name="oid" type="oid/array" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

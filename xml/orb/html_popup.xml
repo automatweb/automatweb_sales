@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="html_popup" folder="contentmgmt" extends="class_base">
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

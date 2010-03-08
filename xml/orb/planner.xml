@@ -1,0 +1,65 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="planner" folder="www/automatweb_cvs/classes/applications/calendar" extends="class_base">
+		<action name="submit_delete_participants_from_calendar">
+			<function name="submit_delete_participants_from_calendar">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="my_calendar" is_public="1" all_args="1" caption="Minu kalender">
+			<function name="my_calendar">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_event_search">
+			<function name="do_event_search">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_contacts">
+			<function name="search_contacts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_participant_search_results">
+			<function name="save_participant_search_results">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_events">
+			<function name="delete_events">
+				<arguments>
+					<required name="sel" />
+					<required name="id" type="int" acl="edit" />
+					<optional name="group" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_calendars_for_users">
+			<function name="create_calendars_for_users">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_task_rows">
+			<function name="delete_task_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

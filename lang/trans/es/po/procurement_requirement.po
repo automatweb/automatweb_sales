@@ -1,0 +1,312 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/procurement_center/procurement_requirement.aw:class_1067_help
+msgid "Klassi N&otilde;ue help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_pri
+msgid "Omaduse Prioriteet (pri) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_pri_comment
+msgid "Omaduse Prioriteet (pri) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_pri_help
+msgid "Omaduse Prioriteet (pri) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_desc
+msgid "Omaduse Kirjeldus (desc) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_desc_comment
+msgid "Omaduse Kirjeldus (desc) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_desc_help
+msgid "Omaduse Kirjeldus (desc) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_req_co
+msgid "Omaduse Tellija organisatsioon (req_co) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_req_co_comment
+msgid "Omaduse Tellija organisatsioon (req_co) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_req_co_help
+msgid "Omaduse Tellija organisatsioon (req_co) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_req_p
+msgid "Omaduse Tellija isik (req_p) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_req_p_comment
+msgid "Omaduse Tellija isik (req_p) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_req_p_help
+msgid "Omaduse Tellija isik (req_p) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_project
+msgid "Omaduse Projekt (project) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_project_comment
+msgid "Omaduse Projekt (project) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_project_help
+msgid "Omaduse Projekt (project) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_state
+msgid "Omaduse Staatus (state) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_state_comment
+msgid "Omaduse Staatus (state) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_state_help
+msgid "Omaduse Staatus (state) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_planned_time
+msgid "Omaduse Planeeritud t&auml;htaeg (planned_time) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_planned_time_comment
+msgid "Omaduse Planeeritud t&auml;htaeg (planned_time) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_planned_time_help
+msgid "Omaduse Planeeritud t&auml;htaeg (planned_time) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_process
+msgid "Omaduse Protsess (process) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_process_comment
+msgid "Omaduse Protsess (process) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_process_help
+msgid "Omaduse Protsess (process) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_budget
+msgid "Omaduse Eelarve (budget) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_budget_comment
+msgid "Omaduse Eelarve (budget) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_budget_help
+msgid "Omaduse Eelarve (budget) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_offer_tb
+msgid "Omaduse  (offer_tb) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_offer_tb_comment
+msgid "Omaduse  (offer_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_offer_tb_help
+msgid "Omaduse  (offer_tb) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_offer_t
+msgid "Omaduse  (offer_t) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_offer_t_comment
+msgid "Omaduse  (offer_t) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_offer_t_help
+msgid "Omaduse  (offer_t) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_comments
+msgid "Omaduse  (comments) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_comments_comment
+msgid "Omaduse  (comments) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_comments_help
+msgid "Omaduse  (comments) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_bugs_toolbar
+msgid "Omaduse  (bugs_toolbar) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_bugs_toolbar_comment
+msgid "Omaduse  (bugs_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_bugs_toolbar_help
+msgid "Omaduse  (bugs_toolbar) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_bugs_table
+msgid "Omaduse  (bugs_table) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_bugs_table_comment
+msgid "Omaduse  (bugs_table) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:prop_bugs_table_help
+msgid "Omaduse  (bugs_table) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:group_offers
+msgid "Grupi Lahendused n&otilde;udele (offers) pealkiri"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:group_offers_help
+msgid "Grupi Lahendused n&otilde;udele (offers) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:group_comments
+msgid "Grupi Kommentaarid (comments) pealkiri"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:group_comments_help
+msgid "Grupi Kommentaarid (comments) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:group_bugs
+msgid "Grupi Arendus&uuml;lesanded (bugs) pealkiri"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:group_bugs_help
+msgid "Grupi Arendus&uuml;lesanded (bugs) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:rel_RELTYPE_CO
+msgid "Seose Organisatsioon (RELTYPE_CO) tekst"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:rel_RELTYPE_P
+msgid "Seose Isik (RELTYPE_P) tekst"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:rel_RELTYPE_PROJECT
+msgid "Seose Projekt (RELTYPE_PROJECT) tekst"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:rel_RELTYPE_PROCESS
+msgid "Seose Protsess (RELTYPE_PROCESS) tekst"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:rel_RELTYPE_BUG
+msgid "Seose Arendus&uuml;lesanne (RELTYPE_BUG) tekst"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:85
+msgid "Avatud"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:86
+msgid "Spetsifitseerimisel"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:87
+msgid "&Uuml;le antud"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:88
+msgid "Testimisel"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:103
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:189
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:194
+msgid "Lahendus"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:199
+msgid "Pakkuja"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:204
+msgid "Eelistatud"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:209
+msgid "Hinne"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:214
+msgid "Sobiv"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:219
+msgid "L&auml;bir&auml;&auml;kimistele"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:224
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:231 classes/applications/procurement_center/procurement_requirement.aw:245
+msgid "+/-"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:238
+msgid "Tundide arv"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:252
+msgid "Valmidus"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:296
+msgid "X"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:324
+msgid "<b>Keskmine:</b>"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:381
+msgid "Lisa"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:392
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_requirement.aw:395
+msgid "Oled kindel, et soovid bugi kustutada?"
+msgstr ""
+

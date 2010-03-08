@@ -1,0 +1,71 @@
+Indenting and editor settings
+
+<b>Editor settings:</b>
+
+Expand-tabs-to-spaces must be turned <b>OFF</b> and you must use tabs to indent code. The reasoning behind this is that different people like to use different tab sizes and if code is indented using only tabs, it is possible to use different tab sizes. 
+
+
+<b>Indenting</b>
+
+Code <b>MUST</b> be properly indented!
+
+The indending standard is:
+
+- braces surrounding classes, functions and logical blocks must be on their own lines. 
+
+example:
+
+#php#
+class foo
+{
+	function bar()
+	{
+		if (false)
+		{
+			echo "yeah!";
+		}
+	}
+}
+#/php#
+
+- even one-line if constructs must have braces around the content
+
+example:
+#php#
+if (true)
+{
+	echo "yes!"
+}
+#/php#
+
+
+- If a function takes an array as a parameter and you need to specify more than one member for the array, array members should be on separate lines and indented one tab past the function indent. If the array contains only one element, indenting is not necessary, but recommended. 
+
+example:
+
+#php#
+$this->something(array(
+	'a' => 'b',
+	'c' => 'd'
+));
+
+
+$this->that(array(
+	'oid' => $this->object_id,
+	'data' => array(
+		'conf' => $conf,
+		'msgconf' => $this->msgconf
+	)
+));
+#/php#
+
+
+- Simply defining arrays in code follows the same standard as using arrays as function parameters.
+
+example:
+#php#
+$arr = array(
+	'a' => 'b',
+	'c' => 'd'
+);
+#/php#

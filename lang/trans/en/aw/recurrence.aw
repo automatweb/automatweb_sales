@@ -1,0 +1,29 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Alates (start) caption"] = "From";
+$GLOBALS["TRANS"]["Omaduse Kellaaeg (tund:minut) (time) caption"] = "Time (hour:minute)";
+$GLOBALS["TRANS"]["Omaduse Pikkus (h) (length) caption"] = "Length (h)";
+$GLOBALS["TRANS"]["Omaduse Korduse tüüp (recur_type) caption"] = "Recurrence type";
+$GLOBALS["TRANS"]["Omaduse Iga X minuti järel (interval_minutely) caption"] = "Every X minutes";
+$GLOBALS["TRANS"]["Omaduse Iga X tunni järel (interval_hourly) caption"] = "Every X hours";
+$GLOBALS["TRANS"]["Omaduse Iga X päeva järel (interval_daily) caption"] = "Every X days";
+$GLOBALS["TRANS"]["Omaduse Iga X nädala järel (interval_weekly) caption"] = "Every X weeks";
+$GLOBALS["TRANS"]["Omaduse Iga X kuu järel (interval_monthly) caption"] = "Every X months";
+$GLOBALS["TRANS"]["Omaduse Iga X aasta järel (interval_yearly) caption"] = "Every X years";
+$GLOBALS["TRANS"]["Omaduse Nendel päevadel (weekdays) caption"] = "Weekdays";
+$GLOBALS["TRANS"]["Omaduse Kindlatel päevadel (month_days) caption"] = "Month days";
+$GLOBALS["TRANS"]["Omaduse Valitud nädalapäevadel (month_rel_weekdays) caption"] = "Selected weekdays";
+$GLOBALS["TRANS"]["Omaduse Nädalapäevad (month_weekdays) caption"] = "Weekdays";
+$GLOBALS["TRANS"]["Omaduse Kuni (end) caption"] = "Until";
+$GLOBALS["TRANS"]["Grupi Test (test) pealkiri"] = "Test";
+$GLOBALS["TRANS"]["esimesel"] = "first";
+$GLOBALS["TRANS"]["teisel"] = "second";
+$GLOBALS["TRANS"]["kolmandal"] = "third";
+$GLOBALS["TRANS"]["neljandal"] = "fourth";
+$GLOBALS["TRANS"]["viimasel"] = "fifth";
+$GLOBALS["TRANS"]["päev"] = "day";
+$GLOBALS["TRANS"]["nädal"] = "week";
+$GLOBALS["TRANS"]["kuu"] = "month";
+$GLOBALS["TRANS"]["aasta"] = "year";
+$GLOBALS["TRANS"]["minut"] = "minute";
+$GLOBALS["TRANS"]["tund"] = "hour";
+?>

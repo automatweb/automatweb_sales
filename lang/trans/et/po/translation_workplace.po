@@ -1,0 +1,224 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/translate/translation_workplace.aw:class_1157_help
+msgid "Klassi T&otilde;lkimise t&ouml;&ouml;laud help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_objtypes
+msgid "Omaduse Objektit&uuml;&uuml;bid, mida t&otilde;lkida (objtypes) caption"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_objtypes_comment
+msgid "Omaduse Objektit&uuml;&uuml;bid, mida t&otilde;lkida (objtypes) kommentaar"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_objtypes_help
+msgid "Omaduse Objektit&uuml;&uuml;bid, mida t&otilde;lkida (objtypes) help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_tr_toolbar
+msgid "Omaduse  (tr_toolbar) caption"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_tr_toolbar_comment
+msgid "Omaduse  (tr_toolbar) kommentaar"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_tr_toolbar_help
+msgid "Omaduse  (tr_toolbar) help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_tr_tree
+msgid "Omaduse  (tr_tree) caption"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_tr_tree_comment
+msgid "Omaduse  (tr_tree) kommentaar"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_tr_tree_help
+msgid "Omaduse  (tr_tree) help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_oid
+msgid "Omaduse Objekti id (s_oid) caption"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_oid_comment
+msgid "Omaduse Objekti id (s_oid) kommentaar"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_oid_help
+msgid "Omaduse Objekti id (s_oid) help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_name
+msgid "Omaduse Nimi (s_name) caption"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_name_comment
+msgid "Omaduse Nimi (s_name) kommentaar"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_name_help
+msgid "Omaduse Nimi (s_name) help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_clid
+msgid "Omaduse T&uuml;&uuml;p (s_clid) caption"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_clid_comment
+msgid "Omaduse T&uuml;&uuml;p (s_clid) kommentaar"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_clid_help
+msgid "Omaduse T&uuml;&uuml;p (s_clid) help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_sbt
+msgid "Omaduse Otsi (s_sbt) caption"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_sbt_comment
+msgid "Omaduse Otsi (s_sbt) kommentaar"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_s_sbt_help
+msgid "Omaduse Otsi (s_sbt) help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_tr_table
+msgid "Omaduse  (tr_table) caption"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_tr_table_comment
+msgid "Omaduse  (tr_table) kommentaar"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:prop_tr_table_help
+msgid "Omaduse  (tr_table) help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:group_translatable
+msgid "Grupi T&otilde;lgitavad objektid (translatable) pealkiri"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:group_translatable_help
+msgid "Grupi T&otilde;lgitavad objektid (translatable) help"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:rel_RELTYPE_OBJT
+msgid "Seose Objektit&uuml;&uuml;p (RELTYPE_OBJT) tekst"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:layout_tr_left_top
+msgid "Kujundusosa Filtreeri (tr_left_top) pealkiri"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:layout_tr_left_bottom
+msgid "Kujundusosa Otsing (tr_left_bottom) pealkiri"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:101
+msgid "Nimi"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:107
+msgid "Looja"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:113
+msgid "Loodud"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:122
+msgid "Muutja"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:128
+#: classes/translate/translation_workplace.aw:171
+#: classes/translate/translation_workplace.aw:367
+msgid "Muudetud"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:137
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:143
+msgid "T&otilde;lke staatus"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:164
+msgid "Aktiivne"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:206
+msgid "T&auml;na muudetud"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:211
+msgid "Eile muudetud"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:216
+msgid "Sel n&auml;dalal muudetud"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:220
+#: classes/translate/translation_workplace.aw:440
+msgid "T&otilde;lkimata"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:224
+#: classes/translate/translation_workplace.aw:449
+msgid "Vanemad"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:234
+msgid "Objektit&uuml;&uuml;p: %s"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:269
+#: classes/translate/translation_workplace.aw:275
+msgid "Jah"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:269
+#: classes/translate/translation_workplace.aw:275
+msgid "Ei"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:365
+msgid "Kataloogid"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:366
+msgid "Objektit&uuml;&uuml;bid"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:413
+msgid "T&auml;na"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:422
+msgid "Eile"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:431
+msgid "See n&auml;dal"
+msgstr ""
+
+#: classes/translate/translation_workplace.aw:584
+msgid "--vali--"
+msgstr ""

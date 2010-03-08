@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/pullout.aw:class_85_help
+#: classes/contentmgmt/pullout.aw:class_85_help
+msgid "Klassi Pullout help"
+msgstr ""
+
+#: classes/contentmgmt/pullout.aw:prop_groups
+msgid "Omaduse Vali grupid, kellele pullouti n&auml;idatakse (groups) caption"
+msgstr ""
+
+#: classes/contentmgmt/pullout.aw:prop_groups_comment
+msgid "Omaduse Vali grupid, kellele pullouti n&auml;idatakse (groups) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/pullout.aw:prop_groups_help
+msgid "Omaduse Vali grupid, kellele pullouti n&auml;idatakse (groups) help"
+msgstr ""
+
+#: classes/contentmgmt/pullout.aw:prop_docs
+msgid "Omaduse Vali dokument, mida n&auml;idata (docs) caption"
+msgstr ""
+
+#: classes/contentmgmt/pullout.aw:prop_docs_comment
+msgid "Omaduse Vali dokument, mida n&auml;idata (docs) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/pullout.aw:prop_docs_help
+msgid "Omaduse Vali dokument, mida n&auml;idata (docs) help"
+msgstr ""
+
+# classes/pullout.aw:prop_align
+#: classes/contentmgmt/pullout.aw:prop_align
+msgid "Omaduse Align (align) caption"
+msgstr ""
+
+# classes/pullout.aw:prop_align_comment
+#: classes/contentmgmt/pullout.aw:prop_align_comment
+msgid "Omaduse Align (align) kommentaar"
+msgstr ""
+
+# classes/pullout.aw:prop_align_help
+#: classes/contentmgmt/pullout.aw:prop_align_help
+msgid "Omaduse Align (align) help"
+msgstr ""
+
+# classes/pullout.aw:prop_right
+#: classes/contentmgmt/pullout.aw:prop_right
+msgid "Omaduse Paremalt (right) caption"
+msgstr ""
+
+# classes/pullout.aw:prop_right_comment
+#: classes/contentmgmt/pullout.aw:prop_right_comment
+msgid "Omaduse Paremalt (right) kommentaar"
+msgstr ""
+
+# classes/pullout.aw:prop_right_help
+#: classes/contentmgmt/pullout.aw:prop_right_help
+msgid "Omaduse Paremalt (right) help"
+msgstr ""
+
+# classes/pullout.aw:prop_width
+#: classes/contentmgmt/pullout.aw:prop_width
+msgid "Omaduse Laius (width) caption"
+msgstr ""
+
+# classes/pullout.aw:prop_width_comment
+#: classes/contentmgmt/pullout.aw:prop_width_comment
+msgid "Omaduse Laius (width) kommentaar"
+msgstr ""
+
+# classes/pullout.aw:prop_width_help
+#: classes/contentmgmt/pullout.aw:prop_width_help
+msgid "Omaduse Laius (width) help"
+msgstr ""
+
+# classes/pullout.aw:prop_template
+#: classes/contentmgmt/pullout.aw:prop_template
+msgid "Omaduse Template (template) caption"
+msgstr ""
+
+# classes/pullout.aw:prop_template_comment
+#: classes/contentmgmt/pullout.aw:prop_template_comment
+msgid "Omaduse Template (template) kommentaar"
+msgstr ""
+
+# classes/pullout.aw:prop_template_help
+#: classes/contentmgmt/pullout.aw:prop_template_help
+msgid "Omaduse Template (template) help"
+msgstr ""
+
+# classes/pullout.aw:rel_RELTYPE_DOCUMENT
+#: classes/contentmgmt/pullout.aw:rel_RELTYPE_DOCUMENT
+msgid "Seose n&auml;idatav dokument (RELTYPE_DOCUMENT) tekst"
+msgstr ""

@@ -1,0 +1,6 @@
+Database and webserver specific functions
+
+Simple rule - <b>YOU MUST NOT USE THEM</b>. AutomatWeb will have to run with minimal modifications on the widest possible array of different webservers/databases, therefore you can't rely on specific features of them. If you need to, then implement a class that can eitther use the faster built-in functionnality or if not present, use it's own, maybe slower and/or worse implementation, not just break. 
+
+No direct database queries should be performed in the code, all database access should be via the AW Storage subsystem. 
+

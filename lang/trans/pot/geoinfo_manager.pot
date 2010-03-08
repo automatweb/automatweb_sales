@@ -1,0 +1,220 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:class_1373_help
+msgid "Klassi Geoinfo haldus help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_general_tb
+msgid "Omaduse  (general_tb) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_general_tb_comment
+msgid "Omaduse  (general_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_general_tb_help
+msgid "Omaduse  (general_tb) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_source
+msgid "Omaduse XML-i allikas (xml_source) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_source_comment
+msgid "Omaduse XML-i allikas (xml_source) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_source_help
+msgid "Omaduse XML-i allikas (xml_source) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_url
+msgid "Omaduse XML faili url (xml_url) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_url_comment
+msgid "Omaduse XML faili url (xml_url) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_url_help
+msgid "Omaduse XML faili url (xml_url) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_file
+msgid "Omaduse XML fail (xml_file) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_file_comment
+msgid "Omaduse XML fail (xml_file) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_file_help
+msgid "Omaduse XML fail (xml_file) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_schema
+msgid "Omaduse XML-i skeem (xml_schema) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_schema_comment
+msgid "Omaduse XML-i skeem (xml_schema) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_schema_help
+msgid "Omaduse XML-i skeem (xml_schema) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_type
+msgid "Omaduse XML-i t&uuml;&uuml;p (xml_type) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_type_comment
+msgid "Omaduse XML-i t&uuml;&uuml;p (xml_type) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_type_help
+msgid "Omaduse XML-i t&uuml;&uuml;p (xml_type) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_unique
+msgid "Omaduse XML-i unikaalne väli (xml_unique) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_unique_comment
+msgid "Omaduse XML-i unikaalne väli (xml_unique) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_xml_unique_help
+msgid "Omaduse XML-i unikaalne väli (xml_unique) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_rels_mgr_tb
+msgid "Omaduse  (rels_mgr_tb) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_rels_mgr_tb_comment
+msgid "Omaduse  (rels_mgr_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_rels_mgr_tb_help
+msgid "Omaduse  (rels_mgr_tb) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_rels_mgr_table
+msgid "Omaduse  (rels_mgr_table) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_rels_mgr_table_comment
+msgid "Omaduse  (rels_mgr_table) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_rels_mgr_table_help
+msgid "Omaduse  (rels_mgr_table) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_data_mgr_tb
+msgid "Omaduse  (data_mgr_tb) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_data_mgr_tb_comment
+msgid "Omaduse  (data_mgr_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_data_mgr_tb_help
+msgid "Omaduse  (data_mgr_tb) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_data_mgr_table
+msgid "Omaduse  (data_mgr_table) caption"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_data_mgr_table_comment
+msgid "Omaduse  (data_mgr_table) kommentaar"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:prop_data_mgr_table_help
+msgid "Omaduse  (data_mgr_table) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:group_rels_mgr
+msgid "Grupi V&auml;ljad (rels_mgr) pealkiri"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:group_rels_mgr_help
+msgid "Grupi V&auml;ljad (rels_mgr) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:group_data_mgr
+msgid "Grupi Andmed (data_mgr) pealkiri"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:group_data_mgr_help
+msgid "Grupi Andmed (data_mgr) help"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:rel_RELTYPE_XML
+msgid "Seose XML sisend (RELTYPE_XML) tekst"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:rel_RELTYPE_SCHEMA
+msgid "Seose XML skeem (RELTYPE_SCHEMA) tekst"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:489
+msgid "Impordi XML-ist"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:520
+msgid "Väljade seostamine"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:529
+msgid "Väli"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:614
+msgid "Ekspordi KMZ"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:623
+msgid "Impordi koordinaadid"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:632
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:637
+msgid "X koordinaat"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:642
+msgid "Y koordinaat"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:647
+msgid "Aadress"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:654
+msgid "Andmeobjektid"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:734
+msgid "V&auml;&auml;rtused on tagides &lt;coord_x&gt;23.409&lt;/coord_x&gt;"
+msgstr ""
+
+#: classes/applications/geoinfo/geoinfo_manager.aw:735
+msgid "V&auml;&auml;rtused on omadustes &lt;item coord_x=\"23.409\" /&gt;"
+msgstr ""
+

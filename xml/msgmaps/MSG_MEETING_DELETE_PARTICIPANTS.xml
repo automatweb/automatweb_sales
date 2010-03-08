@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+<xml>
+<num_0>
+      <class>/crm/crm_meeting</class>
+      <func>submit_delete_participants_from_calendar</func>
+      <param>CL_CRM_MEETING</param>
+</num_0>
+</xml>

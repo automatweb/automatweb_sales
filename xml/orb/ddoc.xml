@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ddoc" folder="www/dev/terryf/automatweb_dev/classes/common/digidoc" extends="class_base">
+		<action name="rem_sig" all_args="1">
+			<function name="rem_sig">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rem_file" all_args="1">
+			<function name="rem_file">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="upload_new_file" all_args="1">
+			<function name="upload_new_file">
+				<arguments>
+					<required name="ddoc" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_file" all_args="1">
+			<function name="get_file">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="sign" all_args="1">
+			<function name="sign">
+				<arguments>
+					<optional name="step" type="string" />
+					< name="ddoc_oid" />
+					< name="file_oid" />
+					< name="doc_oid" />
+					<optional name="check" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

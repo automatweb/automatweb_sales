@@ -1,0 +1,190 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/quickmessage/quickmessagebox.aw:class_816_help
+msgid "Klassi Kiirteadete haldus help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_owner
+msgid "Omaduse Select owner (owner) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_owner_comment
+msgid "Omaduse Select owner (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_owner_help
+msgid "Omaduse Select owner (owner) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_is_contactlist_add_approval_required
+msgid "Omaduse Require approval (is_contactlist_add_approval_required) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_is_contactlist_add_approval_required_comment
+msgid "Omaduse Require approval (is_contactlist_add_approval_required) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_is_contactlist_add_approval_required_help
+msgid "Omaduse Require approval (is_contactlist_add_approval_required) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_approved_senders
+msgid "Omaduse Allow messages from (approved_senders) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_approved_senders_comment
+msgid "Omaduse Allow messages from (approved_senders) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_approved_senders_help
+msgid "Omaduse Allow messages from (approved_senders) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_show_addressees
+msgid "Omaduse Allow sending to (show_addressees) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_show_addressees_comment
+msgid "Omaduse Allow sending to (show_addressees) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_show_addressees_help
+msgid "Omaduse Allow sending to (show_addressees) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_contactlist
+msgid "Omaduse Contact list (contactlist) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_contactlist_comment
+msgid "Omaduse Contact list (contactlist) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_contactlist_help
+msgid "Omaduse Contact list (contactlist) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_msg_toolbar
+msgid "Omaduse Message list toolbar (msg_toolbar) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_msg_toolbar_comment
+msgid "Omaduse Message list toolbar (msg_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_msg_toolbar_help
+msgid "Omaduse Message list toolbar (msg_toolbar) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_msg_inbox_tbl
+msgid "Omaduse Received messages (msg_inbox_tbl) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_msg_inbox_tbl_comment
+msgid "Omaduse Received messages (msg_inbox_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_msg_inbox_tbl_help
+msgid "Omaduse Received messages (msg_inbox_tbl) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_msg_outbox_tbl
+msgid "Omaduse Sent messages (msg_outbox_tbl) caption"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_msg_outbox_tbl_comment
+msgid "Omaduse Sent messages (msg_outbox_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:prop_msg_outbox_tbl_help
+msgid "Omaduse Sent messages (msg_outbox_tbl) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:group_general
+msgid "Grupi Settings (general) pealkiri"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:group_general_help
+msgid "Grupi Settings (general) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:group_message_box
+msgid "Grupi Messages (message_box) pealkiri"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:group_message_box_help
+msgid "Grupi Messages (message_box) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:group_message_inbox
+msgid "Grupi Inbox (message_inbox) pealkiri"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:group_message_inbox_help
+msgid "Grupi Inbox (message_inbox) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:group_message_outbox
+msgid "Grupi Outbox (message_outbox) pealkiri"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:group_message_outbox_help
+msgid "Grupi Outbox (message_outbox) help"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:rel_RELTYPE_OWNER
+msgid "Seose Owner (RELTYPE_OWNER) tekst"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:rel_RELTYPE_CONTACT
+msgid "Seose Contact (RELTYPE_CONTACT) tekst"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:rel_RELTYPE_READ_MESSAGE
+msgid "Seose Read message (RELTYPE_READ_MESSAGE) tekst"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:rel_RELTYPE_UNREAD_MESSAGE
+msgid "Seose Unread message (RELTYPE_UNREAD_MESSAGE) tekst"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:157
+msgid "From"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:165
+msgid "To"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:174
+msgid "Message"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:181
+msgid "Sent"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:206
+msgid "New message"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:213
+msgid "Delete"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:215
+msgid "Delete selected messages?"
+msgstr ""
+
+#: classes/applications/quickmessage/quickmessagebox.aw:311
+msgid "Error"
+msgstr ""

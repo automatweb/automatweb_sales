@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="class_visualizer" folder="www/dev/terryf/automatweb_dev/classes/applications/class_designer" extends="class_base">
+		<action name="view" default="1">
+			<function name="view">
+				<arguments>
+					<optional name="id" type="int" />
+					<optional name="group" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit">
+			<function name="submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="playground">
+			<function name="playground">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="proc" all_args="1">
+			<function name="proc">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

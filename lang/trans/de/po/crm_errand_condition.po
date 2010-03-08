@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_errand_condition.aw:class_1367_help
+msgid "Klassi L&auml;hetustingimus help"
+msgstr ""
+
+#: classes/applications/crm/crm_errand_condition.aw:prop_whos_paying
+msgid "Omaduse Transpordi eest tasub (meie/klient) (whos_paying) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_errand_condition.aw:prop_whos_paying_comment
+msgid "Omaduse Transpordi eest tasub (meie/klient) (whos_paying) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_errand_condition.aw:prop_whos_paying_help
+msgid "Omaduse Transpordi eest tasub (meie/klient) (whos_paying) help"
+msgstr ""
+
+#: classes/applications/crm/crm_errand_condition.aw:38
+msgid "Meie"
+msgstr ""
+
+#: classes/applications/crm/crm_errand_condition.aw:38
+msgid "Klient"
+msgstr ""
+

@@ -1,0 +1,192 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/video.aw:class_833_help
+msgid "Klassi Video help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_image
+msgid "Omaduse Pilt (image) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_image_comment
+msgid "Omaduse Pilt (image) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_image_help
+msgid "Omaduse Pilt (image) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_caption
+msgid "Omaduse Allkiri (caption) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_caption_comment
+msgid "Omaduse Allkiri (caption) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_caption_help
+msgid "Omaduse Allkiri (caption) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_author
+msgid "Omaduse Autor (author) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_author_comment
+msgid "Omaduse Autor (author) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_author_help
+msgid "Omaduse Autor (author) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_origin
+msgid "Omaduse Allikas (origin) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_origin_comment
+msgid "Omaduse Allikas (origin) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_origin_help
+msgid "Omaduse Allikas (origin) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_origin_url
+msgid "Omaduse Allika URL (origin_url) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_origin_url_comment
+msgid "Omaduse Allika URL (origin_url) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_origin_url_help
+msgid "Omaduse Allika URL (origin_url) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_date
+msgid "Omaduse Kuup&auml;ev (date) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_date_comment
+msgid "Omaduse Kuup&auml;ev (date) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_date_help
+msgid "Omaduse Kuup&auml;ev (date) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_show_right_away
+msgid "Omaduse N&auml;ita kohe (show_right_away) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_show_right_away_comment
+msgid "Omaduse N&auml;ita kohe (show_right_away) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_show_right_away_help
+msgid "Omaduse N&auml;ita kohe (show_right_away) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_width
+msgid "Omaduse Laius (width) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_width_comment
+msgid "Omaduse Laius (width) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_width_help
+msgid "Omaduse Laius (width) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_height
+msgid "Omaduse K&otilde;rgus (height) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_height_comment
+msgid "Omaduse K&otilde;rgus (height) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_height_help
+msgid "Omaduse K&otilde;rgus (height) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_src_rp
+msgid "Omaduse URL (RealPlayer) (src_rp) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_src_rp_comment
+msgid "Omaduse URL (RealPlayer) (src_rp) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_src_rp_help
+msgid "Omaduse URL (RealPlayer) (src_rp) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_src_wm
+msgid "Omaduse URL (Windows Media) (src_wm) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_src_wm_comment
+msgid "Omaduse URL (Windows Media) (src_wm) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_src_wm_help
+msgid "Omaduse URL (Windows Media) (src_wm) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_trans
+msgid "Omaduse T&otilde;ge (trans) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_trans_comment
+msgid "Omaduse T&otilde;ge (trans) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_trans_help
+msgid "Omaduse T&otilde;ge (trans) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:group_trans
+msgid "Grupi T&otilde;lkimine (trans) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:group_trans_help
+msgid "Grupi T&otilde;lkimine (trans) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/contentmgmt/video.aw:rel_RELTYPE_IMAGE
+msgid "Seose Video pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+

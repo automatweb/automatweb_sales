@@ -1,0 +1,184 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/class_base.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/class_base.aw:prop_name
+msgid "Omaduse Nimi (name) caption"
+msgstr ""
+
+#: classes/class_base.aw:prop_name_comment
+msgid "Omaduse Nimi (name) kommentaar"
+msgstr ""
+
+#: classes/class_base.aw:prop_name_help
+msgid "Omaduse Nimi (name) help"
+msgstr ""
+
+#: classes/class_base.aw:prop_comment
+msgid "Omaduse Kommentaar (comment) caption"
+msgstr ""
+
+#: classes/class_base.aw:prop_comment_comment
+msgid "Omaduse Kommentaar (comment) kommentaar"
+msgstr ""
+
+#: classes/class_base.aw:prop_comment_help
+msgid "Omaduse Kommentaar (comment) help"
+msgstr ""
+
+#: classes/class_base.aw:prop_status
+msgid "Omaduse Aktiivne (status) caption"
+msgstr ""
+
+#: classes/class_base.aw:prop_status_comment
+msgid "Omaduse Aktiivne (status) kommentaar"
+msgstr ""
+
+#: classes/class_base.aw:prop_status_help
+msgid "Omaduse Aktiivne (status) help"
+msgstr ""
+
+#: classes/class_base.aw:prop_needs_translation
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) caption"
+msgstr ""
+
+#: classes/class_base.aw:prop_needs_translation_comment
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) kommentaar"
+msgstr ""
+
+#: classes/class_base.aw:prop_needs_translation_help
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) help"
+msgstr ""
+
+#: classes/class_base.aw:group_general
+msgid "Grupi &Uuml;ldine (general) pealkiri"
+msgstr ""
+
+#: classes/class_base.aw:group_general_help
+msgid "Grupi &Uuml;ldine (general) help"
+msgstr ""
+
+#: classes/class_base.aw:624
+msgid "T&otilde;lgi"
+msgstr ""
+
+#: classes/class_base.aw:653
+msgid "Rohkem infot"
+msgstr ""
+
+#: classes/class_base.aw:654
+msgid "Peida &auml;ra"
+msgstr ""
+
+#: classes/class_base.aw:655
+msgid "Abiinfo"
+msgstr ""
+
+#: classes/class_base.aw:719
+msgid "tab panel"
+msgstr ""
+
+#: classes/class_base.aw:942
+msgid "Lisainfo grupi kohta puudub"
+msgstr ""
+
+#: classes/class_base.aw:1031 classes/class_base.aw:1833
+msgid "Nimetu"
+msgstr ""
+
+#: classes/class_base.aw:1727
+msgid "Muuda"
+msgstr ""
+
+#: classes/class_base.aw:1735
+msgid "Uus"
+msgstr ""
+
+#: classes/class_base.aw:1762 classes/class_base.aw:1856
+msgid "Tagasi"
+msgstr ""
+
+#: classes/class_base.aw:1991
+msgid "Andmed salvestatud!"
+msgstr ""
+
+#: classes/class_base.aw:3141
+msgid "Viga"
+msgstr ""
+
+#: classes/class_base.aw:3667
+msgid "See v&auml;li ei tohi olla t&uuml;hi!"
+msgstr ""
+
+#: classes/class_base.aw:3679
+msgid "See pole korrektne e-posti aadress!"
+msgstr ""
+
+#: classes/class_base.aw:4476
+msgid "ACL error saidil %s: CAN_%s denied for oid %s"
+msgstr ""
+
+#: classes/class_base.aw:4784 classes/class_base.aw:5268 classes/class_base.aw:5280
+msgid "Seostehaldur"
+msgstr ""
+
+#: classes/class_base.aw:5148
+msgid "%s is not a valid configuration form!"
+msgstr ""
+
+#: classes/class_base.aw:5724
+msgid "(l&auml;htetekst)"
+msgstr ""
+
+#: classes/class_base.aw:5734
+msgid "(t&otilde;lge)"
+msgstr ""
+
+#: classes/class_base.aw:5744 classes/class_base.aw:5800 classes/class_base.aw:5833
+msgid "T&otilde;lge aktiivne"
+msgstr ""
+
+#: classes/class_base.aw:5754 classes/class_base.aw:5808 classes/class_base.aw:5841
+msgid "Salvesta"
+msgstr ""
+
+#: classes/class_base.aw:6005 classes/class_base.aw:6042
+msgid "aliase number oli juba olemas, seega uuendas"
+msgstr ""
+
+#: classes/class_base.aw:6009
+msgid "Seoste l&otilde;ikamisel tekkis j&auml;rgmine t&otilde;rge: objekt id'ga %s oli juba seosega #%s# seega objekt nimega %s seoseks sai #%s#"
+msgstr ""
+
+#: classes/class_base.aw:6049
+msgid "Seoste kopeerilisel tekkis j&auml;rgmine t&otilde;rge: objekt id'ga %s oli juba seosega #%s# seega objekt nimega %s seoseks sai #%s#"
+msgstr ""
+
+#: classes/class_base.aw:6079
+msgid "Kliki siia j&auml;tkamiseks"
+msgstr ""
+
+#: classes/class_base.aw:6369
+msgid "Teil on selle objekti omaduste jaoks mustandid. Kas soovite need laadida?"
+msgstr ""
+
+#: classes/class_base.aw:6649
+msgid "User %s has added/changed the following file %s. Please click the link below to view the document \n %s"
+msgstr ""
+
+#: classes/class_base.aw:6668
+msgid "Teavitus muutunud dokumendist"
+msgstr ""
+

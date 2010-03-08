@@ -1,0 +1,3 @@
+<h2>calendar</h2>
+
+full-featured calendar component, the same thing used by the calendars you use in AW.

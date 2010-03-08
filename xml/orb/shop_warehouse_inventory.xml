@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_warehouse_inventory" folder="www/dev/terryf/automatweb_dev/classes/applications/shop" extends="class_base">
+		<action name="create_new_dn">
+			<function name="create_new_dn">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="_delete_objects">
+			<function name="_delete_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,86 @@
+doc comment block must be just before the function, there can be no empty lines between the end of the doc comment block and the beginning of the function
+
+all parameters can be enclosed in quotes, but don't have to, unless they contain spaces
+
+@tags can be of any order
+
+multiline text is terminated either by another @tag or the end of the doc comment block
+
+
+
+complete format:
+
+/** one-line comment
+
+		@attrib name=orb_name params=[name|pos] default="0" nologin="1" api=1 all_args=1 caption="foo" is_public=1
+
+		@param foo [optional|required] type=[int|var|oid|object|string|float|bool|array] acl=[view;edit;add] default="foo" 
+
+		@errors multiline text
+				continued
+
+		@returns multiline text
+				 contiued
+
+		@comment multiline text
+				 continued
+
+		@examples
+				multiline code & text
+						 here
+				and here
+
+**/
+
+
+
+description:
+
+
+@attrib: general information about the function
+
+- name: the name of the orb method. if defined, the method is an orb method and orb def is gnerated for it
+
+- params: can be either "name" or "pos". "name" - says, that arguments are passed via an array, and thus have names. "pos" - says that arguments are passed via position in the argument list. 
+
+- default: 0 or 1. for orb methods if this is set to 1, this becomes the default method for the class, meaning that if the url is missing the action= variable, this method is called
+
+- nologin: 0 or 1, defaults to 0. if 0, user must be logged in to use this method, if 1, not logged in users can use it too
+
+- api: 0 or 1, defaults to 0 - if set to 1, method is an api method and thus is part of the api documentation list. 
+
+- all_args: 0 or 1, defaults to 0 - if set to 1, all arguments from the url are passed to the orb method, not just the defined ones
+
+- is_public: 0 or 1, defaults to 0 - if set to 1 and this class is defined in xml/interfaces/public.xml, this method is a public method and selectable for menus
+
+- caption: string that gets displayed to the user when selecting public methods
+
+
+@param: info about a single parameter to the method
+
+foo - name of the parameter
+
+[optional|required] - whether the parameter is an optional or a required parameter
+
+type: type of the parameter, can be one of: bool, int, string, float, oid, array, object (object instance), var (any type)
+
+acl: optional, for orb methods, if this is set, then the parameter is assumed to contan an object oid and acl will be checked for this object. 
+acl definitions are separated by ;, for example: acl=view;edit demands that te user has both the add and edit accesses for the object, acl=view only demands view access
+
+default: default value for parameter
+
+
+each parameter can be followed by 0..n lines of comments about that parameter
+
+
+@errors: multiline description of the errors that this function can throw, either via error::raise of by returning
+
+
+
+@returns: multiline description of the data that this function can return 
+
+
+@comment: general multiline comment about this function
+
+
+@examples: example code and comments about using this function 

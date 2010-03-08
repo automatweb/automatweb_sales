@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="watercraft_add" folder="www/dev/terryf/automatweb_dev/classes/applications/watercraft_management" extends="class_base">
+		<action name="parse_alias" is_public="1" caption="Change">
+			<function name="parse_alias">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_data">
+			<function name="submit_data">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="rel_id" type="int" />
+					<optional name="redir_to" type="string" />
+					<type=bool name="keep_obj_on_cancel" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="my_watercraft_list" is_public="1" caption="Minu vees&amp;otilde;idukid">
+			<function name="my_watercraft_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

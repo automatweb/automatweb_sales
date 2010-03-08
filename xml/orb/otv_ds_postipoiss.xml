@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="otv_ds_postipoiss" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/object_treeview" extends="class_base">
+		<action name="do_cache_update" nologin="1">
+			<function name="do_cache_update">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

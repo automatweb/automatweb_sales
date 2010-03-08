@@ -1,0 +1,108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_field_entertainment.aw:class_1029_help
+msgid "Klassi Meelelahutusettev&otilde;te (valdkond) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_num_places
+msgid "Omaduse Kohtade arv (num_places) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_num_places_comment
+msgid "Omaduse Kohtade arv (num_places) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_num_places_help
+msgid "Omaduse Kohtade arv (num_places) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_phone_id
+msgid "Omaduse Telefon (phone_id) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_phone_id_comment
+msgid "Omaduse Telefon (phone_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_phone_id_help
+msgid "Omaduse Telefon (phone_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_telefax_id
+msgid "Omaduse Faks (telefax_id) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_telefax_id_comment
+msgid "Omaduse Faks (telefax_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_telefax_id_help
+msgid "Omaduse Faks (telefax_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_email_id
+msgid "Omaduse E-posti aadressid (email_id) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_email_id_comment
+msgid "Omaduse E-posti aadressid (email_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_email_id_help
+msgid "Omaduse E-posti aadressid (email_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_images
+msgid "Omaduse Pildid (images) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_images_comment
+msgid "Omaduse Pildid (images) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:prop_images_help
+msgid "Omaduse Pildid (images) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:group_cedit
+msgid "Grupi Kontaktandmed (cedit) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:group_cedit_help
+msgid "Grupi Kontaktandmed (cedit) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:group_images
+msgid "Grupi Pildid (images) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:group_images_help
+msgid "Grupi Pildid (images) help"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:rel_RELTYPE_EMAIL
+msgid "Seose E-post (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:rel_RELTYPE_PHONE
+msgid "Seose Telefon (RELTYPE_PHONE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:rel_RELTYPE_TELEFAX
+msgid "Seose Fax (RELTYPE_TELEFAX) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_field_entertainment.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+

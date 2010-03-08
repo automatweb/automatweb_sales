@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="dot" folder="protocols/data" extends="class_base">
+	</class>
+</orb>
+		

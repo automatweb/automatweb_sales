@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/rostering/rostering_payment_type.aw:class_1161_help
+msgid "Klassi Tasu liik help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_hr_price
+msgid "Omaduse Tunnihind (hr_price) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_hr_price_comment
+msgid "Omaduse Tunnihind (hr_price) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_hr_price_help
+msgid "Omaduse Tunnihind (hr_price) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_from_hr
+msgid "Omaduse Kehtib alates (apply_from_hr) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_from_hr_comment
+msgid "Omaduse Kehtib alates (apply_from_hr) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_from_hr_help
+msgid "Omaduse Kehtib alates (apply_from_hr) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_to_hr
+msgid "Omaduse Kehtib kuni (apply_to_hr) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_to_hr_comment
+msgid "Omaduse Kehtib kuni (apply_to_hr) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_to_hr_help
+msgid "Omaduse Kehtib kuni (apply_to_hr) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_day_types
+msgid "Omaduse Mis p&auml;evadel kehtib (apply_day_types) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_day_types_comment
+msgid "Omaduse Mis p&auml;evadel kehtib (apply_day_types) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_day_types_help
+msgid "Omaduse Mis p&auml;evadel kehtib (apply_day_types) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_overtime
+msgid "Omaduse Kehtib &uuml;letunnit&ouml;&ouml; jaoks (apply_overtime) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_overtime_comment
+msgid "Omaduse Kehtib &uuml;letunnit&ouml;&ouml; jaoks (apply_overtime) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:prop_apply_overtime_help
+msgid "Omaduse Kehtib &uuml;letunnit&ouml;&ouml; jaoks (apply_overtime) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:86 classes/applications/rostering/rostering_payment_type.aw:95
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:105
+msgid "T&ouml;&ouml;p&auml;evadel"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:106
+msgid "N&auml;dalavahetustel"
+msgstr ""
+
+#: classes/applications/rostering/rostering_payment_type.aw:107
+msgid "P&uuml;hadel"
+msgstr ""
+

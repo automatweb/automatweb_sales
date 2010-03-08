@@ -1,0 +1,54 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="relationmgr" folder="www/dev/terryf/automatweb_dev/classes/vcl" extends="aw_template">
+		<action name="disp_relmgr" all_args="1">
+			<function name="disp_relmgr">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit" all_args="1">
+			<function name="submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rel_cut" all_args="1">
+			<function name="rel_cut">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rel_copy" all_args="1">
+			<function name="rel_copy">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rel_paste" all_args="1">
+			<function name="rel_paste">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="list_aliases" all_args="1">
+			<function name="list_aliases">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rel_reverse" all_args="1">
+			<function name="rel_reverse">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

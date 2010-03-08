@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/install/aw_site_gen_log.aw:class_204_help
+#: classes/install/aw_site_gen_log.aw:class_204_help
+msgid "Klassi AW Saidi loomise log help"
+msgstr ""
+
+# classes/install/aw_site_gen_log.aw:prop_show
+#: classes/install/aw_site_gen_log.aw:prop_show
+msgid "Omaduse  (show) caption"
+msgstr ""
+
+# classes/install/aw_site_gen_log.aw:prop_show_comment
+#: classes/install/aw_site_gen_log.aw:prop_show_comment
+msgid "Omaduse  (show) kommentaar"
+msgstr ""
+
+# classes/install/aw_site_gen_log.aw:prop_show_help
+#: classes/install/aw_site_gen_log.aw:prop_show_help
+msgid "Omaduse  (show) help"
+msgstr ""
+
+# classes/install/aw_site_gen_log.aw:group_view
+#: classes/install/aw_site_gen_log.aw:group_view
+msgid "Grupi Vaata logi (view) pealkiri"
+msgstr ""
+
+# classes/install/aw_site_gen_log.aw:group_view_help
+#: classes/install/aw_site_gen_log.aw:group_view_help
+msgid "Grupi Vaata logi (view) help"
+msgstr ""
+
+#: classes/install/aw_site_gen_log.aw:45
+msgid "Millal"
+msgstr ""
+
+#: classes/install/aw_site_gen_log.aw:55
+msgid "Kes"
+msgstr ""
+
+#: classes/install/aw_site_gen_log.aw:61
+msgid "Mida"
+msgstr ""
+
+#: classes/install/aw_site_gen_log.aw:67
+msgid "Tulemus"
+msgstr ""
+
+#: classes/install/aw_site_gen_log.aw:73
+msgid "Kommentaar"
+msgstr ""
+
+#: classes/install/aw_site_gen_log.aw:99
+msgid "Saidi logi alustemisele ei antud parent menyy idd!"
+msgstr ""
+
+#: classes/install/aw_site_gen_log.aw:129
+msgid "Logimist pole alustatud!"
+msgstr ""

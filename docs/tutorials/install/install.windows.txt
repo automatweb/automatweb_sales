@@ -1,0 +1,80 @@
+1. Installin Apache 1&#8217;hte (Versioon 2&#8217;hte ei saanud moodulina tööle.)
+
+Apache confis (conf/httpd.conf) tuleb teha järgmised muudatused:
+
+LoadModule php4_module "c:/program files/php/sapi/php4apache.dll" 
+
+# Selle järgi saab Apache aru, mis järjestuses mooduleid laadida. Vms.
+AddModule mod_php4.c 
+
+# Ja et serveri ikka aru saaks, millised failid  on php scriptid
+AddType application/x-httpd-php .php 
+AddType application/x-httpd-php .aw
+
+2. Installisin PHP
+
+Panin PHP kataloogi c:program filesphp
+Kopeerisin PHP kataloogis oleva faili php.ini-dist c:window kataloogi ja muutsin selle nime php.ini&#8217;iks.
+
+(Ei ole päris kindel, kas peab php.ini faili confima)
+Avasin php.ini ja muutsin ära docroot (doc_root ="koht kus asub AW") ja extension_dir (extension_dir = extensions)
+
+3. Installisin MYSQL&#8217;i kataloogi &#8220;Program Files&#8221;.
+Kuna ma panin MYSQLl&#8217;i c:program filesmysql  kataloogi, siis pean ma kopeerima (näiteks)  my-huge.cnf faili MYSQL kataloogi alt c: kataloogi ja muutma selle my.cnf&#8217;iks. Seal sees pean muutma kaks rida:
+#basedir = d:/mysql/
+#datadir = d:/mysql/data/
+Minu installatsiooni puhul selliseks:
+basedir = c:/program files/mysql/
+datadir = c:/program files/mysql/data/
+
+4. Kopeerisin &#8220;automatweb_dev&#8221; ja &#8220;Site&#8220; kataloogid arvutisse
+
+* Notepadi&#8217;ga pole võimalik AW faile muuta, sest see ei saa Unixi reavahetustest aru.
+
+Sitepublicconst.aw&#8217;s näitasin ära, kus minu AW kataloog asub.
+
+5. Kuigi sain andmebaasi tööle, tahab AW, et mysql&#8217;il oleks kasutaja ja salasõna. AW&#8217;s saab neid muuta Siteini.ini failis - db.user ja db.pass.
+
+Tegin mysql&#8217;is kasutaja hannes:
+mysql --user=root mysql				(logisin sisse)
+mysql> GRANT ALL PRIVILEGES ON *.* TO hannes@localhost	  (andsin õigused)
+    ->     IDENTIFIED BY 'mõni_pass' WITH GRANT OPTION;
+
+6. Andmebaaside importimine
+
+* Import ei õnnestu, kui max_allowed_packet on seadetes (c:my.cnf) liiga väike. Muutsin :
+set-variable	= max_allowed_packet=50M
+
+Importimiseks:
+
+mysql -u root -p mysql			(logid roodiga sisse )
+
+create database samaw;
+grant all privileges on samaw.* to hannes@localhost identified by
+'mõni_pass';
+
+quit
+
+siis
+
+mysql -u hannes -p samaw < samaw.sql
+
+7. AW üritab Sitepagecache kataloogi luua faile, mille sees on koolonid.
+Otsisin veateate põhjal need kohad üles ja asendasin kaks koolonit sidekriipsuga. Näiteks tuli üks muudatus tuli teha languages.aw&#8217;s (languages::cache::site_id:: -> languages-cache-site_id-)
+
+9. AW ei leidnud mingit objekti üles. Kopeerisin endale muutmata mysql&#8217;i tabeli. Eelmine oli muudetud dump.
+
+10. Eemaldasin veel mõned koolonid.
+
+11. AW ei tunnistanud ühtegi kasutajat.
+
+Muutsin Site/aw.ini faili:
+auth.md5_passwords = 0
+
+Ja muutsin andmebaasis enda AW kasutaja salasõna users tabelis.
+
+12. Lingid ei tööta korralikult ja AW admini&#8217;s osa ikoone kadunud
+
+Muutsin Site/aw.ini faili:
+menuedit.long_section_url = 1
+icons.server = http://localhost/automatweb/images/icons

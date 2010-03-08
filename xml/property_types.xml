@@ -1,0 +1,545 @@
+<?xml version='1.0'?>
+<xml>
+	<classinfo>
+		<syslog_type>
+		</syslog_type>
+		<maintainer>
+		</maintainer>
+		<relationmgr>
+		</relationmgr>
+		<no_status>
+		</no_status>
+		<no_comment>
+		</no_comment>
+		<prop_cb>
+		</prop_cb>
+		<trans>
+		</trans>
+		<confirm_save_data>
+		</confirm_save_data>
+		<r2>
+		</r2>
+		<layout>
+		</layout>
+		<no_caption>
+		</no_caption>
+		<no_name>
+		</no_name>
+		<allow_rte>
+		</allow_rte>
+		<hide_tabs>
+		</hide_tabs>
+		<versioned>
+		</versioned>
+		<status>
+		</status>
+		<display>
+		</display>
+	</classinfo>
+
+
+	<groupinfo>
+		<caption>
+		</caption>
+		<submit>
+		</submit>
+		<parent>
+		</parent>
+		<submit_method>
+		</submit_method>
+		<save>
+		</save>
+		<encoding>
+		</encoding>
+		<tabgroup>
+		</tabgroup>
+		<no_submit>
+		</no_submit>
+		<name>
+		</name>
+		<submit_action>
+		</submit_action>
+		<default>
+		</default>
+		<icon>
+		</icon>
+		<focus>
+		</focus>
+		<table>
+		</table>
+		<captionside>
+		</captionside>
+		<view>
+		</view>
+		<request_method>
+		</request_method>
+	</groupinfo>
+
+
+	<tableinfo>
+		<index>
+		</index>
+		<master_index>
+		</master_index>
+		<master_table>
+		</master_table>
+	</tableinfo>
+
+
+	<forminfo>
+		<onload>
+		</onload>
+		<onsubmit>
+		</onsubmit>
+		<method>
+		</method>
+	</forminfo>
+
+
+	<layout>
+		<type>
+		</type>
+		<width>
+		</width>
+		<closeable>
+		</closeable>
+		<area_caption>
+		</area_caption>
+		<parent>
+		</parent>
+		<group>
+		</group>
+		<no_caption>
+		</no_caption>
+		<no_padding>
+		</no_padding>
+	</layout>
+
+
+	<reltype>
+		<value>
+		</value>
+		<clid type="clid"></clid>
+		<hidden>
+		</hidden>
+	</reltype>
+
+
+	<property>
+		<global>
+			<group>
+			</group>
+			<field>
+			</field>
+			<method>
+			</method>
+			<table>
+			</table>
+			<store>
+			</store>
+			<no_caption>
+			</no_caption>
+			<parent>
+			</parent>
+			<datatype>
+			</datatype>
+			<default>
+			</default>
+			<type>
+			</type>
+			<editonly>
+			</editonly>
+			<newonly>
+			</newonly>
+			<form>
+			</form>
+			<prop_cb>
+			</prop_cb>
+			<warning>
+			</warning>
+			<search>
+			</search>
+			<trans>
+			</trans>
+			<submit>
+			</submit>
+			<view>
+			</view>
+			<captionside>
+			</captionside>
+			<view_element>
+			</view_element>
+			<caption>
+			</caption>
+			<rel>
+			</rel>
+			<draft>
+			</draft>
+		</global>
+
+		<checkbox>
+			<ch_value>
+			</ch_value>
+			<user>
+			</user>
+			<display>
+			</display>
+			<size>
+			</size>
+			<disabled>
+			</disabled>
+		</checkbox>
+
+		<toolbar>
+			<quicksearch>
+			</quicksearch>
+			<no_rte_button>
+			</no_rte_button>
+		</toolbar>
+
+		<fileupload>
+			<reltype>
+			</reltype>
+		</fileupload>
+
+		<hidden>
+			<value />
+		</hidden>
+
+		<textbox>
+			<size>
+			</size>
+			<user>
+			</user>
+			<maxlength>
+			</maxlength>
+			<option_is_tuple>
+			</option_is_tuple>
+			<autocomplete_class_id>
+			</autocomplete_class_id>
+			<disabled>
+			</disabled>
+		</textbox>
+
+		<table>
+		</table>
+
+		<relpicker>
+			<reltype>
+			</reltype>
+			<multiple>
+			</multiple>
+			<automatic>
+			</automatic>
+			<no_edit>
+			</no_edit>
+			<no_search />
+			<add_edit_autoreturn />
+			<mode>
+			</mode>
+			<orient>
+			</orient>
+			<size>
+			</size>
+			<delete_button>
+			</delete_button>
+			<delete_rels_button>
+			</delete_rels_button>
+			<clid type="clid"></clid>
+			<use_form>
+			</use_form>
+			<rel_id>
+			</rel_id>
+			<delete_rels_popup_button>
+			</delete_rels_popup_button>
+			<display>
+			</display>
+			<search_button>
+			</search_button>
+			<no_sel>
+			</no_sel>
+		</relpicker>
+
+		<select>
+			<multiple>
+			</multiple>
+			<size>
+			</size>
+		</select>
+
+		<text>
+			<subtitle>
+			</subtitle>
+			<value>
+			</value>
+			<wrapchildren>
+			</wrapchildren>
+			<size>
+			</size>
+			<callback>
+			</callback>
+		</text>
+
+		<releditor>
+			<reltype>
+			</reltype>
+			<use_form>
+			</use_form>
+			<rel_id>
+			</rel_id>
+			<mode>
+			</mode>
+			<props>
+			</props>
+			<table_fields>
+			</table_fields>
+			<table_edit_fields>
+			</table_edit_fields>
+			<clone_link>
+			</clone_link>
+			<filt_edit_fields>
+			</filt_edit_fields>
+			<clid>
+			</clid>
+			<direct_links>
+			</direct_links>
+			<delete_relations>
+			</delete_relations>
+			<override_parent>
+			</override_parent>
+		</releditor>
+
+		<textarea>
+			<rows />
+			<cols />
+			<richtext />
+			<user />
+			<allow_rte />
+			<width />
+			<height />
+			<maxlength />
+		</textarea>
+
+		<chooser>
+			<orient />
+			<options />
+			<multiple />
+			<reltype />
+			<size />
+		</chooser>
+
+		<submit>
+			<value>
+			</value>
+			<action>
+			</action>
+			<size>
+			</size>
+		</submit>
+
+		<callback>
+			<callback>
+			</callback>
+			<submit_method>
+			</submit_method>
+		</callback>
+
+		<comments>
+			<form_before_comments></form_before_comments>
+		</comments>
+
+		<classificator>
+			<reltype>
+			</reltype>
+			<orient>
+			</orient>
+			<multiple>
+			</multiple>
+			<recursive>
+			</recursive>
+			<user>
+			</user>
+			<sort_callback>
+			</sort_callback>
+		</classificator>
+
+		<treeview>
+		</treeview>
+
+		<date_select>
+			<year_from>
+			</year_from>
+			<year_to>
+			</year_to>
+			<save_format>
+			</save_format>
+			<format>
+			</format>
+			<size>
+			</size>
+		</date_select>
+
+		<reset>
+		</reset>
+
+		<button>
+		</button>
+
+		<aliasmgr>
+		</aliasmgr>
+
+		<popup_search>
+			<clid type="clid"></clid>
+			<style>
+			</style>
+			<reltype>
+			</reltype>
+			<multiple>
+			</multiple>
+		</popup_search>
+
+		<datepicker>
+			<size />
+			<disabled />
+		</datepicker>
+
+		<datetime_select>
+			<year_from>
+			</year_from>
+			<year_to>
+			</year_to>
+			<add_empty>
+			</add_empty>
+		</datetime_select>
+
+		<calendar_selector>
+		</calendar_selector>
+
+		<multi_calendar>
+		</multi_calendar>
+
+		<project_selector>
+			<all_projects>
+			</all_projects>
+		</project_selector>
+
+		<reminder>
+		</reminder>
+
+		<participant_selector>
+		</participant_selector>
+
+		<status>
+		</status>
+
+		<multifile_upload>
+			<reltype>
+			</reltype>
+			<image>
+			</image>
+			<max_files>
+			</max_files>
+		</multifile_upload>
+
+		<translator>
+			<props>
+			</props>
+		</translator>
+
+		<password>
+		</password>
+
+		<server_folder_selector>
+		</server_folder_selector>
+
+		<calendar>
+			<viewtype>
+			</viewtype>
+		</calendar>
+
+		<form>
+			<sclass>
+			</sclass>
+			<sform>
+			</sform>
+		</form>
+
+		<objpicker>
+			<clid>
+			</clid>
+		</objpicker>
+
+		<time_select>
+		</time_select>
+
+		<colorpicker>
+		</colorpicker>
+
+		<timing>
+		</timing>
+
+		<acl_manager>
+		</acl_manager>
+
+		<keyword_selector>
+			<no_header>
+			</no_header>
+			<no_folder_names>
+			</no_folder_names>
+			<keyword_per_row>
+			</keyword_per_row>
+			<hide_selected>
+			</hide_selected>
+			<reltype>
+			</reltype>
+		</keyword_selector>
+
+		<relmanager>
+			<reltype>
+			</reltype>
+			<no_sel>
+			</no_sel>
+			<props>
+			</props>
+			<new_items>
+			</new_items>
+			<chooser>
+			</chooser>
+			<override_parent>
+			</override_parent>
+		</relmanager>
+
+		<other_calendar_selector>
+		</other_calendar_selector>
+
+		<quick_add>
+			<clid type="clid">
+			</clid>
+			<props>
+			</props>
+		</quick_add>
+
+		<range>
+		</range>
+
+		<generated>
+		</generated>
+
+		<version_manager>
+		</version_manager>
+
+		<crm_participant_search>
+			<reltype>
+			</reltype>
+			<multiple>
+			</multiple>
+			<style>
+			</style>
+		</crm_participant_search>
+
+		<image_verification>
+		</image_verification>
+		<google_chart>
+		</google_chart>
+	</property>
+</xml>

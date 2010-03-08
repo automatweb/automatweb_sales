@@ -1,0 +1,218 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:class_1071_help
+msgid "Klassi Hangete administreerimiskeskkond help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_folder
+msgid "Omaduse Hankijate kataloog (ord_folder) caption"
+msgstr "Buyers folder"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_folder_comment
+msgid "Omaduse Hankijate kataloog (ord_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_folder_help
+msgid "Omaduse Hankijate kataloog (ord_folder) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_folder
+msgid "Omaduse Pakkujate kataloog (impl_folder) caption"
+msgstr "Suppliers folder"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_folder_comment
+msgid "Omaduse Pakkujate kataloog (impl_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_folder_help
+msgid "Omaduse Pakkujate kataloog (impl_folder) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_manager_co
+msgid "Omaduse Haldaja firma (manager_co) caption"
+msgstr "Managing company"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_manager_co_comment
+msgid "Omaduse Haldaja firma (manager_co) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_manager_co_help
+msgid "Omaduse Haldaja firma (manager_co) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_tb
+msgid "Omaduse  (ord_tb) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_tb_comment
+msgid "Omaduse  (ord_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_tb_help
+msgid "Omaduse  (ord_tb) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_tree
+msgid "Omaduse  (ord_tree) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_tree_comment
+msgid "Omaduse  (ord_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_tree_help
+msgid "Omaduse  (ord_tree) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_table
+msgid "Omaduse  (ord_table) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_table_comment
+msgid "Omaduse  (ord_table) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_ord_table_help
+msgid "Omaduse  (ord_table) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_tb
+msgid "Omaduse  (impl_tb) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_tb_comment
+msgid "Omaduse  (impl_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_tb_help
+msgid "Omaduse  (impl_tb) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_tree
+msgid "Omaduse  (impl_tree) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_tree_comment
+msgid "Omaduse  (impl_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_tree_help
+msgid "Omaduse  (impl_tree) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_table
+msgid "Omaduse  (impl_table) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_table_comment
+msgid "Omaduse  (impl_table) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:prop_impl_table_help
+msgid "Omaduse  (impl_table) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:group_orderers
+msgid "Grupi Hankijad (orderers) pealkiri"
+msgstr "Buyers"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:group_orderers_help
+msgid "Grupi Hankijad (orderers) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:group_impls
+msgid "Grupi Pakkujad (impls) pealkiri"
+msgstr "Suppliers"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:group_impls_help
+msgid "Grupi Pakkujad (impls) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:rel_RELTYPE_FOLDER
+msgid "Seose Kataloog (RELTYPE_FOLDER) tekst"
+msgstr "Folder"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:rel_RELTYPE_MANAGER_CO
+msgid "Seose Haldaja firma (RELTYPE_MANAGER_CO) tekst"
+msgstr "Managing company"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:133
+#: classes/applications/procurement_center/procurement_center_admin.aw:284
+msgid "Uus"
+msgstr "New"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:140
+#: classes/applications/procurement_center/procurement_center_admin.aw:291
+msgid "Kataloog"
+msgstr "Folder"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:146
+msgid "Hankija"
+msgstr "Buyer"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:161
+msgid "Kustuta valitud hankijad"
+msgstr "Delete selected buyers"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:163
+msgid "Kas oled kindel et soovid valitud hankijad kustudada?"
+msgstr "Are You sure You want to delete selected buyers"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:192
+#: classes/applications/procurement_center/procurement_center_admin.aw:343
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:198
+#: classes/applications/procurement_center/procurement_center_admin.aw:349
+msgid "T&ouml;&ouml;laud"
+msgstr "Desktop"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:204
+#: classes/applications/procurement_center/procurement_center_admin.aw:355
+msgid "Looja"
+msgstr "Created by"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:210
+#: classes/applications/procurement_center/procurement_center_admin.aw:361
+msgid "Loodud"
+msgstr "Created"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:219
+#: classes/applications/procurement_center/procurement_center_admin.aw:370
+msgid "Muutja"
+msgstr "Modified by"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:225
+#: classes/applications/procurement_center/procurement_center_admin.aw:376
+msgid "Muudetud"
+msgstr "Modified"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:297
+msgid "Pakkuja"
+msgstr "Offerer"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:312
+msgid "Kustuta valitud pakkujad"
+msgstr "Delete selected offerers"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:314
+msgid "Kas oled kindel et soovid valitud pakkujad kustudada?"
+msgstr "Are You sure You want to delete selected offerers"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:453
+msgid "%s hankekeskkond"
+msgstr "%s procurement centre"
+
+#: classes/applications/procurement_center/procurement_center_admin.aw:489
+msgid "%s pakkumiste keskkond"
+msgstr "%s offers centre"

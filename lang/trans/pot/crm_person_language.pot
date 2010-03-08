@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_person_language.aw:class_489_help
+msgid "Klassi Keeleoskus help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_language
+msgid "Omaduse Keel (language) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_language_comment
+msgid "Omaduse Keel (language) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_language_help
+msgid "Omaduse Keel (language) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_talk
+msgid "Omaduse R&auml;&auml;gin (talk) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_talk_comment
+msgid "Omaduse R&auml;&auml;gin (talk) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_talk_help
+msgid "Omaduse R&auml;&auml;gin (talk) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_understand
+msgid "Omaduse Saan aru (understand) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_understand_comment
+msgid "Omaduse Saan aru (understand) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_understand_help
+msgid "Omaduse Saan aru (understand) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_write
+msgid "Omaduse Kirjutan (write) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_write_comment
+msgid "Omaduse Kirjutan (write) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_write_help
+msgid "Omaduse Kirjutan (write) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_other
+msgid "Omaduse Muu keel (other) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_other_comment
+msgid "Omaduse Muu keel (other) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_other_help
+msgid "Omaduse Muu keel (other) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_person
+msgid "Omaduse  (person) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_person_comment
+msgid "Omaduse  (person) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:prop_person_help
+msgid "Omaduse  (person) help"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:rel_RELTYPE_LANGUAGE
+msgid "Seose Keel (RELTYPE_LANGUAGE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:44
+msgid "ei oska"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:45
+msgid "napp"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:46
+msgid "keskmine"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:47
+msgid "hea"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:48
+msgid "v&auml;ga hea"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:59 classes/applications/crm/crm_person_language.aw:71
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/crm/crm_person_language.aw:64
+msgid "muu keel"
+msgstr ""
+

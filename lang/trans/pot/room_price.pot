@@ -1,0 +1,256 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/common/room_price.aw:class_1164_help
+msgid "Klassi Ruumi hind help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_type
+msgid "Omaduse Hinna t&uuml;&uuml;p (type) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_type_comment
+msgid "Omaduse Hinna t&uuml;&uuml;p (type) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_type_help
+msgid "Omaduse Hinna t&uuml;&uuml;p (type) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_recur
+msgid "Omaduse Kordub (recur) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_recur_comment
+msgid "Omaduse Kordub (recur) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_recur_help
+msgid "Omaduse Kordub (recur) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_active
+msgid "Omaduse Kehtib (active) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_active_comment
+msgid "Omaduse Kehtib (active) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_active_help
+msgid "Omaduse Kehtib (active) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_date_from
+msgid "Omaduse Alates (date_from) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_date_from_comment
+msgid "Omaduse Alates (date_from) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_date_from_help
+msgid "Omaduse Alates (date_from) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_date_to
+msgid "Omaduse Kuni (date_to) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_date_to_comment
+msgid "Omaduse Kuni (date_to) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_date_to_help
+msgid "Omaduse Kuni (date_to) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_weekdays
+msgid "Omaduse N&auml;dalap&auml;evad (weekdays) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_weekdays_comment
+msgid "Omaduse N&auml;dalap&auml;evad (weekdays) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_weekdays_help
+msgid "Omaduse N&auml;dalap&auml;evad (weekdays) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_apply_groups
+msgid "Omaduse Kehtib gruppidele (apply_groups) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_apply_groups_comment
+msgid "Omaduse Kehtib gruppidele (apply_groups) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_apply_groups_help
+msgid "Omaduse Kehtib gruppidele (apply_groups) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_nr
+msgid "Omaduse Mitmes (nr) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_nr_comment
+msgid "Omaduse Mitmes (nr) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_nr_help
+msgid "Omaduse Mitmes (nr) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_time_from
+msgid "Omaduse Alates (time_from) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_time_from_comment
+msgid "Omaduse Alates (time_from) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_time_from_help
+msgid "Omaduse Alates (time_from) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_time_to
+msgid "Omaduse Kuni (time_to) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_time_to_comment
+msgid "Omaduse Kuni (time_to) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_time_to_help
+msgid "Omaduse Kuni (time_to) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_time
+msgid "Omaduse Aeg (time) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_time_comment
+msgid "Omaduse Aeg (time) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_time_help
+msgid "Omaduse Aeg (time) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_bron_made_from
+msgid "Omaduse Broneering tehtud alates (bron_made_from) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_bron_made_from_comment
+msgid "Omaduse Broneering tehtud alates (bron_made_from) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_bron_made_from_help
+msgid "Omaduse Broneering tehtud alates (bron_made_from) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_bron_made_to
+msgid "Omaduse Broneering tehtud kuni (bron_made_to) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_bron_made_to_comment
+msgid "Omaduse Broneering tehtud kuni (bron_made_to) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_bron_made_to_help
+msgid "Omaduse Broneering tehtud kuni (bron_made_to) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_bargain_percent
+msgid "Omaduse Soodustuse protsent (bargain_percent) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_bargain_percent_comment
+msgid "Omaduse Soodustuse protsent (bargain_percent) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_bargain_percent_help
+msgid "Omaduse Soodustuse protsent (bargain_percent) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_prices_props
+msgid "Omaduse Hinnad (prices_props) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_prices_props_comment
+msgid "Omaduse Hinnad (prices_props) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_prices_props_help
+msgid "Omaduse Hinnad (prices_props) help"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_priority
+msgid "Omaduse Prioriteet (priority) caption"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_priority_comment
+msgid "Omaduse Prioriteet (priority) kommentaar"
+msgstr ""
+
+#: classes/common/room_price.aw:prop_priority_help
+msgid "Omaduse Prioriteet (priority) help"
+msgstr ""
+
+#: classes/common/room_price.aw:rel_RELTYPE_GROUP
+msgid "Seose Kehtib grupile (RELTYPE_GROUP) tekst"
+msgstr ""
+
+#: classes/common/room_price.aw:72
+msgid "E"
+msgstr ""
+
+#: classes/common/room_price.aw:73
+msgid "T"
+msgstr ""
+
+#: classes/common/room_price.aw:74
+msgid "K"
+msgstr ""
+
+#: classes/common/room_price.aw:75
+msgid "N"
+msgstr ""
+
+#: classes/common/room_price.aw:76
+msgid "R"
+msgstr ""
+
+#: classes/common/room_price.aw:77
+msgid "L"
+msgstr ""
+
+#: classes/common/room_price.aw:78
+msgid "P"
+msgstr ""
+
+#: classes/common/room_price.aw:118
+msgid "Hind"
+msgstr ""
+
+#: classes/common/room_price.aw:119
+msgid "Soodushind"
+msgstr ""
+
+#: classes/common/room_price.aw:221
+msgid "Valuutad"
+msgstr ""
+
+#: classes/common/room_price.aw:222
+msgid "Hind ei ole seotud &uuml;hegi ruumiga v&otilde;i on valuutad m&auml;&auml;ramata"
+msgstr ""
+

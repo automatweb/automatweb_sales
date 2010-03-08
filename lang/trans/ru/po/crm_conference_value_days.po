@@ -1,0 +1,91 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_conference_value_days.aw:class_1210_help
+msgid "Klassi Konverentsi kalendrivaade help"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_hotel_code
+msgid "Omaduse Hotelli kood (hotel_code) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_hotel_code_comment
+msgid "Omaduse Hotelli kood (hotel_code) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_hotel_code_help
+msgid "Omaduse Hotelli kood (hotel_code) help"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_months
+msgid "Omaduse Mitu kuud (months) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_months_comment
+msgid "Omaduse Mitu kuud (months) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_months_help
+msgid "Omaduse Mitu kuud (months) help"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_show_codes
+msgid "Omaduse N&auml;ita koode (show_codes) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_show_codes_comment
+msgid "Omaduse N&auml;ita koode (show_codes) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_show_codes_help
+msgid "Omaduse N&auml;ita koode (show_codes) help"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_template
+msgid "Omaduse Kalendrivaate templeit (template) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_template_comment
+msgid "Omaduse Kalendrivaate templeit (template) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:prop_template_help
+msgid "Omaduse Kalendrivaate templeit (template) help"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:52
+msgid "\n"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:139
+msgid "red"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:139
+msgid "yellow"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:139
+msgid "lime"
+msgstr ""
+
+#: classes/applications/crm/crm_conference_value_days.aw:215
+msgid "Next"
+msgstr "Следующие"
+
+#: classes/applications/crm/crm_conference_value_days.aw:215
+#: classes/applications/crm/crm_conference_value_days.aw:216
+msgid "months"
+msgstr "месяца"
+
+#: classes/applications/crm/crm_conference_value_days.aw:216
+msgid "Previous"
+msgstr "Предыдущие"

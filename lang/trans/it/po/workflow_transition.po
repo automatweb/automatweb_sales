@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/workflow/workflow_transition.aw:class_253_help
+msgid "Klassi J&auml;rgnevus help"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_predicate
+msgid "Omaduse Predikaat (predicate) caption"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_predicate_comment
+msgid "Omaduse Predikaat (predicate) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_predicate_help
+msgid "Omaduse Predikaat (predicate) help"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_process_id
+msgid "Omaduse  (process_id) caption"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_process_id_comment
+msgid "Omaduse  (process_id) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_process_id_help
+msgid "Omaduse  (process_id) help"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_from_act
+msgid "Omaduse  (from_act) caption"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_from_act_comment
+msgid "Omaduse  (from_act) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_from_act_help
+msgid "Omaduse  (from_act) help"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_to_act
+msgid "Omaduse  (to_act) caption"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_to_act_comment
+msgid "Omaduse  (to_act) kommentaar"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:prop_to_act_help
+msgid "Omaduse  (to_act) help"
+msgstr ""
+
+#: classes/workflow/workflow_transition.aw:rel_RELTYPE_PROCESS
+msgid "Seose protsess (RELTYPE_PROCESS) tekst"
+msgstr ""
+

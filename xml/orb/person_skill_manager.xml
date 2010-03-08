@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="person_skill_manager" folder="applications/crm" extends="class_base">
+		<action name="skills_tree_leaf" all_args="1">
+			<function name="skills_tree_leaf">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="workers_tree_leaf" all_args="1">
+			<function name="workers_tree_leaf">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

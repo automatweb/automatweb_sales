@@ -1,0 +1,114 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="gallery" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/gallery" extends="aw_template">
+		<action name="new">
+			<function name="add">
+				<arguments>
+					<required name="parent" acl="add" />
+					<optional name="alias_to" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change">
+			<function name="change">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit">
+			<function name="csubmit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="admin">
+			<function name="admin">
+				<arguments>
+					<required name="id" acl="edit;view" />
+					<optional name="page" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_row">
+			<function name="add_rows">
+				<arguments>
+					<required name="id" acl="edit;view" />
+					<optional name="page" />
+					<optional name="rows" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_col">
+			<function name="add_cols">
+				<arguments>
+					<required name="id" acl="edit;view" />
+					<optional name="page" />
+					<optional name="cols" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_col">
+			<function name="del_col">
+				<arguments>
+					<required name="id" acl="edit;view" />
+					<optional name="page" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_row">
+			<function name="del_row">
+				<arguments>
+					<required name="id" acl="edit;view" />
+					<optional name="page" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="c_submit">
+			<function name="submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_page">
+			<function name="add_page">
+				<arguments>
+					<required name="id" acl="edit;view" />
+					<optional name="page" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<optional name="id" />
+					<optional name="page" />
+					<optional name="col" />
+					<optional name="row" />
+					<optional name="section" />
+					<optional name="nr" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_page">
+			<function name="del_page">
+				<arguments>
+					<required name="id" acl="edit;view" />
+					<optional name="page" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

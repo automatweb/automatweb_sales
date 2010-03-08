@@ -1,0 +1,3 @@
+<h2>button</h2>
+
+A simple button, that doesn't do anything useful in itself, but you can attach an onClick javascript handler to it.

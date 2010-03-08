@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:class_1248_help
+msgid "Klassi Broneeringute toitlustuse haldus help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:prop_rooms
+msgid "Omaduse Ruumid (rooms) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:prop_rooms_comment
+msgid "Omaduse Ruumid (rooms) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:prop_rooms_help
+msgid "Omaduse Ruumid (rooms) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:prop_roomtree
+msgid "Omaduse  (roomtree) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:prop_roomtree_comment
+msgid "Omaduse  (roomtree) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:prop_roomtree_help
+msgid "Omaduse  (roomtree) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:prop_brontable
+msgid "Omaduse  (brontable) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:prop_brontable_comment
+msgid "Omaduse  (brontable) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:prop_brontable_help
+msgid "Omaduse  (brontable) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:group_reservations
+msgid "Grupi Reserveeringud (reservations) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:group_reservations_help
+msgid "Grupi Reserveeringud (reservations) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:rel_RELTYPE_ROOM
+msgid "Seose Ruum (RELTYPE_ROOM) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:layout_left
+msgid "Kujundusosa Ruumid (left) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:layout_right
+msgid "Kujundusosa Broneeringud&nbsp;ja&nbsp;toitlustus (right) pealkiri"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:109
+msgid "K&otilde;ik toad"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:114
+msgid "Ruumid on valimata"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:189
+msgid "Toode"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:193
+msgid "Kogus"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:197
+msgid "Aeg"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_products_overview.aw:201
+msgid "Ruum"
+msgstr ""

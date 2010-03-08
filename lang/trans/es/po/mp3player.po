@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/mp3player/mp3player.aw:class_1353_help
+msgid "Klassi MP3 pleier help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:prop_control
+msgid "Omaduse Kontroll (control) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:prop_control_comment
+msgid "Omaduse Kontroll (control) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:prop_control_help
+msgid "Omaduse Kontroll (control) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:prop_search
+msgid "Omaduse Otsing (search) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:prop_search_comment
+msgid "Omaduse Otsing (search) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:prop_search_help
+msgid "Omaduse Otsing (search) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:prop_all_songs_table
+msgid "Omaduse  (all_songs_table) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:prop_all_songs_table_comment
+msgid "Omaduse  (all_songs_table) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:prop_all_songs_table_help
+msgid "Omaduse  (all_songs_table) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:43
+msgid "mp3 player"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:72
+msgid "m&auml;ngi"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:90
+msgid "Loo nimi"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:97
+msgid "Kestvus"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:104
+msgid "Artist"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:111
+msgid "Album"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:118
+msgid "&#142;anr"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:125
+msgid "Rate"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:132
+msgid "M&auml;ngitud"
+msgstr ""
+
+#: classes/applications/mp3player/mp3player.aw:139
+msgid "M&auml;ngi"
+msgstr ""
+

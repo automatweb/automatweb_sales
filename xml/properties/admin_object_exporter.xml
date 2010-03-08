@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>folder</name>
+            <table>aw_admin_object_exporter</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <multiple>1</multiple>
+            <store>connect</store>
+            <field>folder</field>
+            <caption>Kaust</caption>
+      </property>
+      <property>
+            <name>download</name>
+            <table>aw_admin_object_exporter</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>download</field>
+            <caption>Laadi alla</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_ADMIN_OBJECT_EXPORTER</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_admin_object_exporter>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_admin_object_exporter>
+      </tableinfo>
+      <reltypes>
+            <FOLDER>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Kaust</caption>
+            </FOLDER>
+      </reltypes>
+</properties>
+

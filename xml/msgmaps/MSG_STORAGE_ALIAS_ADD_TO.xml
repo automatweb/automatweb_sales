@@ -1,0 +1,53 @@
+<?xml version='1.0'?>
+<xml>
+<num_0>
+      <class>/core/users/group_membership</class>
+      <func>on_connect_to_group_membership</func>
+      <param>CL_GROUP_MEMBERSHIP</param>
+</num_0>
+<num_1>
+      <class>/core/users/group</class>
+      <func>on_add_alias_for_group</func>
+      <param>CL_GROUP</param>
+</num_1>
+<num_2>
+      <class>/crm/crm_person</class>
+      <func>on_connect_to_meeting</func>
+      <param>CL_CRM_MEETING</param>
+</num_2>
+<num_3>
+      <class>/crm/crm_person</class>
+      <func>on_connect_to_task</func>
+      <param>CL_TASK</param>
+</num_3>
+<num_4>
+      <class>/applications/calendar/calendar_registration_form_conf</class>
+      <func>on_rfconnect_to</func>
+      <param>CL_MENU</param>
+</num_4>
+<num_5>
+      <class>/applications/calendar/calendar_registration_form_conf</class>
+      <func>on_connect_event</func>
+      <param>CL_CALENDAR_REGISTRATION_FORM_CONF</param>
+</num_5>
+<num_6>
+      <class>/applications/mailinglist/ml_list</class>
+      <func>on_mconnect_to</func>
+      <param>CL_MENU</param>
+</num_6>
+<num_10>
+      <class>/contentmgmt/timing</class>
+      <func>on_tconnect_to</func>
+      <param>CL_DOCUMENT</param>
+</num_10>
+<num_11>
+      <class>/contentmgmt/timing</class>
+      <func>on_tconnect_to</func>
+      <param>CL_MENU</param>
+</num_11>
+<num_12>
+      <class>/contentmgmt/doc</class>
+      <func>on_add_doc_rel</func>
+      <param>CL_DOCUMENT</param>
+</num_12>
+</xml>

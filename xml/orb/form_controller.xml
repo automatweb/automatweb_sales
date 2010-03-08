@@ -1,0 +1,77 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="form_controller" folder="www/dev/terryf/automatweb_dev/classes/formgen" extends="form_base">
+		<action name="new">
+			<function name="add">
+				<arguments>
+					<required name="parent" type="int" acl="add" />
+					<optional name="alias_to" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit">
+			<function name="submit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change">
+			<function name="change">
+				<arguments>
+					<required name="id" type="int" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_var">
+			<function name="add_var">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_var">
+			<function name="submit_var">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_var">
+			<function name="change_var">
+				<arguments>
+					<required name="id" />
+					<required name="var_name" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_var">
+			<function name="del_var">
+				<arguments>
+					<required name="id" />
+					<optional name="var_name" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="form_list">
+			<function name="form_list">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_form_list">
+			<function name="submit_form_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

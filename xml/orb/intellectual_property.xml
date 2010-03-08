@@ -1,0 +1,85 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="intellectual_property" folder="www/dev/terryf/automatweb_dev/classes/applications/clients/patent_office" extends="class_base">
+		<action name="show" is_public="1" all_args="1">
+			<function name="show">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_payment_ordermake" all_args="1">
+			<function name="show_payment_order">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_file" all_args="1">
+			<function name="get_file">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="parse_alias" is_public="1" caption="Change">
+			<function name="parse_alias">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="error_popup" all_args="1">
+			<function name="error_popup">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pdf" all_args="1">
+			<function name="pdf">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="procurator_popup">
+			<function name="procurator_popup">
+				<arguments>
+					<required name="parent" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="country_popup">
+			<function name="country_popup">
+				<arguments>
+					<required name="var" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="payer_popup">
+			<function name="payer_popup">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_data" is_public="1" all_args="1" caption="Change">
+			<function name="submit_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="my_patent_list" is_public="1" caption="Minu patenditaotlused">
+			<function name="my_patent_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

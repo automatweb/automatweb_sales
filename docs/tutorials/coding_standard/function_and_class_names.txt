@@ -1,0 +1,16 @@
+Function and class names
+
+Function and class names must not be capitalized and words should be saparated with underscores. Words should not be abbreviated, but completely spelled out, unless that makes the name rediculously long. 
+
+examples:
+
+class CWrongName - not ok
+class cwrongname - not ok
+class cwrngnm - not ok
+class correct_name - ok
+
+function MkWizardPage - not ok
+function makewizardpage - not ok
+function mkwzpg - not ok
+function make_wizard_page - ok
+

@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/class_designer/property_table_column.aw:class_887_help
+msgid "Klassi Tabeli veerg help"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_ord
+msgid "Omaduse Jrk (ord) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_ord_comment
+msgid "Omaduse Jrk (ord) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_ord_help
+msgid "Omaduse Jrk (ord) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_sortable
+msgid "Omaduse Sorteeritav (sortable) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_sortable_comment
+msgid "Omaduse Sorteeritav (sortable) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_sortable_help
+msgid "Omaduse Sorteeritav (sortable) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_width
+msgid "Omaduse Laius (width) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_width_comment
+msgid "Omaduse Laius (width) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_width_help
+msgid "Omaduse Laius (width) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_nowrap
+msgid "Omaduse Poolitamine keelatud (nowrap) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_nowrap_comment
+msgid "Omaduse Poolitamine keelatud (nowrap) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_nowrap_help
+msgid "Omaduse Poolitamine keelatud (nowrap) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_align
+msgid "Omaduse Joondamine (align) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_align_comment
+msgid "Omaduse Joondamine (align) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_align_help
+msgid "Omaduse Joondamine (align) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_c_parent
+msgid "Omaduse &Uuml;lemtulp (c_parent) caption"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_c_parent_comment
+msgid "Omaduse &Uuml;lemtulp (c_parent) kommentaar"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:prop_c_parent_help
+msgid "Omaduse &Uuml;lemtulp (c_parent) help"
+msgstr ""
+
+#: classes/applications/class_designer/property_table_column.aw:rel_RELTYPE_PARENT
+msgid "Seose &uuml;lemtulp (RELTYPE_PARENT) tekst"
+msgstr ""
+

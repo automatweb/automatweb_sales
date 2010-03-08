@@ -1,0 +1,100 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="warehouse_import" folder="www/automatweb_cvs/classes/applications/shop" extends="class_base">
+		<action name="view_xml">
+			<function name="view_xml">
+				<arguments>
+					<required name="fn" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="reset_import">
+			<function name="reset_import">
+				<arguments>
+					<required name="id" />
+					<required name="type" />
+					<optional name="wh_id" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="stop_import">
+			<function name="stop_import">
+				<arguments>
+					<required name="type" />
+					<optional name="wh_id" />
+					<required name="id" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="run_backgrounded" nologin="1">
+			<function name="do_run_bg">
+				<arguments>
+					<required name="id" />
+					<optional name="wh_id" />
+					<optional name="file" />
+					<required name="act" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_prices_import">
+			<function name="do_prices_import">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_amounts_import">
+			<function name="do_amounts_import">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="wh_id" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_pricelists_import">
+			<function name="do_pricelists_import">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_products_import">
+			<function name="do_products_import">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="callback_xml_done">
+			<function name="callback_xml_done">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="prod_xml" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="process_product_chunk">
+			<function name="process_product_chunk">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="file" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

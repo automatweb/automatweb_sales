@@ -1,0 +1,130 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/crm/crm_offer_mgr.aw:class_903_help
+msgid "Klassi Pakkumiste haldus help"
+msgstr ""
+
+# classes/crm/crm_offer_mgr.aw:prop_offers_toolbar
+#: classes/crm/crm_offer_mgr.aw:prop_offers_toolbar
+msgid "Omaduse  (offers_toolbar) caption"
+msgstr ""
+
+# classes/crm/crm_offer_mgr.aw:prop_offers_toolbar_comment
+#: classes/crm/crm_offer_mgr.aw:prop_offers_toolbar_comment
+msgid "Omaduse  (offers_toolbar) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_mgr.aw:prop_offers_toolbar_help
+#: classes/crm/crm_offer_mgr.aw:prop_offers_toolbar_help
+msgid "Omaduse  (offers_toolbar) help"
+msgstr ""
+
+# classes/crm/crm_offer_mgr.aw:prop_offers_tree
+#: classes/crm/crm_offer_mgr.aw:prop_offers_tree
+msgid "Omaduse Puu (offers_tree) caption"
+msgstr "Tree"
+
+# classes/crm/crm_offer_mgr.aw:prop_offers_tree_comment
+#: classes/crm/crm_offer_mgr.aw:prop_offers_tree_comment
+msgid "Omaduse Puu (offers_tree) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_mgr.aw:prop_offers_tree_help
+#: classes/crm/crm_offer_mgr.aw:prop_offers_tree_help
+msgid "Omaduse Puu (offers_tree) help"
+msgstr ""
+
+# classes/crm/crm_offer_mgr.aw:prop_offers_list
+#: classes/crm/crm_offer_mgr.aw:prop_offers_list
+msgid "Omaduse Pakkumised (offers_list) caption"
+msgstr "Offers"
+
+# classes/crm/crm_offer_mgr.aw:prop_offers_list_comment
+#: classes/crm/crm_offer_mgr.aw:prop_offers_list_comment
+msgid "Omaduse Pakkumised (offers_list) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_mgr.aw:prop_offers_list_help
+#: classes/crm/crm_offer_mgr.aw:prop_offers_list_help
+msgid "Omaduse Pakkumised (offers_list) help"
+msgstr ""
+
+# classes/crm/crm_offer_mgr.aw:group_offers
+#: classes/crm/crm_offer_mgr.aw:group_offers
+msgid "Grupi Pakkumised (offers) pealkiri"
+msgstr "Offers"
+
+#: classes/crm/crm_offer_mgr.aw:group_offers_help
+msgid "Grupi Pakkumised (offers) help"
+msgstr ""
+
+# classes/crm/crm_offer_mgr.aw:rel_RELTYPE_MGR_CO
+#: classes/crm/crm_offer_mgr.aw:rel_RELTYPE_MGR_CO
+msgid "Seose haldaja (RELTYPE_MGR_CO) tekst"
+msgstr "manager"
+
+# classes/crm/crm_offer_mgr.aw:rel_RELTYPE_WAREHOUSE
+#: classes/crm/crm_offer_mgr.aw:rel_RELTYPE_WAREHOUSE
+msgid "Seose ladu (RELTYPE_WAREHOUSE) tekst"
+msgstr "warehouse"
+
+#: classes/crm/crm_offer_mgr.aw:rel_RELTYPE_TYPICAL_COMPONENT
+msgid "Seose t&uuml;piline komponent (RELTYPE_TYPICAL_COMPONENT) tekst"
+msgstr ""
+
+#: classes/crm/crm_offer_mgr.aw:93
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/crm/crm_offer_mgr.aw:98
+msgid "Kellele"
+msgstr "To whom"
+
+#: classes/crm/crm_offer_mgr.aw:103
+msgid "Millal"
+msgstr "When"
+
+#: classes/crm/crm_offer_mgr.aw:112
+msgid "T&uuml;&uuml;ppakkumine?"
+msgstr "Typical offer?"
+
+#: classes/crm/crm_offer_mgr.aw:157
+msgid "Eemalda t&uuml;&uuml;ppakkumistest"
+msgstr "Remove from typical offer list"
+
+#: classes/crm/crm_offer_mgr.aw:165
+msgid "Tee t&uuml;&uuml;ppakkumiseks"
+msgstr "Mark as typical"
+
+#: classes/crm/crm_offer_mgr.aw:177
+msgid "K&otilde;ik pakkumised"
+msgstr "All offers"
+
+#: classes/crm/crm_offer_mgr.aw:195
+msgid "Lisa"
+msgstr "Add"
+
+#: classes/crm/crm_offer_mgr.aw:203
+msgid "Lisa pakkumine"
+msgstr "Add offer"
+
+#: classes/crm/crm_offer_mgr.aw:234
+msgid "T&uuml;ppakkumised"
+msgstr "Typical offers"
+
+#: classes/crm/crm_offer_mgr.aw:243
+msgid "Kustuta valitud tellimused"
+msgstr "Delete selected offers"
+
+#: classes/crm/crm_offer_mgr.aw:244
+msgid "Oled kindel et soovid valitud tellimused kustutada?"
+msgstr "Are you sure you want to delete selected offers?"

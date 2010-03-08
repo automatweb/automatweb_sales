@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/calendar/ical_import.aw:class_1349_help
+msgid "Klassi S&uuml;ndmuste import (iCal) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_import_tb
+msgid "Omaduse  (import_tb) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_import_tb_comment
+msgid "Omaduse  (import_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_import_tb_help
+msgid "Omaduse  (import_tb) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_calendar
+msgid "Omaduse Kalender (calendar) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_calendar_comment
+msgid "Omaduse Kalender (calendar) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_calendar_help
+msgid "Omaduse Kalender (calendar) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_vevent_type
+msgid "Omaduse VEVENT t&uuml;&uuml;p aw-s (vevent_type) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_vevent_type_comment
+msgid "Omaduse VEVENT t&uuml;&uuml;p aw-s (vevent_type) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_vevent_type_help
+msgid "Omaduse VEVENT t&uuml;&uuml;p aw-s (vevent_type) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_url
+msgid "Omaduse Impordi url (url) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_url_comment
+msgid "Omaduse Impordi url (url) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_url_help
+msgid "Omaduse Impordi url (url) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_file
+msgid "Omaduse Kalendrifail (file) caption"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_file_comment
+msgid "Omaduse Kalendrifail (file) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:prop_file_help
+msgid "Omaduse Kalendrifail (file) help"
+msgstr ""
+
+#: classes/applications/calendar/ical_import.aw:rel_RELTYPE_CALENDAR
+msgid "Seose Kalender (RELTYPE_CALENDAR) tekst"
+msgstr ""
+

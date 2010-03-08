@@ -1,0 +1,506 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/calendar/conference.aw:class_1166_help
+msgid "Klassi Konverents help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_topic_comment
+msgid "Omaduse L&uuml;hikirjeldus/teema (topic_comment) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_topic_comment_comment
+msgid "Omaduse L&uuml;hikirjeldus/teema (topic_comment) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_topic_comment_help
+msgid "Omaduse L&uuml;hikirjeldus/teema (topic_comment) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_type
+msgid "Omaduse T&uuml;&uuml;p (type) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_type_comment
+msgid "Omaduse T&uuml;&uuml;p (type) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_type_help
+msgid "Omaduse T&uuml;&uuml;p (type) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_organizers
+msgid "Omaduse Korraldajad (organizers) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_organizers_comment
+msgid "Omaduse Korraldajad (organizers) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_organizers_help
+msgid "Omaduse Korraldajad (organizers) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_webform
+msgid "Omaduse Veebivorm (webform) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_webform_comment
+msgid "Omaduse Veebivorm (webform) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_webform_help
+msgid "Omaduse Veebivorm (webform) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_start_time
+msgid "Omaduse Algusaeg (start_time) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_start_time_comment
+msgid "Omaduse Algusaeg (start_time) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_start_time_help
+msgid "Omaduse Algusaeg (start_time) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_end_time
+msgid "Omaduse L&otilde;puaeg (end_time) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_end_time_comment
+msgid "Omaduse L&otilde;puaeg (end_time) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_end_time_help
+msgid "Omaduse L&otilde;puaeg (end_time) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_place
+msgid "Omaduse Toimumiskoht (place) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_place_comment
+msgid "Omaduse Toimumiskoht (place) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_place_help
+msgid "Omaduse Toimumiskoht (place) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_conference_plan
+msgid "Omaduse Konverentsi kava (conference_plan) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_conference_plan_comment
+msgid "Omaduse Konverentsi kava (conference_plan) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_conference_plan_help
+msgid "Omaduse Konverentsi kava (conference_plan) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_conference_plan_file
+msgid "Omaduse Konverenrtsikava failina (conference_plan_file) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_conference_plan_file_comment
+msgid "Omaduse Konverenrtsikava failina (conference_plan_file) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_conference_plan_file_help
+msgid "Omaduse Konverenrtsikava failina (conference_plan_file) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_extra_info
+msgid "Omaduse Lisainfo (extra_info) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_extra_info_comment
+msgid "Omaduse Lisainfo (extra_info) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_extra_info_help
+msgid "Omaduse Lisainfo (extra_info) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_presenters_tb
+msgid "Omaduse  (presenters_tb) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_presenters_tb_comment
+msgid "Omaduse  (presenters_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_presenters_tb_help
+msgid "Omaduse  (presenters_tb) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_presenters_tbl
+msgid "Omaduse  (presenters_tbl) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_presenters_tbl_comment
+msgid "Omaduse  (presenters_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_presenters_tbl_help
+msgid "Omaduse  (presenters_tbl) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_participants
+msgid "Omaduse  (participants) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_participants_comment
+msgid "Omaduse  (participants) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_participants_help
+msgid "Omaduse  (participants) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_rooms_tb
+msgid "Omaduse  (rooms_tb) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_rooms_tb_comment
+msgid "Omaduse  (rooms_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_rooms_tb_help
+msgid "Omaduse  (rooms_tb) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_rooms_tbl
+msgid "Omaduse  (rooms_tbl) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_rooms_tbl_comment
+msgid "Omaduse  (rooms_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_rooms_tbl_help
+msgid "Omaduse  (rooms_tbl) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_room_search_results
+msgid "Omaduse  (room_search_results) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_room_search_results_comment
+msgid "Omaduse  (room_search_results) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_room_search_results_help
+msgid "Omaduse  (room_search_results) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_room_resources
+msgid "Omaduse Ruumide ressursid (room_resources) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_room_resources_comment
+msgid "Omaduse Ruumide ressursid (room_resources) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_room_resources_help
+msgid "Omaduse Ruumide ressursid (room_resources) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_catering_resources_tbl
+msgid "Omaduse Toitlustuse ressursid (catering_resources_tbl) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_catering_resources_tbl_comment
+msgid "Omaduse Toitlustuse ressursid (catering_resources_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_catering_resources_tbl_help
+msgid "Omaduse Toitlustuse ressursid (catering_resources_tbl) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_accommondation
+msgid "Omaduse Majutus (accommondation) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_accommondation_comment
+msgid "Omaduse Majutus (accommondation) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_accommondation_help
+msgid "Omaduse Majutus (accommondation) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_transport
+msgid "Omaduse Transport (transport) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_transport_comment
+msgid "Omaduse Transport (transport) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_transport_help
+msgid "Omaduse Transport (transport) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_sponsors
+msgid "Omaduse  (sponsors) caption"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_sponsors_comment
+msgid "Omaduse  (sponsors) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:prop_sponsors_help
+msgid "Omaduse  (sponsors) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_presenters
+msgid "Grupi Esinejad (presenters) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_presenters_help
+msgid "Grupi Esinejad (presenters) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_participants
+msgid "Grupi Osalejad (participants) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_participants_help
+msgid "Grupi Osalejad (participants) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_resources
+msgid "Grupi Ressursid (resources) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_resources_help
+msgid "Grupi Ressursid (resources) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_rooms
+msgid "Grupi Ruumid (rooms) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_rooms_help
+msgid "Grupi Ruumid (rooms) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_room_resources
+msgid "Grupi Ruumide ressursid (room_resources) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_room_resources_help
+msgid "Grupi Ruumide ressursid (room_resources) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_catering_resources
+msgid "Grupi Toitlustuse ressursid (catering_resources) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_catering_resources_help
+msgid "Grupi Toitlustuse ressursid (catering_resources) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_other_resources
+msgid "Grupi Teised ressursid (other_resources) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_other_resources_help
+msgid "Grupi Teised ressursid (other_resources) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_sponsors
+msgid "Grupi Sponsorid (sponsors) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:group_sponsors_help
+msgid "Grupi Sponsorid (sponsors) help"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:rel_RELTYPE_ORGANIZER
+msgid "Seose Korraldaja (RELTYPE_ORGANIZER) tekst"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:rel_RELTYPE_LOCATION
+msgid "Seose Toimumiskoht (RELTYPE_LOCATION) tekst"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:rel_RELTYPE_PRESENTER
+msgid "Seose Esineja (RELTYPE_PRESENTER) tekst"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:rel_RELTYPE_PARTICIPANT
+msgid "Seose Osaleja (RELTYPE_PARTICIPANT) tekst"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:rel_RELTYPE_SPONSOR
+msgid "Seose Sponsor (RELTYPE_SPONSOR) tekst"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:rel_RELTYPE_WEBFORM
+msgid "Seose  (RELTYPE_WEBFORM) tekst"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:rel_RELTYPE_RESERVATION
+msgid "Seose Ruumi reservatsioon (RELTYPE_RESERVATION) tekst"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:rel_RELTYPE_FILE
+msgid "Seose Konverentsikava (RELTYPE_FILE) tekst"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:129
+msgid "Meeting"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:130
+msgid "Seminar"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:131
+msgid "Conference"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:132
+msgid "Training"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:133
+msgid "Product introduction / lunch"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:134
+msgid "Info"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:135
+msgid "Breakfast"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:136
+msgid "Luncheon"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:137
+#: classes/applications/calendar/conference.aw:147
+msgid "Dinner"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:138
+msgid "Party"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:139
+msgid "Wedding"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:140
+#: classes/applications/calendar/conference.aw:148
+msgid "Other"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:144
+msgid "Break out rooms"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:145
+msgid "Show room"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:146
+msgid "Office"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:273
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:278
+msgid "reserveeri"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:284
+msgid "vabu ressursse"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:290
+#: classes/applications/calendar/conference.aw:347
+#: classes/applications/calendar/conference.aw:570
+msgid "Ruum"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:343
+msgid "P&auml;ev"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:351
+msgid "Toode"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:355
+msgid "Kogus"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:359
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:384
+msgid "-- Vali toode --"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:391
+msgid "-- Vali p&auml;ev ja ruum --"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:397
+msgid "-- Vali ruum --"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:541
+msgid "Lisa ruum"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:555
+msgid "Eemalda ruum"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:574
+msgid "Algusaeg"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:578
+msgid "L&otilde;puaeg"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:661
+msgid "nimetu"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:686
+msgid "Esineja"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:690
+msgid "Teema"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:750
+msgid "Lisa esineja"
+msgstr ""
+
+#: classes/applications/calendar/conference.aw:761
+msgid "Eemalda esineja"
+msgstr ""

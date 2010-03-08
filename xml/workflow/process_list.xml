@@ -1,0 +1,9 @@
+<?xml version='1.0'?>
+<tabledef>
+<data>
+<field name="name" caption="Protsess" nowrap="1" sortable="1"/>
+<field name="modifiedby" caption="Kasutaja" sortable="1"/>
+<field name="root_action" caption="Juurfunktsioon" sortable="1"/>
+<field name="entity_count" caption="Juhtumeid protsessis" sortable="1"/>
+</data>
+</tabledef>

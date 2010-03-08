@@ -1,0 +1,9 @@
+
+create_links($text)
+
+Takes a piece of text and creates clickable hyperlinks in it.
+Words beginning with http://, https:// and anything resembling
+an e-mail address will be replaced.
+
+
+Returns: $text with links

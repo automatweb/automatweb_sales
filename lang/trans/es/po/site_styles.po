@@ -1,0 +1,124 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/site_styles.aw:class_998_help
+msgid "Klassi Saidi stiilid help"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_alias
+msgid "Omaduse Alias (alias) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_alias_comment
+msgid "Omaduse Alias (alias) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_alias_help
+msgid "Omaduse Alias (alias) help"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_styles
+msgid "Omaduse Stiilifailide URLid (styles) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_styles_comment
+msgid "Omaduse Stiilifailide URLid (styles) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_styles_help
+msgid "Omaduse Stiilifailide URLid (styles) help"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_default_style
+msgid "Omaduse Vaikimisi stiili jrk. (default_style) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_default_style_comment
+msgid "Omaduse Vaikimisi stiili jrk. (default_style) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_default_style_help
+msgid "Omaduse Vaikimisi stiili jrk. (default_style) help"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_random
+msgid "Omaduse Juhuslik valik (random) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_random_comment
+msgid "Omaduse Juhuslik valik (random) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_random_help
+msgid "Omaduse Juhuslik valik (random) help"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_vars
+msgid "Omaduse  (vars) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_vars_comment
+msgid "Omaduse  (vars) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:prop_vars_help
+msgid "Omaduse  (vars) help"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:group_test
+msgid "Grupi Muutujad (test) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:group_test_help
+msgid "Grupi Muutujad (test) help"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:74
+msgid "Ei valita juhuslikult"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:75
+msgid "Juhuslik sessiooniti"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:76
+msgid "Juhuslik igal laadimisel"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:185
+msgid "Lisa"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:197
+msgid "Nr"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:201
+msgid "CSS url"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:245
+msgid "Uus muutuja"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:254
+msgid "jrk"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:259
+msgid "url"
+msgstr ""
+
+#: classes/contentmgmt/site_styles.aw:263
+msgid "Men&uuml;&uuml;pildi nr"
+msgstr ""
+

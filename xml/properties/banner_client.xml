@@ -1,0 +1,54 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>cont_place</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <store>no</store>
+            <field>cont_place</field>
+            <caption>Koht veebis</caption>
+      </property>
+      <property>
+            <name>cont_doc_tpl</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <store>no</store>
+            <field>cont_doc_tpl</field>
+            <caption>Dokumendi template</caption>
+      </property>
+      <property>
+            <name>dynamic_switch_interval</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>D&amp;amp;uuml;naamilise vaheldumise intervall</caption>
+      </property>
+      <property>
+            <name>html</name>
+            <table>banner_clients</table>
+            <group>general</group>
+            <type>textarea</type>
+            <cols>80</cols>
+            <rows>10</rows>
+            <field>html</field>
+            <caption>Asukoha HTML</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_BANNER_LOCATION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <banner_clients>
+                  <index>id</index>
+                  <master_table>objects</master_table>
+                  <master_index>brother_of</master_index>
+            </banner_clients>
+      </tableinfo>
+</properties>
+

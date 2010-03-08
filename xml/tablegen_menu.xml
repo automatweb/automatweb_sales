@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<tablegen>
+	<change>
+		<caption>T‰ida</caption>
+		<link>{VAR:change_url}</link>
+	</change>
+	<edit>
+		<caption>Toimeta</caption>
+		<link>{VAR:edit_url}</link>
+	</edit>
+	<configure>
+		<caption>H‰‰lestus</caption>
+		<link>{VAR:config_url}</link>
+	</configure>
+	<admin>
+		<caption>Admin</caption>
+		<link>{VAR:admin_url}</link>
+	</admin>
+	<preview>
+		<caption>Eelvaade</caption>
+		<link>{VAR:preview_url}</link>
+	</preview>
+	<import>
+		<caption>Impordi</caption>
+		<link>{VAR:import_url}</link>
+	</import>
+</tablegen>

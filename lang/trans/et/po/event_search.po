@@ -1,0 +1,510 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/calendar/event_search.aw:class_850_help
+msgid "Klassi S&uuml;ndmuste otsing help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_event_cfgform
+#: classes/applications/calendar/event_search.aw:prop_event_cfgform
+msgid "Omaduse Kasutatav vorm (event_cfgform) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_event_cfgform_comment
+#: classes/applications/calendar/event_search.aw:prop_event_cfgform_comment
+msgid "Omaduse Kasutatav vorm (event_cfgform) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_event_cfgform_help
+#: classes/applications/calendar/event_search.aw:prop_event_cfgform_help
+msgid "Omaduse Kasutatav vorm (event_cfgform) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_use_output
+#: classes/applications/calendar/event_search.aw:prop_use_output
+msgid "Omaduse N&auml;itamise vorm (use_output) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_use_output_comment
+#: classes/applications/calendar/event_search.aw:prop_use_output_comment
+msgid "Omaduse N&auml;itamise vorm (use_output) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_use_output_help
+#: classes/applications/calendar/event_search.aw:prop_use_output_help
+msgid "Omaduse N&auml;itamise vorm (use_output) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_show_type
+#: classes/applications/calendar/event_search.aw:prop_show_type
+msgid "Omaduse N&auml;ta vaikimisi s&uuml;ndmusi (show_type) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_show_type_comment
+#: classes/applications/calendar/event_search.aw:prop_show_type_comment
+msgid "Omaduse N&auml;ta vaikimisi s&uuml;ndmusi (show_type) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_show_type_help
+#: classes/applications/calendar/event_search.aw:prop_show_type_help
+msgid "Omaduse N&auml;ta vaikimisi s&uuml;ndmusi (show_type) help"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_target_section
+msgid "Omaduse Tulemuste target section (target_section) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_target_section_comment
+msgid "Omaduse Tulemuste target section (target_section) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_target_section_help
+msgid "Omaduse Tulemuste target section (target_section) help"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_hide_search_form
+msgid "Omaduse Peida otsinguvorm (hide_search_form) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_hide_search_form_comment
+msgid "Omaduse Peida otsinguvorm (hide_search_form) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_hide_search_form_help
+msgid "Omaduse Peida otsinguvorm (hide_search_form) help"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_dont_search_from_all_sites
+msgid "Omaduse &Auml;ra otsi k&otilde;igist saitidest (dont_search_from_all_sites) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_dont_search_from_all_sites_comment
+msgid "Omaduse &Auml;ra otsi k&otilde;igist saitidest (dont_search_from_all_sites) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_dont_search_from_all_sites_help
+msgid "Omaduse &Auml;ra otsi k&otilde;igist saitidest (dont_search_from_all_sites) help"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_dont_search_from_all_languages
+msgid "Omaduse &Auml;ra otsi k&otilde;igist keeltest (dont_search_from_all_languages) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_dont_search_from_all_languages_comment
+msgid "Omaduse &Auml;ra otsi k&otilde;igist keeltest (dont_search_from_all_languages) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_dont_search_from_all_languages_help
+msgid "Omaduse &Auml;ra otsi k&otilde;igist keeltest (dont_search_from_all_languages) help"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_sort_by_groups
+msgid "Omaduse Sorteeri gruppide j&auml;rgi (sort_by_groups) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_sort_by_groups_comment
+msgid "Omaduse Sorteeri gruppide j&auml;rgi (sort_by_groups) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_sort_by_groups_help
+msgid "Omaduse Sorteeri gruppide j&auml;rgi (sort_by_groups) help"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_every_event_just_once
+msgid "Omaduse Kuva iga s&uuml;ndmust ainult 1 kord (every_event_just_once) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_every_event_just_once_comment
+msgid "Omaduse Kuva iga s&uuml;ndmust ainult 1 kord (every_event_just_once) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_every_event_just_once_help
+msgid "Omaduse Kuva iga s&uuml;ndmust ainult 1 kord (every_event_just_once) help"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_items_per_page
+msgid "Omaduse Mitu s&uuml;ndmust lehel (items_per_page) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_items_per_page_comment
+msgid "Omaduse Mitu s&uuml;ndmust lehel (items_per_page) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_items_per_page_help
+msgid "Omaduse Mitu s&uuml;ndmust lehel (items_per_page) help"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_preview_object
+msgid "Omaduse Eelvaate objekt (preview_object) caption"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_preview_object_comment
+msgid "Omaduse Eelvaate objekt (preview_object) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:prop_preview_object_help
+msgid "Omaduse Eelvaate objekt (preview_object) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_navigator_range
+#: classes/applications/calendar/event_search.aw:prop_navigator_range
+msgid "Omaduse Ajavahemiku navigaator (navigator_range) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_navigator_range_comment
+#: classes/applications/calendar/event_search.aw:prop_navigator_range_comment
+msgid "Omaduse Ajavahemiku navigaator (navigator_range) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_navigator_range_help
+#: classes/applications/calendar/event_search.aw:prop_navigator_range_help
+msgid "Omaduse Ajavahemiku navigaator (navigator_range) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_ftsearch_fields
+#: classes/applications/calendar/event_search.aw:prop_ftsearch_fields
+msgid "Omaduse Vabateksti v&auml;jad (ftsearch_fields) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_ftsearch_fields_comment
+#: classes/applications/calendar/event_search.aw:prop_ftsearch_fields_comment
+msgid "Omaduse Vabateksti v&auml;jad (ftsearch_fields) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_ftsearch_fields_help
+#: classes/applications/calendar/event_search.aw:prop_ftsearch_fields_help
+msgid "Omaduse Vabateksti v&auml;jad (ftsearch_fields) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_ftsearch_fields2
+#: classes/applications/calendar/event_search.aw:prop_ftsearch_fields2
+msgid "Omaduse Vabateksti v&auml;jad 2 (ftsearch_fields2) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_ftsearch_fields2_comment
+#: classes/applications/calendar/event_search.aw:prop_ftsearch_fields2_comment
+msgid "Omaduse Vabateksti v&auml;jad 2 (ftsearch_fields2) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_ftsearch_fields2_help
+#: classes/applications/calendar/event_search.aw:prop_ftsearch_fields2_help
+msgid "Omaduse Vabateksti v&auml;jad 2 (ftsearch_fields2) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_ftform
+#: classes/applications/calendar/event_search.aw:prop_ftform
+msgid "Omaduse Vorm (ftform) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_ftform_comment
+#: classes/applications/calendar/event_search.aw:prop_ftform_comment
+msgid "Omaduse Vorm (ftform) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_ftform_help
+#: classes/applications/calendar/event_search.aw:prop_ftform_help
+msgid "Omaduse Vorm (ftform) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_month_navigator_style
+#: classes/applications/calendar/event_search.aw:prop_month_navigator_style
+msgid "Omaduse Kuu navigaatori stiil (month_navigator_style) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_month_navigator_style_comment
+#: classes/applications/calendar/event_search.aw:prop_month_navigator_style_comment
+msgid "Omaduse Kuu navigaatori stiil (month_navigator_style) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_month_navigator_style_help
+#: classes/applications/calendar/event_search.aw:prop_month_navigator_style_help
+msgid "Omaduse Kuu navigaatori stiil (month_navigator_style) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_week_navigator_style
+#: classes/applications/calendar/event_search.aw:prop_week_navigator_style
+msgid "Omaduse N&auml;dala navigaatori stiil (week_navigator_style) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_week_navigator_style_comment
+#: classes/applications/calendar/event_search.aw:prop_week_navigator_style_comment
+msgid "Omaduse N&auml;dala navigaatori stiil (week_navigator_style) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_week_navigator_style_help
+#: classes/applications/calendar/event_search.aw:prop_week_navigator_style_help
+msgid "Omaduse N&auml;dala navigaatori stiil (week_navigator_style) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_sform_table_style
+#: classes/applications/calendar/event_search.aw:prop_sform_table_style
+msgid "Omaduse Otsinguvormi tabeli stiil (sform_table_style) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_sform_table_style_comment
+#: classes/applications/calendar/event_search.aw:prop_sform_table_style_comment
+msgid "Omaduse Otsinguvormi tabeli stiil (sform_table_style) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_sform_table_style_help
+#: classes/applications/calendar/event_search.aw:prop_sform_table_style_help
+msgid "Omaduse Otsinguvormi tabeli stiil (sform_table_style) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_sform_submit_style
+#: classes/applications/calendar/event_search.aw:prop_sform_submit_style
+msgid "Omaduse Otsinguvormi nupu stiil (sform_submit_style) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_sform_submit_style_comment
+#: classes/applications/calendar/event_search.aw:prop_sform_submit_style_comment
+msgid "Omaduse Otsinguvormi nupu stiil (sform_submit_style) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_sform_submit_style_help
+#: classes/applications/calendar/event_search.aw:prop_sform_submit_style_help
+msgid "Omaduse Otsinguvormi nupu stiil (sform_submit_style) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_result_table
+#: classes/applications/calendar/event_search.aw:prop_result_table
+msgid "Omaduse Tulemuste tabel (result_table) caption"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_result_table_comment
+#: classes/applications/calendar/event_search.aw:prop_result_table_comment
+msgid "Omaduse Tulemuste tabel (result_table) kommentaar"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:prop_result_table_help
+#: classes/applications/calendar/event_search.aw:prop_result_table_help
+msgid "Omaduse Tulemuste tabel (result_table) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:group_ftsearch
+#: classes/applications/calendar/event_search.aw:group_ftsearch
+msgid "Grupi Otsinguvorm (ftsearch) pealkiri"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:group_ftsearch_help
+#: classes/applications/calendar/event_search.aw:group_ftsearch_help
+msgid "Grupi Otsinguvorm (ftsearch) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:group_ftform
+#: classes/applications/calendar/event_search.aw:group_ftform
+msgid "Grupi Otsinguvorm seadistamine (ftform) pealkiri"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:group_ftform_help
+#: classes/applications/calendar/event_search.aw:group_ftform_help
+msgid "Grupi Otsinguvorm seadistamine (ftform) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:group_styles
+#: classes/applications/calendar/event_search.aw:group_styles
+msgid "Grupi Stiilid (styles) pealkiri"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:group_styles_help
+#: classes/applications/calendar/event_search.aw:group_styles_help
+msgid "Grupi Stiilid (styles) help"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:group_ftresults
+#: classes/applications/calendar/event_search.aw:group_ftresults
+msgid "Grupi Tulemuste seadistamine (ftresults) pealkiri"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:group_ftresults_help
+#: classes/applications/calendar/event_search.aw:group_ftresults_help
+msgid "Grupi Tulemuste seadistamine (ftresults) help"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:rel_RELTYPE_EVENT_CFGFORM
+msgid "Seose S&uuml;ndmuse vorm (RELTYPE_EVENT_CFGFORM) tekst"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:rel_RELTYPE_EVENT_SOURCE
+msgid "Seose S&uuml;ndmuste allikas (RELTYPE_EVENT_SOURCE) tekst"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:rel_RELTYPE_EVENT_SHOW
+msgid "Seose N&auml;itamise vorm (RELTYPE_EVENT_SHOW) tekst"
+msgstr ""
+
+# classes/applications/calendar/event_search.aw:rel_RELTYPE_STYLE
+#: classes/applications/calendar/event_search.aw:rel_RELTYPE_STYLE
+msgid "Seose Stiil (RELTYPE_STYLE) tekst"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:rel_RELTYPE_DOCUMENT
+msgid "Seose Dokument (RELTYPE_DOCUMENT) tekst"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:176
+#: classes/applications/calendar/event_search.aw:453
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:181
+#: classes/applications/calendar/event_search.aw:457
+msgid "Pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:186
+#: classes/applications/calendar/event_search.aw:496
+msgid "Seaded"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:191
+#: classes/applications/calendar/event_search.aw:461
+msgid "Aktiivne"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:197
+msgid "Tekstiotsing"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:209
+msgid "Tekstiotsing 2"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:222
+msgid "Kuvatakse valikkastid"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:223
+msgid "Kuvatakse &uuml;ks tekstikast"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:226
+#: classes/applications/calendar/event_search.aw:229
+msgid "Alguskuup&auml;ev"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:245
+#: classes/applications/calendar/event_search.aw:248
+msgid "L&otilde;ppkuup&auml;ev"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:266
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:275
+#: classes/applications/calendar/event_search.aw:278
+msgid "Projekt 1"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:294
+#: classes/applications/calendar/event_search.aw:297
+msgid "Projekt 2"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:315
+#: classes/applications/calendar/event_search.aw:318
+msgid "Asukoht"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:328
+#: classes/applications/calendar/event_search.aw:331
+msgid "Tase"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:342
+#: classes/applications/calendar/event_search.aw:345
+msgid "Valdkonnad"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:356
+#: classes/applications/calendar/event_search.aw:359
+msgid "Otsi nupp"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:387
+msgid "Kuu navigaator"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:388
+msgid "N&auml;dala navigaator"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:393
+msgid "Kuu j&auml;rgi"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:394
+msgid "P&auml;eva j&auml;rgi"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:395
+msgid "Kuu alates t&auml;nasest"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:466
+msgid "Klikitav"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:471
+msgid "T&auml;isvaates"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:476
+msgid "Reavahetused"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:481
+msgid "Eraldaja enne"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:486
+msgid "Eraldaja p&auml;rast"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:491
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:501
+msgid "V&auml;ljade eraldaja"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:506
+msgid "Lisav&auml;ljad"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:522
+msgid "V&auml;ljundvorm on valimata"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:892
+msgid "Vali"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:1086
+#: classes/applications/calendar/event_search.aw:1093
+#: classes/applications/calendar/event_search.aw:1109
+#: classes/applications/calendar/event_search.aw:1115
+msgid "k&otilde;ik"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:1092
+msgid "K&otilde;ik"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:1123
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/calendar/event_search.aw:1845
+msgid "Kustuta"
+msgstr ""

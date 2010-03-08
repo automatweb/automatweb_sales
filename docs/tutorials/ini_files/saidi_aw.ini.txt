@@ -1,0 +1,38 @@
+Saidi rootkataloogis asub fail aw.ini. Selles failis saab &uuml;le kirjutada serveri aw.ini default v&auml;&auml;rtusi. Samuti tuleb justnimelt selles failis defineerida men&uuml;&uuml;piirkonnad, konteinerite nimed jne. 
+
+<b>T&auml;htsamad muutujad:</b> 
+
+rootmenu &#8211; Objektis&uuml;steemi rootkausta objekti id. Sellest kaustast alab objektis&uuml;steem.
+
+groups.all_users_grp - Kasutajagrupp t&uuml;&uuml;pi objeki id AW's , kuhu kuuluvad k&otilde;ik kasutajad. Obekti nimeks on &#8220;K&otilde;ik kasutajad&#8221;.
+
+groups.tree_root &#8211; Kataloogi id , kus asuvad kasutajagrupp t&uuml;&uuml;pi objektid.
+
+users.root_folder &#8211; Kataloogi id , kus asuvad kasutaja t&uuml;&uuml;pi objektid.
+
+per_oid &#8211; perioodi objektide kataloogi id.
+
+amenustart - Kataloog id kus asuvad adminni programmid(programmid, mida n&auml;idatakse vasakul men&uuml;&uuml;puus). Ehk siis objektis&uuml;steemis oleva kataloogi /AutomatWeb id. 
+
+frontpage &#8211; Kaust v&otilde;i dokument mis saidile tulles aktiivne. Eh siis on v&otilde;imalus , et tulles saidile avaneb n&auml;iteks m&otilde;ni teise v&otilde;i kolmandal men&uuml;&uuml; tasemel asuv dokument.
+
+
+<b>Men&uuml;&uuml;piirkonnad: </b>
+
+menuedit.menu_defs[id] &#8211; Anname nimed men&uuml;&uuml;piirkondadele, mida hiljem kasutame templatede kirjeldamises. id on objektis&uuml;steemis oleva vastava kataloogi id. Juhul kui sama men&uuml;&uuml;d on vaja kasutada mitmes kohas, saab anda ka mitu komaga eraldatud nime. 
+
+n&auml;iteks:
+menuedit.menu_defs[13] = YLEMINE,ALUMINE,PEAMENYY
+menuedit.menu_defs[16] = VASAK
+menuedit.menu_defs[20] = LOGGED
+
+<b>Konteinerid e. "promokastid"</b> Vaikimisi on konteineril 4 asukohta: vasakul, paremal, &uuml;leval ja all. Konteinereid v&otilde;ib ka defineerida ini failis.  
+
+promo.areas[1][def] = SMALLBOX
+promo.areas[1][name] = Uudised
+
+promo.areas[1][def] = TEATED
+promo.areas[1][name] = Teated
+
+
+

@@ -1,0 +1,551 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/questionary/questionnaire.aw:class_1393_help
+msgid "Klassi D&uuml;naamiline k&uuml;simustik help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_q_by_one
+msgid "Omaduse K&uuml;simused &uuml;hekaupa (q_by_one) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_q_by_one_comment
+msgid "Omaduse K&uuml;simused &uuml;hekaupa (q_by_one) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_q_by_one_help
+msgid "Omaduse K&uuml;simused &uuml;hekaupa (q_by_one) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_answerer_with_qs
+msgid "Omaduse Vastaja andmed samal lehel k&uuml;simustega (str_answerer_with_qs) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_answerer_with_qs_comment
+msgid "Omaduse Vastaja andmed samal lehel k&uuml;simustega (str_answerer_with_qs) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_answerer_with_qs_help
+msgid "Omaduse Vastaja andmed samal lehel k&uuml;simustega (str_answerer_with_qs) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_qcomment
+msgid "Omaduse Kuva k&uuml;simuse kommentaari (dsply_qcomment) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_qcomment_comment
+msgid "Omaduse Kuva k&uuml;simuse kommentaari (dsply_qcomment) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_qcomment_help
+msgid "Omaduse Kuva k&uuml;simuse kommentaari (dsply_qcomment) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_acomment
+msgid "Omaduse Kuva vastuse kommentaari (dsply_acomment) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_acomment_comment
+msgid "Omaduse Kuva vastuse kommentaari (dsply_acomment) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_acomment_help
+msgid "Omaduse Kuva vastuse kommentaari (dsply_acomment) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_correct_msg
+msgid "Omaduse &Otilde;ige vastuse teade (correct_msg) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_correct_msg_comment
+msgid "Omaduse &Otilde;ige vastuse teade (correct_msg) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_correct_msg_help
+msgid "Omaduse &Otilde;ige vastuse teade (correct_msg) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_false_msg
+msgid "Omaduse Vale vastuse teade (false_msg) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_false_msg_comment
+msgid "Omaduse Vale vastuse teade (false_msg) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_false_msg_help
+msgid "Omaduse Vale vastuse teade (false_msg) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2wrong
+msgid "Omaduse Vale vastuse korral kuva &otilde;iged (dsply_correct2wrong) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2wrong_comment
+msgid "Omaduse Vale vastuse korral kuva &otilde;iged (dsply_correct2wrong) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2wrong_help
+msgid "Omaduse Vale vastuse korral kuva &otilde;iged (dsply_correct2wrong) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2wrong_caption_single
+msgid "Omaduse &Otilde;igete vastuste caption (ainsus) (dsply_correct2wrong_caption_single) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2wrong_caption_single_comment
+msgid "Omaduse &Otilde;igete vastuste caption (ainsus) (dsply_correct2wrong_caption_single) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2wrong_caption_single_help
+msgid "Omaduse &Otilde;igete vastuste caption (ainsus) (dsply_correct2wrong_caption_single) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2wrong_caption_multiple
+msgid "Omaduse &Otilde;igete vastuste caption (mitmus) (dsply_correct2wrong_caption_multiple) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2wrong_caption_multiple_comment
+msgid "Omaduse &Otilde;igete vastuste caption (mitmus) (dsply_correct2wrong_caption_multiple) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2wrong_caption_multiple_help
+msgid "Omaduse &Otilde;igete vastuste caption (mitmus) (dsply_correct2wrong_caption_multiple) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2correct
+msgid "Omaduse &Otilde;ige vastuse korral kuva k&otilde;ik &otilde;iged (dsply_correct2correct) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2correct_comment
+msgid "Omaduse &Otilde;ige vastuse korral kuva k&otilde;ik &otilde;iged (dsply_correct2correct) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2correct_help
+msgid "Omaduse &Otilde;ige vastuse korral kuva k&otilde;ik &otilde;iged (dsply_correct2correct) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2correct_caption_single
+msgid "Omaduse &Otilde;igete vastuste caption (ainsus) (dsply_correct2correct_caption_single) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2correct_caption_single_comment
+msgid "Omaduse &Otilde;igete vastuste caption (ainsus) (dsply_correct2correct_caption_single) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2correct_caption_single_help
+msgid "Omaduse &Otilde;igete vastuste caption (ainsus) (dsply_correct2correct_caption_single) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2correct_caption_multiple
+msgid "Omaduse &Otilde;igete vastuste caption (mitmus) (dsply_correct2correct_caption_multiple) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2correct_caption_multiple_comment
+msgid "Omaduse &Otilde;igete vastuste caption (mitmus) (dsply_correct2correct_caption_multiple) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_dsply_correct2correct_caption_multiple_help
+msgid "Omaduse &Otilde;igete vastuste caption (mitmus) (dsply_correct2correct_caption_multiple) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_comment2nothing
+msgid "Omaduse Kommentaar, kui vastus on t&uuml;hi (comment2nothing) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_comment2nothing_comment
+msgid "Omaduse Kommentaar, kui vastus on t&uuml;hi (comment2nothing) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_comment2nothing_help
+msgid "Omaduse Kommentaar, kui vastus on t&uuml;hi (comment2nothing) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_rslts
+msgid "Omaduse Salvesta vastamised (str_rslts) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_rslts_comment
+msgid "Omaduse Salvesta vastamised (str_rslts) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_rslts_help
+msgid "Omaduse Salvesta vastamised (str_rslts) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_answerer
+msgid "Omaduse Salvesta vastaja andmed (str_answerer) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_answerer_comment
+msgid "Omaduse Salvesta vastaja andmed (str_answerer) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_answerer_help
+msgid "Omaduse Salvesta vastaja andmed (str_answerer) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_answerer_cfgform
+msgid "Omaduse Vastaja salvestamise seadete vorm (str_answerer_cfgform) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_answerer_cfgform_comment
+msgid "Omaduse Vastaja salvestamise seadete vorm (str_answerer_cfgform) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_str_answerer_cfgform_help
+msgid "Omaduse Vastaja salvestamise seadete vorm (str_answerer_cfgform) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_p_correct
+msgid "Omaduse &Otilde;ige vastuse pilt (p_correct) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_p_correct_comment
+msgid "Omaduse &Otilde;ige vastuse pilt (p_correct) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_p_correct_help
+msgid "Omaduse &Otilde;ige vastuse pilt (p_correct) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_p_false
+msgid "Omaduse Vale vastuse pilt (p_false) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_p_false_comment
+msgid "Omaduse Vale vastuse pilt (p_false) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_p_false_help
+msgid "Omaduse Vale vastuse pilt (p_false) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_percent
+msgid "Omaduse &Otilde;igete vastuste protsent (rd_percent) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_percent_comment
+msgid "Omaduse &Otilde;igete vastuste protsent (rd_percent) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_percent_help
+msgid "Omaduse &Otilde;igete vastuste protsent (rd_percent) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_fraction
+msgid "Omaduse &Otilde;igeid vastuseid hariliku murruna (rd_fraction) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_fraction_comment
+msgid "Omaduse &Otilde;igeid vastuseid hariliku murruna (rd_fraction) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_fraction_help
+msgid "Omaduse &Otilde;igeid vastuseid hariliku murruna (rd_fraction) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_results
+msgid "Omaduse Kuva &otilde;igesti/valesti vastatud k&uuml;simusi (rd_results) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_results_comment
+msgid "Omaduse Kuva &otilde;igesti/valesti vastatud k&uuml;simusi (rd_results) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_results_help
+msgid "Omaduse Kuva &otilde;igesti/valesti vastatud k&uuml;simusi (rd_results) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_text
+msgid "Omaduse Tekst (rd_text) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_text_comment
+msgid "Omaduse Tekst (rd_text) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_text_help
+msgid "Omaduse Tekst (rd_text) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_percent_text
+msgid "Omaduse Tekst &otilde;igete vastuste protsendi j&auml;rgi (rd_percent_text) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_percent_text_comment
+msgid "Omaduse Tekst &otilde;igete vastuste protsendi j&auml;rgi (rd_percent_text) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_rd_percent_text_help
+msgid "Omaduse Tekst &otilde;igete vastuste protsendi j&auml;rgi (rd_percent_text) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_table_cols_conf
+msgid "Omaduse  (table_cols_conf) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_table_cols_conf_comment
+msgid "Omaduse  (table_cols_conf) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_table_cols_conf_help
+msgid "Omaduse  (table_cols_conf) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_qtlbr
+msgid "Omaduse  (qtlbr) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_qtlbr_comment
+msgid "Omaduse  (qtlbr) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_qtlbr_help
+msgid "Omaduse  (qtlbr) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_qtbl
+msgid "Omaduse  (qtbl) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_qtbl_comment
+msgid "Omaduse  (qtbl) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_qtbl_help
+msgid "Omaduse  (qtbl) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_atlb
+msgid "Omaduse Vastajate toolbar (atlb) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_atlb_comment
+msgid "Omaduse Vastajate toolbar (atlb) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_atlb_help
+msgid "Omaduse Vastajate toolbar (atlb) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_acnt
+msgid "Omaduse Vastajate arv (acnt) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_acnt_comment
+msgid "Omaduse Vastajate arv (acnt) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_acnt_help
+msgid "Omaduse Vastajate arv (acnt) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_atbl
+msgid "Omaduse Vastajad (atbl) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_atbl_comment
+msgid "Omaduse Vastajad (atbl) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:prop_atbl_help
+msgid "Omaduse Vastajad (atbl) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_conf
+msgid "Grupi Seaded (conf) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_conf_help
+msgid "Grupi Seaded (conf) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_pics
+msgid "Grupi Pildid (pics) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_pics_help
+msgid "Grupi Pildid (pics) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_dsply_rslts
+msgid "Grupi Tulemuste&nbsp;kuvamine (dsply_rslts) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_dsply_rslts_help
+msgid "Grupi Tulemuste&nbsp;kuvamine (dsply_rslts) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_answerers_tab
+msgid "Grupi Vastajate&nbsp;vaade (answerers_tab) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_answerers_tab_help
+msgid "Grupi Vastajate&nbsp;vaade (answerers_tab) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_questions
+msgid "Grupi K&uuml;simused (questions) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_questions_help
+msgid "Grupi K&uuml;simused (questions) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_answerers
+msgid "Grupi Vastajad (answerers) pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:group_answerers_help
+msgid "Grupi Vastajad (answerers) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:rel_RELTYPE_QUESTION
+msgid "Seose K&uuml;simus (RELTYPE_QUESTION) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:rel_RELTYPE_ANSWERER
+msgid "Seose Vastaja (RELTYPE_ANSWERER) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:rel_RELTYPE_ASWERER_DATA_CFGFORM
+msgid "Seose Vastaja salvestamise seadete vorm (RELTYPE_ASWERER_DATA_CFGFORM) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:165
+msgid "&Auml;ra salvesta"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:166
+msgid "Enne vastamist"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:167
+msgid "P&auml;rast vastamist"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:173
+#: classes/applications/questionary/questionnaire.aw:184
+msgid "Mitte kunagi"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:174
+#: classes/applications/questionary/questionnaire.aw:185
+msgid "Alati"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:175
+#: classes/applications/questionary/questionnaire.aw:186
+msgid "Ainult &otilde;ige vastuse korral"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:176
+#: classes/applications/questionary/questionnaire.aw:187
+msgid "Ainult vale vastuse korral"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:177
+msgid "Suvalise vastuse korral"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:210
+msgid "Vastajaid ei salvestata!"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:225
+msgid "Omadus"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:230
+msgid "Kuva tabelis"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:235
+msgid "Pealkiri"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:240
+#: classes/applications/questionary/questionnaire.aw:613
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:324
+msgid "%u."
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:374
+msgid "Tulemus"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:380
+msgid "Vastamise aeg"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:507
+msgid "+"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:508
+msgid "#0000CC"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:513
+msgid "-"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:514
+msgid "#FF0000"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:544
+msgid "Protsent alates"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:550
+msgid "Protsent kuni"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:556
+msgid "Tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:618
+msgid "K&uuml;simus"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:851
+msgid "Vastus d&uuml;naamilisele k&uuml;simustikule %s"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:893
+msgid "%s vastus d&uuml;naamilisele k&uuml;simustikule %s"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:923
+msgid "Tekstivastus k&uuml;simusele %s"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:1142
+msgid "J&auml;rgmine"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:1147
+msgid "L&otilde;peta!"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire.aw:1152
+msgid "L&otilde;peta"
+msgstr ""

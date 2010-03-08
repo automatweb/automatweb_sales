@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/groupware/project_analysis_row.aw:class_1112_help
+msgid "Klassi Projekti anal&uuml;&uuml;si rida help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_row.aw:prop_ord
+msgid "Omaduse J&auml;rjekord (ord) caption"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_row.aw:prop_ord_comment
+msgid "Omaduse J&auml;rjekord (ord) kommentaar"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_row.aw:prop_ord_help
+msgid "Omaduse J&auml;rjekord (ord) help"
+msgstr ""
+
+#: classes/applications/groupware/project_analysis_row.aw:rel_RELTYPE_OBJECT
+msgid "Seose Objekt (RELTYPE_OBJECT) tekst"
+msgstr ""

@@ -1,0 +1,6 @@
+MSG_STORAGE_ALIAS_DELETE
+
+This message will get posted when an alias is about to be deleted.
+
+arguments:
+connection - instance of the connection class containing the added connection 

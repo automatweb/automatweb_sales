@@ -1,0 +1,3 @@
+get_est_month($mon_number)
+
+Returns estonian name for a month.

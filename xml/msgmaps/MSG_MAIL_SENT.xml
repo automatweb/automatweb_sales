@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<xml>
+<num_0>
+      <class>/admin/sent_mail_database</class>
+      <func>on_send_mail</func>
+</num_0>
+</xml>

@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="links" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="search_doc">
+			<function name="search_doc">
+				<arguments>
+					<optional name="s_name" />
+					<optional name="s_content" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_link_alias_for_doc">
+			<function name="gen_link_alias_for_doc">
+				<arguments>
+					<required name="doc_id" type="int" />
+					<required name="link_id" type="int" />
+					<optional name="close" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

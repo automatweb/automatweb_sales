@@ -1,0 +1,83 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>rootmenu</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Juurkaust</caption>
+      </property>
+      <property>
+            <name>template</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kujundusmall</caption>
+      </property>
+      <property>
+            <name>sort_by</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kuidas sortida</caption>
+      </property>
+      <property>
+            <name>show_comment</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>chooser</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>N&amp;amp;auml;ita kausta all</caption>
+      </property>
+      <property>
+            <name>no_folder_links</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Auml;ra lingi kaustu</caption>
+      </property>
+      <property>
+            <name>only_act</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>N&amp;amp;auml;ita ainult aktiivseid kaustu</caption>
+      </property>
+      <property>
+            <name>link_only_act</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Lingi ainult aktiivsed kaustad</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_FOLDER_LIST</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <reltypes>
+            <FOLDER>
+                  <clid>CL_MENU</clid>
+                  <value>1</value>
+                  <caption>juurkaust</caption>
+            </FOLDER>
+      </reltypes>
+</properties>
+

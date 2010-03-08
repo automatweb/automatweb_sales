@@ -1,0 +1,63 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_purchase_manager_workspace_obj" folder="www/automatweb_cvs/classes/applications/shop" extends="_int_object">
+		<action name="order_products">
+			<function name="order_products">
+				<arguments>
+					<required name="products" type="array" />
+					<required name="date" type="int" />
+					<optional name="job" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="order_product">
+			<function name="order_product">
+				<arguments>
+					<required name="product" type="oid" />
+					<optional name="unit" type="oid" />
+					<required name="amount" type="int" />
+					<required name="date" type="int" />
+					<optional name="job" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_order_rows">
+			<function name="update_order_rows">
+				<arguments>
+					<required name="order" type="object" />
+					<required name="rows" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_order_rows">
+			<function name="get_order_rows">
+				<arguments>
+					<optional name="product" type="int" />
+					<optional name="date" type="int" />
+					<optional name="job" type="int" />
+					<required name="order_type" type="string" />
+					<optional name="order_status" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_orders">
+			<function name="update_orders">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_job_orders">
+			<function name="update_job_order">
+				<arguments>
+					<required name="job" type="object" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,29 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mrp_case_obj" folder="www/dev/terryf/automatweb_dev/classes/mrp" extends="_int_object">
+		<action name="get_job_count">
+			<function name="get_job_count">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_materials_without_job">
+			<function name="save_materials_without_job">
+				<arguments>
+					<required name="data" type="data" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_material_expenses_without_job">
+			<function name="get_material_expenses_without_job">
+				<arguments>
+					<required name="id" type="int/array" />
+					<optional name="odl" type="bool" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

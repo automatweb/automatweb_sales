@@ -1,0 +1,60 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>comp_toolbar</name>
+            <table>objects</table>
+            <group>competitions</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <no_caption>1</no_caption>
+            <type>toolbar</type>
+            <store>no</store>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;riistariba</caption>
+      </property>
+      <property>
+            <name>comp_table</name>
+            <table>objects</table>
+            <group>competitions</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <no_caption>1</no_caption>
+            <type>table</type>
+            <store>no</store>
+            <caption>V&amp;amp;ouml;istlused</caption>
+      </property>
+      <property>
+            <name>search_result</name>
+            <table>objects</table>
+            <group>competitions</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>hidden</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <caption>Otsingutulemuste hoidja</caption>
+      </property>
+      <property>
+            <name>rem_competitions</name>
+            <table>objects</table>
+            <group>competitions</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>submit</type>
+            <store>no</store>
+            <caption>Eemalda v&amp;amp;otilde;istlus(ed) v&amp;amp;otilde;istlussarjast</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SCM_TOURNAMENT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>tarvo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <competitions>
+                  <caption>V&amp;amp;otilde;istlused</caption>
+            </competitions>
+      </groupinfo>
+</properties>
+

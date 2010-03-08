@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="material_movement_relation" folder="mrp" extends="class_base">
+	</class>
+</orb>
+		

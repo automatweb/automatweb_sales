@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>join_conf</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_JOIN_CONF</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Liitumise konff</caption>
+      </property>
+      <property>
+            <name>rules_add</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>rules_add</field>
+            <caption>Reegel</caption>
+      </property>
+      <property>
+            <name>rule_to_grp</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_GROUP</clid>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Vali grupp, kuhu reegel kasutaja paneb</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_JOIN_SITE_RULE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <reltypes>
+            <JOIN_CONF>
+                  <value>1</value>
+                  <clid>CL_JOIN_SITE</clid>
+                  <caption>liitumise konfiguratsioon</caption>
+            </JOIN_CONF>
+      </reltypes>
+</properties>
+

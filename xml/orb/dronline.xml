@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="dronline" folder="www/dev/terryf/automatweb_dev/classes/syslog" extends="class_base">
+		<action name="saveblock">
+			<function name="saveblock">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_block">
+			<function name="submit_block">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="run_bg_queries" nologin="1">
+			<function name="run_bg_queries">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_act_tbl">
+			<function name="submit_act_tbl">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

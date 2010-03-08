@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/class_designer/property_select.aw:class_889_help
+#: classes/applications/class_designer/property_select.aw:class_889_help
+msgid "Klassi Loend help"
+msgstr ""
+
+# classes/applications/class_designer/property_select.aw:prop_multiple
+#: classes/applications/class_designer/property_select.aw:prop_multiple
+msgid "Omaduse Saab teha mitu valikut (multiple) caption"
+msgstr "Multiple"
+
+# classes/applications/class_designer/property_select.aw:prop_multiple_comment
+#: classes/applications/class_designer/property_select.aw:prop_multiple_comment
+msgid "Omaduse Saab teha mitu valikut (multiple) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_select.aw:prop_multiple_help
+#: classes/applications/class_designer/property_select.aw:prop_multiple_help
+msgid "Omaduse Saab teha mitu valikut (multiple) help"
+msgstr ""
+
+# classes/applications/class_designer/property_select.aw:prop_size
+#: classes/applications/class_designer/property_select.aw:prop_size
+msgid "Omaduse Pikkus (kui on mitu valikut) (size) caption"
+msgstr "Length"
+
+# classes/applications/class_designer/property_select.aw:prop_size_comment
+#: classes/applications/class_designer/property_select.aw:prop_size_comment
+msgid "Omaduse Pikkus (kui on mitu valikut) (size) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_select.aw:prop_size_help
+#: classes/applications/class_designer/property_select.aw:prop_size_help
+msgid "Omaduse Pikkus (kui on mitu valikut) (size) help"
+msgstr ""
+
+# classes/applications/class_designer/property_select.aw:prop_options
+#: classes/applications/class_designer/property_select.aw:prop_options
+msgid "Omaduse Valikud (options) caption"
+msgstr "Options"
+
+# classes/applications/class_designer/property_select.aw:prop_options_comment
+#: classes/applications/class_designer/property_select.aw:prop_options_comment
+msgid "Omaduse Valikud (options) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_select.aw:prop_options_help
+#: classes/applications/class_designer/property_select.aw:prop_options_help
+msgid "Omaduse Valikud (options) help"
+msgstr ""

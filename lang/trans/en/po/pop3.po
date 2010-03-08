@@ -1,0 +1,74 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/protocols/mail/pop3.aw:class_228_help
+msgid "Klassi POP3 sissep&auml;&auml;s help"
+msgstr ""
+
+#: classes/protocols/mail/pop3.aw:prop_server
+msgid "Omaduse Server (server) caption"
+msgstr "Server"
+
+#: classes/protocols/mail/pop3.aw:prop_server_comment
+msgid "Omaduse Server (server) kommentaar"
+msgstr ""
+
+#: classes/protocols/mail/pop3.aw:prop_server_help
+msgid "Omaduse Server (server) help"
+msgstr ""
+
+#: classes/protocols/mail/pop3.aw:prop_user
+msgid "Omaduse Kasutaja (user) caption"
+msgstr "Username"
+
+#: classes/protocols/mail/pop3.aw:prop_user_comment
+msgid "Omaduse Kasutaja (user) kommentaar"
+msgstr ""
+
+#: classes/protocols/mail/pop3.aw:prop_user_help
+msgid "Omaduse Kasutaja (user) help"
+msgstr ""
+
+#: classes/protocols/mail/pop3.aw:prop_password
+msgid "Omaduse Parool (password) caption"
+msgstr "Password"
+
+#: classes/protocols/mail/pop3.aw:prop_password_comment
+msgid "Omaduse Parool (password) kommentaar"
+msgstr ""
+
+#: classes/protocols/mail/pop3.aw:prop_password_help
+msgid "Omaduse Parool (password) help"
+msgstr ""
+
+#: classes/protocols/mail/pop3.aw:69
+msgid "pop3: error connecting, %s , %s"
+msgstr "pop3: error connecting, %s , %s"
+
+#: classes/protocols/mail/pop3.aw:140
+msgid "pop3: Invalid username %s!"
+msgstr "pop3: Invalid username %s!"
+
+#: classes/protocols/mail/pop3.aw:147
+msgid "pop3: Invalid password for user %s!"
+msgstr "pop3: Invalid password for user %s!"
+
+#: classes/protocols/mail/pop3.aw:154
+msgid "pop3:  weird error %s after STAT!"
+msgstr "pop3:  weird error %s after STAT!"
+
+#: classes/protocols/mail/pop3.aw:163
+msgid "pop3:  weird error %s after UIDL!"
+msgstr "pop3:  weird error %s after UIDL!"
+
+#: classes/protocols/mail/pop3.aw:233
+msgid "pop3: imelik error %s after RETR %s !"
+msgstr "pop3: imelik error %s after RETR %s !"

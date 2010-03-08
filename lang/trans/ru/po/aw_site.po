@@ -1,0 +1,558 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/install/aw_site.aw:class_170_help
+msgid "Klassi AW Sait help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_site_url
+msgid "Omaduse Saidi url (site_url) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_site_url_comment
+msgid "Omaduse Saidi url (site_url) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_site_url_help
+msgid "Omaduse Saidi url (site_url) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_default_user
+msgid "Omaduse Default kasutaja (default_user) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_default_user_comment
+msgid "Omaduse Default kasutaja (default_user) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_default_user_help
+msgid "Omaduse Default kasutaja (default_user) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_default_user_pwd
+msgid "Omaduse Default kasutaja parool (default_user_pwd) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_default_user_pwd_comment
+msgid "Omaduse Default kasutaja parool (default_user_pwd) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_default_user_pwd_help
+msgid "Omaduse Default kasutaja parool (default_user_pwd) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_use_existing_database
+msgid "Omaduse Kasuta olemasolevat andmebaasi (use_existing_database) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_use_existing_database_comment
+msgid "Omaduse Kasuta olemasolevat andmebaasi (use_existing_database) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_use_existing_database_help
+msgid "Omaduse Kasuta olemasolevat andmebaasi (use_existing_database) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_db
+msgid "Omaduse Vali andmebaas (select_db) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_db_comment
+msgid "Omaduse Vali andmebaas (select_db) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_db_help
+msgid "Omaduse Vali andmebaas (select_db) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_parent_folder
+msgid "Omaduse Vali kataloog olemasolevas baasis, kuhu alla sait lisatakse (select_parent_folder) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_parent_folder_comment
+msgid "Omaduse Vali kataloog olemasolevas baasis, kuhu alla sait lisatakse (select_parent_folder) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_parent_folder_help
+msgid "Omaduse Vali kataloog olemasolevas baasis, kuhu alla sait lisatakse (select_parent_folder) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_use_existing_templates
+msgid "Omaduse Vali olemasolevad templated (use_existing_templates) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_use_existing_templates_comment
+msgid "Omaduse Vali olemasolevad templated (use_existing_templates) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_use_existing_templates_help
+msgid "Omaduse Vali olemasolevad templated (use_existing_templates) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_tpl_sites
+msgid "Omaduse Vali saidid, mille templatesid valida saad (select_tpl_sites) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_tpl_sites_comment
+msgid "Omaduse Vali saidid, mille templatesid valida saad (select_tpl_sites) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_tpl_sites_help
+msgid "Omaduse Vali saidid, mille templatesid valida saad (select_tpl_sites) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_tpl_folders
+msgid "Omaduse Vali templatede kataloogid, mis uude saiti kopeerida (select_tpl_folders) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_tpl_folders_comment
+msgid "Omaduse Vali templatede kataloogid, mis uude saiti kopeerida (select_tpl_folders) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_tpl_folders_help
+msgid "Omaduse Vali templatede kataloogid, mis uude saiti kopeerida (select_tpl_folders) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_imgcss_sites
+msgid "Omaduse Vali sait, millelt v&otilde;tta css ja pildid (select_imgcss_sites) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_imgcss_sites_comment
+msgid "Omaduse Vali sait, millelt v&otilde;tta css ja pildid (select_imgcss_sites) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_select_imgcss_sites_help
+msgid "Omaduse Vali sait, millelt v&otilde;tta css ja pildid (select_imgcss_sites) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_gen_site
+msgid "Omaduse Genereeri sait! (gen_site) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_gen_site_comment
+msgid "Omaduse Genereeri sait! (gen_site) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_gen_site_help
+msgid "Omaduse Genereeri sait! (gen_site) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_upd_site
+msgid "Omaduse Uuenda saidi m&auml;&auml;rangud! (upd_site) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_upd_site_comment
+msgid "Omaduse Uuenda saidi m&auml;&auml;rangud! (upd_site) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_upd_site_help
+msgid "Omaduse Uuenda saidi m&auml;&auml;rangud! (upd_site) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_ch_warnings
+msgid "Omaduse Uuendamise hoiatused (ch_warnings) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_ch_warnings_comment
+msgid "Omaduse Uuendamise hoiatused (ch_warnings) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_ch_warnings_help
+msgid "Omaduse Uuendamise hoiatused (ch_warnings) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_site_errmsg
+msgid "Omaduse Miks saiti ei saa genereerida (site_errmsg) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_site_errmsg_comment
+msgid "Omaduse Miks saiti ei saa genereerida (site_errmsg) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_site_errmsg_help
+msgid "Omaduse Miks saiti ei saa genereerida (site_errmsg) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_site_warnmsg
+msgid "Omaduse Hoiatused: (site_warnmsg) caption"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_site_warnmsg_comment
+msgid "Omaduse Hoiatused: (site_warnmsg) kommentaar"
+msgstr ""
+
+#: classes/install/aw_site.aw:prop_site_warnmsg_help
+msgid "Omaduse Hoiatused: (site_warnmsg) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:group_templates
+msgid "Grupi Templated (templates) pealkiri"
+msgstr ""
+
+#: classes/install/aw_site.aw:group_templates_help
+msgid "Grupi Templated (templates) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:group_db
+msgid "Grupi Andmebaas (db) pealkiri"
+msgstr ""
+
+#: classes/install/aw_site.aw:group_db_help
+msgid "Grupi Andmebaas (db) help"
+msgstr ""
+
+#: classes/install/aw_site.aw:rel_RELTYPE_LAYOUT
+msgid "Seose saidi layout (RELTYPE_LAYOUT) tekst"
+msgstr ""
+
+#: classes/install/aw_site.aw:142
+msgid "Saidi url on m&auml;&auml;ramata!"
+msgstr ""
+
+#: classes/install/aw_site.aw:162
+msgid "Ei saanud lugeda serveri saitide nimekirja! (vali andmebaas)"
+msgstr ""
+
+#: classes/install/aw_site.aw:195
+msgid "Ei saanud lugeda kataloogide nimekirja saidist %s!"
+msgstr ""
+
+#: classes/install/aw_site.aw:223
+msgid "Ei saanud lugeda serveri saitide nimekirja! (vali templatede sait)"
+msgstr ""
+
+#: classes/install/aw_site.aw:252
+msgid "Ei saanud lugeda serveri saitide nimekirja! (vali piltide ja css sait)"
+msgstr ""
+
+#: classes/install/aw_site.aw:317
+msgid "Saidi urlis v&otilde;ivad sisalduda ainult numbrid, t&auml;hed, punkt ja sidekriips. URL'i ette pole vaja panna http://'d!"
+msgstr ""
+
+#: classes/install/aw_site.aw:353
+msgid "error in site config: %s"
+msgstr ""
+
+#: classes/install/aw_site.aw:356
+msgid ""
+"Loon saiti! \n"
+"<br />HOIATUS! Saidi loomine v&otilde;tab paar minutit aega!<br /><br />\n"
+msgstr ""
+
+#: classes/install/aw_site.aw:369
+msgid "Saidi %s loomise log"
+msgstr ""
+
+#: classes/install/aw_site.aw:405
+msgid "<br><br><b>Valmis! sait on kasutatav 30 sekundi p&auml;rast!</b><br />\n"
+msgstr ""
+
+#: classes/install/aw_site.aw:417 classes/install/aw_site.aw:458
+#: classes/install/aw_site.aw:482 classes/install/aw_site.aw:508
+#: classes/install/aw_site.aw:524 classes/install/aw_site.aw:560
+#: classes/install/aw_site.aw:579 classes/install/aw_site.aw:815
+#: classes/install/aw_site.aw:886 classes/install/aw_site.aw:1142
+#: classes/install/aw_site.aw:1189
+msgid "OK"
+msgstr ""
+
+#: classes/install/aw_site.aw:420
+msgid "Kataloogi ei ole!"
+msgstr ""
+
+#: classes/install/aw_site.aw:424
+msgid "Lisas kataloogi"
+msgstr ""
+
+#: classes/install/aw_site.aw:456
+msgid "Kopeeris default keelefailid"
+msgstr ""
+
+#: classes/install/aw_site.aw:480
+msgid "Kopeeris default kujunduse"
+msgstr ""
+
+#: classes/install/aw_site.aw:511 classes/install/aw_site.aw:582
+#: classes/install/aw_site.aw:1145
+msgid "Faili ei ole!"
+msgstr ""
+
+#: classes/install/aw_site.aw:515
+msgid "Tegi virtualhost konfi!"
+msgstr ""
+
+#: classes/install/aw_site.aw:527
+msgid "Linki ei ole!"
+msgstr ""
+
+#: classes/install/aw_site.aw:531
+msgid "Linkis automatweb kataloogi"
+msgstr ""
+
+#: classes/install/aw_site.aw:558
+msgid "Kopeeris saidi koodi"
+msgstr ""
+
+#: classes/install/aw_site.aw:586
+msgid "Tegi const.aw faili"
+msgstr ""
+
+#: classes/install/aw_site.aw:764
+msgid "did user object names <br>\n"
+msgstr ""
+
+#: classes/install/aw_site.aw:767
+msgid "Convert acl to new version"
+msgstr ""
+
+#: classes/install/aw_site.aw:784
+msgid "init classes exit <br>\n"
+msgstr ""
+
+#: classes/install/aw_site.aw:813
+msgid "Konfigureeris nimeserveri"
+msgstr ""
+
+#: classes/install/aw_site.aw:884
+msgid "L&otilde;i saidi andmebaasi"
+msgstr ""
+
+#: classes/install/aw_site.aw:899
+msgid "Saidi baaskataloog on juba olemas! (%s)"
+msgstr ""
+
+#: classes/install/aw_site.aw:906
+msgid "Saidi logide kataloog on juba olemas! (%s)"
+msgstr ""
+
+#: classes/install/aw_site.aw:913
+msgid "Saidi apache konfiguratsioon on juba olemas! (%s)"
+msgstr ""
+
+#: classes/install/aw_site.aw:922
+msgid "Saidid, kust templatesid kopeerida on valimata!"
+msgstr ""
+
+#: classes/install/aw_site.aw:928
+msgid "Kataloogid, kust templatesid kopeerida on valimata!"
+msgstr ""
+
+#: classes/install/aw_site.aw:939
+msgid "Kasutatav andmebaas on valimata!"
+msgstr ""
+
+#: classes/install/aw_site.aw:945
+msgid "Uue saidi root kataloog olemasolevas andmebaasis on valimata!"
+msgstr ""
+
+#: classes/install/aw_site.aw:960
+msgid "Sait on liiga vana koodiversiooniga et selle p&otilde;hjal uut luua!"
+msgstr ""
+
+#: classes/install/aw_site.aw:989
+msgid "Saidi andmebaas on juba olemas! (%s)"
+msgstr ""
+
+#: classes/install/aw_site.aw:1002
+msgid "Saidi domeeni nimeserver ei ole Automatwebi poolt hallatav ja saidi domeeni pole registreeritud! (%s)"
+msgstr ""
+
+#: classes/install/aw_site.aw:1006
+msgid "Saidi domeeni nimeserver ei ole Automatwebi poolt hallatav ja saidi domeen viitab valele IP aadressile! (vajalik = %s domeeni ip = %s)"
+msgstr ""
+
+#: classes/install/aw_site.aw:1013
+msgid "Saidi domeen on juba registreeritud! (domeen = %s ip = %s) Kui selle domeeni pealt k&auml;ib m&otilde;ni teine sait, siis seda ei saa p&auml;rast uue saidi loomist kasutada!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1029
+msgid "Saitide registris on juba sait, mille url on %s !"
+msgstr ""
+
+#: classes/install/aw_site.aw:1045
+msgid "IP aadressi %s jaoks pole serverite registris kirjet!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1053
+msgid "Ei saa root kasutaja &otilde;iguseid kasutada!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1149
+msgid "Tegi ini faili"
+msgstr ""
+
+#: classes/install/aw_site.aw:1187
+msgid "K&uuml;sis uue saidi id"
+msgstr ""
+
+#: classes/install/aw_site.aw:1208
+msgid "Ei saanud lugeda serveri id'd! (vali andmebaas)"
+msgstr ""
+
+#: classes/install/aw_site.aw:1494
+msgid "Skrolliv"
+msgstr ""
+
+#: classes/install/aw_site.aw:1495
+msgid "Vasak"
+msgstr ""
+
+#: classes/install/aw_site.aw:1496
+msgid "Parem"
+msgstr ""
+
+#: classes/install/aw_site.aw:1497
+msgid "&Uuml;lemine"
+msgstr ""
+
+#: classes/install/aw_site.aw:1498
+msgid "Alumine"
+msgstr ""
+
+#: classes/install/aw_site.aw:1522
+msgid "%s konteiner"
+msgstr ""
+
+#: classes/install/aw_site.aw:1532
+msgid "%s konteineri sisu"
+msgstr ""
+
+#: classes/install/aw_site.aw:1533 classes/install/aw_site.aw:1534
+msgid "pealkiri"
+msgstr ""
+
+#: classes/install/aw_site.aw:1558
+msgid "Saidi url muutus %s => %s"
+msgstr ""
+
+#: classes/install/aw_site.aw:1564
+msgid "HOIATUS! Templatede valiku muutmisel kirjutatakse olemasolevad templated &uuml;le!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1565
+msgid "Templated muutusid default templatedest teise saidi omadeks!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1571
+msgid "Templatede kataloogide nimekiri muutus!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1577
+msgid "Templatede linkimine muutus!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1583
+msgid "Piltide ja css sait muutus (%s => %s)!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1661
+msgid "aw_site::_do_change_url(%s): pagecache folder is empty or bad ( %s )!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1736
+msgid "Valmis! Sait on uue aadressi pealt kasutatav paari minuti p&auml;rast! <Br>\n"
+msgstr ""
+
+#: classes/install/aw_site.aw:1769
+msgid "aw_site::_do_change_imgcss(): pagecache folder is empty or wrong (%s)!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1777
+msgid "aw_site::_do_change_imgcss(): basedir is empty or bad (%s)!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1828
+msgid "aw_site::_do_copy_existing_tpls(): pagecache folder is empty or bad (%s)!"
+msgstr ""
+
+#: classes/install/aw_site.aw:1851
+msgid "Meist"
+msgstr ""
+
+#: classes/install/aw_site.aw:1858
+msgid "Uudised"
+msgstr ""
+
+#: classes/install/aw_site.aw:1885
+msgid "Demo polli k&uuml;&uuml;simus"
+msgstr ""
+
+#: classes/install/aw_site.aw:1888 classes/install/aw_site.aw:1892
+msgid "Jah"
+msgstr ""
+
+#: classes/install/aw_site.aw:1889
+msgid "ei"
+msgstr ""
+
+#: classes/install/aw_site.aw:1890 classes/install/aw_site.aw:1892
+msgid "V&otilde;ibolla"
+msgstr ""
+
+#: classes/install/aw_site.aw:1892
+msgid "Ei"
+msgstr ""
+
+#: classes/install/aw_site.aw:1911
+msgid "Pealkiri"
+msgstr ""
+
+#: classes/install/aw_site.aw:1912
+msgid "Pealkiri 2"
+msgstr ""
+
+#: classes/install/aw_site.aw:1913
+msgid "Pealkiri 3"
+msgstr ""
+
+#: classes/install/aw_site.aw:1915
+msgid "Sisu 1"
+msgstr ""
+
+#: classes/install/aw_site.aw:1916
+msgid "Sisu 2"
+msgstr ""
+
+#: classes/install/aw_site.aw:1917
+msgid "Sisu 3"
+msgstr ""
+
+#: classes/install/aw_site.aw:1919
+msgid "Veel sisu 1"
+msgstr ""
+
+#: classes/install/aw_site.aw:1920
+msgid "Veel sisu 2"
+msgstr ""
+
+#: classes/install/aw_site.aw:1921
+msgid "Veel sisu 3"
+msgstr ""
+
+#: classes/install/aw_site.aw:1949
+msgid "Eesnimi"
+msgstr ""
+
+#: classes/install/aw_site.aw:1950
+msgid "Perekonnanimi"
+msgstr ""
+
+#: classes/install/aw_site.aw:1951
+msgid "E-posti aadress"
+msgstr ""
+
+#: classes/install/aw_site.aw:1952
+msgid "Minu teade"
+msgstr ""
+
+#: classes/install/aw_site.aw:1953
+msgid "Saadan"
+msgstr ""

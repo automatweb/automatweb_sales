@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:class_150_help
+msgid "Klassi DB Server explorer conf help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_all_servers
+msgid "Omaduse K&otilde;ik serverid (all_servers) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_all_servers_comment
+msgid "Omaduse K&otilde;ik serverid (all_servers) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_all_servers_help
+msgid "Omaduse K&otilde;ik serverid (all_servers) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_servers
+msgid "Omaduse Serverid, millest baase n&auml;idatakse (servers) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_servers_comment
+msgid "Omaduse Serverid, millest baase n&auml;idatakse (servers) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_servers_help
+msgid "Omaduse Serverid, millest baase n&auml;idatakse (servers) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_all_databases
+msgid "Omaduse K&otilde;ik andmebaasid (all_databases) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_all_databases_comment
+msgid "Omaduse K&otilde;ik andmebaasid (all_databases) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_all_databases_help
+msgid "Omaduse K&otilde;ik andmebaasid (all_databases) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_databases
+msgid "Omaduse Andmebaasid, mida n&auml;idatakse (databases) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_databases_comment
+msgid "Omaduse Andmebaasid, mida n&auml;idatakse (databases) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:prop_databases_help
+msgid "Omaduse Andmebaasid, mida n&auml;idatakse (databases) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:rel_RELTYPE_SERVER
+msgid "Seose andmebaasi serveri login (RELTYPE_SERVER) tekst"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer_conf.aw:rel_RELTYPE_DBLOGIN
+msgid "Seose andmebaasi login (RELTYPE_DBLOGIN) tekst"
+msgstr ""
+

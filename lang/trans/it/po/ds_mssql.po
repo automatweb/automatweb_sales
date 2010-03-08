@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/core/obj/ds_mssql.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:57
+msgid "object::load(%s): no such object!"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:913
+msgid "filter cannot contain properties (%s) that are in serialized fields other than metadata!"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:1004
+msgid "obj_predicate_compare's comparator operand must be either OBJ_COMP_LESS,OBJ_COMP_GREATER,OBJ_COMP_LESS_OR_EQ,OBJ_COMP_GREATER_OR_EQ. the value supplied, was: %s!"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:1183
+msgid "ds_mysql::do_proc_complex_param(%s, %s): if a complex join parameter is given without a class id as the first element, the class_id parameter must be set!"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:1283
+msgid "ds_mysql::_req_do_pcp(): no relation from class %s named %s"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:1309
+msgid "ds_mysql::_req_do_pcp(): no property %s in class %s"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:1322
+msgid "ds_mysql::_req_do_pcp(): currently join properties can only be of type relpicker - can't figure out the class id of the object-to-join otherwise"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:1327
+msgid "ds_mysql::_req_do_pcp(): can not join classes on serialized fields (property %s in class %s)"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:1338
+msgid "ds_mysql::_req_do_pcp(): no reltype %s in class %s , got reltype from relpicker property %s"
+msgstr ""
+
+#: classes/core/obj/ds_mssql.aw:1347
+msgid "ds_mysql::_req_do_pcp(): incorrect prop type! (%s)"
+msgstr ""
+

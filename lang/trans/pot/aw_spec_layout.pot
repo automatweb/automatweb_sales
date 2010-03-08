@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:class_1427_help
+msgid "Klassi AW Spetsifikatsiooni layout help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:prop_layout_type
+msgid "Omaduse Layoudi t&uuml;&uuml;p (layout_type) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:prop_layout_type_comment
+msgid "Omaduse Layoudi t&uuml;&uuml;p (layout_type) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:prop_layout_type_help
+msgid "Omaduse Layoudi t&uuml;&uuml;p (layout_type) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:prop_parent_layout_name
+msgid "Omaduse Parent layout (parent_layout_name) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:prop_parent_layout_name_comment
+msgid "Omaduse Parent layout (parent_layout_name) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:prop_parent_layout_name_help
+msgid "Omaduse Parent layout (parent_layout_name) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:prop_use_cases
+msgid "Omaduse  (use_cases) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:prop_use_cases_comment
+msgid "Omaduse  (use_cases) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:prop_use_cases_help
+msgid "Omaduse  (use_cases) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:group_use_cases
+msgid "Grupi Kasutuslood (use_cases) pealkiri"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:group_use_cases_help
+msgid "Grupi Kasutuslood (use_cases) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:rel_RELTYPE_USE_CASE
+msgid "Seose Kasutuslugu (RELTYPE_USE_CASE) tekst"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:rel_RELTYPE_PARENT_LAYOUT
+msgid "Seose Parent layout (RELTYPE_PARENT_LAYOUT) tekst"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:61
+msgid "Sisesta klassi %s grupi %s layoudi %s omadused"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:98 classes/applications/aw_spec/aw_spec_layout.aw:126
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:110
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:114
+msgid "Omaduse nimi"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:118
+msgid "Omaduse t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:122
+msgid "Omaduse kirjeldus"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:148
+msgid "Omadus: %s"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_layout.aw:149
+msgid "T&uuml;&uuml;p: %s<br>"
+msgstr ""
+

@@ -1,0 +1,162 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:class_1039_help
+msgid "Klassi M&uuml;&uuml;gi-saateleht help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_date
+msgid "Omaduse Kuup&auml;ev (date) caption"
+msgstr "Date"
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_date_comment
+msgid "Omaduse Kuup&auml;ev (date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_date_help
+msgid "Omaduse Kuup&auml;ev (date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_buyer
+msgid "Omaduse Ostja (buyer) caption"
+msgstr "Buyer"
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_buyer_comment
+msgid "Omaduse Ostja (buyer) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_buyer_help
+msgid "Omaduse Ostja (buyer) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_selling_sheet_nr
+msgid "Omaduse Saatelehe nr. (selling_sheet_nr) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_selling_sheet_nr_comment
+msgid "Omaduse Saatelehe nr. (selling_sheet_nr) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_selling_sheet_nr_help
+msgid "Omaduse Saatelehe nr. (selling_sheet_nr) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_confirmed
+msgid "Omaduse Kinnitatud (confirmed) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_confirmed_comment
+msgid "Omaduse Kinnitatud (confirmed) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_confirmed_help
+msgid "Omaduse Kinnitatud (confirmed) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_payment_deadline
+msgid "Omaduse Tasumist&auml;htaeg (payment_deadline) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_payment_deadline_comment
+msgid "Omaduse Tasumist&auml;htaeg (payment_deadline) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_payment_deadline_help
+msgid "Omaduse Tasumist&auml;htaeg (payment_deadline) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_payment_time
+msgid "Omaduse Tasumiskuup&auml;ev (payment_time) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_payment_time_comment
+msgid "Omaduse Tasumiskuup&auml;ev (payment_time) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_payment_time_help
+msgid "Omaduse Tasumiskuup&auml;ev (payment_time) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_payment_complete
+msgid "Omaduse Tasutud (payment_complete) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_payment_complete_comment
+msgid "Omaduse Tasutud (payment_complete) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_payment_complete_help
+msgid "Omaduse Tasutud (payment_complete) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_create_bill
+msgid "Omaduse Moodusta m&uuml;&uuml;giarve (create_bill) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_create_bill_comment
+msgid "Omaduse Moodusta m&uuml;&uuml;giarve (create_bill) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_create_bill_help
+msgid "Omaduse Moodusta m&uuml;&uuml;giarve (create_bill) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_append_to_bill
+msgid "Omaduse Lisa arvele (append_to_bill) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_append_to_bill_comment
+msgid "Omaduse Lisa arvele (append_to_bill) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:prop_append_to_bill_help
+msgid "Omaduse Lisa arvele (append_to_bill) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:rel_RELTYPE_BUYER
+msgid "Seose Hankija (RELTYPE_BUYER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:rel_RELTYPE_SHOP_PRODUCT
+msgid "Seose Lao toode (RELTYPE_SHOP_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:122
+msgid "Kood"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:127
+msgid "Ribakood"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:132
+msgid "Nimetus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:137
+msgid "Kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:142
+msgid "&Uuml;hik"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:147
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:152
+msgid "Soodustus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_selling_sheet.aw:157
+msgid "Summa"
+msgstr ""

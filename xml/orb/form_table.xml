@@ -1,0 +1,104 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="form_table" folder="www/automatweb_cvs/classes/formgen" extends="form_base">
+		<action name="new">
+			<function name="new_add">
+				<arguments>
+					<required name="parent" acl="add" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_submit_settings">
+			<function name="new_submit_settings">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_change_settings">
+			<function name="new_change_settings">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change">
+			<function name="new_change_cols">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_submit_cols">
+			<function name="new_submit_cols">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_change_styles">
+			<function name="new_change_styles">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_submit_styles">
+			<function name="new_submit_styles">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_change_translate">
+			<function name="new_change_translate">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_submit_translate">
+			<function name="new_submit_translate">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_change_aliasmgr">
+			<function name="new_change_aliasmgr">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_grpsettings">
+			<function name="change_grpsettings">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_grpsettings">
+			<function name="submit_grpsettings">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_table" nologin="1">
+			<function name="submit_table">
+				<arguments>
+					<required name="return" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

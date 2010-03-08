@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<window id="Window"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        title="Testcase"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+<script type="application/x-javascript">
+<![CDATA[
+
+// Create a structure member
+function rpc_add_member(request,str,name,value)
+{
+	el_name = request.createElement("name");
+	el_val = document.createTextNode(name);
+	el_name.appendChild(el_val);
+	
+	el_value = request.createElement("value");
+	el_val = document.createTextNode(value);
+	el_value.appendChild(el_val);
+
+	el_member = request.createElement("member");
+	el_member.appendChild(el_name);
+	el_member.appendChild(el_value);
+
+	str.appendChild(el_member);
+}
+
+function rpc_create_struct(request)
+{
+	el_struct = request.createElement("struct");
+	return el_struct;
+
+}
+
+function get_branch()
+{
+	var request = document.implementation.createDocument("", "methodCall", null);
+	el_name = request.createElement('methodName');
+	el_node = document.createTextNode("menuedit::get_branch");
+	el_name.appendChild(el_node);
+	request.firstChild.appendChild(el_name);
+
+	el_str = rpc_create_struct(request);
+	rpc_add_member(request, el_str, 'format', 'xmlrpc');
+
+	el_params = request.createElement('params');
+	el_params.appendChild(el_str);
+	
+	request.firstChild.appendChild(el_params);
+
+	var httpRequest = new XMLHttpRequest();
+	httpRequest.open("POST", "http://aw.struktuur.ee/xmlrpc.aw", false, null, null);
+	httpRequest.send(request);
+	var response = httpRequest.responseText;
+	
+	var parser = new DOMParser();
+	var doc = parser.parseFromString(response,"text/xml");
+	
+	var res = doc.getElementsByTagName("data");
+	var kala = "";
+	for (i = 0; i < res.length; i++)
+	{
+		el = res.item(i).childNodes;
+
+		// for each returned element, we create a treerow
+		trow = document.createElement("treerow");
+
+		// and add the elements as children into it
+
+		for (j = 0; j < el.length; j++)
+		{
+			if ( (el[j].nodeName == "i4") || (el[j].nodeName == "string") )
+			{
+				firstname = document.createElement("treecell");
+				firstname.setAttribute('label',el[j].firstChild.nodeValue);
+				trow.appendChild(firstname);
+			};
+		};
+	
+		// and now I create the treeitem
+		titem = document.createElement("treeitem");
+		titem.appendChild(trow);
+	
+		// for this I need to figure out the correct parent
+		el = document.getElementById('maintree');
+
+		// now I need to get a reference to the treechildren element
+		// of that item
+		tc = el.getElementsByTagName("treechildren")[0];
+
+		tc.appendChild(titem);
+
+	};
+
+}
+
+
+]]></script>
+
+<vbox>
+<hbox><!--<textbox id="word" value=""/>--><button label="Fetch!" oncommand="get_branch();"/></hbox>
+</vbox>
+<tree id="maintree" enableColumnDrag="true" flex="1">
+  <treecols>
+      <treecol id="oid" label="OID" primary="true" flex="3"/>
+      <treecol id="subcnt" label="Sub" flex="3"/>
+      <treecol id="name" label="name" flex="3"/>
+      <treecol id="url" label="url" flex="3"/>
+      <treecol id="iconurl" label="icon" flex="3"/>
+  </treecols>
+
+  <treechildren>
+  </treechildren>
+</tree>
+
+</window>

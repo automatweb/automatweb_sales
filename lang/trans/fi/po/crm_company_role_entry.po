@@ -1,0 +1,108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_company_role_entry.aw:class_864_help
+msgid "Klassi Rolli kirje help"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_person
+msgid "Omaduse Isik (person) caption"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_person_comment
+msgid "Omaduse Isik (person) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_person_help
+msgid "Omaduse Isik (person) help"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_role
+msgid "Omaduse Roll (role) caption"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_role_comment
+msgid "Omaduse Roll (role) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_role_help
+msgid "Omaduse Roll (role) help"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_company
+msgid "Omaduse Organisatsioon (company) caption"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_company_comment
+msgid "Omaduse Organisatsioon (company) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_company_help
+msgid "Omaduse Organisatsioon (company) help"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_client
+msgid "Omaduse Klient (client) caption"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_client_comment
+msgid "Omaduse Klient (client) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_client_help
+msgid "Omaduse Klient (client) help"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_unit
+msgid "Omaduse &Uuml;ksus (unit) caption"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_unit_comment
+msgid "Omaduse &Uuml;ksus (unit) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_unit_help
+msgid "Omaduse &Uuml;ksus (unit) help"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_project
+msgid "Omaduse &Uuml;ksus (project) caption"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_project_comment
+msgid "Omaduse &Uuml;ksus (project) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:prop_project_help
+msgid "Omaduse &Uuml;ksus (project) help"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:rel_RELTYPE_PERSON
+msgid "Seose isik (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:rel_RELTYPE_ROLE
+msgid "Seose amet (RELTYPE_ROLE) tekst"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:rel_RELTYPE_COMPANY
+msgid "Seose organisatsioon (RELTYPE_COMPANY) tekst"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:rel_RELTYPE_UNIT
+msgid "Seose &uuml;ksus (RELTYPE_UNIT) tekst"
+msgstr ""
+
+#: classes/crm/crm_company_role_entry.aw:rel_RELTYPE_PROJECT
+msgid "Seose &uuml;ksus (RELTYPE_PROJECT) tekst"
+msgstr ""
+

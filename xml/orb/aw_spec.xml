@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="aw_spec" folder="www/dev/terryf/automatweb_dev/classes/applications/aw_spec" extends="class_base">
+		<action name="get_pdf">
+			<function name="get_pdf">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_version">
+			<function name="create_new_version">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

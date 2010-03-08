@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<xml>
+<num_0>
+      <class>/core/obj/brother_support</class>
+      <func>on_add_alias</func>
+</num_0>
+</xml>

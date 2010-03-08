@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/common/sms/sms_sent.aw:class_1422_help
+msgid "Klassi SMSi saatmine help"
+msgstr ""
+
+#: classes/common/sms/sms_sent.aw:prop_phone
+msgid "Omaduse Telefon (phone) caption"
+msgstr ""
+
+#: classes/common/sms/sms_sent.aw:prop_phone_comment
+msgid "Omaduse Telefon (phone) kommentaar"
+msgstr ""
+
+#: classes/common/sms/sms_sent.aw:prop_phone_help
+msgid "Omaduse Telefon (phone) help"
+msgstr ""
+
+#: classes/common/sms/sms_sent.aw:rel_RELTYPE_PHONE
+msgid "Seose Telefon (RELTYPE_PHONE) tekst"
+msgstr ""
+
+#: classes/common/sms/sms_sent.aw:rel_RELTYPE_MOBI_HANDLER
+msgid "Seose Mobi SMSi haldur (RELTYPE_MOBI_HANDLER) tekst"
+msgstr ""
+

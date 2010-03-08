@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="reminder" folder="www/automatweb_cvs/classes/contentmgmt" extends="class_base">
+		<action name="disconnect">
+			<function name="disconnect">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<optional name="group" />
+					<required name="sel" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="init_action">
+			<function name="init_action">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

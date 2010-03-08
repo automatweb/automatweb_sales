@@ -1,0 +1,134 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:class_1058_help
+msgid "Klassi Bugi kommentaar help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_prev_state
+msgid "Omaduse Eelmine staatus (prev_state) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_prev_state_comment
+msgid "Omaduse Eelmine staatus (prev_state) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_prev_state_help
+msgid "Omaduse Eelmine staatus (prev_state) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_new_state
+msgid "Omaduse Uus staatus (new_state) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_new_state_comment
+msgid "Omaduse Uus staatus (new_state) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_new_state_help
+msgid "Omaduse Uus staatus (new_state) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_add_wh_guess
+msgid "Omaduse Lisandunud prognoositunnid (add_wh_guess) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_add_wh_guess_comment
+msgid "Omaduse Lisandunud prognoositunnid (add_wh_guess) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_add_wh_guess_help
+msgid "Omaduse Lisandunud prognoositunnid (add_wh_guess) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_add_wh
+msgid "Omaduse Lisandunud t&ouml;&ouml;tunnid (add_wh) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_add_wh_comment
+msgid "Omaduse Lisandunud t&ouml;&ouml;tunnid (add_wh) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_add_wh_help
+msgid "Omaduse Lisandunud t&ouml;&ouml;tunnid (add_wh) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_add_wh_cust
+msgid "Omaduse Lisandunud tunnid kliendile (add_wh_cust) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_add_wh_cust_comment
+msgid "Omaduse Lisandunud tunnid kliendile (add_wh_cust) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_add_wh_cust_help
+msgid "Omaduse Lisandunud tunnid kliendile (add_wh_cust) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_send_bill
+msgid "Omaduse Saata arve (send_bill) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_send_bill_comment
+msgid "Omaduse Saata arve (send_bill) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_send_bill_help
+msgid "Omaduse Saata arve (send_bill) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_activity_stats_type
+msgid "Omaduse Statistika t&uuml;&uuml;p (activity_stats_type) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_activity_stats_type_comment
+msgid "Omaduse Statistika t&uuml;&uuml;p (activity_stats_type) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_activity_stats_type_help
+msgid "Omaduse Statistika t&uuml;&uuml;p (activity_stats_type) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_bill
+msgid "Omaduse Arve (bill) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_bill_comment
+msgid "Omaduse Arve (bill) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_bill_help
+msgid "Omaduse Arve (bill) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_bug
+msgid "Omaduse Arve (bug) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_bug_comment
+msgid "Omaduse Arve (bug) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:prop_bug_help
+msgid "Omaduse Arve (bug) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:rel_RELTYPE_BILL
+msgid "Seose Arve (RELTYPE_BILL) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:rel_RELTYPE_BUG
+msgid "Seose Bugi (RELTYPE_BUG) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bug_comment.aw:69
+msgid "--vali--"
+msgstr ""

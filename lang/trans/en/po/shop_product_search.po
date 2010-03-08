@@ -1,0 +1,354 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/shop/shop_product_search.aw:class_920_help
+#: classes/applications/shop/shop_product_search.aw:class_920_help
+msgid "Klassi Lao toodete otsing help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_wh
+#: classes/applications/shop/shop_product_search.aw:prop_wh
+msgid "Omaduse Ladu (wh) caption"
+msgstr "Warehouse"
+
+# classes/applications/shop/shop_product_search.aw:prop_wh_comment
+#: classes/applications/shop/shop_product_search.aw:prop_wh_comment
+msgid "Omaduse Ladu (wh) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_wh_help
+#: classes/applications/shop/shop_product_search.aw:prop_wh_help
+msgid "Omaduse Ladu (wh) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_oc
+#: classes/applications/shop/shop_product_search.aw:prop_oc
+msgid "Omaduse Tellimiskeskkond (oc) caption"
+msgstr "Order center"
+
+# classes/applications/shop/shop_product_search.aw:prop_oc_comment
+#: classes/applications/shop/shop_product_search.aw:prop_oc_comment
+msgid "Omaduse Tellimiskeskkond (oc) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_oc_help
+#: classes/applications/shop/shop_product_search.aw:prop_oc_help
+msgid "Omaduse Tellimiskeskkond (oc) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_objs_in_res
+#: classes/applications/shop/shop_product_search.aw:prop_objs_in_res
+msgid "Omaduse Tulemuseks on  (objs_in_res) caption"
+msgstr "Result displays"
+
+# classes/applications/shop/shop_product_search.aw:prop_objs_in_res_comment
+#: classes/applications/shop/shop_product_search.aw:prop_objs_in_res_comment
+msgid "Omaduse Tulemuseks on  (objs_in_res) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_objs_in_res_help
+#: classes/applications/shop/shop_product_search.aw:prop_objs_in_res_help
+msgid "Omaduse Tulemuseks on  (objs_in_res) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:prop_fld_tb
+msgid "Omaduse  (fld_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:prop_fld_tb_comment
+msgid "Omaduse  (fld_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:prop_fld_tb_help
+msgid "Omaduse  (fld_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:prop_fld_tbl
+msgid "Omaduse  (fld_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:prop_fld_tbl_comment
+msgid "Omaduse  (fld_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:prop_fld_tbl_help
+msgid "Omaduse  (fld_tbl) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_form
+#: classes/applications/shop/shop_product_search.aw:prop_s_form
+msgid "Omaduse  (s_form) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_form_comment
+#: classes/applications/shop/shop_product_search.aw:prop_s_form_comment
+msgid "Omaduse  (s_form) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_form_help
+#: classes/applications/shop/shop_product_search.aw:prop_s_form_help
+msgid "Omaduse  (s_form) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_search_btn_caption
+#: classes/applications/shop/shop_product_search.aw:prop_search_btn_caption
+msgid "Omaduse Otsi nupu tekst (search_btn_caption) caption"
+msgstr "Search button text"
+
+# classes/applications/shop/shop_product_search.aw:prop_search_btn_caption_comment
+#: classes/applications/shop/shop_product_search.aw:prop_search_btn_caption_comment
+msgid "Omaduse Otsi nupu tekst (search_btn_caption) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_search_btn_caption_help
+#: classes/applications/shop/shop_product_search.aw:prop_search_btn_caption_help
+msgid "Omaduse Otsi nupu tekst (search_btn_caption) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_tbl
+#: classes/applications/shop/shop_product_search.aw:prop_s_tbl
+msgid "Omaduse  (s_tbl) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_tbl_comment
+#: classes/applications/shop/shop_product_search.aw:prop_s_tbl_comment
+msgid "Omaduse  (s_tbl) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_tbl_help
+#: classes/applications/shop/shop_product_search.aw:prop_s_tbl_help
+msgid "Omaduse  (s_tbl) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_tbl_ctr
+#: classes/applications/shop/shop_product_search.aw:prop_s_tbl_ctr
+msgid "Omaduse Tulemuste andmete n&auml;itamise kontroller (s_tbl_ctr) caption"
+msgstr "Result display controller"
+
+# classes/applications/shop/shop_product_search.aw:prop_s_tbl_ctr_comment
+#: classes/applications/shop/shop_product_search.aw:prop_s_tbl_ctr_comment
+msgid "Omaduse Tulemuste andmete n&auml;itamise kontroller (s_tbl_ctr) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_tbl_ctr_help
+#: classes/applications/shop/shop_product_search.aw:prop_s_tbl_ctr_help
+msgid "Omaduse Tulemuste andmete n&auml;itamise kontroller (s_tbl_ctr) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:prop_s_tbl_ctr2
+msgid "Omaduse Tulemuste tabeli kontroller (s_tbl_ctr2) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:prop_s_tbl_ctr2_comment
+msgid "Omaduse Tulemuste tabeli kontroller (s_tbl_ctr2) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:prop_s_tbl_ctr2_help
+msgid "Omaduse Tulemuste tabeli kontroller (s_tbl_ctr2) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_search_form
+#: classes/applications/shop/shop_product_search.aw:prop_search_form
+msgid "Omaduse  (search_form) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_search_form_comment
+#: classes/applications/shop/shop_product_search.aw:prop_search_form_comment
+msgid "Omaduse  (search_form) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_search_form_help
+#: classes/applications/shop/shop_product_search.aw:prop_search_form_help
+msgid "Omaduse  (search_form) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_res
+#: classes/applications/shop/shop_product_search.aw:prop_s_res
+msgid "Omaduse  (s_res) caption"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_res_comment
+#: classes/applications/shop/shop_product_search.aw:prop_s_res_comment
+msgid "Omaduse  (s_res) kommentaar"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:prop_s_res_help
+#: classes/applications/shop/shop_product_search.aw:prop_s_res_help
+msgid "Omaduse  (s_res) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:group_data
+msgid "Grupi Andmed (data) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:group_data_help
+msgid "Grupi Andmed (data) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:group_folders
+msgid "Grupi Otsingu l&auml;htekohad (folders) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:group_folders_help
+msgid "Grupi Otsingu l&auml;htekohad (folders) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:group_s_form
+#: classes/applications/shop/shop_product_search.aw:group_s_form
+msgid "Grupi Koosta otsinguvorm (s_form) pealkiri"
+msgstr "Create search form"
+
+# classes/applications/shop/shop_product_search.aw:group_s_form_help
+#: classes/applications/shop/shop_product_search.aw:group_s_form_help
+msgid "Grupi Koosta otsinguvorm (s_form) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:group_s_res
+#: classes/applications/shop/shop_product_search.aw:group_s_res
+msgid "Grupi Koosta tulemuste tabel (s_res) pealkiri"
+msgstr "Create result table"
+
+# classes/applications/shop/shop_product_search.aw:group_s_res_help
+#: classes/applications/shop/shop_product_search.aw:group_s_res_help
+msgid "Grupi Koosta tulemuste tabel (s_res) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:group_s_res_ctr
+#: classes/applications/shop/shop_product_search.aw:group_s_res_ctr
+msgid "Grupi Kontrollerid (s_res_ctr) pealkiri"
+msgstr "Controllers"
+
+# classes/applications/shop/shop_product_search.aw:group_s_res_ctr_help
+#: classes/applications/shop/shop_product_search.aw:group_s_res_ctr_help
+msgid "Grupi Kontrollerid (s_res_ctr) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:group_search
+#: classes/applications/shop/shop_product_search.aw:group_search
+msgid "Grupi Otsi (search) pealkiri"
+msgstr "Search"
+
+# classes/applications/shop/shop_product_search.aw:group_search_help
+#: classes/applications/shop/shop_product_search.aw:group_search_help
+msgid "Grupi Otsi (search) help"
+msgstr ""
+
+# classes/applications/shop/shop_product_search.aw:rel_RELTYPE_WAREHOUSE
+#: classes/applications/shop/shop_product_search.aw:rel_RELTYPE_WAREHOUSE
+msgid "Seose ladu (RELTYPE_WAREHOUSE) tekst"
+msgstr "warehouse"
+
+# classes/applications/shop/shop_product_search.aw:rel_RELTYPE_CONTROLLER
+#: classes/applications/shop/shop_product_search.aw:rel_RELTYPE_CONTROLLER
+msgid "Seose kontroller (RELTYPE_CONTROLLER) tekst"
+msgstr "controller"
+
+# classes/applications/shop/shop_product_search.aw:rel_RELTYPE_OC
+#: classes/applications/shop/shop_product_search.aw:rel_RELTYPE_OC
+msgid "Seose tellimiskeskkond (RELTYPE_OC) tekst"
+msgstr "order center"
+
+#: classes/applications/shop/shop_product_search.aw:rel_RELTYPE_TRANSFORM
+msgid "Seose Muundaja (RELTYPE_TRANSFORM) tekst"
+msgstr "Transformer"
+
+#: classes/applications/shop/shop_product_search.aw:rel_RELTYPE_FOLDER
+msgid "Seose Otsingu kaust (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:234
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:240
+msgid "Ka alamkaustad"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:287
+#: classes/applications/shop/shop_product_search.aw:444
+msgid "Klass"
+msgstr "Class"
+
+#: classes/applications/shop/shop_product_search.aw:293
+#: classes/applications/shop/shop_product_search.aw:450
+msgid "Omadus"
+msgstr "Property"
+
+#: classes/applications/shop/shop_product_search.aw:299
+msgid "Vormis?"
+msgstr "In form?"
+
+#: classes/applications/shop/shop_product_search.aw:305
+#: classes/applications/shop/shop_product_search.aw:462
+msgid "J&auml;rjekord"
+msgstr "Order"
+
+#: classes/applications/shop/shop_product_search.aw:311
+#: classes/applications/shop/shop_product_search.aw:318
+msgid "Tekst"
+msgstr "Text"
+
+#: classes/applications/shop/shop_product_search.aw:456
+msgid "Tabelis?"
+msgstr "In table?"
+
+#: classes/applications/shop/shop_product_search.aw:468
+#: classes/applications/shop/shop_product_search.aw:479
+msgid "Tulba pealkiri"
+msgstr "Column heading"
+
+#: classes/applications/shop/shop_product_search.aw:488
+msgid "Muundaja"
+msgstr "Transformer"
+
+#: classes/applications/shop/shop_product_search.aw:515
+msgid "--vali--"
+msgstr "--select--"
+
+#: classes/applications/shop/shop_product_search.aw:568
+msgid "Asendus v&otilde;i ei"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:569
+msgid "Jaehind"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:570
+msgid "Allahindluse %"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:571
+msgid "L&otilde;pphind"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:572
+msgid "Erihind"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:573
+msgid "Kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:574
+msgid "Lao staatus"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:711
+msgid "Vali"
+msgstr "Select"
+
+#: classes/applications/shop/shop_product_search.aw:848
+msgid "K&uuml;situd"
+msgstr ""
+
+#: classes/applications/shop/shop_product_search.aw:852
+msgid "Asendus"
+msgstr ""

@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:class_1423_help
+msgid "Klassi Revali klientide meilisaatjs help"
+msgstr ""
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:24
+msgid "Reval Hotel Central"
+msgstr ""
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:25
+msgid "Reval Hotel Elizabete"
+msgstr ""
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:26
+msgid "Reval Inn Tallinn"
+msgstr ""
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:27
+msgid "Reval Hotel Latvija"
+msgstr ""
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:28
+msgid "Reval Hotel Lietuva"
+msgstr ""
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:29
+msgid "Reval Hotel Neris"
+msgstr ""
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:30
+msgid "Reval Hotel Ol&uuml;mpia"
+msgstr ""
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:31
+msgid "Reval Park Hotel & Casino"
+msgstr ""
+
+#: classes/applications/clients/reval/reval_customer_mailer.aw:32
+msgid "Reval Hotel Ridzene"
+msgstr ""
+

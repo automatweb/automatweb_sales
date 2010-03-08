@@ -1,0 +1,297 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/core/docgen/docgen_viewer.aw:class_323_help
+#: classes/applications/docgen/docgen_viewer.aw:class_323_help
+msgid "Klassi AWDocGen help"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_foorum
+#: classes/applications/docgen/docgen_viewer.aw:prop_foorum
+msgid "Omaduse  (foorum) caption"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_foorum_comment
+#: classes/applications/docgen/docgen_viewer.aw:prop_foorum_comment
+msgid "Omaduse  (foorum) kommentaar"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_foorum_help
+#: classes/applications/docgen/docgen_viewer.aw:prop_foorum_help
+msgid "Omaduse  (foorum) help"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_view
+#: classes/applications/docgen/docgen_viewer.aw:prop_view
+msgid "Omaduse  (view) caption"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_view_comment
+#: classes/applications/docgen/docgen_viewer.aw:prop_view_comment
+msgid "Omaduse  (view) kommentaar"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_view_help
+#: classes/applications/docgen/docgen_viewer.aw:prop_view_help
+msgid "Omaduse  (view) help"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_refresh_text
+#: classes/applications/docgen/docgen_viewer.aw:prop_refresh_text
+msgid "Omaduse Uuenda (refresh_text) caption"
+msgstr "Refresh"
+
+# classes/core/docgen/docgen_viewer.aw:prop_refresh_text_comment
+#: classes/applications/docgen/docgen_viewer.aw:prop_refresh_text_comment
+msgid "Omaduse Uuenda (refresh_text) kommentaar"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_refresh_text_help
+#: classes/applications/docgen/docgen_viewer.aw:prop_refresh_text_help
+msgid "Omaduse Uuenda (refresh_text) help"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_refresh_properties
+#: classes/applications/docgen/docgen_viewer.aw:prop_refresh_properties
+msgid "Omaduse Uuenda (refresh_properties) caption"
+msgstr "Refresh"
+
+# classes/core/docgen/docgen_viewer.aw:prop_refresh_properties_comment
+#: classes/applications/docgen/docgen_viewer.aw:prop_refresh_properties_comment
+msgid "Omaduse Uuenda (refresh_properties) kommentaar"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:prop_refresh_properties_help
+#: classes/applications/docgen/docgen_viewer.aw:prop_refresh_properties_help
+msgid "Omaduse Uuenda (refresh_properties) help"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:prop_class_tree
+msgid "Omaduse  (class_tree) caption"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:prop_class_tree_comment
+msgid "Omaduse  (class_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:prop_class_tree_help
+msgid "Omaduse  (class_tree) help"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:prop_class_inf
+msgid "Omaduse  (class_inf) caption"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:prop_class_inf_comment
+msgid "Omaduse  (class_inf) kommentaar"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:prop_class_inf_help
+msgid "Omaduse  (class_inf) help"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:group_more_options
+#: classes/applications/docgen/docgen_viewer.aw:group_more_options
+msgid "Grupi Seaded (more_options) pealkiri"
+msgstr "Options"
+
+# classes/core/docgen/docgen_viewer.aw:group_more_options_help
+#: classes/applications/docgen/docgen_viewer.aw:group_more_options_help
+msgid "Grupi Seaded (more_options) help"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_class_overview
+msgid "Grupi Klasside &uuml;levaade (class_overview) pealkiri"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_class_overview_help
+msgid "Grupi Klasside &uuml;levaade (class_overview) help"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_all_classes
+msgid "Grupi K&otilde;ik klassid (all_classes) pealkiri"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_all_classes_help
+msgid "Grupi K&otilde;ik klassid (all_classes) help"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_api_classes
+msgid "Grupi API Klassid (api_classes) pealkiri"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_api_classes_help
+msgid "Grupi API Klassid (api_classes) help"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_tutorials
+msgid "Grupi Eraldi dokumentatsioon (tutorials) pealkiri"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_tutorials_help
+msgid "Grupi Eraldi dokumentatsioon (tutorials) help"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_cb_tags
+msgid "Grupi Classbase tagid (cb_tags) pealkiri"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_cb_tags_help
+msgid "Grupi Classbase tagid (cb_tags) help"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_forum
+msgid "Grupi Foorum (forum) pealkiri"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:group_forum_help
+msgid "Grupi Foorum (forum) help"
+msgstr ""
+
+# classes/core/docgen/docgen_viewer.aw:rel_RELTYPE_FORUM
+#: classes/applications/docgen/docgen_viewer.aw:rel_RELTYPE_FORUM
+msgid "Seose foorum (RELTYPE_FORUM) tekst"
+msgstr "forum"
+
+#: classes/applications/docgen/docgen_viewer.aw:layout_tree
+msgid "Kujundusosa Klasside&nbsp;puu (tree) pealkiri"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:layout_tbl
+msgid "Kujundusosa Klassi&nbsp;info (tbl) pealkiri"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:109
+#: classes/applications/docgen/docgen_viewer.aw:116
+#: classes/applications/docgen/docgen_viewer.aw:308
+#: classes/applications/docgen/docgen_viewer.aw:1279
+#: classes/applications/docgen/docgen_viewer.aw:1349
+#: classes/applications/docgen/docgen_viewer.aw:1663
+#: classes/applications/docgen/docgen_viewer.aw:1733
+msgid "Classes"
+msgstr "Classes"
+
+#: classes/applications/docgen/docgen_viewer.aw:171
+msgid "Ini file"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:235
+msgid "Open DocGen"
+msgstr "Open DocGen"
+
+#: classes/applications/docgen/docgen_viewer.aw:417
+#: classes/applications/docgen/docgen_viewer.aw:1835
+msgid "Functions not in any class"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:424
+#: classes/applications/docgen/docgen_viewer.aw:1842
+msgid "Interface:"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:428
+#: classes/applications/docgen/docgen_viewer.aw:1846
+msgid "Class:"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:432
+#: classes/applications/docgen/docgen_viewer.aw:1850
+msgid "Exception:"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:574
+#: classes/applications/docgen/docgen_viewer.aw:605
+msgid "none"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:602
+msgid "nothing"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:758
+msgid "Yes"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:758
+msgid "No"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1416
+msgid "Class overview"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1422
+msgid "All classes"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1428
+msgid "API classes"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1434
+#: classes/applications/docgen/docgen_viewer.aw:1553
+msgid "Classes by maintainer"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1440
+#: classes/applications/docgen/docgen_viewer.aw:1513
+msgid "Interfaces"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1446
+#: classes/applications/docgen/docgen_viewer.aw:1613
+msgid "Exceptions"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1452
+msgid "Separate documentation"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1458
+msgid "INI"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1465
+msgid "Classbase tags"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1471
+msgid "Search"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1477
+msgid "Renew database"
+msgstr ""
+
+#: classes/applications/docgen/docgen_viewer.aw:1488
+msgid "Foorum"
+msgstr "Forum"
+
+#~ msgid "ALL DONE"
+#~ msgstr "ALL DONE"
+
+#~ msgid "K&otilde;ik klassid"
+#~ msgstr "All classes"
+
+#~ msgid "API klassid"
+#~ msgstr "API classes"
+
+#~ msgid "Eraldi dokumentatsioon"
+#~ msgstr "Seprate documentation"
+
+#~ msgid "Classbase tagid"
+#~ msgstr "Classbase tags"
+
+#~ msgid "Uuenda API andmebaas"
+#~ msgstr "Renew API database"
+
+#~ msgid "Dokumenteeritud klassid"
+#~ msgstr "Documented classes"

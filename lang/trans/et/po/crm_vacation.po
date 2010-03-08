@@ -1,0 +1,95 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/crm/crm_vacation.aw:class_876_help
+#: classes/applications/crm/crm_vacation.aw:class_876_help
+msgid "Klassi Puhkus help"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_start1
+#: classes/applications/crm/crm_vacation.aw:prop_start1
+msgid "Omaduse Algab (start1) caption"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_start1_comment
+#: classes/applications/crm/crm_vacation.aw:prop_start1_comment
+msgid "Omaduse Algab (start1) kommentaar"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_start1_help
+#: classes/applications/crm/crm_vacation.aw:prop_start1_help
+msgid "Omaduse Algab (start1) help"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_end
+#: classes/applications/crm/crm_vacation.aw:prop_end
+msgid "Omaduse Lõpeb (end) caption"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_end_comment
+#: classes/applications/crm/crm_vacation.aw:prop_end_comment
+msgid "Omaduse Lõpeb (end) kommentaar"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_end_help
+#: classes/applications/crm/crm_vacation.aw:prop_end_help
+msgid "Omaduse Lõpeb (end) help"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_person_ref
+#: classes/applications/crm/crm_vacation.aw:prop_person_ref
+msgid "Omaduse Viit isikule (person_ref) caption"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_person_ref_comment
+#: classes/applications/crm/crm_vacation.aw:prop_person_ref_comment
+msgid "Omaduse Viit isikule (person_ref) kommentaar"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_person_ref_help
+#: classes/applications/crm/crm_vacation.aw:prop_person_ref_help
+msgid "Omaduse Viit isikule (person_ref) help"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_duration_days
+#: classes/applications/crm/crm_vacation.aw:prop_duration_days
+msgid "Omaduse Kestvus päevades (duration_days) caption"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_duration_days_comment
+#: classes/applications/crm/crm_vacation.aw:prop_duration_days_comment
+msgid "Omaduse Kestvus päevades (duration_days) kommentaar"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_duration_days_help
+#: classes/applications/crm/crm_vacation.aw:prop_duration_days_help
+msgid "Omaduse Kestvus päevades (duration_days) help"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_type
+#: classes/applications/crm/crm_vacation.aw:prop_type
+msgid "Omaduse Puhkuse tüüp (type) caption"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_type_comment
+#: classes/applications/crm/crm_vacation.aw:prop_type_comment
+msgid "Omaduse Puhkuse tüüp (type) kommentaar"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:prop_type_help
+#: classes/applications/crm/crm_vacation.aw:prop_type_help
+msgid "Omaduse Puhkuse tüüp (type) help"
+msgstr ""
+
+# classes/applications/crm/crm_vacation.aw:rel_RELTYPE_VACATION_TYPE
+#: classes/applications/crm/crm_vacation.aw:rel_RELTYPE_VACATION_TYPE
+msgid "Seose Puhkuse tüüp (RELTYPE_VACATION_TYPE) tekst"
+msgstr ""

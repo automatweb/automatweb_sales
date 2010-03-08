@@ -1,0 +1,50 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="menu" folder="www/dev/terryf/automatweb_dev/classes" extends="class_base">
+		<action name="new" is_public="1" all_args="1" caption="Lisa">
+			<function name="new_change">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change" is_public="1" all_args="1" caption="Muuda">
+			<function name="change">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_menu_images_new_row">
+			<function name="ajax_menu_images_new_row">
+				<arguments>
+					<required name="menuid" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="toggle_site_editing" is_public="1" caption="N&amp;auml;ita &amp;auml;ra n&amp;auml;ita saidi muutmise linke">
+			<function name="toggle_site_editing">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_linked">
+			<function name="remove_linked">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_menu_open" is_public="1" caption="Ava Aktiivne">
+			<function name="get_menu_open">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

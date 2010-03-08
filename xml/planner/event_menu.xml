@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+<event_edit>
+	<event>
+		<caption>Sündmus</caption>
+		<link>?class=planner&amp;action=change_event&amp;id={VAR:id}</link>
+	</event>
+	
+	<repeaters>
+		<caption>Tsüklid</caption>
+		<link>?class=planner&amp;action=event_repeaters&amp;id={VAR:id}</link>
+	</repeaters>
+	
+	<reminder>
+		<caption>Meeldetuletus</caption>
+		<link>?class=planner&amp;action=event_reminder&amp;id={VAR:id}</link>
+	</reminder>
+</event_edit>

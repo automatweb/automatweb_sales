@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/crm/crm_offer_compare_table_column.aw:class_925_help
+#: classes/crm/crm_offer_compare_table_column.aw:class_925_help
+msgid "Klassi Pakkumise v&otilde;rdlustabeli tulp help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table_column.aw:prop_ord
+#: classes/crm/crm_offer_compare_table_column.aw:prop_ord
+msgid "Omaduse J&auml;rjekord (ord) caption"
+msgstr "Order"
+
+# classes/crm/crm_offer_compare_table_column.aw:prop_ord_comment
+#: classes/crm/crm_offer_compare_table_column.aw:prop_ord_comment
+msgid "Omaduse J&auml;rjekord (ord) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table_column.aw:prop_ord_help
+#: classes/crm/crm_offer_compare_table_column.aw:prop_ord_help
+msgid "Omaduse J&auml;rjekord (ord) help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table_column.aw:prop_divs
+#: classes/crm/crm_offer_compare_table_column.aw:prop_divs
+msgid "Omaduse Jaotusi (divs) caption"
+msgstr "Divisions"
+
+# classes/crm/crm_offer_compare_table_column.aw:prop_divs_comment
+#: classes/crm/crm_offer_compare_table_column.aw:prop_divs_comment
+msgid "Omaduse Jaotusi (divs) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table_column.aw:prop_divs_help
+#: classes/crm/crm_offer_compare_table_column.aw:prop_divs_help
+msgid "Omaduse Jaotusi (divs) help"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table_column.aw:prop_div_headers
+#: classes/crm/crm_offer_compare_table_column.aw:prop_div_headers
+msgid "Omaduse Jaotuste pealkirjad (komaga eraldatud) (div_headers) caption"
+msgstr "Division headers"
+
+# classes/crm/crm_offer_compare_table_column.aw:prop_div_headers_comment
+#: classes/crm/crm_offer_compare_table_column.aw:prop_div_headers_comment
+msgid "Omaduse Jaotuste pealkirjad (komaga eraldatud) (div_headers) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_compare_table_column.aw:prop_div_headers_help
+#: classes/crm/crm_offer_compare_table_column.aw:prop_div_headers_help
+msgid "Omaduse Jaotuste pealkirjad (komaga eraldatud) (div_headers) help"
+msgstr ""

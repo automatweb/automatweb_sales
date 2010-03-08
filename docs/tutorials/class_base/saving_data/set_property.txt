@@ -1,0 +1,53 @@
+set_property
+
+will be called once for each property when the form is saved
+
+<b>Example 5.1. Reference implementation</b>
+#php#
+function set_property($arr)
+{
+	$prop = &$arr["prop"];
+	$retval = PROP_OK;
+	switch($prop["name"])
+	{
+		case "name":
+			do_something_fancy($prop);
+			break;
+
+		case "comment":
+			if (!correct_value($prop["value"]))
+			{
+				$retval = PROP_ERROR;
+				$prop["error"] = "This value is not in the correct format";
+			};
+			break;
+	}
+	return $retval;
+}
+#/php#
+
+Arguments passed to set_property
+
+<b>obj_inst</b>
+    Instance to the loaded object. If a new object was created then at this point it already exists in the memory, so you can use set_prop, set_parent and other methods
+
+<b>request</b>
+    Array containing the arguments to the script. Use this instead of reading data from request superglobals ($_GET,$_POST or $_REQUEST)
+
+<b>prop</b>
+    Array containing infromation about the current property, this means all attributes in the property definition. The "value" field contains the value that was entered in the form.
+
+<b>new</b>
+    Set to 1, if this is a new object that has not been saved yet.
+
+<b>Important</b>
+If you do not return PROP_OK from your set_property method, then the value of this property will not be saved.
+
+If you return PROP_IGNORE, then this property will not be saved to the database and no error message is shown to the user. It will simply be ignored
+
+If you return PROP_ERROR, then this property will not be saved to the database and you can show an error message to the user. BUT, all other properties (which were PROP_OK) will be saved .. so basically this property gets a default value, whatever it is.
+
+If you return PROP_FATAL_ERROR, then this property will not be saved, you can show an error message and NOTHING gets written to the database. All properties will go through set_property cycle and after that the user will be redirected back to the form
+
+<b>Important</b>
+Do not assume that set_property calls will arrive in a certain order, they almost certainly will not. 

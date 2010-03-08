@@ -1,0 +1,188 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>import_class</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <caption>Imporditavate objektide klass</caption>
+      </property>
+      <property>
+            <name>folder</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <caption>Kaust kuhu importida</caption>
+      </property>
+      <property>
+            <name>csv_record_separator</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <comment>Eris&amp;amp;uuml;mbolid: reavahetused UNIX formaadis fail - '\n', Windows - '\r\n', Mac - '\r', tabulaator - '\t'</comment>
+            <caption>CSV kirjete eraldaja</caption>
+      </property>
+      <property>
+            <name>csv_field_separator</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <comment>Eris&amp;amp;uuml;mbolid: reavahetused UNIX formaadis fail - '\n', Windows - '\r\n', Mac - '\r', tabulaator - '\t'</comment>
+            <caption>CSV v&amp;amp;auml;ljade eraldaja</caption>
+      </property>
+      <property>
+            <name>csv_field_quote_start</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <comment>valikuline, tavaliselt jutum&amp;amp;auml;rk</comment>
+            <caption>CSV v&amp;amp;auml;lja algusm&amp;amp;auml;rk</caption>
+      </property>
+      <property>
+            <name>csv_field_quote_end</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <comment>valikuline, tavaliselt jutum&amp;amp;auml;rk</comment>
+            <caption>CSV v&amp;amp;auml;lja l&amp;amp;otilde;pum&amp;amp;auml;rk</caption>
+      </property>
+      <property>
+            <name>csv_field_quote_escape</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <comment>valikuline, tavaliselt jutum&amp;amp;auml;rk</comment>
+            <caption>CSV v&amp;amp;auml;lja escape m&amp;amp;auml;rk</caption>
+      </property>
+      <property>
+            <name>csv_fields_in_record</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <datatype>int</datatype>
+            <caption>CSV v&amp;amp;auml;ljade arv kirjes</caption>
+      </property>
+      <property>
+            <name>csv_row_comment_token</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <comment>M&amp;amp;auml;rgij&amp;amp;auml;rjend, millega algavaid ridu ei t&amp;amp;ouml;&amp;amp;ouml;delda</comment>
+            <caption>Kommentaaris&amp;amp;uuml;mbol</caption>
+      </property>
+      <property>
+            <name>property_map</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>hidden</type>
+            <editonly>1</editonly>
+      </property>
+      <property>
+            <name>property_map_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>table</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <caption>Omaduste vastavused csv v&amp;amp;auml;ljadele</caption>
+      </property>
+      <property>
+            <name>import_file</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>import</group>
+            <type>fileupload</type>
+            <store>no</store>
+            <caption>Impordi failist</caption>
+      </property>
+      <property>
+            <name>import_url</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>import</group>
+            <type>textbox</type>
+            <store>no</store>
+            <caption>Impordi urlilt</caption>
+      </property>
+      <property>
+            <name>import_string</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>import</group>
+            <type>textarea</type>
+            <store>no</store>
+            <caption>Impordi tekst</caption>
+      </property>
+      <property>
+            <name>simulate_import</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>import</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <store>no</store>
+            <caption>Impordi ainult ekraanile</caption>
+      </property>
+      <property>
+            <name>import_submit</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>import</group>
+            <type>submit</type>
+            <store>no</store>
+            <caption>Impordi</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CSV_IMPORT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <maintainer>voldemar</maintainer>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <groupinfo>
+            <import>
+                  <caption>Import</caption>
+            </import>
+      </groupinfo>
+      <reltypes>
+            <FOLDER>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Kaust</caption>
+            </FOLDER>
+            <CONTROLLER>
+                  <value>2</value>
+                  <clid>CL_CFGCONTROLLER</clid>
+                  <caption>Kontroller</caption>
+            </CONTROLLER>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,951 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/persona_import/persona_import.aw:class_875_help
+#: classes/applications/persona_import/persona_import.aw:class_875_help
+msgid "Klassi Persona import help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_last_import
+#: classes/applications/persona_import/persona_import.aw:prop_last_import
+msgid "Omaduse Viimane import toimus (last_import) caption"
+msgstr "Last import took place at"
+
+# classes/applications/persona_import/persona_import.aw:prop_last_import_comment
+#: classes/applications/persona_import/persona_import.aw:prop_last_import_comment
+msgid "Omaduse Viimane import toimus (last_import) kommentaar"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_last_import_help
+#: classes/applications/persona_import/persona_import.aw:prop_last_import_help
+msgid "Omaduse Viimane import toimus (last_import) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_invk
+#: classes/applications/persona_import/persona_import.aw:prop_invk
+msgid "Omaduse Import (invk) caption"
+msgstr "Import"
+
+# classes/applications/persona_import/persona_import.aw:prop_invk_comment
+#: classes/applications/persona_import/persona_import.aw:prop_invk_comment
+msgid "Omaduse Import (invk) kommentaar"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_invk_help
+#: classes/applications/persona_import/persona_import.aw:prop_invk_help
+msgid "Omaduse Import (invk) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_show_xml
+msgid "Omaduse XML (show_xml) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_show_xml_comment
+msgid "Omaduse XML (show_xml) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_show_xml_help
+msgid "Omaduse XML (show_xml) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_link
+msgid "Omaduse Impordi objekt (xml_link) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_link_comment
+msgid "Omaduse Impordi objekt (xml_link) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_link_help
+msgid "Omaduse Impordi objekt (xml_link) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_image_folder
+#: classes/applications/persona_import/persona_import.aw:prop_xml_image_folder
+msgid "Omaduse Pildifailide kataloog (kui on eraldi) (xml_image_folder) caption"
+msgstr "Images folder (if separate)"
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_image_folder_comment
+#: classes/applications/persona_import/persona_import.aw:prop_xml_image_folder_comment
+msgid "Omaduse Pildifailide kataloog (kui on eraldi) (xml_image_folder) kommentaar"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_image_folder_help
+#: classes/applications/persona_import/persona_import.aw:prop_xml_image_folder_help
+msgid "Omaduse Pildifailide kataloog (kui on eraldi) (xml_image_folder) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_aw_image_folder
+#: classes/applications/persona_import/persona_import.aw:prop_aw_image_folder
+msgid "Omaduse Pildiobjektide kataloog (aw_image_folder) caption"
+msgstr "AW folder for image objects"
+
+# classes/applications/persona_import/persona_import.aw:prop_aw_image_folder_comment
+#: classes/applications/persona_import/persona_import.aw:prop_aw_image_folder_comment
+msgid "Omaduse Pildiobjektide kataloog (aw_image_folder) kommentaar"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_aw_image_folder_help
+#: classes/applications/persona_import/persona_import.aw:prop_aw_image_folder_help
+msgid "Omaduse Pildiobjektide kataloog (aw_image_folder) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_crm_db_id
+#: classes/applications/persona_import/persona_import.aw:prop_crm_db_id
+msgid "Omaduse Kasutatav kliendibaas (crm_db_id) caption"
+msgstr "Client database to use"
+
+# classes/applications/persona_import/persona_import.aw:prop_crm_db_id_comment
+#: classes/applications/persona_import/persona_import.aw:prop_crm_db_id_comment
+msgid "Omaduse Kasutatav kliendibaas (crm_db_id) kommentaar"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_crm_db_id_help
+#: classes/applications/persona_import/persona_import.aw:prop_crm_db_id_help
+msgid "Omaduse Kasutatav kliendibaas (crm_db_id) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_ftp_settings
+#: classes/applications/persona_import/persona_import.aw:prop_ftp_settings
+msgid "Omaduse FTP seaded (ftp_settings) caption"
+msgstr "FTP Settings"
+
+# classes/applications/persona_import/persona_import.aw:prop_ftp_settings_comment
+#: classes/applications/persona_import/persona_import.aw:prop_ftp_settings_comment
+msgid "Omaduse FTP seaded (ftp_settings) kommentaar"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_ftp_settings_help
+#: classes/applications/persona_import/persona_import.aw:prop_ftp_settings_help
+msgid "Omaduse FTP seaded (ftp_settings) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_folder
+#: classes/applications/persona_import/persona_import.aw:prop_xml_folder
+msgid "Omaduse XML faili asukoht serveris (xml_folder) caption"
+msgstr "XML file location in server"
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_folder_comment
+#: classes/applications/persona_import/persona_import.aw:prop_xml_folder_comment
+msgid "Omaduse XML faili asukoht serveris (xml_folder) kommentaar"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_folder_help
+#: classes/applications/persona_import/persona_import.aw:prop_xml_folder_help
+msgid "Omaduse XML faili asukoht serveris (xml_folder) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_filename
+#: classes/applications/persona_import/persona_import.aw:prop_xml_filename
+msgid "Omaduse XML faili nimi (xml_filename) caption"
+msgstr "XML file name"
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_filename_comment
+#: classes/applications/persona_import/persona_import.aw:prop_xml_filename_comment
+msgid "Omaduse XML faili nimi (xml_filename) kommentaar"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_filename_help
+#: classes/applications/persona_import/persona_import.aw:prop_xml_filename_help
+msgid "Omaduse XML faili nimi (xml_filename) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_personnel_file
+msgid "Omaduse T&ouml;&ouml;tajate XML fail (xml_personnel_file) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_personnel_file_comment
+msgid "Omaduse T&ouml;&ouml;tajate XML fail (xml_personnel_file) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_personnel_file_help
+msgid "Omaduse T&ouml;&ouml;tajate XML fail (xml_personnel_file) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_education_file
+msgid "Omaduse Haridusk&auml;igu XML fail (xml_education_file) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_education_file_comment
+msgid "Omaduse Haridusk&auml;igu XML fail (xml_education_file) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_education_file_help
+msgid "Omaduse Haridusk&auml;igu XML fail (xml_education_file) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_work_relations_ending_file
+msgid "Omaduse T&ouml;&ouml;suhete peatumise XML fail (xml_work_relations_ending_file) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_work_relations_ending_file_comment
+msgid "Omaduse T&ouml;&ouml;suhete peatumise XML fail (xml_work_relations_ending_file) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_work_relations_ending_file_help
+msgid "Omaduse T&ouml;&ouml;suhete peatumise XML fail (xml_work_relations_ending_file) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_structure_file
+msgid "Omaduse Struktuuri&uuml;ksuste XML fail (xml_structure_file) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_structure_file_comment
+msgid "Omaduse Struktuuri&uuml;ksuste XML fail (xml_structure_file) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_xml_structure_file_help
+msgid "Omaduse Struktuuri&uuml;ksuste XML fail (xml_structure_file) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_tootajad_tag
+msgid "Omaduse T&ouml;&ouml;tajad (tootajad_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_tootajad_tag_comment
+msgid "Omaduse T&ouml;&ouml;tajad (tootajad_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_tootajad_tag_help
+msgid "Omaduse T&ouml;&ouml;tajad (tootajad_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_tootaja_tag
+msgid "Omaduse T&ouml;&ouml;taja (tootaja_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_tootaja_tag_comment
+msgid "Omaduse T&ouml;&ouml;taja (tootaja_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_tootaja_tag_help
+msgid "Omaduse T&ouml;&ouml;taja (tootaja_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_tootaja_id_tag
+msgid "Omaduse T&ouml;&ouml;taja ID (tootaja_id_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_tootaja_id_tag_comment
+msgid "Omaduse T&ouml;&ouml;taja ID (tootaja_id_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_tootaja_id_tag_help
+msgid "Omaduse T&ouml;&ouml;taja ID (tootaja_id_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_eesnimi_tag
+msgid "Omaduse Eesnimi (eesnimi_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_eesnimi_tag_comment
+msgid "Omaduse Eesnimi (eesnimi_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_eesnimi_tag_help
+msgid "Omaduse Eesnimi (eesnimi_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_perekonnanimi_tag
+msgid "Omaduse Perekonnanimi (perekonnanimi_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_perekonnanimi_tag_comment
+msgid "Omaduse Perekonnanimi (perekonnanimi_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_perekonnanimi_tag_help
+msgid "Omaduse Perekonnanimi (perekonnanimi_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_synniaeg_tag
+msgid "Omaduse S&uuml;nniaeg (synniaeg_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_synniaeg_tag_comment
+msgid "Omaduse S&uuml;nniaeg (synniaeg_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_synniaeg_tag_help
+msgid "Omaduse S&uuml;nniaeg (synniaeg_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_haridustase_tag
+msgid "Omaduse Haridustase (haridustase_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_haridustase_tag_comment
+msgid "Omaduse Haridustase (haridustase_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_haridustase_tag_help
+msgid "Omaduse Haridustase (haridustase_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_telefon_tag
+msgid "Omaduse Telefon (telefon_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_telefon_tag_comment
+msgid "Omaduse Telefon (telefon_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_telefon_tag_help
+msgid "Omaduse Telefon (telefon_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_mobiiltelefon_tag
+msgid "Omaduse Mobiiltelefon (mobiiltelefon_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_mobiiltelefon_tag_comment
+msgid "Omaduse Mobiiltelefon (mobiiltelefon_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_mobiiltelefon_tag_help
+msgid "Omaduse Mobiiltelefon (mobiiltelefon_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_lyhinumber_tag
+msgid "Omaduse L&uuml;hinumber (lyhinumber_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_lyhinumber_tag_comment
+msgid "Omaduse L&uuml;hinumber (lyhinumber_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_lyhinumber_tag_help
+msgid "Omaduse L&uuml;hinumber (lyhinumber_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_e_post_tag
+msgid "Omaduse E-posti aadress (e_post_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_e_post_tag_comment
+msgid "Omaduse E-posti aadress (e_post_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_e_post_tag_help
+msgid "Omaduse E-posti aadress (e_post_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ametikoht_nimetus_tag
+msgid "Omaduse Ametinimetus (ametikoht_nimetus_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ametikoht_nimetus_tag_comment
+msgid "Omaduse Ametinimetus (ametikoht_nimetus_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ametikoht_nimetus_tag_help
+msgid "Omaduse Ametinimetus (ametikoht_nimetus_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ametikirjeldus_viit_tag
+msgid "Omaduse Ametijuhendi link (ametikirjeldus_viit_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ametikirjeldus_viit_tag_comment
+msgid "Omaduse Ametijuhendi link (ametikirjeldus_viit_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ametikirjeldus_viit_tag_help
+msgid "Omaduse Ametijuhendi link (ametikirjeldus_viit_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ruum_tag
+msgid "Omaduse Ruum (ruum_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ruum_tag_comment
+msgid "Omaduse Ruum (ruum_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ruum_tag_help
+msgid "Omaduse Ruum (ruum_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asutus_tag
+msgid "Omaduse Asutus (asutus_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asutus_tag_comment
+msgid "Omaduse Asutus (asutus_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asutus_tag_help
+msgid "Omaduse Asutus (asutus_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_allasutus_tag
+msgid "Omaduse Allasutus (allasutus_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_allasutus_tag_comment
+msgid "Omaduse Allasutus (allasutus_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_allasutus_tag_help
+msgid "Omaduse Allasutus (allasutus_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_yksus_tag
+msgid "Omaduse &Uuml;ksus (yksus_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_yksus_tag_comment
+msgid "Omaduse &Uuml;ksus (yksus_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_yksus_tag_help
+msgid "Omaduse &Uuml;ksus (yksus_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_yksus_id_tag
+msgid "Omaduse &Uuml;ksuse ID (yksus_id_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_yksus_id_tag_comment
+msgid "Omaduse &Uuml;ksuse ID (yksus_id_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_yksus_id_tag_help
+msgid "Omaduse &Uuml;ksuse ID (yksus_id_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_prioriteet_tag
+msgid "Omaduse Prioriteet (prioriteet_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_prioriteet_tag_comment
+msgid "Omaduse Prioriteet (prioriteet_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_prioriteet_tag_help
+msgid "Omaduse Prioriteet (prioriteet_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_peatumine_tag
+msgid "Omaduse T&ouml;&ouml;suhe on peatatud (on_peatumine_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_peatumine_tag_comment
+msgid "Omaduse T&ouml;&ouml;suhe on peatatud (on_peatumine_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_peatumine_tag_help
+msgid "Omaduse T&ouml;&ouml;suhe on peatatud (on_peatumine_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_peatumine_pohjus_tag
+msgid "Omaduse T&ouml;&ouml;suhte peatamise p&otilde;hjus (peatumine_pohjus_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_peatumine_pohjus_tag_comment
+msgid "Omaduse T&ouml;&ouml;suhte peatamise p&otilde;hjus (peatumine_pohjus_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_peatumine_pohjus_tag_help
+msgid "Omaduse T&ouml;&ouml;suhte peatamise p&otilde;hjus (peatumine_pohjus_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asutusse_tulek_tag
+msgid "Omaduse Asutusse tuleku aeg (asutusse_tulek_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asutusse_tulek_tag_comment
+msgid "Omaduse Asutusse tuleku aeg (asutusse_tulek_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asutusse_tulek_tag_help
+msgid "Omaduse Asutusse tuleku aeg (asutusse_tulek_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_asendaja_tag
+msgid "Omaduse On asendaja (on_asendaja_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_asendaja_tag_comment
+msgid "Omaduse On asendaja (on_asendaja_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_asendaja_tag_help
+msgid "Omaduse On asendaja (on_asendaja_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asendamine_tookoht_tag
+msgid "Omaduse Asendatav t&ouml;&ouml;koht (asendamine_tookoht_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asendamine_tookoht_tag_comment
+msgid "Omaduse Asendatav t&ouml;&ouml;koht (asendamine_tookoht_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asendamine_tookoht_tag_help
+msgid "Omaduse Asendatav t&ouml;&ouml;koht (asendamine_tookoht_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_hariduskaigud_tag
+msgid "Omaduse Haridusk&auml;igud (hariduskaigud_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_hariduskaigud_tag_comment
+msgid "Omaduse Haridusk&auml;igud (hariduskaigud_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_hariduskaigud_tag_help
+msgid "Omaduse Haridusk&auml;igud (hariduskaigud_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_hariduskaik_tag
+msgid "Omaduse Haridusk&auml;ik (hariduskaik_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_hariduskaik_tag_comment
+msgid "Omaduse Haridusk&auml;ik (hariduskaik_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_hariduskaik_tag_help
+msgid "Omaduse Haridusk&auml;ik (hariduskaik_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_edu_tootaja_id_tag
+msgid "Omaduse T&ouml;&ouml;taja ID (edu_tootaja_id_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_edu_tootaja_id_tag_comment
+msgid "Omaduse T&ouml;&ouml;taja ID (edu_tootaja_id_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_edu_tootaja_id_tag_help
+msgid "Omaduse T&ouml;&ouml;taja ID (edu_tootaja_id_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_oppeasutus_tag
+msgid "Omaduse &Otilde;ppeasutus (oppeasutus_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_oppeasutus_tag_comment
+msgid "Omaduse &Otilde;ppeasutus (oppeasutus_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_oppeasutus_tag_help
+msgid "Omaduse &Otilde;ppeasutus (oppeasutus_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_opilane_tag
+msgid "Omaduse On &otilde;pilane (on_opilane_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_opilane_tag_comment
+msgid "Omaduse On &otilde;pilane (on_opilane_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_opilane_tag_help
+msgid "Omaduse On &otilde;pilane (on_opilane_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_eriala_tag
+msgid "Omaduse Eriala (eriala_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_eriala_tag_comment
+msgid "Omaduse Eriala (eriala_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_eriala_tag_help
+msgid "Omaduse Eriala (eriala_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_pohieriala_tag
+msgid "Omaduse On p&otilde;hieriala (on_pohieriala_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_pohieriala_tag_comment
+msgid "Omaduse On p&otilde;hieriala (on_pohieriala_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_on_pohieriala_tag_help
+msgid "Omaduse On p&otilde;hieriala (on_pohieriala_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_diplom_number_tag
+msgid "Omaduse Diplomi number (diplom_number_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_diplom_number_tag_comment
+msgid "Omaduse Diplomi number (diplom_number_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_diplom_number_tag_help
+msgid "Omaduse Diplomi number (diplom_number_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_akadeemiline_kraad_tag
+msgid "Omaduse Akadeemiline kraad (akadeemiline_kraad_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_akadeemiline_kraad_tag_comment
+msgid "Omaduse Akadeemiline kraad (akadeemiline_kraad_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_akadeemiline_kraad_tag_help
+msgid "Omaduse Akadeemiline kraad (akadeemiline_kraad_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_keel_tag
+msgid "Omaduse Omandamise keel (keel_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_keel_tag_comment
+msgid "Omaduse Omandamise keel (keel_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_keel_tag_help
+msgid "Omaduse Omandamise keel (keel_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_diplom_kuupaev_tag
+msgid "Omaduse Diplomi kuup&auml;ev (diplom_kuupaev_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_diplom_kuupaev_tag_comment
+msgid "Omaduse Diplomi kuup&auml;ev (diplom_kuupaev_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_diplom_kuupaev_tag_help
+msgid "Omaduse Diplomi kuup&auml;ev (diplom_kuupaev_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_toosuhte_peatumised_tag
+msgid "Omaduse T&ouml;&ouml;suhte peatumised (toosuhte_peatumised_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_toosuhte_peatumised_tag_comment
+msgid "Omaduse T&ouml;&ouml;suhte peatumised (toosuhte_peatumised_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_toosuhte_peatumised_tag_help
+msgid "Omaduse T&ouml;&ouml;suhte peatumised (toosuhte_peatumised_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_toosuhte_peatumine_tag
+msgid "Omaduse T&ouml;&ouml;suhte peatumine (toosuhte_peatumine_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_toosuhte_peatumine_tag_comment
+msgid "Omaduse T&ouml;&ouml;suhte peatumine (toosuhte_peatumine_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_toosuhte_peatumine_tag_help
+msgid "Omaduse T&ouml;&ouml;suhte peatumine (toosuhte_peatumine_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ewr_tootaja_id_tag
+msgid "Omaduse Tootaja ID (ewr_tootaja_id_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ewr_tootaja_id_tag_comment
+msgid "Omaduse Tootaja ID (ewr_tootaja_id_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_ewr_tootaja_id_tag_help
+msgid "Omaduse Tootaja ID (ewr_tootaja_id_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_alguskuupaev_tag
+msgid "Omaduse Alguskuup&auml;ev (alguskuupaev_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_alguskuupaev_tag_comment
+msgid "Omaduse Alguskuup&auml;ev (alguskuupaev_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_alguskuupaev_tag_help
+msgid "Omaduse Alguskuup&auml;ev (alguskuupaev_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_loppkuupaev_tag
+msgid "Omaduse L&otilde;ppkuup&auml;ev (loppkuupaev_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_loppkuupaev_tag_comment
+msgid "Omaduse L&otilde;ppkuup&auml;ev (loppkuupaev_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_loppkuupaev_tag_help
+msgid "Omaduse L&otilde;ppkuup&auml;ev (loppkuupaev_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_peatumise_liik_tag
+msgid "Omaduse Peatumise liik (peatumise_liik_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_peatumise_liik_tag_comment
+msgid "Omaduse Peatumise liik (peatumise_liik_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_peatumise_liik_tag_help
+msgid "Omaduse Peatumise liik (peatumise_liik_tag) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asendaja_id_tag
+msgid "Omaduse Asendaja ID (asendaja_id_tag) caption"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asendaja_id_tag_comment
+msgid "Omaduse Asendaja ID (asendaja_id_tag) kommentaar"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:prop_asendaja_id_tag_help
+msgid "Omaduse Asendaja ID (asendaja_id_tag) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_recur_edit
+#: classes/applications/persona_import/persona_import.aw:prop_recur_edit
+msgid "Omaduse Automaatse impordi seadistamine (recur_edit) caption"
+msgstr "Automatic import settings"
+
+# classes/applications/persona_import/persona_import.aw:prop_recur_edit_comment
+#: classes/applications/persona_import/persona_import.aw:prop_recur_edit_comment
+msgid "Omaduse Automaatse impordi seadistamine (recur_edit) kommentaar"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_recur_edit_help
+#: classes/applications/persona_import/persona_import.aw:prop_recur_edit_help
+msgid "Omaduse Automaatse impordi seadistamine (recur_edit) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:group_settings
+#: classes/applications/persona_import/persona_import.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr "Settings"
+
+# classes/applications/persona_import/persona_import.aw:group_settings_help
+#: classes/applications/persona_import/persona_import.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_genset
+msgid "Grupi &Uuml;ldised seaded (genset) pealkiri"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_genset_help
+msgid "Grupi &Uuml;ldised seaded (genset) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_ftp
+msgid "Grupi FTP seaded (ftp) pealkiri"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_ftp_help
+msgid "Grupi FTP seaded (ftp) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_tags
+msgid "Grupi Tagid XMLs (tags) pealkiri"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_tags_help
+msgid "Grupi Tagid XMLs (tags) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_tags_workers
+msgid "Grupi T&ouml;&ouml;tajad (tags_workers) pealkiri"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_tags_workers_help
+msgid "Grupi T&ouml;&ouml;tajad (tags_workers) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_tags_educations
+msgid "Grupi Haridusk&auml;igud (tags_educations) pealkiri"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_tags_educations_help
+msgid "Grupi Haridusk&auml;igud (tags_educations) help"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_tags_end_wr
+msgid "Grupi T&ouml;&ouml;suhte peatumised (tags_end_wr) pealkiri"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:group_tags_end_wr_help
+msgid "Grupi T&ouml;&ouml;suhte peatumised (tags_end_wr) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:group_autoimport
+#: classes/applications/persona_import/persona_import.aw:group_autoimport
+msgid "Grupi Automaatne import (autoimport) pealkiri"
+msgstr "Automatic import"
+
+# classes/applications/persona_import/persona_import.aw:group_autoimport_help
+#: classes/applications/persona_import/persona_import.aw:group_autoimport_help
+msgid "Grupi Automaatne import (autoimport) help"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:rel_RELTYPE_CRM_DB
+#: classes/applications/persona_import/persona_import.aw:rel_RELTYPE_CRM_DB
+msgid "Seose kliendibaas (RELTYPE_CRM_DB) tekst"
+msgstr "client database"
+
+# classes/applications/persona_import/persona_import.aw:rel_RELTYPE_DATA_SERVER
+#: classes/applications/persona_import/persona_import.aw:rel_RELTYPE_DATA_SERVER
+msgid "Seose FTP kasutaja (RELTYPE_DATA_SERVER) tekst"
+msgstr "FTP user"
+
+# classes/applications/persona_import/persona_import.aw:rel_RELTYPE_FOLDER
+#: classes/applications/persona_import/persona_import.aw:rel_RELTYPE_FOLDER
+msgid "Seose Kaust (RELTYPE_FOLDER) tekst"
+msgstr "folder"
+
+# classes/applications/persona_import/persona_import.aw:rel_RELTYPE_LOGFILE
+#: classes/applications/persona_import/persona_import.aw:rel_RELTYPE_LOGFILE
+msgid "Seose Logifail (RELTYPE_LOGFILE) tekst"
+msgstr "log file"
+
+# classes/applications/persona_import/persona_import.aw:rel_RELTYPE_RECURRENCE
+#: classes/applications/persona_import/persona_import.aw:rel_RELTYPE_RECURRENCE
+msgid "Seose Kordus (RELTYPE_RECURRENCE) tekst"
+msgstr "recurrence"
+
+#: classes/applications/persona_import/persona_import.aw:rel_RELTYPE_LINK_REL
+msgid "Seose Impordi objekt (RELTYPE_LINK_REL) tekst"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:301
+msgid "N&auml;ita XMLi"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:308
+msgid "K&auml;ivita import"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:332
+msgid "J&auml;tka poolikut importi"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:338
+msgid "Impordi pildid"
+msgstr "Import images"
+
+#: classes/applications/persona_import/persona_import.aw:371
+#: classes/applications/persona_import/persona_import.aw:434
+#: classes/applications/persona_import/persona_import.aw:2216
+msgid "You forgot to enter server data"
+msgstr "You forgot to enter server data"
+
+#: classes/applications/persona_import/persona_import.aw:441
+msgid "Nii ei saa ju rallit s&otilde;ita!"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:442
+msgid "Kasutatav kliendibaas valimata"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:453
+msgid "Isikute kataloog valimata"
+msgstr "Person folder not selected"
+
+#: classes/applications/persona_import/persona_import.aw:459
+msgid "Aadresside kataloog valimata"
+msgstr "Address folder not selected"
+
+#: classes/applications/persona_import/persona_import.aw:465
+msgid "Default kataloog valimata"
+msgstr "Default folder not selected"
+
+#: classes/applications/persona_import/persona_import.aw:480
+msgid "Kliendibaasil puudub muutujate haldur"
+msgstr "Client database has no configuration manager"
+
+#: classes/applications/persona_import/persona_import.aw:533
+msgid "Getting source data<br>"
+msgstr "Getting source data<br>"
+
+#: classes/applications/persona_import/persona_import.aw:540
+msgid "Not enough data to process<br>"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:554
+msgid "got data<br>"
+msgstr "got data<br>"
+
+#: classes/applications/persona_import/persona_import.aw:570
+msgid "parse finished, processing starts<br>"
+msgstr "parse finished, processing starts<br>"
+
+#: classes/applications/persona_import/persona_import.aw:884
+msgid "creating yksused objects<br>"
+msgstr "creating section objects<Br>"
+
+#: classes/applications/persona_import/persona_import.aw:938
+msgid "created new section<br>"
+msgstr "created new section<br>"
+
+#: classes/applications/persona_import/persona_import.aw:953
+msgid "updating existing section<br>"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:1015
+msgid "<h1>sections</h1>"
+msgstr "<h1>sections</h1>"
+
+#: classes/applications/persona_import/persona_import.aw:1017
+msgid "<h1>sections done</h1>"
+msgstr "<h1>sections done</h1>"
+
+#: classes/applications/persona_import/persona_import.aw:1030
+msgid "creating person objects<br>"
+msgstr "creating person objects<br>"
+
+#: classes/applications/persona_import/persona_import.aw:1057
+msgid "<br>creating new person object<br>"
+msgstr "<br>creating new person object<br>"
+
+#: classes/applications/persona_import/persona_import.aw:1063
+msgid "updating existing person object<br>"
+msgstr ""
+
+#: classes/applications/persona_import/persona_import.aw:1082
+#: classes/applications/persona_import/persona_import.aw:1179
+msgid "Vaata"
+msgstr ""
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_personnel_file
+#~ msgid "Omaduse Töötajate XML fail (xml_personnel_file) caption"
+#~ msgstr "Employee XML file"
+
+# classes/applications/persona_import/persona_import.aw:prop_xml_structure_file
+#~ msgid "Omaduse Struktuuriüksuste XML fail (xml_structure_file) caption"
+#~ msgstr "Structure XML file"
+
+#~ msgid "Käivita import"
+#~ msgstr "Run import"
+
+#~ msgid "Jätka poolikut importi"
+#~ msgstr "Continue unfinished import"
+
+#~ msgid "Nii ei saa ju rallit sõita!"
+#~ msgstr "Ya cant drive the rally like this!"
+
+#~ msgid "Not enough data to process<bR>"
+#~ msgstr "Not enough data to process<bR>"
+
+#~ msgid "updating existing section"
+#~ msgstr "updating existing section"
+
+#~ msgid "updating existing person object"
+#~ msgstr "updating existing person object"
+
+#~ msgid "creating person)objects<br>"
+#~ msgstr "creating person)objects<br>"

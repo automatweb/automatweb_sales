@@ -1,0 +1,17 @@
+Rules for strings in aw code:
+
+1) All strings in the code that reach the end user MUST BE called via the t() function, like this:
+
+$t->define_field(array(
+	"caption" => t("Created By")
+));
+
+2) You MUST NOT insert multi-line strings in one t() call, the .po format cannot handle that. You must put each line as a separate entry in the t() function, like this:
+
+$long_text = t("First line")."\n";
+$long_text .= t("Second line");
+
+
+3) You MUST NEVER EVER write any accented characters into the strings, you MUST USE their respective entities (&auml; and so on)
+
+4) You must NOT write strings into templates that are used in the admin side, all the strings in those should come from the code as VAR:'s, so that they can be translated in one place. Of course, the admin interface should not use many templates anyway, so that should not be a problem for the few that do. Mostly vcl components.

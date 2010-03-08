@@ -1,0 +1,80 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>event_comment</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>S&amp;amp;uuml;ndmuse kommentaari</caption>
+      </property>
+      <property>
+            <name>mail_from_addr</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Maili From aadress</caption>
+      </property>
+      <property>
+            <name>mail_from_name</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Maili From nimi</caption>
+      </property>
+      <property>
+            <name>mail_subj</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Maili subjekt</caption>
+      </property>
+      <property>
+            <name>mail_legend</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <store>no</store>
+            <caption>Asenduste legend</caption>
+      </property>
+      <property>
+            <name>mail_content</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textarea</type>
+            <rows>20</rows>
+            <cols>80</cols>
+            <caption>Maili sisu</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CALENDAR_REGISTRATION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <emails>
+                  <caption>Meilid</caption>
+            </emails>
+      </groupinfo>
+      <reltypes>
+            <CALENDAR>
+                  <value>1</value>
+                  <clid>CL_PLANNER</clid>
+                  <caption>kalender</caption>
+            </CALENDAR>
+      </reltypes>
+</properties>
+

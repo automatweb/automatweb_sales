@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="calendar_vacancy" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="reserve_slot" all_args="1">
+			<function name="reserve_slot">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

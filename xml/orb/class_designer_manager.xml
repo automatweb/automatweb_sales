@@ -1,0 +1,113 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="class_designer_manager" folder="www/dev/terryf/automatweb_dev/classes/applications/class_designer" extends="class_base">
+		<action name="check_add_object">
+			<function name="check_add_object">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="clid" type="int" />
+					<optional name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_p">
+			<function name="cut_p">
+				<arguments>
+					<optional name="sel" />
+					<optional name="sel_fld" />
+					<required name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_p">
+			<function name="copy_p">
+				<arguments>
+					<optional name="sel" />
+					<optional name="sel_fld" />
+					<required name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_p">
+			<function name="paste_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_clf">
+			<function name="create_clf">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_clf_name">
+			<function name="change_clf_name">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change_class_name">
+			<function name="change_class_name">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_p">
+			<function name="delete_p">
+				<arguments>
+					<optional name="sel" />
+					<optional name="sel_fld" />
+					<required name="post_ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_designer_from_class">
+			<function name="create_designer_from_class">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="clid" type="int" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="import_logs" nologin="1">
+			<function name="import_logs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="showe">
+			<function name="showe">
+				<arguments>
+					<required name="err_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="scan_sites" nologin="1">
+			<function name="scan_sites">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gather_stats" nologin="1">
+			<function name="gather_stats">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

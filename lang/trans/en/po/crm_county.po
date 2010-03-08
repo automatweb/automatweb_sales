@@ -1,0 +1,82 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/crm/crm_county.aw:class_140_help
+#: classes/crm/crm_county.aw:class_140_help
+msgid "Klassi Maakond help"
+msgstr ""
+
+# classes/crm/crm_county.aw:prop_name
+#: classes/crm/crm_county.aw:prop_name
+msgid "Omaduse Maakonna nimetus (name) caption"
+msgstr "County name"
+
+# classes/crm/crm_county.aw:prop_name_comment
+#: classes/crm/crm_county.aw:prop_name_comment
+msgid "Omaduse Maakonna nimetus (name) kommentaar"
+msgstr ""
+
+# classes/crm/crm_county.aw:prop_name_help
+#: classes/crm/crm_county.aw:prop_name_help
+msgid "Omaduse Maakonna nimetus (name) help"
+msgstr ""
+
+#: classes/crm/crm_county.aw:prop_country
+msgid "Omaduse Riik (country) caption"
+msgstr ""
+
+#: classes/crm/crm_county.aw:prop_country_comment
+msgid "Omaduse Riik (country) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_county.aw:prop_country_help
+msgid "Omaduse Riik (country) help"
+msgstr ""
+
+#: classes/crm/crm_county.aw:prop_area
+msgid "Omaduse Piirkond (area) caption"
+msgstr "Area"
+
+#: classes/crm/crm_county.aw:prop_area_comment
+msgid "Omaduse Piirkond (area) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_county.aw:prop_area_help
+msgid "Omaduse Piirkond (area) help"
+msgstr ""
+
+#: classes/crm/crm_county.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/crm/crm_county.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_county.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/crm/crm_county.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_county.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/crm/crm_county.aw:rel_RELTYPE_COUNTRY
+msgid "Seose Riik\t (RELTYPE_COUNTRY) tekst"
+msgstr "Country"
+
+#: classes/crm/crm_county.aw:rel_RELTYPE_AREA
+msgid "Seose Piirkond\t\t (RELTYPE_AREA) tekst"
+msgstr "Area"

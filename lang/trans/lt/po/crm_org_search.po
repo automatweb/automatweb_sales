@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/crm/crm_org_search.aw:class_1378_help
+msgid "Klassi Organisatsioonide otsing help"
+msgstr ""
+
+#: classes/crm/crm_org_search.aw:96
+msgid "Organisatsioon"
+msgstr ""
+
+#: classes/crm/crm_org_search.aw:102
+msgid "Õiguslik vorm"
+msgstr ""
+
+#: classes/crm/crm_org_search.aw:108
+msgid "Aadress"
+msgstr ""
+
+#: classes/crm/crm_org_search.aw:114
+msgid "E-post"
+msgstr ""
+
+#: classes/crm/crm_org_search.aw:120
+msgid "WWW"
+msgstr ""
+
+#: classes/crm/crm_org_search.aw:125
+msgid "Telefon"
+msgstr ""
+
+#: classes/crm/crm_org_search.aw:131
+msgid "Kontaktisik"
+msgstr ""
+
+#: classes/crm/crm_org_search.aw:378
+msgid "Otsing ei leidnud ühtegi objekti"
+msgstr ""

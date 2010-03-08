@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/awmyadmin/db_server_login.aw:class_149_help
+msgid "Klassi Andmebaasiserveri sissep&auml;&auml;s help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_host
+msgid "Omaduse Server (server_host) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_host_comment
+msgid "Omaduse Server (server_host) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_host_help
+msgid "Omaduse Server (server_host) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_admin_user
+msgid "Omaduse Admin kasutaja (server_admin_user) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_admin_user_comment
+msgid "Omaduse Admin kasutaja (server_admin_user) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_admin_user_help
+msgid "Omaduse Admin kasutaja (server_admin_user) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_admin_pass
+msgid "Omaduse Admin parool (server_admin_pass) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_admin_pass_comment
+msgid "Omaduse Admin parool (server_admin_pass) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_admin_pass_help
+msgid "Omaduse Admin parool (server_admin_pass) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_driver
+msgid "Omaduse Andmebaasi driver (server_driver) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_driver_comment
+msgid "Omaduse Andmebaasi driver (server_driver) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_login.aw:prop_server_driver_help
+msgid "Omaduse Andmebaasi driver (server_driver) help"
+msgstr ""
+

@@ -1,0 +1,252 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/persons_webview.aw:class_1055_help
+msgid "Klassi Isikud veebis help"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_company
+msgid "Omaduse Ettev&otilde;te (company) caption"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_company_comment
+msgid "Omaduse Ettev&otilde;te (company) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_company_help
+msgid "Omaduse Ettev&otilde;te (company) help"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_departments
+msgid "Omaduse Osakonnad (departments) caption"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_departments_comment
+msgid "Omaduse Osakonnad (departments) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_departments_help
+msgid "Omaduse Osakonnad (departments) help"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_show_only_public_phones
+msgid "Omaduse N&auml;ita ainult avalikke numbreid (show_only_public_phones) caption"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_show_only_public_phones_comment
+msgid "Omaduse N&auml;ita ainult avalikke numbreid (show_only_public_phones) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_show_only_public_phones_help
+msgid "Omaduse N&auml;ita ainult avalikke numbreid (show_only_public_phones) help"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_persons_principe
+msgid "Omaduse Isikute j&auml;rjestamisprintsiip (persons_principe) caption"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_persons_principe_comment
+msgid "Omaduse Isikute j&auml;rjestamisprintsiip (persons_principe) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_persons_principe_help
+msgid "Omaduse Isikute j&auml;rjestamisprintsiip (persons_principe) help"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_department_grouping
+msgid "Omaduse Grupeerimine osakonna j&auml;rgi (department_grouping) caption"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_department_grouping_comment
+msgid "Omaduse Grupeerimine osakonna j&auml;rgi (department_grouping) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_department_grouping_help
+msgid "Omaduse Grupeerimine osakonna j&auml;rgi (department_grouping) help"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_grouping_principe
+msgid "Omaduse Grupeerimise j&auml;rjestamisprintsiip (grouping_principe) caption"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_grouping_principe_comment
+msgid "Omaduse Grupeerimise j&auml;rjestamisprintsiip (grouping_principe) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_grouping_principe_help
+msgid "Omaduse Grupeerimise j&auml;rjestamisprintsiip (grouping_principe) help"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_view
+msgid "Omaduse Vaadete tabel (view) caption"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_view_comment
+msgid "Omaduse Vaadete tabel (view) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:prop_view_help
+msgid "Omaduse Vaadete tabel (view) help"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:group_view
+msgid "Grupi N&auml;itamine (view) pealkiri"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:group_view_help
+msgid "Grupi N&auml;itamine (view) help"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:rel_RELTYPE_COMPANY
+msgid "Seose Registri andmed (RELTYPE_COMPANY) tekst"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:rel_RELTYPE_DEPARTMENT
+msgid "Seose Osakond (RELTYPE_DEPARTMENT) tekst"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:93
+msgid "perenimi"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:94
+msgid "ametinimetuse jrk"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:95
+msgid "isiku jrk"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:100
+msgid "osakonna jrk"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:101
+msgid "osakonna nimi"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:105
+msgid "Kasvav"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:106
+msgid "Kahanev"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:110
+msgid "-- vali --"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:111
+msgid "p&otilde;hi"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:112
+msgid "kesk"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:113
+msgid "kesk-eri"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:114
+msgid "k&otilde;rgem"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:119
+msgid "Osakondade tasemed, mida n&auml;idataks, saab m&auml;rkida kujul '1,2,3' v&otilde;i '1-2' v&otilde;i '3'			juhul , kui on vaja kuvada inimesi &uuml;ksteise k&otilde;rval, siis teplates peaks olema subid umbes kujul:			<!-- SUB: DEPARTMENT -->			{VAR:department_name}			<table>			<!-- SUB: LINE -->				<tr>				<!-- SUB: WORKER -->					<td>					<p align=bottom><center>						{VAR:photo} <br>						<b>{VAR:name} </b><br>						{VAR:rank} <br>					</center></p>					</td>				<!-- END SUB: WORKER -->				</tr>			<!-- END SUB: LINE -->			</table>			<!-- SUB: DEPARTMENT -->						kui igal real on 1 inimene, siis v&otilde;ib SUB: LINE vahelt &auml;ra j&auml;tta						Kui viimaseks vaateks on &uuml;ks konkreetne isik, siis template sees &uuml;htegi SUBi ei tohiks olla, kasutada saab samu muutujaid, mis muidu sub'is worker						endine variant ka igaks juhuks t&ouml;&ouml;tab veel						juhul kui miski taseme osakonda oleks vaja teistmoodi n&auml;idata, siis tuleks <!-- SUB: DEPARTMENT --> sisse teha <!-- SUB: LEVEL4DEPARTMENT --> (vastavalt taseme numbrile) , mis oleks muidu sama struktuuriga nagu DEPARTMENT			muutujad mida saab kasutada:			DEPARTMENT sub'is: department_name, address , phone , fax , email , next_level_link (link n&auml;gemas antud osakonda uues vaates).			sub'is worker :			name , name_with_email , email , emails, photo, contact,			profession , profession_with_directive , professions , directive (ametijuhend), wage_doc , wage_doc_exist (palgaandmete dokument, kui on olemas),			education (haridustase) , school , subject_field(valdkond) , speciality ,			phone, phones , home_phone, home_phones, mobile_phone, mobile_phones, skype_phone, skype_phones, short_phone, short_phones, work_phone, work_phones, extension_phone, extension_phones,			next_level_link (link j'gmise taseme vaatesse... kui tegu siis antud inimesega),			company, section,			url, urls,			ta1 - ta5 (kasutajadefineeritud muutujad).			Kui lisada objekt men&uuml;&uuml;sse, siis esimeseks vaate infoks tuleb men&uuml;&uuml;s olev.			Template'ide t&otilde;lkimiseks kasutada faili persons_web_view.aw."
+msgstr ""
+
+#: classes/crm/persons_webview.aw:130
+msgid "ainult osakonnad"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:131
+msgid "koos isikutega"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:184
+msgid "Isikute j&auml;rjestamisprintsiip"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:217
+msgid "Osakondade j&auml;rjestamisprintsiip"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:249
+msgid "Vaade"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:253
+msgid "Templeit"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:257
+msgid "Osakondade tasemeid"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:261
+msgid "Koos inimkoosseisuga"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:265
+msgid "Tulpade arv"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:269
+msgid "Read ametinimetuste alusel"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:273
+msgid "Minimaalne tulpade arv"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:669
+msgid "pole asutust valitud"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:1193
+msgid "Palk"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:1226
+msgid "P&otilde;hiharidus"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:1227
+msgid "Keskharidus"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:1228
+msgid "Kesk-eriharidus"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:1229
+msgid "Diplom"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:1230
+msgid "Bakalaureus"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:1231
+msgid "Magister"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:1232
+msgid "Doktor"
+msgstr ""
+
+#: classes/crm/persons_webview.aw:1233
+msgid "Teaduste kandidaat"
+msgstr ""
+

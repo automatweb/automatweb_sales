@@ -1,0 +1,316 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:class_1421_help
+msgid "Klassi T&ouml;&ouml;pakkumised veebis help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_org
+msgid "Omaduse Ettev&otilde;te (org) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_org_comment
+msgid "Omaduse Ettev&otilde;te (org) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_org_help
+msgid "Omaduse Ettev&otilde;te (org) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_secs
+msgid "Omaduse Osakonnad (secs) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_secs_comment
+msgid "Omaduse Osakonnad (secs) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_secs_help
+msgid "Omaduse Osakonnad (secs) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_areas
+msgid "Omaduse Piirkonnad (areas) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_areas_comment
+msgid "Omaduse Piirkonnad (areas) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_areas_help
+msgid "Omaduse Piirkonnad (areas) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_counties
+msgid "Omaduse Maakonnad (counties) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_counties_comment
+msgid "Omaduse Maakonnad (counties) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_counties_help
+msgid "Omaduse Maakonnad (counties) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_cities
+msgid "Omaduse Linnad (cities) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_cities_comment
+msgid "Omaduse Linnad (cities) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_cities_help
+msgid "Omaduse Linnad (cities) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_jo2link
+msgid "Omaduse T&ouml;&ouml;pakkumisel klikkides p&auml;&auml;seb selle detailvaatesse (jo2link) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_jo2link_comment
+msgid "Omaduse T&ouml;&ouml;pakkumisel klikkides p&auml;&auml;seb selle detailvaatesse (jo2link) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_jo2link_help
+msgid "Omaduse T&ouml;&ouml;pakkumisel klikkides p&auml;&auml;seb selle detailvaatesse (jo2link) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_only_translated_jos
+msgid "Omaduse Kuva ainult aktiivse t&otilde;lkega t&ouml;&ouml;pakkumisi (only_translated_jos) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_only_translated_jos_comment
+msgid "Omaduse Kuva ainult aktiivse t&otilde;lkega t&ouml;&ouml;pakkumisi (only_translated_jos) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_only_translated_jos_help
+msgid "Omaduse Kuva ainult aktiivse t&otilde;lkega t&ouml;&ouml;pakkumisi (only_translated_jos) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_ord_tbl
+msgid "Omaduse J&auml;rjestamisprintsiibid (ord_tbl) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_ord_tbl_comment
+msgid "Omaduse J&auml;rjestamisprintsiibid (ord_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_ord_tbl_help
+msgid "Omaduse J&auml;rjestamisprintsiibid (ord_tbl) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule
+msgid "Omaduse Grupeerimine (grp_rule) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_comment
+msgid "Omaduse Grupeerimine (grp_rule) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_help
+msgid "Omaduse Grupeerimine (grp_rule) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_ord_tbl
+msgid "Omaduse Gruppide j&auml;rjestamisprintsiibid (grp_ord_tbl) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_ord_tbl_comment
+msgid "Omaduse Gruppide j&auml;rjestamisprintsiibid (grp_ord_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_ord_tbl_help
+msgid "Omaduse Gruppide j&auml;rjestamisprintsiibid (grp_ord_tbl) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_area
+msgid "Omaduse Grupeeri piirkonna j&auml;rgi (grp_rule_loc_area) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_area_comment
+msgid "Omaduse Grupeeri piirkonna j&auml;rgi (grp_rule_loc_area) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_area_help
+msgid "Omaduse Grupeeri piirkonna j&auml;rgi (grp_rule_loc_area) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_county
+msgid "Omaduse Grupeeri maakonna j&auml;rgi (grp_rule_loc_county) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_county_comment
+msgid "Omaduse Grupeeri maakonna j&auml;rgi (grp_rule_loc_county) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_county_help
+msgid "Omaduse Grupeeri maakonna j&auml;rgi (grp_rule_loc_county) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_city
+msgid "Omaduse Grupeeri linna j&auml;rgi (grp_rule_loc_city) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_city_comment
+msgid "Omaduse Grupeeri linna j&auml;rgi (grp_rule_loc_city) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_city_help
+msgid "Omaduse Grupeeri linna j&auml;rgi (grp_rule_loc_city) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_lvls
+msgid "Omaduse Alumisel tasemel kuvatavat t&ouml;&ouml;pakkumist kuvatakse ka &uuml;lemise taseme grupis (grp_rule_loc_lvls) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_lvls_comment
+msgid "Omaduse Alumisel tasemel kuvatavat t&ouml;&ouml;pakkumist kuvatakse ka &uuml;lemise taseme grupis (grp_rule_loc_lvls) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_grp_rule_loc_lvls_help
+msgid "Omaduse Alumisel tasemel kuvatavat t&ouml;&ouml;pakkumist kuvatakse ka &uuml;lemise taseme grupis (grp_rule_loc_lvls) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_tutorial
+msgid "Omaduse Tutorial (tutorial) caption"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_tutorial_comment
+msgid "Omaduse Tutorial (tutorial) kommentaar"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:prop_tutorial_help
+msgid "Omaduse Tutorial (tutorial) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:group_display
+msgid "Grupi N&auml;itamine (display) pealkiri"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:group_display_help
+msgid "Grupi N&auml;itamine (display) help"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:rel_RELTYPE_ORG
+msgid "Seose Ettev&otilde;te (RELTYPE_ORG) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:rel_RELTYPE_SECTION
+msgid "Seose Osakond (RELTYPE_SECTION) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:rel_RELTYPE_COUNTY
+msgid "Seose Maakond (RELTYPE_COUNTY) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:rel_RELTYPE_CITY
+msgid "Seose Linn (RELTYPE_CITY) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:rel_RELTYPE_AREA
+msgid "Seose Piirkond (RELTYPE_AREA) tekst"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:97
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:143
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:174
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:200
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:233
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:98
+msgid "Asukoha j&auml;rgi"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:99
+msgid "Organisatsiooni j&auml;rgi"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:100
+msgid "&Uuml;ksuse j&auml;rgi"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:101
+msgid "Organisatsiooni ja &uuml;ksuste j&auml;rgi"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:129
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:186
+msgid "Prioriteet"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:134
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:191
+msgid "Omadus"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:139
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:196
+msgid "J&auml;rjestus"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:144
+msgid "Grupi nimi"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:145
+msgid "Grupi jrk"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:159
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:174
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:218
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:233
+msgid "Kasvav"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:159
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:174
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:218
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:233
+msgid "Kahanev"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:201
+msgid "T&ouml;&ouml;pakkumise nimi"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:202
+msgid "Ameti jrk"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:203
+msgid "Ameti nimi"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:204
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:314
+msgid "T&auml;htaeg"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:313
+msgid "T&ouml;&ouml;pakkumine"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:372
+msgid "Piirkonnad"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:373
+msgid "Maakonnad"
+msgstr ""
+
+#: classes/applications/personnel_management/personnel_management_job_offer_webview.aw:374
+msgid "Linnad"
+msgstr ""

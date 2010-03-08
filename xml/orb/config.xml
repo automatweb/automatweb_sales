@@ -1,0 +1,54 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="config" folder="www/dev/terryf/automatweb_dev/classes" extends="aw_template">
+		<action name="grp_redirect">
+			<function name="grp_redirect">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_grp_redirect">
+			<function name="submit_grp_redirect">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="favicon" nologin="1">
+			<function name="show_favicon">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="config">
+			<function name="gen_config">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_loginaddr">
+			<function name="submit_loaginaddr">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="join_mail">
+			<function name="join_mail">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_join_mail">
+			<function name="submit_join_mail">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

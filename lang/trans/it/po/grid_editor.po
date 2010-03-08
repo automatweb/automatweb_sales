@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/vcl/grid_editor.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:31 classes/vcl/grid_editor.aw:1361 classes/vcl/grid_editor.aw:1487 classes/vcl/grid_editor.aw:1565 classes/vcl/grid_editor.aw:1595 classes/vcl/grid_editor.aw:1625 classes/vcl/grid_editor.aw:1781 classes/vcl/grid_editor.aw:1820
+msgid "allah"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:223 classes/vcl/grid_editor.aw:234
+msgid "Lisa tulp"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:232
+msgid "Oled kindel et tahad tulpa kustutada?"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:233
+msgid "Kustuta tulp"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:257 classes/vcl/grid_editor.aw:257
+msgid "Jaga pooleks horisontaalselt"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:258 classes/vcl/grid_editor.aw:258
+msgid "Jaga pooleks vertikaalselt"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:262 classes/vcl/grid_editor.aw:262
+msgid "Kustuta &uuml;lemine cell"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:266 classes/vcl/grid_editor.aw:266
+msgid "Kustuta vasak cell"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:270 classes/vcl/grid_editor.aw:270
+msgid "Kustuta parem cell"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:274 classes/vcl/grid_editor.aw:274
+msgid "Kustuta alumine cell"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:312
+msgid "Lisa rida"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:313
+msgid "Kustuta rida"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:314
+msgid "Oled kindel et soovid rida kustutada?"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:330
+msgid "Mitu lahtrit kustutada"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:1782 classes/vcl/grid_editor.aw:1821
+msgid "allah2"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:1960
+msgid "Merge alla"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:1966
+msgid "Merge &uuml;les"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:1972
+msgid "Merge vasakule"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:1978
+msgid "Merge paremale"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:1985
+msgid "Split alla"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:1991
+msgid "Split &uuml;les"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:1997
+msgid "Split vasakule"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:2003
+msgid "Split paremale"
+msgstr ""
+
+#: classes/vcl/grid_editor.aw:2009
+msgid "Kustuta read/tulbad"
+msgstr ""
+

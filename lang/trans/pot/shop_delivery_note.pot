@@ -1,0 +1,396 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_delivery_note.aw:class_1459_help
+msgid "Klassi Saateleht help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_number
+msgid "Omaduse Number (number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_number_comment
+msgid "Omaduse Number (number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_number_help
+msgid "Omaduse Number (number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_enter_date
+msgid "Omaduse Sisestamise kuup&auml;ev (enter_date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_enter_date_comment
+msgid "Omaduse Sisestamise kuup&auml;ev (enter_date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_enter_date_help
+msgid "Omaduse Sisestamise kuup&auml;ev (enter_date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_delivery_date
+msgid "Omaduse Kohaletoimetamise kuup&auml;ev (delivery_date) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_delivery_date_comment
+msgid "Omaduse Kohaletoimetamise kuup&auml;ev (delivery_date) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_delivery_date_help
+msgid "Omaduse Kohaletoimetamise kuup&auml;ev (delivery_date) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_from_warehouse
+msgid "Omaduse Laost (from_warehouse) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_from_warehouse_comment
+msgid "Omaduse Laost (from_warehouse) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_from_warehouse_help
+msgid "Omaduse Laost (from_warehouse) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_to_warehouse
+msgid "Omaduse Lattu (to_warehouse) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_to_warehouse_comment
+msgid "Omaduse Lattu (to_warehouse) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_to_warehouse_help
+msgid "Omaduse Lattu (to_warehouse) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_impl
+msgid "Omaduse Tarnija (impl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_impl_comment
+msgid "Omaduse Tarnija (impl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_impl_help
+msgid "Omaduse Tarnija (impl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_transport
+msgid "Omaduse Transpordikulu (transport) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_transport_comment
+msgid "Omaduse Transpordikulu (transport) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_transport_help
+msgid "Omaduse Transpordikulu (transport) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_customs
+msgid "Omaduse Tollikulu (customs) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_customs_comment
+msgid "Omaduse Tollikulu (customs) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_customs_help
+msgid "Omaduse Tollikulu (customs) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_currency
+msgid "Omaduse Valuuta (currency) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_currency_comment
+msgid "Omaduse Valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_currency_help
+msgid "Omaduse Valuuta (currency) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_writeoff
+msgid "Omaduse Mahakandmine (writeoff) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_writeoff_comment
+msgid "Omaduse Mahakandmine (writeoff) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_writeoff_help
+msgid "Omaduse Mahakandmine (writeoff) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_state
+msgid "Omaduse Staatus (state) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_state_comment
+msgid "Omaduse Staatus (state) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_state_help
+msgid "Omaduse Staatus (state) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_approved
+msgid "Omaduse Kinnitatud (approved) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_approved_comment
+msgid "Omaduse Kinnitatud (approved) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_approved_help
+msgid "Omaduse Kinnitatud (approved) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_articles_tb
+msgid "Omaduse  (articles_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_articles_tb_comment
+msgid "Omaduse  (articles_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_articles_tb_help
+msgid "Omaduse  (articles_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_articles_tbl
+msgid "Omaduse  (articles_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_articles_tbl_comment
+msgid "Omaduse  (articles_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_articles_tbl_help
+msgid "Omaduse  (articles_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_bills_tb
+msgid "Omaduse  (bills_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_bills_tb_comment
+msgid "Omaduse  (bills_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_bills_tb_help
+msgid "Omaduse  (bills_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_bills_tbl
+msgid "Omaduse  (bills_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_bills_tbl_comment
+msgid "Omaduse  (bills_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:prop_bills_tbl_help
+msgid "Omaduse  (bills_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:group_bills
+msgid "Grupi Arved (bills) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:group_bills_help
+msgid "Grupi Arved (bills) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:group_articles
+msgid "Grupi Artiklid (articles) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:group_articles_help
+msgid "Grupi Artiklid (articles) help"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:rel_RELTYPE_FROM_WAREHOUSE
+msgid "Seose Algladu (RELTYPE_FROM_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:rel_RELTYPE_TO_WAREHOUSE
+msgid "Seose Sihtladu (RELTYPE_TO_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:rel_RELTYPE_CURRENCY
+msgid "Seose Valuuta (RELTYPE_CURRENCY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:rel_RELTYPE_BILL
+msgid "Seose Arve (RELTYPE_BILL) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:rel_RELTYPE_ROW
+msgid "Seose Rida (RELTYPE_ROW) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:rel_RELTYPE_CUST
+msgid "Seose Klient (RELTYPE_CUST) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:rel_RELTYPE_IMPL
+msgid "Seose Teostaja (RELTYPE_IMPL) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:rel_RELTYPE_PRODUCT
+msgid "Seose Artikkel (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:203
+msgid "%s rida"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:217
+msgid "Toote %s &uuml;hikuks ei saa m&auml;&auml;rata %s"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:264
+msgid "Eemalda valitud artiklid"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:271
+msgid "Arve"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:272
+msgid "Kanna valitud read arvele"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:276
+msgid "Uus arve"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:289
+msgid "Nimetus"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:294
+msgid "Artiklikood"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:299
+msgid "Seerianumber"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:304
+msgid "Partiinumber"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:309
+msgid "Ladu"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:314
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:319
+msgid "Kogus"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:324
+msgid "&Uuml;hik"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:329
+msgid "Summa"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:334
+msgid "Omahinna summa"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:339
+msgid "Ostuhind"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:344
+msgid "P&otilde;hihind"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:349
+msgid "P&otilde;hihind KM-ga"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:354
+msgid "KM kood"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:359
+msgid "Ribakood"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:364
+msgid "Kirjeldus"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:520
+msgid "<strong>Saatelehe read</strong>"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:593
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:606
+msgid "<strong>Lisa uus</strong>"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:664
+msgid "Number"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:669
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:679
+msgid "(Puudub)"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:900
+msgid "Koostamisel"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:901
+msgid "L&otilde;petatud"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:902
+msgid "Koostatud"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note.aw:903
+msgid "Katkestatud"
+msgstr ""
+

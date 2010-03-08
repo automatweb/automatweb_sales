@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<definitions>
+<header_normal   value="aste05"/>
+<header_sortable value="aste05"/>
+<header_sorted   value="aste04"/>
+
+<content_style1  value="aste07"/>
+<content_style2  value="aste07"/>
+<content_style1_selected value="aste05"/>
+<content_style2_selected value="aste05"/>
+<tableattribs border="0" width="100%" cellspacing="1" cellpadding="1" bgcolor="#FFFFFF"/>
+</definitions>
+
+<actions>
+</actions>
+
+<data>
+<field name="time" caption="Aeg" align="left" talign="center" numeric="1" sortable="1" type="time" format="d-M-y / H:i"/>
+<field name="event" caption="Event" talign="center" sortable="1"/>
+</data>
+
+</tabledef>

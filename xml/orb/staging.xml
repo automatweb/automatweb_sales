@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="staging" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="fixxer" all_args="1">
+			<function name="fixxer">
+				<arguments>
+					<optional name="group" acl="edit,view" />
+					<required name="group2" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fixxer2">
+			<function name="fixer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

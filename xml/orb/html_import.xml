@@ -1,0 +1,51 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="html_import" folder="applications/html_import" extends="class_base">
+		<action name="create_table">
+			<function name="create_table">
+				<arguments>
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="empty_table">
+			<function name="empty_table">
+				<arguments>
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="drop_table">
+			<function name="drop_table">
+				<arguments>
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="import">
+			<function name="tiri">
+				<arguments>
+					<required name="id" />
+					<optional name="samm" />
+					<optional name="next" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ruul_test">
+			<function name="ruul_test">
+				<arguments>
+					<required name="f" />
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

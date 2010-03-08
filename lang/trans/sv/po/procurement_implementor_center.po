@@ -1,0 +1,184 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:class_1068_help
+msgid "Klassi Hanngete keskkond pakkujale help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_owner
+msgid "Omaduse Omanik (owner) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_owner_comment
+msgid "Omaduse Omanik (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_owner_help
+msgid "Omaduse Omanik (owner) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_p_tb
+msgid "Omaduse  (p_tb) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_p_tb_comment
+msgid "Omaduse  (p_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_p_tb_help
+msgid "Omaduse  (p_tb) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_p_tr
+msgid "Omaduse  (p_tr) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_p_tr_comment
+msgid "Omaduse  (p_tr) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_p_tr_help
+msgid "Omaduse  (p_tr) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_p_tbl
+msgid "Omaduse  (p_tbl) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_p_tbl_comment
+msgid "Omaduse  (p_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_p_tbl_help
+msgid "Omaduse  (p_tbl) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_team_tb
+msgid "Omaduse  (team_tb) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_team_tb_comment
+msgid "Omaduse  (team_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_team_tb_help
+msgid "Omaduse  (team_tb) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_team_table
+msgid "Omaduse  (team_table) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_team_table_comment
+msgid "Omaduse  (team_table) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:prop_team_table_help
+msgid "Omaduse  (team_table) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:group_p
+msgid "Grupi Hanked (p) pealkiri"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:group_p_help
+msgid "Grupi Hanked (p) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:group_team
+msgid "Grupi Meeskond (team) pealkiri"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:group_team_help
+msgid "Grupi Meeskond (team) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:rel_RELTYPE_MANAGER_CO
+msgid "Seose Haldaja firma (RELTYPE_MANAGER_CO) tekst"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:rel_RELTYPE_TEAM_MEMBER
+msgid "Seose Meeskonna liige (RELTYPE_TEAM_MEMBER) tekst"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:125
+msgid "Uus"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:130
+msgid "Pakkumine"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:138
+msgid "Kustuta valitud pakkumised"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:140
+msgid "Kas oled kindel et soovid valitud pakkumised kustudada?"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:163 classes/applications/procurement_center/procurement_implementor_center.aw:326
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:169
+msgid "Looja"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:175
+msgid "Loodud"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:184
+msgid "Muutja"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:190
+msgid "Muudetud"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:230
+msgid "Lisa isik"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:246
+msgid "Otsi isikuid isikud meeskonnast"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:257
+msgid "Kustuta isikud meeskonnast"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:259
+msgid "Kas oled kindel et soovid isikud meeskonnast eemaldada?"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:331
+msgid "Telefon"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:336
+msgid "E-post"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:341
+msgid "&Uuml;ksus"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:346
+msgid "Ametinimetus"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_implementor_center.aw:351
+msgid "Tunnihind"
+msgstr ""
+

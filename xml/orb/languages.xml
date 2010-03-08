@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="languages" folder="www/dev/terryf/automatweb_dev/classes/core" extends="aw_template">
+		<action name="get_trans_lc">
+			<function name="get_trans_lc">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

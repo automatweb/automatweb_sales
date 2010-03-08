@@ -1,0 +1,88 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/questionary/questionnaire_answerer.aw:class_1396_help
+msgid "Klassi D&uuml;naamilise k&uuml;simustiku vastaja help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_person
+msgid "Omaduse Vastaja isik (person) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_person_comment
+msgid "Omaduse Vastaja isik (person) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_person_help
+msgid "Omaduse Vastaja isik (person) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_questionnaire
+msgid "Omaduse Vastatud k&uuml;simustik (questionnaire) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_questionnaire_comment
+msgid "Omaduse Vastatud k&uuml;simustik (questionnaire) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_questionnaire_help
+msgid "Omaduse Vastatud k&uuml;simustik (questionnaire) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_answers
+msgid "Omaduse Vastused (answers) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_answers_comment
+msgid "Omaduse Vastused (answers) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_answers_help
+msgid "Omaduse Vastused (answers) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_txtanswers
+msgid "Omaduse Tekstivastused (txtanswers) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_txtanswers_comment
+msgid "Omaduse Tekstivastused (txtanswers) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:prop_txtanswers_help
+msgid "Omaduse Tekstivastused (txtanswers) help"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:rel_RELTYPE_CORRECT
+msgid "Seose &Otilde;igesti vastatud k&uuml;simus (RELTYPE_CORRECT) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:rel_RELTYPE_WRONG
+msgid "Seose Valesti vastatud k&uuml;simused (RELTYPE_WRONG) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:rel_RELTYPE_PERSON
+msgid "Seose Vastaja isik (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:rel_RELTYPE_QUESTIONNAIRE
+msgid "Seose Vastatud d&uuml;naamiline k&uuml;simustik (RELTYPE_QUESTIONNAIRE) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:rel_RELTYPE_ANSWER
+msgid "Seose Vastus (RELTYPE_ANSWER) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionnaire_answerer.aw:rel_RELTYPE_TXTANSWER
+msgid "Seose Tekstivastus (RELTYPE_TXTANSWER) tekst"
+msgstr ""
+

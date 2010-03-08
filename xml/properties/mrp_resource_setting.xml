@@ -1,0 +1,56 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>applies_resources_tb</name>
+            <table>aw_mrp_resource_setting</table>
+            <group>general</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>applies_resources_lay</parent>
+            <field>applies_resources_tb</field>
+            <caption>Kehtib resurssidele toolbar</caption>
+      </property>
+      <property>
+            <name>applies_resources</name>
+            <table>aw_mrp_resource_setting</table>
+            <group>general</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>applies_resources_lay</parent>
+            <field>applies_resources</field>
+            <caption>Kehtib resurssidele</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_MRP_RESOURCE_SETTING</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_mrp_resource_setting>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_mrp_resource_setting>
+      </tableinfo>
+      <reltypes>
+            <APPLIES_RESOURCE>
+                  <value>1</value>
+                  <clid>CL_MRP_RESOURCE</clid>
+                  <caption>Kehtib ressursile</caption>
+            </APPLIES_RESOURCE>
+      </reltypes>
+      <layout>
+            <applies_resources_lay>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kehtib&amp;amp;nbsp;ressurssidele</area_caption>
+                  <group>general</group>
+            </applies_resources_lay>
+      </layout>
+</properties>
+

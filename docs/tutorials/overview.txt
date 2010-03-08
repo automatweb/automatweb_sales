@@ -1,0 +1,269 @@
+* class_base:
+
+the base class for all classes that are objects and perhaps some others. draws admin interface and calls methods from your class so that you can override parts of the system. 
+
+* file:
+
+handles file uploads, provides an interface to manage files uploaded by users and use file objects
+
+* core/date/date_calc:
+
+contains utility functions to do calculations with dates - get date ranges, check for overlap, subtract dates and others
+
+
+* cfg/cfgform:
+
+contains the class that is responsible for manipulating configuration forms - changing the appearance of classes in the admin interface. contains api functions to create,  edit and read config forms via code
+
+
+* cfg/cfgutils:
+
+contains methods for reading configuration forms, checking if a class has any properties and finding all classes with properties
+
+
+* cfg/classificator:
+
+can be used as a classbase property that presents a listbox with values that can be defined by the user for each class. contains methods to get the list of options from code.
+
+
+* cfg/cfgcontroller:
+
+class for letting the user enter php code that gets run when classbase forms are submitted. contains api method that can be used to run the controller
+
+
+* cfg/cfg_view_controller:
+
+class for letting the user enter php code that gets run when classbase forms are viewed. contains api method that can be used to run the controller
+
+
+* admin/foreach_site:
+
+a class that can be used to call an orb method for all websites that run AW. uses the site list register to get the list of sites and sends a http request with the given orb method to all of them.
+
+
+* install/site_list:
+
+a class for managing the list of websites that run AW. the list is kept in the site register.automatweb.com and cached locally in all sites. the list is automatically updated when new sites are created. has methods to fetch the list of sites and modify it. 
+
+
+* install/su_exec:
+
+can be used to execute shell commands as the superuser on the server. limits the list of commands and might not always be available
+
+
+* install/object_script_interpreter:
+
+interpreter for object scripts (OS). OS are simple text files that contain commands to create new objects in a very compact form and are useful when you need to create a large amount of objects from code.  
+
+
+
+
+* alias_parser:
+To parse and get aliases for an object.
+
+* core:
+Includes different kind of core functions for error rising, logging, obj 
+cache managment, orb url generation, file manipulation, (un)serializing, 
+alias parsing and parser registering, number system conversion etc.
+
+* defs:
+Has so called common functions which cover message delivery managment, 
+mail managment, messing with e-mail addresses and url's, session 
+variable handling, serializing, network specific functions, debugging etc.
+
+* vcl/tabpanel:
+A class to create and show tab-bar for tabbed and subtabbed pages.
+
+* vcl/calendar:
+A class to create and modify calendars with different views for 
+displaying different time-intervals and event lists.
+
+* vcl/comments:
+Property type to display and add comments.
+
+* vcl/relpicker:
+Property type that allows to pick one or more connections.
+
+* vcl/toolbar:
+Property type to create and show toolbars with menu items and dropdown 
+submenus.
+
+* vcl/releditor:
+Type of property with what you can edit a single selected connection.
+
+* vcl/date_edit:
+Class that can shows simple date/time selection form.
+
+* vcl/server_folder_selector:
+Class for browsing directories. Shows dirlist in a table with modifier 
+and modified time.
+
+* core/users/user:
+Class with what you can create, show, edit, delete and query for group, 
+company and persons relations for user.
+
+* core/users/group:
+For managing user groups and inserting/removing users from groups
+
+* core/obj/connection:
+A class with what you can create an empty connection and find useful 
+connections using filtering.
+
+* core/obj/obj_predicate_compare:
+Basically a comparison filter for object_list and object_tree. Can use 
+is less, greater, less or equal, greater or equal, between, equal, 
+between with equal
+
+* core/obj/obj_predicate_not:
+Exluding filter for object_list and object_tree. Excludes given value.
+
+* core/obj/object:
+Class to load/save objects and edit their properties
+
+* core/obj/obj_predicate_prop: 
+Two properties comparison filter for object_list and object_tree.
+
+* core/icons:
+A class for getting icon file url's for objects.
+
+
+
+
+* aw_template:
+This class reads templates and parses data, checks if needed var or sub is in template.
+
+* db:
+Connects to databases, makes queries and processes results.
+
+* html:
+This class can be used to draw all kind of useful html components:
+textbox, textarea, different buttons, selection, fieldset, iframe, password, text, fileupload, checkbox etc.
+
+* protocols/file/ftp:
+Opens and closes ftp connections, copies and deletes files.
+
+* protocols/file/http:
+Makes http requests, gets file info, handles logging and sets cookies.
+
+* protocols/mail/pop3:
+Connects and gets messages using pop3 protocol.
+
+* protocols/mail/imap:
+Manages e-mail messages using imap protocol.
+
+* protocols/mail/aw_mail:
+Generates e-mail messages, can handle MIME messages and attachments.
+
+* protocols/protocol_finder:
+Returns http or ftp instance.
+
+* protocols/spell/pspell:
+Checks if spelling is correct.
+
+* protocols/crypt/xtea:
+Encrypts and decrypts data usinx the XTEA algorithm, implementes entirely in PHP.
+
+* protocols/xmlrpc/xmlrpc_lib:
+XML-RPC Library - XML-RPC client access.
+XML-RPC is a Remote Procedure Call method that uses XML passed via HTTP as a transport. Using it client can call methods with parameters on a remote server and get back structured data.
+
+* vcl/treeview:
+This displays a hierarchical tree, with expandable/collapsibe nodes.
+
+* vcl/table:
+classbase property type can be used to draw html tables that can be automatically sorted and paginated.
+
+* vcl/popup_menu:
+Draws a popup menu.
+
+* core/msg/msg_dispatch:
+Aw message dispatcher class. Accepts messages and delivers them to all listeners.
+
+* core/msg/msg_scanner:
+Generates list of all class files in aw. Scans them for all dispatched / received messages. Checks the maps for validity and generates one xml file for each message that lists the receivers of that message.
+
+* core/obj/object_list:
+Object list is a data structure class that can store and manage objects and find them by property or relations.
+
+* core/obj/object_list_filter:
+This class is for inserting sub-expressions with different logic (OR vs AND) into object_list filters. 
+
+* core/obj/object_tree:
+The object tree is hierarchical data structure that can add or remove objects or subtrees.
+
+
+
+* cache:
+
+Class for caching objects. Cache is stored in filesystem. Folder, where it is stored is specified in ini setting cache.page_cache. The activity of cache can be controlled via cache.use_page_cache ini setting (0 - disabled, 1 - enabled), by default it is enabled. Objects are cached only for not logged-in users.
+
+* image:
+
+Methods to add images to aw (upload images, save images) and to get them (image html tags, url-s by image object id). Is also able to show image (big and small versions of it).
+
+* languages:
+
+Provaids methods to get languages data (charset, language ids, list of available languages), set active language, find best language etc. Also has functionality to cache languages data.
+
+* scheduler:
+
+It is used to schedule several tasks to run in the background and provides methods to manipulate with those tasks (add, delete etc)
+
+* socket:
+
+Provides methods that can be used by other classes to connect to hosts and read/write information to/from those hosts. Uses PHP-s fsockopen function, so for further information, refer to PHP manual.
+
+* vcl/rte:
+
+Rich text editor class. As far as i know, not been developed anymore. FCK editor seems to be the future.
+
+* vcl/relmanager:
+
+A mode of releditor. Displays a table of relations and adds one line with edit fields to allow adding of new objects. It can be launched via mode=manager parameter in releditor property definition.
+
+* vcl/popup_search:
+
+Allows to search for objects to create relations with current object in popup window.
+
+* vcl/reminder:
+
+Adds fields for setting a reminder via e-mail for object. Right now it seems to be used only in task.aw (Toimetus class), but might be working everywhere else too. (needs to be tested).
+
+* vcl/grid_editor:
+
+Via this class you can add the possibility to edit grids/layouts in your class. For example, you can add that kind of table into your class as it is seen in Table class under the Table tab.
+
+* vcl/gantt_chart:
+
+Provides methods to display gantt_chart.
+
+* vcl/fck_editor:
+
+Rich text editor which should replace rte.aw class. Right now I'm not really sure is it fully working or not.
+
+* core/converters/html2pdf:
+
+Provides methods to convert html documents to pdf.
+
+* core/converters/image_convert:
+
+Classes to provide image manipulation functionality via image_magic extension and gd library.
+
+* core/error:
+
+Simple error class to replace core::raise_error. Because this will have a static method that can throw errors, so you can throw errors from objects that do not derive from core
+
+* core/aw_mime_types:
+
+Methods to get mime type for files and file extensions. For files, mime type is tracked by file extension, which is get via pathinfo() PHP function. It is also possible to get extension according to mime type.
+
+* core/util/dns:
+
+Uses whois and nslookup to get the dns info. Checks if domain is registered or not and also can print out the dns records content. Has a method to get the domainname from url.
+
+* core/queue:
+
+Class which implements queue data structure and provides methods to work with it.
+
+
+

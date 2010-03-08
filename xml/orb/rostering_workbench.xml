@@ -1,0 +1,64 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="rostering_workbench" folder="www/dev/terryf/automatweb_dev/classes/applications/rostering" extends="class_base">
+		<action name="submit_delete_relations">
+			<function name="submit_delete_relations">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_ppl">
+			<function name="submit_delete_ppl">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_p">
+			<function name="cut_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_p">
+			<function name="copy_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_p">
+			<function name="paste_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="mark_p_as_important">
+			<function name="mark_p_as_important">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_cycles">
+			<function name="delete_cycles">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_we_from_graph">
+			<function name="create_we_from_graph">
+				<arguments>
+					<required name="wb" />
+					<required name="gr" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

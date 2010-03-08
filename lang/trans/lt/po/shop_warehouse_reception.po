@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_warehouse_reception.aw:class_298_help
+msgid "Klassi Lao sissetulek help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:prop_confirm
+msgid "Omaduse Kinnita (confirm) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:prop_confirm_comment
+msgid "Omaduse Kinnita (confirm) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:prop_confirm_help
+msgid "Omaduse Kinnita (confirm) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:prop_income_tb
+msgid "Omaduse  (income_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:prop_income_tb_comment
+msgid "Omaduse  (income_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:prop_income_tb_help
+msgid "Omaduse  (income_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:prop_income
+msgid "Omaduse  (income) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:prop_income_comment
+msgid "Omaduse  (income) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:prop_income_help
+msgid "Omaduse  (income) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:group_income
+msgid "Grupi Sissetuleku sisu (income) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:group_income_help
+msgid "Grupi Sissetuleku sisu (income) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:rel_RELTYPE_PRODUCT
+msgid "Seose sissetulnud toode (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:97
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_reception.aw:102
+msgid "Mitu tuli"
+msgstr ""
+

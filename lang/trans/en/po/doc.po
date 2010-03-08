@@ -1,0 +1,1410 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2005-12-06 12:52+0200\n"
+"Last-Translator: Erki <erki@struktuur.ee>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/doc.aw:class__help
+#: classes/doc.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/doc.aw:prop_needs_translation
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_needs_translation_comment
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_needs_translation_help
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) help"
+msgstr ""
+
+# classes/doc.aw:prop_navtoolbar
+#: classes/doc.aw:prop_navtoolbar
+msgid "Omaduse Toolbar (navtoolbar) caption"
+msgstr "Toolbar"
+
+# classes/doc.aw:prop_navtoolbar_comment
+#: classes/doc.aw:prop_navtoolbar_comment
+msgid "Omaduse Toolbar (navtoolbar) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_navtoolbar_help
+#: classes/doc.aw:prop_navtoolbar_help
+msgid "Omaduse Toolbar (navtoolbar) help"
+msgstr ""
+
+# classes/doc.aw:prop_plugins
+#: classes/doc.aw:prop_plugins
+msgid "Omaduse Pluginad (plugins) caption"
+msgstr "Plugins"
+
+# classes/doc.aw:prop_plugins_comment
+#: classes/doc.aw:prop_plugins_comment
+msgid "Omaduse Pluginad (plugins) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_plugins_help
+#: classes/doc.aw:prop_plugins_help
+msgid "Omaduse Pluginad (plugins) help"
+msgstr ""
+
+# classes/doc.aw:prop_title
+#: classes/doc.aw:prop_title
+msgid "Omaduse Pealkiri (title) caption"
+msgstr "Title"
+
+# classes/doc.aw:prop_title_comment
+#: classes/doc.aw:prop_title_comment
+msgid "Omaduse Pealkiri (title) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_title_help
+#: classes/doc.aw:prop_title_help
+msgid "Omaduse Pealkiri (title) help"
+msgstr "the document´s heading (works as a object name in the system). The heading is displayed in bigger format than usual text on web."
+
+# classes/doc.aw:prop_subtitle
+#: classes/doc.aw:prop_subtitle
+msgid "Omaduse Alapealkiri (subtitle) caption"
+msgstr "Sub-title"
+
+# classes/doc.aw:prop_subtitle_comment
+#: classes/doc.aw:prop_subtitle_comment
+msgid "Omaduse Alapealkiri (subtitle) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_subtitle_help
+#: classes/doc.aw:prop_subtitle_help
+msgid "Omaduse Alapealkiri (subtitle) help"
+msgstr ""
+
+# classes/doc.aw:prop_alias
+#: classes/doc.aw:prop_alias
+msgid "Omaduse Alias (alias) caption"
+msgstr "Alias"
+
+# classes/doc.aw:prop_alias_comment
+#: classes/doc.aw:prop_alias_comment
+msgid "Omaduse Alias (alias) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_alias_help
+#: classes/doc.aw:prop_alias_help
+msgid "Omaduse Alias (alias) help"
+msgstr "option for giving the document´s web address a user friendly form. That means replacing the document´s ID with a word or phrase that could be seen and entered also from web. The spaces and letters with diaeresis can not be used."
+
+# classes/doc.aw:prop_author
+#: classes/doc.aw:prop_author
+msgid "Omaduse Autor (author) caption"
+msgstr "Author"
+
+# classes/doc.aw:prop_author_comment
+#: classes/doc.aw:prop_author_comment
+msgid "Omaduse Autor (author) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_author_help
+#: classes/doc.aw:prop_author_help
+msgid "Omaduse Autor (author) help"
+msgstr "option for writing the author´s name under the document."
+
+# classes/doc.aw:prop_photos
+#: classes/doc.aw:prop_photos
+msgid "Omaduse Fotode autor (photos) caption"
+msgstr "Photo author"
+
+# classes/doc.aw:prop_photos_comment
+#: classes/doc.aw:prop_photos_comment
+msgid "Omaduse Fotode autor (photos) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_photos_help
+#: classes/doc.aw:prop_photos_help
+msgid "Omaduse Fotode autor (photos) help"
+msgstr ""
+
+# classes/doc.aw:prop_keywords
+#: classes/doc.aw:prop_keywords
+msgid "Omaduse V&otilde;tmes&otilde;nad (keywords) caption"
+msgstr "Keywords"
+
+#: classes/doc.aw:prop_keywords_comment
+msgid "Omaduse V&otilde;tmes&otilde;nad (keywords) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_keywords_help
+msgid "Omaduse V&otilde;tmes&otilde;nad (keywords) help"
+msgstr ""
+
+# classes/doc.aw:prop_names
+#: classes/doc.aw:prop_names
+msgid "Omaduse Nimed (names) caption"
+msgstr "Names"
+
+# classes/doc.aw:prop_names_comment
+#: classes/doc.aw:prop_names_comment
+msgid "Omaduse Nimed (names) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_names_help
+#: classes/doc.aw:prop_names_help
+msgid "Omaduse Nimed (names) help"
+msgstr ""
+
+# classes/doc.aw:prop_lead
+#: classes/doc.aw:prop_lead
+msgid "Omaduse Lead (lead) caption"
+msgstr "Lead"
+
+# classes/doc.aw:prop_lead_comment
+#: classes/doc.aw:prop_lead_comment
+msgid "Omaduse Lead (lead) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_lead_help
+#: classes/doc.aw:prop_lead_help
+msgid "Omaduse Lead (lead) help"
+msgstr "one of two main text fields. On web the introduction is displayed a little separated from the content text. It gives an opportunity to add the document an introduction or short description what the document is all about. The introduction is also displayed in the document´s short view, where other content is not displayed. The introduction can also include different AW objects (image, link, table, etc.) added with Connection manager. (See also: Connection manager > Relation type: Alias)."
+
+# classes/doc.aw:prop_content
+#: classes/doc.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr "Content"
+
+# classes/doc.aw:prop_content_comment
+#: classes/doc.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_content_help
+#: classes/doc.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr "The main text field. This field is meant for the main and most voluminous info. As in the introduction, here could also different AW objects be added with Connection manager. (See also: Connection manager > Relation type: Alias)."
+
+# classes/doc.aw:prop_moreinfo
+#: classes/doc.aw:prop_moreinfo
+msgid "Omaduse Lisainfo (moreinfo) caption"
+msgstr "More info"
+
+# classes/doc.aw:prop_moreinfo_comment
+#: classes/doc.aw:prop_moreinfo_comment
+msgid "Omaduse Lisainfo (moreinfo) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_moreinfo_help
+#: classes/doc.aw:prop_moreinfo_help
+msgid "Omaduse Lisainfo (moreinfo) help"
+msgstr ""
+
+# classes/doc.aw:prop_link_text
+#: classes/doc.aw:prop_link_text
+msgid "Omaduse URL (link_text) caption"
+msgstr "URL"
+
+# classes/doc.aw:prop_link_text_comment
+#: classes/doc.aw:prop_link_text_comment
+msgid "Omaduse URL (link_text) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_link_text_help
+#: classes/doc.aw:prop_link_text_help
+msgid "Omaduse URL (link_text) help"
+msgstr ""
+
+# classes/doc.aw:prop_is_forum
+#: classes/doc.aw:prop_is_forum
+msgid "Omaduse Foorum (is_forum) caption"
+msgstr "Forum"
+
+# classes/doc.aw:prop_is_forum_comment
+#: classes/doc.aw:prop_is_forum_comment
+msgid "Omaduse Foorum (is_forum) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_is_forum_help
+#: classes/doc.aw:prop_is_forum_help
+msgid "Omaduse Foorum (is_forum) help"
+msgstr ""
+
+# classes/doc.aw:prop_showlead
+#: classes/doc.aw:prop_showlead
+msgid "Omaduse N&auml;ita leadi (showlead) caption"
+msgstr "Show lead"
+
+#: classes/doc.aw:prop_showlead_comment
+msgid "Omaduse N&auml;ita leadi (showlead) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_showlead_help
+msgid "Omaduse N&auml;ita leadi (showlead) help"
+msgstr "option for showing or not showing the document´s introduction on web in case of the document´s long view."
+
+# classes/doc.aw:prop_show_modified
+#: classes/doc.aw:prop_show_modified
+msgid "Omaduse N&auml;ita muutmise kuup&auml;eva (show_modified) caption"
+msgstr "Show modified date"
+
+#: classes/doc.aw:prop_show_modified_comment
+msgid "Omaduse N&auml;ita muutmise kuup&auml;eva (show_modified) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_show_modified_help
+msgid "Omaduse N&auml;ita muutmise kuup&auml;eva (show_modified) help"
+msgstr "option for showing or not showing the date when the document was last hanged or the date that is written in the document."
+
+# classes/doc.aw:prop_doc_modified
+#: classes/doc.aw:prop_doc_modified
+msgid "Omaduse Dok. modified (doc_modified) caption"
+msgstr "Doc. modified"
+
+# classes/doc.aw:prop_doc_modified_comment
+#: classes/doc.aw:prop_doc_modified_comment
+msgid "Omaduse Dok. modified (doc_modified) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_doc_modified_help
+#: classes/doc.aw:prop_doc_modified_help
+msgid "Omaduse Dok. modified (doc_modified) help"
+msgstr ""
+
+# classes/doc.aw:prop_clear_styles
+#: classes/doc.aw:prop_clear_styles
+msgid "Omaduse T&uuml;hista stiilid (clear_styles) caption"
+msgstr "Clear styles"
+
+#: classes/doc.aw:prop_clear_styles_comment
+msgid "Omaduse T&uuml;hista stiilid (clear_styles) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_clear_styles_help
+msgid "Omaduse T&uuml;hista stiilid (clear_styles) help"
+msgstr ""
+
+# classes/doc.aw:prop_link_keywords
+#: classes/doc.aw:prop_link_keywords
+msgid "Omaduse Lingi v&otilde;tmes&otilde;nad (link_keywords) caption"
+msgstr "Link keywords"
+
+#: classes/doc.aw:prop_link_keywords_comment
+msgid "Omaduse Lingi v&otilde;tmes&otilde;nad (link_keywords) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_link_keywords_help
+msgid "Omaduse Lingi v&otilde;tmes&otilde;nad (link_keywords) help"
+msgstr ""
+
+# classes/doc.aw:prop_link_keywords2
+#: classes/doc.aw:prop_link_keywords2
+msgid "Omaduse V&otilde;tmes&otilde;nad lingina (link_keywords2) caption"
+msgstr "Keywords are links"
+
+#: classes/doc.aw:prop_link_keywords2_comment
+msgid "Omaduse V&otilde;tmes&otilde;nad lingina (link_keywords2) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_link_keywords2_help
+msgid "Omaduse V&otilde;tmes&otilde;nad lingina (link_keywords2) help"
+msgstr "option for regulating if the keywords in document are linked or not."
+
+# classes/doc.aw:prop_frontpage_left
+#: classes/doc.aw:prop_frontpage_left
+msgid "Omaduse Esilehel tulbas (frontpage_left) caption"
+msgstr "In front page column"
+
+# classes/doc.aw:prop_frontpage_left_comment
+#: classes/doc.aw:prop_frontpage_left_comment
+msgid "Omaduse Esilehel tulbas (frontpage_left) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_frontpage_left_help
+#: classes/doc.aw:prop_frontpage_left_help
+msgid "Omaduse Esilehel tulbas (frontpage_left) help"
+msgstr ""
+
+#: classes/doc.aw:prop_frontpage_right
+msgid "Omaduse Esilehel tulbas paremal (frontpage_right) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_frontpage_right_comment
+msgid "Omaduse Esilehel tulbas paremal (frontpage_right) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_frontpage_right_help
+msgid "Omaduse Esilehel tulbas paremal (frontpage_right) help"
+msgstr ""
+
+#: classes/doc.aw:prop_frontpage_center
+msgid "Omaduse Esilehel keskel (frontpage_center) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_frontpage_center_comment
+msgid "Omaduse Esilehel keskel (frontpage_center) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_frontpage_center_help
+msgid "Omaduse Esilehel keskel (frontpage_center) help"
+msgstr ""
+
+# classes/doc.aw:prop_esilehel
+#: classes/doc.aw:prop_esilehel
+msgid "Omaduse Esilehel (esilehel) caption"
+msgstr "On front page"
+
+# classes/doc.aw:prop_esilehel_comment
+#: classes/doc.aw:prop_esilehel_comment
+msgid "Omaduse Esilehel (esilehel) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_esilehel_help
+#: classes/doc.aw:prop_esilehel_help
+msgid "Omaduse Esilehel (esilehel) help"
+msgstr "option for  regulating if the Document´s headline could be clicked on in the short view."
+
+#: classes/doc.aw:prop_jrk1
+msgid "Omaduse Jrk1 (jrk1) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_jrk1_comment
+msgid "Omaduse Jrk1 (jrk1) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_jrk1_help
+msgid "Omaduse Jrk1 (jrk1) help"
+msgstr ""
+
+#: classes/doc.aw:prop_esilehel_uudis
+msgid "Omaduse Esilehel uudis (esilehel_uudis) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_esilehel_uudis_comment
+msgid "Omaduse Esilehel uudis (esilehel_uudis) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_esilehel_uudis_help
+msgid "Omaduse Esilehel uudis (esilehel_uudis) help"
+msgstr ""
+
+#: classes/doc.aw:prop_jrk2
+msgid "Omaduse Jrk2 (jrk2) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_jrk2_comment
+msgid "Omaduse Jrk2 (jrk2) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_jrk2_help
+msgid "Omaduse Jrk2 (jrk2) help"
+msgstr ""
+
+# classes/doc.aw:prop_dcache
+#: classes/doc.aw:prop_dcache
+msgid "Omaduse Cache otsingu jaoks (dcache) caption"
+msgstr "Cache for search"
+
+# classes/doc.aw:prop_dcache_comment
+#: classes/doc.aw:prop_dcache_comment
+msgid "Omaduse Cache otsingu jaoks (dcache) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_dcache_help
+#: classes/doc.aw:prop_dcache_help
+msgid "Omaduse Cache otsingu jaoks (dcache) help"
+msgstr ""
+
+# classes/doc.aw:prop_dcache_content
+#: classes/doc.aw:prop_dcache_content
+msgid "Omaduse  (dcache_content) caption"
+msgstr ""
+
+# classes/doc.aw:prop_dcache_content_comment
+#: classes/doc.aw:prop_dcache_content_comment
+msgid "Omaduse  (dcache_content) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_dcache_content_help
+#: classes/doc.aw:prop_dcache_content_help
+msgid "Omaduse  (dcache_content) help"
+msgstr ""
+
+# classes/doc.aw:prop_rating
+#: classes/doc.aw:prop_rating
+msgid "Omaduse  (rating) caption"
+msgstr ""
+
+# classes/doc.aw:prop_rating_comment
+#: classes/doc.aw:prop_rating_comment
+msgid "Omaduse  (rating) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_rating_help
+#: classes/doc.aw:prop_rating_help
+msgid "Omaduse  (rating) help"
+msgstr ""
+
+# classes/doc.aw:prop_num_ratings
+#: classes/doc.aw:prop_num_ratings
+msgid "Omaduse  (num_ratings) caption"
+msgstr ""
+
+# classes/doc.aw:prop_num_ratings_comment
+#: classes/doc.aw:prop_num_ratings_comment
+msgid "Omaduse  (num_ratings) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_num_ratings_help
+#: classes/doc.aw:prop_num_ratings_help
+msgid "Omaduse  (num_ratings) help"
+msgstr ""
+
+# classes/doc.aw:prop_show_title
+#: classes/doc.aw:prop_show_title
+msgid "Omaduse N&auml;ita pealkirja (show_title) caption"
+msgstr "Show title"
+
+#: classes/doc.aw:prop_show_title_comment
+msgid "Omaduse N&auml;ita pealkirja (show_title) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_show_title_help
+msgid "Omaduse N&auml;ita pealkirja (show_title) help"
+msgstr "option for showing or not showing the headline on web."
+
+#: classes/doc.aw:prop_no_search
+msgid "Omaduse J&auml;ta otsingust v&auml;lja (no_search) caption"
+msgstr "Exclude from search results"
+
+#: classes/doc.aw:prop_no_search_comment
+msgid "Omaduse J&auml;ta otsingust v&auml;lja (no_search) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_no_search_help
+msgid "Omaduse J&auml;ta otsingust v&auml;lja (no_search) help"
+msgstr "option for excluding the finding of the document with search."
+
+# classes/doc.aw:prop_cite
+#: classes/doc.aw:prop_cite
+msgid "Omaduse Tsitaat (cite) caption"
+msgstr "Quote"
+
+# classes/doc.aw:prop_cite_comment
+#: classes/doc.aw:prop_cite_comment
+msgid "Omaduse Tsitaat (cite) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_cite_help
+#: classes/doc.aw:prop_cite_help
+msgid "Omaduse Tsitaat (cite) help"
+msgstr ""
+
+# classes/doc.aw:prop_tm
+#: classes/doc.aw:prop_tm
+msgid "Omaduse Kuup&auml;ev (tm) caption"
+msgstr "Date"
+
+#: classes/doc.aw:prop_tm_comment
+msgid "Omaduse Kuup&auml;ev (tm) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_tm_help
+msgid "Omaduse Kuup&auml;ev (tm) help"
+msgstr ""
+
+# classes/doc.aw:prop_show_print
+#: classes/doc.aw:prop_show_print
+msgid "Omaduse 'Prindi' nupp (show_print) caption"
+msgstr "'Print' button"
+
+# classes/doc.aw:prop_show_print_comment
+#: classes/doc.aw:prop_show_print_comment
+msgid "Omaduse 'Prindi' nupp (show_print) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_show_print_help
+#: classes/doc.aw:prop_show_print_help
+msgid "Omaduse 'Prindi' nupp (show_print) help"
+msgstr "option for showing or not showing the print button on web under the document."
+
+# classes/doc.aw:prop_createdby
+#: classes/doc.aw:prop_createdby
+msgid "Omaduse Kes tegi (createdby) caption"
+msgstr "Created by"
+
+# classes/doc.aw:prop_createdby_comment
+#: classes/doc.aw:prop_createdby_comment
+msgid "Omaduse Kes tegi (createdby) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_createdby_help
+#: classes/doc.aw:prop_createdby_help
+msgid "Omaduse Kes tegi (createdby) help"
+msgstr ""
+
+# classes/doc.aw:prop_user1
+#: classes/doc.aw:prop_user1
+msgid "Omaduse Kasutaja defineeritud 1 (user1) caption"
+msgstr "User defined 1"
+
+# classes/doc.aw:prop_user1_comment
+#: classes/doc.aw:prop_user1_comment
+msgid "Omaduse Kasutaja defineeritud 1 (user1) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_user1_help
+#: classes/doc.aw:prop_user1_help
+msgid "Omaduse Kasutaja defineeritud 1 (user1) help"
+msgstr ""
+
+# classes/doc.aw:prop_user2
+#: classes/doc.aw:prop_user2
+msgid "Omaduse Kasutaja defineeritud 2 (user2) caption"
+msgstr "User defined 2"
+
+# classes/doc.aw:prop_user2_comment
+#: classes/doc.aw:prop_user2_comment
+msgid "Omaduse Kasutaja defineeritud 2 (user2) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_user2_help
+#: classes/doc.aw:prop_user2_help
+msgid "Omaduse Kasutaja defineeritud 2 (user2) help"
+msgstr ""
+
+# classes/doc.aw:prop_user3
+#: classes/doc.aw:prop_user3
+msgid "Omaduse Kasutaja defineeritud 3 (user3) caption"
+msgstr "User defined 3"
+
+# classes/doc.aw:prop_user3_comment
+#: classes/doc.aw:prop_user3_comment
+msgid "Omaduse Kasutaja defineeritud 3 (user3) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_user3_help
+#: classes/doc.aw:prop_user3_help
+msgid "Omaduse Kasutaja defineeritud 3 (user3) help"
+msgstr ""
+
+# classes/doc.aw:prop_user4
+#: classes/doc.aw:prop_user4
+msgid "Omaduse Kasutaja defineeritud 4 (user4) caption"
+msgstr "User defined 4"
+
+# classes/doc.aw:prop_user4_comment
+#: classes/doc.aw:prop_user4_comment
+msgid "Omaduse Kasutaja defineeritud 4 (user4) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_user4_help
+#: classes/doc.aw:prop_user4_help
+msgid "Omaduse Kasutaja defineeritud 4 (user4) help"
+msgstr ""
+
+# classes/doc.aw:prop_user5
+#: classes/doc.aw:prop_user5
+msgid "Omaduse Kasutaja defineeritud 5 (user5) caption"
+msgstr "User defined 5"
+
+# classes/doc.aw:prop_user5_comment
+#: classes/doc.aw:prop_user5_comment
+msgid "Omaduse Kasutaja defineeritud 5 (user5) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_user5_help
+#: classes/doc.aw:prop_user5_help
+msgid "Omaduse Kasutaja defineeritud 5 (user5) help"
+msgstr ""
+
+# classes/doc.aw:prop_user6
+#: classes/doc.aw:prop_user6
+msgid "Omaduse Kasutaja defineeritud 6 (user6) caption"
+msgstr "User defined 6"
+
+# classes/doc.aw:prop_user6_comment
+#: classes/doc.aw:prop_user6_comment
+msgid "Omaduse Kasutaja defineeritud 6 (user6) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_user6_help
+#: classes/doc.aw:prop_user6_help
+msgid "Omaduse Kasutaja defineeritud 6 (user6) help"
+msgstr ""
+
+# classes/doc.aw:prop_userta2
+#: classes/doc.aw:prop_userta2
+msgid "Omaduse Kasutaja defineeritud textarea 2 (userta2) caption"
+msgstr ""
+
+# classes/doc.aw:prop_userta2_comment
+#: classes/doc.aw:prop_userta2_comment
+msgid "Omaduse Kasutaja defineeritud textarea 2 (userta2) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_userta2_help
+#: classes/doc.aw:prop_userta2_help
+msgid "Omaduse Kasutaja defineeritud textarea 2 (userta2) help"
+msgstr ""
+
+# classes/doc.aw:prop_userta3
+#: classes/doc.aw:prop_userta3
+msgid "Omaduse Kasutaja defineeritud textarea 3 (userta3) caption"
+msgstr ""
+
+# classes/doc.aw:prop_userta3_comment
+#: classes/doc.aw:prop_userta3_comment
+msgid "Omaduse Kasutaja defineeritud textarea 3 (userta3) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_userta3_help
+#: classes/doc.aw:prop_userta3_help
+msgid "Omaduse Kasutaja defineeritud textarea 3 (userta3) help"
+msgstr ""
+
+# classes/doc.aw:prop_userta4
+#: classes/doc.aw:prop_userta4
+msgid "Omaduse Kasutaja defineeritud textarea 4 (userta4) caption"
+msgstr ""
+
+# classes/doc.aw:prop_userta4_comment
+#: classes/doc.aw:prop_userta4_comment
+msgid "Omaduse Kasutaja defineeritud textarea 4 (userta4) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_userta4_help
+#: classes/doc.aw:prop_userta4_help
+msgid "Omaduse Kasutaja defineeritud textarea 4 (userta4) help"
+msgstr ""
+
+# classes/doc.aw:prop_userta5
+#: classes/doc.aw:prop_userta5
+msgid "Omaduse Kasutaja defineeritud textarea 5 (userta5) caption"
+msgstr ""
+
+# classes/doc.aw:prop_userta5_comment
+#: classes/doc.aw:prop_userta5_comment
+msgid "Omaduse Kasutaja defineeritud textarea 5 (userta5) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_userta5_help
+#: classes/doc.aw:prop_userta5_help
+msgid "Omaduse Kasutaja defineeritud textarea 5 (userta5) help"
+msgstr ""
+
+# classes/doc.aw:prop_userta6
+#: classes/doc.aw:prop_userta6
+msgid "Omaduse Kasutaja defineeritud textarea 6 (userta6) caption"
+msgstr ""
+
+# classes/doc.aw:prop_userta6_comment
+#: classes/doc.aw:prop_userta6_comment
+msgid "Omaduse Kasutaja defineeritud textarea 6 (userta6) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_userta6_help
+#: classes/doc.aw:prop_userta6_help
+msgid "Omaduse Kasutaja defineeritud textarea 6 (userta6) help"
+msgstr ""
+
+# classes/doc.aw:prop_ucheck1
+#: classes/doc.aw:prop_ucheck1
+msgid "Omaduse Kasutaja defineeritud checkbox 1 (ucheck1) caption"
+msgstr "User defined checkbox 1"
+
+# classes/doc.aw:prop_ucheck1_comment
+#: classes/doc.aw:prop_ucheck1_comment
+msgid "Omaduse Kasutaja defineeritud checkbox 1 (ucheck1) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_ucheck1_help
+#: classes/doc.aw:prop_ucheck1_help
+msgid "Omaduse Kasutaja defineeritud checkbox 1 (ucheck1) help"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck2
+msgid "Omaduse Kasutaja defineeritud checkbox 2 (ucheck2) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck2_comment
+msgid "Omaduse Kasutaja defineeritud checkbox 2 (ucheck2) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck2_help
+msgid "Omaduse Kasutaja defineeritud checkbox 2 (ucheck2) help"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck3
+msgid "Omaduse Kasutaja defineeritud checkbox 3 (ucheck3) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck3_comment
+msgid "Omaduse Kasutaja defineeritud checkbox 3 (ucheck3) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck3_help
+msgid "Omaduse Kasutaja defineeritud checkbox 3 (ucheck3) help"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck4
+msgid "Omaduse Kasutaja defineeritud checkbox 4 (ucheck4) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck4_comment
+msgid "Omaduse Kasutaja defineeritud checkbox 4 (ucheck4) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck4_help
+msgid "Omaduse Kasutaja defineeritud checkbox 4 (ucheck4) help"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck5
+msgid "Omaduse Kasutaja defineeritud checkbox 5 (ucheck5) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck5_comment
+msgid "Omaduse Kasutaja defineeritud checkbox 5 (ucheck5) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck5_help
+msgid "Omaduse Kasutaja defineeritud checkbox 5 (ucheck5) help"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck6
+msgid "Omaduse Kasutaja defineeritud checkbox 6 (ucheck6) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck6_comment
+msgid "Omaduse Kasutaja defineeritud checkbox 6 (ucheck6) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_ucheck6_help
+msgid "Omaduse Kasutaja defineeritud checkbox 6 (ucheck6) help"
+msgstr ""
+
+#: classes/doc.aw:prop_uservar1
+msgid "Omaduse User-defined var 1 (uservar1) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_uservar1_comment
+msgid "Omaduse User-defined var 1 (uservar1) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_uservar1_help
+msgid "Omaduse User-defined var 1 (uservar1) help"
+msgstr ""
+
+#: classes/doc.aw:prop_uservar2
+msgid "Omaduse User-defined var 2 (uservar2) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_uservar2_comment
+msgid "Omaduse User-defined var 2 (uservar2) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_uservar2_help
+msgid "Omaduse User-defined var 2 (uservar2) help"
+msgstr ""
+
+#: classes/doc.aw:prop_uservar3
+msgid "Omaduse User-defined var 3 (uservar3) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_uservar3_comment
+msgid "Omaduse User-defined var 3 (uservar3) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_uservar3_help
+msgid "Omaduse User-defined var 3 (uservar3) help"
+msgstr ""
+
+# classes/doc.aw:prop_language
+#: classes/doc.aw:prop_language
+msgid "Omaduse Keel (language) caption"
+msgstr "Language"
+
+# classes/doc.aw:prop_language_comment
+#: classes/doc.aw:prop_language_comment
+msgid "Omaduse Keel (language) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_language_help
+#: classes/doc.aw:prop_language_help
+msgid "Omaduse Keel (language) help"
+msgstr ""
+
+# classes/doc.aw:prop_calendar_relation
+#: classes/doc.aw:prop_calendar_relation
+msgid "Omaduse P&otilde;hikalender (calendar_relation) caption"
+msgstr "Main calendar"
+
+#: classes/doc.aw:prop_calendar_relation_comment
+msgid "Omaduse P&otilde;hikalender (calendar_relation) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_calendar_relation_help
+msgid "Omaduse P&otilde;hikalender (calendar_relation) help"
+msgstr ""
+
+# classes/doc.aw:prop_gen_static
+#: classes/doc.aw:prop_gen_static
+msgid "Omaduse Genereeri staatiline (gen_static) caption"
+msgstr "Generate static"
+
+# classes/doc.aw:prop_gen_static_comment
+#: classes/doc.aw:prop_gen_static_comment
+msgid "Omaduse Genereeri staatiline (gen_static) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_gen_static_help
+#: classes/doc.aw:prop_gen_static_help
+msgid "Omaduse Genereeri staatiline (gen_static) help"
+msgstr ""
+
+# classes/doc.aw:prop_sbt
+#: classes/doc.aw:prop_sbt
+msgid "Omaduse  (sbt) caption"
+msgstr ""
+
+# classes/doc.aw:prop_sbt_comment
+#: classes/doc.aw:prop_sbt_comment
+msgid "Omaduse  (sbt) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_sbt_help
+#: classes/doc.aw:prop_sbt_help
+msgid "Omaduse  (sbt) help"
+msgstr ""
+
+# classes/doc.aw:prop_cb_part
+#: classes/doc.aw:prop_cb_part
+msgid "Omaduse cb_part (cb_part) caption"
+msgstr " "
+
+# classes/doc.aw:prop_cb_part_comment
+#: classes/doc.aw:prop_cb_part_comment
+msgid "Omaduse cb_part (cb_part) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_cb_part_help
+#: classes/doc.aw:prop_cb_part_help
+msgid "Omaduse cb_part (cb_part) help"
+msgstr ""
+
+# classes/doc.aw:prop_nobreaks
+#: classes/doc.aw:prop_nobreaks
+msgid "Omaduse  (nobreaks) caption"
+msgstr ""
+
+# classes/doc.aw:prop_nobreaks_comment
+#: classes/doc.aw:prop_nobreaks_comment
+msgid "Omaduse  (nobreaks) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_nobreaks_help
+#: classes/doc.aw:prop_nobreaks_help
+msgid "Omaduse  (nobreaks) help"
+msgstr ""
+
+# classes/doc.aw:prop_no_topic_links
+#: classes/doc.aw:prop_no_topic_links
+msgid "Omaduse &Auml;ra tee Samal teemal linke (no_topic_links) caption"
+msgstr "No same topic links"
+
+#: classes/doc.aw:prop_no_topic_links_comment
+msgid "Omaduse &Auml;ra tee Samal teemal linke (no_topic_links) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_no_topic_links_help
+msgid "Omaduse &Auml;ra tee Samal teemal linke (no_topic_links) help"
+msgstr ""
+
+#: classes/doc.aw:prop_create_new_version
+msgid "Omaduse Loo uus versioon (create_new_version) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_create_new_version_comment
+msgid "Omaduse Loo uus versioon (create_new_version) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_create_new_version_help
+msgid "Omaduse Loo uus versioon (create_new_version) help"
+msgstr ""
+
+#: classes/doc.aw:prop_edit_version
+msgid "Omaduse Vali versioon, mida muuta (edit_version) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_edit_version_comment
+msgid "Omaduse Vali versioon, mida muuta (edit_version) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_edit_version_help
+msgid "Omaduse Vali versioon, mida muuta (edit_version) help"
+msgstr ""
+
+# classes/doc.aw:prop_no_right_pane
+#: classes/doc.aw:prop_no_right_pane
+msgid "Omaduse Ilma parema paanita (no_right_pane) caption"
+msgstr "No right pane"
+
+# classes/doc.aw:prop_no_right_pane_comment
+#: classes/doc.aw:prop_no_right_pane_comment
+msgid "Omaduse Ilma parema paanita (no_right_pane) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_no_right_pane_help
+#: classes/doc.aw:prop_no_right_pane_help
+msgid "Omaduse Ilma parema paanita (no_right_pane) help"
+msgstr "if the web page uses the right pane, it makes it able to loose the right pane from the document. It could be necessary in case the document´s content does not fit in the given  space otherwise."
+
+# classes/doc.aw:prop_no_left_pane
+#: classes/doc.aw:prop_no_left_pane
+msgid "Omaduse Ilma vasaku paanita (no_left_pane) caption"
+msgstr "No left pane"
+
+# classes/doc.aw:prop_no_left_pane_comment
+#: classes/doc.aw:prop_no_left_pane_comment
+msgid "Omaduse Ilma vasaku paanita (no_left_pane) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_no_left_pane_help
+#: classes/doc.aw:prop_no_left_pane_help
+msgid "Omaduse Ilma vasaku paanita (no_left_pane) help"
+msgstr "if the web page uses the left pane, it makes it able to loose the right pane from the document. It could be necessary in case the document´s content does not fit in the given  space otherwise."
+
+# classes/doc.aw:prop_title_clickable
+#: classes/doc.aw:prop_title_clickable
+msgid "Omaduse Pealkiri klikitav (title_clickable) caption"
+msgstr "Title clickable"
+
+# classes/doc.aw:prop_title_clickable_comment
+#: classes/doc.aw:prop_title_clickable_comment
+msgid "Omaduse Pealkiri klikitav (title_clickable) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_title_clickable_help
+#: classes/doc.aw:prop_title_clickable_help
+msgid "Omaduse Pealkiri klikitav (title_clickable) help"
+msgstr "option for  regulating if the Document´s headline could be clicked on in the short view."
+
+# classes/doc.aw:prop_dcache_save
+#: classes/doc.aw:prop_dcache_save
+msgid "Omaduse Cache otsingu jaoks (salvestub) (dcache_save) caption"
+msgstr "Cache for search (saved)"
+
+# classes/doc.aw:prop_dcache_save_comment
+#: classes/doc.aw:prop_dcache_save_comment
+msgid "Omaduse Cache otsingu jaoks (salvestub) (dcache_save) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_dcache_save_help
+#: classes/doc.aw:prop_dcache_save_help
+msgid "Omaduse Cache otsingu jaoks (salvestub) (dcache_save) help"
+msgstr "if the box is checked, then the document´s content will be remembered for the general search of the web page."
+
+# classes/doc.aw:prop_no_last
+#: classes/doc.aw:prop_no_last
+msgid "Omaduse &Auml;ra arvesta muutmist (no_last) caption"
+msgstr "Do not change modified date"
+
+#: classes/doc.aw:prop_no_last_comment
+msgid "Omaduse &Auml;ra arvesta muutmist (no_last) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_no_last_help
+msgid "Omaduse &Auml;ra arvesta muutmist (no_last) help"
+msgstr ""
+
+# classes/doc.aw:prop_show_last_changed
+#: classes/doc.aw:prop_show_last_changed
+msgid "Omaduse Muutmise kuupaev dokumendi sees (show_last_changed) caption"
+msgstr "Last modified date in document"
+
+# classes/doc.aw:prop_show_last_changed_comment
+#: classes/doc.aw:prop_show_last_changed_comment
+msgid "Omaduse Muutmise kuupaev dokumendi sees (show_last_changed) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_show_last_changed_help
+#: classes/doc.aw:prop_show_last_changed_help
+msgid "Omaduse Muutmise kuupaev dokumendi sees (show_last_changed) help"
+msgstr ""
+
+# classes/doc.aw:prop_no_show_in_promo
+#: classes/doc.aw:prop_no_show_in_promo
+msgid "Omaduse &Auml;ra n&auml;ita konteineris (no_show_in_promo) caption"
+msgstr "Do not show in container"
+
+#: classes/doc.aw:prop_no_show_in_promo_comment
+msgid "Omaduse &Auml;ra n&auml;ita konteineris (no_show_in_promo) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_no_show_in_promo_help
+msgid "Omaduse &Auml;ra n&auml;ita konteineris (no_show_in_promo) help"
+msgstr "option for not showing the document through containers."
+
+# classes/doc.aw:prop_show_in_iframe
+#: classes/doc.aw:prop_show_in_iframe
+msgid "Omaduse Kasuta siseraami (show_in_iframe) caption"
+msgstr "Use iframe"
+
+# classes/doc.aw:prop_show_in_iframe_comment
+#: classes/doc.aw:prop_show_in_iframe_comment
+msgid "Omaduse Kasuta siseraami (show_in_iframe) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_show_in_iframe_help
+#: classes/doc.aw:prop_show_in_iframe_help
+msgid "Omaduse Kasuta siseraami (show_in_iframe) help"
+msgstr ""
+
+#: classes/doc.aw:prop_target_audience
+msgid "Omaduse Sihtr&uuml;hm (target_audience) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_target_audience_comment
+msgid "Omaduse Sihtr&uuml;hm (target_audience) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_target_audience_help
+msgid "Omaduse Sihtr&uuml;hm (target_audience) help"
+msgstr ""
+
+#: classes/doc.aw:prop_doc_content_type
+msgid "Omaduse Dokumendi sisu t&uuml;&uuml;p (doc_content_type) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_doc_content_type_comment
+msgid "Omaduse Dokumendi sisu t&uuml;&uuml;p (doc_content_type) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_doc_content_type_help
+msgid "Omaduse Dokumendi sisu t&uuml;&uuml;p (doc_content_type) help"
+msgstr ""
+
+# classes/doc.aw:prop_sections
+#: classes/doc.aw:prop_sections
+msgid "Omaduse Sektsioonid (sections) caption"
+msgstr "Folders"
+
+# classes/doc.aw:prop_sections_comment
+#: classes/doc.aw:prop_sections_comment
+msgid "Omaduse Sektsioonid (sections) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_sections_help
+#: classes/doc.aw:prop_sections_help
+msgid "Omaduse Sektsioonid (sections) help"
+msgstr ""
+
+# classes/doc.aw:prop_aliasmgr
+#: classes/doc.aw:prop_aliasmgr
+msgid "Omaduse Aliastehaldur (aliasmgr) caption"
+msgstr "Connection manager"
+
+# classes/doc.aw:prop_aliasmgr_comment
+#: classes/doc.aw:prop_aliasmgr_comment
+msgid "Omaduse Aliastehaldur (aliasmgr) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_aliasmgr_help
+#: classes/doc.aw:prop_aliasmgr_help
+msgid "Omaduse Aliastehaldur (aliasmgr) help"
+msgstr "Time -  option for telling the document when to activate and when to deactivate. 
+Reminder -  option for telling the system to send a certain reminder-document about some activity in certain date and time to a certain e-mail address. 
+Alias – the most important relationship type in a document. Alias-typed relations allow to display different objects inside the document and on the web-page. For that has to be made an alias-typed connection between the document and the object. After that the created alias (f. e. #pict1#, #link3#, #file2#) has to be copied or written in the document in the desired place. 
+Permission – option for regulating different user-group´s permission´s associated with this document."
+
+# classes/doc.aw:prop_start
+#: classes/doc.aw:prop_start
+msgid "Omaduse Algab (kp) (start) caption"
+msgstr "Starts"
+
+# classes/doc.aw:prop_start_comment
+#: classes/doc.aw:prop_start_comment
+msgid "Omaduse Algab (kp) (start) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_start_help
+#: classes/doc.aw:prop_start_help
+msgid "Omaduse Algab (kp) (start) help"
+msgstr ""
+
+# classes/doc.aw:prop_start1
+#: classes/doc.aw:prop_start1
+msgid "Omaduse Algab  (start1) caption"
+msgstr "Starts"
+
+# classes/doc.aw:prop_start1_comment
+#: classes/doc.aw:prop_start1_comment
+msgid "Omaduse Algab  (start1) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_start1_help
+#: classes/doc.aw:prop_start1_help
+msgid "Omaduse Algab  (start1) help"
+msgstr ""
+
+# classes/doc.aw:prop_duration
+#: classes/doc.aw:prop_duration
+msgid "Omaduse Kestab (duration) caption"
+msgstr "Duration"
+
+# classes/doc.aw:prop_duration_comment
+#: classes/doc.aw:prop_duration_comment
+msgid "Omaduse Kestab (duration) kommentaar"
+msgstr ""
+
+# classes/doc.aw:prop_duration_help
+#: classes/doc.aw:prop_duration_help
+msgid "Omaduse Kestab (duration) help"
+msgstr ""
+
+#: classes/doc.aw:prop_kw_tb
+msgid "Omaduse  (kw_tb) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_kw_tb_comment
+msgid "Omaduse  (kw_tb) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_kw_tb_help
+msgid "Omaduse  (kw_tb) help"
+msgstr ""
+
+#: classes/doc.aw:prop_kws
+msgid "Omaduse M&auml;rks&otilde;nad (kws) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_kws_comment
+msgid "Omaduse M&auml;rks&otilde;nad (kws) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_kws_help
+msgid "Omaduse M&auml;rks&otilde;nad (kws) help"
+msgstr ""
+
+#: classes/doc.aw:prop_versions_tb
+msgid "Omaduse  (versions_tb) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_versions_tb_comment
+msgid "Omaduse  (versions_tb) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_versions_tb_help
+msgid "Omaduse  (versions_tb) help"
+msgstr ""
+
+#: classes/doc.aw:prop_versions
+msgid "Omaduse  (versions) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_versions_comment
+msgid "Omaduse  (versions) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_versions_help
+msgid "Omaduse  (versions) help"
+msgstr ""
+
+#: classes/doc.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/doc.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/doc.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+# classes/doc.aw:group_calendar
+#: classes/doc.aw:group_calendar
+msgid "Grupi Kalender (calendar) pealkiri"
+msgstr "Calendar"
+
+# classes/doc.aw:group_calendar_help
+#: classes/doc.aw:group_calendar_help
+msgid "Grupi Kalender (calendar) help"
+msgstr ""
+
+# classes/doc.aw:group_vennastamine
+#: classes/doc.aw:group_vennastamine
+msgid "Grupi Vennastamine (vennastamine) pealkiri"
+msgstr "Brothers"
+
+# classes/doc.aw:group_vennastamine_help
+#: classes/doc.aw:group_vennastamine_help
+msgid "Grupi Vennastamine (vennastamine) help"
+msgstr ""
+
+# classes/doc.aw:group_settings
+#: classes/doc.aw:group_settings
+msgid "Grupi Seadistused (settings) pealkiri"
+msgstr "Settings"
+
+# classes/doc.aw:group_settings_help
+#: classes/doc.aw:group_settings_help
+msgid "Grupi Seadistused (settings) help"
+msgstr ""
+
+#: classes/doc.aw:group_kws
+msgid "Grupi M&auml;rks&otilde;nad (kws) pealkiri"
+msgstr ""
+
+#: classes/doc.aw:group_kws_help
+msgid "Grupi M&auml;rks&otilde;nad (kws) help"
+msgstr ""
+
+#: classes/doc.aw:group_versions
+msgid "Grupi Versioonid (versions) pealkiri"
+msgstr "Versions"
+
+#: classes/doc.aw:group_versions_help
+msgid "Grupi Versioonid (versions) help"
+msgstr ""
+
+#: classes/doc.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/doc.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr "Translate"
+
+# classes/doc.aw:group_relationmgr
+#: classes/doc.aw:group_relationmgr
+msgid "Grupi Seostehaldur (relationmgr) pealkiri"
+msgstr "Connection manager"
+
+# classes/doc.aw:group_relationmgr_help
+#: classes/doc.aw:group_relationmgr_help
+msgid "Grupi Seostehaldur (relationmgr) help"
+msgstr ""
+
+#: classes/doc.aw:group_keywords
+msgid "Grupi keywords (keywords) pealkiri"
+msgstr ""
+
+#: classes/doc.aw:group_keywords_help
+msgid "Grupi keywords (keywords) help"
+msgstr ""
+
+# classes/doc.aw:rel_RELTYPE_TIMING
+#: classes/doc.aw:rel_RELTYPE_TIMING
+msgid "Seose Aeg (RELTYPE_TIMING) tekst"
+msgstr "Time"
+
+# classes/doc.aw:rel_RELTYPE_REMINDER
+#: classes/doc.aw:rel_RELTYPE_REMINDER
+msgid "Seose Meeldetuletus (RELTYPE_REMINDER) tekst"
+msgstr "Reminder"
+
+#: classes/doc.aw:rel_RELTYPE_LANG_REL
+msgid "Seose Keeleseos (RELTYPE_LANG_REL) tekst"
+msgstr ""
+
+#: classes/doc.aw:rel_RELTYPE_VARUSER1
+msgid "Seose kasutajadefineeritud muutuja 1 (RELTYPE_VARUSER1) tekst"
+msgstr ""
+
+#: classes/doc.aw:rel_RELTYPE_VARUSER2
+msgid "Seose kasutajadefineeritud muutuja 2 (RELTYPE_VARUSER2) tekst"
+msgstr ""
+
+#: classes/doc.aw:rel_RELTYPE_VARUSER3
+msgid "Seose kasutajadefineeritud muutuja 3 (RELTYPE_VARUSER3) tekst"
+msgstr ""
+
+#: classes/doc.aw:rel_RELTYPE_TARGET_AUDIENCE
+msgid "Seose Sihtr&uuml;hm (RELTYPE_TARGET_AUDIENCE) tekst"
+msgstr ""
+
+#: classes/doc.aw:rel_RELTYPE_DOC_CONTENT_TYPE
+msgid "Seose Dokumendi sisu t&uuml;&uuml;p (RELTYPE_DOC_CONTENT_TYPE) tekst"
+msgstr ""
+
+#: classes/doc.aw:rel_RELTYPE_KEYWORD
+msgid "Seose V&otilde;tmes&otilde;na (RELTYPE_KEYWORD) tekst"
+msgstr ""
+
+#: classes/doc.aw:440
+msgid "puudub"
+msgstr "missing"
+
+#: classes/doc.aw:818
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/doc.aw:833
+msgid "Eelvaade"
+msgstr "Preview"
+
+#: classes/doc.aw:995
+msgid "Dokument 2.0"
+msgstr "Document 2.0"
+
+#: classes/doc.aw:1008
+msgid "Dokument (vend)"
+msgstr "Document (brother)"
+
+#: classes/doc.aw:1280 classes/doc.aw:1375 classes/doc.aw:1379
+msgid "Aktiivne"
+msgstr "Active"
+
+#: classes/doc.aw:1327
+msgid "Versioon"
+msgstr "Version"
+
+#: classes/doc.aw:1333 classes/doc.aw:1393 classes/doc.aw:1421
+msgid "Muuda"
+msgstr "Change"
+
+#: classes/doc.aw:1339
+msgid "Hinne"
+msgstr "Ranking"
+
+#: classes/doc.aw:1345
+msgid "Hinda"
+msgstr "Vote"
+
+#: classes/doc.aw:1351
+msgid "M&auml;&auml;ra aktiivseks"
+msgstr "Set active"
+
+#: classes/doc.aw:1357
+msgid "Vali"
+msgstr "Select"
+
+#: classes/doc.aw:1388 classes/doc.aw:1416
+msgid "--Vali--"
+msgstr "--Select--"
+
+#: classes/doc.aw:1513
+msgid "Kustuta"
+msgstr "Delete"
+
+#: classes/doc.aw:1550
+msgid "M&auml;rks&otilde;na"
+msgstr "Keyword"
+
+# classes/doc.aw:prop_needs_translation
+#~ msgid "Omaduse Vajab tõlget (needs_translation) caption"
+#~ msgstr "Needs translation"
+
+# classes/doc.aw:prop_is_translated
+#~ msgid "Omaduse Tõlge kinnitatud (is_translated) caption"
+#~ msgstr "Translation confirmed"
+
+# classes/doc.aw:group_general
+#~ msgid "Grupi &Uuml;ldine (general) pealkiri"
+#~ msgstr "General"

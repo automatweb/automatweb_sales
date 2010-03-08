@@ -1,0 +1,138 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="personnel_management_job_offer" folder="www/dev/terryf/automatweb_dev/classes/applications/personnel_management" extends="class_base">
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="tpl" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="job_to_not_act">
+			<function name="job_to_not_act">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_job_pdf" nologin="1">
+			<function name="gen_job_pdf">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_rels">
+			<function name="delete_rels">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_email">
+			<function name="send_email">
+				<arguments>
+					<optional name="sel" type="array(oid)" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_sms">
+			<function name="send_sms">
+				<arguments>
+					<optional name="sel" type="array(oid)" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomp_contact" all_args="1">
+			<function name="autocomp_contact">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomp_company" all_args="1">
+			<function name="autocomp_company">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomp_profession" all_args="1">
+			<function name="autocomp_profession">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomp_loc_country" all_args="1">
+			<function name="autocomp_loc_country">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomp_loc_area" all_args="1">
+			<function name="autocomp_loc_area">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomp_loc_county" all_args="1">
+			<function name="autocomp_loc_county">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomp_loc_city" all_args="1">
+			<function name="autocomp_loc_city">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomp_from" all_args="1">
+			<function name="autocomp_from">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="autocomp" all_args="1">
+			<function name="autocomp">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_typical_sms">
+			<function name="delete_typical_sms">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_copy">
+			<function name="save_copy">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="typical_data" all_args="1">
+			<function name="typical_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

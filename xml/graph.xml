@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<graph>
+<axis 
+	name="x" 
+	text="X telje tekst" 
+	color="#333333"/>
+<axis 
+	name="y" 
+	text="Y telje tekst" 
+	color="#333333" 
+	showlimits="1" 
+	grid="10" 
+	grcolor="#333333"/>
+
+<border size="1" color="#000000"/>
+<general
+	title="pageviews in this period"
+	titlecolor="#000000"
+	bgcolor="#FFFFFF"
+	height="100"
+	imgtype="png"
+	width="300"/>
+</graph>

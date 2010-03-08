@@ -1,0 +1,843 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/users/user_manager.aw:class_1003_help
+msgid "Klassi Kasutajate haldus help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_root
+msgid "Omaduse Vaikimisi grupp (root) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_root_comment
+msgid "Omaduse Vaikimisi grupp (root) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_root_help
+msgid "Omaduse Vaikimisi grupp (root) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_all_roots
+msgid "Omaduse Juurkaustad/-grupid (all_roots) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_all_roots_comment
+msgid "Omaduse Juurkaustad/-grupid (all_roots) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_all_roots_help
+msgid "Omaduse Juurkaustad/-grupid (all_roots) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_default_loginmenu
+msgid "Omaduse Vaikimisi loginmen&uuml;&uuml; uutel gruppidel (default_loginmenu) caption"
+msgstr "Default login-menu for new groups"
+
+#: classes/core/users/user_manager.aw:prop_default_loginmenu_comment
+msgid "Omaduse Vaikimisi loginmen&uuml;&uuml; uutel gruppidel (default_loginmenu) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_default_loginmenu_help
+msgid "Omaduse Vaikimisi loginmen&uuml;&uuml; uutel gruppidel (default_loginmenu) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_users_tb
+msgid "Omaduse  (users_tb) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_users_tb_comment
+msgid "Omaduse  (users_tb) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_users_tb_help
+msgid "Omaduse  (users_tb) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_groups_tree
+msgid "Omaduse Puu (groups_tree) caption"
+msgstr "Tree"
+
+#: classes/core/users/user_manager.aw:prop_groups_tree_comment
+msgid "Omaduse Puu (groups_tree) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_groups_tree_help
+msgid "Omaduse Puu (groups_tree) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_user
+msgid "Omaduse Kasutajanimi (search_user) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_user_comment
+msgid "Omaduse Kasutajanimi (search_user) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_user_help
+msgid "Omaduse Kasutajanimi (search_user) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_person
+msgid "Omaduse Isiku nimi (search_person) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_person_comment
+msgid "Omaduse Isiku nimi (search_person) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_person_help
+msgid "Omaduse Isiku nimi (search_person) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_groups
+msgid "Omaduse Grupid (komandega eraldatult) (search_groups) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_groups_comment
+msgid "Omaduse Grupid (komandega eraldatult) (search_groups) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_groups_help
+msgid "Omaduse Grupid (komandega eraldatult) (search_groups) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_active_time
+msgid "Omaduse Viimati aktiivne (p&auml;eva tagasi) (search_active_time) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_active_time_comment
+msgid "Omaduse Viimati aktiivne (p&auml;eva tagasi) (search_active_time) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_active_time_help
+msgid "Omaduse Viimati aktiivne (p&auml;eva tagasi) (search_active_time) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_blocked
+msgid "Omaduse Kasutaja blokeering (search_blocked) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_blocked_comment
+msgid "Omaduse Kasutaja blokeering (search_blocked) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_blocked_help
+msgid "Omaduse Kasutaja blokeering (search_blocked) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_users_from
+msgid "Omaduse  (search_users_from) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_users_from_comment
+msgid "Omaduse  (search_users_from) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_users_from_help
+msgid "Omaduse  (search_users_from) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_sbt
+msgid "Omaduse Otsi (search_sbt) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_sbt_comment
+msgid "Omaduse Otsi (search_sbt) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_sbt_help
+msgid "Omaduse Otsi (search_sbt) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_table_users
+msgid "Omaduse Kasutajad  (table_users) caption"
+msgstr "Users"
+
+#: classes/core/users/user_manager.aw:prop_table_users_comment
+msgid "Omaduse Kasutajad  (table_users) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_table_users_help
+msgid "Omaduse Kasutajad  (table_users) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_usergroups_tb
+msgid "Omaduse  (usergroups_tb) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_usergroups_tb_comment
+msgid "Omaduse  (usergroups_tb) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_usergroups_tb_help
+msgid "Omaduse  (usergroups_tb) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_usergroups_tree
+msgid "Omaduse  (usergroups_tree) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_usergroups_tree_comment
+msgid "Omaduse  (usergroups_tree) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_usergroups_tree_help
+msgid "Omaduse  (usergroups_tree) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_ug_search_txt
+msgid "Omaduse Grupi nimi (ug_search_txt) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_ug_search_txt_comment
+msgid "Omaduse Grupi nimi (ug_search_txt) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_ug_search_txt_help
+msgid "Omaduse Grupi nimi (ug_search_txt) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_users_usergroups
+msgid "Omaduse  (search_users_usergroups) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_users_usergroups_comment
+msgid "Omaduse  (search_users_usergroups) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_users_usergroups_help
+msgid "Omaduse  (search_users_usergroups) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_usergroups
+msgid "Omaduse  (search_usergroups) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_usergroups_comment
+msgid "Omaduse  (search_usergroups) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_search_usergroups_help
+msgid "Omaduse  (search_usergroups) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_ug_search_sbt
+msgid "Omaduse Otsi (ug_search_sbt) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_ug_search_sbt_comment
+msgid "Omaduse Otsi (ug_search_sbt) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_ug_search_sbt_help
+msgid "Omaduse Otsi (ug_search_sbt) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_table_usergroups
+msgid "Omaduse  (table_usergroups) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_table_usergroups_comment
+msgid "Omaduse  (table_usergroups) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_table_usergroups_help
+msgid "Omaduse  (table_usergroups) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_packages_tlb
+msgid "Omaduse  (packages_tlb) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_packages_tlb_comment
+msgid "Omaduse  (packages_tlb) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_packages_tlb_help
+msgid "Omaduse  (packages_tlb) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_packages_tbl
+msgid "Omaduse  (packages_tbl) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_packages_tbl_comment
+msgid "Omaduse  (packages_tbl) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_packages_tbl_help
+msgid "Omaduse  (packages_tbl) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_price_conditions_tlb
+msgid "Omaduse  (price_conditions_tlb) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_price_conditions_tlb_comment
+msgid "Omaduse  (price_conditions_tlb) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_price_conditions_tlb_help
+msgid "Omaduse  (price_conditions_tlb) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_conditions_tlb
+msgid "Omaduse  (conditions_tlb) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_conditions_tlb_comment
+msgid "Omaduse  (conditions_tlb) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_conditions_tlb_help
+msgid "Omaduse  (conditions_tlb) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_conditions_tree
+msgid "Omaduse  (conditions_tree) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_conditions_tree_comment
+msgid "Omaduse  (conditions_tree) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_conditions_tree_help
+msgid "Omaduse  (conditions_tree) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_price_conditions_tbl
+msgid "Omaduse  (price_conditions_tbl) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_price_conditions_tbl_comment
+msgid "Omaduse  (price_conditions_tbl) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_price_conditions_tbl_help
+msgid "Omaduse  (price_conditions_tbl) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_conditions_tbl
+msgid "Omaduse  (conditions_tbl) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_conditions_tbl_comment
+msgid "Omaduse  (conditions_tbl) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_conditions_tbl_help
+msgid "Omaduse  (conditions_tbl) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_cp_warehouse
+msgid "Omaduse Ladu (cp_warehouse) caption"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_cp_warehouse_comment
+msgid "Omaduse Ladu (cp_warehouse) kommentaar"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:prop_cp_warehouse_help
+msgid "Omaduse Ladu (cp_warehouse) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_users
+msgid "Grupi Kasutajad (users) pealkiri"
+msgstr "Users"
+
+#: classes/core/users/user_manager.aw:group_users_help
+msgid "Grupi Kasutajad (users) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_usergroups
+msgid "Grupi Kasutajagrupid (usergroups) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_usergroups_help
+msgid "Grupi Kasutajagrupid (usergroups) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_content_packages
+msgid "Grupi Sisupaketid (content_packages) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_content_packages_help
+msgid "Grupi Sisupaketid (content_packages) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_packages
+msgid "Grupi Paketid (packages) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_packages_help
+msgid "Grupi Paketid (packages) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_price_conditions
+msgid "Grupi Hinnatingimused (price_conditions) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_price_conditions_help
+msgid "Grupi Hinnatingimused (price_conditions) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_conditions
+msgid "Grupi Sisutingimused (conditions) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_conditions_help
+msgid "Grupi Sisutingimused (conditions) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_cp_settings
+msgid "Grupi Seaded (cp_settings) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:group_cp_settings_help
+msgid "Grupi Seaded (cp_settings) help"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:rel_RELTYPE_ROOT
+msgid "Seose Juurkaust/-grupp (RELTYPE_ROOT) tekst"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:rel_RELTYPE_LOGIN_ROOT
+msgid "Seose Loginmen&uuml;&uuml;de juurkaust (RELTYPE_LOGIN_ROOT) tekst"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:rel_RELTYPE_LOGIN_CONF
+msgid "Seose Loginmen&uuml;&uuml; seadete objekt (RELTYPE_LOGIN_CONF) tekst"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:rel_RELTYPE_PACKAGE_WAREHOUSE
+msgid "Seose Ladu (RELTYPE_PACKAGE_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:layout_vbox_users_tree
+msgid "Kujundusosa Kasutajate&nbsp;puu (vbox_users_tree) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:layout_vbox_users_search
+msgid "Kujundusosa Kasutajate&nbsp;otsing (vbox_users_search) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:layout_vbox_users_search_s2
+msgid "Kujundusosa Otsingu&nbsp;asukoht (vbox_users_search_s2) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:layout_vbox_ug_tree
+msgid "Kujundusosa Kasutajagruppide&nbsp;puu (vbox_ug_tree) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:layout_vbox_ug_search
+msgid "Kujundusosa Kasutajagruppide&nbsp;otsing (vbox_ug_search) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:layout_vbox_ug_search_u
+msgid "Kujundusosa Otsi&nbsp;kasutajate&nbsp;gruppe (vbox_ug_search_u) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:layout_vbox_ug_search_g
+msgid "Kujundusosa Otsi&nbsp;kasutajagruppe (vbox_ug_search_g) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:layout_conditions_tree
+msgid "Kujundusosa Sisupaketid (conditions_tree) pealkiri"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:166
+msgid "Vali &otilde;igused"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:168
+msgid "Vaatamine"
+msgstr "View"
+
+#: classes/core/users/user_manager.aw:172
+msgid "Muutmine"
+msgstr "Edit"
+
+#: classes/core/users/user_manager.aw:176
+msgid "Kustutamine"
+msgstr "Delete"
+
+#: classes/core/users/user_manager.aw:180
+msgid "Lisamine"
+msgstr "Add"
+
+#: classes/core/users/user_manager.aw:184
+msgid "ACL Muutmine"
+msgstr "Modify ACL"
+
+#: classes/core/users/user_manager.aw:228
+msgid "--vali--"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:234
+msgid "K&otilde;ik"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:235
+msgid "Blokeeritud"
+msgstr "Blocked"
+
+#: classes/core/users/user_manager.aw:236
+msgid "Blokeerimata"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:244
+#: classes/core/users/user_manager.aw:255
+msgid "T&ouml;&ouml;laua seest"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:245
+#: classes/core/users/user_manager.aw:256
+msgid "Kogu s&uuml;steemist"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:254
+msgid "Mitte kuskilt"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:300
+msgid "Juurkaustad/-grupid"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:309
+msgid "Juurkaustad/-grupid valimata"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:353
+msgid "p&auml;ev"
+msgstr "day"
+
+#: classes/core/users/user_manager.aw:354
+msgid "n&auml;dal"
+msgstr "week"
+
+#: classes/core/users/user_manager.aw:355
+msgid "kuu"
+msgstr "month"
+
+#: classes/core/users/user_manager.aw:356
+#: classes/core/users/user_manager.aw:357
+#: classes/core/users/user_manager.aw:358
+msgid "kuud"
+msgstr "months"
+
+#: classes/core/users/user_manager.aw:359
+msgid "aasta"
+msgstr "year"
+
+#: classes/core/users/user_manager.aw:552
+msgid "Salvesta"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:567
+msgid "Kustuta valitud"
+msgstr "Delete selected"
+
+#: classes/core/users/user_manager.aw:569
+msgid "Kustutada valitud objektid?"
+msgstr "Delete selected objects?"
+
+#: classes/core/users/user_manager.aw:590
+#: classes/core/users/user_manager.aw:1130
+#: classes/core/users/user_manager.aw:1473
+msgid "L&otilde;ika"
+msgstr "Cut"
+
+#: classes/core/users/user_manager.aw:596
+#: classes/core/users/user_manager.aw:1131
+msgid "Kopeeri"
+msgstr "Copy"
+
+#: classes/core/users/user_manager.aw:624
+msgid "L&otilde;igatud"
+msgstr "Cut"
+
+#: classes/core/users/user_manager.aw:635
+msgid "Kopeeritud"
+msgstr "Copied"
+
+#: classes/core/users/user_manager.aw:644
+msgid "Aseta"
+msgstr "Paste"
+
+#: classes/core/users/user_manager.aw:814
+#: classes/core/users/user_manager.aw:829
+msgid "(M)"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:879
+msgid "Ei leitud midagi"
+msgstr "Nothing found"
+
+#: classes/core/users/user_manager.aw:883
+#: classes/core/users/user_manager.aw:901
+msgid "Grupp '%s'"
+msgstr "Group '%s'"
+
+#: classes/core/users/user_manager.aw:888
+msgid "Leitud grupid"
+msgstr "Found groups"
+
+#: classes/core/users/user_manager.aw:917
+msgid "Kasutajanimi"
+msgstr "Username"
+
+#: classes/core/users/user_manager.aw:921
+msgid "Isik"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:925
+msgid "Organisatsioon"
+msgstr "Organisation"
+
+#: classes/core/users/user_manager.aw:929
+msgid "E-post"
+msgstr "E-mail"
+
+#: classes/core/users/user_manager.aw:933
+msgid "Viimane tegevus"
+msgstr "Last action"
+
+#: classes/core/users/user_manager.aw:937
+msgid "B?"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:938
+msgid "Kasutaja blokeerimine s&uuml;steemist"
+msgstr "Block user from system"
+
+#: classes/core/users/user_manager.aw:942
+msgid "Liidese keel"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:946
+msgid "RTE"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:947
+msgid "Kas RTE on lubatud?"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:951
+msgid "Grupid"
+msgstr "Groups"
+
+#: classes/core/users/user_manager.aw:975
+msgid "Grupi '%s' kasutajad"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:981
+msgid "Mitteaktiivsed kasutajad"
+msgstr "Non-active users"
+
+#: classes/core/users/user_manager.aw:1128
+#: classes/core/users/user_manager.aw:1471
+#: classes/core/users/user_manager.aw:1948
+msgid "Muuda"
+msgstr "Modify"
+
+#: classes/core/users/user_manager.aw:1129
+msgid "Blokeering maha"
+msgstr "Remove blocking"
+
+#: classes/core/users/user_manager.aw:1129
+msgid "Blokeeri"
+msgstr "Block"
+
+#: classes/core/users/user_manager.aw:1136
+msgid "Muuda parooli"
+msgstr "Change password"
+
+#: classes/core/users/user_manager.aw:1141
+msgid "Vaata statistikat"
+msgstr "Look statistics"
+
+#: classes/core/users/user_manager.aw:1154
+#: classes/core/users/user_manager.aw:1283
+#: classes/core/users/user_manager.aw:1510
+msgid "nimetu"
+msgstr "nameless"
+
+#: classes/core/users/user_manager.aw:1163
+msgid "Pole kunagi sisse loginud"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:1212
+msgid "Tegevus"
+msgstr "Action"
+
+#: classes/core/users/user_manager.aw:1219
+msgid "Grupi ID"
+msgstr "Group ID"
+
+#: classes/core/users/user_manager.aw:1224
+#: classes/core/users/user_manager.aw:1927
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/core/users/user_manager.aw:1228
+#: classes/core/users/user_manager.aw:1920
+msgid "Prioriteet"
+msgstr "Priority"
+
+#: classes/core/users/user_manager.aw:1232
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:1236
+msgid "AW"
+msgstr "AW"
+
+#: classes/core/users/user_manager.aw:1237
+msgid "Lubada administreerimiskeskkonda"
+msgstr "Can use administrative interface"
+
+#: classes/core/users/user_manager.aw:1241
+msgid "Aktiivne"
+msgstr "Active"
+
+#: classes/core/users/user_manager.aw:1245
+msgid "Muutmise aeg"
+msgstr "Modified"
+
+#: classes/core/users/user_manager.aw:1249
+msgid "Muutja"
+msgstr "Modified by"
+
+#: classes/core/users/user_manager.aw:1253
+msgid "Liikmeid"
+msgstr "Members"
+
+#: classes/core/users/user_manager.aw:1258
+msgid "Juurkaustad"
+msgstr "Root folders"
+
+#: classes/core/users/user_manager.aw:1262
+#: classes/core/users/user_manager.aw:1494
+msgid "Loginmen&uuml;&uuml;"
+msgstr "Login-menus"
+
+#: classes/core/users/user_manager.aw:1282
+msgid "Grupi '%s' alamgrupid"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:1435
+msgid "Kustutada valitud objekt?"
+msgstr "Delete selected objects?"
+
+#: classes/core/users/user_manager.aw:1463
+msgid "M&auml;&auml;ra &otilde;igused"
+msgstr "Apply rights"
+
+#: classes/core/users/user_manager.aw:1472
+msgid "Kustuta"
+msgstr "Delete"
+
+#: classes/core/users/user_manager.aw:1478
+msgid "Impordi"
+msgstr "Import"
+
+#: classes/core/users/user_manager.aw:1479
+msgid "Juurkaust"
+msgstr "Root folder"
+
+#: classes/core/users/user_manager.aw:1480
+msgid "Login men&uuml;&uuml;"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:1481
+msgid "Objektid"
+msgstr "Objects"
+
+#: classes/core/users/user_manager.aw:1491
+#: classes/core/users/user_manager.aw:1768
+msgid "Vali loginmen&uuml;&uuml;"
+msgstr "Select login-menu"
+
+#: classes/core/users/user_manager.aw:1522
+msgid "Tavaline"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:1523
+msgid "D&uuml;naamiline"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:1524
+msgid "Kasutaja"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:1722
+msgid "Seostamata menyyde juurikas"
+msgstr "Root for nonrelated folders"
+
+#: classes/core/users/user_manager.aw:1731
+msgid "Seostamata confiobject"
+msgstr "Nonrelated configuration object"
+
+#: classes/core/users/user_manager.aw:1934
+msgid "Tellimisaja algus"
+msgstr ""
+
+#: classes/core/users/user_manager.aw:1941
+msgid "Tellimisaja l&otilde;pp"
+msgstr ""
+
+#~ msgid "Omaduse Juurkaust/-grupp (root) caption"
+#~ msgstr "Root folder"
+
+#~ msgid "Omaduse Kasutaja mitteaktiivsuse aeg tabelisse sattumiseks (inactive_period) caption"
+#~ msgstr "User automatic deactivation time"
+
+#~ msgid "Omaduse Grupid  (table_selected_groups) caption"
+#~ msgstr "Groups"
+
+#~ msgid "Omaduse Grupid  (table_groups) caption"
+#~ msgstr "Groups"
+
+#~ msgid "Grupi Mitteaktiivsed kasutajad (inactive_users) pealkiri"
+#~ msgstr "Deactive users"
+
+#~ msgid "Juurkaust/-grupp valimata"
+#~ msgstr "Root folder or group is not selected"
+
+#~ msgid "P&auml;risnimi"
+#~ msgstr "Person name"
+
+#~ msgid "Jah"
+#~ msgstr "Yes"
+
+#~ msgid "Ei"
+#~ msgstr "No"
+
+#~ msgid "'%s' alamgrupid"
+#~ msgstr "'%s' subgroups"
+
+#~ msgid "Vali õigused"
+#~ msgstr "Select rights"
+
+#~ msgid "Omaduse Otsi gruppi (search_txt) caption"
+#~ msgstr "Search groups"
+
+#~ msgid "Omaduse Salvesta (submit_save) caption"
+#~ msgstr "Save"
+
+#~ msgid "Uus"
+#~ msgstr "New"
+
+#~ msgid "Seose Loginmen&amp;uuml;&amp;uuml;de juurkaust (RELTYPE_LOGIN_ROOT) tekst"
+#~ msgstr "Root folder for login-menus"
+
+#~ msgid "Seose Loginmen&amp;uuml;&amp;uuml; seadete objekt  (RELTYPE_LOGIN_CONF) tekst"
+#~ msgstr "Login-menu configuration"

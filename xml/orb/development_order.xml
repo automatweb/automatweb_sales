@@ -1,0 +1,26 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="development_order" folder="www/dev/terryf/automatweb_dev/classes/applications/bug_o_matic_3000" extends="class_base">
+		<action name="export_req">
+			<function name="export_req">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_to_cart">
+			<function name="add_to_cart">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_from_cart">
+			<function name="remove_from_cart">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

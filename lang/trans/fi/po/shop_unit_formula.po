@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_unit_formula.aw:class_1469_help
+msgid "Klassi &Uuml;hikute valem help"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_from_unit
+msgid "Omaduse L&auml;hte&uuml;hik (A) (from_unit) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_from_unit_comment
+msgid "Omaduse L&auml;hte&uuml;hik (A) (from_unit) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_from_unit_help
+msgid "Omaduse L&auml;hte&uuml;hik (A) (from_unit) help"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_to_unit
+msgid "Omaduse Siht&uuml;hik (B) (to_unit) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_to_unit_comment
+msgid "Omaduse Siht&uuml;hik (B) (to_unit) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_to_unit_help
+msgid "Omaduse Siht&uuml;hik (B) (to_unit) help"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_simple_formula
+msgid "Omaduse Lihtne valem (X = B/A) (simple_formula) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_simple_formula_comment
+msgid "Omaduse Lihtne valem (X = B/A) (simple_formula) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_simple_formula_help
+msgid "Omaduse Lihtne valem (X = B/A) (simple_formula) help"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_complex_formula
+msgid "Omaduse Keeruline valem (complex_formula) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_complex_formula_comment
+msgid "Omaduse Keeruline valem (complex_formula) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_complex_formula_help
+msgid "Omaduse Keeruline valem (complex_formula) help"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_formula_changes
+msgid "Omaduse Valemi muudatused (formula_changes) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_formula_changes_comment
+msgid "Omaduse Valemi muudatused (formula_changes) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:prop_formula_changes_help
+msgid "Omaduse Valemi muudatused (formula_changes) help"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:rel_RELTYPE_FROM_UNIT
+msgid "Seose L&auml;hte&uuml;hik (RELTYPE_FROM_UNIT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:rel_RELTYPE_TO_UNIT
+msgid "Seose Siht&uuml;hik (RELTYPE_TO_UNIT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:rel_RELTYPE_FORMULA
+msgid "Seose Valem (RELTYPE_FORMULA) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_unit_formula.aw:121
+msgid "Valemi arv %s"
+msgstr ""
+

@@ -1,0 +1,44 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="stats_viewer" folder="www/dev/terryf/automatweb_dev/classes/applications/stats" extends="class_base">
+		<action name="bring_online">
+			<function name="bring_online">
+				<arguments>
+					<required name="per_id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_rels">
+			<function name="del_rels">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_saved_filter">
+			<function name="delete_saved_filter">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="find_obj_redir">
+			<function name="find_obj_redir">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_fs">
+			<function name="del_fs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

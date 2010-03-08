@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/messenger/message_template.aw:class_449_help
+msgid "Klassi Kirja template help"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_subject
+msgid "Omaduse Pealkiri (subject) caption"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_subject_comment
+msgid "Omaduse Pealkiri (subject) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_subject_help
+msgid "Omaduse Pealkiri (subject) help"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_is_html
+msgid "Omaduse HTML (is_html) caption"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_is_html_comment
+msgid "Omaduse HTML (is_html) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_is_html_help
+msgid "Omaduse HTML (is_html) help"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_legend
+msgid "Omaduse Legend (legend) caption"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_legend_comment
+msgid "Omaduse Legend (legend) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_legend_help
+msgid "Omaduse Legend (legend) help"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/message_template.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr ""
+

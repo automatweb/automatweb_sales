@@ -1,0 +1,219 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="google_chart" folder="www/dev/terryf/automatweb_dev/classes/vcl" extends="aw_template">
+		<action name="set_type">
+			<function name="set_type">
+				<arguments>
+					<required name="type" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_data">
+			<function name="add_data">
+				<arguments>
+					<required name="data" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_size">
+			<function name="set_size">
+				<arguments>
+					<required name="width" type="int" />
+					<required name="height" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_labels">
+			<function name="set_labels">
+				<arguments>
+					<required name="labels" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_colors">
+			<function name="set_colors">
+				<arguments>
+					<required name="colors" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_fill">
+			<function name="add_fill">
+				<arguments>
+					<required name="area" />
+					<required name="type" />
+					<required name="angle" type="int" />
+					<required name="colors" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_title">
+			<function name="set_title">
+				<arguments>
+					<required name="text" />
+					<optional name="color" />
+					<optional name="size" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_legend">
+			<function name="set_legend">
+				<arguments>
+					<required name="labels" type="array" />
+					<optional name="position" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_bar_zeroline">
+			<function name="set_bar_zeroline">
+				<arguments>
+					<required name="zeros" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_data_scales">
+			<function name="set_data_scales">
+				<arguments>
+					<required name="data_scales" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_bar_sizes">
+			<function name="set_bar_sizes">
+				<arguments>
+					<required name="width" type="int" />
+					<optional name="bar_spacing" type="int" />
+					<optional name="bar_group_spacing" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_line_style">
+			<function name="add_line_style">
+				<arguments>
+					<required name="thickness" type="int" />
+					<required name="segments" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_marker">
+			<function name="add_marker">
+				<arguments>
+					<required name="type" type="string" />
+					<optional name="text" type="string" />
+					<required name="color" type="string" />
+					<required name="dataset" type="int" />
+					<required name="datapoint" type="int" />
+					<required name="size" type="int" />
+					<required name="order" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_range_marker">
+			<function name="add_range_marker">
+				<arguments>
+					<required name="type" type="string" />
+					<required name="color" type="string" />
+					<required name="start" type="int" />
+					<required name="end" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_grid">
+			<function name="set_grid">
+				<arguments>
+					<required name="xstep" type="int" />
+					<required name="ystep" type="int" />
+					<optional name="segments" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_axis">
+			<function name="set_axis">
+				<arguments>
+					<required name="axis" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_axis_label">
+			<function name="add_axis_label">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="labels" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_axis_position">
+			<function name="add_axis_position">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="positions" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_axis_range">
+			<function name="add_axis_range">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="range" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_axis_style">
+			<function name="add_axis_style">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="style" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="use_cache">
+			<function name="use_cache">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="has_cache">
+			<function name="has_cache">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_id">
+			<function name="set_id">
+				<arguments>
+					<required name="id" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_html">
+			<function name="get_html">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

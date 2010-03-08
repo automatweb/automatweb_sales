@@ -1,0 +1,37 @@
+<?php
+$GLOBALS["TRANS"]["Eesnimi"] = "First name";
+$GLOBALS["TRANS"]["Perenimi"] = "Surname";
+$GLOBALS["TRANS"]["E-post"] = "E-mail";
+$GLOBALS["TRANS"]["Algus"] = "Start";
+$GLOBALS["TRANS"]["L&otilde;pp"] = "End";
+$GLOBALS["TRANS"]["Pakett"] = "Packet";
+$GLOBALS["TRANS"]["Parool"] = "Password";
+$GLOBALS["TRANS"]["Reserveering peab algama %s"] = "Reservation has to start in %s";
+$GLOBALS["TRANS"]["--vali--"] = "--select--";
+$GLOBALS["TRANS"]["Toode"] = "Product";
+$GLOBALS["TRANS"]["Millal"] = "Time";
+$GLOBALS["TRANS"]["Broneering %s, %s - %s, pakett %s"] = "Reservation %s, %s - %s, packet %s";
+$GLOBALS["TRANS"]["Lisa teenus"] = "Add service";
+$GLOBALS["TRANS"]["Prindi"] = "Print";
+$GLOBALS["TRANS"]["Maksa"] = "Payment";
+$GLOBALS["TRANS"]["%s lisateenused %s EEK"] = "%s additional services %s EEK";
+$GLOBALS["TRANS"]["Muuda"] = "Change";
+$GLOBALS["TRANS"]["Ruum %s, ajal %s - %s"] = "Room %s, time %s - %s";
+$GLOBALS["TRANS"]["T&uuml;hista"] = "Cancel";
+$GLOBALS["TRANS"]["----Lisateenused"] = "----Additional services";
+$GLOBALS["TRANS"]["Kokku: %s EEK"] = "Total: %s EEK";
+$GLOBALS["TRANS"]["Maksma"] = "Payment";
+$GLOBALS["TRANS"]["Seda toodet ei ole v&otilde;imalik broneerida &uuml;htegi ruumi!"] = "This product is not available";
+$GLOBALS["TRANS"]["Tootele %s pole m&auml;&auml;ratud broneeringu pikkust!"] = "Product %s has no free times";
+$GLOBALS["TRANS"]["Broneeritud"] = "Reserved";
+$GLOBALS["TRANS"]["Vahepeal on valitud aeg broneeritud!"] = "The time is already reserved by someone else";
+$GLOBALS["TRANS"]["Mees"] = "Man";
+$GLOBALS["TRANS"]["Naine"] = "Woman";
+$GLOBALS["TRANS"]["Vali toode"] = "Select product";
+$GLOBALS["TRANS"]["Sisesta kasutaja puuduvad andmed"] = "Enter missing data";
+$GLOBALS["TRANS"]["Telefon"] = "Phone";
+$GLOBALS["TRANS"]["Paketi nimi"] = "Packet";
+$GLOBALS["TRANS"]["Saabumine"] = "Arrival";
+$GLOBALS["TRANS"]["Lahkumine"] = "Departure";
+$GLOBALS["TRANS"]["Reisib&uuml;roo nimi"] = "Travel agency";
+?>

@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="aw_editor_manager_base" folder="admin/editor" extends="aw_template">
+		<action name="change" default="1">
+			<function name="manage">
+				<arguments>
+					<required name="doc" />
+					<optional name="link_url" />
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

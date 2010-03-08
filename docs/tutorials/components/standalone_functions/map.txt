@@ -1,0 +1,11 @@
+map($format,$arr)
+
+Inspired from a Perl function with the same name. Every formatting character
+you use in (s)printf can be used in $format. Returns the array where every
+element has been formatted according to that $format. Ignores array keys.
+If you want to retain array keys use map2()
+
+Calling map("---%d---",array(1,2,3)) returns
+array("---1---","---2---","---3---");
+
+Returns: formatted array

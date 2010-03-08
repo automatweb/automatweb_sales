@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="scm_location" folder="www/dev/terryf/automatweb_dev/classes/applications/scm" extends="class_base">
+		<action name="autocomplete_location" all_args="1">
+			<function name="autocomplete_location">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="location_data" all_args="1">
+			<function name="location_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

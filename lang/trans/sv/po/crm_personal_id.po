@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_personal_id.aw:class_1043_help
+msgid "Klassi Isikutunnistus help"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_category
+msgid "Omaduse Liik (category) caption"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_category_comment
+msgid "Omaduse Liik (category) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_category_help
+msgid "Omaduse Liik (category) help"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_number
+msgid "Omaduse Dokumendi nr. (number) caption"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_number_comment
+msgid "Omaduse Dokumendi nr. (number) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_number_help
+msgid "Omaduse Dokumendi nr. (number) help"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_publisher
+msgid "Omaduse V&auml;ljaandja (publisher) caption"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_publisher_comment
+msgid "Omaduse V&auml;ljaandja (publisher) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_publisher_help
+msgid "Omaduse V&auml;ljaandja (publisher) help"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_publish_time
+msgid "Omaduse V&auml;ljaandmise aeg (publish_time) caption"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_publish_time_comment
+msgid "Omaduse V&auml;ljaandmise aeg (publish_time) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_publish_time_help
+msgid "Omaduse V&auml;ljaandmise aeg (publish_time) help"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_valid
+msgid "Omaduse Kehtib kuni (valid) caption"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_valid_comment
+msgid "Omaduse Kehtib kuni (valid) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_valid_help
+msgid "Omaduse Kehtib kuni (valid) help"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_info
+msgid "Omaduse Lisainfo (info) caption"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_info_comment
+msgid "Omaduse Lisainfo (info) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:prop_info_help
+msgid "Omaduse Lisainfo (info) help"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:102
+msgid "Pass"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:103
+msgid "Juhiluba"
+msgstr ""
+
+#: classes/crm/crm_personal_id.aw:104
+msgid "ID kaart"
+msgstr ""
+

@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_email.aw:class_1057_help
+msgid "Klassi CRM Meil help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_name
+msgid "Omaduse Teema (name) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_name_comment
+msgid "Omaduse Teema (name) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_name_help
+msgid "Omaduse Teema (name) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_project
+msgid "Omaduse Projekt (project) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_project_comment
+msgid "Omaduse Projekt (project) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_project_help
+msgid "Omaduse Projekt (project) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_is_done
+msgid "Omaduse Tehtud (is_done) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_is_done_comment
+msgid "Omaduse Tehtud (is_done) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_is_done_help
+msgid "Omaduse Tehtud (is_done) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_from
+msgid "Omaduse Kellelt (from) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_from_comment
+msgid "Omaduse Kellelt (from) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_from_help
+msgid "Omaduse Kellelt (from) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_to
+msgid "Omaduse Kellele (to) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_to_comment
+msgid "Omaduse Kellele (to) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_to_help
+msgid "Omaduse Kellele (to) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_date
+msgid "Omaduse Millal (date) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_date_comment
+msgid "Omaduse Millal (date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_date_help
+msgid "Omaduse Millal (date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_task
+msgid "Omaduse Toimetus (task) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_task_comment
+msgid "Omaduse Toimetus (task) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_task_help
+msgid "Omaduse Toimetus (task) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_imap_id
+msgid "Omaduse IMAP id (imap_id) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_imap_id_comment
+msgid "Omaduse IMAP id (imap_id) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:prop_imap_id_help
+msgid "Omaduse IMAP id (imap_id) help"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:rel_RELTYPE_CUSTOMER
+msgid "Seose Klient (RELTYPE_CUSTOMER) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:rel_RELTYPE_PROJECT
+msgid "Seose Projekt (RELTYPE_PROJECT) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:rel_RELTYPE_TASK
+msgid "Seose Toimetus (RELTYPE_TASK) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:rel_RELTYPE_ATTACH
+msgid "Seose Manus (RELTYPE_ATTACH) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_email.aw:rel_RELTYPE_PARTICIPANT
+msgid "Seose Osaleja (RELTYPE_PARTICIPANT) tekst"
+msgstr ""
+

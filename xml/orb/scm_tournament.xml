@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="scm_tournament" folder="www/dev/terryf/automatweb_dev/classes/applications/scm" extends="class_base">
+		<action name="gen_new_competition">
+			<function name="_gen_new_competition">
+				<arguments>
+					<required name="parent" />
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

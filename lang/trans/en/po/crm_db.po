@@ -1,0 +1,787 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2005-12-04 20:10+0200\n"
+"Last-Translator: Erki <erki@struktuur.ee>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/crm/crm_db.aw:class_130_help
+#: classes/crm/crm_db.aw:class_130_help
+msgid "Klassi Kliendibaas help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_owner_org
+msgid "Omaduse Omanikorganisatsioon (owner_org) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_owner_org_comment
+msgid "Omaduse Omanikorganisatsioon (owner_org) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_owner_org_help
+msgid "Omaduse Omanikorganisatsioon (owner_org) help"
+msgstr ""
+
+# classes/crm/crm_db.aw:prop_selections
+#: classes/crm/crm_db.aw:prop_selections
+msgid "Omaduse Vaikimisi valim (selections) caption"
+msgstr "Default selection"
+
+# classes/crm/crm_db.aw:prop_selections_comment
+#: classes/crm/crm_db.aw:prop_selections_comment
+msgid "Omaduse Vaikimisi valim (selections) kommentaar"
+msgstr ""
+
+# classes/crm/crm_db.aw:prop_selections_help
+#: classes/crm/crm_db.aw:prop_selections_help
+msgid "Omaduse Vaikimisi valim (selections) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_firma
+msgid "Omaduse Ettev&otilde;tete kaust (dir_firma) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_firma_comment
+msgid "Omaduse Ettev&otilde;tete kaust (dir_firma) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_firma_help
+msgid "Omaduse Ettev&otilde;tete kaust (dir_firma) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_folder_person
+msgid "Omaduse T&ouml;&ouml;tajate kaust (folder_person) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_folder_person_comment
+msgid "Omaduse T&ouml;&ouml;tajate kaust (folder_person) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_folder_person_help
+msgid "Omaduse T&ouml;&ouml;tajate kaust (folder_person) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_address
+msgid "Omaduse Aadresside kaust (dir_address) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_address_comment
+msgid "Omaduse Aadresside kaust (dir_address) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_address_help
+msgid "Omaduse Aadresside kaust (dir_address) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_ettevotlusvorm
+msgid "Omaduse &Otilde;iguslike vormide kaust (dir_ettevotlusvorm) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_ettevotlusvorm_comment
+msgid "Omaduse &Otilde;iguslike vormide kaust (dir_ettevotlusvorm) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_ettevotlusvorm_help
+msgid "Omaduse &Otilde;iguslike vormide kaust (dir_ettevotlusvorm) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_riik
+msgid "Omaduse Riikide kaust (dir_riik) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_riik_comment
+msgid "Omaduse Riikide kaust (dir_riik) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_riik_help
+msgid "Omaduse Riikide kaust (dir_riik) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_piirkond
+msgid "Omaduse Piirkondade kaust (dir_piirkond) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_piirkond_comment
+msgid "Omaduse Piirkondade kaust (dir_piirkond) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_piirkond_help
+msgid "Omaduse Piirkondade kaust (dir_piirkond) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_maakond
+msgid "Omaduse Maakondade kaust (dir_maakond) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_maakond_comment
+msgid "Omaduse Maakondade kaust (dir_maakond) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_maakond_help
+msgid "Omaduse Maakondade kaust (dir_maakond) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_linn
+msgid "Omaduse Linnade kaust (dir_linn) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_linn_comment
+msgid "Omaduse Linnade kaust (dir_linn) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_linn_help
+msgid "Omaduse Linnade kaust (dir_linn) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_tegevusala
+msgid "Omaduse Tegevusalade kaust (dir_tegevusala) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_tegevusala_comment
+msgid "Omaduse Tegevusalade kaust (dir_tegevusala) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_tegevusala_help
+msgid "Omaduse Tegevusalade kaust (dir_tegevusala) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_toode
+msgid "Omaduse Toodete kaust (dir_toode) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_toode_comment
+msgid "Omaduse Toodete kaust (dir_toode) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_toode_help
+msgid "Omaduse Toodete kaust (dir_toode) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_default
+msgid "Omaduse Kaust, kui m&otilde;ni eelnevatest pole m&auml;&auml;ratud, siis kasutatakse seda (dir_default) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_default_comment
+msgid "Omaduse Kaust, kui m&otilde;ni eelnevatest pole m&auml;&auml;ratud, siis kasutatakse seda (dir_default) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_dir_default_help
+msgid "Omaduse Kaust, kui m&otilde;ni eelnevatest pole m&auml;&auml;ratud, siis kasutatakse seda (dir_default) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_flimit
+msgid "Omaduse Kirjeid &uuml;hel lehel (flimit) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_flimit_comment
+msgid "Omaduse Kirjeid &uuml;hel lehel (flimit) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_flimit_help
+msgid "Omaduse Kirjeid &uuml;hel lehel (flimit) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_all_ct_data
+msgid "Omaduse Kuva k&otilde;iki kontaktandmeid (all_ct_data) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_all_ct_data_comment
+msgid "Omaduse Kuva k&otilde;iki kontaktandmeid (all_ct_data) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_all_ct_data_help
+msgid "Omaduse Kuva k&otilde;iki kontaktandmeid (all_ct_data) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tbl_fields
+msgid "Omaduse Tabeli v&auml;ljad (org_tbl_fields) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tbl_fields_comment
+msgid "Omaduse Tabeli v&auml;ljad (org_tbl_fields) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tbl_fields_help
+msgid "Omaduse Tabeli v&auml;ljad (org_tbl_fields) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tlb
+msgid "Omaduse  (org_tlb) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tlb_comment
+msgid "Omaduse  (org_tlb) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tlb_help
+msgid "Omaduse  (org_tlb) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tree
+msgid "Omaduse  (org_tree) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tree_comment
+msgid "Omaduse  (org_tree) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tree_help
+msgid "Omaduse  (org_tree) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_name
+msgid "Omaduse Nimi (os_name) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_name_comment
+msgid "Omaduse Nimi (os_name) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_name_help
+msgid "Omaduse Nimi (os_name) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_regnr
+msgid "Omaduse &Auml;riregistri number (os_regnr) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_regnr_comment
+msgid "Omaduse &Auml;riregistri number (os_regnr) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_regnr_help
+msgid "Omaduse &Auml;riregistri number (os_regnr) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_address
+msgid "Omaduse Aadress (os_address) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_address_comment
+msgid "Omaduse Aadress (os_address) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_address_help
+msgid "Omaduse Aadress (os_address) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_director
+msgid "Omaduse Firmajuht (os_director) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_director_comment
+msgid "Omaduse Firmajuht (os_director) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_director_help
+msgid "Omaduse Firmajuht (os_director) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_legal_form
+msgid "Omaduse Ettev&otilde;lusvorm (os_legal_form) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_legal_form_comment
+msgid "Omaduse Ettev&otilde;lusvorm (os_legal_form) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_legal_form_help
+msgid "Omaduse Ettev&otilde;lusvorm (os_legal_form) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_county
+msgid "Omaduse Maakond (os_county) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_county_comment
+msgid "Omaduse Maakond (os_county) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_county_help
+msgid "Omaduse Maakond (os_county) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_city
+msgid "Omaduse Linn (os_city) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_city_comment
+msgid "Omaduse Linn (os_city) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_city_help
+msgid "Omaduse Linn (os_city) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_show_in_webview
+msgid "Omaduse Veebis kuvamine (os_show_in_webview) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_show_in_webview_comment
+msgid "Omaduse Veebis kuvamine (os_show_in_webview) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_show_in_webview_help
+msgid "Omaduse Veebis kuvamine (os_show_in_webview) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_submit
+msgid "Omaduse Otsi (os_submit) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_submit_comment
+msgid "Omaduse Otsi (os_submit) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_os_submit_help
+msgid "Omaduse Otsi (os_submit) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_a2z
+msgid "Omaduse  (org_a2z) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_a2z_comment
+msgid "Omaduse  (org_a2z) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_a2z_help
+msgid "Omaduse  (org_a2z) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tbl
+msgid "Omaduse  (org_tbl) caption"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tbl_comment
+msgid "Omaduse  (org_tbl) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_db.aw:prop_org_tbl_help
+msgid "Omaduse  (org_tbl) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:group_config_general
+msgid "Grupi &Uuml;ldised&nbsp;seaded (config_general) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_db.aw:group_config_general_help
+msgid "Grupi &Uuml;ldised&nbsp;seaded (config_general) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:group_config_org
+msgid "Grupi Kataloogi&nbsp;seaded (config_org) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_db.aw:group_config_org_help
+msgid "Grupi Kataloogi&nbsp;seaded (config_org) help"
+msgstr ""
+
+#: classes/crm/crm_db.aw:group_org
+msgid "Grupi Kataloog (org) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_db.aw:group_org_help
+msgid "Grupi Kataloog (org) help"
+msgstr ""
+
+# classes/crm/crm_db.aw:rel_RELTYPE_SELECTIONS
+#: classes/crm/crm_db.aw:rel_RELTYPE_SELECTIONS
+msgid "Seose Valimid (RELTYPE_SELECTIONS) tekst"
+msgstr "Selections"
+
+# classes/crm/crm_db.aw:rel_RELTYPE_FIRMA_CAT
+#: classes/crm/crm_db.aw:rel_RELTYPE_FIRMA_CAT
+msgid "Seose Organisatsioonide kaust (RELTYPE_FIRMA_CAT) tekst"
+msgstr "Organisation folder"
+
+#: classes/crm/crm_db.aw:rel_RELTYPE_ISIK_CAT
+msgid "Seose T&ouml;&ouml;tajate kaust (RELTYPE_ISIK_CAT) tekst"
+msgstr ""
+
+# classes/crm/crm_db.aw:rel_RELTYPE_ADDRESS_CAT
+#: classes/crm/crm_db.aw:rel_RELTYPE_ADDRESS_CAT
+msgid "Seose Aadresside kaust (RELTYPE_ADDRESS_CAT) tekst"
+msgstr "Address folder"
+
+# classes/crm/crm_db.aw:rel_RELTYPE_LINN_CAT
+#: classes/crm/crm_db.aw:rel_RELTYPE_LINN_CAT
+msgid "Seose Linnade kaust (RELTYPE_LINN_CAT) tekst"
+msgstr "City folder"
+
+# classes/crm/crm_db.aw:rel_RELTYPE_MAAKOND_CAT
+#: classes/crm/crm_db.aw:rel_RELTYPE_MAAKOND_CAT
+msgid "Seose Maakondade kaust (RELTYPE_MAAKOND_CAT) tekst"
+msgstr "County folder"
+
+# classes/crm/crm_db.aw:rel_RELTYPE_RIIK_CAT
+#: classes/crm/crm_db.aw:rel_RELTYPE_RIIK_CAT
+msgid "Seose Riikide kaust (RELTYPE_RIIK_CAT) tekst"
+msgstr "State folder"
+
+# classes/crm/crm_db.aw:rel_RELTYPE_TEGEVUSALA_CAT
+#: classes/crm/crm_db.aw:rel_RELTYPE_TEGEVUSALA_CAT
+msgid "Seose Tegevusalade kaust (RELTYPE_TEGEVUSALA_CAT) tekst"
+msgstr "Activity folder"
+
+# classes/crm/crm_db.aw:rel_RELTYPE_TOODE_CAT
+#: classes/crm/crm_db.aw:rel_RELTYPE_TOODE_CAT
+msgid "Seose Toodete kataloogide kaust (RELTYPE_TOODE_CAT) tekst"
+msgstr "Product category folder"
+
+#: classes/crm/crm_db.aw:rel_RELTYPE_GENERAL_CAT
+msgid "Seose &Uuml;ldkaust (RELTYPE_GENERAL_CAT) tekst"
+msgstr ""
+
+# classes/crm/crm_db.aw:rel_RELTYPE_CALENDAR
+#: classes/crm/crm_db.aw:rel_RELTYPE_CALENDAR
+msgid "Seose Kalender (RELTYPE_CALENDAR) tekst"
+msgstr "Calendar"
+
+#: classes/crm/crm_db.aw:rel_RELTYPE_ETTEVOTLUSVORM_CAT
+msgid "Seose &Otilde;iguslike vormide kaust (RELTYPE_ETTEVOTLUSVORM_CAT) tekst"
+msgstr ""
+
+# classes/crm/crm_db.aw:rel_RELTYPE_FORMS
+#: classes/crm/crm_db.aw:rel_RELTYPE_FORMS
+msgid "Seose Sisestusvormid (RELTYPE_FORMS) tekst"
+msgstr "Entry forms"
+
+# classes/crm/crm_db.aw:rel_RELTYPE_METAMGR
+#: classes/crm/crm_db.aw:rel_RELTYPE_METAMGR
+msgid "Seose Muutujad (RELTYPE_METAMGR) tekst"
+msgstr "Variables"
+
+#: classes/crm/crm_db.aw:rel_RELTYPE_PIIRKOND_CAT
+msgid "Seose Piirkondade kaust (RELTYPE_PIIRKOND_CAT) tekst"
+msgstr ""
+
+#: classes/crm/crm_db.aw:rel_RELTYPE_OWNER_ORG
+msgid "Seose Omanikorganisatsioon (RELTYPE_OWNER_ORG) tekst"
+msgstr ""
+
+#: classes/crm/crm_db.aw:rel_RELTYPE_OS_CITY
+msgid "Seose Linn otsingus (RELTYPE_OS_CITY) tekst"
+msgstr ""
+
+#: classes/crm/crm_db.aw:rel_RELTYPE_OS_COUNTY
+msgid "Seose Maakond otsingus (RELTYPE_OS_COUNTY) tekst"
+msgstr ""
+
+#: classes/crm/crm_db.aw:layout_o_left_top
+msgid "Kujundusosa Kataloogi&nbsp;puu (o_left_top) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_db.aw:layout_o_left_bottom
+msgid "Kujundusosa Otsi&nbsp;kataloogist (o_left_bottom) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_db.aw:179
+msgid "Jrk"
+msgstr ""
+
+#: classes/crm/crm_db.aw:180
+msgid "Organisatsioon"
+msgstr "Organisation"
+
+#: classes/crm/crm_db.aw:181
+msgid "P&otilde;hitegevus"
+msgstr ""
+
+#: classes/crm/crm_db.aw:182
+msgid "Ettev&otilde;lusvorm"
+msgstr ""
+
+#: classes/crm/crm_db.aw:183
+msgid "Aadress"
+msgstr "Address"
+
+#: classes/crm/crm_db.aw:184
+msgid "E-post"
+msgstr "E-mail"
+
+#: classes/crm/crm_db.aw:185
+msgid "WWW"
+msgstr ""
+
+#: classes/crm/crm_db.aw:186
+msgid "Telefon"
+msgstr "Phone"
+
+#: classes/crm/crm_db.aw:187
+msgid "Juht"
+msgstr ""
+
+#: classes/crm/crm_db.aw:188
+msgid "Kliendihaldur"
+msgstr ""
+
+#: classes/crm/crm_db.aw:189
+msgid "Muudetud"
+msgstr ""
+
+#: classes/crm/crm_db.aw:190
+msgid "Loodud"
+msgstr ""
+
+#: classes/crm/crm_db.aw:222
+msgid "Organisatsiooni OIDga %u seos tegevusalaga OIDga %u"
+msgstr ""
+
+#: classes/crm/crm_db.aw:254
+msgid "Ei kuvata veebis"
+msgstr ""
+
+#: classes/crm/crm_db.aw:255
+msgid "Kuvatakse veebis"
+msgstr ""
+
+#: classes/crm/crm_db.aw:434
+msgid "Muuda"
+msgstr ""
+
+#: classes/crm/crm_db.aw:438 classes/crm/crm_db.aw:758
+msgid "Kustuta"
+msgstr "Delete"
+
+#: classes/crm/crm_db.aw:469 classes/crm/crm_db.aw:1133
+msgid "K&otilde;ik organisatsioonid"
+msgstr ""
+
+#: classes/crm/crm_db.aw:470
+msgid "Kuvatavad organisatsioonid"
+msgstr ""
+
+#: classes/crm/crm_db.aw:471
+msgid "Mittekuvatavad organisatsioonid"
+msgstr ""
+
+#: classes/crm/crm_db.aw:671
+msgid "(nimetu)"
+msgstr ""
+
+#: classes/crm/crm_db.aw:696
+msgid "Lisa"
+msgstr "Add"
+
+#: classes/crm/crm_db.aw:706
+msgid "Lisa organisatsioon"
+msgstr ""
+
+#: classes/crm/crm_db.aw:717
+msgid "Lisa tegevusala"
+msgstr ""
+
+#: classes/crm/crm_db.aw:729
+msgid "Lisa tegevusala %s"
+msgstr ""
+
+#: classes/crm/crm_db.aw:744
+msgid "Kasutaja kalender"
+msgstr "User calendar"
+
+#: classes/crm/crm_db.aw:752
+msgid "Ava valim"
+msgstr "Open selection"
+
+#: classes/crm/crm_db.aw:760
+msgid "Kustutada valitud organisatsioonid?"
+msgstr "Delete selected organisations"
+
+#: classes/crm/crm_db.aw:770
+msgid "Kuva veebis"
+msgstr ""
+
+#: classes/crm/crm_db.aw:778
+msgid "&Auml;ra kuva veebis"
+msgstr ""
+
+#: classes/crm/crm_db.aw:790
+msgid "-- vali valim --"
+msgstr "-- select selection --"
+
+#: classes/crm/crm_db.aw:814
+msgid "Lisa valitud valimisse"
+msgstr "Add to selected selection"
+
+#: classes/crm/crm_db.aw:816
+msgid "Paiguta valitud organisatsioonid sellesse valimisse?"
+msgstr "Put selected organisations to this selection?"
+
+#: classes/crm/crm_db.aw:840
+msgid "K&otilde;ik"
+msgstr ""
+
+#: classes/crm/crm_db.aw:1114
+msgid "Organisatsioonid, mille tegevusalade hulgas on \"%s\" ja mida kuvatakse veebis"
+msgstr ""
+
+#: classes/crm/crm_db.aw:1118
+msgid "Organisatsioonid, mille tegevusalade hulgas on \"%s\" ja mida veebis ei kuvata"
+msgstr ""
+
+#: classes/crm/crm_db.aw:1123
+msgid "Otsingutulemused"
+msgstr ""
+
+#: classes/crm/crm_db.aw:1129
+msgid "K&otilde;ik organisatsioonid, mida kuvatakse veebis"
+msgstr ""
+
+#: classes/crm/crm_db.aw:1129
+msgid "K&otilde;ik organisatsioonid, mida veebis ei kuvata"
+msgstr ""
+
+#: classes/crm/crm_db.aw:1140
+msgid "(nime algust&auml;ht"
+msgstr ""
+
+#: classes/crm/crm_db.aw:1152
+msgid "Muuda organisatsiooni"
+msgstr ""
+
+#: classes/crm/crm_db.aw:1157
+msgid "Muuda kliendisuhet"
+msgstr ""
+
+# classes/crm/crm_db.aw:prop_orgtoolbar
+#~ msgid "Omaduse Org. toolbar (orgtoolbar) caption"
+#~ msgstr "Co toolbar"
+
+# classes/crm/crm_db.aw:prop_search_form1
+#~ msgid "Omaduse Compound search (search_form1) caption"
+#~ msgstr "Comound search"
+
+# classes/crm/crm_db.aw:group_org
+#~ msgid "Grupi Organisatsioonid (org) pealkiri"
+#~ msgstr "Organisations"
+
+# classes/crm/crm_db.aw:group_f2
+#~ msgid "Grupi Otsing (f2) pealkiri"
+#~ msgstr "Search"
+
+# classes/crm/crm_db.aw:group_firmad
+#~ msgid "Grupi Nimekiri (firmad) pealkiri"
+#~ msgstr "List"
+
+# classes/crm/crm_db.aw:group_tegevusalad
+#~ msgid "Grupi Tegevusalad (tegevusalad) pealkiri"
+#~ msgstr "Activities"
+
+# classes/crm/crm_db.aw:prop_flimit
+#~ msgid "Omaduse Kirjeid ühel lehel (flimit) caption"
+#~ msgstr "Records per page"
+
+#~ msgid "Põhitegevus"
+#~ msgstr "Main activity"
+
+#~ msgid "Õiguslik vorm"
+#~ msgstr "Legal form"
+
+# classes/crm/crm_db.aw:prop_manageri
+#~ msgid "Omaduse Firmade nimekiri (manageri) caption"
+#~ msgstr "Company list"
+
+# classes/crm/crm_db.aw:prop_tegtoolbar
+#~ msgid "Omaduse Tegevusalade toolbar (tegtoolbar) caption"
+#~ msgstr "Activity toolbar"
+
+#~ msgid "Omaduse Tegevusalade puu (sector_tree) caption"
+#~ msgstr "Sector tree"
+
+# classes/crm/crm_db.aw:prop_sector_manager
+#~ msgid "Omaduse Tegevusalade kataloog (sector_manager) caption"
+#~ msgstr "Activities folder"
+
+# classes/crm/crm_db.aw:prop_dir_firma
+#~ msgid "Omaduse Vaikimisi firmade kaust (dir_firma) caption"
+#~ msgstr "Default company folder"
+
+# classes/crm/crm_db.aw:prop_folder_person
+#~ msgid "Omaduse Vaikimisi töötajate kaust (folder_person) caption"
+#~ msgstr "Default employee folder"
+
+# classes/crm/crm_db.aw:prop_dir_address
+#~ msgid "Omaduse Vaikimisi aadresside kaust (dir_address) caption"
+#~ msgstr "Default address folder"
+
+# classes/crm/crm_db.aw:prop_dir_ettevotlusvorm
+#~ msgid "Omaduse Vaikimisi õiguslike vormide kaust (dir_ettevotlusvorm) caption"
+#~ msgstr "Default legal form folder"
+
+# classes/crm/crm_db.aw:prop_dir_linn
+#~ msgid "Omaduse Vaikimisi linnade kaust (dir_linn) caption"
+#~ msgstr "Default city folder"
+
+# classes/crm/crm_db.aw:prop_dir_maakond
+#~ msgid "Omaduse Vaikimisi maakondade kaust (dir_maakond) caption"
+#~ msgstr "Default county folder"
+
+# classes/crm/crm_db.aw:prop_dir_tegevusala
+#~ msgid "Omaduse Vaikimisi tegevusalade kaust (dir_tegevusala) caption"
+#~ msgstr "Default activity folder"
+
+# classes/crm/crm_db.aw:prop_dir_toode
+#~ msgid "Omaduse Vaikimisi toodete kaust (dir_toode) caption"
+#~ msgstr "Default product folder"
+
+# classes/crm/crm_db.aw:prop_dir_default
+#~ msgid "Omaduse Vaikimisi kaust, kui mõni eelnevatest pole määratud, siis kasutatakse seda (dir_default) caption"
+#~ msgstr "Default folder - if some of the previous are not set, this will be used"
+
+# classes/crm/crm_db.aw:group_settings
+#~ msgid "Grupi Seaded (settings) pealkiri"
+#~ msgstr "Settings"
+
+#~ msgid "Tegevusala"
+#~ msgstr "Activity"
+
+#~ msgid "Organisatsioone"
+#~ msgstr "Organisation"
+
+#~ msgid "Reg nr."
+#~ msgstr "Registry number"
+
+#~ msgid "Linn/Vald/Alev"
+#~ msgstr "City/State/County"
+
+#~ msgid "Maakond"
+#~ msgstr "County"
+
+#~ msgid "Kodulehekülg"
+#~ msgstr "Homepage"
+
+#~ msgid "Organisatsiooni juht"
+#~ msgstr "Organisation leader"
+
+#~ msgid "Uus"
+#~ msgstr "New"
+
+#~ msgid "Kaust määramata"
+#~ msgstr "Folder not set"
+
+#~ msgid "Lisa %s"
+#~ msgstr "Add %s"
+
+#~ msgid "Lisa uus objekt"
+#~ msgstr "Add new object"
+
+#~ msgid "%s kaust määramata"
+#~ msgstr "%s folder not set"
+
+#~ msgid "Tegevusala valimata"
+#~ msgstr "Sector not selected"
+
+#~ msgid "- lisa uude valimisse -"
+#~ msgstr "- add to new selection -"
+
+#~ msgid "Muuda valimit"
+#~ msgstr "Change selection"
+
+#~ msgid "Vali"
+#~ msgstr "Select"

@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="help" folder="www/dev/terryf/automatweb_dev/classes/core/help" extends="aw_template">
+		<action name="browser" default="1">
+			<function name="browser">
+				<arguments>
+					<required name="clid" />
+					<optional name="group" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_node" all_args="1">
+			<function name="get_node">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="classhelp">
+			<function name="classhelp">
+				<arguments>
+					<required name="clid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="grouphelp">
+			<function name="grouphelp">
+				<arguments>
+					<required name="clid" type="int" />
+					<required name="grpid" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

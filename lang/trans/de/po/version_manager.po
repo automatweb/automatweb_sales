@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/vcl/version_manager.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/version_manager.aw:39
+msgid "Versioon loodud"
+msgstr ""
+
+#: classes/vcl/version_manager.aw:48
+msgid "Versiooni looja"
+msgstr ""
+
+#: classes/vcl/version_manager.aw:54 classes/vcl/version_manager.aw:88
+msgid "Vaata erinevusi"
+msgstr ""
+
+#: classes/vcl/version_manager.aw:60 classes/vcl/version_manager.aw:108
+msgid "M&auml;&auml;ra aktiivseks"
+msgstr ""
+
+#: classes/vcl/version_manager.aw:114
+msgid "Kustuta versioonid"
+msgstr ""
+
+#: classes/vcl/version_manager.aw:115
+msgid "Oled kindel et soovid valitud versioonid kustutada?"
+msgstr ""
+
+#: classes/vcl/version_manager.aw:192
+msgid "Omadus"
+msgstr ""
+
+#: classes/vcl/version_manager.aw:197
+msgid "Aktiivne versioon"
+msgstr ""
+
+#: classes/vcl/version_manager.aw:202
+msgid "Valitud versioon"
+msgstr ""

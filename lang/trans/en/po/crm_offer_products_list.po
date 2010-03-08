@@ -1,0 +1,108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/crm/crm_offer_products_list.aw:class_910_help
+#: classes/crm/crm_offer_products_list.aw:class_910_help
+msgid "Klassi Pakkumise toodete nimekiri help"
+msgstr ""
+
+# classes/crm/crm_offer_products_list.aw:prop_pk_toolbar
+#: classes/crm/crm_offer_products_list.aw:prop_pk_toolbar
+msgid "Omaduse  (pk_toolbar) caption"
+msgstr ""
+
+# classes/crm/crm_offer_products_list.aw:prop_pk_toolbar_comment
+#: classes/crm/crm_offer_products_list.aw:prop_pk_toolbar_comment
+msgid "Omaduse  (pk_toolbar) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_products_list.aw:prop_pk_toolbar_help
+#: classes/crm/crm_offer_products_list.aw:prop_pk_toolbar_help
+msgid "Omaduse  (pk_toolbar) help"
+msgstr ""
+
+# classes/crm/crm_offer_products_list.aw:prop_pk_tree
+#: classes/crm/crm_offer_products_list.aw:prop_pk_tree
+msgid "Omaduse Puu (pk_tree) caption"
+msgstr "Tree"
+
+# classes/crm/crm_offer_products_list.aw:prop_pk_tree_comment
+#: classes/crm/crm_offer_products_list.aw:prop_pk_tree_comment
+msgid "Omaduse Puu (pk_tree) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_products_list.aw:prop_pk_tree_help
+#: classes/crm/crm_offer_products_list.aw:prop_pk_tree_help
+msgid "Omaduse Puu (pk_tree) help"
+msgstr ""
+
+# classes/crm/crm_offer_products_list.aw:prop_pk_list
+#: classes/crm/crm_offer_products_list.aw:prop_pk_list
+msgid "Omaduse Pakkumised (pk_list) caption"
+msgstr "Offers"
+
+# classes/crm/crm_offer_products_list.aw:prop_pk_list_comment
+#: classes/crm/crm_offer_products_list.aw:prop_pk_list_comment
+msgid "Omaduse Pakkumised (pk_list) kommentaar"
+msgstr ""
+
+# classes/crm/crm_offer_products_list.aw:prop_pk_list_help
+#: classes/crm/crm_offer_products_list.aw:prop_pk_list_help
+msgid "Omaduse Pakkumised (pk_list) help"
+msgstr ""
+
+# classes/crm/crm_offer_products_list.aw:group_packages_show
+#: classes/crm/crm_offer_products_list.aw:group_packages_show
+msgid "Grupi Paketid (packages_show) pealkiri"
+msgstr "Packages"
+
+# classes/crm/crm_offer_products_list.aw:group_packages_show_help
+#: classes/crm/crm_offer_products_list.aw:group_packages_show_help
+msgid "Grupi Paketid (packages_show) help"
+msgstr ""
+
+# classes/crm/crm_offer_products_list.aw:rel_RELTYPE_PACKET
+#: classes/crm/crm_offer_products_list.aw:rel_RELTYPE_PACKET
+msgid "Seose pakett (RELTYPE_PACKET) tekst"
+msgstr "package"
+
+#: classes/crm/crm_offer_products_list.aw:89
+msgid "Lisa pakkumisse"
+msgstr "Add to offer"
+
+#: classes/crm/crm_offer_products_list.aw:96
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/crm/crm_offer_products_list.aw:106
+msgid "no warhoos"
+msgstr "no warehouse"
+
+#: classes/crm/crm_offer_products_list.aw:129
+#: classes/crm/crm_offer_products_list.aw:288
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/crm/crm_offer_products_list.aw:135
+msgid "Orignaalhind"
+msgstr "Original price"
+
+#: classes/crm/crm_offer_products_list.aw:141
+msgid "Pakutav hind"
+msgstr "Offered price"
+
+#: classes/crm/crm_offer_products_list.aw:187
+msgid "Eemalda pakkumisest"
+msgstr "Remove from offer"
+
+#: classes/crm/crm_offer_products_list.aw:294
+msgid "Hind"
+msgstr "Price"

@@ -1,0 +1,74 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/admin/shortcut_manager/shortcut.aw:class_1468_help
+msgid "Klassi Kiirklahv help"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_keycombo
+msgid "Omaduse Klahvikombinatsioon (keycombo) caption"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_keycombo_comment
+msgid "Omaduse Klahvikombinatsioon (keycombo) kommentaar"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_keycombo_help
+msgid "Omaduse Klahvikombinatsioon (keycombo) help"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_type
+msgid "Omaduse T&uuml;&uuml;p (type) caption"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_type_comment
+msgid "Omaduse T&uuml;&uuml;p (type) kommentaar"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_type_help
+msgid "Omaduse T&uuml;&uuml;p (type) help"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_url
+msgid "Omaduse URL (url) caption"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_url_comment
+msgid "Omaduse URL (url) kommentaar"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_url_help
+msgid "Omaduse URL (url) help"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_custom
+msgid "Omaduse Skript (custom) caption"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_custom_comment
+msgid "Omaduse Skript (custom) kommentaar"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:prop_custom_help
+msgid "Omaduse Skript (custom) help"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:45
+msgid "Vali t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:46
+msgid "Mine URL'ile"
+msgstr ""
+
+#: classes/admin/shortcut_manager/shortcut.aw:47
+msgid "Kasutaja skript"
+msgstr ""

@@ -1,0 +1,83 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mrp_job" folder="www/dev/terryf/automatweb_dev/classes/mrp" extends="class_base">
+		<action name="start">
+			<function name="start">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="done">
+			<function name="done">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="quantity" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="abort">
+			<function name="abort">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pause">
+			<function name="pause">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="scontinue">
+			<function name="scontinue">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="acontinue">
+			<function name="acontinue">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="js_post_material" all_args="1">
+			<function name="js_post_material">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="end_shift">
+			<function name="end_shift">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="can_start">
+			<function name="can_start">
+				<arguments>
+					<required name="job" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

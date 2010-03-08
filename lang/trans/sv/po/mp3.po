@@ -1,0 +1,433 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/mp3player/mp3.aw:class_1352_help
+msgid "Klassi MP3 help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_file
+msgid "Omaduse  (file) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_file_comment
+msgid "Omaduse  (file) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_file_help
+msgid "Omaduse  (file) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_md5
+msgid "Omaduse  (md5) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_md5_comment
+msgid "Omaduse  (md5) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_md5_help
+msgid "Omaduse  (md5) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_play_count
+msgid "Omaduse M&auml;ngitud (play_count) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_play_count_comment
+msgid "Omaduse M&auml;ngitud (play_count) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_play_count_help
+msgid "Omaduse M&auml;ngitud (play_count) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_fileupload
+msgid "Omaduse Fail (fileupload) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_fileupload_comment
+msgid "Omaduse Fail (fileupload) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_fileupload_help
+msgid "Omaduse Fail (fileupload) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_track
+msgid "Omaduse Mitmes lugu (track) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_track_comment
+msgid "Omaduse Mitmes lugu (track) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_track_help
+msgid "Omaduse Mitmes lugu (track) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_title
+msgid "Omaduse Pealkiri (title) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_title_comment
+msgid "Omaduse Pealkiri (title) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_title_help
+msgid "Omaduse Pealkiri (title) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_artist
+msgid "Omaduse Artist (artist) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_artist_comment
+msgid "Omaduse Artist (artist) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_artist_help
+msgid "Omaduse Artist (artist) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_album
+msgid "Omaduse Album (album) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_album_comment
+msgid "Omaduse Album (album) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_album_help
+msgid "Omaduse Album (album) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_year
+msgid "Omaduse Aasta (year) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_year_comment
+msgid "Omaduse Aasta (year) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_year_help
+msgid "Omaduse Aasta (year) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_genre
+msgid "Omaduse &#142;anr (genre) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_genre_comment
+msgid "Omaduse &#142;anr (genre) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_genre_help
+msgid "Omaduse &#142;anr (genre) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_composer
+msgid "Omaduse Helilooja (composer) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_composer_comment
+msgid "Omaduse Helilooja (composer) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_composer_help
+msgid "Omaduse Helilooja (composer) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_orig_artist
+msgid "Omaduse Algup&auml;rane artist (orig_artist) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_orig_artist_comment
+msgid "Omaduse Algup&auml;rane artist (orig_artist) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_orig_artist_help
+msgid "Omaduse Algup&auml;rane artist (orig_artist) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_copyright
+msgid "Omaduse Koopia&otilde;igus (copyright) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_copyright_comment
+msgid "Omaduse Koopia&otilde;igus (copyright) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_copyright_help
+msgid "Omaduse Koopia&otilde;igus (copyright) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_url
+msgid "Omaduse URL (url) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_url_comment
+msgid "Omaduse URL (url) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_url_help
+msgid "Omaduse URL (url) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_encoded_by
+msgid "Omaduse Kodeeritud (encoded_by) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_encoded_by_comment
+msgid "Omaduse Kodeeritud (encoded_by) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_encoded_by_help
+msgid "Omaduse Kodeeritud (encoded_by) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_filesize
+msgid "Omaduse Suurus (mpeg_info_filesize) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_filesize_comment
+msgid "Omaduse Suurus (mpeg_info_filesize) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_filesize_help
+msgid "Omaduse Suurus (mpeg_info_filesize) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_channels
+msgid "Omaduse Kanaleid (mpeg_info_channels) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_channels_comment
+msgid "Omaduse Kanaleid (mpeg_info_channels) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_channels_help
+msgid "Omaduse Kanaleid (mpeg_info_channels) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_sample_rate
+msgid "Omaduse sample_rate (mpeg_info_sample_rate) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_sample_rate_comment
+msgid "Omaduse sample_rate (mpeg_info_sample_rate) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_sample_rate_help
+msgid "Omaduse sample_rate (mpeg_info_sample_rate) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_bitrate
+msgid "Omaduse bitrate (mpeg_info_bitrate) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_bitrate_comment
+msgid "Omaduse bitrate (mpeg_info_bitrate) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_bitrate_help
+msgid "Omaduse bitrate (mpeg_info_bitrate) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_channelmode
+msgid "Omaduse channelmode (mpeg_info_channelmode) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_channelmode_comment
+msgid "Omaduse channelmode (mpeg_info_channelmode) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_channelmode_help
+msgid "Omaduse channelmode (mpeg_info_channelmode) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_bitrate_mode
+msgid "Omaduse bitrate_mode (mpeg_info_bitrate_mode) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_bitrate_mode_comment
+msgid "Omaduse bitrate_mode (mpeg_info_bitrate_mode) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_bitrate_mode_help
+msgid "Omaduse bitrate_mode (mpeg_info_bitrate_mode) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_codec
+msgid "Omaduse codec (mpeg_info_codec) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_codec_comment
+msgid "Omaduse codec (mpeg_info_codec) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_codec_help
+msgid "Omaduse codec (mpeg_info_codec) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_encoder
+msgid "Omaduse encoder (mpeg_info_encoder) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_encoder_comment
+msgid "Omaduse encoder (mpeg_info_encoder) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_encoder_help
+msgid "Omaduse encoder (mpeg_info_encoder) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_lossless
+msgid "Omaduse Kadudeta (mpeg_info_lossless) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_lossless_comment
+msgid "Omaduse Kadudeta (mpeg_info_lossless) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_lossless_help
+msgid "Omaduse Kadudeta (mpeg_info_lossless) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_encoder_options
+msgid "Omaduse encoder_options (mpeg_info_encoder_options) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_encoder_options_comment
+msgid "Omaduse encoder_options (mpeg_info_encoder_options) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_encoder_options_help
+msgid "Omaduse encoder_options (mpeg_info_encoder_options) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_compression_ratio
+msgid "Omaduse Pakkimise j&otilde;ud (mpeg_info_compression_ratio) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_compression_ratio_comment
+msgid "Omaduse Pakkimise j&otilde;ud (mpeg_info_compression_ratio) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_compression_ratio_help
+msgid "Omaduse Pakkimise j&otilde;ud (mpeg_info_compression_ratio) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_playtime_seconds
+msgid "Omaduse Kestus sekundites (mpeg_info_playtime_seconds) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_playtime_seconds_comment
+msgid "Omaduse Kestus sekundites (mpeg_info_playtime_seconds) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_playtime_seconds_help
+msgid "Omaduse Kestus sekundites (mpeg_info_playtime_seconds) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_playtime_string
+msgid "Omaduse Kestus (mpeg_info_playtime_string) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_playtime_string_comment
+msgid "Omaduse Kestus (mpeg_info_playtime_string) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_playtime_string_help
+msgid "Omaduse Kestus (mpeg_info_playtime_string) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_original
+msgid "Omaduse Originaal? (mpeg_info_original) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_original_comment
+msgid "Omaduse Originaal? (mpeg_info_original) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_original_help
+msgid "Omaduse Originaal? (mpeg_info_original) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_emphasis
+msgid "Omaduse emphasis (mpeg_info_emphasis) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_emphasis_comment
+msgid "Omaduse emphasis (mpeg_info_emphasis) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_emphasis_help
+msgid "Omaduse emphasis (mpeg_info_emphasis) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_copyright
+msgid "Omaduse copyright (mpeg_info_copyright) caption"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_copyright_comment
+msgid "Omaduse copyright (mpeg_info_copyright) kommentaar"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:prop_mpeg_info_copyright_help
+msgid "Omaduse copyright (mpeg_info_copyright) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:group_info
+msgid "Grupi Info (info) pealkiri"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:group_info_help
+msgid "Grupi Info (info) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:group_info_id3
+msgid "Grupi ID3 (info_id3) pealkiri"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:group_info_id3_help
+msgid "Grupi ID3 (info_id3) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:group_info_mpeg
+msgid "Grupi MPEG info (info_mpeg) pealkiri"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:group_info_mpeg_help
+msgid "Grupi MPEG info (info_mpeg) help"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:138
+#: classes/applications/mp3player/mp3.aw:166
+msgid "lasering.ee"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:144
+#: classes/applications/mp3player/mp3.aw:172
+msgid "amazon.com"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:150
+#: classes/applications/mp3player/mp3.aw:178
+msgid "wikipedia"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:314
+msgid "lae alla"
+msgstr ""
+
+#: classes/applications/mp3player/mp3.aw:533
+msgid "nimetu.mp3"
+msgstr ""

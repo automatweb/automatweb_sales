@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/groupware/project_team.aw:class_1101_help
+msgid "Klassi Projekti tiim help"
+msgstr ""
+
+#: classes/applications/groupware/project_team.aw:rel_RELTYPE_TEAM_MEMBER
+msgid "Seose Tiimi liige (RELTYPE_TEAM_MEMBER) tekst"
+msgstr ""
+

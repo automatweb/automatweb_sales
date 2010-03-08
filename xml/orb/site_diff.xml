@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="site_diff" folder="contentmgmt/site_search" extends="class_base">
+		<action name="diff">
+			<function name="diff">
+				<arguments>
+					<required name="id" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_diff">
+			<function name="show_diff">
+				<arguments>
+					<required name="id" type="OID" />
+					<required name="url" type="string" />
+					<required name="url_diff" type="string" />
+					<required name="time" type="timestamp" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_history">
+			<function name="delete_history">
+				<arguments>
+					<required name="id" type="id" />
+					<required name="sel" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

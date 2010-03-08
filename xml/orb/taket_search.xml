@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="taket_search" folder="www/automatweb_cvs/classes/applications/clients/taket" extends="class_base">
+		<action name="parse_submit_info">
+			<function name="parse_submit_info">
+				<arguments>
+					<optional name="tootekood" />
+					<optional name="asendustooted" />
+					<optional name="otsitunnus" />
+					<optional name="toote_nimetus" />
+					<optional name="laos" />
+					<optional name="kogus" />
+					<optional name="reforb" />
+					<optional name="start" />
+					<optional name="orderBy" />
+					<optional name="direction" />
+					<optional name="asukoht" />
+					<optional name="wvat" />
+					<optional name="osaline" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="give_me_times">
+			<function name="give_me_times">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_give_me_times">
+			<function name="save_give_me_times">
+				<arguments>
+					<optional name="suppliers" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

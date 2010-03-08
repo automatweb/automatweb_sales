@@ -1,0 +1,154 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:class_1350_help
+msgid "Klassi Eelarvestamise maksumaatriks help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_taxes_tb
+msgid "Omaduse  (taxes_tb) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_taxes_tb_comment
+msgid "Omaduse  (taxes_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_taxes_tb_help
+msgid "Omaduse  (taxes_tb) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_taxes_table
+msgid "Omaduse  (taxes_table) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_taxes_table_comment
+msgid "Omaduse  (taxes_table) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_taxes_table_help
+msgid "Omaduse  (taxes_table) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_accts_tb
+msgid "Omaduse  (accts_tb) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_accts_tb_comment
+msgid "Omaduse  (accts_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_accts_tb_help
+msgid "Omaduse  (accts_tb) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_accts_table
+msgid "Omaduse  (accts_table) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_accts_table_comment
+msgid "Omaduse  (accts_table) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_accts_table_help
+msgid "Omaduse  (accts_table) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_disp_table
+msgid "Omaduse  (disp_table) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_disp_table_comment
+msgid "Omaduse  (disp_table) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:prop_disp_table_help
+msgid "Omaduse  (disp_table) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:group_taxes
+msgid "Grupi Maksud (taxes) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:group_taxes_help
+msgid "Grupi Maksud (taxes) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:group_accts
+msgid "Grupi Kontod (accts) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:group_accts_help
+msgid "Grupi Kontod (accts) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:group_disp
+msgid "Grupi Maatriks (disp) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:group_disp_help
+msgid "Grupi Maatriks (disp) help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:rel_RELTYPE_TAX
+msgid "Seose Maks (RELTYPE_TAX) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:118
+msgid "Kust"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:123
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:172
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:194
+msgid "Maks"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:295
+msgid "T&auml;isarvuline summa"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:299
+msgid "Summa protsentides"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:303
+msgid "Miinus tolerants"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:307
+msgid "Pluss tolerants"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:311
+msgid "Tingimus"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:315
+msgid "Kasuta eraldi seadeid"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:319
+msgid "Kasuta olemasolevaid seadeid"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:323
+msgid "Prioriteet"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_tax_matrix.aw:479
+msgid "Seos maksu %s ja kausta %s vahel"
+msgstr ""

@@ -1,0 +1,87 @@
+How to create classes that can run in the background.
+
+1) classload("core/run_in_background"); before your class
+2) derive your class from run_in_background, not class_base
+3) define a text type property for background status display
+4) define a text type property for background process control
+5) if you want the background process to run all the time, then define this property:
+	@property bg_run_always type=checkbox ch_value=1
+	@caption Process runs constantly
+6) if you want the backgound process to be run according to a scheduler, then define relation type RELTYPE_RECURRENCE that connects to a recuurence object - the first one of these will be used to control the process runs
+7) in get_property, for the status display property, call $this->bg_run_get_property_status($arr);
+8) in get_property, for the process control property, call $this->bg_run_get_property_control($arr);
+9) in set_property, for the bg_run_always property, call $this->bg_check_scheduler();
+10) if you need to run any initialization tasks, before the process is started, define a callback functionm, like this:	
+	function bg_run_init($o)
+	{
+		// init stuff
+	}
+11) if you want the process to be able to continue, when interrupted, define a function for continuation init, like this:
+	function bg_run_continue($o)
+	{
+		// restore variables from stored checkpoint
+		$this->state = $o->meta("checkpointed_var");
+	}
+
+	and also acheckpointing function that stores the current state of the process, so that continue function can restore it, like this:
+
+	function bg_checkpoint($o)
+	{
+		$o->set_meta("checkpointed_var", $this->state);
+	}
+
+	the checkpoint function will be called after a number of steps, defined by $this->bg_checkpoint_steps variable (default is 100)
+
+12) define a function, that gets called when a step in the background process should be run. try to make the steps as small as possible. 
+	function bg_run_step($o)
+	{
+		// process step
+		if ($this->should_run_more_steps())
+		{
+			return BG_OK;
+		}
+		return BG_DONE;
+	}
+
+	the return value BG_OK says, that that step got done successfully and process should continue
+	BG_DONE means that the process is done and no more steps should be run, instead continue to shutdown functions
+
+13) if you need to run some cleanup tasks after the process is done, define a function like this:
+	function bg_run_finish($o)
+	{
+		$o->set_meta("bg_run_log", sprintf(t("Indekseerija k&auml;ivitati %s, l&otilde;petas edukalt %s.\nIndekseeriti %s lehte, mis sialdasid %s baiti teksti."), 
+			date("d.m.Y H:i", $o->meta("bg_run_start")),
+			date("d.m.Y H:i", time()),
+			count($this->pages),
+			number_format($this->size)
+		));
+	}
+
+	here, the value of the process start time is read, from metadata, bg_run_start and the log entry is written, to bg_run_log - it will be displayed after the process is done, in the status property
+
+14) if you want to update the status property while the process is running, define function like this:
+	function bg_run_get_log_entry($o)
+	{
+		$res  = sprintf(t("Indekseerija nimega %s alustas t&ouml;&ouml;d %s.\n"), $o->name(), date("d.m.Y H:i", $o->meta("bg_run_start")));
+		$res .= sprintf(t("Hetkel on indekseeritud %s lehte.\n"), count($this->pages));
+		$res .= sprintf(t("J&auml;rjekorras on %s lehte.\n"), $this->queue->count());
+		$res .= sprintf(t("Viimati uuendati staatust %s.\n"), date("d.m.Y H:i"));
+
+		return $res;
+	}
+
+	the returned string will be displayed in the status property
+
+15) if you want to handle the user manually stopping the process, define a function like this:
+	function bg_halt($o)
+	{
+		$o->set_meta("stored_visited_pages", "");
+		$o->set_meta("stored_queue", "");
+		$o->set_meta("bg_run_log", sprintf(t("Indekseerija k&auml;ivitati %s, peatati %s."), 
+			date("d.m.Y H:i", $o->meta("bg_run_start")),
+			date("d.m.Y H:i", time())
+		));
+	}
+
+
+and that's it. background process control with resume capability in just 15 easy steps!

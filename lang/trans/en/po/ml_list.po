@@ -1,0 +1,1035 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/mailinglist/ml_list.aw:class_72_help
+msgid "Klassi Mailinglist help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_choose_menu
+msgid "Omaduse Kaustad millega liituda (choose_menu) caption"
+msgstr "Folders to join"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_choose_menu_comment
+msgid "Omaduse Kaustad millega liituda (choose_menu) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_choose_menu_help
+msgid "Omaduse Kaustad millega liituda (choose_menu) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_choose_languages
+msgid "Omaduse Keeled millega v&otilde;ib liituda (choose_languages) caption"
+msgstr "Languages to join"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_choose_languages_comment
+msgid "Omaduse Keeled millega v&otilde;ib liituda (choose_languages) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_choose_languages_help
+msgid "Omaduse Keeled millega v&otilde;ib liituda (choose_languages) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_multiple_folders
+msgid "Omaduse Lase liitumisel/lahkumisel kausta valida (multiple_folders) caption"
+msgstr "Enable to choose folder at joining/leaving"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_multiple_folders_comment
+msgid "Omaduse Lase liitumisel/lahkumisel kausta valida (multiple_folders) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_multiple_folders_help
+msgid "Omaduse Lase liitumisel/lahkumisel kausta valida (multiple_folders) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_multiple_languages
+msgid "Omaduse Lase liitumisel valida keelt (multiple_languages) caption"
+msgstr "Enable to choose language at joining"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_multiple_languages_comment
+msgid "Omaduse Lase liitumisel valida keelt (multiple_languages) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_multiple_languages_help
+msgid "Omaduse Lase liitumisel valida keelt (multiple_languages) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_msg_folder
+msgid "Omaduse Kirjade asukoht (msg_folder) caption"
+msgstr "Messages location"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_msg_folder_comment
+msgid "Omaduse Kirjade asukoht (msg_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_msg_folder_help
+msgid "Omaduse Kirjade asukoht (msg_folder) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_sub_form_type
+msgid "Omaduse Vormi t&uuml;&uuml;p (sub_form_type) caption"
+msgstr "Type of form"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_sub_form_type_comment
+msgid "Omaduse Vormi t&uuml;&uuml;p (sub_form_type) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_sub_form_type_help
+msgid "Omaduse Vormi t&uuml;&uuml;p (sub_form_type) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_redir_obj
+msgid "Omaduse Dokument millele suunata (redir_obj) caption"
+msgstr "Document where to redirect"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_redir_obj_comment
+msgid "Omaduse Dokument millele suunata (redir_obj) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_redir_obj_help
+msgid "Omaduse Dokument millele suunata (redir_obj) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_redir_unsubscribe_obj
+msgid "Omaduse Dokument millele suunata lahkujad (redir_unsubscribe_obj) caption"
+msgstr "Document where to redirect the leavers"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_redir_unsubscribe_obj_comment
+msgid "Omaduse Dokument millele suunata lahkujad (redir_unsubscribe_obj) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_redir_unsubscribe_obj_help
+msgid "Omaduse Dokument millele suunata lahkujad (redir_unsubscribe_obj) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_member_config
+msgid "Omaduse Listi liikmete seadetevorm (member_config) caption"
+msgstr "Configuration form of list members"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_member_config_comment
+msgid "Omaduse Listi liikmete seadetevorm (member_config) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_member_config_help
+msgid "Omaduse Listi liikmete seadetevorm (member_config) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_menu
+msgid "Omaduse Kaustad kust otsida (search_menu) caption"
+msgstr "Folders where to look for"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_menu_comment
+msgid "Omaduse Kaustad kust otsida (search_menu) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_menu_help
+msgid "Omaduse Kaustad kust otsida (search_menu) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_mail
+msgid "Omaduse E-mail (search_mail) caption"
+msgstr "E-mail"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_mail_comment
+msgid "Omaduse E-mail (search_mail) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_mail_help
+msgid "Omaduse E-mail (search_mail) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_name
+msgid "Omaduse Nimi (search_name) caption"
+msgstr "Name"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_name_comment
+msgid "Omaduse Nimi (search_name) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_name_help
+msgid "Omaduse Nimi (search_name) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search
+msgid "Omaduse Otsing (search) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_comment
+msgid "Omaduse Otsing (search) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_search_help
+msgid "Omaduse Otsing (search) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_admin_subscribe_folders
+msgid "Omaduse Kaustad, kuhu liituda (admin_subscribe_folders) caption"
+msgstr "Folders, where to join"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_admin_subscribe_folders_comment
+msgid "Omaduse Kaustad, kuhu liituda (admin_subscribe_folders) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_admin_subscribe_folders_help
+msgid "Omaduse Kaustad, kuhu liituda (admin_subscribe_folders) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_subscribe
+msgid "Omaduse Liitumiseks on vaja kinnitust (confirm_subscribe) caption"
+msgstr "Joining requires confirmation"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_subscribe_comment
+msgid "Omaduse Liitumiseks on vaja kinnitust (confirm_subscribe) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_subscribe_help
+msgid "Omaduse Liitumiseks on vaja kinnitust (confirm_subscribe) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_subscribe_msg
+msgid "Omaduse Liitumise kinnituseks saadetav kiri (confirm_subscribe_msg) caption"
+msgstr "Message content of joining confirmation"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_subscribe_msg_comment
+msgid "Omaduse Liitumise kinnituseks saadetav kiri (confirm_subscribe_msg) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_subscribe_msg_help
+msgid "Omaduse Liitumise kinnituseks saadetav kiri (confirm_subscribe_msg) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_import_textfile
+msgid "Omaduse Impordi liikmed tekstifailist (import_textfile) caption"
+msgstr "Import members from text file"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_import_textfile_comment
+msgid "Omaduse Impordi liikmed tekstifailist (import_textfile) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_import_textfile_help
+msgid "Omaduse Impordi liikmed tekstifailist (import_textfile) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mass_subscribe
+msgid "Omaduse Massiline liitumine <br>(Iga liituja eraldi real, nimi ja aadress komaga eraldatud) (mass_subscribe) caption"
+msgstr "Massive joining <br> (Every member individually on the row, name and address separated with comma)"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mass_subscribe_comment
+msgid "Omaduse Massiline liitumine <br>(Iga liituja eraldi real, nimi ja aadress komaga eraldatud) (mass_subscribe) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mass_subscribe_help
+msgid "Omaduse Massiline liitumine <br>(Iga liituja eraldi real, nimi ja aadress komaga eraldatud) (mass_subscribe) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_admin_unsubscribe_folders
+msgid "Omaduse Kaustad, kust lahkuda (admin_unsubscribe_folders) caption"
+msgstr "Folders, from where to leave"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_admin_unsubscribe_folders_comment
+msgid "Omaduse Kaustad, kust lahkuda (admin_unsubscribe_folders) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_admin_unsubscribe_folders_help
+msgid "Omaduse Kaustad, kust lahkuda (admin_unsubscribe_folders) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_unsubscribe
+msgid "Omaduse Lahkumiseks on vaja kinnitust (confirm_unsubscribe) caption"
+msgstr "Leaving requires confirmation"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_unsubscribe_comment
+msgid "Omaduse Lahkumiseks on vaja kinnitust (confirm_unsubscribe) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_unsubscribe_help
+msgid "Omaduse Lahkumiseks on vaja kinnitust (confirm_unsubscribe) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_unsubscribe_msg
+msgid "Omaduse Lahkumise kinnituseks saadetav kiri (confirm_unsubscribe_msg) caption"
+msgstr "Message content of leaving confirmation"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_unsubscribe_msg_comment
+msgid "Omaduse Lahkumise kinnituseks saadetav kiri (confirm_unsubscribe_msg) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_confirm_unsubscribe_msg_help
+msgid "Omaduse Lahkumise kinnituseks saadetav kiri (confirm_unsubscribe_msg) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_delete_textfile
+msgid "Omaduse Kustuta tekstifailis olevad aadressid (delete_textfile) caption"
+msgstr "Delete from the list the addresses in the text file"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_delete_textfile_comment
+msgid "Omaduse Kustuta tekstifailis olevad aadressid (delete_textfile) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_delete_textfile_help
+msgid "Omaduse Kustuta tekstifailis olevad aadressid (delete_textfile) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mass_unsubscribe
+msgid "Omaduse Massiline kustutamine (mass_unsubscribe) caption"
+msgstr "Massive removal"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mass_unsubscribe_comment
+msgid "Omaduse Massiline kustutamine (mass_unsubscribe) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mass_unsubscribe_help
+msgid "Omaduse Massiline kustutamine (mass_unsubscribe) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_member_list_tb
+msgid "Omaduse Listi staatuse toolbar (member_list_tb) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_member_list_tb_comment
+msgid "Omaduse Listi staatuse toolbar (member_list_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_member_list_tb_help
+msgid "Omaduse Listi staatuse toolbar (member_list_tb) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_file_separator
+msgid "Omaduse Failis nime ja mailiaadressi eraldaja (tab=/t) (file_separator) caption"
+msgstr "(tab=/t) - name and e-mail address separator in file"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_file_separator_comment
+msgid "Omaduse Failis nime ja mailiaadressi eraldaja (tab=/t) (file_separator) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_file_separator_help
+msgid "Omaduse Failis nime ja mailiaadressi eraldaja (tab=/t) (file_separator) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_def_user_folder
+msgid "Omaduse Listi liikmete allikas (def_user_folder) caption"
+msgstr "Source of list members"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_def_user_folder_comment
+msgid "Omaduse Listi liikmete allikas (def_user_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_def_user_folder_help
+msgid "Omaduse Listi liikmete allikas (def_user_folder) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_member_list
+msgid "Omaduse Liikmed (member_list) caption"
+msgstr "Members"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_member_list_comment
+msgid "Omaduse Liikmed (member_list) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_member_list_help
+msgid "Omaduse Liikmed (member_list) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_export_type
+msgid "Omaduse Formaat (export_type) caption"
+msgstr "Format"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_export_type_comment
+msgid "Omaduse Formaat (export_type) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_export_type_help
+msgid "Omaduse Formaat (export_type) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_export_from_date
+msgid "Omaduse Alates kuup&auml;evast (export_from_date) caption"
+msgstr "From date"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_export_from_date_comment
+msgid "Omaduse Alates kuup&auml;evast (export_from_date) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_export_from_date_help
+msgid "Omaduse Alates kuup&auml;evast (export_from_date) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_exp_sbt
+msgid "Omaduse Ekspordi (exp_sbt) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_exp_sbt_comment
+msgid "Omaduse Ekspordi (exp_sbt) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_exp_sbt_help
+msgid "Omaduse Ekspordi (exp_sbt) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_expf_path
+msgid "Omaduse Kataloog serveris (expf_path) caption"
+msgstr "Folder in server"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_expf_path_comment
+msgid "Omaduse Kataloog serveris (expf_path) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_expf_path_help
+msgid "Omaduse Kataloog serveris (expf_path) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_expf_num_per_day
+msgid "Omaduse Mitu korda p&auml;evas eksport teha (expf_num_per_day) caption"
+msgstr "Number of times to export in a day"
+
+#: classes/applications/mailinglist/ml_list.aw:prop_expf_num_per_day_comment
+msgid "Omaduse Mitu korda p&auml;evas eksport teha (expf_num_per_day) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_expf_num_per_day_help
+msgid "Omaduse Mitu korda p&auml;evas eksport teha (expf_num_per_day) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_expf_next_time
+msgid "Omaduse Millal j&auml;rgmine eksport toimub (expf_next_time) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_expf_next_time_comment
+msgid "Omaduse Millal j&auml;rgmine eksport toimub (expf_next_time) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_expf_next_time_help
+msgid "Omaduse Millal j&auml;rgmine eksport toimub (expf_next_time) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_list_status_tb
+msgid "Omaduse Listi staatuse toolbar (list_status_tb) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_list_status_tb_comment
+msgid "Omaduse Listi staatuse toolbar (list_status_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_list_status_tb_help
+msgid "Omaduse Listi staatuse toolbar (list_status_tb) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_list_status_table
+msgid "Omaduse Listi staatus (list_status_table) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_list_status_table_comment
+msgid "Omaduse Listi staatus (list_status_table) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_list_status_table_help
+msgid "Omaduse Listi staatus (list_status_table) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_unsent_tb
+msgid "Omaduse Listi staatuse toolbar (unsent_tb) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_unsent_tb_comment
+msgid "Omaduse Listi staatuse toolbar (unsent_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_unsent_tb_help
+msgid "Omaduse Listi staatuse toolbar (unsent_tb) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_unsent_table
+msgid "Omaduse Listi staatus (unsent_table) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_unsent_table_comment
+msgid "Omaduse Listi staatus (unsent_table) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_unsent_table_help
+msgid "Omaduse Listi staatus (unsent_table) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_toolbar
+msgid "Omaduse Maili toolbar (mail_toolbar) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_toolbar_comment
+msgid "Omaduse Maili toolbar (mail_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_toolbar_help
+msgid "Omaduse Maili toolbar (mail_toolbar) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_write_user_folder
+msgid "Omaduse Grupid kellele kiri saata (write_user_folder) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_write_user_folder_comment
+msgid "Omaduse Grupid kellele kiri saata (write_user_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_write_user_folder_help
+msgid "Omaduse Grupid kellele kiri saata (write_user_folder) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_no_fck
+msgid "Omaduse Maili kirjutamine plaintext vaates (no_fck) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_no_fck_comment
+msgid "Omaduse Maili kirjutamine plaintext vaates (no_fck) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_no_fck_help
+msgid "Omaduse Maili kirjutamine plaintext vaates (no_fck) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_write_mail
+msgid "Omaduse Maili kirjutamine (write_mail) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_write_mail_comment
+msgid "Omaduse Maili kirjutamine (write_mail) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_write_mail_help
+msgid "Omaduse Maili kirjutamine (write_mail) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_aliasmgr
+msgid "Omaduse Aliastehaldur (aliasmgr) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_aliasmgr_comment
+msgid "Omaduse Aliastehaldur (aliasmgr) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_aliasmgr_help
+msgid "Omaduse Aliastehaldur (aliasmgr) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_subject
+msgid "Omaduse Teema (mail_subject) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_subject_comment
+msgid "Omaduse Teema (mail_subject) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_subject_help
+msgid "Omaduse Teema (mail_subject) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_percentage
+msgid "Omaduse Saadetud (mail_percentage) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_percentage_comment
+msgid "Omaduse Saadetud (mail_percentage) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_percentage_help
+msgid "Omaduse Saadetud (mail_percentage) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_start_date
+msgid "Omaduse Saatmise algus (mail_start_date) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_start_date_comment
+msgid "Omaduse Saatmise algus (mail_start_date) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_start_date_help
+msgid "Omaduse Saatmise algus (mail_start_date) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_last_batch
+msgid "Omaduse Viimane kiri saadeti (mail_last_batch) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_last_batch_comment
+msgid "Omaduse Viimane kiri saadeti (mail_last_batch) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_last_batch_help
+msgid "Omaduse Viimane kiri saadeti (mail_last_batch) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_list_source
+msgid "Omaduse Saadetud liikmete allikas (list_source) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_list_source_comment
+msgid "Omaduse Saadetud liikmete allikas (list_source) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_list_source_help
+msgid "Omaduse Saadetud liikmete allikas (list_source) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_report
+msgid "Omaduse Meili raport (mail_report) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_report_comment
+msgid "Omaduse Meili raport (mail_report) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_mail_report_help
+msgid "Omaduse Meili raport (mail_report) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_show_mail_subject
+msgid "Omaduse Teema (show_mail_subject) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_show_mail_subject_comment
+msgid "Omaduse Teema (show_mail_subject) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_show_mail_subject_help
+msgid "Omaduse Teema (show_mail_subject) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_show_mail_from
+msgid "Omaduse Kellelt (show_mail_from) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_show_mail_from_comment
+msgid "Omaduse Kellelt (show_mail_from) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_show_mail_from_help
+msgid "Omaduse Kellelt (show_mail_from) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_show_mail_message
+msgid "Omaduse Sisu (show_mail_message) caption"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_show_mail_message_comment
+msgid "Omaduse Sisu (show_mail_message) kommentaar"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:prop_show_mail_message_help
+msgid "Omaduse Sisu (show_mail_message) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_membership
+msgid "Grupi Liikmed (membership) pealkiri"
+msgstr "Members"
+
+#: classes/applications/mailinglist/ml_list.aw:group_membership_help
+msgid "Grupi Liikmed (membership) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_search
+msgid "Grupi Otsi (search) pealkiri"
+msgstr "Search"
+
+#: classes/applications/mailinglist/ml_list.aw:group_search_help
+msgid "Grupi Otsi (search) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_subscribing
+msgid "Grupi Liitumine (subscribing) pealkiri"
+msgstr "Joining"
+
+#: classes/applications/mailinglist/ml_list.aw:group_subscribing_help
+msgid "Grupi Liitumine (subscribing) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_unsubscribing
+msgid "Grupi Lahkumine (unsubscribing) pealkiri"
+msgstr "Leaving"
+
+#: classes/applications/mailinglist/ml_list.aw:group_unsubscribing_help
+msgid "Grupi Lahkumine (unsubscribing) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_member_list
+msgid "Grupi Nimekiri (member_list) pealkiri"
+msgstr "List"
+
+#: classes/applications/mailinglist/ml_list.aw:group_member_list_help
+msgid "Grupi Nimekiri (member_list) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_export_members
+msgid "Grupi Eksport (export_members) pealkiri"
+msgstr "Export"
+
+#: classes/applications/mailinglist/ml_list.aw:group_export_members_help
+msgid "Grupi Eksport (export_members) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_export_to_file
+msgid "Grupi Eksport faili (export_to_file) pealkiri"
+msgstr "Export to file"
+
+#: classes/applications/mailinglist/ml_list.aw:group_export_to_file_help
+msgid "Grupi Eksport faili (export_to_file) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_raports
+msgid "Grupi Kirjad (raports) pealkiri"
+msgstr "Messages"
+
+#: classes/applications/mailinglist/ml_list.aw:group_raports_help
+msgid "Grupi Kirjad (raports) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_list_status
+msgid "Grupi Saadetud kirjad (list_status) pealkiri"
+msgstr "Sent messages"
+
+#: classes/applications/mailinglist/ml_list.aw:group_list_status_help
+msgid "Grupi Saadetud kirjad (list_status) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_unsent
+msgid "Grupi Saatmata kirjad (unsent) pealkiri"
+msgstr "Unsent messages"
+
+#: classes/applications/mailinglist/ml_list.aw:group_unsent_help
+msgid "Grupi Saatmata kirjad (unsent) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_write_mail
+msgid "Grupi Saada kiri (write_mail) pealkiri"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_write_mail_help
+msgid "Grupi Saada kiri (write_mail) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_mail_report
+msgid "Grupi Kirja raport (mail_report) pealkiri"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_mail_report_help
+msgid "Grupi Kirja raport (mail_report) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_show_mail
+msgid "Grupi Listi kiri (show_mail) pealkiri"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_show_mail_help
+msgid "Grupi Listi kiri (show_mail) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_relationmgr
+msgid "Grupi relationmgr (relationmgr) pealkiri"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:group_relationmgr_help
+msgid "Grupi relationmgr (relationmgr) help"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:rel_RELTYPE_MEMBER_PARENT
+msgid "Seose Listi liikmete allikas (RELTYPE_MEMBER_PARENT) tekst"
+msgstr "Source of list members"
+
+#: classes/applications/mailinglist/ml_list.aw:rel_RELTYPE_REDIR_OBJECT
+msgid "Seose &Uuml;mbersuunamine (RELTYPE_REDIR_OBJECT) tekst"
+msgstr "Redirection"
+
+#: classes/applications/mailinglist/ml_list.aw:rel_RELTYPE_ADM_MESSAGE
+msgid "Seose administratiivne teade  (RELTYPE_ADM_MESSAGE) tekst"
+msgstr "Administrative message"
+
+#: classes/applications/mailinglist/ml_list.aw:rel_RELTYPE_TEMPLATE
+msgid "Seose kirja template (RELTYPE_TEMPLATE) tekst"
+msgstr "Message template"
+
+#: classes/applications/mailinglist/ml_list.aw:rel_RELTYPE_MEMBER_CONFIG
+msgid "Seose Listi liikme seadetevorm (RELTYPE_MEMBER_CONFIG) tekst"
+msgstr "Configuration form of list members"
+
+#: classes/applications/mailinglist/ml_list.aw:rel_RELTYPE_MSG_FOLDER
+msgid "Seose Kirjade kaust (RELTYPE_MSG_FOLDER) tekst"
+msgstr "Folder of messages"
+
+#: classes/applications/mailinglist/ml_list.aw:rel_RELTYPE_LANGUAGE
+msgid "Seose Keeled (RELTYPE_LANGUAGE) tekst"
+msgstr "Languages"
+
+#: classes/applications/mailinglist/ml_list.aw:rel_RELTYPE_SENDER
+msgid "Seose Saatja (RELTYPE_SENDER) tekst"
+msgstr "Sender"
+
+#: classes/applications/mailinglist/ml_list.aw:322
+msgid "Tagasi"
+msgstr "Back"
+
+#: classes/applications/mailinglist/ml_list.aw:322
+msgid "Saada teade"
+msgstr "Send message"
+
+#: classes/applications/mailinglist/ml_list.aw:395
+msgid "saatis meili %s listi %s:%s"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:544
+msgid "Sellise aadressiga inimene on juba valitud listidega liitunud"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:554
+msgid "Liitumisel vaja ka nime"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:560
+msgid "Liitumisel vaja t&auml;ita aadressi v&auml;li"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:680
+msgid "Kasutajanimi"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:681
+msgid "Nimi Perenimi"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:682
+msgid "e-mail"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:744
+msgid "liitumine"
+msgstr "Joining"
+
+#: classes/applications/mailinglist/ml_list.aw:745
+msgid "lahkumine"
+msgstr "Leaving"
+
+#: classes/applications/mailinglist/ml_list.aw:790 classes/applications/mailinglist/ml_list.aw:872
+msgid "Salvesta"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:804
+msgid "Eelvaade"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:814
+msgid "Saada"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:815
+msgid "Saata kiri &auml;ra?"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:852
+msgid "Midagi pole veel saadetud"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:866
+msgid "Lisa uus"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:884
+msgid "nimi,aadress"
+msgstr "name, address"
+
+#: classes/applications/mailinglist/ml_list.aw:885
+msgid "nimi &lt;aadress&gt;"
+msgstr "name &lt;aaddress&gt;"
+
+#: classes/applications/mailinglist/ml_list.aw:886
+msgid "aadress"
+msgstr "address"
+
+#: classes/applications/mailinglist/ml_list.aw:887
+msgid "K&otilde;ik andmed"
+msgstr "All data"
+
+#: classes/applications/mailinglist/ml_list.aw:960 classes/applications/mailinglist/ml_list.aw:977 classes/applications/mailinglist/ml_list.aw:988 classes/applications/mailinglist/ml_list.aw:999
+msgid "Selle toimingu jaoks peab listiliikmete allikas olema kaust"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1250 classes/applications/mailinglist/ml_list.aw:1424 classes/applications/mailinglist/ml_list.aw:2787
+msgid "ID"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1254 classes/applications/mailinglist/ml_list.aw:1429 classes/applications/mailinglist/ml_list.aw:2792
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1258
+msgid "Loodud"
+msgstr "Created"
+
+#: classes/applications/mailinglist/ml_list.aw:1290
+msgid "(pealkiri puudub)"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1303 classes/applications/mailinglist/ml_list.aw:1315 classes/applications/mailinglist/ml_list.aw:1609
+msgid "Kustuta"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1305
+msgid "Eemaldan valitud kirjad?"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1317
+msgid "Kustutada need liikmed?"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1434 classes/applications/mailinglist/ml_list.aw:2797
+msgid "Aadress"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1440 classes/applications/mailinglist/ml_list.aw:2803
+msgid "Allikas"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1446 classes/applications/mailinglist/ml_list.aw:2809
+msgid "Liitunud"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1489 classes/applications/mailinglist/ml_list.aw:2851
+msgid "Liitumisinfo"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1526 classes/applications/mailinglist/ml_list.aw:2888
+msgid "Vaata"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1599
+msgid "Uus kiri"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1612
+msgid "Oled kindel, et soovid valitud kirjad kustutada?"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1620
+msgid "#"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:1628
+msgid "Kiri"
+msgstr "Message"
+
+#: classes/applications/mailinglist/ml_list.aw:1634
+msgid "Staatus"
+msgstr "Status"
+
+#: classes/applications/mailinglist/ml_list.aw:1640
+msgid "Algus"
+msgstr "Begin"
+
+#: classes/applications/mailinglist/ml_list.aw:1649
+msgid "Viimane"
+msgstr "Last"
+
+#: classes/applications/mailinglist/ml_list.aw:1658
+msgid "Perf"
+msgstr "Perf"
+
+#: classes/applications/mailinglist/ml_list.aw:1664
+msgid "Korraga"
+msgstr "At once"
+
+#: classes/applications/mailinglist/ml_list.aw:1672
+msgid "Oota"
+msgstr "Wait"
+
+#: classes/applications/mailinglist/ml_list.aw:1680
+msgid "Valmis"
+msgstr "Ready"
+
+#: classes/applications/mailinglist/ml_list.aw:1722
+msgid "(Nimetu)"
+msgstr "(Unnamed)"
+
+#: classes/applications/mailinglist/ml_list.aw:1734
+msgid "k&otilde;ik"
+msgstr "All"
+
+#: classes/applications/mailinglist/ml_list.aw:2220
+msgid "Kellele"
+msgstr "To"
+
+#: classes/applications/mailinglist/ml_list.aw:2224
+msgid "Millal"
+msgstr "When"
+
+#: classes/applications/mailinglist/ml_list.aw:2233
+msgid "Klikitud"
+msgstr "Clicked"
+
+#: classes/applications/mailinglist/ml_list.aw:2256
+msgid "jah"
+msgstr "yes"
+
+#: classes/applications/mailinglist/ml_list.aw:2256
+msgid "ei"
+msgstr "no"
+
+#: classes/applications/mailinglist/ml_list.aw:2305
+msgid "Liikmeid: %s, saadetud: %s %s"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2385 classes/applications/mailinglist/ml_list.aw:2443
+msgid " - vali - "
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2394
+msgid "Vali template"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2403
+msgid "Saada peale salvestamist &auml;ra"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2421
+msgid "Saatja e-maili aadress"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2425
+msgid "Saatja nimi"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2434
+msgid "Asenduste legend"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2435
+msgid "Meili sisus on v&otilde;imalik kasutada j&auml;rgnevaid asendusi:<br /><br />
+							#username# - AutomatWebi kasutajanimi<br />
+							#name# - Listi liikme nimi<br />
+							#e-mail# - Listi liikme e-mail<br/>
+							#subject# - Kirja teema<br />
+							#pea#(pealkiri)#/pea# - (pealkiri) asemele kirjutatud tekst muutub 1. taseme pealkirjaks<br />
+							#ala#(pealkiri)#/ala# - (pealkiri) asemele kirjutatud tekst muutub 2. taseme pealkirjaks<br />
+							#lahkumine# - link, millel klikkides inimene saab listist lahkuda<br />
+							<br />
+							Kui soovid kirja pandava lingi puhul teada saada, kas saaja sellele ka klikkis, lisa lingi aadressi l&otilde;ppu #traceid#
+							N&auml;iteks: http://www.struktuur.ee/aw#traceid#
+							"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2452
+msgid "Vali template mille sisusse kopeerida"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2466
+msgid "Salvesta uue kirjana"
+msgstr ""
+
+#: classes/applications/mailinglist/ml_list.aw:2771
+msgid "all done"
+msgstr ""
+

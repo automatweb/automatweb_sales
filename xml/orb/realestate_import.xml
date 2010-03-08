@@ -1,0 +1,51 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="realestate_import" folder="www/dev/terryf/automatweb_dev/classes/applications/realestate_management" extends="class_base">
+		<action name="city24deactivate" nologin="1">
+			<function name="city24deactivate">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="company" type="int" />
+					<optional name="import_all" type="int" />
+					<optional name="import_city24id" type="int" />
+					<optional name="charset_from" />
+					<optional name="charset_to" />
+					<optional name="quiet" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="city24import" nologin="1">
+			<function name="city24_import">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="company" type="int" />
+					<optional name="import_all" type="int" />
+					<optional name="import_city24id" type="int" />
+					<optional name="charset_from" />
+					<optional name="charset_to" />
+					<optional name="quiet" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_client">
+			<function name="set_client">
+				<arguments>
+					<required name="property" />
+					<required name="client" />
+					<required name="client_type" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="city24xml" nologin="1">
+			<function name="city24_xml">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

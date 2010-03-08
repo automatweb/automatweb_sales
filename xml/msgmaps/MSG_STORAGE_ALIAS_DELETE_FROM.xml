@@ -1,0 +1,83 @@
+<?xml version='1.0'?>
+<xml>
+<num_0>
+      <class>/core/users/user</class>
+      <func>on_delete_alias</func>
+      <param>CL_USER</param>
+</num_0>
+<num_1>
+      <class>/core/users/group_membership</class>
+      <func>on_disconnect_from_group_membership</func>
+      <param>CL_GROUP_MEMBERSHIP</param>
+</num_1>
+<num_2>
+      <class>/core/users/group</class>
+      <func>on_remove_alias_from_group</func>
+      <param>CL_GROUP</param>
+</num_2>
+<num_6>
+      <class>/crm/crm_person</class>
+      <func>on_disconnect_job_wanted_from_person</func>
+      <param>CL_PERSONNEL_MANAGEMENT_JOB_WANTED</param>
+</num_6>
+<num_7>
+      <class>/crm/crm_phone</class>
+      <func>on_disconnect_work_relation_from_phone</func>
+      <param>CL_CRM_PERSON_WORK_RELATION</param>
+</num_7>
+<num_10>
+      <class>/applications/crm/crm_person_education</class>
+      <func>on_disconnect_person_from_edu</func>
+      <param>CL_CRM_PERSON</param>
+</num_10>
+<num_11>
+      <class>/applications/crm/crm_person_work_relation</class>
+      <func>on_disconnect_phone_from_work_relation</func>
+      <param>CL_CRM_PHONE</param>
+</num_11>
+<num_12>
+      <class>/applications/crm/crm_person_work_relation</class>
+      <func>on_disconnect_email_from_work_relation</func>
+      <param>CL_ML_MEMBER</param>
+</num_12>
+<num_13>
+      <class>/applications/mailinglist/ml_member</class>
+      <func>on_disconnect_work_relation_from_email</func>
+      <param>CL_CRM_PERSON_WORK_RELATION</param>
+</num_13>
+<num_14>
+      <class>/applications/personnel_management/personnel_management_candidate</class>
+      <func>on_disconnect_job_offer_from_candidate</func>
+      <param>CL_PERSONNEL_MANAGEMENT_JOB_OFFER</param>
+</num_14>
+<num_15>
+      <class>/applications/personnel_management/personnel_management_job_wanted</class>
+      <func>on_disconnect_person_from_job_wanted</func>
+      <param>CL_CRM_PERSON</param>
+</num_15>
+<num_16>
+      <class>/applications/personnel_management/personnel_management_job_offer</class>
+      <func>on_disconnect_candidate_from_job_offer</func>
+      <param>CL_PERSONNEL_MANAGEMENT_CANDIDATE</param>
+</num_16>
+<num_17>
+      <class>/contentmgmt/content_package/content_item</class>
+      <func>on_object_disconnect</func>
+      <param>CL_CONTENT_ITEM</param>
+</num_17>
+<num_18>
+      <class>/contentmgmt/timing</class>
+      <func>on_tdisconnect_from</func>
+      <param>CL_DOCUMENT</param>
+</num_18>
+<num_19>
+      <class>/contentmgmt/timing</class>
+      <func>on_tdisconnect_from</func>
+      <param>CL_MENU</param>
+</num_19>
+<num_20>
+      <class>/contentmgmt/aw_reminder</class>
+      <func>on_rdisconnect_from</func>
+      <param>CL_DOCUMENT</param>
+</num_20>
+</xml>

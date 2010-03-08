@@ -1,0 +1,50 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="package_client" folder="www/dev/terryf/automatweb_dev/classes/applications/package_management" extends="class_base">
+		<action name="download_package">
+			<function name="download_package">
+				<arguments>
+					<required name="client_id" type="oid" />
+					<required name="package_id" type="oid" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="upload_package">
+			<function name="upload_package">
+				<arguments>
+					<required name="client_id" type="oid" />
+					<required name="package_id" type="oid" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="uninstall_package">
+			<function name="uninstall_package">
+				<arguments>
+					<optional name="package_id" type="oid" />
+					<optional name="package_name" type="oid" />
+					<optional name="package_version" type="oid" />
+					<required name="client_id" type="oid" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="restore_package">
+			<function name="restore_package">
+				<arguments>
+					<required name="package_id" type="oid" />
+					<optional name="package_id_server" type="oid" />
+					<optional name="package_name" type="oid" />
+					<optional name="package_version" type="oid" />
+					<required name="client_id" type="oid" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

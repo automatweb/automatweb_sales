@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="content_package" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/content_package" extends="class_base">
+		<action name="remove_from_group">
+			<function name="remove_from_group">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="sel" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="update_acl_for_usergroup">
+			<function name="update_acl_for_usergroup">
+				<arguments>
+					<required name="id" type="oid/array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_acl_for_objects">
+			<function name="remove_acl_for_objects">
+				<arguments>
+					<required name="id" type="oid/array" />
+					<required name="oid" type="oid/array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_subscriber">
+			<function name="add_subscriber">
+				<arguments>
+					<type=oid name="user" acl="view" />
+					<type=oid name="content_package" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

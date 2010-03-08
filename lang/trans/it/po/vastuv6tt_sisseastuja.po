@@ -1,0 +1,1924 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:class_338_help
+msgid "Klassi Sisseastuja help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppetase
+msgid "Omaduse  (oppetase) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppetase_comment
+msgid "Omaduse  (oppetase) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppetase_help
+msgid "Omaduse  (oppetase) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kustutatud
+msgid "Omaduse  (kustutatud) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kustutatud_comment
+msgid "Omaduse  (kustutatud) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kustutatud_help
+msgid "Omaduse  (kustutatud) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title1
+msgid "Omaduse  (title1) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title1_comment
+msgid "Omaduse  (title1) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title1_help
+msgid "Omaduse  (title1) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title2
+msgid "Omaduse  (title2) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title2_comment
+msgid "Omaduse  (title2) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title2_help
+msgid "Omaduse  (title2) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title3
+msgid "Omaduse  (title3) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title3_comment
+msgid "Omaduse  (title3) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title3_help
+msgid "Omaduse  (title3) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title4
+msgid "Omaduse  (title4) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title4_comment
+msgid "Omaduse  (title4) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title4_help
+msgid "Omaduse  (title4) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title5
+msgid "Omaduse  (title5) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title5_comment
+msgid "Omaduse  (title5) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title5_help
+msgid "Omaduse  (title5) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title6
+msgid "Omaduse  (title6) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title6_comment
+msgid "Omaduse  (title6) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title6_help
+msgid "Omaduse  (title6) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title7
+msgid "Omaduse  (title7) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title7_comment
+msgid "Omaduse  (title7) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title7_help
+msgid "Omaduse  (title7) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title8
+msgid "Omaduse  (title8) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title8_comment
+msgid "Omaduse  (title8) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_title8_help
+msgid "Omaduse  (title8) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_andmete_kinnitus
+msgid "Omaduse Kinnitan andmed (peale andmete kinnitamist ja seej&auml;rel salvestamist ei saa neid piiratud &otilde;igustega kasutaja enam muuta.) (andmete_kinnitus) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_andmete_kinnitus_comment
+msgid "Omaduse Kinnitan andmed (peale andmete kinnitamist ja seej&auml;rel salvestamist ei saa neid piiratud &otilde;igustega kasutaja enam muuta.) (andmete_kinnitus) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_andmete_kinnitus_help
+msgid "Omaduse Kinnitan andmed (peale andmete kinnitamist ja seej&auml;rel salvestamist ei saa neid piiratud &otilde;igustega kasutaja enam muuta.) (andmete_kinnitus) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_firstname
+msgid "Omaduse Eesnimi (isik_firstname) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_firstname_comment
+msgid "Omaduse Eesnimi (isik_firstname) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_firstname_help
+msgid "Omaduse Eesnimi (isik_firstname) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_lastname
+msgid "Omaduse Perekonnanimi (isik_lastname) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_lastname_comment
+msgid "Omaduse Perekonnanimi (isik_lastname) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_lastname_help
+msgid "Omaduse Perekonnanimi (isik_lastname) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_keskkond_tagasilink
+msgid "Omaduse  (keskkond_tagasilink) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_keskkond_tagasilink_comment
+msgid "Omaduse  (keskkond_tagasilink) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_keskkond_tagasilink_help
+msgid "Omaduse  (keskkond_tagasilink) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_toolbar
+msgid "Omaduse  (avaldused_toolbar) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_toolbar_comment
+msgid "Omaduse  (avaldused_toolbar) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_toolbar_help
+msgid "Omaduse  (avaldused_toolbar) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_toolbar_laud
+msgid "Omaduse  (avaldused_toolbar_laud) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_toolbar_laud_comment
+msgid "Omaduse  (avaldused_toolbar_laud) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_toolbar_laud_help
+msgid "Omaduse  (avaldused_toolbar_laud) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_tbl
+msgid "Omaduse  (avaldused_tbl) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_tbl_comment
+msgid "Omaduse  (avaldused_tbl) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_tbl_help
+msgid "Omaduse  (avaldused_tbl) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_tbl_laud
+msgid "Omaduse  (avaldused_tbl_laud) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_tbl_laud_comment
+msgid "Omaduse  (avaldused_tbl_laud) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldused_tbl_laud_help
+msgid "Omaduse  (avaldused_tbl_laud) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldus_title
+msgid "Omaduse  (avaldus_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldus_title_comment
+msgid "Omaduse  (avaldus_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_avaldus_title_help
+msgid "Omaduse  (avaldus_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastumisavaldused
+msgid "Omaduse  (sisseastumisavaldused) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastumisavaldused_comment
+msgid "Omaduse  (sisseastumisavaldused) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastumisavaldused_help
+msgid "Omaduse  (sisseastumisavaldused) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_konkursilehed_tbl
+msgid "Omaduse  (konkursilehed_tbl) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_konkursilehed_tbl_comment
+msgid "Omaduse  (konkursilehed_tbl) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_konkursilehed_tbl_help
+msgid "Omaduse  (konkursilehed_tbl) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_konkursileht_prinditud
+msgid "Omaduse  (konkursileht_prinditud) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_konkursileht_prinditud_comment
+msgid "Omaduse  (konkursileht_prinditud) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_konkursileht_prinditud_help
+msgid "Omaduse  (konkursileht_prinditud) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_nimi_title
+msgid "Omaduse  (nimi_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_nimi_title_comment
+msgid "Omaduse  (nimi_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_nimi_title_help
+msgid "Omaduse  (nimi_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_sep
+msgid "Omaduse  (oppekeel_sep) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_sep_comment
+msgid "Omaduse  (oppekeel_sep) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_sep_help
+msgid "Omaduse  (oppekeel_sep) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel
+msgid "Omaduse  (oppekeel) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_comment
+msgid "Omaduse  (oppekeel) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_help
+msgid "Omaduse  (oppekeel) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_title
+msgid "Omaduse &otilde;ppekeel keskkoolis (oppekeel_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_title_comment
+msgid "Omaduse &otilde;ppekeel keskkoolis (oppekeel_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_title_help
+msgid "Omaduse &otilde;ppekeel keskkoolis (oppekeel_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_sel
+msgid "Omaduse  (oppekeel_sel) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_sel_comment
+msgid "Omaduse  (oppekeel_sel) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_sel_help
+msgid "Omaduse  (oppekeel_sel) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_txt
+msgid "Omaduse Muu (oppekeel_txt) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_txt_comment
+msgid "Omaduse Muu (oppekeel_txt) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_oppekeel_txt_help
+msgid "Omaduse Muu (oppekeel_txt) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_synniaeg
+msgid "Omaduse  (synniaeg) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_synniaeg_comment
+msgid "Omaduse  (synniaeg) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_synniaeg_help
+msgid "Omaduse  (synniaeg) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_riigieksamid_title
+msgid "Omaduse Riigieksamite hinded (riigieksamid_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_riigieksamid_title_comment
+msgid "Omaduse Riigieksamite hinded (riigieksamid_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_riigieksamid_title_help
+msgid "Omaduse Riigieksamite hinded (riigieksamid_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_kirjand
+msgid "Omaduse Kirjand (ex_kirjand) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_kirjand_comment
+msgid "Omaduse Kirjand (ex_kirjand) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_kirjand_help
+msgid "Omaduse Kirjand (ex_kirjand) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_kirjand_aasta
+msgid "Omaduse aasta (ex_kirjand_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_kirjand_aasta_comment
+msgid "Omaduse aasta (ex_kirjand_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_kirjand_aasta_help
+msgid "Omaduse aasta (ex_kirjand_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_kirjand_hinne
+msgid "Omaduse hinne (ex_kirjand_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_kirjand_hinne_comment
+msgid "Omaduse hinne (ex_kirjand_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_kirjand_hinne_help
+msgid "Omaduse hinne (ex_kirjand_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ingl
+msgid "Omaduse Inglise keel (ex_ingl) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ingl_comment
+msgid "Omaduse Inglise keel (ex_ingl) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ingl_help
+msgid "Omaduse Inglise keel (ex_ingl) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ingl_aasta
+msgid "Omaduse aasta (ex_ingl_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ingl_aasta_comment
+msgid "Omaduse aasta (ex_ingl_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ingl_aasta_help
+msgid "Omaduse aasta (ex_ingl_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ingl_hinne
+msgid "Omaduse hinne (ex_ingl_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ingl_hinne_comment
+msgid "Omaduse hinne (ex_ingl_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ingl_hinne_help
+msgid "Omaduse hinne (ex_ingl_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_sks
+msgid "Omaduse Saksa keel (ex_sks) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_sks_comment
+msgid "Omaduse Saksa keel (ex_sks) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_sks_help
+msgid "Omaduse Saksa keel (ex_sks) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_sks_aasta
+msgid "Omaduse aasta (ex_sks_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_sks_aasta_comment
+msgid "Omaduse aasta (ex_sks_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_sks_aasta_help
+msgid "Omaduse aasta (ex_sks_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_sks_hinne
+msgid "Omaduse hinne (ex_sks_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_sks_hinne_comment
+msgid "Omaduse hinne (ex_sks_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_sks_hinne_help
+msgid "Omaduse hinne (ex_sks_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_pr
+msgid "Omaduse Prantsuse keel (ex_pr) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_pr_comment
+msgid "Omaduse Prantsuse keel (ex_pr) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_pr_help
+msgid "Omaduse Prantsuse keel (ex_pr) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_pr_aasta
+msgid "Omaduse aasta (ex_pr_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_pr_aasta_comment
+msgid "Omaduse aasta (ex_pr_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_pr_aasta_help
+msgid "Omaduse aasta (ex_pr_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_pr_hinne
+msgid "Omaduse hinne (ex_pr_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_pr_hinne_comment
+msgid "Omaduse hinne (ex_pr_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_pr_hinne_help
+msgid "Omaduse hinne (ex_pr_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_eesti
+msgid "Omaduse Eesti keel teise keelena (ex_eesti) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_eesti_comment
+msgid "Omaduse Eesti keel teise keelena (ex_eesti) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_eesti_help
+msgid "Omaduse Eesti keel teise keelena (ex_eesti) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_eesti_aasta
+msgid "Omaduse aasta (ex_eesti_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_eesti_aasta_comment
+msgid "Omaduse aasta (ex_eesti_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_eesti_aasta_help
+msgid "Omaduse aasta (ex_eesti_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_eesti_hinne
+msgid "Omaduse hinne (ex_eesti_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_eesti_hinne_comment
+msgid "Omaduse hinne (ex_eesti_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_eesti_hinne_help
+msgid "Omaduse hinne (ex_eesti_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_vene
+msgid "Omaduse Vene keel v&otilde;&otilde;rkeelena (ex_vene) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_vene_comment
+msgid "Omaduse Vene keel v&otilde;&otilde;rkeelena (ex_vene) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_vene_help
+msgid "Omaduse Vene keel v&otilde;&otilde;rkeelena (ex_vene) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_vene_aasta
+msgid "Omaduse aasta (ex_vene_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_vene_aasta_comment
+msgid "Omaduse aasta (ex_vene_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_vene_aasta_help
+msgid "Omaduse aasta (ex_vene_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_vene_hinne
+msgid "Omaduse hinne (ex_vene_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_vene_hinne_comment
+msgid "Omaduse hinne (ex_vene_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_vene_hinne_help
+msgid "Omaduse hinne (ex_vene_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_yhisk
+msgid "Omaduse &uuml;hiskonnapetus (ex_yhisk) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_yhisk_comment
+msgid "Omaduse &uuml;hiskonnapetus (ex_yhisk) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_yhisk_help
+msgid "Omaduse &uuml;hiskonnapetus (ex_yhisk) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_yhisk_aasta
+msgid "Omaduse aasta (ex_yhisk_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_yhisk_aasta_comment
+msgid "Omaduse aasta (ex_yhisk_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_yhisk_aasta_help
+msgid "Omaduse aasta (ex_yhisk_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_yhisk_hinne
+msgid "Omaduse hinne (ex_yhisk_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_yhisk_hinne_comment
+msgid "Omaduse hinne (ex_yhisk_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_yhisk_hinne_help
+msgid "Omaduse hinne (ex_yhisk_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ajalugu
+msgid "Omaduse Ajalugu (ex_ajalugu) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ajalugu_comment
+msgid "Omaduse Ajalugu (ex_ajalugu) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ajalugu_help
+msgid "Omaduse Ajalugu (ex_ajalugu) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ajalugu_aasta
+msgid "Omaduse aasta (ex_ajalugu_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ajalugu_aasta_comment
+msgid "Omaduse aasta (ex_ajalugu_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ajalugu_aasta_help
+msgid "Omaduse aasta (ex_ajalugu_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ajalugu_hinne
+msgid "Omaduse hinne (ex_ajalugu_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ajalugu_hinne_comment
+msgid "Omaduse hinne (ex_ajalugu_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_ajalugu_hinne_help
+msgid "Omaduse hinne (ex_ajalugu_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_bio
+msgid "Omaduse Bioloogia (ex_bio) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_bio_comment
+msgid "Omaduse Bioloogia (ex_bio) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_bio_help
+msgid "Omaduse Bioloogia (ex_bio) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_bio_aasta
+msgid "Omaduse aasta (ex_bio_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_bio_aasta_comment
+msgid "Omaduse aasta (ex_bio_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_bio_aasta_help
+msgid "Omaduse aasta (ex_bio_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_bio_hinne
+msgid "Omaduse hinne (ex_bio_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_bio_hinne_comment
+msgid "Omaduse hinne (ex_bio_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_bio_hinne_help
+msgid "Omaduse hinne (ex_bio_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_fyysika
+msgid "Omaduse F&uuml;&uuml;sika (ex_fyysika) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_fyysika_comment
+msgid "Omaduse F&uuml;&uuml;sika (ex_fyysika) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_fyysika_help
+msgid "Omaduse F&uuml;&uuml;sika (ex_fyysika) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_fyysika_aasta
+msgid "Omaduse aasta (ex_fyysika_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_fyysika_aasta_comment
+msgid "Omaduse aasta (ex_fyysika_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_fyysika_aasta_help
+msgid "Omaduse aasta (ex_fyysika_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_fyysika_hinne
+msgid "Omaduse hinne (ex_fyysika_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_fyysika_hinne_comment
+msgid "Omaduse hinne (ex_fyysika_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_fyysika_hinne_help
+msgid "Omaduse hinne (ex_fyysika_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_keemia
+msgid "Omaduse Keemia (ex_keemia) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_keemia_comment
+msgid "Omaduse Keemia (ex_keemia) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_keemia_help
+msgid "Omaduse Keemia (ex_keemia) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_keemia_aasta
+msgid "Omaduse aasta (ex_keemia_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_keemia_aasta_comment
+msgid "Omaduse aasta (ex_keemia_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_keemia_aasta_help
+msgid "Omaduse aasta (ex_keemia_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_keemia_hinne
+msgid "Omaduse hinne (ex_keemia_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_keemia_hinne_comment
+msgid "Omaduse hinne (ex_keemia_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_keemia_hinne_help
+msgid "Omaduse hinne (ex_keemia_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_mat
+msgid "Omaduse Matemaatika (ex_mat) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_mat_comment
+msgid "Omaduse Matemaatika (ex_mat) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_mat_help
+msgid "Omaduse Matemaatika (ex_mat) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_mat_aasta
+msgid "Omaduse aasta (ex_mat_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_mat_aasta_comment
+msgid "Omaduse aasta (ex_mat_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_mat_aasta_help
+msgid "Omaduse aasta (ex_mat_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_mat_hinne
+msgid "Omaduse hinne (ex_mat_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_mat_hinne_comment
+msgid "Omaduse hinne (ex_mat_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_mat_hinne_help
+msgid "Omaduse hinne (ex_mat_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_geo
+msgid "Omaduse Geograafia (ex_geo) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_geo_comment
+msgid "Omaduse Geograafia (ex_geo) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_geo_help
+msgid "Omaduse Geograafia (ex_geo) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_geo_aasta
+msgid "Omaduse aasta (ex_geo_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_geo_aasta_comment
+msgid "Omaduse aasta (ex_geo_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_geo_aasta_help
+msgid "Omaduse aasta (ex_geo_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_geo_hinne
+msgid "Omaduse hinne (ex_geo_hinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_geo_hinne_comment
+msgid "Omaduse hinne (ex_geo_hinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ex_geo_hinne_help
+msgid "Omaduse hinne (ex_geo_hinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_keskhinne
+msgid "Omaduse  (keskhinne) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_keskhinne_comment
+msgid "Omaduse  (keskhinne) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_keskhinne_help
+msgid "Omaduse  (keskhinne) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_keskhinne_text
+msgid "Omaduse Keskmine hinne (keskhinne_text) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_keskhinne_text_comment
+msgid "Omaduse Keskmine hinne (keskhinne_text) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_keskhinne_text_help
+msgid "Omaduse Keskmine hinne (keskhinne_text) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinded_title_b
+msgid "Omaduse Hinded keskharidust t&otilde;endaval dokumendil (hinded_title_b) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinded_title_b_comment
+msgid "Omaduse Hinded keskharidust t&otilde;endaval dokumendil (hinded_title_b) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinded_title_b_help
+msgid "Omaduse Hinded keskharidust t&otilde;endaval dokumendil (hinded_title_b) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinded_title_m
+msgid "Omaduse Hinded akadeemilisel &otilde;iendil (hinded_title_m) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinded_title_m_comment
+msgid "Omaduse Hinded akadeemilisel &otilde;iendil (hinded_title_m) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinded_title_m_help
+msgid "Omaduse Hinded akadeemilisel &otilde;iendil (hinded_title_m) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinnete_arvud
+msgid "Omaduse Hinnete arvud (hinnete_arvud) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinnete_arvud_comment
+msgid "Omaduse Hinnete arvud (hinnete_arvud) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinnete_arvud_help
+msgid "Omaduse Hinnete arvud (hinnete_arvud) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinnete_arvud2
+msgid "Omaduse &nbsp; (hinnete_arvud2) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinnete_arvud2_comment
+msgid "Omaduse &nbsp; (hinnete_arvud2) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_hinnete_arvud2_help
+msgid "Omaduse &nbsp; (hinnete_arvud2) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_5
+msgid "Omaduse viisi (kk_hinne_5) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_5_comment
+msgid "Omaduse viisi (kk_hinne_5) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_5_help
+msgid "Omaduse viisi (kk_hinne_5) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_4
+msgid "Omaduse neljasid (kk_hinne_4) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_4_comment
+msgid "Omaduse neljasid (kk_hinne_4) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_4_help
+msgid "Omaduse neljasid (kk_hinne_4) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_3
+msgid "Omaduse kolmesid (kk_hinne_3) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_3_comment
+msgid "Omaduse kolmesid (kk_hinne_3) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_3_help
+msgid "Omaduse kolmesid (kk_hinne_3) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_2
+msgid "Omaduse kahtesid (kk_hinne_2) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_2_comment
+msgid "Omaduse kahtesid (kk_hinne_2) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kk_hinne_2_help
+msgid "Omaduse kahtesid (kk_hinne_2) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_5
+msgid "Omaduse 5 (ak_hinne_5) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_5_comment
+msgid "Omaduse 5 (ak_hinne_5) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_5_help
+msgid "Omaduse 5 (ak_hinne_5) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_4
+msgid "Omaduse 4 (ak_hinne_4) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_4_comment
+msgid "Omaduse 4 (ak_hinne_4) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_4_help
+msgid "Omaduse 4 (ak_hinne_4) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_3
+msgid "Omaduse 3 (ak_hinne_3) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_3_comment
+msgid "Omaduse 3 (ak_hinne_3) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_3_help
+msgid "Omaduse 3 (ak_hinne_3) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_2
+msgid "Omaduse 2 (ak_hinne_2) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_2_comment
+msgid "Omaduse 2 (ak_hinne_2) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_2_help
+msgid "Omaduse 2 (ak_hinne_2) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_1
+msgid "Omaduse 1 (ak_hinne_1) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_1_comment
+msgid "Omaduse 1 (ak_hinne_1) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_1_help
+msgid "Omaduse 1 (ak_hinne_1) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_a
+msgid "Omaduse A (ak_hinne_a) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_a_comment
+msgid "Omaduse A (ak_hinne_a) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_a_help
+msgid "Omaduse A (ak_hinne_a) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_b
+msgid "Omaduse B (ak_hinne_b) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_b_comment
+msgid "Omaduse B (ak_hinne_b) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_b_help
+msgid "Omaduse B (ak_hinne_b) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_c
+msgid "Omaduse C (ak_hinne_c) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_c_comment
+msgid "Omaduse C (ak_hinne_c) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_c_help
+msgid "Omaduse C (ak_hinne_c) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_d
+msgid "Omaduse D (ak_hinne_d) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_d_comment
+msgid "Omaduse D (ak_hinne_d) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_d_help
+msgid "Omaduse D (ak_hinne_d) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_e
+msgid "Omaduse E (ak_hinne_e) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_e_comment
+msgid "Omaduse E (ak_hinne_e) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_e_help
+msgid "Omaduse E (ak_hinne_e) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_l6put88
+msgid "Omaduse L&otilde;put&ouml;&ouml;/eksami hinne (ak_hinne_l6put88) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_l6put88_comment
+msgid "Omaduse L&otilde;put&ouml;&ouml;/eksami hinne (ak_hinne_l6put88) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_ak_hinne_l6put88_help
+msgid "Omaduse L&otilde;put&ouml;&ouml;/eksami hinne (ak_hinne_l6put88) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_ylevaade
+msgid "Omaduse  (sisseastuja_ylevaade) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_ylevaade_comment
+msgid "Omaduse  (sisseastuja_ylevaade) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_ylevaade_help
+msgid "Omaduse  (sisseastuja_ylevaade) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_title
+msgid "Omaduse Sisseastuja info (sisseastuja_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_title_comment
+msgid "Omaduse Sisseastuja info (sisseastuja_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_title_help
+msgid "Omaduse Sisseastuja info (sisseastuja_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_v66rkeel
+msgid "Omaduse Kohustuslik v&otilde;&otilde;rkeel (v66rkeel) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_v66rkeel_comment
+msgid "Omaduse Kohustuslik v&otilde;&otilde;rkeel (v66rkeel) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_v66rkeel_help
+msgid "Omaduse Kohustuslik v&otilde;&otilde;rkeel (v66rkeel) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_nr
+msgid "Omaduse  (sisseastuja_nr) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_nr_comment
+msgid "Omaduse  (sisseastuja_nr) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_nr_help
+msgid "Omaduse  (sisseastuja_nr) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_nr_title
+msgid "Omaduse Sisseastuja number (sisseastuja_nr_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_nr_title_comment
+msgid "Omaduse Sisseastuja number (sisseastuja_nr_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_sisseastuja_nr_title_help
+msgid "Omaduse Sisseastuja number (sisseastuja_nr_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemuste_teavitusviis
+msgid "Omaduse Konkursitulemuste teavitamise viis (tulemuste_teavitusviis) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemuste_teavitusviis_comment
+msgid "Omaduse Konkursitulemuste teavitamise viis (tulemuste_teavitusviis) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemuste_teavitusviis_help
+msgid "Omaduse Konkursitulemuste teavitamise viis (tulemuste_teavitusviis) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_title
+msgid "Omaduse Isikuandmed (isik_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_title_comment
+msgid "Omaduse Isikuandmed (isik_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_title_help
+msgid "Omaduse Isikuandmed (isik_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_firstname2
+msgid "Omaduse Eesnimi (isik_firstname2) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_firstname2_comment
+msgid "Omaduse Eesnimi (isik_firstname2) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_firstname2_help
+msgid "Omaduse Eesnimi (isik_firstname2) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_lastname2
+msgid "Omaduse Perekonnanimi (isik_lastname2) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_lastname2_comment
+msgid "Omaduse Perekonnanimi (isik_lastname2) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_lastname2_help
+msgid "Omaduse Perekonnanimi (isik_lastname2) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_personal_id
+msgid "Omaduse Isikukood (isik_personal_id) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_personal_id_comment
+msgid "Omaduse Isikukood (isik_personal_id) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_personal_id_help
+msgid "Omaduse Isikukood (isik_personal_id) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_gender
+msgid "Omaduse Sugu (isik_gender) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_gender_comment
+msgid "Omaduse Sugu (isik_gender) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_gender_help
+msgid "Omaduse Sugu (isik_gender) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_birthday
+msgid "Omaduse S&uuml;nniaeg (isik_birthday) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_birthday_comment
+msgid "Omaduse S&uuml;nniaeg (isik_birthday) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_birthday_help
+msgid "Omaduse S&uuml;nniaeg (isik_birthday) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_social_status
+msgid "Omaduse Perekonnaseis (isik_social_status) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_social_status_comment
+msgid "Omaduse Perekonnaseis (isik_social_status) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_isik_social_status_help
+msgid "Omaduse Perekonnaseis (isik_social_status) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_emails
+msgid "Omaduse E-posti aadressid (emails) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_emails_comment
+msgid "Omaduse E-posti aadressid (emails) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_emails_help
+msgid "Omaduse E-posti aadressid (emails) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_phones
+msgid "Omaduse Telefoninumbrid (phones) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_phones_comment
+msgid "Omaduse Telefoninumbrid (phones) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_phones_help
+msgid "Omaduse Telefoninumbrid (phones) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_t88koht
+msgid "Omaduse Sisseastuja t&ouml;&ouml;koht, amet (t88koht) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_t88koht_comment
+msgid "Omaduse Sisseastuja t&ouml;&ouml;koht, amet (t88koht) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_t88koht_help
+msgid "Omaduse Sisseastuja t&ouml;&ouml;koht, amet (t88koht) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_t88tel
+msgid "Omaduse Telefon t&ouml;&ouml;kohas (t88tel) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_t88tel_comment
+msgid "Omaduse Telefon t&ouml;&ouml;kohas (t88tel) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_t88tel_help
+msgid "Omaduse Telefon t&ouml;&ouml;kohas (t88tel) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_laste_arv
+msgid "Omaduse Laste arv (laste_arv) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_laste_arv_comment
+msgid "Omaduse Laste arv (laste_arv) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_laste_arv_help
+msgid "Omaduse Laste arv (laste_arv) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_elukoht
+msgid "Omaduse Alaline elukoht (elukoht) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_elukoht_comment
+msgid "Omaduse Alaline elukoht (elukoht) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_elukoht_help
+msgid "Omaduse Alaline elukoht (elukoht) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kodakondsus
+msgid "Omaduse Kodakondsus (kodakondsus) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kodakondsus_comment
+msgid "Omaduse Kodakondsus (kodakondsus) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kodakondsus_help
+msgid "Omaduse Kodakondsus (kodakondsus) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_elamisluba
+msgid "Omaduse Elamisluba (elamisluba) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_elamisluba_comment
+msgid "Omaduse Elamisluba (elamisluba) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_elamisluba_help
+msgid "Omaduse Elamisluba (elamisluba) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_elukohamaa
+msgid "Omaduse Elukohamaa (elukohamaa) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_elukohamaa_comment
+msgid "Omaduse Elukohamaa (elukohamaa) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_elukohamaa_help
+msgid "Omaduse Elukohamaa (elukohamaa) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kood
+msgid "Omaduse Eelnevalt omandatud haridusastme kood (haridus_kood) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kood_comment
+msgid "Omaduse Eelnevalt omandatud haridusastme kood (haridus_kood) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kood_help
+msgid "Omaduse Eelnevalt omandatud haridusastme kood (haridus_kood) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_aasta
+msgid "Omaduse Eelmise haridusasutuse l&otilde;petamise aasta (haridus_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_aasta_comment
+msgid "Omaduse Eelmise haridusasutuse l&otilde;petamise aasta (haridus_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_aasta_help
+msgid "Omaduse Eelmise haridusasutuse l&otilde;petamise aasta (haridus_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_v2lismaal
+msgid "Omaduse Haridus omandatud v&auml;lismaal (haridus_v2lismaal) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_v2lismaal_comment
+msgid "Omaduse Haridus omandatud v&auml;lismaal (haridus_v2lismaal) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_v2lismaal_help
+msgid "Omaduse Haridus omandatud v&auml;lismaal (haridus_v2lismaal) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_medal
+msgid "Omaduse L&otilde;petatud medaliga (haridus_medal) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_medal_comment
+msgid "Omaduse L&otilde;petatud medaliga (haridus_medal) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_medal_help
+msgid "Omaduse L&otilde;petatud medaliga (haridus_medal) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_k6rgkool
+msgid "Omaduse Eelnevalt l&otilde;petatud k&otilde;rgkool (haridus_k6rgkool) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_k6rgkool_comment
+msgid "Omaduse Eelnevalt l&otilde;petatud k&otilde;rgkool (haridus_k6rgkool) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_k6rgkool_help
+msgid "Omaduse Eelnevalt l&otilde;petatud k&otilde;rgkool (haridus_k6rgkool) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_eriala
+msgid "Omaduse L&otilde;petatud eriala (haridus_kool_eriala) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_eriala_comment
+msgid "Omaduse L&otilde;petatud eriala (haridus_kool_eriala) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_eriala_help
+msgid "Omaduse L&otilde;petatud eriala (haridus_kool_eriala) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kool_title
+msgid "Omaduse Kool, mille l&otilde;putunnistus esitatud (kool_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kool_title_comment
+msgid "Omaduse Kool, mille l&otilde;putunnistus esitatud (kool_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_kool_title_help
+msgid "Omaduse Kool, mille l&otilde;putunnistus esitatud (kool_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_tyyp
+msgid "Omaduse Kooli t&uuml;&uuml;p (haridus_kool_tyyp) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_tyyp_comment
+msgid "Omaduse Kooli t&uuml;&uuml;p (haridus_kool_tyyp) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_tyyp_help
+msgid "Omaduse Kooli t&uuml;&uuml;p (haridus_kool_tyyp) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_aasta
+msgid "Omaduse L&otilde;petamise aasta (haridus_kool_aasta) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_aasta_comment
+msgid "Omaduse L&otilde;petamise aasta (haridus_kool_aasta) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_aasta_help
+msgid "Omaduse L&otilde;petamise aasta (haridus_kool_aasta) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_kood
+msgid "Omaduse Kooli kood (haridus_kool_kood) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_kood_comment
+msgid "Omaduse Kooli kood (haridus_kool_kood) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_kood_help
+msgid "Omaduse Kooli kood (haridus_kool_kood) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_6ppevorm
+msgid "Omaduse &otilde;ppevorm koolis (haridus_kool_6ppevorm) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_6ppevorm_comment
+msgid "Omaduse &otilde;ppevorm koolis (haridus_kool_6ppevorm) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_haridus_kool_6ppevorm_help
+msgid "Omaduse &otilde;ppevorm koolis (haridus_kool_6ppevorm) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_kood
+msgid "Omaduse Maakonna/linna kood (aadress_kood) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_kood_comment
+msgid "Omaduse Maakonna/linna kood (aadress_kood) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_kood_help
+msgid "Omaduse Maakonna/linna kood (aadress_kood) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_t2nav
+msgid "Omaduse T&auml;nav, maja, korter/k&uuml;la (aadress_t2nav) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_t2nav_comment
+msgid "Omaduse T&auml;nav, maja, korter/k&uuml;la (aadress_t2nav) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_t2nav_help
+msgid "Omaduse T&auml;nav, maja, korter/k&uuml;la (aadress_t2nav) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_sjsk
+msgid "Omaduse Sidejaoskond (aadress_sjsk) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_sjsk_comment
+msgid "Omaduse Sidejaoskond (aadress_sjsk) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_sjsk_help
+msgid "Omaduse Sidejaoskond (aadress_sjsk) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_indeks
+msgid "Omaduse Indeks (aadress_indeks) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_indeks_comment
+msgid "Omaduse Indeks (aadress_indeks) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_indeks_help
+msgid "Omaduse Indeks (aadress_indeks) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn
+msgid "Omaduse  (aadress_linn) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_comment
+msgid "Omaduse  (aadress_linn) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_help
+msgid "Omaduse  (aadress_linn) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_title
+msgid "Omaduse Linn (aadress_linn_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_title_comment
+msgid "Omaduse Linn (aadress_linn_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_title_help
+msgid "Omaduse Linn (aadress_linn_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_sel
+msgid "Omaduse  (aadress_linn_sel) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_sel_comment
+msgid "Omaduse  (aadress_linn_sel) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_sel_help
+msgid "Omaduse  (aadress_linn_sel) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_txt
+msgid "Omaduse Muu (aadress_linn_txt) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_txt_comment
+msgid "Omaduse Muu (aadress_linn_txt) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_linn_txt_help
+msgid "Omaduse Muu (aadress_linn_txt) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond
+msgid "Omaduse  (aadress_maakond) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_comment
+msgid "Omaduse  (aadress_maakond) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_help
+msgid "Omaduse  (aadress_maakond) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_title
+msgid "Omaduse Maakond (aadress_maakond_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_title_comment
+msgid "Omaduse Maakond (aadress_maakond_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_title_help
+msgid "Omaduse Maakond (aadress_maakond_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_sel
+msgid "Omaduse  (aadress_maakond_sel) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_sel_comment
+msgid "Omaduse  (aadress_maakond_sel) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_sel_help
+msgid "Omaduse  (aadress_maakond_sel) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_txt
+msgid "Omaduse Muu (aadress_maakond_txt) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_txt_comment
+msgid "Omaduse Muu (aadress_maakond_txt) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_aadress_maakond_txt_help
+msgid "Omaduse Muu (aadress_maakond_txt) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa
+msgid "Omaduse Isa (pere_isa) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_comment
+msgid "Omaduse Isa (pere_isa) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_help
+msgid "Omaduse Isa (pere_isa) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_nimi
+msgid "Omaduse Nimi (pere_isa_nimi) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_nimi_comment
+msgid "Omaduse Nimi (pere_isa_nimi) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_nimi_help
+msgid "Omaduse Nimi (pere_isa_nimi) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_tel
+msgid "Omaduse Telefon (pere_isa_tel) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_tel_comment
+msgid "Omaduse Telefon (pere_isa_tel) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_tel_help
+msgid "Omaduse Telefon (pere_isa_tel) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_aadress
+msgid "Omaduse Aadress (pere_isa_aadress) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_aadress_comment
+msgid "Omaduse Aadress (pere_isa_aadress) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_isa_aadress_help
+msgid "Omaduse Aadress (pere_isa_aadress) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema
+msgid "Omaduse Ema (pere_ema) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_comment
+msgid "Omaduse Ema (pere_ema) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_help
+msgid "Omaduse Ema (pere_ema) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_nimi
+msgid "Omaduse Nimi (pere_ema_nimi) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_nimi_comment
+msgid "Omaduse Nimi (pere_ema_nimi) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_nimi_help
+msgid "Omaduse Nimi (pere_ema_nimi) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_tel
+msgid "Omaduse Telefon (pere_ema_tel) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_tel_comment
+msgid "Omaduse Telefon (pere_ema_tel) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_tel_help
+msgid "Omaduse Telefon (pere_ema_tel) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_aadress
+msgid "Omaduse Aadress (pere_ema_aadress) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_aadress_comment
+msgid "Omaduse Aadress (pere_ema_aadress) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_ema_aadress_help
+msgid "Omaduse Aadress (pere_ema_aadress) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa
+msgid "Omaduse Abikaasa (pere_abikaasa) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_comment
+msgid "Omaduse Abikaasa (pere_abikaasa) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_help
+msgid "Omaduse Abikaasa (pere_abikaasa) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_nimi
+msgid "Omaduse Nimi (pere_abikaasa_nimi) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_nimi_comment
+msgid "Omaduse Nimi (pere_abikaasa_nimi) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_nimi_help
+msgid "Omaduse Nimi (pere_abikaasa_nimi) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_tel
+msgid "Omaduse Telefon (pere_abikaasa_tel) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_tel_comment
+msgid "Omaduse Telefon (pere_abikaasa_tel) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_tel_help
+msgid "Omaduse Telefon (pere_abikaasa_tel) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_aadress
+msgid "Omaduse Aadress (pere_abikaasa_aadress) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_aadress_comment
+msgid "Omaduse Aadress (pere_abikaasa_aadress) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_pere_abikaasa_aadress_help
+msgid "Omaduse Aadress (pere_abikaasa_aadress) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_katsed_title
+msgid "Omaduse Sisseastumiskatsete tulemused (katsed_title) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_katsed_title_comment
+msgid "Omaduse Sisseastumiskatsete tulemused (katsed_title) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_katsed_title_help
+msgid "Omaduse Sisseastumiskatsete tulemused (katsed_title) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_ek
+msgid "Omaduse Eesti keele test (tulemus_ek) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_ek_comment
+msgid "Omaduse Eesti keele test (tulemus_ek) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_ek_help
+msgid "Omaduse Eesti keele test (tulemus_ek) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_kk
+msgid "Omaduse Maastikuarhitektuuri joonistuseksam (tulemus_kk) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_kk_comment
+msgid "Omaduse Maastikuarhitektuuri joonistuseksam (tulemus_kk) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_kk_help
+msgid "Omaduse Maastikuarhitektuuri joonistuseksam (tulemus_kk) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_vk
+msgid "Omaduse Maastikuarhitektuuri erialatest (tulemus_vk) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_vk_comment
+msgid "Omaduse Maastikuarhitektuuri erialatest (tulemus_vk) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_vk_help
+msgid "Omaduse Maastikuarhitektuuri erialatest (tulemus_vk) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_vm
+msgid "Omaduse Maastikukaitse- ja hoolduse eriala vestlus (tulemus_vm) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_vm_comment
+msgid "Omaduse Maastikukaitse- ja hoolduse eriala vestlus (tulemus_vm) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:prop_tulemus_vm_help
+msgid "Omaduse Maastikukaitse- ja hoolduse eriala vestlus (tulemus_vm) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:group_grp_sisseastuja_avaldused
+msgid "Grupi Avaldused ja hinded (grp_sisseastuja_avaldused) pealkiri"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:group_grp_sisseastuja_avaldused_help
+msgid "Grupi Avaldused ja hinded (grp_sisseastuja_avaldused) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:group_grp_sisseastuja_andmed
+msgid "Grupi Andmed (grp_sisseastuja_andmed) pealkiri"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:group_grp_sisseastuja_andmed_help
+msgid "Grupi Andmed (grp_sisseastuja_andmed) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:group_grp_sisseastuja_katsetulemused
+msgid "Grupi Katsetulemused (grp_sisseastuja_katsetulemused) pealkiri"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:group_grp_sisseastuja_katsetulemused_help
+msgid "Grupi Katsetulemused (grp_sisseastuja_katsetulemused) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:rel_RELTYPE_PERSON
+msgid "Seose Isikuandmed (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:rel_RELTYPE_AVALDUS
+msgid "Seose Avaldus (RELTYPE_AVALDUS) tekst"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:995 classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1013
+msgid "Lisa uus avaldus"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1020
+msgid "Kustutada?"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1021
+msgid "Kustuta valitud avaldus(ed)"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1036
+msgid "Vastuv&otilde;tukatse"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1041
+msgid "Prinditud"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1046
+msgid "Prindi"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1068
+msgid "Prindi konkursileht"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1079
+msgid "Valitud erialadel sisseastumiskatseid pole."
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1091
+msgid "Eriala"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1097
+msgid "&otilde;ppevorm"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1103
+msgid "Eelistus"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1109
+msgid "T&otilde;end"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_sisseastuja.aw:1128
+msgid "Prindi kandideerimist&otilde;end"
+msgstr ""
+

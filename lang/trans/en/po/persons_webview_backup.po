@@ -1,0 +1,244 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/persons_webview_backup.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_company
+msgid "Omaduse Ettevõte (company) caption"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_company_comment
+msgid "Omaduse Ettevõte (company) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_company_help
+msgid "Omaduse Ettevõte (company) help"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_departments
+msgid "Omaduse Osakonnad (departments) caption"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_departments_comment
+msgid "Omaduse Osakonnad (departments) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_departments_help
+msgid "Omaduse Osakonnad (departments) help"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_persons_principe
+msgid "Omaduse Isikute järjestamisprintsiip (persons_principe) caption"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_persons_principe_comment
+msgid "Omaduse Isikute järjestamisprintsiip (persons_principe) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_persons_principe_help
+msgid "Omaduse Isikute järjestamisprintsiip (persons_principe) help"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_department_grouping
+msgid "Omaduse Grupeerimine osakonna järgi (department_grouping) caption"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_department_grouping_comment
+msgid "Omaduse Grupeerimine osakonna järgi (department_grouping) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_department_grouping_help
+msgid "Omaduse Grupeerimine osakonna järgi (department_grouping) help"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_grouping_principe
+msgid "Omaduse Grupeerimise järjestamisprintsiip (grouping_principe) caption"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_grouping_principe_comment
+msgid "Omaduse Grupeerimise järjestamisprintsiip (grouping_principe) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_grouping_principe_help
+msgid "Omaduse Grupeerimise järjestamisprintsiip (grouping_principe) help"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_view
+msgid "Omaduse Vaadete tabel (view) caption"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_view_comment
+msgid "Omaduse Vaadete tabel (view) kommentaar"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:prop_view_help
+msgid "Omaduse Vaadete tabel (view) help"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:group_view
+msgid "Grupi Näitamine (view) pealkiri"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:group_view_help
+msgid "Grupi Näitamine (view) help"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:rel_RELTYPE_COMPANY
+msgid "Seose Registri andmed (RELTYPE_COMPANY) tekst"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:rel_RELTYPE_DEPARTMENT
+msgid "Seose Seadete vorm (RELTYPE_DEPARTMENT) tekst"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:90
+msgid "perenimi"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:91
+msgid "ametinimetuse jrk"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:92
+msgid "isiku jrk"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:97
+msgid "osakonna jrk"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:98
+msgid "osakonna nimi"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:102
+msgid "Kasvav"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:103
+msgid "Kahanev"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:107
+msgid "-- vali --"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:108
+msgid "põhi"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:109
+msgid "kesk"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:110
+msgid "kesk-eri"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:111
+msgid "kõrgem"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:114
+msgid "
+			Osakondade tasemed, mida näidataks, saab märkida kujul '1,2,3' või '1-2' või '3'
+			juhul , kui on vaja kuvada inimesi üksteise kõrval, siis teplates peaks olema subid umbes kujul:
+			<!-- SUB: DEPARTMENT -->
+			{VAR:department_name}
+			<table>
+			<!-- SUB: LINE -->
+				<tr>
+				<!-- SUB: WORKER -->
+					<td>
+					<p align=bottom><center>
+						{VAR:photo} <br>
+						<b>{VAR:name} </b><br>
+						{VAR:rank} <br>
+					</center></p>
+					</td>
+				<!-- END SUB: WORKER -->
+				</tr>
+			<!-- END SUB: LINE -->
+			</table>
+			<!-- SUB: DEPARTMENT -->
+			
+			kui igal real on 1 inimene, siis võib SUB: LINE vahelt ära jätta
+			
+			Kui viimaseks vaateks on üks konkreetne isik, siis template sees ühtegi SUBi ei tohiks olla, kasutada saab samu muutujaid, mis muidu sub'is worker
+			
+			endine variant ka igaks juhuks töötab veel
+			
+			juhul kui miski taseme osakonda oleks vaja teistmoodi näidata, siis tuleks <!-- SUB: DEPARTMENT --> sisse teha <!-- SUB: LEVEL4DEPARTMENT --> (vastavalt taseme numbrile) , mis oleks muidu sama struktuuriga nagu DEPARTMENT
+
+			muutujad mida saab kasutada:
+			DEPARTMENT sub'is: department_name, address , phone , fax , email , next_level_link (link nägemas antud osakonda uues vaates).
+			sub'is worker :
+			name , name_with_email , email , emails, photo, contact,
+			profession , profession_with_directive , professions , directive (ametijuhend), wage_doc , wage_doc_exist (palgaandmete dokument, kui on olemas),
+			education (haridustase) , school , subject_field(valdkond) , speciality ,
+			phone, phones , home_phone, home_phones, mobile_phone, mobile_phones, skype_phone, skype_phones, short_phone, short_phones, work_phone, work_phones, extension_phone, extension_phones,
+			next_level_link (link j'gmise taseme vaatesse... kui tegu siis antud inimesega),
+			company, section,
+			url, urls,
+			ta1 - ta5 (kasutajadefineeritud muutujad).
+
+			Kui lisada objekt menüüsse, siis esimeseks vaate infoks tuleb menüüs olev.
+			Template'ide tõlkimiseks kasutada faili persons_web_view.aw.
+			"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:125
+msgid "ainult osakonnad"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:126
+msgid "koos isikutega"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:244
+msgid "Vaade"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:248
+msgid "Templeit"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:252
+msgid "Osakondade tasemeid"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:256
+msgid "Koos inimkoosseisuga"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:260
+msgid "Tulpade arv"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:264
+msgid "Read ametinimetuste alusel"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:268
+msgid "Minimaalne tulpade arv"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:563
+msgid "pole asutust valitud"
+msgstr ""
+
+#: classes/crm/persons_webview_backup.aw:988
+msgid "Palk"
+msgstr ""
+

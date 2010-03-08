@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="taket_tellimuste_list" folder="applications/clients/taket" extends="class_base">
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<optional name="sort" />
+					<optional name="dir" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_order">
+			<function name="show_order">
+				<arguments>
+					<required name="order_id" />
+					<optional name="sort" />
+					<optional name="dir" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

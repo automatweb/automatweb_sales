@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/core/users/auth/auth_server_userdefined.aw:class_1191_help
+msgid "Klassi Autentimisserver kasutajadefineeritud help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_userdefined.aw:prop_auto_create_user
+msgid "Omaduse Kas lastakse sisse logida kasutajatel, keda kohalikus s&uuml;steemis pole (auto_create_user) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_userdefined.aw:prop_auto_create_user_comment
+msgid "Omaduse Kas lastakse sisse logida kasutajatel, keda kohalikus s&uuml;steemis pole (auto_create_user) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_userdefined.aw:prop_auto_create_user_help
+msgid "Omaduse Kas lastakse sisse logida kasutajatel, keda kohalikus s&uuml;steemis pole (auto_create_user) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_userdefined.aw:prop_no_save_pwd
+msgid "Omaduse &Auml;ra salvesta AW'sse kasutaja parooli (no_save_pwd) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_userdefined.aw:prop_no_save_pwd_comment
+msgid "Omaduse &Auml;ra salvesta AW'sse kasutaja parooli (no_save_pwd) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_userdefined.aw:prop_no_save_pwd_help
+msgid "Omaduse &Auml;ra salvesta AW'sse kasutaja parooli (no_save_pwd) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_userdefined.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_userdefined.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_userdefined.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+

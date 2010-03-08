@@ -1,0 +1,68 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>tax_type</name>
+            <table>aw_crm_tax_rate</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_tax_type</field>
+            <caption>Maksu liik</caption>
+      </property>
+      <property>
+            <name>tax_amt</name>
+            <table>aw_crm_tax_rate</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>aw_tax_amt</field>
+            <caption>Maksum&amp;amp;auml;&amp;amp;auml;r (%)</caption>
+      </property>
+      <property>
+            <name>act_from</name>
+            <table>aw_crm_tax_rate</table>
+            <group>general</group>
+            <type>date_select</type>
+            <field>aw_act_from</field>
+            <caption>Kehtib alates</caption>
+      </property>
+      <property>
+            <name>act_to</name>
+            <table>aw_crm_tax_rate</table>
+            <group>general</group>
+            <type>date_select</type>
+            <field>aw_act_to</field>
+            <caption>Kehtib kuni</caption>
+      </property>
+      <property>
+            <name>code</name>
+            <table>aw_crm_tax_rate</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_code</field>
+            <caption>K&amp;amp;auml;ibemaksukood</caption>
+      </property>
+      <property>
+            <name>acct</name>
+            <table>aw_crm_tax_rate</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_acct_no</field>
+            <caption>Kontonumber</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_TAX_RATE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>markop</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_crm_tax_rate>
+                  <index>aw_oid</index>
+                  <master_table>objects</master_table>
+                  <master_index>brother_of</master_index>
+            </aw_crm_tax_rate>
+      </tableinfo>
+</properties>
+

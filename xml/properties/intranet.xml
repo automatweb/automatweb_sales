@@ -1,0 +1,29 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>showlink</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <field>showlink</field>
+            <caption>N&amp;auml;ita</caption>
+      </property>
+      <property>
+            <name>tpldata</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <field>tpldata</field>
+            <caption>alamtemplated</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_INTRANET</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

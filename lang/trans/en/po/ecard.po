@@ -1,0 +1,162 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/ecard/ecard.aw:class_997_help
+msgid "Klassi E-kaart help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_comment
+msgid "Omaduse Tekst kaardil (comment) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_comment_comment
+msgid "Omaduse Tekst kaardil (comment) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_comment_help
+msgid "Omaduse Tekst kaardil (comment) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_from_name
+msgid "Omaduse Saatja nimi (from_name) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_from_name_comment
+msgid "Omaduse Saatja nimi (from_name) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_from_name_help
+msgid "Omaduse Saatja nimi (from_name) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_from_mail
+msgid "Omaduse Saatja aadress (from_mail) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_from_mail_comment
+msgid "Omaduse Saatja aadress (from_mail) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_from_mail_help
+msgid "Omaduse Saatja aadress (from_mail) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_to_name
+msgid "Omaduse Saaja nimi (to_name) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_to_name_comment
+msgid "Omaduse Saaja nimi (to_name) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_to_name_help
+msgid "Omaduse Saaja nimi (to_name) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_to_mail
+msgid "Omaduse Saaja aadress (to_mail) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_to_mail_comment
+msgid "Omaduse Saaja aadress (to_mail) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_to_mail_help
+msgid "Omaduse Saaja aadress (to_mail) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_senddate
+msgid "Omaduse Saatmise kuupäev (senddate) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_senddate_comment
+msgid "Omaduse Saatmise kuupäev (senddate) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_senddate_help
+msgid "Omaduse Saatmise kuupäev (senddate) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_image
+msgid "Omaduse Pilt (image) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_image_comment
+msgid "Omaduse Pilt (image) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_image_help
+msgid "Omaduse Pilt (image) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_position
+msgid "Omaduse Paigutus lehel (position) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_position_comment
+msgid "Omaduse Paigutus lehel (position) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_position_help
+msgid "Omaduse Paigutus lehel (position) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_hash
+msgid "Omaduse Kood kaardi nägemiseks (hash) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_hash_comment
+msgid "Omaduse Kood kaardi nägemiseks (hash) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_hash_help
+msgid "Omaduse Kood kaardi nägemiseks (hash) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_spy
+msgid "Omaduse Vaatamisel saada teade (spy) caption"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_spy_comment
+msgid "Omaduse Vaatamisel saada teade (spy) kommentaar"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:prop_spy_help
+msgid "Omaduse Vaatamisel saada teade (spy) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:group_image
+msgid "Grupi Pilt (image) pealkiri"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:group_image_help
+msgid "Grupi Pilt (image) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:group_conf
+msgid "Grupi Seaded (conf) pealkiri"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:group_conf_help
+msgid "Grupi Seaded (conf) help"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:rel_RELTYPE_IMAGE
+msgid "Seose Piltide kataloog (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:75
+msgid "Tekst pildi all"
+msgstr ""
+
+#: classes/applications/ecard/ecard.aw:76
+msgid "Tekst pildi kõrval"
+msgstr ""

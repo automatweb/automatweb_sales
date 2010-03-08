@@ -1,0 +1,54 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/admin/import/css_style_gen.aw:class_847_help
+msgid "Klassi CSS Stiilide generaator help"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:prop_css_file
+msgid "Omaduse CSS Faili URL (css_file) caption"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:prop_css_file_comment
+msgid "Omaduse CSS Faili URL (css_file) kommentaar"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:prop_css_file_help
+msgid "Omaduse CSS Faili URL (css_file) help"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:prop_folder
+msgid "Omaduse Kataloog stiilide jaoks (folder) caption"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:prop_folder_comment
+msgid "Omaduse Kataloog stiilide jaoks (folder) kommentaar"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:prop_folder_help
+msgid "Omaduse Kataloog stiilide jaoks (folder) help"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:prop_do_gen
+msgid "Omaduse Genereeri! (do_gen) caption"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:prop_do_gen_comment
+msgid "Omaduse Genereeri! (do_gen) kommentaar"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:prop_do_gen_help
+msgid "Omaduse Genereeri! (do_gen) help"
+msgstr ""
+
+#: classes/admin/import/css_style_gen.aw:rel_RELTYPE_FOLDER
+msgid "Seose kataloog (RELTYPE_FOLDER) tekst"
+msgstr ""

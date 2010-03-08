@@ -1,0 +1,3 @@
+get_lc_month($mon_number)
+
+Returns localized name for a month.

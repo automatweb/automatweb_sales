@@ -1,0 +1,174 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:class_337_help
+msgid "Klassi Avaldus help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_eriala
+msgid "Omaduse Eriala (eriala) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_eriala_comment
+msgid "Omaduse Eriala (eriala) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_eriala_help
+msgid "Omaduse Eriala (eriala) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_sisseastuja_nr
+msgid "Omaduse  (sisseastuja_nr) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_sisseastuja_nr_comment
+msgid "Omaduse  (sisseastuja_nr) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_sisseastuja_nr_help
+msgid "Omaduse  (sisseastuja_nr) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_sisseastuja_kood
+msgid "Omaduse  (sisseastuja_kood) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_sisseastuja_kood_comment
+msgid "Omaduse  (sisseastuja_kood) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_sisseastuja_kood_help
+msgid "Omaduse  (sisseastuja_kood) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_konkursipunktid
+msgid "Omaduse  (konkursipunktid) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_konkursipunktid_comment
+msgid "Omaduse  (konkursipunktid) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_konkursipunktid_help
+msgid "Omaduse  (konkursipunktid) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_komisjoni_otsus
+msgid "Omaduse  (komisjoni_otsus) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_komisjoni_otsus_comment
+msgid "Omaduse  (komisjoni_otsus) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_komisjoni_otsus_help
+msgid "Omaduse  (komisjoni_otsus) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_jrk_nr
+msgid "Omaduse  (jrk_nr) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_jrk_nr_comment
+msgid "Omaduse  (jrk_nr) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_jrk_nr_help
+msgid "Omaduse  (jrk_nr) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_registreerus
+msgid "Omaduse  (registreerus) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_registreerus_comment
+msgid "Omaduse  (registreerus) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_registreerus_help
+msgid "Omaduse  (registreerus) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_oppetase
+msgid "Omaduse  (oppetase) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_oppetase_comment
+msgid "Omaduse  (oppetase) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_oppetase_help
+msgid "Omaduse  (oppetase) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_isik_firstname
+msgid "Omaduse  (isik_firstname) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_isik_firstname_comment
+msgid "Omaduse  (isik_firstname) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_isik_firstname_help
+msgid "Omaduse  (isik_firstname) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_isik_lastname
+msgid "Omaduse  (isik_lastname) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_isik_lastname_comment
+msgid "Omaduse  (isik_lastname) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_isik_lastname_help
+msgid "Omaduse  (isik_lastname) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_kustutatud
+msgid "Omaduse  (kustutatud) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_kustutatud_comment
+msgid "Omaduse  (kustutatud) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_kustutatud_help
+msgid "Omaduse  (kustutatud) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_oppevorm
+msgid "Omaduse &Otilde;ppevorm (oppevorm) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_oppevorm_comment
+msgid "Omaduse &Otilde;ppevorm (oppevorm) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_oppevorm_help
+msgid "Omaduse &Otilde;ppevorm (oppevorm) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_eelistus
+msgid "Omaduse Kas eelistuseks on antud eriala? (eelistus) caption"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_eelistus_comment
+msgid "Omaduse Kas eelistuseks on antud eriala? (eelistus) kommentaar"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:prop_eelistus_help
+msgid "Omaduse Kas eelistuseks on antud eriala? (eelistus) help"
+msgstr ""
+
+#: classes/vastuv6tt/vastuv6tt_avaldus.aw:85
+msgid "&Otilde;ppetase m‰‰ramata."
+msgstr ""

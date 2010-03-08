@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="testrunner" folder="www/dev/terryf/automatweb_dev/classes/applications/unittest" extends="core">
+		<action name="test" default="1">
+			<function name="test">
+				<arguments>
+					<required name="script" />
+					<optional name="format" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

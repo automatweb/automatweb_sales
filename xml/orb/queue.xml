@@ -1,0 +1,64 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="queue" folder="www/dev/terryf/automatweb_dev/classes/core" extends="">
+		<action name="queue">
+			<function name="queue">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="push">
+			<function name="push">
+				<arguments>
+					<required name="item" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get">
+			<function name="get">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="has_more">
+			<function name="has_more">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_all">
+			<function name="get_all">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="count">
+			<function name="count">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_all">
+			<function name="set_all">
+				<arguments>
+					<required name="a" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="contains">
+			<function name="contains">
+				<arguments>
+					<required name="val" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

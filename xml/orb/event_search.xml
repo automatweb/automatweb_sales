@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="event_search" folder="www/automatweb_cvs/classes/applications/calendar" extends="class_base">
+		<action name="search" nologin="1" all_args="1">
+			<function name="show">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_event">
+			<function name="delete_event">
+				<arguments>
+					<required name="event_id" type="int" acl="view;edit" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_evx">
+			<function name="convert_evx">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

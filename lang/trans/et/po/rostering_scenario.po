@@ -1,0 +1,166 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/rostering/rostering_scenario.aw:class_1140_help
+msgid "Klassi Planeerimise stsenaarium help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cedit_tb
+msgid "Omaduse  (cedit_tb) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cedit_tb_comment
+msgid "Omaduse  (cedit_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cedit_tb_help
+msgid "Omaduse  (cedit_tb) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cedit_tree
+msgid "Omaduse  (cedit_tree) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cedit_tree_comment
+msgid "Omaduse  (cedit_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cedit_tree_help
+msgid "Omaduse  (cedit_tree) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cedit_table
+msgid "Omaduse  (cedit_table) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cedit_table_comment
+msgid "Omaduse  (cedit_table) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cedit_table_help
+msgid "Omaduse  (cedit_table) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cycles
+msgid "Omaduse Ts&uuml;klid (cycles) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cycles_comment
+msgid "Omaduse Ts&uuml;klid (cycles) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_cycles_help
+msgid "Omaduse Ts&uuml;klid (cycles) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_work_hrs_per_week
+msgid "Omaduse T&ouml;&ouml;tunde n&auml;dalas (work_hrs_per_week) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_work_hrs_per_week_comment
+msgid "Omaduse T&ouml;&ouml;tunde n&auml;dalas (work_hrs_per_week) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_work_hrs_per_week_help
+msgid "Omaduse T&ouml;&ouml;tunde n&auml;dalas (work_hrs_per_week) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_no_plan_night
+msgid "Omaduse &Auml;ra planeeri &ouml;&ouml;seks (no_plan_night) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_no_plan_night_comment
+msgid "Omaduse &Auml;ra planeeri &ouml;&ouml;seks (no_plan_night) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_no_plan_night_help
+msgid "Omaduse &Auml;ra planeeri &ouml;&ouml;seks (no_plan_night) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_max_overtime
+msgid "Omaduse Maksimaalne &uuml;letundide arv (max_overtime) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_max_overtime_comment
+msgid "Omaduse Maksimaalne &uuml;letundide arv (max_overtime) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_max_overtime_help
+msgid "Omaduse Maksimaalne &uuml;letundide arv (max_overtime) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_free_days_after_night_shift
+msgid "Omaduse Vabu p&auml;evi peale &ouml;&ouml;t&ouml;&ouml;d (free_days_after_night_shift) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_free_days_after_night_shift_comment
+msgid "Omaduse Vabu p&auml;evi peale &ouml;&ouml;t&ouml;&ouml;d (free_days_after_night_shift) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:prop_free_days_after_night_shift_help
+msgid "Omaduse Vabu p&auml;evi peale &ouml;&ouml;t&ouml;&ouml;d (free_days_after_night_shift) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:group_settings_gen
+msgid "Grupi &Uuml;ldised (settings_gen) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:group_settings_gen_help
+msgid "Grupi &Uuml;ldised (settings_gen) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:group_settings_sect
+msgid "Grupi Spetsiifiised (settings_sect) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:group_settings_sect_help
+msgid "Grupi Spetsiifiised (settings_sect) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:rel_RELTYPE_CYCLE
+msgid "Seose Ts&uuml;kkel (RELTYPE_CYCLE) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:layout_contacts_edit_tree
+msgid "Kujundusosa Struktuur (contacts_edit_tree) pealkiri"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:106
+msgid "Ts&uuml;klid"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:112
+msgid "T&ouml;&ouml;tunde n&auml;dalas"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:117
+msgid "&Auml;ra planeeri &ouml;&ouml;seks"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:122
+msgid "Maksimaalne &uuml;letundide arv"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:128
+msgid "Vabu p&auml;evi peale &ouml;&ouml;t&ouml;&ouml;d"
+msgstr ""
+
+#: classes/applications/rostering/rostering_scenario.aw:247
+msgid "Salvesta"
+msgstr ""

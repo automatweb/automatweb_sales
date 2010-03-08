@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/spa_bookings/spa_booking.aw:class_1180_help
+msgid "Klassi Turismipakett help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_person
+msgid "Omaduse Isik (person) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_person_comment
+msgid "Omaduse Isik (person) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_person_help
+msgid "Omaduse Isik (person) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_start
+msgid "Omaduse Algus (start) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_start_comment
+msgid "Omaduse Algus (start) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_start_help
+msgid "Omaduse Algus (start) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_end
+msgid "Omaduse L&otilde;pp (end) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_end_comment
+msgid "Omaduse L&otilde;pp (end) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_end_help
+msgid "Omaduse L&otilde;pp (end) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_package
+msgid "Omaduse Pakett (package) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_package_comment
+msgid "Omaduse Pakett (package) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_package_help
+msgid "Omaduse Pakett (package) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_seller
+msgid "Omaduse M&uuml;&uuml;ja (seller) caption"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_seller_comment
+msgid "Omaduse M&uuml;&uuml;ja (seller) kommentaar"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:prop_seller_help
+msgid "Omaduse M&uuml;&uuml;ja (seller) help"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:rel_RELTYPE_PERSON
+msgid "Seose Isik (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:rel_RELTYPE_PACKAGE
+msgid "Seose Pakett (RELTYPE_PACKAGE) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:rel_RELTYPE_ROOM_BRON
+msgid "Seose Ruumi broneering (RELTYPE_ROOM_BRON) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:rel_RELTYPE_EXTRA_PROD
+msgid "Seose Lisateenus (RELTYPE_EXTRA_PROD) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:rel_RELTYPE_SELLER
+msgid "Seose M&uuml;&uuml;ja (RELTYPE_SELLER) tekst"
+msgstr ""
+
+#: classes/applications/spa_bookings/spa_booking.aw:rel_RELTYPE_MAIN_PERSON
+msgid "Seose Perepea (RELTYPE_MAIN_PERSON) tekst"
+msgstr ""
+

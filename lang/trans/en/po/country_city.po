@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/common/country/country_city.aw:class_958_help
+msgid "Klassi Linn v2 help"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_administrative_structure
+msgid "Omaduse  (administrative_structure) caption"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_administrative_structure_comment
+msgid "Omaduse  (administrative_structure) kommentaar"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_administrative_structure_help
+msgid "Omaduse  (administrative_structure) help"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_subclass
+msgid "Omaduse Tüüp (subclass) caption"
+msgstr "Division"
+
+#: classes/common/country/country_city.aw:prop_subclass_comment
+msgid "Omaduse Tüüp (subclass) kommentaar"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_subclass_help
+msgid "Omaduse Tüüp (subclass) help"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_parent
+msgid "Omaduse Kõrgem halduspiirkond (parent) caption"
+msgstr "Parent unit"
+
+#: classes/common/country/country_city.aw:prop_parent_comment
+msgid "Omaduse Kõrgem halduspiirkond (parent) kommentaar"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_parent_help
+msgid "Omaduse Kõrgem halduspiirkond (parent) help"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_parent_show
+msgid "Omaduse Kõrgem halduspiirkond (parent_show) caption"
+msgstr "Parent unit"
+
+#: classes/common/country/country_city.aw:prop_parent_show_comment
+msgid "Omaduse Kõrgem halduspiirkond (parent_show) kommentaar"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_parent_show_help
+msgid "Omaduse Kõrgem halduspiirkond (parent_show) help"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_parent_select
+msgid "Omaduse Vali kõrgem halduspiirkond (parent_select) caption"
+msgstr "Select parent unit"
+
+#: classes/common/country/country_city.aw:prop_parent_select_comment
+msgid "Omaduse Vali kõrgem halduspiirkond (parent_select) kommentaar"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_parent_select_help
+msgid "Omaduse Vali kõrgem halduspiirkond (parent_select) help"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/common/country/country_city.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/common/country/country_city.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/common/country/country_city.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/common/country/country_city.aw:rel_RELTYPE_PARENT_ADMINISTRATIVE_UNIT
+msgid "Seose Kõrgem halduspiirkond (RELTYPE_PARENT_ADMINISTRATIVE_UNIT) tekst"
+msgstr ""
+
+#~ msgid "Seose K&otilde;rgem halduspiirkond (RELTYPE_PARENT_ADMINISTRATIVE_UNIT) tekst"
+#~ msgstr "Parent administrative unit"
+
+#~ msgid "Grupi Üldine (general) pealkiri"
+#~ msgstr "General"

@@ -1,0 +1,4 @@
+is_class_id($arg)
+
+Returns: true of false depending on whether the argument is valid
+class_id

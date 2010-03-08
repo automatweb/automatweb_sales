@@ -1,0 +1,43 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_meeting" folder="www/automatweb_cvs/classes/crm" extends="task">
+		<action name="submit_delete_participants_from_calendar">
+			<function name="submit_delete_participants_from_calendar">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="group" />
+					<required name="check" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_contacts">
+			<function name="search_contacts">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_participant_search_results">
+			<function name="save_participant_search_results">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_rels">
+			<function name="delete_rels">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="quick_add" all_args="1">
+			<function name="quick_add">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

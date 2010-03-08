@@ -1,0 +1,36 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Originaal xml fail (orig_xml_file) caption"] = "Original xml file";
+$GLOBALS["TRANS"]["Omaduse Uus xml fail (new_xml_file) caption"] = "New xml file";
+$GLOBALS["TRANS"]["Omaduse Andmebaasitabeli sisu objekt (db_table_contents) caption"] = "Database table content object";
+$GLOBALS["TRANS"]["Omaduse Maja nimi/aadress (house_name) caption"] = "House name/address";
+$GLOBALS["TRANS"]["Omaduse XML ja DB v&auml;ljade vahelised seosed (xml_to_db_connections) caption"] = "Connections between XML and DB fields";
+$GLOBALS["TRANS"]["Omaduse Additional info (additional_info_table) caption"] = "Additional info";
+$GLOBALS["TRANS"]["Omaduse Sisu tabel 01 (content_table_01) caption"] = "Content table 01";
+$GLOBALS["TRANS"]["Omaduse Parent XMl-ist (xml_field_01) caption"] = "Parent from XML";
+$GLOBALS["TRANS"]["Omaduse Andmebaasi tabel (db_table_01) caption"] = "Database table ";
+$GLOBALS["TRANS"]["Omaduse Sisu tabel 02 (content_table_02) caption"] = "Content table 02";
+$GLOBALS["TRANS"]["Omaduse Parent XML-ist (xml_field_02) caption"] = "Parent from XML";
+$GLOBALS["TRANS"]["Omaduse Andmebaasi tabel (db_table_02) caption"] = "Database table";
+$GLOBALS["TRANS"]["Omaduse Sisu tabel 03 (content_table_03) caption"] = "Content table 03";
+$GLOBALS["TRANS"]["Omaduse Parent XML-ist (xml_field_03) caption"] = "Parent from XML";
+$GLOBALS["TRANS"]["Omaduse Andmebaasi tabel (db_table_03) caption"] = "Database table";
+$GLOBALS["TRANS"]["Omaduse Sisu tabel 04 (content_table_04) caption"] = "Content table";
+$GLOBALS["TRANS"]["Omaduse parent XML-ist (xml_field_04) caption"] = "Parent from XML";
+$GLOBALS["TRANS"]["Omaduse Andmebaasi tabel (db_table_04) caption"] = "Database table";
+$GLOBALS["TRANS"]["Omaduse Sisu tabel 05 (content_table_05) caption"] = "Content table 05";
+$GLOBALS["TRANS"]["Omaduse parent XML-ist (xml_field_05) caption"] = "Parent from XML";
+$GLOBALS["TRANS"]["Omaduse Andmebaasi tabel (db_table_05) caption"] = "Database table";
+$GLOBALS["TRANS"]["Grupi Baasi salvestamise seaded (db_saving_settings) pealkiri"] = "Database settings";
+$GLOBALS["TRANS"]["Grupi Lisainfo korterite tabeli jaoks (additional_info) pealkiri"] = "Additional info for apartement table";
+$GLOBALS["TRANS"]["Grupi XML-i muutmine (content_change) pealkiri"] = "Alter XML";
+$GLOBALS["TRANS"]["Grupi Tab 01 (group_01) pealkiri"] = "Tab 01";
+$GLOBALS["TRANS"]["Grupi Tab 02 (group_02) pealkiri"] = "Tab 02";
+$GLOBALS["TRANS"]["Grupi Tab 03 (group_03) pealkiri"] = "Tab 03";
+$GLOBALS["TRANS"]["Grupi Tab 04 (group_04) pealkiri"] = "Tab 04";
+$GLOBALS["TRANS"]["Grupi Tab 05 (group_05) pealkiri"] = "Tab 05";
+$GLOBALS["TRANS"]["Seose Andmebaasitabeli sisu objekt (RELTYPE_DB_TABLE_CONTENTS) tekst"] = "Database table content object";
+$GLOBALS["TRANS"]["---"] = "---";
+$GLOBALS["TRANS"]["Ei Salvestata"] = "Do not save";
+$GLOBALS["TRANS"]["Couldn't open the file (%s) to write"] = "Couldn't open the file (%s) for writing";
+$GLOBALS["TRANS"]["Cannot write to this file: %s"] = "Cannot write to file %s";
+?>

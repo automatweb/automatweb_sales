@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="personnel_management_cv_search_saved" folder="www/dev/terryf/automatweb_dev/classes/applications/personnel_management" extends="class_base">
+	</class>
+</orb>

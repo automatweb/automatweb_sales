@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/common/openhours.aw:class_1014_help
+msgid "Klassi Avamisajad help"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_openhours
+msgid "Omaduse Avamisajad (openhours) caption"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_openhours_comment
+msgid "Omaduse Avamisajad (openhours) kommentaar"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_openhours_help
+msgid "Omaduse Avamisajad (openhours) help"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_apply_group
+msgid "Omaduse Kehtib gruppidele (apply_group) caption"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_apply_group_comment
+msgid "Omaduse Kehtib gruppidele (apply_group) kommentaar"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_apply_group_help
+msgid "Omaduse Kehtib gruppidele (apply_group) help"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_date_from
+msgid "Omaduse Kehtib alates (date_from) caption"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_date_from_comment
+msgid "Omaduse Kehtib alates (date_from) kommentaar"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_date_from_help
+msgid "Omaduse Kehtib alates (date_from) help"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_date_to
+msgid "Omaduse Kehtib kuni (date_to) caption"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_date_to_comment
+msgid "Omaduse Kehtib kuni (date_to) kommentaar"
+msgstr ""
+
+#: classes/common/openhours.aw:prop_date_to_help
+msgid "Omaduse Kehtib kuni (date_to) help"
+msgstr ""
+
+#: classes/common/openhours.aw:rel_RELTYPE_GROUP
+msgid "Seose Kehtib kasutajagrupile (RELTYPE_GROUP) tekst"
+msgstr ""
+
+#: classes/common/openhours.aw:49
+msgid "--vali--"
+msgstr ""
+
+#: classes/common/openhours.aw:70
+msgid "Lisa"
+msgstr ""
+
+#: classes/common/openhours.aw:99
+msgid "Rida"
+msgstr ""
+
+#: classes/common/openhours.aw:150
+msgid "E"
+msgstr ""
+
+#: classes/common/openhours.aw:151
+msgid "T"
+msgstr ""
+
+#: classes/common/openhours.aw:152
+msgid "K"
+msgstr ""
+
+#: classes/common/openhours.aw:153
+msgid "N"
+msgstr ""
+
+#: classes/common/openhours.aw:154
+msgid "R"
+msgstr ""
+
+#: classes/common/openhours.aw:155
+msgid "L"
+msgstr ""
+
+#: classes/common/openhours.aw:156
+msgid "P"
+msgstr ""
+
+#: classes/common/openhours.aw:235
+msgid "-- Valimata --"
+msgstr ""
+
+#: classes/common/openhours.aw:236
+msgid "Esmasp&auml;ev"
+msgstr ""
+
+#: classes/common/openhours.aw:237
+msgid "Teisip&auml;ev"
+msgstr ""
+
+#: classes/common/openhours.aw:238
+msgid "Kolmap&auml;ev"
+msgstr ""
+
+#: classes/common/openhours.aw:239
+msgid "Neljap&auml;ev"
+msgstr ""
+
+#: classes/common/openhours.aw:240
+msgid "Reede"
+msgstr ""
+
+#: classes/common/openhours.aw:241
+msgid "Laup&auml;ev"
+msgstr ""
+
+#: classes/common/openhours.aw:242
+msgid "P&uuml;hap&auml;ev"
+msgstr ""
+
+#: classes/common/openhours.aw:298
+msgid "Vigane perioodi alguse p&auml;ev"
+msgstr ""
+
+#: classes/common/openhours.aw:302
+msgid "Vigane perioodi l&otilde;pu p&auml;ev"
+msgstr ""
+
+#: classes/common/openhours.aw:306
+msgid "Vigane perioodi alguse aeg"
+msgstr ""
+
+#: classes/common/openhours.aw:310
+msgid "Vigane perioodi l&otilde;pu aeg"
+msgstr ""
+

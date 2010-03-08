@@ -1,0 +1,108 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>url</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>URL</caption>
+      </property>
+      <property>
+            <name>sc_status</name>
+            <table>aw_site_copy_todo</table>
+            <group>general</group>
+            <type>select</type>
+            <field>sc_status</field>
+            <caption>Staatus</caption>
+      </property>
+      <property>
+            <name>local</name>
+            <table>aw_site_copy_todo</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>local</field>
+            <caption>Lokaalne koopia</caption>
+      </property>
+      <property>
+            <name>local_site</name>
+            <table>aw_site_copy_todo</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>local_site</field>
+            <caption>Lokaalne koopia saidist</caption>
+      </property>
+      <property>
+            <name>local_code</name>
+            <table>aw_site_copy_todo</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>local_code</field>
+            <caption>Lokaalne koopia koodist</caption>
+      </property>
+      <property>
+            <name>local_base</name>
+            <table>aw_site_copy_todo</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>local_base</field>
+            <caption>Lokaalne koopia baasist</caption>
+      </property>
+      <property>
+            <name>site_copy</name>
+            <table>aw_site_copy_todo</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_SITE_COPY</reltype>
+            <store>connect</store>
+            <field>site_copy</field>
+            <caption>Saitide kopeerimise objekt, mille seadeid kasutada</caption>
+      </property>
+      <property>
+            <name>packets_total</name>
+            <table>aw_site_copy_todo</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>4</size>
+            <field>packets_total</field>
+            <caption>Pakettide arv</caption>
+      </property>
+      <property>
+            <name>packets</name>
+            <table>aw_site_copy_todo</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>4</size>
+            <field>packets</field>
+            <caption>T&amp;amp;otilde;mbamata pakettide arv</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SITE_COPY_TODO</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_name>1</no_name>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>instrumental</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_site_copy_todo>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_site_copy_todo>
+      </tableinfo>
+      <reltypes>
+            <SITE_COPY>
+                  <value>1</value>
+                  <clid>CL_SITE_COPY</clid>
+                  <caption>Saitide kopeerimise objekt, mille seadeid kasutada</caption>
+            </SITE_COPY>
+            <MAIL>
+                  <value>1</value>
+                  <clid>CL_ML_MEMBER</clid>
+                  <caption>E-postiaadress, kuhu saadetakse infot kopeerimise progressist</caption>
+            </MAIL>
+      </reltypes>
+</properties>
+

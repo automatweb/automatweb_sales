@@ -1,0 +1,130 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/forum/forum_comment.aw:class_208_help
+msgid "Klassi Kommentaar help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_name
+msgid "Omaduse Pealkiri (name) caption"
+msgstr "sdada"
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_name_comment
+msgid "Omaduse Pealkiri (name) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_name_help
+msgid "Omaduse Pealkiri (name) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_uname
+msgid "Omaduse Kasutaja (uname) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_uname_comment
+msgid "Omaduse Kasutaja (uname) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_uname_help
+msgid "Omaduse Kasutaja (uname) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_pname
+msgid "Omaduse Nimi (pname) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_pname_comment
+msgid "Omaduse Nimi (pname) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_pname_help
+msgid "Omaduse Nimi (pname) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_uemail
+msgid "Omaduse E-post (uemail) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_uemail_comment
+msgid "Omaduse E-post (uemail) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_uemail_help
+msgid "Omaduse E-post (uemail) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_remember
+msgid "Omaduse J&auml;ta nimi ja e-post meelde (remember) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_remember_comment
+msgid "Omaduse J&auml;ta nimi ja e-post meelde (remember) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_remember_help
+msgid "Omaduse J&auml;ta nimi ja e-post meelde (remember) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_commtext
+msgid "Omaduse Kommentaar (commtext) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_commtext_comment
+msgid "Omaduse Kommentaar (commtext) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_commtext_help
+msgid "Omaduse Kommentaar (commtext) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_ip
+msgid "Omaduse IP (ip) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_ip_comment
+msgid "Omaduse IP (ip) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_ip_help
+msgid "Omaduse IP (ip) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_commtype
+msgid "Omaduse T&uuml;&uuml;p (commtype) caption"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_commtype_comment
+msgid "Omaduse T&uuml;&uuml;p (commtype) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:prop_commtype_help
+msgid "Omaduse T&uuml;&uuml;p (commtype) help"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:rel_RELTYPE_FORUM_IMAGE
+msgid "Seose Pilt (RELTYPE_FORUM_IMAGE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:79
+msgid "--vali--"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:80
+msgid "Positiivne"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:81
+msgid "Neutraalne"
+msgstr ""
+
+#: classes/contentmgmt/forum/forum_comment.aw:82
+msgid "Negatiivne"
+msgstr ""

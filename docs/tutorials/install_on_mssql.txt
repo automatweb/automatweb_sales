@@ -1,0 +1,1 @@
+extlinks.oid,messages.status,messages.draft,messages.num_att - allow nulls

@@ -1,0 +1,206 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_bill_row.aw:class_1054_help
+msgid "Klassi Arve rida help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_comment
+msgid "Omaduse Tekst arvel (comment) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_comment_comment
+msgid "Omaduse Tekst arvel (comment) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_comment_help
+msgid "Omaduse Tekst arvel (comment) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_amt
+msgid "Omaduse Kogus (amt) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_amt_comment
+msgid "Omaduse Kogus (amt) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_amt_help
+msgid "Omaduse Kogus (amt) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_prod
+msgid "Omaduse Toode (prod) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_prod_comment
+msgid "Omaduse Toode (prod) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_prod_help
+msgid "Omaduse Toode (prod) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_price
+msgid "Omaduse Hind (price) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_price_comment
+msgid "Omaduse Hind (price) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_price_help
+msgid "Omaduse Hind (price) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_sum
+msgid "Omaduse Summa (sum) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_sum_comment
+msgid "Omaduse Summa (sum) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_sum_help
+msgid "Omaduse Summa (sum) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_unit
+msgid "Omaduse &Uuml;hik (unit) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_unit_comment
+msgid "Omaduse &Uuml;hik (unit) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_unit_help
+msgid "Omaduse &Uuml;hik (unit) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_is_oe
+msgid "Omaduse Muu kulu? (is_oe) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_is_oe_comment
+msgid "Omaduse Muu kulu? (is_oe) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_is_oe_help
+msgid "Omaduse Muu kulu? (is_oe) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_writeoff
+msgid "Omaduse Maha kantud (writeoff) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_writeoff_comment
+msgid "Omaduse Maha kantud (writeoff) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_writeoff_help
+msgid "Omaduse Maha kantud (writeoff) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_has_tax
+msgid "Omaduse Lisandub k&auml;ibemaks? (has_tax) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_has_tax_comment
+msgid "Omaduse Lisandub k&auml;ibemaks? (has_tax) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_has_tax_help
+msgid "Omaduse Lisandub k&auml;ibemaks? (has_tax) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_tax
+msgid "Omaduse K&auml;ibemaksu % (tax) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_tax_comment
+msgid "Omaduse K&auml;ibemaksu % (tax) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_tax_help
+msgid "Omaduse K&auml;ibemaksu % (tax) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_date
+msgid "Omaduse Kuup&auml;ev (date) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_date_comment
+msgid "Omaduse Kuup&auml;ev (date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_date_help
+msgid "Omaduse Kuup&auml;ev (date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_desc
+msgid "Omaduse Kirjeldus (desc) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_desc_comment
+msgid "Omaduse Kirjeldus (desc) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_desc_help
+msgid "Omaduse Kirjeldus (desc) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_people
+msgid "Omaduse Isikud (people) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_people_comment
+msgid "Omaduse Isikud (people) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_people_help
+msgid "Omaduse Isikud (people) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_task_row
+msgid "Omaduse Toimetuse read (task_row) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_task_row_comment
+msgid "Omaduse Toimetuse read (task_row) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:prop_task_row_help
+msgid "Omaduse Toimetuse read (task_row) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:rel_RELTYPE_PROD
+msgid "Seose Toode (RELTYPE_PROD) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:rel_RELTYPE_TASK_ROW
+msgid "Seose Toimetuse rida (RELTYPE_TASK_ROW) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:rel_RELTYPE_TASK
+msgid "Seose Toimetus (RELTYPE_TASK) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:rel_RELTYPE_PEOPLE
+msgid "Seose Isik (RELTYPE_PEOPLE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:rel_RELTYPE_EXPENSE
+msgid "Seose Muu kulu (RELTYPE_EXPENSE) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_row.aw:rel_RELTYPE_BUG
+msgid "Seose Bugi (RELTYPE_BUG) tekst"
+msgstr ""

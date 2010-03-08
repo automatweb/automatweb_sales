@@ -1,0 +1,146 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_db_search.aw:class_1049_help
+msgid "Klassi Kliendibaasi otsingu grupp help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_crm_db
+msgid "Omaduse Kliendibaas (crm_db) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_crm_db_comment
+msgid "Omaduse Kliendibaas (crm_db) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_crm_db_help
+msgid "Omaduse Kliendibaas (crm_db) help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_url
+msgid "Omaduse Url, millele lisatakse org. objekti id (url) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_url_comment
+msgid "Omaduse Url, millele lisatakse org. objekti id (url) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_url_help
+msgid "Omaduse Url, millele lisatakse org. objekti id (url) help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_only_active
+msgid "Omaduse Ainult aktiivsed (only_active) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_only_active_comment
+msgid "Omaduse Ainult aktiivsed (only_active) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_only_active_help
+msgid "Omaduse Ainult aktiivsed (only_active) help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_dir_tegevusala
+msgid "Omaduse Tegevusalade kaust (dir_tegevusala) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_dir_tegevusala_comment
+msgid "Omaduse Tegevusalade kaust (dir_tegevusala) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_dir_tegevusala_help
+msgid "Omaduse Tegevusalade kaust (dir_tegevusala) help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_sector_recursive
+msgid "Omaduse Otsi ka alategevusaladest (sector_recursive) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_sector_recursive_comment
+msgid "Omaduse Otsi ka alategevusaladest (sector_recursive) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_sector_recursive_help
+msgid "Omaduse Otsi ka alategevusaladest (sector_recursive) help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords
+msgid "Omaduse V&ouml;tmes&ouml;nad (komadega eraldatult) (keywords) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords_comment
+msgid "Omaduse V&ouml;tmes&ouml;nad (komadega eraldatult) (keywords) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords_help
+msgid "Omaduse V&ouml;tmes&ouml;nad (komadega eraldatult) (keywords) help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords2
+msgid "Omaduse AW V&otilde;tmes&otilde;nad (keywords2) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords2_comment
+msgid "Omaduse AW V&otilde;tmes&otilde;nad (keywords2) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords2_help
+msgid "Omaduse AW V&otilde;tmes&otilde;nad (keywords2) help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords_in_row
+msgid "Omaduse V&otilde;tmes&otilde;nu &uuml;hel real (keywords_in_row) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords_in_row_comment
+msgid "Omaduse V&otilde;tmes&otilde;nu &uuml;hel real (keywords_in_row) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords_in_row_help
+msgid "Omaduse V&otilde;tmes&otilde;nu &uuml;hel real (keywords_in_row) help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords_by_folder
+msgid "Omaduse V&otilde;tmes&otilde;nad kaustade kaupa (keywords_by_folder) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords_by_folder_comment
+msgid "Omaduse V&otilde;tmes&otilde;nad kaustade kaupa (keywords_by_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:prop_keywords_by_folder_help
+msgid "Omaduse V&otilde;tmes&otilde;nad kaustade kaupa (keywords_by_folder) help"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:rel_RELTYPE_CRM_DB
+msgid "Seose Organisatsioonide andmebaas (RELTYPE_CRM_DB) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:rel_RELTYPE_TEGEVUSALA_CAT
+msgid "Seose Tegevusalade kaust (RELTYPE_TEGEVUSALA_CAT) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:rel_RELTYPE_KEYWORD
+msgid "Seose V&otilde;tmes&otilde;na (RELTYPE_KEYWORD) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:156
+msgid "Otsisid '<b>%s</b>',"
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:157
+msgid "leiti %u asutus."
+msgstr ""
+
+#: classes/applications/crm/crm_db_search.aw:157
+msgid "leiti %u asutust."
+msgstr ""

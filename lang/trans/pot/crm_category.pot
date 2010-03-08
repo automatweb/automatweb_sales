@@ -1,0 +1,356 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_category.aw:class_483_help
+msgid "Klassi Kategooria help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_jrk
+msgid "Omaduse J&auml;rjekord (jrk) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_jrk_comment
+msgid "Omaduse J&auml;rjekord (jrk) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_jrk_help
+msgid "Omaduse J&auml;rjekord (jrk) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_img_upload
+msgid "Omaduse Pilt (img_upload) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_img_upload_comment
+msgid "Omaduse Pilt (img_upload) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_img_upload_help
+msgid "Omaduse Pilt (img_upload) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_extern_id
+msgid "Omaduse  (extern_id) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_extern_id_comment
+msgid "Omaduse  (extern_id) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_extern_id_help
+msgid "Omaduse  (extern_id) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_list
+msgid "Omaduse  (list) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_list_comment
+msgid "Omaduse  (list) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_list_help
+msgid "Omaduse  (list) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_list_tb
+msgid "Omaduse  (list_tb) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_list_tb_comment
+msgid "Omaduse  (list_tb) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_list_tb_help
+msgid "Omaduse  (list_tb) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_list_tbl
+msgid "Omaduse  (list_tbl) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_list_tbl_comment
+msgid "Omaduse  (list_tbl) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_list_tbl_help
+msgid "Omaduse  (list_tbl) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_balance
+msgid "Omaduse  (balance) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_balance_comment
+msgid "Omaduse  (balance) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_balance_help
+msgid "Omaduse  (balance) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_file
+msgid "Omaduse Fail (file) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_file_comment
+msgid "Omaduse Fail (file) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_file_help
+msgid "Omaduse Fail (file) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_import_tb
+msgid "Omaduse  (import_tb) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_import_tb_comment
+msgid "Omaduse  (import_tb) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_import_tb_help
+msgid "Omaduse  (import_tb) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_import_tbl
+msgid "Omaduse  (import_tbl) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_import_tbl_comment
+msgid "Omaduse  (import_tbl) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_import_tbl_help
+msgid "Omaduse  (import_tbl) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_import_button
+msgid "Omaduse Impordi (import_button) caption"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_import_button_comment
+msgid "Omaduse Impordi (import_button) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_category.aw:prop_import_button_help
+msgid "Omaduse Impordi (import_button) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:group_list
+msgid "Grupi Nimekiri (list) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_category.aw:group_list_help
+msgid "Grupi Nimekiri (list) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:group_import
+msgid "Grupi Import (import) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_category.aw:group_import_help
+msgid "Grupi Import (import) help"
+msgstr ""
+
+#: classes/crm/crm_category.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/crm/crm_category.aw:rel_RELTYPE_CATEGORY
+msgid "Seose Alam kategooria (RELTYPE_CATEGORY) tekst"
+msgstr ""
+
+#: classes/crm/crm_category.aw:rel_RELTYPE_CUSTOMER
+msgid "Seose Klient (RELTYPE_CUSTOMER) tekst"
+msgstr ""
+
+#: classes/crm/crm_category.aw:89
+msgid "Kustuta seosed"
+msgstr ""
+
+#: classes/crm/crm_category.aw:92 classes/crm/crm_category.aw:106
+msgid "Oled kindel, et soovid valitud seosed kustutada?"
+msgstr ""
+
+#: classes/crm/crm_category.aw:103
+msgid "Alusta importi uuesti"
+msgstr ""
+
+#: classes/crm/crm_category.aw:122
+msgid "Impordi kliendid!"
+msgstr ""
+
+#: classes/crm/crm_category.aw:406
+msgid "J&auml;rgmised"
+msgstr ""
+
+#: classes/crm/crm_category.aw:413
+msgid "-- Vali omadus --"
+msgstr ""
+
+#: classes/crm/crm_category.aw:414
+msgid "ORGANISATSIOON"
+msgstr ""
+
+#: classes/crm/crm_category.aw:415
+msgid "Organisatsiooni nimi"
+msgstr ""
+
+#: classes/crm/crm_category.aw:416
+msgid "Registri_kood"
+msgstr ""
+
+#: classes/crm/crm_category.aw:417
+msgid "Tegevusala kood"
+msgstr ""
+
+#: classes/crm/crm_category.aw:418
+msgid "Tegevusala nimi"
+msgstr ""
+
+#: classes/crm/crm_category.aw:419
+msgid "Maakond"
+msgstr ""
+
+#: classes/crm/crm_category.aw:420
+msgid "Linn"
+msgstr ""
+
+#: classes/crm/crm_category.aw:421
+msgid "Aadress"
+msgstr ""
+
+#: classes/crm/crm_category.aw:422
+msgid "Postiindeks"
+msgstr ""
+
+#: classes/crm/crm_category.aw:423
+msgid "E-mail"
+msgstr ""
+
+#: classes/crm/crm_category.aw:424
+msgid "Veebiaadress"
+msgstr ""
+
+#: classes/crm/crm_category.aw:425
+msgid "Telefon"
+msgstr ""
+
+#: classes/crm/crm_category.aw:426
+msgid "&Otilde;iguslik vorm"
+msgstr ""
+
+#: classes/crm/crm_category.aw:427
+msgid "KONTAKTISIK 1"
+msgstr ""
+
+#: classes/crm/crm_category.aw:428
+msgid "Kontaktisiku nimi"
+msgstr ""
+
+#: classes/crm/crm_category.aw:429
+msgid "Kontaktisiku amet"
+msgstr ""
+
+#: classes/crm/crm_category.aw:430
+msgid "Kontaktisiku osakond"
+msgstr ""
+
+#: classes/crm/crm_category.aw:431
+msgid "Kontaktisiku E-mail"
+msgstr ""
+
+#: classes/crm/crm_category.aw:432
+msgid "Kontaktisiku telefon"
+msgstr ""
+
+#: classes/crm/crm_category.aw:433
+msgid "KONTAKTISIK 2"
+msgstr ""
+
+#: classes/crm/crm_category.aw:434
+msgid "Kontaktisiku 2 nimi"
+msgstr ""
+
+#: classes/crm/crm_category.aw:435
+msgid "Kontaktisiku 2 amet"
+msgstr ""
+
+#: classes/crm/crm_category.aw:436
+msgid "Kontaktisiku 2 osakond"
+msgstr ""
+
+#: classes/crm/crm_category.aw:437
+msgid "Kontaktisiku 2 E-mail"
+msgstr ""
+
+#: classes/crm/crm_category.aw:438
+msgid "Kontaktisiku 2 telefon"
+msgstr ""
+
+#: classes/crm/crm_category.aw:439
+msgid "KONTAKTISIK 3"
+msgstr ""
+
+#: classes/crm/crm_category.aw:440
+msgid "Kontaktisiku 3 nimi"
+msgstr ""
+
+#: classes/crm/crm_category.aw:441
+msgid "Kontaktisiku 3 amet"
+msgstr ""
+
+#: classes/crm/crm_category.aw:442
+msgid "Kontaktisiku 3 osakond"
+msgstr ""
+
+#: classes/crm/crm_category.aw:443
+msgid "Kontaktisiku 3 E-mail"
+msgstr ""
+
+#: classes/crm/crm_category.aw:444
+msgid "Kontaktisiku 3 telefon"
+msgstr ""
+
+#: classes/crm/crm_category.aw:450
+msgid "Vaikimisi:"
+msgstr ""
+
+#: classes/crm/crm_category.aw:468 classes/crm/crm_category.aw:472
+msgid "Ignoreeri"
+msgstr ""
+
+#: classes/crm/crm_category.aw:468 classes/crm/crm_category.aw:472
+msgid "Muuda"
+msgstr ""
+
+#: classes/crm/crm_category.aw:468 classes/crm/crm_category.aw:569
+msgid "Lisa"
+msgstr ""
+
+#: classes/crm/crm_category.aw:561
+msgid "Jrk"
+msgstr ""
+
+#: classes/crm/crm_category.aw:578
+msgid "ID"
+msgstr ""
+
+#: classes/crm/crm_category.aw:704
+msgid "Nimi"
+msgstr ""
+
+#: classes/crm/crm_category.aw:731
+msgid "Nimetu"
+msgstr ""
+

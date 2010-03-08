@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="form_entry" folder="www/dev/terryf/automatweb_dev/classes/formgen" extends="aw_template">
+		<action name="change">
+			<function name="change">
+				<arguments>
+					<required name="id" acl="edit;view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new" all_args="1">
+			<function name="orb_new">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

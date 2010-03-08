@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="procurement_center_admin" folder="www/dev/terryf/automatweb_dev/classes/applications/procurement_center" extends="class_base">
+		<action name="delete_cos">
+			<function name="delete_cos">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

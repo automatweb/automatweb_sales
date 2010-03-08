@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<tabledef>
+
+<definitions>
+<header_normal   value="awmenuedittablehead"/>
+<header_sortable value="awmenuedittablehead"/>
+<header_sorted   value="awmenuedittablehead"/>
+
+<content_style1  value="awmenuedittabletext"/>
+<content_style2  value="awmenuedittabletext"/>
+<content_style1_selected value="awmenuedittabletext"/>
+<content_style2_selected value="awmenuedittabletext"/>
+
+<content_tr_style1  value="awmenuedittablerow"/>
+<content_tr_style2  value="awmenuedittablerow"/>
+
+<tableattribs border="0" width="100%" cellspacing="1" cellpadding="3" />
+</definitions>
+
+<actions>
+</actions>
+
+<data>
+<field name="icon" caption="" align="center" talign="center" sortable="0" chgbgcolor="cutcopied" width="22" />
+<field name="name" caption="Nimi" align="left" talign="center" sortable="1" chgbgcolor="cutcopied"/>
+<field name="jrk" caption="Jrk" align="center" width="10" talign="center" sortable="0" chgbgcolor="cutcopied" numeric="yea"/>
+<field name="status" caption="Aktiivne" width="10" talign="center" align="center" chgbgcolor="cutcopied"/>
+<field name="modifiedby" caption="Muutja" width="50" align="center" talign="center" sortable="1" chgbgcolor="cutcopied"/>
+<field name="modified" caption="Muudetud" width="100" align="center" talign="center" type="time" format="d-M-y / H:i" sortable="1" numeric="yea" chgbgcolor="cutcopied"/>
+<field name="class_id" caption="T&amp;uuml;&amp;uuml;p" width="100" talign="center" align="center" sortable="1" chgbgcolor="cutcopied"/>
+<field name="java" caption="Tegevus" talign="center" width="30" align="center" chgbgcolor="cutcopied"/>
+<field name="select" caption="&lt;a href='javascript:selall()'&gt;Vali&lt;/a&gt;" talign="center" width="30" align="center" chgbgcolor="cutcopied"/>
+</data>
+
+</tabledef>

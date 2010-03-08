@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/obj/object_loader.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/obj/object_loader.aw:145
+msgid "object_loader::param_to_oid(%s): no object with alias %s!"
+msgstr ""
+
+#: classes/core/obj/object_loader.aw:162
+msgid "object_loader::param_to_oid(): parameter must be either: oid , string (alias) or object instance!"
+msgstr "object_loader::param_to_oid(): parameter must be either: oid , string (alias) or object instance!"
+
+#: classes/core/obj/object_loader.aw:181
+msgid "no object with alias %s!"
+msgstr "no object with alias %s!"
+
+#: classes/core/obj/object_loader.aw:226
+msgid "parameter must be either: oid , string (alias), object instance or object list instance!"
+msgstr "parameter must be either: oid , string (alias), object instance or object list instance!"
+
+#: classes/core/obj/object_loader.aw:267
+msgid "object_loader::load(%s): parameter is not object id!"
+msgstr "object_loader::load(%s): parameter is not object id!"
+
+#: classes/core/obj/object_loader.aw:307
+msgid "object_loader::load(%s): no such object!"
+msgstr "object_loader::load(%s): no such object!"
+
+#: classes/core/obj/object_loader.aw:335
+msgid "object_loader::save(%s): no object with oid %s exists in the global list"
+msgstr ""
+
+#: classes/core/obj/object_loader.aw:389
+msgid "object_loader::save_new(%s): no object with oid %s exists in the global list"
+msgstr "object_loader::save_new(%s): no object with oid %s exists in the global list"
+
+#: classes/core/obj/object_loader.aw:471
+msgid "object_loader::switch_db_connection(%s): could nto find root connection!"
+msgstr "object_loader::switch_db_connection(%s): could nto find root connection!"
+
+#: classes/core/obj/object_loader.aw:598
+msgid "object_loader->can(%s, %s): error in object hierarchy, count exceeded!"
+msgstr "object_loader->can(%s, %s): error in object hierarchy, count exceeded!"
+
+#~ msgid "object_loader::param_to_oid(%s): no object with alias $param!"
+#~ msgstr "object_loader::param_to_oid(%s): no object with alias $param!"
+
+#~ msgid "object_loader::save(%s): no object with oid $oid exists in the global list"
+#~ msgstr "object_loader::save(%s): no object with oid $oid exists in the global list"

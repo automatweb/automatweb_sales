@@ -1,0 +1,107 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/scm/scm_result_type.aw:class_1093_help
+msgid "Klassi Paremusj&auml;rjestuse t&uuml;&uuml;p help"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:prop_unit
+msgid "Omaduse &Uuml;hik (unit) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:prop_unit_comment
+msgid "Omaduse &Uuml;hik (unit) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:prop_unit_help
+msgid "Omaduse &Uuml;hik (unit) help"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:prop_unit_type
+msgid "Omaduse &Uuml;hikud (unit_type) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:prop_unit_type_comment
+msgid "Omaduse &Uuml;hikud (unit_type) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:prop_unit_type_help
+msgid "Omaduse &Uuml;hikud (unit_type) help"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:prop_sort
+msgid "Omaduse Sorteerimine (sort) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:prop_sort_comment
+msgid "Omaduse Sorteerimine (sort) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:prop_sort_help
+msgid "Omaduse Sorteerimine (sort) help"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:84
+msgid "Kasvav"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:85
+msgid "Kahanev"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:241
+msgid "Aeg"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:243
+msgid "p"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:244
+msgid "t"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:245
+#: classes/applications/scm/scm_result_type.aw:262
+msgid "m"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:246
+msgid "s"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:247
+msgid "ms"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:252
+msgid "Punktid"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:254
+msgid "punkti"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:259
+msgid "Pikkus/Kaugus"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:261
+msgid "km"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:263
+msgid "cm"
+msgstr ""
+
+#: classes/applications/scm/scm_result_type.aw:264
+msgid "mm"
+msgstr ""

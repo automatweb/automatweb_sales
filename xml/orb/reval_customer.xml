@@ -1,0 +1,150 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="reval_customer" folder="www/dev/terryf/automatweb_dev/classes/applications/clients/reval/customer" extends="class_base">
+		<action name="fc_login" nologin="1">
+			<function name="fc_login">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="edit_profile" nologin="1">
+			<function name="edit_profile">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_edit_profile" nologin="1">
+			<function name="submit_edit_profile">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="edit_email" nologin="1">
+			<function name="edit_email">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="done" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_edit_email" nologin="1">
+			<function name="submit_edit_email">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="edit_password" nologin="1">
+			<function name="edit_password">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="done" type="int" />
+					<optional name="show_username" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_edit_password" nologin="1">
+			<function name="submit_edit_password">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="all_bookings" nologin="1">
+			<function name="all_bookings">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_checkin" nologin="1">
+			<function name="do_checkin">
+				<arguments>
+					<required name="ows_rvs_id" type="int" />
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_checkin" nologin="1">
+			<function name="submit_checkin">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="display_visits">
+			<function name="display_visits">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="register_as_customer" nologin="1">
+			<function name="register_as_customer">
+				<arguments>
+					<optional name="card_number" />
+					<optional name="bd" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_register_as_customer" nologin="1">
+			<function name="submit_register_as_customer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="register_as_customer_median" nologin="1">
+			<function name="register_as_customer_median">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="validate" nologin="1">
+			<function name="validate">
+				<arguments>
+					<required name="hash" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="final_validate_customer" nologin="1">
+			<function name="final_validate_customer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="forgot_password" nologin="1">
+			<function name="forgot_password">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_forgot_password" nologin="1">
+			<function name="submit_forgot_password">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="complimentary_nights_page" nologin="1">
+			<function name="complimentary_nights_page">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

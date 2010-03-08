@@ -1,0 +1,321 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/gallery/mini_gallery.aw:class_318_help
+#: classes/contentmgmt/gallery/mini_gallery.aw:class_318_help
+msgid "Klassi Minigalerii help"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_folder
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_folder
+msgid "Omaduse Piltide kataloog (folder) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_folder_comment
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_folder_comment
+msgid "Omaduse Piltide kataloog (folder) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_folder_help
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_folder_help
+msgid "Omaduse Piltide kataloog (folder) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_cols
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_cols
+msgid "Omaduse Tulpi (cols) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_cols_comment
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_cols_comment
+msgid "Omaduse Tulpi (cols) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_cols_help
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_cols_help
+msgid "Omaduse Tulpi (cols) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_rows
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_rows
+msgid "Omaduse Ridu (rows) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_rows_comment
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_rows_comment
+msgid "Omaduse Ridu (rows) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_rows_help
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_rows_help
+msgid "Omaduse Ridu (rows) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_comments
+msgid "Omaduse Pildid kommenteeritavad (comments) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_comments_comment
+msgid "Omaduse Pildid kommenteeritavad (comments) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_comments_help
+msgid "Omaduse Pildid kommenteeritavad (comments) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_style
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_style
+msgid "Omaduse Piltide stiil (style) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_style_comment
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_style_comment
+msgid "Omaduse Piltide stiil (style) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_style_help
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_style_help
+msgid "Omaduse Piltide stiil (style) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_sorter
+msgid "Omaduse Piltide j&auml;rjestamine (sorter) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_sorter_comment
+msgid "Omaduse Piltide j&auml;rjestamine (sorter) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_sorter_help
+msgid "Omaduse Piltide j&auml;rjestamine (sorter) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_addheight
+msgid "Omaduse Pildi aknale lisatav k&otilde;rgus (addheight) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_addheight_comment
+msgid "Omaduse Pildi aknale lisatav k&otilde;rgus (addheight) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_addheight_help
+msgid "Omaduse Pildi aknale lisatav k&otilde;rgus (addheight) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_addwidth
+msgid "Omaduse Pildi aknale lisatav laius (addwidth) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_addwidth_comment
+msgid "Omaduse Pildi aknale lisatav laius (addwidth) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_addwidth_help
+msgid "Omaduse Pildi aknale lisatav laius (addwidth) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_zip_file
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_zip_file
+msgid "Omaduse Uploadi ZIP fail (zip_file) caption"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_zip_file_comment
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_zip_file_comment
+msgid "Omaduse Uploadi ZIP fail (zip_file) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:prop_zip_file_help
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_zip_file_help
+msgid "Omaduse Uploadi ZIP fail (zip_file) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_refresh
+msgid "Omaduse V&auml;rskenda (refresh) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_refresh_comment
+msgid "Omaduse V&auml;rskenda (refresh) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_refresh_help
+msgid "Omaduse V&auml;rskenda (refresh) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_mg_tb
+msgid "Omaduse  (mg_tb) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_mg_tb_comment
+msgid "Omaduse  (mg_tb) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_mg_tb_help
+msgid "Omaduse  (mg_tb) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_mg_table
+msgid "Omaduse  (mg_table) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_mg_table_comment
+msgid "Omaduse  (mg_table) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_mg_table_help
+msgid "Omaduse  (mg_table) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_mg_fld_table
+msgid "Omaduse  (mg_fld_table) caption"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_mg_fld_table_comment
+msgid "Omaduse  (mg_fld_table) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:prop_mg_fld_table_help
+msgid "Omaduse  (mg_fld_table) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:group_import
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_import
+msgid "Grupi Import (import) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:group_import_help
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_import_help
+msgid "Grupi Import (import) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_manage
+msgid "Grupi Halda (manage) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_manage_help
+msgid "Grupi Halda (manage) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_manage_img
+msgid "Grupi Halda pilte (manage_img) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_manage_img_help
+msgid "Grupi Halda pilte (manage_img) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_manage_fld
+msgid "Grupi Halda kaustu (manage_fld) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_manage_fld_help
+msgid "Grupi Halda kaustu (manage_fld) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_data
+msgid "Grupi Andmed (data) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_data_help
+msgid "Grupi Andmed (data) help"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_settings
+msgid "Grupi Seaded (settings) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:group_settings_help
+msgid "Grupi Seaded (settings) help"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:rel_RELTYPE_IMG_FOLDER
+#: classes/contentmgmt/gallery/mini_gallery.aw:rel_RELTYPE_IMG_FOLDER
+msgid "Seose Piltide kataloog (RELTYPE_IMG_FOLDER) tekst"
+msgstr ""
+
+# classes/contentmgmt/gallery/mini_gallery.aw:rel_RELTYPE_STYLE
+#: classes/contentmgmt/gallery/mini_gallery.aw:rel_RELTYPE_STYLE
+msgid "Seose Stiil (RELTYPE_STYLE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:84
+#: classes/contentmgmt/gallery/mini_gallery.aw:642
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:85
+#: classes/contentmgmt/gallery/mini_gallery.aw:648
+#: classes/contentmgmt/gallery/mini_gallery.aw:750
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:86
+msgid "Loomise kuup&auml;ev vanemad enne"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:87
+msgid "Muutmise kuup&auml;ev vanemad enne"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:88
+msgid "Pildistamise kuup&auml;ev vanemad enne"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:89
+msgid "Loomise kuup&auml;ev uuemad enne"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:90
+msgid "Muutmise kuup&auml;ev uuemad enne"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:91
+msgid "Pildistamise kuup&auml;ev uuemad enne"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:430
+msgid "Valitud piltide kataloogi ei ole &otilde;igusi objekte lisada!"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:600
+msgid "Galerii"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:600
+msgid "pildid"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:620
+msgid "Lisa uus pilt"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:626
+msgid "Salvesta pildid"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:632
+msgid "Kustuta valitud pildid"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:634
+msgid "Kas oled kindel et soovid valitud pildid kustudada?"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:654
+msgid "Muutja"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:660
+msgid "Muudetud"
+msgstr ""
+
+#: classes/contentmgmt/gallery/mini_gallery.aw:745
+msgid "Kausta nimi"
+msgstr ""

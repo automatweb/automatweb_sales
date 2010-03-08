@@ -1,0 +1,114 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/event_import_2/json_delfi.aw:class_1414_help
+msgid "Klassi Delfi JSON v&auml;ljund help"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_json_url
+msgid "Omaduse V&auml;ljundi URL (json_url) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_json_url_comment
+msgid "Omaduse V&auml;ljundi URL (json_url) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_json_url_help
+msgid "Omaduse V&auml;ljundi URL (json_url) help"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_photo_dir_url
+msgid "Omaduse Piltide kausta URL (photo_dir_url) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_photo_dir_url_comment
+msgid "Omaduse Piltide kausta URL (photo_dir_url) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_photo_dir_url_help
+msgid "Omaduse Piltide kausta URL (photo_dir_url) help"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_json_lang
+msgid "Omaduse Keel (json_lang) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_json_lang_comment
+msgid "Omaduse Keel (json_lang) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_json_lang_help
+msgid "Omaduse Keel (json_lang) help"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_categories
+msgid "Omaduse Kategooriad (categories) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_categories_comment
+msgid "Omaduse Kategooriad (categories) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_categories_help
+msgid "Omaduse Kategooriad (categories) help"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_attrs_event
+msgid "Omaduse S&uuml;ndmuste atribuudid (attrs_event) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_attrs_event_comment
+msgid "Omaduse S&uuml;ndmuste atribuudid (attrs_event) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_attrs_event_help
+msgid "Omaduse S&uuml;ndmuste atribuudid (attrs_event) help"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_attrs_loc
+msgid "Omaduse Toimumiskoha atribuudid (attrs_loc) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_attrs_loc_comment
+msgid "Omaduse Toimumiskoha atribuudid (attrs_loc) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_attrs_loc_help
+msgid "Omaduse Toimumiskoha atribuudid (attrs_loc) help"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_attrs_org
+msgid "Omaduse Korraldaja atribuudid (attrs_org) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_attrs_org_comment
+msgid "Omaduse Korraldaja atribuudid (attrs_org) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_attrs_org_help
+msgid "Omaduse Korraldaja atribuudid (attrs_org) help"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_show_output
+msgid "Omaduse N&auml;ita v&auml;ljundit (show_output) caption"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_show_output_comment
+msgid "Omaduse N&auml;ita v&auml;ljundit (show_output) kommentaar"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:prop_show_output_help
+msgid "Omaduse N&auml;ita v&auml;ljundit (show_output) help"
+msgstr ""
+
+#: classes/applications/event_import_2/json_delfi.aw:59
+msgid "Delfi JSON v&auml;ljund"
+msgstr ""

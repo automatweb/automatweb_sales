@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:class_965_help
+msgid "Klassi Vormiahela sisestus help"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:prop_confirmed
+msgid "Omaduse Kinnitatud (confirmed) caption"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:prop_confirmed_comment
+msgid "Omaduse Kinnitatud (confirmed) kommentaar"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:prop_confirmed_help
+msgid "Omaduse Kinnitatud (confirmed) help"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:prop_cb_form_id
+msgid "Omaduse Vormiahela id (cb_form_id) caption"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:prop_cb_form_id_comment
+msgid "Omaduse Vormiahela id (cb_form_id) kommentaar"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:prop_cb_form_id_help
+msgid "Omaduse Vormiahela id (cb_form_id) help"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:prop_data
+msgid "Omaduse  (data) caption"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:prop_data_comment
+msgid "Omaduse  (data) kommentaar"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:prop_data_help
+msgid "Omaduse  (data) help"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:group_data
+msgid "Grupi Andmed (data) pealkiri"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:group_data_help
+msgid "Grupi Andmed (data) help"
+msgstr ""
+
+#: classes/applications/cb_form_chain/cb_form_chain_entry.aw:rel_RELTYPE_ENTRY
+msgid "Seose andmed (RELTYPE_ENTRY) tekst"
+msgstr ""
+

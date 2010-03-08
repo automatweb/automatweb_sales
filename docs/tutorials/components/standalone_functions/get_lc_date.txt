@@ -1,0 +1,38 @@
+get_lc_date($timestamp,$format)
+
+Function returns formated date string in currently active language. 
+
+<b>parameters:</b>
+
+$timestamp - Unix timestamp, optional(if not given, then default value is timestamp of current moment).
+
+$format - optional, default value LC_DATE_FORMAT_LONG
+
+<b>Date formats:</b> 
+
+LC_DATE_FORMAT_SHORT 
+example: 20.06.88 or 05.12.98
+ 
+LC_DATE_FORMAT_SHORT_FULLYEAR 
+example: 20.06.1999 or 05.12.1998
+
+LC_DATE_FORMAT_LONG 
+example: 20. juuni 99
+
+LC_DATE_FORMAT_LONG_FULLYEAR 
+example: 20. juuni 1999
+
+<b>returns:</b> 
+Formated date - string
+
+<b>Examples</b>
+
+#php#
+$datestr=get_lc_date($timestamp, LC_DATE_FORMAT_LONG_FULLYEAR);
+//Something like "22. juuni 2000" now in $datestr
+
+$now=get_lc_date()
+//Current date now in $now. Formated like "22. juuni 99"(ET) or 22. June 99"(EN)
+
+#/php#
+

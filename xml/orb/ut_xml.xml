@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ut_xml" folder="applications/personnel_import/ut_xml" extends="class_base">
+		<action name="make_master_import_happy">
+			<function name="make_master_import_happy">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

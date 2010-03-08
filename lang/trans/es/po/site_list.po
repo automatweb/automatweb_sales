@@ -1,0 +1,126 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/install/site_list.aw:class_317_help
+msgid "Klassi AW Saitide nimekiri help"
+msgstr ""
+
+#: classes/install/site_list.aw:27
+msgid "AW Saitide list"
+msgstr ""
+
+#: classes/install/site_list.aw:35 classes/install/site_list.aw:233
+#: classes/install/site_list.aw:566
+msgid "ID"
+msgstr ""
+
+#: classes/install/site_list.aw:41 classes/install/site_list.aw:240
+#: classes/install/site_list.aw:573
+msgid "Nimi"
+msgstr ""
+
+#: classes/install/site_list.aw:46 classes/install/site_list.aw:581
+msgid "URL"
+msgstr ""
+
+#: classes/install/site_list.aw:51 classes/install/site_list.aw:166
+#: classes/install/site_list.aw:589
+msgid "Server"
+msgstr ""
+
+#: classes/install/site_list.aw:56
+msgid "Kasutusel"
+msgstr ""
+
+#: classes/install/site_list.aw:61
+msgid "Koodi versioon"
+msgstr ""
+
+#: classes/install/site_list.aw:66
+msgid "Viimane uuendus"
+msgstr ""
+
+#: classes/install/site_list.aw:74
+msgid "S&uuml;nkroniseeri andmebaas"
+msgstr ""
+
+#: classes/install/site_list.aw:78 classes/install/site_list.aw:252
+#: classes/install/site_list.aw:260
+msgid "Muuda"
+msgstr ""
+
+#: classes/install/site_list.aw:107
+msgid "S&uuml;nkroniseeri"
+msgstr ""
+
+#: classes/install/site_list.aw:119
+msgid "Jah"
+msgstr ""
+
+#: classes/install/site_list.aw:119
+msgid "Ei"
+msgstr ""
+
+#: classes/install/site_list.aw:130
+msgid "Kokku %s saiti<br />\n"
+msgstr ""
+
+#: classes/install/site_list.aw:131
+msgid "Kasutusel %s saiti <br />\n"
+msgstr ""
+
+#: classes/install/site_list.aw:132
+msgid "Serverite kaupa: <br />\n"
+msgstr ""
+
+#: classes/install/site_list.aw:134
+msgid "Koodiversioonide kaupa: <br />\n"
+msgstr ""
+
+#: classes/install/site_list.aw:171 classes/install/site_list.aw:201
+msgid "Mitu"
+msgstr ""
+
+#: classes/install/site_list.aw:196
+msgid "Koodiversioon"
+msgstr ""
+
+#: classes/install/site_list.aw:225 classes/install/site_list.aw:668
+msgid "AW Serverite list"
+msgstr ""
+
+#: classes/install/site_list.aw:246
+msgid "IP aadress"
+msgstr ""
+
+#: classes/install/site_list.aw:597
+msgid "Used?"
+msgstr ""
+
+#: classes/install/site_list.aw:605
+msgid "Code branch"
+msgstr ""
+
+#: classes/install/site_list.aw:612
+msgid "Basedir"
+msgstr ""
+
+#: classes/install/site_list.aw:619
+msgid "Updater"
+msgstr ""
+
+#: classes/install/site_list.aw:626
+msgid "Last update"
+msgstr ""
+
+#: classes/install/site_list.aw:669
+msgid "/ Muuda serverit"
+msgstr ""

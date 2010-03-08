@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_warehouse_export.aw:class_299_help
+msgid "Klassi Lao v&auml;ljaminek help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:prop_confirm
+msgid "Omaduse Kinnita (confirm) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:prop_confirm_comment
+msgid "Omaduse Kinnita (confirm) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:prop_confirm_help
+msgid "Omaduse Kinnita (confirm) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:prop_export
+msgid "Omaduse  (export) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:prop_export_comment
+msgid "Omaduse  (export) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:prop_export_help
+msgid "Omaduse  (export) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:group_export
+msgid "Grupi V&auml;ljamineku sisu (export) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:group_export_help
+msgid "Grupi V&auml;ljamineku sisu (export) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:rel_RELTYPE_PRODUCT
+msgid "Seose v&auml;lja l&auml;inud toode (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:rel_RELTYPE_ORDER
+msgid "Seose tellimus (RELTYPE_ORDER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:82
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_export.aw:87
+msgid "Mitu l&auml;ks"
+msgstr ""
+

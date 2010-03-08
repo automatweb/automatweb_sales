@@ -1,0 +1,65 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="site_copy" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/site_copy" extends="class_base">
+		<action name="invoke" nologin="1" all_args="1">
+			<function name="invoke">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="list_allowed_servers" nologin="1" all_args="1">
+			<function name="list_allowed_servers">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="start_transfer" nologin="1" all_args="1">
+			<function name="start_transfer">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="files_count_down" nologin="1" all_args="1">
+			<function name="files_count_down">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="install_on_cvs" all_args="1">
+			<function name="install_on_cvs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="run_site_diff" all_args="1">
+			<function name="run_site_diff">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_site" nologin="1" all_args="1">
+			<function name="add_site">
+				<arguments>
+					<required name="url" type="string" />
+					<required name="email" type="string" />
+					<optional name="cvs" type="boolean" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="check_site" nologin="1">
+			<function name="check_site">
+				<arguments>
+					<required name="url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

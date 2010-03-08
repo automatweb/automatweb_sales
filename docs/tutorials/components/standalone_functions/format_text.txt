@@ -1,0 +1,6 @@
+
+format_text($text)
+
+Replaces 2 linefeeds with a p tag and 1 linefeed with a br tag
+
+Returns: processed text

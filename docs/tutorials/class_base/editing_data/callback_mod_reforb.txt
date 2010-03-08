@@ -1,0 +1,15 @@
+<h2>callback_mod_reforb</h2>
+
+can be used to modify the reforb data in the generated form. Common use of this is to add some hidden fields, but definining a "hidden" property might be a better way accomplish this.
+
+#php#
+function callback_mod_reforb($arr,$request)
+{
+	if ($this->subgroup)
+	{
+		$arr["subgroup"] = $this->subgroup;
+	};
+}
+#/php#
+
+The optional second argument contains request data, which you cannot modify of course

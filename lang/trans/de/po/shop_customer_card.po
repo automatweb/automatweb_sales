@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_customer_card.aw:class_1442_help
+msgid "Klassi Lao kliendikaart help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_customer_rep
+msgid "Omaduse Esindajad (customer_rep) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_customer_rep_comment
+msgid "Omaduse Esindajad (customer_rep) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_customer_rep_help
+msgid "Omaduse Esindajad (customer_rep) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_number
+msgid "Omaduse Number (number) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_number_comment
+msgid "Omaduse Number (number) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_number_help
+msgid "Omaduse Number (number) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_act_from
+msgid "Omaduse Kehtivuse algus (act_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_act_from_comment
+msgid "Omaduse Kehtivuse algus (act_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_act_from_help
+msgid "Omaduse Kehtivuse algus (act_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_act_to
+msgid "Omaduse Kehtivuse l&otilde;pp (act_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_act_to_comment
+msgid "Omaduse Kehtivuse l&otilde;pp (act_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_act_to_help
+msgid "Omaduse Kehtivuse l&otilde;pp (act_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_blocked
+msgid "Omaduse Blokeeritud (blocked) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_blocked_comment
+msgid "Omaduse Blokeeritud (blocked) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_blocked_help
+msgid "Omaduse Blokeeritud (blocked) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_sales_limit
+msgid "Omaduse M&uuml;&uuml;gilimiit (sales_limit) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_sales_limit_comment
+msgid "Omaduse M&uuml;&uuml;gilimiit (sales_limit) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_sales_limit_help
+msgid "Omaduse M&uuml;&uuml;gilimiit (sales_limit) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_sales_limit_type
+msgid "Omaduse M&uuml;&uuml;gilimiidi t&uuml;&uuml;p (sales_limit_type) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_sales_limit_type_comment
+msgid "Omaduse M&uuml;&uuml;gilimiidi t&uuml;&uuml;p (sales_limit_type) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_sales_limit_type_help
+msgid "Omaduse M&uuml;&uuml;gilimiidi t&uuml;&uuml;p (sales_limit_type) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_credit_limit
+msgid "Omaduse Krediidilimiit (credit_limit) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_credit_limit_comment
+msgid "Omaduse Krediidilimiit (credit_limit) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_credit_limit_help
+msgid "Omaduse Krediidilimiit (credit_limit) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_currency
+msgid "Omaduse Valuuta (currency) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_currency_comment
+msgid "Omaduse Valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_currency_help
+msgid "Omaduse Valuuta (currency) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_pricelist
+msgid "Omaduse Hinnakiri (pricelist) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_pricelist_comment
+msgid "Omaduse Hinnakiri (pricelist) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_pricelist_help
+msgid "Omaduse Hinnakiri (pricelist) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_discount_pct
+msgid "Omaduse Soodustuse % (discount_pct) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_discount_pct_comment
+msgid "Omaduse Soodustuse % (discount_pct) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_discount_pct_help
+msgid "Omaduse Soodustuse % (discount_pct) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_sales_warning
+msgid "Omaduse Hoiatus m&uuml;&uuml;gil (sales_warning) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_sales_warning_comment
+msgid "Omaduse Hoiatus m&uuml;&uuml;gil (sales_warning) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:prop_sales_warning_help
+msgid "Omaduse Hoiatus m&uuml;&uuml;gil (sales_warning) help"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:rel_RELTYPE_CUSTOMER
+msgid "Seose Klient (RELTYPE_CUSTOMER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:rel_RELTYPE_CUSTOMER_REP
+msgid "Seose Kliendi esindaja (RELTYPE_CUSTOMER_REP) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:rel_RELTYPE_CURRENCY
+msgid "Seose Valuuta (RELTYPE_CURRENCY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_customer_card.aw:rel_RELTYPE_PRICELIST
+msgid "Seose Hinnakiri (RELTYPE_PRICELIST) tekst"
+msgstr ""
+

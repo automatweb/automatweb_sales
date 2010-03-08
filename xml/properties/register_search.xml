@@ -1,0 +1,166 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>register</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_REGISTER</reltype>
+            <caption>Register, millest otsida</caption>
+      </property>
+      <property>
+            <name>per_page</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <caption>Mitu kirjet lehel</caption>
+      </property>
+      <property>
+            <name>show_all_in_empty_search</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>T&amp;amp;uuml;hi otsing n&amp;amp;auml;itab k&amp;amp;otilde;iki</caption>
+      </property>
+      <property>
+            <name>show_only_act</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>N&amp;amp;auml;ita ainult aktiivseid objekte</caption>
+      </property>
+      <property>
+            <name>show_all_right_away</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Otsingus n&amp;amp;auml;idatakse ilma otsimata k&amp;amp;otilde;iki</caption>
+      </property>
+      <property>
+            <name>notfound_text</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textarea</type>
+            <rows>5</rows>
+            <cols>40</cols>
+            <caption>Mida n&amp;amp;auml;idatakse kui midagi ei leita (%s on otsing)</caption>
+      </property>
+      <property>
+            <name>show_date</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Tulemuste all on kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>results_from_all_langs</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Tulemused k&amp;amp;otilde;ikidest keeltest</caption>
+      </property>
+      <property>
+            <name>sform_frm</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>mkfrm</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>butt_text</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>mkfrm</group>
+            <type>textbox</type>
+            <caption>Otsi nupu tekst</caption>
+      </property>
+      <property>
+            <name>sform_tbl</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>mktbl</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>search</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>search</group>
+            <type>callback</type>
+            <store>no</store>
+            <callback>callback_get_sform</callback>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>search_res</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>search</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_REGISTER_SEARCH</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <no_comment>1</no_comment>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <mkfrm>
+                  <caption>Koosta otsinguvorm</caption>
+            </mkfrm>
+            <mktbl>
+                  <caption>Koosta tulemuste tabel</caption>
+            </mktbl>
+            <search>
+                  <caption>Otsi</caption>
+                  <submit_method>get</submit_method>
+            </search>
+      </groupinfo>
+      <reltypes>
+            <REGISTER>
+                  <value>1</value>
+                  <clid>CL_REGISTER</clid>
+                  <caption>register millest otsida</caption>
+            </REGISTER>
+            <SEARCH_FOLDER>
+                  <value>2</value>
+                  <clid>CL_MENU</clid>
+                  <caption>kaust millest otsida</caption>
+            </SEARCH_FOLDER>
+      </reltypes>
+</properties>
+

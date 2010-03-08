@@ -1,0 +1,88 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:116
+msgid "%s rida"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:144
+msgid "Seerianumbri"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:145
+msgid "seerianumber"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:151
+msgid "Partii numbri"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:152
+msgid "partiinumber"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:169
+msgid "Igal tootel tuleb &uuml;hik m&auml;&auml;rata."
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:173
+msgid "Igal tootel tuleb kogus m&auml;&auml;rata."
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:179
+msgid "Mahakandmist ei saa teostada, kuna on m&auml;&auml;ratud sihtladu"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:186
+msgid "Ladu on m&auml;&auml;ramata"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:194
+msgid "Sihtlao seadetes puudub vaikimisi valuuta"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:200
+msgid "Valuuta on m&auml;&auml;ramata"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:212
+msgid "Puudub kurss valuutade %s ja %s vahel"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:222 classes/applications/shop/shop_delivery_note_obj.aw:228
+msgid "Tootel %s pole m&auml;&auml;ratud p&otilde;hi&uuml;hikut"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:235
+msgid "Tootel %s puudub l&auml;htelaos antud parameetritega laoseis"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:259
+msgid "Tootel %s puudub arvutusvalem %s -> %s"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:287
+msgid "%s p&otilde;hise arvestusega tootel %s tuleb %s m&auml;&auml;rata."
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:427
+msgid "%s laoseis"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:456
+msgid "%s liikumine"
+msgstr ""
+
+#: classes/applications/shop/shop_delivery_note_obj.aw:527 classes/applications/shop/shop_delivery_note_obj.aw:547
+msgid "--vali--"
+msgstr ""
+

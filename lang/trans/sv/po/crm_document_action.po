@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_document_action.aw:class_1051_help
+msgid "Klassi CRM Dokumendi tegevus help"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_date
+msgid "Omaduse Kuup&auml;ev (date) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_date_comment
+msgid "Omaduse Kuup&auml;ev (date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_date_help
+msgid "Omaduse Kuup&auml;ev (date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_actor
+msgid "Omaduse Tegija (actor) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_actor_comment
+msgid "Omaduse Tegija (actor) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_actor_help
+msgid "Omaduse Tegija (actor) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_aw_action
+msgid "Omaduse Tegevus (aw_action) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_aw_action_comment
+msgid "Omaduse Tegevus (aw_action) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_aw_action_help
+msgid "Omaduse Tegevus (aw_action) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_ord
+msgid "Omaduse Jrk (ord) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_ord_comment
+msgid "Omaduse Jrk (ord) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_ord_help
+msgid "Omaduse Jrk (ord) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_predicate
+msgid "Omaduse Eeldustegevus (predicate) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_predicate_comment
+msgid "Omaduse Eeldustegevus (predicate) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_predicate_help
+msgid "Omaduse Eeldustegevus (predicate) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_is_done
+msgid "Omaduse Tehtud (is_done) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_is_done_comment
+msgid "Omaduse Tehtud (is_done) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_is_done_help
+msgid "Omaduse Tehtud (is_done) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_document
+msgid "Omaduse Dokument (document) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_document_comment
+msgid "Omaduse Dokument (document) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:prop_document_help
+msgid "Omaduse Dokument (document) help"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:rel_RELTYPE_ACTOR
+msgid "Seose Tegija (RELTYPE_ACTOR) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:rel_RELTYPE_PRED
+msgid "Seose Eeldustegevus (RELTYPE_PRED) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_document_action.aw:rel_RELTYPE_DOC
+msgid "Seose Dokument (RELTYPE_DOC) tekst"
+msgstr ""
+

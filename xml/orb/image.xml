@@ -1,0 +1,226 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="image" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="get_image_by_id">
+			<function name="get_image_by_id">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_url">
+			<function name="get_url">
+				<arguments>
+					<required name="url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="is_flash">
+			<function name="add_upload_image">
+				<arguments>
+					<required name="name" type="string" />
+					<required name="parent" type="oid" />
+					<optional name="img_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="file" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="view" nologin="1">
+			<function name="check_url">
+				<arguments>
+					<required name="url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_img_tag">
+			<function name="make_img_tag">
+				<arguments>
+					<required name="url" type="string" />
+					<optional name="alt" type="string" />
+					<optional name="size" type="array" />
+					<optional name="arguments" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_image" nologin="1" is_public="1" all_args="1" caption="foo">
+			<function name="add_image">
+				<arguments>
+					<required name="from" type="string" />
+					<optional name="str" type="string" />
+					<optional name="file" type="string" />
+					<optional name="url" type="string" />
+					<optional name="orig_name" type="string" />
+					<required name="parent" type="int" />
+					<optional name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="resize_picture">
+			<function name="resize_picture">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="file" type="string" />
+					<required name="width" type="int" />
+					<required name="height" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_comment" nologin="1">
+			<function name="submit_comment">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="comments" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_big" nologin="1">
+			<function name="show_big">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="comments" type="int" />
+					<optional name="minigal" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_small" nologin="1">
+			<function name="show_small">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_url_by_id">
+			<function name="get_url_by_id">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_apply_gal_conf">
+			<function name="do_apply_gal_conf">
+				<arguments>
+					<required name="o" type="object" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_resize_image">
+			<function name="do_resize_image">
+				<arguments>
+					<required name="o" type="object" />
+					<required name="conf" type="object" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_resize_image_in_fs">
+			<function name="do_resize_file_in_fs">
+				<arguments>
+					<required name="file" type="string" />
+					<required name="conf" type="object" />
+					<required name="prefix" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_img_tag_wl">
+			<function name="make_img_tag_wl">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="alt" type="string" default="NULL" />
+					<optional name="has_big_alt" type="string" default="NULL" />
+					<optional name="size" type="array" />
+					<optional name="arguments" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_on_click_js">
+			<function name="get_on_click_js">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fetch_image_tag_for_doc">
+			<function name="fetch_image_tag_for_doc">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_image_alias_for_doc">
+			<function name="gen_image_alias_for_doc">
+				<arguments>
+					<required name="img_id" type="int" />
+					<optional name="doc_id" />
+					<optional name="close" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fetch_image_alias_for_doc">
+			<function name="fetch_image_alias_for_doc">
+				<arguments>
+					<required name="doc_id" />
+					<required name="image_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_connection_details_for_doc">
+			<function name="get_connection_details_for_doc">
+				<arguments>
+					<required name="doc_id" type="int" />
+					<required name="alias_name" type="string" />
+					<optional name="use_br" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="del_comment" all_args="1">
+			<function name="del_comment">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="disp_longdesc" nologin="1">
+			<function name="disp_longdesc">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_image">
+			<function name="delete_image">
+				<arguments>
+					<required name="id" type="int" acl="delete" />
+					<type=bool name="delete_file" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

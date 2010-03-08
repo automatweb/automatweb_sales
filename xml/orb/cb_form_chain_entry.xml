@@ -1,0 +1,29 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="cb_form_chain_entry" folder="www/dev/terryf/automatweb_dev/classes/applications/cb_form_chain" extends="class_base">
+		<action name="show_pdf">
+			<function name="show_pdf">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_print">
+			<function name="show_print">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

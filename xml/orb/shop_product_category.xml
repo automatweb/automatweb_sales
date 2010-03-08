@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_product_category" folder="www/dev/terryf/automatweb_dev/classes/applications/shop" extends="class_base">
+		<action name="del_folders">
+			<function name="del_folders">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

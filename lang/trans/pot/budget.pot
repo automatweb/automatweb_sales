@@ -1,0 +1,224 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/budgeting/budget.aw:class_1213_help
+msgid "Klassi Eelarve help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_project
+msgid "Omaduse Project (project) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_project_comment
+msgid "Omaduse Project (project) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_project_help
+msgid "Omaduse Project (project) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_scenario
+msgid "Omaduse Stsenaarium (scenario) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_scenario_comment
+msgid "Omaduse Stsenaarium (scenario) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_scenario_help
+msgid "Omaduse Stsenaarium (scenario) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_start
+msgid "Omaduse Alates (start) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_start_comment
+msgid "Omaduse Alates (start) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_start_help
+msgid "Omaduse Alates (start) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_end
+msgid "Omaduse Kuni (end) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_end_comment
+msgid "Omaduse Kuni (end) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_end_help
+msgid "Omaduse Kuni (end) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_owner
+msgid "Omaduse Vastutaja (owner) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_owner_comment
+msgid "Omaduse Vastutaja (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_owner_help
+msgid "Omaduse Vastutaja (owner) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_total
+msgid "Omaduse Kogusumma (total) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_total_comment
+msgid "Omaduse Kogusumma (total) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_total_help
+msgid "Omaduse Kogusumma (total) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_m
+msgid "Omaduse  (m) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_m_comment
+msgid "Omaduse  (m) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_m_help
+msgid "Omaduse  (m) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_desc
+msgid "Omaduse Hetkel projekti kasum (desc) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_desc_comment
+msgid "Omaduse Hetkel projekti kasum (desc) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_desc_help
+msgid "Omaduse Hetkel projekti kasum (desc) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_ex_table
+msgid "Omaduse  (ex_table) caption"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_ex_table_comment
+msgid "Omaduse  (ex_table) kommentaar"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:prop_ex_table_help
+msgid "Omaduse  (ex_table) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_m
+msgid "Grupi Raha (m) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_m_help
+msgid "Grupi Raha (m) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_m1
+msgid "Grupi Voovaade (m1) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_m1_help
+msgid "Grupi Voovaade (m1) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_m2
+msgid "Grupi Grupivaade (m2) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_m2_help
+msgid "Grupi Grupivaade (m2) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_m3
+msgid "Grupi T&uuml;&uuml;bivaade (m3) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_m3_help
+msgid "Grupi T&uuml;&uuml;bivaade (m3) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_ex
+msgid "Grupi V&auml;listamine (ex) pealkiri"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:group_ex_help
+msgid "Grupi V&auml;listamine (ex) help"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:rel_RELTYPE_PROJECT
+msgid "Seose Projekt (RELTYPE_PROJECT) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:rel_RELTYPE_SCENARIO
+msgid "Seose Stsenaarium (RELTYPE_SCENARIO) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:rel_RELTYPE_OWNER
+msgid "Seose Vastutaja (RELTYPE_OWNER) tekst"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:135
+msgid "Maksugrupp"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:141
+msgid "Maks"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:148
+msgid "Prioriteet"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:155
+msgid "Maksu protsent"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:162
+msgid "Muuda protsenti"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:167
+msgid "Maksu summa"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:174
+msgid "Edasi kandub"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:214
+msgid "<br>(Maksimaalne erinevus %s)"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:219 classes/applications/budgeting/budget.aw:246 classes/applications/budgeting/budget.aw:264 classes/applications/budgeting/budget.aw:282 classes/applications/budgeting/budget.aw:299 classes/applications/budgeting/budget.aw:314
+msgid "Muud maksud"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:407
+msgid "Projekti maksumus:"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:420
+msgid "Projekt valimata"
+msgstr ""
+
+#: classes/applications/budgeting/budget.aw:443
+msgid "V&auml;lista"
+msgstr ""
+

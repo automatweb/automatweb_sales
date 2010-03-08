@@ -1,0 +1,82 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="spa_bookings_overview" folder="www/dev/terryf/automatweb_dev/classes/applications/spa_bookings" extends="class_base">
+		<action name="create_new_category" all_args="1">
+			<function name="create_new_category">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="create_new_room" all_args="1">
+			<function name="create_new_room">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_update_prop" all_args="1">
+			<function name="ajax_update_prop">
+				<arguments>
+					<optional name="id" type="int" />
+					<optional name="prop" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="print_person_chart">
+			<function name="print_person_chart">
+				<arguments>
+					<optional name="person" />
+					<optional name="rvs" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_cals_pop">
+			<function name="show_cals_pop">
+				<arguments>
+					<optional name="id" />
+					<optional name="rooms" />
+					<optional name="title" />
+					<optional name="post_msg_after_reservation" type="array" />
+					<optional name="alter_reservation_name" type="array" />
+					<optional name="firstname" type="string" />
+					<optional name="lastname" type="string" />
+					<optional name="company" type="string" />
+					<optional name="phone" type="string" />
+					<optional name="people_count" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_add_reservation" all_args="1">
+			<function name="do_add_reservation">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="room_booking_printer">
+			<function name="room_booking_printer">
+				<arguments>
+					<optional name="rooms" />
+					<optional name="rs_name" />
+					<optional name="from" />
+					<optional name="to" />
+					<optional name="group" />
+					<optional name="unverified" />
+					<optional name="person" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_rooms" all_args="1">
+			<function name="copy_rooms">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/crm/crm_special_offer.aw:class_994_help
+msgid "Klassi Organisatsiooni eripakkumine help"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_comment
+msgid "Omaduse Kirjeldus (comment) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_comment_comment
+msgid "Omaduse Kirjeldus (comment) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_comment_help
+msgid "Omaduse Kirjeldus (comment) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_valid_from
+msgid "Omaduse Kehtivuse algus (valid_from) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_valid_from_comment
+msgid "Omaduse Kehtivuse algus (valid_from) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_valid_from_help
+msgid "Omaduse Kehtivuse algus (valid_from) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_valid_to
+msgid "Omaduse Kehtivuse lõpp (valid_to) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_valid_to_comment
+msgid "Omaduse Kehtivuse lõpp (valid_to) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_valid_to_help
+msgid "Omaduse Kehtivuse lõpp (valid_to) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_images
+msgid "Omaduse Pildid (images) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_images_comment
+msgid "Omaduse Pildid (images) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_images_help
+msgid "Omaduse Pildid (images) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_products
+msgid "Omaduse Tooted (products) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_products_comment
+msgid "Omaduse Tooted (products) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_products_help
+msgid "Omaduse Tooted (products) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_packets
+msgid "Omaduse Toote paketid (packets) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_packets_comment
+msgid "Omaduse Toote paketid (packets) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:prop_packets_help
+msgid "Omaduse Toote paketid (packets) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:group_images
+msgid "Grupi Pildid (images) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:group_images_help
+msgid "Grupi Pildid (images) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:group_products
+msgid "Grupi Tooted (products) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:group_products_help
+msgid "Grupi Tooted (products) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:rel_RELTYPE_SHOP_PRODUCT
+msgid "Seose Lao toode (RELTYPE_SHOP_PRODUCT) tekst"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:rel_RELTYPE_SHOP_PACKET
+msgid "Seose Lao pakett (RELTYPE_SHOP_PACKET) tekst"
+msgstr ""
+
+#: classes/crm/crm_special_offer.aw:166
+msgid "Asutuse juurde"
+msgstr ""

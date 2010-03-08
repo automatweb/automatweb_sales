@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/meta/meta.aw:class_277_help
+#: classes/meta/meta.aw:class_277_help
+msgid "Klassi Muutuja help"
+msgstr ""
+
+# classes/meta/meta.aw:prop_ord
+#: classes/meta/meta.aw:prop_ord
+msgid "Omaduse Jrk. (ord) caption"
+msgstr ""
+
+# classes/meta/meta.aw:prop_ord_comment
+#: classes/meta/meta.aw:prop_ord_comment
+msgid "Omaduse Jrk. (ord) kommentaar"
+msgstr ""
+
+# classes/meta/meta.aw:prop_ord_help
+#: classes/meta/meta.aw:prop_ord_help
+msgid "Omaduse Jrk. (ord) help"
+msgstr ""
+
+#: classes/meta/meta.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/meta/meta.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/meta/meta.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/meta/meta.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/meta/meta.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""

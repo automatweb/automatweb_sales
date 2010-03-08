@@ -1,0 +1,552 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/clients/patent_office/industrial_design.aw:class_1452_help
+msgid "Klassi T&ouml;&ouml;stusdisainilahendus help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_applicant
+msgid "Omaduse Taotleja (applicant) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_applicant_comment
+msgid "Omaduse Taotleja (applicant) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_applicant_help
+msgid "Omaduse Taotleja (applicant) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_signed
+msgid "Omaduse Allkirja staatus (signed) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_signed_comment
+msgid "Omaduse Allkirja staatus (signed) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_signed_help
+msgid "Omaduse Allkirja staatus (signed) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_signatures
+msgid "Omaduse Allkirjastajad (signatures) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_signatures_comment
+msgid "Omaduse Allkirjastajad (signatures) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_signatures_help
+msgid "Omaduse Allkirjastajad (signatures) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_job
+msgid "Omaduse Allkirjastaja amet (job) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_job_comment
+msgid "Omaduse Allkirjastaja amet (job) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_job_help
+msgid "Omaduse Allkirjastaja amet (job) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_procurator
+msgid "Omaduse Volinik (procurator) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_procurator_comment
+msgid "Omaduse Volinik (procurator) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_procurator_help
+msgid "Omaduse Volinik (procurator) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_warrant
+msgid "Omaduse Volikiri (warrant) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_warrant_comment
+msgid "Omaduse Volikiri (warrant) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_warrant_help
+msgid "Omaduse Volikiri (warrant) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_authorized_person
+msgid "Omaduse Volitatud isik (authorized_person) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_authorized_person_comment
+msgid "Omaduse Volitatud isik (authorized_person) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_authorized_person_help
+msgid "Omaduse Volitatud isik (authorized_person) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_authorized_codes
+msgid "Omaduse Volitatud isikute isikukoodid (authorized_codes) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_authorized_codes_comment
+msgid "Omaduse Volitatud isikute isikukoodid (authorized_codes) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_authorized_codes_help
+msgid "Omaduse Volitatud isikute isikukoodid (authorized_codes) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_additional_info
+msgid "Omaduse Lisainfo (additional_info) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_additional_info_comment
+msgid "Omaduse Lisainfo (additional_info) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_additional_info_help
+msgid "Omaduse Lisainfo (additional_info) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_verified
+msgid "Omaduse Kinnitatud (verified) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_verified_comment
+msgid "Omaduse Kinnitatud (verified) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_verified_help
+msgid "Omaduse Kinnitatud (verified) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_exported
+msgid "Omaduse Eksporditud (exported) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_exported_comment
+msgid "Omaduse Eksporditud (exported) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_exported_help
+msgid "Omaduse Eksporditud (exported) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_export_date
+msgid "Omaduse Ekspordi kuup&auml;ev (export_date) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_export_date_comment
+msgid "Omaduse Ekspordi kuup&auml;ev (export_date) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_export_date_help
+msgid "Omaduse Ekspordi kuup&auml;ev (export_date) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_nr
+msgid "Omaduse Taotluse number (nr) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_nr_comment
+msgid "Omaduse Taotluse number (nr) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_nr_help
+msgid "Omaduse Taotluse number (nr) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_request_fee
+msgid "Omaduse Taotlusl&otilde;iv (request_fee) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_request_fee_comment
+msgid "Omaduse Taotlusl&otilde;iv (request_fee) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_request_fee_help
+msgid "Omaduse Taotlusl&otilde;iv (request_fee) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_fee_sum
+msgid "Omaduse Kokku (fee_sum) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_fee_sum_comment
+msgid "Omaduse Kokku (fee_sum) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_fee_sum_help
+msgid "Omaduse Kokku (fee_sum) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_payer
+msgid "Omaduse Maksja nimi (payer) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_payer_comment
+msgid "Omaduse Maksja nimi (payer) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_payer_help
+msgid "Omaduse Maksja nimi (payer) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_nr
+msgid "Omaduse Maksedokumendi number (doc_nr) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_nr_comment
+msgid "Omaduse Maksedokumendi number (doc_nr) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_nr_help
+msgid "Omaduse Maksedokumendi number (doc_nr) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_payment_date
+msgid "Omaduse Makse kuup&auml;ev (payment_date) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_payment_date_comment
+msgid "Omaduse Makse kuup&auml;ev (payment_date) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_payment_date_help
+msgid "Omaduse Makse kuup&auml;ev (payment_date) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_payment_order
+msgid "Omaduse Maksekorraldus (payment_order) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_payment_order_comment
+msgid "Omaduse Maksekorraldus (payment_order) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_payment_order_help
+msgid "Omaduse Maksekorraldus (payment_order) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_applicant_reg
+msgid "Omaduse Taotleja on saanud t&ouml;&ouml;stusdisaini registreerimise taotlemise &otilde;iguse kui (applicant_reg) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_applicant_reg_comment
+msgid "Omaduse Taotleja on saanud t&ouml;&ouml;stusdisaini registreerimise taotlemise &otilde;iguse kui (applicant_reg) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_applicant_reg_help
+msgid "Omaduse Taotleja on saanud t&ouml;&ouml;stusdisaini registreerimise taotlemise &otilde;iguse kui (applicant_reg) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_author
+msgid "Omaduse Autor (author) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_author_comment
+msgid "Omaduse Autor (author) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_author_help
+msgid "Omaduse Autor (author) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_author_disallow_disclose
+msgid "Omaduse Mitte avalikustada minu nime autorina (author_disallow_disclose) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_author_disallow_disclose_comment
+msgid "Omaduse Mitte avalikustada minu nime autorina (author_disallow_disclose) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_author_disallow_disclose_help
+msgid "Omaduse Mitte avalikustada minu nime autorina (author_disallow_disclose) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_industrial_design_name
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse nimetus (industrial_design_name) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_industrial_design_name_comment
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse nimetus (industrial_design_name) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_industrial_design_name_help
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse nimetus (industrial_design_name) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_industrial_design_variant
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse variantide arv (industrial_design_variant) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_industrial_design_variant_comment
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse variantide arv (industrial_design_variant) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_industrial_design_variant_help
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse variantide arv (industrial_design_variant) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_industrial_design_variant_count
+msgid "Omaduse Variantide arv (industrial_design_variant_count) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_industrial_design_variant_count_comment
+msgid "Omaduse Variantide arv (industrial_design_variant_count) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_industrial_design_variant_count_help
+msgid "Omaduse Variantide arv (industrial_design_variant_count) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_childtitle110
+msgid "Omaduse Pariisi konventsiooni vm. kokkuleppe taotluse alusel (childtitle110) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_childtitle110_comment
+msgid "Omaduse Pariisi konventsiooni vm. kokkuleppe taotluse alusel (childtitle110) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_childtitle110_help
+msgid "Omaduse Pariisi konventsiooni vm. kokkuleppe taotluse alusel (childtitle110) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_prio_convention_date
+msgid "Omaduse Kuup&auml;ev (prio_convention_date) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_prio_convention_date_comment
+msgid "Omaduse Kuup&auml;ev (prio_convention_date) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_prio_convention_date_help
+msgid "Omaduse Kuup&auml;ev (prio_convention_date) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_prio_convention_country
+msgid "Omaduse Riigi kood (prio_convention_country) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_prio_convention_country_comment
+msgid "Omaduse Riigi kood (prio_convention_country) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_prio_convention_country_help
+msgid "Omaduse Riigi kood (prio_convention_country) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_prio_convention_nr
+msgid "Omaduse Taotluse number (prio_convention_nr) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_prio_convention_nr_comment
+msgid "Omaduse Taotluse number (prio_convention_nr) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_prio_convention_nr_help
+msgid "Omaduse Taotluse number (prio_convention_nr) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_process_postpone
+msgid "Omaduse Taotleja soovib t&ouml;&ouml;stusdisainilahenduse registrisse kandmist edasi l&uuml;kata (process_postpone) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_process_postpone_comment
+msgid "Omaduse Taotleja soovib t&ouml;&ouml;stusdisainilahenduse registrisse kandmist edasi l&uuml;kata (process_postpone) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_process_postpone_help
+msgid "Omaduse Taotleja soovib t&ouml;&ouml;stusdisainilahenduse registrisse kandmist edasi l&uuml;kata (process_postpone) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_repro
+msgid "Omaduse Reproduktsioon(id) (doc_repro) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_repro_comment
+msgid "Omaduse Reproduktsioon(id) (doc_repro) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_repro_help
+msgid "Omaduse Reproduktsioon(id) (doc_repro) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_warrant
+msgid "Omaduse Volikiri (doc_warrant) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_warrant_comment
+msgid "Omaduse Volikiri (doc_warrant) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_warrant_help
+msgid "Omaduse Volikiri (doc_warrant) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_description
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse kirjeldus (doc_description) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_description_comment
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse kirjeldus (doc_description) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_doc_description_help
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse kirjeldus (doc_description) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_add_fee
+msgid "Omaduse Variandid (alates 3-dast) (add_fee) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_add_fee_comment
+msgid "Omaduse Variandid (alates 3-dast) (add_fee) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:prop_add_fee_help
+msgid "Omaduse Variandid (alates 3-dast) (add_fee) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_priority
+msgid "Grupi Prioriteet (priority) pealkiri"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_priority_help
+msgid "Grupi Prioriteet (priority) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_fee
+msgid "Grupi Riigil&otilde;iv (fee) pealkiri"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_fee_help
+msgid "Grupi Riigil&otilde;iv (fee) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_author
+msgid "Grupi Autor (author) pealkiri"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_author_help
+msgid "Grupi Autor (author) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_industrial_design
+msgid "Grupi T&ouml;&ouml;stusdisainilahendus (industrial_design) pealkiri"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_industrial_design_help
+msgid "Grupi T&ouml;&ouml;stusdisainilahendus (industrial_design) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_process_postpone
+msgid "Grupi Menetluse peatamise n&otilde;ue (process_postpone) pealkiri"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_process_postpone_help
+msgid "Grupi Menetluse peatamise n&otilde;ue (process_postpone) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_docs
+msgid "Grupi Reproduktsioonid (docs) pealkiri"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:group_docs_help
+msgid "Grupi Reproduktsioonid (docs) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_APPLICANT
+msgid "Seose Taotleja (RELTYPE_APPLICANT) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_PROCURATOR
+msgid "Seose Volinik (RELTYPE_PROCURATOR) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_WARRANT
+msgid "Seose Volikiri (RELTYPE_WARRANT) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_PHONE
+msgid "Seose Telefon (RELTYPE_PHONE) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_FAX
+msgid "Seose Faks (RELTYPE_FAX) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_EMAIL
+msgid "Seose E-mail (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_PROCURATOR_MENU
+msgid "Seose Volinike kaust (RELTYPE_PROCURATOR_MENU) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_AUTHORIZED_PERSON
+msgid "Seose Volitatud isik (RELTYPE_AUTHORIZED_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_BANK_PAYMENT
+msgid "Seose Pangalingi objekt (RELTYPE_BANK_PAYMENT) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_PAYMENT_ORDER
+msgid "Seose Maksekorraldus (RELTYPE_PAYMENT_ORDER) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_TRADEMARK_STATUS
+msgid "Seose Staatus (RELTYPE_TRADEMARK_STATUS) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_AUTHOR
+msgid "Seose Autor (RELTYPE_AUTHOR) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_DOC_DESCRIPTION
+msgid "Seose Lisa kirjeldus (RELTYPE_DOC_DESCRIPTION) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_DOC_REPRO
+msgid "Seose Lisa reproduktsioon (RELTYPE_DOC_REPRO) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:rel_RELTYPE_DOC_WARRANT
+msgid "Seose Lisa volikiri (RELTYPE_DOC_WARRANT) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:139
+msgid "kuuks"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:334
+msgid "Reproduktsioon peab olema GIF v&otilde;i JPEG formaadis"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:341
+msgid "Reproduktsioon peab olema lisatud"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:356
+msgid "Kirjeldusel ainult pdf formaadis failid lubatud"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design.aw:375
+msgid "Nimetus on kohustuslik"
+msgstr ""
+

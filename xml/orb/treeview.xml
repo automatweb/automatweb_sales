@@ -1,0 +1,116 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="treeview" folder="www/dev/terryf/automatweb_dev/classes/vcl" extends="class_base">
+		<action name="show">
+			<function name="show">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="start_tree">
+			<function name="start_tree">
+				<arguments>
+					<[optional|required] name="root_name" type="string" />
+					<[optional|required] name="root_url" type="string" />
+					<optional name="root_icon" type="string" />
+					<optional name="has_root" type="bool" default="false" />
+					<optional name="tree_id" type="string" default="false" />
+					<optional name="type" type="int" default="TREE_DHTML" />
+					<optional name="persist_state" type="bool" />
+					<optional name="separator" type="string" default="," />
+					<optional name="checked_nodes" type="array" />
+					<optional name="checkbox_data_var" type="string" default="$tree_id" />
+					<optional name="data_in_place" type="int" />
+					<optional name="open_path" type="array" />
+					<optional name="get_branch_func" type="string" default="false" />
+					<optional name="branch" type="bool" default="false" />
+					<optional name="item_name_length" type="int" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_item">
+			<function name="add_item">
+				<arguments>
+					<required name="parent" type="string" />
+					<required name="item" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_item_ids">
+			<function name="get_item_ids">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_item">
+			<function name="get_item">
+				<arguments>
+					<required name="id" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_item">
+			<function name="remove_item">
+				<arguments>
+					<required name="id" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="selected_item">
+			<function name="set_selected_item">
+				<arguments>
+					<required name="id" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="node_has_children">
+			<function name="node_has_children">
+				<arguments>
+					<required name="id" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="finalize_tree">
+			<function name="finalize_tree">
+				<arguments>
+					<optional name="rootnode" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="tree_from_objects">
+			<function name="tree_from_objects">
+				<arguments>
+					<required name="tree_opts" type="array" />
+					<required name="root_item" type="object" />
+					<required name="ot" type="object" />
+					<optional name="no_urls" type="bool" />
+					<optional name="target_url" type="string" />
+					<required name="var" type="string" />
+					<optional name="node_actions" type="array" />
+					<optional name="checkbox_class_filter" type="array" />
+					<optional name="no_root_item" type="bool" />
+					<optional name="item_name_props" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_only_one_level_opened">
+			<function name="set_only_one_level_opened">
+				<arguments>
+					<required name="value" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>ord</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>2</size>
+            <field>jrk</field>
+            <caption>Jrk</caption>
+      </property>
+      <property>
+            <name>no_submit</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Salvesta nuppu pole tarvis</caption>
+      </property>
+      <property>
+            <name>caption</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Caption</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_PROPERTY_GROUP</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

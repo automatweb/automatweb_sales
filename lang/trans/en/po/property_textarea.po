@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/class_designer/property_textarea.aw:class_888_help
+#: classes/applications/class_designer/property_textarea.aw:class_888_help
+msgid "Klassi Tekstikast help"
+msgstr ""
+
+# classes/applications/class_designer/property_textarea.aw:prop_cols
+#: classes/applications/class_designer/property_textarea.aw:prop_cols
+msgid "Omaduse Laius (cols) caption"
+msgstr "Width"
+
+# classes/applications/class_designer/property_textarea.aw:prop_cols_comment
+#: classes/applications/class_designer/property_textarea.aw:prop_cols_comment
+msgid "Omaduse Laius (cols) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_textarea.aw:prop_cols_help
+#: classes/applications/class_designer/property_textarea.aw:prop_cols_help
+msgid "Omaduse Laius (cols) help"
+msgstr ""
+
+# classes/applications/class_designer/property_textarea.aw:prop_rows
+#: classes/applications/class_designer/property_textarea.aw:prop_rows
+msgid "Omaduse Kõrgus (rows) caption"
+msgstr "Height"
+
+# classes/applications/class_designer/property_textarea.aw:prop_rows_comment
+#: classes/applications/class_designer/property_textarea.aw:prop_rows_comment
+msgid "Omaduse Kõrgus (rows) kommentaar"
+msgstr ""
+
+# classes/applications/class_designer/property_textarea.aw:prop_rows_help
+#: classes/applications/class_designer/property_textarea.aw:prop_rows_help
+msgid "Omaduse Kõrgus (rows) help"
+msgstr ""

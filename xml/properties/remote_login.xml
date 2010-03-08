@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>login_uid</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <caption>Kasutajanimi</caption>
+      </property>
+      <property>
+            <name>login_password</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>password</type>
+            <caption>Parool</caption>
+      </property>
+      <property>
+            <name>server</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <caption>Server</caption>
+      </property>
+      <classinfo>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

@@ -1,0 +1,9 @@
+<h2>objpicker</h2>
+
+Allows to pick one or more objects. You probably should use a relpicker instead, because this will list all the objects in the system and that is generally not a wanted behaviour.
+
+<b>clid</b>
+    Symbolic id of a class. Displays objects belonging to that class
+
+<b>multiple</b>
+    If set to 1, allows to select multiple objects

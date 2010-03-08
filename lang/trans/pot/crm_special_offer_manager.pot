@@ -1,0 +1,180 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/crm/crm_special_offer_manager.aw:class_995_help
+msgid "Klassi Organisatsiooni eripakkumiste haldus help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_listtype
+msgid "Omaduse Kuvatava nimekirja t&uuml;&uuml;p (listtype) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_listtype_comment
+msgid "Omaduse Kuvatava nimekirja t&uuml;&uuml;p (listtype) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_listtype_help
+msgid "Omaduse Kuvatava nimekirja t&uuml;&uuml;p (listtype) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_url_to
+msgid "Omaduse Aadress, kuhu nimekirjast suunata (url_to) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_url_to_comment
+msgid "Omaduse Aadress, kuhu nimekirjast suunata (url_to) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_url_to_help
+msgid "Omaduse Aadress, kuhu nimekirjast suunata (url_to) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_all_offers_table
+msgid "Omaduse Eripakkumised (all_offers_table) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_all_offers_table_comment
+msgid "Omaduse Eripakkumised (all_offers_table) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_all_offers_table_help
+msgid "Omaduse Eripakkumised (all_offers_table) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_offers
+msgid "Omaduse Valitud pakkumised (offers) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_offers_comment
+msgid "Omaduse Valitud pakkumised (offers) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_offers_help
+msgid "Omaduse Valitud pakkumised (offers) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_crm_db
+msgid "Omaduse Hallatav kliendibaas (crm_db) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_crm_db_comment
+msgid "Omaduse Hallatav kliendibaas (crm_db) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_crm_db_help
+msgid "Omaduse Hallatav kliendibaas (crm_db) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_num_offers
+msgid "Omaduse Kuvatavate eripakkumiste arv (num_offers) caption"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_num_offers_comment
+msgid "Omaduse Kuvatavate eripakkumiste arv (num_offers) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:prop_num_offers_help
+msgid "Omaduse Kuvatavate eripakkumiste arv (num_offers) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:group_list_all
+msgid "Grupi K&otilde;ik eripakkumised (list_all) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:group_list_all_help
+msgid "Grupi K&otilde;ik eripakkumised (list_all) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:group_list_show
+msgid "Grupi Kuvatavad eripakkumised (list_show) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:group_list_show_help
+msgid "Grupi Kuvatavad eripakkumised (list_show) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:group_list_manual
+msgid "Grupi Valitud nimekiri (list_manual) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:group_list_manual_help
+msgid "Grupi Valitud nimekiri (list_manual) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:group_list_automatic
+msgid "Grupi Automaatne nimekiri (list_automatic) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:group_list_automatic_help
+msgid "Grupi Automaatne nimekiri (list_automatic) help"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:rel_RELTYPE_CRM_SPECIAL_OFFER
+msgid "Seose Eripakkumine (RELTYPE_CRM_SPECIAL_OFFER) tekst"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:rel_RELTYPE_CRM_DB
+msgid "Seose Kliendibaas (RELTYPE_CRM_DB) tekst"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:73
+msgid "Valitud eripakkumised"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:74
+msgid "Automaatselt uusimad eripakkumised"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:95
+msgid "Kuvatavate pakkumiste arv peab olema positiivne!"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:102
+msgid "Nimekirja t&uuml;&uuml;p vigane."
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:160
+msgid "Eripakkumise nimi"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:165
+msgid "Organisatsioon"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:170
+msgid "Organisatsiooni tegevusalad"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:175
+msgid "Kehtivuse algus"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:179
+msgid "Kehtivuse l&otilde;pp"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:192
+msgid "Kuvamiseks valitud"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:256 classes/crm/crm_special_offer_manager.aw:275
+msgid "nimetu"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:283
+msgid "Jah"
+msgstr ""
+
+#: classes/crm/crm_special_offer_manager.aw:283
+msgid "Ei"
+msgstr ""
+

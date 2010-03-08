@@ -1,0 +1,106 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="realestate_manager" folder="www/dev/terryf/automatweb_dev/classes/applications/realestate_management" extends="class_base">
+		<action name="submit_delete_relations">
+			<function name="submit_delete_relations">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_delete_ppl">
+			<function name="submit_delete_ppl">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="unit" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="cut_p">
+			<function name="cut_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="copy_p">
+			<function name="copy_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="paste_p">
+			<function name="paste_p">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_user_company">
+			<function name="new_user_company">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_property">
+			<function name="add_property">
+				<arguments>
+					<required name="manager" type="int" />
+					<required name="type" />
+					<optional name="section" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete">
+			<function name="delete">
+				<arguments>
+					<optional name="property_id" type="int" />
+					<optional name="id" />
+					<optional name="group" />
+					<optional name="subgroup" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="archive">
+			<function name="archive">
+				<arguments>
+					<required name="property_id" type="int" />
+					<optional name="id" />
+					<optional name="group" />
+					<optional name="subgroup" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_profession" all_args="1">
+			<function name="new_profession">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_client_selection">
+			<function name="save_client_selection">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="client_selection_save_form">
+			<function name="client_selection_save_form">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="saved" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,160 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_product_category.aw:class_1435_help
+msgid "Klassi Artiklikategooria help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_desc
+msgid "Omaduse Kirjeldus (desc) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_desc_comment
+msgid "Omaduse Kirjeldus (desc) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_desc_help
+msgid "Omaduse Kirjeldus (desc) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_images
+msgid "Omaduse Pildid (images) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_images_comment
+msgid "Omaduse Pildid (images) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_images_help
+msgid "Omaduse Pildid (images) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_unit_formula
+msgid "Omaduse &Uuml;hikute valemid (unit_formula) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_unit_formula_comment
+msgid "Omaduse &Uuml;hikute valemid (unit_formula) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_unit_formula_help
+msgid "Omaduse &Uuml;hikute valemid (unit_formula) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_types
+msgid "Omaduse Seotud kategooriate t&uuml;&uuml;bid (types) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_types_comment
+msgid "Omaduse Seotud kategooriate t&uuml;&uuml;bid (types) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_types_help
+msgid "Omaduse Seotud kategooriate t&uuml;&uuml;bid (types) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_doc
+msgid "Omaduse Dokument (doc) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_doc_comment
+msgid "Omaduse Dokument (doc) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_doc_help
+msgid "Omaduse Dokument (doc) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_folders_tb
+msgid "Omaduse  (folders_tb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_folders_tb_comment
+msgid "Omaduse  (folders_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_folders_tb_help
+msgid "Omaduse  (folders_tb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_folders
+msgid "Omaduse  (folders) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_folders_comment
+msgid "Omaduse  (folders) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:prop_folders_help
+msgid "Omaduse  (folders) help"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:rel_RELTYPE_IMAGE
+msgid "Seose Pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:rel_RELTYPE_DOC
+msgid "Seose Dokument (RELTYPE_DOC) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:rel_RELTYPE_DISPLAY_FOLDER
+msgid "Seose Kuvamise kaust (RELTYPE_DISPLAY_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:rel_RELTYPE_UNIT_FORMULA
+msgid "Seose &Uuml;hikute valem (RELTYPE_UNIT_FORMULA) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:rel_RELTYPE_FOLDER
+msgid "Seose Kaust (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:rel_RELTYPE_CATEGORY
+msgid "Seose Tootekategooria kuhu alla kategooria kuulub (RELTYPE_CATEGORY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:rel_RELTYPE_CATEGORY_TYPES
+msgid "Seose Kategooria t&uuml;&uuml;p mille kategooriaid valida saab toodete otsingus (RELTYPE_CATEGORY_TYPES) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:100
+msgid "Eemalda valitud seosed"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:101
+msgid "Oled kindel, et soovid valitud seosed kustutada?"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:115
+msgid "Kuvamise kaust"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:120
+msgid "Salvestamise kaust"
+msgstr ""
+
+#: classes/applications/shop/shop_product_category.aw:125
+msgid "Nimi"
+msgstr ""
+

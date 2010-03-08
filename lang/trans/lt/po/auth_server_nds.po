@@ -1,0 +1,184 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/core/users/auth/auth_server_nds.aw:class_874_help
+msgid "Klassi Autentimisserver NDS help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_server
+msgid "Omaduse LDAP server (server) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_server_comment
+msgid "Omaduse LDAP server (server) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_server_help
+msgid "Omaduse LDAP server (server) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_server_port
+msgid "Omaduse Port (server_port) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_server_port_comment
+msgid "Omaduse Port (server_port) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_server_port_help
+msgid "Omaduse Port (server_port) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_server_ldaps
+msgid "Omaduse SSL &Uuml;hendus (server_ldaps) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_server_ldaps_comment
+msgid "Omaduse SSL &Uuml;hendus (server_ldaps) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_server_ldaps_help
+msgid "Omaduse SSL &Uuml;hendus (server_ldaps) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_base_dn
+msgid "Omaduse Baas-DN kasutajate otsimiseks (ad_base_dn) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_base_dn_comment
+msgid "Omaduse Baas-DN kasutajate otsimiseks (ad_base_dn) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_base_dn_help
+msgid "Omaduse Baas-DN kasutajate otsimiseks (ad_base_dn) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_uid
+msgid "Omaduse Kasutaja (gruppide lugemiseks) (ad_uid) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_uid_comment
+msgid "Omaduse Kasutaja (gruppide lugemiseks) (ad_uid) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_uid_help
+msgid "Omaduse Kasutaja (gruppide lugemiseks) (ad_uid) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_pwd
+msgid "Omaduse Parool (ad_pwd) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_pwd_comment
+msgid "Omaduse Parool (ad_pwd) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_pwd_help
+msgid "Omaduse Parool (ad_pwd) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_grp
+msgid "Omaduse Grupp, kus kasutajad peavad olema (ad_grp) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_grp_comment
+msgid "Omaduse Grupp, kus kasutajad peavad olema (ad_grp) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_grp_help
+msgid "Omaduse Grupp, kus kasutajad peavad olema (ad_grp) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_grp_txt
+msgid "Omaduse Grupp, kus kasutajad peavad olema (tekst) (ad_grp_txt) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_grp_txt_comment
+msgid "Omaduse Grupp, kus kasutajad peavad olema (tekst) (ad_grp_txt) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_ad_grp_txt_help
+msgid "Omaduse Grupp, kus kasutajad peavad olema (tekst) (ad_grp_txt) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_no_user_grp
+msgid "Omaduse Grupp, kuhu pannakse kasutajad, keda kohalikus s&uuml;steemis pole (no_user_grp) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_no_user_grp_comment
+msgid "Omaduse Grupp, kuhu pannakse kasutajad, keda kohalikus s&uuml;steemis pole (no_user_grp) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_no_user_grp_help
+msgid "Omaduse Grupp, kuhu pannakse kasutajad, keda kohalikus s&uuml;steemis pole (no_user_grp) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_auto_create_user
+msgid "Omaduse Kas lastakse sisse logida kasutajatel, keda kohalikus s&uuml;steemis pole (auto_create_user) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_auto_create_user_comment
+msgid "Omaduse Kas lastakse sisse logida kasutajatel, keda kohalikus s&uuml;steemis pole (auto_create_user) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_auto_create_user_help
+msgid "Omaduse Kas lastakse sisse logida kasutajatel, keda kohalikus s&uuml;steemis pole (auto_create_user) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_break_chain
+msgid "Omaduse Gruppi mitekuuluvus katkestab ahela (break_chain) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_break_chain_comment
+msgid "Omaduse Gruppi mitekuuluvus katkestab ahela (break_chain) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_break_chain_help
+msgid "Omaduse Gruppi mitekuuluvus katkestab ahela (break_chain) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_no_save_pwd
+msgid "Omaduse &Auml;ra salvesta AW'sse kasutaja parooli (no_save_pwd) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_no_save_pwd_comment
+msgid "Omaduse &Auml;ra salvesta AW'sse kasutaja parooli (no_save_pwd) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:prop_no_save_pwd_help
+msgid "Omaduse &Auml;ra salvesta AW'sse kasutaja parooli (no_save_pwd) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:rel_RELTYPE_GROUP
+msgid "Seose grupp (RELTYPE_GROUP) tekst"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:117
+msgid "auth_server_ldap::check_auth(): The LDAP module for PHP is not installed, but the auth configuration specifies a LDAP server to authenticate against!"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:121
+msgid "LDAP Moodul pole installeeritud!"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:133
+msgid "Ei saanud &uuml;hendust LDAP serveriga %s"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:170
+msgid "Sellist kasutajat pole v&otilde;i parool on vale!"
+msgstr ""
+
+#: classes/core/users/auth/auth_server_nds.aw:185
+msgid "Ei saanud serveriga &uuml;hendust!"
+msgstr ""
+

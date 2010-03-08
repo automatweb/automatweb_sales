@@ -1,0 +1,54 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="postal_codes" folder="www/dev/terryf/automatweb_dev/classes/common" extends="class_base">
+		<action name="export" all_args="1">
+			<function name="export">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="import_csv" all_args="1">
+			<function name="import_csv">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="import_register" all_args="1">
+			<function name="import_from_register">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_postal_codes" nologin="1">
+			<function name="get_postal_codes">
+				<arguments>
+					<optional name="from" />
+					<optional name="count" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_code">
+			<function name="get_code">
+				<arguments>
+					<optional name="country" type="string" />
+					<optional name="state" type="string" />
+					<optional name="city" type="string" />
+					<optional name="street" type="string" />
+					<optional name="house" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_locations" nologin="1" all_args="1">
+			<function name="get_locations_ajax">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

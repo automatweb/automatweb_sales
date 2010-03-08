@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ftp" folder="www/dev/terryf/automatweb_dev/classes/protocols/file" extends="class_base">
+		<action name="fetch_tree_node">
+			<function name="fetch_tree_node">
+				<arguments>
+					<required name="oid" />
+					<optional name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_file">
+			<function name="orb_get_file">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="file" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

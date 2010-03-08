@@ -1,0 +1,348 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/export/rss_feed.aw:class_1378_help
+msgid "Klassi RSS voog help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_language
+msgid "Omaduse  (channel_language) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_language_comment
+msgid "Omaduse  (channel_language) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_language_help
+msgid "Omaduse  (channel_language) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_copyright
+msgid "Omaduse  (channel_copyright) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_copyright_comment
+msgid "Omaduse  (channel_copyright) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_copyright_help
+msgid "Omaduse  (channel_copyright) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_managingeditor
+msgid "Omaduse  (channel_managingeditor) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_managingeditor_comment
+msgid "Omaduse  (channel_managingeditor) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_managingeditor_help
+msgid "Omaduse  (channel_managingeditor) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_webmaster
+msgid "Omaduse  (channel_webmaster) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_webmaster_comment
+msgid "Omaduse  (channel_webmaster) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_webmaster_help
+msgid "Omaduse  (channel_webmaster) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_pubdate
+msgid "Omaduse  (channel_pubdate) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_pubdate_comment
+msgid "Omaduse  (channel_pubdate) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_pubdate_help
+msgid "Omaduse  (channel_pubdate) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_lastbuilddate
+msgid "Omaduse  (channel_lastbuilddate) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_lastbuilddate_comment
+msgid "Omaduse  (channel_lastbuilddate) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_lastbuilddate_help
+msgid "Omaduse  (channel_lastbuilddate) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_category
+msgid "Omaduse  (channel_category) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_category_comment
+msgid "Omaduse  (channel_category) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_category_help
+msgid "Omaduse  (channel_category) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_generator
+msgid "Omaduse  (channel_generator) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_generator_comment
+msgid "Omaduse  (channel_generator) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_generator_help
+msgid "Omaduse  (channel_generator) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_docs
+msgid "Omaduse  (channel_docs) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_docs_comment
+msgid "Omaduse  (channel_docs) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_docs_help
+msgid "Omaduse  (channel_docs) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_cloud
+msgid "Omaduse  (channel_cloud) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_cloud_comment
+msgid "Omaduse  (channel_cloud) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_cloud_help
+msgid "Omaduse  (channel_cloud) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_ttl
+msgid "Omaduse  (channel_ttl) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_ttl_comment
+msgid "Omaduse  (channel_ttl) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_ttl_help
+msgid "Omaduse  (channel_ttl) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_image
+msgid "Omaduse  (channel_image) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_image_comment
+msgid "Omaduse  (channel_image) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_image_help
+msgid "Omaduse  (channel_image) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_rating
+msgid "Omaduse  (channel_rating) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_rating_comment
+msgid "Omaduse  (channel_rating) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_rating_help
+msgid "Omaduse  (channel_rating) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_textinput
+msgid "Omaduse  (channel_textinput) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_textinput_comment
+msgid "Omaduse  (channel_textinput) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_textinput_help
+msgid "Omaduse  (channel_textinput) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_skiphours
+msgid "Omaduse  (channel_skiphours) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_skiphours_comment
+msgid "Omaduse  (channel_skiphours) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_skiphours_help
+msgid "Omaduse  (channel_skiphours) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_skipdays
+msgid "Omaduse  (channel_skipdays) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_skipdays_comment
+msgid "Omaduse  (channel_skipdays) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_skipdays_help
+msgid "Omaduse  (channel_skipdays) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_item_dfn
+msgid "Omaduse  (item_dfn) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_item_dfn_comment
+msgid "Omaduse  (item_dfn) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_item_dfn_help
+msgid "Omaduse  (item_dfn) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_title
+msgid "Omaduse Kanali nimi (channel_title) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_title_comment
+msgid "Omaduse Kanali nimi (channel_title) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_title_help
+msgid "Omaduse Kanali nimi (channel_title) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_link
+msgid "Omaduse Kanali link (channel_link) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_link_comment
+msgid "Omaduse Kanali link (channel_link) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_link_help
+msgid "Omaduse Kanali link (channel_link) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_description
+msgid "Omaduse Kanali kirjeldus (channel_description) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_description_comment
+msgid "Omaduse Kanali kirjeldus (channel_description) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_channel_description_help
+msgid "Omaduse Kanali kirjeldus (channel_description) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_classes
+msgid "Omaduse Klassid (classes) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_classes_comment
+msgid "Omaduse Klassid (classes) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_classes_help
+msgid "Omaduse Klassid (classes) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_item_dfn_tbl
+msgid "Omaduse Objektide definitsioonid (item_dfn_tbl) caption"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_item_dfn_tbl_comment
+msgid "Omaduse Objektide definitsioonid (item_dfn_tbl) kommentaar"
+msgstr ""
+
+#: classes/export/rss_feed.aw:prop_item_dfn_tbl_help
+msgid "Omaduse Objektide definitsioonid (item_dfn_tbl) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:group_dfn
+msgid "Grupi Definitsioon (dfn) pealkiri"
+msgstr ""
+
+#: classes/export/rss_feed.aw:group_dfn_help
+msgid "Grupi Definitsioon (dfn) help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:group_
+msgid "Grupi  () pealkiri"
+msgstr ""
+
+#: classes/export/rss_feed.aw:group__help
+msgid "Grupi  () help"
+msgstr ""
+
+#: classes/export/rss_feed.aw:rel_RELTYPE_CONTROLLER
+msgid "Seose Kontroller (RELTYPE_CONTROLLER) tekst"
+msgstr ""
+
+#: classes/export/rss_feed.aw:93
+msgid "Element"
+msgstr ""
+
+#: classes/export/rss_feed.aw:99
+msgid "Kontrollerid:"
+msgstr ""
+
+#: classes/export/rss_feed.aw:111
+msgid "Omadused:"
+msgstr ""
+
+#: classes/export/rss_feed.aw:122
+msgid "The title of the item."
+msgstr ""
+
+#: classes/export/rss_feed.aw:123
+msgid "The URL of the item."
+msgstr ""
+
+#: classes/export/rss_feed.aw:124
+msgid "The item synopsis."
+msgstr ""
+
+#: classes/export/rss_feed.aw:125
+msgid "Email address of the author of the item."
+msgstr ""
+
+#: classes/export/rss_feed.aw:126
+msgid "Includes the item in one or more categories."
+msgstr ""
+
+#: classes/export/rss_feed.aw:127
+msgid "URL of a page for comments relating to the item."
+msgstr ""
+
+#: classes/export/rss_feed.aw:128
+msgid "Describes a media object that is attached to the item."
+msgstr ""
+
+#: classes/export/rss_feed.aw:129
+msgid "Indicates when the item was published."
+msgstr ""
+
+#: classes/export/rss_feed.aw:130
+msgid "The RSS channel that the item came from."
+msgstr ""
+

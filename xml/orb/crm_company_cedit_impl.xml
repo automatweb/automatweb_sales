@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_company_cedit_impl" folder="www/dev/terryf/automatweb_dev/classes/applications/crm" extends="core">
+		<action name="adr_city_ac" all_args="1">
+			<function name="adr_city_ac">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

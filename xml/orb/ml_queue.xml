@@ -1,0 +1,61 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="ml_queue" folder="www/dev/terryf/automatweb_dev/classes/applications/mailinglist" extends="aw_template">
+		<action name="submit_manager">
+			<function name="orb_submit_manager">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="queue">
+			<function name="orb_queue">
+				<arguments>
+					<optional name="id" />
+					<optional name="fid" />
+					<optional name="show" />
+					<optional name="sortby" />
+					<optional name="sort_order" />
+					<optional name="manager" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="queue_change">
+			<function name="orb_queue_change">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_queue_change">
+			<function name="orb_submit_queue_change">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="queue_delete">
+			<function name="orb_queue_delete">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="queue_send_now">
+			<function name="orb_queue_send_now">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="process_queue" nologin="1">
+			<function name="process_queue">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

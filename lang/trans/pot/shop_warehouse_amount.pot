@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_warehouse_amount.aw:class_1458_help
+msgid "Klassi Laoseis help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_product
+msgid "Omaduse Artikkel (product) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_product_comment
+msgid "Omaduse Artikkel (product) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_product_help
+msgid "Omaduse Artikkel (product) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_single
+msgid "Omaduse &Uuml;ksiktoode (single) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_single_comment
+msgid "Omaduse &Uuml;ksiktoode (single) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_single_help
+msgid "Omaduse &Uuml;ksiktoode (single) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_warehouse
+msgid "Omaduse Ladu (warehouse) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_warehouse_comment
+msgid "Omaduse Ladu (warehouse) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_warehouse_help
+msgid "Omaduse Ladu (warehouse) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_amount
+msgid "Omaduse Kogus (amount) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_amount_comment
+msgid "Omaduse Kogus (amount) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_amount_help
+msgid "Omaduse Kogus (amount) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_unit
+msgid "Omaduse &Uuml;hik (unit) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_unit_comment
+msgid "Omaduse &Uuml;hik (unit) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_unit_help
+msgid "Omaduse &Uuml;hik (unit) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_is_default
+msgid "Omaduse  (is_default) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_is_default_comment
+msgid "Omaduse  (is_default) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:prop_is_default_help
+msgid "Omaduse  (is_default) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:rel_RELTYPE_PRODUCT
+msgid "Seose Artikkel (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:rel_RELTYPE_WAREHOUSE
+msgid "Seose Ladu (RELTYPE_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:rel_RELTYPE_UNIT
+msgid "Seose &Uuml;hik (RELTYPE_UNIT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_amount.aw:rel_RELTYPE_SINGLE
+msgid "Seose &Uuml;ksiktoode (RELTYPE_SINGLE) tekst"
+msgstr ""
+

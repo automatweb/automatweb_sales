@@ -1,0 +1,49 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="form_alias" folder="www/dev/terryf/automatweb_dev/classes/formgen" extends="form_base">
+		<action name="new">
+			<function name="do_new">
+				<arguments>
+					<required name="return_url" />
+					<optional name="parent" />
+					<optional name="alias_to" />
+					<optional name="sf" />
+					<optional name="entry_id" />
+					<optional name="form_submit" />
+					<optional name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_entry_alias">
+			<function name="new_entry_alias">
+				<arguments>
+					<required name="return_url" />
+					<optional name="parent" />
+					<optional name="alias_to" />
+					<optional name="sf" />
+					<optional name="entry_id" />
+					<optional name="form_submit" />
+					<optional name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_entry_alias">
+			<function name="submit_entry_alias">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="change">
+			<function name="change_entry_alias">
+				<arguments>
+					<required name="id" />
+					<required name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

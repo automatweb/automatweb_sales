@@ -1,0 +1,292 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/search_v2.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_stoolbar
+msgid "Omaduse  (stoolbar) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_stoolbar_comment
+msgid "Omaduse  (stoolbar) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_stoolbar_help
+msgid "Omaduse  (stoolbar) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_server
+msgid "Omaduse  (server) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_server_comment
+msgid "Omaduse  (server) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_server_help
+msgid "Omaduse  (server) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_name
+msgid "Omaduse  (name) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_name_comment
+msgid "Omaduse  (name) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_name_help
+msgid "Omaduse  (name) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_comment
+msgid "Omaduse  (comment) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_comment_comment
+msgid "Omaduse  (comment) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_comment_help
+msgid "Omaduse  (comment) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_class_id
+msgid "Omaduse  (class_id) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_class_id_comment
+msgid "Omaduse  (class_id) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_class_id_help
+msgid "Omaduse  (class_id) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_oid
+msgid "Omaduse  (oid) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_oid_comment
+msgid "Omaduse  (oid) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_oid_help
+msgid "Omaduse  (oid) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_createdby
+msgid "Omaduse  (createdby) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_createdby_comment
+msgid "Omaduse  (createdby) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_createdby_help
+msgid "Omaduse  (createdby) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_modifiedby
+msgid "Omaduse  (modifiedby) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_modifiedby_comment
+msgid "Omaduse  (modifiedby) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_modifiedby_help
+msgid "Omaduse  (modifiedby) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_status
+msgid "Omaduse  (status) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_status_comment
+msgid "Omaduse  (status) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_status_help
+msgid "Omaduse  (status) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_alias
+msgid "Omaduse  (alias) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_alias_comment
+msgid "Omaduse  (alias) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_alias_help
+msgid "Omaduse  (alias) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_lang_id
+msgid "Omaduse  (lang_id) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_lang_id_comment
+msgid "Omaduse  (lang_id) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_lang_id_help
+msgid "Omaduse  (lang_id) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_site_id
+msgid "Omaduse  (site_id) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_site_id_comment
+msgid "Omaduse  (site_id) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_site_id_help
+msgid "Omaduse  (site_id) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_search_bros
+msgid "Omaduse  (search_bros) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_search_bros_comment
+msgid "Omaduse  (search_bros) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_search_bros_help
+msgid "Omaduse  (search_bros) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_sbt
+msgid "Omaduse  (sbt) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_sbt_comment
+msgid "Omaduse  (sbt) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_sbt_help
+msgid "Omaduse  (sbt) help"
+msgstr ""
+
+#: classes/search_v2.aw:prop_result_table
+msgid "Omaduse  (result_table) caption"
+msgstr ""
+
+#: classes/search_v2.aw:prop_result_table_comment
+msgid "Omaduse  (result_table) kommentaar"
+msgstr ""
+
+#: classes/search_v2.aw:prop_result_table_help
+msgid "Omaduse  (result_table) help"
+msgstr ""
+
+#: classes/search_v2.aw:group_search
+msgid "Grupi Lihtne otsing (search) pealkiri"
+msgstr ""
+
+#: classes/search_v2.aw:group_search_help
+msgid "Grupi Lihtne otsing (search) help"
+msgstr ""
+
+#: classes/search_v2.aw:group_advsearch
+msgid "Grupi Põhjalik otsing (advsearch) pealkiri"
+msgstr ""
+
+#: classes/search_v2.aw:group_advsearch_help
+msgid "Grupi Põhjalik otsing (advsearch) help"
+msgstr ""
+
+#: classes/search_v2.aw:group_
+msgid "Grupi  () pealkiri"
+msgstr ""
+
+#: classes/search_v2.aw:group__help
+msgid "Grupi  () help"
+msgstr ""
+
+#: classes/search_v2.aw:139
+msgid "Otsi"
+msgstr ""
+
+#: classes/search_v2.aw:146
+msgid "Lõika"
+msgstr ""
+
+#: classes/search_v2.aw:152
+msgid "Kopeeri"
+msgstr ""
+
+#: classes/search_v2.aw:158
+msgid "Kustuta"
+msgstr ""
+
+#: classes/search_v2.aw:180
+msgid "Kõik"
+msgstr ""
+
+#: classes/search_v2.aw:181
+msgid "Aktiivsed"
+msgstr ""
+
+#: classes/search_v2.aw:182
+msgid "Deaktiivsed"
+msgstr ""
+
+#: classes/search_v2.aw:211
+msgid "ID"
+msgstr ""
+
+#: classes/search_v2.aw:216
+msgid ""
+msgstr ""
+
+#: classes/search_v2.aw:221
+msgid "Nimi"
+msgstr ""
+
+#: classes/search_v2.aw:225
+msgid "Keel"
+msgstr ""
+
+#: classes/search_v2.aw:230
+msgid "Tüüp"
+msgstr ""
+
+#: classes/search_v2.aw:234
+msgid "Asukoht"
+msgstr ""
+
+#: classes/search_v2.aw:238
+msgid "Loodud"
+msgstr ""
+
+#: classes/search_v2.aw:244
+msgid "Looja"
+msgstr ""
+
+#: classes/search_v2.aw:248
+msgid "Muudetud"
+msgstr ""
+
+#: classes/search_v2.aw:254
+msgid "Muutja"
+msgstr ""
+
+#: classes/search_v2.aw:260
+msgid "Vali"
+msgstr ""
+

@@ -1,0 +1,78 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/rostering/person_has_skill.aw:class_1138_help
+msgid "Klassi P&auml;devuse kehtivus help"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_skill
+msgid "Omaduse P&auml;devus (skill) caption"
+msgstr "Skill"
+
+#: classes/applications/rostering/person_has_skill.aw:prop_skill_comment
+msgid "Omaduse P&auml;devus (skill) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_skill_help
+msgid "Omaduse P&auml;devus (skill) help"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_level
+msgid "Omaduse Tase (level) caption"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_level_comment
+msgid "Omaduse Tase (level) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_level_help
+msgid "Omaduse Tase (level) help"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_hour_price
+msgid "Omaduse P&auml;devuse kasutamise tunnihind (hour_price) caption"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_hour_price_comment
+msgid "Omaduse P&auml;devuse kasutamise tunnihind (hour_price) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_hour_price_help
+msgid "Omaduse P&auml;devuse kasutamise tunnihind (hour_price) help"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_skill_acquired
+msgid "Omaduse Omandatud (skill_acquired) caption"
+msgstr "Start"
+
+#: classes/applications/rostering/person_has_skill.aw:prop_skill_acquired_comment
+msgid "Omaduse Omandatud (skill_acquired) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_skill_acquired_help
+msgid "Omaduse Omandatud (skill_acquired) help"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_skill_lost
+msgid "Omaduse Kaotatud (skill_lost) caption"
+msgstr "Lost"
+
+#: classes/applications/rostering/person_has_skill.aw:prop_skill_lost_comment
+msgid "Omaduse Kaotatud (skill_lost) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:prop_skill_lost_help
+msgid "Omaduse Kaotatud (skill_lost) help"
+msgstr ""
+
+#: classes/applications/rostering/person_has_skill.aw:rel_RELTYPE_SKILL
+msgid "Seose P&auml;devus (RELTYPE_SKILL) tekst"
+msgstr ""

@@ -1,0 +1,78 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>ord</name>
+            <group>general</group>
+            <type>textbox</type>
+            <table>objects</table>
+            <field>jrk</field>
+            <size>5</size>
+            <caption>J&amp;amp;auml;rjekord</caption>
+      </property>
+      <property>
+            <name>comment</name>
+            <group>general</group>
+            <type>textbox</type>
+            <table>objects</table>
+            <field>comment</field>
+            <caption>Kurss euro suhtes</caption>
+      </property>
+      <property>
+            <name>unit_name</name>
+            <group>general</group>
+            <type>textbox</type>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Raha&amp;amp;uuml;hiku nimetus</caption>
+      </property>
+      <property>
+            <name>small_unit_name</name>
+            <group>general</group>
+            <type>textbox</type>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Peenraha&amp;amp;uuml;hiku nimetus</caption>
+      </property>
+      <property>
+            <name>symbol</name>
+            <group>general</group>
+            <type>textbox</type>
+            <size>2</size>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>S&amp;amp;uuml;mbol</caption>
+      </property>
+      <property>
+            <name>rates</name>
+            <group>rates</group>
+            <type>callback</type>
+            <callback>callback_get_rates</callback>
+            <field>rates</field>
+            <caption>Kaustad kust otsida</caption>
+      </property>
+      <property>
+            <name>translate</name>
+            <group>translate</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>translate</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CURRENCY</syslog_type>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <rates>
+                  <caption>Kursid</caption>
+            </rates>
+            <translate>
+                  <caption>T&amp;amp;otilde;lge</caption>
+            </translate>
+      </groupinfo>
+</properties>
+

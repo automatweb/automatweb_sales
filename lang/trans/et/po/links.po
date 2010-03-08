@@ -1,0 +1,444 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2015-06-01 20:33+0200\n"
+"Last-Translator: ergo\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/links.aw:class_21_help
+#: classes/contentmgmt/links.aw:class_21_help
+msgid "Klassi Link help"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_url
+#: classes/contentmgmt/links.aw:prop_url
+msgid "Omaduse URL (url) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_url_comment
+#: classes/contentmgmt/links.aw:prop_url_comment
+msgid "Omaduse URL (url) kommentaar"
+msgstr "aadress, kuhu link viitab."
+
+# classes/contentmgmt/links.aw:prop_url_help
+#: classes/contentmgmt/links.aw:prop_url_help
+msgid "Omaduse URL (url) help"
+msgstr "aadress, kuhu link viitab. Kirjutatakse kujul http://www.struktuur.ee või saidi sisese lingi puhul dokumendi või kausta ID."
+
+#: classes/contentmgmt/links.aw:prop_alias
+msgid "Omaduse Alias (alias) caption"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_alias_comment
+msgid "Omaduse Alias (alias) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_alias_help
+msgid "Omaduse Alias (alias) help"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_docid
+#: classes/contentmgmt/links.aw:prop_docid
+msgid "Omaduse  (docid) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_docid_comment
+#: classes/contentmgmt/links.aw:prop_docid_comment
+msgid "Omaduse  (docid) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_docid_help
+#: classes/contentmgmt/links.aw:prop_docid_help
+msgid "Omaduse  (docid) help"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_hits
+#: classes/contentmgmt/links.aw:prop_hits
+msgid "Omaduse Klikke (hits) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_hits_comment
+#: classes/contentmgmt/links.aw:prop_hits_comment
+msgid "Omaduse Klikke (hits) kommentaar"
+msgstr "informeeriv väli. Näitab, mitu korda on antud lingil klikitud."
+
+# classes/contentmgmt/links.aw:prop_hits_help
+#: classes/contentmgmt/links.aw:prop_hits_help
+msgid "Omaduse Klikke (hits) help"
+msgstr "informeeriv väli. Näitab, mitu korda on antud lingil klikitud."
+
+# classes/contentmgmt/links.aw:prop_alt
+#: classes/contentmgmt/links.aw:prop_alt
+msgid "Omaduse Alt tekst (alt) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_alt_comment
+#: classes/contentmgmt/links.aw:prop_alt_comment
+msgid "Omaduse Alt tekst (alt) kommentaar"
+msgstr "tekst, mis ilmub kursori kõrvale nähtavale kui lingil olles kursorit mõni hetk mitte liigutada."
+
+# classes/contentmgmt/links.aw:prop_alt_help
+#: classes/contentmgmt/links.aw:prop_alt_help
+msgid "Omaduse Alt tekst (alt) help"
+msgstr "tekst, mis ilmub kursori kõrvale nähtavale kui lingil olles kursorit mõni hetk mitte liigutada."
+
+# classes/contentmgmt/links.aw:prop_newwindow
+#: classes/contentmgmt/links.aw:prop_newwindow
+msgid "Omaduse Uues aknas (newwindow) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_newwindow_comment
+#: classes/contentmgmt/links.aw:prop_newwindow_comment
+msgid "Omaduse Uues aknas (newwindow) kommentaar"
+msgstr "selle valiku abil pannakse lingi aadress avanema uues aknas."
+
+# classes/contentmgmt/links.aw:prop_newwindow_help
+#: classes/contentmgmt/links.aw:prop_newwindow_help
+msgid "Omaduse Uues aknas (newwindow) help"
+msgstr "selle valiku abil pannakse lingi aadress avanema uues aknas."
+
+#: classes/contentmgmt/links.aw:prop_ord
+msgid "Omaduse J&auml;rjekord (ord) caption"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_ord_comment
+msgid "Omaduse J&auml;rjekord (ord) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_ord_help
+msgid "Omaduse J&auml;rjekord (ord) help"
+msgstr "saab määrata objektide järjekorda administreerimisliideses. Veebil avaldab järjekorranumber mõju, kui linke kuvatakse läbi objektinimekirja."
+
+# classes/contentmgmt/links.aw:prop_use_javascript
+#: classes/contentmgmt/links.aw:prop_use_javascript
+msgid "Omaduse Kasuta javascripti (use_javascript) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_use_javascript_comment
+#: classes/contentmgmt/links.aw:prop_use_javascript_comment
+msgid "Omaduse Kasuta javascripti (use_javascript) kommentaar"
+msgstr "võtab kasutusele kõik selles vaates olevad valikud. Selle valimisel avaneb lingi aadress automaatselt uues aknas."
+
+# classes/contentmgmt/links.aw:prop_use_javascript_help
+#: classes/contentmgmt/links.aw:prop_use_javascript_help
+msgid "Omaduse Kasuta javascripti (use_javascript) help"
+msgstr "võtab kasutusele kõik selles vaates olevad valikud. Selle valimisel avaneb lingi aadress automaatselt uues aknas."
+
+# classes/contentmgmt/links.aw:prop_newwinwidth
+#: classes/contentmgmt/links.aw:prop_newwinwidth
+msgid "Omaduse Uue akna laius (newwinwidth) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_newwinwidth_comment
+#: classes/contentmgmt/links.aw:prop_newwinwidth_comment
+msgid "Omaduse Uue akna laius (newwinwidth) kommentaar"
+msgstr "numbrina kirjutatav uue akna laius pikselites."
+
+# classes/contentmgmt/links.aw:prop_newwinwidth_help
+#: classes/contentmgmt/links.aw:prop_newwinwidth_help
+msgid "Omaduse Uue akna laius (newwinwidth) help"
+msgstr "numbrina kirjutatav uue akna laius pikselites."
+
+#: classes/contentmgmt/links.aw:prop_newwinheight
+msgid "Omaduse Uue akna k&otilde;rgus (newwinheight) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_newwinheight_comment
+#: classes/contentmgmt/links.aw:prop_newwinheight_comment
+msgid "Omaduse Uue akna k&otilde;rgus (newwinheight) kommentaar"
+msgstr "numbrina kirjutatav uue akna kõrgus pikselites."
+
+# classes/contentmgmt/links.aw:prop_newwinheight_help
+#: classes/contentmgmt/links.aw:prop_newwinheight_help
+msgid "Omaduse Uue akna k&otilde;rgus (newwinheight) help"
+msgstr "numbrina kirjutatav uue akna kõrgus pikselites."
+
+#: classes/contentmgmt/links.aw:prop_js_attributes
+msgid "Omaduse Atribuudid (js_attributes) caption"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_js_attributes_comment
+msgid "Omaduse Atribuudid (js_attributes) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_js_attributes_help
+msgid "Omaduse Atribuudid (js_attributes) help"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_newwintoolbar
+#: classes/contentmgmt/links.aw:prop_newwintoolbar
+msgid "Omaduse Toolbar (newwintoolbar) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_newwintoolbar_comment
+#: classes/contentmgmt/links.aw:prop_newwintoolbar_comment
+msgid "Omaduse Toolbar (newwintoolbar) kommentaar"
+msgstr "valiku tegemisel lubatakse uues aknas tööriistariba näitamine"
+
+# classes/contentmgmt/links.aw:prop_newwintoolbar_help
+#: classes/contentmgmt/links.aw:prop_newwintoolbar_help
+msgid "Omaduse Toolbar (newwintoolbar) help"
+msgstr "valiku tegemisel lubatakse uues aknas tööriistariba näitamine"
+
+# classes/contentmgmt/links.aw:prop_newwinlocation
+#: classes/contentmgmt/links.aw:prop_newwinlocation
+msgid "Omaduse Address bar (newwinlocation) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_newwinlocation_comment
+#: classes/contentmgmt/links.aw:prop_newwinlocation_comment
+msgid "Omaduse Address bar (newwinlocation) kommentaar"
+msgstr "valiku tegemisel lubatakse uues aknas aadressiriba näitamine."
+
+# classes/contentmgmt/links.aw:prop_newwinlocation_help
+#: classes/contentmgmt/links.aw:prop_newwinlocation_help
+msgid "Omaduse Address bar (newwinlocation) help"
+msgstr "valiku tegemisel lubatakse uues aknas aadressiriba näitamine."
+
+#: classes/contentmgmt/links.aw:prop_newwinmenu
+msgid "Omaduse Men&uuml;&uuml;d (newwinmenu) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_newwinmenu_comment
+#: classes/contentmgmt/links.aw:prop_newwinmenu_comment
+msgid "Omaduse Men&uuml;&uuml;d (newwinmenu) kommentaar"
+msgstr "valiku tegemisel lubatakse uues aknas menüüriba näitamine."
+
+# classes/contentmgmt/links.aw:prop_newwinmenu_help
+#: classes/contentmgmt/links.aw:prop_newwinmenu_help
+msgid "Omaduse Men&uuml;&uuml;d (newwinmenu) help"
+msgstr "valiku tegemisel lubatakse uues aknas menüüriba näitamine."
+
+# classes/contentmgmt/links.aw:prop_newwinscroll
+#: classes/contentmgmt/links.aw:prop_newwinscroll
+msgid "Omaduse Skrollbarid (newwinscroll) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_newwinscroll_comment
+#: classes/contentmgmt/links.aw:prop_newwinscroll_comment
+msgid "Omaduse Skrollbarid (newwinscroll) kommentaar"
+msgstr " valiku tegemisel lubatakse uues aknas kerimisribade näitamine."
+
+# classes/contentmgmt/links.aw:prop_newwinscroll_help
+#: classes/contentmgmt/links.aw:prop_newwinscroll_help
+msgid "Omaduse Skrollbarid (newwinscroll) help"
+msgstr " valiku tegemisel lubatakse uues aknas kerimisribade näitamine."
+
+#: classes/contentmgmt/links.aw:prop_style_class
+msgid "Omaduse Stiiliklass (style_class) caption"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_style_class_comment
+msgid "Omaduse Stiiliklass (style_class) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_style_class_help
+msgid "Omaduse Stiiliklass (style_class) help"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_before_link
+msgid "Omaduse Enne lingi teksti (before_link) caption"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_before_link_comment
+msgid "Omaduse Enne lingi teksti (before_link) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_before_link_help
+msgid "Omaduse Enne lingi teksti (before_link) help"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_after_link
+msgid "Omaduse P&auml;rast lingi teksti (after_link) caption"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_after_link_comment
+msgid "Omaduse P&auml;rast lingi teksti (after_link) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_after_link_help
+msgid "Omaduse P&auml;rast lingi teksti (after_link) help"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_link_image
+#: classes/contentmgmt/links.aw:prop_link_image
+msgid "Omaduse Pilt (link_image) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_link_image_comment
+#: classes/contentmgmt/links.aw:prop_link_image_comment
+msgid "Omaduse Pilt (link_image) kommentaar"
+msgstr "võimaldab otsida pildi, mida kuvatakse lingi teksti asemel."
+
+# classes/contentmgmt/links.aw:prop_link_image_help
+#: classes/contentmgmt/links.aw:prop_link_image_help
+msgid "Omaduse Pilt (link_image) help"
+msgstr "võimaldab otsida pildi, mida kuvatakse lingi teksti asemel."
+
+# classes/contentmgmt/links.aw:prop_link_image_show
+#: classes/contentmgmt/links.aw:prop_link_image_show
+msgid "Omaduse  (link_image_show) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_link_image_show_comment
+#: classes/contentmgmt/links.aw:prop_link_image_show_comment
+msgid "Omaduse  (link_image_show) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_link_image_show_help
+#: classes/contentmgmt/links.aw:prop_link_image_show_help
+msgid "Omaduse  (link_image_show) help"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_link_image_check_active
+#: classes/contentmgmt/links.aw:prop_link_image_check_active
+msgid "Omaduse Pilt aktiivne (link_image_check_active) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_link_image_check_active_comment
+#: classes/contentmgmt/links.aw:prop_link_image_check_active_comment
+msgid "Omaduse Pilt aktiivne (link_image_check_active) kommentaar"
+msgstr "valiku tegemisel näidatakse lingi teksti asemel pilti."
+
+# classes/contentmgmt/links.aw:prop_link_image_check_active_help
+#: classes/contentmgmt/links.aw:prop_link_image_check_active_help
+msgid "Omaduse Pilt aktiivne (link_image_check_active) help"
+msgstr "valiku tegemisel näidatakse lingi teksti asemel pilti."
+
+# classes/contentmgmt/links.aw:prop_link_image_active_until
+#: classes/contentmgmt/links.aw:prop_link_image_active_until
+msgid "Omaduse Pilt aktiivne kuni (link_image_active_until) caption"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_link_image_active_until_comment
+#: classes/contentmgmt/links.aw:prop_link_image_active_until_comment
+msgid "Omaduse Pilt aktiivne kuni (link_image_active_until) kommentaar"
+msgstr "pildi näitamise aeg. Sisestatud aja mõõdudes kuvatakse link jälle tekstina."
+
+# classes/contentmgmt/links.aw:prop_link_image_active_until_help
+#: classes/contentmgmt/links.aw:prop_link_image_active_until_help
+msgid "Omaduse Pilt aktiivne kuni (link_image_active_until) help"
+msgstr "pildi näitamise aeg. Sisestatud aja mõõdudes kuvatakse link jälle tekstina."
+
+#: classes/contentmgmt/links.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr "v&otilde;imalus t&otilde;lkida objekt teise keelde. Vajalik juhul, kui kasutatakse erinevate keelte all sama lingiobjekti. Tõlkimiseks tuleb kirjutada vastavanimelistesse tekstiväljadesse sobilikud võõrkeelsed vasted. Kui see tehtud, siis teha märge välja Tõlge aktiivne."
+
+#: classes/contentmgmt/links.aw:prop_kws
+msgid "Omaduse V&otilde;tmes&otilde;nad (kws) caption"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_kws_comment
+msgid "Omaduse V&otilde;tmes&otilde;nad (kws) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:prop_kws_help
+msgid "Omaduse V&otilde;tmes&otilde;nad (kws) help"
+msgstr "v&otilde;imalus m&auml;&auml;rta lingi objektile v&otilde;tmes&otilde;nu. Vajalik juhul, kui soovitakse, et saaks v&otilde;tmes&otilde;nade j&auml;rgi sama teemaga seotud linke leida."
+
+#: classes/contentmgmt/links.aw:group_Javascript
+msgid "Grupi N&auml;itamine (Javascript) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:group_Javascript_help
+msgid "Grupi N&auml;itamine (Javascript) help"
+msgstr ""
+
+# classes/contentmgmt/links.aw:group_Pilt
+#: classes/contentmgmt/links.aw:group_Pilt
+msgid "Grupi Pilt (Pilt) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/links.aw:group_Pilt_help
+#: classes/contentmgmt/links.aw:group_Pilt_help
+msgid "Grupi Pilt (Pilt) help"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:group_kws
+msgid "Grupi V&otilde;tmes&otilde;nad (kws) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:group_kws_help
+msgid "Grupi V&otilde;tmes&otilde;nad (kws) help"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:141 classes/contentmgmt/links.aw:189
+msgid "Vali see"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:145
+msgid "Nimetus"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:150
+msgid "Asukoht"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:155
+msgid "Looja"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:160
+msgid "Viimati muudetud"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:289
+msgid "T&ouml;&ouml;riistariba"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:290
+msgid "Aadressi riba"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:291
+msgid "Men&uuml;&uuml;d"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:292
+msgid "Kerimisriba"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:326
+msgid "Valitud objekt: %s /"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:332
+msgid "Otsi uus objekt:"
+msgstr ""
+
+#: classes/contentmgmt/links.aw:488
+msgid "Salvesta ja paiguta dokumenti"
+msgstr ""
+
+# classes/contentmgmt/links.aw:prop_url_int_text_comment
+#~ msgid "Omaduse Saidi sisene link (url_int_text) kommentaar"
+#~ msgstr "avades selle valiku, on võimalik nime või sisu järgi otsida saidi siseseid dokumente, millele link viitama panna."
+
+# classes/contentmgmt/links.aw:prop_url_int_text_help
+#~ msgid "Omaduse Saidi sisene link (url_int_text) help"
+#~ msgstr "avades selle valiku, on võimalik nime või sisu järgi otsida saidi siseseid dokumente, millele link viitama panna. Olles leidnud sobiva kinnita see \"Vali see\" lingil klikkides. Automaatselt pannakse lingile nimi ning täidetakse URL lahter."
+
+# classes/contentmgmt/links.aw:prop_comment
+#~ msgid "Omaduse Kommentaar lingikogusse (comment) caption"
+#~ msgstr "märkuste lahter, kuhu v&otilde;ib lisada selguse m&otilde;ttes informatsiooni või juhiseid antud objekti kohta. Kommentaari välja kirjutatut ei ole veebipoolel näha."

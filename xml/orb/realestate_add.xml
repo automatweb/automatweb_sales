@@ -1,0 +1,63 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="realestate_add" folder="www/dev/terryf/automatweb_dev/classes/applications/realestate_management" extends="class_base">
+		<action name="parse_alias" is_public="1" caption="Change">
+			<function name="parse_alias">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_divisions" nologin="1">
+			<function name="get_divisions">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="my_realestate_list" is_public="1" caption="Minu kinnisvaraobjektid">
+			<function name="my_realestate_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="subscribe" nologin="1">
+			<function name="subscribe">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="rel_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_property">
+			<function name="delete_property">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_invisible">
+			<function name="make_invisible">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="extend">
+			<function name="extend">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="expire" is_public="1">
+			<function name="expire">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,84 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>actor_rootmenu</name>
+            <table>objects</table>
+            <group>config_actor</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ROOTMENU</reltype>
+            <caption>Tegijate juurmen&amp;uuml;&amp;uuml;</caption>
+      </property>
+      <property>
+            <name>action_rootmenu</name>
+            <table>objects</table>
+            <group>config_action</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ROOTMENU</reltype>
+            <caption>Tegevuste juurmen&amp;uuml;&amp;uuml;</caption>
+      </property>
+      <property>
+            <name>entity_rootmenu</name>
+            <table>objects</table>
+            <group>config_entity</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ROOTMENU</reltype>
+            <caption>Juhtumite juurmen&amp;uuml;&amp;uuml;</caption>
+      </property>
+      <property>
+            <name>entity_instance_rootmenu</name>
+            <table>objects</table>
+            <group>config_entity</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ROOTMENU</reltype>
+            <caption>Juhtumite sisestuste juurmen&amp;uuml;&amp;uuml;</caption>
+      </property>
+      <property>
+            <name>process_rootmenu</name>
+            <table>objects</table>
+            <group>config_process</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ROOTMENU</reltype>
+            <caption>Protsesside juurmen&amp;uuml;&amp;uuml;</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_WORKFLOW_CONFIG</syslog_type>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+            <relationmgr>yes</relationmgr>
+      </classinfo>
+      <groupinfo>
+            <general>
+                  <caption>&amp;Uuml;ldine</caption>
+            </general>
+            <config_actor>
+                  <caption>Tegijate seaded</caption>
+            </config_actor>
+            <config_action>
+                  <caption>Tegevuste seaded</caption>
+            </config_action>
+            <config_entity>
+                  <caption>Juhtumite seaded</caption>
+            </config_entity>
+            <config_process>
+                  <caption>Protsesside seaded</caption>
+            </config_process>
+      </groupinfo>
+      <reltypes>
+            <ROOTMENU>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>juurmen&amp;uuml;&amp;uuml;</caption>
+            </ROOTMENU>
+      </reltypes>
+</properties>
+

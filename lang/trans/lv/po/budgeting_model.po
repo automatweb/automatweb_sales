@@ -1,0 +1,125 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/budgeting/budgeting_model.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:44
+msgid "Kontol %s ei ole piisavalt raha! Vaja on %s, kontol on %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:56
+msgid "Transaktsioonis esines viga %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:65
+msgid "Kanne kontolt %s kontole %s %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:483
+msgid "K&otilde;ik valdkonnad"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:487
+msgid "K&otilde;ik fondid"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:491
+#: classes/applications/budgeting/budgeting_model.aw:515
+msgid "K&otilde;ik t&ouml;&ouml;tajad"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:495
+msgid "K&otilde;ik teenuse liigid"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:499
+msgid "K&otilde;ik tooteperekonnad"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:503
+#: classes/applications/budgeting/budgeting_model.aw:507
+msgid "K&otilde;ik kontod"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:511
+msgid "K&otilde;ik"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:522
+#: classes/applications/budgeting/budgeting_model.aw:542
+msgid "Projekti %s toodete kategooria %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:529
+msgid "Kliendi %s toodete kategooria %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:535
+msgid "Projekti %s toodete kategooriad"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:548
+msgid "Kliendi %s toodete kategooriad"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:555
+msgid "Kliendi %s teenuste t&uuml;&uuml;pide kategooria %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:561
+msgid "Projekti %s teenuste liigid"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:567
+msgid "Kliendi %s teenuse liigid"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:573
+msgid "Toodete kategooria %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:579
+msgid "Teenuste liigi kategooria %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:586
+msgid "Projekti %s toode %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:592
+msgid "Kliendi %s projektid"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:599
+msgid "Kliendi %s toode %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:605
+msgid "Kliendikategooria %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:611
+msgid "Klient %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:618
+msgid "Projekt %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:624
+msgid "Toimetus %s"
+msgstr ""
+
+#: classes/applications/budgeting/budgeting_model.aw:630
+msgid "Toode %s"
+msgstr ""

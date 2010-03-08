@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/crm/crm_skill_level.aw:class_1401_help
+msgid "Klassi Oskuse tase help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_skill
+msgid "Omaduse Oskus (skill) caption"
+msgstr "Умение"
+
+#: classes/applications/crm/crm_skill_level.aw:prop_skill_comment
+msgid "Omaduse Oskus (skill) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_skill_help
+msgid "Omaduse Oskus (skill) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_level
+msgid "Omaduse Tase (level) caption"
+msgstr "Уровень"
+
+#: classes/applications/crm/crm_skill_level.aw:prop_level_comment
+msgid "Omaduse Tase (level) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_level_help
+msgid "Omaduse Tase (level) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_other
+msgid "Omaduse Muu (other) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_other_comment
+msgid "Omaduse Muu (other) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_other_help
+msgid "Omaduse Muu (other) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_years_of_practice
+msgid "Omaduse Kogemus aastates (years_of_practice) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_years_of_practice_comment
+msgid "Omaduse Kogemus aastates (years_of_practice) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_years_of_practice_help
+msgid "Omaduse Kogemus aastates (years_of_practice) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_year_of_last_usage
+msgid "Omaduse Viimati kasutatud aastal (year_of_last_usage) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_year_of_last_usage_comment
+msgid "Omaduse Viimati kasutatud aastal (year_of_last_usage) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_year_of_last_usage_help
+msgid "Omaduse Viimati kasutatud aastal (year_of_last_usage) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_addinfo
+msgid "Omaduse Lisainfo (addinfo) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_addinfo_comment
+msgid "Omaduse Lisainfo (addinfo) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:prop_addinfo_help
+msgid "Omaduse Lisainfo (addinfo) help"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:rel_RELTYPE_SKILL
+msgid "Seose Oskus (RELTYPE_SKILL) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:rel_RELTYPE_LEVEL
+msgid "Seose Oskuse tase (RELTYPE_LEVEL) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_skill_level.aw:77
+#: classes/applications/crm/crm_skill_level.aw:101
+#: classes/applications/crm/crm_skill_level.aw:186
+msgid "--vali--"
+msgstr "--Выбери--"

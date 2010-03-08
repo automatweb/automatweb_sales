@@ -1,0 +1,77 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_order_center" folder="www/automatweb_cvs/classes/applications/shop" extends="class_base">
+		<action name="show_items" nologin="1">
+			<function name="show_items">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="f" />
+					<optional name="show_prod" />
+					<required name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="my_orders" is_public="1" caption="Minu tellimused">
+			<function name="my_orders">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_my_orders">
+			<function name="submit_my_orders">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_appearance_leaf" all_args="1">
+			<function name="add_appearance_leaf">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_categories">
+			<function name="search_categories">
+				<arguments>
+					<optional name="category" />
+					<optional name="name" type="string" />
+					<optional name="menu" type="int" />
+					<optional name="result" type="int/array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_remove_category" all_args="1">
+			<function name="ajax_remove_category">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_new_struct">
+			<function name="make_new_struct">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="ajax_set_product_show_property" all_args="1">
+			<function name="ajax_set_product_show_property">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="make_all_not_active" all_args="1">
+			<function name="make_all_not_active">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<xml>
+<num_0>
+      <class>/core/users/group_membership</class>
+      <func>on_disconnect_to_group_membership</func>
+      <param>CL_GROUP_MEMBERSHIP</param>
+</num_0>
+<num_1>
+      <class>/core/users/group</class>
+      <func>on_remove_alias_for_group</func>
+      <param>CL_GROUP</param>
+</num_1>
+<num_2>
+      <class>/applications/crm/crm_person_education</class>
+      <func>on_disconnect_edu_from_person</func>
+      <param>CL_CRM_PERSON</param>
+</num_2>
+<num_3>
+      <class>/contentmgmt/timing</class>
+      <func>on_tdisconnect_to</func>
+      <param>CL_DOCUMENT</param>
+</num_3>
+<num_4>
+      <class>/contentmgmt/timing</class>
+      <func>on_tdisconnect_to</func>
+      <param>CL_MENU</param>
+</num_4>
+<num_5>
+      <class>/contentmgmt/aw_reminder</class>
+      <func>on_rdisconnect_to</func>
+      <param>CL_DOCUMENT</param>
+</num_5>
+</xml>

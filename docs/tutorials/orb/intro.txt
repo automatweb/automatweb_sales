@@ -1,0 +1,295 @@
+ORB - Object Request Broker
+
+Every solution must have a problem it solves. The problem that ORB solves is:
+
+If code is scattered among classes, then how to create URL's that call a certain function from a certain class?
+
+
+Now, for the details. 
+
+<font size="+1"><b>How is the url constructed?</b></font>
+
+ORB URL's absolutely must have one parameter, "class" that contains the name of the class to instantiate. They may also contain the variable "action". The action variable specifies what action to call from the instantiated class. The url may also contain any number of other parameters that are passed to the function according to the defined function parameters. 
+
+<font size="+1"><b>How are the actions defined and how are the parameters defined?</b></font>
+
+For each class that has any ORB-callable functions, there must exist a file in the $aw_root/xml/orb folder with the same name as the class, but with the extension "xml". So if the class is $aw_root/classes/shop/shop.aw, the orb definition must be $aw_root/xml/orb/shop.xml. 
+
+These files are automatically generated from php classes, by executing the command "make orb" in the aw code root folder. 
+
+In each class, for the functions that you wish to be user-callable via orb, you must prepend a comment, from which the orb definitions are generated. The comment looks like this:
+
+#php#
+/** displays information to the user about a class
+
+	@attrib params=name nologin=0 is_public=0 all_args=0 caption="N\x{00E4}ita klassi infot" default=0 name=class_info
+
+	@param file required type=int acl=view;edit 
+	@param file_2 optional type=int acl=view;edit default=19
+	@param file_3 define value=100
+
+	@returns 
+	html with class info
+
+	@comment
+	shows detailed info about a class
+**/
+#/php#
+
+The parts of the comment that are relevant to orb definitions are (the full format is defined in a nother document): 
+
+@attrib nologin=[1|0] - whether the function can be called by not-logged-in users
+@attrib is_public=[1|0] - whether the method is public
+@attrib all_args=[1|0] - whether to pass all arguments to the function or not
+@attrib caption="foo" - public method caption in admin interface
+@attrib default=[1|0] - whether this is the default action for this class, only one method per class can be default
+@attrib name=foo - the orb action name, can be different from the function name. if this is present, the action is callable via orb. 
+
+@param's define the function's aguments. orb methods' arguments are always passed by name. 
+
+@param param_name [required|optional|define] - defines an argument to the function
+
+required arguments must be present, otherwise an error is thrown. optional arguments are optional, passed if present, they can have default values, like this:
+@param bar optional default=12
+
+define type arguments values are always passed and their value is read from the @param definition, like this:
+@param foobar define value=36
+
+all argument types can have these options:
+
+- type - if present, the argument's type is checked and if it does not match, then an error is thrown. currently type can only be "int"
+example:
+@param id required type="int"
+
+- acl - if present, it is assumed that this argument contains an object's id and that the current user must have the defined permissions for that object. several permissions can be required, they are separated by semicolons.
+example:
+@param oid required acl="view;edit"
+
+- class_id- if present, it is assumed that this argument contains an object's id and that the object is of that class. several classes can be defined separated by commas. works only when acl is defined.
+example:
+@param oid required acl="view;edit" class_id=CL_FOO,CL_BAR
+
+
+When the "make orb" command is entered, the docgen_analyzer class generates the orb xml definition files from all modified classes.
+
+
+The structure of the orb definition file is:
+#code#
+<?xml version='1.0'?>
+<orb>
+  <class name="shop" extends="class_base" folder="shop">
+    <action name="show" is_public="1" caption="Display Shop">
+      <function name="display">
+        <arguments>
+          <required name="id" type="int" acl="view;edit"/>
+          <optional name="page" type="int"/>
+        </arguments>
+      </function>
+    </action>
+  </class>
+</orb>
+#/code#
+
+An explanation of each tag in the example follows:
+
+- <b>orb</b>
+
+there must be only one <orb> tag in the file and it signifies the start of the orb definition. It must contain a single <class> tag.
+
+- <b>class</b>
+
+there must only be one <class> tag in the file and it defines the class that the definition refers to. 
+
+<b>Attributes:</b> 
+
+<b>name</b> - <i>required</i>, the name of the class the file refers to. The same as the file name.
+
+<b>extends</b> - <i>optional</i>, the class that the current class extends. Extending orb definitions works the same as class inheritance. If an action is not fount in the class's file, the extended class file is searched. 
+
+<b>folder</b> - <i>optional</i>, the folder where the class is, starting from the $aw_root/classes folder. 
+
+- <b>action</b>
+
+There may be any number of these inside the <class> tag. Each defines a single action that can be accesed via an URL. Each action must contain a single <function> tag
+
+Attributes:
+
+<b>name</b> - <i>required</i>, the name of the action
+<b>default</b> - <i>optional</i>, if set to one, the action is the default action for that class. Default means that if no action is specified in the url, that action will be called. 
+<b>is_public</b> - <i>optional</i>, if set to one, that action is a "public method" and will appear as a "public method" when selecting an action for a section.
+<b>caption</b> - <i>optional</i>, must be set for public methods, defines the name of the public method that is shown to the user
+<b>all_args</b> - <i>optional</i>, not recommended. If set to one, no argument checking is performed and all arguments are passed to the function. 
+<b>nologin</b> - <i>optional</i>, by default all orb actions require an user to be logged in. If this attribute is set to one, an user does not have to be logged in for the action to get called. 
+
+- <b>function</b>
+
+There must be exactly one function tag insode the action tag. It defines the function that is called for the action. 
+
+<b>Attributes:</b>
+
+<b>name</b> - <i>required</i>, the name of the function that corresponds to the action. 
+
+- <B>arguments</b>
+
+There must be exactly one arguments tag inside the function tag. It represents the start of the function arguments and may contain any number of argument tags. Only the arguments in the argument tags are passed to the function. If any of the required arguments are missing from the request, error is displayed. 
+
+- <B>required</b>
+
+Defines a required attribute to the action
+
+- <B>optional</b> 
+
+Defines an optional attribute to the action
+
+Attributes:
+<B>default</b> - <I>optional</i>, if set and the argument is not in the request, the argument will get the value of this attribute. 
+
+- <B>define</b>
+
+Defines a predefined value that will be passed to the action. 
+
+Attributes:
+<B>value</b> - <I>required</i>, the value of the defined argument
+
+Attributes for the required/optional/define tags:
+
+<B>name</b> - <I>required</i>, the name of the parameter. 
+<B>type</b> - <I>optional</i>, the type of the argument. Currently only "int" type is defined. If the type of the argument does not match the type defined, error is displayed. 
+<B>acl</b> - <I>optional</i>, if set, must contain a semicolon separated list of access levels that the current user must have to the object whose oid is in the parameter. 
+<b>class_id</b> - <i>optional</i>, if set, must contain a comma separated list of class id's that the argument must match. works only with acl parameter.
+
+<font size="+1"><b>How are parameters passed to the function?</b></font>
+
+For GET requests all parameters are first checked according to the rules defined in the arguments tags. If no errors occur, the parameters are passed as an array, the array key is the parameter name and the array values are the parameter values. The easiest way is to use the extract() function to create local variables from the array. 
+
+For POST requests all arguments are always passed, but the defined arguments are still checked according to the type and acl rules. 
+
+<font size="+1"><b>What must the function's return value be?</b></font>
+
+The function's return value depends on how the function is called. The only special value is a value, that is an url. If an orb-called function returns an url, the user is redirected to that url. All functions that are called from POST request should return an url. 
+
+<font size="+1"><b>How to create ORB URL's?</b></font>
+
+There are two types of requests:
+
+- GET urls
+
+To create GET urls, there is the function mk_my_orb. Parameters to it are passed as positional parameters.
+
+The parameters for that function are:
+
+<B>$fun</b> - <I>required</i>, the name of the action to create the URL for
+<B>$arr</b> - <I>optional</i>, an array of parameters to add to the url. 
+<B>$cl_name</b> - <I>optional</i>, defaults to get_class($this). The class that contains the action to call. 
+<B>$force_admin</b> - <I>optional</i>, defaults to false, if true, the url will always refer to the admin interface. 
+<B>$use_orb</b> - <I>optional</i>, defaults to false, if true the link refers to orb.aw, if false, the file is automatically detected and can be either index.aw or orb.aw
+<B>$sep</b> - <I>optional</i>, defaults to "&", the argument separator for the url. 
+
+Example:
+
+#php#
+class foo extends class_base
+{
+	function a()
+	{
+		$url = $this->mk_my_orb("b");
+	}
+}
+#/php#
+
+$url will be "http://www.site.com/?class=foo&action=b"
+
+next examples assume the same class
+
+$url = $this->mk_my_orb("c", array("id" => 2), "bar");
+
+$url now contains "http://www.site.com/?class=bar&action=c&id=2"
+
+$url = $this->mk_my_orb("d", array("arr" => array("1" => "a", "3" => "g"), "baz", true, true, "/");
+
+$url now contains "http://www.site.com/automatweb/orb.aw/class=baz/action=d/arr[1]=a/arr[3]=g"
+
+
+- POST form elements
+
+All forms that refer to ORB, should have as the form action, "orb.aw" , like this:
+
+#code#
+<form action="{VAR:baseurl}/orb.{VAR:ext}">
+#/code#
+
+To create the hidden form elements that pass the orb arguments, the function mk_reforb exists in the core class. 
+
+It's arguments are as follows:
+
+$fun - required, the action name to call
+$arr - optional, array of arguments to pass
+$cl_name - optional, defaults to get_class($this), the class to call the action from
+
+Example:
+
+
+---- template form.tpl ----
+#code#
+<form action="{VAR:baseurl}/orb.{VAR:ext}" method="POST">
+<input type="text" name="name"> <input type="submit">
+{VAR:reforb}
+</form>
+#/code#
+---------------------------
+
+---- code ----
+#php#
+class foo extends class_base
+{
+  function b()
+  {
+    $this->read_template("form.tpl");
+
+    $this->vars(array(
+      "reforb" => $this->mk_reforb("submit", array("id" =>55))
+    ));
+
+    return $this->parse();
+  }
+
+  function submit($arr)
+  {
+    die("the name is ".$arr["name"]);
+  }
+}
+#/php#
+-------------
+
+
+<font size="+1"><b>How to make manual ORB function calls?</b></font>
+
+The core class contains a method called "do_orb_method_call". Using this method, you can call orb functions using the orb layer. This makes calling remote functions much easier. 
+
+for example, to ue orb to call the "doc::change" action, the code would be:
+
+#php#
+echo "change form = ".$this->do_orb_method_call(array(
+	"action" => "change", 
+	"class" => "doc",
+	"params" => array(
+		"id" =>4
+	)
+));
+#/php#
+
+Now, to call the same function from the server "register.automatweb.com", using XML-RPC, the code would be:
+
+#php#
+echo "change form = ".$this->do_orb_method_call(array(
+	"action" => "change", 
+	"class" => "doc",
+	"params" => array(
+		"id" =>4
+	),
+	"method" => "xmlrpc",
+	"server" => "register.automatweb.com"
+));
+#/php#
+
+This function makes it very easy to do remote method calls.

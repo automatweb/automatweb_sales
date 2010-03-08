@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/admin/foreach_site.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/admin/foreach_site.aw:19 classes/admin/foreach_site.aw:59
+msgid "Tee igal saidil"
+msgstr ""
+
+#: classes/admin/foreach_site.aw:30
+msgid "Url"
+msgstr ""
+
+#: classes/admin/foreach_site.aw:37
+msgid "Ainult samal koodil saidid"
+msgstr ""
+
+#: classes/admin/foreach_site.aw:43
+msgid "Tee!"
+msgstr ""
+
+#: classes/admin/foreach_site.aw:167
+msgid "all done"
+msgstr ""
+

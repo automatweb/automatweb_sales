@@ -1,0 +1,4 @@
+
+between($a,$y,$z)
+
+Returns: true or false depending on whether $a is between $y and $z or not.

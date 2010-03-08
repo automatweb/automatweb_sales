@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/messenger/messenger_config.aw:class_226_help
+msgid "Klassi Meiliseaded help"
+msgstr ""
+
+#: classes/applications/messenger/messenger_config.aw:prop_msgs_on_page
+msgid "Omaduse Kirju lehel (msgs_on_page) caption"
+msgstr ""
+
+#: classes/applications/messenger/messenger_config.aw:prop_msgs_on_page_comment
+msgid "Omaduse Kirju lehel (msgs_on_page) kommentaar"
+msgstr ""
+
+#: classes/applications/messenger/messenger_config.aw:prop_msgs_on_page_help
+msgid "Omaduse Kirju lehel (msgs_on_page) help"
+msgstr ""
+

@@ -1,0 +1,13 @@
+Men&uuml;&uuml;de kirjeldamine algab men&uuml;&uuml;piirkondade kirjeldamisega. Korduv osa templatedes n&ouml; SUB 'ide vahel, igal SUB'il on algus ja l&otilde;pp. 
+
+Keerukamate men&uuml;&uuml;de puhul on abiks uurida varem tehtud saite ja otsida sealt sarnaseid lahendusi. Men&uuml;&uuml;piirkonnad peavad olema saidi aw.ini failis m&auml;&auml;ratud. 
+
+Lihtsaim,  &uuml;hetasemelise men&uuml;&uuml; templatet kirjeldamine k&auml;ib nii: 
+
+<b>N&auml;ide:</b>
+
+&lt;!-- SUB: MENU_YLEMINE_L1_ITEM --&gt;<br>
+  &lt;a href=&quot;{VAR:link}&quot; {VAR:target}&gt;{VAR:text}&lt;/a&gt; |<br>
+  &lt;!-- END SUB: MENU_YLEMINE_L1_ITEM --&gt
+
+Ehk siis kirjeldame , kuidas n&auml;idata men&uuml;&uuml;piirkonna YLEMINE esimese taseme men&uuml;&uuml;d(taset  n&auml;itab subis L1).  

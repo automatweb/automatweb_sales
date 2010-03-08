@@ -1,0 +1,106 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/questionary/questionary_result.aw:class_1158_help
+msgid "Klassi K&uuml;simustiku vastus help"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_questionary
+msgid "Omaduse K&uuml;simustik (questionary) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_questionary_comment
+msgid "Omaduse K&uuml;simustik (questionary) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_questionary_help
+msgid "Omaduse K&uuml;simustik (questionary) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_question_group
+msgid "Omaduse K&uuml;simustegrupp (question_group) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_question_group_comment
+msgid "Omaduse K&uuml;simustegrupp (question_group) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_question_group_help
+msgid "Omaduse K&uuml;simustegrupp (question_group) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_question
+msgid "Omaduse K&uuml;simus (question) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_question_comment
+msgid "Omaduse K&uuml;simus (question) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_question_help
+msgid "Omaduse K&uuml;simus (question) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_question_topic
+msgid "Omaduse K&uuml;simuse teema (question_topic) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_question_topic_comment
+msgid "Omaduse K&uuml;simuse teema (question_topic) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_question_topic_help
+msgid "Omaduse K&uuml;simuse teema (question_topic) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_answer
+msgid "Omaduse Vastus (answer) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_answer_comment
+msgid "Omaduse Vastus (answer) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_answer_help
+msgid "Omaduse Vastus (answer) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_relation_id
+msgid "Omaduse  (relation_id) caption"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_relation_id_comment
+msgid "Omaduse  (relation_id) kommentaar"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:prop_relation_id_help
+msgid "Omaduse  (relation_id) help"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:rel_RELTYPE_QUESTIONARY
+msgid "Seose K&uuml;simustik (RELTYPE_QUESTIONARY) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:rel_RELTYPE_QUESTION_GROUP
+msgid "Seose K&uuml;simustegrupp (RELTYPE_QUESTION_GROUP) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:rel_RELTYPE_QUESTION
+msgid "Seose K&uuml;simus (RELTYPE_QUESTION) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:rel_RELTYPE_TOPIC
+msgid "Seose K&uuml;simuste teema (RELTYPE_TOPIC) tekst"
+msgstr ""
+
+#: classes/applications/questionary/questionary_result.aw:123
+msgid "Vastus k&uuml;simusele: \""
+msgstr ""

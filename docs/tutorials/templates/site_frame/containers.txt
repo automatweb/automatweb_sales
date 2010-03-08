@@ -1,0 +1,25 @@
+Konteineris(e. promokasti) saab kasutada, n&auml;iteks viimati muutunud dokumentide, uudiste jne. n&auml;itamisel. 
+
+Vaikimisi on olemas 4 konteineri asukohta: vasaul, paremal &uuml;leval all: 
+
+N&auml;iteks: 
+#code#
+<!-- SUB: RIGHT_PROMO -->
+{VAR:content}
+<!-- END SUB: RIGHT_PROMO -->
+
+v\x{00F5}i
+
+<!-- SUB: LEFT_PROMO -->
+{VAR:content}
+<!-- END SUB: LEFT_PROMO -->
+#/code#
+
+Konteinerite asukohti saab ka ise defineerida saidi aw.ini failis. Sel juhul need vaikimisi asukohad ,ei kehti. 
+
+<b>N&auml;iteks: </b>
+promo.areas[1][def] = SMALLBOX
+promo.areas[1][name] = Uudised
+
+promo.areas[1][def] = TEATED
+promo.areas[1][name] = Teated

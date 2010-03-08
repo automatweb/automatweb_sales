@@ -1,0 +1,140 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:class_1127_help
+msgid "Klassi Pakkumise rida help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_product
+msgid "Omaduse Toode (product) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_product_comment
+msgid "Omaduse Toode (product) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_product_help
+msgid "Omaduse Toode (product) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_amount
+msgid "Omaduse Kogus (amount) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_amount_comment
+msgid "Omaduse Kogus (amount) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_amount_help
+msgid "Omaduse Kogus (amount) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_b_amount
+msgid "Omaduse Ostetav kogus (b_amount) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_b_amount_comment
+msgid "Omaduse Ostetav kogus (b_amount) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_b_amount_help
+msgid "Omaduse Ostetav kogus (b_amount) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_b_price
+msgid "Omaduse Ostu hind (b_price) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_b_price_comment
+msgid "Omaduse Ostu hind (b_price) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_b_price_help
+msgid "Omaduse Ostu hind (b_price) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_unit
+msgid "Omaduse &Uuml;hik (unit) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_unit_comment
+msgid "Omaduse &Uuml;hik (unit) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_unit_help
+msgid "Omaduse &Uuml;hik (unit) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_price
+msgid "Omaduse Hind (price) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_price_comment
+msgid "Omaduse Hind (price) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_price_help
+msgid "Omaduse Hind (price) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_price_amount
+msgid "Omaduse Hind koguse puhul (price_amount) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_price_amount_comment
+msgid "Omaduse Hind koguse puhul (price_amount) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_price_amount_help
+msgid "Omaduse Hind koguse puhul (price_amount) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_currency
+msgid "Omaduse Valuuta (currency) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_currency_comment
+msgid "Omaduse Valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_currency_help
+msgid "Omaduse Valuuta (currency) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_shipment
+msgid "Omaduse Tarneaeg (shipment) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_shipment_comment
+msgid "Omaduse Tarneaeg (shipment) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_shipment_help
+msgid "Omaduse Tarneaeg (shipment) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_accept
+msgid "Omaduse Aktsepteeritud (accept) caption"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_accept_comment
+msgid "Omaduse Aktsepteeritud (accept) kommentaar"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:prop_accept_help
+msgid "Omaduse Aktsepteeritud (accept) help"
+msgstr ""
+
+#: classes/applications/procurement_center/procurement_offer_row.aw:rel_RELTYPE_OFFER
+msgid "Seose Pakkumine (RELTYPE_OFFER) tekst"
+msgstr ""
+

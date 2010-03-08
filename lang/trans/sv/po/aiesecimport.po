@@ -1,0 +1,267 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/import/aiesecimport.aw:class_1357_help
+msgid "Klassi Aiesec import help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_import_persons_status
+msgid "Omaduse  (import_persons_status) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_import_persons_status_comment
+msgid "Omaduse  (import_persons_status) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_import_persons_status_help
+msgid "Omaduse  (import_persons_status) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_importfolder
+msgid "Omaduse Impordikaust (importfolder) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_importfolder_comment
+msgid "Omaduse Impordikaust (importfolder) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_importfolder_help
+msgid "Omaduse Impordikaust (importfolder) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_do_import
+msgid "Omaduse Impordi mind (do_import) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_do_import_comment
+msgid "Omaduse Impordi mind (do_import) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_do_import_help
+msgid "Omaduse Impordi mind (do_import) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_companies_count
+msgid "Omaduse Andmebaasis organisatsioone (preview_companies_count) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_companies_count_comment
+msgid "Omaduse Andmebaasis organisatsioone (preview_companies_count) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_companies_count_help
+msgid "Omaduse Andmebaasis organisatsioone (preview_companies_count) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_companies_table
+msgid "Omaduse  (preview_companies_table) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_companies_table_comment
+msgid "Omaduse  (preview_companies_table) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_companies_table_help
+msgid "Omaduse  (preview_companies_table) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_persons_count
+msgid "Omaduse Andmebaasis isikuid (preview_persons_count) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_persons_count_comment
+msgid "Omaduse Andmebaasis isikuid (preview_persons_count) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_persons_count_help
+msgid "Omaduse Andmebaasis isikuid (preview_persons_count) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_persons_table
+msgid "Omaduse  (preview_persons_table) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_persons_table_comment
+msgid "Omaduse  (preview_persons_table) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_persons_table_help
+msgid "Omaduse  (preview_persons_table) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_positions_count_before
+msgid "Omaduse Esialgses db's ameteid kokku (preview_positions_count_before) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_positions_count_before_comment
+msgid "Omaduse Esialgses db's ameteid kokku (preview_positions_count_before) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_positions_count_before_help
+msgid "Omaduse Esialgses db's ameteid kokku (preview_positions_count_before) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_positions_count_after
+msgid "Omaduse Unikaalseid (aw'sse imporditavaid) (preview_positions_count_after) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_positions_count_after_comment
+msgid "Omaduse Unikaalseid (aw'sse imporditavaid) (preview_positions_count_after) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_positions_count_after_help
+msgid "Omaduse Unikaalseid (aw'sse imporditavaid) (preview_positions_count_after) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_positions_table
+msgid "Omaduse  (preview_positions_table) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_positions_table_comment
+msgid "Omaduse  (preview_positions_table) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_preview_positions_table_help
+msgid "Omaduse  (preview_positions_table) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_debug_persons_table
+msgid "Omaduse  (debug_persons_table) caption"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_debug_persons_table_comment
+msgid "Omaduse  (debug_persons_table) kommentaar"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:prop_debug_persons_table_help
+msgid "Omaduse  (debug_persons_table) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_preview
+msgid "Grupi Preview (preview) pealkiri"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_preview_help
+msgid "Grupi Preview (preview) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_preview_companies
+msgid "Grupi Organisatsioonid (preview_companies) pealkiri"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_preview_companies_help
+msgid "Grupi Organisatsioonid (preview_companies) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_preview_persons
+msgid "Grupi Isikud (preview_persons) pealkiri"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_preview_persons_help
+msgid "Grupi Isikud (preview_persons) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_preview_positions
+msgid "Grupi Ametid (preview_positions) pealkiri"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_preview_positions_help
+msgid "Grupi Ametid (preview_positions) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_debug
+msgid "Grupi Debug (debug) pealkiri"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:group_debug_help
+msgid "Grupi Debug (debug) help"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:rel_RELTYPE_IMPORTFOLDER
+msgid "Seose Impordi kaust (RELTYPE_IMPORTFOLDER) tekst"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2116 classes/import/aiesecimport.aw:2817
+#: classes/import/aiesecimport.aw:2955
+msgid "Id"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2124 classes/import/aiesecimport.aw:2825
+msgid "Nimi"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2832
+msgid "Aadress"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2839
+msgid "Posti i."
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2846
+msgid "Linn"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2853
+msgid "Url"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2860
+msgid "email"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2867
+msgid "Kontakt"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2874 classes/import/aiesecimport.aw:3005
+msgid "Töötelefon1"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2881 classes/import/aiesecimport.aw:3012
+msgid "Töötelefon2"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2888 classes/import/aiesecimport.aw:3019
+msgid "Mob1"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2895 classes/import/aiesecimport.aw:3026
+msgid "Mob2"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2904
+msgid "Tegevuse kirjeldus"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2963
+msgid "Eesnimi"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2970
+msgid "Perenimi"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2977
+msgid "Firma"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2984
+msgid "Email"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2991
+msgid "URL"
+msgstr ""
+
+#: classes/import/aiesecimport.aw:2998
+msgid "Siit v6tame telefonid"
+msgstr ""

@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/admin/config/config_aw_document_template.aw:class_252_help
+msgid "Klassi Dokumendi Template help"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_type
+msgid "Omaduse Template t&uuml;&uuml;p (type) caption"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_type_comment
+msgid "Omaduse Template t&uuml;&uuml;p (type) kommentaar"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_type_help
+msgid "Omaduse Template t&uuml;&uuml;p (type) help"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_filename
+msgid "Omaduse Template fail (filename) caption"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_filename_comment
+msgid "Omaduse Template fail (filename) kommentaar"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_filename_help
+msgid "Omaduse Template fail (filename) help"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_t_id
+msgid "Omaduse  (t_id) caption"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_t_id_comment
+msgid "Omaduse  (t_id) kommentaar"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_t_id_help
+msgid "Omaduse  (t_id) help"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_t_name
+msgid "Omaduse  (t_name) caption"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_t_name_comment
+msgid "Omaduse  (t_name) kommentaar"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_t_name_help
+msgid "Omaduse  (t_name) help"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_t_site_id
+msgid "Omaduse  (t_site_id) caption"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_t_site_id_comment
+msgid "Omaduse  (t_site_id) kommentaar"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_t_site_id_help
+msgid "Omaduse  (t_site_id) help"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_source_html
+msgid "Omaduse L&auml;htekood (source_html) caption"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_source_html_comment
+msgid "Omaduse L&auml;htekood (source_html) kommentaar"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:prop_source_html_help
+msgid "Omaduse L&auml;htekood (source_html) help"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:group_grp_source
+msgid "Grupi L&auml;htekood (grp_source) pealkiri"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:group_grp_source_help
+msgid "Grupi L&auml;htekood (grp_source) help"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:45
+msgid "Lead"
+msgstr ""
+
+#: classes/admin/config/config_aw_document_template.aw:46
+msgid "Vaatamine"
+msgstr ""

@@ -1,0 +1,53 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_deal" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="class_base">
+		<action name="customer_autocomplete_source">
+			<function name="customer_autocomplete_source">
+				<arguments>
+					<optional name="customer_awAutoCompleteTextbox" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="project_autocomplete_source">
+			<function name="project_autocomplete_source">
+				<arguments>
+					<optional name="customer_awAutoCompleteTextbox" />
+					<optional name="project_awAutoCompleteTextbox" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="task_autocomplete_source">
+			<function name="task_autocomplete_source">
+				<arguments>
+					<optional name="customer_awAutoCompleteTextbox" />
+					<optional name="project_awAutoCompleteTextbox" />
+					<optional name="task_awAutoCompleteTextbox" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_files">
+			<function name="delete_files">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_file" all_args="1">
+			<function name="add_file">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_files">
+			<function name="save_files">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

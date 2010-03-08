@@ -1,0 +1,6 @@
+aw_unserialize($string)
+
+Unserializes the string created by aw_serialize, attempts to discover the serializer
+used from the beginning of the string and usually does quite adequate job at it.
+
+Returns: unserialized array.

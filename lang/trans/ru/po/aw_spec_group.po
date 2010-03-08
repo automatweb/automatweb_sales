@@ -1,0 +1,75 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/aw_spec/aw_spec_group.aw:class_1426_help
+msgid "Klassi AW Spetsifikatsiooni grupp help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:prop_use_cases
+msgid "Omaduse  (use_cases) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:prop_use_cases_comment
+msgid "Omaduse  (use_cases) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:prop_use_cases_help
+msgid "Omaduse  (use_cases) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:group_use_cases
+msgid "Grupi Kasutuslood (use_cases) pealkiri"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:group_use_cases_help
+msgid "Grupi Kasutuslood (use_cases) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:rel_RELTYPE_USE_CASE
+msgid "Seose Kasutuslugu (RELTYPE_USE_CASE) tekst"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:37
+msgid "Sisesta klassi %s grupi %s layoudid"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:74
+#: classes/applications/aw_spec/aw_spec_group.aw:102
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:86
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:90
+msgid "Layoudi nimi"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:94
+msgid "Layoudi t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:98
+msgid "Layoudi parent"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:109
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:171
+msgid "Layout: %s"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_group.aw:172
+msgid "Parent: %s , t&uuml;&uuml;p: %s"
+msgstr ""

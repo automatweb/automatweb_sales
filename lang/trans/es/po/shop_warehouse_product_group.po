@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:class_1045_help
+msgid "Klassi Tootegrupp help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_percent
+msgid "Omaduse Katte % (percent) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_percent_comment
+msgid "Omaduse Katte % (percent) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_percent_help
+msgid "Omaduse Katte % (percent) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_search_name
+msgid "Omaduse Nimetus (search_name) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_search_name_comment
+msgid "Omaduse Nimetus (search_name) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_search_name_help
+msgid "Omaduse Nimetus (search_name) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_search_code
+msgid "Omaduse Kood (search_code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_search_code_comment
+msgid "Omaduse Kood (search_code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_search_code_help
+msgid "Omaduse Kood (search_code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_search_result_table
+msgid "Omaduse Otsingu tulemused (search_result_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_search_result_table_comment
+msgid "Omaduse Otsingu tulemused (search_result_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_search_result_table_help
+msgid "Omaduse Otsingu tulemused (search_result_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_products_table
+msgid "Omaduse Grupis olevad tooted (products_table) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_products_table_comment
+msgid "Omaduse Grupis olevad tooted (products_table) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:prop_products_table_help
+msgid "Omaduse Grupis olevad tooted (products_table) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:group_products
+msgid "Grupi Tooted (products) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:group_products_help
+msgid "Grupi Tooted (products) help"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:rel_RELTYPE_PRODUCT
+msgid "Seose Toode (RELTYPE_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:119 classes/applications/shop/shop_warehouse_product_group.aw:142
+msgid "Tootekood"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:123 classes/applications/shop/shop_warehouse_product_group.aw:146
+msgid "Ribakood"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:127 classes/applications/shop/shop_warehouse_product_group.aw:150
+msgid "Nimetus"
+msgstr ""
+
+#: classes/applications/shop/shop_warehouse_product_group.aw:131 classes/applications/shop/shop_warehouse_product_group.aw:154
+msgid "Vali"
+msgstr ""
+

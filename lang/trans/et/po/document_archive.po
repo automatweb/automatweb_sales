@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/archive/document_archive.aw:class_313_help
+#: classes/contentmgmt/archive/document_archive.aw:class_313_help
+msgid "Klassi Dokumendiarhiiv help"
+msgstr ""
+
+# classes/contentmgmt/archive/document_archive.aw:prop_date_format
+#: classes/contentmgmt/archive/document_archive.aw:prop_date_format
+msgid "Omaduse Kuupäeva formaat (date_format) caption"
+msgstr ""
+
+# classes/contentmgmt/archive/document_archive.aw:prop_date_format_comment
+#: classes/contentmgmt/archive/document_archive.aw:prop_date_format_comment
+msgid "Omaduse Kuupäeva formaat (date_format) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/archive/document_archive.aw:prop_date_format_help
+#: classes/contentmgmt/archive/document_archive.aw:prop_date_format_help
+msgid "Omaduse Kuupäeva formaat (date_format) help"
+msgstr ""
+
+# classes/contentmgmt/archive/document_archive.aw:prop_contents
+#: classes/contentmgmt/archive/document_archive.aw:prop_contents
+msgid "Omaduse Test (contents) caption"
+msgstr ""
+
+# classes/contentmgmt/archive/document_archive.aw:prop_contents_comment
+#: classes/contentmgmt/archive/document_archive.aw:prop_contents_comment
+msgid "Omaduse Test (contents) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/archive/document_archive.aw:prop_contents_help
+#: classes/contentmgmt/archive/document_archive.aw:prop_contents_help
+msgid "Omaduse Test (contents) help"
+msgstr ""
+
+# classes/contentmgmt/archive/document_archive.aw:group_test
+#: classes/contentmgmt/archive/document_archive.aw:group_test
+msgid "Grupi Test (test) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/archive/document_archive.aw:group_test_help
+#: classes/contentmgmt/archive/document_archive.aw:group_test_help
+msgid "Grupi Test (test) help"
+msgstr ""
+
+# classes/contentmgmt/archive/document_archive.aw:rel_RELTYPE_SOURCE
+#: classes/contentmgmt/archive/document_archive.aw:rel_RELTYPE_SOURCE
+msgid "Seose Võta dokumente (RELTYPE_SOURCE) tekst"
+msgstr ""

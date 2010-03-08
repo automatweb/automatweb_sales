@@ -1,0 +1,130 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/protocols/file/ftp.aw:class_195_help
+msgid "Klassi FTP sissep&auml;&auml;s help"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_server
+msgid "Omaduse Server (server) caption"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_server_comment
+msgid "Omaduse Server (server) kommentaar"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_server_help
+msgid "Omaduse Server (server) help"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_username
+msgid "Omaduse Kasutajanimi (username) caption"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_username_comment
+msgid "Omaduse Kasutajanimi (username) kommentaar"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_username_help
+msgid "Omaduse Kasutajanimi (username) help"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_password
+msgid "Omaduse Parool (password) caption"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_password_comment
+msgid "Omaduse Parool (password) kommentaar"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_password_help
+msgid "Omaduse Parool (password) help"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_default_folder
+msgid "Omaduse Vaikimisi kataloog (default_folder) caption"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_default_folder_comment
+msgid "Omaduse Vaikimisi kataloog (default_folder) kommentaar"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_default_folder_help
+msgid "Omaduse Vaikimisi kataloog (default_folder) help"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_ftp_tree
+msgid "Omaduse  (ftp_tree) caption"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_ftp_tree_comment
+msgid "Omaduse  (ftp_tree) kommentaar"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_ftp_tree_help
+msgid "Omaduse  (ftp_tree) help"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_ftp_table
+msgid "Omaduse  (ftp_table) caption"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_ftp_table_comment
+msgid "Omaduse  (ftp_table) kommentaar"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:prop_ftp_table_help
+msgid "Omaduse  (ftp_table) help"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:group_browser
+msgid "Grupi Brauser (browser) pealkiri"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:group_browser_help
+msgid "Grupi Brauser (browser) help"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:layout_tree_layout
+msgid "Kujundusosa Kataloogid (tree_layout) pealkiri"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:475
+msgid "Fail"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:481 classes/protocols/file/ftp.aw:594
+msgid "&Otilde;igused"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:486 classes/protocols/file/ftp.aw:595
+msgid "Omanik"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:492 classes/protocols/file/ftp.aw:596
+msgid "Grupp"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:498 classes/protocols/file/ftp.aw:597
+msgid "Suurus"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:505 classes/protocols/file/ftp.aw:593
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:535
+msgid "Failid kataloogis %s"
+msgstr ""
+
+#: classes/protocols/file/ftp.aw:592
+msgid "Nimi"
+msgstr ""

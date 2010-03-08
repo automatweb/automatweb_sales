@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/expp/expp_telli.aw:class_1016_help
+msgid "Klassi Expp telli help"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:281 classes/expp/expp_telli.aw:321 classes/expp/expp_telli.aw:328
+msgid "kuud"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:281 classes/expp/expp_telli.aw:321 classes/expp/expp_telli.aw:328
+msgid "kuu"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:330
+msgid "n&auml;dalat"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:330
+msgid "n&auml;dal"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:332
+msgid "p&auml;eva"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:332
+msgid "p&auml;ev"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:334
+msgid "numbrit"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:334
+msgid "number"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:336
+msgid "aastat"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:336
+msgid "aasta"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:338
+msgid "poolkuud"
+msgstr ""
+
+#: classes/expp/expp_telli.aw:338
+msgid "poolkuu"
+msgstr ""
+

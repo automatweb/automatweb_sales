@@ -1,0 +1,296 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/core/language.aw:class_266_help
+msgid "Klassi S&uuml;steemikeel help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_name
+msgid "Omaduse Nimi (lang_name) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_name_comment
+msgid "Omaduse Nimi (lang_name) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_name_help
+msgid "Omaduse Nimi (lang_name) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_status
+msgid "Omaduse Aktiivne (lang_status) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_status_comment
+msgid "Omaduse Aktiivne (lang_status) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_status_help
+msgid "Omaduse Aktiivne (lang_status) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_show_not_logged
+msgid "Omaduse N&auml;htav v&auml;lja loginud kasutajatele (show_not_logged) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_show_not_logged_comment
+msgid "Omaduse N&auml;htav v&auml;lja loginud kasutajatele (show_not_logged) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_show_not_logged_help
+msgid "Omaduse N&auml;htav v&auml;lja loginud kasutajatele (show_not_logged) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_show_logged
+msgid "Omaduse N&auml;htav sisse loginud kasutajatele (show_logged) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_show_logged_comment
+msgid "Omaduse N&auml;htav sisse loginud kasutajatele (show_logged) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_show_logged_help
+msgid "Omaduse N&auml;htav sisse loginud kasutajatele (show_logged) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_show_others
+msgid "Omaduse N&auml;htav muudele applikatsioonidele (show_others) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_show_others_comment
+msgid "Omaduse N&auml;htav muudele applikatsioonidele (show_others) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_show_others_help
+msgid "Omaduse N&auml;htav muudele applikatsioonidele (show_others) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_sel_lang
+msgid "Omaduse Keel (lang_sel_lang) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_sel_lang_comment
+msgid "Omaduse Keel (lang_sel_lang) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_sel_lang_help
+msgid "Omaduse Keel (lang_sel_lang) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_charset
+msgid "Omaduse Charset (lang_charset) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_charset_comment
+msgid "Omaduse Charset (lang_charset) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_charset_help
+msgid "Omaduse Charset (lang_charset) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_acceptlang
+msgid "Omaduse Keele kood (lang_acceptlang) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_acceptlang_comment
+msgid "Omaduse Keele kood (lang_acceptlang) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_acceptlang_help
+msgid "Omaduse Keele kood (lang_acceptlang) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_site_id
+msgid "Omaduse Saidid kus keel on valitav (lang_site_id) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_site_id_comment
+msgid "Omaduse Saidid kus keel on valitav (lang_site_id) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_site_id_help
+msgid "Omaduse Saidid kus keel on valitav (lang_site_id) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_db_lang_id
+msgid "Omaduse Keele ID (db_lang_id) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_db_lang_id_comment
+msgid "Omaduse Keele ID (db_lang_id) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_db_lang_id_help
+msgid "Omaduse Keele ID (db_lang_id) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_trans_msg
+msgid "Omaduse T&otilde;lkimata sisu teade (lang_trans_msg) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_trans_msg_comment
+msgid "Omaduse T&otilde;lkimata sisu teade (lang_trans_msg) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_trans_msg_help
+msgid "Omaduse T&otilde;lkimata sisu teade (lang_trans_msg) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_img
+msgid "Omaduse Keele pilt (lang_img) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_img_comment
+msgid "Omaduse Keele pilt (lang_img) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_img_help
+msgid "Omaduse Keele pilt (lang_img) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_img_act
+msgid "Omaduse Aktiivse keele pilt (lang_img_act) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_img_act_comment
+msgid "Omaduse Aktiivse keele pilt (lang_img_act) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_img_act_help
+msgid "Omaduse Aktiivse keele pilt (lang_img_act) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_fp_text
+msgid "Omaduse Esilehe nimi (fp_text) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_fp_text_comment
+msgid "Omaduse Esilehe nimi (fp_text) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_fp_text_help
+msgid "Omaduse Esilehe nimi (fp_text) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_group
+msgid "Omaduse Grupp (lang_group) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_group_comment
+msgid "Omaduse Grupp (lang_group) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_lang_group_help
+msgid "Omaduse Grupp (lang_group) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_temp_redir_url
+msgid "Omaduse Ajutine AW-v&auml;line aadress sisse logimata kasutajatele (temp_redir_url) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_temp_redir_url_comment
+msgid "Omaduse Ajutine AW-v&auml;line aadress sisse logimata kasutajatele (temp_redir_url) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_temp_redir_url_help
+msgid "Omaduse Ajutine AW-v&auml;line aadress sisse logimata kasutajatele (temp_redir_url) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_langs
+msgid "Omaduse Keeled (langs) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_langs_comment
+msgid "Omaduse Keeled (langs) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_langs_help
+msgid "Omaduse Keeled (langs) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_texts
+msgid "Omaduse  (texts) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_texts_comment
+msgid "Omaduse  (texts) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_texts_help
+msgid "Omaduse  (texts) help"
+msgstr ""
+
+#: classes/core/language.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/core/language.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/core/language.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/core/language.aw:group_langs
+msgid "Grupi K&otilde;ik keeled (langs) pealkiri"
+msgstr ""
+
+#: classes/core/language.aw:group_langs_help
+msgid "Grupi K&otilde;ik keeled (langs) help"
+msgstr ""
+
+#: classes/core/language.aw:group_texts
+msgid "Grupi Tekstid (texts) pealkiri"
+msgstr ""
+
+#: classes/core/language.aw:group_texts_help
+msgid "Grupi Tekstid (texts) help"
+msgstr ""
+
+#: classes/core/language.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/core/language.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/core/language.aw:rel_RELTYPE_IMAGE
+msgid "Seose pilt (RELTYPE_IMAGE) tekst"
+msgstr ""
+
+#: classes/core/language.aw:100
+msgid "siit"
+msgstr ""
+
+#: classes/core/language.aw:274
+msgid "Keel"
+msgstr ""
+
+#: classes/core/language.aw:279
+msgid "Staatus"
+msgstr ""
+
+#: classes/core/language.aw:284
+msgid "Valitud"
+msgstr ""
+
+#: classes/core/language.aw:328
+msgid "Muutuja nimi"
+msgstr ""
+
+#: classes/core/language.aw:333
+msgid "Muutuja v&auml;&auml;rtus"
+msgstr ""
+

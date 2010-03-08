@@ -1,0 +1,149 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/crm/crm_profession.aw:class_220_help
+#: classes/crm/crm_profession.aw:class_220_help
+msgid "Klassi Ametinimetus help"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_ext_id
+msgid "Omaduse Siduss&uuml;steemi ID (ext_id) caption"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_ext_id_comment
+msgid "Omaduse Siduss&uuml;steemi ID (ext_id) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_ext_id_help
+msgid "Omaduse Siduss&uuml;steemi ID (ext_id) help"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_hr_price
+msgid "Omaduse Tunnihind (hr_price) caption"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_hr_price_comment
+msgid "Omaduse Tunnihind (hr_price) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_hr_price_help
+msgid "Omaduse Tunnihind (hr_price) help"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_jrk
+msgid "Omaduse J&auml;rk (jrk) caption"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_jrk_comment
+msgid "Omaduse J&auml;rk (jrk) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_jrk_help
+msgid "Omaduse J&auml;rk (jrk) help"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_directive_link
+msgid "Omaduse Viit ametijuhendile (directive_link) caption"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_directive_link_comment
+msgid "Omaduse Viit ametijuhendile (directive_link) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_directive_link_help
+msgid "Omaduse Viit ametijuhendile (directive_link) help"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_directive
+msgid "Omaduse Ametijuhend (directive) caption"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_directive_comment
+msgid "Omaduse Ametijuhend (directive) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_directive_help
+msgid "Omaduse Ametijuhend (directive) help"
+msgstr ""
+
+# classes/crm/crm_profession.aw:prop_name_in_plural
+#: classes/crm/crm_profession.aw:prop_name_in_plural
+msgid "Omaduse Nimi mitmuses (name_in_plural) caption"
+msgstr ""
+
+# classes/crm/crm_profession.aw:prop_name_in_plural_comment
+#: classes/crm/crm_profession.aw:prop_name_in_plural_comment
+msgid "Omaduse Nimi mitmuses (name_in_plural) kommentaar"
+msgstr ""
+
+# classes/crm/crm_profession.aw:prop_name_in_plural_help
+#: classes/crm/crm_profession.aw:prop_name_in_plural_help
+msgid "Omaduse Nimi mitmuses (name_in_plural) help"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_skills
+msgid "Omaduse P&auml;devused (skills) caption"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_skills_comment
+msgid "Omaduse P&auml;devused (skills) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_skills_help
+msgid "Omaduse P&auml;devused (skills) help"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:group_trans
+msgid "Grupi T&otilde;lkimine (trans) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:group_trans_help
+msgid "Grupi T&otilde;lkimine (trans) help"
+msgstr ""
+
+# classes/crm/crm_profession.aw:rel_RELTYPE_SIMILARPROFESSION
+#: classes/crm/crm_profession.aw:rel_RELTYPE_SIMILARPROFESSION
+msgid "Seose Sarnane amet (RELTYPE_SIMILARPROFESSION) tekst"
+msgstr ""
+
+# classes/crm/crm_profession.aw:rel_RELTYPE_GROUP
+#: classes/crm/crm_profession.aw:rel_RELTYPE_GROUP
+msgid "Seose grupp (RELTYPE_GROUP) tekst"
+msgstr ""
+
+# classes/crm/crm_profession.aw:rel_RELTYPE_DESC_FILE
+#: classes/crm/crm_profession.aw:rel_RELTYPE_DESC_FILE
+msgid "Seose Ametijuhend (RELTYPE_DESC_FILE) tekst"
+msgstr ""
+
+#: classes/crm/crm_profession.aw:rel_RELTYPE_SKILL
+msgid "Seose Oskus (RELTYPE_SKILL) tekst"
+msgstr ""

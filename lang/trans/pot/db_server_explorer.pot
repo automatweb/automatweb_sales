@@ -1,0 +1,212 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:class_151_help
+msgid "Klassi DB Server explorer help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_conf
+msgid "Omaduse Vali konfiguratsioon (conf) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_conf_comment
+msgid "Omaduse Vali konfiguratsioon (conf) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_conf_help
+msgid "Omaduse Vali konfiguratsioon (conf) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_ex_toolbar
+msgid "Omaduse  (ex_toolbar) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_ex_toolbar_comment
+msgid "Omaduse  (ex_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_ex_toolbar_help
+msgid "Omaduse  (ex_toolbar) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_tree
+msgid "Omaduse  (tree) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_tree_comment
+msgid "Omaduse  (tree) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_tree_help
+msgid "Omaduse  (tree) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_content
+msgid "Omaduse  (content) caption"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_content_comment
+msgid "Omaduse  (content) kommentaar"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:prop_content_help
+msgid "Omaduse  (content) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:group_explorer
+msgid "Grupi Explorer (explorer) pealkiri"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:group_explorer_help
+msgid "Grupi Explorer (explorer) help"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:rel_RELTYPE_CONF
+msgid "Seose konfiguratsioon (RELTYPE_CONF) tekst"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:rel_RELTYPE_SQL
+msgid "Seose p&auml;ringute objekt (RELTYPE_SQL) tekst"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:rel_RELTYPE_ADMIN
+msgid "Seose administreerimise objekt (RELTYPE_ADMIN) tekst"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:layout_tree_box
+msgid "Kujundusosa Serverid (tree_box) pealkiri"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:94
+msgid "Konfiguratsioon"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:186
+msgid "Muutuja"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:191
+msgid "V&auml;&auml;rtus"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:203
+msgid "Serveri %s info"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:256
+msgid "Andmebaasi %s\\%s tabelite info"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:283
+msgid "| vaata: %s / %s / %s / %s / %s"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:286
+msgid "Struktuur"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:290
+msgid "Indeksid"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:294
+msgid "Sisu"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:303
+msgid "SQL"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:313
+msgid "Administreeri"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:350 classes/applications/awmyadmin/db_server_explorer.aw:397 classes/applications/awmyadmin/db_server_explorer.aw:474
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:351 classes/applications/awmyadmin/db_server_explorer.aw:479
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:352
+msgid "Attribuudid"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:353 classes/applications/awmyadmin/db_server_explorer.aw:493
+msgid "NULL"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:354
+msgid "Default"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:355
+msgid "Muuda"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:356
+msgid "Vali"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:373
+msgid "Tabeli %s\\%s\\%s struktuur"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:387
+msgid "Tabeli %s\\%s\\%s sisu"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:398
+msgid "Tulba nimi"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:399
+msgid "Unikaalne"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:412
+msgid "Tabeli %s\\%s\\%s indeksid"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:431
+msgid "Tagasi"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:443 classes/applications/awmyadmin/db_server_explorer.aw:510
+msgid "Lisa tabel"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:451
+msgid "Tabeli andmed"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:456
+msgid "Tabeli nimi"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:464
+msgid "Primaarv&otilde;tme andmed"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:487
+msgid "Pikkus"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:498
+msgid "Vaikimisi"
+msgstr ""
+
+#: classes/applications/awmyadmin/db_server_explorer.aw:503
+msgid "Extra"
+msgstr ""
+

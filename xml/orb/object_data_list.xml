@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="object_data_list" folder="www/automatweb_cvs/classes/core/obj" extends="">
+		<action name="object_data_list">
+			<function name="object_data_list">
+				<arguments>
+					< name="params" />
+					< name="props" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

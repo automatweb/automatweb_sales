@@ -1,0 +1,166 @@
+Saidi men&uuml;&uuml;piirkondade root kataloogid tuleb k&otilde;igepealt defineerida saidi aw.ini failis.
+
+s&uuml;ntaks: menuedit.menu_defs[men&uuml;&uuml;piirkonna rootkataloogi id] = MEN&Uuml;&Uuml;PIIRKONNA_NIMI
+
+menuedit.menu_defs[13] = YLEMINE
+menuedit.menu_defs[16] = VASAK
+menuedit.menu_defs[20] = LOGGED
+
+
+K&otilde;ige lihtsama men&uuml;&uuml; piirkonna kirjeldamine template failis n&auml;eb v&auml;lja nii...
+
+#code#
+
+<!-- SUB: MENU_YLEMINE_L1_ITEM -->
+      <a href="{VAR:link}" {VAR:target}>{VAR:text}</a>
+<!-- END SUB: MENU_YLEMINE_L1_ITEM -->
+
+#/code#
+
+YLEMINE , subis on men&uuml;&uuml;piirkonna nimi , mis on m&auml;&auml;ratud ini failis.
+
+
+----
+
+Men&uuml;&uuml; tase m&auml;&auml;ratakse SUBis men&uuml;&uuml; nime j&auml;rgi VASAK_L1, peataseme men&uuml;&uuml;, VASAK_L2 teise taseme men&uuml;&uuml; jne.
+
+Juhul kui on vaja, et 2 taseme men&uuml;&uuml; ilmub esimese taseme men&uuml;&uuml;elementide vahele ,siist tuleb see panna esimese taseme valitud men&uuml;&uuml;elemendi sisse. 
+
+<b>N&auml;ide:</b> 
+#code#
+<!-- SUB: MENU_VASAK_L1_ITEM_SEL -->
+	<a href="{VAR:link}" {VAR:target}>{VAR:text}</a>
+	<!-- SUB: MENU_VASAK_L2_ITEM -->
+		<a href="{VAR:link}" {VAR:target}>{VAR:text}</a>
+	<!-- END SUB: MENU_VASAK_L2_ITEM -->
+<!-- END SUB: MENU_VASAK_L1_ITEM_SEL -->
+#/code#
+
+
+---
+
+Login men&uuml;&uuml; on men&uuml;&uuml;piirkond, mida n&auml;idatakse ainult sisseloginud kasutajatele.
+#code#
+Login men&uuml;&uuml;piirkond kirjeldatakse subide <!-- SUB: logged -->
+ja <!-- END SUB: logged --> vahele. 
+#/code#
+
+
+<b>N&auml;ide</b>
+#code#
+<!-- SUB: logged -->
+
+<!-- SUB: MENU_LOGGED_L1_ITEM -->		
+<a href="{VAR:link}" {VAR:target}>{VAR:text}</a><br />
+<!-- END SUB: MENU_LOGGED_L1_ITEM -->
+
+<!-- END SUB: logged -->
+#/code#
+
+Login men&uuml;&uuml;de kirjeldamisel kehtivad k&otilde;ik samad reeglid, mis tavaliste men&uuml;&uuml;de puhul. Subid BEGIN, END, SEL, BEGIN_SEL, END_SEL jne... kehtivad ka siin. 
+
+Men&uuml;&uuml;piirkond logged peab olema defineeritud ka saidi aw.ini failis nagu ka tavalise men&uuml;&uuml; puhul. Erinevatele kasutajagruppidele on v&otilde;imalik teha erinevaid men&uuml;&uuml;sid. Selleks on Adminnis programm Login men&uuml;&uuml;d. 
+
+--
+
+
+<b>Begin</b>
+
+Juhul kui esimest kausta men&uuml;&uuml;s on vaja n&auml;idata teistest erinevalt, n&auml;iteks esimese kausta eest puudub m&otilde;ni eraldaja siis tuleb esimene kaust kirjeldada eraldi subis mille l&otilde;pus on liide _BEGIN. 
+
+<b>N&auml;ide: </b>
+Teeme nii, et esimese kausta lingi ees poleks p&uuml;stkriipsust eraldajat. 
+
+#code#
+<!-- SUB: MENU_ALUMINE_L1_ITEM_BEGIN --> 
+   <a href="{VAR:link}" {VAR:target}>{VAR:text}</a>
+<!-- END SUB: MENU_ALUMINE_L1_ITEM_BEGIN -->
+
+<!-- SUB: MENU_ALUMINE_L1_ITEM -->
+   | <a href="{VAR:link}" {VAR:target}>{VAR:text}</a>
+<!-- END SUB: MENU_ALUMINE_L1_ITEM -->
+#/code#
+
+
+---
+
+<b>END</b>
+
+Juhul kui viimast kausta men&uuml;&uuml;s on vaja n&auml;idata teistest erinevalt, n&auml;iteks viimase kausta eest j&auml;rel pole eraldajat, siis tuleb viimane kaust kirjeldada eraldi subis mille l&otilde;pus on liide _END. 
+
+<b>N&auml;ide: </b>
+Teeme nii, et viimase kausta lingi j&auml;rel poleks p&uuml;stkriipsust eraldajat. 
+
+#code#
+Kasutades seda subi n&auml;idatakse k&otilde;iki kaustu, v&auml;lja arvatud viimast.
+<!-- SUB: MENU_ALUMINE_L1_ITEM -->
+   <a href="{VAR:link}" {VAR:target}>{VAR:text}</a>|
+<!-- END SUB: MENU_ALUMINE_L1_ITEM -->
+
+Ja selle subiga n&auml;idatakse viimast kausta. 
+<!-- SUB: MENU_ALUMINE_L1_ITEM_END --> 
+   <a href="{VAR:link}" {VAR:target}>{VAR:text}</a>
+<!-- END SUB: MENU_ALUMINE_L1_ITEM_END -->
+#/code#
+
+
+---
+
+<b>Aktiivne men&uuml;&uuml; (ITEM_SEL)</b>
+
+Kui vaja, et  aktiivset kausta men&uuml;&uuml;s n&auml;idataks teistmoodi kui, mitteaktiivset. N&auml;iteks aktiivse men&uuml;&uuml; puhul ei ole kaust link ,siis selleks on subi j&auml;rel liide _SEL. 
+
+
+<b>N&auml;ide</b>
+#code#
+Nii n&auml;itame k&otilde;iki kaustu, mis pole aktiivsed, ega viimased
+<!-- SUB: MENU_YLEMINE_L1_ITEM -->
+	<a href="{VAR:link}" {VAR:target}>{VAR:text}</a>  |
+<!-- END SUB: MENU_YLEMINE_L1_ITEM -->
+
+Nii n&auml;itame kausta, mis on aktiine, kuid mitte viimane kaust
+
+<!-- SUB: MENU_YLEMINE_L1_ITEM_SEL -->
+                {VAR:text}  |
+<!-- END SUB: MENU_YLEMINE_L1_ITEM_SEL -->
+
+Nii n&auml;itame viimast kausta, kui see pole aktiivne
+<!-- SUB: MENU_YLEMINE_L1_ITEM_END -->
+	<a href="{VAR:link}" {VAR:target}>{VAR:text}</a>
+<!-- END SUB: MENU_YLEMINE_L1_ITEM_END -->
+
+Nii n&auml;itame viimast kausta, kui see on aktiivne
+<!-- SUB: MENU_YLEMINE_L1_ITEM_END_SEL -->
+                {VAR:text}
+<!-- END SUB: MENU_YLEMINE_L1_ITEM_END_SEL -->
+#/code#
+
+---
+
+<b>SEP</b>
+
+Kui kausta omaduseks m&auml;&auml;rata , et see on mitteklikkitav saab seda seda templeitides kirjeldada sub'is mille l&otilde;pus on _SEP (tuleb ing.k s&otilde;nast separator e. eraldaja) . Kausta omadust mitteklikkitav saab kasutada sama taseme men&uuml;&uuml;s olevate kaustade vahele eraldaja paigutamiseks(gruppide moodustamiseks). 
+
+<b>N&auml;ide</b>
+#code#
+Selle subiga n&auml;itame tavalisi kaustu
+<!-- SUB: MENU_YLEMINE_L1_ITEM -->
+  <a href="{VAR:link}" {VAR:target}>{VAR:text}</a> |
+<!-- END SUB: MENU_YLEMINE_L1_ITEM -->
+
+Ja selle subiga eraldajaid
+<!-- SUB: MENU_YLEMINE_L1_ITEM_SEP -->
+  <img src="{VAR:baseurl}/eraldaja.gif">
+<!-- END SUB: MENU_YLEMINE_L1_ITEM_SEP -->
+#/code#
+
+
+-----
+
+<b>HAS SUBITEMS - &auml;ra n&auml;ita html-i, kui valitud men&uuml;&uuml;l ei ole alammen&uuml;&uuml;sid</b>
+
+#code#<!-- SUB: HAS_SUBITEMS_PEA_L1_SEL -->#/code#
+
+Siin vahel on html, mida ei tohi n&auml;idata, kui PEA_L1 valitud men&uuml;&uuml; all ei ole &uuml;htegi alammen&uuml;&uuml;d
+
+#code#<!-- END SUB: HAS_SUBITEMS_PEA_L1_SEL -->#/code#

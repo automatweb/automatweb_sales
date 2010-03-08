@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/class_list.aw:class_331_help
+msgid "Klassi Klasside nimekiri help"
+msgstr ""
+
+#: classes/core/class_list.aw:117
+msgid "id"
+msgstr ""
+
+#: classes/core/class_list.aw:123
+msgid "def"
+msgstr ""
+
+#: classes/core/class_list.aw:128
+msgid "name"
+msgstr ""
+
+#: classes/core/class_list.aw:133
+msgid "file"
+msgstr ""
+
+#: classes/core/class_list.aw:138
+msgid "can_add"
+msgstr ""
+
+#: classes/core/class_list.aw:143
+msgid "parents"
+msgstr ""
+
+#: classes/core/class_list.aw:148
+msgid "alias"
+msgstr ""
+
+#: classes/core/class_list.aw:153
+msgid "alias_class"
+msgstr ""
+
+#: classes/core/class_list.aw:158
+msgid "old_alias"
+msgstr ""
+
+#: classes/core/class_list.aw:163
+msgid "is_remoted"
+msgstr ""
+
+#: classes/core/class_list.aw:168
+msgid "subtpl_handler"
+msgstr ""

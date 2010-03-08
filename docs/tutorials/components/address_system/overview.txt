@@ -1,0 +1,98 @@
+<P>
+Aadress on objekt, mis vastab mingile konkreetsele aadressile. Aadressiobj sisaldab ainult k6ige detailsema taseme teavet -- majanumber, korter, PO box jne. Aadressi parent on mingi haldusjaotussysteemi objekt -- t2nav, vald, maakond. Kui midagi t2psemat ei spetsifitseerita, v6ib aadressi parent olla ka riigi haldusjaotuse objekt. Viimane on ka aadressisysteemi puu juurobjekt. Haldusjaotuse struktuur ja jaotiste nimed m22ratakse selle objekti seadetes. Systeem on m6eldud t2iendamiseks t88 k2igus. Kui olemasolevat haldusjaotist ei leita, lisatakse sisestatud nimega vastava taseme jaotis. N2iteks Viimsi valla tasemele, selle maakonna alla mis maakonna taseme jaoks valitud oli. V6ib ka 8elda, et haldusjaotuse struktuuri objektis defineeritud puu on haldusjaotuse struktuuri template'iks. Selle j2rgi teatakse, mida mille alla panna.
+</P>
+
+<H3>Interfeiss:</H3>
+<H4>country_administrative_structure::prop ($param)</H4>
+<P>
+$param = array (
+	"prop" => "units_by_division",
+	"division" => $division,
+);
+@param object/oid division required
+@returns AW object list of admin units of $division under current admin structure
+@comment $division must be of class CL_COUNTRY_ADMINISTRATIVE_DIVISION.
+</P>
+
+
+<H4>address_object::prop ($param)</H4>
+<P>
+$param = array(
+	"prop" => "unit_name",
+	"name" => $name,
+);
+@param string name required
+@returns object First administrative unit corresponding to given name
+</P>
+<P>
+$param = array(
+	"prop" => "unit_encoded",
+);
+@param object/oid division required
+@param object/oid encoding required
+@returns string Encoded value for unit of $division.
+</P>
+
+<P>
+$param = "address_array";
+@returns Associative array: administrative_division_oid => administrative_unit name for all divisions for current address.
+</P>
+
+<P>
+$param = "administrative_structure";
+@returns object
+@comment Loads and returns admin structure object for current address.
+</P>
+
+
+<H4>address_object::set_prop ($name, $param)</H4>
+<P>
+$name = "unit_by_id";
+@param id required
+@param division optional Performance higher if specified.
+@comment Sets administrative unit corresponding to division of given id
+</P>
+
+<P>
+$name = "unit_name";
+@param division required
+@param name required
+@comment Sets administrative unit corresponding to given division (admin division object, oid or ADDRESS_STREET_TYPE). 
+</P>
+
+<P>
+$name = "administrative_structure";
+@param object/oid structure required
+@returns boolean success
+@comment Sets admin structure for current address to $structure.
+</P>
+
+<P>
+$name = "country";
+@param object/oid country required
+@returns boolean success
+@comment Sets country for current address to $country.
+</P>
+
+
+
+<H3>Technical overview</H3>
+
+<H4>terms and definitions</H4>
+
+<DL>
+	<DT>administrative unit (halduspiirkond)</DT>
+	<DD>Specific part of a country's territory</DD>
+
+	<DT>administrative division (haldusüksus)</DT>
+	<DD>a class of administrative units in a country</DD>
+
+	<DT>administrative structure (haldusjaotus)</DT>
+	<DD>definition of the hierarchy of administrative divisions for a country</DD>
+</DL>
+
+<H4>structure</H4>
+
+<P>country->[units->][streets->][addresses] *</P>
+<P>units may be of specific subtype such as city or citydistrict</P>
+<P>* ([] - optional element(s))</P>

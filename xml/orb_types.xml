@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<xml>
+	<attrib>
+		<default></default>
+		<nologin></nologin>
+		<is_public></is_public>
+		<all_args></all_args>
+		<is_content></is_content>
+		<caption></caption>
+		<api></api>
+		<name></name>
+		<params></params>
+	</attrib>
+	
+	<param>
+		<type></type>
+		<class_id></class_id>
+		<acl></acl>
+		<default></default>
+		<value></value>
+		<name></name>
+		<req></req>
+		<comment></comment>
+	</param>
+</xml>

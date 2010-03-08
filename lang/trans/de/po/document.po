@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/document.aw:class_7_help
+msgid "Klassi Dokument help"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:267
+msgid "Viimati muudetud:"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:479
+msgid "<br /><B>Edasi loe ajakirjast!</b></font>"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:509
+msgid "Loe edasi"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:954 classes/contentmgmt/document.aw:1003
+msgid "Vaata lisaks:"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:959 classes/contentmgmt/document.aw:1008
+msgid "Samal teemal:"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:2290
+msgid "Pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:2297
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:2305
+msgid "Autor"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:2848
+msgid ""
+"<font face='arial'>Toimub staatiliste lehtede\tgenereerimine, palun oodake!<br /><br />\n"
+"\n"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:2878
+msgid "Staatilised lehek&uuml;ljed loodud!<br />\n"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:2880
+msgid "tagasi dokumendi muutmise juurde"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3377
+msgid "jaanuar"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3378
+msgid "veebruar"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3379
+msgid "m&auml;rts"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3380
+msgid "aprill"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3381
+msgid "mai"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3382
+msgid "juuni"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3383
+msgid "juuli"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3384
+msgid "august"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3385
+msgid "september"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3386
+msgid "oktoober"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3387
+msgid "november"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3388
+msgid "detsember"
+msgstr ""
+
+#: classes/contentmgmt/document.aw:3395
+msgid "Just postitatud"
+msgstr ""
+
+# classes/document.aw:group_general
+#~ msgid "Omaduse Nimi (name) caption"
+#~ msgstr "Name"

@@ -1,0 +1,41 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>description</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textarea</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Rolli kirjeldus</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_ACTOR</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <general>
+                  <caption>&amp;Uuml;ldine</caption>
+            </general>
+      </groupinfo>
+      <reltypes>
+            <INSTRUCTION>
+                  <clid>
+                        <num_0>CL_IMAGE</num_0>
+                        <num_1>CL_FILE</num_1>
+                  </clid>
+                  <value>1</value>
+                  <caption>instruktsioon</caption>
+            </INSTRUCTION>
+      </reltypes>
+</properties>
+

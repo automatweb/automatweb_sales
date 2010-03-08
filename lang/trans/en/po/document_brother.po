@@ -1,0 +1,932 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/document_brother.aw:class_40_help
+#: classes/contentmgmt/document_brother.aw:class_40_help
+msgid "Klassi Dokument(vend) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_needs_translation
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_needs_translation_comment
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_needs_translation_help
+msgid "Omaduse Vajab t&otilde;lget (needs_translation) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_navtoolbar
+#: classes/contentmgmt/document_brother.aw:prop_navtoolbar
+msgid "Omaduse Toolbar (navtoolbar) caption"
+msgstr "Toolbar"
+
+# classes/document_brother.aw:prop_navtoolbar_comment
+#: classes/contentmgmt/document_brother.aw:prop_navtoolbar_comment
+msgid "Omaduse Toolbar (navtoolbar) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_navtoolbar_help
+#: classes/contentmgmt/document_brother.aw:prop_navtoolbar_help
+msgid "Omaduse Toolbar (navtoolbar) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_active
+#: classes/contentmgmt/document_brother.aw:prop_active
+msgid "Omaduse Aktiivne (active) caption"
+msgstr "Active"
+
+# classes/document_brother.aw:prop_active_comment
+#: classes/contentmgmt/document_brother.aw:prop_active_comment
+msgid "Omaduse Aktiivne (active) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_active_help
+#: classes/contentmgmt/document_brother.aw:prop_active_help
+msgid "Omaduse Aktiivne (active) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_nobreaks
+#: classes/contentmgmt/document_brother.aw:prop_nobreaks
+msgid "Omaduse  (nobreaks) caption"
+msgstr ""
+
+# classes/document_brother.aw:prop_nobreaks_comment
+#: classes/contentmgmt/document_brother.aw:prop_nobreaks_comment
+msgid "Omaduse  (nobreaks) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_nobreaks_help
+#: classes/contentmgmt/document_brother.aw:prop_nobreaks_help
+msgid "Omaduse  (nobreaks) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_plugins
+#: classes/contentmgmt/document_brother.aw:prop_plugins
+msgid "Omaduse Pluginad (plugins) caption"
+msgstr "Plugins"
+
+# classes/document_brother.aw:prop_plugins_comment
+#: classes/contentmgmt/document_brother.aw:prop_plugins_comment
+msgid "Omaduse Pluginad (plugins) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_plugins_help
+#: classes/contentmgmt/document_brother.aw:prop_plugins_help
+msgid "Omaduse Pluginad (plugins) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_title
+#: classes/contentmgmt/document_brother.aw:prop_title
+msgid "Omaduse Pealkiri (title) caption"
+msgstr "Title"
+
+# classes/document_brother.aw:prop_title_comment
+#: classes/contentmgmt/document_brother.aw:prop_title_comment
+msgid "Omaduse Pealkiri (title) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_title_help
+#: classes/contentmgmt/document_brother.aw:prop_title_help
+msgid "Omaduse Pealkiri (title) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_subtitle
+#: classes/contentmgmt/document_brother.aw:prop_subtitle
+msgid "Omaduse Alapealkiri (subtitle) caption"
+msgstr "Subtitle"
+
+# classes/document_brother.aw:prop_subtitle_comment
+#: classes/contentmgmt/document_brother.aw:prop_subtitle_comment
+msgid "Omaduse Alapealkiri (subtitle) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_subtitle_help
+#: classes/contentmgmt/document_brother.aw:prop_subtitle_help
+msgid "Omaduse Alapealkiri (subtitle) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_author
+#: classes/contentmgmt/document_brother.aw:prop_author
+msgid "Omaduse Autor (author) caption"
+msgstr "Author"
+
+# classes/document_brother.aw:prop_author_comment
+#: classes/contentmgmt/document_brother.aw:prop_author_comment
+msgid "Omaduse Autor (author) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_author_help
+#: classes/contentmgmt/document_brother.aw:prop_author_help
+msgid "Omaduse Autor (author) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_photos
+#: classes/contentmgmt/document_brother.aw:prop_photos
+msgid "Omaduse Fotode autor (photos) caption"
+msgstr "Photo author"
+
+# classes/document_brother.aw:prop_photos_comment
+#: classes/contentmgmt/document_brother.aw:prop_photos_comment
+msgid "Omaduse Fotode autor (photos) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_photos_help
+#: classes/contentmgmt/document_brother.aw:prop_photos_help
+msgid "Omaduse Fotode autor (photos) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_alias
+#: classes/contentmgmt/document_brother.aw:prop_alias
+msgid "Omaduse Alias (alias) caption"
+msgstr "Alias"
+
+# classes/document_brother.aw:prop_alias_comment
+#: classes/contentmgmt/document_brother.aw:prop_alias_comment
+msgid "Omaduse Alias (alias) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_alias_help
+#: classes/contentmgmt/document_brother.aw:prop_alias_help
+msgid "Omaduse Alias (alias) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_keywords
+msgid "Omaduse V&otilde;tmes&otilde;nad (keywords) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_keywords_comment
+msgid "Omaduse V&otilde;tmes&otilde;nad (keywords) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_keywords_help
+msgid "Omaduse V&otilde;tmes&otilde;nad (keywords) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_names
+#: classes/contentmgmt/document_brother.aw:prop_names
+msgid "Omaduse Nimed (names) caption"
+msgstr "Names"
+
+# classes/document_brother.aw:prop_names_comment
+#: classes/contentmgmt/document_brother.aw:prop_names_comment
+msgid "Omaduse Nimed (names) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_names_help
+#: classes/contentmgmt/document_brother.aw:prop_names_help
+msgid "Omaduse Nimed (names) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_lead
+#: classes/contentmgmt/document_brother.aw:prop_lead
+msgid "Omaduse Lead (lead) caption"
+msgstr "Lead"
+
+# classes/document_brother.aw:prop_lead_comment
+#: classes/contentmgmt/document_brother.aw:prop_lead_comment
+msgid "Omaduse Lead (lead) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_lead_help
+#: classes/contentmgmt/document_brother.aw:prop_lead_help
+msgid "Omaduse Lead (lead) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_content
+#: classes/contentmgmt/document_brother.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr "Content"
+
+# classes/document_brother.aw:prop_content_comment
+#: classes/contentmgmt/document_brother.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_content_help
+#: classes/contentmgmt/document_brother.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_moreinfo
+#: classes/contentmgmt/document_brother.aw:prop_moreinfo
+msgid "Omaduse Lisainfo (moreinfo) caption"
+msgstr "Additional info"
+
+# classes/document_brother.aw:prop_moreinfo_comment
+#: classes/contentmgmt/document_brother.aw:prop_moreinfo_comment
+msgid "Omaduse Lisainfo (moreinfo) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_moreinfo_help
+#: classes/contentmgmt/document_brother.aw:prop_moreinfo_help
+msgid "Omaduse Lisainfo (moreinfo) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_link_text
+#: classes/contentmgmt/document_brother.aw:prop_link_text
+msgid "Omaduse URL (link_text) caption"
+msgstr "URL"
+
+# classes/document_brother.aw:prop_link_text_comment
+#: classes/contentmgmt/document_brother.aw:prop_link_text_comment
+msgid "Omaduse URL (link_text) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_link_text_help
+#: classes/contentmgmt/document_brother.aw:prop_link_text_help
+msgid "Omaduse URL (link_text) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_is_forum
+#: classes/contentmgmt/document_brother.aw:prop_is_forum
+msgid "Omaduse Foorum (is_forum) caption"
+msgstr "Forum"
+
+# classes/document_brother.aw:prop_is_forum_comment
+#: classes/contentmgmt/document_brother.aw:prop_is_forum_comment
+msgid "Omaduse Foorum (is_forum) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_is_forum_help
+#: classes/contentmgmt/document_brother.aw:prop_is_forum_help
+msgid "Omaduse Foorum (is_forum) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_showlead
+msgid "Omaduse N&auml;ita leadi (showlead) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_showlead_comment
+msgid "Omaduse N&auml;ita leadi (showlead) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_showlead_help
+msgid "Omaduse N&auml;ita leadi (showlead) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_show_modified
+msgid "Omaduse N&auml;ita muutmise kuup&auml;eva (show_modified) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_show_modified_comment
+msgid "Omaduse N&auml;ita muutmise kuup&auml;eva (show_modified) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_show_modified_help
+msgid "Omaduse N&auml;ita muutmise kuup&auml;eva (show_modified) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_no_right_pane
+#: classes/contentmgmt/document_brother.aw:prop_no_right_pane
+msgid "Omaduse Ilma parema paanita (no_right_pane) caption"
+msgstr "No right pane"
+
+# classes/document_brother.aw:prop_no_right_pane_comment
+#: classes/contentmgmt/document_brother.aw:prop_no_right_pane_comment
+msgid "Omaduse Ilma parema paanita (no_right_pane) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_no_right_pane_help
+#: classes/contentmgmt/document_brother.aw:prop_no_right_pane_help
+msgid "Omaduse Ilma parema paanita (no_right_pane) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_no_left_pane
+#: classes/contentmgmt/document_brother.aw:prop_no_left_pane
+msgid "Omaduse Ilma vasaku paanita (no_left_pane) caption"
+msgstr "No left pane"
+
+# classes/document_brother.aw:prop_no_left_pane_comment
+#: classes/contentmgmt/document_brother.aw:prop_no_left_pane_comment
+msgid "Omaduse Ilma vasaku paanita (no_left_pane) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_no_left_pane_help
+#: classes/contentmgmt/document_brother.aw:prop_no_left_pane_help
+msgid "Omaduse Ilma vasaku paanita (no_left_pane) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_title_clickable
+#: classes/contentmgmt/document_brother.aw:prop_title_clickable
+msgid "Omaduse Pealkiri klikitav (title_clickable) caption"
+msgstr "Title clickable"
+
+# classes/document_brother.aw:prop_title_clickable_comment
+#: classes/contentmgmt/document_brother.aw:prop_title_clickable_comment
+msgid "Omaduse Pealkiri klikitav (title_clickable) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_title_clickable_help
+#: classes/contentmgmt/document_brother.aw:prop_title_clickable_help
+msgid "Omaduse Pealkiri klikitav (title_clickable) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_clear_styles
+msgid "Omaduse T&uuml;hista stiilid (clear_styles) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_clear_styles_comment
+msgid "Omaduse T&uuml;hista stiilid (clear_styles) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_clear_styles_help
+msgid "Omaduse T&uuml;hista stiilid (clear_styles) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_link_keywords
+msgid "Omaduse Lingi v&otilde;tmes&otilde;nad (link_keywords) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_link_keywords_comment
+msgid "Omaduse Lingi v&otilde;tmes&otilde;nad (link_keywords) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_link_keywords_help
+msgid "Omaduse Lingi v&otilde;tmes&otilde;nad (link_keywords) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_esilehel
+#: classes/contentmgmt/document_brother.aw:prop_esilehel
+msgid "Omaduse Esilehel (esilehel) caption"
+msgstr "Frontpage"
+
+# classes/document_brother.aw:prop_esilehel_comment
+#: classes/contentmgmt/document_brother.aw:prop_esilehel_comment
+msgid "Omaduse Esilehel (esilehel) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_esilehel_help
+#: classes/contentmgmt/document_brother.aw:prop_esilehel_help
+msgid "Omaduse Esilehel (esilehel) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_frontpage_left
+#: classes/contentmgmt/document_brother.aw:prop_frontpage_left
+msgid "Omaduse Esilehel tulbas (frontpage_left) caption"
+msgstr "Frontpage column"
+
+# classes/document_brother.aw:prop_frontpage_left_comment
+#: classes/contentmgmt/document_brother.aw:prop_frontpage_left_comment
+msgid "Omaduse Esilehel tulbas (frontpage_left) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_frontpage_left_help
+#: classes/contentmgmt/document_brother.aw:prop_frontpage_left_help
+msgid "Omaduse Esilehel tulbas (frontpage_left) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_dcache
+#: classes/contentmgmt/document_brother.aw:prop_dcache
+msgid "Omaduse Cache otsingu jaoks (dcache) caption"
+msgstr "Cache for search"
+
+# classes/document_brother.aw:prop_dcache_comment
+#: classes/contentmgmt/document_brother.aw:prop_dcache_comment
+msgid "Omaduse Cache otsingu jaoks (dcache) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_dcache_help
+#: classes/contentmgmt/document_brother.aw:prop_dcache_help
+msgid "Omaduse Cache otsingu jaoks (dcache) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_dcache_save
+#: classes/contentmgmt/document_brother.aw:prop_dcache_save
+msgid "Omaduse Cache otsingu jaoks (salvestub) (dcache_save) caption"
+msgstr "Cache for search (saved)"
+
+# classes/document_brother.aw:prop_dcache_save_comment
+#: classes/contentmgmt/document_brother.aw:prop_dcache_save_comment
+msgid "Omaduse Cache otsingu jaoks (salvestub) (dcache_save) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_dcache_save_help
+#: classes/contentmgmt/document_brother.aw:prop_dcache_save_help
+msgid "Omaduse Cache otsingu jaoks (salvestub) (dcache_save) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_dcache_content
+#: classes/contentmgmt/document_brother.aw:prop_dcache_content
+msgid "Omaduse  (dcache_content) caption"
+msgstr ""
+
+# classes/document_brother.aw:prop_dcache_content_comment
+#: classes/contentmgmt/document_brother.aw:prop_dcache_content_comment
+msgid "Omaduse  (dcache_content) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_dcache_content_help
+#: classes/contentmgmt/document_brother.aw:prop_dcache_content_help
+msgid "Omaduse  (dcache_content) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_rating
+#: classes/contentmgmt/document_brother.aw:prop_rating
+msgid "Omaduse  (rating) caption"
+msgstr ""
+
+# classes/document_brother.aw:prop_rating_comment
+#: classes/contentmgmt/document_brother.aw:prop_rating_comment
+msgid "Omaduse  (rating) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_rating_help
+#: classes/contentmgmt/document_brother.aw:prop_rating_help
+msgid "Omaduse  (rating) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_num_ratings
+#: classes/contentmgmt/document_brother.aw:prop_num_ratings
+msgid "Omaduse  (num_ratings) caption"
+msgstr ""
+
+# classes/document_brother.aw:prop_num_ratings_comment
+#: classes/contentmgmt/document_brother.aw:prop_num_ratings_comment
+msgid "Omaduse  (num_ratings) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_num_ratings_help
+#: classes/contentmgmt/document_brother.aw:prop_num_ratings_help
+msgid "Omaduse  (num_ratings) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_show_title
+msgid "Omaduse N&auml;ita pealkirja (show_title) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_show_title_comment
+msgid "Omaduse N&auml;ita pealkirja (show_title) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_show_title_help
+msgid "Omaduse N&auml;ita pealkirja (show_title) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_no_search
+msgid "Omaduse J&auml;ta otsingust v&auml;lja (no_search) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_no_search_comment
+msgid "Omaduse J&auml;ta otsingust v&auml;lja (no_search) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_no_search_help
+msgid "Omaduse J&auml;ta otsingust v&auml;lja (no_search) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_cite
+#: classes/contentmgmt/document_brother.aw:prop_cite
+msgid "Omaduse Tsitaat (cite) caption"
+msgstr "Quote"
+
+# classes/document_brother.aw:prop_cite_comment
+#: classes/contentmgmt/document_brother.aw:prop_cite_comment
+msgid "Omaduse Tsitaat (cite) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_cite_help
+#: classes/contentmgmt/document_brother.aw:prop_cite_help
+msgid "Omaduse Tsitaat (cite) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_tm
+msgid "Omaduse Kuup&auml;ev (tm) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_tm_comment
+msgid "Omaduse Kuup&auml;ev (tm) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_tm_help
+msgid "Omaduse Kuup&auml;ev (tm) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_show_print
+#: classes/contentmgmt/document_brother.aw:prop_show_print
+msgid "Omaduse 'Prindi' nupp (show_print) caption"
+msgstr "'Print' button"
+
+# classes/document_brother.aw:prop_show_print_comment
+#: classes/contentmgmt/document_brother.aw:prop_show_print_comment
+msgid "Omaduse 'Prindi' nupp (show_print) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_show_print_help
+#: classes/contentmgmt/document_brother.aw:prop_show_print_help
+msgid "Omaduse 'Prindi' nupp (show_print) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_sections
+#: classes/contentmgmt/document_brother.aw:prop_sections
+msgid "Omaduse Sektsioonid (sections) caption"
+msgstr "Sections"
+
+# classes/document_brother.aw:prop_sections_comment
+#: classes/contentmgmt/document_brother.aw:prop_sections_comment
+msgid "Omaduse Sektsioonid (sections) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_sections_help
+#: classes/contentmgmt/document_brother.aw:prop_sections_help
+msgid "Omaduse Sektsioonid (sections) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_aliasmgr
+#: classes/contentmgmt/document_brother.aw:prop_aliasmgr
+msgid "Omaduse Aliastehaldur (aliasmgr) caption"
+msgstr "Connection manager"
+
+# classes/document_brother.aw:prop_aliasmgr_comment
+#: classes/contentmgmt/document_brother.aw:prop_aliasmgr_comment
+msgid "Omaduse Aliastehaldur (aliasmgr) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_aliasmgr_help
+#: classes/contentmgmt/document_brother.aw:prop_aliasmgr_help
+msgid "Omaduse Aliastehaldur (aliasmgr) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_start
+#: classes/contentmgmt/document_brother.aw:prop_start
+msgid "Omaduse Algab (kp) (start) caption"
+msgstr "Starts (date)"
+
+# classes/document_brother.aw:prop_start_comment
+#: classes/contentmgmt/document_brother.aw:prop_start_comment
+msgid "Omaduse Algab (kp) (start) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_start_help
+#: classes/contentmgmt/document_brother.aw:prop_start_help
+msgid "Omaduse Algab (kp) (start) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_start1
+#: classes/contentmgmt/document_brother.aw:prop_start1
+msgid "Omaduse Algab  (start1) caption"
+msgstr "Starts"
+
+# classes/document_brother.aw:prop_start1_comment
+#: classes/contentmgmt/document_brother.aw:prop_start1_comment
+msgid "Omaduse Algab  (start1) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_start1_help
+#: classes/contentmgmt/document_brother.aw:prop_start1_help
+msgid "Omaduse Algab  (start1) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_createdby
+#: classes/contentmgmt/document_brother.aw:prop_createdby
+msgid "Omaduse Kes tegi (createdby) caption"
+msgstr "Created by"
+
+# classes/document_brother.aw:prop_createdby_comment
+#: classes/contentmgmt/document_brother.aw:prop_createdby_comment
+msgid "Omaduse Kes tegi (createdby) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_createdby_help
+#: classes/contentmgmt/document_brother.aw:prop_createdby_help
+msgid "Omaduse Kes tegi (createdby) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_user1
+#: classes/contentmgmt/document_brother.aw:prop_user1
+msgid "Omaduse Kasutaja defineeritud 1 (user1) caption"
+msgstr " "
+
+# classes/document_brother.aw:prop_user1_comment
+#: classes/contentmgmt/document_brother.aw:prop_user1_comment
+msgid "Omaduse Kasutaja defineeritud 1 (user1) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_user1_help
+#: classes/contentmgmt/document_brother.aw:prop_user1_help
+msgid "Omaduse Kasutaja defineeritud 1 (user1) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_user2
+#: classes/contentmgmt/document_brother.aw:prop_user2
+msgid "Omaduse Kasutaja defineeritud 2 (user2) caption"
+msgstr " "
+
+# classes/document_brother.aw:prop_user2_comment
+#: classes/contentmgmt/document_brother.aw:prop_user2_comment
+msgid "Omaduse Kasutaja defineeritud 2 (user2) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_user2_help
+#: classes/contentmgmt/document_brother.aw:prop_user2_help
+msgid "Omaduse Kasutaja defineeritud 2 (user2) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_user3
+#: classes/contentmgmt/document_brother.aw:prop_user3
+msgid "Omaduse Kasutaja defineeritud 3 (user3) caption"
+msgstr " "
+
+# classes/document_brother.aw:prop_user3_comment
+#: classes/contentmgmt/document_brother.aw:prop_user3_comment
+msgid "Omaduse Kasutaja defineeritud 3 (user3) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_user3_help
+#: classes/contentmgmt/document_brother.aw:prop_user3_help
+msgid "Omaduse Kasutaja defineeritud 3 (user3) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_user4
+#: classes/contentmgmt/document_brother.aw:prop_user4
+msgid "Omaduse Kasutaja defineeritud 4 (user4) caption"
+msgstr " "
+
+# classes/document_brother.aw:prop_user4_comment
+#: classes/contentmgmt/document_brother.aw:prop_user4_comment
+msgid "Omaduse Kasutaja defineeritud 4 (user4) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_user4_help
+#: classes/contentmgmt/document_brother.aw:prop_user4_help
+msgid "Omaduse Kasutaja defineeritud 4 (user4) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_user5
+#: classes/contentmgmt/document_brother.aw:prop_user5
+msgid "Omaduse Kasutaja defineeritud 5 (user5) caption"
+msgstr " "
+
+# classes/document_brother.aw:prop_user5_comment
+#: classes/contentmgmt/document_brother.aw:prop_user5_comment
+msgid "Omaduse Kasutaja defineeritud 5 (user5) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_user5_help
+#: classes/contentmgmt/document_brother.aw:prop_user5_help
+msgid "Omaduse Kasutaja defineeritud 5 (user5) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_user6
+#: classes/contentmgmt/document_brother.aw:prop_user6
+msgid "Omaduse Kasutaja defineeritud 6 (user6) caption"
+msgstr " "
+
+# classes/document_brother.aw:prop_user6_comment
+#: classes/contentmgmt/document_brother.aw:prop_user6_comment
+msgid "Omaduse Kasutaja defineeritud 6 (user6) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_user6_help
+#: classes/contentmgmt/document_brother.aw:prop_user6_help
+msgid "Omaduse Kasutaja defineeritud 6 (user6) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_language
+#: classes/contentmgmt/document_brother.aw:prop_language
+msgid "Omaduse Keel (language) caption"
+msgstr "Language"
+
+# classes/document_brother.aw:prop_language_comment
+#: classes/contentmgmt/document_brother.aw:prop_language_comment
+msgid "Omaduse Keel (language) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_language_help
+#: classes/contentmgmt/document_brother.aw:prop_language_help
+msgid "Omaduse Keel (language) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_duration
+#: classes/contentmgmt/document_brother.aw:prop_duration
+msgid "Omaduse Kestab (duration) caption"
+msgstr "Duration"
+
+# classes/document_brother.aw:prop_duration_comment
+#: classes/contentmgmt/document_brother.aw:prop_duration_comment
+msgid "Omaduse Kestab (duration) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_duration_help
+#: classes/contentmgmt/document_brother.aw:prop_duration_help
+msgid "Omaduse Kestab (duration) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_doc_modified
+#: classes/contentmgmt/document_brother.aw:prop_doc_modified
+msgid "Omaduse Dok. modified (doc_modified) caption"
+msgstr "Doc. Modified"
+
+# classes/document_brother.aw:prop_doc_modified_comment
+#: classes/contentmgmt/document_brother.aw:prop_doc_modified_comment
+msgid "Omaduse Dok. modified (doc_modified) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_doc_modified_help
+#: classes/contentmgmt/document_brother.aw:prop_doc_modified_help
+msgid "Omaduse Dok. modified (doc_modified) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_link_calendars
+msgid "Omaduse Vali kalendrid, millesse see s&uuml;ndmus veel salvestatakse. (link_calendars) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_link_calendars_comment
+msgid "Omaduse Vali kalendrid, millesse see s&uuml;ndmus veel salvestatakse. (link_calendars) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_link_calendars_help
+msgid "Omaduse Vali kalendrid, millesse see s&uuml;ndmus veel salvestatakse. (link_calendars) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_calendar_relation
+msgid "Omaduse P&otilde;hikalender (calendar_relation) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_calendar_relation_comment
+msgid "Omaduse P&otilde;hikalender (calendar_relation) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_calendar_relation_help
+msgid "Omaduse P&otilde;hikalender (calendar_relation) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_gen_static
+#: classes/contentmgmt/document_brother.aw:prop_gen_static
+msgid "Omaduse Genereeri staatiline (gen_static) caption"
+msgstr "Generate statis"
+
+# classes/document_brother.aw:prop_gen_static_comment
+#: classes/contentmgmt/document_brother.aw:prop_gen_static_comment
+msgid "Omaduse Genereeri staatiline (gen_static) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_gen_static_help
+#: classes/contentmgmt/document_brother.aw:prop_gen_static_help
+msgid "Omaduse Genereeri staatiline (gen_static) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_no_last
+msgid "Omaduse &Auml;ra arvesta muutmist (no_last) caption"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_no_last_comment
+msgid "Omaduse &Auml;ra arvesta muutmist (no_last) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:prop_no_last_help
+msgid "Omaduse &Auml;ra arvesta muutmist (no_last) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_show_last_changed
+#: classes/contentmgmt/document_brother.aw:prop_show_last_changed
+msgid "Omaduse Muutmise kuupaev dokumendi sees (show_last_changed) caption"
+msgstr "Modified date in document"
+
+# classes/document_brother.aw:prop_show_last_changed_comment
+#: classes/contentmgmt/document_brother.aw:prop_show_last_changed_comment
+msgid "Omaduse Muutmise kuupaev dokumendi sees (show_last_changed) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_show_last_changed_help
+#: classes/contentmgmt/document_brother.aw:prop_show_last_changed_help
+msgid "Omaduse Muutmise kuupaev dokumendi sees (show_last_changed) help"
+msgstr ""
+
+# classes/document_brother.aw:prop_sbt
+#: classes/contentmgmt/document_brother.aw:prop_sbt
+msgid "Omaduse  (sbt) caption"
+msgstr ""
+
+# classes/document_brother.aw:prop_sbt_comment
+#: classes/contentmgmt/document_brother.aw:prop_sbt_comment
+msgid "Omaduse  (sbt) kommentaar"
+msgstr ""
+
+# classes/document_brother.aw:prop_sbt_help
+#: classes/contentmgmt/document_brother.aw:prop_sbt_help
+msgid "Omaduse  (sbt) help"
+msgstr ""
+
+# classes/document_brother.aw:group_calendar
+#: classes/contentmgmt/document_brother.aw:group_calendar
+msgid "Grupi Kalender (calendar) pealkiri"
+msgstr "Calendar"
+
+# classes/document_brother.aw:group_calendar_help
+#: classes/contentmgmt/document_brother.aw:group_calendar_help
+msgid "Grupi Kalender (calendar) help"
+msgstr ""
+
+# classes/document_brother.aw:group_vennastamine
+#: classes/contentmgmt/document_brother.aw:group_vennastamine
+msgid "Grupi Vennastamine (vennastamine) pealkiri"
+msgstr "Brothers"
+
+# classes/document_brother.aw:group_vennastamine_help
+#: classes/contentmgmt/document_brother.aw:group_vennastamine_help
+msgid "Grupi Vennastamine (vennastamine) help"
+msgstr ""
+
+# classes/document_brother.aw:group_settings
+#: classes/contentmgmt/document_brother.aw:group_settings
+msgid "Grupi Seadistused (settings) pealkiri"
+msgstr "Settings"
+
+# classes/document_brother.aw:group_settings_help
+#: classes/contentmgmt/document_brother.aw:group_settings_help
+msgid "Grupi Seadistused (settings) help"
+msgstr ""
+
+# classes/document_brother.aw:group_relationmgr
+#: classes/contentmgmt/document_brother.aw:group_relationmgr
+msgid "Grupi Seostehaldur (relationmgr) pealkiri"
+msgstr "Connection manager"
+
+# classes/document_brother.aw:group_relationmgr_help
+#: classes/contentmgmt/document_brother.aw:group_relationmgr_help
+msgid "Grupi Seostehaldur (relationmgr) help"
+msgstr ""
+
+#: classes/contentmgmt/document_brother.aw:222
+msgid "Nimetus"
+msgstr "Name"
+
+#: classes/contentmgmt/document_brother.aw:227
+msgid "Asukoht"
+msgstr "Location"
+
+#: classes/contentmgmt/document_brother.aw:232
+msgid "Looja"
+msgstr "Createdby"
+
+#: classes/contentmgmt/document_brother.aw:237
+msgid "Viimati muudetud"
+msgstr "Last modified"
+
+#: classes/contentmgmt/document_brother.aw:244
+#: classes/contentmgmt/document_brother.aw:286
+msgid "Vali see"
+msgstr "Select this"
+
+# classes/document_brother.aw:prop_needs_translation
+#~ msgid "Omaduse Vajab tõlget (needs_translation) caption"
+#~ msgstr "Needs translation"
+
+# classes/document_brother.aw:prop_is_translated
+#~ msgid "Omaduse Tõlge kinnitatud (is_translated) caption"
+#~ msgstr "Translation confirmed"
+
+# classes/document_brother.aw:prop_keywords
+#~ msgid "Omaduse Võtmesõnad (keywords) caption"
+#~ msgstr "Keywords"
+
+# classes/document_brother.aw:prop_showlead
+#~ msgid "Omaduse Näita leadi (showlead) caption"
+#~ msgstr "Display lead"
+
+# classes/document_brother.aw:prop_show_modified
+#~ msgid "Omaduse Näita muutmise kuupäeva (show_modified) caption"
+#~ msgstr "Display modified date"
+
+# classes/document_brother.aw:prop_clear_styles
+#~ msgid "Omaduse Tühista stiilid (clear_styles) caption"
+#~ msgstr "Clear styles"
+
+# classes/document_brother.aw:prop_link_keywords
+#~ msgid "Omaduse Lingi võtmesõnad (link_keywords) caption"
+#~ msgstr "Link keywords"
+
+# classes/document_brother.aw:prop_show_title
+#~ msgid "Omaduse Näita pealkirja (show_title) caption"
+#~ msgstr "Show title"
+
+# classes/document_brother.aw:prop_no_search
+#~ msgid "Omaduse Jäta otsingust välja (no_search) caption"
+#~ msgstr "Do not find in search"
+
+# classes/document_brother.aw:prop_tm
+#~ msgid "Omaduse Kuupäev (tm) caption"
+#~ msgstr "Date"
+
+# classes/document_brother.aw:prop_link_calendars
+#~ msgid "Omaduse Vali kalendrid, millesse see sündmus veel salvestatakse. (link_calendars) caption"
+#~ msgstr "Select calendars where event will also be saved to"
+
+# classes/document_brother.aw:prop_calendar_relation
+#~ msgid "Omaduse Põhikalender (calendar_relation) caption"
+#~ msgstr "Main calendar"
+
+# classes/document_brother.aw:prop_no_last
+#~ msgid "Omaduse Ära arvesta muutmist (no_last) caption"
+#~ msgstr "Do not modify changed date"

@@ -1,0 +1,77 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>general_tb</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>general_tb</field>
+      </property>
+      <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>register_url</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Registri aadress</caption>
+      </property>
+      <property>
+            <name>file_tb</name>
+            <table>objects</table>
+            <group>from_file</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>file_tb</field>
+      </property>
+      <property>
+            <name>file</name>
+            <table>objects</table>
+            <group>from_file</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FILE</reltype>
+            <store>connect</store>
+            <field>file</field>
+            <caption>Andmefail (CSV)</caption>
+      </property>
+      <property>
+            <name>file_tbl</name>
+            <table>objects</table>
+            <group>from_file</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>file_tbl</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_POSTAL_CODES</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <groupinfo>
+            <from_file>
+                  <caption>CSV fail</caption>
+            </from_file>
+      </groupinfo>
+      <reltypes>
+            <FILE>
+                  <clid>CL_FILE</clid>
+                  <value>1</value>
+                  <caption>Andmefail</caption>
+            </FILE>
+      </reltypes>
+</properties>
+

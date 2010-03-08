@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/core/obj/connection.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/obj/connection.aw:99
+msgid "connection::constructor(%s): parameter must be numeric or array!"
+msgstr ""
+
+#: classes/core/obj/connection.aw:149
+msgid "connection::load(): parameter must be either array (connection data) or integer (connection id)!"
+msgstr ""
+
+#: classes/core/obj/connection.aw:208
+msgid "connection::find(): parameter must be an array of filter parameters!"
+msgstr ""
+
+#: classes/core/obj/connection.aw:300
+msgid "connection::change(%s): parameter must be an array!"
+msgstr ""
+
+#: classes/core/obj/connection.aw:337
+msgid "connection::delete(): no current connection to delete!"
+msgstr ""
+
+#: classes/core/obj/connection.aw:347
+msgid "connection::delete(): no view access for this connection (%s)!"
+msgstr ""
+
+#: classes/core/obj/connection.aw:557
+msgid "connection::load(%s): no connection with id %s!"
+msgstr ""
+
+#: classes/core/obj/connection.aw:567 classes/core/obj/connection.aw:591
+msgid "connection::load(%s): no view access for this connection!"
+msgstr ""
+
+#: classes/core/obj/connection.aw:579
+msgid "connection::save(): connection must have both ends defined!"
+msgstr ""

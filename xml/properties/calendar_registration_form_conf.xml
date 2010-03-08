@@ -1,0 +1,187 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>event</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_EVENT</reltype>
+            <caption>S&amp;amp;uuml;ndmus millele registreeruda</caption>
+      </property>
+      <property>
+            <name>form</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_WEBFORM</reltype>
+            <caption>Registreerumisvorm</caption>
+      </property>
+      <property>
+            <name>max_pers</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <datatype>int</datatype>
+            <caption>Maksimaalne registreerujate arv</caption>
+      </property>
+      <property>
+            <name>person_folder</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <caption>Isikute kaust</caption>
+      </property>
+      <property>
+            <name>show_content</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Kuva dokumendis s&amp;amp;uuml;ndmuse sisu</caption>
+      </property>
+      <property>
+            <name>link_caption</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Lingi nimi</caption>
+      </property>
+      <property>
+            <name>redirect</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Kuhu suunata peale t&amp;amp;auml;itmist</caption>
+      </property>
+      <property>
+            <name>entry_check</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <multiple>1</multiple>
+            <caption>Sisestuste kontroll</caption>
+      </property>
+      <property>
+            <name>mail_to_user</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <default>1</default>
+            <caption>Saada regisreerijale kinnitus</caption>
+      </property>
+      <property>
+            <name>mail_to_addr</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Kellele lisaks mail saata</caption>
+      </property>
+      <property>
+            <name>mail_from_name</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Maili saatja nimi</caption>
+      </property>
+      <property>
+            <name>mail_from_addr</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Maili saatja aadress</caption>
+      </property>
+      <property>
+            <name>mail_subj</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Maili pealkiri</caption>
+      </property>
+      <property>
+            <name>mail_legend</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <store>no</store>
+            <caption>Asenduste legend</caption>
+      </property>
+      <property>
+            <name>mail_content</name>
+            <table>objects</table>
+            <group>emails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textarea</type>
+            <rows>20</rows>
+            <cols>80</cols>
+            <caption>Maili sisu</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CALENDAR_REGISTRATION_FORM_CONF</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <no_comment>1</no_comment>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <emails>
+                  <caption>E-mailid</caption>
+            </emails>
+      </groupinfo>
+      <reltypes>
+            <EVENT>
+                  <value>1</value>
+                  <clid>
+                        <num_0>CL_CRM_MEETING</num_0>
+                        <num_1>CL_TASK</num_1>
+                        <num_2>CL_CRM_CALL</num_2>
+                  </clid>
+                  <caption>S&amp;amp;uuml;ndmus</caption>
+            </EVENT>
+            <REG_ENTRY>
+                  <value>3</value>
+                  <clid>CL_CALENDAR_REGISTRATION_FORM_CONF</clid>
+                  <caption>Sisestus</caption>
+            </REG_ENTRY>
+            <FOLDER>
+                  <value>4</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Isikute kaust</caption>
+            </FOLDER>
+            <WEBFORM>
+                  <value>5</value>
+                  <clid>CL_WEBFORM</clid>
+                  <caption>S&amp;amp;uuml;ndmuse vorm</caption>
+            </WEBFORM>
+      </reltypes>
+</properties>
+

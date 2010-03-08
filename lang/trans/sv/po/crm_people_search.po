@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_people_search.aw:class_1390_help
+msgid "Klassi Isikute otsing help"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:prop_webview
+msgid "Omaduse Isikud veebis (webview) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:prop_webview_comment
+msgid "Omaduse Isikud veebis (webview) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:prop_webview_help
+msgid "Omaduse Isikud veebis (webview) help"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:prop_search_properties
+msgid "Omaduse Otsingus kasutatavad v&auml;ljad (search_properties) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:prop_search_properties_comment
+msgid "Omaduse Otsingus kasutatavad v&auml;ljad (search_properties) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:prop_search_properties_help
+msgid "Omaduse Otsingus kasutatavad v&auml;ljad (search_properties) help"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:group_sel_props
+msgid "Grupi Vali elemendid (sel_props) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:group_sel_props_help
+msgid "Grupi Vali elemendid (sel_props) help"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:rel_RELTYPE_WEBVIEW
+msgid "Seose Isikud veebis (RELTYPE_WEBVIEW) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:56
+msgid "pole &uuml;htegi templeiti kaustas :"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:92
+msgid "Otsingu template valimata!"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:146
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:213
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:219
+msgid "Omadus"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:223
+msgid "N&auml;htav"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:229
+msgid "N&otilde;utav"
+msgstr ""
+
+#: classes/applications/crm/crm_people_search.aw:255
+msgid "Omadused"
+msgstr ""
+

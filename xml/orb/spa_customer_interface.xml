@@ -1,0 +1,101 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="spa_customer_interface" folder="www/dev/terryf/automatweb_dev/classes/applications/spa_bookings" extends="class_base">
+		<action name="add_pkt">
+			<function name="add_pkt">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="r" />
+					<optional name="test" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_prod_to_new_pkt">
+			<function name="add_prod_to_new_pkt">
+				<arguments>
+					<required name="prod" type="int" />
+					<required name="id" type="int" />
+					<required name="r" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_prod_to_bron">
+			<function name="add_prod_to_bron">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="r" />
+					<required name="bron" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fin_add_prod_to_bron">
+			<function name="fin_add_prod_to_bron">
+				<arguments>
+					<required name="prod" type="int" acl="view" />
+					<required name="id" type="int" acl="view" />
+					<required name="bron" type="int" acl="view" />
+					<required name="r" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="pay">
+			<function name="pay">
+				<arguments>
+					<required name="id" acl="view" />
+					<optional name="r" />
+					<required name="bank_payment" />
+					<optional name="section" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="confirm_booking">
+			<function name="confirm_booking">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<optional name="r" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bank_return" is_public="1" all_args="1">
+			<function name="bank_return">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="print_booking">
+			<function name="print_booking">
+				<arguments>
+					<required name="id" />
+					<required name="wb" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="prepare_select_new_pkt_time">
+			<function name="prepare_select_new_pkt_time">
+				<arguments>
+					<required name="prod" type="int" acl="view" />
+					<required name="id" type="int" acl="view" />
+					<optional name="r" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_prod_info">
+			<function name="show_prod_info">
+				<arguments>
+					<required name="prod" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

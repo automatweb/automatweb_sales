@@ -1,0 +1,89 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="file" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt" extends="class_base">
+		<action name="preview" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="view" nologin="1">
+			<function name="view">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_url">
+			<function name="get_url">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="name" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new" is_public="1" all_args="1" caption="Lisa">
+			<function name="new_change">
+				<arguments>
+					<optional name="parent" type="int" acl="add" />
+					<optional name="period" />
+					<optional name="alias_to" />
+					<optional name="alias_to_prop" />
+					<optional name="return_url" />
+					<optional name="reltype" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fetch_file_tag_for_doc">
+			<function name="fetch_file_tag_for_doc">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fetch_file_alias_for_doc">
+			<function name="fetch_file_alias_for_doc">
+				<arguments>
+					<required name="doc_id" />
+					<required name="file_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fetch_file_name_for_alias">
+			<function name="fetch_file_name_for_alias">
+				<arguments>
+					<required name="doc_id" />
+					<required name="file_id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="gen_file_alias_for_doc">
+			<function name="gen_file_alias_for_doc">
+				<arguments>
+					<required name="doc_id" type="int" />
+					<required name="file_id" type="int" />
+					<optional name="close" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_connection_details_for_doc">
+			<function name="get_connection_details_for_doc">
+				<arguments>
+					<required name="doc_id" type="int" />
+					<required name="alias_name" type="string" />
+					<optional name="use_br" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

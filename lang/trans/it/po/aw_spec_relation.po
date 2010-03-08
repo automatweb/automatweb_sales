@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/aw_spec/aw_spec_relation.aw:class_1429_help
+msgid "Klassi AW Spetsifikatsiooni seos help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_relation.aw:prop_rel_from
+msgid "Omaduse Seos kust (rel_from) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_relation.aw:prop_rel_from_comment
+msgid "Omaduse Seos kust (rel_from) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_relation.aw:prop_rel_from_help
+msgid "Omaduse Seos kust (rel_from) help"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_relation.aw:prop_rel_to
+msgid "Omaduse Seos kuhu (rel_to) caption"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_relation.aw:prop_rel_to_comment
+msgid "Omaduse Seos kuhu (rel_to) kommentaar"
+msgstr ""
+
+#: classes/applications/aw_spec/aw_spec_relation.aw:prop_rel_to_help
+msgid "Omaduse Seos kuhu (rel_to) help"
+msgstr ""
+

@@ -1,0 +1,130 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="cb_translate" folder="www/dev/terryf/automatweb_dev/classes/applications/cb_trans" extends="class_base">
+		<action name="editor">
+			<function name="editor">
+				<arguments>
+					<required name="clid" />
+					<optional name="group" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_node" all_args="1">
+			<function name="get_node">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="lineeditor">
+			<function name="lineeditor">
+				<arguments>
+					<required name="clid" />
+					<optional name="saved_langs" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="releditor">
+			<function name="releditor">
+				<arguments>
+					<required name="reltype" />
+					<required name="clid" />
+					<optional name="saved_langs" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="classeditor">
+			<function name="classeditor">
+				<arguments>
+					<required name="clid" />
+					<optional name="saved_langs" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="groupedit">
+			<function name="groupedit">
+				<arguments>
+					<required name="clid" type="int" />
+					<required name="grpid" />
+					<optional name="saved_langs" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="proptrans">
+			<function name="proptrans">
+				<arguments>
+					<required name="clid" />
+					<required name="propid" />
+					<required name="grpid" />
+					<optional name="saved_langs" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="layouttrans">
+			<function name="layouttrans">
+				<arguments>
+					<required name="clid" />
+					<required name="lid" />
+					<optional name="saved_langs" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_objects" all_args="1">
+			<function name="delete_objects">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="actual_commit">
+			<function name="actual_commit">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="commit_changes">
+			<function name="commit_changes">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="apply_changes">
+			<function name="apply_changes">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_editor" all_args="1">
+			<function name="submit_editor">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="aw_url" all_args="1">
+			<function name="aw_url">
+				<arguments>
+					<required name="trans_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="search_trans" all_args="1">
+			<function name="search_trans">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

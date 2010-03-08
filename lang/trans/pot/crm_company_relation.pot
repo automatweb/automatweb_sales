@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_company_relation.aw:class_1405_help
+msgid "Klassi Organisatoorne kuuluvus help"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_org
+msgid "Omaduse Organisatsioon (org) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_org_comment
+msgid "Omaduse Organisatsioon (org) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_org_help
+msgid "Omaduse Organisatsioon (org) help"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_start
+msgid "Omaduse Algus (start) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_start_comment
+msgid "Omaduse Algus (start) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_start_help
+msgid "Omaduse Algus (start) help"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_end
+msgid "Omaduse L&otilde;pp (end) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_end_comment
+msgid "Omaduse L&otilde;pp (end) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_end_help
+msgid "Omaduse L&otilde;pp (end) help"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_add_info
+msgid "Omaduse Lisainfo (add_info) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_add_info_comment
+msgid "Omaduse Lisainfo (add_info) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:prop_add_info_help
+msgid "Omaduse Lisainfo (add_info) help"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:rel_RELTYPE_COMPANY
+msgid "Seose Organisatsioon (RELTYPE_COMPANY) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_company_relation.aw:49
+msgid "--vali--"
+msgstr ""
+

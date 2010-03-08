@@ -1,0 +1,550 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/shop/shop_price_list.aw:class_1457_help
+msgid "Klassi Hinnastaja help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_jrk
+msgid "Omaduse Jrk (jrk) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_jrk_comment
+msgid "Omaduse Jrk (jrk) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_jrk_help
+msgid "Omaduse Jrk (jrk) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_shop
+msgid "Omaduse E-pood (shop) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_shop_comment
+msgid "Omaduse E-pood (shop) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_shop_help
+msgid "Omaduse E-pood (shop) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_valid_from
+msgid "Omaduse Kehtib alates (valid_from) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_valid_from_comment
+msgid "Omaduse Kehtib alates (valid_from) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_valid_from_help
+msgid "Omaduse Kehtib alates (valid_from) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_valid_to
+msgid "Omaduse Kehtib kuni (valid_to) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_valid_to_comment
+msgid "Omaduse Kehtib kuni (valid_to) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_valid_to_help
+msgid "Omaduse Kehtib kuni (valid_to) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_col_order
+msgid "Omaduse Veeru gruppide j&auml;rjekord (matrix_col_order) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_col_order_comment
+msgid "Omaduse Veeru gruppide j&auml;rjekord (matrix_col_order) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_col_order_help
+msgid "Omaduse Veeru gruppide j&auml;rjekord (matrix_col_order) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_advanced
+msgid "Omaduse Power-user mode (matrix_advanced) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_advanced_comment
+msgid "Omaduse Power-user mode (matrix_advanced) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_advanced_help
+msgid "Omaduse Power-user mode (matrix_advanced) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_cols_subtitle
+msgid "Omaduse Maatriksi veerud (matrix_cols_subtitle) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_cols_subtitle_comment
+msgid "Omaduse Maatriksi veerud (matrix_cols_subtitle) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_cols_subtitle_help
+msgid "Omaduse Maatriksi veerud (matrix_cols_subtitle) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_customer_categories
+msgid "Omaduse Kliendikategooriad (matrix_customer_categories) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_customer_categories_comment
+msgid "Omaduse Kliendikategooriad (matrix_customer_categories) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_customer_categories_help
+msgid "Omaduse Kliendikategooriad (matrix_customer_categories) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_countries
+msgid "Omaduse Riigid (matrix_countries) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_countries_comment
+msgid "Omaduse Riigid (matrix_countries) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_countries_help
+msgid "Omaduse Riigid (matrix_countries) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_rows_subtitle
+msgid "Omaduse Maatriksi read (matrix_rows_subtitle) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_rows_subtitle_comment
+msgid "Omaduse Maatriksi read (matrix_rows_subtitle) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_rows_subtitle_help
+msgid "Omaduse Maatriksi read (matrix_rows_subtitle) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_rows
+msgid "Omaduse Maatriksi read (matrix_rows) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_rows_comment
+msgid "Omaduse Maatriksi read (matrix_rows) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_rows_help
+msgid "Omaduse Maatriksi read (matrix_rows) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_product_categories
+msgid "Omaduse Tootekategooriad (matrix_product_categories) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_product_categories_comment
+msgid "Omaduse Tootekategooriad (matrix_product_categories) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_product_categories_help
+msgid "Omaduse Tootekategooriad (matrix_product_categories) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_code
+msgid "Omaduse  (code) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_code_comment
+msgid "Omaduse  (code) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_code_help
+msgid "Omaduse  (code) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_tlb
+msgid "Omaduse  (matrix_tlb) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_tlb_comment
+msgid "Omaduse  (matrix_tlb) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_tlb_help
+msgid "Omaduse  (matrix_tlb) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix
+msgid "Omaduse  (matrix) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_comment
+msgid "Omaduse  (matrix) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_matrix_help
+msgid "Omaduse  (matrix) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_priorities_customer_categories_tbl
+msgid "Omaduse  (priorities_customer_categories_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_priorities_customer_categories_tbl_comment
+msgid "Omaduse  (priorities_customer_categories_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_priorities_customer_categories_tbl_help
+msgid "Omaduse  (priorities_customer_categories_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_priorities_locations_tbl
+msgid "Omaduse  (priorities_locations_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_priorities_locations_tbl_comment
+msgid "Omaduse  (priorities_locations_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_priorities_locations_tbl_help
+msgid "Omaduse  (priorities_locations_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_priorities_product_categories_tbl
+msgid "Omaduse  (priorities_product_categories_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_priorities_product_categories_tbl_comment
+msgid "Omaduse  (priorities_product_categories_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_priorities_product_categories_tbl_help
+msgid "Omaduse  (priorities_product_categories_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_product
+msgid "Omaduse Toode (debug_product) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_product_comment
+msgid "Omaduse Toode (debug_product) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_product_help
+msgid "Omaduse Toode (debug_product) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_product_packaging
+msgid "Omaduse Pakend (debug_product_packaging) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_product_packaging_comment
+msgid "Omaduse Pakend (debug_product_packaging) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_product_packaging_help
+msgid "Omaduse Pakend (debug_product_packaging) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_amount
+msgid "Omaduse Kogus (debug_amount) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_amount_comment
+msgid "Omaduse Kogus (debug_amount) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_amount_help
+msgid "Omaduse Kogus (debug_amount) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_prices
+msgid "Omaduse Hinnad k&otilde;igis valuutades (debug_prices) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_prices_comment
+msgid "Omaduse Hinnad k&otilde;igis valuutades (debug_prices) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_prices_help
+msgid "Omaduse Hinnad k&otilde;igis valuutades (debug_prices) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_product_category
+msgid "Omaduse Tootekategooria (debug_product_category) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_product_category_comment
+msgid "Omaduse Tootekategooria (debug_product_category) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_product_category_help
+msgid "Omaduse Tootekategooria (debug_product_category) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_customer_category
+msgid "Omaduse Kliendikategooria (debug_customer_category) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_customer_category_comment
+msgid "Omaduse Kliendikategooria (debug_customer_category) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_customer_category_help
+msgid "Omaduse Kliendikategooria (debug_customer_category) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_location
+msgid "Omaduse Asukoht (debug_location) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_location_comment
+msgid "Omaduse Asukoht (debug_location) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_location_help
+msgid "Omaduse Asukoht (debug_location) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_output
+msgid "Omaduse V&auml;ljund (debug_output) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_output_comment
+msgid "Omaduse V&auml;ljund (debug_output) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_debug_output_help
+msgid "Omaduse V&auml;ljund (debug_output) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_price_lists_tree
+msgid "Omaduse  (price_lists_tree) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_price_lists_tree_comment
+msgid "Omaduse  (price_lists_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_price_lists_tree_help
+msgid "Omaduse  (price_lists_tree) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_price_lists_tbl
+msgid "Omaduse  (price_lists_tbl) caption"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_price_lists_tbl_comment
+msgid "Omaduse  (price_lists_tbl) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:prop_price_lists_tbl_help
+msgid "Omaduse  (price_lists_tbl) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_general2
+msgid "Grupi &Uuml;ldseaded (general2) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_general2_help
+msgid "Grupi &Uuml;ldseaded (general2) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_matrix_settings
+msgid "Grupi Maatriksi seaded (matrix_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_matrix_settings_help
+msgid "Grupi Maatriksi seaded (matrix_settings) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_matrix
+msgid "Grupi Maatriks (matrix) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_matrix_help
+msgid "Grupi Maatriks (matrix) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_priorities
+msgid "Grupi Prioriteedid (priorities) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_priorities_help
+msgid "Grupi Prioriteedid (priorities) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_priorities_customer_categories
+msgid "Grupi Kliendigrupid (priorities_customer_categories) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_priorities_customer_categories_help
+msgid "Grupi Kliendigrupid (priorities_customer_categories) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_priorities_locations
+msgid "Grupi Asukohad (priorities_locations) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_priorities_locations_help
+msgid "Grupi Asukohad (priorities_locations) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_priorities_product_categories
+msgid "Grupi Tootegrupid (priorities_product_categories) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_priorities_product_categories_help
+msgid "Grupi Tootegrupid (priorities_product_categories) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_debug
+msgid "Grupi Hinnakalkulaator (debug) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_debug_help
+msgid "Grupi Hinnakalkulaator (debug) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_price_lists
+msgid "Grupi Teised hinnastajad (price_lists) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:group_price_lists_help
+msgid "Grupi Teised hinnastajad (price_lists) help"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_GROUP
+msgid "Seose Grupp (RELTYPE_GROUP) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_ORG
+msgid "Seose Organisatsioon (RELTYPE_ORG) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_PERSON
+msgid "Seose Isik (RELTYPE_PERSON) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_CATEGORY
+msgid "Seose Kaubagrupp (RELTYPE_CATEGORY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_ORG_CAT
+msgid "Seose Kliendigrupp (RELTYPE_ORG_CAT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_WAREHOUSE
+msgid "Seose Ladu (RELTYPE_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_MATRIX_CATEGORY
+msgid "Seose Kaubagrupp (RELTYPE_MATRIX_CATEGORY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_MATRIX_ORG_CAT
+msgid "Seose Kliendigrupp (RELTYPE_MATRIX_ORG_CAT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_SHOP
+msgid "Seose Omanikorganisatsioon (RELTYPE_SHOP) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_CUSTOMER_CATEGORY
+msgid "Seose Kliendikategooria, mida maatriksi veeruna kuvatakse (RELTYPE_CUSTOMER_CATEGORY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_PRODUCT_CATEGORY
+msgid "Seose Tootekategooria, mida maatriksi reana kuvatakse (RELTYPE_PRODUCT_CATEGORY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_PRIORITY
+msgid "Seose Prioriteet (RELTYPE_PRIORITY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_COUNTRY
+msgid "Seose Riik, mida maatriksi veeruna kuvatakse (RELTYPE_COUNTRY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_DEBUG_SHOP_PRODUCT
+msgid "Seose Hinnakalkulaatori toode (RELTYPE_DEBUG_SHOP_PRODUCT) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_DEBUG_SHOP_PRODUCT_CATEGORY
+msgid "Seose Hinnakalkulaatori tootekategooria (RELTYPE_DEBUG_SHOP_PRODUCT_CATEGORY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_DEBUG_CRM_CATEGORY
+msgid "Seose Hinnakalkulaatori tootekategooria (RELTYPE_DEBUG_CRM_CATEGORY) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_DEBUG_LOCATION
+msgid "Seose Hinnakalkulaatori asukoht (RELTYPE_DEBUG_LOCATION) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:rel_RELTYPE_DEBUG_SHOP_PRODUCT_PACKAGING
+msgid "Seose Hinnakalkulaatori pakend (RELTYPE_DEBUG_SHOP_PRODUCT_PACKAGING) tekst"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:layout_price_lists_left
+msgid "Kujundusosa Vali&#44&nbsp;milliseid&nbsp;hinnastajaid&nbsp;kuvada (price_lists_left) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:layout_price_lists_right
+msgid "Kujundusosa Hinnastajad (price_lists_right) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:197
+msgid "Valuutakurss"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:202
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:300
+msgid "Hinnastaja maatrix valuutakursile '%s'"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:308
+msgid "Hinna valem"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:315
+msgid "Boonuse valem"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:322
+msgid "Kogused, millele valemirida rakendub (vaikimisi rakendub k&otilde;igile kogustele)"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:329
+msgid "Valemi t&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:351
+msgid "Auto"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:495
+msgid "Jrk"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:502
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:537
+msgid "Kehtivad"
+msgstr ""
+
+#: classes/applications/shop/shop_price_list.aw:545
+msgid "Aegunud"
+msgstr ""

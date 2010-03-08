@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="tester" folder="www/dev/terryf/automatweb_dev/classes/applications/unittest" extends="class_base">
+		<action name="show" default="1">
+			<function name="show">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="do_nothing">
+			<function name="do_nothing">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

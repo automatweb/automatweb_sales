@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/core/users/auth/auth_remote_settings.aw:class_879_help
+msgid "Klassi Automaatne sissep&auml;&auml;s help"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:prop_sites
+msgid "Omaduse  (sites) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:prop_sites_comment
+msgid "Omaduse  (sites) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:prop_sites_help
+msgid "Omaduse  (sites) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:prop_users
+msgid "Omaduse  (users) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:prop_users_comment
+msgid "Omaduse  (users) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:prop_users_help
+msgid "Omaduse  (users) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:prop_activity
+msgid "Omaduse  (activity) caption"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:prop_activity_comment
+msgid "Omaduse  (activity) kommentaar"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:prop_activity_help
+msgid "Omaduse  (activity) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:group_sel_sites
+msgid "Grupi Vali saidid (sel_sites) pealkiri"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:group_sel_sites_help
+msgid "Grupi Vali saidid (sel_sites) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:group_sel_users
+msgid "Grupi Vali kasutajad (sel_users) pealkiri"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:group_sel_users_help
+msgid "Grupi Vali kasutajad (sel_users) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:group_activity
+msgid "Grupi Aktiivsus (activity) pealkiri"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:group_activity_help
+msgid "Grupi Aktiivsus (activity) help"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:rel_RELTYPE_USER
+msgid "Seose kasutaja (RELTYPE_USER) tekst"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:122
+msgid "ID"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:130
+msgid "Aadress"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:137
+msgid "Lubatud automaatne ligip&auml;&auml;s"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:173
+msgid "Sait"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:180
+msgid "Kasutaja, kellena teise saidi kasutajad ligi saavad"
+msgstr ""
+
+#: classes/core/users/auth/auth_remote_settings.aw:309
+msgid "Antud link ei võimalda abikeskkonda siseneda, palun kontakteeruge <a href='mailto:support@automatweb.com'>administraatoriga</a>"
+msgstr ""
+

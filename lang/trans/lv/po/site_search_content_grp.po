@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:class_232_help
+msgid "Klassi Saidi sisu otsingu grupp help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_users_only
+msgid "Omaduse Ainult sisse logitud kasutajatele (users_only) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_users_only_comment
+msgid "Omaduse Ainult sisse logitud kasutajatele (users_only) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_users_only_help
+msgid "Omaduse Ainult sisse logitud kasutajatele (users_only) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_menus
+msgid "Omaduse Vali men&uuml;&uuml;d (menus) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_menus_comment
+msgid "Omaduse Vali men&uuml;&uuml;d (menus) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_menus_help
+msgid "Omaduse Vali men&uuml;&uuml;d (menus) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_seach_notactive
+msgid "Omaduse Otsi ka mitteaktiivsetest dokumentidest (seach_notactive) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_seach_notactive_comment
+msgid "Omaduse Otsi ka mitteaktiivsetest dokumentidest (seach_notactive) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_seach_notactive_help
+msgid "Omaduse Otsi ka mitteaktiivsetest dokumentidest (seach_notactive) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_search_only_kws
+msgid "Omaduse Otsi ainult m&auml;rks&otilde;nadest (search_only_kws) caption"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_search_only_kws_comment
+msgid "Omaduse Otsi ainult m&auml;rks&otilde;nadest (search_only_kws) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:prop_search_only_kws_help
+msgid "Omaduse Otsi ainult m&auml;rks&otilde;nadest (search_only_kws) help"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:rel_RELTYPE_SEARCH_LOCATION
+msgid "Seose Otsingu l&auml;tekoht (RELTYPE_SEARCH_LOCATION) tekst"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:rel_RELTYPE_KW
+msgid "Seose M&auml;rks&otilde;na (RELTYPE_KW) tekst"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:96
+msgid "Klass"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:100
+msgid "ID"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:108
+msgid "Nimi"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:113
+msgid "k.a. alammen&uuml;&uuml;d"
+msgstr ""
+
+#: classes/contentmgmt/site_search/site_search_content_grp.aw:121
+msgid "mitteaktiivsed"
+msgstr ""

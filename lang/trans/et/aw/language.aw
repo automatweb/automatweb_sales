@@ -1,0 +1,22 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Nimi (lang_name) kommentaar"] = "keele nimi";
+$GLOBALS["TRANS"]["Omaduse Nimi (lang_name) help"] = "keele nimi";
+$GLOBALS["TRANS"]["Omaduse Aktiivne (lang_status) kommentaar"] = "antud kontekstis mittevajalik määrang";
+$GLOBALS["TRANS"]["Omaduse Aktiivne (lang_status) help"] = "antud kontekstis mittevajalik määrang";
+$GLOBALS["TRANS"]["Omaduse Keel (lang_sel_lang) kommentaar"] = "millise AutomatWebis eeldefineeritud keelega on tegemist. Selle valiku alusel saab keel charseti määrangu";
+$GLOBALS["TRANS"]["Omaduse Keel (lang_sel_lang) help"] = "millise AutomatWebis eeldefineeritud keelega on tegemist. Selle valiku alusel saab keel charseti määrangu";
+$GLOBALS["TRANS"]["Omaduse Saidid kus keel on valitav (lang_site_id) kommentaar"] = "saidi ID, mille puhul antud keelt on võimalik rakendada. Vajalik valida vaid juhul, kui samal andmebaasil on mitu veebi, milledest osad ei kasuta antud keelt";
+$GLOBALS["TRANS"]["Omaduse Saidid kus keel on valitav (lang_site_id) help"] = "saidi ID, mille puhul antud keelt on võimalik rakendada. Vajalik valida vaid juhul, kui samal andmebaasil on mitu veebi, milledest osad ei kasuta antud keelt";
+$GLOBALS["TRANS"]["Omaduse T&otilde;lkimata sisu teade (lang_trans_msg) kommentaar"] = "teade juhuks, kui veebi sisu tõlkimiseks kasutatakse tõlkekeskkonda ning parasjagu vaadeldavat objekti ei ole valitud keelde tõlgitud";
+$GLOBALS["TRANS"]["Omaduse T&otilde;lkimata sisu teade (lang_trans_msg) help"] = "teade juhuks, kui veebi sisu tõlkimiseks kasutatakse tõlkekeskkonda ning parasjagu vaadeldavat objekti ei ole valitud keelde tõlgitud";
+$GLOBALS["TRANS"]["Omaduse Keele pilt (lang_img) kommentaar"] = "pilt mida kuvatakse kujundusmallis ettenähtud kohas juhul, kui keel ei ole parasjagu veebikülastaja poolt valitud";
+$GLOBALS["TRANS"]["Omaduse Keele pilt (lang_img) help"] = "pilt mida kuvatakse kujundusmallis ettenähtud kohas juhul, kui keel ei ole parasjagu veebikülastaja poolt valitud";
+$GLOBALS["TRANS"]["Omaduse Aktiivse keele pilt (lang_img_act) kommentaar"] = "pilt mida kuvatakse kujundusmallis ettenähtud kohas juhul, kui keel on parasjagu veebikülastaja poolt valitud";
+$GLOBALS["TRANS"]["Omaduse Aktiivse keele pilt (lang_img_act) help"] = "pilt mida kuvatakse kujundusmallis ettenähtud kohas juhul, kui keel on parasjagu veebikülastaja poolt valitud";
+$GLOBALS["TRANS"]["Omaduse Esilehe nimi (fp_text) kommentaar"] = "veebile kuvatav keelevahetuse lingitekst";
+$GLOBALS["TRANS"]["Omaduse Esilehe nimi (fp_text) help"] = "veebile kuvatav keelevahetuse lingitekst";
+$GLOBALS["TRANS"]["Omaduse Ajutine AW-v&auml;line aadress sisse logimata kasutajatele (temp_redir_url) kommentaar"] = "väline aadress sisse logimata kasutajatele - kuhu suunata kasutajad, kes ei tohi ilma sisselogimata antud keelt näha";
+$GLOBALS["TRANS"]["Omaduse Ajutine AW-v&auml;line aadress sisse logimata kasutajatele (temp_redir_url) help"] = "väline aadress sisse logimata kasutajatele - kuhu suunata kasutajad, kes ei tohi ilma sisselogimata antud keelt näha";
+$GLOBALS["TRANS"]["Omaduse Keeled (langs) kommentaar"] = "Võimalikud keeled, kus Staatus märgib, kas see keel on antud saidis aktiivselt kasutusel (veebile ilmub selle keele valik lingi või pildina) ja Valitud märgib, millist keelt hetkel toimetatakse";
+$GLOBALS["TRANS"]["Omaduse Keeled (langs) help"] = "Võimalikud keeled, kus Staatus märgib, kas see keel on antud saidis aktiivselt kasutusel (veebile ilmub selle keele valik lingi või pildina) ja Valitud märgib, millist keelt hetkel toimetatakse";
+?>

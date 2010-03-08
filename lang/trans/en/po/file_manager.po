@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/admin/editor/file_manager.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/admin/editor/file_manager.aw:88
+msgid "Uus fail"
+msgstr "New file"
+
+#: classes/admin/editor/file_manager.aw:89
+msgid "Vali olemasolev fail"
+msgstr "Choose existing file"
+
+#: classes/admin/editor/file_manager.aw:102
+msgid "Fail"
+msgstr "File"
+
+#: classes/admin/editor/file_manager.aw:147
+msgid "Vali see"
+msgstr "Choose this"
+
+#: classes/admin/editor/file_manager.aw:359
+msgid "zip"
+msgstr ""
+
+#: classes/admin/editor/file_manager.aw:360
+msgid "Oled sa kindel et tahad seda jama pakkida?"
+msgstr ""
+
+#: classes/admin/editor/file_manager.aw:377
+msgid "Download selected compressed in ZIP file"
+msgstr ""
+
+#: classes/admin/editor/file_manager.aw:404
+msgid "Vali failid ja/v&otilde;i kataloogid!"
+msgstr ""
+
+#~ msgid "Asukoht"
+#~ msgstr "Location"
+
+#~ msgid "Vali"
+#~ msgstr "Choose"
+
+#~ msgid "Nimi"
+#~ msgstr "Name"
+
+#~ msgid "Otsi"
+#~ msgstr "Search"
+
+#~ msgid "Minu lisatud"
+#~ msgstr "Added by me"
+
+#~ msgid "Viimased 30"
+#~ msgstr "Last 30"

@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<properties>
+      <classinfo>
+            <syslog_type>ST_BUG_APP_TYPE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>robert</maintainer>
+      </classinfo>
+      <reltypes>
+            <TYPE>
+                  <value>1</value>
+                  <clid>CL_META</clid>
+                  <caption>Bugi t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+            </TYPE>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,6 @@
+MSG_LANGUAGE_ADD
+
+This message will get posted after a language is added to the system.
+
+arguments:
+id - the id of the language added

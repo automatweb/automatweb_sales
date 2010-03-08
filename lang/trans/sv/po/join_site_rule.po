@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/contentmgmt/join/join_site_rule.aw:class_288_help
+msgid "Klassi Liitumise Reegel help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:prop_join_conf
+msgid "Omaduse Liitumise konff (join_conf) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:prop_join_conf_comment
+msgid "Omaduse Liitumise konff (join_conf) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:prop_join_conf_help
+msgid "Omaduse Liitumise konff (join_conf) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:prop_rules_add
+msgid "Omaduse Reegel (rules_add) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:prop_rules_add_comment
+msgid "Omaduse Reegel (rules_add) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:prop_rules_add_help
+msgid "Omaduse Reegel (rules_add) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:prop_rule_to_grp
+msgid "Omaduse Vali grupp, kuhu reegel kasutaja paneb (rule_to_grp) caption"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:prop_rule_to_grp_comment
+msgid "Omaduse Vali grupp, kuhu reegel kasutaja paneb (rule_to_grp) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:prop_rule_to_grp_help
+msgid "Omaduse Vali grupp, kuhu reegel kasutaja paneb (rule_to_grp) help"
+msgstr ""
+
+#: classes/contentmgmt/join/join_site_rule.aw:rel_RELTYPE_JOIN_CONF
+msgid "Seose liitumise konfiguratsioon (RELTYPE_JOIN_CONF) tekst"
+msgstr ""
+

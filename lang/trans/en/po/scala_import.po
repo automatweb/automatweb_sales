@@ -1,0 +1,324 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/import/scala_import.aw:class_1137_help
+msgid "Klassi Scala import help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_warehouse
+msgid "Omaduse Ladu (warehouse) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_warehouse_comment
+msgid "Omaduse Ladu (warehouse) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_warehouse_help
+msgid "Omaduse Ladu (warehouse) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_user_group
+msgid "Omaduse Kasutajagrupp (user_group) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_user_group_comment
+msgid "Omaduse Kasutajagrupp (user_group) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_user_group_help
+msgid "Omaduse Kasutajagrupp (user_group) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_config_form
+msgid "Omaduse Seadete vorm (config_form) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_config_form_comment
+msgid "Omaduse Seadete vorm (config_form) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_config_form_help
+msgid "Omaduse Seadete vorm (config_form) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_import_sections
+msgid "Omaduse Mida importida (import_sections) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_import_sections_comment
+msgid "Omaduse Mida importida (import_sections) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_import_sections_help
+msgid "Omaduse Mida importida (import_sections) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_do_import
+msgid "Omaduse Teosta import (do_import) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_do_import_comment
+msgid "Omaduse Teosta import (do_import) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_do_import_help
+msgid "Omaduse Teosta import (do_import) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_import_time
+msgid "Omaduse Viimase impordi l&otilde;ppemise aeg: (import_time) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_import_time_comment
+msgid "Omaduse Viimase impordi l&otilde;ppemise aeg: (import_time) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_import_time_help
+msgid "Omaduse Viimase impordi l&otilde;ppemise aeg: (import_time) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_host
+msgid "Omaduse FTP aadress (ftp_host) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_host_comment
+msgid "Omaduse FTP aadress (ftp_host) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_host_help
+msgid "Omaduse FTP aadress (ftp_host) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_user
+msgid "Omaduse FTP kasutaja (ftp_user) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_user_comment
+msgid "Omaduse FTP kasutaja (ftp_user) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_user_help
+msgid "Omaduse FTP kasutaja (ftp_user) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_password
+msgid "Omaduse FTP parool (ftp_password) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_password_comment
+msgid "Omaduse FTP parool (ftp_password) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_password_help
+msgid "Omaduse FTP parool (ftp_password) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_file_location_pricing
+msgid "Omaduse Pricing.xml (ftp_file_location_pricing) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_file_location_pricing_comment
+msgid "Omaduse Pricing.xml (ftp_file_location_pricing) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_file_location_pricing_help
+msgid "Omaduse Pricing.xml (ftp_file_location_pricing) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_file_location_customer
+msgid "Omaduse Customers.xml (ftp_file_location_customer) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_file_location_customer_comment
+msgid "Omaduse Customers.xml (ftp_file_location_customer) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_file_location_customer_help
+msgid "Omaduse Customers.xml (ftp_file_location_customer) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_file_location_availability
+msgid "Omaduse Availability.xml  (ftp_file_location_availability) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_file_location_availability_comment
+msgid "Omaduse Availability.xml  (ftp_file_location_availability) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_ftp_file_location_availability_help
+msgid "Omaduse Availability.xml  (ftp_file_location_availability) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_prices_config_table
+msgid "Omaduse Hindade seadete tabel (prices_config_table) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_prices_config_table_comment
+msgid "Omaduse Hindade seadete tabel (prices_config_table) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_prices_config_table_help
+msgid "Omaduse Hindade seadete tabel (prices_config_table) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_users_config_table
+msgid "Omaduse Kasutajate seadete tabel (users_config_table) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_users_config_table_comment
+msgid "Omaduse Kasutajate seadete tabel (users_config_table) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_users_config_table_help
+msgid "Omaduse Kasutajate seadete tabel (users_config_table) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_categories_config_table
+msgid "Omaduse Kategooriate seadete tabel (categories_config_table) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_categories_config_table_comment
+msgid "Omaduse Kategooriate seadete tabel (categories_config_table) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_categories_config_table_help
+msgid "Omaduse Kategooriate seadete tabel (categories_config_table) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_availability_config_table
+msgid "Omaduse Laoseisu seadete tabel (availability_config_table) caption"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_availability_config_table_comment
+msgid "Omaduse Laoseisu seadete tabel (availability_config_table) kommentaar"
+msgstr ""
+
+#: classes/import/scala_import.aw:prop_availability_config_table_help
+msgid "Omaduse Laoseisu seadete tabel (availability_config_table) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_ftp_config
+msgid "Grupi FTP seaded (ftp_config) pealkiri"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_ftp_config_help
+msgid "Grupi FTP seaded (ftp_config) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_import_config
+msgid "Grupi Impordi seaded (import_config) pealkiri"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_import_config_help
+msgid "Grupi Impordi seaded (import_config) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_prices
+msgid "Grupi Hinnad (prices) pealkiri"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_prices_help
+msgid "Grupi Hinnad (prices) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_users
+msgid "Grupi Kasutajad (users) pealkiri"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_users_help
+msgid "Grupi Kasutajad (users) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_categories
+msgid "Grupi Kategooriad (categories) pealkiri"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_categories_help
+msgid "Grupi Kategooriad (categories) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_availability
+msgid "Grupi Laoseis (availability) pealkiri"
+msgstr ""
+
+#: classes/import/scala_import.aw:group_availability_help
+msgid "Grupi Laoseis (availability) help"
+msgstr ""
+
+#: classes/import/scala_import.aw:rel_RELTYPE_WAREHOUSE
+msgid "Seose Ladu (RELTYPE_WAREHOUSE) tekst"
+msgstr ""
+
+#: classes/import/scala_import.aw:rel_RELTYPE_USER_GROUP
+msgid "Seose Ladu (RELTYPE_USER_GROUP) tekst"
+msgstr ""
+
+#: classes/import/scala_import.aw:rel_RELTYPE_CONFIG_FORM
+msgid "Seose Seadete vorm (RELTYPE_CONFIG_FORM) tekst"
+msgstr ""
+
+#: classes/import/scala_import.aw:rel_RELTYPE_RECURRENCE
+msgid "Seose Kordused (RELTYPE_RECURRENCE) tekst"
+msgstr ""
+
+#: classes/import/scala_import.aw:114
+msgid "Kasutajad"
+msgstr ""
+
+#: classes/import/scala_import.aw:115
+msgid "Kategooriad"
+msgstr ""
+
+#: classes/import/scala_import.aw:116
+msgid "Lao seis"
+msgstr ""
+
+#: classes/import/scala_import.aw:117
+msgid "Hinnad"
+msgstr ""
+
+#: classes/import/scala_import.aw:144
+msgid "Impordi %s"
+msgstr ""
+
+#: classes/import/scala_import.aw:173
+msgid "Property"
+msgstr ""
+
+#: classes/import/scala_import.aw:178 classes/import/scala_import.aw:247
+#: classes/import/scala_import.aw:297 classes/import/scala_import.aw:342
+msgid "XML tagide nimed"
+msgstr ""
+
+#: classes/import/scala_import.aw:200
+msgid "Hind"
+msgstr ""
+
+#: classes/import/scala_import.aw:204
+msgid "Tootekood"
+msgstr ""
+
+#: classes/import/scala_import.aw:211
+msgid "Toote objektidele hinnad XML fail (%s) p&otilde;hjal"
+msgstr ""
+
+#: classes/import/scala_import.aw:243 classes/import/scala_import.aw:293
+#: classes/import/scala_import.aw:338
+msgid "AW objekti v&auml;ljad"
+msgstr ""
+
+#: classes/import/scala_import.aw:252
+msgid "Kasutaja objektid XML faili %s p&otilde;hjal"
+msgstr ""
+
+#: classes/import/scala_import.aw:365
+msgid "Lao toote objektid XML faili %s p&otilde;hjal"
+msgstr ""

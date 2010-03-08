@@ -1,0 +1,75 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/crm/crm_product.aw:class_161_help
+#: classes/crm/crm_product.aw:class_161_help
+msgid "Klassi Toode help"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_toode
+#: classes/crm/crm_product.aw:prop_toode
+msgid "Omaduse Toote nimetus (toode) caption"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_toode_comment
+#: classes/crm/crm_product.aw:prop_toode_comment
+msgid "Omaduse Toote nimetus (toode) kommentaar"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_toode_help
+#: classes/crm/crm_product.aw:prop_toode_help
+msgid "Omaduse Toote nimetus (toode) help"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_toode_en
+#: classes/crm/crm_product.aw:prop_toode_en
+msgid "Omaduse Inglise keelne tootenimetus (toode_en) caption"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_toode_en_comment
+#: classes/crm/crm_product.aw:prop_toode_en_comment
+msgid "Omaduse Inglise keelne tootenimetus (toode_en) kommentaar"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_toode_en_help
+#: classes/crm/crm_product.aw:prop_toode_en_help
+msgid "Omaduse Inglise keelne tootenimetus (toode_en) help"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_comment
+#: classes/crm/crm_product.aw:prop_comment
+msgid "Omaduse Kirjeldus (comment) caption"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_comment_comment
+#: classes/crm/crm_product.aw:prop_comment_comment
+msgid "Omaduse Kirjeldus (comment) kommentaar"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_comment_help
+#: classes/crm/crm_product.aw:prop_comment_help
+msgid "Omaduse Kirjeldus (comment) help"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_kood
+#: classes/crm/crm_product.aw:prop_kood
+msgid "Omaduse Toote kood\t (kood) caption"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_kood_comment
+#: classes/crm/crm_product.aw:prop_kood_comment
+msgid "Omaduse Toote kood\t (kood) kommentaar"
+msgstr ""
+
+# classes/crm/crm_product.aw:prop_kood_help
+#: classes/crm/crm_product.aw:prop_kood_help
+msgid "Omaduse Toote kood\t (kood) help"
+msgstr ""

@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/realestate_management/realestate_client_selection.aw:class_1026_help
+msgid "Klassi Klientide valim help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_client_selection.aw:prop_client_ids
+msgid "Omaduse  (client_ids) caption"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_client_selection.aw:prop_client_ids_comment
+msgid "Omaduse  (client_ids) kommentaar"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_client_selection.aw:prop_client_ids_help
+msgid "Omaduse  (client_ids) help"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_client_selection.aw:rel_RELTYPE_MAILINGLIST
+msgid "Seose Valimi meililist (RELTYPE_MAILINGLIST) tekst"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_client_selection.aw:254
+msgid "\"Kıik lubatud\" kasutaja keskkonna seadetes m‰‰ramata"
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_client_selection.aw:288
+msgid "Uue kliendivalimi loomisel ei antud argumendina kaasa loodud objekti id-d."
+msgstr ""
+
+#: classes/applications/realestate_management/realestate_client_selection.aw:298
+msgid "Kliendivalimi meilinglist"
+msgstr ""

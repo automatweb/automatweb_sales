@@ -1,0 +1,35 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: #e1e1e1;
+}
+#border {
+	border-bottom: solid 1px #ffffff;
+}
+#toolbar {
+	background-color: #e1e1e1;
+	height: 30px;
+	border-top: 1px solid #ffffff;
+	border-left: 1px solid #ffffff;
+	border-right: 1px solid #bdbdbd;
+	border-bottom: 1px solid #bdbdbd;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+#toolbar .links {
+	margin: 7px 3px;
+}
+#toolbar .links a {
+	color: #333333;
+	text-decoration: none;
+	border: solid 1px #eceaea;
+	padding: 3px;
+}
+#toolbar .links a:hover {
+color: #000000;
+	border-top: solid 1px #ffffff;
+	border-right: solid 1px #bdbdbd;
+	border-bottom: solid 1px #bdbdbd;
+	border-left: solid 1px #ffffff;
+	padding: 3px;
+}

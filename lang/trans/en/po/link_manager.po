@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/admin/editor/link_manager.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/admin/editor/link_manager.aw:108
+msgid "Uus link"
+msgstr "New link"
+
+#: classes/admin/editor/link_manager.aw:109
+msgid "Vali olemasolev link"
+msgstr "Choose existing link"
+
+#: classes/admin/editor/link_manager.aw:122
+msgid "Link"
+msgstr "Link"
+
+#: classes/admin/editor/link_manager.aw:158
+msgid "Vali see"
+msgstr "Choose this"
+
+#: classes/admin/editor/link_manager.aw:190
+msgid "URL"
+msgstr "URL"
+
+#~ msgid "Asukoht"
+#~ msgstr "Location"
+
+#~ msgid "Vali"
+#~ msgstr "Choose"
+
+#~ msgid "Nimi"
+#~ msgstr "Name"
+
+#~ msgid "Otsi"
+#~ msgstr "Search"
+
+#~ msgid "Minu lisatud"
+#~ msgstr "Added by me"
+
+#~ msgid "Viimased 30"
+#~ msgstr "Last 30"

@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="rate" folder="contentmgmt/rate" extends="class_base">
+		<action name="rate" nologin="1">
+			<function name="add_rate">
+				<arguments>
+					<required name="oid" type="int" />
+					<optional name="rate_id" type="int" />
+					<optional name="return_url" />
+					<required name="rate" />
+					<optional name="overwrite_previous" type="bool" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show" nologin="1">
+			<function name="show">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="from_oid" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rate_popup" nologin="1">
+			<function name="rate_popup">
+				<arguments>
+					<required name="oid" type="int" />
+					<optional name="close" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

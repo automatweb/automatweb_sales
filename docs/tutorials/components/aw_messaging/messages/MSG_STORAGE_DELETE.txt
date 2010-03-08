@@ -1,0 +1,7 @@
+MSG_STORAGE_DELETE
+
+This message will get posted when object is about to be deleted.
+The message parameter is the class_id of the object.
+
+arguments:
+oid - the id of the object to be deleted 

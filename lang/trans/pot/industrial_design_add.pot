@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:class_1455_help
+msgid "Klassi T&ouml;&ouml;stusdisainilahenduse veebist lisamine help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_procurator_menu
+msgid "Omaduse Volinike kaust (procurator_menu) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_procurator_menu_comment
+msgid "Omaduse Volinike kaust (procurator_menu) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_procurator_menu_help
+msgid "Omaduse Volinike kaust (procurator_menu) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_bank_payment
+msgid "Omaduse Pangamakse objekt (bank_payment) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_bank_payment_comment
+msgid "Omaduse Pangamakse objekt (bank_payment) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_bank_payment_help
+msgid "Omaduse Pangamakse objekt (bank_payment) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_trademarks_menu
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse taotluste kaust (trademarks_menu) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_trademarks_menu_comment
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse taotluste kaust (trademarks_menu) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_trademarks_menu_help
+msgid "Omaduse T&ouml;&ouml;stusdisainilahenduse taotluste kaust (trademarks_menu) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_series
+msgid "Omaduse Numbriseeria (series) caption"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_series_comment
+msgid "Omaduse Numbriseeria (series) kommentaar"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:prop_series_help
+msgid "Omaduse Numbriseeria (series) help"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:rel_RELTYPE_BANK_PAYMENT
+msgid "Seose Pangalingi objekt (RELTYPE_BANK_PAYMENT) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:rel_RELTYPE_PROCURATOR_MENU
+msgid "Seose Volinike kaust (RELTYPE_PROCURATOR_MENU) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:rel_RELTYPE_TRADEMARK_MENU
+msgid "Seose T&ouml;&ouml;stusdisaini taotluste kaust (RELTYPE_TRADEMARK_MENU) tekst"
+msgstr ""
+
+#: classes/applications/clients/patent_office/industrial_design_add.aw:rel_RELTYPE_SERIES
+msgid "Seose Numbriseeria (RELTYPE_SERIES) tekst"
+msgstr ""
+

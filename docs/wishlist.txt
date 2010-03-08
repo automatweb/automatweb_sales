@@ -1,0 +1,25 @@
+AW CLASSBASE RFC 0.1
+
+1) reltypel saab ära määrata optioniga tagurpidi seose info ja siis panna juurde mingisugused flagid,
+millega saax ära kirjeldada:
+	*) kas seose loomisel peax tehatama automaatselt teistpidi seos
+	*) kas seose kustutamisel peax kustutatama automaatselt teistpidi seos
+
+Ilmselt tekib kohe küsimus, et kas siis peaks teises failis ka saama kirjeldada see informatsioon ära või mitte,
+miks mitte, annab parema kontrolli. Niiet, et saada 4automaatset alias_add/delete't tuleks mõlemas failis, see
+soov ära kirjeldada. 
+
+Miks see hea on?
+	Säästab kõvasti koodi kirjutamist. Tõstab kvaliteeti.
+
+2) Seostega tegelevad meetodid kõik võtavad parameetriks text-based seoste nimesid. Ja text-based seoste nimed
+	kujul "CLASSNAME.RELTYPE_FOO". Ja igal seoste meetodile saab anda parameetriks 'type' (minu arust parem oleks
+	kui see key oleks just 'reltype'), et oleks consistency sellel alal
+
+Miks see hea on?
+	Selge arusaam programmeerija, mis seoseid ta loob/kustutab.
+
+3) object_list'ist võiks saada otsida ka parent'i parent'i järgi, midagi sarnast nagu "parent.parent.class_id" => 4343, "parent.parent" => 54353 võiks ka töötada
+
+ 
+4) klass folder, millel on meetodid get_objects / get_sub_folders jne, et ei peaks igalepoole pikka object_list'i filtrit kirjutama kui foldereid tahad.

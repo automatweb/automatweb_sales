@@ -1,0 +1,20 @@
+Function parameters
+
+It is strongly recommended that functions pass parameters as arrays, not by position. This is to emulate named function parameters. It makes it much easier to implement several optional parameters and also it is easier to remember the names of parameters, rather than their order. 
+
+To make this easier, there is a function in php - extract() that creates local variables from an array - key is variable name, value is variable value. 
+
+example:
+#php#
+function foo($arr)
+{
+	extract($arr);
+	echo "par1 = ".$param1." <br>";
+}
+
+foo(array(
+	"param1" => "elephant"
+));
+#/php#
+
+

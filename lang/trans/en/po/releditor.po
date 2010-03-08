@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: 2005-12-06 12:41+0200\n"
+"Last-Translator: Erki <erki@struktuur.ee>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/vcl/releditor.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/vcl/releditor.aw:106 classes/vcl/releditor.aw:215
+#: classes/vcl/releditor.aw:1062 classes/vcl/releditor.aw:1298
+#: classes/vcl/releditor.aw:1959 classes/vcl/releditor.aw:2007
+#: classes/vcl/releditor.aw:2284
+msgid "Muuda"
+msgstr "Change"
+
+#: classes/vcl/releditor.aw:107 classes/vcl/releditor.aw:220
+#: classes/vcl/releditor.aw:1964 classes/vcl/releditor.aw:2008
+msgid "Kustuta"
+msgstr ""
+
+#: classes/vcl/releditor.aw:467 classes/vcl/releditor.aw:2288
+msgid "Lisa"
+msgstr ""
+
+#: classes/vcl/releditor.aw:538
+msgid "Klassi ID"
+msgstr "Class ID"
+
+#: classes/vcl/releditor.aw:539
+msgid "Klass"
+msgstr "Class"
+
+#: classes/vcl/releditor.aw:557
+msgid "Viga %s definitsioonis (omadused defineerimata!)"
+msgstr "Error in the definition of %s (properties not defined!)"
+
+#: classes/vcl/releditor.aw:567
+msgid "Viga %s definitsioonis (seose t&uuml;&uuml;p defineerimata!)"
+msgstr ""
+
+#: classes/vcl/releditor.aw:603
+msgid "Seda seost ei saa redigeerida!"
+msgstr "This connection can not be edited"
+
+#: classes/vcl/releditor.aw:805 classes/vcl/releditor.aw:984
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/vcl/releditor.aw:934 classes/vcl/releditor.aw:942
+#: classes/vcl/releditor.aw:953
+msgid "Uus"
+msgstr "New"
+
+#: classes/vcl/releditor.aw:943
+msgid "Lisa %s"
+msgstr "Add %s"
+
+#: classes/vcl/releditor.aw:958
+msgid "Kustutada valitud objektid?"
+msgstr "Delete selected objects?"
+
+#: classes/vcl/releditor.aw:961
+msgid "Kustutada valitud seosed?"
+msgstr "Delete selected relations?"
+
+#: classes/vcl/releditor.aw:993
+msgid "Klooni valitud objektid"
+msgstr "Clone selected objects"
+
+#: classes/vcl/releditor.aw:1205
+msgid "Vali &uuml;ks"
+msgstr ""
+
+#: classes/vcl/releditor.aw:1215 classes/vcl/releditor.aw:1282
+msgid "ID"
+msgstr "ID"
+
+#: classes/vcl/releditor.aw:1289
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/vcl/releditor.aw:2130
+msgid "Jah"
+msgstr ""
+
+#: classes/vcl/releditor.aw:2130
+msgid "Ei"
+msgstr ""
+
+#: classes/vcl/releditor.aw:2298
+msgid "Oled kindel, et soovid kustutada?"
+msgstr ""
+
+#~ msgid "Viga %s definitsioonis (seose tüüp defineerimata!)"
+#~ msgstr "Error in the definition of %s (connection type undefined!)"
+
+#~ msgid "Vali üks"
+#~ msgstr "Pick one"
+
+#~ msgid " "
+#~ msgstr " "
+
+#~ msgid "Uus "
+#~ msgstr "New"

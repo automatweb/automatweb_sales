@@ -1,0 +1,325 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/cb_trans/cb_translate.aw:class_1251_help
+msgid "Klassi T&otilde;lkekeskkond help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_translation_tb
+msgid "Omaduse  (translation_tb) caption"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_translation_tb_comment
+msgid "Omaduse  (translation_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_translation_tb_help
+msgid "Omaduse  (translation_tb) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_classtree
+msgid "Omaduse  (classtree) caption"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_classtree_comment
+msgid "Omaduse  (classtree) kommentaar"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_classtree_help
+msgid "Omaduse  (classtree) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_translation_area
+msgid "Omaduse  (translation_area) caption"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_translation_area_comment
+msgid "Omaduse  (translation_area) kommentaar"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_translation_area_help
+msgid "Omaduse  (translation_area) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_remove_changes
+msgid "Omaduse  (remove_changes) caption"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_remove_changes_comment
+msgid "Omaduse  (remove_changes) kommentaar"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_remove_changes_help
+msgid "Omaduse  (remove_changes) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_show_changes
+msgid "Omaduse  (show_changes) caption"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_show_changes_comment
+msgid "Omaduse  (show_changes) kommentaar"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_show_changes_help
+msgid "Omaduse  (show_changes) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_activity
+msgid "Omaduse Aktiivsus (activity) caption"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_activity_comment
+msgid "Omaduse Aktiivsus (activity) kommentaar"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:prop_activity_help
+msgid "Omaduse Aktiivsus (activity) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:group_translation
+msgid "Grupi T&otilde;lkimine (translation) pealkiri"
+msgstr "Translations"
+
+#: classes/applications/cb_trans/cb_translate.aw:group_translation_help
+msgid "Grupi T&otilde;lkimine (translation) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:group_translation_sub
+msgid "Grupi T&otilde;lkimine (translation_sub) pealkiri"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:group_translation_sub_help
+msgid "Grupi T&otilde;lkimine (translation_sub) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:group_translation_confirm
+msgid "Grupi Kinnita t&otilde;lked (translation_confirm) pealkiri"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:group_translation_confirm_help
+msgid "Grupi Kinnita t&otilde;lked (translation_confirm) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:group_activity
+msgid "Grupi Aktiivsus (activity) pealkiri"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:group_activity_help
+msgid "Grupi Aktiivsus (activity) help"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:layout_translation_vsplit_left
+msgid "Kujundusosa Klassihierarhia (translation_vsplit_left) pealkiri"
+msgstr "Class hierarhy"
+
+#: classes/applications/cb_trans/cb_translate.aw:layout_translation_vsplit_right
+msgid "Kujundusosa T&otilde;lked (translation_vsplit_right) pealkiri"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:190
+#: classes/applications/cb_trans/cb_translate.aw:337
+msgid "AW KLASSIDE T&Otilde;LKIMINE"
+msgstr "Translation of AW classes"
+
+#: classes/applications/cb_trans/cb_translate.aw:221
+msgid "Salvesta"
+msgstr "Save"
+
+#: classes/applications/cb_trans/cb_translate.aw:229
+msgid "Otsi"
+msgstr "Search"
+
+#: classes/applications/cb_trans/cb_translate.aw:254
+msgid "AW://"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:262
+msgid "GO"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:386
+#: classes/applications/cb_trans/cb_translate.aw:928
+msgid "Kujundusosad"
+msgstr "Layouts"
+
+#: classes/applications/cb_trans/cb_translate.aw:397
+#: classes/applications/cb_trans/cb_translate.aw:939
+msgid "Nimetu"
+msgstr "No name"
+
+#: classes/applications/cb_trans/cb_translate.aw:444
+#: classes/applications/cb_trans/cb_translate.aw:891
+msgid "Seosed"
+msgstr "Connections"
+
+#: classes/applications/cb_trans/cb_translate.aw:518
+#: classes/applications/cb_trans/cb_translate.aw:1918
+msgid "CVS commit"
+msgstr "CVS commit"
+
+#: classes/applications/cb_trans/cb_translate.aw:524
+msgid "N&auml;ita muutusi"
+msgstr "Show changes"
+
+#: classes/applications/cb_trans/cb_translate.aw:528
+msgid "AW t&otilde;lkimine"
+msgstr "AW translation"
+
+#: classes/applications/cb_trans/cb_translate.aw:676
+msgid "Selle klassil puudub abiinfo"
+msgstr "This class has no help"
+
+#: classes/applications/cb_trans/cb_translate.aw:802
+msgid "Klassi '%s' abiinfo"
+msgstr "Class '%s' help"
+
+#: classes/applications/cb_trans/cb_translate.aw:805
+msgid "AW abiinfo"
+msgstr "AW help"
+
+#: classes/applications/cb_trans/cb_translate.aw:1030
+msgid "Tekst"
+msgstr "Text"
+
+#: classes/applications/cb_trans/cb_translate.aw:1160
+#: classes/applications/cb_trans/cb_translate.aw:1305
+#: classes/applications/cb_trans/cb_translate.aw:1438
+#: classes/applications/cb_trans/cb_translate.aw:1577
+#: classes/applications/cb_trans/cb_translate.aw:1733
+#: classes/applications/cb_trans/cb_translate.aw:1791
+msgid "Keel"
+msgstr "Language"
+
+#: classes/applications/cb_trans/cb_translate.aw:1166
+msgid "Seose nimi"
+msgstr "Name of relation"
+
+#: classes/applications/cb_trans/cb_translate.aw:1242
+msgid "Kausta"
+msgstr "Folder"
+
+#: classes/applications/cb_trans/cb_translate.aw:1242
+msgid "Klassi"
+msgstr "Class"
+
+#: classes/applications/cb_trans/cb_translate.aw:1311
+msgid "Nimi"
+msgstr "Name"
+
+#: classes/applications/cb_trans/cb_translate.aw:1318
+#: classes/applications/cb_trans/cb_translate.aw:1453
+#: classes/applications/cb_trans/cb_translate.aw:1590
+msgid "Kommentaar"
+msgstr "Comment"
+
+#: classes/applications/cb_trans/cb_translate.aw:1326
+#: classes/applications/cb_trans/cb_translate.aw:1461
+#: classes/applications/cb_trans/cb_translate.aw:1598
+msgid "Abitekst"
+msgstr "Help text"
+
+#: classes/applications/cb_trans/cb_translate.aw:1383
+msgid "Klass '%s', Grupp '%s'"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:1444
+msgid "Grupi nimi"
+msgstr "Group name"
+
+#: classes/applications/cb_trans/cb_translate.aw:1583
+msgid "Omaduse nimi"
+msgstr "Property name"
+
+#: classes/applications/cb_trans/cb_translate.aw:1739
+msgid "Kujundusosa nimi"
+msgstr "Layout name"
+
+#: classes/applications/cb_trans/cb_translate.aw:1796
+msgid "Element"
+msgstr "Element"
+
+#: classes/applications/cb_trans/cb_translate.aw:1801
+msgid "Ennem"
+msgstr "Before"
+
+#: classes/applications/cb_trans/cb_translate.aw:1806
+msgid "P&auml;rast"
+msgstr "After"
+
+#: classes/applications/cb_trans/cb_translate.aw:1828
+#: classes/applications/cb_trans/cb_translate.aw:1838
+msgid "tekst puudus"
+msgstr "text missing"
+
+#: classes/applications/cb_trans/cb_translate.aw:1829
+#: classes/applications/cb_trans/cb_translate.aw:1839
+msgid "tekst eemaldati"
+msgstr "text removed"
+
+#: classes/applications/cb_trans/cb_translate.aw:1845
+msgid "Punasega t&auml;histatud ridu ei ole v&otilde;imalik t&otilde;lkefailide kirjutus&otilde;iguste puudumise t&otilde;ttu salvestada!"
+msgstr ""
+
+#: classes/applications/cb_trans/cb_translate.aw:1911
+msgid "Muudetud faile ei ole!"
+msgstr "No files modified"
+
+#: classes/applications/cb_trans/cb_translate.aw:1922
+msgid "Seletus"
+msgstr "Explanation"
+
+#: classes/applications/cb_trans/cb_translate.aw:1923
+msgid "Commitimisele minevad failid"
+msgstr "Files to commit"
+
+#: classes/applications/cb_trans/cb_translate.aw:2569
+msgid "Otsitav s&otilde;na"
+msgstr "Searchable word"
+
+#~ msgid "Kujundusosa Tolgitavad_asjad (translation_vsplit_right) pealkiri"
+#~ msgstr "Translatable items"
+
+#~ msgid "seos"
+#~ msgstr "relation"
+
+#~ msgid "t&uuml;&uuml;pi"
+#~ msgstr "type"
+
+#~ msgid "Kaust"
+#~ msgstr "Folder"
+
+#~ msgid "Klass"
+#~ msgstr "Class"
+
+#~ msgid "Grupp"
+#~ msgstr "Group"
+
+#~ msgid "Omadus"
+#~ msgstr "Property"
+
+#~ msgid "punasega t&auml;histatud ridu ei ole v&otilde;imalik t&otilde;lkefailide kirjutus&otilde;iguste puudumise t&otilde;ttu salvestada!"
+#~ msgstr "it is not possible to save files because of file write error"
+
+#~ msgid "Sooritatud muudatused"
+#~ msgstr "Changes"
+
+#~ msgid "Kinnita muudatused"
+#~ msgstr "Confirm changes"
+
+#~ msgid "muudatusi pole"
+#~ msgstr "no changes"
+
+#~ msgid "tekstid."
+#~ msgstr "texts"
+
+#~ msgid "tüüpi"
+#~ msgstr "type"

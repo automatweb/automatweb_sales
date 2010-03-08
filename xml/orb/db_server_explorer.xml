@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="db_server_explorer" folder="www/dev/terryf/automatweb_dev/classes/applications/awmyadmin" extends="class_base">
+		<action name="add_table">
+			<function name="add_table">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_add_table">
+			<function name="submit_add_table">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_tables">
+			<function name="delete_tables">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

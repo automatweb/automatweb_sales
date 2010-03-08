@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="shop_product_obj" folder="www/automatweb_cvs/classes/applications/shop" extends="_int_object">
+		<action name="get_price">
+			<function name="get_price">
+				<arguments>
+					<optional name="shop" />
+					<optional name="product_category" type="array/int" acl="view" />
+					<optional name="amount" type="float" default="1" />
+					<optional name="uid" type="oid" />
+					<optional name="time" type="int" />
+					<optional name="from" type="int" />
+					<optional name="customer_category" type="array/int" acl="view" />
+					<optional name="customer_data" type="int" acl="view" />
+					<optional name="location" type="array/int" acl="view" />
+					<optional name="structure" type="bool" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_discount">
+			<function name="get_discount">
+				<arguments>
+					<optional name="oid" type="oid" />
+					<optional name="group" type="oid" />
+					<optional name="uid" type="oid" />
+					<optional name="crm_category" type="oid" />
+					<optional name="org" type="oid" />
+					<optional name="person" type="oid" />
+					<optional name="warehouse" type="oid" />
+					<optional name="prod_category" type="oid" />
+					<optional name="time" type="int" />
+					<optional name="from" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_replacement_products">
+			<function name="get_replacement_products">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="run_in_background" folder="www/dev/terryf/automatweb_dev/classes/core" extends="class_base">
+		<action name="bg_run_get_property_control">
+			<function name="bg_run_get_property_control">
+				<arguments>
+					<required name="prop" type="array" />
+					<required name="obj_inst" type="object" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bg_run_get_property_status">
+			<function name="bg_run_get_property_status">
+				<arguments>
+					<required name="prop" type="array" />
+					<required name="obj_inst" type="object" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bg_control">
+			<function name="bg_control">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="do" />
+					<optional name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bg_check_scheduler" nologin="1">
+			<function name="bg_check_scheduler">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bg_run" nologin="1">
+			<function name="bg_run">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

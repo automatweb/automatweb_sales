@@ -1,0 +1,204 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_report_entry.aw:class_1052_help
+msgid "Klassi Aruanne help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_cust
+msgid "Omaduse Klient (cust) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_cust_comment
+msgid "Omaduse Klient (cust) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_cust_help
+msgid "Omaduse Klient (cust) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_cust_type
+msgid "Omaduse Kliendi t&uuml;&uuml;p (cust_type) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_cust_type_comment
+msgid "Omaduse Kliendi t&uuml;&uuml;p (cust_type) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_cust_type_help
+msgid "Omaduse Kliendi t&uuml;&uuml;p (cust_type) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_proj
+msgid "Omaduse Projekt (proj) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_proj_comment
+msgid "Omaduse Projekt (proj) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_proj_help
+msgid "Omaduse Projekt (proj) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_worker
+msgid "Omaduse T&ouml;&ouml;taja (worker) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_worker_comment
+msgid "Omaduse T&ouml;&ouml;taja (worker) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_worker_help
+msgid "Omaduse T&ouml;&ouml;taja (worker) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_worker_sel
+msgid "Omaduse T&ouml;&ouml;taja (worker_sel) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_worker_sel_comment
+msgid "Omaduse T&ouml;&ouml;taja (worker_sel) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_worker_sel_help
+msgid "Omaduse T&ouml;&ouml;taja (worker_sel) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_project_mgr
+msgid "Omaduse Projektijuht (project_mgr) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_project_mgr_comment
+msgid "Omaduse Projektijuht (project_mgr) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_project_mgr_help
+msgid "Omaduse Projektijuht (project_mgr) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_from
+msgid "Omaduse Alates (from) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_from_comment
+msgid "Omaduse Alates (from) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_from_help
+msgid "Omaduse Alates (from) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_to
+msgid "Omaduse Kuni (to) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_to_comment
+msgid "Omaduse Kuni (to) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_to_help
+msgid "Omaduse Kuni (to) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_time_sel
+msgid "Omaduse Ajavahemik (time_sel) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_time_sel_comment
+msgid "Omaduse Ajavahemik (time_sel) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_time_sel_help
+msgid "Omaduse Ajavahemik (time_sel) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_state
+msgid "Omaduse Toimetuse staatus (state) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_state_comment
+msgid "Omaduse Toimetuse staatus (state) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_state_help
+msgid "Omaduse Toimetuse staatus (state) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_bill_state
+msgid "Omaduse Arve staatus (bill_state) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_bill_state_comment
+msgid "Omaduse Arve staatus (bill_state) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_bill_state_help
+msgid "Omaduse Arve staatus (bill_state) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_only_billable
+msgid "Omaduse Arvele minevad tunnid ainult (only_billable) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_only_billable_comment
+msgid "Omaduse Arvele minevad tunnid ainult (only_billable) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_only_billable_help
+msgid "Omaduse Arvele minevad tunnid ainult (only_billable) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_area
+msgid "Omaduse Valdkond (area) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_area_comment
+msgid "Omaduse Valdkond (area) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_area_help
+msgid "Omaduse Valdkond (area) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_res_type
+msgid "Omaduse Tulemused (res_type) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_res_type_comment
+msgid "Omaduse Tulemused (res_type) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_res_type_help
+msgid "Omaduse Tulemused (res_type) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_res
+msgid "Omaduse  (res) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_res_comment
+msgid "Omaduse  (res) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:prop_res_help
+msgid "Omaduse  (res) help"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:group_view
+msgid "Grupi Vaata (view) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/crm_report_entry.aw:group_view_help
+msgid "Grupi Vaata (view) help"
+msgstr ""
+

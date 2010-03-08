@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="mrp_order_sent" folder="www/dev/terryf/automatweb_dev/classes/mrp/orders" extends="class_base">
+		<action name="agree_to_offer">
+			<function name="agree_to_offer">
+				<arguments>
+					<required name="id" />
+					<required name="ru" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

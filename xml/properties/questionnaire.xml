@@ -1,0 +1,344 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>q_by_one</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>K&amp;amp;uuml;simused &amp;amp;uuml;hekaupa</caption>
+      </property>
+      <property>
+            <name>str_answerer_with_qs</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>checkbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Vastaja andmed samal lehel k&amp;amp;uuml;simustega</caption>
+            <comment>Toimib ainult siis, kui k&amp;amp;uuml;simused on &amp;amp;uumlhel lehel. Ei saa kasutada seadete vormi.</comment>
+      </property>
+      <property>
+            <name>dsply_qcomment</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>chooser</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kuva k&amp;amp;uuml;simuse kommentaari</caption>
+            <comment>Kuvatakse kommentaare, mille pikkus on &amp;gt; 0.</comment>
+      </property>
+      <property>
+            <name>dsply_acomment</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>chooser</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kuva vastuse kommentaari</caption>
+            <comment>Kuvatakse kommentaare, mille pikkus on &amp;gt; 0.</comment>
+      </property>
+      <property>
+            <name>correct_msg</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Otilde;ige vastuse teade</caption>
+      </property>
+      <property>
+            <name>false_msg</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Vale vastuse teade</caption>
+      </property>
+      <property>
+            <name>dsply_correct2wrong</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Vale vastuse korral kuva &amp;amp;otilde;iged</caption>
+      </property>
+      <property>
+            <name>dsply_correct2wrong_caption_single</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Otilde;igete vastuste caption (ainsus)</caption>
+            <comment>Kuvatakse vale vastuse korral</comment>
+      </property>
+      <property>
+            <name>dsply_correct2wrong_caption_multiple</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Otilde;igete vastuste caption (mitmus)</caption>
+            <comment>Kuvatakse vale vastuse korral</comment>
+      </property>
+      <property>
+            <name>dsply_correct2correct</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Otilde;ige vastuse korral kuva k&amp;amp;otilde;ik &amp;amp;otilde;iged</caption>
+      </property>
+      <property>
+            <name>dsply_correct2correct_caption_single</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Otilde;igete vastuste caption (ainsus)</caption>
+            <comment>Kuvatakse &amp;amp;otilde;ige vastuse korral</comment>
+      </property>
+      <property>
+            <name>dsply_correct2correct_caption_multiple</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Otilde;igete vastuste caption (mitmus)</caption>
+            <comment>Kuvatakse &amp;amp;otilde;ige vastuse korral</comment>
+      </property>
+      <property>
+            <name>comment2nothing</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kommentaar, kui vastus on t&amp;amp;uuml;hi</caption>
+            <comment>Kuvatakse vastuse kommentaari v&amp;amp;auml;ljas</comment>
+      </property>
+      <property>
+            <name>str_rslts</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Salvesta vastamised</caption>
+      </property>
+      <property>
+            <name>str_answerer</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>chooser</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Salvesta vastaja andmed</caption>
+      </property>
+      <property>
+            <name>str_answerer_cfgform</name>
+            <table>objects</table>
+            <group>conf</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ASWERER_DATA_CFGFORM</reltype>
+            <store>connect</store>
+            <field>str_answerer_cfgform</field>
+            <caption>Vastaja salvestamise seadete vorm</caption>
+      </property>
+      <property>
+            <name>p_correct</name>
+            <table>objects</table>
+            <group>pics</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_IMAGE</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Otilde;ige vastuse pilt</caption>
+      </property>
+      <property>
+            <name>p_false</name>
+            <table>objects</table>
+            <group>pics</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_IMAGE</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Vale vastuse pilt</caption>
+      </property>
+      <property>
+            <name>rd_percent</name>
+            <table>objects</table>
+            <group>dsply_rslts</group>
+            <type>checkbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Otilde;igete vastuste protsent</caption>
+      </property>
+      <property>
+            <name>rd_fraction</name>
+            <table>objects</table>
+            <group>dsply_rslts</group>
+            <type>checkbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>&amp;amp;Otilde;igeid vastuseid hariliku murruna</caption>
+      </property>
+      <property>
+            <name>rd_results</name>
+            <table>objects</table>
+            <group>dsply_rslts</group>
+            <type>checkbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kuva &amp;amp;otilde;igesti/valesti vastatud k&amp;amp;uuml;simusi</caption>
+      </property>
+      <property>
+            <name>rd_text</name>
+            <table>objects</table>
+            <group>dsply_rslts</group>
+            <type>textarea</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Tekst</caption>
+      </property>
+      <property>
+            <name>rd_percent_text</name>
+            <table>objects</table>
+            <group>dsply_rslts</group>
+            <type>table</type>
+            <store>no</store>
+            <field>rd_percent_text</field>
+            <caption>Tekst &amp;amp;otilde;igete vastuste protsendi j&amp;amp;auml;rgi</caption>
+      </property>
+      <property>
+            <name>table_cols_conf</name>
+            <table>objects</table>
+            <group>answerers_tab</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>table_cols_conf</field>
+      </property>
+      <property>
+            <name>qtlbr</name>
+            <table>objects</table>
+            <group>questions</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>qtlbr</field>
+      </property>
+      <property>
+            <name>qtbl</name>
+            <table>objects</table>
+            <group>questions</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>qtbl</field>
+      </property>
+      <property>
+            <name>atlb</name>
+            <table>objects</table>
+            <group>answerers</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>atlb</field>
+            <caption>Vastajate toolbar</caption>
+      </property>
+      <property>
+            <name>acnt</name>
+            <table>objects</table>
+            <group>answerers</group>
+            <type>text</type>
+            <store>no</store>
+            <field>acnt</field>
+            <caption>Vastajate arv</caption>
+      </property>
+      <property>
+            <name>atbl</name>
+            <table>objects</table>
+            <group>answerers</group>
+            <type>table</type>
+            <store>no</store>
+            <field>atbl</field>
+            <caption>Vastajad</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_QUESTIONNAIRE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <groupinfo>
+            <conf>
+                  <parent>general</parent>
+                  <caption>Seaded</caption>
+            </conf>
+            <pics>
+                  <parent>general</parent>
+                  <caption>Pildid</caption>
+            </pics>
+            <dsply_rslts>
+                  <parent>general</parent>
+                  <caption>Tulemuste&amp;amp;nbsp;kuvamine</caption>
+            </dsply_rslts>
+            <answerers_tab>
+                  <parent>general</parent>
+                  <caption>Vastajate&amp;amp;nbsp;vaade</caption>
+            </answerers_tab>
+            <questions>
+                  <caption>K&amp;amp;uuml;simused</caption>
+                  <submit>no</submit>
+            </questions>
+            <answerers>
+                  <submit>no</submit>
+                  <caption>Vastajad</caption>
+            </answerers>
+      </groupinfo>
+      <reltypes>
+            <QUESTION>
+                  <value>1</value>
+                  <clid>CL_QUESTIONNAIRE_QUESTION</clid>
+                  <caption>K&amp;amp;uuml;simus</caption>
+            </QUESTION>
+            <IMAGE>
+                  <value>2</value>
+                  <clid>CL_IMAGE</clid>
+                  <caption>Pilt</caption>
+            </IMAGE>
+            <ANSWERER>
+                  <value>3</value>
+                  <clid>CL_QUESTIONNAIRE_ANSWERER</clid>
+                  <caption>Vastaja</caption>
+            </ANSWERER>
+            <ASWERER_DATA_CFGFORM>
+                  <value>4</value>
+                  <clid>CL_CFGFORM</clid>
+                  <caption>Vastaja salvestamise seadete vorm</caption>
+            </ASWERER_DATA_CFGFORM>
+      </reltypes>
+</properties>
+

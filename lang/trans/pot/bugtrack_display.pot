@@ -1,0 +1,408 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:class_1341_help
+msgid "Klassi &Uuml;lesannete kuvamine help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_bugtrack
+msgid "Omaduse Bugtrack (bugtrack) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_bugtrack_comment
+msgid "Omaduse Bugtrack (bugtrack) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_bugtrack_help
+msgid "Omaduse Bugtrack (bugtrack) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_type_var
+msgid "Omaduse Bugi t&uuml&uuml;bi muutuja (type_var) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_type_var_comment
+msgid "Omaduse Bugi t&uuml&uuml;bi muutuja (type_var) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_type_var_help
+msgid "Omaduse Bugi t&uuml&uuml;bi muutuja (type_var) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_bug_doc
+msgid "Omaduse Bugi dokument (bug_doc) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_bug_doc_comment
+msgid "Omaduse Bugi dokument (bug_doc) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_bug_doc_help
+msgid "Omaduse Bugi dokument (bug_doc) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_bug_cfgform
+msgid "Omaduse Bugi seadete vorm (bug_cfgform) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_bug_cfgform_comment
+msgid "Omaduse Bugi seadete vorm (bug_cfgform) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_bug_cfgform_help
+msgid "Omaduse Bugi seadete vorm (bug_cfgform) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_order_doc
+msgid "Omaduse Tellimuse dokument (order_doc) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_order_doc_comment
+msgid "Omaduse Tellimuse dokument (order_doc) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_order_doc_help
+msgid "Omaduse Tellimuse dokument (order_doc) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_order_cfgform
+msgid "Omaduse Tellimuse seadete vorm (order_cfgform) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_order_cfgform_comment
+msgid "Omaduse Tellimuse seadete vorm (order_cfgform) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_order_cfgform_help
+msgid "Omaduse Tellimuse seadete vorm (order_cfgform) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_type_var_table
+msgid "Omaduse Peakasutajad (type_var_table) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_type_var_table_comment
+msgid "Omaduse Peakasutajad (type_var_table) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_type_var_table_help
+msgid "Omaduse Peakasutajad (type_var_table) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_approvals_table
+msgid "Omaduse  (approvals_table) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_approvals_table_comment
+msgid "Omaduse  (approvals_table) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_approvals_table_help
+msgid "Omaduse  (approvals_table) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_settings_tb
+msgid "Omaduse  (table_settings_tb) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_settings_tb_comment
+msgid "Omaduse  (table_settings_tb) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_settings_tb_help
+msgid "Omaduse  (table_settings_tb) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_settings_table
+msgid "Omaduse  (table_settings_table) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_settings_table_comment
+msgid "Omaduse  (table_settings_table) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_settings_table_help
+msgid "Omaduse  (table_settings_table) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_settings_sort
+msgid "Omaduse Tabeli sorteerimine (table_settings_sort) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_settings_sort_comment
+msgid "Omaduse Tabeli sorteerimine (table_settings_sort) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_settings_sort_help
+msgid "Omaduse Tabeli sorteerimine (table_settings_sort) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_tasks_table
+msgid "Omaduse  (tasks_table) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_tasks_table_comment
+msgid "Omaduse  (tasks_table) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_tasks_table_help
+msgid "Omaduse  (tasks_table) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_devo_confirm_needed
+msgid "Omaduse  (devo_confirm_needed) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_devo_confirm_needed_comment
+msgid "Omaduse  (devo_confirm_needed) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_devo_confirm_needed_help
+msgid "Omaduse  (devo_confirm_needed) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_filter
+msgid "Omaduse Filtreeri (table_filter) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_filter_comment
+msgid "Omaduse Filtreeri (table_filter) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:prop_table_filter_help
+msgid "Omaduse Filtreeri (table_filter) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_data
+msgid "Grupi Andmed (data) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_data_help
+msgid "Grupi Andmed (data) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_groups
+msgid "Grupi Kasutajad (groups) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_groups_help
+msgid "Grupi Kasutajad (groups) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_approvals
+msgid "Grupi Koosk&otilde;lastamisel (approvals) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_approvals_help
+msgid "Grupi Koosk&otilde;lastamisel (approvals) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_tables
+msgid "Grupi Tabelid (tables) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_tables_help
+msgid "Grupi Tabelid (tables) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_task_settings
+msgid "Grupi &Uuml;lesanded (task_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_task_settings_help
+msgid "Grupi &Uuml;lesanded (task_settings) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_devo_settings
+msgid "Grupi Arendustellimused (devo_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_devo_settings_help
+msgid "Grupi Arendustellimused (devo_settings) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_solved_settings
+msgid "Grupi Lahendatud (solved_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_solved_settings_help
+msgid "Grupi Lahendatud (solved_settings) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_closed_settings
+msgid "Grupi Suletud (closed_settings) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_closed_settings_help
+msgid "Grupi Suletud (closed_settings) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_tasks
+msgid "Grupi &Uuml;lesanded (tasks) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_tasks_help
+msgid "Grupi &Uuml;lesanded (tasks) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_devos
+msgid "Grupi Koosk&otilde;lastamisel (devos) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_devos_help
+msgid "Grupi Koosk&otilde;lastamisel (devos) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_solved
+msgid "Grupi Lahendatud (solved) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_solved_help
+msgid "Grupi Lahendatud (solved) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_closed
+msgid "Grupi Suletud (closed) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:group_closed_help
+msgid "Grupi Suletud (closed) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:rel_RELTYPE_BUGTRACK
+msgid "Seose Bugtrack (RELTYPE_BUGTRACK) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:rel_RELTYPE_BUG_DOC
+msgid "Seose Bugi dokument (RELTYPE_BUG_DOC) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:rel_RELTYPE_ORDER_DOC
+msgid "Seose Tellimuse dokument (RELTYPE_ORDER_DOC) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:rel_RELTYPE_BT_TYPE_VAR
+msgid "Seose Bugi t&uuml;&uuml;bi muutuja (RELTYPE_BT_TYPE_VAR) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:rel_RELTYPE_ORDER_FORM
+msgid "Seose Tellimuse vorm (RELTYPE_ORDER_FORM) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:rel_RELTYPE_BUG_FORM
+msgid "Seose Bugi vorm (RELTYPE_BUG_FORM) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:230
+msgid "Nimetu"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:241
+msgid "&Uuml;lesanne"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:270
+msgid "Arendustellimus"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:311
+msgid "&Uuml;lesanded"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:406
+msgid "T&uuml;&uuml;bid"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:409
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:413
+msgid "Peakasutaja"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:435
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:485
+msgid "V&auml;ljad"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:488
+msgid "Nr."
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:494
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:499
+msgid "Bugi omadus"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:504
+msgid "Tellimuse omadus"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:509
+msgid "Tabelis"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:514
+msgid "Sorditav"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:519
+msgid "Vaikimisi sort"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:524
+msgid "Tulba pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:548
+msgid "Id"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:549
+msgid "T&uuml;&uuml;p"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:550
+msgid "Loomise kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:551
+msgid "Looja"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:552
+msgid "Muutja"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:665
+msgid "Kasvav"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:666
+msgid "Kahanev"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:896
+msgid "K&otilde;ik"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/bugtrack_display.aw:897
+msgid "Minu lisatud"
+msgstr ""
+

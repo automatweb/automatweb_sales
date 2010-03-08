@@ -1,0 +1,44 @@
+Using relation manager
+
+Why use relation manager? 
+
+Relation manager makes it very easy to reuse existing code in other classes and it saves you (as a coder) a lot of work by removing the need for unneccesary duplicating of program code. Let's suppose you want to add the functionality of uploading and using an image to your class. To do so, you simply create a new relation type and that pretty much is it . Now the user is able to upload an image (or search for an existing one to use) using the relation manager. All the functionality (receveing the file from browser, entering metadata, etc) is provided by the image class itself through the very same user interface that the user is probably already comfortable with. All you have to do is to write the code that deals with placing the image in wherever you need it.  
+
+To use relation manager in your class, put @classinfo relationmgr=yes in the header of your class (note that this is put in place automatically when creating new classes) and then regenerate the property definitions.
+This causes a new tab to appear at the right side of other tabs with a caption "Relation manager". 
+
+Relation manager has it's own toolbar. At the start are 2 selectboxes, the first one for picking a relation type and the other one for selecting classes for that relation type. Choosing a different value from the first causes the contents of the other to change.
+
+You can use relation manager to add a new object right there or search for an existing one. You can add as many relation types as you need to.
+<p>
+For each relation type add the following to the class header:
+<pre class="programlisting">
+@reltype SEEALSO value=1 clid=CL_MENU
+@caption see also
+</pre>
+Value must be unique, clid defines the list of allowed classes for that relation (if you need multiple classes, separate them with commas like CL_IMAGE,CL_LINK)
+Caption defines the human readable name for this relation type.
+
+We used to have a different more complicated way with callback functions to define relations which you might see if you browse the classes, but ignore that, it will go away soon enough. 
+
+Sometimes you need to pick one relation out of many, because the relation manager does not enforce any limits on amount of objects. For example, there might be multiple image objects and you need to know which one to use. This can be accomplised by creating a new property with the type "reltype"
+<pre>
+@property use_image type=relpicker reltype=RELTYPE_SEEALSO
+@caption Vali pilt
+</pre>
+This property will be represented by a standard HTML select element, from which the user is able to pick one of the relations of that type. Then, you can access it in your code like this:
+<pre>#php#
+$image_id = $obj->prop("use_image");#/php#
+</pre>
+It does not get any easier than that.
+
+Sometimes you need to pick more than one relation out of many, this can be accomplished by adding "multiple=1" and "size" attributes to the property definition
+<pre>
+@property my_images type=relpicker reltype=RELTYPE_SEEALSO multiple=1 size=5
+@caption Vali pildid
+</pre>
+This will also be shown as a HTML select, except that now you can pick multiple options (by shift+clicking them), size defines the height (in lines) of the element. That property can be accessed in the same way as above, except that this time an array with object id-s is returned by the prop("my_images") method.
+
+
+</p>
+

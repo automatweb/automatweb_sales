@@ -1,0 +1,259 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:class_890_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:class_890_help
+msgid "Klassi Import Kultuuriaknast help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_event_form
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_event_form
+msgid "Omaduse S&uuml;ndmuse vorm (event_form) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_event_form_comment
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_event_form_comment
+msgid "Omaduse S&uuml;ndmuse vorm (event_form) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_event_form_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_event_form_help
+msgid "Omaduse S&uuml;ndmuse vorm (event_form) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_xml_file_url
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_xml_file_url
+msgid "Omaduse XML faili url (xml_file_url) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_xml_file_url_comment
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_xml_file_url_comment
+msgid "Omaduse XML faili url (xml_file_url) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_xml_file_url_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_xml_file_url_help
+msgid "Omaduse XML faili url (xml_file_url) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_last_import_text
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_last_import_text
+msgid "Omaduse Viimane import (last_import_text) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_last_import_text_comment
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_last_import_text_comment
+msgid "Omaduse Viimane import (last_import_text) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_last_import_text_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_last_import_text_help
+msgid "Omaduse Viimane import (last_import_text) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_next_import_text
+msgid "Omaduse J&auml;rgmine automaatne import (next_import_text) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_next_import_text_comment
+msgid "Omaduse J&auml;rgmine automaatne import (next_import_text) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_next_import_text_help
+msgid "Omaduse J&auml;rgmine automaatne import (next_import_text) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_import_events_all
+msgid "Omaduse Impordi k&otilde;iik s&uuml;ndmused (import_events_all) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_import_events_all_comment
+msgid "Omaduse Impordi k&otilde;iik s&uuml;ndmused (import_events_all) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_import_events_all_help
+msgid "Omaduse Impordi k&otilde;iik s&uuml;ndmused (import_events_all) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_import_events
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_import_events
+msgid "Omaduse Impordi s&uuml;ndmused (import_events) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_import_events_comment
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_import_events_comment
+msgid "Omaduse Impordi s&uuml;ndmused (import_events) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_import_events_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_import_events_help
+msgid "Omaduse Impordi s&uuml;ndmused (import_events) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_config_table
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_config_table
+msgid "Omaduse Seaded (config_table) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_config_table_comment
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_config_table_comment
+msgid "Omaduse Seaded (config_table) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_config_table_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_config_table_help
+msgid "Omaduse Seaded (config_table) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_xml_config
+msgid "Omaduse XML vaate seaded (xml_config) caption"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_xml_config_comment
+msgid "Omaduse XML vaate seaded (xml_config) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_xml_config_help
+msgid "Omaduse XML vaate seaded (xml_config) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_recurrence
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_recurrence
+msgid "Omaduse Kordus (recurrence) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_recurrence_comment
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_recurrence_comment
+msgid "Omaduse Kordus (recurrence) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_recurrence_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_recurrence_help
+msgid "Omaduse Kordus (recurrence) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_user
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_user
+msgid "Omaduse Kasutaja (auto_import_user) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_user_comment
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_user_comment
+msgid "Omaduse Kasutaja (auto_import_user) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_user_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_user_help
+msgid "Omaduse Kasutaja (auto_import_user) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_passwd
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_passwd
+msgid "Omaduse Parool (auto_import_passwd) caption"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_passwd_comment
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_passwd_comment
+msgid "Omaduse Parool (auto_import_passwd) kommentaar"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_passwd_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:prop_auto_import_passwd_help
+msgid "Omaduse Parool (auto_import_passwd) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_config
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_config
+msgid "Grupi Seaded (config) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_config_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_config_help
+msgid "Grupi Seaded (config) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_xml_view
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_xml_view
+msgid "Grupi Vaade XML (xml_view) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_xml_view_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_xml_view_help
+msgid "Grupi Vaade XML (xml_view) help"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_recurrence_config
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_recurrence_config
+msgid "Grupi Automaatne import (recurrence_config) pealkiri"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_recurrence_config_help
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:group_recurrence_config_help
+msgid "Grupi Automaatne import (recurrence_config) help"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:rel_RELTYPE_EVENT_FORM
+msgid "Seose S&uuml;ndmuse vorm (RELTYPE_EVENT_FORM) tekst"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:rel_RELTYPE_PARENT
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:rel_RELTYPE_PARENT
+msgid "Seose Parent (RELTYPE_PARENT) tekst"
+msgstr ""
+
+# classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:rel_RELTYPE_RECURRENCE
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:rel_RELTYPE_RECURRENCE
+msgid "Seose Kordus (RELTYPE_RECURRENCE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:115
+msgid "Alates viimasest impordist"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:118
+msgid "K&otilde;ik s&uuml;ndmused"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:121
+msgid "Impordi s&uuml;ndmused (%s)"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:125
+msgid "Impordi Kultuuriakna s&uuml;ndmused (%s)"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:196
+msgid "Parent"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:201
+msgid "XML v&auml;lja sisu"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:228
+msgid "XML v&auml;li"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:232
+msgid "Vormi v&auml;li"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:358
+msgid "You don't have view access to import object!"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:368
+msgid "You don't have view access to eventform object!"
+msgstr ""
+
+#: classes/contentmgmt/object_treeview/otv_ds_kultuuriaken.aw:501
+msgid "<br>..:: IMPORT L6PPENUD ::..<br>"
+msgstr ""

@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="site_copy_client" folder="www/automatweb_cvs/classes/contentmgmt/site_copy" extends="class_base">
+		<action name="check_site" nologin="1">
+			<function name="check_site">
+				<arguments>
+					<required name="url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_site" nologin="1">
+			<function name="add_site">
+				<arguments>
+					<required name="url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

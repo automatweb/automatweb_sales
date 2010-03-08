@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:class_1103_help
+msgid "Klassi Eelarvestaja t&ouml;&ouml;laud help"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_owner
+msgid "Omaduse Omanik (owner) caption"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_owner_comment
+msgid "Omaduse Omanik (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_owner_help
+msgid "Omaduse Omanik (owner) help"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_suppliers_toolbar
+msgid "Omaduse Hankijate t&ouml;&ouml;riistariba (suppliers_toolbar) caption"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_suppliers_toolbar_comment
+msgid "Omaduse Hankijate t&ouml;&ouml;riistariba (suppliers_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_suppliers_toolbar_help
+msgid "Omaduse Hankijate t&ouml;&ouml;riistariba (suppliers_toolbar) help"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_suppliers_tree
+msgid "Omaduse Hankijate puu (suppliers_tree) caption"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_suppliers_tree_comment
+msgid "Omaduse Hankijate puu (suppliers_tree) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_suppliers_tree_help
+msgid "Omaduse Hankijate puu (suppliers_tree) help"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_suppliers_table
+msgid "Omaduse Hankijate tabel (suppliers_table) caption"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_suppliers_table_comment
+msgid "Omaduse Hankijate tabel (suppliers_table) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:prop_suppliers_table_help
+msgid "Omaduse Hankijate tabel (suppliers_table) help"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:group_suppliers
+msgid "Grupi Hankijad (suppliers) pealkiri"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:group_suppliers_help
+msgid "Grupi Hankijad (suppliers) help"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:rel_RELTYPE_OWNER
+msgid "Seose Omanik (RELTYPE_OWNER) tekst"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:rel_RELTYPE_SUPPLIER
+msgid "Seose Hankija (RELTYPE_SUPPLIER) tekst"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:73
+msgid "Lisa uus hankija"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:78 classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:79
+msgid "Organisatsioon"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:89 classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:90
+msgid "Isik"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:102
+msgid "Kustuta hankija"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:104
+msgid "Oled kindel et soovid valitud hankijad kustutada?"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:114
+msgid "Nimetus"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:118
+msgid "Aadress"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:122
+msgid "Kontaktandmed"
+msgstr ""
+
+#: classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw:126
+msgid "Vali"
+msgstr ""
+

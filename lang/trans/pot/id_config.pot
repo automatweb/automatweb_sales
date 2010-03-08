@@ -1,0 +1,140 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/core/users/id_config.aw:class_1193_help
+msgid "Klassi ID-Kaardi konfiguratsioon help"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_id_ugroup
+msgid "Omaduse Kasutajagrupid (id_ugroup) caption"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_id_ugroup_comment
+msgid "Omaduse Kasutajagrupid (id_ugroup) kommentaar"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_id_ugroup_help
+msgid "Omaduse Kasutajagrupid (id_ugroup) help"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_use_safelist
+msgid "Omaduse Kasuta kontrollnimekirja (use_safelist) caption"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_use_safelist_comment
+msgid "Omaduse Kasuta kontrollnimekirja (use_safelist) kommentaar"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_use_safelist_help
+msgid "Omaduse Kasuta kontrollnimekirja (use_safelist) help"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_safelist_tbl
+msgid "Omaduse Kontrollnimekiri (safelist_tbl) caption"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_safelist_tbl_comment
+msgid "Omaduse Kontrollnimekiri (safelist_tbl) kommentaar"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_safelist_tbl_help
+msgid "Omaduse Kontrollnimekiri (safelist_tbl) help"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_activity
+msgid "Omaduse Aktiivsus (activity) caption"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_activity_comment
+msgid "Omaduse Aktiivsus (activity) kommentaar"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_activity_help
+msgid "Omaduse Aktiivsus (activity) help"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_safelist
+msgid "Omaduse  (safelist) caption"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_safelist_comment
+msgid "Omaduse  (safelist) kommentaar"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_safelist_help
+msgid "Omaduse  (safelist) help"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_search_result_persons
+msgid "Omaduse  (search_result_persons) caption"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_search_result_persons_comment
+msgid "Omaduse  (search_result_persons) kommentaar"
+msgstr ""
+
+#: classes/core/users/id_config.aw:prop_search_result_persons_help
+msgid "Omaduse  (search_result_persons) help"
+msgstr ""
+
+#: classes/core/users/id_config.aw:group_safelist
+msgid "Grupi Kontrollnimekiri (safelist) pealkiri"
+msgstr ""
+
+#: classes/core/users/id_config.aw:group_safelist_help
+msgid "Grupi Kontrollnimekiri (safelist) help"
+msgstr ""
+
+#: classes/core/users/id_config.aw:group_activity
+msgid "Grupi Aktiivsus (activity) pealkiri"
+msgstr ""
+
+#: classes/core/users/id_config.aw:group_activity_help
+msgid "Grupi Aktiivsus (activity) help"
+msgstr ""
+
+#: classes/core/users/id_config.aw:rel_RELTYPE_ID_USER_GROUP
+msgid "Seose Kasutajagrupp (RELTYPE_ID_USER_GROUP) tekst"
+msgstr ""
+
+#: classes/core/users/id_config.aw:158 classes/core/users/id_config.aw:168
+msgid "-"
+msgstr ""
+
+#: classes/core/users/id_config.aw:205
+msgid "ID"
+msgstr ""
+
+#: classes/core/users/id_config.aw:211
+msgid "Isikukood"
+msgstr ""
+
+#: classes/core/users/id_config.aw:215
+msgid "Nimi"
+msgstr ""
+
+#: classes/core/users/id_config.aw:219
+msgid "Selgitus"
+msgstr ""
+
+#: classes/core/users/id_config.aw:223
+msgid "Eemalda"
+msgstr ""
+
+#: classes/core/users/id_config.aw:236
+msgid "Lisa isik"
+msgstr ""
+
+#: classes/core/users/id_config.aw:332
+msgid "ID-kaardi Konfiguratsioon"
+msgstr ""
+

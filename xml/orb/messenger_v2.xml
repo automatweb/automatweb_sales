@@ -1,0 +1,117 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="messenger_v2" folder="www/dev/terryf/automatweb_dev/classes/applications/messenger" extends="class_base">
+		<action name="my_messages" is_public="1" all_args="1" caption="Minu kirjad">
+			<function name="my_messages">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="_catch_mail_send" all_args="1">
+			<function name="_catch_mail_send">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="run_filters" nologin="1">
+			<function name="run_filters">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="test_filters">
+			<function name="test_filters">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_messages" all_args="1">
+			<function name="delete_messages">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_search_results" all_args="1">
+			<function name="delete_search_results">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="move_messages">
+			<function name="move_messages">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="test_tree" all_args="1">
+			<function name="test_tree">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="quicksearch">
+			<function name="quicksearch">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_mailbox_js">
+			<function name="get_mailbox_js">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_comm">
+			<function name="get_comm">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="v3">
+			<function name="v3">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="imap" all_args="1">
+			<function name="imap">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send_shitload_of_emails">
+			<function name="send_shitload_of_emails">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_msg_attachment">
+			<function name="get_msg_attachment">
+				<arguments>
+					<required name="msgr_id" type="oid" />
+					<required name="msg_id" type="int" />
+					<required name="attach_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

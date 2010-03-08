@@ -1,0 +1,32 @@
+<?php
+$GLOBALS["TRANS"]["Omaduse Ajavahemik (timespan) caption"] = "Timespan";
+$GLOBALS["TRANS"]["Omaduse Mitu esimest (count) caption"] = "Max number of rows";
+$GLOBALS["TRANS"]["Omaduse TOP (stats) caption"] = "TOP";
+$GLOBALS["TRANS"]["Omaduse Kataloogid (folders) caption"] = "Folders";
+$GLOBALS["TRANS"]["Omaduse Perioodid (periods) caption"] = "Periods";
+$GLOBALS["TRANS"]["Omaduse Milliseid perioode kasutada (period_type) caption"] = "What periods to use";
+$GLOBALS["TRANS"]["Omaduse Meiliaadressid (mail_to) caption"] = "E-mail addresses";
+$GLOBALS["TRANS"]["Omaduse Legend (mail_info) caption"] = "Legend";
+$GLOBALS["TRANS"]["Omaduse Kirja teema (mail_subj) caption"] = "E-mail subject";
+$GLOBALS["TRANS"]["Omaduse Kirja sisu (mail_content) caption"] = "E-mail content";
+$GLOBALS["TRANS"]["Omaduse Dokumendi pealkirja stiil (text_style) caption"] = "Document title style";
+$GLOBALS["TRANS"]["Omaduse Vaatamiste arvu stiil (comment_style) caption"] = "Number of views style";
+$GLOBALS["TRANS"]["Grupi Kataloogid ja perioodid (folders) pealkiri"] = "Folders and periods";
+$GLOBALS["TRANS"]["Grupi E-mail (mail) pealkiri"] = "E-mail";
+$GLOBALS["TRANS"]["Grupi Stiilid (styles) pealkiri"] = "Styles";
+$GLOBALS["TRANS"]["Seose kataloog (RELTYPE_SHOW_FOLDER) tekst"] = "folder";
+$GLOBALS["TRANS"]["Seose periood (RELTYPE_SHOW_PERIOD) tekst"] = "period";
+$GLOBALS["TRANS"]["Seose css stiil (RELTYPE_CSS) tekst"] = "css style";
+$GLOBALS["TRANS"]["P&auml;ev"] = "Day";
+$GLOBALS["TRANS"]["N&auml;dal"] = "Week";
+$GLOBALS["TRANS"]["Kuu"] = "Month";
+$GLOBALS["TRANS"]["Seostatud perioodid"] = "Connected periods";
+$GLOBALS["TRANS"]["K&otilde;ik perioodid"] = "All periods";
+$GLOBALS["TRANS"]["Mitteperioodilised"] = "Non-periodic";
+$GLOBALS["TRANS"]["Aktiivne periood"] = "Active period";
+$GLOBALS["TRANS"]["Dokument"] = "Document";
+$GLOBALS["TRANS"]["Vaatamisi"] = "Views";
+$GLOBALS["TRANS"]["Kataloog"] = "Folder";
+$GLOBALS["TRANS"]["K.A. Alamkataloogid"] = "incl. subfolders";
+$GLOBALS["TRANS"]["Periood"] = "Period";
+?>

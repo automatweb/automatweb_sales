@@ -1,0 +1,192 @@
+Displays a hierarchical tree, with expandable/collapsibe nodes.
+
+We start by describing the creation of simplest possible tree.
+
+Start by creating an instance of the tree object
+
+#php#
+$tree = get_instance("vcl/treeview");
+#/php#
+
+Then define the tree type and root node.
+
+#php#
+$tree->start_tree(array(
+	"type" => TREE_DHTML,
+	"root_name" => "AutomatWeb",
+	"root_url" => $this->mk_my_orb("root_action",array()),
+));
+#/php#
+
+Now add some items to the tree.
+#php#
+$tree->add_item(0,array(
+	"id" => 1,
+	"name" => "Some item",
+	"iconurl" => "/automatweb/images/myicon.gif",
+	"url" => $this->mk_my_orb("do_something",array()),
+));
+#/php#
+First argument of add_item is the parent for the item.
+0 is the first level.
+
+Second argument specifies the contents of the node in array form,
+where
+
+id - unique id (oid) for the item,
+name - text shown beside the icon, caption of the node,
+iconurl - path to the icon for the node,
+url - action to invoke when the node is clicked.
+
+Now proceed with adding a few more items to the 0th level,
+(make sure that they all have UNIQUE id-s), and then
+add one with a parent of for example 3.
+
+Finally, to get the HTML for the tree, invoke
+#php#
+$res = $this->tree->finalize_tree();
+#/php#
+Now $res contains all the required HTML for the tree, which
+can now be exported to a template.
+
+Now that we are done with basics. What follows is a more
+detailed description of the tree component.
+
+
+#php#
+$tree->start_tree(array(
+	"type" => TREE_DHTML,
+	"root_name" => "AutomatWeb",
+	"root_url" => $this->mk_my_orb("root_action", array()),
+	"root_icon" => "/path/to/some/image",
+	"url_target" => "list",
+	"has_root" => empty($this->use_parent) ? true : false,
+	"tree_id" => "ad_folders",
+	//"persist_state" => true,
+	"get_branch_func" => $this->mk_my_orb("gen_branch",array("parent" => "0")),
+	"open_path" => array(
+		"1",
+		"tere",
+	),
+	"data_in_place" => 1,
+));
+
+$tree->add_item(0,array(
+	"id" => 1,
+	"name" => "Some item",
+	"iconurl" => "/automatweb/images/myicon.gif",
+	"url" => $this->mk_my_orb("do_something",array()),
+));
+$tree->add_item(1,array(
+	"id" => "item",
+	"name" => "Some item",
+	"iconurl" => "/automatweb/images/myicon.gif",
+	"url" => $this->mk_my_orb("do_something",array()),
+));
+$tree->add_item(0,array(
+	"id" => 2,
+	"name" => "Some item",
+	"iconurl" => "/automatweb/images/myicon.gif",
+	"url" => $this->mk_my_orb("do_something",array()),
+));
+$tree->add_item("tere",array(
+	"id" => 3,
+	"name" => "Some item",
+	"iconurl" => "/automatweb/images/myicon.gif",
+	"url" => $this->mk_my_orb("do_something",array()),
+));
+
+#/php#
+
+Where
+
+type - is the type of tree. Two different types are implemented right now,
+
+TREE_DHTML - which uses mostly css and a tiny amount of Javascript, is
+quite fast, has more features and therefore should always be used.
+
+TREE_JS - heavy Javascript use, rather slow with complex trees, avoid
+using it.
+
+root_name - caption of the root node. This is the start of the tree, is
+always visible (unless hidden explicitly with has_root => false).
+There can only be one root node at a time.
+
+root_url - action of the root node.
+
+root_icon - optional, path to the image that should be used for the
+root node. If omitted, default icon with an AW logo is used.
+
+url_target - optional, if specified will be used as the target attribute
+for all links in the tree.
+
+has_root - optional, bool, is specified then the tree is drawn without a root node.
+Only useful with LOAD_ON_DEMAND feature (more about that below). Defaults
+to true.
+
+tree_id - optional, unique symbolic identifier for the tree. Only serves
+a purpose when "persist_state" is used.
+
+persist_sate - optional, bool, if set to true, the tree tries to remember
+it's state (information about opened and closed nodes) between page loads
+using cookies. If you want to use this, you absolutely _need_ to specify tree_id
+as well. Defaults to false.
+
+open_path
+Used with load_on_demand feature, more text about it below.
+
+get_branch_func,  data_in_place 
+More about these three below.. in load on demand section.
+
+LOAD_ON_DEMAND feature
+
+If set, subitems of a node is loaded only when that node is opend. Useful with complex trees,
+where you don't have to load all the tree data.
+How it works? .. every time a new(unloaded) node is opened.. get_branch_func function is called,
+and the tree that it returns, is drawn under the node. Usually the branch func should return only one
+level of the tree at a time(there is a exception, more of that below), but the nodes what can be opened further, have to have at least one dummy 
+element under them. That's beacause + sign isn't show otherwise. This item element isn't shown after
+the real load proccess during the next call of get_branch_func function.
+
+In the get_branch_func you don't need to use has_root and root_name arguments while starting the
+tree(the subtree is automatically added below the node that called the func), although you can if you
+want to use them.
+get_branch_func's url_target overwrites the first tree's(root) arguments.
+Branch functions are always called with parameters from the first tree.
+
+Exemaple:
+#php#
+$tree->start_tree(array(
+	"type" => TREE_DHTML,
+	"root_name" => "AutomatWeb",
+	"root_url" => $this->mk_my_orb("root_action",array()),
+	"get_branch_func" => $this->mk_my_orb("gen_branch",array("parent" => "0")),
+));
+#/php#
+And now gen_branch() itself:
+#php#
+$tree->start_tree(array(
+	"type" => TREE_DHTML,
+	"get_branch_func" => $this->mk_my_orb("gen_branch",array("parent" => "4", "clid" => "xxx")),
+));
+#/php#
+The branch function always gets paramaeter array("parent" => "0"), even if gen_branch is called from itself.
+
+data_in_place
+If in branch function 'data_in_place' is set, the tree thinks that all the data below that item are already
+loaded and retruned by that function. No load-on-demand is used below that node. Thats useful when you reach 
+to some specific element type in you tree depth and you now that there's not much data to load below that.
+For example:
+showing classfolders and class tree. Until reaching a class everything is loaded with load-on-demand, 
+but reaching to any of the classes you want to load all the groups, reltypes, properties etc under it.
+It's rather complicated to load them level by level, much easier way is to load all of them and set 
+the data_in_place flag.
+
+open_path
+This is an array of the nodes you want to be opened automatically. The gen branch function is called
+automatically for every element on that array. It's essential to have these elements in correct
+order(a node's subnodes cannot be opened if that node itself hasn't been opened yet). This is used 
+if persist_state is set with load_on_demand, and is also useful if you link to a node of that tree from 
+somewhere else and node that must be opened automatically.
+For example:
+A search engine locates something and clicking on a search result opens that node.

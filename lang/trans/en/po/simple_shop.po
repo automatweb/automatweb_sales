@@ -1,0 +1,228 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_warehouse
+msgid "Omaduse Tootekataloog (warehouse) caption"
+msgstr "Warehouse"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_warehouse_comment
+msgid "Omaduse Tootekataloog (warehouse) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_warehouse_help
+msgid "Omaduse Tootekataloog (warehouse) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_orders_folder
+msgid "Omaduse Tellimuste kataloog (orders_folder) caption"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_orders_folder_comment
+msgid "Omaduse Tellimuste kataloog (orders_folder) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_orders_folder_help
+msgid "Omaduse Tellimuste kataloog (orders_folder) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_user_data
+msgid "Omaduse Kasutaja andmete vorm (user_data) caption"
+msgstr "User data form"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_user_data_comment
+msgid "Omaduse Kasutaja andmete vorm (user_data) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_user_data_help
+msgid "Omaduse Kasutaja andmete vorm (user_data) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_ud_from_logged
+msgid ""
+"Omaduse Kui kasutaja on sisse loginud, võta isikuandmed objektidest "
+"(ud_from_logged) caption"
+msgstr "If user is logged in, get data from person object"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_ud_from_logged_comment
+msgid ""
+"Omaduse Kui kasutaja on sisse loginud, võta isikuandmed objektidest "
+"(ud_from_logged) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_ud_from_logged_help
+msgid ""
+"Omaduse Kui kasutaja on sisse loginud, võta isikuandmed objektidest "
+"(ud_from_logged) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_folder
+msgid "Omaduse Toodete kaust (folder) caption"
+msgstr "Product folder"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_folder_comment
+msgid "Omaduse Toodete kaust (folder) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_folder_help
+msgid "Omaduse Toodete kaust (folder) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_import_file
+msgid "Omaduse Andmed failist (import_file) caption"
+msgstr "Data from file"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_import_file_comment
+msgid "Omaduse Andmed failist (import_file) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_import_file_help
+msgid "Omaduse Andmed failist (import_file) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_replace_prods
+msgid "Omaduse Asenda tooted (replace_prods) caption"
+msgstr "Replace products"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_replace_prods_comment
+msgid "Omaduse Asenda tooted (replace_prods) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_replace_prods_help
+msgid "Omaduse Asenda tooted (replace_prods) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_order_time
+msgid "Omaduse Pakkumise aeg (order_time) caption"
+msgstr "Offer time"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_order_time_comment
+msgid "Omaduse Pakkumise aeg (order_time) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_order_time_help
+msgid "Omaduse Pakkumise aeg (order_time) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_order_orderer
+msgid "Omaduse Tellija (order_orderer) caption"
+msgstr "Orderer"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_order_orderer_comment
+msgid "Omaduse Tellija (order_orderer) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_order_orderer_help
+msgid "Omaduse Tellija (order_orderer) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_order_cont
+msgid "Omaduse Tellimuse sisu (order_cont) caption"
+msgstr "Order content"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_order_cont_comment
+msgid "Omaduse Tellimuse sisu (order_cont) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_order_cont_help
+msgid "Omaduse Tellimuse sisu (order_cont) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_search
+msgid "Omaduse Otsi (search) caption"
+msgstr "Search"
+
+# classes/applications/simple_shop/simple_shop.aw:prop_search_comment
+msgid "Omaduse Otsi (search) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_search_help
+msgid "Omaduse Otsi (search) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_orders_toolbar
+msgid "Omaduse  (orders_toolbar) caption"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_orders_toolbar_comment
+msgid "Omaduse  (orders_toolbar) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_orders_toolbar_help
+msgid "Omaduse  (orders_toolbar) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_orders_table
+msgid "Omaduse  (orders_table) caption"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_orders_table_comment
+msgid "Omaduse  (orders_table) kommentaar"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:prop_orders_table_help
+msgid "Omaduse  (orders_table) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:group_import
+msgid "Grupi Import (import) pealkiri"
+msgstr "Import"
+
+# classes/applications/simple_shop/simple_shop.aw:group_import_help
+msgid "Grupi Import (import) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:group_orders
+msgid "Grupi Tellimused (orders) pealkiri"
+msgstr "Orders"
+
+# classes/applications/simple_shop/simple_shop.aw:group_orders_help
+msgid "Grupi Tellimused (orders) help"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:rel_RELTYPE_WAREHOUSE
+msgid "Seose Tootekataloog (RELTYPE_WAREHOUSE) tekst"
+msgstr "Warehouse"
+
+# classes/applications/simple_shop/simple_shop.aw:rel_RELTYPE_FOLDER
+msgid "Seose Kaust (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+# classes/applications/simple_shop/simple_shop.aw:rel_RELTYPE_USER_DATA
+msgid "Seose Kasutaja andmed (RELTYPE_USER_DATA) tekst"
+msgstr "user data"
+
+#: classes/applications/simple_shop/simple_shop.aw:125
+msgid "ID"
+msgstr "ID"
+
+#: classes/applications/simple_shop/simple_shop.aw:129
+msgid "Aeg"
+msgstr "Time"
+
+#: classes/applications/simple_shop/simple_shop.aw:183
+msgid "kustutan %d objekti"
+msgstr "delete %d objects"
+
+#: classes/applications/simple_shop/simple_shop.aw:186
+msgid "kustutatud"
+msgstr "deleted"
+
+#: classes/applications/simple_shop/simple_shop.aw:191
+msgid "impordin %d objekti"
+msgstr "importing %d objects"
+
+#: classes/applications/simple_shop/simple_shop.aw:215
+msgid "imporditud"
+msgstr "imported"
+
+# classes/applications/simple_shop/simple_shop.aw:rel_RELTYPE_FOLDER
+#~ msgid "Seose Toodete kaust (RELTYPE_FOLDER) tekst"
+#~ msgstr "Product folder"

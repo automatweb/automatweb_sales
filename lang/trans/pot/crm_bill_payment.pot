@@ -1,0 +1,192 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/crm/crm_bill_payment.aw:class_1383_help
+msgid "Klassi Laekumine help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_date
+msgid "Omaduse Kuup&auml;ev (date) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_date_comment
+msgid "Omaduse Kuup&auml;ev (date) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_date_help
+msgid "Omaduse Kuup&auml;ev (date) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_payment_type
+msgid "Omaduse Tasumisviis (payment_type) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_payment_type_comment
+msgid "Omaduse Tasumisviis (payment_type) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_payment_type_help
+msgid "Omaduse Tasumisviis (payment_type) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_sum
+msgid "Omaduse Summa (sum) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_sum_comment
+msgid "Omaduse Summa (sum) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_sum_help
+msgid "Omaduse Summa (sum) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_currency
+msgid "Omaduse Valuuta (currency) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_currency_comment
+msgid "Omaduse Valuuta (currency) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_currency_help
+msgid "Omaduse Valuuta (currency) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_currency_rate
+msgid "Omaduse Valuutakurss (currency_rate) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_currency_rate_comment
+msgid "Omaduse Valuutakurss (currency_rate) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_currency_rate_help
+msgid "Omaduse Valuutakurss (currency_rate) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_bills
+msgid "Omaduse Arved (bills) caption"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_bills_comment
+msgid "Omaduse Arved (bills) kommentaar"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:prop_bills_help
+msgid "Omaduse Arved (bills) help"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:rel_RELTYPE_CURRENCY
+msgid "Seose valuuta (RELTYPE_CURRENCY) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:rel_RELTYPE_CUSTOMER
+msgid "Seose Kleint (RELTYPE_CUSTOMER) tekst"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:81
+msgid "Lisa Arve"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:87 classes/applications/crm/crm_bill_payment.aw:501
+msgid "&Uuml;lekandega"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:87 classes/applications/crm/crm_bill_payment.aw:501
+msgid "Sularahas"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:107
+msgid "Arve nr"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:111 classes/applications/crm/crm_bill_payment.aw:290
+msgid "Klient"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:115 classes/applications/crm/crm_bill_payment.aw:158 classes/applications/crm/crm_bill_payment.aw:302
+msgid "Summa"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:119 classes/applications/crm/crm_bill_payment.aw:308
+msgid "Valuuta"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:146 classes/applications/crm/crm_bill_payment.aw:157
+msgid "Arve nr:"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:228
+msgid "Ei j&auml;tku raha arvele id'ga"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:249
+msgid "Lisa uus laekumine"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:255
+msgid "Kustuta valitud laekumised"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:256
+msgid "Oled kindel et soovid valitud laekumised kustutada?"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:262
+msgid "Otsi"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:272
+msgid "Kuup&auml;ev"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:280
+msgid "Nimi"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:285
+msgid "Arved"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:296
+msgid "Tasumisviis"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:314
+msgid "Valuutakurss"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:467
+msgid "Laekumised"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:488 classes/applications/crm/crm_bill_payment.aw:492 classes/applications/crm/crm_bill_payment.aw:498
+msgid "nimetu"
+msgstr ""
+
+#: classes/applications/crm/crm_bill_payment.aw:519
+msgid "<b>Summa</b>"
+msgstr ""
+

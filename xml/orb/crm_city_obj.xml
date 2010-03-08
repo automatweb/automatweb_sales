@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_city_obj" folder="crm" extends="_int_object">
+		<action name="get_job_offers">
+			<function name="get_job_offers">
+				<arguments>
+					<optional name="parent" type="oid,array(oid)" acl="view" />
+					<optional name="status" type="int" />
+					<optional name="props" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_residents">
+			<function name="get_residents">
+				<arguments>
+					<optional name="parent" type="oid,array(oid)" />
+					<optional name="status" type="int" />
+					<optional name="by_jobwish" type="bool" />
+					<optional name="childs" type="boolean" default="true" />
+					<optional name="props" type="array" />
+					<optional name="return_as_odl" type="bool" default="false" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

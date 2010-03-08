@@ -1,0 +1,531 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:class_967_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:class_967_help
+msgid "Klassi Akna hinnakujundus help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_closed_part_table
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_closed_part_table
+msgid "Omaduse Kinnise osa tabel (closed_part_table) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_closed_part_table_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_closed_part_table_comment
+msgid "Omaduse Kinnise osa tabel (closed_part_table) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_closed_part_table_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_closed_part_table_help
+msgid "Omaduse Kinnise osa tabel (closed_part_table) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_table
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_table
+msgid "Omaduse Lahtise osa tabel (open_part_table) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_table_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_table_comment
+msgid "Omaduse Lahtise osa tabel (open_part_table) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_table_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_table_help
+msgid "Omaduse Lahtise osa tabel (open_part_table) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_extra_charge_percentage
+msgid "Omaduse Juurdehindlus (%) (extra_charge_percentage) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_extra_charge_percentage_comment
+msgid "Omaduse Juurdehindlus (%) (extra_charge_percentage) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_extra_charge_percentage_help
+msgid "Omaduse Juurdehindlus (%) (extra_charge_percentage) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_add_price
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_add_price
+msgid "Omaduse Lahtise osa lisatasu kaldp&ouml;&ouml;rdavanemise korral  (open_part_add_price) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_add_price_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_add_price_comment
+msgid "Omaduse Lahtise osa lisatasu kaldp&ouml;&ouml;rdavanemise korral  (open_part_add_price) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_add_price_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_open_part_add_price_help
+msgid "Omaduse Lahtise osa lisatasu kaldp&ouml;&ouml;rdavanemise korral  (open_part_add_price) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_glass_sqm_add_price_for3layer
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_glass_sqm_add_price_for3layer
+msgid "Omaduse Klaasi ruutmeetri hinnalisa 3-kordse paketi puhul  (glass_sqm_add_price_for3layer) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_glass_sqm_add_price_for3layer_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_glass_sqm_add_price_for3layer_comment
+msgid "Omaduse Klaasi ruutmeetri hinnalisa 3-kordse paketi puhul  (glass_sqm_add_price_for3layer) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_glass_sqm_add_price_for3layer_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_glass_sqm_add_price_for3layer_help
+msgid "Omaduse Klaasi ruutmeetri hinnalisa 3-kordse paketi puhul  (glass_sqm_add_price_for3layer) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_one_side_painted_sqm_price
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_one_side_painted_sqm_price
+msgid "Omaduse Ruutmeetri hind ühelt poolt värvitud aknale  (one_side_painted_sqm_price) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_one_side_painted_sqm_price_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_one_side_painted_sqm_price_comment
+msgid "Omaduse Ruutmeetri hind ühelt poolt värvitud aknale  (one_side_painted_sqm_price) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_one_side_painted_sqm_price_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_one_side_painted_sqm_price_help
+msgid "Omaduse Ruutmeetri hind ühelt poolt värvitud aknale  (one_side_painted_sqm_price) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_two_side_painted_sqm_price
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_two_side_painted_sqm_price
+msgid "Omaduse Ruutmeetri hind m&otilde;lemalt poolt v&auml;rvitud aknale (two_side_painted_sqm_price) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_two_side_painted_sqm_price_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_two_side_painted_sqm_price_comment
+msgid "Omaduse Ruutmeetri hind m&otilde;lemalt poolt v&auml;rvitud aknale (two_side_painted_sqm_price) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_two_side_painted_sqm_price_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_two_side_painted_sqm_price_help
+msgid "Omaduse Ruutmeetri hind m&otilde;lemalt poolt v&auml;rvitud aknale (two_side_painted_sqm_price) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_twopart
+msgid "Omaduse Hinnamuutus kaheosalise akna puhul (pr_add_twopart) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_twopart_comment
+msgid "Omaduse Hinnamuutus kaheosalise akna puhul (pr_add_twopart) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_twopart_help
+msgid "Omaduse Hinnamuutus kaheosalise akna puhul (pr_add_twopart) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_twopart_fixed_price
+msgid "Omaduse Fikseeritud hind (pr_add_twopart_fixed_price) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_twopart_fixed_price_comment
+msgid "Omaduse Fikseeritud hind (pr_add_twopart_fixed_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_twopart_fixed_price_help
+msgid "Omaduse Fikseeritud hind (pr_add_twopart_fixed_price) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_twopart_sep_post_meter_price
+msgid "Omaduse Vahepostide meetrihind (pr_add_twopart_sep_post_meter_price) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_twopart_sep_post_meter_price_comment
+msgid "Omaduse Vahepostide meetrihind (pr_add_twopart_sep_post_meter_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_twopart_sep_post_meter_price_help
+msgid "Omaduse Vahepostide meetrihind (pr_add_twopart_sep_post_meter_price) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_threepart
+msgid "Omaduse Hinnamuutus kolmeosalise akna puhul (pr_add_threepart) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_threepart_comment
+msgid "Omaduse Hinnamuutus kolmeosalise akna puhul (pr_add_threepart) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_threepart_help
+msgid "Omaduse Hinnamuutus kolmeosalise akna puhul (pr_add_threepart) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_threepart_fixed_price
+msgid "Omaduse Fikseeritud hind (pr_add_threepart_fixed_price) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_threepart_fixed_price_comment
+msgid "Omaduse Fikseeritud hind (pr_add_threepart_fixed_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_threepart_fixed_price_help
+msgid "Omaduse Fikseeritud hind (pr_add_threepart_fixed_price) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_threepart_sep_post_meter_price
+msgid "Omaduse Vahepostide meetrihind (pr_add_threepart_sep_post_meter_price) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_threepart_sep_post_meter_price_comment
+msgid "Omaduse Vahepostide meetrihind (pr_add_threepart_sep_post_meter_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_threepart_sep_post_meter_price_help
+msgid "Omaduse Vahepostide meetrihind (pr_add_threepart_sep_post_meter_price) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_tpart
+msgid "Omaduse Hinnamuutus T-kujulise akna puhul (pr_add_tpart) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_tpart_comment
+msgid "Omaduse Hinnamuutus T-kujulise akna puhul (pr_add_tpart) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_tpart_help
+msgid "Omaduse Hinnamuutus T-kujulise akna puhul (pr_add_tpart) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_tpart_fixed_price
+msgid "Omaduse Fikseeritud hind (pr_add_tpart_fixed_price) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_tpart_fixed_price_comment
+msgid "Omaduse Fikseeritud hind (pr_add_tpart_fixed_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_tpart_fixed_price_help
+msgid "Omaduse Fikseeritud hind (pr_add_tpart_fixed_price) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_tpart_sep_post_meter_price
+msgid "Omaduse Vahepostide meetrihind (pr_add_tpart_sep_post_meter_price) caption"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_tpart_sep_post_meter_price_comment
+msgid "Omaduse Vahepostide meetrihind (pr_add_tpart_sep_post_meter_price) kommentaar"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_pr_add_tpart_sep_post_meter_price_help
+msgid "Omaduse Vahepostide meetrihind (pr_add_tpart_sep_post_meter_price) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_price_table
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_price_table
+msgid "Omaduse Aknalaua hinnatabel (1 meetri hind aknalaua paksuse kohta, akna laiusele lisatakse 6 cm)  (board_price_table) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_price_table_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_price_table_comment
+msgid "Omaduse Aknalaua hinnatabel (1 meetri hind aknalaua paksuse kohta, akna laiusele lisatakse 6 cm)  (board_price_table) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_price_table_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_price_table_help
+msgid "Omaduse Aknalaua hinnatabel (1 meetri hind aknalaua paksuse kohta, akna laiusele lisatakse 6 cm)  (board_price_table) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_lining_price_table
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_lining_price_table
+msgid "Omaduse Veepleki hinnatabel (meetrihind, täpselt akna laius).  (board_lining_price_table) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_lining_price_table_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_lining_price_table_comment
+msgid "Omaduse Veepleki hinnatabel (meetrihind, täpselt akna laius).  (board_lining_price_table) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_lining_price_table_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_board_lining_price_table_help
+msgid "Omaduse Veepleki hinnatabel (meetrihind, täpselt akna laius).  (board_lining_price_table) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_per_sqm
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_per_sqm
+msgid "Omaduse Paigalduse hind (akna ruutmeetri kohta)  (install_price_per_sqm) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_per_sqm_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_per_sqm_comment
+msgid "Omaduse Paigalduse hind (akna ruutmeetri kohta)  (install_price_per_sqm) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_per_sqm_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_per_sqm_help
+msgid "Omaduse Paigalduse hind (akna ruutmeetri kohta)  (install_price_per_sqm) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_add_for_replace
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_add_for_replace
+msgid "Omaduse Paigalduse lisatasu asendamise korral (install_price_add_for_replace) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_add_for_replace_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_add_for_replace_comment
+msgid "Omaduse Paigalduse lisatasu asendamise korral (install_price_add_for_replace) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_add_for_replace_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_install_price_add_for_replace_help
+msgid "Omaduse Paigalduse lisatasu asendamise korral (install_price_add_for_replace) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_finish_price_per_sqm
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_finish_price_per_sqm
+msgid "Omaduse Viimistluse hind (akna ruutmeetri kohta) (finish_price_per_sqm) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_finish_price_per_sqm_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_finish_price_per_sqm_comment
+msgid "Omaduse Viimistluse hind (akna ruutmeetri kohta) (finish_price_per_sqm) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_finish_price_per_sqm_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_finish_price_per_sqm_help
+msgid "Omaduse Viimistluse hind (akna ruutmeetri kohta) (finish_price_per_sqm) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install
+msgid "Omaduse Kui pindala on alla  (min_area_for_install) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_comment
+msgid "Omaduse Kui pindala on alla  (min_area_for_install) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_help
+msgid "Omaduse Kui pindala on alla  (min_area_for_install) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_price
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_price
+msgid "Omaduse siis paigalduse hind on (min_area_for_install_price) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_price_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_price_comment
+msgid "Omaduse siis paigalduse hind on (min_area_for_install_price) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_price_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_install_price_help
+msgid "Omaduse siis paigalduse hind on (min_area_for_install_price) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish
+msgid "Omaduse Kui pindala on alla  (min_area_for_finish) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_comment
+msgid "Omaduse Kui pindala on alla  (min_area_for_finish) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_help
+msgid "Omaduse Kui pindala on alla  (min_area_for_finish) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_price
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_price
+msgid "Omaduse siis viimistluse hind on (min_area_for_finish_price) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_price_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_price_comment
+msgid "Omaduse siis viimistluse hind on (min_area_for_finish_price) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_price_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_min_area_for_finish_price_help
+msgid "Omaduse siis viimistluse hind on (min_area_for_finish_price) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_discount_tbl
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_discount_tbl
+msgid "Omaduse Allahindluse tabel (discount_tbl) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_discount_tbl_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_discount_tbl_comment
+msgid "Omaduse Allahindluse tabel (discount_tbl) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_discount_tbl_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_discount_tbl_help
+msgid "Omaduse Allahindluse tabel (discount_tbl) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_full_glass_per_sqm
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_full_glass_per_sqm
+msgid "Omaduse T&auml;isklaasist (door_full_glass_per_sqm) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_full_glass_per_sqm_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_full_glass_per_sqm_comment
+msgid "Omaduse T&auml;isklaasist (door_full_glass_per_sqm) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_full_glass_per_sqm_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_full_glass_per_sqm_help
+msgid "Omaduse T&auml;isklaasist (door_full_glass_per_sqm) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_closed_shield
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_closed_shield
+msgid "Omaduse Kinnine kilp lisab X EEK (door_closed_shield) caption"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_closed_shield_comment
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_closed_shield_comment
+msgid "Omaduse Kinnine kilp lisab X EEK (door_closed_shield) kommentaar"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_closed_shield_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:prop_door_closed_shield_help
+msgid "Omaduse Kinnine kilp lisab X EEK (door_closed_shield) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts
+msgid "Grupi Aken (parts) pealkiri"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_help
+msgid "Grupi Aken (parts) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_closed
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_closed
+msgid "Grupi Kinnise osa tabel (parts_closed) pealkiri"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_closed_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_closed_help
+msgid "Grupi Kinnise osa tabel (parts_closed) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_open
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_open
+msgid "Grupi Lahtise osa tabel (parts_open) pealkiri"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_open_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_open_help
+msgid "Grupi Lahtise osa tabel (parts_open) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_other
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_other
+msgid "Grupi Muud (parts_other) pealkiri"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_other_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_parts_other_help
+msgid "Grupi Muud (parts_other) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_board
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_board
+msgid "Grupi Aknalaud (board) pealkiri"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_board_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_board_help
+msgid "Grupi Aknalaud (board) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_install
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_install
+msgid "Grupi Viimistlus ja paigaldus (install) pealkiri"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_install_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_install_help
+msgid "Grupi Viimistlus ja paigaldus (install) help"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_discount
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_discount
+msgid "Grupi Allahindlus (discount) pealkiri"
+msgstr ""
+
+# classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_discount_help
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_discount_help
+msgid "Grupi Allahindlus (discount) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_door
+msgid "Grupi R&otilde;duuks (door) pealkiri"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:group_door_help
+msgid "Grupi R&otilde;duuks (door) help"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:242
+msgid "K&otilde;rgus/Laius"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:285
+msgid "&nbsp;"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:291
+msgid "PVC"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:297
+msgid "KSL"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:303
+msgid "T&auml;ispuit"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:344
+msgid "Pikkuse vahemik"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:350
+msgid "Hind"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:388
+msgid "Aknaid"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:394
+msgid "Allahindluse % plastikaken"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:400
+msgid "Allahindluse % puitaken"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:443
+msgid "Ruutmeetreid"
+msgstr ""
+
+#: classes/applications/shop/price_modifiers/shop_price_modifier_window.aw:449
+msgid "hind"
+msgstr ""

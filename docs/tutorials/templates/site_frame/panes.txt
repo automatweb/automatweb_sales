@@ -1,0 +1,14 @@
+Paanid on piirkonnad, mida saab kataloogi v&otilde;i dokumendi seadetest sisse ja v&auml;lja l&uuml;litada, n&auml;iteks juhul kui dokument on lai ja ei mahu talle etten&auml;htud piirkonda &auml;ra.
+
+<b>N&auml;ited: </b>
+#code#
+<!-- SUB: LEFT_PANE -->
+Vasaku paani v&auml;ljal&uuml;litamisel , nende subide vahele j&auml;&auml;vat osa ei n&auml;idata. 
+<!-- END SUB: LEFT_PANE -->
+
+
+<!-- SUB: RIGHT_PANE -->
+
+<!-- END SUB: RIGHT_PANE -->
+
+#/code#

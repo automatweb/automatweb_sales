@@ -1,0 +1,239 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="converters" folder="www/dev/terryf/automatweb_dev/classes/admin" extends="aw_template">
+		<action name="menu_convimages">
+			<function name="menu_convimages">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="menu_reset_template_sets">
+			<function name="menu_reset_template_sets">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="promo_convert">
+			<function name="promo_convert">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_aliases">
+			<function name="convert_aliases">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="groups_convert">
+			<function name="groups_convert">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_fg_tables_deleted" nologin="1">
+			<function name="convert_fg_tables_deleted">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_really_old_aliases">
+			<function name="convert_really_old_aliases">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_alias_idx">
+			<function name="convert_alias_idx">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_copy_makes_brother" nologin="1">
+			<function name="convert_copy_makes_brother">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_active_documents_list" nologin="1">
+			<function name="convert_active_documents_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_doc_templates" nologin="1">
+			<function name="convert_doc_templates">
+				<arguments>
+					<required name="parent" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_menu_images" nologin="1">
+			<function name="convert_menu_images">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_crm_relations2" nologin="1">
+			<function name="convert_crm_relations2">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_crm_relations" nologin="1">
+			<function name="convert_crm_relations">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_person_org_relations">
+			<function name="convert_person_org_relations">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="confirm_crm_choices">
+			<function name="confirm_crm_choices">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_docs_from_menu" nologin="1">
+			<function name="convert_docs_from_menu">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_crm_links">
+			<function name="convert_crm_links">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_acl_rels">
+			<function name="convert_acl_rels">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="lang_new_convert">
+			<function name="lang_new_convert">
+				<arguments>
+					<required name="parent" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="conv_files_to_fs">
+			<function name="conv_files_to_fs">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="acl_to_objtbl">
+			<function name="acl_to_objtbl">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="test_acl">
+			<function name="test_acl">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_user_fg_prof">
+			<function name="convert_user_fg_prof">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_user_mails">
+			<function name="convert_user_mails">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="conv_task_rows">
+			<function name="conv_task_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_bill_rows">
+			<function name="convert_bill_rows">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="kw_to_reltype">
+			<function name="kw_to_reltype">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="bill_row_to_text">
+			<function name="bill_row_to_text">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fie_scan">
+			<function name="file_scan">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="rename_file_names">
+			<function name="rename_file_names">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="fix_memberships">
+			<function name="fix_memberships">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_br">
+			<function name="convert_br">
+				<arguments>
+					<optional name="id" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

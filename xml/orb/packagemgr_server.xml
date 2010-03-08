@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="packagemgr_server" folder="www/dev/terryf/automatweb_dev/classes/core/pkmgr" extends="class_base">
+		<action name="list" default="1">
+			<function name="orb_list">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="new_package">
+			<function name="new_package">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

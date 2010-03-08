@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="infrastructure_import" folder="www/dev/kaarel/automatweb_dev/classes/import" extends="class_base">
+		<action name="invoke">
+			<function name="invoke">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

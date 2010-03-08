@@ -1,0 +1,73 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="gallery_v2" folder="www/dev/terryf/automatweb_dev/classes/contentmgmt/gallery" extends="class_base">
+		<action name="view" nologin="1">
+			<function name="view">
+				<arguments>
+					<optional name="id" type="int" />
+					<optional name="page" type="int" />
+					<optional name="col" type="int" />
+					<optional name="row" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_rates" nologin="1">
+			<function name="submit_rates">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_image" nologin="1">
+			<function name="show_image">
+				<arguments>
+					<optional name="id" type="int" />
+					<optional name="page" type="int" />
+					<optional name="col" type="int" />
+					<optional name="row" type="int" />
+					<optional name="img_id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="send" nologin="1">
+			<function name="send">
+				<arguments>
+					<required name="id" />
+					<required name="page" />
+					<required name="col" />
+					<required name="row" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_send" nologin="1">
+			<function name="submit_send">
+				<arguments>
+					<required name="id" />
+					<required name="page" />
+					<required name="col" />
+					<required name="row" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_aliased" nologin="1" caption="N&auml;ita galeriid">
+			<function name="show_aliased">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_top_image" nologin="1" caption="Parim pilt">
+			<function name="show_top_image">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

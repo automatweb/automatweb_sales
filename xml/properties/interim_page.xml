@@ -1,0 +1,54 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>template</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <rel>1</rel>
+            <caption>Template</caption>
+      </property>
+      <property>
+            <name>register_data</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_REGISTER_DATA</reltype>
+            <caption>Registri andmed</caption>
+      </property>
+      <property>
+            <name>cfg_form</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CFGFORM</reltype>
+            <caption>Seadete vorm</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_INTERIM_PAGE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>markop</maintainer>
+      </classinfo>
+      <reltypes>
+            <REGISTER_DATA>
+                  <value>1</value>
+                  <clid>CL_REGISTER_DATA</clid>
+                  <caption>Registri andmed</caption>
+            </REGISTER_DATA>
+            <CFGFORM>
+                  <value>2</value>
+                  <clid>CL_CFGFORM</clid>
+                  <caption>Seadete vorm</caption>
+            </CFGFORM>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,162 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/import/livelink_import.aw:class_196_help
+#: classes/import/livelink_import.aw:class_196_help
+msgid "Klassi Livelinki import help"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_rootnode
+#: classes/import/livelink_import.aw:prop_rootnode
+msgid "Omaduse Juurika ID (eralda komadega) (rootnode) caption"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_rootnode_comment
+#: classes/import/livelink_import.aw:prop_rootnode_comment
+msgid "Omaduse Juurika ID (eralda komadega) (rootnode) kommentaar"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_rootnode_help
+#: classes/import/livelink_import.aw:prop_rootnode_help
+msgid "Omaduse Juurika ID (eralda komadega) (rootnode) help"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_exception_node
+#: classes/import/livelink_import.aw:prop_exception_node
+msgid "Omaduse Erandite ID (eralda komadega) (exception_node) caption"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_exception_node_comment
+#: classes/import/livelink_import.aw:prop_exception_node_comment
+msgid "Omaduse Erandite ID (eralda komadega) (exception_node) kommentaar"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_exception_node_help
+#: classes/import/livelink_import.aw:prop_exception_node_help
+msgid "Omaduse Erandite ID (eralda komadega) (exception_node) help"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_outdir
+#: classes/import/livelink_import.aw:prop_outdir
+msgid "Omaduse Kataloog, kuhu failid kirjutada (outdir) caption"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_outdir_comment
+#: classes/import/livelink_import.aw:prop_outdir_comment
+msgid "Omaduse Kataloog, kuhu failid kirjutada (outdir) kommentaar"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_outdir_help
+#: classes/import/livelink_import.aw:prop_outdir_help
+msgid "Omaduse Kataloog, kuhu failid kirjutada (outdir) help"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_fileprefix
+#: classes/import/livelink_import.aw:prop_fileprefix
+msgid "Omaduse Prefiks tabelisse kirjutatavatele failinimedele (fileprefix) caption"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_fileprefix_comment
+#: classes/import/livelink_import.aw:prop_fileprefix_comment
+msgid "Omaduse Prefiks tabelisse kirjutatavatele failinimedele (fileprefix) kommentaar"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_fileprefix_help
+#: classes/import/livelink_import.aw:prop_fileprefix_help
+msgid "Omaduse Prefiks tabelisse kirjutatavatele failinimedele (fileprefix) help"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_message
+#: classes/import/livelink_import.aw:prop_message
+msgid "Omaduse Objekti staatus (message) caption"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_message_comment
+#: classes/import/livelink_import.aw:prop_message_comment
+msgid "Omaduse Objekti staatus (message) kommentaar"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_message_help
+#: classes/import/livelink_import.aw:prop_message_help
+msgid "Omaduse Objekti staatus (message) help"
+msgstr ""
+
+#: classes/import/livelink_import.aw:prop_invoke
+msgid "Omaduse K&auml;ivita (invoke) caption"
+msgstr ""
+
+#: classes/import/livelink_import.aw:prop_invoke_comment
+msgid "Omaduse K&auml;ivita (invoke) kommentaar"
+msgstr ""
+
+#: classes/import/livelink_import.aw:prop_invoke_help
+msgid "Omaduse K&auml;ivita (invoke) help"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_ll_username
+#: classes/import/livelink_import.aw:prop_ll_username
+msgid "Omaduse Livelink kasutaja (ll_username) caption"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_ll_username_comment
+#: classes/import/livelink_import.aw:prop_ll_username_comment
+msgid "Omaduse Livelink kasutaja (ll_username) kommentaar"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_ll_username_help
+#: classes/import/livelink_import.aw:prop_ll_username_help
+msgid "Omaduse Livelink kasutaja (ll_username) help"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_ll_password
+#: classes/import/livelink_import.aw:prop_ll_password
+msgid "Omaduse Livelink parool (ll_password) caption"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_ll_password_comment
+#: classes/import/livelink_import.aw:prop_ll_password_comment
+msgid "Omaduse Livelink parool (ll_password) kommentaar"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_ll_password_help
+#: classes/import/livelink_import.aw:prop_ll_password_help
+msgid "Omaduse Livelink parool (ll_password) help"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_ll_http_auth
+#: classes/import/livelink_import.aw:prop_ll_http_auth
+msgid "Omaduse HTTP autoriseerimisel samad andmed (ll_http_auth) caption"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_ll_http_auth_comment
+#: classes/import/livelink_import.aw:prop_ll_http_auth_comment
+msgid "Omaduse HTTP autoriseerimisel samad andmed (ll_http_auth) kommentaar"
+msgstr ""
+
+# classes/import/livelink_import.aw:prop_ll_http_auth_help
+#: classes/import/livelink_import.aw:prop_ll_http_auth_help
+msgid "Omaduse HTTP autoriseerimisel samad andmed (ll_http_auth) help"
+msgstr ""
+
+# classes/import/livelink_import.aw:group_auth
+#: classes/import/livelink_import.aw:group_auth
+msgid "Grupi Autoriseerimine (auth) pealkiri"
+msgstr ""
+
+# classes/import/livelink_import.aw:group_auth_help
+#: classes/import/livelink_import.aw:group_auth_help
+msgid "Grupi Autoriseerimine (auth) help"
+msgstr ""
+
+# classes/import/livelink_import.aw:rel_RELTYPE_LOGFILE
+#: classes/import/livelink_import.aw:rel_RELTYPE_LOGFILE
+msgid "Seose Logifail (RELTYPE_LOGFILE) tekst"
+msgstr ""

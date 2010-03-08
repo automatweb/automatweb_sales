@@ -1,0 +1,105 @@
+CVS Usage
+
+CVS is the version control software that we use. It records a history of all the changes made and allows several developers to work on the code at the same time. 
+
+<b>Why do we use CVS?</b>
+
+Version control enables us to keep track of changes and easily back them out of needed. It enables several people to work on the same codebase at the same time and makes sure that no code is accidentaly deleted or overwritten. CVS was chosen, because it is used very widely and is free. There are several shortcomings in cvs (no support for renaming files, only one level of repositories) and when they start getting in the way, we might switch to bitkeeperor some other, more advanced version control software. 
+
+<b>How to use CVS?</b>
+
+The code in CVS is held in a central repository and all developers check out a copy of the code, work on it and then check the changes back to the server. Currently, our CVS server is dev.struktuur.ee. To get a CVS account, contact duke@struktuur.ee.
+
+
+<i>Checking out a copy of AW code:</i>
+
+cvs -z3 -d :ext:[username]@dev.struktuur.ee:/home/cvs login
+.. enter password ..
+
+Password will be stored (encrypted) in a file named .cvspass in your home directory, so that you do not have
+to enter the password for each subsequent command. If you have received a new account and have never before
+checked out anything while using that account, then you have to "touch ~/.cvspass" before you can log in.
+This will create an empty file to hold the passwords.
+
+cvs -z3 -d :ext:[username]@dev.struktuur.ee:/home/cvs checkout automatweb_dev
+
+now, a folder named "automatweb_dev" will be created to the current directory and the latest AW version will be put in that folder. 
+
+Now, you can start editing the code, making any changes that you want to the files. After you have made the changes and have verified that they work and tested them a bit, you should push the changes to the repository, so that others will also have access to your changes. But, before you can push your changes to the server, you must make sure that your code works with all the latest changes that other developers have made. To check that, you have to get the latest changes from the repository and merge the changes into your code version. This is called "updating" your code. 
+
+<i>Updating your code version:</i>
+
+cvs -z3 -q update -d -P
+
+During the execution of this command, cvs tells you the status of every file that has been modified. The statuses are as follows:
+
+U file 
+The file was brought up to date with respect to the repository. This is done for any file that exists in the repository but not in your source, and for files that you haven't changed but are not the most recent versions available in the repository. 
+
+P file 
+Like `U', but the CVS server sends a patch instead of an entire file. This accomplishes the same thing as `U' using less bandwidth. 
+
+A file 
+The file has been added to your private copy of the sources, and will be added to the source repository when you run commit on the file. This is a reminder to you that the file needs to be committed. 
+
+R file 
+The file has been removed from your private copy of the sources, and will be removed from the source repository when you run commit on the file. This is a reminder to you that the file needs to be committed. 
+
+M file 
+The file is modified in your working directory. 
+
+`M' can indicate one of two states for a file you're working on: either there were no modifications to the same file in the repository, so that your file remains as you last saw it; or there were modifications in the repository as well as in your copy, but they were merged successfully, without conflict, in your working directory. 
+
+CVS will print some messages if it merges your work, and a backup copy of your working file (as it looked before you ran update) will be made. The exact name of that file is printed while update runs. 
+
+C file 
+A conflict was detected while trying to merge your changes to file with changes from the source repository. file (the copy in your working directory) is now the result of attempting to merge the two revisions; an unmodified copy of your file is also in your working directory, with the name `.#file.revision' where revision is the revision that your modified file started from. 
+
+? file 
+file is in your working directory, but does not correspond to anything in the source repository, and is not in the list of files for CVS to ignore (see the description of the `-I' option, and see section Ignoring files via cvsignore). 
+
+
+If a conflict occurs, then you must edit the file that has the conflict and resolve it manually. 
+
+
+Now, that you have updated your code version, you can start putting your changes back to the repository. The process is different for files that you have added , edited or removed. We will cover each option in turn. 
+
+To add files to the repository that you have added, you must tell cvs what files youi wish to add, like this:
+
+cvs add path/to/file.aw
+
+To remove files, you must first remove them from the filesystem, then tell cvs that they were removed, like this:
+
+rm path/to/file2.aw
+cvs remove path/to/file2.aw
+
+You will not have to do anything special to files that you have just edited. 
+
+<i>Commiting files</i>
+
+After dealing with the added and removed files, you are finally ready to push the changes to the repository, like this:
+
+cvs -q -z3 commit path/to/file1.aw path/to/file2.aw path/to/folder
+
+You can also omit the folder/file names from the list - if you do that, all changes will be commited. After issuing this command, an editor will appear. In that editor, you must enter a description of the changes that you have made. This will be logged with the changes and also sent to the list cvs@struktuur.ee. To subscribe to this list, contact duke@struktuur.ee.
+
+After you enter the message and exit the editor, the actual commit takes place. 
+
+Note: it seems that by default "joe" is used as an editor, if you want to use a sane editor , then do "export EDITOR=vim" (you can use any editor available in the system) before commiting. It's best to put this command in your "~/.bashrc", then it will be executed each time you login and you don't have to do it yourself each time.
+
+Now, you can start making more changes to the code. 
+
+Backing out a change:
+
+cvs update -jX.Y -jM.N somefile.aw
+
+where X.Y is the current version and M.N is the version you want to revert to.
+
+More information about using CVS can be found in the official documentation: http://www.cvshome.org/docs/manual/cvs-1.11.10/cvs.html
+
+
+<b>What branches are in the AW CVS?</b>
+
+In the AutomatWeb CVS repository, there currently are two branches, HEAD and AW_3_5_0. The HEAD branch is the one with active development. the AW_3_5_0 branch holds the code that was abandoned on Januay 15th, 2004. From that point on, all customers that did not have upgrade agreements live on that code version and will no longer recieve any updates (except for security fixes of course). All new customers and customers with upgrade agreements will be migrated to the HEAD branch and development will continue there.
+
+Basically, that means, that all new development will take place in the HEAD branch, from what release branches that will be abandoned some time later, will be created. 

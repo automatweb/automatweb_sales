@@ -1,0 +1,160 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/scm/scm_location.aw:class_1095_help
+msgid "Klassi Toimumiskoht help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_comment
+msgid "Omaduse Kirjeldus (comment) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_comment_comment
+msgid "Omaduse Kirjeldus (comment) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_comment_help
+msgid "Omaduse Kirjeldus (comment) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_loc_path
+msgid "Omaduse Kohale saab (loc_path) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_loc_path_comment
+msgid "Omaduse Kohale saab (loc_path) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_loc_path_help
+msgid "Omaduse Kohale saab (loc_path) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_address
+msgid "Omaduse Aadress (address) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_address_comment
+msgid "Omaduse Aadress (address) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_address_help
+msgid "Omaduse Aadress (address) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_map_url
+msgid "Omaduse Kaart (map_url) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_map_url_comment
+msgid "Omaduse Kaart (map_url) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_map_url_help
+msgid "Omaduse Kaart (map_url) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_map
+msgid "Omaduse Kaardi pilt (map) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_map_comment
+msgid "Omaduse Kaardi pilt (map) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_map_help
+msgid "Omaduse Kaardi pilt (map) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_photo
+msgid "Omaduse Foto kohast (photo) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_photo_comment
+msgid "Omaduse Foto kohast (photo) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_photo_help
+msgid "Omaduse Foto kohast (photo) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_owner
+msgid "Omaduse Omanik (owner) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_owner_comment
+msgid "Omaduse Omanik (owner) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_owner_help
+msgid "Omaduse Omanik (owner) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_make_copy
+msgid "Omaduse Tee koopia (make_copy) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_make_copy_comment
+msgid "Omaduse Tee koopia (make_copy) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_make_copy_help
+msgid "Omaduse Tee koopia (make_copy) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_usercheckbox1
+msgid "Omaduse User-defined checkbox 1 (usercheckbox1) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_usercheckbox1_comment
+msgid "Omaduse User-defined checkbox 1 (usercheckbox1) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_usercheckbox1_help
+msgid "Omaduse User-defined checkbox 1 (usercheckbox1) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:rel_RELTYPE_MAP
+msgid "Seose Kaart (RELTYPE_MAP) tekst"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:rel_RELTYPE_PHOTO
+msgid "Seose Foto (RELTYPE_PHOTO) tekst"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:rel_RELTYPE_ADDRESS
+msgid "Seose Aadress (RELTYPE_ADDRESS) tekst"
+msgstr ""
+
+#: classes/applications/scm/scm_location.aw:rel_RELTYPE_OWNER
+msgid "Seose Aadress (RELTYPE_OWNER) tekst"
+msgstr ""
+

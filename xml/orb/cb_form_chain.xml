@@ -1,0 +1,58 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="cb_form_chain" folder="www/dev/terryf/automatweb_dev/classes/applications/cb_form_chain" extends="class_base">
+		<action name="submit_data" nologin="1">
+			<function name="submit_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_confirm" nologin="1">
+			<function name="submit_confirm">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="confirm_entries">
+			<function name="confirm_entries">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_entries">
+			<function name="delete_entries">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="export_entries">
+			<function name="export_entries">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="show_up_file" nologin="1">
+			<function name="show_up_file">
+				<arguments>
+					<required name="wfid" />
+					<optional name="i" />
+					<required name="rpn" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="showe">
+			<function name="showe">
+				<arguments>
+					<required name="id" />
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

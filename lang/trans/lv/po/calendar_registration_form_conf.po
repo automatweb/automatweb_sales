@@ -1,0 +1,246 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:class_849_help
+msgid "Klassi S&uuml;ndmusele registreerimine help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_event
+msgid "Omaduse S&uuml;ndmus millele registreeruda (event) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_event_comment
+msgid "Omaduse S&uuml;ndmus millele registreeruda (event) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_event_help
+msgid "Omaduse S&uuml;ndmus millele registreeruda (event) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_form
+msgid "Omaduse Registreerumisvorm (form) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_form_comment
+msgid "Omaduse Registreerumisvorm (form) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_form_help
+msgid "Omaduse Registreerumisvorm (form) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_max_pers
+msgid "Omaduse Maksimaalne registreerujate arv (max_pers) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_max_pers_comment
+msgid "Omaduse Maksimaalne registreerujate arv (max_pers) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_max_pers_help
+msgid "Omaduse Maksimaalne registreerujate arv (max_pers) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_person_folder
+msgid "Omaduse Isikute kaust (person_folder) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_person_folder_comment
+msgid "Omaduse Isikute kaust (person_folder) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_person_folder_help
+msgid "Omaduse Isikute kaust (person_folder) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_show_content
+msgid "Omaduse Kuva dokumendis s&uuml;ndmuse sisu (show_content) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_show_content_comment
+msgid "Omaduse Kuva dokumendis s&uuml;ndmuse sisu (show_content) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_show_content_help
+msgid "Omaduse Kuva dokumendis s&uuml;ndmuse sisu (show_content) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_link_caption
+msgid "Omaduse Lingi nimi (link_caption) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_link_caption_comment
+msgid "Omaduse Lingi nimi (link_caption) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_link_caption_help
+msgid "Omaduse Lingi nimi (link_caption) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_redirect
+msgid "Omaduse Kuhu suunata peale t&auml;itmist (redirect) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_redirect_comment
+msgid "Omaduse Kuhu suunata peale t&auml;itmist (redirect) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_redirect_help
+msgid "Omaduse Kuhu suunata peale t&auml;itmist (redirect) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_entry_check
+msgid "Omaduse Sisestuste kontroll (entry_check) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_entry_check_comment
+msgid "Omaduse Sisestuste kontroll (entry_check) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_entry_check_help
+msgid "Omaduse Sisestuste kontroll (entry_check) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_to_user
+msgid "Omaduse Saada regisreerijale kinnitus (mail_to_user) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_to_user_comment
+msgid "Omaduse Saada regisreerijale kinnitus (mail_to_user) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_to_user_help
+msgid "Omaduse Saada regisreerijale kinnitus (mail_to_user) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_to_addr
+msgid "Omaduse Kellele lisaks mail saata (mail_to_addr) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_to_addr_comment
+msgid "Omaduse Kellele lisaks mail saata (mail_to_addr) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_to_addr_help
+msgid "Omaduse Kellele lisaks mail saata (mail_to_addr) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_from_name
+msgid "Omaduse Maili saatja nimi (mail_from_name) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_from_name_comment
+msgid "Omaduse Maili saatja nimi (mail_from_name) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_from_name_help
+msgid "Omaduse Maili saatja nimi (mail_from_name) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_from_addr
+msgid "Omaduse Maili saatja aadress (mail_from_addr) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_from_addr_comment
+msgid "Omaduse Maili saatja aadress (mail_from_addr) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_from_addr_help
+msgid "Omaduse Maili saatja aadress (mail_from_addr) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_subj
+msgid "Omaduse Maili pealkiri (mail_subj) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_subj_comment
+msgid "Omaduse Maili pealkiri (mail_subj) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_subj_help
+msgid "Omaduse Maili pealkiri (mail_subj) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_legend
+msgid "Omaduse Asenduste legend (mail_legend) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_legend_comment
+msgid "Omaduse Asenduste legend (mail_legend) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_legend_help
+msgid "Omaduse Asenduste legend (mail_legend) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_content
+msgid "Omaduse Maili sisu (mail_content) caption"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_content_comment
+msgid "Omaduse Maili sisu (mail_content) kommentaar"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:prop_mail_content_help
+msgid "Omaduse Maili sisu (mail_content) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:group_emails
+msgid "Grupi E-mailid (emails) pealkiri"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:group_emails_help
+msgid "Grupi E-mailid (emails) help"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:rel_RELTYPE_EVENT
+msgid "Seose S&uuml;ndmus (RELTYPE_EVENT) tekst"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:rel_RELTYPE_REG_ENTRY
+msgid "Seose Sisestus (RELTYPE_REG_ENTRY) tekst"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:rel_RELTYPE_FOLDER
+msgid "Seose Isikute kaust (RELTYPE_FOLDER) tekst"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:rel_RELTYPE_WEBFORM
+msgid "Seose S&uuml;ndmuse vorm (RELTYPE_WEBFORM) tekst"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:156
+msgid "Meili sisus on v&otilde;imalik kasutada j&auml;rgnevaid asendusi:<br><br>#reg_data# - kalendri s&uuml;ndmuse sisu<br>\t\t\t\t\t#date# - kohtumise kuup&auml;ev<br>\t\t\t\t\t#time_from# - kohtumise alguskellaaeg<br>\t\t\t\t\t#time_to# - kohtumise k&otilde;ppkellaaeg<br>lisaks v&otilde;ib kasutada elemente andmete vormist, trellidega eraldatult"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:161
+msgid "&Auml;ra kuva"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:162
+msgid "Kuva dokumendis s&uuml;ndmuse infot"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:183
+msgid "Isikute kaust (%s)"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:251
+msgid "Veebivorm s&uuml;ndmusele registreerimise vormiga t&ouml;&ouml;tab ainult l&auml;bi s&uuml;ndmusele registreerimise"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:270
+msgid "calendar_registration_form::show(%s): event and object type must be related!"
+msgstr ""
+
+#: classes/applications/calendar/calendar_registration_form_conf.aw:658
+msgid "calendar_registration_form::show_data(%s): event and object type must be related!"
+msgstr ""

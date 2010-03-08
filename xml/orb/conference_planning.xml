@@ -1,0 +1,171 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="conference_planning" folder="www/dev/terryf/automatweb_dev/classes/applications/calendar" extends="class_base">
+		<action name="add_separator_to_view">
+			<function name="add_separator_to_view">
+				<arguments>
+					<required name="element" type="string" />
+					<required name="view_no" type="int" />
+					<required name="planner" type="int" />
+					<required name="type" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="move_element_in_view">
+			<function name="move_element_in_view">
+				<arguments>
+					<required name="element" type="string" />
+					<required name="view_no" type="int" />
+					<required name="planner" type="int" />
+					<required name="move_to" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_view">
+			<function name="add_view">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_element_to_view">
+			<function name="add_element_to_view">
+				<arguments>
+					<required name="element" type="string" />
+					<required name="view_no" type="int" />
+					<required name="planner" type="int" />
+					<optional name="caption" type="string" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_element_from_view">
+			<function name="remove_element_form_view">
+				<arguments>
+					<required name="element" type="int" />
+					<required name="view_no" type="int" />
+					<required name="planner" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="move_view">
+			<function name="move_view">
+				<arguments>
+					<required name="view_no" type="int" />
+					<required name="move_to" type="int" />
+					<required name="planner" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="remove_view">
+			<function name="remove_view">
+				<arguments>
+					<required name="view_no" type="int" />
+					<required name="planner" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="forward" nologin="1" all_args="1">
+			<function name="forward">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="stay" nologin="1" all_args="1">
+			<function name="stay">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="back" nologin="1" all_args="1">
+			<function name="back">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="finalize" nologin="1" all_args="1">
+			<function name="finalize">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_back" nologin="1" all_args="1">
+			<function name="submit_back">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_forward" nologin="1" all_args="1">
+			<function name="submit_forward">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_final" nologin="1" all_args="1">
+			<function name="submit_final">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="submit_user_data" nologin="1" all_args="1">
+			<function name="submit_user_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_catering" nologin="1" all_args="1">
+			<function name="add_catering">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_fun" nologin="1" all_args="1">
+			<function name="add_fun">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_dates" nologin="1" all_args="1">
+			<function name="add_dates">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_function" nologin="1" all_args="1">
+			<function name="add_function">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_fun_catering" nologin="1" all_args="1">
+			<function name="add_fun_catering">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+	</class>
+</orb>

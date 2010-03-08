@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+
+#: classes/applications/rostering/rostering_shift.aw:class_1141_help
+msgid "Klassi Vahetus help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_short_name
+msgid "Omaduse L&uuml;hend (short_name) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_short_name_comment
+msgid "Omaduse L&uuml;hend (short_name) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_short_name_help
+msgid "Omaduse L&uuml;hend (short_name) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_type
+msgid "Omaduse T&uuml;&uuml;p (type) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_type_comment
+msgid "Omaduse T&uuml;&uuml;p (type) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_type_help
+msgid "Omaduse T&uuml;&uuml;p (type) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_start_time
+msgid "Omaduse Algusaeg (start_time) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_start_time_comment
+msgid "Omaduse Algusaeg (start_time) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_start_time_help
+msgid "Omaduse Algusaeg (start_time) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_end_time
+msgid "Omaduse L&otilde;ppaeg (end_time) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_end_time_comment
+msgid "Omaduse L&otilde;ppaeg (end_time) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_end_time_help
+msgid "Omaduse L&otilde;ppaeg (end_time) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_workplaces
+msgid "Omaduse T&ouml;&ouml;postid mis peavad olema t&auml;idetud (workplaces) caption"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_workplaces_comment
+msgid "Omaduse T&ouml;&ouml;postid mis peavad olema t&auml;idetud (workplaces) kommentaar"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:prop_workplaces_help
+msgid "Omaduse T&ouml;&ouml;postid mis peavad olema t&auml;idetud (workplaces) help"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:rel_RELTYPE_WORKPLACE
+msgid "Seose T&ouml;&ouml;post (RELTYPE_WORKPLACE) tekst"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:44
+msgid "P&otilde;hivahetus"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:45
+msgid "Abivahetus"
+msgstr ""
+
+#: classes/applications/rostering/rostering_shift.aw:46
+msgid "Valvevahetus"
+msgstr ""
+

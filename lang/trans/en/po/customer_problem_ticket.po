@@ -1,0 +1,271 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:class_1185_help
+msgid "Klassi Probleem help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_customer
+msgid "Omaduse Klient (customer) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_customer_comment
+msgid "Omaduse Klient (customer) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_customer_help
+msgid "Omaduse Klient (customer) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_project
+msgid "Omaduse Projekt (project) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_project_comment
+msgid "Omaduse Projekt (project) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_project_help
+msgid "Omaduse Projekt (project) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_requirement
+msgid "Omaduse N&otilde;ue (requirement) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_requirement_comment
+msgid "Omaduse N&otilde;ue (requirement) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_requirement_help
+msgid "Omaduse N&otilde;ue (requirement) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_from_dev_order
+msgid "Omaduse Arendustellimusest (from_dev_order) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_from_dev_order_comment
+msgid "Omaduse Arendustellimusest (from_dev_order) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_from_dev_order_help
+msgid "Omaduse Arendustellimusest (from_dev_order) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_from_bug
+msgid "Omaduse Arendus&uuml;lesanne (from_bug) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_from_bug_comment
+msgid "Omaduse Arendus&uuml;lesanne (from_bug) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_from_bug_help
+msgid "Omaduse Arendus&uuml;lesanne (from_bug) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_orderer_co
+msgid "Omaduse Tellija organisatsioon (orderer_co) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_orderer_co_comment
+msgid "Omaduse Tellija organisatsioon (orderer_co) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_orderer_co_help
+msgid "Omaduse Tellija organisatsioon (orderer_co) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_orderer_unit
+msgid "Omaduse Tellija &uuml;ksus (orderer_unit) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_orderer_unit_comment
+msgid "Omaduse Tellija &uuml;ksus (orderer_unit) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_orderer_unit_help
+msgid "Omaduse Tellija &uuml;ksus (orderer_unit) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_content
+msgid "Omaduse Sisu (content) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_content_comment
+msgid "Omaduse Sisu (content) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_content_help
+msgid "Omaduse Sisu (content) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_fileupload
+msgid "Omaduse Fail1 (fileupload) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_fileupload_comment
+msgid "Omaduse Fail1 (fileupload) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_fileupload_help
+msgid "Omaduse Fail1 (fileupload) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_fileupload2
+msgid "Omaduse Fail2 (fileupload2) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_fileupload2_comment
+msgid "Omaduse Fail2 (fileupload2) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_fileupload2_help
+msgid "Omaduse Fail2 (fileupload2) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_fileupload3
+msgid "Omaduse Fail3 (fileupload3) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_fileupload3_comment
+msgid "Omaduse Fail3 (fileupload3) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_fileupload3_help
+msgid "Omaduse Fail3 (fileupload3) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_bug_toolbar
+msgid "Omaduse  (bug_toolbar) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_bug_toolbar_comment
+msgid "Omaduse  (bug_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_bug_toolbar_help
+msgid "Omaduse  (bug_toolbar) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_bug_list
+msgid "Omaduse  (bug_list) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_bug_list_comment
+msgid "Omaduse  (bug_list) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_bug_list_help
+msgid "Omaduse  (bug_list) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_req_toolbar
+msgid "Omaduse  (req_toolbar) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_req_toolbar_comment
+msgid "Omaduse  (req_toolbar) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_req_toolbar_help
+msgid "Omaduse  (req_toolbar) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_req_list
+msgid "Omaduse  (req_list) caption"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_req_list_comment
+msgid "Omaduse  (req_list) kommentaar"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:prop_req_list_help
+msgid "Omaduse  (req_list) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:group_bugs
+msgid "Grupi Arendus&uuml;lesanded (bugs) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:group_bugs_help
+msgid "Grupi Arendus&uuml;lesanded (bugs) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:group_reqs
+msgid "Grupi N&otilde;uded (reqs) pealkiri"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:group_reqs_help
+msgid "Grupi N&otilde;uded (reqs) help"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_CUSTOMER
+msgid "Seose Klient (RELTYPE_CUSTOMER) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_PROJECT
+msgid "Seose Projekt (RELTYPE_PROJECT) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_FILE1
+msgid "Seose Fail1 (RELTYPE_FILE1) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_FILE2
+msgid "Seose Fail2 (RELTYPE_FILE2) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_FILE3
+msgid "Seose Fail3 (RELTYPE_FILE3) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_BUG
+msgid "Seose Arendus&uuml;lesanne (RELTYPE_BUG) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_REQ
+msgid "Seose N&otilde;ue (RELTYPE_REQ) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_DEV_ORDER
+msgid "Seose Arendustellimus (RELTYPE_DEV_ORDER) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_FROM_BUG
+msgid "Seose Arendus&uuml;lesandest (RELTYPE_FROM_BUG) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_HAS_REQ
+msgid "Seose N&otilde;ue (RELTYPE_HAS_REQ) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_ORDERER_CO
+msgid "Seose Organisatsioon (RELTYPE_ORDERER_CO) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:rel_RELTYPE_UNIT
+msgid "Seose &Uuml;ksus (RELTYPE_UNIT) tekst"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:117
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:138
+msgid "--vali--"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:214
+msgid "Probleemist tulenenud &uuml;lesanded"
+msgstr ""
+
+#: classes/applications/bug_o_matic_3000/customer_problem_ticket.aw:232
+msgid "Probleemist tulenenud n&otilde;uded"
+msgstr ""

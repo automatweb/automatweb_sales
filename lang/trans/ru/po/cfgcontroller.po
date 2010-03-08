@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/cfg/cfgcontroller.aw:class_810_help
+msgid "Klassi Kontroller(Classbase) help"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:prop_formula
+msgid "Omaduse Valem (formula) caption"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:prop_formula_comment
+msgid "Omaduse Valem (formula) kommentaar"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:prop_formula_help
+msgid "Omaduse Valem (formula) help"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:prop_errmsg
+msgid "Omaduse Veateade (errmsg) caption"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:prop_errmsg_comment
+msgid "Omaduse Veateade (errmsg) kommentaar"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:prop_errmsg_help
+msgid "Omaduse Veateade (errmsg) help"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/cfg/cfgcontroller.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""

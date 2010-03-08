@@ -1,0 +1,305 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/crm/crm_section.aw:class_321_help
+msgid "Klassi &Uuml;ksus help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_description
+msgid "Omaduse Kirjeldus (description) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_description_comment
+msgid "Omaduse Kirjeldus (description) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_description_help
+msgid "Omaduse Kirjeldus (description) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_code
+msgid "Omaduse Kood (code) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_code_comment
+msgid "Omaduse Kood (code) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_code_help
+msgid "Omaduse Kood (code) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_jrk
+msgid "Omaduse J&auml;rk (jrk) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_jrk_comment
+msgid "Omaduse J&auml;rk (jrk) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_jrk_help
+msgid "Omaduse J&auml;rk (jrk) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_ext_id
+msgid "Omaduse Siduss&uuml;steemi ID (ext_id) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_ext_id_comment
+msgid "Omaduse Siduss&uuml;steemi ID (ext_id) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_ext_id_help
+msgid "Omaduse Siduss&uuml;steemi ID (ext_id) help"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_grp_crea
+#: classes/crm/crm_section.aw:prop_grp_crea
+msgid "Omaduse Kas teen grupid ja kasutajad (grp_crea) caption"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_grp_crea_comment
+#: classes/crm/crm_section.aw:prop_grp_crea_comment
+msgid "Omaduse Kas teen grupid ja kasutajad (grp_crea) kommentaar"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_grp_crea_help
+#: classes/crm/crm_section.aw:prop_grp_crea_help
+msgid "Omaduse Kas teen grupid ja kasutajad (grp_crea) help"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_has_group
+#: classes/crm/crm_section.aw:prop_has_group
+msgid "Omaduse Kas tehakse kasutajagrupp (has_group) caption"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_has_group_comment
+#: classes/crm/crm_section.aw:prop_has_group_comment
+msgid "Omaduse Kas tehakse kasutajagrupp (has_group) kommentaar"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_has_group_help
+#: classes/crm/crm_section.aw:prop_has_group_help
+msgid "Omaduse Kas tehakse kasutajagrupp (has_group) help"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_has_group_subs
+#: classes/crm/crm_section.aw:prop_has_group_subs
+msgid "Omaduse Kas tehakse kasutajagrupp alamsektsioonidele (has_group_subs) caption"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_has_group_subs_comment
+#: classes/crm/crm_section.aw:prop_has_group_subs_comment
+msgid "Omaduse Kas tehakse kasutajagrupp alamsektsioonidele (has_group_subs) kommentaar"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_has_group_subs_help
+#: classes/crm/crm_section.aw:prop_has_group_subs_help
+msgid "Omaduse Kas tehakse kasutajagrupp alamsektsioonidele (has_group_subs) help"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_has_group_subs_prof
+#: classes/crm/crm_section.aw:prop_has_group_subs_prof
+msgid "Omaduse Kas tehakse kasutajagrupp alamametinimetustele (has_group_subs_prof) caption"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_has_group_subs_prof_comment
+#: classes/crm/crm_section.aw:prop_has_group_subs_prof_comment
+msgid "Omaduse Kas tehakse kasutajagrupp alamametinimetustele (has_group_subs_prof) kommentaar"
+msgstr ""
+
+# classes/crm/crm_section.aw:prop_has_group_subs_prof_help
+#: classes/crm/crm_section.aw:prop_has_group_subs_prof_help
+msgid "Omaduse Kas tehakse kasutajagrupp alamametinimetustele (has_group_subs_prof) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_link_document
+msgid "Omaduse Dokument (link_document) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_link_document_comment
+msgid "Omaduse Dokument (link_document) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_link_document_help
+msgid "Omaduse Dokument (link_document) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_public
+msgid "Omaduse Avalik (public) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_public_comment
+msgid "Omaduse Avalik (public) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_public_help
+msgid "Omaduse Avalik (public) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_contact
+msgid "Omaduse Aadress (contact) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_contact_comment
+msgid "Omaduse Aadress (contact) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_contact_help
+msgid "Omaduse Aadress (contact) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_phone_id
+msgid "Omaduse Telefon (phone_id) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_phone_id_comment
+msgid "Omaduse Telefon (phone_id) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_phone_id_help
+msgid "Omaduse Telefon (phone_id) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_telefax_id
+msgid "Omaduse Faks (telefax_id) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_telefax_id_comment
+msgid "Omaduse Faks (telefax_id) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_telefax_id_help
+msgid "Omaduse Faks (telefax_id) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_email_id
+msgid "Omaduse E-posti aadress (email_id) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_email_id_comment
+msgid "Omaduse E-posti aadress (email_id) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_email_id_help
+msgid "Omaduse E-posti aadress (email_id) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_url
+msgid "Omaduse Veebiaadress (url) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_url_comment
+msgid "Omaduse Veebiaadress (url) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_url_help
+msgid "Omaduse Veebiaadress (url) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_wpls
+msgid "Omaduse T&ouml;&ouml;kohad (wpls) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_wpls_comment
+msgid "Omaduse T&ouml;&ouml;kohad (wpls) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_wpls_help
+msgid "Omaduse T&ouml;&ouml;kohad (wpls) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_transl
+msgid "Omaduse T&otilde;lgi (transl) caption"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_transl_comment
+msgid "Omaduse T&otilde;lgi (transl) kommentaar"
+msgstr ""
+
+#: classes/crm/crm_section.aw:prop_transl_help
+msgid "Omaduse T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:group_Kontaktid
+msgid "Grupi Kontaktid (Kontaktid) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_section.aw:group_Kontaktid_help
+msgid "Grupi Kontaktid (Kontaktid) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:group_wpls
+msgid "Grupi T&ouml;&ouml;kohad (wpls) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_section.aw:group_wpls_help
+msgid "Grupi T&ouml;&ouml;kohad (wpls) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:group_transl
+msgid "Grupi T&otilde;lgi (transl) pealkiri"
+msgstr ""
+
+#: classes/crm/crm_section.aw:group_transl_help
+msgid "Grupi T&otilde;lgi (transl) help"
+msgstr ""
+
+#: classes/crm/crm_section.aw:rel_RELTYPE_SECTION
+msgid "Seose Alam&uuml;ksus (RELTYPE_SECTION) tekst"
+msgstr ""
+
+# classes/crm/crm_section.aw:rel_RELTYPE_WORKERS
+#: classes/crm/crm_section.aw:rel_RELTYPE_WORKERS
+msgid "Seose Liige (RELTYPE_WORKERS) tekst"
+msgstr ""
+
+# classes/crm/crm_section.aw:rel_RELTYPE_PROFESSIONS
+#: classes/crm/crm_section.aw:rel_RELTYPE_PROFESSIONS
+msgid "Seose Roll (RELTYPE_PROFESSIONS) tekst"
+msgstr ""
+
+#: classes/crm/crm_section.aw:rel_RELTYPE_JOB_OFFER
+msgid "Seose T&ouml;&ouml;pakkumine (RELTYPE_JOB_OFFER) tekst"
+msgstr ""
+
+# classes/crm/crm_section.aw:rel_RELTYPE_GROUP
+#: classes/crm/crm_section.aw:rel_RELTYPE_GROUP
+msgid "Seose grupp (RELTYPE_GROUP) tekst"
+msgstr ""
+
+#: classes/crm/crm_section.aw:rel_RELTYPE_ADDRESS
+msgid "Seose Kontaktaadress (RELTYPE_ADDRESS) tekst"
+msgstr ""
+
+#: classes/crm/crm_section.aw:rel_RELTYPE_EMAIL
+msgid "Seose E-post (RELTYPE_EMAIL) tekst"
+msgstr ""
+
+#: classes/crm/crm_section.aw:rel_RELTYPE_PHONE
+msgid "Seose Telefon (RELTYPE_PHONE) tekst"
+msgstr ""
+
+#: classes/crm/crm_section.aw:rel_RELTYPE_TELEFAX
+msgid "Seose Fax (RELTYPE_TELEFAX) tekst"
+msgstr ""
+
+#: classes/crm/crm_section.aw:rel_RELTYPE_LINK_DOCUMENT
+msgid "Seose Dokument (RELTYPE_LINK_DOCUMENT) tekst"
+msgstr ""
+
+#: classes/crm/crm_section.aw:rel_RELTYPE_WORKPLACE
+msgid "Seose T&ouml;&ouml;koht (RELTYPE_WORKPLACE) tekst"
+msgstr ""
+
+#: classes/crm/crm_section.aw:rel_RELTYPE_URL
+msgid "Seose Veebiaadress (RELTYPE_URL) tekst"
+msgstr ""

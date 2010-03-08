@@ -1,0 +1,278 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed, 01 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+#: classes/contentmgmt/newsfeed.aw:class_885_help
+msgid "Klassi Uudistevoog help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_alias
+msgid "Omaduse Alias (alias) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_alias_comment
+msgid "Omaduse Alias (alias) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_alias_help
+msgid "Omaduse Alias (alias) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_feedtype
+msgid "Omaduse T&uuml;&uuml;p (feedtype) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_feedtype_comment
+msgid "Omaduse T&uuml;&uuml;p (feedtype) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_feedtype_help
+msgid "Omaduse T&uuml;&uuml;p (feedtype) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_limittype
+msgid "Omaduse Milliseid uudiseid n&auml;idata? (limittype) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_limittype_comment
+msgid "Omaduse Milliseid uudiseid n&auml;idata? (limittype) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_limittype_help
+msgid "Omaduse Milliseid uudiseid n&auml;idata? (limittype) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_count
+msgid "Omaduse Mitu viimast (count) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_count_comment
+msgid "Omaduse Mitu viimast (count) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_count_help
+msgid "Omaduse Mitu viimast (count) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_days
+msgid "Omaduse Mitme viimase p&auml;eva omad (days) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_days_comment
+msgid "Omaduse Mitme viimase p&auml;eva omad (days) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_days_help
+msgid "Omaduse Mitme viimase p&auml;eva omad (days) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_sort_by
+msgid "Omaduse Mille j&auml;rgi sorteeritakse (sort_by) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_sort_by_comment
+msgid "Omaduse Mille j&auml;rgi sorteeritakse (sort_by) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_sort_by_help
+msgid "Omaduse Mille j&auml;rgi sorteeritakse (sort_by) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_sort_ord
+msgid "Omaduse  (sort_ord) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_sort_ord_comment
+msgid "Omaduse  (sort_ord) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_sort_ord_help
+msgid "Omaduse  (sort_ord) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_parse_embed
+msgid "Omaduse N&auml;ita ka lisatud objekte (parse_embed) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_parse_embed_comment
+msgid "Omaduse N&auml;ita ka lisatud objekte (parse_embed) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_parse_embed_help
+msgid "Omaduse N&auml;ita ka lisatud objekte (parse_embed) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_folder_name
+msgid "Omaduse N&auml;ita dokumendi kausta nime (folder_name) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_folder_name_comment
+msgid "Omaduse N&auml;ita dokumendi kausta nime (folder_name) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_folder_name_help
+msgid "Omaduse N&auml;ita dokumendi kausta nime (folder_name) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_folders
+msgid "Omaduse Kaustade seaded (folders) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_folders_comment
+msgid "Omaduse Kaustade seaded (folders) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_folders_help
+msgid "Omaduse Kaustade seaded (folders) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_separator
+msgid "Omaduse V&auml;ljade eraldaja (separator) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_separator_comment
+msgid "Omaduse V&auml;ljade eraldaja (separator) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_separator_help
+msgid "Omaduse V&auml;ljade eraldaja (separator) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_fields_table
+msgid "Omaduse  (fields_table) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_fields_table_comment
+msgid "Omaduse  (fields_table) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_fields_table_help
+msgid "Omaduse  (fields_table) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_kw
+msgid "Omaduse Milliste m&auml;rk&otilde;nadega dokumente n&auml;idata (kw) caption"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_kw_comment
+msgid "Omaduse Milliste m&auml;rk&otilde;nadega dokumente n&auml;idata (kw) kommentaar"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:prop_kw_help
+msgid "Omaduse Milliste m&auml;rk&otilde;nadega dokumente n&auml;idata (kw) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:group_folders
+msgid "Grupi Kaustad (folders) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:group_folders_help
+msgid "Grupi Kaustad (folders) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:group_kw
+msgid "Grupi M&auml;rks&otilde;nad (kw) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:group_kw_help
+msgid "Grupi M&auml;rks&otilde;nad (kw) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:group_fields
+msgid "Grupi V&auml;ljad (fields) pealkiri"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:group_fields_help
+msgid "Grupi V&auml;ljad (fields) help"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:rel_RELTYPE_FEED_SOURCE
+msgid "Seose Materjalide kaust (RELTYPE_FEED_SOURCE) tekst"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:90
+msgid "Suurem (uuem) enne"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:91
+msgid "V&auml;iksem (vanem) enne"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:97
+msgid "J&auml;rjekorra j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:98
+msgid "Loomise kuup&auml;eva j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:99
+msgid "Muutmise kuup&auml;eva j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:100
+msgid "Dokumenti kirjutatud kuup&auml;eva j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:101
+msgid "Objekti nime j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:102
+msgid "Kalendris valitud aja j&auml;rgi"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:103
+msgid "Random"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:120
+msgid "RSS 2.0"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:121
+msgid "Atom (implementeerimata)"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:127
+msgid "Viimased X uudist"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:128
+msgid "Viimase X p&auml;eva uudised"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:149 classes/contentmgmt/newsfeed.aw:598
+msgid "Vali"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:153
+msgid "J&auml;rjekord"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:157
+msgid "V&auml;li"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:193
+msgid "ID"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:197
+msgid "Name"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:201
+msgid "V&ouml;ta alamkaustadest ka"
+msgstr ""
+
+#: classes/contentmgmt/newsfeed.aw:592
+msgid "M&auml;rks&otilde;na"
+msgstr ""

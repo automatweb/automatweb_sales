@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Automatweb 2.0\n"
+"POT-Creation-Date: Wed,  1 Jan 2020 00:00:00 +0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: AutomatWeb POT Scanner\n"
+
+# classes/core/docgen/docgen_analyzer.aw:class__help
+#: classes/core/docgen/docgen_analyzer.aw:class__help
+msgid "Klassi  help"
+msgstr ""
+
+#: classes/core/docgen/docgen_analyzer.aw:prop_
+msgid "Omaduse  () caption"
+msgstr ""
+
+#: classes/core/docgen/docgen_analyzer.aw:prop__comment
+msgid "Omaduse  () kommentaar"
+msgstr ""
+
+#: classes/core/docgen/docgen_analyzer.aw:prop__help
+msgid "Omaduse  () help"
+msgstr ""
+
+#: classes/core/docgen/docgen_analyzer.aw:group_general
+msgid "Grupi Üldine (general) pealkiri"
+msgstr ""
+
+#: classes/core/docgen/docgen_analyzer.aw:group_general_help
+msgid "Grupi Üldine (general) help"
+msgstr ""
+
+#: classes/core/docgen/docgen_analyzer.aw:group_
+msgid "Grupi  () pealkiri"
+msgstr ""
+
+#: classes/core/docgen/docgen_analyzer.aw:group__help
+msgid "Grupi  () help"
+msgstr ""
+
+#: classes/core/docgen/docgen_analyzer.aw:552
+msgid "error: do_parse_parameters failed for string %s <br>\n"
+msgstr ""
+
+#: classes/core/docgen/docgen_analyzer.aw:1036
+msgid "horrible parse error!"
+msgstr ""
