@@ -8468,8 +8468,8 @@ class mrp_workspace extends class_base
 	function mrp_log($proj, $job, $msg, $comment = '')
 	{
 		///!!!! logging_disabled teha.
-		$this->quote($comment);
-		$this->quote($msg);
+		$this->quote(&$comment);
+		$this->quote(&$msg);
 		$this->db_query("INSERT INTO mrp_log (
 					project_id,job_id,uid,tm,message,comment
 				)

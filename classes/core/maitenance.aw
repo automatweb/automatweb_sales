@@ -54,9 +54,12 @@ class maitenance extends class_base
 			}
 			echo '<br />'.count($this->files).' files deleted!!<br />';
 
-			$memcache_obj = new Memcache;
-			$memcache_obj->connect('localhost', 11211) or print("Couldn't connect to memcache host<br />");
-			$memcache_obj->flush() or print("Couldn't clear memory cache<br />");
+			if (class_exists("Memcache"))
+			{
+				$memcache_obj = new Memcache;
+				$memcache_obj->connect('localhost', 11211) or print("Couldn't connect to memcache host<br />");
+				$memcache_obj->flush() or print("Couldn't clear memory cache<br />");
+			}
 		}
 
 		if (empty($args["no_die"]))

@@ -151,9 +151,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 	{
 		$filter = array(
 			"class_id" => CL_SHOP_WAREHOUSE_RETURN,
-			"buyer" => $this->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"buyer" => $this->id()
 		);
 		$ol = new object_list($filter);
 		return $ol;
@@ -175,9 +173,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 
 		$filter = array(
 			"class_id" => CL_SHOP_SELL_ORDER,
-			"purchaser" => $this->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"purchaser" => $this->id()
 		);
 		$ol = new object_list($filter);
 		return $ol;
@@ -204,8 +200,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		$filter = array(
 			"class_id" => CL_SHOP_DELIVERY_NOTE,
 			"customer" => $this->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
 		);
 		$ol = new object_list($filter);
 		return $ol;
@@ -229,9 +223,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		$filter = array(
 			"class_id" => CL_SHOP_ORDER,
 			"orderer_company" => $this->id(),
-//			"CL_CHOP_ORDER.order_completed" => 1,
-			"site_id" => array(),
-			"lang_id" => array(),
 		);
 		$ol = new object_list($filter);
 //see ei ole hea, et peab kindlasti ymber tegema, kuid va toodet on igalpool kasutuses, et ei taha hetkel selle muutmisele m6elda
@@ -555,7 +546,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		return $ol;
 	}
 
-//2kki optimeerib... seep2rast selline lisa funktsioon
 	/** Returns company worker selection
 		@attrib api=1 params=name
 		@param active optional type=bool

@@ -4864,16 +4864,19 @@ class crm_company extends class_base
 		}
 
 		$my_org = get_current_company();
-		$toolbar->add_menu_item(array(
-			"parent" => "calendar_sub",
-			"title" => t("Pakkumine"),
-			"text" => t("Pakkumine"),
-			"link" => $this->mk_my_orb("new", array(
-				"alias_to_org" => $args["obj_inst"]->id(),
-				"alias_to" => $my_org->id(),
-				"reltype" => 9
-			), CL_CRM_OFFER),
-		));
+		if ($my_org)
+		{
+			$toolbar->add_menu_item(array(
+				"parent" => "calendar_sub",
+				"title" => t("Pakkumine"),
+				"text" => t("Pakkumine"),
+				"link" => $this->mk_my_orb("new", array(
+					"alias_to_org" => $args["obj_inst"]->id(),
+					"alias_to" => $my_org->id(),
+					"reltype" => 9
+				), CL_CRM_OFFER),
+			));
+		}
 
 		if (!empty($this->cal_id))
 		{

@@ -461,7 +461,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				continue;
 			}
 
-			if ($data["table"] == "")
+			if (empty($data["table"]))
 			{
 				$data["table"] = "objects";
 			}
@@ -480,7 +480,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			if ($data["table"] !== "objects")
 			{
 				$tables[$data["table"]] = $data["table"];
-				if ($data["store"] != "no")
+				if ($data["store"] !== "no")
 				{
 					$tbl2prop[$data["table"]][] = $data;
 				}
@@ -3065,7 +3065,6 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 	function fetch_list($to_fetch)
 	{
 		$this->used_tables = array();
-
 		$this->properties = array();
 		$this->tableinfo = array();
 
@@ -3089,31 +3088,19 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		foreach($clids as $clid)
 		{
 			// this can not be cached, because it holds in it object id's for the query. silly, really.
-			if (true || !($sql = aw_cache_get("storage::get_read_properties_sql",$clid)))
-			{
-				$sql = $this->get_read_properties_sql(array(
-					"properties" => $GLOBALS["properties"][$clid],
-					"tableinfo" => $GLOBALS["tableinfo"][$clid],
-					"class_id" => $clid,
-					"object_id" => $cl2obj[$clid],
-					"full" => true
-				));
-				aw_cache_set("storage::get_read_properties_sql",$clid,$sql);
-			}
+			$sql = $this->get_read_properties_sql(array(
+				"properties" => $GLOBALS["properties"][$clid],
+				"tableinfo" => $GLOBALS["tableinfo"][$clid],
+				"class_id" => $clid,
+				"object_id" => $cl2obj[$clid],
+				"full" => true
+			));
+			aw_cache_set("storage::get_read_properties_sql",$clid,$sql);
 
-			if ($sql["q"] == "")
-			{
-				// just ot fetch
-				//$sql["q"] = "SELECT * FROM objects WHERE status > 0 AND oid ";
-			}
-
-			if ($sql["q"] != "")
+			if (!empty($sql["q"]))
 			{
 				$sql["q"] .= " IN (".join(",", $cl2obj[$clid]).")";
-			}
 
-			if ($sql["q"] != "")
-			{
 				// query
 				$this->db_query($sql["q"]);
 				while ($row = $this->db_next())
@@ -3134,6 +3121,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					$ret[] = $row;
 				}
 			}
+
 			if ($sql["q2"] != "")
 			{
 				$this->db_query($sql["q2"]);
@@ -3153,6 +3141,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		{
 			$pn = $resn;
 		}
+
 		if (is_object($resn) && get_class($resn) === "obj_sql_func")
 		{
 			$has_func = true;

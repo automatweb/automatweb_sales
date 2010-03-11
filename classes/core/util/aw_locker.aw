@@ -6,10 +6,7 @@
 
 class aw_locker
 {
-	// const SEM_ID = 15000;
-	// const SHM_KEY = 15000;
-	// const SHM_VAR = 15;
-	const LOCK_FILE = "files/aw_lock_data";
+	const LOCK_FILE = "files/aw_lock_data"; // relative to AW_DIR
 
 	// boundary constant values are in order of scope width
 	const BOUNDARY_PROCESS = 1;	// locks only apply to the current process. any other processes or servers will not see them. this is the quickest.
@@ -33,8 +30,6 @@ class aw_locker
 	private static $lock_file_pointer = false;
 	private static $lock_data = array();
 	private static $inprocess_locks = array();
-	// private static $sem_id = null;
-	// private static $shm_id = null;
 
 	private function __construct()
 	{
@@ -106,8 +101,9 @@ class aw_locker
 		$data = self::get_lock_data($ident);
 		settype($release_time, "int");
 
-		if (null === $data or $data[2] < $boundary)
+		if (false === $data or $data[2] < $boundary)
 		{
+			$locker_id = null;
 			if (self::BOUNDARY_SESSION === $boundary)
 			{
 				$locker_id = session_id();
@@ -121,7 +117,6 @@ class aw_locker
 			}
 			elseif (self::BOUNDARY_PROCESS === $boundary)
 			{
-				$locker_id = null;
 				self::$inprocess_locks[$ident] = array($type, $wait_type, $boundary, $locker_id, $release_time);
 			}
 		}
@@ -148,7 +143,7 @@ class aw_locker
 		self::_block();
 		$ident  = self::get_ident($class, $id);
 		$data = self::get_lock_data($ident);
-		if (null === $data)
+		if (false === $data)
 		{
 			trigger_error("An attempt to unlock a resource that isn't locked", E_USER_NOTICE);
 		}

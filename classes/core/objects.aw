@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/core/objects.aw,v 1.10 2009/04/30 09:51:04 markop Exp $
+
 // objects.aw - objektide haldamisega seotud funktsioonid
 /*
 @classinfo  maintainer=kristo
@@ -11,27 +11,26 @@ class objects extends core
 		$this->init();
 	}
 
-	/** Displays an object. Any object. 
-		
+	/** Displays an object. Any object.
+
 		@attrib name=show params=name nologin="1" default="0"
-		
 		@param id required type=int
 	**/
-	function show($args = array())
+	function show($args)
 	{
+		return "objects::show() is temporarily disabled.";
 		extract($args);
 		$ret = "";
 
-		$o =&obj($id);
+		$o = obj($id);
 		$i = $o->instance();
-		if (get_class($i) == "document")
+		if (get_class($i) === "document")
 		{
 			$ret = $i->gen_preview(array(
 				"docid" => $id
 			));
 		}
-		else
-		if (method_exists($i, "parse_alias"))
+		elseif (method_exists($i, "parse_alias"))
 		{
 			$ret = $i->parse_alias(array(
 				"oid" => $id,
@@ -46,9 +45,9 @@ class objects extends core
 		return $ret;
 	}
 
-	/**  
+	/**
 		@attrib name=db_query params=name default="0"
-		
+
 		@param sql required
 	**/
 	function orb_db_query($arr)
@@ -56,7 +55,7 @@ class objects extends core
 		extract($arr);
 		$ret = array();
 		// only SELECT queries
-		if (strtoupper(substr(trim($sql), 0, 6)) != "SELECT")
+		if (strtoupper(substr(trim($sql), 0, 6)) !== "SELECT")
 		{
 			return NULL;
 		}
@@ -84,7 +83,7 @@ class objects extends core
 		@param class_id optional type=int
 		@param comment optional
 		@param site_id optional
-		@param createdby optional 
+		@param createdby optional
 		@param modifiedby optional
 		@param status optional type=int
 		@param lang_id optional type=int
@@ -112,9 +111,8 @@ class objects extends core
 		return $rv;
 	}
 
-	/**  
+	/**
 		@attrib name=delete_object params=name default="0"
-		
 		@param oid required
 	**/
 	function orb_delete_object($arr)
@@ -132,9 +130,9 @@ class objects extends core
 		die(aw_ini_get("site_basedir"));
 	}
 
-	/**  
+	/**
 		@attrib name=aw_ini_get_mult params=name nologin="1" default="0"
-		
+
 		@param vals required
 	**/
 	function aw_ini_get_mult($arr)
@@ -149,9 +147,9 @@ class objects extends core
 	}
 
 	/** Object list
-		
+
 		@attrib name=get_list params=name default="0" nologin="1" all_args="1"
-		
+
 		@param ignore_langmenus optional
 		@param empty optional
 		@param rootobj optional type=int
@@ -174,11 +172,11 @@ class objects extends core
 	}
 
 	/** serialize
-		
-		@attrib name=serialize params=name default="0" nologin="1" 
-		
+
+		@attrib name=serialize params=name default="0" nologin="1"
+
 		@param oid required
-		
+
 		@comment
 			serializes an object
 	**/

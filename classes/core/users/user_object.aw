@@ -22,7 +22,7 @@ class user_object extends _int_object
 
 	public function awobj_set_password($value)
 	{
-		return;
+		return "";
 	}
 
 	public function awobj_set_uid($value)
@@ -50,7 +50,6 @@ class user_object extends _int_object
 	private function _handle_user_create()
 	{
 		// create home folder
-		aw_disable_acl();
 		$o = obj();
 		$o->set_class_id(CL_MENU);
 		$o->set_parent(1);
@@ -72,9 +71,6 @@ class user_object extends _int_object
 		$i->create_obj_access($hfid,$this->prop("uid"));
 		// and remove all access from everyone else
 		$i->deny_obj_access($hfid);
-
-		aw_restore_acl();
-
 		// user has all access to itself
 		$i->create_obj_access($this->id(),$this->prop("uid"));
 	}
@@ -120,7 +116,7 @@ class user_object extends _int_object
 			$mg = $ol->begin();
 			$rv[$mg->id()] = $mg;
 		}
-		uasort($rv, array(&$this, "_pri_sort"));
+		uasort($rv, array($this, "_pri_sort"));
 		return $rv;
 	}
 
@@ -278,7 +274,7 @@ class user_object extends _int_object
 			"class_id" => CL_USER,
 			"lang_id" => array(),
 			"parent" => $this->id(),
-			"name" => $this->name().".%"
+			"name" => $this->name().".%",
 		));
 		return $ol;
 	}

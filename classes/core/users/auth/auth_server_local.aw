@@ -24,6 +24,7 @@ class auth_server_local extends class_base
 		// by default eeldame, et kasutaja on jobu ja ei saa
 		// sisse logida
 		$success = false;
+		$failure_msg = auth_config::get_login_fail_msg();
 		$udata = null;
 		$_uid = $credentials["uid"];
 
@@ -31,22 +32,22 @@ class auth_server_local extends class_base
 		{
 			throw new awex_auth_pw("Root password not set or doesn't meet requirements");
 		}
-		elseif (!is_valid("password",$credentials["password"]))
+		elseif (!is_valid("password", $credentials["password"]))
 		{
-			return array(false, t("Vigane v&otilde;i vale parool"), false);
+			return array(false, $failure_msg, false);
 		}
-		elseif (!is_valid("uid",$_uid))
+		elseif (!is_valid("uid", $_uid))
 		{
-			return array(false, t("Vigane kasutajanimi"), false);
+			return array(false, $failure_msg, false);
 		}
 
 		$msg = "";
 		$this->quote(&$_uid);
-		$q = "SELECT * FROM users WHERE uid = '$_uid' AND blocked = 0";
+		$q = "SELECT * FROM users WHERE uid = '{$_uid}' AND (blocked = 0 OR blocked IS NULL)";
 		$this->db_query($q);
 		while ($row = $this->db_next())
 		{
-			if ($row["uid"] == $_uid)
+			if ($row["uid"] === $_uid)
 			{
 				$udata = $row;
 			}
@@ -67,12 +68,12 @@ class auth_server_local extends class_base
 			}
 			else
 			{
-				$msg = sprintf(E_USR_WRONG_PASS,$credentials["uid"],"");
+				$msg = $failure_msg;
 			}
 		}
 		else
 		{
-			$msg = "Sellist kasutajat pole $credentials[uid]";
+			$msg = $failure_msg;
 		}
 
 		// check ip address
@@ -83,7 +84,7 @@ class auth_server_local extends class_base
 			if (count($conns))
 			{
 				$allow = false;
-				$ipi = get_instance(CL_IPADDRESS);
+				$ipi = new ipaddress();
 				$cur_ip = inet::is_ip($_SERVER["HTTP_X_FORWARDED_FOR"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
 				foreach($conns as $c)
 				{
@@ -100,7 +101,7 @@ class auth_server_local extends class_base
 
 				if (!$allow)
 				{
-					return array(false, sprintf(t("Sellelt aadressilt (%s) pole ligip&auml;&auml;s lubatud!"), $cur_ip));
+					return array(false, $failure_msg, false);
 				}
 			}
 		}

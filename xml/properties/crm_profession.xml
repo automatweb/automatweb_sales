@@ -1,6 +1,16 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>main_toolbar</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>toolbar_standard_obj</type>
+            <store>no</store>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;riistad</caption>
+      </property>
+      <property>
             <name>ext_id</name>
             <table>objects</table>
             <group>general</group>

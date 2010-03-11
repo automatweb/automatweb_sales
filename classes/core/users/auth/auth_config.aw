@@ -237,7 +237,7 @@ class auth_config extends class_base
 
 		foreach($servers as $server)
 		{
-			if ($diff || $credentials["server"] != "")
+			if ($diff || !empty($credentials["server"]))
 			{
 				if ($dat[$server->id()]["int_name"] != $credentials["server"])
 				{
@@ -316,20 +316,19 @@ class auth_config extends class_base
 	function check_local_user($auth_id, &$cred)
 	{
 		$confo = obj($auth_id);
-		if ($confo->prop("aw_user_prefix") != "")
+		if ($confo->prop("aw_user_prefix"))
 		{
 			$cred["uid"] = $confo->prop("aw_user_prefix").".".$cred["uid"];
 		}
-		if ($cred["server"] != "")
+
+		if (!empty($cred["server"]))
 		{
 			$cred["uid"] .= ".".$cred["server"];
 		}
-		aw_disable_acl();
+
 		$ol = new object_list(array(
 			"class_id" => CL_USER,
 			"name" => $cred["uid"],
-			"site_id" => array(),
-			"lang_id" => array(),
 			"brother_of" => new obj_predicate_prop("id")
 		));
 		$confo = obj($auth_id);
@@ -345,15 +344,11 @@ class auth_config extends class_base
 				break;
 			}
 		}
-		aw_restore_acl();
 
 		if ($has)
 		{
 			// check e-mail and name if present in $cred
-			if (true || !empty($cred["mail"]) || !empty($cred["name"]))
-			{
-				$this->_upd_udata($obo, $cred, $confo);
-			}
+			$this->_upd_udata($obo, $cred, $confo);
 			return true;
 		}
 
@@ -368,17 +363,15 @@ class auth_config extends class_base
 		{
 			$pass = "-";
 		}
-		aw_disable_acl();
+
 		// create local user
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$new_user = $us->add_user(array(
 			"uid" => $cred["uid"],
 			"password" => $pass
 		));
 
 		$this->_upd_udata($new_user, $cred, $confo);
-
-		aw_restore_acl();
 		return true;
 	}
 
@@ -439,7 +432,7 @@ class auth_config extends class_base
 				));
 			}
 
-			if (aw_ini_get("users.id_login_url") != '')
+			if (aw_ini_get("users.id_login_url"))
 			{
 				$this->vars(array(
 					"id_login_url" => str_replace("http:", "https:", aw_ini_get("baseurl"))."/".aw_ini_get("users.id_login_url"),
@@ -450,16 +443,7 @@ class auth_config extends class_base
 			}
 		}
 
-		try
-		{
-			$hide_aw_info = aw_ini_get("login_box.hide_aw_info");
-		}
-		catch(awex_cfg_key $e)
-		{
-			$hide_aw_info = false;
-		}
-
-		if (!$hide_aw_info)
+		if (!aw_ini_get("login_box.hide_aw_info"))
 		{
 			$this->vars(array(
 				"aw_info" => $this->parse("aw_info")
@@ -502,7 +486,6 @@ class auth_config extends class_base
 
 	function _upd_udata($u, $cred, $confo)
 	{
-		aw_disable_acl();
 		$u->set_prop("email", $cred["mail"]);
 		$u->set_prop("real_name", $cred["name"]);
 		$u->save();
@@ -510,11 +493,14 @@ class auth_config extends class_base
 		if (($grp = $confo->prop("no_user_grp")))
 		{
 			// add to group
-			$gp = get_instance(CL_GROUP);
+			$gp = new group();
 			$gp->add_user_to_group($u, obj($grp));
 		}
+	}
 
-		aw_restore_acl();
+	public static function get_login_fail_msg()
+	{
+		return t("Ligip&auml;&auml;s puudub");
 	}
 }
 ?>

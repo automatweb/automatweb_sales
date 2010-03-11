@@ -267,8 +267,7 @@ class automatweb
 
 		if (strpos($request_uri, "/automatweb") === false)
 		{
-			header("Location: " . aw_ini_get("baseurl") . "/automatweb/");
-			exit;
+			aw_redirect(new aw_uri(aw_ini_get("baseurl") . "/automatweb/"));
 		}
 		else
 		{
@@ -318,14 +317,12 @@ class automatweb
 				// but there seems to be no sure way to do that unfortunately.
 
 				$orb = new orb();
-				enter_function("orb::process_request");
 				$orb->process_request(array(
 					"class" => $class,
 					"action" => $action,
 					"vars" => $vars,
 					"silent" => false
 				));
-				exit_function("orb::process_request");
 
 				$content = $orb->get_data();
 
@@ -334,18 +331,7 @@ class automatweb
 				// mingi lahendus
 				if ((substr($content,0,5) === "http:" || substr($content,0,6) === "https:" || (isset($vars["reforb"]) && ($vars["reforb"] == 1))) && empty($vars["no_redir"]))
 				{
-					if (headers_sent())
-					{
-						self::$result->set_data(html::href(array(
-							"url" => $content,
-							"caption" => t("Kliki siia j&auml;tkamiseks"),
-						)));
-					}
-					else
-					{
-						header("Location: {$content}");
-						exit;
-					}
+					aw_redirect(new aw_uri($content));
 				}
 
 				ob_start();
@@ -407,8 +393,7 @@ class automatweb
 						$redirect_url = aw_ini_get("baseurl") . "/automatweb/";
 					}
 
-					header("Location: {$redirect_url}");
-					exit;
+					aw_redirect(new aw_uri($redirect_url));
 				}
 			}
 			else // a bad request. avoid background calls to admin_if when e.g. a non-existent ordinary file requested (css, images, etc.)

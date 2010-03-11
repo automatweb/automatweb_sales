@@ -232,6 +232,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_ML_MEMBER, on_save_addr)
 			@property settings_shortcuts_settings_shortcuts type=table parent=settings_shortcuts_bot_left no_caption=1
 			@caption Shortcutid
 
+
+
+//  ============ RELTYPES ===============
 @reltype GRP value=1 clid=CL_GROUP
 @caption Grupp
 
@@ -240,9 +243,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_ML_MEMBER, on_save_addr)
 
 @reltype EMAIL value=6 clid=CL_ML_MEMBER
 @caption Email
-
-/@reltype USER_DATA value=3
-/@caption Andmed
 
 @reltype FG_PROFILE value=7 clid=CL_FORM_ENTRY
 @caption FG profiil
@@ -256,9 +256,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_ML_MEMBER, on_save_addr)
 @reltype USER value=10 clid=CL_USER
 @caption Kasutaja
 
-reltype SHORTCUT value=11 clid=CL_SHORTCUT
-caption Kiirviide
-
 @reltype SHORTCUT_SET value=11 clid=CL_SHORTCUT_SET
 @caption Kiirviidete&nbsp;kogu
 
@@ -268,6 +265,8 @@ caption Kiirviide
 
 class user extends class_base
 {
+	private $_set_pwd = "";
+
 	function user()
 	{
 		$this->init(array(
@@ -314,13 +313,6 @@ class user extends class_base
 					return PROP_IGNORE;
 				}
 				break;
-
-/*			case "uid":
-				if (!is_oid($arr["obj_inst"]->id()))
-				{
-					return PROP_IGNORE;
-				}
-				break;*/
 
 			case "created":
 				$prop['value'] = $this->time2date($prop['value'],2);
@@ -469,17 +461,16 @@ class user extends class_base
 				break;
 
 			case "passwd_again":
-				if ($prop['value'] != "")
+				if (!empty($prop['value']))
 				{
-					if ($prop['value'] != $arr['request']['passwd'])
+					if ($prop['value'] !== $arr['request']['passwd'])
 					{
 						$prop["error"] = t("Paroolid pole samad!");
 						return PROP_FATAL_ERROR;
 					}
-					else
-					if (!is_valid("password", $prop['value']))
+					elseif (!is_valid("password", $prop['value']))
 					{
-						$prop["error"] = t("Parool sisaldab lubamatuid t&auml;hti v&otilde;i on liiga l&uuml;hike!");
+						$prop["error"] = t("Parool sisaldab lubamatuid t&auml;hem&auml;rke v&otilde;i on liiga l&uuml;hike!");
 						return PROP_FATAL_ERROR;
 					}
 					else
@@ -1151,18 +1142,21 @@ class user extends class_base
 
 	function callback_mod_retval($arr)
 	{
-		if ($arr["request"]["edit_acl"])
+		if (!empty($arr["request"]["edit_acl"]))
 		{
 			$arr["args"]["edit_acl"] = $arr["request"]["edit_acl"];
 		}
 
-		$arr["args"]["set_ui_lang"] = $arr["request"]["set_ui_lang"];
+		if (!empty($arr["request"]["set_ui_lang"]))
+		{
+			$arr["args"]["set_ui_lang"] = $arr["request"]["set_ui_lang"];
+		}
 	}
 
 	function callback_generate_scripts($arr)
 	{
 		$script = "";
-		if ($_GET["group"] === "settings_shortcuts")
+		if ($this->use_group === "settings_shortcuts")
 		{
 			$script = <<<EOF
 			function aw_handle_edit_shortcut()
@@ -1488,7 +1482,7 @@ EOF;
 
 	function callback_post_save($arr)
 	{
-		$group_inst = get_instance(CL_GROUP);
+		$group_inst = new group();
 		$go_to = false;
 		if ($arr["new"])
 		{
@@ -1539,7 +1533,8 @@ EOF;
 					}
 				}
 			}
-			if ($this->_set_pwd != "")
+
+			if ($this->_set_pwd)
 			{
 				$arr["obj_inst"]->set_meta("password_change_time", time());
 				$arr["obj_inst"]->set_password($this->_set_pwd);

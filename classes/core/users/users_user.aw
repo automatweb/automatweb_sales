@@ -276,7 +276,7 @@ class users_user extends aw_template
 
 	private function find_group_login_redirect($user_obj)
 	{
-		$c = get_instance("config");
+		$c = new config();
 		$ra = $c->get_grp_redir();
 
 		// since the user is not logged in already, we must read the gidlist, cause it is not loaded yet
@@ -287,7 +287,7 @@ class users_user extends aw_template
 		foreach($gidlist as $g_obj)
 		{
 			$gid = $g_obj->prop("gid");
-			if ($ra[$gid]["pri"] >= $d_pri && !empty($ra[$gid]["url"]))
+			if (isset($ra[$gid]["pri"]) && $ra[$gid]["pri"] >= $d_pri && !empty($ra[$gid]["url"]))
 			{
 				$d_gid = $gid;
 				$d_pri = $ra[$gid]["pri"];

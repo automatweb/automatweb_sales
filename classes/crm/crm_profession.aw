@@ -10,6 +10,9 @@
 
 @classinfo no_status=1
 
+@property main_toolbar type=toolbar_standard_obj store=no
+@caption T&ouml;&ouml;riistad
+
 @property ext_id field=subclass type=textbox
 @caption Siduss&uuml;steemi ID
 

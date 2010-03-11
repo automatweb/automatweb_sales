@@ -1236,7 +1236,7 @@ class file extends class_base
 		$pi = pathinfo($fc["name"]);
 		$mimeregistry = get_instance("core/aw_mime_types");
 		$tmp = $mimeregistry->type_for_ext($pi["extension"]);
-		
+
 		if ($tmp != "")
 		{
 			$fc["type"] = $tmp;
@@ -1283,21 +1283,15 @@ class file extends class_base
 
 	/** Returns the download url for the file.
 		@attrib name=get_url params=pos api=1
-
 		@param id required type=oid
-
-		@param name optional type=string
-
-		@returns
+		@param name type=string default=""
+		@returns string
 			Returns the download url for the file.
-
 		@comment
-
 	**/
-	function get_url($id,$name)
+	function get_url($id, $name = "")
 	{
 		$retval = str_replace("automatweb/","",$this->mk_my_orb("preview", array("id" => $id),"file", false,true,"/"))."/".urlencode(str_replace("/","_",$name));
-//		$retval = $this->mk_my_orb("preview", array("id" => $id),"file", false,true);
 		return $retval;
 	}
 

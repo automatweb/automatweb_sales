@@ -1518,7 +1518,7 @@ class vcalendar extends aw_template
 			$y = $m;
 			$m = $d;
 			$d = 1;
-		};
+		}
 		$act_tm = mktime(0,0,0,$m,$d,$y);
 		$act_stamp = date("Ymd",$act_tm);
 
@@ -1556,7 +1556,7 @@ class vcalendar extends aw_template
 		if (isset($this->styles["minical_day_deactive"]))
 		{
 			$style_day_deactive = $this->styles["minical_day_deactive"];
-		};
+		}
 
 		$style_day_today = "minical_cell_today";
 		if (isset($this->styles["minical_day_today"]))
@@ -1574,8 +1574,9 @@ class vcalendar extends aw_template
 		if (isset($this->styles["minical_background"]))
 		{
 			$style_background = $this->styles["minical_background"];
-		};
+		}
 
+		$week = "";
 		$done_days = array();
 		$j = $realstart;
 		$s_parts = unpack("a4year/a2mon/a2day",date("Ymd",$realstart));
@@ -1593,21 +1594,22 @@ class vcalendar extends aw_template
 					continue;
 				}
 				$done_days[$dstamp] = 1;
-				$has_events = $this->overview_items[$dstamp];
+				$has_events = !empty($this->overview_items[$dstamp]);
 				$style = $has_events ? $style_day_with_events : $style_day_without_events;
 				if (between($i,$arr["start"],$arr["end"]))
 				{
 					$mode = 0;
 					// if a day has no events and "cell_empty" sub is defined, use it.
-					if (empty($has_events))
+					if (!$has_events)
 					{
 						$mode = 1;
-					};
+					}
+
 					if ($now == $dstamp)
 					{
 						$style = $style_day_today;
 					}
-					if ($act_stamp == $dstamp)
+					elseif ($act_stamp == $dstamp)
 					{
 						$style = $style_day_active;
 					}
@@ -1618,7 +1620,8 @@ class vcalendar extends aw_template
 					// this subtemplate
 					$mode = 2;
 					$style = $style_day_deactive;
-				};
+				}
+
 				if (!empty($this->overview_urls[$dstamp]))
 				{
 					$day_url = $day_url_2 = $this->overview_urls[$dstamp];
@@ -1709,7 +1712,8 @@ class vcalendar extends aw_template
 			));
 			$week .= $this->parse("WEEK");
 			$j = $j + (7*86400);
-		};
+		}
+
 		// now, how to make those configurable?
 		$this->vars_safe(array(
 			"WEEK" => $week,

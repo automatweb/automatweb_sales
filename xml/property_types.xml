@@ -197,6 +197,20 @@
 			</no_rte_button>
 		</toolbar>
 
+		<toolbar_standard_obj>
+			<quicksearch>
+			</quicksearch>
+			<no_rte_button>
+			</no_rte_button>
+		</toolbar_standard_obj>
+
+		<toolbar_standard_app>
+			<quicksearch>
+			</quicksearch>
+			<no_rte_button>
+			</no_rte_button>
+		</toolbar_standard_app>
+
 		<fileupload>
 			<reltype>
 			</reltype>

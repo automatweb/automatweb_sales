@@ -2295,18 +2295,23 @@ class _int_object
 			$rootmenu = array($GLOBALS["cfg"]["rootmenu"]);
 			$add = true;
 		}
-// /* dbg */ if ($GLOBALS["gdg"] == 1)
-// /* dbg */ echo "int path enter ".dbg::dump($param)." parent = $parent root = ".dbg::dump($rootmenu)." <br>\n";
+
 		while ($parent && !in_array($parent, $rootmenu))
 		{
-// /* dbg */ if ($GLOBALS["gdg"] == 1)
-// /* dbg */ echo "loop with $parent <br>\n";
 			if ($GLOBALS["object_loader"]->ds->can("view", $parent))
 			{
 				unset($t);
 				$__from_raise_error = aw_global_get("__from_raise_error");
 				aw_global_set("__from_raise_error", 1);
-				$t = new object($parent);
+				try
+				{
+					$t = new object($parent);
+				}
+				catch (Exception $e)
+				{
+					$parent = 0;
+					break;
+				}
 				aw_global_set("__from_raise_error", $__from_raise_error);
 
 				if (isset($param["to"]) && is_oid($param["to"]) && $t->id() == $param["to"])
@@ -2362,13 +2367,13 @@ class _int_object
 
 	protected function _int_can_save()
 	{
-		if (is_array($this->obj["parent"]))
+		if (isset($this->obj["parent"]) and is_array($this->obj["parent"]))
 		{
 			$this->obj["parent"] = $this->obj["parent"]["oid"];
 		}
 
 		// required params - parent and class_id
-		if ($this->obj["parent"] > 0 && $this->obj["class_id"] > 0)
+		if (isset($this->obj["parent"]) and $this->obj["parent"] > 0 and isset($this->obj["class_id"]) and $this->obj["class_id"] > 0)
 		{
 			// acl
 			if (!empty($this->obj["oid"]))

@@ -3,7 +3,7 @@
  // that class_base will one day be powerful enough to replace these with properties without
  // a headache -- ahz
 /*
-@classinfo  maintainer=kristo
+@classinfo maintainer=kristo
 */
 class relationmgr extends aw_template
 {
@@ -47,7 +47,7 @@ class relationmgr extends aw_template
 		);
 
 		// filter by add tree conf
-		$atc = get_instance(CL_ADD_TREE_CONF);
+		$atc = new add_tree_conf();
 		$ccf = $atc->get_current_conf();
 		if ($ccf)
 		{
@@ -68,10 +68,10 @@ class relationmgr extends aw_template
 			}
 		}
 		$r = $this->init_vcl_property($arg);
-		$cli = get_instance("cfg/htmlclient");
+		$cli = new htmlclient();
 		foreach($r as $pn => $pd)
 		{
-			if ($pd["type"] == "toolbar")
+			if ($pd["type"] === "toolbar")
 			{
 				$pd["value"] = $pd["vcl_inst"]->get_toolbar();
 			}
@@ -107,7 +107,7 @@ class relationmgr extends aw_template
 	**/
 	function rel_cut($arr)
 	{
-		$i = get_instance("doc");
+		$i = new class_base();
 		$i->rel_cut($arr);
 		return $this->mk_my_orb("disp_relmgr", array("id" => $arr["id"]));
 	}
@@ -117,7 +117,7 @@ class relationmgr extends aw_template
 	**/
 	function rel_copy($arr)
 	{
-		$i = get_instance("doc");
+		$i = new class_base();
 		$i->rel_copy($arr);
 		return $this->mk_my_orb("disp_relmgr", array("id" => $arr["id"]));
 	}
@@ -127,14 +127,14 @@ class relationmgr extends aw_template
 	**/
 	function rel_paste($arr)
 	{
-		$i = get_instance("doc");
+		$i = new class_base();
 		$arr["silent"] = 1;
-		if ($i->rel_paste($arr) == "err")
+		if ($i->rel_paste($arr) === "err")
 		{
 			die(html::href(array(
-                                "url" => $url,
-                                "caption" => t("Kliki siia j&auml;tkamiseks")
-                        )));
+				"url" => $url,
+				"caption" => t("Kliki siia j&auml;tkamiseks")
+			)));
 		}
 		return $this->mk_my_orb("disp_relmgr", array("id" => $arr["id"]));
 	}
@@ -207,7 +207,7 @@ class relationmgr extends aw_template
 			$this->rel_classes = $this->rel_classes + $arr["property"]["configured_rels"];
 			$this->reltypes = $this->reltypes + $arr["property"]["configured_rel_names"];
 		};
-		$atc = get_instance(CL_ADD_TREE_CONF);
+		$atc = new add_tree_conf();
 		$filt = false;
 		if (($adc_id = $atc->get_current_conf()))
 		{
@@ -269,8 +269,6 @@ class relationmgr extends aw_template
 			{
 				$this->vars(array(
 					"def_parent" => $def_val,
-					// This is never set!
-//					"period" => $period,
 					"id" => $arr["obj_inst"]->id(),
 					"return_url" => urlencode($return_url),
 					"def_fld_clid" => $def_clid
@@ -286,7 +284,6 @@ class relationmgr extends aw_template
 			"id" => $arr["obj_inst"]->id(),
 			"saveurl" => $this->mk_my_orb("submit", array("reltype" => $this->reltype, "group" => $req["group"], "return_url" => get_ru(), "reforb" => 1, "id" => $req["id"]), $req["class"]),
 		));
-		// XXX: fixfixfix
 		$this->vars["saveurl"] = aw_url_change_var("class",$req["class"],$this->vars["saveurl"]);
 		$tb->add_cdata($this->parse());
 		$pr = array(
@@ -310,13 +307,6 @@ class relationmgr extends aw_template
 			"type" => "hidden",
 			"value" => 1,
 		);
-		/*
-		$rval["class_id"] = array(
-			"name" => "class_id",
-			"type" => "hidden",
-			"value" => $arr["request"]["class_id"],
-		);
-		*/
 		$o = obj($arr["request"]["id"]);
 		if($arr["request"]["return_url"] && $o->class_id() == CL_DOCUMENT)
 		$rval["link"] = array(
@@ -377,7 +367,7 @@ class relationmgr extends aw_template
 		);
 //@property alias type=textbox group=advsearch
 //@caption Alias
-		$lg = get_instance("languages");
+		$lg = new languages();
 		$rval["lang_id"] = array(
 			"name" => "lang_id",
 			"type" => "chooser",
@@ -404,20 +394,7 @@ class relationmgr extends aw_template
 			"type" => "submit",
 			"caption" => t("Otsi"),
 		);
-/*
-			case "server":
-				$ol = new object_list(array(
-					"class_id" => CL_AW_LOGIN,
-					"site_id" => array(),
-					"lang_id" => array()
-				));
-				$prop["options"] =  array("" => "") + $ol->names();
-				break;
 
-			case "class_id":
-				$prop["options"] = $this->_get_s_class_id();
-				break;
-*/
 		$this->_init_search_fields($arr["request"]);
 		if($this->do_search)
 		{
@@ -434,7 +411,6 @@ class relationmgr extends aw_template
 
 	function _get_search_table($arr)
 	{
-		classload("vcl/table");
 		$t = new vcl_table();
 		$t->define_field(array(
 			"name" => "oid",
@@ -500,15 +476,7 @@ class relationmgr extends aw_template
 			"talign" => "center",
 			"chgbgcolor" => "cutcopied",
 		));
-		/*
-		$t->define_chooser(array(
-			"name" => "check",
-			"field" => "oid",
-			"caption" => t("Vali"),
-		));
-		*/
 
-		classload("core/icons");
 
 		if ($this->do_search)
 		{
@@ -532,8 +500,6 @@ class relationmgr extends aw_template
 			$_tmp = $this->_search_mk_call("objects", "storage_query", $s_args);
 
 			$this->search_results = count($_tmp);
-			//arr($_tmp);
-
 			$clinf = aw_ini_get("classes");
 
 			foreach($_tmp as $id => $item)
@@ -568,9 +534,9 @@ class relationmgr extends aw_template
 			"only_addable" => 1
 		));
 
-		$atc_inst = get_instance(CL_ADD_TREE_CONF);
+		$atc_inst = new add_tree_conf();
 		$atc_id = $atc_inst->get_current_conf();
-		if (is_oid($atc_id) && $this->can("view", $atc_id))
+		if (is_oid($atc_id))
 		{
 			$atc = obj($atc_id);
 
@@ -657,7 +623,7 @@ class relationmgr extends aw_template
 
 	function _make_toolbar($arr)
 	{
-		$tb = get_instance("vcl/toolbar");
+		$tb = new toolbar();
 		if(empty($_SESSION["rel_reverse"][$arr["request"]["id"]]))
 		{
 			$objtype = ifset($arr, "request", "aselect");
@@ -675,18 +641,14 @@ class relationmgr extends aw_template
 			$this->read_template("selectboxes.tpl");
 			$rels1 = "";
 			$defaults1 = "";
+
 			foreach($this->reltypes as $k => $v)
 			{
-//				$dval = true;
 				$single_select = "capt_new_object";
 				$sele = NULL;
 				$vals = $this->true_rel_classes[$k];
-				$ls = array("&auml;", "&Auml;", "&ouml", "&Ouml;", "&uuml;", "&Uuml;", "&otilde;", "&Otilde;", );
-				foreach($ls as $l)
-				{
-					$vals = aw_html_entity_decode($l);
-				}
 				$vals = $this->mk_kstring($vals);
+
 				if (isset($this->true_rel_classes[$k][$objtype]))
 				{
 					$sele = $objtype;
@@ -695,12 +657,12 @@ class relationmgr extends aw_template
 				{
 					$sele = key($this->true_rel_classes[$k]);
 				}
+
 				if(!empty($vals))
 				{
-					// Whatta fuck is $dvals ?? -kaarel 27.05.2009
-//					$rels1 .= 'listB.addOptions("'.$k.'"'.$dvals.','.$vals.");\n";
 					$rels1 .= 'listB.addOptions("'.$k.'",'.$vals.");\n";
 				}
+
 				if ($objtype && $this->reltype == $k)
 				{
 					$defaults1 .= 'listB.setDefaultOption("'.$k.'","'.$objtype.'");'."\n";
@@ -743,7 +705,7 @@ class relationmgr extends aw_template
 				"url" => "javascript:create_new_object()",
 				"tooltip" => t("Lisa uus objekt"),
 			));
-			if(isset($arr["request"]["srch"]) && $arr["request"]["srch"] == 1)
+			if(!empty($arr["request"]["srch"]))
 			{
 				$tb->add_button(array(
 					"name" => "search",
@@ -830,7 +792,6 @@ class relationmgr extends aw_template
 			"tooltip" => t("N&auml;ita teistpidi seoseid"),
 			"action" => "rel_reverse",
 		));
-		//$tb->add_cdata("[[ Seostehaldur V3 ]]");
 		return $tb;
 	}
 
@@ -841,7 +802,7 @@ class relationmgr extends aw_template
 		{
 			foreach($arr as $key => $val)
 			{
-				$alls[] ='"'.$val.'"';
+				$alls[] ='"'.aw_html_entity_decode($val).'"';
 				$alls[] ='"'.$key.'"';
 			}
 		}
@@ -867,26 +828,10 @@ class relationmgr extends aw_template
 			$this->parent = $arr["obj_inst"]->parent();
 		}
 		$this->_init_relations($arr);
-		if($arr["request"]["srch"] == 1)
+		if(!empty($arr["request"]["srch"]))
 		{
 			$d = $this->_show_search($arr);
-			$res = "<br><br><br>";
-			/*foreach($d as $nm => $da)
-			{
-				if ($da["type"] == "toolbar")
-				{
-					$res .= $da["vcl_inst"]->get_toolbar()."<br>";
-				}
-				else
-				{
-					if ($da["type"] == "chooser")
-					{
-						$da["type"] = "select";
-					}
-					$res .= html::$da["type"]($da)."<br>";
-				}
-			}*/
-			$htmlc = get_instance("cfg/htmlclient");
+			$htmlc = new htmlclient();
 			$htmlc->start_output();
 
 			foreach($d as $nm => $da)
@@ -901,7 +846,7 @@ class relationmgr extends aw_template
 				),
 			));
 
-			$res = "<br><br><br><br><br><br>".$htmlc->get_result(array(
+			$res = $htmlc->get_result(array(
 				"form_only" => 1
 			));
 
@@ -909,7 +854,7 @@ class relationmgr extends aw_template
 		else
 		{
 			$d = $this->_show_relations($arr);
-			$res = "<Br><br><br>".$d["rel_toolbar"]["vcl_inst"]->get_toolbar();
+			$res = $d["rel_toolbar"]["vcl_inst"]->get_toolbar();
 			$res .= $d["rel_table"]["vcl_inst"]->draw();
 		}
 		$this->read_template("aliases.tpl");
@@ -923,9 +868,8 @@ class relationmgr extends aw_template
 		{
 			return;
 		}
-		classload("core/icons");
-		$pr = array();
 
+		$pr = array();
 		$tb = $this->_make_toolbar($arr);
 		$this->read_template("list_aliases.tpl");
 
@@ -934,9 +878,7 @@ class relationmgr extends aw_template
 		));
 
 		// table part
-		classload("vcl/table");
 		$tbl = new vcl_table();
-
 		$tbl->parse_xml_def(aw_ini_get("basedir")."/xml/generic_table.xml");
 
 		$flds = array(
@@ -1143,7 +1085,7 @@ class relationmgr extends aw_template
 				"checked" => ($alias->prop("cached") == 1)
 			));
 
-			if($cn == "from")
+			if($cn === "from")
 			{
 				$reltypes = $this->_get_reltypes($alias->prop($cn.".class_id"));
 				$type_str = $reltypes[$reltype_id];
@@ -1177,8 +1119,6 @@ class relationmgr extends aw_template
 			{
 				$this->vars(array(
 					"def_parent" => $def_val,
-					// This is never set!
-//					"period" => $period,
 					"id" => $arr["obj_inst"]->id(),
 					"return_url" => urlencode($return_url),
 					"def_fld_clid" => $def_clid
@@ -1195,23 +1135,15 @@ class relationmgr extends aw_template
 		if (!is_array($req))
 		{
 			$req = array();
-		};
+		}
 		$reforb = $this->mk_reforb("submit", $req + array("reforb" => 1), $req["class"]);
 		$this->vars(array(
 			"HAS_DEF_FOLDER" => $def_str,
 			"class_ids" => $this->clid_list,
 			"id" => $arr["obj_inst"]->id(),
 			"return_url" => urlencode(get_ru()),
-			// This is never set!
-//			"period" => $period,
 			"search_url" => aw_ini_get("baseurl").aw_url_change_var(array("srch" => 1)),
 		));
-		/*
-		$pr["form"] = array(
-			"name" => $arr["prop"]["name"],
-			"type" => "text",
-		);
-		*/
 		$tbl->set_header($this->parse());
 		$tbl->set_default_sortby("title");
 		$tbl->sort_by();
@@ -1233,7 +1165,7 @@ class relationmgr extends aw_template
 	function process_vcl_property($arr)
 	{
 		$arr["request"] = safe_array($arr["request"]) + $_REQUEST;
-		if ($arr["request"]["subaction"] == "delete")
+		if (isset($arr["request"]["subaction"]) and $arr["request"]["subaction"] === "delete")
 		{
 			$to_delete = new aw_array($arr["request"]["check"]);
 			foreach($to_delete->get() as $alias_id)
@@ -1242,16 +1174,16 @@ class relationmgr extends aw_template
 				$c->delete();
 			}
 		}
-		else
-		if($arr["request"]["alias"])
+		elseif(!empty($arr["request"]["alias"]))
 		{
 			$alias = $arr["request"]["alias"];
 			$reltype = $arr["request"]["reltype"];
 			$aliases = explode(",", $alias);
-			if ($reltype == "_")
+			if ($reltype === "_")
 			{
 				$reltype = "";
 			}
+
 			foreach($aliases as $oalias)
 			{
 				$arr["obj_inst"]->connect(array(
@@ -1261,11 +1193,13 @@ class relationmgr extends aw_template
 				));
 			}
 		}
-		if(true || $arr["request"]["link"] || $arr["request"]["cache"])
+
+		if (isset($arr["request"]["link"]))
 		{
 			$arr["obj_inst"]->set_meta("aliaslinks", $arr["request"]["link"]);
-			$arr["obj_inst"]->save();
 		}
+
+		$arr["obj_inst"]->save();
 	}
 
 	/**
@@ -1277,4 +1211,5 @@ class relationmgr extends aw_template
 		return $this->mk_my_orb("disp_relmgr", array("id" => $arr["id"]));;
 	}
 }
+
 ?>

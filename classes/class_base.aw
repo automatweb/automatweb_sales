@@ -948,7 +948,7 @@ class class_base extends aw_template
 			}
 		}
 		$po_loc = aw_ini_get("basedir")."/lang/trans/".aw_global_get("LC")."/po/".$argblock["orb_class"].".po";
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$groups = $cfgu->get_groupinfo();
 		$msgid_grp_cpt = isset($groups[$argblock["group"]]["caption"]) ? $groups[$argblock["group"]]["caption"] : "";
 		$msgid = "Grupi ".$msgid_grp_cpt." (".$argblock["group"].") comment";
@@ -1723,7 +1723,7 @@ class class_base extends aw_template
 
 		// create an instance of the class servicing the object ($this->inst)
 		// set $this->clid and $this->clfile
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$orb_class = $_ct[$this->clid]["file"];
 		if (empty($orb_class) && is_object($this->orb_class))
 		{
@@ -2355,7 +2355,7 @@ class class_base extends aw_template
 			$grplist = $this->cfgform["meta"]["cfg_groups"];
 		}
 
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 
 		// content comes from the config form
 		if (!empty($args["content"]))
@@ -2679,7 +2679,7 @@ class class_base extends aw_template
 					"id" => $this->obj_inst->brother_of(),
 					"no_op" => 1
 				),
-				"relationmgr", //get_class($this->orb_class),
+				"relationmgr",
 				false,
 				true
 			);
@@ -2689,7 +2689,7 @@ class class_base extends aw_template
 		elseif ($val["type"] === "form")
 		{
 			$filter = array("form" => $val["sform"]);
-			$cfgu = get_instance("cfg/cfgutils");
+			$cfgu = new cfgutils();
 			$_all_props = $cfgu->load_properties(array(
 				"file" => basename($val["sclass"]),
 				"filter" => $filter,
@@ -2934,7 +2934,7 @@ class class_base extends aw_template
 			"name_prefix" => isset($args["name_prefix"]) ? $args["name_prefix"] : null,
 		);
 
-		$this->cfgu = get_instance("cfg/cfgutils");
+		$this->cfgu = new cfgutils();
 
 		$remap_children = false;
 
@@ -4032,14 +4032,6 @@ class class_base extends aw_template
 				continue;
 			}
 
-			// status has already been written out, no need to do this again
-			/*
-			if ($property["name"] == "status")
-			{
-				continue;
-			};
-			*/
-
 			// don't save or display un-translatable fields if we are editing a translated object
 			if (!$this->is_translated && $property["name"] === "is_translated")
 			{
@@ -4142,7 +4134,7 @@ class class_base extends aw_template
 				{
 					$status = PROP_ERROR;
 					$property["error"] = $property["caption"] . " - siia saab sisestada ainult arvu!";
-				};
+				}
 			}
 
 			if (PROP_ERROR == $status)
@@ -4227,9 +4219,9 @@ class class_base extends aw_template
 			// the current behaviour is to call set_property and not ever
 			// call process_vcl_property if set_property returns false
 
-			if (isset($val["type"]) and aw_ini_isset("class_base.vcl_register.{$val["type"]}"))
+			if (isset($property["type"]) and aw_ini_isset("class_base.vcl_register.{$property["type"]}"))
 			{
-				$vcl_class = aw_ini_get("class_base.vcl_register.{$val["type"]}.class");
+				$vcl_class = aw_ini_get("class_base.vcl_register.{$property["type"]}.class");
 				$ot = new $vcl_class();
 				if (is_callable(array($ot,"process_vcl_property")))
 				{
@@ -4243,7 +4235,8 @@ class class_base extends aw_template
 						aw_session_set("cb_values",$propvalues);
 						$this->cb_values = $propvalues;
 						return false;
-					};
+					}
+
 					if(PROP_FATAL_ERROR == $res)
 					{
 						$this->stop_processing = true;
@@ -5306,7 +5299,7 @@ class class_base extends aw_template
 	// added $str parameter, cause image_convert.aw overrides this function with that parameter and gives [STRICT] level error because of that --dragut@
 	function load_from_file($str)
 	{
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$def = $this->get_file(array("file" => (aw_ini_get("basedir") . "/xml/documents/def_cfgform.xml")));
 		$rv = $cfgu->parse_cfgform(array("xml_definition" => $def));
 		if (!is_array($this->classinfo))
@@ -5322,7 +5315,7 @@ class class_base extends aw_template
 	// holy fuck, this sucks
 	function load_defaults($arr = array())
 	{
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 
 		$defaults = $cfgu->load_properties(array(
 			"file" => empty($arr["clid"]) ? (isset($arr["clfile"]) ? $arr["clfile"] : "" ) : "",
@@ -5333,11 +5326,11 @@ class class_base extends aw_template
 
 		$this->groupinfo = $cfgu->get_groupinfo();
 		$this->forminfo = $cfgu->get_forminfo();
-		//$this->columninfo = $cfgu->get_columninfo();
+
 		if (!is_array($this->classinfo))
 		{
 			$this->classinfo = array();
-		};
+		}
 		$this->classinfo = array_merge($this->classinfo,$cfgu->get_classinfo());
 
 		$this->groupinfo["relationmgr"] = array(
@@ -5355,7 +5348,7 @@ class class_base extends aw_template
 			"type" => "relationmgr",
 			"caption" => t("Seostehaldur"),
 			"store" => "no",
-			"group" => "relationmgr",
+			"group" => "relationmgr"
 		);
 
 		if (isset($this->classinfo["no_status"]))
@@ -6265,12 +6258,6 @@ class class_base extends aw_template
 
 	function make_menu_item_from_tabs($this_o, $level, $parent_o, $site_show_i,$cnt_menus)
 	{
-//		if($level > 2) return null;
-//		if($level == 1 && $this->count_items[2] && !$this->count_items[1])
-//		{
-//			return null;
-//		}
-
 		if($cnt_menus == 0)
 		{
 			$_SESSION["menu_from_cb"] = null;
@@ -6306,7 +6293,6 @@ class class_base extends aw_template
 				}
 				else
 				{
-					$cfgx = get_instance("cfg/cfgutils");
 					$props2 = $cfgform_i->cfg_proplist;
 				}
 			}

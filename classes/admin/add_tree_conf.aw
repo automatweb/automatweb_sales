@@ -22,6 +22,8 @@ class add_tree_conf extends class_base
 		"popup_search",
 	);
 
+	private $level = 0;
+
 	function add_tree_conf()
 	{
 		$this->init(array(
@@ -91,7 +93,7 @@ class add_tree_conf extends class_base
 		if (!is_array($visible) || !is_array($usable))
 		{
 			// no configuration set yet, set defaults
-			$default = add_tree_conf_obj::BEHAVIOUR_PERMISSIVE === $arr["obj_inst"]->prop("behaviour") ? 1 : 0;
+			$default = !empty($arr["obj_inst"]) && add_tree_conf_obj::BEHAVIOUR_PERMISSIVE === $arr["obj_inst"]->prop("behaviour") ? 1 : 0;
 			$visible = array();
 			$usable = array();
 			$alias_add = array();
@@ -106,7 +108,7 @@ class add_tree_conf extends class_base
 			{
 				$visible["obj"][$id] = $default;
 				$usable[$id] = $default;
-				if ($d["alias"] != "")
+				if (!empty($d["alias"]))
 				{
 					$alias_add[$id] = $default;
 				}
@@ -148,7 +150,7 @@ class add_tree_conf extends class_base
 		{
 			foreach($tmp as $cl_id => $cld)
 			{
-				if (!isset($cld["parents"]) || $cld["parents"] == 0)
+				if (empty($cld["parents"]))
 				{
 					$ala = html::checkbox(array(
 						"name" => "alias_add[$cl_id]",
@@ -200,14 +202,11 @@ class add_tree_conf extends class_base
 					if (!empty($pss[$id]))
 					{
 						$ala = "";
-						if (true || $cld["alias"] != "")
-						{
-							$ala = html::checkbox(array(
-								"name" => "alias_add[$cl_id]",
-								"value" => 1,
-								"checked" => !empty($alias_add[$cl_id])
-							));
-						}
+						$ala = html::checkbox(array(
+							"name" => "alias_add[$cl_id]",
+							"value" => 1,
+							"checked" => !empty($alias_add[$cl_id])
+						));
 
 						$t->define_data(array(
 							"name" => str_repeat("&nbsp;", ($this->level+1) * 10).$cld["name"] . " [" . substr(strrchr($cld["file"], "/"), 1) . "]",

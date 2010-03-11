@@ -37,7 +37,6 @@ class aw_locale
 	private static $default_locale = "en";
 	private static $current_locale = false;
 
-
 	/** returns the name of the weekday in the current language
 		@attrib api=1 params=pos
 

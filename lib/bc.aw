@@ -23,4 +23,21 @@ function lc_load($file)
 	include_once($fn);
 }
 
+function aw_redirect(aw_uri $url)
+{
+	$content = $url->get();
+	if (headers_sent())
+	{
+		exit("\n<br />" . html::href(array(
+			"url" => $content,
+			"caption" => t("Kliki siia j&auml;tkamiseks"),
+		)) . "\n<br />");
+	}
+	else
+	{
+		header("Location: {$content}");
+		exit;
+	}
+}
+
 ?>

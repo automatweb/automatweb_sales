@@ -205,17 +205,17 @@ class crm_person_work_relation extends class_base
 	{
 		$ret_val = false;
 
-		if ("aw_crm_work_relation" === $table)
+		if ("aw_crm_person_work_relation" === $table)
 		{
 			if (empty($field))
 			{
 				$this->db_query("
-					CREATE TABLE `aw_crm_work_relation` (
+					CREATE TABLE `aw_crm_person_work_relation` (
 						`aw_oid` int(11) UNSIGNED NOT NULL default '0',
-						`organization` int(11) UNSIGNED NOT NULL default '0',
+						`employer` int(11) UNSIGNED NOT NULL default '0',
 						`section` int(11) UNSIGNED NOT NULL default '0',
 						`profession` int(11) UNSIGNED NOT NULL default '0',
-						`person` int(11) UNSIGNED NOT NULL default '0',
+						`employee` int(11) UNSIGNED NOT NULL default '0',
 						`start` int(11) UNSIGNED NOT NULL default '0',
 						`end` int(11) UNSIGNED NOT NULL default '0',
 						PRIMARY KEY  (`aw_oid`));
