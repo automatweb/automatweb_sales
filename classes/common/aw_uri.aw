@@ -17,13 +17,13 @@ www.com.net/dev/main.aw?foo=foobar
 class aw_uri
 {
 	// uri parts
-	private $scheme;
-	private $host;
+	private $scheme = "";
+	private $host = "";
 	private $port;
-	private $user;
-	private $pass;
-	private $path;
-	private $fragment;
+	private $user = "";
+	private $pass = "";
+	private $path = "";
+	private $fragment = "";
 	private $args = array(); // values are internally stored urldecoded
 	private $string;
 
@@ -109,13 +109,41 @@ class aw_uri
 			parse_str($tmp["query"], $this->args); //!!! kontrollida kuidas urlencoded asjadega k2itutakse
 		}
 
-		$this->scheme = isset($tmp["scheme"]) ? $tmp["scheme"] : null;
-		$this->host = isset($tmp["host"]) ? $tmp["host"] : null;
-		$this->port = isset($tmp["port"]) ? $tmp["port"] : null;
-		$this->user = isset($tmp["user"]) ? $tmp["user"] : null;
-		$this->pass = isset($tmp["pass"]) ? $tmp["pass"] : null;
-		$this->path = isset($tmp["path"]) ? $tmp["path"] : null;
-		$this->fragment = isset($tmp["fragment"]) ? $tmp["fragment"] : null;
+		if (isset($tmp["scheme"]))
+		{
+			$this->scheme = $tmp["scheme"];
+		}
+
+		if (isset($tmp["host"]))
+		{
+			$this->host = $tmp["host"];
+		}
+
+		if (isset($tmp["port"]))
+		{
+			$this->port = $tmp["port"];
+		}
+
+		if (isset($tmp["user"]))
+		{
+			$this->user = $tmp["user"];
+		}
+
+		if (isset($tmp["pass"]))
+		{
+			$this->pass = $tmp["pass"];
+		}
+
+		if (isset($tmp["path"]))
+		{
+			$this->path = $tmp["path"];
+		}
+
+		if (isset($tmp["fragment"]))
+		{
+			$this->fragment = $tmp["fragment"];
+		}
+
 		$this->string = $uri;
 		$this->updated = true;
 	}
@@ -132,6 +160,15 @@ class aw_uri
 	{
 		$this->host = $host;
 		$this->updated = false;
+	}
+
+	/** Returns host part
+	@attrib api=1 params=pos
+	@returns string
+	**/
+	public function get_host($host)
+	{
+		return $this->host;
 	}
 
 	/**

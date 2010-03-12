@@ -222,58 +222,9 @@ class crm_sales_telemarketing_statistics_view
 		$row_data["month_data"] = $sales_month_sum = $month_sum;
 		$table->define_data($row_data);
 
-		// rearrangements (aqualife specific)
-		$row_data = $row_data_tpl + array(
-			"title" => t("Uusi aegu"),
-			"row_colour" => self::COLOUR_REPLACEMENT
-		);
-		$week_sum = $month_sum = 0;
-
-		for ($day = 1; $day <= $days_in_selected_month; $day++)
-		{
-			$day_start = mktime(0, 0, 0, self::$view_period_mon, $day, self::$view_period_year);
-			$day_end = $day_start + 86399;
-			$list = new object_data_list(
-				array(
-					"class_id" => CL_CRM_CALL,
-					"parent" => $crm_sales_application->prop("calls_folder"),
-					"real_maker" => $employee->id(),
-					"real_start" => new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, $day_start, $day_end),
-					"result" => crm_call_obj::RESULT_PRESENTATION_AQUALIFE_REPLACEMENT
-				),
-				array(
-					CL_CRM_CALL =>  array(new obj_sql_func(obj_sql_func::COUNT, "count" , "*"))
-				)
-			);
-			$count = $list->arr();
-			$count = reset($count);
-			$count = $count["count"];
-			$row_data["day_data_{$day}"] = $count;
-			self::$column_sum_data["replacements"]["day_data_{$day}"] += $count;
-			$week_sum += $count;
-			$month_sum += $count;
-
-			$weekday = (int) date("N", mktime(1, 1, 1, self::$view_period_mon, $day, self::$view_period_year));
-			if ($weekday === $weeks_last_day or $day === $days_in_selected_month)
-			{ // week summary
-				$week_nr = date("W", mktime(1, 1, 1, self::$view_period_mon, $day, self::$view_period_year));
-				$row_data["week_data_{$week_nr}"] = $week_sum;
-				self::$column_sum_data["replacements"]["week_data_{$week_nr}"] += $week_sum;
-				$week_sum = 0;
-			}
-
-			if ($weekday === $weeks_last_day or ($weekday + 1) === $weeks_last_day)
-			{
-				$row_data["day_data_{$day}_bgcolour"] = self::COLOUR_WEEKEND;
-			}
-		}
-		self::$column_sum_data["replacements"]["month_data"] += $month_sum;
-		$row_data["month_data"] = $replacements_month_sum = $month_sum;
-		$table->define_data($row_data);
-
-		$score = $presentations_month_sum + 4*$sales_month_sum + $replacements_month_sum;
+		// ...
 		$efficiency = $presentations_month_sum/$arrangements_month_sum * 100;
-		$text = sprintf(t("%s (Punkte: %s, efektiivsus %s)"), $employee_name, $score, number_format($efficiency, 1, ",", " "));
+		$text = sprintf(t("%s (Efektiivsus %s)"), $employee_name, number_format($efficiency, 1, ",", " "));
 		$table->change_row_group_name("employee", $employee_name, $text);
 	}
 

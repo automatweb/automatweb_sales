@@ -588,7 +588,7 @@ class crm_sales_obj extends _int_object implements application_interface
 			$case = $customer_relation->get_sales_case(false);
 			$case->set_on_hold();
 		}
-		elseif ($result === crm_call_obj::RESULT_PRESENTATION or $result === crm_call_obj::RESULT_PRESENTATION_AQUALIFE_REPLACEMENT)
+		elseif ($result === crm_call_obj::RESULT_PRESENTATION)
 		{
 			$presentation = $this->set_result_presentation_for_ended_task($call, 0);
 			$customer_relation->set_prop("sales_state", crm_company_customer_data_obj::SALESSTATE_PRESENTATION);
@@ -882,10 +882,6 @@ class crm_sales_obj extends _int_object implements application_interface
 			{
 				$cfgform = new object($cfgform_oid);
 			}
-		}
-		elseif (CL_CRM_PERSON == $clid and $_GET["class"] === "crm_person" and strpos($_SERVER["HTTP_HOST"], "aqualife") !== false)//!!! tmp
-		{//!!!!!
-			$cfgform = new object(346581 /* aqualife.automatweb.com: Seadete vorm  "isik - kontakti vaade" */);//!!! TMP KUNI CONTACT_INTERFACE VALMIS SAAB
 		}
 		return $cfgform;
 	}

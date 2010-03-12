@@ -784,7 +784,6 @@ class crm_call extends task
 		$scripts = $task->callback_generate_scripts($arr);
 		$result_call = crm_call_obj::RESULT_CALL;
 		$result_presentation = crm_call_obj::RESULT_PRESENTATION;
-		$result_presentation_aqualife_replacement = crm_call_obj::RESULT_PRESENTATION_AQUALIFE_REPLACEMENT;
 		$result_refused = crm_call_obj::RESULT_REFUSED;
 		$result_noanswer = crm_call_obj::RESULT_NOANSWER;
 		$result_busy = crm_call_obj::RESULT_BUSY;
@@ -808,7 +807,7 @@ function crmCallProcessResult(resultElem, init)
 		{ // show new call date dateselect
 			$("input[name='new_call_date[date]']").parent().parent().parent().parent().css("display", "");
 		}
-		else if (resultElem.value == {$result_presentation} || resultElem.value == {$result_presentation_aqualife_replacement})
+		else if (resultElem.value == {$result_presentation})
 		{
 			$("input[name='new_call_date[date]']").parent().parent().parent().parent().css("display", "none");
 			// $("a[href='javascript:submit_changeform('end');']").parent().css("display", "none"); // hide end call btn
@@ -1340,7 +1339,7 @@ EOS;
 			if ($application->is_a(CL_CRM_SALES))
 			{
 				$result = (int) $this_o->prop("result");
-				if (crm_call_obj::RESULT_PRESENTATION === $result or crm_call_obj::RESULT_PRESENTATION_AQUALIFE_REPLACEMENT === $result)
+				if (crm_call_obj::RESULT_PRESENTATION === $result)
 				{
 					try
 					{

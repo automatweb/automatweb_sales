@@ -167,7 +167,9 @@ class mysql
 			$content .= print_r($_COOKIE, true);
 			$content .= "\n\n\$_SERVER:\n\n";
 			$content .= print_r($_SERVER, true);
-			send_mail(aw_ini_get("errors.send_to"), "SLOW QUERY", $content, "From: automatweb@crmx.aqualife.ee\n");
+			$server_address = new aw_uri(aw_ini_get("baseurl"));
+			$server_address = $server_address->get_host();
+			send_mail(aw_ini_get("errors.send_to"), "SLOW QUERY", $content, "From: automatweb@{$server_address}\n");
 		}
 
 		// $this->log_query($qtext);

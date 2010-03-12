@@ -4,7 +4,6 @@ class crm_call_obj extends task_object
 {
 	const RESULT_CALL = 1;
 	const RESULT_PRESENTATION = 2;
-	const RESULT_PRESENTATION_AQUALIFE_REPLACEMENT = 2001;
 	const RESULT_REFUSED = 3;
 	const RESULT_NOANSWER = 4;
 	const RESULT_BUSY = 5;
@@ -49,7 +48,6 @@ class crm_call_obj extends task_object
 		$result_names = array(
 			self::RESULT_CALL => t("Uus k&otilde;ne"),
 			self::RESULT_PRESENTATION => t("Esitlus"),
-			self::RESULT_PRESENTATION_AQUALIFE_REPLACEMENT => t("Esitlus (uus aeg)"),
 			self::RESULT_NOANSWER => t("Ei vasta"),
 			self::RESULT_BUSY => t("Kinni"),
 			self::RESULT_OUTOFSERVICE => t("Teenindusest v&auml;ljas"),
@@ -414,7 +412,7 @@ class crm_call_obj extends task_object
 				}
 			}
 
-			if (crm_call_obj::RESULT_PRESENTATION === $result or crm_call_obj::RESULT_PRESENTATION_AQUALIFE_REPLACEMENT === $result)
+			if (crm_call_obj::RESULT_PRESENTATION === $result)
 			{ // result requires a result task
 				if (!$result_task)
 				{ // no existing presentation, create
