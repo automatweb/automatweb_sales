@@ -337,7 +337,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 	function get_applications($arr = array())
 	{
 		enter_function("crm_person_obj::get_application");
-		$this->prms(&$arr);
+		$this->prms($arr);
 
 		/*
 		// Gimme a reason why this won't work!?
@@ -386,7 +386,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 		return $ret;
 	}
 
-	function prms($arr)
+	function prms(&$arr)
 	{
 		$arr["parent"] = !isset($arr["parent"]) ? array() : $arr["parent"];
 		if(!is_array($arr["parent"]))

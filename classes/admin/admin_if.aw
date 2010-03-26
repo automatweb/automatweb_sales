@@ -1797,7 +1797,7 @@ class admin_if extends class_base
 
 			$menus = unserialize($d);
 			$i_p = $menus[0];
-			$this->req_import_menus($i_p, &$menus, $parent);
+			$this->req_import_menus($i_p, $menus, $parent);
 		}
 
 		return $this->mk_my_orb("right_frame", array("parent" => $parent));
@@ -1944,8 +1944,8 @@ class admin_if extends class_base
 					}
 
 					// now create the damn thing.
-					$this->quote(&$mt);
-					$this->quote(&$mopts);
+					$this->quote($mt);
+					$this->quote($mopts);
 
 					$o = obj();
 					$o->set_parent($_parent);
