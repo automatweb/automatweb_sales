@@ -39,7 +39,7 @@ class config extends aw_template
 			$i = $this;
 		}
 		// 1st, check if the necessary key exists
-		$i->quote(&$value);
+		$i->quote($value);
 		$ret = $i->db_fetch_field("SELECT COUNT(*) AS cnt FROM config WHERE ckey = '$ckey'","cnt");
 		if ($ret == false)
 		{
@@ -102,7 +102,7 @@ class config extends aw_template
 				$es = $this->get_simple_config("login_grp_redirect");
 			}
 		}
-		$this->dequote(&$es);
+		$this->dequote($es);
 		return aw_unserialize($es);
 	}
 
@@ -175,7 +175,7 @@ class config extends aw_template
 		}
 
 		$ss = aw_serialize($ea, SERIALIZE_XML);
-		$this->quote(&$ss);
+		$this->quote($ss);
 		$this->set_simple_config("login_grp_redirect_".aw_ini_get("site_id")."_".aw_global_get("LC"), $ss);
 		return $this->mk_my_orb("grp_redirect", array());
 	}
@@ -332,7 +332,7 @@ class config extends aw_template
 		{
 			$f = fopen($favicon,"r");
 			$fc = fread($f,filesize($favicon));
-			$this->quote(&$fc);
+			$this->quote($fc);
 			fclose($f);
 			$this->set_simple_config("favicon", $fc);
 		}

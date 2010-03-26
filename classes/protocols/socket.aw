@@ -39,7 +39,7 @@ class socket
 	function open($args = array())
 	{
 		extract($args);
-		$this->sock = fsockopen($host,$port,&$errno, &$errstr,5);
+		$this->sock = fsockopen($host, $port, $errno, $errstr, 5);
 		if (not($this->sock))
 		{
 			//print "WARNING: Connection to $host:$port failed, $errstr\n";
