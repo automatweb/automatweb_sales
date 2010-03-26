@@ -849,7 +849,7 @@ class class_base extends aw_template
 
 		if (method_exists($this->inst,"callback_mod_reforb"))
 		{
-			$this->inst->callback_mod_reforb(&$argblock,$this->request);
+			$this->inst->callback_mod_reforb($argblock, $this->request);
 		}
 
 		if(isset($GLOBALS["add_mod_reforb"]) and is_array($GLOBALS["add_mod_reforb"])) // et saaks m6nest x kohast veel v2lju juurde, n2iteks mingist komponendist
@@ -864,7 +864,7 @@ class class_base extends aw_template
 		{
 			foreach($this->_do_call_vcl_mod_reforbs as $vcl_mro)
 			{
-				$vcl_mro[0]->$vcl_mro[1](&$argblock, $this->request);
+				$vcl_mro[0]->$vcl_mro[1]($argblock, $this->request);
 			}
 		}
 
@@ -1428,7 +1428,7 @@ class class_base extends aw_template
 						if (is_oid($cfg_cntrl_id))
 						{
 							$tmp = null;
-							$retval = $controller_inst->check_property($cfg_cntrl_id, $this->id, $tmp, &$args, &$request, $tmp);
+							$retval = $controller_inst->check_property($cfg_cntrl_id, $this->id, $tmp, $args, $request, $tmp);
 						}
 					}
 				}
@@ -2844,7 +2844,7 @@ class class_base extends aw_template
 					{
 						// &$properties[$key], $value, $argblock
 						// $prop, $controller_oid, $arr
-						$retval = $view_controller_inst->check_property(&$properties[$prop], $value, $argblock);
+						$retval = $view_controller_inst->check_property($properties[$prop], $value, $argblock);
 						/*
 						$retval = $view_controller_inst->check_property(array(
 							"prop" => &$properties[$key],
@@ -2960,7 +2960,7 @@ class class_base extends aw_template
 				{
 					foreach($vx as $ekey => $eval)
 					{
-						$this->convert_element(&$eval);
+						$this->convert_element($eval);
 						if($eval["orig_type"] != "layout")
 						{
 							$resprops[$ekey] = $eval;
@@ -3027,7 +3027,7 @@ class class_base extends aw_template
 					{
 						foreach($res as $rkey => $rval)
 						{
-							$this->convert_element(&$rval);
+							$this->convert_element($rval);
 							$resprops[$rkey] = $rval;
 							$resprops[$rkey]["capt_ord"] = isset($val["capt_ord"]) ? $val["capt_ord"] : "";
 							$resprops[$rkey]["wf_capt_ord"] = isset($val["wf_capt_ord"]) ? $val["wf_capt_ord"] : "";
@@ -3197,7 +3197,7 @@ class class_base extends aw_template
 			$name = $val["name"];
 			if (is_array($val) && $val["type"] !== "callback" && $val["type"] !== "submit")
 			{
-				$this->get_value(&$val);
+				$this->get_value($val);
 				// fuck me plenty
 				if ($this->view && isset($val["orig_type"]) && $val["orig_type"] === "select" && isset($val["value"]) && is_oid($val["value"]) && !$val["view_element"])
 				{
@@ -3302,7 +3302,7 @@ class class_base extends aw_template
 						{
 							foreach($res as $rkey => $rval)
 							{
-								$this->convert_element(&$rval);
+								$this->convert_element($rval);
 								if(is_array(reset($rval)))
 								{
 									foreach($rval as $rkey2 => $rval2)
@@ -3367,7 +3367,7 @@ class class_base extends aw_template
 					{
 						foreach($relres as $rkey => $rval)
 						{
-							$this->convert_element(&$rval);
+							$this->convert_element($rval);
 
 							if ($releditor_error_not_processed)
 							{
@@ -3484,13 +3484,13 @@ class class_base extends aw_template
 					$tmp = array();
 					foreach($val["items"] as $item)
 					{
-						$this->convert_element(&$item);
+						$this->convert_element($item);
 						$tmp[] = $item;
 					};
 					$val["items"] = $tmp;
 				};
 
-				$this->convert_element(&$val);
+				$this->convert_element($val);
 
 				// hm, how the fuck can the name be empty anyway?
 				if (empty($name))
@@ -3508,7 +3508,7 @@ class class_base extends aw_template
 		}
 		if(isset($this->cfgform_id) && $this->cfgform_id && $controllers = $this->get_all_view_controllers($this->cfgform_id))
 		{
-			$this->process_view_controllers(&$resprops, $controllers, $argblock);
+			$this->process_view_controllers($resprops, $controllers, $argblock);
 		}
 
 		// if name_prefix given, prefixes all element names with the value
@@ -3635,7 +3635,7 @@ class class_base extends aw_template
 
 		foreach($realprops as $key => $val)
 		{
-			$this->get_value(&$val);
+			$this->get_value($val);
 			if (!empty($val["value"]) || $val["store"] !== "no")
 			{
 				if ($val["type"] === "fileupload" && is_readable($val["value"]))
@@ -3844,7 +3844,7 @@ class class_base extends aw_template
 					{
 						print "validating " . $prpdata["name"] . " against controller $controller_id<br>";
 					};
-					$controller_ret = $controller_inst->check_property($controller_id, $args["id"], &$prpdata, &$arr["request"], $val, &$this->obj_inst);
+					$controller_ret = $controller_inst->check_property($controller_id, $args["id"], $prpdata, $arr["request"], $val, $this->obj_inst);
 					/*
 					$controller_ret = $controller_inst->check_property(array(
 						"controller_oid" => $controller_id,
@@ -4575,7 +4575,7 @@ class class_base extends aw_template
 					if (is_oid($cfg_cntrl_id))
 					{
 						$tmp = array();
-						$controller_inst->check_property($cfg_cntrl_id, $this->obj_inst->id(), $tmp, &$args, array(), &$this->obj_inst);
+						$controller_inst->check_property($cfg_cntrl_id, $this->obj_inst->id(), $tmp, $args, array(), $this->obj_inst);
 					}
 				}
 			}

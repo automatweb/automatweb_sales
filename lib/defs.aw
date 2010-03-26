@@ -135,14 +135,14 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		$query = parse_url(aw_global_get("REQUEST_URI"));
 		if(isset($query["query"]))
 		{
-			parse_str($query["query"], &$result);
+			parse_str($query["query"], $result);
 
 			// Some use url parameter instead of return_url
 			$return_url = isset($result["return_url"]) ? $result["return_url"] : (isset($result["url"]) ? $result["url"] : null);
 
 			$query_ru = parse_url($return_url);
 			$query = isset($query_ru["query"]) ? $query_ru["query"] : "";
-			parse_str($query, &$result_ru);
+			parse_str($query, $result_ru);
 
 			if($return_url !== null && isset($result_ru["class"]) && $result["class"] === $result_ru["class"] && $result["action"] === $result_ru["action"] && $result["id"] === $result_ru["id"])
 			{
@@ -765,7 +765,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		$tags = array();
 
 		// xml data arraysse
-		xml_parse_into_struct($parser,$args["xml"],&$values,&$tags);
+		xml_parse_into_struct($parser, $args["xml"], $values, $tags);
 
 		// R.I.P. parser
 		xml_parser_free($parser);
@@ -1663,7 +1663,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		//$ct = html_entity_decode($ct, ENT_QUOTES, "utf-8");
 		$parser = xml_parser_create("utf-8");
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
-		if (xml_parse_into_struct($parser,$ct,&$values) === 0)
+		if (xml_parse_into_struct($parser, $ct, $values) === 0)
 		{
 			echo "xml error ".xml_error_string(xml_get_error_code($parser))." on line ".xml_get_current_line_number($parser)." <br>";
 		}
