@@ -11,7 +11,7 @@ class cache extends core
 	function cache()
 	{
 		$this->db_init();
-		aw_config_init_class(&$this);
+		aw_config_init_class($this);
 	}
 
 	/** writes a page to the html page cache
