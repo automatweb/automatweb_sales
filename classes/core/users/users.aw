@@ -168,7 +168,7 @@ class users extends users_user implements request_startup
 
 		$this->read_template("send_hash.tpl");
 
-		lc_site_load("users", &$this);
+		lc_site_load("users", $this);
 		$this->vars(array(
 			"webmaster" => aw_ini_get("users.webmaster_mail"),
 			"reforb" => $this->mk_reforb("submit_send_hash",array("section" => aw_global_get("section"))),
@@ -221,7 +221,7 @@ class users extends users_user implements request_startup
 			};
 
 			$this->read_template("hash_send.tpl");
-			lc_site_load("users", &$this);
+			lc_site_load("users", $this);
 			$this->vars(array(
 				"churl" => $this->get_change_pwd_hash_link($o->id()),
 				"email" => aw_ini_get("users.webmaster_mail"),
@@ -261,7 +261,7 @@ die();
 		if (!(is_valid("uid",$uid)))
 		{
 			$this->read_adm_template("hash_results.tpl");
-			lc_site_load("users", &$this);
+			lc_site_load("users", $this);
 			$this->vars(array(
 				"msg" => t("Vigane kasutajanimi"),
 			));
@@ -280,7 +280,7 @@ die();
 		if (!$ol->count())
 		{
 			$this->read_adm_template("hash_results.tpl");
-			lc_site_load("users", &$this);
+			lc_site_load("users", $this);
 			$this->vars(array(
 				"msg" => t("Sellist kasutajat pole registreeritud"),
 			));
@@ -294,7 +294,7 @@ die();
 		if ($pwhash != $key)
 		{
 			$this->read_adm_template("hash_results.tpl");
-			lc_site_load("users", &$this);
+			lc_site_load("users", $this);
 			$this->vars(array(
 				"msg" => t("Sellist v&otilde;tit pole v&auml;ljastatud"),
 			));
@@ -307,7 +307,7 @@ die();
 		if (($ts + (3600*24*400)) < time())
 		{
 			$this->read_adm_template("hash_results.tpl");
-			lc_site_load("users", &$this);
+			lc_site_load("users", $this);
 			$this->vars(array(
 				"msg" => t("See v&otilde;ti on juba aegunud")." <a href='".$this->mk_my_orb('send_hash')."'>".t("Telli uusi v&otilde;ti")."</a>"
 			));
@@ -315,7 +315,7 @@ die();
 		}
 
 		$this->read_adm_template("hash_change_password.tpl");
-		lc_site_load("users", &$this);
+		lc_site_load("users", $this);
 		$this->vars(array(
 			"uid" => $uid,
 			"reforb" => $this->mk_reforb("submit_password_hash",array("uid" => $uo->id(),"pwhash" => $pwhash)),

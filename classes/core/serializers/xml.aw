@@ -210,7 +210,7 @@ class xml
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 
 		// kui tahad aru saada mida see funktsioon ja j2rgnevad read teevad, siis debuukimise ajal
-		xml_parse_into_struct($parser,$source,&$keys,&$values);
+		xml_parse_into_struct($parser, $source, $keys, $values);
 		/*{
 			echo "error! <br>";
 echo xml_error_string(xml_get_error_code($parser))."<br>";
