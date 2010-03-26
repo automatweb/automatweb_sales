@@ -144,7 +144,7 @@ class htmlclient extends aw_template
 		}
 
 		$this->read_template($tpl);
-		lc_site_load("htmlclient", &$this);
+		lc_site_load("htmlclient", $this);
 
 		if(!empty($this->tpl_vars))
 		{
@@ -208,7 +208,7 @@ class htmlclient extends aw_template
 			$res = "";
 			foreach($args["items"] as $el)
 			{
-	 			$this->mod_property(&$el);
+	 			$this->mod_property($el);
 				$res .= $this->put_subitem($el);
 			};
 			$args["value"] = $res;
@@ -216,7 +216,7 @@ class htmlclient extends aw_template
 		}
 		else
 		{
-			$this->mod_property(&$args);
+			$this->mod_property($args);
 		};
 
 		$type = isset($args["type"]) ? $args["type"] : "";

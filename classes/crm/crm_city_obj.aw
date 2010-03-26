@@ -17,7 +17,7 @@ class crm_city_obj extends _int_object
 	**/
 	function get_job_offers($arr)
 	{
-		$this->prms(&$arr);
+		$this->prms($arr);
 
 		$ol_prms = array(
 			"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER,
@@ -58,7 +58,7 @@ class crm_city_obj extends _int_object
 	**/
 	function get_residents($arr)
 	{
-		$this->prms(&$arr);
+		$this->prms($arr);
 
 		$ol_prms = array(
 			"class_id" => CL_CRM_PERSON,
@@ -105,7 +105,7 @@ class crm_city_obj extends _int_object
 		}
 	}
 
-	function prms($arr)
+	function prms(&$arr)
 	{
 		$arr["parent"] = !isset($arr["parent"]) ? array() : $arr["parent"];
 		if(!is_array($arr["parent"]))

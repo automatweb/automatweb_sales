@@ -307,11 +307,11 @@ class add_tree_conf extends class_base
 		$v = $o->meta("visible");
 		$ret = array();
 
-		$this->get_meta_classes($o, $r, $v, &$ret);
+		$this->get_meta_classes($o, $r, $v, $ret);
 		return $ret;
 	}
 
-	private function get_meta_classes($o, $r, $v, $ret)
+	private function get_meta_classes($o, $r, $v, &$ret)
 	{
 		$clss = $o->meta("class_structure");
 		if (!is_array($clss))
@@ -385,7 +385,7 @@ class add_tree_conf extends class_base
 		$v = $o->meta("visible");
 		$ret = array();
 
-		$this->get_meta_classes($o, $r, $v, &$ret);
+		$this->get_meta_classes($o, $r, $v, $ret);
 		return $ret;
 	}
 

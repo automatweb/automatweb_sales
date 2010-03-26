@@ -51,7 +51,7 @@ class cfg_view_controller extends class_base
 
 			// prints whatever the controller assigned to $retval
 	**/
-	function check_property(&$prop, $controller_oid, $arr)
+	function check_property(&$prop, $controller_oid, &$arr)
 	{
 		if (!$this->can("view", $controller_oid))
 		{
