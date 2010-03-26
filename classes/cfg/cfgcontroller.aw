@@ -122,7 +122,7 @@ class cfgcontroller extends class_base
 
 			// prints whatever the controller assigned to $retval
 	**/
-	function check_property($controller_oid, $obj_id, &$prop, $request, $entry, $obj_inst)
+	function check_property($controller_oid, $obj_id, &$prop, &$request, &$entry, $obj_inst)
 	{
 		$retval = PROP_OK;
 		if (!is_oid($controller_oid))

@@ -1690,7 +1690,7 @@ class messenger_v2 extends class_base
 
 	function do_search($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_mk_mb_table($t, $arr["obj_inst"]);
 		$from = $arr["request"]["s_from"];
 		$subj = $arr["request"]["s_subject"];
