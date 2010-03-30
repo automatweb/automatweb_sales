@@ -215,7 +215,7 @@ class languages extends aw_template implements request_startup
 			return false;
 		}
 
-		$this->quote(&$id);
+		$this->quote($id);
 		$id = (int)$id;
 		$q = "SELECT acceptlang,charset FROM languages WHERE id = '$id'";
 		$this->db_query($q);

@@ -1035,7 +1035,7 @@ class aw_table extends aw_template
 				$ctrli = get_instance(CL_CFG_VIEW_CONTROLLER);
 				foreach($ctrls as $ctrl)
 				{
-					$ctrli->check_property($this, $ctrl, &$arr);
+					$ctrli->check_property($this, $ctrl, $arr);
 				}
 			}
 		}
@@ -2185,7 +2185,7 @@ END;
 	{
 		$xml_parser = xml_parser_create();
 		xml_parser_set_option($xml_parser,XML_OPTION_CASE_FOLDING,0);
-		xml_set_object($xml_parser,&$this);
+		xml_set_object($xml_parser, $this);
 		xml_set_element_handler($xml_parser,"_xml_start_element","_xml_end_element");
 		if (!xml_parse($xml_parser,$xml_data))
 		{

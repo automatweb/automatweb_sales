@@ -364,7 +364,7 @@ class messenger_v2 extends class_base
 				break;
 
 			case "s_results":
-				$this->do_search(&$arr);
+				$this->do_search($arr);
 				break;
 
 			case "s_toolbar":
@@ -494,7 +494,7 @@ class messenger_v2 extends class_base
 					),CL_MESSAGE),
 				));
 				$tb_html = $tb->get_toolbar();
-				$ms_html = $this->_fetch_message_contents(&$arr);
+				$ms_html = $this->_fetch_message_contents($arr);
 				$prop["value"] = $this->parse();
 				$prop["value"] = $tb_html.$ms_html;
 				break;
@@ -585,7 +585,7 @@ class messenger_v2 extends class_base
 
 	/** fetches message contents for mail_view
 	**/
-	function _fetch_message_contents($arg = array())
+	function _fetch_message_contents(&$arg = array())
 	{
 		if($arg["request"]["msgid"] && $arg["request"]["mailbox"])
 		{
@@ -1049,7 +1049,7 @@ class messenger_v2 extends class_base
 		}
 		$awt->stop("msgr::gen_message_list/list-folder-contents");
 
-		$this->_mk_mb_table(&$t, $arr["obj_inst"]);
+		$this->_mk_mb_table($t, $arr["obj_inst"]);
 
 
 		$fldr = $this->use_mailbox;
@@ -1690,7 +1690,7 @@ class messenger_v2 extends class_base
 
 	function do_search($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_mk_mb_table($t, $arr["obj_inst"]);
 		$from = $arr["request"]["s_from"];
 		$subj = $arr["request"]["s_subject"];

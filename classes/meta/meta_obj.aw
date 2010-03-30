@@ -45,7 +45,7 @@ class meta_obj extends _int_object
 		$mmi = get_instance(CL_METAMGR);
 		$o = obj(parent::id());
 		$mmi->_init_save_trans();
-		$mmi->_save_trans(&$this, $tmp);
+		$mmi->_save_trans($this, $tmp);
 	}
 }
 ?>

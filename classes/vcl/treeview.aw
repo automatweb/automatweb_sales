@@ -218,7 +218,7 @@ class treeview extends class_base
 				$sub = "";
 			};
 			$icon_url = ($row["class_id"] == CL_MENU) ? "" : $this->ic->get_icon_url($row["class_id"],"");
-			$url = $this->do_item_link(&$row);
+			$url = $this->do_item_link($row);
 			$this->vars(array(
 				"name" => $row["name"],
 				"id" => $row["oid"],
@@ -608,7 +608,7 @@ class treeview extends class_base
 	{
 		$this->read_template("html_tree.tpl");
 		$ml = array();
-		$this->draw_html_tree($this->rootnode, &$ml);
+		$this->draw_html_tree($this->rootnode, $ml);
 
 		$this->vars(array(
 			"colspan" => 10
@@ -1346,7 +1346,7 @@ class treeview extends class_base
 			// and if so, then recurse to the next level
 			if (isset($this->items[$row["id"]]))
 			{
-				$this->draw_html_tree($row['id'], &$ml);
+				$this->draw_html_tree($row['id'], $ml);
 			}
 			$num++;
 		}

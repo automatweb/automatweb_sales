@@ -368,7 +368,7 @@ class mysql
 			{
 				if (is_array($arr[$k]))
 				{
-					$this->dequote(&$arr[$k]);
+					$this->dequote($arr[$k]);
 				}
 				else
 				{

@@ -7,7 +7,7 @@ class http implements protocol_interface
 {
 	function http()
 	{
-		aw_config_init_class(&$this);
+		aw_config_init_class($this);
 	}
 
 	public function name()
@@ -553,7 +553,7 @@ class http implements protocol_interface
 	**/
 	function post_request($server, $handler, $params, $port = 80, $sessid = NULL)
 	{
-		$fp = fsockopen($server,$port,&$errno, &$errstr, 5);
+		$fp = fsockopen($server, $port, $errno, $errstr, 5);
 		$op = "POST $handler HTTP/1.0\r\n";
 		$op .= "User-Agent: AutomatWeb\r\n";
 		$op .= "Host: $server\r\n";
