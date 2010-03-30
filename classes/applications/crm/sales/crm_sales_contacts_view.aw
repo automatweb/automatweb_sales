@@ -46,7 +46,18 @@ class crm_sales_contacts_view
 
 	public static function _get_contacts_toolbar(&$arr)
 	{
+		$core = new core();
 		$toolbar = $arr["prop"]["vcl_inst"];
+		$toolbar->add_button(array(
+			"name"=> "add_customer",
+			"url"=> $core->mk_my_orb("new", array(
+				"parent" => $arr["obj_inst"]->prop("owner")->id(),
+				"return_url" => get_ru()
+			), "crm_company_customer_data"),
+			"img" => "new.gif",
+			"tooltip"=> t("Lisa klient")
+		));
+
 		$toolbar->add_button(array(
 			"name" => "create_calls1",
 			"img" => "create_calls1.gif",
@@ -81,7 +92,7 @@ class crm_sales_contacts_view
 
 			try
 			{
-				$search->application = $this_o;
+				$search->seller = $this_o->prop("owner");
 
 				if (!empty($arr["request"]["cts_name"]))
 				{
@@ -156,7 +167,7 @@ class crm_sales_contacts_view
 					$search->set_sort_order($arr["request"]["cts_sort_mode"]);
 				}
 
-				$contacts_oid_data = $search->get_oids($limit);
+				$contacts_oid_data = $search->get_customer_relation_oids($limit);
 			}
 			catch (awex_crm_contacts_search_param $e)
 			{

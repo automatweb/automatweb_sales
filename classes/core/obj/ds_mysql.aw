@@ -881,18 +881,18 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 		foreach(safe_array($arr["ot_modified"]) as $_field => $one)
 		{
-			$ot_sets[] = " $_field = '".$objdata[$_field]."' ";
+			$ot_sets[] = " {$_field} = '{$objdata[$_field]}' ";
 		}
 		$ot_sets = join(" , ", $ot_sets);
 
 		if ($ot_sets != "")
 		{
-			$ot_sets = " , ".$ot_sets;
+			$ot_sets = " , {$ot_sets}";
 		}
 
 		$obj_q = "UPDATE objects SET
 			mod_cnt = mod_cnt + 1
-			$ot_sets
+			{$ot_sets}
 			WHERE oid = '{$objdata["oid"]}'
 		";
 
@@ -944,7 +944,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		// now save all props to tables.
 		foreach($tbls as $tbl => $tbld)
 		{
-			if ($tbl == "")
+			if (empty($tbl))
 			{
 				continue;
 			}
@@ -962,6 +962,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			{
 				$serfs = array();
 			}
+
 			$seta = array();
 			foreach($tbld as $prop)
 			{
@@ -972,6 +973,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					{
 						continue;
 					}
+
 					if ($prop['method'] === "serialize")
 					{
 						if ($prop['field'] === "meta" && $prop["table"] === "objects")
@@ -981,8 +983,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						// since serialized properites can be several for each field, gather them together first
 						$serfs[$prop['field']][$prop['name']] = $propvalues[$prop['name']];
 					}
-					else
-					if ($prop['method'] === "bitmask")
+					elseif ($prop['method'] === "bitmask")
 					{
 						$val = $propvalues[$prop["name"]];
 
@@ -1000,8 +1001,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 						$seta[$prop["field"]] = $mask;
 					}
-					else
-					if ($prop['type'] === 'range') // range support by dragut
+					elseif ($prop['type'] === 'range') // range support by dragut
 					{
 						$seta[$prop['field'].'_from'] = (int)$propvalues[$prop['name']]['from'];
 						$seta[$prop['field'].'_to'] = (int)$propvalues[$prop['name']]['to'];
@@ -1013,7 +1013,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$seta[$prop["field"]] = $str;
 					}
 
-					if (isset($prop["datatype"]) && $prop["datatype"] === "int" && $seta[$prop["field"]] == "")
+					if (isset($prop["datatype"]) && $prop["datatype"] === "int" && empty($seta[$prop["field"]]))
 					{
 						$seta[$prop["field"]] = "0";
 					}

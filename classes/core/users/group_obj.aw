@@ -5,6 +5,8 @@
 
 class group_obj extends _int_object
 {
+	const AW_CLID = 37;
+
 	// group types:
 	// 0 - ordinary, user added group
 	// 1 - user's default group
@@ -52,9 +54,9 @@ class group_obj extends _int_object
 	function get_group_persons()
 	{
 		$persons = new object_list();
-		$user_inst = get_instance(CL_USER);
+		$user_inst = get_instance(user_obj::AW_CLID);
 
-		foreach(get_instance(CL_GROUP)->get_group_members($this) as $o)
+		foreach(get_instance(self::AW_CLID)->get_group_members($this) as $o)
 		{
 			$persons->add($user_inst->get_person_for_user($o));
 		}

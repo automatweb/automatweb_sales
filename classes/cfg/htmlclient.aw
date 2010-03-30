@@ -777,7 +777,7 @@ class htmlclient extends aw_template
 		}
 
 		$fn = basename($_SERVER["SCRIPT_FILENAME"],".aw");
-		$data["ret_to_orb"] = $fn == "orb" ? 1 : 0;
+		$data["ret_to_orb"] = $fn === "orb" ? 1 : 0;
 
 		$data["charset"] = aw_global_get("charset");
 
@@ -810,7 +810,6 @@ class htmlclient extends aw_template
 			"form_handler" => !empty($form_handler) ? $form_handler : "orb.aw",
 			"SUBMIT" => isset($sbt) ? $sbt : "",
 			"help" => ifset($arr, "help"),
-			//"form_handler" => isset($form_handler) ? "orb.aw" : $form_handler,
 		));
 
 		if (!empty($no_insert_reforb))

@@ -2728,7 +2728,7 @@ EOF;
 	**/
 	public function is_group_member($user, $group)
 	{
-		return get_instance("user_object")->is_group_member($user, $group);
+		return get_instance("user_obj")->is_group_member($user, $group);
 	}
 }
 

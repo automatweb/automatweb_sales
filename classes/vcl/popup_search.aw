@@ -20,24 +20,26 @@ class popup_search extends aw_template
 
 	function init_vcl_property($arr)
 	{
-		if ($arr["property"]["style"] == "relpicker")
+		if ($arr["property"]["style"] === "relpicker")
 		{
-			$i = get_instance("vcl/relpicker");
+			$i = new relpicker();
 			return $i->init_vcl_property($arr);
 		}
-		if ($arr["request"]["action"] == "view")
+
+		if ($arr["request"]["action"] === "view")
 		{
 			$p = $arr["prop"];
 			$p["type"] = "text";
 			$p["value"] = html::obj_change_url($p["value"]);
 			return array($p["name"] => $p);
 		}
+
 		$style = isset($arr['property']['style']) ? $arr['property']['style'] : 'default'; // Options: default, relpicker
 		$reltype = "";
 
 		$options = array();
 
-		if ($style == 'default')
+		if ($style === 'default')
 		{
 			$name = "popup_search[".$arr["property"]["name"]."]";
 			if (is_object($arr["obj_inst"]))
@@ -56,7 +58,7 @@ class popup_search extends aw_template
 				$options = $ol->names();
 			}
 		}
-		else if ($style == 'relpicker' || $arr["property"]["type"] != "popup_search")
+		else if ($style === 'relpicker' || $arr["property"]["type"] !== "popup_search")
 		{
 			if (is_object($arr["obj_inst"]) && isset($arr['property']['reltype']) && isset($arr['relinfo'][$arr['property']['reltype']])  && is_oid($arr['obj_inst']->id()))
 			{
@@ -120,7 +122,7 @@ class popup_search extends aw_template
 			$sel =  $arr["obj_inst"]->prop($arr["property"]["name"]);
 		}
 
-		if ($arr["property"]["style"] == "autocomplete")
+		if ($arr["property"]["style"] === "autocomplete")
 		{
 			$selstr = "";
 			if ($this->can("view", $sel))
@@ -161,6 +163,7 @@ class popup_search extends aw_template
 				"multiple" => $arr["property"]["multiple"]
 			));
 		}
+
 		if (is_object($arr["obj_inst"]) && is_oid($arr["obj_inst"]->id()))
 		{
 			$tmp["value"] .= html::href(array(
@@ -180,15 +183,9 @@ class popup_search extends aw_template
 
 			}
 			// add new
-			//$pl = $arr["obj_inst"]->get_property_list();
-			$cu = get_instance("cfg/cfgutils");
+			$cu = new cfgutils();
 			$pl = $cu->load_properties(array("clid" => $arr["obj_inst"]->class_id()));
 			$rt = $pl[$arr["property"]["name"]]["reltype"];
-			if ($_GET["PROP_DBG"] == 1)
-			{
-				print "clid = " . print $arr["obj_inst"]->class_id();
-				echo dbg::dump($pl);
-			}
 			if ($rt)
 			{
 				$clss = aw_ini_get("classes");
@@ -284,13 +281,13 @@ class popup_search extends aw_template
 		$ob = obj($arr['id']);
 		$props = $ob->get_property_list();
 		$prop = $props[$arr['pn']];
-		if (isset($prop['style']) && $prop['style'] == 'relpicker' && isset($prop['reltype']))
+		if (isset($prop['style']) && $prop['style'] === 'relpicker' && isset($prop['reltype']))
 		{
 			$return = "";
 			if (isset($arr['id']) && is_oid($arr['id']) && $this->can('view', $arr['id']))
 			{
 				// If POSTed, handle results
-				if ($_SERVER['REQUEST_METHOD'] == 'POST')
+				if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				{
 				$value = $ob->prop($arr['pn']);
 				$possible_value = null;
@@ -328,7 +325,6 @@ class popup_search extends aw_template
 			}
 			else
 			{
-				classload("cfg/htmlclient");
 				$htmlc = new htmlclient(array(
 					'template' => "default",
 				));
@@ -501,16 +497,17 @@ class popup_search extends aw_template
 			"value" => t("Otsi"),
 			"caption" => t("Otsi")
 		));
+
 		$data = array(
-				"id" => $arr["id"],
-				"pn" => $arr["pn"],
-				"multiple" => $arr["multiple"],
-				"clid" => $arr["clid"],
-				"no_submit" => ifset($arr, "no_submit"),
-				"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
-				"orb_class" => $_GET["class"],
-				"reforb" => 0,
-			);
+			"id" => isset($arr["id"]) ? $arr["id"] : "",
+			"pn" => isset($arr["pn"]) ? $arr["pn"] : "",
+			"multiple" => isset($arr["multiple"]) ? $arr["multiple"] : "",
+			"clid" => isset($arr["clid"]) ? $arr["clid"] : "",
+			"no_submit" => ifset($arr, "no_submit"),
+			"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
+			"orb_class" => $_GET["class"],
+			"reforb" => 0,
+		);
 		$this->_process_reforb_args($data);
 		$htmlc->finish_output(array(
 			"action" => "do_search",
@@ -568,7 +565,6 @@ class popup_search extends aw_template
 	{
 		$this->read_template("table.tpl");
 
-		classload("vcl/table");
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -650,13 +646,9 @@ class popup_search extends aw_template
 
 		$this->_get_filter_props($filter, $arr);
 		$count = !($count === count($filter) and !empty($arr["start_empty"]));
+		$filter["limit"] = new obj_predicate_limit(30);
 
-		if (empty($_GET["MAX_FILE_SIZE"]))
-		{
-			$filter["limit"] = 30;
-		}
-
-		if (count($filter) > 1 || $_GET["MAX_FILE_SIZE"])
+		if (count($filter) > 1)
 		{
 			// Pre-check checkboxes for relpicker
 			$checked = array ();
@@ -673,19 +665,17 @@ class popup_search extends aw_template
 					}
 				}
 			}
-			$filter["lang_id"] = array();
-			$filter["site_id"] = array();
 			$ol = new object_list($filter);
 
 			$elname = $arr["pn"];
 			$elname_n = $arr["pn"];
 			$elname_l = $arr["pn"];
-			if ($arr["multiple"] == 1)
+			if (!empty($arr["multiple"]))
 			{
 				$elname .= "[]";
 				$elname_n .= "][]";
 			}
-			classload("core/icons");
+
 			for($count and $o = $ol->begin(); !$ol->end(); $o = $ol->next())
 			{
 				$dat = array(
@@ -828,11 +818,7 @@ function aw_get_el(name,form)
 					else
 					{
 			";
-//			foreach(safe_array($arr["sel"]) as $idx => $val)
-//			{
-				$str .= "el.value = '".join(",", $arr["sel"])."';"; //$val;";
-//			}
-
+			$str .= "el.value = '".join(",", $arr["sel"])."';"; //$val;";
 			$str .= "		}";
 			if(!$arr["no_submit"])
 			{
@@ -1114,16 +1100,7 @@ function aw_get_el(name,form)
 		));
 
 		$arr["clid"] = join("," , $arr["clid"]);
-/*		if(!isset($arr["reload_layout"]))
-		{
-			$arr["reload_layout"] = "' '";
-		}
 
-		if(!isset($arr["reload_property"]))
-		{
-			$arr["reload_property"] = "' '";
-		}
-*/
 		$htmlc->add_property(array(
 			"name" => "s[submit]",
 			"type" => "button",
@@ -1152,7 +1129,6 @@ function aw_get_el(name,form)
 			});
 			",
 		));
-//http://www.otto-suomi.fi/automatweb/orb.aw?class=shop_packet&action=change&id=401624
 
 		$data = array(
 			"id" => $arr["id"],
@@ -1207,7 +1183,6 @@ function aw_get_el(name,form)
 				$clid = $arr["clid"];
 			}
 		}
-		classload("vcl/table");
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));

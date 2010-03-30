@@ -179,10 +179,9 @@ define("FILE_MODIFIED",9);
 // and we really-really want to port AW to other databases ASAP
 define("OID","oid");
 
-// CL_PSEUDO is deprecated, please use CL_MENU instead
-// it's defined here to provide a safe migration path
-// define("CL_PSEUDO",1); // nov 3 2008 -- cl_pseudo not found in any .aw files. removing completely later.
 
+
+/////////// DEPRECATED. use menu_obj::TYPE_... constants instead
 // mix 69? well mulle meeldib see number :-P
 define("MN_CLIENT",69);
 // sisurubriik
@@ -199,6 +198,9 @@ define("MN_HOME_FOLDER_SUB",75);
 define("MN_FORM_ELEMENT",76);
 // public method
 define("MN_PMETHOD",77);
+///////// END DEPRECATED
+
+
 
 // formide tyybid
 define("FTYPE_ENTRY",1);

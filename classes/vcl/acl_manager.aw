@@ -112,9 +112,7 @@ class acl_manager extends class_base
 			"root_item" => obj(aw_ini_get("groups.tree_root")),
 			"ot" => new object_tree(array(
 				"class_id" => array(CL_GROUP,CL_MENU),
-				"parent" => aw_ini_get("groups.tree_root"),
-				"lang_id" => array(),
-				"site_id" => array()
+				"parent" => aw_ini_get("groups.tree_root")
 			)),
 			"var" => "grp_id",
 		));
@@ -185,8 +183,6 @@ class acl_manager extends class_base
 		$ol = new object_list(array(
 			"parent" => $pt,
 			"class_id" => array(CL_GROUP, CL_USER),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"sort_by" => "objects.class_id"
 		));
 		foreach($ol->arr() as $oid => $o)
@@ -198,11 +194,9 @@ class acl_manager extends class_base
 			if ($o->class_id() == CL_USER)
 			{
 				$grp_ol = new object_list(array(
-					"class_id" => array(CL_GROUP, CL_USER_GROUP),
+					"class_id" => CL_GROUP,
 					"name" => $o->name(),
-					"type" => 1,
-					"lang_id" => array(),
-					"site_id" => array()
+					"type" => 1
 				));
 				if (!$grp_ol->count())
 				{
@@ -245,7 +239,7 @@ class acl_manager extends class_base
 
 	function _get_tb($r)
 	{
-		$t = get_instance("vcl/toolbar");
+		$t = new toolbar();
 		$t->add_button(array(
 			"name" => "save",
 			"tooltip" => t("Salvesta &otilde;igused"),
@@ -277,9 +271,7 @@ class acl_manager extends class_base
 		$pt = isset($arr["grp_id"]) ? $arr["grp_id"] : aw_ini_get("groups.tree_root");
 		$ol = new object_list(array(
 			"parent" => $pt,
-			"class_id" => array(CL_GROUP, CL_USER),
-			"lang_id" => array(),
-			"site_id" => array(),
+			"class_id" => array(CL_GROUP, CL_USER)
 		));
 		foreach($ol->arr() as $oid => $o)
 		{
@@ -287,11 +279,9 @@ class acl_manager extends class_base
 			if ($o->class_id() == CL_USER)
 			{
 				$grp_ol = new object_list(array(
-					"class_id" => array(CL_GROUP, CL_USER_GROUP),
+					"class_id" => array(CL_GROUP),
 					"name" => $o->name(),
-					"type" => 1,
-					"lang_id" => array(),
-					"site_id" => array()
+					"type" => 1
 				));
 				if (!$grp_ol->count())
 				{

@@ -4290,7 +4290,6 @@ class class_base extends aw_template
 				//var_dump($this->relinfo);
 				$argblock["prop"]["relinfo"] = $this->relinfo[$property["reltype"]];
 
-				classload("vcl/relmanager");
 				$vcl_inst = new relmanager();
 				// XXX: would be nice if this could return an error message as well
 				$vcl_inst->process_relmanager($argblock);

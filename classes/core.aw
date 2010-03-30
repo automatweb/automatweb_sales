@@ -638,7 +638,7 @@ class core extends acl_base
 			if $use_orb == 1 then the url will go through orb.aw, not index.aw - which means that it will be shown
 			directly, without drawing menus and stuff
 	**/
-	function mk_my_orb($fun,$arr=array(),$cl_name="",$force_admin = false,$use_orb = false,$sep = "&",$honor_r_orb = true)
+	public function mk_my_orb($fun,$arr=array(),$cl_name="",$force_admin = false,$use_orb = false,$sep = "&",$honor_r_orb = true)
 	{
 		// resolve to name
 		// kui on numeric, siis ma saan class_lut-ist teada tema nime
@@ -800,7 +800,7 @@ class core extends acl_base
 					$this->orb_values[empty($prefix) ? $name : $prefix."[".$name."]"] = $value;
 				//};
 			}
-		};
+		}
 	}
 
 	/** deprecated - no not use **/

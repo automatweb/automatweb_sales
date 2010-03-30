@@ -413,7 +413,7 @@ class group extends class_base
 		$aclids = aw_ini_get("acl.ids");
 		foreach($aclids as $acln)
 		{
-			$da[$acln] = $arr["request"]["acl_".$acln];
+			$da[$acln] = isset($arr["request"]["acl_{$acln}"]) ? $arr["request"]["acl_{$acln}"] : 0;
 		}
 
 		if ($arr["obj_inst"]->class_id() == CL_RELATION)
@@ -421,20 +421,9 @@ class group extends class_base
 			// FIXME: classbase will automatically give the connection as a parameter, but
 			// currently we do this ourselves
 
-			/*
-			if ($arr["obj_inst"]->meta("conn_id"))
-			{
-				$c = new connection($arr["obj_inst"]->meta("conn_id"));
-			}
-			else
-			{
-			*/
-				$c = new connection();
-				list(, $c_d) = each($c->find(array("relobj_id" => $arr["obj_inst"]->id())));
-				$c = new connection($c_d["id"]);
-			/*
-			}
-			*/
+			$c = new connection();
+			list(, $c_d) = each($c->find(array("relobj_id" => $arr["obj_inst"]->id())));
+			$c = new connection($c_d["id"]);
 
 			// now set the real acl from the connection
 			$grp = $c->to();
@@ -448,7 +437,7 @@ class group extends class_base
 
 	function callback_mod_retval($arr)
 	{
-		if ($arr["request"]["edit_acl"])
+		if (!empty($arr["request"]["edit_acl"]))
 		{
 			$arr["args"]["edit_acl"] = $arr["request"]["edit_acl"];
 		}
@@ -459,7 +448,7 @@ class group extends class_base
 		// now, get all the folders that have access set for these groups
 		$dat = $this->acl_get_acls_for_groups(array("grps" => array($gid)));
 
-		$t =& $this->_init_obj_table(array(
+		$t = $this->_init_obj_table(array(
 			"exclude" => array("grp_name")
 		));
 
@@ -650,7 +639,7 @@ class group extends class_base
 				"method" => "serialize",
 				"multiple" => 1,
 				"caption" => sprintf(t("Administreerimisliidese juurkaust (%s)"), $lname),
-				"value" => $meta["admin_rootmenu2"][$lid],
+				"value" => isset($meta["admin_rootmenu2"][$lid]) ? $meta["admin_rootmenu2"][$lid] : 0,
 				"reltype" => "RELTYPE_ADMIN_ROOT",
 				"options" => $opts
 			);

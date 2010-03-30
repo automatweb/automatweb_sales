@@ -233,9 +233,7 @@ class aw_object_search extends class_base
 		{
 			case "login":
 				$ol = new object_list(array(
-					"site_id" => array(),
-					"lang_id" => array(),
-					"class_id" => CL_AW_LOGIN,
+					"class_id" => CL_AW_LOGIN
 				));
 				$prop["options"] = array("" => "") + $ol->names();
 				break;
@@ -321,12 +319,12 @@ class aw_object_search extends class_base
 				break;
 
 			case "s_language":
-				$lg = get_instance("languages");
+				$lg = new languages();
 				$prop["options"] = $lg->get_list(array("addempty" => true));
 				break;
 
 			case "s_period":
-				$pr = get_instance(CL_PERIOD);
+				$pr = new period();
 				$prop["options"] = $pr->period_list(aw_global_get("act_per_id"),false);
 				if (count($prop["options"]) == 0)
 				{
@@ -339,7 +337,7 @@ class aw_object_search extends class_base
 				$dat = $this->db_fetch_array("SELECT distinct(site_id) as site_id FROM objects");
 				$sid = aw_ini_get("site_id");
 				$sites = array("" => 0, $sid => $sid);
-				$sl = get_instance("install/site_list");
+				$sl = new site_list();
 				foreach($dat as $row)
 				{
 					$sites[$row["site_id"]] = $row["site_id"];
@@ -404,13 +402,13 @@ class aw_object_search extends class_base
 			"name" => "cut",
 			"action" => "cut",
 			"img" => "cut.gif",
-			"tooltip" => t("L&otilde;ika"),
+			"tooltip" => t("L&otilde;ika")
 		));
 		$tb->add_button(array(
 			"name" => "copy",
 			"action" => "copy",
 			"img" => "copy.gif",
-			"tooltip" => t("Kopeeri"),
+			"tooltip" => t("Kopeeri")
 		));
 	}
 
@@ -507,7 +505,7 @@ class aw_object_search extends class_base
 		$_parms = array(
 			"class" => "aw_object_search",
 			"action" => "search_object_list",
-			"params" => $filter,
+			"params" => $filter
 		);
 		if (!empty($arr["request"]["login"]))
 		{
@@ -540,7 +538,7 @@ class aw_object_search extends class_base
 				"created" => "created",
 				"createdby" => "createdby",
 				"modified" => "modified",
-				"modifiedby" => "modifiedby",
+				"modifiedby" => "modifiedby"
 			),
 		);
 		$rows_arr = new object_data_list($filter , $rowsres);
@@ -554,13 +552,13 @@ class aw_object_search extends class_base
 		$filt = $this->get_s_filt($arr);
 
 		if (count($filt) == 1)
-		{echo 1;
+		{
 			return;
 		}
 
 		if (!empty($arr["request"]["login"]))
 		{
-			$lo = get_instance(CL_AW_LOGIN);
+			$lo = new aw_login();
 			$serv = $lo->get_server($arr["request"]["login"]);
 			$old_bu = $this->cfg["baseurl"];
 			$this->cfg["baseurl"] = "http://".$serv;
@@ -568,12 +566,12 @@ class aw_object_search extends class_base
 			aw_ini_set("baseurl" , $this->cfg["baseurl"]);
 		}
 
-//nyyd object data listi peal asi
+		//nyyd object data listi peal asi
 		$data = $this->_search_mk_call($filt,$arr);
 
 		$clss = aw_ini_get("classes");
 		$t->set_caption(sprintf(t("Leiti %s objekti"), sizeof($data)));
-		$li = get_instance("languages");
+		$li = new languages();
 
 		foreach($data as $id => $d)
 		{
@@ -589,7 +587,6 @@ class aw_object_search extends class_base
 					"title" => sprintf(t("Objekti id on %s"), $id),
 					"border" => 0
 				)),
-//				"name" => html::get_change_url($o->id(), array(), parse_obj_name($o->name())),
 				"name" => html::href(array(
 					"caption" => $d["name"],
 					"url" => $this->mk_my_orb("change", array("id" => $d["oid"]), $d["class_id"])
@@ -607,46 +604,7 @@ class aw_object_search extends class_base
 				))
 			));
 		}
-//		}
-//		else//**********
-//		{*/
-/*		$ol = new object_list($filt);
-		classload("core/icons");
-		$clss = aw_ini_get("classes");
-		$t->set_caption(sprintf(t("Leiti %s objekti"), $ol->count()));
-		foreach($ol->arr() as $o)
-		{
-			if($o->class_id() == CL_USER)
-			{
-				$this->u_oids[] = $o->id();
-			}
-			if (!$this->can("view", $o->parent()))
-			{
-				$po = obj();
-			}
-			else
-			{
-				$po = obj($o->parent());
-			}
-			$t->define_data(array(
-				"oid" => $o->id(),
-				"icon" => icons::get_icon($o),
-				"name" => html::get_change_url($o->id(), array(), parse_obj_name($o->name())),
-				"lang" => $o->lang(),
-				"class_id" => $clss[$o->class_id()]["name"],
-				"location" => $po->name(),
-				"created" => $o->created(),
-				"createdby" => $o->createdby(),
-				"modified" => $o->modified(),
-				"modifiedby" => $o->modifiedby(),
-				"oppnar" => html::href(array(
-					"url" => $this->mk_my_orb("redir", array("parent" => $o->id()), CL_ADMIN_IF),
-					"caption" => t("Ava")
-				))
-			));
-		}
-//		}//---------
-*/
+
 		if (!empty($arr["request"]["login"]))
 		{
 			aw_ini_set("baseurl" , $old_bu);
@@ -684,7 +642,7 @@ class aw_object_search extends class_base
 			{
 				$ol = new object_list(array(
 					"class_id" => CL_GROUP,
-					"name" => "%".$arr["request"]["s_".$gp]."%",
+					"name" => "%".$arr["request"]["s_".$gp]."%"
 				));
 				$ppl = array();
 				foreach($ol->arr() as $grp)
@@ -716,7 +674,7 @@ class aw_object_search extends class_base
 		);
 		foreach($props as $pn => $ofn)
 		{
-			if ($arr["request"][$pn] != "")
+			if (!empty($arr["request"][$pn]))
 			{
 				if (is_array($arr["request"][$pn]))
 				{
@@ -770,8 +728,7 @@ class aw_object_search extends class_base
 		if (isset($arr["request"]["s_rel_type"]) && $arr["request"]["s_rel_type"] != "" && ($arr["request"]["s_rel_obj_oid"] != "" || $arr["request"]["s_rel_obj_name"] != "") && is_array($arr["request"]["s_clid"]))
 		{
 			$clid = reset($arr["request"]["s_clid"]);
-			$clss = aw_ini_get("classes");
-			$cl_const = $clss[$clid]["def"];
+			$cl_const = aw_ini_get("classes.{$clid}.def");
 
 			$filt_name = $cl_const.".".$arr["request"]["s_rel_type"];
 			if ($arr["request"]["s_rel_obj_oid"])
@@ -825,41 +782,6 @@ class aw_object_search extends class_base
 			$filt["CL_DOCUMENT.RELTYPE_KEYWORD.name"] = "%".$arr["request"]["s_kws"]."%";
 		}
 
-		/*$c_from = date_edit::get_timestamp($arr["request"]["s_tmg_activate_from"]);
-		$c_to = date_edit::get_timestamp($arr["request"]["s_tmg_activate_to"]);
-		$m_from = date_edit::get_timestamp($arr["request"]["s_tmg_deactivate_from"]);
-		$m_to = date_edit::get_timestamp($arr["request"]["s_tmg_deactivate_to"]);
-
-		if ($c_from > 1 && $c_to > 1)
-		{
-			$filt["CL_DOCUMENT.RELTYPE_TIMING.activate"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $c_from, $c_to);
-		}
-		else
-		if ($c_from > 1)
-		{
-			$filt["CL_DOCUMENT.RELTYPE_TIMING.activate"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $c_from);
-		}
-		else
-		if ($c_to > 1)
-		{
-			$filt["CL_DOCUMENT.RELTYPE_TIMING.activate"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $c_to);
-		}
-
-		if ($m_from > 1 && $m_to > 1)
-		{
-			$filt["CL_DOCUMENT.RELTYPE_TIMING.deactivate"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $m_from, $m_to);
-		}
-		else
-		if ($m_from > 1)
-		{
-			$filt["CL_DOCUMENT.RELTYPE_TIMING.deactivate"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $m_from);
-		}
-		else
-		if ($m_to > 1)
-		{
-			$filt["CL_DOCUMENT.RELTYPE_TIMING.deactivate"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $m_to);
-		}*/
-
 		return $filt;
 	}
 
@@ -893,9 +815,7 @@ class aw_object_search extends class_base
 	function init_search()
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_AW_OBJECT_SEARCH,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"class_id" => CL_AW_OBJECT_SEARCH
 		));
 		if ($ol->count())
 		{
@@ -947,7 +867,7 @@ class aw_object_search extends class_base
 	**/
 	function cut($arr)
 	{
-		$i = get_instance(CL_ADMIN_IF);
+		$i = new admin_if();
 		$i->if_cut($_GET);
 		die("<script>window.back();</script>");
 	}
@@ -957,7 +877,7 @@ class aw_object_search extends class_base
 	**/
 	function copy($arr)
 	{
-		$i = get_instance(CL_ADMIN_IF);
+		$i = new admin_if();
 		return $i->if_copy($_GET);
 		die("<script>window.back();</script>");
 	}
@@ -980,7 +900,7 @@ class aw_object_search extends class_base
 		$rv = array("" => t("--vali--"));
 		foreach($tmp->get_relinfo() as $d => $inf)
 		{
-			if (substr($d, 0, strlen("RELTYPE")) == "RELTYPE")
+			if (substr($d, 0, strlen("RELTYPE")) === "RELTYPE")
 			{
 				$rv[$d] = $inf["caption"];
 			}

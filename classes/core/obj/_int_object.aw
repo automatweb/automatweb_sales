@@ -706,7 +706,7 @@ class _int_object
 		}
 
 		// right. once we convert all code to use lang codes (en/et/..) we can make this better. right now, the sucky version.
-		$li = get_instance("languages");
+		$li = new languages();
 		return $li->get_langid($this->obj["lang_id"]);
 	}
 
@@ -738,7 +738,7 @@ class _int_object
 	{
 		$prev = $this->lang();
 
-		$li = get_instance("languages");
+		$li = new languages();
 		$lang_id = $li->get_langid_for_code($param);
 		if (!$lang_id)
 		{
@@ -1318,24 +1318,20 @@ class _int_object
 	{
 		if (!$this->_int_is_property($key))
 		{
-			error::raise(array(
-				"id" => "ERR_PROP",
-				"msg" => sprintf(t("object::set_prop(%s, %s): no property %s defined for current object!"), $key, $val, $key)
-			));
-			return;
+			throw new awex_obj_prop("Property {$key} not defined for current object (id: " . $this->obj["oid"] . ", clid: " . $this->obj["class_id"] . ")");
 		}
 
 		$prev = $this->_int_get_prop($key);
 		$this->_int_set_prop($key, $val);
 		// if this is a relpicker property, create the relation as well
 		$propi = $GLOBALS["properties"][$this->obj["class_id"]][$key];
-		if ((($propi["type"] === "relpicker" ) ||
+		if (($propi["type"] === "relpicker" ) ||
 			($propi["type"] === "releditor" && ($propi["store"] === "connect" || $propi["choose_default"] == 1)) ||
 			 $propi["type"] === "relmanager" ||
 			($propi["type"] === "classificator" && $propi["store"] === "connect") ||
 			($propi["type"] === "popup_search" && $propi["reltype"] != "") ||
 			($propi["type"] === "chooser" && $propi["store"] === "connect" || !empty($propi["reltype"]))
-			))
+		)
 		{
 			$_rt = $GLOBALS["relinfo"][$this->obj["class_id"]][$propi["reltype"]]["value"];
 			if (ifset($propi, "multiple") == 1 || is_array($val))
@@ -1376,7 +1372,7 @@ class _int_object
 			else
 			{
 				// if this has store=connect, then we need to remove other conns
-				if (is_oid($this->id()) && $propi["store"] == "connect")
+				if (is_oid($this->id()) && $propi["store"] === "connect")
 				{
 					foreach($this->connections_from(array("type" => $_rt)) as $c)
 					{
@@ -1397,15 +1393,14 @@ class _int_object
 		}
 
 		// if this is an object field property, sync to object field
-		if ($propi["table"] == "objects")
+		if ($propi["table"] === "objects")
 		{
-			if ($propi["field"] == "meta")
+			if ($propi["field"] === "meta")
 			{
 				$this->_int_set_ot_mod("metadata", ifset($this->obj, "meta", $propi["name"]), $val);
 				$this->obj["meta"][$propi["name"]] = $val;
 			}
-			else
-			if ($propi["method"] == "bitmask")
+			elseif ($propi["method"] === "bitmask")
 			{
 				// it's flags, sync to that
 				$mask = $this->obj["flags"];
@@ -1459,12 +1454,13 @@ class _int_object
 			{
 				$retval[$k] = $this->trans_get_val($k);
 			}
-		};
+		}
+
 		if (is_array($this->obj))
 		{
 			foreach($this->obj as $k => $v)
 			{
-				if ($k == "comment" || $k == "name")
+				if ($k === "comment" || $k === "name")
 				{
 					$retval[$k] = $this->trans_get_val($k);
 				}
@@ -1474,7 +1470,7 @@ class _int_object
 					$retval[$k] = $v;
 				}
 			}
-		};
+		}
 		return $retval;
 	}
 
@@ -1879,13 +1875,13 @@ class _int_object
 
 	public function get_xml($options)
 	{
-		$i = get_instance("core/obj/obj_xml_gen");
+		$i = new obj_xml_gen();
 		return $i->gen($this->obj["oid"], $options);
 	}
 
 	public function from_xml($xml, $parent)
 	{
-		$i = get_instance("core/obj/obj_xml_gen");
+		$i = new obj_xml_gen();
 		$oid = $i->unser($xml, $parent);
 		return new object($oid);
 	}
@@ -2468,9 +2464,7 @@ class _int_object
 		{
 			// find all of its brothers and delete all of them.
 			list($tmp) = $GLOBALS["object_loader"]->ds->search(array(
-				"brother_of" => $oid,
-				"lang_id" => array(),
-				"site_id" => array()
+				"brother_of" => $oid
 			));
 			$todelete = array_keys($tmp);
 		}
@@ -2532,7 +2526,7 @@ class _int_object
 		// we're gonna clear it all.
 		if (!aw_ini_get("acl.use_new_acl"))
 		{
-			$c = get_instance("cache");
+			$c = new cache();
 			$c->file_clear_pt("acl");
 		}
 	}
@@ -2582,7 +2576,7 @@ class _int_object
 			"draft_object" => $this->id(),
 			"draft_property" => $prop,
 			"draft_user" => $user_oid,
-			"limit" => 1,
+			"limit" => 1
 		);
 		if(!is_oid($this->id()))
 		{
@@ -2791,23 +2785,24 @@ class _int_object
 		$_2 = array("date_select", "time_select");
 		$level_0 = array("checkbox", "text", "releditor", "status", "href", "hidden", "callback");
 
-		if(in_array($prop["type"], $_1) || in_array($prop["type"], $level_0) || $prop["store"] == "no")
-		{
-			return false;
-		}
-		if(in_array($prop["type"], $_2) && $value != -1)
-		{
-			return false;
-		}
-		if(!empty($value) || strlen($value))
+		if(in_array($prop["type"], $_1) || in_array($prop["type"], $level_0) || $prop["store"] === "no")
 		{
 			return false;
 		}
 
-		//if($prop["warning"]) and !strlen($prop["warning"]))
+		if(in_array($prop["type"], $_2) && $value != -1)
+		{
+			return false;
+		}
+
+		if(!empty($value) || is_string($value) && strlen($value))
+		{
+			return false;
+		}
+
 		if(empty($prop["warning"]))
 		{
-			$prop["warning"] = ($prop["type"] == "relpicker")?2:1;
+			$prop["warning"] = ($prop["type"] === "relpicker") ? 2 : 1;
 		}
 
 		return false;
