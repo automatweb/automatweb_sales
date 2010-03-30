@@ -354,7 +354,7 @@ class orb extends aw_template
 		$parser = xml_parser_create();
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		// xml data arraysse
-		xml_parse_into_struct($parser,$args["content"],&$values,&$tags);
+		xml_parse_into_struct($parser, $args["content"], $values, $tags);
 		// R.I.P. parser
 		xml_parser_free($parser);
 
@@ -882,7 +882,7 @@ class orb extends aw_template
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		// xml data arraysse
 		// XXX: I need some kind of error checking here!! -- duke
-		xml_parse_into_struct($parser,$xmldef,&$values,&$tags);
+		xml_parse_into_struct($parser, $xmldef, $values, $tags);
 		// R.I.P. parser
 		xml_parser_free($parser);
 

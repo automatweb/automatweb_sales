@@ -123,17 +123,17 @@ class core extends acl_base
 				$ip = aw_global_get("REMOTE_ADDR");
 			}
 			$t = time();
-			$this->quote(&$text);
-			$this->quote(&$oid);
-			$this->quote(&$type);
+			$this->quote($text);
+			$this->quote($oid);
+			$this->quote($type);
 			$ref = aw_global_get("HTTP_REFERER");
-			$this->quote(&$ref);
+			$this->quote($ref);
 			$session_id = session_id();
 			if ($object_name === null)
 			{
 				$object_name = $this->db_fetch_field("SELECT name FROM objects where oid = '$oid'", "name");
 			}
-			$this->quote(&$object_name);
+			$this->quote($object_name);
 			$mail_id = isset($_GET["mlx"]) ? (int) $_GET["mlx"] : 0;
 			$fields = array("tm","uid","type","action","ip","oid","act_id", "referer", "object_name", "session_id", "mail_id");
 			$values = array($t,aw_global_get("uid"),$type,$text,$ip,(int)$oid,$action,$ref,$object_name, $session_id, $mail_id);
@@ -1217,7 +1217,7 @@ class core extends acl_base
 		{
 			$ot->foreach_cb(array(
 				"save" => false,
-				"func" => array(&$this, "_get_menu_list_cb"),
+				"func" => array($this, "_get_menu_list_cb"),
 				"param" => ""
 			));
 		}

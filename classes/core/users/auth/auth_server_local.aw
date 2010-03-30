@@ -42,7 +42,7 @@ class auth_server_local extends class_base
 		}
 
 		$msg = "";
-		$this->quote(&$_uid);
+		$this->quote($_uid);
 		$q = "SELECT * FROM users WHERE uid = '{$_uid}' AND (blocked = 0 OR blocked IS NULL)";
 		$this->db_query($q);
 		while ($row = $this->db_next())
