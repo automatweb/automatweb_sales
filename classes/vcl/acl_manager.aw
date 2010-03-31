@@ -54,16 +54,19 @@ class acl_manager extends class_base
 		}
 		foreach($o->acl_get() as $gid => $inf)
 		{
-			if (!$this->can("view", $gid))
+			try
 			{
-				continue;
+				$group = obj($gid, array(), CL_GROUP);
+				$dat = array("grp" => html::obj_change_url($gid));
+				foreach(aw_ini_get("acl.names") as $id => $name)
+				{
+					$dat[$id] = ($inf[$id] ? t("Jah") : t("Ei"));
+				}
+				$t->define_data($dat);
 			}
-			$dat = array("grp" => html::obj_change_url($gid));
-			foreach(aw_ini_get("acl.names") as $id => $name)
+			catch (Exception $e)
 			{
-				$dat[$id] = ($inf[$id] ? t("Jah") : t("Ei"));
 			}
-			$t->define_data($dat);
 		}
 		return $t->draw();
 	}
@@ -122,7 +125,7 @@ class acl_manager extends class_base
 		));
 	}
 
-	function _init_acl_tbl(&$t)
+	function _init_acl_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
