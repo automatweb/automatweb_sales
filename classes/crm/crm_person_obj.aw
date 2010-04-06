@@ -86,20 +86,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 				$professions[$o->prop("profession")] = $o->prop("profession.name");
 			}
 		}
-
-//vana versiooni toimimiseks...kui kedagi segab, v6ib 2ra kaotada
-		if(!sizeof($professions))
-		{
-			foreach($this->connections_from(array("type" => "RELTYPE_RANK")) as $c)
-			{
-				if(sizeof($professions) && !in_array($c->prop("to") , $units))//kui pole ette antud yksustes j2tab vahele
-				{
-					continue;
-				}
-				$professions[$c->prop("to")] = $c->prop("to.name");
-			}
-		}
-
 		return $professions;
 	}
 
