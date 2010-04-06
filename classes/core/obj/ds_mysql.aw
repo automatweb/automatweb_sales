@@ -711,7 +711,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		), $objdata);
 
 		// create oid
-		$q = "
+		$q = sprintf("
 			INSERT INTO objects (
 				parent,						class_id,						name,						createdby,
 				created,					modified,						status,						site_id,
@@ -720,13 +720,18 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				metadata,						subclass,					flags
 				$acld_fld
 		) VALUES (
-				'{$objdata["parent"]}',	'{$objdata["class_id"]}',		'{$objdata["name"]}',		'{$objdata["createdby"]}',
-				'{$objdata["created"]}',	'{$objdata["modified"]}',		'{$objdata["status"]}',	'{$objdata["site_id"]}',
-				'{$objdata["hits"]}',		'{$objdata["lang_id"]}',		'{$objdata["comment"]}',	'{$objdata["modifiedby"]}',
-				'{$objdata["jrk"]}',		'{$objdata["period"]}',		'{$objdata["alias"]}',	'{$objdata["periodic"]}',
-										'{$metadata}',				'{$objdata["subclass"]}',	'{$objdata["flags"]}'
+				%d,							%d,								'%s',						'%s',
+				%d,							%d,								%d,							%d,
+				%d,							%d,								'%s',						'%s',
+				%d,							%d,								'%s',						%d,
+				'%s',						%d,								%d
 				{$acld_val}
-		)";
+		)",		$objdata["parent"],		$objdata["class_id"],				$objdata["name"],			$objdata["createdby"],
+				$objdata["created"],	$objdata["modified"],				$objdata["status"],			$objdata["site_id"],
+				$objdata["hits"],		$objdata["lang_id"],				$objdata["comment"],		$objdata["modifiedby"],
+				$objdata["jrk"],		$objdata["period"],					$objdata["alias"],			$objdata["periodic"],
+				$metadata,				$objdata["subclass"],				$objdata["flags"]
+		);
 		//echo "q = <pre>". htmlentities($q)."</pre> <br />";
 
 		$this->db_query($q);
@@ -816,8 +821,11 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				foreach($dat["defaults"] as $fd => $vl)
 				{
 					$this->quote($vl);
-					$fds .=",`".$fd."`";
-					$vls .=",'".$vl."'";
+					if($vl !== NULL && $vl !== "")
+					{
+						$fds .= ",`".$fd."`";
+						$vls .= ",'".$vl."'";
+					}
 				}
 			}
 
