@@ -2538,7 +2538,7 @@ class menu extends class_base implements main_subtemplate_handler
 				$str = $arr["request"]["trans_".$lid."_alias"];
 				// No spaces in the end/beginning! -kaarel 6.02.2009
 				$nv = trim(iconv("UTF-8", $lang["charset"], $str));
-				$this->quote(&$nv);
+				$this->quote($nv);
 				$this->db_query("INSERT INTO aw_alias_trans(menu_id,lang_id,alias)
 					VALUES(".$o->id().", $lid, '$nv')");
 			}
