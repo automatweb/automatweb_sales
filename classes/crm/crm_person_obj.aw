@@ -81,7 +81,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 			{
 				continue;
 			}
-			if((!$co || $co == $o->prop("org")) && $o->prop("profession.name"))
+			if((!$co || $co == $o->prop("employer")) && $o->prop("profession.name"))
 			{
 				$professions[$o->prop("profession")] = $o->prop("profession.name");
 			}
