@@ -80,7 +80,7 @@ class xmlrpc extends aw_template
 		}
 		$result = array();
 		$parser = xml_parser_create();
-		xml_parse_into_struct($parser,$xml,&$this->vals,&$tags);
+		xml_parse_into_struct($parser, $xml, $this->vals, $tags);
 		$err = xml_get_error_code($parser);
 		if ($err)
 		{
@@ -92,63 +92,63 @@ class xmlrpc extends aw_template
 			{
 				$lines = explode("\n", $xml);
 				echo htmlspecialchars($lines[xml_get_current_line_number($parser)-1])." <br>";
-				$this->raise_error(ERR_XML_PARSER_ERROR,sprintf(t("Viga XML-RPC p2ringu vastuse dekodeerimisel: %s on line %s! %s"), xml_error_string($err),xml_get_current_line_number($parser),$xml), true,false);
+				$this->raise_error(ERR_XML_PARSER_ERROR,sprintf(t("Viga XML-RPC p2ringu vastuse dekodeerimisel: %s on line %s! %s"), xml_error_string($err),xml_get_current_line_number($parser), $xml), true,false);
 			}
 		}
 		xml_parser_free($parser);
 
 		foreach($this->vals as $k => $v)
 		{
-			$this->vals[$k]["value"] = iconv("utf-8", aw_global_get("charset")."//IGNORE", $v["value"]);
+			$this->vals[$k]["value"] = isset($v["value"]) ? iconv("utf-8", aw_global_get("charset")."//IGNORE", $v["value"]) : "";
 		}
 
 		reset($this->vals);
-		list(,$tmp) = each($this->vals);
+		list(, $tmp) = each($this->vals);
 //		echo "expect methodresponse open got $tmp[tag] $tmp[type] <br />";
-		list(,$is_err) = each($this->vals);
+		list(, $is_err) = each($this->vals);
 		if ($is_err["tag"] == "FAULT")
 		{
 //			echo "in fault: got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// value open
+			list(, $tmp) = each($this->vals);	// value open
 //			echo "in fault: expect value open got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// struct open
+			list(, $tmp) = each($this->vals);	// struct open
 //			echo "in fault: expect struct open got $tmp[tag] $tmp[type] <br />";
 
 			// faultcode member
-			list(,$tmp) = each($this->vals);	// member open
+			list(, $tmp) = each($this->vals);	// member open
 //			echo "in fault: expect member open got $tmp[tag] $tmp[type] <br />";
-			list(,$faultcode_name_v) = each($this->vals);	// name complete
+			list(, $faultcode_name_v) = each($this->vals);	// name complete
 //			echo "in fault: expect name complete got $faultcode_name_v[tag] $faultcode_name_v[type] <br />";
-			list(,$tmp) = each($this->vals);	// value open
+			list(, $tmp) = each($this->vals);	// value open
 //			echo "in fault: expect value open got $tmp[tag] $tmp[type] <br />";
 			// chomp value
 			$faultcode = $this->_proc_unser_data();
-			list(,$tmp) = each($this->vals);	// value close
+			list(, $tmp) = each($this->vals);	// value close
 //			echo "in fault: expect value close got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// member close
+			list(, $tmp) = each($this->vals);	// member close
 //			echo "in fault: expect member close got $tmp[tag] $tmp[type] <br />";
 
 			// faultstring
-			list(,$tmp) = each($this->vals);	// member open
+			list(, $tmp) = each($this->vals);	// member open
 //			echo "in fault: expect member open got $tmp[tag] $tmp[type] <br />";
-			list(,$faultstring_name) = each($this->vals);	// name complete
+			list(, $faultstring_name) = each($this->vals);	// name complete
 //			echo "in fault: expect name complete got $faultstring_name[tag] $faultstring_name[type] <br />";
-			list(,$tmp) = each($this->vals);	// value open
+			list(, $tmp) = each($this->vals);	// value open
 //			echo "in fault: expect value open got $tmp[tag] $tmp[type] <br />";
 			// chomp value
 			$faultstring = $this->_proc_unser_data();
-			list(,$tmp) = each($this->vals);	// value close
+			list(, $tmp) = each($this->vals);	// value close
 //			echo "in fault: expect value close got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// member close
+			list(, $tmp) = each($this->vals);	// member close
 //			echo "in fault: expect member close got $tmp[tag] $tmp[type] <br />";
 
-			list(,$tmp) = each($this->vals);	// struct close
+			list(, $tmp) = each($this->vals);	// struct close
 //			echo "in fault: expect member close got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// value close
+			list(, $tmp) = each($this->vals);	// value close
 //			echo "in fault: expect value close got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// value close
+			list(, $tmp) = each($this->vals);	// value close
 //			echo "in fault: expect fault close got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// value close
+			list(, $tmp) = each($this->vals);	// value close
 //			echo "in fault: expect methodresponse close got $tmp[tag] $tmp[type] <br />";
 			$errs = aw_ini_get("errors");
 			$faultcodestr = $errs[$faultcode][def];
@@ -157,21 +157,21 @@ class xmlrpc extends aw_template
 		else
 		{
 //			echo "in resp: expect params open got $is_err[tag] $is_err[type] <br />";
-			list(,$tmp) = each($this->vals);	// param open
+			list(, $tmp) = each($this->vals);	// param open
 //			echo "in resp: expect param open got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// value open
+			list(, $tmp) = each($this->vals);	// value open
 //			echo "in resp: expect value open got $tmp[tag] $tmp[type] <br />";
 
 			$retval = $this->_proc_unser_data();
 
-			list(,$tmp) = each($this->vals);	// value close
+			list(, $tmp) = each($this->vals);	// value close
 //			echo "in resp: expect value close got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// param close
+			list(, $tmp) = each($this->vals);	// param close
 //			echo "in resp: expect param close got $tmp[tag] $tmp[type] <br />";
-			list(,$tmp) = each($this->vals);	// params close
+			list(, $tmp) = each($this->vals);	// params close
 //			echo "in resp: expect params close got $tmp[tag] $tmp[type] <br />";
 
-			list(,$tmp) = each($this->vals);	// value close
+			list(, $tmp) = each($this->vals);	// value close
 //			echo "in resp: expect methodresponse close got $tmp[tag] $tmp[type] <br />";
 
 			return $retval;
@@ -195,7 +195,7 @@ class xmlrpc extends aw_template
 			$server = substr($server,7);
 		};
 
-		$fp = fsockopen($server,$port,&$this->errno, &$this->errstr, 5);
+		$fp = fsockopen($server, $port, $this->errno, $this->errstr,5);
 		$op = "POST $handler HTTP/1.0\r\n";
 		$op .= "User-Agent: AutomatWeb\r\n";
 		$op .= "Host: $server\r\n";
@@ -219,7 +219,7 @@ class xmlrpc extends aw_template
 		}
 
 		fclose($fp);
-		list($headers,$data) = explode("\r\n\r\n",$ipd);
+		list($headers, $data) = explode("\r\n\r\n", $ipd);
 		return $data;
 	}
 
@@ -243,7 +243,7 @@ class xmlrpc extends aw_template
 
 		$parser = xml_parser_create();
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
-		xml_parse_into_struct($parser,$xml,&$values,&$tags);
+		xml_parse_into_struct($parser, $xml, $values, $tags);
 		xml_parser_free($parser);
 
 		aw_global_set("__is_rpc_call", true);
@@ -365,7 +365,7 @@ class xmlrpc extends aw_template
 	function xmlrpc_serialize($val, $level = 0)
 	{
 		$pre = "";
-		$pad = str_repeat("  ",$level);
+		$pad = str_repeat("  ", $level);
 		// From PHP manual:
 		// ---------------------------------------------------------------------------------------
 		// Never use gettype() to test for a certain type, since the returned string may
@@ -411,7 +411,7 @@ class xmlrpc extends aw_template
 					$level++;
 					$pre .= $pad."    <name>".$k."</name>\n";
 					$pre .= $pad."    <value>\n";
-					$pre .= $this->xmlrpc_serialize($v,$level+1);
+					$pre .= $this->xmlrpc_serialize($v, $level+1);
 					$pre .= $pad."    </value>\n";
 					$pre .= $pad."  </member>\n";
 					$level--;
@@ -434,7 +434,7 @@ class xmlrpc extends aw_template
 		$pars = xml_parser_create();
 		$this->vals = array();
 		$index = array();
-		xml_parse_into_struct($pars, $str, &$this->vals, &$index);
+		xml_parse_into_struct($pars, $str, $this->vals, $index);
 		xml_parser_free($pars);
 
 		reset($this->vals);
@@ -459,7 +459,7 @@ class xmlrpc extends aw_template
 					$str = $v["value"];
 					// collect all cdata as well
 					do {
-						list(,$tmp) = each($this->vals);
+						list(, $tmp) = each($this->vals);
 						$cont = false;
 						if ($tmp["type"] == "cdata" && $tmp["tag"] == "STRING")
 						{
@@ -510,7 +510,7 @@ class xmlrpc extends aw_template
 					each($this->vals); // open data
 					$in_ar = true;
 					do {
-						list(,$tmp) = each($this->vals); // try open value
+						list(, $tmp) = each($this->vals); // try open value
 						if ($tmp["tag"] == "VALUE")
 						{
 							// got data close, that means end of array
@@ -536,11 +536,11 @@ class xmlrpc extends aw_template
 	function _expect($tag = false, $return_cdata = false)
 	{
 		do {
-			list($k,$tmp) = each($this->vals);
+			list($k, $tmp) = each($this->vals);
 			$is_sp = $tmp["type"] == "cdata" && trim($tmp["value"]) == "";
 			if ($return_cdata)
 			{
-				$is_sp = $is_sp && in_array($tmp["tag"],$this->allowed);
+				$is_sp = $is_sp && in_array($tmp["tag"], $this->allowed);
 			}
 		} while ($is_sp);
 		if ($tag && $tmp["tag"] != $tag)
