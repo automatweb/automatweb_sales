@@ -199,68 +199,18 @@ if ($class['is_remoted'] == 1)
 	$new_clini .= "classes[$new_clid][is_remoted] = ".$class['default_remote_server']."\n";
 }
 
-$fp = fopen(($args_from_caller ? AW_DIR : "") . 'config/ini/classes.ini','a');
-fputs($fp, $new_clini);
-fclose($fp);
-
 echo $new_clini;
-echo "\n";
-
-///////////////////////////////////
-// write syslog.ini
-///////////////////////////////////
-
-echo "parsing and adding to config/ini/syslog.ini..\n";
 
 // read and find the biggest number
-$sysini = _file_get_contents(($args_from_caller ? AW_DIR : "") . 'config/ini/syslog.ini');
-$new_sysid = $new_clid;
+$ini = _file_get_contents(($args_from_caller ? AW_DIR : "") . 'aw.ini');
+$matches = array();
+$matches = array();
+preg_match_all("/classes\[[0-9]+\]\[[_a-zA-Z0-9]+\]/", $ini, $matches);
+$start_of_last_class_definition_line = strrpos($ini, end($matches[0]));
+$index_of_first_new_line_after_class_definition = $start_of_last_class_definition_line + strpos(substr($ini, $start_of_last_class_definition_line), "\n") + 1;
+$ini = substr($ini, 0, $index_of_first_new_line_after_class_definition) .$new_clini. substr($ini, $index_of_first_new_line_after_class_definition);
 
-$first_match = false;
-$inserted = false;
-
-$new_sysini = array();
-$syslines = explode("\n", $sysini);
-foreach($syslines as $sl)
-{
-	if (trim($sl) != '')
-	{
-		if (!$first_match)
-		{
-			// check if we found the first line
-			if (strpos($sl, "syslog.types[") !== false)
-			{
-				$first_match = true;
-			}
-		}
-		else
-		{
-			if (strpos($sl, "syslog.types") === false && !$inserted)
-			{
-				// if we reached the end of types definitions, then add the new typedef to the end
-				$new_sysini[] = "syslog.types[".$new_sysid."][def] = ".$class['syslog.type'];
-				echo "wrote...syslog.types[".$new_sysid."][def] = ".$class['syslog.type']."\n";
-				$new_sysini[] = "syslog.types[".$new_sysid."][name] = ".$class['name'];
-				echo "wrote...syslog.types[".$new_sysid."][name] = ".$class['name']."\n";
-				$new_sysini[] = "";
-				$inserted = true;
-			}
-		}
-	}
-
-	// also add the new type to the end of SA_ADD and SA_CHANGE
-	if (strpos($sl, "syslog.actions[1][types]") !== false)
-	{
-		$sl = trim($sl).",".$new_sysid;
-	}
-	if (strpos($sl, "syslog.actions[3][types]") !== false)
-	{
-		$sl = trim($sl).",".$new_sysid;
-	}
-	$new_sysini[] = $sl;
-}
-
-_file_put_contents(($args_from_caller ? AW_DIR : "") . 'config/ini/syslog.ini',join("\n",$new_sysini));
+_file_put_contents(($args_from_caller ? AW_DIR : "") . 'aw.ini', $ini);
 
 echo "\n";
 
@@ -314,25 +264,13 @@ _file_put_contents(($args_from_caller ? AW_DIR : "") . "xml/orb/".$class['file']
 echo "created xml/orb/".$class['file'].".xml...\n";
 
 
-echo "\n\nmaking ini file...\n\n";
-if ($args_from_caller)
-{
-	$this->do_orb_method_call(array(
-		"class" => "sys",
-		"action" => "make_ini"
-	));
-}
-else
-{
-	passthru('make ini');
-}
-
 echo "\n\nmaking properties...\n\n";
 if ($args_from_caller)
 {
 	$this->do_orb_method_call(array(
 		"class" => "sys",
-		"action" => "make_prop"
+		"action" => "make_prop",
+		"classes" => $class["name"],
 	));
 }
 else
