@@ -133,7 +133,7 @@ class site_show extends class_base
 			$this->right_pane = false;
 		}
 
-		$this->do_check_properties(&$arr);
+		$this->do_check_properties($arr);
 		
 		$apd = get_instance("layout/active_page_data");
 		$rv = $this->do_show_template($arr);
@@ -512,13 +512,13 @@ class site_show extends class_base
 						{
 							if (method_exists($si, $fun))
 							{
-								$si->$fun(&$this);
+								$si->$fun($this);
 							}
 							else
 							{
 								if (function_exists($fun))
 								{
-									$fun(&$this);
+									$fun($this);
 								}
 							}
 						}
@@ -530,7 +530,7 @@ class site_show extends class_base
 					{
 						if ($this->is_template($sub))
 						{
-							$fun(&$this);
+							$fun($this);
 						}
 					}
 				}
@@ -541,7 +541,7 @@ class site_show extends class_base
 				{
 					if ($this->is_template($sub))
 					{
-						$fun(&$this);
+						$fun($this);
 					}
 				}
 			}
@@ -3049,7 +3049,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		$this->make_langs();
 
 		classload("core/util/minify_js_and_css");
-		minify_js_and_css::parse_site_header(& $this);
+		minify_js_and_css::parse_site_header($this);
 		
 		// execute menu drawing code
 		$this->do_draw_menus($arr);

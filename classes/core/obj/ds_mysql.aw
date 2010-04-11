@@ -711,7 +711,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		), $objdata);
 
 		// create oid
-		$q = "
+		$q = sprintf("
 			INSERT INTO objects (
 				parent,						class_id,						name,						createdby,
 				created,					modified,						status,						site_id,
@@ -720,13 +720,18 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				metadata,						subclass,					flags
 				$acld_fld
 		) VALUES (
-				'{$objdata["parent"]}',	'{$objdata["class_id"]}',		'{$objdata["name"]}',		'{$objdata["createdby"]}',
-				'{$objdata["created"]}',	'{$objdata["modified"]}',		'{$objdata["status"]}',	'{$objdata["site_id"]}',
-				'{$objdata["hits"]}',		'{$objdata["lang_id"]}',		'{$objdata["comment"]}',	'{$objdata["modifiedby"]}',
-				'{$objdata["jrk"]}',		'{$objdata["period"]}',		'{$objdata["alias"]}',	'{$objdata["periodic"]}',
-										'{$metadata}',				'{$objdata["subclass"]}',	'{$objdata["flags"]}'
+				%d,							%d,								'%s',						'%s',
+				%d,							%d,								%d,							%d,
+				%d,							%d,								'%s',						'%s',
+				%d,							%d,								'%s',						%d,
+				'%s',						%d,								%d
 				{$acld_val}
-		)";
+		)",		$objdata["parent"],		$objdata["class_id"],				$objdata["name"],			$objdata["createdby"],
+				$objdata["created"],	$objdata["modified"],				$objdata["status"],			$objdata["site_id"],
+				$objdata["hits"],		$objdata["lang_id"],				$objdata["comment"],		$objdata["modifiedby"],
+				$objdata["jrk"],		$objdata["period"],					$objdata["alias"],			$objdata["periodic"],
+				$metadata,				$objdata["subclass"],				$objdata["flags"]
+		);
 		//echo "q = <pre>". htmlentities($q)."</pre> <br />";
 
 		$this->db_query($q);
@@ -816,8 +821,11 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				foreach($dat["defaults"] as $fd => $vl)
 				{
 					$this->quote($vl);
-					$fds .=",`".$fd."`";
-					$vls .=",'".$vl."'";
+					if($vl !== NULL && $vl !== "")
+					{
+						$fds .= ",`".$fd."`";
+						$vls .= ",'".$vl."'";
+					}
 				}
 			}
 
@@ -1186,31 +1194,33 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$q = "SELECT MAX(idx) as idx FROM aliases where source = '$data[from]' and type = '$data[type]'";
 				$data["idx"] = $this->db_fetch_field($q, "idx")+1;
 			}
-			$q = "INSERT INTO aliases (
+			$q = sprintf("INSERT INTO aliases (
 				source,						target,					type,					data,
 				idx,						cached,					relobj_id,				reltype,
 				pri
 			) VALUES(
-				'{$data["from"]}',				'{$data["to"]}',			'{$data["type"]}',			'{$data["data"]}',
-				'{$data["idx"]}',				'{$data["cached"]}',		'{$data["relobj_id"]}',		'{$data["reltype"]}',
-				'{$data["pri"]}'
-			)";
+				%u,							%u,						%d,						'%s',
+				%d,							%d,						%u,						%u,
+				%u
+			)", 
+				$data["from"],				$data["to"],			$data["type"],			$data["data"],
+				$data["idx"],				$data["cached"],		$data["relobj_id"],		$data["reltype"],
+				$data["pri"]
+			);
 			$this->db_query($q);
 			$data['id'] = $this->db_last_insert_id();
 		}
 		else
 		{
-			$q = "UPDATE aliases SET
-				source = '{$data["from"]}',
-				target = '{$data["to"]}',
-				type = '{$data["type"]}',
-				data = '{$data["data"]}',
-				idx = '{$data["idx"]}',
-				cached = '{$data["cached"]}',
-				relobj_id = '{$data["relobj_id"]}',
-				reltype = '{$data["reltype"]}',
-				pri = '{$data["pri"]}'
-			WHERE id = '{$data["id"]}'";
+			$q = sprintf("UPDATE aliases SET
+				source = %u,		target = %u,		type = %d,			data = '%s',	idx = %d,
+				cached = %d,		relobj_id = %u,		reltype = %u,		pri = %u
+			WHERE
+				id = %u",
+				$data["from"],		$data["to"],		$data["type"],		$data["data"],	$data["idx"],
+				$data["cached"],	$data["relobj_id"], $data["reltype"],	$data["pri"],
+				$data["id"]
+			);
 			$this->db_query($q);
 		}
 		$this->save_connection_cache_update(null);
