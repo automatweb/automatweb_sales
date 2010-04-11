@@ -58,9 +58,9 @@ class mrp_resource_obj extends _int_object
 	public function awobj_set_thread_data($max_threads)
 	{ //!!! requires exclusive load
 		settype($max_threads, "int");
-		if ($max_threads < 1)
+		if ($max_threads < 0)
 		{
-			throw new awex_obj_type("Can't be less than 1 thread");
+			throw new awex_obj_type("Can't be negative number of threads");
 		}
 
 		$this->load_threads();

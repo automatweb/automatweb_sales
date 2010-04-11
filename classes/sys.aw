@@ -919,8 +919,10 @@ class sys extends aw_template
 
 /**
 	@attrib name=make_orb
+	@param classes optional type=string
+		comma separated list of classes to make orb definitions for.
 **/
-	function make_orb_definitions()
+	function make_orb_definitions($arr)
 	{
 		aw_set_exec_time(AW_LONG_PROCESS);
 
@@ -930,13 +932,14 @@ class sys extends aw_template
 		}
 
 		$_GET["in_popup"] = 1;
-		$this->_make_orb_definitions();
+		$classes = isset($arr["classes"]) ? explode(",", $arr["classes"]) : array();
+		$this->_make_orb_definitions($classes);
 	}
 
-	private function _make_orb_definitions()
+	private function _make_orb_definitions($classes = array())
 	{
 		aw_global_set("no_db_connection", 1);
-		$scanner = get_instance("core/orb/orb_gen");
+		$scanner = new orb_gen();
 		echo "<pre>";
 		$scanner->make_orb_defs_from_doc_comments();
 		echo "</pre>";

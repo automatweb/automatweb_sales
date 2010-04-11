@@ -1403,54 +1403,57 @@ class releditor extends core
 	function callback_post_save($arr)
 	{
 		// read the data from the serialized array
-		$dat = unserialize($arr["request"][$arr["prop"]["name"]."_data"]);
-		if (!is_array($dat))
+		if (isset($arr["request"][$arr["prop"]["name"]."_data"]))
 		{
-			return;
-		}
-		// for each row in the data, fake a submit to the correct class
-
-		$relinfo = $arr["obj_inst"]->get_relinfo();
-
-		$to_clid = $relinfo[$arr["prop"]["reltype"]]["clid"][0];
-		$class_name = basename(aw_ini_get("classes.{$to_clid}.file"));
-
-		$rels = $arr["obj_inst"]->get_property_list();
-
-		$idx2rel = array();
-		if (is_oid($arr["obj_inst"]->id()))
-		{
-			$idx = 0;
-			foreach($arr["obj_inst"]->connections_from(array("type" => $arr["prop"]["reltype"])) as $c)
+			$dat = unserialize($arr["request"][$arr["prop"]["name"]."_data"]);
+			if (!is_array($dat))
 			{
-				$idx2rel[$idx++] = $c->prop("to");
+				return;
+			}
+
+			// for each row in the data, fake a submit to the correct class
+			$relinfo = $arr["obj_inst"]->get_relinfo();
+
+			$to_clid = $relinfo[$arr["prop"]["reltype"]]["clid"][0];
+			$class_name = basename(aw_ini_get("classes.{$to_clid}.file"));
+
+			$rels = $arr["obj_inst"]->get_property_list();
+
+			$idx2rel = array();
+			if (is_oid($arr["obj_inst"]->id()))
+			{
+				$idx = 0;
+				foreach($arr["obj_inst"]->connections_from(array("type" => $arr["prop"]["reltype"])) as $c)
+				{
+					$idx2rel[$idx++] = $c->prop("to");
+				}
+			}
+
+			if($arr["request"]["cfgform"])
+			{
+				$cfgform = new cfgform();
+				$cfgproplist = $cfgform->get_cfg_proplist($arr["request"]["cfgform"]);
+			}
+
+			foreach($dat as $idx => $row)
+			{
+				$row["class"] = $class_name;
+				$row["action"] = "submit";
+				$row["parent"] = $arr["obj_inst"]->id();
+				$row["alias_to"] = $arr["obj_inst"]->id();
+				$row["alias_to_prop"] = $arr["prop"]["name"];
+				$row["reltype"] = $arr["prop"]["reltype"];
+				$row["id"] = $idx2rel[$idx];
+				$row["cfgform"] = $cfgproplist[$arr["prop"]["name"]]["cfgform_id"];
+				$i = get_instance($to_clid);
+				$i->submit($row);
 			}
 		}
-
-		if($arr["request"]["cfgform"])
-		{
-			$cfgproplist = get_instance(CL_CFGFORM)->get_cfg_proplist($arr["request"]["cfgform"]);
-		}
-
-		foreach($dat as $idx => $row)
-		{
-			$row["class"] = $class_name;
-			$row["action"] = "submit";
-			$row["parent"] = $arr["obj_inst"]->id();
-			$row["alias_to"] = $arr["obj_inst"]->id();
-			$row["alias_to_prop"] = $arr["prop"]["name"];
-			$row["reltype"] = $arr["prop"]["reltype"];
-			$row["id"] = $idx2rel[$idx];
-			$row["cfgform"] = $cfgproplist[$arr["prop"]["name"]]["cfgform_id"];
-			$i = get_instance($to_clid);
-			$i->submit($row);
-		}
-
 	}
 
 	function process_releditor($arr)
 	{
-		if("no" === $arr["prop"]["store"] or $arr["prop"]["mode"] === "manager2")
+		if("no" === $arr["prop"]["store"] or isset($arr["prop"]["mode"]) and $arr["prop"]["mode"] === "manager2")
 		{
 			return;
 		}
@@ -1460,9 +1463,9 @@ class releditor extends core
 
 		$clid = $arr["prop"]["clid"][0];
 
-		if ($arr["prop"]["reltype"])
+		if (!empty($arr["prop"]["reltype"]) and isset($arr["request"]["s_reled"]))
 		{
-			$ps = get_instance("vcl/popup_search");
+			$ps = new popup_search();
 			$ps->do_create_rels($obj, $arr["request"]["s_reled"], $arr["prop"]["reltype"]);
 		}
 
@@ -1473,7 +1476,7 @@ class releditor extends core
 		else
 		{
 			$use_clid = $clid;
-		};
+		}
 
 		if (!isset($prop['delete_relations']))
 		{
@@ -1482,7 +1485,7 @@ class releditor extends core
 
 		$act_prop = $prop["name"] . "_action";
 
-		if ("delete" === $arr["request"][$act_prop])
+		if (isset($arr["request"][$act_prop]) and "delete" === $arr["request"][$act_prop])
 		{
 			// XXX: this will fail, if there are multiple releditors on one page
 			$to_delete = new aw_array($arr["request"]["check"]);
@@ -1497,15 +1500,7 @@ class releditor extends core
 					$delete_default = true;
 				}
 
-				if (true || $prop['delete_relations'] == '1')
-				{
-					$c->delete();
-				}
-				else
-				{
-					$target = $c->to();
-					$target->delete();
-				}
+				$c->delete();
 			}
 
 			if ($delete_default)
@@ -1528,16 +1523,15 @@ class releditor extends core
 		$clinst = get_instance($use_clid);
 
 		$elname = $prop["name"];
-
-		$emb = $arr["request"][$elname];
+		$emb = isset($arr["request"][$elname]) ? $arr["request"][$elname] : array();
 		// _data is used to edit multiple connections at once
 		unset($emb["_data"]);
 
-		if (is_oid($emb["_default"]))
+		if (isset($emb["_default"]) and is_oid($emb["_default"]))
 		{
 			$prop["value"] = $emb["_default"];
 			$set_default_relation = $emb["_default"];
-		};
+		}
 
 		unset($emb["_default"]);
 
@@ -1569,7 +1563,7 @@ class releditor extends core
 			{
 				if ($item["type"] === "fileupload")
 				{
-					if (!is_array($emb[$item["name"]]))
+					if (!isset($emb[$item["name"]]) or !is_array($emb[$item["name"]]))
 					{
 						// ot, aga miks need 2 caset siin on?
 						$name = $item["name"];
@@ -1717,7 +1711,7 @@ class releditor extends core
 		// --dragut
 	//	$obj->save();
 
-		$things = $arr["request"][$elname]["_data"];
+		$things = isset($arr["request"][$elname]["_data"]) ? $arr["request"][$elname]["_data"] : array();
 		if (sizeof($things) > 0 && is_oid($obj->id()))
 		{
 			$conns = $obj->connections_from(array(
@@ -1735,11 +1729,12 @@ class releditor extends core
 						$to_obj->set_prop($propname,$propvalue);
 					};
 					$to_obj->save();
-				};
-			};
-		};
-		$num = (int) $arr["request"]["releditor_clones"];
-		if($arr["prop"]["clone_link"] == 1 && $num > 0)
+				}
+			}
+		}
+
+		$num = isset($arr["request"]["releditor_clones"]) ? (int) $arr["request"]["releditor_clones"] : 0;
+		if(!empty($arr["prop"]["clone_link"]) && $num > 0)
 		{
 			foreach(safe_array($arr["request"]["check"]) as $check)
 			{
