@@ -544,6 +544,17 @@
             <caption>Komponent</caption>
       </property>
       <property>
+            <name>s_bug_app</name>
+            <table>objects</table>
+            <group>search</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>s_type_lay</parent>
+            <captionside>top</captionside>
+            <field>s_bug_app</field>
+            <caption>Rakendus</caption>
+      </property>
+      <property>
             <name>s_customer</name>
             <table>objects</table>
             <group>search</group>
