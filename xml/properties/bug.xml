@@ -111,10 +111,9 @@
       <property>
             <name>bug_app</name>
             <group>general</group>
-            <table>objects</table>
+            <table>aw_bugs</table>
             <type>select</type>
-            <field>meta</field>
-            <method>serialize</method>
+            <field>aw_bug_app</field>
             <captionside>top</captionside>
             <parent>settings_col2</parent>
             <caption>Rakendus</caption>

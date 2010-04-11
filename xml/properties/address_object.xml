@@ -1,5 +1,8 @@
 <?xml version='1.0'?>
 <properties>
+      <property>
+            <comment>Sets address location.</comment>
+      </property>
       <classinfo>
             <maintainer>voldemar</maintainer>
       </classinfo>

@@ -41,7 +41,8 @@
             <name>parent_sector</name>
             <table>objects</table>
             <group>general</group>
-            <type>select</type>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PARENT</reltype>
             <store>no</store>
             <field>parent_sector</field>
             <caption>Parent</caption>
@@ -71,6 +72,15 @@
             <size>8</size>
             <field>kood</field>
             <caption>Tegevusala kood</caption>
+      </property>
+      <property>
+            <name>emtak_2008</name>
+            <table>kliendibaas_tegevusala</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>8</size>
+            <field>aw_emtak_2008</field>
+            <caption>EMTAK2008 kood</caption>
       </property>
       <property>
             <name>image</name>
@@ -150,6 +160,10 @@
                   <clid>CL_DOCUMENT</clid>
                   <caption>Dokument</caption>
             </DOCUMENT>
+            <PARENT>
+                  <value>3</value>
+                  <caption>Parent</caption>
+            </PARENT>
       </reltypes>
 </properties>
 
