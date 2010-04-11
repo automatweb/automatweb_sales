@@ -15,12 +15,12 @@ class mrp_job_obj extends _int_object
 
 	const STATE_NEW = 1; // job hasn't been planned yet
 	const STATE_PLANNED = 2; // start time has been planned. job is in schedule
-	const STATE_ONHOLD = 14; // start time has been planned. job is not in schedule but can be rescheduled
-	const STATE_ABORTED = 4; // work was started but then stopped with no knowledge if resumed in future
+	const STATE_ONHOLD = 14; // start time has been planned. job is not in schedule but can be rescheduled. workflow can not continue.
+	const STATE_ABORTED = 4; // work was started but then stopped with no knowledge if resumed in future. workflow can not continue.
 	const STATE_DONE = 5; // job is completed
 	const STATE_LOCKED = 6;
 	const STATE_DELETED = 8; // job is deleted
-	const STATE_CANCELED = 13; // job is canceled, job is not in schedule. replanning/rescheduling is not available
+	const STATE_CANCELED = 13; // job is canceled, job is not in schedule. replanning/rescheduling is not available. workflow can continue.
 
 	// states that mark a job that is in progress
 	const STATE_PAUSED = 7; // in progress but on pause, resource is reserved

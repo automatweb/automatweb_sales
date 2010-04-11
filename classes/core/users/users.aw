@@ -5,6 +5,8 @@
 
 class users extends users_user implements request_startup
 {
+	public $hfid = 0;
+
 	function users()
 	{
 		$this->init("automatweb/users");
@@ -38,9 +40,7 @@ class users extends users_user implements request_startup
 	**/
 	function change_password_not_logged($arr)
 	{
-		aw_disable_acl();
 		$uo = obj($arr["uid"]);
-		aw_restore_acl();
 		$this->read_template("changepwdnotlogged.tpl");
 		$this->vars(array(
 			"username" => $uo->prop('uid'),
@@ -79,10 +79,8 @@ class users extends users_user implements request_startup
 		}
 		else
 		{
-			$auth = get_instance(CL_AUTH_SERVER_LOCAL);
-			aw_disable_acl();
+			$auth = new auth_server_local();
 			$uo = obj($username);
-			aw_restore_acl();
 			list($success, $error) = $auth->check_auth(NULL, array(
 				"uid" =>  $uo->prop("uid"),
 				"password" => $old_pass,
@@ -103,13 +101,11 @@ class users extends users_user implements request_startup
 		else
 		if ($success)
 		{
-			aw_disable_acl();
 			$user_obj = obj($username);
 			$logins = $user_obj->prop("logins") + 1;
 			$user_obj->set_prop("logins", $logins);
 			$user_obj->set_password($new_pass);
 			$user_obj->save();
-			aw_restore_acl();
 
 			return $this->login(array(
 				"uid" => $user_obj->prop("uid"),
@@ -135,12 +131,10 @@ class users extends users_user implements request_startup
 		}
 
 		$oid = aw_global_get("uid_oid");
-		aw_disable_acl();
 		$o = obj($oid);
 		$o->set_password($arr["pwd"]);
 		$o->set_prop("email",$arr["email"]);
 		$o->save();
-		aw_restore_acl();
 
 		if ($send_welcome_mail)
 		{
@@ -187,12 +181,14 @@ class users extends users_user implements request_startup
 		{
 			aw_session_set("status_msg",t("Vigane kasutajanimi"));
 			return $this->mk_my_orb("send_hash",array());
-		};
+		}
+
 		if (($type == "email") && !is_email($email))
 		{
 			aw_session_set("status_msg",t("Vigane e-posti aadress"));
 			return $this->mk_my_orb("send_hash",array());
-		};
+		}
+
 		$filt = array(
 			"class_id" => CL_USER,
 			"lang_id" => array(),
@@ -200,15 +196,16 @@ class users extends users_user implements request_startup
 			"blocked" => new obj_predicate_not(1),
 			"brother_of" => new obj_predicate_prop("id")
 		);
-		if ($type == "uid")
+
+		if ($type === "uid")
 		{
 			$filt["uid"] = $uid;
 		}
 		else
 		{
 			$filt["email"] = $email;
-		};
-		aw_disable_acl();
+		}
+
 		$ol = new object_list($filt);
 		foreach($ol->arr() as $o)
 		{
@@ -216,7 +213,6 @@ class users extends users_user implements request_startup
 			{
 				$status_msg .= sprintf(t("Kasutajal %s puudub korrektne e-posti aadress. Palun p&ouml;&ouml;rduge veebisaidi haldaja poole"), $o->prop("uid"));
 				aw_session_set("status_msg", $status_msg);
-				aw_restore_acl();
 				return $this->mk_my_orb("send_hash",array());
 			};
 
@@ -241,10 +237,10 @@ class users extends users_user implements request_startup
 				"status_msg",
 				sprintf(t("Parooli muutmise link saadeti  aadressile <b>%s</b>. Vaata oma postkasti<br />T&auml;name!<br />"), $o->prop("email"))
 			);
-		};
-		aw_restore_acl();
-die();
-		return $this->mk_my_orb("send_hash",array("section" => $args["section"]));
+		}
+
+		exit;
+		// return $this->mk_my_orb("send_hash",array("section" => $args["section"]));
 	}
 
 	/** Allows the user to change his/her password from the link in the email sent by submit_send_hash
@@ -275,7 +271,6 @@ die();
 			"blocked" => new obj_predicate_not(1),
 			"uid" => $uid
 		);
-		aw_disable_acl();
 		$ol = new object_list($filt);
 		if (!$ol->count())
 		{
@@ -288,7 +283,6 @@ die();
 		};
 
 		$uo = $ol->begin();
-		aw_restore_acl();
 
 		$pwhash = $uo->meta("password_hash");
 		if ($pwhash != $key)
@@ -330,9 +324,7 @@ die();
 	function submit_password_hash($args = array())
 	{
 		extract($args);
-		aw_disable_acl();
 		$uo = obj($args["uid"]);
-		aw_restore_acl();
 		if ($uo->class_id() != CL_USER && $uo->prop("blocked") != 1)
 		{
 			aw_session_set("status_msg",t("Sellist kasutajat pole registreeritud"));
@@ -358,9 +350,7 @@ die();
 			return $this->mk_my_orb("pwhash",array("u" => $uo->prop("uid"),"k" => $pwhash));
 		};
 		$uo->set_password($pass1);
-		aw_disable_acl();
 		$uo->save();
-		aw_restore_acl();
 
 		$this->_log(ST_USERS, SA_CHANGE_PWD, $uo->prop("uid"));
 		aw_session_set("status_msg","<b><font color=green>".t("Parool on edukalt vahetatud.")."</font></b>");
@@ -385,7 +375,6 @@ die();
 		}
 		else
 		{
-			aw_disable_acl();
 			$u_obj = obj($u_oid);
 			if ($u_obj->class_id() != CL_USER)
 			{
@@ -395,7 +384,6 @@ die();
 			{
 				$gl = $u_obj->get_groups_for_user();
 			}
-			aw_restore_acl();
 
 			foreach($gl as $g_oid => $g_obj)
 			{
@@ -489,9 +477,7 @@ die();
 				$admr = array();
 				foreach($gidlist_pri_oid as $g_oid => $_pri)
 				{
-					aw_disable_acl();
 					$o = obj($g_oid);
-					aw_restore_acl();
 					$ar2 = $this->_get_admin_rootmenu_from_group($o, true);
 					if ($ar2 !== null)
 					{
@@ -517,9 +503,7 @@ die();
 			// now the only problem is how do I identify the group.
 			// that's gonna be a problem, but I guess the only way is the config table.
 
-			aw_disable_acl();//!!! peaks olema ajutine! See grupp peab olema aw default obj ja k6igile antud 6igustega
 			$nlg_o = obj(group::get_non_logged_in_group());
-			aw_restore_acl();
 			$nlg = $nlg_o->prop("gid");
 
 			$gidlist = array($nlg => $nlg);
@@ -560,7 +544,6 @@ die();
 		$ts = time();
 		$hash = substr(gen_uniq_id(),0,15);
 
-		aw_disable_acl();
 		$uo = obj($u_oid);
 		$uo->set_meta("password_hash",$hash);
 		$uo->set_meta("password_hash_timestamp",$ts);
@@ -568,7 +551,6 @@ die();
 		{
 			$uo->save();
 		}
-		aw_restore_acl();
 
 		$host = aw_global_get("HTTP_HOST");
 		return str_replace("orb.aw", "index.aw", str_replace("/automatweb", "", $this->mk_my_orb("pwhash",array(
@@ -607,7 +589,7 @@ die();
 			echo "adding groups... <br>\n";
 			flush();
 
-			$grp_i = get_instance(CL_GROUP);
+			$grp_i = new group();
 			$aug = obj($grp_i->add_group($ini_opts["groups.tree_root"],"K&otilde;ik kasutajad", group_obj::TYPE_REGULAR, 1000));
 			$ini_opts["groups.all_users_grp"] = $aug->prop("gid");
 
@@ -644,7 +626,7 @@ die();
 			$osi_vars["groups.editors"] = $editors;
 
 			// create default user
-			$us = get_instance(CL_USER);
+			$us = new user();
 			$user_o = $us->add_user(array(
 				"uid" => $site["site_obj"]["default_user"],
 				"password" => $site["site_obj"]["default_user_pwd"],
@@ -704,7 +686,7 @@ die();
 	function send_welcome_mail($arr)
 	{
 		$o = obj($arr["u_uid"]);
-		$c = get_instance("config");
+		$c = new config();
 		$mail = $c->get_simple_config("join_mail".aw_global_get("LC"));
 		$mail = str_replace("#parool#", $arr["pass"],$mail);
 		$mail = str_replace("#kasutaja#", $o->prop("uid"),$mail);
@@ -748,7 +730,7 @@ die();
 		$last = $this->fix_name($last);
 		$suffix = "";
 		$count = 0;
-		$user = get_instance("core/users/user");
+		$user = new user();
 		while(true)
 		{
 			$uid = $first.".".$last.$suffix;
@@ -817,7 +799,6 @@ die();
 
 		$arr["uid"] = $this->_find_username($arr["firstname"],$arr["lastname"]);
 		$password = substr(gen_uniq_id(),0,8);
-		aw_disable_acl();
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
 			"personal_id" => $ik->get(),
@@ -826,9 +807,8 @@ die();
 			"status" => new obj_predicate_not(STAT_DELETED)
 		));
 
-		if($ol->count() < 1 && aw_ini_get("users.id_only_existing") == "1")
+		if($ol->count() < 1 && aw_ini_get("users.id_only_existing"))
 		{ // only people who have a user object in this system can log in with id card
-			aw_restore_acl();
 			return aw_ini_get("baseurl");
 		}
 
@@ -850,7 +830,7 @@ die();
 			}
 
 			$person_obj = new object();
-			$person_obj->set_class_id(145);
+			$person_obj->set_class_id(CL_CRM_PERSON);
 			$person_obj->set_parent(aw_ini_get("users.root_folder"));
 			$person_obj->set_name($arr["uid"]);
 			$person_obj->set_prop("personal_id",$ik->get());
@@ -864,10 +844,13 @@ die();
 				"type" => "RELTYPE_PERSON"
 			));
 			$u_obj->save();
-			$c = get_instance("cache");
-			$c->file_clear_pt("storage_object_data");
-			$c->file_clear_pt("storage_search");
-			$c->file_clear_pt("acl");
+			cache::file_clear_pt("storage_object_data");
+			cache::file_clear_pt("storage_search");
+
+			if (!aw_ini_get("acl.no_check"))
+			{
+				cache::file_clear_pt("acl");
+			}
 		}
 		else
 		{
@@ -880,7 +863,7 @@ die();
 			if(count($conns) < 1)
 			{
 				$person_id = current($ol->ids());
-				$user = get_instance("core/users/user");
+				$user = new user();
 				$u_obj = $user->add_user(array(
 					"uid" => $arr["uid"],
 					"password" => $password,
@@ -894,10 +877,13 @@ die();
 					"type" => 2,
 				));
 				$o->save();
-				$c = get_instance("cache");
-				$c->file_clear_pt("storage_object_data");
-				$c->file_clear_pt("storage_search");
-				$c->file_clear_pt("acl");
+				cache::file_clear_pt("storage_object_data");
+				cache::file_clear_pt("storage_search");
+
+				if (!aw_ini_get("acl.no_check"))
+				{
+					cache::file_clear_pt("acl");
+				}
 			}
 			else
 			{
@@ -906,7 +892,6 @@ die();
 				$arr["uid"] = $obj->prop("name");
 			}
 		}
-		aw_restore_acl();
 		$hash = gen_uniq_id();
 		$q = "INSERT INTO user_hashes (hash, hash_time, uid) VALUES('".$hash."','".(time()+60)."','".$arr["uid"]."')";
 		$res = $this->db_query($q);
@@ -1063,9 +1048,7 @@ die();
 
 	private function _init_group_settings($group_oid, $inherit = true)
 	{
-		aw_disable_acl();
 		$o = obj($group_oid);
-		aw_restore_acl();
 		$admin_rootmenu = $this->_get_admin_rootmenu_from_group($o, $inherit);
 		if ($admin_rootmenu !== null)
 		{

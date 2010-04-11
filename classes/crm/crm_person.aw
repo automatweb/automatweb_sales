@@ -4220,7 +4220,7 @@ class crm_person extends class_base
 
 	function callback_pre_save($arr)
 	{
-		if(is_array($arr["request"]["speaking"]))
+		if(isset($arr["request"]["speaking"]) and is_array($arr["request"]["speaking"]))
 		{
 			foreach ($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_LANGUAGE_SKILL")) as $conn)
 			{
@@ -4241,7 +4241,7 @@ class crm_person extends class_base
 				$obj->set_prop("understanding", $arr["request"]["understanding"][$lang]);
 				$obj->set_prop("kogemusi", $arr["request"]["kogemusi"][$lang]);
 
-				$lang_obj = &obj($lang);
+				$lang_obj = obj($lang);
 				$obj->set_prop("name", $lang_obj->name());
 				$obj->save();
 
@@ -4251,7 +4251,8 @@ class crm_person extends class_base
 				));
 			}
 		}
-		if(is_array($arr["request"]["project_tasks"]) && count($arr["request"]["project_tasks"]))
+
+		if(isset($arr["request"]["project_tasks"]) && is_array($arr["request"]["project_tasks"]) && count($arr["request"]["project_tasks"]))
 		{
 			$tasks = $this->get_work_project_tasks($arr["obj_inst"]->id());
 			foreach($arr["request"]["project_tasks"] as $project => $task)
@@ -4260,7 +4261,8 @@ class crm_person extends class_base
 			}
 			$this->set_work_project_tasks($arr["obj_inst"]->id(), $tasks);
 		}
-		if($arr["request"]["group"] == "work_projects")
+
+		if($arr["request"]["group"] === "work_projects")
 		{
 			$tasks = $this->get_work_project_tasks($arr["obj_inst"]->id());
 			foreach($tasks as $project => $data)
@@ -4274,7 +4276,7 @@ class crm_person extends class_base
 		if (!empty($arr["request"]["ofr_id"]))
 		{
 			$arr["obj_inst"]->set_meta("temp_ofr_id", $arr["request"]["ofr_id"]);
-		};
+		}
 	}
 
 

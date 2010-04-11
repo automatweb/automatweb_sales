@@ -6,14 +6,14 @@
 /** aw orb def generator
 
 	@author terryf <kristo@struktuur.ee>
-	@cvs $Id: orb_gen.aw,v 1.6 2009/07/14 09:54:04 instrumental Exp $
-
 	@comment
 	generates orb defs, based on information from docgen_analyzer
 **/
 
 class orb_gen extends class_base
 {
+	private $tagdata = array();
+
 	function orb_gen()
 	{
 		$this->init("core/docgen");
@@ -102,13 +102,13 @@ class orb_gen extends class_base
 					{
 						$x_p["value"] = $p_dat["value"];
 					}
-					
+
 					$this->validate_fields(array(
 						"data" => $p_dat,
 						"type" => "param",
 						"func" => $f_name,
 					));
-					
+
 					$arguments[$p_name] = $x_p;
 				}
 
@@ -131,16 +131,16 @@ class orb_gen extends class_base
 		if (substr($folder,0,1) == "/")
 		{
 			$folder = substr($folder,1);
-		};
-		$xml .= "\t<class name=\"".$classdata["name"]."\" folder=\"".$folder."\" extends=\"".$classdata["extends"]."\">\n";
+		}
+		$xml .= "\t<class name=\"{$classdata["name"]}\" extends=\"{$classdata["extends"]}\">\n";
 		foreach($arr as $aname => $adata)
 		{
 			// tuleb moodustada action string
 			// tuleb moodustada function string
-			$xml .= "\t\t<action name=\"$aname\"";
+			$xml .= "\t\t<action name=\"{$aname}\"";
 			foreach($adata["actionattribs"] as $act_name => $act_value)
 			{
-				$xml .= " $act_name=\"$act_value\"";
+				$xml .= " {$act_name}=\"{$act_value}\"";
 			};
 			$xml .= ">\n";
 			$xml .= "\t\t\t<function name=\"" . $adata["function"] . "\">\n";
@@ -272,30 +272,25 @@ class orb_gen extends class_base
 		return $xml;
 	}
 
-	function make_orb_defs_from_doc_comments()
+	function make_orb_defs_from_doc_comments($classes = array())
 	{
+		throw new aw_exception("ORB definition automatic generation disabled in this AutomatWeb version.");
 		$p = new parser();
 		$files = array();
 		$p->_get_class_list(&$files, AW_DIR . "classes");
 
 		foreach($files as $file)
 		{
-			/*
-			$ignp = $this->cfg["basedir"]."/classes/core/locale";
-			if (substr($file, 0, strlen($ignp)) == $ignp)
-			{
-				continue;
-			}
-			*/
 			// check if file is modified
-			$clmod = @filemtime($file);
-			$xmlmod = @filemtime(AW_DIR . "xml/orb/".basename($file, ".aw").".xml");
+			$xml_file = AW_DIR . "xml/orb/".basename($file, AW_FILE_EXT).".xml";
+			$clmod = filemtime($file);
+			$xmlmod = file_exists($xml_file) ? filemtime($xml_file) : 0;
 
 			if ($clmod >= $xmlmod)
 			{
 				$da = new aw_code_analyzer();
 				$cld = $da->analyze_file($file, true);
-				
+
 				// if there are no classes in the file then it gets ignored
 				if (!is_array($cld["classes"]) || count($cld["classes"]) < 1)
 				{
@@ -303,8 +298,8 @@ class orb_gen extends class_base
 				}
 
 				foreach($cld["classes"] as $class => $cldat)
-				{					
-					if (is_array($cldat["functions"]) && !empty($class) && strtolower($class) == strtolower(basename($file, ".aw")))
+				{
+					if (is_array($cldat["functions"]) && !empty($class) && strtolower($class) == strtolower(basename($file, AW_FILE_EXT)))
 					{
 						// count orb methods
 						$orb_method_count = 0;
@@ -341,14 +336,10 @@ class orb_gen extends class_base
 							{
 								continue;
 							}
-						};
+						}
+
 						echo "make orb defs for $file\n";
 						$xml = $this->_get_orb_xml($od,$cldat);
-						//print_r($xml);
-						//continue;
-						//$od = str_replace(substr($this->cfg["basedir"]."/classes/",1), "", $this->_get_orb_defs($cldat));
-						//$od = str_replace(substr($this->cfg["basedir"]."/classes",1), "", $od);
-
 						$this->put_file(array(
 							"file" => AW_DIR . "xml/orb/{$class}.xml",
 							"content" => $xml
@@ -383,9 +374,11 @@ class orb_gen extends class_base
 		$xml = simplexml_load_file($xmldir."orb_types.xml");
 		foreach($xml->children() as $k1 => $v1)
 		{
-			foreach($v1->children() as $k2 => $v2)
+			$children = $v1->children();
+			foreach($children as $k2 => $v2)
 			{
-				$data[$k1][$k2] = reset($v2->attributes());
+				$attributes = $v2->attributes();
+				$data[$k1][$k2] = reset($attributes);
 			}
 		}
 		$this->tagdata = $data;
