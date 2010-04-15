@@ -11,7 +11,7 @@
 	analyses aw code
 **/
 
-class aw_code_analyzer extends class_base
+class aw_code_analyzer extends core
 {
 	private $faccess_lut = array(
 		T_PRIVATE => "private",
@@ -19,7 +19,7 @@ class aw_code_analyzer extends class_base
 		T_PROTECTED => "protected"
 	);
 
-	private $file_source;
+	private $file_source = "";
 	private $tokens;
 	private $cur_line;
 	private $cur_file;
@@ -61,7 +61,7 @@ class aw_code_analyzer extends class_base
 			and 'file' parameter must begin with '/' (slash).
 			If 'file' parameter contains full path to file, then second parameter has to be set true.
 		@examples
-			$analyzer = get_instance("core/aw_code_analyzer/aw_code_analyzer");
+			$analyzer = new aw_code_analyzer();
 
 			$filename_fp = '/www/automatweb_new/classes/db.aw';
 			$filename = '/vcl/calendar.aw';
@@ -74,20 +74,15 @@ class aw_code_analyzer extends class_base
 	{
 		if (!$is_fp)
 		{
-			$fp = aw_ini_get("basedir")."/classes".$file;
+			$fp = aw_ini_get("basedir")."/classes{$file}";
 		}
 		else
 		{
 			$fp = $file;
 		}
+
 		$this->file_source = is_readable($fp) ? file_get_contents($fp) : "";
 		$this->tokens = token_get_all($this->file_source);
-
-/*		foreach($this->tokens as $tok)
-		{
-			$this->dump_tok($tok, false);
-		}
-die();*/
 
 		$this->data = array();
 		$this->brace_level = 0;
@@ -127,10 +122,10 @@ die();*/
 						break;
 
 					// this handles ${variable}'s in code
-					case T_DOLLAR_OPEN_CURLY_BRACES:
-						$this->handle_brace_begin();
+					// case T_DOLLAR_OPEN_CURLY_BRACES:
+						// $this->handle_brace_begin();
 						//$this->handle_variable_ref($token);
-						break;
+						// break;
 
 					case T_STRING:
 						$this->handle_t_string($token);
@@ -263,7 +258,6 @@ die();*/
 		{
 			die("assert failed in file ".$this->cur_file."on line ".$this->get_line()." token = {id => ".token_name($tok[0]).", str = ".$tok[1]." } expected ".token_name($id).dbg::process_backtrace(debug_backtrace(),-1));
 		}
-		//$this->dump_context();
 	}
 
 	function assert_fail($tok)
@@ -345,7 +339,6 @@ die();*/
 		$this->parse_maintainer_version();
 
 		$tok = $this->get();
-//$this->dump_tok($tok, false);
 		if (is_array($tok))
 		{
 			list($id, $str) = $tok;
@@ -496,7 +489,7 @@ die();*/
 			else
 			{
 				// if it's a ")", then we got to the end of arguments
-				if ($tok == ")")
+				if ($tok === ")")
 				{
 					break;
 				}
@@ -515,7 +508,7 @@ die();*/
 
 			// possible sequence var [= type]|[,]|[)]
 			$next = $this->get();
-			if (!is_array($next) && $next == "=")
+			if (!is_array($next) && $next === "=")
 			{
 				// default value
 				$defval = $this->get();
@@ -556,7 +549,7 @@ die();*/
 			}
 
 			// if the arguments default value is something like 'self::SOMETHING' then handle it:
-			if (is_array($next) && $next[1] == '::'){
+			if (is_array($next) && $next[1] === '::'){
 				$defval .= '::';
 				$next = $this->get();
 				$defval .= $next[1];
@@ -565,13 +558,13 @@ die();*/
 
 			if (!is_array($next))
 			{
-				if ($next == ",")
+				if ($next === ",")
 				{
 					// no problem
 					;
 				}
 				else
-				if ($next == ")")
+				if ($next === ")")
 				{
 					// put it back
 					$this->back();
@@ -597,7 +590,6 @@ die();*/
 				"is_ref" => $arg_is_ref,
 				"typehint" => $var_typehint
 			);
-			//$this->dump_tok($tok);
 			$tok = $this->get();
 		}
 
@@ -607,7 +599,6 @@ die();*/
 
 	function handle_function_end()
 	{
-//echo "func end track vars = local =".dbg::dump($this->var_track_func_scope)." class = ".dbg::dump($this->var_track_class_scope)." glob = ".dbg::dump($this->var_track_glob_scope)." <br>";
 		$this->data["classes"][$this->current_class]["functions"][$this->current_function]["tracked_vars"] = $this->var_track_func_scope;
 		$this->var_track_func_scope = array();
 		$this->data["classes"][$this->current_class]["functions"][$this->current_function]["end_line"] = $this->get_line();
@@ -628,12 +619,12 @@ die();*/
 		while ($level > 0)
 		{
 			$tok = $this->get();
-			if (!is_array($tok) && $tok == "(")
+			if (!is_array($tok) && $tok === "(")
 			{
 				$level++;
 			}
 
-			if (!is_array($tok) && $tok == ")")
+			if (!is_array($tok) && $tok === ")")
 			{
 				$level--;
 			}
@@ -644,7 +635,7 @@ die();*/
 
 	function parse_doc_comment($str)
 	{
-		if (substr($str, 0, 3) != "/**" || ($this->get_line() - 1) != $this->last_comment_line)
+		if (substr($str, 0, 3) !== "/**" || ($this->get_line() - 1) != $this->last_comment_line)
 		{
 			return false;
 		}
@@ -658,13 +649,13 @@ die();*/
 		while (list(, $line) = each($lines))
 		{
 			$line = trim($line);
-			if (substr($line, 0, strlen("@attrib")) == "@attrib")
+			if (substr($line, 0, strlen("@attrib")) === "@attrib")
 			{
 				// parse attributes
 				$data["attribs"] = $this->_do_parse_attributes(trim(substr($line, strlen("@attrib"))));
 			}
 			else
-			if (substr($line, 0, strlen("@param")) == "@param")
+			if (substr($line, 0, strlen("@param")) === "@param")
 			{
 				// parse parameter
 				$_pm = trim(substr($line, strlen("@param")));
@@ -683,7 +674,7 @@ die();*/
 						prev($lines);
 						break;
 					}
-					elseif (substr($line, 0, 3) == "**/")
+					elseif (substr($line, 0, 3) === "**/")
 					{
 						break;
 					}
@@ -696,20 +687,20 @@ die();*/
 				}
 			}
 			else
-			if (substr($line, 0, strlen("@returns")) == "@returns")
+			if (substr($line, 0, strlen("@returns")) === "@returns")
 			{
 				$data["returns"] = trim(substr($line, strlen("@returns")));
 				// now loop, until we find the end or next parameter
 				while (list(, $line) = each($lines))
 				{
 					$line = trim($line);
-					if (isset($line{0}) && $line{0} == "@")
+					if (isset($line{0}) && $line{0} === "@")
 					{
 						prev($lines);
 						break;
 					}
 					else
-					if (substr($line, 0, 3) == "**/")
+					if (substr($line, 0, 3) === "**/")
 					{
 						break;
 					}
@@ -723,20 +714,20 @@ die();*/
 				$data["returns"] = trim($data["returns"]);
 			}
 			else
-			if (substr($line, 0, strlen("@comment")) == "@comment")
+			if (substr($line, 0, strlen("@comment")) === "@comment")
 			{
 				$data["comment"] = trim(substr($line, strlen("@comment")));
 				// now loop, until we find the end or next parameter
 				while (list(, $line) = each($lines))
 				{
 					$line = trim($line);
-					if (strlen($line) and $line{0} == "@")
+					if (strlen($line) and $line{0} === "@")
 					{
 						prev($lines);
 						break;
 					}
 					else
-					if (substr($line, 0, 3) == "**/")
+					if (substr($line, 0, 3) === "**/")
 					{
 						break;
 					}
@@ -749,20 +740,20 @@ die();*/
 				$data["comment"] = trim($data["comment"]);
 			}
 			else
-			if (substr($line, 0, strlen('@errors')) == '@errors')
+			if (substr($line, 0, strlen('@errors')) === '@errors')
 			{
 				$data['errors'] = trim(substr($line, strlen('@errors')));
 				// now loop, until we find the end or next parameter
 				while (list(, $line) = each($lines))
 				{
 					$line = trim($line);
-					if (isset($line{0}) && $line{0} == "@")
+					if (isset($line{0}) && $line{0} === "@")
 					{
 						prev($lines);
 						break;
 					}
 					else
-					if (substr($line, 0, 3) == "**/")
+					if (substr($line, 0, 3) === "**/")
 					{
 						break;
 					}
@@ -777,7 +768,7 @@ die();*/
 
 			}
 			else
-			if (substr($line, 0, strlen('@examples')) == '@examples')
+			if (substr($line, 0, strlen('@examples')) === '@examples')
 			{
 				$data['examples'] = trim(substr($line, strlen('@examples')));
 				// now loop, until we find the end or next parameter
@@ -790,13 +781,13 @@ die();*/
 					if ( (strpos($line, '@') !== false) || (strpos($line, '**/') !== false) )
 					{
 						$line = trim($line);
-						if ($line{0} == "@")
+						if ($line{0} === "@")
 						{
 							prev($lines);
 							break;
 						}
 						else
-						if (substr($line, 0, 3) == "**/")
+						if (substr($line, 0, 3) === "**/")
 						{
 							break;
 						}
@@ -848,9 +839,10 @@ die();*/
 				}
 				else
 				{
-					$line = str_replace($match, "<a href=\"".$url."\">$match</a>", $line);
+					$line = str_replace($match, "<a href=\"{$url}\">{$match}</a>", $line);
 				}
 			}
+
 			if($replace)
 			{
 				$line["line"] = $line_back;
@@ -875,7 +867,7 @@ die();*/
 		{
 			if ($in_att_name)
 			{
-				if ($str{$i} == "=")
+				if ($str{$i} === "=")
 				{
 					$in_att_name = false;
 					$in_att_value = true;
@@ -888,18 +880,18 @@ die();*/
 			else
 			if ($in_att_value)
 			{
-				if ($str{$i} == "\"" && trim($cur_att_value) == "")
+				if ($str{$i} === "\"" && trim($cur_att_value) === "")
 				{
 					$att_val_quoted = true;
 				}
 
 				$end_value = false;
-				if ($att_val_quoted && $str{$i} == "\"" && trim($cur_att_value) != "")
+				if ($att_val_quoted && $str{$i} === "\"" && trim($cur_att_value) !== "")
 				{
 					$end_value = true;
 				}
 				else
-				if ($att_val_quoted == false && $str{$i} == " ")
+				if ($att_val_quoted == false && $str{$i} === " ")
 				{
 					$end_value = true;
 				}
@@ -958,7 +950,7 @@ die();*/
 	function handle_t_string($tok)
 	{
 		$depd = false;
-		if ($tok[1] == "get_instance" || $tok[1] == "classload")
+		if ($tok[1] === "get_instance" || $tok[1] === "classload")
 		{
 			// follows:
 			// (
@@ -981,12 +973,12 @@ die();*/
 						$class = str_replace("\"","", str_replace("'","",$cln[1]));
 						$_tok = $this->get();
 						//$this->dump_tok($_tok, false);
-						if ($_tok == ",")
+						if ($_tok === ",")
 						{
 							$this->back();
 						}
 						else
-						if ($_tok != ")")
+						if ($_tok !== ")")
 						{
 							// something else, mark as vraiable dependency right now
 							$is_var = true;
@@ -1032,7 +1024,7 @@ die();*/
 						break;
 				}
 
-				if ($this->current_class && $class != "")
+				if ($this->current_class && $class !== "")
 				{
 					$depd = array(
 						"dep_via" => $tok[1],
@@ -1053,7 +1045,7 @@ die();*/
 			//$this->assert_str($o, ";");
 		}
 		else
-		if ($tok[1] == "define")
+		if ($tok[1] === "define")
 		{
 			$o_brace = $this->get();
 			$this->assert_str($o_brace, "(");
@@ -1105,7 +1097,7 @@ die();*/
 	{
 		// check if the first tok is (, then skip that
 		$tmp = $this->get();
-		if (!(!is_array($tmp) && $tmp == "("))
+		if (!(!is_array($tmp) && $tmp === "("))
 		{
 			$this->back();
 		}
@@ -1128,11 +1120,11 @@ die();*/
 		// skip until we get to the closing )
 		do {
 			$tok = $this->get();
-			if (!is_array($tok) && $tok == "(")
+			if (!is_array($tok) && $tok === "(")
 			{
 				$cnt++;
 			}
-			if (!is_array($tok) && $tok == ")")
+			if (!is_array($tok) && $tok === ")")
 			{
 				$cnt --;
 			}
@@ -1179,7 +1171,7 @@ die();*/
 
 		if (!$this->in_function)
 		{
-			if (!is_array($nxt) && $nxt == "=")
+			if (!is_array($nxt) && $nxt === "=")
 			{
 				$this->handle_variable_assign($v_tok, $nxt);
 			}
@@ -1202,13 +1194,13 @@ die();*/
 			return;
 		}
 
-		if (!is_array($nxt) && $nxt == "{")	// this is $a{4} string position handler
+		if (!is_array($nxt) && $nxt === "{")	// this is $a{4} string position handler
 		{
 			$this->handle_brace_begin();
 			$nxt = $this->get();
 		}
 
-		if (!is_array($nxt) && $nxt == "=")
+		if (!is_array($nxt) && $nxt === "=")
 		{
 			$this->handle_variable_assign($v_tok, $nxt);
 		}
@@ -1236,9 +1228,9 @@ die();*/
 				$this->handle_variable_assign($tmp, array());
 			}
 			else
-			if (!is_array($ttt) && $ttt == "(")
+			if (!is_array($ttt) && $ttt === "(")
 			{
-				if ($v_tok[1] == "\$this")
+				if ($v_tok[1] === "\$this")
 				{
 					// funcall via $this->bla, register local call in func table
 					$calld = array(
@@ -1273,7 +1265,7 @@ die();*/
 							$this->db_query("SELECT * FROM aw_da_funcs WHERE func = '$osnm[1]'");
 							while ($row = $this->db_next())
 							{
-								if ($row["class"] == "_int_object")
+								if ($row["class"] === "_int_object")
 								{
 									$row["class"] = "object";
 								}
@@ -1308,7 +1300,7 @@ die();*/
 				}
 			}
 			else
-			if (false && $v_tok[1] == "\$this" && $nxt[0] == T_OBJECT_OPERATOR)
+			if (false && $v_tok[1] === "\$this" && $nxt[0] == T_OBJECT_OPERATOR)
 			{
 				$var_name = $v_tok[1]."->".$osnm[1];
 				$this->add_track_var($var_name,array(
@@ -1392,7 +1384,7 @@ die();*/
 	{
 		// skip fist " if not yet skipped
 		$tmp = $this->get();
-		if (!(!is_array($tmp) && $tmp == "\""))
+		if (!(!is_array($tmp) && $tmp === "\""))
 		{
 			$this->back();
 		}
@@ -1403,7 +1395,7 @@ die();*/
 		while ($cnt > 0)
 		{
 			$tok = $this->get();
-			if ($tok == "\"")
+			if ($tok === "\"")
 			{
 				$cnt --;
 			}
@@ -1431,7 +1423,7 @@ die();*/
 				else
 				if ($bt[$i+1]["function"] != "")
 				{
-					if ($bt[$i+1]["function"] != "include")
+					if ($bt[$i+1]["function"] !== "include")
 					{
 						$fnm = $bt[$i+1]["function"];
 					}
@@ -1483,7 +1475,7 @@ echo "tok = ";
 $this->dump_tok($tok, false);
 echo "ding<br>";*/
 
-		if ($tok[0] == T_STRING && $tok[1] == "get_instance")
+		if ($tok[0] == T_STRING && $tok[1] === "get_instance")
 		{
 			$opb = $this->get();
 			$this->assert_str($opb, "(");
@@ -1503,7 +1495,7 @@ echo "ding<br>";*/
 			}
 		}
 		else
-		if ($tok[0] == T_STRING && $tok[1] == "obj")
+		if ($tok[0] == T_STRING && $tok[1] === "obj")
 		{
 			$this->add_track_var($var_tok[1],array(
 				"type" => "class",
@@ -1701,7 +1693,7 @@ echo "ding<br>";*/
 			$implements_t = $this->get();
 			if (!is_array($implements_t))
 			{
-				if ($implements_t == "{")
+				if ($implements_t === "{")
 				{
 					$this->handle_brace_begin();
 					return;
@@ -1791,7 +1783,7 @@ echo "ding<br>";*/
 
 	private function _filter_doc_comment($comm)
 	{
-		if (substr(trim($comm), 0, 3) == "/**")
+		if (substr(trim($comm), 0, 3) === "/**")
 		{
 			$comm = substr(trim($comm), 3, -3);
 		}
@@ -1813,4 +1805,5 @@ echo "ding<br>";*/
 		return $rv;
 	}
 }
+
 ?>

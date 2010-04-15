@@ -1742,16 +1742,14 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 		extract($arr);
 
 		$show_cnt_conf = get_instance("personnel_management_obj")->get_show_cnt_conf();
-		$usr = get_instance(CL_USER);
+		$usr = new user();
 		$u = $usr->get_current_user();
 		$g = $show_cnt_conf[CL_CRM_PERSON][$action]["groups"];
 		if($usr->is_group_member($u, $g) && is_oid($id))
 		{
 			$o = obj($id);
 			$o->show_cnt = $o->show_cnt + 1;
-			aw_disable_acl();
 			$o->save();
-			aw_restore_acl();
 		}
 	}
 
@@ -1779,16 +1777,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 		$adress_objects = $this->emails();
 		$options = array();
 		$mails = new object_list();
-/*		foreach($adress_objects->arr() as $address_object)
-		{
-			$ml = new object_list(array(
-				"site_id" => array(),
-				"lang_id" => array(),
-				"class_id" => CL_MESSAGE,
-				"mto" => "%".$adress_object->prop("mail")."%",
-			));
-			$mails->add($ml->ids());
-		}*/
 
 		$filter = array(
 			"site_id" => array(),
@@ -1797,14 +1785,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 			"CL_MESSAGE.RELTYPE_TO_MAIL_ADDRESS" => $adress_objects->ids(),
 		);
 
-		if($arr["subject"])
+		if(!empty($arr["subject"]))
 		{
 			$filter["name"] = "%".$arr["subject"]."%";
-		}
-
-		if($arr["content"])
-		{
-			//$filter["message"] = "%".$arr["subject"]."%";//see porno ei t66ta ju kui metas kirja sisu
 		}
 
 		if($arr["customer"])

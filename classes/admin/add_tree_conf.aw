@@ -20,6 +20,7 @@ class add_tree_conf extends class_base
 	private static $system_classes = array(
 		"sys",
 		"popup_search",
+		"acl_manager"
 	);
 
 	private $level = 0;
@@ -153,7 +154,7 @@ class add_tree_conf extends class_base
 				if (empty($cld["parents"]))
 				{
 					$ala = html::checkbox(array(
-						"name" => "alias_add[$cl_id]",
+						"name" => "alias_add[{$cl_id}]",
 						"value" => 1,
 						"checked" => !empty($alias_add[$cl_id])
 					));
@@ -161,12 +162,12 @@ class add_tree_conf extends class_base
 					$t->define_data(array(
 						"name" => str_repeat("&nbsp;", ($this->level+1) * 10) . $cld["name"] . " [" . substr(strrchr($cld["file"], "/"), 1) . "]",
 						"visible" => html::checkbox(array(
-							"name" => "visible[obj][$cl_id]",
+							"name" => "visible[obj][{$cl_id}]",
 							"value" => 1,
 							"checked" => !empty($visible["obj"][$cl_id])
 						)),
 						"usable" => html::checkbox(array(
-							"name" => "usable[$cl_id]",
+							"name" => "usable[{$cl_id}]",
 							"value" => 1,
 							"checked" => !empty($usable[$cl_id])
 						)),
@@ -185,7 +186,7 @@ class add_tree_conf extends class_base
 				$t->define_data(array(
 					"name" => str_repeat("&nbsp;", $this->level * 10)."<b>".$cfd["name"]."</b>",
 					"visible" => html::checkbox(array(
-						"name" => "visible[fld][$id]",
+						"name" => "visible[fld][{$id}]",
 						"value" => 1,
 						"checked" => !empty($visible["fld"][$id])
 					))
@@ -203,7 +204,7 @@ class add_tree_conf extends class_base
 					{
 						$ala = "";
 						$ala = html::checkbox(array(
-							"name" => "alias_add[$cl_id]",
+							"name" => "alias_add[{$cl_id}]",
 							"value" => 1,
 							"checked" => !empty($alias_add[$cl_id])
 						));
@@ -211,12 +212,12 @@ class add_tree_conf extends class_base
 						$t->define_data(array(
 							"name" => str_repeat("&nbsp;", ($this->level+1) * 10).$cld["name"] . " [" . substr(strrchr($cld["file"], "/"), 1) . "]",
 							"visible" => html::checkbox(array(
-								"name" => "visible[obj][$cl_id]",
+								"name" => "visible[obj][{$cl_id}]",
 								"value" => 1,
 								"checked" => !empty($visible["obj"][$cl_id])
 							)),
 							"usable" => html::checkbox(array(
-								"name" => "usable[$cl_id]",
+								"name" => "usable[{$cl_id}]",
 								"value" => 1,
 								"checked" => !empty($usable[$cl_id])
 							)),
@@ -242,7 +243,7 @@ class add_tree_conf extends class_base
 	**/
 	function get_current_conf()
 	{
-		if (aw_ini_get("acl.check_prog") == 0)
+		if (!aw_ini_get("acl.check_prog"))
 		{
 			return 0;
 		}

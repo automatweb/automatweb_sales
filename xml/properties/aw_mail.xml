@@ -1,8 +1,5 @@
 <?xml version='1.0'?>
 <properties>
-      <property>
-            <comment></comment>
-      </property>
       <classinfo>
             <maintainer>kristo</maintainer>
       </classinfo>

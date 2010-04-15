@@ -2387,11 +2387,6 @@
                   <clid>CL_PERSONNEL_MANAGEMENT_JOB_WANTED</clid>
                   <caption>Soovitud t&amp;amp;ouml;&amp;amp;ouml;</caption>
             </WORK_WANTED>
-            <MOTHER_TONGUE>
-                  <value>78</value>
-                  <clid>CL_CRM_LANGUAGE</clid>
-                  <caption>Emakeel</caption>
-            </MOTHER_TONGUE>
             <CATEGORY>
                   <value>80</value>
                   <clid>CL_CRM_CATEGORY</clid>

@@ -2600,7 +2600,7 @@ class class_base extends aw_template
 		// so I can access this later
 		$val["orig_type"] = $val["type"];
 
-		if ($this->view == 1 && empty($val["view_element"]))
+		if ($this->view && empty($val["view_element"]))
 		{
 			if ($val["type"] === "date_select")
 			{
@@ -2799,7 +2799,7 @@ class class_base extends aw_template
 		{
 			// I need to implement this in storage .. so that $obj->prop('blag')
 			// gives the correct result .. all connections of that type
-			if ($this->view == 1 && empty($property["view_element"]))
+			if ($this->view && empty($property["view_element"]))
 			{
 				$property["value"] = create_email_links($this->obj_inst->prop_str($property["name"]));
 				if (strpos($property["value"], "\n") !== false && strpos($property["value"], "<br") === false)

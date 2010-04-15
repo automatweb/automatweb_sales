@@ -29,7 +29,7 @@
             <table>aw_products_show</table>
             <group>general</group>
             <type>textbox</type>
-            <field>columns</field>
+            <field>aw_columns</field>
             <caption>Tulpasid</caption>
       </property>
       <property>

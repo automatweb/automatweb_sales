@@ -1,27 +1,21 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>name</name>
-            <group>data</group>
-            <table>objects</table>
-            <type>textbox</type>
-            <field>name</field>
-            <caption>Nimi</caption>
-      </property>
-      <property>
             <name>wh</name>
-            <group>data</group>
+            <group>general</group>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
             <type>relpicker</type>
             <reltype>RELTYPE_WAREHOUSE</reltype>
             <automatic>1</automatic>
+            <multiple>1</multiple>
+            <store>connect</store>
             <caption>Ladu</caption>
       </property>
       <property>
             <name>oc</name>
-            <group>data</group>
+            <group>general</group>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
@@ -31,13 +25,32 @@
             <caption>Tellimiskeskkond</caption>
       </property>
       <property>
+            <name>search_category_root</name>
+            <group>general</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_SEARCH_CATEGORY_ROOT</reltype>
+            <caption>Otsingu kategooriate juurikas</caption>
+      </property>
+      <property>
             <name>objs_in_res</name>
-            <group>data</group>
+            <group>general</group>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
             <type>select</type>
             <caption>Tulemuseks on </caption>
+      </property>
+      <property>
+            <name>forward_single_product_to_detailview</name>
+            <group>general</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <caption>Kui leitakse ainult &amp;amp;uuml;ks toode, suuna detailvaatesse</caption>
       </property>
       <property>
             <name>fld_tb</name>
@@ -109,6 +122,17 @@
             <caption>Tulemuste tabeli kontroller</caption>
       </property>
       <property>
+            <name>products_object_list_filter_controller</name>
+            <group>s_res_ctr</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CFGCONTROLLER</reltype>
+            <caption>Toodete object listi filtri kontroller</caption>
+            <comment>Kasutada kaht muutujat - $args (object listi filter) ja $no_products (boolean, kui t&amp;otilde;ene, siis tagastatakse t&amp;uuml;hi object list).</comment>
+      </property>
+      <property>
             <name>search_form</name>
             <group>search</group>
             <table>objects</table>
@@ -134,13 +158,8 @@
             <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
-            <data>
-                  <caption>Andmed</caption>
-                  <parent>general</parent>
-            </data>
             <folders>
                   <caption>Otsingu l&amp;amp;auml;htekohad</caption>
-                  <parent>general</parent>
             </folders>
             <s_form>
                   <caption>Koosta otsinguvorm</caption>
@@ -183,6 +202,16 @@
                   <clid>CL_MENU</clid>
                   <caption>Otsingu kaust</caption>
             </FOLDER>
+            <SEARCH_CATEGORY_ROOT>
+                  <value>6</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Otsingu kaust</caption>
+            </SEARCH_CATEGORY_ROOT>
+            <CFGCONTROLLER>
+                  <value>7</value>
+                  <clid>CL_CFGCONTROLLER</clid>
+                  <caption>Kontroller (class_base liidesega)</caption>
+            </CFGCONTROLLER>
       </reltypes>
 </properties>
 

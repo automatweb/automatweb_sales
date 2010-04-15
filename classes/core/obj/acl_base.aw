@@ -394,10 +394,7 @@ class acl_base extends db_connector
 		{
 			$acl_cache = get_instance("cache");
 		}
-		if (!$this)
-		{
-			echo dbg::short_backtrace()." <br>";
-		}
+
 		$this->save_handle();
 		if (!($max_acl = aw_cache_get("__aw_acl_cache", $oid)))
 		{

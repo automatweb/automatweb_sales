@@ -666,6 +666,56 @@
             <no_caption>1</no_caption>
             <store>no</store>
       </property>
+      <property>
+            <name>availability_ftp_host</name>
+            <table>objects</table>
+            <group>availability</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>FTP aadress</caption>
+            <comment>FTP serveri aadress</comment>
+      </property>
+      <property>
+            <name>availability_ftp_user</name>
+            <table>objects</table>
+            <group>availability</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>FTP kasutaja</caption>
+            <comment>Kasutajanimi, millega FTP serverisse logitakse</comment>
+      </property>
+      <property>
+            <name>availability_ftp_password</name>
+            <table>objects</table>
+            <group>availability</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>password</type>
+            <caption>FTP parool</caption>
+            <comment>Parool FTP kasutajale</comment>
+      </property>
+      <property>
+            <name>availability_ftp_file_location</name>
+            <table>objects</table>
+            <group>availability</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>70</size>
+            <caption>Faili asukoht</caption>
+      </property>
+      <property>
+            <name>availability_import_link</name>
+            <table>objects</table>
+            <group>availability</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <store>no</store>
+            <caption>Laoseisu import</caption>
+      </property>
       <classinfo>
             <syslog_type>ST_OTTO_IMPORT</syslog_type>
             <relationmgr>yes</relationmgr>
@@ -745,6 +795,9 @@
             <products_xml>
                   <caption>[dev] Toodete XML</caption>
             </products_xml>
+            <availability>
+                  <caption>Laoseisud</caption>
+            </availability>
       </groupinfo>
       <reltypes>
             <FOLDER>
