@@ -37,6 +37,10 @@ class crm_sales_obj extends _int_object implements application_interface
 		crm_sales_obj::ROLE_TELEMARKETING_MANAGER,
 		crm_sales_obj::ROLE_MANAGER
 	);
+	private static $roles_with_offer_edit_privilege = array(
+		self::ROLE_SALES_MANAGER,
+		self::ROLE_MANAGER
+	);
 
 	// used by create_call()
 	private static $tm_resource_cache = 0;
@@ -196,6 +200,10 @@ class crm_sales_obj extends _int_object implements application_interface
 		elseif ("presentation_edit" === $action)
 		{
 			$has = in_array($role, self::$roles_with_presentation_edit_privilege, true);
+		}
+		elseif ("offer_edit" === $action)
+		{
+			$has = in_array($role, self::$roles_with_offer_edit_privilege, true);
 		}
 
 		return $has;
