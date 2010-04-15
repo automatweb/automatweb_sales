@@ -16,7 +16,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
@@ -29,7 +29,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
@@ -38,11 +38,24 @@
             <caption>Esitluste kaust</caption>
       </property>
       <property>
+            <name>offers_folder</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings_general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <clid>CL_MENU</clid>
+            <parent>folders_box</parent>
+            <comment>Kaust kuhu salvestatakse ning kust loetakse selle m&amp;amp;uuml;&amp;amp;uuml;gikeskkonna pakkumisobjektid</comment>
+            <caption>Pakkumiste kaust</caption>
+      </property>
+      <property>
             <name>warehouse</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>objpicker</type>
             <clid>CL_SHOP_WAREHOUSE</clid>
             <parent>folders_box</parent>
@@ -53,7 +66,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>textbox</type>
             <default>300</default>
             <datatype>int</datatype>
@@ -66,7 +79,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>textbox</type>
             <default>300</default>
             <datatype>int</datatype>
@@ -79,7 +92,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>textbox</type>
             <default>43200</default>
             <datatype>int</datatype>
@@ -92,7 +105,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>textbox</type>
             <default>86400</default>
             <datatype>int</datatype>
@@ -105,7 +118,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>textbox</type>
             <default>120</default>
             <datatype>int</datatype>
@@ -118,7 +131,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>textbox</type>
             <default>5</default>
             <datatype>int</datatype>
@@ -131,7 +144,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>textbox</type>
             <default>7200</default>
             <datatype>int</datatype>
@@ -144,7 +157,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>textbox</type>
             <default>20</default>
             <datatype>int</datatype>
@@ -157,7 +170,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>textbox</type>
             <default>25</default>
             <datatype>int</datatype>
@@ -170,7 +183,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -183,7 +196,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -196,7 +209,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -209,7 +222,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -222,7 +235,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -235,7 +248,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ROLE_PROFESSION</reltype>
             <clid>CL_CRM_PROFESSION</clid>
@@ -248,7 +261,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -259,7 +272,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -270,7 +283,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -281,7 +294,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -292,7 +305,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -303,7 +316,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -314,7 +327,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>main_app_cfg_box</parent>
@@ -325,7 +338,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -336,7 +349,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -347,7 +360,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -358,7 +371,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -369,7 +382,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -380,7 +393,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -391,7 +404,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>call_cfg_box</parent>
@@ -402,7 +415,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -413,7 +426,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -424,7 +437,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -435,7 +448,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -446,7 +459,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -457,7 +470,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
@@ -468,11 +481,20 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings</group>
+            <group>settings_general</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CFGFORM</reltype>
             <parent>presentation_cfg_box</parent>
             <caption>Juht</caption>
+      </property>
+      <property>
+            <name>cfgf_offers_hide_mandatory_price_components</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings_offers</group>
+            <type>checkbox</type>
+            <caption>Peida kohustuslikud hinna komponendid</caption>
       </property>
       <property>
             <name>contacts_toolbar</name>
@@ -1354,6 +1376,65 @@
             <parent>de_table_box</parent>
       </property>
       <property>
+            <name>offers_toolbar</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>offers</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>offers_tree</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>offers</group>
+            <type>treeview</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>offers_tree_box</parent>
+      </property>
+      <property>
+            <name>offers_list</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>offers</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>offers_vsplitbox</parent>
+      </property>
+      <property>
+            <name>os_name</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>offers</group>
+            <type>textbox</type>
+            <view_element>1</view_element>
+            <parent>offers_search_box</parent>
+            <store>no</store>
+            <size>20</size>
+            <captionside>top</captionside>
+            <caption>Pakkumise nimi</caption>
+      </property>
+      <property>
+            <name>os_submit</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>offers</group>
+            <type>submit</type>
+            <value>Otsi</value>
+            <view_element>1</view_element>
+            <parent>offers_search_box</parent>
+            <store>no</store>
+            <caption>Otsi</caption>
+      </property>
+      <property>
             <name>tmstat_display_table</name>
             <table>objects</table>
             <field>meta</field>
@@ -1408,6 +1489,14 @@
             <settings>
                   <caption>Seaded</caption>
             </settings>
+            <settings_general>
+                  <caption>&amp;amp;Uuml;ldine</caption>
+                  <parent>settings</parent>
+            </settings_general>
+            <settings_offers>
+                  <caption>Pakkumised</caption>
+                  <parent>settings</parent>
+            </settings_offers>
             <contacts>
                   <caption>Kontaktid</caption>
                   <submit_method>get</submit_method>
@@ -1461,6 +1550,9 @@
                   <caption>Import</caption>
                   <parent>data_entry</parent>
             </data_entry_import>
+            <offers>
+                  <caption>Pakkumised</caption>
+            </offers>
             <statistics>
                   <caption>&amp;amp;Uuml;levaated</caption>
             </statistics>
@@ -1469,6 +1561,9 @@
                   <parent>statistics</parent>
                   <submit_method>get</submit_method>
             </statistics_telemarketing>
+            <statistics_offers>
+                  <caption>Pakkumised</caption>
+            </statistics_offers>
       </groupinfo>
       <reltypes>
             <OWNER>
@@ -1518,27 +1613,27 @@
                   <width>50%:50%</width>
                   <closeable>1</closeable>
                   <no_caption>1</no_caption>
-                  <group>settings</group>
+                  <group>settings_general</group>
                   <area_caption></area_caption>
             </splitbox1>
             <splitbox2>
                   <type>vbox</type>
                   <closeable>1</closeable>
                   <area_caption>Kasutajaliidese&amp;amp;nbsp;vaadete&amp;amp;nbsp;konfiguratsioonid&amp;amp;nbsp;rollide&amp;amp;nbsp;kaupa</area_caption>
-                  <group>settings</group>
+                  <group>settings_general</group>
             </splitbox2>
             <splitbox21>
                   <type>hbox</type>
                   <width>50%:50%</width>
                   <parent>splitbox2</parent>
-                  <group>settings</group>
+                  <group>settings_general</group>
                   <area_caption></area_caption>
             </splitbox21>
             <splitbox22>
                   <type>hbox</type>
                   <width>50%:50%</width>
                   <parent>splitbox2</parent>
-                  <group>settings</group>
+                  <group>settings_general</group>
                   <area_caption></area_caption>
             </splitbox22>
             <folders_box>
@@ -1546,32 +1641,32 @@
                   <parent>splitbox1</parent>
                   <closeable>1</closeable>
                   <area_caption>&amp;amp;Uuml;ldseaded</area_caption>
-                  <group>settings</group>
+                  <group>settings_general</group>
             </folders_box>
             <roles_box>
                   <type>vbox</type>
                   <parent>splitbox1</parent>
                   <closeable>1</closeable>
                   <area_caption>Rollid</area_caption>
-                  <group>settings</group>
+                  <group>settings_general</group>
             </roles_box>
             <main_app_cfg_box>
                   <type>vbox</type>
                   <parent>splitbox21</parent>
                   <area_caption>M&amp;amp;uuml;i&amp;amp;uuml;git&amp;amp;ouml;&amp;amp;ouml;laud</area_caption>
-                  <group>settings</group>
+                  <group>settings_general</group>
             </main_app_cfg_box>
             <call_cfg_box>
                   <type>vbox</type>
                   <parent>splitbox21</parent>
                   <area_caption>K&amp;amp;otilde;ne</area_caption>
-                  <group>settings</group>
+                  <group>settings_general</group>
             </call_cfg_box>
             <presentation_cfg_box>
                   <type>vbox</type>
                   <parent>splitbox22</parent>
                   <area_caption>Esitlus</area_caption>
-                  <group>settings</group>
+                  <group>settings_general</group>
             </presentation_cfg_box>
             <contacts_vsplitbox>
                   <type>hbox</type>
@@ -1686,6 +1781,32 @@
                   <width>10%:20%:70%</width>
                   <area_caption></area_caption>
             </contact_entry_buttons>
+            <offers_vsplitbox>
+                  <type>hbox</type>
+                  <width>25%:75%</width>
+                  <group>offers</group>
+                  <area_caption></area_caption>
+            </offers_vsplitbox>
+            <offers_box>
+                  <type>vbox</type>
+                  <parent>offers_vsplitbox</parent>
+                  <group>offers</group>
+                  <area_caption></area_caption>
+            </offers_box>
+            <offers_tree_box>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Pakkumiste&amp;amp;nbsp;valik</area_caption>
+                  <parent>offers_box</parent>
+                  <group>offers</group>
+            </offers_tree_box>
+            <offers_search_box>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Pakkumiste&amp;amp;nbsp;otsing</area_caption>
+                  <parent>offers_box</parent>
+                  <group>offers</group>
+            </offers_search_box>
             <tmstat_control_container>
                   <type>hbox</type>
                   <width>50:50</width>
