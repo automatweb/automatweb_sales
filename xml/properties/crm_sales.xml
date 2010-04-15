@@ -535,7 +535,6 @@
             <method>serialize</method>
             <group>contacts</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -549,7 +548,6 @@
             <method>serialize</method>
             <group>contacts</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -563,7 +561,6 @@
             <method>serialize</method>
             <group>contacts</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -577,7 +574,6 @@
             <method>serialize</method>
             <group>contacts</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -591,7 +587,6 @@
             <method>serialize</method>
             <group>contacts</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -604,7 +599,6 @@
             <method>serialize</method>
             <group>contacts</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -617,7 +611,6 @@
             <method>serialize</method>
             <group>contacts</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -632,7 +625,6 @@
             <method>serialize</method>
             <group>contacts</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -645,7 +637,6 @@
             <method>serialize</method>
             <group>contacts</group>
             <type>checkbox</type>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -660,7 +651,6 @@
             <group>contacts</group>
             <type>submit</type>
             <value>Otsi</value>
-            <view_element>1</view_element>
             <parent>contacts_search_box</parent>
             <store>no</store>
             <caption>Otsi</caption>
@@ -704,7 +694,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -718,7 +707,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -733,7 +721,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -748,7 +735,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -762,7 +748,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -775,7 +760,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -788,7 +772,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>datepicker</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -802,7 +785,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>datepicker</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -814,7 +796,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -828,7 +809,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -842,7 +822,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -856,7 +835,6 @@
             <method>serialize</method>
             <group>calls</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -870,7 +848,6 @@
             <group>calls</group>
             <type>submit</type>
             <value>Otsi</value>
-            <view_element>1</view_element>
             <parent>calls_search_box</parent>
             <store>no</store>
             <caption>Otsi</caption>
@@ -914,7 +891,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -928,7 +904,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -942,7 +917,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -956,7 +930,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>textbox</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <size>20</size>
@@ -970,7 +943,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -983,7 +955,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -996,7 +967,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>select</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -1009,7 +979,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>datepicker</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -1023,7 +992,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>datepicker</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1035,7 +1003,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>datepicker</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -1049,7 +1016,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>datepicker</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1061,7 +1027,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>datepicker</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <captionside>top</captionside>
@@ -1075,7 +1040,6 @@
             <method>serialize</method>
             <group>presentations</group>
             <type>datepicker</type>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1088,7 +1052,6 @@
             <group>presentations</group>
             <type>submit</type>
             <value>Otsi</value>
-            <view_element>1</view_element>
             <parent>presentations_search_box</parent>
             <store>no</store>
             <caption>Otsi</caption>

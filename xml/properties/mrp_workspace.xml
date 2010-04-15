@@ -161,6 +161,7 @@
             <method>serialize</method>
             <type>table</type>
             <no_caption>1</no_caption>
+            <parent>customers_search_table</parent>
             <store>no</store>
       </property>
       <property>
@@ -2276,9 +2277,10 @@
                   <group>grp_customers</group>
             </customers_search_box>
             <customers_search_table>
-                  <type>hbox</type>
+                  <type>vbox</type>
                   <closeable>1</closeable>
                   <area_caption>Projektide&amp;amp;nbsp;nimekiri</area_caption>
+                  <no_padding>1</no_padding>
                   <parent>vsplitbox</parent>
                   <group>grp_customers</group>
             </customers_search_table>

@@ -1,15 +1,14 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>shop</name>
+            <name>payment_type</name>
             <table>aw_shop_rent_calculator</table>
             <group>general</group>
             <type>relpicker</type>
-            <reltype>RELTYPE_SHOP</reltype>
+            <reltype>RELTYPE_PAYMENT_TYPE</reltype>
             <store>connect</store>
-            <field>shop</field>
-            <caption>E-pood</caption>
-            <comment>E-poe objekt, mille juurest j&amp;auml;relmaksuseaded lugeda</comment>
+            <field>payment_type</field>
+            <caption>Makseviis</caption>
       </property>
       <classinfo>
             <syslog_type>ST_SHOP_RENT_CALCULATOR</syslog_type>
@@ -27,11 +26,11 @@
             </aw_shop_rent_calculator>
       </tableinfo>
       <reltypes>
-            <SHOP>
+            <PAYMENT_TYPE>
                   <value>1</value>
-                  <clid>CL_SHOP_ORDER_CENTER</clid>
-                  <caption>E-pood</caption>
-            </SHOP>
+                  <clid>CL_SHOP_PAYMENT_TYPE</clid>
+                  <caption>Makseviis</caption>
+            </PAYMENT_TYPE>
       </reltypes>
 </properties>
 

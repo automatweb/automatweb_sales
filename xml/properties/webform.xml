@@ -292,6 +292,15 @@
             <caption>Vaikimisi pealkirja stiil</caption>
       </property>
       <property>
+            <name>def_comment_style</name>
+            <table>objects</table>
+            <group>styles</group>
+            <method>serialize</method>
+            <field>meta</field>
+            <type>select</type>
+            <caption>Vaikimisi kommentaari stiil</caption>
+      </property>
+      <property>
             <name>def_prop_style</name>
             <table>objects</table>
             <group>styles</group>

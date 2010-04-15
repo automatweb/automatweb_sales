@@ -57,7 +57,7 @@
             <group>general</group>
             <type>textbox</type>
             <field>aw_prop</field>
-            <caption>Hinna omadus, (m&amp;amp;otilde;nel klassil v&amp;amp;otilde olla eri liiki hindu)</caption>
+            <caption>Hinna omadus, (m&amp;amp;otilde;nel klassil v&amp;amp;otilde;ib olla eri liiki hindu)</caption>
       </property>
       <classinfo>
             <syslog_type>ST_PRICE</syslog_type>
@@ -77,7 +77,6 @@
       <reltypes>
             <OBJECT>
                   <value>1</value>
-                  <clid>CL_TRANSPORT_TYPE</clid>
                   <caption>Objekt millele hind m&amp;amp;otilde;jub</caption>
             </OBJECT>
       </reltypes>

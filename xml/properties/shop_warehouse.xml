@@ -135,14 +135,14 @@
             <field>product_managementtree</field>
       </property>
       <property>
-            <name>product_managementcat_tree</name>
+            <name>product_management_category_tree</name>
             <table>objects</table>
             <group>product_management</group>
             <type>text</type>
-            <parent>product_managementtree_lay2</parent>
+            <parent>product_management_tree_layout2</parent>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>product_managementcat_tree</field>
+            <field>product_management_category_tree</field>
       </property>
       <property>
             <name>product_managements_name</name>
@@ -262,9 +262,20 @@
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>product_managementsplit</parent>
+            <parent>product_managementright</parent>
             <field>product_management_list</field>
             <caption>Toodete nimekiri</caption>
+      </property>
+      <property>
+            <name>category_list</name>
+            <table>objects</table>
+            <group>product_management</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>product_managementright</parent>
+            <field>category_list</field>
+            <caption>Kategooriate nimekiri</caption>
       </property>
       <property>
             <name>products_toolbar</name>
@@ -440,35 +451,6 @@
             <caption>Toodete nimekiri</caption>
       </property>
       <property>
-            <name>category_tb</name>
-            <table>objects</table>
-            <group>category</group>
-            <type>toolbar</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <field>category_tb</field>
-      </property>
-      <property>
-            <name>category_tree</name>
-            <table>objects</table>
-            <group>category</group>
-            <type>treeview</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <parent>category_treel</parent>
-            <field>category_tree</field>
-      </property>
-      <property>
-            <name>category_list</name>
-            <table>objects</table>
-            <group>category</group>
-            <type>table</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <parent>category_listl</parent>
-            <field>category_list</field>
-      </property>
-      <property>
             <name>packets_toolbar</name>
             <table>objects</table>
             <group>packets</group>
@@ -624,6 +606,28 @@
             <parent>brand_list</parent>
             <field>brand_list</field>
             <caption>Kaubam&amp;amp;auml;rkide nimekiri</caption>
+      </property>
+      <property>
+            <name>channel_toolbar</name>
+            <table>objects</table>
+            <group>channels</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <parent>channel_toolbar</parent>
+            <field>channel_toolbar</field>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanalite toolbar</caption>
+      </property>
+      <property>
+            <name>channel_list</name>
+            <table>objects</table>
+            <group>channels</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <channel>brand_list</channel>
+            <field>channel_list</field>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanalite nimekiri</caption>
       </property>
       <property>
             <name>arrivals_tb</name>
@@ -1925,6 +1929,16 @@
             <field>sell_orders_toolbar</field>
       </property>
       <property>
+            <name>sell_orders_channel_tree</name>
+            <table>objects</table>
+            <group>sell_orders</group>
+            <type>treeview</type>
+            <parent>sell_orders_channel_lay</parent>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>sell_orders_channel_tree</field>
+      </property>
+      <property>
             <name>sell_orders_tree</name>
             <table>objects</table>
             <group>sell_orders</group>
@@ -3101,6 +3115,10 @@
                   <parent>sales</parent>
                   <caption>T&amp;amp;auml;itmata poe tellimused</caption>
             </order_undone>
+            <channels>
+                  <parent>sales</parent>
+                  <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanalid</caption>
+            </channels>
             <order_orderer_cos>
                   <parent>sales</parent>
                   <caption>A Tellijad</caption>
@@ -3243,13 +3261,13 @@
                   <parent>product_managementleft</parent>
                   <group>product_management</group>
             </product_managementtree_lay>
-            <product_managementtree_lay2>
+            <product_management_tree_layout2>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Kategooriate&amp;amp;nbsp;t&amp;amp;uuml;&amp;amp;uuml;bid</area_caption>
+                  <area_caption>Kategooriate&amp;amp;nbsp;puu</area_caption>
                   <parent>product_managementleft</parent>
                   <group>product_management</group>
-            </product_managementtree_lay2>
+            </product_management_tree_layout2>
             <product_managementleft_search>
                   <type>vbox</type>
                   <parent>product_managementleft</parent>
@@ -3269,6 +3287,12 @@
                   <group>product_management</group>
                   <area_caption></area_caption>
             </product_managements_price_box>
+            <product_managementright>
+                  <type>vbox</type>
+                  <parent>product_managementsplit</parent>
+                  <group>product_management</group>
+                  <area_caption></area_caption>
+            </product_managementright>
             <prod_split>
                   <type>hbox</type>
                   <width>20%:80%</width>
@@ -3307,31 +3331,6 @@
                   <group>products</group>
                   <area_caption></area_caption>
             </prod_s_price_box>
-            <category_split>
-                  <type>hbox</type>
-                  <width>20%:80%</width>
-                  <group>category</group>
-                  <area_caption></area_caption>
-            </category_split>
-            <category_left>
-                  <type>vbox</type>
-                  <parent>category_split</parent>
-                  <group>category</group>
-                  <area_caption></area_caption>
-            </category_left>
-            <category_treel>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>Kategooriad</area_caption>
-                  <parent>category_left</parent>
-                  <group>category</group>
-            </category_treel>
-            <category_listl>
-                  <type>vbox</type>
-                  <parent>category_split</parent>
-                  <group>category</group>
-                  <area_caption></area_caption>
-            </category_listl>
             <packets_split>
                   <type>hbox</type>
                   <width>20%:80%</width>
@@ -3376,6 +3375,17 @@
                   <area_caption>Kaubam&amp;amp;auml;rkide&amp;amp;nbsp;nimekiri</area_caption>
                   <group>brand</group>
             </brand_list>
+            <channel_toolbar>
+                  <type>vbox</type>
+                  <group>channels</group>
+                  <area_caption></area_caption>
+            </channel_toolbar>
+            <channel_list>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>M&amp;amp;uuml;&amp;amp;uuml;gikanalite</area_caption>
+                  <group>channels</group>
+            </channel_list>
             <arrival_prod_split>
                   <type>hbox</type>
                   <width>20%:80%</width>
@@ -3714,7 +3724,7 @@
             </purchase_bills_right>
             <sell_orders_split>
                   <type>hbox</type>
-                  <width>20%:80%</width>
+                  <width>25%:75%</width>
                   <group>sell_orders</group>
                   <area_caption></area_caption>
             </sell_orders_split>
@@ -3724,17 +3734,24 @@
                   <group>sell_orders</group>
                   <area_caption></area_caption>
             </sell_orders_left>
+            <sell_orders_channel_lay>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Filtreeri&amp;amp;nbsp;m&amp;amp;uuml;&amp;amp;uuml;gikanali&amp;amp;nbsp;kaupa</area_caption>
+                  <parent>sell_orders_left</parent>
+                  <group>sell_orders</group>
+            </sell_orders_channel_lay>
             <sell_orders_tree_lay>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Filtreeri</area_caption>
+                  <area_caption>Filtreeri&amp;amp;nbsp;staatuste&amp;amp;nbsp;kaupa</area_caption>
                   <parent>sell_orders_left</parent>
                   <group>sell_orders</group>
             </sell_orders_tree_lay>
             <sell_orders_time_lay>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Filtreeri&amp;amp;nbsp;ajavahemiku&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <area_caption>Filtreeri&amp;amp;nbsp;tellimuse&amp;amp;nbsp;esitamise&amp;amp;nbsp;aja&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>sell_orders_left</parent>
                   <group>sell_orders</group>
             </sell_orders_time_lay>

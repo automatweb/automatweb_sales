@@ -475,7 +475,7 @@
             <method>serialize</method>
             <type>text</type>
             <store>no</store>
-            <caption>J&amp;amp;auml;rgmine k&amp;amp;auml;ivitus	</caption>
+            <caption>J&amp;amp;auml;rgmine k&amp;amp;auml;ivitus</caption>
       </property>
       <property>
             <name>ns_manual</name>

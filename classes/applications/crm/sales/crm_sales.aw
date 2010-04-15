@@ -223,36 +223,36 @@ PROPERTY DECLARATIONS
 	@property contacts_list type=table store=no no_caption=1 parent=contacts_vsplitbox
 
 	@layout contacts_search_box type=vbox closeable=1 area_caption=Kontaktide&nbsp;otsing parent=contacts_box
-		@property cts_name type=textbox view_element=1 parent=contacts_search_box store=no size=20 captionside=top
+		@property cts_name type=textbox parent=contacts_search_box store=no size=20 captionside=top
 		@caption Nimi
 
-		@property cts_address type=textbox view_element=1 parent=contacts_search_box store=no size=20 captionside=top
+		@property cts_address type=textbox parent=contacts_search_box store=no size=20 captionside=top
 		@caption Aadress
 
-		@property cts_phone type=textbox view_element=1 parent=contacts_search_box store=no size=20 captionside=top
+		@property cts_phone type=textbox parent=contacts_search_box store=no size=20 captionside=top
 		@caption Telefon
 
-		@property cts_lead_source type=textbox view_element=1 parent=contacts_search_box store=no size=20 captionside=top
+		@property cts_lead_source type=textbox parent=contacts_search_box store=no size=20 captionside=top
 		@caption Soovitaja
 
-		@property cts_salesman type=select view_element=1 parent=contacts_search_box store=no captionside=top
+		@property cts_salesman type=select parent=contacts_search_box store=no captionside=top
 		@caption M&uuml;&uuml;giesindaja
 
-		@property cts_status type=select view_element=1 parent=contacts_search_box store=no captionside=top
+		@property cts_status type=select parent=contacts_search_box store=no captionside=top
 		@caption Staatus
 
-		@property cts_calls type=textbox view_element=1 parent=contacts_search_box store=no captionside=top size=20
+		@property cts_calls type=textbox parent=contacts_search_box store=no captionside=top size=20
 		@comment Positiivne t&auml;isarv. V&otilde;imalik kasutada v&otilde;rdlusoperaatoreid suurem kui ( &gt; ), v&auml;iksem kui ( &lt; ) ning '='. Kui operaatorit pole numbri ees, arvatakse vaikimisi operaatoriks v&otilde;rdus ( = )
 		@caption Tehtud k&otilde;nesid
 
-		@property cts_sort_mode type=select view_element=1 parent=contacts_search_box store=no captionside=top
+		@property cts_sort_mode type=select parent=contacts_search_box store=no captionside=top
 		@caption Tulemuste j&auml;rjestus
 
-		@property cts_count type=checkbox view_element=1 parent=contacts_search_box store=no captionside=top
+		@property cts_count type=checkbox parent=contacts_search_box store=no captionside=top
 		@comment Ilma tulemuste arvu kokkulugemiseta on p&auml;ringud kiiremad.
 		@caption N&auml;ita tulemuste arvu
 
-		@property cts_submit type=submit value=Otsi view_element=1 parent=contacts_search_box store=no
+		@property cts_submit type=submit value=Otsi parent=contacts_search_box store=no
 		@caption Otsi
 
 
@@ -266,47 +266,47 @@ PROPERTY DECLARATIONS
 	@property calls_list type=table store=no no_caption=1 parent=calls_vsplitbox
 
 	@layout calls_search_box type=vbox closeable=1 area_caption=K&otilde;nede&nbsp;otsing parent=calls_box
-		@property cs_name type=textbox view_element=1 parent=calls_search_box store=no size=20 captionside=top
+		@property cs_name type=textbox parent=calls_search_box store=no size=20 captionside=top
 		@caption Kontakti nimi
 
-		@property cs_address type=textbox view_element=1 parent=calls_search_box store=no size=20 captionside=top
+		@property cs_address type=textbox parent=calls_search_box store=no size=20 captionside=top
 		@comment Aadressid on kujul "V&auml;iksem kohanimi, Suurem kohanimi". N&auml;iteks otsides kontakte Harjumaal Kolgas tuleb kirjutada "kolga harjumaa"
 		@caption Kontakti aadress
 
-		@property cs_phone type=textbox view_element=1 parent=calls_search_box store=no size=20 captionside=top
+		@property cs_phone type=textbox parent=calls_search_box store=no size=20 captionside=top
 		@comment M&otilde;ni kontakti telefoninumbritest algab ...
 		@caption Kontakti telefon
 
-		@property cs_lead_source type=textbox view_element=1 parent=calls_search_box store=no size=20 captionside=top
+		@property cs_lead_source type=textbox parent=calls_search_box store=no size=20 captionside=top
 		@caption Kontakti soovitaja
 
-		@property cs_caller type=select view_element=1 parent=calls_search_box store=no captionside=top
+		@property cs_caller type=select parent=calls_search_box store=no captionside=top
 		@caption Helistaja
 
-		@property cs_call_result type=select view_element=1 parent=calls_search_box store=no captionside=top
+		@property cs_call_result type=select parent=calls_search_box store=no captionside=top
 		@caption Tulemus
 
-		@property cs_call_real_start_from type=datepicker view_element=1 parent=calls_search_box store=no captionside=top
+		@property cs_call_real_start_from type=datepicker parent=calls_search_box store=no captionside=top
 		@caption Aeg
 		@comment Ajavahemik, milles otsitav(ad) k&otilde;ne(d) on alustatud. Kui sisestada ainult vahemiku algus siis otsitakse vaikimisi sellele j&auml;rgnevast 24 tunnist
-		@property cs_call_real_start_to type=datepicker view_element=1 parent=calls_search_box store=no no_caption=1
+		@property cs_call_real_start_to type=datepicker parent=calls_search_box store=no no_caption=1
 
-		@property cs_last_caller type=select view_element=1 parent=calls_search_box store=no captionside=top
+		@property cs_last_caller type=select parent=calls_search_box store=no captionside=top
 		@comment Isik kes viimasena k&otilde;nega seotud kontaktile helistas
 		@caption Viimane helistaja
 
-		@property cs_last_call_result type=select view_element=1 parent=calls_search_box store=no captionside=top
+		@property cs_last_call_result type=select parent=calls_search_box store=no captionside=top
 		@comment K&otilde;nega seotud kontaktile viimati tehtud k&otilde;ne tulemus
 		@caption Viimase tulemus
 
-		@property cs_salesman type=select view_element=1 parent=calls_search_box store=no captionside=top
+		@property cs_salesman type=select parent=calls_search_box store=no captionside=top
 		@comment Kontaktile m&auml;&auml;ratud m&uuml;&uuml;giesindaja
 		@caption M&uuml;&uuml;giesindaja
 
-		@property cs_status type=select view_element=1 parent=calls_search_box store=no captionside=top
+		@property cs_status type=select parent=calls_search_box store=no captionside=top
 		@caption Kontakti staatus
 
-		@property cs_submit type=submit value=Otsi view_element=1 parent=calls_search_box store=no
+		@property cs_submit type=submit value=Otsi parent=calls_search_box store=no
 		@caption Otsi
 
 
@@ -320,43 +320,43 @@ PROPERTY DECLARATIONS
 	@property presentations_list type=table store=no no_caption=1 parent=presentations_vsplitbox
 
 	@layout presentations_search_box type=vbox closeable=1 area_caption=Esitluste&nbsp;otsing parent=presentations_box
-		@property ps_name type=textbox view_element=1 parent=presentations_search_box store=no size=20 captionside=top
+		@property ps_name type=textbox parent=presentations_search_box store=no size=20 captionside=top
 		@caption Kontakti nimi
 
-		@property ps_address type=textbox view_element=1 parent=presentations_search_box store=no size=20 captionside=top
+		@property ps_address type=textbox parent=presentations_search_box store=no size=20 captionside=top
 		@caption Kontakti aadress
 
-		@property ps_phone type=textbox view_element=1 parent=presentations_search_box store=no size=20 captionside=top
+		@property ps_phone type=textbox parent=presentations_search_box store=no size=20 captionside=top
 		@caption Kontakti telefon
 
-		@property ps_lead_source type=textbox view_element=1 parent=presentations_search_box store=no size=20 captionside=top
+		@property ps_lead_source type=textbox parent=presentations_search_box store=no size=20 captionside=top
 		@caption Kontakti soovitaja
 
-		@property ps_salesman type=select view_element=1 parent=presentations_search_box store=no captionside=top
+		@property ps_salesman type=select parent=presentations_search_box store=no captionside=top
 		@caption M&uuml;&uuml;giesindaja
 
-		@property ps_createdby type=select view_element=1 parent=presentations_search_box store=no captionside=top
+		@property ps_createdby type=select parent=presentations_search_box store=no captionside=top
 		@caption Looja
 
-		@property ps_result type=select view_element=1 parent=presentations_search_box store=no captionside=top
+		@property ps_result type=select parent=presentations_search_box store=no captionside=top
 		@caption Tulemus
 
-		@property ps_created_from type=datepicker view_element=1 parent=presentations_search_box store=no captionside=top
+		@property ps_created_from type=datepicker parent=presentations_search_box store=no captionside=top
 		@caption Loodud vahemikus
 		@comment Kui sisestada ainult vahemiku algus siis otsitakse vaikimisi sellele j&auml;rgnevast 24 tunnist
-		@property ps_created_to type=datepicker view_element=1 parent=presentations_search_box store=no no_caption=1
+		@property ps_created_to type=datepicker parent=presentations_search_box store=no no_caption=1
 
-		@property ps_start_from type=datepicker view_element=1 parent=presentations_search_box store=no captionside=top
+		@property ps_start_from type=datepicker parent=presentations_search_box store=no captionside=top
 		@caption Kokkulepitud aeg
 		@comment Kui sisestada ainult vahemiku algus siis otsitakse vaikimisi sellele j&auml;rgnevast 24 tunnist
-		@property ps_start_to type=datepicker view_element=1 parent=presentations_search_box store=no no_caption=1
+		@property ps_start_to type=datepicker parent=presentations_search_box store=no no_caption=1
 
-		@property ps_real_start_from type=datepicker view_element=1 parent=presentations_search_box store=no captionside=top
+		@property ps_real_start_from type=datepicker parent=presentations_search_box store=no captionside=top
 		@caption Tegelik toimumisaeg
 		@comment Kui sisestada ainult vahemiku algus siis otsitakse vaikimisi sellele j&auml;rgnevast 24 tunnist
-		@property ps_real_start_to type=datepicker view_element=1 parent=presentations_search_box store=no no_caption=1
+		@property ps_real_start_to type=datepicker parent=presentations_search_box store=no no_caption=1
 
-		@property ps_submit type=submit value=Otsi view_element=1 parent=presentations_search_box store=no
+		@property ps_submit type=submit value=Otsi parent=presentations_search_box store=no
 		@caption Otsi
 
 
@@ -1513,7 +1513,7 @@ SCRIPT;
 		}
 
 		ob_start("ob_gzhandler");
-		// header("Content-Type: application/json");
+		header("Content-Type: application/json");
 		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
 		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1

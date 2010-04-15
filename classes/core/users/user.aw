@@ -266,6 +266,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_ML_MEMBER, on_save_addr)
 class user extends class_base
 {
 	private $_set_pwd = "";
+	private $users;
 
 	function user()
 	{
@@ -273,7 +274,7 @@ class user extends class_base
 			'tpldir' => 'core/users/user',
 			'clid' => CL_USER
 		));
-		$this->users = get_instance("core/users/users");
+		$this->users = new users();
 	}
 
 	function get_property(&$arr)
@@ -320,12 +321,12 @@ class user extends class_base
 
 			case "base_lang":
 			case "target_lang":
-				$l = get_instance("languages");
+				$l = new languages();
 				$prop["options"] = $l->get_list();
 				break;
 
 			case "admin_lang":
-				$l = get_instance("languages");
+				$l = new languages();
 				$prop['options'] = $l->get_list();
 				$prop['value'] = aw_global_get("admin_lang");
 				break;
@@ -391,7 +392,7 @@ class user extends class_base
 				break;
 
 			case "set_ui_lang":
-				$i = get_instance("core/trans/pot_scanner");
+				$i = new pot_scanner();
 				$prop["options"] = array("" => "") + $i->get_langs();
 				$prop["value"] = aw_ini_get("user_interface.default_language");
 				break;
@@ -426,7 +427,7 @@ class user extends class_base
 					$jo = obj($arr["obj_inst"]->prop("join_grp"));
 					if (!$jo->prop("send_join_mail") && $jo->prop("users_blocked_by_default"))
 					{
-						$js = get_instance(CL_JOIN_SITE);
+						$js = new join_site();
 						$js->_do_send_join_mail(array(
 							"obj" => $jo,
 							"uid" => $arr["obj_inst"]->prop("uid"),
@@ -453,10 +454,10 @@ class user extends class_base
 				break;
 
 			case "admin_lang":
-				$t = get_instance("languages");
+				$l = new languages();
 				$admin_lang = $prop['value'];
 				$admin_lang_lc = $t->get_langid($admin_lang);
-				setcookie("admin_lang",$admin_lang,time()+24*3600*1000,"/");
+				setcookie("admin_lang",$admin_lang,time()+24*3600*1000,"/"); //!!! lahendamata probleem #371894, miks valge leht selle func call peale?
 				setcookie("admin_lang_lc",$admin_lang_lc,time()+24*3600*1000,"/");
 				break;
 
@@ -519,7 +520,7 @@ class user extends class_base
 				$o = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_JOIN_SITE");
 				$tmp = $arr["request"];
 				$tmp["id"] = $o->id();
-				$ji = get_instance(CL_JOIN_SITE);
+				$ji = new join_site();
 				$ji->submit_update_form($tmp, array(
 					"uid" => $arr["obj_inst"]->prop("uid")
 				));
@@ -723,7 +724,8 @@ class user extends class_base
 
 	function _get_group_membership($o, $id)
 	{
-		$gl = get_instance(CL_GROUP)->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR, group_obj::TYPE_DYNAMIC)));
+		$group = new group();
+		$gl = $group->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR, group_obj::TYPE_DYNAMIC)));
 
 		// get all groups this user is member of
 		$groups = $o->get_groups_for_user();
@@ -784,7 +786,8 @@ class user extends class_base
 		$groups = $o->get_groups_for_user();
 
 		// get a list of all groups, so we can throw out the dynamic groups
-		$gl = get_instance(CL_GROUP)->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR, group_obj::TYPE_DYNAMIC)));
+		$group = new group();
+		$gl = $group->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR, group_obj::TYPE_DYNAMIC)));
 
 
 		// now, go over both lists and get rid of the dyn groups
@@ -821,57 +824,6 @@ class user extends class_base
 			if ($member[$g_oid] != 1 && $is && isset($gl[$g_oid]))
 			{
 				group::remove_user_from_group($o, $group);
-				/*
-				$user = $o;
-
-				// do the group add trick
-				// now, delete the user from the group
-				if ($group->is_connected_to(array("to" => $user->id())))
-				{
-					$group->disconnect(array(
-						"from" => $user->id()
-					));
-				}
-
-				// delete user bros
-				$ol = new object_list(array(
-					"parent" => $group->id(),
-					"brother_of" => $user->id()
-				));
-				$ol->delete();
-
-				// get all groups below the removed group
-				$ot = new object_tree(array(
-					"parent" => $group->id(),
-					"class_id" => CL_GROUP
-				));
-				$ol = $ot->to_list();
-				for($item = $ol->begin(); !$ol->end(); $item = $ol->next())
-				{
-					// remove all brothers from those groups
-					$user_brothers = new object_list(array(
-						"parent" => $item->id(),
-						"brother_of" => $user->id()
-					));
-					$user_brothers->delete();
-
-					// remove all aliases from those groups to this user
-					if ($item->is_connected_to(array("to" => $user->id())))
-					{
-						$item->disconnect(array(
-							"from" => $user->id()
-						));
-					}
-
-					// also remove all aliases from user to the group
-					if (count($user->connections_from(array("to" => $item->id()))) > 0)
-					{
-						$user->disconnect(array(
-							"from" => $item->id()
-						));
-					}
-				}
-				*/
 			}
 		}
 
@@ -906,7 +858,7 @@ class user extends class_base
 			}
 		}
 
-		$c = get_instance("cache");
+		$c = new cache();
 		$c->file_clear_pt("acl");
 	}
 
@@ -1561,9 +1513,7 @@ EOF;
 						$ml = obj($p->prop("email.mail"));
 						$ml->set_prop("mail", $arr["obj_inst"]->prop("email"));
 						$ml->set_name($arr["obj_inst"]->prop("email"));
-						aw_disable_acl();
 						$ml->save();
-						aw_restore_acl();
 					}
 					else
 					{
@@ -1572,9 +1522,7 @@ EOF;
 						$ml->set_parent($p->id());
 						$ml->set_prop("mail", $arr["obj_inst"]->prop("email"));
 						$ml->set_name($arr["obj_inst"]->prop("email"));
-						aw_disable_acl();
 						$ml->save();
-						aw_restore_acl();
 						$p->set_prop("email", $ml->id());
 						$p->connect(array(
 							"to" => $ml->id(),
@@ -1675,9 +1623,7 @@ EOF;
 		static $retval;
 		if (!$retval)
 		{
-			aw_disable_acl();
 			$u = obj(aw_global_get("uid_oid"));
-			aw_restore_acl();
 			$i = new user;
 			$retval = $i->get_person_for_user($u);
 		}
@@ -1730,7 +1676,6 @@ EOF;
 	**/
 	public function get_person_for_user(object $u)
 	{
-		aw_disable_acl();
 		$person_c = $u->connections_from(array(
 			"type" => "RELTYPE_PERSON",
 		));
@@ -1760,8 +1705,6 @@ EOF;
 
 			$p->set_prop("firstname", $fn);
 			$p->set_prop("lastname", $ln);
-
-			aw_disable_acl();
 			$p->save();
 
 			if ($uid == aw_global_get("uid"))
@@ -1773,27 +1716,22 @@ EOF;
 				);
 			}
 
-			aw_restore_acl();
 			// now, connect user to person
 			$u->connect(array(
 				"to" => $p->id(),
 				"reltype" => 2
 			));
-			aw_restore_acl();
 			return $p->id();
 		}
 		else
 		{
-			aw_restore_acl();
 			if (aw_global_get("uid") == $u->prop("uid") && !$this->can("edit", $person_c->prop("to")))
 			{
-				aw_disable_acl();
 				$p = obj($person_c->prop("to"));
 				$p->acl_set(
 					obj($u->get_default_group()),
 					array("can_edit" => 1, "can_add" => 1, "can_view" => 1, "can_delete" => 1)
 				);
-				aw_restore_acl();
 			}
 			return $person_c->prop("to");
 		}
@@ -1884,7 +1822,7 @@ EOF;
 	{
 		extract($arr);
 		error::raise_if(empty($uid), array(
-			"id" => ERR_NO_UID,
+			"id" => "ERR_NO_UID",
 			"msg" => sprintf(t("users::add_user(%s): no uid specified"), $arr)
 		));
 
@@ -1900,9 +1838,22 @@ EOF;
 		$o->set_parent($pt);
 		$o->set_prop("uid", $uid);
 		$o->set_password($password);
-		$o->set_prop("email", $email);
-		$o->set_prop("real_name", $arr["real_name"]);
-		$o->set_prop("join_grp" , $arr["join_grp"]);
+
+		if (!empty($arr["email"]))
+		{
+			$o->set_prop("email", $arr["email"]);
+		}
+
+		if (!empty($arr["real_name"]))
+		{
+			$o->set_prop("real_name", $arr["real_name"]);
+		}
+
+		if (!empty($arr["join_grp"]))
+		{
+			$o->set_prop("join_grp", $arr["join_grp"]);
+		}
+
 		$o->set_prop("home_folder", $this->users->hfid);
 		$o->set_password($password);
 		if(is_oid($person) && $this->can("view", $person))
@@ -1959,17 +1910,17 @@ EOF;
 
 		// check if the object is deleted or under a deleted object
 		list($isd, $dat) = $this->_aclw_is_del($oid);
-		if ("del" == $isd)
+		if ("del" === $isd)
 		{
 			return $str.t("Objekt on kustutatud. Pole &otilde;igusi!");
 		}
 		else
-		if ("not" == $isd)
+		if ("not" === $isd)
 		{
 			return $str.t("Objekti pole ega pole kunagi olnud! Pole &otilde;igusi!");
 		}
 		else
-		if ("delp" == $isd)
+		if ("delp" === $isd)
 		{
 			return $str.sprintf(t("Objekti &uuml;lemobjekt (%s) on kustutatud. Pole &otilde;igusi!"), $dat);
 		}
@@ -2352,32 +2303,26 @@ EOF;
 	{
 		$u = get_instance("users");
 
-		aw_disable_acl();
 		$user = obj($arr["oid"]);
 		if ($user->is_brother())
 		{
 			return $this->on_delete_user_bro($arr);
 		}
-		aw_restore_acl();
 
 		// final delete home folder
 		$home_folder = $this->db_fetch_field("SELECT home_folder FROM users WHERE oid = ".$user->id(), "home_folder");
 		if (is_oid($home_folder) && $this->_object_ex($home_folder))
 		{
-			aw_disable_acl();
 			$hf = obj($home_folder);
 			$hf->delete(true);
-			aw_restore_acl();
 		}
 
 		// final delete default group
 		$def_gid_oid = $user->get_default_group();
 		if (is_oid($def_gid_oid) && $this->_object_ex($def_gid_oid))
 		{
-			aw_disable_acl();
 			$def_gid_o = obj($def_gid_oid);
 			$def_gid_o->delete(true);
-			aw_restore_acl();
 		}
 
 		// final delete person
@@ -2386,10 +2331,8 @@ EOF;
 		));
 		foreach($person_c as $p_c)
 		{
-			aw_disable_acl();
 			$person = obj($p_c->prop("to"));
 			$person->delete(true);
-			aw_restore_acl();
 		}
 
 		// user's e-mail object
@@ -2398,17 +2341,13 @@ EOF;
 		));
 		foreach($mail_c as $m_c)
 		{
-			aw_disable_acl();
 			$mail = obj($m_c->prop("to"));
 			$mail->delete(true);
-			aw_restore_acl();
 		}
 
 		// final delete all brothers
 		// final delete user object
-		aw_disable_acl();
 		$user->delete(true);
-		aw_restore_acl();
 
 		$c = get_instance("cache");
 		$c->file_clear_pt("acl");
@@ -2691,13 +2630,12 @@ EOF;
 	**/
 	static public function get_all_users_group()
 	{
-		$c = get_instance("config");
+		$c = new config();
 		$aug_oid = $c->get_simple_config("all_users_grp_oid");
 		if (!$c->can("view", $aug_oid))
 		{
 			$aug = aw_ini_get("groups.all_users_grp");
 			// convert to oid and store that
-			aw_disable_acl();
 			$ol = new object_list(array(
 				"class_id" => CL_GROUP,
 				"gid" => $aug,
@@ -2714,7 +2652,6 @@ EOF;
 			{
 				throw new awex_no_group(sprintf(t("could not find the group oid for gid %s"), $aug));
 			}
-			aw_restore_acl();
 		}
 		return $aug_oid;
 	}

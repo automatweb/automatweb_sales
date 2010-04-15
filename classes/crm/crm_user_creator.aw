@@ -7,6 +7,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_CRM_COMPANY, on_save_co)
 
 class crm_user_creator extends core
 {
+	private $cl_user;
+
 	function crm_user_creator()
 	{
 		$this->init();
@@ -213,7 +215,7 @@ class crm_user_creator extends core
 
 	function _check_person_user($pers)
 	{
-		$cp = get_instance(CL_CRM_PERSON);
+		$cp = new crm_person();
 
 		if (($us = $cp->has_user($pers)))
 		{
@@ -224,7 +226,7 @@ class crm_user_creator extends core
 			// create user
 			if (!is_object($this->cl_user))
 			{
-				$this->cl_user = get_instance(CL_USER);
+				$this->cl_user = new user();
 			}
 
 			$uid = $pers->meta("tmp_crm_person_username");
@@ -245,7 +247,7 @@ class crm_user_creator extends core
 
 	function _check_person_groups($pers, $user)
 	{
-		$g = get_instance(CL_GROUP);
+		$g = new group();
 
 		// get all sections and proffessions (RELTYPE_RANK), find their groups and add user to group
 		foreach($pers->connections_from(array("type" => array(7 /* RANK */, 21 /* SECTION */))) as $c)
@@ -279,7 +281,7 @@ class crm_user_creator extends core
 
 		if (!is_object($this->cl_user))
 		{
-			$this->cl_user = get_instance(CL_USER);
+			$this->cl_user = new user();
 		}
 
 		if (strlen($person->meta("tmp_crm_person_username")))

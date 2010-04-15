@@ -4,10 +4,9 @@
             <name>main_toolbar</name>
             <table>objects</table>
             <group>general</group>
-            <field>meta</field>
-            <method>serialize</method>
             <type>toolbar_standard_obj</type>
             <store>no</store>
+            <field>main_toolbar</field>
             <caption>T&amp;amp;ouml;&amp;amp;ouml;riistad</caption>
       </property>
       <property>

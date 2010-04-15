@@ -57,7 +57,7 @@
             <group>general</group>
             <type>checkbox</type>
             <field>meta</field>
-            <mothod>serialize</mothod>
+            <method>serialize</method>
             <default>0</default>
             <ch_value>1</ch_value>
             <caption>Toote puhul kasuta tootekuva</caption>

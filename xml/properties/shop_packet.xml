@@ -285,6 +285,11 @@
                   <clid>CL_SHOP_PRODUCT_CATEGORY</clid>
                   <caption>Kategooria</caption>
             </CATEGORY>
+            <BRAND>
+                  <value>4</value>
+                  <clid>CL_SHOP_BRAND</clid>
+                  <caption>Kaubam&amp;amp;auml;rk</caption>
+            </BRAND>
       </reltypes>
 </properties>
 

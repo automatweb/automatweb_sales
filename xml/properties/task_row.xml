@@ -48,8 +48,8 @@
             <name>impl</name>
             <table>aw_task_rows</table>
             <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_IMPL</reltype>
+            <type>objpicker</type>
+            <clid>CL_CRM_PERSON</clid>
             <field>aw_impl</field>
             <caption>Teostaja</caption>
       </property>
@@ -240,11 +240,6 @@
                   <clid>CL_CRM_BILL</clid>
                   <caption>Arve</caption>
             </BILL>
-            <IMPL>
-                  <value>2</value>
-                  <clid>CL_CRM_PERSON</clid>
-                  <caption>Teostaja</caption>
-            </IMPL>
             <ORDERER>
                   <value>3</value>
                   <clid>CL_CRM_PERSON</clid>

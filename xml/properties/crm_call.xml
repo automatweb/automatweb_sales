@@ -63,13 +63,12 @@
       </property>
       <property>
             <name>customer_name_edit</name>
-            <table>objects</table>
+            <table>planner</table>
             <group>general</group>
             <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
             <store>no</store>
             <parent>top_2way_left</parent>
+            <field>customer_name_edit</field>
             <caption>Kliendi nimi</caption>
       </property>
       <property>
@@ -127,8 +126,8 @@
             <group>general</group>
             <type>objpicker</type>
             <clid>CL_CRM_LANGUAGE</clid>
-            <mode>select</mode>
             <field>meta</field>
+            <mode>select</mode>
             <method>serialize</method>
             <parent>top_2way_left</parent>
             <caption>Soovitav suhtluskeel</caption>
@@ -188,17 +187,17 @@
             <datatype>int</datatype>
             <parent>top_2way_right</parent>
             <field>real_duration</field>
-            <caption>Tegelik kestus (h)</caption>
+            <caption>Tegelik kestus</caption>
       </property>
-	<property>
+      <property>
             <name>real_maker</name>
             <table>planner</table>
             <group>general</group>
             <type>objpicker</type>
-            <disabled>1</disabled>
-            <clid>CL_CRM_PERSON</clid>
             <datatype>int</datatype>
             <parent>top_2way_right</parent>
+            <disabled>1</disabled>
+            <clid>CL_CRM_PERSON</clid>
             <field>real_maker</field>
             <caption>K&amp;amp;otilde;ne tegija</caption>
       </property>

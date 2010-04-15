@@ -248,9 +248,7 @@ class mrp_workspace_obj extends _int_object
 			$resource->set_prop("workspace", $self);
 			$resource->set_prop("thread_data", 1);
 			$resource->set_prop("type", mrp_resource_obj::TYPE_SCHEDULABLE);
-			aw_disable_acl();
 			$resource->save();
-			aw_restore_acl();
 			$resource->connect(array("to" => $self, "reltype" => "RELTYPE_MRP_OWNER"));
 			$resource->connect(array("to" => $person, "reltype" => "RELTYPE_CONTAINING_OBJECT"));
 		}
@@ -287,9 +285,7 @@ class mrp_workspace_obj extends _int_object
 			$resource->set_prop("workspace", $self);
 			$resource->set_prop("thread_data", $num_of_profession_employees);
 			$resource->set_prop("type", mrp_resource_obj::TYPE_SCHEDULABLE);
-			aw_disable_acl();
 			$resource->save();
-			aw_restore_acl();
 			$resource->connect(array("to" => $self, "type" => "RELTYPE_MRP_OWNER"));
 			$resource->connect(array("to" => $profession, "type" => "RELTYPE_CONTAINING_OBJECT"));
 		}

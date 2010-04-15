@@ -59,6 +59,55 @@
             <caption>Kasutajaandmed isikust</caption>
       </property>
       <property>
+            <name>order_center</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ORDER_CENTER</reltype>
+            <store>connect</store>
+            <caption>Tellimiskeskkond</caption>
+      </property>
+      <property>
+            <name>channel</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CHANNEL</reltype>
+            <store>connect</store>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanal</caption>
+      </property>
+      <property>
+            <name>mail_subject</name>
+            <table>objects</table>
+            <group>mails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Maili subjekt</caption>
+      </property>
+      <property>
+            <name>mail_from</name>
+            <table>objects</table>
+            <group>mails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Mail kellelt</caption>
+      </property>
+      <property>
+            <name>mail_from_address</name>
+            <table>objects</table>
+            <group>mails</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Mail kellelt aadress</caption>
+      </property>
+      <property>
             <name>orderform</name>
             <table>objects</table>
             <group>config</group>
@@ -125,6 +174,15 @@
             <method>serialize</method>
             <type>select</type>
             <caption>Tellija andmete kujundusp&amp;amp;otilde;hi</caption>
+      </property>
+      <property>
+            <name>confirm_template</name>
+            <table>objects</table>
+            <group>config</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Kinnitusvaate templeit</caption>
       </property>
       <property>
             <name>ordering</name>
@@ -210,6 +268,9 @@
             <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
+            <mails>
+                  <caption>Meiliseaded</caption>
+            </mails>
             <config>
                   <caption>Seaded</caption>
             </config>
@@ -252,6 +313,16 @@
                   <clid>CL_ML_MEMBER</clid>
                   <caption>Maili aadress</caption>
             </MAIL_ADDRESS>
+            <ORDER_CENTER>
+                  <value>7</value>
+                  <clid>CL_SHOP_ORDER_CENTER</clid>
+                  <caption>Tellimiskeskkond</caption>
+            </ORDER_CENTER>
+            <RELTYPE_CHANNEL>
+                  <value>12</value>
+                  <clid>CL_WAREHOUSE_SELL_CHANNEL</clid>
+                  <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanal</caption>
+            </RELTYPE_CHANNEL>
       </reltypes>
 </properties>
 
