@@ -646,7 +646,7 @@ class popup_search extends aw_template
 
 		$this->_get_filter_props($filter, $arr);
 		$count = !($count === count($filter) and !empty($arr["start_empty"]));
-		$filter["limit"] = new obj_predicate_limit(30);
+		$filter[] = new obj_predicate_limit(30);
 
 		if (count($filter) > 1)
 		{
