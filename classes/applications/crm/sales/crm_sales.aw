@@ -1517,7 +1517,7 @@ SCRIPT;
 
 		try
 		{
-			$search->application = $this_o;
+			$search->seller = $this_o;
 			$params_defined = false;
 
 
