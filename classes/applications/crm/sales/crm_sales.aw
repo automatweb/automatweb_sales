@@ -6,6 +6,8 @@
 
 GROUP DECLARATIONS
 @groupinfo settings caption="Seaded"
+@groupinfo settings_general caption="&Uuml;ldine" parent=settings
+@groupinfo settings_offers caption="Pakkumised" parent=settings
 
 // contacts, presentations and calls tabs/groups are handled by their own separate static view classes
 // respectively crm_sales_contacts_view, ...presentations_view and ...calls_view
@@ -28,9 +30,12 @@ GROUP DECLARATIONS
 @groupinfo data_entry_contact_co caption="Kontakt (organisatsioon)" parent=data_entry submit=no
 @groupinfo data_entry_import caption="Import" parent=data_entry
 
+@groupinfo offers caption="Pakkumised"
+
 // statistics and analysis views. handled by separate static view classes
 @groupinfo statistics caption="&Uuml;levaated"
 @groupinfo statistics_telemarketing caption="Telemarketing" parent=statistics submit_method=get
+@groupinfo statistics_offers caption="Pakkumised"
 
 
 
@@ -42,7 +47,7 @@ PROPERTY DECLARATIONS
 	@property owner type=relpicker reltype=RELTYPE_OWNER clid=CL_CRM_COMPANY
 	@caption Keskkonna omanik
 
-@default group=settings
+@default group=settings_general
 	@layout splitbox1 type=hbox width=50%:50% closeable=1 no_caption=1
 	@layout splitbox2 type=vbox closeable=1 area_caption=Kasutajaliidese&nbsp;vaadete&nbsp;konfiguratsioonid&nbsp;rollide&nbsp;kaupa
 	@layout splitbox21 type=hbox width=50%:50% parent=splitbox2
@@ -60,6 +65,10 @@ PROPERTY DECLARATIONS
 	@property presentations_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
 	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna esitlused
 	@caption Esitluste kaust
+
+	@property offers_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
+	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna pakkumisobjektid
+	@caption Pakkumiste kaust
 
 	@property warehouse type=objpicker clid=CL_SHOP_WAREHOUSE parent=folders_box
 	@caption Ladu
@@ -197,6 +206,11 @@ PROPERTY DECLARATIONS
 
 	@property cfgf_presentation_manager type=relpicker reltype=RELTYPE_CFGFORM parent=presentation_cfg_box
 	@caption Juht
+
+@default group=settings_offers
+
+	@property cfgf_offers_hide_mandatory_price_components type=checkbox
+	@caption Peida kohustuslikud hinna komponendid
 
 
 
@@ -413,7 +427,29 @@ PROPERTY DECLARATIONS
 
 	@property contact_entry_reset type=text store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_buttons no_caption=1
 
-@property last_entries_list type=table store=no group=data_entry_contact_co,data_entry_contact_person no_caption=1 parent=de_table_box
+	@property last_entries_list type=table store=no group=data_entry_contact_co,data_entry_contact_person no_caption=1 parent=de_table_box
+
+@default group=offers
+
+	@property offers_toolbar type=toolbar store=no no_caption=1
+
+	@layout offers_vsplitbox type=hbox width=25%:75%
+
+		@layout offers_box type=vbox parent=offers_vsplitbox
+
+			@layout offers_tree_box type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik parent=offers_box
+
+				@property offers_tree type=treeview store=no no_caption=1 parent=offers_tree_box
+
+			@property offers_list type=table store=no no_caption=1 parent=offers_vsplitbox
+
+	@layout offers_search_box type=vbox closeable=1 area_caption=Pakkumiste&nbsp;otsing parent=offers_box
+
+		@property os_name type=textbox view_element=1 parent=offers_search_box store=no size=20 captionside=top
+		@caption Pakkumise nimi
+
+		@property os_submit type=submit value=Otsi view_element=1 parent=offers_search_box store=no
+		@caption Otsi
 
 
 @default group=statistics_telemarketing
@@ -481,6 +517,11 @@ class crm_sales extends class_base
 	const PRESENTATIONS_TOMORROW = 5;
 	const PRESENTATIONS_ADDED_TODAY = 6;
 
+	const OFFERS_DEFAULT = 1;
+	const OFFERS_SEARCH = 2;
+	const OFFERS_YESTERDAY = 3;
+	const OFFERS_TODAY = 4;
+
 	// colours for different states
 	const COLOUR_CAN_START = "#EFF6D5";
 	const COLOUR_IN_PROGRESS = "#ECD995";
@@ -495,6 +536,9 @@ class crm_sales extends class_base
 
 	public static $presentations_list_views = array();
 	public static $presentations_list_view = self::PRESENTATIONS_DEFAULT;
+
+	public static $offers_list_views = array();
+	public static $offers_list_view = self::PRESENTATIONS_DEFAULT;
 
 	// ...
 	private $contact_entry_edit_object; // object to be edited in contact entry view (crm_company or crm_person)
@@ -556,6 +600,25 @@ class crm_sales extends class_base
 				"caption" => t("Otsingu tulemused (kokku %s)"),
 				"in_tree" => false
 			)
+		);
+
+		self::$offers_list_views = array(
+			self::OFFERS_DEFAULT => array(
+				"caption" => t("K&otilde;ik pakkumised"),
+				"in_tree" => true
+			),
+			self::OFFERS_TODAY => array(
+				"caption" => t("T&auml;nased pakkumised"),
+				"in_tree" => true
+			),
+			self::OFFERS_YESTERDAY => array(
+				"caption" => t("Eilsed pakkumised"),
+				"in_tree" => true
+			),
+			self::OFFERS_SEARCH => array(
+				"caption" => t("Otsingu tulemused (kokku %s)"),
+				"in_tree" => false
+			),
 		);
 
 		// ...
@@ -621,6 +684,12 @@ class crm_sales extends class_base
 			{
 				self::$presentations_list_view = self::PRESENTATIONS_SEARCH;
 			}
+		}
+		elseif ("offers" === $this->use_group and (
+			!empty($arr["request"]["os_name"])
+		))
+		{
+				self::$offers_list_view = self::OFFERS_SEARCH;
 		}
 	}
 
@@ -1113,6 +1182,14 @@ class crm_sales extends class_base
 			if (method_exists("crm_sales_telemarketing_statistics_view", $method_name))
 			{
 				$ret = crm_sales_telemarketing_statistics_view::$method_name($arr);
+			}
+		}
+		elseif ("offers" === $this->use_group)
+		{
+			$method_name = "_get_{$arr["prop"]["name"]}";
+			if (method_exists("crm_sales_offers_view", $method_name))
+			{
+				$ret = crm_sales_offers_view::$method_name($arr);
 			}
 		}
 
