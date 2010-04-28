@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement_center_admin.aw,v 1.3 2007/12/06 14:33:50 kristo Exp $
 // procurement_center_admin.aw - Hangete administreerimiskeskkond 
 /*
@@ -48,6 +50,8 @@
 
 class procurement_center_admin extends class_base
 {
+	const AW_CLID = 1071;
+
 	function procurement_center_admin()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_REALESTATE_ROWHOUSE, on_create)
@@ -349,6 +351,8 @@ classload("applications/realestate_management/realestate_property");
 
 class realestate_rowhouse extends realestate_property
 {
+	const AW_CLID = 992;
+
 	function realestate_rowhouse()
 	{
 		$this->init(array(

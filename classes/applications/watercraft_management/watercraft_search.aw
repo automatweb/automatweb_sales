@@ -1,5 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/watercraft_management/watercraft_search.aw,v 1.31 2008/06/06 08:07:14 kristo Exp $
+
+namespace automatweb;
+
 /*
 
 @classinfo syslog_type=ST_WATERCRAFT_SEARCH relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=dragut
@@ -13,7 +15,7 @@
 
 	@property max_results type=textbox table=watercraft_search
 	@caption Maksimaalne tulemuste arv
-	
+
 	@property search_result_template type=select table=watercraft_search
 	@caption Otsingu tulemuste templeit
 
@@ -22,13 +24,13 @@
 
 	@property no_search_form type=checkbox ch_value=1 table=watercraft_search
 	@caption &Auml;ra kuva otsinguvormi
-	
+
 	@property result_order type=table
-	@caption Otsingutulemuste sorteerimine 
+	@caption Otsingutulemuste sorteerimine
 
 	@property saved_search type=checkbox ch_value=1 table=watercraft_search
 	@caption Salvestatud otsing
-	
+
 	@property section_id type=textbox table=watercraft_search
 	@caption M&auml;&auml;ratud sektsiooni id
 
@@ -71,7 +73,7 @@
 	@property creation_year type=range table=watercraft_search
 	@caption Valmistamisaasta
 
-	@property passanger_count type=range table=watercraft_search 
+	@property passanger_count type=range table=watercraft_search
 	@caption Reisijaid
 
 	@property additional_equipment type=textbox size=20 table=watercraft_search
@@ -79,7 +81,7 @@
 
 	@property seller type=select table=watercraft_search
 	@caption M&uuml;&uuml;ja
-	
+
 	@property contact_name type=textbox table=watercraft_search
 	@caption Kontaktisik
 
@@ -105,6 +107,8 @@ define('SELLER_TYPE_COMPANY', 129);
 
 class watercraft_search extends class_base
 {
+	const AW_CLID = 1119;
+
 
 	var $search_form_elements;
 	var $additional_equipment_elements;
@@ -137,7 +141,7 @@ class watercraft_search extends class_base
 			'ad_id' => t('Kuulutuse ID'),
 			'deal_type' => t('Tehingu t&uuml;&uuml;p'),
 		);
-	
+
 		$this->additional_equipment_elements = array(
 			'electricity_110V' => t('Elekter 110V'),
 			'electricity_220V' => t('Elekter 220V'),
@@ -211,7 +215,7 @@ class watercraft_search extends class_base
 							"desc" => t("Suuremad (uuemad) ennem"),
 						),
 					)),
-				)); 
+				));
 				$fafa = array_reverse($arr["obj_inst"]->meta("result_order"));
 				foreach($fafa as $key => $row)
 				{
@@ -276,7 +280,7 @@ class watercraft_search extends class_base
 				$prop['options'] = array(t("K&otilde;ik")) + $this->watercraft_inst->deal_type;
 				break;
 			case 'watercraft_type':
-				$prop['options'] = array(t('K&otilde;ik')) + $this->watercraft_inst->watercraft_type; 
+				$prop['options'] = array(t('K&otilde;ik')) + $this->watercraft_inst->watercraft_type;
 				$prop['selected'] = $arr['request']['watercraft_type'];
 				break;
 			case 'condition':
@@ -306,7 +310,7 @@ class watercraft_search extends class_base
 				$prop['selected'] = $arr['request']['location'];
 
 				break;
-			case 'length': 
+			case 'length':
 			case 'width':
 			case 'height':
 			case 'weight':
@@ -316,7 +320,7 @@ class watercraft_search extends class_base
 			case 'price':
 				$range = &$prop['vcl_inst'];
 				$range->set_range($arr['request'][$prop['name']]);
-				
+
 				break;
 			case 'additional_equipment':
 			case 'contact_name':
@@ -365,7 +369,7 @@ class watercraft_search extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function _get_search_result_table($arr)
 	{
@@ -528,7 +532,7 @@ class watercraft_search extends class_base
 		$results_on_page = (int)$obj->prop('results_on_page');
 		$max_results = (int)$obj->prop('max_results');
 		$watercraft_id = (int)$_GET['watercraft_id'];
-			
+
 		$watercraft_inst = get_instance(CL_WATERCRAFT);
 		if ($this->can('view', $watercraft_id))
 		{
@@ -620,7 +624,7 @@ class watercraft_search extends class_base
 					'only_visible' => true,
 				));
 			}
-			
+
 			$items_str = '';
 			$images = new object_list(array(
 				'class_id' => CL_IMAGE,
@@ -816,8 +820,8 @@ class watercraft_search extends class_base
 
 				if ($property['type'] == 'range')
 				{
-			
-			
+
+
 					$property = $range_vcl_inst->init_vcl_property(array(
 						'property' => $property,
 						'obj_inst' => $ob
@@ -827,10 +831,10 @@ class watercraft_search extends class_base
 					if ($ob->prop('saved_search') != 1)
 					{
 						// as the init_vcl_property sets the property value too for range,
-						// then i need to reset it when the search is not saved search to 
+						// then i need to reset it when the search is not saved search to
 						// prevent the saved search values appear in the form -dragut
 						$property['vcl_inst']->set_range(array(
-							'from' => '', 
+							'from' => '',
 							'to' => ''
 						));
 					}
@@ -889,8 +893,8 @@ class watercraft_search extends class_base
 		{
 			$filter['limit'] = $arr['limit'];
 		}
-		
-		// this here is .. a temperory line. really, i do have a plan to make it better one day!! 
+
+		// this here is .. a temperory line. really, i do have a plan to make it better one day!!
 		if (!empty($arr['sort_by']))
 		{
 			$this->quote(&$arr['sort_by']);
@@ -931,11 +935,11 @@ class watercraft_search extends class_base
 			$back = time() - ($d_in_s * $d);
 			$filter["modified"] = new obj_predicate_compare(OBJ_COMP_GREATER, mktime(0,0,0, date("n", $back), date("j", $back), date("Y", $back)));
 		}
-		
+
 
 		foreach ($this->search_form_elements as $name => $caption)
 		{
-			// if it is range or chooser: 
+			// if it is range or chooser:
 			if ( is_array($arr['request'][$name]) )
 			{
 				$from = (float)$arr['request'][$name]['from'];
@@ -968,7 +972,7 @@ class watercraft_search extends class_base
 					continue;
 				}
 				else
-				if ( empty($from) ) 
+				if ( empty($from) )
 				{
 					// we have only $to value:
 					$filter[$name] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $to);
@@ -1005,7 +1009,7 @@ class watercraft_search extends class_base
 							{
 								// if the search string is present in the elements caption
 								// this should cover that when the additional equipment element
-								// is only selected, then it will be found, and maybe there are more 
+								// is only selected, then it will be found, and maybe there are more
 								// than one word:
 								$words = array();
 								foreach (explode(' ', $value) as $word)
@@ -1058,7 +1062,7 @@ class watercraft_search extends class_base
 				no_search_form int,
 				save_search int,
 				watercraft_type int,
-				condition int,
+				`condition` int,
 				body_material int,
 				location int,
 				length_from int,

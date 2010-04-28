@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/terminator.aw,v 1.9 2009/05/07 13:18:42 kristo Exp $
 // terminator.aw - The Terminator
 /*
@@ -12,6 +14,8 @@
 
 class terminator extends class_base
 {
+	const AW_CLID = 1370;
+
 	function terminator()
 	{
 		$this->init(array(
@@ -68,7 +72,7 @@ class terminator extends class_base
 	}
 	function inverse($x) {
 		if (!$x) {
-			throw new Exception('Division by zero.');
+			throw new \Exception('Division by zero.');
 		}
 		else return 1/$x;
 	}
@@ -80,7 +84,7 @@ class terminator extends class_base
 			echo $this->inverse(0) . "\n";
 			echo $this->inverse(5) . "\n";
 			echo $this->inverse(5) . "\n";
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			echo 'Caught exception: ',  $e->getMessage(), "\n";
 		}
 	}

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview/otv_ds_postipoiss.aw,v 1.36 2009/05/22 14:15:03 markop Exp $
 // otv_ds_postipoiss.aw - Objektinimekirja Postipoisi datasource 
 /*
@@ -36,6 +38,8 @@
 
 class otv_ds_postipoiss extends class_base
 {
+	const AW_CLID = 326;
+
 	var $all_cols = array(
 /*		"dok_nr" => "Dokumendi Nr",
 		"serial_nr" => "Serial Nr",

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_MRP_ORDER_COVER relationmgr=yes no_comment=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_mrp_order_cover master_index=brother_of master_table=objects index=aw_oid
@@ -53,6 +55,8 @@
 
 class mrp_order_cover extends class_base
 {
+	const AW_CLID = 1523;
+
 	function mrp_order_cover()
 	{
 		$this->init(array(
@@ -189,7 +193,7 @@ class mrp_order_cover extends class_base
 
 	function callback_post_save($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["search_res"], "RELTYPE_APPLIES_RESOURCE");
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["search_mat"], "RELTYPE_APPLIES_PROD");
 

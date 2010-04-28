@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement_process.aw,v 1.2 2007/12/06 14:33:50 kristo Exp $
 // procurement_process.aw - N&otilde;ude protsess 
 /*
@@ -12,6 +14,8 @@
 
 class procurement_process extends class_base
 {
+	const AW_CLID = 1173;
+
 	function procurement_process()
 	{
 		$this->init(array(

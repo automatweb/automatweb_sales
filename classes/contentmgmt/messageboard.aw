@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/messageboard.aw,v 1.3 2008/01/31 13:52:14 kristo Exp $
 // messageboard.aw - Teadete tahvel 
 /*
@@ -17,6 +19,8 @@
 
 class messageboard extends class_base
 {
+	const AW_CLID = 322;
+
 	function messageboard()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

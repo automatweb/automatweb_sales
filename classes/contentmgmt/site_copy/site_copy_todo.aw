@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SITE_COPY_TODO relationmgr=yes no_name=1 no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_site_copy_todo master_index=brother_of master_table=objects index=aw_oid
@@ -45,6 +47,8 @@
 
 class site_copy_todo extends class_base
 {
+	const AW_CLID = 1488;
+
 	const STAT_COPY = 1;
 	const STAT_TRANSFER = 2;
 	const STAT_UNPACK = 3;

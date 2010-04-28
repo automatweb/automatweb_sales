@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
+
+namespace automatweb;
+
 class crm_company_my_view extends class_base
 {
 	function crm_company_my_view()
@@ -45,13 +45,13 @@ class crm_company_my_view extends class_base
 			"MY_LINK" => $this->_my_links($arr),
 			"forum" => $this->_forums($arr)
 		));
-		
+
 		return $this->parse();
 		$this->read_template("my_view.tpl");
 
 		/*
-			Teha Avalehe vaade, kus on näha tänased ja homsed sündmused, 
-			mulle lisatud failid, foorumi viimased teemad, 
+			Teha Avalehe vaade, kus on näha tänased ja homsed sündmused,
+			mulle lisatud failid, foorumi viimased teemad,
 		*/
 
 		classload("vcl/table");
@@ -70,7 +70,7 @@ class crm_company_my_view extends class_base
 	function _init_events_t(&$t)
 	{
 		$t->define_field(array(
-			"name" => "icon",	
+			"name" => "icon",
 			"caption" => t(""),
 			"align" => "center",
 			"width" => 1,
@@ -78,21 +78,21 @@ class crm_company_my_view extends class_base
 		));
 
 		$t->define_field(array(
-			"name" => "name",	
+			"name" => "name",
 			"caption" => t("Nimi"),
 			"align" => "center",
 			"sortable" => 1
 		));
 
 		$t->define_field(array(
-			"name" => "comment",	
+			"name" => "comment",
 			"caption" => t("Kommentaar"),
 			"align" => "center",
 			"sortable" => 1
 		));
 
 		$t->define_field(array(
-			"name" => "when",	
+			"name" => "when",
 			"caption" => t("Aeg"),
 			"align" => "center",
 			"sortable" => 1,
@@ -101,21 +101,21 @@ class crm_company_my_view extends class_base
 		));
 
 		$t->define_field(array(
-			"name" => "cust",	
+			"name" => "cust",
 			"caption" => t("Klient"),
 			"align" => "center",
 			"sortable" => 1
 		));
 
 		$t->define_field(array(
-			"name" => "proj",	
+			"name" => "proj",
 			"caption" => t("Projekt"),
 			"align" => "center",
 			"sortable" => 1
 		));
 
 		$t->define_field(array(
-			"name" => "parts",	
+			"name" => "parts",
 			"caption" => t("Osalejad"),
 			"align" => "center",
 			"sortable" => 1
@@ -129,7 +129,7 @@ class crm_company_my_view extends class_base
 
 	function _files($arr)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 
 		$t = new vcl_table();
@@ -154,17 +154,17 @@ class crm_company_my_view extends class_base
 	{
 		classload("vcl/table");
 		// get forum from co and last topics from that
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 
 		$fo = $co->get_first_obj_by_reltype("RELTYPE_FORUM");
 		if (!$fo)
 		{
 			return;
-		}		
+		}
 
 		$f = $fo->instance();
-		
+
 
 		$folders = new object_tree(array(
 			"class_id" => CL_MENU,
@@ -187,7 +187,7 @@ class crm_company_my_view extends class_base
 
 		$t = new vcl_table();
 		$this->_init_topic_t($t);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($t_list as  $pt => $topics)
 		{
 			foreach($topics as $topic)
@@ -408,11 +408,11 @@ class crm_company_my_view extends class_base
 	}
 
 	function _my_files($arr)
-	{	
+	{
 		$rv = "";
 		$clid = CL_CRM_DOCUMENT_ACTION;
 		// now, find all thingies that I am part of
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$filt = array(
 			"class_id" => CL_CRM_DOCUMENT_ACTION,
 			"site_id" => array(),
@@ -441,7 +441,7 @@ class crm_company_my_view extends class_base
 			}
 
 			$docs = array();
-			$fi = get_instance(CL_FILE);
+			$fi = new file();
 			foreach($task->connections_from(array("type" => "RELTYPE_FILE")) as $c)
 			{
 				$fd = $fi->get_file_by_id($c->prop("to"), true);

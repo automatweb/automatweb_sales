@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CUSTOMER_IMPORT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_customer_import master_index=brother_of master_table=objects index=aw_oid
@@ -40,6 +42,8 @@
 
 class customer_import extends class_base
 {
+	const AW_CLID = 1541;
+
 	function customer_import()
 	{
 		$this->init(array(

@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo maintainer=voldemar
-*/
+
+namespace automatweb;
 
 // get aw directory and file extension
 $__FILE__ = __FILE__;//!!! to check if works with zend encoder (__FILE__)
@@ -14,15 +13,17 @@ define("AW_FILE_EXT", substr($__FILE__, strrpos($__FILE__, "automatweb") + 10));
 require_once(AW_DIR . "lib/main" . AW_FILE_EXT);
 
 // set required confituration
-register_shutdown_function("aw_fatal_error_handler");
+spl_autoload_register("automatweb\\autoload");
+register_shutdown_function("automatweb\\aw_fatal_error_handler");
 ini_set("track_errors", "1");
 
 class automatweb
 {
-	const MODE_DEFAULT = 1;//!!! get rid of this!
 	const MODE_DBG = 2;
 	const MODE_PRODUCTION = 4;
 	const MODE_REASONABLE = 8;
+
+	const AW_NAMESPACE = "automatweb";
 
 	private $mode; // current mode
 	private $request_loaded = false; // whether request is loaded or only empty initialized
@@ -37,6 +38,8 @@ class automatweb
 	public static $result; // aw_resource object. result of executing the request
 
 	public $core; // aw core instance
+
+	/*DEPRECATED*/const MODE_DEFAULT = 1;//!!! get rid of this!
 
 	private function __construct()
 	{
@@ -67,13 +70,13 @@ class automatweb
 		{
 			automatweb::start();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			try
 			{
 				automatweb::shutdown();
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 			}
 
@@ -211,16 +214,17 @@ class automatweb
 		date_default_timezone_set(aw_ini_get("date_default_tz"));
 
 		// set mode by config
-		$mode = "automatweb::MODE_" . aw_ini_get("config.mode");
+		$mode = "automatweb\automatweb::MODE_" . aw_ini_get("config.mode");
 		if (defined($mode))
 		{
 			$mode = constant($mode);
 			automatweb::$instance->mode($mode);
 		}
 
+		// initiate data source
 		if (!aw_global_get("no_db_connection"))
 		{
-			$GLOBALS["object_loader"] = new _int_object_loader();
+			$GLOBALS["object_loader"] = object_loader::instance();
 		}
 	}
 
@@ -376,10 +380,10 @@ class automatweb
 
 							if (!$redirect_url->arg_isset("class"))
 							{
-								throw new Exception("No class");
+								throw new \Exception("No class");
 							}
 						}
-						catch (Exception $e)
+						catch (\Exception $e)
 						{
 							orb::check_class_access("admin_if");
 							// go to default admin interface
@@ -452,8 +456,8 @@ class automatweb
 			error_reporting(0);
 			ini_set("display_errors", "0");
 			ini_set("display_startup_errors", "0");
-			set_exception_handler("aw_exception_handler");
-			set_error_handler ("aw_error_handler");
+			set_exception_handler("automatweb\\aw_exception_handler");
+			set_error_handler ("automatweb\\aw_error_handler");
 			$this->mode = self::MODE_PRODUCTION;
 		}
 		elseif (self::MODE_DBG === $id)
@@ -464,8 +468,8 @@ class automatweb
 			ini_set("ignore_repeated_errors", "1");
 			ini_set("mysql.trace_mode", "1");
 			aw_ini_set("debug_mode", "1");
-			set_exception_handler("aw_dbg_exception_handler");
-			set_error_handler ("aw_dbg_error_handler");
+			set_exception_handler("automatweb\\aw_dbg_exception_handler");
+			set_error_handler ("automatweb\\aw_dbg_error_handler");
 			$this->mode = $id;
 		}
 		elseif(self::MODE_REASONABLE === $id)
@@ -475,8 +479,8 @@ class automatweb
 			ini_set("display_startup_errors", "1");
 			ini_set("ignore_repeated_errors", "1");
 			aw_ini_set("debug_mode", "1");
-			set_exception_handler("aw_dbg_exception_handler");
-			set_error_handler ("aw_reasonable_error_handler");
+			set_exception_handler("automatweb\\aw_dbg_exception_handler");
+			set_error_handler ("automatweb\\aw_reasonable_error_handler");
 			$this->mode = $id;
 		}
 		else

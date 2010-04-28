@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/bug_o_matic_3000/development_order_cat.aw,v 1.3 2007/12/06 14:32:52 kristo Exp $
 // development_order_cat.aw - Arendustellimuste kataloog 
 /*
@@ -12,6 +14,8 @@
 
 class development_order_cat extends class_base
 {
+	const AW_CLID = 1184;
+
 	function development_order_cat()
 	{
 		$this->init(array(

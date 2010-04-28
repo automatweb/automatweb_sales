@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class awlc_number_lt implements awlc_number
 {
 	public static function get_lc_number($number)

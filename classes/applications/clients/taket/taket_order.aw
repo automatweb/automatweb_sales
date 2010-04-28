@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // taket_order.aw - Taketi tellimus
 /*
 @tableinfo taket_orders index=id master_table=objects master_index=oid
@@ -21,6 +23,8 @@
 
 class taket_order extends class_base
 {
+	const AW_CLID = 243;
+
 	function taket_order()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,

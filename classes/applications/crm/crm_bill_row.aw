@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_bill_row.aw,v 1.11 2009/06/29 14:08:27 markop Exp $
 // crm_bill_row.aw - Arve rida 
 /*
@@ -77,6 +79,8 @@
 
 class crm_bill_row extends class_base
 {
+	const AW_CLID = 1054;
+
 	function crm_bill_row()
 	{
 		$this->init(array(

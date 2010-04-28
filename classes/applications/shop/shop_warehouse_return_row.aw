@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_WAREHOUSE_RETURN_ROW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=smeedia
 @tableinfo aw_shop_warehouse_return_row master_index=brother_of master_table=objects index=aw_oid
@@ -22,7 +24,7 @@
 @property price type=textbox field=aw_price
 @caption &Uuml;hiku hind
 
-@property amount type=textbox table=aw_amount
+@property amount type=textbox field=aw_amount
 @caption Kogus
 
 @reltype PRODUCT value=1 clid=CL_SHOP_PRODUCT,CL_SHOP_PRODUCT_PACKAGING
@@ -38,6 +40,8 @@
 
 class shop_warehouse_return_row extends class_base
 {
+	const AW_CLID = 1565;
+
 	function shop_warehouse_return_row()
 	{
 		$this->init(array(

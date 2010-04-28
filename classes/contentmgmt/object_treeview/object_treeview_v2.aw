@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview/object_treeview_v2.aw,v 1.125 2009/05/05 13:21:08 markop Exp $
 // object_treeview_v2.aw - Objektide nimekiri v2
 /*
@@ -194,6 +196,8 @@
 
 class object_treeview_v2 extends class_base
 {
+	const AW_CLID = 324;
+
 	var $alphabet = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "&Otilde;", "&Auml;", "&Ouml;", "&Uuml;");
 
 	function object_treeview_v2()

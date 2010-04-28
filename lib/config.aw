@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /** Returns aw configuration setting(s) identified by $var.
 	@attrib api=1
 	@param var required type=string
@@ -10,7 +12,6 @@
 **/
 function aw_ini_get($var)
 {
-//	enter_function("__global::aw_ini_get",array());
 	$path = explode(".", $var);
 
 	if ("" === $path[0])
@@ -38,7 +39,6 @@ function aw_ini_get($var)
 		}
 	}
 
-//	exit_function("__global::aw_ini_get");
 	return $val;
 }
 
@@ -146,8 +146,8 @@ function parse_config($file, $return = false)
 				// now, replace all variables in varvalue
 				try
 				{
-					$value = preg_replace('/\$\{(.*)\}/e', "aw_ini_get(\"\\1\")",$value);
-					$var = preg_replace('/\$\{(.*)\}/e', "aw_ini_get(\"\\1\")",$var);
+					$value = preg_replace('/\$\{(.*)\}/e', "automatweb\aw_ini_get(\"\\1\")",$value);
+					$var = preg_replace('/\$\{(.*)\}/e', "automatweb\aw_ini_get(\"\\1\")",$var);
 				}
 				catch (awex_cfg_key $e)
 				{

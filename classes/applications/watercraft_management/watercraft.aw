@@ -1,6 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/watercraft_management/watercraft.aw,v 1.29 2008/02/22 12:01:20 kristo Exp $
-// watercraft.aw - Veesõiduk 
+
+namespace automatweb;
+
+// watercraft.aw - Veesõiduk
 /*
 
 @classinfo syslog_type=ST_WATERCRAFT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=dragut
@@ -22,10 +24,10 @@
 	@caption Varustus/tarvikud (hetkel ei salvestu)
 
 	@property manufacturer type=select table=watercraft
-	@caption Tootja 
+	@caption Tootja
 
 	@property manufacturer_other type=textbox table=watercraft
-	@caption Tootja 
+	@caption Tootja
 
 	@property brand type=textbox table=watercraft
 	@caption Mark
@@ -40,7 +42,7 @@
 	caption Asukoht (praegu v&otilde;etakse vaikimisi k&otilde;ik s&uuml;steemis olevad linnad)
 
 	@property location type=select table=watercraft
-	@caption Asukoht 
+	@caption Asukoht
 
 	@property location_other type=textbox table=watercraft
 	@caption Muu asukoht
@@ -60,11 +62,11 @@
 	@property contact_name type=textbox table=watercraft
 	@caption Kontaktisiku nimi
 	@comment Kontaktisiku nimi, juhuks kui kuulutuse kontaktisik on m&uuml;&uuml;jast erinev.
-	
+
 	@property contact_email type=textbox table=watercraft
 	@caption Kontaktisiku e-mail
 	@comment Kontaktisiku e-mail, juhuks kui kuulutuse kontaktisik on m&uuml;&uuml;jast erinev.
-	
+
 	@property contact_phone type=textbox table=watercraft
 	@caption Kontaktisiku telefoninumber
 	@comment Kontaktisiku telefoninumber, juhuks kui kuulutuse kontaktisik on m&uuml;&uuml;jast erinev.
@@ -98,7 +100,7 @@
 
 	@property width type=textbox table=watercraft
 	@caption Laius (m)
-	
+
 	@property height type=textbox table=watercraft
 	@caption K&otilde;rgus (m)
 
@@ -125,7 +127,7 @@
 
 	@property engine_model type=textbox table=watercraft
 	@caption Mudel
-	
+
 	@property engine_count type=select table=watercraft
 	@caption Mootorite arv
 
@@ -137,7 +139,7 @@
 
 	@property fuel_tank type=textbox table=watercraft
 	@caption K&uuml;tusepaak (l)
-	
+
 	@property fuel type=select table=watercraft
 	@caption K&uuml;tus
 
@@ -175,7 +177,7 @@
 	caption Lisavarustus
 
 			'electricity_110V' => array( 'caption' => t('Elekter 110V'), 'amount' => null ),
-	@layout electricity_110V_row type=hbox width=10%:90% 
+	@layout electricity_110V_row type=hbox width=10%:90%
 	@caption Elekter 110V
 
 		@property electricity_110V_sel type=checkbox ch_value=1 table=watercraft parent=electricity_110V_row no_caption=1
@@ -185,7 +187,7 @@
 		@caption Info
 
 			'electricity_220V' => array( 'caption' => t('Elekter 220V'), 'amount' => null ),
-	@layout electricity_220V_row type=hbox width=10%:90% 
+	@layout electricity_220V_row type=hbox width=10%:90%
 	@caption Elekter 220V
 
 		@property electricity_220V_sel type=checkbox ch_value=1 table=watercraft parent=electricity_220V_row no_caption=1
@@ -195,7 +197,7 @@
 		@caption Info
 
 			'radio_station' => array( 'caption' => t('Raadiojaam'), 'amount' => null),
-	@layout radio_station_row type=hbox width=10%:90% 
+	@layout radio_station_row type=hbox width=10%:90%
 	@caption Raadiojaam
 
 		@property radio_station_sel type=checkbox ch_value=1 table=watercraft parent=radio_station_row no_caption=1
@@ -205,7 +207,7 @@
 		@caption Info
 
 			'stereo' => array( 'caption' => t('Stereo'), 'amount' => null ),
-	@layout stereo_row type=hbox width=10%:90% 
+	@layout stereo_row type=hbox width=10%:90%
 	@caption Stereo
 
 		@property stereo_sel type=checkbox ch_value=1 table=watercraft parent=stereo_row no_caption=1
@@ -215,7 +217,7 @@
 		@caption Info
 
 			'cd' => array( 'caption' => t('CD'), 'amount' => null ),
-	@layout cd_row type=hbox width=10%:90% 
+	@layout cd_row type=hbox width=10%:90%
 	@caption CD
 
 		@property cd_sel type=checkbox ch_value=1 table=watercraft parent=cd_row no_caption=1
@@ -225,7 +227,7 @@
 		@caption Info
 
 			'waterproof_speakers' => array( 'caption' => t('Veekindlad k&otilde;larid'), 'amount' => null ),
-	@layout waterproof_speakers_row type=hbox width=10%:90% 
+	@layout waterproof_speakers_row type=hbox width=10%:90%
 	@caption Veekindlad k&otilde;larid
 
 		@property waterproof_speakers_sel type=checkbox ch_value=1 table=watercraft parent=waterproof_speakers_row no_caption=1
@@ -235,7 +237,7 @@
 		@caption Info
 
 			'burglar_alarm' => array( 'caption' => t('Signalisatsioon'), 'amount' => null ),
-	@layout burglar_alarm_row type=hbox width=10%:90% 
+	@layout burglar_alarm_row type=hbox width=10%:90%
 	@caption Signalisatsioon
 
 		@property burglar_alarm_sel type=checkbox ch_value=1 table=watercraft parent=burglar_alarm_row no_caption=1
@@ -245,7 +247,7 @@
 		@caption Info
 
 			'navigation_system' => array( 'caption' => t('Navigatsioonis&uuml;steem'), 'amount' => null ),
-	@layout navigation_system_row type=hbox width=10%:90% 
+	@layout navigation_system_row type=hbox width=10%:90%
 	@caption Navigatsioonis&uuml;steem
 
 		@property navigation_system_sel type=checkbox ch_value=1 table=watercraft parent=navigation_system_row no_caption=1
@@ -255,7 +257,7 @@
 		@caption Info
 
 			'navigation_lights' => array( 'caption' => t('Navigatsioonituled'), 'amount' => null ),
-	@layout navigation_lights_row type=hbox width=10%:90% 
+	@layout navigation_lights_row type=hbox width=10%:90%
 	@caption Navigatsioonituled
 
 		@property navigation_lights_sel type=checkbox ch_value=1 table=watercraft parent=navigation_lights_row no_caption=1
@@ -265,7 +267,7 @@
 		@caption Info
 
 			'trailer' => array( 'caption' => t('Treiler'), 'amount' => null ),
-	@layout trailer_row type=hbox width=10%:90% 
+	@layout trailer_row type=hbox width=10%:90%
 	@caption Treiler
 
 		@property trailer_sel type=checkbox ch_value=1 table=watercraft parent=trailer_row no_caption=1
@@ -275,7 +277,7 @@
 		@caption Info
 
 			'toilet' => array( 'caption' => t('Tualett'), 'amount' => null ),
-	@layout toilet_row type=hbox width=10%:90% 
+	@layout toilet_row type=hbox width=10%:90%
 	@caption Tualett
 
 		@property toilet_sel type=checkbox ch_value=1 table=watercraft parent=toilet_row no_caption=1
@@ -285,7 +287,7 @@
 		@caption Info
 
 			'shower' => array( 'caption' => t('Dush'), 'amount' => null ),
-	@layout shower_row type=hbox width=10%:90% 
+	@layout shower_row type=hbox width=10%:90%
 	@caption Dush
 
 		@property shower_sel type=checkbox ch_value=1 table=watercraft parent=shower_row no_caption=1
@@ -308,7 +310,7 @@
 		@caption Kogus (tk)
 
 			'swimming_ladder' => array( 'caption' => t('Ujumisredel'), 'amount' => null ),
-	@layout swimming_ladder_row type=hbox width=10%:90% 
+	@layout swimming_ladder_row type=hbox width=10%:90%
 	@caption Ujumisredel
 
 		@property swimming_ladder_sel type=checkbox ch_value=1 table=watercraft parent=swimming_ladder_row no_caption=1
@@ -318,7 +320,7 @@
 		@caption Info
 
 			'awning' => array( 'caption' => t('Varikatus'), 'amount' => null ),
-	@layout awning_row type=hbox width=10%:90% 
+	@layout awning_row type=hbox width=10%:90%
 	@caption Varikatus
 
 		@property awning_sel type=checkbox ch_value=1 table=watercraft parent=awning_row no_caption=1
@@ -328,7 +330,7 @@
 		@caption Info
 
 			'kitchen_cooker' => array( 'caption' => t('K&ouml;&ouml;k/Pliit'), 'amount' => null ),
-	@layout kitchen_cooker_row type=hbox width=10%:90% 
+	@layout kitchen_cooker_row type=hbox width=10%:90%
 	@caption K&ouml;&ouml;k/Pliit
 
 		@property kitchen_cooker_sel type=checkbox ch_value=1 table=watercraft parent=kitchen_cooker_row no_caption=1
@@ -351,7 +353,7 @@
 		@caption Kogus (tk)
 
 			'fridge' => array( 'caption' => t('K&uuml;lmkapp'), 'amount' => null ),
-	@layout fridge_row type=hbox width=10%:90% 
+	@layout fridge_row type=hbox width=10%:90%
 	@caption K&uuml;lmkapp
 
 		@property fridge_sel type=checkbox ch_value=1 table=watercraft parent=fridge_row no_caption=1
@@ -361,7 +363,7 @@
 		@caption Info
 
 			'anchor' => array( 'caption' => t('Ankur'), 'amount' => null ),
-	@layout anchor_row type=hbox width=10%:90% 
+	@layout anchor_row type=hbox width=10%:90%
 	@caption Ankur
 
 		@property anchor_sel type=checkbox ch_value=1 table=watercraft parent=anchor_row no_caption=1
@@ -384,7 +386,7 @@
 		@caption Kogus (tk)
 
 			'tv_video' => array( 'caption' => t('TV-video'), 'amount' => null ),
-	@layout tv_video_row type=hbox width=10%:90% 
+	@layout tv_video_row type=hbox width=10%:90%
 	@caption TV-video
 
 		@property tv_video_sel type=checkbox ch_value=1 table=watercraft parent=tv_video_row no_caption=1
@@ -394,7 +396,7 @@
 		@caption Info
 
 			'fuel' => array( 'caption' => t('K&uuml;te'), 'amount' => null ),
-	@layout fuel_row type=hbox width=10%:90% 
+	@layout fuel_row type=hbox width=10%:90%
 	@caption K&uuml;te
 
 		@property fuel_sel type=checkbox ch_value=1 table=watercraft parent=fuel_row no_caption=1
@@ -426,7 +428,7 @@
 		@property life_boat_info type=textbox table=watercraft parent=life_boat_row no_caption=1
 		@caption Info
 
-		@property life_boat_amount type=textbox table=watercraft parent=life_boat_row 
+		@property life_boat_amount type=textbox table=watercraft parent=life_boat_row
 		@caption Kogus (tk)
 
 
@@ -493,6 +495,8 @@ define('MAST_MATERIAL_OTHER', 4);
 
 class watercraft extends class_base
 {
+	const AW_CLID = 1117;
+
 	var $deal_type;
 	var $watercraft_type;
 	var $accessories;
@@ -551,7 +555,7 @@ class watercraft extends class_base
 			CONDITION_USED => t('Kasutatud'),
 			CONDITION_NEEDS_REPAIR => t('Vajab remonti')
 		);
-		
+
 		$this->centreboard = array(
 			CENTREBOARD_1 => t('Kiil'),
 			CENTREBOARD_2 => t('Svert'),
@@ -738,12 +742,12 @@ class watercraft extends class_base
 			//-- set_property --//
 		}
 		return $retval;
-	}	
-	
+	}
+
 	function _get_images_toolbar($arr)
 	{
 		$t = &$arr['prop']['vcl_inst'];
-		
+
 		$t->add_button(array(
 			'name' => 'new',
 			'img' => 'new.gif',
@@ -836,7 +840,7 @@ class watercraft extends class_base
 
 		$rows = $this->sail_types;
 
-	
+
 		$saved_sail_table = $arr['obj_inst']->meta('sail_table');
 		// these style = some amount of pixels, are here for marine24 webview.. it didn't fit any other way, and i didn't have any time to do nicer
 		foreach ( $rows as $key => $value )
@@ -985,7 +989,7 @@ class watercraft extends class_base
 			));
 		}
 		return PROP_OK;
-	
+
 	}
 
 	function _set_additional_equipment_table($arr)
@@ -1059,23 +1063,23 @@ class watercraft extends class_base
 		{
 			$this->read_template("show.tpl");
 		}
-		
+
 		$vars = array();
 
 		// properties
 		$props = $ob->properties();
-		
+
 		// location
 		$loc = array();
 		if($this->can("view", $props["location"]))
 		{
-			$o = obj($props["location"]); 
+			$o = obj($props["location"]);
 			$loc[] = $o->name();
 		}
-		
+
 		if($props["location_precise"])
 		{
-			$loc[] = $props["location_precise"];			
+			$loc[] = $props["location_precise"];
 		}
 		$this->vars(array(
 			"watercraft_final_location" => count($loc)?join(", ", $loc):t("-"),
@@ -1085,13 +1089,13 @@ class watercraft extends class_base
 		$man = array();
 		if($this->can("view", $props["manufacturer"]))
 		{
-			$o = obj($props["manufacturer"]); 
+			$o = obj($props["manufacturer"]);
 			$man[] = $o->name();
 		}
-		
+
 		if($props["manufacturer_other"])
 		{
-			$man[] = $props["manufacturer_other"];			
+			$man[] = $props["manufacturer_other"];
 		}
 		$this->vars(array(
 			"watercraft_manufacturer_together" => count($man)?join(" ", $man):t("-"),
@@ -1194,14 +1198,14 @@ class watercraft extends class_base
 		$li = $cf->get_layoutinfo();
 		foreach($add_equip as $prp => $vals)
 		{
-			$_t = ($vals["amount"]?sprintf("(%s tk)", $vals["amount"]):"").($vals["info"]?sprintf("- %s",$vals["info"]):""); 
+			$_t = ($vals["amount"]?sprintf("(%s tk)", $vals["amount"]):"").($vals["info"]?sprintf("- %s",$vals["info"]):"");
 			if($vals["sel"])
 			{
 				$joins[] = $li[$prp."_row"]["caption"]." ".$_t;
 			}
 		}
 		$vars["watercraft_comma_separated_additional_equipment"] = ($_t = join(", ", $joins))?$_t:"-";
-		
+
 		// images
 		$image_inst = get_instance(CL_IMAGE);
 		$images = new object_list(array(
@@ -1216,7 +1220,7 @@ class watercraft extends class_base
 		{
 			$image_data = $image_inst->get_image_by_id($image_id);
 			$image_url = $image_inst->get_url_by_id($image_id);
-			
+
 			$fl = $image->prop("file");
 			if(!empty($fl))
 			{
@@ -1227,7 +1231,7 @@ class watercraft extends class_base
 				$sm_w = $sz[0];
 				$sm_h = $sz[1];
 			}
-			
+
 			$fl = $image->prop("file2");
 			if(!empty($fl))
 			{
@@ -1244,7 +1248,7 @@ class watercraft extends class_base
 				//'watercraft_big_image_url' => ($image_data["big_url"])?$image_data["big_url"]:$image_data["url"],
 				'watercraft_big_image_url' => $this->mk_my_orb("show_big", array( "id" => $image_id), CL_IMAGE),
 				'watercraft_image_name' => $image_data['name'],
-				'watercraft_image_tag' => $image_inst->make_img_tag_wl($image_id), 
+				'watercraft_image_tag' => $image_inst->make_img_tag_wl($image_id),
 				'watercraft_image_width' => $sm_w,
 				'watercraft_image_height' => $sm_h,
 				'watercraft_big_image_width' => $image_data["big_url"]?$bg_w:$sm_w,
@@ -1345,14 +1349,14 @@ class watercraft extends class_base
 		if (empty($field))
 		{
 			// db table doesn't exist, so lets create it:
-			$this->db_query('CREATE TABLE '.$table.' (
+			$this->db_query('CREATE TABLE watercraft (
 				oid INT PRIMARY KEY NOT NULL,
 
 				deal_type int,
 				watercraft_type int,
 				body_material int,
 				location int,
-				condition int,
+				`condition` int,
 				seller int,
 				visible int,
 				archived int,

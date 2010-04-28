@@ -1,9 +1,14 @@
 <?php
+
+namespace automatweb;
+
 /*
 @classinfo maintainer=markop
 */
 class task_row_obj extends _int_object
 {
+	const AW_CLID = 1050;
+
 	private $in_save = false;
 
 	function prop($pn)

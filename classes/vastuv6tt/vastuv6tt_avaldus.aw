@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // vastuv6tt_avaldus.aw - Avaldus
 /*
 
@@ -59,6 +61,8 @@ CREATE TABLE `vastuv6tt_avaldus` (
 
 class vastuv6tt_avaldus extends class_base
 {
+	const AW_CLID = 337;
+
 	function vastuv6tt_avaldus()
 	{
 		$this->init(array(

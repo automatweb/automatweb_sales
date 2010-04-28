@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // flv_file.aw - FLV fail
 /*
 
@@ -55,6 +57,8 @@
 
 class flv_file extends class_base
 {
+	const AW_CLID = 1382;
+
 	function flv_file()
 	{
 		$this->init(array(
@@ -189,7 +193,7 @@ class flv_file extends class_base
 				// if a file was found, then move it to wherever it should be located
 				if (is_uploaded_file($src_file))
 				{
-					$_fi = get_instance(CL_FILE);
+					$_fi = new file();
 					$final_name = $_fi->generate_file_path(array(
 						"type" => "video/flv",
 					));

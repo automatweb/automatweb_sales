@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // gallery.aw - gallery management
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/gallery/gallery_v2.aw,v 1.66 2008/01/31 13:52:27 kristo Exp $
 
@@ -90,6 +92,8 @@
 classload("image");
 class gallery_v2 extends class_base
 {
+	const AW_CLID = 190;
+
 	function gallery_v2($id = 0)
 	{
 		$this->init(array(
@@ -672,7 +676,7 @@ class gallery_v2 extends class_base
 
 		if (trim($_FILES[$img_n]["type"]) == "application/pdf" || ($old["img"]["is_file"] == 1 && $_FILES[$img_n]["tmp_file"] == ""))
 		{
-			$f = get_instance(CL_FILE);
+			$f = new file();
 			$this->_page_content[$row][$col]["img"] = $f->add_upload_image(
 				$img_n, 
 				$imgfolder,
@@ -1039,7 +1043,7 @@ class gallery_v2 extends class_base
 
 		if ($pd["img"]["is_file"])
 		{
-			$fi = get_instance(CL_FILE);
+			$fi = new file();
 			$link = $fi->get_url($pd["img"]["id"],"sisu.pdf");
 		}
 		else
@@ -1064,7 +1068,7 @@ class gallery_v2 extends class_base
 
 		if ($pd["img"]["is_file"])
 		{
-			$fi = get_instance(CL_FILE);
+			$fi = new file();
 			$link = $fi->get_url($pd["img"]["id"],"sisu.pdf");
 		}
 		else

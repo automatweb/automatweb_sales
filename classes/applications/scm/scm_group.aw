@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_group.aw,v 1.5 2007/12/06 14:34:06 kristo Exp $
 // scm_group.aw - V&otilde;istlusklass 
 /*
@@ -32,6 +34,8 @@
 
 class scm_group extends class_base
 {
+	const AW_CLID = 1098;
+
 	function scm_group()
 	{
 		$this->init(array(

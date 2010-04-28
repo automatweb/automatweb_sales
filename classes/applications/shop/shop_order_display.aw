@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_ORDER_DISPLAY relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_shop_order_display master_index=brother_of master_table=objects index=aw_oid
@@ -16,6 +18,8 @@
 
 class shop_order_display extends class_base
 {
+	const AW_CLID = 1556;
+
 	function shop_order_display()
 	{
 		$this->init(array(

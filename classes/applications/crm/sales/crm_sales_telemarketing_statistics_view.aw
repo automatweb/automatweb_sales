@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class crm_sales_telemarketing_statistics_view
 {
 	const COLOUR_WEEKEND = "#FFDDDD";

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // mobi_handler.aw - Mobi SMS haldur
 /*
 
@@ -47,6 +49,8 @@
 
 class mobi_handler extends class_base
 {
+	const AW_CLID = 1416;
+
 	function mobi_handler()
 	{
 		$this->init(array(

@@ -1,8 +1,6 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
+namespace automatweb;
 
 class datepicker extends core implements vcl_interface
 {

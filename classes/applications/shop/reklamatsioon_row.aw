@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_REKLAMATSIOON_ROW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=smeedia
 @tableinfo aw_reklamatsioon_row master_index=brother_of master_table=objects index=aw_oid
@@ -36,6 +38,8 @@
 
 class reklamatsioon_row extends class_base
 {
+	const AW_CLID = 1566;
+
 	function reklamatsioon_row()
 	{
 		$this->init(array(

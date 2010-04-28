@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // proptest.aw - Property Test File, for unit tests
 // Feel free to add new things and write new tests, but if you change any existing ones, then make sure
 // that you update any relevant tests as well
@@ -52,6 +54,8 @@
 
 class proptest extends class_base
 {
+	const AW_CLID = 1027;
+
 	var $on_load_args;
 	var $pre_edit_called = false;
 	var $on_load_called = false;

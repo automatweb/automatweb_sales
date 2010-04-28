@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class __aw_proxy_class_list extends core
 {
 	function __aw_proxy_class_list($rs)

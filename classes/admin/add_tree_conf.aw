@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 	@classinfo no_comment=1 no_status=1 syslog_type=ST_ADD_TREE_CONF maintainer=kristo prop_cb=1
 
@@ -17,6 +19,8 @@
 
 class add_tree_conf extends class_base
 {
+	const AW_CLID = 118;
+
 	private static $system_classes = array(
 		"sys",
 		"popup_search",
@@ -261,7 +265,7 @@ class add_tree_conf extends class_base
 				{
 					$o = obj($g_oid, array(), CL_GROUP);
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					continue;
 				}

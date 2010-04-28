@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CONTENT_ITEM relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_content_item master_index=brother_of master_table=objects index=aw_oid
@@ -53,6 +55,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CONTENT_ITEM, on_obj
 
 class content_item extends class_base
 {
+	const AW_CLID = 1478;
+
 	function content_item()
 	{
 		$this->init(array(

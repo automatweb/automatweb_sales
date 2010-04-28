@@ -1,8 +1,8 @@
 <?php
 // mssql.aw - MSSQL draiver
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class mssql
 {
 	var $dbh; #database handle
@@ -274,7 +274,7 @@ class mssql
 
 	function db_list_tables()
 	{
-		$this->db_query("SELECT TABLE_SCHEMA,TABLE_NAME, OBJECTPROPERTY(object_id(TABLE_NAME), N'IsUserTable') AS type 
+		$this->db_query("SELECT TABLE_SCHEMA,TABLE_NAME, OBJECTPROPERTY(object_id(TABLE_NAME), N'IsUserTable') AS type
  FROM INFORMATION_SCHEMA.TABLES");
 	}
 

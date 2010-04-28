@@ -45,7 +45,8 @@
       </property>
       <property>
             <name>amount</name>
-            <table>aw_amount</table>
+            <table>aw_shop_warehouse_return_row</table>
+            <field>aw_amount</field>
             <group>general</group>
             <type>textbox</type>
             <field>amount</field>

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/class_designer.aw,v 1.36 2008/05/20 11:43:54 kristo Exp $
 // class_designer.aw - Vormidisainer 
 
@@ -218,6 +220,8 @@ caption
 
 class class_designer extends class_base
 {
+	const AW_CLID = 320;
+
 	function class_designer()
 	{
 		$this->init(array(

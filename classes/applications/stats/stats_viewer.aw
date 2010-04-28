@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // stats_viewer.aw - Statistika
 /*
 
@@ -180,6 +182,8 @@
 
 class stats_viewer extends class_base
 {
+	const AW_CLID = 1145;
+
 	private $stat_sel_flt; // if user has selected a filter, this contains its id string
 	private $saved_filters = array(); // if user has selected or is adding a filter, this contains all saved filters. Format is array(filter1_id => (array) data, ...)
 	private $stats_disp_filter_parameters; // used by stats display views to create human readable filter descriptions for table headers.
@@ -456,7 +460,7 @@ class stats_viewer extends class_base
 
 	function callback_post_save($arr)
 	{
-		$pops = get_instance("vcl/popup_search");
+		$pops = new popup_search();
 		$pops->do_create_rels($arr["obj_inst"], $arr["request"]["obj_h"], "RELTYPE_OBJ");
 		$pops->do_create_rels($arr["obj_inst"], $arr["request"]["user_h"], "RELTYPE_USER");
 		$pops->do_create_rels($arr["obj_inst"], $arr["request"]["ugroup_h"], "RELTYPE_GROUP");
@@ -1011,7 +1015,7 @@ class stats_viewer extends class_base
 	function op_handler($op)
 	{
 		$o = obj($_GET["id"]);
-		$f = get_instance(CL_FILE);
+		$f = new file();
 		$id = $f->create_file_from_string(array(
 			"parent" => $o->id(),
 			"content" => $op
@@ -2980,7 +2984,7 @@ class stats_viewer extends class_base
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_browser_tbl($t);
 
-		$f = get_instance(CL_FILE);
+		$f = new file();
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_HTML")) as $c)
 		{
 			$o = $c->to();

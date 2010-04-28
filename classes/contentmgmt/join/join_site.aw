@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // join_site.aw - Saidiga Liitumine
 /*
 
@@ -195,6 +197,8 @@ EMIT_MESSAGE(MSG_USER_JOINED)
 
 class join_site extends class_base
 {
+	const AW_CLID = 287;
+
 	function join_site()
 	{
 		$this->init(array(
@@ -1276,7 +1280,7 @@ class join_site extends class_base
 			{
 				$join_done = true;
 				// add the user
-				$cu = get_instance(CL_USER);
+				$cu = new user();
 				$u_oid = $cu->add_user(array(
 					"uid" => $n_uid,
 					"email" => $n_email,
@@ -2443,7 +2447,7 @@ class join_site extends class_base
 	{
 		$ret = array();
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$ll = $la->listall();
 
 		$jmt = $arr["obj_inst"]->meta("jm_texts");
@@ -2701,7 +2705,7 @@ class join_site extends class_base
 			"align" => "center"
 		));
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list();
 		foreach($ll as $lid => $lang)
 		{
@@ -2727,7 +2731,7 @@ class join_site extends class_base
 
 		$visible = $arr["obj_inst"]->meta("visible");
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("all_data" => true));
 
 		$propn = $arr["obj_inst"]->meta("propn");
@@ -2844,7 +2848,7 @@ class join_site extends class_base
 
 	function _set_trans_tb($arr)
 	{
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("all_data" => true));
 
 		foreach($arr["request"]["d"] as $clid => $d2)
@@ -2888,7 +2892,7 @@ class join_site extends class_base
                         "align" => "center"
                 ));
 
-                $l = get_instance("languages");
+                $l = new languages();
                 $ll = $l->get_list();
                 foreach($ll as $lid => $lang)
                 {
@@ -2905,7 +2909,7 @@ class join_site extends class_base
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_trans_err_t($t, $arr["obj_inst"]);
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("all_data" => true));
 
 		$ermsgs = array(
@@ -2944,7 +2948,7 @@ class join_site extends class_base
 			"align" => "center"
 		));
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list();
 		foreach($ll as $lid => $lang)
 		{
@@ -2967,7 +2971,7 @@ class join_site extends class_base
 
                 $lang_seps = $arr["obj_inst"]->meta("lang_seps");
 
-                $l = get_instance("languages");
+                $l = new languages();
                 $ll = $l->get_list(array("all_data" => true));
 
 		$seps = $arr["obj_inst"]->meta("join_seps");

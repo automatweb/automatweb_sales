@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // crm_address.aw - It's not really a physical address but a collection of data required to
 // contact a person.
 /*
@@ -85,6 +87,8 @@ CREATE TABLE `kliendibaas_address` (
 
 class crm_address extends class_base
 {
+	const AW_CLID = 146;
+
 	function crm_address()
 	{
 		$this->init(array(

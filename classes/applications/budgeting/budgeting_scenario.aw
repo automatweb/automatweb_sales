@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/budgeting/budgeting_scenario.aw,v 1.3 2007/12/06 14:32:51 kristo Exp $
 // budgeting_scenario.aw - Eelarve stasenaarium 
 /*
@@ -12,6 +14,8 @@
 
 class budgeting_scenario extends class_base
 {
+	const AW_CLID = 1325;
+
 	function budgeting_scenario()
 	{
 		$this->init(array(

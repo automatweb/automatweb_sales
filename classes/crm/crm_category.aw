@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_category.aw - Kategooria
 /*
 
@@ -56,6 +58,8 @@
 
 class crm_category extends class_base
 {
+	const AW_CLID = 483;
+
 	function crm_category()
 	{
 		$this->init(array(
@@ -144,7 +148,7 @@ class crm_category extends class_base
 		$cd = $arr["set_row_data_prop"];//data to be changed
 		$data =  $this->get_import_data();
  		$data_array =  array_merge(array(" ") , explode("\n" , $data));
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$parent = $u->get_current_company();
 
 		$name_field = $this->get_field_by_name("name");arr($name_field);

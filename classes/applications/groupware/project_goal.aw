@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_goal.aw,v 1.2 2007/12/06 14:33:32 kristo Exp $
 // project_goal.aw - Verstapost 
 /*
@@ -23,6 +25,8 @@
 
 class project_goal extends class_base
 {
+	const AW_CLID = 938;
+
 	function project_goal()
 	{
 		$this->init(array(

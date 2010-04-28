@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // realestate_export.aw - Kinnisvaraobjektide eksport
 /*
 
@@ -52,6 +54,8 @@ define ("RE_EXPORT_CITY24USER_VAR_NAME", "realestate_city24username");
 
 class realestate_export extends class_base
 {
+	const AW_CLID = 1002;
+
 	var $realestate_manager;
 	var $export_objlist;
 	var $from_date;

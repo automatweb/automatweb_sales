@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class aw_server_entry_obj extends _int_object
 {
+	const AW_CLID = 1499;
+
 
 	function name()
 	{

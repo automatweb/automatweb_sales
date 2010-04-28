@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/taket/taket_users_import.aw,v 1.12 2009/05/21 13:35:53 dragut Exp $
 // taket_users_import.aw - Taketi kasutajate import 
 /*
@@ -13,6 +15,8 @@
 
 class taket_users_import extends class_base implements customer_import_datasource
 {
+	const AW_CLID = 247;
+
 	function taket_users_import()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 
@@ -284,7 +288,7 @@ taket.xmlrpcport[0] = 8888<br>";
 		//kuna get_response ei anna antud juhul midagi, siis tegi "k2sitsi" 2ra asja
 		$data = $datx;
 
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$gr = get_instance(CL_GROUP);
 
 		foreach($data as $value)

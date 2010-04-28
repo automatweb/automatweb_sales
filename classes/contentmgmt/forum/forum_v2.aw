@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_FORUM_V2, on_connect_menu)
@@ -338,6 +340,8 @@ define('TOPICS_LAST_TOPIC_AUTHOR', 2);
 
 class forum_v2 extends class_base implements site_search_content_group_interface
 {
+	const AW_CLID = 211;
+
 	var $topics_sort_order = array();
 
 	function forum_v2()
@@ -1868,7 +1872,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			{
 				$uid_oid = users::get_oid_for_uid($uid);
 				$user_obj = new object($uid_oid);
-				$cl_users = get_instance(CL_USER);
+				$cl_users = new user();
 				$p_oid = $cl_users->get_person_for_user($user_obj);
 
 				if ($this->can("view", $p_oid))
@@ -1991,7 +1995,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 
 	function get_user_data($uid)
 	{
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$pid = $ui->get_person_for_uid($uid);
 		if(is_oid($pid))
 		{
@@ -2893,7 +2897,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 			$user_obj = new object($uid_oid);
 			$props['author_email']['value'] = $user_obj->prop("email");
 
-			$cl_users = get_instance(CL_USER);
+			$cl_users = new user();
 			$p_oid = $cl_users->get_person_for_user($user_obj);
 
 			if ($this->can("view", $p_oid))
@@ -2980,7 +2984,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		{
 			$uid_oid = users::get_oid_for_uid($uid);
 			$user_obj = new object($uid_oid);
-			$cl_users = get_instance(CL_USER);
+			$cl_users = new user();
 			$p_oid = $cl_users->get_person_for_user($user_obj);
 
 			if ($this->can("view", $p_oid))
@@ -3137,7 +3141,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				$user = obj(aw_global_get("uid_oid"));
 				if($obj_inst->prop("post_name"))
 				{
-					$ui = get_instance(CL_USER);
+					$ui = new user();
 					$p = obj($ui->get_current_person());
 					$arr["author_name"] = $p->name();
 				}
@@ -3273,7 +3277,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 				$arr["pname"] = $user_obj->name();
 				if($obj_inst->prop("post_name"))
 				{
-					$ui = get_instance(CL_USER);
+					$ui = new user();
 					$p = obj($ui->get_current_person());
 					$arr["uname"] = $p->name();
 				}
@@ -3497,7 +3501,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		if (!empty($arr['uid']))
 		{
 			$uid_oid = users::get_oid_for_uid($arr['uid']);
-			$user_inst = get_instance(CL_USER);
+			$user_inst = new user();
 			$user_groups = $user_inst->get_groups_for_user($arr['uid']);
 			if (!$user_groups)
 			{
@@ -3659,7 +3663,7 @@ class forum_v2 extends class_base implements site_search_content_group_interface
 		{
 			return false;
 		}
-		$user_inst = get_instance(CL_USER);
+		$user_inst = new user();
 		$post_creator_groups = $user_inst->get_groups_for_user($username);
 		if (!$post_creator_groups)
 		{

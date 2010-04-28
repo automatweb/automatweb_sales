@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/conference.aw,v 1.10 2007/12/06 14:32:55 kristo Exp $
 // conference.aw - Konverents 
 /*
@@ -118,6 +120,8 @@ caption Veebivorm
 
 class conference extends class_base
 {
+	const AW_CLID = 1166;
+
 	function conference()
 	{
 		$this->init(array(
@@ -543,7 +547,7 @@ class conference extends class_base
 			"action" => "create_new_room_and_reservation",
 		));
 
-		$popup_search = get_instance("vcl/popup_search");
+		$popup_search = new popup_search();
 		$search_butt = $popup_search->get_popup_search_link(array(
 			"pn" => "room_search_results",
 			"clid" => CL_ROOM,

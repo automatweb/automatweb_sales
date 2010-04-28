@@ -1,5 +1,8 @@
 <?php
 
+namespace automatweb;
+
+
 /*
 @classinfo  maintainer=voldemar
 */
@@ -10,6 +13,8 @@ require_once "mrp_header.aw";
 
 class mrp_resource_obj extends _int_object
 {
+	const AW_CLID = 825;
+
 	const STATE_AVAILABLE = 10;
 	const STATE_RESERVED = 14;
 	const STATE_PROCESSING = 11;
@@ -189,7 +194,7 @@ class mrp_resource_obj extends _int_object
 			{
 				throw $e;
 			}
-			catch (Exception $E)
+			catch (\Exception $E)
 			{
 			}
 
@@ -864,7 +869,7 @@ class mrp_resource_obj extends _int_object
 			$this->ref()->unlock();
 			throw $e;
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$this->ref()->unlock();
 			$e = new awex_mrp_resource("Unknown error on resource " . $this->id() . " trying to start job " . $job->id());
@@ -951,7 +956,7 @@ class mrp_resource_obj extends _int_object
 		{
 			throw $e;
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$this->ref()->unlock();
 			$e = new awex_mrp_resource("Unknown error. job (" . $job->id() . "), resource (" . $this->id() . ")");
@@ -993,7 +998,7 @@ class mrp_resource_obj extends _int_object
 				}
 			}
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$e = new awex_mrp_resource("Unknown error");
 			$e->set_forwarded_exception($E);
@@ -1042,7 +1047,7 @@ class mrp_resource_obj extends _int_object
 			$this->save();
 			$this->ref()->unlock();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$this->ref()->unlock();
 			throw $e;
@@ -1206,7 +1211,7 @@ class mrp_resource_obj extends _int_object
 							$thread->process($job);
 							$this->thread_index[$job->id()] = count($this->threads);
 						}
-						catch (Exception $e)
+						catch (\Exception $e)
 						{
 							if ($job)
 							{

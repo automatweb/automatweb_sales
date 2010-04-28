@@ -267,7 +267,7 @@ class project_req_impl extends class_base
 			));
 		}
 		classload("core/icons");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($ol->arr() as $o)
 		{
 			$o = $o->get_original();

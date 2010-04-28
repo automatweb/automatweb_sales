@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class aw_session_track extends class_base
 {
@@ -154,7 +153,7 @@ class aw_session_track extends class_base
 		));
 	}
 
-	/** 
+	/**
 
 		@attrib name=show_site
 
@@ -280,8 +279,8 @@ class aw_session_track extends class_base
 				"who" => $d["server"]["site"]." / ".$d["aw"]["uid"],
 				"msg" => $d["aw"]["do_message"]
 			));
-		}		
-		
+		}
+
 		$t3 = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -306,8 +305,8 @@ class aw_session_track extends class_base
 				"who" => $d["server"]["site"]." / ".$d["aw"]["uid"],
 				"url" => $d["aw"]["do_redir"]
 			));
-		}		
-		
+		}
+
 		return sprintf(t("<br>Saatmata teated: %s <br>Tegemata suunamised: %s"), $t2->draw(), $t3->draw());
 	}
 
@@ -378,7 +377,7 @@ class aw_session_track extends class_base
 
 		$track_data = array();
 
-		while (($file = readdir($dh)) !== false) 
+		while (($file = readdir($dh)) !== false)
 		{
 			if (substr($file, 0, 4) == "sess")
 			{
@@ -466,7 +465,7 @@ class aw_session_track extends class_base
 			"file" => $fp,
 			"content" => $this->_ser_sess_str($fc)
 		));
-		
+
 		return aw_ini_get("baseurl").$arr["return_url"];
 	}
 

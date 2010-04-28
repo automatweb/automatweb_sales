@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
+
+namespace automatweb;
 
 class _int_obj_ds_memcache extends _int_obj_ds_decorator
 {

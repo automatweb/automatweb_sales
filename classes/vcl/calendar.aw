@@ -1,9 +1,9 @@
 <?php
 
 // calendar.aw - VCL calendar
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class vcalendar extends aw_template
 {
 	var $container_template = "container.tpl"; // access?
@@ -100,7 +100,7 @@ class vcalendar extends aw_template
 	**/
 	function init_output($arr)
 	{
-		$this->evt_tpl = get_instance("aw_template");
+		$this->evt_tpl = new aw_template();
 		$this->evt_tpl->tpl_init($this->cal_tpl_dir);
 		if ($this->overview_func)
 		{
@@ -199,7 +199,6 @@ class vcalendar extends aw_template
 		Configures the calendar view in all possible and non-possible ways.
 
 		@examples
-		$cal = get_instance("vcl/calendar");
 		$cal = new vcalendar();
 		// initialize calendar
 		$conf = array(
@@ -256,7 +255,6 @@ class vcalendar extends aw_template
 		@returns
 		Array in format : array(start,end,start_wd,m,y,wd,prev,next,timestamp,viewtype,overview_start,overview_end);
 		@examples
-		$cal = get_instance("vcl/calendar");
 		$cal = new vcalendar();
 		$range = $cal->get_range(array("viewtype"=>"month");
 		// $range contains calculated timeperiod. From current monday to sunday.
@@ -265,7 +263,6 @@ class vcalendar extends aw_template
 	{
 		// called from get_property to determine the range of events to be shown
 		$viewtype = !empty($arr["viewtype"]) ? $arr["viewtype"] : "month";
-		classload("core/date/date_calc");
 		$range_args = array(
 			"type" => $viewtype,
 		);
@@ -548,7 +545,6 @@ class vcalendar extends aw_template
 		));
 		// finalises and prints the calendar to the page
 
-		$cal = get_instance("vcl/calendar");
 		$cal = new vcalendar();
 		print $cal->get_html(array(
 			"text" => $cal->MY_OWN_VIEW_FUNC(); // can be calendars own draw_month() etc..
@@ -559,7 +555,7 @@ class vcalendar extends aw_template
 	function get_html($arr = array())
 	{
 		$fo = $lo = false;
-		$this->aliasmgr = get_instance("alias_parser");
+		$this->aliasmgr = new alias_parser();
 		$this->styles = array();
 
 		if (isset($arr["style"]) and is_array($arr["style"]))
@@ -567,7 +563,6 @@ class vcalendar extends aw_template
 			$this->styles = $arr["style"];
 		}
 
-		classload("core/date/date_calc");
 		if (!is_array($this->range))
 		{
 			$this->range = get_date_range(array(
@@ -663,7 +658,6 @@ class vcalendar extends aw_template
 			}
 		}
 
-		classload("core/date/date_calc");
 		$m = date("m",$this->range["timestamp"]);
 		$y = date("Y",$this->range["timestamp"]);
 
@@ -1041,8 +1035,8 @@ class vcalendar extends aw_template
 					if(!$this->first_event)
 					{
 						$this->first_event = reset($events);
-
 					}
+
 					foreach($events as $event)
 					{
 						$sday = $this->draw_event($event);
@@ -1208,9 +1202,9 @@ class vcalendar extends aw_template
 						$events_for_day .= $sday;
 						$ev_count++;
 					};
-				};
-				$et .= $events_for_day;
+				}
 
+				$et .= $events_for_day;
 			}
 
 			// XX: add optional skip_empty argument
@@ -1232,7 +1226,7 @@ class vcalendar extends aw_template
 			}
 		}
 
-		$this->last_event = $event;
+		$this->last_event = isset($event) ? $event :  null;
 		$this->vars(array(
 			"MONTH" => $rv,
 		));
@@ -1337,7 +1331,7 @@ class vcalendar extends aw_template
 			$rv .= $this->parse($tpl);
 		}
 
-		$this->last_event = $event;
+		$this->last_event = isset($event) ? $event :  null;
 		$this->vars(array(
 			"DAY" => $rv,
 		));
@@ -1842,7 +1836,7 @@ class vcalendar extends aw_template
 
 			if($image = $obj->get_first_obj_by_reltype("RELTYPE_FLYER"))
 			{
-				$flyer_i = get_instance(CL_FLYER);
+				$flyer_i = new flyer();
 				$evt["image"] = $flyer_i->show($image);
 				$evt['image_url'] = $flyer_i->image->get_url($image->prop('file1'));
 			}

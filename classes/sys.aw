@@ -1,8 +1,6 @@
 <?php
 
-/*
-@classinfo  maintainer=kristo
-*/
+namespace automatweb;
 
 /** various system management methods **/
 class sys extends aw_template
@@ -873,7 +871,7 @@ class sys extends aw_template
 		{
 			$www = ("sys" === automatweb::$request->arg("class"));
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$www = false;
 		}

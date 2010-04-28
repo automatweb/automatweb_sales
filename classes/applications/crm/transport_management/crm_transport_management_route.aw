@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/transport_management/crm_transport_management_route.aw,v 1.4 2007/12/06 14:33:24 kristo Exp $
 // route.aw - Marsruut 
 /*
@@ -50,6 +52,8 @@ define('ROUTE_STATUS_ARCHIVED', 2);
 
 class crm_transport_management_route extends class_base
 {
+	const AW_CLID = 1084;
+
 
 	var $route_status = array();
 

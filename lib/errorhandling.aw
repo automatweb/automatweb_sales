@@ -1,27 +1,19 @@
 <?php
 
+namespace automatweb;
+
 // Returns true if the error is to be ignored
 // Please add a reason to every "return true;"!
 function aw_ignore_error($errno, $errstr, $errfile, $errline, $context)
 {
 	if(E_STRICT === $errno)
 	{
-		if($errstr === "Declaration of site_cache::show() should be compatible with that of core::show()")
+		if($errstr === "Declaration of automatweb\\site_cache::show() should be compatible with that of automatweb\\core::show()")
 		{
 			/*
 				Making either of these compatible with the other one just creates more notices! -kaarel 27.05.2009
-				site_cache::show($args = array())
-				core::show($args)
-			*/
-			return true;
-		}
-
-		if($errstr === "Declaration of _int_object_loader::_log() should be compatible with that of core::_log()")
-		{
-			/*
-				You make them compatible! -kaarel 27.05.2009
-				_int_object_loader::_log($new, $oid, $name, $clid = NULL)
-				_log($type, $action, $text, $oid = 0, $honor_ini = true, $object_name = null)
+				automatweb\site_cache::show($args = array())
+				automatweb\core::show($args)
 			*/
 			return true;
 		}
@@ -40,7 +32,7 @@ function aw_exception_handler($e)
 {
 	$class = get_class($e);
 
-	if ("aw_lock_exception" === $class and "object" === $e->object_class)
+	if ("automatweb\\aw_lock_exception" === $class and "automatweb\\object" === $e->object_class)
 	{
 		$blocked_object = new object($e->object_id);
 		$obj_str = $blocked_object->is_saved() ? aw_ini_get("classes." . $blocked_object->class_id() . "name") . ' "' . $blocked_object->name() . '"'  : $e->object_id;
@@ -62,7 +54,7 @@ function aw_exception_handler($e)
 			$url = aw_ini_get("baseurl");
 		}
 
-		header ("Location: $url");
+		header ("Location: {$url}");
 		exit;
 	}
 	else
@@ -78,7 +70,7 @@ function aw_exception_handler($e)
 			));
 			automatweb::shutdown();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			/*	Ajutiselt v2lja. Muidu ilmub pidevalt lehe sappa vastik veateade.
 			// exception handler error
@@ -134,7 +126,7 @@ function aw_dbg_exception_handler($e)
 		}
 		automatweb::shutdown();
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		echo get_class($e)." thrown within the exception handler. Message: ".$e->getMessage()." on line ".$e->getLine();
 		echo "<br /><b>Stack trace:</b> <br />\n";
@@ -186,7 +178,7 @@ function aw_dbg_error_handler($errno, $errstr, $errfile, $errline, $context)
 	else
 	{ // display non-fatal error information
 		$err = strtoupper(substr($class, 9));
-		echo "[{$err}] <b>{$errstr}</b> in {$errfile} on line {$errline}<br><br>\n\n"; //!!! aw_response objekti ja sealt footerite kaudu templatesse
+		echo "[{$err}] <b>{$errstr}</b> in {$errfile} on line {$errline}<br /><br />\n\n"; //!!! aw_response objekti ja sealt footerite kaudu templatesse
 		if (false !== strpos($errstr, "EXPLAIN"))
 		{
 			echo dbg::process_backtrace(debug_backtrace(), -1, true);
@@ -228,7 +220,7 @@ function aw_reasonable_error_handler($errno, $errstr, $errfile, $errline, $conte
 				$current_user_is_maintainer = true;
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 		}
 
@@ -255,7 +247,7 @@ function aw_fatal_error_handler($e = null)
 		if (!empty($e) and aw_is_fatal_error($e["type"]))
 		{
 			// this is to find out the name of current exception handler function
-			$current_exception_handler = set_exception_handler("aw_exception_handler");
+			$current_exception_handler = set_exception_handler("automatweb\\aw_exception_handler");
 			set_exception_handler($current_exception_handler);
 			//////////////
 
@@ -271,7 +263,7 @@ function aw_fatal_error_handler($e = null)
 			//////////////
 		}
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		//!!!
 	}
@@ -301,7 +293,7 @@ function aw_get_error_exception_class($error_type)
 	{
 		$class = "awex_php_fatal";
 	}
-	return $class;
+	return "automatweb\\{$class}";
 }
 
 function aw_is_fatal_error($error_type)
@@ -317,11 +309,11 @@ function aw_is_fatal_error($error_type)
 }
 
 /** Generic automatweb exception **/
-class aw_exception extends Exception
+class aw_exception extends \Exception
 {
 	protected $forwarded_exceptions = array();
 
-	public function set_forwarded_exception(Exception $e)
+	public function set_forwarded_exception(\Exception $e)
 	{
 		$this->forwarded_exceptions[] = $e;
 	}

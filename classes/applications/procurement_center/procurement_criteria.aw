@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement_criteria.aw,v 1.3 2007/12/06 14:33:50 kristo Exp $
 // procurement_criteria.aw - Pakkumise hindamise kriteerium 
 /*
@@ -22,6 +24,8 @@ define("CRIT_PRICE", 2);
 define("CRIT_ASSESS", 3);
 class procurement_criteria extends class_base
 {
+	const AW_CLID = 1076;
+
 	function procurement_criteria()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_meeting.aw,v 1.120 2009/03/10 16:20:34 markop Exp $
 // kohtumine.aw - Kohtumine
 /*
@@ -337,6 +339,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_MEETING_DELETE_PARTICIPANTS,CL_CRM_MEETING, submit
 
 class crm_meeting extends task
 {
+	const AW_CLID = 224;
+
 	var $return_url;
 
 	function crm_meeting()
@@ -631,7 +635,7 @@ class crm_meeting extends task
 					$ao = obj($arr["request"]["alias_to_org"]);
 					if ($ao->class_id() == CL_CRM_PERSON)
 					{
-						$u = get_instance(CL_USER);
+						$u = new user();
 						$data["value"] = $u->get_company_for_person($ao->id());
 					}
 					else
@@ -685,7 +689,7 @@ class crm_meeting extends task
 					}
 				}
 				// also add all workers for my company
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$co = $u->get_current_company();
 				$w = array();
 				$i = get_instance(CL_CRM_COMPANY);
@@ -1122,7 +1126,7 @@ class crm_meeting extends task
 		$output_form = $cform_obj->prop("use_output");
 		if (is_oid($output_form))
 		{
-			$t = get_instance(CL_CFGFORM);
+			$t = new cfgform();
 			$props = $t->get_props_from_cfgform(array("id" => $output_form));
 		}
 		else
@@ -1903,7 +1907,7 @@ class crm_meeting extends task
 				}
 			}
 
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = $u->get_current_person();
 
 			$o->add_participant($p);

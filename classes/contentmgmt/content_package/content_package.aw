@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CONTENT_PACKAGE, on_connect)
 
@@ -55,6 +57,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CONTENT_PACKAGE, on_con
 
 class content_package extends class_base
 {
+	const AW_CLID = 1477;
+
 	function content_package()
 	{
 		$this->init(array(

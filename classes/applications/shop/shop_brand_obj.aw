@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_brand_obj extends _int_object
 {
+	const AW_CLID = 1443;
+
 
 	public function get_logo_html()
 	{

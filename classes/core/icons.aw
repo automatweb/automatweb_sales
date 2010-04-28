@@ -1,8 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/core/icons.aw,v 1.14 2009/08/05 11:52:14 instrumental Exp $
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class icons extends aw_template
 {
 	function icons()

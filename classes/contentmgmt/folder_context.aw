@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/folder_context.aw,v 1.2 2008/01/31 13:52:14 kristo Exp $
 // folder_context.aw - Kontekst 
 /*
@@ -12,6 +14,8 @@
 
 class folder_context extends class_base
 {
+	const AW_CLID = 966;
+
 	function folder_context()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/gallery/gallery_conf.aw,v 1.24 2009/01/28 12:32:37 instrumental Exp $
 /*
 
@@ -188,6 +190,8 @@ define("CORNER_RIGHT_BOTTOM", 4);
 
 class gallery_conf extends class_base
 {
+	const AW_CLID = 187;
+
 	function gallery_conf()
 	{
 		$this->init(array(

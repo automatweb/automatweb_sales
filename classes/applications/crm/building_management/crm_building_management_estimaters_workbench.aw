@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/building_management/crm_building_management_estimaters_workbench.aw,v 1.4 2007/12/06 14:33:21 kristo Exp $
 // crm_building_management_estimaters_workbench.aw - Eelarvestaja t&ouml;&ouml;laud 
 /*
@@ -35,6 +37,8 @@
 
 class crm_building_management_estimaters_workbench extends class_base
 {
+	const AW_CLID = 1103;
+
 	function crm_building_management_estimaters_workbench()
 	{
 		$this->init(array(

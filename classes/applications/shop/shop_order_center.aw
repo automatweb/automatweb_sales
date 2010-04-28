@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // shop_order_center.aw - Tellimiskeskkond
 /*
 
@@ -344,6 +346,8 @@
 
 class shop_order_center extends class_base
 {
+	const AW_CLID = 314;
+
 	function shop_order_center()
 	{
 		$this->init(array(
@@ -422,7 +426,7 @@ class shop_order_center extends class_base
 				$opts = array();
 				if (is_oid($df) && $this->can("view", $df))
 				{
-					$cu = get_instance(CL_CFGFORM);
+					$cu = new cfgform();
 					$ps = $cu->get_props_from_cfgform(array(
 						"id" => $df
 					));
@@ -1099,7 +1103,7 @@ class shop_order_center extends class_base
 		extract($arr);
 
 		// get current person and get the orders from that
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 		$this->read_template("orders.tpl");
 		lc_site_load("shop_order_center", &$this);
@@ -1353,7 +1357,7 @@ class shop_order_center extends class_base
 		$ps_pmap = safe_array($oc->meta("ps_pmap"));
 		$org_pmap = safe_array($oc->meta("org_pmap"));
 
-		$u_i = get_instance(CL_USER);
+		$u_i = new user();
 		$cur_p_id = $u_i->get_current_person();
 		$cur_p = obj();
 		if (is_oid($cur_p_id) && $this->can("view", $cur_p_id))
@@ -1548,7 +1552,7 @@ class shop_order_center extends class_base
 			return PROP_ERROR;
 		}
 
-		$cff = get_instance(CL_CFGFORM);
+		$cff = new cfgform();
 		$ret =  $cff->get_props_from_cfgform(array(
 			"id" => $arr["obj_inst"]->prop("data_form")
 		));
@@ -2140,7 +2144,7 @@ class shop_order_center extends class_base
 		));
 
 		$show_inst = get_instance(CL_PRODUCTS_SHOW);
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->set_class_id(array(CL_SHOP_PRODUCT_CATEGORY));
 		$ps->set_reload_layout("appearance_r");
 		$ps->set_property("categories");

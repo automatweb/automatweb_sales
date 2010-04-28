@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 ob_implicit_flush(true);
 $basedir = realpath(".");
 include($basedir . "/automatweb.aw");
@@ -166,51 +169,44 @@ $new_clid = $classlist->register_new_class_id(array(
 	"data" => $class
 ));
 
-echo "...got new class_id = $new_clid ... \nwriting to classes.ini:...\n";
+echo "...got new class_id = {$new_clid} ... \nwriting to classes.ini:...\n";
 
-$new_clini  = "\nclasses[$new_clid][def] = ".$class['def']."\n";
-$new_clini .= "classes[$new_clid][name] = ".$class['name']."\n";
+$new_clini  = "\nclasses.{$new_clid}.def = ".$class['def']."\n";
+$new_clini .= "classes.{$new_clid}.name = ".$class['name']."\n";
 
 if ($class['folder'] != '')
 {
 	$cl_fname = $class['folder']."/".$class['file'];
-	$cl_fname_oo = $class['folder']."/".$class['file']."_obj";
 }
 else
 {
 	$cl_fname = $class['file'];
-	$cl_fname_oo = $class['file']."_obj";
 }
 
-$new_clini .= "classes[$new_clid][file] = ".$cl_fname."\n";
-$new_clini .= "classes[$new_clid][can_add] = ".$class['can_add']."\n";
-$new_clini .= "classes[$new_clid][object_override] = ".$cl_fname_oo."\n";
+$cl_fname_oo = $class['file']."_obj";
+
+$new_clini .= "classes.{$new_clid}.file = ".$cl_fname."\n";
+$new_clini .= "classes.{$new_clid}.can_add = ".$class['can_add']."\n";
+$new_clini .= "classes.{$new_clid}.object = ".$cl_fname_oo."\n";
+
 if ($class['parents'] != '')
 {
-	$new_clini .= "classes[$new_clid][parents] = ".$class['parents']."\n";
+	$new_clini .= "classes.{$new_clid}.parents = ".$class['parents']."\n";
 }
+
 if ($class['alias'] != '')
 {
-	$new_clini .= "classes[$new_clid][alias] = ".$class['alias']."\n";
+	$new_clini .= "classes.{$new_clid}.alias = ".$class['alias']."\n";
 }
 
 if ($class['is_remoted'] == 1)
 {
-	$new_clini .= "classes[$new_clid][is_remoted] = ".$class['default_remote_server']."\n";
+	$new_clini .= "classes.{$new_clid}.is_remoted = ".$class['default_remote_server']."\n";
 }
 
 echo $new_clini;
 
-// read and find the biggest number
-$ini = _file_get_contents(($args_from_caller ? AW_DIR : "") . 'aw.ini');
-$matches = array();
-$matches = array();
-preg_match_all("/classes\[[0-9]+\]\[[_a-zA-Z0-9]+\]/", $ini, $matches);
-$start_of_last_class_definition_line = strrpos($ini, end($matches[0]));
-$index_of_first_new_line_after_class_definition = $start_of_last_class_definition_line + strpos(substr($ini, $start_of_last_class_definition_line), "\n") + 1;
-$ini = substr($ini, 0, $index_of_first_new_line_after_class_definition) .$new_clini. substr($ini, $index_of_first_new_line_after_class_definition);
-
-_file_put_contents(($args_from_caller ? AW_DIR : "") . 'aw.ini', $ini);
+_file_put_contents(($args_from_caller ? AW_DIR : "") . 'aw.ini', $ini . $new_clini);
 
 echo "\n";
 
@@ -255,6 +251,7 @@ echo "created classes/$clnf...\n";
 
 $fc = _file_get_contents(($args_from_caller ? AW_DIR : "") . "install/class_template/classes/class.aw");
 $fc = str_replace("__classname", $class['file'] . "_obj", $fc);
+$fc = str_replace("__classid", $new_clid, $fc);
 _file_put_contents(($args_from_caller ? AW_DIR : "") . "classes/$clnf_oo",$fc);
 echo "created classes/$clnf_oo...\n";
 

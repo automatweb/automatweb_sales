@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_analysis_col.aw,v 1.3 2008/11/18 10:38:53 robert Exp $
 // project_analysis_col.aw - Projekti anal&uuml;&uuml;si tulp 
 /*
@@ -24,6 +26,8 @@
 
 class project_analysis_col extends class_base
 {
+	const AW_CLID = 1111;
+
 	function project_analysis_col()
 	{
 		$this->init(array(

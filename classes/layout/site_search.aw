@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 @classinfo syslog_type=ST_SITE_SEARCH maintainer=kristo
@@ -13,6 +15,8 @@
 
 class site_search extends class_base
 {
+	const AW_CLID = 205;
+
 	function site_search()
 	{
 		$this->init(array(

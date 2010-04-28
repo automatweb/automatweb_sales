@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_family_relation.aw - Sugulusside
 /*
 
@@ -27,6 +29,8 @@
 
 class crm_family_relation extends class_base
 {
+	const AW_CLID = 1410;
+
 	function crm_family_relation()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_site_content.aw,v 1.10 2008/02/17 21:13:01 kristo Exp $
 // expp_site_content.aw - expp_site_content (nimi) 
 /*
@@ -12,6 +14,8 @@
 
 class expp_site_content extends class_base implements main_subtemplate_handler
 {
+	const AW_CLID = 1021;
+
 
 	var $expp_journal_management_id = 0;
 
@@ -322,7 +326,7 @@ class expp_site_content extends class_base implements main_subtemplate_handler
 			$failid = "";
 			foreach ($this->connections_to_files as $connection_to_file)
 			{
-				$file_inst = get_instance(CL_FILE);
+				$file_inst = new file();
 				$file_object = $connection_to_file->to();
 				$filename = $file_object->name();
 				$file_id = $file_object->id();

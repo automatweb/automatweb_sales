@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // calendar_registration_form.aw - Kalendri s&uuml;ndmusele registreerimise vorm
 /*
 
@@ -1063,6 +1065,8 @@
 
 class calendar_registration_form extends class_base
 {
+	const AW_CLID = 848;
+
 	function calendar_registration_form()
 	{
 		$this->init(array(

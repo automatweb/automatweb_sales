@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_COUNTRY_ADMINISTRATIVE_STRUCTURE relationmgr=yes no_comment=1 no_status=1 maintainer=voldemar prop_cb=1
 
@@ -44,6 +46,8 @@ require_once(aw_ini_get("basedir") . "/classes/common/address/as_header.aw");
 
 class country_administrative_structure extends class_base
 {
+	const AW_CLID = 961;
+
 	function country_administrative_structure ($arr = array ())
 	{
 		$this->init (array (

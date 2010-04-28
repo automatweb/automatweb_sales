@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class acl_manager extends class_base
 {
@@ -64,7 +63,7 @@ class acl_manager extends class_base
 				}
 				$t->define_data($dat);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 			}
 		}

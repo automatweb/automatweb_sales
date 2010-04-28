@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // obj_quick_add.aw - Kiirlisamine
 /*
 
@@ -26,6 +28,8 @@
 
 class obj_quick_add extends class_base
 {
+	const AW_CLID = 1133;
+
 	function obj_quick_add()
 	{
 		$this->init(array(
@@ -255,7 +259,7 @@ class obj_quick_add extends class_base
 		));
 		$mt = $arr["obj_inst"]->meta("grp_sets");
 		$clss = aw_ini_get("classes");
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		foreach($ol->arr() as $o)
 		{
 			$clid = "";
@@ -325,7 +329,7 @@ class obj_quick_add extends class_base
 		$q = $bits["query"];
 		parse_str($q, $td);
 
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("user_qa");
 
 		// now, add items from the bum

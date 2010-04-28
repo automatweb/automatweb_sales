@@ -1,8 +1,6 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
+namespace automatweb;
 
 class class_index
 {
@@ -36,7 +34,7 @@ class class_index
 		Updates entire class index. Reads all files in class directory and parses them, looking for php class definitions.
 	**/
 	public static function update($full_update = true)
-	{
+	{return;
 		// ...
 		$max_execution_time_prev_val = ini_get("max_execution_time");
 		set_time_limit(self::UPDATE_EXEC_TIMELIMIT);
@@ -304,6 +302,8 @@ class class_index
 	**/
 	public static function get_file_by_name($name)
 	{
+		$name = str_replace(automatweb::AW_NAMESPACE . "\\", "", $name);
+
 		// determine if class is aw class or local
 		if (0 === strpos($name, self::LOCAL_CLASS_PREFIX))
 		{
@@ -594,6 +594,26 @@ class class_index
 		}
 		return $is_requestable;
 	}
+
+	/** Returns class name corresponding to given class id
+		@attrib api=1 params=pos
+		@param class_id required type=int
+		@returns string
+		@errors
+			throws awex_clidx_na if class id not valid
+	**/
+	public static function get_name_by_clid($class_id)
+	{
+		try
+		{
+			$class_name = aw_ini_get("class_lut.{$class_id}");
+			return $class_name;
+		}
+		catch (Exception $e)
+		{
+			throw awex_clidx_na("Class with id '$class_id' doesn't exist");
+		}
+	}
 }
 
 /** generic class index error condition **/
@@ -617,6 +637,9 @@ class awex_clidx_double_dfn extends awex_clidx
 }
 
 /** definition container couldn't be locked for modification **/
-class awex_clidx_lock extends aw_exception {}
+class awex_clidx_lock extends awex_clidx {}
+
+/** class doesn't exist **/
+class awex_clidx_na extends awex_clidx {}
 
 ?>

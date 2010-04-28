@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/bug_o_matic_3000/bug_app_type.aw,v 1.4 2008/12/03 10:14:41 robert Exp $
 // bug_app_type.aw - Bugtracki rakendus 
 /*
@@ -14,6 +16,8 @@
 
 class bug_app_type extends class_base
 {
+	const AW_CLID = 1342;
+
 	function bug_app_type()
 	{
 		$this->init(array(

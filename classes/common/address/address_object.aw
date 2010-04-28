@@ -259,10 +259,10 @@ class address_object extends _int_object
 }
 
 /** Generic address error **/
-class awex_as_address extends awex_as {}
+// class awex_as_address extends awex_as {}
 
 /** Country related error **/
-class awex_as_address_country extends awex_as_address {}
+// class awex_as_address_country extends awex_as_address {}
 
 
 

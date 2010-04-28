@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 	@classinfo  maintainer=markop
 	@tableinfo kliendibaas_riik index=oid master_table=objects master_index=oid
@@ -52,6 +54,8 @@ CREATE TABLE `kliendibaas_riik` (
 
 class crm_country extends class_base
 {
+	const AW_CLID = 134;
+
 	function crm_country()
 	{
 		$this->init(array(

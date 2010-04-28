@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class ml_member_obj extends _int_object
 {
+	const AW_CLID = 73;
+
 	function set_name($v)
 	{
 // this breaks e-mail sending!
@@ -138,7 +143,7 @@ class ml_member_obj extends _int_object
 							"to" => $c->prop("to") == $oid ? $emo->id() : $c->prop("to"),
 						));
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 					}
 				}
@@ -240,7 +245,7 @@ class ml_member_obj extends _int_object
 								"to" => $c->prop("to") == parent::id() ? $oid : $c->prop("to"),
 							));
 						}
-						catch (Exception $e)
+						catch (\Exception $e)
 						{
 						}
 					}

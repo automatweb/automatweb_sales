@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_WAREHOUSE_CONFIG relationmgr=yes maintainer=kristo
 @tableinfo aw_shop_warehouse_config index=aw_oid master_table=objects master_index=brother_of
@@ -161,6 +163,8 @@ define("SEND_CTRL_MAIL", 2);
 
 class shop_warehouse_config extends class_base
 {
+	const AW_CLID = 296;
+
 	function shop_warehouse_config()
 	{
 		$this->init(array(

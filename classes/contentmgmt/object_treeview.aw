@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview.aw,v 1.53 2008/01/31 13:52:14 kristo Exp $
 
 /*
@@ -89,6 +91,8 @@
 
 class object_treeview extends class_base
 {
+	const AW_CLID = 209;
+
 	function object_treeview()
 	{
 		$this->all_cols = array(
@@ -195,7 +199,7 @@ class object_treeview extends class_base
 			else
 			if ($od->class_id() == CL_FILE)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$fd = $fi->get_file_by_id($oid);
 				$url = $fi->get_url($oid,$fd["name"]);
 				if ($fd["newwindow"])

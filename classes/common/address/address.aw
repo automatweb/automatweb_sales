@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_ADDRESS relationmgr=yes no_comment=1 no_status=1 maintainer=voldemar prop_cb=1
 
@@ -39,6 +41,8 @@ require_once(aw_ini_get("basedir") . "/classes/common/address/as_header.aw");
 
 class address extends class_base
 {
+	const AW_CLID = 948;
+
 	const AUTOCOMPLETE_OPTIONS_LIMIT = 25;
 
 	function address($arr = array ())
@@ -175,7 +179,7 @@ EOS;
 				$this_object = $arr["obj_inst"];
 				$this_object->set_location($arr["request"]["location_data"]);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->show_error_text(t("Sisestatud aadressi asukoht vigane"));
 			}
@@ -201,7 +205,7 @@ EOS;
 			$divisions = $administrative_structure->get_divisions()->ids();
 			$typed_text = $arr["typed_text"];
 			$list = new object_list(array(
-				"class_id" => address_object::$unit_classes,
+				"class_id" => address_obj::$unit_classes,
 				"name" => "{$typed_text}%",
 				"subclass" => $divisions,
 				new obj_predicate_limit(address::AUTOCOMPLETE_OPTIONS_LIMIT)

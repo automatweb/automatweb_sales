@@ -1,9 +1,13 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo  maintainer=kristo
 */
 class document extends aw_template
 {
+	const AW_CLID = 7;
+
 	var $blocks;
 	var $title;
 	var $no_left_pane;
@@ -166,7 +170,7 @@ class document extends aw_template
 			$row = $this->db_next();
 			if ($row)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$fl = $fi->get_file_by_id($_t_oid);
 				return $fl["content"];
 			};
@@ -204,7 +208,7 @@ class document extends aw_template
 			$row = $this->db_next();
 			if ($row)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$fl = $fi->get_file_by_id($oid);
 				$doc["content"] = $fl["content"];
 				$doc["lead"] = "";
@@ -397,7 +401,7 @@ class document extends aw_template
 		// import charset for print
 		if ($this->template_has_var("charset"))
 		{
-			$_langs = get_instance("languages");
+			$_langs = new languages();
 			$_ld = $_langs->fetch($lang_id);
 			$this->vars(array(
 				"charset" => $_ld["charset"]
@@ -1100,7 +1104,7 @@ class document extends aw_template
 		$langs = "";
 		if ($this->is_template("SEL_LANG") || $this->is_template("LANG"))
 		{
-			$l = get_instance("languages");
+			$l = new languages();
 			$larr = $l->listall();
 			reset($larr);
 			while (list(,$v) = each($larr))
@@ -1181,7 +1185,7 @@ class document extends aw_template
 		$sel_lang_img_url = "";
 		if ($this->template_has_var("sel_lang_img_url"))
 		{
-			$l = get_instance("languages");
+			$l = new languages();
 			$ldata = $l->fetch($lang_id);
 			$sel_lang_img = $ldata["meta"]["lang_img"];
 
@@ -1428,7 +1432,7 @@ class document extends aw_template
 				$lab = unserialize($doc["lang_brothers"]);
 			}
 			$langs = "";
-			$l = get_instance("languages");
+			$l = new languages();
 			$larr = $l->listall();
 			reset($larr);
 			while (list(,$v) = each($larr))

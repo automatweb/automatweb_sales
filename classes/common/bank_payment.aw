@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_BANK_PAYMENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
 
@@ -146,7 +148,9 @@
 */
 
 class bank_payment extends class_base
-{	//olemasolevad pangad
+{
+	const AW_CLID = 1077;
+	//olemasolevad pangad
 	var $banks = array (
 		"hansapank"		=> "Hansapank",
 		"seb"			=> "SEB Eesti &Uuml;hispank",
@@ -457,7 +461,7 @@ class bank_payment extends class_base
 		{
 			if($payment->prop("test_priv_key"))
 			{
-				$file_inst = get_instance(CL_FILE);
+				$file_inst = new file();
 				$file = $file_inst->get_file_by_id($payment->prop("test_priv_key"));
 				$data["priv_key"] = $file["content"];
 			}
@@ -475,7 +479,7 @@ class bank_payment extends class_base
 
 		if(!$data["priv_key"] && $payment->prop("private_key"))
 		{
-			$file_inst = get_instance(CL_FILE);
+			$file_inst = new file();
 			$file = $file_inst->get_file_by_id($payment->prop("private_key"));
 			$data["priv_key"] = $file["content"];
 		}

@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // defs.aw - common functions
 
 /*
@@ -1190,7 +1192,6 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		}
 		elseif (SERIALIZE_XML === $type)
 		{
-			classload("core/serializers/xml");
 			$ser = new xml($flags);
 			$str = $ser->xml_serialize($arr);
 		}
@@ -1249,8 +1250,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			$magic_bytes = substr($str,0,6);
 			if ($magic_bytes === "<?xml ")
 			{
-				classload("core/serializers/xml");
-				$x = new xml;
+				$x = new xml();
 				$retval = $x->xml_unserialize(array("source" => $str));
 			}
 			elseif ($magic_bytes === "\$arr =")
@@ -1401,7 +1401,8 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		{
 			return false;
 		}
-		if (!is_array($GLOBALS["__aw_cache"]))
+
+		if (!isset($GLOBALS["__aw_cache"]) or !is_array($GLOBALS["__aw_cache"]))
 		{
 			$GLOBALS["__aw_cache"] = array($cache => array($key => $val));
 		}
@@ -1411,7 +1412,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			if (empty($GLOBALS["__aw_cache"][$cache]))
 			{
 				$GLOBALS["__aw_cache"][$cache] = "";
-			};
+			}
 
 			if (!is_array($GLOBALS["__aw_cache"][$cache]))
 			{
@@ -2002,319 +2003,6 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		}
 	}
 
-	/** class for debug helpers **/
-	class dbg
-	{
-
-		/** dumps the parameter to a human-readable string and returns the string
-			@attrib api=1 params=pos
-
-			@param data required type=mixed
-				The value to dump
-
-			@returns
-				string with human-readable representation of the given value. Useful for debugging. Wrapper for var_dump()
-
-			@examples
-				$s = array(1, 2);
-				echo dbg::dump($s);
-		**/
-		static function dump($data)
-		{
-			ob_start();
-			print "<pre>";
-			var_dump($data);
-			print "</pre>";
-			$ret = ob_get_contents();
-			ob_end_clean();
-			return $ret;
-		}
-
-		/** prints detailed information about string contents
-			@attrib api=1 params=pos
-
-			@param str required type=string
-				The string to dump
-
-			@comment
-				Echoes the full string and then for each character, it's character code and position in the string.
-				Useful for debugging character set problems.
-		**/
-		static function str_dbg($str)
-		{
-			echo "str = $str <br>";
-			for($i = 0; $i < strlen($str); $i++)
-			{
-				echo "at pos $i: ".$str{$i}." nr = ".ord($str{$i})." <br>";
-			}
-			echo "---<br>";
-		}
-
-		/** prints the given message to the user, if $GLOBALS["DEBUG"] is set
-			@attrib api=1 params=pos
-
-			@param msg required type=string
-				The message to print
-		**/
-		static function p($msg)
-		{
-			if (aw_global_get("DEBUG") == 1)
-			{
-				echo $msg."<br />\n";
-			}
-		}
-
-		/** prints the given message to the user, if a cookie with the name debug1 is set
-			@attrib api=1 params=pos
-
-			@param msg required type=string
-				The message to print
-
-			@comment
-				Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-		**/
-		static function p1($msg)
-		{
-			if (!empty($_COOKIE["debug1"]))
-			{
-				arr($msg);
-			}
-		}
-
-		/** prints the given message to the user, if a cookie with the name debug2 is set
-			@attrib api=1 params=pos
-
-			@param msg required type=string
-				The message to print
-
-			@comment
-				Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-		**/
-		static function p2($msg)
-		{
-			if (!empty($_COOKIE["debug2"]))
-			{
-				echo $msg."<br />\n";
-			}
-		}
-
-		/** prints the given message to the user, if a cookie with the name debug3 is set
-			@attrib api=1 params=pos
-
-			@param msg required type=string
-				The message to print
-
-			@comment
-				Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-		**/
-		static function p3($msg)
-		{
-			if (!empty($_COOKIE["debug3"]))
-			{
-				echo $msg."<br />\n";
-			}
-		}
-
-		/** prints the given message to the user, if a cookie with the name debug4 is set
-			@attrib api=1 params=pos
-
-			@param msg required type=string
-				The message to print
-
-			@comment
-				Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-		**/
-		static function p4($msg)
-		{
-			if (!empty($_COOKIE["debug4"]))
-			{
-				echo $msg."<br />\n";
-			}
-		}
-
-		/** prints the given message to the user, if a cookie with the name debug5 is set
-			@attrib api=1 params=pos
-
-			@param msg required type=string
-				The message to print
-
-			@comment
-				Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-		**/
-		static function p5($msg)
-		{
-			if (!empty($_COOKIE["debug5"]))
-			{
-				print "<pre>";
-				var_dump($msg);
-				print "</pre>";
-			}
-		}
-
-		/** formats a given backtrace to a human-readable format
-			@attrib api=1 params=pos
-
-			@param bt required type=array
-				The backtrace data to process
-
-			@param skip type=int default=-1
-				Number of levels to skip from the end
-
-			@param show_long_args type=bool default=false
-				Truncate long argument values or not
-
-			@returns
-				html with the backtrace formatted to usr-readable format
-
-			@examples
-				echo process_backtrace(debug_backtrace());
-		**/
-		public static function process_backtrace($bt, $skip = -1, $show_long_args = false)
-		{
-			$msg = "<br><br> Backtrace: \n\n<Br><br>";
-			for ($i = count($bt)-1; $i > $skip; $i--)
-			{
-				if (!empty($bt[$i+1]["class"]))
-				{
-					$fnm = "method <b>".$bt[$i+1]["class"]."::".$bt[$i+1]["function"]."</b>";
-				}
-				elseif (!empty($bt[$i+1]["function"]))
-				{
-					$fnm = "function <b>".$bt[$i+1]["function"]."</b>";
-				}
-				else
-				{
-					$fnm = "file ".$bt[$i]["file"];
-				}
-
-				$line = isset($bt[$i]["line"]) ? $bt[$i]["line"] : "(unknown)";
-				$msg .= $fnm." on line {$line} called <br>\n";
-
-				if (!empty($bt[$i]["class"]))
-				{
-					$fnm2 = "method <b>".$bt[$i]["class"]."::".$bt[$i]["function"]."</b>";
-				}
-				elseif (!empty($bt[$i]["function"]))
-				{
-					$fnm2 = "function <b>".$bt[$i]["function"]."</b>";
-				}
-				else
-				{
-					$fnm2 = "file ".$bt[$i]["file"];
-				}
-
-				$msg .= $fnm2." with arguments ";
-
-				$awa = new aw_array($bt[$i]["args"]);
-				$str = array();
-				foreach($awa->get() as $e)
-				{
-					if (is_object($e))
-					{
-						if ($show_long_args)
-						{
-							$e = var_export($e, true);
-						}
-						else
-						{
-							$e = "Object ".get_class($e);
-						}
-
-						$str[] = $e;
-					}
-					elseif(is_array($e))
-					{
-						if ($show_long_args)
-						{
-							$e = var_export($e, true);
-						}
-						else
-						{
-							$e = "Array (".count($e).")";
-						}
-
-						$str[] = $e;
-					}
-					else
-					{
-						if (!$show_long_args and strlen($e) > 200)
-						{
-							$e = substr($e, 0, 100)."...".substr($e, -100);
-						}
-						$str[] = "".$e;
-					}
-				}
-
-				$file = isset($bt[$i]["file"]) ? $bt[$i]["file"] : "(unknown)";
-				$msg .= "<font size=\"-1\">(".htmlentities(join(",", $str)).") file: {$file}</font>";
-				$msg .= " <br><br>\n\n";
-			}
-			return $msg;
-		}
-
-		/** formats a one-line user-readable string from the current backtrace
-			@attrib api=1
-
-			@returns
-				One-line string with a human-readable backtrace
-		**/
-		static function short_backtrace()
-		{
-			$msg = "";
-			if (function_exists("debug_backtrace"))
-			{
-				$bt = debug_backtrace();
-				for ($i = count($bt); $i >= 0; $i--)
-				{
-					$fnm = "";
-
-					if (isset($bt[$i+1]))
-					{
-						if (!empty($bt[$i+1]["class"]))
-						{
-							$fnm = $bt[$i+1]["class"]."::".$bt[$i+1]["function"];
-						}
-						elseif (!empty($bt[$i+1]["function"]) and ($bt[$i+1]["function"] !== "include"))
-						{
-							$fnm = $bt[$i+1]["function"];
-						}
-					}
-
-					if (isset($bt[$i]))
-					{
-					}
-
-					$msg .= $fnm . (isset($bt[$i]["line"]) ? (":" . $bt[$i]["line"]) : "") ."->";
-				}
-			}
-
-			return $msg;
-		}
-
-		/** prints the results of a database query
-			@attrib api=1 params=pos
-
-			@param q required type=string
-				The sql query to perform
-		**/
-		static function q($q)
-		{
-			$first = true;
-			$db = new db_connector();
-			$db->init();
-			$db->db_query($q);
-			while ($row = $db->db_next())
-			{
-				echo "********** Row nr ".++$cnt." *****************\n";
-				foreach($row as $k => $v)
-				{
-					echo "$k: $v\n";
-				}
-			}
-			echo "\n";
-		}
-	}
-
 	function aw_html_entity_decode($string)
 	{
 		$string = iconv(aw_global_get("charset"), "UTF-8", $string);
@@ -2684,5 +2372,454 @@ function aw_bytes_string_to_int($bytes_string)
 
 	return $val;
 }
+
+////
+/** returns timestamps for the beginning and end of the given date range
+
+	@attrib api=1 params=name
+
+	@param time optional type=int
+		unix timestamp of the time to start from
+
+	@param date optional type=string
+		date (format: d-m-y) to start from
+
+	@param range_start optional type=int
+		unix timestamp too start from
+
+	@param type optional type=string
+		defaults to "day", specifies the type of range to return. possible values:
+		"day", "month", "year", "3month", "week", "relative", "last_events"
+
+
+	@errors none
+
+	@returns
+		an array containing the date range, like this:
+		array(
+		"start" => $start_ts,                      - start timestamp for range
+		"end" => $end_ts,                          - end timestamp for range
+		"start_wd" => $start_wd,                   - start weekday for range
+		"end_wd" => $end_wd,                       - end weekday for range
+		"m" => $m,                                 - month for start
+		"y" => $y,                                 - year for start
+		"wd" => $wd,                               - weekday for start
+		"prev" => $prev_d,                         - d-m-Y string for previous range
+		"next" => $next_d,                         - d-m-Y string for next range
+		"timestamp" => $timestamp,                 - timestamp for range
+	);
+
+	@examples
+		classload("core/date/date_calc");
+		$r = get_date_range(array("time" => time(), "type" => "week"));
+		echo date("d.m.Y H:i:s", $r["start"]);	// echoes 00:00:00 the previous monday
+		echo date("d.m.Y H:i:s", $r["end"]);	// echoes 23:59:59 on the next sunday
+
+
+	@comment
+		oe of the three parameters time, date, range_start must be given
+**/
+function get_date_range($args = array())
+{
+	extract($args);
+	if (!empty($date))
+	{
+		list($d,$m,$y) = explode("-",$date);
+		if ($d && $m && !$y)    // 09-2009 format
+		{
+			$y = $m;
+			$m = $d;
+			$d = 1;
+		}
+		elseif (!$y)
+		{
+			list($d,$m,$y) = explode(".",$date);
+		}
+
+		// deal with 2 part url-s
+		if (empty($y))
+		{
+			$y = $m;
+			$m = $d;
+			$d = 1;
+		};
+	}
+	else
+	{
+		list($d,$m,$y) = explode("-",date("d-m-Y",$time));
+	}
+
+	$timestamp = mktime(0,0,0,$m,$d,$y);
+	$timestamp2 = mktime(23,59,59,$m,$d,$y);
+
+	// if a range is specified then use that as the base for our calculations
+	$range_start = isset($args["range_start"]) ? $args["range_start"] : 0;
+	if ($range_start > 0)
+	{
+		$timestamp = $range_start;
+		list($d,$m,$y) = explode("-",date("d-m-Y",$timestamp));
+	}
+
+	// current = 0, backward = 1, forward = 2
+	// current - start or end from/at the timestamp
+	if (!isset($args["direction"]) or $args["direction"] == 0)
+	{
+		$rg_start = $timestamp;
+		// this will be calculated from the range type
+		$rg_end = 0;
+	}
+	elseif (isset($args["direction"]) and $args["direction"] == 1)
+	{
+		// this time, this will be calculated from the range type
+		$rg_start = 0;
+		$rg_end = $timestamp2;
+	}
+	else
+	{
+		$rg_start = $timestamp;
+		$rg_end = $timestamp2;
+	}
+
+	if (empty($type))
+	{
+		$type = "day";
+	};
+
+	$diff = 0;
+
+	$eti = isset($args["event_time_item"]) ? $args["event_time_item"] : 0;
+
+	if (!empty($eti) && is_numeric($eti))
+	{
+		if ($type === "day")
+		{
+			$diff = $eti;
+		}
+		elseif ($type === "week")
+		{
+			$diff = $eti * 7;
+		}
+	}
+
+	// if range start is 0 and we know how many days we want, then base the calculations on that
+	if ($rg_start == 0)
+	{
+		$rg_start = $timestamp - (86400 * $diff);
+	}
+
+	if ($rg_end == 0)
+	{
+		$rg_end = $timestamp2 + (86400 * $diff);
+	}
+
+
+	switch($type)
+	{
+		case "month":
+			$start_ts = mktime(0,0,0,$m,1,$y);
+			$end_ts = mktime(23,59,59,$m+1,0,$y);
+
+			// special flag - fullweeks, if set we return dates from
+			// the first monday of the month to the last sunday of the month
+
+
+
+
+			// siin on next ja prev-i arvutamine monevorra special
+			// kui p2ev on suurem, kui j2rgmises kuus p2evi kokku
+			// j2rgmise kuu viimase p2eva. Sama kehtib eelmise kohta
+			$next_mon = date("d",mktime(0,0,0,$m+2,0,$y));
+			$prev_mon = date("d",mktime(0,0,0,$m,0,$y));
+
+			if ($d > $next_mon)
+			{
+				$next = mktime(0,0,0,$m+1,$next_mon,$y);
+			}
+			else
+			{
+				$next = mktime(0,0,0,$m+1,$d,$y);
+			};
+
+			if ($d > $prev_mon)
+			{
+				$prev = mktime(0,0,0,$m-1,$prev_mon,$y);
+			}
+			else
+			{
+				$prev = mktime(0,0,0,$m-1,$d,$y);
+			};
+			break;
+
+		case "year":
+			$start_ts = mktime(0,0,0,1,1,$y);
+			$end_ts = mktime(23,59,59,12,31,$y);
+
+			$prev = mktime(0,0,0,$m,$d,$y-1);
+			$next = mktime(23,59,59,$m,$d,$y+1);
+			break;
+
+		case "3month":
+			$start_ts = mktime(0,0,0,$m-1,1,$y);
+			$end_ts = mktime(23,59,59,$m+1,0,$y);
+			break;
+
+
+		case "week":
+			$next = mktime(0,0,0,$m,$d+7,$y);
+			$prev = mktime(0,0,0,$m,$d-7,$y);
+			$daycode = convert_wday(date("w",$timestamp));
+			// aga meil siin algab n2dal siiski esmasp2evast
+			$monday = $d - $daycode + 1;
+			$start_ts = mktime(0,0,0,$m,$monday,$y);
+			$end_ts = mktime(23,59,59,$m,$monday+6,$y);
+			break;
+
+		case "relative":
+                        $next = mktime(0,0,0,0,0,0);
+                        $prev = mktime(0,0,0,0,0,0);
+			// if we are supposed to show future events, then set the start range to
+			// this same day
+			// forward = 0, backward = 1
+			if ($args["direction"] == "0")
+			{
+				if (!empty($args["event_time_item"]))
+				{
+					$d2 = $d + $args["event_time_item"];
+				}
+				else
+				{
+					$d2 = $d;
+				};
+				$start_ts = mktime(0,0,0,$m,$d,$y);
+				$end_ts = mktime(0,0,0,$m,$d2,$y);
+			}
+			elseif (($args["direction"] == 1) && (isset($args["time"])) || (isset($args["date"])))
+			{
+				if (!empty($args["event_time_item"]))
+				{
+					$d2 = $d - $args["event_time_item"];
+				}
+				else
+				{
+					$d2 = $d;
+				};
+				$end_ts = mktime(0,0,0,$m,$d,$y);
+				$start_ts = mktime(0,0,0,$m,$d2,$y-1);
+			}
+			else
+			{
+				$start_ts = mktime(0,0,0,1,1,2003);
+			};
+
+			if (empty($end_ts))
+			{
+				$end_ts = mktime(23,59,59,12,31,2003);
+			};
+			break;
+
+		case "day":
+			$start_ts = $rg_start;
+			$end_ts = $rg_end;
+
+			$next = $end_ts + 1;
+			$prev = $start_ts - 1;
+			break;
+
+		case "relative":
+			$next = mktime(0,0,0,0,0,0);
+			$prev = mktime(0,0,0,0,0,0);
+			$start_ts = mktime(0,0,0,1,1,2003);
+			$end_ts = mktime(23,59,59,12,31,2003);
+			break;
+
+		case "last_events":
+			$start_ts = $rg_start;
+			$end_ts = time()+24*3600*200; // far enough methinks
+
+			$next = $end_ts + 1;
+			$prev = $start_ts - 1;
+			break;
+	};
+
+	$start_wd = convert_wday(date("w",$start_ts));
+	$end_wd = convert_wday(date("w",$end_ts));
+
+	if (isset($args["fullweeks"]) and $args["fullweeks"] == 1)
+	{
+		if ($start_wd > 1)
+		{
+			$tambov = $start_wd - 1;
+			$start_ts = $start_ts - ($tambov * 86400);
+		};
+
+		if ($end_wd < 7)
+		{
+			$tambov = 7 - $end_wd;
+			$end_ts = $end_ts + ($tambov * 86400);
+		};
+	}
+
+	$arr = array(
+		"start" => $start_ts,
+		"end" => $end_ts,
+		"start_wd" => $start_wd,
+		"end_wd" => $end_wd,
+		"m" => $m,
+		"y" => $y,
+		"wd" => convert_wday(date("w",$timestamp)),
+		"prev" => date("d-m-Y",$prev),
+		"next" => date("d-m-Y",$next),
+		"timestamp" => $timestamp,
+	);
+	return $arr;
+}
+
+/** modifies the day of week returned by date("w") for european standard
+
+	@attrib api=1
+
+	@param daycode required type=int
+		the day number returned by date("w")
+
+	@returns
+		the real day number of the week, assuming that the week starts on monday
+
+	@example
+		echo "day of week currently in estonia: ".convert_wday(date("w"));
+
+**/
+function convert_wday($daycode)
+{
+	return ($daycode == 0) ? 7 : $daycode;
+}
+
+/** Takes 2 timestamps and calculates the difference between them in days
+
+	@attrib api=1 params=pos
+
+	@param time1 required type=int
+		start of range
+
+	@param time2 required type=int
+		end of range
+
+	@returns length of the given range in days
+
+	@example
+
+		echo get_day_diff(time(), time() + 24*3600*5); // echos 5
+**/
+function get_day_diff($time1,$time2)
+{
+	$diff = $time2 - $time1;
+	$days = (int)($diff / 86400);
+	return $days;
+}
+
+
+function get_week_start($timestamp = null) // DEPRECATED if no objections
+{
+	return date_calc::get_week_start($timestamp);
+}
+
+
+/** returns the timestamp for 00:00 on the 1st of the current month
+
+	@attrib api=1
+
+	@returns the timestamp for 00:00 on the 1st of the current month
+
+	@example
+
+		echo date("d.m.Y", get_month_start()); // echos the date for 1st of the current month
+**/
+function get_month_start()
+{
+	return mktime(0,0,0, date("m"), 1, date("Y"));
+}
+
+
+/** returns the timestamp for 00:00 the given day
+
+	@attrib api=1 params=name
+
+	@param tm optional type=int
+		the timestamp for the day to calculate, optional, defaults to the current time
+
+	@returns the timestamp for 00:00 the given day
+
+	@example
+
+		echo date("d.m.Y H:i:s", get_day_start(time() - 24*3600)); // echos the date and time for yesterday 00:00:00
+**/
+function get_day_start($tm = NULL)
+{
+	if ($tm === NULL)
+	{
+		$tm = time();
+	}
+	return mktime(0,0,0, date("m",$tm), date("d",$tm), date("Y",$tm));
+}
+
+/** returns the timestamp on the january 1st of the current year
+	@attrib api=1 params=name
+	@param tm optional type=int
+		the timestamp for the year to calculate, optional, defaults to the current time
+	@returns the timestamp for 00:00 on the January 1st of the current year
+**/
+function get_year_start($tm = NULL)
+{
+	if ($tm === NULL)
+	{
+		$tm = time();
+	}
+	return mktime(0,0,0, 1, 1, date("Y",$tm));
+}
+
+
+/** returns true if the given timespans ($a_from, $a_to) - ($b_from - $b_to) overlap
+
+	@attrib api=1 params=name
+
+	@param a_from required type=int
+		the timestamp for the beginning of the first range
+
+	@param a_to required type=int
+		the timestamp for the end of the first range
+
+	@param b_from required type=int
+		the timestamp for the beginning of the second range
+
+	@param a_to required type=int
+		the timestamp for the end of the second range
+
+
+	@returns true if the given ranges overlap, false if not
+
+	@example
+
+		echos "leopard":
+
+		if (timespans_overlap(time(), time() + 10, time()-100, time() + 100))
+		{
+			echo "leopard!";
+		}
+
+**/
+function timespans_overlap($a_from, $a_to, $b_from, $b_to)
+{
+	// test for NOT overlapping, that's simpler.
+	// two options here: completely before or completely after
+	if ($a_to <= $b_from)
+	{
+		return false;
+	}
+	if ($a_from >= $b_to)
+	{
+		return false;
+	}
+	return true;
+}
+
 
 ?>

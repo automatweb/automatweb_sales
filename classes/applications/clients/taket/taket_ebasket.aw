@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // taket_ebasket.aw - Ostukorv
 /*
 
@@ -12,6 +14,8 @@
 //
 class taket_ebasket extends class_base
 {
+	const AW_CLID = 241;
+
 	//defined in aw ini
 	var $ebasket_parent_id; //location of the baskets
 	var $ebasket_item_parent_id; //location of the basket items

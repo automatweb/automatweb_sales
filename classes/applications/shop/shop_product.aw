@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_alias)
 @classinfo syslog_type=ST_SHOP_PRODUCT relationmgr=yes prop_cb=1 maintainer=kristo
@@ -591,6 +593,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 
 class shop_product extends class_base
 {
+	const AW_CLID = 295;
+
 	function shop_product()
 	{
 		$this->init(array(
@@ -1946,7 +1950,7 @@ class shop_product extends class_base
 			{
 				if (!isset($prod2props[$prod->meta("cfgform_id")]))
 				{
-					$cfg = get_instance(CL_CFGFORM);
+					$cfg = new cfgform();
 					$prod2props[$prod->meta("cfgform_id")] = $cfg->get_props_from_cfgform(array(
 						"id" => $prod->meta("cfgform_id")
 					));
@@ -1967,7 +1971,7 @@ class shop_product extends class_base
 				//see siis selleks, et kui fck editor on peal, siis pole kyll hea, et ise veel miskeid reavahetusi juurde teha
 				if (!isset($prod2props[$prod->meta("cfgform_id")]))
 				{
-					$cfg = get_instance(CL_CFGFORM);
+					$cfg = new cfgform();
 					if(is_oid($prod->meta("cfgform_id")))
 					{
 						$prod2props[$prod->meta("cfgform_id")] = $cfg->get_props_from_cfgform(array(
@@ -3151,7 +3155,7 @@ class shop_product extends class_base
 		static $fi_instance;
 		if (!$fi_instance)
 		{
-			$fi_instance = get_instance(CL_FILE);
+			$fi_instance = new file();
 		}
 		return $fi_instance;
 	}

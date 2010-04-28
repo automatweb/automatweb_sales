@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE, CL_MRP_CASE, on_popup_search_change)
@@ -291,6 +293,8 @@ require_once "mrp_header.aw";
 
 class mrp_case extends class_base
 {
+	const AW_CLID = 828;
+
 	protected $workspace; // mrp_workspace object
 	protected $mrp_error = "";
 	protected $states = array();
@@ -2508,7 +2512,7 @@ class mrp_case extends class_base
 		{
 			$errors[] = t("Projekti staatus sobimatu");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Projekti ei saand alustada");
 		}
@@ -2561,7 +2565,7 @@ class mrp_case extends class_base
 		{
 			$errors[] = t("Projekti ei saa l&otilde;petada. K&otilde;ik projekti t&ouml;&ouml;d pole valmis");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Projekti ei saand l&otilde;petada");
 		}
@@ -2611,7 +2615,7 @@ class mrp_case extends class_base
 		{
 			$errors[] = t("Projekti staatus sobimatu");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Projekti ei saand katkestada");
 		}
@@ -2660,7 +2664,7 @@ class mrp_case extends class_base
 		{
 			$errors[] = t("Projekti staatus sobimatu");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Projekti ei saand arhiveerida");
 		}
@@ -2710,7 +2714,7 @@ class mrp_case extends class_base
 		{
 			$errors[] = t("Projekti staatus sobimatu");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Projekti ei saand planeerida");
 		}
@@ -2759,7 +2763,7 @@ class mrp_case extends class_base
 		{
 			$errors[] = t("Projekti staatus sobimatu");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Projekti ei saand ootele seada");
 		}
@@ -2887,7 +2891,7 @@ class mrp_case extends class_base
 
 	function get_case_view_popup($o)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu($o->id());
 
 		### start button

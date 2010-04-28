@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property_textbox.aw,v 1.4 2007/12/06 14:33:04 kristo Exp $
 // property_textbox.aw - Element - tekstikast 
 /*
@@ -24,6 +26,8 @@
 
 class property_textbox extends class_base
 {
+	const AW_CLID = 881;
+
 	function property_textbox()
 	{
 		$this->init(array(

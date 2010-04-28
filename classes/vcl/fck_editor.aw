@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/vcl/fck_editor.aw,v 1.26 2009/03/31 11:49:39 hannes Exp $
 // fck_editor.aw - FCKeditor
-/*
-@classinfo  maintainer=hannes
-*/
+
+namespace automatweb;
+
 class fck_editor extends aw_template
 {
 	function fck_editor()
@@ -13,7 +12,7 @@ class fck_editor extends aw_template
 		));
 		$this->fck_version = "2.6.4";
 	}
-	
+
 	function get_rte_toolbar($arr)
 	{
 		if (!is_object($arr["toolbar"]))
@@ -49,14 +48,14 @@ class fck_editor extends aw_template
 	//	print "<pre>";
 	//	print $contents;
 	//	print "</pre>";
-	
+
 	}
-	
+
 	function draw_editor($arr)
 	{
 		$this->read_template("fck_editor.tpl");
 		$this->submerge=1;
-		
+
 		if (isset ($arr["toolbarset"]) )
 		{
 			$s_toolbarset = $arr["toolbarset"];
@@ -65,7 +64,7 @@ class fck_editor extends aw_template
 		{
 			$s_toolbarset = "aw_doc";
 		}
-		
+
 		$tmp='';
 		foreach($arr["props"] as $nm)
         {
@@ -74,16 +73,16 @@ class fck_editor extends aw_template
 			{
 				$height = "200px";
 			}
-			
+
 			// why this?
 			//$nm2 = $nm;
 			//$nm = str_replace("[","_",$nm);
 			//$nm = str_replace("]","_",$nm);
-			
+
 			$strFcklang = !empty($arr["lang"]) ? $arr["lang"] : ($_SESSION["user_adm_ui_lc"] != "" ? $_SESSION["user_adm_ui_lc"] : "et");
 			if ($strFcklang == "en")
 				$strFcklang = "en-uk";
-			
+
 			if (aw_ini_get("document.site_fck_config_path"))
 			{
 				$config = 'oFCKeditor.Config["CustomConfigurationsPath"] = "'.aw_ini_get("baseurl").aw_ini_get("document.site_fck_config_path").'";';
@@ -92,7 +91,7 @@ class fck_editor extends aw_template
 			{
 				$config = 'oFCKeditor.Config["CustomConfigurationsPath"] = "'.aw_ini_get("baseurl").'/automatweb/js/fckeditor/custom_config.js";';
 			}
-			
+
 			$this->vars(array(
 					"name" => $nm,
 					"width"=> "600px",
@@ -102,7 +101,7 @@ class fck_editor extends aw_template
 					"fck_version" => $this->fck_version,
 					"config" => $config,
 				));
-			
+
 			if ($nm != "moreinfo")
 			{
 				$tmp.= $this->parse("EDITOR_FCK");
@@ -112,12 +111,12 @@ class fck_editor extends aw_template
 				$tmp.= $this->parse("EDITOR_ONDEMAND");
 			}
 		}
-		
+
 		$this->vars(array(
 				"msg_leave" => t("Andmed on salvestamata, kas soovite andmed enne lahkumist salvestada?"),
 				"msg_leave_error" => html_entity_decode(t("Andmete salvestamine kahjuks ei &otilde;nnestunud")),
 		));
-		
+
 		if ($nm != "moreinfo")
 		{
 			$this->vars(array(
@@ -130,7 +129,7 @@ class fck_editor extends aw_template
 				"EDITOR_ONDEMAND" => $tmp,
 			));
 		}
-		
+
 		return $this->parse();
 	}
 }

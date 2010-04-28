@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class aw_http_response extends aw_resource
 {
 	protected $headers = array(); // http headers, array( header_name => value, ...)

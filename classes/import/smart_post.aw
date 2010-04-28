@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SMART_POST relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_smart_post master_index=brother_of master_table=objects index=aw_oid
@@ -19,6 +21,8 @@
 
 class smart_post extends class_base
 {
+	const AW_CLID = 1527;
+
 	function smart_post()
 	{
 		$this->init(array(

@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
+
+namespace automatweb;
 
 class file_manager extends aw_editor_manager_base
 {
@@ -97,7 +96,6 @@ class file_manager extends aw_editor_manager_base
 	**/
 	function manager($arr)
 	{
-		classload("vcl/table");
 		$t = new vcl_table;
 		$this->_init_t($t, t("Fail"));
 
@@ -121,7 +119,7 @@ class file_manager extends aw_editor_manager_base
 			}
 		}
 
-		$ii = get_instance(CL_FILE);
+		$ii = new file();
 		foreach($ol->arr() as $o)
 		{
 			//$url = $this->mk_my_orb("fetch_file_tag_for_doc", array("id" => $o->id()), CL_FILE);
@@ -147,7 +145,7 @@ class file_manager extends aw_editor_manager_base
 					"caption" => t("Vali see"),
 					"onClick" => ($doctype == "mail") ? null:"
 						FCK=window.parent.opener.FCK;
-						var eSelected = FCK.Selection.GetSelectedElement() ; 
+						var eSelected = FCK.Selection.GetSelectedElement() ;
 						if (eSelected)
 						{
 							if (eSelected.tagName == \"SPAN\" && eSelected._awfileplaceholder  )
@@ -261,7 +259,6 @@ class file_manager extends aw_editor_manager_base
 
 		$zipfilename = aw_ini_get("cache.page_cache")."/".time()."files.zip";
 		$zip->save_as_file($zipfilename);
-//die();
 		return $zipfilename;
 	}
 
@@ -297,7 +294,7 @@ class file_manager extends aw_editor_manager_base
 
 	function zip_add_file($zip,$id, $folder)
 	{
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		$fileo = obj($id);
 		$file_data = $file_inst->get_file_by_id($id);
 		$filepath = $file_data["properties"]["file"];
@@ -362,7 +359,7 @@ class file_manager extends aw_editor_manager_base
 	**/
 	function add_zip_button($args = array())
 	{
-		$tb = &$args["tb"];
+		$tb = $args["tb"];
 		unset($args["tb"]);
 		$args['url'] = "javascript: void(0)";
 		$args["name"] = "zip";

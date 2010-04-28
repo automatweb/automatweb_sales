@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property.aw,v 1.3 2007/12/06 14:33:03 kristo Exp $
 // property.aw - Omadus 
 /*
@@ -26,6 +28,8 @@
 
 class property extends class_base
 {
+	const AW_CLID = 930;
+
 	function property()
 	{
 		$this->init(array(

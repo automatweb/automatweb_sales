@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/class_designer_manager.aw,v 1.29 2009/08/19 08:11:27 dragut Exp $
 // class_designer_manager.aw - Klasside brauser
 
@@ -286,6 +288,8 @@
 
 class class_designer_manager extends class_base
 {
+	const AW_CLID = 929;
+
 	private $sc = array(".. - 100", "100-50", "49-10", "9-5", "4-0");
 
 	function class_designer_manager()

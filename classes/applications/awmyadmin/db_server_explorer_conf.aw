@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_DB_SERVER_EXPLORER_CONF relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
 
@@ -29,6 +31,8 @@
 
 class db_server_explorer_conf extends class_base
 {
+	const AW_CLID = 150;
+
 	function db_server_explorer_conf()
 	{
 		$this->init(array(

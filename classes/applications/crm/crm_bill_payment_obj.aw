@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_bill_payment_obj extends _int_object
 {
+	const AW_CLID = 1383;
+
 	function set_prop($name,$value)
 	{
 /*		if($name == "sum")

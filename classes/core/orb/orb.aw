@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 // tegeleb ORB requestide handlimisega
 lc_load("automatweb");
@@ -45,9 +44,10 @@ class orb extends aw_template
 		{
 			$class = "period";
 		}
+		$php_class = "automatweb\\{$class}";
 
 		// laeme selle klassi siis
-		$this->orb_class = new $class();
+		$this->orb_class = new $php_class();
 		$orb_defs = $this->try_load_class($class);
 		$this->orb_defs = $orb_defs;
 
@@ -331,9 +331,8 @@ class orb extends aw_template
 
 	function load_xml_orb_def($class)
 	{
-		$fc = get_instance("cache");
-		$fname = "/xml/orb/$class.xml";
-		$fc->get_cached_file(array(
+		$fname = "/xml/orb/{$class}.xml";
+		cache::get_cached_file(array(
 			"fname" => $fname,
 			"unserializer" => array($this, "load_xml_orb_def_file"),
 			"loader" => array($this, "load_serialized_orb_def"),

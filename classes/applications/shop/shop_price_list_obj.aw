@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_price_list_obj extends shop_matrix_obj
 {
+	const AW_CLID = 1457;
+
 	/**
 		@attrib params=name
 		@param valid optional type=bool
@@ -115,7 +120,7 @@ class shop_price_list_obj extends shop_matrix_obj
 		{
 			self::price_validate_arguments($arr);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			throw $e;
 		}

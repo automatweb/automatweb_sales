@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_offer_chapter.aw,v 1.3 2008/01/31 13:54:13 kristo Exp $
 // crm_offer_chapter.aw - Pakkumise peat&uuml;kk 
 /*
@@ -17,6 +19,8 @@
 
 class crm_offer_chapter extends class_base
 {
+	const AW_CLID = 907;
+
 	function crm_offer_chapter()
 	{
 		$this->init(array(

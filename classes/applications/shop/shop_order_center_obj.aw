@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_order_center_obj extends _int_object
 {
+	const AW_CLID = 314;
+
 
 	public function save($exclusive = false, $previous_state = null)
 	{

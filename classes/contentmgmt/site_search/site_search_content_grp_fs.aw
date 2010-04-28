@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/site_search/site_search_content_grp_fs.aw,v 1.8 2008/01/31 13:52:39 kristo Exp $
 // site_search_content_grp_fs.aw - Otsingu failis&uuml;steemi indekseerija 
 /*
@@ -61,6 +63,8 @@
 classload("core/run_in_background");
 class site_search_content_grp_fs extends run_in_background
 {
+	const AW_CLID = 976;
+
 	function site_search_content_grp_fs()
 	{
 		$this->init(array(

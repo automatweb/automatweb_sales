@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // euro_patent_et_desc_add.aw - Euroopa patendi eestikeelse kirjelduse veebist lisamine
 /*
 
@@ -38,6 +40,8 @@
 
 class euro_patent_et_desc_add extends class_base
 {
+	const AW_CLID = 1454;
+
 	function euro_patent_et_desc_add()
 	{
 		$this->init(array(

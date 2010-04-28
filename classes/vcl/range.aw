@@ -1,8 +1,8 @@
 <?php
 // range VCL component
-/*
-@classinfo maintainer=dragut
-*/
+
+namespace automatweb;
+
 class range extends class_base
 {
 	var $name;
@@ -13,7 +13,7 @@ class range extends class_base
 
 	function range()
 	{
-	// if there is a need fo templates and database manipulation functionsm then 
+	// if there is a need fo templates and database manipulation functionsm then
 	// $this->init() initializes those
 	//	$this->init("vcl/range");
 
@@ -21,7 +21,7 @@ class range extends class_base
 			'from' => 10,
 			'to' => 10
 		));
-		
+
 	}
 
 	function init_vcl_property($arr)
@@ -43,7 +43,7 @@ class range extends class_base
 
 	function process_vcl_property($arr)
 	{
-	
+
 	}
 
 	function get_html()
@@ -92,8 +92,8 @@ class range extends class_base
 			// if you want to change, for example, only the first textbox size:
 			$r->set_textbox_size(array(
 				'from' => 20
-			)); 
-			
+			));
+
 	**/
 	function set_textbox_size($arr)
 	{
@@ -125,8 +125,8 @@ class range extends class_base
 			// if you want to set, for example, only 'from' value of the range:
 			$r->set_range(array(
 				'from' => 20
-			)); 
-			
+			));
+
 	**/
 	function set_range($arr)
 	{

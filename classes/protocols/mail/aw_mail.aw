@@ -35,7 +35,7 @@ class aw_mail {
 	// method(string) - mis meetodi abil meili saadame?
 	function aw_mail($args = array())
 	{
-		$ll = get_instance("languages");
+		$ll = new languages();
 		define('CHARSET',$ll->get_charset());
 		return $this->clean($args);
 	}
@@ -725,7 +725,7 @@ class aw_mail {
 		$subject = $this->headers["Subject"];
 		if (not($this->headers["Content-Type"]))
 		{
-			$ll = get_instance("languages");
+			$ll = new languages();
 			$this->set_header("Content-Type","text/plain; charset=\"".$ll->get_charset()."\"");
 		};
 //arr($this->headers);

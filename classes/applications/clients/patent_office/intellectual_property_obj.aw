@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class intellectual_property_obj extends _int_object
 {
+	const AW_CLID = 1441;
+
 	protected static $ip_classes = array(
 		CL_PATENT,
 		CL_PATENT_PATENT,
@@ -18,7 +23,7 @@ class intellectual_property_obj extends _int_object
 
 	public function check_and_set_authorized_codes_user_access()
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person()); //!!! ei t88ta id kaardiga?
 		$pid = $p->prop("personal_id");
 		$already_set = $this->meta("set_authorized_codes_user_access2");

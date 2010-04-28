@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_PAYMENT_TYPE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_shop_payment_type master_index=brother_of master_table=objects index=aw_oid
@@ -97,6 +99,8 @@
 
 class shop_payment_type extends shop_matrix
 {
+	const AW_CLID = 1577;
+
 	function shop_payment_type()
 	{
 		$this->init(array(

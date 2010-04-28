@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // vastuv6tt_sisseastuja.aw - Sisseastuja
 /*
 
@@ -537,6 +539,8 @@ CREATE TABLE `vastuv6tt_sisseastuja` (
 
 class vastuv6tt_sisseastuja extends class_base
 {
+	const AW_CLID = 338;
+
 	function vastuv6tt_sisseastuja()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,

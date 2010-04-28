@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_result_type.aw,v 1.7 2007/12/06 14:34:06 kristo Exp $
 // scm_result_type.aw - Paremusj&auml;rjestuse t&uuml;&uuml;p 
 /*
@@ -23,6 +25,8 @@
 
 class scm_result_type extends class_base
 {
+	const AW_CLID = 1093;
+
 	function scm_result_type()
 	{
 		$this->init(array(

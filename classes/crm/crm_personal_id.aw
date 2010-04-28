@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_personal_id.aw,v 1.2 2008/01/31 13:54:15 kristo Exp $
 // crm_personal_id.aw - Isikutunnistus 
 /*
@@ -31,6 +33,8 @@
 
 class crm_personal_id extends class_base
 {
+	const AW_CLID = 1043;
+
 	function crm_personal_id()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

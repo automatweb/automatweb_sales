@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // shop_order_cart.aw - Poe ostukorv
 /*
 
@@ -70,6 +72,8 @@
 
 class shop_order_cart extends class_base
 {
+	const AW_CLID = 319;
+
 	function shop_order_cart()
 	{
 		$this->init(array(
@@ -510,7 +514,7 @@ class shop_order_cart extends class_base
 
 		if (aw_global_get("uid") != "")
 		{
-			$us = get_instance(CL_USER);
+			$us = new user();
 			$objs = array(
 				"user_data_user_" => obj($us->get_current_user()),
 				"user_data_person_" => obj($us->get_current_person()),
@@ -1808,7 +1812,7 @@ class shop_order_cart extends class_base
 
 		if (aw_global_get("uid") != "")
 		{
-			$us = get_instance(CL_USER);
+			$us = new user();
 			$objs = array(
 				"user_data_user_" => obj($us->get_current_user()),
 				"user_data_person_" => obj($us->get_current_person()),
@@ -2051,7 +2055,7 @@ class shop_order_cart extends class_base
 
 		if (false && aw_global_get("uid") != "")
 		{
-			$us = get_instance(CL_USER);
+			$us = new user();
 			$objs = array(
 				"user_data_user_" => obj($us->get_current_user()),
 				"user_data_person_" => obj($us->get_current_person()),
@@ -2389,7 +2393,7 @@ class shop_order_cart extends class_base
 
 		$lang = aw_global_get("lang_id");
 		$order_obj->set_meta("lang" , $lang);
-		$l = get_instance("languages");
+		$l = new languages();
 		$_SESSION["ct_lang_lc"] = $l->get_langid($_SESSION["ct_lang_id"]);
 		$order_obj->set_meta("lang_id" , $_SESSION["ct_lang_id"]);
 		$order_obj->set_meta("lang_lc" , $_SESSION["ct_lang_lc"]);
@@ -2474,7 +2478,7 @@ class shop_order_cart extends class_base
 		$ps_pmap = safe_array($oc->meta("ps_pmap"));
 		$org_pmap = safe_array($oc->meta("org_pmap"));
 
-		$u_i = get_instance(CL_USER);
+		$u_i = new user();
 		$cur_p_id = $u_i->get_current_person();
 		$cur_p = obj();
 		if (is_oid($cur_p_id) && $this->can("view", $cur_p_id))

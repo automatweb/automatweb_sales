@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_DELIVERY_NOTE_ROW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=robert
 @tableinfo aw_shop_delivery_note_row master_index=brother_of master_table=objects index=aw_oid
@@ -38,6 +40,8 @@
 
 class shop_delivery_note_row extends class_base
 {
+	const AW_CLID = 1470;
+
 	function shop_delivery_note_row()
 	{
 		$this->init(array(

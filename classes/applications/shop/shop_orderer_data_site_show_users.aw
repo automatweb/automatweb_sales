@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_ORDERER_DATA_SITE_SHOW_USERS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
 @tableinfo aw_shop_orderer_data_site_show master_index=brother_of master_table=objects index=aw_oid
@@ -20,6 +22,8 @@
 
 class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 {
+	const AW_CLID = 1570;
+
 	function shop_orderer_data_site_show_users()
 	{
 		$this->init(array(
@@ -97,7 +101,7 @@ class shop_orderer_data_site_show_users extends shop_orderer_data_site_show
 	public function add_slave($arr)
 	{
 
-		$user_inst = get_instance(CL_USER);
+		$user_inst = new user();
 		$this->add_user_error = null;
 		if(!(strlen($arr["password"]) > 2))
 		{

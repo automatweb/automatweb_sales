@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // vastuv6tt_keskkond.aw - Sisseastujate haldus
 /*
 
@@ -179,6 +181,8 @@
 
 class vastuv6tt_keskkond extends class_base
 {
+	const AW_CLID = 336;
+
 	function vastuv6tt_keskkond()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,

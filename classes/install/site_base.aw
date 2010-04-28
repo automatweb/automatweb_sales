@@ -1,11 +1,10 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 // this is the base class for the "site" class where you can put site-specific functionality
-// and that has callbacks and hooks for all the actions you could ever want, so you can intercept aw 
+// and that has callbacks and hooks for all the actions you could ever want, so you can intercept aw
 // when you need to do something site specific
-classload("aw_template");
 class site_base extends aw_template
 {
 	function site_base()
@@ -14,7 +13,7 @@ class site_base extends aw_template
 	}
 
 	////
-	// !well, this is obviously for drawing the frontpage - iow, it will only get called 
+	// !well, this is obviously for drawing the frontpage - iow, it will only get called
 	// on pageviews to the front page
 	//
 	// it must return the content of the front page
@@ -23,7 +22,7 @@ class site_base extends aw_template
 	// returnig the content, do this:
 	// return $this->do_fp_menus_return($content);
 	// it will draw the menus around the content
-	function on_frontpage() 
+	function on_frontpage()
 	{
 		return "";
 	}
@@ -32,7 +31,7 @@ class site_base extends aw_template
 	// !this will get called on every pageview and must return an array of
 	// template_name => template_value pairs, that will be imported in the menu
 	// drawing template
-	function on_page() 
+	function on_page()
 	{
 		return array();
 	}
@@ -44,7 +43,7 @@ class site_base extends aw_template
 	// their output will replace the subtemplates
 	// the functions must be members of the site class
 	// these functions will get called BEFORE any menu parsing or document parsing take place
-	function get_sub_callbacks() 
+	function get_sub_callbacks()
 	{
 		return array();
 	}
@@ -56,7 +55,7 @@ class site_base extends aw_template
 	// their output will replace the subtemplates
 	// the functions must be members of the site class
 	// these functions will get called AFTER any menu parsing or document parsing take place
-	function get_sub_callbacks_after() 
+	function get_sub_callbacks_after()
 	{
 		return array();
 	}
@@ -97,7 +96,7 @@ class site_base extends aw_template
 	// !this can be used in on_frontpage when we need to draw the menus on frontpage
 	function do_fp_menus_return($ret,$arr = array())
 	{
-		$m = get_instance("contentmgmt/site_cache");
+		$m = new site_cache();
 		if (isset($arr["vars"]) && is_array($arr["vars"]))
 		{
 			$arr["vars"] += $this->on_page();
@@ -123,7 +122,7 @@ class site_base extends aw_template
 		return "main.tpl";
 	}
 
-	/** 	This gets called when a section is not found or the user has no access to the given section. 
+	/** 	This gets called when a section is not found or the user has no access to the given section.
 		The section is given in the parameter.
 		This should return an url to redirect to. If it returns empty, then the user is presented with a 404 error
 	**/
@@ -132,7 +131,7 @@ class site_base extends aw_template
 		return null;
 	}
 
-	/**	This gets called when an error is generated. It should return true if an e-mail should be sent to the error list. 
+	/**	This gets called when an error is generated. It should return true if an e-mail should be sent to the error list.
 		Parameter is:
 			array("err_type" => type of error, "content" => content of error message)
 	**/
@@ -145,14 +144,14 @@ class site_base extends aw_template
 	**/
 	function on_login()
 	{
-		
+
 	}
 
 	/**	This gets called when an user is added from the old site interface. Parameter is uid. No return value
 	**/
 	function on_add_user_site($uid)
 	{
-		
+
 	}
 }
 

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // rostering_account.aw - Eelarvestamise konto
 /*
 
@@ -42,6 +44,8 @@
 
 class budgeting_account extends class_base
 {
+	const AW_CLID = 1202;
+
 	function budgeting_account()
 	{
 		$this->init(array(

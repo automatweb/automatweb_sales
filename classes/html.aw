@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class html
 {
@@ -1546,7 +1545,7 @@ class html
 
 		if (!is_object($o))
 		{
-			$inst = get_instance(CL_FILE);
+			$inst = new file();
 			if ($inst->can("view", $o))
 			{
 				$o = obj($o);

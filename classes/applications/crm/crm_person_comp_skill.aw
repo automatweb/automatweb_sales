@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_person_comp_skill.aw,v 1.2 2007/12/06 14:33:17 kristo Exp $
 // crm_person_comp_skill.aw - Arvutioskus 
 /*
@@ -21,6 +23,8 @@
 
 class crm_person_comp_skill extends class_base
 {
+	const AW_CLID = 491;
+
 	function crm_person_comp_skill()
 	{
 		$this->init(array(

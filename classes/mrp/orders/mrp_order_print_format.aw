@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_MRP_ORDER_PRINT_FORMAT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_mrp_order_print_format master_index=brother_of master_table=objects index=aw_oid
@@ -27,6 +29,8 @@
 
 class mrp_order_print_format extends class_base
 {
+	const AW_CLID = 1529;
+
 	function mrp_order_print_format()
 	{
 		$this->init(array(
@@ -149,7 +153,7 @@ class mrp_order_print_format extends class_base
 			"site_id" => array(),
 			"format" => $arr["obj_inst"]->id()
 		));
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($ol->arr() as $o)
 		{
 			$t->define_data(array(

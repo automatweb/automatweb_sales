@@ -1,7 +1,8 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
 
+namespace automatweb;
+
+/*
 Class for parsing, editing and constructing URI-s. Type conversion to string is automatic. Currently supports only URL-s.
 
 @examples

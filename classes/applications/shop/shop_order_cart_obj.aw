@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_order_cart_obj extends _int_object
 {
+	const AW_CLID = 319;
+
 	/**
 		@attrib name=price params=name
 

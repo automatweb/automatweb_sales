@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // realestate_client_selection.aw - Klientide valim
 /*
 
@@ -21,6 +23,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_REALESTATE_CLIENT_SELECTION, on_cr
 
 class realestate_client_selection extends class_base
 {
+	const AW_CLID = 1026;
+
 	function realestate_client_selection()
 	{
 		$this->init(array(

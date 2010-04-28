@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /* Storage helper functions */
 
 /** checks if the parameter is an aw object id
@@ -98,7 +100,7 @@ function clid_for_name($class_name)
 	{
 		$clid = aw_ini_get("class_lut.".$class_name);
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$clid = null;
 	}

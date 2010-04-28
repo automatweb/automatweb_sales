@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/questionary/question.aw,v 1.3 2007/12/06 14:33:53 kristo Exp $
 // question.aw - K&uml;simus 
 /*
@@ -15,6 +17,8 @@
 
 class question extends class_base
 {
+	const AW_CLID = 1155;
+
 	function question()
 	{
 		$this->init(array(

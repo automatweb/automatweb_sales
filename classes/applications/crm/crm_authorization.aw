@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_authorization.aw,v 1.4 2008/01/02 11:57:33 markop Exp $
 // crm_authorization.aw - Volitus 
 /*
@@ -42,6 +44,8 @@
 
 class crm_authorization extends class_base
 {
+	const AW_CLID = 1368;
+
 	function crm_authorization()
 	{
 		$this->init(array(

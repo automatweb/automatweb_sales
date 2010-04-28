@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // customer_problem_ticket.aw - Probleem
 /*
 
@@ -96,6 +98,8 @@
 
 class customer_problem_ticket extends class_base
 {
+	const AW_CLID = 1185;
+
 	function customer_problem_ticket()
 	{
 		$this->init(array(

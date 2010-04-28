@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_field_food.aw,v 1.4 2007/12/06 14:33:17 kristo Exp $
 // crm_field_food.aw - Toitlustus (valdkond) 
 /*
@@ -127,6 +129,8 @@
 
 class crm_field_food extends class_base
 {
+	const AW_CLID = 1030;
+
 	function crm_field_food()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

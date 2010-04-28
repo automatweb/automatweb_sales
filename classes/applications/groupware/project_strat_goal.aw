@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_strat_goal.aw,v 1.3 2007/12/06 14:33:32 kristo Exp $
 // project_strat_goal.aw - Strateegiline edutegur 
 /*
@@ -14,6 +16,8 @@
 
 class project_strat_goal extends class_base
 {
+	const AW_CLID = 950;
+
 	function project_strat_goal()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/transport_management/crm_transport_management_car_type.aw,v 1.3 2007/12/06 14:33:24 kristo Exp $
 // crm_transport_management_car_type.aw - Automark 
 /*
@@ -21,6 +23,8 @@ define('CAR_TYPE_SUV', 3);
 
 class crm_transport_management_car_type extends class_base
 {
+	const AW_CLID = 1087;
+
 	
 	var $car_types = array();
 

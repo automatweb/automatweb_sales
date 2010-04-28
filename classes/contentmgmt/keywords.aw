@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/keywords.aw,v 1.2 2008/03/12 21:23:21 kristo Exp $
 // keywords.aw - dokumentide v&otilde;tmes&otilde;nad
 /*
@@ -31,6 +33,8 @@ define("ARR_LISTID", 1);
 define("ARR_KEYWORD", 2);
 class keywords extends class_base
 {
+	const AW_CLID = 82;
+
 	function keywords()
 	{
 		$this->init(array(

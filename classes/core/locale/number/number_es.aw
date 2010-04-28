@@ -1,8 +1,7 @@
 <?php
-// es.aw - localizatione de espaniola la la la
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class awlc_number_es implements awlc_number
 {
 	public static function get_lc_number($number)

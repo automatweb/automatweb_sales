@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/rostering/person_has_skill.aw,v 1.3 2008/05/14 15:42:23 markop Exp $
 // person_has_skill.aw - Oskuse kehtivus 
 /*
@@ -31,6 +33,8 @@
 
 class person_has_skill extends class_base
 {
+	const AW_CLID = 1138;
+
 	function person_has_skill()
 	{
 		$this->init(array(

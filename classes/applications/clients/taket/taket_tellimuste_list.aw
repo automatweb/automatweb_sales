@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/taket/taket_tellimuste_list.aw,v 1.1 2008/10/01 14:17:40 markop Exp $
 // taket_tellimuste_list.aw - Taket tellimuste nimekiri 
 /*
@@ -12,6 +14,8 @@
 
 class taket_tellimuste_list extends class_base
 {
+	const AW_CLID = 237;
+
 	function taket_tellimuste_list()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

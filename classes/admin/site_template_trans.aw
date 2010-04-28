@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SITE_TEMPLATE_TRANS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 
@@ -23,6 +25,8 @@
 
 class site_template_trans extends class_base
 {
+	const AW_CLID = 1170;
+
 	function site_template_trans()
 	{
 		$this->init(array(
@@ -81,7 +85,7 @@ class site_template_trans extends class_base
 		closedir($DH);
 
 		$fs = $this->get_directory(array("dir" => $ndir));
-		$lang_i = get_instance("languages");
+		$lang_i = new languages();
 		$lv = "set_lang_id";
 		if (aw_ini_get("user_interface.full_content_trans"))
 		{

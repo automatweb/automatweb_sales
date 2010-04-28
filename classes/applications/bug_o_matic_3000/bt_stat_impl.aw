@@ -147,7 +147,7 @@ class bt_stat_impl extends core
 		$this->_init_stat_hrs_ov_t($t);
 		foreach($stat_hrs as $uid => $coms)
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = $u->get_person_for_uid($uid);
 			if(is_array($cos) && count($cos) && !$cos[$p->company_id()])
 			{
@@ -308,7 +308,7 @@ class bt_stat_impl extends core
 		}
 //		$types = $this->get_event_types();
 		
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$p = $ui->get_person_for_uid($arr["request"]["det_uid"]);
 		$startd = mktime(0,0,0, $arr["request"]["det_mon"], $startday, $arr["request"]["det_year"]);
 		$endd = mktime(23,59,59, $arr["request"]["det_mon"]+1, $endday, $arr["request"]["det_year"]);
@@ -365,7 +365,7 @@ class bt_stat_impl extends core
 
 		$this->_insert_det_data_from_arr($bugs, &$t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = $u->get_person_for_uid($arr["request"]["det_uid"]);
 		if($dds = $arr["request"]["det_day_start"])
 		{
@@ -718,7 +718,7 @@ class bt_stat_impl extends core
 		$p2uid = array();
 		foreach($stat_hrs as $uid => $coms)
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = $u->get_person_for_uid($uid);
 			$p2uid[$p->id()] = $uid;
 			foreach($coms as $com)
@@ -838,7 +838,7 @@ class bt_stat_impl extends core
 		$startd = mktime(0,0,0, $arr["request"]["det_mon"], $startday, $arr["request"]["det_year"]);
 		$endd = mktime(23,59,59, $arr["request"]["det_mon"]+1, $endday, $arr["request"]["det_year"]);
 
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$pid = $ui->get_person_for_uid($arr["request"]["det_uid"])->id();
 
 		if($arr["request"]["stat_proj_bugs"] || !$arr["request"]["stat_proj_hrs_end"])
@@ -944,7 +944,7 @@ class bt_stat_impl extends core
 		}
 		$this->_insert_det_data_from_arr($bugs, &$t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = $u->get_person_for_uid($arr["request"]["det_uid"]);
 		$proj = obj($arr["request"]["det_proj"]);
 
@@ -985,7 +985,7 @@ class bt_stat_impl extends core
 		}
 		else
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = obj($u->get_current_person());
 		}
 		return $p;

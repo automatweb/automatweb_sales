@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/calendar_registration.aw,v 1.10 2007/12/06 14:32:55 kristo Exp $
 // calendar_registration.aw - Kalendri sündmusele registreerumine 
 /*
@@ -39,6 +41,8 @@
 
 class calendar_registration extends class_base
 {
+	const AW_CLID = 836;
+
 	function calendar_registration()
 	{
 		$this->init(array(
@@ -412,7 +416,7 @@ class calendar_registration extends class_base
 		aw_disable_acl();
 		if ($ol->count() == 0)
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$u_o = obj($u->get_current_user());
 
 			$p = obj();

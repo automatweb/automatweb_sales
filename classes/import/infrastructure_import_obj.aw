@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class infrastructure_import_obj extends _int_object
 {
+	const AW_CLID = 1542;
+
 	public function invoke()
 	{
 		$countries_parent = $this->prop("countries_parent");

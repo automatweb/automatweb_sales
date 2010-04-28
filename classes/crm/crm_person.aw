@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_CRM_MEETING, on_connect_to_meeting)
@@ -960,6 +962,8 @@ define("CRM_PERSON_USECASE_CLIENT_EMPLOYEE", "customer_employer");
 
 class crm_person extends class_base
 {
+	const AW_CLID = 145;
+
 	function crm_person()
 	{
 		$this->init(array(
@@ -994,7 +998,7 @@ class crm_person extends class_base
 
 	function callback_on_load($arr)
 	{
-		get_instance("crm_person_obj")->handle_show_cnt(array(
+		crm_person_obj::handle_show_cnt(array(
 			"action" => $arr["request"]["action"],
 			"id" => $arr["request"]["id"],
 		));
@@ -1097,7 +1101,7 @@ class crm_person extends class_base
 				static $i;
 				if (!$i)
 				{
-					$i = get_instance("applications/crm/crm_company_cedit_impl");
+					$i = new crm_company_cedit_impl();
 				}
 				$fn = "_set_".$prop["name"];
 				$i->$fn($arr);
@@ -1114,7 +1118,7 @@ class crm_person extends class_base
 
 					if (strlen(trim($prop["value"])) and !strlen(trim($form["username"])) && $arr["request"]["password"] != "")
 					{
-						$cl_user_creator = get_instance("crm/crm_user_creator");
+						$cl_user_creator = new crm_user_creator();
 						$errors = $cl_user_creator->get_uid_for_person($arr["obj_inst"], true);
 
 						if ($errors)
@@ -1135,7 +1139,7 @@ class crm_person extends class_base
 				{
 					$arr["obj_inst"]->set_meta("no_create_user_yet", true);
 					$arr["obj_inst"]->set_meta("tmp_crm_person_username", $prop["value"]);
-					$cl_user_creator = get_instance("crm/crm_user_creator");
+					$cl_user_creator = new crm_user_creator();
 					$errors = $cl_user_creator->get_uid_for_person($arr["obj_inst"], true);
 
 					if ($errors)
@@ -1336,7 +1340,7 @@ class crm_person extends class_base
 			return PROP_IGNORE;
 		}
 
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		$arr["prop"]["value"] = html::img(array(
 				"url" => icons::get_icon_url(CL_FILE),
 			)).html::href(array(
@@ -1347,10 +1351,10 @@ class crm_person extends class_base
 
 	function _get_add_info_tlb($arr)
 	{
-		$personnel_management_inst = get_instance(CL_PERSONNEL_MANAGEMENT);
+		$personnel_management_inst = new personnel_management();
 		$pm = obj($personnel_management_inst->get_sysdefault());
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_menu_button(array(
 			"name" => "new_skill",
 			"img" => "new.gif",
@@ -1371,7 +1375,7 @@ class crm_person extends class_base
 			));
 		}
 
-		$skill_manager_inst = get_instance(CL_CRM_SKILL_MANAGER);
+		$skill_manager_inst = new crm_skill_manager();
 		$sm_id = $pm->prop("skill_manager");
 		$skills = $skill_manager_inst->get_skills(array("id" => $sm_id));
 		foreach($skills as $id => $data)
@@ -1623,7 +1627,7 @@ class crm_person extends class_base
 	function _get_cust_contract_creator($arr)
 	{
 		// list of all persons in my company
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		$arr["prop"]["options"] = $this->get_employee_picker(obj($co), true);
 		if (($rel = $this->get_cust_rel($arr["obj_inst"])))
@@ -1641,7 +1645,7 @@ class crm_person extends class_base
 	function _get_buyer_contract_creator($arr)
 	{
 		// list of all persons in my company
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		$arr["prop"]["options"] = $this->get_employee_picker(obj($co), true);
 		if (($rel = $this->get_cust_rel(obj($co) , 0 , $arr["obj_inst"])))
@@ -1661,7 +1665,7 @@ class crm_person extends class_base
 		$coi = get_instance(CL_CRM_COMPANY);
 		if (!$co)
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$co = obj($u->get_current_company());
 		}
 
@@ -1689,7 +1693,7 @@ class crm_person extends class_base
 		if ($important_only)
 		{
 			// filter out my important persons
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = obj($u->get_current_person());
 
 			$tmp = array();
@@ -1890,7 +1894,7 @@ class crm_person extends class_base
 
 
 				$tasks = $this->get_work_project_tasks($arr["obj_inst"]->id());
-				$i = get_instance(CL_USER);
+				$i = new user();
 				foreach($this->get_person_and_org_related_projects($arr["obj_inst"]->id()) as $oid => $obj)
 				{
 					$project = html::href(array(
@@ -2088,7 +2092,7 @@ class crm_person extends class_base
 				return $docs_impl->$fn($arr);
 
 			case "is_important":
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$p = obj($u->get_current_person());
 				if (!$p || !is_oid($arr["obj_inst"]->id()))
 				{
@@ -2126,7 +2130,7 @@ class crm_person extends class_base
 				break;
 
 			case "client_manager":
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$ws = array();
 				$c = get_instance(CL_CRM_COMPANY);
 				$c->get_all_workers_for_company(obj($u->get_current_company()), $ws);
@@ -3389,7 +3393,7 @@ class crm_person extends class_base
 		{
 			$fl = aw_ini_get("site_basedir")."/files/".$fl{0}."/".$fl;
 		}
-		$sz = @getimagesize($fl);
+		$sz = getimagesize($fl);
 		return array("width" => $sz[0], "height" => $sz[1]);
 	}
 
@@ -3835,7 +3839,7 @@ class crm_person extends class_base
 			"sortable" => 1,
 		));
 
-		$user_inst = get_instance(CL_USER);
+		$user_inst = new user();
 
 		$mails = $arr["obj_inst"]->get_recieved_mails(array(
 			"subject" => $arr["request"]["mails_s_name"],
@@ -4068,7 +4072,7 @@ class crm_person extends class_base
 
 		if (aw_global_get("uid") != "")
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = obj($u->get_current_person());
 			if ($arr["request"]["group"] == "general2")
 			{
@@ -4569,7 +4573,7 @@ class crm_person extends class_base
 	**/
 	function edit_my_person_obj($arr)
 	{
-		$u_i = get_instance(CL_USER);
+		$u_i = new user();
 		return $this->mk_my_orb("change", array(
 			"id" => $u_i->get_current_person()), CL_CRM_PERSON);
 	}
@@ -4846,7 +4850,7 @@ class crm_person extends class_base
 
 		if ($arr["id"] == "my_stats")
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			if ($arr["obj_inst"]->id() != $u->get_current_person())
 			{
 				return false;
@@ -4913,7 +4917,7 @@ class crm_person extends class_base
 				// get conflicts list and warn user if there are any
 
 				// to do this, get all projects for this company that have the current company as a side
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$ol = new object_list(array(
 					"class_id" => CL_PROJECT,
 					"CL_PROJECT.RELTYPE_SIDE.name" => $arr["obj_inst"]->name(),
@@ -4960,7 +4964,7 @@ class crm_person extends class_base
 		$usecase = false;
 
 		// if this is the current users employer, do nothing
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		if ($co == $arr["obj_inst"]->company_id())
 		{
@@ -4998,7 +5002,7 @@ class crm_person extends class_base
 			return false;
 		}
 		// if this is the current users employer, do nothing
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		if ($co == $arr["obj_inst"]->company_id())
 		{
@@ -5045,7 +5049,7 @@ class crm_person extends class_base
 			$arr["request"]["MAX_FILE_SIZE"] = 1;
 		}
 		$arr["request"]["stats_s_res_type"] = "pers_det";
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = $u->get_current_person();
 		$arr["request"]["stats_s_worker_sel"] = array($p => $p);
 		classload("vcl/table");
@@ -5169,7 +5173,7 @@ class crm_person extends class_base
 		$jw_inst = get_instance(CL_PERSONNEL_MANAGEMENT_JOB_WANTED);
 		$rate_inst = get_instance(CL_RATE);
 		$cff_inst = get_instance(CL_CFGFORM);
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 
 		if(!$arr["cv"])
 		{
@@ -8549,7 +8553,7 @@ class crm_person extends class_base
 
 	function get_person_and_org_related_projects($person_oid)
 	{
-		$i = get_instance(CL_USER);
+		$i = new user();
 		$ol = new object_list(array(
 			"class_id" => CL_PROJECT,
 			"CL_PROJECT.RELTYPE_PARTICIPANT" => array(

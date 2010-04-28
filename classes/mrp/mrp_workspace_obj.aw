@@ -1,5 +1,8 @@
 <?php
 
+namespace automatweb;
+
+
 /*
 @classinfo  maintainer=voldemar
 */
@@ -8,6 +11,8 @@ require_once "mrp_header.aw";
 
 class mrp_workspace_obj extends _int_object
 {
+	const AW_CLID = 852;
+
 	// resource manager types
 	const MGR_TYPE_MR = 1; // manufacturing resources
 	const MGR_TYPE_HR = 2; // human resources
@@ -27,7 +32,7 @@ class mrp_workspace_obj extends _int_object
 			$this->save();
 			aw_restore_acl();
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$e = new awex_mrp_ws_schedule("Rescheduling request failed");
 			$e->set_forwarded_exception($E);

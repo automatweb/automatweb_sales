@@ -1,9 +1,8 @@
 <?php
-// $Id: tabpanel.aw,v 1.24 2009/08/12 07:06:05 instrumental Exp $
 // tabpanel.aw - class for creating tabbed dialogs
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class tabpanel extends aw_template
 {
 	////
@@ -27,19 +26,19 @@ class tabpanel extends aw_template
 		$this->tabcount = array();
 		$this->hide_one_tab = 0;
 	}
-	
+
 	/**
 		@attrib params=name api=1
-		
+
 		@param active optional type=bool
 		Whether to use the "selected" subtemplate for this tab.
-		
+
 		@param caption optional type=string
 		Text to display as caption
-		
+
 		@param link optional type=string
 		Url to where it links to
-		
+
 		@param tabgroup optional type=string
 		If set, uses that template for showing tab
 
@@ -47,8 +46,8 @@ class tabpanel extends aw_template
 		True sets the tab disabled(gray, non-clickable etc)
 
 		@param level optional type=int
-		Sets the tabs depth level, level 2 items are lower than level 1 tabs etc. Default is 1 
-		
+		Sets the tabs depth level, level 2 items are lower than level 1 tabs etc. Default is 1
+
 		@comment
 		Adds a new tab to the panel.
 		@example
@@ -111,7 +110,7 @@ class tabpanel extends aw_template
 			"link" => $args["link"],
 			"target" => $args["target"]
 		));
-		
+
 		$use_subtpl = $tab_prefix . $subtpl . "_L" . $level;
 		//$secondary = $tab_prefix . $use_subtpl;
 		global $XX3;
@@ -167,7 +166,7 @@ class tabpanel extends aw_template
 
 
 	}
-	
+
 	function get_html()
 	{
 		// this thing has to return generated html from the component
@@ -180,7 +179,7 @@ class tabpanel extends aw_template
 		@param logo_image optional type=string
 		To set logo image.
 		@param background_image optional type=string
-		To set background image. 
+		To set background image.
 		@comment
 		Allows to set background & logo image. Tabpanel style must be set to 'with_logo' with set_style() method
 		@examples
@@ -221,7 +220,7 @@ class tabpanel extends aw_template
 			$this->read_template("tabs_with_logo.tpl");
 		};
 	}
-	
+
 
 	/**
 		@attrib params=name api=1
@@ -310,7 +309,7 @@ class tabpanel extends aw_template
 
 		return $this->parse();
 	}
-	
+
 	/**
 		@attrib params=name api=1
 		@comment
@@ -368,7 +367,7 @@ class tabpanel extends aw_template
 		if (!$cur_cfgform_found)
 		{
 			$cur_cfgfor_found = true;
-			$i = get_instance(CL_FILE);
+			$i = new file();
 			$o = obj($_GET["id"]);
 			$i->clid = $o->class_id();
 			$cur_cfgform = $i->get_cfgform_for_object(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_MRP_PRICELIST relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_mrp_pricelist master_index=brother_of master_table=objects index=aw_oid
@@ -39,6 +41,8 @@
 
 class mrp_pricelist extends class_base
 {
+	const AW_CLID = 1521;
+
 	function mrp_pricelist()
 	{
 		$this->init(array(

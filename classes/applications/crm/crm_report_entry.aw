@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_report_entry.aw,v 1.3 2009/02/04 17:27:57 markop Exp $
 // crm_report_entry.aw - Aruanne 
 /*
@@ -60,6 +62,8 @@
 
 class crm_report_entry extends class_base
 {
+	const AW_CLID = 1052;
+
 	function crm_report_entry()
 	{
 		$this->init(array(

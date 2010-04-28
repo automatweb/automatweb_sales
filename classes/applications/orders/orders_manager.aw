@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/orders/orders_manager.aw,v 1.17 2008/10/29 15:55:13 markop Exp $
 // orders_manager.aw - Tellimuste haldus 
 /*
@@ -53,6 +55,8 @@
 
 class orders_manager extends class_base
 {
+	const AW_CLID = 842;
+
 	function orders_manager()
 	{
 		$this->init(array(

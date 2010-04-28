@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 @classinfo  maintainer=kristo
 
@@ -12,6 +14,8 @@
 
 class dronline_log extends class_base
 {
+	const AW_CLID = 164;
+
 	function dronline_log()
 	{
 		$this->init(array(

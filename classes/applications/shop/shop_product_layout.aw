@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_layout.aw,v 1.3 2008/01/31 13:50:07 kristo Exp $
 // shop_product_layout.aw - Lao toote kujundus 
 /*
@@ -15,6 +17,8 @@
 
 class shop_product_layout extends class_base
 {
+	const AW_CLID = 315;
+
 	function shop_product_layout()
 	{
 		$this->init(array(

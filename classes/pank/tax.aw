@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/pank/tax.aw,v 1.5 2008/01/31 13:55:00 kristo Exp $
 // tax.aw - Maks 
 /*
@@ -27,6 +29,8 @@
 
 class tax extends class_base
 {
+	const AW_CLID = 807;
+
 	var $ignore_percentage = false;
 	var $ignore_sum = false;
 	

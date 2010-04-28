@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_remote_makse.aw,v 1.9 2007/11/27 12:30:57 dragut Exp $
 // expp_remote_makse.aw - expp remote makse 
 /*
@@ -11,6 +13,8 @@
 */
 
 class expp_remote_makse extends class_base {
+	const AW_CLID = 1343;
+
 	var $cy;
 	var $cp;
 

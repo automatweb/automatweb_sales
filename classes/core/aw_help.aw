@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/aw_help.aw,v 1.4 2008/01/31 13:52:49 kristo Exp $
 // aw_help.aw - Abitekst 
 /*
@@ -33,6 +35,8 @@
 
 class aw_help extends class_base
 {
+	const AW_CLID = 804;
+
 	function aw_help()
 	{
 		$this->hide_general = true;

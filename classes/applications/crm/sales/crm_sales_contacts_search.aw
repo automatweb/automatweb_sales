@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 //!!! db ja obj otsingutes tehakse erinevalt addslashes. teha korda
 
 	/**

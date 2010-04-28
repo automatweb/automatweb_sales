@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/import/scala_import.aw,v 1.22 2008/01/31 13:54:39 kristo Exp $
 // scala_import.aw - Scala import 
 /*
@@ -98,6 +100,8 @@
 
 class scala_import extends class_base
 {
+	const AW_CLID = 1137;
+
 //	var $db_table_name = 'scala_prices_to_customers';
 	var $import_sections;
 	var $log_str = '';
@@ -647,7 +651,7 @@ class scala_import extends class_base
 		
 		$config = array_flip($arr['obj_inst']->meta('users_config'));
 
-		$user_inst = get_instance(CL_USER);
+		$user_inst = new user();
 		$group_inst = get_instance(CL_GROUP);
 
 		$group = $arr['obj_inst']->prop('user_group');

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_MRP_JOB relationmgr=yes no_status=1 confirm_save_data=1 maintainer=voldemar
@@ -196,6 +198,8 @@ require_once "mrp_header.aw";
 
 class mrp_job extends class_base
 {
+	const AW_CLID = 826;
+
 	var $mrp_error = false;
 	protected $project;
 	protected $resource;
@@ -311,7 +315,7 @@ class mrp_job extends class_base
 
 					$prop["value"] = implode (",", $prerequisite_orders);
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$prop["error"] = t("Eeldust&ouml;&ouml;de definitsioon katki v&otilde;i puudub osale neist juurdep&auml;&auml;s");
 					$retval = PROP_ERROR;
@@ -646,7 +650,7 @@ class mrp_job extends class_base
 		{
 			$errors[] = t("Ressurssil esines viga");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Tundmatu viga");
 		}
@@ -716,7 +720,7 @@ class mrp_job extends class_base
 		{
 			$errors[] = t("Ressurssil esines viga");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Tundmatu viga");
 		}
@@ -777,7 +781,7 @@ class mrp_job extends class_base
 		{
 			$errors[] = t("Ressurssil esines viga. Ressursi vabastamine v&otilde;is eba&otilde;nnestuda");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Tundmatu viga");
 		}
@@ -827,7 +831,7 @@ class mrp_job extends class_base
 		{
 			$errors[] = t("T&ouml;&ouml; pole tegemisel");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Tundmatu viga");
 		}
@@ -877,7 +881,7 @@ class mrp_job extends class_base
 		{
 			$errors[] = t("T&ouml;&ouml; pole pausil");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Tundmatu viga");
 		}
@@ -947,7 +951,7 @@ class mrp_job extends class_base
 		{
 			$errors[] = t("Ressurssil esines viga");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Tundmatu viga");
 		}
@@ -1014,7 +1018,7 @@ class mrp_job extends class_base
 		{
 			$errors[] = t("T&ouml;&ouml; pole tegemisel");
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$errors[] = t("Tundmatu viga");
 		}

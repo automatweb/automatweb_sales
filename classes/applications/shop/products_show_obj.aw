@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class products_show_obj extends _int_object
 {
+	const AW_CLID = 1576;
+
 	/** returns template name
 		@attrib api=1
 		@returns string

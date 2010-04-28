@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/comics.aw,v 1.5 2007/12/06 14:32:55 kristo Exp $
 // comics.aw - Koomiks
 /*
@@ -52,6 +54,8 @@
 
 class comics extends class_base
 {
+	const AW_CLID = 913;
+
 	function comics()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,
@@ -90,7 +94,7 @@ class comics extends class_base
 	function request_execute($obj)
 	{
 		$obj_i = $obj->instance();
-		//$t = get_instance(CL_CFGFORM);
+		//$t = new cfgform();
 		//$props = $t->get_props_from_cfgform(array("id" => $cform));
 		$this->read_template("comics_show.tpl");
 		$props = $obj_i->load_defaults();

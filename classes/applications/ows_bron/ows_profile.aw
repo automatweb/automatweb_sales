@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // ows_profile.aw - OWS Kliendiprofiil
 /*
 
@@ -11,6 +13,8 @@
 
 class ows_profile extends class_base
 {
+	const AW_CLID = 1381;
+
 	function ows_profile()
 	{
 		$this->init(array(

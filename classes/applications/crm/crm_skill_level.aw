@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_skill_level.aw - Oskuse tase
 /*
 
@@ -36,6 +38,8 @@
 
 class crm_skill_level extends class_base
 {
+	const AW_CLID = 1401;
+
 	function crm_skill_level()
 	{
 		$this->init(array(

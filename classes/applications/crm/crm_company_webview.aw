@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_company_webview.aw,v 1.68 2009/03/12 11:51:28 instrumental Exp $
 // crm_company_webview.aw - Organisatsioonid veebis 
 /*
@@ -68,6 +70,8 @@
 
 class crm_company_webview extends class_base
 {
+	const AW_CLID = 1013;
+
 	function crm_company_webview()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

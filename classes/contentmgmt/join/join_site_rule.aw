@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/join/join_site_rule.aw,v 1.8 2008/01/31 13:52:32 kristo Exp $
 // join_site_rule.aw - Liitumise Reegel 
 /*
@@ -23,6 +25,8 @@
 
 class join_site_rule extends class_base
 {
+	const AW_CLID = 288;
+
 	function join_site_rule()
 	{
 		$this->init(array(

@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class virus_scanner extends class_base
 {
 	function virus_scanner($arr = array())

@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 //metas vrtused
 //final_saved_sum - valuutades lplik summa mis sai makstud ka tenoliselt... ja kui see olemas siis rohkem ei arvutata
 //special_sum - mratud kindel summa kigis valuutades... le kirjutamiseks objekti juurest miskitel spetsjuhtudel
@@ -6,6 +9,8 @@
 //maintainer=markop
 class reservation_obj extends _int_object
 {
+	const AW_CLID = 1165;
+
 	function delete($full_delete = false)
 	{
 		$ol = $this->get_other_brons();

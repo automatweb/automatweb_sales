@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_section_obj extends _int_object
 {
+	const AW_CLID = 321;
+
 	function get_job_offers()
 	{
 		$r = new object_list;

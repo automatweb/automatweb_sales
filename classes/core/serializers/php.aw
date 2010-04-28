@@ -1,10 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/core/serializers/php.aw,v 1.1 2008/02/21 19:14:45 kristo Exp $
+
+namespace automatweb;
+
 // php.aw - PHP serializer
-/*
-@classinfo  maintainer=kristo
-*/
-class php_serializer 
+class php_serializer
 {
 	var $no_index = false;
 	var $arr_name;

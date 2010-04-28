@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_ACTOR
@@ -21,6 +23,8 @@
 
 class actor extends class_base
 {
+	const AW_CLID = 172;
+
 	function actor()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/building_management/crm_building_management_supplier_group.aw,v 1.3 2007/12/06 14:33:21 kristo Exp $
 // crm_building_management_supplier_group.aw - Hankijagrupp 
 /*
@@ -12,6 +14,8 @@
 
 class crm_building_management_supplier_group extends class_base
 {
+	const AW_CLID = 1105;
+
 	function crm_building_management_supplier_group()
 	{
 		$this->init(array(

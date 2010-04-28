@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/rostering/rostering_workplace.aw,v 1.4 2007/12/06 14:34:03 kristo Exp $
 // rostering_workplace.aw - T&ouml;&ouml;koht 
 /*
@@ -40,6 +42,8 @@
 
 class rostering_workplace extends class_base
 {
+	const AW_CLID = 1142;
+
 	function rostering_workplace()
 	{
 		$this->init(array(

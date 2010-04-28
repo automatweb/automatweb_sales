@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_SITE_SEARCH_CONTENT_GRP_DB relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
@@ -68,6 +70,8 @@
 classload("core/run_in_background");
 class site_search_content_grp_userdefined extends run_in_background
 {
+	const AW_CLID = 1200;
+
 	function site_search_content_grp_userdefined()
 	{
 		$this->init(array(

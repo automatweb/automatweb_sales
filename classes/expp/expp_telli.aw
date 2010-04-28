@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_telli.aw,v 1.8 2007/12/12 10:28:15 dragut Exp $
 // expp_telli.aw - Expp telli 
 /*
@@ -29,6 +31,8 @@ CREATE TABLE `expp_korv` (
 
 */
 class expp_telli extends class_base {
+	const AW_CLID = 1016;
+
 
 	var $cy;
 	var $cp;

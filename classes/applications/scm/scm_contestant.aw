@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_contestant.aw,v 1.12 2009/01/16 11:37:34 kristo Exp $
 // scm_contestant.aw - V&otilde;istleja 
 /*
@@ -53,6 +55,8 @@
 
 class scm_contestant extends class_base
 {
+	const AW_CLID = 1092;
+
 	function scm_contestant()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_parse.aw,v 1.5 2007/11/23 07:18:28 dragut Exp $
 // expp_parse.aw - Expp URL parser 
 /*
@@ -11,6 +13,8 @@
 */
 
 class expp_parse extends class_base {
+	const AW_CLID = 1004;
+
 
 	var $pids = array();
 	var $pidpos = 1;
@@ -77,7 +81,7 @@ class expp_parse extends class_base {
 	function show($arr) {
 		if (aw_global_get("uid") == "" && aw_global_get("lang_id") != 1)
 		{
-			$l = get_instance("languages");
+			$l = new languages();
 			$l->set_active(1, true);
 			header("Location: ".$_SERVER["REQUEST_URI"]);
 			die();

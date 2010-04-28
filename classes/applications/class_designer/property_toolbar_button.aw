@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property_toolbar_button.aw,v 1.9 2007/12/06 14:33:04 kristo Exp $
 // property_toolbar_button.aw - Taoolbari nupp 
 /*
@@ -54,6 +56,8 @@
 
 class property_toolbar_button extends class_base
 {
+	const AW_CLID = 895;
+
 	function property_toolbar_button()
 	{
 		$this->init(array(

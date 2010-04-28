@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 // DEPRECATED! use class constants instead
 define("OBJ_COMP_LESS", 1);
@@ -71,7 +70,7 @@ class obj_predicate_compare
 	**/
 	public function obj_predicate_compare($comparator, $data = null, $data2 = null, $type = null)
 	{
-		$self_reflection = new ReflectionClass('obj_predicate_compare');
+		$self_reflection = new \ReflectionClass("automatweb\\obj_predicate_compare");
 		$constants = $self_reflection->getConstants();
 		settype($comparator, "int");
 		if (!in_array($comparator, $constants))

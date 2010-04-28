@@ -684,7 +684,7 @@ class doc extends class_base
 
 					$content = file_get_contents($file);
 
-					$cl_file = get_instance(CL_FILE);
+					$cl_file = new file();
 					$file_oid = $cl_file->save_file(array(
 						"type" => $file_type,
 						"content" => $content,
@@ -1126,7 +1126,7 @@ class doc extends class_base
 	{
 		$ret = array(aw_url_change_var("edit_version", NULL) => t("Aktiivne"));
 		$this->db_query("SELECT version_id, vers_crea, vers_crea_by FROM documents_versions WHERE docid = '$did' order by vers_crea desc");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		while ($row = $this->db_next())
 		{
 			$pers = $u->get_person_for_uid($row["vers_crea_by"]);
@@ -1204,7 +1204,7 @@ class doc extends class_base
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_versions_t($t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$rs = get_instance(CL_RATE_SCALE);
 		$my = $arr["obj_inst"]->modifiedby();
 
@@ -1234,7 +1234,7 @@ class doc extends class_base
 			)),
 			"sby" => time() + 24*3600*100
 		));
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$this->db_query("SELECT version_id, vers_crea, vers_crea_by FROM documents_versions WHERE docid = '".$arr["obj_inst"]->id()."'");
 		while ($row = $this->db_next())
 		{
@@ -1278,7 +1278,7 @@ class doc extends class_base
 		}
 		$o->load_version("");
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach(safe_array($arr["request"]["set_rating"]) as $version_id => $rating)
 		{
 			if ($rating !== "")
@@ -1467,7 +1467,7 @@ class doc extends class_base
 		));
 		if ($this->can("view", $cfgform_id))
 		{
-			$cf = get_instance(CL_CFGFORM);
+			$cf = new cfgform();
 			$pl = $cf->get_props_from_cfgform(array("id" => $cfgform_id));
 		}
 
@@ -1500,7 +1500,7 @@ class doc extends class_base
 			"tooltip" => t("Eelvaade"),
 			"img" => "preview.gif"
 		));
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array(/*"ignore_status" => true,*/ "all_data" => true));
 
 		$dd = get_instance("doc_display");

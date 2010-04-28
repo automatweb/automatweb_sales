@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHORTCUT_SET relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=hannes
 
@@ -15,6 +17,8 @@
 
 class shortcut_set extends class_base
 {
+	const AW_CLID = 1472;
+
 	function shortcut_set()
 	{
 		$this->init(array(

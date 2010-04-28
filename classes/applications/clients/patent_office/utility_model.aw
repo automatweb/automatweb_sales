@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // utility_model.aw - Kasulik mudel
 /*
 
@@ -127,6 +129,8 @@
 
 class utility_model extends intellectual_property
 {
+	const AW_CLID = 1433;
+
 	public static $level_index = array(
 		0 => 0,
 		1 => 11,

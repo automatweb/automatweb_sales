@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_competition.aw,v 1.20 2007/12/06 14:34:06 kristo Exp $
 // scm_competition.aw - V&otilde;istlus 
 /*
@@ -136,6 +138,8 @@
 
 class scm_competition extends class_base
 {
+	const AW_CLID = 1099;
+
 	function scm_competition()
 	{
 		$this->init(array(
@@ -223,7 +227,7 @@ class scm_competition extends class_base
 					)),
 				));
 
-				$popup_search = get_instance("vcl/popup_search");
+				$popup_search = new popup_search();
 				$search_butt = $popup_search->get_popup_search_link(array(
 					"pn" => "search_result_teams",
 					"clid" => CL_SCM_TEAM,
@@ -376,7 +380,7 @@ class scm_competition extends class_base
 				$clid = ($e && $e->prop("type") == "single")?CL_SCM_CONTESTANT:CL_SCM_TEAM;
 				if($clid == CL_SCM_CONTESTANT)
 				{
-					$popup_search = get_instance("vcl/popup_search");
+					$popup_search = new popup_search();
 					$search_butt = $popup_search->get_popup_search_link(array(
 						"pn" => "search_result",
 						"clid" => $clid,
@@ -1164,7 +1168,7 @@ class scm_competition extends class_base
 				"return_url" => get_ru(),
 			)),
 		));
-		$popup_search = get_instance("vcl/popup_search");
+		$popup_search = new popup_search();
 		$search = $popup_search->get_popup_search_link(array(
 			"pn" => $arr["form_name"],
 			"clid" => $arr["class_id"],

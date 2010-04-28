@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_phone_obj extends _int_object
 {
+	const AW_CLID = 219;
+
 	/**
 		@param id required type=oid,array(oid)
 	**/
@@ -57,7 +62,7 @@ class crm_phone_obj extends _int_object
 				$c->load(parent::prop("conn_id"));
 				return $c->prop("data");
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				return parent::prop($k);
 			}
@@ -88,7 +93,7 @@ class crm_phone_obj extends _int_object
 					"data" => $v,
 				));
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 			}
 		}
@@ -164,7 +169,7 @@ class crm_phone_obj extends _int_object
 							"to" => $c->prop("to") == $oid ? $phoid : $c->prop("to"),
 						));
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 					}
 				}
@@ -221,7 +226,7 @@ class crm_phone_obj extends _int_object
 							"to" => $c->prop("to") == parent::id() ? $id : $c->prop("to"),
 						));
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 					}
 				}

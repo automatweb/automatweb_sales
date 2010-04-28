@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_person_education.aw,v 1.31 2009/01/16 11:37:28 kristo Exp $
 // crm_person_education.aw - Haridus 
 /*
@@ -88,6 +90,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_CRM_PERSON, on_disconn
 
 class crm_person_education extends class_base
 {
+	const AW_CLID = 487;
+
 	function crm_person_education()
 	{
 		$this->init(array(

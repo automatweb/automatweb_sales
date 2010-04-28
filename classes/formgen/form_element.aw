@@ -2935,7 +2935,7 @@ class form_element extends aw_template
 		{
 			// gotcha, siis handletakse piltide uploadi
 			$var = $prefix.$this->id;
-			$img = get_instance(CL_FILE);
+			$img = new file();
 			$var = $img->add_upload_image($var,$this->form->entry_parent,$this->entry["id"]);
 		}
 		else

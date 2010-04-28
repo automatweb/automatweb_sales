@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/intranet/intranet.aw,v 1.4 2008/01/31 13:54:48 kristo Exp $
 // intranet.aw - Intranet 
 /*
@@ -18,6 +20,8 @@
 
 class intranet extends class_base
 {
+	const AW_CLID = 233;
+
 	function intranet()
 	{
 		$this->init(array(

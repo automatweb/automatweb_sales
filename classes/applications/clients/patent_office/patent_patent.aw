@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // patent_patent.aw - Patent
 /*
 
@@ -184,6 +186,8 @@
 
 class patent_patent extends intellectual_property
 {
+	const AW_CLID = 1432;
+
 	public static $level_index = array(
 		0 => 0,
 		1 => 11,

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_PRODUCT_SINGLE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=robert
 @tableinfo aw_shop_product_single master_index=brother_of master_table=objects index=aw_oid
@@ -21,6 +23,8 @@
 
 class shop_product_single extends class_base
 {
+	const AW_CLID = 1462;
+
 	function shop_product_single()
 	{
 		$this->init(array(

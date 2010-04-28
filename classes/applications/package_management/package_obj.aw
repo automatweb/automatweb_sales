@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 /*
 
 @classinfo maintainer=dragut
@@ -6,6 +9,8 @@
 */
 class package_obj extends _int_object
 {
+	const AW_CLID = 1371;
+
 	function get_dependencies()
 	{
 		$ol = new object_list();
@@ -272,7 +277,7 @@ class package_obj extends _int_object
 			return;
 		}
 		$i = new file_archive;
-		$fi = get_instance(CL_FILE);
+		$fi = new file();
 		$zipname = str_replace(" " , "_" , $this->name()).(($v = $this->prop("version"))?"-".$v:"").".zip";
 		$ftype = "application/zip";
 		$fpath = $fi->generate_file_path(array("file_name" => $zipname, "type" => $ftype));

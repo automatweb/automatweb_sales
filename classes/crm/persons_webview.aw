@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/persons_webview.aw,v 1.58 2009/07/20 12:58:29 markop Exp $
 // persons_webview.aw - Kliendihaldus 
 /*
@@ -81,6 +83,8 @@ caption Minimaalne tulpade arv
 */
 class persons_webview extends class_base
 {
+	const AW_CLID = 1055;
+
 	function persons_webview()
 	{
 		$this->init(array(
@@ -947,7 +951,7 @@ class persons_webview extends class_base
 		$profession_with_directive = $profession;
 		if(is_oid($directive) && $this->can("view" , $directive ))
 		{
-			$file_inst = get_instance(CL_FILE);
+			$file_inst = new file();
 			$directive_obj = obj($directive);
 			$directive_obj->trans_get_val("name");
 			$profession_with_directive = '<a href ="'.$file_inst->get_url($directive , $directive_obj->trans_get_val("name")).'"  target=_new> '. $profession_with_directive.' </a>';
@@ -1356,7 +1360,7 @@ class persons_webview extends class_base
 		//cv
 		if($worker->prop("cv_doc"))
 		{
-			$file_inst = get_instance(CL_FILE);
+			$file_inst = new file();
 			$vars["cv_doc"] = $file_inst->get_url($worker->prop("cv_doc"), $worker->prop("cv_doc.name"));
 		}
 		$vars["cv_link"] = $worker->prop("cv_link");

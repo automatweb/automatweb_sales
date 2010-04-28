@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SITE_COPY_SITE relationmgr=yes no_name=1 no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_site_copy_site master_index=brother_of master_table=objects index=aw_oid
@@ -31,6 +33,8 @@
 
 class site_copy_site extends class_base
 {
+	const AW_CLID = 1489;
+
 	function site_copy_site()
 	{
 		$this->init(array(

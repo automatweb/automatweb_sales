@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // patent_add.aw - Patenditaotluse veebist lisamine
 /*
 
@@ -38,6 +40,8 @@
 
 class patent_add extends class_base
 {
+	const AW_CLID = 1446;
+
 	function patent_add()
 	{
 		$this->init(array(

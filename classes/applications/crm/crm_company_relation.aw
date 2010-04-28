@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_company_relation.aw - Organisatoorne kuuluvus
 /*
 
@@ -29,6 +31,8 @@
 
 class crm_company_relation extends class_base
 {
+	const AW_CLID = 1405;
+
 	function crm_company_relation()
 	{
 		$this->init(array(

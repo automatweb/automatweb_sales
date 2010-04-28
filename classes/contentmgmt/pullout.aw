@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/pullout.aw,v 1.1 2008/02/21 19:44:17 kristo Exp $
 // pullout.aw - Pullout manager
 
@@ -35,6 +37,8 @@
 				
 class pullout extends class_base
 {
+	const AW_CLID = 85;
+
 	function pullout()
 	{
 		$this->init(array(

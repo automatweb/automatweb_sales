@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CRM_COMPANY_CUSTOMER_DATA_GENERATOR relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_crm_company_customer_data_generator master_index=brother_of master_table=objects index=aw_oid
@@ -47,6 +49,8 @@
 
 class crm_company_customer_data_generator extends class_base
 {
+	const AW_CLID = 1507;
+
 	function crm_company_customer_data_generator()
 	{
 		$this->init(array(
@@ -61,7 +65,7 @@ class crm_company_customer_data_generator extends class_base
 		$meta = safe_array($arr["obj_inst"]->meta("default_values"));
 
 		$cff = $arr["obj_inst"]->use_cff;
-		$cff_inst = get_instance(CL_CFGFORM);
+		$cff_inst = new cfgform();
 
 		$o = obj();
 		$o->set_class_id(CL_CRM_COMPANY_CUSTOMER_DATA);

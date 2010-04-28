@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 @classinfo syslog_type=ST_ACTION maintainer=kristo
@@ -32,6 +34,8 @@
 
 class action extends class_base
 {
+	const AW_CLID = 173;
+
 	function action()
 	{
 		$this->init(array(

@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 // complex queries that return object lists or data fittable to vcl table
 
@@ -17,11 +16,11 @@ class object_complex_query extends core
 	/** compiles a search by result set, figures out all the joins and crap by itself, or at least tries to
 
 		@comment
-			
+
 			$arr is array of results, like this:
 				array(
 					"start_from" => CL_DOCUMENT,
-					"fields" => 
+					"fields" =>
 						array(
 							CL_DOCUMENT => array("title", "content"),
 							CL_FILE => array("name")
@@ -65,7 +64,7 @@ class object_complex_query extends core
 				array(
 					"where" => array(
 						"start_from" => CL_DOCUMENT,
-						"fields" => 
+						"fields" =>
 							array(
 								CL_DOCUMENT => array("title", "content"),
 								CL_CRM_ADDRESS => array("name"),
@@ -135,7 +134,7 @@ class object_complex_query extends core
 						)
 					)
 				)
-			
+
 			returns an object_list instance populated by result sets
 	**/
 	function exec_search_ol($qid, $values, $dbg = false)
@@ -171,7 +170,7 @@ class object_complex_query extends core
 					)
 				)
 
-			
+
 			returns the number of results
 	**/
 	function exec_search_vcl($qid, $values, &$tbl)
@@ -179,9 +178,9 @@ class object_complex_query extends core
 	}
 
 	/** compiles and executes a search with auto-joined tables (search by result columns)
-		
-		@comment 
-		
+
+		@comment
+
 			$fields - array of searchable fields, format is the same as passed to compile_search_by_result
 			$values - array of values to search for, format is the same as passed to exec_search_ol
 
@@ -190,23 +189,23 @@ class object_complex_query extends core
 	function search_by_results_ol($fields, $values)
 	{
 		$qid = $this->compile_search_by_result($fields);
-		return $this->exec_search_ol($qid, $values); 
+		return $this->exec_search_ol($qid, $values);
 	}
 
 	/** compiles and executes a search with auto-joined tables (search by result columns)
-		
-		@comment 
-		
+
+		@comment
+
 			$fields - array of searchable fields, format is the same as passed to compile_search_by_result
 			$values - array of values to search for, format is the same as passed to exec_search_ol
-			$tbl - vcl table instance to insert results to 
+			$tbl - vcl table instance to insert results to
 
 			inserts the results into a vcl table. table column names must be class_name.property, for example document.title
 	**/
 	function search_by_results_vcl($fields, $values, &$tbl)
 	{
 		$qid = $this->compile_search_by_result($fields);
-		return $this->exec_search_vcl($qid, $values, $tbl); 
+		return $this->exec_search_vcl($qid, $values, $tbl);
 	}
 
 
@@ -256,9 +255,9 @@ class object_complex_query extends core
 						$prev_tbl = $jd["jd"]["via_prop"]["table"];
 						$prev_fld = $jd["jd"]["via_prop"]["field"];
 
-						$sql .= " 
-							LEFT JOIN $new_tbl ON ".$new_tbl.".".$new_fld." = $prev_tbl.$prev_fld 
-							LEFT JOIN objects AS objects_$new_tbl ON objects_".$new_tbl.".oid = ".$new_tbl.".".$new_fld." 
+						$sql .= "
+							LEFT JOIN $new_tbl ON ".$new_tbl.".".$new_fld." = $prev_tbl.$prev_fld
+							LEFT JOIN objects AS objects_$new_tbl ON objects_".$new_tbl.".oid = ".$new_tbl.".".$new_fld."
 						";
 					}
 				}
@@ -328,7 +327,7 @@ class object_complex_query extends core
 				"clid" => $start_from
 			));
 			reset($n_tableinfo);
-			list($tbl, $tbl_dat) = each($n_tableinfo);			
+			list($tbl, $tbl_dat) = each($n_tableinfo);
 
 			$prev = $start_from;
 			$tmp = array();

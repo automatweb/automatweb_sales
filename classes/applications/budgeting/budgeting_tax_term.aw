@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_BUDGETING_TAX_TERM relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
 @tableinfo aw_budgeting_tax_term master_index=brother_of master_table=objects index=aw_oid
@@ -32,6 +34,8 @@
 
 class budgeting_tax_term extends class_base
 {
+	const AW_CLID = 1447;
+
 	function budgeting_tax_term()
 	{
 		$this->init(array(

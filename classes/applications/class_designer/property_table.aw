@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property_table.aw,v 1.10 2007/12/06 14:33:03 kristo Exp $
 // property_table.aw - Tabel 
 /*
@@ -48,6 +50,8 @@
 
 class property_table extends class_base
 {
+	const AW_CLID = 886;
+
 	function property_table()
 	{
 		$this->init(array(

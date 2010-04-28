@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_COUNTRY_ADMINISTRATIVE_UNIT relationmgr=yes no_comment=1 no_status=1 maintainer=voldemar
@@ -47,6 +49,8 @@
 
 class country_administrative_unit extends class_base
 {
+	const AW_CLID = 953;
+
 	function country_administrative_unit ()
 	{
 		$this->init(array(

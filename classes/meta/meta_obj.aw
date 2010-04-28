@@ -1,9 +1,14 @@
 <?php
+
+namespace automatweb;
+
 /*
 @classinfo maintainer=robert
 */
 class meta_obj extends _int_object
 {
+	const AW_CLID = 277;
+
 	function meta($var = false)
 	{
 		if($var == "translations")

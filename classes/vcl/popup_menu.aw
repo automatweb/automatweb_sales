@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class popup_menu extends aw_template
 {
 	var $items = array();
@@ -24,7 +24,7 @@ class popup_menu extends aw_template
 			Sets the popup menu's id and resets items array
 
 		@examples
-                        $popup_menu = get_instance("vcl/popup_menu");
+                        $popup_menu = new popup_menu();
                         $popup_menu->begin_menu("my_popup_menu");
 	**/
 	function begin_menu($menu_id)
@@ -48,7 +48,7 @@ class popup_menu extends aw_template
 		@comment
 			adds new item to popup menu
 		@examples
-                        $popup_menu = get_instance("vcl/popup_menu");
+                        $popup_menu = new popup_menu();
                         $popup_menu->begin_menu("my_popup_menu");
                         $popup_menu->add_item(array(
                                 "text" => t("Valik"),
@@ -188,7 +188,7 @@ class popup_menu extends aw_template
 		@comment
 			returns the html source of the popup menu
 		@examples
-                        $popup_menu = get_instance("vcl/popup_menu");
+                        $popup_menu = new popup_menu();
                         $popup_menu->begin_menu("my_popup_menu");
                         $popup_menu->add_item(array(
                                 "text" => t("Valik"),

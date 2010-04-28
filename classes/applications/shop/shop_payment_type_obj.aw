@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_payment_type_obj extends shop_matrix_obj
 {
+	const AW_CLID = 1577;
+
 	/**
 		@attrib params=name api=1
 		@param row optional
@@ -59,7 +64,7 @@ class shop_payment_type_obj extends shop_matrix_obj
 		{
 			self::validate_arguments($arr);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			throw $e;
 		}

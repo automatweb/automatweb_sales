@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CRM_COMPANY_CFGFORM_CONFIGURATOR relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_crm_company_cfgform_configurator master_index=brother_of master_table=objects index=aw_oid
@@ -115,6 +117,8 @@
 
 class crm_company_cfgform_configurator extends class_base
 {
+	const AW_CLID = 1515;
+
 	function crm_company_cfgform_configurator()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // xml_export.aw - XML eksport
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_RECURRENCE, activate_next_auto_export)
@@ -113,6 +115,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_RECURRENCE, activate_next_auto_ex
 
 class xml_export extends class_base
 {
+	const AW_CLID = 896;
+
 	function xml_export()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,

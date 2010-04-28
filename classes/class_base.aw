@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 // the root of all good.
 //
 // ------------------------------------------------------------------
@@ -78,6 +81,7 @@ class class_base extends aw_template
 	var $no_buttons;
 	var $inst;
 
+	var $default_group = "general";
 	var $group;
 	var $use_group;
 	var $active_group;
@@ -89,7 +93,7 @@ class class_base extends aw_template
 	var $view;
 	var $no_rte;
 	var $cb_values;
-	var $output_client;
+	var $output_client = "automatweb\\htmlclient";
 	var $orb_class;
 	var $layout_mode;
 	var $leftout_layouts;
@@ -100,6 +104,7 @@ class class_base extends aw_template
 	var $transl_grp_name;
 	var $is_translated;
 	var $request = array();
+	var $features = array();
 	var $_do_call_vcl_mod_retvals = array();
 
 	public $form_only = false;
@@ -121,10 +126,6 @@ class class_base extends aw_template
 
 	function init($arg = array())
 	{
-		$this->output_client = "htmlclient";
-		$this->default_group = "general";
-		$this->features = array();
-
 		// XXX: this is also temporary
 		$this->vcl_has_getter = array(
 			"classificator" => 1,
@@ -146,12 +147,12 @@ class class_base extends aw_template
 
 		$class = $arr["class"];
 
-		if (!aw_ini_isset("class_lut.".$class))
+		if (!aw_ini_isset("class_lut.{$class}"))
 		{
-			throw new aw_exception("Invalid class '$class'");
+			throw new aw_exception("Invalid class '{$class}'");
 		}
 
-		$clid = aw_ini_get("class_lut.".$class);
+		$clid = aw_ini_get("class_lut.{$class}");
 
 		if ("menu" === $class)
 		{
@@ -188,14 +189,14 @@ class class_base extends aw_template
 				$class = $arr["class"];
 				if (!aw_ini_isset("class_lut.".$class))
 				{
-					throw new aw_exception("Invalid class '$class'");
+					throw new aw_exception("Invalid class '{$class}'");
 				}
 
 				$clid = aw_ini_get("class_lut.".$class);
 
 				if ($this->obj_inst->class_id() != $clid)
 				{
-					throw new aw_exception("Invalid class '$class'");
+					throw new aw_exception("Invalid class '{$class}'");
 				}
 			}
 
@@ -285,7 +286,7 @@ class class_base extends aw_template
 			}
 		}
 
-		$args["return_url"] = isset($_GET["return_url"]) ? $_GET["return_url"] : "";
+		$args["return_url"] = automatweb::$request->arg_isset("return_url") ? automatweb::$request->arg("return_url") : "";
 		$this->init_class_base();
 		$cb_values = aw_global_get("cb_values");
 		$has_errors = false;
@@ -402,13 +403,6 @@ class class_base extends aw_template
 			$filter["rel"] = 1;
 		}
 
-		// XXX: temporary -- duke
-		if (!empty($args["fxt"]))
-		{
-			$this->layout_mode = "fixed_toolbar";
-			$filter["layout_mode"] == "fixed_toolbar";
-		}
-
 		$properties = $this->get_property_group($filter, $args);
 		$this->inst->use_group = $this->use_group;
 
@@ -463,13 +457,6 @@ class class_base extends aw_template
 			unset($properties["needs_translation"]);
 		}
 
-
-		// XXX: temporary -- duke
-		if (!empty($args["fxt"]))
-		{
-			$this->set_classinfo(array("name" => "hide_tabs","value" => 1));
-		}
-
 		if (!empty($args["form"]))
 		{
 			$onload_method = $this->forminfo(array(
@@ -514,19 +501,6 @@ class class_base extends aw_template
 			}
 		}
 
-		// the whole freaking fixed toolbar trickery was implemented
-		// only because IE does not support positon: fixed like other
-		// modern browsers do. Once it does, this whole crap with
-		// frames can be taken out again
-
-		// turn off submit button, if the toolbar is being shown
-
-		$lm = $this->classinfo(array("name" => "fixed_toolbar"));
-		if (!empty($lm))
-		{
-			$gdata["submit"] = "no";
-		}
-
 		$user_obj = obj(aw_global_get("uid_oid"));
 		if (!empty($args["no_rte"]) || $user_obj->prop("rte_disabled"))
 		{
@@ -539,7 +513,7 @@ class class_base extends aw_template
 		if (!empty($lm) && empty($args["cb_part"]))
 		{
 			$new_uri = aw_url_change_var(array("cb_part" => 1));
-			$cli = get_instance("cfg/" . $this->output_client, array("layout_mode" => "fixed_toolbar"));
+			$cli = new $this->output_client;
 			$cli->used_cfgform = $this->cfgform_id;
 
 			if (!empty($args["no_rte"]))
@@ -552,8 +526,6 @@ class class_base extends aw_template
 				"src" => $new_uri,
 				"value" => " ",
 			);
-
-			$this->layout_mode = "fixed_toolbar";
 
 			// show only the elements and not the frame
 			// (because it contains some design
@@ -591,7 +563,7 @@ class class_base extends aw_template
 				$o_arr["embedded"] = true;
 			}
 
-			$cli = get_instance("cfg/" . $this->output_client,$o_arr);
+			$cli = new $this->output_client($o_arr);
 			$cli->used_cfgform = $this->cfgform_id;
 
 			if (!empty($lm))
@@ -637,7 +609,7 @@ class class_base extends aw_template
 		$this->cli = $cli;
 
 		// aga mis siis, kui see on sama aken?
-		$cbtrans = get_instance("applications/cb_trans/cb_translate");
+		$cbtrans = new cb_translate();
 		$trans_default_id = $cbtrans->get_sysdefault();
 
 		if ($trans_default_id)
@@ -1002,7 +974,7 @@ class class_base extends aw_template
 		}
 
 		// LETS ROCK
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$u = $u->get_obj_for_uid(aw_global_get("uid"));
 		if (!empty($u))
 		{
@@ -1203,10 +1175,11 @@ class class_base extends aw_template
 	**/
 	function remove_drafts($arr)
 	{
+		$user = new user();
 		$params = array(
 			"class_id" => CL_DRAFT,
 			"draft_object" => $arr["id"],
-			"draft_user" => get_instance("user")->get_current_user(),
+			"draft_user" => $user->get_current_user(),
 		);
 		if(!is_oid($arr["id"]))
 		{
@@ -1412,7 +1385,7 @@ class class_base extends aw_template
 				if(!is_admin() && is_oid($cfgform_o->prop("cfgview_ru_cntrl")) && $this->can("view", $cfgform_o->prop("cfgview_ru_cntrl")))
 				{
 					$nothing = NULL;
-					$i = get_instance(CL_CFGCONTROLLER);
+					$i = new cfgcontroller();
 					$retval = $i->check_property($cfgform_o->prop("cfgview_ru_cntrl"), $this->id, $nothing, $request, $retval, obj($this->id));
 				}
 
@@ -1421,7 +1394,7 @@ class class_base extends aw_template
 
 				if (count($cfg_cntrl))
 				{
-					$controller_inst = get_instance(CL_CFGCONTROLLER);
+					$controller_inst = new cfgcontroller();
 
 					foreach ($cfg_cntrl as $cfg_cntrl_id)
 					{
@@ -1759,7 +1732,7 @@ class class_base extends aw_template
 		{
 			$clid = $this->orb_class->get_opt("clid");
 		}
-		$clfile = $_ct[$clid]["file"];
+		$clfile = basename($_ct[$clid]["file"]);
 
 		// temporary - until we switch document editing back to new interface
 		if ($clid == 7)
@@ -1769,11 +1742,11 @@ class class_base extends aw_template
 
 		if (empty($clfile))
 		{
-			$this->clfile = $orb_class;
+			$this->clfile = "automatweb\\" . basename($orb_class);
 		}
 		else
 		{
-			$this->clfile = $clfile;
+			$this->clfile = "automatweb\\" . $clfile;
 		}
 
 		$this->clid = $clid;
@@ -1789,7 +1762,7 @@ class class_base extends aw_template
 		// nothing breaks
 		else
 		{
-			$this->inst = get_instance($this->clfile);
+			$this->inst = new $this->clfile;
 		}
 	}
 
@@ -1928,7 +1901,7 @@ class class_base extends aw_template
 				}
 				if(automatweb::$request->arg("group") && is_object($subcb))
  				{
- 					$cfgform_i = get_instance(CL_CFGFORM);
+ 					$cfgform_i = new cfgform();
  					$cfgform = $subcb->meta("cfgform_id");
  					$cfgform_i->cff_init_from_class($subcb, $subcb->class_id(), false);
  					if(is_oid($cfgform) && $this->can("view", $cfgform))
@@ -2162,7 +2135,7 @@ class class_base extends aw_template
 			));
 			if($output["group"])
 			{
-				$cfgform_i = get_instance(CL_CFGFORM);
+				$cfgform_i = new cfgform();
 				$cfgform = $pa_obj->meta("cfgform_id");
 				$cfgform_i->cff_init_from_class($pa_obj, $pa_obj->class_id(), false);
 				if(is_oid($cfgform) && $this->can("view", $cfgform))
@@ -2695,9 +2668,9 @@ class class_base extends aw_template
 				"filter" => $filter,
 			));
 			// and how I get the class_instance?
-			$clx_name = $val["sclass"];
+			$clx_name = "automatweb\\" . $val["sclass"];
 			//$clx_name = "crm/" . $val["sclass"];
-			$clx_inst = get_instance($clx_name);
+			$clx_inst = new $clx_name();
 			$clx_inst->orb_class = $clx_name;
 			$clx_inst->init_class_base();
 			$forminfo = $cfgu->get_forminfo();
@@ -2825,7 +2798,7 @@ class class_base extends aw_template
 
 	function process_view_controllers(&$properties, $controllers, $argblock)
 	{
-		$view_controller_inst = get_instance(CL_CFG_VIEW_CONTROLLER);
+		$view_controller_inst = new cfg_view_controller();
 		foreach ($controllers as $key => $value)
 		{
 			$parse_props = array($key);
@@ -3005,7 +2978,7 @@ class class_base extends aw_template
 			// own init_vcl_property method
 			if (aw_ini_isset("class_base.vcl_register.{$val["type"]}") && empty($val["_parsed"]) && (!isset($val["vcl_inst"]) || !is_object($val["vcl_inst"])) && !aw_ini_get("class_base.vcl_register.{$val["type"]}.delayed"))
 			{
-				$vcl_class = aw_ini_get("class_base.vcl_register.{$val["type"]}.class");
+				$vcl_class = "automatweb\\" . aw_ini_get("class_base.vcl_register.{$val["type"]}.class");
 				$ot = new $vcl_class();
 
 				if (is_callable(array($ot,"init_vcl_property")))
@@ -3063,7 +3036,7 @@ class class_base extends aw_template
 				));
 
 				// and how I get the class_instance?
-				$clx_name = $val["sclass"];
+				$clx_name = "automatweb\\".$val["sclass"];
 				$clx_inst = new $clx_name();
 
 				$clx_inst->orb_class = $clx_name;
@@ -3284,7 +3257,7 @@ class class_base extends aw_template
 			{
 				if (aw_ini_isset("class_base.vcl_register.{$val["type"]}") and aw_ini_get("class_base.vcl_register.{$val["type"]}.delayed"))
 				{
-					$vcl_class = aw_ini_get("class_base.vcl_register.{$val["type"]}.class");
+					$vcl_class = "automatweb\\" . aw_ini_get("class_base.vcl_register.{$val["type"]}.class");
 					$ot = new $vcl_class();
 					if (is_callable(array($ot,"init_vcl_property")))
 					{
@@ -3331,7 +3304,7 @@ class class_base extends aw_template
 
 				if (!empty($val["orig_type"]) and aw_ini_isset("class_base.vcl_register.{$val["orig_type"]}.class") and isset($this->vcl_has_getter[$val["orig_type"]]))
 				{
-					$vcl_class = aw_ini_get("class_base.vcl_register.{$val["orig_type"]}.class");
+					$vcl_class = "automatweb\\" . aw_ini_get("class_base.vcl_register.{$val["orig_type"]}.class");
 					$ot = new $vcl_class();
 					if (is_callable(array($ot,"get_vcl_property")))
 					{
@@ -3460,17 +3433,17 @@ class class_base extends aw_template
 					{
 						if($this->classinfo(array("name" => "allow_rte")) == 2)
 						{
-							$rte = get_instance("vcl/fck_editor");
+							$rte = new fck_editor();
 							$rte->get_rte_toolbar(array(
-								"toolbar" => &$val["vcl_inst"],
+								"toolbar" => $val["vcl_inst"],
 								"no_rte" => $this->no_rte,
 							));
 						}
 						else
 						{
-							$rte = get_instance("vcl/rte");
+							$rte = new rte();
 							$rte->get_rte_toolbar(array(
-								"toolbar" => &$val["vcl_inst"],
+								"toolbar" => $val["vcl_inst"],
 								"target" => $this->layout_mode === "fixed_toolbar" ? "contentarea" : "",
 								"no_rte" => $this->no_rte,
 							));
@@ -3741,7 +3714,7 @@ class class_base extends aw_template
 		{
 			if (is_oid($arr["cfgform_id"]) && $this->can("view", $arr["cfgform_id"]))
 			{
-				$cf = get_instance(CL_CFGFORM);
+				$cf = new cfgform();
 				$props = $cf->get_props_from_cfgform(array("id" => $arr["cfgform_id"]));
 			}
 			else
@@ -3764,7 +3737,7 @@ class class_base extends aw_template
 		$controllers = array();
 		if (is_oid($arr["cfgform_id"]) && $this->can("view", $arr["cfgform_id"]) )
 		{
-			$controller_inst = get_instance(CL_CFGCONTROLLER);
+			$controller_inst = new cfgcontroller();
 			$controllers = $this->get_all_controllers($arr["cfgform_id"]);
 		}
 
@@ -3927,7 +3900,7 @@ class class_base extends aw_template
 
 			if (isset($args["rawdata"]["lang_id"]))
 			{
-				$lg = get_instance("languages");
+				$lg = new languages();
 				$o->set_lang($lg->get_langid($args["rawdata"]["lang_id"]));
 			}
 
@@ -4221,7 +4194,7 @@ class class_base extends aw_template
 
 			if (isset($property["type"]) and aw_ini_isset("class_base.vcl_register.{$property["type"]}"))
 			{
-				$vcl_class = aw_ini_get("class_base.vcl_register.{$property["type"]}.class");
+				$vcl_class = "automatweb\\" . aw_ini_get("class_base.vcl_register.{$property["type"]}.class");
 				$ot = new $vcl_class();
 				if (is_callable(array($ot,"process_vcl_property")))
 				{
@@ -4522,11 +4495,11 @@ class class_base extends aw_template
 				switch($prop["type"])
 				{
 					case "releditor":
-						$inst = get_instance("vcl/releditor");
+						$inst = new releditor();
 						break;
 
 					case "multifile_upload":
-						$inst = get_instance("vcl/multifile_upload");
+						$inst = new multifile_upload();
 						break;
 				}
 			}
@@ -4567,7 +4540,7 @@ class class_base extends aw_template
 
 			if (count($cfg_cntrl))
 			{
-				$controller_inst = get_instance(CL_CFGCONTROLLER);
+				$controller_inst = new cfgcontroller();
 
 				foreach ($cfg_cntrl as $cfg_cntrl_id)
 				{
@@ -4682,7 +4655,7 @@ class class_base extends aw_template
 			"subclass" => $this->clid
 		));
 		$rv = array();
-		$l = get_instance("languages");
+		$l = new languages();
 		$lid = $l->get_langid_for_code(aw_global_get("user_adm_ui_lc"));
 		foreach($ol->arr() as $o)
 		{
@@ -5459,7 +5432,7 @@ class class_base extends aw_template
 
 		if (aw_ini_get("config.trans.separate_tabs") and aw_ini_get("user_interface.content_trans") and !empty($this->inst->translation_lang_id))
 		{ // add virtual language-subgroups
-			$l = get_instance("languages");
+			$l = new languages();
 			$ll = $l->get_list(array(
 				"set_for_user" => true,
 				"all_data" => true
@@ -5545,7 +5518,7 @@ class class_base extends aw_template
 		{
 			$o = $o->get_original();
 		}
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array(
 			"all_data" => true,
 			"set_for_user" => true
@@ -5689,7 +5662,7 @@ class class_base extends aw_template
 		$ret = array();
 
 		// get langs
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array(
 			"set_for_user" => true,
 			"all_data" => true
@@ -5705,7 +5678,7 @@ class class_base extends aw_template
 
 		if ($this->can("view", $cfgform_id))
 		{
-			$cf = get_instance(CL_CFGFORM);
+			$cf = new cfgform();
 			$pl = $cf->get_props_from_cfgform(array("id" => $cfgform_id));
 			$ppl = $cf->get_cfg_proplist($cfgform_id);
 			// also, get group list and then throw out all the props that are not in visible groups
@@ -6269,7 +6242,7 @@ class class_base extends aw_template
 		if(!$_SESSION["menu_from_cb"][$level]["items"] && !$_SESSION["menu_from_cb"][$level]["count"])
 		{
 			extract($_GET);
-			$cfgform_i = get_instance(CL_CFGFORM);
+			$cfgform_i = new cfgform();
 			if(is_oid($id) && $this->can("view" , $id))
 			{
 				$this->object = $o = obj($id);
@@ -6472,7 +6445,7 @@ class class_base extends aw_template
 	function object_name_autocomplete_source($arr)
 	{
 		$cid = $arr["class_ids"];
-		$ac = get_instance("vcl/autocomplete");
+		$ac = new autocomplete();
 		$arr = $ac->get_ac_params($arr);
 
 		$filter = array(
@@ -6499,7 +6472,7 @@ class class_base extends aw_template
 	**/
 	function co_autocomplete_source($arr)
 	{
-		$ac = get_instance("vcl/autocomplete");
+		$ac = new autocomplete();
 		$arr = $ac->get_ac_params($arr);
 
 		$ol = new object_list(array(
@@ -6518,7 +6491,7 @@ class class_base extends aw_template
 	**/
 	function p_autocomplete_source($arr)
 	{
-		$ac = get_instance("vcl/autocomplete");
+		$ac = new autocomplete();
 		$arr = $ac->get_ac_params($arr);
 
 		$ol = new object_list(array(
@@ -6573,7 +6546,7 @@ class class_base extends aw_template
 	{
 		$o = obj($arr["id"]);
 		$ppl = $this->get_people_list($o);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$person = $u->get_person_for_uid(aw_global_get("uid"));
 		$user_name = "";
 		if(is_object($person))

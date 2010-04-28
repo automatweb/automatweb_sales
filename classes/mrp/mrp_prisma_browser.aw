@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/mrp/mrp_prisma_browser.aw,v 1.8 2008/01/31 13:54:53 kristo Exp $
 // mrp_prisma_browser.aw - Reusneri andmete sirvimine 
 /*
@@ -71,6 +73,8 @@
 
 class mrp_prisma_browser extends class_base
 {
+	const AW_CLID = 1176;
+
 	function mrp_prisma_browser()
 	{
 		$this->init(array(
@@ -122,7 +126,7 @@ class mrp_prisma_browser extends class_base
 	function make_aw_header()
         {
                 // current user name, logout link
-                $us = get_instance(CL_USER);
+                $us = new user();
 
                 $p_id = $us->get_current_person();
                 if (!$p_id)

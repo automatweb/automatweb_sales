@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_section_webside.aw,v 1.13 2008/01/31 13:54:16 kristo Exp $
 // crm_section_webside.aw - ÃÃœksus weebis 
 /*
@@ -62,6 +64,8 @@ caption Üksus
 
 class crm_section_webside extends class_base
 {
+	const AW_CLID = 832;
+
 	function crm_section_webside()
 	{
 		$this->init(array(

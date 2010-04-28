@@ -60,7 +60,7 @@ class project_analysis_impl extends class_base
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_analysis_table($t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_ANALYSIS_WS")) as $c)
 		{
 			$st = $c->to();

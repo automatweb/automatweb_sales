@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SITE_NOTIFICATION_SENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_site_notification_sent master_index=brother_of master_table=objects index=aw_oid
@@ -33,6 +35,8 @@
 
 class site_notification_sent extends class_base
 {
+	const AW_CLID = 1503;
+
 	function site_notification_sent()
 	{
 		$this->init(array(

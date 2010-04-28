@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/formgen/currency.aw,v 1.22 2009/03/26 12:52:24 markop Exp $
 // currency.aw - Currency management
 
@@ -42,6 +44,8 @@ define("RET_ARR",2);
 
 class currency extends class_base
 {
+	const AW_CLID = 67;
+
 	function currency()
 	{
 		$this->init(array(
@@ -108,7 +112,7 @@ class currency extends class_base
 		
 		$langdata = array();
 		aw_global_set("output_charset", "utf-8");
-		$lg = get_instance("languages");
+		$lg = new languages();
 		$langdata = $lg->get_list(array("all_data" => 1,"ignore_status" => 1));
 
 		$unit_meta = $arr["obj_inst"]->meta("unit");
@@ -355,7 +359,7 @@ class currency extends class_base
 		{
 			return $this->co_currency;
 		}
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$company = obj($u->get_current_company());
 		$this->co_currency = $company->prop("currency");
 		return $company->prop("currency");

@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb\cb;
+
 /*
 @classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=voldemar
 @tableinfo aw_product master_index=brother_of master_table=objects index=aw_oid
@@ -8,13 +11,13 @@
 
 */
 
-class aw_product extends class_base
+class awproduct extends class_base
 {
 	function __construct()
 	{
 		$this->init(array(
-			"tpldir" => "common/product/aw_product",
-			"clid" => CL_AW_PRODUCT
+			"tpldir" => "common/product/product",
+			"clid" => CL_PRODUCT
 		));
 	}
 

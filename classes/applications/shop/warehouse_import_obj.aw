@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class warehouse_import_obj extends _int_object
 {
+	const AW_CLID = 1535;
+
 
 	private $controller_inst;
 	private $controller_id;
@@ -355,7 +360,7 @@ class warehouse_import_obj extends _int_object
 			try {
 			$o = new object($oid);
 			$o->delete(true);
-			} catch (Exception $e) {}
+			} catch (\Exception $e) {}
 		}
 
 	}
@@ -647,7 +652,7 @@ class warehouse_import_obj extends _int_object
 
 	private function _do_prices_import_process($sx)
 	{
-		$this->db_obj = get_instance(CL_FILE);
+		$this->db_obj = new file();
 
 		$prices_data = array();
 		foreach($sx->product as $pdata)
@@ -845,7 +850,7 @@ class warehouse_import_obj extends _int_object
 
 	private function _do_amounts_import_process($wh_id, $sx)
 	{
-		$this->db_obj = get_instance(CL_FILE);
+		$this->db_obj = new file();
 
 		// i need here:
 		// product objects ids <-> product codes lookup table

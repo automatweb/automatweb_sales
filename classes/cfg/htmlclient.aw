@@ -1,13 +1,13 @@
 <?php
+
+namespace automatweb;
+
 // htmlclient - generates HTML for configuration forms
 
 // The idea is that if we want to implement other interfaces
 // for editing objects, then we can just add other clients
 // (xmlrpc, rdf, tty, etc) which take care of converting the data
 // from the cfgmanager to the required form.
-/*
-@classinfo  maintainer=kristo
-*/
 
 class htmlclient extends aw_template
 {
@@ -63,7 +63,7 @@ class htmlclient extends aw_template
 
 		if ($this->tabs)
 		{
-			$this->tp = get_instance("vcl/tabpanel");
+			$this->tp = new tabpanel();
 		}
 	}
 
@@ -120,7 +120,7 @@ class htmlclient extends aw_template
 	function set_group_style($styl)
 	{
 		$this->group_style = $styl;
-		$this->tmp = get_instance("cfg/htmlclient",array("tpldir" => "htmlclient"));
+		$this->tmp = new htmlclient(array("tpldir" => "htmlclient"));
 		$this->tmp->read_template($styl . ".tpl");
 	}
 
@@ -489,7 +489,7 @@ class htmlclient extends aw_template
 		if (!$cur_cfgform_found)
 		{
 			$cur_cfgfor_found = true;
-			$i = get_instance(CL_FILE);
+			$i = new file();
 			$i->clid = $o->class_id();
 			$cur_cfgform = $i->get_cfgform_for_object(array(
 				"args" => $_GET,
@@ -722,7 +722,7 @@ class htmlclient extends aw_template
 		{
 			if($this->rte_type == 2)
 			{
-				$rte = get_instance("vcl/fck_editor");
+				$rte = new fck_editor();
 				$res .= $rte->draw_editor(array(
 					"lang" => aw_ini_get("user_interface.default_language"),
 					"props" => $this->rtes,
@@ -734,7 +734,7 @@ class htmlclient extends aw_template
 			}
 			elseif($this->rte_type == 3)
 			{
-				$rte = get_instance("vcl/codepress");
+				$rte = new codepress();
 				$res .= $rte->draw_editor(array(
 					"props" => $this->rtes,
 				));
@@ -827,14 +827,6 @@ class htmlclient extends aw_template
 
 	function get_result($arr = array())
 	{
-		if ($this->layout_mode === "fixed_toolbar")
-		{
-			// this will apply a new style to the BODY node, it's required
-			// to get the classbase layoyt with iframe working correctly
-			$apd = get_instance("layout/active_page_data");
-			$apd->add_serialized_css_style($this->parse("iframe_body_style"));
-		}
-
 		if(empty($this->no_form))
 		{
 			$this->vars_safe(array(
@@ -1464,7 +1456,7 @@ class htmlclient extends aw_template
 			$closer = $ghc = $gce = "";
 			if (!empty($ldata["area_caption"]))
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$state = $u->get_layer_state(array(
 					"u_class" => automatweb::$request->arg("class"),
 					"u_group" => automatweb::$request->arg("group"),
@@ -1542,7 +1534,7 @@ class htmlclient extends aw_template
 			$closer = $ghc = $gce = "";
 			if (!empty($ldata["area_caption"]))
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$state = $u->get_layer_state(array(
 					"u_class" => automatweb::$request->arg("class"),
 					"u_group" => automatweb::$request->arg("group"),
@@ -1625,7 +1617,7 @@ class htmlclient extends aw_template
 			$closer = $ghc = $gce = "";
 			if (!empty($ldata["area_caption"]))
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$state = $u->get_layer_state(array("u_class" => $_GET["class"], "u_group" => $_GET["group"], "u_layout" => $layout_name));
 
 				if (!empty($ldata["closeable"]))

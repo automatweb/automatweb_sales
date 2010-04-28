@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_ROOM relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
 @tableinfo aw_room index=aw_oid master_table=objects master_index=brother_of
@@ -30,7 +32,7 @@
 
 		@property warehouse type=relpicker reltype=RELTYPE_SHOP_WAREHOUSE parent=general_up
 		@caption Ladu
-		
+
 		@property resources_fld type=relpicker reltype=RELTYPE_INVENTORY_FOLDER parent=general_up
 		@caption Ressursside kataloog
 
@@ -42,10 +44,10 @@
 
 		@property seller_professions type=relpicker reltype=RELTYPE_PROFESSION multiple=1 parent=general_up  delete_rels_popup_button=1 size=4
 		@caption M&uuml;&uuml;giesindajate ametinimetused
-	
+
 		@property inherit_prods_from type=relpicker reltype=RELTYPE_ROOM parent=general_up
 		@caption P&auml;ri tooted ruumist
-	
+
 		@property inherit_oh_from type=relpicker reltype=RELTYPE_ROOM parent=general_up
 		@caption P&auml;ri avamisajad ruumist
 
@@ -53,10 +55,10 @@
 		caption Broneeringu template
 
 	@layout general_down type=vbox closeable=1 area_caption=Mahutavus&#44;&nbsp;kasutustingimused parent=general_split
-		
+
 		@property conditions type=relpicker reltype=RELTYPE_CONDITIONS parent=general_down
 		@caption Kasutustingimused
-		
+
 		@property square_meters type=textbox size=5 parent=general_down
 		@caption Suurus(ruutmeetrites)
 
@@ -70,31 +72,31 @@
 
 		@property buffer_before type=textbox size=5 parent=buffer_before_l
 		@caption Puhveraeg enne
-		
+
 		@property buffer_before_unit type=select no_caption=1 parent=general_down
-		
+
 		@layout buffer_after_l type=hbox  width=30%:70% parent=general_down
-		
+
 		@property buffer_after type=textbox size=5 parent=buffer_after_l
 		@caption Puhveraeg p&auml;rast
-		
+
 		@property buffer_after_unit type=select no_caption=1 parent=general_down
-		
+
 		@property use_product_times type=checkbox parent=general_down no_caption=1
 		@caption Kasuta toodetele m&auml;&auml;ratud aegu
-		
+
 		@property allow_multiple type=checkbox parent=general_down no_caption=1
 		@caption Luba mitu broneeringut &uuml;hele ajale
-		
+
 		@property group_product_menu type=checkbox parent=general_down no_caption=1
-		@caption Grupeeri tooted kaustadesse		
+		@caption Grupeeri tooted kaustadesse
 
 		@property settings type=relpicker parent=general_down multiple=1 reltype=RELTYPE_SETTINGS
 		@caption Seaded
 
 		@property category type=relpicker reltype=RELTYPE_CATEGORY parent=general_down table=aw_room  method=none field=category
 		@caption Ruumi kategooria
-		
+
 		@property floor type=textbox parent=general_down table=aw_room size=3 method=none field=floor
 		@caption Korrus
 
@@ -105,14 +107,14 @@
 		@caption Number
 
 		layout concurrent type=hbox closeable=1 area_caption=Samaaegsed&nbsp;broneeringud: parent=general_down
-		
+
 			property concurrent_brons type=textbox size=5 parent=concurrent no_caption=1
 			caption Samaaegsed broneeringuid
-		
+
 			property concurrent_type type=chooser size=5 parent=concurrent no_caption=1
 			caption inimeste arv / broneeringute arv
-		
-		
+
+
 valdkonnanimi (link, mis avab popupi, kuhu saab lisada vastava valdkonnaga seonduva t&auml;iendava info selle valdkonna objektityybi kaudu, nt konverentsid).
 - puhveraeg enne (mitu tundi enne reserveeringu algust lisaks bronnitakse ruumide ettevalmistamiseks)
 - puhveraeg p2rast (mitu tundi peale reserveeringu l6ppu broneeritakse ruumide korrastamiseks
@@ -123,7 +125,7 @@ valdkonnanimi (link, mis avab popupi, kuhu saab lisada vastava valdkonnaga seond
 @default group=calendar
 	@property calendar_tb type=toolbar no_caption=1 submit=no
 	@property calendar type=calendar no_caption=1 viewtype=relative store=no
-	
+
 	@property calendar_select type=text no_caption=1
 	@property calendar_tbl type=table no_caption=1
 
@@ -145,15 +147,15 @@ valdkonnanimi (link, mis avab popupi, kuhu saab lisada vastava valdkonnaga seond
 # TAB PRODUCTS
 @groupinfo products caption="Tooted"
 @default group=products
-	@property products_tb type=toolbar no_caption=1 store=no	
+	@property products_tb type=toolbar no_caption=1 store=no
 
 	@layout products_l type=hbox width=30%:70%
-		
+
 		@layout products_left type=vbox parent=products_l
-		
+
 		@layout products_tree type=vbox parent=products_left closeable=1 area_caption=Toodete&nbsp;puu
 			@property products_tr type=treeview no_caption=1 store=no parent=products_tree
-	
+
 		@layout products_find_params type=vbox parent=products_left closeable=1 area_caption=Toodete&nbsp;otsing
 			@property products_find_product_name type=textbox store=no parent=products_find_params captionside=top size=10
 			@caption Toote nimetus
@@ -165,7 +167,7 @@ valdkonnanimi (link, mis avab popupi, kuhu saab lisada vastava valdkonnaga seond
 
 @groupinfo prices caption="Hinnad"
 @default group=prices
-	
+
 	@groupinfo prices_general caption="&Uuml;ldine" parent=prices
 	@default group=prices_general
 
@@ -182,7 +184,7 @@ valdkonnanimi (link, mis avab popupi, kuhu saab lisada vastava valdkonnaga seond
 				@caption Hind
 
 				@property prod_discount_loc type=chooser parent=currency_l
-				@caption Toodete soodushind v&otilde;etakse: 
+				@caption Toodete soodushind v&otilde;etakse:
 
 
 				@property prod_web_discount type=textbox size=2 parent=currency_l
@@ -213,7 +215,7 @@ valdkonnanimi (link, mis avab popupi, kuhu saab lisada vastava valdkonnaga seond
 
 					@property time_step type=textbox size=5 parent=time_step
 					@caption ,sammuga
-			
+
 
 				@layout selectbox_time_step type=hbox width=5%:5%:20%:60% parent=middle
 				@caption Valiku aja samm
@@ -229,15 +231,15 @@ valdkonnanimi (link, mis avab popupi, kuhu saab lisada vastava valdkonnaga seond
 
 
 			@layout min_prices type=vbox closeable=1 area_caption=Ruumibroneeringu&nbsp;miinimum-&nbsp;ja&nbsp;maksimumhind
-		
+
 				@property minmax_prices type=table parent=min_prices no_caption=1
 				@caption Miinimum-Maksimum hinnad
 
 				@property min_prices_props type=callback callback=gen_min_prices_props parent=min_prices
 
-				@property web_min_prod_price type=callback callback=cb_gen_web_min_prices 
+				@property web_min_prod_price type=callback callback=cb_gen_web_min_prices
 
-	
+
 	@groupinfo prices_price caption="Hinnad" parent=prices
 	@default group=prices_price,prices_bargain_price
 		@property prices_search type=hidden no_caption=1 store=no
@@ -277,11 +279,11 @@ valdkonnanimi (link, mis avab popupi, kuhu saab lisada vastava valdkonnaga seond
 @groupinfo work_graphs caption="T&ouml;&ouml;graafikud" parent=open_hrs  submit=no
 @default  group=work_graphs
 
-@property work_graphs type=text submit=no no_caption=1 
+@property work_graphs type=text submit=no no_caption=1
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-	
+
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
@@ -345,6 +347,8 @@ caption Templeit
 
 class room extends class_base
 {
+	const AW_CLID = 1162;
+
 	function room()
 	{
 		$this->init(array(
@@ -364,7 +368,7 @@ class room extends class_base
 			2 => 3600,
 			3 => 86400,
 		);
-		
+
 		$this->time_units = array(
 			1 => t("Sekundit"), //default
 			60 => t("Minutit"),
@@ -383,18 +387,18 @@ class room extends class_base
 		$this->weekdays_short = array(
 			t("Su") , t("Mo") , t("Tu"), t("We") , t("Th") , t("Fr"), t("Sa")
 		);
-		
+
 		classload("core/date/date_calc");
 
 		$this->trans_props = array(
 			"name"
 		);
-		$this->ui = get_instance(CL_USER);
+		$this->ui = new user();
 	}
 
 	/**
 		@attrib name=set_bron_cust_arrived_status
-		@param bron required 
+		@param bron required
 		@param status required
 	**/
 	function set_bron_cust_arrived_status($arr)
@@ -419,7 +423,7 @@ class room extends class_base
 				$month = $_GET["month"];
 				if(!$month)
 				{
-					$month = 0;	
+					$month = 0;
 				}
 				$prop["value"]= $this->up_link($month);
 				$arr["month"] = $month;
@@ -471,9 +475,9 @@ class room extends class_base
 			case "add_price_per_face":
 				$prop["value"] = $this->gen_people_prices($arr);
 				break;
-			
+
 			case "time_unit":
-				
+
 				$prop["options"] = $this->get_time_units();
 				break;
 			case "concurrent_type":
@@ -491,13 +495,13 @@ class room extends class_base
 			case "calendar_select":
 				$prop["value"] = $this->_get_calendar_select($arr);
 				break;
-			
+
 			case "concurrent_brons":
-				$prop["value"] = ($prop["value"]) ? $prop["value"] : 1; 
+				$prop["value"] = ($prop["value"]) ? $prop["value"] : 1;
 				break;
 			case "calendar_tbl":
 				$this->_get_calendar_tbl($arr);
-				break;	
+				break;
 
 			case "products_tr":
 				if(!$this->_get_prod_fld($arr["obj_inst"]))
@@ -506,7 +510,7 @@ class room extends class_base
 					return PROP_ERROR;
 				}
 				$this->_products_tr($arr);
-				break;	
+				break;
 
 			case "reservation_template":
 				$tm = get_instance("templatemgr");
@@ -520,14 +524,14 @@ class room extends class_base
 	//				$prop["value"] = t("Template fail peab asuma kataloogis :".$this->site_template_dir."");
 				}
 				break;
-			
+
 			case "products_tbl":
 				$this->_products_tbl($arr);
 				break;
 
 			case "products_tb":
 				$this->_products_tb($arr);
-				break;		
+				break;
 
 			case "group_product_menu":
 				if(!$arr["obj_inst"]->prop("use_product_times"))
@@ -545,7 +549,7 @@ class room extends class_base
 		{
 			return false;
 		}
-		
+
 		$reservations = new object_list(array(
 			"class_id" => array(CL_RESERVATION),
 			"lang_id" => array(),
@@ -614,12 +618,12 @@ class room extends class_base
 						}
 					}
 				}
-				
+
 				$arr['obj_inst']->set_meta('working_days',$wd);
 				break;
 
 			case "products_find_product_name":
-				
+
 				if($arr["request"]["sel_imp"]);
 				if($arr["request"]["products_find_product_name"])
 				{
@@ -634,7 +638,7 @@ class room extends class_base
 			case "web_min_prod_price":return PROP_IGNORE;
 				$arr["obj_inst"]->set_meta("web_min_prod_prices", $arr["request"]["wpm_currency"]);
 				break;
-				
+
 			case "add_price_per_face":
 				$res = array();
 				$n = 1;
@@ -649,11 +653,11 @@ class room extends class_base
 				}
 				$arr["obj_inst"]->set_meta("people_prices", $res);
 				break;
-				
+
 			case "min_prices_props":return PROP_IGNORE;
 				$arr["obj_inst"]->set_meta("web_room_min_price", $arr["request"]["web_room_min_price"]);
 				break;
-				
+
 			case "transl":
 				$this->trans_save($arr, $this->trans_props);
 				break;
@@ -778,16 +782,16 @@ class room extends class_base
 
 	private function _handle_img_search_result($arr)
 	{
-		$p = get_instance("vcl/popup_search");
+		$p = new popup_search();
 		$p->do_create_rels(obj($arr["args"]["id"]), $arr["request"]["images_search"], 6);
 	}
-	
+
 	private function _handle_prc_search_result($arr)
 	{
-		$p = get_instance("vcl/popup_search");
+		$p = new popup_search();
 		$p->do_create_rels(obj($arr["args"]["id"]), $arr["request"]["prices_search"], 9);
 	}
-	
+
 	private function _save_img_ord($arr)
 	{
 		$o = obj($arr["args"]["id"]);
@@ -810,7 +814,7 @@ class room extends class_base
 			), CL_IMAGE),
 		));
 
-		$popup_search = get_instance("vcl/popup_search");
+		$popup_search = new popup_search();
 		$search_butt = $popup_search->get_popup_search_link(array(
 			"pn" => "images_search",
 			"clid" => CL_IMAGE,
@@ -824,7 +828,7 @@ class room extends class_base
 			"action" => "remove_images",
 		));
 		return PROP_OK;
-		
+
 	}
 
 	function _get_images_tbl($arr)
@@ -837,7 +841,7 @@ class room extends class_base
 		));
 		$t->define_field(array(
 			"name" => "image_ord",
-			
+
 			"caption" => t("jrk"),
 			"width" => "20px",
 		));
@@ -877,13 +881,13 @@ class room extends class_base
 			"url" => $this->mk_my_orb("new", array(
 				"parent" => $arr["obj_inst"]->id(),
 				"alias_to" => $arr["obj_inst"]->id(),
-				"reltype" => 9, 
+				"reltype" => 9,
 				"ba" => $ba,
 				"return_url" => get_ru(),
 			), CL_ROOM_PRICE),
 		));
 
-		$popup_search = get_instance("vcl/popup_search");
+		$popup_search = new popup_search();
 		$search_butt = $popup_search->get_popup_search_link(array(
 			"pn" => "prices_search",
 			"clid" => CL_ROOM_PRICE,
@@ -944,7 +948,7 @@ class room extends class_base
 				"name" => "time_step",
 				"caption" => t("Aeg"),
 			));
-	
+
 			$cur = $arr["obj_inst"]->prop("currency");
 			foreach($cur as $c)
 			{
@@ -1057,12 +1061,12 @@ class room extends class_base
 		{
 			return $cal->id();
 		}
-		else 
+		else
 		{
 			return false;
 		}
 	}
-	
+
 	/** calendar callback **/
 	function get_overview($arr = array())
 	{
@@ -1107,7 +1111,7 @@ class room extends class_base
 		}
 		return $ret;
 	}
-	
+
 	function _calendar_tb($arr)
 	{
 		$arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_CALENDAR");
@@ -1124,7 +1128,7 @@ class room extends class_base
 			"tooltip" => t("Broneering"),
 			"action" => "do_add_reservation",
 			"url" => $this->mk_my_orb(
-				"new", 
+				"new",
 				array(
 					"parent" => $parent,
 					"return_url" => get_ru(),
@@ -1134,7 +1138,7 @@ class room extends class_base
 			)
 		));
 	}
-	
+
 	/**
 		@attrib name=admin_add_bron_popup params=name all_args=1
 		@param start1 required
@@ -1157,7 +1161,7 @@ class room extends class_base
 //		arr($arr);
 		extract($_POST["bron"]);
 		extract($_GET["bron"]);
-		
+
 		$room = obj($resource);
 		$professions = $room->prop("professions");
 		if(is_array($professions) && sizeof($professions))
@@ -1174,13 +1178,13 @@ class room extends class_base
 			$room_inst = get_instance(CL_ROOM);
 			$start1 = mktime($start1["hour"], $start1["minute"], 0, $start1["month"], $start1["day"], $start1["year"]);
 			$end = mktime($end["hour"], $end["minute"], 0, $end["month"], $end["day"], $end["year"]);
-			
+
 			if(is_oid($product))
 			{
 				$product_obj = obj($product);
 				$end = $start1 + $product_obj->prop("reservation_time")*$product_obj->prop("reservation_time_unit");
 			}
-			
+
 			if(!($room_inst->check_if_available(array(
 				"room" => $resource,
 				"start" => $start1,
@@ -1216,7 +1220,7 @@ class room extends class_base
 				$bron->set_prop("content" , $comment);
 				$bron->set_prop("verified" , $si->get_verified_default_for_group($this->get_settings_for_room(obj($resource))));
 				$bron->set_prop("deadline" , time()+15*60);
-				
+
 				if(is_oid($people) && $this->can("view" , $people))
 				{
 					$bron->set_prop("people" , $people);
@@ -1242,7 +1246,7 @@ class room extends class_base
 						$phone_obj = reset($phones->arr());
 					}
 				}
-				
+
 				if(strlen($firstname) || strlen($lastname))
 				{
 					$persons = new object_list(array(
@@ -1281,7 +1285,7 @@ class room extends class_base
 						$person->save();
 					}
 				}
-				
+
 				if(strlen($company))
 				{
 					$companys = new object_list(array(
@@ -1340,7 +1344,7 @@ class room extends class_base
 				");
 			}
 		}
-		
+
 		if(is_oid($product) && $start1>1)
 		{
 			$product_obj = obj($product);
@@ -1374,9 +1378,9 @@ class room extends class_base
 			</script>
 		");
 	}
-	
+
 	/**
-	
+
 		@attrib params=name name=admin_add_bron_popup_table all_args=1
 	**/
 	function admin_add_bron_popup_table($arr)
@@ -1386,7 +1390,7 @@ class room extends class_base
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));
-		
+
 		$t->define_field(array(
 			"name" => "caption",
 		));
@@ -1408,7 +1412,7 @@ class room extends class_base
 				"value" => $end,
 			)),
 		));
-			
+
 		$t->define_data(array(
 			"caption" => t("Eesnimi"),
 			"value" => html::textbox(array(
@@ -1417,7 +1421,7 @@ class room extends class_base
 				"value" => $firstname,
 			)),
 		));
-			
+
 		$t->define_data(array(
 			"caption" => t("Perenimi"),
 			"value" => html::textbox(array(
@@ -1426,7 +1430,7 @@ class room extends class_base
 				"value" => $lastname,
 			)),
 		));
-			
+
 		$t->define_data(array(
 			"caption" => t("Organisatsioon"),
 			"value" => html::textbox(array(
@@ -1435,7 +1439,7 @@ class room extends class_base
 				"value" => $company,
 			)),
 		));
-		
+
 		$t->define_data(array(
 			"caption" => t("Telefon"),
 			"value" => html::textbox(array(
@@ -1444,7 +1448,7 @@ class room extends class_base
 				"value" => $phone,
 			)),
 		));
-			
+
 		$t->define_data(array(
 			"caption" => t("M&auml;rkused"),
 			"value" => html::textarea(array(
@@ -1452,8 +1456,8 @@ class room extends class_base
 				"size" => 40,
 				"value" => $comment,
 			)),
-		));	
-			
+		));
+
 		$t->define_data(array(
 			"caption" => t("Meie esindaja"),
 			"value" => html::select(array(
@@ -1461,14 +1465,14 @@ class room extends class_base
 				"value" => $people,
 				"options" => $people_opts,
 			)),
-		));	
-		
+		));
+
 		$t->define_data(array(
 			"value" => html::submit(array(
 				"value" => t("Salvesta"),
 			)),
-		));	
-		
+		));
+
 		$t->define_data(array(
 			"value" => html::hidden(array(
 				"name" => "bron[id]",
@@ -1477,8 +1481,8 @@ class room extends class_base
 		));
 		return $t->draw();
 	}
-	
-	
+
+
 	function _get_time_select($arr)
 	{
 		$x=0;
@@ -1494,7 +1498,7 @@ class room extends class_base
 			$weekstart = $weekstart + 604800;
 			$x++;
 		};
-		
+
 		$ret.= html::select(array(
 			"name" => "room_reservation_select",
 			"options" => $options,
@@ -1579,14 +1583,14 @@ class room extends class_base
 		$ret.=html::hidden(array("name" => "free_field_value", "id"=>"free_field_value" ,"value"=>($this->settings && $this->settings->prop("available_time_string"))?$this->settings->prop("available_time_string") :t("VABA")));
 		$ret.=html::hidden(array("name" => "res_field_value", "id"=>"res_field_value" ,"value"=>($this->settings && $this->settings->prop("reserved_time_string"))?$this->settings->prop("reserved_time_string") :t("BRON")));
 		$ret.=html::hidden(array("name" => "do_field_value", "id"=>"do_field_value" ,"value"=>"Broneeri"));
-		
+
 		return $ret;
 	}
 
 	function _get_calendar_select($arr)
 	{
 		$this->settings = $settings = $this->get_settings_for_room($arr["obj_inst"]);
-		
+
 		$ret = "";
 		$ret .= $this->_get_mark_arrived_pop($arr, $settings);
 
@@ -1614,7 +1618,7 @@ class room extends class_base
 
 		$this->read_template("cal_header.tpl");
 
-		
+
 		$anc = "";
 		$opened = $arr["obj_inst"]->get_calendar_visible_time($_GET["start"] , $_GET["end"]);
 		$x = $opened["start"];
@@ -1624,7 +1628,7 @@ class room extends class_base
 				"alink" => "#time_".date("H" ,  $day_start + $x),
 				"acapt" => date("H" ,  $day_start + $x),
 			));
-			
+
 			$anc.= $this->parse("ANCHOR_LINKS");
 			$x += 3600;
 		}
@@ -1661,7 +1665,7 @@ class room extends class_base
 			"no_det_info" => $_GET["no_det_info"] ? "checked" : "",
 			"ANCHOR_LINKS" => $anc,
 		));
-		
+
 		if(is_object($arr["obj_inst"]) && !$arr["obj_inst"]->prop("use_product_times"))
 		{
 			$this->vars(array(
@@ -1692,7 +1696,7 @@ class room extends class_base
 			"caption" => t("Ruumi broneeringu maksimumhind"),
 			"name" => "max_room_price",
 		));
-		
+
 		$web_room_min_price = $arr["obj_inst"]->meta("web_room_min_price");
 		$web_min_prod_prices = $arr["obj_inst"]->meta("web_min_prod_prices");
 		$max_room_price =  $arr["obj_inst"]->meta("max_room_price");
@@ -1802,7 +1806,7 @@ class room extends class_base
 			$gwo = $this->get_when_opens($tmp_start, $tmp_end);
 			extract($gwo);
 		}
-		
+
 		if($arr["request"]["start"])
 		{
 			$today_start = $arr["request"]["start"];
@@ -1861,7 +1865,7 @@ class room extends class_base
 			//	$day_end -= (60*$gwo["start_minute"]);
 			}
 		}
-		
+
 		if (date("I", time()) != 1 && date("I", $today_start) == 1)
 		{
 			$this->start -= 3600;
@@ -1879,7 +1883,7 @@ class room extends class_base
 		$this->other_rooms = array_keys($arr["obj_inst"]->get_other_rooms_selection());
 		$this->generate_res_table($arr["obj_inst"], $this->start, $this->start + 24*3600*$len , $settings->prop("show_unverified"));
 		$this->multi = $arr["obj_inst"]->prop("allow_multiple");
-		
+
 		$period_end = $this->start + 24*3600*$len;
 		$this->extra_row = $arr["obj_inst"]->has_extra_row($this->start, $period_end);
 		if($this->extra_row)
@@ -1910,7 +1914,7 @@ class room extends class_base
 				$b_parent = $cal_obj->id();
 			}
 		}
-	
+
 		$num_rows = 0;
 		$time_step = $arr["obj_inst"]->prop("time_step");
 		$steps = (int)(86400 - (3600*$gwo["start_hour"] + 60*$gwo["start_minute"]))/($step_length * $time_step);
@@ -1962,7 +1966,7 @@ class room extends class_base
 						"room" => $room_id,
 						"start" => $start_step,
 						"end" => $end_step,
-						
+
 					)) || ($this->multi &&  (!is_oid($this->last_bron_id) || (is_object($last_bron = obj($this->last_bron_id))  && $last_bron->prop("time_closed") != 1))))
 					{
 						if ($this->is_paused($start_step,$end_step))
@@ -2013,7 +2017,7 @@ class room extends class_base
 									$w = 500;
 									$h = 400;
 								}
-	
+
 								$onclick[$x] = "doBronExec('".$room_id."_".$start_step."', ".($step_length * $time_step).",null,null,'$url', '$w', '$h', 0)";
 							}
 							else
@@ -2021,7 +2025,7 @@ class room extends class_base
 								$onclick[$x] = "doBron('".$room_id."_".$start_step."' , ".($step_length * $time_step).")";
 								//$string = t("VABA");
 							}
-	
+
 							if (!$this->group_can_do_bron($settings, $start_step))
 							{
 								$onclick[$x] = "";
@@ -2029,7 +2033,7 @@ class room extends class_base
 							}
 							$val = 0;
 							$string = $settings->prop("available_time_string")?$settings->prop("available_time_string") :t("VABA");
-			
+
 							$col[$x] = $arr["obj_inst"]->get_color("available");
 /*							if(is_array($this->other_rooms) && sizeof($this->other_rooms) && $settings->prop("col_slave") != "")
 							{
@@ -2040,7 +2044,7 @@ class room extends class_base
 										"end" => $end_step,
 									)))
 									{
-										$col[$x] = "#".$settings->prop("col_slave"); 
+										$col[$x] = "#".$settings->prop("col_slave");
 									}
 								}
 							}*/
@@ -2115,7 +2119,7 @@ class room extends class_base
 				//kui mitu lubatud, hakkab siia lisaks veel panema asju....
 				if($this->multi)
 				{
-					
+
 					enter_function("room::multi_fields");
 	//				arr(date("d.m.Y h:i" , $start_step));
 					$time_reservations = $arr["obj_inst"]->get_time_reservations($start_step , $end_step);
@@ -2190,7 +2194,7 @@ class room extends class_base
 		{
 			$t->set_lower_titlebar_display(true);
 		}
-		
+
 		if(!$arr["web"] && $settings->prop("show_workers_in_calander"))
 		{
 			$t->define_data($this->get_day_workers_row($arr["obj_inst"]));
@@ -2207,7 +2211,7 @@ class room extends class_base
 		$this->popup_menu_str = $popup_menu;
 		$t->set_caption(t("Broneerimine").$popup_menu);
 	}
-	
+
 	private function get_bron_cell_color($last_bron , $settings,$start_step)
 	{//if($last_bron->id() == 415994) arr($last_bron->prop("type"));
 		enter_function("room::get_bron_cell_color");
@@ -2217,7 +2221,7 @@ class room extends class_base
 
 		if ($settings->prop("col_recent") != "" && time() < ($last_bron->modified()+30*60))
 		{
-			$col[$x] = "#".$settings->prop("col_recent"); 
+			$col[$x] = "#".$settings->prop("col_recent");
 		}
 		else
 		if ($last_bron->prop("time_closed") == 1)
@@ -2230,7 +2234,7 @@ class room extends class_base
 		{//arr($last_bron->prop("type") == "food" && $settings->prop("col_food") != "");
 			if($settings->prop("col_slave") != ""  && ((is_array($this->other_rooms) && in_array($last_bron->prop("resource") , $this->other_rooms)) || $last_bron->is_lower_bron()))
 			{
-				$col[$x] = "#".$settings->prop("col_slave"); 
+				$col[$x] = "#".$settings->prop("col_slave");
 			}
 			else
 			if($last_bron->prop("type") == "food" && $settings->prop("col_food") != "")
@@ -2252,7 +2256,7 @@ class room extends class_base
 					case 1:
 						if($settings->prop("col_slave") != ""  &&  ((in_array($last_bron->prop("resource") , $this->other_rooms)) || $last_bron->is_lower_bron()))
 						{
-							 $rfp_color = $settings->prop("col_slave"); 
+							 $rfp_color = $settings->prop("col_slave");
 						}
 						elseif($settings->prop("col_sent") != "")
 						{
@@ -2571,11 +2575,11 @@ class room extends class_base
 			}
 			if($this->is_after_buffer)
 			{
-				$d[$x] = ""; 
+				$d[$x] = "";
 			}
 			if($this->is_after_buffer)
 			{
-				$d[$x] = ""; 
+				$d[$x] = "";
 			}
 			elseif($last_bron->prop("start1") < $start_step)
 			{
@@ -2594,7 +2598,7 @@ class room extends class_base
 			}
 			if($this->is_before_buffer)
 			{
-				$d[$x] = ""; 
+				$d[$x] = "";
 				if($col_buffer)
 				{
 					$col[$x] = "#".$col_buffer;
@@ -2649,7 +2653,7 @@ class room extends class_base
 							}
 							if($this->is_after_buffer)
 							{
-								$d[$x] = ""; 
+								$d[$x] = "";
 							}
 							elseif($last_bron->prop("start1") < $start_step)
 							{
@@ -2668,7 +2672,7 @@ class room extends class_base
 							}
 							if($this->is_before_buffer)
 							{
-								$d[$x] = ""; 
+								$d[$x] = "";
 								if($col_buffer)
 								{
 									$col[$x] = "#".$col_buffer;
@@ -2733,7 +2737,7 @@ class room extends class_base
 		}
 		return $res;
 	}
-	
+
 	function get_sum_row($o)
 	{
 		$res = array();
@@ -2854,14 +2858,14 @@ class room extends class_base
 				',\''.$url.'\', '.$w.', '.$h.', '.((int)$settings->prop("bron_no_popups")).');';
 			$res .= '<div id="'.$oid.'"><a class="menuItem" href="#"  onClick="'.$oncl.'">'.$name.'</a></div>';
 		}
-		
+
 		$div.='</div>';
 		$res.='</div>';
 		if($menus) $res .=$div;
 		return $res;
 	}
-	
-	
+
+
 	function get_colour_for_bron($bron, $settings)
 	{
 		$gc = $settings->meta("grp_cols");
@@ -2876,7 +2880,7 @@ class room extends class_base
 			return $cache[$bron->createdby()];
 		}
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$grp = $u->get_highest_pri_grp_for_user($bron->createdby(), true);
 		if ($grp && !empty($gc[$grp->id()]))
 		{
@@ -2889,7 +2893,7 @@ class room extends class_base
 		$cache[$bron->createdby()] = $rv;
 		return $rv;
 	}
-	
+
 	function get_after_buffer($arr)
 	{
 		extract($arr);
@@ -2902,7 +2906,7 @@ class room extends class_base
 		if (isset($cache[$room->id()][$bron->id()]))
 		{
 			return $cache[$room->id()][$bron->id()];
-		}		
+		}
 
 		if(is_object($room) && $room->prop("use_product_times") && is_object($bron))
 		{
@@ -2915,7 +2919,7 @@ class room extends class_base
 		$cache[$room->id()][$bron->id()] = $rv;
 		return $rv;
 	}
-	
+
 	function get_before_buffer($arr)
 	{
 		extract($arr);
@@ -2923,7 +2927,7 @@ class room extends class_base
 		{
 			return 0;
 		}
-		
+
 		static $cache;
 		if (isset($cache[$room->id()][$bron->id()]))
 		{
@@ -2941,7 +2945,7 @@ class room extends class_base
 		$cache[$room->id()][$bron->id()] = $rv;
 		return $rv;
 	}
-		
+
 	function get_when_opens($start, $end)
 	{
 		if(!$this->open_inst)
@@ -2977,7 +2981,7 @@ class room extends class_base
 
 		$end_this = (date("H" , $end-1)*3600 + date("i" , $end-1)*60);
 		$start_this = (date("H" , $start)*3600 + date("i" , $start)*60);
-		
+
 		//kontrollib et tsykli l6pp 2kki l2heb j2rgmisesse p2eva juba... siis oleks l6pp kuidagi varajane ja avatud oleku kontroll l2heks puusse
 		if($start_this > $end_this)
 		{
@@ -2998,13 +3002,13 @@ class room extends class_base
 
 				$pauses = $this->open_inst->get_times_for_date($pause, $start);
 				if(
-					is_array($pauses) && 
-					($pauses[0] || $pauses[1]) && 
-//					($pauses[1]-1 >= $end_this) && 
+					is_array($pauses) &&
+					($pauses[0] || $pauses[1]) &&
+//					($pauses[1]-1 >= $end_this) &&
 //					($pauses[0] <= $start_this)
 					(
 						($pauses[0] < $end_this && $pauses[1] > $start_this)
-//						|| 
+//						||
 //						($pauses[1] < $end_this && $pauses[1] > $start_this)
 					)
 				)
@@ -3015,7 +3019,7 @@ class room extends class_base
 		}
 		return false;
 	}
-	
+
 	function is_open($start,$end, $next_day = false)
 	{
 		if(!$this->open_inst)
@@ -3024,7 +3028,7 @@ class room extends class_base
 		}
 		$end_this = (date("H" , $end-1)*3600 + date("i" , $end-1)*60);
 		$start_this = (date("H" , $start)*3600 + date("i" , $start)*60);
-		
+
 		//kontrollib et tsykli l6pp 2kki l2heb j2rgmisesse p2eva juba... siis oleks l6pp kuidagi varajane ja avatud oleku kontroll l2heks puusse
 		if($start_this > $end_this)
 		{
@@ -3042,10 +3046,10 @@ class room extends class_base
 			}
 			$open = $this->open_inst->get_times_for_date($oh, $start);
 
-			// this monster here makes sure that open times that cross the midnight (21:00 - 03:00 for example) work 
+			// this monster here makes sure that open times that cross the midnight (21:00 - 03:00 for example) work
 			if ($next_day &&
-				is_array($open) && 
-				($open[0] || $open[1]) && 
+				is_array($open) &&
+				($open[0] || $open[1]) &&
 				($open[1]-1 >= $end_this) &&
 				($open[0] > $open[1])
 			)
@@ -3054,15 +3058,15 @@ class room extends class_base
 			}
 			else
 			if(
-				is_array($open) && 
-				($open[0] || $open[1]) && 
-				($open[1] > $open[0] ? $open[1]-1 >= $end_this : $open[1]-1 <= $end_this) && 
+				is_array($open) &&
+				($open[0] || $open[1]) &&
+				($open[1] > $open[0] ? $open[1]-1 >= $end_this : $open[1]-1 <= $end_this) &&
 				($open[0] <= $start_this)
 			)
 			{
 				return true;
 			}
-			else 
+			else
 			{
 				return false;
 			}
@@ -3087,7 +3091,7 @@ class room extends class_base
 			}
 		}
 		$ret = "";
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu($arr["menu_id"]);
 		foreach($prod_list as $oid => $name)
 		{
@@ -3136,7 +3140,7 @@ class room extends class_base
 			{
 				return true;
 			}
-			else 
+			else
 			{
 				return false;
 			}
@@ -3149,7 +3153,7 @@ class room extends class_base
 		{
 			$time = time();
 		}
-	
+
 		$op_len = 0;
 		for($i = 0; $i < $len; $i++)
 		{
@@ -3173,7 +3177,7 @@ class room extends class_base
 //			"width" => $pct."%",
 			"chgbgcolor" => "time_col"
 		));
-		
+
 		for($i = 0; $i < $len; $i++)
 		{
 			$tm = $time+$i*24*3600;
@@ -3224,7 +3228,7 @@ class room extends class_base
 				}
 			}
 		}
-		
+
 		$t->set_caption(t("Broneerimine"));
 		$t->set_sortable(false);
 	}
@@ -3272,8 +3276,8 @@ class room extends class_base
 					{
 						$parent = $cal_obj->id();
 					}
-					
-					
+
+
 			}
 		}
 		$product = $arr["product"];
@@ -3328,11 +3332,11 @@ class room extends class_base
 		{
 			die("<script type='text/javascript'>
 			window.open('$url','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=$h, width=$w');
-			 
+
 				window.location.href='".$arr["post_ru"]."';
 			</script>");
 		}
-		
+
 		return $this->mk_my_orb(
 			"new",
 			array(
@@ -3366,7 +3370,7 @@ class room extends class_base
 		exit_function("room::get_settings_for_room");
 		return $rv;
 	}
-	
+
 	/** makes a new reservation for room, or changes existing one
 		@attrib name=make_reservation params=name all_args=1 api=1
 		@param id required oid
@@ -3374,23 +3378,23 @@ class room extends class_base
 		@param res_id optional oid
 			reservationid, if set, changes reservation
 		@param data required array
-			propertys and stuff 
+			propertys and stuff
 			products - array(product_id=> amount)
 			start - int , reservation starts , timestamp
 			end - int , reservation ends , timestamp
 			comment - string
-			people - int , number of people 
+			people - int , number of people
 			name - string , contact persons name
 			email - string , contact persons email
 			phone - string, contact persons phone
-			customer - boolean , If the person object already exists, then connect the booking to this person, if given 
+			customer - boolean , If the person object already exists, then connect the booking to this person, if given
 			verified - boolean , if true, reservation is marked as verified
 		@param not_verified optional type=int
 		@param meta optional type=array
 			Any key=>value paris given here, will be written to the objects metadata
 		@param tpl optional type=string
 			verification mail template
-		
+
 		@returns Reservation object id , if success
 			else ""
 	**/
@@ -3477,7 +3481,7 @@ class room extends class_base
 			list($fn , $ln) = explode(" ", $data["name"]);
 			$customer->set_prop("firstname", trim($fn));
 			$customer->set_prop("lastname", trim($ln));
-			
+
 			$sts = $this->get_settings_for_room($room);
 			if(is_oid($sts->id()) && $sts->prop("customer_menu") && $this-> can("add" , $sts->prop("customer_menu")))
 			{
@@ -3525,14 +3529,14 @@ class room extends class_base
 			$reservation->set_prop("verified", 0);
 		//	$reservation->save();
 		}
-		
+
 		if($arr["tpl"])
 		{
 			$reservation->set_meta("tpl", $arr["tpl"]);
 		}
 		$lang = aw_global_get("lang_id");
-		
-		$l = get_instance("languages");
+
+		$l = new languages();
 		$_SESSION["ct_lang_lc"] = $l->get_langid($_SESSION["ct_lang_id"]);
 		$reservation->set_meta("lang" , $lang);
 		$reservation->set_meta("lang_id" , $_SESSION["ct_lang_id"]);
@@ -3580,7 +3584,7 @@ class room extends class_base
 			}
 		}
 		return array("start" => $start, "end" => $end);
-		
+
 	}
 
 	function _get_resources_tb($arr)
@@ -3654,7 +3658,7 @@ class room extends class_base
 		));
 		return $ol->arr();
 	}
-	
+
 	function search_products($this_obj)
 	{
 		$ol = new object_list();
@@ -3666,15 +3670,15 @@ class room extends class_base
 		}
 		$ol = new object_list($filter);
 		return $ol;
-	}	
-	
+	}
+
 	function _products_tbl(&$arr)
 	{
 		classload("core/icons");
-		$tb =& $arr["prop"]["vcl_inst"];		
+		$tb =& $arr["prop"]["vcl_inst"];
 		$this->_init_prod_list_list_tbl($tb,$arr["obj_inst"]);
 
-		// get items 
+		// get items
 		if (!$_GET["tree_filter"])
 		{
 			$ot = new object_list();
@@ -3692,7 +3696,7 @@ class room extends class_base
 
 		//$ol = $ot->to_list();
 		$ol = $ot->arr();
-	
+
 		//otsingust
 		if(sizeof($arr["obj_inst"]->meta("search_data")) > 1)
 		{
@@ -3701,7 +3705,7 @@ class room extends class_base
 			$arr["obj_inst"]->save();
 			$ol = $ol->arr();
 		}
-		
+
 		$prod_data = $this->get_prod_data_for_room($arr["obj_inst"]);
 		foreach($ol as $o)
 		{
@@ -3741,7 +3745,7 @@ class room extends class_base
 					"caption" => $name
 				));
 			}
-			
+
 			//j2rjekorda kui pole, siis v6tab objektist selle j2rjekorra mis on laos jne
 			$ord = $o->ord();
 			if($prod_data[$o->id()]["ord"])
@@ -3804,7 +3808,7 @@ class room extends class_base
 			));
 		}
 
-		$tb->set_numeric_field("hidden_ord");				
+		$tb->set_numeric_field("hidden_ord");
 		$tb->set_default_sortby(array("is_menu", "hidden_ord"));
 		$tb->sort_by();
 
@@ -3822,7 +3826,7 @@ class room extends class_base
 			"caption" => t("Aktiivne"),
 			"field" => "oid",
 		));
-		
+
 		$t->define_field(array(
 			"name" => "icon",
 			"caption" => t("&nbsp;"),
@@ -3874,7 +3878,7 @@ class room extends class_base
 				"caption" => t("Eelpuhver"),
 				"align" => "center"
 			));
-	
+
 			$t->define_field(array(
 				"name" => "ba",
 				"caption" => t("J&auml;relpuhver"),
@@ -3896,7 +3900,7 @@ class room extends class_base
 			"status" => array(STAT_ACTIVE, STAT_NOTACTIVE),
 			"sort_by" => "objects.jrk"
 		));
-		
+
 		classload("vcl/treeview");
 		$tv = treeview::tree_from_objects(array(
 			"tree_opts" => array(
@@ -3910,7 +3914,7 @@ class room extends class_base
 		));
 		$arr["prop"]["value"] = $tv->finalize_tree();
 	}
-	
+
 	function _init_products_tbl(&$t)
 	{
 		$t->define_field(array(
@@ -3970,14 +3974,14 @@ class room extends class_base
 			"align" => "center",
 		));
 	}
-	
+
 	function _products_tb(&$data)
 	{
 		$tb =& $data["prop"]["toolbar"];
 
 		$this->prod_type_fld = $this->_get_prod_fld($data["obj_inst"]);
 		$this->prod_tree_root = isset($_GET["tree_filter"]) ? $_GET["tree_filter"] : $this->_get_prod_fld($data["obj_inst"]);
-			
+
 		$tb->add_menu_button(array(
 			"name" => "crt_".$this->prod_type_fld,
 			"tooltip" => t("Uus")
@@ -3993,7 +3997,7 @@ class room extends class_base
 				"return_url" => get_ru(),
 			), CL_MENU)
 		));
-		
+
 		$tb->add_menu_item(array(
 			"parent" => "crt_".$this->prod_type_fld,
 			"text" => t("Lisa tootekategooria"),
@@ -4029,7 +4033,7 @@ class room extends class_base
 							array("id" => $data["obj_inst"]->id()),
 							CL_SHOP_PRODUCT
 						)
-                                        ), CL_SHOP_PRODUCT) 
+                                        ), CL_SHOP_PRODUCT)
 			));
 		}
 		$tb->add_button(array(
@@ -4074,12 +4078,12 @@ class room extends class_base
 			$prod_data[$id]["bb"] = $arr["bb"][$id];
 			$prod_data[$id]["ba"] = $arr["ba"][$id];
 		}
-		
+
 		$this_obj->set_meta("prod_data" , $prod_data);
 		$this_obj->save();
 		return $arr["post_ru"];
 	}
-	
+
 	function _req_add_itypes(&$tb, $parent, &$data)
 	{
 		$ol = new object_list(array(
@@ -4117,7 +4121,7 @@ class room extends class_base
 			}
 		}
 	}
-	
+
 	function get_prod_tree_ids($o)
 	{
 		if(is_oid($o))
@@ -4133,7 +4137,7 @@ class room extends class_base
 				"status" => array(STAT_ACTIVE, STAT_NOTACTIVE),
 				"sort_by" => "objects.jrk"
 			));
-			
+
 			$menu_list = $tree->to_list(array(
 				"add_root" => true,
 			));
@@ -4152,7 +4156,7 @@ class room extends class_base
 			return "";
 		}
 	}
-	
+
 	function get_folder_items($o,$menu)
 	{
 		if(!$this->active_items)
@@ -4166,9 +4170,9 @@ class room extends class_base
 			"parent" => $menu,
 			"oid" => $this->active_items,
 		));
-	
+
 	}
-	
+
 	//returns active packages
 	function get_package_list($o)
 	{
@@ -4181,7 +4185,7 @@ class room extends class_base
 		{
 			return new object_list();
 		}
-		
+
 		if($o->class_id() == CL_SHOP_PRODUCT)
 		{
 			$packages = $o->connections_from(array(
@@ -4212,7 +4216,7 @@ class room extends class_base
 					$ol->remove($package);
 				}
 			}
-		
+
 		}
 		return $ol;
 	}
@@ -4260,7 +4264,7 @@ class room extends class_base
 			$pk_ids = array();
 			foreach($conns as $c)
 			{
-				if($this->prod_data[$c["to"]]["active"]) 
+				if($this->prod_data[$c["to"]]["active"])
 				{
 					$pk_ids[] = $c["to"];
 				}
@@ -4270,7 +4274,7 @@ class room extends class_base
 			foreach($prods->arr() as $product){
 				foreach ($product->connections_from(array("type" => "RELTYPE_PACKAGING")) as $pc)
 				{
-					if($this->prod_data[$pc->prop("to")]["active"]) 
+					if($this->prod_data[$pc->prop("to")]["active"])
 					{
 						$pk_ids[] = $pc->prop("to");
 					}
@@ -4294,7 +4298,7 @@ class room extends class_base
 		$ol->sort_by_cb(array($this, "__sort_prod_list"));
 		return $ol;
 	}
-	
+
 	function __sort_prod_list($a , $b)
 	{
 		if($this->menus)
@@ -4303,7 +4307,7 @@ class room extends class_base
 			{
 				return (int)$this->prod_data[$a->parent()]["ord"] - (int)$this->prod_data[$b->parent()]["ord"];
 			}
-			
+
 			if($a->parent() != $b->parent())
 			{
 				return strcmp($a->prop("parent.name"), $b->prop("parent.name"));
@@ -4316,7 +4320,7 @@ class room extends class_base
 		return strcmp($a->name(), $b->name());
 		return 0;
 	}
-	
+
 	//returns active products
 	function get_prod_list($o)
 	{
@@ -4325,28 +4329,28 @@ class room extends class_base
 		{
 			$o = obj($o);
 		}
-		
+
 		if(!is_object($o))
 		{
 			return new object_list();
 		}
-		
+
 		if($o->class_id() == CL_MENU)
 		{
 			return $ol;
 			$parents = $o->id();
-			
+
 		}
 		$this->prod_data = $this->get_prod_data_for_room($o);
 		$parents = $this->get_prod_tree_ids($o);
-		
+
 		$parents_temp = array();
 		foreach($parents as $parent)
 		{
 			if($this->can("view" , $parent))
 			{
 				$po = obj($parent);
-				if($this->prod_data) 
+				if($this->prod_data)
 				{
 					$parents_temp[$parent] = $this->prod_data[$parent]["ord"];
 				}
@@ -4358,7 +4362,7 @@ class room extends class_base
 		}
 		asort($parents_temp, SORT_NUMERIC);
 		$parents = $parents_temp;
-		
+
 
 		$prods = array();
 		foreach($this->prod_data as $prod => $data)
@@ -4403,12 +4407,12 @@ class room extends class_base
 		}
 		return $ol;
 	}
-	
+
 	function __prod_sorter($a, $b)
 	{
 		return $this->prod_data[$b->id()]["ord"] - $this->prod_data[$a->id()]["ord"];
 	}
-	
+
 	/**
 		@attrib params=pos api=1
 		@param prod_list required type=Array
@@ -4482,24 +4486,24 @@ class room extends class_base
 	}
 
 	/** Change the realestate object info.
-		
+
 		@attrib name=parse_alias is_public="1" caption="Change"
-	
+
 	**/
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		enter_function("room::parse_alias");
 		$tpl = "kolm.tpl";
 		$this->read_template($tpl);
 		lc_site_load("room", &$this);
-		
+
 		$data = array("joga" => "jogajoga");
 		$this->vars($data);
 		//property v22rtuse saatmine kujul "property_nimi"_value
 		exit_function("room::parse_alias");
 		return $this->parse();
 	}
-	
+
 	function get_room_price_instance()
 	{
 		if(!$this->room_price_instance)
@@ -4508,16 +4512,16 @@ class room extends class_base
 		}
 		return $this->room_price_instance;
 	}
-	
+
 	function get_user_instance()
 	{
 		if(!$this->user_instance)
 		{
-			$this->user_instance = get_instance(CL_USER);
+			$this->user_instance = new user();
 		}
 		return $this->user_instance;
 	}
-	
+
 	/** calculates room price
 		@attrib params=name api=1
 		@param room required type=oid
@@ -4537,7 +4541,7 @@ class room extends class_base
 		@returns array
 			if detailed_info is not set, returns array(currency1 => sum , currency2 => sum2 ...)
 			else array("info_1" => array(currency1 => sum , currency2 => sum2 ...) , "info2" => array(currency1 => sum , currency2 => sum2 ...) , ...)
-		@example 
+		@example
 			$room_instance = get_instance(CL_ROOM);
 			return $room_instance->cal_room_price(array(
 				"room" => $room_object->id(),
@@ -4548,7 +4552,7 @@ class room extends class_base
 	**/
 	function cal_room_price($arr)
 	{
-		extract($arr);		
+		extract($arr);
 		if(!is_oid($room))
 		{
 			return 0;
@@ -4557,8 +4561,8 @@ class room extends class_base
 		$this->bargain_value = array();
 		$this->step_length = $this->step_lengths[$room->prop("time_unit")];
 		$sum = array();
-		$rv = array();	
-		$u = $this->get_user_instance();	
+		$rv = array();
+		$u = $this->get_user_instance();
 		$price_inst = $this->get_room_price_instance();
 		$this_price = "";
 		$this_prices = array();
@@ -4654,7 +4658,7 @@ class room extends class_base
 			{
 				break;
 			}
-			//otsib, kas m6ni soodushind kattub, ainult siis kui spetsiaalallahindlust pole 
+			//otsib, kas m6ni soodushind kattub, ainult siis kui spetsiaalallahindlust pole
 			if(!$special_discount)
 			{
 				$bargain = $this->get_bargain(array(
@@ -4665,7 +4669,7 @@ class room extends class_base
 					"bron_made" => $bron_made,
 					"bron" => $arr["bron"]
 				));
-	
+
 				$rv["room_bargain"] = $bargain;
 			}
 				foreach($price->meta("prices") as $currency => $hr_price)
@@ -4676,7 +4680,7 @@ class room extends class_base
 
 			$time = $time - ($price->prop("time") * $this->step_length);
 		}
-		
+
 		$rv["room_price"] = $sum;
 		$max_room_price = $room->meta("max_room_price");
 		//kontrollib kas on olemas maksimumhind ruumile
@@ -4741,7 +4745,7 @@ class room extends class_base
 			}
 			if($people > $room->prop("normal_capacity"))
 			{
-				$sum[$currency] += $this->cal_people_price(array("room" => $room, "people" => $people, "cur" => $currency , "start" => $start, "end" => $end));//($people-$room->prop("normal_capacity")) * $room->prop("price_per_face_if_too_many"); 
+				$sum[$currency] += $this->cal_people_price(array("room" => $room, "people" => $people, "cur" => $currency , "start" => $start, "end" => $end));//($people-$room->prop("normal_capacity")) * $room->prop("price_per_face_if_too_many");
 				$this->bargain_value[$currency]+= $this->cal_people_price_discount(array("room" => $room, "people" => $people, "cur" => $currency , "start" => $start, "end" => $end));
 				$rv["room_price"][$currency] += $this->cal_people_price(array("room" => $room, "people" => $people, "cur" => $currency, "start" => $start, "end" => $end));//($people-$room->prop("normal_capacity")) * $room->prop("price_per_face_if_too_many");
 			}
@@ -4777,7 +4781,7 @@ class room extends class_base
 		{
 			$rv["prod_discount"] = $this->average_discount_for_products;
 		}
-		
+
 		//teeb k6igepealt kontrolli, et kas miinimumhind on olemas yldse, k6hutunnne ytleb, et seadete otsimine v6tab rohkem aega,... niiet paneb selle hilisemaks
 		if(is_array($room->meta("web_room_min_price")) && sizeof($room->meta("web_room_min_price")))
 		{
@@ -4820,7 +4824,7 @@ class room extends class_base
 		}
 		return $ol;
 	}
-	
+
 	/**
 	@param room required type=oid,object
 	@param start required type=int
@@ -4847,8 +4851,8 @@ class room extends class_base
 		$ret = 0;
 		extract($arr);
 		$priority = 0;
-		
-		
+
+
 		if(is_oid($room) && $this->can("view" , $room))
 		{
 			$room = obj($room);
@@ -4883,7 +4887,7 @@ class room extends class_base
 				if(
 					($bargain->prop("active") == 1) &&
 					($bargain->prop("type") == 2) &&
-					(in_array((date("w", $start) + 1) , $bargain->prop("weekdays"))) && 
+					(in_array((date("w", $start) + 1) , $bargain->prop("weekdays"))) &&
 					(
 						(
 							$bargain->prop("date_from") <= ($start) &&
@@ -4893,9 +4897,9 @@ class room extends class_base
 							$bargain->prop("recur")	&&
 							(
 								(
-									(100*date("n",$bargain->prop("date_from")) + date("j",$bargain->prop("date_from"))) <= (100*date("n",$start) + date("j",$start)) && 
+									(100*date("n",$bargain->prop("date_from")) + date("j",$bargain->prop("date_from"))) <= (100*date("n",$start) + date("j",$start)) &&
 									(100*date("n",$bargain->prop("date_to")) + date("j",$bargain->prop("date_to"))) >= (100*date("n",($start+$time)) + date("j",($start+$time)))
-								) || 
+								) ||
 								(
 									(100*date("n",$bargain->prop("date_from")) + date("j",$bargain->prop("date_from")) >= 100*date("n",$bargain->prop("date_to")) + date("j",$bargain->prop("date_to"))) &&
 										(
@@ -4909,13 +4913,13 @@ class room extends class_base
 					)
 				)
 				{
-					
+
 					$groups = $bargain->prop("apply_groups");//arr($grp);
 					if (
 						(
 							($bargain->prop("bron_made_from") < 1 || $bron_made > $bargain->prop("bron_made_from")) ||
 						    	($bargain->prop("bron_made_to") < 1 || $bron_made < $bargain->prop("bron_made_to"))
-					    	) && 
+					    	) &&
 						(
 							!is_array($groups) || !count($groups) || !reset($groups) || sizeof(array_intersect($grp, $groups))
 						)
@@ -4935,7 +4939,7 @@ class room extends class_base
 		$this->rnd_discount = $ret;
 		return $ret;
 	}
-	
+
 	function cal_people_price_discount($arr)
 	{
 		$discount = $this->get_rnd_discount_in_time($arr);
@@ -4968,7 +4972,7 @@ class room extends class_base
 		}
 		return (($discount * 0.01)*$sum);
 	}
-	
+
 	function cal_people_price($arr)
 	{
 		//if(aw_global_get("uid"))arr($arr);
@@ -5002,14 +5006,14 @@ class room extends class_base
 		}
 		$this->people_price_discount[$cur] = (($discount * 0.01)*$sum);
 		return $sum - (($discount * 0.01)*$sum);
-	//array("room" => $room, "people" => $people, "cur" => $currency));	
+	//array("room" => $room, "people" => $people, "cur" => $currency));
 	}
-	
+
 	private function get_user_inst()
 	{
 		if(!$this->user_inst)
 		{
-			$this->user_inst = get_instance(CL_USER);
+			$this->user_inst = new user();
 		}
 		return $this->user_inst;
 	}
@@ -5056,12 +5060,12 @@ class room extends class_base
 			$end = $start+$time;
 			foreach($bargain_conns as $conn)
 			{
-				$bargain = $conn->to();//kui j2rgnevas iffis midagi ei t88ta.... siis edu... mulle vist 
+				$bargain = $conn->to();//kui j2rgnevas iffis midagi ei t88ta.... siis edu... mulle vist
 				//if($bargain->prop("type") == 2 && $bargain->prop("active") == 1){arr($bargain);arr($bargain->prop("date_from")); arr($bargain->prop("date_to")); arr($start); arr($time);print " - - - - - - " ;}
 				if(
 					($bargain->prop("active") == 1) &&
 					($bargain->prop("type") == 2) &&
-					(in_array((date("w", $start) + 1) , $bargain->prop("weekdays"))) && 
+					(in_array((date("w", $start) + 1) , $bargain->prop("weekdays"))) &&
 					(
 						(
 							$bargain->prop("date_from") <= ($start+60) &&
@@ -5071,9 +5075,9 @@ class room extends class_base
 							$bargain->prop("recur")	&&
 							(
 								(
-									(100*date("n",$bargain->prop("date_from")) + date("j",$bargain->prop("date_from"))) <= (100*date("n",$start) + date("j",$start)) && 
+									(100*date("n",$bargain->prop("date_from")) + date("j",$bargain->prop("date_from"))) <= (100*date("n",$start) + date("j",$start)) &&
 									(100*date("n",$bargain->prop("date_to")) + date("j",$bargain->prop("date_to"))) >= (100*date("n",($start+$time)) + date("j",($start+$time)))
-								) || 
+								) ||
 								(
 									(100*date("n",$bargain->prop("date_from")) + date("j",$bargain->prop("date_from")) >= 100*date("n",$bargain->prop("date_to")) + date("j",$bargain->prop("date_to"))) &&
 										(
@@ -5092,7 +5096,7 @@ class room extends class_base
 						(
 							($bargain->prop("bron_made_from") < 1 || $bron_made > $bargain->prop("bron_made_from")) ||
 						    	($bargain->prop("bron_made_to") < 1 || $bron_made < $bargain->prop("bron_made_to"))
-					    	) && 
+					    	) &&
 						(
 							!is_array($groups) || !count($groups) || (is_array(array_intersect($groups, $gl)) && sizeof(array_intersect($groups, $gl)))//in_array($grp, $groups)
 						)
@@ -5102,7 +5106,7 @@ class room extends class_base
 						{
 							continue;
 						}
-						
+
 					//kui on gruppidele m6juv asi, siis vaatab ega eelmiselt ringilt k6rgema prioriteedi asja ei kasutanud juba
 						if(is_array($yhis = array_intersect($groups, $gl)) && sizeof(array_intersect($groups, $gl)))
 						{
@@ -5123,7 +5127,7 @@ class room extends class_base
 								continue;
 							}
 						}
-					
+
 						$from = $bargain->prop("time_from");
 						$to = $bargain->prop("time_to");//arr(mktime($from["hour"], $from["minute"], 0, date("m",$start), date("d",$start), date("y",$start))); arr(mktime($to["hour"], $to["minute"], 0, date("m",$end), date("d",$end), date("y",$end))); arr($start);arr($end);
 						//juhul kui aeg mahub t2pselt soodushinna sisse
@@ -5151,7 +5155,7 @@ class room extends class_base
 		exit_function("room::get_bargain");
 		return $ret;
 	}
-	
+
 	/**
 		@attrib params=name
 		@param prices required type=array
@@ -5177,11 +5181,11 @@ class room extends class_base
 			$time_from = $price->prop("time_from");
 			$time_to = $price->prop("time_to");
 			$end = $start + $price->prop("time") * $this->step_length;//arr("/");arr($end);arr("\\");
-			if(!($time_to == $time_from) && !((mktime($time_from["hour"], $time_from["minute"], 0, date("m",$start), date("d",$start), date("y",$start)) <= $start) && 
+			if(!($time_to == $time_from) && !((mktime($time_from["hour"], $time_from["minute"], 0, date("m",$start), date("d",$start), date("y",$start)) <= $start) &&
 			     (mktime($time_to["hour"], $time_to["minute"], 0, date("m",$end), date("d",$end), date("y",$end))>= ($start + $price->prop("time") * $this->step_length))
 			))
 			{
-				if((mktime($time_from["hour"], $time_from["minute"], 0, date("m",$start), date("d",$start), date("y",$start)) <= $start) || 
+				if((mktime($time_from["hour"], $time_from["minute"], 0, date("m",$start), date("d",$start), date("y",$start)) <= $start) ||
 					(mktime($time_to["hour"], $time_to["minute"], 0, date("m",$end), date("d",$end), date("y",$end))>= ($start + $price->prop("time") * $this->step_length))
 				)//kui miskeid t2is aegu ei ole, siis l2hevad poolikud hiljem kasutusse
 				{
@@ -5218,7 +5222,7 @@ class room extends class_base
 			return $this->get_half_prices($arr);
 		}
 	}
-	
+
 	//parem 2ra yrita aru saada mis see pooletoobine funktsioon teeb.... loodame lihtsalt, et kunagi seda vaja ei l2he
 	function get_half_prices($arr)
 	{
@@ -5253,7 +5257,7 @@ class room extends class_base
 		}
 		return $half_obj;
 	}
-	
+
 	/**
 		@attrib name=cal_product_reserved_time params=name all_args=1 nologin=1
 		@param room required type=oid
@@ -5275,7 +5279,7 @@ class room extends class_base
 		}
 		return 0;
 	}
-	
+
 	function get_company_currency($room)
 	{
 		if(!is_oid($room) || !$this->can("view" , $room))
@@ -5285,7 +5289,7 @@ class room extends class_base
 		$room_object = obj($room);
 		return $room_object->prop("owner.currency");
 	}
-	
+
 	/**
 		@attrib params=name
 		@param products required type=array
@@ -5383,7 +5387,7 @@ class room extends class_base
 				$sum = $sum-$this->last_discount;
 			}
 		}
-		
+
 		//statistika jaoks arvutaks miski keskmise sooduse toodetele jne
 		if(!$prod_discount)
 		{
@@ -5454,7 +5458,7 @@ class room extends class_base
 		}
 		return $prod_discount;
 	}
-	
+
 //kui ruumile tekitada muurtuja check_for_people , siis annab tulemuseks arvu palju inimesi mahub, juhul kui on ruumile v6imalik mitu broneeringut teha
 	function check_from_table($arr)
 	{
@@ -5478,7 +5482,7 @@ class room extends class_base
 				{
 					//on juba sellele ajale kinnitatud broneeringu leidnud
 					$this->last_bron_id = $val["id"];
-					$this->is_buffer = $val["going_to_be_after_buffer"];	
+					$this->is_buffer = $val["going_to_be_after_buffer"];
 					if($val["real_end"] <= $arr["start"])
 					{
 						$this->is_after_buffer = 1;
@@ -5757,7 +5761,7 @@ class room extends class_base
 
 
 //seda kasutada kalendrivaatel kontrollimiseks kas miskit n2ha on, kui vaja kontrollida, kas saab salvestada teatud ajale, siis kasutada ruumi objekti juurest is_available funktsiooni
-	/** checks if the room is available 
+	/** checks if the room is available
 		@attrib params=name api=1
 		@param room required type=oid
 			room id
@@ -5778,7 +5782,7 @@ class room extends class_base
 /*if(aw_global_get("uid") == "struktuur")
 {
 
-	$ol = new object_list(array("class_id" => CL_RESERVATION, 
+	$ol = new object_list(array("class_id" => CL_RESERVATION,
 		"created" => new obj_predicate_compare(OBJ_COMP_LESS, (time() - (4*3600*24))),
 		//"oid" => new obj_predicate_compare(OBJ_COMP_LESS, 1400),
 		"resource" => 965,
@@ -5812,7 +5816,7 @@ class room extends class_base
 		}
 		$buff_before = $room->prop("buffer_before")*$room->prop("buffer_before_unit");
 		$buff_after = $room->prop("buffer_after")*$room->prop("buffer_after_unit");
-	
+
 		//tootep6hisel ruumi broneerimisel
 		if($room->prop("use_product_times"))
 		{
@@ -5880,12 +5884,12 @@ class room extends class_base
 			else
 			{
 				$bron = reset($reservations->arr());
-			}	
+			}
 			$this->last_bron_id = $bron->id();
 			return false;
 		}
 	}
-	
+
 	/** returns int (reservation products buffer time)
 		@attrib api=1 params=name
 		@param $bron required type=object
@@ -5945,7 +5949,7 @@ class room extends class_base
 		$cache[$bron->id()][$time] = $ret;
 		return $ret;
 	}
-	
+
 	//id , room
 	function _get_room_prod_after_buffer($arr)
 	{
@@ -5965,7 +5969,7 @@ class room extends class_base
 		}
 		return $product->prop("buffer_time_unit")*$ba;
 	}
-	
+
 	//id , room
 	function _get_room_prod_before_buffer($arr)
 	{
@@ -5985,7 +5989,7 @@ class room extends class_base
 		}
 		return $product->prop("buffer_time_unit")*$bb;
 	}
-	
+
 	/** returns object (last bron object before start time)
 		@attrib api=1 params=name
 		@param $room required type=object
@@ -6005,7 +6009,7 @@ class room extends class_base
 			"end" => new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, ($start - 24*3600) , $start),
 			"verified" => 1,
 		));
-		
+
 		foreach($reservations->arr() as $res)
 		{
 			if($res->prop("end") > $max)
@@ -6015,7 +6019,7 @@ class room extends class_base
 		}
 		return $ret;
 	}
-	
+
 	/** returns object (first reservation object after end time)
 		@attrib api=1 params=name
 		@param $room required type=object
@@ -6045,9 +6049,9 @@ class room extends class_base
 			}
 		}
 		return $ret;
-		
+
 	}
-	
+
 	function callback_generate_scripts($arr)
 	{
 		if (!is_oid($arr["obj_inst"]->id()))
@@ -6086,7 +6090,7 @@ class room extends class_base
 			{
 				window.location.reload();
 			}
-	
+
 			function confirm_delete(field,url,change_var)
 			{
 				fRet=confirm("'.t("Olete kindel et kustutada ").":".'" + document.getElementById(field).options[document.getElementById(field).selectedIndex].text);
@@ -6133,7 +6137,7 @@ class room extends class_base
 		classload("vcl/table");
 		$t = new vcl_table(array(
 			"layout" => "generic",
-		));		
+		));
 		$t->define_field(array(
 			"name" => "curr",
 			"caption" => t("valuuta"),
@@ -6146,7 +6150,7 @@ class room extends class_base
 				{
 					continue;
 				}
-				
+
 				$rows[$currency][$n] = html::textbox(array(
 					"name" => "people_prices[".$n."][".$currency."]",
 					"value" => $prices[$n][$currency],
@@ -6213,7 +6217,7 @@ class room extends class_base
 		@param tm required type=int
 			timestamp
 		@returns boolean
-		@example 
+		@example
 			$room_inst = get_instance(CL_ROOM);
 			$settings = $room_inst->get_settings_for_room($room_object);
 			$start_step = time();
@@ -6285,7 +6289,7 @@ class room extends class_base
 		}
 		return true;
 	}
-	
+
 	function callback_mod_tab($arr)
 	{
 		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
@@ -6553,7 +6557,7 @@ class room extends class_base
 		}
 		$this->prod_data_for_room[$room->id()] = $room->meta("prod_data");
 		return $room->meta("prod_data");
-	}		
+	}
 
 	function callback_post_save($arr)
 	{
@@ -6562,10 +6566,10 @@ class room extends class_base
 		{
 			$arr["obj_inst"]->set_prop("time_unit" , 2);
 			$arr["obj_inst"]->set_prop("time_from" , 2);
-			$arr["obj_inst"]->set_prop("time_to" , 5);	
+			$arr["obj_inst"]->set_prop("time_to" , 5);
 			$arr["obj_inst"]->set_prop("time_step" , 1);
 			$arr["obj_inst"]->set_prop("price" , array(2 => 2));
-			
+
 			$curr_object_list = new object_list(array(
 				"class_id" => CL_CURRENCY,
 				"lang_id" => array(),
@@ -6573,8 +6577,8 @@ class room extends class_base
 			));
 			$arr["obj_inst"]->set_prop("currency" , $curr_object_list->ids());
 			$arr["obj_inst"]->set_prop("prod_discount_loc" , 0);
-		
-			$u = get_instance(CL_USER);
+
+			$u = new user();
 			$arr["obj_inst"]->set_prop("owner" , $u->get_current_company());
 			$arr["obj_inst"]->set_prop("max_capacity" , 15);
 			$this->_add_price_object(array(
@@ -6585,11 +6589,11 @@ class room extends class_base
 			));
 			$arr["obj_inst"]->save();
 		}
-		$i = get_instance("vcl/popup_search");
+		$i = new popup_search();
 		$i->do_create_rels($arr["obj_inst"], $arr["request"]["set_oh"], 44);
 		$i->do_create_rels($arr["obj_inst"], $arr["request"]["set_ps"], 45);
 	}
-	
+
 	function _add_price_object($arr)
 	{
 		extract($arr);
@@ -6606,7 +6610,7 @@ class room extends class_base
 			"reltype" => 44,
 		));
 	}
-	
+
 	function _add_oh_object($arr)
 	{
 		extract($arr);
@@ -6628,8 +6632,8 @@ class room extends class_base
 			"to" => $o->id(),
 			"reltype" => 9,
 		));
-	}	
-	
+	}
+
 	function get_people_for_oh($o)
 	{
 		if(!sizeof($o->prop("professions")))
@@ -6650,7 +6654,7 @@ class room extends class_base
 		));
 		return $ol;
 	}
-	
+
 	function get_people_work_table($arr)
 	{
 		if($this->can("view" , $_GET["delete_scenario"]))
@@ -6742,8 +6746,8 @@ class room extends class_base
 
 		if($arr["obj_inst"]->get_setting("show_only_my_graphs"))
 		{
-			$user = get_instance(CL_USER);
-			$person = $user->get_current_person();	
+			$user = new user();
+			$person = $user->get_current_person();
 			$ol = new object_list();
 			if(in_array($person , $pl->ids()))
 			{
@@ -6797,13 +6801,13 @@ class room extends class_base
 			$data["oid"] = $po->id();
 			$t->define_data($data);
 		}
-		
+
 		$submit = html::submit(array(
 			"name" => "submit_scenario",
 			"value" => t("koosta aegade tabel"),
 		));
 
-		return $t->draw().$submit; 
+		return $t->draw().$submit;
 	}
 
 
@@ -6854,12 +6858,12 @@ class room extends class_base
 			}
 			$t->define_data($data);
 		}
-		return $t->draw(); 
+		return $t->draw();
 	}
 
 	function up_link($month)
 	{
-	
+
 		$month_name = t(date("F" , mktime(0,0,0,(date("m" , time()) +$month) ,date("j" , time()), date("Y" , time()))));
 
 		$ret = html::href(array(
@@ -6870,7 +6874,7 @@ class room extends class_base
 			"url" => aw_url_change_var("month" , $month + 1)));
 		return $ret;
 	}
-	
+
 	/** returns workers
 		@attrib name=get_day_workers params=pos api=1
 		@param o required type=object

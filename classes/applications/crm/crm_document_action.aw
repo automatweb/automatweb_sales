@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_document_action.aw,v 1.4 2007/12/06 14:33:17 kristo Exp $
 // crm_document_action.aw - CRM Dokumendi tegevus 
 /*
@@ -42,6 +44,8 @@
 
 class crm_document_action extends class_base
 {
+	const AW_CLID = 1051;
+
 	function crm_document_action()
 	{
 		$this->init(array(

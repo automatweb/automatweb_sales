@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/personnel_management/personnel_management_job_wanted.aw,v 1.21 2008/12/18 11:15:20 instrumental Exp $
 // personnel_management_job_wanted.aw - T&ouml;&ouml; soov
 /*
@@ -111,6 +113,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disco
 
 class personnel_management_job_wanted extends class_base
 {
+	const AW_CLID = 351;
+
 	function personnel_management_job_wanted()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,

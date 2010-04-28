@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class obj_predicate_limit
 {
 	private $from;

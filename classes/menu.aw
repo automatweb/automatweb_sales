@@ -1,5 +1,9 @@
 <?php
 
+namespace automatweb;
+
+namespace automatweb;
+
 // menu.aw - adding/editing/saving menus and related functions
 
 /*
@@ -465,6 +469,10 @@ define("IP_DENIED", 2);
 
 class menu extends class_base implements main_subtemplate_handler
 {
+	const AW_CLID = 39;
+
+	const AW_CLID = 1;
+
 	function menu($args = array())
 	{
 		$this->init(array(
@@ -1647,7 +1655,7 @@ class menu extends class_base implements main_subtemplate_handler
 			}
 		}
 
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_sss"], 9 /* RELTYPE_DOCS_FROM_MENU */);
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_no_sss"], 24 /* RELTYPE_NO_DOCS_FROM_MENU */);
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["sad_s"], 18 /* RELTYPE_SEEALSO_DOCUMENT */);
@@ -2351,7 +2359,7 @@ class menu extends class_base implements main_subtemplate_handler
 		$arr = array();
 		$si->_init_path_vars($arr);
 		$si->sel_section_obj = obj($this->sel_section);
-		$l = get_instance("languages");
+		$l = new languages();
 		$l_list = $l->get_list(array("all_data" => true));
 		foreach($ol->arr() as $item)
 		{
@@ -2480,7 +2488,7 @@ class menu extends class_base implements main_subtemplate_handler
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_stats_table($t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 
 		$this->db_query("SELECT tm,uid FROM syslog WHERE oid = ".$arr["obj_inst"]->id()." AND act_id = " .
 		 19 /* SA_PAGEVIEW */ . " ORDER BY id DESC LIMIT 50 ");
@@ -2502,7 +2510,7 @@ class menu extends class_base implements main_subtemplate_handler
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_stats_table($t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 
 		$this->db_query("SELECT tm,uid FROM syslog WHERE oid = ".$arr["obj_inst"]->id()." AND act_id = " . 1 /* SA_CHANGE */ . " ORDER BY id DESC LIMIT 50 ");
 		while ($row = $this->db_next())
@@ -2524,7 +2532,7 @@ class menu extends class_base implements main_subtemplate_handler
 	public function write_trans_aliases($arr)
 	{
 		$o = $arr["obj_inst"];
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("all_data" => true, "set_for_user" => true));
 		foreach($ll as $lid => $lang)
 		{

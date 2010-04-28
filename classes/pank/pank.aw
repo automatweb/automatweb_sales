@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/pank/pank.aw,v 1.12 2008/04/28 13:59:43 kristo Exp $
 // crm_pank.aw - Pank 
 /*
@@ -98,6 +100,8 @@ define('TAX_ACCOUNT', 1);
 
 class pank extends class_base
 {
+	const AW_CLID = 558;
+
 	var $company_account = null;
 
 	function pank()

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_DB_LOGIN relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
 
@@ -28,6 +30,8 @@
 
 class db_login extends class_base
 {
+	const AW_CLID = 148;
+
 	function db_login()
 	{
 		$this->init(array(

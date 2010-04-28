@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // personnel_management_cv_search_saved.aw - Salvestatud CV otsing
 /*
 
@@ -11,6 +13,8 @@
 
 class personnel_management_cv_search_saved extends class_base
 {
+	const AW_CLID = 1408;
+
 	function personnel_management_cv_search_saved()
 	{
 		$this->init(array(

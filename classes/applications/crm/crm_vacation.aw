@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_vacation.aw,v 1.4 2007/12/06 14:33:17 kristo Exp $
 // crm_vacation.aw - Puhkus 
 /*
@@ -38,6 +40,8 @@
 
 class crm_vacation extends class_base
 {
+	const AW_CLID = 876;
+
 	function crm_vacation()
 	{
 		$this->init(array(

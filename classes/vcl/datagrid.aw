@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class datagrid extends aw_template
 {
 	function init_vcl_property($arr)

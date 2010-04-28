@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // reval_customer.aw - Reval Klienditsoon
 /*
 
@@ -11,6 +13,8 @@
 
 class reval_customer extends class_base
 {
+	const AW_CLID = 1411;
+
 	private $fc_level_names = array(
 		"1" => "NO First Client",
 		"2" => "First Client",
@@ -808,7 +812,7 @@ class reval_customer extends class_base
 
 /*		if($rv["UpdateCustomerProfileResult"]["ResultCode"] == "Success" && $u->get_current_person())
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$person = obj($u->get_current_person());
 			$person ->set_prop("firstname" , $cust_data["FirstName"]);
 			$person ->set_prop("lastname" , $cust_data["LastName"]);
@@ -911,7 +915,7 @@ if (aw_global_get("uid") == "diamond@hotmail.com")
 	function submit_edit_email($arr)
 	{
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 
 		$user = obj($u->get_current_user());
 		if (!$this->get_cust_id())

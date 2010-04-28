@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 require_once AW_DIR . "lib/defs" . AW_FILE_EXT;
 
 /** Loads localization variables

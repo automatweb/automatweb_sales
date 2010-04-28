@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_offer.aw,v 1.66 2009/01/20 19:43:51 markop Exp $
 // pakkumine.aw - Pakkumine 
 /*
@@ -188,7 +190,9 @@ define("OFFER_IS_PREFORMED",3);
 define("OFFER_IS_DECLINED",4);
 define("OFFER_IS_POSITIVE",4);
 class crm_offer extends class_base
-{		
+{
+	const AW_CLID = 225;
+		
 	var $u_i;
 	var $statuses;
 	function crm_offer()
@@ -197,7 +201,7 @@ class crm_offer extends class_base
 			"clid" => CL_CRM_OFFER,
 			"tpldir" => "crm/crm_offer"
 		));
-		$this->u_i = get_instance(CL_USER);
+		$this->u_i = new user();
 		$this->statuses =  array(
 			t("Koostamisel"), 
 			t("Saadetud"), 
@@ -313,7 +317,7 @@ class crm_offer extends class_base
 					$val = $arr["request"]["alias_to"];
 					if (!$val)
 					{
-						$u = get_instance(CL_USER);
+						$u = new user();
 						$val = $u->get_current_company();
 					}
 
@@ -1290,7 +1294,7 @@ class crm_offer extends class_base
 			$impl_o = obj($impl);
 			if (!$impl_o->get_first_obj_by_reltype("RELTYPE_DOCS_FOLDER"))
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$impl = $u->get_current_company();
 			}
 		}
@@ -1431,7 +1435,7 @@ class crm_offer extends class_base
 	function _set_files($arr)
 	{
 		$t = obj($arr["request"]["id"]);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		foreach(safe_array($_POST["fups_d"]) as $num => $entry)
 		{
@@ -1451,7 +1455,7 @@ class crm_offer extends class_base
 				if ($entry["type"] == CL_FILE)
 				{
 					// add file
-					$f = get_instance(CL_FILE);
+					$f = new file();
 
 					$fs_fld = null;
 					if (strpos($entry["folder"], ":") !== false)
@@ -1486,7 +1490,7 @@ class crm_offer extends class_base
 					$o->save();
 
 					// add file
-					$f = get_instance(CL_FILE);
+					$f = new file();
 
 					$fs_fld = null;
 					if (strpos($entry["folder"], ":") !== false)

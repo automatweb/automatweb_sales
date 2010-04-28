@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 @classinfo syslog_type=ST_ENTITY maintainer=kristo
@@ -41,6 +43,8 @@
 
 class entity extends class_base
 {
+	const AW_CLID = 174;
+
 	function entity()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

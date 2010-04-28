@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class rss_reader_obj extends _int_object
 {
+	const AW_CLID = 1531;
+
 	/**
 		@attrib api=1
 	**/
@@ -45,7 +50,7 @@ class rss_reader_obj extends _int_object
 		{
 			$xml = new SimpleXMLElement($xml);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return array();
 		}

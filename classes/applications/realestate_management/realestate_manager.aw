@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // realestate_manager.aw - Kinnisvarahalduse keskkond
 /*
 
@@ -353,6 +355,8 @@ define ("RE_USERMGR_SHOWALLOBJ_VAR_NAME", "realestate_showallobj");
 
 class realestate_manager extends class_base
 {
+	const AW_CLID = 935;
+
 	var $realestate_search = 0;
 	var $default_date_format = "j/m/Y H.i";
 	var $cl_users;
@@ -3444,7 +3448,7 @@ class realestate_manager extends class_base
 			}
 
 			### set object owner to organization to which user belongs
-			$cl_user = get_instance(CL_USER);
+			$cl_user = new user();
 			$oid = $cl_user->get_current_person ();
 			$person = is_oid ($oid) ? obj ($oid) : obj ();
 

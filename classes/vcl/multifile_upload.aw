@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=hannes
-*/
+
+namespace automatweb;
+
 class multifile_upload extends class_base
 {
 	function multifile_upload()
@@ -15,14 +15,14 @@ class multifile_upload extends class_base
 	{
 		$this->read_template("multifile_upload.tpl");
 		$content = "";
-		$tmp = "";	
-		
+		$tmp = "";
+
 		// read props from the given class
 		$prop = $arr["prop"];
-	
+
 		$tp = $arr["prop"];
 		$tp["type"] = "text";
-		
+
 		if ( $prop["max_files"] )
 		{
 			$i_max_files = $prop["max_files"];
@@ -31,7 +31,7 @@ class multifile_upload extends class_base
 		{
 			$i_max_files = 999;
 		}
-		
+
 		if ($arr["new"] != 1)
 		{
 			$i = 1;
@@ -39,7 +39,7 @@ class multifile_upload extends class_base
 			{
 				$fo = $file->to();
 				$file_instance = $fo->instance();
-				
+
 				$this->vars(array(
 					"id" => $fo->id(),
 					"counter" => $i++,
@@ -51,16 +51,16 @@ class multifile_upload extends class_base
 				$tmp .= $this->parse('file');
 			}
 		}
-		
-		
+
+
 		$this->vars(array(
 			"file" => $tmp,
 			"max" => $i_max_files,
 		));
-		
-		
+
+
 		$content = $this->parse();
-		
+
 		$tp["value"] = $content;
 		return array($tp["name"] => $tp);
 	}
@@ -82,7 +82,7 @@ class multifile_upload extends class_base
 		}
 		else
 		{
-			$fi = get_instance(CL_FILE);
+			$fi = new file();
 		}
 		$files = $fi -> add_upload_multifile("file", $parent);
 		foreach ($files as $file)
@@ -96,9 +96,9 @@ class multifile_upload extends class_base
 
 	/**
 	@attrib name=ajax_delete_obj
-	
+
 	@param id required type=int
-	
+
 	@comment
 		Get directory listing
 	**/

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // webform.aw - Veebivorm
 /*
 
@@ -254,6 +256,8 @@
 
 class webform extends class_base
 {
+	const AW_CLID = 866;
+
 	function webform()
 	{
 		$this->init(array(
@@ -894,7 +898,7 @@ class webform extends class_base
 			"email_address_not_correct" => t("%caption sisestatud e-mailiaadress pole korrektne"),
 		);
 		// now, lets get what language is used
-		$languages_inst = get_instance("languages");
+		$languages_inst = new languages();
 		$lang_data = $languages_inst->fetch(aw_global_get("lang_id"));
 // end of hopefully temporary
 

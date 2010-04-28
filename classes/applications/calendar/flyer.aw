@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/flyer.aw,v 1.8 2007/12/06 14:32:55 kristo Exp $
 // flyer.aw - Flaier 
 /*
@@ -35,6 +37,8 @@
 
 class flyer extends class_base
 {
+	const AW_CLID = 922;
+
 	/**
 		@attrib name=show_flyer nologin=1
 		@param id required type=int acl=edit
@@ -172,7 +176,7 @@ class flyer extends class_base
 
 					if (is_uploaded_file($src_file))
 					{
-						$_fi = get_instance(CL_FILE);
+						$_fi = new file();
 						$final_name = $_fi->generate_file_path(array(
 							"type" => $ftype,
 						));

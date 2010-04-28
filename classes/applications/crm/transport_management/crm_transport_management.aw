@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/transport_management/crm_transport_management.aw,v 1.3 2007/12/06 14:33:24 kristo Exp $
 // transport_management.aw - Veotellimuste haldus 
 /*
@@ -227,6 +229,8 @@ define('CARRIAGE_ORDER_STATUS_ARCHIVED', 7);
 
 class crm_transport_management extends class_base
 {
+	const AW_CLID = 1081;
+
 
 	var $status_array = array();
 

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // trademark_status.aw - Trademark status
 /*
 
@@ -31,6 +33,8 @@
 
 class trademark_status extends class_base
 {
+	const AW_CLID = 1195;
+
 	function trademark_status()
 	{
 		$this->init(array(

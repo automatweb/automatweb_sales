@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_working_time_scenario_obj extends _int_object
 {
+	const AW_CLID = 1392;
+
 	function set_prop($name,$value)
 	{
 		parent::set_prop($name,$value);

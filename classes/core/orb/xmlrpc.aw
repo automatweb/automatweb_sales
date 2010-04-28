@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class xmlrpc extends aw_template
 {
 	var $allowed = array("I4","BOOLEAN","STRING", "DOUBLE","DATETIME.ISO8601","BASE64", "STRUCT", "ARRAY");

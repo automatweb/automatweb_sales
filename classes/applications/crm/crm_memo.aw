@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_memo.aw,v 1.13 2007/12/06 14:33:17 kristo Exp $
 // crm_memo.aw - Memo 
 /*
@@ -81,6 +83,8 @@
 
 class crm_memo extends class_base
 {
+	const AW_CLID = 1008;
+
 	function crm_memo()
 	{
 		$this->init(array(

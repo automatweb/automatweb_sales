@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // realestate_house.aw - Maja
 /*
 
@@ -444,6 +446,8 @@ classload("applications/realestate_management/realestate_property");
 
 class realestate_house extends realestate_property
 {
+	const AW_CLID = 944;
+
 	function realestate_house()
 	{
 		$this->init(array(

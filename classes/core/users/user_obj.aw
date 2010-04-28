@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 /*
 @classinfo  maintainer=kristo
 */
@@ -65,7 +68,8 @@ class user_obj extends _int_object
 		// create default group
 		// in the bloody eau database the object with oid 1 is the groups folder. bloody hell.
 		// this really needs a better solution :(
-		$gid = obj(get_instance(group_obj::AW_CLID)->add_group((aw_ini_get("site_id") == 65 ? 5 : 1), $this->prop("uid"), group_obj::TYPE_DEFAULT, USER_GROUP_PRIORITY));
+		$group_inst = new group();
+		$gid = obj($group_inst->add_group((aw_ini_get("site_id") == 65 ? 5 : 1), $this->prop("uid"), group_obj::TYPE_DEFAULT, USER_GROUP_PRIORITY));
 
 		$i = new menu();
 
@@ -103,7 +107,7 @@ class user_obj extends _int_object
 	**/
 	function get_groups_for_user()
 	{
-		$ol = get_instance(self::AW_CLID)->get_groups_for_user(parent::prop("uid"));
+		$ol = $this->instance()->get_groups_for_user(parent::prop("uid"));
 		$rv = $ol->arr();
 		// now, the user's own group is not in this list probably, so we go get that as well
 		$ol = new object_list(array(
@@ -387,8 +391,7 @@ class user_obj extends _int_object
 				$brother_id = $this->create_brother($p_o->id());
 			}
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+		cache::file_clear_pt("acl");
 	}
 
 

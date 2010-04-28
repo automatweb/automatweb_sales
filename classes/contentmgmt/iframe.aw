@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/iframe.aw,v 1.6 2008/01/31 13:52:14 kristo Exp $
 // iframe.aw - iframes
 
@@ -33,6 +35,8 @@
 */
 class iframe extends class_base
 {
+	const AW_CLID = 95;
+
 	function iframe() 
 	{
 		$this->init(array(

@@ -100,7 +100,7 @@ class links_display
 				"lang_id" => array()
 			));
 
-			$awf = get_instance(CL_FILE);
+			$awf = new file();
 			$o = $img->begin();
 			if ($img->count() > 0 && $awf->can_be_embedded($o))
 			{

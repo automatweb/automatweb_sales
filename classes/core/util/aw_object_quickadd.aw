@@ -1,8 +1,8 @@
 <?php
 // aw_object_quickadd.aw - Generates javascript array of all objects one can add for "aw object quickadd" javascript
-/*
-@classinfo  maintainer=hannes
-*/
+
+namespace automatweb;
+
 class aw_object_quickadd extends class_base
 {
 

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // cache_updater.aw - Cache uuendamine
 /*
 
@@ -17,6 +19,8 @@
 
 class cache_updater extends class_base
 {
+	const AW_CLID = 891;
+
 	function cache_updater()
 	{
 		$this->init(array(

@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
+
+namespace automatweb;
+
 class crm_company_objects_impl extends class_base
 {
 	function crm_company_objects_impl()
@@ -18,7 +18,7 @@ class crm_company_objects_impl extends class_base
     		"class_id" => CL_MENU
 		));
 		$ol = $ot->to_list();
-		
+
 		foreach ($ol->arr() as $obj)
 		{
 			if($obj->parent() == $arr["obj_inst"]->id())
@@ -37,29 +37,29 @@ class crm_company_objects_impl extends class_base
 			));
 		}
 	}
-	
+
 	function _get_objects_listing_toolbar($arr)
 	{
 		$tb = & $arr["prop"]["toolbar"];
-				
+
 		$tb->add_menu_button(array(
 			'name'=>'add_item',
 			'tooltip'=>t('Uus')
 		));
-				
+
 		//Add classes
 		foreach ((aw_ini_get("classes")) as $class_id => $classinfo)
 		{
 			$parents = split(",",$classinfo["parents"]);
 			$newparent = $arr["request"]["parent"]? $arr["request"]["parent"]:$arr["obj_inst"]->id();
-			
+
 			if(count($parent) == 0)
 			{
 				$parents[] = "add_item";
 			}
-			
+
 			foreach ($parents as $parent)
-			{	
+			{
 				$tb->add_menu_item(array(
 					//'disabled' => $classinfo["can_add"]==0?false:true,
 					'parent'=> $parent,
@@ -77,21 +77,21 @@ class crm_company_objects_impl extends class_base
    	 			"text" => $menu["name"],
     		));
 		}
-		
+
 		$tb->add_button(array(
 			'name' => 'del',
 			'img' => 'delete.gif',
 			'tooltip' => t('Kustuta valitud objektid'),
 			'action' => 'delete_selected_objects',
 		));
-		
+
 		$tb->add_button(array(
 			'name' => 'cut',
 			'img' => 'cut.gif',
 			'tooltip' => t('Cut'),
 			'action' => 'cut',
 		));
-		
+
 		if($_SESSION["crm_cut"])
 		{
 			$tb->add_button(array(
@@ -114,13 +114,13 @@ class crm_company_objects_impl extends class_base
 			"name" => "icon",
 			"width" => 15
 		));
-			
+
 		$table->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
 			"sortable" => "1",
 		));
-		
+
 		$table->define_field(array(
 			"name" => "modified",
 			"caption" => t("Muudetud"),
@@ -130,14 +130,14 @@ class crm_company_objects_impl extends class_base
 			"format" => "d.m.y",
 			"align" => "center",
 		));
-		
+
 		$table->define_field(array(
 			"name" => "class_id",
 			"caption" => t("Tüüp"),
 			"sortable" => "1",
 			"callback" => array(&$this, "get_class_name"),
 		));
-			
+
 		$table->define_chooser(array(
 			"name" => "select",
 			"field" => "select",
@@ -146,7 +146,7 @@ class crm_company_objects_impl extends class_base
 
 	function get_class_name($id)
 	{
-		$classes = aw_ini_get("classes"); 
+		$classes = aw_ini_get("classes");
 		return $classes[$id]["name"];
 	}
 
@@ -155,14 +155,14 @@ class crm_company_objects_impl extends class_base
 		$classes = aw_ini_get("classes");
 		unset($classes[CL_RELATION]);
 		$class_ids = array_keys($classes);
-		
+
 		$ol = new object_list(array(
 			"parent" => $arr["request"]["parent"] ? $arr["request"]["parent"] : $arr["obj_inst"]->id(),
-			"class_id" => $class_ids 
+			"class_id" => $class_ids
 		));
-		
+
 		$table = &$arr["prop"]["vcl_inst"];
-		
+
 		get_instance("core/icons");
 		foreach ($ol->arr() as $item)
 		{
@@ -217,7 +217,7 @@ class crm_company_objects_impl extends class_base
 		classload("core/icons");
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
-				"type" => TREE_DHTML, 
+				"type" => TREE_DHTML,
 				"persist_state" => true,
 				"tree_id" => "service_types",
 			),

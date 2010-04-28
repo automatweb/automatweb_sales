@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/register/register_search.aw,v 1.56 2009/08/24 11:56:38 instrumental Exp $
 // register_search.aw - Registri otsing 
 /*
@@ -72,6 +74,8 @@
 
 class register_search extends class_base
 {
+	const AW_CLID = 343;
+
 	function register_search()
 	{
 		$this->init(array(

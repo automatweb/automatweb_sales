@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class personnel_management_job_offer_obj extends _int_object
 {
+	const AW_CLID = 285;
+
 	function set_prop($k, $v)
 	{
 		if($k == "notify_me")
@@ -105,7 +110,7 @@ class personnel_management_job_offer_obj extends _int_object
 	{
 		$ret = new object_list();
 
-		$i = get_instance(CL_FILE);
+		$i = new file();
 		foreach(parent::connections_from(array("type" => 1)) as $conn)
 		{
 			if(!isset($arr["status"]) || $conn->conn["to.status"] == $arr["status"])
@@ -134,7 +139,7 @@ class personnel_management_job_offer_obj extends _int_object
 		extract($arr);
 
 		$show_cnt_conf = get_instance("personnel_management_obj")->get_show_cnt_conf();
-		$usr = get_instance(CL_USER);
+		$usr = new user();
 		$u = $usr->get_current_user();
 		$g = ifset($show_cnt_conf, CL_PERSONNEL_MANAGEMENT_JOB_OFFER, $action, "groups");
 		if($usr->is_group_member($u, $g) && is_oid($id))

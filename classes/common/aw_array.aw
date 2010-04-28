@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /**
 	@comment
 	The class is meant to make array handling a bit easier and to avoid statements like

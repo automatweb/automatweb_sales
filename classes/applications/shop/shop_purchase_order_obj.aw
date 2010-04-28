@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_purchase_order_obj extends _int_object
 {
+	const AW_CLID = 1430;
+
 	/** adds an article to the order, params are order_row props **/
 	public function add_article($data)
 	{

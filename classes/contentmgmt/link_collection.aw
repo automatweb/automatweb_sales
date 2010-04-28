@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/link_collection.aw,v 1.5 2008/04/30 12:27:10 kristo Exp $
 // link_collection.aw - Lingikogu 
 /*
@@ -37,6 +39,8 @@ define("LINKCOLL_SORT_ALPHA", 0);
 define("LINKCOLL_SORT_ORD", 1);
 class link_collection extends class_base
 {
+	const AW_CLID = 1062;
+
 	function link_collection()
 	{
 		$this->init(array(

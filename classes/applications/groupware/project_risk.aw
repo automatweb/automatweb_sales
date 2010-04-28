@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_risk.aw,v 1.4 2007/12/06 14:33:32 kristo Exp $
 // project_risk.aw - Projekti risk 
 /*
@@ -32,6 +34,8 @@
 
 class project_risk extends class_base
 {
+	const AW_CLID = 1079;
+
 	function project_risk()
 	{
 		$this->init(array(

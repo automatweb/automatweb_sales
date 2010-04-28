@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 @classinfo  maintainer=kristo
 @comment
@@ -8,11 +10,8 @@
 
 class cache extends core
 {
-	function cache()
-	{
-		$this->db_init();
-		aw_config_init_class($this);
-	}
+	private $cache_files = array();
+	private $cache_files2 = array();
 
 	/** writes a page to the html page cache
 		@attrib params=pos api=1
@@ -130,8 +129,7 @@ class cache extends core
 			Not recommended to use.
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set('foo', 'bar');
+			cache::file_set('foo', 'bar');
 	**/
 	public static function file_set($key,$value)
 	{
@@ -169,9 +167,8 @@ class cache extends core
 			Not recommended to use.
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set('foo', 'bar');
-			echo $cache->file_get('foo'); // prints 'bar'
+			cache::file_set('foo', 'bar');
+			echo cache::file_get('foo'); // prints 'bar'
 
 	**/
 	public static function file_get($key)
@@ -211,10 +208,9 @@ class cache extends core
 		@returns int
 			timestamp
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set('foo', 'bar');
+			cache::file_set('foo', 'bar');
 			sleep(5);
-			var_dump($cache->get_modified_time('foo');
+			var_dump(cache::get_modified_time('foo');
 	**/
 	public static function get_modified_time($key)
 	{
@@ -258,13 +254,12 @@ class cache extends core
 			Checks, if the file in cache modification time is older than the time supplied via parameter. If it is older, then returns false, else filecontent.
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set('foo', 'bar');
+			cache::file_set('foo', 'bar');
 			sleep(5);
 			// file in cache is newer than supplied timestamp, so file's content is returned
-			var_dump($cache->file_get_ts('foo', time() - 3600));
+			var_dump(cache::file_get_ts('foo', time() - 3600));
 			// file in cache is older than supplied timestamp, so false is returned
-			var_dump($cache->file_get_ts('foo', time()));
+			var_dump(cache::file_get_ts('foo', time()));
 
 	**/
 	public static function file_get_ts($key, $ts)
@@ -299,11 +294,10 @@ class cache extends core
 			Deletes the file from cache
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set('foo', 'bar');
-			var_dump($cache->file_get('foo')); // prints 'bar'
-			$cache->file_invalidate('foo');
-			var_dump($cache->file_get('foo')); // prints false
+			cache::file_set('foo', 'bar');
+			var_dump(cache::file_get('foo')); // prints 'bar'
+			cache::file_invalidate('foo');
+			var_dump(cache::file_get('foo')); // prints false
 
 	**/
 	public static function file_invalidate($key)
@@ -335,8 +329,7 @@ class cache extends core
 			none
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set_pt_oid('foo', 1234, 'bar', 'Hello World');
+			cache::file_set_pt_oid('foo', 1234, 'bar', 'Hello World');
 			// creates into folder $site/pagecache/foo/4/ file bar which contains 'Hello World'
 
 	**/
@@ -365,9 +358,8 @@ class cache extends core
 			none
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set_pt_oid('foo', 1234, 'bar', 'Hello World');
-			$val = $cache->file_get_pt_oid('foo', 1234, 'bar');
+			cache::file_set_pt_oid('foo', 1234, 'bar', 'Hello World');
+			$val = cache::file_get_pt_oid('foo', 1234, 'bar');
 			echo $val; // prints 'Hello World'
 	**/
 	public static function file_get_pt_oid($pt, $oid, $fn)
@@ -399,14 +391,13 @@ class cache extends core
 
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set_pt_oid('foo', 1234, 'bar', 'Hello World');
+			cache::file_set_pt_oid('foo', 1234, 'bar', 'Hello World');
 			sleep(5);
 			// file in cache is newer than supplied timestamp, so file's content is returned
-			var_dump($cache->file_get_pt_oid_ts('foo', 1234, 'bar', time() - 3600));
+			var_dump(cache::file_get_pt_oid_ts('foo', 1234, 'bar', time() - 3600));
 
 			// file in cache is older than supplied timestamp, so false is returned
-			var_dump($cache->file_get_pt_oid_ts('foo', 1234, 'bar', time()));
+			var_dump(cache::file_get_pt_oid_ts('foo', 1234, 'bar', time()));
 
 
 	**/
@@ -436,8 +427,7 @@ class cache extends core
 			none
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set_pt('foo', 'asd', 'bar', 'Hello World');
+			cache::file_set_pt('foo', 'asd', 'bar', 'Hello World');
 			// creates into folder $site/pagecache/foo/asd/ file bar which contains 'Hello World'
 	**/
 	public static function file_set_pt($pt, $subf, $fn, $cont)
@@ -475,9 +465,8 @@ class cache extends core
 			none
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set_pt('foo', 'asd', 'bar', 'Hello World');
-			$val = $cache->file_get_pt('foo', 'asd', 'bar');
+			cache::file_set_pt('foo', 'asd', 'bar', 'Hello World');
+			$val = cache::file_get_pt('foo', 'asd', 'bar');
 			echo $val; // prints 'Hello World'
 
 	**/
@@ -522,14 +511,13 @@ class cache extends core
 			Checks, if the file in cache modification time is older than the time supplied via parameter. If it is older, then returns false, else filecontent.
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set_pt_oid('foo', 1234, 'bar', 'Hello World');
+			cache::file_set_pt_oid('foo', 1234, 'bar', 'Hello World');
 			sleep(5);
 			// file in cache is newer than supplied timestamp, so file's content is returned
-			var_dump($cache->file_get_pt_ts('foo', 1234, 'bar', time() - 3600));
+			var_dump(cache::file_get_pt_ts('foo', 1234, 'bar', time() - 3600));
 
 			// file in cache is older than supplied timestamp, so false is returned
-			var_dump($cache->file_get_pt_ts('foo', 1234, 'bar', time()));
+			var_dump(cache::file_get_pt_ts('foo', 1234, 'bar', time()));
 
 
 	**/
@@ -561,8 +549,7 @@ class cache extends core
 			Clears the cache folder
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_clear_pt('foo');
+			cache::file_clear_pt('foo');
 
 	**/
 	public static function file_clear_pt($pt)
@@ -613,8 +600,7 @@ class cache extends core
 			none
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_clear_pt_oid('foo', 1234);
+			cache::file_clear_pt_oid('foo', 1234);
 	**/
 	public static function file_clear_pt_oid($pt, $oid)
 	{
@@ -650,8 +636,7 @@ class cache extends core
 			deletes the file from cache
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_clear_pt_oid_fn('foo', 1234, 'bar');
+			cache::file_clear_pt_oid_fn('foo', 1234, 'bar');
 
 	**/
 	public static function file_clear_pt_oid_fn($pt, $oid, $fn)
@@ -684,8 +669,7 @@ class cache extends core
 			none
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_clear_pt_sub('foo', 'asd');
+			cache::file_clear_pt_sub('foo', 'asd');
 
 	**/
 	public static function file_clear_pt_sub($pt, $subf)
@@ -852,7 +836,7 @@ class cache extends core
 		}
 	}
 
-	function _get_cache_files($fld)
+	private static function _get_cache_files($fld)
 	{
 		if ($dir = opendir($fld))
 		{
@@ -862,12 +846,12 @@ class cache extends core
 				{
 					if (is_dir($fld."/".$file))
 					{
-						$this->_get_cache_files($fld."/".$file);
+						self::_get_cache_files($fld."/".$file);
 					}
 					else
 					{
-						$this->cache_files[] = $file;
-						$this->cache_files2[] = $fld."/".$file;
+						self::$cache_files[] = $file;
+						self::$cache_files2[] = $fld."/".$file;
 					}
 				}
 			}
@@ -888,10 +872,9 @@ class cache extends core
 			If the method is called first time and there is no objlastmod file in cache, then last modified object is taken (from the objects table by the field modified) and it will be cached into objlastmod file in cache. If site_show.objlastmod_only_menu aw.ini setting is set (for example to 1), then last modified menu object is taken (class_id = CL_MENU)
 
 		@examples
-			$cache = get_instance('cache');
-			echo date("d.m.Y H:m:s", $cache->get_objlastmod());
+			echo date("d.m.Y H:m:s", cache::get_objlastmod());
 	**/
-	function get_objlastmod()
+	public static function get_objlastmod()
 	{
 		static $last_mod;
 		if (!$last_mod)
@@ -901,9 +884,10 @@ class cache extends core
 				$add = "";
 				if (aw_ini_get("site_show.objlastmod_only_menu"))
 				{
-					$add = " WHERE class_id = ".CL_MENU;
+					$add = " WHERE class_id = " . CL_MENU;
 				}
-				$last_mod = $this->db_fetch_field("SELECT MAX(modified) as m FROM objects".$add, "m");
+				$db = new db_connector();
+				$last_mod = $db->db_fetch_field("SELECT MAX(modified) as m FROM objects".$add, "m");
 				self::file_set("objlastmod", $last_mod);
 			}
 		}
@@ -921,27 +905,30 @@ class cache extends core
 
 
 		@examples
-			$cache = get_instance('cache');
-			$cache->file_set('foo', 'bar');
-			echo $cache->file_get('foo'); // prints 'bar'
-			$cache->full_flush();
-			echo $cache->file_get('foo'); // prints nothing
+			cache::file_set('foo', 'bar');
+			echo cache::file_get('foo'); // prints 'bar'
+			cache::full_flush();
+			echo cache::file_get('foo'); // prints nothing
 
 	**/
-	function full_flush()
+	public static function full_flush()
 	{
 		if (aw_global_get("no_cache_flush") == 1)
 		{
 			return;
 		}
-		$this->cache_files = array();
-		$this->cache_files2 = array();
-		$this->_get_cache_files(aw_ini_get("cache.page_cache"));
 
-		foreach($this->cache_files2 as $file)
+		self::$cache_files = array();
+		self::$cache_files2 = array();
+		self::_get_cache_files(aw_ini_get("cache.page_cache"));
+
+		foreach(self::$cache_files2 as $file)
 		{
 			unlink($file);
 		}
+
+		self::$cache_files = array();
+		self::$cache_files2 = array();
 	}
 }
 ?>

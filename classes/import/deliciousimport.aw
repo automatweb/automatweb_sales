@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/import/deliciousimport.aw,v 1.3 2007/12/16 22:22:19 hannes Exp $
 // deliciousimport.aw - del.icio.us import 
 /*
@@ -36,6 +38,8 @@
 
 class deliciousimport extends class_base
 {
+	const AW_CLID = 1376;
+
 	function deliciousimport()
 	{
 		$this->init(array(

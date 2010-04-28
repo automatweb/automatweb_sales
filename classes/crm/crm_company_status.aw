@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_company_status.aw,v 1.4 2008/02/22 10:03:29 robert Exp $
 // crm_company_status.aw - Organisatsiooni Staatus 
 /*
@@ -15,6 +17,8 @@
 
 class crm_company_status extends class_base
 {
+	const AW_CLID = 1327;
+
 	function crm_company_status()
 	{
 		$this->init(array(

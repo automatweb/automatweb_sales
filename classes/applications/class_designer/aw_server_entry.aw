@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_AW_SERVER_ENTRY relationmgr=yes no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_server_list master_index=brother_of master_table=objects index=aw_oid
@@ -68,6 +70,8 @@
 
 class aw_server_entry extends class_base
 {
+	const AW_CLID = 1499;
+
 	function aw_server_entry()
 	{
 		$this->init(array(

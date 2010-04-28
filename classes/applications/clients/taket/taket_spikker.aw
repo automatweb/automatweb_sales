@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/taket/taket_spikker.aw,v 1.1 2008/10/01 14:17:40 markop Exp $
 // taket_spikker.aw - Taket Spikker 
 /*
@@ -12,6 +14,8 @@
 
 class taket_spikker extends class_base
 {
+	const AW_CLID = 236;
+
 	var $spikker_data;
 	function taket_spikker()
 	{

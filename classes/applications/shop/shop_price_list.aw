@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_PRICE_LIST relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 
@@ -179,6 +181,8 @@
 
 class shop_price_list extends shop_matrix
 {
+	const AW_CLID = 1457;
+
 	function shop_price_list()
 	{
 		$this->init(array(

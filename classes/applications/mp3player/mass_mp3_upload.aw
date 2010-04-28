@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/mp3player/mass_mp3_upload.aw,v 1.2 2007/12/06 14:33:42 kristo Exp $
 // mass_mp3_upload.aw - Impordi minu MP3d 
 /*
@@ -25,6 +27,8 @@
 
 class mass_mp3_upload extends class_base
 {
+	const AW_CLID = 1351;
+
 	function mass_mp3_upload()
 	{
 		$this->init(array(

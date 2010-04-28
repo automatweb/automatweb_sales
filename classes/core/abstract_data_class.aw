@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/abstract_data_class.aw,v 1.3 2008/01/31 13:52:49 kristo Exp $
 // abstract_data_class.aw - Tundmatud andmed 
 /*
@@ -12,6 +14,8 @@
 
 class abstract_data_class extends class_base
 {
+	const AW_CLID = 340;
+
 	function abstract_data_class()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

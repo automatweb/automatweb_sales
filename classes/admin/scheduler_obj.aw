@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo relationmgr=yes syslog_type=ST_SCHEDULER_OBJ maintainer=kristo
 @default table=objects
@@ -31,6 +33,8 @@
 */
 class scheduler_obj extends class_base
 {
+	const AW_CLID = 108;
+
 	function scheduler_obj()
 	{
 		$this->init(array(

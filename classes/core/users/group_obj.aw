@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 /*
 @classinfo  maintainer=kristo
 */

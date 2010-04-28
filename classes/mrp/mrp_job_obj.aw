@@ -1,5 +1,8 @@
 <?php
 
+namespace automatweb;
+
+
 /*
 @classinfo  maintainer=voldemar
 */
@@ -8,6 +11,8 @@ require_once "mrp_header.aw";
 
 class mrp_job_obj extends _int_object
 {
+	const AW_CLID = 826;
+
 	const PRSN_HNDL_S = 1;
 	const PRSN_HNDL_F = 2;
 	const PRSN_HNDL_S_OR_F = 3;
@@ -111,7 +116,7 @@ class mrp_job_obj extends _int_object
 		{
 			parent::__construct($objdata);
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -220,7 +225,7 @@ class mrp_job_obj extends _int_object
 		{
 			throw $e;
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -697,7 +702,7 @@ class mrp_job_obj extends _int_object
 			$this->state_changed("");
 			$this->mrp_workspace->request_rescheduling();
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -747,7 +752,7 @@ class mrp_job_obj extends _int_object
 				$this->state_changed($comment);
 			}
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -785,7 +790,7 @@ class mrp_job_obj extends _int_object
 			$this->state_changed("");
 			$this->mrp_workspace->request_rescheduling();
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -817,7 +822,7 @@ class mrp_job_obj extends _int_object
 			$this->state_changed("");
 			$this->mrp_workspace->request_rescheduling();
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -929,13 +934,13 @@ class mrp_job_obj extends _int_object
 				$this->mrp_resource->stop_job($this->ref());
 				$this->restore_mrp_state("start", $saving);
 			}
-			catch (Exception $E)
+			catch (\Exception $E)
 			{
 				$e->set_forwarded_exception($E);
 			}
 			throw $e;
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($E) . "): " . $E->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -946,7 +951,7 @@ class mrp_job_obj extends _int_object
 			{
 				$this->restore_mrp_state("start", $saving);
 			}
-			catch (Exception $E)
+			catch (\Exception $E)
 			{
 				$e->set_forwarded_exception($E);
 			}
@@ -1043,7 +1048,7 @@ class mrp_job_obj extends _int_object
 			catch (awex_mrp_case $e)
 			{
 			}
-			catch (Exception $E)
+			catch (\Exception $E)
 			{
 				$error_message = "Unknown error (" . get_class($E) . "): " . $E->getMessage();
 				$e = new awex_mrp_job($error_message);
@@ -1086,7 +1091,7 @@ class mrp_job_obj extends _int_object
 
 				$this->save();
 			}
-			catch (Exception $E)
+			catch (\Exception $E)
 			{
 				throw $E;
 			}
@@ -1142,7 +1147,7 @@ class mrp_job_obj extends _int_object
 		catch (awex_mrp_case $e)
 		{
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -1194,7 +1199,7 @@ class mrp_job_obj extends _int_object
 		catch (awex_mrp_case $e)
 		{
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -1245,7 +1250,7 @@ class mrp_job_obj extends _int_object
 		catch (awex_mrp_case $e)
 		{
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -1339,7 +1344,7 @@ class mrp_job_obj extends _int_object
 			$this->restore_mrp_state("start", $saving);
 			throw $e;
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($E) . "): " . $E->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -1377,7 +1382,7 @@ class mrp_job_obj extends _int_object
 		{
 			throw $e;
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -1414,7 +1419,7 @@ class mrp_job_obj extends _int_object
 			}
 			return true;
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Couln't determine prerequisites status. Unknown error (" . get_class($E) . "): " . $E->getMessage();
 			$e = new awex_mrp_job($error_message);
@@ -1441,7 +1446,7 @@ class mrp_job_obj extends _int_object
 		{
 			$this->load_data();
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			if ($return_info)
 			{
@@ -1551,7 +1556,7 @@ class mrp_job_obj extends _int_object
 				}
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$allow = false;
 		}
@@ -1612,7 +1617,7 @@ class mrp_job_obj extends _int_object
 			}
 
 			### correct project's job order
-			$i = get_instance(CL_FILE);
+			$i = new file();
 			$i->do_orb_method_call (array (
 				"action" => "order_jobs",
 				"class" => "mrp_case",
@@ -1636,7 +1641,7 @@ class mrp_job_obj extends _int_object
 		{
 			throw $e;
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 		}
 

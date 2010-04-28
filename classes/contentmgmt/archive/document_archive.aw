@@ -1,6 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/archive/document_archive.aw,v 1.6 2008/02/14 22:07:35 kristo Exp $
-// document_archive.aw - Dokumendiarhiiv 
+
+namespace automatweb;
+
+// document_archive.aw - Dokumendiarhiiv
 /*
 
 @classinfo syslog_type=ST_DOCUMENT_ARCHIVE relationmgr=yes maintainer=kristo
@@ -24,6 +26,8 @@
 
 class document_archive extends class_base
 {
+	const AW_CLID = 313;
+
 	function document_archive()
 	{
 		$this->init(array(
@@ -48,7 +52,7 @@ class document_archive extends class_base
 		};
 		return $retval;
 	}
-	
+
 	//// create a list of events that should be used
 	function get_event_sources($id)
 	{
@@ -158,7 +162,7 @@ class document_archive extends class_base
 
 	function callback_get_contents($arr)
 	{
-		// list 
+		// list
 		$conns = $arr["obj_inst"]->connections_from(array(
 			"type" => "RELTYPE_SOURCE",
 		));
@@ -174,11 +178,11 @@ class document_archive extends class_base
 
 			// 1. calculate the date range
 			//	1.1 - if no range is given in the url, show default (which is last week)
-			//	1.2 - if range is given, then show articles from that day only	
+			//	1.2 - if range is given, then show articles from that day only
 
 			// I can't interfere with the usual thing, I need to put the document archive inside
 			// a document and then show it.
-				
+
 			// 2. show articles in the range
 
 			// 3. implement commenting as well, but that really is a completely different topic
@@ -206,7 +210,7 @@ class document_archive extends class_base
 
 		}
 		return $retval;
-	}	
+	}
 	*/
 
 	////
@@ -240,7 +244,7 @@ class document_archive extends class_base
 			$this->db_query($q);
 			$row = $this->db_next();
 			$rv .= $d->gen_preview(array(
-				"docid" => $row["oid"],	
+				"docid" => $row["oid"],
 				"tpl_auto" => 1,
 			));
 		};

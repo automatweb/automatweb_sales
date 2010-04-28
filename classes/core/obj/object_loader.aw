@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 /*
 
 this message will get called whenever an object is saved and given the class_id as the message type parameter
@@ -13,6 +13,26 @@ and the object's id as the "oid" parameter
 EMIT_MESSAGE(MSG_STORAGE_NEW)
 
 */
+
+class object_loader
+{
+	private static $instance = false;
+
+	public static function instance()
+	{
+		if (false === self::$instance)
+		{
+			$GLOBALS["objects"] = array();
+			$GLOBALS["properties"] = array();
+			$GLOBALS["tableinfo"] = array();
+			$GLOBALS["of2prop"] = array();
+			$GLOBALS["__obj_sys_opts"] = array();
+			self::$instance = new _int_object_loader();
+		}
+
+		return self::$instance;
+	}
+}
 
 class _int_object_loader extends core
 {
@@ -53,17 +73,17 @@ class _int_object_loader extends core
 
 		$dss = array_reverse(explode(",", $datasources));
 
-		$clname = "_int_obj_ds_".$dss[0];
+		$clname = "automatweb\\_int_obj_ds_".$dss[0];
 		// the first is the db specific ds, that does not contain anything
-		$this->ds = new $clname;
+		$this->ds = new $clname();
 
 		for ($i = 1; $i < count($dss); $i++)
 		{
-			$clname = "_int_obj_ds_".$dss[$i];
+			$clname = "automatweb\\_int_obj_ds_".$dss[$i];
 			$this->ds = new $clname($this->ds);
 		}
 
-		$this->object_member_funcs = get_class_methods("object");
+		$this->object_member_funcs = get_class_methods("automatweb\\object");
 		$this->cfgu = new cfgutils();
 		$this->cache = new cache();
 
@@ -131,7 +151,7 @@ class _int_object_loader extends core
 		}
 		elseif (is_string($param))
 		{
-			$oid = $this->oid_for_alias($param);
+			$oid = object_loader::instance()->oid_for_alias($param);
 			if (!$oid)
 			{
 				throw new awex_oid("Invalid object alias '{$param}'");
@@ -195,13 +215,13 @@ class _int_object_loader extends core
 		}
 
 		// determine class
-		if (isset($objdata["class_id"]) and is_class_id($class = $objdata["class_id"]) and isset($GLOBALS["cfg"]["classes"][$class]["object_override"]))
+		if (isset($objdata["class_id"]) and is_class_id($class = $objdata["class_id"]) and aw_ini_isset("classes.{$class}.object"))
 		{
-			$class = basename($GLOBALS["cfg"]["classes"][$class]["object_override"]);
+			$class = aw_ini_get("classes.{$class}.object");
 		}
 		else
 		{
-			$class = "_int_object";
+			$class = "automatweb\\_int_object";
 		}
 
 		$GLOBALS["objects"][$oid] = new $class($objdata, $constructor_args);
@@ -243,7 +263,7 @@ class _int_object_loader extends core
 			}
 
 			// get class
-			$class = isset($GLOBALS["cfg"]["classes"][$objdata["class_id"]]["object_override"]) ? basename($GLOBALS["cfg"]["classes"][$objdata["class_id"]]["object_override"]) : "_int_object";
+			$class = aw_ini_isset("classes.{$objdata["class_id"]}.object") ? aw_ini_get("classes.{$objdata["class_id"]}.object") : "automatweb\\_int_object";
 			$objdata["__obj_load_parameter"] = $oid;
 
 			$ref = new $class($objdata, $constructor_args);
@@ -560,28 +580,10 @@ class _int_object_loader extends core
 		return $max_acl;
 	}
 
-	function _log($new, $oid, $name, $clid = NULL)
-	{
-		if ($clid === NULL)
-		{
-			$tmpo = obj($oid);
-			// get object's class info
-			$clid = $tmpo->class_id();
-		}
-
-		if ($clid == 7)
-		{
-			$type = "ST_DOCUMENT";
-		}
-		elseif (!empty($GLOBALS["classinfo"][$clid]["syslog_type"]["text"]))
-		{
-			$type = $GLOBALS["classinfo"][$clid]["syslog_type"]["text"];
-		}
-		else
-		{
-			$type = 10000;
-		}
-	}
+/* incompatible with core::_log(), doesn't do anything, if not used or needed anywhere then delete
+DEPRECATED
+function _log($new, $oid, $name, $clid = NULL)	{ if ($clid === NULL) { $tmpo = obj($oid); // get object's class info $clid = $tmpo->class_id(); } if ($clid == 7){ $type = "ST_DOCUMENT"; } elseif (!empty($GLOBALS["classinfo"][$clid]["syslog_type"]["text"])) { $type = $GLOBALS["classinfo"][$clid]["syslog_type"]["text"]; } else { $type = 10000; } }
+*/
 
 	function resolve_reltype($type, $class_id)
 	{
@@ -646,11 +648,5 @@ class _int_object_loader extends core
 		}
 	}
 }
-
-$GLOBALS["objects"] = array();
-$GLOBALS["properties"] = array();
-$GLOBALS["tableinfo"] = array();
-$GLOBALS["of2prop"] = array();
-$GLOBALS["__obj_sys_opts"] = array();
 
 ?>

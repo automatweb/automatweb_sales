@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CRM_PERSON_WH_TABLE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_crm_person_wh_table master_index=brother_of master_table=objects index=aw_oid
@@ -56,6 +58,8 @@
 
 class crm_person_wh_table extends class_base
 {
+	const AW_CLID = 1509;
+
 	function crm_person_wh_table()
 	{
 		$this->init(array(

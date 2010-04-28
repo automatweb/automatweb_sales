@@ -21,7 +21,7 @@ class shop_matrix_obj extends _int_object
 			);
 			$company_inst = new crm_company_obj;
 			$product_category_inst = new shop_product_category_obj;
-			$admin_struct_inst = new country_administrative_structure_object;
+			$admin_struct_inst = new country_administrative_structure_obj;
 
 			foreach(safe_array($o->prop("matrix_customer_categories")) as $id)
 			{
@@ -103,7 +103,7 @@ class shop_matrix_obj extends _int_object
 			self::get_matrix_structure_parents($matrix["rows"]["products"] + $matrix["cols"]["customers"] + $matrix["cols"]["locations"] + $matrix["rows"]["products"], $matrix["parents"]);
 
 			$retval[$o->id()] = $matrix;
-		}		
+		}
 
 		return $retval[$o->id()];
 	}
@@ -203,7 +203,7 @@ class shop_matrix_obj extends _int_object
 			"row" => $row,
 			"col" => $col,
 			"parent" => $parent,
-		);		
+		);
 		foreach($subcols as $_col => $_subcols)
 		{
 			$this->update_code_add_cell($row, $_col, array("row" => $row, "col" => $col), array(), $_subcols);

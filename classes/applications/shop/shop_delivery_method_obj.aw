@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_delivery_method_obj extends shop_matrix_obj
 {
+	const AW_CLID = 1558;
+
 	public function prop($k)
 	{
 		switch($k)
@@ -45,7 +50,7 @@ class shop_delivery_method_obj extends shop_matrix_obj
 		{
 			self::valid_validate_arguments($arr);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			throw $e;
 		}

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_offer_products_list.aw,v 1.3 2008/01/31 13:54:13 kristo Exp $
 // crm_offer_products_list.aw - Pakkumise toodete nimekiri 
 /*
@@ -33,6 +35,8 @@
 
 class crm_offer_products_list extends class_base
 {
+	const AW_CLID = 910;
+
 	function crm_offer_products_list()
 	{
 		$this->init(array(

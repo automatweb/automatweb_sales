@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class image_obj extends _int_object
 {
+	const AW_CLID = 6;
+
 	function set_prop($k, $v)
 	{
 		if($k == "file" || $k == "file2")
@@ -277,7 +282,7 @@ class image_obj extends _int_object
 	**/
 	public function add_image_big($file)
 	{
-		$_fi = get_instance(CL_FILE);
+		$_fi = new file();
 		$mime = get_instance("core/aw_mime_types");
 
 		$f2 = $_fi->_put_fs(array(

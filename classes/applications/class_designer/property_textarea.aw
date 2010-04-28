@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property_textarea.aw,v 1.4 2007/12/06 14:33:04 kristo Exp $
 // property_textarea.aw - Tekstikast 
 /*
@@ -20,6 +22,8 @@
 
 class property_textarea extends class_base
 {
+	const AW_CLID = 888;
+
 	function property_textarea()
 	{
 		$this->init(array(

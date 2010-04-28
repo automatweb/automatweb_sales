@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_recommendation.aw - Soovitus
 /*
 
@@ -43,6 +45,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CRM_PERSON, on_connect_
 
 class crm_recommendation extends class_base
 {
+	const AW_CLID = 1406;
+
 	function crm_recommendation()
 	{
 		$this->init(array(

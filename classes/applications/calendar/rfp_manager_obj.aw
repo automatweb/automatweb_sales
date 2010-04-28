@@ -1,6 +1,11 @@
 <?php
+
+namespace automatweb;
+
 class rfp_manager_obj extends _int_object
 {
+	const AW_CLID = 1192;
+
 
 	/** Fetches conference rooms
 		@comment

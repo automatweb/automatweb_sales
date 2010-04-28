@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class aw_oid
 {
 	private $oid = "";

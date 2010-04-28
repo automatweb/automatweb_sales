@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_warehouse_obj extends _int_object
 {
+	const AW_CLID = 289;
+
 	const STATCALC_FIFO = 1;
 	const STATCALC_WEIGHTED_AVERAGE = 2;
 

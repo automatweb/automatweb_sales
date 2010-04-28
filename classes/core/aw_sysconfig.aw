@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/aw_sysconfig.aw,v 1.4 2008/01/31 13:52:49 kristo Exp $
 // aw_sysconfig.aw - AW Sysconfig 
 /*
@@ -24,6 +26,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_USER_CREATE, CL_USER, on_interesting_gossip)
 
 class aw_sysconfig extends class_base
 {
+	const AW_CLID = 479;
+
 	function aw_sysconfig()
 	{
 		$this->init(array(

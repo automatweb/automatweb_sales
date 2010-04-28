@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_warehouse_selling_order.aw,v 1.2 2008/01/31 13:50:07 kristo Exp $
 // shop_warehouse_selling_order.aw - Müügitellimus 
 /*
@@ -44,6 +46,8 @@
 
 class shop_warehouse_selling_order extends class_base
 {
+	const AW_CLID = 1041;
+
 	function shop_warehouse_selling_order()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

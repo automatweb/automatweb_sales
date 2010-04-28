@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 @classinfo no_status=1 syslog_type=ST_LINKS maintainer=kristo
 @tableinfo extlinks index=id master_table=objects master_index=oid
@@ -97,6 +99,8 @@
 
 class links extends class_base
 {
+	const AW_CLID = 21;
+
 	function links()
 	{
 		$this->init(array(
@@ -307,7 +311,7 @@ class links extends class_base
 				if ($img->count() > 0)
 				{
 					$o =& $img->begin();
-					$f = get_instance(CL_FILE);
+					$f = new file();
 					if ($f->can_be_embedded($o))
 					{
 						$prop['value'] = html::img(array(
@@ -381,7 +385,7 @@ class links extends class_base
 					$old_file = $o->id();
 				}
 
-				$f = get_instance(CL_FILE);
+				$f = new file();
 				$f->add_upload_image("link_image", $arr['obj_inst']->id(), $old_file);
 				$retval = PROP_IGNORE;
 				break;

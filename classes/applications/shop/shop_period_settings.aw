@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_period_settings.aw,v 1.3 2008/01/31 13:50:07 kristo Exp $
 // shop_period_settings.aw - Ajaseaded 
 /*
@@ -12,6 +14,8 @@
 
 class shop_period_settings extends class_base
 {
+	const AW_CLID = 291;
+
 	function shop_period_settings()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

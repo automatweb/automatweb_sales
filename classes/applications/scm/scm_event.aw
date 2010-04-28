@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_event.aw,v 1.9 2007/12/06 14:34:06 kristo Exp $
 // scm_event.aw - Spordiala 
 /*
@@ -25,6 +27,8 @@
 
 class scm_event extends class_base
 {
+	const AW_CLID = 1094;
+
 	function scm_event()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_ORDERER_DATA_SITE_SHOW_DELIVERY_NOTES relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
 @tableinfo aw_shop_orderer_data_site_show master_index=brother_of master_table=objects index=aw_oid
@@ -12,6 +14,8 @@
 
 class shop_orderer_data_site_show_delivery_notes extends shop_orderer_data_site_show
 {
+	const AW_CLID = 1572;
+
 	function shop_orderer_data_site_show_delivery_notes()
 	{
 		$this->init(array(

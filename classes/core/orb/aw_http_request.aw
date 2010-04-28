@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class aw_http_request extends aw_request
 {
 	private $_uri; // request uri aw_uri object if available, empty aw_uri object if not. read-only
@@ -75,7 +77,7 @@ class aw_http_request extends aw_request
 					$this->args = $uri_args;
 				}
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$this->_uri = new aw_uri();
 			}
@@ -147,7 +149,7 @@ class aw_http_request extends aw_request
 		{
 			$this->_uri->set_arg($this->args);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			if (is_a($e, "awex_uri_type"))
 			{

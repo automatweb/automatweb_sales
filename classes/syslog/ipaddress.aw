@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 @classinfo syslog_type=ST_IPADDRESS no_status=1  maintainer=kristo
@@ -21,6 +23,8 @@
 
 class ipaddress extends class_base
 {
+	const AW_CLID = 168;
+
 	function ipaddress()
 	{
 		$this->init(array(

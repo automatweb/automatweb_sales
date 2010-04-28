@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_va.aw,v 1.17 2007/12/12 10:30:22 dragut Exp $
 // expp_va.aw - Expp väljaanne 
 /*
@@ -11,6 +13,8 @@
 */
 
 class expp_va extends class_base {
+	const AW_CLID = 989;
+
 
 	var $cy;
 	var $cp;

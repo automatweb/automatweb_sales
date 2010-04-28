@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class add_tree_conf_obj extends _int_object
 {
+	const AW_CLID = 118;
+
 	const BEHAVIOUR_RESTRICTIVE = 1;
 	const BEHAVIOUR_PERMISSIVE = 2;
 

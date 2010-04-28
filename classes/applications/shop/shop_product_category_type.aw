@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_PRODUCT_CATEGORY_TYPE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=smeedia
 @tableinfo aw_shop_product_category_type master_index=brother_of master_table=objects index=aw_oid
@@ -18,6 +20,8 @@
 
 class shop_product_category_type extends class_base
 {
+	const AW_CLID = 1575;
+
 	function shop_product_category_type()
 	{
 		$this->init(array(

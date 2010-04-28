@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CLASSIFICATOR relationmgr=yes maintainer=kristo
 
@@ -24,6 +26,8 @@
 
 class classificator extends class_base
 {
+	const AW_CLID = 203;
+
 	function classificator()
 	{
 		$this->init(array(

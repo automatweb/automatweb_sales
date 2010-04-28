@@ -1,9 +1,9 @@
 <?php
 
-/*
-@classinfo maintainer=kristo
-HANDLE_MESSAGE(MSG_USER_LOGIN, on_login)
+namespace automatweb;
 
+/*
+HANDLE_MESSAGE(MSG_USER_LOGIN, on_login)
 */
 
 class site_list_updater extends aw_template
@@ -37,7 +37,8 @@ class site_list_updater extends aw_template
 
 		try
 		{
-			get_instance("protocols/file/http")->get($url);
+			$http = new http();
+			$http->get($url);
 		}
 		catch (awex_socket_timeout $e)
 		{
@@ -70,7 +71,7 @@ class site_list_updater extends aw_template
 		$this->_set_last_update_time();
 		// update this site's info in the site list
 		// check if we have a session key for this site
-		if (!($key = $this->_get_session_key()) || $key == "Array")
+		if (!($key = $this->_get_session_key()) || $key === "Array")
 		{
 			// if not, request a session key from the site list server
 			$key = $this->_init_session_key();
@@ -150,7 +151,7 @@ class site_list_updater extends aw_template
 
 	function _encrypt($data, $key)
 	{
-		$i = get_instance("protocols/crypt/xtea");
+		$i = new xtea();
 		return $i->encrypt($data, $key);
 	}
 
@@ -167,6 +168,7 @@ class site_list_updater extends aw_template
 			),
 			"no_errors" => 1
 		));
+
 		if ($res)
 		{
 			$this->_set_last_update_time();

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/site_search/site_search_content_grp_multisite.aw,v 1.5 2008/07/31 12:35:47 markop Exp $
 // site_search_content_grp_multisite.aw - Saidi sisu otsingu grupp mitu saiti 
 /*
@@ -18,6 +20,8 @@
 
 class site_search_content_grp_multisite extends class_base
 {
+	const AW_CLID = 1245;
+
 	function site_search_content_grp_multisite()
 	{
 		$this->init(array(

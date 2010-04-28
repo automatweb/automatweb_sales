@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_score_calc.aw,v 1.11 2007/12/06 14:34:06 kristo Exp $
 // scm_score_calc.aw - Punktis&uuml;steem 
 /*
@@ -50,6 +52,8 @@
 
 class scm_score_calc extends class_base
 {
+	const AW_CLID = 1097;
+
 	function scm_score_calc()
 	{
 		$this->init(array(

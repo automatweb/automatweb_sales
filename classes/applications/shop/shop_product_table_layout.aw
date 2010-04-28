@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_table_layout.aw,v 1.25 2009/07/28 09:38:19 markop Exp $
 // shop_product_table_layout.aw - Lao toodete tabeli kujundus 
 /*
@@ -25,6 +27,8 @@
 
 class shop_product_table_layout extends class_base
 {
+	const AW_CLID = 316;
+
 	function shop_product_table_layout()
 	{
 		$this->init(array(

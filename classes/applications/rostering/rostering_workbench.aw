@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/rostering/rostering_workbench.aw,v 1.10 2007/12/06 14:34:03 kristo Exp $
 // rostering_workbench.aw - T&ouml;&ouml;aja planeerimine 
 /*
@@ -152,6 +154,8 @@
 
 class rostering_workbench extends class_base
 {
+	const AW_CLID = 1135;
+
 	function rostering_workbench()
 	{
 		$this->init(array(

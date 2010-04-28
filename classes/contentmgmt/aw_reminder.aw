@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/aw_reminder.aw,v 1.1 2009/06/09 10:36:29 instrumental Exp $
 // aw_reminder.aw - Meeldetuletus 
 /*
@@ -39,6 +41,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_DOCUMENT, on_rdisconne
 
 class aw_reminder extends class_base
 {
+	const AW_CLID = 871;
+
 	function aw_reminder()
 	{
 		$this->init(array(

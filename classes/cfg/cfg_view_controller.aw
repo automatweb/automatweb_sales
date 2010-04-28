@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CFG_VIEW_CONTROLLER relationmgr=yes maintainer=kristo allow_rte=3
 
@@ -16,6 +18,8 @@
 
 class cfg_view_controller extends class_base
 {
+	const AW_CLID = 865;
+
 	function cfg_view_controller()
 	{
 		$this->init(array(

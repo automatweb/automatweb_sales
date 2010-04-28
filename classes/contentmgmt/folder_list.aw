@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/folder_list.aw,v 1.15 2008/01/31 13:52:14 kristo Exp $
 // folder_list.aw - Kaustade nimekiri 
 /*
@@ -36,6 +38,8 @@
 
 class folder_list extends class_base
 {
+	const AW_CLID = 255;
+
 	function folder_list()
 	{
 		$this->init(array(

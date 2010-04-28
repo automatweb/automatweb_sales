@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
+
+namespace automatweb;
 
 ### address system settings
 define ("ADDRESS_SYSTEM", 1);

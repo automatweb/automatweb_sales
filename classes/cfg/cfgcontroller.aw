@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CFGCONTROLLER relationmgr=yes maintainer=kristo allow_rte=3
 
@@ -33,6 +35,8 @@ caption Veateade popupis
 
 class cfgcontroller extends class_base
 {
+	const AW_CLID = 810;
+
 	function cfgcontroller()
 	{
 		$this->init(array(

@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 define("IS_PARSED", 1);
 define("NOT_PARSED", 0);
 
@@ -40,14 +40,14 @@ class parser extends aw_template
 		}
 	}
 
-	/** user interface for the parser 
-		
+	/** user interface for the parser
+
 		@attrib name=opts params=name default="1"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -79,14 +79,14 @@ class parser extends aw_template
 		return $this->parse();
 	}
 
-	/** translate the variables from the parser ui to the parser func 
-		
+	/** translate the variables from the parser ui to the parser func
+
 		@attrib name=submit_parse params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -101,17 +101,17 @@ class parser extends aw_template
 		));
 	}
 
-	/** goes through all files in class directory and if $add_enter_func = true, adds enter_function / exit_function calls 
-		
+	/** goes through all files in class directory and if $add_enter_func = true, adds enter_function / exit_function calls
+
 		@attrib name=parse params=name default="0"
-		
+
 		@param add_enter_func optional
 		@param remove_enter_func optional
 		@param classes optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		and if remove_enter_func is true, removes the enter/exit_function calls
 		if neither is, set, simply displays the list of functions for every class
@@ -193,7 +193,7 @@ class parser extends aw_template
 		$fc = fread($f,filesize($file));
 		fclose($f);
 
-		$fc = $this->strip_comments($fc); 
+		$fc = $this->strip_comments($fc);
 /*		echo "stripped comments: <br /><pre>";
 		$lar = explode("\n",$fc);
 		$cnt = 1;
@@ -346,7 +346,7 @@ class parser extends aw_template
 //					flush();
 					$try = $this->p_get_token();
 				}
-				
+
 				if ($try == "{")	// class starts
 				{
 					$in_class = true;
@@ -369,7 +369,7 @@ class parser extends aw_template
 				$args = "";
 				while (($_tok = $this->_p_get_token()) != "("); // opening (
 				$bracket_level = 1;
-				// now. we must find the end of the argument string, can't just end it at ) , because it might contain array() 
+				// now. we must find the end of the argument string, can't just end it at ) , because it might contain array()
 				// so we do bracket level counting to find the real end
 				do
 				{
@@ -420,8 +420,8 @@ class parser extends aw_template
 			else
 			if ($tok == "}")
 			{
-				// ok, brace close, we must figure out what this means. 
-				// check if class ends 
+				// ok, brace close, we must figure out what this means.
+				// check if class ends
 				$brace_level--;
 //				echo "found } in line ".$this->p_get_line()." , brace_level = $brace_level , class_start = $class_start_brace_level <br />";
 				if ($brace_level == $class_start_brace_level && $in_class)
@@ -534,7 +534,7 @@ class parser extends aw_template
 			if ($ch == "{" || $ch == "}")
 			{
 				// brace always gets it's own token
-				if ($tok != "")	
+				if ($tok != "")
 				{
 					// if we are in the middle of a token, end it, so the next time around we get just the brace
 					$this->p_ungetch();
@@ -547,7 +547,7 @@ class parser extends aw_template
 				}
 			}
 
-			if ($ch === false)	// if end of stream, return 
+			if ($ch === false)	// if end of stream, return
 			{
 				return $tok;
 			}
@@ -634,7 +634,7 @@ class parser extends aw_template
 		$fc_lines = explode("\n", $fc);
 
 		$final = array();
-		// go over all the lines in the file and if we hit a function start line or a function end line or a function return line, 
+		// go over all the lines in the file and if we hit a function start line or a function end line or a function return line,
 		// add the necessary stuff to it
 		foreach($fc_lines as $lnr => $line)
 		{
@@ -648,7 +648,7 @@ class parser extends aw_template
 			{
 				if ($lnr != ($last_exit+1))	// this to avoid 2 exit funcs at the end of a function that returns something
 				{
-					// add exit function 
+					// add exit function
 					$final[] = "\t\texit_function(\"".$fdat["class"]."::".$fdat["func"]."\");";
 					$last_exit = $lnr;
 				}
@@ -678,7 +678,7 @@ class parser extends aw_template
 	}
 
 	////
-	// !this returns the code for the function $func_name, 
+	// !this returns the code for the function $func_name,
 	// assuming that the parse tree is in $this->functions
 	// and $lines contain the lines of code for the file in the parse tree
 	function get_func_content($class_name, $func_name, $lines)

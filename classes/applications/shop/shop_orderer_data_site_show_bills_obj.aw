@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_orderer_data_site_show_bills_obj extends shop_orderer_data_site_show_obj
 {
+	const AW_CLID = 1569;
+
 	function prop($k)
 	{
 

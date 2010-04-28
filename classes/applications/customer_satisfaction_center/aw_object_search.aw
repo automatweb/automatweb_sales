@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // aw_object_search.aw - AW Objektide otsing
 /*
 
@@ -209,6 +211,8 @@
 
 class aw_object_search extends class_base
 {
+	const AW_CLID = 1132;
+
 	private $u_oids = array();
 
 	function aw_object_search()

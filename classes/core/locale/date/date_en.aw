@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
+
+namespace automatweb;
+
 class awlc_date_en implements awlc_date
 {
 	protected static $month = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");

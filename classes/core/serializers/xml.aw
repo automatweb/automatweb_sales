@@ -1,9 +1,9 @@
 <?php
 // xml.aw - xml serializer
 // at the moment (Apr 25, 2001) it can serialize PHP arrays to XML and vice versa
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class xml
 {
 	////

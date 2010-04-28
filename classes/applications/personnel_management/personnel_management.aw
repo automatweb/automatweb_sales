@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/personnel_management/personnel_management.aw,v 1.98 2009/05/13 08:45:33 kristo Exp $
 // personnel_management.aw - Personalikeskkond
 /*
@@ -718,6 +720,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_CRM_PERSON, on_add_person)
 
 class personnel_management extends class_base
 {
+	const AW_CLID = 275;
+
 	function personnel_management()
 	{
 		$this->init(array(
@@ -2207,7 +2211,7 @@ class personnel_management extends class_base
 		}
 
 		// A - Z filters
-		$c = get_instance("vcl/popup_menu");
+		$c = new popup_menu();
 		$c->begin_menu("crm_co_ppl_filt");
 
 		$c->add_item(array(

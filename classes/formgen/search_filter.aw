@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // ~1220 rida jama:)
 /*
 @classinfo  maintainer=kristo
@@ -6,6 +8,8 @@
 
 class search_filter extends aw_template
 {
+	const AW_CLID = 78;
+
         function search_filter()
         {
                 $this->init("automatweb/filter");

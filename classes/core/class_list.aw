@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/class_list.aw,v 1.8 2008/01/31 13:52:49 kristo Exp $
 // class_list.aw - Klasside nimekiri 
 /*
@@ -12,6 +14,8 @@
 
 class class_list extends class_base
 {
+	const AW_CLID = 331;
+
 	function class_list()
 	{
 		$this->init(array(

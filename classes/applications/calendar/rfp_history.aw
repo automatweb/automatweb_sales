@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/rfp_history.aw,v 1.3 2007/12/06 14:32:55 kristo Exp $
 // rfp_history.aw - RFP Ajalugu veebis 
 /*
@@ -12,6 +14,8 @@
 
 class rfp_history extends class_base
 {
+	const AW_CLID = 1194;
+
 	function rfp_history()
 	{
 		$this->init(array(

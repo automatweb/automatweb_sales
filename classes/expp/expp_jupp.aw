@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_jupp.aw,v 1.9 2007/11/23 07:18:28 dragut Exp $
 // expp_jupp.aw - Expp Jupp 
 /*
@@ -12,6 +14,8 @@
 
 class expp_jupp extends class_base
 {
+	const AW_CLID = 983;
+
 	var $valjad	= array(
 			"algus"			=>	"algus",
 			"arvenr"			=>	"arvenr",

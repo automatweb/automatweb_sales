@@ -1,8 +1,10 @@
 <?php
 
+namespace automatweb;
+
 class aw_editor_manager_base extends aw_template
 {
-	protected function _init_t(&$t, $tbl_type)
+	protected function _init_t($t, $tbl_type)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -32,7 +34,6 @@ class aw_editor_manager_base extends aw_template
 
 	protected function draw_form($arr)
 	{
-		classload("cfg/htmlclient");
 		$htmlc = new htmlclient(array(
 			'template' => "default",
 		));

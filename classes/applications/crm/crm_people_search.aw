@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_people_search.aw - Isikute otsing
 /*
 
@@ -27,6 +29,8 @@ caption Isikute otsinguvormi template
 
 class crm_people_search extends class_base
 {
+	const AW_CLID = 1390;
+
 	function crm_people_search()
 	{
 		$this->init(array(

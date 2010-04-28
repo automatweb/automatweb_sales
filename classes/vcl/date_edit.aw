@@ -2,9 +2,9 @@
 // klassile antakse ette "unix timestamp", ta konverdib
 // selle ajayhikuteks, ning tagastab nende muutmiseks
 // sobivad vormielemendid
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class date_edit
 {
 	// vormielementide nimed saavad olema kujul

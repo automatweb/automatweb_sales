@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_basket_short.aw,v 1.8 2008/02/17 21:13:01 kristo Exp $
 // expp_basket_short.aw - Expp short basket 
 /*
@@ -12,6 +14,8 @@
 
 class expp_basket_short extends class_base implements main_subtemplate_handler
 {
+	const AW_CLID = 986;
+
 	function expp_basket_short()
 	{
 		$this->init(array(

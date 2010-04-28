@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_person_add_education.aw,v 1.7 2008/11/25 12:50:59 instrumental Exp $
 // crm_person_education.aw - Haridus 
 /*
@@ -35,6 +37,8 @@
 
 class crm_person_add_education extends class_base
 {
+	const AW_CLID = 645;
+
 	function crm_person_add_education()
 	{
 		$this->init(array(

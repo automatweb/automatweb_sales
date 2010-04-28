@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/package_management/package_server.aw,v 1.20 2008/12/05 13:15:58 markop Exp $
 // package_server.aw - Pakiserver 
 /*
@@ -77,6 +79,8 @@
 
 class package_server extends class_base
 {
+	const AW_CLID = 1211;
+
 	var $model;
 
 	function package_server()

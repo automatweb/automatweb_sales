@@ -1,5 +1,8 @@
 <?php
 
+namespace automatweb;
+
+
 /*
 @classinfo  maintainer=voldemar
 */
@@ -8,6 +11,8 @@ require_once "mrp_header.aw";
 
 class mrp_case_obj extends _int_object
 {
+	const AW_CLID = 828;
+
 	const STATE_NEW = 1; // project hasn't been planned yet
 	const STATE_PLANNED = 2; // start time has been planned. project is in schedule
 	const STATE_ABORTED = 4; // work was started but then stopped with no knowledge if resumed in future
@@ -180,7 +185,7 @@ class mrp_case_obj extends _int_object
 			{
 				throw $e;
 			}
-			catch (Exception $E)
+			catch (\Exception $E)
 			{
 			}
 
@@ -415,7 +420,7 @@ class mrp_case_obj extends _int_object
 				$ws->mrp_log($this->id(), NULL, "Projekt planeeriti");
 			}
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			$error_message = "Unknown error (" . get_class($e) . "): " . $e->getMessage();
 			$e = new awex_mrp_case($error_message);
@@ -541,7 +546,7 @@ class mrp_case_obj extends _int_object
 		{
 			throw $e;
 		}
-		catch (Exception $E)
+		catch (\Exception $E)
 		{
 			if (isset($prev_progress))
 			{

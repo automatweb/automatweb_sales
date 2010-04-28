@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/protocols/mail/pop3.aw,v 1.4 2008/01/31 13:55:23 kristo Exp $
 // pop3.aw - POP3 login 
 /*
@@ -23,6 +25,8 @@
 
 class pop3 extends class_base
 {
+	const AW_CLID = 228;
+
 	function pop3()
 	{
 		$this->init(array(

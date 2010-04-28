@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 A special toolbar for object editing views
 Contains save and save and close buttons by default

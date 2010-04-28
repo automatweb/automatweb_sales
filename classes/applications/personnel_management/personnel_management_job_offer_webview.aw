@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // personnel_management_job_offer_webview.aw - T&ouml;&ouml;pakkumised veebis
 /*
 
@@ -77,6 +79,8 @@
 
 class personnel_management_job_offer_webview extends class_base
 {
+	const AW_CLID = 1421;
+
 	function personnel_management_job_offer_webview()
 	{
 		$this->init(array(

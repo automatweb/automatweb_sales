@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/comics_script.aw,v 1.3 2007/12/06 14:32:55 kristo Exp $
 // comics_script.aw - Koomiksi skript 
 /*
@@ -21,6 +23,8 @@
 
 class comics_script extends class_base
 {
+	const AW_CLID = 915;
+
 	function comics_script()
 	{
 		$this->init(array(

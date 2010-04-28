@@ -1,11 +1,16 @@
 <?php
 
+namespace automatweb;
+
+
 /*
 @classinfo maintainer=voldemar
 */
 
 class csv_import_obj extends _int_object
 {
+	const AW_CLID = 1562;
+
 	public function save($exclusive = false, $previous_state = null)
 	{
 		if (!is_class_id($this->prop("import_class")))

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/survey/survey_manager.aw,v 1.11 2008/03/12 21:23:17 kristo Exp $
 // survey_manager.aw - Ankeetide haldur 
 /*
@@ -59,6 +61,8 @@
 
 class survey_manager extends class_base
 {
+	const AW_CLID = 350;
+
 	function survey_manager()
 	{
 		$this->init(array(
@@ -93,7 +97,7 @@ class survey_manager extends class_base
 				$cform_id = $o->prop("use_cfgform");
 				if (is_oid($cform_id))
 				{
-					$t = get_instance(CL_CFGFORM);
+					$t = new cfgform();
 					$props = $t->get_props_from_cfgform(array("id" => $cform_id));
 					$opts = array();
 					foreach($props as $key => $val)
@@ -173,7 +177,7 @@ class survey_manager extends class_base
 		$use_props = $all_props = array();
 		if (is_oid($cform_id) && $this->can("view", $cform_id))
 		{
-			$cf = get_instance(CL_CFGFORM);
+			$cf = new cfgform();
 			$use_props = $cf->get_props_from_cfgform(array("id" => $cform_id));
 			$cfgu = get_instance("cfg/cfgutils");
 			$all_props = $cfgu->load_properties(array(
@@ -434,7 +438,7 @@ class survey_manager extends class_base
 		$use_props = $all_props = array();
 		if (is_oid($cform_id) && $this->can("view", $cform_id))
 		{
-			$cf = get_instance(CL_CFGFORM);
+			$cf = new cfgform();
 			$use_props = $cf->get_props_from_cfgform(array("id" => $cform_id));
 			$this->cf_obj = new object($cform_id);
 			$cfgu = get_instance("cfg/cfgutils");

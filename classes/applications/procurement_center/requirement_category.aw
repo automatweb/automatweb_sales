@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/requirement_category.aw,v 1.2 2007/12/06 14:33:50 kristo Exp $
 // requirement_category.aw - N&otilde;ude kategooria 
 /*
@@ -12,6 +14,8 @@
 
 class requirement_category extends class_base
 {
+	const AW_CLID = 1172;
+
 	function requirement_category()
 	{
 		$this->init(array(

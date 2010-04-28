@@ -364,10 +364,10 @@ class project_files_impl extends class_base
 		$ol = new object_list($filter);
 		classload("core/icons");
 		$clss = aw_ini_get("classes");
-		get_instance(CL_FILE);
+		new file();
 		foreach($ol->arr() as $o)
 		{
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu("sf".$o->id());
 			
 			if ($o->class_id() == CL_FILE)

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo  maintainer=tarvo
 */

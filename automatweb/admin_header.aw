@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 $uid = "";	// for the extra paranoid
 unset($_SESSION["nliug"]);
 

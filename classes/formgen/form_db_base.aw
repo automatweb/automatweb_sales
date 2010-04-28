@@ -246,7 +246,7 @@ class form_db_base extends class_base
 			// now, if this form is translated, then copy the entry to all languages
 			if ($this->arr["is_translatable"])
 			{
-				$l = get_instance("languages");
+				$l = new languages();
 				$ll = $l->get_list();
 				foreach($ll as $lid => $ld)
 				{

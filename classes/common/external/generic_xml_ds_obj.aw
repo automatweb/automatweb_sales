@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class generic_xml_ds_obj extends _int_object implements object_import_ds_interface
 {
+	const AW_CLID = 1391;
+
 	public function get_objects($params = array())
 	{
 	}

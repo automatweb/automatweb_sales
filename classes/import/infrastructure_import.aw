@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_INFRASTRUCTURE_IMPORT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_infrastructure_import master_index=brother_of master_table=objects index=aw_oid
@@ -27,6 +29,8 @@
 
 class infrastructure_import extends class_base
 {
+	const AW_CLID = 1542;
+
 	function infrastructure_import()
 	{
 		$this->init(array(

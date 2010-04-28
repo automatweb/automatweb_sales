@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_number_series.aw,v 1.13 2008/07/28 11:28:41 markop Exp $
 // crm_number_series.aw - CRM Numbriseeria 
 /*
@@ -14,6 +16,8 @@
 
 class crm_number_series extends class_base
 {
+	const AW_CLID = 1048;
+
 	function crm_number_series()
 	{
 		$this->init(array(
@@ -316,7 +320,7 @@ class crm_number_series extends class_base
 		}
 		else
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$co = obj($u->get_current_company());
 			$ser = $co->get_first_obj_by_reltype("RELTYPE_NUMBER_SERIES");
 		}
@@ -330,7 +334,7 @@ class crm_number_series extends class_base
 
 	function number_is_in_series($class, $num)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		$series = $co->get_first_obj_by_reltype("RELTYPE_NUMBER_SERIES");
 

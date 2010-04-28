@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/budgeting/budget.aw,v 1.11 2008/05/15 15:29:53 markop Exp $
 // budget.aw - Eelarve 
 /*
@@ -57,6 +59,8 @@
 
 class budget extends class_base
 {
+	const AW_CLID = 1213;
+
 	function budget()
 	{
 		$this->init(array(

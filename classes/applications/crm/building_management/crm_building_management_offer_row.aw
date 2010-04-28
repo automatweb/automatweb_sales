@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/building_management/crm_building_management_offer_row.aw,v 1.3 2007/12/06 14:33:21 kristo Exp $
 // crm_building_management_offer_row.aw - Pakkumise rida 
 /*
@@ -12,6 +14,8 @@
 
 class crm_building_management_offer_row extends class_base
 {
+	const AW_CLID = 1106;
+
 	function crm_building_management_offer_row()
 	{
 		$this->init(array(

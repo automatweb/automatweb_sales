@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/formgen/form.aw,v 1.135 2009/01/12 10:40:17 kristo Exp $
 // form.aw - Class for creating forms
 /*
@@ -30,6 +32,8 @@ classload("formgen/form_base");
 load_vcl("date_edit");
 class form extends form_base
 {
+	const AW_CLID = 2;
+
 	function form()
 	{
 		$this->form_base();
@@ -1267,7 +1271,7 @@ class form extends form_base
 			"SEARCH_OP" => $sopels
 		));
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$lang_list = $l->get_list();
 
 		$asl_lang ="";
@@ -1661,7 +1665,7 @@ class form extends form_base
 		if ($this->arr["is_translatable"] && !$this->arr["dont_show_trans"] && $in_grps)
 		{
 			$tra = "";
-			$la = get_instance("languages");
+			$la = new languages();
 			$ll = $la->get_list();
 			foreach($ll as $lid => $ld)
 			{
@@ -5388,7 +5392,7 @@ class form extends form_base
 		extract($arr);
 		$this->if_init($id,"translate.tpl","T&otilde;gi");
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$langs = $la->listall(true);
 
 		foreach($langs as $lar)
@@ -5833,7 +5837,7 @@ class form extends form_base
 		extract($arr);
 		$this->load($id);
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$langs = $la->listall(true);
 
 		for ($row=0; $row < $this->arr["rows"]; $row++)
@@ -7426,7 +7430,7 @@ class form extends form_base
 				$e2l[$row['id']][$row['lang_id']] = $row["id"];
 			}
 
-			$l = get_instance("languages");
+			$l = new languages();
 			$la = $l->get_list();
 
 			// now go over all entries and check if they have data for all languages.

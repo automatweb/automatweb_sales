@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class class_relations_manager
 {
@@ -54,7 +53,7 @@ class class_relations_manager
 				$mc = $cc;
 			}
 		}
-		
+
 		// now, add the relevant data like tables and properties to join via
 		// to the result path
 		return $this->final_process_path($ret);
@@ -62,7 +61,7 @@ class class_relations_manager
 
 	function precompute_relation_graph()
 	{
-		// ok, here we just stuff all the possible relations between classes into a damn tree. 
+		// ok, here we just stuff all the possible relations between classes into a damn tree.
 
 		// this->graph will contain clid => $dat
 		// where $dat is array of related_clid => $rel_dat
@@ -142,10 +141,10 @@ class class_relations_manager
 	}
 
 	/** joins several paths together
-	
+
 		@comment
-			
-			what this does, is take a bunch of join paths, checks if they contain 
+
+			what this does, is take a bunch of join paths, checks if they contain
 			any classes that are in several paths
 			and if so, combines the paths together
 	**/
@@ -154,7 +153,7 @@ class class_relations_manager
 		// for now, jsut return all and see if we actually need to do
 		// this step. we do if we start getting duplicate table errors in sql
 		return $ps;
-	}	
+	}
 
 	function _do_comp_class_rel_graph($clid)
 	{

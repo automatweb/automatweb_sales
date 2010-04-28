@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // realestate_land.aw - Maatükk
 /*
 
@@ -59,6 +61,8 @@ classload("applications/realestate_management/realestate_property");
 
 class realestate_land extends realestate_property
 {
+	const AW_CLID = 945;
+
 	function realestate_land()
 	{
 		$this->init(array(

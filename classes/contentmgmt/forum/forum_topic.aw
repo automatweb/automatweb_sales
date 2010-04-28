@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/forum/forum_topic.aw,v 1.30 2009/02/02 12:02:55 dragut Exp $
 // forum_comment.aw - foorumi kommentaar
 /*
@@ -56,6 +58,8 @@
 
 class forum_topic extends class_base
 {
+	const AW_CLID = 34;
+
 	function forum_topic()
 	{
 		$this->init(array(

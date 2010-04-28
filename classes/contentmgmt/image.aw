@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/image.aw,v 1.53 2009/08/18 14:58:23 dragut Exp $
 // image.aw - image management
 /*
@@ -142,6 +144,8 @@ define("FL_IMAGE_CAN_COMMENT", 1);
 
 class image extends class_base
 {
+	const AW_CLID = 6;
+
 	function image()
 	{
 		$this->init(array(
@@ -722,7 +726,7 @@ class image extends class_base
 	function add_upload_multifile($name,$parent)
 	{
 		$output = Array();
-		$_fi = get_instance(CL_FILE);
+		$_fi = new file();
 		foreach ($_FILES[$name]["error"] as $key => $error)
 		{
 			if ($error == UPLOAD_ERR_OK)
@@ -781,7 +785,7 @@ class image extends class_base
 	{
 		$img_id = (int)$img_id;
 
-		$_fi = get_instance(CL_FILE);
+		$_fi = new file();
 		if ($_FILES[$name]['tmp_name'] != "" && $_FILES[$name]['tmp_name'] != "none")
 		{
 			if (!$this->can("view", $img_id))
@@ -1363,7 +1367,7 @@ class image extends class_base
 				// if a file was found, then move it to wherever it should be located
 				if (is_uploaded_file($src_file))
 				{
-					$_fi = get_instance(CL_FILE);
+					$_fi = new file();
 					$final_name = $_fi->generate_file_path(array(
 						"type" => $ftype,
 					));
@@ -1523,7 +1527,7 @@ class image extends class_base
 			$oid = $id;
 		}
 
-		$_fi = get_instance(CL_FILE);
+		$_fi = new file();
 		$mime = get_instance("core/aw_mime_types");
 		$fl = $_fi->_put_fs(array(
 			"type" => $mime->type_for_file($orig_name),
@@ -2116,7 +2120,7 @@ class image extends class_base
 				$bigf = $o->prop("file");
 				if ($bigf)
 				{
-					$f = get_instance(CL_FILE);
+					$f = new file();
 					$bigf = $f->_put_fs(array(
 						"type" => "image/jpg",
 						"content" => $this->get_file(array("file" => $bigf))
@@ -2141,7 +2145,7 @@ class image extends class_base
 			$smallf = $o->prop("file2");
 			if ($smallf)
 			{
-				$f = get_instance(CL_FILE);
+				$f = new file();
 				$smallf = $f->_put_fs(array(
 					"type" => "image/jpg",
 					"content" => $this->get_file(array("file" => $smallf))
@@ -2617,7 +2621,7 @@ class image extends class_base
 	{
 		$ii = get_instance(CL_IMAGE);
 		$cfid = $ii->_get_conf_for_folder($imo->parent());
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$curid = $ui->get_current_user();
 		if(is_oid($curid) && is_oid($cfid))
 		{

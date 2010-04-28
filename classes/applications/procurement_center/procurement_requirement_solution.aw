@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // procurement_requirement_solution.aw - N&otilde;ude lahendus
 /*
 
@@ -56,6 +58,8 @@ define("PO_NEEDS_DEVELOPMENT", 3);
 
 class procurement_requirement_solution extends class_base
 {
+	const AW_CLID = 1072;
+
 	function procurement_requirement_solution()
 	{
 		$this->init(array(

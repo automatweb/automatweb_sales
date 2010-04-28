@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/menu_tree.aw,v 1.35 2009/04/15 12:01:53 instrumental Exp $
 // menu_tree.aw - men&uuml;&uuml;puu
 
@@ -41,6 +43,8 @@
 */
 class menu_tree extends class_base
 {
+	const AW_CLID = 93;
+
 	function menu_tree()
 	{
 		$this->init(array(

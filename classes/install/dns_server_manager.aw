@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class dns_server_manager extends class_base
 {
@@ -10,31 +9,30 @@ class dns_server_manager extends class_base
 		$this->init();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=can_manage_server params=name nologin="1" default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
 	function can_manage_server($arr)
 	{
-		extract($arr);
 		return true;
 	}
 
-	/** adds or updates site in the current ns config 
-		
+	/** adds or updates site in the current ns config
+
 		@attrib name=add_or_update_site params=name nologin="1" all_args="1" default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 		parameters:
 		domain - the domain to add or update
@@ -44,9 +42,8 @@ class dns_server_manager extends class_base
 	function add_or_update_site($arr)
 	{
 		extract($arr);
-		
+
 		// find the domain for the url
-		classload("core/util/dns");
 		$dom = dns::get_domain_name_for_url($domain);
 
 		// find the zone file for the domain
@@ -69,7 +66,7 @@ class dns_server_manager extends class_base
 			"ip" => $ip
 		));
 
-		// use su_exec to copy it to the right place	
+		// use su_exec to copy it to the right place
 		// use su exec to execute "rndc reload"
 		$su->open_file();
 		$su->add_cmd("copy $tmp_zone_file $zone_file");
@@ -92,12 +89,12 @@ class dns_server_manager extends class_base
 		// check if the domain exists in the file
 		if (($pos = strpos($fc,$domain)) !== false)
 		{
-			// it does, replace the entry 
+			// it does, replace the entry
 			// assume one address per line
-			// format is like this: 
+			// format is like this:
 			// domain.somewhere.ee <space> A <space> ip
 			// actually it can also be different, but right now just support that
-			
+
 			// $pos is beginning of line, find the end
 			$end = $pos;
 			$len = strlen($fc);
@@ -115,7 +112,7 @@ class dns_server_manager extends class_base
 			// it does not, add it to the end
 			$fc.= "\n$domain.\tA\t$ip\n";
 		}
-	
+
 		// update timestamp
 		$lines = explode("\n", $fc);
 		// find the line that contains only a string of numbers of the correct length (10)
@@ -133,7 +130,7 @@ class dns_server_manager extends class_base
 				break;
 			}
 		}
-	
+
 		if ($found)
 		{
 			$snum = 0;

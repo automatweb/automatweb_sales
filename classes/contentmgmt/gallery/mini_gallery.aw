@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/gallery/mini_gallery.aw,v 1.50 2008/10/23 08:42:08 kristo Exp $
 // mini_gallery.aw - Minigalerii 
 /*
@@ -74,6 +76,8 @@
 
 class mini_gallery extends class_base
 {
+	const AW_CLID = 318;
+
 	function mini_gallery()
 	{
 		$this->init(array(
@@ -479,7 +483,7 @@ class mini_gallery extends class_base
 		}
 
 		$imgi = get_instance(CL_IMAGE);
-		$fi = get_instance(CL_FILE);
+		$fi = new file();
 		foreach($files as $file)
 		{
 			echo "leidsin faili $file <br>\n";

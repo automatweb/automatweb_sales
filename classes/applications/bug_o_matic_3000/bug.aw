@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_BUG relationmgr=yes no_comment=1 no_status=1 r2=yes maintainer=robert
@@ -334,6 +336,8 @@ define("BUG_VIEWED", 15);
 
 class bug extends class_base
 {
+	const AW_CLID = 868;
+
 	const BUG_OPEN = 1;
 	const BUG_INPROGRESS = 2;
 	const BUG_DONE = 3;
@@ -518,7 +522,7 @@ class bug extends class_base
 				));
 				$times = array();
 				$labels = array();
-				$ui = get_instance(CL_USER);
+				$ui = new user();
 				foreach($conn as $cn)
 				{
 					$cmo = $cn->to();
@@ -833,7 +837,7 @@ class bug extends class_base
 			case "name":
 				if (is_oid($arr["obj_inst"]->id()))
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$p = $u->get_person_for_uid($arr["obj_inst"]->createdby());
 					$crea = sprintf(t("Looja: %s / %s"), $p->name(), date("d.m.Y H:i", $arr["obj_inst"]->created()));
 				}
@@ -854,7 +858,7 @@ class bug extends class_base
 			case "expl_txt":
 				if (is_oid($arr["obj_inst"]->id()))
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$p = $u->get_person_for_uid($arr["obj_inst"]->createdby());
 					$crea = sprintf(t("Looja: %s (%s)"), $p->name(), date("d.m.Y H:i", $arr["obj_inst"]->created()));
 				}
@@ -971,7 +975,7 @@ class bug extends class_base
 						}
 					}
 					// also, the current person
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$p = obj($u->get_current_person());
 					$tmp[$p->id()] = $p->name();
 
@@ -1025,7 +1029,7 @@ class bug extends class_base
 
 				if ($prop["name"] == "monitors" && (!$bt_obj || !$bt_obj->prop("bug_only_bt_ppl")))
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$cur = obj($u->get_current_person());
 					$sections = $cur->connections_from(array(
 							"class_id" => CL_CRM_SECTION,
@@ -1158,7 +1162,7 @@ class bug extends class_base
 					$ao = obj($arr["request"]["alias_to_org"]);
 					if ($ao->class_id() == CL_CRM_PERSON)
 					{
-						$u = get_instance(CL_USER);
+						$u = new user();
 						$prop["value"] = $u->get_company_for_person($ao->id());
 					}
 					else
@@ -1797,7 +1801,7 @@ class bug extends class_base
 			self::BUG_WONTFIX,
 			self::BUG_FEEDBACK
 		);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$us = get_instance("users");
 		if (false && in_array($bug->prop("bug_status"), $states))
 		{
@@ -2009,7 +2013,7 @@ class bug extends class_base
 			{
 				$from = aw_ini_get("bugtrack.mails_from");
 			}
-			catch(Exception $e)
+			catch(\Exception $e)
 			{
 				$from = "automatweb@automatweb.com";
 			}
@@ -2285,7 +2289,7 @@ class bug extends class_base
 
 		$ol = new object_list($params);
 		$com_str = "";
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($ol->arr() as $com)
 		{
 			$comt = create_links(preg_replace("/(\&amp\;#([0-9]{4});)/", "&#\\2", htmlspecialchars(html_entity_decode($com->comment()), ENT_NOQUOTES)));
@@ -2704,7 +2708,7 @@ class bug extends class_base
 		$o->set_prop("com", $arr["obj_inst"]->prop("bug_content"));
 		$o->set_prop("bug_createdby", $arr["obj_inst"]->createdby());
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$cur = obj($u->get_person_for_uid($arr["obj_inst"]->createdby()));
 		$o->set_prop("contactperson", $cur->id());
 
@@ -3135,7 +3139,7 @@ $diff = explode("*" , $result["diff"]);
 			}
  			if($users[$who])
  			{
- 				$us = get_instance(CL_USER);
+ 				$us = new user();
 				$u = $us->get_obj_for_uid($users[$who]);
  				$person = $us->get_person_for_user($u);
  				if(is_oid($person))
@@ -3240,7 +3244,7 @@ die($email);
 			}
  			if($users[$who])
  			{
- 				$us = get_instance(CL_USER);
+ 				$us = new user();
 				$u = $us->get_obj_for_uid($users[$who]);
  				$person = $us->get_person_for_user($u);
  				if(is_oid($person))
@@ -3673,7 +3677,7 @@ die($email);
 			}
 			else
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$user = obj($u->get_current_user());
 				$conn = $user->connections_from(array(
 					"type" => "RELTYPE_GRP"
@@ -3703,7 +3707,7 @@ die($email);
 		if ($new == self::BUG_FEEDBACK && $old != self::BUG_FEEDBACK)
 		{
 			// set the creator as the feedback from person
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = $u->get_person_for_uid($bug->createdby());
 			$bug->set_prop("bug_feedback_p", $p->id());
 			$this->_set_feedback = $p->id();
@@ -4108,7 +4112,7 @@ EOF;
 		}
 		if($user)
 		{
-			$ui = get_instance(CL_USER);
+			$ui = new user();
 			$uo = $ui->get_obj_for_uid($user);
 			if($uo)
 			{
@@ -4147,7 +4151,7 @@ EOF;
 			$ppl_r_times[$cmo->createdby()] = $cmo->prop("add_wh") + ifset($ppl_r_times, $cmo->createdby());
 			$ppl_g_times[$cmo->createdby()] = $cmo->prop("add_wh_guess") + ifset($ppl_g_times, $cmo->createdby());
 		}
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$total = 0;
 		foreach((($arr["prop"]["name"] == "num_hrs_real") ? $ppl_r_times : $ppl_g_times) as $u => $time)
 		{
@@ -4420,7 +4424,7 @@ EOF;
 			}
 
 
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = obj($u->get_current_person());
 			$o->set_prop("monitors" , array($p->id(), $p->id()));
 

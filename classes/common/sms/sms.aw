@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // sms.aw - SMS
 /*
 
@@ -25,6 +27,8 @@
 
 class sms extends class_base
 {
+	const AW_CLID = 1417;
+
 	function sms()
 	{
 		$this->init(array(

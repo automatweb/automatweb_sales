@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_insurance.aw - Kindlustus
 /*
 
@@ -44,6 +46,8 @@
 
 class crm_insurance extends class_base
 {
+	const AW_CLID = 1324;
+
 	function crm_insurance()
 	{
 		$this->init(array(

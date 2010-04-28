@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_special_offer.aw,v 1.17 2008/07/22 06:58:51 tarvo Exp $
 // shop_special_offer.aw - Poe eripakkumine 
 /*
@@ -155,6 +157,8 @@ define('DISCOUNT_SCHEME_4', 4);
 
 class shop_special_offer extends class_base
 {
+	const AW_CLID = 344;
+
 	function shop_special_offer()
 	{
 		$this->init(array(

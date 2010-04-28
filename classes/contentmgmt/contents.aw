@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CONTENTS relationmgr=yes no_status=1  maintainer=kristo
 
@@ -15,6 +17,8 @@
 
 class contents extends class_base
 {
+	const AW_CLID = 305;
+
 	function contents()
 	{
 		$this->init(array(

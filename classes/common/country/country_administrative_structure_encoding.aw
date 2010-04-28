@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_COUNTRY_ADMINISTRATIVE_STRUCTURE_ENCODING relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=voldemar
 
@@ -31,6 +33,8 @@ require_once(aw_ini_get("basedir") . "/classes/common/address/as_header.aw");
 
 class country_administrative_structure_encoding extends class_base
 {
+	const AW_CLID = 1033;
+
 	var $unit_classes = array (
 		CL_COUNTRY_ADMINISTRATIVE_UNIT,
 		CL_COUNTRY_CITY,

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @tableinfo aw_crm_bill index=aw_oid master_index=brother_of master_table=objects
@@ -331,6 +333,8 @@ define("BILL_AMT", 4);
 
 class crm_bill extends class_base
 {
+	const AW_CLID = 1009;
+
 	function crm_bill()
 	{
 		$this->init(array(
@@ -532,7 +536,7 @@ class crm_bill extends class_base
 					$ol = new object_list($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_IMPL")));
 					$prop["options"] = $ol->names();
 				}
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$co = obj($u->get_current_company());
 				$prop["options"][$co->id()] = $co->name();
 				asort($prop["options"]);
@@ -857,7 +861,7 @@ class crm_bill extends class_base
 			case "impl":
 				if(!$prop["value"])
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$prop["value"] = $u->get_current_company();
 				}
 
@@ -871,7 +875,7 @@ class crm_bill extends class_base
 				{
 					$cc = get_instance(CL_CRM_COMPANY);
 					$crel = $cc->get_cust_rel(obj($prop["value"]));
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$my_co = $u->get_current_company();
 					$co_obj = obj($co_obj);
 					$client_obj = obj($prop["value"]);
@@ -1327,7 +1331,7 @@ class crm_bill extends class_base
 		}
 		if (aw_global_get("uid_oid") != "")
 		{
-			$user_inst = get_instance(CL_USER);
+			$user_inst = new user();
 			$u = obj(aw_global_get("uid_oid"));
 			$person = obj($user_inst->get_current_person());
 			$mail = $u->get_user_mail_address();
@@ -1488,7 +1492,7 @@ class crm_bill extends class_base
 	{
 		if(empty($this->company_currency))
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$co = obj($u->get_current_company());
 			$this->company_currency = $co->prop("currency");
 		}
@@ -1507,7 +1511,7 @@ class crm_bill extends class_base
 
 		$prods = array("" => t("--vali--"));
 		// get prords from co
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		$ccurrency = $co->prop("currency");
 		$ccurrency_name = $co->prop("currency.name");
@@ -2843,7 +2847,7 @@ class crm_bill extends class_base
 
 	function round_sum($sum)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		$co = obj($co);
 		if(is_object($co) && $co->prop("round"))
@@ -4097,7 +4101,7 @@ class crm_bill extends class_base
 
 	function _save_rows($arr)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach(safe_array($arr["request"]["rows"]) as $oid => $row)
 		{
 			$new = false;

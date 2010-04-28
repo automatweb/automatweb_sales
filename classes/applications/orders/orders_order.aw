@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/orders/orders_order.aw,v 1.33 2008/07/14 12:49:21 markop Exp $
 // orders_order.aw - Tellimus 
 /*
@@ -97,6 +99,8 @@
 
 class orders_order extends class_base
 {
+	const AW_CLID = 839;
+
 	function orders_order()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 
@@ -204,7 +208,7 @@ class orders_order extends class_base
 			case "info":
 				$oi_data = array();
 				$ordercfgform = $arr["obj_inst"]->meta("cfgform_id");
-				$cfgform_i = get_instance(CL_CFGFORM);
+				$cfgform_i = new cfgform();
 				$props2 = $cfgform_i->get_props_from_cfgform(array("id" => $ordercfgform));
 
 				if($person)
@@ -319,7 +323,7 @@ class orders_order extends class_base
 	{
 		if(is_oid($cfgform) && $this->can("view", $cfgform))
 		{
-			$cfgform_i = get_instance(CL_CFGFORM);
+			$cfgform_i = new cfgform();
 			$props2 = $cfgform_i->get_props_from_cfgform(array("id" => $cfgform));
 			foreach($props2 as $prop2)
 			{

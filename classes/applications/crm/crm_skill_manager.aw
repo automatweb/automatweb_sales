@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_skill_manager.aw - Oskuste haldur
 
 // Copied from metamgr.aw and modified.
@@ -32,6 +34,8 @@
 
 class crm_skill_manager extends class_base
 {
+	const AW_CLID = 1407;
+
 	function crm_skill_manager()
 	{
 		$this->init(array(
@@ -141,7 +145,7 @@ class crm_skill_manager extends class_base
 			"align" => "center",
 		));
 		$ini_langs = aw_ini_get("languages.list");
-		$langs = get_instance("languages")->get_list();
+		$langs = new languages()->get_list();
 		$olid = $arr["obj_inst"]->lang_id();
 		unset($langs[$olid]);
 		foreach($langs as $lang_id => $lang)

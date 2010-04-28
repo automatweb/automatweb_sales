@@ -1,8 +1,6 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/vcl/translator.aw,v 1.9 2008/01/31 13:55:36 kristo Exp $
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class translator extends  core
 {
@@ -36,19 +34,19 @@ class translator extends  core
 		$i = $this->obj->instance();
 
 		$rv = array();
-		$l = get_instance("languages");
+		$l = new languages();
                 $langinfo = $l->get_list(array(
                         "key" => "acceptlang",
                         "all_data" => true,
                 ));
 
-		// XXX: be more intelligent and retrieve all properties with trans=1 
+		// XXX: be more intelligent and retrieve all properties with trans=1
                 $tprop = $prop["props"];
 		if (!is_array($tprop))
 		{
 			$tprop = array($tprop);
 		};
-		
+
                 $props = $i->get_property_group(array());
 
                 $translatable = array();
@@ -135,7 +133,7 @@ class translator extends  core
 		$eldata = $arr["prop"]["value"];
                 $o = $arr["obj_inst"];
 		$orig = $o->get_original();
-		
+
 		$t_conns = $orig->connections_from(array(
 			"type" => RELTYPE_ORIGINAL,
 		));
@@ -159,7 +157,7 @@ class translator extends  core
 		$brotlist = array();
 		$parents = array();
 
-		// then, how the heck do 
+		// then, how the heck do
 
 		foreach($brothers->arr() as $brot)
 		{
@@ -169,7 +167,7 @@ class translator extends  core
 			/*print "prid = " . $prt->id() . "<br>";
 			print "translations ";
 			arr($_trans);
-			*/	
+			*/
 
 			$brotlist[$brot->parent()] = 1;
 
@@ -192,17 +190,17 @@ class translator extends  core
 		// now, lets figure out the id-s of project translations, so I can create translated
 		// objects under correct parents
 		$tr_conns = $prnt->connections_from(array(
-			"type" => RELTYPE_TRANSLATION, 
+			"type" => RELTYPE_TRANSLATION,
 		));
 
 		// 1. create a list of all brothers this object has
-		//	I need the real id-s of the parents, which means working 
+		//	I need the real id-s of the parents, which means working
 		//	around the storage
 
 		// 2. create a list of all translations this object has
 		// 3. create new translation objects if missing
 		// 4. create brothers from those translation objects where needed
-                
+
 
 		// tr_parents contains the id-s of all parents, sorted by language
 		$tr_parents = array();
@@ -236,7 +234,7 @@ class translator extends  core
 		arr($tr_parents);
 		arr($translated);
 		*/
-		
+
 		obj_set_opt("no_auto_translation", 1);
 
                 $act_lang = $o->lang();
@@ -244,7 +242,7 @@ class translator extends  core
 
 		//arr($eldata);
 
-		$l = get_instance("languages");
+		$l = new languages();
                 $langinfo = $l->get_list(array(
                         "key" => "acceptlang",
                         "all_data" => true,
@@ -267,7 +265,7 @@ class translator extends  core
 						//print $prop_val;
 					};
                                        	$o->set_prop($prop_key,$prop_val);
-					
+
                                 };
                         }
                         else
@@ -383,7 +381,7 @@ class translator extends  core
                 obj_set_opt("no_auto_translation", 1);
 
 		$tr_conns = $obj->connections_from(array(
-			"type" => RELTYPE_TRANSLATION, 
+			"type" => RELTYPE_TRANSLATION,
 		));
 
 		$rv = array();

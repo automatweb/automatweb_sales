@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 // so what does this class do? Simpel answer - it allows us to choose different templates
 // for showing calendars.
@@ -131,6 +133,8 @@
 
 class calendar_view extends class_base
 {
+	const AW_CLID = 59;
+
 	function calendar_view()
 	{
 		$this->init(array(
@@ -245,7 +249,7 @@ class calendar_view extends class_base
 
 		$oldvals = $o->meta("result_table");
 
-		$tc = get_instance(CL_CFGFORM);
+		$tc = new cfgform();
 		$cform_obj = new object($this->cfgform_id);
 		$use_output = $cform_obj->prop("use_output");
 

@@ -1,7 +1,11 @@
 <?php
 
+namespace automatweb;
+
 class crm_person_obj extends _int_object implements crm_customer_interface
 {
+	const AW_CLID = 145;
+
 	protected $all_jobs;
 	protected $current_jobs;
 
@@ -358,7 +362,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 			"type" => "RELTYPE_CANDIDATE"
 		));
 
-		$pm = get_instance(CL_PERSONNEL_MANAGEMENT);
+		$pm = new personnel_management();
 		foreach($conns as $conn)
 		{
 			$from = obj($conn["from"]);
@@ -1731,13 +1735,11 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 
 	/**
 		@attrib name=handle_show_cnt api=1 params=name
-
 		@param action required type=string
-
 		@param id required type=OID
 
 	**/
-	public function handle_show_cnt($arr)
+	public static function handle_show_cnt($arr)
 	{
 		extract($arr);
 

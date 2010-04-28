@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/budgeting/budgeting_tax_group.aw,v 1.4 2008/05/08 11:37:32 markop Exp $
 // budgeting_tax_group.aw - Eelarvestamise maksu grupp 
 /*
@@ -46,6 +48,8 @@
 
 class budgeting_tax_group extends class_base
 {
+	const AW_CLID = 1246;
+
 	function budgeting_tax_group()
 	{
 		$this->init(array(

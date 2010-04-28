@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo  maintainer=kristo
 */
@@ -12,6 +14,8 @@ define("FN_TYPE_ALIAS",4);
 
 class export extends aw_template
 {
+	const AW_CLID = 103;
+
 	function export()
 	{
 		$this->init("export");
@@ -276,7 +280,7 @@ class export extends aw_template
 		}
 
 		// now fetch the empty template page for all languages
-		$lang = get_instance("languages");
+		$lang = new languages();
 		$ll = $lang->get_list(array("all_data" => true));
 		foreach($ll as $lid => $ldat)
 		{
@@ -389,7 +393,7 @@ class export extends aw_template
 			// check if the file already exists
 			$oid = $this->db_fetch_field("SELECT oid FROM objects WHERE parent = $aw_zip_folder AND status != 0 AND lang_id = ".aw_global_get("lang_id")." AND class_id = ".CL_FILE." AND name = '$aw_zip_fname'", "oid");
 
-			$f = get_instance(CL_FILE);
+			$f = new file();
 
 			if ($oid)
 			{

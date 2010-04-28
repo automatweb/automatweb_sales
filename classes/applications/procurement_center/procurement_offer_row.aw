@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement_offer_row.aw,v 1.6 2007/11/23 11:05:13 markop Exp $
 // procurement_offer_row.aw - Pakkumise rida 
 /*
@@ -50,6 +52,8 @@
 
 class procurement_offer_row extends class_base
 {
+	const AW_CLID = 1127;
+
 	function procurement_offer_row()
 	{
 		$this->init(array(

@@ -1,8 +1,7 @@
 <?php
-// en.aw - english localization
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class awlc_number_en implements awlc_number
 {
 	public static function get_lc_number($number)

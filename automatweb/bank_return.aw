@@ -36,7 +36,7 @@ $l->request_startup();
 if ($set_ct_lang_id)
 {
 	$_SESSION["ct_lang_id"] = $set_ct_lang_id;
-	$l = get_instance("languages");
+	$l = new languages();
 	$_SESSION["ct_lang_lc"] = $l->get_langid($set_ct_lang_id);
 	aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
 	aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);

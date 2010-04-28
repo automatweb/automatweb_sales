@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/ical_import.aw,v 1.4 2007/12/06 14:32:55 kristo Exp $
 // ical_import.aw - Sündmuste import (iCal) 
 /*
@@ -31,6 +33,8 @@
 
 class ical_import extends class_base
 {
+	const AW_CLID = 1349;
+
 	function ical_import()
 	{
 		$this->init(array(

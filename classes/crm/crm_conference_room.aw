@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_conference_room.aw,v 1.2 2008/01/31 13:54:12 kristo Exp $
 // room.aw - Ruum 
 /*
@@ -44,6 +46,8 @@
 
 class crm_conference_room extends class_base
 {
+	const AW_CLID = 1143;
+
 	function crm_conference_room()
 	{
 		$this->init(array(

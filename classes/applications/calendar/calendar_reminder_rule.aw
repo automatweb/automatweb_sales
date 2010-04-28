@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/calendar_reminder_rule.aw,v 1.4 2007/12/06 14:32:55 kristo Exp $
 // calendar_reminder_rule.aw - Meeldetuletuse reegel 
 /*
@@ -12,6 +14,8 @@
 
 class calendar_reminder_rule extends class_base
 {
+	const AW_CLID = 482;
+
 	function calendar_reminder_rule()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

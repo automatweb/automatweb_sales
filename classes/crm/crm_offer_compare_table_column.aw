@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_offer_compare_table_column.aw,v 1.2 2008/01/31 13:54:13 kristo Exp $
 // crm_offer_compare_table_column.aw - Pakkumise v&otilde;rdlustabeli tulp 
 /*
@@ -23,6 +25,8 @@
 
 class crm_offer_compare_table_column extends class_base
 {
+	const AW_CLID = 925;
+
 	function crm_offer_compare_table_column()
 	{
 		$this->init(array(

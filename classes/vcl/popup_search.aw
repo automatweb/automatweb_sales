@@ -1,10 +1,12 @@
 <?php
+
+namespace automatweb;
+
 /*
 
 this message will be sent when the contents of the popup search listbox change
 so that clients can perform actions based on the change
 EMIT_MESSAGE(MSG_POPUP_SEARCH_CHANGE)
-@classinfo  maintainer=kristo
 
 */
 class popup_search extends aw_template
@@ -193,7 +195,7 @@ class popup_search extends aw_template
 				$rel_val = $arr["relinfo"][$rt]["value"];
 				if ($clid->count() > 1)
 				{
-					$pm = get_instance("vcl/popup_menu");
+					$pm = new popup_menu();
 					$pm->begin_menu($arr["property"]["name"]."_relp_pop");
 					foreach($clid->get() as $_clid)
 					{

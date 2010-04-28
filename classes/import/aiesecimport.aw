@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/import/aiesecimport.aw,v 1.6 2009/01/16 11:37:47 kristo Exp $
 // aiesecimport.aw - Aiesec import 
 /*
@@ -58,6 +60,8 @@
 
 class aiesecimport extends class_base
 {
+	const AW_CLID = 1357;
+
 	function aiesecimport()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/questionary/questionary.aw,v 1.15 2007/12/06 14:33:53 kristo Exp $
 // questionary.aw - K&uuml;simustik 
 /*
@@ -39,6 +41,8 @@
 
 class questionary extends class_base
 {
+	const AW_CLID = 1153;
+
 	function questionary()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/recycle_bin/recycle_bin.aw,v 1.31 2009/01/16 11:37:33 kristo Exp $
 // recycle_bin.aw - Pr&uuml;gikast 
 /*
@@ -77,6 +79,8 @@
 */
 class recycle_bin extends class_base
 {
+	const AW_CLID = 856;
+
 	function recycle_bin()
 	{
 		$this->init(array(
@@ -285,7 +289,7 @@ class recycle_bin extends class_base
 		get_instance("core/icons");
 
 		$paths = $this->_get_paths($rows);
-		$popup_menu = get_instance("vcl/popup_menu");
+		$popup_menu = new popup_menu();
 		foreach($rows as $row)
 		{
 			$popup_menu->begin_menu("restore".$row["oid"]);

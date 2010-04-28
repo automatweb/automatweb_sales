@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 interface crm_customer_interface
 {
 	/** returns customer relation object

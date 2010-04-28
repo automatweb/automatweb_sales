@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // questionnaire_question.aw - D&uuml;naamilise k&uuml;simustiku k&uuml;simus
 /*
 
@@ -64,6 +66,8 @@
 
 class questionnaire_question extends class_base
 {
+	const AW_CLID = 1394;
+
 	function questionnaire_question()
 	{
 		$this->init(array(

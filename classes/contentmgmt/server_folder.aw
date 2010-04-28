@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/server_folder.aw,v 1.12 2008/01/31 13:52:15 kristo Exp $
 // server_folder.aw - Serveri Kataloog 
 /*
@@ -34,6 +36,8 @@
 classload("core/icons");
 class server_folder extends class_base
 {
+	const AW_CLID = 278;
+
 	function server_folder()
 	{
 		$this->init(array(

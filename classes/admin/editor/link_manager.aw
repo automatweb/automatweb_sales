@@ -1,8 +1,6 @@
 <?php
 
-/*
-@classinfo maintainer=kristo
-*/
+namespace automatweb;
 
 class link_manager extends aw_editor_manager_base
 {
@@ -27,7 +25,7 @@ class link_manager extends aw_editor_manager_base
 			header("Location: ".$this->mk_my_orb("manage", $arr, "file_manager"));
 			die();
 		}
-		
+
 		$imgname = substr($path, 1);
 		if ($imgname != "")
 		{
@@ -78,7 +76,7 @@ class link_manager extends aw_editor_manager_base
 		{
 			$image_url = html::get_new_url(CL_EXTLINK, $parent, array("ldocid" => $doc->id(), "in_popup"=>"1"));
 		}
-		
+
 		$this->read_template("manage.tpl");
 
 		$this->vars(array(
@@ -89,7 +87,7 @@ class link_manager extends aw_editor_manager_base
 	}
 
 	/**
-		@attrib name=topf 
+		@attrib name=topf
 		@param doc required
 	**/
 	function topf($arr)
@@ -117,10 +115,9 @@ class link_manager extends aw_editor_manager_base
 	**/
 	function manager($arr)
 	{
-		classload("vcl/table");
-		$t = new vcl_table;
+		$t = new vcl_table();
 		$this->_init_t($t, t("Link"));
-		
+
 		$ol = new object_list(array(
 			"class_id" => CL_EXTLINK,
 			"lang_id" => array(),
@@ -158,7 +155,7 @@ class link_manager extends aw_editor_manager_base
 					"caption" => t("Vali see"),
 					"onClick" => "
 						FCK=window.parent.opener.FCK;
-						var eSelected = FCK.Selection.MoveToAncestorNode(\"A\") ; 
+						var eSelected = FCK.Selection.MoveToAncestorNode(\"A\") ;
 						aw_get_url_contents(\"".$gen_alias_url."\");
 						if (eSelected)
 						{
@@ -169,7 +166,7 @@ class link_manager extends aw_editor_manager_base
 						else
 						{
 							ct=aw_get_url_contents(\"$url\");
-							FCK.InsertHtml(ct);		
+							FCK.InsertHtml(ct);
 						}
 						window.parent.close();
 					"

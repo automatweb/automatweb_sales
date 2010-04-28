@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/party.aw,v 1.13 2008/05/09 11:22:25 robert Exp $
 // party.aw - Pidu 
 /*
@@ -52,6 +54,8 @@
 
 class party extends class_base
 {
+	const AW_CLID = 914;
+
 	/**
 		@attrib name=remove_artist
 		@param id required type=int acl=edit
@@ -320,7 +324,7 @@ class party extends class_base
 
 	function callback_post_save($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["set_artist"], 2);
 	}
 }

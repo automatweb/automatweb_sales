@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/where_to_go/where_to_go.aw,v 1.3 2008/01/31 13:51:58 kristo Exp $
 // where_to_go.aw - Kuhu minna 
 /*
@@ -96,6 +98,8 @@
 
 class where_to_go extends class_base
 {
+	const AW_CLID = 993;
+
 	function where_to_go()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 
@@ -171,7 +175,7 @@ class where_to_go extends class_base
 
 	function _get_languages($arr)
 	{
-		$languages_inst = get_instance("languages");
+		$languages_inst = new languages();
 		$active_languages = $languages_inst->get_list();
 		$arr['prop']['options'] = $active_languages;
 		return PROP_OK;
@@ -204,7 +208,7 @@ class where_to_go extends class_base
 		// gather info for the table:
 		$selected_languages = $arr['obj_inst']->prop("languages");
 		
-		$languages_inst = get_instance("languages");
+		$languages_inst = new languages();
 		$active_languages = $languages_inst->get_list();
 
 		$connections_to_places_folders = $arr['obj_inst']->connections_from(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_search_change)
 
@@ -1249,6 +1251,8 @@ define("STORAGE_FILTER_EXPORT", 2);
 
 class shop_warehouse extends class_base
 {
+	const AW_CLID = 289;
+
 	function shop_warehouse()
 	{
 		$this->init(array(
@@ -6550,7 +6554,7 @@ $tb->add_delete_button();
 		$co = get_instance(CL_CRM_COMPANY);
 		$co->get_all_workers_for_company(obj($cur_co), &$workers, true);
 
-		$pop = get_instance("vcl/popup_search");
+		$pop = new popup_search();
 		$pop->set_options(array(
 			"obj" => $o,
 			"prop" => "order_current_person",
@@ -6570,7 +6574,7 @@ $tb->add_delete_button();
 
 		$p = obj($cur_person);
 
-		$pop = get_instance("vcl/popup_search");
+		$pop = new popup_search();
 		$pop->set_options(array(
 			"obj" => $o,
 			"prop" => "order_current_org",
@@ -6920,7 +6924,7 @@ $tb->add_delete_button();
 			"return" => 1
 		));
 
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$cur_person = obj($us->get_current_person());
 
 		$froma = "automatweb@automatweb.com";
@@ -8517,7 +8521,7 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 		}
 		$this->_init_purchase_orders_tbl($t, $arr);
 		$ol = $this->_get_orders_ol($arr);
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$count = 0;
 		$total_sum = 0;
 		foreach($ol->arr() as $o)

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_FTP_LOGIN mantainer=kristo prop_cb=1
@@ -42,6 +44,8 @@ define("FTP_ERR_NOTCONNECTED", 3);
 
 class ftp extends class_base
 {
+	const AW_CLID = 195;
+
 	var $handle = null;
 	var $verbose = false;
 

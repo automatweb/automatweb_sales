@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_packaging.aw,v 1.43 2009/08/26 12:57:45 dragut Exp $
 // shop_product_packaging.aw - Toote pakend 
 /*
@@ -229,6 +231,8 @@
 
 class shop_product_packaging extends class_base
 {
+	const AW_CLID = 327;
+
 	function shop_product_packaging()
 	{
 		$this->init(array(

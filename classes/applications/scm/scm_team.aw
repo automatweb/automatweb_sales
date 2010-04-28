@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_team.aw,v 1.11 2007/12/06 14:34:06 kristo Exp $
 // scm_team.aw - Meeskond 
 /*
@@ -45,6 +47,8 @@
 
 class scm_team extends class_base
 {
+	const AW_CLID = 1115;
+
 	function scm_team()
 	{
 		$this->init(array(
@@ -92,7 +96,7 @@ class scm_team extends class_base
 					"img" => "new.gif",
 					"url" => "javascript:aw_popup_scroll('".$url."', 'title', 500,400);",
 				));
-				$popup_search = get_instance("vcl/popup_search");
+				$popup_search = new popup_search();
 				$search_butt = $popup_search->get_popup_search_link(array(
 					"pn" => "search_result",
 					"clid" => CL_SCM_CONTESTANT,

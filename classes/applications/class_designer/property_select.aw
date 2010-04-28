@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property_select.aw,v 1.4 2007/12/06 14:33:03 kristo Exp $
 // property_select.aw - Loend 
 /*
@@ -23,6 +25,8 @@
 
 class property_select extends class_base
 {
+	const AW_CLID = 889;
+
 	function property_select()
 	{
 		$this->init(array(

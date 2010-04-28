@@ -1,9 +1,14 @@
 <?php
+
+namespace automatweb;
+
 /*
 @classinfo maintainer=markop
 */
 class project_obj extends _int_object
 {
+	const AW_CLID = 239;
+
 	function set_prop($pn, $pv)
 	{
 		switch($pn)
@@ -1280,7 +1285,7 @@ class project_obj extends _int_object
 	{
 		$prods = array("" => t("--vali--"));
 		// get prords from co
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		$wh = $co->get_first_obj_by_reltype("RELTYPE_WAREHOUSE");
 		if ($wh)

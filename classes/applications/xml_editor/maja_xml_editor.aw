@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/xml_editor/maja_xml_editor.aw,v 1.20 2009/02/04 08:24:45 dragut Exp $
 // maja_xml_editor.aw - maja xml-i editor 
 /*
@@ -97,6 +99,8 @@
 
 class maja_xml_editor extends class_base
 {
+	const AW_CLID = 835;
+
 	function maja_xml_editor()
 	{
 		$this->init(array(

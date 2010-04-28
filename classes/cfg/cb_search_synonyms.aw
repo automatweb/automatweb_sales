@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CB_SEARCH_SYNONYMS relationmgr=yes no_status=1 maintainer=kristo
 
@@ -14,6 +16,8 @@
 
 class cb_search_synonyms extends class_base
 {
+	const AW_CLID = 830;
+
 	function cb_search_synonyms()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_field_conference_room.aw,v 1.6 2007/12/06 14:33:17 kristo Exp $
 // crm_field_conference_room.aw - Konverentsiruum (valdkond) 
 /*
@@ -56,6 +58,8 @@
 
 class crm_field_conference_room extends class_base
 {
+	const AW_CLID = 1031;
+
 	function crm_field_conference_room()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class config extends aw_template
 {
 	function config()
@@ -220,7 +220,7 @@ class config extends aw_template
 		$ipp = $this->get_cval("ipaddresses::default_folder");
 
 		$us = get_instance("users");
-		$la = get_instance("languages");
+		$la = new languages();
 		$li = $la->get_list(array("all_data" => true));
 		$r_al = "";
 		foreach($li as $lid => $ld)
@@ -303,7 +303,7 @@ class config extends aw_template
 	function submit_loaginaddr($arr)
 	{
 		extract($arr);
-		$la = get_instance("languages");
+		$la = new languages();
 		$li = $la->get_list(array("all_data" => true));
 		foreach($li as $lid => $ld)
 		{
@@ -354,7 +354,7 @@ class config extends aw_template
 	{
 		$this->read_template("join_mail.tpl");
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$ll = $la->listall();
 
 		foreach($ll as $lid => $ldata)
@@ -395,7 +395,7 @@ class config extends aw_template
 	{
 		extract($arr);
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$ll = $la->listall();
 
 		foreach($ll as $lid => $ldata)

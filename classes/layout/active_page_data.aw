@@ -1,8 +1,7 @@
 <?php
 
-/*
-@classinfo  maintainer=kristo
-*/
+namespace automatweb;
+
 class active_page_data extends class_base
 {
 	function active_page_data()

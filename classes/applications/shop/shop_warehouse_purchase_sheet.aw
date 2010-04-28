@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_warehouse_purchase_sheet.aw,v 1.2 2008/01/31 13:50:07 kristo Exp $
 // shop_warehouse_purchase_sheet.aw - Ostu-saateleht 
 /*
@@ -59,6 +61,8 @@
 
 class shop_warehouse_purchase_sheet extends class_base
 {
+	const AW_CLID = 1037;
+
 	function shop_warehouse_purchase_sheet()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

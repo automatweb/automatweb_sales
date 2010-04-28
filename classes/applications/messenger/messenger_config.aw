@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/messenger/messenger_config.aw,v 1.4 2007/12/06 14:33:40 kristo Exp $
 // messenger_config.aw - Messengeri config 
 /*
@@ -66,6 +68,8 @@
 
 class messenger_config extends class_base
 {
+	const AW_CLID = 226;
+
 	function messenger_config()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

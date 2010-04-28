@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/persona_import/persona_import.aw,v 1.48 2008/09/16 07:25:44 instrumental Exp $
 // persona_import.aw - Persona import 
 /*
@@ -226,6 +228,8 @@
 
 class persona_import extends class_base
 {
+	const AW_CLID = 875;
+
 	function persona_import()
 	{
 		$this->init(array(

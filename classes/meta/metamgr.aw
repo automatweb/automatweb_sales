@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/meta/metamgr.aw,v 1.21 2009/07/17 10:09:18 instrumental Exp $
 // metamgr.aw - Muutujate haldus 
 
@@ -35,6 +37,8 @@
 
 class metamgr extends class_base
 {
+	const AW_CLID = 279;
+
 	function metamgr()
 	{
 		$this->init(array(
@@ -152,7 +156,7 @@ class metamgr extends class_base
 		));
 		$transyes = $arr["obj_inst"]->prop("transyes");
 		$langdata = array();
-		$lg = get_instance("languages");
+		$lg = new languages();
 		if($transyes == 1)
 		{
 			aw_global_set("output_charset", "utf-8");
@@ -409,7 +413,7 @@ class metamgr extends class_base
 
 	function _init_save_trans()
 	{
-		$l = get_instance("languages");
+		$l = new languages();
 		$this->ll = $l->get_list(array(
 			"all_data" => true,
 			"set_for_user" => true

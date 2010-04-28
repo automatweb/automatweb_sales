@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class crm_sales_calendar_view
 {
 	private static $default_conf = array(

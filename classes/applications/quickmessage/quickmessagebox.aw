@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // quickmessagebox.aw - Kiirs5numite haldus
 /*
 
@@ -58,6 +60,8 @@
 
 class quickmessagebox extends class_base
 {
+	const AW_CLID = 816;
+
 	const COLOUR_READ = "grey";
 	const COLOUR_UNREAD = "#CCEECC";
 	const DATE_FORMAT = "d.m Y H:i:s";
@@ -74,7 +78,7 @@ class quickmessagebox extends class_base
 	{
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->init_msg_tbl($t, "inbox");
-		$cl_user = get_instance(CL_USER);
+		$cl_user = new user();
 
 		$msgs = $arr["obj_inst"]->get_read_msgs();
 		$msgs->sort_by(array("prop" => "created", "order" => "asc"));
@@ -114,7 +118,7 @@ class quickmessagebox extends class_base
 	{
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->init_msg_tbl($t, "outbox");
-		$cl_user = get_instance(CL_USER);
+		$cl_user = new user();
 
 		$msgs = $arr["obj_inst"]->get_sent_msgs();
 		$msgs->sort_by(array("prop" => "created", "order" => "asc"));
@@ -254,7 +258,7 @@ class quickmessagebox extends class_base
 					$p_o = new object($p_oid);
 					$arr["prop"]["options"][$u_oid] = $p_o->name();
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 				}
 			}
@@ -306,7 +310,7 @@ class quickmessagebox extends class_base
 		{
 			echo quickmessagebox_obj::get_new_msgs_count($arr["id"]);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			echo t("Error");
 		}

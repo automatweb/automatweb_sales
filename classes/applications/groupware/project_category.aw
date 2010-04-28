@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_PROJECT_CATEGORY relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=robert
 @tableinfo aw_project_category master_index=brother_of master_table=objects index=aw_oid
@@ -10,6 +12,8 @@
 
 class project_category extends class_base
 {
+	const AW_CLID = 1501;
+
 	function project_category()
 	{
 		$this->init(array(

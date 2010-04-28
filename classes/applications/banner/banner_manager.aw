@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_BANNER_MANAGER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @default table=objects
@@ -54,6 +56,8 @@
 
 class banner_manager extends class_base
 {
+	const AW_CLID = 1250;
+
 	function banner_manager()
 	{
 		$this->init(array(
@@ -297,7 +301,7 @@ class banner_manager extends class_base
 			"name" => "banner",
 			"caption" => t("B&auml;nner"),
 		));
-		$langs = get_instance("languages")->get_list();
+		$langs = new languages()->get_list();
 		foreach($this->_get_distinct_langs_for_month($time_arr) as $lang)
 		{
 			$t->define_field(array(
@@ -727,7 +731,7 @@ EOT;
 				}
 			}
 
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu("loc".$pl->id());
 		
 			$conns = $pl->connections_to(array(
@@ -862,7 +866,7 @@ EOT;
 			{
 				$deac = $timing->prop("deactivate");
 			}
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu("ban".$b->id());
 		
 			$loc = $b->get_first_obj_by_reltype("RELTYPE_LOCATION");

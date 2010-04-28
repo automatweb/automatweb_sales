@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // document_import.aw - Dokumentide import
 /*
 @classinfo syslog_type=ST_DOCUMENT_IMPORT relationmgr=yes prop_cb=1 maintainer=dragut
@@ -73,6 +75,8 @@
 
 class document_import extends class_base
 {
+	const AW_CLID = 221;
+
 	function document_import()
 	{
 		$this->init(array(
@@ -286,7 +290,7 @@ class document_import extends class_base
 				'content_pattern' => $arr['obj_inst']->prop('content_pattern')
 			));
 
-			$file_inst = get_instance(CL_FILE);
+			$file_inst = new file();
 			$aliasmgr = get_instance("alias_parser");
 			$file_objects = array();
 			if (!empty($arr['request']['link']))

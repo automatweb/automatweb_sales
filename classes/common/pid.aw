@@ -1,8 +1,8 @@
 <?php
 
-/*
-@classinfo  maintainer=voldemar
+namespace automatweb;
 
+/*
 Class for working with personal identification numbers (PID-s). Loading and common usage:
 
 	$pid = new pid_et("45503034582");

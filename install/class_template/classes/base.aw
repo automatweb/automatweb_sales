@@ -1,6 +1,9 @@
 <?php
+
+namespace automatweb;
+
 /*
-@classinfo syslog_type=__syslog_type relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=__maintainer
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo __table_name master_index=brother_of master_table=objects index=aw_oid
 
 @default table=__table_name
@@ -47,32 +50,23 @@ class __classname extends class_base
 		$arr["post_ru"] = post_ru();
 	}
 
-	function show($arr)
+	function do_db_upgrade($table, $field)
 	{
-		$ob = new object($arr["id"]);
-		$this->read_template("show.tpl");
-		$this->vars(array(
-			"name" => $ob->prop("name"),
-		));
-		return $this->parse();
-	}
-
-	function do_db_upgrade($t, $f)
-	{
-		if ($f == "")
+		if ("__table_name" === $table)
 		{
-			$this->db_query("CREATE TABLE __table_name(aw_oid int primary key)");
-			return true;
-		}
-
-		switch($f)
-		{
-			case "":
-				$this->db_add_col($t, array(
-					"name" => $f,
+			if (empty($field))
+			{
+				$this->db_query("CREATE TABLE __table_name(aw_oid int primary key)");
+				return true;
+			}
+			elseif ("" === $field)
+			{
+				$this->db_add_col($table, array(
+					"name" => $field,
 					"type" => ""
 				));
 				return true;
+			}
 		}
 	}
 }

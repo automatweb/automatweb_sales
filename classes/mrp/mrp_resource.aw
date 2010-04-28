@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_MRP_RESOURCE relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1 maintainer=voldemar
@@ -209,6 +211,8 @@ require_once "mrp_header.aw";
 
 class mrp_resource extends class_base
 {
+	const AW_CLID = 825;
+
 	private $mrp_error = false;
 	private $workspace;
 
@@ -1735,7 +1739,7 @@ class mrp_resource extends class_base
 		$clids = array(CL_TASK => 13, CL_CRM_MEETING => 11, CL_CRM_CALL => 12/*, CL_CRM_OFFER => 9*/);
 		$clss = aw_ini_get("classes");
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$cur_co = $u->get_current_company();
 
 		foreach($clids as $clid => $relt)

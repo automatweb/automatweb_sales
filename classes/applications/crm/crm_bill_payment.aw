@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_bill_payment.aw - Laekumine
 /*
 
@@ -50,6 +52,8 @@ Arvete nimekiri, mis selle laekumisega on seotud
 
 class crm_bill_payment extends class_base
 {
+	const AW_CLID = 1383;
+
 	function crm_bill_payment()
 	{
 		$this->init(array(

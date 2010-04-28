@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class crm_sales_calls_view
 {
 	public static function _get_calls_tree(&$arr)

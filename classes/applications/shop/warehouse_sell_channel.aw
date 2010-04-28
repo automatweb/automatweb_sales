@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_WAREHOUSE_SELL_CHANNEL relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=smeedia
 @tableinfo aw_warehouse_sell_channel master_index=brother_of master_table=objects index=aw_oid
@@ -10,6 +12,8 @@
 
 class warehouse_sell_channel extends class_base
 {
+	const AW_CLID = 1682;
+
 	function warehouse_sell_channel()
 	{
 		$this->init(array(

@@ -1,10 +1,14 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo  maintainer=kristo
 */
 
 class promo_display implements main_subtemplate_handler
 {
+	const AW_CLID = 23;
+
 	////
 	// !this must set the content for subtemplates in main.tpl
 	// params
@@ -665,7 +669,7 @@ if (!empty($_GET["PROMO_DBG"]))
 	function get_promo_link($o)
 	{
 		$link_str = $o->trans_get_val("link");
-		$i = get_instance(CL_FILE);
+		$i = new file();
 		if ($i->can("view", $o->meta("linked_obj")))
 		{
 			$linked_obj = obj($o->meta("linked_obj"));

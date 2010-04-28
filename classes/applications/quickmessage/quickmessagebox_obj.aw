@@ -1,11 +1,16 @@
 <?php
 
+namespace automatweb;
+
+
 /*
 @classinfo maintainer=voldemar
 */
 
 class quickmessagebox_obj extends _int_object
 {
+	const AW_CLID = 816;
+
 	// approved_senders property value options
 	const APPROVED_SENDERS_ANYONE = 1; // all messages are received
 	const APPROVED_SENDERS_CONTACTS = 2; // only messages from users in contact list are received
@@ -344,7 +349,7 @@ class quickmessagebox_obj extends _int_object
 					$failed[$msg->id()] = $e;
 				}
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$failed[$msg->id()] = $e;
 			}

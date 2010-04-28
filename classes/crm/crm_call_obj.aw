@@ -1,7 +1,11 @@
 <?php
 
-class crm_call_obj extends task_object
+namespace automatweb;
+
+class crm_call_obj extends task_obj
 {
+	const AW_CLID = 223;
+
 	const RESULT_CALL = 1;
 	const RESULT_PRESENTATION = 2;
 	const RESULT_REFUSED = 3;
@@ -173,7 +177,7 @@ class crm_call_obj extends task_object
 				$customer_case->plan();
 				$job->start();
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$job->set_prop("resource", $old_resource);
 				$job->save();
@@ -191,7 +195,7 @@ class crm_call_obj extends task_object
 					$job->plan();
 					$job->start();
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$job->set_prop("resource", $old_resource);
 					$job->save();
@@ -218,7 +222,7 @@ class crm_call_obj extends task_object
 					$customer_case->plan();
 					$job->start();
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$job->set_prop("resource", $old_resource);
 					$job->save();
@@ -451,7 +455,7 @@ class crm_call_obj extends task_object
 				{
 					$job->plan();
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 				}
 			}

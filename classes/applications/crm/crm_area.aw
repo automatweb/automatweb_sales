@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_area.aw,v 1.9 2008/10/01 11:34:46 markop Exp $
 // crm_area.aw - Piirkond 
 /*
@@ -30,6 +32,8 @@
 
 class crm_area extends class_base
 {
+	const AW_CLID = 1107;
+
 	function crm_area()
 	{
 		$this->init(array(

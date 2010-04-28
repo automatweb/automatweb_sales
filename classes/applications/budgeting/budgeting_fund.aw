@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/budgeting/budgeting_fund.aw,v 1.3 2007/12/06 14:32:51 kristo Exp $
 // budgeting_fund.aw - Eelarvestamise fond 
 /*
@@ -20,6 +22,8 @@
 
 class budgeting_fund extends class_base
 {
+	const AW_CLID = 1204;
+
 	function budgeting_fund()
 	{
 		$this->init(array(

@@ -1,14 +1,14 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class queue
 {
 	/** Queue constructor. Resets internal arrays and counters.
 
-		@attrib name=queue params=pos api=1 
+		@attrib name=queue params=pos api=1
 
-		@comment 
+		@comment
 			Class that implements the FIFO data structure also known as queue
 		@examples
 		$q = get_instance('core/queue');
@@ -30,7 +30,7 @@ class queue
 
 
 	/** Adds new item into the queue
-		@attrib name=push params=pos api=1 
+		@attrib name=push params=pos api=1
 
 		@param item required type=string
 			Item to add in the queue
@@ -47,9 +47,9 @@ class queue
 	}
 
 	/** Gets the item from the queue which waas added first
-		@attrib name=get params=pos api=1 
+		@attrib name=get params=pos api=1
 
-		@returns 
+		@returns
 			The first added item from the queue
 		@examples
 			#core/queue::queue
@@ -63,9 +63,9 @@ class queue
 	}
 
 	/** Checks if there is items in the queue or not
-		@attrib name=has_more params=pos api=1 
+		@attrib name=has_more params=pos api=1
 
-		@returns 
+		@returns
 			Boolean true, the queue is not empty, false othervise
 		@examples
 			#core/queue::queue
@@ -76,10 +76,10 @@ class queue
 	}
 
 	/** Get the array with all the items in the queue
-		@attrib name=get_all params=pos api=1 
+		@attrib name=get_all params=pos api=1
 
 		@returns
-			Array with all items in the queue 
+			Array with all items in the queue
 		@examples
 			#core/queue::queue
 	**/
@@ -89,7 +89,7 @@ class queue
 	}
 
 	/** Get the count of items in the queue
-		@attrib name=count params=pos api=1 
+		@attrib name=count params=pos api=1
 
 		@returns
 			The count of the items in the queue
@@ -102,15 +102,15 @@ class queue
 	}
 
 	/** Fill the queue with values of an array
-		@attrib name=set_all params=pos api=1 
+		@attrib name=set_all params=pos api=1
 
 		@param a required type=array
 			An array with the items to put in the queue
 		@comment
-			Previous items in the queue will be removed		
+			Previous items in the queue will be removed
 		@examples
 			$q = get_instance('core/queue');
-			$q->set_all(array('foo', 'bar', 'asd', 'blah')); 
+			$q->set_all(array('foo', 'bar', 'asd', 'blah'));
 	**/
 	function set_all($a)
 	{
@@ -120,7 +120,7 @@ class queue
 	}
 
 	/** Checks if a value exists in the queue or not
-		@attrib name=contains params=pos api=1 
+		@attrib name=contains params=pos api=1
 
 		@param val required type=string
 			Item to check if it exists in the queue or not
@@ -128,7 +128,7 @@ class queue
 			Boolean true if value exists, false othervise
 		@examples
 			$q = get_instance('core/queue');
-			$q->set_all(array('foo', 'bar', 'asd', 'blah')); 
+			$q->set_all(array('foo', 'bar', 'asd', 'blah'));
 			var_dump($q->contains('foo')); // prints 'bool(true)'
 			var_dump($q->contains('fafa')); // prints 'bool(false)'
 	**/

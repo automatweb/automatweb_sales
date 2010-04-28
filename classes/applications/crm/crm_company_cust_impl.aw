@@ -2220,7 +2220,7 @@ class crm_company_cust_impl extends class_base
 			# pop
 			if ($default_cfg or in_array("pop", $visible_fields))
 			{
-				$pm = get_instance("vcl/popup_menu");
+				$pm = new popup_menu();
 				$pm->begin_menu("org".$o->id());
 				$pm->add_item(array(
 					"text" => t("Vaata"),
@@ -2441,7 +2441,7 @@ class crm_company_cust_impl extends class_base
 					$category = obj($category, array(), CL_CRM_CATEGORY);
 					$customer_relations_search->category = $category;
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					if (!empty($category))
 					{

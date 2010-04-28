@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/bug_o_matic_3000/development_order.aw,v 1.30 2009/07/29 12:57:21 instrumental Exp $
 // development_order.aw - Arendustellimus 
 /*
@@ -167,6 +169,8 @@
 
 class development_order extends class_base
 {
+	const AW_CLID = 1183;
+
 	function development_order()
 	{
 		$this->init(array(
@@ -198,7 +202,7 @@ class development_order extends class_base
 				break;
 
 			case "orderer":
-				$u = get_instance(CL_USER);
+				$u = new user();
 				if($arr["new"])
 				{
 					$cur = obj($u->get_current_person());
@@ -294,7 +298,7 @@ class development_order extends class_base
 						}
 					}
 					// also, the current person
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$p = obj($u->get_current_person());
 					$tmp[$p->id()] = $p->name();
 
@@ -329,7 +333,7 @@ class development_order extends class_base
 
 				if ($prop["name"] == "monitors" && (!$bt_obj || !$bt_obj->prop("bug_only_bt_ppl")))
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$cur = obj($u->get_current_person());
 					$sections = $cur->connections_from(array(
 							"class_id" => CL_CRM_SECTION,
@@ -689,7 +693,7 @@ class development_order extends class_base
 			"parent" => $arr["obj_inst"]->id()
 		));
 		classload("core/icons");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$us = get_instance("users");
 		$bug_i = get_instance(CL_BUG);
 		$states = $bug_i->get_status_list();
@@ -867,7 +871,7 @@ class development_order extends class_base
 	function _get_reqs_tb($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$tb->add_cdata($ps->get_popup_search_link(array(
 			"pn" => "set_req",
 			"clid" => CL_PROCUREMENT_REQUIREMENT
@@ -898,14 +902,14 @@ class development_order extends class_base
 
 	function _set_reqs_table($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["set_req"], "RELTYPE_REQ");
 	}
 
 	function _get_problems_tb($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$tb->add_cdata($ps->get_popup_search_link(array(
 			"pn" => "set_problems",
 			"clid" => CL_CUSTOMER_PROBLEM_TICKET
@@ -922,7 +926,7 @@ class development_order extends class_base
 
 	function _set_problems_table($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["set_problems"], "RELTYPE_PROBLEM");
 	}
 

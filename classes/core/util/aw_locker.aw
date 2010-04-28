@@ -1,8 +1,6 @@
 <?php
 
-/**
-	@attrib maintainer=voldemar
-**/
+namespace automatweb;
 
 class aw_locker
 {

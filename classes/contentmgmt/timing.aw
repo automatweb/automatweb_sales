@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/timing.aw,v 1.16 2008/01/31 13:52:15 kristo Exp $
 // timing.aw - Ajaline aktiivsus
 /*
@@ -53,6 +55,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_TIMING, init_scheduler)
 
 class timing extends class_base
 {
+	const AW_CLID = 858;
+
 	function timing()
 	{
 		$this->init(array(
@@ -464,7 +468,7 @@ class timing extends class_base
 	function _apply_langs($arr)
 	{
 		$arr["prop"]["options"] = array();
-		$l = get_instance("languages");
+		$l = new languages();
 		foreach($l->get_list() as $k => $v)
 		{
 			$arr["prop"]["options"][$k] = $v;

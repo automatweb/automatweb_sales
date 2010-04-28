@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_purchase_manager_workspace_obj extends _int_object
 {
+	const AW_CLID = 1439;
+
 	public function get_warehouse_ids()
 	{
 		$warehouse_ids = array();

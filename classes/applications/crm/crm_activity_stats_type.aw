@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CRM_ACTIVITY_STATS_TYPE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_crm_activity_stats_type master_index=brother_of master_table=objects index=aw_oid
@@ -10,6 +12,8 @@
 
 class crm_activity_stats_type extends class_base
 {
+	const AW_CLID = 1465;
+
 	function crm_activity_stats_type()
 	{
 		$this->init(array(

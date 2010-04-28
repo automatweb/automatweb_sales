@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // questionnaire_answer.aw - D&uuml;naamilise k&uuml;simustiku vastus
 /*
 
@@ -24,6 +26,8 @@
 
 class questionnaire_answer extends class_base
 {
+	const AW_CLID = 1395;
+
 	function questionnaire_answer()
 	{
 		$this->init(array(

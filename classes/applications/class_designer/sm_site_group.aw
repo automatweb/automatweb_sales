@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SM_SITE_GROUP relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=root
 @tableinfo aw_sm_site_group master_index=brother_of master_table=objects index=aw_oid
@@ -21,6 +23,8 @@
 
 class sm_site_group extends class_base
 {
+	const AW_CLID = 1508;
+
 	function sm_site_group()
 	{
 		$this->init(array(

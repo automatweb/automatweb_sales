@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_email.aw,v 1.2 2007/12/06 14:33:17 kristo Exp $
 // crm_email.aw - CRM Meil 
 /*
@@ -60,6 +62,8 @@
 
 class crm_email extends class_base
 {
+	const AW_CLID = 1057;
+
 	function crm_email()
 	{
 		$this->init(array(

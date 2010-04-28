@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/pank/transaction.aw,v 1.6 2008/01/31 13:55:00 kristo Exp $
 // transaction.aw - Ülekanne 
 /*
@@ -59,6 +61,8 @@ define('SUM_TAX', 1);
 
 class transaction extends class_base
 {
+	const AW_CLID = 650;
+
 	var $completion_confirmation = 0;
 
 	function transaction()

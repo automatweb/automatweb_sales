@@ -1,9 +1,8 @@
 <?php
 
 // object_list.aw - with this you can manage object lists
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class object_list extends _int_obj_container_base
 {
@@ -115,7 +114,7 @@ class object_list extends _int_obj_container_base
 		if (is_array($param))
 		{
 			$tmp = reset($param);
-			if (is_object($tmp) && get_class($tmp) == "connection")
+			if (is_object($tmp) && get_class($tmp) === "automatweb\\connection")
 			{
 				// rewrite filter to get all objects from conn, so we use magic from ->begin() to get them all at once
 				$arr = array();

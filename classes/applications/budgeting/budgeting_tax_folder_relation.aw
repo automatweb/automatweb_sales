@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/budgeting/budgeting_tax_folder_relation.aw,v 1.6 2008/05/14 15:45:20 markop Exp $
 // budgeting_tax_folder_relation.aw - Eelarvestamise maksu kausta seos 
 /*
@@ -48,6 +50,8 @@
 
 class budgeting_tax_folder_relation extends class_base
 {
+	const AW_CLID = 1319;
+
 	function budgeting_tax_folder_relation()
 	{
 		$this->init(array(

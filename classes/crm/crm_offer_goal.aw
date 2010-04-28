@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_offer_goal.aw,v 1.2 2008/01/31 13:54:13 kristo Exp $
 // crm_offer_goal.aw - Pakkumise eesm&auml;rk 
 /*
@@ -15,6 +17,8 @@
 
 class crm_offer_goal extends class_base
 {
+	const AW_CLID = 908;
+
 	function crm_offer_goal()
 	{
 		$this->init(array(

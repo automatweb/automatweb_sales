@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_MRP_ORDER_PRINT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_mrp_order_print master_index=brother_of master_table=objects index=aw_oid
@@ -156,6 +158,8 @@
 
 class mrp_order_print extends mrp_order
 {
+	const AW_CLID = 1520;
+
 	function mrp_order_print()
 	{
 		$this->init(array(

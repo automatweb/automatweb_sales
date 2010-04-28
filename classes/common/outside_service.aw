@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_OUTSIDE_SERVICE relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
@@ -14,6 +16,8 @@
 
 class outside_service extends class_base
 {
+	const AW_CLID = 1397;
+
 	function outside_service()
 	{
 		$this->init(array(

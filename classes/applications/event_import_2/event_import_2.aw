@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // event_import_2.aw - S&uuml;ndmuste import 2
 /*
 
@@ -133,6 +135,8 @@
 
 class event_import_2 extends class_base
 {
+	const AW_CLID = 1413;
+
 	function event_import_2()
 	{
 		$this->init(array(

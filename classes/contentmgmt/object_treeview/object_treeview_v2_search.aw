@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // object_treeview_v2_search.aw - Objektinimekirja otsing
 /*
 
@@ -46,6 +48,8 @@
 
 class object_treeview_v2_search extends class_base
 {
+	const AW_CLID = 901;
+
 	function object_treeview_v2_search()
 	{
 		$this->init(array(

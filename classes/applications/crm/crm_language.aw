@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_language.aw - Keel
 /*
 
@@ -11,6 +13,8 @@
 
 class crm_language extends class_base
 {
+	const AW_CLID = 1399;
+
 	function crm_language()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/questionary/answerer.aw,v 1.4 2007/12/06 14:33:53 kristo Exp $
 // answerer.aw - Vastaja 
 /*
@@ -46,6 +48,8 @@
 
 class answerer extends class_base
 {
+	const AW_CLID = 1169;
+
 	function answerer()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/target_audience.aw,v 1.2 2008/01/31 13:52:15 kristo Exp $
 // target_audience.aw - Sihtr&uuml;hm 
 /*
@@ -18,6 +20,8 @@
 
 class target_audience extends class_base
 {
+	const AW_CLID = 1063;
+
 	function target_audience()
 	{
 		$this->init(array(

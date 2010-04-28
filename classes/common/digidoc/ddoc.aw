@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // ddoc.aw - DigiDoc
 /*
 
@@ -56,6 +58,8 @@ define("DEFAULT_DDOC_VERSION", "1.3");
 
 class ddoc extends class_base
 {
+	const AW_CLID = 1186;
+
 	function ddoc()
 	{
 		$this->init(array(
@@ -155,7 +159,7 @@ class ddoc extends class_base
 					"img" => "delete.gif",
 					"confirm" => $s?t("Antud DigiDoc on ALLKIRJASTATUD, faili(de) eemaldamisega eemaldatakse ka allkirjad! Kas te soovite j".html_entity_decode("&auml;")."tkata?"):NULL,
 				));
-				$popup_search = get_instance("vcl/popup_search");
+				$popup_search = new popup_search();
 				$search_butt = $popup_search->get_popup_search_link(array(
 					"pn" => "search_result_file",
 					"clid" => CL_FILE,
@@ -182,7 +186,7 @@ class ddoc extends class_base
 					"caption" => t("Suurus"),
 				));
 				$files = aw_unserialize($arr["obj_inst"]->prop("files"));
-				$file_inst = get_instance(CL_FILE);
+				$file_inst = new file();
 				foreach($files as $id => $data)
 				{
 					$o = obj($data["file"]);
@@ -307,7 +311,7 @@ class ddoc extends class_base
 					return PROP_IGNORE;
 				}
 
-				$cl_file = get_instance(CL_FILE);
+				$cl_file = new file();
 
 				if (is_uploaded_file($file))
 				{
@@ -372,7 +376,7 @@ class ddoc extends class_base
 		if($arr["request"]["search_result_file"])
 		{
 			$files = stristr($arr["request"]["search_result_file"], ",")?split(",", $arr["request"]["search_result_file"]):array();
-			$file_inst = get_instance(CL_FILE);
+			$file_inst = new file();
 			// well this loop filters out these files which already have been signed.. this actually sucks a little but what-dha-hek
 			foreach($files as $k => $file)
 			{
@@ -437,7 +441,7 @@ class ddoc extends class_base
 
 	function on_save_file($arr)
 	{
-		$inst = get_instance(CL_FILE);
+		$inst = new file();
 		$res = $inst->is_signed($arr["oid"]);
 		if($res["status"] == 1)
 		{
@@ -591,7 +595,7 @@ class ddoc extends class_base
 		$content = $p->getDigiDoc();
 		if(!$this->set_ddoc($oid, $content, false))
 		{
-			$cl_file = get_instance(CL_FILE);
+			$cl_file = new file();
 			$final_loc = $cl_file->generate_file_path(array(
 				"type" => "xml/ddoc",
 			));
@@ -892,7 +896,7 @@ class ddoc extends class_base
 		if($arr["file_oid"])
 		{
 			// aw failiobjekti lisamine
-			$f_inst = get_instance(CL_FILE);
+			$f_inst = new file();
 			$f2 = $f_inst->get_file_by_id($arr["file_oid"], true);
 			$file = array(
 				"name" => $f2["properties"]["name"],
@@ -1233,7 +1237,7 @@ class ddoc extends class_base
 			);
 		}
 		// set files
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		// i don't use the parser results here because i don't get the file contents from there so easily
 		foreach($files as $ddoc_id => $data)
 		{

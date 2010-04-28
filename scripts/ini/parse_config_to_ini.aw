@@ -64,7 +64,7 @@ function parse_config_to_ini($file, $include = false)
 						$varvalue = preg_replace('/\$\{(.*)\}/e', 'aw_ini_get("\\1")', $varvalue);
 						$var = preg_replace('/\$\{(.*)\}/e', 'aw_ini_get("\\1")', $var);
 					}
-					catch(Exception $e)
+					catch(\Exception $e)
 					{
 						// echo "ex for $varvalue / $var \n";
 					}

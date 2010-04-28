@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/survey/survey.aw,v 1.9 2008/03/12 21:23:17 kristo Exp $
 // survey.aw - Ankeet 
 /*
@@ -101,6 +103,8 @@
 
 class survey extends class_base
 {
+	const AW_CLID = 349;
+
 	function survey()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

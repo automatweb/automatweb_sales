@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_shipment_condition.aw,v 1.1 2008/01/02 11:57:33 markop Exp $
 /*
 
@@ -18,6 +20,8 @@
 
 class crm_shipment_condition extends class_base
 {
+	const AW_CLID = 1367;
+
 	function crm_shipment_condition()
 	{
 		$this->init(array(

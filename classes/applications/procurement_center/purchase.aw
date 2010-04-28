@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/purchase.aw,v 1.14 2007/11/23 11:05:13 markop Exp $
 // purchase.aw - Ost 
 /*
@@ -75,6 +77,8 @@ Ostud (kuvatakse pakkumise read, mis on selle ostuga seotud)
 */
 class purchase extends class_base
 {
+	const AW_CLID = 1128;
+
 	function purchase()
 	{
 		$this->init(array(
@@ -93,7 +97,7 @@ class purchase extends class_base
 			case "buyer":
 				if(!$arr["obj_inst"] -> prop("buyer"))
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$co = obj($u->get_current_company());
 					$prop["options"][$co->id()] = $co->name();
 					$prop["value"] = $co->id();
@@ -105,7 +109,7 @@ class purchase extends class_base
 			
 			
 			case "files":
-				$file_inst = get_instance(CL_FILE);
+				$file_inst = new file();
 				//$url = $file_inst->get_url($arr["obj_inst"]->prop($prop["name"]));
 				$prop["value"] = "";
 				foreach($arr["obj_inst"]->prop("files") as $id)
@@ -215,7 +219,7 @@ class purchase extends class_base
 				$conns = $arr["obj_inst"]->connections_from(array(
 					'type' => "RELTYPE_OFFER",
 				));
-				$file_inst = get_instance(CL_FILE);
+				$file_inst = new file();
 				foreach($conns as $conn)
 				{
 					if(is_oid($conn->prop("to")))$row = obj($conn->prop("to"));
@@ -331,11 +335,11 @@ class purchase extends class_base
 		
 		classload("core/icons");
 		$clss = aw_ini_get("classes");
-		get_instance(CL_FILE);
+		new file();
 		foreach($ol->arr() as $o)
 		{
 			if(!(($o->class_id() == CL_FILE) || ($o->class_id() == CL_CRM_DOCUMENT) || ($o->class_id() == CL_CRM_DEAL) || ($o->class_id() == CL_CRM_OFFER) || ($o->class_id() == CL_CRM_MEMO))) continue;
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu("sf".$o->id());
 
 
@@ -609,7 +613,7 @@ class purchase extends class_base
 					};
 					if (is_uploaded_file($src_file))
 					{
-						$_fi = get_instance(CL_FILE);
+						$_fi = new file();
 						$file_data = $_fi->add_upload_image("files" , $arr["obj_inst"]->id());
 						$prop["value"][] = $file_data["id"];
 					}
@@ -696,7 +700,7 @@ class purchase extends class_base
 			$impl_o = obj($impl);
 			if (!$impl_o->get_first_obj_by_reltype("RELTYPE_DOCS_FOLDER"))
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$impl = $u->get_current_company();
 			}
 		}
@@ -836,7 +840,7 @@ class purchase extends class_base
 		function _set_files($arr)
 	{
 		$t = obj($arr["request"]["id"]);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		foreach(safe_array($_POST["fups_d"]) as $num => $entry)
 		{
@@ -856,7 +860,7 @@ class purchase extends class_base
 				if ($entry["type"] == CL_FILE)
 				{
 					// add file
-					$f = get_instance(CL_FILE);
+					$f = new file();
 
 					$fs_fld = null;
 					if (strpos($entry["folder"], ":") !== false)
@@ -892,7 +896,7 @@ class purchase extends class_base
 					$o->save();
 
 					// add file
-					$f = get_instance(CL_FILE);
+					$f = new file();
 
 					$fs_fld = null;
 					if (strpos($entry["folder"], ":") !== false)

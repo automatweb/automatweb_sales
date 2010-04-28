@@ -1,7 +1,7 @@
 <?php
 
 // maintainer=markop
-class task_object extends _int_object
+class task_object_old
 {
 	protected $_no_display;
 
@@ -370,7 +370,7 @@ class task_object extends _int_object
 		$sts = $seti->get_current_settings();
 		if ($sts && $sts->prop("billable_only_by_mrg"))
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = $u->get_current_person();
 			if($this -> get_client_mgr() == $p)
 			{
@@ -414,7 +414,7 @@ class task_object extends _int_object
 	{
 		if(!$data["person"])
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$data["person"] = $u->get_current_person();
 		}
 
@@ -445,7 +445,7 @@ class task_object extends _int_object
 	{
 		if(!$data["participant"])
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$data["participant"] = $u->get_current_person();
 		}
 		$row = $this->get_party_obj($data["participant"]);
@@ -478,7 +478,7 @@ class task_object extends _int_object
 
 	public function has_work_time()
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		if(!is_oid($person = $u->get_current_person()))
 		{
 			return null;
@@ -770,7 +770,7 @@ class task_object extends _int_object
 				$o->set_prop("customer" , $orderer->id());
 			}
 		}
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$o->set_prop("bug_status" , BUG_OPEN);
 		$o->set_prop("deadline" , (time() + 3600*24*360));
 		$o->set_prop("who" , $u->get_current_person());
@@ -858,7 +858,7 @@ class task_object extends _int_object
 		}
 		else
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = obj($u->get_current_person());
 		}
 

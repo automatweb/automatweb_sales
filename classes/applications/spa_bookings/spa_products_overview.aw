@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/spa_bookings/spa_products_overview.aw,v 1.4 2008/04/08 12:40:26 kristo Exp $
 // spa_products_overview.aw - Broneeringute toitlustuse haldus 
 /*
@@ -33,6 +35,8 @@ tableinfo spa_products_overview index=id master_index=oid master_table=objects
 
 class spa_products_overview extends class_base
 {
+	const AW_CLID = 1248;
+
 	function spa_products_overview()
 	{
 		$this->init(array(

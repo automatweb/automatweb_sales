@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 /*
 
 @classinfo maintainer=markop
@@ -6,11 +9,13 @@
 */
 class file_obj extends _int_object
 {
+	const AW_CLID = 41;
+
 	////
 	// !returns file by id
 	function get_file($fetch_file = true)
 	{
-		$file_cb = get_instance(CL_FILE);
+		$file_cb = new file();
 		$ret = $this->fetch();
 		$ret["id"] = $this->id();
 

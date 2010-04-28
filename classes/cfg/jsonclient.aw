@@ -2,9 +2,9 @@
 
 // jsonclient - generates JSON output for cb
 
-/*
-@classinfo  maintainer=voldemar
-*/
+
+namespace automatweb;
+
 
 class jsonclient extends htmlclient
 {

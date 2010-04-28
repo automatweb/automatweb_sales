@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 @classinfo trans=1 syslog_type=ST_DOCUMENT maintainer=kristo
@@ -184,6 +186,8 @@
 classload("document");
 class document_brother extends document
 {
+	const AW_CLID = 40;
+
 	function document_brother()
 	{
 		$this->document();

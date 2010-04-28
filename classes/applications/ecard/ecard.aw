@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/ecard/ecard.aw,v 1.4 2007/12/06 14:33:28 kristo Exp $
 // ecard.aw - E-kaart 
 // Sort of for internal use. Go see ecard_manager
@@ -56,6 +58,8 @@
 
 class ecard extends class_base
 {
+	const AW_CLID = 997;
+
 	function ecard()
 	{
 		$this->init(array(

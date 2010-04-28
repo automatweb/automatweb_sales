@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class _int_obj_ds_mysql extends _int_obj_ds_base
 {
@@ -349,7 +348,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 							$prop['field'] = "metadata";
 						}
 
-						$unser = aw_unserialize($ret[$prop["field"]], false, true);
+						$unser = isset($ret[$prop["field"]]) ? aw_unserialize($ret[$prop["field"]], false, true) : null;
 						$ret[$prop["name"]] = isset($unser[$prop["name"]]) ? $unser[$prop["name"]] : null;
 					}
 
@@ -1202,7 +1201,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				%u,							%u,						%d,						'%s',
 				%d,							%d,						%u,						%u,
 				%u
-			)", 
+			)",
 				$data["from"],				$data["to"],			$data["type"],			$data["data"],
 				$data["idx"],				$data["cached"],		$data["relobj_id"],		$data["reltype"],
 				$data["pri"]
@@ -1294,7 +1293,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 	}
 
 	// arr - { [from], [to], [type], [class], [to.obj_table_field], [from.obj_table_field] }
-	function find_connections($arr)
+	public function find_connections($arr)
 	{
 		$sql = "
 			SELECT
@@ -1364,6 +1363,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					}
 				}
 			}
+
 			if (substr($k, 0, 5) === "from.")
 			{
 				if (is_array($v))
@@ -1383,8 +1383,6 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				}
 			}
 		}
-
-	//	$sql .= " ORDER BY a.id ";
 
 		$this->db_query($sql);
 		$ret = array();
@@ -1883,11 +1881,11 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				{
 					switch(get_class($val))
 					{
-						case "obj_predicate_not":
+						case "automatweb\\obj_predicate_not":
 							$sql[] = $tf." & ".((int)$this->properties[$key]["ch_value"])." != ".((int)$this->properties[$key]["ch_value"]);
 							break;
 
-						case "obj_predicate_compare":
+						case "automatweb\\obj_predicate_compare":
 							$v_data = $val->data;
 							if ($val->data instanceof aw_array)
 							{
@@ -1986,7 +1984,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			elseif (is_object($val))
 			{
 				$class_name = get_class($val);
-				if ($class_name === "object_list_filter")
+				if ($class_name === "automatweb\\object_list_filter")
 				{
 					if (!empty($val->filter["non_filter_classes"]))
 					{
@@ -2001,10 +1999,10 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						}
 					}
 				}
-				elseif ($class_name === "obj_predicate_not")
+				elseif ($class_name === "automatweb\\obj_predicate_not")
 				{
 					$v_data = $val->data;
-					if (is_object($val->data) && get_class($val->data) === "aw_array")
+					if (is_object($val->data) && get_class($val->data) === "automatweb\\aw_array")
 					{
 						$v_data = $v_data->get();
 					}
@@ -2048,15 +2046,15 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						}
 					}
 				}
-				elseif ($class_name === "obj_predicate_regex")
+				elseif ($class_name === "automatweb\\obj_predicate_regex")
 				{
 					$v_data = $val->data;
 					$sql[] = " (".$tf." REGEXP '".$v_data."'  ) ";
 				}
-				elseif ($class_name === "obj_predicate_compare")
+				elseif ($class_name === "automatweb\\obj_predicate_compare")
 				{
 					$v_data = $val->data;
-					if (is_object($val->data) && get_class($val->data) == "aw_array")
+					if (is_object($val->data) && get_class($val->data) === "automatweb\\aw_array")
 					{
 						$v_data = $v_data->get();
 					}
@@ -2145,7 +2143,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					}
 				}
 				else
-				if ($class_name === "obj_predicate_prop")
+				if ($class_name === "automatweb\\obj_predicate_prop")
 				{
 					if ($val->prop === "id")
 					{
@@ -2189,7 +2187,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					}
 					$sql[] = $tf.$compr.$tbl2.".".$fld2." ";
 				}
-				elseif ($class_name === "obj_predicate_limit")
+				elseif ($class_name === "automatweb\\obj_predicate_limit")
 				{
 					if (($tmp = $val->get_per_page()) > 0)
 					{
@@ -2200,7 +2198,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$this->limit = " LIMIT ".$val->get_from()." ";
 					}
 				}
-				elseif ($class_name === "obj_predicate_sort")
+				elseif ($class_name === "automatweb\\obj_predicate_sort")
 				{
 					if (empty($this->sby))
 					{
@@ -2226,7 +2224,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 						if ($sl_item["predicate"])
 						{
-							if ("obj_predicate_compare" === get_class($sl_item["predicate"]))
+							if ("automatweb\\obj_predicate_compare" === get_class($sl_item["predicate"]))
 							{
 								$comparator = "";
 								$fld = "{$pd["table"]}.`{$pd["field"]}`";
@@ -3152,7 +3150,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			$pn = $resn;
 		}
 
-		if (is_object($resn) && get_class($resn) === "obj_sql_func")
+		if (is_object($resn) && get_class($resn) === "automatweb\\obj_sql_func")
 		{
 			$has_func = true;
 			$param = $resn->params;

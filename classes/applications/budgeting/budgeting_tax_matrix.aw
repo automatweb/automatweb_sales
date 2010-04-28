@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/budgeting/budgeting_tax_matrix.aw,v 1.5 2008/05/14 15:45:20 markop Exp $
 // budgeting_tax_matrix.aw - Eelarvestamise maksumaatriks 
 /*
@@ -32,6 +34,8 @@
 
 class budgeting_tax_matrix extends class_base
 {
+	const AW_CLID = 1350;
+
 	function budgeting_tax_matrix()
 	{
 		$this->init(array(
@@ -62,7 +66,7 @@ class budgeting_tax_matrix extends class_base
 
 	function callback_post_save($arr)
 	{	
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["add_tax"], "RELTYPE_TAX");
 
 	}

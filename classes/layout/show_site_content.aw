@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/layout/show_site_content.aw,v 1.8 2008/02/05 09:23:30 kristo Exp $
 /*
 
@@ -11,6 +13,8 @@
 
 class show_site_content extends class_base
 {
+	const AW_CLID = 182;
+
 	function show_site_content()
 	{
 		$this->init(array(

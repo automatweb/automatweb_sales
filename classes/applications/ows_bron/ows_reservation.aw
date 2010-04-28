@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // ows_reservation.aw - OWS Broneering
 /*
 
@@ -166,6 +168,8 @@
 
 class ows_reservation extends class_base
 {
+	const AW_CLID = 1344;
+
 	function ows_reservation()
 	{
 		$this->init(array(
@@ -370,7 +374,7 @@ fwrite($f, date("d.m.Y H:i:s").": ".dbg::dump($return)."\n");
 
 			$checkout = date("Y", $o->prop("departure_date")).'-'.date("m", $o->prop("departure_date")).'-'.date("d", $o->prop("departure_date")).'T23:59:00';
 
-			$l = get_instance("languages");
+			$l = new languages();
 			$owb = get_instance(CL_OWS_BRON);
 			$lang = $owb->get_web_language_id($l->get_langid($o->lang_id()));
 

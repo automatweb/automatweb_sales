@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // id_config.aw - ID-Kaardi konfiguratsioon
 /*
 
@@ -39,6 +41,8 @@ define("DEFAULT_ID_LOGIN_PRIORITY", 10);
 
 class id_config extends class_base
 {
+	const AW_CLID = 1193;
+
 	function id_config()
 	{
 		$this->init(array(
@@ -237,7 +241,7 @@ class id_config extends class_base
 			"img" => "new.gif",
 			"url" => "#",
 		));
-		$popup_search = get_instance("vcl/popup_search");
+		$popup_search = new popup_search();
 		$search_butt = $popup_search->get_popup_search_link(array(
 			"pn" => "search_result_persons",
 			"clid" => CL_CRM_PERSON,

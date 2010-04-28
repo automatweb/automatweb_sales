@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/mailinglist/ml_list.aw,v 1.161 2009/08/22 20:08:06 markop Exp $
 // ml_list.aw - Mailing list
 /*
@@ -368,6 +370,8 @@ define("ML_EXPORT_ALL", 4);
 
 class ml_list extends class_base
 {
+	const AW_CLID = 72;
+
 	function ml_list()
 	{
 		$this->init(array(
@@ -654,7 +658,7 @@ class ml_list extends class_base
 		$this->get_members(array("id" => $id, "no_return" => 1));
 		
 		$mail_obj = obj($id);
-		$ll = get_instance("languages");
+		$ll = new languages();
 		$mail_obj->set_meta("charset" , $ll->get_charset());
 		
 		$count = $this->member_count;
@@ -1449,7 +1453,7 @@ class ml_list extends class_base
 
 
 			case "choose_languages":
-				$lg = get_instance("languages");
+				$lg = new languages();
 				$langdata = array();
 				$prop["options"] = $lg->get_list();
 				break;
@@ -2678,7 +2682,7 @@ foreach($ol->arr() as $o)
 	function get_members_from_file($args)
 	{
 		extract($args);
-		$file = get_instance(CL_FILE);
+		$file = new file();
 		$file_data = $file->get_file_by_id($id);
 		$rows = explode("\n" , $file_data["content"]);
 		if(is_oid($this->list_id))
@@ -3106,7 +3110,7 @@ foreach($ol->arr() as $o)
 		}
 		if ($this->is_template("LANGFOLDER") && $tobj->prop("multiple_languages") == 1)
 		{
-			$lg = get_instance("languages");
+			$lg = new languages();
 			$langdata = array();
 			$langdata = $lg->get_list();
 			$c = "";
@@ -3976,7 +3980,7 @@ arr($msg_obj->prop("message"));
 				$file = $asd[0];
 				$f[$file][$row] =1;
 			}
-			$file_inst = get_instance(CL_FILE);
+			$file_inst = new file();
 			foreach($f as $file => $data)
 			{
 				$file_data = $file_inst->get_file_by_id($file);

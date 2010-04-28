@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // otv_ds_kultuuriaken.aw - Import Kultuuriaknast
 /*
 @classinfo syslog_type=ST_OTV_DS_KULTUURIAKEN relationmgr=yes no_comment=1 no_status=1 maintainer=dragut
@@ -68,6 +70,8 @@
 
 class otv_ds_kultuuriaken extends class_base
 {
+	const AW_CLID = 890;
+
 
 
 	var $xml_fields = array(

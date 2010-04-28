@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // auth_config.aw - Autentimise Seaded
 /*
 
@@ -25,6 +27,8 @@
 
 class auth_config extends class_base
 {
+	const AW_CLID = 843;
+
 	function auth_config()
 	{
 		$this->init(array(

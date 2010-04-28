@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_AW_SPEC relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo allow_rte=2
 
@@ -49,6 +51,8 @@
 
 class aw_spec extends class_base
 {
+	const AW_CLID = 1418;
+
 	function aw_spec()
 	{
 		$this->init(array(

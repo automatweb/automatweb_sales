@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_QUESTIONNAIRE_TXT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_questionnaire_txt master_index=brother_of master_table=objects index=aw_oid
@@ -16,6 +18,8 @@
 
 class questionnaire_txt extends class_base
 {
+	const AW_CLID = 1491;
+
 	function questionnaire_txt()
 	{
 		$this->init(array(

@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 /** returns timestamps for the beginning and end of the given date range
 
@@ -53,15 +52,14 @@ function get_date_range($args = array())
 	extract($args);
 	if (!empty($date))
 	{
-		list($d,$m,$y) = split("-",$date);
+		list($d,$m,$y) = explode("-",$date);
 		if ($d && $m && !$y)    // 09-2009 format
 		{
 			$y = $m;
 			$m = $d;
 			$d = 1;
 		}
-		else
-		if (!$y)
+		elseif (!$y)
 		{
 			list($d,$m,$y) = explode(".",$date);
 		}
@@ -76,7 +74,7 @@ function get_date_range($args = array())
 	}
 	else
 	{
-		list($d,$m,$y) = split("-",date("d-m-Y",$time));
+		list($d,$m,$y) = explode("-",date("d-m-Y",$time));
 	}
 
 	$timestamp = mktime(0,0,0,$m,$d,$y);
@@ -454,7 +452,7 @@ function timespans_overlap($a_from, $a_to, $b_from, $b_to)
 /**
 Date and time calculation
 **/
-class date_calc
+class date_calcold
 {
 /** returns the timestamp for 00:00 on the last monday
 

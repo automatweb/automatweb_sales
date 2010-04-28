@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class mrp_pricelist_obj extends _int_object
 {
+	const AW_CLID = 1521;
+
 	/** Returns array of resources for this price list
 		@attrib api=1
 	**/
