@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CONFIG_LOGIN_MENUS relationmgr=yes maintainer=kristo
 @classinfo no_status=1
@@ -20,6 +22,8 @@
 
 class config_login_menus extends class_base
 {
+	const AW_CLID = 251;
+
 	function config_login_menus()
 	{
 		$this->init(array(

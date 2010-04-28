@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // watercraft_management.aw - Vees6idukite haldus
 /*
 
@@ -153,6 +155,8 @@ define('SELLER_TYPE_COMPANY', 129);
 
 class watercraft_management extends class_base
 {
+	const AW_CLID = 1118;
+
 	var $watercraft_inst;
 	var $watercraft_search_inst;
 	var $search_obj;

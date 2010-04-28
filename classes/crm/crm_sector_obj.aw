@@ -1,10 +1,15 @@
 <?php
+
+namespace automatweb;
+
 /*
 @classinfo  maintainer=markop
 */
 
 class crm_sector_obj extends _int_object
 {
+	const AW_CLID = 131;
+
 	public function trans_get_val($prop, $lang_id = false, $ignore_status = false)
 	{
 		return parent::trans_get_val($prop == "name" ? "tegevusala" : $prop, $lang_id, $ignore_status);

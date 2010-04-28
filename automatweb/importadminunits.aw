@@ -1,5 +1,6 @@
 <?php
 
+namespace automatweb;
 
 $aw_dir = "/usr/lib/automatweb/automatweb_sales";
 $site_dir = "/var/www/sales.automatweb.com";

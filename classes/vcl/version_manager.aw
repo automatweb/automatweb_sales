@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class version_manager extends class_base
 {
@@ -33,7 +32,7 @@ class version_manager extends class_base
 	}
 
 	function _init_version_table(&$t)
-	{	
+	{
 		$t->define_field(array(
 			"name" => "vers_crea",
 			"caption" => t("Versioon loodud"),
@@ -115,7 +114,7 @@ class version_manager extends class_base
 			"confirm" => t("Oled kindel et soovid valitud versioonid kustutada?"),
 			'action' => 'vm_delete_versions',
 		));
-		
+
 		return $tb->get_toolbar();
 	}
 
@@ -148,14 +147,14 @@ class version_manager extends class_base
 			{
 				$sets[$row["Field"]] = $data[$row["Field"]];
 			}
-			
+
 			$q = "UPDATE objects SET name = '$data[o_name]',modified = '$data[vers_crea]', modifiedby = '$data[vers_crea_by]', metadata = '$data[o_metadata]'  WHERE oid = $id";
 			$this->db_query($q);
 			$q = "UPDATE $tn_o SET ".join(",", map2("`%s` = '%s'", $sets))."  WHERE $idx = $id";
 			$this->db_query($q);
 			$this->db_query("DELETE FROM $tn WHERE $idx = '".$o->id()."' AND version_id = '$sav'");
 
-				
+
 			$c = get_instance("cache");
 			$c->file_clear_pt("storage_object_data");
 			$c->file_clear_pt("storage_search");
@@ -227,7 +226,7 @@ class version_manager extends class_base
 			{
 				$ver_v = $data["o_".$pd["field"]];
 			}
-			
+
 			$tmp = $o->set_prop($pn, $ver_v);
 			$ver_v = $o->prop_str($pn);
 			$o->set_prop($pn, $tmp);
@@ -252,7 +251,7 @@ class version_manager extends class_base
 					{
 						$ver_v = date("d.m.Y", $ver_v);
 					}
-		
+
 				}
 				if ($pd["type"] == "datetime_select")
 				{

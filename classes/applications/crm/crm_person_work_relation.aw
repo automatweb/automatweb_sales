@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // crm_person_work_relation.aw - T&ouml;&ouml;suhe
 /*
 
@@ -91,6 +93,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_ML_MEMBER, on_discon
 
 class crm_person_work_relation extends class_base
 {
+	const AW_CLID = 1060;
+
 	function crm_person_work_relation()
 	{
 		$this->init(array(

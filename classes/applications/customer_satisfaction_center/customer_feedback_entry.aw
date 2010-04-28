@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // customer_feedback_entry.aw - Kliendi tagasiside sisestus
 /*
 
@@ -82,6 +84,8 @@
 
 class customer_feedback_entry extends class_base
 {
+	const AW_CLID = 1129;
+
 	function customer_feedback_entry()
 	{
 		$this->init(array(
@@ -259,7 +263,7 @@ class customer_feedback_entry extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$prop["value"] = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -280,7 +284,7 @@ class customer_feedback_entry extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$prop["value"] = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -301,7 +305,7 @@ class customer_feedback_entry extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$prop["value"] = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -435,7 +439,7 @@ class customer_feedback_entry extends class_base
 				));
 			}
 		}
-		$fi = get_instance(CL_FILE);
+		$fi = new file();
 		$f1 = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_FILE1");
 		$rv = $fi->add_upload_image("file_1", $arr["obj_inst"]->id(), $f1 ? $f1->id() : 0);
 		if ($rv["id"] && (($f1 && $rv["id"] != $f1->id()) || !$f1))
@@ -518,7 +522,7 @@ class customer_feedback_entry extends class_base
 				$ct .= "\n\n Bugi loomine: \n".$this->mk_my_orb("create_bug", array("id" => $o->id()));
 			}
 		}
-		catch(Exception $e)
+		catch(\Exception $e)
 		{
 			$support_email_address = "support@automatweb.com";
 		}
@@ -603,7 +607,7 @@ class customer_feedback_entry extends class_base
 			$f = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_FILE1");
 			if ($f)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$f1 = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -616,7 +620,7 @@ class customer_feedback_entry extends class_base
 			$f = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_FILE2");
 			if ($f)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$f2 = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -629,7 +633,7 @@ class customer_feedback_entry extends class_base
 			$f = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_FILE3");
 			if ($f)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$f3 = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(

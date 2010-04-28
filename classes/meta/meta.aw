@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/meta/meta.aw,v 1.4 2008/01/31 13:54:51 kristo Exp $
 // meta.aw - Vidin 
 /*
@@ -21,6 +23,8 @@
 
 class meta extends class_base
 {
+	const AW_CLID = 277;
+
 	function meta()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

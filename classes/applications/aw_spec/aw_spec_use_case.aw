@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_AW_SPEC_USE_CASE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo allow_rte=2
 @tableinfo aw_aw_spec_use_case master_index=brother_of master_table=objects index=aw_oid
@@ -12,6 +14,8 @@
 
 class aw_spec_use_case extends class_base
 {
+	const AW_CLID = 1471;
+
 	function aw_spec_use_case()
 	{
 		$this->init(array(

@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /** aw code analyzer viewer
 		displays the data that the docgen analyzer generates
 
@@ -53,6 +55,8 @@
 */
 class docgen_viewer extends class_base
 {
+	const AW_CLID = 323;
+
 	function docgen_viewer()
 	{
 		$this->init(array(
@@ -453,7 +457,6 @@ class docgen_viewer extends class_base
 
 		@returns
 
-
 		@comment
 
 	**/
@@ -495,7 +498,7 @@ class docgen_viewer extends class_base
 		$clss = aw_ini_get("classes");
 		foreach($clss as $cldata)
 		{
-			if (isset($cldata["object_override"]) && basename($cldata["object_override"]) == $usage_class)
+			if (isset($cldata["object"]) && basename($cldata["object"]) == $usage_class)
 			{
 				$usage_class = "object";
 				break;
@@ -815,7 +818,7 @@ class docgen_viewer extends class_base
 					$clf = "/../lib/errorhandling.aw";
 					break;
 
-				default:					
+				default:
 					try
 					{
 						$clf = class_index::get_file_by_name(basename($impl));
@@ -922,7 +925,7 @@ class docgen_viewer extends class_base
 					$clf = "/../lib/errorhandling.aw";
 					break;
 
-				default:					
+				default:
 					try
 					{
 						$clf = class_index::get_file_by_name(basename($impl));
@@ -1133,7 +1136,7 @@ class docgen_viewer extends class_base
 					$clf = "/../lib/errorhandling.aw";
 					break;
 
-				default:					
+				default:
 					try
 					{
 						$clf = class_index::get_file_by_name(basename($impl));
@@ -1273,7 +1276,7 @@ class docgen_viewer extends class_base
 						$clf = class_index::get_file_by_name(basename($dat["extends"]));
 						break;
 				}
-			
+
 			}
 			catch (awex_clidx_filesys $e)
 			{

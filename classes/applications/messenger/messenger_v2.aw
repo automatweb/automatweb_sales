@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // messenger_v2.aw - Messenger V2
 /*
 HANDLE_MESSAGE(MSG_USER_LOGIN, on_user_login)
@@ -204,6 +206,8 @@ caption Identiteet
 
 class messenger_v2 extends class_base
 {
+	const AW_CLID = 227;
+
 	function messenger_v2()
 	{
 		$this->init(array(

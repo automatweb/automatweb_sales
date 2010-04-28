@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @tableinfo banner_clients index=id master_table=objects master_index=brother_of
 @classinfo syslog_type=ST_BANNER_LOCATION relationmgr=yes maintainer=kristo
@@ -23,6 +25,8 @@
 
 class banner_client extends class_base
 {
+	const AW_CLID = 55;
+
 	function banner_client()
 	{
 		$this->init(array(

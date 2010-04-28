@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 // this class generates the message dispatch tables from the class files
 

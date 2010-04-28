@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/user_change_password.aw,v 1.4 2008/03/12 21:23:21 kristo Exp $
 // user_change_password.aw - Kasutaja parooli muutmine 
 /*
@@ -12,6 +14,8 @@
 
 class user_change_password extends class_base
 {
+	const AW_CLID = 902;
+
 	function user_change_password()
 	{
 		$this->init(array(

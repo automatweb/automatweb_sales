@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_company_customer_data_obj extends _int_object
 {
+	const AW_CLID = 1028;
+
 	const SALESSTATE_NEW = 1;
 	const SALESSTATE_LEAD = 2;
 	const SALESSTATE_NEWCALL = 3;

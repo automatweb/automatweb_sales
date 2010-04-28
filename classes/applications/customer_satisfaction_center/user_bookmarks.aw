@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // user_bookmarks.aw - Kasutaja j&auml;rjehoidjad
 /*
 
@@ -49,6 +51,8 @@
 
 class user_bookmarks extends class_base
 {
+	const AW_CLID = 1131;
+
 	function user_bookmarks()
 	{
 		$this->init(array(
@@ -181,7 +185,7 @@ class user_bookmarks extends class_base
 			"link" => html::get_new_url(CL_EXTLINK, $pt, array("return_url" => get_ru()))
 		));
 
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$tb->add_cdata($ps->get_popup_search_link(array(
 			"pn" => "objs",
 		)));
@@ -521,7 +525,7 @@ class user_bookmarks extends class_base
 			));
 			if(count($conn))
 			{
-				$popup_menu = get_instance("vcl/popup_menu");
+				$popup_menu = new popup_menu();
 				$popup_menu->begin_menu("grp".$o->id());
 				foreach($conn as $con)
 				{
@@ -889,7 +893,7 @@ class user_bookmarks extends class_base
 	{
 		$bm = $this->init_bm();
 
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("user_bookmarks");
 		$c = get_instance("cache");
 		$time = 5*24*60*60;
@@ -1315,7 +1319,7 @@ class user_bookmarks extends class_base
 			));
 			$olids = $ol->ids();
 		}
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$uo = $ui->get_obj_for_uid(aw_global_get("uid"));
 		$gconn = $uo->connections_from(array(
 			"type" => "RELTYPE_GRP",

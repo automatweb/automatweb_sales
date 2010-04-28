@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/spa_bookings/spa_bookigs_entry.aw,v 1.87 2008/11/14 11:36:31 markop Exp $
 // spa_bookigs_entry.aw - SPA Reisib&uuml;roo liides 
 /*
@@ -144,6 +146,8 @@
 
 class spa_bookigs_entry extends class_base
 {
+	const AW_CLID = 1179;
+
 	function spa_bookigs_entry()
 	{
 		$this->init(array(
@@ -460,7 +464,7 @@ class spa_bookigs_entry extends class_base
 
 					$cu = get_instance("crm/crm_user_creator");
 					$uid = $cu->get_uid_for_person($p, false, true);
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$user = $u->add_user(array(
 						"uid" => $uid,
 						"email" => $d["email"],
@@ -1562,7 +1566,7 @@ class spa_bookigs_entry extends class_base
 
 		list($y, $m, $d) = explode("-", $b->prop("person.birthday"));
 
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$this->users_person = $us->get_person_for_uid($b->createdby());
 
 		$this->vars(array(
@@ -1685,7 +1689,7 @@ class spa_bookigs_entry extends class_base
 
 		list($y, $m, $d) = explode("-", $b->prop("person.birthday"));
 
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$this->users_person = $us->get_person_for_uid($b->createdby());
 
 		$this->vars(array(
@@ -2107,7 +2111,7 @@ class spa_bookigs_entry extends class_base
 		$propl = $tmp->get_property_list();
 
 		// get system default cfgform for person
-		$si = get_instance(CL_CFGFORM);
+		$si = new cfgform();
 		$sysd = $si->get_sysdefault(array("clid" => CL_CRM_PERSON));
 		if ($sysd)
 		{

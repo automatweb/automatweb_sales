@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CRM_CASH_COW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
 @tableinfo aw_crm_cash_cow master_index=brother_of master_table=objects index=aw_oid
@@ -44,6 +46,8 @@
 
 class crm_cash_cow extends class_base
 {
+	const AW_CLID = 1538;
+
 	function crm_cash_cow()
 	{
 		$this->init(array(

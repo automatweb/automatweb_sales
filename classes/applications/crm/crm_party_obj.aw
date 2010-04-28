@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_party_obj extends _int_object
 {
+	const AW_CLID = 1490;
+
 
 	function set_prop($pn, $pv)
 	{

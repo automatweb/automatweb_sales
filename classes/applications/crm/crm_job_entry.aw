@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_job_entry.aw,v 1.28 2008/10/29 15:55:03 markop Exp $
 // crm_job_entry.aw - T88 kirje
 /*
@@ -115,6 +117,8 @@
 
 class crm_job_entry extends class_base
 {
+	const AW_CLID = 1035;
+
 	function crm_job_entry()
 	{
 		$this->init(array(
@@ -141,7 +145,7 @@ class crm_job_entry extends class_base
 				break;
 
 			case "cust_mgr":
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$c = get_instance(CL_CRM_COMPANY);
 				$prop["options"] = $c->get_employee_picker(obj($u->get_current_company()), true);
 				$prop["value"] = $u->get_current_person();
@@ -220,7 +224,7 @@ class crm_job_entry extends class_base
 				break;
 
 			case "proj_parts":
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$co = obj($u->get_current_company());
 				$i = $co->instance();
 
@@ -238,7 +242,7 @@ class crm_job_entry extends class_base
 				break;
 
 			case "resource_sel":
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$co = obj($u->get_current_company());
 				$i = $co->instance();
 				$res = $i->get_my_resources();
@@ -424,7 +428,7 @@ class crm_job_entry extends class_base
 				$c->save();
 
 				// add as important person for me
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$cur_p = obj($u->get_current_person());
 				$cur_p->connect(array(
 					"to" => $pers->id(),
@@ -433,7 +437,7 @@ class crm_job_entry extends class_base
 			}
 		}
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		// create proj
 		$p = obj();
 		$p->set_class_id(CL_PROJECT);
@@ -447,7 +451,7 @@ class crm_job_entry extends class_base
 		$ppt = $arr["request"]["proj_parts"];
 		if (!is_array($ppt) || count($ppt) == 0)
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$curp = $u->get_current_person();
 			$ppt = array($curp => $curp);
 		}

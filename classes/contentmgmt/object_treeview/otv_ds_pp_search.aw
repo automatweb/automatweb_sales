@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview/otv_ds_pp_search.aw,v 1.15 2009/05/06 13:41:44 markop Exp $
 // otv_ds_pp_search.aw - Objektinimekirja pp andmeallika otsing 
 /*
@@ -54,6 +56,8 @@
 
 class otv_ds_pp_search extends class_base
 {
+	const AW_CLID = 820;
+
 	function otv_ds_pp_search()
 	{
 		$this->init(array(

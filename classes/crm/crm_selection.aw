@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_selection.aw,v 1.23 2008/01/31 13:54:16 kristo Exp $
 /*
 @classinfo relationmgr=yes syslog_type=ST_CRM_SELECTION maintainer=markop
@@ -50,6 +52,8 @@ CREATE TABLE `selection` (
 */
 class crm_selection extends class_base
 {
+	const AW_CLID = 169;
+
 	var $selections_reltype;
 	
 	function crm_selection()

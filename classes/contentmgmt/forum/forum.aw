@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/forum/forum.aw,v 1.25 2008/09/30 22:22:10 dragut Exp $
 // forum.aw - forums/messageboards
 /*
@@ -46,6 +48,8 @@
 
 class forum extends class_base
 {
+	const AW_CLID = 69;
+
 	function forum($args = array())
 	{
 		extract($args);
@@ -453,7 +457,7 @@ class forum extends class_base
 		if ( $this->cfg["newtopic_logged_only"] && aw_global_get("uid") == "" )
 		{
 			$c = get_instance("config");
-			$la = get_instance("languages");
+			$la = new languages();
 			$ld = $la->fetch(aw_global_get("lang_id"));
 			$doc = $c->get_simple_config("orb_err_mustlogin_".$ld["acceptlang"]);
 			if (!$doc)

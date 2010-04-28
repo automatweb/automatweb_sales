@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 // this is the aw message dispatcher
 // it accepts messages and delivers them to all listeners
@@ -15,12 +14,12 @@ class msg_dispatch
 	////
 	// !this delivers posted messages
 	// parameters:
-	//	msg - message 
+	//	msg - message
 	//	params - array of parameters
 	function post_message($arr)
 	{
 		error::raise_if(!isset($arr["msg"]), array(
-			"id" => "ERR_NO_MSG", 
+			"id" => "ERR_NO_MSG",
 			"msg" => t("msg_dispatch::post_message - no message posted!")
 		));
 
@@ -49,18 +48,18 @@ class msg_dispatch
 	////
 	// !this delivers posted messages with a parameter
 	// parameters:
-	//	msg - message 
+	//	msg - message
 	//	param - the parameter through which message recievers are filtered
 	//	params - array of parameters
 	function post_message_with_param($arr)
 	{
 		error::raise_if(!isset($arr["msg"]), array(
-			"id" => "ERR_NO_MSG", 
+			"id" => "ERR_NO_MSG",
 			"msg" => t("msg_dispatch::post_message - no message posted!")
 		));
 
 		error::raise_if(!isset($arr["param"]), array(
-			"id" => "ERR_NO_MSG", 
+			"id" => "ERR_NO_MSG",
 			"msg" => t("msg_dispatch::post_message - no parameter for message posted!")
 		));
 
@@ -100,7 +99,7 @@ class msg_dispatch
 		}
 		$msg = str_replace(".", "", $msg);
 		$file = aw_ini_get("basedir")."/xml/msgmaps/".$msg.".xml";
-		
+
 		$fc = file_get_contents($file);
 		error::raise_if($fc === false, array(
 			"id" => "ERR_NO_SUCH_MESSAGE",

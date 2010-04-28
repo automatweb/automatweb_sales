@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_GROUP, on_delete_grp)
@@ -189,13 +191,15 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_GROUP, on_remove_alias
 
 class group extends class_base
 {
+	const AW_CLID = 37;
+
 	function group()
 	{
 		$this->init(array(
 			'tpldir' => 'core/users/group',
 			'clid' => CL_GROUP
 		));
-		$this->users = get_instance("users");
+		$this->users = new users();
 	}
 
 	function get_property(&$arr)
@@ -227,7 +231,7 @@ class group extends class_base
 				break;
 
 			case "data":
-				$f = get_instance(CL_FORM);
+				$f = new form();
 				$prop['value'] = $f->gen_preview(array(
 					"id" => $arr["obj_inst"]->prop("search_form"),
 					"entry_id" => $prop['value'],
@@ -313,7 +317,7 @@ class group extends class_base
 			}
 		}
 		else
-		if ($prop['name'] == 'import')
+		if ($prop['name'] === 'import')
 		{
 			global $import;
 			$imp = $import;
@@ -322,7 +326,7 @@ class group extends class_base
 				return PROP_OK;
 			}
 
-			$us = get_instance(CL_USER);
+			$us = new user();
 			echo t("Impordin kasutajaid ... <br />");
 			$first = true;
 			$f = fopen($imp,"r");
@@ -602,7 +606,7 @@ class group extends class_base
 	function get_admin_rootmenus($arr)
 	{
 		$ret = array();
-		$la = get_instance("languages");
+		$la = new languages();
 		$ll = $la->get_list(array(
 			"ignore_status" => true
 		));
@@ -650,7 +654,7 @@ class group extends class_base
 	function get_grp_frontpage($arr)
 	{
 		$ret = array();
-		$la = get_instance("languages");
+		$la = new languages();
 		$ll = $la->get_list();
 		$meta = $arr["obj_inst"]->meta();
 
@@ -1156,7 +1160,7 @@ class group extends class_base
 			return $cache;
 		}
 
-		$c = get_instance("config");
+		$c = new config();
 
 		if (!empty($_SESSION["non_logged_in_users_group_oid"]))
 		{

@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 @classinfo syslog_type=ST_CRM_SALES relationmgr=yes no_status=1 maintainer=voldemar prop_cb=1
@@ -30,6 +32,7 @@ GROUP DECLARATIONS
 
 // statistics and analysis views. handled by separate static view classes
 @groupinfo statistics caption="&Uuml;levaated"
+@groupinfo statistics_data_entry caption="Andmesisestus" parent=statistics submit_method=get
 @groupinfo statistics_telemarketing caption="Telemarketing" parent=statistics submit_method=get
 
 
@@ -405,6 +408,7 @@ PROPERTY DECLARATIONS
 	@property import_objects type=table store=no
 	@caption Seadistatud impordid
 
+
 @layout contact_entry_buttons type=hbox parent=de_form_box group=data_entry_contact_co,data_entry_contact_person width=10%:20%:70%
 	@property contact_entry_space type=text store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_buttons no_caption=1
 
@@ -425,6 +429,23 @@ PROPERTY DECLARATIONS
 		@property tmstat_s type=submit value=Vaata parent=tmstat_control_container store=no
 		@caption Vaata
 
+@default group=statistics_data_entry
+	@layout data_entry_stats_vsplitbox type=hbox width=25%:75%
+	@layout data_entry_stats_box type=vbox parent=data_entry_stats_vsplitbox
+	@layout data_entry_stats_tree_box type=vbox closeable=1 area_caption=&Uuml;levaate&nbsp;valik parent=data_entry_stats_box
+	@property data_entry_stats_tree type=treeview store=no no_caption=1 parent=data_entry_stats_tree_box
+	@property data_entry_stats_list type=table store=no no_caption=1 parent=data_entry_stats_vsplitbox
+
+	@layout data_entry_stats_search_box type=vbox closeable=1 area_caption=&Uuml;levaate&nbsp;parameetird parent=data_entry_stats_box
+		@property des_from type=datepicker store=no parent=data_entry_stats_search_box captionside=top
+		@caption Sisestamise ajavahemik
+		@property des_to type=datepicker store=no parent=data_entry_stats_search_box no_caption=1
+
+		@property des_by type=select size=10 multiple=1 store=no parent=data_entry_stats_search_box captionside=top
+		@caption Sisestaja(d)
+
+		@property des_submit type=submit value=Otsi parent=data_entry_stats_search_box store=no
+		@caption Otsi
 
 
 RELATION TYPE DECLARATIONS
@@ -458,6 +479,8 @@ RELATION TYPE DECLARATIONS
 
 class crm_sales extends class_base
 {
+	const AW_CLID = 1347;
+
 	// LIST VIEWS
 	// these define predefined filter configurations for lists of
 	// sales objects (calls, presentations, contacts)
@@ -704,7 +727,7 @@ class crm_sales extends class_base
 		return $r;
 	}
 
-	protected function set_employees_options(&$arr, object $profession = null, $only_active = true)
+	public static function set_employees_options(&$arr, object $profession = null, $only_active = true)
 	{
 		$owner = $arr["obj_inst"]->prop("owner");
 		$cache = new cache();
@@ -1068,7 +1091,7 @@ class crm_sales extends class_base
 			}
 
 			$method_name = "_get_{$arr["prop"]["name"]}";
-			if (method_exists("crm_sales_calls_view", $method_name))
+			if (method_exists("automatweb\\crm_sales_calls_view", $method_name))
 			{
 				$ret = crm_sales_calls_view::$method_name($arr);
 			}
@@ -1081,7 +1104,7 @@ class crm_sales extends class_base
 			}
 
 			$method_name = "_get_{$arr["prop"]["name"]}";
-			if (method_exists("crm_sales_contacts_view", $method_name))
+			if (method_exists("automatweb\\crm_sales_contacts_view", $method_name))
 			{
 				$ret = crm_sales_contacts_view::$method_name($arr);
 			}
@@ -1094,7 +1117,7 @@ class crm_sales extends class_base
 			}
 
 			$method_name = "_get_{$arr["prop"]["name"]}";
-			if (method_exists("crm_sales_presentations_view", $method_name))
+			if (method_exists("automatweb\\crm_sales_presentations_view", $method_name))
 			{
 				$ret = crm_sales_presentations_view::$method_name($arr);
 			}
@@ -1102,7 +1125,7 @@ class crm_sales extends class_base
 		elseif ("_calendar" === substr($this->use_group, -9))
 		{
 			$method_name = "_get_{$arr["prop"]["name"]}";
-			if (method_exists("crm_sales_calendar_view", $method_name))
+			if (method_exists("automatweb\\crm_sales_calendar_view", $method_name))
 			{
 				$ret = crm_sales_calendar_view::$method_name($arr);
 			}
@@ -1110,9 +1133,21 @@ class crm_sales extends class_base
 		elseif ("statistics_telemarketing" === $this->use_group)
 		{
 			$method_name = "_get_{$arr["prop"]["name"]}";
-			if (method_exists("crm_sales_telemarketing_statistics_view", $method_name))
+			if (method_exists("automatweb\\crm_sales_telemarketing_statistics_view", $method_name))
 			{
 				$ret = crm_sales_telemarketing_statistics_view::$method_name($arr);
+			}
+		}
+		elseif ("statistics_data_entry" === $this->use_group)
+		{
+			$method_name = "_get_{$arr["prop"]["name"]}";
+			if (method_exists("automatweb\\crm_sales_data_entry_statistics_view", $method_name))
+			{
+				$ret = crm_sales_data_entry_statistics_view::$method_name($arr);
+			}
+			elseif (isset($arr["request"][$arr["prop"]["name"]]))
+			{
+				$arr["prop"]["value"] = $arr["request"][$arr["prop"]["name"]];
 			}
 		}
 
@@ -1456,7 +1491,7 @@ SCRIPT;
 		$o = new object($arr["contact_id"]);
 		$class = basename(aw_ini_get("classes." . $o->class_id() . ".file"));
 		$i = new crm_sales();
-		$i->output_client = "jsonclient";
+		$i->output_client = "automatweb\\jsonclient";
 		$group = (CL_CRM_COMPANY == $o->class_id()) ? "data_entry_contact_co" : "data_entry_contact_person";
 		$args = array(
 			"id" => $arr["id"],
@@ -1517,7 +1552,7 @@ SCRIPT;
 
 		try
 		{
-			$search->application = $this_o;
+			$search->seller = $this_o;
 			$params_defined = false;
 
 
@@ -1590,7 +1625,7 @@ SCRIPT;
 
 			if (!empty($request["cts_status"]))
 			{
-				$search->status = $request["cts_status"];
+				$search->status = (int) $request["cts_status"];
 				$params_defined = true;
 			}
 
@@ -1645,6 +1680,7 @@ SCRIPT;
 			}
 
 			$param = $param_translations[$code];
+			trigger_error($e->getMsg(), E_USER_WARNING);
 			class_base::show_error_text(t("Viga otsinguparameetrites. {$param}"));
 		}
 
@@ -1699,7 +1735,7 @@ SCRIPT;
 			$return = PROP_FATAL_ERROR;
 			$arr["prop"]["error"] = t("Telefoninumber on kohustuslik");
 		}
-		elseif (!isset($arr["prop"]["value"]["id"]) and $phone_nr_list->count() === 1)
+		elseif (!is_oid($arr["prop"]["value"]["id"]) and $phone_nr_list->count() === 1)
 		{ // phone nr for a contact to be created is given but already exists
 			$arr["prop"]["error"] = t("Telefoninumber on juba andmebaasis olemas. Uuesti lisada ei saa.");
 			$return = PROP_FATAL_ERROR;
@@ -1709,7 +1745,7 @@ SCRIPT;
 			$arr["prop"]["error"] = t("Antud telefoninumber esineb andmebaasis mitmekordselt. Vajalik on andmebaasi korrastus.");
 			$return = PROP_FATAL_ERROR;
 		}
-		elseif (isset($arr["prop"]["value"]["id"]))
+		elseif (is_oid($arr["prop"]["value"]["id"]))
 		{
 			$o = obj($arr["prop"]["value"]["id"], array(), CL_CRM_COMPANY, true);
 			$o->set_name($arr["prop"]["value"]["name"]);
@@ -1804,14 +1840,14 @@ SCRIPT;
 
 				$customer_relation = $o->get_customer_relation($owner, true);
 
-				if (!empty($arr["request"]["contact_entry_salesman"]))
+				if (is_oid($arr["request"]["contact_entry_salesman"]))
 				{ // set salesman
 					$salesman = obj($arr["request"]["contact_entry_salesman"], array(), CL_CRM_PERSON);
 					$customer_relation->set_prop("salesman", $salesman->id());
 					$customer_relation->connect(array("to" => $salesman, "reltype" => "RELTYPE_SALESMAN"));
 				}
 
-				if (!empty($arr["request"]["contact_entry_lead_source_oid"]))
+				if (is_oid($arr["request"]["contact_entry_lead_source_oid"]))
 				{ // set lead source
 					$lead_source = new object($arr["request"]["contact_entry_lead_source_oid"]);
 
@@ -1889,7 +1925,7 @@ SCRIPT;
 			$return = PROP_FATAL_ERROR;
 			$arr["prop"]["error"] = t("Telefoninumber on kohustuslik");
 		}
-		elseif (!isset($arr["prop"]["value"]["id"]) and $phone_nr_list->count() === 1)
+		elseif (!is_oid($arr["prop"]["value"]["id"]) and $phone_nr_list->count() === 1)
 		{ // phone nr for a contact to be created is given but already exists
 			$arr["prop"]["error"] = t("Telefoninumber on juba andmebaasis olemas. Uuesti lisada ei saa.");
 			$return = PROP_FATAL_ERROR;
@@ -1899,7 +1935,7 @@ SCRIPT;
 			$arr["prop"]["error"] = t("Antud telefoninumber esineb andmebaasis mitmekordselt. Vajalik on andmebaasi korrastus.");
 			$return = PROP_FATAL_ERROR;
 		}
-		elseif (isset($arr["prop"]["value"]["id"]))
+		elseif (is_oid($arr["prop"]["value"]["id"]))
 		{
 			$o = obj($arr["prop"]["value"]["id"], array(), CL_CRM_PERSON, true);
 			$o->set_prop("firstname", ucfirst($arr["prop"]["value"]["firstname"]));
@@ -2008,14 +2044,14 @@ SCRIPT;
 
 				$customer_relation = $o->get_customer_relation($owner, true);
 
-				if (!empty($arr["request"]["contact_entry_salesman"]))
+				if (is_oid($arr["request"]["contact_entry_salesman"]))
 				{ // set salesman
 					$salesman = obj($arr["request"]["contact_entry_salesman"], array(), CL_CRM_PERSON);
 					$customer_relation->set_prop("salesman", $salesman->id());
 					$customer_relation->connect(array("to" => $salesman, "reltype" => "RELTYPE_SALESMAN"));
 				}
 
-				if (!empty($arr["request"]["contact_entry_lead_source_oid"]))
+				if (is_oid($arr["request"]["contact_entry_lead_source_oid"]))
 				{ // set lead source
 					$lead_source = new object($arr["request"]["contact_entry_lead_source_oid"]);
 

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/stats/stats_arch_status.aw,v 1.2 2008/01/31 13:50:17 kristo Exp $
 // stats_arch_status.aw - Statistika arhiivi staatus 
 /*
@@ -12,6 +14,8 @@
 
 class stats_arch_status extends class_base
 {
+	const AW_CLID = 1146;
+
 	function stats_arch_status()
 	{
 		$this->init(array(

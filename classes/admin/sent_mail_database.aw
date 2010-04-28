@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // sent_mail_database.aw - V&auml;ljasaadetud meilid
 /*
 
@@ -33,6 +35,8 @@ HANDLE_MESSAGE(MSG_MAIL_SENT, on_send_mail)
 
 class sent_mail_database extends class_base
 {
+	const AW_CLID = 1388;
+
 	function sent_mail_database()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/import/import_log.aw,v 1.1 2008/02/29 11:04:12 instrumental Exp $
 // import_log.aw - Impordi logi 
 /*
@@ -21,6 +23,8 @@
 
 class import_log extends class_base
 {
+	const AW_CLID = 1338;
+
 	function import_log()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

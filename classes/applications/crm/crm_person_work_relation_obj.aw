@@ -1,6 +1,11 @@
 <?php
+
+namespace automatweb;
+
 class crm_person_work_relation_obj extends _int_object
 {
+	const AW_CLID = 1060;
+
 	/** sets mail address to work relation
 		@attrib api=1 params=pos
 		@param mail required type=string

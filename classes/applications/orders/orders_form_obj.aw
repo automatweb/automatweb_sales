@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class orders_form_obj extends _int_object
 {
+	const AW_CLID = 841;
+
 
 	public function send_confirm_mail($order)
 	{

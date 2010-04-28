@@ -452,7 +452,7 @@ class object_import extends class_base
 
 	private function get_props_from_obj($o)
 	{
-		$cf = get_instance(CL_CFGFORM);
+		$cf = new cfgform();
 		return $cf->get_props_from_ot(array(
 			"ot" => $o->prop("object_type")
 		));

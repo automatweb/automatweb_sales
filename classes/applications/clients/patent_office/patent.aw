@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // patent.aw - Trademark
 /*
 
@@ -89,6 +91,8 @@
 
 class patent extends intellectual_property
 {
+	const AW_CLID = 1181;
+
 	public static $level_index = array(
 		0 => 0,
 		1 => 1,
@@ -803,7 +807,7 @@ class patent extends intellectual_property
 			$fld = aw_ini_get("site_basedir")."/patent_files/";
 			$fn = $fld .sprintf("%08d", $status->prop("nr")).$type;
 			echo "saving file $fn <br>";
-			$image_inst = get_instance(CL_FILE);
+			$image_inst = new file();
 			$imd = $image_inst->get_file_by_id($im->id(), true);
 			$f = fopen($fn ,"w");
 			fwrite($f, $imd["content"]);

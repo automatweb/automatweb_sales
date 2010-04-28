@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_TASK confirm_save_data=1 maintainer=markop
@@ -299,6 +301,8 @@ define("STOPPER_RUNNING", 2);
 
 class task extends class_base
 {
+	const AW_CLID = 244;
+
 	protected $add_to_proj;
 	protected $post_save_add_parts = array();
 
@@ -364,7 +368,7 @@ class task extends class_base
 	{
 		$this->read_template("stopper_pop.tpl");
 
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$u = obj($ui->get_current_user());
 		$stos = $this->get_stos($u);
 		$ret = $this->_proc_stop_act($arr, $stos);
@@ -903,7 +907,7 @@ class task extends class_base
 				"fullheaders" => "",
 			));
 		}
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$this->co = $u->get_current_company();
 		$this->person = $u->get_current_person();
 	}
@@ -1412,7 +1416,7 @@ class task extends class_base
 	**/
 	function change_stop_type($arr)
 	{
-		$ui = get_instance(CL_USER);
+		$ui = new user();
 		$u = obj($ui->get_current_user());
 		$stos = $this->get_stos($u);
 		$stos[$arr["ident"]]["type"] = $arr["type"];
@@ -1752,10 +1756,10 @@ class task extends class_base
 	function new_files_on_demand($arr)
 	{
 
-		$tb = get_instance("vcl/popup_menu");
+		$tb = new popup_menu();
 		$tb->begin_menu("new_pop");
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$arr["obj_inst"] = obj($arr["obj_inst"]);
  		if ($arr["obj_inst"] && $this->can("view", $arr["obj_inst"]->prop("customer")))
  		{
@@ -1805,10 +1809,10 @@ class task extends class_base
 	function new_files_on_demand_____redeclared ($arr)//to author: fix or remove
 	{
 
-		$tb = get_instance("vcl/popup_menu");
+		$tb = new popup_menu();
 		$tb->begin_menu("new_pop");
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$arr["obj_inst"] = obj($arr["obj_inst"]);
  		if ($arr["obj_inst"] && $this->can("view", $arr["obj_inst"]->prop("customer")))
  		{

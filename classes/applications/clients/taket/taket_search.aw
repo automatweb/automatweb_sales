@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/taket/taket_search.aw,v 1.6 2009/05/05 13:50:21 dragut Exp $
 // taket_search.aw - Taketi Otsing 
 /*
@@ -51,6 +53,8 @@
 
 class taket_search extends class_base implements main_subtemplate_handler
 {
+	const AW_CLID = 242;
+
 	function taket_search()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

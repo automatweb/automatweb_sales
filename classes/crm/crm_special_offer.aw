@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_special_offer.aw,v 1.5 2008/01/31 13:54:16 kristo Exp $
 // crm_special_offer.aw - Organisatsiooni eripakkumine
 // Not related to crm_offer
@@ -61,6 +63,8 @@
 
 class crm_special_offer extends class_base
 {
+	const AW_CLID = 994;
+
 	function crm_special_offer()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,

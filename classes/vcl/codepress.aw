@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/vcl/codepress.aw,v 1.1 2008/08/29 11:25:33 robert Exp $
 // fck_editor.aw - FCKeditor
-/*
-@classinfo  maintainer=hannes
-*/
+
+namespace automatweb;
+
 class codepress extends aw_template
 {
 	function codepress()
@@ -12,7 +11,7 @@ class codepress extends aw_template
 			"tpldir" => "vcl/codepress",
 		));
 	}
-	
+
 	function get_rte_toolbar($arr)
 	{
 		if (!is_object($arr["toolbar"]))
@@ -40,7 +39,7 @@ class codepress extends aw_template
 			));
 		}
 	}
-	
+
 	function draw_editor($arr)
 	{
 		load_javascript("codepress/codepress.js");

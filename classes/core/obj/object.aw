@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 // god damn, this is a fucking great idea!
 // how to get around the php copy-object problem.

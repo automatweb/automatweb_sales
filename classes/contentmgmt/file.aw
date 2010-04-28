@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 
@@ -143,6 +145,8 @@
 
 class file extends class_base
 {
+	const AW_CLID = 41;
+
 	////
 	// !Konstruktor
 	function file()
@@ -437,7 +441,7 @@ class file extends class_base
 			case "sp_content":
 				if(!strlen($data["value"]))
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$person = $u->get_person_for_uid(aw_global_get("uid"));
 					$user_name = "";
 					if(is_object($person))
@@ -1561,7 +1565,7 @@ class file extends class_base
 			"name" => $arr["name"],
 			"type" => $arr["type"],
 		);
-		$t = get_instance(CL_FILE);
+		$t = new file();
 		$rv = $t->submit($data);
 		return $rv;
 	}

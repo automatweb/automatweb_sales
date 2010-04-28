@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // graph.aw - graafikute haldamine
 
 /*
@@ -119,6 +121,8 @@ define("TYPE_BAR",2);
 
 class graph extends class_base
 {
+	const AW_CLID = 28;
+
 	//mis tyypi pilte me siin 6ieti loome
 	var $outputimagetype;
 

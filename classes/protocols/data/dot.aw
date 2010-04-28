@@ -1,9 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/protocols/data/dot.aw,v 1.2 2008/01/31 13:55:19 kristo Exp $
-// dot.aw - DOT 
-/*
-@classinfo  maintainer=tarvo
-*/
+// dot.aw - DOT
+
+namespace automatweb;
 
 define("DOT_RATIO_FILL", "fill");
 define("DOT_RATIO_COMPRESS", "compress");
@@ -57,7 +55,7 @@ class dot
 			$attributes["fillcolor"] = $this->nodes_fillcolor;
 			$attributes["fontcolor"] = $this->_inverse_color($this->nodes_fillcolor);
 		}
-		
+
 		if(!$attributes["label"] && $this->_fix_name($node) != $node)
 		{
 			$attributes["label"] = $node;
@@ -69,7 +67,7 @@ class dot
 			"attributes" => $attributes,
 		);
 	}
-	
+
 	/**
 		@attrib params=pos api=1
 		@comment
@@ -77,7 +75,7 @@ class dot
 		@todo
 			allow users to set their specific color after first call.
 			allow user to disable fillcolor.
-			
+
 	**/
 	function fillcolor($color = false)
 	{
@@ -153,7 +151,7 @@ class dot
 			array(
 				attribute => value,
 			)
-		
+
 		@comment
 			Add's an edge.
 	**/
@@ -167,14 +165,14 @@ class dot
 			"from" => strlen($n = $this->_fix_name($from))?$n:DOT_NONAME,
 			"to" => strlen($n = $this->_fix_name($to))?$n:DOT_NONAME,
 			"attributes" => $attributes,
-		);		
+		);
 	}
 
 	/**
 		@attrib params=pos api=1
 		@param width required type=int
 		@param height required type=int
-		@comment 
+		@comment
 			Set's graphs size attribute.
 	**/
 	function set_size($width, $height)
@@ -189,7 +187,7 @@ class dot
 		@attrib params=pos api=1
 		@param attribute required type=string
 		@param value required type=string
-		@comment 
+		@comment
 			Set's graphs node's attributes.
 	**/
 	function set_node_attribute($attrib, $val)
@@ -201,7 +199,7 @@ class dot
 
 	/**
 		@attrib params=pos api=1
-		@comment 
+		@comment
 			Clears graphs node's current attributes.
 	**/
 	function clear_node_attribute()
@@ -212,7 +210,7 @@ class dot
 	/**
 		@attrib params=pos api=1
 		@param ratio required type=string
-		@comment 
+		@comment
 			Set's graphs ratio attribute.
 	**/
 	function set_ratio($ratio)
@@ -229,7 +227,7 @@ class dot
 		$attributes = $this->_gen_attributes($this->attributes, true);
 		$nodes = $this->_gen_nodes();
 		$edges = $this->_gen_edges();
-		
+
 		$dot[] = sprintf("%s %s {", $this->graph_type(), $this->graph_name());
 		$dot = array_merge($dot, $attributes, $nodes, $edges);
 		$dot[] = sprintf("}");
@@ -282,7 +280,7 @@ class dot
 		}
 		return $out;
 	}
-	
+
 	function _gen_attributes($attributes, $graph_attrib = false)
 	{
 		$out = array();

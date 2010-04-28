@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_settings.aw,v 1.36 2009/06/29 14:08:27 markop Exp $
 // crm_settings.aw - Kliendibaasi seaded
 /*
@@ -232,6 +234,8 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 class crm_settings extends class_base
 {
+	const AW_CLID = 1036;
+
 	// var ${"_properties" . CL_CRM_COMPANY} = array();
 	// var ${"_properties" . CL_CRM_PERSON} = array();
 	var $crmcfg_defined_tables = array();
@@ -844,7 +848,7 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 			return $cache;
 		}
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$curp = $u->get_current_person();
 		$curco = $u->get_current_company();
 		$cd = get_instance("applications/crm/crm_data");

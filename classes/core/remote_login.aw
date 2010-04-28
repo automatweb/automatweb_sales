@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/remote_login.aw,v 1.4 2008/01/31 13:52:49 kristo Exp $
 // remote_login.aw - AW remote login
 
@@ -24,6 +26,8 @@
 
 class remote_login extends class_base
 {
+	const AW_CLID = 90;
+
 	function remote_login($args = array())
 	{
 		extract($args);

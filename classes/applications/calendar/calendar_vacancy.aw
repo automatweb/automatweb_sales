@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/calendar_vacancy.aw,v 1.10 2008/11/06 18:51:54 markop Exp $
 // calendar_vacancy.aw - Vakants 
 /*
@@ -52,6 +54,8 @@
 
 class calendar_vacancy extends class_base
 {
+	const AW_CLID = 802;
+
 	function calendar_vacancy()
 	{
 		$this->init(array(

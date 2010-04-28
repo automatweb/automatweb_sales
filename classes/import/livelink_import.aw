@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/import/livelink_import.aw,v 1.29 2008/07/15 12:30:18 markop Exp $
 // livelink_import.aw - Import livelingist
 
@@ -48,6 +50,8 @@
 
 class livelink_import extends class_base
 {
+	const AW_CLID = 196;
+
 	function livelink_import()
 	{
 		$this->init(array(
@@ -143,7 +147,7 @@ class livelink_import extends class_base
 
 	function _close_logfile($id)
 	{
-		$t = get_instance(CL_FILE);
+		$t = new file();
 		aw_disable_acl();
 		$file_id = $t->create_file_from_string(array(
 			"parent" => $this->log_file_parent,

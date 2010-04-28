@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // personnel_import.aw - Personali import
 /*
 
@@ -43,6 +45,8 @@
 
 class personnel_import extends class_base
 {
+	const AW_CLID = 1386;
+
 	function personnel_import()
 	{
 		$this->init(array(

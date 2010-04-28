@@ -1,8 +1,8 @@
 <?php
 // mysql.aw - MySQL draiver
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class mysql
 {
 	var $dbh; #database handle
@@ -19,7 +19,6 @@ class mysql
 	{
 		lc_load('definition');
 	}
-
 
 	////
 	// !We need to be able to create multiple connections
@@ -45,7 +44,7 @@ class mysql
 			exit;
 		}
 
-		if (not(@mysql_select_db($base,$this->dbh)))
+		if (not(mysql_select_db($base,$this->dbh)))
 		{
 			$err = "Can't connect to database";
 			$err .= '<br />';
@@ -960,7 +959,7 @@ class mysql
 
 	function db_drop_table($table)
 	{
-		$this->db_query("DROP TABLE `$table`");
+		$this->db_query("DROP TABLE `{$table}`");
 	}
 
 	function db_free_result()

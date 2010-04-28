@@ -2,9 +2,9 @@
  // this is the new relationmanager, unfortunately for now, still template based, let's hope
  // that class_base will one day be powerful enough to replace these with properties without
  // a headache -- ahz
-/*
-@classinfo maintainer=kristo
-*/
+
+namespace automatweb;
+
 class relationmgr extends aw_template
 {
 	function relationmgr()

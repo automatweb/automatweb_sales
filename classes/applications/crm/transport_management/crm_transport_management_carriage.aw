@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/transport_management/crm_transport_management_carriage.aw,v 1.3 2007/12/06 14:33:24 kristo Exp $
 // carriage.aw - Vedu 
 /*
@@ -104,6 +106,8 @@ define('CARRIAGE_STATUS_ARCHIVED', 5);
 
 class crm_transport_management_carriage extends class_base
 {
+	const AW_CLID = 1083;
+
 
 	var $carriage_status = array();
 

@@ -1,5 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement_center.aw,v 1.45 2008/04/28 13:59:31 kristo Exp $
+
+namespace automatweb;
+
 // procurement_center.aw - Hankekeskkond
 /*
 
@@ -229,6 +231,8 @@ default group=offerers_tree
 
 class procurement_center extends class_base
 {
+	const AW_CLID = 1065;
+
 	function procurement_center()
 	{
 		$this->init(array(
@@ -370,7 +374,7 @@ class procurement_center extends class_base
 			case "products_find_tb":
 				$this->_products_tb($arr);
 				break;
-				
+
 			case "offerers_find_product":
 			case "offers_find_product":
 			case "buyings_find_product":
@@ -379,10 +383,10 @@ class procurement_center extends class_base
 				$procurement_inst = get_instance(CL_PROCUREMENT);
 				$prop["autocomplete_source"] = $procurement_inst->mk_my_orb("product_autocomplete_source", array(), CL_PROCUREMENT, false, true);
 				$prop["autocomplete_params"] = array($prop["name"]);
-				
+
 //				$o = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_MANAGER_CO");
-//				
-//				$prop["autocomplete_source"] = 
+//
+//				$prop["autocomplete_source"] =
 //				$procurement_inst->mk_my_orb("product_autocomplete_source", array("buyer" =>$o->id()), CL_PROCUREMENT, false, true);
 //				$prop["autocomplete_params"] = array($prop["name"]);
 ////	//			"tabindex" => $x,
@@ -411,7 +415,7 @@ class procurement_center extends class_base
 			case "procurements_find_name":
 			case "products_find_apply":
 
-				
+
 				$search_data = $arr["obj_inst"]->meta("search_data");
 				$prop["value"] = $search_data[$prop["name"]];
 				break;
@@ -1596,8 +1600,8 @@ class procurement_center extends class_base
 			$offerer_discount = 10;
 			$files = "";
 			$file_ol = new object_list($o->connections_from(array()));
-			$file_inst = get_instance(CL_FILE);
-			$pm = get_instance("vcl/popup_menu");
+			$file_inst = new file();
+			$pm = new popup_menu();
 			foreach($file_ol->arr() as $file_o)
 			{
 				if(!(($file_o->class_id() == CL_FILE) || ($file_o->class_id() == CL_CRM_DOCUMENT) || ($file_o->class_id() == CL_CRM_DEAL) || ($file_o->class_id() == CL_CRM_OFFER) || ($file_o->class_id() == CL_CRM_MEMO)))
@@ -2237,7 +2241,7 @@ class procurement_center extends class_base
 					"CL_CRM_COMPANY.RELTYPE_KEYWORD.keyword" => "%".$data["offerers_find_keyword"]."%",
 				)
 			));
-			
+
 		}
 		 ;//siia uus filter
 
@@ -3554,7 +3558,7 @@ class procurement_center extends class_base
 		$t_products->define_field(array("align" => "right","name" => "amount","caption" => t("Kogus") ,"chgbgcolor" => "cutcopied"));
 		$t_products->define_field(array("name" => "unit","caption" => t("&Uuml;hik") ,"chgbgcolor" => "cutcopied"));
 		$t_products->define_field(array("name" => "date","caption" => t("Kuup&auml;ev") ,"chgbgcolor" => "cutcopied"));
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		foreach($products as $product)
 		{
 			if($product->prop("item_type") == $category)
@@ -3861,7 +3865,7 @@ class procurement_center extends class_base
 
 		$offerer = $arr["obj_inst"]->id();
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		if($co == $offerer)
 		{
@@ -4176,7 +4180,7 @@ class procurement_center extends class_base
 
 		$offerer = $arr["obj_inst"]->id();
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		if($co == $offerer)
 		{
@@ -4429,7 +4433,7 @@ class procurement_center extends class_base
 
 		$offerer = $arr["obj_inst"]->id();
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		if($co == $offerer)
 		{

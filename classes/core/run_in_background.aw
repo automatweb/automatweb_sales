@@ -1,8 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
+namespace automatweb;
 
 define("BG_OK", 0);
 define("BG_DONE", 1);
@@ -30,17 +28,17 @@ class run_in_background extends class_base
 
 	/** Composes the background process controls
 
-		@attrib name=bg_run_get_property_control params=name api=1 
+		@attrib name=bg_run_get_property_control params=name api=1
 
-		@param prop required type=array 
+		@param prop required type=array
 			Array with the property information
 		@param obj_inst required type=object
 			Objects instance which should be run in background
 
-		@returns 
+		@returns
 			PROP_OK constant
 
-		@comment 
+		@comment
 			Should be called in get_property() method for a text type property
 			Composes links for controlling the background process
 
@@ -93,17 +91,17 @@ class run_in_background extends class_base
 
 	/** Displays the background process status
 
-		@attrib name=bg_run_get_property_status params=name api=1 
+		@attrib name=bg_run_get_property_status params=name api=1
 
-		@param prop required type=array 
+		@param prop required type=array
 			Array with the property information
 		@param obj_inst required type=object
 			Objects instance which should be run in background
 
-		@returns 
+		@returns
 			PROP_OK if 'bg_run_log' is present in meta data, PROP_IGNORE if it is not
 
-		@comment 
+		@comment
 			Should be called in get_property() method for a text type property
 			Displays the background process status
 

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/questionary/question_group.aw,v 1.7 2007/12/06 14:33:53 kristo Exp $
 // question_group.aw - K&uml;simustegrupp 
 /*
@@ -38,6 +40,8 @@
 
 class question_group extends class_base
 {
+	const AW_CLID = 1154;
+
 	function question_group()
 	{
 		$this->init(array(

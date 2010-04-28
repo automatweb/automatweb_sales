@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // sms_sent.aw - SMSi saatmine
 /*
 
@@ -20,6 +22,8 @@
 
 class sms_sent extends class_base
 {
+	const AW_CLID = 1422;
+
 	function sms_sent()
 	{
 		$this->init(array(

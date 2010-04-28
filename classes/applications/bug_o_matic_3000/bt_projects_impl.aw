@@ -555,7 +555,7 @@ class bt_projects_impl extends core
 		
 		if ($arr["request"]["do_proj_search"] == 1)
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$i = get_instance("applications/crm/crm_company_cust_impl");
 			$filt = $i->_get_my_proj_search_filt($arr["request"], null, null);
 			$ol = new object_list($filt);

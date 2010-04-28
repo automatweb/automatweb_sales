@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/spa_bookings/spa_customer_interface.aw,v 1.45 2009/07/21 10:16:24 markop Exp $
 // spa_customer_interface.aw - SPA Kliendi liides 
 /*
@@ -53,6 +55,8 @@
 
 class spa_customer_interface extends class_base
 {
+	const AW_CLID = 1198;
+
 	function spa_customer_interface()
 	{
 		$this->init(array(
@@ -1015,7 +1019,7 @@ class spa_customer_interface extends class_base
 			}
 		}
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$lang_id = $l->get_langid($_SESSION["ct_lang_id"]);
 		
 		$bank_inst = get_instance(CL_BANK_PAYMENT);
@@ -1170,7 +1174,7 @@ class spa_customer_interface extends class_base
 
 		list($y, $m, $d) = explode("-", $b->prop("person.birthday"));
 
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$this->users_person = $us->get_person_for_uid($b->createdby());
 
 		$this->vars(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/period.aw,v 1.7 2009/05/28 09:53:12 instrumental Exp $
 // period.aw - periods
 /*
@@ -67,6 +69,8 @@
 
 class period extends class_base implements request_startup
 {
+	const AW_CLID = 207;
+
 	function period($oid = 0)
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/pank/tax_chain.aw,v 1.3 2008/01/31 13:55:00 kristo Exp $
 // tax_chain.aw - Maksu pärg 
 /*
@@ -12,6 +14,8 @@
 
 class tax_chain extends class_base
 {
+	const AW_CLID = 808;
+
 	function tax_chain()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

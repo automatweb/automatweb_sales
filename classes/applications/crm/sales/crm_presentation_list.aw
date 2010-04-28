@@ -1,8 +1,6 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
+namespace automatweb;
 
 class crm_presentation_list extends crm_task_list
 {

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/expp/expp_journal_management.aw,v 1.29 2007/11/23 07:03:30 dragut Exp $
 // expp_journal_management.aw - V&auml;ljaannete haldus 
 /*
@@ -204,6 +206,8 @@
 
 class expp_journal_management extends class_base
 {
+	const AW_CLID = 1010;
+
 	function expp_journal_management()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 
@@ -332,7 +336,7 @@ class expp_journal_management extends class_base
 	function callback_get_ordering_terms($arr)
 	{
 		$ret = array();
-		$lang_inst = get_instance("languages");
+		$lang_inst = new languages();
 		$lang_list = $lang_inst->get_list();
 		$meta = $arr["obj_inst"]->meta();
 

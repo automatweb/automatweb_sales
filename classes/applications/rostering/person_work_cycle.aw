@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/rostering/person_work_cycle.aw,v 1.2 2007/12/06 14:34:03 kristo Exp $
 // person_work_cycle.aw - T&ouml;&ouml;ts&uuml;kkel 
 /*
@@ -15,6 +17,8 @@
 
 class person_work_cycle extends class_base
 {
+	const AW_CLID = 1139;
+
 	function person_work_cycle()
 	{
 		$this->init(array(

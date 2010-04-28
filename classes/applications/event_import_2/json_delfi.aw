@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // json_delfi.aw - Delfi JSON v&auml;ljund
 /*
 
@@ -38,6 +40,8 @@
 
 class json_delfi extends class_base
 {
+	const AW_CLID = 1414;
+
 	function json_delfi()
 	{
 		$this->init(array(

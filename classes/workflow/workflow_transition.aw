@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/workflow/workflow_transition.aw,v 1.3 2008/01/31 13:55:40 kristo Exp $
 // workflow_transition.aw - J&auml;rgnevus 
 /*
@@ -23,6 +25,8 @@
 
 class workflow_transition extends class_base
 {
+	const AW_CLID = 253;
+
 	function workflow_transition()
 	{
 		$this->init(array(

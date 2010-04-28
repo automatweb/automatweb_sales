@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // intellectual_property.aw - Intellektuaalomand
 /*
 
@@ -113,6 +115,8 @@
 
 abstract class intellectual_property extends class_base
 {
+	const AW_CLID = 1441;
+
 	public $ip_classes = array(
 		CL_PATENT,
 		CL_PATENT_PATENT,
@@ -366,7 +370,7 @@ abstract class intellectual_property extends class_base
 			case "attachment_bio":
 			case "attachment_other":
 				$image_inst = get_instance(CL_IMAGE);
-				$file_inst = get_instance(CL_FILE);
+				$file_inst = new file();
 				if(array_key_exists($prop["name"] , $_FILES))
 				{
 					if($_FILES[$prop["name"]]['tmp_name'])
@@ -439,7 +443,7 @@ abstract class intellectual_property extends class_base
 			$_SESSION["patent"]["id"] = $arr["id"];
 
 			//kui pole 6igust n2ha
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = obj($u->get_current_person());
 			$code = $p->prop("personal_id");
 			$ol = new object_list(array(
@@ -1001,7 +1005,7 @@ abstract class intellectual_property extends class_base
 			}
 		}
 
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 
 		foreach($this->multifile_upload_vars as $prop)
 		{
@@ -1073,7 +1077,7 @@ abstract class intellectual_property extends class_base
 	**/
 	function show_payment_order($arr)
 	{
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		$mm_type="application/octet-stream";
 		$fc = $file_inst->get_file_by_id($arr["id"]);
 		header("Cache-Control: public, must-revalidate");
@@ -1094,9 +1098,9 @@ abstract class intellectual_property extends class_base
 		@comment
 			saves the ddoc file (browser save popup)
 	**/
-	function get_file($arr)
+	static function get_file($arr)
 	{
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		$ddinst = get_instance(CL_DDOC);
 		classload("common/digidoc/ddoc_parser");
 		$fc = $file_inst->get_file_by_id($arr["oid"]);
@@ -1271,7 +1275,7 @@ abstract class intellectual_property extends class_base
 	function check_and_give_rights($oid)
 	{
 		$o = obj($oid);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 		$name = $p->name();
 		if($name && $name === $o->name())
@@ -1416,7 +1420,7 @@ abstract class intellectual_property extends class_base
 		{
 			return;
 		}
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$this->users_person = new object($us->get_current_person());
 	}
 
@@ -1674,7 +1678,7 @@ abstract class intellectual_property extends class_base
 
 		$data["sum_value"] = $this->get_payment_sum();
 
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 
 		foreach($this->multifile_upload_vars as $prop)
 		{
@@ -2684,7 +2688,7 @@ abstract class intellectual_property extends class_base
 	function save_uploads($uploads)
 	{
 		$image_inst = get_instance(CL_IMAGE);
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		foreach($this->file_upload_vars as $var)
 		{
 			if(array_key_exists($var."_upload" , $uploads))
@@ -3221,7 +3225,7 @@ abstract class intellectual_property extends class_base
 		}
 
 		$this->read_template($tpl);
-		$u = get_instance(CL_USER);
+		$u = new user();
 
 		//!!! ajutine lahendus patendiameti probleemile, kus id-kaardiga sisse logind kasutajale luuakse isik, aga seda get_current_person() vms. miskip2rast ei leia ja loob uue, ilma isikukoodita
 		$u_o = obj(aw_global_get("uid_oid"));
@@ -3374,7 +3378,7 @@ abstract class intellectual_property extends class_base
 					$section = aw_ini_get("clients.patent_office.pat_edit_section_id");
 					$url = aw_url_change_var("section", $section, $url);
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$url = "";
 				}
@@ -3572,7 +3576,7 @@ abstract class intellectual_property extends class_base
 					$section = aw_ini_get("clients.patent_office.tm_edit_section_id");
 					$url = aw_url_change_var("section", $section, $url);
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$url = "";
 				}
@@ -3771,7 +3775,7 @@ abstract class intellectual_property extends class_base
 					$section = aw_ini_get("clients.patent_office.um_edit_section_id");
 					$url = aw_url_change_var("section", $section, $url);
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$url = "";
 				}
@@ -3970,7 +3974,7 @@ abstract class intellectual_property extends class_base
 					$section = aw_ini_get("clients.patent_office.ind_edit_section_id");
 					$url = aw_url_change_var("section", $section, $url);
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$url = "";
 				}
@@ -4169,7 +4173,7 @@ abstract class intellectual_property extends class_base
 					$section = aw_ini_get("clients.patent_office.epat_edit_section_id");
 					$url = aw_url_change_var("section", $section, $url);
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$url = "";
 				}

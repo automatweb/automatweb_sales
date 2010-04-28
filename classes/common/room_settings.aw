@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_ROOM_SETTINGS relationmgr=yes no_comment=1 no_status=1 prop_cb=1  maintainer=markop
 
@@ -316,6 +318,8 @@ Meili sisu peab saama t6lkida, ilmselt seadetele T6lgi vaade teha lisaks.
 
 class room_settings extends class_base
 {
+	const AW_CLID = 1188;
+
 	function room_settings()
 	{
 		$this->init(array(

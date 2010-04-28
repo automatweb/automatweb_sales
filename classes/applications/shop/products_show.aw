@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_PRODUCTS_SHOW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=smeedia
 @tableinfo aw_products_show master_index=brother_of master_table=objects index=aw_oid
@@ -47,6 +49,8 @@
 
 class products_show extends class_base
 {
+	const AW_CLID = 1576;
+
 	function products_show()
 	{
 		$this->init(array(

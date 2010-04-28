@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/taket/taket_block_conf.aw,v 1.1 2008/10/01 14:17:40 markop Exp $
 // taket_block_conf.aw - Otsingu piirangud 
 /*
@@ -12,6 +14,8 @@
 
 class taket_block_conf extends class_base
 {
+	const AW_CLID = 250;
+
 	function taket_block_conf()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

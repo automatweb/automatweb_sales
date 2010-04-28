@@ -1,8 +1,9 @@
 <?php
+
+namespace automatweb;
+
 /**
-A class to help manage template files. 
-$Header: /home/cvs/automatweb_dev/classes/core/util/templatemgr.aw,v 1.5 2009/08/24 08:54:13 instrumental Exp $
-@classinfo  maintainer=kristo
+A class to help manage template files.
 **/
 class templatemgr extends aw_template
 {
@@ -25,7 +26,7 @@ class templatemgr extends aw_template
 
 		@param def optional type=string
 			default template filename
-	
+
 		@returns
 			Array {0 => default caption, template_id => template name,... }
 
@@ -115,8 +116,8 @@ class templatemgr extends aw_template
 		return ifset($cache, $id);
 	}
 
-	/** returns a list of all template folders that are for this site 
-		@attrib name=get_template_folder_list params=name nologin="1" 
+	/** returns a list of all template folders that are for this site
+		@attrib name=get_template_folder_list params=name nologin="1"
 
 		@comment
 			return value is array, key is complete template folder path and value is the path, starting from the site basefolder
@@ -134,9 +135,9 @@ class templatemgr extends aw_template
 	private function _req_tplfolders($fld)
 	{
 		$cnt = 0;
-		if ($dir = @opendir($fld)) 
+		if ($dir = @opendir($fld))
 		{
-			while (($file = readdir($dir)) !== false) 
+			while (($file = readdir($dir)) !== false)
 			{
 				if (!($file == "." || $file == ".."))
 				{
@@ -148,12 +149,12 @@ class templatemgr extends aw_template
 						$this->tplfolder_list[$cf] = $cf;
 					}
 				}
-			}  
+			}
 			closedir($dir);
 		}
 		return $cnt;
 	}
-	
+
 	/** finds the full document template for the given menu
 		@attrib api=1 params=pos
 
@@ -249,8 +250,8 @@ class templatemgr extends aw_template
 		@param folder required type=string
 			The template folder to list templates for
 
-		@returns 
-			array { template_file => template_file } 
+		@returns
+			array { template_file => template_file }
 	**/
 	function template_picker($arr)
 	{
@@ -258,7 +259,7 @@ class templatemgr extends aw_template
 		$fp_adm = $this->cfg["basedir"]."/templates/".$arr["folder"];
 
 		$ret = array("" => "");
-	
+
 		if (is_dir($GLOBALS["cfg"]["tpldir"]."/".$arr["folder"]))
 		{
 			$dc = $this->get_directory(array(

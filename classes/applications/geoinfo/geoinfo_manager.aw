@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/geoinfo/geoinfo_manager.aw,v 1.8 2008/02/15 10:30:49 robert Exp $
 // geoinfo_manager.aw - Geoinfo haldus 
 /*
@@ -55,6 +57,8 @@
 
 class geoinfo_manager extends class_base
 {
+	const AW_CLID = 1373;
+
 	function geoinfo_manager()
 	{
 		$this->init(array(
@@ -580,7 +584,7 @@ class geoinfo_manager extends class_base
 		$this->init_rels_mgr_table($t, $arr);
 
 		$args["clids"] = $this->get_data_clids($arr);
-		$cfi = get_instance(CL_CFGFORM);
+		$cfi = new cfgform();
 		foreach($args["clids"] as $clid)
 		{
 			$args["cl_proplist"][$clid] = $cfi->get_property_list($clid);

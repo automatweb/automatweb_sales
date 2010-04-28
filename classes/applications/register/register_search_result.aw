@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/register/register_search_result.aw,v 1.3 2007/12/06 14:34:00 kristo Exp $
 // register_search_result.aw - Registri otsingu tulemused 
 /*
@@ -30,6 +32,8 @@
 
 class register_search_result extends class_base
 {
+	const AW_CLID = 486;
+
 	function register_search_result()
 	{
 		$this->init(array(

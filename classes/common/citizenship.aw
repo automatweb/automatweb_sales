@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CITIZENSHIP relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
 
@@ -21,6 +23,8 @@
 
 class citizenship extends class_base
 {
+	const AW_CLID = 1377;
+
 	function citizenship()
 	{
 		$this->init(array(

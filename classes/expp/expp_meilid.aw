@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_meilid.aw,v 1.3 2007/11/23 07:18:28 dragut Exp $
 // expp_meilid.aw - expp meilid 
 /*
@@ -15,6 +17,8 @@
 
 class expp_meilid extends class_base
 {
+	const AW_CLID = 1346;
+
 	function expp_meilid()
 	{
 		$this->init(array(

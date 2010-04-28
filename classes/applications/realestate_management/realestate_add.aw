@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // realestate_add.aw - Kinnisvaraobjekti lisamine
 /*
 
@@ -64,6 +66,8 @@ caption ümbersuunamine
 
 class realestate_add extends class_base
 {
+	const AW_CLID = 1056;
+
 	var $opt = array(
 		CL_REALESTATE_HOUSE => "Maja",
 		CL_REALESTATE_ROWHOUSE => "Ridaelamu",
@@ -444,7 +448,7 @@ class realestate_add extends class_base
 		));
 
 		aw_global_set("output_charset", "utf-8");
-		$lg = get_instance("languages");
+		$lg = new languages();
 		$langdata = $lg->get_list();
 		foreach($langdata as $id => $lang)
 		{

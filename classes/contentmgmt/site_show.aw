@@ -1947,7 +1947,7 @@ class site_show extends class_base
 			$var = "set_ct_lang_id";
 			$lang_id = aw_global_get("ct_lang_id");
 		}
-		$langs = get_instance("languages");
+		$langs = new languages();
 		$lar = $langs->listall();
 
 		$l = array();
@@ -2089,7 +2089,7 @@ class site_show extends class_base
 
 		if (empty($sel_lang))
 		{
-			$ll = get_instance("languages");
+			$ll = new languages();
 			$sel_lang = $ll->fetch(aw_global_get("lang_id"),true);
 		}
 
@@ -2452,7 +2452,7 @@ class site_show extends class_base
 			$adt = $adt_o->trans_get_val("title");
 		}
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		aw_disable_acl();
 		$tmp = $u->get_current_person();
 		if (is_oid($tmp))
@@ -3254,7 +3254,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		{
 			return;
 		}
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("site_edit_".$menu->id());
 		if ($this->can("add", $menu->parent()))
 		{
@@ -3324,7 +3324,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		{
 			return;
 		}
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("site_edit_new");
 
 		if ($this->can("add", $this->sel_section))

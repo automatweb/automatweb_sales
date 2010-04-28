@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo no_comment=1 no_status=1 syslog_type=ST_BACKUP maintainer=kristo
 
@@ -16,6 +18,8 @@
 */
 class backup extends class_base
 {
+	const AW_CLID = 814;
+
 	function backup()
 	{
 		$this->init(array(

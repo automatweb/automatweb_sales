@@ -1360,6 +1360,77 @@
             <store>no</store>
             <caption>Vaata</caption>
       </property>
+      <property>
+            <name>data_entry_stats_tree</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_data_entry</group>
+            <type>treeview</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>data_entry_stats_tree_box</parent>
+      </property>
+      <property>
+            <name>data_entry_stats_list</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_data_entry</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>data_entry_stats_vsplitbox</parent>
+      </property>
+      <property>
+            <name>des_from</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_data_entry</group>
+            <type>datepicker</type>
+            <store>no</store>
+            <parent>data_entry_stats_search_box</parent>
+            <captionside>top</captionside>
+            <caption>Sisestamise ajavahemik</caption>
+      </property>
+      <property>
+            <name>des_to</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_data_entry</group>
+            <type>datepicker</type>
+            <store>no</store>
+            <parent>data_entry_stats_search_box</parent>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>des_by</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_data_entry</group>
+            <type>select</type>
+            <size>10</size>
+            <multiple>1</multiple>
+            <store>no</store>
+            <parent>data_entry_stats_search_box</parent>
+            <captionside>top</captionside>
+            <caption>Sisestaja(d)</caption>
+      </property>
+      <property>
+            <name>des_submit</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_data_entry</group>
+            <type>submit</type>
+            <value>Otsi</value>
+            <parent>data_entry_stats_search_box</parent>
+            <store>no</store>
+            <caption>Otsi</caption>
+      </property>
       <classinfo>
             <syslog_type>ST_CRM_SALES</syslog_type>
             <relationmgr>yes</relationmgr>
@@ -1427,6 +1498,11 @@
             <statistics>
                   <caption>&amp;amp;Uuml;levaated</caption>
             </statistics>
+            <statistics_data_entry>
+                  <caption>Andmesisestus</caption>
+                  <parent>statistics</parent>
+                  <submit_method>get</submit_method>
+            </statistics_data_entry>
             <statistics_telemarketing>
                   <caption>Telemarketing</caption>
                   <parent>statistics</parent>
@@ -1655,6 +1731,32 @@
                   <area_caption>Parameetrid</area_caption>
                   <group>statistics_telemarketing</group>
             </tmstat_control_container>
+            <data_entry_stats_vsplitbox>
+                  <type>hbox</type>
+                  <width>25%:75%</width>
+                  <group>statistics_data_entry</group>
+                  <area_caption></area_caption>
+            </data_entry_stats_vsplitbox>
+            <data_entry_stats_box>
+                  <type>vbox</type>
+                  <parent>data_entry_stats_vsplitbox</parent>
+                  <group>statistics_data_entry</group>
+                  <area_caption></area_caption>
+            </data_entry_stats_box>
+            <data_entry_stats_tree_box>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>&amp;amp;Uuml;levaate&amp;amp;nbsp;valik</area_caption>
+                  <parent>data_entry_stats_box</parent>
+                  <group>statistics_data_entry</group>
+            </data_entry_stats_tree_box>
+            <data_entry_stats_search_box>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>&amp;amp;Uuml;levaate&amp;amp;nbsp;parameetird</area_caption>
+                  <parent>data_entry_stats_box</parent>
+                  <group>statistics_data_entry</group>
+            </data_entry_stats_search_box>
       </layout>
 </properties>
 

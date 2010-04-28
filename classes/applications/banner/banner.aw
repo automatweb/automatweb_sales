@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @tableinfo banners index=id master_table=objects master_index=brother_of
 @classinfo syslog_type=ST_BANNER relationmgr=yes maintainer=kristo
@@ -74,6 +76,8 @@
 
 class banner extends class_base
 {
+	const AW_CLID = 54;
+
 	function banner()
 	{
 		$this->init(array(
@@ -126,7 +130,7 @@ class banner extends class_base
 	{
 		$t = &$arr["prop"]["vcl_inst"];
 		$langs = $this->db_fetch_array("SELECT DISTINCT langid FROM banner_views");
-		$lng = get_instance("languages");
+		$lng = new languages();
 		$langnames = $lng->get_list();
 		$t->define_field(array(
 			"name" => "name",

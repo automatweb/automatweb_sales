@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // events_manager.aw - Kuhu minna moodul
 /*
 
@@ -207,6 +209,8 @@
 
 class events_manager extends class_base
 {
+	const AW_CLID = 1209;
+
 	const INDENT_STRING = "&nbsp;&nbsp;";
 	public $type_idx = array(
 		"event" => CL_CALENDAR_EVENT,
@@ -569,7 +573,7 @@ class events_manager extends class_base
 
 	function _get_editors_table($arr)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$ol = new object_list(array(
 			"site_id" => array(),
 			"lang_id" => array(),

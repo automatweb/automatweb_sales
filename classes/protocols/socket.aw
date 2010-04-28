@@ -3,9 +3,9 @@
 // socket.aw - low level communications
 // provides functions that can be used by other classes to connect to hosts
 // and read/write information to/from those hosts
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class socket
 {
 	var $host;

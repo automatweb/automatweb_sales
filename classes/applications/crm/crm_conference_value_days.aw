@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_conference_value_days.aw,v 1.10 2008/05/12 07:35:15 kristo Exp $
 // crm_conference_value_days.aw - Konverentsi kalendrivaade 
 /*
@@ -27,6 +29,8 @@
 
 class crm_conference_value_days extends class_base
 {
+	const AW_CLID = 1210;
+
 	function crm_conference_value_days()
 	{
 		$this->init(array(

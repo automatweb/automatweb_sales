@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // weather_report.aw - Ilmateade
 /*
 
@@ -26,6 +28,8 @@
 
 class weather_report extends class_base
 {
+	const AW_CLID = 1364;
+
 	function weather_report()
 	{
 		$this->init(array(

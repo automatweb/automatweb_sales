@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 define("OBJ_SQL_UNIQUE", 1);
 define("OBJ_SQL_COUNT", 2);

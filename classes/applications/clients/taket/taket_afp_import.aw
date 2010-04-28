@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_TAKET_AFP_IMPORT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=robert
 @tableinfo aw_taket_afp_import master_index=brother_of master_table=objects index=aw_oid
@@ -51,6 +53,8 @@
 
 class taket_afp_import extends class_base implements warehouse_import_if
 {
+	const AW_CLID = 1496;
+
 	function taket_afp_import()
 	{
 		$this->init(array(

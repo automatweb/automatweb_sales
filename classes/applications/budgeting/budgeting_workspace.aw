@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/budgeting/budgeting_workspace.aw,v 1.14 2008/05/14 14:05:05 markop Exp $
 // budgeting_workspace.aw - Eelarvestamise t&ouml;&ouml;laud 
 /*
@@ -163,6 +165,8 @@
 
 class budgeting_workspace extends class_base
 {
+	const AW_CLID = 1205;
+
 	function budgeting_workspace()
 	{
 		classload("core/icons");

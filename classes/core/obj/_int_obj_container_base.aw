@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class _int_obj_container_base
 {
@@ -26,7 +25,7 @@ class _int_obj_container_base
 		else
 		{
 			$cnt = $this->foreach_o(array(
-				"func" => "delete", 
+				"func" => "delete",
 				"save" => false
 			));
 		}

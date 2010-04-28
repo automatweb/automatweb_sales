@@ -1,7 +1,12 @@
 <?php
+
+namespace automatweb;
+
  
 class room_obj extends _int_object
 {
+	const AW_CLID = 1162;
+
 	/** Returns the color for the given setting, based on the current settings
 		@attrib api=1 params=pos
 

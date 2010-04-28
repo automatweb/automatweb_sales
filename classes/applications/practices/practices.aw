@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_PRACTICES relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=dragut
 @tableinfo aw_practices master_index=brother_of master_table=objects index=aw_oid
@@ -31,6 +33,8 @@
 
 class practices extends class_base
 {
+	const AW_CLID = 1525;
+
 	function practices()
 	{
 		$this->init(array(

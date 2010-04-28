@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // task_row.aw - Toimetuse rida
 /*
 
@@ -108,6 +110,8 @@
 
 class task_row extends class_base
 {
+	const AW_CLID = 1050;
+
 	function task_row()
 	{
 		$this->init(array(

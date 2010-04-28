@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_FILE_UPLOAD_CONFIG relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
@@ -31,6 +33,8 @@
 
 class file_upload_config extends class_base
 {
+	const AW_CLID = 1329;
+
 	function file_upload_config()
 	{
 		$this->init(array(
@@ -103,7 +107,7 @@ class file_upload_config extends class_base
 
 	function callback_post_save($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["set_menu"], "RELTYPE_MENU");
 	}
 

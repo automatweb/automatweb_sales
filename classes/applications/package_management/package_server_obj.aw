@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 /*
 
 @classinfo maintainer=dragut
@@ -6,6 +9,8 @@
 */
 class package_server_obj extends _int_object
 {
+	const AW_CLID = 1211;
+
 	function add_package($params)
 	{
 		$o = new object();
@@ -46,7 +51,7 @@ class package_server_obj extends _int_object
 				"name" => $o->name(),
 				"type" => $type,
 			);
-			$t = get_instance(CL_FILE);
+			$t = new file();
 			$rv = $t->submit($data);
 		}
 		return $o->id();

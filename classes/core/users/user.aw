@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_USER, on_delete_user)
@@ -265,6 +267,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_ML_MEMBER, on_save_addr)
 
 class user extends class_base
 {
+	const AW_CLID = 197;
+
 	private $_set_pwd = "";
 	private $users;
 
@@ -1060,7 +1064,7 @@ class user extends class_base
 		{
 			if ($p_i->class_id() == CL_GROUP)
 			{
-				$g = get_instance(CL_GROUP);
+				$g = new group();
 				$g->add_user_to_group($u, $p_i);
 				return 0;
 			}
@@ -1217,8 +1221,7 @@ EOF;
 			*/
 			get_instance(CL_GROUP)->remove_user_from_group($o, $grp_o);
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+		cache::file_clear_pt("acl");
 	}
 
 	function on_delete_alias($arr)
@@ -1277,13 +1280,12 @@ EOF;
 				}
 			}
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+		cache::file_clear_pt("acl");
 	}
 
 	function _get_stat($uid)
 	{
-		$t =& $this->_init_stat_table();
+		$t = $this->_init_stat_table();
 		$ts = aw_ini_get('syslog.types');
 		$as = aw_ini_get('syslog.actions');
 		$q = "SELECT * FROM syslog WHERE uid = '$uid' ORDER BY tm DESC LIMIT 4000";
@@ -1307,7 +1309,6 @@ EOF;
 
 	function _init_stat_table()
 	{
-		load_vcl('table');
 		$t = new aw_table(array(
 			'prefix' => 'user',
 			'layout' => 'generic'
@@ -1398,8 +1399,7 @@ EOF;
 
 				}
 			}
-			$c = get_instance("cache");
-			$c->file_clear_pt("acl");
+			cache::file_clear_pt("acl");
 		}
 		else
 		if ($arr["connection"]->prop("reltype") == 7 )// FG_PROFILE
@@ -2139,8 +2139,6 @@ EOF;
 				$groups_list = new object_list(array(
 					"class_id" => CL_GROUP,
 					"status" => object::STAT_ACTIVE,
-					"lang_id" => array(),
-					"site_id" => array(),
 					"CL_GROUP.RELTYPE_GROUP(CL_GROUP_MEMBERSHIP).RELTYPE_USER" => $tmp,
 					"CL_GROUP.RELTYPE_GROUP(CL_GROUP_MEMBERSHIP).status" => object::STAT_ACTIVE,
 					new object_list_filter(array(
@@ -2157,18 +2155,18 @@ EOF;
 									"CL_GROUP.RELTYPE_GROUP(CL_GROUP_MEMBERSHIP).date_end" => new obj_predicate_compare(
 										OBJ_COMP_GREATER,
 										time()
-									),
-								),
-							)),
-						),
-					)),
+									)
+								)
+							))
+						)
+					))
 				));
 			}
 			else
 			{
 				$groups_list = new object_list(
 					$user_obj->connections_from(array(
-						"type" => "RELTYPE_GRP",
+						"type" => "RELTYPE_GRP"
 					))
 				);
 			}
@@ -2349,10 +2347,9 @@ EOF;
 		// final delete user object
 		$user->delete(true);
 
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
-		$c->file_clear_pt("storage_object_data");
-		$c->file_clear_pt("storage_search");
+		cache::file_clear_pt("acl");
+		cache::file_clear_pt("storage_object_data");
+		cache::file_clear_pt("storage_search");
 	}
 
 	function _object_ex($oid)
@@ -2451,7 +2448,7 @@ EOF;
 	**/
 	function settings_lod($arr)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("settings_pop");
 
 		$gl = aw_global_get("gidlist_oid");
@@ -2505,7 +2502,7 @@ EOF;
 	**/
 	function hist_lod($arr)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("history_pop");
 
 		$u = obj(aw_global_get("uid_oid"));

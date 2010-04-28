@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/document_statistics.aw,v 1.21 2008/01/31 13:52:14 kristo Exp $
 // document_statistics.aw - Dokumentide vaatamise statistika 
 /*
@@ -64,6 +66,8 @@
 
 class document_statistics extends class_base
 {
+	const AW_CLID = 303;
+
 	function document_statistics()
 	{
 		$this->init(array(

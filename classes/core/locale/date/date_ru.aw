@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class awlc_date_ru implements awlc_date
 {
 	protected static $month = array("&#1103;&#1085;&#1074;&#1072;&#1088;&#1100;",

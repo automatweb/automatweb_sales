@@ -1,7 +1,12 @@
 <?php
+
+namespace automatweb;
+
 //maintainer=markop  
 class crm_category_obj extends _int_object
 {
+	const AW_CLID = 483;
+
 	public function get_category_orgs()
 	{
 		$ol = new object_list();

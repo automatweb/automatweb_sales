@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_contract_stop.aw,v 1.5 2007/12/06 14:33:17 kristo Exp $
 // crm_contract_stop.aw - Töölepingu peatamine 
 /*
@@ -36,6 +38,8 @@
 
 class crm_contract_stop extends class_base
 {
+	const AW_CLID = 877;
+
 	function crm_contract_stop()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

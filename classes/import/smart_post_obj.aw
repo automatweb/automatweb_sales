@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class smart_post_obj extends _int_object
 {
+	const AW_CLID = 1527;
+
 	// This is for smart_post CB class only!
 	public function get_data_by_cities()
 	{

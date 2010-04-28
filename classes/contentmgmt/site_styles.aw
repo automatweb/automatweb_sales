@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/site_styles.aw,v 1.14 2008/02/17 21:13:00 kristo Exp $
 // site_styles.aw - Saidi stiilid 
 //
@@ -46,6 +48,8 @@ define("SITE_STYLES_RAND_REFRESH", 3);
 
 class site_styles extends class_base implements main_subtemplate_handler
 {
+	const AW_CLID = 998;
+
 	var $selected;
 
 	function site_styles()

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property_tree.aw,v 1.10 2007/12/06 14:33:04 kristo Exp $
 // property_tree.aw - Puu komponent 
 /*
@@ -49,6 +51,8 @@
 
 class property_tree extends class_base
 {
+	const AW_CLID = 892;
+
 	function property_tree()
 	{
 		$this->init(array(

@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 class relpicker extends  core
 {
 	function relpicker()
@@ -58,7 +61,7 @@ class relpicker extends  core
 
 		@examples
 
-		$relpicker = get_instance(CL_RELPICKER);
+		$relpicker = new relpicker();
 		$relpicker->create_relpicker(array(
 			"name" => "myRelpicker",
 			"reltype" => 1,
@@ -71,7 +74,7 @@ class relpicker extends  core
 			2 => "Object2",
 			3 => "Object3",
 		);
-		$relpicker = get_instance(CL_RELPICKER);
+		$relpicker = new relpicker();
 		$relpicker->create_relpicker(array(
 			"name" => "myRelpicker",
 			"reltype" => "RELTYPE_FOO",
@@ -192,7 +195,7 @@ class relpicker extends  core
 		}
 		elseif(is_array($selected) && !$no_edit)
 		{
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu(str_replace(array("[", "]"), "", $name)."_rp_editbtn");
 			foreach($selected as $id)
 			{
@@ -214,7 +217,7 @@ class relpicker extends  core
 			$clss = aw_ini_get("classes");
 			if (count($clid) > 1)
 			{
-				$pm = get_instance("vcl/popup_menu");
+				$pm = new popup_menu();
 				$pm->begin_menu($name."_relp_pop");
 				foreach($clids as $clid)
 				{
@@ -392,7 +395,7 @@ class relpicker extends  core
 			}//selle paneks peaaegu alati t88le kui suudaks loadida relpickereid
 			elseif(empty($val["no_search"]))
 			{
-				$ps = get_instance("vcl/popup_search");
+				$ps = new popup_search();
 				$ps->set_class_id($clid);
 				$ps->set_id($arr["obj_inst"]->id());
 				$ps->set_reload_property($val["name"]);
@@ -432,7 +435,7 @@ class relpicker extends  core
 			empty($val["no_edit"])
 		)
 		{
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu(str_replace(array("[", "]"), "", $val["name"])."_rp_editbtn");
 			foreach($this->obj->prop($val["name"]) as $id)
 			{
@@ -551,7 +554,7 @@ class relpicker extends  core
 			$clss = aw_ini_get("classes");
 			if (count($clid) > 1)
 			{
-				$pm = get_instance("vcl/popup_menu");
+				$pm = new popup_menu();
 				$pm->begin_menu($arr["property"]["name"]."_relp_pop");
 				foreach($clid as $_clid)
 				{
@@ -786,7 +789,7 @@ class relpicker extends  core
 		{
 			$ol = new object_list();
 		}
-		$cl_json = get_instance("protocols/data/json");
+		$cl_json = new json();
 
 		$errorstring = "";
 		$error = false;

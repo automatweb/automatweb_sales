@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/style.aw,v 1.1 2008/02/21 22:05:21 kristo Exp $
 /*
 @classinfo  maintainer=kristo
@@ -12,6 +14,8 @@ $style_cache = array();
 
 class style extends aw_template
 {
+	const AW_CLID = 11;
+
 	var $type_names = array(0 => LC_STYLE_TABLE_STYLE, 1 => LC_STYLE_CELL_STYLE, 2 => LC_STYLE_ELEMENT_STYLE);
 
 	function style()

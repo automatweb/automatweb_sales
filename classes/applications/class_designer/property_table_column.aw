@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property_table_column.aw,v 1.5 2007/12/06 14:33:03 kristo Exp $
 // property_table_column.aw - Tabeli veerg 
 /*
@@ -36,6 +38,8 @@
 
 class property_table_column extends class_base
 {
+	const AW_CLID = 887;
+
 	function property_table_column()
 	{
 		$this->init(array(

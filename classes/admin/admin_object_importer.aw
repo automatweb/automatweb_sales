@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_ADMIN_OBJECT_IMPORTER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_admin_object_importer master_index=brother_of master_table=objects index=aw_oid
@@ -21,6 +23,8 @@
 
 class admin_object_importer extends class_base
 {
+	const AW_CLID = 1555;
+
 	function admin_object_importer()
 	{
 		$this->init(array(

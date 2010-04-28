@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/spa_bookings/spa_booking.aw,v 1.11 2008/03/13 16:05:19 markop Exp $
 // spa_booking.aw - SPA Reserveering 
 /*
@@ -46,6 +48,8 @@
 
 class spa_booking extends class_base
 {
+	const AW_CLID = 1180;
+
 	function spa_booking()
 	{
 		$this->init(array(

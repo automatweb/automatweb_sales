@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_packet_obj extends _int_object
 {
+	const AW_CLID = 297;
+
 	/** returns 3 same category packets
 		@attrib api=1
 		 @returns object list

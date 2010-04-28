@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // html_popup.aw - a class to deal with javascript popups
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/html_popup.aw,v 1.12 2008/10/07 10:21:25 markop Exp $
 
@@ -42,6 +44,8 @@
 
 class html_popup extends class_base
 {
+	const AW_CLID = 80;
+
 	function html_popup($args = array())
 	{
 		$this->init(array(

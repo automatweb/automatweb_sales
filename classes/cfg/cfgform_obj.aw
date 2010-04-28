@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class cfgform_obj extends _int_object
 {
+	const AW_CLID = 119;
+
 	/**
 		@attrib params=pos
 		@param property required type=string/array

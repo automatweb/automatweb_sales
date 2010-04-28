@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/calendar_reminder.aw,v 1.5 2007/12/06 14:32:55 kristo Exp $
 // calendar_reminder.aw - Kalendri meeldetuletus 
 /*
@@ -52,6 +54,8 @@
 
 class calendar_reminder extends class_base
 {
+	const AW_CLID = 484;
+
 	function calendar_reminder()
 	{
 		$this->init(array(

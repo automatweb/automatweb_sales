@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property_group.aw,v 1.5 2007/12/06 14:33:03 kristo Exp $
 // property_group.aw - Vormi grupp 
 /*
@@ -24,6 +26,8 @@
 
 class property_group extends class_base
 {
+	const AW_CLID = 880;
+
 	function property_group()
 	{
 		$this->init(array(

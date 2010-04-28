@@ -1,10 +1,11 @@
 <?php
 
+namespace automatweb;
+
 /*
 	Displays a form for editing one connection
 	or alternatively provides an interface to edit
 	multiple connections
-@classinfo maintainer=kristo
 */
 
 class releditor extends core
@@ -20,7 +21,6 @@ class releditor extends core
 
 	private function init_new_rel_table($arr)
 	{
-		classload("vcl/table");
 		$awt = new vcl_table(array(
 			"layout" => "generic",
 		));
@@ -61,7 +61,7 @@ class releditor extends core
 			return '<div id="releditor_'.$this->elname.'_table_wrapper"></div>';
 		}
 
-		$htmlclient = get_instance("cfg/htmlclient");
+		$htmlclient = new htmlclient();
 
 		if ($arr["obj_inst"]->class_id())
 		{

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/package_management/package.aw,v 1.12 2009/04/16 11:45:05 markop Exp $
 // package.aw - Pakk 
 /*
@@ -78,6 +80,8 @@
 
 class package extends class_base
 {
+	const AW_CLID = 1371;
+
 	function package()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // auth_server_openldap.aw - Autentimisserver OpenLDAP
 /*
 
@@ -61,6 +63,8 @@
 
 class auth_server_openldap extends class_base
 {
+	const AW_CLID = 955;
+
 	function auth_server_openldap()
 	{
 		$this->init(array(

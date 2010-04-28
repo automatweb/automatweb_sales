@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/bug_o_matic_3000/bug_comment.aw,v 1.9 2008/10/07 13:40:07 kristo Exp $
 // bug_comment.aw - Bugi kommentaar 
 /*
@@ -49,6 +51,8 @@
 
 class bug_comment extends class_base
 {
+	const AW_CLID = 1058;
+
 	function bug_comment()
 	{
 		$this->init(array(

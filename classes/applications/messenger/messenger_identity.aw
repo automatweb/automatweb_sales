@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/messenger/messenger_identity.aw,v 1.4 2007/12/06 14:33:40 kristo Exp $
 // messenger_identity.aw - Messengeri identiteet 
 /*
@@ -26,6 +28,8 @@
 
 class messenger_identity extends class_base
 {
+	const AW_CLID = 240;
+
 	function messenger_identity()
 	{
 		$this->init(array(

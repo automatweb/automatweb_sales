@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // scm_location.aw - Toimumiskoht
 /*
 
@@ -60,6 +62,8 @@
 
 class scm_location extends class_base
 {
+	const AW_CLID = 1095;
+
 	function scm_location()
 	{
 		$this->init(array(

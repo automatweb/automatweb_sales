@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/formgen/form_table.aw,v 1.90 2008/08/27 08:54:12 kristo Exp $
 /*
 @classinfo  maintainer=kristo
@@ -6,6 +8,8 @@
 classload("formgen/form_base");
 class form_table extends form_base
 {
+	const AW_CLID = 66;
+
 	function form_table()
 	{
 		$this->form_base();
@@ -1457,7 +1461,7 @@ class form_table extends form_base
 		$this->read_template("add_table_settings.tpl");
 		$this->mk_path($parent, "Lisa formi tabel");
 
-		$lang = get_instance("languages");
+		$lang = new languages();
 
 		$this->vars(array(
 			"languages" => $this->mpicker(array(), $lang->get_list()),
@@ -1683,7 +1687,7 @@ class form_table extends form_base
 
 		$this->do_menu();
 
-		$lang = get_instance("languages");
+		$lang = new languages();
 		$us = get_instance("users");
 
 		$els = $this->get_tbl_elements();
@@ -2406,7 +2410,7 @@ class form_table extends form_base
 		$this->mk_path($this->table_parent, "Muuda formi tabelit");
 		$this->do_menu();
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$ls = $la->get_list();
 		foreach($ls as $lid => $lname)
 		{
@@ -2520,7 +2524,7 @@ class form_table extends form_base
 		extract($arr);
 		$this->load_table($id);
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$ls = $la->get_list();
 
 		for ($col = 0; $col < $this->table["cols"]; $col++)

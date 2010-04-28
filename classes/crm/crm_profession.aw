@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // crm_profession.aw - Ametikoht
 /*
 @classinfo relationmgr=yes maintainer=markop
@@ -65,6 +67,8 @@ caption T&otilde;lkimine
 
 class crm_profession extends class_base
 {
+	const AW_CLID = 220;
+
 	function crm_profession()
 	{
 		$this->init(array(

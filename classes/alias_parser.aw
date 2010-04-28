@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
+
+namespace automatweb;
+
 class alias_parser extends core
 {
 	private $tmp_vars;
@@ -16,7 +16,7 @@ class alias_parser extends core
 
 		@param oid required type=int acl=view
 			the object to which the text belongs to. the aliases in the text must be connected to this object, it is used to resolve the aliases to real objects
-		
+
 		@param source required type=string
 			the text containing the aliases to be parsed. the text is modified so, that aliases are replaced with the output of their objects' parse_alias methods
 
@@ -85,7 +85,7 @@ class alias_parser extends core
 					$by_alias[$lv]["class_id"] = $clid;
 				}
 			}
-		
+
 			if (isset($cldat["old_alias"]))
 			{
 				$li = explode(",", $cldat["old_alias"]);
@@ -106,7 +106,7 @@ class alias_parser extends core
 
 		$classlist = aw_ini_get("classes");
 
-		// try to find aliases until we no longer find any. 
+		// try to find aliases until we no longer find any.
 		// why is this? well, to enable the user to add aliases bloody anywhere. like in files that are to be shown right away
 		enter_function("aliasmgr::parse_oo_aliases::loop");
 		$_cnt = 0;
@@ -217,7 +217,7 @@ class alias_parser extends core
 
 		@param oid required type=int acl=view
 			the object for which the aliases are returned
-		
+
 		@errors
 			none
 
@@ -288,7 +288,7 @@ class alias_parser extends core
 
 		@param oid required type=int acl=view
 			the object for which the aliases are returned
-		
+
 		@errors
 			none
 
@@ -320,7 +320,7 @@ class alias_parser extends core
 		return $ret;
 	}
 
-	/** returns the variables that should be inserted into the current template and that were created by the aliases parsed. each class can return from it's parse_alias method, an array that contains the variables that get added to this list. 
+	/** returns the variables that should be inserted into the current template and that were created by the aliases parsed. each class can return from it's parse_alias method, an array that contains the variables that get added to this list.
 
 		@attrib api=1
 
@@ -328,7 +328,7 @@ class alias_parser extends core
 			none
 
 		@returns
-			array of variables that should be passed to $this->vars() 
+			array of variables that should be passed to $this->vars()
 
 		@examples
 			$this->read_template("plain.tpl");

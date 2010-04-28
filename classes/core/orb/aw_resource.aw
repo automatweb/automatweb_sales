@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class aw_resource
 {
 	protected $data = array(); // array of any type elements, actual resource data

@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
+
+namespace automatweb;
+
 class image_manager extends aw_editor_manager_base
 {
 	function image_manager()
@@ -20,7 +20,7 @@ class image_manager extends aw_editor_manager_base
 		$url = $arr["imgsrc"];
 		$parts = parse_url($url);
 		$path = $parts["path"];
-		if (substr($path, 0, 8) == "/vvfiles")
+		if (substr($path, 0, 8) === "/vvfiles")
 		{
 			$imgname = basename($path);
 		}
@@ -43,7 +43,7 @@ class image_manager extends aw_editor_manager_base
 			$image_list = new object_list();
 		}
 
-		if ($arr["doc"] == "http:")
+		if ($arr["doc"] === "http:")
 		{
 			parse_str(urldecode($_SERVER["QUERY_STRING"]), $params);
 		}
@@ -51,7 +51,7 @@ class image_manager extends aw_editor_manager_base
 		{
 			parse_str($arr["doc"], $params);
 		}
-		
+
 		if (!$this->can("view", $params["id"]))
 		{
 			// use parent from url as doc
@@ -80,7 +80,7 @@ class image_manager extends aw_editor_manager_base
 			}
 			$image_url = html::get_new_url(CL_IMAGE, $parent, array("docid" => $doc->id(), "in_popup"=>"1"));
 		}
-		
+
 		$this->read_template("manage.tpl");
 
 		$this->vars(array(
@@ -105,7 +105,7 @@ class image_manager extends aw_editor_manager_base
 	}
 
 	/**
-		@attrib name=topf 
+		@attrib name=topf
 		@param doc required
 	**/
 	function topf($arr)
@@ -133,7 +133,6 @@ class image_manager extends aw_editor_manager_base
 	**/
 	function manager($arr)
 	{
-		classload("vcl/table");
 		$t = new vcl_table;
 		$this->_init_t($t, t("Pilt"));
 		$this->read_template("manager.tpl");
@@ -160,7 +159,7 @@ class image_manager extends aw_editor_manager_base
 				"doc_id" => $arr["docid"],
 			), CL_IMAGE);
 			$location = $this->gen_location_for_obj($o);
-			
+
 			$name = html::href(array(
 				"caption" => $o->name(),
 				"onmouseover" => "showThumb(event, \"".$pop_url."\");",
@@ -179,7 +178,7 @@ class image_manager extends aw_editor_manager_base
 					"caption" => t("Vali see"),
 					"onClick" => "
 						FCK=window.parent.opener.FCK;
-						var eSelected = FCK.Selection.GetSelectedElement() ; 
+						var eSelected = FCK.Selection.GetSelectedElement() ;
 						if (eSelected)
 						{
 							if (eSelected.tagName == \"SPAN\" && eSelected._awimageplaceholder  )

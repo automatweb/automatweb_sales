@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class obj_predicate_not
 {
@@ -18,7 +17,7 @@ class obj_predicate_not
 			"bug_status" => new obj_predicate_not(4),
 		);
 		$ol = new object_list($filt);
-		
+
 		// generates list of bugs with statuses from anything but 4
 
 	**/

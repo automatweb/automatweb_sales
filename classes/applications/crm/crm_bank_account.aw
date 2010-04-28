@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_bank_account.aw,v 1.5 2007/12/06 14:33:17 kristo Exp $
 // crm_bank_account.aw - CRM Pangakonto
 /*
@@ -35,6 +37,8 @@
 
 class crm_bank_account extends class_base
 {
+	const AW_CLID = 1024;
+
 	function crm_bank_account()
 	{
 		$this->init(array(

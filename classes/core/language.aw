@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // language.aw - Keel
 /*
 
@@ -83,6 +85,8 @@
 
 class language extends class_base
 {
+	const AW_CLID = 266;
+
 	function language()
 	{
 		$this->init(array(
@@ -207,7 +211,7 @@ class language extends class_base
 				}
 				if ($arr["request"]["set_sel_lang"] != aw_global_get("lang_id"))
 				{
-					$l = get_instance("languages");
+					$l = new languages();
 					$l->set_active($arr["request"]["set_sel_lang"], true);
 				}
 				break;
@@ -423,9 +427,9 @@ class language extends class_base
 	**/
 	function lang_pop($arr)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("lang_pop");
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list();
 		foreach($ll as $lid => $ld)
 		{

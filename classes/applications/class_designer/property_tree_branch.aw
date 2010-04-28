@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/property_tree_branch.aw,v 1.6 2007/12/06 14:33:04 kristo Exp $
 // property_tree_branch.aw - Puu oks 
 /*
@@ -25,6 +27,8 @@
 
 class property_tree_branch extends class_base
 {
+	const AW_CLID = 900;
+
 	function property_tree_branch()
 	{
 		$this->init(array(

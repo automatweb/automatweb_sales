@@ -1,11 +1,16 @@
 <?php
 
+namespace automatweb;
+
+
 /*
 @classinfo  maintainer=voldemar
 */
 
 class crm_sales_obj extends _int_object implements application_interface
 {
+	const AW_CLID = 1347;
+
 	// sales application users are always given a role
 	// roles are determined by binding crm_profession objects to crm_sales_obj through role_profession_* properties
 	// role for a user is thereby defined by their profession
@@ -792,7 +797,7 @@ class crm_sales_obj extends _int_object implements application_interface
 		{
 			$customer_relation = obj($presentation->prop("customer_relation"), array(), CL_CRM_COMPANY_CUSTOMER_DATA);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			throw new awex_crm_sales("Customer relation not defined for presentation with id '" . $presentation->id() . "'");
 		}

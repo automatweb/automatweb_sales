@@ -1,23 +1,23 @@
 <?php
 // fastcall.aw - this gets loaded instead of aw base classes if we are doing an orb fastcall
 // so that initialization would be quick and that no template and database functionality will be present
-/*
-@classinfo  maintainer=kristo
- */
+
+namespace automatweb;
+
 class aw_template
 {
 	function init()
 	{
-		// we have to do at least this, or classes that use $this->cfg 
+		// we have to do at least this, or classes that use $this->cfg
 		// (like menuedit->right_frame) wont work
 		aw_config_init_class(&$this);
 	}
 
-	function vars() 
+	function vars()
 	{
 	}
 
-	function lc_load() 
+	function lc_load()
 	{
 		exit_function("aw_template::lc_load",array());
 	}
@@ -25,7 +25,7 @@ class aw_template
 
 class core
 {
-	function db_init() 
+	function db_init()
 	{
 	}
 };

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // euro_patent_et_desc.aw - Patent
 /*
 
@@ -71,6 +73,8 @@
 
 class euro_patent_et_desc extends intellectual_property
 {
+	const AW_CLID = 1453;
+
 	public static $level_index = array(
 		0 => 0,
 		1 => 12,

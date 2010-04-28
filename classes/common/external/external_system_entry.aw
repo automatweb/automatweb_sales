@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_EXTERNAL_SYSTEM_ENTRY relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=voldemar
 
@@ -26,6 +28,8 @@
 
 class external_system_entry extends class_base
 {
+	const AW_CLID = 1074;
+
 	function external_system_entry()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/messenger/message_template.aw,v 1.6 2008/01/10 14:11:09 markop Exp $
 // message_template.aw - Kirja template 
 /*
@@ -29,6 +31,8 @@
 
 class message_template extends class_base
 {
+	const AW_CLID = 449;
+
 	function message_template()
 	{
 		$this->init(array(

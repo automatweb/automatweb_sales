@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // maitenance.aw - Saidi hooldus
 /*
 
@@ -11,6 +13,8 @@
 
 class maitenance extends class_base
 {
+	const AW_CLID = 218;
+
 	function maitenance()
 	{
 		$this->init(array(

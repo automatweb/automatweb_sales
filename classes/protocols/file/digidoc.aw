@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo  maintainer=tarvo
 */
@@ -20,6 +22,8 @@
  * @access		public
  */
 class digidoc {
+	const AW_CLID = 1178;
+
 
 	/**
 	 * Soap kliendi ühenduse objekt

@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class site_copy_todo_obj extends _int_object
 {
+	const AW_CLID = 1488;
+
 	function prop($k)
 	{
 		if($k == "url")

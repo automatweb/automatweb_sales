@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_DB_TABLE_CONTENTS relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
 
@@ -41,6 +43,8 @@
 
 class db_table_contents extends class_base
 {
+	const AW_CLID = 153;
+
 	var $numeric_types = array('int','tinyint','smallint','mediumint','bigint','float','double');
 
 	function db_table_contents()

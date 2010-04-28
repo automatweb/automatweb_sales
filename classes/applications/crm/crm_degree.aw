@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_degree.aw - Kraad
 /*
  
@@ -18,6 +20,8 @@
 
 class crm_degree extends class_base
 {
+	const AW_CLID = 1385;
+
 	function crm_degree()
 	{
 		$this->init(array(

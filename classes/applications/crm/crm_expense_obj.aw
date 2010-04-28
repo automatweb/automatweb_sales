@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_expense_obj extends _int_object
 {
+	const AW_CLID = 1144;
+
 	function set_prop($name,$value)
 	{
 		if ($name == "cost")

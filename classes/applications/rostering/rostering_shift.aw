@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/rostering/rostering_shift.aw,v 1.4 2007/12/06 14:34:03 kristo Exp $
 // rostering_shift.aw - Vahetus 
 /*
@@ -34,6 +36,8 @@ define("SHIFT_TYPE_HOME", 2);
 
 class rostering_shift extends class_base
 {
+	const AW_CLID = 1141;
+
 	function rostering_shift()
 	{
 		$this->init(array(

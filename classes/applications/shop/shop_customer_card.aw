@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_CUSTOMER_CARD relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_shop_customer_cards master_index=brother_of master_table=objects index=aw_oid
@@ -62,6 +64,8 @@
 
 class shop_customer_card extends class_base
 {
+	const AW_CLID = 1442;
+
 	function shop_customer_card()
 	{
 		$this->init(array(

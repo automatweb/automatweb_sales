@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_ML_MEMBERSHIP_MANAGER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_ml_membership_manager master_index=brother_of master_table=objects index=aw_oid
@@ -43,6 +45,8 @@
 
 class ml_membership_manager extends class_base
 {
+	const AW_CLID = 1504;
+
 	function ml_membership_manager()
 	{
 		$this->init(array(

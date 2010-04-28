@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SITE_DIFF relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_site_diff master_index=brother_of master_table=objects index=aw_oid
@@ -36,6 +38,8 @@
 
 class site_diff extends class_base
 {
+	const AW_CLID = 1486;
+
 	function site_diff()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_person_language.aw,v 1.12 2009/08/24 08:54:35 instrumental Exp $
 // crm_person_language.aw - Keeleoskus
 /*
@@ -35,6 +37,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_CRM_PERSON_LANGUAGE, on_save)
 
 class crm_person_language extends class_base
 {
+	const AW_CLID = 489;
+
 	function crm_person_language()
 	{
 		$this->init(array(

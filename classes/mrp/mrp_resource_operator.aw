@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/mrp/mrp_resource_operator.aw,v 1.4 2009/05/07 13:19:31 kristo Exp $
 // mrp_resource_operator.aw - Operaator 
 /*
@@ -39,6 +41,8 @@
 
 class mrp_resource_operator extends class_base
 {
+	const AW_CLID = 872;
+
 	function mrp_resource_operator()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

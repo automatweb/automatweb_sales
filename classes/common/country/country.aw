@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_COUNTRY relationmgr=yes no_comment=1 no_status=1 maintainer=voldemar prop_cb=1
 
@@ -28,6 +30,8 @@
 
 class country extends class_base
 {
+	const AW_CLID = 949;
+
 	function country()
 	{
 		$this->init(array(

@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 //// DEPRECATED. moved to object class' constants
 // object statuses
@@ -321,7 +320,7 @@ class core extends acl_base
 			$msg .= "\n<br /><b>Line:</b> " . $this->raise_error_exception->errline;
 			$msg .= "\n<br /><b>Backtrace:</b>" . str_replace("#", "\n<br /><b>#</b>", $this->raise_error_exception->getTraceAsString()); //!!! backtrace otsida ka 6ige, errori enda oma, mitte errorhandleri oma
 		}
-		elseif ($this->raise_error_exception instanceof Exception)
+		elseif ($this->raise_error_exception instanceof \Exception)
 		{
 			$msg .= "\n<br /><b>File:</b> " . $this->raise_error_exception->getFile();
 			$msg .= "\n<br /><b>Line:</b> " . $this->raise_error_exception->getLine();
@@ -638,7 +637,7 @@ class core extends acl_base
 			if $use_orb == 1 then the url will go through orb.aw, not index.aw - which means that it will be shown
 			directly, without drawing menus and stuff
 	**/
-	public function mk_my_orb($fun,$arr=array(),$cl_name="",$force_admin = false,$use_orb = false,$sep = "&",$honor_r_orb = true)
+	public function mk_my_orb($fun, $arr=array(), $cl_name="", $force_admin = false, $use_orb = false, $sep = "&", $honor_r_orb = true)
 	{
 		// resolve to name
 		// kui on numeric, siis ma saan class_lut-ist teada tema nime
@@ -652,6 +651,7 @@ class core extends acl_base
 		}
 
 		$cl_name = ("" == $cl_name) ? get_class($this) : basename($cl_name);
+		$cl_name = str_replace("automatweb\\", "", $cl_name);
 
 		// tracked_vars comes from orb->process_request
 		$this->orb_values = isset($GLOBALS["tracked_vars"]) ? $GLOBALS["tracked_vars"] : null;

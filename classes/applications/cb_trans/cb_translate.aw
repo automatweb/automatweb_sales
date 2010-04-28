@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_CB_TRANSLATE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
@@ -44,6 +46,8 @@ define("LYT", 7);
 
 class cb_translate extends class_base
 {
+	const AW_CLID = 1251;
+
 	function cb_translate()
 	{
 		$this->init(array(

@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /* DEPRECATED FILE */
 // ! UUSI ARENDUSI SIIA POLE M6TET TEHA
 // see on ainult selleks alles veel, et tagasiulatuvat yhilduvust
@@ -13,7 +15,7 @@ ini_set("memory_limit", "900M");
 	{
 		$cache_file = $args["cache_file"];
 		$cfg_files = $args["ini_files"];
-		
+
 		foreach ($cfg_files as $file)
 		{
 			$file = dirname($file) . "/automatweb.aw";

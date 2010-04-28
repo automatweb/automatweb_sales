@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_service_type_category.aw,v 1.2 2007/12/06 14:33:17 kristo Exp $
 // crm_service_type_category.aw - Teenuse liigi kategooria 
 /*
@@ -12,6 +14,8 @@
 
 class crm_service_type_category extends class_base
 {
+	const AW_CLID = 1249;
+
 	function crm_service_type_category()
 	{
 		$this->init(array(

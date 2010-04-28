@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // industrial_design.aw - T88stusdisainilahendus
 /*
 
@@ -84,6 +86,8 @@
 
 class industrial_design extends intellectual_property
 {
+	const AW_CLID = 1452;
+
 	public static $level_index = array(
 		0 => 0,
 		1 => 11,

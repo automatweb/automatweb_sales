@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_risk_eval_ws.aw,v 1.4 2007/12/06 14:33:32 kristo Exp $
 // project_risk_eval_ws.aw - Riskide hindamise t&ouml;&ouml;laud 
 /*
@@ -36,6 +38,8 @@
 
 class project_risk_eval_ws extends class_base
 {
+	const AW_CLID = 1089;
+
 	function project_risk_eval_ws()
 	{
 		$this->init(array(

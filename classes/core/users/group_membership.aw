@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_GROUP_MEMBERSHIP, on_connect_from_group_membership)
@@ -37,6 +39,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_GROUP_MEMBERSHIP, on_d
 
 class group_membership extends class_base
 {
+	const AW_CLID = 1481;
+
 	function group_membership()
 	{
 		$this->init(array(

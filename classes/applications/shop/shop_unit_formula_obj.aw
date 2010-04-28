@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_unit_formula_obj extends _int_object
 {
+	const AW_CLID = 1469;
+
 	function get_nums_from_formula($code)
 	{
 		preg_match_all("/([0-9.]{1,})[\s\-\*\+\/\;\(\)\[]{1,}/U", $code, $vars, PREG_PATTERN_ORDER);

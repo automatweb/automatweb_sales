@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // quickmessage.aw - Kiirteade
 /*
 
@@ -35,6 +37,8 @@
 
 class quickmessage extends class_base
 {
+	const AW_CLID = 335;
+
 	function quickmessage()
 	{
 		$this->init(array(
@@ -114,7 +118,7 @@ class quickmessage extends class_base
 					$ret = $return_url->get();
 				}
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 			}
 		}

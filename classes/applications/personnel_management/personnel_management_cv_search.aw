@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/personnel_management/personnel_management_cv_search.aw,v 1.11 2008/06/08 11:52:09 instrumental Exp $
 // personnel_management_cv_search.aw - CV Otsing 
 /*
@@ -87,7 +89,9 @@
 */
 
 class personnel_management_cv_search extends class_base
-{	
+{
+	const AW_CLID = 328;
+	
 	function personnel_management_cv_search()
 	{
 		$this->init(array(

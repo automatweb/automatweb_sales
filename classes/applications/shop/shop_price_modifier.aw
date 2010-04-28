@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_price_modifier.aw,v 1.3 2008/01/31 13:50:07 kristo Exp $
 // shop_price_modifier.aw - Hinnakujundus 
 /*
@@ -12,6 +14,8 @@
 
 class shop_price_modifier extends class_base
 {
+	const AW_CLID = 294;
+
 	function shop_price_modifier()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // poll.aw - Generic poll handling class
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/poll.aw,v 1.47 2009/01/13 21:04:49 instrumental Exp $
 session_register("poll_clicked");
@@ -67,6 +69,8 @@ session_register("poll_clicked");
 
 class poll extends class_base implements main_subtemplate_handler
 {
+	const AW_CLID = 33;
+
 	function poll()
 	{
 		$this->init(array(
@@ -861,7 +865,7 @@ class poll extends class_base implements main_subtemplate_handler
 
 		$ret = array();
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$lgs = $l->get_list();
 		$lang_id = aw_global_get("lang_id");
 		foreach($lgs as $lid => $lname)

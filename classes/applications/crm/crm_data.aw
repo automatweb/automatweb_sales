@@ -234,7 +234,7 @@ class crm_data extends class_base
 
 	function get_current_section()
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 
 		if (!is_oid($p->id()))
@@ -253,7 +253,7 @@ class crm_data extends class_base
 
 	function get_current_profession()
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 	
 		if (!is_oid($p->id()))
@@ -276,7 +276,7 @@ class crm_data extends class_base
 	{
 		if ($co === NULL)
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$cco_id = $u->get_current_company();
 			if (!$this->can("view", $cco_id))
 			{

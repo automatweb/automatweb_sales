@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class crm_sales_contacts_view
 {
 	public static $sort_modes = array();
@@ -154,7 +156,7 @@ class crm_sales_contacts_view
 
 				if (!empty($arr["request"]["cts_status"]))
 				{
-					$search->status = $arr["request"]["cts_status"];
+					$search->status = (int) $arr["request"]["cts_status"];
 				}
 
 				if (!empty($arr["request"]["cts_count"]))
@@ -189,6 +191,7 @@ class crm_sales_contacts_view
 				}
 
 				$param = $param_translations[$code];
+				trigger_error($e->getMessage(), E_USER_WARNING);
 				class_base::show_error_text(t("Viga otsinguparameetrites. {$param}"));
 			}
 		}

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/rostering/rostering_scenario.aw,v 1.3 2007/12/06 14:34:03 kristo Exp $
 // rostering_scenario.aw - Planeerimise stsenaarium 
 /*
@@ -49,6 +51,8 @@
 
 class rostering_scenario extends class_base
 {
+	const AW_CLID = 1140;
+
 	function rostering_scenario()
 	{
 		$this->init(array(

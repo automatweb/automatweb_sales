@@ -1,4 +1,8 @@
 <?php
+
+namespace automatweb;
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/quick_reservation.aw,v 1.6 2008/09/10 11:26:24 markop Exp $
 // reservation.aw - Broneering 
 /*
@@ -53,6 +57,10 @@
 
 class quick_reservation extends class_base
 {
+	const AW_CLID = 1387;
+
+	const AW_CLID = 1384;
+
 	function quick_reservation()
 	{
 		$this->init(array(

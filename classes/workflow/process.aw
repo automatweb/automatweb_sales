@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 	@classinfo syslog_type=ST_PROCESS maintainer=kristo
 	@classinfo relationmgr=yes
@@ -48,6 +50,8 @@
 
 class process extends class_base
 {
+	const AW_CLID = 175;
+
 	function process()
 	{
 		$this->init(array(

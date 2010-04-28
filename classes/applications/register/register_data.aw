@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/register/register_data.aw,v 1.49 2008/11/26 09:46:02 kristo Exp $
 // register_data.aw - Registri andmed 
 /*
@@ -1546,6 +1548,8 @@
 
 class register_data extends class_base
 {
+	const AW_CLID = 342;
+
 	function register_data()
 	{
 		$this->init(array(
@@ -1752,7 +1756,7 @@ class register_data extends class_base
 	function show($arr)
 	{
 		$ot = get_instance(CL_OBJECT_TYPE);
-		$cf = get_instance(CL_CFGFORM);
+		$cf = new cfgform();
 		$obj_inst = obj($arr["id"]);
 		$ot_id = $ot->get_obj_for_class(array(
 			"clid" => $obj_inst->class_id(),

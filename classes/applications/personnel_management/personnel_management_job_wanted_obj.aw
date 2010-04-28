@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class personnel_management_job_wanted_obj extends _int_object
 {
+	const AW_CLID = 351;
+
 	function set_prop($k, $v)
 	{
 		$html_allowed = array();

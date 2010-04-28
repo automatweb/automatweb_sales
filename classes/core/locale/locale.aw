@@ -1,7 +1,8 @@
 <?php
 
+namespace automatweb;
+
 /**
-@classinfo  maintainer=voldemar
 Localisation utilities class.
 **/
 class aw_locale
@@ -55,7 +56,7 @@ class aw_locale
 	public static function get_lc_weekday($num, $short = false, $ucfirst = false)
 	{
 		$lc = self::get_lc();
-		$method = array("awlc_date_{$lc}", "get_lc_weekday");
+		$method = array("automatweb\\awlc_date_{$lc}", "get_lc_weekday");
 		$weekday = "";
 		if (is_readable(AW_DIR . "classes/core/locale/date/date_{$lc}" . AW_FILE_EXT))
 		{
@@ -74,7 +75,7 @@ class aw_locale
 	public static function get_lc_month($num)
 	{
 		$lc = self::get_lc();
-		$method = array("awlc_date_{$lc}", "get_lc_month");
+		$method = array("automatweb\\awlc_date_{$lc}", "get_lc_month");
 		$month = "";
 		if (is_readable(AW_DIR . "classes/core/locale/date/date_{$lc}" . AW_FILE_EXT))
 		{
@@ -121,7 +122,7 @@ class aw_locale
 		}
 
 		$lc = self::get_lc();
-		$method = array("awlc_date_{$lc}", "get_lc_date");
+		$method = array("automatweb\\awlc_date_{$lc}", "get_lc_date");
 		if (is_readable(AW_DIR . "classes/core/locale/date/date_{$lc}" . AW_FILE_EXT))
 		{
 			$date = call_user_func($method, $timestamp, $format);
@@ -169,7 +170,7 @@ class aw_locale
 		else
 		{
 			$lc = self::get_lc();
-			$method = array("awlc_date_{$lc}", "get_lc_time");
+			$method = array("automatweb\\awlc_date_{$lc}", "get_lc_time");
 			if (is_readable(AW_DIR . "classes/core/locale/date/date_{$lc}" . AW_FILE_EXT))
 			{
 				$string = call_user_func($method, $duration_info, $format);
@@ -220,7 +221,7 @@ class aw_locale
 	public static function get_lc_number($number)
 	{
 		$lc = self::get_lc();
-		$method = array("awlc_number_{$lc}", "get_lc_number");
+		$method = array("automatweb\\awlc_number_{$lc}", "get_lc_number");
 		if (is_readable(AW_DIR . "classes/core/locale/number/number_{$lc}" . AW_FILE_EXT))
 		{
 			$number = call_user_func($method, $number);
@@ -250,7 +251,7 @@ class aw_locale
 			$lc = self::get_lc();
 		}
 
-		$method = array("awlc_number_{$lc}", "get_lc_money_text");
+		$method = array("automatweb\\awlc_number_{$lc}", "get_lc_money_text");
 		$lc = self::get_lc();
 		if (is_readable(AW_DIR . "classes/core/locale/number/number_{$lc}" . AW_FILE_EXT))
 		{
@@ -276,7 +277,7 @@ class aw_locale
 			$lc = self::get_lc();
 		}
 
-		$method = array("awlc_cases_{$lc}", "get_genitive_for_name");
+		$method = array("automatweb\\awlc_cases_{$lc}", "get_genitive_for_name");
 		if (is_readable(AW_DIR . "classes/core/locale/cases/cases_{$lc}" . AW_FILE_EXT))
 		{
 			$name = call_user_func($method, $name);

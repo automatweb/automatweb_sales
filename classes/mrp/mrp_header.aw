@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 included in all mrp files except operator and import.
 */

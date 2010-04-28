@@ -22,7 +22,7 @@ class crm_document_base extends class_base
 			case "creator":
 			case "reader":
 				$u = get_instance("users");
-				$ui = get_instance(CL_USER);
+				$ui = new user();
 				$c_uid = $arr["obj_inst"]->createdby();
 				if ($c_uid != "")
 				{
@@ -270,7 +270,7 @@ class crm_document_base extends class_base
 			}
 		}
 		
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 		foreach ($p->connections_from(array("type" => "RELTYPE_IMPORTANT_PERSON")) as $c)
 		{

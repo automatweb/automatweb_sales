@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // reval_customer_mailer.aw - Revali klientide meilisaatjs
 /*
 
@@ -11,6 +13,8 @@
 
 class reval_customer_mailer extends class_base
 {
+	const AW_CLID = 1423;
+
 	public $hotel_lut;
 
 	function reval_customer_mailer()

@@ -1,10 +1,12 @@
 <?php
+
+namespace automatweb;
+
 // minify_js_and_css.aw - Paki css ja javascript
-/*
-@classinfo  maintainer=hannes
-*/
 class minify_js_and_css extends class_base
 {
+	const AW_CLID = 1362;
+
 	public static function compress_js($script, $use_javascriptpacker=false)
 	{
 		// JavaScriptPacker seems to create lag. opera shows white page for a sec some times
@@ -61,7 +63,8 @@ class minify_js_and_css extends class_base
 					$res .= $str{$i++};
 					$maybe_regex = false;
 					continue;
-				} elseif ($str{$i}==='"' || $str{$i}==="'")
+				}
+				elseif ($str{$i}==='"' || $str{$i}==="'")
 				{
 					//quoted string detected
 					$quote = $str{$i};
@@ -75,7 +78,8 @@ class minify_js_and_css extends class_base
 					} while ($i<strlen($str) && $str{$i}!=$quote);
 					$res .= $str{$i++};
 					continue;
-				} elseif ($str{$i}.$str{$i+1}==='/*')
+				}
+				elseif ($str{$i}.$str{$i+1}==='/*')
 				{
 					//multi-line comment detected
 					$i+=3;
@@ -91,7 +95,8 @@ class minify_js_and_css extends class_base
 					{
 						$str{$i} = ' ';
 					}
-				} elseif ($str{$i}.$str{$i+1}==='//')
+				}
+				elseif ($str{$i}.$str{$i+1}==='//')
 				{
 					//single-line comment detected
 					$i+=2;
@@ -146,7 +151,8 @@ class minify_js_and_css extends class_base
 				{
 					$res .= $current_char;
 				}
-			} elseif ($current_char === "\n")
+			}
+			elseif ($current_char === "\n")
 			{
 				if (strlen($res) && (	preg_match('/^[^({[=+\-*%&|!><?:~^,;\/][^)}\]=+\-*%&|><?:,;\/]$/', $res{strlen($res)-1}.$str{$i+1}) ||
 											(strlen($res)>1 && preg_match('/^(\+\+)|(--)$/', $res{strlen($res)-2}.$res{strlen($res)-1})) ||
@@ -207,8 +213,7 @@ class minify_js_and_css extends class_base
 		header("Expires: ".gmdate("D, d M Y H:i:s", time()+43200)." GMT");
 		header("Cache-Control: max-age=315360000");
 
-		$cache = get_instance('cache');
-		echo $cache->file_get($s_salt.$arr["name"]);
+		echo cache::file_get($s_salt.$arr["name"]);
 		die();
 	}
 
@@ -230,9 +235,7 @@ class minify_js_and_css extends class_base
 		header ("content-type: text/css; charset: UTF-8");
 		header("Expires: ".gmdate("D, d M Y H:i:s", time()+43200)." GMT");
 		header("Cache-Control: max-age=315360000");
-
-		$cache = get_instance('cache');
-		echo $cache->file_get($s_salt.$arr["name"]);
+		echo cache::file_get($s_salt.$arr["name"]);
 		die();
 	}
 
@@ -244,9 +247,8 @@ class minify_js_and_css extends class_base
 		$f_cache_filename_css = 'aw_admin.css';
 		$s_js_contents = "";
 
-		$cache = get_instance('cache');
-		if (strlen($cache->file_get($s_salt.$f_cache_filename_js))==0 &&
-			strlen($cache->file_get($s_salt.$f_cache_filename_css))==0 )
+		if (strlen(cache::file_get($s_salt.$f_cache_filename_js))==0 &&
+			strlen(cache::file_get($s_salt.$f_cache_filename_css))==0 )
 		{
 			$s_js_contents = '';
 			$s_css_contents = '';
@@ -266,11 +268,11 @@ class minify_js_and_css extends class_base
 				}
 			}
 
-			$s_js_contents = minify_js_and_css::compress_js($s_js_contents);
-			$s_css_contents = minify_js_and_css::compress_css($s_css_contents);
+			$s_js_contents = self::compress_js($s_js_contents);
+			$s_css_contents = self::compress_css($s_css_contents);
 
-			$cache->file_set($s_salt.$f_cache_filename_js, $s_js_contents);
-			$cache->file_set($s_salt.$f_cache_filename_css, $s_css_contents);
+			cache::file_set($s_salt.$f_cache_filename_js, $s_js_contents);
+			cache::file_set($s_salt.$f_cache_filename_css, $s_css_contents);
 
 		}
 //		$s_out = '<link rel="stylesheet" type="text/css" href="'.aw_ini_get("baseurl").'/orb.aw?class=minify_js_and_css&amp;action=get_css&amp;name=aw_admin.css">'."\n";
@@ -295,10 +297,8 @@ class minify_js_and_css extends class_base
 			$f_cache_filename_js = $s_hash.".js";
 			$f_cache_filename_css =  $s_hash.".css";
 
-			$cache = get_instance('cache');
-
-			if (strlen($cache->file_get($s_prefix.$f_cache_filename_js))==0 &&
-				strlen($cache->file_get($s_prefix.$f_cache_filename_css))==0 )
+			if (strlen(cache::file_get($s_prefix.$f_cache_filename_js))==0 &&
+				strlen(cache::file_get($s_prefix.$f_cache_filename_css))==0 )
 			{
 				if (preg_match_all ( "/<script.*src=['\"\s](.*)['\"\s]>/imsU", $str, $matches) )
 				{
@@ -316,23 +316,22 @@ class minify_js_and_css extends class_base
 					}
 				}
 
-				$minify = get_instance(CL_MINIFY_JS_AND_CSS);
-				$s_js_contents = $minify->compress_js($s_js_contents);
-				$s_css_contents = $minify->compress_css($s_css_contents);
+				$s_js_contents = self::compress_js($s_js_contents);
+				$s_css_contents = self::compress_css($s_css_contents);
 
-				$cache->file_set($s_prefix.$f_cache_filename_js, $s_js_contents);
-				$cache->file_set($s_prefix.$f_cache_filename_css, $s_css_contents);
+				cache::file_set($s_prefix.$f_cache_filename_js, $s_js_contents);
+				cache::file_set($s_prefix.$f_cache_filename_css, $s_css_contents);
 			}
 			$xhtml_slash = "";
 			if (aw_ini_get("content.doctype") === "xhtml")
 			{
 				$xhtml_slash = " /";
 			}
-			if (strlen($cache->file_get($s_prefix.$f_cache_filename_css))>0)
+			if (strlen(cache::file_get($s_prefix.$f_cache_filename_css))>0)
 			{
 				$s_out .= '<link rel="stylesheet" type="text/css" href="'.aw_ini_get("baseurl").'/orb.aw?class=minify_js_and_css&amp;action=get_css&amp;name='.$f_cache_filename_css.'"'.$xhtml_slash.'>'."\n";
 			}
-			if (strlen($cache->file_get($s_prefix.$f_cache_filename_js))>0)
+			if (strlen(cache::file_get($s_prefix.$f_cache_filename_js))>0)
 			{
 				$s_out .= '<script src="'.aw_ini_get("baseurl").'/orb.aw?class=minify_js_and_css&amp;action=get_js&amp;name='.$f_cache_filename_js.'" type="text/javascript"></script>';
 			}

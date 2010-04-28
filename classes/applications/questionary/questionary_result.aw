@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/questionary/questionary_result.aw,v 1.3 2007/12/06 14:33:53 kristo Exp $
 // questionary_result.aw - K&uuml;simustiku vastus 
 /*
@@ -42,6 +44,8 @@
 
 class questionary_result extends class_base
 {
+	const AW_CLID = 1158;
+
 	function questionary_result()
 	{
 		$this->init(array(

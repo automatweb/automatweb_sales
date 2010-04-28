@@ -1,9 +1,9 @@
 <?php
 
 // klass taimerite jaoks
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class aw_timer
 {
 	var $timers; // siin sailitame koiki taimereid

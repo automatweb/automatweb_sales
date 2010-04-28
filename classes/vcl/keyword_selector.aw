@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class keyword_selector extends class_base
 {
 	function keyword_selector()
@@ -13,7 +13,7 @@ class keyword_selector extends class_base
 	{
 		$tp = $arr["prop"];
 		$tp["type"] = "text";
-		
+
 		$content = isset($arr["prop"]["hide_selected"]) && $arr["prop"]["hide_selected"] ? "" : $this->_draw_existing_kws($arr)."<br><br><br>";
 		$content .= $this->_draw_alphabet($arr);
 
@@ -134,7 +134,7 @@ class keyword_selector extends class_base
 		{
 			if (!isset($prev_parent))
 			{
-				$prev_parent = $kw->parent();	
+				$prev_parent = $kw->parent();
 				$po = obj($kw->parent());
 				$cur_row = array(
 					"parent" => "<b>".parse_obj_name($po->name())."</b>"
@@ -145,7 +145,7 @@ class keyword_selector extends class_base
 			{
 				$num = 15;
 			}
-		
+
 			$num++;
 			if ($num > $n)
 			{
@@ -216,10 +216,10 @@ class keyword_selector extends class_base
 		{
 			$list[] = html::href(array(
 				"caption" => t("K&otilde;ik"),
-				"url" => aw_url_change_var("kw_sel_filt", "_all")	
+				"url" => aw_url_change_var("kw_sel_filt", "_all")
 			));
 		}
-	
+
 		$rv = join(" ", $list);
 		$rv .= " / ".html::get_new_url(CL_KEYWORD, $_GET["id"], array("return_url" => get_ru()), t("Lisa uus"));
 		return $rv;

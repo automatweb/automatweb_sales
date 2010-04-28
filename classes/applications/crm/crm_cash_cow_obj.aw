@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_cash_cow_obj extends _int_object
 {
+	const AW_CLID = 1538;
+
 	/** Returns income expense spots
 		@attrib api=1
 		@returns object list

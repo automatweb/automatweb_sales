@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // auth_server_userdefined.aw - Autentimisserver kasutajadefineeritud
 /*
 
@@ -20,6 +22,8 @@
 
 class auth_server_userdefined extends class_base
 {
+	const AW_CLID = 1191;
+
 	function auth_server_userdefined()
 	{
 		$this->init(array(

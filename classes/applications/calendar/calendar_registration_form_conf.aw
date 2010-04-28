@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/calendar_registration_form_conf.aw,v 1.43 2008/11/06 18:51:54 markop Exp $
 // calendar_registration_form_conf.aw - Kalendri s&uuml;ndmusele registreerimise vorm 
 /*
@@ -84,6 +86,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_CALENDAR_REGISTRATION_FOR
 
 class calendar_registration_form_conf extends class_base
 {
+	const AW_CLID = 849;
+
 	function calendar_registration_form_conf()
 	{
 		$this->init(array(
@@ -276,7 +280,7 @@ class calendar_registration_form_conf extends class_base
 		}
 
 		// validate data
-		//$cf = get_instance(CL_CFGFORM);
+		//$cf = new cfgform();
 		//$props = $cf->get_props_from_cfgform(array("id" => $ot->prop("use_cfgform")));
 		$calendar_registration_form_i = get_instance(CL_CALENDAR_REGISTRATION_FORM);
 		$calendar_registration_form_i->init_class_base();
@@ -666,7 +670,7 @@ class calendar_registration_form_conf extends class_base
 
 		$d_o = obj($arr["data"]);
 
-		$cf = get_instance(CL_CFGFORM);
+		$cf = new cfgform();
 		$props = $cf->get_props_from_ot(array(
 			"ot" => $ot->id(),
 			"values" => $d_o->properties(),

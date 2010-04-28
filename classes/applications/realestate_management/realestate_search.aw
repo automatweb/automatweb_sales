@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // realestate_search.aw - Kinnisvaraobjektide otsing
 /*
 
@@ -179,6 +181,8 @@ define ("NEWLINE", "<br />\n");
 
 class realestate_search extends class_base
 {
+	const AW_CLID = 981;
+
 	var $realestate_classes = array (
 		CL_REALESTATE_HOUSE,
 		CL_REALESTATE_ROWHOUSE,

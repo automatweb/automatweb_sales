@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_arve.aw,v 1.8 2007/11/23 07:18:28 dragut Exp $
 // expp_arve.aw - Expp arve 
 /*
@@ -11,6 +13,8 @@
 */
 
 class expp_arve extends class_base {
+	const AW_CLID = 1018;
+
 	var $cp;
 	var $valjad = array(
 		'nimi'		=> 'nimi',

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_tax_rate.aw,v 1.5 2007/12/06 14:33:17 kristo Exp $
 // crm_tax_rate.aw - Maksum&auml;&auml;r 
 /*
@@ -31,6 +33,8 @@
 
 class crm_tax_rate extends class_base
 {
+	const AW_CLID = 1046;
+
 	function crm_tax_rate()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // realestate_housepart.aw - Majaosa
 /*
 
@@ -350,6 +352,8 @@ classload("applications/realestate_management/realestate_property");
 
 class realestate_housepart extends realestate_property
 {
+	const AW_CLID = 979;
+
 	function realestate_housepart()
 	{
 		$this->init(array(

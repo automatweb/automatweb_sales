@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 /*
 
@@ -232,12 +231,6 @@ class _int_object
 	{
 		if (empty($this->obj["oid"]))
 		{
-			/*
-			error::raise(array(
-				"id" => "ERR_NO_OBJ",
-				"msg" => t("object::connections_from(): no current object loaded!")
-			));
-			*/
 			return array();
 		}
 
@@ -255,6 +248,12 @@ class _int_object
 				));
 				return;
 			}
+
+			if (isset($param["reltype"]))
+			{
+				$param["type"] = $param["reltype"];
+			}
+
 			if (isset($param["type"]))
 			{
 				$param["type"] = $GLOBALS["object_loader"]->resolve_reltype($param["type"], $this->obj["class_id"]);
@@ -263,10 +262,12 @@ class _int_object
 					$filter["type"] = $param["type"];
 				}
 			}
+
 			if (isset($param["to"]))
 			{
 				$filter["to"] = $GLOBALS["object_loader"]->param_to_oid_list($param["to"]);
 			}
+
 			if (isset($param["idx"]))
 			{
 				$filter["idx"] = $param["idx"];
@@ -274,11 +275,11 @@ class _int_object
 
 			foreach($param as $k => $v)
 			{
-				if (substr($k, 0, 3) == "to.")
+				if (substr($k, 0, 3) === "to.")
 				{
 					$filter[$k] = $v;
 				}
-				if (substr($k, 0, 5) == "from.")
+				if (substr($k, 0, 5) === "from.")
 				{
 					$filter[$k] = $v;
 				}
@@ -313,15 +314,18 @@ class _int_object
 				$ret[$c_id] = new connection($c_d);
 			}
 		}
+
 		if (!empty($param["sort_by"]))
 		{
 			uasort($ret, create_function('$a,$b', 'return strcasecmp($a->prop("'.$param["sort_by"].'"), $b->prop("'.$param["sort_by"].'"));'));
 		}
+
 		if (!empty($param["sort_by_num"]))
 		{
 			uasort($ret, create_function('$a,$b', 'return ($a->prop("'.$param["sort_by_num"].'") == $b->prop("'.$param["sort_by_num"].'") ? 0 : ($a->prop("'.$param["sort_by_num"].'") > $b->prop("'.$param["sort_by_num"].'") ? 1 : -1 ));'));
 		}
-		if(isset($param['sort_dir']) && $param['sort_dir'] == 'desc')
+
+		if(isset($param['sort_dir']) && $param['sort_dir'] === 'desc')
 		{
 			return array_reverse($ret);
 		}
@@ -1497,7 +1501,7 @@ class _int_object
 			return;
 		}
 
-		$cl = basename(aw_ini_get("classes." . $clid . ".file"));
+		$cl = "automatweb\\" . basename(aw_ini_get("classes." . $clid . ".file"));
 		return new $cl;
 	}
 
@@ -1901,12 +1905,12 @@ class _int_object
 		$is = false;
 		if (is_class_id($class_id))
 		{
-			$cl = basename(aw_ini_get("classes.{$class_id}.object_override"));
+			$cl = aw_ini_get("classes.{$class_id}.object");
 			if ($class_id == $this->class_id())
 			{ // object is of queried class
 				$is = true;
 			}
-			elseif (aw_ini_isset("classes.{$class_id}.object_override") and $this instanceof $cl)
+			elseif (aw_ini_isset("classes.{$class_id}.object") and $this instanceof $cl)
 			{ // object extends queried class
 				$is = true;
 			}
@@ -2303,7 +2307,7 @@ class _int_object
 				{
 					$t = new object($parent);
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$parent = 0;
 					break;
@@ -2865,7 +2869,7 @@ class _int_object
 				aw_locker::unlock("object", $this->obj["oid"], aw_locker::BOUNDARY_SERVER);
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			echo $e->getMessage();
 		}

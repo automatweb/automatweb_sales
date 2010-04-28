@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class crm_sales_presentations_view
 {
 	public static function _get_presentations_tree(&$arr)
@@ -12,7 +14,6 @@ class crm_sales_presentations_view
 			crm_sales::PRESENTATIONS_ADDED_TODAY,
 			crm_sales::PRESENTATIONS_DEFAULT
 		);
-
 
 		foreach (crm_sales::$presentations_list_views as $key => $data)
 		{
@@ -230,7 +231,6 @@ $default_filter["CL_CRM_PRESENTATION.customer_relation(CL_CRM_COMPANY_CUSTOMER_D
 break;
 }
 //!!!! END tmp
-
 
 
 		$presentations_count = new object_data_list(
@@ -474,7 +474,6 @@ break;
 			"d_row_cnt" => $presentations_count,
 			"records_per_page" => $this_o->prop("tables_rows_per_page")
 		));
-
 	}
 }
 

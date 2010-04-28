@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/users/user_manager.aw,v 1.21 2009/06/26 11:05:41 instrumental Exp $
 // user_manager.aw - Kasutajate haldus 
 /*
@@ -157,6 +159,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_USER_MANAGER, on_popup_sear
 
 class user_manager extends class_base
 {
+	const AW_CLID = 1003;
+
 	var $parent = null;
 	var $permissions_form;
 
@@ -1863,7 +1867,7 @@ class user_manager extends class_base
 
 	function get_user_popupmenu($oid)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu($oid);
 		$gl = aw_global_get("gidlist_oid");
 		foreach($gl as $g_oid)

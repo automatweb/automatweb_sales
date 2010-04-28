@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // customer_feedback_manager.aw - Kliendi tagasiside
 /*
 
@@ -31,6 +33,8 @@
 
 class customer_feedback_manager extends class_base
 {
+	const AW_CLID = 1130;
+
 	function customer_feedback_manager()
 	{
 		$this->init(array(

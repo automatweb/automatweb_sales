@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_RSS_READER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_rss_reader master_index=brother_of master_table=objects index=aw_oid
@@ -28,6 +30,8 @@
 
 class rss_reader extends class_base
 {
+	const AW_CLID = 1531;
+
 	function rss_reader()
 	{
 		$this->init(array(

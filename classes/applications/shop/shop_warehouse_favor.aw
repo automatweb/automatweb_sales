@@ -1,6 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_warehouse_favor.aw,v 1.2 2008/01/31 13:50:07 kristo Exp $
-// shop_warehouse_favor.aw - Soodustus 
+
+namespace automatweb;
+
+// shop_warehouse_favor.aw - Soodustus
 /*
 
 @classinfo syslog_type=ST_SHOP_WAREHOUSE_FAVOR relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
@@ -25,12 +27,12 @@
 		@layout product_groups_frame type=hbox width=20%:80%
 
 			@layout product_group_search_params_frame type=vbox parent=product_groups_frame
-		
+
 				@property product_group_name type=textbox store=no parent=product_group_search_params_frame
 				@caption Tootegrupi nimi
 
 			@layout product_group_search_results_frame type=vbox parent=product_groups_frame
-	
+
 				@property product_group_result type=table parent=product_group_search_results_frame
 				@caption Tootegrupid
 
@@ -40,7 +42,7 @@
 		@layout products_frame type=hbox width=20%:80%
 
 			@layout product_search_params_frame type=vbox parent=products_frame
-		
+
 				@property product_name type=textbox store=no parent=product_search_params_frame
 				@caption Toote nimetus
 
@@ -51,7 +53,7 @@
 				@caption Ribakood
 
 			@layout product_search_results_frame type=vbox parent=products_frame
-	
+
 				@property product_result type=table parent=product_search_results_frame
 				@caption Tooted
 
@@ -64,12 +66,12 @@
 		@layout client_groups_frame type=hbox width=20%:80%
 
 			@layout client_group_search_params_frame type=vbox parent=client_groups_frame
-		
+
 				@property client_group_name type=textbox store=no parent=client_group_search_params_frame
 				@caption Kliendigrupi nimi
 
 			@layout client_group_search_results_frame type=vbox parent=client_groups_frame
-	
+
 				@property client_group_result type=table parent=client_group_search_results_frame
 				@caption Kliendi grupid
 
@@ -79,7 +81,7 @@
 		@layout clients_frame type=hbox width=20%:80%
 
 			@layout client_search_params_frame type=vbox parent=clients_frame
-		
+
 				@property client_name type=textbox store=no parent=client_search_params_frame
 				@caption Kliendi nimi
 
@@ -88,47 +90,24 @@
 
 
 			@layout client_search_results_frame type=vbox parent=clients_frame
-	
+
 				@property client_result type=table parent=client_search_results_frame
 				@caption Kliendid
 */
 
 class shop_warehouse_favor extends class_base
 {
+	const AW_CLID = 1042;
+
 	function shop_warehouse_favor()
 	{
-		// change this to the folder under the templates folder, where this classes templates will be, 
+		// change this to the folder under the templates folder, where this classes templates will be,
 		// if they exist at all. Or delete it, if this class does not use templates
 		$this->init(array(
 			"tpldir" => "applications/shop/shop_warehouse_favor",
 			"clid" => CL_SHOP_WAREHOUSE_FAVOR
 		));
 	}
-
-	//////
-	// class_base classes usually need those, uncomment them if you want to use them
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			//-- get_property --//
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			//-- set_property --//
-
-		}
-		return $retval;
-	}	
 
 	function callback_mod_reforb($arr)
 	{
@@ -143,7 +122,7 @@ class shop_warehouse_favor extends class_base
 	// !this will be called if the object is put in a document by an alias and the document is being shown
 	// parameters
 	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
@@ -162,7 +141,7 @@ class shop_warehouse_favor extends class_base
 
 	function _get_product_group_result($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
 		$t->define_field(array(

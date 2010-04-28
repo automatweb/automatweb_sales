@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/ecard/ecard_manager.aw,v 1.5 2007/12/06 14:33:28 kristo Exp $
 // ecard_manager.aw - E-kaardi haldur 
 // Use this class as alias in a document. CL_ECARD is for internal use
@@ -38,6 +40,8 @@ define('ECARD_POSITION_ASIDE', 2);
 
 class ecard_manager extends class_base
 {
+	const AW_CLID = 996;
+
 	var $formdata;
 	function ecard_manager()
 	{

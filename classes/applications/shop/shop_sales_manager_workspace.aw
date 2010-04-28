@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_SALES_MANAGER_WORKSPACE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 
@@ -492,6 +494,8 @@
 
 class shop_sales_manager_workspace extends class_base
 {
+	const AW_CLID = 1440;
+
 	function shop_sales_manager_workspace()
 	{
 		$this->init(array(

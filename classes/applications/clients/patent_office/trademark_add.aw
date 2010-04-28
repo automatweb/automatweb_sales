@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // trademark_add.aw - Kaubam&auml;rgi veebist lisamine
 /*
 
@@ -38,6 +40,8 @@
 
 class trademark_add extends class_base
 {
+	const AW_CLID = 1189;
+
 	function trademark_add()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_company_customer_data.aw - Kliendi andmed
 /*
 
@@ -14,6 +16,9 @@
 
 	@property seller type=relpicker reltype=RELTYPE_SELLER table=aw_crm_customer_data field=aw_seller
 	@caption M&uuml;&uuml;ja
+
+	@property categories type=relpicker store=connect reltype=RELTYPE_CATEGORY multiple=1 size=8
+	@caption Kategooria
 
 	@property discount type=textbox table=aw_crm_customer_data field=aw_discount
 	@caption Vaikimisi soodustus %
@@ -228,6 +233,8 @@
 
 class crm_company_customer_data extends class_base
 {
+	const AW_CLID = 1028;
+
 	function crm_company_customer_data()
 	{
 		$this->init(array(

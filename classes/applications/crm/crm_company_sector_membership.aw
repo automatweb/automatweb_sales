@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CRM_COMPANY_SECTOR_MEMBERSHIP relationmgr=yes no_comment=1 prop_cb=1 maintainer=instrumental
 #@tableinfo aw_crm_company_sector_membership master_index=brother_of master_table=objects index=aw_oid
@@ -24,6 +26,8 @@
 
 class crm_company_sector_membership extends class_base
 {
+	const AW_CLID = 1524;
+
 	function crm_company_sector_membership()
 	{
 		$this->init(array(

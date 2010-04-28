@@ -1,6 +1,11 @@
 <?php
+
+namespace automatweb;
+
 class menu_tree_obj extends _int_object
 {
+	const AW_CLID = 93;
+
 	/** Returns object list for menus under root menu set for current menu_tree
 
 	 **/

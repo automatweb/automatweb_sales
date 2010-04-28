@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/cb_form_chain/cb_form_chain_entry.aw,v 1.19 2007/11/23 07:06:27 dragut Exp $
 // cb_form_chain_entry.aw - Vormiahela sisestus
 /*
@@ -28,6 +30,8 @@
 
 class cb_form_chain_entry extends class_base
 {
+	const AW_CLID = 965;
+
 	function cb_form_chain_entry()
 	{
 		$this->init(array(
@@ -323,7 +327,7 @@ class cb_form_chain_entry extends class_base
 				$o = $d->get_first_obj_by_reltype($pd["reltype"]);
 				if ($o)
 				{
-					$file_i = get_instance(CL_FILE);
+					$file_i = new file();
 					$val = html::href(array(
 						"url" => $file_i->get_url($o->id(), $o->name()),
 						"caption" => $o->name()

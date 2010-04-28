@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class crm_sales_data_entry_statistics_view
 {
 	public static function _get_des_by(&$arr)

@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
+
+namespace automatweb;
 
 // tf parameter format is $docs_folder_oid|$selected_item_id. $docs_folder_oid|$docs_folder_oid when no subitem selected.
 
@@ -208,7 +207,7 @@ class crm_company_docs_impl extends class_base
 						"prop" => "ord",
 						"order" => "asc"
 					));
-					$file_inst = get_instance(CL_FILE);
+					$file_inst = new file();
 					foreach($ol3->arr() as $o)
 					{
 						if ($o->class_id() == CL_FILE)
@@ -467,7 +466,7 @@ class crm_company_docs_impl extends class_base
 		array_unshift($open_path, $fld_id); // top parent item
 
 		classload("core/icons");
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		$gbf = $this->mk_my_orb("get_tree_stuff",array(
 			"set_retu" => aw_url_change_var(),
 			"parent" => " ",
@@ -727,7 +726,7 @@ class crm_company_docs_impl extends class_base
 			$ol = new object_list($f);
 
 			$cur_level_folders = array();
-			$file_inst = get_instance(CL_FILE);
+			$file_inst = new file();
 			foreach($ol->arr() as $o)
 			{
 				if ($o->class_id() == CL_FILE)
@@ -761,7 +760,7 @@ class crm_company_docs_impl extends class_base
 
 		classload("core/icons");
 		$clss = aw_ini_get("classes");
-		get_instance(CL_FILE);
+		new file();
 
 		foreach($cur_level_folders as $entry)
 		{
@@ -770,7 +769,7 @@ class crm_company_docs_impl extends class_base
 				$o = obj($entry["id"]);
 			}
 
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu("sf".$entry["id"]);
 
 			if ($fld->class_id() == CL_SERVER_FOLDER)
@@ -864,7 +863,7 @@ class crm_company_docs_impl extends class_base
 			foreach($results as $result)
 			{
 				$o2 = obj($result['from']);
-				$pm = get_instance("vcl/popup_menu");
+				$pm = new popup_menu();
 				$pm->begin_menu("sf".$o2->id());
 				foreach($o2->connections_from(array("class" => CL_FILE)) as $c)
 				{
@@ -1231,7 +1230,7 @@ class crm_company_docs_impl extends class_base
 			"class_id" => array(CL_FILE,CL_CRM_MEMO,CL_CRM_DEAL,CL_CRM_DOCUMENT,CL_CRM_OFFER, CL_FILE)
 		));
 		//$t->data_from_ol($lm);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$us = get_instance("users");
 		foreach($lm->arr() as $o)
 		{

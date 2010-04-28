@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class hate
 {
 	var $colors = array("red", "green", "blue", "magenta");

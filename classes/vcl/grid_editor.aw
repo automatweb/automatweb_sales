@@ -1,8 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
-classload("layout/active_page_data");
+
+namespace automatweb;
+
 class grid_editor extends class_base
 {
 	function grid_editor()
@@ -22,9 +21,9 @@ class grid_editor extends class_base
 		@errors none
 		@returns none
 
-		@comment 
+		@comment
 			if you pass an empty array as the data, then the grid is initialized to an 1x1 grid with one empty cell.
-		
+
 		@examples
 			$ge = get_instance("vcl/grid_editor");
 			$ge->_init_table($obj->meta("grid"));
@@ -55,7 +54,7 @@ class grid_editor extends class_base
 			$this->arr["rows"] = 1;
 		}
 
-		// go over the map and correct all entries with - 
+		// go over the map and correct all entries with -
 		for($row = 0; $row < $this->arr["rows"]; $row++)
 		{
 			for($col = 0; $col < $this->arr["cols"]; $col++)
@@ -136,7 +135,7 @@ class grid_editor extends class_base
 
 			$rowspan = $t_row - $i;
 			$colspan = $t_col - $a;
-				
+
 			$this->vars(array("colspan" => $colspan, "rowspan" => $rowspan));
 			if ($colspan > 1)
 			{
@@ -167,19 +166,19 @@ class grid_editor extends class_base
 	/** displays the main grid editing table
 		@attrib api=1 params=pos
 
-		@param data required type=array 
+		@param data required type=array
 			The grid data, returned by the grid editor
 
 		@param oid required type=oid
-			The object id of the object the grid is attached to 
+			The object id of the object the grid is attached to
 
 		@param params optional type=array
 			An array of other paramters, can contain:
 				cell_content_callback => array(&$object, "method_name", $parameter_to_method)
-					if this key is set, then for each cell in the grid, this method will be called with 
+					if this key is set, then for each cell in the grid, this method will be called with
 					the parameter given, the row and the column of the cell and it must return the html
 					that will be displayed in the editing view in the cell
-		
+
 		@returns The html for the main grid editing view
 
 		@errors	none
@@ -201,8 +200,8 @@ class grid_editor extends class_base
 				}
 				return PROP_OK;
 			}
-			
-	**/		
+
+	**/
 	function on_edit($data, $oid, $params = array())
 	{
 		$this->_init_table($data);
@@ -225,7 +224,7 @@ class grid_editor extends class_base
 				$fc = $this->parse("FIRST_C");
 			}
 			$this->vars(array(
-				"FIRST_C" => $fc, 
+				"FIRST_C" => $fc,
 				"col" => $col,
 				"col" => $col,
 				"after" => (int)$col,
@@ -242,7 +241,7 @@ class grid_editor extends class_base
 			for ($a=0; $a < $this->arr["cols"]; $a++)
 			{
 				$cell = $this->arr["styles"][$i][$a];
-				
+
 				$this->vars(array(
 					"col" => $a,
 					"row" => $i,
@@ -253,7 +252,7 @@ class grid_editor extends class_base
 					continue;
 				}
 
-				$sh = $sv = $eu = $el = $er = $ed = "<img src='".$this->cfg["baseurl"]."/automatweb/images/trans.gif' width='8' height='8'>"; 
+				$sh = $sv = $eu = $el = $er = $ed = "<img src='".$this->cfg["baseurl"]."/automatweb/images/trans.gif' width='8' height='8'>";
 				$sh = "<a href='javascript:split_hor($i,$a)'><img alt=\"".t("Jaga pooleks horisontaalselt")."\" title=\"".t("Jaga pooleks horisontaalselt")."\" src='".$this->cfg["baseurl"]."/automatweb/images/split_cell_down.gif' border=0></a>";
 				$sv = "<a href='javascript:split_ver($i,$a)'><img alt=\"".t("Jaga pooleks vertikaalselt")."\" title=\"".t("Jaga pooleks vertikaalselt")."\" src='".$this->cfg["baseurl"]."/automatweb/images/split_cell_left.gif' border=0></a>";
 
@@ -277,15 +276,15 @@ class grid_editor extends class_base
 				$map = $this->arr["map"][$i][$a];
 
 				$this->vars(array(
-					"SPLIT_HORIZONTAL"	=> $sh, 
-					"SPLIT_VERTICAL"		=> $sv, 
-					"EXP_UP"						=> $eu, 
-					"EXP_LEFT"					=> $el, 
+					"SPLIT_HORIZONTAL"	=> $sh,
+					"SPLIT_VERTICAL"		=> $sv,
+					"EXP_UP"						=> $eu,
+					"EXP_LEFT"					=> $el,
 					"EXP_RIGHT"					=> $er,
 					"EXP_DOWN"					=> $ed,
 					"content_text" => htmlspecialchars(substr($this->arr["aliases"][$map["row"]][$map["col"]], 0, 20))
 				));
-			
+
 				// do the callback if specified
 				$cc = "";
 				if (is_array($params) && isset($params['cell_content_callback']))
@@ -296,7 +295,7 @@ class grid_editor extends class_base
 					$cc = $that->$fun($parms, $map['row'], $map['col']);
 				}
 				else
-				{	
+				{
 					$cc = $this->parse("COL_CONTENT");
 				}
 				$this->vars(array(
@@ -321,7 +320,7 @@ class grid_editor extends class_base
 				"row" => $i,
 				"after" => $i
 			));
-				
+
 			$this->parse("LINE");
 		}
 
@@ -335,7 +334,7 @@ class grid_editor extends class_base
 
 	/** this should be called when the main editing view is submitted, this will handle the submit and return the modified grid data
 		@attrib api=1 params=pos
-		
+
 		@param data required type=array
 			The grid data
 
@@ -345,7 +344,7 @@ class grid_editor extends class_base
 		@param params optional type=array
 			An array of other paramters, can contain:
 				cell_content_callback => array(&$object, "method_name", $parameter_to_method)
-					if this key is set, then for each cell in the grid, this method will be called with 
+					if this key is set, then for each cell in the grid, this method will be called with
 					the parameter given, the row and the column of the cell and the post data. it must return the data that will be
 					stored in that cell
 
@@ -365,7 +364,7 @@ class grid_editor extends class_base
 						break;
 				}
 			}
-	**/		
+	**/
 	function on_edit_submit($data, $post, $params = array())
 	{
 		$this->_init_table($data);
@@ -382,7 +381,7 @@ class grid_editor extends class_base
 		}
 
 		$this->_process_command($cmds);
-	
+
 		if ($params['cell_content_callback'])
 		{
 			// call the save content handler for each cell
@@ -432,7 +431,7 @@ class grid_editor extends class_base
 		{
 			$this->_del_row(array("row" => $v));
 		}*/
-		
+
 		return $this->arr;
 	}
 
@@ -505,7 +504,7 @@ class grid_editor extends class_base
 			$this->_del_row(array("row" => $v));
 		}
 	}
-	
+
 
 	function _add_col($arr)
 	{
@@ -523,9 +522,9 @@ class grid_editor extends class_base
 						$this->arr["styles"][$row][$col] = $this->arr["styles"][$row][$col-1];
 					}
 				}
-			
+
 				if ($after != -1)
-				{	
+				{
 					for ($row = 0; $row < $this->arr["rows"]; $row++)
 					{
 						$this->arr["aliases"][$row][$after+1] = "";
@@ -549,7 +548,7 @@ class grid_editor extends class_base
 				for ($row = 0; $row < $this->arr["rows"]; $row++)
 					for ($col=$after+1; $col < ($this->arr["cols"]-1); $col++)
 					{
-						if ($this->arr["map"][$row][$col]["col"] > $after)	
+						if ($this->arr["map"][$row][$col]["col"] > $after)
 						{
 							$nm[$row][$col+1]["col"] = $this->arr["map"][$row][$col]["col"]+1;
 							$nm[$row][$col+1]["row"] = $this->arr["map"][$row][$col]["row"];
@@ -602,7 +601,7 @@ class grid_editor extends class_base
 					$this->arr["aliases"][$row][$col] = $this->arr["aliases"][$row][$col-1];
 				}
 			}
-			
+
 			if ($after != -1)
 			{
 				for ($row = 0; $row < $this->arr["rows"]; $row++)
@@ -625,7 +624,7 @@ class grid_editor extends class_base
 			{
 				for ($col=$after+1; $col < ($this->arr["cols"]-1); $col++)
 				{
-					if ($this->arr["map"][$row][$col]["col"] > $after)	
+					if ($this->arr["map"][$row][$col]["col"] > $after)
 					{
 						$nm[$row][$col+1]["col"] = $this->arr["map"][$row][$col]["col"]+1;
 						$nm[$row][$col+1]["row"] = $this->arr["map"][$row][$col]["row"];
@@ -684,7 +683,7 @@ class grid_editor extends class_base
 						$this->arr["styles"][$row][$col] = $this->arr["styles"][$row-1][$col];
 					}
 				}
-			
+
 				if ($after != -1)
 				{
 					for ($col = 0; $col < $this->arr["cols"]; $col++)
@@ -711,7 +710,7 @@ class grid_editor extends class_base
 				{
 					for ($col=0; $col < $this->arr["cols"]; $col++)
 					{
-						if ($this->arr["map"][$row][$col]["row"] > $after)	
+						if ($this->arr["map"][$row][$col]["row"] > $after)
 						{
 							$nm[$row+1][$col]["col"] = $this->arr["map"][$row][$col]["col"];
 							$nm[$row+1][$col]["row"] = $this->arr["map"][$row][$col]["row"]+1;
@@ -766,7 +765,7 @@ class grid_editor extends class_base
 					$this->arr["styles"][$row][$col] = $this->arr["styles"][$row-1][$col];
 				}
 			}
-			
+
 			if ($after != -1)
 			{
 				for ($col = 0; $col < $this->arr["cols"]; $col++)
@@ -790,7 +789,7 @@ class grid_editor extends class_base
 			{
 				for ($col=0; $col < $this->arr["cols"]; $col++)
 				{
-					if ($this->arr["map"][$row][$col]["row"] > $after)	
+					if ($this->arr["map"][$row][$col]["row"] > $after)
 					{
 						$nm[$row+1][$col]["col"] = $this->arr["map"][$row][$col]["col"];
 						$nm[$row+1][$col]["row"] = $this->arr["map"][$row][$col]["row"]+1;
@@ -868,9 +867,9 @@ class grid_editor extends class_base
 				{
 					$nm[$row][$col-1] = array("row" => $this->arr["map"][$row][$col]["row"], "col" => $this->arr["map"][$row][$col]["col"]-1);
 					$changes[] = array(
-						"from" => $this->arr["map"][$row][$col], 
+						"from" => $this->arr["map"][$row][$col],
 						"to" => array(
-							"row" => $this->arr["map"][$row][$col]["row"], 
+							"row" => $this->arr["map"][$row][$col]["row"],
 							"col" => $this->arr["map"][$row][$col]["col"]-1
 						)
 					);
@@ -882,7 +881,7 @@ class grid_editor extends class_base
 			}
 		}
 		$this->arr["map"] = $nm;
-		
+
 		reset($changes);
 		while (list(,$v) = each($changes))
 		{
@@ -897,7 +896,7 @@ class grid_editor extends class_base
 				}
 			}
 		}
-		
+
 		$this->arr["cols"]--;
 	}
 
@@ -916,7 +915,7 @@ class grid_editor extends class_base
 				$this->arr["styles"][$r-1][$col] = $this->arr["styles"][$r][$col];
 			}
 		}
-		
+
 		$nm = array();
 		for ($row =0; $row < $d_row; $row++)
 		{
@@ -935,9 +934,9 @@ class grid_editor extends class_base
 				{
 					$nm[$row-1][$col] = array("row" => $this->arr["map"][$row][$col]["row"]-1, "col" => $this->arr["map"][$row][$col]["col"]);
 					$changes[] = array(
-						"from" => $this->arr["map"][$row][$col], 
+						"from" => $this->arr["map"][$row][$col],
 						"to" => array(
-							"row" => $this->arr["map"][$row][$col]["row"]-1, 
+							"row" => $this->arr["map"][$row][$col]["row"]-1,
 							"col" => $this->arr["map"][$row][$col]["col"]
 						)
 					);
@@ -949,7 +948,7 @@ class grid_editor extends class_base
 			}
 		}
 		$this->arr["map"] = $nm;
-		
+
 		reset($changes);
 		while (list(,$v) = each($changes))
 		{
@@ -1114,10 +1113,10 @@ class grid_editor extends class_base
 			{
 				if ($this->arr["map"][$i][$a] == $this->arr["map"][$row][$col])
 				{
-					if ($this->arr["map"][$i][$a]["col"] < $center)	
+					if ($this->arr["map"][$i][$a]["col"] < $center)
 					{
 						// the hotspot of the cell is on the left of the splitter
-						if ($a <= $center)	
+						if ($a <= $center)
 						{
 							// and we currently are also on the left side then leave it be
 							$nm[$i][$a] = $this->arr["map"][$i][$a];
@@ -1141,7 +1140,7 @@ class grid_editor extends class_base
 							// if we are on the same side, use the current value
 							$nm[$i][$a] = $this->arr["map"][$i][$a];
 						}
-					}	
+					}
 				}
 				else
 				{
@@ -1189,10 +1188,10 @@ class grid_editor extends class_base
 			{
 				if ($this->arr["map"][$i][$a] == $this->arr["map"][$row][$col])
 				{
-					if ($this->arr["map"][$i][$a]["row"] < $center)	
+					if ($this->arr["map"][$i][$a]["row"] < $center)
 					{
 						// the hotspot of the cell is above the splitter
-						if ($i <= $center)	
+						if ($i <= $center)
 						{
 							// and we currently are also above then leave it be
 							$nm[$i][$a] = $this->arr["map"][$i][$a];
@@ -1216,7 +1215,7 @@ class grid_editor extends class_base
 							// if we are on the same side, use the current value
 							$nm[$i][$a] = $this->arr["map"][$i][$a];
 						}
-					}	
+					}
 				}
 				else
 				{
@@ -1231,11 +1230,11 @@ class grid_editor extends class_base
 	/** displays the grid content editing table
 		@attrib api=1 params=pos
 
-		@param data required type=array 
+		@param data required type=array
 			The grid data, returned by the grid editor
 
 		@param oid required type=oid
-			The object id of the object the grid is attached to 
+			The object id of the object the grid is attached to
 
 		@returns The html for the grid content editing view
 
@@ -1258,8 +1257,8 @@ class grid_editor extends class_base
 				}
 				return PROP_OK;
 			}
-			
-	**/		
+
+	**/
 	function on_aliases_edit($data, $oid)
 	{
 		$this->_init_table($data);
@@ -1280,7 +1279,7 @@ class grid_editor extends class_base
 
 
 				$map = $this->arr["map"][$i][$a];
-				
+
 				$this->vars(array(
 					"col" => $map["col"],
 					"row" => $map["row"],
@@ -1296,7 +1295,7 @@ class grid_editor extends class_base
 			$this->vars(array(
 				"COL_TA"	=> $col,
 			));
-				
+
 			$this->parse("LINE");
 		}
 
@@ -1305,7 +1304,7 @@ class grid_editor extends class_base
 
 	/** this should be called when the content editing view is submitted, this will handle the submit and return the modified grid data
 		@attrib api=1 params=pos
-		
+
 		@param data required type=array
 			The grid data
 
@@ -1328,7 +1327,7 @@ class grid_editor extends class_base
 						break;
 				}
 			}
-	**/		
+	**/
 	function on_aliases_edit_submit($data, $post)
 	{
 		$this->_init_table($data);
@@ -1351,8 +1350,8 @@ class grid_editor extends class_base
 			Array of templates that get passed to alias_parser::parse_oo_aliases
 
 		@errors none
-		
-		@returns 
+
+		@returns
 			The html containing the grid and any aliases it might contain
 
 		@examples
@@ -1469,16 +1468,16 @@ class grid_editor extends class_base
 		@param params optional type=array
 			An array of other paramters, can contain:
 				cell_content_callback => array(&$object, "method_name", $parameter_to_method)
-					if this key is set, then for each cell in the grid, this method will be called with 
+					if this key is set, then for each cell in the grid, this method will be called with
 					the parameter given, the row and the column of the cell and it must return the html
 					that will be displayed in the cell
 				tpl - the name of the template file to use for displaying the grid
 				ignore_empty - true/false - whether to ignore empty cells or not
 
-		@errors 
+		@errors
 			error is thrown if the template given is not found
 
-		@returns 
+		@returns
 			The html for the rendered grid
 
 		@examples
@@ -1518,7 +1517,7 @@ class grid_editor extends class_base
 					$parms =& $params['cell_content_callback'][2];
 					$ct = $that->$fun($parms, $map['row'], $map['col']);
 				}
-				
+
 				$this->vars(array(
 					"colspan" => $spans["colspan"],
 					"rowspan" => $spans["rowspan"],
@@ -1534,7 +1533,7 @@ class grid_editor extends class_base
 			$this->vars(array(
 				"CELL" => $cs
 			));
-		
+
 			if (!$ignore_empty || ($ignore_empty && $has_content))
 			{
 				$l .= $this->parse("LINE");
@@ -1547,7 +1546,7 @@ class grid_editor extends class_base
 	/** sets the style for the given row
 		@attrib api=1 params=pos
 
-		@param row required type=int 
+		@param row required type=int
 			The row to set the style for
 
 		@param style required type=oid
@@ -1558,14 +1557,14 @@ class grid_editor extends class_base
 
 		@errors none
 		@returns none
-		
+
 		@examples
 			$ge = get_instance("vcl/grid_editor");
 			$ge->_init_table($obj->meta("grid"));
 			$ge->set_cell_content(1,1, t("allah"));
 			$ge->set_row_style(1,$style_obj->id());
 			$obj->set_meta("$ge->_get_table());
-	**/			
+	**/
 	function set_row_style($row, $style)
 	{
 		for($i = 0; $i < $this->arr["cols"]; $i++)
@@ -1577,7 +1576,7 @@ class grid_editor extends class_base
 	/** sets the style for the given column
 		@attrib api=1 params=pos
 
-		@param col required type=int 
+		@param col required type=int
 			The col to set the style for
 
 		@param style required type=oid
@@ -1588,14 +1587,14 @@ class grid_editor extends class_base
 
 		@errors none
 		@returns none
-		
+
 		@examples
 			$ge = get_instance("vcl/grid_editor");
 			$ge->_init_table($obj->meta("grid"));
 			$ge->set_cell_content(1,1, t("allah"));
 			$ge->set_col_style(1,$style_obj->id());
 			$obj->set_meta("$ge->_get_table());
-	**/			
+	**/
 	function set_col_style($col, $style)
 	{
 		for($i = 0; $i < $this->arr["rows"]; $i++)
@@ -1607,10 +1606,10 @@ class grid_editor extends class_base
 	/** sets the style for the given cell
 		@attrib api=1 params=pos
 
-		@param row required type=int 
+		@param row required type=int
 			The row the cell is in
 
-		@param col required type=int 
+		@param col required type=int
 			The column the cell is in
 
 		@param style required type=oid
@@ -1618,24 +1617,24 @@ class grid_editor extends class_base
 
 		@errors none
 		@returns none
-		
+
 		@examples
 			$ge = get_instance("vcl/grid_editor");
 			$ge->_init_table($obj->meta("grid"));
 			$ge->set_cell_content(1,1, t("allah"));
 			$ge->set_cell_style(1,1, $style_obj->id());
 			$obj->set_meta("$ge->_get_table());
-	**/			
+	**/
 	function set_cell_style($row, $col, $style)
 	{
 		$this->arr["styles"][$row][$col]["style"] = $style;
 	}
 
 	/** Returns the grid data for the current grid
-		@attrib api=1 
+		@attrib api=1
 
 		@errors none
-		@returns 
+		@returns
 			array, containing the data for the grid
 
 		@examples
@@ -1650,11 +1649,11 @@ class grid_editor extends class_base
 	/** displays the grid styles editing table
 		@attrib api=1 params=pos
 
-		@param data required type=array 
+		@param data required type=array
 			The grid data, returned by the grid editor
 
 		@param oid required type=oid
-			The object id of the object the grid is attached to 
+			The object id of the object the grid is attached to
 
 		@returns The html for the grid styles editing view
 
@@ -1677,8 +1676,8 @@ class grid_editor extends class_base
 				}
 				return PROP_OK;
 			}
-			
-	**/		
+
+	**/
 	function on_styles_edit($data, $oid)
 	{
 		$this->_init_table($data);
@@ -1706,7 +1705,7 @@ class grid_editor extends class_base
 				$map = $this->arr["map"][$i][$a];
 				$cell = $this->arr["styles"][$map["row"]][$map["col"]];
 				$scell = $this->arr["styles"][$map["row"]][$map["col"]];
-				
+
 				$style_icon = "";
 				$st = $this->_get_cell_style_id($i, $a, $scell);
 				if ($this->can("view", $st))
@@ -1752,7 +1751,7 @@ class grid_editor extends class_base
 
 		$table = $this->parse();
 
-	
+
 		return $table;
 	}
 
@@ -1842,7 +1841,7 @@ class grid_editor extends class_base
 	}
 
 	/** returns the current number of rows in the grid
-		@attrib api=1 
+		@attrib api=1
 
 		@returns
 			The number of rows in the current grid. this will always be greater than 0
@@ -1854,7 +1853,7 @@ class grid_editor extends class_base
 	}
 
 	/** returns the current number of columns in the grid
-		@attrib api=1 
+		@attrib api=1
 
 		@returns
 			The number of columns in the current grid. this will always be greater than 0
@@ -1929,13 +1928,13 @@ class grid_editor extends class_base
 	{
 		$this->style_inst = get_instance(CL_STYLE);
 		$this->frow_style = 0;
-		$this->fcol_style = 0; 
-		$this->num_fcols = 0; 
+		$this->fcol_style = 0;
+		$this->num_fcols = 0;
 		$this->num_frows = 0;
 
 		$this->lrow_style = 0;
-		$this->lcol_style = 0; 
-		$this->num_lcols = 0; 
+		$this->lcol_style = 0;
+		$this->num_lcols = 0;
 		$this->num_lrows = 0;
 
 		if ($this->arr["table_style"])
@@ -2038,7 +2037,7 @@ class grid_editor extends class_base
 		foreach($cols as $col)
 		{
 			// merge all cells in this column to one.
-			// find the real cell identifier for the topmost cell 
+			// find the real cell identifier for the topmost cell
 			// on this column and merge that num_rows cells down
 			$map = $this->arr["map"][0][$col];
 			$this->_exp_down(array(
@@ -2082,7 +2081,7 @@ class grid_editor extends class_base
 		foreach($cols as $col)
 		{
 			// merge all cells in this column to one.
-			// find the real cell identifier for the bottom-most cell 
+			// find the real cell identifier for the bottom-most cell
 			// on this column and merge that num_rows cells down
 			$map = $this->arr["map"][$this->arr["rows"]-1][$col];
 			$this->_exp_up(array(
@@ -2197,7 +2196,7 @@ class grid_editor extends class_base
 
 		foreach($cells as $cell)
 		{
-			// for each cell, check if it's area is > 1 in the vertical directtion. 
+			// for each cell, check if it's area is > 1 in the vertical directtion.
 			// if it is, then we just split it, no problem there
 			$map = $this->arr["map"][$cell["row"]][$cell["col"]];
 			$spans = $this->get_spans($map["row"], $map["col"]);
@@ -2239,7 +2238,7 @@ class grid_editor extends class_base
 
 		foreach($cells as $cell)
 		{
-			// for each cell, check if it's area is > 1 in the vertical directtion. 
+			// for each cell, check if it's area is > 1 in the vertical directtion.
 			// if it is, then we just split it, no problem there
 			$map = $this->arr["map"][$cell["row"]][$cell["col"]];
 			$spans = $this->get_spans($map["row"], $map["col"]);
@@ -2281,7 +2280,7 @@ class grid_editor extends class_base
 
 		foreach($cells as $cell)
 		{
-			// for each cell, check if it's area is > 1 in the horiz directtion. 
+			// for each cell, check if it's area is > 1 in the horiz directtion.
 			// if it is, then we just split it, no problem there
 			$map = $this->arr["map"][$cell["row"]][$cell["col"]];
 			$spans = $this->get_spans($map["row"], $map["col"]);
@@ -2323,7 +2322,7 @@ class grid_editor extends class_base
 
 		foreach($cells as $cell)
 		{
-			// for each cell, check if it's area is > 1 in the horiz directtion. 
+			// for each cell, check if it's area is > 1 in the horiz directtion.
 			// if it is, then we just split it, no problem there
 			$map = $this->arr["map"][$cell["row"]][$cell["col"]];
 			$spans = $this->get_spans($map["row"], $map["col"]);
@@ -2377,7 +2376,7 @@ class grid_editor extends class_base
 		{
 			$rows = explode(";", $t);
 		}
-	
+
 		$t = str_replace("dc_", ";", substr($colstr,3));
 		if ($t == "")
 		{
@@ -2442,7 +2441,7 @@ class grid_editor extends class_base
 		// siin ei saa file() funktsiooni kasutada, kuna kui reavahetus on jutum2rkide vahel celli sees, siis ei t2henda see rea l6ppu.
 		// damnit.
 		$file = $this->mk_file($file,$sep);
-		
+
 		$num_rows = count($file);
 
 		reset($file);
@@ -2473,11 +2472,11 @@ class grid_editor extends class_base
 			list(,$line) = each($file);
 			$line = chop($line).$sep;
 
-			// ok, so far so good. 
+			// ok, so far so good.
 			// a siin hakkab keemia pihta
 			// nimelt, kui celli sees on ; m2rk, siis pannaxe sisule " ymber. ja celli sees olevad " m2rgid dubleeritaxe
 			$rowarr = array();
-			
+
 			$pos = 0;
 			$len = strlen($line);
 			while ($pos < $len)
@@ -2493,7 +2492,7 @@ class grid_editor extends class_base
 				$in_cell = true;
 				while ($in_cell && $pos < $len)
 				{
-					if ($quoted && ($line[$pos] == "\"" && $line[$pos+1] != "\""))	
+					if ($quoted && ($line[$pos] == "\"" && $line[$pos+1] != "\""))
 					{
 						// leidsime celli l6pu
 						$in_cell = false;
@@ -2529,7 +2528,7 @@ class grid_editor extends class_base
 				$this->arr["aliases"][$row][$col] = $ct;
 			}
 		}
-	
+
 		if ($arr["trim"])
 		{
 			for ($row = 0; $row < $this->arr["rows"]; $row++)
@@ -2579,7 +2578,7 @@ class grid_editor extends class_base
 		$in_cell = false;
 		for ($pos=0; $pos < $len; $pos++)
 		{
-			if ($filestr[$pos] == "\"")	
+			if ($filestr[$pos] == "\"")
 			{
 				if ($in_cell == false)
 				{
@@ -2650,7 +2649,7 @@ class grid_editor extends class_base
 	{
 		$this->arr["col_widths"][$col] = $width;
 	}
-	
+
 	/** sets the column height for the given column
 		@attrib api=1 params=pos
 
@@ -2688,7 +2687,7 @@ class grid_editor extends class_base
 	{
 		return $this->arr["col_widths"][$col];
 	}
-	
+
 	/** returns the current column height for the given golumn
 		@attrib api=1 params=pos
 

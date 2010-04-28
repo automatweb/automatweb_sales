@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class practices_obj extends _int_object
 {
+	const AW_CLID = 1525;
+
 	public function get_data_folder($arr)
 	{
 		// Maybe I should check here, if the cat is actually somewhere under the

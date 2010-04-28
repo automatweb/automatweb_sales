@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/interim_page.aw,v 1.12 2007/11/28 08:12:04 hannes Exp $
 // interim_page.aw - Intermim page 
 /*
@@ -29,6 +31,8 @@
 
 class interim_page extends class_base
 {
+	const AW_CLID = 1053;
+
 	function interim_page()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

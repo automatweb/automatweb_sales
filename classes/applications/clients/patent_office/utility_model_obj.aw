@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class utility_model_obj extends intellectual_property_obj
 {
+	const AW_CLID = 1433;
+
 	const APPLICANT_REG_AUTHOR_SUCCESOR = 2;
 	const APPLICANT_REG_EMPLOYEE = 5;
 	const APPLICANT_REG_OTHER_CONTRACT = 6;

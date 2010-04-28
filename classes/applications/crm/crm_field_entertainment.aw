@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_field_entertainment.aw,v 1.3 2007/12/06 14:33:17 kristo Exp $
 // crm_field_entertainment.aw - Meelelahutusettev&otilde;te (valdkond) 
 /*
@@ -49,6 +51,8 @@
 
 class crm_field_entertainment extends class_base
 {
+	const AW_CLID = 1029;
+
 	function crm_field_entertainment()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
+
+namespace automatweb;
 
 /**
 * Converts to and from JSON format.

@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class _int_obj_ds_mssql extends _int_obj_ds_base
 {
@@ -29,12 +28,12 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 		}
 
 		$q = sprintf("
-			SELECT 
-				%s 
-			FROM 
+			SELECT
+				%s
+			FROM
 				objects WITH (nolock)
-			WHERE 
-				alias = '%s' AND 
+			WHERE
+				alias = '%s' AND
 				status != 0 %s %s
 		", OID, $alias, $site_id,$parent);
 
@@ -179,14 +178,14 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 					if ($_co_reltype)
 					{
 						$this->db_query("
-							SELECT 
-								target 
-							FROM 
+							SELECT
+								target
+							FROM
 								aliases WITH (nolock)
 								LEFT JOIN objects WITH (nolock) ON objects.oid = aliases.target
-							WHERE 
-								source = '".$object_id."' AND 
-								reltype = '$_co_reltype' AND 
+							WHERE
+								source = '".$object_id."' AND
+								reltype = '$_co_reltype' AND
 								objects.status != 0
 						");
 						while ($row = $this->db_next())
@@ -265,7 +264,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 		return $tmp;
 	}
 
-	// creates new, empty object 
+	// creates new, empty object
 	// params:
 	//	properties - prop array from propreader
 	//	objdata - object data from objtable
@@ -283,7 +282,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 				continue;
 			}
 
-			
+
 			if ($data["table"] == "objects" && $data["field"] == "meta" && !isset($arr["objdata"]["meta"][$data["name"]]) && !empty($data["default"]))
 			{
 				$arr["objdata"]["meta"][$data["name"]] = $data["default"];
@@ -311,14 +310,14 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 				created,					modified,						status,						site_id,
 				hits,						lang_id,						comment,					modifiedby,
 				jrk,						period,							alias,						periodic,
-				metadata,						subclass,					flags, 
+				metadata,						subclass,					flags,
 				oid,						brother_of
 		) VALUES (
 				'".$objdata["parent"]."',	'".$objdata["class_id"]."',		'".$objdata["name"]."',		'".$objdata["createdby"]."',
 				'".$objdata["created"]."',	'".$objdata["modified"]."',		'".$objdata["status"]."',	'".$objdata["site_id"]."',
 				'".$objdata["hits"]."',		'".$objdata["lang_id"]."',		'".$objdata["comment"]."',	'".$objdata["modifiedby"]."',
 				'".$objdata["jrk"]."',		'".$objdata["period"]."',		'".$objdata["alias"]."',	'".$objdata["periodic"]."',
-				'1',						'".$metadata."',				'".$objdata["subclass"]."',	'".$objdata["flags"]."', 
+				'1',						'".$metadata."',				'".$objdata["subclass"]."',	'".$objdata["flags"]."',
 				$oid,						$objdata[brother_of]
 		)";
 		//echo "q = <pre>". htmlentities($q)."</pre> <br />";
@@ -329,7 +328,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 
 		// create all access for the creator
 		$this->create_obj_access($oid);
-	
+
 
 		// hits
 		$this->db_query("INSERT INTO hits(oid,hits,cachehits) VALUES($oid, 0, 0 )");
@@ -342,7 +341,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 			{
 				continue;
 			}
-			
+
 			if ($data["table"] == "objects")
 			{
 				continue;
@@ -387,12 +386,12 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 			$q = "INSERT INTO $tbl (".$idx.$fds.") VALUES('".$oid."'".$vls.")";
 			$this->db_query($q);
 		}
-		
+
 		return $oid;
 	}
 
-	// saves object prtoperties, including all object table fields, 
-	// just stores the data, does not update or check it in any way, 
+	// saves object prtoperties, including all object table fields,
+	// just stores the data, does not update or check it in any way,
 	// except for db quoting of course
 	// params:
 	//	properties - prop array from propreader
@@ -431,7 +430,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 			subclass = '".$objdata["subclass"]."',
 			flags = '".$objdata["flags"]."',
 			brother_of = '".$objdata["brother_of"]."'
-			
+
 			WHERE oid = '".$objdata["oid"]."'
 		";
 
@@ -487,19 +486,19 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 					if ($prop['method'] == "bitmask")
 					{
 						$val = $propvalues[$prop["name"]];
-	
+
 						if (!isset($seta[$prop["field"]]))
-						{	
+						{
 							// jost objects.flags support for now
 							$seta[$prop["field"]] = $objdata["flags"];
 						}
 
 						// make mask for the flag - mask value is the previous field value with the
-						// current flag bit(s) set to zero. flag bit(s) come from prop[ch_value]	
+						// current flag bit(s) set to zero. flag bit(s) come from prop[ch_value]
 						$mask = $seta[$prop["field"]] & (~((int)$prop["ch_value"]));
 						// add the value
 						$mask |= $val;
-						
+
 						$seta[$prop["field"]] = $mask;;
 					}
 					else
@@ -535,13 +534,13 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 	function read_connection($id)
 	{
 		return $this->db_fetch_row("
-			SELECT 
+			SELECT
 				".$this->connection_query_fetch()."
-			FROM 
+			FROM
 				aliases a WITH (nolock)
 				LEFT JOIN objects o_s WITH (nolock) ON o_s.oid = a.source
 				LEFT JOIN objects o_t WITH (nolock) ON o_t.oid = a.target
-			WHERE 
+			WHERE
 				id = $id
 		");
 	}
@@ -555,7 +554,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 
 		if ($data["id"])
 		{
-			$q = "UPDATE aliases SET 
+			$q = "UPDATE aliases SET
 				source = '$data[from]',
 				target = '$data[to]',
 				type = '$data[type]',
@@ -632,13 +631,13 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 	function find_connections($arr)
 	{
 		$sql = "
-			SELECT 
+			SELECT
 				".$this->connection_query_fetch()."
-			FROM 
+			FROM
 				aliases a WITH (nolock)
 				LEFT JOIN objects o_s WITH (nolock) ON o_s.oid = a.source
 				LEFT JOIN objects o_t WITH (nolock) ON o_t.oid = a.target
-			WHERE 
+			WHERE
 				o_s.status != 0 AND
 				o_t.status != 0
 		";
@@ -711,7 +710,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 	}
 
 	// params:
-	//	array of filter parameters 
+	//	array of filter parameters
 	// if class id is present, properties can also be filtered, otherwise only object table fields
 	function search($params)
 	{
@@ -890,8 +889,8 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 			if (strpos($key, ".") !== false)
 			{
 				list($tbl, $fld) = $this->_do_proc_complex_param(array(
-					"key" => &$key, 
-					"val" => $val, 
+					"key" => &$key,
+					"val" => $val,
 					"params" => $p_tmp
 				));
 			}
@@ -1126,13 +1125,13 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 		$this->quote($metadata);
 		$this->quote(&$objdata);
 
-		$objdata["createdby"] = aw_global_get("uid");		
-		$objdata["created"] = time();		
+		$objdata["createdby"] = aw_global_get("uid");
+		$objdata["created"] = time();
 
-		$objdata["modifiedby"] = aw_global_get("uid");		
-		$objdata["modified"] = time();		
+		$objdata["modifiedby"] = aw_global_get("uid");
+		$objdata["modified"] = time();
 
-		$objdata["lang_id"] = aw_global_get("lang_id");		
+		$objdata["lang_id"] = aw_global_get("lang_id");
 
 		$oid = $this->db_fetch_field("SELECT max(oid) as oid FROM objects", "oid")+1;
 
@@ -1166,14 +1165,14 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 		return $oid;
 	}
 
-	// $key, $val 
+	// $key, $val
 	function _do_proc_complex_param($arr)
 	{
 		extract($arr);
-		
+
 		$filt = explode(".", $key);
 		$clid = constant($filt[0]);
-		
+
 		if (!is_class_id($clid))
 		{
 			if (!is_array($params["class_id"]))
@@ -1192,17 +1191,17 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 		else
 		{
 			// if the first part is a class id and there are only two parts then it is not a join
-			// then it is a specification on what class's property to search from 
+			// then it is a specification on what class's property to search from
 			if (count($filt) == 2)
 			{
 				// so just return the table and field for that class
 				$prop = $GLOBALS["properties"][$clid][$filt[1]];
 				$this->used_tables[$prop["table"]] = $prop["table"];
-				return array($prop["table"], $prop["field"]);	
+				return array($prop["table"], $prop["field"]);
 			}
 		}
 
-		$this->foo = array(); 
+		$this->foo = array();
 		$this->_req_do_pcp($filt, 1, $clid, $arr);
 
 		$this->joins = array();
@@ -1321,7 +1320,7 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 					"id" => ERR_OBJ_NO_RP,
 					"msg" => t("ds_mysql::_req_do_pcp(): currently join properties can only be of type relpicker - can't figure out the class id of the object-to-join otherwise")
 				));
-	
+
 				error::raise_if($cur_prop["method"] == "serialize", array(
 					"id" => ERR_OBJ_NO_META,
 					"msg" => sprintf(t("ds_mysql::_req_do_pcp(): can not join classes on serialized fields (property %s in class %s)"), $pp, $cur_clid)
@@ -1332,15 +1331,15 @@ class _int_obj_ds_mssql extends _int_obj_ds_base
 					case "relpicker":
 						$relt_s = $cur_prop["reltype"];
 						$relt = $GLOBALS["relinfo"][$cur_clid][$relt_s]["value"];
-				
+
 						error::raise_if(!$relt, array(
 							"id" => ERR_OBJ_NO_REL,
 							"msg" => sprintf(t("ds_mysql::_req_do_pcp(): no reltype %s in class %s , got reltype from relpicker property %s"), $relt_s, $cur_clid, $cur_prop["name"])
 						));
-	
+
 						$new_clid = $GLOBALS["relinfo"][$cur_clid][$relt_s]["clid"][0];
 						break;
-	
+
 					default:
 						error::raise(array(
 							"id" => ERR_OBJ_W_TP,

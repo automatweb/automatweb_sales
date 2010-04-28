@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement_implementor_center.aw,v 1.5 2007/12/06 14:33:50 kristo Exp $
 // procurement_implementor_center.aw - Hanngete keskkond pakkujale 
 /*
@@ -41,6 +43,8 @@
 
 class procurement_implementor_center extends class_base
 {
+	const AW_CLID = 1068;
+
 	function procurement_implementor_center()
 	{
 		$this->init(array(

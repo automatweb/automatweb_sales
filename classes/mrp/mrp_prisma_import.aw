@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // mrp_prisma_import.aw - Prisma import
 /*
 
@@ -11,6 +13,8 @@
 
 class mrp_prisma_import extends class_base
 {
+	const AW_CLID = 878;
+
 	function mrp_prisma_import()
 	{
 		$this->init(array(

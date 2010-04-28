@@ -1,10 +1,14 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo  maintainer=kristo
 */
 
 class old_search_model extends aw_template implements main_subtemplate_handler
 {
+	const AW_CLID = 124;
+
 	function old_search_model()
 	{
 		$this->init();

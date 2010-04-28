@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/taket/taket_order_item.aw,v 1.1 2008/10/01 14:17:40 markop Exp $
 // taket_order_item.aw - Taketi tellimuse item 
 /*
@@ -21,6 +23,8 @@
 
 class taket_order_item extends class_base
 {
+	const AW_CLID = 249;
+
 	function taket_order_item()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

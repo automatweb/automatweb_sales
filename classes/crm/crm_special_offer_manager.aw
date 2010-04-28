@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_special_offer_manager.aw,v 1.5 2009/03/11 10:39:45 instrumental Exp $
 // crm_special_offer_manager.aw - Organisatsiooni eripakkumiste haldus 
 // Valitud eripakkumiste veebi kuvamiseks
@@ -49,6 +51,8 @@
 
 class crm_special_offer_manager extends class_base
 {
+	const AW_CLID = 995;
+
 	function crm_special_offer_manager()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

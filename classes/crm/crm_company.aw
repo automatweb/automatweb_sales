@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_CRM_ADDRESS, on_save_address)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_CRM_ADDRESS, on_save_address)
@@ -1548,6 +1550,8 @@ define("CRM_COMPANY_USECASE_EMPLOYER", "work");
 
 class crm_company extends class_base
 {
+	const AW_CLID = 129;
+
 	public $unit = 0;
 	public $category = 0;
 	public $cat = 0;
@@ -1573,7 +1577,7 @@ class crm_company extends class_base
 
 	function crm_company_init()
 	{
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$this->users_person = new object($us->get_current_person());
 	}
 
@@ -2275,7 +2279,7 @@ class crm_company extends class_base
 				break;
 
 			case "client_manager":
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$data["options"] = $this->get_employee_picker($arr["obj_inst"], true);
 				if ($arr["new"])
 				{
@@ -3394,7 +3398,7 @@ class crm_company extends class_base
 			return;
 		}
 
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$person = new object($us->get_current_person());
 		$arr['check'][$person->id()] = $person->id();
 
@@ -4960,7 +4964,7 @@ class crm_company extends class_base
 			$conns_ol->add($con["from"]);
 		}
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$pers = $u->get_current_person();
 		$conns_ar = $conns->find(array(
 			"from.class_id" => CL_PROJECT,
@@ -5020,7 +5024,7 @@ class crm_company extends class_base
 		}
 
 		// add all customers to whom I am cust mgr
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = $u->get_current_person();
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMPANY,
@@ -5037,7 +5041,7 @@ class crm_company extends class_base
 
 	function get_my_tasks($only_not_done = false, $arr = array())
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $u->get_current_person(),
@@ -5081,7 +5085,7 @@ class crm_company extends class_base
 
 	function get_my_meetings($arr = array())
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $u->get_current_person(),
@@ -5099,7 +5103,7 @@ class crm_company extends class_base
 
 	function get_my_calls($arr = array())
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $u->get_current_person(),
@@ -5117,7 +5121,7 @@ class crm_company extends class_base
 
 	function get_my_bugs($arr = array())
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$c = new connection();
 		$cs = $c->find(array(
 			"to" => $u->get_current_person(),
@@ -5135,7 +5139,7 @@ class crm_company extends class_base
 
 	function get_my_offers()
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$c = new connection();
 		$cs = $c->find(array(
 			"to" => $u->get_current_person(),
@@ -5152,7 +5156,7 @@ class crm_company extends class_base
 
 	function get_my_actions($arr = array())
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$cp = $u->get_current_person();
 		$c = new connection();
 		$cs = $c->find(array(
@@ -5963,7 +5967,7 @@ class crm_company extends class_base
 	**/
 	function mark_p_as_important($arr)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 
 		foreach(safe_array($arr["check"]) as $pers)
@@ -5982,7 +5986,7 @@ class crm_company extends class_base
 	**/
 	function unmark_p_as_important($arr)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 
 		foreach(safe_array($arr["check"]) as $pers)
@@ -6117,7 +6121,7 @@ class crm_company extends class_base
 		if ($important_only)
 		{
 			// filter out my important persons
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = obj($u->get_current_person());
 
 			$tmp = array();
@@ -6473,7 +6477,7 @@ class crm_company extends class_base
 	function get_my_resources()
 	{
 		$i = get_instance("applications/crm/crm_company_res_impl");
-		$u = get_instance(CL_USER);
+		$u = new user();
 
 		$ot = new object_tree(array(
 			"class_id" => array(CL_MENU, CL_MRP_RESOURCE),
@@ -6497,7 +6501,7 @@ class crm_company extends class_base
 		$usecase = false;
 
 		// if this is the current users employer
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 
 		if ($co == $arr["obj_inst"]->id())
@@ -6515,7 +6519,7 @@ class crm_company extends class_base
 	function callback_get_cfgform($arr)
 	{
 		// if this is the current users employer, do nothing
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		if ($co == $arr["obj_inst"]->id())
 		{
@@ -6956,7 +6960,7 @@ class crm_company extends class_base
 				// get conflicts list and warn user if there are any
 
 				// to do this, get all projects for this company that have the current company as a side
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$ol = new object_list(array(
 					"class_id" => CL_PROJECT,
 					"CL_PROJECT.RELTYPE_SIDE.name" => $arr["obj_inst"]->name(),
@@ -7359,7 +7363,7 @@ class crm_company extends class_base
 		return false;
 		// make sure all companies added are added under the current user's company
 		$o = obj($arr["oid"]);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		if ($co != $o->parent())
 		{
@@ -7694,7 +7698,7 @@ class crm_company extends class_base
 	{
 		if ($arr["cfgform"])
 		{
-			$cfg = get_instance(CL_CFGFORM);
+			$cfg = new cfgform();
 			$props = $cfg->get_props_from_cfgform(array("id" => $arr["cfgform"]));
 		}
 		else
@@ -7918,7 +7922,7 @@ class crm_company extends class_base
 		$cur = get_current_company();
 		$crel = $this->get_cust_rel($cur, false, $arr["obj_inst"]);
 		// list of all persons in my company
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		$arr["prop"]["options"] = $this->get_employee_picker(obj($co), true);
 		if ($crel)
@@ -7951,7 +7955,7 @@ class crm_company extends class_base
 		$cur = get_current_company();
 		$crel = $this->get_cust_rel($cur, false, $arr["obj_inst"]);
 		// list of all persons in my company
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		$arr["prop"]["options"] = $this->get_employee_picker(obj($co), true);
 		if ($crel)
@@ -7984,7 +7988,7 @@ class crm_company extends class_base
 		$cur = get_current_company();
 		$crel = $this->get_cust_rel($cur, false, $arr["obj_inst"]);
 		// list of all persons in my company
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		$arr["prop"]["options"] = $this->get_employee_picker(obj($co), true);
 		if ($crel)
@@ -8065,7 +8069,7 @@ class crm_company extends class_base
 	{
 		$cur = get_current_company();
 		$crel = $this->get_cust_rel($cur, false, $arr["obj_inst"]);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$arr["prop"]["options"] = $this->get_employee_picker(get_current_company(), true);
 		if ($arr["new"])
 		{
@@ -8555,7 +8559,7 @@ Bank accounts: yksteise all
 			"name" => "sel",
 			"field" => "oid",
 		));
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_INSURANCE")) as $conn)
 		{
 			$insurance = $conn->to();
@@ -9007,7 +9011,7 @@ Bank accounts: yksteise all
 			{
 				$already_existing[] = $person->name();
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$oid_error = true;
 			}

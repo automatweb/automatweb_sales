@@ -1,9 +1,9 @@
 <?php
 
 // objects.aw - objektide haldamisega seotud funktsioonid
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class objects extends core
 {
 	function objects()

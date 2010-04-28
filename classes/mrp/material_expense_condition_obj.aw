@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class material_expense_condition_obj extends _int_object
 {
+	const AW_CLID = 1511;
+
 
 	const USE_DATE = 1;
 	const DONT_USE_DATE = 0;

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_korv.aw,v 1.7 2007/11/23 07:18:28 dragut Exp $
 // expp_korv.aw - Expp tootekorv 
 /*
@@ -11,6 +13,8 @@
 */
 
 class expp_korv extends class_base {
+	const AW_CLID = 991;
+
 
 	var $cy;
 	var $cp;

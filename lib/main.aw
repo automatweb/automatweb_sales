@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 if (!defined("AW_DIR"))
 {
 	exit;
@@ -16,7 +18,7 @@ require_once AW_DIR . "lib/core/obj/object" . AW_FILE_EXT;
 require_once AW_DIR . "lib/debug" . AW_FILE_EXT;
 require_once AW_DIR . "lib/site_file_index" . AW_FILE_EXT;
 
-function __autoload($class_name)
+function autoload($class_name)
 {
 	if (0 === strpos($class_name, "Zend"))
 	{
@@ -90,7 +92,9 @@ function __autoload($class_name)
 			//!!! take action
 		}
 	}
+
 	$class_name = $orig_class_name;
+
 	if (!class_exists($class_name, false) and !interface_exists($class_name, false))
 	{ // class may be moved to another file, force update and try again
 		try
@@ -109,7 +113,7 @@ function __autoload($class_name)
 			require_once $class_file;
 		}
 		catch (awex_clidx $e)
-		{
+		{dbg::bt();
 			exit("Fatal classload error. " . $e->getMessage() . " Tried to load '" . $class_name . "'");//!!! tmp
 		}
 	}

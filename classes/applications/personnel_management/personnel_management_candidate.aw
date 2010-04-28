@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // personnel_management_candidate.aw - Kandidatuur
 /*
 
@@ -47,6 +49,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 class personnel_management_candidate extends class_base
 {
+	const AW_CLID = 812;
+
 	function personnel_management_candidate()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,

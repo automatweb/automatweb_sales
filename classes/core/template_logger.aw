@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class template_logger extends core
 {
 	function template_logger()
@@ -77,7 +79,7 @@ class template_logger extends core
 				continue;
 			}
 			$url = $row["url"]."/orb.aw?class=sys&action=consolidate_template_logs";
-			echo "site $id fetch url $url <br>\n"; 
+			echo "site $id fetch url $url <br>\n";
 			flush();
 			$ct = file_get_contents($url);
 		}

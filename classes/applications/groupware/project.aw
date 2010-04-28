@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // project.aw - Projekt
 /*
 
@@ -549,6 +551,8 @@
 
 class project extends class_base
 {
+	const AW_CLID = 239;
+
 	const DAY_LENGTH_SECONDS = 86400;
 
 	function project()
@@ -1575,7 +1579,7 @@ class project extends class_base
 				}*/
 
 				// get values
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$me = $u->get_current_person();
 				$ol = new object_list(array(
 					"class_id" => array(CL_CRM_PERSON,CL_CRM_COMPANY),
@@ -1618,7 +1622,7 @@ class project extends class_base
 					$data["options"][$tmp->id()] = $tmp->name();
 				}
 
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$co = obj($u->get_current_company());
 				$data["options"][$co->id()] = $co->name();
 
@@ -1632,7 +1636,7 @@ class project extends class_base
 					$cur_pts = $arr["obj_inst"]->connections_from(array("type" => "RELTYPE_PARTICIPANT"));
 				}
 				$people = array();
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$co = $u->get_current_company();
 				$i = get_instance(CL_CRM_COMPANY);
 				$people = array_keys($i->get_employee_picker(obj($co),false,true));
@@ -1777,7 +1781,7 @@ class project extends class_base
 				$arr["obj_inst"]->set_prop("budget" , $arr["request"]["budget"]);
 				break;
 			case "prods_toolbar":
-				$ps = get_instance("vcl/popup_search");
+				$ps = new popup_search();
 				$ps->do_create_rels($arr["obj_inst"], $arr["request"]["prod_search_res"], 24);
 				break;
 
@@ -6034,7 +6038,7 @@ exit_function("bills::all_cust_bills");
 			"reltype" => "RELTYPE_PRJ_EVENT"
 		));
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 		$p->connect(array(
 			"to" => $o->id(),
@@ -6095,7 +6099,7 @@ exit_function("bills::all_cust_bills");
 			$impl_o = obj($impl);
 			if (!$impl_o->get_first_obj_by_reltype("RELTYPE_DOCS_FOLDER"))
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$impl = $u->get_current_company();
 			}
 		}
@@ -6235,7 +6239,7 @@ exit_function("bills::all_cust_bills");
 	function _set_files($arr)
 	{
 		$t = obj($arr["request"]["id"]);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		foreach(safe_array($_POST["fups_d"]) as $num => $entry)
 		{
@@ -6255,7 +6259,7 @@ exit_function("bills::all_cust_bills");
 				if ($entry["type"] == CL_FILE)
 				{
 					// add file
-					$f = get_instance(CL_FILE);
+					$f = new file();
 
 					$fs_fld = null;
 					if (strpos($entry["folder"], ":") !== false)
@@ -6290,7 +6294,7 @@ exit_function("bills::all_cust_bills");
 					$o->save();
 
 					// add file
-					$f = get_instance(CL_FILE);
+					$f = new file();
 
 					$fs_fld = null;
 					if (strpos($entry["folder"], ":") !== false)
@@ -6542,7 +6546,7 @@ exit_function("bills::all_cust_bills");
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_risks_eval_tbl($t, $arr["obj_inst"]);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_RISK_EVAL")) as $c)
 		{
 			$st = $c->to();
@@ -6598,7 +6602,7 @@ exit_function("bills::all_cust_bills");
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_strat_t($t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_STRAT")) as $c)
 		{
 			$st = $c->to();
@@ -6706,7 +6710,7 @@ exit_function("bills::all_cust_bills");
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_strat_a_t($t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_STRAT_EVAL")) as $c)
 		{
 			$st = $c->to();
@@ -8347,7 +8351,7 @@ arr($stats_by_ppl);
 	{
 		$prods = array("" => t("--vali--"));
 		// get prords from co
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		$wh = $co->get_first_obj_by_reltype("RELTYPE_WAREHOUSE");
 		if ($wh)

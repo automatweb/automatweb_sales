@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/translate/translation_workplace.aw,v 1.9 2008/01/31 13:55:34 kristo Exp $
 // translation_workplace.aw - T&otilde;lkimise t&ouml;&ouml;laud 
 /*
@@ -50,6 +52,8 @@ groupinfo untrans caption="T&otilde;lkimata objektid"
 
 class translation_workplace extends class_base
 {
+	const AW_CLID = 1157;
+
 	function translation_workplace()
 	{
 		$this->init(array(
@@ -146,7 +150,7 @@ class translation_workplace extends class_base
 			"sortable" => 1
 		));
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("set_for_user" => true));
 		// meddle with things until the default language is the first in the table
 		uksort($ll, create_function('$a, $b','$ld=aw_ini_get("languages.default");if ($a == $ld) { return -1; }if ($b == $ld) { return 1;} return 0;'));
@@ -247,7 +251,7 @@ class translation_workplace extends class_base
 		}
 		$ol = new object_list($filt);
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array("set_for_user" => true));
 		$data = array();
 		foreach($ol->arr() as $o)

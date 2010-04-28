@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/bug_o_matic_3000/bugtrack_display.aw,v 1.28 2009/05/11 07:56:04 robert Exp $
 // bugtrack_display.aw - &Uuml;lesannete kuvamine 
 /*
@@ -95,6 +97,8 @@
 
 class bugtrack_display extends class_base
 {
+	const AW_CLID = 1341;
+
 	function bugtrack_display()
 	{
 		$this->init(array(
@@ -288,13 +292,13 @@ class bugtrack_display extends class_base
 					}
 					if($field["orderprop"] == "createdby")
 					{
-						$u = get_instance(CL_USER);
+						$u = new user();
 						$user = $u->get_person_for_uid($obj->createdby());
 						$value = $user->name();
 					}
 					elseif($field["orderprop"] == "modifiedby")
 					{
-						$u = get_instance(CL_USER);
+						$u = new user();
 						$user = $u->get_person_for_uid($obj->modifiedby());
 						$value = $user->name();
 					}
@@ -326,7 +330,7 @@ class bugtrack_display extends class_base
 
 		$this->_define_table_from_settings($data, $t, $arr);		
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$cur_p = get_current_person();
 		$uo = obj($u->get_current_user());
 		$cur_u = $uo->name();
@@ -543,7 +547,7 @@ class bugtrack_display extends class_base
 				default:
 					$data = $arr["obj_inst"]->meta("task_settings");
 			}
-			$cff = get_instance(CL_CFGFORM);
+			$cff = new cfgform();
 			$o_props = array(
 				"oid" => t("Id"),
 				"type" => t("T&uuml;&uuml;p"),

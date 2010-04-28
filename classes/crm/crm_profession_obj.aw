@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_profession_obj extends _int_object
 {
+	const AW_CLID = 220;
+
 	/** returns all workers with this profession
 		@attrib api=1
 		@returns object_list of CL_CRM_PERSON

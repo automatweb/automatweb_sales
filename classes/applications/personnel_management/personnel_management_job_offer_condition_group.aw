@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_PERSONNEL_MANAGEMENT_JOB_OFFER_CONDITION_GROUP relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_personnel_management_job_offer_condition_group master_index=brother_of master_table=objects index=aw_oid
@@ -15,6 +17,8 @@
 
 class personnel_management_job_offer_condition_group extends class_base
 {
+	const AW_CLID = 1544;
+
 	function personnel_management_job_offer_condition_group()
 	{
 		$this->init(array(

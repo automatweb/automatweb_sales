@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/recurrence.aw,v 1.15 2009/05/29 06:41:01 dragut Exp $
 // recurrence.aw - Kordus
 /*
@@ -77,6 +79,8 @@ define("RECUR_MINUTELY",6);
 
 class recurrence extends class_base
 {
+	const AW_CLID = 286;
+
 	const RECUR_DAILY = 1;
 	const RECUR_WEEKLY = 2;
 	const RECUR_MONTHLY = 3;

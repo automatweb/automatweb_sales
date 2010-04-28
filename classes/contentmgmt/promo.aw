@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/promo.aw,v 1.113 2009/05/19 11:05:46 kristo Exp $
 // promo.aw - promokastid.
 
@@ -208,6 +210,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE,CL_DOCUMENT, on_delete_document)
 */
 class promo extends class_base implements main_subtemplate_handler
 {
+	const AW_CLID = 22;
+
 	function promo()
 	{
 		$this->init(array(
@@ -1132,14 +1136,14 @@ class promo extends class_base implements main_subtemplate_handler
 	function _get_sss_tb($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$tb->add_cdata($ps->get_popup_search_link(array("pn" => "_set_sss", "clid" => CL_MENU)));
 	}
 
 	function _get_lm_tb($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$tb->add_cdata($ps->get_popup_search_link(array("pn" => "_set_lm_sss", "clid" => CL_MENU)));
 	}
 
@@ -1152,7 +1156,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 	function callback_post_save($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_sss"], 1 /* RELTYPE_ASSIGNED_MENU */);
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_lm_sss"], 2 /* RELTYPE_DOC_SOURCE */);
 	}

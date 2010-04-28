@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 // group types:
 // 0 - ordinary, user added group
 // 1 - user's default group
@@ -8,7 +11,7 @@ define("GROUP_LEVEL_PRIORITY", 100000);
 define("USER_GROUP_PRIORITY", GROUP_LEVEL_PRIORITY*1000);	// max 1000 levels of groups
 
 /*
-@classinfo maintainer=kristo
+
 EMIT_MESSAGE(MSG_USER_LOGIN);
 EMIT_MESSAGE(MSG_USER_LOGOUT);
 
@@ -173,7 +176,7 @@ class users_user extends aw_template
 
 		if (!$url)
 		{
-			$la = get_instance("languages");
+			$la = new languages();
 			$ld = $la->fetch(aw_global_get("lang_id"));
 
 			$url = $this->get_cval("after_login_".$ld["acceptlang"]);

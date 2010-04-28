@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class postal_codes_obj extends _int_object
 {
+	const AW_CLID = 1420;
+
 	const DEFAULT_REGISTER_URL = "http://register.automatweb.com";
 
 	const REQUEST_PAGE_SIZE = 1000;

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/fun/deathcounter.aw,v 1.5 2007/12/08 19:25:25 hannes Exp $
 // deathcounter.aw - Surmakaunter 
 /*
@@ -29,6 +31,8 @@ caption Suremise aeg
 
 class deathcounter extends class_base
 {
+	const AW_CLID = 1369;
+
 	function deathcounter()
 	{
 		$this->init(array(

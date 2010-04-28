@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // gallery.aw - gallery management
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/gallery/gallery.aw,v 1.10 2008/01/31 13:52:27 kristo Exp $
 /*
@@ -7,6 +9,8 @@
 
 class gallery extends aw_template
 {
+	const AW_CLID = 31;
+
 	function gallery($id = 0)
 	{
 		$this->init("gallery");

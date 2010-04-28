@@ -1,4 +1,8 @@
 <?php
+
+namespace automatweb;
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/formgen/form_chain.aw,v 1.32 2008/01/31 13:54:33 kristo Exp $
 // form_chain.aw - form chains
 /*
@@ -8,6 +12,10 @@
 classload("formgen/form_base");
 class form_chain extends form_base
 {
+	const AW_CLID = 92;
+
+	const AW_CLID = 68;
+
 	function form_chain()
 	{
 		$this->form_base();
@@ -179,7 +187,7 @@ class form_chain extends form_base
 		$this->mk_path($fc["parent"], LC_FORM_CHAIN_CHANGE_WREATH);
 		$this->read_template("add_chain.tpl");
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$lar = $la->listall(true);
 
 

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 	@tableinfo kliendibaas_tegevusala index=oid master_table=objects master_index=oid
 
@@ -79,6 +81,8 @@ CREATE TABLE `kliendibaas_tegevusala` (
 
 class crm_sector extends class_base
 {
+	const AW_CLID = 131;
+
 	function crm_sector()
 	{
 		$this->init(array(

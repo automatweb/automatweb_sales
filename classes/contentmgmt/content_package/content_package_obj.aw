@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class content_package_obj extends _int_object
 {
+	const AW_CLID = 1477;
+
 	function save($exclusive = false, $previous_state = null)
 	{
 		if(!is_oid($this->id()))

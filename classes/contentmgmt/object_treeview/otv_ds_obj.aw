@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // otv_ds_obj.aw - Objektinimekirja AW datasource
 /*
 
@@ -73,6 +75,8 @@
 
 class otv_ds_obj extends class_base
 {
+	const AW_CLID = 325;
+
 	function otv_ds_obj()
 	{
 		$this->init(array(
@@ -744,7 +748,7 @@ class otv_ds_obj extends class_base
 			else
 			if ($clid == CL_FILE)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$url = $fi->get_url($t->id(),$t->trans_get_val("name"));
 
 				if ($fd["newwindow"])

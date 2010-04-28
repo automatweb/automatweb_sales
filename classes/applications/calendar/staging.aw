@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/staging.aw,v 1.25 2009/01/20 15:25:16 instrumental Exp $
 // staging.aw - Lavastus
 /*
@@ -103,6 +105,8 @@ default method=serialize
 
 class staging extends class_base
 {
+	const AW_CLID = 831;
+
 	function staging()
 	{
 		$this->init(array(

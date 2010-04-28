@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/install/aw_site_gen_log.aw,v 1.5 2008/01/31 13:54:40 kristo Exp $
 /*
 
@@ -14,6 +16,8 @@
 */
 class aw_site_gen_log extends class_base
 {
+	const AW_CLID = 204;
+
 	function aw_site_gen_log()
 	{
 		$this->init(array(

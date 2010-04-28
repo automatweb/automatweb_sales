@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/obj_inherit_props_conf.aw,v 1.6 2008/01/31 13:52:49 kristo Exp $
 // obj_inherit_props_conf.aw - Objekti omaduste p&auml;rimine 
 /*
@@ -61,6 +63,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_OBJ_INHERIT_PROPS_CONF, on_save_c
 
 class obj_inherit_props_conf extends class_base
 {
+	const AW_CLID = 834;
+
 	function obj_inherit_props_conf()
 	{
 		$this->init(array(

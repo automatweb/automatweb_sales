@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // aw_sent_mail.aw - Saadetud meil
 /*
 
@@ -34,6 +36,8 @@
 
 class aw_sent_mail extends class_base
 {
+	const AW_CLID = 1389;
+
 	function aw_sent_mail()
 	{
 		$this->init(array(

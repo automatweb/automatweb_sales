@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_PLACE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=dragut
 
@@ -9,6 +11,8 @@
 
 class place extends class_base
 {
+	const AW_CLID = 1000;
+
 	function place()
 	{
 		$this->init(array(

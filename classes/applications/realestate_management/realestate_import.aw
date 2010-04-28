@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_REALESTATE_IMPORT relationmgr=yes no_comment=1 no_status=1 maintainer=voldemar
@@ -107,6 +109,8 @@ define ("REALESTATE_NEWLINE", "<br />");
 
 class realestate_import extends class_base
 {
+	const AW_CLID = 982;
+
 	function realestate_import()
 	{
 		$this->init(array(
@@ -527,7 +531,7 @@ arr("deaktiviveerimiseks objekte :".sizeof($realestate_objects->ids()));
 
 		$cl_realestate_mgr = get_instance (CL_REALESTATE_MANAGER);
 		$cl_classificator = get_instance(CL_CLASSIFICATOR);
-		$cl_file = get_instance(CL_FILE);
+		$cl_file = new file();
 		$cl_image = get_instance(CL_IMAGE);
 
 		### variables

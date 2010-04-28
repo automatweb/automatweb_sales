@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_warehouse_reception.aw,v 1.6 2008/01/31 13:50:07 kristo Exp $
 // shop_warehouse_reception.aw - Lao sissetulek 
 /*
@@ -24,6 +26,8 @@
 
 class shop_warehouse_reception extends class_base
 {
+	const AW_CLID = 298;
+
 	function shop_warehouse_reception()
 	{
 		$this->init(array(
@@ -60,7 +64,7 @@ class shop_warehouse_reception extends class_base
 	function _income_tb($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$tb->add_cdata(
 			$ps->get_popup_search_link(array(
 				"pn" => "sitm",
@@ -162,7 +166,7 @@ class shop_warehouse_reception extends class_base
 
 	function callback_post_save($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["sitm"], 1 /* RELTYPE_PRODUCT */);
 	}
 }

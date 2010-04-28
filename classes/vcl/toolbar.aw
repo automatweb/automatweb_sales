@@ -1,8 +1,8 @@
 <?php
 // toolbar.aw - drawing toolbars
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class toolbar extends aw_template
 {
 	private $menus = array();

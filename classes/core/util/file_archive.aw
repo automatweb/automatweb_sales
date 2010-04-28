@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class file_archive extends core
 {
 	const COMPRESS_ZIP = 1;
@@ -14,7 +16,7 @@ class file_archive extends core
 		$this->set_compression_method(file_archive::COMPRESS_ZIP);
 	}
 
-	/** Sets the compression method. 
+	/** Sets the compression method.
 		@attrib api=1 params=pos
 
 		@param method required type=int
@@ -33,7 +35,7 @@ class file_archive extends core
 		@attrib api=1
 
 		@comment
-			You only need to call this if you want to start a new one, after already creating one. 
+			You only need to call this if you want to start a new one, after already creating one.
 	**/
 	function new_archive()
 	{
@@ -48,18 +50,18 @@ class file_archive extends core
 
 		@param file_name optional type=string
 			The name of the file in the archive. If empty, the name of the added file is used
-	
+
 		@param pt_folder optional type=string
 			The name of the folder in the archive to add the file to
 
 		@examples
-			$i= new file_archive; 
-			$i->set_compression_method(file_archive::COMPRESS_TAR_BZIP); 
-			$i->add_file_fs("/www/dev/terryf/site/aw.ini"); 
-			$i->add_folder("a"); 
-			$i->add_folder("b", "a"); 
-			$i->add_file_fs("/www/dev/terryf/site/aw.ini", "a/b"); 
-			$i->save_as_file("/home/kristo/tmp.tar.gz");	
+			$i= new file_archive;
+			$i->set_compression_method(file_archive::COMPRESS_TAR_BZIP);
+			$i->add_file_fs("/www/dev/terryf/site/aw.ini");
+			$i->add_folder("a");
+			$i->add_folder("b", "a");
+			$i->add_file_fs("/www/dev/terryf/site/aw.ini", "a/b");
+			$i->save_as_file("/home/kristo/tmp.tar.gz");
 	**/
 	public function add_file_fs($fp, $file_name = "", $pt_folder = "")
 	{
@@ -74,15 +76,15 @@ class file_archive extends core
 			The content of the file to add
 
 		@param file_name required type=string
-			The name of the file in the archive. 
-	
+			The name of the file in the archive.
+
 		@param pt_folder optional type=string
 			The name of the folder in the archive to add the file to
 	**/
 	public function add_file_string($content, $file_name, $pt_folder = "")
 	{
 		return $this->compressor->add_file_string($content, $file_name, $pt_folder);
-	}	
+	}
 
 	/** Adds a folder to the archive
 		@attrib api=1 params=pos
@@ -111,8 +113,8 @@ class file_archive extends core
 	}
 
 	/** Returns the content of the current archive
-		@attrib api=1 
-	**/		
+		@attrib api=1
+	**/
 	public function get()
 	{
 		return $this->compressor->get();
@@ -123,7 +125,7 @@ class file_archive extends core
 
 		@param file_name required type=string
 			The name of the archive file
-	**/		
+	**/
 	public function serve_to_user($file_name)
 	{
 		return $this->compressor->serve_to_user($file_name);
@@ -244,7 +246,7 @@ abstract class file_archive_fs_based_compressor_base
 		$f = fopen($this->folder."/".$pt_folder."/".$file_name, "w");
 		fwrite($f, $content);
 		fclose($f);
-	}	
+	}
 
 	public function add_folder($name, $pt_folder = "")
 	{
@@ -255,7 +257,7 @@ abstract class file_archive_fs_based_compressor_base
 	public function save_as_file($file_name)
 	{
 		chdir($this->folder);
-		
+
 		$cmd = $this->get_compressor_command($file_name);
 		$res = `$cmd`;
 	}
@@ -283,9 +285,9 @@ abstract class file_archive_fs_based_compressor_base
 
 	private function _req_del_fld($dir)
 	{
-		if ($dh = opendir($dir)) 
+		if ($dh = opendir($dir))
 		{
-			while (($file = readdir($dh)) !== false) 
+			while (($file = readdir($dh)) !== false)
 			{
 				if ($file == "." || $file == "..")
 				{

@@ -1,8 +1,6 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
+namespace automatweb;
 
 class crm_task_list extends object_list
 {

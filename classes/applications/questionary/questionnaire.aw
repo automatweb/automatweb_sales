@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // questionnaire.aw - D&uuml;naamiline k&uuml;simustik
 /*
 
@@ -140,6 +142,8 @@
 
 class questionnaire extends class_base
 {
+	const AW_CLID = 1393;
+
 	const UNANSWERED = 0;
 	const WRONG = 1;
 	const CORRECT = 2;

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // cfgform.aw - configuration form
 // adds, changes and in general manages configuration forms
 
@@ -296,6 +298,8 @@
 */
 class cfgform extends class_base
 {
+	const AW_CLID = 119;
+
 	public $cfg_proplist;
 	/*
 	Format: array(
@@ -505,7 +509,7 @@ class cfgform extends class_base
 				break;
 
 			case "subclass":
-				$cx = get_instance("cfg/cfgutils");
+				$cx = new cfgutils();
 				$class_list = new aw_array($cx->get_classes_with_properties());
 				$cp = get_class_picker(array("field" => "def"));
 
@@ -516,7 +520,6 @@ class cfgform extends class_base
 				break;
 
 			case "ctype":
-				classload("core/icons");
 				$clid = $arr["obj_inst"]->prop("subclass");
 				$iu = html::img(array(
 					"url" => icons::get_icon_url($clid,""),
@@ -777,7 +780,6 @@ class cfgform extends class_base
 
 		// bc for when all groups were always shown instead of only those selected by connection
 		$show_to_groups = $arr["obj_inst"]->meta("show_to_groups");
-		$html = get_instance("html");
 
 		if(!$arr["request"]["meta"]) $arr["request"]["meta"] = $arr["obj_inst"]->meta("group_to_show");
 
@@ -810,7 +812,7 @@ class cfgform extends class_base
 					}
 				}
 
-				$row[$gid] = $html->hidden(array("name" => "show_to_groups_chk[".$prop_name."][".$gid."]", "value" => 1)) . $html->checkbox(array(
+				$row[$gid] = html::hidden(array("name" => "show_to_groups_chk[".$prop_name."][".$gid."]", "value" => 1)) . html::checkbox(array(
 					"name" => "show_to_groups[".$prop_name."][".$gid."]",
 					"value" => 1,
 					"checked" => $checked,
@@ -828,7 +830,7 @@ class cfgform extends class_base
 
 	function _init_trans_tbl(&$t, $o, $req, $str = "Omadus")
 	{
-		$l = get_instance("languages");
+		$l = new languages();
 		$orig_ld = $l->fetch($o->lang_id(), false);
 
 		$lid = substr($req["group"], 5);
@@ -1194,14 +1196,16 @@ class cfgform extends class_base
 		)));
 
 		$tmp = aw_ini_get("classes");
-		$fl = $tmp[$class_id]["file"];
+		$fl = basename($tmp[$class_id]["file"]);
 
-		if (basename($fl) == "document")
+		if ($fl === "document")
 		{
 			$fl = "doc";
 		}
 
-		$inst = get_instance($fl);
+		$fl = "automatweb\\" . $fl;
+
+		$inst = new $fl();
 		$this->all_props = $inst->get_all_properties();
 	}
 
@@ -1347,7 +1351,7 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl":
-				$l = get_instance("languages");
+				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
@@ -1362,7 +1366,7 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_grps":
-				$l = get_instance("languages");
+				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("grp_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
@@ -1377,7 +1381,7 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_lays":
-				$l = get_instance("languages");
+				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("layout_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
@@ -1392,7 +1396,7 @@ class cfgform extends class_base
 				break;
 
 			case "trans_tbl_table_capts":
-				$l = get_instance("languages");
+				$l = new languages();
 				$trans = safe_array($arr["obj_inst"]->meta("tbl_capt_translations"));
 				foreach(safe_array($arr["request"]["dat"]) as $lid => $ldat)
 				{
@@ -1481,7 +1485,7 @@ class cfgform extends class_base
 		}
 		if (!isset($this->lang_inf))
 		{
-			$l = get_instance("languages");
+			$l = new languages();
 			$tmp = $l->get_list(array("ignore_status" => 1));
 			unset($tmp[$arr["obj_inst"]->lang_id()]);
 			$this->lang_inf = array(
@@ -3607,7 +3611,7 @@ class cfgform extends class_base
 
 		@examples
 
-			$cf = get_instance(CL_CFGFORM);
+			$cf = new cfgform();
 			$props = $cf->get_props_for_cfgform(array(
 				"id" => $_GET["cfgform"]
 			));
@@ -3680,7 +3684,7 @@ class cfgform extends class_base
 			The html containing the form, including the <form tag. form is submitted to the reforb argument given
 
 		@examples
-			$cff = get_instance(CL_CFGFORM);
+			$cff = new cfgform();
 			$html = $cff->draw_cfgform_from_ot(array(
 				"ot" => $object_type_id,
 				"reforb" => $this->mk_reforb("handle_form_submit")
@@ -3763,7 +3767,7 @@ class cfgform extends class_base
 			array key is property name, value is property data
 
 		@examples
-			$cff = get_instance(CL_CFGFORM);
+			$cff = new cfgform();
 			$props = $cff->get_props_from_ot(array("ot" => $object_type_id));
 			foreach($props as $property_name => $property_data)
 			{
@@ -3940,7 +3944,7 @@ class cfgform extends class_base
 			class id to init from
 
 		@examples
-			$cff = get_instance(CL_CFGFORM);
+			$cff = new cfgform();
 			$cf_obj = obj($config_form_id);
 			$cff->cff_init_from_class($cf_obj, CL_MENU);
 			$cff->cff_add_prop($cf_obj, "bujaka", array("caption" => t("Bujaka"), "group" => "general"));
@@ -3995,7 +3999,7 @@ class cfgform extends class_base
 			cfgform object
 
 		@examples
-			$cff = get_instance(CL_CFGFORM);
+			$cff = new cfgform();
 			$cf_obj = obj($config_form_id);
 			$cff->cff_remove_all_props();
 			$cff->cff_add_prop($cf_obj, "bujaka", array("caption" => t("Bujaka"), "group" => "general"));
@@ -4019,7 +4023,7 @@ class cfgform extends class_base
 			array(caption, group, ord) for the property
 
 		@examples
-			$cff = get_instance(CL_CFGFORM);
+			$cff = new cfgform();
 			$cf_obj = obj($config_form_id);
 			$cff->cff_init_from_class($cf_obj, CL_MENU);
 			$cff->cff_add_prop($cf_obj, "bujaka", array("caption" => t("Bujaka"), "group" => "general"));
@@ -4067,7 +4071,7 @@ class cfgform extends class_base
 			array of property info for the config form
 
 		@examples
-			$cff = get_instance(CL_CFGFORM);
+			$cff = new cfgform();
 			foreach($cff->get_cfg_proplist($cfgform_oid) as $pn => $pd)
 			{
 				echo "prop = $pn , caption = $pd[caption] \n";
@@ -4186,7 +4190,7 @@ class cfgform extends class_base
 			array of group data for the config form
 
 		@examples
-			$cff = get_instance(CL_CFGFORM);
+			$cff = new cfgform();
 			foreach($cff->get_cfg_groups($cfgform_oid) as $group_name => $group_data)
 			{
 				echo "prop = $group_name , caption = $group_data[caption] \n";
@@ -4314,7 +4318,7 @@ class cfgform extends class_base
 			The oid of the system default config form for the class or false if no form exists
 
 		@examples
-			$cf = get_instance(CL_CFGFORM);
+			$cf = new cfgform();
 			if (($form_oid = $cf->get_sysdefault(array("clid" => CL_MENU))) !== false)
 			{
 				echo "default cfgorm for CL_MENU is ".$form_oid."<br>";
@@ -4920,7 +4924,6 @@ class cfgform extends class_base
 			$this->cfgview_vars["awcb_display_mode"] = $args["display_mode"];
 
 			// make request
-			classload("core/orb/orb");
 			$orb = new orb();
 			$orb->process_request(array(
 				"class" => $class,
@@ -5107,7 +5110,7 @@ class cfgform extends class_base
 			));
 		}
 
-		$orb = get_instance("core/orb/orb");
+		$orb = new orb();
 		$clss = aw_ini_get("classes");
 		$methods = $orb->get_class_actions(array(
 			"class" => basename($clss[$arr["obj_inst"]->subclass()]["file"])
@@ -5323,7 +5326,7 @@ class cfgform extends class_base
 			$o->set_class_id($clid);
 		}
 
-		$cffi = get_instance(CL_CFGFORM);
+		$cffi = new cfgform();
 		$cff = $cffi->get_sysdefault(array("clid" => $clid));
 		return $this->can("view", $cff) ? $cffi->get_cfg_proplist($cff) : $o->get_property_list();
 	}

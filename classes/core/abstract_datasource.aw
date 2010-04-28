@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/abstract_datasource.aw,v 1.11 2008/01/31 13:52:49 kristo Exp $
 // abstract_datasource.aw - Andmeallikas 
 /*
@@ -45,6 +47,8 @@
 
 class abstract_datasource extends class_base
 {
+	const AW_CLID = 339;
+
 	function abstract_datasource()
 	{
 		$this->init(array(

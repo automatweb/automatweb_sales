@@ -1,13 +1,12 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class oql
 {
-	/** executes an oql query 
+	/** executes an oql query
 
-		SELECT 
+		SELECT
 			prop1, prop2
 		FROM
 			CL_FOO

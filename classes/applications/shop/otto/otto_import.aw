@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/otto/otto_import.aw,v 1.115 2009/09/01 12:41:27 dragut Exp $
 // otto_import.aw - Otto toodete import
 /*
@@ -311,6 +313,8 @@ define('SMALL_PICTURE', 2);
 
 class otto_import extends class_base implements warehouse_import_if
 {
+	const AW_CLID = 488;
+
 	var $not_found_products = array();
 
 	function otto_import()

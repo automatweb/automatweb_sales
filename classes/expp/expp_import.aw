@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*===========================================================================*/
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_import.aw,v 1.6 2007/11/23 07:18:28 dragut Exp $
 // expp_import.aw - Expp import 
@@ -12,6 +14,8 @@
 /*===========================================================================*/
 class expp_import extends class_base
 {
+	const AW_CLID = 1005;
+
 	var $errorMsg	= '';
 	var $fileCont	= '';
 	var $values		= array();
@@ -719,7 +723,7 @@ class expp_import extends class_base
 			"site_id" => array(),
 		));
 		if ($co_ol->count() == 0) {
-			$usi = get_instance(CL_USER);
+			$usi = new user();
 			$us = $usi->add_user(array(
 				"uid" => $uid,
 //				"password" => $pass

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_jah.aw,v 1.7 2008/02/17 21:13:01 kristo Exp $
 // expp_jah.aw - Expp JAH 
 /*
@@ -12,6 +14,8 @@
 
 class expp_jah extends class_base implements main_subtemplate_handler
 {
+	const AW_CLID = 1015;
+
 	
 	var $yahLinks = '';
 	var $yahEnd = '';

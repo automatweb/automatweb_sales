@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/task_quick_entry.aw,v 1.49 2009/02/05 09:31:49 kristo Exp $
 // task_quick_entry.aw - Kiire toimetuse lisamine 
 /*
@@ -68,6 +70,8 @@
 
 class task_quick_entry extends class_base
 {
+	const AW_CLID = 1070;
+
 	function task_quick_entry()
 	{
 		$this->init(array(

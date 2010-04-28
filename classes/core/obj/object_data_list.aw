@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 // take the filter from an object_list, make the where from that
 // but take the fetch from another array and allow sql funcs in that

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/ical_export.aw,v 1.13 2008/04/28 13:59:24 kristo Exp $
 /*
 
@@ -63,6 +65,8 @@
 
 class ical_export extends class_base
 {
+	const AW_CLID = 1348;
+
 	// todo
 	// vaatamis6igused kalendrile ning kalendriexpordi objektile
 	// muutmis6igused, vaatamis jne 6igused kataloogie kus syndmused on

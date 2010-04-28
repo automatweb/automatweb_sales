@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/transport_management/crm_transport_management_carriage_order.aw,v 1.5 2007/12/06 14:33:24 kristo Exp $
 // carriage_order.aw - Veotellimus 
 /*
@@ -166,6 +168,8 @@ define('PAYMENT_CONDITION_FRANKO', 2);
 
 class crm_transport_management_carriage_order extends class_base
 {
+	const AW_CLID = 1082;
+
 
 	var $carriage_order_status = array();
 	var $payment_condition = array();

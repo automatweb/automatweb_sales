@@ -1,7 +1,8 @@
 <?php
-/*
-@classinfo  maintainer=kristo
 
+namespace automatweb;
+
+/*
 	// this still works
 	$this->db_query($q);
 	while($row = $this->db_next())
@@ -89,10 +90,7 @@ class db_connector
 	}
 
 	/** deprecated - do not use, use init() instead **/
-	function db_init($args = array())
-	{
-		$this->init($args);
-	}
+	function db_init($args = array()) { $this->init($args); }
 
 	/** Connects to the database
 		@attrib api=1 params=name
@@ -139,6 +137,7 @@ class db_connector
 			throw new aw_exception("Database driver '{$driver}' not supported");
 		}
 
+		$driver = "automatweb\\{$driver}";
 		$dc = new $driver();
 		$dc->db_connect($args["server"], $args["base"], $args["username"], $args["password"]);
 		self::$open_database_connections[$cid] = $dc;
@@ -204,7 +203,7 @@ class db_connector
 		if (!$retval)
 		{
 			$this->db_last_error = $this->dc[$this->default_cid]->db_last_error;
-		};
+		}
 		return $retval;
 	}
 
@@ -608,7 +607,7 @@ class db_connector
 	function list_db_drivers()
 	{
 		$ret = array();
-		if ($dir = @opendir($this->cfg["classdir"]."/db_drivers"))
+		if ($dir = opendir($this->cfg["classdir"]."/db_drivers"))
 		{
 			while (($file = readdir($dir)) !== false)
 			{

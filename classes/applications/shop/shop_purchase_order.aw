@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_PURCHASE_ORDER relationmgr=yes no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_shop_purcahse_orders master_index=brother_of master_table=objects index=aw_oid
@@ -109,6 +111,8 @@ define("ORDER_STATUS_WORKING", 5);
 
 class shop_purchase_order extends class_base
 {
+	const AW_CLID = 1430;
+
 	function shop_purchase_order()
 	{
 		$this->init(array(
@@ -216,7 +220,7 @@ class shop_purchase_order extends class_base
 			{
 				get_instance(CL_CFG_VIEW_CONTROLLER)->check_property(&$mail_url, $cfg->prop("purchase_order_mail_ctrl"), $arr);
 			}
-			catch(Exception $e)
+			catch(\Exception $e)
 			{
 			}
 		}

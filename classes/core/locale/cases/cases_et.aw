@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class awlc_cases_et implements awlc_cases
 {
 	protected static $vowels = array(// ascii indices

@@ -1,5 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/core/dbg/cookiemonster.aw,v 1.3 2008/01/31 13:53:03 kristo Exp $
+
+namespace automatweb;
+
 // a class to aid in debugging - you can set cookies in your browser with this
 
 /*
@@ -11,10 +13,10 @@
 @property cookietable type=table
 @caption Olemasolevad cookied
 
-@property new_name type=textbox 
+@property new_name type=textbox
 @caption Uue cookie nimi
 
-@property new_value type=textbox 
+@property new_value type=textbox
 @caption Uue cookie väärtus
 
 @forminfo monster onsubmit=munch
@@ -28,10 +30,10 @@ class cookiemonster extends class_base
 		$this->init();
 	}
 
-	/** generates a list of cookies in the user's browser 
-		
+	/** generates a list of cookies in the user's browser
+
 		@attrib name=list params=name default="1"
-		
+
 	**/
 	function gen_list($arr)
 	{
@@ -81,9 +83,9 @@ class cookiemonster extends class_base
 		return PROP_OK;
 	}
 
-	/** saves changes 
-		
-		@attrib name=munch params=name 
+	/** saves changes
+
+		@attrib name=munch params=name
 
 	**/
 	function munch($arr)

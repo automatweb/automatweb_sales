@@ -1,5 +1,8 @@
 <?php
 
+namespace automatweb;
+
+
 define("BILL_SUM", 1);
 define("BILL_SUM_WO_TAX", 2);
 define("BILL_SUM_TAX", 3);
@@ -7,6 +10,8 @@ define("BILL_AMT", 4);
 
 class crm_bill_obj extends _int_object
 {
+	const AW_CLID = 1009;
+
 	function set_prop($name,$value)
 	{
 		switch($name)
@@ -99,7 +104,7 @@ class crm_bill_obj extends _int_object
 
 	private function round_sum($sum)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		$co = obj($co);
 		if(is_object($co) && $co->prop("round"))
@@ -117,7 +122,7 @@ class crm_bill_obj extends _int_object
 	function get_bill_print_popup_menu()
 	{
 		$bill_inst = get_instance(CL_CRM_BILL);
-		$pop = get_instance("vcl/popup_menu");
+		$pop = new popup_menu();
 		$pop->begin_menu("bill_".$this->id());
 		$pop->add_item(Array(
 			"text" => t("Prindi arve"),
@@ -493,7 +498,7 @@ class crm_bill_obj extends _int_object
 
 		$people = array();
 		$amt = $price = $date = "";
-		$u = get_instance(CL_USER);
+		$u = new user();
 
 		foreach($bugcomments as $c)
 		{
@@ -625,7 +630,7 @@ class crm_bill_obj extends _int_object
 	{
 		if(!$this->prop("impl"))
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$this->set_prop("impl", $u->get_current_company());
 			$this->save();
 		}
@@ -1009,7 +1014,7 @@ class crm_bill_obj extends _int_object
 		{
 			if(!$this->company_currency)
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$co = obj($u->get_current_company());
 				$this->company_currency = $co->prop("currency");
 			}
@@ -1639,7 +1644,7 @@ class crm_bill_obj extends _int_object
 		}
 		if (aw_global_get("uid_oid") != "")
 		{
-			$user_inst = get_instance(CL_USER);
+			$user_inst = new user();
 			$u = obj(aw_global_get("uid_oid"));
 			$person = obj($user_inst->get_current_person());
 			$ret[$u->get_user_mail_address()] = $person->name() . " <" . $u->get_user_mail_address() . ">";
@@ -1743,7 +1748,7 @@ class crm_bill_obj extends _int_object
 	private function get_sender_signature()
 	{
 		$ret = array();
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 		$ret[]= $p->name();
 		$ret[]= reset($p->get_profession_names);
@@ -1780,7 +1785,7 @@ class crm_bill_obj extends _int_object
 	public function get_mail_from_name()
 	{
 		$ret = aw_global_get("uid");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 		if(is_object($p))
 		{
@@ -1943,7 +1948,7 @@ class crm_bill_obj extends _int_object
 
 	public function make_preview_pdf()
 	{
-                $f = get_instance(CL_FILE);
+                $f = new file();
 		$id = $f->create_file_from_string(array(
 			"parent" => $this->id(),
 			"content" => $this->get_pdf(),
@@ -1956,7 +1961,7 @@ class crm_bill_obj extends _int_object
 
 	public function make_reminder_pdf()
 	{
-                $f = get_instance(CL_FILE);
+                $f = new file();
 		$id = $f->create_file_from_string(array(
 			"parent" => $this->id(),
 			"content" => $this-> get_reminder_pdf(),
@@ -1969,7 +1974,7 @@ class crm_bill_obj extends _int_object
 
 	public function make_add_pdf()
 	{
-                $f = get_instance(CL_FILE);
+                $f = new file();
 		$id = $f->create_file_from_string(array(
 			"parent" => $this->id(),
 			"content" => $this->get_pdf_add(),
@@ -2320,7 +2325,7 @@ if(aw_global_get("uid") == "marko") {arr("praegu ei saada sest marko arendab");a
 	public function get_quality_options()
 	{
 		$ret = array();
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 		if(is_oid($co))
 		{
@@ -2382,7 +2387,7 @@ if(aw_global_get("uid") == "marko") {arr("praegu ei saada sest marko arendab");a
 	{
 		$prods = array("" => t("--vali--"));
 		// get prords from co
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		$wh = $co->get_first_obj_by_reltype("RELTYPE_WAREHOUSE");
 		if ($wh)

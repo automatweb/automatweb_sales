@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class aw_mime_types
 {
 	var $type2ext = array(
@@ -113,7 +113,7 @@ class aw_mime_types
 		@param ext required type=string
 			File extension
 
-		@returns 
+		@returns
 			MIME type of the extension
 			false, if the MIME type for the extension is unknown
 
@@ -142,7 +142,7 @@ class aw_mime_types
 		@param file required type=string
 			File name
 
-		@returns 
+		@returns
 			MIME type of the file
 			false, if the MIME type for the file is unknown
 
@@ -167,7 +167,7 @@ class aw_mime_types
 		@param type required type=string
 			MIME type
 
-		@returns 
+		@returns
 			Extension for the MIME type
 
 		@examples

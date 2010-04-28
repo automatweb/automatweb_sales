@@ -1,16 +1,15 @@
 <?php
 
+namespace automatweb;
+
 /**
+	@comment
 
-	@classinfo  maintainer=kristo
-
-	@comment 
-		
 		uses the base analyzer to create a simple analysis that just lists functions and their parameters
 		and writes these to the database
 
 **/
-classload("core/aw_code_analyzer/aw_code_analyzer");
+
 class docgen_analyzer_simple_db_writer extends aw_code_analyzer
 {
 	function docgen_analyzer_simple_db_writer()
@@ -37,7 +36,7 @@ return parent::analyze_file($file, $is_fp);
 		$this->in_function = false;
 		$this->cur_line = 1;
 		$this->cur_file = $file;
-		
+
 		reset($this->tokens);
 		while ($token = $this->get())
 		{
@@ -76,7 +75,7 @@ return parent::analyze_file($file, $is_fp);
 					case "{":
 						$this->handle_brace_begin();
 						break;
-					
+
 					case "}":
 						$this->handle_brace_end();
 						break;

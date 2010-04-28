@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/vcl/reminder.aw,v 1.5 2008/01/31 13:55:36 kristo Exp $
 // reminder UI VCL component
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class reminder extends core
 {
 	function reminder()
@@ -20,14 +19,14 @@ class reminder extends core
 		// always use id, even if it is a brother
 		$event_id = $arr["obj_inst"]->id();
 		// now figure out some kind of date
-		
+
 		$rinst = get_instance(CL_CALENDAR_REMINDER);
-		
+
 		$old_evt = $rinst->get_reminder_for(array(
 			"event_id" => $event_id,
 			"user_id" => $user->id(),
 		));
-		
+
 		$name = $prop["name"];
 		$email = $old_evt ? $old_evt->prop("email") : $user->prop("email");
 
@@ -140,7 +139,7 @@ class reminder extends core
 			// I'm hoping this doesn't re-add the event
 			$sched = get_instance("scheduler");
 			$evt_url = $this->mk_my_orb("process_pending_reminders",array(),CL_CALENDAR_REMINDER,false,true);
-		
+
 			$sched->add(array(
 				"event" => $this->mk_my_orb("process_pending_reminders", array(), "calendar_reminder", false, true),
 				"time" => time()+90,   // every 2 minutes

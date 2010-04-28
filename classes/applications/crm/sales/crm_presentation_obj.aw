@@ -1,7 +1,12 @@
 <?php
 
-class crm_presentation_obj extends task_object
+namespace automatweb;
+
+
+class crm_presentation_obj extends task_obj
 {
+	const AW_CLID = 1560;
+
 	const RESULT_CALL = 1; // reserve for future use, check applicable code for integrity when starting to use
 	const RESULT_PRESENTATION = 2; // reserve for future use, check applicable code for integrity when starting to use
 	const RESULT_SALE = 3;
@@ -291,7 +296,7 @@ class crm_presentation_obj extends task_object
 				$customer_case->plan();
 				$job->start(null, $time);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$job->set_prop("resource", $old_resource);
 				$job->save();
@@ -307,7 +312,7 @@ class crm_presentation_obj extends task_object
 				$job->plan();
 				$job->start(null, $time);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$job->set_prop("resource", $old_resource);
 				$job->save();
@@ -333,7 +338,7 @@ class crm_presentation_obj extends task_object
 					$customer_case->plan();
 					$job->start();
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$job->set_prop("resource", $old_resource);
 					$job->save();
@@ -501,7 +506,7 @@ class crm_presentation_obj extends task_object
 								$this->start($start_time);// voids exclusive save ///!!! fix
 								$this->end($end_time);// voids exclusive save
 							}
-							catch (Exception $e)
+							catch (\Exception $e)
 							{
 								throw $e;
 							}
@@ -562,7 +567,7 @@ class crm_presentation_obj extends task_object
 				$is_finished = true;
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 		}
 

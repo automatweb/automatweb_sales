@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_product_packaging_obj extends shop_product_obj
 {
+	const AW_CLID = 327;
+
 	public function save($exclusive = false, $previous_state = null)
 	{
 		$retval = parent::save($exclusive, $previous_state);

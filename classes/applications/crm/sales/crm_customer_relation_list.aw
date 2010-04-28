@@ -1,8 +1,6 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
+namespace automatweb;
 
 class crm_customer_relation_list extends object_list
 {

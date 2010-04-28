@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/syslog/dronline_conf.aw,v 1.22 2008/01/31 13:55:30 kristo Exp $
 /*
 @classinfo  maintainer=kristo
@@ -74,6 +76,8 @@
 
 class dronline_conf extends class_base
 {
+	const AW_CLID = 163;
+
 	function dronline_conf()
 	{
 		$this->init(array(
@@ -142,7 +146,7 @@ class dronline_conf extends class_base
 				return PROP_IGNORE;
 			}
 			$opts = array('' => 'K&otilde;ik keeled');
-			$la = get_instance("languages");
+			$la = new languages();
 			$prop['options'] = $la->get_list();
 		}
 

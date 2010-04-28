@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement.aw,v 1.29 2008/04/15 07:08:23 kristo Exp $
 // procurement.aw - Hange
 /*
@@ -160,6 +162,8 @@
 
 class procurement extends class_base
 {
+	const AW_CLID = 1066;
+
 	function procurement()
 	{
 		$this->init(array(
@@ -486,7 +490,7 @@ class procurement extends class_base
 
 		//lisaread
 		$enough = $x +10;
-		$u = get_instance(CL_USER);
+		$u = new user();
 		if(!is_object($co))$co = obj($u->get_current_company());
 		if(is_object($co))$curr_val = $co->prop("currency");
 		while($x < $enough)
@@ -1452,7 +1456,7 @@ if($arr["request"]["group"] == "products")
 
 		}
 		$conv = get_instance("core/converters/html2pdf");
-		$fi = get_instance(CL_FILE);
+		$fi = new file();
 
 		foreach($print_offerer as $po)
 		{
@@ -1471,7 +1475,7 @@ if($arr["request"]["group"] == "products")
 				"orderer_person_email" => $o->prop("orderer.email_id.mail"),
 				"orderer_person_fax" => $o->prop("orderer.telefax_id.name"),
 			);
-			$us = get_instance(CL_USER);
+			$us = new user();
 			$up = new object($us->get_current_person());
 			if(is_object($up))
 			{

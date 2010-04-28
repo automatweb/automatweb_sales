@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CSS relationmgr=yes maintainer=kristo
 
@@ -133,6 +135,8 @@
 
 class css extends class_base
 {
+	const AW_CLID = 71;
+
 	private $font_families;
 	private $ff;
 

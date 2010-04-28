@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // shop_order_row.aw - Tellimuse rida
 /*
 
@@ -60,6 +62,8 @@
 
 class shop_order_row extends class_base
 {
+	const AW_CLID = 1415;
+
 	function shop_order_row()
 	{
 		$this->init(array(

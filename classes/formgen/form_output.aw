@@ -1421,7 +1421,7 @@ class form_output extends form_base
 		$this->read_template("op_translate.tpl");
 		$this->mk_path($this->parent,sprintf(LC_FORM_OUTPUT_OUTPUT_ADMIN,$this->mk_orb("change", array("id" => $id))));
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$langs = $la->listall();
 
 		foreach($langs as $lar)
@@ -1722,7 +1722,7 @@ class form_output extends form_base
 		extract($arr);
 		$this->load_output($id);
 
-		$la = get_instance("languages");
+		$la = new languages();
 		$langs = $la->listall();
 
 		for ($row=0; $row < $this->output["rows"]; $row++)

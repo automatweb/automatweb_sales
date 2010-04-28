@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_db_search.aw,v 1.12 2009/03/12 11:51:28 instrumental Exp $
 // crm_db_search.aw - Kliendibaasi otsingu grupp 
 /*
@@ -51,6 +53,8 @@
 
 class crm_db_search extends class_base
 {
+	const AW_CLID = 1049;
+
 	function crm_db_search()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

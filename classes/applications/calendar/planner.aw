@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // planner.aw - kalender
 /*
 
@@ -216,6 +218,8 @@ define("CAL_SHOW_MONTH",4);
 lc_load("calendar");
 class planner extends class_base
 {
+	const AW_CLID = 126;
+
 	function planner($args = array())
 	{
 		$this->init(array(
@@ -745,7 +749,7 @@ class planner extends class_base
 		// planner configuration
 		$event_cfgform = $arr["request"]["cfgform_id"];
 		// are we editing an existing event?
-		$cf = get_instance(CL_CFGFORM);
+		$cf = new cfgform();
 		if (empty($event_cfgform))
 		{
 			$sys_default_form = $cf->get_sysdefault(array("clid" => $arr["request"]["clid"]));
@@ -2063,7 +2067,7 @@ class planner extends class_base
 
 		get_instance("core/icons");
 
-		$user_inst = get_instance(CL_USER);
+		$user_inst = new user();
 		$users_i = get_instance("users");
 		foreach ($data->arr() as $result)
 		{
@@ -2885,7 +2889,7 @@ class planner extends class_base
 			"multiple" => 1,
 			"size" => 1
 		));
-		$pop = get_instance("vcl/popup_search");
+		$pop = new popup_search();
 		$assign .= $pop->get_popup_search_link(array(
 			"pn" => "add_part_to_events",
 			"clid" => CL_CRM_PERSON,

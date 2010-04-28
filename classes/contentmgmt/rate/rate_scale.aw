@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/rate/rate_scale.aw,v 1.20 2008/03/31 12:08:29 instrumental Exp $
 
 /*
@@ -45,6 +47,8 @@ define("RATING_TEXT", 2);
 
 class rate_scale extends class_base
 {
+	const AW_CLID = 188;
+
 	function rate_scale()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 	@tableinfo kliendibaas_linn index=oid master_table=objects master_index=oid
 
@@ -60,6 +62,8 @@ CREATE TABLE `kliendibaas_linn` (
 */
 class crm_city extends class_base
 {
+	const AW_CLID = 139;
+
 	function crm_city()
 	{
 		$this->init(array(

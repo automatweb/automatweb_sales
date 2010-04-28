@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class menuedit extends aw_template implements request_startup
 {
 	function menuedit()
@@ -32,7 +32,7 @@ class menuedit extends aw_template implements request_startup
 			}
 			if (strlen($section) == 2)
 			{
-				$l = get_instance("languages");
+				$l = new languages();
 				$tmp = $l->get_langid_for_code($section);
 				if ($tmp)
 				{
@@ -78,7 +78,7 @@ class menuedit extends aw_template implements request_startup
 			if ($lc != "" && $section_a != "")
 			{
 				// switch to lang
-				$l = get_instance("languages");
+				$l = new languages();
 				if (aw_ini_get("user_interface.full_content_trans"))
 				{
 					$set_ct_lang_id = $l->get_langid_for_code($lc);
@@ -159,7 +159,7 @@ class menuedit extends aw_template implements request_startup
 		if ($set_ct_lang_id)
 		{
 			$_SESSION["ct_lang_id"] = $set_ct_lang_id;
-			$l = get_instance("languages");
+			$l = new languages();
 			$_SESSION["ct_lang_lc"] = $l->get_langid($set_ct_lang_id);
 			aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
 			aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);
@@ -171,7 +171,7 @@ class menuedit extends aw_template implements request_startup
 
 		if ($set_lang_id && aw_global_get("lang_id") != $set_lang_id)
 		{
-			$la = get_instance("languages");
+			$la = new languages();
 			if (!$la->set_active($set_lang_id))
 			{
 				$realsect = $this->cfg["frontpage"];

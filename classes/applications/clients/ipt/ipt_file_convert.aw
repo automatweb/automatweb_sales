@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/ipt/ipt_file_convert.aw,v 1.5 2007/12/06 14:33:06 kristo Exp $
 // ipt_file_convert.aw - IPT Failide konvertimine 
 /*
@@ -31,6 +33,8 @@
 
 class ipt_file_convert extends class_base
 {
+	const AW_CLID = 1061;
+
 	function ipt_file_convert()
 	{
 		$this->init(array(
@@ -154,7 +158,7 @@ class ipt_file_convert extends class_base
 		$arr["obj_inst"]->set_meta("cur_data", $data);
 
 		// attach file to list as well
-		$f = get_instance(CL_FILE);
+		$f = new file();
 		$file_oid = $f->save_file(array(
 			"parent" => $arr["obj_inst"]->id(),
 			"content" => $this->_proc($arr["obj_inst"], true),

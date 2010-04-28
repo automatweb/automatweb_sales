@@ -1,5 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/vcl/relmanager.aw,v 1.16 2008/01/31 13:55:36 kristo Exp $
+
+namespace automatweb;
+
 /*
 // !Displays a table of relations and adds one line with edit fields to allow adding
 // of new objects
@@ -8,9 +10,8 @@
 // like the single relpicker .. radiobutton is used for selecting data
 
 // can I perhaps merge those things?
-@classinfo maintainer=kristo
 */
-class relmanager extends aw_template 
+class relmanager extends aw_template
 {
 	function relmanager()
 	{
@@ -97,9 +98,9 @@ class relmanager extends aw_template
 
 		// first set the keys, this makes the properties be in the same order you
 		// define them, and then figure out property data for each
-		
+
 		$xproplist = array_flip(array_values($proplist));
-		
+
 		// load properties for the target class and then add lines to the
 		// table
 		$cfgu = get_instance("cfg/cfgutils");
@@ -137,7 +138,7 @@ class relmanager extends aw_template
 			{
 				$to_prop["file"] = "";
 			};
-			
+
 			if ($use_chooser)
 			{
 				$to_prop["chooser"] = html::radiobutton(array(
@@ -174,7 +175,7 @@ class relmanager extends aw_template
 			};
 
 			$addline = array();
-			
+
 			// this has to be optional, I might now want any "Uus" captions
 			if ($use_chooser)
 			{

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/video.aw,v 1.11 2009/04/27 14:19:29 hannes Exp $
 // video.aw - Video 
 /*
@@ -68,6 +70,8 @@
 
 class video extends class_base
 {
+	const AW_CLID = 833;
+
 	function video()
 	{
 		$this->init(array(

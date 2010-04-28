@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_tournament.aw,v 1.9 2007/12/06 14:34:07 kristo Exp $
 // scm_tournament.aw - V&otilde;istlussari
 /*
@@ -31,6 +33,8 @@
 
 class scm_tournament extends class_base
 {
+	const AW_CLID = 1096;
+
 	function scm_tournament()
 	{
 		$this->init(array(
@@ -58,7 +62,7 @@ class scm_tournament extends class_base
 					"img" => "new.gif",
 					"url" => $url,
 				));
-				$popup_search = get_instance("vcl/popup_search");
+				$popup_search = new popup_search();
 				$search_butt = $popup_search->get_popup_search_link(array(
 					"pn" => "search_result",
 					"clid" => CL_SCM_COMPETITION,

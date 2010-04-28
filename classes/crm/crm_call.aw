@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_call.aw - phone call
 /*
 
@@ -256,6 +258,8 @@
 
 class crm_call extends task
 {
+	const AW_CLID = 223;
+
 	private $mail_data = array();
 
 	function crm_call()
@@ -1074,7 +1078,7 @@ EOS;
 				}
 			}
 
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p =$u->get_current_person();
 
 			$data["person"] = $p;
@@ -1274,7 +1278,7 @@ EOS;
 						$r = $default_return_url;
 					}
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$r = $default_return_url;
 				}
@@ -1309,7 +1313,7 @@ EOS;
 							$r = $arr["post_ru"];
 						}
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 						$r = $arr["post_ru"];
 					}
@@ -1348,7 +1352,7 @@ EOS;
 						$result_task = obj($this_o->prop("result_task"), array(), CL_CRM_PRESENTATION);
 						$r = html::get_change_url($result_task->id(), array("return_url" => $arr["post_ru"]));
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 						$this->show_error_text(t("K&otilde;ne tulemuseks olev esitlus pole avatav"));
 					}

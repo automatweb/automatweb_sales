@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_order.aw,v 1.85 2009/07/28 09:38:19 markop Exp $
 // shop_order.aw - Tellimus
 /*
@@ -75,6 +77,8 @@
 
 class shop_order extends class_base
 {
+	const AW_CLID = 302;
+
 	var $order_item_data = array();
 
 	function shop_order()
@@ -199,7 +203,7 @@ class shop_order extends class_base
 		if ($arr["new"])
 		{
 			// check if the current user has an organization
-			$us = get_instance(CL_USER);
+			$us = new user();
 			if (($p = $us->get_current_person()))
 			{
 				$arr["obj_inst"]->connect(array(
@@ -344,7 +348,7 @@ class shop_order extends class_base
 			"chgbgcolor" => "color",
 		));
 		$add_fields = array();
-		$cfgform = get_instance(CL_CFGFORM);
+		$cfgform = new cfgform();
 		$conf = $arr["obj_inst"]->prop("confirmed") == 1;
 		//$arr["obj_inst"]->set_prop("confirmed" , 0);$arr["obj_inst"]->save();
 		$arrz = array("name", "comment", "status", "item_count", "item_type", "price", "must_order_num", "brother_of", "parent", "class_id", "lang_id" ,"period", "created", "modified", "periodic");
@@ -731,7 +735,7 @@ class shop_order extends class_base
 		// connect to current person/company
 		if (!$pers_id)
 		{
-			$us = get_instance(CL_USER);
+			$us = new user();
 			$pers_id = $us->get_current_person();
 		}
 
@@ -771,7 +775,7 @@ class shop_order extends class_base
 		// seller, seller_company fro current user
 		if (aw_global_get("uid") != "")
 		{
-			$us = get_instance(CL_USER);
+			$us = new user();
 			$c_com_id = $us->get_current_company();
 			if ($wh->is_manager_co($this->order_warehouse, $c_com_id))
 			{
@@ -913,7 +917,7 @@ class shop_order extends class_base
 			//kui pank ise teeb paringu tagasi, siis votab miski muu keeele milles maili saata, et jargnev siis selle vastu
 			if($params["lang_id"])
 			{
-				$l = get_instance("languages");
+				$l = new languages();
 				$_SESSION["ct_lang_id"] = $params["lang_id"];
 				$_SESSION["ct_lang_lc"] = $params["lang_lc"];
 				aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
@@ -1194,7 +1198,7 @@ class shop_order extends class_base
 	function bank_return($arr)
 	{
 		$o = obj($arr["id"]);
-		$l = get_instance("languages");
+		$l = new languages();
 		//arr($o->prop("lang_id")); arr($o->prop("lang_lc"));
 		if($o->meta("lang_id"))
 		{

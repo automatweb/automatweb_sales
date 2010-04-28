@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/building_management/crm_building_management_supplier_relation.aw,v 1.3 2007/12/06 14:33:21 kristo Exp $
 // crm_building_management_supplier_relation.aw - Hankijasuhe 
 /*
@@ -12,6 +14,8 @@
 
 class crm_building_management_supplier_relation extends class_base
 {
+	const AW_CLID = 1102;
+
 	function crm_building_management_supplier_relation()
 	{
 		$this->init(array(

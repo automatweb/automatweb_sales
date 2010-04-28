@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/quickmessage/contact_list.aw,v 1.10 2008/05/08 20:15:11 kristo Exp $
 // contact_list.aw - Aadressiraamat 
 /*
@@ -51,6 +53,8 @@
 
 class contact_list extends class_base
 {
+	const AW_CLID = 811;
+
 	function contact_list()
 	{
 		$this->init(array(

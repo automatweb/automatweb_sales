@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class package_client_obj extends _int_object
 {
+	const AW_CLID = 1450;
+
 	/** Returns server package list
 		@attrib api=1 params=name
 		@param filter optional type=array
@@ -480,7 +485,7 @@ arr($sql); die();
 				"name" => $o->name(),
 				"type" => $type,
 			);
-			$t = get_instance(CL_FILE);
+			$t = new file();
 			$rv = $t->submit($data);
 		}
 		return $o->id();

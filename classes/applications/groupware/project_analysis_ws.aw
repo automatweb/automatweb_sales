@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_analysis_ws.aw,v 1.6 2009/02/07 17:10:34 robert Exp $
 // project_analysis_ws.aw - Projekti anal&uuml;&uuml;si t&ouml;&ouml;laud 
 /*
@@ -101,6 +103,8 @@
 
 class project_analysis_ws extends class_base
 {
+	const AW_CLID = 1110;
+
 	function project_analysis_ws()
 	{
 		$this->init(array(
@@ -478,7 +482,7 @@ class project_analysis_ws extends class_base
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_cols_table($t);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_COL")) as $c)
 		{
 			$st = $c->to();
@@ -723,7 +727,7 @@ class project_analysis_ws extends class_base
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_rows_table($t);
 		$no_use = $arr["obj_inst"]->meta("rows_no_use");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_ROW")) as $c)
 		{
 			$st = $c->to();

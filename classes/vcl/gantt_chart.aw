@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // gantt_chart.aw - Gantti diagramm
 /*
 
@@ -13,6 +15,8 @@
 
 class gantt_chart extends class_base
 {
+	const AW_CLID = 869;
+
 	protected $data = array ();
 	protected $rows = array ();
 	protected $pending_bars = array ();

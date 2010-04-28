@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/rostering/person_skill.aw,v 1.3 2007/12/06 14:34:03 kristo Exp $
 // person_skill.aw - Oskus 
 /*
@@ -20,6 +22,8 @@
 
 class person_skill extends class_base
 {
+	const AW_CLID = 1136;
+
 	function person_skill()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_MRP_WORKSPACE relationmgr=yes no_status=1 prop_cb=1 maintainer=voldemar
@@ -722,6 +724,8 @@ require_once "mrp_header.aw";
 
 class mrp_workspace extends class_base
 {
+	const AW_CLID = 852;
+
 	public static $state_colours = array (
 		mrp_case_obj::STATE_NEW => MRP_COLOUR_NEW,
 		mrp_case_obj::STATE_PLANNED => MRP_COLOUR_PLANNED,
@@ -7894,7 +7898,7 @@ class mrp_workspace extends class_base
 			return $o->name();
 		}
 		// get person
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$person = obj($u->get_current_person());
 
 		// get professions for person
@@ -7965,7 +7969,7 @@ class mrp_workspace extends class_base
 		}
 
 		// get person
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$person = obj($u->get_current_person());
 
 		// get professions for person
@@ -8719,7 +8723,7 @@ class mrp_workspace extends class_base
 	function make_aw_header()
 	{
 		// current user name, logout link
-		$us = get_instance(CL_USER);
+		$us = new user();
 
 		$p_id = $us->get_current_person();
 		if (!$p_id)

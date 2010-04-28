@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/table.aw,v 1.2 2008/06/03 09:25:34 kristo Exp $
 // table.aw - tabelite haldus
 /*
@@ -6,6 +8,8 @@
 */
 class table extends aw_template
 {
+	const AW_CLID = 3;
+
 	var $table_id;
 	var $table_name;
 	var $arr;
@@ -46,7 +50,7 @@ class table extends aw_template
 			$row = $this->db_next();
 			if ($row)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$fl = $fi->get_file_by_id($oid);
 				return $fl["content"];
 			};
@@ -1733,7 +1737,7 @@ class table extends aw_template
 			$row = $this->db_next();
 			if ($row)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$fl = $fi->get_file_by_id($oid);
 				return $fl["content"];
 			};

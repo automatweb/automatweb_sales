@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_AW_CLASS_PROPERTY relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_aw_class_property master_index=brother_of master_table=objects index=aw_oid
@@ -71,6 +73,8 @@
 
 class aw_class_property extends class_base
 {
+	const AW_CLID = 1506;
+
 	function aw_class_property()
 	{
 		$this->init(array(

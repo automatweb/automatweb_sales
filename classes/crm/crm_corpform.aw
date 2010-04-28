@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_corpform.aw,v 1.7 2008/01/31 13:54:12 kristo Exp $
 /*
 	@tableinfo kliendibaas_ettevotlusvorm index=oid master_table=objects master_index=oid
@@ -36,6 +38,8 @@ CREATE TABLE `kliendibaas_ettevotlusvorm` (
 
 class crm_corpform extends class_base
 {
+	const AW_CLID = 135;
+
 	function crm_corpform()
 	{
 		$this->init(array(

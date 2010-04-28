@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/geoinfo/geoinfo_data.aw,v 1.5 2008/02/28 13:53:47 robert Exp $
 // geoinfo_data.aw - Geoinfo andmed 
 /*
@@ -156,6 +158,8 @@
 
 class geoinfo_data extends class_base
 {
+	const AW_CLID = 1374;
+
 	function geoinfo_data()
 	{
 		$this->init(array(

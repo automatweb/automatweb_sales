@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/pank/account.aw,v 1.8 2008/01/31 13:55:00 kristo Exp $
 // account.aw - Konto 
 /*
@@ -67,6 +69,8 @@ define('ACCOUNT_OUTGOING', 1);
 
 class account extends class_base
 {
+	const AW_CLID = 640;
+
 	function account()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

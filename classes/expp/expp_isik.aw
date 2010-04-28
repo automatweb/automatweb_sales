@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_isik.aw,v 1.8 2007/11/23 07:18:28 dragut Exp $
 // expp_isik.aw - Expp isik 
 /*
@@ -10,6 +12,8 @@
 
 */
 class expp_isik extends class_base {
+	const AW_CLID = 1017;
+
 
 	var $cy;
 	var $cp;

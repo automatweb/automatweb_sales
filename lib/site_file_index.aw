@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 function load_versions()
 {
 	if (aw_global_get("no_db_connection"))
@@ -21,7 +23,7 @@ function load_versions()
 
 	if(!table_exists("site_file_index"))
 	{
-		$that = get_instance(CL_FILE);
+		$that = new file();
 		mysql_query('create table '.$that->db_table_name.' (
 			id int not null primary key auto_increment,
 			file_name varchar(255),
@@ -135,7 +137,7 @@ return $class;
 	{
 		$add_aw_dir = 1;
 		$class = substr($class , strlen(AW_DIR));
-		
+
 	}
 
 	$data = null;

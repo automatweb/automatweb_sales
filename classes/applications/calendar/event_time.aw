@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/event_time.aw,v 1.10 2008/08/05 10:32:52 markop Exp $
 // event_time.aw - Toimumisaeg 
 /*
@@ -39,6 +41,8 @@ default group=general
 
 class event_time extends class_base
 {
+	const AW_CLID = 1322;
+
 	function event_time()
 	{
 		$this->init(array(

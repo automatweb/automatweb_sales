@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/messenger/mail_rule.aw,v 1.8 2007/12/06 14:33:40 kristo Exp $
 // mail_rule.aw - Maili ruul 
 /*
@@ -24,6 +26,8 @@
 
 class mail_rule extends class_base
 {
+	const AW_CLID = 230;
+
 	function mail_rule()
 	{
 		$this->init(array(

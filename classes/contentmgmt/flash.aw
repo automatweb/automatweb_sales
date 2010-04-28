@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/flash.aw,v 1.21 2009/08/09 20:07:15 dragut Exp $
 // flash.aw - Deals with flash applets
 /*
@@ -38,6 +40,8 @@
 
 class flash extends class_base
 {
+	const AW_CLID = 194;
+
 	function flash()
 	{
 		$this->init(array(
@@ -90,7 +94,7 @@ class flash extends class_base
 			$fdata = $_FILES["file"];
 			if (($fdata["type"] == "application/x-shockwave-flash" || $fdata["type"] == "application/x-director")  && is_uploaded_file($fdata["tmp_name"]))
 			{
-				$awf = get_instance(CL_FILE);
+				$awf = new file();
 				$final_name = $awf->generate_file_path(array(
 					"type" => $fdata["type"],
 				));

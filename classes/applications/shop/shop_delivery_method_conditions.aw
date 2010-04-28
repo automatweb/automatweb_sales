@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_DELIVERY_METHOD_CONDITIONS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_shop_delivery_method_conditions master_index=brother_of master_table=objects index=aw_oid
@@ -29,6 +31,8 @@
 
 class shop_delivery_method_conditions extends class_base
 {
+	const AW_CLID = 1561;
+
 	function shop_delivery_method_conditions()
 	{
 		$this->init(array(

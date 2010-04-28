@@ -1,8 +1,6 @@
 <?php
 
-/*
-@classinfo  maintainer=kristo
-*/
+namespace automatweb;
 
 class obj_predicate_sort
 {

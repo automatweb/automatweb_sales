@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class site_diff_obj extends _int_object
 {
+	const AW_CLID = 1486;
+
 	public function diff($arr)
 	{
 		$o = obj($this->id());

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/util/image_verification/image_verification.aw,v 1.13 2008/06/04 14:56:35 instrumental Exp $
 // image_verification.aw - Kontrollpilt 
 /*
@@ -31,6 +33,8 @@
 
 class image_verification extends class_base
 {
+	const AW_CLID = 1124;
+
 	function image_verification()
 	{
 		$this->init(array(

@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 class tm
 {
 	private static $r_start;

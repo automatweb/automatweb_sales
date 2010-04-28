@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_GENERIC_XML_DS relationmgr=yes no_comment=1 no_status=1 prop_cb=1
@@ -15,6 +17,8 @@
 
 class generic_xml_ds extends class_base
 {
+	const AW_CLID = 1391;
+
 	function __construct()
 	{
 		$this->init(array(

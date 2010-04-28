@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_AUTHOR no_status=1 no_comment=1 maintainer=dragut
 
@@ -22,6 +24,8 @@
 
 class author extends class_base
 {
+	const AW_CLID = 301;
+
 	const DEFAULT_LIMIT = 20;
 
 	function author()

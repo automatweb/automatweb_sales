@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_item_price.aw,v 1.4 2008/06/05 11:27:27 robert Exp $
 // shop_item_price.aw - Toote Hind 
 /*
@@ -44,6 +46,8 @@
 
 class shop_item_price extends class_base
 {
+	const AW_CLID = 293;
+
 	function shop_item_price()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

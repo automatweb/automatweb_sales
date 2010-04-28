@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/rostering/rostering_work_entry.aw,v 1.7 2008/10/16 15:08:16 markop Exp $
 // rostering_work_entry.aw - T&ouml;&ouml;aegade sisestus 
 /*
@@ -42,6 +44,8 @@
 
 class rostering_work_entry extends class_base
 {
+	const AW_CLID = 1160;
+
 	function rostering_work_entry()
 	{
 		$this->init(array(

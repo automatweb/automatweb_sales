@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class group_membership_obj extends _int_object
 {
+	const AW_CLID = 1481;
+
 	function set_status($s)
 	{
 		if($s == object::STAT_ACTIVE)

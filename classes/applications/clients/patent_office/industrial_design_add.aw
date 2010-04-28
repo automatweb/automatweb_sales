@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // industrial_design_add.aw - T88stusdisainilahenduse veebist lisamine
 /*
 
@@ -38,6 +40,8 @@
 
 class industrial_design_add extends class_base
 {
+	const AW_CLID = 1455;
+
 	function industrial_design_add()
 	{
 		$this->init(array(

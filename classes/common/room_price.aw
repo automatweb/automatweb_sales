@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_ROOM_PRICE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
 
@@ -61,6 +63,8 @@
 
 class room_price extends class_base
 {
+	const AW_CLID = 1164;
+
 	function room_price()
 	{
 		$this->init(array(

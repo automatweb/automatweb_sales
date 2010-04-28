@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/site_search/site_search_content_grp_html.aw,v 1.16 2008/08/27 08:54:10 kristo Exp $
 // site_search_content_grp_html.aw - Otsingu html indekseerija 
 /*
@@ -74,6 +76,8 @@
 classload("core/run_in_background");
 class site_search_content_grp_html extends run_in_background
 {
+	const AW_CLID = 975;
+
 	function site_search_content_grp_html()
 	{
 		$this->init(array(

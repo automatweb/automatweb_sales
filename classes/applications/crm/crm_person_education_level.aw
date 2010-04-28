@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_person_education_level.aw - Haridustase
 /*
 
@@ -11,6 +13,8 @@
 
 class crm_person_education_level extends class_base
 {
+	const AW_CLID = 1398;
+
 	function crm_person_education_level()
 	{
 		$this->init(array(

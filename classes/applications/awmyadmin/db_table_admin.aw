@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo no_status=1 no_comment=1 maintainer=kristo prop_cb=1
 
@@ -33,6 +35,8 @@
 
 class db_table_admin extends class_base
 {
+	const AW_CLID = 152;
+
 	function db_table_admin()
 	{
 		$this->init(array(

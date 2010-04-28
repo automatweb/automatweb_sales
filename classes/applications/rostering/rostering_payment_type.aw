@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/rostering/rostering_payment_type.aw,v 1.3 2007/12/06 14:34:03 kristo Exp $
 // rostering_payment_type.aw - Tasu liik 
 /*
@@ -26,6 +28,8 @@
 
 class rostering_payment_type extends class_base
 {
+	const AW_CLID = 1161;
+
 	function rostering_payment_type()
 	{
 		$this->init(array(

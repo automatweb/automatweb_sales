@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_field_other.aw,v 1.3 2007/12/06 14:33:17 kristo Exp $
 // crm_field_other.aw - Muu (valdkond) 
 /*
@@ -58,6 +60,8 @@
 
 class crm_field_other extends class_base
 {
+	const AW_CLID = 1114;
+
 	function crm_field_other()
 	{
 		$this->init(array(

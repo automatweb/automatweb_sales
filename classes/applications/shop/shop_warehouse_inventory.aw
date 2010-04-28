@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_warehouse_inventory.aw,v 1.6 2009/04/02 08:22:24 robert Exp $
 // shop_warehouse_inventory.aw - Inventuur 
 /*
@@ -55,6 +57,8 @@
 
 class shop_warehouse_inventory extends class_base
 {
+	const AW_CLID = 1044;
+
 	function shop_warehouse_inventory()
 	{
 		$this->init(array(

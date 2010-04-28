@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_offer_compare_table.aw,v 1.3 2008/01/31 13:54:13 kristo Exp $
 // crm_offer_compare_table.aw - Pakkumise v&otilde;rdlustabel
 /*
@@ -43,6 +45,8 @@
 
 class crm_offer_compare_table extends class_base
 {
+	const AW_CLID = 924;
+
 	function crm_offer_compare_table()
 	{
 		$this->init(array(

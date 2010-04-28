@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/protocols/file/ocsp.aw,v 1.3 2008/01/31 13:55:21 kristo Exp $
 // ocsp.aw - OCSP p&auml;ring 
 /*
@@ -7,6 +9,8 @@
 
 class ocsp extends class_base
 {
+	const AW_CLID = 1207;
+
 	function ocsp()
 	{
 		$this->init(array(

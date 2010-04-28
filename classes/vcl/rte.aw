@@ -1,9 +1,11 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/vcl/rte.aw,v 1.20 2009/08/13 08:20:52 instrumental Exp $
-// rte.aw - Rich Text Editor 
+
+namespace automatweb;
+
+// rte.aw - Rich Text Editor
 /*
 
-@classinfo syslog_type=ST_RTE relationmgr=yes maintainer=hannes
+@classinfo syslog_type=ST_RTE relationmgr=yes
 
 @default table=objects
 @default group=general
@@ -46,10 +48,10 @@ class rte extends aw_template
 
 		}
 		return $retval;
-	}	
+	}
 
 	*/
-	
+
 	/**
 		@attrib name=table_dialog all_args="1"
 	**/
@@ -74,13 +76,13 @@ class rte extends aw_template
 
 		@param toolbar required type=object
 			Toolbar object
-		@errors 
+		@errors
 			none
 
-		@returns 
+		@returns
 			none
 
-		@comment 
+		@comment
 			none
 		@examples
 			none
@@ -182,7 +184,7 @@ class rte extends aw_template
 				"url" => "javascript:${js_url_prefix}format_selection('indent');",
 				"img" => "rte_indent.gif",
 			));
-			
+
 			$toolbar->add_separator();
 
 			$toolbar->add_button(array(
@@ -200,13 +202,13 @@ class rte extends aw_template
 				"tooltip" => t("Tabel"),
 				"img" => "rte_table.gif",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "table_props",
 				"text" => t("Lisa tabel"),
 				"url" => "javascript:document.getElementById('table_props').style.visibility='hidden';{$js_url_prefix}table_dialog();",
 			));
-			
+
 			$toolbar->add_menu_separator(array("parent" => "table_props"));
 
 			$toolbar->add_menu_item(array(
@@ -214,7 +216,7 @@ class rte extends aw_template
 				"text" => t("Lisa tulp"),
 				"url" => "javascript:document.getElementById('table_props').style.visibility='hidden';{$js_url_prefix}insert_column();",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "table_props",
 				"text" => t("Lisa rida"),
@@ -222,19 +224,19 @@ class rte extends aw_template
 			));
 
 			$toolbar->add_menu_separator(array("parent" => "table_props"));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "table_props",
 				"text" => t("Kustuta tulp"),
 				"url" => "javascript:document.getElementById('table_props').style.visibility='hidden';{$js_url_prefix}delete_column();",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "table_props",
 				"text" => t("Kustuta rida"),
 				"url" => "javascript:document.getElementById('table_props').style.visibility='hidden';{$js_url_prefix}delete_row();",
 			));
-		
+
 			/*
 			$toolbar->add_menu_separator(array("parent" => "table_props"));
 			$toolbar->add_menu_item(array(
@@ -260,61 +262,61 @@ class rte extends aw_template
 			));
 
 			$toolbar->add_separator();
-			
+
 			/*$toolbar->add_menu_button(array(
 				"name" => "headings",
 				"tooltip" => t("Päised"),
 				"img" => "h1.gif",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "headings",
 				"text" => t("Heading 1"),
 				"url" => "javascript:{$js_url_prefix}surroundHTML('<h1>','</h1>');",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "headings",
 				"text" => t("Heading 2"),
 				"url" => "javascript:{$js_url_prefix}surroundHTML('<h2>','</h2>');",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "headings",
 				"text" => t("Heading 3"),
 				"url" => "javascript:{$js_url_prefix}surroundHTML('<h3>','</h3>');",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "headings",
 				"text" => t("Heading 4"),
 				"url" => "javascript:{$js_url_prefix}surroundHTML('<h4>','</h4>');",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "headings",
 				"text" => t("Heading 5"),
 				"url" => "javascript:{$js_url_prefix}surroundHTML('<h5>','</h5>');",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "headings",
 				"text" => t("Heading 6"),
 				"url" => "javascript:{$js_url_prefix}surroundHTML('<h6>','</h6>');",
 			));
-			
+
 			$toolbar->add_menu_button(array(
 				"name" => "textcolor",
 				"tooltip" => t("Teksti värv"),
 				"img" => "textcolor.gif",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "textcolor",
 				"text" => t("Sinine"),
 				"url" => "javascript:{$js_url_prefix}colortext('#0000ff');",
 			));
-			
+
 			$toolbar->add_menu_item(array(
 				"parent" => "textcolor",
 				"text" => t("Punane"),
@@ -324,7 +326,7 @@ class rte extends aw_template
 
 			$this->get_styles_from_site();
 
-				   
+
 				/*
 					$toolbar->add_separator();
 			$this->read_template("stylebox.tpl");
@@ -357,17 +359,17 @@ class rte extends aw_template
 	}
 	/** Draws the RTE editor
 
-		@attrib name=draw_editor params=name api=1 
+		@attrib name=draw_editor params=name api=1
 
 		@param name required type=string
 
-		@errors 
+		@errors
 			none
 
-		@returns 
+		@returns
 			none
 
-		@comment 
+		@comment
 			All parameters are set as template variables
 
 		@examples
@@ -403,6 +405,6 @@ class rte extends aw_template
                 $retval .= $this->parse("field");
                 return $retval;
         }
-	
+
 }
 ?>

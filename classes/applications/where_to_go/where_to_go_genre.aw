@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/where_to_go/where_to_go_genre.aw,v 1.1 2008/02/03 22:38:07 dragut Exp $
 // genre.aw - &#142;anr 
 /*
@@ -12,6 +14,8 @@
 
 class where_to_go_genre extends class_base
 {
+	const AW_CLID = 999;
+
 	function where_to_go_genre()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

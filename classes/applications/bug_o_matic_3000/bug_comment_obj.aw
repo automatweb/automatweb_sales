@@ -1,10 +1,15 @@
 <?php
+
+namespace automatweb;
+
 /*
 @classinfo  maintainer=robert
 */
 
 class bug_comment_obj extends _int_object
 {
+	const AW_CLID = 1058;
+
 	function save($exclusive = false, $previous_state = null)
 	{
 		//miskit sellise nimelist propi on vaja, et otsinguid teha jne

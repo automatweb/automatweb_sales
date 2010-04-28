@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_org_search.aw,v 1.18 2008/02/28 11:50:56 kristo Exp $
 // crm_org_search.aw - kliendibaasi otsing 
 /*
@@ -42,6 +44,8 @@
 
 class crm_org_search extends class_base
 {
+	const AW_CLID = 1378;
+
 	function crm_org_search()
 	{
 		$this->init(array(

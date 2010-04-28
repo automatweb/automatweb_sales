@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @default table=objects
 @default group=general
@@ -64,6 +66,8 @@
 
 class room_reservation extends class_base
 {
+	const AW_CLID = 1174;
+
 	function room_reservation()
 	{
 		$this->init(array(
@@ -209,7 +213,7 @@ class room_reservation extends class_base
 		));
 
 		aw_global_set("output_charset", "utf-8");
-		$lg = get_instance("languages");
+		$lg = new languages();
 		$langdata = $lg->get_list();
 		foreach($langdata as $id => $lang)
 		{
@@ -1570,7 +1574,7 @@ if(!$level)
 		{
 			$_SESSION["ct_lang_id"] = $bron->meta("lang_id");
 			$_SESSION["ct_lang_lc"] = $bron->meta("lang_lc");
-			$l = get_instance("languages");
+			$l = new languages();
 			aw_global_set("ct_lang_lc", $_SESSION["ct_lang_lc"]);
 			aw_global_set("ct_lang_id", $_SESSION["ct_lang_id"]);
 		}

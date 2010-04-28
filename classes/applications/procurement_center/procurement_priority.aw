@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement_priority.aw,v 1.2 2007/12/06 14:33:50 kristo Exp $
 // procurement_priority.aw - Hanke prioriteet 
 /*
@@ -16,6 +18,8 @@
 
 class procurement_priority extends class_base
 {
+	const AW_CLID = 1075;
+
 	function procurement_priority()
 	{
 		$this->init(array(

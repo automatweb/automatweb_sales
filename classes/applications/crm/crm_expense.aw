@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_expense.aw,v 1.10 2009/04/14 15:23:53 markop Exp $
 // crm_expense.aw - Kulu 
 /*
@@ -49,6 +51,8 @@
 
 class crm_expense extends class_base
 {
+	const AW_CLID = 1144;
+
 	function crm_expense()
 	{
 		$this->init(array(

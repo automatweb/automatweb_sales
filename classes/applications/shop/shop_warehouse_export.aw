@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_warehouse_export.aw,v 1.7 2008/01/31 13:50:07 kristo Exp $
 // shop_warehouse_export.aw - Lao v&auml;ljaminek 
 /*
@@ -25,6 +27,8 @@
 
 class shop_warehouse_export extends class_base
 {
+	const AW_CLID = 299;
+
 	function shop_warehouse_export()
 	{
 		$this->init(array(

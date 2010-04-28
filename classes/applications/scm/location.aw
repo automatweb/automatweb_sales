@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/location.aw,v 1.8 2007/12/06 14:34:06 kristo Exp $
 // location.aw - Asukoht 
 /*
@@ -114,6 +116,8 @@
 
 class location extends class_base
 {
+	const AW_CLID = 1116;
+
 	function location()
 	{
 		$this->init(array(

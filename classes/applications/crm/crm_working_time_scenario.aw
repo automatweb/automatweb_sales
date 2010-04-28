@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_CRM_WORKING_TIME_SCENARIO relationmgr=yes no_comment=1 no_status=1 prop_cb=1
@@ -19,6 +21,8 @@
 
 class crm_working_time_scenario extends class_base
 {
+	const AW_CLID = 1392;
+
 	function crm_working_time_scenario()
 	{
 		$this->init(array(

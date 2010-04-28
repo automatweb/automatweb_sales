@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/ows_bron/ows_bron.aw,v 1.52 2009/05/06 13:12:00 markop Exp $
 // ows_bron.aw - OWS Broneeringukeskus 
 /*
@@ -59,6 +61,8 @@
 
 class ows_bron extends class_base
 {
+	const AW_CLID = 1323;
+
 	function ows_bron()
 	{
 		$this->init(array(

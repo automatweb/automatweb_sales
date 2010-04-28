@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/taket/taket_js_parser.aw,v 1.1 2008/10/01 14:17:40 markop Exp $
 // taket_js_parser.aw - Taketi JS Parser 
 /*
@@ -12,6 +14,8 @@
 
 class taket_js_parser extends class_base
 {
+	const AW_CLID = 248;
+
 	function taket_js_parser()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

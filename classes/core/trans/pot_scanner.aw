@@ -1,8 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/core/trans/pot_scanner.aw,v 1.51 2008/04/22 08:24:10 kristo Exp $
-/*
-@classinfo  maintainer=tarvo
-*/
+
+namespace automatweb;
+
 class pot_scanner extends core
 {
 	function pot_scanner()
@@ -411,7 +410,7 @@ class pot_scanner extends core
 		for($i = 0; $i < $cnt;  $i++)
 		{
 			$line = $lines[$i];
-			
+
 			if(substr($line, 0, 1) == "#")
 			{
 				$entry_header[] = $line;
@@ -471,7 +470,7 @@ class pot_scanner extends core
 
 		return $f;
 	}
-	
+
 	// arr(location,data => array(msgid => translated_text))
 	function write_aw_lang_file($arr)
 	{
@@ -499,7 +498,7 @@ class pot_scanner extends core
 	{
 		return  preg_replace('=<br */?>=i', "\r\n", $text);
 	}
-	
+
 	function _nl2br($text)
 	{
 		return preg_replace("/(\r\n|\n|\r)/", "<br />", $text);
@@ -529,7 +528,7 @@ class pot_scanner extends core
 			$contents[] = "msgstr \"".$this->_nl2br($entry["msgstr"])."\"\n\n";
 		}
 		$contents = array_merge($header, $contents);
-		
+
 		chmod($arr["location"], 0777);
 		$fp = fopen($arr["location"], "w");
 		foreach($contents as $line)
@@ -672,7 +671,7 @@ class pot_scanner extends core
 					"str" => "syslog.action.".$sd["def"],
 				);
 			}
-			
+
 			$lgs = aw_ini_get("languages.list");
 			foreach($lgs as $laid => $sd)
 			{
@@ -681,7 +680,7 @@ class pot_scanner extends core
 					"str" => "languages.list.".$sd["acceptlang"],
 				);
 			}
-			
+
 			$this->_cond_write_file($inipot, $strings, $inif);
 
 			$this->_do_update_po($inipot);

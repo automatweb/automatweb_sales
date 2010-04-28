@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview/search_roadinfo.aw,v 1.1 2008/02/03 22:44:29 dragut Exp $
 // search_roadinfo.aw - Maanteeinfo otsing 
 /*
@@ -48,6 +50,8 @@ caption Otsingu tulemuste tabel
 
 class search_roadinfo extends class_base
 {
+	const AW_CLID = 806;
+
 
 	var $county_list = array(
 		"" => "Kõik",

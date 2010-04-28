@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_deal.aw,v 1.24 2008/09/08 10:52:34 markop Exp $
 // crm_deal.aw - Tehing 
 /*
@@ -78,6 +80,8 @@
 
 class crm_deal extends class_base
 {
+	const AW_CLID = 222;
+
 	function crm_deal()
 	{
 		$this->init(array(
@@ -277,13 +281,13 @@ class crm_deal extends class_base
 					}
 					else
 					{
-						$u = get_instance(CL_USER);
+						$u = new user();
 						$arr["request"]["sides"][] = $u->get_company_for_person($prop["value"]);
 					}
 				}
 				break;
 			case "sides":
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$prop["value"] = $arr["request"]["sides"];
 				$prop["value"][]= $u->get_current_company();
 				break;
@@ -400,7 +404,7 @@ class crm_deal extends class_base
 		$conns = $arr["obj_inst"]->connections_from(array(
 			"type" => "RELTYPE_FILE",
 		));
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		classload("core/icons");
 		foreach($conns as $c)
 		{

@@ -127,7 +127,7 @@ class doc_display extends aw_template
 		$modf_eml = "";
 		if ($modf != "" && $this->template_has_var_full("modifiedby_email"))
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = $u->get_person_for_uid($modf);
 			$modf = $p->name();
 			$modf_eml = $p->prop("email.mail");
@@ -192,7 +192,7 @@ class doc_display extends aw_template
 			aw_global_set("set_doc_title","");
 		}
 		
-		$uinst = get_instance(CL_USER);
+		$uinst = new user();
 		$mb_person = obj();
 		if ($this->template_has_var_full("modified_by"))
 		{
@@ -201,7 +201,7 @@ class doc_display extends aw_template
 		$this->vars($al->get_vars());
 		
 		$lang_id = aw_global_get("lang_id");
-		$l = get_instance("languages");
+		$l = new languages();
 		$sel_lang = $l->fetch($lang_id);
 		
 		$title = $doc->trans_get_val("title");
@@ -335,7 +335,7 @@ class doc_display extends aw_template
 			$cs = aw_global_get("charset");
 			if (aw_ini_get("user_interface.full_content_trans"))
 			{
-				$l = get_instance("languages");
+				$l = new languages();
 				$ld = $l->fetch(aw_global_get("ct_lang_id"));
 				$cs = $ld["charset"];
 			}
@@ -1109,7 +1109,7 @@ class doc_display extends aw_template
 	{
 		if ($this->template_has_var("charset"))
 		{
-			$_langs = get_instance("languages");
+			$_langs = new languages();
 			$_ld = $_langs->fetch(aw_ini_get("user_interface.full_content_trans") ? aw_global_get("ct_lang_id") : aw_global_get("lang_id"));
 			$this->vars(array(
 				"charset" => $_ld["charset"]
@@ -1141,7 +1141,7 @@ class doc_display extends aw_template
 		{
 			return;
 		}
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("site_edit_".$menu->id());
 		$url = $this->mk_my_orb("new", array("parent" => $menu->parent(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_DOCUMENT, true);
 		$pm->add_item(array(

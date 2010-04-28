@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // treeview.aw - tree generator
 /*
 
@@ -48,6 +50,8 @@ define("DATA_IN_PLACE",3);
 
 class treeview extends class_base
 {
+	const AW_CLID = 137;
+
 	var $only_one_level_opened = 0;
 	var $level;
 	var $selected_item;
@@ -129,7 +133,7 @@ class treeview extends class_base
 
 		// listib koik menyyd ja paigutab need arraysse
 
-		$this->ic = get_instance("core/icons");
+		$this->ic = new icons();
 
 
 		// objektipuu
@@ -642,7 +646,7 @@ class treeview extends class_base
 		{
 			$this->r_path = $this->r_path + $this->open_nodes;
 		};
-		$t = get_instance("core/languages");
+		$t = new languages();
 
 		$level = (!empty($_REQUEST["called_by_js"]) and isset($_COOKIE[$this->tree_id."_level"])) ? $_COOKIE[$this->tree_id."_level"] : 1;
 		if(!strlen($this->auto_open))
@@ -700,10 +704,10 @@ class treeview extends class_base
 				$this->vars(array(
 					"get_branch_func" => $this->get_branch_func,
 				));
-			};
+			}
 
 			$root .= $this->parse("HAS_ROOT");
-		};
+		}
 
 		// so, by default all items below the second level are hidden, but I should be able to
 		// make them visible based on my selected item. .. oh god, this is SO going to be not
@@ -762,7 +766,7 @@ class treeview extends class_base
 			$this->r_path = array_unique($r_path);
 		};
 
-		$t = get_instance("languages");
+		$t = new languages();
 		$checked_nodes = is_array ($this->checked_nodes) ? implode ($this->separator, $this->checked_nodes) : "";
 
 		$this->vars (array(
@@ -840,7 +844,7 @@ class treeview extends class_base
 			$opened_nodes = array();
 		}
 
-		$t = get_instance("languages");
+		$t = new languages();
 		$this->vars (array(
 			"target" => empty($this->tree_dat["url_target"]) ? "" : $this->tree_dat["url_target"],
 			"open_nodes" => count($opened_nodes) ? join(",",map("'%s'",$opened_nodes)) : "",
@@ -1196,7 +1200,7 @@ class treeview extends class_base
 					"SUB_NODES" => "",
 				));
 
-				if ($checkbox_status == "button")
+				if ($checkbox_status === "button")
 				{
 					$tpl = "SINGLE_NODE_BUTTON";
 				}
@@ -1393,7 +1397,7 @@ class treeview extends class_base
 		$show_num_child = null;
 		$add_change_url = null;
 		extract($arr);
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 		$aw_classes = get_class_picker (array ("field" => "def"));
 		$item_name_props = (array) ifset($arr, "item_name_props");
 
@@ -1482,7 +1486,7 @@ class treeview extends class_base
 			$tv->add_item(0, $item);
 		}
 
-		$ic = get_instance("core/icons");
+		$ic = new icons();
 		$ol = $ot->to_list();
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{

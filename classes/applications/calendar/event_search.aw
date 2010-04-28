@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // event_search.aw - Syndmuste otsing
 /*
 
@@ -104,6 +106,8 @@
 
 class event_search extends class_base
 {
+	const AW_CLID = 850;
+
 	var $cfgform_id;
 	function event_search()
 	{
@@ -145,7 +149,7 @@ class event_search extends class_base
 		{
 			return PROP_IGNORE;
 		};
-		$t = get_instance(CL_CFGFORM);
+		$t = new cfgform();
 		$props = $t->get_props_from_cfgform(array("id" => $this->evt_cfgform_id));
 		foreach($props as $propname => $propdata)
 		{
@@ -508,7 +512,7 @@ class event_search extends class_base
 
 		$oldvals = $o->meta("result_table");
 
-		$tc = get_instance(CL_CFGFORM);
+		$tc = new cfgform();
 		$cform_obj = new object($this->evt_cfgform_id);
 		$use_output = $cform_obj->prop("use_output");
 

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_XML_SOURCE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kaarel
 
@@ -144,6 +146,8 @@
 
 class xml_source extends class_base
 {
+	const AW_CLID = 1354;
+
 	function xml_source()
 	{
 		$this->init(array(
@@ -164,7 +168,7 @@ class xml_source extends class_base
 
 	function _get_available_langs($arr)
 	{			
-		$lg = get_instance("languages");
+		$lg = new languages();
 		$arr["prop"]["options"] = $lg->get_list();
 	}
 	
@@ -312,7 +316,7 @@ class xml_source extends class_base
 
 		$saved_lang_conf = $arr["obj_inst"]->meta("language_table");
 
-		$lg = get_instance("languages");
+		$lg = new languages();
 		foreach($lg->get_list() as $id => $caption)
 		{
 			$t->define_data(array(

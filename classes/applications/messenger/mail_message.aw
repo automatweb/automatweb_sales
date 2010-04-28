@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/messenger/mail_message.aw,v 1.54 2009/08/22 20:05:59 markop Exp $
 // mail_message.aw - Mail message
 
@@ -121,6 +123,8 @@
 
 class mail_message extends class_base
 {
+	const AW_CLID = 52;
+
 	function mail_message()
 	{
 		$this->init(array(
@@ -1459,10 +1463,10 @@ arr($row);*/
                         "msgr_id" => $arr["msgrid"],
                 ));
 
-		$awf = get_instance(CL_FILE);
+		$awf = new file();
 
 
-		//$awf = get_instance(CL_FILE);
+		//$awf = new file();
 
 		foreach($msgdata["attachments"] as $num => $pdata)
 		{

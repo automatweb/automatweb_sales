@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_day_report.aw,v 1.3 2007/12/06 14:33:17 kristo Exp $
 // crm_day_report.aw - P&auml;eva raport 
 /*
@@ -26,6 +28,8 @@
 
 class crm_day_report extends class_base
 {
+	const AW_CLID = 1006;
+
 	function crm_day_report()
 	{
 		$this->init(array(
@@ -50,7 +54,7 @@ class crm_day_report extends class_base
 			case "reporter":
 				if ($prop["value"] == "")
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$prop["value"] = $u->get_current_person();
 				}
 
@@ -73,7 +77,7 @@ class crm_day_report extends class_base
 			case "reporter":
 				if ($arr["obj_inst"]->prop("reporter") == "")
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$prop["value"] = $u->get_current_person();
 					$arr["obj_inst"]->set_prop("reporter", $prop["value"]);
 				}

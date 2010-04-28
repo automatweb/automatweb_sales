@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // auth_server_nds.aw - Autentimisserver NDS
 /*
 
@@ -52,6 +54,8 @@
 
 class auth_server_nds extends class_base
 {
+	const AW_CLID = 874;
+
 	function auth_server_nds()
 	{
 		$this->init(array(

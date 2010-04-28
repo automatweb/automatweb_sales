@@ -1,8 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
+namespace automatweb;
 
 define("HTML2PDF_HTMLDOC", 1);
 define("HTML2PDF_DOMPDF", 2);

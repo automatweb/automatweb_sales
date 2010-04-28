@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
+
+namespace automatweb;
 
 define("DAY", 86400);
 
@@ -224,7 +223,7 @@ class crm_company_stats_impl extends class_base
 
 		$t =& $arr["prop"]["vcl_inst"];
 		// get all persons from company
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$slaves = array();
 		$c = get_instance(CL_CRM_COMPANY);
 		$c->get_all_workers_for_company($arr["obj_inst"], $slaves);
@@ -2435,7 +2434,7 @@ ini_set("memory_limit", "1500M");
 			}
 		}
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 
 		$i = get_instance("applications/crm/crm_company_qv_impl");
@@ -3004,7 +3003,7 @@ ini_set("memory_limit", "1500M");
 			{
 				$brc = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $this->_stats_s_to);
 			}
-			$u = get_instance(CL_USER);
+			$u = new user();
 			/*$f = array(
 				"class_id" => CL_CRM_BILL,
 				"lang_id" => array(),
@@ -3163,7 +3162,7 @@ ini_set("memory_limit", "1500M");
 		{
 			return $this->co_currency;
 		}
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$company = obj($u->get_current_company());
 		$this->co_currency = $company->prop("currency");
 		return $company->prop("currency");
@@ -3830,7 +3829,7 @@ ini_set("memory_limit", "1500M");
 
 				$hours_cust = 0;
 				$hours_dev = 0;
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$company = $u->get_current_company();
 				foreach($this->stats_rows_data as $row)
 				{
@@ -4438,7 +4437,7 @@ ini_set("memory_limit", "1500M");
 		$hours_cust = array();
 		$hours_dev = array();
 		$sum = array();
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$company = $u->get_current_company();
 		$name_objects = new object_list();
 
@@ -4868,7 +4867,7 @@ ini_set("memory_limit", "1500M");
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_project_managers_t($t);
 		$t->set_caption("sdddddddddddddddddddddddddddddddddfsdf");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$company = $u->get_current_company();
 
 		if(!$this->stats_rows_data)
@@ -5129,7 +5128,7 @@ ini_set("memory_limit", "1500M");
 		$hours_cust = array();
 		$hours_dev = array();
 		$sum = array();
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$company = $u->get_current_company();
 		$name_objects = new object_list();
 

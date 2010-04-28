@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/import/taavi_import.aw,v 1.7 2008/01/31 13:54:39 kristo Exp $
 // taavi_import.aw - Taavi import 
 /*
@@ -25,6 +27,8 @@
 
 class taavi_import extends class_base
 {
+	const AW_CLID = 1047;
+
 	function taavi_import()
 	{
 		$this->init(array(

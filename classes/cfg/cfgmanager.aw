@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @default table=objects
 @default group=general
@@ -24,6 +26,8 @@
 */
 class cfgmanager extends class_base
 {
+	const AW_CLID = 122;
+
 	private $formlist = array();
 
 	function cfgmanager($args = array())

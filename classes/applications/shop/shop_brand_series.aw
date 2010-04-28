@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // shop_brand_series.aw - Lao br&auml;ndiseeria
 /*
 
@@ -11,6 +13,8 @@
 
 class shop_brand_series extends class_base
 {
+	const AW_CLID = 1444;
+
 	function shop_brand_series()
 	{
 		$this->init(array(

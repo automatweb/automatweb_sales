@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // crm_section.aw - &Uuml;ksus
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_COMPANY, on_disconnect_org_from_section)
@@ -111,6 +113,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disco
 
 class crm_section extends class_base
 {
+	const AW_CLID = 321;
+
 	function crm_section()
 	{
 		$this->init(array(

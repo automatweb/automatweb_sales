@@ -61,7 +61,7 @@ class participant_selector extends core
 		}
 		$darr = array();
 		$fields = array();
-		$cff = get_instance(CL_CFGFORM);
+		$cff = new cfgform();
 		$clsfs = array();
 		//arr($datas);
 		$no_show = array("submit", "button", "text", "reset");

@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /** aw code analyzer
 
 	@classinfo  maintainer=kristo

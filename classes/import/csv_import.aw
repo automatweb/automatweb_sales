@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 @classinfo syslog_type=ST_CSV_IMPORT relationmgr=yes no_status=1 maintainer=voldemar prop_cb=1
@@ -64,6 +66,8 @@
 
 class csv_import extends class_base
 {
+	const AW_CLID = 1562;
+
 	function __construct ()
 	{
 		$this->init(array(

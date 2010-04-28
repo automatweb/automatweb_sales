@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/spa_bookings/spa_bookings_overview.aw,v 1.84 2009/06/19 14:59:25 markop Exp $
 // spa_bookings_overview.aw - Reserveeringute &uuml;levaade 
 /*
@@ -250,6 +252,8 @@ define("DAY_LENGTH", 3600*24);
 classload("vcl/date_edit");
 class spa_bookings_overview extends class_base
 {
+	const AW_CLID = 1187;
+
 	function spa_bookings_overview()
 	{
 		$this->init(array(
@@ -2327,7 +2331,7 @@ class spa_bookings_overview extends class_base
 		}
 		list($y, $m, $d) = explode("-", $p->prop("birthday"));
 
-		$us = get_instance(CL_USER);
+		$us = new user();
 		$this->users_person = $us->get_person_for_uid($b->createdby());
 		$this->vars(array(
 			"bureau" => $b->prop("seller")?$b->trans_get_val_str("seller"):$this->users_person->name(),//$b->createdby(),
@@ -3004,7 +3008,7 @@ class spa_bookings_overview extends class_base
 		$ol = new object_list();
 		$co = get_instance(CL_CRM_COMPANY);
 		$room_instance = get_instance(CL_ROOM);
-		$pi = get_instance(CL_USER);
+		$pi = new user();
 		$from = date_edit::get_timestamp($arr["request"]["stats_rs_booking_from"]);
 		$to = date_edit::get_timestamp($arr["request"]["stats_rs_booking_to"]);
 		$srch = !empty($arr["request"]["stats_rs_name"]) || !empty($arr["request"]["stats_rs_booker_name"]) || $from > 1 || $to > 1 || !empty($arr["request"]["stats_rs_package"]);	

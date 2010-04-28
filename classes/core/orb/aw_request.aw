@@ -1,8 +1,7 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
+namespace automatweb;
+
 class aw_request
 {
 	// const DEFAULT_CLASS = "admin_if";
@@ -308,7 +307,7 @@ class aw_request
 			throw new awex_request_param("Invalid argument. Protocol must be an object");
 		}
 
-		if (!in_array("protocol_interface", class_implements($protocol)))
+		if (!in_array("automatweb\\protocol_interface", class_implements($protocol)))
 		{
 			throw new awex_request_param("Invalid argument. Protocol object must have protocol interface");
 		}

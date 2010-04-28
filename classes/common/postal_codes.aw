@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_POSTAL_CODES relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
@@ -30,6 +32,8 @@
 
 class postal_codes extends class_base
 {
+	const AW_CLID = 1420;
+
 	function postal_codes()
 	{
 		$this->init(array(

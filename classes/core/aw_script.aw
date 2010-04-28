@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/aw_script.aw,v 1.3 2008/01/31 13:52:49 kristo Exp $
 // aw_script.aw - AW skript 
 /*
@@ -29,6 +31,8 @@
 
 class aw_script extends class_base
 {
+	const AW_CLID = 480;
+
 	function aw_script()
 	{
 		$this->init(array(

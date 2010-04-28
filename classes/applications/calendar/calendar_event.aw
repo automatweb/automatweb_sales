@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // calendar_event.aw - Kalendri syndmus
 /*
 @classinfo syslog_type=ST_CALENDAR_EVENT relationmgr=yes maintainer=kristo
@@ -255,6 +257,8 @@ caption Toimumisaegade tabel
 
 class calendar_event extends class_base
 {
+	const AW_CLID = 819;
+
 	function calendar_event()
 	{
 		$this->init(array(
@@ -301,7 +305,7 @@ class calendar_event extends class_base
 			case "ufupload1":
                                 if (is_uploaded_file($_FILES["ufupload1"]["tmp_name"]))
                                 {
-                                        $f = get_instance(CL_FILE);
+                                        $f = new file();
 					$prop["value"] = $f->create_file_from_string(array(
 						"id" => $prop["value"],
 						"parent" => $_POST["parent"],
@@ -932,7 +936,7 @@ cal.select(changeform.event_time_new__end_,\'anchornew\',\'dd.MM.yyyy HH:mm\'); 
 			), CL_CRM_PERSON),
 		));
 
-		$popup_search = get_instance("vcl/popup_search");
+		$popup_search = new popup_search();
 		$search_butt = $popup_search->get_popup_search_link(array(
 			"pn" => "organizer",
 			"clid" => array(CL_CRM_PERSON,CL_CRM_COMPANY),
@@ -1053,7 +1057,7 @@ cal.select(changeform.event_time_new__end_,\'anchornew\',\'dd.MM.yyyy HH:mm\'); 
 		));
 
 
-		$popup_search = get_instance("vcl/popup_search");
+		$popup_search = new popup_search();
 		$search_butt = $popup_search->get_popup_search_link(array(
 			"pn" => "location",
 			"clid" => array(CL_SCM_LOCATION),

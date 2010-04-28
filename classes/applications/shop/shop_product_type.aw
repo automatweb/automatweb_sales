@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_type.aw,v 1.8 2008/01/31 13:50:07 kristo Exp $
 // shop_product_type.aw - Toote t&uuml;&uuml;p 
 /*
@@ -39,6 +41,8 @@
 
 class shop_product_type extends class_base
 {
+	const AW_CLID = 300;
+
 	function shop_product_type()
 	{
 		$this->init(array(

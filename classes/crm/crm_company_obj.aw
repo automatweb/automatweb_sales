@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_company_obj extends _int_object implements crm_customer_interface
 {
+	const AW_CLID = 129;
+
 	function prop($k)
 	{
 		if(substr($k, 0, 5) === "fake_" && is_oid($this->id()))
@@ -828,7 +833,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 			$section = obj($section_oid, array(), CL_CRM_SECTION);
 			$work_relation->set_prop("section", $section->id());
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 		}
 

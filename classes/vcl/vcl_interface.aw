@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 interface vcl_interface
 {
 	public function init_vcl_property($arr);

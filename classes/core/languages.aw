@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class languages extends aw_template implements request_startup
 {
@@ -10,7 +9,6 @@ class languages extends aw_template implements request_startup
 		$this->init("languages");
 		lc_load("definition");
 		$this->lc_load("languages","lc_languages");
-		$this->file_cache = get_instance("cache");
 		// the name of the cache file
 		$this->cf_name = "languages-cache-site_id-".$this->cfg["site_id"];
 		$this->init_cache();
@@ -365,7 +363,7 @@ class languages extends aw_template implements request_startup
 			// this doesn't exactly take much time anyway, but still, can't be bad, can it?
 
 			// if the file cache exists and this is not an update, then read from that
-			if (!$force_read && ($cc = $this->file_cache->file_get($this->cf_name)))
+			if (!$force_read && ($cc = cache::file_get($this->cf_name)))
 			{
 				aw_cache_set_array("languages", aw_unserialize($cc));
 			}
@@ -386,7 +384,7 @@ class languages extends aw_template implements request_startup
 						aw_cache_set("languages", $row["id"],$row);
 					}
 				}
-				$this->file_cache->file_set($this->cf_name,aw_serialize(aw_cache_get_array("languages")));
+				cache::file_set($this->cf_name,aw_serialize(aw_cache_get_array("languages")));
 			}
 			aw_global_set("lang_cache_init",1);
 		}
@@ -486,11 +484,7 @@ class languages extends aw_template implements request_startup
 
 		// assign the correct language so we can find translations
 		$LC=$la["acceptlang"];
-		if (!empty($_GET["LC_DBG"]))
-		{
-			echo dbg::dump($la);
-		}
-		if ($LC == "")
+		if (empty($LC))
 		{
 			$LC = "et";
 		}
@@ -508,10 +502,7 @@ class languages extends aw_template implements request_startup
 		}
 
 		// oh yeah, we should only overwrite admin_lang_lc if it is not set already!
-		if (true || aw_global_get("admin_lang_lc") == "")
-		{
-			aw_global_set("admin_lang_lc",$LC);
-		}
+		aw_global_set("admin_lang_lc",$LC);
 
 		aw_global_set("lang_oid", $la["oid"]);
 		// and we should be all done. if after this, lang_id will still be not set I won't be able to write the
@@ -535,7 +526,6 @@ class languages extends aw_template implements request_startup
 				$GLOBALS["cfg"]["user_interface"]["default_language"] = $_tmp;
 			}
 		}
-		classload("vcl/date_edit");
 	}
 
 	function on_site_init($dbi, $site, &$ini_opts, &$log)

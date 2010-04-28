@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_tyyp_list.aw,v 1.6 2007/11/23 07:18:28 dragut Exp $
 // expp_tyyp_list.aw - Expp tyybi list 
 // vana kood!
@@ -13,6 +15,8 @@
 
 class expp_tyyp_list extends class_base
 {
+	const AW_CLID = 988;
+
 	function expp_tyyp_list()
 	{
 	}

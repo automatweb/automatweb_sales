@@ -1,4 +1,7 @@
 <?php
+
+namespace automatweb;
+
 // siin imporditakse muutujad saidi raami sisse
 // ja v2ljastatakse see
 $site_title = isset($GLOBALS["site_title"]) ? $GLOBALS["site_title"] : "AutomatWeb";
@@ -105,7 +108,7 @@ if (!empty($_GET["class"]))
 		$cur_class = aw_ini_get("class_lut.{$_GET["class"]}");
 		$cur_class = aw_ini_get("classes.{$cur_class}.name");
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		if (isset($class_names[$_GET["class"]]))
 		{

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/budgeting/budgeting_tax.aw,v 1.10 2008/05/14 14:05:05 markop Exp $
 // budgeting_tax.aw - Eelarvestamise maks 
 /*
@@ -91,6 +93,8 @@
 
 class budgeting_tax extends class_base
 {
+	const AW_CLID = 1206;
+
 	function budgeting_tax()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_team.aw,v 1.2 2007/12/06 14:33:32 kristo Exp $
 // project_team.aw - Projekti tiim 
 /*
@@ -14,6 +16,8 @@
 
 class project_team extends class_base
 {
+	const AW_CLID = 1101;
+
 	function project_team()
 	{
 		$this->init(array(

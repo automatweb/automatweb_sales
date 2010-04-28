@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class mrp_order_obj extends _int_object
 {
+	const AW_CLID = 1519;
+
 	/**
 		@attrib api=1
 	**/

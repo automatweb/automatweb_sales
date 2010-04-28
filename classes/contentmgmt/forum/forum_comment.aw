@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/forum/forum_comment.aw,v 1.31 2009/07/23 11:23:25 dragut Exp $
 // forum_comment.aw - foorumi kommentaar
 /*
@@ -57,6 +59,8 @@
 
 class forum_comment extends class_base
 {
+	const AW_CLID = 208;
+
 	function forum_comment()
 	{
 		$this->init(array(
@@ -95,7 +99,7 @@ class forum_comment extends class_base
 
 					if(!empty($uid))
 					{
-						$cl_users = get_instance(CL_USER);
+						$cl_users = new user();
 						$p_o = $cl_users->get_person_for_uid($uid);
 
 						if (is_object($p_o))
@@ -178,7 +182,7 @@ class forum_comment extends class_base
 
 				if(!empty($uid))
 				{
-					$cl_users = get_instance(CL_USER);
+					$cl_users = new user();
 					$p_o = $cl_users->get_person_for_uid($uid);
 
 					if (is_object($p_o))

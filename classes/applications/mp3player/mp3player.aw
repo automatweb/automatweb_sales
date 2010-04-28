@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/mp3player/mp3player.aw,v 1.9 2008/10/29 15:57:34 hannes Exp $
 // mp3player.aw - MP3 pleier 
 /*
@@ -27,6 +29,8 @@
 
 class mp3player extends class_base
 {
+	const AW_CLID = 1353;
+
 	function mp3player()
 	{
 		$this->init(array(

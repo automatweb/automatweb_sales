@@ -1,9 +1,8 @@
 <?php
 // aw_table.aw - generates the html for tables - you just have to feed it the data
 //
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
 
 class aw_table extends aw_template
 {
@@ -3175,7 +3174,7 @@ class vcl_table extends aw_table
 	function data_from_ol($ol, $args = array())
 	{
 		$clss = aw_ini_get("classes");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
 			$data = array("oid" => $o->id());

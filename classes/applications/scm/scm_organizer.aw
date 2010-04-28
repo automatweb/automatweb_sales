@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_organizer.aw,v 1.11 2008/11/06 18:52:08 markop Exp $
 // scm_organizer.aw - Spordiv&otilde;istluste korraldaja 
 /*
@@ -95,6 +97,8 @@
 
 class scm_organizer extends class_base
 {
+	const AW_CLID = 1091;
+
 	function scm_organizer()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/xml_editor/xml_editor.aw,v 1.5 2008/04/20 23:05:42 dragut Exp $
 // xml_editor.aw - xml editor 
 /*
@@ -18,6 +20,8 @@
 
 class xml_editor extends class_base
 {
+	const AW_CLID = 817;
+
 	function xml_editor()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_va_periood.aw,v 1.3 2007/11/23 07:18:28 dragut Exp $
 // expp_va_periood.aw - Expp tellimise periood 
 // vana kood!
@@ -13,6 +15,8 @@
 
 class expp_va_periood extends class_base
 {
+	const AW_CLID = 990;
+
 	function expp_va_periood()
 	{
 	}

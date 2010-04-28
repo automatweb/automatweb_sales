@@ -6,9 +6,9 @@
 // 2. user, email, title of comment, comment - not imlemented
 // 4. user, profession, title of comment, comment - not implemented
 // 3. uid, comment - for logged in users - implemented
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class comments extends class_base
 {
 	function comments()

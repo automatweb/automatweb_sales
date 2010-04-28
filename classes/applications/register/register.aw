@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/register/register.aw,v 1.26 2008/06/06 08:07:11 kristo Exp $
 // register.aw - Register 
 /*
@@ -80,6 +82,8 @@
 
 class register extends class_base
 {
+	const AW_CLID = 341;
+
 	function register()
 	{
 		$this->init(array(

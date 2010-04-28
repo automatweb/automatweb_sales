@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/syslog/dronline.aw,v 1.43 2008/01/31 13:55:30 kristo Exp $
 
 /*
@@ -73,6 +75,8 @@ define("DRO_C_UPDATING", 3);
 
 class dronline extends class_base
 {
+	const AW_CLID = 162;
+
 	function dronline()
 	{
 		classload("core/date/date_calc");

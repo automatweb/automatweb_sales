@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_JSON_SOURCE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=voldemar
@@ -10,6 +12,8 @@
 
 class json_source extends class_base
 {
+	const AW_CLID = 1355;
+
 	function json_source()
 	{
 		$this->init(array(

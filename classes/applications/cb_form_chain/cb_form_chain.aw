@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/cb_form_chain/cb_form_chain.aw,v 1.50 2007/11/23 07:06:27 dragut Exp $
 // cb_form_chain.aw - Vormiahel 
 /*
@@ -166,6 +168,8 @@
 
 class cb_form_chain extends class_base
 {
+	const AW_CLID = 963;
+
 	function cb_form_chain()
 	{
 		$this->init(array(
@@ -265,7 +269,7 @@ class cb_form_chain extends class_base
 	{
 		$ot = $wf->get_first_obj_by_reltype("RELTYPE_OBJECT_TYPE");
 
-		$cf = get_instance(CL_CFGFORM);
+		$cf = new cfgform();
 		$props = $cf->get_props_from_ot(array(
 			"ot" => $ot->id()
 		));
@@ -633,7 +637,7 @@ class cb_form_chain extends class_base
 
 	function _draw_forms($o, $forms)
 	{
-		$cf = get_instance(CL_CFGFORM);
+		$cf = new cfgform();
 		$this->read_template("show_form.tpl");
 
 		$this->_draw_page_titles($o);
@@ -1130,7 +1134,7 @@ class cb_form_chain extends class_base
 			if ($props[$k]["type"] == "releditor" && strpos($k, "userfile") !== false && $_SESSION["cbfc_data"][$wf->id()][0][$k] != "")
 			{
 				// handle file upload save
-				$f = get_instance(CL_FILE);
+				$f = new file();
 				$file_ids[$props[$k]["reltype"]] = $f->save_file(array(
 					"name" => $_SESSION["cbfc_file_data"][$wf->id()][0][$k]["name"],
 					"type" => $_SESSION["cbfc_file_data"][$wf->id()][0][$k]["mtype"],
@@ -2049,7 +2053,7 @@ class cb_form_chain extends class_base
 
 	function callback_get_redir($arr)
 	{
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list();
 		$ret = array();
 		$vals = $arr["obj_inst"]->meta("redir");
@@ -2626,7 +2630,7 @@ class cb_form_chain extends class_base
 			if ($props[$k]["type"] == "releditor" && strpos($k, "userfile") !== false && $_SESSION["cbfc_data"][$wf->id()][0][$k] != "")
 			{
 				// handle file upload save
-				$f = get_instance(CL_FILE);
+				$f = new file();
 				$file_ids[$props[$k]["reltype"]] = $f->save_file(array(
 					"name" => $_SESSION["cbfc_file_data"][$wf->id()][0][$k]["name"],
 					"type" => $_SESSION["cbfc_file_data"][$wf->id()][0][$k]["mtype"],

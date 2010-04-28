@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @tableinfo aw_prices index=aw_oid master_table=objects master_index=brother_of 
 
@@ -35,6 +37,8 @@
 
 class price extends class_base
 {
+	const AW_CLID = 1366;
+
 	function price()
 	{
 		$this->init(array(

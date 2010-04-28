@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/mp3player/mp3.aw,v 1.5 2008/05/16 09:28:15 hannes Exp $
 // mp3.aw - MP3 
 /*
@@ -119,6 +121,8 @@
 
 class mp3 extends class_base implements admin_if_plugin
 {
+	const AW_CLID = 1352;
+
 	function mp3()
 	{
 		$this->init(array(
@@ -471,7 +475,7 @@ class mp3 extends class_base implements admin_if_plugin
 				));
 				$o->set_class_id(CL_MP3);
 				
-				$_fi = get_instance(CL_FILE);
+				$_fi = new file();
 				$final_name = $_fi->generate_file_path(array(
 					"type" => "audio/mp3",
 				));
@@ -570,7 +574,7 @@ class mp3 extends class_base implements admin_if_plugin
 			// if a file was found, then move it to wherever it should be located
 			if (is_uploaded_file($src_file))
 			{
-				$_fi = get_instance(CL_FILE);
+				$_fi = new file();
 				$final_name = $_fi->generate_file_path(array(
 					"type" => "audio/mp3",
 				));

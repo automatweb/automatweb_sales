@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_taxes.aw,v 1.3 2008/01/31 13:50:07 kristo Exp $
 // shop_taxes.aw - Maksud 
 /*
@@ -12,6 +14,8 @@
 
 class shop_taxes extends class_base
 {
+	const AW_CLID = 292;
+
 	function shop_taxes()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

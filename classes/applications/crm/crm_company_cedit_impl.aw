@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=markop
-*/
+
+namespace automatweb;
+
 class crm_company_cedit_impl extends core
 {
 	function crm_company_cedit_impl()
@@ -122,7 +122,7 @@ class crm_company_cedit_impl extends core
 			}
 			else
 			{
-				$popup_menu = get_instance("vcl/popup_menu");
+				$popup_menu = new popup_menu();
 				$popup_menu->begin_menu("c2wr".$obj->id());
 				foreach($wrs as $wr_id => $wr_name)
 				{
@@ -289,7 +289,7 @@ class crm_company_cedit_impl extends core
 			}
 			else
 			{
-				$popup_menu = get_instance("vcl/popup_menu");
+				$popup_menu = new popup_menu();
 				$popup_menu->begin_menu("c2wr".$obj->id());
 				foreach($wrs as $wr_id => $wr_name)
 				{
@@ -700,7 +700,7 @@ class crm_company_cedit_impl extends core
 			}
 			else
 			{
-				$popup_menu = get_instance("vcl/popup_menu");
+				$popup_menu = new popup_menu();
 				$popup_menu->begin_menu("c2wr".$obj->id());
 				foreach($wrs as $wr_id => $wr_name)
 				{

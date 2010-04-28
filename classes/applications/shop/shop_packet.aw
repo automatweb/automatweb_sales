@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_packet.aw,v 1.32 2009/09/07 14:56:01 markop Exp $
 // shop_packet.aw - Pakett 
 /*
@@ -114,6 +116,8 @@
 
 class shop_packet extends class_base
 {
+	const AW_CLID = 297;
+
 	function shop_packet()
 	{
 		$this->init(array(
@@ -589,7 +593,7 @@ class shop_packet extends class_base
 	function _packet_tb($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$tb->add_cdata(
 			$ps->get_popup_search_link(array(
 				"pn" => "set_prods",
@@ -613,7 +617,7 @@ class shop_packet extends class_base
 
 	function callback_pre_save($arr)
 	{
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["set_prods"], "RELTYPE_PRODUCT");
 	}
 

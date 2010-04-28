@@ -3054,7 +3054,7 @@ class vcl_table extends aw_table
 	function data_from_ol($ol, $args = array())
 	{
 		$clss = aw_ini_get("classes");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 		{
 			$data = array("oid" => $o->id());

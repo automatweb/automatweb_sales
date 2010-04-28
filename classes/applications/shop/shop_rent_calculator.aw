@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SHOP_RENT_CALCULATOR relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
 @tableinfo aw_shop_rent_calculator master_index=brother_of master_table=objects index=aw_oid
@@ -18,6 +20,8 @@
 
 class shop_rent_calculator extends class_base
 {
+	const AW_CLID = 1557;
+
 	function shop_rent_calculator()
 	{
 		$this->init(array(

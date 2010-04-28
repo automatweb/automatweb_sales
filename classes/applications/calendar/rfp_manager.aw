@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/rfp_manager.aw,v 1.105 2009/05/14 14:04:17 robert Exp $
 // rfp_manager.aw - RFP Haldus 
 /*
@@ -295,6 +297,8 @@ define("RFP_RAPORT_TYPE_ADDITIONAL_SERVICES", 5);
 
 class rfp_manager extends class_base
 {
+	const AW_CLID = 1192;
+
 	function rfp_manager()
 	{
 		$this->init(array(
@@ -624,7 +628,7 @@ class rfp_manager extends class_base
 				$rrr = get_instance(CL_RFP);
 				$rfps = $this->get_rfps($act);
 				$rfps = $this->do_filter_rfps($rfps, $arr["request"]);
-				$uss = get_instance(CL_USER);
+				$uss = new user();
 				foreach($rfps as $oid => $obj)
 				{
 					// end search filter
@@ -993,7 +997,7 @@ class rfp_manager extends class_base
 							$rfp_prop_empty["confirmed_caption"] = "";
 						}
 					}
-					$ui = get_instance(CL_USER);
+					$ui = new user();
 					$cper = $ui->get_person_for_uid($rfp->createdby());
 					$mper = $ui->get_person_for_uid($rfp->modifiedby());
 					$this->vars(array(
@@ -1010,7 +1014,7 @@ class rfp_manager extends class_base
 				else
 				{
 					$rv = obj($data["reservation"]);
-					$ui = get_instance(CL_USER);
+					$ui = new user();
 					$cper = $ui->get_person_for_uid($rv->createdby());
 					$mper = $ui->get_person_for_uid($rv->modifiedby());
 
@@ -1879,7 +1883,7 @@ class rfp_manager extends class_base
 
 	function gen_popup($oid)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("aif_".$oid);
 		$obj = obj($oid);
 		$act = ($obj->prop("archived") == 1)?false:true;

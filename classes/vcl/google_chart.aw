@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=robert
-*/
+
+namespace automatweb;
+
 define("GCHART_LINE_CHART", "lc");
 define("GCHART_LINE_CHARTXY", "lxy");
 define("GCHART_SPARKLINE", "ls");
@@ -132,7 +132,7 @@ class google_chart extends aw_template
 	/**
 	@attrib name=add_data api=1
 	@param data required type=array
-	@comment 
+	@comment
 		Adds a data set to the chart. Required to display a chart.
 	@examples
 		$ch->add_data(array(
@@ -244,7 +244,7 @@ class google_chart extends aw_template
 	{
 		$this->fills[] = $fill;
 	}
-	
+
 	/**
 	@attrib name=set_title api=1
 	@param text required
@@ -253,7 +253,7 @@ class google_chart extends aw_template
 	@comment
 		Set the chart's title
 		color defines the text's color, size defines the text size in pixels
-	@examples 
+	@examples
 		$ch->set_title(array(
 			"text" => t("This is my chart"),
 			"color" => "cccc33",
@@ -269,7 +269,7 @@ class google_chart extends aw_template
 	@attrib name=set_legend api=1
 	@param labels required type=array
 	@param position optional
-	@comment 
+	@comment
 		Set a legend for chart's data sets. Doesn't work with pie charts
 
 		Options for position are:
@@ -323,7 +323,7 @@ class google_chart extends aw_template
 	{
 		$this->data_scales = $data_scales;
 	}
-	
+
 	/**
 	@attrib name=set_bar_sizes api=1
 	@param width required type=int
@@ -354,7 +354,7 @@ class google_chart extends aw_template
 		Set the line style for a line chart's data set
 		thickness - in pixels
 		segments - array, first value for the line segment's width in pixels and second for the spaces. for a solid line, set the second value as 0
-	@examples 
+	@examples
 		$ch->add_line_style(array(
 			"thickness" => 2,
 			"segments" => array(
@@ -393,7 +393,7 @@ class google_chart extends aw_template
 
 		dataset is the data set's id, first data set has an id of 0
 		datapoint is the data point's id, first data point has an id of 0. you can use -1 for all points
-		
+
 		valid options for order are:
 		GCHART_ORDER_BOTTOM - marker is placed behind everything else
 		GCHART_ORDER_DEFAULT - marker is drawn behind other markers, but in front of bars and lines
@@ -421,7 +421,7 @@ class google_chart extends aw_template
 	@param end required type=int
 	@comment
 		Adds a range marker to the chart. A range marker is basically a means for highlighting some area of the chart
-	
+
 		type - GCHART_RANGE_MARKER_V for a vertical range, or GCHART_RANGE_MARKER_H for a horizontal one
 		start, end - value is between 0.0 and 1.0; 0.0 is the beginning of the chart and 1.0 the end
 	@examples
@@ -579,7 +579,7 @@ class google_chart extends aw_template
 	/**
 	@attrib name=set_id api=1
 	@param id required type=string
-	@comment 
+	@comment
 		Set the chart's unique id.
 		When the chart's a property, it defaults to classname.propname.obj_id.
 		Required to use cache
@@ -618,7 +618,7 @@ class google_chart extends aw_template
 
 		$params["cht"] = $this->chart_type;
 		$params["chd"] = $this->process_data();
-		
+
 		if(count($this->colors))
 		{
 			$params["chco"] = implode(",", $this->colors);
@@ -679,7 +679,7 @@ class google_chart extends aw_template
 		{
 			$params["chls"] = $this->process_linestyles();
 		}
-		
+
 		if(count($this->labels))
 		{
 			$params["chl"] = $this->process_labels();
@@ -889,7 +889,7 @@ class google_chart extends aw_template
 		{
 			$res[] = array_merge(array($id), $pos);
 		}
-		return $this->process_params($res);	
+		return $this->process_params($res);
 	}
 
 	private function process_axis_styles()

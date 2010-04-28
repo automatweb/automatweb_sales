@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/site_search/site_search_content_grp.aw,v 1.28 2009/02/11 10:30:39 kristo Exp $
 // site_seaarch_content_grp.aw - Saidi sisu otsingu grupp 
 /*
@@ -45,6 +47,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE,CL_DOCUMENT, on_delete_menu)
 
 class site_search_content_grp extends class_base
 {
+	const AW_CLID = 232;
+
 	function site_search_content_grp()
 	{
 		$this->init(array(

@@ -1,9 +1,13 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo  maintainer=kristo
 */
 class site_list extends class_base
 {
+	const AW_CLID = 317;
+
 	function site_list()
 	{
 		$this->init("automatweb/site_list");

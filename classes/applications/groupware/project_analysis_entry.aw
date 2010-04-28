@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_analysis_entry.aw,v 1.2 2007/12/06 14:33:32 kristo Exp $
 // project_analysis_entry.aw - Projekti anal&uuml;&uuml;si sisestus 
 /*
@@ -27,6 +29,8 @@
 
 class project_analysis_entry extends class_base
 {
+	const AW_CLID = 1113;
+
 	function project_analysis_entry()
 	{
 		$this->init(array(

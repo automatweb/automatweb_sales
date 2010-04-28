@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_db.aw,v 1.64 2009/05/07 11:25:57 instrumental Exp $
 // crm_db.aw - CRM database
 /*
@@ -170,6 +172,8 @@
 
 class crm_db extends class_base
 {
+	const AW_CLID = 130;
+
 	function crm_db()
 	{
 		$this->init(array(
@@ -427,7 +431,7 @@ class crm_db extends class_base
 			foreach($ods as $oid => $od)
 			{
 				$pt = isset($ods[$od["parent"]]) ? $od["parent"] : "";
-				$pm = get_instance("vcl/popup_menu");
+				$pm = new popup_menu();
 				$pm->begin_menu("site_edit_".$oid);
 				$url = $this->mk_my_orb("change", array("id" => $id, "return_url" => get_ru(), "is_sa" => 1), CL_CRM_SECTOR, true);
 				$pm->add_item(array(
@@ -1145,7 +1149,7 @@ class crm_db extends class_base
 
 	function get_org_popupmenu($arr)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu($arr["oid"]);
 
 		$pm->add_item(array(

@@ -1,8 +1,6 @@
 <?php
 
-/*
-@classinfo  maintainer=markop
-*/
+namespace automatweb;
 
 class crm_company_overview_impl extends class_base
 {
@@ -615,7 +613,7 @@ class crm_company_overview_impl extends class_base
 			return $this->_get_ovrv_offers($arr, $ol);
 		}
 		enter_function("get_my_tasks:3");
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		// make task2person list
 		$task2person = $this->_get_participant_list_for_tasks($ol->ids());
 		$task2recur = $this->_get_recur_list_for_tasks($ol->ids());
@@ -1329,7 +1327,7 @@ class crm_company_overview_impl extends class_base
 		$clids = array(CL_TASK => 13, CL_CRM_MEETING => 11, CL_CRM_CALL => 12, CL_CRM_OFFER => 9);
 		$clss = aw_ini_get("classes");
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$cur_co = $u->get_current_company();
 
 		foreach($clids as $clid => $relt)
@@ -1422,7 +1420,7 @@ class crm_company_overview_impl extends class_base
 				"lang_id" => array(),
 				"site_id" => array(),
 			));
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$cur_co = $u->get_current_company();
 			foreach($ol->arr() as $o)
 			{
@@ -1444,7 +1442,7 @@ class crm_company_overview_impl extends class_base
 	{
 		if ($arr["request"]["act_s_sbt"] == "" && $arr["request"]["act_s_is_is"] != 1)
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = obj($u->get_current_person());
 			//$v = $p->name();
 			switch($_GET["group"])
@@ -1475,7 +1473,7 @@ class crm_company_overview_impl extends class_base
 					}
 					break;
 			}
-			
+
 
 // 			$col = new object_list(array(
 // 				"class_id" => array(CL_CRM_MEETING, CL_CRM_CALL, CL_TASK, CL_BUG , CL_DOCUMENT),
@@ -1731,7 +1729,7 @@ class crm_company_overview_impl extends class_base
 		}
 
 		enter_function("_get_task_list:1");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = $u->get_current_company();
 
 		$i = get_instance(CL_CRM_COMPANY);
@@ -1910,7 +1908,7 @@ class crm_company_overview_impl extends class_base
 					$tasks = $this->make_keys($ol->ids());
 				break;
 
-			default: 
+			default:
 				enter_function("_get_task_list:2:1");
 				$clid = array(CL_TASK,CL_CRM_MEETING,CL_CRM_CALL,CL_CRM_OFFER);
 				$clid2 = array("CL_TASK","CL_CRM_MEETING","CL_CRM_CALL");
@@ -2110,7 +2108,7 @@ class crm_company_overview_impl extends class_base
 
 	function _get_ovrv_offers($arr, $ol)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$table_data = array();
 		foreach($ol->ids() as $act_id)
 		{
@@ -2203,7 +2201,7 @@ class crm_company_overview_impl extends class_base
 		}
 		else
 		{
-			$user_inst = get_instance(CL_USER);
+			$user_inst = new user();
 			$user_obj = new object($user_inst->get_current_person());
 			$participants_name = $user_obj->name();
 			$format = t('%s dokumendid, milles on %s osaline');
@@ -2463,33 +2461,33 @@ class crm_company_overview_impl extends class_base
 // 			CL_CRM_MEETING => t("Kohtumine"),
 // 			CL_CRM_CALL => t("K&otilde;ne")
 // 		);
-// 
+//
 // 		$time_types = array(
 // 			"currentweek" => t("Jooksev n&auml;dal"),
 // 			"currentmonth" => t("Jooksev kuu"),
 // 			"lastmonth" => t("Eelmine kuu"),
 // 		);
-// 
+//
 //  		$call_params = array(
 //  			"done" => t("Tehtud"),
 //  			"planned" => t("Plaanis"),
 //  		);
-//  
+//
 //  		$meeting_params = array(
 //  			"past" => t("Toimunud"),
 //  			"planned" => t("Tulekul"),
 //  		);
-//  
+//
 //  		$task_params = array(
 //  			"undone" => t("Tegemata"),
 //  			"overdeadline" => t("&Uuml;le t&auml;htaja"),
 //  		);
-//  
+//
 //  		$bugs_params = array(
 //  			"undone" => t("Tegemata"),
 //  			"overdeadline" => t("&Uuml;le t&auml;htaja"),
 //  		);
-// 
+//
 // 		foreach($types as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".$type_id)
@@ -2503,7 +2501,7 @@ class crm_company_overview_impl extends class_base
 // 				"iconurl" => icons::get_icon_url($type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($time_types as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".$type_id)
@@ -2516,7 +2514,7 @@ class crm_company_overview_impl extends class_base
 // 				"url" => aw_url_change_var("st", $parent."_".$type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($call_params as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_CRM_CALL."_".$type_id)
@@ -2541,7 +2539,7 @@ class crm_company_overview_impl extends class_base
 // 				"url" => aw_url_change_var("st", $parent."_".CL_CRM_CALL."_".$type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($meeting_params as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_CRM_MEETING."_".$type_id)
@@ -2566,7 +2564,7 @@ class crm_company_overview_impl extends class_base
 // 				"url" => aw_url_change_var("st", $parent."_".CL_CRM_MEETING."_".$type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($task_params as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_TASK."_".$type_id)
@@ -2591,7 +2589,7 @@ class crm_company_overview_impl extends class_base
 // 				"url" => aw_url_change_var("st", $parent."_".CL_TASK."_".$type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($bugs_params as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_BUG."_".$type_id)
@@ -2684,18 +2682,18 @@ class crm_company_overview_impl extends class_base
  			"done" => t("Tehtud"),
  			"planned" => t("Plaanis"),
  		);
- 
+
  		$meeting_params = array(
  			"past" => t("Toimunud"),
  			"planned" => t("Tulekul"),
  		);
- 
+
  		$task_params = array(
  			"done" => t("Tehtud"),
  			"undone" => t("Tegemata"),
  			"overdeadline" => t("&Uuml;le t&auml;htaja"),
  		);
- 
+
  		$bugs_params = array(
  			"done" => t("L&otilde;petatud"),
  			"undone" => t("Pooleli"),
@@ -2966,8 +2964,8 @@ class crm_company_overview_impl extends class_base
 	{
 		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(
-			array(CL_CRM_ACTIVITY_STATS_TYPE), 
-			$arr["obj_inst"]->id(), 
+			array(CL_CRM_ACTIVITY_STATS_TYPE),
+			$arr["obj_inst"]->id(),
 			71 /* RELTYPE_ACTIVITY_STATS_TYPE */
 		);
 		$tb->add_delete_button();

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_company_role_entry.aw,v 1.4 2008/01/31 13:54:12 kristo Exp $
 // crm_company_role_entry.aw - Rolli kirje 
 /*
@@ -46,6 +48,8 @@
 
 class crm_company_role_entry extends class_base
 {
+	const AW_CLID = 864;
+
 	function crm_company_role_entry()
 	{
 		$this->init(array(

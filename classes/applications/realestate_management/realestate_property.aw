@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_REALESTATE_PROPERTY, on_create)
@@ -303,6 +305,8 @@ define ("RE_EXPORT_CITY24USER_VAR_NAME", "realestate_city24username");
 
 class realestate_property extends class_base
 {
+	const AW_CLID = 936;
+
 	var $re_float_types = array (
 		"transaction_price",
 		"transaction_price2",
@@ -557,7 +561,7 @@ class realestate_property extends class_base
 			case "realestate_agent1":
 				if (!is_object ($this->cl_user))
 				{
-					$this->cl_user = get_instance(CL_USER);
+					$this->cl_user = new user();
 				}
 
 				if (!is_object ($this->company))

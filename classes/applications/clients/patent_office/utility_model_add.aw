@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // utility_model_add.aw - Kasuliku mudeli veebist lisamine
 /*
 
@@ -38,6 +40,8 @@
 
 class utility_model_add extends class_base
 {
+	const AW_CLID = 1434;
+
 	function utility_model_add()
 	{
 		$this->init(array(

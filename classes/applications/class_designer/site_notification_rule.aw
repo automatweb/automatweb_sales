@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_SITE_NOTIFICATION_RULE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_site_notification_rule master_index=brother_of master_table=objects index=aw_oid
@@ -26,6 +28,8 @@
 
 class site_notification_rule extends class_base
 {
+	const AW_CLID = 1502;
+
 	function site_notification_rule()
 	{
 		$this->init(array(

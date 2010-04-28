@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_document.aw,v 1.17 2008/11/06 18:52:15 markop Exp $
 // crm_document.aw - CRM Dokument 
 /*
@@ -100,6 +102,8 @@
 
 class crm_document extends class_base
 {
+	const AW_CLID = 1007;
+
 	function crm_document()
 	{
 		$this->init(array(

@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class su_exec extends class_base
 {
 	function su_exec()
@@ -39,16 +39,16 @@ class su_exec extends class_base
 	}
 
 	/** adds a command to the command file
-		
+
 		@attrib api=1
 
 		@param cmd required type=string
-			The command to add 
-		
+			The command to add
+
 		@errors
 			none
 
-		@returns 
+		@returns
 			none
 
 		@comment
@@ -96,7 +96,7 @@ class su_exec extends class_base
 
 		foreach($this->fc as $cmd)
 		{
-			if ($cmd == "rm -rf /*")
+			if ($cmd === "rm -rf /*")
 			{
 				continue;
 			}
@@ -108,8 +108,7 @@ class su_exec extends class_base
 		flush();
 		$cmdline = $this->cfg['basedir']."/scripts/install/su_exec/su_exec $fn";
 		$res = system($cmdline);
-	
-		//echo "exect $cmdline , res = $res <br />\n";
+
 		unlink($fn);
 
 		return $res;
@@ -123,13 +122,13 @@ class su_exec extends class_base
 	}
 
 	/** checks if the su_exec class can work
-		
+
 		@attrib api=1
 
 		@errors
 			none
 
-		@returns 
+		@returns
 			true, if the su_exec binary is configured correctly on the server, false if not
 
 		@comment

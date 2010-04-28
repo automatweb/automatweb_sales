@@ -1312,7 +1312,7 @@ class converters extends aw_template
 			{
 				echo "putting file $row[id] to fs! <br>\n";
 				flush();
-				$f = get_instance(CL_FILE);
+				$f = new file();
 				$fs = $f->_put_fs(array(
 					"type" => $row["type"],
 					"content" => $row["content"]
@@ -1893,7 +1893,7 @@ echo "mod ".$con["to.name"]."<br>";
 			"site_id" => array()
 		));
 		$mt = get_instance("core/aw_mime_types");
-		$fi = get_instance(CL_FILE);
+		$fi = new file();
 		foreach($ol->arr() as $o)
 		{
 			if (!$o->parent() || !$o->class_id())

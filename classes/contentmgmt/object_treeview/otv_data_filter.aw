@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview/otv_data_filter.aw,v 1.10 2008/01/31 13:52:37 kristo Exp $
 // otv_data_filter.aw - Andmeallika andmete muundaja 
 /*
@@ -28,6 +30,8 @@
 
 class otv_data_filter extends class_base
 {
+	const AW_CLID = 898;
+
 	function otv_data_filter()
 	{
 		$this->init(array(

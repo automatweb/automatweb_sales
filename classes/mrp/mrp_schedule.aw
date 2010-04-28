@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // mrp_schedule.aw - Ressursiplaneerija
 /*
 
@@ -16,6 +18,8 @@ ini_set ("max_execution_time", "60");
 
 class mrp_schedule extends db_connector
 {
+	const AW_CLID = 827;
+
 	# time() at the moment of starting scheduling (int)
 	protected $scheduling_time;
 
@@ -1135,7 +1139,7 @@ class mrp_schedule extends db_connector
 			{
 				usort($this->reserved_times[$selected_resource_tag][$reserved_time_range], "mrp_schedule_reserved_times_sorter");
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				echo sprintf (t("Samale algusajale on mitu t88d reserveeritud! resource-tag: %s, job: %s"), $selected_resource_tag, $this->currently_processed_job) . MRP_NEWLINE;
 			}

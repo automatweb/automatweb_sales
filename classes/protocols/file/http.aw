@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
+
+namespace automatweb;
 
 class http implements protocol_interface
 {
@@ -58,7 +57,7 @@ class http implements protocol_interface
 		$req .= "\r\n\r\n";
 		$socket = new socket(array(
 			"host" => $host,
-			"port" => $port,
+			"port" => $port
 		));
 		$socket->write($req);
 		$ipd = "";

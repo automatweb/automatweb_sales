@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo no_status=1 no_comment=1 maintainer=kristo
 
@@ -22,6 +24,8 @@
 
 class db_sql_query extends class_base
 {
+	const AW_CLID = 154;
+
 	function db_sql_query()
 	{
 		$this->init(array(

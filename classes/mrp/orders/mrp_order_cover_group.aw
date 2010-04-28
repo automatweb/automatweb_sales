@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_MRP_ORDER_COVER_GROUP relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_mrp_order_cover_group master_index=brother_of master_table=objects index=aw_oid
@@ -13,6 +15,8 @@
 
 class mrp_order_cover_group extends class_base
 {
+	const AW_CLID = 1537;
+
 	function mrp_order_cover_group()
 	{
 		$this->init(array(

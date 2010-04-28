@@ -1,6 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/transport_type.aw,v 1.7 2008/01/03 11:49:14 markop Exp $
-// transport_type.aw - Transportation type 
+
+namespace automatweb;
+
+// transport_type.aw - Transportation type
 /*
 
 @classinfo syslog_type=ST_TRANSPORT_TYPE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
@@ -33,6 +35,8 @@
 
 class transport_type extends class_base
 {
+	const AW_CLID = 1365;
+
 	function transport_type()
 	{
 		$this->init(array(
@@ -75,7 +79,7 @@ class transport_type extends class_base
 			//-- set_property --//
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
@@ -136,8 +140,7 @@ class transport_type extends class_base
 	**/
 	function add_new_price($arr)
 	{
-		classload("common/price_object");
-		$id = price_object::add(array(
+		$id = price_obj::add(array(
 			"object" => $arr["id"],
 //			"type" => CL_TRANSPORT_TYPE,
 		));
@@ -146,7 +149,7 @@ class transport_type extends class_base
 //			"to" => $id,
 //			"type" => RELTYPE_PRICE
 //		));
-		
+
 		return $arr["post_ru"];
 	}
 
@@ -156,8 +159,7 @@ class transport_type extends class_base
 		{
 			return;
 		}
-		classload("common/price_object");
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$price_inst = get_instance(CL_PRICE);
 
 		$t->define_field(array(
@@ -182,7 +184,7 @@ class transport_type extends class_base
 			));
 		}
 
-		$ol = price_object::get_price_objects($arr["obj_inst"]->id());
+		$ol = price_obj::get_price_objects($arr["obj_inst"]->id());
 
 		foreach($ol->arr() as $price)
 		{
@@ -196,7 +198,7 @@ class transport_type extends class_base
 			$data["end"] = html::date_select(array(
 				"name" => "prices[".$price->id()."][date_to]",
 				"value" => $price->prop("date_to"),
-			));	
+			));
 			$data["oid"] = $price->id();
 			foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_CURRENCY")) as $conn)
 			{
@@ -212,7 +214,7 @@ class transport_type extends class_base
 		$t->set_default_sortby("start_st");
 		$t->sort_by();
 	}
-	
+
 	function _save_prices_table($arr)
 	{
 		foreach($arr["request"]["prices"] as $id => $val)

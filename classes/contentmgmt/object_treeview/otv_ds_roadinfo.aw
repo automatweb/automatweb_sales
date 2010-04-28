@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview/otv_ds_roadinfo.aw,v 1.1 2008/02/03 22:44:29 dragut Exp $
 // otv_ds_roadinfo.aw - Maanteeinfo DS 
 /*
@@ -26,6 +28,8 @@ caption Maanteeinfo otsing
 
 class otv_ds_roadinfo extends class_base
 {
+	const AW_CLID = 655;
+
 /////////////////////////////////////////////////////////////////////////
 // Here i define all fields, that can be in the table
 /////////////////////////////////////////////////////////////////////////

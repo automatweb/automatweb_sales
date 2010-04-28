@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_MRP_RESOURCE_FORMAT_APPLIES relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 @tableinfo aw_mrp_resource_format_applies master_index=brother_of master_table=objects index=aw_oid
@@ -22,6 +24,8 @@
 
 class mrp_resource_format_applies extends class_base
 {
+	const AW_CLID = 1549;
+
 	function mrp_resource_format_applies()
 	{
 		$this->init(array(

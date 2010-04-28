@@ -122,7 +122,7 @@ class form_actions extends form_base
 						$data["from_addr"] = $from_addr;
 						$data["from_name"] = $from_name;
 						
-						$la = get_instance("languages");
+						$la = new languages();
 						$ls = $la->listall();
 						foreach($ls as $ld)
 						{
@@ -340,7 +340,7 @@ class form_actions extends form_base
 		}
 
 		$opar = $this->get_op_list($id);
-		$la = get_instance("languages");
+		$la = new languages();
 		$ls = $la->listall();
 
 		foreach($ls as $ld)
@@ -880,7 +880,7 @@ class form_actions extends form_base
 				$awm->set_header("X-Priority",aw_global_get("fa_mail_priority"));
 			}
 
-			$ll = get_instance("languages");
+			$ll = new languages();
 			//$awm->set_header("Content-type","text/plain; charset=".$ll->get_charset());
 			
 	
@@ -911,7 +911,7 @@ class form_actions extends form_base
 
 			if ($data["text_only"])
 			{
-				$l = get_instance("languages");
+				$l = new languages();
 				$ct = "Content-type: text/plain; charset=".$l->get_charset()."\n";
 				$from = $f->get_element_value($data["from_email_el"]);
 				$tmp_msg = strip_tags(/*preg_replace("/<script(.*)>(.*)<\/script>/imsU", "", */$msg_html/*)*/);
@@ -946,7 +946,7 @@ class form_actions extends form_base
 				
 				if ($data["text_only"])
 				{
-					$l = get_instance("languages");
+					$l = new languages();
 					$ct = "";/*"Content-type: text/plain; charset=".$l->get_charset()."\n";*/
 					$from = $f->get_element_value($data["from_email_el"]);
 					
@@ -1018,7 +1018,7 @@ class form_actions extends form_base
 			}
 			$froma = str_replace("\"","", $froma);
 
-			$ll = get_instance("languages");
+			$ll = new languages();
 
 			$msg = html_entity_decode($msg);
 			$app = html_entity_decode($app);
@@ -1039,7 +1039,7 @@ class form_actions extends form_base
 
 	function do_email_confirm_action(&$form, $data, $entry_id)
 	{
-		$ll = get_instance("languages");
+		$ll = new languages();
 		$to = $form->get_element_value($data["email_el"]);
 		send_mail($to,$data["subj"], $data["content"],"From: $data[from_name] <$data[from_addr]>\nContent-type: text/plain; charset=".$ll->get_charset()."\n");
 	}

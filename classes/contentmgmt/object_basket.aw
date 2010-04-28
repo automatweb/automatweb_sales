@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_basket.aw,v 1.20 2009/08/09 21:05:13 dragut Exp $
 // object_basket.aw - Objektide korv 
 /*
@@ -40,6 +42,8 @@ define("OBJ_BASKET_SESSION", 1);
 define("OBJ_BASKET_USER", 2);
 class object_basket extends class_base
 {
+	const AW_CLID = 1201;
+
 	function object_basket()
 	{
 		$this->init(array(

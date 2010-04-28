@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/admin/contentmgmt_statistics.aw,v 1.5 2008/07/03 13:05:47 kristo Exp $
 // contentmgmt_statistics.aw - Sisuhalduse statistika 
 /*
@@ -47,6 +49,8 @@
 
 class contentmgmt_statistics extends class_base
 {
+	const AW_CLID = 1332;
+
 	function contentmgmt_statistics()
 	{
 		$this->init(array(

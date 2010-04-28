@@ -1,6 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/transport_management/crm_transport_management_trailer.aw,v 1.2 2007/12/06 14:33:24 kristo Exp $
-// crm_transport_management_trailer.aw - Haagis 
+
+namespace automatweb;
+
+// crm_transport_management_trailer.aw - Haagis
 /*
 
 @classinfo syslog_type=ST_CRM_TRANSPORT_MANAGEMENT_TRAILER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=dragut
@@ -35,7 +37,7 @@
 @default group=technical_data
 
 	@property superstructure type=select table=crm_transport_management_trailer
-	@caption Pealisehitus 
+	@caption Pealisehitus
 
 	@property length type=textbox table=crm_transport_management_trailer
 	@caption Pikkus
@@ -70,7 +72,7 @@
 	@property full_weight type=textbox table=crm_transport_management_trailer
 	@caption T&auml;ismass
 
-	
+
 */
 
 define('BODYTYPE_PLATFORM', 1);
@@ -83,6 +85,8 @@ define('BODYTYPE_OTHER', 7);
 
 class crm_transport_management_trailer extends class_base
 {
+	const AW_CLID = 1086;
+
 
 	var $bodytypes = array();
 
@@ -127,7 +131,7 @@ class crm_transport_management_trailer extends class_base
 			//-- set_property --//
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{

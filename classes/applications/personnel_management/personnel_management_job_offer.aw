@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/personnel_management/personnel_management_job_offer.aw,v 1.70 2009/05/26 14:05:54 instrumental Exp $
 // personnel_management_job_offer.aw - T&ouml;&ouml;pakkumine
 /*
@@ -318,6 +320,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 
 class personnel_management_job_offer extends class_base
 {
+	const AW_CLID = 285;
+
 	function personnel_management_job_offer()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,
@@ -941,7 +945,7 @@ class personnel_management_job_offer extends class_base
 			return PROP_IGNORE;
 		}
 
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		$arr["prop"]["value"] = html::img(array(
 				"url" => icons::get_icon_url(CL_FILE),
 			)).html::href(array(
@@ -1168,7 +1172,7 @@ class personnel_management_job_offer extends class_base
 			if($this->can("view", $fid))
 			{
 				$file = obj($fid);
-				$file_inst = get_instance(CL_FILE);
+				$file_inst = new file();
 				$intro_file_url = html::img(array(
 						"url" => icons::get_icon_url(CL_FILE),
 					)).html::href(array(

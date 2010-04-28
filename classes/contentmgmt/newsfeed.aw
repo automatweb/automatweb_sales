@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/newsfeed.aw,v 1.32 2009/04/16 10:58:58 kristo Exp $
 // newsfeed.aw - Newsfeed 
 /*
@@ -68,6 +70,8 @@
 
 class newsfeed extends class_base
 {
+	const AW_CLID = 885;
+
 	function newsfeed()
 	{
 		$this->init(array(
@@ -156,7 +160,7 @@ class newsfeed extends class_base
 			"name" => "name",
 			"caption" => t("V&auml;li"),
 		));
-		$cfi = get_instance(CL_CFGFORM);
+		$cfi = new cfgform();
 		$props = $cfi->get_property_list(CL_DOCUMENT);
 		$fields = $arr["obj_inst"]->meta("fields");
 		if(!count($fields))

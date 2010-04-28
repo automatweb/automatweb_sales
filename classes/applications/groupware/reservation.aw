@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/groupware/reservation.aw,v 1.162 2009/08/24 11:56:48 instrumental Exp $
 // reservation.aw - Broneering 
 /*
@@ -206,6 +208,8 @@ caption Kokkuv&otilde;te
 
 class reservation extends class_base
 {
+	const AW_CLID = 1165;
+
 	function reservation()
 	{
 		$this->init(array(
@@ -1020,7 +1024,7 @@ class reservation extends class_base
 			$arr["obj_inst"]->save();
 		}
 
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["add_p"], 1 /* RELTYPE_CUSTOMER */);
 
 
@@ -2445,7 +2449,7 @@ class reservation extends class_base
 
 	function _get_modder($arr)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = $u->get_person_for_uid($arr["obj_inst"]->createdby());
 		$mp = $u->get_person_for_uid($arr["obj_inst"]->modifiedby());
 		if(is_oid($p->id()) && $this->can("view" , USER::get_company_for_person($p)))

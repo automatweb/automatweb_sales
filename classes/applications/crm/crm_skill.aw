@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // crm_skill.aw - Skill
 /*
 
@@ -32,6 +34,8 @@
 
 class crm_skill extends class_base
 {
+	const AW_CLID = 1400;
+
 	function crm_skill()
 	{
 		$this->init(array(

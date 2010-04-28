@@ -19,6 +19,18 @@
             <caption>M&amp;amp;uuml;&amp;amp;uuml;ja</caption>
       </property>
       <property>
+            <name>categories</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <store>connect</store>
+            <reltype>RELTYPE_CATEGORY</reltype>
+            <multiple>1</multiple>
+            <size>8</size>
+            <field>categories</field>
+            <caption>Kategooria</caption>
+      </property>
+      <property>
             <name>discount</name>
             <table>aw_crm_customer_data</table>
             <group>general</group>

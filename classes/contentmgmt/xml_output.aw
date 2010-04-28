@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/xml_output.aw,v 1.4 2008/01/31 13:52:15 kristo Exp $
 // xml_output.aw - XML V&auml;ljund 
 /*
@@ -12,6 +14,8 @@
 
 class xml_output extends class_base
 {
+	const AW_CLID = 1252;
+
 	function xml_output()
 	{
 		$this->init(array(

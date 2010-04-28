@@ -1,7 +1,8 @@
 <?php
-/*
-@classinfo  maintainer=kristo
 
+namespace automatweb;
+
+/*
 HANDLE_MESSAGE(MSG_USER_LOGIN, on_user_login)
 */
 
@@ -498,7 +499,7 @@ class acl_base extends db_connector
 		else
 		{
 			// show the login form
-			$auth = get_instance("core/users/auth/auth_config");
+			$auth = new auth_config();
 			print $auth->show_login();
 			// dat sucks
 			exit;

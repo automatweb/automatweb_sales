@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/otto/otto_prod_search.aw,v 1.25 2009/04/22 10:39:10 dragut Exp $
 // otto_prod_search.aw - Otto toodete otsing 
 /*
@@ -27,6 +29,8 @@
 
 class otto_prod_search extends class_base
 {
+	const AW_CLID = 798;
+
 	var $search_fld = array(
 		array("Naiste mood", array(136)),
 		array("Ehted ja Kellad", array(137)),

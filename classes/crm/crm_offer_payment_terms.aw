@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_offer_payment_terms.aw,v 1.2 2008/01/31 13:54:13 kristo Exp $
 // crm_offer_payment_terms.aw - Pakkumise maksetingimused 
 /*
@@ -15,6 +17,8 @@
 
 class crm_offer_payment_terms extends class_base
 {
+	const AW_CLID = 909;
+
 	function crm_offer_payment_terms()
 	{
 		$this->init(array(

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_makse.aw,v 1.12 2008/11/20 15:30:25 markop Exp $
 // expp_makse.aw - Expp makse 
 /*
@@ -11,6 +13,8 @@
 */
 
 class expp_makse extends class_base {
+	const AW_CLID = 1022;
+
 	var $cy;
 	var $cp;
 

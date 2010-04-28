@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CONFIG_AW_DOCUMENT_TEMPLATE no_status=1 maintainer=kristo
 @tableinfo template index=obj_id master_table=objects master_index=brother_of
@@ -26,6 +28,8 @@
 
 class config_aw_document_template extends class_base
 {
+	const AW_CLID = 252;
+
 	function config_aw_document_template()
 	{
 		$this->init(array(

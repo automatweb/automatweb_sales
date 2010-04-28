@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // shop_order_center_filter_entry.aw - Tellimiskeskkonna toodete filter
 /*
 
@@ -21,6 +23,8 @@
 
 class shop_order_center_filter_entry extends class_base
 {
+	const AW_CLID = 1412;
+
 	function shop_order_center_filter_entry()
 	{
 		$this->init(array(

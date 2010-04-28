@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_DISCOUNT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=smeedia
 @tableinfo aw_discount master_index=brother_of master_table=objects index=aw_oid
@@ -46,6 +48,8 @@
 
 class discount extends class_base
 {
+	const AW_CLID = 1553;
+
 	function discount()
 	{
 		$this->init(array(

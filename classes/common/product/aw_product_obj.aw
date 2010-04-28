@@ -1,6 +1,8 @@
 <?php
 
-class aw_product_obj extends _int_object
+namespace automatweb\obj;
+
+class awproduct_obj extends _int_object
 {
 }
 

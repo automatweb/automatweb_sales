@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_admin.aw,v 1.5 2007/12/06 14:34:06 kristo Exp $
 // scm_admin.aw - Spordiv&otilde;istluste haldus 
 /*
@@ -34,6 +36,8 @@
 
 class scm_admin extends class_base
 {
+	const AW_CLID = 1090;
+
 	function scm_admin()
 	{
 		$this->init(array(

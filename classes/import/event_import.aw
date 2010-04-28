@@ -1,4 +1,8 @@
 <?php
+
+namespace automatweb;
+
+namespace automatweb;
 // event_import.aw - S&uuml;ndmuste import
 /*
 
@@ -117,6 +121,10 @@
 
 class event_import extends class_base
 {
+	const AW_CLID = 1356;
+
+	const AW_CLID = 1337;
+
 	function event_import()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be,
@@ -148,7 +156,7 @@ class event_import extends class_base
 				break;
 
 			case "original_lang":
-				$lg = get_instance("languages");
+				$lg = new languages();
 				$prop["options"] = $lg->get_list();
 				break;
 
@@ -1247,7 +1255,7 @@ class event_import extends class_base
 		*/
 		$li = $o->prop("original_lang");
 		$import_orig = ($li == $imp_lang_id);
-		$lg = get_instance("languages");
+		$lg = new languages();
 		$lg_cfg = $lg->cfg;
 		$lg_list = $lg_cfg["list"];
 		$lg = $lg->get_list();

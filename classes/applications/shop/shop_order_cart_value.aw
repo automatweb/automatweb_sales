@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_order_cart_value.aw,v 1.9 2009/08/31 11:04:05 dragut Exp $
 // shop_order_cart_value.aw - Poe ostukorvi v&auml;&auml;rtus 
 /*
@@ -12,6 +14,8 @@
 
 class shop_order_cart_value extends class_base
 {
+	const AW_CLID = 345;
+
 	function shop_order_cart_value()
 	{
 		$this->init(array(

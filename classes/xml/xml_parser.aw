@@ -3,9 +3,9 @@
 // xml_parser.aw - Wrapper for the xml parsing stuff
 // right now this class can only bitch and die
 // in the future it should wrap all the parser functions
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class xml_parser
 {
 	function xml_parser()

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/document_content_type.aw,v 1.2 2008/01/31 13:52:14 kristo Exp $
 // document_content_type.aw - Sisu t&uuml;&uuml;p 
 /*
@@ -12,6 +14,8 @@
 
 class document_content_type extends class_base
 {
+	const AW_CLID = 1064;
+
 	function document_content_type()
 	{
 		$this->init(array(

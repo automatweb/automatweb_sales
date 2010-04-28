@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/calendar/rfp.aw,v 1.191 2009/08/24 08:54:38 instrumental Exp $
 // rfp.aw - Pakkumise saamise palve 
 /*
@@ -551,6 +553,8 @@ define("RFP_STATUS_CANCELLED", 5);
 
 class rfp extends class_base
 {
+	const AW_CLID = 1175;
+
 	function rfp()
 	{
 		$this->init(array(
@@ -1304,7 +1308,7 @@ class rfp extends class_base
 				{
 					RETURN PROP_OK;
 				}
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$p = $u->get_person_for_user(obj($prop["value"]));
 				$prop["value"] = html::href(array(
 					"caption" => call_user_func(array(obj($p), "name")),

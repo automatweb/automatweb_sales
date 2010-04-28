@@ -1,9 +1,9 @@
 <?php
 
 // php.aw - PHP serializer
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class php_serializer_file
 {
 	var $no_index = false;

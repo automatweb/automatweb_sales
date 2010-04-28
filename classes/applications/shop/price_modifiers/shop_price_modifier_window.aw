@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/price_modifiers/shop_price_modifier_window.aw,v 1.6 2007/12/06 14:34:11 kristo Exp $
 // shop_price_modifier_window.aw - Akna hinnakujundus 
 /*
@@ -134,6 +136,8 @@
 
 class shop_price_modifier_window extends class_base
 {
+	const AW_CLID = 967;
+
 	function shop_price_modifier_window()
 	{
 		$this->init(array(

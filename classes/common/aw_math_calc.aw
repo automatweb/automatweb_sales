@@ -1,9 +1,6 @@
 <?php
 
-/*
-@classinfo  maintainer=voldemar
-*/
-
+namespace automatweb;
 
 /*  TEST CASES
 echo aw_math_calc::string2float("$35,234.43")."\n";

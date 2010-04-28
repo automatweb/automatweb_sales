@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 $Header: /home/cvs/automatweb_dev/classes/admin/object_type.aw,v 1.31 2009/02/18 13:46:32 instrumental Exp $
 
@@ -35,6 +37,8 @@ $Header: /home/cvs/automatweb_dev/classes/admin/object_type.aw,v 1.31 2009/02/18
 
 class object_type extends class_base
 {
+	const AW_CLID = 115;
+
 	function object_type()
 	{
 		$this->init(array(

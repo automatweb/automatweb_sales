@@ -1,6 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/transport_management/crm_transport_management_truck.aw,v 1.4 2007/12/06 14:33:24 kristo Exp $
-// crm_transport_management_truck.aw - Veoauto 
+
+namespace automatweb;
+
+// crm_transport_management_truck.aw - Veoauto
 /*
 
 @classinfo syslog_type=ST_CRM_TRANSPORT_MANAGEMENT_TRUCK relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=dragut
@@ -62,7 +64,7 @@
 	@caption T&auml;ismass
 
 	@property fuel_tank_capacity type=textbox table=crm_transport_management_truck
-	@caption K&uuml;tusepaagi maht 
+	@caption K&uuml;tusepaagi maht
 
 	@property fuel_type type=textbox table=crm_transport_management_truck
 	@caption K&uuml;tus
@@ -77,7 +79,7 @@
 @default group=accessory
 
 	@property refrigerator type=checkbox ch_value=1 table=crm_transport_management_truck
-	@caption K&uuml;lmutusseade	
+	@caption K&uuml;lmutusseade
 
 	@property conditioner type=checkbox ch_value=1 table=crm_transport_management_truck
 	@caption Konditsioneer
@@ -116,6 +118,8 @@ define('DRIVING_AXLE_4_WHEELS', 3);
 
 class crm_transport_management_truck extends class_base
 {
+	const AW_CLID = 1085;
+
 
 	var $truck_types = array();
 	var $bodytypes = array();
@@ -127,7 +131,7 @@ class crm_transport_management_truck extends class_base
 			"tpldir" => "applications/crm/transport_management/crm_transport_management_truck",
 			"clid" => CL_CRM_TRANSPORT_MANAGEMENT_TRUCK
 		));
-		
+
 		$this->truck_types = array(
 			TRUCK_TYPE_SADLE => t('Sadul'),
 			TRUCK_TYPE_RIGID => t('Veok')
@@ -148,7 +152,7 @@ class crm_transport_management_truck extends class_base
 			DRIVING_AXLE_BACK => t('Tagavedu'),
 			DRIVING_AXLE_4_WHEELS => t('Nelivedu')
 		);
-		
+
 	}
 
 	function get_property($arr)
@@ -179,7 +183,7 @@ class crm_transport_management_truck extends class_base
 			//-- set_property --//
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{

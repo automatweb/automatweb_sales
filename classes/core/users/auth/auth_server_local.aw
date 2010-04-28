@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // auth_server_local.aw - Autentimsserver Kohalik
 /*
 
@@ -11,6 +13,8 @@
 
 class auth_server_local extends class_base
 {
+	const AW_CLID = 845;
+
 	function auth_server_local()
 	{
 		$this->init(array(

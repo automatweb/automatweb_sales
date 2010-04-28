@@ -1,11 +1,16 @@
 <?php
 
+namespace automatweb;
+
+
 /*
 @classinfo maintainer=voldemar
 */
 
 class quickmessage_obj extends _int_object
 {
+	const AW_CLID = 335;
+
 	const TYPE_GENERIC = 1;
 	const TYPE_SYS = 2;
 
@@ -43,7 +48,7 @@ class quickmessage_obj extends _int_object
 			$current_user = new object($u_oid);
 			$msgbox = quickmessagebox_obj::get_msgbox_for_user($current_user);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			return;
 		}
@@ -70,7 +75,7 @@ class quickmessage_obj extends _int_object
 					$p_o = new object($p_oid);
 					$options[$u_oid] = $p_o->name();
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 				}
 			}
@@ -92,7 +97,7 @@ class quickmessage_obj extends _int_object
 					$p_o = new object($p_oid);
 					$options[$u_o->id()] = $p_o->name();
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 				}
 			}

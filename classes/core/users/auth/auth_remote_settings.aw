@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/users/auth/auth_remote_settings.aw,v 1.7 2008/01/31 13:54:00 kristo Exp $
 // auth_remote_settings.aw - Automaatne sissep&auml;&auml;s 
 /*
@@ -29,6 +31,8 @@
 
 class auth_remote_settings extends class_base
 {
+	const AW_CLID = 879;
+
 	function auth_remote_settings()
 	{
 		$this->init(array(

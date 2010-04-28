@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_search.aw,v 1.20 2009/08/31 17:40:32 markop Exp $
 // shop_product_search.aw - Lao toodete otsing 
 /*
@@ -89,6 +91,8 @@
 
 class shop_product_search extends class_base
 {
+	const AW_CLID = 920;
+
 	function shop_product_search()
 	{
 		$this->init(array(
@@ -474,7 +478,7 @@ class shop_product_search extends class_base
 			CL_SHOP_PRODUCT_PACKAGING => array()
 		);
 
-		$cf = get_instance(CL_CFGFORM);
+		$cf = new cfgform();
 
 		// get product props from warehouse
 		$cfgforms = $wh_i->get_prod_add_config_forms(array("warehouse" => $wh->id()));
@@ -584,7 +588,7 @@ class shop_product_search extends class_base
 	function get_trans_languages()
 	{
 		$res = array();
-		$lan = get_instance("languages");
+		$lan = new languages();
 		foreach($lan->get_list() as $key => $val)
 		{
 			if($key != aw_global_get("lang_id"))

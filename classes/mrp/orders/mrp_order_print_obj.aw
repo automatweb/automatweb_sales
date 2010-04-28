@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class mrp_order_print_obj extends mrp_order_obj
 {
+	const AW_CLID = 1520;
+
 	private $sel_cover_list;
 
 	function get_applicable_warehouse()

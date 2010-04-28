@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/scm/scm_result.aw,v 1.10 2007/12/06 14:34:06 kristo Exp $
 // scm_result.aw - Tulemus 
 /*
@@ -32,6 +34,8 @@
 
 class scm_result extends class_base
 {
+	const AW_CLID = 1100;
+
 	function scm_result()
 	{
 		$this->init(array(

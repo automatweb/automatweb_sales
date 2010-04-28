@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/orders/orders_item.aw,v 1.6 2007/11/23 11:00:53 markop Exp $
 // orders_item.aw - Tellimuse rida 
 /*
@@ -71,6 +73,8 @@
 
 class orders_item extends class_base
 {
+	const AW_CLID = 840;
+
 	function orders_item()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

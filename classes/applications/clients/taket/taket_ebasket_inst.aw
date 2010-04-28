@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/clients/taket/taket_ebasket_inst.aw,v 1.1 2008/10/01 14:17:40 markop Exp $
 // taket_ebasket_inst.aw - Taketi Ostukorvi Objekt 
 /*
@@ -18,6 +20,8 @@
 
 class taket_ebasket_inst extends class_base
 {
+	const AW_CLID = 246;
+
 	function taket_ebasket_inst()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

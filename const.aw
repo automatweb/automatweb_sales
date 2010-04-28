@@ -1,12 +1,13 @@
 <?php
+
+namespace automatweb;
+
 if (!defined("AW_CONST_INC"))
 {
 
 
 define("AW_CONST_INC", 1);
 // 1:42 PM 8/3/2008 - const.aw now contains only parts of old startup script that are to be moved to new appropriate files or deleted. const.aw file to be removed eventually.
-
-set_magic_quotes_runtime(0);
 
 foreach ($GLOBALS["cfg"] as $key => $value)
 {
@@ -369,12 +370,10 @@ function lc_init()
 
 function aw_config_init_class($that)
 {
-//	enter_function("__global::aw_config_init_class",array());
 	$class = get_class($that);
 	$that->cfg = array_merge((isset($GLOBALS["cfg"][$class]) ? $GLOBALS["cfg"][$class] : array()),$GLOBALS["cfg__default__short"]);
 	$that->cfg["acl"] = $GLOBALS["cfg"]["acl"];
 	$that->cfg["config"] = $GLOBALS["cfg"]["config"];
-//	exit_function("__global::aw_config_init_class");
 }
 
 // loads localization variables from the site's $site_basedir
@@ -436,7 +435,7 @@ function aw_classload($args)
 // a nuh, muud varianti ka pole - terryf
 function classload($args)
 {
-	//	enter_function("__global::classload",array());
+	trigger_error("classload() is deprecated. Called in " . dbg::call_point_str(), E_USER_NOTICE);
 	$arg_list = func_get_args();
 	while(list(,$lib) = each($arg_list))
 	{
@@ -454,7 +453,7 @@ function classload($args)
 		{
 			$cl_id = aw_ini_get("class_lut.".basename($lib));
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 		}
 
@@ -488,6 +487,7 @@ function classload($args)
 				}
 			}
 		}
+
 		if (is_readable($lib))
 		{
 			include_once($lib);
@@ -500,23 +500,18 @@ function classload($args)
 			}
 
 			// try to handle it with class_index and autoload
-			__autoload(basename($olib));
+			autoload(basename($olib));
 		}
 	}
 }
 
 function get_instance($class, $args = array(), $errors = true)
 {
+	trigger_error("get_instance() is deprecated. Called in " . dbg::call_point_str(), E_USER_NOTICE);
 	if (empty($class))
 	{
 		throw new aw_exception("Can't load class when no name given.");
 	}
-
-	if (!empty($GLOBALS["TRACE_INSTANCE"]))
-	{
-		echo "get_instance $class from ".dbg::short_backtrace()." <br>";
-	}
-	enter_function("__global::get_instance",array());
 
 	$site = $designed = false;
 	if (is_numeric($class))
@@ -536,24 +531,19 @@ function get_instance($class, $args = array(), $errors = true)
 		$cl_id = aw_ini_get("class_lut.".basename($class));
 		$site = aw_ini_isset("classes." . $cl_id . ".site_class");
 	}
-	catch (Exception $e)
+	catch (\Exception $e)
 	{
 		$site = false;
 	}
 
-	if (substr($class,0,13) === "designedclass")
-	{
-		$designed = true;
-	}
-
-	$lib = basename($class);
+	$lib = "automatweb\\" . basename($class);
 	$rs = "";
 	$clid = (isset($GLOBALS['cfg']['class_lut']) && isset($GLOBALS["cfg"]["class_lut"][$lib])) ? $GLOBALS["cfg"]["class_lut"][$lib] : 0;
 	if (isset($GLOBALS['cfg']['classes'][$clid]))
 	{
 		$clinf = $GLOBALS['cfg']['classes'][$clid];
 		$rs = isset($clinf["is_remoted"]) ? $clinf["is_remoted"] : null;
-	};
+	}
 	// check if the class is remoted. if it is, then create proxy class instance, not real class instance
 	if ($rs != "")
 	{
@@ -570,12 +560,6 @@ function get_instance($class, $args = array(), $errors = true)
 	{
 		$classdir = aw_ini_get("site_basedir")."/classes";
 	}
-	else if ($designed)
-	{
-		$classdir = aw_ini_get("site_basedir")."/files/classes";
-		$class = basename($class);
-		$lib = $GLOBALS["gen_class_name"];
-	}
 	else
 	{
 		$classdir = aw_ini_get("classdir");
@@ -586,7 +570,7 @@ function get_instance($class, $args = array(), $errors = true)
 
 	if (!file_exists($classdir."/".$replaced.AW_FILE_EXT))
 	{
-		__autoload(basename($class));
+		autoload(basename($class));
 	}
 
 	if(function_exists("get_class_version"))
@@ -644,7 +628,6 @@ function get_instance($class, $args = array(), $errors = true)
 		$instance->init();
 	}
 
-	exit_function("__global::get_instance",array());
 	return $instance;
 }
 

@@ -1,6 +1,10 @@
 <?php
+
+namespace automatweb;
 class site_loginmenu extends class_base
 {
+	const AW_CLID = 1449;
+
 	var $current_login_menu_id;
 
 	function site_loginmenu()

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CB_SEARCH relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
 
@@ -94,6 +96,8 @@
 
 class cb_search extends class_base
 {
+	const AW_CLID = 428;
+
 	/** search content **/
 	private $search_data = array();
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // ml_member.aw - Mailing list member
 
 /*
@@ -118,6 +120,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON_WORK_RELA
 
 class ml_member extends class_base
 {
+	const AW_CLID = 73;
+
 	function ml_member()
 	{
 		$this->init(array(

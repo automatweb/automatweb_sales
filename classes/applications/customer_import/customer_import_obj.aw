@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class customer_import_obj extends _int_object
 {
+	const AW_CLID = 1541;
+
 ////////////////////////////////////////////////// process management support
 
 	function getpidinfo($pid, $ps_opt="aux")

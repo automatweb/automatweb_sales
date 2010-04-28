@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/expp/expp_kampaania.aw,v 1.2 2007/11/23 07:18:28 dragut Exp $
 // expp_kampaania.aw - Expp kampaania 
 /*
@@ -15,6 +17,8 @@
 
 class expp_kampaania extends class_base
 {
+	const AW_CLID = 1196;
+
 	function expp_kampaania()
 	{
 		$this->init(array(

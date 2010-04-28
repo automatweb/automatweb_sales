@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/rate/rate.aw,v 1.34 2008/03/31 13:55:34 instrumental Exp $
 /*
 
@@ -62,6 +64,8 @@ define("RATING_LOWEST_VIEWS",5);
 
 class rate extends class_base
 {
+	const AW_CLID = 189;
+
 	function rate()
 	{
 		$this->init(array(

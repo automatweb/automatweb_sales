@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_PACKAGE_SITE_RELATION relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
 @tableinfo aw_package_site_relation master_index=brother_of master_table=objects index=aw_oid
@@ -13,6 +15,8 @@
 
 class package_site_relation extends class_base
 {
+	const AW_CLID = 1467;
+
 	function package_site_relation()
 	{
 		$this->init(array(

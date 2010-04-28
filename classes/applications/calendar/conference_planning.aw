@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // conference_planning.aw - Konverentsi planeerimine
 /*
 @classinfo syslog_type=ST_CONFERENCE_PLANNING relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=tarvo
@@ -155,6 +157,8 @@ define(TYPE_TEXT, 3);
 
 class conference_planning extends class_base
 {
+	const AW_CLID = 1171;
+
 	function conference_planning()
 	{
 		$this->init(array(
@@ -273,7 +277,7 @@ class conference_planning extends class_base
 	function gen_langs()
 	{
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$ll = $l->get_list(array(
 			//"ignore_status" => true,
 			"all_data" => true,
@@ -937,7 +941,7 @@ class conference_planning extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$l = get_instance("languages");
+				$l = new languages();
 				$ll = $l->get_list(array(
 					//"ignore_status" => true,
 					"all_data" => true,
@@ -2269,7 +2273,7 @@ class conference_planning extends class_base
 			case 1:
 				$sc->read_template("sub_conference_rfp1.tpl");
 				$acc_req = ($sd["single_count"] > 0 || $sd["double_count"] > 0 || $sd["suite_count"] > 0 || $sd["needs_rooms"])?"CHECKED":"";
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$org = $u->get_current_company();
 				$org = $this->can("view", $org)?obj($org):false;
 				$sc->vars(array(
@@ -2632,7 +2636,7 @@ class conference_planning extends class_base
 				$sc->read_template("sub_conference_rfp6.tpl");
 				$addr = get_instance(CL_CRM_ADDRESS);
 
-				$ui = get_instance(CL_USER);
+				$ui = new user();
 				$logged_in_user = $ui->get_current_person();
 				if($this->can("view", $logged_in_user))
 				{
@@ -2729,7 +2733,7 @@ class conference_planning extends class_base
 						$s_results .= $sc->parse("SEARCH_RESULT_ERROR");
 					}
 				}
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$org = $u->get_current_company();
 				$per = obj($u->get_current_person());
 				$addr = $per->prop("address");
@@ -3547,7 +3551,7 @@ class conference_planning extends class_base
 			return aw_ini_get("baseurl")."/".$arr["id"]."?sub=qa";
 		}
 
-		$us = get_instance(CL_USER);
+		$us = new user();
 		classload("users");
 		$password = substr(gen_uniq_id(),0,8);
 		$taken = false;

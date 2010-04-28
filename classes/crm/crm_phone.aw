@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // phone.aw - Telefon
 /*
 
@@ -54,6 +56,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON_WORK_RELA
 
 class crm_phone extends class_base
 {
+	const AW_CLID = 219;
+
 	function crm_phone()
 	{
 		$this->init(array(
@@ -90,7 +94,7 @@ class crm_phone extends class_base
 							"data" => $prop["value"],
 						));
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 					}
 				}
@@ -127,7 +131,7 @@ class crm_phone extends class_base
 						$c->load($arr["request"]["conn_id"]);
 						$prop["value"] = $c->prop("data");
 					}
-					catch (Exception $e)
+					catch (\Exception $e)
 					{
 					}
 				}

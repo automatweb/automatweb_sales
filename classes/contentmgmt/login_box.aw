@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/login_box.aw,v 1.5 2008/10/08 08:05:44 kristo Exp $
 // login_box.aw - Sisselogimiskast 
 /*
@@ -17,6 +19,8 @@
 
 class login_box extends class_base
 {
+	const AW_CLID = 1214;
+
 	function login_box()
 	{
 		$this->init(array(

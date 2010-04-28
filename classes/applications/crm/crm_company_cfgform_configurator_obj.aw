@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class crm_company_cfgform_configurator_obj extends _int_object
 {
+	const AW_CLID = 1515;
+
 	public function set_prop($k, $v)
 	{
 		if(in_array($k, array("create_customer_data", "make_user", "mu_send_welcome_mail", "mu_login", "check_email")))

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/install/aw_site.aw,v 1.60 2009/05/28 08:32:37 dragut Exp $
 /*
 
@@ -67,6 +69,8 @@ caption Kas templated linkida, mitte kopeerida
 
 class aw_site extends class_base
 {
+	const AW_CLID = 170;
+
 	function aw_site()
 	{
 		$this->init(array(

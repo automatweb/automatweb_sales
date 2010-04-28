@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/site_search/site_search_content.aw,v 1.107 2009/02/10 08:52:39 instrumental Exp $
 // site_search_content.aw - Saidi sisu otsing 
 /*
@@ -148,6 +150,8 @@ define("S_OPT_WORD_PART", 4);
 
 class site_search_content extends class_base
 {
+	const AW_CLID = 231;
+
 	function site_search_content()
 	{
 		$this->init(array(
@@ -2798,7 +2802,7 @@ class site_search_content extends class_base
 			return false;
 		}
 		$i = get_instance(CL_SITE_SEARCH_CONTENT_GRP_HTML);
-		$f = get_instance(CL_FILE);
+		$f = new file();
 		$i->add_single_url_to_index(file::get_url($o->id(), $o->name()));
 	}
 }

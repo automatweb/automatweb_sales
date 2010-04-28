@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo  maintainer=kristo
 */
@@ -14,6 +16,8 @@ define("CTRL_USE_TYPE_VALUE", 5);			// value controller - evals on show and subm
 classload("formgen/form_base");
 class form_controller extends form_base
 {
+	const AW_CLID = 94;
+
 	function form_controller()
 	{
 		$this->form_base();
@@ -38,7 +42,7 @@ class form_controller extends form_base
 		$this->read_template("add_controller.tpl");
 		$this->mk_path($parent, "Lisa kontroller");
 	
-		$l = get_instance("languages");
+		$l = new languages();
 		$lar = $l->listall();
 		foreach($lar as $ld)
 		{
@@ -131,7 +135,7 @@ class form_controller extends form_base
 		$this->read_template("add_controller.tpl");
 		$this->mk_path($co["parent"], "Muuda kontrollerit");
 
-		$l = get_instance("languages");
+		$l = new languages();
 		$lar = $l->listall();
 		foreach($lar as $ld)
 		{

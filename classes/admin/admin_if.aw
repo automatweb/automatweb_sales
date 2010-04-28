@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_ADMIN_IF no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 
@@ -35,6 +37,8 @@
 
 class admin_if extends class_base
 {
+	const AW_CLID = 1134;
+
 	var $use_parent;
 	var $period;
 	var $curl;
@@ -71,7 +75,7 @@ class admin_if extends class_base
 		);
 
 		// init get_popup_data stuff
-		$this->pm = get_instance("vcl/popup_menu");
+		$this->pm = new popup_menu();
 
 		$this->post_ru_append = "&return_url=".urlencode(get_ru());
 		$this->change_url_template = str_replace("__", "%s", $this->mk_my_orb("change", array(
@@ -236,7 +240,7 @@ class admin_if extends class_base
 			"url" => obj_link($parent),
 			"img" => "preview.gif",
 		));
-		$file_manager = get_instance("admin/editor/file_manager");
+		$file_manager = new file_manager();
 		$file_manager->add_zip_button(array("tb" => $tb));
 
 		if (aw_ini_get("per_oid"))
@@ -250,7 +254,7 @@ class admin_if extends class_base
 			$this->_init_period_dropdown($tb);
 			if ($tmp = aw_global_get("period"))
 			{
-				$dbp = get_instance(CL_PERIOD);
+				$dbp = new period();
 				$pd = $dbp->get($tmp);
 				$tb->add_cdata(sprintf(t("Valitud periood: %s"), $pd["name"]." ".(aw_global_get("act_per_id") == $tmp ? t("(A)") : "")));
 			}
@@ -275,7 +279,7 @@ class admin_if extends class_base
 
 	function _get_o_tree($arr)
 	{
-		$tree =& $arr["prop"]["vcl_inst"];
+		$tree = $arr["prop"]["vcl_inst"];
 
 		$rn = empty($this->use_parent) ? aw_ini_get("admin_rootmenu2") : $this->use_parent;
 
@@ -295,7 +299,12 @@ class admin_if extends class_base
 			"persist_state" => 1,
 			"root_name" => t("<b>AutomatWeb</b>"),
 			"root_url" => aw_url_change_var("parent", $admrm, $this->curl),
-			"get_branch_func" => $this->mk_my_orb("gen_folders",array("selp" => $this->selp, "curl" => $this->curl, "period" => $this->period, "parent" => "0")),
+			"get_branch_func" => $this->mk_my_orb("gen_folders", array(
+				"selp" => $this->selp,
+				"curl" => $this->curl,
+				"period" => $this->period,
+				"parent" => "0"
+			)),
 		));
 
 		$has_items = array();
@@ -326,6 +335,7 @@ class admin_if extends class_base
 				$rn = reset($rn);
 			}
 		}
+
 		$filt = array(
 			"class_id" => array(CL_MENU, CL_BROTHER, CL_GROUP),
 			"parent" => $rn,
@@ -337,10 +347,9 @@ class admin_if extends class_base
 						"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
 				)
 			)),
-			"site_id" => array(),
-			"lang_id" => array(),
 			"sort_by" => "objects.parent,objects.jrk,objects.created"
 		);
+
 		$ol = new object_data_list(
 			$filt,
 			$this->data_list_ot_flds
@@ -377,7 +386,7 @@ class admin_if extends class_base
 							"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
 					)
 				)),
-				"site_id" => array(),
+				"lang_id" => aw_global_get("lang_id"),
 				"sort_by" => "objects.parent,objects.jrk,objects.created"
 			), $this->data_list_ot_flds);
 			foreach($ol->arr() as $menu)
@@ -420,11 +429,11 @@ class admin_if extends class_base
 	**/
 	function gen_folders($arr)
 	{
-		$t = get_instance("vcl/treeview");
+		$t = new treeview();
 		$this->use_parent = (int)$arr["parent"];
 		$this->_get_o_tree(array(
 			"prop" => array(
-				"vcl_inst" => &$t
+				"vcl_inst" => $t
 			),
 			"request" => $arr
 		));
@@ -913,13 +922,12 @@ class admin_if extends class_base
 
 	private function generate_new($tb, $i_parent, $period)
 	{
-		$atc = get_instance(CL_ADD_TREE_CONF);
+		$atc = new add_tree_conf();
 
 		// although fast enough allready .. caching makes it 3 times as fast
-		$c = get_instance("cache");
 		if(aw_ini_get("admin_if.cache_toolbar_new"))
 		{
-			$tree = $c->file_get("newbtn_tree_cache_".aw_global_get("uid"));
+			$tree = cache::file_get("newbtn_tree_cache_".aw_global_get("uid"));
 			$tree = unserialize($tree);
 		}
 
@@ -932,7 +940,7 @@ class admin_if extends class_base
 				"parent" => "--pt--",
 				"period" => "--pr--",
 			));
-			$c->file_set("newbtn_tree_cache_".aw_global_get("uid"), serialize($tree));
+			cache::file_set("newbtn_tree_cache_".aw_global_get("uid"), serialize($tree));
 		}
 
 		$new_url_template = str_replace("__", "%s", $this->mk_my_orb("new",array("parent" => "__"),"__"));
@@ -1102,8 +1110,8 @@ class admin_if extends class_base
 		extract($arr);
 		$this->mk_path($parent, t("Vali kuidas objekte kopeerida"));
 
-		$hc = get_instance("cfg/htmlclient", array(
-			"tabs" => true,
+		$hc = new htmlclient(array(
+			"tabs" => true
 		));
 		$hc->add_tab(array(
 			"active" => true,
@@ -1451,13 +1459,13 @@ class admin_if extends class_base
 
 			foreach($files as $file)
 			{
-				$fuc = get_instance(CL_FILE_UPLOAD_CONFIG);
+				$fuc = new file_upload_config();
 				if (!$fuc->can_upload_file(array("folder" => $arr["request"]["parent"], "file_name" => $file, "file_size" => filesize($file))))
 				{
 					continue;
 				}
-				$fi = get_instance(CL_FILE);
-				$mt = get_instance("core/aw_mime_types");
+				$fi = new file();
+				$mt = new aw_mime_types();
 				$rv = $fi->save_file(array(
 					"name" => basename($file),
 					"type" => $mt->type_for_file($file),
@@ -1503,13 +1511,13 @@ class admin_if extends class_base
 		}
 		if (is_uploaded_file($_FILES["Filedata"]["tmp_name"]))
 		{
-			$fuc = get_instance(CL_FILE_UPLOAD_CONFIG);
+			$fuc = new file_upload_config();
 			if (!$fuc->can_upload_file(array("folder" => $arr["parent"], "file_name" => $_FILES["Filedata"]["name"], "file_size" => $_FILES["Filedata"]["size"])))
 			{
 				continue;
 			}
-			$fi = get_instance(CL_FILE);
-			$mt = get_instance("core/aw_mime_types");
+			$fi = new file();
+			$mt = new aw_mime_types();
 			$rv = $fi->save_file(array(
 				"name" => $_FILES["Filedata"]["name"],
 				"type" => $_FILES["Filedata"]["type"],
@@ -1716,7 +1724,7 @@ class admin_if extends class_base
 		extract($arr);
 		$this->mk_path($parent,t("Impordi men&uuml;&uuml;sid"));
 
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 		$htmlc->add_property(array(
 			"name" => "fail",
@@ -1749,7 +1757,7 @@ class admin_if extends class_base
 			"form_only" => 1
 		));
 
-		$tp = get_instance("vcl/tabpanel");
+		$tp = new tabpanel();
 		$tp->add_tab(array(
 			"active" => true,
 			"caption" => t("Impordi"),
@@ -1813,7 +1821,7 @@ class admin_if extends class_base
 		$p_o = obj($parent);
 		$mt = $p_o->prop("type");
 
-		$i = get_instance("core/icons");
+		$i = new icons();
 		reset($menus[$i_p]);
 		while (list(,$v) = each($menus[$i_p]))
 		{
@@ -1995,7 +2003,7 @@ class admin_if extends class_base
 	private function _init_period_dropdown($tb)
 	{
 		$per_oid = aw_ini_get("per_oid");
-		$dbp = get_instance(CL_PERIOD, $per_oid);
+		$dbp = new period($per_oid);
 
 		$act_per_id = $dbp->get_active_period();
 		$pl = array();

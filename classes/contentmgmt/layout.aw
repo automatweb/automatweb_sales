@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 /*
 
 @classinfo syslog_type=ST_LAYOUT relationmgr=yes maintainer=kristo
@@ -83,6 +85,8 @@
 
 class layout extends class_base
 {
+	const AW_CLID = 178;
+
 	function layout()
 	{
 		$this->init(array(
@@ -109,7 +113,7 @@ class layout extends class_base
 			{
 				if ($c->prop("from.class_id") == CL_FILE)
 				{
-					$fi = get_instance(CL_FILE);
+					$fi = new file();
 					$fl = $fi->get_file_by_id($c->prop("to"));
 					return $fl["content"];
 				}

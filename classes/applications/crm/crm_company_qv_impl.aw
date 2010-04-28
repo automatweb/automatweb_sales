@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=markop
-*/
+
+namespace automatweb;
+
 class crm_company_qv_impl extends class_base
 {
 	function crm_company_qv_impl()
@@ -91,8 +91,8 @@ class crm_company_qv_impl extends class_base
 				$time_filt = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $r["stats_s_to"]);
 			}
 		}
-		
-		
+
+
 		// projs
 		if (!empty($arr["proj"]))
 		{
@@ -156,7 +156,7 @@ class crm_company_qv_impl extends class_base
 				"site_id" => array(),
 				"project" => $o->id(),
 				"brother_of" => new obj_predicate_prop("id"),
-				
+
 			));
 */
 			foreach($t_ol->arr() as $task)
@@ -217,19 +217,19 @@ class crm_company_qv_impl extends class_base
 					"oid" => $arr["tasks"]->ids(),
 					"brother_of" => new obj_predicate_prop("id")
 				));
-	
+
 				// also add call/meeting/offer by range
 				$filt = array(
 					"class_id" => array(CL_CRM_MEETING, CL_CRM_CALL, CL_CRM_OFFER),
 					"customer" => $arr["obj_inst"]->id(),
 					"brother_of" => new obj_predicate_prop("id")
 				);
-	
+
 				$r = array();
 				$r["stats_s_from"] = date_edit::get_timestamp($arr["request"]["stats_s_from"]);
 				$r["stats_s_to"] = date_edit::get_timestamp($arr["request"]["stats_s_to"]);
-	
-	
+
+
 				$filt["start1"] = $time_filt;
 				$ol2 = new object_list($filt);
 				$ol->add($ol2);
@@ -296,7 +296,7 @@ class crm_company_qv_impl extends class_base
 //					)
 //				)),
 			));
-	
+
 			foreach($pol->arr() as $person)
 			{
 				$parts[] = html::obj_change_url($person->id());
@@ -375,9 +375,9 @@ class crm_company_qv_impl extends class_base
 			{
 				$hrs += str_replace(",", ".",$row["amt"]);
 			}
-			
+
 			$c_time = $o->get_last_comment_time();
-			
+
 			$t->define_data(array(
 				"date" => $c_time > 100 ? date("d.m.Y", $c_time) : "",
 				"name" => html::get_change_url($o->id(), array("return_url" => get_ru(), "group" => "preview"), ($o->name()?$o->name():t("Nimetu"))),
@@ -474,7 +474,7 @@ class crm_company_qv_impl extends class_base
 				"sb" => $o->prop("bill_date"),
 			));
 
-			$count++; 
+			$count++;
 		}
 		if ($ol->count() == 0)
 		{
@@ -510,7 +510,7 @@ class crm_company_qv_impl extends class_base
 
 		$o = $arr["obj_inst"];
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$cur_p = obj($u->get_current_person());
 		$conns = $cur_p->connections_from(array(
 			"type" => "RELTYPE_IMPORTANT_PERSON",

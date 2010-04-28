@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/document_calendar_view.aw,v 1.11 2008/02/20 10:19:37 kristo Exp $
 // document_calendar_view.aw - Dokumentide kalendrivaade 
 /*
@@ -21,6 +23,8 @@
 
 class document_calendar_view extends class_base
 {
+	const AW_CLID = 1306;
+
 	function document_calendar_view()
 	{
 		$this->init(array(

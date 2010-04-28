@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
+
+namespace automatweb;
+
 class quick_add extends class_base
 {
 	function quick_add()
@@ -12,7 +12,7 @@ class quick_add extends class_base
 	{
 		// read props from the given class
 		$prop = $arr["prop"];
-	
+
 		$tmp = obj();
 		$tmp->set_class_id(@constant($prop["clid"]));
 		$pl = $tmp->get_property_list();

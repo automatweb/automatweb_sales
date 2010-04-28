@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/core/util/ip_locator/ip_locator.aw,v 1.11 2008/10/06 14:23:16 markop Exp $
 // ip_locator.aw - IP lokaator 
 /*
@@ -33,6 +35,8 @@
 
 class ip_locator extends class_base
 {
+	const AW_CLID = 1177;
+
 
 	var $db_table_name;
 

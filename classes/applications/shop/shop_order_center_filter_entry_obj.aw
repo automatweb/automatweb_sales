@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_order_center_filter_entry_obj extends _int_object
 {
+	const AW_CLID = 1412;
+
 	function filter_get_selected_values($field_name)
 	{
 		$cache = $this->meta("filter_value_cache");

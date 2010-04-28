@@ -1,8 +1,8 @@
 <?php
 // reminder UI VCL component
-/*
-@classinfo maintainer=markop
-*/
+
+namespace automatweb;
+
 class mail_notify extends core
 {
 	function mail_notify()
@@ -235,7 +235,7 @@ class mail_notify extends core
 		}
 		else
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$person = $u->get_person_for_uid(aw_global_get("uid"));
 			$user_name = "";
 			if(is_object($person))
@@ -394,7 +394,7 @@ class mail_notify extends core
 			"img" => "delete.gif",
 			"action" => "remove_p_from_l_list",
 		));
-		$popup_search = get_instance("vcl/popup_search");
+		$popup_search = new popup_search();
 /*		$search_butt = $popup_search->get_popup_search_link(array(
 			"pn" => "add_selected_people",
 			"clid" => array(CL_CRM_PERSON,CL_GROUP)

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 
 @classinfo syslog_type=ST_WORKFLOW_CONFIG no_status=1 maintainer=kristo
@@ -39,6 +41,8 @@
 
 class workflow_config extends class_base
 {
+	const AW_CLID = 177;
+
 	function workflow_config()
 	{
 		$this->init(array(

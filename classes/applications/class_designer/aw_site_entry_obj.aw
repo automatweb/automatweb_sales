@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class aw_site_entry_obj extends _int_object
 {
+	const AW_CLID = 1498;
+
 	function set_prop($k, $v)
 	{
 		if ($k == "name")

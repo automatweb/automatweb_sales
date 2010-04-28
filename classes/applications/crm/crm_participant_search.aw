@@ -147,7 +147,7 @@ class crm_participant_search extends popup_search
 			$c = get_instance(CL_CRM_COMPANY);
 			if ($arr["s"]["show_vals"]["cur_co"])
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$filter["oid"] = array_keys($c->get_employee_picker(obj($u->get_current_company()),false,($arr["s"]["show_vals"]["imp"]?true:false)));
 			}
 
@@ -171,7 +171,7 @@ class crm_participant_search extends popup_search
 
 			if ($arr["s"]["show_vals"]["imp"] && $do_imp)
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 
 				$tmp = array();
 				foreach(array_keys($c->get_employee_picker(obj($u->get_current_company()), false, true)) as $_id)

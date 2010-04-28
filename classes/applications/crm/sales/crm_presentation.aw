@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 /*
 @classinfo syslog_type=ST_CRM_PRESENTATION relationmgr=yes no_status=1 prop_cb=1 maintainer=voldemar confirm_save_data=1
 
@@ -89,6 +91,8 @@
 
 class crm_presentation extends task
 {
+	const AW_CLID = 1560;
+
 	function crm_presentation()
 	{
 		$this->init(array(
@@ -133,7 +137,7 @@ class crm_presentation extends task
 				}
 			}
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 		}
 
@@ -679,7 +683,7 @@ class crm_presentation extends task
 						$r = $arr["post_ru"];
 					}
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					if (!empty($arr["return_url"]))
 					{
@@ -739,7 +743,7 @@ class crm_presentation extends task
 						$this->show_msg_text(t("Esitluse tulemuseks valisite uue esitluse. Siin sisestage selle andmed (algusaeg jm. mis tarvis)"));
 					}
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 					$this->show_error_text(t("Tulemuseks olev esitlus pole avatav"));
 				}
@@ -749,7 +753,7 @@ class crm_presentation extends task
 		return $r;
 	}
 
-	protected function process_submit_error(Exception $caught_exception)
+	protected function process_submit_error(\Exception $caught_exception)
 	{
 		if ($caught_exception instanceof awex_mrp_resource_unavailable)
 		{

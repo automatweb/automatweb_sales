@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_service_type.aw,v 1.2 2007/12/06 14:33:17 kristo Exp $
 // crm_service_type.aw - CRM Teenuse liik 
 /*
@@ -15,6 +17,8 @@
 
 class crm_service_type extends class_base
 {
+	const AW_CLID = 1212;
+
 	function crm_service_type()
 	{
 		$this->init(array(

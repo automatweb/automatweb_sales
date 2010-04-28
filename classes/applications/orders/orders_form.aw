@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/orders/orders_form.aw,v 1.31 2009/08/22 20:32:04 markop Exp $
 // $Header: /home/cvs/automatweb_dev/classes/applications/orders/orders_form.aw,v 1.31 2009/08/22 20:32:04 markop Exp $
 // orders_form.aw - Tellimuse vorm 
@@ -141,6 +143,8 @@
 
 class orders_form extends class_base
 {
+	const AW_CLID = 841;
+
 	function orders_form()
 	{
 		// change this to the folder under the templates folder, where this classes templates will be, 

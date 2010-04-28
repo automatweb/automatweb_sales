@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // bug_tracker.aw - BugTrack
 
 define("MENU_ITEM_LENGTH", 20);
@@ -622,6 +624,8 @@ define("MENU_ITEM_LENGTH", 20);
 classload("applications/bug_o_matic_3000/bug");
 class bug_tracker extends class_base
 {
+	const AW_CLID = 867;
+
 	var $combined_priority_formula;
 
 	function bug_tracker()
@@ -811,11 +815,11 @@ class bug_tracker extends class_base
 				}
 				else
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$p = obj($u->get_current_person());
 				}
 				$co = get_instance(CL_CRM_COMPANY);
-				$c = get_instance("vcl/popup_menu");
+				$c = new popup_menu();
 				$c->begin_menu("bt_g");
 				$ppl = $this->get_people_list($arr["obj_inst"]);
 				foreach($ppl as $p_id => $p_n)
@@ -1148,7 +1152,7 @@ class bug_tracker extends class_base
 	function get_table_from_ol($ol, &$t, $arr)
 	{
 		classload("core/icons");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$us = get_instance("users");
 		$bug_i = get_instance(CL_BUG);
 		$bug_list = $ol->arr();
@@ -1313,7 +1317,7 @@ class bug_tracker extends class_base
 			"sort_by" => "objects.createdby, objects.created"
 		));
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$person = $u->get_current_person();
 
 		$uid = aw_global_get('uid');
@@ -2502,7 +2506,7 @@ class bug_tracker extends class_base
 	function populate_bug_list_table_from_list(&$t, $ol, $params = array(), $s = array())
 	{
 		classload("core/icons");
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$us = get_instance("users");
 		$bug_i = get_instance(CL_BUG);
 		$states = $bug_i->get_status_list();
@@ -3265,7 +3269,7 @@ class bug_tracker extends class_base
 		$bug_props = $arr["obj_inst"]->get_property_list();
 		$bugi = get_instance(CL_BUG);
 
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$ss = safe_array($arr["obj_inst"]->meta("saved_searches"));
 		foreach($ss as $idx => $search)
 		{
@@ -3446,7 +3450,7 @@ class bug_tracker extends class_base
 		}
 		else
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$p = obj($u->get_current_person());
 		}
 
@@ -4603,7 +4607,7 @@ class bug_tracker extends class_base
 				)),
 				"url" => $url
 			));
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu("add_mail_group_devo_menu_".$stid);
 			$count = 0;
 			foreach($mg[$stid] as $gid)
@@ -4721,7 +4725,7 @@ class bug_tracker extends class_base
 					)),
 					"url" => $url
 				));
-				$pm = get_instance("vcl/popup_menu");
+				$pm = new popup_menu();
 				$pm->begin_menu("add_mail_group_".$var."_menu_".$stid);
 				$count = 0;
 				foreach(${"mg_".$var}[$stid] as $gid)
@@ -5022,7 +5026,7 @@ die("a");
 				$b->set_prop("bug_priority", $this->_parse_priority_from_mail($ms["content"]));
 				$who = $this->_parse_who_from_mail($msg);
 				$b->set_prop("who", $who);
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$b->set_prop("monitors", $this->_parse_monitors_from_message($ms["content"], $u->get_company_for_person($who)));
 
 				$b->set_prop("bug_content", $ms["content"]);
@@ -5243,7 +5247,7 @@ die("a");
 			$ol = new object_list(array("oid" => $ids, "lang_id" => array(), "site_id" => array()));
 			$ol->arr();
 		}
-		$u = get_instance(CL_USER);
+		$u = new user();
 		foreach($conns as $con)
 		{
 			$eml = obj($con["to"]);

@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // trademark_manager.aw - Kaubam&auml;rgitaotluse keskkond
 /*
 
@@ -107,6 +109,8 @@
 
 class trademark_manager extends class_base
 {
+	const AW_CLID = 1190;
+
 	const XML_OUT_ENCODING = "ISO-8859-1";
 	const XML_IN_ENCODING = "ISO-8859-4";
 
@@ -202,7 +206,7 @@ class trademark_manager extends class_base
 						exit(t("Main procurators' folder can't be same as procurators' folder for specific application type"));
 					}
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
 				}
 			}
@@ -291,7 +295,7 @@ class trademark_manager extends class_base
 					$procurators_data[$clid][] = $o->brother_of();
 				}
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 			}
 		}
@@ -384,7 +388,7 @@ class trademark_manager extends class_base
 					}
 				}
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 			}
 		}
@@ -1004,7 +1008,7 @@ class trademark_manager extends class_base
 
 			if($this->can("view" , $o->prop("warrant")))
 			{
-				$file_inst = get_instance(CL_FILE);
+				$file_inst = new file();
 				$procurator = html::href(array(
 					"caption" => $procurator,
 					"url" => "#",//html::get_change_url($o->id(), array("return_url" => $arr["post_ru"])),
@@ -1086,7 +1090,7 @@ class trademark_manager extends class_base
 			{
 				$class = aw_ini_get("classes." . $o->class_id() . ".name");
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				$class = "N/A";
 			}

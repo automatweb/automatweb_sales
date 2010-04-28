@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/protocols/mail/imap.aw,v 1.47 2008/05/23 08:03:34 kristo Exp $
 // imap.aw - IMAP login 
 /*
@@ -37,6 +39,8 @@
 
 class imap extends class_base
 {
+	const AW_CLID = 229;
+
 	var $charsets = array("KOI8-R", "iso-8859-4", "windows-1251", "iso-8859-1");
 	function imap()
 	{

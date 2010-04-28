@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_insurance_type.aw,v 1.2 2007/11/23 11:42:58 markop Exp $
 // crm_insurance_type.aw - Insurance type 
 /*
@@ -12,6 +14,8 @@
 
 class crm_insurance_type extends class_base
 {
+	const AW_CLID = 1326;
+
 	function crm_insurance_type()
 	{
 		$this->init(array(

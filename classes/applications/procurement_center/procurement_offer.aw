@@ -1,4 +1,6 @@
 <?php
+
+namespace automatweb;
 // $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement_offer.aw,v 1.32 2007/12/06 14:33:50 kristo Exp $
 // procurement_offer.aw - Pakkumine hankele
 /*
@@ -97,6 +99,8 @@ define("OFFER_STATE_ACCEPTED", 3);
 
 class procurement_offer extends class_base
 {
+	const AW_CLID = 1069;
+
 	function procurement_offer()
 	{
 		$this->init(array(
@@ -151,7 +155,7 @@ class procurement_offer extends class_base
 				{
 					$prop["options"][$curr->id()] = $curr->name();
 				}
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$company = obj($u->get_current_company());
 				if(!$arr["obj_inst"]->prop("currency"))
 				{
@@ -375,11 +379,11 @@ class procurement_offer extends class_base
 
 		classload("core/icons");
 		$clss = aw_ini_get("classes");
-		get_instance(CL_FILE);
+		new file();
 		foreach($ol->arr() as $o)
 		{
 			if(!(($o->class_id() == CL_FILE) || ($o->class_id() == CL_CRM_DOCUMENT) || ($o->class_id() == CL_CRM_DEAL) || ($o->class_id() == CL_CRM_OFFER) || ($o->class_id() == CL_CRM_MEMO))) continue;
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu("sf".$o->id());
 
 
@@ -1089,7 +1093,7 @@ class procurement_offer extends class_base
 
 	function products_table(&$t , $this_obj)
 	{
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		if(is_oid($this_obj->prop("procurement")))
 		{
@@ -1450,7 +1454,7 @@ class procurement_offer extends class_base
 			$impl_o = obj($impl);
 			if (!$impl_o->get_first_obj_by_reltype("RELTYPE_DOCS_FOLDER"))
 			{
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$impl = $u->get_current_company();
 			}
 		}
@@ -1590,7 +1594,7 @@ class procurement_offer extends class_base
 		function _set_files($arr)
 	{
 		$t = obj($arr["request"]["id"]);
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$co = obj($u->get_current_company());
 		foreach(safe_array($_POST["fups_d"]) as $num => $entry)
 		{
@@ -1610,7 +1614,7 @@ class procurement_offer extends class_base
 				if ($entry["type"] == CL_FILE)
 				{
 					// add file
-					$f = get_instance(CL_FILE);
+					$f = new file();
 
 					$fs_fld = null;
 					if (strpos($entry["folder"], ":") !== false)
@@ -1647,7 +1651,7 @@ class procurement_offer extends class_base
 					$o->save();
 
 					// add file
-					$f = get_instance(CL_FILE);
+					$f = new file();
 
 					$fs_fld = null;
 					if (strpos($entry["folder"], ":") !== false)

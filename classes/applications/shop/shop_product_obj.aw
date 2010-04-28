@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class shop_product_obj extends _int_object
 {
+	const AW_CLID = 295;
+
 	/** Sets the price for the product by currency
 		@attrib api=1 params=pos
 

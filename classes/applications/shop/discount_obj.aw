@@ -1,7 +1,12 @@
 <?php
 
+namespace automatweb;
+
+
 class discount_obj extends _int_object
 {
+	const AW_CLID = 1553;
+
 
 	public static function get_valid_discount($arr)
 	{

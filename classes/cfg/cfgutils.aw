@@ -1,7 +1,7 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
+namespace automatweb;
+
 class cfgutils extends aw_template
 {
 	private $fbasedir = "xml/properties/";
@@ -17,7 +17,7 @@ class cfgutils extends aw_template
 		$this->init("");
 		$this->fbasedir = $this->fbasedir;
 		$this->f_site_basedir = $this->f_site_basedir;
-		$this->cache = get_instance("cache");
+		$this->cache = new cache();
 	}
 
 	private function _init_clist()
@@ -67,7 +67,7 @@ class cfgutils extends aw_template
 			true if the given class has properties, false if not
 
 		@examples
-			$cu = get_instance("cfg/cfgutils");
+			$cu = new cfgutils();
 			if ($cu->has_properties(array("clid" => CL_IMAGE)))
 			{
 				echo "image class has properties!";
@@ -110,7 +110,7 @@ class cfgutils extends aw_template
 			array with class id as the key and the class name as the value
 
 		@examples
-			$cu = get_instance("cfg/cfgutils");
+			$cu = new cfgutils();
 			echo html::select(array(
 				"name" => "class_select",
 				"options" => $cu->get_classes_with_properties()
@@ -664,7 +664,7 @@ class cfgutils extends aw_template
 				$file = aw_ini_get("classes.{$clid}.file");
 				$file = basename($file);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				//!!! mis on  default? mis saab kui siia satutakse
 			}
@@ -793,7 +793,7 @@ class cfgutils extends aw_template
 			$fld = $this->cfg["site_basedir"]."/files/classes";
 			$loc = $fld . "/" . $cldat["file"] . "." . aw_ini_get("ext");
 
-			$anakin = get_instance("cfg/propcollector");
+			$anakin = new propcollector();
 			$result = $anakin->parse_file(array(
 				"file" => $loc,
 			));
