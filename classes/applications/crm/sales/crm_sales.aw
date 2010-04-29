@@ -70,6 +70,10 @@ PROPERTY DECLARATIONS
 	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna pakkumisobjektid
 	@caption Pakkumiste kaust
 
+	@property price_components_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
+	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna hinnakomponentide objekte
+	@caption Hinnakomponentide kaust
+
 	@property warehouse type=objpicker clid=CL_SHOP_WAREHOUSE parent=folders_box
 	@caption Ladu
 
@@ -209,10 +213,16 @@ PROPERTY DECLARATIONS
 
 @default group=settings_offers
 
-	@property cfgf_offers_hide_mandatory_price_components type=checkbox
-	@caption Peida kohustuslikud hinna komponendid
+	@property cfgf_offers_toolbar type=toolbar store=no no_caption=1
 
+	@layout settings_offers_vsplitbox type=hbox width=50%:50%
 
+		@layout settings_offers_left type=vbox parent=settings_offers_vsplitbox area_caption=Pakkumiste&nbsp;seaded
+
+			@property cfgf_offers_hide_mandatory_price_components type=checkbox parent=settings_offers_left
+			@caption Peida kohustuslikud hinnakomponendid
+
+		@property cfgf_offers_price_components_table type=table store=no no_caption=1 parent=settings_offers_vsplitbox
 
 @default group=contacts
 	@layout contacts_vsplitbox type=hbox width=25%:75%
@@ -445,8 +455,8 @@ PROPERTY DECLARATIONS
 
 	@layout offers_search_box type=vbox closeable=1 area_caption=Pakkumiste&nbsp;otsing parent=offers_box
 
-		@property os_name type=textbox view_element=1 parent=offers_search_box store=no size=20 captionside=top
-		@caption Pakkumise nimi
+		@property os_customer_name type=textbox view_element=1 parent=offers_search_box store=no size=20 captionside=top
+		@caption Kliendi nimi
 
 		@property os_submit type=submit value=Otsi view_element=1 parent=offers_search_box store=no
 		@caption Otsi
@@ -686,7 +696,7 @@ class crm_sales extends class_base
 			}
 		}
 		elseif ("offers" === $this->use_group and (
-			!empty($arr["request"]["os_name"])
+			!empty($arr["request"]["os_customer"])
 		))
 		{
 				self::$offers_list_view = self::OFFERS_SEARCH;
@@ -1190,6 +1200,14 @@ class crm_sales extends class_base
 			if (method_exists("crm_sales_offers_view", $method_name))
 			{
 				$ret = crm_sales_offers_view::$method_name($arr);
+			}
+		}
+		elseif ("settings_offers" === $this->use_group)
+		{
+			$method_name = "_get_{$arr["prop"]["name"]}";
+			if (method_exists("crm_sales_settings_offers_view", $method_name))
+			{
+				$ret = crm_sales_settings_offers_view::$method_name($arr);
 			}
 		}
 

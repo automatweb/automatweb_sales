@@ -1,0 +1,76 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>has_lower_tolerance</name>
+            <table>aw_crm_sales_price_component_restriction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_has_lower_tolerance</field>
+      </property>
+      <property>
+            <name>has_upper_tolerance</name>
+            <table>aw_crm_sales_price_component_restriction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_has_upper_tolerance</field>
+      </property>
+      <property>
+            <name>price_component</name>
+            <table>aw_crm_sales_price_component_restriction</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_SALES_PRICE_COMPONENT</clid>
+            <field>aw_price_component</field>
+            <caption>Hinnakomponent</caption>
+      </property>
+      <property>
+            <name>subject</name>
+            <table>aw_crm_sales_price_component_restriction</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <field>aw_subject</field>
+            <caption>Objekt, millele piirang m&amp;amp;otilde;jub</caption>
+      </property>
+      <property>
+            <name>lower_tolerance</name>
+            <table>aw_crm_sales_price_component_restriction</table>
+            <group>general</group>
+            <type>textbox</type>
+            <maxlength>20</maxlength>
+            <field>aw_lower_tolerance</field>
+            <caption>Alumine tolerants</caption>
+      </property>
+      <property>
+            <name>upper_tolerance</name>
+            <table>aw_crm_sales_price_component_restriction</table>
+            <group>general</group>
+            <type>textbox</type>
+            <maxlength>20</maxlength>
+            <field>aw_upper_tolerance</field>
+            <caption>&amp;amp;Uuml;lemine tolerants</caption>
+      </property>
+      <property>
+            <name>compulsory</name>
+            <table>aw_crm_sales_price_component_restriction</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_compulsory</field>
+            <caption>Kohustuslik</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_SALES_PRICE_COMPONENT_RESTRICTION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>SYSTEM</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_crm_sales_price_component_restriction>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_crm_sales_price_component_restriction>
+      </tableinfo>
+</properties>
+
