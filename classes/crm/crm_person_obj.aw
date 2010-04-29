@@ -1368,22 +1368,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 			}
 		}
 
-//vana versiooni toimimiseks
-		if(!sizeof($sections))
-		{
-			$filter = array(
-				"class_id" => CL_CRM_SECTION,
-				"CL_CRM_SECTION.RELTYPE_WORKERS" => $this->id(),
-			);
-			if(sizeof($sec))
-			{
-				$filter["oid"] = $sec;
-			}
-			$secs = new object_list($filter);
-			$sections = $secs->names();
-
-		}
-
 		return $sections;
 	}
 
@@ -1421,19 +1405,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 			if((!$co || $co == $o->prop("org")) && $o->prop("profession.name"))
 			{
 				$sections[] = $o->prop("profession.name");
-			}
-		}
-
-//vana versiooni toimimiseks
-		if(!sizeof($sections))
-		{
-			foreach($this->connections_from(array("type" => "RELTYPE_RANK")) as $c)
-			{
-				if(sizeof($professions) && !in_array($c->prop("to") , $professions))//kui pole ette antud yksustes j2tab vahele
-				{
-					continue;
-				}
-				$sections[] = $c->prop("to.name");
 			}
 		}
 
@@ -1662,14 +1633,18 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 			if no customer relation object, makes one
 		@returns object
 	**/
-	public function get_customer_relation($my_co = null, $crea_if_not_exists = false)
+	public function get_customer_relation($my_co_id = null, $crea_if_not_exists = false)
 	{
-		if ($my_co === null)
+		if ($my_co_id === null)
 		{
-			$my_co = get_current_company();
+			$my_co_id = user::get_current_company();
+		}
+		elseif (is_object($my_co_id))
+		{
+			$my_co_id = $my_co_id->id();
 		}
 
-		if (!is_object($my_co) || !is_oid($my_co->id()))
+		if (!is_oid($my_co_id))
 		{
 			return;
 		}
@@ -1679,30 +1654,30 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 		{
 			$gcr_cache = array();
 		}
-		if (isset($gcr_cache[$this->id()][$crea_if_not_exists][$my_co->id()]))
+		if (isset($gcr_cache[$this->id()][$crea_if_not_exists][$my_co_id]))
 		{
-			return $gcr_cache[$this->id()][$crea_if_not_exists][$my_co->id()];
+			return $gcr_cache[$this->id()][$crea_if_not_exists][$my_co_id];
 		}
 
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 			"buyer" => $this->id(),
-			"seller" => $my_co
+			"seller" => $my_co_id
 		));
 		if ($ol->count())
 		{
-			$gcr_cache[$this->id()][$crea_if_not_exists][$my_co->id()] = $ol->begin();
+			$gcr_cache[$this->id()][$crea_if_not_exists][$my_co_id] = $ol->begin();
 			return $ol->begin();
 		}
 		else
 		if ($crea_if_not_exists)
 		{
-			$my_co = obj($my_co);
+			$my_co = obj($my_co_id);
 			$o = obj();
 			$o->set_class_id(CL_CRM_COMPANY_CUSTOMER_DATA);
 			$o->set_name(t("Kliendisuhe ").$my_co->name()." => ".$this->name());
-			$o->set_parent($my_co->id());
-			$o->set_prop("seller", $my_co->id());
+			$o->set_parent($my_co_id);
+			$o->set_prop("seller", $my_co_id);
 			$o->set_prop("buyer", $this->id());
 			$o->save();
 			$gcr_cache[$this->id()][$crea_if_not_exists][$this->id()] = $o;
@@ -1718,14 +1693,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 	{
 		$sects = $this->get_sections();
 		$ret = $sects->names();
-		//edasi vana
-		$conns = $this->connections_from(array(
-			'type' => "RELTYPE_SECTION"
-		));
-		foreach($conns as $conn)
-		{
-			$ret[$conn->prop('to')] = $conn->prop('to.name');
-		}
 		return $ret;
 	}
 
