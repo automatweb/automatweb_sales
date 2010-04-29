@@ -1,13 +1,78 @@
 <?xml version='1.0'?>
 <properties>
+      <property>
+            <name>customer_relation</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>hidden</type>
+            <datatype>int</datatype>
+            <field>aw_customer_relation</field>
+            <caption>Kliendisuhe</caption>
+      </property>
+      <property>
+            <name>customer</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>
+                  <num_0>CL_CRM_COMPANY</num_0>
+                  <num_1>CL_CRM_PERSON</num_1>
+            </clid>
+            <field>aw_customer</field>
+            <caption>Kliendi nimi</caption>
+      </property>
+      <property>
+            <name>salesman</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_PERSON</clid>
+            <field>aw_salesman</field>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja nimi</caption>
+      </property>
+      <property>
+            <name>content_add</name>
+            <table>aw_crm_offer</table>
+            <group>content</group>
+            <type>hidden</type>
+            <editonly>1</editonly>
+            <store>no</store>
+            <field>content_add</field>
+      </property>
+      <property>
+            <name>content_toolbar</name>
+            <table>aw_crm_offer</table>
+            <group>content</group>
+            <type>toolbar</type>
+            <editonly>1</editonly>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>content_toolbar</field>
+      </property>
+      <property>
+            <name>content_table</name>
+            <table>aw_crm_offer</table>
+            <group>content</group>
+            <type>table</type>
+            <editonly>1</editonly>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>content_table</field>
+      </property>
       <classinfo>
             <syslog_type>ST_CRM_OFFER</syslog_type>
             <relationmgr>yes</relationmgr>
+            <no_name>1</no_name>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
             <maintainer>SYSTEM</maintainer>
       </classinfo>
+      <groupinfo>
+            <content>
+                  <caption>Sisu</caption>
+            </content>
+      </groupinfo>
       <tableinfo>
             <aw_crm_offer>
                   <master_index>brother_of</master_index>

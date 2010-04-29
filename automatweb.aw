@@ -10,6 +10,12 @@ $aw_dir = str_replace("//", "/", $aw_dir);
 define("AW_DIR", $aw_dir);
 define("AW_FILE_EXT", substr($__FILE__, strrpos($__FILE__, "automatweb") + 10)); // extension can't be 'automatweb'
 
+// required for Zend
+set_include_path(implode(PATH_SEPARATOR, array(
+	AW_DIR . "addons/",
+	get_include_path(),
+)));
+
 // include required libraries
 require_once(AW_DIR . "lib/main" . AW_FILE_EXT);
 

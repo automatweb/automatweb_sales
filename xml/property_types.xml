@@ -272,6 +272,8 @@
 			</search_button>
 			<no_sel>
 			</no_sel>
+			<width>
+			</width>
 		</relpicker>
 
 		<select>
@@ -279,6 +281,8 @@
 			</multiple>
 			<size>
 			</size>
+			<width>
+			</width>
 		</select>
 
 		<text>

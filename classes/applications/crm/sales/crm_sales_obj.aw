@@ -1226,6 +1226,25 @@ EOQ;
 		}
 		return $calls;
 	}
+
+	/**
+	@attrib api=1
+
+	@returns object_list
+		Returns an object list of all price component objects defined for current crm_sales object. If current crm_sales object is not yet saved empty object list is returned.
+	**/
+	public function get_price_component_list()
+	{
+		$ol = is_oid($this->id()) ? new object_list(array(
+			"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+			"application" => $this->id(),
+			"type" => new obj_predicate_not(crm_sales_price_component::TYPE_NET_VALUE),
+			new obj_predicate_sort(array(
+				"name" => "ASC"
+			)),
+		)) : new object_list();
+		return $ol;
+	}
 }
 
 /** Generic sales application exception **/

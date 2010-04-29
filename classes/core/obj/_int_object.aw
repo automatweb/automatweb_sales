@@ -662,6 +662,19 @@ class _int_object
 		$this->_int_do_implicit_save();
 	}
 
+	public function class_title()
+	{
+		try
+		{
+			$class_title = aw_ini_get(sprintf("classes.%u.name", $this->class_id()));
+		}
+		catch(awex_cfg_key $e)
+		{
+			$class_title = NULL;
+		}
+		return $class_title;
+	}
+
 	function status()
 	{
 		return isset($this->obj["status"]) ? $this->obj["status"] : null;

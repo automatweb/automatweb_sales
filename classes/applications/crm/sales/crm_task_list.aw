@@ -19,16 +19,16 @@ class crm_task_list extends object_list
 		$this->filter($param, $task_list_param);
 	}
 
-/**
-@attrib api=1 params=pos
-@param param type=array default=array()
-	Standard object_list parameters
-@param task_list_param type=array default=array()
-	Task list specific parameters array. Parameters are as follows:
+	/**
+	@attrib api=1 params=pos
+	@param param type=array default=array()
+		Standard object_list parameters
+	@param task_list_param type=array default=array()
+		Task list specific parameters array. Parameters are as follows:
 
-	own_tasks_only type=bool default=false
-		List only tasks where current user is a participant
-**/
+		own_tasks_only type=bool default=false
+			List only tasks where current user is a participant
+	**/
 	public function filter($param, $task_list_param = array())
 	{
 		if (!isset($param["class_id"]) or (is_array($param["class_id"]) and count(array_diff($param["class_id"], array_keys($this->task_classes))) > 0) or (is_class_id($param["class_id"]) and !isset($this->task_classes[$param["class_id"]])) or (!is_array($param["class_id"]) and !is_class_id($param["class_id"]))) // clid isn't set or is set but some or all clids are inapplicable
