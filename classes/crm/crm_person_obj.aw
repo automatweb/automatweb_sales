@@ -1411,6 +1411,23 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 		return $sections;
 	}
 
+	/**	Returns object list of all current professions
+		@attrib api=1
+		@returns object_list
+	**/
+	public function get_professions()
+	{
+		$this->set_current_jobs();
+		$professions = new object_list();
+		foreach($this->current_jobs->arr() as $job)
+		{
+			$professions->add($job->prop("profession"));
+		}
+
+		return $professions;
+	}
+
+
 	/** adds new work relation
 		@attrib api=1 params=name
 		@param org optional type=oid default=current company id
