@@ -244,7 +244,7 @@ class crm_offer extends class_base
 		}
 	}
 
-	public function _set_customer_relation($arr)
+	public function _set_customer($arr)
 	{
 		if(!is_oid($arr["prop"]["value"]))
 		{
