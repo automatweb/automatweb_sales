@@ -283,8 +283,8 @@ class automatweb
 				$GLOBALS["__START"] = microtime(true);
 
 				// parse vars
-				$class = self::$request->class_name();
-				$action = self::$request->action();
+				$class = $vars["class"];
+				$action = $vars["action"];
 
 				if (empty($class) && !empty($vars["alias"]))
 				{
@@ -294,8 +294,10 @@ class automatweb
 				// execute fastcall if requested
 				if (isset($vars["fastcall"]) && $vars["fastcall"] == 1)
 				{
-					classload("fastcall_base");
-					$inst = new $class;
+					require_once AW_DIR . "classes/core/fastcall_base.aw";
+					$class = self::$request->class_name();
+					$action = self::$request->action();
+					$inst = new $class();
 					self::$result->set_data($inst->$action($vars));
 					return;
 				}

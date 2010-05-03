@@ -277,7 +277,7 @@ class aw_request
 	**/
 	public function class_name()
 	{
-		return $this->_class;
+		return "automatweb\\" . $this->_class;
 	}
 
 	/**

@@ -10,7 +10,7 @@ class aw_template
 	{
 		// we have to do at least this, or classes that use $this->cfg
 		// (like menuedit->right_frame) wont work
-		aw_config_init_class(&$this);
+		aw_config_init_class($this);
 	}
 
 	function vars()
@@ -19,22 +19,22 @@ class aw_template
 
 	function lc_load()
 	{
-		exit_function("aw_template::lc_load",array());
 	}
-};
+}
 
 class core
 {
 	function db_init()
 	{
 	}
-};
+}
 
 class class_base extends core
 {
-  function init()
+	function init()
 	{
-	  aw_config_init_class(&$this);
+		aw_config_init_class($this);
 	}
 }
+
 ?>

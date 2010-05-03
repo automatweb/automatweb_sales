@@ -346,14 +346,23 @@ class dbg
 		}
 	}
 
-	/** Returns the file name and line of last caller in stack
+	/** Returns the file name and line of last or specified caller in stack
 		@attrib api=1
+		@param steps_back type=int default=0
+			How many steps back in backtrace to take to look for call point. If steps are out of bound, "not available" returned
 		@returns string
 	**/
-	public static function call_point_str()
+	public static function call_point_str($steps_back = 0)
 	{
 		$bt = debug_backtrace();
-		$str = $bt[1]["file"] . " : " . $bt[1]["line"];
+		$steps_back++;
+		$str = "Not available";
+
+		if (isset($bt[$steps_back]))
+		{
+			$str = $bt[$steps_back]["file"] . ":" . $bt[$steps_back]["line"];
+		}
+
 		return $str;
 	}
 
