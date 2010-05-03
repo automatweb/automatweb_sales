@@ -2,6 +2,328 @@
 
 class crm_offer_obj extends _int_object
 {
+	protected $rows;
+	protected $price_components;
+	protected $price_components_loaded = false;
+	protected $row_price_components;
+	protected $row_price_components_loaded = array();
+	protected $salesman_data;
+
+	public function save($exclusive = false, $previous_state = null)
+	{
+		if(is_oid($this->prop("customer")))
+		{
+			$this->set_customer_relation();
+		}
+
+		return parent::save($exclusive, $previous_state);
+	}
+
+	/**	Returns true if this offer contains the given object, false otherwise
+		@attrib api=1 params=pos
+		@param object type=object
+			The object to be added to the offer
+		@returns boolean
+		@errors Throws awex_crm_offer if this offer is not saved
+	**/
+	public function contains_object(object $o)
+	{
+		if(!isset($this->rows))
+		{
+			try
+			{
+				$this->load_rows();
+			}
+			catch (awex_crm_offer $e)
+			{
+				throw $e;
+			}
+		}
+
+		foreach($this->rows as $row)
+		{
+			if($o->id() == $row->prop("object"))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+		@attrib api=1
+		@param object type=object
+			The object to be added to the offer
+		@returns void
+		@error
+			Throws awex_crm_offer if this offer is not saved.
+			TODO: Throws awex_crm_offer if the object to be added doesn't implement crm_sales_price_component_interface.
+	**/
+	public function add_object(object $o)
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before rows can be added!");
+		}
+
+		$row = obj(NULL, array(), CL_CRM_OFFER_ROW);
+		$row->set_parent($this->id());
+		$row->set_prop("offer", $this->id());
+		$row->set_prop("object", $o->id());
+		$row->save();
+	}
+
+	/**	Returns array of 
+		@attrib api=1
+		@returs crm_offer_row_obj[]
+		@error Throws awex_crm_offer if this offer is not saved
+	**/
+	public function get_rows()
+	{
+		if(!isset($this->rows))
+		{
+			try
+			{
+				$this->load_rows();
+			}
+			catch (awex_crm_offer $e)
+			{
+				throw $e;
+			}
+		}
+
+		return $this->rows;
+	}
+
+	/**
+		@attrib api=1
+		@returns crm_price_component[]
+	**/
+	public function get_price_components_for_row(object $row)
+	{
+		if (!$this->price_components_loaded)
+		{
+			try
+			{
+				$this->load_price_components();
+			}
+			catch (awex_crm_offer $e)
+			{
+				throw $e;
+			}
+		}
+
+		if (empty($this->row_price_components_loaded[$row->id()]))
+		{
+			try
+			{
+				$this->load_price_components_for_row($row);
+			}
+			catch (awex_crm_offer $e)
+			{
+				throw $e;
+			}
+		}
+
+		return $this->row_price_components[$row->id()];
+	}
+
+	/**	Returns true if given price component is compulsory for this offer, false otherwise
+		@attrib api=1 params=pos
+		@param price_component required type=price_component_obj
+			The price component the compulsoriness is queried for
+		@returns boolean
+	**/
+	public function price_component_is_compulsory($price_component)
+	{
+		$compulsory = false;
+		
+		if(!isset($this->salesman_data))
+		{
+			try
+			{
+				$this->load_offer_data_for_price_component();
+			}
+			catch(awex_crm_offer $e)
+			{
+				throw $e;
+			}
+		}
+
+		$min = $max = $price_component->prop("value");
+		$value = $price_component->prop("value");
+
+		$priority_of_current_compulsoriness = 0;
+		$priorities_of_compulsoriness = array(
+			CL_CRM_SECTION => 1,
+			CL_CRM_PROFESSION => 2,
+			CL_CRM_PERSON_WORK_RELATION => 3,
+		);
+
+		foreach($price_component->get_restrictions()->arr() as $restriction)
+		{
+			if(
+				(
+					in_array($restriction->prop("subject"), $this->salesman_data["work_relations"]->ids())
+					|| in_array($restriction->prop("subject"), $this->salesman_data["professions"]->ids())
+					|| in_array($restriction->prop("subject"), $this->salesman_data["sections"]->ids())
+				)
+				&& $priority_of_current_compulsoriness < $priorities_of_compulsoriness[$restriction->prop("subject.class_id")]
+			)
+			{
+				$priority_of_current_compulsoriness = $priorities_of_compulsoriness[$restriction->prop("subject.class_id")];
+				$compulsory = $restriction->prop("compulsory");
+			}
+		}
+
+		return $compulsory;
+	}
+
+	/**	Returns array of lower and upper tolerance of given price component for this offer
+		@attrib api=1 params=pos
+		@param price_component required type=price_component_obj
+			The price component the tolerance is queried for
+		@returns array($min, $max)
+	**/
+	public function get_tolerance_for_price_component($price_component)
+	{
+		if(!isset($this->salesman_data))
+		{
+			try
+			{
+				$this->load_offer_data_for_price_component();
+			}
+			catch(awex_crm_offer $e)
+			{
+				throw $e;
+			}
+		}
+
+		$min = $max = $price_component->prop("value");
+		$value = $price_component->prop("value");
+
+		$priority_of_current_tolerance = 0;
+		$priorities_of_tolerance = array(
+			CL_CRM_SECTION => 1,
+			CL_CRM_PROFESSION => 2,
+			CL_CRM_PERSON_WORK_RELATION => 3,
+		);
+
+		foreach($price_component->get_restrictions()->arr() as $restriction)
+		{
+			if(
+				(
+					in_array($restriction->prop("subject"), $this->salesman_data["work_relations"]->ids())
+					|| in_array($restriction->prop("subject"), $this->salesman_data["professions"]->ids())
+					|| in_array($restriction->prop("subject"), $this->salesman_data["sections"]->ids())
+				)
+				&& $priority_of_current_tolerance < $priorities_of_tolerance[$restriction->prop("subject.class_id")]
+			)
+			{
+				$priority_of_current_tolerance = $priorities_of_tolerance[$restriction->prop("subject.class_id")];
+				$min = $restriction->has_lower_tolerance() ? $restriction->prop("lower_tolerance") * $value / 100 : $value;
+				$max = $restriction->has_upper_tolerance() ? $restriction->prop("upper_tolerance") * $value / 100 : $value;
+			}
+		}
+
+		return array($min, $max);
+	}
+
+	/**	Loads relevant data to check if price component is compulsory and to find the correct tolerance.
+	 *	Relevant data is currently section, work_relation and profession, all of which will be taken from the salesman of the offer.
+	**/
+	protected function load_offer_data_for_price_component()
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before rows can be loaded!");
+		}
+
+		//	Offer must always have a salesman!
+		if(!is_oid($this->prop("salesman")))
+		{
+			throw new awex_crm_offer("No salesman defined for this offer!");
+		}
+
+		$salesman = obj($this->prop("salesman"));
+
+		$this->salesman_data = array(
+			"professions" => $salesman->get_professions(),
+			"work_relations" => $salesman->get_active_work_relations(),
+			"sections" => $salesman->get_sections(),
+		);
+	}
+
+	protected function load_price_components_for_row(object $row)
+	{
+		$odl = new object_data_list(
+			array(
+				"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+				"type" => array(crm_sales_price_component::TYPE_UNIT, crm_sales_price_component::TYPE_ROW),
+				"applicables.id" => $row->prop("object")
+			),
+			array(
+				CL_CRM_SALES_PRICE_COMPONENT => array("applicables")
+			)
+		);
+
+		$valid_price_components = array();
+		foreach($odl->arr() as $oid => $odata)
+		{
+			if(true)
+			{
+				$valid_price_components[] = $oid;
+			}
+		}
+
+		$ol = new object_list();
+		$ol->add($valid_price_components);
+		$this->row_price_components[$row->id()] = $ol;
+
+		$this->row_price_components_loaded[$row->id()] = true;
+	}
+
+	protected function load_price_components()
+	{
+		/*
+		 *	This is the place where we'll load all the price components that are not row specific
+		 */
+		$this->price_components_loaded = true;
+	}
+
+	protected function load_rows()
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before rows can be loaded!");
+		}
+
+		$ol = new object_list(array(
+			"class_id" => CL_CRM_OFFER_ROW,
+			"offer" => $this->id(),
+		));
+		$this->rows = $ol->arr();
+	}
+
+	protected function set_customer_relation()
+	{
+		$application = automatweb::$request->get_application();
+		if ($application->is_a(CL_CRM_SALES))
+		{
+			$owner = $application->prop("owner");
+			$customer = new object($this->prop("customer"));
+			$customer_relation = $customer->get_customer_relation($owner, true);
+			if(is_object($customer_relation))
+			{
+				$customer_relation_id = $customer_relation->id();
+				$this->set_prop("customer_relation", $customer_relation_id);
+			}
+		}
+	}
 }
+
+/** Generic crm offer error **/
+class awex_crm_offer extends awex_crm {}
 
 ?>

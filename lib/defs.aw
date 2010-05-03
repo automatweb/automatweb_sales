@@ -108,13 +108,12 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		static $curc;
 		if (!$curc)
 		{
-			$i = new user();
-			$tmp = $i->get_current_company();
+			$tmp = user::get_current_company();
 			if ($tmp == false)
 			{
 				return false;
 			}
-			$curc = obj($i->get_current_company());
+			$curc = obj($tmp);
 		}
 		return $curc;
 	}

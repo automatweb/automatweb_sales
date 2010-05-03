@@ -51,6 +51,19 @@
             <caption>Pakkumiste kaust</caption>
       </property>
       <property>
+            <name>price_components_folder</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings_general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <clid>CL_MENU</clid>
+            <parent>folders_box</parent>
+            <comment>Kaust kuhu salvestatakse ning kust loetakse selle m&amp;amp;uuml;&amp;amp;uuml;gikeskkonna hinnakomponentide objekte</comment>
+            <caption>Hinnakomponentide kaust</caption>
+      </property>
+      <property>
             <name>warehouse</name>
             <table>objects</table>
             <field>meta</field>
@@ -488,13 +501,35 @@
             <caption>Juht</caption>
       </property>
       <property>
+            <name>cfgf_offers_toolbar</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings_offers</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
             <name>cfgf_offers_hide_mandatory_price_components</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
             <group>settings_offers</group>
             <type>checkbox</type>
-            <caption>Peida kohustuslikud hinna komponendid</caption>
+            <parent>settings_offers_left</parent>
+            <caption>Peida kohustuslikud hinnakomponendid</caption>
+      </property>
+      <property>
+            <name>cfgf_offers_price_components_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings_offers</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>settings_offers_vsplitbox</parent>
       </property>
       <property>
             <name>contacts_toolbar</name>
@@ -1371,7 +1406,7 @@
             <parent>offers_vsplitbox</parent>
       </property>
       <property>
-            <name>os_name</name>
+            <name>os_customer_name</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
@@ -1382,7 +1417,7 @@
             <store>no</store>
             <size>20</size>
             <captionside>top</captionside>
-            <caption>Pakkumise nimi</caption>
+            <caption>Kliendi nimi</caption>
       </property>
       <property>
             <name>os_submit</name>
@@ -1631,6 +1666,18 @@
                   <area_caption>Esitlus</area_caption>
                   <group>settings_general</group>
             </presentation_cfg_box>
+            <settings_offers_vsplitbox>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <group>settings_offers</group>
+                  <area_caption></area_caption>
+            </settings_offers_vsplitbox>
+            <settings_offers_left>
+                  <type>vbox</type>
+                  <parent>settings_offers_vsplitbox</parent>
+                  <area_caption>Pakkumiste&amp;amp;nbsp;seaded</area_caption>
+                  <group>settings_offers</group>
+            </settings_offers_left>
             <contacts_vsplitbox>
                   <type>hbox</type>
                   <width>25%:75%</width>
