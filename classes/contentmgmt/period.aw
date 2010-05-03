@@ -1,7 +1,7 @@
 <?php
 
 namespace automatweb;
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/period.aw,v 1.7 2009/05/28 09:53:12 instrumental Exp $
+
 // period.aw - periods
 /*
 
@@ -86,7 +86,6 @@ class period extends class_base implements request_startup
 		$this->lc_load("periods","lc_periods");
 		$this->cf_name = "periods-cache-site_id-".$this->cfg["site_id"]."-period-";
 		$this->cf_ap_name = "active_period-cache-site_id-".$this->cfg["site_id"];
-		$this->cache = get_instance("cache");
 		$this->init_active_period_cache();
 	}
 
@@ -185,14 +184,14 @@ class period extends class_base implements request_startup
 		};
 		$perdata = $this->db_fetch_row("SELECT id FROM periods WHERE obj_id = " . $arr["obj_inst"]->id());
 		$id = $perdata["id"];
-		$this->cache->file_invalidate($this->cf_name.$id);
+		cache::file_invalidate($this->cf_name.$id);
 		aw_cache_set("per_by_id", $id, false);
 		aw_global_set("aw_period_cache",0);
 	}
 
 	function init_active_period_cache()
 	{
-		if (($cc = $this->cache->file_get($this->cf_ap_name)))
+		if (($cc = cache::file_get($this->cf_ap_name)))
 		{
 			aw_cache_set_array("active_period",aw_unserialize($cc));
 		}
@@ -249,8 +248,8 @@ class period extends class_base implements request_startup
 	{
 		$q = "UPDATE menu SET active_period = '$id' WHERE id = '$oid'";
 		$this->db_query($q);
-		$this->cache->file_invalidate($this->cf_ap_name);
-		$this->cache->file_clear_pt("html");
+		cache::file_invalidate($this->cf_ap_name);
+		cache::file_clear_pt("html");
 	}
 
 	// see funktsioon tagastab k2igi eksisteerivate perioodide nimekirja
@@ -322,7 +321,7 @@ class period extends class_base implements request_startup
 
 			// and also to the file-on-disk cache
 			$str = aw_serialize(aw_cache_get_array("active_period"));
-			$this->cache->file_set($this->cf_ap_name,$str);
+			cache::file_set($this->cf_ap_name,$str);
 			return $ap;
 		}
 	}
@@ -367,7 +366,7 @@ class period extends class_base implements request_startup
 			return $pr;
 		}
 		// 2nd, the file-on-disk cache
-		if (($cc = $this->cache->file_get($this->cf_name.$id)))
+		if (($cc = cache::file_get($this->cf_name.$id)))
 		{
 			$pr = aw_unserialize($cc);
 			aw_cache_set("per_by_id", $id, $pr);
@@ -384,7 +383,7 @@ class period extends class_base implements request_startup
 		unset($pr_tmp["metadata"]);
 		unset($pr_tmp["acldata"]);
 		$str = aw_serialize($pr_tmp);
-		$this->cache->file_set($this->cf_name.$id, $str);
+		cache::file_set($this->cf_name.$id, $str);
 		aw_cache_set("per_by_id", $id, $pr);
 		return $pr;
 	}
@@ -522,7 +521,7 @@ class period extends class_base implements request_startup
 		// PERF: the following code should run only if the site has periods
 		$_t = aw_global_get("act_period");
 
-		$imc = get_instance(CL_IMAGE);
+		$imc = new image();
 		if ((!isset($_t["data"]["image"]) or !$this->can("view", $_t["data"]["image"])) && isset($_t["data"]["perimage"]) && $this->can("view", $_t["data"]["perimage"]))
 		{
 			$imdata = $imc->get_image_by_id($_t["data"]["perimage"]);
@@ -557,7 +556,7 @@ class period extends class_base implements request_startup
 
 		if ($arr["inst"]->is_template("PERIOD_SWITCH"))
 		{
-			$per_inst = get_instance(CL_PERIOD);
+			$per_inst = new period();
 			$plist = array_reverse($per_inst->period_list(0,false, 1), true);
 			$next = false;
 			$prev_per_id = 0;
@@ -627,13 +626,13 @@ class period extends class_base implements request_startup
 
 		if ($o->prop("perimage"))
 		{
-			$i = get_instance(CL_IMAGE);
+			$i = new image();
 			$image = $i->make_img_tag($i->get_url_by_id($o->prop("perimage")));
 		}
 		else
 		if ($o->meta("image"))
 		{
-			$i = get_instance(CL_IMAGE);
+			$i = new image();
 			$image = $i->make_img_tag($i->get_url_by_id($o->meta("image")));
 		}
 		else

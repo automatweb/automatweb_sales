@@ -259,7 +259,7 @@ class messenger_v2 extends class_base
 		{
 			$uid = aw_global_get("uid");
 		};
-		$users = get_instance("users");
+		$users = new users();
 		$user = new object($users->get_oid_for_uid($uid));
 
 		$conns = $user->connections_to(array(
@@ -287,7 +287,7 @@ class messenger_v2 extends class_base
 				break;
 			// address book
 			case "msg_ab_contents":
-				$cl = get_instance(CL_CONTACT_LIST);
+				$cl = new contact_list();
 				$cls = array();
 				$cls = $cl->get_contact_lists_for_messenger($arr["obj_inst"]->id());
 				$adds = $cl->get_addresses($cls);
@@ -391,7 +391,7 @@ class messenger_v2 extends class_base
 					"caption" => t("E-Mail"),
 				));
 
-				$cl = get_instance(CL_CONTACT_LIST);
+				$cl = new contact_list();
 				$cls = $cl->get_contact_lists_for_messenger($arr["obj_inst"]->id());
 				if(!$cls)
 				{
@@ -418,7 +418,7 @@ class messenger_v2 extends class_base
 
 				break;
 			case "contact_lists":
-				$cl = get_instance(CL_CONTACT_LIST);
+				$cl = new contact_list();
 				$cls = $cl->get_contact_lists_for_messenger($arr["obj_inst"]->id());
 				if(!$cls)
 				{
@@ -563,7 +563,7 @@ class messenger_v2 extends class_base
 		// uh, see on siin selleks, et miksip2rast ajax post requestist tulnud asjad siia $arg'i ei j6udnud. who knows why...
 		$arg = array_merge($arg, $_POST);
 		// drafti tegemise peab siia t&otilde;stma.. muidu tehakse iga kord uue maili tab'iga uus m&otilde;tetu draft?!?
-		$mm = get_instance(CL_MESSAGE);
+		$mm = new message();
 		$arg["message_info"]["msgrid"] = $arg["id"];
 		$arg["msgid"] = $mm->create_draft(array(
 			"msgrid" => $arg["message_info"]["msgrid"],
@@ -593,8 +593,8 @@ class messenger_v2 extends class_base
 	{
 		if($arg["request"]["msgid"] && $arg["request"]["mailbox"])
 		{
-			$inst = get_instance(CL_MESSAGE);
-			$inst->msgr = &$this;
+			$inst = new message();
+			$inst->msgr = $this;
 			$ret = $inst->formatted_message(array(
 				"msgid" => $arg["request"]["msgid"],
 				"msgrid" => $arg["request"]["id"],
@@ -844,7 +844,7 @@ class messenger_v2 extends class_base
 
 			$this->_name = $sdat->prop("name");
 
-			$this->drv_inst = get_instance("protocols/mail/imap");
+			$this->drv_inst = new imap();
 			$this->drv_inst->set_opt("use_mailbox",$this->use_mailbox);
 			$this->drv_inst->set_opt("outbox",$this->outbox);
 			$awt->start("imap-server-connect");
@@ -887,8 +887,7 @@ class messenger_v2 extends class_base
 	**/
 	function _msg_move($arg)
 	{
-		$cache = get_instance("cache");
-		$enum = aw_unserialize($cache->file_get($this->drv_inst->mbox_msg_list_cache_id));
+		$enum = aw_unserialize(cache::file_get($this->drv_inst->mbox_msg_list_cache_id));
 		$key = array_search($arg["request"]["msgid"], $enum);
 		if($key !== false)
 		{
@@ -1178,7 +1177,7 @@ class messenger_v2 extends class_base
 	{
 		if($arg["mailbox"] == "INBOX.Sent-mail")
 			return $ret[1] = 4;
-		$imap = get_instance(CL_PROTO_IMAP);
+		$imap = new proto_imap();
 
 		$back = $this->use_mailbox;
 		$this->use_mailbox = $arg["mailbox"];
@@ -1228,7 +1227,7 @@ class messenger_v2 extends class_base
 		// having special characters in them breaks javascript syntax
 		$enum = array();
 
-		$tree = get_instance("vcl/treeview");
+		$tree = new treeview();
 		$tree->start_tree(array(
 			"type" => TREE_DHTML,
 			"tree_id" => "msgr_tree", // what if there are multiple messengers?
@@ -1360,7 +1359,7 @@ class messenger_v2 extends class_base
 	{
 		if ($arr["prop"]["value"] > 0)
 		{
-			$sched = get_instance("scheduler");
+			$sched = new scheduler();
 			$sched->add(array(
 				"event" => $this->mk_my_orb("run_filters", array("id" => $arr["obj_inst"]->id()), "", false, true),
 				"time" => time()+($arr["prop"]["value"] * 60),
@@ -1392,7 +1391,7 @@ class messenger_v2 extends class_base
 			print $rv;
 
 			// reschedule
-			$sched = get_instance("scheduler");
+			$sched = new scheduler();
 			$sched->add(array(
 				"event" => $this->mk_my_orb("run_filters", array("id" => $arr["id"]), "", false, true),
 				"time" => time()+($msgr_obj->prop("autofilter_delay") * 60),
@@ -1863,7 +1862,7 @@ class messenger_v2 extends class_base
 	**/
 	function get_msg_attachment($arr)
 	{
-		$mm = get_instance(CL_MESSAGE);
+		$mm = new message();
 		$attach = $mm->get_attachment($arr);
 		header("Content-Type:".$attach["content_type"]);
 		header("Expires:".gmdate("D, d M Y H:i:s")." GMT");

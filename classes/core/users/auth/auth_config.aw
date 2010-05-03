@@ -249,7 +249,7 @@ class auth_config extends class_base
 				}
 			}
 
-			$server_inst = get_instance($server->class_id());
+			$server_inst = $server->instance();
 			list($is_valid, $msg, $break_chain) = $server_inst->check_auth($server, $credentials, $this);
 
 			if ($is_valid)

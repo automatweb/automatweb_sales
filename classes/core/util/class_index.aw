@@ -34,19 +34,35 @@ class class_index
 		Updates entire class index. Reads all files in class directory and parses them, looking for php class definitions.
 	**/
 	public static function update($full_update = true)
-	{return;
+	{
 		// ...
 		$max_execution_time_prev_val = ini_get("max_execution_time");
 		set_time_limit(self::UPDATE_EXEC_TIMELIMIT);
 
-		// update
-		$found_classes = self::_update("", "", $full_update);
-		self::update_one_file(AW_DIR."init.aw", $found_classes, $full_update, "../");
-
-		if ($full_update)
+		// lock or wait for a running update to finish
+		try
 		{
-			self::do_post_update_processing();
-			self::clean_up($found_classes);
+			aw_locker::lock("class_index", 1, aw_locker::LOCK_FULL, aw_locker::BOUNDARY_SERVER, aw_locker::WAIT_EXCEPTION);
+
+			// update
+			$found_classes = self::_update("", "", $full_update);
+			self::update_one_file(AW_DIR."init.aw", $found_classes, $full_update, "../");
+
+			if ($full_update)
+			{
+				self::do_post_update_processing();
+				self::clean_up($found_classes);
+			}
+
+			aw_locker::unlock("class_index", 1, aw_locker::LOCK_FULL, aw_locker::BOUNDARY_SERVER);
+		}
+		catch (aw_lock_exception $e)
+		{ // class index is locked. wait for running update process to finish and do nothing since it already updated cl index
+			aw_locker::lock("class_index", 1, aw_locker::LOCK_FULL, aw_locker::BOUNDARY_SERVER, aw_locker::WAIT_BLOCK);
+			aw_locker::unlock("class_index", 1, aw_locker::LOCK_FULL, aw_locker::BOUNDARY_SERVER);
+		}
+		catch (awex_lock $e)
+		{ // a lock error
 		}
 
 		// restore normality
@@ -344,7 +360,7 @@ class class_index
 
 			if (1 >= (int) $class_dfn["last_update"])
 			{ // in case definition is corrupt or ...
-				self::update();
+				self::update(true);
 				$class_dfn = unserialize(file_get_contents($class_dfn_file));
 			}
 
@@ -354,7 +370,7 @@ class class_index
 			if (!is_readable($class_file))
 			{
 				// class file may have changed, update index.
-				self::update();
+				self::update(true);
 
 				if (!is_readable($class_dfn_file))
 				{

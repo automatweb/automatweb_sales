@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <orb>
-	<class name="__classname" __classfolder extends="class_base">
+	<class name="__classname" extends="class_base">
 	</class>
 </orb>
-		
+

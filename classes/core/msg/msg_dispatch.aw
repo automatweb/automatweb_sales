@@ -7,10 +7,6 @@ namespace automatweb;
 
 class msg_dispatch
 {
-	function msg_dispatch()
-	{
-	}
-
 	////
 	// !this delivers posted messages
 	// parameters:
@@ -27,21 +23,14 @@ class msg_dispatch
 
 		foreach($handlers as $handler)
 		{
-			$class = $handler["class"];
+			$class = "automatweb\\" . basename($handler["class"]);
 			$func = $handler["func"];
-			$inst = get_instance($handler["class"]);
+			$inst = new $class();
 			error::raise_if(!method_exists($inst, $func), array(
 				"id" => 'ERR_NO_HANDLER_FUNC',
 				"msg" => sprintf(t("msg_dispatch::post_message - no handler function (%s) in class (%s) for message %s!"), $func, $class, $arr["msg"])
 			));
-
 			$inst->$func($arr["params"]);
-		}
-
-		$si = __get_site_instance();
-		if (method_exists($si, "aw_message_handler"))
-		{
-			$si->aw_message_handler($arr);
 		}
 	}
 
@@ -72,21 +61,15 @@ class msg_dispatch
 			}
 			if (empty($handler["param"]) || $handler["param"] == $arr["param"])
 			{
-				$class = $handler["class"];
+				$class = "automatweb\\" . $handler["class"];
 				$func = $handler["func"];
-				$inst = get_instance($handler["class"]);
+				$inst = new $class();
 				error::raise_if(!method_exists($inst, $func), array(
 					"id" => 'ERR_NO_HANDLER_FUNC',
 					"msg" => sprintf(t("msg_dispatch::post_message - no handler function (%s) in class (%s) for message %s!"), $func, $class, $arr["msg"])
 				));
 				$inst->$func($arr["params"]);
 			}
-		}
-
-		$si = __get_site_instance();
-		if (method_exists($si, "aw_message_handler"))
-		{
-			$si->aw_message_handler($arr);
 		}
 	}
 
