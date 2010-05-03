@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_sales_price_component" folder="applications/crm/sales" extends="class_base">
+		<action name="remove_applicables">
+			<function name="remove_applicables">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="sel" type="int[]" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+		<action name="remove_restrictions">
+			<function name="remove_restrictions">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="sel" type="int[]" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>
+		

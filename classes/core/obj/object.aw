@@ -864,6 +864,26 @@ class object
 		return $this;
 	}
 
+	/**	returns the class title of the object
+		@attrib api=1
+
+		@errors
+			none
+
+		@returns
+			class title of the object, NULL is returned if no object is loaded
+
+		@examples
+			$o = obj(666);
+			$class = $o->class_title();
+			printf("'%s' is of the type '%s'!", $o->name(), $o->class_title());	// Prints 'Foo' is of the type 'Bar'!
+	**/
+	function class_title()
+	{
+		$this->_check_lock_read();
+		return $GLOBALS["objects"][$this->oid]->class_title();
+	}
+
 	/** returns the status of the object
 		@attrib api=1
 

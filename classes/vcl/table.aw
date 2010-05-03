@@ -18,7 +18,8 @@ class aw_table extends aw_template
 
 	var $parsed_pageselector = '';
 	var $no_recount;
-	var $rgroupby;
+	protected $vgroupby;
+	protected $rgroupby;
 	var $titlebar_under_groups;
 	var $_gml;
 	var $_max_gml;
@@ -178,6 +179,15 @@ class aw_table extends aw_template
 	function set_rgroupby($arg)
 	{
 		$this->rgroupby = $arg;
+	}
+
+	/**
+	@attrib api=1 params=pos
+	@param arg required type=array
+	**/
+	function set_vgroupby($arg)
+	{
+		$this->vgroupby = $arg;
 	}
 
 	/** Whether to hilite rows as user hovers over with mouse cursor. Default setting is FALSE
@@ -675,7 +685,7 @@ class aw_table extends aw_template
 		$this->rgroupby = isset($params["rgroupby"]) ? $params["rgroupby"] : $this->rgroupby;
 		$this->rgroupsortdat = isset($params["rgroupsortdat"]) ? $params["rgroupsortdat"] : "";
 		$this->rgroupdat = isset($params["rgroupdat"]) ? $params["rgroupdat"] : "";
-		$this->vgroupby = isset($params["vgroupby"]) ? $params["vgroupby"] : "";
+		$this->vgroupby = isset($params["vgroupby"]) ? $params["vgroupby"] : (isset($this->vgroupby) ? $this->vgroupby : NULL);
 		$this->vgroupdat = isset($params["vgroupdat"]) ? $params["vgroupdat"] : "";
 
 		// ok, all those if sentences are getting on my nerves - we will make sure that all sorting options
@@ -714,7 +724,7 @@ class aw_table extends aw_template
 							break;
 						}
 					}
-					$this->vgrowspans[$val]++;
+					$this->vgrowspans[$val] = isset($this->vgrowspans[$val]) ? $this->vgrowspans[$val] +1 : 1;
 				}
 			}
 		}
@@ -1316,6 +1326,13 @@ END;
 					}
 					$rowspan = 1;
 					$style = false;
+					/*
+					arr(array(
+						$this->vgroupby,
+						$this->vgrouplastvals,
+						$this->vgrowspans
+					));
+					*/
 					if (isset($this->vgroupby) && is_array($this->vgroupby))
 					{
 						if (isset($this->vgroupby[$v1["name"]]))
@@ -1417,7 +1434,7 @@ END;
 						"align" => isset($v1["align"]) ? $v1["align"] : "",
 						"valign" => isset($v1["valign"]) ? $v1["valign"] : "",
 						"nowrap" => isset($v1["nowrap"]) ? 1 : "",
-						"bgcolor" => isset($v["bgcolor"]) ? $v["bgcolor"] : $bgcolor,
+						"bgcolor" => isset($v["bgcolor"]) ? $v["bgcolor"] : (isset($bgcolor) ? $bgcolor : ""),
 						"domid" => isset($v1["id"]) && isset($v[$v1["id"]]) ? $v[$v1["id"]] : "",
 						"onclick" => isset($v1["onclick"]) && isset($v[$v1["onclick"]]) ? $v[$v1["onclick"]] : "",
 	//					"onclick" => isset($v1["onclick"]) && isset($v[$v1["onclick"]]) ? $v[$v1["onclick"]] : "",
@@ -2664,6 +2681,7 @@ END;
 
 		$tbl2 = $this->_req_draw_header($subs);
 
+		// TODO: integrate vgroupby here!
 		if ($this->use_chooser && $this->_sh_req_level == 1)
 		{
 			$opentag = array(

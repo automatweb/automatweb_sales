@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="crm_sales_price_component_restriction" folder="applications/crm/sales" extends="class_base">
+	</class>
+</orb>
+		

@@ -2885,7 +2885,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			{
 				$classes = aw_ini_get("classes");
 				list($GLOBALS["properties"][$cur_clid], $GLOBALS["tableinfo"][$cur_clid], $GLOBALS["relinfo"][$cur_clid]) = $GLOBALS["object_loader"]->load_properties(array(
-					"file" => ($cur_clid == CL_DOCUMENT ? "doc" : basename($classes[$cur_clid]["file"])),
+					"file" => ($cur_clid == CL_DOCUMENT ? "doc" : basename(isset($classes[$cur_clid]["file"]) ? $classes[$cur_clid]["file"] : NULL)),
 					"clid" => $cur_clid
 				));
 			}
@@ -2998,7 +2998,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 							if (!$new_clid)
 							{
-								$new_clid = $GLOBALS["relinfo"][$cur_clid][$relt_s]["clid"][0];
+								$new_clid = isset($GLOBALS["relinfo"][$cur_clid][$relt_s]["clid"][0]) ? $GLOBALS["relinfo"][$cur_clid][$relt_s]["clid"][0] : NULL;
 							}
 							break;
 
@@ -3024,7 +3024,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				));
 
 				// calc new class id
-				$new_clid = $GLOBALS["relinfo"][$cur_clid][$pp]["clid"][0];
+				$new_clid = isset($GLOBALS["relinfo"][$cur_clid][$pp]["clid"][0]) ? $GLOBALS["relinfo"][$cur_clid][$pp]["clid"][0] : NULL;
 				$this->join_data[] = array(
 					"via" => "rel",
 					"reltype" => $reltype_id,
