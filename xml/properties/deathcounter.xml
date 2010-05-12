@@ -1,0 +1,51 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>days_to_live</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>yes</store>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>P&amp;auml;evi elada</caption>
+      </property>
+      <property>
+            <name>death_year</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <store>yes</store>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Suremise aasta</caption>
+      </property>
+      <property>
+            <name>death_month</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <store>yes</store>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Suremise kuu</caption>
+      </property>
+      <property>
+            <name>death_day</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <store>yes</store>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Suremise p&amp;amp;auml;ev</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_DEATHCOUNTER</syslog_type>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>hannes</maintainer>
+      </classinfo>
+</properties>
+

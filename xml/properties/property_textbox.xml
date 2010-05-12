@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>ord</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>2</size>
+            <field>jrk</field>
+            <caption>Jrk</caption>
+      </property>
+      <property>
+            <name>size</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>2</size>
+            <datatype>int</datatype>
+            <caption>Pikkus</caption>
+      </property>
+      <property>
+            <name>maxlength</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>2</size>
+            <datatype>int</datatype>
+            <caption>Max. pikkus</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_PROPERTY_TEXTBOX</syslog_type>
+            <no_comment>1</no_comment>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>layout</name>
+            <group>first</group>
+            <table>objects</table>
+            <store>no</store>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <field>layout</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_IAW</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>hannes</maintainer>
+      </classinfo>
+      <groupinfo>
+            <first>
+                  <caption>Esimene</caption>
+                  <submit_method>get</submit_method>
+                  <save>no</save>
+            </first>
+      </groupinfo>
+      <tableinfo>
+            <aw_iaw>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_iaw>
+      </tableinfo>
+      <layout>
+            <content>
+                  <type>hbox</type>
+                  <group>first</group>
+                  <area_caption></area_caption>
+            </content>
+      </layout>
+</properties>
+

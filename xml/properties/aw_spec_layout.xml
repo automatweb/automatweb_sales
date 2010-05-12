@@ -1,0 +1,68 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>layout_type</name>
+            <table>aw_spec_layouts</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_layout_type</field>
+            <caption>Layoudi t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>parent_layout_name</name>
+            <table>aw_spec_layouts</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <field>aw_parent_layout_name</field>
+            <reltype>RELTYPE_PARENT_LAYOUT</reltype>
+            <caption>Parent layout</caption>
+      </property>
+      <property>
+            <name>use_cases</name>
+            <table>aw_spec_layouts</table>
+            <group>use_cases</group>
+            <type>releditor</type>
+            <mode>manager</mode>
+            <reltype>RELTYPE_USE_CASE</reltype>
+            <no_caption>1</no_caption>
+            <store>connect</store>
+            <props>name</props>
+            <table_fields>name</table_fields>
+            <direct_links>1</direct_links>
+            <field>use_cases</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_AW_SPEC_LAYOUT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+            <allow_rte>2</allow_rte>
+      </classinfo>
+      <groupinfo>
+            <use_cases>
+                  <caption>Kasutuslood</caption>
+            </use_cases>
+      </groupinfo>
+      <tableinfo>
+            <aw_spec_layouts>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_spec_layouts>
+      </tableinfo>
+      <reltypes>
+            <USE_CASE>
+                  <value>10</value>
+                  <clid>CL_AW_SPEC_USE_CASE</clid>
+                  <caption>Kasutuslugu</caption>
+            </USE_CASE>
+            <PARENT_LAYOUT>
+                  <value>1</value>
+                  <clid>CL_AW_SPEC_LAYOUT</clid>
+                  <caption>Parent layout</caption>
+            </PARENT_LAYOUT>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>matchmaker</name>
+            <table>objects</table>
+            <group>configure</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>callback</type>
+            <callback>callback_matchmaker</callback>
+            <no_caption>1</no_caption>
+            <caption>Seadistamise tabel</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_AW_SYSCONFIG</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <configure>
+                  <caption>Seadistamine</caption>
+            </configure>
+      </groupinfo>
+      <reltypes>
+            <SCRIPT>
+                  <value>1</value>
+                  <clid>CL_AW_SCRIPT</clid>
+                  <caption>Skript</caption>
+            </SCRIPT>
+      </reltypes>
+</properties>
+

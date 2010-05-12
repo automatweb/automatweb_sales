@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>formula</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <richtext>1</richtext>
+            <type>textarea</type>
+            <rows>20</rows>
+            <cols>80</cols>
+            <caption>Valem</caption>
+      </property>
+      <property>
+            <name>errmsg</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Veateade</caption>
+            <comment>Kuvatakse, kui kontroller blokeerib sisestuse</comment>
+      </property>
+      <property>
+            <name>transl</name>
+            <table>objects</table>
+            <group>transl</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>callback</type>
+            <callback>callback_get_transl</callback>
+            <store>no</store>
+            <caption>T&amp;amp;otilde;lgi</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CFGCONTROLLER</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+            <allow_rte>3</allow_rte>
+      </classinfo>
+      <groupinfo>
+            <transl>
+                  <caption>T&amp;amp;otilde;lgi</caption>
+            </transl>
+      </groupinfo>
+</properties>
+

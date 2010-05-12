@@ -1,0 +1,41 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>login_menus</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>callback</type>
+            <callback>callback_get_login_menus</callback>
+            <store>no</store>
+            <field>login_menus</field>
+      </property>
+      <property>
+            <name>activity</name>
+            <table>objects</table>
+            <group>activity</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>activity</field>
+            <caption>Aktiivsus</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CONFIG_LOGIN_MENUS</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+            <no_status>1</no_status>
+      </classinfo>
+      <groupinfo>
+            <activity>
+                  <caption>Aktiivsus</caption>
+            </activity>
+      </groupinfo>
+      <reltypes>
+            <FOLDER>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>kataloog</caption>
+            </FOLDER>
+      </reltypes>
+</properties>
+

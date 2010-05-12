@@ -1,0 +1,51 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>int_ref</name>
+            <table>aw_properties</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>int_ref</field>
+            <caption>Sisemine seos</caption>
+      </property>
+      <property>
+            <name>ext_ref</name>
+            <table>aw_properties</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>ext_ref</field>
+            <caption>V&amp;auml;line seos</caption>
+      </property>
+      <property>
+            <name>property_type</name>
+            <table>aw_properties</table>
+            <group>general</group>
+            <type>select</type>
+            <field>property_type</field>
+            <caption>Omaduse t&amp;uuml;&amp;uuml;p</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_PROPERTY</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_properties>
+                  <index>aw_id</index>
+                  <master_table>objects</master_table>
+                  <master_index>brother_of</master_index>
+            </aw_properties>
+      </tableinfo>
+      <reltypes>
+            <REAL_PROPERTY>
+                  <value>1</value>
+                  <clid>CL_PROPERTY_CHECKBOX</clid>
+                  <caption>Tegelik omadus</caption>
+            </REAL_PROPERTY>
+      </reltypes>
+</properties>
+

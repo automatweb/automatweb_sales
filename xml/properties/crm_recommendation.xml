@@ -1,0 +1,97 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>person</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PERSON</reltype>
+            <store>connect</store>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Soovitav isik</caption>
+      </property>
+      <property>
+            <name>relation</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>classificator</type>
+            <reltype>RELTYPE_RELATION</reltype>
+            <store>connect</store>
+            <field>relation</field>
+            <caption>Suhe soovitajaga</caption>
+      </property>
+      <property>
+            <name>phones</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <store>no</store>
+            <field>phones</field>
+            <caption>Telefon</caption>
+      </property>
+      <property>
+            <name>emails</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <store>no</store>
+            <field>emails</field>
+            <caption>E-postiaadress</caption>
+      </property>
+      <property>
+            <name>org</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <store>no</store>
+            <field>org</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;koht</caption>
+      </property>
+      <property>
+            <name>profession</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <store>no</store>
+            <field>profession</field>
+            <caption>Amet</caption>
+      </property>
+      <property>
+            <name>contact_lang</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CONTACT_LANGUAGE</reltype>
+            <no_edit>1</no_edit>
+            <store>connect</store>
+            <field>contact_lang</field>
+            <caption>Soovitaja poole p&amp;amp;ouml;&amp;amp;ouml;rduda</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_RECOMMENDATION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <no_name>1</no_name>
+      </classinfo>
+      <reltypes>
+            <PERSON>
+                  <value>2</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>Soovitav isik</caption>
+            </PERSON>
+            <RELATION>
+                  <value>3</value>
+                  <clid>CL_META</clid>
+                  <caption>Suhe soovitajaga</caption>
+            </RELATION>
+            <CONTACT_LANGUAGE>
+                  <value>4</value>
+                  <clid>CL_LANGUAGE</clid>
+                  <caption>Soovitaja poole p&amp;amp;ouml;&amp;amp;ouml;rduda</caption>
+            </CONTACT_LANGUAGE>
+      </reltypes>
+</properties>
+

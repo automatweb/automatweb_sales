@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>rel_from</name>
+            <table>aw_spec_relations</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_rel_from</field>
+            <caption>Seos kust</caption>
+      </property>
+      <property>
+            <name>rel_to</name>
+            <table>aw_spec_relations</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_rel_to</field>
+            <caption>Seos kuhu</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_AW_SPEC_RELATION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+            <allow_rte>2</allow_rte>
+      </classinfo>
+      <tableinfo>
+            <aw_spec_relations>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_spec_relations>
+      </tableinfo>
+</properties>
+

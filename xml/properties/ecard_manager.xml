@@ -1,0 +1,60 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>dir_images</name>
+            <table>objects</table>
+            <group>general</group>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_DIR_IMAGES</reltype>
+            <field>meta</field>
+            <caption>Piltide kataloog</caption>
+            <comment>Pilte otsitakse ka selle alamkataloogidest</comment>
+      </property>
+      <property>
+            <name>dir_ecards</name>
+            <table>objects</table>
+            <group>general</group>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_DIR_ECARDS</reltype>
+            <field>meta</field>
+            <caption>E-kaartide salvestamise kataloog</caption>
+      </property>
+      <property>
+            <name>gallery</name>
+            <table>objects</table>
+            <group>general</group>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_GALLERY</reltype>
+            <field>meta</field>
+            <automatic>1</automatic>
+            <caption>Minigalerii</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_ECARD_MANAGER</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <reltypes>
+            <DIR_IMAGES>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Piltide kataloog</caption>
+            </DIR_IMAGES>
+            <DIR_ECARDS>
+                  <value>2</value>
+                  <clid>CL_MENU</clid>
+                  <caption>E-kaartide salvestamise kataloog</caption>
+            </DIR_ECARDS>
+            <GALLERY>
+                  <value>3</value>
+                  <clid>CL_MINI_GALLERY</clid>
+                  <caption>Minigalerii objekt </caption>
+            </GALLERY>
+      </reltypes>
+</properties>
+

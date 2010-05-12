@@ -1,0 +1,179 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>prod_layout</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PROD_LAYOUT</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kujundus, mida korvis kasutatakse</caption>
+      </property>
+      <property>
+            <name>email_subj</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Tellimuse e-maili subjekt</caption>
+      </property>
+      <property>
+            <name>postal_price</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <size>5</size>
+            <caption>Vaikimisi postikulu</caption>
+      </property>
+      <property>
+            <name>subject_handler</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CONTROLLER</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Subjekti kontroller</caption>
+      </property>
+      <property>
+            <name>update_handler</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CONTROLLER</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Korvi uuendamise kontroller</caption>
+      </property>
+      <property>
+            <name>finish_handler</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CONTROLLER</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Tellimise kontroller</caption>
+      </property>
+      <property>
+            <name>order_show_controller</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CONTROLLER</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Tellimuse n&amp;amp;auml;itamise kontroller</caption>
+      </property>
+      <property>
+            <name>show_only_valid_delivery_methods</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>N&amp;amp;auml;ita checkout'is ainult valiidseid k&amp;amp;auml;ttetoimetamise viise 	 </caption>
+      </property>
+      <property>
+            <name>show_only_valid_payment_types</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>N&amp;amp;auml;ita checkout'is ainult valiidseid makseviise 	 </caption>
+      </property>
+      <property>
+            <name>product_template</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Ostukorvi &amp;amp;uuml;he toote vaate templeit</caption>
+      </property>
+      <property>
+            <name>orderer_data_template</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Ostukorvi kasutaja andmete templeit</caption>
+      </property>
+      <property>
+            <name>channel</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_CHANNEL</reltype>
+            <store>connect</store>
+            <field>channel</field>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanal</caption>
+      </property>
+      <property>
+            <name>delivery_method_add</name>
+            <table>objects</table>
+            <group>delivery_methods</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+      </property>
+      <property>
+            <name>delivery_method_tlb</name>
+            <table>objects</table>
+            <group>delivery_methods</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>delivery_method_tlb</field>
+      </property>
+      <property>
+            <name>delivery_method_tbl</name>
+            <table>objects</table>
+            <group>delivery_methods</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>delivery_method_tbl</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SHOP_ORDER_CART</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <prop_cb>1</prop_cb>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <delivery_methods>
+                  <caption>K&amp;amp;auml;ttetoimetamise viisid</caption>
+            </delivery_methods>
+      </groupinfo>
+      <reltypes>
+            <PROD_LAYOUT>
+                  <value>1</value>
+                  <clid>CL_SHOP_PRODUCT_LAYOUT</clid>
+                  <caption>toote kujundus</caption>
+            </PROD_LAYOUT>
+            <CONTROLLER>
+                  <value>2</value>
+                  <clid>CL_FORM_CONTROLLER</clid>
+                  <caption>kontroller</caption>
+            </CONTROLLER>
+            <DELIVERY_METHOD>
+                  <value>3</value>
+                  <clid>CL_SHOP_DELIVERY_METHOD</clid>
+                  <caption>K&amp;amp;auml;ttetoimetamise viis</caption>
+            </DELIVERY_METHOD>
+            <RELTYPE_CHANNEL>
+                  <value>12</value>
+                  <clid>CL_WAREHOUSE_SELL_CHANNEL</clid>
+                  <caption>M&amp;amp;uuml;&amp;amp;uuml;gikanal</caption>
+            </RELTYPE_CHANNEL>
+      </reltypes>
+</properties>
+

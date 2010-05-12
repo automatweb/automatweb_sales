@@ -1,0 +1,256 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>event_cfgform</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_EVENT_CFGFORM</reltype>
+            <caption>Kasutatav vorm</caption>
+      </property>
+      <property>
+            <name>use_output</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_EVENT_SHOW</reltype>
+            <caption>N&amp;amp;auml;itamise vorm</caption>
+      </property>
+      <property>
+            <name>show_type</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>N&amp;amp;auml;ta vaikimisi s&amp;amp;uuml;ndmusi</caption>
+      </property>
+      <property>
+            <name>target_section</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Tulemuste target section</caption>
+      </property>
+      <property>
+            <name>hide_search_form</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Peida otsinguvorm</caption>
+      </property>
+      <property>
+            <name>dont_search_from_all_sites</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>&amp;amp;Auml;ra otsi k&amp;amp;otilde;igist saitidest</caption>
+      </property>
+      <property>
+            <name>dont_search_from_all_languages</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>&amp;amp;Auml;ra otsi k&amp;amp;otilde;igist keeltest</caption>
+      </property>
+      <property>
+            <name>sort_by_groups</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Sorteeri gruppide j&amp;amp;auml;rgi</caption>
+            <comment>Gruppideks v&amp;amp;otilde;ivad olla n&amp;amp;auml;iteks Projektid</comment>
+      </property>
+      <property>
+            <name>every_event_just_once</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Kuva iga s&amp;amp;uuml;ndmust ainult 1 kord</caption>
+      </property>
+      <property>
+            <name>items_per_page</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>5</size>
+            <caption>Mitu s&amp;amp;uuml;ndmust lehel</caption>
+      </property>
+      <property>
+            <name>preview_object</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_DOCUMENT</reltype>
+            <caption>Eelvaate objekt</caption>
+      </property>
+      <property>
+            <name>navigator_range</name>
+            <table>objects</table>
+            <group>ftsearch</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <caption>Ajavahemiku navigaator</caption>
+      </property>
+      <property>
+            <name>ftsearch_fields</name>
+            <table>objects</table>
+            <group>ftsearch</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <orient>vertical</orient>
+            <caption>Vabateksti v&amp;amp;auml;jad</caption>
+      </property>
+      <property>
+            <name>ftsearch_fields2</name>
+            <table>objects</table>
+            <group>ftsearch</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <orient>vertical</orient>
+            <caption>Vabateksti v&amp;amp;auml;jad 2</caption>
+      </property>
+      <property>
+            <name>ftform</name>
+            <table>objects</table>
+            <group>ftform</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <caption>Vorm</caption>
+      </property>
+      <property>
+            <name>month_navigator_style</name>
+            <table>objects</table>
+            <group>styles</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_STYLE</reltype>
+            <caption>Kuu navigaatori stiil</caption>
+      </property>
+      <property>
+            <name>week_navigator_style</name>
+            <table>objects</table>
+            <group>styles</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_STYLE</reltype>
+            <caption>N&amp;amp;auml;dala navigaatori stiil</caption>
+      </property>
+      <property>
+            <name>sform_table_style</name>
+            <table>objects</table>
+            <group>styles</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_STYLE</reltype>
+            <caption>Otsinguvormi tabeli stiil</caption>
+      </property>
+      <property>
+            <name>sform_submit_style</name>
+            <table>objects</table>
+            <group>styles</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <reltype>RELTYPE_STYLE</reltype>
+            <caption>Otsinguvormi nupu stiil</caption>
+      </property>
+      <property>
+            <name>result_table</name>
+            <table>objects</table>
+            <group>ftresults</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <caption>Tulemuste tabel</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_EVENT_SEARCH</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>dragut</maintainer>
+      </classinfo>
+      <groupinfo>
+            <ftsearch>
+                  <caption>Otsinguvorm</caption>
+            </ftsearch>
+            <ftform>
+                  <caption>Otsinguvorm seadistamine</caption>
+            </ftform>
+            <styles>
+                  <caption>Stiilid</caption>
+            </styles>
+            <ftresults>
+                  <caption>Tulemuste seadistamine</caption>
+            </ftresults>
+      </groupinfo>
+      <reltypes>
+            <EVENT_CFGFORM>
+                  <value>1</value>
+                  <clid>CL_CFGFORM</clid>
+                  <caption>S&amp;amp;uuml;ndmuse vorm</caption>
+            </EVENT_CFGFORM>
+            <EVENT_SOURCE>
+                  <value>3</value>
+                  <clid>
+                        <num_0>CL_MENU</num_0>
+                        <num_1>CL_PLANNER</num_1>
+                        <num_2>CL_PROJECT</num_2>
+                  </clid>
+                  <caption>S&amp;amp;uuml;ndmuste allikas</caption>
+            </EVENT_SOURCE>
+            <EVENT_SHOW>
+                  <value>4</value>
+                  <clid>CL_CFGFORM</clid>
+                  <caption>N&amp;amp;auml;itamise vorm</caption>
+            </EVENT_SHOW>
+            <STYLE>
+                  <value>5</value>
+                  <clid>CL_CSS</clid>
+                  <caption>Stiil</caption>
+            </STYLE>
+            <DOCUMENT>
+                  <value>6</value>
+                  <clid>CL_DOCUMENT</clid>
+                  <caption>Dokument</caption>
+            </DOCUMENT>
+      </reltypes>
+</properties>
+

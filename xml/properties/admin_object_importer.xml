@@ -1,0 +1,53 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>folder</name>
+            <table>aw_admin_object_importer</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <field>aw_folder</field>
+            <caption>Kaust kuhu importida</caption>
+      </property>
+      <property>
+            <name>fupload</name>
+            <table>aw_admin_object_importer</table>
+            <group>general</group>
+            <type>fileupload</type>
+            <store>no</store>
+            <field>fupload</field>
+            <caption>Vali fail</caption>
+      </property>
+      <property>
+            <name>log</name>
+            <table>aw_admin_object_importer</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>log</field>
+            <caption>Logi</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_ADMIN_OBJECT_IMPORTER</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_admin_object_importer>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_admin_object_importer>
+      </tableinfo>
+      <reltypes>
+            <FOLDER>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Kaust</caption>
+            </FOLDER>
+      </reltypes>
+</properties>
+

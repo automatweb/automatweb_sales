@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>comment</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textarea</type>
+            <field>comment</field>
+            <caption>S&amp;amp;otilde;num</caption>
+      </property>
+      <property>
+            <name>sent_tbl</name>
+            <table>objects</table>
+            <group>sent</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>sent_tbl</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SMS</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>instrumental</maintainer>
+      </classinfo>
+      <groupinfo>
+            <sent>
+                  <caption>Saatmised</caption>
+            </sent>
+      </groupinfo>
+      <reltypes>
+            <PHONE>
+                  <value>1</value>
+                  <clid>CL_CRM_PHONE</clid>
+                  <caption>Saaja</caption>
+            </PHONE>
+            <SMS_SENT>
+                  <value>2</value>
+                  <clid>CL_SMS_SENT</clid>
+                  <caption>SMSi saatmine</caption>
+            </SMS_SENT>
+      </reltypes>
+</properties>
+

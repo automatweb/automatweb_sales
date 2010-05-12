@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>subclass</name>
+            <table>objects</table>
+            <field>subclass</field>
+            <group>general</group>
+            <type>select</type>
+            <caption>Andmete t&amp;uuml;&amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>type</name>
+            <table>objects</table>
+            <field>meta</field>
+            <group>general</group>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Source t&amp;uuml;&amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>fullpath</name>
+            <table>objects</table>
+            <field>meta</field>
+            <group>general</group>
+            <method>serialize</method>
+            <type>textbox</type>
+            <editonly>1</editonly>
+            <caption>Faili asukoht</caption>
+      </property>
+      <property>
+            <name>url</name>
+            <table>objects</table>
+            <field>meta</field>
+            <group>general</group>
+            <method>serialize</method>
+            <type>textbox</type>
+            <editonly>1</editonly>
+            <size>60</size>
+            <caption>Faili url</caption>
+      </property>
+      <classinfo>
+            <no_status>1</no_status>
+            <syslog_type>ST_DATASOURCE</syslog_type>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

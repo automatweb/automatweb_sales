@@ -1,0 +1,72 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>csv_file_location</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>100</size>
+            <method>serialize</method>
+            <field>meta</field>
+            <caption>CSV faili asukoht</caption>
+      </property>
+      <property>
+            <name>info</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>info</field>
+            <caption>Info</caption>
+      </property>
+      <property>
+            <name>update_db</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>update_db</field>
+            <caption>Uuenda andmebaasi</caption>
+      </property>
+      <property>
+            <name>ip</name>
+            <table>objects</table>
+            <group>search</group>
+            <type>textbox</type>
+            <store>no</store>
+            <field>ip</field>
+            <caption>IP aadress</caption>
+      </property>
+      <property>
+            <name>search_result</name>
+            <table>objects</table>
+            <group>search</group>
+            <type>text</type>
+            <store>no</store>
+            <field>search_result</field>
+            <caption>Tulemus</caption>
+      </property>
+      <property>
+            <name>search_ip</name>
+            <table>objects</table>
+            <group>search</group>
+            <type>submit</type>
+            <store>no</store>
+            <field>search_ip</field>
+            <caption>Otsi </caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_IP_LOCATOR</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <search>
+                  <caption>Otsing</caption>
+            </search>
+      </groupinfo>
+</properties>
+

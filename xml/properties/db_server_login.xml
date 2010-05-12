@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>server_host</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Server</caption>
+      </property>
+      <property>
+            <name>server_admin_user</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <caption>Admin kasutaja</caption>
+      </property>
+      <property>
+            <name>server_admin_pass</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>password</type>
+            <caption>Admin parool</caption>
+      </property>
+      <property>
+            <name>server_driver</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <caption>Andmebaasi driver</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_DB_SERVER_LOGIN</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <no_comment>1</no_comment>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

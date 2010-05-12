@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>def_cfgmanager</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>subclass</field>
+            <caption>Default seadete haldur</caption>
+      </property>
+      <property>
+            <name>config</name>
+            <table>objects</table>
+            <group>config</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <caption>Tabel</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <syslog_type>ST_CFGMANAGER</syslog_type>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <config>
+                  <caption>Seaded</caption>
+            </config>
+      </groupinfo>
+      <reltypes>
+            <C_GROUP>
+                  <value>1</value>
+                  <clid>CL_GROUP</clid>
+                  <caption>Grupp</caption>
+            </C_GROUP>
+            <C_CFGFORM>
+                  <value>2</value>
+                  <clid>CL_CFGFORM</clid>
+                  <caption>Seadete vorm</caption>
+            </C_CFGFORM>
+      </reltypes>
+</properties>
+

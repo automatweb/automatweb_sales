@@ -1,0 +1,94 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>url_1</name>
+            <table>aw_site_diff</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>url_1</field>
+            <caption>Originaali URL</caption>
+      </property>
+      <property>
+            <name>url_2</name>
+            <table>aw_site_diff</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>url_2</field>
+            <caption>V&amp;amp;otilde;rreldava URL</caption>
+      </property>
+      <property>
+            <name>email</name>
+            <table>aw_site_diff</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>email</field>
+            <caption>E-posti aadress, kuhu saata kiri, kui v&amp;amp;otilde;rdlemine on l&amp;amp;otilde;ppenud</caption>
+      </property>
+      <property>
+            <name>send_diff_links</name>
+            <table>aw_site_diff</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>send_diff_links</field>
+            <caption>Saada e-postiga ka diff-lingid.</caption>
+      </property>
+      <property>
+            <name>use_hack_diff</name>
+            <table>aw_site_diff</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>use_hack_diff</field>
+            <caption>Hack diff</caption>
+      </property>
+      <property>
+            <name>start_diff</name>
+            <table>aw_site_diff</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>start_diff</field>
+            <caption>V&amp;amp;otilde;rdle</caption>
+      </property>
+      <property>
+            <name>histtlb</name>
+            <table>aw_site_diff</table>
+            <group>history</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>histtlb</field>
+      </property>
+      <property>
+            <name>histtbl</name>
+            <table>aw_site_diff</table>
+            <group>history</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>histtbl</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SITE_DIFF</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>instrumental</maintainer>
+      </classinfo>
+      <groupinfo>
+            <history>
+                  <caption>Ajalugu</caption>
+                  <submit>no</submit>
+            </history>
+      </groupinfo>
+      <tableinfo>
+            <aw_site_diff>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_site_diff>
+      </tableinfo>
+</properties>
+

@@ -1,0 +1,110 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>activate</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>datetime_select</type>
+            <year_from>2004</year_from>
+            <year_to>2010</year_to>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Aktiveerida</caption>
+      </property>
+      <property>
+            <name>deactivate</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>datetime_select</type>
+            <year_from>2004</year_from>
+            <year_to>2010</year_to>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Deaktiveerida</caption>
+      </property>
+      <property>
+            <name>apply_langs</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kehtib keeltele</caption>
+      </property>
+      <property>
+            <name>archive_time</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>datetime_select</type>
+            <year_from>2004</year_from>
+            <year_to>2010</year_to>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Arhiveerimise aeg</caption>
+      </property>
+      <property>
+            <name>archive_folder</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Arhiivi kaust</caption>
+            <comment>Kaust kuhu objekt liigutatakse</comment>
+      </property>
+      <property>
+            <name>delete_object</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kustuta objekt</caption>
+            <comment>Objekt kustutatakse arhiveerimise asemel</comment>
+      </property>
+      <property>
+            <name>objects_toolbar</name>
+            <table>objects</table>
+            <group>objects</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>objects_toolbar</field>
+            <caption>Objektide toolbar</caption>
+      </property>
+      <property>
+            <name>objects</name>
+            <table>objects</table>
+            <group>objects</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>objects</field>
+            <caption>Seotud objektid</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_TIMING</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <maintainer>dragut</maintainer>
+      </classinfo>
+      <groupinfo>
+            <objects>
+                  <caption>Seotud objektid</caption>
+                  <submit>no</submit>
+            </objects>
+      </groupinfo>
+      <reltypes>
+            <TIMING_OBJECT>
+                  <value>1</value>
+                  <clid>
+                        <num_0>CL_DOCUMENT</num_0>
+                        <num_1>CL_MENU</num_1>
+                  </clid>
+                  <caption>Seotud objekt</caption>
+            </TIMING_OBJECT>
+      </reltypes>
+</properties>
+
