@@ -322,7 +322,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 
 	function get_applications($arr = array())
 	{
-		enter_function("crm_person_obj::get_application");
 		$this->prms($arr);
 
 		/*
@@ -348,7 +347,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 
 		if(count($ids) == 0)
 		{
-			exit_function("crm_person_obj::get_application");
 			return $ret;
 		}
 
@@ -368,7 +366,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 			}
 		}
 
-		exit_function("crm_person_obj::get_application");
 		return $ret;
 	}
 
@@ -433,8 +430,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 			"class_id" => CL_CRM_PHONE,
 			"status" => array(),
 			"parent" => array(),
-			"site_id" => array(),
-			"lang_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -601,30 +596,19 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 	{
 		$col = new object_list(array(
 			"class_id" => CL_CRM_COMPANY,
-			"site_id" => array(),
-			"lang_id" => array(),
-			"CL_PROJECT.RELTYPE_PARTICIPANT" => $this->id(),
+			"CL_PROJECT.RELTYPE_PARTICIPANT" => $this->id()
 		));
-		if($col->count())
-		{
-			return 1;
-		}
-		return 0;
+		return (bool) $col->count();
 	}
 
 	function is_cust_mgr()
 	{
+		return false; // FIXME tundmatu sisuga asi. v6i siis vana systeem.
 		$col = new object_list(array(
 			"class_id" => CL_CRM_COMPANY,
-			"site_id" => array(),
-			"lang_id" => array(),
-			"CL_CRM_COMPANY.client_manager" => $this->id(),
+			"client_manager" => $this->id()
 		));
-		if($col->count())
-		{
-			return 1;
-		}
-		return 0;
+		return (bool) $col->count();
 	}
 
 	/** sets the default email adress content or creates it if needed **/
@@ -1259,6 +1243,40 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 		}
 
 		return $id;
+	}
+
+	/** Gets organisations with which this person has a relation to
+	*	@attrib api=1
+	*	@param active type=bool default=TRUE
+	*		Return only organisations with active relations to
+	*	@returns array
+	*		array of crm_company object ids
+	*	@errors
+	*		throws awex_obj_state_new
+	*/
+	public function get_organization_ids($active = true)
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new("Object not saved yet");
+		}
+
+		$organisation_ids = array();
+		$list = new object_data_list(array(
+				"class_id" => CL_CRM_PERSON_WORK_RELATION,
+				"employee" => $this->id()
+			),
+			array(
+				CL_CRM_PERSON_WORK_RELATION => array("employer")
+			)
+		);
+
+		foreach ($list->arr() as $data)
+		{
+			$organisation_ids[] = $data["employer"];
+		}
+
+		return $organisation_ids;
 	}
 
 	/** return all current work relation orgs

@@ -4,7 +4,7 @@
             <name>do_export</name>
             <table>objects</table>
             <group>general</group>
-            <type>checkbox_value</type>
+            <type>checkbox_value=1</type>
             <store>no</store>
             <field>do_export</field>
             <caption>Teosta eksport</caption>

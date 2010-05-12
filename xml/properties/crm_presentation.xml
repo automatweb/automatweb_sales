@@ -1,11 +1,11 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>hr_schedule_job</name>
+            <name>result_task</name>
             <table>planner</table>
             <type>hidden</type>
             <datatype>int</datatype>
-            <field>hr_schedule_job</field>
+            <field>result_task</field>
       </property>
       <property>
             <name>customer_relation</name>
@@ -15,11 +15,11 @@
             <field>customer_relation</field>
       </property>
       <property>
-            <name>result_task</name>
+            <name>hr_schedule_job</name>
             <table>planner</table>
             <type>hidden</type>
             <datatype>int</datatype>
-            <field>result_task</field>
+            <field>hr_schedule_job</field>
       </property>
       <property>
             <name>real_maker</name>
@@ -55,22 +55,6 @@
             <caption>Kommentaar</caption>
       </property>
       <property>
-            <name>start1</name>
-            <table>planner</table>
-            <group>general</group>
-            <field>start</field>
-            <type>datepicker</type>
-            <caption>Algus</caption>
-      </property>
-      <property>
-            <name>end</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>datepicker</type>
-            <field>end</field>
-            <caption>L&amp;amp;otilde;pp</caption>
-      </property>
-      <property>
             <name>result</name>
             <table>planner</table>
             <group>general</group>
@@ -86,6 +70,22 @@
             <store>no</store>
             <field>result_task_view</field>
             <caption>Tulemustegevus</caption>
+      </property>
+      <property>
+            <name>start1</name>
+            <table>planner</table>
+            <group>general</group>
+            <field>start</field>
+            <type>datepicker</type>
+            <caption>Algus</caption>
+      </property>
+      <property>
+            <name>end</name>
+            <table>planner</table>
+            <group>general</group>
+            <type>datepicker</type>
+            <field>end</field>
+            <caption>L&amp;amp;otilde;pp</caption>
       </property>
       <property>
             <name>real_start</name>
@@ -125,8 +125,9 @@
             <field>meta</field>
             <method>serialize</method>
             <no_search>1</no_search>
-            <comment>* - m&amp;amp;auml;rgitud aadressid on kontakti aadressid. &amp;amp;Uuml;lej&amp;amp;auml;&amp;amp;auml;nud on esitluse toimumiskohad, mis kontakti andmetes ei kajastu.</comment>
             <add_edit_autoreturn>1</add_edit_autoreturn>
+            <no_sel>1</no_sel>
+            <comment>* - m&amp;amp;auml;rgitud aadressid on kontakti aadressid. &amp;amp;Uuml;lej&amp;amp;auml;&amp;amp;auml;nud on esitluse toimumiskohad, mis kontakti andmetes ei kajastu.</comment>
             <caption>Toimumiskoht</caption>
       </property>
       <property>
@@ -139,15 +140,13 @@
             <field>presentation_location_save_to_customer</field>
             <caption>&amp;amp;nbsp;</caption>
       </property>
-	  <property>
+      <property>
             <name>presentation_appointment_phone_nr</name>
-            <table>objects</table>
+            <table>planner</table>
             <group>general</group>
             <type>text</type>
-            <editonly>1</editonly>
             <store>no</store>
-            <field>meta</field>
-            <method>serialize</method>
+            <field>presentation_appointment_phone_nr</field>
             <caption>Tel. nr. millel kokku lepiti</caption>
       </property>
       <property>
@@ -157,10 +156,22 @@
             <type>relpicker</type>
             <reltype>RELTYPE_PRESENTED_PRODUCT</reltype>
             <store>connect</store>
-            <size>5</size>
+            <size>8</size>
             <no_edit>1</no_edit>
             <field>presented_products</field>
             <caption>Esitletavad tooted</caption>
+      </property>
+      <property>
+            <name>sold_products</name>
+            <table>planner</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_SOLD_PRODUCT</reltype>
+            <store>connect</store>
+            <size>8</size>
+            <no_edit>1</no_edit>
+            <field>sold_products</field>
+            <caption>M&amp;amp;uuml;&amp;amp;uuml;dud tooted</caption>
       </property>
       <property>
             <name>impl_tb</name>
@@ -196,8 +207,8 @@
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <confirm_save_data>1</confirm_save_data>
             <maintainer>voldemar</maintainer>
+            <confirm_save_data>1</confirm_save_data>
       </classinfo>
       <groupinfo>
             <customer>
@@ -227,6 +238,11 @@
                   <clid>CL_SHOP_PRODUCT</clid>
                   <caption>Toode mida esitletakse</caption>
             </PRESENTED_PRODUCT>
+            <SOLD_PRODUCT>
+                  <value>10</value>
+                  <clid>CL_SHOP_PRODUCT</clid>
+                  <caption>M&amp;amp;uuml;&amp;amp;uuml;dud toode</caption>
+            </SOLD_PRODUCT>
       </reltypes>
       <layout>
             <impl_bit>

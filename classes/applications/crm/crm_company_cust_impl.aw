@@ -11,7 +11,7 @@ class crm_company_cust_impl extends class_base
 		$this->init();
 	}
 
-	function do_projects_table_header(&$table, $data = false, $skip_sel = false, $is_bt= null)
+	function do_projects_table_header($table, $data = false, $skip_sel = false, $is_bt= null)
 	{
 		$table->define_field(array(
 			"name" => "project_name",
@@ -103,7 +103,7 @@ class crm_company_cust_impl extends class_base
 			"format" => "d.m.Y"
 		));
 
-		if ($_GET["group"] == "org_projects_archive")
+		if ($_GET["group"] === "org_projects_archive")
 		{
 			$table->define_field(array(
 				"name" => "project_end",
@@ -141,7 +141,7 @@ class crm_company_cust_impl extends class_base
 	{
 		$table = $arr["prop"]["vcl_inst"];
 
-		$i = get_instance(CL_CRM_COMPANY);
+		$i = new crm_company();
 		// if this is my co, then list all projects where my co is implementor
 
 		// setting table caption:
@@ -255,13 +255,13 @@ class crm_company_cust_impl extends class_base
 			"project_start" => $project_obj->prop("start"),
 			"project_end" => $project_obj->prop("end"),
 			"oid" => $project_obj->id(),
-			"roles" => $roles,
+			"roles" => $roles
 		);
 	}
 
 	function _get_impl_projects($arr)
 	{
-		$table = &$arr["prop"]["vcl_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 
 		// get applicable projects
 		$applicable_states = array(
@@ -289,8 +289,8 @@ class crm_company_cust_impl extends class_base
 
 		$sum_expences = $sum_rec = $sum_due = $sum_budget = 0;
 		$users_data = array();
-		$cl_users = get_instance("users");
-		$cl_user = get_instance (CL_USER);
+		$cl_users = new users();
+		$cl_user = new user();
 
 		// populate table with data
 		foreach($projects->arr() as $project)
@@ -377,7 +377,7 @@ class crm_company_cust_impl extends class_base
 		return PROP_OK;
 	}
 
-	function get_impl_projects_header(&$table)
+	function get_impl_projects_header($table)
 	{
 		$table->define_field(array(
 			"name" => "project",
@@ -546,12 +546,12 @@ class crm_company_cust_impl extends class_base
 		$role_url = $this->mk_my_orb("change", array(
 			"from_org" => $from_org,
 			"to_org" => $to_org,
-			"to_project" => $to_project
+			"to_project" => isset($to_project) ?  $to_project :  null
 		), "crm_role_manager");
 
 		$roles = array();
 
-		$iter = safe_array($rc_by_co[$to_org]);
+		$iter = isset($rc_by_co[$to_org]) ? safe_array($rc_by_co[$to_org]) :  array();
 		if (!empty($to_project))
 		{
 			$iter = safe_array($rc_by_co[$to_org][$to_project]);
@@ -652,29 +652,22 @@ class crm_company_cust_impl extends class_base
 				)
 			));
 
-
 			// add category
-			$alias_to = $arr['obj_inst']->id();
-			$rt = 30;
+			$parent = null;
 
-			if((int)$category)
+			if((int) $category)
 			{
-				$alias_to = $category;
-				$parent = (int)$category;
-				$rt = 2;
+				$parent = (int) $category;
 			}
 
 			$tb->add_menu_item(array(
 				'parent'=>'add_item',
-				'text' => t('Kategooria'),
-				'link' => $this->mk_my_orb('new',array(
-						'parent' => $arr['obj_inst']->id(),
-						'alias_to' => $alias_to,
-						'reltype' => $rt, //RELTYPE_CATEGORY
-						'return_url' => get_ru()
-					),
-					'crm_category'
-				)
+				'text' => t('Kliendigrupp'),
+				'link' => $this->mk_my_orb('add_customer_category',array(
+					'id' => $arr['obj_inst']->id(),
+					'parent' => $parent,
+					'return_url' => get_ru()
+				), "crm_company")
 			));
 		}
 
@@ -753,7 +746,7 @@ class crm_company_cust_impl extends class_base
 		$node_id = 0;
 
 		$i = new crm_company();
-		$i->active_node = (int)$arr['request']['category'];
+		$i->active_node = !empty($arr['request']['category'])  ? (int)$arr['request']['category'] : 0;
 
 		$i->generate_tree(array(
 			'tree_inst' => $tree_inst,
@@ -779,10 +772,42 @@ class crm_company_cust_impl extends class_base
 		{
 			$my_data[$conn->prop('to')] = $conn->prop('to');
 		}
-		//$this->_clean_up_the_tree(&$tree_inst->items, 0, &$my_data);
 	}
 
-	function _clean_up_the_tree($tree_items, $arrkey, $my_data)
+	private function _add_categories($arr, treeview $tree_inst)
+	{
+		$url = automatweb::$request->get_uri();
+		$selected = $url->arg("category");
+		$url->set_arg("category", null);
+
+		// caption
+		$tree_inst->add_item(0, array(
+			"id" => "categories",
+			"name" => t("Kliendigrupp"),
+			"url" => $url->get()
+		));
+
+		// categories themselves
+		$categories = $arr['obj_inst']->get_customer_categories();
+		foreach ($categories->arr() as $category)
+		{
+			$parent = $category->prop("parent_category") ? (int) $category->prop("parent_category") : "categories";
+			$url->set_arg("category", $category->id());
+			$tree_inst->add_item ($parent, array (
+				"name" => $category->name(),
+				"id" => $category->id(),
+				"parent" => $parent,
+				"url" => $url->get()
+			));
+		}
+
+		if ($selected)
+		{
+			$tree_inst->set_selected_item($selected);
+		}
+	}
+
+	function _clean_up_the_tree($tree_items, $arrkey, &$my_data)
 	{
 		$ret = false;
 		foreach($tree_items[$arrkey] as $key=>$value)
@@ -792,7 +817,7 @@ class crm_company_cust_impl extends class_base
 			if(array_key_exists($value['id'], $tree_items))
 			{
 				//has subelements
-				$ret = $this->_clean_up_the_tree($tree_items, $value['id'], &$my_data);
+				$ret = $this->_clean_up_the_tree($tree_items, $value['id'], $my_data);
 				$keep_it = false;
 
 				foreach($my_data as $key2=>$value2)
@@ -866,8 +891,6 @@ class crm_company_cust_impl extends class_base
 
 	function _get_offers_listing_tree($arr)
 	{
-		get_instance("core/icons");
-
 		// list all child rels
 		$parents = array();
 		$c = new connection();
@@ -885,7 +908,7 @@ class crm_company_cust_impl extends class_base
 			"persist_state" => 1
 		));
 
-		$i = get_instance(CL_CRM_COMPANY);
+		$i = new crm_company();
 		$i->active_node = (int)$arr['request']['category'];
 		$i->tree_uses_oid = true;
 		$i->generate_tree(array(
@@ -919,7 +942,7 @@ class crm_company_cust_impl extends class_base
 		$all_org_parent = $node_id;
 
 		$data = array();
-		$i->get_customers_for_company($arr["obj_inst"], &$data);
+		$i->get_customers_for_company($arr["obj_inst"], $data);
 
 		foreach ($data as $customer)
 		{
@@ -1014,10 +1037,10 @@ class crm_company_cust_impl extends class_base
 			"caption" => t("X"),
 		));
 
-		$offer_inst = get_instance(CL_CRM_OFFER);
+		$offer_inst = new crm_offer();
 		if($arr["request"]["org_id"])
 		{
-			$offers = &$offer_inst->get_offers_for_company($arr["request"]["org_id"], $arr["obj_inst"]->id());
+			$offers = $offer_inst->get_offers_for_company($arr["request"]["org_id"], $arr["obj_inst"]->id());
 		}
 		else
 		{
@@ -1029,10 +1052,10 @@ class crm_company_cust_impl extends class_base
 
 			if(is_oid($arr["request"]["category"]))
 			{
-				$cat = &obj($arr["request"]["category"]);
+				$cat = obj($arr["request"]["category"]);
 				$data = array();
-				$i = get_instance(CL_CRM_COMPANY);
-				$i->get_customers_for_company($cat,&$data,true);
+				$i = new crm_company();
+				$i->get_customers_for_company($cat,$data,true);
 				foreach ($data as $org)
 				{
 					$offer_obj = $offer_inst->get_offers_for_company($org, $arr["obj_inst"]->id());
@@ -1074,7 +1097,7 @@ class crm_company_cust_impl extends class_base
 					$org = obj($offer->prop("orderer"));
 					if($this->can("view", $offer->prop("salesman")))
 					{
-						$salesman = &obj($offer->prop("salesman"));
+						$salesman = obj($offer->prop("salesman"));
 						$salesmanlink = html::get_change_url($salesman->id(), array(), $salesman->name());
 					}
 					$table->define_data(array(
@@ -1106,7 +1129,7 @@ class crm_company_cust_impl extends class_base
 	function _get_projects_listing_table($arr)
 	{
 		$table = $arr["prop"]["vcl_inst"];
-		$this->do_projects_table_header(&$table);
+		$this->do_projects_table_header($table);
 
 		// if this is my co, then list all projects where my co is implementor
 		$my_co = get_current_company();
@@ -1280,7 +1303,7 @@ class crm_company_cust_impl extends class_base
 			),
 		));
 
-		$pl = get_instance(CL_PLANNER);
+		$pl = new planner();
 		$this->cal_id = $pl->get_calendar_for_user(array(
 			"uid" => aw_global_get("uid"),
 		));
@@ -1314,7 +1337,7 @@ class crm_company_cust_impl extends class_base
 			"action" => "mark_proj_done"
 		));
 
-		if ($arr["request"]["group"] == "org_projects")
+		if ($arr["request"]["group"] === "org_projects")
 		{
 			$tb->add_button(array(
 				"name" => "search",
@@ -1386,8 +1409,6 @@ class crm_company_cust_impl extends class_base
 
 			}
 		}
-
-
 
 		if ($ar[$prefix."proj_search_cust"] != "")
 		{
@@ -1481,7 +1502,7 @@ class crm_company_cust_impl extends class_base
 
 	function _get_org_proj_arh_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "search",
 			"img" => "search.gif",
@@ -1931,8 +1952,6 @@ class crm_company_cust_impl extends class_base
 	{
 		$tree_inst = $arr['prop']['vcl_inst'];
 		$tree_inst->set_only_one_level_opened(1);
-
-		$node_id = 0;
 		$category = isset($arr['request']['category']) ? (int) $arr['request']['category'] : 0;
 
 		if (!empty($arr['request']['category']))
@@ -1944,21 +1963,7 @@ class crm_company_cust_impl extends class_base
 			}
 		}
 
-		$i = new crm_company();
-		$i->active_node = $category;
-		$i->generate_tree(array(
-			'tree_inst' => $tree_inst,
-			'obj_inst' => $arr['obj_inst'],
-			'node_id' => &$node_id,
-			'conn_type' => 'RELTYPE_CATEGORY',
-			'skip' => array(CL_CRM_COMPANY),
-			'attrib' => 'category',
-			'leafs' => false,
-			'style' => 'nodetextbuttonlike',
-			"edit_mode" => 1,
-			"statuses" => 1
-		));
-
+		$this->_add_categories($arr, $tree_inst);
 		$this->_add_cust_mgr($arr, $tree_inst);
 		$this->_add_cust_alpha($arr, $tree_inst);
 
@@ -2051,15 +2056,15 @@ class crm_company_cust_impl extends class_base
 			$format = (($tmp = $arr["request"]["group"]) == "relorg_t" || $tmp = "relorg")?$format_t:$format_s;
 			$tf->set_caption(sprintf($format, $org->name(), $arr["obj_inst"]->name()));
 		}
-		$this->_org_table_header(&$tf);
+		$this->_org_table_header($tf);
 		$default_cfg = true;
 
-		$cl_crm_settings = get_instance(CL_CRM_SETTINGS);
-		$cl_crm_company = get_instance(CL_CRM_COMPANY);
+		$cl_crm_settings = new crm_settings();
+		$cl_crm_company = new crm_company();
 		if ($o = $cl_crm_settings->get_current_settings())
 		{
 			$usecase = $cl_crm_company->get_current_usecase($arr);//$arr["obj_inst"] peab olemas olema.
-			$cl_crm_settings->apply_table_cfg($o, $usecase, $arr["prop"]["name"], &$tf);
+			$cl_crm_settings->apply_table_cfg($o, $usecase, $arr["prop"]["name"], $tf);
 			$visible_fields = $cl_crm_settings->get_visible_fields($o, $usecase, $arr["prop"]["name"]);
 
 			if (!empty($visible_fields))
@@ -2103,7 +2108,8 @@ class crm_company_cust_impl extends class_base
 		# table contents
 		$perpage = 100;
 		$page_nr = isset($arr["request"]["ft_page"]) ? (int) $arr["request"]["ft_page"] : 0;
-		if($perpage > count($orglist))
+		$org_count = count($orglist);
+		if($perpage > $org_count)
 		{
 			$page_nr = 0;
 		}
@@ -2155,7 +2161,7 @@ class crm_company_cust_impl extends class_base
 				{
 					$url_o = obj($o->prop("url_id"));
 					$url_str = $url_o->name();
-					if (strpos($url_str, "http:") !== false && substr($url_str, 0, 3) == "www")
+					if (strpos($url_str, "http:") !== false && substr($url_str, 0, 3) === "www")
 					{
 						$url_str = "http://".$url_str;
 					}
@@ -2220,7 +2226,7 @@ class crm_company_cust_impl extends class_base
 			# pop
 			if ($default_cfg or in_array("pop", $visible_fields))
 			{
-				$pm = get_instance("vcl/popup_menu");
+				$pm = new popup_menu();
 				$pm->begin_menu("org".$o->id());
 				$pm->add_item(array(
 					"text" => t("Vaata"),
@@ -2230,7 +2236,7 @@ class crm_company_cust_impl extends class_base
 					"text" => t("Muuda"),
 					"link" => html::get_change_url($o->id(), array("return_url" => get_ru()))
 				));
-				if ($arr["request"]["category"])
+				if (!empty($arr["request"]["category"]))
 				{
 					$pm->add_item(array(
 						"text" => t("Eemalda kliendigrupist"),
@@ -2301,12 +2307,14 @@ class crm_company_cust_impl extends class_base
 		));
 	}
 
-	function _get_customer($arr, $filter = NULL)
+	function _get_customer(&$arr, $filter = NULL)
 	{
 		if (!empty($arr["request"]["customer_search"]))
 		{
 			return PROP_IGNORE;
 		}
+
+		$orglist = array();
 
 		if ($filter)
 		{
@@ -2325,7 +2333,6 @@ class crm_company_cust_impl extends class_base
 					$ids[] = $obj->prop(($this->use_group === "relorg_s")?"seller":"buyer");
 				}
 				$ol2 = $ids;
-				//$ol2 = $ol2->ids();
 			}
 			else
 			{
@@ -2385,10 +2392,11 @@ class crm_company_cust_impl extends class_base
 	{
 		if(!empty($arr["request"]["customer_search_submit"]) || !empty($arr["request"]["customer_search_submit_and_change"]))
 		{
-			$this->_get_customer(&$arr);
+			$this->_get_customer($arr);
 		}
 		else
 		{
+			$orglist = array();
 			$category = isset($arr['request']['category']) ? $arr['request']['category'] : "";
 			$stchk = explode('_', $category);
 			if($stchk[0] === 'st')
@@ -2462,7 +2470,7 @@ class crm_company_cust_impl extends class_base
 		}
 	}
 
-	function _do_cust_cat_tb_submenus(&$tb, $link, $p, $p_str, $oncl = null)
+	function _do_cust_cat_tb_submenus($tb, $link, $p, $p_str, $oncl = null)
 	{
 		$cnt = 0;
 		foreach($p->connections_from(array("type" => "RELTYPE_CATEGORY")) as $c)
@@ -2495,10 +2503,10 @@ class crm_company_cust_impl extends class_base
 		return $cnt;
 	}
 
-	function _do_cust_cat_tb_submenus2(&$tb)
+	function _do_cust_cat_tb_submenus2($tb)
 	{
 
-		$st = get_instance(CL_CRM_COMPANY_STATUS);
+		$st = new crm_company_status();
 		$categories = $st->categories(0);
 		$company = get_current_company();
 		$link = "document.changeform.elements.cust_cat.value='%s';submit_changeform('save_as_customer')";
@@ -2547,7 +2555,7 @@ class crm_company_cust_impl extends class_base
 		}
 	}
 
-	function _do_cust_cat_tb_submenus3(&$tb, $p)
+	function _do_cust_cat_tb_submenus3($tb, $p)
 	{
 		$link = "document.changeform.elements.cust_cat.value='%s';submit_changeform('save_as_customer')";
 		$ol = new object_list(array(
@@ -2593,10 +2601,10 @@ class crm_company_cust_impl extends class_base
 	**/
 	function get_offers_tree_branch($arr)
 	{
-		$tr = get_instance("vcl/treeview");
+		$tr = new treeview();
 		$this->_get_offers_listing_tree(array(
 			"prop" => array(
-				"vcl_inst" => &$tr,
+				"vcl_inst" => $tr,
 			),
 			"obj_inst" => obj($arr["co_id"]),
 			"node_id" => $arr["fetch_branch"]
@@ -2644,13 +2652,10 @@ class crm_company_cust_impl extends class_base
 	{
 		$o = obj($arr["id"]);
 		// get employees for that company. if any are important, return those, if not, return all
-		$hr = get_instance("applications/crm/crm_company_people_impl");
-
-		classload("vcl/table");
+		$hr = new crm_company_people_impl();
 		$t = new vcl_table();
-
 		$p = array(
-			"vcl_inst" => &$t,
+			"vcl_inst" => $t,
 		);
 		$hr->_get_human_resources(array(
 			"obj_inst" => $o,
@@ -2748,16 +2753,10 @@ class crm_company_cust_impl extends class_base
 
 	function _get_project_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "pf";
-		$bills_impl = get_instance("applications/crm/crm_company_bills_impl");
-		$project_impl = get_instance(CL_PROJECT);
-/*		if(!isset($_GET[$var]))
-		{
-			$_GET[$var] = 10;
-		}
-		classload("core/icons");
-*/
+		$bills_impl = new crm_company_bills_impl();
+		$project_impl = new project();
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
 			"persist_state" => true,
@@ -2769,12 +2768,6 @@ class crm_company_cust_impl extends class_base
 			"id" => "pr_mgr",
 //			"url" => aw_url_change_var($var, $stat_id+10),
 		));
-
-//$this->states
-
-
-
-
 
 
 		foreach($bills_impl->all_project_managers()->names() as $id => $name)
@@ -2790,7 +2783,7 @@ class crm_company_cust_impl extends class_base
 			{
 				$name = $name." (".sizeof($project_data).")";
 			}
-			if (isset($_GET[$var]) && $_GET[$var] == "prman_".$id)
+			if (isset($_GET[$var]) && $_GET[$var] === "prman_".$id)
 			{
 				$name = "<b>".$name."</b>";
 			}
@@ -2815,7 +2808,7 @@ class crm_company_cust_impl extends class_base
 			{
 				continue;
 			}
-			if (isset($_GET[$var]) && $_GET[$var] == "custman_".$id)
+			if (isset($_GET[$var]) && $_GET[$var] === "custman_".$id)
 			{
 				$name = "<b>".$name."</b>";
 			}
@@ -2848,7 +2841,7 @@ class crm_company_cust_impl extends class_base
 		foreach($customers_by_1_letter as $letter1 => $customers)
 		{
 			$name = $letter1 ." (".sizeof($customers).")";
-			if (isset($_GET[$var]) && $_GET[$var] == "cust_".$letter1)
+			if (isset($_GET[$var]) && $_GET[$var] === "cust_".$letter1)
 			{
 				$name = "<b>".$name."</b>";
 			}
@@ -2861,7 +2854,7 @@ class crm_company_cust_impl extends class_base
 
 			foreach($customers as $id => $name)
 			{
-				if (isset($_GET[$var]) && $_GET[$var] == "cust_".$id)
+				if (isset($_GET[$var]) && $_GET[$var] === "cust_".$id)
 				{
 					$name = "<b>".$name."</b>";
 				}
@@ -2873,118 +2866,6 @@ class crm_company_cust_impl extends class_base
 				));
 			}
 		}
-/*
-		$tv->add_item(0,array(
-			"name" => t("Periood"),
-			"id" => "period",
-//			"url" => aw_url_change_var($var, $stat_id+10),
-		));
-
-		$state = t("Eelmine kuu");
- 		$bills_data = $this->all_bills_data("period_last");
- 		$pm_statuses = array();
- 		foreach($bills_data as $bd)
- 		{
- 			$pm_statuses[$bd["state"]] ++;
- 		}
- 		if(array_sum($pm_statuses))
- 		{
- 			$state = $state." (".array_sum($pm_statuses).")";
- 		}
-		if (isset($_GET[$var]) && $_GET[$var] == "period_last") $state = "<b>".$state."</b>";
-		$tv->add_item("period",array(
-			"name" => $state,
-			"id" => "period_last",
-			"url" => aw_url_change_var($var, "period_last"),
-		));
- 		if(sizeof($pm_statuses))
- 		{
- 			foreach($pm_statuses as $status => $st_count)
- 			{
- 				$name = $states[$status]." (".$st_count.")";
- 				if (isset($_GET[$var]) && $_GET[$var] == "period_last_".$status)
- 				{
- 					$name = "<b>".$name."</b>";
- 				}
- 				$tv->add_item("period_last",array(
- 					"name" => $name,
- 					"id" => "period_last_".$status,
- 					"iconurl" => icons::get_icon_url(CL_CRM_BILL),
- 					"url" => aw_url_change_var($var, "period_last_".$status),
- 				));
- 			}
- 		}
-
-		$state = t("Jooksev kuu");
-		$bills_data = $this->all_bills_data("period_current");
- 		$pm_statuses = array();
- 		foreach($bills_data as $bd)
- 		{
- 			$pm_statuses[$bd["state"]] ++;
- 		}
- 		if(array_sum($pm_statuses))
- 		{
- 			$state = $state." (".array_sum($pm_statuses).")";
- 		}
-		if (isset($_GET[$var]) && $_GET[$var] == "period_current") $state = "<b>".$state."</b>";
-		$tv->add_item("period",array(
-			"name" => $state,
-			"id" => "period_current",
-			"url" => aw_url_change_var($var, "period_current"),
-		));
- 		if(sizeof($pm_statuses))
- 		{
- 			foreach($pm_statuses as $status => $st_count)
- 			{
- 				$name = $states[$status]." (".$st_count.")";
- 				if (isset($_GET[$var]) && $_GET[$var] == "period_current_".$status)
- 				{
- 					$name = "<b>".$name."</b>";
- 				}
- 				$tv->add_item("period_current",array(
- 					"name" => $name,
- 					"id" => "period_current_".$status,
- 					"iconurl" => icons::get_icon_url(CL_CRM_BILL),
- 					"url" => aw_url_change_var($var, "period_current_".$status),
- 				));
- 			}
- 		}
-
-
-		$state = t("J&auml;rgmine kuu");
-		$bills_data = $this->all_bills_data("period_next");
- 		$pm_statuses = array();
- 		foreach($bills_data as $bd)
- 		{
- 			$pm_statuses[$bd["state"]] ++;
- 		}
- 		if(array_sum($pm_statuses))
- 		{
- 			$state = $state." (".array_sum($pm_statuses).")";
- 		}
-		if (isset($_GET[$var]) && $_GET[$var] == "period_next") $state = "<b>".$state."</b>";
-		$tv->add_item("period",array(
-			"name" => $state,
-			"id" => "period_next",
-			"url" => aw_url_change_var($var, "period_next"),
-		));
- 		if(sizeof($pm_statuses))
- 		{
- 			foreach($pm_statuses as $status => $st_count)
- 			{
- 				$name = $states[$status]." (".$st_count.")";
- 				if (isset($_GET[$var]) && $_GET[$var] == "period_next_".$status)
- 				{
- 					$name = "<b>".$name."</b>";
- 				}
- 				$tv->add_item("period_next",array(
- 					"name" => $name,
- 					"id" => "period_next_".$status,
- 					"iconurl" => icons::get_icon_url(CL_CRM_BILL),
- 					"url" => aw_url_change_var($var, "period_next_".$status),
- 				));
- 			}
- 		}*/
 	}
 }
 ?>

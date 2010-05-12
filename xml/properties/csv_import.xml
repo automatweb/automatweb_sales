@@ -40,36 +40,6 @@
             <caption>CSV v&amp;amp;auml;ljade eraldaja</caption>
       </property>
       <property>
-            <name>csv_field_quote_start</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>general</group>
-            <type>textbox</type>
-            <comment>valikuline, tavaliselt jutum&amp;amp;auml;rk</comment>
-            <caption>CSV v&amp;amp;auml;lja algusm&amp;amp;auml;rk</caption>
-      </property>
-      <property>
-            <name>csv_field_quote_end</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>general</group>
-            <type>textbox</type>
-            <comment>valikuline, tavaliselt jutum&amp;amp;auml;rk</comment>
-            <caption>CSV v&amp;amp;auml;lja l&amp;amp;otilde;pum&amp;amp;auml;rk</caption>
-      </property>
-      <property>
-            <name>csv_field_quote_escape</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>general</group>
-            <type>textbox</type>
-            <comment>valikuline, tavaliselt jutum&amp;amp;auml;rk</comment>
-            <caption>CSV v&amp;amp;auml;lja escape m&amp;amp;auml;rk</caption>
-      </property>
-      <property>
             <name>csv_fields_in_record</name>
             <table>objects</table>
             <field>meta</field>
@@ -128,27 +98,6 @@
             <type>textbox</type>
             <store>no</store>
             <caption>Impordi urlilt</caption>
-      </property>
-      <property>
-            <name>import_string</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>import</group>
-            <type>textarea</type>
-            <store>no</store>
-            <caption>Impordi tekst</caption>
-      </property>
-      <property>
-            <name>simulate_import</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>import</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <store>no</store>
-            <caption>Impordi ainult ekraanile</caption>
       </property>
       <property>
             <name>import_submit</name>

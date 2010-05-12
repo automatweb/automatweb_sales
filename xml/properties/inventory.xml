@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<properties>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>voldemar</maintainer>
+            <confirm_save_data>1</confirm_save_data>
+      </classinfo>
+</properties>
+

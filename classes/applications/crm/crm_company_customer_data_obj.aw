@@ -12,6 +12,8 @@ class crm_company_customer_data_obj extends _int_object
 	const SALESSTATE_ONHOLD = 8;
 	// new sales state constants also have to be added to self::$sales_state_names array in self::sales_state_names() method
 
+	public static $customer_class_ids = array(CL_CRM_COMPANY, CL_CRM_PERSON);
+
 	private static $sales_state_names = array();
 
 	public function get_discounts()

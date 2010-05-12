@@ -33,6 +33,9 @@
 	@property tax_rate type=relpicker reltype=RELTYPE_TAX_RATE store=connect
 	@caption M&uuml;&uuml;gi KM-kood
 
+	@property categories type=relpicker reltype=RELTYPE_CATEGORY store=connect multiple=1 size=7
+	@caption Kliendikategooria(d)
+
 	@property show_in_webview type=checkbox ch_value=1 field= table=aw_crm_customer_data field=aw_show_in_webview
 	@caption Kuva veebis
 

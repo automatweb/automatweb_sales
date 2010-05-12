@@ -483,8 +483,8 @@
 		</form>
 
 		<objpicker>
-			<clid>
-			</clid>
+			<clid />
+			<options_callback />
 		</objpicker>
 
 		<time_select>

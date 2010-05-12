@@ -69,7 +69,19 @@ class objpicker extends core implements vcl_interface
 				$clids = is_array($prop["clid"]) ? implode(",", $prop["clid"]) : $prop["clid"];
 
 				load_javascript("bsnAutosuggest.js");
-				$name_options_url = $this->mk_my_orb("get_options", array("clids" => $clids), "objpicker");
+
+				if (!empty($prop["options_callback"]))
+				{
+					$class = strtok($prop["options_callback"], "::");
+					$method = strtok("::");
+				}
+				else
+				{
+					$class = "objpicker";
+					$method = "get_options";
+				}
+
+				$name_options_url = $this->mk_my_orb($method, array("clids" => $clids, "id" => $args["id"]), $class);
 				$autocomplete_js = <<<SCRIPT
 <script type="text/javascript">
 // OBJPICKER {$name} ELEMENT AUTOCOMPLETE
@@ -179,8 +191,6 @@ SCRIPT;
 			$list = new object_list(array(
 				"class_id" => $clids,
 				"name" => "{$typed_text}%",
-				"site_id" => array(),
-				"lang_id" => array(),
 				new obj_predicate_limit($limit)
 			));
 
