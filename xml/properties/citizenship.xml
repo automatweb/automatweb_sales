@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>start</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>date_select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Alguskuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>end</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>date_select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>L&amp;amp;otilde;ppkuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>country</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <store>connect</store>
+            <reltype>RELTYPE_COUNTRY</reltype>
+            <field>country</field>
+            <caption>Riik</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CITIZENSHIP</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>markop</maintainer>
+      </classinfo>
+      <reltypes>
+            <COUNTRY>
+                  <value>1</value>
+                  <clid>CL_CRM_COUNTRY</clid>
+                  <caption>Riik</caption>
+            </COUNTRY>
+      </reltypes>
+</properties>
+

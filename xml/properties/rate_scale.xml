@@ -1,0 +1,92 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>rate_clid</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>select</type>
+            <multiple>1</multiple>
+            <caption>Mis objektit&amp;amp;uuml;&amp;amp;uuml;bile skaala kehtib</caption>
+      </property>
+      <property>
+            <name>rate_folders</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <caption>Mis kataloogidele skaala kehtib</caption>
+      </property>
+      <property>
+            <name>nr_from</name>
+            <table>objects</table>
+            <group>scale</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>3</size>
+            <caption>Alates</caption>
+      </property>
+      <property>
+            <name>nr_to</name>
+            <table>objects</table>
+            <group>scale</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>3</size>
+            <caption>Kuni</caption>
+      </property>
+      <property>
+            <name>nr_step</name>
+            <table>objects</table>
+            <group>scale</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>3</size>
+            <caption>Aste</caption>
+      </property>
+      <property>
+            <name>nr_descs</name>
+            <table>objects</table>
+            <group>scale</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>callback</type>
+            <callback>_get_nr_desc_form</callback>
+            <caption>Tekst hindele</caption>
+      </property>
+      <property>
+            <name>no_rate</name>
+            <table>objects</table>
+            <group>scale</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <caption>Lisa &amp;quot;ei hinda&amp;quot; valik</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_RATE_SCALE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <scale>
+                  <caption>Skaala</caption>
+            </scale>
+      </groupinfo>
+      <reltypes>
+            <FOLDER>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Kehtiv kataloog</caption>
+            </FOLDER>
+      </reltypes>
+</properties>
+

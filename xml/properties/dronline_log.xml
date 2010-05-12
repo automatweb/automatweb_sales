@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>status</name>
+            <table>objects</table>
+            <type>status</type>
+            <field>status</field>
+            <caption>Staatus</caption>
+      </property>
+      <classinfo>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+</properties>
+

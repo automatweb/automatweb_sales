@@ -1,0 +1,50 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>str_replace</name>
+            <table>objects</table>
+            <group>str_replace</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>str_replace</field>
+      </property>
+      <property>
+            <name>char_replace</name>
+            <table>objects</table>
+            <group>char_replace</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>char_replace</field>
+      </property>
+      <property>
+            <name>controller</name>
+            <table>objects</table>
+            <group>controller</group>
+            <type>textarea</type>
+            <rows>30</rows>
+            <cols>60</cols>
+            <no_caption>1</no_caption>
+            <field>meta</field>
+            <method>serialize</method>
+      </property>
+      <classinfo>
+            <syslog_type>ST_OTV_DATA_FILTER</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <str_replace>
+                  <caption>Teksti asendused</caption>
+            </str_replace>
+            <char_replace>
+                  <caption>T&amp;amp;auml;htede asendused</caption>
+            </char_replace>
+            <controller>
+                  <caption>Kontroller</caption>
+            </controller>
+      </groupinfo>
+</properties>
+

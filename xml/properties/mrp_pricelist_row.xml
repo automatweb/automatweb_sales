@@ -1,0 +1,93 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>pricelist</name>
+            <table>aw_mrp_pricelist_row</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PRICELIST</reltype>
+            <field>aw_pricelist</field>
+            <caption>Hinnakiri</caption>
+      </property>
+      <property>
+            <name>resource</name>
+            <table>aw_mrp_pricelist_row</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_RESOURCE</reltype>
+            <field>aw_resource</field>
+            <caption>Ressurss</caption>
+      </property>
+      <property>
+            <name>cnt_from</name>
+            <table>aw_mrp_pricelist_row</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>aw_cnt_from</field>
+            <caption>Kogus alates</caption>
+      </property>
+      <property>
+            <name>cnt_to</name>
+            <table>aw_mrp_pricelist_row</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>aw_cnt_to</field>
+            <caption>Kogus kuni</caption>
+      </property>
+      <property>
+            <name>config_price</name>
+            <table>aw_mrp_pricelist_row</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>aw_config_price</field>
+            <caption>Seadistamise hind</caption>
+      </property>
+      <property>
+            <name>item_price</name>
+            <table>aw_mrp_pricelist_row</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>aw_item_price</field>
+            <caption>T&amp;amp;uuml;ki hind</caption>
+      </property>
+      <property>
+            <name>row_type</name>
+            <table>aw_mrp_pricelist_row</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_row_type</field>
+            <caption>Rea t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_MRP_PRICELIST_ROW</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_mrp_pricelist_row>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_mrp_pricelist_row>
+      </tableinfo>
+      <reltypes>
+            <PRICELIST>
+                  <value>1</value>
+                  <clid>CL_MRP_PRICELIST</clid>
+                  <caption>Hinnakiri</caption>
+            </PRICELIST>
+            <RESOURCE>
+                  <value>2</value>
+                  <clid>CL_MRP_RESOURCE</clid>
+                  <caption>Ressurss</caption>
+            </RESOURCE>
+      </reltypes>
+</properties>
+

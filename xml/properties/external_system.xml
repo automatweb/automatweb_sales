@@ -1,0 +1,67 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>ord</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>jrk</field>
+            <caption>J&amp;amp;auml;rjekord</caption>
+      </property>
+      <property>
+            <name>apply_class</name>
+            <table>aw_ext_systems</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_apply_class</field>
+            <caption>Klass, millele kehtib</caption>
+      </property>
+      <property>
+            <name>systems</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <multiple>1</multiple>
+            <reltype>RELTYPE_SYSTEM</reltype>
+            <caption>Kuvatavad siduss&amp;amp;uuml;steemid</caption>
+      </property>
+      <property>
+            <name>data_table</name>
+            <table>aw_ext_systems</table>
+            <group>data</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>data_table</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_EXTERNAL_SYSTEM</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <prop_cb>1</prop_cb>
+            <maintainer>voldemar</maintainer>
+      </classinfo>
+      <groupinfo>
+            <data>
+                  <caption>Andmed</caption>
+            </data>
+      </groupinfo>
+      <tableinfo>
+            <aw_ext_systems>
+                  <index>aw_oid</index>
+                  <master_table>objects</master_table>
+                  <master_index>brother_of</master_index>
+            </aw_ext_systems>
+      </tableinfo>
+      <reltypes>
+            <SYSTEM>
+                  <value>1</value>
+                  <clid>CL_EXTERNAL_SYSTEM</clid>
+                  <caption>Siduss&amp;amp;uuml;steem</caption>
+            </SYSTEM>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>hrs_per_week_to_keep</name>
+            <table>aw_person_skill</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>aw_hrs_per_week_to_keep</field>
+            <caption>Tunde n&amp;amp;auml;dalas, mis on p&amp;amp;auml;devuse hoidmiseks vajalikud</caption>
+      </property>
+      <property>
+            <name>short_name</name>
+            <table>aw_person_skill</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_short_name</field>
+            <caption>L&amp;amp;uuml;hend</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_PERSON_SKILL</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_person_skill>
+                  <master_table>objects</master_table>
+                  <master_index>brother_of</master_index>
+                  <index>aw_oid</index>
+            </aw_person_skill>
+      </tableinfo>
+</properties>
+

@@ -1,0 +1,81 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>xml_fld</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Serveri kataloog, kus asuvad xml failid</caption>
+      </property>
+      <property>
+            <name>ct_fld</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Serveri kataloog, kus asuvad sisu failid</caption>
+      </property>
+      <property>
+            <name>subj_xml</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Teemade xml fail</caption>
+      </property>
+      <property>
+            <name>update_cache</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>update_cache</field>
+            <caption></caption>
+      </property>
+      <property>
+            <name>db_to_xml_connections</name>
+            <table>objects</table>
+            <group>settings</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>db_to_xml_connections</field>
+            <caption>Andmebaasi tabeli ja XML faili v&amp;amp;auml;ljade seosed</caption>
+      </property>
+      <property>
+            <name>ct</name>
+            <table>objects</table>
+            <group>content</group>
+            <type>table</type>
+            <store>no</store>
+            <field>ct</field>
+            <caption>Sisu</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_OTV_DS_POSTIPOISS</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_status>1</no_status>
+            <no_comment>1</no_comment>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <settings>
+                  <caption>Seaded</caption>
+            </settings>
+            <content>
+                  <caption>Sisu</caption>
+            </content>
+      </groupinfo>
+      <reltypes>
+            <TRANSFORM>
+                  <value>1</value>
+                  <clid>CL_DATA_FILTER</clid>
+                  <caption>andmete muundaja</caption>
+            </TRANSFORM>
+      </reltypes>
+</properties>
+

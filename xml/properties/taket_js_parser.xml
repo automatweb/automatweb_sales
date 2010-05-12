@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+<properties>
+      <classinfo>
+            <syslog_type>ST_TAKET_JSPARSER</syslog_type>
+            <relationmgr>yes</relationmgr>
+      </classinfo>
+</properties>
+

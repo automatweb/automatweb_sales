@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>addr</name>
+            <table>ipaddresses</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>ip</field>
+            <caption>IP Aadress</caption>
+      </property>
+      <property>
+            <name>range</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textarea</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <rows>5</rows>
+            <cols>50</cols>
+            <caption>Vahemik</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_IPADDRESS</syslog_type>
+            <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <general>
+                  <caption>&amp;Uuml;ldine</caption>
+            </general>
+      </groupinfo>
+      <tableinfo>
+            <ipaddresses>
+                  <index>id</index>
+                  <master_table>objects</master_table>
+                  <master_index>id</master_index>
+            </ipaddresses>
+      </tableinfo>
+</properties>
+

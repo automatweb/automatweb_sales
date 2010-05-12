@@ -1,0 +1,75 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>groups</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <multiple>1</multiple>
+            <size>15</size>
+            <caption>Vali grupid, kellele pullouti n&amp;amp;auml;idatakse</caption>
+      </property>
+      <property>
+            <name>docs</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_DOCUMENT</reltype>
+            <caption>Vali dokument, mida n&amp;amp;auml;idata</caption>
+      </property>
+      <property>
+            <name>align</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <caption>Align</caption>
+      </property>
+      <property>
+            <name>right</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <size>10</size>
+            <caption>Paremalt</caption>
+      </property>
+      <property>
+            <name>width</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <size>10</size>
+            <caption>Laius</caption>
+      </property>
+      <property>
+            <name>template</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <caption>Template</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <syslog_type>ST_PULLOUT</syslog_type>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <reltypes>
+            <DOCUMENT>
+                  <value>1</value>
+                  <clid>CL_DOCUMENT</clid>
+                  <caption>n&amp;amp;auml;idatav dokument</caption>
+            </DOCUMENT>
+      </reltypes>
+</properties>
+

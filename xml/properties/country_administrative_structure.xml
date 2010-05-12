@@ -1,0 +1,94 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>country</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_COUNTRY</reltype>
+            <clid>CL_COUNTRY</clid>
+            <automatic>1</automatic>
+            <comment>Riik, mille haldusjaotuse struktuuri m&amp;auml;&amp;auml;ratakse.</comment>
+            <caption>Riik</caption>
+      </property>
+      <property>
+            <name>address_admin</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <comment>Kasutaja kellel on 6igused k6igele ja k6igeks aadressisysteemi objektidel. Kasutatakse p6hiliselt programmaatiliselt systeemi haldamiseks t88 k2igus.</comment>
+            <caption>Aadresside administraatori kasutaja uid</caption>
+      </property>
+      <property>
+            <name>external_system_1_name</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <comment>Kui haldus&amp;amp;uuml;ksustes defineeritakse v&amp;amp;auml;lise s&amp;amp;uuml;steemi 1 identifikaatorid siis see on selle s&amp;amp;uuml;steemi nimetus</comment>
+            <caption>V&amp;amp;auml;lise s&amp;amp;uuml;steemi nimi (1)</caption>
+      </property>
+      <property>
+            <name>administrative_structure</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>grp_administrative_structure</group>
+            <type>releditor</type>
+            <reltype>RELTYPE_ADMINISTRATIVE_DIVISION</reltype>
+            <mode>manager</mode>
+            <props>
+                  <num_0>name</num_0>
+                  <num_1>type</num_1>
+                  <num_2>parent_division</num_2>
+                  <num_3>division</num_3>
+                  <num_4>jrk</num_4>
+            </props>
+            <table_fields>
+                  <num_0>jrk</num_0>
+                  <num_1>name</num_1>
+                  <num_2>parent_division</num_2>
+            </table_fields>
+            <editonly>1</editonly>
+            <caption>Haldusjaotuse struktuur</caption>
+      </property>
+      <property>
+            <name>administrative_structure_data</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>grp_administrative_structure</group>
+            <type>hidden</type>
+      </property>
+      <classinfo>
+            <syslog_type>ST_COUNTRY_ADMINISTRATIVE_STRUCTURE</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>voldemar</maintainer>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <groupinfo>
+            <grp_administrative_structure>
+                  <caption>Haldusjaotuse struktuur</caption>
+            </grp_administrative_structure>
+      </groupinfo>
+      <reltypes>
+            <ADMINISTRATIVE_DIVISION>
+                  <value>1</value>
+                  <clid>CL_COUNTRY_ADMINISTRATIVE_DIVISION</clid>
+                  <caption>Haldus&amp;uuml;ksus</caption>
+            </ADMINISTRATIVE_DIVISION>
+            <COUNTRY>
+                  <value>2</value>
+                  <clid>CL_COUNTRY</clid>
+                  <caption>Riik</caption>
+            </COUNTRY>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,79 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>watercraft_type</name>
+            <table>watercraft_add</table>
+            <group>general</group>
+            <type>select</type>
+            <field>watercraft_type</field>
+            <caption>Aluse t&amp;amp;uuml;&amp;amp;uuml;p </caption>
+      </property>
+      <property>
+            <name>watercraft_management</name>
+            <table>watercraft_add</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_WATERCRAFT_MANAGEMENT</reltype>
+            <field>watercraft_management</field>
+            <caption>Vees&amp;amp;otilde;idukite haldus</caption>
+      </property>
+      <property>
+            <name>redir_after_publish</name>
+            <table>watercraft_add</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>redir_after_publish</field>
+            <caption>Peale avaldamist suuna</caption>
+      </property>
+      <property>
+            <name>required_fields_table</name>
+            <table>objects</table>
+            <group>required_fields</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>required_fields_table</field>
+            <caption>Kohustuslikud v&amp;amp;auml;ljad</caption>
+      </property>
+      <property>
+            <name>pages_table</name>
+            <table>objects</table>
+            <group>pages</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>pages_table</field>
+            <caption>Lehek&amp;amp;uuml;ljed</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_WATERCRAFT_ADD</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>dragut</maintainer>
+      </classinfo>
+      <groupinfo>
+            <required_fields>
+                  <caption>Kohustuslikud v&amp;amp;auml;ljad</caption>
+            </required_fields>
+            <pages>
+                  <caption>Lehek&amp;amp;uuml;ljed</caption>
+            </pages>
+      </groupinfo>
+      <tableinfo>
+            <watercraft_add>
+                  <index>oid</index>
+                  <master_table>objects</master_table>
+                  <master_index>oid</master_index>
+            </watercraft_add>
+      </tableinfo>
+      <reltypes>
+            <WATERCRAFT_MANAGEMENT>
+                  <value>1</value>
+                  <clid>CL_WATERCRAFT_MANAGEMENT</clid>
+                  <caption>Vees&amp;amp;otilde;idukite haldus</caption>
+            </WATERCRAFT_MANAGEMENT>
+      </reltypes>
+</properties>
+

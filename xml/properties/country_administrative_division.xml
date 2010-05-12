@@ -1,0 +1,104 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>administrative_structure</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+      </property>
+      <property>
+            <name>type</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <comment>Haldus&amp;uuml;ksuse t&amp;uuml;&amp;uuml;p</comment>
+            <caption>T&amp;uuml;&amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>parent_division_show</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>text</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>K&amp;otilde;rgem haldus&amp;uuml;ksus</caption>
+      </property>
+      <property>
+            <name>parent_division</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PARENT_ADMINISTRATIVE_DIVISION</reltype>
+            <clid>
+                  <num_0>CL_COUNTRY</num_0>
+                  <num_1>CL_COUNTRY_ADMINISTRATIVE_DIVISION</num_1>
+                  <num_2>CL_COUNTRY_ADMINISTRATIVE_UNIT</num_2>
+                  <num_3>CL_COUNTRY_CITY</num_3>
+                  <num_4>CL_COUNTRY_CITYDISTRICT</num_4>
+            </clid>
+            <automatic>1</automatic>
+            <field>meta</field>
+            <method>serialize</method>
+            <comment>Haldus&amp;uuml;ksus, millesse k&amp;auml;esolev haldus&amp;uuml;ksus kuulub</comment>
+            <caption>K&amp;otilde;rgem haldus&amp;uuml;ksus</caption>
+      </property>
+      <property>
+            <name>division_name</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>division_name</field>
+            <caption>Haldus&amp;uuml;ksuse nimetus</caption>
+      </property>
+      <property>
+            <name>division_name_as_suffix</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>division_name_as_suffix</field>
+            <caption>Haldus&amp;uuml;ksuse nimetus lauses</caption>
+      </property>
+      <property>
+            <name>ext_id_1</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>ext_id_1</field>
+            <caption>Identifikaator v&amp;amp;auml;lises s&amp;amp;uuml;steemis 1</caption>
+      </property>
+      <property>
+            <name>jrk</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <datatype>int</datatype>
+            <field>jrk</field>
+            <comment>Positiivne t&amp;auml;isarv (vahemikus 1 kuni 1000000)</comment>
+            <caption>J&amp;auml;rjekord</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_COUNTRY_ADMINISTRATIVE_DIVISION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <maintainer>voldemar</maintainer>
+      </classinfo>
+      <reltypes>
+            <PARENT_ADMINISTRATIVE_DIVISION>
+                  <value>1</value>
+                  <clid>
+                        <num_0>CL_COUNTRY_ADMINISTRATIVE_DIVISION</num_0>
+                        <num_1>CL_COUNTRY_ADMINISTRATIVE_UNIT</num_1>
+                        <num_2>CL_COUNTRY_CITY</num_2>
+                        <num_3>CL_COUNTRY_CITYDISTRICT</num_3>
+                        <num_4>CL_COUNTRY</num_4>
+                  </clid>
+                  <caption>K&amp;otilde;rgem haldus&amp;uuml;ksus</caption>
+            </PARENT_ADMINISTRATIVE_DIVISION>
+      </reltypes>
+</properties>
+

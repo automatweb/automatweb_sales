@@ -1,0 +1,29 @@
+<?xml version='1.0'?>
+<properties>
+      <classinfo>
+            <syslog_type>ST_MRP_RESOURCE_SETTING_CATEGORY</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_mrp_resource_setting_category>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_mrp_resource_setting_category>
+      </tableinfo>
+      <reltypes>
+            <RESOURCE_SETTING>
+                  <clid>
+                        <num_0>CL_MRP_RESOURCE_SETTING_CATEGORY</num_0>
+                        <num_1>CL_MRP_RESOURCE_SETTING</num_1>
+                  </clid>
+                  <value>7</value>
+                  <caption>Ressursside seaded</caption>
+            </RESOURCE_SETTING>
+      </reltypes>
+</properties>
+

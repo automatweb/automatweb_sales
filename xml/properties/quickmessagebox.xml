@@ -1,0 +1,139 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>owner</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <automatic>1</automatic>
+            <newonly>1</newonly>
+            <reltype>RELTYPE_OWNER</reltype>
+            <clid>CL_USER</clid>
+            <caption>Select owner</caption>
+      </property>
+      <property>
+            <name>is_contactlist_add_approval_required</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Require approval</caption>
+      </property>
+      <property>
+            <name>approved_senders</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <caption>Allow messages from</caption>
+      </property>
+      <property>
+            <name>show_addressees</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>select</type>
+            <caption>Allow sending to</caption>
+      </property>
+      <property>
+            <name>contactlist</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <size>7</size>
+            <reltype>RELTYPE_CONTACT</reltype>
+            <automatic>1</automatic>
+            <no_edit>1</no_edit>
+            <caption>Contact list</caption>
+            <comment>Select people you want in your contact list</comment>
+      </property>
+      <property>
+            <name>msg_toolbar</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>
+                  <num_0>message_inbox</num_0>
+                  <num_1>message_outbox</num_1>
+            </group>
+            <type>toolbar</type>
+            <store>no</store>
+            <caption>Message list toolbar</caption>
+      </property>
+      <property>
+            <name>msg_inbox_tbl</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>message_inbox</group>
+            <type>table</type>
+            <store>no</store>
+            <caption>Received messages</caption>
+      </property>
+      <property>
+            <name>msg_outbox_tbl</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>message_outbox</group>
+            <type>table</type>
+            <store>no</store>
+            <caption>Sent messages</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_QUICKMESSAGEBOX</syslog_type>
+            <maintainer>voldemar</maintainer>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <groupinfo>
+            <message_box>
+                  <caption>Messages</caption>
+                  <submit>no</submit>
+            </message_box>
+            <message_inbox>
+                  <caption>Inbox</caption>
+                  <parent>message_box</parent>
+                  <submit>no</submit>
+            </message_inbox>
+            <message_outbox>
+                  <caption>Outbox</caption>
+                  <parent>message_box</parent>
+                  <submit>no</submit>
+            </message_outbox>
+            <general>
+                  <caption>Settings</caption>
+            </general>
+      </groupinfo>
+      <reltypes>
+            <OWNER>
+                  <value>4</value>
+                  <clid>CL_USER</clid>
+                  <caption>Owner</caption>
+            </OWNER>
+            <CONTACT>
+                  <value>3</value>
+                  <clid>CL_USER</clid>
+                  <caption>Contact</caption>
+            </CONTACT>
+            <READ_MESSAGE>
+                  <value>5</value>
+                  <clid>CL_QUICKMESSAGE</clid>
+                  <caption>Read message</caption>
+            </READ_MESSAGE>
+            <UNREAD_MESSAGE>
+                  <value>6</value>
+                  <clid>CL_QUICKMESSAGE</clid>
+                  <caption>Unread message</caption>
+            </UNREAD_MESSAGE>
+      </reltypes>
+</properties>
+

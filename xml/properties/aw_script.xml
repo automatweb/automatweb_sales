@@ -1,0 +1,51 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>script</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <caption>Vali skript</caption>
+      </property>
+      <property>
+            <name>configure_script</name>
+            <table>objects</table>
+            <group>configure</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>callback</type>
+            <callback>callback_configure_script</callback>
+            <caption>Seadistused</caption>
+      </property>
+      <property>
+            <name>run_script</name>
+            <table>objects</table>
+            <group>configure</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <store>no</store>
+            <caption>K&amp;auml;ivita skript</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_AW_SCRIPT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <configure>
+                  <caption>Seadistused</caption>
+            </configure>
+      </groupinfo>
+      <reltypes>
+            <CONFIG_OPTION>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Seadistus</caption>
+            </CONFIG_OPTION>
+      </reltypes>
+</properties>
+

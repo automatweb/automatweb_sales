@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>balance</name>
+            <table>aw_account_balances</table>
+            <group>general</group>
+            <type>text</type>
+            <field>aw_balance</field>
+            <caption>Saldo</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_BUDGETING_FUND</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_budgeting_fund>
+                  <master_table>objects</master_table>
+                  <master_index>brother_of</master_index>
+                  <index>aw_oid</index>
+            </aw_budgeting_fund>
+            <aw_account_balances>
+                  <master_index>oid</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_account_balances>
+      </tableinfo>
+</properties>
+

@@ -1,0 +1,26 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>user_id</name>
+            <table>taket_ebasket</table>
+            <field>user_id</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_TAKET_EBASKET_INST</syslog_type>
+            <relationmgr>yes</relationmgr>
+      </classinfo>
+      <tableinfo>
+            <taket_ebasket>
+                  <index>id</index>
+                  <master_table>objects</master_table>
+                  <master_index>oid</master_index>
+            </taket_ebasket>
+      </tableinfo>
+      <reltypes>
+            <TaketiOstukorviRida>
+                  <value>1</value>
+                  <clid>CL_TAKET_EBASKET_ITEM</clid>
+            </TaketiOstukorviRida>
+      </reltypes>
+</properties>
+

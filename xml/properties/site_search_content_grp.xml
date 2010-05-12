@@ -1,0 +1,62 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>users_only</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Ainult sisse logitud kasutajatele</caption>
+      </property>
+      <property>
+            <name>menus</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>table</type>
+            <editonly>1</editonly>
+            <store>no</store>
+            <field>menus</field>
+            <caption>Vali men&amp;amp;uuml;&amp;amp;uuml;d</caption>
+      </property>
+      <property>
+            <name>seach_notactive</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Otsi ka mitteaktiivsetest dokumentidest</caption>
+      </property>
+      <property>
+            <name>search_only_kws</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <reltype>RELTYPE_KW</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Otsi ainult m&amp;amp;auml;rks&amp;amp;otilde;nadest</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SITE_SEARCH_CONTENT_GRP</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <reltypes>
+            <SEARCH_LOCATION>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Otsingu l&amp;amp;auml;tekoht</caption>
+            </SEARCH_LOCATION>
+            <KW>
+                  <value>2</value>
+                  <clid>CL_KEYWORD</clid>
+                  <caption>M&amp;amp;auml;rks&amp;amp;otilde;na</caption>
+            </KW>
+      </reltypes>
+</properties>
+

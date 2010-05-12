@@ -1,0 +1,114 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>listtype</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Kuvatava nimekirja t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>url_to</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Aadress, kuhu nimekirjast suunata</caption>
+      </property>
+      <property>
+            <name>all_offers_table</name>
+            <table>objects</table>
+            <group>list_all</group>
+            <type>table</type>
+            <caption>Eripakkumised</caption>
+            <store>no</store>
+            <field>all_offers_table</field>
+      </property>
+      <property>
+            <name>offers</name>
+            <table>objects</table>
+            <group>list_manual</group>
+            <type>releditor</type>
+            <reltype>RELTYPE_CRM_SPECIAL_OFFER</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <mode>manager</mode>
+            <props>
+                  <num_0>name</num_0>
+                  <num_1>status</num_1>
+                  <num_2>valid_from</num_2>
+                  <num_3>valid_to</num_3>
+            </props>
+            <table_fields>
+                  <num_0>name</num_0>
+                  <num_1>valid_from</num_1>
+                  <num_2>valid_to</num_2>
+            </table_fields>
+            <direct_links>1</direct_links>
+            <store>no</store>
+            <delete_relations>1</delete_relations>
+            <caption>Valitud pakkumised</caption>
+      </property>
+      <property>
+            <name>crm_db</name>
+            <table>objects</table>
+            <group>list_automatic</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_DB</clid>
+            <method>serialize</method>
+            <field>meta</field>
+            <caption>Hallatav kliendibaas</caption>
+      </property>
+      <property>
+            <name>num_offers</name>
+            <table>objects</table>
+            <group>list_automatic</group>
+            <type>textbox</type>
+            <default>10</default>
+            <method>serialize</method>
+            <field>meta</field>
+            <caption>Kuvatavate eripakkumiste arv</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_CRM_SPECIAL_OFFER_MANAGER</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>markop</maintainer>
+      </classinfo>
+      <groupinfo>
+            <list_all>
+                  <caption>K&amp;amp;otilde;ik eripakkumised</caption>
+            </list_all>
+            <list_show>
+                  <caption>Kuvatavad eripakkumised</caption>
+            </list_show>
+            <list_manual>
+                  <caption>Valitud nimekiri</caption>
+                  <submit>yes</submit>
+                  <parent>list_show</parent>
+            </list_manual>
+            <list_automatic>
+                  <caption>Automaatne nimekiri</caption>
+                  <parent>list_show</parent>
+            </list_automatic>
+      </groupinfo>
+      <reltypes>
+            <CRM_SPECIAL_OFFER>
+                  <value>1</value>
+                  <clid>CL_CRM_SPECIAL_OFFER</clid>
+                  <caption>Eripakkumine</caption>
+            </CRM_SPECIAL_OFFER>
+            <CRM_DB>
+                  <value>2</value>
+                  <clid>CL_CRM_DB</clid>
+                  <caption>Kliendibaas</caption>
+            </CRM_DB>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,39 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>jrk</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>jrk</field>
+            <caption>J&amp;amp;auml;rjekord</caption>
+      </property>
+      <property>
+            <name>parent_category</name>
+            <table>aw_crm_category</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_parent_category</field>
+      </property>
+      <property>
+            <name>organization</name>
+            <table>aw_crm_category</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_organization</field>
+      </property>
+      <classinfo>
+            <relationmgr>no</relationmgr>
+            <prop_cb>1</prop_cb>
+            <no_status>1</no_status>
+      </classinfo>
+      <tableinfo>
+            <aw_crm_category>
+                  <index>aw_oid</index>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+            </aw_crm_category>
+      </tableinfo>
+</properties>
+

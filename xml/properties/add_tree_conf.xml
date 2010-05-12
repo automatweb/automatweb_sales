@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>behaviour</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>chooser</type>
+            <options>
+                  <num_0>restrictive</num_0>
+                  <num_1>permissive</num_1>
+            </options>
+            <default>restrictive</default>
+            <comment>Lubav -- lisandunud klasside kohta on vaikimisi k&amp;amp;otilde;ik tegevused lubatud, keelav -- keelatud</comment>
+            <caption>K&amp;amp;auml;itumine</caption>
+      </property>
+      <property>
+            <name>sel</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <classinfo>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <syslog_type>ST_ADD_TREE_CONF</syslog_type>
+            <maintainer>kristo</maintainer>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+</properties>
+

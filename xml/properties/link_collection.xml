@@ -1,0 +1,65 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>type</name>
+            <table>aw_link_collection</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_type</field>
+            <caption>T&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>ordering</name>
+            <table>aw_link_collection</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_ordering</field>
+            <caption>Linkide j&amp;amp;auml;rjestamine</caption>
+      </property>
+      <property>
+            <name>kw_ordering</name>
+            <table>aw_link_collection</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_kw_ordering</field>
+            <caption>V&amp;amp;otilde;tmes&amp;amp;otilde;nade j&amp;amp;auml;rjestamine</caption>
+      </property>
+      <property>
+            <name>folders</name>
+            <table>aw_link_collection</table>
+            <group>folders</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>folders</field>
+            <caption>Kataloogid</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_LINK_COLLECTION</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>kristo</maintainer>
+      </classinfo>
+      <groupinfo>
+            <folders>
+                  <caption>Kataloogid</caption>
+            </folders>
+      </groupinfo>
+      <tableinfo>
+            <aw_link_collection>
+                  <index>aw_oid</index>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+            </aw_link_collection>
+      </tableinfo>
+      <reltypes>
+            <FOLDER>
+                  <value>1</value>
+                  <clid>CL_MENU</clid>
+                  <caption>Kataloog</caption>
+            </FOLDER>
+      </reltypes>
+</properties>
+

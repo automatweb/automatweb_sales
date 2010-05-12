@@ -1,0 +1,276 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>person</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PERSON</reltype>
+            <store>connect</store>
+            <field>person</field>
+            <caption>Isik</caption>
+      </property>
+      <property>
+            <name>field</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>classificator</type>
+            <multiple>1</multiple>
+            <reltype>RELTYPE_FIELD</reltype>
+            <orient>vertical</orient>
+            <store>connect</store>
+            <sort_callback>CL_PERSONNEL_MANAGEMENT::cmp_function</sort_callback>
+            <field>field</field>
+            <caption>Tegevusala (muutuja)</caption>
+      </property>
+      <property>
+            <name>sector</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_SECTOR</reltype>
+            <multiple>1</multiple>
+            <store>connect</store>
+            <field>sector</field>
+            <caption>Tegevusala (tegevusala objekt)</caption>
+      </property>
+      <property>
+            <name>job_type</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>classificator</type>
+            <multiple>1</multiple>
+            <reltype>RELTYPE_JOB_TYPE</reltype>
+            <store>connect</store>
+            <sort_callback>CL_PERSONNEL_MANAGEMENT::cmp_function</sort_callback>
+            <field>job_type</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml; liik</caption>
+      </property>
+      <property>
+            <name>professions_rels</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PROFESSION</reltype>
+            <multiple>1</multiple>
+            <store>connect</store>
+            <no_edit>1</no_edit>
+            <field>professions_rels</field>
+            <caption>Soovitavad ametid</caption>
+      </property>
+      <property>
+            <name>professions</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>textarea</type>
+            <field>ametinimetus</field>
+            <caption>Soovitavad ametid</caption>
+      </property>
+      <property>
+            <name>load</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>koormus</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;koormus</caption>
+      </property>
+      <property>
+            <name>load2</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>classificator</type>
+            <reltype>RELTYPE_LOAD</reltype>
+            <store>connect</store>
+            <field>load2</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;koormus</caption>
+      </property>
+      <property>
+            <name>pay</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <datatype>int</datatype>
+            <field>palgasoov</field>
+            <caption>Palgasoov (arv)</caption>
+      </property>
+      <property>
+            <name>pay_text</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>palgasoov_txt</field>
+            <caption>Palgasoov (tekst)</caption>
+      </property>
+      <property>
+            <name>work_by_schedule</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>work_by_schedule</field>
+            <caption>Olen n&amp;amp;otilde;us t&amp;amp;ouml;&amp;amp;ouml;tama graafiku alusel</caption>
+      </property>
+      <property>
+            <name>work_at_night</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>work_at_night</field>
+            <caption>Olen n&amp;amp;otilde;us t&amp;amp;ouml;&amp;amp;ouml;tama &amp;amp;ouml;&amp;amp;ouml;sel</caption>
+      </property>
+      <property>
+            <name>ready_for_errand</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>ready_for_errand</field>
+            <caption>Olen valmis t&amp;amp;ouml;&amp;amp;ouml;l&amp;amp;auml;hetusteks</caption>
+      </property>
+      <property>
+            <name>location</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <orient>vertical</orient>
+            <store>connect</store>
+            <reltype>RELTYPE_LOCATION</reltype>
+            <field>location</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml; asukoht</caption>
+            <comment>Esimene valik</comment>
+      </property>
+      <property>
+            <name>location_2</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <orient>vertical</orient>
+            <store>connect</store>
+            <reltype>RELTYPE_LOCATION2</reltype>
+            <field>location_2</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml; asukoht</caption>
+            <comment>Teine valik</comment>
+      </property>
+      <property>
+            <name>location_text</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>location_text</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml; asukoht</caption>
+            <comment>Vajadusel t&amp;amp;auml;psusta</comment>
+      </property>
+      <property>
+            <name>start_working</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>select</type>
+            <field>start_working</field>
+            <caption>Soovitud t&amp;amp;ouml;&amp;amp;ouml;le asumise aeg</caption>
+      </property>
+      <property>
+            <name>additional_skills</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>textarea</type>
+            <field>additional_skills</field>
+            <caption>T&amp;amp;auml;iendavad oskused</caption>
+            <comment>Kas Teil on t&amp;amp;auml;iendavaid oskusi, mida te peate vajalikuks &amp;amp;auml;ra m&amp;amp;auml;rkida?</comment>
+      </property>
+      <property>
+            <name>handicaps</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>textarea</type>
+            <field>handicaps</field>
+            <caption>Tegurid, mis ei v&amp;amp;otilde;imalda m&amp;amp;otilde;nda t&amp;amp;ouml;&amp;amp;ouml;&amp;amp;uuml;lesannet t&amp;amp;auml;ita</caption>
+      </property>
+      <property>
+            <name>hobbies_vs_work</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>hobbies_vs_work</field>
+            <caption>Hobid, mille t&amp;amp;otilde;ttu on vajalik t&amp;amp;ouml;&amp;amp;ouml;lt eemal viibida</caption>
+      </property>
+      <property>
+            <name>addinfo</name>
+            <table>personnel_management_job_wanted</table>
+            <group>general</group>
+            <type>textarea</type>
+            <field>lisainfo</field>
+            <caption>Lisainfo soovitava t&amp;amp;ouml;&amp;amp;ouml; kohta</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_PERSONNEL_MANAGEMENT_JOB_WANTED</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <r2>yes</r2>
+            <no_status>1</no_status>
+            <no_comment>1</no_comment>
+            <maintainer>instrumental</maintainer>
+      </classinfo>
+      <tableinfo>
+            <personnel_management_job_wanted>
+                  <master_table>objects</master_table>
+                  <master_index>oid</master_index>
+                  <index>oid</index>
+            </personnel_management_job_wanted>
+      </tableinfo>
+      <reltypes>
+            <PERSON>
+                  <value>1</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>T&amp;amp;ouml;&amp;amp;ouml;soovija</caption>
+            </PERSON>
+            <FIELD>
+                  <value>2</value>
+                  <clid>CL_META</clid>
+                  <caption>Valdkond</caption>
+            </FIELD>
+            <LOAD>
+                  <value>3</value>
+                  <clid>CL_META</clid>
+                  <caption>T&amp;amp;ouml;&amp;amp;ouml;koormus</caption>
+            </LOAD>
+            <LOCATION>
+                  <value>4</value>
+                  <clid>
+                        <num_0>CL_CRM_CITY</num_0>
+                        <num_1>CL_CRM_COUNTY</num_1>
+                        <num_2>CL_CRM_COUNTRY</num_2>
+                        <num_3>CL_CRM_AREA</num_3>
+                  </clid>
+                  <caption>Asukoht (esimene valik)</caption>
+            </LOCATION>
+            <JOB_TYPE>
+                  <value>5</value>
+                  <clid>CL_META</clid>
+                  <caption>T&amp;amp;ouml;&amp;amp;ouml; liik</caption>
+            </JOB_TYPE>
+            <PROFESSION>
+                  <value>6</value>
+                  <clid>CL_CRM_PROFESSION</clid>
+                  <caption>Ametinimetus</caption>
+            </PROFESSION>
+            <LOCATION2>
+                  <value>7</value>
+                  <clid>
+                        <num_0>CL_CRM_CITY</num_0>
+                        <num_1>CL_CRM_COUNTY</num_1>
+                        <num_2>CL_CRM_COUNTRY</num_2>
+                        <num_3>CL_CRM_AREA</num_3>
+                  </clid>
+                  <caption>Asukoht (teine valik)</caption>
+            </LOCATION2>
+            <SECTOR>
+                  <value>8</value>
+                  <clid>CL_CRM_SECTOR</clid>
+                  <caption>Tegevusvaldkond</caption>
+            </SECTOR>
+      </reltypes>
+</properties>
+

@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>oc</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_ORDER_CENTER</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Tellimiskeskkond</caption>
+      </property>
+      <property>
+            <name>filter_params</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>filter_params</field>
+            <caption>Filtri parameetrid</caption>
+      </property>
+      <property>
+            <name>filter</name>
+            <table>objects</table>
+            <group>filter</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>filter</field>
+      </property>
+      <classinfo>
+            <syslog_type>ST_SHOP_ORDER_CENTER_FILTER_ENTRY</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <groupinfo>
+            <filter>
+                  <caption>Koosta filter</caption>
+            </filter>
+      </groupinfo>
+</properties>
+

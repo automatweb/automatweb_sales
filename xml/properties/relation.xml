@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<properties>
+      <classinfo>
+            <syslog_type>ST_RELATION</syslog_type>
+            <maintainer>kristo</maintainer>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+      </classinfo>
+</properties>
+
