@@ -170,7 +170,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 	//undone - boolean
 	private function _get_sell_orders($arr = array())
 	{
-
 		$filter = array(
 			"class_id" => CL_SHOP_SELL_ORDER,
 			"purchaser" => $this->id()
@@ -219,7 +218,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 	//undone - boolean
 	private function _get_orders($arr = array())
 	{
-
 		$filter = array(
 			"class_id" => CL_SHOP_ORDER,
 			"orderer_company" => $this->id(),
@@ -316,7 +314,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 //		return $ol;
 
 		$bill_i = get_instance(CL_CRM_BILL);
-		$co_stat_inst = get_instance("applications/crm/crm_company_stats_impl");
+		$co_stat_inst = new crm_company_stats_impl();
 		$company_curr = $co_stat_inst->get_company_currency();
 
 		foreach($ol->arr() as $bill)
@@ -418,7 +416,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 			return only people on that profession
 		@param section optional type=CL_CRM_SECTION
 			return only people in given section
-		@returns object_list of CL_CRM_PERSON
+		@return object_list of CL_CRM_PERSON
 		@errors
 		throws awex_obj_class when a parameter object class id is not what expected (profession)
 	**/
@@ -571,7 +569,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 			worker profession in company
 		@param section optional type=oid
 			worker section in company
-		@returns object_list
+		@return object_list
 			person object list
 	**/
 	public function get_workers($arr = array())
@@ -757,7 +755,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		@param profession type=CL_CRM_PROFESSION default=null
 		@param person type=CL_CRM_PERSON default=null
 			Person to add as an employee. If none given, a new person is created
-		@returns CL_CRM_PERSON_WORK_RELATION
+		@return CL_CRM_PERSON_WORK_RELATION
 			Created employment relation object
 		@errors
 			throws awex_obj_type if given profession or person of wrong type
@@ -819,17 +817,17 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		if ($profession)
 		{
 			$work_relation->set_prop("profession", $profession->id());
-		}
 
-		try
-		{
-			// set section if found
-			$section_oid = new aw_oid($profession->prop("section"));
-			$section = obj($section_oid, array(), CL_CRM_SECTION);
-			$work_relation->set_prop("section", $section->id());
-		}
-		catch (Exception $e)
-		{
+			try
+			{
+				// set section if found
+				$section_oid = new aw_oid($profession->prop("section"));
+				$section = obj($section_oid, array(), CL_CRM_SECTION);
+				$work_relation->set_prop("section", $section->id());
+			}
+			catch (Exception $e)
+			{
+			}
 		}
 
 		$work_relation->save();
@@ -864,7 +862,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 	/** Returns a list of task stats types for the company
 		@attrib api=1 params=pos
 
-		@returns
+		@return
 			array { type_id => type_desc }
 
 	**/
@@ -1109,15 +1107,38 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		$this->connect(array("to" => $o->id(),  "type" => "RELTYPE_TEGEVUSALAD"));
 	}
 
-	/** Adds category
+	/** Adds customer/partner category
 		@attrib api=1 params=pos
-		@param id optional type=oid
-			category object id
+		@param parent type=CL_CRM_CATEGORY default=NULL
+			Category to add new category under. Default means top level.
+		@return CL_CRM_CATEGORY
+			Newly created category object
+		@errors
+			throws awex_obj_type when parent is of wrong type
+			throws awex_obj_state_new when this company is not saved yet.
 	**/
-	public function add_category($id)
+	public function add_customer_category(object $parent = null)
 	{
-		$cat = obj($id);
-		$cat->connect(array("to" => $this->id(),  "type" => "RELTYPE_CUSTOMER"));
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new();
+		}
+
+		$cat = obj(null, array(), CL_CRM_CATEGORY);
+		$cat->set_parent($this->id());
+		$cat->set_prop("organization", $this->id());
+
+		if ($parent)
+		{
+			if (!$parent->is_a(CL_CRM_CATEGORY))
+			{
+				throw new awex_obj_type("Given category " . $parent->id() . " is not a category object (clid is " . $parent->class_id() . ")");
+			}
+			$cat->set_prop("parent_category", $parent->id());
+		}
+
+		$cat->save();
+		return $cat;
 	}
 
 	/** Adds address
@@ -1252,7 +1273,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 
 	/** returns customer relation creator
 		@attrib api=1
-		@returns string
+		@return string
 	**/
 	public function get_cust_rel_creator_name()
 	{
@@ -1270,7 +1291,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 			By default current company used
 		@param crea_if_not_exists type=bool default=false
 			if no customer relation object, makes one
-		@returns CL_CRM_COMPANY_CUSTOMER_DATA
+		@return CL_CRM_COMPANY_CUSTOMER_DATA
 	**/
 	public function get_customer_relation($my_co = null, $crea_if_not_exists = false)
 	{
@@ -1351,7 +1372,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		@attrib api=1 params=pos
 		@param form optional
 			form oid or name
-		@returns object
+		@return object
 	**/
 	public function set_legal_form($form)
 	{
@@ -1641,7 +1662,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 
 	/**
 		@attrib api=1
-		@returns Object list of all customers by customer data objects.
+		@return Object list of all customers by customer data objects.
 	**/
 	public function get_customers_by_customer_data_objs()
 	{
@@ -1658,7 +1679,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 
 	/** goes through all the relations and returns a set of id
 		@attrib api=1
-		@returns array
+		@return array
 	**/
 	public function get_customers_for_company()
 	{
@@ -1696,7 +1717,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 
 	/** returns all projects where company is customer
 		@attrib api=1
-		@returns object list
+		@return object list
 	**/
 	public function get_projects_as_customer($arr = array())
 	{
@@ -1711,7 +1732,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 
 	/** adds new project and sets company as customer
 		@attrib api=1 params=pos
-		@returns oid
+		@return oid
 	**/
 	public function add_project_as_customer($name, $impl = null)
 	{
@@ -1738,7 +1759,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		@attrib api=1 params=pos
 		@param customer optional type=oid/string
 			form oid
-		@returns oid
+		@return oid
 			customer object id
 	**/
 	public function add_customer($customer)
@@ -1784,7 +1805,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		@attrib api=1 params=pos
 		@param section optional type=string
 			form oid
-		@returns oid
+		@return oid
 			customer object id
 	**/
 	public function get_section_by_name($section)
@@ -1806,7 +1827,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		@attrib api=1 params=pos
 		@param section optional type=string
 			form oid
-		@returns oid
+		@return oid
 			customer object id
 	**/
 	public function add_section($section)
@@ -1881,7 +1902,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 
 	/** Returns object list of professions defined in this company
 		@attrib api=1
-		@returns object_list
+		@return object_list
 	**/
 	public function get_company_professions()
 	{
@@ -1964,6 +1985,74 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		}
 		return $retval;
 	}
+
+	/**
+		@attrib api=1 params=pos
+		@param parent type=CL_CRM_CATEGORY default=NULL
+		@return object_list
+		@errors
+			throws awex_obj_type if given parent is of wrong class
+	**/
+	public function get_customer_categories(object $parent = null)
+	{
+		if ($this->is_saved())
+		{
+			$filter = array(
+				"class_id" => CL_CRM_CATEGORY,
+				"organization" => $this->id()
+			);
+
+			if ($parent)
+			{
+				if (!$parent->is_a(CL_CRM_CATEGORY))
+				{
+					throw new awex_obj_type("Given category " . $parent->id() . " is not a category object (clid is " . $parent->class_id() . ")");
+				}
+				$filter["parent_category"] = $parent->id();
+			}
+		}
+		else
+		{
+			$filter = null;
+		}
+
+		$list = new object_list($filter);
+		return $list;
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param category type=CL_CRM_CATEGORY
+		@return array
+			Array of object id-s
+		@errors
+	**/
+	public function get_customer_ids(object $category = null)
+	{
+		if ($category and !$category->is_a(CL_CRM_CATEGORY))
+		{
+			throw new awex_crm_category("Wrong parameter. Category class id can't be '" . $category->class_id() . "'");
+		}
+
+		$filter = array(
+			"class_id" => crm_company_customer_data_obj::$customer_class_ids,
+			"CL_CRM_COMPANY_CUSTOMER_DATA.seller" => $this->id()
+		);
+
+		if ($category)
+		{
+			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY"] = $category->id();
+		}
+
+		$list = new object_data_list(array(
+			$filter,
+			array(
+				CL_CRM_PERSON => array("oid"),
+				CL_CRM_COMPANY => array("oid")
+			)
+		));
+		return $list->arr();
+	}
 }
 
 
@@ -1975,5 +2064,8 @@ class awex_crm_custrel extends awex_crm {}
 
 /** work relation related error **/
 class awex_crm_workrel extends awex_crm {}
+
+/** customer category related error **/
+class awex_crm_category extends awex_crm {}
 
 ?>

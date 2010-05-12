@@ -413,7 +413,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 			@property tree_search_split_dummy type=hidden no_caption=1 parent=tree_search_split
 
-			@layout vvoc_customers_tree_left type=vbox parent=tree_search_split closeable=1 area_caption=Kliendigrupid
+			@layout vvoc_customers_tree_left type=vbox parent=tree_search_split closeable=1 area_caption=Kliendivalik
 				@property customer_listing_tree type=treeview no_caption=1 parent=vvoc_customers_tree_left
 				@caption R&uuml;hmade puu
 
@@ -4031,7 +4031,7 @@ class crm_company extends class_base
 
 	function callback_mod_retval($arr)
 	{
-		if($arr['args']["group"] === "stats_s" || $arr['args']["group"] === "stats")
+		if($this->use_group === "stats_s" || $this->use_group === "stats")
 		{
 			$arr['args']['stats_s_cust_type'] = ($arr['request']['stats_s_cust_type']);
 			$arr['args']['stats_s_cust'] = ($arr['request']['stats_s_cust']);
@@ -4053,20 +4053,22 @@ class crm_company extends class_base
 			$arr['args']['MAX_FILE_SIZE'] = ($arr["request"]["MAX_FILE_SIZE"]);
 		}
 
-		if($arr["args"]["group"] == "stats_stats" || $arr["args"]["group"] == "stats")
+		if($this->use_group === "stats_stats" || $this->use_group === "stats")
 		{
 			$arr['args']['stats_stats_time_sel'] = ($arr['request']['stats_stats_time_sel']);
 			$arr['args']['stats_stats_from'] = ($arr['request']['stats_stats_from']);
 			$arr['args']['stats_stats_to'] = ($arr['request']['stats_stats_to']);
 			$arr['args']['st'] = ($arr['request']['st']);
 		}
-		if($arr["args"]["group"] == "ovrv_email")
+
+		if($this->use_group === "ovrv_email")
 		{
 			$arr['args']['mail_s_subj'] = ($arr['request']['mail_s_subj']);
 			$arr['args']['mail_s_body'] = ($arr['request']['mail_s_body']);
 			$arr['args']['mail_s_to'] = ($arr['request']['mail_s_to']);
 		}
-		if($arr['args']["group"] == "stats_my")
+
+		if($this->use_group === "stats_my")
 		{
 			$arr['args']['my_stats_s_type'] = ($arr['request']['my_stats_s_type']);
 			$arr['args']['my_stats_s_from'] = ($arr['request']['my_stats_s_from']);
@@ -4075,6 +4077,7 @@ class crm_company extends class_base
 			$arr['args']['my_stats_s_cust'] = ($arr['request']['my_stats_s_cust']);
 			$arr['args']['MAX_FILE_SIZE'] = ($arr["request"]["MAX_FILE_SIZE"]);
 		}
+
 		if($this->do_search)
 		{
 			$arr['args']['contact_search_name'] = ($arr['request']['contact_search_name']);
@@ -4087,7 +4090,7 @@ class crm_company extends class_base
 			$arr['args']['contacts_search_show_results'] = 1;
 		}
 
-		if($arr["request"]["customer_search_submit"])
+		if(!empty($arr["request"]["customer_search_submit"]))
 		{
 			$arr['args']['customer_search_name'] = ($arr['request']['customer_search_name']);
 			$arr['args']['customer_search_worker'] = ($arr['request']['customer_search_worker']);
@@ -4107,13 +4110,7 @@ class crm_company extends class_base
 			$arr["args"]["customer_search_classif1"] = $arr["request"]["customer_search_classif1"];
 		}
 
-//		if($arr["request"]["billable_search_button"])
-//		{
-			$arr['args']['billable_start'] = ($arr['request']['billable_start']);
-			$arr['args']['billable_end'] = ($arr['request']['billable_end']);
-//		}
-
-		if ($arr["request"]["proj_search_sbt"])
+		if (!empty($arr["request"]["proj_search_sbt"]))
 		{
 			$arr["args"]["proj_search_cust"] = $arr["request"]["proj_search_cust"];
 			$arr["args"]["proj_search_part"] = $arr["request"]["proj_search_part"];
@@ -4128,7 +4125,7 @@ class crm_company extends class_base
 			$arr["args"]["do_proj_search"] = 1;
 		}
 
-		if ($arr["request"]["proj_search_change_mode_sbt"])
+		if (!empty($arr["request"]["proj_search_change_mode_sbt"]))
 		{
 			$arr["args"]["proj_search_part"] = $arr["request"]["proj_search_part"];
 			$arr["args"]["proj_search_name"] = $arr["request"]["proj_search_name"];
@@ -4146,7 +4143,8 @@ class crm_company extends class_base
 				$this->set_cval( aw_global_get('uid').'_crm_projects_search_mode', CRM_PROJECTS_SEARCH_DETAIL );
 			}
 		}
-		if($arr["request"]["customer_search_submit_and_change"])
+
+		if(!empty($arr["request"]["customer_search_submit_and_change"]))
 		{
 			$arr['args']['customer_search_name'] = ($arr['request']['customer_search_name']);
 			$arr['args']['customer_search_cust_grp'] = ($arr['request']['customer_search_cust_grp']);
@@ -4166,7 +4164,7 @@ class crm_company extends class_base
 			}
 		}
 
-		if ($arr["request"]["all_proj_search_change_mode_sbt"])
+		if (!empty($arr["request"]["all_proj_search_change_mode_sbt"]))
 		{
 			$arr["args"]["all_proj_search_part"] = $arr["request"]["all_proj_search_part"];
 			$arr["args"]["all_proj_search_name"] = $arr["request"]["all_proj_search_name"];
@@ -4184,13 +4182,13 @@ class crm_company extends class_base
 			}
 		}
 
-		if ($arr["request"]["all_proj_search_clear"])
+		if (!empty($arr["request"]["all_proj_search_clear"]))
 		{
 			$arr["args"]["search_all_proj"] = 0;
 			$_SESSION['crm_projects_search_mode'] = CRM_PROJECTS_SEARCH_SIMPLE;
 		}
 
-		if ($arr["request"]["all_proj_search_sbt"])
+		if (!empty($arr["request"]["all_proj_search_sbt"]))
 		{
 			$arr["args"]["all_proj_search_cust"] = $arr["request"]["all_proj_search_cust"];
 			$arr["args"]["all_proj_search_part"] = $arr["request"]["all_proj_search_part"];
@@ -4208,7 +4206,7 @@ class crm_company extends class_base
 			$arr["args"]["aps_sbt"] = 1;
 		}
 
-		if ($arr["request"]["docs_s_sbt"])
+		if (!empty($arr["request"]["docs_s_sbt"]))
 		{
 			$arr["args"]["docs_s_name"] = $arr["request"]["docs_s_name"];
 			$arr["args"]["docs_s_type"] = $arr["request"]["docs_s_type"];
@@ -4221,7 +4219,7 @@ class crm_company extends class_base
 			$arr["args"]["docs_s_sbt"] = $arr["request"]["docs_s_sbt"];
 		}
 
-		if ($arr["request"]["act_s_sbt"] || $this->use_group === "bills_search")
+		if (!empty($arr["request"]["act_s_sbt"]) || $this->use_group === "bills_search")
 		{
 			$arr["args"]["act_s_cust"] = $arr["request"]["act_s_cust"];
 			$arr["args"]["act_s_part"] = $arr["request"]["act_s_part"];
@@ -4239,10 +4237,10 @@ class crm_company extends class_base
 
 			$arr["args"]["act_s_mail_content"] = $arr["request"]["act_s_mail_content"];
 			$arr["args"]["act_s_mail_name"] = $arr["request"]["act_s_mail_name"];
-
 		}
-//		if ($arr["request"]["bill_s_search"] != "")
-//		{
+
+		if (!empty($arr["request"]["bill_s_search"]))
+		{
 			$arr["args"]["bill_s_cust"] = $arr["request"]["bill_s_cust"];
 			$arr["args"]["bill_s_bill_no"] = $arr["request"]["bill_s_bill_no"];
 			$arr["args"]["bill_s_bill_to"] = $arr["request"]["bill_s_bill_to"];
@@ -4254,9 +4252,9 @@ class crm_company extends class_base
 			$arr["args"]["bill_s_with_tax"] = $arr["request"]["bill_s_with_tax"];
 			$arr["args"]["bill_s_status"] = $arr["request"]["bill_s_status"];
 			$arr["args"]["bill_s_search"] = $arr["request"]["bill_s_search"];
+		}
 
-//		}
-		if ($arr["request"]["bill_payments_search"] != "")
+		if (!empty($arr["request"]["bill_payments_search"]))
 		{
 			$arr["args"]["bill_payments_cust"] = $arr["request"]["bill_payments_cust"];
 			$arr["args"]["bill_payments_bill_no"] = $arr["request"]["bill_payments_bill_no"];
@@ -4267,17 +4265,23 @@ class crm_company extends class_base
 			$arr["args"]["bill_payments_search"] = $arr["request"]["bill_payments_search"];
 		}
 
-		if($arr['request']['unit'])
+		if(!empty($arr["request"]["billable_search_button"]))
+		{
+			$arr['args']['billable_start'] = ($arr['request']['billable_start']);
+			$arr['args']['billable_end'] = ($arr['request']['billable_end']);
+		}
+
+		if(!empty($arr['request']['unit']))
 		{
 			$arr['args']['unit'] = $arr['request']['unit'];
 		}
 
-		if($arr['request']['category'])
+		if(!empty($arr['request']['category']))
 		{
 			$arr['args']['category'] = $arr['request']['category'];
 		}
 
-		if($arr['request']['cat'])
+		if(!empty($arr['request']['cat']))
 		{
 			$arr['args']['cat'] = $arr['request']['cat'];
 		}
@@ -4329,12 +4333,14 @@ class crm_company extends class_base
  */	}
 
 	//goes through all the relations and builds a set of id into $data
-	function get_customers_for_company($obj, $data, $category = false)
+	// FIXME category is an unknown parameter
+	// obj seems to be a parameter representing a category from which to get customers
+	function get_customers_for_company($obj, &$data, $category = false)
 	{
 		if (!$category)
 		{
 			$impl = array();
-			$this->get_all_workers_for_company($obj, &$impl);
+			$this->get_all_workers_for_company($obj, $impl);
 			$impl[] = $obj->id();
 			// also, add all orderers from projects where the company is implementor
 			$ol = new object_list(array(
@@ -4370,7 +4376,7 @@ class crm_company extends class_base
 		foreach($conns as $conn)
 		{
 			$obj = new object($conn->prop('to'));
-			$this->get_customers_for_company($obj,&$data,true);
+			$this->get_customers_for_company($obj,$data,true);
 		}
 	}
 
@@ -4442,6 +4448,22 @@ class crm_company extends class_base
 		$work_rel = $this_o->add_employee($profession);
 		$params = !empty($arr["return_url"]) ? array("return_url" => $arr["return_url"]) : array();
 		return html::get_change_url($work_rel->prop("employee"), $params);
+	}
+
+	/**
+		@attrib name=add_customer_category
+
+		@param id required type=oid
+		@param parent optional type=oid
+		@param return_url optional type=string
+	**/
+	public function add_customer_category($arr)
+	{
+		$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+		$parent = !empty($arr["parent"]) ? obj($arr["parent"], array(), CL_CRM_CATEGORY) : null;
+		$category = $this_o->add_customer_category($parent);
+		$params = !empty($arr["return_url"]) ? array("return_url" => $arr["return_url"]) : array();
+		return html::get_change_url($category->id(), $params);
 	}
 
 	/**

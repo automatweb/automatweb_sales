@@ -42,14 +42,11 @@ class automatweb
 	public static $instance; // current aw instance. read-only.
 	public static $result; // aw_resource object. result of executing the request
 
-	public $core; // aw core instance
-
 	private function __construct()
 	{
 		// initialize object lifetime
 		$this->start_time = microtime(true);
 		$this->mode(self::MODE_PRODUCTION);
-		// $this->core = new core();
 	}
 
 	/** Shortcut method for running a typical http www request

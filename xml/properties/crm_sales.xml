@@ -1286,6 +1286,35 @@
             <caption>Soovitaja</caption>
       </property>
       <property>
+            <name>contact_entry_category</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>
+                  <num_0>data_entry_contact_co</num_0>
+                  <num_1>data_entry_contact_person</num_1>
+            </group>
+            <type>objpicker</type>
+            <store>no</store>
+            <parent>contact_entry_form</parent>
+            <clid>CL_CRM_CATEGORY</clid>
+            <options_callback>crm_sales::get_category_options</options_callback>
+            <caption>Kliendigrupp</caption>
+      </property>
+      <property>
+            <name>contact_entry_organization</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_person</group>
+            <type>objpicker</type>
+            <store>no</store>
+            <parent>contact_entry_form</parent>
+            <clid>CL_CRM_COMPANY</clid>
+            <comment>Kui isik on liige v&amp;amp;otilde;i t&amp;amp;ouml;&amp;amp;ouml;tab mingis organisatsioonis, saab siin seda valida</comment>
+            <caption>Organisatsioon</caption>
+      </property>
+      <property>
             <name>contact_entry_lead_source_oid</name>
             <table>objects</table>
             <field>meta</field>

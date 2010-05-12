@@ -4727,7 +4727,7 @@
                   <type>vbox</type>
                   <parent>tree_search_split</parent>
                   <closeable>1</closeable>
-                  <area_caption>Kliendigrupid</area_caption>
+                  <area_caption>Kliendivalik</area_caption>
                   <group>
                         <num_0>relorg_s</num_0>
                         <num_1>relorg_b</num_1>

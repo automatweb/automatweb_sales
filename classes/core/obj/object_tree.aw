@@ -702,7 +702,7 @@ class object_tree extends _int_obj_container_base
 		return $ol;
 	}
 
-	function _int_req_subtree($parent, &$ol)
+	function _int_req_subtree($parent, $ol)
 	{
 		foreach($this->level($parent) as $oid => $o)
 		{
@@ -711,7 +711,7 @@ class object_tree extends _int_obj_container_base
 		}
 	}
 
-	function _int_req_remove(&$o, &$cnt)
+	function _int_req_remove($o, &$cnt)
 	{
 		if (is_array($this->tree[$o->id()]))
 		{

@@ -550,6 +550,15 @@ class crm_sales_obj extends _int_object implements application_interface
 			$new_call_time =  time() + $this->prop("call_result_busy_recall_time");
 			$new_call = $this->set_result_call_for_ended_task($call, $new_call_time);
 		}
+		elseif (
+			$result === crm_call_obj::RESULT_HUNGUP or
+			$result === crm_call_obj::RESULT_DISCONNECTED
+		)
+		{
+			// create immediate new call
+			$new_call_time =  time();
+			$new_call = $this->set_result_call_for_ended_task($call, $new_call_time);
+		}
 		elseif ($result === crm_call_obj::RESULT_NEWNUMBER)
 		{
 			// replace old nr. and create immediate new call

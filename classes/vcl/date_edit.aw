@@ -69,12 +69,14 @@ class date_edit
 		if (!is_array($fields))
 		{
 			return false;
-		};
+		}
+
 		if (isset($fields["classid"]))
 		{
 			$this->classid = $fields["classid"];
 			unset($fields["classid"]);
-		};
+		}
+
 		$this->fields = $fields;
 	}
 
@@ -151,7 +153,7 @@ class date_edit
 		}
 		else
 		{
-			list($year,$month,$day,$hour,$minute) = split(" ",date("Y n j H i",$this->timestamp));
+			list($year,$month,$day,$hour,$minute) = explode(" ",date("Y n j H i",$this->timestamp));
 		}
 
 		$retval = "";

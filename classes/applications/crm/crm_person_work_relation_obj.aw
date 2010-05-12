@@ -56,5 +56,17 @@ class crm_person_work_relation_obj extends _int_object
 		$this->set_prop("end" , time());
 		$this->save();
 	}
+
+	public function save($exclusive = false, $previous_state = null)
+	{
+		if (strlen($this->name()) < 1)
+		{
+			if ($this->prop("employer") and $this->prop("employee"))
+			{
+				$this->set_name($this->prop("employer.name") . " => " . $this->prop("employee.name"));
+			}
+		}
+		return parent::save($exclusive, $previous_state);
+	}
 }
 ?>

@@ -115,7 +115,7 @@ class object_list extends _int_obj_container_base
 		if (is_array($param))
 		{
 			$tmp = reset($param);
-			if (is_object($tmp) && get_class($tmp) == "connection")
+			if (is_object($tmp) && get_class($tmp) === "connection")
 			{
 				// rewrite filter to get all objects from conn, so we use magic from ->begin() to get them all at once
 				$arr = array();
@@ -331,7 +331,7 @@ class object_list extends _int_obj_container_base
 				"msg" => t("object_list::sort_by(): prop argument must be present!")
 			));
 		}
-		$this->_int_sort_list($param["prop"], ((empty($param["order"]) || $param["order"] == "asc") ? "asc" : "desc"));
+		$this->_int_sort_list($param["prop"], ((empty($param["order"]) || $param["order"] === "asc") ? "asc" : "desc"));
 	}
 
 	/** sorts the object list with the specified function
@@ -396,7 +396,7 @@ class object_list extends _int_obj_container_base
 			$ol = new object_list(array(
 				"status" => STAT_ACTIVE
 			));
-			for ($o = $ol->begin(); !$ol->end(); $o =& $ol->next();)
+			for ($o = $ol->begin(); !$ol->end(); $o = $ol->next();)
 			{
 				$o->set_name("kala");
 				$o->save();
@@ -435,7 +435,7 @@ class object_list extends _int_obj_container_base
 			$ol = new object_list(array(
 				"status" => STAT_ACTIVE
 			));
-			for ($o = $ol->begin(); !$ol->end(); $o =& $ol->next();)
+			for ($o = $ol->begin(); !$ol->end(); $o = $ol->next();)
 			{
 				$o->set_name("kala");
 				$o->save();
@@ -550,7 +550,7 @@ class object_list extends _int_obj_container_base
 		}
 
 		// special-case multiple object set_prop and save so we can do just one query
-		if ($func == "set_prop" && $param["save"] && ($single_clid = $this->_is_single_clid()) && $GLOBALS["object_loader"]->ds->property_is_multi_saveable($single_clid, $param["params"][0]))
+		if ($func === "set_prop" && $param["save"] && ($single_clid = $this->_is_single_clid()) && $GLOBALS["object_loader"]->ds->property_is_multi_saveable($single_clid, $param["params"][0]))
 		{
 			return $GLOBALS["object_loader"]->ds->save_property_multiple($single_clid, $param["params"][0], $param["params"][1], $this->ids());
 		}
@@ -559,7 +559,7 @@ class object_list extends _int_obj_container_base
 		{
 			if (isset($param["params"]))
 			{
-				call_user_func_array(array(&$o, $func), $param["params"]);
+				call_user_func_array(array($o, $func), $param["params"]);
 			}
 			else
 			{
@@ -580,7 +580,7 @@ class object_list extends _int_obj_container_base
 
 		@param func required
 			the name of the function to call, required. the function gets the object reference as the parameter
-			type: text (global function name) , array (array(&$this, "func") - class member function name)
+			type: text (global function name) , array (array($this, "func") - class member function name)
 
 		@param param optional type=any
 			single param that can optionally passed to the function
@@ -596,7 +596,7 @@ class object_list extends _int_obj_container_base
 			the count of objects in the list
 
 		@examples
-			function ol_cb(&$o, $parent)
+			function ol_cb($o, $parent)
 			{
 				$o->set_parent($parent);
 			}
@@ -642,7 +642,7 @@ class object_list extends _int_obj_container_base
 		// because then I will not have to reimplement lazy loading here. ever heard of encapsulation?
 		// -- terryf
 
-		for ($o =& $this->begin(), $cnt = 0; !$this->end(); $o =& $this->next(), $cnt++)
+		for ($o = $this->begin(), $cnt = 0; !$this->end(); $o = $this->next(), $cnt++)
 		{
 			if (is_array($param["func"]))
 			{
@@ -680,13 +680,11 @@ class object_list extends _int_obj_container_base
 	function arr()
 	{
 		$o = $this->begin();
-		enter_function("object_list::arr::setup");
 		$ret = array();
 		for ($cnt = 0; !$this->end(); $o = $this->next())
 		{
 			$ret[$o->id()] = $o;
 		}
-		exit_function("object_list::arr::setup");
 		return $ret;
 	}
 
@@ -733,7 +731,7 @@ class object_list extends _int_obj_container_base
 		if (isset($arr["add_folders"]) && $arr["add_folders"])
 		{
 			$ret = array();
-			for ($o =& $this->begin(); !$this->end(); $o =& $this->next())
+			for ($o = $this->begin(); !$this->end(); $o = $this->next())
 			{
 				$ret[$o->id()] = $o->path_str();
 			}
@@ -852,9 +850,7 @@ class object_list extends _int_obj_container_base
 			return;
 		}
 		$ol = new object_list(array(
-			"oid" => $oids,
-			"lang_id" => array(),
-			"site_id" => array()
+			"oid" => $oids
 		));
 		foreach($ol->arr() as $o)
 		{
@@ -976,7 +972,6 @@ class object_list extends _int_obj_container_base
 		}
 		else
 		{
-			enter_function("object_list::acl_check");
 			foreach($oids as $oid => $oname)
 			{
 				if ($GLOBALS["object_loader"]->ds->can("view", $oid))
@@ -986,7 +981,6 @@ class object_list extends _int_obj_container_base
 					$this->list_objdata[$oid] = $objdata[$oid];
 				}
 			}
-			exit_function("object_list::acl_check");
 		}
 
 		// go over parentdata and list that as well
@@ -1013,7 +1007,7 @@ class object_list extends _int_obj_container_base
 		$this->_sby_prop = $prop;
 		$this->_sby_order = $order;
 
-		$this->_int_sort_list_cb(array(&$this, "_int_sort_list_default_sort"));
+		$this->_int_sort_list_cb(array($this, "_int_sort_list_default_sort"));
 
 		unset($this->_sby_prop);
 		unset($this->_sby_order);
@@ -1126,7 +1120,7 @@ class object_list extends _int_obj_container_base
 			}
 		}
 
-		uasort($this->list, array(&$this, "_int_sort_list_cb_cb"));
+		uasort($this->list, array($this, "_int_sort_list_cb_cb"));
 		unset($this->cb);
 	}
 
@@ -1155,7 +1149,6 @@ class object_list extends _int_obj_container_base
 
 	function _int_fetch_full_list()
 	{
-		enter_function("object_list::_int_fetch_full_list");
 		// go over list, gather inf on what objects need to be fetched
 		$to_fetch = array();
 
@@ -1167,7 +1160,6 @@ class object_list extends _int_obj_container_base
 			}
 		}
 		$data = $GLOBALS["object_loader"]->ds->fetch_list($to_fetch);
-		exit_function("object_list::_int_fetch_full_list");
 	}
 
 	function _is_single_clid()

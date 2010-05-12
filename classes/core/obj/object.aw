@@ -2393,10 +2393,16 @@ class awex_obj extends aw_exception
 class awex_obj_method extends awex_obj {}
 
 /** No access rights to perform requested operation **/
-class awex_obj_acl extends awex_obj {}
+class awex_obj_acl extends awex_obj
+{
+	protected $message = "No access rights to perform requested operation";
+}
 
 /** Object doesn't exist **/
-class awex_obj_na extends awex_obj {}
+class awex_obj_na extends awex_obj
+{
+	protected $message = "Object doesn't exist";
+}
 
 /** Generic property exception **/
 class awex_obj_prop extends awex_obj {}
@@ -2415,5 +2421,14 @@ class awex_obj_class extends awex_obj {}
 
 /** When in exclusive save and the object has been modified, this is thrown **/
 class awex_obj_modified_by_others extends awex_obj {}
+
+/** Indicates wrong object state for given operation **/
+class awex_obj_state extends awex_obj {}
+
+/** Indicates that given operation can't be executed on an unsaved object **/
+class awex_obj_state_new extends awex_obj_state
+{
+	protected $message = "Operation can't be executed on a new object";
+}
 
 ?>

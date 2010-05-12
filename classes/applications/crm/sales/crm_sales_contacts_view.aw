@@ -8,6 +8,7 @@ class crm_sales_contacts_view
 	{
 		$tree = $arr["prop"]["vcl_inst"];
 
+		// main views
 		foreach (crm_sales::$contacts_list_views as $key => $data)
 		{
 			if ($data["in_tree"])
@@ -40,7 +41,56 @@ class crm_sales_contacts_view
 			}
 		}
 
-		$tree->set_selected_item (crm_sales::$contacts_list_view);
+		// customer categories
+		////////////////////////////////////
+		$url = automatweb::$request->get_uri();
+		$url->unset_arg(array(
+			"ft_page",
+			"cts_submit",
+			"cts_name",
+			"cts_salesman",
+			"cts_lead_source",
+			"cts_calls",
+			"cts_address",
+			"cts_phone",
+			"cts_sort_mode",
+			"cts_count",
+			"cts_status"
+		));
+		$selected = $url->arg("cts_cat");
+		$url->unset_arg("cts_cat");
+
+		// caption
+		$tree->add_item(0, array(
+			"id" => "categories",
+			"name" => t("Kliendigrupid"),
+			"url" => $url->get()
+		));
+
+		// categories themselves
+		$categories = $arr['obj_inst']->prop("owner")->get_customer_categories();
+		foreach ($categories->arr() as $category)
+		{
+			$parent = $category->prop("parent_category") ? (int) $category->prop("parent_category") : "categories";
+			$url->set_arg("cts_cat", $category->id());
+			$tree->add_item ($parent, array (
+				"name" => $category->name(),
+				"id" => $category->id(),
+				"parent" => $parent,
+				"url" => $url->get()
+			));
+		}
+		// END categories
+		//////////////////////////////
+
+		if ($selected)
+		{
+			$tree->set_selected_item($selected);
+		}
+		else
+		{
+			$tree->set_selected_item (crm_sales::$contacts_list_view);
+		}
 		return PROP_OK;
 	}
 
@@ -80,7 +130,7 @@ class crm_sales_contacts_view
 		$contacts_oid_data = array();
 		$contacts_count = 0;
 
-		if (crm_sales::CONTACTS_SEARCH === crm_sales::$contacts_list_view)
+		if (crm_sales::CONTACTS_SEARCH === crm_sales::$contacts_list_view or crm_sales::CONTACTS_CATEGORY === crm_sales::$contacts_list_view)
 		{
 			$this_o = $arr["obj_inst"];
 			$per_page = $this_o->prop("tables_rows_per_page");
@@ -107,6 +157,12 @@ class crm_sales_contacts_view
 				if (!empty($arr["request"]["cts_salesman"]))
 				{
 					$search->salesman = $arr["request"]["cts_salesman"];
+				}
+
+				if (!empty($arr["request"]["cts_cat"]))
+				{
+					$category = new object($arr["request"]["cts_cat"]);
+					$search->category = $category;
 				}
 
 				if (!empty($arr["request"]["cts_calls"]))
@@ -157,7 +213,7 @@ class crm_sales_contacts_view
 					$search->status = $arr["request"]["cts_status"];
 				}
 
-				if (!empty($arr["request"]["cts_count"]))
+				if (!empty($arr["request"]["cts_count"]) or crm_sales::CONTACTS_CATEGORY === crm_sales::$contacts_list_view)
 				{
 					$contacts_count = $search->count();
 				}
@@ -206,6 +262,7 @@ class crm_sales_contacts_view
 		list($contacts_oid_data, $contacts_count) = self::get_contacts_list($arr);
 		self::define_contacts_list_tbl_header($arr, $contacts_count);
 		$not_available_str = "";
+		$core = new core();
 
 
 		if (count($contacts_oid_data))
@@ -292,9 +349,17 @@ class crm_sales_contacts_view
 				$address = $customer->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
 				$address = is_object($address) ? $address->name() : $not_available_str;
 
+				$menu = new popup_menu();
+				$menu->begin_menu("customer_menu_" . $customer_relation->id());
+				$menu->add_item(array(
+					"text" => t("Vaata/muuda kliendisuhet"),
+					"link" => $core->mk_my_orb("change", array("id" => $customer_relation->id(), "return_url" => get_ru()), CL_CRM_COMPANY_CUSTOMER_DATA)
+				));
+				$menu = $menu->get_menu();
+
 				// define table row
 				$table->define_data(array(
-					"name" => html::obj_change_url($customer, strlen($customer->name()) > 1 ? $customer->name() : t("[Nimetu]")),
+					"name" => $menu . html::obj_change_url($customer, strlen($customer->name()) > 1 ? $customer->name() : t("[Nimetu]")),
 					"phones" => $phones_str,
 					"address" => $address,
 					"unit" => $unit,
@@ -323,6 +388,11 @@ class crm_sales_contacts_view
 				{
 					$table->set_caption(sprintf(crm_sales::$contacts_list_views[crm_sales::CONTACTS_SEARCH]["caption"], $contacts_count));
 				}
+			}
+			elseif (crm_sales::CONTACTS_CATEGORY === crm_sales::$contacts_list_view)
+			{
+				$category = new object($arr["request"]["cts_cat"]);
+				$table->set_caption(sprintf(crm_sales::$contacts_list_views[crm_sales::CONTACTS_CATEGORY]["caption"], $category->name(), $contacts_count));
 			}
 			else
 			{
