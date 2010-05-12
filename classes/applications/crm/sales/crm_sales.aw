@@ -421,6 +421,13 @@ PROPERTY DECLARATIONS
 	@property contact_entry_lead_source type=textbox store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_form
 	@caption Soovitaja
 
+	@property contact_entry_category type=objpicker store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_form clid=CL_CRM_CATEGORY options_callback=crm_sales::get_category_options
+	@caption Kliendigrupp
+
+	@property contact_entry_organization type=objpicker store=no group=data_entry_contact_person parent=contact_entry_form clid=CL_CRM_COMPANY
+	@comment Kui isik on liige v&otilde;i t&ouml;&ouml;tab mingis organisatsioonis, saab siin seda valida
+	@caption Organisatsioon
+
 	@property contact_entry_lead_source_oid type=hidden store=no group=data_entry_contact_co,data_entry_contact_person
 
 @default group=data_entry_import
@@ -519,6 +526,7 @@ class crm_sales extends class_base
 
 	const CONTACTS_DEFAULT = 1;
 	const CONTACTS_SEARCH = 2;
+	const CONTACTS_CATEGORY = 3;
 
 	const PRESENTATIONS_DEFAULT = 1;
 	const PRESENTATIONS_SEARCH = 2;
@@ -576,6 +584,11 @@ class crm_sales extends class_base
 			self::CONTACTS_DEFAULT => array(
 				"caption" => t("Algseis"),
 				"in_tree" => true
+			),
+			self::CONTACTS_CATEGORY => array(
+				"caption" => t("Kliendid grupis '%s' (kokku %s)"),
+				"caption_no_count" => t("Kliendid grupis '%s' (lehek&uuml;lg %s)"),
+				"in_tree" => false
 			),
 			self::CONTACTS_SEARCH => array(
 				"caption" => t("Otsingu tulemused (kokku %s)"),
@@ -657,17 +670,24 @@ class crm_sales extends class_base
 		{ // determine requested calls list type
 			self::$calls_list_view = self::CALLS_SEARCH;
 		}
-		elseif ("contacts" === $this->use_group and (
-			!empty($arr["request"]["cts_name"]) or
-			!empty($arr["request"]["cts_address"]) or
-			!empty($arr["request"]["cts_phone"]) or
-			!empty($arr["request"]["cts_lead_source"]) or
-			!empty($arr["request"]["cts_calls"]) or
-			!empty($arr["request"]["cts_salesman"]) or
-			!empty($arr["request"]["cts_status"])
-		))
+		elseif ("contacts" === $this->use_group)
 		{ // determine requested contacts list type
-			self::$contacts_list_view = self::CONTACTS_SEARCH;
+			if (
+				!empty($arr["request"]["cts_name"]) or
+				!empty($arr["request"]["cts_address"]) or
+				!empty($arr["request"]["cts_phone"]) or
+				!empty($arr["request"]["cts_lead_source"]) or
+				!empty($arr["request"]["cts_calls"]) or
+				!empty($arr["request"]["cts_salesman"]) or
+				!empty($arr["request"]["cts_status"])
+			)
+			{
+				self::$contacts_list_view = self::CONTACTS_SEARCH;
+			}
+			elseif (!empty($arr["request"]["cts_cat"]))
+			{
+				self::$contacts_list_view = self::CONTACTS_CATEGORY;
+			}
 		}
 		elseif ("presentations" === $this->use_group)
 		{ // determine requested presentations list type
@@ -836,6 +856,23 @@ class crm_sales extends class_base
 			$customer_relation = $this->contact_entry_edit_object->get_customer_relation($owner);
 			$arr["prop"]["value"] = $customer_relation->prop("sales_lead_source.name");
 		}
+		return $r;
+	}
+
+	function _get_contact_entry_organization(&$arr)
+	{
+		$r = PROP_OK;
+		if (is_object($this->contact_entry_edit_object))
+		{
+			$organization_ids = $this->contact_entry_edit_object->get_organization_ids(false);
+			$arr["prop"]["value"] = reset($organization_ids);
+		}
+		return $r;
+	}
+
+	function _get_contact_entry_category(&$arr)
+	{
+		$r = is_object($this->contact_entry_edit_object) ? PROP_IGNORE : PROP_OK;
 		return $r;
 	}
 
@@ -1295,6 +1332,47 @@ SCRIPT;
 		return $r;
 	}
 
+	/** Outputs autocomplete options matching category name search string $typed_text in bsnAutosuggest format json
+		@attrib name=get_category_options
+		@param id required type=oid
+		@param typed_text optional type=string
+	**/
+	public static function get_category_options($args)
+	{
+		$choices = array("results" => array());
+		$typed_text = $args["typed_text"];
+		$this_o = new object($args["id"]);
+		$limit = $this_o->prop("autocomplete_options_limit") ? (int) $this_o->prop("autocomplete_options_limit") : 20;
+		$list = new object_list(array(
+			"class_id" => CL_CRM_CATEGORY,
+			"organization" => $this_o->prop("owner")->id(),
+			"name" => "{$typed_text}%",
+			new obj_predicate_limit($limit)
+		));
+
+		if ($list->count() > 0)
+		{
+			$results = array();
+			$o = $list->begin();
+			do
+			{
+				$value = $o->prop_xml("name");
+				$info = "";
+				$results[] = array("id" => $o->id(), "value" => iconv("iso-8859-4", "UTF-8", $value), "info" => $info);//FIXME charsets
+			}
+			while ($o = $list->next());
+			$choices["results"] = $results;
+		}
+
+		ob_start("ob_gzhandler");
+		header("Content-Type: application/json");
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+		header("Pragma: no-cache"); // HTTP/1.0
+		exit(json_encode($choices));
+	}
+
 	/** Outputs crm_company/crm_person autocomplete options matching property string in bsnAutosuggest format json
 		@attrib name=get_entry_choices all_args=1 nologin=1 is_public=1
 		@param id required type=oid acl=view
@@ -1569,7 +1647,7 @@ SCRIPT;
 		@attrib name=create_calls_for_selected_contacts
 		@param id required type=oid acl=edit
 		@param sel optional type=array
-		@param post_ru required type=string
+		@param post_ru optional type=string
 	**/
 	function create_calls_for_selected_contacts($arr)
 	{
@@ -1899,6 +1977,16 @@ SCRIPT;
 
 				$customer_relation = $o->get_customer_relation($owner, true);
 
+				// category
+				if (!empty($arr["request"]["contact_entry_category"]))
+				{
+					$category = obj($arr["request"]["contact_entry_category"], array(), CL_CRM_CATEGORY);
+					$customer_relation->connect(array(
+						"to" => $category,
+						"type" => "RELTYPE_CATEGORY"
+					));
+				}
+
 				if (!empty($arr["request"]["contact_entry_salesman"]))
 				{ // set salesman
 					$salesman = obj($arr["request"]["contact_entry_salesman"], array(), CL_CRM_PERSON);
@@ -2005,6 +2093,13 @@ SCRIPT;
 			$o->save();
 			//!!! customer relation properties are not changed for an existing contact
 
+			// organization
+			if (!empty($arr["request"]["contact_entry_organization"]))
+			{
+				$organization = obj($arr["request"]["contact_entry_organization"], array(), CL_CRM_COMPANY);
+				$organization->add_employee(null, $o);
+			}
+
 			// comment
 			if (!empty($arr["request"]["contact_entry_add_comment"]))
 			{
@@ -2103,6 +2198,16 @@ SCRIPT;
 
 				$customer_relation = $o->get_customer_relation($owner, true);
 
+				// category
+				if (!empty($arr["request"]["contact_entry_category"]))
+				{
+					$category = obj($arr["request"]["contact_entry_category"], array(), CL_CRM_CATEGORY);
+					$customer_relation->connect(array(
+						"to" => $category,
+						"type" => "RELTYPE_CATEGORY"
+					));
+				}
+
 				if (!empty($arr["request"]["contact_entry_salesman"]))
 				{ // set salesman
 					$salesman = obj($arr["request"]["contact_entry_salesman"], array(), CL_CRM_PERSON);
@@ -2141,6 +2246,13 @@ SCRIPT;
 					$customer_relation->set_prop("sales_lead_source", $lead_source->id());
 					$customer_relation->set_prop("sales_state", crm_company_customer_data_obj::SALESSTATE_LEAD);
 					$customer_relation->connect(array("to" => $lead_source, "reltype" => "RELTYPE_SALES_LEAD_SOURCE"));
+				}
+
+				// organization
+				if (!empty($arr["request"]["contact_entry_organization"]))
+				{
+					$organization = obj($arr["request"]["contact_entry_organization"], array(), CL_CRM_COMPANY);
+					$organization->add_employee(null, $o);
 				}
 
 				if (!empty($arr["request"]["contact_entry_add_comment"]))
@@ -2287,6 +2399,36 @@ SCRIPT;
 		//
 		$r = parent::delete_objects($arr);
 		return  $r;
+	}
+
+	/**
+		@attrib name=create_presentation
+		@param id required type=oid
+		@param cust_rel required type=oid
+		@param return_url optional type=string
+	**/
+	public function create_presentation($arr)
+	{
+		$this_o = obj($arr["id"], array(), CL_CRM_SALES);
+		$cust_rel = obj($arr["cust_rel"], array(), CL_CRM_COMPANY_CUSTOMER_DATA);
+		$presentation = $this_o->create_presentation($cust_rel);
+		$params = !empty($arr["return_url"]) ? array("return_url" => $arr["return_url"]) : array();
+		return html::get_change_url($presentation->id(), $params);
+	}
+
+	/**
+		@attrib name=create_call
+		@param id required type=oid
+		@param cust_rel required type=oid
+		@param return_url optional type=string
+	**/
+	public function create_call($arr)
+	{
+		$this_o = obj($arr["id"], array(), CL_CRM_SALES);
+		$cust_rel = obj($arr["cust_rel"], array(), CL_CRM_COMPANY_CUSTOMER_DATA);
+		$call = $this_o->create_call($cust_rel);
+		$params = !empty($arr["return_url"]) ? array("return_url" => $arr["return_url"]) : array();
+		return html::get_change_url($call->id(), $params);
 	}
 
 	// takes space separated user input "AND" search string, returns words separated by "%"
