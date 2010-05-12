@@ -6,8 +6,6 @@ if (!defined("AW_CONST_INC"))
 define("AW_CONST_INC", 1);
 // 1:42 PM 8/3/2008 - const.aw now contains only parts of old startup script that are to be moved to new appropriate files or deleted. const.aw file to be removed eventually.
 
-set_magic_quotes_runtime(0);
-
 foreach ($GLOBALS["cfg"] as $key => $value)
 {
 	if (!is_array($value))

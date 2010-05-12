@@ -437,7 +437,7 @@ class treeview extends class_base
 		if (!empty($item["is_open"]))
 		{
 			$this->open_nodes[] = $item["id"];
-		};
+		}
 	}
 
 	/** Returns the array with the item ids in tree

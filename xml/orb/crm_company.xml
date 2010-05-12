@@ -121,6 +121,16 @@
 			</function>
 		</action>
 
+		<action name="add_customer_category">
+			<function name="add_customer_category">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="parent" type="oid" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="cut">
 			<function name="cut">
 				<arguments>

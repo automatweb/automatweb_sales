@@ -236,21 +236,27 @@ class links extends class_base
 		extract($arr);
 		$link = obj($id);
 		$url = $this->trans_get_val($link, "url");
-		if (substr(trim($url), 0, 3) == "www")
+
+		if (substr(trim($url), 0, 3) === "www")
 		{
-			$url = "http://".$url;
+			$url = "http://{$url}";
 		}
 
-		if ($url == "" && $link->prop("docid") != "")
+		if (!empty($url) && $link->prop("docid"))
 		{
 			$url = "/".$link->prop("docid");
 		}
-		if ($url[0] == "/")
+
+		if ($url[0] === "/")
 		{
 			$url = aw_ini_get("baseurl").$url;
 		}
 
-		$this->add_hit($id,aw_global_get("HTTP_HOST"),aw_global_get("uid"));
+		if (aw_ini_get("links.use_hit_counter"))
+		{
+			$this->add_hit($id, aw_global_get("HTTP_HOST"), aw_global_get("uid"));
+		}
+
 		header("Location: ".$url);
 		die();
 	}
@@ -261,7 +267,6 @@ class links extends class_base
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
-
 			case "name":
 				$js = "<script>
 					tb = document.getElementById(\"".$prop["name"]."\");
@@ -306,7 +311,7 @@ class links extends class_base
 				));
 				if ($img->count() > 0)
 				{
-					$o =& $img->begin();
+					$o = $img->begin();
 					$f = get_instance(CL_FILE);
 					if ($f->can_be_embedded($o))
 					{
@@ -320,7 +325,7 @@ class links extends class_base
 			case "url":
 				$o = $arr["obj_inst"];
 				$p =& $arr["prop"];
-				$ps = get_instance("contentmgmt/ct_linked_obj_search");
+				$ps = new ct_linked_obj_search();
 				if ($this->can("view", $o->meta("linked_obj")))
 				{
 					$p["post_append_text"] = sprintf(t("Valitud objekt: %s /"), html::obj_change_url($o->meta("linked_obj")));
@@ -377,11 +382,11 @@ class links extends class_base
 				));
 				if ($img->count() > 0)
 				{
-					$o =& $img->begin();
+					$o = $img->begin();
 					$old_file = $o->id();
 				}
 
-				$f = get_instance(CL_FILE);
+				$f = new file();
 				$f->add_upload_image("link_image", $arr['obj_inst']->id(), $old_file);
 				$retval = PROP_IGNORE;
 				break;
@@ -393,7 +398,7 @@ class links extends class_base
 	// !Hoolitseb ntx doku sees olevate extlinkide aliaste parsimise eest (#l2#)
 	function parse_alias($args = array())
 	{
-		$ld = get_instance("contentmgmt/links_display");
+		$ld = new links_display();
 		return $ld->parse_alias($args);
 	}
 
@@ -408,7 +413,6 @@ class links extends class_base
 		$o->save();
 		aw_restore_acl();
 		obj_set_opt("no_cache", $prev);
-
 		$this->_log(ST_EXTLINK, SA_CLICK, $o->name(), $id);
 	}
 
@@ -419,12 +423,12 @@ class links extends class_base
 
 	function callback_post_save($arr)
 	{
-		if ($arr["request"]["save_and_doc"] != "")
+		if (!empty($arr["request"]["save_and_doc"]))
 		{
 			if (aw_ini_get("extlinks.directlink") == 1)
 			{
 				$link_url = $arr["obj_inst"]->prop("url");
-				if (substr($link_url, 0, 3) == "www")
+				if (substr($link_url, 0, 3) === "www")
 				{
 					$link_url = "http://".$link_url;
 				}
@@ -436,7 +440,7 @@ class links extends class_base
 
 			$url = $this->mk_my_orb("fetch_file_tag_for_doc", array("id" => $arr["obj_inst"]->id()), CL_FILE);
 
-			$i = get_instance(CL_IMAGE);
+			$i = new image();
 			$i->gen_image_alias_for_doc(array(
 				"img_id" => $arr["obj_inst"]->id(),
 				"doc_id" => $arr["request"]["ldocid"] ? $arr["request"]["ldocid"] : $arr["request"]["id"],

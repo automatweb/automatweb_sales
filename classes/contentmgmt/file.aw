@@ -682,7 +682,7 @@ class file extends class_base
 		{
 			$fi = $this->get_file_by_id($alias["target"], true);
 			// so what if we have it twice?
-			$this->dequote(&$fi["content"]);
+			$this->dequote($fi["content"]);
 			if (strpos(strtolower($fi["content"]),"<body"))
 			{
 				$fi["content"] .= "</body>";
@@ -702,7 +702,7 @@ class file extends class_base
 			// n2itame kohe
 			// kontrollime koigepealt, kas headerid on ehk v&auml;ljastatud juba.
 			// dokumendi preview vaatamisel ntx on.
-			if (false && trim($fi["type"]) == "text/html")
+			if (false && trim($fi["type"]) === "text/html")
 			{
 				if (!headers_sent())
 				{
@@ -710,7 +710,7 @@ class file extends class_base
 				};
 
 				// so what if we have it twice?
-				$this->dequote(&$fi["content"]);
+				$this->dequote($fi["content"]);
 				if (strpos(strtolower($fi["content"]),"<body>"))
 				{
 					$fi["content"] .= "</body>";
@@ -741,7 +741,7 @@ class file extends class_base
 		}
 		else
 		{
-			if ($fi["newwindow"])
+			if (!empty($fi["newwindow"]))
 			{
 				$ss = "target=\"_blank\"";
 			}

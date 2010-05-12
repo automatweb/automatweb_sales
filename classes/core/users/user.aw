@@ -2271,10 +2271,15 @@ EOF;
 	}
 
 	function on_save_addr($arr)
-{			//mailinglist annab igatahes errorit siin muidu
+	{ //mailinglist annab igatahes errorit siin muidu XXX: mis m6ttes muidu?
 		$ml_m = obj($arr["oid"]);
-			if(!is_oid($ml_m->id()))return;
-		$c = reset($ml_m->connections_to(array("from.class_id" => CL_USER, "type" => 6)));
+		if(!is_oid($ml_m->id()))
+		{
+			return;
+		}
+
+		$connections = $ml_m->connections_to(array("from.class_id" => CL_USER, "type" => 6));
+		$c = reset($connections);
 
 		if (!$c)
 		{

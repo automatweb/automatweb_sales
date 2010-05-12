@@ -34,7 +34,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_MENU, on_mconnect_to)
 @property sub_form_type type=select rel=1
 @caption Vormi t&uuml;&uuml;p
 
-@property file_separator type=textbox 
+@property file_separator type=textbox
 @caption Failis nime ja mailiaadressi eraldaja (tab=/t)
 
 @property redir_obj type=relpicker reltype=RELTYPE_REDIR_OBJECT rel=1
@@ -70,7 +70,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_MENU, on_mconnect_to)
 @property unsubscribe_mail type=relpicker reltype=RELTYPE_UNSUBSCRIBE_MAIL store=connect
 @caption Lahkumise kirja templeit
 
-@groupinfo membership caption=Liikmed 
+@groupinfo membership caption=Liikmed
 ------------------------------------------------------------------------
 @groupinfo search caption=Nimekiri parent=membership
 @default group=search
@@ -87,10 +87,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_MENU, on_mconnect_to)
 
 			@property search_mail type=textbox store=no parent=search_left_lay captionside=top size=20
 			@caption E-mail
-			
+
 			@property search_name type=textbox store=no parent=search_left_lay captionside=top size=20
 			@caption Nimi
-			
+
 			@property search_submit type=submit store=no no_caption=1 parent=search_left_lay
 			@caption Otsi
 
@@ -121,7 +121,7 @@ caption Otsi ka alamobjektide alt
 @groupinfo export_to_file caption="Eksport faili" parent=membership
 @default group=export_to_file
 
-@property expf_path type=textbox 
+@property expf_path type=textbox
 @caption Kataloog serveris
 
 @property expf_num_per_day type=textbox size=5
@@ -138,15 +138,15 @@ caption Otsi ka alamobjektide alt
 	@property admin_subscribe_folders type=text store=no
 	@caption Kaustad,&nbsp;kuhu&nbsp;liituda
 
-	@property confirm_subscribe type=checkbox ch_value=1 
+	@property confirm_subscribe type=checkbox ch_value=1
 	@caption Liitumiseks on vaja kinnitust
 
 	@property confirm_subscribe_msg type=relpicker reltype=RELTYPE_ADM_MESSAGE
 	@caption Liitumise kinnituseks saadetav kiri
-	
+
 	@property import_textfile type=fileupload store=no
 	@caption Impordi liikmed tekstifailist
-	
+
 	@property mass_subscribe type=textarea rows=25 store=no
 	@caption Massiline liitumine <br>(Iga liituja eraldi real, nimi ja aadress komaga eraldatud)
 	@comment Iga liituja eraldi real, nimi ja aadress komaga eraldatud
@@ -158,17 +158,17 @@ caption Otsi ka alamobjektide alt
 
 	@property admin_unsubscribe_folders type=text store=no
 	@caption Kaustad, kust lahkuda
-	
-	@property confirm_unsubscribe type=checkbox ch_value=1 
+
+	@property confirm_unsubscribe type=checkbox ch_value=1
 	@caption Lahkumiseks on vaja kinnitust
-	
-	@property confirm_unsubscribe_msg type=relpicker reltype=RELTYPE_ADM_MESSAGE 
+
+	@property confirm_unsubscribe_msg type=relpicker reltype=RELTYPE_ADM_MESSAGE
 	@caption Lahkumise kinnituseks saadetav kiri
-	
+
 	@property delete_textfile type=fileupload store=no
 	@caption Kustuta tekstifailis olevad aadressid
-	
-	@property mass_unsubscribe type=textarea rows=25 store=no 
+
+	@property mass_unsubscribe type=textarea rows=25 store=no
 	@caption Massiline&nbsp;kustutamine <br> (Aadressid eraldi real)
 ------------------------------------------------------------------------
 
@@ -209,66 +209,66 @@ caption Otsi ka alamobjektide alt
 
 ------------------------------------------------------------------------
 
-@groupinfo write_mail caption="Saada kiri" parent=raports 
+@groupinfo write_mail caption="Saada kiri" parent=raports
 @default group=write_mail
 
 @property mail_toolbar type=toolbar no_caption=1
 @caption Maili toolbar
 
-@layout mail_top type=hbox closeable=1 area_caption=Seaded 
+@layout mail_top type=hbox closeable=1 area_caption=Seaded
 //width=20%:20%:30%:30%
-	@property send_away type=checkbox ch_value=1 store=no parent=mail_top 
+	@property send_away type=checkbox ch_value=1 store=no parent=mail_top
 	@caption Saada peale salvestamist &auml;ra
-	
-	@property save_as_new type=checkbox ch_value=1 parent=mail_top 
+
+	@property save_as_new type=checkbox ch_value=1 parent=mail_top
 	@caption Salvesta uue kirjana
-	
-	@property no_fck type=checkbox ch_value=1 parent=mail_top 
+
+	@property no_fck type=checkbox ch_value=1 parent=mail_top
 	@caption Maili kirjutamine plaintext vaates
 
-	property take_out_adrr type=checkbox ch_value=1 parent=mail_top 
+	property take_out_adrr type=checkbox ch_value=1 parent=mail_top
 	caption Enne saatmist lase m&otilde;ningad aadressid v&auml;lja praakida
 
-@layout write_message_layout type=hbox width=40%:60% 
+@layout write_message_layout type=hbox width=40%:60%
 	@layout wml type=vbox parent=write_message_layout area_caption=&nbsp;
-	
+
 		@property write_user_folder type=relpicker reltype=RELTYPE_MEMBER_PARENT editonly=1 multiple=1  delete_rels_popup_button=1 parent=wml captionside=top
 		@caption Grupid kellele kiri saata
-		
+
 		property req_members_m type=text parent=wml captionside=top
 		caption Otsi ka alamobjektide alt
-		
+
 		@property bounce type=textbox parent=wml captionside=top
 		@caption Bounce aadress
-		
+
 		@property mfrom_name type=textbox store=no parent=wml captionside=top
 		@caption Saatja nimi
-		
+
 		@property mfrom type=select store=no parent=wml captionside=top
 		@caption Saatja e-maili aadress
-		
+
 		@property subject type=textbox  size=50 store=no parent=wml captionside=top
 		@caption Teema
 
-		
+
 		@property template_selector type=select store=no parent=wml captionside=top
 		@caption Vali template
-		
+
 		@property html_mail type=checkbox ch_value=1 parent=wml captionside=top no_caption=1
 		@caption HTML kiri
-		
+
 		@property register_data type=text parent=wml
 		@caption Registri andmed:
-		
+
 		@property copy_template type=select store=no parent=wml captionside=top
 		@caption Vali template mille sisusse kopeerida
-		
+
 		property write_mail type=callback callback=callback_gen_write_mail store=no no_caption=1 parent=wml captionside=top
 		caption Maili kirjutamine
 
 		@property legend type=text store=no parent=wml captionside=top no_caption=1
 		@caption Legend
-			
+
 	@layout wmr type=vbox parent=write_message_layout area_caption=&nbsp;
 
 		@property message type=textarea cols=70 rows=60 store=no parent=wmr no_caption=1
@@ -285,16 +285,16 @@ caption Aliastehaldur
 @groupinfo mail_report caption="Kirja raport" parent=raports submit=no
 @default group=mail_report
 
-@property mail_subject type=text store=no 
+@property mail_subject type=text store=no
 @caption Teema
 
-@property mail_percentage type=text store=no 
+@property mail_percentage type=text store=no
 @caption Saadetud
 
-@property mail_start_date type=text store=no 
+@property mail_start_date type=text store=no
 @caption Saatmise algus
 
-@property mail_last_batch type=text store=no 
+@property mail_last_batch type=text store=no
 @caption Viimane kiri saadeti
 
 @property list_source type=text store=no
@@ -326,7 +326,7 @@ caption Aliastehaldur
 @caption &Uuml;mbersuunamine
 
 @reltype ADM_MESSAGE value=3 clid=CL_MESSAGE
-@caption administratiivne teade 
+@caption administratiivne teade
 
 @reltype TEMPLATE value=4 clid=CL_MESSAGE_TEMPLATE
 @caption kirja template
@@ -523,9 +523,9 @@ class ml_list extends class_base
 	}
 
 
-	/** 
+	/**
 		@attrib name=submit_choose_addresses all_args=1
-		
+
 	**/
 	function submit_choose_addresses($args)
 	{
@@ -547,9 +547,9 @@ class ml_list extends class_base
 
 	/** saadab teate $id listidesse $targets(array stringidest :listinimi:grupinimi)
 		@attrib name=post_message
-		@param id required 
-		@param targets optional 
-		
+		@param id required
+		@param targets optional
+
 	**/
 	function post_message($args)
 	{
@@ -652,14 +652,14 @@ class ml_list extends class_base
 		$count = 0;
 		$this->list_id = $list_id;
 		$this->get_members(array("id" => $id, "no_return" => 1));
-		
+
 		$mail_obj = obj($id);
 		$ll = get_instance("languages");
 		$mail_obj->set_meta("charset" , $ll->get_charset());
-		
+
 		$count = $this->member_count;
 		// mark the queue as "processing" - 5
-		
+
 		$this->db_query("INSERT INTO ml_queue (lid,mid,gid,uid,aid,status,start_at,last_sent,patch_size,delay,position,total)
 			VALUES ('$list_id','$id','$gid','".aw_global_get("uid")."','$aid','5','$_start_at','0','$_patch_size','$_delay','0','$count')");
 		$qid = $this->db_fetch_field("SELECT max(qid) as qid FROM ml_queue", "qid");
@@ -677,10 +677,10 @@ class ml_list extends class_base
 		return aw_global_get("route_back");
 	}
 
-	/** (un)subscribe an address from(to) a list 
-		@attrib name=subscribe nologin="1" 
-		@param id required type=int 
-		@param rel_id required type=int 
+	/** (un)subscribe an address from(to) a list
+		@attrib name=subscribe nologin="1"
+		@param id required type=int
+		@param rel_id required type=int
 	**/
 	function subscribe($args = array())
 	{
@@ -695,16 +695,16 @@ class ml_list extends class_base
 		$ml_member = get_instance(CL_ML_MEMBER);
 		$allow = false;
 		$use_folders = array();
-		$choose_menu = $list_obj->prop("choose_menu");	
+		$choose_menu = $list_obj->prop("choose_menu");
 		// need to check those folders
 		foreach($choose_menu as $menu_id => $menu)
 		{
 			if(!is_oid($menu) || !$this->can("add" , $menu))
 			{
-				unset($choose_menu[$menu_id]);	
+				unset($choose_menu[$menu_id]);
 			}
 		}
-		
+
 		if ($list_obj->prop("multiple_folders") == 1)
 		{
 			if (!empty($args["subscr_folder"]))
@@ -712,7 +712,7 @@ class ml_list extends class_base
 				// check the list of selected folders against the actual connections to folders
 				// and ignore ones that are not connected - e.g. don't take candy from strangers
 				foreach($args["subscr_folder"] as $ml_connect=>$ml_id)
-				{ 
+				{
 //					if (in_array($ml_connect , $choose_menu))
 //					{
 						$use_folders[] = $ml_connect;
@@ -749,7 +749,7 @@ class ml_list extends class_base
 							"type" => "RELTYPE_LANG_REL",
 							"to.lang_id" => $user_lang,
 						));
-						
+
 						if(count($conns)<1)
 						{
 							$conns_to_orig = $o->connections_to(array(
@@ -757,7 +757,7 @@ class ml_list extends class_base
 					//		"from.lang_id" => $user_lang,
 							));
 						}
-						
+
 						foreach($conns_to_orig as $conn)
 						{
 							if($conn->prop("from.lang_id") == $user_lang)
@@ -773,13 +773,13 @@ class ml_list extends class_base
 								foreach($conns as $conn)
 								{
 									$temp_use_folders[] = $conn->prop("to");
-								}			
+								}
 							}
-						}						
+						}
 						foreach($conns as $conn)
 						{
 							$temp_use_folders[] = $conn->prop("to");
-						}			
+						}
 					}
 				}
 			}
@@ -811,7 +811,7 @@ class ml_list extends class_base
 			"request" => $request,
 			"cfgform_id" => $cfgform,
 		));
-		
+
 		foreach($use_folders as $key => $folder)
 		{
 			$members = $this->get_all_members(array($folder));
@@ -820,32 +820,32 @@ class ml_list extends class_base
 				unset($use_folders[$key]);
 			}
 		}
-	
+
 		$erx = array();
-		
+
 		if(count($use_folders) < 1 && $args["op"] == 1)
 		{
 			$allow = false;
 			$args["op"] = 0;
 			//$erx["XXX"]["msg"] = t("Sellise aadressiga inimene on juba valitud listidega liitunud");
 		}
-		
+
 		if(empty($args["name"])){
 			$args["name"] = $args["firstname"].' '.$args["lastname"];
 		}
-		
+
 		if(empty($args["name"]) && empty($args["firstname"]) && empty($args["lastname"]))
 		{
 			$allow = false;
 			$erx["XXX"]["msg"] = t("Liitumisel vaja ka nime");
 		}
-		
+
 		if(empty($args["email"]))
 		{
 			$allow = false;
 			$erx["XXX"]["msg"] = t("Liitumisel vaja t&auml;ita aadressi v&auml;li");
 		}
-		
+
 		if (sizeof($errors) > 0 || (!$allow && $args["op"] == 1))
 		{
 			$errors = $errors + $erx;
@@ -865,7 +865,7 @@ class ml_list extends class_base
 			//die();
 			return aw_global_get("HTTP_REFERER");
 		};
-		
+
 		$udef_fields["textboxes"] = $args["udef_txbox"];
 		$udef_fields["textareas"] = $args["udef_txtarea"];
 		$udef_fields["checkboxes"] = $args["udef_checkbox"];
@@ -887,17 +887,17 @@ class ml_list extends class_base
 					"confirm_message" => $list_obj->prop("confirm_subscribe_msg"),
 					"udef_fields" => $udef_fields,
 				));
-				
+
 			//	$msg_to_admin = $args["name"].' , aadressiga '.$args["email"].' liitus mailinglistiga kaustadesse :<br>';
 			//	foreach ($use_folders as $folder_to_send)
 			//	{
 			//		$folder = obj($folder_to_send);
 			//		$msg_to_admin = $msg_to_admin.($folder->name()).'<br>';
 			//	}
-			
+
 			}
 		}
-		
+
 		if ($args["op"] == 2)
 		{
 			$retval = $ml_member->unsubscribe_member_from_list(array(
@@ -926,7 +926,7 @@ class ml_list extends class_base
 		if  (is_oid($list_obj->prop("redir_obj")) && $this->can("view", $list_obj->prop("redir_obj")))
 		{
 			$ro = obj($list_obj->prop("redir_obj"));
-			
+
 			$langid = aw_global_get("lang_id");
 			$doc_langid = $ro -> lang_id();
 			if($doc_langid != $langid)
@@ -948,13 +948,13 @@ class ml_list extends class_base
 		}
 		return $retval;
 	}
-	
-	/** previews a mailing list message 
-		
-		@attrib name=msg_preview  
-		@param id required type=int 
-		@param msg_id required type=int 
-		
+
+	/** previews a mailing list message
+
+		@attrib name=msg_preview
+		@param id required type=int
+		@param msg_id required type=int
+
 	**/
 	function msg_preview($arr)
 	{
@@ -964,11 +964,11 @@ class ml_list extends class_base
 		if(!$msg_obj->prop("html_mail")) $message = nl2br($message);
 		$al = get_instance("alias_parser");
 		$al->parse_oo_aliases($msg_obj->id(), &$message);
-		
+
 		$c_title = $msg_obj->prop("msg_contener_title");
 		$c_content = $msg_obj->prop("msg_contener_content");
 		if(!$msg_obj->prop("html_mail")) $c_content = nl2br($c_content);
-		
+
 		$message = str_replace("#username#", t("Kasutajanimi"), $message);
 		$message = str_replace("#name#", t("Nimi Perenimi"), $message);
 		$message = str_replace("#email#", t("e-mail"), $message);
@@ -983,7 +983,7 @@ class ml_list extends class_base
 			$tpl_content = $tpl_obj->prop("content");
 			$tpl_content = str_replace("#title#", $c_title, $tpl_content);
 			$tpl_content = str_replace("#content#", $message, $tpl_content);
-			$tpl_content = str_replace("#container#", $c_content, $tpl_content);	
+			$tpl_content = str_replace("#container#", $c_content, $tpl_content);
 			echo $tpl_content;
 		}
 		else
@@ -1099,7 +1099,7 @@ class ml_list extends class_base
 				$msg_obj = $this->_get_mail_message_object($arr);
 				$prop["value"] = $msg_obj->meta("copy_template");
 				break;
-			
+
 			case "template_selector":
 				$templates = $arr["obj_inst"]->connections_from(array(
 					"type" => "RELTYPE_TEMPLATE",
@@ -1141,7 +1141,7 @@ class ml_list extends class_base
 			));
 			foreach($ol-> arr() as $o)
 			{$md = $o->meta("mail_data");$qid = $md["qid"];
-	if($qid){			
+	if($qid){
 	$row = $this->db_fetch_row("SELECT * FROM ml_sent_mails WHERE qid = ".$qid);
 				if(!$o->prop("message"))
 				{
@@ -1167,7 +1167,7 @@ class ml_list extends class_base
 				$msg_obj = $this->_get_mail_message_object($arr);
 				$prop["value"] = $msg_obj->prop("html_mail");
 				break;
-	
+
 			case "mfrom":
 				$objs = $arr["obj_inst"]->connections_from(array(
 					"type" => "RELTYPE_SENDER",
@@ -1218,7 +1218,7 @@ class ml_list extends class_base
 				);
 				$prop["type"] = "select";
 				break;
-/*			case "req_members_s": 
+/*			case "req_members_s":
 				$source_prop = "search_menu";
 			case "req_members_e":
 				if(!$source_prop) $source_prop = "export_folders";
@@ -1257,7 +1257,7 @@ class ml_list extends class_base
 					'',
 					'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600');";
 				break;
-				
+
 			case "delete_old_button":
 				$prop["value"] = t("Kustuta vanad kirjad!");
 				$prop["onclick"] = "javascript:window.open(
@@ -1265,7 +1265,7 @@ class ml_list extends class_base
 					'',
 					'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=400, width=600');";
 				break;
-			
+
 			case "db_mail_count":
 				return PROP_IGNORE;//see teeb paljudes saitides aeglaseks nimekirja naitamise... kui miski mahakeeramine variant teha, siis voib seda jalle naidata
 				$list_id = $arr["obj_inst"]->id();
@@ -1277,7 +1277,7 @@ class ml_list extends class_base
 					return PROP_IGNORE;
 				}
 				break;
-				
+
 			/*
 			case "msg_folder":
 				if(empty($prop["value"]) && !$arr["new"])
@@ -1298,7 +1298,7 @@ class ml_list extends class_base
 				}
 				if($prop["value"]) $this->set_classinfo(array("allow_rte" => 0));
 				else $this->set_classinfo(array("allow_rte" => $arr["obj_inst"]->prop("classinfo_allow_rte")));
-			
+
 			case "sub_form_type":
 				$prop["options"] = array(
 					"0" => t("liitumine"),
@@ -1309,7 +1309,7 @@ class ml_list extends class_base
 			case "search_table":
 				$this->member_search_table($arr);
 				break;
-	
+
 			case "separator_legend":
 				$prop["value"] = "tab'i eraldajana kasutamiseks m&auml;rgi tekstikasti /t";
 				break;
@@ -1324,15 +1324,15 @@ class ml_list extends class_base
 				}*/
 				$this->gen_list_status_table($arr);
 				break;
-				
+
 			case "unsent_table":
 				$this->gen_unsent_table($arr);
 				break;
-				
+
 			case "unsent_tb":
 				$this->gen_unsent_tb($arr);
 				break;
-				
+
 			case "mail_report":
 				$this->gen_mail_report_table($arr);
 				break;
@@ -1344,7 +1344,7 @@ class ml_list extends class_base
 			case "mail_subject":
 				$prop["value"] = $this->gen_mail_subject($arr);
 				break;
-			
+
 			case "bounce":
 				if(is_oid($arr["request"]["msg_id"]) && $this->can("view" , $arr["request"]["msg_id"]))
 				{
@@ -1356,7 +1356,7 @@ class ml_list extends class_base
 					$prop["value"] = $arr["obj_inst"]->prop("default_bounce");
 				}
 				break;
-			
+
 			case "mail_toolbar":
 				$tb = &$prop["vcl_inst"];
 				$tb->add_button(array(
@@ -1391,7 +1391,7 @@ class ml_list extends class_base
 				));
 				*/
 				break;
-				
+
 			case "list_source":
 				$m_id = $arr["request"]["mail_id"];
 				if(is_oid($m_id) && $this->can("view", $m_id))
@@ -1410,7 +1410,7 @@ class ml_list extends class_base
 					$prop["value"] = implode(", ", $val);
 				}
 				break;
-				
+
 			case "mail_start_date":
 			case "mail_last_batch":
 				$list_id = $arr["obj_inst"]->id();
@@ -1432,7 +1432,7 @@ class ml_list extends class_base
 					}
 				}
 				break;
-		
+
 			case "list_status_tb":
 				$this->gen_list_status_tb($arr);
 				break;
@@ -1479,7 +1479,7 @@ class ml_list extends class_base
 		}
 		return $retval;
 	}
-	
+
 
 	function set_property($arr)
 	{
@@ -1555,7 +1555,7 @@ class ml_list extends class_base
 					return PROP_FATAL_ERROR;
 				}
 				break;
-				
+
 			case "mass_subscribe":
 				if(!$arr["obj_inst"]->mass_subscribe(array(
 					"menus" => array_keys($arr["request"]["admin_subscribe_folders"]),
@@ -1627,7 +1627,7 @@ class ml_list extends class_base
 			$arr["args"]["msg_id"] = $this->edit_msg;
 		}
 	}
-	
+
 	function get_all_members($id)
 	{
 		$member_list = array();
@@ -1641,7 +1641,7 @@ class ml_list extends class_base
 		}
 		return $member_list;
 	}
-	
+
 	////
 	// !Imports members from a text file / or text block
 	// text(string) - member list, comma separated
@@ -1696,7 +1696,7 @@ class ml_list extends class_base
 					}
 					$name = trim($name);
 					$addr = trim($addr);
-	
+
 					if (is_email($addr) && !in_array($addr, $members))
 					{
 						print "OK - nimi: $name, aadress: $addr<br />";
@@ -1731,7 +1731,7 @@ class ml_list extends class_base
 		}
 		return true;
 	}
-	
+
 	////
 	// !Returns redir_unsubscribe_obj if defined ... section, if not
 
@@ -1780,7 +1780,7 @@ class ml_list extends class_base
 			return $retval;
 		}
 	}
-	
+
 	function gen_unsent_table($arr)
 	{
 		$t = &$arr["prop"]["vcl_inst"];
@@ -1834,7 +1834,7 @@ class ml_list extends class_base
 		}
 		$t->sort_by();
 	}
-	
+
 	function gen_unsent_tb($arr)
 	{
 		$toolbar = &$arr["prop"]["toolbar"];
@@ -1849,7 +1849,7 @@ class ml_list extends class_base
 
 	/** Exports list members as a plain text file
 		@attrib name=export_members
-		@param id required type=int 
+		@param id required type=int
 		@param filename optional
 		@param export_type optional type=int
 		@param export_date optional type=int
@@ -1872,7 +1872,7 @@ class ml_list extends class_base
 
 		$ml_member_inst = get_instance(CL_ML_MEMBER);
 		$ser = "";
-		
+
 		if($arr["obj_inst"]->prop("member_config"))
 		{
 			$config_obj = &obj($arr["obj_inst"]->prop("member_config"));
@@ -1898,7 +1898,7 @@ class ml_list extends class_base
 			if(!in_array($mailto, $imported))
 			{
 				$imported[] = $mailto;
-	
+
 				$member = &obj($memberdata["id"]);
 				if($member->created() > $arr["export_date"] || ($arr["export_date"] < 100))
 				{
@@ -1907,11 +1907,11 @@ class ml_list extends class_base
 						case ML_EXPORT_ADDR:
 							$ser .= $mailto;
 							break;
-		
+
 						case ML_EXPORT_NAMEADDR:
 							$ser .= $memberdata["name"] . " <" . $mailto . ">";
 							break;
-						
+
 						case ML_EXPORT_ALL:
 							$ser .= $memberdata["name"] . ";" . $mailto . ";";
 							foreach ($config_data as $key2 => $value)
@@ -1972,7 +1972,7 @@ foreach($ol->arr() as $o)
 			$mailaddress = str_replace("&quot;" , "" , $o->prop("mail"));
 
 			$q = "UPDATE ml_users SET mail = '".$mailaddress."' WHERE id = '".$o->id()."'";
-			//arr($q); 
+			//arr($q);
 //$this->db_query($q);
 
 		}arr($ol->count());
@@ -2003,7 +2003,7 @@ foreach($ol->arr() as $o)
 			"caption" => t("Aadress"),
 			"sortable" => 1,
 		));
-		
+
 		$t->define_field(array(
 			"name" => "source",
 			"caption" => t("Allikas"),
@@ -2043,10 +2043,10 @@ foreach($ol->arr() as $o)
 		if(is_oid($cfg) && $this->can("view", $cfg))
 		{
 			$config_obj = &obj($cfg);
-			
+
 			$config_data = $config_obj->meta("cfg_proplist");
 			uasort($config_data, array($this,"__sort_props_by_ord"));
-			
+
 			foreach($config_data as $key => $item)
 			{
 				strpos($key, "def_txbox");
@@ -2058,14 +2058,14 @@ foreach($ol->arr() as $o)
 						"sortable" => 1,
 					));
 				}
-				
+
 				if(strpos($key, "def_date"))
 				{
 					$t->define_field(array(
 						"name" => $item["name"],
 						"caption" => $item["caption"],
 						"sortable" => 1,
-					));	
+					));
 				}
 			}
 		}
@@ -2200,7 +2200,7 @@ foreach($ol->arr() as $o)
 
 			foreach($tabledata_arr as $row)
 			{
-				$t->define_data($row);	
+				$t->define_data($row);
  			}
 		}
 
@@ -2228,7 +2228,7 @@ foreach($ol->arr() as $o)
 		}
 		return (int)($el1["ord"] - $el2["ord"]);
 	}
-	
+
 	function gen_list_status_tb($arr)
 	{
 		/*
@@ -2371,17 +2371,17 @@ foreach($ol->arr() as $o)
 			*/
 				$status_str = $mq->a_status[$row["status"]];
 			//};
-			
+
 			//monele pole subjekti pandud
 			if(!strlen($mail_obj->name()) > 0) $mail_name = t("(Nimetu)");
 			else $mail_name = $mail_obj->name();
-			 
+
 			 $row["subject"] = html::get_change_url($arr["obj_inst"]->id(), array(
 				"group" => "write_mail",
 				"msg_id" => $mail_obj->id(),
 				"status" => $row["status"],
 			), $mail_name);
-			
+
 			//$row["mid"] = $mail_obj->name();
 			if (!$row["patch_size"])
 			{
@@ -2398,7 +2398,7 @@ foreach($ol->arr() as $o)
 			$row["delay"]/=60;
 			$row["status"] = html::href(array(
 				"url" => $this->mk_my_orb("change", array(
-					"group" => "mail_report", 
+					"group" => "mail_report",
 					"id" => $arr["obj_inst"]->id(),
 					"mail_id" => $row['mid'],
 					"qid" => $row["qid"],
@@ -2411,7 +2411,7 @@ foreach($ol->arr() as $o)
 				$this->save_handle();
 				$row["protsent"].= $this->gen_ready_indicator($row);
 				$this->restore_handle();
-			
+
 				$is_in_ched = 0;
 				foreach($in_scheduler as $key=> $val)
 				{
@@ -2438,7 +2438,7 @@ foreach($ol->arr() as $o)
 		};
 		$t->sort_by();
 	}
-	
+
 	/**
 		@attrib name=add_gen_sched
 		@param mid required type=mail id
@@ -2452,13 +2452,13 @@ foreach($ol->arr() as $o)
 			window.close();
 		</script>";
 	}
-	
-	/** removes queue items 
-		
-		@attrib name=delete_queue_items 
-		
-		@param id required type=int 
-		
+
+	/** removes queue items
+
+		@attrib name=delete_queue_items
+
+		@param id required type=int
+
 	**/
 	function delete_queue_items($arr)
 	{
@@ -2539,7 +2539,7 @@ foreach($ol->arr() as $o)
 					$this->member_count++;
 				}
 			}
-			if(!$all) 
+			if(!$all)
 			{
 				$this->already_found[$mail] = $mail;
 			}
@@ -2568,7 +2568,7 @@ foreach($ol->arr() as $o)
 		$GLOBALS["mailinglist_show_org_column"] = 1;
 		extract($args);
 		$o = obj($id);
-		$customers = $o->get_category_customers();
+		$customers = $o->get_customer_list();
 		if(is_array($source_data["usable_data"]) && sizeof($source_data["usable_data"]))
 		{
 			$use = $source_data["usable_data"];
@@ -2587,7 +2587,7 @@ foreach($ol->arr() as $o)
 			{
 				if(!$use || in_array("work" , $use))
 				{
-					$GLOBALS["mailinglist_show_person_columns"] = 1;	
+					$GLOBALS["mailinglist_show_person_columns"] = 1;
 					$people = $co->get_workers();
 				}
 				if(!$use || in_array("orgs", $use))
@@ -2601,7 +2601,7 @@ foreach($ol->arr() as $o)
 				{
 					continue;
 				}
-			
+
 				if($worker->class_id() == CL_CRM_COMPANY)
 				{
 					$mail = $worker->get_mail();
@@ -2666,7 +2666,7 @@ foreach($ol->arr() as $o)
 						}
 					}
 				}
-				if(!$all) 
+				if(!$all)
 				{
 					$this->already_found[$mail] = $mail;
 				}
@@ -3027,7 +3027,7 @@ foreach($ol->arr() as $o)
 		{
 			$langid = aw_global_get("lang_id");
 			$c = "";
-			$choose_menu = $targ->prop("choose_menu");	
+			$choose_menu = $targ->prop("choose_menu");
 			foreach($choose_menu as $folder)
 			{
 				$folder_obj = obj($folder);
@@ -3044,7 +3044,7 @@ foreach($ol->arr() as $o)
 					));
 					$c .= $this->parse("FOLDER");
 				}
-				
+
 				else
 				{
 					if(count($folders)>1)
@@ -3079,7 +3079,7 @@ foreach($ol->arr() as $o)
 								));
 								$c .= $this->parse("FOLDER");
 							}
-							else 
+							else
 							{
 								$from_obj = obj($conn->prop("from"));
 								$conns = $from_obj->connections_from(array(
@@ -3094,15 +3094,15 @@ foreach($ol->arr() as $o)
 									"folder_id" => $conn->prop("to"),
 									));
 									$c .= $this->parse("FOLDER");
-								}			
+								}
 							}
-						}						
+						}
 					}
 				}
 			}
 			$this->vars(array(
 				"FOLDER" => $c,
-			));	
+			));
 		}
 		if ($this->is_template("LANGFOLDER") && $tobj->prop("multiple_languages") == 1)
 		{
@@ -3114,19 +3114,19 @@ foreach($ol->arr() as $o)
 			foreach($langdata as $id => $lang)
 			{
 				if(in_array($id, $choose_languages))
-				{	
+				{
 					$this->vars(array(
 						"lang_name" => $lang,
 						"lang_id" => $id,
 					));
 					$c .= $this->parse("LANGFOLDER");
-				}	
-			}			
+				}
+			}
 			$this->vars(array(
 				"LANGFOLDER" => $c,
-			));	
+			));
 		}
-		
+
 		if ($this->is_template("FOLDER") && $tobj->prop("multiple_folders") == 1 && $sub_form_type == 1)
 		{
 			$this->parse_unsubscribe($tobj);
@@ -3134,14 +3134,14 @@ foreach($ol->arr() as $o)
 		// this is sl8888w and otto needs to be fffffaaassssttt
 		/*
 		$classificator_inst = get_instance(CL_CLASSIFICATOR);
-		
+
 		for ($i = 1; $i <= 5; $i++)
 		{
 			$options = $classificator_inst->get_options_for(array(
 				"clid" => CL_ML_MEMBER,
 				"name" => "udef_classificator$i",
 			));
-			
+
 			$this->vars(array(
 				"classificator$i" => html::select(array(
 					"name" => "udef_classificator[$i]",
@@ -3195,7 +3195,7 @@ foreach($ol->arr() as $o)
 		}
 		$this->vars(array(
 			"FOLDER" => $c,
-		));	
+		));
 	}
 
 	//! teeb progress bari
@@ -3224,7 +3224,7 @@ foreach($ol->arr() as $o)
 		// kommentaar on selleks, et sorteerimine tootaks (hopefully)
 		return "<!-- $p --><table bgcolor='#CCCCCC' Style='height:12;width:100%'><tr><td width=\"$p%\" bgcolor=\"blue\">$p1t</td><td width=\"$not_p%\">$p2t</td></tr></table>";
 	}
-	
+
 	//! teeb genereerimise progressi bari
 	function gen_ready_indicator($p)
 	{
@@ -3255,7 +3255,7 @@ foreach($ol->arr() as $o)
 		}
 		return "";
 	}
-	
+
 	////
 	// !This will generate a raport for a single mail sent to a list.
 	// Ungh, shouldn't this be a separate class then?
@@ -3285,7 +3285,7 @@ foreach($ol->arr() as $o)
 		$id = $arr["obj_inst"]->id();
 		$q1 = "SELECT COUNT(*) as cnt FROM ml_sent_mails WHERE lid = '$id' AND mail='$_mid' AND qid = '$qid' AND mail_sent = 1";
 		$cnt = $this->db_fetch_field($q1, "cnt");
-		$q = "SELECT target, tm, subject, id, vars 
+		$q = "SELECT target, tm, subject, id, vars
 			FROM ml_sent_mails
 			WHERE lid = '$id' AND mail = '$_mid' AND qid = '$qid' AND mail_sent = 1 ORDER BY tm DESC LIMIT ".(100*$arr["request"]["ft_page"]).", 100";
 		$this->db_query($q);
@@ -3294,9 +3294,9 @@ foreach($ol->arr() as $o)
 			$tgt = htmlspecialchars($row["target"]);
 			$row["member"] = html::href(array(
 				"url" => $this->mk_my_orb("change", array(
-					"id" => $id, 
-					"group" => "show_mail", 
-					"mail_id" => $arr["request"]["mail_id"], 
+					"id" => $id,
+					"group" => "show_mail",
+					"mail_id" => $arr["request"]["mail_id"],
 					"s_mail_id" => $row["id"],
 				)),
 				"caption" => $tgt,
@@ -3304,15 +3304,15 @@ foreach($ol->arr() as $o)
 			$row["clicked"] = ($row["vars"] == 1 ? t("jah") : t("ei"));
 			$t->define_data($row);
 		}
-// 		$q = "SELECT target 
+// 		$q = "SELECT target
 // 			FROM ml_sent_mails
 // 			WHERE lid = '$id' AND mail = '$_mid' AND qid = '$qid' AND mail_sent = 1";
-// 		$this->db_query($q);		
+// 		$this->db_query($q);
 // 		while ($row = $this->db_next())
 // 		{
 // 			echo $row["target"].'<br>';
 // 		}
-		
+
 		$t->d_row_cnt = $cnt;
 		$t->set_header($t->draw_text_pageselector(array(
 			"records_per_page" => $perpage,
@@ -3331,19 +3331,19 @@ foreach($ol->arr() as $o)
 	{
 		$list_id = $arr["obj_inst"]->id();
 		$mail_id = (int)$arr["request"]["mail_id"];
-		
+
 		// how many members does this list have?
 		$row = $this->db_fetch_row("SELECT total,qid,position,status FROM ml_queue WHERE lid = '$list_id' AND mid = '$mail_id'");
 		$member_count = $row["total"];
 		$qid = (int)$row["qid"];
-		
+
 		// how many members have been served?
 		$served_count = 0;
 //		$served_count = $this->db_fetch_row("SELECT count(*) AS cnt FROM ml_sent_mails WHERE lid = '$list_id' AND mail = '$mail_id' AND qid = '$qid'");
 //		$row2 = $this->db_fetch_row("SELECT position,status FROM ml_queue WHERE lid = '$list_id' AND mid = '$mail_id'");
 		$served_count = $row["position"];
 		$url = $_SERVER["REQUEST_URI"];
-	
+
 		if (!headers_sent() && $served_count < $member_count)
 		{
 			$refresh_rate = 30;
@@ -3463,7 +3463,7 @@ foreach($ol->arr() as $o)
 			"type" => "RELTYPE_TEMPLATE",
 		));
 		$filtered_props = array();
-		
+
 		if (!strlen($msg_obj->prop("message")) > 0)
 		{
 			$options = array(0 => t(" - vali - "));
@@ -3483,7 +3483,7 @@ foreach($ol->arr() as $o)
 				"value" => $msg_obj->meta("copy_template"),
 			);
 		}
-		
+
 		// insert a template selector, if there are any templates available
 		if (sizeof($templates) > 0 )
 		{
@@ -3500,7 +3500,7 @@ foreach($ol->arr() as $o)
 				"value" => $msg_obj->meta("template_selector"),
 			);
 		}
-		
+
 		$filtered_props["send_away"] = array(
 			"name" => "send_away",
 			"type" => "checkbox",
@@ -3511,12 +3511,12 @@ foreach($ol->arr() as $o)
 		// narf, can I make this work better perhaps? I really do hate callback ..
 		// and I want to embed a new object. And I have to functionality in form
 		// of releditor. So why can't I use _that_ to write a new mail. Eh?
-		
-		// would be nice to have some other and better method to do this
-		
 
-		
-		$prps = array("name", "html_mail", "msg_contener_title", "msg_contener_content" , "mfrom",  "mfrom_name"); 
+		// would be nice to have some other and better method to do this
+
+
+
+		$prps = array("name", "html_mail", "msg_contener_title", "msg_contener_content" , "mfrom",  "mfrom_name");
 		foreach($all_props as $id => $prop)
 		{
 			if (in_array($id, $prps))
@@ -3559,14 +3559,14 @@ foreach($ol->arr() as $o)
 			"type" => "hidden",
 			"value" => $msg_obj->id(),
 		);
-		
+
 		$filtered_props["save_as_new"] = array(
 			"name" => "save_as_new",
 			"type" => "checkbox",
 			"ch_value" => 1,
 			"caption" => t("Salvesta uue kirjana"),
 		);
-		
+
 		$filtered_props["aliasmgr"] = array(
 			"name" => "aliasmgr",
 			"type" => "aliasmgr",
@@ -3575,7 +3575,7 @@ foreach($ol->arr() as $o)
 		);
 		if($msg_obj)
 		{
-			if(!$filtered_props["message"]["value"])$filtered_props["message"]["value"] = $msg_obj->prop("message"); 
+			if(!$filtered_props["message"]["value"])$filtered_props["message"]["value"] = $msg_obj->prop("message");
 			$xprops = $writer->parse_properties(array(
 				"obj_inst" => $msg_obj,
 				"properties" => $filtered_props,
@@ -3699,7 +3699,7 @@ foreach($ol->arr() as $o)
 					$this->vars(array("userim".$asd => $img_inst->make_img_tag_wl($x->id())));
 					}
 					$asd++;
-					
+
 				}
 			}
 			$msg_data["message"] = $this->parse();
@@ -3763,7 +3763,7 @@ arr($msg_obj->prop("message"));
 			if ($tpl_obj->prop("is_html") == 1)
 			{
 				$msg_obj->set_prop("html_mail", 1024);
-			}	
+			}
 			$msg_obj->save();
 		}
 		else
@@ -3785,7 +3785,7 @@ arr($msg_obj->prop("message"));
 			$this->edit_msg = $message_id;
 		}
 	}
-	
+
 	// this one can be used to send a message to mailinglist from code
 	// following parameters can be used
         //      Array
@@ -3811,7 +3811,7 @@ arr($msg_obj->prop("message"));
 	{
 		$x = 0;
 		$regs = array();
-		if ($asd = preg_match_all("/\/[0-9]+/", $msg, $regs)) 
+		if ($asd = preg_match_all("/\/[0-9]+/", $msg, $regs))
 		{
 			if($x > 100) break;
 			foreach($regs[0] as $reg)
@@ -3839,7 +3839,7 @@ arr($msg_obj->prop("message"));
 		}
 /*
 		$x = 0;//igaks juhuks, et mingi valemiga tsyklisse ei l2heks
-		while (ereg('^(.*href=\"/([0-9]+)\".*)+$', $msg, $regs)) 
+		while (ereg('^(.*href=\"/([0-9]+)\".*)+$', $msg, $regs))
 		{
 			if($x > 100) break;
 			foreach($regs as $reg)
@@ -3862,7 +3862,7 @@ arr($msg_obj->prop("message"));
 		}
 
 		$x = 0;
-		while (ereg("^(.*href=\'/([0-9]+)\'.*)+$", $msg, $regs)) 
+		while (ereg("^(.*href=\'/([0-9]+)\'.*)+$", $msg, $regs))
 		{
 			if($x > 100) break;
 			foreach($regs as $reg)
@@ -3926,8 +3926,8 @@ arr($msg_obj->prop("message"));
 	}
 
 	/** delete mails
-		@attrib name=delete_mails 
-		@param id required type=int 
+		@attrib name=delete_mails
+		@param id required type=int
 		@param group optional
 	**/
 	function delete_mails($arr)
@@ -3945,10 +3945,10 @@ arr($msg_obj->prop("message"));
 		}
 		return $this->mk_my_orb("change", array("id" => $arr["id"], "group" => $arr["group"]));
 	}
-		
+
 	/** delete members from list
-		@attrib name=delete_members 
-		@param id required type=int 
+		@attrib name=delete_members
+		@param id required type=int
 	**/
 	function delete_members($arr)
 	{
@@ -4077,7 +4077,7 @@ arr($msg_obj->prop("message"));
 		$this->_add_expf_sched($l);
 		die(t("all done"));
 	}
-		
+
 	/**
 		@attrib api=1 params=name name=delete_old
 		@param ml required type=oid
@@ -4094,7 +4094,7 @@ arr($msg_obj->prop("message"));
 		</script>";
 		arr("kustutab saasta");
 	}
-	
+
 	/**
 	@attrib api=1 params=name name=register_data
 	@param ml required type=oid
@@ -4125,7 +4125,7 @@ arr($msg_obj->prop("message"));
 		}
 		return html::get_change_url($o->id(), array("return_url" => $arr["ru"]));
 	}
-	
+
 	private function _init_members_table(&$t, $list)
 	{
 		$t->define_field(array(
@@ -4143,7 +4143,7 @@ arr($msg_obj->prop("message"));
 			"caption" => t("Aadress"),
 			"sortable" => 1,
 		));
-		
+
 		$t->define_field(array(
 			"name" => "source",
 			"caption" => t("Allikas"),
@@ -4158,7 +4158,7 @@ arr($msg_obj->prop("message"));
 				"sortable" => 1,
 			));
 		}
-		
+
 		if(isset($GLOBALS["mailinglist_show_person_columns"]))
 		{
 			$t->define_field(array(
@@ -4173,7 +4173,7 @@ arr($msg_obj->prop("message"));
 				"sortable" => 1,
 			));
 		}
-			
+
 		$t->define_field(array(
 			"name" => "joined",
 			"caption" => t("Liitunud"),
@@ -4182,7 +4182,7 @@ arr($msg_obj->prop("message"));
 			"format" => "H:i d-m-Y",
 			"smart" => 1,
 		));
-			
+
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -4194,7 +4194,7 @@ arr($msg_obj->prop("message"));
 			$config_obj = &obj($cfg);
 			$config_data = $config_obj->meta("cfg_proplist");
 			uasort($config_data, array($this,"__sort_props_by_ord"));
-				
+
 			foreach($config_data as $key => $item)
 			{
 				strpos($key, "def_txbox");
@@ -4206,14 +4206,14 @@ arr($msg_obj->prop("message"));
 						"sortable" => 1,
 					));
 				}
-					
+
 				if(strpos($key, "def_date"))
 				{
 					$t->define_field(array(
 						"name" => $item["name"],
 						"caption" => $item["caption"],
 						"sortable" => 1,
-					));	
+					));
 				}
 			}
 		}
