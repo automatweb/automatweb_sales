@@ -53,18 +53,8 @@
 
 
 @layout customer_bit type=vbox closeable=1 area_caption=Tellijad
-#	@property parts_tb type=toolbar no_caption=1 store=no parent=customer_bit
-
 	@property co_tb type=toolbar no_caption=1 store=no parent=customer_bit
 	@property co_table type=table no_caption=1 store=no parent=customer_bit
-
-
-#@layout bottom_pit type=vbox
-#	@property parts_tb type=toolbar no_caption=1 store=no parent=bottom_pit
-
-#	@property co_table type=table no_caption=1 store=no parent=bottom_pit
-#	@property proj_table type=table no_caption=1 store=no parent=bottom_pit
-#	@property parts_table type=table no_caption=1 store=no parent=bottom_pit
 
 @layout project_bit type=vbox closeable=1 area_caption=Projektid
 	@property project_tb type=toolbar no_caption=1 store=no parent=project_bit
@@ -81,10 +71,6 @@
 @layout bills_bit type=vbox closeable=1 area_caption=Arved
 	@property bills_tb type=toolbar no_caption=1 store=no parent=bills_bit
 	@property bills_table type=table no_caption=1 store=no parent=bills_bit
-
-#@layout files_pit type=vbox
-#	@property files_tb type=toolbar no_caption=1 store=no parent=files_pit
-#	@property files_table type=table no_caption=1 store=no parent=files_pit
 
 @property ppa type=hidden store=no no_caption=1
 @property customer type=relpicker table=planner field=customer reltype=RELTYPE_CUSTOMER
@@ -244,14 +230,14 @@ caption Seostehaldur
 	@property is_goal type=checkbox ch_value=1 table=planner field=aw_is_goal method=
 	@caption Verstapost
 
-@groupinfo rows caption=Read
-@groupinfo recurrence caption=Kordumine submit=no
-@groupinfo calendars caption=Kalendrid
-@groupinfo others caption=Teised submit_method=get
-@groupinfo projects caption=Projektid
-@groupinfo comments caption=Kommentaarid parent=other_exp
-@groupinfo reminders caption=Meeldetuletused parent=other_exp
-@groupinfo participants caption=Osalejad submit=no
+@groupinfo rows caption="Read"
+@groupinfo recurrence caption="Kordumine submit=no
+@groupinfo calendars caption="Kalendrid"
+@groupinfo others caption="Teised" submit_method=get
+@groupinfo projects caption="Projektid"
+@groupinfo comments caption="Kommentaarid" parent=other_exp
+@groupinfo reminders caption="Meeldetuletused" parent=other_exp
+@groupinfo participants caption="Osalejad" submit=no
 @groupinfo other_exp caption="Muud kulud"
 @groupinfo resources caption="Ressursid" parent=other_exp
 @groupinfo predicates caption="Eeldused" parent=other_exp
@@ -291,6 +277,10 @@ caption Seostehaldur
 
 @reltype SERVICE_TYPE value=11 clid=CL_CRM_SERVICE_TYPE
 @caption Teenuse liik
+
+@reltype PARTICIPANT value=12 clid=CL_CRM_PERSON
+@caption Osaleja
+
 */
 
 
@@ -306,7 +296,7 @@ class task extends class_base
 	{
 		$this->init(array(
 			"tpldir" => "groupware/task",
-			"clid" => CL_TASK,
+			"clid" => CL_TASK
 		));
 
 		$this->default_stoppers = array(
@@ -314,12 +304,12 @@ class task extends class_base
 			CL_CRM_CALL,
 			CL_CRM_MEETING,
 			CL_BUG,
-			CL_TASK_ROW,
+			CL_TASK_ROW
 		);
 
 		$this->stopper_states = array(
 			STOPPER_PAUSED => t("Seisab"),
-			STOPPER_RUNNING => t("Stopper k&auml;ib"),
+			STOPPER_RUNNING => t("Stopper k&auml;ib")
 		);
 	}
 
@@ -908,35 +898,6 @@ class task extends class_base
 		$this->person = $u->get_current_person();
 	}
 
-	function callback_mod_layout(&$arr)
-	{
-		$type = array(
-			CL_TASK => t("Toimetusele"),
-			CL_CRM_MEETING => t("Kohtumisele"),
-			CL_CRM_CALL => t("K&otilde;nele"),
-			CL_CRM_PRESENTATION => t("Esitlusele")
-		);
-		switch($arr["name"])
-		{
-			case "customer_bit":
-				$arr["area_caption"] = sprintf(t("Tellijad: %s \"%s\""), $type[$arr["obj_inst"]->class_id()], $arr["obj_inst"]->prop_xml("name"));
-				break;
-			case "project_bit":
-				$arr["area_caption"] = sprintf(t("Projektid: %s \"%s\""), $type[$arr["obj_inst"]->class_id()], $arr["obj_inst"]->prop_xml("name"));
-				break;
-			case "impl_bit":
-				$arr["area_caption"] = sprintf(t("Osalejad: %s \"%s\""), $type[$arr["obj_inst"]->class_id()], $arr["obj_inst"]->prop_xml("name"));
-				break;
- 			case "files_bit":
-				$arr["area_caption"] = sprintf(t("Manused: %s \"%s\""), $type[$arr["obj_inst"]->class_id()], $arr["obj_inst"]->prop_xml("name"));
-				break;
-			case "bills_bit":
-				$arr["area_caption"] = sprintf(t("Arved: %s \"%s\""), $type[$arr["obj_inst"]->class_id()], $arr["obj_inst"]->prop_xml("name"));
-				break;
-		}
-		return true;
-	}
-
 	function get_property($arr)
 	{
 		$data = &$arr["prop"];
@@ -1461,7 +1422,7 @@ class task extends class_base
 		post_message_with_param(
 			MSG_MEETING_DELETE_PARTICIPANTS,
 			CL_CRM_MEETING,
-			&$arr
+			$arr
 		);
 		return $arr['post_ru'];
 	}
@@ -1952,7 +1913,7 @@ class task extends class_base
 			post_message_with_param(
 				MSG_MEETING_DELETE_PARTICIPANTS,
 				CL_CRM_MEETING,
-				&$arr
+				$arr
 			);
 		}
 
@@ -2001,7 +1962,7 @@ class task extends class_base
 			post_message_with_param(
 				MSG_MEETING_DELETE_PARTICIPANTS,
 				CL_CRM_MEETING,
-				&$arr
+				$arr
 			);
 		}
 		return $arr["post_ru"];

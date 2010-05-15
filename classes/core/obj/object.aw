@@ -817,8 +817,8 @@ class object
 		@errors
 			none
 
-		@returns
-			class id of the object, NULL is returned if no object is loaded
+		@returns int
+			class id of the object, 0 is returned if no object is loaded
 
 		@examples
 			$o = obj(666);

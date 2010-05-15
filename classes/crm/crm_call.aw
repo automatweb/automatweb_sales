@@ -6,11 +6,8 @@
 
 @tableinfo planner index=id master_table=objects master_index=brother_of
 
-@groupinfo recurrence caption=Kordumine
-@groupinfo calendars caption=Kalendrid
-@groupinfo projects caption=Projektid
-@groupinfo comments caption=Kommentaarid
-@groupinfo participants caption=Osalejad submit=no
+@groupinfo comments caption="Kommentaarid"
+@groupinfo participants caption="Osalejad" submit=no
 @groupinfo other_calls caption="Eelmised k&otilde;ned"
 @groupinfo predicates caption="Eeldused"
 @groupinfo customer caption="Klient" submit=no
@@ -66,10 +63,7 @@
 
 		@layout top_2way_right type=vbox parent=top_2way
 			@property start1 type=datepicker field=start table=planner parent=top_2way_right
-			@caption Algus
-
-			@property end type=datepicker table=planner parent=top_2way_right
-			@caption L&otilde;peb
+			@caption Plaanitud aeg
 
 			@property deadline type=datepicker table=planner field=deadline parent=top_2way_right
 			@caption T&auml;htaeg
@@ -83,50 +77,34 @@
 			@property real_maker type=objpicker datatype=int table=planner parent=top_2way_right disabled=1 clid=CL_CRM_PERSON
 			@caption K&otilde;ne tegija
 
-	@property hrs_table type=table no_caption=1 store=no parent=top_bit
+			@property participant_select type=relpicker delete_rels_popup_button=1 no_edit=1 multiple=1 size=5 store=connect reltype=RELTYPE_PARTICIPANT parent=top_2way_right
+			@caption Osalejad
 
 @layout center_bit type=hbox
 	@property center_bit_vis type=hidden store=no no_caption=1 parent=center_bit
 
 	@layout center_bit_left type=vbox parent=center_bit
-		@layout center_bit_left_ct  type=hbox closeable=1 area_caption=Sisu parent=center_bit_left
+		@layout center_bit_left_ct  type=hbox closeable=1 area_caption="Sisu" parent=center_bit_left
 
 	@layout center_bit_right type=vbox parent=center_bit
 		@layout center_bit_right_top type=vbox parent=center_bit_right closeable=1 area_caption=Osapooled no_padding=1
 		@layout center_bit_right_bottom type=vbox parent=center_bit_right closeable=1 area_caption=Manused no_padding=1
 
-@layout content_bit type=vbox closeable=1 area_caption=Sisu
+@layout content_bit type=vbox closeable=1 area_caption="Sisu"
 	@property content type=textarea cols=180 rows=30 field=description parent=content_bit no_caption=1 width=100%
 
-@layout customer_bit type=vbox closeable=1 area_caption=Tellijad
-	@property co_tb type=toolbar no_caption=1 store=no parent=customer_bit
-	@property co_table type=table no_caption=1 store=no parent=customer_bit
-
-@layout project_bit type=vbox closeable=1 area_caption=Projektid
-	@property project_tb type=toolbar no_caption=1 store=no parent=project_bit
-	@property proj_table type=table no_caption=1 store=no parent=project_bit
-
-@layout impl_bit type=vbox closeable=1 area_caption=Osalejad
+@layout impl_bit type=vbox closeable=1 area_caption="Osalejad"
 	@property impl_tb type=toolbar no_caption=1 store=no parent=impl_bit
 	@property parts_table type=table no_caption=1 store=no parent=impl_bit
+
 
 @layout files_bit type=vbox closeable=1 area_caption=Manused
 	@property files_tb type=toolbar no_caption=1 store=no parent=files_bit
 	@property files_table type=table no_caption=1 store=no parent=files_bit
 
-@layout bills_bit type=vbox closeable=1 area_caption=Arved
-	@property bills_tb type=toolbar no_caption=1 store=no parent=bills_bit
-	@property bills_table type=table no_caption=1 store=no parent=bills_bit
-
 @layout reults_bit type=vbox closeable=1 area_caption=Tulemused
 	@property task_results_toolbar type=toolbar no_caption=1 store=no parent=reults_bit
 	@property task_results_table type=table no_caption=1 store=no parent=reults_bit
-
-	@property customer type=relpicker table=planner field=customer reltype=RELTYPE_CUSTOMER parent=center_bit_right_top
-	@caption Klient
-
-	@property project type=relpicker table=planner field=project reltype=RELTYPE_PROJECT parent=center_bit_right_top
-	@caption Projekt
 
 @property is_done type=checkbox table=objects field=flags method=bitmask ch_value=8 // OBJ_IS_DONE
 @caption Tehtud
@@ -187,59 +165,17 @@
 @property task_toolbar type=toolbar no_caption=1 store=no group=participants
 @caption Toolbar
 
-@property recurrence type=releditor reltype=RELTYPE_RECURRENCE group=recurrence rel_id=first props=start,weekdays,end
-@caption Kordused
-
-@property calendar_selector type=calendar_selector store=no group=calendars
-@caption Kalendrid
-
-@property project_selector type=project_selector store=no group=projects
-@caption Projektid
-
 @property comment_list type=comments group=comments no_caption=1
 @caption Kommentaarid
 
-@property participant type=participant_selector store=no group=participants no_caption=1
-@caption Osalejad
-
-@property search_contact_company type=textbox store=no group=participants
-@caption Organisatsioon
-
-@property search_contact_firstname type=textbox store=no group=participants
-@caption Eesnimi
-
-@property search_contact_lastname type=textbox store=no group=participants
-@caption Perenimi
-
-@property search_contact_code type=textbox store=no group=participants
-@caption Isikukood
-
-@property search_contact_button type=submit store=no group=participants action=search_contacts
-@caption Otsi
-
-@property search_contact_results type=table store=no group=participants no_caption=1
-@caption Tulemuste tabel
-
-
 @default group=other_calls
 	@property other_calls type=table store=no no_caption=1
-
 
 @default group=customer
 	@property customer_info type=text store=no no_caption=1
 
 
 // ------------------- RELATION TYPES -------------------
-
-@reltype RECURRENCE value=1 clid=CL_RECURRENCE
-@caption Kordus
-
-@reltype CUSTOMER value=3 clid=CL_CRM_COMPANY,CL_CRM_PERSON
-@caption Klient
-
-@reltype PROJECT value=4 clid=CL_PROJECT
-@caption Projekt
-
 @reltype PREDICATE value=9 clid=CL_TASK,CL_CRM_CALL,CL_CRM_MEETING
 @caption Eeldustegevus
 
@@ -251,6 +187,9 @@
 
 @reltype TMP1 value=8 clid=CL_CRM_COMPANY_CUSTOMER_DATA
 @caption tmp1
+
+@reltype PARTICIPANT value=12 clid=CL_CRM_PERSON
+@caption Osaleja
 
 */
 
@@ -440,18 +379,34 @@ class crm_call extends task
 
 	function _get_real_start(&$arr)
 	{
-		if (isset($arr["prop"]["value"]) and $arr["prop"]["value"] > 1)
+		if ($arr["obj_inst"]->has_started())
 		{
-			$arr["prop"]["value"] = date("d.m.Y H:i", $arr["prop"]["value"]);
+			if (isset($arr["prop"]["value"]) and $arr["prop"]["value"] > 1)
+			{
+				$arr["prop"]["value"] = date("d.m.Y H:i", $arr["prop"]["value"]);
+			}
+			$r = PROP_OK;
 		}
-		return PROP_OK;
+		else
+		{ // don't show when call hasn't been made
+			$r = PROP_IGNORE;
+		}
+		return $r;
 	}
 
 	function _get_real_duration(&$arr)
 	{
-		$value = isset($arr["prop"]["value"]) ? $arr["prop"]["value"] : 0;
-		$arr["prop"]["value"] = aw_locale::get_lc_time($value, aw_locale::TIME_SHORT_WORDS);
-		return PROP_OK;
+		if ($arr["obj_inst"]->has_ended())
+		{
+			$value = isset($arr["prop"]["value"]) ? $arr["prop"]["value"] : 0;
+			$arr["prop"]["value"] = aw_locale::get_lc_time($value, aw_locale::TIME_SHORT_WORDS);
+			$r = PROP_OK;
+		}
+		else
+		{ // don't show when call hasn't been made
+			$r = PROP_IGNORE;
+		}
+		return $r;
 	}
 
 	function _get_result(&$arr)
@@ -540,6 +495,13 @@ class crm_call extends task
 				}
 				break;
 
+			case "real_maker":
+				if (!$arr["obj_inst"]->has_started())
+				{
+					$retval = PROP_IGNORE;
+				}
+				break;
+
 			case "is_done":
 			case "status":
 			case "is_personal":
@@ -557,7 +519,10 @@ class crm_call extends task
 			case "deal_price":
 			case "deal_has_tax":
 			case "promoter":
-				return PROP_IGNORE;
+			case "project":
+			case "customer":
+				$retval = PROP_IGNORE;
+				break;
 
 			case "name":
 				if(!empty($arr["request"]["title"]) && !empty($arr["new"]))
@@ -580,19 +545,7 @@ class crm_call extends task
 				}
 				break;
 
-			case "project":
-				return PROP_IGNORE;
-
-			case "customer":
-				return PROP_IGNORE;
-
 			case "start1":
-			case "end":
-				if ($data["name"] ===  "end" && $arr["new"])
-				{
-					$data["value"] = time() + 900;
-				}
-
 				if (!empty($arr["new"]))
 				{
 					if($day = $arr["request"]["date"])
@@ -606,7 +559,6 @@ class crm_call extends task
 		return $retval;
 	}
 
-
 	function set_property($arr)
 	{
 		$data = &$arr["prop"];
@@ -614,13 +566,13 @@ class crm_call extends task
 		switch($data["name"])
 		{
 			case "add_clauses":
-				return PROP_IGNORE;
-
 			case "is_done":
 			case "status":
 			case "is_personal":
 			case "is_work":
 			case "promoter":
+			case "customer":
+			case "project":
 				return PROP_IGNORE;
 
 			case "new_call_date":
@@ -679,18 +631,6 @@ class crm_call extends task
 						$data["error"] = t("Uue k&otilde;ne aeg ei tohi olla minevikus!");
 						return PROP_FATAL_ERROR;
 					}
-				}
-				break;
-
-			case "customer":
-			case "project":
-				return PROP_IGNORE;
-
-			case "end":
-				if(isset($arr["request"]["start1"]) and date_edit::get_timestamp($arr["request"]["start1"]) > date_edit::get_timestamp($data["value"]))
-				{
-					$data["value"] = $arr["request"]["start1"];
-					$arr["request"]["end"] = $arr["request"]["start1"];
 				}
 				break;
 		}
@@ -834,7 +774,7 @@ EOS;
 		return $scripts;
 	}
 
-	function _init_other_class_t(&$t)
+	function _init_other_class_t($t)
 	{
 		$t->define_field(array(
 			"name" => "when",
@@ -857,7 +797,7 @@ EOS;
 
 	function _other_calls($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_other_class_t($t);
 
 		if (!$arr["obj_inst"]->prop("customer"))
@@ -942,7 +882,7 @@ EOS;
 			post_message_with_param(
 				"MSG_MEETING_DELETE_PARTICIPANTS",
 				CL_CRM_MEETING,
-				&$arr
+				$arr
 			);
 		}
 
@@ -994,7 +934,6 @@ EOS;
 				switch($key)
 				{
 					case "start1":
-					case "end":
 						$o->set_prop($key , date_edit::get_timestamp($val));
 						break;
 					case "hr_price":
@@ -1078,7 +1017,7 @@ EOS;
 			$p =$u->get_current_person();
 
 			$data["person"] = $p;
-			$data["time_real"] = round(((date_edit::get_timestamp($arr["end"]) - date_edit::get_timestamp($arr["start1"])) / 3600) , 2);
+			// $data["time_real"] = round(((date_edit::get_timestamp($arr["end"]) - date_edit::get_timestamp($arr["start1"])) / 3600) , 2);FIXME or delete. end property not available
 			$data["time_to_cust"] = (((int)(($data["time_real"] - 0.001)*4)) + 1) / 4;
 			$o->set_participant_data($data);
 			$o->save();
@@ -1278,51 +1217,6 @@ EOS;
 				{
 					$r = $default_return_url;
 				}
-
-				/*
-				$role = $application->get_current_user_role();
-
-				if (!empty($arr["return_url"]))
-				{
-					$r = $arr["return_url"];
-				}
-				elseif (!empty($arr["post_ru"]) and str_replace("&", "", $r) === str_replace("&", "", $arr["post_ru"]) and crm_sales_obj::ROLE_TELEMARKETING_SALESMAN === $role) // str replace is for example when one url ends with & and the other not, but otherwise they're same
-				{
-					// default return url
-					$r = $this->mk_my_orb("change", array(
-						"id" => $application->id(),
-						"group" => "calls"
-					), "crm_sales");
-				}
-				elseif (!empty($arr["post_ru"]))
-				{
-					try
-					{
-						$post_ru = new aw_uri($arr["post_ru"]);
-						if ($post_ru->arg("return_url"))
-						{
-							$return_url = new aw_uri($post_ru->arg("return_url"));
-							$r = $return_url->get();
-						}
-						else
-						{
-							$r = $arr["post_ru"];
-						}
-					}
-					catch (Exception $e)
-					{
-						$r = $arr["post_ru"];
-					}
-				}
-				else
-				{
-					// default return url
-					$r = $this->mk_my_orb("change", array(
-						"id" => $application->id(),
-						"group" => "calls"
-					), "crm_sales");
-				}
-				*/
 			}
 		}
 		return $r;

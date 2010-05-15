@@ -117,6 +117,20 @@
             <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja</caption>
       </property>
       <property>
+            <name>participant_select</name>
+            <table>planner</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <delete_rels_popup_button>1</delete_rels_popup_button>
+            <no_edit>1</no_edit>
+            <multiple>1</multiple>
+            <size>5</size>
+            <store>connect</store>
+            <reltype>RELTYPE_PARTICIPANT</reltype>
+            <field>participant_select</field>
+            <caption>Osalejad</caption>
+      </property>
+      <property>
             <name>presentation_location</name>
             <table>objects</table>
             <group>general</group>
@@ -243,6 +257,11 @@
                   <clid>CL_SHOP_PRODUCT</clid>
                   <caption>M&amp;amp;uuml;&amp;amp;uuml;dud toode</caption>
             </SOLD_PRODUCT>
+            <PARTICIPANT>
+                  <value>12</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>Osaleja</caption>
+            </PARTICIPANT>
       </reltypes>
       <layout>
             <impl_bit>

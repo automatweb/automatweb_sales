@@ -1016,10 +1016,11 @@ function aw_get_el(name,form)
 	{
 		$url = $this->mk_my_orb("do_ajax_search", array(
 			"id" => $this->oid,
+			"in_popup" => "1",
 			"reload_layout" => isset($this->reload_layouts) ? $this->reload_layouts :"",
 			"reload_property" => isset($this->reload_property) ? $this->reload_property :"",
 			"clid" => $this->clid,
-			"property" => $this->property,
+			"property" => $this->property
 		));
 		return $url;
 
@@ -1047,8 +1048,7 @@ function aw_get_el(name,form)
 		$form_html = $this->_get_search_form($arr);
 		$arr["return"] = 1;
 		$res_html = html::div(array("id" => "result" , "content" => $this->get_search_results($arr)));
-
-		return $form_html."<br>".$res_html;
+		return $form_html."<br />".$res_html;
 	}
 
 	/**
@@ -1082,7 +1082,7 @@ function aw_get_el(name,form)
 
 	function _get_search_form($arr)
 	{
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 
 		$htmlc->add_property(array(
@@ -1119,7 +1119,7 @@ function aw_get_el(name,form)
 				oid: oids.value,
 				name: names.value,
 				clid: '".$arr["clid"]."',
-				reload_layout: '".$arr["reload_layout"]."',
+				reload_layout: '".(isset($arr["reload_layout"]) ? $arr["reload_layout"] : "")."',
 				reload_property: '".$arr["reload_property"]."',
 				property: '".$arr["property"]."'
 			}, function (html) {
@@ -1228,7 +1228,7 @@ function aw_get_el(name,form)
 		));
 
 		$obj = obj($arr["id"]);
-		$cx = get_instance("cfg/cfgutils");
+		$cx = new cfgutils();
 		$props = $cx->load_class_properties(array(
 			"clid" => $obj->class_id(),
 		));

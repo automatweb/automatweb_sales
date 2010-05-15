@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_settings.aw,v 1.36 2009/06/29 14:08:27 markop Exp $
+
 // crm_settings.aw - Kliendibaasi seaded
 /*
 
@@ -41,16 +41,16 @@
 
   	         @property view_task_rows_open type=checkbox ch_value=1 table=objects field=meta
   	         @caption Vaikimisi avatakse toimetuse nimel klikkides kohe read
-  	 
+
 	         @property default_task_rows_bills_filter type=select table=objects field=meta
   	         @caption Toimetuse ridades valitud Arve tulba vaikimisi filter
-  	 
+
 	@property task_rows_controller type=relpicker table=objects field=meta reltype=RELTYPE_CTR
 	@caption Toimetuse ridade kontroller
-	
+
 	@property task_save_controller type=relpicker table=objects field=meta reltype=RELTYPE_CTR
 	@caption Toimetuse salvestamise kontroller
-	
+
 	@property controller_meeting type=relpicker reltype=RELTYPE_CTR table=objects field=meta method=serialize
 	@caption Kohtumise kontroller
 
@@ -166,7 +166,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 	@property bill_mail_legend type=text field=meta method=serialize
 	@caption Meili sisu legend
-		
+
 	@property bill_mail_ct type=textarea rows=20 cols=50 field=meta method=serialize
 	@caption Meili sisu
 
@@ -594,7 +594,7 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 		}
 
 
-		$table =& $arr["prop"]["vcl_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 		$table->define_field(array(
 			"name" => "name",
 			"caption" => t("Veeru nimi"),
@@ -618,14 +618,14 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 		# get default fields
 		$i = get_instance($this->crmcfg_defined_tables[$class_id][$cfg_table_name]["fields_class"]);
 		$function = $this->crmcfg_defined_tables[$class_id][$cfg_table_name]["fields_method"];
-		classload("vcl/table");
+
 		$default_cfg = new vcl_table(array(
 			"layout" => "generic"
 		));
-		$i->$function(&$default_cfg);
+		$i->$function($default_cfg);
 
 		# get saved cfg
-		$this_object =& $arr["obj_inst"];
+		$this_object = $arr["obj_inst"];
 		$table_cfg = $this_object->meta($usecase . "-" . $cfg_table_name);
 		$cfg_not_defined = is_array($table_cfg) ? false : true;
 
@@ -755,7 +755,7 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 			return PROP_IGNORE;
 		}
 
-		$this_object =& $arr["obj_inst"];
+		$this_object = $arr["obj_inst"];
 		$table_cfg = array();
 
 		foreach (safe_array ($arr["request"]["tablecfgkey"]) as $field_name)

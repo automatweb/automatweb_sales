@@ -355,6 +355,24 @@ class crm_sales_contacts_view
 					"text" => t("Vaata/muuda kliendisuhet"),
 					"link" => $core->mk_my_orb("change", array("id" => $customer_relation->id(), "return_url" => get_ru()), CL_CRM_COMPANY_CUSTOMER_DATA)
 				));
+				$menu->add_item(array(
+					"text" => t("Loo k&otilde;ne"),
+					"link" => $core->mk_my_orb("create_call", array(
+						"id" => $this_o->id(),
+						"cust_rel" => $customer_relation->id(),
+						"return_url" => get_ru()),
+						CL_CRM_SALES
+					)
+				));
+				$menu->add_item(array(
+					"text" => t("Loo esitlus"),
+					"link" => $core->mk_my_orb("create_presentation", array(
+						"id" => $this_o->id(),
+						"cust_rel" => $customer_relation->id(),
+						"return_url" => get_ru()),
+						CL_CRM_SALES
+					)
+				));
 				$menu = $menu->get_menu();
 
 				// define table row

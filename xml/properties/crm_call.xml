@@ -150,16 +150,7 @@
             <type>datepicker</type>
             <field>start</field>
             <parent>top_2way_right</parent>
-            <caption>Algus</caption>
-      </property>
-      <property>
-            <name>end</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>datepicker</type>
-            <parent>top_2way_right</parent>
-            <field>end</field>
-            <caption>L&amp;amp;otilde;peb</caption>
+            <caption>Plaanitud aeg</caption>
       </property>
       <property>
             <name>deadline</name>
@@ -202,14 +193,19 @@
             <caption>K&amp;amp;otilde;ne tegija</caption>
       </property>
       <property>
-            <name>hrs_table</name>
+            <name>participant_select</name>
             <table>planner</table>
             <group>general</group>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <parent>top_bit</parent>
-            <field>hrs_table</field>
+            <type>relpicker</type>
+            <delete_rels_popup_button>1</delete_rels_popup_button>
+            <no_edit>1</no_edit>
+            <multiple>1</multiple>
+            <size>5</size>
+            <store>connect</store>
+            <reltype>RELTYPE_PARTICIPANT</reltype>
+            <parent>top_2way_right</parent>
+            <field>participant_select</field>
+            <caption>Osalejad</caption>
       </property>
       <property>
             <name>center_bit_vis</name>
@@ -232,46 +228,6 @@
             <parent>content_bit</parent>
             <no_caption>1</no_caption>
             <width>100%</width>
-      </property>
-      <property>
-            <name>co_tb</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>toolbar</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <parent>customer_bit</parent>
-            <field>co_tb</field>
-      </property>
-      <property>
-            <name>co_table</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <parent>customer_bit</parent>
-            <field>co_table</field>
-      </property>
-      <property>
-            <name>project_tb</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>toolbar</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <parent>project_bit</parent>
-            <field>project_tb</field>
-      </property>
-      <property>
-            <name>proj_table</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <parent>project_bit</parent>
-            <field>proj_table</field>
       </property>
       <property>
             <name>impl_tb</name>
@@ -314,26 +270,6 @@
             <field>files_table</field>
       </property>
       <property>
-            <name>bills_tb</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>toolbar</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <parent>bills_bit</parent>
-            <field>bills_tb</field>
-      </property>
-      <property>
-            <name>bills_table</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <parent>bills_bit</parent>
-            <field>bills_table</field>
-      </property>
-      <property>
             <name>task_results_toolbar</name>
             <table>planner</table>
             <group>general</group>
@@ -352,26 +288,6 @@
             <store>no</store>
             <parent>reults_bit</parent>
             <field>task_results_table</field>
-      </property>
-      <property>
-            <name>customer</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>relpicker</type>
-            <field>customer</field>
-            <reltype>RELTYPE_CUSTOMER</reltype>
-            <parent>center_bit_right_top</parent>
-            <caption>Klient</caption>
-      </property>
-      <property>
-            <name>project</name>
-            <table>planner</table>
-            <group>general</group>
-            <type>relpicker</type>
-            <field>project</field>
-            <reltype>RELTYPE_PROJECT</reltype>
-            <parent>center_bit_right_top</parent>
-            <caption>Projekt</caption>
       </property>
       <property>
             <name>is_done</name>
@@ -543,42 +459,6 @@
             <caption>Toolbar</caption>
       </property>
       <property>
-            <name>recurrence</name>
-            <table>objects</table>
-            <group>recurrence</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>releditor</type>
-            <reltype>RELTYPE_RECURRENCE</reltype>
-            <rel_id>first</rel_id>
-            <props>
-                  <num_0>start</num_0>
-                  <num_1>weekdays</num_1>
-                  <num_2>end</num_2>
-            </props>
-            <caption>Kordused</caption>
-      </property>
-      <property>
-            <name>calendar_selector</name>
-            <table>objects</table>
-            <group>calendars</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>calendar_selector</type>
-            <store>no</store>
-            <caption>Kalendrid</caption>
-      </property>
-      <property>
-            <name>project_selector</name>
-            <table>objects</table>
-            <group>projects</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>project_selector</type>
-            <store>no</store>
-            <caption>Projektid</caption>
-      </property>
-      <property>
             <name>comment_list</name>
             <table>objects</table>
             <group>comments</group>
@@ -587,79 +467,6 @@
             <type>comments</type>
             <no_caption>1</no_caption>
             <caption>Kommentaarid</caption>
-      </property>
-      <property>
-            <name>participant</name>
-            <table>objects</table>
-            <group>participants</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>participant_selector</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <caption>Osalejad</caption>
-      </property>
-      <property>
-            <name>search_contact_company</name>
-            <table>objects</table>
-            <group>participants</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>textbox</type>
-            <store>no</store>
-            <caption>Organisatsioon</caption>
-      </property>
-      <property>
-            <name>search_contact_firstname</name>
-            <table>objects</table>
-            <group>participants</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>textbox</type>
-            <store>no</store>
-            <caption>Eesnimi</caption>
-      </property>
-      <property>
-            <name>search_contact_lastname</name>
-            <table>objects</table>
-            <group>participants</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>textbox</type>
-            <store>no</store>
-            <caption>Perenimi</caption>
-      </property>
-      <property>
-            <name>search_contact_code</name>
-            <table>objects</table>
-            <group>participants</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>textbox</type>
-            <store>no</store>
-            <caption>Isikukood</caption>
-      </property>
-      <property>
-            <name>search_contact_button</name>
-            <table>objects</table>
-            <group>participants</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>submit</type>
-            <store>no</store>
-            <action>search_contacts</action>
-            <caption>Otsi</caption>
-      </property>
-      <property>
-            <name>search_contact_results</name>
-            <table>objects</table>
-            <group>participants</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>table</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <caption>Tulemuste tabel</caption>
       </property>
       <property>
             <name>other_calls</name>
@@ -689,15 +496,6 @@
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
-            <recurrence>
-                  <caption>Kordumine</caption>
-            </recurrence>
-            <calendars>
-                  <caption>Kalendrid</caption>
-            </calendars>
-            <projects>
-                  <caption>Projektid</caption>
-            </projects>
             <comments>
                   <caption>Kommentaarid</caption>
             </comments>
@@ -727,24 +525,6 @@
             </planner>
       </tableinfo>
       <reltypes>
-            <RECURRENCE>
-                  <value>1</value>
-                  <clid>CL_RECURRENCE</clid>
-                  <caption>Kordus</caption>
-            </RECURRENCE>
-            <CUSTOMER>
-                  <value>3</value>
-                  <clid>
-                        <num_0>CL_CRM_COMPANY</num_0>
-                        <num_1>CL_CRM_PERSON</num_1>
-                  </clid>
-                  <caption>Klient</caption>
-            </CUSTOMER>
-            <PROJECT>
-                  <value>4</value>
-                  <clid>CL_PROJECT</clid>
-                  <caption>Projekt</caption>
-            </PROJECT>
             <PREDICATE>
                   <value>9</value>
                   <clid>
@@ -769,6 +549,11 @@
                   <clid>CL_CRM_COMPANY_CUSTOMER_DATA</clid>
                   <caption>tmp1</caption>
             </TMP1>
+            <PARTICIPANT>
+                  <value>12</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>Osaleja</caption>
+            </PARTICIPANT>
       </reltypes>
       <layout>
             <top_bit>
@@ -841,18 +626,6 @@
                   <area_caption>Sisu</area_caption>
                   <group>general</group>
             </content_bit>
-            <customer_bit>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>Tellijad</area_caption>
-                  <group>general</group>
-            </customer_bit>
-            <project_bit>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>Projektid</area_caption>
-                  <group>general</group>
-            </project_bit>
             <impl_bit>
                   <type>vbox</type>
                   <closeable>1</closeable>
@@ -865,12 +638,6 @@
                   <area_caption>Manused</area_caption>
                   <group>general</group>
             </files_bit>
-            <bills_bit>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>Arved</area_caption>
-                  <group>general</group>
-            </bills_bit>
             <reults_bit>
                   <type>vbox</type>
                   <closeable>1</closeable>

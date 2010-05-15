@@ -641,7 +641,7 @@ class _int_object
 
 	function class_id()
 	{
-		return isset($this->obj["class_id"]) ? $this->obj["class_id"] : null;
+		return (int) (isset($this->obj["class_id"]) ? $this->obj["class_id"] : null);
 	}
 
 	function set_class_id($param)
@@ -2488,12 +2488,13 @@ class _int_object
 			{
 				continue;
 			}
+			$params = array(
+				"oid" => $oid
+			);
 			post_message_with_param(
 				"MSG_STORAGE_DELETE",
 				$this->obj["class_id"],
-				array(
-					"oid" => $oid
-				)
+				$params
 			);
 
 			$tmpo = obj($oid);

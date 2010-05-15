@@ -349,27 +349,25 @@ class connection
 			return;
 		}
 
+		$param = array(
+			"connection" => $this
+		);
+
 		post_message(
 			"MSG_STORAGE_ALIAS_DELETE",
-			array(
-				"connection" => &$this
-			)
+			$param
 		);
 
 		post_message_with_param(
 			"MSG_STORAGE_ALIAS_DELETE_FROM",
 			$this->conn["from.class_id"],
-			array(
-				"connection" => &$this
-			)
+			$param
 		);
 
 		post_message_with_param(
 			"MSG_STORAGE_ALIAS_DELETE_TO",
 			$this->conn["to.class_id"],
-			array(
-				"connection" => &$this
-			)
+			$param
 		);
 
 		// need to read both from and to site_ids to know if cache needs to be propagated
@@ -705,37 +703,25 @@ class connection
 
 		if ($new)
 		{
-			// add the relation id to the connection object meta field as conn_id
-			if ($this->conn["relobj_id"])
-			{
-				/*
-				$o = obj($this->conn["relobj_id"]);
-				$o->set_meta("conn_id", $this->conn["id"]);
-				$o->save();
-				*/
-			}
+			$param = array(
+				"connection" => $this
+			);
 
 			post_message(
 				"MSG_STORAGE_ALIAS_ADD",
-				array(
-					"connection" => &$this
-				)
+				$param
 			);
 
 			post_message_with_param(
 				"MSG_STORAGE_ALIAS_ADD_TO",
 				$this->conn["to.class_id"],
-				array(
-					"connection" => &$this
-				)
+				$param
 			);
 
 			post_message_with_param(
 				"MSG_STORAGE_ALIAS_ADD_FROM",
 				$this->conn["from.class_id"],
-				array(
-					"connection" => &$this
-				)
+				$param
 			);
 
 		}
