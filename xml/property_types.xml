@@ -485,6 +485,7 @@
 		<objpicker>
 			<clid />
 			<options_callback />
+			<disabled />
 		</objpicker>
 
 		<time_select>

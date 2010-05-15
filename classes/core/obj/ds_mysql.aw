@@ -113,7 +113,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 	{
 		if ($ret === false)
 		{
-			if ($param["no_errors"])
+			if (!empty($param["no_errors"]))
 			{
 				return NULL;
 			}
@@ -1202,7 +1202,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				%u,							%u,						%d,						'%s',
 				%d,							%d,						%u,						%u,
 				%u
-			)", 
+			)",
 				$data["from"],				$data["to"],			$data["type"],			$data["data"],
 				$data["idx"],				$data["cached"],		$data["relobj_id"],		$data["reltype"],
 				$data["pri"]

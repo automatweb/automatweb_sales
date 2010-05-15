@@ -371,10 +371,11 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			$AW_ROOT/docs/tutorials/components/aw_messaging
 
 		@examples
-			post_message_with_param(MSG_USER_LOGIN, array("uid" => $uid));
+			$params = array("uid" => $uid);
+			post_message_with_param(MSG_USER_LOGIN, $params);
 			// now all handlers that are subscribed to the message just got called
 	**/
-	function post_message_with_param($msg, $param, $params)
+	function post_message_with_param($msg, $param, &$params)
 	{
 		if (aw_global_get("__in_post_message") > 0 && !aw_global_get("__allow_rec_msg"))
 		{

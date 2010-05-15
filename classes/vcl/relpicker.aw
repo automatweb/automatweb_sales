@@ -1,4 +1,5 @@
 <?php
+
 class relpicker extends  core
 {
 	function relpicker()
@@ -155,20 +156,21 @@ class relpicker extends  core
 			"disabled" => $disabled,
 		));
 
-		if($buttonspos == "bottom")
+		if($buttonspos === "bottom")
 		{
 			$r .= "<br>";
 		}
 
-		$url = $this->mk_my_orb("do_search", array(
-			"id" => $oid,
-			"pn" => $name,
-			"clid" => $clids,
-			"multiple" => $multiple
-		), "popup_search", false, true);
-
-		if (!$no_edit and !$no_search)
+		if (!$no_search)
 		{
+			$url = $this->mk_my_orb("do_search", array(
+				"id" => $oid,
+				"pn" => $name,
+				"in_popup" => "1",
+				"clid" => $clids,
+				"multiple" => $multiple
+			), "popup_search", false, true);
+
 			$r .= " ".html::href(array(
 				"url" => "javascript:aw_popup_scroll(\"$url\",\"Otsing\",".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
 				"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0>",
@@ -214,7 +216,7 @@ class relpicker extends  core
 			$clss = aw_ini_get("classes");
 			if (count($clid) > 1)
 			{
-				$pm = get_instance("vcl/popup_menu");
+				$pm = new popup_menu();
 				$pm->begin_menu($name."_relp_pop");
 				foreach($clids as $clid)
 				{
@@ -268,7 +270,7 @@ class relpicker extends  core
 	{
 		$prop = &$arr["property"];
 		$this->obj = $arr["obj_inst"];
-		if (isset($prop["mode"]) && $prop["mode"] == "autocomplete")
+		if (isset($prop["mode"]) && $prop["mode"] === "autocomplete")
 		{
 			return $this->init_autocomplete_relpicker($arr);
 		}
@@ -372,17 +374,17 @@ class relpicker extends  core
 			$clid = isset($arr["relinfo"][$reltype]["clid"]) ? (array)$arr["relinfo"][$reltype]["clid"] : array();
 			if(!is_object($arr["obj_inst"]) || empty($val["parent"]))
 			{
-
-				$url = $this->mk_my_orb("do_search", array(
-					"id" => is_object($arr["obj_inst"]) ? $arr["obj_inst"]->id() : null,
-					"pn" => $arr["property"]["name"],
-					"clid" => $clid,
-					"multiple" => isset($arr["property"]["multiple"]) && $arr["property"]["multiple"] ? $arr["property"]["multiple"] : NULL
-				), "popup_search", false, true);
-
 				// I only want the search button. No edit or new buttons!
-				if ((empty($val["no_edit"]) || !empty($val["search_button"])) and empty($val["no_search"]))
+				if (empty($val["no_search"]))
 				{
+					$url = $this->mk_my_orb("do_search", array(
+						"id" => is_object($arr["obj_inst"]) ? $arr["obj_inst"]->id() : null,
+						"pn" => $arr["property"]["name"],
+						"in_popup" => "1",
+						"clid" => $clid,
+						"multiple" => isset($arr["property"]["multiple"]) && $arr["property"]["multiple"] ? $arr["property"]["multiple"] : NULL
+					), "popup_search", false, true);
+
 					$val["post_append_text"] .= " ".html::href(array(
 						"url" => "javascript:aw_popup_scroll('$url','Otsing',".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
 						"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0>",
@@ -392,7 +394,7 @@ class relpicker extends  core
 			}//selle paneks peaaegu alati t88le kui suudaks loadida relpickereid
 			elseif(empty($val["no_search"]))
 			{
-				$ps = get_instance("vcl/popup_search");
+				$ps = new popup_search();
 				$ps->set_class_id($clid);
 				$ps->set_id($arr["obj_inst"]->id());
 				$ps->set_reload_property($val["name"]);
@@ -432,7 +434,7 @@ class relpicker extends  core
 			empty($val["no_edit"])
 		)
 		{
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu(str_replace(array("[", "]"), "", $val["name"])."_rp_editbtn");
 			foreach($this->obj->prop($val["name"]) as $id)
 			{
@@ -495,7 +497,7 @@ class relpicker extends  core
 
 		if($val["type"] === "select" && is_object($this->obj) && $allow_delete)
 		{
-			if($val["delete_button"])
+			if(!empty($val["delete_button"]))
 			{
 				foreach($oids as $i => $oid)
 				{
@@ -512,7 +514,7 @@ class relpicker extends  core
 				));
 			}
 
-			if($val["delete_rels_button"])
+			if(!empty($val["delete_rels_button"]))
 			{
 				foreach($oids as $i => $oid)
 				{
@@ -529,12 +531,13 @@ class relpicker extends  core
 				));
 			}
 
-			if($val["delete_rels_popup_button"])
+			if(!empty($val["delete_rels_popup_button"]))
 			{
 				$url = $this->mk_my_orb("rels_del_popup", array(
 					"id" => $arr["id"],
+					"in_popup" => "1",
 					"return_url" => get_ru(),
-					"reltype" => $arr["prop"]["reltype"],
+					"reltype" => $arr["prop"]["reltype"]
 				));
 				$button = '<a title="Eemalda" alt="Eemalda" href="javascript:void();"
 					onclick="window.open(\''.$url.'\',\'\', \'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=600, width=800\');">
@@ -612,7 +615,7 @@ class relpicker extends  core
 	{
 		$o = obj($arr["id"]);
 
-		if($arr["del_rels"])
+		if(!empty($arr["del_rels"]))
 		{
 			$o->disconnect(array(
 				"from" => $arr["del_rels"],
@@ -632,8 +635,7 @@ class relpicker extends  core
 			"type" => $arr["reltype"],
 		));
 
-		classload("vcl/table");
-		$t = new vcl_table;
+		$t = new vcl_table();
 
 		$t->define_field(array(
 			"name" => "name",
@@ -660,21 +662,54 @@ class relpicker extends  core
 				"del" => html::href(array("caption" => t("Kustuta"), "url" => aw_url_change_var("del_rels", $con->prop("to")),)),
 			));
 		}
-		print "<form method=POST action=".get_ru().">";
-		print $t->draw();
-		print html::submit(array("name" => "submit", "value" => t("Kustuta valitud seosed")));
-		print "</form>";
+
+		$htmlc = new htmlclient(array(
+			'template' => "default"
+		));
+		$htmlc->start_output();
+		$htmlc->add_property(array(
+			"caption" => t("Vali eemaldatavad seosed"),
+		));
+
+		$htmlc->add_property(array(
+			"name" => "rels_table",
+			"no_caption" => "1",
+			"type" => "text",
+			"value" => $t->draw()
+		));
+
+		$htmlc->add_property(array(
+			"name" => "submit",
+			"type" => "submit",
+			"value" => t("Kustuta valitud seosed"),
+			"class" => "sbtbutton"
+		));
+
+		$htmlc->finish_output(array(
+			"action" => "rels_del_popup",
+			"method" => "post",
+			"data" => array(
+				"id" => $arr["id"],
+				"return_url" => $arr["return_url"],
+				"reltype" => $arr["reltype"],
+				"orb_class" => "relpicker",
+				"reforb" => 0
+			)
+		));
+
+		$html = $htmlc->get_result();
+		return $html;
 	}
 
 
 	function process_vcl_property($arr)
 	{
-		if (ifset($arr, "prop", "mode") == "autocomplete")
+		if (ifset($arr, "prop", "mode") === "autocomplete")
 		{
 			return $this->process_autocomplete_relpicker($arr);
 		}
 		$property = $arr["prop"];
-		if (ifset($property, "type") == "relpicker" && ifset($property, "automatic") == 1)
+		if (ifset($property, "type") === "relpicker" && ifset($property, "automatic") == 1)
 		{
 			$obj_inst = $arr["obj_inst"];
 			$conns = array();
@@ -685,7 +720,8 @@ class relpicker extends  core
 				$conns = $obj_inst->connections_from(array(
 					"type" => $property["reltype"],
 				));
-			};
+			}
+
 			// no existing connection, create a new one
 			if ($arr["new"] || sizeof($conns) == 0)
 			{
@@ -716,9 +752,8 @@ class relpicker extends  core
 					{
 						if (!in_array($conn->prop("to"),$property["value"]))
 						{
-
 						//	$conn->delete();
-						};
+						}
 					}
 				}
 				else
@@ -733,10 +768,10 @@ class relpicker extends  core
 						$existing->change(array(
 							"to" => $property["value"],
 						));
-					};
-				};
-			};
-		};
+					}
+				}
+			}
+		}
 	}
 
 	function init_autocomplete_relpicker($arr)
@@ -823,6 +858,7 @@ class relpicker extends  core
 				"site_id" => array(),
 				"name" => $arr["prop"]["value"]
 			));
+
 			if ($ol->count())
 			{
 				$item = $ol->begin();
@@ -836,7 +872,7 @@ class relpicker extends  core
 				$item->save();
 			}
 
-			if ($arr["prop"]["store"] == "connect" && is_oid($arr["obj_inst"]->id()))
+			if ($arr["prop"]["store"] === "connect" && is_oid($arr["obj_inst"]->id()))
 			{
 				foreach($arr["obj_inst"]->connections_from(array("type" => $arr["prop"]["reltype"])) as $c)
 				{
@@ -852,6 +888,6 @@ class relpicker extends  core
 			$arr["obj_inst"]->set_prop($arr["prop"]["name"], $item->id());
 		}
 	}
-};
+}
 
 ?>

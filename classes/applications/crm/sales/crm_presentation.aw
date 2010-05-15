@@ -44,6 +44,9 @@
 	@property assigned_salesman_edit type=select datatype=int store=no
 	@caption M&uuml;&uuml;giesindaja
 
+	@property participant_select type=relpicker delete_rels_popup_button=1 no_edit=1 multiple=1 size=5 store=connect reltype=RELTYPE_PARTICIPANT
+	@caption Osalejad
+
 	@property presentation_location type=relpicker reltype=RELTYPE_LOCATION table=objects field=meta method=serialize no_search=1 add_edit_autoreturn=1 no_sel=1
 	@comment * - m&auml;rgitud aadressid on kontakti aadressid. &Uuml;lej&auml;&auml;nud on esitluse toimumiskohad, mis kontakti andmetes ei kajastu.
 	@caption Toimumiskoht
@@ -84,6 +87,9 @@
 
 @reltype SOLD_PRODUCT value=10 clid=CL_SHOP_PRODUCT
 @caption M&uuml;&uuml;dud toode
+
+@reltype PARTICIPANT value=12 clid=CL_CRM_PERSON
+@caption Osaleja
 
 */
 

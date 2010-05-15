@@ -103,10 +103,10 @@ function cfEditClickGroup(group, oid)
 
 </script>
 
+<!-- SUB: HEADER -->
 <div id="pais">
 <!-- p2is -->
 <div id="awMainHeaderContainer">
-<!-- SUB: HEADER -->
 	<div class="logo">
 		<span>{VAR:prod_family}</span>
 		<a href="{VAR:prod_family_href}" title="AutomatWeb"><img src="{VAR:baseurl}/automatweb/images/aw06/aw_logo.gif" alt="AutomatWeb.com" width="183" height="34" border="0" /></a>
@@ -157,11 +157,11 @@ function cfEditClickGroup(group, oid)
 		{VAR:site_title}
 	</div>
 	<!-- END SUB: YAH -->
+</div>
 <!-- END SUB: HEADER -->
 
 <!-- SUB: NO_HEADER -->
 <!-- END SUB: NO_HEADER -->
-</div>
 
 	{VAR:content}
 

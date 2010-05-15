@@ -1426,7 +1426,7 @@ EOF;
 
 		$arr["obj_inst"]->set_name($arr["obj_inst"]->prop("uid"));
 
-		if ($arr["request"]["group"] == "settings")
+		if ($arr["request"]["group"] === "settings")
 		{
 			$arr["obj_inst"]->set_prop("ui_language", $arr["request"]["set_ui_lang"]);
 		}
@@ -1449,12 +1449,14 @@ EOF;
 				$group_inst->add_user_to_group($arr["obj_inst"], $aug_o);
 			}
 
+			$params = array(
+				"user_oid" => $arr["obj_inst"]->id(),
+			);
+
 			post_message_with_param(
 				MSG_USER_CREATE,
 				$this->clid,
-				array(
-					"user_oid" => $arr["obj_inst"]->id(),
-				)
+				$params
 			);
 
 			// now, we also must check if the user was added under a group

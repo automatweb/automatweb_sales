@@ -604,7 +604,7 @@ class crm_sales extends class_base
 				"in_tree" => true
 			),
 			self::PRESENTATIONS_ADDED_TODAY => array(
-				"caption" => t("T&auml;na sisestatud esitlused"),
+				"caption" => t("T&auml;na loodud esitlused"),
 				"in_tree" => true
 			),
 			self::PRESENTATIONS_TODAY => array(
@@ -720,6 +720,15 @@ class crm_sales extends class_base
 		))
 		{
 				self::$offers_list_view = self::OFFERS_SEARCH;
+		}
+		elseif ("data_entry" === substr($this->use_group, 0, 10))
+		{
+			Zend_Dojo_View_Helper_Dojo::setUseProgrammatic();
+			$this->zend_view = new Zend_View();
+			$this->zend_view->addHelperPath('Zend/Dojo/View/Helper/', 'Zend_Dojo_View_Helper');
+			$this->zend_view->dojo()->enable()
+				->setDjConfigOption('parseOnLoad', true)
+				->addStylesheetModule('dijit.themes.tundra');
 		}
 	}
 
@@ -872,7 +881,26 @@ class crm_sales extends class_base
 
 	function _get_contact_entry_category(&$arr)
 	{
-		$r = is_object($this->contact_entry_edit_object) ? PROP_IGNORE : PROP_OK;
+		$r = PROP_IGNORE;
+
+		if (!is_object($this->contact_entry_edit_object))
+		{
+			$r = PROP_OK;
+			$this->zend_view->dojo()->requireModule('dijit.form.NumberSpinner');
+			return $this->zend_view->numberSpinner(
+				"content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][value]",
+				$value,
+				array(
+					"min" => $min,
+					"max" => $max,
+					"places" => 0
+				),
+				array(
+					"id" => "content_table_{$row["row"]->id()}_price_component_{$row["price_component"]->id()}_value",
+				)
+			).($row["price_component"]->prop("is_ratio") ? t("%") : "");
+		}
+
 		return $r;
 	}
 
