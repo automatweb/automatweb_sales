@@ -1164,6 +1164,137 @@
             <caption>Kontakt (organisatsioon)</caption>
       </property>
       <property>
+            <name>contact_entry_contacts_title</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>contact_entry_form_right</parent>
+            <caption>Kontaktisikud:</caption>
+      </property>
+      <property>
+            <name>contact_entry_contacts_subtitle_1</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>contact_entry_form_right</parent>
+            <caption>Kontaktisik 1</caption>
+      </property>
+      <property>
+            <name>contact_entry_co_contact_1</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>releditor</type>
+            <reltype>RELTYPE_TMP3</reltype>
+            <store>no</store>
+            <props>
+                  <num_0>lastname</num_0>
+                  <num_1>firstname</num_1>
+                  <num_2>fake_phone</num_2>
+                  <num_3>fake_email</num_3>
+            </props>
+            <parent>contact_entry_form_right</parent>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>contact_entry_co_contact_1_profession</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>contact_entry_form_right</parent>
+            <caption>Ametinimetus</caption>
+      </property>
+      <property>
+            <name>contact_entry_contacts_subtitle_2</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>contact_entry_form_right</parent>
+            <caption>Kontaktisik 2</caption>
+      </property>
+      <property>
+            <name>contact_entry_co_contact_2</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>releditor</type>
+            <reltype>RELTYPE_TMP3</reltype>
+            <store>no</store>
+            <props>
+                  <num_0>lastname</num_0>
+                  <num_1>firstname</num_1>
+                  <num_2>fake_phone</num_2>
+                  <num_3>fake_email</num_3>
+            </props>
+            <parent>contact_entry_form_right</parent>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>contact_entry_co_contact_2_profession</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>contact_entry_form_right</parent>
+            <caption>Ametinimetus</caption>
+      </property>
+      <property>
+            <name>contact_entry_contacts_subtitle_3</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>contact_entry_form_right</parent>
+            <caption>Kontaktisik 3</caption>
+      </property>
+      <property>
+            <name>contact_entry_co_contact_3</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>releditor</type>
+            <reltype>RELTYPE_TMP3</reltype>
+            <store>no</store>
+            <props>
+                  <num_0>lastname</num_0>
+                  <num_1>firstname</num_1>
+                  <num_2>fake_phone</num_2>
+                  <num_3>fake_email</num_3>
+            </props>
+            <parent>contact_entry_form_right</parent>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>contact_entry_co_contact_3_profession</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_co</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>contact_entry_form_right</parent>
+            <caption>Ametinimetus</caption>
+      </property>
+      <property>
             <name>contact_entry_person</name>
             <table>objects</table>
             <field>meta</field>
@@ -1794,6 +1925,15 @@
                   </group>
                   <area_caption>Uus&amp;amp;nbsp;kontakt</area_caption>
             </de_form_box>
+            <de_form_pane>
+                  <type>hbox</type>
+                  <group>
+                        <num_0>data_entry_contact_co</num_0>
+                        <num_1>data_entry_contact_person</num_1>
+                  </group>
+                  <parent>de_form_box</parent>
+                  <area_caption></area_caption>
+            </de_form_pane>
             <de_table_box>
                   <type>vbox</type>
                   <group>
@@ -1808,9 +1948,18 @@
                         <num_0>data_entry_contact_co</num_0>
                         <num_1>data_entry_contact_person</num_1>
                   </group>
-                  <parent>de_form_box</parent>
+                  <parent>de_form_pane</parent>
                   <area_caption></area_caption>
             </contact_entry_form>
+            <contact_entry_form_right>
+                  <type>vbox</type>
+                  <group>
+                        <num_0>data_entry_contact_co</num_0>
+                        <num_1>data_entry_contact_person</num_1>
+                  </group>
+                  <parent>de_form_pane</parent>
+                  <area_caption></area_caption>
+            </contact_entry_form_right>
             <contact_entry_buttons>
                   <type>hbox</type>
                   <parent>de_form_box</parent>

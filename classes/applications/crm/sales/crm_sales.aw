@@ -387,8 +387,10 @@ PROPERTY DECLARATIONS
 
 
 @layout de_form_box type=vbox group=data_entry_contact_co,data_entry_contact_person area_caption=Uus&nbsp;kontakt
+@layout de_form_pane type=hbox group=data_entry_contact_co,data_entry_contact_person parent=de_form_box
 @layout de_table_box type=vbox group=data_entry_contact_co,data_entry_contact_person
-@layout contact_entry_form type=vbox group=data_entry_contact_co,data_entry_contact_person parent=de_form_box
+@layout contact_entry_form type=vbox group=data_entry_contact_co,data_entry_contact_person parent=de_form_pane
+@layout contact_entry_form_right type=vbox group=data_entry_contact_co,data_entry_contact_person parent=de_form_pane
 
 
 @default group=data_entry
@@ -397,6 +399,27 @@ PROPERTY DECLARATIONS
 @default group=data_entry_contact_co
 	@property contact_entry_co type=releditor reltype=RELTYPE_TMP2 store=no props=name,ettevotlusvorm,fake_phone,fake_mobile,fake_email parent=contact_entry_form
 	@caption Kontakt (organisatsioon)
+
+	@property contact_entry_contacts_title type=text store=no parent=contact_entry_form_right group=data_entry_contact_co
+	@caption Kontaktisikud:
+
+	@property contact_entry_contacts_subtitle_1 type=text store=no parent=contact_entry_form_right group=data_entry_contact_co
+	@caption Kontaktisik 1
+	@property contact_entry_co_contact_1 type=releditor reltype=RELTYPE_TMP3 store=no props=lastname,firstname,fake_phone,fake_email parent=contact_entry_form_right no_caption=1
+	@property contact_entry_co_contact_1_profession type=textbox store=no parent=contact_entry_form_right
+	@caption Ametinimetus
+
+	@property contact_entry_contacts_subtitle_2 type=text store=no parent=contact_entry_form_right group=data_entry_contact_co
+	@caption Kontaktisik 2
+	@property contact_entry_co_contact_2 type=releditor reltype=RELTYPE_TMP3 store=no props=lastname,firstname,fake_phone,fake_email parent=contact_entry_form_right no_caption=1
+	@property contact_entry_co_contact_2_profession type=textbox store=no parent=contact_entry_form_right
+	@caption Ametinimetus
+
+	@property contact_entry_contacts_subtitle_3 type=text store=no parent=contact_entry_form_right group=data_entry_contact_co
+	@caption Kontaktisik 3
+	@property contact_entry_co_contact_3 type=releditor reltype=RELTYPE_TMP3 store=no props=lastname,firstname,fake_phone,fake_email parent=contact_entry_form_right no_caption=1
+	@property contact_entry_co_contact_3_profession type=textbox store=no parent=contact_entry_form_right
+	@caption Ametinimetus
 
 
 @default group=data_entry_contact_person
@@ -557,6 +580,20 @@ class crm_sales extends class_base
 
 	public static $offers_list_views = array();
 	public static $offers_list_view = self::PRESENTATIONS_DEFAULT;
+
+	private static $no_edit_contact_entry_props = array(
+		"contact_entry_co_contact_1",
+		"contact_entry_co_contact_2",
+		"contact_entry_co_contact_3",
+		"contact_entry_co_contact_1_profession",
+		"contact_entry_co_contact_2_profession",
+		"contact_entry_co_contact_3_profession",
+		"contact_entry_contacts_subtitle_1",
+		"contact_entry_contacts_subtitle_2",
+		"contact_entry_contacts_subtitle_3",
+		"contact_entry_contacts_title",
+		"contact_entry_category"
+	);
 
 	// ...
 	private $contact_entry_edit_object; // object to be edited in contact entry view (crm_company or crm_person)
@@ -876,26 +913,24 @@ class crm_sales extends class_base
 
 	function _get_contact_entry_category(&$arr)
 	{
-		$r = PROP_IGNORE;
-
-		if (!is_object($this->contact_entry_edit_object))
-		{
-			$r = PROP_OK;
-			// $this->zend_view->dojo()->requireModule('dijit.form.NumberSpinner');
-			// return $this->zend_view->numberSpinner(
-				// "content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][value]",
-				// $value,
-				// array(
-					// "min" => $min,
-					// "max" => $max,
-					// "places" => 0
-				// ),
-				// array(
-					// "id" => "content_table_{$row["row"]->id()}_price_component_{$row["price_component"]->id()}_value",
-				// )
-			// ).($row["price_component"]->prop("is_ratio") ? t("%") : "");
+		$r = PROP_OK;
+		if (is_object($this->contact_entry_edit_object))
+		{ // hide properties that aren't editable when editing an added contact in contact entry view
+			$r = PROP_IGNORE;
 		}
-
+		// $this->zend_view->dojo()->requireModule('dijit.form.NumberSpinner');
+		// return $this->zend_view->numberSpinner(
+			// "content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][value]",
+			// $value,
+			// array(
+				// "min" => $min,
+				// "max" => $max,
+				// "places" => 0
+			// ),
+			// array(
+				// "id" => "content_table_{$row["row"]->id()}_price_component_{$row["price_component"]->id()}_value",
+			// )
+		// ).($row["price_component"]->prop("is_ratio") ? t("%") : "");
 		return $r;
 	}
 
@@ -1269,6 +1304,10 @@ class crm_sales extends class_base
 			{
 				$ret = crm_sales_settings_offers_view::$method_name($arr);
 			}
+		}
+		elseif (is_object($this->contact_entry_edit_object) and in_array($arr["prop"]["name"], self::$no_edit_contact_entry_props))
+		{ // hide properties that aren't editable when editing an added contact in contact entry view
+			$ret = PROP_IGNORE;
 		}
 
 		return $ret;
@@ -2052,6 +2091,7 @@ SCRIPT;
 					$customer_relation->connect(array("to" => $lead_source, "reltype" => "RELTYPE_SALES_LEAD_SOURCE"));
 				}
 
+				// additional comment
 				if (!empty($arr["request"]["contact_entry_add_comment"]))
 				{ // add comment
 					$parent = $customer_relation->id();
@@ -2062,6 +2102,136 @@ SCRIPT;
 						"commtext" => $comment_text,
 						"return" => "id"
 					));
+				}
+
+				// contact people
+				if (!empty($arr["request"]["contact_entry_co_contact_1"]["firstname"]) or !empty($arr["request"]["contact_entry_co_contact_1"]["lastname"]))
+				{
+					// add first contact person to entered company
+					$contact_person = obj(null, array(), CL_CRM_PERSON);
+					$contact_person->set_parent($o->id());
+					$contact_person->set_prop("firstname", ucfirst($arr["request"]["contact_entry_co_contact_1"]["firstname"]));
+					$contact_person->set_prop("lastname", ucfirst($arr["request"]["contact_entry_co_contact_1"]["lastname"]));
+					$contact_person->save();
+					$save_again = false;
+
+					if (!empty($arr["request"]["contact_entry_co_contact_1"]["fake_phone"]))
+					{
+						$contact_person->set_prop("fake_phone", $arr["request"]["contact_entry_co_contact_1"]["fake_phone"]);
+						$save_again = true;
+					}
+
+					if (!empty($arr["request"]["contact_entry_co_contact_1"]["fake_phone"]))
+					{
+						$contact_person->set_prop("fake_email", $arr["request"]["contact_entry_co_contact_1"]["fake_email"]);
+						$save_again = true;
+					}
+
+					if ($save_again)
+					{
+						$contact_person->save();
+					}
+
+					if (empty($arr["request"]["contact_entry_co_contact_1_profession"]))
+					{
+						$profession = null;
+					}
+					else
+					{ // create new profession in entered company
+						$profession = obj(null, array(), CL_CRM_PROFESSION);
+						$profession->set_parent($o->id());
+						$profession->set_prop("organization", $o->id());
+						$profession->set_name($arr["request"]["contact_entry_co_contact_1_profession"]);
+						$profession->save();
+					}
+
+					$o->add_employee($profession, $contact_person);
+				}
+
+				if (!empty($arr["request"]["contact_entry_co_contact_2"]["firstname"]) or !empty($arr["request"]["contact_entry_co_contact_2"]["lastname"]))
+				{
+					// add second contact person to entered company
+					$contact_person = obj(null, array(), CL_CRM_PERSON);
+					$contact_person->set_parent($o->id());
+					$contact_person->set_prop("firstname", ucfirst($arr["request"]["contact_entry_co_contact_2"]["firstname"]));
+					$contact_person->set_prop("lastname", ucfirst($arr["request"]["contact_entry_co_contact_2"]["lastname"]));
+					$contact_person->save();
+					$save_again = false;
+
+					if (!empty($arr["request"]["contact_entry_co_contact_2"]["fake_phone"]))
+					{
+						$contact_person->set_prop("fake_phone", $arr["request"]["contact_entry_co_contact_2"]["fake_phone"]);
+						$save_again = true;
+					}
+
+					if (!empty($arr["request"]["contact_entry_co_contact_2"]["fake_phone"]))
+					{
+						$contact_person->set_prop("fake_email", $arr["request"]["contact_entry_co_contact_2"]["fake_email"]);
+						$save_again = true;
+					}
+
+					if ($save_again)
+					{
+						$contact_person->save();
+					}
+
+					if (empty($arr["request"]["contact_entry_co_contact_2_profession"]))
+					{
+						$profession = null;
+					}
+					else
+					{ // create new profession in entered company
+						$profession = obj(null, array(), CL_CRM_PROFESSION);
+						$profession->set_parent($o->id());
+						$profession->set_prop("organization", $o->id());
+						$profession->set_name($arr["request"]["contact_entry_co_contact_2_profession"]);
+						$profession->save();
+					}
+
+					$o->add_employee($profession, $contact_person);
+				}
+
+				if (!empty($arr["request"]["contact_entry_co_contact_3"]["firstname"]) or !empty($arr["request"]["contact_entry_co_contact_3"]["lastname"]))
+				{
+					// add third contact person to entered company
+					$contact_person = obj(null, array(), CL_CRM_PERSON);
+					$contact_person->set_parent($o->id());
+					$contact_person->set_prop("firstname", ucfirst($arr["request"]["contact_entry_co_contact_3"]["firstname"]));
+					$contact_person->set_prop("lastname", ucfirst($arr["request"]["contact_entry_co_contact_3"]["lastname"]));
+					$contact_person->save();
+					$save_again = false;
+
+					if (!empty($arr["request"]["contact_entry_co_contact_3"]["fake_phone"]))
+					{
+						$contact_person->set_prop("fake_phone", $arr["request"]["contact_entry_co_contact_3"]["fake_phone"]);
+						$save_again = true;
+					}
+
+					if (!empty($arr["request"]["contact_entry_co_contact_3"]["fake_phone"]))
+					{
+						$contact_person->set_prop("fake_email", $arr["request"]["contact_entry_co_contact_3"]["fake_email"]);
+						$save_again = true;
+					}
+
+					if ($save_again)
+					{
+						$contact_person->save();
+					}
+
+					if (empty($arr["request"]["contact_entry_co_contact_3_profession"]))
+					{
+						$profession = null;
+					}
+					else
+					{ // create new profession in entered company
+						$profession = obj(null, array(), CL_CRM_PROFESSION);
+						$profession->set_parent($o->id());
+						$profession->set_prop("organization", $o->id());
+						$profession->set_name($arr["request"]["contact_entry_co_contact_3_profession"]);
+						$profession->save();
+					}
+
+					$o->add_employee($profession, $contact_person);
 				}
 
 				$this_o->add_contact($customer_relation);// also saves customer relation
