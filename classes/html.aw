@@ -1431,6 +1431,8 @@ class html
 		examples: "red", "#CCBBAA"
 	@param content optional type=string
 		html to insert between span tags
+	@param nowrap type=bool default=false
+		allow no white space wrapping if TRUE
 	@returns string/html
 
 	@comments
@@ -1439,10 +1441,11 @@ class html
 	public static function span($args = array())
 	{
 		extract($args);
-		$textsize = (!empty($textsize) ? 'font-size: ' . $textsize . ';' : "");
-		$fontweight = (!empty($fontweight) ? 'font-weight: ' . $fontweight . ';' : "");
+		$textsize = (!empty($textsize) ? 'font-size:' . $textsize . ';' : "");
+		$fontweight = (!empty($fontweight) ? 'font-weight:' . $fontweight . ';' : "");
 		$color = (!empty($color) ? "color: {$color};" : "");
-		$style = (empty($textsize) and empty($fontweight) and empty($color)) ? "" : " style=\"{$textsize}{$fontweight}{$color}\"";
+		$nowrap = empty($args["nowrap"]) ? "" : "white-space:nowrap; display: block;";
+		$style = (empty($textsize) and empty($fontweight) and empty($color) and empty($nowrap)) ? "" : " style=\"{$textsize}{$fontweight}{$color}{$nowrap}\"";
 		$class = (!empty($class) ? ' class="' . $class . '"' : "");
 		$id = (!empty($id) ? " id=\"{$id}\"" : "");
 		$content = isset($content) ? $content : "";

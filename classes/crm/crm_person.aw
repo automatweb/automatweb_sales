@@ -1097,7 +1097,7 @@ class crm_person extends class_base
 				static $i;
 				if (!$i)
 				{
-					$i = get_instance("applications/crm/crm_company_cedit_impl");
+					$i = new crm_company_cedit_impl();
 				}
 				$fn = "_set_".$prop["name"];
 				$i->$fn($arr);
@@ -1111,10 +1111,11 @@ class crm_person extends class_base
 				if (($arr["new"] || !($tmp = $this->has_user($arr["obj_inst"]))))
 				{
 					$arr["obj_inst"]->set_meta("no_create_user_yet", true);
+					$username = isset($form["username"]) ? trim($form["username"]) : "";
 
-					if (strlen(trim($prop["value"])) and !strlen(trim($form["username"])) && $arr["request"]["password"] != "")
+					if (strlen(trim($prop["value"])) and empty($username) && !empty($arr["request"]["password"]))
 					{
-						$cl_user_creator = get_instance("crm/crm_user_creator");
+						$cl_user_creator = new crm_user_creator();
 						$errors = $cl_user_creator->get_uid_for_person($arr["obj_inst"], true);
 
 						if ($errors)
@@ -4069,11 +4070,10 @@ class crm_person extends class_base
 
 		if (aw_global_get("uid") != "")
 		{
-			$u = get_instance(CL_USER);
-			$p = obj($u->get_current_person());
-			if ($arr["request"]["group"] == "general2")
+			$p = get_current_person();
+			if ("general2" === $this->use_group)
 			{
-				if ($arr["request"]["is_important"] == 1)
+				if (!empty($arr["request"]["is_important"]))
 				{
 					$p->connect(array(
 						"to" => $arr["obj_inst"]->id(),
@@ -4092,14 +4092,14 @@ class crm_person extends class_base
 				}
 			}
 
-			if ($this->can("view", $arr["request"]["add_to_task"]))
+			if (isset($arr["request"]["add_to_task"]) and $this->can("view", $arr["request"]["add_to_task"]))
 			{
 				$task = obj($arr["request"]["add_to_task"]);
 				$cc = $task->instance();
 				$cc->add_participant($task, $arr["obj_inst"]);
 			}
 
-			if ($this->can("view", $arr["request"]["add_to_co"]))
+			if (isset($arr["request"]["add_to_co"]) and $this->can("view", $arr["request"]["add_to_co"]))
 			{
 				$arr["obj_inst"]->add_work_relation(array("org" => $arr["request"]["add_to_co"]));
 			}
@@ -4808,8 +4808,12 @@ class crm_person extends class_base
 
 	function callback_mod_retval($arr)
 	{
-		$arr["args"]["cv_tpl"] = $arr["request"]["cv_tpl"];
-		if($arr["request"]["group"] == "mails")
+		if (isset($arr["request"]["cv_tpl"]))
+		{
+			$arr["args"]["cv_tpl"] = $arr["request"]["cv_tpl"];
+		}
+
+		if("mails" === $this->use_group)
 		{
 			$arr["args"]["mails_s_name"] = $arr["request"]["mails_s_name"];
 			$arr["args"]["mails_s_content"] = $arr["request"]["mails_s_content"];

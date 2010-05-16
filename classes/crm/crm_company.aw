@@ -1964,20 +1964,20 @@ class crm_company extends class_base
 				$fn = "_get_".$data["name"];
 				return $st_impl->$fn($arr);
 			case "insurance_table":
-				$this->_get_insurance_tbl(&$arr);
+				$this->_get_insurance_tbl($arr);
 				break;
 			case "insurance_tb":
-				$this->_get_insurance_tb(&$data);
+				$this->_get_insurance_tb($data);
 				break;
 
 			// CEDIT tab
 			case "cedit_toolbar":
-				$this->gen_cedit_tb(&$arr);
+				$this->gen_cedit_tb($arr);
 				break;
 
 			case "cedit_phone_tbl":
-				$i = get_instance("applications/crm/crm_company_cedit_impl");
-				$t = &$data["vcl_inst"];
+				$i = new crm_company_cedit_impl();
+				$t = $data["vcl_inst"];
 				$fields = array(
 					"number" => t("Telefoninumber"),
 					"type" => t("Telefoninumbri t&uuml;&uuml;p"),
@@ -1987,7 +1987,7 @@ class crm_company extends class_base
 				break;
 
 			case "cedit_telefax_tbl":
-				$i = get_instance("applications/crm/crm_company_cedit_impl");
+				$i = new crm_company_cedit_impl();
 				$t = $data["vcl_inst"];
 				$fields = array(
 					"number" => t("Faksi number"),
@@ -1997,7 +1997,7 @@ class crm_company extends class_base
 				break;
 
 			case "cedit_url_tbl":
-				$i = get_instance("applications/crm/crm_company_cedit_impl");
+				$i = new crm_company_cedit_impl();
 				$t = $data["vcl_inst"];
 				$fields = array(
 					"url" => t("Veebiaadress"),
@@ -2011,7 +2011,7 @@ class crm_company extends class_base
 				break;
 
 			case "cedit_email_tbl":
-				$i = get_instance("applications/crm/crm_company_cedit_impl");
+				$i = new crm_company_cedit_impl();
 				$t = $data["vcl_inst"];
 				$fields = array(
 					"email" => t("Emaili aadress"),
@@ -2021,7 +2021,7 @@ class crm_company extends class_base
 				break;
 
 			case "cedit_bank_account_tbl":
-				$i = get_instance("applications/crm/crm_company_cedit_impl");
+				$i = new crm_company_cedit_impl();
 				$t = $data["vcl_inst"];
 				$fields = array(
 					"name" => t("Arvenumbri nimetus"),
@@ -2035,7 +2035,7 @@ class crm_company extends class_base
 				break;
 
 			case "cedit_adr_tbl":
-				$i = get_instance("applications/crm/crm_company_cedit_impl");
+				$i = new crm_company_cedit_impl();
 				$t = $data["vcl_inst"];
 				$fields = array(
 					"aadress" => t("T&auml;nav"),
@@ -2195,7 +2195,7 @@ class crm_company extends class_base
 				break;
 
 			case "ext_sys_t":
-				$this->_ext_sys_t(&$arr);
+				$this->_ext_sys_t($arr);
 				break;
 
 			case "name":
@@ -2400,7 +2400,7 @@ class crm_company extends class_base
 					return PROP_IGNORE;
 				}
 				$s = $arr['request'][$data["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$data['value'] = $s;
 				break;
 
@@ -2421,7 +2421,7 @@ class crm_company extends class_base
 			case "customer_search":
 			case "customer_search_submit":
 				$s = isset($arr['request'][$data["name"]]) ? $arr['request'][$data["name"]] : "";
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$data['value'] = $s;
 				break;
 
@@ -2671,7 +2671,7 @@ class crm_company extends class_base
 
 			case "act_s_sbt":
 				$s = $arr['request'][$data["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$data['value'] = $s;
 				break;
 
@@ -3100,7 +3100,7 @@ class crm_company extends class_base
 				static $i;
 				if (!$i)
 				{
-					$i = get_instance("applications/crm/crm_company_cedit_impl");
+					$i = new crm_company_cedit_impl();
 				}
 				$fn = "_set_".$data["name"];
 				$i->$fn($arr);
@@ -3294,7 +3294,7 @@ class crm_company extends class_base
 		));
 	}
 
-	function gen_cedit_tb($arr)
+	function gen_cedit_tb(&$arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
@@ -3343,7 +3343,7 @@ class crm_company extends class_base
 	{
 		$arr['clid'] = CL_TASK;
 		$arr['reltype'] = 10; //CL_CRM_PERSON.RELTYPE_PERSON_TASK
-		$this->submit_new_action_to_person(&$arr);
+		$this->submit_new_action_to_person($arr);
 	}
 
 	/**
@@ -3373,7 +3373,7 @@ class crm_company extends class_base
 	{
 		$arr['clid'] = CL_CRM_CALL;
 		$arr['reltype'] = 9; //CL_CRM_PERSON.RELTYPE_PERSON_CALL
-		$this->submit_new_action_to_person(&$arr);
+		$this->submit_new_action_to_person($arr);
 	}
 
 	/**
@@ -3384,10 +3384,10 @@ class crm_company extends class_base
 	{
 		$arr['clid'] = CL_CRM_MEETING;
 		$arr['reltype'] = 8; //CL_CRM_PERSON.RELTYPE_PERSON_MEETING
-		$this->submit_new_action_to_person(&$arr);
+		$this->submit_new_action_to_person($arr);
 	}
 
-	function submit_new_action_to_person($arr)
+	function submit_new_action_to_person(&$arr)
 	{
 		if(!is_array($arr['check']))
 		{
@@ -7100,7 +7100,7 @@ class crm_company extends class_base
 	function proj_autocomplete_source($arr)
 	{
 		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
-		$cl_json = get_instance("protocols/data/json");
+		$cl_json = new json();
 
 		$errorstring = "";
 		$error = false;
@@ -7144,7 +7144,7 @@ class crm_company extends class_base
 	function unit_options_autocomplete_source($arr)
 	{
 		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
-		$cl_json = get_instance("protocols/data/json");
+		$cl_json = new json();
 
 		$co = $arr["customer"] ? $arr["customer"] : $arr["orderer"];
 		$name = $arr["customer_unit"] ? $arr["customer_unit"] : $arr["orderer_unit"];
@@ -7189,7 +7189,7 @@ class crm_company extends class_base
 	function worker_options_autocomplete_source($arr)
 	{
 		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
-		$cl_json = get_instance("protocols/data/json");
+		$cl_json = new json();
 
 		$co = $arr["customer"] ? $arr["customer"] : $arr["orderer"];
 		$name = $arr["customer_person"] ? $arr["customer_person"] : $arr["orderer_person"];
@@ -7235,7 +7235,7 @@ class crm_company extends class_base
 	function name_autocomplete_source($arr)
 	{
 		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
-		$cl_json = get_instance("protocols/data/json");
+		$cl_json = new json();
 
 		$errorstring = "";
 		$error = false;
@@ -7273,7 +7273,7 @@ class crm_company extends class_base
 	function keywords_autocomplete_source($arr)
 	{
 		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
-		$cl_json = get_instance("protocols/data/json");
+		$cl_json = new json();
 
 		$errorstring = "";
 		$error = false;
@@ -7548,7 +7548,7 @@ class crm_company extends class_base
 		}
 	}
 
-	function _init_ext_sys_t(&$t)
+	function _init_ext_sys_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -7562,9 +7562,9 @@ class crm_company extends class_base
 		));
 	}
 
-	function _ext_sys_t($arr)
+	function _ext_sys_t(&$arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_ext_sys_t($t);
 
 		$format = t('%s siduss&uuml;steemid');
@@ -7650,7 +7650,7 @@ class crm_company extends class_base
 	**/
 	function vm_set_act_ver($arr)
 	{
-		$i = get_instance("vcl/version_manager");
+		$i = new version_manager();
 		return $i->vm_set_act_ver($arr);
 	}
 
@@ -7659,7 +7659,7 @@ class crm_company extends class_base
 	**/
 	function vm_delete_versions($arr)
 	{
-		$i = get_instance("vcl/version_manager");
+		$i = new version_manager();
 		return $i->vm_delete_versions($arr);
 	}
 
@@ -7747,11 +7747,11 @@ class crm_company extends class_base
 		return $this->parse();
 	}
 
-	function display_persons_table($person_list, &$t)
+	function display_persons_table($person_list, $t)
 	{
 		$arr = array(
 			"prop" => array(
-				"vcl_inst" => &$t
+				"vcl_inst" => $t
 			),
 			"disp_persons" => $person_list,
 			"obj_inst" => get_current_company()
@@ -8361,7 +8361,7 @@ WWW: http://www.domain.ee (klikitav)
 Bank accounts: yksteise all
 */
 
-	function init_short_description_table(&$t)
+	function init_short_description_table($t)
 	{
 		$t->define_field(array(
 			"name" => "caption",
@@ -8381,9 +8381,9 @@ Bank accounts: yksteise all
 	{
 		$p = obj($c);
 		$t = new vcl_table();
-		$this->init_short_description_table(&$t);
-/*		$t->define_data(array("caption" => t("Aadress:")));
-*/
+		$this->init_short_description_table($t);
+//		$t->define_data(array("caption" => t("Aadress:")));
+
 		$conns = $p->connections_from(array(
 			"type" => "RELTYPE_ADDRESS",
 		));
@@ -8538,9 +8538,9 @@ Bank accounts: yksteise all
 		return $arr["post_ru"];
 	}
 
-	function _get_insurance_tbl($arr)
+	function _get_insurance_tbl(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Name"),
@@ -8599,13 +8599,13 @@ Bank accounts: yksteise all
 		}
 	}
 
-	function _get_insurance_tb($arr)
+	function _get_insurance_tb(&$arr)
 	{
-		$tb = &$arr["prop"]["toolbar"];
+		$tb = $arr["prop"]["toolbar"];
 
 		$parent = $arr["obj_inst"]->parent();
 
-		$seti = get_instance(CL_CRM_SETTINGS);
+		$seti = new crm_settings();
 		$sts = $seti->get_current_settings();
 		if ($sts && $this->can("view" , $sts->prop("insurance_link_menu")))
 		{

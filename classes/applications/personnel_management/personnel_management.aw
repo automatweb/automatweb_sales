@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/personnel_management/personnel_management.aw,v 1.98 2009/05/13 08:45:33 kristo Exp $
+
 // personnel_management.aw - Personalikeskkond
 /*
 
@@ -832,8 +832,7 @@ class personnel_management extends class_base
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
-		get_instance("core/icons");
-		$person_language_inst = get_instance(CL_CRM_PERSON_LANGUAGE);
+		$person_language_inst = new crm_person_language();
 
 		if($this->can("view", $arr["request"]["search_save"]))
 		{	// If 'Varasem otsing' is selected.
@@ -860,7 +859,7 @@ class personnel_management extends class_base
 				if(isset($_GET[$prop["name"]]))
 				{
 					$s = $_GET[$prop["name"]];
-					$this->dequote(&$s);
+					$this->dequote($s);
 					$prop['value'] = $s;
 				}
 				break;
@@ -872,7 +871,7 @@ class personnel_management extends class_base
 				if(isset($_GET[$prop["name"]]))
 				{
 					$s = $_GET[$prop["name"]];
-					$this->dequote(&$s);
+					$this->dequote($s);
 					$prop['value'] = $s;
 				}
 				break;
@@ -973,7 +972,7 @@ class personnel_management extends class_base
 				$prop["options"] += $person_language_inst->lang_lvl_options;
 
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1016,14 +1015,14 @@ class personnel_management extends class_base
 				);
 				$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : 0;
 				break;
-				
+
 			case "cv_city":
 			case "cv_county":
 			case "cv_area":
 				$prop["options"] = $this->get_locations(constant("CL_CRM".strtoupper(substr($prop["name"], 2))));
 				$prop['value'] = $arr['request'][$prop["name"]];
 				break;
-			
+
 			case "cv_wrk_load":
 				$r = get_instance(CL_CLASSIFICATOR)->get_choices(array(
 					"clid" => CL_PERSONNEL_MANAGEMENT,
@@ -1032,7 +1031,7 @@ class personnel_management extends class_base
 				));
 				$prop["options"] = $r[4]["list_names"];
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1090,7 +1089,7 @@ class personnel_management extends class_base
 
 			case "vs_name":
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1102,7 +1101,7 @@ class personnel_management extends class_base
 				));
 				$prop["options"] = $r[4]["list_names"];
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1114,14 +1113,14 @@ class personnel_management extends class_base
 				));
 				$prop["options"] = $r[4]["list_names"];
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
 			case "os_field":
 				$prop["options"] = $this->get_sectors();
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1132,7 +1131,7 @@ class personnel_management extends class_base
 					$prop["options"] = $this->get_locations(constant("CL_CRM".strtoupper(substr($prop["name"], 2))));
 				}
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1175,7 +1174,7 @@ class personnel_management extends class_base
 				$prop["options"] = $options;
 
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1184,7 +1183,7 @@ class personnel_management extends class_base
 				$prop["options"] = $person_inst->edulevel_options;
 
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1193,7 +1192,7 @@ class personnel_management extends class_base
 				$prop["options"] = $person_inst->academic_degree_options;
 
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1205,7 +1204,7 @@ class personnel_management extends class_base
 				);
 
 				$s = $arr['request'][$prop["name"]];
-				$this->dequote(&$s);
+				$this->dequote($s);
 				$prop['value'] = $s;
 				break;
 
@@ -1245,7 +1244,7 @@ class personnel_management extends class_base
 	function _init_employers_tbl($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
-		
+
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -1698,7 +1697,7 @@ class personnel_management extends class_base
 			case "load":
 			case "udef_classificator_1":
 				if($_GET["branch_id"] == "load")
-				{				
+				{
 					$r = get_instance(CL_CLASSIFICATOR)->get_choices(array(
 						"clid" => CL_PERSONNEL_MANAGEMENT,
 						"name" => "cv_load",
@@ -1798,7 +1797,7 @@ class personnel_management extends class_base
 						case CL_CRM_AREA:
 						case CL_CRM_COUNTY:
 						case CL_CRM_CITY:
-							
+
 							$classes = aw_ini_get("classes");
 							$odl = new object_data_list(
 								array(
@@ -1892,7 +1891,7 @@ class personnel_management extends class_base
 						"oid" => $ids,
 						"lang_id" => array(),
 						"site_id" => array(),
-					), 
+					),
 					array(
 						CL_CRM_COUNTRY => array("oid", "name", "parent", "class_id"),
 					)
@@ -2057,7 +2056,7 @@ class personnel_management extends class_base
 					);
 				}
 				if(isset($r["es_created_to"]) && is_numeric($r["es_created_to"]))
-				{					
+				{
 					$prms["created"] = new obj_predicate_compare(
 						OBJ_COMP_LESS_OR_EQ,
 						$r["es_created_to"],
@@ -2094,19 +2093,19 @@ class personnel_management extends class_base
 				case CL_CRM_SECTOR:
 					$prms["CL_CRM_COMPANY.RELTYPE_TEGEVUSALAD"] = $_GET["branch_id"];
 					break;
-				
+
 				case CL_CRM_COUNTRY:
 					$prms["CL_CRM_COMPANY.RELTYPE_ADDRESS.RELTYPE_RIIK"] = $_GET["branch_id"];
 					break;
-				
+
 				case CL_CRM_AREA:
 					$prms["CL_CRM_COMPANY.RELTYPE_ADDRESS.RELTYPE_PIIRKOND"] = $_GET["branch_id"];
 					break;
-				
+
 				case CL_CRM_COUNTY:
 					$prms["CL_CRM_COMPANY.RELTYPE_ADDRESS.RELTYPE_MAAKOND"] = $_GET["branch_id"];
 					break;
-				
+
 				case CL_CRM_CITY:
 					$prms["CL_CRM_COMPANY.RELTYPE_ADDRESS.RELTYPE_LINN"] = $_GET["branch_id"];
 					break;
@@ -2261,7 +2260,7 @@ class personnel_management extends class_base
 			$secs_count++;
 		}
 		if($secs_count > 0)
-		{			
+		{
 			$t->add_item(0, array(
 				"id" => "sector",
 				"name" => t("Tegevusalad"),
@@ -2341,7 +2340,7 @@ class personnel_management extends class_base
 			}
 		}
 		if($locs_count > 0)
-		{			
+		{
 			$t->add_item(0, array(
 				"id" => "location",
 				"name" => t("Asukoht"),
@@ -2409,7 +2408,7 @@ class personnel_management extends class_base
 		{
 			$options = array(0 => t("--vali--"));
 			$disabled_options = array();
-			$this->add_skill_options(&$skills, &$options, &$disabled_options, $id, 0);
+			$this->add_skill_options($skills, $options, $disabled_options, $id, 0);
 			$skill = obj($id);
 			$ol = new object_list(array(
 				"class_id" => CL_META,
@@ -2825,7 +2824,7 @@ class personnel_management extends class_base
 		}
 
 		$obj = new object_list();
-		
+
 		$t = &$arr["prop"]["vcl_inst"];
 
 		$vars = $this->search_vars;
@@ -3006,7 +3005,7 @@ class personnel_management extends class_base
 				"class_id" => CL_PERSONNEL_MANAGEMENT_CANDIDATE,
 				"site_id" => array(),
 				"lang_id" => array(),
-			), 
+			),
 			array(
 				CL_PERSONNEL_MANAGEMENT_CANDIDATE => array("job_offer", "person"),
 			)
@@ -3037,7 +3036,7 @@ class personnel_management extends class_base
 				"CL_PERSONNEL_MANAGEMENT_JOB_WANTED.RELTYPE_PERSON.status" => array(object::STAT_ACTIVE, object::STAT_NOTACTIVE),
 				"site_id" => array(),
 				"lang_id" => array(),
-			), 
+			),
 			array(
 				CL_PERSONNEL_MANAGEMENT_JOB_WANTED => array("person", "location", "location_2"),
 			)
@@ -3060,7 +3059,6 @@ class personnel_management extends class_base
 		{
 			return $res;
 		}
-		enter_function("personnel_management::filter_search_results_by_acl");
 		$ids = array();
 		foreach($res as $rese)
 		{
@@ -3138,13 +3136,11 @@ class personnel_management extends class_base
 				unset($res[$pid]);
 			}
 		}
-		exit_function("personnel_management::filter_search_results_by_acl");
 		return $res;
 	}
 
 	function search_employee($arr)
 	{
-		enter_function("personnel_management::search_employee");
 		$o = $arr["obj_inst"];
 
 		$r = &$arr["request"];
@@ -3166,14 +3162,13 @@ class personnel_management extends class_base
 			)
 		);
 		$ret = $odl->arr();
-		exit_function("personnel_management::search_employee");
 		return $ret;
 	}
 
 	function _get_search_conf_tbl($arr)
 	{
 		$conf = $arr["obj_inst"]->meta("search_conf_tbl");
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "table",
 			"caption" => t("Tabel"),
@@ -3215,7 +3210,7 @@ class personnel_management extends class_base
 
 	function employee_list_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_item(0, array(
 			"id" => 3,
 			"name" => t("Element"),
@@ -3224,7 +3219,7 @@ class personnel_management extends class_base
 
 	function candidate_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$objs = new object_tree(array(
 			"lang_id" => array(),
 			"site_id" => array(),
@@ -3397,7 +3392,7 @@ class personnel_management extends class_base
 
 	function _get_offers_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$objs = new object_tree(array(
 			"lang_id" => array(),
 			"parent" => $this->offers_fld,
@@ -3596,7 +3591,7 @@ class personnel_management extends class_base
 
 	function _get_offers_toolbar($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_menu_button(array(
 			"name" => "add",
 			"tooltip" => t("Uus"),
@@ -3692,7 +3687,7 @@ class personnel_management extends class_base
 				return $this->table_flds($arr, "get_job_offers", "offers_fld");
 			}
 
-			$t = &$arr["prop"]["vcl_inst"];
+			$t = $arr["prop"]["vcl_inst"];
 			$t->define_field(array(
 				"name" => "icon",
 				"align" => "center",
@@ -3807,7 +3802,7 @@ class personnel_management extends class_base
 		else
 		if($arr["request"]["cv_search_button"] || $arr["request"]["cv_search_button_save_search"] || $this->can("view", $arr["request"]["search_save"]))
 		{
-			$t = &$arr["prop"]["vcl_inst"];
+			$t = $arr["prop"]["vcl_inst"];
 			$vars = $this->search_vars;
 			$gender = array(1 => t("mees"), t("naine"));
 			$conf = $arr["obj_inst"]->meta("search_conf_tbl");
@@ -3891,7 +3886,7 @@ class personnel_management extends class_base
 		{
 			return $this->candidate_table_flds($arr);
 		}
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$vars = $this->search_vars;
 		$gender = array(1 => t("mees"), t("naine"), "" => t("m&auml;&auml;ramata"));
 		$conf = $arr["obj_inst"]->meta("search_conf_tbl");
@@ -3902,7 +3897,7 @@ class personnel_management extends class_base
 		));
 		foreach($vars as $name => $caption)
 		{
-			if($name == "modtime")
+			if($name === "modtime")
 			{
 				// Have to change it here, cuz we can't use the same caption for employee table.
 				$caption = t("Kandideerimise aeg");
@@ -3953,7 +3948,7 @@ class personnel_management extends class_base
 		$t->sort_by();
 	}
 
-	function _init_offers_table(&$t)
+	function _init_offers_table($t)
 	{
 		$props = get_instance(CL_CFGFORM)->get_default_proplist(array("clid" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER));
 		$t->define_field(array(
@@ -4032,9 +4027,9 @@ class personnel_management extends class_base
 			return $this->table_flds($arr, "get_job_offers", "offers_fld");
 		}
 
-		$t = &$arr["prop"]["vcl_inst"];
-		$this->_init_offers_table(&$t);
-			
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_offers_table($t);
+
 		if($arr["request"]["os_sbt"])
 		{
 			$objs = $this->get_offers_srch_offers($arr);
@@ -4699,7 +4694,7 @@ class personnel_management extends class_base
 		$arr["request"]["search_save"] = $o->id();
 	}
 
-	function add_skill_options($skills, $options, $disabled_options, $id, $lvl)
+	function add_skill_options(&$skills, &$options, &$disabled_options, $id, $lvl)
 	{
 		foreach($skills[$id] as $sid => $sdata)
 		{
@@ -4713,7 +4708,7 @@ class personnel_management extends class_base
 			}
 
 			$options[$sid] = $str.$sdata["name"];
-			$this->add_skill_options(&$skills, &$options, &$disabled_options, $sid, $lvl + 1);
+			$this->add_skill_options($skills, $options, $disabled_options, $sid, $lvl + 1);
 		}
 	}
 
@@ -4928,7 +4923,7 @@ class personnel_management extends class_base
 				),
 			));
 		}
-		
+
 		if($r["cv_bd_to"] && is_numeric($r["cv_bd_to"]["month"]) && is_numeric($r["cv_bd_to"]["day"]) && is_numeric($r["cv_bd_to"]["year"]))
 		{
 			$t = mktime(23, 59, 59, $r["cv_bd_to"]["month"], $r["cv_bd_to"]["day"], $r["cv_bd_to"]["year"]);
@@ -4942,7 +4937,7 @@ class personnel_management extends class_base
 				),
 			));
 		}
-		
+
 		if($r["cv_bd_from"] && is_numeric($r["cv_bd_from"]["month"]) && is_numeric($r["cv_bd_from"]["day"]) && is_numeric($r["cv_bd_from"]["year"]))
 		{
 			$t = mktime(23, 59, 59, $r["cv_bd_from"]["month"], $r["cv_bd_from"]["day"], $r["cv_bd_from"]["year"]);
@@ -5144,7 +5139,7 @@ class personnel_management extends class_base
 				"logic" => "AND",
 				"conditions" => array(
 					"CL_CRM_PERSON.RELTYPE_EDUCATION.start" => new obj_predicate_compare(
-						OBJ_COMP_GREATER_OR_EQ, 
+						OBJ_COMP_GREATER_OR_EQ,
 						mktime(0, 0, 0, 1, 1, $r["cv_schl_start_from"]),
 						NULL,
 						"int"
@@ -5158,7 +5153,7 @@ class personnel_management extends class_base
 				"logic" => "AND",
 				"conditions" => array(
 					"CL_CRM_PERSON.RELTYPE_EDUCATION.start" => new obj_predicate_compare(
-						OBJ_COMP_LESS_OR_EQ, 
+						OBJ_COMP_LESS_OR_EQ,
 						mktime(23, 59, 59, 12, 31, $r["cv_schl_start_to"]),
 						NULL,
 						"int"
@@ -5535,7 +5530,7 @@ class personnel_management extends class_base
 			$branch_id = $this->can("view", $arr["request"]["branch_id"]) ? $arr["request"]["branch_id"] : $this->offers_fld;
 			$o = obj($branch_id);
 
-			
+
 			if($o->class_id() == CL_META)
 			{
 				$objs = new object_list(array(
@@ -5937,7 +5932,7 @@ class personnel_management extends class_base
 		return $arr["post_ru"];
 	}
 
-	/** 
+	/**
 		@attrib name=send_cv_employer params=name all_args=1
 	**/
 	public function send_cv_employer($arr)
