@@ -2116,7 +2116,14 @@ class crm_company_cust_impl extends class_base
 
 		foreach($orglist as $org)
 		{
-			$o = obj($org);
+			try
+			{
+				$o = obj($org);
+			}
+			catch (Exception $e)
+			{
+				continue;
+			}
 
 			// aga &uuml;lej&auml;&auml;nud on k&otilde;ik seosed!
 			$name = $client_manager = $pm = $vorm = $tegevus = $contact = $juht = $juht_id = $phone = $fax = $url = $mail = $ceo = "";
@@ -2374,7 +2381,7 @@ class crm_company_cust_impl extends class_base
 
 		if (!empty($arr["request"]["customer_search_print_view"]))
 		{
-			$sf = new aw_template;
+			$sf = new aw_template();
 			$sf->db_init();
 			$sf->tpl_init("automatweb");
 			$sf->read_template("index.tpl");

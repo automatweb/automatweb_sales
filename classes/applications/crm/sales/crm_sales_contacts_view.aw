@@ -375,9 +375,14 @@ class crm_sales_contacts_view
 				));
 				$menu = $menu->get_menu();
 
+				$name_str = html::span(array(
+					"content" => $menu . html::obj_change_url($customer, strlen($customer->name()) > 1 ? $customer->name() : t("[Nimetu]")),
+					"nowrap" => true
+				));
+
 				// define table row
 				$table->define_data(array(
-					"name" => $menu . html::obj_change_url($customer, strlen($customer->name()) > 1 ? $customer->name() : t("[Nimetu]")),
+					"name" => $name_str,
 					"phones" => $phones_str,
 					"address" => $address,
 					"unit" => $unit,

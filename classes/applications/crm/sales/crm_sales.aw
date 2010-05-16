@@ -886,19 +886,19 @@ class crm_sales extends class_base
 		if (!is_object($this->contact_entry_edit_object))
 		{
 			$r = PROP_OK;
-			$this->zend_view->dojo()->requireModule('dijit.form.NumberSpinner');
-			return $this->zend_view->numberSpinner(
-				"content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][value]",
-				$value,
-				array(
-					"min" => $min,
-					"max" => $max,
-					"places" => 0
-				),
-				array(
-					"id" => "content_table_{$row["row"]->id()}_price_component_{$row["price_component"]->id()}_value",
-				)
-			).($row["price_component"]->prop("is_ratio") ? t("%") : "");
+			// $this->zend_view->dojo()->requireModule('dijit.form.NumberSpinner');
+			// return $this->zend_view->numberSpinner(
+				// "content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][value]",
+				// $value,
+				// array(
+					// "min" => $min,
+					// "max" => $max,
+					// "places" => 0
+				// ),
+				// array(
+					// "id" => "content_table_{$row["row"]->id()}_price_component_{$row["price_component"]->id()}_value",
+				// )
+			// ).($row["price_component"]->prop("is_ratio") ? t("%") : "");
 		}
 
 		return $r;

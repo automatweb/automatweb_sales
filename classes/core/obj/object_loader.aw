@@ -344,9 +344,10 @@ class _int_object_loader extends core
 		$GLOBALS["objects"][$t_oid] = $t_o;
 		cache::file_set("objlastmod", time());
 
-		post_message_with_param("MSG_STORAGE_SAVE", $GLOBALS["objects"][$t_oid]->class_id(), array(
+		$params = array(
 			"oid" => $t_oid
-		));
+		);
+		post_message_with_param("MSG_STORAGE_SAVE", $GLOBALS["objects"][$t_oid]->class_id(), $params);
 
 		return $t_oid;
 	}

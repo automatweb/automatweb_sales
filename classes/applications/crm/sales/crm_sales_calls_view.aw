@@ -53,12 +53,6 @@ class crm_sales_calls_view
 		if ($this_o->has_privilege("call_edit"))
 		{
 			$toolbar = $arr["prop"]["vcl_inst"];
-			$toolbar->add_button(array(
-				"name" => "save",
-				"img" => "save.gif",
-				"action" => "submit",
-				"tooltip" => t("Salvesta")
-			));
 			$toolbar->add_delete_button();
 			$r = PROP_OK;
 		}
