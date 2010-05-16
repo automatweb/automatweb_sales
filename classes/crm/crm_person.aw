@@ -4823,7 +4823,6 @@ class crm_person extends class_base
 
 	function callback_mod_reforb($arr)
 	{
-		$arr["post_ru"] = post_ru();
 		if(isset($_GET["add_to_task"]))
 		{
 			$arr["add_to_task"] = $_GET["add_to_task"];

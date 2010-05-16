@@ -3715,7 +3715,6 @@ class crm_company extends class_base
 		$arr['category'] = $this->category;
 		$arr['cat'] = $this->cat;
 		$arr['proj'] = automatweb::$request->arg("proj");
-		$arr["post_ru"] = post_ru();
 		$arr["tf"] = automatweb::$request->arg("tf");
 		$arr["cust_cat"] = 1;
 		$arr["sbt_data"] = 0;

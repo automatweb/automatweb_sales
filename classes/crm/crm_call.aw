@@ -699,10 +699,8 @@ class crm_call extends task
 		return parent::new_change($arr);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
-		$arr["post_ru"] = post_ru();
-
 		if ($_GET["action"] === "new")
 		{
 			$arr["alias_to_org"] = $_GET["alias_to_org"];

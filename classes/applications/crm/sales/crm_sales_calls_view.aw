@@ -453,6 +453,7 @@ else
 						// address
 						$address = $customer->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
 						$address = is_object($address) ? $address->name() : $not_available_str;
+						$customer_name = crm_sales::parse_customer_name($customer);
 
 						// name/edit link
 						if ($user_can_edit_calls)
@@ -461,11 +462,7 @@ else
 								"id" => $customer->id(),
 								"return_url" => "{URLVAR:return_url}"
 							), $customer->class_id());
-							$customer_name = html::href(array("caption" => $customer->name(), "url" => $url, "title" => t("Muuda/vaata kontakti andmeid")));
-						}
-						else
-						{
-							$customer_name = $customer->name();
+							$customer_name = html::href(array("caption" => $customer_name, "url" => $url, "title" => t("Muuda/vaata kontakti andmeid")));
 						}
 
 						$call_data = array(

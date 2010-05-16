@@ -312,9 +312,10 @@ break;
 
 
 					// tm salespersons only see their own presentations, and aren't allowed to edit them
+					$name = crm_sales::parse_customer_name($customer);
 					$customer_name = (crm_sales_obj::ROLE_TELEMARKETING_SALESMAN === $role) ?
-						html::obj_view_url($presentation, $customer->name()) :
-						html::obj_change_url($presentation, $customer->name());
+						html::obj_view_url($presentation, $name) :
+						html::obj_change_url($presentation, $name);
 
 					// telemarketing salesman who set up the presentation
 					$tm_salesman = $cl_user->get_person_for_uid($presentation->createdby());
