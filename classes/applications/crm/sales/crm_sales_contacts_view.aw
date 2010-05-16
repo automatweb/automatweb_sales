@@ -210,7 +210,7 @@ class crm_sales_contacts_view
 
 				if (!empty($arr["request"]["cts_status"]))
 				{
-					$search->status = $arr["request"]["cts_status"];
+					$search->status = (int) $arr["request"]["cts_status"];
 				}
 
 				if (!empty($arr["request"]["cts_count"]) or crm_sales::CONTACTS_CATEGORY === crm_sales::$contacts_list_view)
@@ -270,7 +270,15 @@ class crm_sales_contacts_view
 			foreach ($contacts_oid_data as $contact_data)
 			{
 				$customer_relation = obj($contact_data["oid"], array(), CL_CRM_COMPANY_CUSTOMER_DATA);
-				$customer = new object($customer_relation->prop("buyer"));
+
+				try
+				{
+					$customer = new object($customer_relation->prop("buyer"));
+				}
+				catch (awex_obj_na $e)
+				{ // buyer defined in customer relation is probably deleted FIXME: solve the problem in a more general way
+					continue;
+				}
 
 				// sales state
 				$sales_state_int = $customer_relation->prop("sales_state");
@@ -376,7 +384,7 @@ class crm_sales_contacts_view
 				$menu = $menu->get_menu();
 
 				$name_str = html::span(array(
-					"content" => $menu . html::obj_change_url($customer, strlen($customer->name()) > 1 ? $customer->name() : t("[Nimetu]")),
+					"content" => $menu . html::obj_change_url($customer, crm_sales::parse_customer_name($customer)),
 					"nowrap" => true
 				));
 

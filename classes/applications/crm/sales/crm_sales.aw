@@ -395,7 +395,7 @@ PROPERTY DECLARATIONS
 	@property contact_entry_toolbar type=toolbar store=no group=data_entry_contact_co,data_entry_contact_person no_caption=1
 
 @default group=data_entry_contact_co
-	@property contact_entry_co type=releditor reltype=RELTYPE_TMP2 store=no props=name,fake_phone,fake_mobile,fake_email parent=contact_entry_form
+	@property contact_entry_co type=releditor reltype=RELTYPE_TMP2 store=no props=name,ettevotlusvorm,fake_phone,fake_mobile,fake_email parent=contact_entry_form
 	@caption Kontakt (organisatsioon)
 
 
@@ -757,11 +757,6 @@ class crm_sales extends class_base
 			$arr["area_caption"] = sprintf(t("Kontakti '%s' muutmine"), $this->contact_entry_edit_object->name());
 		}
 		return PROP_OK;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
 
 	function _get_contact_entry_address(&$arr)
@@ -1914,6 +1909,7 @@ SCRIPT;
 		{
 			$o = obj($arr["prop"]["value"]["id"], array(), CL_CRM_COMPANY, true);
 			$o->set_name($arr["prop"]["value"]["name"]);
+			$o->set_prop("ettevotlusvorm", $arr["prop"]["value"]["ettevotlusvorm"]);
 			$o->set_prop("fake_phone", $arr["prop"]["value"]["fake_phone"]);
 			$o->set_prop("fake_mobile", $arr["prop"]["value"]["fake_mobile"]);
 			$o->set_prop("fake_email", $arr["prop"]["value"]["fake_email"]);
@@ -1981,6 +1977,7 @@ SCRIPT;
 				$o = obj(null, array(), CL_CRM_COMPANY);
 				$o->set_parent($owner_oid);
 				$o->set_name($arr["prop"]["value"]["name"]);
+				$o->set_prop("ettevotlusvorm", $arr["prop"]["value"]["ettevotlusvorm"]);
 				$o->save();
 				$o->set_prop("fake_phone", $arr["prop"]["value"]["fake_phone"]);
 				$o->set_prop("fake_mobile", $arr["prop"]["value"]["fake_mobile"]);
@@ -2474,6 +2471,11 @@ SCRIPT;
 			}
 		}
 		return "%" . implode("%", $parsed) . "%";
+	}
+
+	public static function parse_customer_name(object $customer)
+	{
+		return strlen($customer->name()) > 1 ? ($customer->is_a(CL_CRM_COMPANY) ? $customer->get_title() : $customer->name()) : t("[Nimetu]");
 	}
 }
 

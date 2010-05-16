@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=__syslog_type relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=__maintainer
+@classinfo syslog_type=__syslog_type relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo __table_name master_index=brother_of master_table=objects index=aw_oid
 
 @default table=__table_name
@@ -10,7 +10,7 @@
 
 class __classname extends class_base
 {
-	function __classname()
+	function __construct()
 	{
 		$this->init(array(
 			"tpldir" => "__tplfolder",
@@ -18,62 +18,31 @@ class __classname extends class_base
 		));
 	}
 
-	function get_property($arr)
+	function do_db_upgrade($table, $field, $query, $error)
 	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
+		$r = false;
 
-		switch($prop["name"])
+		if ("__table_name" === $table)
 		{
-		}
-
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-		}
-
-		return $retval;
-	}
-
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
-	function show($arr)
-	{
-		$ob = new object($arr["id"]);
-		$this->read_template("show.tpl");
-		$this->vars(array(
-			"name" => $ob->prop("name"),
-		));
-		return $this->parse();
-	}
-
-	function do_db_upgrade($t, $f)
-	{
-		if ($f == "")
-		{
-			$this->db_query("CREATE TABLE __table_name(aw_oid int primary key)");
-			return true;
-		}
-
-		switch($f)
-		{
-			case "":
-				$this->db_add_col($t, array(
-					"name" => $f,
+			if (empty($field)
+			{
+				$this->db_query("CREATE TABLE `__table_name` (
+				  `aw_oid` int(11) UNSIGNED NOT NULL DEFAULT '0',
+				  PRIMARY KEY  (`aw_oid`)
+				)");
+				$r = true;
+			}
+			elseif ("" === $field)
+			{
+				$this->db_add_col("__table_name", array(
+					"name" => "",
 					"type" => ""
 				));
-				return true;
+				$r = true;
+			}
 		}
+
+		return $r;
 	}
 }
 

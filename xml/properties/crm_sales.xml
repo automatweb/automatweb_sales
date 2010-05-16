@@ -1155,9 +1155,10 @@
             <store>no</store>
             <props>
                   <num_0>name</num_0>
-                  <num_1>fake_phone</num_1>
-                  <num_2>fake_mobile</num_2>
-                  <num_3>fake_email</num_3>
+                  <num_1>ettevotlusvorm</num_1>
+                  <num_2>fake_phone</num_2>
+                  <num_3>fake_mobile</num_3>
+                  <num_4>fake_email</num_4>
             </props>
             <parent>contact_entry_form</parent>
             <caption>Kontakt (organisatsioon)</caption>

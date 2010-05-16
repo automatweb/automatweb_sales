@@ -103,11 +103,6 @@ class crm_presentation extends task
 		));
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function _get_presentation_tools(&$arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];

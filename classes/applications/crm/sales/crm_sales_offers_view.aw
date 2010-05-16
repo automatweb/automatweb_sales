@@ -71,7 +71,7 @@ class crm_sales_offers_view
 		$this_o = $arr["obj_inst"];
 		$filter = array();
 		$limit_results = true;
-		
+
 		if (crm_sales::OFFERS_TODAY === crm_sales::$offers_list_view)
 		{
 			$limit_results = false;
@@ -167,7 +167,7 @@ class crm_sales_offers_view
 						$unit = $salesman = $not_available_str;
 					}
 
-					$customer_name = html::obj_change_url($customer_relation, $customer->name());
+					$customer_name = html::obj_change_url($customer_relation, crm_sales::parse_customer_name($customer));
 
 					$oid = $offer->id();
 

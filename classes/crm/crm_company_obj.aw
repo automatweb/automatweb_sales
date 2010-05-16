@@ -76,6 +76,16 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		}
 	}
 
+/** Returns organization title. Name and corporate form abbreviation
+	@attrib api=1 params=pos
+	@returns string
+	@errors
+**/
+	public function get_title()
+	{
+		return $this->name() . " " . $this->prop("ettevotlusvorm.shortname");
+	}
+
 	function set_prop($name, $value, $set_into_meta = true)
 	{
 		if($name === "name")
@@ -1368,11 +1378,11 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		return $r;
 	}
 
-	/** returns customer relation object
+	/**
 		@attrib api=1 params=pos
-		@param form optional
+		@param form type=string|int
 			form oid or name
-		@return object
+		@return void
 	**/
 	public function set_legal_form($form)
 	{
@@ -1380,6 +1390,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		{
 			return false;
 		}
+
 		if(is_oid($form))
 		{
 			$form_id = $form;
@@ -1388,8 +1399,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_CRM_CORPFORM,
-				"site_id" => array(),
-				"lang_id" => array(),
 				"name" => $form,
 			));
 
@@ -1441,13 +1450,12 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 			$conns = connection::find(array("from" => $this->id(), "to" => $eo->id(), "from.class_id" => CL_CRM_COMPANY, "reltype" => "RELTYPE_EMAIL"));
 			if(count($conns) > 0)
 			{
-				$eo->conn_id = reset(array_keys($conns));
+				$conn_keys = array_keys($conns);
+				$eo->conn_id = reset($conn_keys);
 			}
 
 			$eo->set_prop("mail", $mail);
-			aw_disable_acl();
 			$eo->save();
-			aw_restore_acl();
 
 			$this->set_prop("email_id", $eo->id());
 			$this->save();
@@ -1486,14 +1494,13 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 			$conns = connection::find(array("from" => $this->id(), "to" => $eo->id(), "from.class_id" => CL_CRM_COMPANY, "reltype" => "RELTYPE_PHONE"));
 			if(count($conns) > 0)
 			{
-				$eo->conn_id = reset(array_keys($conns));
+				$conn_keys = array_keys($conns);
+				$eo->conn_id = reset($conn_keys);
 			}
 			$type = in_array(substr($type, 5), array_keys(get_instance("crm_phone")->phone_types)) ? substr($type, 5) : "work";
 			$eo->set_prop("type", $type);
 			$eo->set_name($phone);
-			aw_disable_acl();
 			$eo->save();
-			aw_restore_acl();
 
 			if($type === "fake_phone")
 			{
