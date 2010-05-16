@@ -1798,11 +1798,11 @@ class crm_company extends class_base
 		{
 			if(is_callable(array($this, $leafs)))
 			{
-				$this->$leafs($tree, $obj,$this_level_id,&$node_id, $show_people, $origurl);
+				$this->$leafs($tree, $obj,$this_level_id, $node_id, $show_people, $origurl);
 			}
 			else
 			{
-				$this->tree_node_items($tree, $obj,$this_level_id,&$node_id, $show_people, $origurl);
+				$this->tree_node_items($tree, $obj,$this_level_id, $node_id, $show_people, $origurl);
 			}
 		}
 	}
