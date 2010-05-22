@@ -28,6 +28,7 @@ GROUP DECLARATIONS
 @groupinfo data_entry caption="Sisestamine"
 @groupinfo data_entry_contact_person caption="Kontakt (isik)" parent=data_entry submit=no
 @groupinfo data_entry_contact_co caption="Kontakt (organisatsioon)" parent=data_entry submit=no
+@groupinfo data_entry_contact_employee caption="Klientorganisatsiooni kontaktisik" parent=data_entry submit=no
 @groupinfo data_entry_import caption="Import" parent=data_entry
 
 @groupinfo offers caption="Pakkumised"
@@ -251,6 +252,9 @@ PROPERTY DECLARATIONS
 		@property cts_status type=select parent=contacts_search_box store=no captionside=top
 		@caption Staatus
 
+		@property cts_cat type=objpicker parent=contacts_search_box store=no options_callback=crm_sales::get_category_options captionside=top clid=CL_CRM_CATEGORY size=20
+		@caption Kliendigrupp
+
 		@property cts_calls type=textbox parent=contacts_search_box store=no captionside=top size=20
 		@comment Positiivne t&auml;isarv. V&otilde;imalik kasutada v&otilde;rdlusoperaatoreid suurem kui ( &gt; ), v&auml;iksem kui ( &lt; ) ning '='. Kui operaatorit pole numbri ees, arvatakse vaikimisi operaatoriks v&otilde;rdus ( = )
 		@caption Tehtud k&otilde;nesid
@@ -385,17 +389,17 @@ PROPERTY DECLARATIONS
 @default group=presentations_calendar
 	@property presentations_calendar type=calendar store=no no_caption=1
 
-
-@layout de_form_box type=vbox group=data_entry_contact_co,data_entry_contact_person area_caption=Uus&nbsp;kontakt
-@layout de_form_pane type=hbox group=data_entry_contact_co,data_entry_contact_person parent=de_form_box
-@layout de_table_box type=vbox group=data_entry_contact_co,data_entry_contact_person
-@layout contact_entry_form type=vbox group=data_entry_contact_co,data_entry_contact_person parent=de_form_pane
-@layout contact_entry_form_right type=vbox group=data_entry_contact_co,data_entry_contact_person parent=de_form_pane
-
+--------------------------------------------------------------
+@layout de_form_box type=vbox group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee area_caption=Uus&nbsp;kontakt
+@layout de_form_pane type=hbox group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee parent=de_form_box
+@layout de_table_box type=vbox group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee
+@layout contact_entry_form type=vbox group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee parent=de_form_pane
+@layout contact_entry_form_right type=vbox group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee parent=de_form_pane
 
 @default group=data_entry
-	@property contact_entry_toolbar type=toolbar store=no group=data_entry_contact_co,data_entry_contact_person no_caption=1
+	@property contact_entry_toolbar type=toolbar store=no group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee no_caption=1
 
+--------------------------------------------------------------
 @default group=data_entry_contact_co
 	@property contact_entry_co type=releditor reltype=RELTYPE_TMP2 store=no props=name,ettevotlusvorm,fake_phone,fake_mobile,fake_email parent=contact_entry_form
 	@caption Kontakt (organisatsioon)
@@ -421,7 +425,23 @@ PROPERTY DECLARATIONS
 	@property contact_entry_co_contact_3_profession type=textbox store=no parent=contact_entry_form_right
 	@caption Ametinimetus
 
+--------------------------------------------------------------
+@default group=data_entry_contact_employee
+	@property contact_entry_empoyee type=releditor reltype=RELTYPE_TMP3 store=no props=lastname,firstname,gender,fake_phone,fake_email parent=contact_entry_form
+	@caption Kontaktisik
 
+	@property contact_entry_organization type=objpicker store=no parent=contact_entry_form clid=CL_CRM_COMPANY
+	@comment Kui isik on liige v&otilde;i t&ouml;&ouml;tab mingis organisatsioonis, saab siin seda valida
+	@caption Organisatsioon
+
+	@property contact_entry_profession type=objpicker store=no parent=contact_entry_form clid=CL_CRM_PROFESSION options_callback=crm_sales::get_profession_options(contact_entry_organization)
+	@caption Amet
+
+	@property contact_entry_comment type=textarea store=no rows=5 cols=30 parent=contact_entry_form
+	@caption Kommentaar
+
+
+--------------------------------------------------------------
 @default group=data_entry_contact_person
 	@property contact_entry_person type=releditor reltype=RELTYPE_TMP3 store=no props=lastname,firstname,gender,fake_phone,fake_email parent=contact_entry_form
 	@caption Kontakt (isik)
@@ -444,31 +464,29 @@ PROPERTY DECLARATIONS
 	@property contact_entry_lead_source type=textbox store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_form
 	@caption Soovitaja
 
-	@property contact_entry_category type=objpicker store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_form clid=CL_CRM_CATEGORY options_callback=crm_sales::get_category_options
+	@property contact_entry_category type=relpicker size=5 multiple=1 store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_form reltype=RELTYPE_TMP4
 	@caption Kliendigrupp
 
-	@property contact_entry_organization type=objpicker store=no group=data_entry_contact_person parent=contact_entry_form clid=CL_CRM_COMPANY
-	@comment Kui isik on liige v&otilde;i t&ouml;&ouml;tab mingis organisatsioonis, saab siin seda valida
-	@caption Organisatsioon
-
-	@property contact_entry_lead_source_oid type=hidden store=no group=data_entry_contact_co,data_entry_contact_person
-
+--------------------------------------------------------------
 @default group=data_entry_import
 	@property import_toolbar type=toolbar store=no no_caption=1
 
 	@property import_objects type=table store=no
 	@caption Seadistatud impordid
 
-@layout contact_entry_buttons type=hbox parent=de_form_box group=data_entry_contact_co,data_entry_contact_person width=10%:20%:70%
+@layout contact_entry_buttons type=hbox parent=de_form_box group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee width=10%:20%:70%
 	@property contact_entry_space type=text store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_buttons no_caption=1
 
-	@property contact_entry_submit type=submit store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_buttons
+	@property contact_entry_submit type=submit store=no group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee parent=contact_entry_buttons
 	@caption Salvesta
 
-	@property contact_entry_reset type=text store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_buttons no_caption=1
+	@property contact_entry_reset type=text store=no group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee parent=contact_entry_buttons no_caption=1
 
-	@property last_entries_list type=table store=no group=data_entry_contact_co,data_entry_contact_person no_caption=1 parent=de_table_box
+	@property last_entries_list type=table store=no group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee no_caption=1 parent=de_table_box
 
+	@property contact_entry_lead_source_oid type=hidden store=no group=data_entry_contact_co,data_entry_contact_person
+
+--------------------------------------------------------------
 @default group=offers
 
 	@property offers_toolbar type=toolbar store=no no_caption=1
@@ -528,6 +546,9 @@ RELATION TYPE DECLARATIONS
 
 @reltype TMP3 value=5 clid=CL_CRM_PERSON
 @caption Kontakt isik (s&uuml;steemisiseseks kasutuseks)
+
+@reltype TMP4 value=6 clid=CL_CRM_CATEGORY
+@caption Kliendigrupp (s&uuml;steemisiseseks kasutuseks)
 
 
 */
@@ -591,8 +612,7 @@ class crm_sales extends class_base
 		"contact_entry_contacts_subtitle_1",
 		"contact_entry_contacts_subtitle_2",
 		"contact_entry_contacts_subtitle_3",
-		"contact_entry_contacts_title",
-		"contact_entry_category"
+		"contact_entry_contacts_title"
 	);
 
 	// ...
@@ -914,10 +934,18 @@ class crm_sales extends class_base
 	function _get_contact_entry_category(&$arr)
 	{
 		$r = PROP_OK;
+
 		if (is_object($this->contact_entry_edit_object))
-		{ // hide properties that aren't editable when editing an added contact in contact entry view
-			$r = PROP_IGNORE;
+		{
+			$owner = $arr["obj_inst"]->prop("owner");
+			$customer_relation = $this->contact_entry_edit_object->get_customer_relation($owner);
+			$categories = new object_list($customer_relation->connections_from(array("type" => "RELTYPE_CATEGORY")));
+			$arr["prop"]["value"] = $categories->ids();
 		}
+
+		$arr["prop"]["options"] = $arr["obj_inst"]->prop("owner")->get_customer_categories()->names();
+
+		//TODO: better interface element
 		// $this->zend_view->dojo()->requireModule('dijit.form.NumberSpinner');
 		// return $this->zend_view->numberSpinner(
 			// "content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][value]",
@@ -1435,6 +1463,48 @@ SCRIPT;
 		exit(json_encode($choices));
 	}
 
+	/** Outputs autocomplete options matching profession name search string $typed_text in bsnAutosuggest format json
+		@attrib name=get_profession_options
+		@param id required type=oid
+		@param contact_entry_organization optional type=oid
+		@param typed_text optional type=string
+	**/
+	public static function get_profession_options($args)
+	{
+		$choices = array("results" => array());
+		$typed_text = $args["typed_text"];
+		$this_o = new object($args["id"]);
+		$limit = $this_o->prop("autocomplete_options_limit") ? (int) $this_o->prop("autocomplete_options_limit") : 20;
+		$list = new object_list(array(
+			"class_id" => CL_CRM_CATEGORY,
+			"organization" => $this_o->prop("owner")->id(),
+			"name" => "{$typed_text}%",
+			new obj_predicate_limit($limit)
+		));
+
+		if ($list->count() > 0)
+		{
+			$results = array();
+			$o = $list->begin();
+			do
+			{
+				$value = $o->prop_xml("name");
+				$info = "";
+				$results[] = array("id" => $o->id(), "value" => iconv("iso-8859-4", "UTF-8", $value), "info" => $info);//FIXME charsets
+			}
+			while ($o = $list->next());
+			$choices["results"] = $results;
+		}
+
+		ob_start("ob_gzhandler");
+		header("Content-Type: application/json");
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+		header("Pragma: no-cache"); // HTTP/1.0
+		exit(json_encode($choices));
+	}
+
 	/** Outputs crm_company/crm_person autocomplete options matching property string in bsnAutosuggest format json
 		@attrib name=get_entry_choices all_args=1 nologin=1 is_public=1
 		@param id required type=oid acl=view
@@ -1752,7 +1822,7 @@ SCRIPT;
 
 		try
 		{
-			$search->seller = $this_o;
+			$search->seller = $this_o->prop("owner");
 			$params_defined = false;
 
 
@@ -1905,6 +1975,15 @@ SCRIPT;
 		return PROP_OK;
 	}
 
+	function _get_contact_entry_empoyee(&$arr)
+	{
+		if (is_object($this->contact_entry_edit_object))
+		{
+			$arr["prop"]["edit_id"] = $this->contact_entry_edit_object->id();
+		}
+		return PROP_OK;
+	}
+
 	function _get_contact_entry_reset(&$arr)
 	{
 		$arr["prop"]["value"] = html::button(array(
@@ -1953,12 +2032,11 @@ SCRIPT;
 			$o->set_prop("fake_mobile", $arr["prop"]["value"]["fake_mobile"]);
 			$o->set_prop("fake_email", $arr["prop"]["value"]["fake_email"]);
 			$o->save();
-			//!!! customer relation properties are not changed for an existing contact except comments
+			$customer_relation = $o->get_customer_relation($owner);
 
 			// comment
 			if (!empty($arr["request"]["contact_entry_add_comment"]))
 			{
-				$customer_relation = $o->get_customer_relation($owner);
 				$parent = $customer_relation->id();
 				$comment_text = t("Andmete sisestamine:\n") . $arr["request"]["contact_entry_add_comment"];
 				$existing_comments = new object_list(array(
@@ -1975,6 +2053,34 @@ SCRIPT;
 						"commtext" => $comment_text,
 						"return" => "id"
 					));
+				}
+			}
+
+			// category
+			if (!empty($arr["request"]["contact_entry_category"]))
+			{
+				$selected_categories = $arr["request"]["contact_entry_category"];
+				// remove unselected
+				foreach ($customer_relation->connections_from(array("type" => "RELTYPE_CATEGORY")) as $c)
+				{
+					$category = $c->to();
+					if (!in_array($category->id(), $selected_categories))
+					{
+						$customer_relation->disconnect(array("from" => $category->id()));
+					}
+				}
+
+				// add categories
+				foreach ($selected_categories as $category_oid)
+				{
+					$category = obj($category_oid, array(), CL_CRM_CATEGORY);
+					if (!$customer_relation->is_connected_to(array("to" => $category, "type" => "RELTYPE_CATEGORY")))
+					{
+						$customer_relation->connect(array(
+							"to" => $category,
+							"type" => "RELTYPE_CATEGORY"
+						));
+					}
 				}
 			}
 
@@ -2044,11 +2150,14 @@ SCRIPT;
 				// category
 				if (!empty($arr["request"]["contact_entry_category"]))
 				{
-					$category = obj($arr["request"]["contact_entry_category"], array(), CL_CRM_CATEGORY);
-					$customer_relation->connect(array(
-						"to" => $category,
-						"type" => "RELTYPE_CATEGORY"
-					));
+					foreach ($arr["request"]["contact_entry_category"] as $category_oid)
+					{
+						$category = obj($category_oid, array(), CL_CRM_CATEGORY);
+						$customer_relation->connect(array(
+							"to" => $category,
+							"type" => "RELTYPE_CATEGORY"
+						));
+					}
 				}
 
 				if (!empty($arr["request"]["contact_entry_salesman"]))
@@ -2286,19 +2395,11 @@ SCRIPT;
 			$o->set_prop("fake_phone", $arr["prop"]["value"]["fake_phone"]);
 			$o->set_prop("fake_email", $arr["prop"]["value"]["fake_email"]);
 			$o->save();
-			//!!! customer relation properties are not changed for an existing contact
-
-			// organization
-			if (!empty($arr["request"]["contact_entry_organization"]))
-			{
-				$organization = obj($arr["request"]["contact_entry_organization"], array(), CL_CRM_COMPANY);
-				$organization->add_employee(null, $o);
-			}
+			$customer_relation = $o->get_customer_relation($owner);
 
 			// comment
 			if (!empty($arr["request"]["contact_entry_add_comment"]))
 			{
-				$customer_relation = $o->get_customer_relation($owner);
 				$parent = $customer_relation->id();
 				$comment_text = t("Andmete sisestamine:\n") . $arr["request"]["contact_entry_add_comment"];
 				$existing_comments = new object_list(array(
@@ -2315,6 +2416,34 @@ SCRIPT;
 						"commtext" => $comment_text,
 						"return" => "id"
 					));
+				}
+			}
+
+			// category
+			if (!empty($arr["request"]["contact_entry_category"]))
+			{
+				$selected_categories = $arr["request"]["contact_entry_category"];
+				// remove unselected
+				foreach ($customer_relation->connections_from(array("type" => "RELTYPE_CATEGORY")) as $c)
+				{
+					$category = $c->to();
+					if (!in_array($category->id(), $selected_categories))
+					{
+						$customer_relation->disconnect(array("from" => $category->id()));
+					}
+				}
+
+				// add categories
+				foreach ($selected_categories as $category_oid)
+				{
+					$category = obj($category_oid, array(), CL_CRM_CATEGORY);
+					if (!$customer_relation->is_connected_to(array("to" => $category, "type" => "RELTYPE_CATEGORY")))
+					{
+						$customer_relation->connect(array(
+							"to" => $category,
+							"type" => "RELTYPE_CATEGORY"
+						));
+					}
 				}
 			}
 
@@ -2396,11 +2525,14 @@ SCRIPT;
 				// category
 				if (!empty($arr["request"]["contact_entry_category"]))
 				{
-					$category = obj($arr["request"]["contact_entry_category"], array(), CL_CRM_CATEGORY);
-					$customer_relation->connect(array(
-						"to" => $category,
-						"type" => "RELTYPE_CATEGORY"
-					));
+					foreach ($arr["request"]["contact_entry_category"] as $category_oid)
+					{
+						$category = obj($category_oid, array(), CL_CRM_CATEGORY);
+						$customer_relation->connect(array(
+							"to" => $category,
+							"type" => "RELTYPE_CATEGORY"
+						));
+					}
 				}
 
 				if (!empty($arr["request"]["contact_entry_salesman"]))
@@ -2443,13 +2575,6 @@ SCRIPT;
 					$customer_relation->connect(array("to" => $lead_source, "reltype" => "RELTYPE_SALES_LEAD_SOURCE"));
 				}
 
-				// organization
-				if (!empty($arr["request"]["contact_entry_organization"]))
-				{
-					$organization = obj($arr["request"]["contact_entry_organization"], array(), CL_CRM_COMPANY);
-					$organization->add_employee(null, $o);
-				}
-
 				if (!empty($arr["request"]["contact_entry_add_comment"]))
 				{ // add comment
 					$parent = $customer_relation->id();
@@ -2473,6 +2598,94 @@ SCRIPT;
 				throw $e;
 			}
 			$return = PROP_IGNORE;
+		}
+		return $return;
+	}
+
+	function _set_contact_entry_empoyee(&$arr)
+	{
+		$return = PROP_IGNORE;
+		$this_o = $arr["obj_inst"];
+		$phone_nr = isset($arr["prop"]["value"]["fake_phone"]) ? $arr["prop"]["value"]["fake_phone"] : null;
+		$owner = $arr["obj_inst"]->prop("owner");
+
+		// search from existing phone nr-s
+		$phone_nr_list = new object_list(array(
+			"class_id" => CL_CRM_PHONE,
+			"name" => $phone_nr
+		));
+
+		if (!isset($arr["prop"]["value"]["id"]) and $phone_nr_list->count() === 1)
+		{ // phone nr for a contact to be created is given but already exists
+			$arr["prop"]["error"] = t("Telefoninumber on juba andmebaasis olemas. Uuesti lisada ei saa.");
+			$return = PROP_FATAL_ERROR;
+		}
+		elseif ($phone_nr_list->count() > 1)
+		{ // duplicate phones found
+			$arr["prop"]["error"] = t("Antud telefoninumber esineb andmebaasis mitmekordselt. Vajalik on andmebaasi korrastus.");
+			$return = PROP_FATAL_ERROR;
+		}
+		elseif (isset($arr["prop"]["value"]["id"]))
+		{
+			$o = obj($arr["prop"]["value"]["id"], array(), CL_CRM_PERSON, true);
+			$o->set_prop("firstname", ucfirst($arr["prop"]["value"]["firstname"]));
+			$o->set_prop("lastname", ucfirst($arr["prop"]["value"]["lastname"]));
+			$o->set_prop("gender", $arr["prop"]["value"]["gender"]);
+			$o->set_prop("fake_phone", $arr["prop"]["value"]["fake_phone"]);
+			$o->set_prop("fake_email", $arr["prop"]["value"]["fake_email"]);
+			$o->set_comment($arr["request"]["contact_entry_comment"]);
+			$o->save();
+
+			// organization
+			if (!empty($arr["request"]["contact_entry_organization"]))
+			{
+				$organization = obj($arr["request"]["contact_entry_organization"], array(), CL_CRM_COMPANY);
+				$organization->add_employee(null, $o);
+			}
+		}
+		else
+		{
+			try
+			{
+				$owner_oid = $this_o->prop("owner")->id();
+
+				// see if phone number already exists, if yes, abort
+				$list = new object_list(array(
+					"class_id" => CL_CRM_PHONE,
+					"name" => $arr["prop"]["value"]["fake_phone"]
+				));
+				if ($list->count() > 0)
+				{
+					$arr["prop"]["error"] = t("Telefoninumber on juba andmebaasis olemas. Uuesti lisada ei saa.");
+					return PROP_FATAL_ERROR;
+				}
+
+				// create new contact object
+				$o = obj(null, array(), CL_CRM_PERSON);
+				$o->set_parent($owner_oid);
+				$o->set_prop("firstname", ucfirst($arr["prop"]["value"]["firstname"]));
+				$o->set_prop("lastname", ucfirst($arr["prop"]["value"]["lastname"]));
+				$o->set_prop("gender", $arr["prop"]["value"]["gender"]);
+				$o->set_comment($arr["request"]["contact_entry_comment"]);
+				$o->save();
+				$o->set_prop("fake_phone", $arr["prop"]["value"]["fake_phone"]);
+				$o->set_prop("fake_email", $arr["prop"]["value"]["fake_email"]);
+				$o->save();
+
+				// organization
+				if (!empty($arr["request"]["contact_entry_organization"]))
+				{
+					$organization = obj($arr["request"]["contact_entry_organization"], array(), CL_CRM_COMPANY);
+					$organization->add_employee(null, $o);
+				}
+
+				aw_session_set("crm_sales_session_entry_count", aw_global_get("crm_sales_session_entry_count") + 1);
+			}
+			catch (Exception $e)
+			{
+				$o->delete();
+				throw $e;
+			}
 		}
 		return $return;
 	}

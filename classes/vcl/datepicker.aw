@@ -22,6 +22,8 @@ class datepicker extends core implements vcl_interface
 
 		@param from type=string default=""
 			ISO-8601 derived format time to allow selecting from. Default means -10 years
+			Shorthand functions also available (currently only one):
+				'now' - the time when view is requested
 			example: 2005-08-15T15:52:01
 
 		@param to type=string default=""
@@ -60,7 +62,16 @@ class datepicker extends core implements vcl_interface
 
 		if (isset($arr["from"]))
 		{
-			$from = self::get_js_date_argument($arr["from"]);
+			if ("now" === $arr["from"])
+			{
+				$from = date("c");
+			}
+			else
+			{
+				$from = $arr["from"];
+			}
+
+			$from = self::get_js_date_argument($from);
 			$from = "minDate : new Date(\"{$from}\"),";
 		}
 

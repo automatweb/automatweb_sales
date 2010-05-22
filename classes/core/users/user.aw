@@ -1283,15 +1283,16 @@ EOF;
 
 	function _get_stat($uid)
 	{
-		$t =& $this->_init_stat_table();
-		$ts = aw_ini_get('syslog.types');
-		$as = aw_ini_get('syslog.actions');
+		$t = $this->_init_stat_table();
+		//XXX: syslog is disabled. waiting for new implementation
+		// $ts = aw_ini_get('syslog.types');
+		// $as = aw_ini_get('syslog.actions');
 		$q = "SELECT * FROM syslog WHERE uid = '$uid' ORDER BY tm DESC LIMIT 4000";
 		$this->db_query($q);
 		while ($row = $this->db_next())
 		{
-			$row['type'] = $ts[$row['type']]['name'];
-			$row['act_id'] = $as[$row['act_id']]['name'];
+			// $row['type'] = $ts[$row['type']]['name'];
+			// $row['act_id'] = $as[$row['act_id']]['name'];
 			list($row['ip'],) = inet::gethostbyaddr($row['ip']);
 			$t->define_data($row);
 		}
@@ -1307,7 +1308,6 @@ EOF;
 
 	function _init_stat_table()
 	{
-		load_vcl('table');
 		$t = new aw_table(array(
 			'prefix' => 'user',
 			'layout' => 'generic'

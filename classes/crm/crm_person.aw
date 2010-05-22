@@ -4806,7 +4806,7 @@ class crm_person extends class_base
 		return false;
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		if (isset($arr["request"]["cv_tpl"]))
 		{
@@ -4821,20 +4821,23 @@ class crm_person extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		if(isset($_GET["add_to_task"]))
 		{
 			$arr["add_to_task"] = $_GET["add_to_task"];
 		}
+
 		if(isset($_GET["add_to_co"]))
 		{
 			$arr["add_to_co"] = $_GET["add_to_co"];
 		}
+
 		if(isset($_GET["ofr_id"]))
 		{
 			$arr["ofr_id"] = $_GET["ofr_id"];
 		}
+
 		if(isset($_GET["job_offer_id"]) && $this->can("view", $_GET["job_offer_id"]))
 		{
 			aw_session_set("job_offer_obj_id_for_candidate", $_GET["job_offer_id"]);

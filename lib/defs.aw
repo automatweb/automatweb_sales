@@ -456,12 +456,19 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		}
 
 		preg_match("/From\: (.*)/im", $headers, $mt);
-		$from = $mt[1];
-		$r = true;
+		if (empty($mt[1]))
+		{
+			return false;
+		}
+		else
+		{
+			$from = $mt[1];
+			$r = true;
+		}
 
 		if (aw_ini_get("mail.use_smtp"))
 		{
-			$smtp = get_instance("protocols/mail/smtp");
+			$smtp = new smtp();
 			//see va smtp protokoll ei taha yldse toetada mitmele saatmist korraga
 			$to_arr = explode(",", $to);
 			foreach($to_arr as $t)

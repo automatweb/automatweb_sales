@@ -419,6 +419,8 @@
 		<datepicker>
 			<size />
 			<disabled />
+			<time />
+			<from />
 		</datepicker>
 
 		<datetime_select>

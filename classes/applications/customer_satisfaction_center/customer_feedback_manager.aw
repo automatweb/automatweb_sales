@@ -13,14 +13,6 @@
 @property fb_t type=table store=no no_caption=1 group=unsolved,solved
 
 
-
-@property contact_text type=text store=no no_caption=1 group=contact
-
-
-
-
-
-
 @groupinfo fb caption="Tagasiside"
 	@groupinfo unsolved caption="Lahendamisel" parent=fb submit=no
 	@groupinfo solved caption="Lahendatud" parent=fb submit=no
@@ -45,10 +37,6 @@ class customer_feedback_manager extends class_base
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
-			case "contact_text":
-				$prop["value"] = t("Struktuur Meedia<br>Automatweb<br><br>P&auml;rnu maantee 145, Tallinn, Estonia<br><a href='http://www.struktuur.ee'>http://www.struktuur.ee</a><Br><a href='mailto:support@automatweb.com'>support@automatweb.com</a>");
-				break;
-
 			case "fb_tb":
 				return PROP_IGNORE;
 				$this->_fb_tb($arr);
@@ -100,7 +88,7 @@ class customer_feedback_manager extends class_base
 	{
 	}
 
-	function _init_fb_t(&$t)
+	function _init_fb_t($t)
 	{
 		$t->define_field(array(
 			"name" => "person",
@@ -163,31 +151,20 @@ class customer_feedback_manager extends class_base
 			"numeric" => 1
 		));
 		$t->define_field(array(
-			"name" => "view",
-			"caption" => t("Vaata"),
+			"name" => "tools",
 			"align" => "center",
 		));
-		if ($_SESSION["authenticated_as_customer_care_personnell"])
-		{
-			$t->define_field(array(
-				"name" => "change",
-				"caption" => t("Muuda"),
-				"align" => "center",
-			));
-		}
 	}
 
 	function _fb_t($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_fb_t($t);
 
-		if ($arr["request"]["group"] == "unsolved" || $arr["request"]["group"] == "fb")
+		if ($this->use_group === "unsolved" || $this->use_group === "fb")
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_CUSTOMER_FEEDBACK_ENTRY,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"dev_status" => array(1,2)
 			));
 		}
@@ -195,38 +172,66 @@ class customer_feedback_manager extends class_base
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_CUSTOMER_FEEDBACK_ENTRY,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"dev_status" => new obj_predicate_not(array(1,2))
 			));
 		}
 
-		$e  = get_instance(CL_CUSTOMER_FEEDBACK_ENTRY);
+		$cust_care_view = (bool) aw_global_get("authenticated_as_customer_care_personnel");
+
+		$e  = new customer_feedback_entry();
 		$clss = aw_ini_get("classes");
-		$sl = get_instance("install/site_list");
+		// $sl = new site_list();
 		foreach($ol->arr() as $o)
 		{
 			$p = $o->get_first_obj_by_reltype("RELTYPE_PERSON");
 			$co = $o->get_first_obj_by_reltype("RELTYPE_CO");
 			$ob = $o->get_first_obj_by_reltype("RELTYPE_OBJECT");
 
+			if ($cust_care_view)
+			{
+				$menu = new popup_menu();
+				$menu->begin_menu("customer_feedback_menu_" . $o->id());
+				$menu->add_item(array(
+					"text" => t("Vaata"),
+					"link" => $this->mk_my_orb("view", array("id" => $o->id(), "return_url" => get_ru()), $o->class_id())
+				));
+				$menu->add_item(array(
+					"text" => t("Muuda"),
+					"link" => $this->mk_my_orb("change", array("id" => $o->id(), "return_url" => get_ru()), $o->class_id())
+				));
+				$menu->add_item(array(
+					"text" => t("Kustuta"),
+					"link" => $this->mk_my_orb("delete_objects", array(
+						"id" => $arr["obj_inst"]->id(),
+						"sel" => array($o->id()),
+						"post_ru" => post_ru()
+					))
+				));
+				$tools = $menu->get_menu();
+			}
+			else
+			{
+				$tools = html::href(array(
+					"url" => $this->mk_my_orb("view", array("id" => $o->id(), "return_url" => get_ru()), $o->class_id()),
+					"caption" => t("Vaata")
+				));
+			}
+
+
 			$t->define_data(array(
 				"person" => html::obj_change_url($p),
 				"co" => html::get_change_url($co->id(), array("return_url" => get_ru()), parse_obj_name($co->prop("short_name"))),
 				"class" => $ob ? $clss[$ob->class_id()]["name"] : "",
 				"object" => html::obj_change_url($ob),
-				"severity" => $e->severities[$o->prop("seriousness")],
-				"dev_status" => $e->statuses[$o->prop("dev_status")],
+				"severity" => isset($e->severities[$o->prop("seriousness")]) ? $e->severities[$o->prop("seriousness")] : "",
+				"dev_status" => isset($e->statuses[$o->prop("dev_status")]) ? $e->statuses[$o->prop("dev_status")] : "",
 				"solve_date" => $o->prop("dev_deadline"),
-				"view" => html::href(array(
-					"url" => $this->mk_my_orb("view", array("id" => $o->id(), "return_url" => get_ru()), $o->class_id()),
-					"caption" => t("Vaata")
-				)),
+				"tools" => $tools,
 				"change" => html::href(array(
 					"url" => $this->mk_my_orb("change", array("id" => $o->id(), "return_url" => get_ru()), $o->class_id()),
 					"caption" => t("Muuda")
 				)),
-				"site" => $sl->get_url_for_site($o->site_id()),
+				// "site" => $sl->get_url_for_site($o->site_id()),
 				"created" => $o->created()
 			));
 		}
