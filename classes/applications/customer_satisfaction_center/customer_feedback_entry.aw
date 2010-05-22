@@ -34,10 +34,10 @@
 @property file_1 type=text
 @caption Failid
 
-@property seriousness type=chooser table=aw_customer_feedback field=aw_seriousness
+@property seriousness type=chooser table=aw_customer_feedback field=aw_seriousness default=4
 @caption T&otilde;sidus
 
-@property fb_type type=chooser table=aw_customer_feedback field=aw_fb_type
+@property fb_type type=chooser table=aw_customer_feedback field=aw_fb_type default=3
 @caption Soovin tagasisidet
 
 @property fb_email type=textbox table=aw_customer_feedback field=aw_fb_email
