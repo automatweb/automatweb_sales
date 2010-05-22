@@ -116,9 +116,10 @@
             <name>dev_deadline</name>
             <table>aw_customer_feedback</table>
             <group>dev_status</group>
-            <type>datetime_select</type>
+            <type>datepicker</type>
+            <time>0</time>
+            <from>now</from>
             <field>aw_dev_deadline</field>
-            <default>-1</default>
             <caption>Arendaja t&amp;amp;auml;htaeg</caption>
       </property>
       <classinfo>

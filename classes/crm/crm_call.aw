@@ -65,6 +65,9 @@
 			@property start1 type=datepicker field=start table=planner parent=top_2way_right
 			@caption Plaanitud aeg
 
+			@property end type=datepicker table=planner parent=top_2way_right
+			@caption L&otilde;peb
+
 			@property deadline type=datepicker table=planner field=deadline parent=top_2way_right
 			@caption T&auml;htaeg
 
@@ -546,6 +549,12 @@ class crm_call extends task
 				break;
 
 			case "start1":
+			case "end":
+				if ($data["name"] ===  "end" && $arr["new"])
+				{
+					$data["value"] = time() + 900;
+				}
+
 				if (!empty($arr["new"]))
 				{
 					if($day = $arr["request"]["date"])
@@ -631,6 +640,14 @@ class crm_call extends task
 						$data["error"] = t("Uue k&otilde;ne aeg ei tohi olla minevikus!");
 						return PROP_FATAL_ERROR;
 					}
+				}
+				break;
+
+			case "end":
+				if(isset($arr["request"]["start1"]) and date_edit::get_timestamp($arr["request"]["start1"]) > date_edit::get_timestamp($data["value"]))
+				{
+					$data["value"] = $arr["request"]["start1"];
+					$arr["request"]["end"] = $arr["request"]["start1"];
 				}
 				break;
 		}
@@ -932,6 +949,7 @@ EOS;
 				switch($key)
 				{
 					case "start1":
+					case "end":
 						$o->set_prop($key , date_edit::get_timestamp($val));
 						break;
 					case "hr_price":
@@ -1015,7 +1033,7 @@ EOS;
 			$p =$u->get_current_person();
 
 			$data["person"] = $p;
-			// $data["time_real"] = round(((date_edit::get_timestamp($arr["end"]) - date_edit::get_timestamp($arr["start1"])) / 3600) , 2);FIXME or delete. end property not available
+			$data["time_real"] = round(((date_edit::get_timestamp($arr["end"]) - date_edit::get_timestamp($arr["start1"])) / 3600) , 2);
 			$data["time_to_cust"] = (((int)(($data["time_real"] - 0.001)*4)) + 1) / 4;
 			$o->set_participant_data($data);
 			$o->save();

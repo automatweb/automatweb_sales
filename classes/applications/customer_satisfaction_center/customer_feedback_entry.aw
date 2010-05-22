@@ -48,11 +48,10 @@
 
 
 @default group=dev_status
-
 	@property dev_status type=select table=aw_customer_feedback field=aw_dev_status default=1
 	@caption Arendaja staatus
 
-	@property dev_deadline type=datetime_select table=aw_customer_feedback field=aw_dev_deadline default=-1
+	@property dev_deadline type=datepicker time=0 from=now table=aw_customer_feedback field=aw_dev_deadline
 	@caption Arendaja t&auml;htaeg
 
 
@@ -135,7 +134,7 @@ class customer_feedback_entry extends class_base
 
 			case "person_t":
 				$prop["type"] = "text";
-				if(!$prop["value"])
+				if(empty($prop["value"]))
 				{
 					$p = get_current_person();
 					$prop["value"] = $p->name();
@@ -144,7 +143,7 @@ class customer_feedback_entry extends class_base
 
 			case "co_t":
 				$prop["type"] = "text";
-				if(!$prop["value"])
+				if(empty($prop["value"]))
 				{
 					$p = get_current_company();
 					$prop["value"] = $p->name();
@@ -157,8 +156,12 @@ class customer_feedback_entry extends class_base
 					$prop["value"] = clid_for_name($arr["request"]["d_class"]);
 				}
 				$prop["type"] = "text";
-				$clss = aw_ini_get("classes");
-				$prop["value"] = $clss[$prop["value"]]["name"];
+
+				if (!empty($prop["value"]))
+				{
+					$var = "classes.{$prop["value"]}.name";
+					$prop["value"] = aw_ini_isset($var) ? aw_ini_get($var) : t("[m&auml;&auml;ramata]");
+				}
 				break;
 
 			case "fb_object_grp":
@@ -171,32 +174,37 @@ class customer_feedback_entry extends class_base
 				if (isset($arr["request"]["d_class"]))
 				{
 					$d_clid = clid_for_name($arr["request"]["d_class"]);
-				}
-				if (!$d_clid && $this->can("view", $arr["request"]["d_obj"]))
-				{
-					$tmp = obj($arr["request"]["d_obj"]);
-					$d_clid = $tmp->class_id();
-				}
-				if (!$d_clid)
-				{
-					$d_clid = $arr["obj_inst"]->prop("d_class");
-				}
-				if (!$d_clid)
-				{
-					$o = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_OBJECT");
-					if ($o)
+					if (!$d_clid)
 					{
-						$d_clid = $o->class_id();
-					}
-				}
+						if (isset($arr["request"]["d_obj"]) && $this->can("view", $arr["request"]["d_obj"]))
+						{
+							$tmp = obj($arr["request"]["d_obj"]);
+							$d_clid = $tmp->class_id();
+						}
 
-				if ($d_clid)
-				{
-					// get the human readable name for the tab
-					$o = obj();
-					$o->set_class_id($d_clid);
-					$grps = $o->get_group_list();
-					$prop["value"] = $grps[$prop["value"]]["caption"];
+						if (!$d_clid)
+						{
+							$d_clid = $arr["obj_inst"]->prop("d_class");
+
+							if (!$d_clid)
+							{
+								$o = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_OBJECT");
+								if ($o)
+								{
+									$d_clid = $o->class_id();
+								}
+							}
+						}
+					}
+
+					if ($d_clid)
+					{
+						// get the human readable name for the tab
+						$o = obj();
+						$o->set_class_id($d_clid);
+						$grps = $o->get_group_list();
+						$prop["value"] = isset($prop["value"]) ? $grps[$prop["value"]]["caption"] : t("[m&auml;&auml;ramata]");
+					}
 				}
 				break;
 
@@ -205,7 +213,8 @@ class customer_feedback_entry extends class_base
 				{
 					$prop["value"] = $arr["request"]["d_obj"];
 				}
-				if (!$prop["value"] && !$arr["new"])
+
+				if (empty($prop["value"]) && empty($arr["new"]))
 				{
 					$o = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_OBJECT");
 					if ($o)
@@ -214,7 +223,7 @@ class customer_feedback_entry extends class_base
 					}
 				}
 
-				if ($this->can("view", $prop["value"]))
+				if (isset($prop["value"]) and $this->can("view", $prop["value"]))
 				{
 					$t = obj($prop["value"]);
 					$prop["value"] = $t->name();
@@ -231,7 +240,7 @@ class customer_feedback_entry extends class_base
 
 			case "fb_phone":
 				$p = get_current_person();
-				if ($prop["value"] == "")
+				if (empty($prop["value"]))
 				{
 					$prop["value"] = $p->prop_str("phone.name");
 				}
@@ -239,7 +248,7 @@ class customer_feedback_entry extends class_base
 
 			case "fb_email":
 				$p = get_current_person();
-				if ($prop["value"] == "")
+				if (empty($prop["value"]))
 				{
 					$prop["value"] = $p->prop_str("email.mail");
 				}
@@ -250,7 +259,7 @@ class customer_feedback_entry extends class_base
 				break;
 
 			case "file_1_t":
-				if ($arr["new"])
+				if (!empty($arr["new"]))
 				{
 					return PROP_IGNORE;
 				}
@@ -259,7 +268,7 @@ class customer_feedback_entry extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$prop["value"] = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -271,7 +280,7 @@ class customer_feedback_entry extends class_base
 				break;
 
 			case "file_2_t":
-				if ($arr["new"])
+				if (!empty($arr["new"]))
 				{
 					return PROP_IGNORE;
 				}
@@ -280,7 +289,7 @@ class customer_feedback_entry extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$prop["value"] = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -292,7 +301,7 @@ class customer_feedback_entry extends class_base
 				break;
 
 			case "file_3_t":
-				if ($arr["new"])
+				if (!empty($arr["new"]))
 				{
 					return PROP_IGNORE;
 				}
@@ -301,7 +310,7 @@ class customer_feedback_entry extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$prop["value"] = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -328,14 +337,16 @@ class customer_feedback_entry extends class_base
 			case "fb_class":
 			case "fb_object_grp":
 				return PROP_IGNORE;
+
 			case "person_t":
-				if(!$prop["value"])
+				if(empty($prop["value"]))
 				{
 					$p = get_current_person();
 					$prop["value"] = $p->name();
 				}
+
 			case "co_t":
-				if(!$prop["value"])
+				if(empty($prop["value"]))
 				{
 					$p = get_current_company();
 					$prop["value"] = $p->name();
@@ -347,12 +358,12 @@ class customer_feedback_entry extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
-		$arr["d_class"] = $_GET["d_class"];
-		$arr["object_grp"] = $_GET["object_grp"];
-		$arr["d_obj"] = $_GET["d_obj"];
+		$arr["d_class"] = automatweb::$request->arg("d_class");
+		$arr["object_grp"] = automatweb::$request->arg("object_grp");
+		$arr["d_obj"] = automatweb::$request->arg("d_obj");
 	}
 
 	/**
@@ -365,14 +376,14 @@ class customer_feedback_entry extends class_base
 	function redir_new_feedback($arr)
 	{
 		// make sure we have a center
-		$center = get_instance(CL_CUSTOMER_FEEDBACK_MANAGER);
+		$center = new customer_feedback_manager();
 		$co = $center->init_manager();
 
 		// now direct the user to adding a new feedback under the center
 		header("Location: ".html::get_new_url(CL_CUSTOMER_FEEDBACK_ENTRY, $co->id(), array(
-			"d_class" => $arr["d_class"],
-			"d_obj" => $arr["d_obj"],
-			"object_grp" => $arr["object_grp"],
+			"d_class" => isset($arr["d_class"]) ? $arr["d_class"] : "",
+			"d_obj" => isset($arr["d_obj"]) ? $arr["d_obj"] : "",
+			"object_grp" => isset($arr["object_grp"]) ? $arr["object_grp"] : "",
 			"return_url" => $arr["url"]
 		)));
 		die();
@@ -380,12 +391,13 @@ class customer_feedback_entry extends class_base
 
 	function callback_pre_save($arr)
 	{
-		if ($arr["new"])
+		if (!empty($arr["new"]))
 		{
 			if (isset($arr["request"]["d_class"]))
 			{
 				$arr["obj_inst"]->set_prop("fb_class", clid_for_name($arr["request"]["d_class"]));
 			}
+
 			if (isset($arr["request"]["object_grp"]))
 			{
 				$arr["obj_inst"]->set_prop("fb_object_grp", $arr["request"]["object_grp"]);
@@ -394,30 +406,47 @@ class customer_feedback_entry extends class_base
 		}
 	}
 
-	function do_db_upgrade($t, $f)
+	function do_db_upgrade($table, $field)
 	{
-		if ($f == "")
+		$r = false;
+
+		if ("aw_customer_feedback" === $table)
 		{
-			$this->db_query("CREATE TABLE aw_customer_feedback(aw_oid int primary key,aw_d_class int, aw_object_grp varchar(255), aw_seriousness int, aw_fb_type int, aw_fb_email varchar(255), aw_fb_phone varchar(255))");
-			return true;
+			if (empty($field))
+			{
+				$this->db_query("CREATE TABLE aw_customer_feedback(
+					aw_oid int primary key,
+					aw_d_class int,
+					aw_object_grp varchar(255),
+					aw_seriousness int,
+					aw_fb_type int,
+					aw_fb_email varchar(255),
+					aw_fb_phone varchar(255))");
+				$r = true;
+			}
+			elseif ("aw_comment_ta" === $field)
+			{
+				$this->db_add_col($t, array("name" => "aw_comment_ta", "type" => "text"));
+				$r = true;
+			}
+			elseif ("aw_dev_status" === $field)
+			{
+				$this->db_add_col($t, array("name" => "aw_dev_status", "type" => "text"));
+				$r = true;
+			}
+			elseif ("aw_dev_deadline" === $field)
+			{
+				$this->db_add_col($t, array("name" => "aw_dev_deadline", "type" => "text"));
+				$r = true;
+			}
 		}
 
-		switch($f)
-		{
-			case "aw_comment_ta":
-				$this->db_add_col($t, array("name" => $f, "type" => "text"));
-				return true;
-
-			case "aw_dev_status":
-			case "aw_dev_deadline":
-				$this->db_add_col($t, array("name" => $f, "type" => "int"));
-				return true;
-		}
+		return $r;
 	}
 
 	function callback_post_save($arr)
 	{
-		if ($arr["new"])
+		if (!empty($arr["new"]))
 		{
 			$arr["obj_inst"]->connect(array(
 				"to" => get_current_person(),
@@ -427,7 +456,8 @@ class customer_feedback_entry extends class_base
 				"to" => get_current_company(),
 				"type" => "RELTYPE_CO"
 			));
-			if ($this->can("view", $arr["request"]["d_obj"]))
+
+			if (isset($arr["request"]["d_obj"]) and $this->can("view", $arr["request"]["d_obj"]))
 			{
 				$arr["obj_inst"]->connect(array(
 					"to" => $arr["request"]["d_obj"],
@@ -435,7 +465,8 @@ class customer_feedback_entry extends class_base
 				));
 			}
 		}
-		$fi = get_instance(CL_FILE);
+
+		$fi = new file();
 		$f1 = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_FILE1");
 		$rv = $fi->add_upload_image("file_1", $arr["obj_inst"]->id(), $f1 ? $f1->id() : 0);
 		if ($rv["id"] && (($f1 && $rv["id"] != $f1->id()) || !$f1))
@@ -470,7 +501,7 @@ class customer_feedback_entry extends class_base
 		}
 
 		// if this is a new entry, then send e-mail to support@automatweb.com
-		if ($arr["new"])
+		if (!empty($arr["new"]))
 		{
 			$this->_send_support_mail($arr["obj_inst"]);
 		}
@@ -484,8 +515,7 @@ class customer_feedback_entry extends class_base
 		$ct .= "Isik: ".$p->name()." (".$p->id().")\n";
 		$co = $o->get_first_obj_by_reltype("RELTYPE_CO");
 		$ct .= "Organisatsioon: ".$co->name()." (".$co->id().")\n";
-		$clss = aw_ini_get("classes");
-		$ct .= "Klass: ".$clss[$o->prop("fb_class")]["name"]."\n";
+		$ct .= "Klass: " . (aw_ini_isset("classes." .  $o->prop("fb_class")) ? aw_ini_get("classes." . $o->prop("fb_class") . ".name") : "-")."\n";
 		$ob = $o->get_first_obj_by_reltype("RELTYPE_OBJECT");
 		if($ob)
 		{
@@ -503,8 +533,8 @@ class customer_feedback_entry extends class_base
 		$ct .= "Objekti grupp: ".$gl[$o->prop("fb_object_grp")]["caption"]." \n";
 
 		$ct .= "Kommentaar:\n".$o->prop("comment_ta")."\n";
-		$ct .= "T".html_entity_decode("&otilde;")."sidus: ".$this->severities[$o->prop("seriousness")]."\n";
-		$ct .= "Tagasiside t".html_entity_decode("&uuml;").html_entity_decode("&uuml;")."p: ".$this->fb_types[$o->prop("fb_type")]."\n";
+		$ct .= html_entity_decode("T&otilde;sidus: ".(isset($this->severities[$o->prop("seriousness")]) ? $this->severities[$o->prop("seriousness")] : "-") ."\n");
+		$ct .= html_entity_decode("Tagasiside t&uuml;&uuml;p: ".(isset($this->fb_types[$o->prop("fb_type")]) ?  $this->fb_types[$o->prop("fb_type")] : "-")."\n");
 		$ct .= "Tagasiside email: ".$o->prop("fb_email")."\n";
 		$ct .= "Tagasiside telefon: ".$o->prop("fb_phone")."\n";
 		$ct .= "\n\nMuutmise aadress: \n".$this->mk_my_orb("change", array("id" => $o->id(), "auth_code" => $o->meta("auth_code")));
@@ -524,13 +554,14 @@ class customer_feedback_entry extends class_base
 		}
 
 		$awm = new aw_mail();
+		$uri = new aw_uri(aw_ini_get("baseurl"));
 		$awm->create_message(array(
-			"froma" => $o->prop("fb_email"),
+			"froma" => $o->prop("fb_email") ? $o->prop("fb_email") :  $p->prop("username") . "@" . $uri->get_host(),
 			"subject" => "Tagasiside saidilt ".aw_ini_get("baseurl"),
 			"to" => $support_email_address,
 			"body" => $ct
 		));
-		$mimeregistry = get_instance("core/aw_mime_types");
+		$mimeregistry = new aw_mime_types();
 		$f = $o->get_first_obj_by_reltype("RELTYPE_FILE1");
 		if ($f)
 		{
@@ -564,13 +595,14 @@ class customer_feedback_entry extends class_base
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "dev_status")
+		if ($arr["id"] === "dev_status")
 		{
-			if ($_SESSION["authenticated_as_customer_care_personnell"])
+			if (aw_global_get("authenticated_as_customer_care_personnel"))
 			{
 				return true;
 			}
-			if ($arr["request"]["auth_code"] == $arr["obj_inst"]->meta("auth_code"))
+
+			if (isset($arr["request"]["auth_code"]) and $arr["request"]["auth_code"] == $arr["obj_inst"]->meta("auth_code"))
 			{
 				return true;
 			}
@@ -581,29 +613,33 @@ class customer_feedback_entry extends class_base
 
 	function callback_pre_edit($arr)
 	{
-		if ($arr["request"]["auth_code"] != "" && $arr["obj_inst"]->meta("auth_code") == $arr["request"]["auth_code"])
+		if (!empty($arr["request"]["auth_code"]) && $arr["obj_inst"]->meta("auth_code") == $arr["request"]["auth_code"])
 		{
-			$_SESSION["authenticated_as_customer_care_personnell"] = 1;
+			aw_session_set("authenticated_as_customer_care_personnel", 1);
 		}
 	}
 
 	function callback_get_default_group($arr)
 	{
-		$obj = obj($arr["request"]["id"]);
-		if ($arr["request"]["auth_code"] != "" && $obj->meta("auth_code") == $arr["request"]["auth_code"])
+		if (!empty($arr["request"]["id"]))
 		{
-			return "dev_status";
+			$obj = obj($arr["request"]["id"]);
+			if (!empty($arr["request"]["auth_code"]) && $obj->meta("auth_code") == $arr["request"]["auth_code"])
+			{
+				return "dev_status";
+			}
 		}
 	}
 
 	function _file_1($arr)
 	{
-		if (!$arr["new"])
+		$f1 = $f2 = $f3 = "";
+		if (empty($arr["new"]))
 		{
 			$f = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_FILE1");
 			if ($f)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$f1 = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -616,7 +652,7 @@ class customer_feedback_entry extends class_base
 			$f = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_FILE2");
 			if ($f)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$f2 = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -629,7 +665,7 @@ class customer_feedback_entry extends class_base
 			$f = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_FILE3");
 			if ($f)
 			{
-				$fi = get_instance(CL_FILE);
+				$fi = new file();
 				$f3 = html::href(array(
 					"url" => $fi->get_url($f->id(), $f->name()),
 					"caption" => html::img(array(
@@ -646,14 +682,14 @@ class customer_feedback_entry extends class_base
 		$f3u = html::fileupload(array("name" => "file_3"));
 		$arr["prop"]["value"] = "<table border=0 width='100%'>
 			<tr>
-				<td class='aw04contentcellright'>$f1&nbsp;</td>
-				<td class='aw04contentcellright'>$f2&nbsp;</td>
-				<td class='aw04contentcellright'>$f3&nbsp;</td>
+				<td class='aw04contentcellright'>{$f1}&nbsp;</td>
+				<td class='aw04contentcellright'>{$f2}&nbsp;</td>
+				<td class='aw04contentcellright'>{$f3}&nbsp;</td>
 			</tr>
 			<tr>
-				<td class='aw04contentcellright'>$f1u</td>
-				<td class='aw04contentcellright'>$f2u</td>
-				<td class='aw04contentcellright'>$f3u</td>
+				<td class='aw04contentcellright'>{$f1u}</td>
+				<td class='aw04contentcellright'>{$f2u}</td>
+				<td class='aw04contentcellright'>{$f3u}</td>
 			</tr>
 		</table>";
 	}

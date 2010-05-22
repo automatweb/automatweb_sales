@@ -1218,10 +1218,6 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 	@groupinfo relorg_s caption="M&uuml;&uuml;jad" focus=customer_search_name parent=relorg submit=no save=no
 	@groupinfo relorg_b caption="Ostjad" focus=customer_search_name parent=relorg submit=no save=no
 
-groupinfo org_objects_main caption="Objektid" submit=no
-
-	groupinfo org_objects caption="Objektid" submit=no parent=org_objects_main
-
 
 @groupinfo org_images caption="Pildid" submit=yes parent=general
 

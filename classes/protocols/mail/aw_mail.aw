@@ -25,7 +25,12 @@ define('ATTACH','attachment');
 define('CRLF',"\n");
 define('BASE64','base64');
 
-class aw_mail {
+class aw_mail
+{
+	var $bounce;
+	var $boundary;
+	var $body_replacements;
+
 	var $message; // siin hoiame teate erinevaid osasid
 	var $mimeparts; // siin hoiame teate MIME osasid
 	var $headers; // headerid
@@ -35,7 +40,7 @@ class aw_mail {
 	// method(string) - mis meetodi abil meili saadame?
 	function aw_mail($args = array())
 	{
-		$ll = get_instance("languages");
+		$ll = new languages();
 		define('CHARSET',$ll->get_charset());
 		return $this->clean($args);
 	}
@@ -55,7 +60,7 @@ class aw_mail {
 		$this->mimeparts = array();
 		$this->mimeparts[] = "";
 		// by default php mail funktsioon
-		$this->method = ($args["method"]) ? $args["method"] : "sendmail";
+		$this->method = empty($args["method"]) ? "sendmail" : $args["method"];
 	}
 
 	/**
@@ -308,13 +313,13 @@ class aw_mail {
 
 		if (is_array($args))
 		{
-			if ($args["body"])
+			if (!empty($args["body"]))
 			{
 				$this->body = $args["body"];
 				unset($args["body"]);
-			};
+			}
 
-			if (!$args["X-Mailer"])
+			if (empty($args["X-Mailer"]))
 			{
 				$args["X-Mailer"] = X_MAILER;
 			};
@@ -323,7 +328,7 @@ class aw_mail {
 			$this->from = $args["froma"];
 			$this->subject = $args["subject"];
 
-			if ($args["fromn"])
+			if (!empty($args["fromn"]))
 			{
 				$from = sprintf("%s <%s>",$args["fromn"],$args["froma"]);
 				unset($args["fromn"]);
@@ -333,15 +338,15 @@ class aw_mail {
 			{
 				$from = $args["froma"];
 				unset($args["froma"]);
-			};
+			}
 			$args["from"] = $from;
 
 			foreach($args as $name => $value)
 			{
 				$uname = ucfirst($name);
 				$this->headers[$uname] = $value;
-			};
-		};
+			}
+		}
 	}
 
 	/**Attaches an object to our message
@@ -365,17 +370,17 @@ class aw_mail {
 		if (empty($data))
 		{
 			return false;
-		};
+		}
 
 		if (empty($contenttype))
 		{
 			$contenttype = OCTET;
-		};
+		}
 
 		if (empty($encoding))
 		{
 			$encoding = BASE64;
-		};
+		}
 
 		if ($encoding == BASE64)
 		{
@@ -385,7 +390,7 @@ class aw_mail {
 		else
 		{
 			$emsg = $data;
-		};
+		}
 
 		$emsg = trim($emsg);
 
@@ -393,19 +398,19 @@ class aw_mail {
 		if (preg_match("!^".TEXT."!i", $contenttype) && !preg_match("!;charset=!i", $contenttype))
 		{
 			$contenttype .= ";" . CRLF . " charset=".CHARSET ;
-		};
+		}
 
 		if ($args["body"])
 		{
 			if ($description)
 			{
 				$this->headers["Content-Description"] = $description;
-			};
+			}
 
 			if ($disp)
 			{
 				$this->headers["Content-Disposition"] = $disp;
-			};
+			}
 
 			$pref = "Content-Type: text/plain; charset=ISO-8859-1" . CRLF;
 			$pref .= "Content-Transfer-Encoding: 8bit";
@@ -617,7 +622,7 @@ class aw_mail {
 		else
 		{
 			$boundary = 'AW'.chr(rand(65,91)).'------'.md5(uniqid(rand()));
-		};
+		}
 
 		$nparts = sizeof($this->mimeparts);
 
@@ -723,12 +728,13 @@ class aw_mail {
 		$email .= $this->build_message();
 		$to = $this->headers["To"];
 		$subject = $this->headers["Subject"];
-		if (not($this->headers["Content-Type"]))
+
+		if (empty($this->headers["Content-Type"]))
 		{
-			$ll = get_instance("languages");
+			$ll = new languages();
 			$this->set_header("Content-Type","text/plain; charset=\"".$ll->get_charset()."\"");
-		};
-//arr($this->headers);
+		}
+
 		unset($this->headers["To"]);
 		// why is this here? it will screw up sending to mailinglists - only the first mail will get the subject
 		unset($this->headers["Subject"]);
@@ -739,7 +745,7 @@ class aw_mail {
 			if ($value)
 			{
 				$headers .= sprintf("%s: %s%s",$name,$value,CRLF);
-			};
+			}
 		}
 
 		if (is_array($this->body_replacements))
@@ -747,14 +753,11 @@ class aw_mail {
 			foreach($this->body_replacements as $key => $val)
 			{
 				$email = str_replace($key,$val,$email);
-			};
-		};
-		$this->bodytext = $email;
-		if ($this->dbg == 1)
-		{
-			echo "<pre>Send mail: to: $to\nsubj: $subject\nemail = $email\nheaders = $headers\n</pre>";
+			}
 		}
+		$this->bodytext = $email;
 		return send_mail($to,$subject,$email,$headers,$arguments);
 	}
-};
+}
+
 ?>

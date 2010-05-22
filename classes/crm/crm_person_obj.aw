@@ -17,6 +17,25 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 		}
 	}
 
+	public function awobj_get_username()
+	{
+		$this->require_state("saved");
+		$user_connections = $this->connections_to(array(
+			"from.class_id" => CL_USER,
+			"type" => "RELTYPE_PERSON"
+		));
+
+		$user_name = "";
+
+		if (1 === count($user_connections))
+		{
+			$c = reset($user_connections);
+			$user_name = $c->prop("from.name");
+		}
+
+		return $user_name;
+	}
+
 	function set_rank($v)
 	{
 		// It won't work with new object, so we need to save it first.

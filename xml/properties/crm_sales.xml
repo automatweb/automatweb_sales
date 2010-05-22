@@ -640,6 +640,21 @@
             <caption>Staatus</caption>
       </property>
       <property>
+            <name>cts_cat</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>contacts</group>
+            <type>objpicker</type>
+            <parent>contacts_search_box</parent>
+            <store>no</store>
+            <options_callback>crm_sales::get_category_options</options_callback>
+            <captionside>top</captionside>
+            <clid>CL_CRM_CATEGORY</clid>
+            <size>20</size>
+            <caption>Kliendigrupp</caption>
+      </property>
+      <property>
             <name>cts_calls</name>
             <table>objects</table>
             <field>meta</field>
@@ -1139,6 +1154,7 @@
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
+                  <num_2>data_entry_contact_employee</num_2>
             </group>
             <type>toolbar</type>
             <store>no</store>
@@ -1295,6 +1311,64 @@
             <caption>Ametinimetus</caption>
       </property>
       <property>
+            <name>contact_entry_empoyee</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_employee</group>
+            <type>releditor</type>
+            <reltype>RELTYPE_TMP3</reltype>
+            <store>no</store>
+            <props>
+                  <num_0>lastname</num_0>
+                  <num_1>firstname</num_1>
+                  <num_2>gender</num_2>
+                  <num_3>fake_phone</num_3>
+                  <num_4>fake_email</num_4>
+            </props>
+            <parent>contact_entry_form</parent>
+            <caption>Kontaktisik</caption>
+      </property>
+      <property>
+            <name>contact_entry_organization</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_employee</group>
+            <type>objpicker</type>
+            <store>no</store>
+            <parent>contact_entry_form</parent>
+            <clid>CL_CRM_COMPANY</clid>
+            <comment>Kui isik on liige v&amp;amp;otilde;i t&amp;amp;ouml;&amp;amp;ouml;tab mingis organisatsioonis, saab siin seda valida</comment>
+            <caption>Organisatsioon</caption>
+      </property>
+      <property>
+            <name>contact_entry_profession</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_employee</group>
+            <type>objpicker</type>
+            <store>no</store>
+            <parent>contact_entry_form</parent>
+            <clid>CL_CRM_PROFESSION</clid>
+            <options_callback>crm_sales::get_profession_options(contact_entry_organization)</options_callback>
+            <caption>Amet</caption>
+      </property>
+      <property>
+            <name>contact_entry_comment</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_contact_employee</group>
+            <type>textarea</type>
+            <store>no</store>
+            <rows>5</rows>
+            <cols>30</cols>
+            <parent>contact_entry_form</parent>
+            <caption>Kommentaar</caption>
+      </property>
+      <property>
             <name>contact_entry_person</name>
             <table>objects</table>
             <field>meta</field>
@@ -1426,37 +1500,13 @@
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
             </group>
-            <type>objpicker</type>
+            <type>relpicker</type>
+            <size>5</size>
+            <multiple>1</multiple>
             <store>no</store>
             <parent>contact_entry_form</parent>
-            <clid>CL_CRM_CATEGORY</clid>
-            <options_callback>crm_sales::get_category_options</options_callback>
+            <reltype>RELTYPE_TMP4</reltype>
             <caption>Kliendigrupp</caption>
-      </property>
-      <property>
-            <name>contact_entry_organization</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>data_entry_contact_person</group>
-            <type>objpicker</type>
-            <store>no</store>
-            <parent>contact_entry_form</parent>
-            <clid>CL_CRM_COMPANY</clid>
-            <comment>Kui isik on liige v&amp;amp;otilde;i t&amp;amp;ouml;&amp;amp;ouml;tab mingis organisatsioonis, saab siin seda valida</comment>
-            <caption>Organisatsioon</caption>
-      </property>
-      <property>
-            <name>contact_entry_lead_source_oid</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>
-                  <num_0>data_entry_contact_co</num_0>
-                  <num_1>data_entry_contact_person</num_1>
-            </group>
-            <type>hidden</type>
-            <store>no</store>
       </property>
       <property>
             <name>import_toolbar</name>
@@ -1500,6 +1550,7 @@
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
+                  <num_2>data_entry_contact_employee</num_2>
             </group>
             <type>submit</type>
             <store>no</store>
@@ -1514,6 +1565,7 @@
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
+                  <num_2>data_entry_contact_employee</num_2>
             </group>
             <type>text</type>
             <store>no</store>
@@ -1528,11 +1580,24 @@
             <group>
                   <num_0>data_entry_contact_co</num_0>
                   <num_1>data_entry_contact_person</num_1>
+                  <num_2>data_entry_contact_employee</num_2>
             </group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <parent>de_table_box</parent>
+      </property>
+      <property>
+            <name>contact_entry_lead_source_oid</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>
+                  <num_0>data_entry_contact_co</num_0>
+                  <num_1>data_entry_contact_person</num_1>
+            </group>
+            <type>hidden</type>
+            <store>no</store>
       </property>
       <property>
             <name>offers_toolbar</name>
@@ -1705,6 +1770,11 @@
                   <parent>data_entry</parent>
                   <submit>no</submit>
             </data_entry_contact_co>
+            <data_entry_contact_employee>
+                  <caption>Klientorganisatsiooni kontaktisik</caption>
+                  <parent>data_entry</parent>
+                  <submit>no</submit>
+            </data_entry_contact_employee>
             <data_entry_import>
                   <caption>Import</caption>
                   <parent>data_entry</parent>
@@ -1765,6 +1835,11 @@
                   <clid>CL_CRM_PERSON</clid>
                   <caption>Kontakt isik (s&amp;amp;uuml;steemisiseseks kasutuseks)</caption>
             </TMP3>
+            <TMP4>
+                  <value>6</value>
+                  <clid>CL_CRM_CATEGORY</clid>
+                  <caption>Kliendigrupp (s&amp;amp;uuml;steemisiseseks kasutuseks)</caption>
+            </TMP4>
       </reltypes>
       <layout>
             <splitbox1>
@@ -1922,6 +1997,7 @@
                   <group>
                         <num_0>data_entry_contact_co</num_0>
                         <num_1>data_entry_contact_person</num_1>
+                        <num_2>data_entry_contact_employee</num_2>
                   </group>
                   <area_caption>Uus&amp;amp;nbsp;kontakt</area_caption>
             </de_form_box>
@@ -1930,6 +2006,7 @@
                   <group>
                         <num_0>data_entry_contact_co</num_0>
                         <num_1>data_entry_contact_person</num_1>
+                        <num_2>data_entry_contact_employee</num_2>
                   </group>
                   <parent>de_form_box</parent>
                   <area_caption></area_caption>
@@ -1939,6 +2016,7 @@
                   <group>
                         <num_0>data_entry_contact_co</num_0>
                         <num_1>data_entry_contact_person</num_1>
+                        <num_2>data_entry_contact_employee</num_2>
                   </group>
                   <area_caption></area_caption>
             </de_table_box>
@@ -1947,6 +2025,7 @@
                   <group>
                         <num_0>data_entry_contact_co</num_0>
                         <num_1>data_entry_contact_person</num_1>
+                        <num_2>data_entry_contact_employee</num_2>
                   </group>
                   <parent>de_form_pane</parent>
                   <area_caption></area_caption>
@@ -1956,6 +2035,7 @@
                   <group>
                         <num_0>data_entry_contact_co</num_0>
                         <num_1>data_entry_contact_person</num_1>
+                        <num_2>data_entry_contact_employee</num_2>
                   </group>
                   <parent>de_form_pane</parent>
                   <area_caption></area_caption>
@@ -1966,6 +2046,7 @@
                   <group>
                         <num_0>data_entry_contact_co</num_0>
                         <num_1>data_entry_contact_person</num_1>
+                        <num_2>data_entry_contact_employee</num_2>
                   </group>
                   <width>10%:20%:70%</width>
                   <area_caption></area_caption>

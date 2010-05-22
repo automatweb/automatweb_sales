@@ -1996,6 +1996,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface
 	/**
 		@attrib api=1 params=pos
 		@param parent type=CL_CRM_CATEGORY default=NULL
+			category whose subcategories are desired
 		@return object_list
 		@errors
 			throws awex_obj_type if given parent is of wrong class

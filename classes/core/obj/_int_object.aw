@@ -2896,6 +2896,28 @@ class _int_object
 		{ // new object, find referring container
 		}
 	}
+
+/** Throws an awex_obj_state exception when state isn't what is required
+	@attrib api=1 params=pos
+	@param state type=string
+		State to require from this object. Currently only available option is 'saved'
+	@comment
+	@returns void
+**/
+	protected function require_state($state = "saved")
+	{
+		$required_state = false;
+
+		if ("saved" === $state and $this->is_saved())
+		{
+			$required_state = true;
+		}
+
+		if (!$required_state)
+		{
+			throw new awex_obj_state();
+		}
+	}
 }
 
 ?>

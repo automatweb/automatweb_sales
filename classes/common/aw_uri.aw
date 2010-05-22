@@ -166,7 +166,7 @@ class aw_uri
 	@attrib api=1 params=pos
 	@returns string
 	**/
-	public function get_host($host)
+	public function get_host()
 	{
 		return $this->host;
 	}
