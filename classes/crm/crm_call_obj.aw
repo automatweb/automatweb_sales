@@ -1,7 +1,8 @@
 <?php
 
-class crm_call_obj extends task_object
+class crm_call_obj extends task_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
+	const AW_CLID = 223;
 	const RESULT_CALL = 1;
 	const RESULT_PRESENTATION = 2;
 	const RESULT_REFUSED = 3;
@@ -23,6 +24,15 @@ class crm_call_obj extends task_object
 	private static $read_only_when_done = array(
 		"real_start", "start1", "end", "real_duration", "real_maker", "deadline"
 	);
+
+	//	Written solely for testing purposes!
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+		return $ol;
+	}
 
 	public function set_prop($name, $value)
 	{
