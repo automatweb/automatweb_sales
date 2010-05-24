@@ -326,19 +326,19 @@ class aw_request
 		$this->_action = empty($this->_args["action"]) ? "" : $this->_args["action"];
 	}
 
-	private function __isset($name)
+	public function __isset($name)
 	{
 		$name = "_{$name}";
 		return isset($this->$name);
 	}
 
-	private function __get($name)
+	public function __get($name)
 	{
 		$name = "_{$name}";
 		return $this->$name;
 	}
 
-	private function __set($name, $value)
+	public function __set($name, $value)
 	{
 		$setter_name = "_set_{$name}";
 		if (method_exists($this, $setter_name))
@@ -347,7 +347,7 @@ class aw_request
 		}
 	}
 
-	private function __unset($name)
+	public function __unset($name)
 	{
 		$unsetter_name = "_unset_{$name}";
 		if (method_exists($this, $unsetter_name))
