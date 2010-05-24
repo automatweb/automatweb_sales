@@ -282,14 +282,16 @@ class _int_object_loader extends core
 		}
 
 		$t_oid = $GLOBALS["objects"][$oid]->save($exclusive, $previous_state);
+		$msg_params = array(
+			"oid" => $t_oid
+		);
+
 		if ($t_oid != $oid)
 		{
 			// relocate the object in the global list
 			$GLOBALS["objects"][$t_oid] = $GLOBALS["objects"][$oid];
-			$GLOBALS["objects"][$oid] =& $GLOBALS["objects"][$t_oid];
-			post_message_with_param("MSG_STORAGE_NEW", $GLOBALS["objects"][$t_oid]->class_id(), array(
-				"oid" => $t_oid
-			));
+			$GLOBALS["objects"][$oid] = $GLOBALS["objects"][$t_oid];
+			post_message_with_param("MSG_STORAGE_NEW", $GLOBALS["objects"][$t_oid]->class_id(), $msg_params);
 		}
 		// return the new value, so that the pointers go to the right place.
 		//
@@ -298,9 +300,7 @@ class _int_object_loader extends core
 		// probably.
 		// well, here's to hoping it won't happen!
 
-		post_message_with_param("MSG_STORAGE_SAVE", $GLOBALS["objects"][$t_oid]->class_id(), array(
-			"oid" => $t_oid
-		));
+		post_message_with_param("MSG_STORAGE_SAVE", $GLOBALS["objects"][$t_oid]->class_id(), $msg_params);
 
 		static $lastmod_set;
 		if (!$lastmod_set)
@@ -344,9 +344,10 @@ class _int_object_loader extends core
 		$GLOBALS["objects"][$t_oid] = $t_o;
 		cache::file_set("objlastmod", time());
 
-		post_message_with_param("MSG_STORAGE_SAVE", $GLOBALS["objects"][$t_oid]->class_id(), array(
+		$params = array(
 			"oid" => $t_oid
-		));
+		);
+		post_message_with_param("MSG_STORAGE_SAVE", $GLOBALS["objects"][$t_oid]->class_id(), $params);
 
 		return $t_oid;
 	}

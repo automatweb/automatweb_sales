@@ -42,7 +42,7 @@
 				@property restrictions_toolbar type=toolbar store=no no_caption=1 editonly=1 parent=general_left_bottom
 
 				@property restrictions_table type=table store=no no_caption=1 editonly=1 parent=general_left_bottom
-				
+
 
 		@layout general_right type=vbox parent=general_vsplit
 
@@ -319,7 +319,7 @@ class crm_sales_price_component extends class_base
 		$arr["prop"]["options"] = $options;
 
 		if(empty($arr["prop"]["value"]))
-		{	
+		{
 			$arr["prop"]["value"] = array("net_value");
 		}
 	}
@@ -464,11 +464,6 @@ class crm_sales_price_component extends class_base
 	public function callback_generate_scripts($arr)
 	{
 		return file_get_contents(AW_DIR . "classes/applications/crm/sales/crm_sales_price_component.js");
-	}
-
-	public function callback_mod_reforb(&$arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
 
 	public function do_db_upgrade($t, $f)

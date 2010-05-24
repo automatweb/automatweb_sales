@@ -193,7 +193,7 @@ class popup_search extends aw_template
 				$rel_val = $arr["relinfo"][$rt]["value"];
 				if ($clid->count() > 1)
 				{
-					$pm = get_instance("vcl/popup_menu");
+					$pm = new popup_menu();
 					$pm->begin_menu($arr["property"]["name"]."_relp_pop");
 					foreach($clid->get() as $_clid)
 					{
@@ -289,85 +289,85 @@ class popup_search extends aw_template
 				// If POSTed, handle results
 				if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				{
-				$value = $ob->prop($arr['pn']);
-				$possible_value = null;
-				$reltype = $prop['reltype'];
-				foreach($ob->connections_from(array("type" => $reltype)) as $c)
-				{
-					$to = $c->to();
-					if (isset($arr['rem'][$to->id()]))
+					$value = $ob->prop($arr['pn']);
+					$possible_value = null;
+					$reltype = $prop['reltype'];
+					foreach($ob->connections_from(array("type" => $reltype)) as $c)
 					{
-						// If unlinkable object is also prop value, set to no value
-						if ($value == $to->id())
+						$to = $c->to();
+						if (isset($arr['rem'][$to->id()]))
 						{
-							$value = null; // Actual saving after the loop
+							// If unlinkable object is also prop value, set to no value
+							if ($value == $to->id())
+							{
+								$value = null; // Actual saving after the loop
+							}
+							// Unlink
+							$c->delete();
 						}
-						// Unlink
-						$c->delete();
+						else if (empty($possible_value))
+						{
+							$possible_value = $to->id();
+						}
 					}
-					else if (empty($possible_value))
+					if (empty($value))
 					{
-						$possible_value = $to->id();
+						$ob->set_prop($arr['pn'], $possible_value);
+						$ob->save();
 					}
-				}
-				if (empty($value))
-				{
-					$ob->set_prop($arr['pn'], $possible_value);
-					$ob->save();
-				}
 
-				die("
-					<html><body><script language='javascript'>
-						window.opener.location.reload();
-						window.close();
-					</script></body></html>
-				");
-			}
-			else
-			{
-				$htmlc = new htmlclient(array(
-					'template' => "default",
-				));
-				$htmlc->start_output();
-				$htmlc->add_property(array(
-					"caption" => t("Vali eemaldatavad objektid"),
-				));
-
-				foreach($ob->connections_from(array("type" => $prop['reltype'])) as $c)
+					die("
+						<html><body><script language='javascript'>
+							window.opener.location.reload();
+							window.close();
+						</script></body></html>
+					");
+				}
+				else
 				{
-					$o = $c->to();
-					$htmlc->add_property(array(
-						"name" => "rem[".$o->id()."]",
-						"type" => "checkbox",
-						"caption" => $o->name(),
+					$htmlc = new htmlclient(array(
+						'template' => "default",
 					));
+					$htmlc->start_output();
+					$htmlc->add_property(array(
+						"caption" => t("Vali eemaldatavad objektid"),
+					));
+
+					foreach($ob->connections_from(array("type" => $prop['reltype'])) as $c)
+					{
+						$o = $c->to();
+						$htmlc->add_property(array(
+							"name" => "rem[".$o->id()."]",
+							"type" => "checkbox",
+							"caption" => $o->name(),
+						));
+					}
+
+					$htmlc->add_property(array(
+						"name" => "s[submit]",
+						"type" => "submit",
+						"value" => t("Vali"),
+						"class" => "sbtbutton"
+					));
+
+					$htmlc->finish_output(array(
+						"action" => "do_unlink",
+						"method" => "POST",
+						"data" => array(
+							"id" => $arr["id"],
+							"pn" => $arr["pn"],
+							"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
+							"orb_class" => "popup_search",
+							"reforb" => 0
+						)
+					));
+
+					$html = $htmlc->get_result();
+
+					return $html;
 				}
-
-				$htmlc->add_property(array(
-					"name" => "s[submit]",
-					"type" => "submit",
-					"value" => t("Vali"),
-					"class" => "sbtbutton"
-				));
-
-				$htmlc->finish_output(array(
-					"action" => "do_unlink",
-					"method" => "POST",
-					"data" => array(
-						"id" => $arr["id"],
-						"pn" => $arr["pn"],
-						"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
-						"orb_class" => "popup_search",
-						"reforb" => 0
-					)
-				));
-
-				$html = $htmlc->get_result();
-
-				return $html;
 			}
 		}
-	  }
 	}
 
 	/**
@@ -474,7 +474,7 @@ class popup_search extends aw_template
 
 	function _get_form($arr)
 	{
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 
 		$this->_insert_form_props($htmlc, $arr);
@@ -657,7 +657,7 @@ class popup_search extends aw_template
 				$ob = obj($arr['id']);
 				$props = $ob->get_property_list();
 				$prop = $props[$arr['pn']];
-				if (isset($prop['style']) && $prop['style'] == 'relpicker' && isset($prop['reltype']))
+				if (isset($prop['style']) && $prop['style'] === 'relpicker' && isset($prop['reltype']))
 				{
 					foreach($ob->connections_from(array("type" => $prop['reltype'])) as $c)
 					{
@@ -746,7 +746,7 @@ class popup_search extends aw_template
 			// if relpicker, define relations
 			$props = $o->get_property_list();
 			$prop = $props[$arr['pn']];
-			if (isset($prop['style']) && $prop['style'] == 'relpicker' && isset($prop['reltype']))
+			if (isset($prop['style']) && $prop['style'] === 'relpicker' && isset($prop['reltype']))
 			{
 				$reltype = $prop['reltype'];
 				foreach($o->connections_from(array("type" => $reltype)) as $c)
@@ -770,12 +770,13 @@ class popup_search extends aw_template
 			}
 
 			// emit message so objects can update crap
-			post_message_with_param(MSG_POPUP_SEARCH_CHANGE, $o->class_id(), array(
+			$params = array(
 				"oid" => $o->id(),
 				"prop" => $arr["pn"],
 				"options" => $this->make_keys($arr["sel"]),
 				"arr" => $arr,
-			));
+			);
+			post_message_with_param(MSG_POPUP_SEARCH_CHANGE, $o->class_id(), $params);
 		}
 
 		if ($arr["multiple"] == 1)
@@ -917,7 +918,7 @@ function aw_get_el(name,form)
 	function autocomplete_source($arr)
 	{
 		header ("Content-Type: text/html; charset=" . aw_global_get("charset"));
-		$cl_json = get_instance("protocols/data/json");
+		$cl_json = new json();
 
 		$errorstring = "";
 		$error = false;
@@ -1016,10 +1017,11 @@ function aw_get_el(name,form)
 	{
 		$url = $this->mk_my_orb("do_ajax_search", array(
 			"id" => $this->oid,
+			"in_popup" => "1",
 			"reload_layout" => isset($this->reload_layouts) ? $this->reload_layouts :"",
 			"reload_property" => isset($this->reload_property) ? $this->reload_property :"",
 			"clid" => $this->clid,
-			"property" => $this->property,
+			"property" => $this->property
 		));
 		return $url;
 
@@ -1047,8 +1049,7 @@ function aw_get_el(name,form)
 		$form_html = $this->_get_search_form($arr);
 		$arr["return"] = 1;
 		$res_html = html::div(array("id" => "result" , "content" => $this->get_search_results($arr)));
-
-		return $form_html."<br>".$res_html;
+		return $form_html."<br />".$res_html;
 	}
 
 	/**
@@ -1062,7 +1063,7 @@ function aw_get_el(name,form)
 	function ajax_set_property($arr)
 	{
 		$o = obj($arr["id"]);
-		$cx = get_instance("cfg/cfgutils");
+		$cx = new cfgutils();
 		$properties = $cx->load_class_properties(array(
 			"clid" => $o->class_id(),
 		));
@@ -1082,7 +1083,7 @@ function aw_get_el(name,form)
 
 	function _get_search_form($arr)
 	{
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 
 		$htmlc->add_property(array(
@@ -1119,7 +1120,7 @@ function aw_get_el(name,form)
 				oid: oids.value,
 				name: names.value,
 				clid: '".$arr["clid"]."',
-				reload_layout: '".$arr["reload_layout"]."',
+				reload_layout: '".(isset($arr["reload_layout"]) ? $arr["reload_layout"] : "")."',
 				reload_property: '".$arr["reload_property"]."',
 				property: '".$arr["property"]."'
 			}, function (html) {
@@ -1228,7 +1229,7 @@ function aw_get_el(name,form)
 		));
 
 		$obj = obj($arr["id"]);
-		$cx = get_instance("cfg/cfgutils");
+		$cx = new cfgutils();
 		$props = $cx->load_class_properties(array(
 			"clid" => $obj->class_id(),
 		));

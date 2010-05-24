@@ -1097,7 +1097,7 @@ class crm_person extends class_base
 				static $i;
 				if (!$i)
 				{
-					$i = get_instance("applications/crm/crm_company_cedit_impl");
+					$i = new crm_company_cedit_impl();
 				}
 				$fn = "_set_".$prop["name"];
 				$i->$fn($arr);
@@ -1111,10 +1111,11 @@ class crm_person extends class_base
 				if (($arr["new"] || !($tmp = $this->has_user($arr["obj_inst"]))))
 				{
 					$arr["obj_inst"]->set_meta("no_create_user_yet", true);
+					$username = isset($form["username"]) ? trim($form["username"]) : "";
 
-					if (strlen(trim($prop["value"])) and !strlen(trim($form["username"])) && $arr["request"]["password"] != "")
+					if (strlen(trim($prop["value"])) and empty($username) && !empty($arr["request"]["password"]))
 					{
-						$cl_user_creator = get_instance("crm/crm_user_creator");
+						$cl_user_creator = new crm_user_creator();
 						$errors = $cl_user_creator->get_uid_for_person($arr["obj_inst"], true);
 
 						if ($errors)
@@ -1967,7 +1968,7 @@ class crm_person extends class_base
 				break;
 
 			case "ext_sys_t":
-				$this->_ext_sys_t(&$arr);
+				$this->_ext_sys_t($arr);
 				break;
 
 			case "citizenship_table":
@@ -1976,7 +1977,7 @@ class crm_person extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$this->_get_citizenship_table(&$arr);
+				$this->_get_citizenship_table($arr);
 				break;
 
 			case "cv_view_tb":
@@ -2200,7 +2201,7 @@ class crm_person extends class_base
 				break;
 
 			case "navtoolbar":
-				$this->isik_toolbar(&$arr);
+				$this->isik_toolbar($arr);
 				break;
 
 			case "gender":
@@ -2218,7 +2219,7 @@ class crm_person extends class_base
 			case "org_calls":
 			case "org_meetings":
 			case "org_tasks":
-				$this->do_org_actions(&$arr);
+				$this->do_org_actions($arr);
 				break;
 
 			case "skills_listing_tree":
@@ -2229,7 +2230,7 @@ class crm_person extends class_base
 				break;
 
 			case "skills_toolbar":
-				$this->do_cv_skills_toolbar(&$data["toolbar"], $arr);
+				$this->do_cv_skills_toolbar($data["toolbar"], $arr);
 				break;
 
 			case "skills_table":
@@ -2725,16 +2726,17 @@ class crm_person extends class_base
 		));
 	}
 
-	function recursive_connections_from($ids, $reltype, $array)
+	function recursive_connections_from($ids, $reltype, &$array)
 	{
 		foreach(connection::find(array("from" => $ids, "type" => $reltype)) as $conn)
 		{
 			$array[$conn["to"]] = $conn["to.name"];
 			$new_ids[$conn["to"]] = $conn["to.name"];
 		}
+
 		if(count($new_ids) > 0)
 		{
-			$this->recursive_connections_from($new_ids, $reltype, &$array);
+			$this->recursive_connections_from($new_ids, $reltype, $array);
 		}
 	}
 
@@ -2894,7 +2896,7 @@ class crm_person extends class_base
 					}
 					if(count($ids) > 0)
 					{
-						$this->recursive_connections_from($ids, 1, &$sec_options[$orgid]);
+						$this->recursive_connections_from($ids, 1, $sec_options[$orgid]);
 					}
 				}
 			}
@@ -2941,9 +2943,9 @@ class crm_person extends class_base
 		}
 	}
 
-	function isik_toolbar($args)
+	function isik_toolbar(&$args)
 	{
-		$toolbar = &$args["prop"]["toolbar"];
+		$toolbar = $args["prop"]["toolbar"];
 
 		$pl = get_instance(CL_PLANNER);
 		$cal_id = $pl->get_calendar_for_user(array(
@@ -3407,7 +3409,7 @@ class crm_person extends class_base
 		$al = get_instance("alias_parser");
 		$notes = $to->prop("notes");
 
-		$al->parse_oo_aliases($to->id(), &$notes);
+		$al->parse_oo_aliases($to->id(), $notes);
 
 		$this->vars(array(
 			"name" => $to->name(),
@@ -3565,7 +3567,7 @@ class crm_person extends class_base
 	// !Perhaps I can make a single function that returns the latest event (if any)
 	// for each connection?
 
-	function do_org_actions($arr)
+	function do_org_actions(&$arr)
 	{
 		$ob = $arr["obj_inst"];
 		$args = array();
@@ -3679,7 +3681,7 @@ class crm_person extends class_base
 		};
 	}
 
-	function do_cv_skills_toolbar($toolbar, $arr)
+	function do_cv_skills_toolbar($toolbar, &$arr)
 	{
 		$toolbar->add_menu_button(array(
 			'name'=>'add_item',
@@ -4068,11 +4070,10 @@ class crm_person extends class_base
 
 		if (aw_global_get("uid") != "")
 		{
-			$u = get_instance(CL_USER);
-			$p = obj($u->get_current_person());
-			if ($arr["request"]["group"] == "general2")
+			$p = get_current_person();
+			if ("general2" === $this->use_group)
 			{
-				if ($arr["request"]["is_important"] == 1)
+				if (!empty($arr["request"]["is_important"]))
 				{
 					$p->connect(array(
 						"to" => $arr["obj_inst"]->id(),
@@ -4091,14 +4092,14 @@ class crm_person extends class_base
 				}
 			}
 
-			if ($this->can("view", $arr["request"]["add_to_task"]))
+			if (isset($arr["request"]["add_to_task"]) and $this->can("view", $arr["request"]["add_to_task"]))
 			{
 				$task = obj($arr["request"]["add_to_task"]);
 				$cc = $task->instance();
 				$cc->add_participant($task, $arr["obj_inst"]);
 			}
 
-			if ($this->can("view", $arr["request"]["add_to_co"]))
+			if (isset($arr["request"]["add_to_co"]) and $this->can("view", $arr["request"]["add_to_co"]))
 			{
 				$arr["obj_inst"]->add_work_relation(array("org" => $arr["request"]["add_to_co"]));
 			}
@@ -4588,7 +4589,7 @@ class crm_person extends class_base
 		foreach($arr['obj_inst']->get_section_selection() as $id => $name)
 		{
 			$obj = obj($id);
-			$this->_get_work_contacts($obj,&$rtrn);
+			$this->_get_work_contacts($obj, $rtrn);
 		}
 
 
@@ -4613,14 +4614,14 @@ class crm_person extends class_base
 				$rtrn[$obj->prop('org')] = $obj->prop('org.name');
 			if(is_oid($obj->prop('section')))
 			{
-				$this->_get_work_contacts(obj($obj->prop('section')), &$rtrn);
+				$this->_get_work_contacts(obj($obj->prop('section')), $rtrn);
 			}
 		}
 
 		return $rtrn;
 	}
 
-	function _get_work_contacts(&$obj,&$data)
+	function _get_work_contacts($obj, &$data)
 	{
 		//maybe i found the company?
 		if($obj->class_id()==CL_CRM_SECTION)
@@ -4642,7 +4643,7 @@ class crm_person extends class_base
 		foreach($conns as $conn)
 		{
 			$obj = $conn->from();
-			$this->_get_work_contacts(&$obj,&$data);
+			$this->_get_work_contacts($obj, $data);
 		}
 	}
 
@@ -4805,10 +4806,14 @@ class crm_person extends class_base
 		return false;
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
-		$arr["args"]["cv_tpl"] = $arr["request"]["cv_tpl"];
-		if($arr["request"]["group"] == "mails")
+		if (isset($arr["request"]["cv_tpl"]))
+		{
+			$arr["args"]["cv_tpl"] = $arr["request"]["cv_tpl"];
+		}
+
+		if("mails" === $this->use_group)
 		{
 			$arr["args"]["mails_s_name"] = $arr["request"]["mails_s_name"];
 			$arr["args"]["mails_s_content"] = $arr["request"]["mails_s_content"];
@@ -4816,21 +4821,23 @@ class crm_person extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
-		$arr["post_ru"] = post_ru();
 		if(isset($_GET["add_to_task"]))
 		{
 			$arr["add_to_task"] = $_GET["add_to_task"];
 		}
+
 		if(isset($_GET["add_to_co"]))
 		{
 			$arr["add_to_co"] = $_GET["add_to_co"];
 		}
+
 		if(isset($_GET["ofr_id"]))
 		{
 			$arr["ofr_id"] = $_GET["ofr_id"];
 		}
+
 		if(isset($_GET["job_offer_id"]) && $this->can("view", $_GET["job_offer_id"]))
 		{
 			aw_session_set("job_offer_obj_id_for_candidate", $_GET["job_offer_id"]);
@@ -6267,7 +6274,7 @@ class crm_person extends class_base
 				// SUB: CRM_SKILL
 				$parse_sk = 0;
 				$ids = array();
-				$this->recursive_ids($id, $skills, &$ids);
+				$this->recursive_ids($id, $skills, $ids);
 				$skills_by_parent = array();
 				foreach($conns as $conn)
 				{
@@ -7727,11 +7734,11 @@ class crm_person extends class_base
 		return $arr["die"]?die($this->parse()):$this->parse();
 	}
 
-	function recursive_ids($id, $arr, $ids)
+	function recursive_ids($id, $arr, &$ids)
 	{
 		foreach($arr[$id] as $id_ => $arr_)
 		{
-			$ids[] = $this->recursive_ids($id_, $arr, &$ids);
+			$ids[] = $this->recursive_ids($id_, $arr, $ids);
 		}
 		return $id;
 	}
@@ -7753,7 +7760,7 @@ class crm_person extends class_base
 		return $roles;
 	}
 
-	function _init_ext_sys_t(&$t)
+	function _init_ext_sys_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -7767,9 +7774,9 @@ class crm_person extends class_base
 		));
 	}
 
-	function _ext_sys_t($arr)
+	function _ext_sys_t(&$arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_ext_sys_t($t);
 
 		$cc = get_instance(CL_CRM_COMPANY);
@@ -7939,7 +7946,6 @@ class crm_person extends class_base
 			$ret .= ", ".t("faks")." ".html::obj_change_url($to->id());
 		}
 
-//		arr($cwrs);
 		foreach($cwrs as $org_id => $data)
 		{
 			if(strlen($ret) > 0)
@@ -8064,7 +8070,7 @@ class crm_person extends class_base
 
 	function _ct_rel_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$confirm_test = t("Kustutada valitud objektid?");
 
 		$tb->add_menu_button(array(
@@ -8089,7 +8095,7 @@ class crm_person extends class_base
 		$tb->add_save_button();
 	}
 
-	function _init_my_stats_rows_t(&$t)
+	function _init_my_stats_rows_t($t)
 	{
 		$t->define_field(array(
 			"name" => "date",
@@ -8235,7 +8241,6 @@ class crm_person extends class_base
 
 		$ol = new object_list($row_filter);
 
-		classload("vcl/table");
 		$t = new vcl_table;
 		$this->_init_my_stats_rows_t($t);
 
@@ -8253,7 +8258,7 @@ class crm_person extends class_base
 			}
 			$row2task[$c["to"]] = $c["from"];
 		}
-//arr($row2task);
+
 		$stat_inst = get_instance("applications/crm/crm_company_stats_impl");
 		$task_inst = get_instance("applications/groupware/task");
 		$row_inst = get_instance("applications/groupware/task_row");
@@ -8328,7 +8333,7 @@ class crm_person extends class_base
 							$time_real += $other_tr->prop("time_real");
 						}
 					}
-					$sum = $br->get_sum();//if(aw_global_get("uid") == "Teddi.Rull") arr($sum);
+					$sum = $br->get_sum();
 				}
 				else
 				{
@@ -8407,7 +8412,7 @@ class crm_person extends class_base
 
 	function _skills_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "new",
 			"img" => "new.gif",
@@ -8426,7 +8431,7 @@ class crm_person extends class_base
 		));
 	}
 
-	function _init_skills_t(&$t)
+	function _init_skills_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -8451,7 +8456,7 @@ class crm_person extends class_base
 
 	function _skills_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_skills_t($t);
 
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_HAS_SKILL")) as $c)
@@ -8652,7 +8657,7 @@ class crm_person extends class_base
 
 	function _get_person_tb($arr)
 	{
-		$tb = &$arr["prop"]["toolbar"];
+		$tb = $arr["prop"]["toolbar"];
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"img" => "new.gif",
@@ -8698,9 +8703,9 @@ class crm_person extends class_base
 		return $arr["post_ru"];
 	}
 
-	function _get_citizenship_table($arr)
+	function _get_citizenship_table(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->set_caption(t("Kodakondsused"));
 		$t->define_chooser(array(

@@ -9,6 +9,15 @@
 				</arguments>
 			</function>
 		</action>
+		<action name="get_profession_options">
+			<function name="get_profession_options">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="contact_entry_organization" type="oid" />
+					<optional name="typed_text" type="string" />
+				</arguments>
+			</function>
+		</action>
 		<action name="get_entry_choices">
 			<function name="get_entry_choices">
 				<arguments>

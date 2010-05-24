@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/timing.aw,v 1.16 2008/01/31 13:52:15 kristo Exp $
+
 // timing.aw - Ajaline aktiivsus
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_DOCUMENT, on_tconnect_from)
@@ -33,7 +33,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_TIMING, init_scheduler)
 @caption Arhiivi kaust
 @comment Kaust kuhu objekt liigutatakse
 
-@property delete_object type=checkbox ch_value=1 field=meta method=serialize 
+@property delete_object type=checkbox ch_value=1 field=meta method=serialize
 @caption Kustuta objekt
 @comment Objekt kustutatakse arhiveerimise asemel
 
@@ -57,10 +57,10 @@ class timing extends class_base
 	{
 		$this->init(array(
 			"tpldir" => "contentmgmt/timing",
-			"clid" => CL_TIMING,
+			"clid" => CL_TIMING
 		));
 	}
-	
+
 	function on_tconnect_to($arr)
 	{
 		$con = &$arr["connection"];
@@ -73,7 +73,7 @@ class timing extends class_base
 			));
 		}
 	}
-	
+
 	function on_tconnect_from($arr)
 	{
 		$con = &$arr["connection"];
@@ -100,7 +100,7 @@ class timing extends class_base
 			));
 		}
 	}
-	
+
 	function on_tdisconnect_from($arr)
 	{
 		$con = &$arr["connection"];
@@ -114,7 +114,7 @@ class timing extends class_base
 			));
 		}
 	}
-	
+
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
@@ -172,7 +172,7 @@ class timing extends class_base
 		};
 		return $retval;
 	}
-	
+
 	function init_scheduler($arr)
 	{
 		$scheduler = get_instance("scheduler");
@@ -208,7 +208,7 @@ class timing extends class_base
 				"id" => $arr['oid'],
 			));
 
-			// a possibility to fix this archive/delete conflict is just to make 
+			// a possibility to fix this archive/delete conflict is just to make
 			// delete action always happen one minute later
 			$scheduler->remove(array("event" => $event));
 			$scheduler->add(array(
@@ -226,7 +226,7 @@ class timing extends class_base
 		if($atrue)
 		{
 			$event = $this->mk_my_orb("init_action", array(
-				"subaction" => "activate", 
+				"subaction" => "activate",
 				"id" => $arr['oid'],
 			));
 			$scheduler->remove(array("event" => $event));
@@ -240,7 +240,7 @@ class timing extends class_base
 		if($datrue)
 		{
 			$event = $this->mk_my_orb("init_action", array(
-				"subaction" => "deactivate", 
+				"subaction" => "deactivate",
 				"id" => $arr['oid'],
 			));
 			$scheduler->remove(array("event" => $event));
@@ -269,7 +269,7 @@ class timing extends class_base
 
 		//$time, $event, $uid = "", $password = "", $rep_id = 0, $event_id = "", $sessid ="")
 	}
-	
+
 	function objects_toolbar($arr)
 	{
 		$tb = &$arr["prop"]["vcl_inst"];
@@ -281,7 +281,7 @@ class timing extends class_base
 			"img" => "delete.gif",
 		));
 	}
-	
+
 	function objects_table($arr)
 	{
 		$classes = aw_ini_get("classes");
@@ -317,7 +317,7 @@ class timing extends class_base
 
 	/**
 		@attrib name=disconnect
-		
+
 		@param id required type=int acl=edit
 		@param group optional
 		@param sel required
@@ -336,10 +336,10 @@ class timing extends class_base
 		}
 		return html::get_change_url($arr["id"], array("group" => $arr["group"]));
 	}
-	
+
 	/**
 		@attrib name=init_action
-		
+
 		@param id required type=int acl=view
 		@param subaction required
 	**/
@@ -362,14 +362,14 @@ class timing extends class_base
 			{
 				$oar[$o->id()] = $o;
 			}
-			
+
 
 			foreach($oar as $obj)
 			{
 				switch ($arr["subaction"])
 				{
 					case "delete":
-						$obj->delete();	
+						$obj->delete();
 						break;
 					case "activate":
 						$obj->set_status(STAT_ACTIVE);

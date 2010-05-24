@@ -17,59 +17,38 @@ class crm_call_list extends crm_task_list
 
 			// role specific constraints
 			$role = automatweb::$request->get_application()->get_current_user_role();
-			switch ($role)
+			if (crm_sales_obj::ROLE_TELEMARKETING_SALESMAN === $role)
 			{
-				case crm_sales_obj::ROLE_GENERIC:
-					if (empty($param["real_duration"]))
-					{
-						// $param["real_duration"] = new obj_predicate_compare(OBJ_COMP_LESS, 1);//!!! tmp
-					}
-					break;
+				if (empty($param["real_duration"]))
+				{ // filter out calls already made
+					$param["real_duration"] = new obj_predicate_compare(OBJ_COMP_LESS, 1);//!!! tmp
+				}
 
-				case crm_sales_obj::ROLE_DATA_ENTRY_CLERK:
-					break;
-
-				case crm_sales_obj::ROLE_TELEMARKETING_SALESMAN:
-					if (empty($param["real_duration"]))
-					{
-						$param["real_duration"] = new obj_predicate_compare(OBJ_COMP_LESS, 1);//!!! tmp
-					}
-
-					// $current_person = get_current_person();
-					// $lang_skills = new object_list($current_person->connections_from(array("reltype" => "RELTYPE_LANGUAGE_SKILL")));
-					// if ($lang_skills->count())
-					// {
-						// $lang_ids = $lang_skills->ids();
-						// $param[] = new object_list_filter(array(
-							// "logic" => "OR",
-							// "conditions" => array (
-								// new object_list_filter(array(
-									// "logic" => "OR",
-									// "conditions" => array (
-										// "CL_CRM_CALL.customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).buyer(CL_CRM_COMPANY).language" => new obj_predicate_compare(obj_predicate_compare::LESS, 1),
-										// "CL_CRM_CALL.customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).buyer(CL_CRM_PERSON).mlang" =>  new obj_predicate_compare(obj_predicate_compare::LESS, 1)
-									// )
-								// )),
-								// new object_list_filter(array(
-									// "logic" => "OR",
-									// "conditions" => array (
-										// "CL_CRM_CALL.customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).buyer(CL_CRM_COMPANY).language" => $lang_ids,
-										// "CL_CRM_CALL.customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).buyer(CL_CRM_PERSON).mlang" => $lang_ids
-									// )
-								// ))
-							// )
-						// ));
-					// }
-					break;
-
-				case crm_sales_obj::ROLE_TELEMARKETING_MANAGER:
-					break;
-
-				case crm_sales_obj::ROLE_SALESMAN:
-					break;
-
-				case crm_sales_obj::ROLE_MANAGER:
-					break;
+				// $current_person = get_current_person();
+				// $lang_skills = new object_list($current_person->connections_from(array("reltype" => "RELTYPE_LANGUAGE_SKILL")));
+				// if ($lang_skills->count())
+				// {
+					// $lang_ids = $lang_skills->ids();
+					// $param[] = new object_list_filter(array(
+						// "logic" => "OR",
+						// "conditions" => array (
+							// new object_list_filter(array(
+								// "logic" => "OR",
+								// "conditions" => array (
+									// "CL_CRM_CALL.customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).buyer(CL_CRM_COMPANY).language" => new obj_predicate_compare(obj_predicate_compare::LESS, 1),
+									// "CL_CRM_CALL.customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).buyer(CL_CRM_PERSON).mlang" =>  new obj_predicate_compare(obj_predicate_compare::LESS, 1)
+								// )
+							// )),
+							// new object_list_filter(array(
+								// "logic" => "OR",
+								// "conditions" => array (
+									// "CL_CRM_CALL.customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).buyer(CL_CRM_COMPANY).language" => $lang_ids,
+									// "CL_CRM_CALL.customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).buyer(CL_CRM_PERSON).mlang" => $lang_ids
+								// )
+							// ))
+						// )
+					// ));
+				// }
 			}
 		}
 

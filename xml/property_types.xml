@@ -419,6 +419,8 @@
 		<datepicker>
 			<size />
 			<disabled />
+			<time />
+			<from />
 		</datepicker>
 
 		<datetime_select>
@@ -485,6 +487,7 @@
 		<objpicker>
 			<clid />
 			<options_callback />
+			<disabled />
 		</objpicker>
 
 		<time_select>

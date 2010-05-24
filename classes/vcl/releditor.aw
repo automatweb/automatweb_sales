@@ -61,7 +61,7 @@ class releditor extends core
 			return '<div id="releditor_'.$this->elname.'_table_wrapper"></div>';
 		}
 
-		$htmlclient = get_instance("cfg/htmlclient");
+		$htmlclient = new htmlclient();
 
 		if ($arr["obj_inst"]->class_id())
 		{
@@ -69,25 +69,8 @@ class releditor extends core
 		}
 
 		$parent_property_list = $arr["obj_inst"]->get_property_list();
-		// HACK!
-
-//		if(aw_global_get("section") != 383544)
-//		{
 		$property = $parent_property_list[$property["name"]];
-//		}
-		// END OF HACK!
-/*
-		if (!is_array($parent_inst->relinfo))
-		{
-			$parent_inst->load_defaults();
-		}
-		$target_reltype = $arr["prop"]["reltype"];
-		$arr["prop"]["reltype"] = $parent_inst->relinfo[$target_reltype]["value"];
-		$arr["prop"]["clid"] = $parent_inst->relinfo[$target_reltype]["clid"];
-*/
-
-		$tb_fields = $property["table_fields"];
-
+		$tb_fields = empty($property["table_fields"]) ? array() : (array) $property["table_fields"];
 		$data = array();
 
 		if(!$arr["new"] && is_object($arr["obj_inst"]) && is_oid($arr["obj_inst"]->id()))
@@ -129,7 +112,7 @@ class releditor extends core
 					if (!in_array($_pn,$tb_fields) || (!isset($_pd["show_in_emb_tbl"]) || $_pd["show_in_emb_tbl"] != 1) && isset($arr["prop"]["cfgform_id"]) && is_oid($arr["prop"]["cfgform_id"]))
 					{
 						continue;
-					};
+					}
 
 					if(!isset($fields_defined) || !$fields_defined)
 					{
@@ -190,14 +173,8 @@ class releditor extends core
 						$get_prop_arr[$key] = $val;
 					}
 
-//					$get_prop_arr = $arr;
 					$get_prop_arr["called_from"] = "releditor_table";
-					// HACK!
-//					if(aw_global_get("section") != 383544)
-//					{
 					$get_prop_arr["prop"] = $prop;
-//					}
-					// END OF HACK!
 					$get_prop_arr["prop"]["name"] = $this->elname."[".$get_prop_arr["prop"]["name"]."]";
 					$parent_inst->get_property($get_prop_arr);
 					$prop = $get_prop_arr["prop"];
@@ -243,10 +220,7 @@ class releditor extends core
 
 	private function init_new_manager($arr)
 	{
-		$visual = "";
-		$edit_id = "";
-		//arr($arr);
-		enter_function("init-rel-editor-new");
+		$visual = $edit_id = "";
 		$prop = $arr["prop"];
 		$this->elname = $prop["name"];
 		$obj = $arr["obj_inst"];
@@ -458,8 +432,6 @@ class releditor extends core
 		{
 			$xprops[$k] = $v;
 		}
-
-		exit_function("init-rel-editor-new");
 
 		$xprops[$prop["name"]."_reled_data"] = array(
 			"type" => "hidden",
@@ -1802,16 +1774,17 @@ class releditor extends core
 
 		if(is_oid($arr["cfgform"]) && $this->can("view", $arr["cfgform"]))
 		{
-			$cfgproplist = get_instance(CL_CFGFORM)->get_cfg_proplist($arr["cfgform"]);
+			$cfgform_i = new cfgform();
+			$cfgproplist = $cfgform_i->get_cfg_proplist($arr["cfgform"]);
 			$cfgcontroller_inst = get_instance(CL_CFGCONTROLLER);
 			$cfgform_o = obj($cfgproplist[$propn]["cfgform_id"]);
 			if(is_oid($cfgproplist[$propn]["cfgform_id"]) && $this->can("view", $cfgproplist[$propn]["cfgform_id"]))
 			{
-				$cfgproplist_ = get_instance(CL_CFGFORM)->get_cfg_proplist($cfgproplist[$propn]["cfgform_id"]);
+				$cfgproplist_ = $cfgform_i->get_cfg_proplist($cfgproplist[$propn]["cfgform_id"]);
 			}
 			else
 			{
-				$cfgproplist_ = get_instance(CL_CFGFORM)->get_default_proplist(array("clid" => $arr["use_clid"]));
+				$cfgproplist_ = $cfgform_i->get_default_proplist(array("clid" => $arr["use_clid"]));
 			}
 
 			$cfg_cntrl = (array) $cfgform_o->meta("controllers");
@@ -1822,13 +1795,13 @@ class releditor extends core
 			{
 				if (count($cntrl_ids))
 				{
-					$controller_inst = get_instance(CL_CFGCONTROLLER);
+					$controller_inst = $cfgcontroller_inst;
 					foreach ($cntrl_ids as $cfg_cntrl_id)
 					{
 						if (is_oid($cfg_cntrl_id))
 						{
 							$tmp = array("value" => &$arr[$propn][$num][$cntrl_prop]);
-							$retval_ = $controller_inst->check_property($cfg_cntrl_id, $arr["id"], &$tmp, &$arr[$propn][$num], NULL, obj($arr["id"]));
+							$retval_ = $controller_inst->check_property($cfg_cntrl_id, $arr["id"], $tmp, $arr[$propn][$num], NULL, obj($arr["id"]));
 							$retval = $retval_ != PROP_OK ? $retval_ : $retval;
 							if($retval_ != PROP_OK)
 							{

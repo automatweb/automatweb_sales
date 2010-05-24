@@ -17,6 +17,25 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 		}
 	}
 
+	public function awobj_get_username()
+	{
+		$this->require_state("saved");
+		$user_connections = $this->connections_to(array(
+			"from.class_id" => CL_USER,
+			"type" => "RELTYPE_PERSON"
+		));
+
+		$user_name = "";
+
+		if (1 === count($user_connections))
+		{
+			$c = reset($user_connections);
+			$user_name = $c->prop("from.name");
+		}
+
+		return $user_name;
+	}
+
 	function set_rank($v)
 	{
 		// It won't work with new object, so we need to save it first.
@@ -1746,7 +1765,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface
 		$show_cnt_conf = get_instance("personnel_management_obj")->get_show_cnt_conf();
 		$usr = new user();
 		$u = $usr->get_current_user();
-		$g = $show_cnt_conf[CL_CRM_PERSON][$action]["groups"];
+		$g = isset($show_cnt_conf[CL_CRM_PERSON][$action]["groups"]) ? $show_cnt_conf[CL_CRM_PERSON][$action]["groups"] : null;
 		if($usr->is_group_member($u, $g) && is_oid($id))
 		{
 			$o = obj($id);

@@ -892,11 +892,6 @@ Aadress: %s
 		}
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function do_db_upgrade($tbl, $fld, $q, $err)
 	{
 		switch($fld)

@@ -59,51 +59,23 @@ class crm_task_list extends object_list
 				"conditions" => $seller_param
 			));
 
-			// own_tasks_only parameter or salesperson is current user's role
-			// salespersons see only their own tasks
-			if (!empty($task_list_param["own_tasks_only"]))
+			// own_tasks_only parameter is true or current user is not in a manager's role
+			// salespersons and other managees see only their own tasks
+			if (!empty($task_list_param["own_tasks_only"]) or !$application->has_privilege("all_tasks"))
 			{
 				$participant_param1 = array();
-				$participant_param2 = array();
 				$current_person = get_current_person();
 
 				foreach ($param["class_id"] as $clid)
 				{
 					$clid_label = $this->task_classes[$clid];
-					$participant_param1["{$clid_label}.RELTYPE_ROW.impl"] = $current_person->id();
-					$participant_param2["{$clid_label}.RELTYPE_ROW.primary"] = 1;
+					$participant_param1["{$clid_label}.RELTYPE_PARTICIPANT"] = $current_person->id();
 				}
 
 				$param[] = new object_list_filter(array(
 					"logic" => "OR",
 					"conditions" => $participant_param1
 				));
-				$param[] = new object_list_filter(array(
-					"logic" => "OR",
-					"conditions" => $participant_param2
-				));
-			}
-
-			// role specific constraints
-			switch ($role)
-			{
-				case crm_sales_obj::ROLE_GENERIC:
-					break;
-
-				case crm_sales_obj::ROLE_DATA_ENTRY_CLERK:
-					break;
-
-				case crm_sales_obj::ROLE_TELEMARKETING_SALESMAN:
-					break;
-
-				case crm_sales_obj::ROLE_TELEMARKETING_MANAGER:
-					break;
-
-				case crm_sales_obj::ROLE_SALESMAN:
-					break;
-
-				case crm_sales_obj::ROLE_MANAGER:
-					break;
 			}
 		}
 

@@ -41,6 +41,11 @@ class crm_sales_obj extends _int_object implements application_interface
 		self::ROLE_SALES_MANAGER,
 		self::ROLE_MANAGER
 	);
+	private static $roles_with_all_tasks_privilege = array(
+		self::ROLE_TELEMARKETING_MANAGER,
+		self::ROLE_SALES_MANAGER,
+		self::ROLE_MANAGER
+	);
 
 	// used by create_call()
 	private static $tm_resource_cache = 0;
@@ -179,7 +184,7 @@ class crm_sales_obj extends _int_object implements application_interface
 
 	/** Returns true if role is allowed to perform given action
 	@attrib api=1 params=pos
-	@param action type=string set=call_edit,presentation_edit
+	@param action type=string set=call_edit,presentation_edit,all_tasks
 	@param role type=int default=NULL
 		One of ROLE_... constants. If not specified, current user role used
 	@returns bool
@@ -204,6 +209,10 @@ class crm_sales_obj extends _int_object implements application_interface
 		elseif ("offer_edit" === $action)
 		{
 			$has = in_array($role, self::$roles_with_offer_edit_privilege, true);
+		}
+		elseif ("all_tasks" === $action)
+		{
+			$has = in_array($role, self::$roles_with_all_tasks_privilege, true);
 		}
 
 		return $has;

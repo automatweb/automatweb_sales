@@ -65,15 +65,32 @@ class objpicker extends core implements vcl_interface
 
 			if (empty($args["view"]) and empty($prop["disabled"]))
 			{
-				$input_element = html::textbox(array("name" => "{$name}__autocompleteTextbox", "value" => $value));
+				$size = isset($args["size"]) ? $args["size"] : "";
+				$input_element = html::textbox(array("name" => "{$name}__autocompleteTextbox", "value" => $value, "size" => $size));
 				$clids = is_array($prop["clid"]) ? implode(",", $prop["clid"]) : $prop["clid"];
 
 				load_javascript("bsnAutosuggest.js");
 
 				if (!empty($prop["options_callback"]))
 				{
-					$class = strtok($prop["options_callback"], "::");
-					$method = strtok("::");
+					preg_match("/([a-z0-9_]+)::([a-z0-9_]+)(\((([a-z0-9_]+),?)+\))?/i", $prop["options_callback"], $matches);
+
+					if (empty($matches[1]) or empty($matches[2]))
+					{
+						throw new awex_vcl_objpicker_arg("Invalid options callback specification");
+					}
+
+					$class = $matches[1];
+					$method = $matches[2];
+
+					if (!empty($matches[3]))
+					{
+						$params = explode(",", substr($matches[3], 1, -1));
+					}
+					else
+					{
+						$params = array();
+					}
 				}
 				else
 				{
