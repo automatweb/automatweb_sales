@@ -73,11 +73,6 @@
 
 class crm_sales_price_component extends class_base
 {
-	const TYPE_NET_VALUE = 1;
-	const TYPE_UNIT = 2;
-	const TYPE_ROW = 3;
-	const TYPE_TOTAL = 4;
-
 	public function crm_sales_price_component()
 	{
 		$this->init(array(
@@ -86,12 +81,12 @@ class crm_sales_price_component extends class_base
 		));
 
 		$this->type_options = array(
-			self::TYPE_UNIT => t("Rakendub &uuml;hikule"),
-			self::TYPE_ROW => t("Rakendub reale"),
-			self::TYPE_TOTAL => t("Rakendub kogusummale"),
+			crm_sales_price_component_obj::TYPE_UNIT => t("Rakendub &uuml;hikule"),
+			crm_sales_price_component_obj::TYPE_ROW => t("Rakendub reale"),
+			crm_sales_price_component_obj::TYPE_TOTAL => t("Rakendub kogusummale"),
 		);
 
-		$this->no_application_error_text = t("Rakendus m&auml;&auml;ramata. Hinnakomponente saab lisada ainult l&auml;bi rakenduse (m&uuml;&uuml;gikeskkond).");
+		$this->no_application_error_text = t("Rakendus m&auml;&auml;ramata. Hinnakomponente peab olema lisatud l&auml;bi rakenduse (m&uuml;&uuml;gikeskkond).");
 	}
 
 	public function _get_applicables($arr)
@@ -307,7 +302,7 @@ class crm_sales_price_component extends class_base
 	public function _get_prerequisites($arr)
 	{
 		$options = array(
-			"net_value" => t("Omahind"),
+			"net_value" => t("Juurhind"),
 		);
 
 		if(is_object($this->application))
@@ -333,8 +328,18 @@ class crm_sales_price_component extends class_base
 	{
 		if(empty($arr["prop"]["value"]))
 		{
-			$arr["prop"]["error"] = t("Eelduskomponendi/-komponentide valimine on kohustuslik! Vaikimisi eelduskomponent on 'Omahind'.");
+			$arr["prop"]["error"] = t("Eelduskomponendi/-komponentide valimine on kohustuslik! Vaikimisi eelduskomponent on 'Juurhind'.");
 			return PROP_FATAL_ERROR;
+		}
+		else
+		{
+			//	Check for cycle. crm_sales_price_component_obj::check_prerequisites_cycle() will return the cycle details someday)
+			$cycle = crm_sales_price_component_obj::check_prerequisites_cycle($arr["obj_inst"]->id(), $arr["prop"]["value"]);
+			if($cycle !== false)
+			{
+				$arr["prop"]["error"] = sprintf(t("Teie eelduskomponentide valik p&otilde;hjustab ts&uuml;kli!"));
+				return PROP_FATAL_ERROR;
+			}
 		}
 		return PROP_OK;
 	}
@@ -445,9 +450,14 @@ class crm_sales_price_component extends class_base
 				$this->application = false;
 			}
 		}
+		elseif(is_oid($application = obj($oid)->prop("application")))
+		{
+			$this->application = obj($application);
+		}
 		else
 		{
-			$this->application = obj(obj($oid)->prop("application"));
+			$this->show_error_text($this->no_application_error_text);
+			$this->application = false;
 		}
 	}
 

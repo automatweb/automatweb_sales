@@ -1247,7 +1247,7 @@ EOQ;
 		$ol = is_oid($this->id()) ? new object_list(array(
 			"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
 			"application" => $this->id(),
-			"type" => new obj_predicate_not(crm_sales_price_component::TYPE_NET_VALUE),
+			"type" => new obj_predicate_not(crm_sales_price_component_obj::TYPE_NET_VALUE),
 			new obj_predicate_sort(array(
 				"name" => "ASC"
 			)),

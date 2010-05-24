@@ -54,6 +54,7 @@ class crm_offer_row extends class_base
 				aw_row_id int,
 				aw_price_component_id int,
 				aw_value decimal(19,4),
+				aw_price_change decimal(19,4),
 				PRIMARY KEY (aw_row_id, aw_price_component_id)
 			);
 			");
@@ -81,6 +82,12 @@ class crm_offer_row extends class_base
 				return true;
 				
 			//	aw_crm_offer_row_price_components
+			case "aw_price_change":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "decimal(19,4)"
+				));
+				return true;
 
 			case "":
 				$this->db_add_col($t, array(
