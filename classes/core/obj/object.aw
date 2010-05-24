@@ -817,8 +817,8 @@ class object
 		@errors
 			none
 
-		@returns
-			class id of the object, NULL is returned if no object is loaded
+		@returns int
+			class id of the object, 0 is returned if no object is loaded
 
 		@examples
 			$o = obj(666);
@@ -2423,7 +2423,10 @@ class awex_obj_class extends awex_obj {}
 class awex_obj_modified_by_others extends awex_obj {}
 
 /** Indicates wrong object state for given operation **/
-class awex_obj_state extends awex_obj {}
+class awex_obj_state extends awex_obj
+{
+	protected $message = "Object state inappropriate for requested operation";
+}
 
 /** Indicates that given operation can't be executed on an unsaved object **/
 class awex_obj_state_new extends awex_obj_state

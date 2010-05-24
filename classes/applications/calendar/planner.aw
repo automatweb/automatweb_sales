@@ -269,7 +269,7 @@ class planner extends class_base
 		post_message_with_param(
 			MSG_MEETING_DELETE_PARTICIPANTS,
 			CL_CRM_MEETING,
-			&$arr
+			$arr
 		);
 		// XXX: miks tyhi?
 		return $arr['post_ru'];

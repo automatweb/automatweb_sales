@@ -35,11 +35,6 @@ class crm_offer_row extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	function do_db_upgrade($t, $f)
 	{
 		if ($f == "" && $t === "aw_crm_offer_row")
@@ -80,7 +75,7 @@ class crm_offer_row extends class_base
 					"type" => "decimal(13,4)"
 				));
 				return true;
-				
+
 			//	aw_crm_offer_row_price_components
 			case "aw_price_change":
 				$this->db_add_col($t, array(

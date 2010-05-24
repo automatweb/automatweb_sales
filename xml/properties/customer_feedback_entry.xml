@@ -77,6 +77,7 @@
             <group>general</group>
             <type>chooser</type>
             <field>aw_seriousness</field>
+            <default>4</default>
             <caption>T&amp;amp;otilde;sidus</caption>
       </property>
       <property>
@@ -85,6 +86,7 @@
             <group>general</group>
             <type>chooser</type>
             <field>aw_fb_type</field>
+            <default>3</default>
             <caption>Soovin tagasisidet</caption>
       </property>
       <property>
@@ -116,9 +118,10 @@
             <name>dev_deadline</name>
             <table>aw_customer_feedback</table>
             <group>dev_status</group>
-            <type>datetime_select</type>
+            <type>datepicker</type>
+            <time>0</time>
+            <from>now</from>
             <field>aw_dev_deadline</field>
-            <default>-1</default>
             <caption>Arendaja t&amp;amp;auml;htaeg</caption>
       </property>
       <classinfo>

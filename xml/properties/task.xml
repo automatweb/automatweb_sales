@@ -717,10 +717,6 @@
             <rows>
                   <caption>Read</caption>
             </rows>
-            <recurrence>
-                  <caption>Kordumine</caption>
-                  <submit>no</submit>
-            </recurrence>
             <calendars>
                   <caption>Kalendrid</caption>
             </calendars>
@@ -834,6 +830,11 @@
                   <clid>CL_CRM_SERVICE_TYPE</clid>
                   <caption>Teenuse liik</caption>
             </SERVICE_TYPE>
+            <PARTICIPANT>
+                  <value>12</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>Osaleja</caption>
+            </PARTICIPANT>
       </reltypes>
       <layout>
             <top_bit>

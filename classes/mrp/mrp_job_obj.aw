@@ -1583,12 +1583,13 @@ class mrp_job_obj extends _int_object
 			### set successive jobs' prerequisites equal to deleted job's prerequisites
 			$list = new object_list (array (
 				"class_id" => CL_MRP_JOB,
-				"project" => $this->mrp_case->id (),
-				"state" => new obj_predicate_not (self::STATE_DELETED),
+				"project" => $this->mrp_case->id(),
+				"state" => new obj_predicate_not (self::STATE_DELETED)
 			));
-			$other_jobs = $list->arr ();
+			$case_jobs = $list->arr ();
+			$prerequisites = $this->awobj_get_prerequisites()->ids();
 
-			foreach ($other_jobs as $other_job)
+			foreach ($case_jobs as $other_job)
 			{
 				$other_job_prerequisites = $other_job->prop ("prerequisites")->ids();
 

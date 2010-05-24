@@ -1,5 +1,4 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/calendar/vcl/participant_selector.aw,v 1.8 2008/05/14 19:49:09 kristo Exp $
 /*
 @classinfo maintainer=kristo
 */
@@ -22,10 +21,8 @@ class participant_selector extends core
 		));
 	}
 
-	
 	function init_vcl_property($arr)
 	{
-		$rtrn = array();
 		$table = new vcl_table();
 		$datas = $arr["obj_inst"]->connections_to(array(
 			"from.class_id" => CL_CALENDAR_REGISTRATION_FORM,
@@ -39,7 +36,7 @@ class participant_selector extends core
 				"name" => "name",
 				"caption" => t("Nimi"),
 				"sortable" => 1,
-				"callback" => array(&$this, "callb_human_name"),
+				"callback" => array($this, "callb_human_name"),
 				"callb_pass_row" => true,
 			));
 			$table->define_field(array(
@@ -47,29 +44,29 @@ class participant_selector extends core
 				'caption' => t('Telefon'),
 				'sortable' => '1',
 			));
-	
+
 			$table->define_field(array(
 				'name' => 'email',
 				'caption' => t('E-post'),
-				'sortable' => '1',
+				'sortable' => '1'
 			));
 			$table->define_field(array(
 				'name' => 'rank',
 				'caption' => t('Ametinimetus'),
-				'sortable' => '1',
+				'sortable' => '1'
 			));
 		}
 		$darr = array();
 		$fields = array();
-		$cff = get_instance(CL_CFGFORM);
+		$cff = new cfgform();
 		$clsfs = array();
-		//arr($datas);
+
 		$no_show = array("submit", "button", "text", "reset");
 		foreach($datas as $d_c)
 		{
 			$to = $d_c->from();
 			$darr[$to->prop("person_id")] = $to;
-			
+
 			if (!is_oid($to->meta("cfgform_id")) || !$this->can("view", $to->meta("cfgform_id")))
 			{
 				$ps = $to->get_property_list();
@@ -80,22 +77,26 @@ class participant_selector extends core
 					"id" => $to->meta("cfgform_id")
 				));
 			}
+
 			foreach($ps as $pn => $pv)
 			{
 				if (!isset($ps[$pn]) || in_array($pv["type"], $no_show))
 				{
 					continue;
 				}
-				if (trim($pv) != "" && $ps[$pn]["type"] != "hidden")
+
+				if (trim($pv) != "" && $ps[$pn]["type"] !== "hidden")
 				{
 					$fields[$pn] = $ps[$pn]["caption"];
 				}
-				if ($ps[$pn]["type"] == "classificator")
+
+				if ($ps[$pn]["type"] === "classificator")
 				{
 					$clsfs[$pn] = 1;
 				}
 			}
 		}
+
 		foreach($fields as $fld => $fld_c)
 		{
 			$table->define_field(array(
@@ -105,23 +106,25 @@ class participant_selector extends core
 				"align" => "center"
 			));
 		}
-		if ($_GET["get_csv_file"] != 1)
+
+		if (1 != automatweb::$request->arg("get_csv_file"))
 		{
 			$table->define_field(array(
 				"name" => "change",
 				"caption" => t("Muuda"),
-				"align" => "center",
+				"align" => "center"
 			));
 			$table->define_chooser(array(
 				"name" => "check",
-				"field" => "id",
+				"field" => "id"
 			));
 		}
+
 		$table->set_sortable(false);
 		$conns = $arr['obj_inst']->connections_to(array());
-		//arr($conns);
-		$cls = get_instance(CL_CLASSIFICATOR);
-		$person = get_instance(CL_CRM_PERSON);
+		$cls = new classificator();
+		$person = new crm_person();
+
 		foreach($conns as $conn)
 		{
 			if($conn->prop("from.class_id") == CL_CRM_PERSON)
@@ -139,7 +142,7 @@ class participant_selector extends core
 							{
 								$pv = $_tmp->prop_str($pn);
 							}
-							if($ps[$pn]["type"] == "date_select")
+							if($ps[$pn]["type"] === "date_select")
 							{
 								$pv = $pv["day"].".".$pv["month"].".".$pv["year"];
 							}
@@ -156,7 +159,7 @@ class participant_selector extends core
 						"email" => $data["email"],
 						"rank" => $data["rank"],
 						"reg_data" => $regd,
-						"change" => html::get_change_url($conn->prop("from"), array(), "Muuda"),
+						"change" => html::get_change_url($conn->prop("from"), array(), "Muuda")
 					);
 				}
 				else
@@ -171,9 +174,9 @@ class participant_selector extends core
 
 		$tbl = $arr["prop"];
 		$tbl["type"] = "table";
-		$tbl["vcl_inst"] = &$table;
+		$tbl["vcl_inst"] = $table;
 
-		if ($_GET["get_csv_file"])
+		if (automatweb::$request->arg("get_csv_file"))
 		{
 			header("Content-type: application/vnd.ms-excel");
 			header("Content-disposition: inline; filename=".t("osalejad.xls").";");
@@ -182,8 +185,9 @@ class participant_selector extends core
 		}
 
 		return array(
-			$propname => $tbl,
+			$propname => $tbl
 		);
 	}
-};
+}
+
 ?>

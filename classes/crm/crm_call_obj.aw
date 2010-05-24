@@ -105,6 +105,28 @@ class crm_call_obj extends task_object
 		return (($this->prop("real_duration") < 1) and ($this->prop("real_start") > 1));
 	}
 
+	/** Returns TRUE if call has ended or is in progress
+	@attrib api=1 params=pos
+	@returns bool
+	@errors
+		none
+	**/
+	public function has_started()
+	{
+		return ($this->prop("real_start") > 1);
+	}
+
+	/** Tells if call is made and ended.
+	@attrib api=1 params=pos
+	@returns bool
+	@errors
+		none
+	**/
+	public function has_ended()
+	{
+		return (($this->prop("real_duration") > 0) and ($this->prop("real_start") > 1));
+	}
+
 	/** Makes a phone call.
 	@attrib api=1 params=pos
 	@param phone type=CL_CRM_PHONE default=null

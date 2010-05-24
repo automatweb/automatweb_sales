@@ -41,7 +41,11 @@ while (!empty($ru) && empty($pf))
 {
 	$url_bits = parse_url($ru);
 	$vals = array();
-	parse_str($url_bits["query"], $vals);
+	if (isset($url_bits["query"]))
+	{
+		parse_str($url_bits["query"], $vals);
+	}
+
 	if (!empty($vals["class"]))
 	{
 		$clid = clid_for_name($vals["class"]);
@@ -168,7 +172,7 @@ $sf->vars(array(
 ));
 
 
-if (empty($_GET["in_popup"]))
+if (!automatweb::$request->arg("in_popup"))
 {
 	if ($sf->prog_acl("view", "disp_person"))
 	{

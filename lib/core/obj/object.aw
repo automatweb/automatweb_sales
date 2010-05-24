@@ -138,7 +138,7 @@ function obj($param = null, $constructor_args = array(), $class_id = null, $allo
 		$o = new object($param);
 		$real_clid = $o->class_id();
 
-		if (null === $real_clid)
+		if (!$o->is_saved() and 0 === $real_clid)
 		{ // new object
 			$o->set_class_id($class_id);
 		}

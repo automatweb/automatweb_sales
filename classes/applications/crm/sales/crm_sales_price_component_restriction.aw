@@ -43,11 +43,6 @@ class crm_sales_price_component_restriction extends class_base
 		return PROP_OK;
 	}
 
-	public function callback_mod_reforb($arr)
-	{
-		$arr["post_ru"] = post_ru();
-	}
-
 	public function do_db_upgrade($t, $f)
 	{
 		if ($f == "")

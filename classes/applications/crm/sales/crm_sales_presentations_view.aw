@@ -63,7 +63,6 @@ class crm_sales_presentations_view
 		if ($this_o->has_privilege("presentation_edit"))
 		{
 			$toolbar = $arr["prop"]["vcl_inst"];
-			$toolbar->add_save_button();
 			$toolbar->add_delete_button();
 			$r = PROP_OK;
 		}
@@ -313,9 +312,10 @@ break;
 
 
 					// tm salespersons only see their own presentations, and aren't allowed to edit them
+					$name = crm_sales::parse_customer_name($customer);
 					$customer_name = (crm_sales_obj::ROLE_TELEMARKETING_SALESMAN === $role) ?
-						html::obj_view_url($presentation, $customer->name()) :
-						html::obj_change_url($presentation, $customer->name());
+						html::obj_view_url($presentation, $name) :
+						html::obj_change_url($presentation, $name);
 
 					// telemarketing salesman who set up the presentation
 					$tm_salesman = $cl_user->get_person_for_uid($presentation->createdby());

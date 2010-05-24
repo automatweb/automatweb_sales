@@ -641,7 +641,7 @@ class _int_object
 
 	function class_id()
 	{
-		return isset($this->obj["class_id"]) ? $this->obj["class_id"] : null;
+		return (int) (isset($this->obj["class_id"]) ? $this->obj["class_id"] : null);
 	}
 
 	function set_class_id($param)
@@ -2488,12 +2488,13 @@ class _int_object
 			{
 				continue;
 			}
+			$params = array(
+				"oid" => $oid
+			);
 			post_message_with_param(
 				"MSG_STORAGE_DELETE",
 				$this->obj["class_id"],
-				array(
-					"oid" => $oid
-				)
+				$params
 			);
 
 			$tmpo = obj($oid);
@@ -2893,6 +2894,28 @@ class _int_object
 		}
 		else
 		{ // new object, find referring container
+		}
+	}
+
+/** Throws an awex_obj_state exception when state isn't what is required
+	@attrib api=1 params=pos
+	@param state type=string
+		State to require from this object. Currently only available option is 'saved'
+	@comment
+	@returns void
+**/
+	protected function require_state($state = "saved")
+	{
+		$required_state = false;
+
+		if ("saved" === $state and $this->is_saved())
+		{
+			$required_state = true;
+		}
+
+		if (!$required_state)
+		{
+			throw new awex_obj_state();
 		}
 	}
 }

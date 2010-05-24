@@ -847,6 +847,8 @@ class class_base extends aw_template
 			$argblock["in_popup"] = $_GET["in_popup"];
 		}
 
+		$argblock["post_ru"] = post_ru();
+
 		if (method_exists($this->inst,"callback_mod_reforb"))
 		{
 			$this->inst->callback_mod_reforb($argblock, $this->request);
@@ -6160,12 +6162,14 @@ class class_base extends aw_template
 		{
 			$arr["sel"] = $arr["check"];
 		}
+
 		foreach (safe_array($arr["sel"]) as $del_obj)
 		{
 			$obj = obj($del_obj);
 			$obj->delete();
 		}
-		return  $arr["post_ru"];
+
+		return $arr["post_ru"];
 	}
 
 	/**

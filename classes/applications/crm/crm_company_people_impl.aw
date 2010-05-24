@@ -35,7 +35,7 @@ class crm_company_people_impl extends class_base
 			));
 		}
 
-		//uus k&otilde;ne
+		//uus k6ne
 		$tb->add_button(array(
 			'name' => 'Kone',
 			'img' => 'class_223.gif',
@@ -506,7 +506,7 @@ class crm_company_people_impl extends class_base
 			return PROP_IGNORE;
 		}
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -515,7 +515,7 @@ class crm_company_people_impl extends class_base
 			'name' => 'name',
 			'caption' => t('Nimi'),
 			'sortable' => '1',
-			'callback' => array(&$this, 'callb_human_name'),
+			'callback' => array($this, 'callb_human_name'),
 			'callb_pass_row' => true,
 		));
 		$t->define_field(array(
@@ -588,8 +588,8 @@ class crm_company_people_impl extends class_base
 
 		$ol = new object_list($search_params);
 
-		$pl = get_instance(CL_PLANNER);
-		$person = get_instance(CL_CRM_PERSON);
+		$pl = new planner();
+		$person = new crm_person();
 		$cal_id = $pl->get_calendar_for_user(array('uid'=>aw_global_get('uid')));
 
 		foreach($ol->arr() as $o)
@@ -620,7 +620,7 @@ class crm_company_people_impl extends class_base
 
 	function _get_personal_offers_toolbar($arr)
 	{
-		$toolbar =& $arr["prop"]["vcl_inst"];
+		$toolbar = $arr["prop"]["vcl_inst"];
 		$toolbar->add_menu_button(array(
 			'name'=>'add_item',
 			'tooltip'=>t('Uus')
@@ -662,16 +662,15 @@ class crm_company_people_impl extends class_base
 
 	function _get_unit_listing_tree_personal($arr)
 	{
-		$tree_inst = &$arr['prop']['vcl_inst'];
+		$tree_inst = $arr['prop']['vcl_inst'];
 		$node_id = 0;
 
-		$i = get_instance(CL_CRM_COMPANY);
+		$i = new crm_company();
 		$i->active_node = (int)$arr['request']['unit'];
-
 		$i->generate_tree(array(
-			'tree_inst' => &$tree_inst,
+			'tree_inst' => $tree_inst,
 			'obj_inst' => $arr['obj_inst'],
-			'node_id' => &$node_id,
+			'node_id' => $node_id,
 			'conn_type' => 'RELTYPE_SECTION',
 			'attrib' => 'unit',
 			'leafs' => true,
@@ -733,7 +732,7 @@ class crm_company_people_impl extends class_base
 		$format = t('%s t&ouml;&ouml;pakkumised');
 		$table->set_caption(sprintf($format, $arr['obj_inst']->name()));
 
-		$section_cl = get_instance(CL_CRM_SECTION);
+		$section_cl = new crm_section();
 
 		if(is_oid($arr['request']['unit']))
 		{
@@ -800,13 +799,13 @@ class crm_company_people_impl extends class_base
 	{
 		$tree_inst = $arr['prop']['vcl_inst'];
 		$node_id = 0;
-		$i = get_instance(CL_CRM_COMPANY);
+		$i = new crm_company();
 		$i->active_node = (int)$arr['request']['unit'];
 
 		$i->generate_tree(array(
 			'tree_inst' => $tree_inst,
 			'obj_inst' => $arr['obj_inst'],
-			'node_id' => &$node_id,
+			'node_id' => $node_id,
 			'conn_type' => 'RELTYPE_SECTION',
 			'attrib' => 'unit',
 			'leafs' => true,
@@ -838,7 +837,7 @@ class crm_company_people_impl extends class_base
 		$format = t('%ssse t&ouml;&ouml;le kandideerijad');
 		$table->set_caption(sprintf($format, $arr['obj_inst']->name()));
 
-		$section_cl = get_instance(CL_CRM_SECTION);
+		$section_cl = new crm_section();
 
 		if(is_oid($arr['request']['unit']))
 		{
@@ -1131,7 +1130,7 @@ class crm_company_people_impl extends class_base
 		$i->generate_tree(array(
 			'tree_inst' => $tree_inst,
 			'obj_inst' => $arr['obj_inst'],
-			'node_id' => &$node_id,
+			'node_id' => $node_id,
 			'conn_type' => 'RELTYPE_SECTION',
 			'attrib' => 'unit',
 			'leafs' => true,

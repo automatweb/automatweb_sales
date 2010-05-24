@@ -1735,7 +1735,7 @@ class htmlclient extends aw_template
 		if(isset($args["comment"]) && strlen($args["comment"]))
 		{
 			$this->vars(array(
-				"property_comment" => $args["comment"]
+				"property_comment" => html_entity_decode($args["comment"])
 			));
 			$property_help = $this->parse("PROPERTY_HELP");
 		}

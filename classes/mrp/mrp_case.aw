@@ -2138,7 +2138,7 @@ class mrp_case extends class_base
 			$project = obj ($arr["oid"]);
 		}
 
-		if (is_object ($arr["obj_inst"]))
+		if (isset($arr["obj_inst"]) and is_object ($arr["obj_inst"]))
 		{
 			$project = $arr["obj_inst"];
 		}

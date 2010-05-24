@@ -91,7 +91,7 @@ class crm_company_stats_impl extends class_base
 		$arr["prop"]["value"] = $arr["request"]["stats_s_res_type"];
 	}
 
-	function _init_stats_s_res_t(&$t, $req)
+	function _init_stats_s_res_t($t, $req)
 	{
 		if ($req["stats_s_res_type"] == "cust")
 		{
@@ -222,7 +222,7 @@ class crm_company_stats_impl extends class_base
 			return;
 		}
 
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		// get all persons from company
 		$u = get_instance(CL_USER);
 		$slaves = array();
@@ -1637,7 +1637,7 @@ ini_set("memory_limit", "1500M");
 		return ($tb->get_toolbar().$t->draw());
 	}
 
-	private function _init_bill_person_rows_t(&$t)
+	private function _init_bill_person_rows_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -1665,7 +1665,7 @@ ini_set("memory_limit", "1500M");
 		));
 	}
 
-	private function _init_bill_rows_t(&$t)
+	private function _init_bill_rows_t($t)
 	{
 		$t->define_chooser(array(
 			"field" => "oid",
@@ -1942,7 +1942,6 @@ ini_set("memory_limit", "1500M");
 
 	private function _get_bills_stats($slaves, $tasks, $req, $t = null)
 	{
-		classload("vcl/table");
 		if(!$t)
 		{
 			$t = new vcl_table;
@@ -2042,39 +2041,35 @@ ini_set("memory_limit", "1500M");
 		}
 
 
-		$sf = new aw_template;
+		$sf = new aw_template();
 		$sf->db_init();
 		$sf->tpl_init("automatweb");
 		$sf->read_template("index.tpl");
 
-		//
-//		if($_GET["test"])
-//		{
-
-			$t2 = new vcl_table;
-			$this->_init_bill_person_rows_t($t2);
-			foreach($person_payments as $person => $val)
+		$t2 = new vcl_table();
+		$this->_init_bill_person_rows_t($t2);
+		foreach($person_payments as $person => $val)
+		{
+			$po = "";
+			if($this->can("view" , $person))
 			{
-				$po = "";
-				if($this->can("view" , $person))
-				{
-					$po = obj($person);
-					$t2->define_data(array(
-						"name" => $po->name(),
-						"payments" => number_format($val,2 , ",", ""),
-						"sum" => number_format($person_sum[$person],2 , ",", ""),
-						"pers" => number_format((($val/$person_sum[$person]) * 100),2 , ",", ""),
-					));
-				}
+				$po = obj($person);
+				$t2->define_data(array(
+					"name" => $po->name(),
+					"payments" => number_format($val,2 , ",", ""),
+					"sum" => number_format($person_sum[$person],2 , ",", ""),
+					"pers" => number_format((($val/$person_sum[$person]) * 100),2 , ",", ""),
+				));
 			}
-			$t2->define_data(array(
-				"name" => "<b>".t("Kokku").":</b>",
-				"payments" =>number_format(array_sum($person_payments),2 , ",", ""),
-				"sum" => number_format(array_sum($person_sum),2 , ",", ""),
-				"pers" => number_format(((array_sum($person_payments)/array_sum($person_sum)) * 100),2 , ",", ""),
-			));
-			$t2->set_header(t("Laekumine inimeste l&otilde;ikes"));
-//		}
+		}
+		$t2->define_data(array(
+			"name" => "<b>".t("Kokku").":</b>",
+			"payments" =>number_format(array_sum($person_payments),2 , ",", ""),
+			"sum" => number_format(array_sum($person_sum),2 , ",", ""),
+			"pers" => number_format(((array_sum($person_payments)/array_sum($person_sum)) * 100),2 , ",", ""),
+		));
+		$t2->set_header(t("Laekumine inimeste l&otilde;ikes"));
+
 
 
 /*		//summa rida
@@ -2108,9 +2103,7 @@ ini_set("memory_limit", "1500M");
 
 	private function _get_bills_toolbar()
 	{
-		classload("vcl/toolbar");
-		$tb =  new toolbar;
-
+		$tb =  new toolbar();
 		$tb->add_button(array(
 			"name" => "add_payment",
 			"img" => "create_bill.jpg",
@@ -2122,7 +2115,7 @@ ini_set("memory_limit", "1500M");
 
 	function submit_js()
 	{
-		$inst = get_instance(CL_CRM_COMPANY);
+		$inst = new crm_company();
 		return '<script type="text/javascript">
 		doLoad(600000);
 			var sURL = unescape(window.location.href);
@@ -2370,7 +2363,7 @@ ini_set("memory_limit", "1500M");
 		// add table
 		$vcl = new vcl_table();
 		$p = array(
-			"vcl_inst" => &$vcl
+			"vcl_inst" => $vcl
 		);
 
 		$i->_get_qv_t(array(
@@ -2486,7 +2479,7 @@ ini_set("memory_limit", "1500M");
 	}
 
 
-	function _init_ps_det_t(&$t)
+	function _init_ps_det_t($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -2658,7 +2651,6 @@ ini_set("memory_limit", "1500M");
 			$ol->sort_by(array("prop" => "start1"));
 
 			$grpd = t("<b>Tegevused</b>");
-			classload("core/icons");
 			$ri = array();
 
 			$sums = array();
@@ -3319,7 +3311,7 @@ ini_set("memory_limit", "1500M");
 
 	function _get_stats_s_toolbar($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			'name' => 'save',
 			'img' => 'save.gif',
@@ -3330,7 +3322,7 @@ ini_set("memory_limit", "1500M");
 
 	function _get_stats_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			'name' => 'delete',
 			'img' => 'delete.gif',
@@ -3340,7 +3332,7 @@ ini_set("memory_limit", "1500M");
 		));
 	}
 
-	function _init_stats_list_t(&$t)
+	function _init_stats_list_t($t)
 	{
 		$t->define_field(array(
 			"name" => "res_type",
@@ -3379,7 +3371,7 @@ ini_set("memory_limit", "1500M");
 
 	function _get_stats_list($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_stats_list_t($t);
 
 		$format = t('%s salvestatud aruanded');
@@ -3408,7 +3400,7 @@ ini_set("memory_limit", "1500M");
 
 	function _get_undone_orders($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_undone_tbl($t,$cl);
 		$xls = $arr["xls"];
 		// list orders from order folder
@@ -3424,7 +3416,7 @@ ini_set("memory_limit", "1500M");
 		$t->set_caption(t("T&auml;itmata tellimused"));
 	}
 
-	function _init_undone_tbl(&$t,$cl)
+	function _init_undone_tbl($t,$cl)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -3438,7 +3430,7 @@ ini_set("memory_limit", "1500M");
 
 	function _get_unpaid_bills($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_bills_list_t($t, $arr["request"]);
 		$bills = $arr["obj_inst"]->get_unpaid_bills();
 
@@ -3501,7 +3493,7 @@ ini_set("memory_limit", "1500M");
 	}
 
 
-	function _init_bills_list_t(&$t, $r)
+	function _init_bills_list_t($t, $r)
 	{
 		$t->define_field(array(
 			"name" => "bill_no",
@@ -3588,7 +3580,7 @@ ini_set("memory_limit", "1500M");
 	}
 	function _get_stats_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "st";
 
 		$tv->start_tree(array(
@@ -3917,7 +3909,7 @@ ini_set("memory_limit", "1500M");
 		}
 		$between = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING,$start, $end);
 
-		$c = &$arr["prop"]["vcl_inst"];
+		$c = $arr["prop"]["vcl_inst"];
 		$c->set_type(GCHART_BAR_V);
 		$c->set_size(array(
 			"width" => 550,
@@ -4187,7 +4179,7 @@ ini_set("memory_limit", "1500M");
 		}
 	}
 
-	private function _init_workers_t(&$t)
+	private function _init_workers_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -4298,7 +4290,7 @@ ini_set("memory_limit", "1500M");
 		));
 	}
 
-	private function _init_customers_t(&$t)
+	private function _init_customers_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -4410,7 +4402,7 @@ ini_set("memory_limit", "1500M");
 
 	private function _get_stats_customers($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$this->_init_customers_t($t);
 		$rows = $this->get_rows_data($arr["request"]);
@@ -4438,7 +4430,7 @@ ini_set("memory_limit", "1500M");
 		$hours_cust = array();
 		$hours_dev = array();
 		$sum = array();
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$company = $u->get_current_company();
 		$name_objects = new object_list();
 
@@ -4530,7 +4522,7 @@ ini_set("memory_limit", "1500M");
 		));
 	}
 
-	private function _init_projects_t(&$t)
+	private function _init_projects_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -4619,7 +4611,7 @@ ini_set("memory_limit", "1500M");
 
 	private function _get_stats_projects($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$this->_init_projects_t($t);
 		$rows = $this->get_rows_data($arr["request"]);
@@ -4721,7 +4713,7 @@ ini_set("memory_limit", "1500M");
 		));
 	}
 
-	private function _init_project_managers_t(&$t)
+	private function _init_project_managers_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -4865,9 +4857,9 @@ ini_set("memory_limit", "1500M");
 
 	private function _get_stats_project_managers($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_project_managers_t($t);
-		$t->set_caption("sdddddddddddddddddddddddddddddddddfsdf");
+		$t->set_caption(t("Tabel"));//TODO
 		$u = get_instance(CL_USER);
 		$company = $u->get_current_company();
 
@@ -4965,8 +4957,8 @@ ini_set("memory_limit", "1500M");
 				{
 					if($bill_proj_mgr && $bill_proj_mgr != $project_to_manager[$bill_project])
 					{
-						arr("erinevad projektijuhid");
-						arr($bill_data["project"]);
+						// arr("erinevad projektijuhid");
+						// arr($bill_data["project"]);
 					}
 					$bill_proj_mgr = $project_to_manager[$bill_project];
 				}
@@ -5129,7 +5121,7 @@ ini_set("memory_limit", "1500M");
 		$hours_cust = array();
 		$hours_dev = array();
 		$sum = array();
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$company = $u->get_current_company();
 		$name_objects = new object_list();
 
@@ -5250,7 +5242,7 @@ ini_set("memory_limit", "1500M");
 		));
 	}
 
-	private function _init_meetings_t(&$t)
+	private function _init_meetings_t($t)
 	{
 		$t->define_field(array(
 			"name" => "id",
@@ -5775,7 +5767,7 @@ ini_set("memory_limit", "1500M");
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"CL_CRM_MEETING.end" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"]),
+					"CL_CRM_MEETING.start1" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"]),
 					"CL_CRM_MEETING.RELTYPE_ROW.date" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"]),
 				)
 			));
@@ -5810,16 +5802,18 @@ ini_set("memory_limit", "1500M");
 		{
 		//	$filter["CL_TASK.RELTYPE_CUSTOMER"] = $arr["customer"];
 		}
+
 		if($arr["customer"])
 		{
 			$filter["CL_CRM_CALL.RELTYPE_CUSTOMER"] = $arr["customer"];
 		}
+
 		if($arr["deadline"])
 		{
 			$arr["done"] = 0;
 			$filter["deadline"] = new obj_predicate_compare(OBJ_COMP_LESS, time());
-
 		}
+
 		if($arr["done"] == 1)
 		{
 			$filter["is_done"] = $arr["done"];
@@ -5828,27 +5822,30 @@ ini_set("memory_limit", "1500M");
 		{
 			$filter["is_done"] = new obj_predicate_not(1);
 		}
+
 		if($arr["person"])
 		{
 			$filter["CL_CRM_CALL.RELTYPE_ROW.impl"] = $arr["person"];
 		}
+
 		if($arr["from"])
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"CL_CRM_CALL.end" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"]),
-					"CL_CRM_CALL.RELTYPE_ROW.date" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"]),
+					"CL_CRM_CALL.start1" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"]),
+					"CL_CRM_CALL.RELTYPE_ROW.date" => new obj_predicate_compare(OBJ_COMP_GREATER, $arr["from"])
 				)
 			));
 		}
+
 		if($arr["to"])
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
 					"CL_CRM_CALL.start1" => new obj_predicate_compare(OBJ_COMP_LESS, $arr["to"]),
-					"CL_CRM_CALL.RELTYPE_ROW.date" => new obj_predicate_compare(OBJ_COMP_LESS, $arr["to"]),
+					"CL_CRM_CALL.RELTYPE_ROW.date" => new obj_predicate_compare(OBJ_COMP_LESS, $arr["to"])
 				)
 			));
 		}

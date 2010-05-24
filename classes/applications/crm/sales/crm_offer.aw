@@ -119,7 +119,7 @@ class crm_offer extends class_base
 	{
 		$compulsory = $this->offer->price_component_is_compulsory($row["price_component"]);
 		if($compulsory)
-		{			
+		{
 			return html::checkbox(array(
 				"name" => "content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][apply_dummy]",
 				"checked" => true,
@@ -379,11 +379,6 @@ class crm_offer extends class_base
 				->setDjConfigOption('parseOnLoad', true)
 				->addStylesheetModule('dijit.themes.tundra');
 		}
-	}
-
-	public function callback_mod_reforb(&$arr)
-	{
-		$arr["post_ru"] = post_ru();
 	}
 
 	public function do_db_upgrade($t, $f)

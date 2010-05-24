@@ -1283,15 +1283,16 @@ EOF;
 
 	function _get_stat($uid)
 	{
-		$t =& $this->_init_stat_table();
-		$ts = aw_ini_get('syslog.types');
-		$as = aw_ini_get('syslog.actions');
+		$t = $this->_init_stat_table();
+		//XXX: syslog is disabled. waiting for new implementation
+		// $ts = aw_ini_get('syslog.types');
+		// $as = aw_ini_get('syslog.actions');
 		$q = "SELECT * FROM syslog WHERE uid = '$uid' ORDER BY tm DESC LIMIT 4000";
 		$this->db_query($q);
 		while ($row = $this->db_next())
 		{
-			$row['type'] = $ts[$row['type']]['name'];
-			$row['act_id'] = $as[$row['act_id']]['name'];
+			// $row['type'] = $ts[$row['type']]['name'];
+			// $row['act_id'] = $as[$row['act_id']]['name'];
 			list($row['ip'],) = inet::gethostbyaddr($row['ip']);
 			$t->define_data($row);
 		}
@@ -1307,7 +1308,6 @@ EOF;
 
 	function _init_stat_table()
 	{
-		load_vcl('table');
 		$t = new aw_table(array(
 			'prefix' => 'user',
 			'layout' => 'generic'
@@ -1426,7 +1426,7 @@ EOF;
 
 		$arr["obj_inst"]->set_name($arr["obj_inst"]->prop("uid"));
 
-		if ($arr["request"]["group"] == "settings")
+		if ($arr["request"]["group"] === "settings")
 		{
 			$arr["obj_inst"]->set_prop("ui_language", $arr["request"]["set_ui_lang"]);
 		}
@@ -1449,12 +1449,14 @@ EOF;
 				$group_inst->add_user_to_group($arr["obj_inst"], $aug_o);
 			}
 
+			$params = array(
+				"user_oid" => $arr["obj_inst"]->id(),
+			);
+
 			post_message_with_param(
 				MSG_USER_CREATE,
 				$this->clid,
-				array(
-					"user_oid" => $arr["obj_inst"]->id(),
-				)
+				$params
 			);
 
 			// now, we also must check if the user was added under a group

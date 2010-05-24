@@ -2116,7 +2116,14 @@ class crm_company_cust_impl extends class_base
 
 		foreach($orglist as $org)
 		{
-			$o = obj($org);
+			try
+			{
+				$o = obj($org);
+			}
+			catch (Exception $e)
+			{
+				continue;
+			}
 
 			// aga &uuml;lej&auml;&auml;nud on k&otilde;ik seosed!
 			$name = $client_manager = $pm = $vorm = $tegevus = $contact = $juht = $juht_id = $phone = $fax = $url = $mail = $ceo = "";
@@ -2230,7 +2237,7 @@ class crm_company_cust_impl extends class_base
 				$pm->begin_menu("org".$o->id());
 				$pm->add_item(array(
 					"text" => t("Vaata"),
-					"link" => $this->mk_my_orb("change", array("id" => $o->id(), "return_url" => get_ru(), "group" => "quick_view"), CL_CRM_COMPANY)
+					"link" => $this->mk_my_orb("change", array("id" => $o->id(), "return_url" => get_ru(), "group" => "quick_view"), $o->class_id())
 				));
 				$pm->add_item(array(
 					"text" => t("Muuda"),
@@ -2256,7 +2263,7 @@ class crm_company_cust_impl extends class_base
 				$name = html::get_change_url($o->id(), array("return_url" => get_ru()), $o->name()." ".$vorm);
 			}
 
-			$_url = $this->mk_my_orb("get_cust_contact_table", array("id" => $o->id(), "return_url" => post_ru()));
+			$_url = $this->mk_my_orb("get_cust_contact_table", array("id" => $o->id(), "return_url" => post_ru()));//FIXME: $o can be CL_CRM_PERSON, here assumed crm_co only
 			$namp = " (<a id='tnr".$o->id()."' href='javascript:void(0)' onClick='co_contact(".$o->id().",\"".$_url."\");'>".t("Kontaktid")."</a>) ";
 
 			$c = $o->connections_from(array(
@@ -2374,7 +2381,7 @@ class crm_company_cust_impl extends class_base
 
 		if (!empty($arr["request"]["customer_search_print_view"]))
 		{
-			$sf = new aw_template;
+			$sf = new aw_template();
 			$sf->db_init();
 			$sf->tpl_init("automatweb");
 			$sf->read_template("index.tpl");
