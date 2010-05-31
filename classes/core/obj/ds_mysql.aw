@@ -512,7 +512,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					}
 				}
 				else
-				if (ifset($prop, 'type') == 'range') // range support by dragut
+				if (ifset($prop, 'type') === 'range') // range support by dragut
 				{
 					$fields[] = $table.".`".$prop["field"]."_from` AS `".$prop["name"]."_from`";
 					$fields[] = $table.".`".$prop["field"]."_to` AS `".$prop["name"]."_to`";
