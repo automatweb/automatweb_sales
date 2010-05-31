@@ -1623,7 +1623,7 @@ class vastuv6tt_sisseastuja extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		if ($this->avaldused_editor)
 		{

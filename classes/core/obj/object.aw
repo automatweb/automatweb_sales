@@ -27,12 +27,11 @@ namespace automatweb;
 // - is object_list caching really worth it?
 // - merge objdata/propdata caches?
 
-class object
+class object extends core
 {
 	const STAT_DELETED = 0;
 	const STAT_NOTACTIVE = 1;
 	const STAT_ACTIVE = 2;
-
 
 	var $oid;	// the object this instance points to
 
@@ -717,11 +716,11 @@ class object
 		@returns
 			boolean value - true, if the user has access, false, if not
 	**/
-	function can($param)
-	{
-		$this->_check_lock_read();
-		return $GLOBALS["objects"][$this->oid]->can($param);
-	}
+	// function can($param)
+	// {
+		// $this->_check_lock_read();
+		// return $GLOBALS["objects"][$this->oid]->can($param);
+	// }
 
 	/** returns the object's parent
 		@attrib api=1

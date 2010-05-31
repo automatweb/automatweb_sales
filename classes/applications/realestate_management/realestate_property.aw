@@ -902,7 +902,7 @@ class realestate_property extends class_base
 		$realestate_obj->save();
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

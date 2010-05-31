@@ -504,7 +504,7 @@ class shop_sales_manager_workspace extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["ptf"] = $_GET["ptf"];
 		$arr["pgtf"] = $_GET["pgtf"];

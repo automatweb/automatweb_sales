@@ -1665,7 +1665,7 @@ class personnel_management_job_offer extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["typical_name"] = "";

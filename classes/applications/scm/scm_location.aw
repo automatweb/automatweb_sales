@@ -105,7 +105,7 @@ class scm_location extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

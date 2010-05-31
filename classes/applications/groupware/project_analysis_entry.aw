@@ -59,7 +59,7 @@ class project_analysis_entry extends class_base
 		return $retval;
 	}	
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

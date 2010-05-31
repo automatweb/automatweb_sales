@@ -3681,7 +3681,7 @@ class rfp extends class_base
 		return $retval;
 	}	
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		if($arr["group"] == "final_resource" || $arr["group"] == "final_catering")
 		{

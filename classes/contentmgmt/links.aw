@@ -497,7 +497,7 @@ class links extends class_base
 		$arr["args"]["docid"] = $arr["request"]["docid"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["ldocid"] = $_GET["ldocid"];
 		$arr["link_pops"] = "0";

@@ -115,7 +115,7 @@ class crm_company_customer_data_generator extends class_base
 		arr($arr, true);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

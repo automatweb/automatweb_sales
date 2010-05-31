@@ -85,7 +85,7 @@ class budgeting_tax_matrix extends class_base
 		$arr["obj_inst"]->set_meta("accts", $d);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["add_tax"] = "0";

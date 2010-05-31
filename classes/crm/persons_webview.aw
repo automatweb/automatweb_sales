@@ -368,7 +368,7 @@ class persons_webview extends class_base
 		return $ret;
 	}
 	
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

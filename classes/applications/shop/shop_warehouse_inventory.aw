@@ -67,7 +67,7 @@ class shop_warehouse_inventory extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["dn_wh"] = 0;

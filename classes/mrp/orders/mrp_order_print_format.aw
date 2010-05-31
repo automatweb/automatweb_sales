@@ -63,7 +63,7 @@ class mrp_order_print_format extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["search_res"] = "0";

@@ -116,7 +116,7 @@ class site_search_content_grp_html extends run_in_background
 		return $retval;
 	}	
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

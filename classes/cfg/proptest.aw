@@ -126,7 +126,7 @@ class proptest extends class_base
 		};
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$this->mod_reforb_called = true;
 		$arr["added_by_mod_reforb"] = "works";

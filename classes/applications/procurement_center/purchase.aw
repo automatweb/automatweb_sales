@@ -647,7 +647,7 @@ class purchase extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["offers"] = 0;
 		$arr["post_ru"] = post_ru();

@@ -392,7 +392,7 @@ class scala_import extends class_base
 		return PROP_OK;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

@@ -10,7 +10,7 @@ EMIT_MESSAGE(MSG_STORAGE_DELETE)
 
 */
 
-class _int_object
+class _int_object extends core
 {
 	///////////////////////////////////////////
 	// private variables
@@ -542,19 +542,19 @@ class _int_object
 		return $tmp;
 	}
 
-	function can($param)
-	{
-		if (empty($this->obj["oid"]))
-		{
-			error::raise(array(
-				"id" => "ERR_ACL",
-				"msg" => sprintf(t("object::can(%s): no current object loaded!"),$param)
-			));
-			return;
-		}
+	// function can($param)
+	// {
+		// if (empty($this->obj["oid"]))
+		// {
+			// error::raise(array(
+				// "id" => "ERR_ACL",
+				// "msg" => sprintf(t("object::can(%s): no current object loaded!"),$param)
+			// ));
+			// return;
+		// }
 
-		return $this->_int_can($param);
-	}
+		// return $this->_int_can($param);
+	// }
 
 	function init_acl()
 	{

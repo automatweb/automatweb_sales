@@ -1172,7 +1172,7 @@ class mp3 extends class_base implements admin_if_plugin
 		return($fred);
 	}
 	
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

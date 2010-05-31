@@ -286,11 +286,6 @@ class core extends acl_base
 	**/
 	function raise_error($err_type,$msg, $fatal = false, $silent = false, $oid = 0, $send_mail = true)
 	{
-		if (!function_exists("aw_global_get"))
-		{
-			classload("defs");
-		}
-
 		if(aw_ini_get('raise_error.no_email'))
 		{
 			$send_mail = false;
@@ -550,7 +545,7 @@ class core extends acl_base
 		if (!($class === "bugtrack" && $action === "add_error") && aw_ini_get("config.error_log_site"))
 		{
 			// kui viga tuli bugi replikeerimisel, siis 2rme satu l6pmatusse tsyklisse
-			$socket = get_instance("protocols/socket");
+			$socket = new socket();
 			$socket->open(array(
 				"host" => aw_ini_get("config.error_log_site"),
 				"port" => 80,
@@ -590,8 +585,8 @@ class core extends acl_base
 			{
 				//!!! liigutada
 				//!!! liigutada p6hierrorhandlerisse, lib/errorhandling.aw-sse
-				$co = get_instance("config");
-				$la = get_instance("core/languages");
+				$co = new config();
+				$la = new languages();
 				$ld = $la->fetch(aw_global_get("lang_id"));
 				$u = $co->get_simple_config("error_redirect_".$ld["acceptlang"]);
 				if (!$u)
@@ -1269,7 +1264,7 @@ class core extends acl_base
 			$arr["class"] = get_class($this);
 		}
 
-		$ob = get_instance("core/orb/orb");
+		$ob = new orb();
 		return $ob->do_method_call($arr);
 	}
 

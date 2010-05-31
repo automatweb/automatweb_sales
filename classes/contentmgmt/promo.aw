@@ -1147,7 +1147,7 @@ class promo extends class_base implements main_subtemplate_handler
 		$tb->add_cdata($ps->get_popup_search_link(array("pn" => "_set_lm_sss", "clid" => CL_MENU)));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["_set_sss"] = "0";
 		$arr["_set_lm_sss"] = "0";

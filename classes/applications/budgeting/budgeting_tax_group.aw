@@ -220,7 +220,7 @@ class budgeting_tax_group extends class_base
 		$arr["args"]["tax_s_tax"] = $arr["request"]["tax_s_tax"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

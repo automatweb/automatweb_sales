@@ -166,7 +166,7 @@ class cb_translate extends class_base
 		return $pl->begin();
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["return_url"] = post_ru();
 	}

@@ -25,7 +25,7 @@ class shop_matrix extends class_base
 		}
 	}
 
-	public function callback_mod_reforb($arr)
+	public function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["currency"] = $this->currency;

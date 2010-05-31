@@ -737,7 +737,7 @@ class mini_gallery extends class_base
 		return $arr["post_ru"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

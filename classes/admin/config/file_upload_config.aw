@@ -43,7 +43,7 @@ class file_upload_config extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["set_menu"] = "0";

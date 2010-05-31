@@ -2419,7 +2419,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["_set_sss"] = "0";
 		$arr["_set_no_sss"] = "0";

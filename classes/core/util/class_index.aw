@@ -314,7 +314,7 @@ class class_index
 	@attrib api=1 params=pos
 	@param name required type=string
 		Class name
-	@returns string Class definition file absolute path
+	@return string Class definition file absolute path
 	**/
 	public static function get_file_by_name($name)
 	{
@@ -400,11 +400,26 @@ class class_index
 
 	/**
 	@attrib api=1 params=pos
+	@param class_name required type=string
+		Class name
+	@return object
+	Class xml declaration file absolute path
+	**/
+	public static function get_declaration_by_name($class_name)
+	{
+		$class_dir = dirname(self::get_file_by_name($class_name)); // get class
+		$class_name = basename($class_name); // get rid of namespace
+		$class_declaration_file = $class_dir . "/{$class_name}.xml";
+		return $class_declaration_file;
+	}
+
+	/**
+	@attrib api=1 params=pos
 	@param name required type=string
 		Class name
 	@param parent required type=string
 		Parent class name
-	@returns boolean
+	@return boolean
 	@comment Checks whether $parent is among class parents
 	**/
 	public static function is_extension_of($name, $parent)

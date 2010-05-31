@@ -71,7 +71,7 @@ class messageboard extends class_base
 		return $this->change($ar);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$embed = aw_global_get("msg_embedded");
 		if ($embed)

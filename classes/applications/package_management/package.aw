@@ -498,7 +498,7 @@ class package extends class_base
 		return $retval;
 	}	
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["add_dependency"] = 0;
 		$arr["post_ru"] = post_ru();

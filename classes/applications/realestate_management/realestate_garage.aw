@@ -107,7 +107,7 @@ class realestate_garage extends realestate_property
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		parent::callback_mod_reforb ($arr);
 		$arr["post_ru"] = post_ru();

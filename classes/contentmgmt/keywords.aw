@@ -1004,7 +1004,7 @@ class keywords extends class_base
 		return true;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

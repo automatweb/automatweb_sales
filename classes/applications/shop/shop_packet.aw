@@ -609,7 +609,7 @@ class shop_packet extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["set_prods"] = "0";
 		$arr["post_ru"] = post_ru();

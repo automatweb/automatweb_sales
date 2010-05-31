@@ -465,7 +465,7 @@ class scm_team extends class_base
 		$arr["args"]["competition"] = $competition;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

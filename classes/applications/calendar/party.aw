@@ -317,7 +317,7 @@ class party extends class_base
 		return $this->parse();
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["set_artist"] = "0";
 	}

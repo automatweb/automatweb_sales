@@ -204,7 +204,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		return $data;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

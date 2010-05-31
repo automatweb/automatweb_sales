@@ -239,7 +239,7 @@ class mrp_order_print extends mrp_order
 		$arr["args"]["tf"] = $arr["request"]["tf"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["tf"] = $_GET["tf"];

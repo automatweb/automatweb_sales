@@ -1,5 +1,7 @@
 <?php
 
+namespace automatweb;
+
 // Thanks to Kartic Krishnamurthy <kaygee@netset.com> for ideas and sample code
 // mail.aw - Sending and parsing mail. MIME compatible
 
@@ -10,10 +12,6 @@
 
 // ideaalis peaks see edaspidi toetama ka teisi mailisaatmismeetodeid
 // peale PHP mail funktsiooni
-
-/*
-@classinfo  maintainer=kristo
-*/
 
 define('X_MAILER',"AW Mail 2.0");
 define('WARNING','This is a MIME encoded message');

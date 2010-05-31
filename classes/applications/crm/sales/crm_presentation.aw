@@ -2,7 +2,7 @@
 
 namespace automatweb;
 /*
-@classinfo syslog_type=ST_CRM_PRESENTATION relationmgr=yes no_status=1 prop_cb=1 maintainer=voldemar confirm_save_data=1
+@classinfo syslog_type=ST_CRM_PRESENTATION relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1
 
 @tableinfo planner index=id master_table=objects master_index=brother_of
 @groupinfo customer caption="Klient"
@@ -101,7 +101,7 @@ class crm_presentation extends task
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

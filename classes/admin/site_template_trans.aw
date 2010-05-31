@@ -35,7 +35,7 @@ class site_template_trans extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["tf"] = $_GET["tf"];

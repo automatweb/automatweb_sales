@@ -1424,7 +1424,7 @@ class conference_planning extends class_base
 		return true;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		if(substr($GLOBALS["_GET"]["group"], 0, 7) == "webform")
