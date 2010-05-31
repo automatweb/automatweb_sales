@@ -571,7 +571,7 @@ class otto_import extends class_base implements warehouse_import_if
 		return true;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		if ( isset($_GET['container_id']) && $_GET['container_id'] && ($arr['group'] == 'containers') )
 		{

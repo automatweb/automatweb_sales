@@ -159,7 +159,7 @@ class shop_warehouse_reception extends class_base
 		$o->save();
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["sitm"] = "0";
 	}

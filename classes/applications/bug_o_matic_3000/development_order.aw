@@ -818,7 +818,7 @@ class development_order extends class_base
 		return $statuses;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["set_req"] = "0";

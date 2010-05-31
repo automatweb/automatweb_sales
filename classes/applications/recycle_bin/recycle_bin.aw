@@ -699,7 +699,7 @@ class recycle_bin extends class_base
 		$this->_insert_tbl($rows, $t, $arr["obj_inst"]->id());
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["return_url"] = aw_global_get("REQUEST_URI");
 		$arr["new"] = ($_GET["action"]=="new")?1:0;

@@ -213,7 +213,7 @@ class shop_order_cart extends class_base
 		}
 	}
 
-	public function callback_mod_reforb($arr)
+	public function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

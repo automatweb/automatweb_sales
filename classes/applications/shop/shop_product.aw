@@ -2656,7 +2656,7 @@ class shop_product extends class_base
 		return $arr["post_ru"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["add_purveyor"] = 0;
 		$arr["add_material"] = 0;

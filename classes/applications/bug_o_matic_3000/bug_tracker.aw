@@ -2726,7 +2726,7 @@ class bug_tracker extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["tf"] = automatweb::$request->arg("tf");
 		$arr["assign_to"] = 0;

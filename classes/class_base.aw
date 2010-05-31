@@ -12,8 +12,6 @@ namespace automatweb;
 //
 // Common properties for all classes
 /*
-	@classinfo  maintainer=voldemar
-
 	@default table=objects
 	@default group=general
 
@@ -64,8 +62,44 @@ define('PROP_FATAL_ERROR',4);
 define('RELTYPE_TRANSLATION',102);
 define('RELTYPE_ORIGINAL',103);
 
-class class_base extends aw_template
+class class_base extends aw_template implements ui_class_interface
 {
+	// aw actions
+	protected static $_awcb_action_new = array(
+		"method" => "new_change",
+		"return" => "string",
+		"all_args" => true,
+		"parameters" => array(
+			"class" => array("required" => true, "type" => "class"),
+			"parent" => array("type" => "oid", "acl" => "add"),
+			"period" => array("type" => "oid"),
+			"alias_to" => array("type" => "oid"),
+			"alias_to_prop" => array("type" => "string"),
+			"save_autoreturn" => array("type" => "bool"),
+			"return_url" => array("type" => "string"),
+			"reltype" => array("type" => "int"),
+		)
+	);
+
+	protected static $_awcb_action_change = array(
+		"method" => "change",
+		"return" => "string",
+		"all_args" => true,
+		"parameters" => array(
+			"id" => array("required" => true, "type" => "oid", "acl" => "edit"),
+			"class" => array("type" => "class"),
+			"group" => array("type" => "string"),
+			"period" => array("type" => "oid"),
+			"alias_to" => array("type" => "oid"),
+			"alias_to_prop" => array("type" => "string"),
+			"view_property" => array("type" => "string"),
+			"view_layout" => array("type" => "string"),
+			"save_autoreturn" => array("type" => "bool"),
+			"return_url" => array("type" => "string"),
+			"reltype" => array("type" => "int"),
+		)
+	);
+
 	var $id; // loaded storage object id
 	var $clid; // loaded storage object class id
 	var $cli; // output client reference
@@ -119,22 +153,13 @@ class class_base extends aw_template
 	private $data_processing_result_status = PROP_OK;
 	private $vcl_has_getter = array();
 
-	function class_base($args = array())
+	function __construct($args = array())
 	{
 		$this->init();
 	}
 
 	function init($arg = array())
 	{
-		// XXX: this is also temporary
-		$this->vcl_has_getter = array(
-			"classificator" => 1,
-		);
-
-		if (!isset($this->clid) && !empty($arg["clid"]))
-		{
-			$this->clid = $arg["clid"];
-		}
 		parent::init($arg);
 	}
 
@@ -287,7 +312,6 @@ class class_base extends aw_template
 		}
 
 		$args["return_url"] = automatweb::$request->arg_isset("return_url") ? automatweb::$request->arg("return_url") : "";
-		$this->init_class_base();
 		$cb_values = aw_global_get("cb_values");
 		$has_errors = false;
 
@@ -333,7 +357,7 @@ class class_base extends aw_template
 			{
 				// this is a relation!
 				$this->is_rel = true;
-				$def = $this->_ct[$this->clid]["def"];
+				$def = $this->_ct[$this::AW_CLID]["def"];
 				$meta = $this->obj_inst->meta("values");
 				$this->values = $meta[$def];
 				$this->values["name"] = $this->obj_inst->name();
@@ -381,7 +405,7 @@ class class_base extends aw_template
 		// i hope this doesn't qualify as a hack, because nobody changes the args
 		// anyway -- ahz
 		$filter = array(
-			"clid" => $this->clid,
+			"clid" => $this::AW_CLID,
 			"clfile" => $this->clfile,
 			"cfgform_id" => $cfgform_id,
 			"cb_part" => isset($args["cb_part"]) ? $args["cb_part"] : "",
@@ -617,7 +641,7 @@ class class_base extends aw_template
 			$translate_url = html::href(array(
 				"caption" => t("T&otilde;lgi"),
 				"url" => $this->mk_my_orb("change",array(
-						"clid" => $this->clid,
+						"clid" => $this::AW_CLID,
 						"group" => "translation_sub",
 					"grpid" => isset($args["group"]) ? $args["group"] : null,
 					"id" => $trans_default_id->id(),
@@ -637,7 +661,7 @@ class class_base extends aw_template
 		}
 		$cli->configure(array(
 			"help_url" => $this->mk_my_orb("browser",array(
-				"clid" => $this->clid,
+				"clid" => $this::AW_CLID,
 				"group" => isset($args["group"]) ? $args["group"] : null,
 			),
 			"help"),
@@ -749,7 +773,7 @@ class class_base extends aw_template
 			}
 		}
 
-		$orb_class = $this->_ct[$this->clid]["file"];
+		$orb_class = $this->_ct[$this::AW_CLID]["file"];
 		if (empty($orb_class))
 		{
 			$orb_class = $this->clfile;
@@ -1346,7 +1370,7 @@ class class_base extends aw_template
 					"args" => &$args,
 					"request" => &$request,
 					"orb_class" => &$orb_class,
-					"clid" => $this->clid,
+					"clid" => $this::AW_CLID,
 					"new" => $this->new,
 				));
 
@@ -1365,7 +1389,7 @@ class class_base extends aw_template
 						"args" => &$args,
 						"request" => &$request,
 						"orb_class" => &$orb_class,
-						"clid" => $this->clid,
+						"clid" => $this::AW_CLID,
 						"new" => $this->new,
 					));
 				}
@@ -1409,7 +1433,7 @@ class class_base extends aw_template
 			// Remove drafts by the current user on save.
 			$this->remove_drafts(array(
 				"id" => $this->new ? 0 : $this->id,
-				"class" => $this->clid,
+				"class" => $this::AW_CLID,
 			));
 		}
 
@@ -1626,7 +1650,7 @@ class class_base extends aw_template
 
 		// 4. failing that too, we will check whether this class has a default cfgform
 		// and if so, use it
-		if ($this->clid == CL_DOCUMENT)
+		if ($this::AW_CLID == CL_DOCUMENT)
 		{
 			// I should be able to override this from the doc class somehow
 			$def_cfgform = aw_ini_get("document.default_cfgform");
@@ -1643,15 +1667,9 @@ class class_base extends aw_template
 			return $this->tmp_cfgform;
 		}
 
-		// XXX: this happens for classes created with class_designer
-		if (empty($this->clid))
-		{
-			return false;
-		}
-
 		$ol = new object_list(array(
 			"class_id" => CL_CFGFORM,
-			"subclass" => $this->clid,
+			"subclass" => $this::AW_CLID,
 			"lang_id" => array(),
 			"flags" => array(
 				"mask" => OBJ_FLAG_IS_SELECTED,
@@ -1680,101 +1698,15 @@ class class_base extends aw_template
 		return false;
 	}
 
-	////
-	// !This checks whether we have all required data and sets up the correct
-	// environment if so.
-	function init_class_base()
-	{
-		$_ct = aw_ini_get("classes");
-		// only classes which have defined properties
-		// can use class_base
-
-		if (aw_ini_get("debug_mode") == 1 && !empty($_REQUEST["CFG_DEBUG"]))
-		{
-			$this->cfg_debug = true;
-		}
-
-		// create an instance of the class servicing the object ($this->inst)
-		// set $this->clid and $this->clfile
-		$cfgu = new cfgutils();
-		$orb_class = $_ct[$this->clid]["file"];
-		if (empty($orb_class) && is_object($this->orb_class))
-		{
-			$orb_class = get_class($this->orb_class);
-		}
-
-		if (empty($orb_class) && is_string($this->orb_class))
-		{
-			$orb_class = $this->orb_class;
-		}
-
-		if (isset($this->orb_class) && is_object($this->orb_class))
-		{
-			$orb_class = get_class($this->orb_class);
-		}
-
-		if ($orb_class === "document")
-		{
-			$orb_class = "doc";
-		}
-
-		$has_properties = $cfgu->has_properties(array("file" => $orb_class));
-		if (!$has_properties)
-		{
-			error::raise(array(
-				"msg" => sprintf("this class (%s/%d) does not have any defined properties ",$orb_class, $this->clid),
-			));
-		}
-
-		$clid = $this->clid;
-
-		if (empty($clid) && is_object($this->orb_class) && method_exists($this->orb_class, "get_opt"))
-		{
-			$clid = $this->orb_class->get_opt("clid");
-		}
-		$clfile = basename($_ct[$clid]["file"]);
-
-		// temporary - until we switch document editing back to new interface
-		if ($clid == 7)
-		{
-			$clfile = "doc";
-		}
-
-		if (empty($clfile))
-		{
-			$this->clfile = "automatweb\\" . basename($orb_class);
-		}
-		else
-		{
-			$this->clfile = "automatweb\\" . $clfile;
-		}
-
-		$this->clid = $clid;
-		$this->_ct = $_ct;
-
-		// get an instance of the class that handles this object type
-		// fuck me plenty! .. orb.aw sets $this->orb_class
-		if (isset($this->orb_class) && is_object($this->orb_class))
-		{
-			$this->inst = $this->orb_class;
-		}
-		// but I'm keeping the old approach too, just to be sure that
-		// nothing breaks
-		else
-		{
-			$this->inst = new $this->clfile;
-		}
-	}
-
 	function gen_output($args = array())
 	{
-		$classname = $this->_ct[$this->clid]["name"];
+		$classname = $this->_ct[$this::AW_CLID]["name"];
 		if (is_object($this->obj_inst))
 		{
 			$name = $this->obj_inst->name();
 		};
 		$return_url = !empty($this->request["return_url"]) ? $this->request["return_url"] : "";
-		$is_container = in_array($this->clid,get_container_classes());
+		$is_container = in_array($this::AW_CLID, get_container_classes());
 		// XXX: pathi peaks htmlclient tegema
 		$title = isset($args["title"]) ? $args["title"] : "";
 		if (is_oid($this->id))
@@ -2343,7 +2275,7 @@ class class_base extends aw_template
 		if (!empty($args["classonly"]))
 		{
 			$_all_props = $cfgu->load_class_properties(array(
-				"clid" => $this->clid,
+				"clid" => $this::AW_CLID,
 			));
 		}
 		// and this handles the generic cases
@@ -2352,20 +2284,19 @@ class class_base extends aw_template
 			if (!empty($args["form"]))
 			{
 				$filter["form"] = $args["form"];
-			};
+			}
 
 			$_all_props = $cfgu->load_properties(array(
-				"file" => empty($this->clid) ? $this->clfile : "",
-				"clid" => $this->clid,
+				"file" => $this->clfile,
+				"clid" => $this::AW_CLID,
 				"filter" => $filter,
 			));
-
-		};
+		}
 
 		if (!is_array($this->classinfo))
 		{
 			$this->classinfo = array();
-		};
+		}
 
 		$clif = new aw_array($cfgu->get_classinfo());
 		$this->classinfo = $this->classinfo + $clif->get();
@@ -2919,7 +2850,7 @@ class class_base extends aw_template
 
 		foreach($properties as $key => $val)
 		{
-			if (isset($val["callback"]) && method_exists($this->inst,$val["callback"]))
+			if (isset($val["callback"]) && method_exists($this->inst, $val["callback"]))
 			{
 				if ($this->new && !empty($val["editonly"]) || !$this->new && !empty($val["newonly"]))
 				{
@@ -2934,7 +2865,7 @@ class class_base extends aw_template
 					foreach($vx as $ekey => $eval)
 					{
 						$this->convert_element($eval);
-						if($eval["orig_type"] != "layout")
+						if($eval["orig_type"] !== "layout")
 						{
 							$resprops[$ekey] = $eval;
 						}
@@ -2963,16 +2894,17 @@ class class_base extends aw_template
 			{
 				continue;
 			}
+
 			if (!empty($val["editonly"]) && empty($this->id))
 			{
 				continue;
-			};
+			}
 
 			if ( isset($val["newonly"]) && !empty($this->id))
 			{
 				// and this as well
 				continue;
-			};
+			}
 
 			// eventually all VCL components will have to implement their
 			// own init_vcl_property method
@@ -2990,7 +2922,7 @@ class class_base extends aw_template
 						"request" => $this->request,
 						"property" => &$val,
 						"id" => $this->id,
-						"clid" => $this->clid,
+						"clid" => $this::AW_CLID,
 						"obj_inst" => $this->obj_inst,
 						"relinfo" => $this->relinfo,
 						"view" => $this->view,
@@ -3047,7 +2979,7 @@ class class_base extends aw_template
 				if (isset($form_onload) && is_callable(array($clx_inst,$form_onload)))
 				{
 					$clx_inst->$form_onload(array());
-				};
+				}
 
 				// this needs to change the form method, urk, urk
 				//$clx_inst->request = $this->request[$val["name"]];
@@ -3064,8 +2996,7 @@ class class_base extends aw_template
 					$resprops[$rkey] = $rprop;
 					$resprops[$rkey]["capt_ord"] = $val["capt_ord"];
 					$resprops[$rkey]["wf_capt_ord"] = $val["wf_capt_ord"];
-				};
-
+				}
 			}
 			else
 			{
@@ -3075,8 +3006,9 @@ class class_base extends aw_template
 			if (isset($val["richtext"]) && 1 == $val["richtext"])
 			{
 				$has_rte = true;
-			};
+			}
 		}
+
 		if ($this->classinfo(array("name" => "allow_rte")) < 1)
 		{
 			$has_rte = false;
@@ -3084,14 +3016,12 @@ class class_base extends aw_template
 		else
 		{
 			$has_rte = true;
-		};
-
+		}
 
 		if ($this->no_rte)
 		{
 			$has_rte = false;
-		};
-
+		}
 
 		$properties = $resprops;
 		$resprops = array();
@@ -3110,19 +3040,19 @@ class class_base extends aw_template
 			if ($val["name"] === "tabpanel" && $this->view)
 			{
 				continue;
-			};
+			}
 
 			if ($val["name"] === "name" && !empty($this->classinfo["no_name"]))
 			{
 				continue;
-			};
+			}
 
 
 			// XXX: need to get rid of that "text" index
 			if ($val["name"] === "status" && !empty($this->classinfo["no_status"]))
 			{
 				continue;
-			};
+			}
 
 			if ($val["name"] === "comment" && !empty($this->classinfo["no_comment"]))
 			{
@@ -3194,25 +3124,18 @@ class class_base extends aw_template
 
 			$argblock["prop"] = &$val;
 
-			if ($val["type"] === "select")
-			{
-				//$val["options"] = $this->make_keys($val["options"]);
-			};
-
 			if ( isset($val["editonly"]) && empty($this->id))
 			{
 				// this should be form depenent
 				continue;
 			}
-			else
-			if ($val["type"] === "aliasmgr" && empty($this->id))
+			elseif ($val["type"] === "aliasmgr" && empty($this->id))
 			{
 				// do not show alias manager if  no id
 				// and this too
 				continue;
 			}
-			else
-			if ( isset($val["newonly"]) && !empty($this->id))
+			elseif ( isset($val["newonly"]) && !empty($this->id))
 			{
 				// and this as well
 				continue;
@@ -3221,13 +3144,11 @@ class class_base extends aw_template
 			$pname = $val["name"];
 			$getter = "_get_" . $pname;
 			$status = null;
-			if ( !empty($this->classinfo['prop_cb']) && in_array($getter,$class_methods))
+			if (in_array($getter,$class_methods))
 			{
 				$status = $this->inst->$getter($argblock);
 			}
-			else
-			// callbackiga saad muuta &uuml;he konkreetse omaduse sisu
-			if ($callback)
+			elseif ($callback)
 			{
 				$status = $this->inst->get_property($argblock);
 			}
@@ -3264,7 +3185,7 @@ class class_base extends aw_template
 						$res = $ot->init_vcl_property(array(
 							"property" => &$val,
 							"id" => $this->id,
-							"clid" => $this->clid,
+							"clid" => $this::AW_CLID,
 							"obj_inst" => $this->obj_inst,
 							"relinfo" => $this->relinfo,
 							"view" => $this->view,
@@ -3415,7 +3336,8 @@ class class_base extends aw_template
 							{
 								$target = "_self";
 								$cb_part = null;
-							};
+							}
+
 							$val["vcl_inst"]->add_button(array(
 								"name" => "grp_" . $grp_id,
 								"img" => empty($grp_data["icon"]) ? "" : $grp_data["icon"] . ".gif",
@@ -3448,7 +3370,7 @@ class class_base extends aw_template
 								"no_rte" => $this->no_rte,
 							));
 						}
-					};
+					}
 				}
 
 				// this deals with subitems .. what a sucky approach
@@ -3459,9 +3381,9 @@ class class_base extends aw_template
 					{
 						$this->convert_element($item);
 						$tmp[] = $item;
-					};
+					}
 					$val["items"] = $tmp;
-				};
+				}
 
 				$this->convert_element($val);
 
@@ -3475,10 +3397,11 @@ class class_base extends aw_template
 			}
 		}
 
-		if ((!isset($this->cfgform_id) || !$this->cfgform_id) && $this->clid == CL_DOCUMENT)
+		if ((!isset($this->cfgform_id) || !$this->cfgform_id) && $this::AW_CLID == CL_DOCUMENT)
 		{
 			$this->cfgform_id = aw_ini_get("document.default_cfgform");
 		}
+
 		if(isset($this->cfgform_id) && $this->cfgform_id && $controllers = $this->get_all_view_controllers($this->cfgform_id))
 		{
 			$this->process_view_controllers($resprops, $controllers, $argblock);
@@ -3551,42 +3474,6 @@ class class_base extends aw_template
 	}
 
 
-	/*function process_properties($arr)
-	{
-		// if name_prefix given, prefixes all element names with the value
-		// e.g. if name_prefix => "emb" and there is a property named comment,
-		// then the result will be name => emb[comment], this simplifies
-		// processing of embedded config forms
-		if ($arr["name_prefix"])
-		{
-			$tmp = $arr["properties"];
-			$resprops = array();
-			foreach($tmp as $key => $el)
-			{
-				$bracket = strpos($el["name"],"[");
-				// I need to rename the parent attribute as well
-				if ($bracket > 0)
-				{
-					$pre = substr($el["name"],0,$bracket);
-					$aft = substr($el["name"],$bracket);
-					$newname = $args["name_prefix"] . "[$pre]" . $aft;
-				}
-				else
-				{
-					$newname = $args["name_prefix"] . "[" . $el["name"] . "]";
-					if (!empty($el["parent"]))
-					{
-						$el["parent"] = $args["name_prefix"] . "_" . $el["parent"];
-					};
-				};
-				$el["name"] = $newname;
-				// just to get an hopefully unique name ..
-				$resprops[$args["name_prefix"] . "_" . $key] = $el;
-			}
-		}
-		return $resprops;
-	}*/
-
 	/** _serialize replacement for class_base based objects
 		@attrib name=ng_serialize params=name
 		@param oid required type=int
@@ -3644,7 +3531,7 @@ class class_base extends aw_template
 
 		if (aw_global_get("__is_rpc_call"))
 		{
-			$result["class_id"] = $this->clid;
+			$result["class_id"] = $this::AW_CLID;
 			$retval = $result;
 		}
 		else
@@ -3708,7 +3595,7 @@ class class_base extends aw_template
 	// and returns something eatable
 
 	// this was not ment to be used from outside the class
-	function validate_data($arr)
+	function validate_data(&$arr)
 	{
 		if (empty($arr["props"]))
 		{
@@ -3720,14 +3607,14 @@ class class_base extends aw_template
 			else
 			{
 				$props = $this->load_defaults(array(
-					"clid" => $this->clid,
+					"clid" => $this::AW_CLID,
 				));
 			};
 		}
 		else
 		{
 			$props = &$arr["props"];
-		};
+		}
 
 		if (!$arr["cfgform_id"] && is_object($arr["obj_inst"]) && $arr["obj_inst"]->class_id() == CL_DOCUMENT && aw_ini_get("document.default_cfgform"))
 		{
@@ -3889,7 +3776,7 @@ class class_base extends aw_template
 		{
 			$parent = $args["parent"];
 			$o = new object();
-			$o->set_class_id($this->clid);
+			$o->set_class_id($this::AW_CLID);
 			$o->set_parent($parent);
 			$o->set_status(isset($args["status"]) ? $args["status"] : object::STAT_ACTIVE);
 
@@ -3928,7 +3815,7 @@ class class_base extends aw_template
 
 		$filter = array();
 		$filter["clfile"] = $this->clfile;
-		$filter["clid"] = $this->clid;
+		$filter["clid"] = $this::AW_CLID;
 		$filter["group"] = $group;
 		$filter["rel"] = $this->is_rel;
 		$filter["ignore_layout"] = 1;
@@ -4076,7 +3963,7 @@ class class_base extends aw_template
 			// that your set_property returns PROP_OK for stuff
 			// that you want to save
 			$setter = "_set_" . $name;
-			if ( isset($this->classinfo['prop_cb']) && ($this->classinfo['prop_cb'] == 1) && in_array($setter,$class_methods))
+			if (in_array($setter,$class_methods))
 			{
 				$status = $this->inst->$setter($argblock);
 			}
@@ -4199,7 +4086,7 @@ class class_base extends aw_template
 				if (is_callable(array($ot,"process_vcl_property")))
 				{
 					$argblock["prop"] = &$property;
-					$argblock["clid"] = $this->clid;
+					$argblock["clid"] = $this::AW_CLID;
 					$res = $ot->process_vcl_property($argblock);
 
 					if (PROP_ERROR == $res || PROP_FATAL_ERROR == $res)
@@ -4328,7 +4215,7 @@ class class_base extends aw_template
 
 		if ($this->is_rel && is_array($values) && sizeof($values) > 0)
 		{
-			$def = $this->_ct[$this->clid]["def"];
+			$def = $this->_ct[$this::AW_CLID]["def"];
 			$_tmp = new object($this->id);
 			$old = $_tmp->meta("values");
 
@@ -4652,7 +4539,7 @@ class class_base extends aw_template
 			"class_id" => CL_CFGFORM,
 			"site_id" => array(),
 			"lang_id" => array(),
-			"subclass" => $this->clid
+			"subclass" => $this::AW_CLID
 		));
 		$rv = array();
 		$l = new languages();
@@ -4699,9 +4586,9 @@ class class_base extends aw_template
 			$filter["rel"] = 1;
 		}
 
-		if (empty($arr["clid"]) && !empty($this->clid))
+		if (empty($arr["clid"]))
 		{
-			$arr["clid"] = $this->clid;
+			$arr["clid"] = $this::AW_CLID;
 		}
 
 		// XXX: add some checks
@@ -5291,7 +5178,7 @@ class class_base extends aw_template
 
 		$defaults = $cfgu->load_properties(array(
 			"file" => empty($arr["clid"]) ? (isset($arr["clfile"]) ? $arr["clfile"] : "" ) : "",
-			"clid" => !empty($arr["clid"]) ? $arr["clid"] : $this->clid,
+			"clid" => !empty($arr["clid"]) ? $arr["clid"] : $this::AW_CLID,
 			"filter" => isset($arr["filter"]) ? $arr["filter"] : "",
 			"system" => 1,
 		));
@@ -6719,5 +6606,14 @@ class class_base extends aw_template
 		die($o->id());
 	}
 
+	public function aw_get_action_method($action_name)
+	{
+		$action_dfn_variable = "_awcb_action_{$action_name}";
+		if (isset($this::$$action_dfn_variable))
+		{
+			$action_data = $this::$$action_dfn_variable;
+			return $action_data["method"];
+		}
+	}
 }
 ?>

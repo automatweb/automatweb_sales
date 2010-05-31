@@ -770,7 +770,7 @@ class menu_tree extends class_base
 		$this->rec_level--;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["root_menu"] = "0";
 	}

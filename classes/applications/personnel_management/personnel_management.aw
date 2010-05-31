@@ -4314,7 +4314,7 @@ class personnel_management extends class_base
 		return $this->parse();
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["branch_id"] = $_GET["branch_id"];

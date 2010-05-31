@@ -362,7 +362,6 @@ class period extends class_base implements request_startup
 		// 1st, the in-memory cache
 		if (($pr = aw_cache_get("per_by_id", $id)))
 		{
-			dbg::p1("period::get cache hit level 1");
 			return $pr;
 		}
 		// 2nd, the file-on-disk cache
@@ -373,7 +372,6 @@ class period extends class_base implements request_startup
 			return $pr;
 		}
 		// and finally, the db
-		dbg::p1("period::get no hit ");
 		$q = "SELECT *,objects.name,objects.metadata,objects.status as o_status FROM periods LEFT JOIN objects ON (periods.obj_id = objects.oid) WHERE id = '$id'";
 		$this->db_query($q);
 		$pr = $this->db_fetch_row();

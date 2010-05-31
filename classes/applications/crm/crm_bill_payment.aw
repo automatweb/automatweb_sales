@@ -525,7 +525,7 @@ class crm_bill_payment extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["add_bill"] = "";	
 		$arr["post_ru"] = post_ru();

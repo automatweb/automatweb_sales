@@ -390,7 +390,7 @@ class bug extends class_base
 		);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["from_problem"] = ifset($_GET, "from_problem");
 		$arr["do_split"] = "0";

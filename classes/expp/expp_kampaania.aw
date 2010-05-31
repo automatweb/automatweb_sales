@@ -309,7 +309,7 @@ class expp_kampaania extends class_base
 		return mktime(0, 0, 0, (int)$arr['month'], (int)$arr['day'], (int)$arr['year']);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

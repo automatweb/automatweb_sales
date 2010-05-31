@@ -1164,7 +1164,6 @@ class vcalendar extends aw_template
 			"year" => $this->range["y"],
 		));
 
-		//dbg::p5($this->range);
 		list($d,$m,$y) = explode("-",date("d-m-Y",$this->range["timestamp"]));
 
 		for ($i = 1; $i <= 12; $i++)

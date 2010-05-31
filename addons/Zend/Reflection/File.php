@@ -303,6 +303,8 @@ class Zend_Reflection_File implements Reflector
         $classTrapped    = false;
         $requireTrapped  = false;
         $openBraces      = 0;
+		$currentNamespace = "";
+		$namespaceTrapped = false;
 
         $this->_checkFileDocBlock($tokens);
 
@@ -342,8 +344,11 @@ class Zend_Reflection_File implements Reflector
                         $this->_functions[] = $value;
                         $functionTrapped = false;
                     } elseif ($classTrapped) {
-                        $this->_classes[] = $value;
+                        $this->_classes[] = $currentNamespace ? "{$currentNamespace}\\{$value}" : $value;
                         $classTrapped = false;
+                    } elseif ($namespaceTrapped) {
+                        $currentNamespace = $value;
+					$namespaceTrapped = false;
                     }
                     continue;
 
@@ -354,6 +359,11 @@ class Zend_Reflection_File implements Reflector
                         $requireTrapped = false;
                     }
                     continue;
+
+                // Namespaces
+                case T_NAMESPACE:
+                    $namespaceTrapped = true;
+                    break;
 
                 // Functions
                 case T_FUNCTION:

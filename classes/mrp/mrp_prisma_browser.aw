@@ -117,7 +117,7 @@ class mrp_prisma_browser extends class_base
 		return $retval;
 	}	
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		aw_register_header_text_cb(array(&$this, "make_aw_header"));
 	//	$arr["post_ru"] = post_ru();

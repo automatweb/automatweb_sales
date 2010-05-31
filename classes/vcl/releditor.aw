@@ -1758,7 +1758,7 @@ class releditor extends core
 		//return $this->t->draw();
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["s_reled"] = "0";
 	}

@@ -264,7 +264,7 @@ class property_tree extends class_base
 		return true;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["return_url"] = $_SERVER["REQUEST_METHOD"] == "GET" ? post_ru() : $arr["return_url"];
 		$arr["ts"] = $_GET["ts"];

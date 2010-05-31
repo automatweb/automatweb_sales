@@ -601,7 +601,7 @@ class vastuv6tt_keskkond extends class_base
 	}
 
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["keskkond_return_url"] = urlencode(aw_global_get('REQUEST_URI'));
 	}

@@ -4,7 +4,7 @@ namespace automatweb;
 
 /*
 
-@classinfo syslog_type=ST_CRM_SALES relationmgr=yes no_status=1 maintainer=voldemar prop_cb=1
+@classinfo syslog_type=ST_CRM_SALES relationmgr=yes no_status=1 prop_cb=1
 
 GROUP DECLARATIONS
 @groupinfo settings caption="Seaded"
@@ -674,7 +674,7 @@ class crm_sales extends class_base
 		return PROP_OK;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
@@ -2192,7 +2192,7 @@ SCRIPT;
 		return PROP_OK;
 	}
 
-	function _get_owner($arr)
+	function _get_owner(&$arr)
 	{
 		$arr["prop"]["value"] = $this->view ? $arr["prop"]["value"] : $arr["prop"]["value"]->id();
 		return PROP_OK;

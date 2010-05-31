@@ -1610,7 +1610,7 @@ class register_data extends class_base
 		return $retval;
 	}	
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["set_register_id"] = $this->set_register_id;
 	}

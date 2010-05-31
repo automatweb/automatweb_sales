@@ -2176,59 +2176,6 @@ class project extends class_base
 		return $ev_id_list;
 	}
 
-	/**
-		@attrib name=wtf
-	**/
-	function wtf($arr)
-	{
-		aw_disable_acl();
-		$ol = new object_list(array(
-			"brother_of" => 10412,
-			"lang_id" => array(),
-		));
-		echo dbg::dump($ol);
-
-		arr($ol);
-		foreach($ol->arr() as $o)
-		{
-			print "id = " . $o->id();
-			print "prnt = " . $o->parent();
-			print "lang = " . $o->lang();
-			print "<br>";
-		};
-
-		aw_disable_acl();
-		$ol = new object_list(array(
-			"brother_of" => 5602,
-			"lang_id" => array(),
-		));
-		echo dbg::dump($ol);
-
-		foreach($ol->arr() as $o)
-		{
-			print "id = " . $o->id();
-			print "prnt = " . $o->parent();
-			print "<br>";
-		};
-
-		die();
-
-
-
-
-		// and another, english should be activated for this
-		// this is original and it has start1
-		$o = new object(10083);
-		arr($o->properties());
-
-		// this one is translation and it does not have start1
-		$o = new object(10085);
-		arr($o->properties());
-
-		die();
-
-	}
-
 	function get_event_sources($id)
 	{
 		$o = new object($id);
@@ -2400,10 +2347,8 @@ class project extends class_base
 
 			if (!$this->can("view",$row["brother_of"]))
 			{
-				//dbg::p1($row["name"]);
-				//dbg::p1("skip1");
 				continue;
-			};
+			}
 
 			$e_obj = new object($row["brother_of"]);
 			// see leiab siis objekti originaali parenti
@@ -2412,11 +2357,8 @@ class project extends class_base
 
 			if ($active_lang_only == 1 && $pr_obj->lang_id() != $lang_id)
 			{
-				dbg::p1($row["name"]);
-				dbg::p1("skip2");
-
 				continue;
-			};
+			}
 
 			$projects[$row["parent"]] = $row["parent"];
 
@@ -3220,12 +3162,9 @@ class project extends class_base
 		if ($this->used[$parent])
 		{
 			return false;
-		};
-		//dbg::p1("111 recursing from " . $prj_id);
-		//flush();
+		}
+
 		$prj_obj = new object($prj_id);
-		//dbg::p1("111 recursing from " . $prj_obj->name() . " / " . $prj_obj->id());
-		//flush();
 
 		/*
 		$trans_conns = $prj_obj->connections_from(array(
@@ -3239,9 +3178,6 @@ class project extends class_base
 
 		};
 		*/
-
-		//dbg::p1("recursing from " . $prj_obj->name());
-
 
 		$prj_conns = $prj_obj->connections_from(array(
 			"type" => "RELTYPE_SUBPROJECT",
@@ -3568,7 +3504,7 @@ class project extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		switch($arr["group"])
 		{
@@ -3806,13 +3742,11 @@ class project extends class_base
 				// this way I should get the translated object
 				//$to = new object($conn["to"]);
 				$to = $conn["to"];
-				//dbg::p1("created object instance is " . $to->name());
-				//dbg::p1("created object instance is " . $to->lang_id());
 				$from = $conn["from"];
 				//$res[$to->id()] = $to->id();
 				$res[$to] = $to;
-			};
-		};
+			}
+		}
 
 		return $res;
 	}

@@ -181,7 +181,7 @@ class otv_data_filter extends class_base
 		$arr["obj_inst"]->set_meta("char_replace", $sr);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

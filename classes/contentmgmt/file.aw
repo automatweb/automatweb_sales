@@ -1603,7 +1603,7 @@ class file extends class_base
 		return parent::change($args);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		if (isset($_GET["docid"]))
 		{

@@ -229,10 +229,12 @@ class automatweb
 	}
 
 	/**
+	Executes (current) request.
+
 	@attrib api=1 params=pos
 	@returns void
 	@comment
-		Executes (current) request.
+		If request isn't set by self::set_request() it will be autoloaded from current server/session/... environment
 	**/
 	public function exec()
 	{
@@ -246,7 +248,7 @@ class automatweb
 		{
 			self::$result = new aw_http_response();
 		}
-
+$this->bc = 0;
 		if ($this->bc)
 		{ // old execution path. compatibility mode.
 			return $this->exec_bc();
@@ -254,9 +256,24 @@ class automatweb
 		else
 		{
 			$class = self::$request->class_name();
-			$method = self::$request->action();
-			$o = new $class(); //!!! validate and pass params?
-			$o->$method(); //!!! validate and pass params from request?
+
+			$c = AW_DIR . "classes/applications/crm/customer.aw";
+			$z = new Zend_CodeGenerator_Php_File::fromReflectedFileName($c);
+
+
+			if (class_exists($class))
+			{
+				// $o = new $class();
+				$class_id = $class::AW_CLID;
+
+				// $action = self::$request->action();
+				// $method = $o->aw_get_action_method($action);
+
+				if ($o instanceof class_base)
+				{
+					// $o->$method(self::$request->get_args());
+				}
+			}
 		}
 	}
 

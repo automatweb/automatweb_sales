@@ -971,7 +971,7 @@ class reservation extends class_base
 		$arr["args"]["saved"] = 1;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["reason"] = " ";

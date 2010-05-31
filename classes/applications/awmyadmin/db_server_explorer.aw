@@ -542,7 +542,7 @@ class db_server_explorer extends class_base
 		return $arr["return_url"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

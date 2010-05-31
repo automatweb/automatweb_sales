@@ -466,7 +466,7 @@ class stats_viewer extends class_base
 		$pops->do_create_rels($arr["obj_inst"], $arr["request"]["ugroup_h"], "RELTYPE_GROUP");
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["obj_h"] = 0;

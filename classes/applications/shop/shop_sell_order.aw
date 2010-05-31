@@ -170,7 +170,7 @@ class shop_sell_order extends class_base
 
 
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		return get_instance(CL_SHOP_PURCHASE_ORDER)->callback_mod_reforb(&$arr);
 	}

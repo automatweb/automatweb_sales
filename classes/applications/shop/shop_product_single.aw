@@ -92,7 +92,7 @@ class shop_product_single extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		if($_GET["action"] == "new")
 		{

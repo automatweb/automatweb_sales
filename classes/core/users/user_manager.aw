@@ -491,7 +491,7 @@ class user_manager extends class_base
 	}	
 
 	// Carry to POST some variables
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr['last_parent'] = $this->parent;
 		$arr['ob_group'] = 'um';

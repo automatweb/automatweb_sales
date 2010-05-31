@@ -131,107 +131,6 @@ class dbg
 		echo "---<br>";
 	}
 
-	/** prints the given message to the user, if $GLOBALS["DEBUG"] is set
-		@attrib api=1 params=pos
-
-		@param msg required type=string
-			The message to print
-	**/
-	static function p($msg)
-	{
-		if (aw_global_get("DEBUG") == 1)
-		{
-			echo $msg."<br />\n";
-		}
-	}
-
-	/** prints the given message to the user, if a cookie with the name debug1 is set
-		@attrib api=1 params=pos
-
-		@param msg required type=string
-			The message to print
-
-		@comment
-			Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-	**/
-	static function p1($msg)
-	{
-		if (!empty($_COOKIE["debug1"]))
-		{
-			arr($msg);
-		}
-	}
-
-	/** prints the given message to the user, if a cookie with the name debug2 is set
-		@attrib api=1 params=pos
-
-		@param msg required type=string
-			The message to print
-
-		@comment
-			Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-	**/
-	static function p2($msg)
-	{
-		if (!empty($_COOKIE["debug2"]))
-		{
-			echo $msg."<br />\n";
-		}
-	}
-
-	/** prints the given message to the user, if a cookie with the name debug3 is set
-		@attrib api=1 params=pos
-
-		@param msg required type=string
-			The message to print
-
-		@comment
-			Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-	**/
-	static function p3($msg)
-	{
-		if (!empty($_COOKIE["debug3"]))
-		{
-			echo $msg."<br />\n";
-		}
-	}
-
-	/** prints the given message to the user, if a cookie with the name debug4 is set
-		@attrib api=1 params=pos
-
-		@param msg required type=string
-			The message to print
-
-		@comment
-			Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-	**/
-	static function p4($msg)
-	{
-		if (!empty($_COOKIE["debug4"]))
-		{
-			echo $msg."<br />\n";
-		}
-	}
-
-	/** prints the given message to the user, if a cookie with the name debug5 is set
-		@attrib api=1 params=pos
-
-		@param msg required type=string
-			The message to print
-
-		@comment
-			Useful for printing debug data, so that just you can see it. cookiemonster class can be used for setting cookies
-	**/
-	static function p5($msg)
-	{
-		if (!empty($_COOKIE["debug5"]))
-		{
-			print "<pre>";
-			var_dump($msg);
-			print "</pre>";
-		}
-	}
-
 	/** formats a given backtrace to a human-readable (x)html format
 		@attrib api=1 params=pos
 
@@ -252,6 +151,11 @@ class dbg
 	**/
 	public static function process_backtrace($bt, $skip = -1, $show_long_args = false)
 	{
+		if (is_object(automatweb::$instance) and automatweb::MODE_PRODUCTION === automatweb::$instance->mode())
+		{
+			return;
+		}
+
 		$msg = "<h1>Backtrace:</h1>\n";
 		for ($i = count($bt)-1; $i > $skip; $i--)
 		{
@@ -340,10 +244,7 @@ class dbg
 	**/
 	public static function bt()
 	{
-		if (automatweb::MODE_PRODUCTION !== automatweb::$instance->mode())
-		{
-			echo self::process_backtrace(debug_backtrace(), 0);
-		}
+		echo self::process_backtrace(debug_backtrace(), 0);
 	}
 
 	/** Returns the file name and line of last or specified caller in stack
@@ -375,31 +276,24 @@ class dbg
 	static function short_backtrace()
 	{
 		$msg = "";
-		if (function_exists("debug_backtrace"))
+		$bt = debug_backtrace();
+		for ($i = count($bt); $i >= 0; $i--)
 		{
-			$bt = debug_backtrace();
-			for ($i = count($bt); $i >= 0; $i--)
+			$fnm = "";
+
+			if (isset($bt[$i+1]))
 			{
-				$fnm = "";
-
-				if (isset($bt[$i+1]))
+				if (!empty($bt[$i+1]["class"]))
 				{
-					if (!empty($bt[$i+1]["class"]))
-					{
-						$fnm = $bt[$i+1]["class"]."::".$bt[$i+1]["function"];
-					}
-					elseif (!empty($bt[$i+1]["function"]) and ($bt[$i+1]["function"] !== "include"))
-					{
-						$fnm = $bt[$i+1]["function"];
-					}
+					$fnm = $bt[$i+1]["class"]."::".$bt[$i+1]["function"];
 				}
-
-				if (isset($bt[$i]))
+				elseif (!empty($bt[$i+1]["function"]) and ($bt[$i+1]["function"] !== "include"))
 				{
+					$fnm = $bt[$i+1]["function"];
 				}
-
-				$msg .= $fnm . (isset($bt[$i]["line"]) ? (":" . $bt[$i]["line"]) : "") ."->";
 			}
+
+			$msg .= $fnm . (isset($bt[$i]["line"]) ? (":" . $bt[$i]["line"]) : "") ."->";
 		}
 
 		return $msg;
@@ -446,7 +340,12 @@ class dbg
 			{
 				if (
 					AW_FILE_EXT === substr($file, -strlen(AW_FILE_EXT)) and
-					!($file === "fastcall_base.aw" || $file === "contact.aw" || $file === "pop3.aw" || $file === "translation.aw") and
+					!(
+						$file === "fastcall_base.aw" ||
+						$file === "contact.aw" ||
+						$file === "pop3.aw" ||
+						$file === "translation.aw"
+					) and
 					!preg_match("/\.\#/",$file) // exclude CVS backup files
 				)
 				{

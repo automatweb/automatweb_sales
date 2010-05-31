@@ -795,7 +795,7 @@ class procurement_offer extends class_base
 			"return_url" => $_GET["return_url"]))."' method='POST' name='changeform' enctype='multipart/form-data' >".$t->draw()."</form>";
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["d_id"] = $_GET["d_id"];

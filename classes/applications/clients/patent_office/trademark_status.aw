@@ -48,7 +48,7 @@ class trademark_status extends class_base
 		$arr["prop"]["value"] = date("d.M. Y", $arr["prop"]["value"]);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

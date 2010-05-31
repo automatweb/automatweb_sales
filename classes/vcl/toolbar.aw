@@ -807,7 +807,7 @@ class toolbar extends aw_template
 				}
 			}
 
-			function callback_mod_reforb($arr)
+			function callback_mod_reforb(&$arr)
 			{
 				$arr["add_something"] = 0;
 			}
@@ -828,10 +828,10 @@ class toolbar extends aw_template
 		@attrib api=1 params=name
 
 		@param var required type=string
-			An unique name for the cut buffer
+			A unique name for the cut buffer
 
 	**/
-	public function add_cut_button($ar)
+	public function add_cut_button($arr)
 	{
 		$this->add_button(array(
 			"name" => "cut",
@@ -839,7 +839,7 @@ class toolbar extends aw_template
 			"action" => "generic_cut",
 			"tooltip" => t("L&otilde;ika")
 		));
-		$GLOBALS["tb"]["_add_var"] = $ar["var"];
+		$GLOBALS["tb"]["_add_var"] = $arr["var"];
 	}
 
 	/** Adds a generic paste button, that only supports pasting from generic cut button
@@ -865,7 +865,7 @@ class toolbar extends aw_template
 		}
 	}
 
-	public function callback_mod_reforb($arr)
+	public function callback_mod_reforb(&$arr)
 	{
 		if (!empty($GLOBALS["tb"]["_add_var"]))
 		{

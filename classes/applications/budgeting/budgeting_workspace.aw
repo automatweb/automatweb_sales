@@ -206,7 +206,7 @@ class budgeting_workspace extends class_base
 		return $retval;
 	}	
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 //		if ($arr["group"] != "transfers")//milleks nii? kustutamisel seal vaates ka post_ru'd vaja
 //		{

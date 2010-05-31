@@ -1,11 +1,11 @@
 <?php
 
 namespace automatweb;
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_bank.aw,v 1.3 2007/12/06 14:33:17 kristo Exp $
-// crm_bank.aw - CRM Pank 
+
+// crm_bank.aw - CRM Pank
 /*
 
-@classinfo syslog_type=ST_CRM_BANK relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo syslog_type=ST_CRM_BANK relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_crm_bank index=aw_oid master_index=brother_of master_table=objects
 
 @default table=aw_crm_bank
@@ -49,9 +49,9 @@ class crm_bank extends class_base
 		{
 		}
 		return $retval;
-	}	
+	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

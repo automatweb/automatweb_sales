@@ -296,7 +296,7 @@ class shop_warehouse_config extends class_base
 		return true;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = get_ru();
 		$arr["pgtf"] = automatweb::$request->arg("pgtf");

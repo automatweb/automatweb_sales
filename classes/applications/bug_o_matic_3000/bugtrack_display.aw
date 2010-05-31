@@ -717,7 +717,7 @@ class bugtrack_display extends class_base
 		return $retval;
 	}	
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$cur = obj($arr["id"]);
 		$type_var = $cur->prop("type_var");

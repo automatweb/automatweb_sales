@@ -156,7 +156,7 @@ class property_tree_branch extends class_base
 		$t->set_sortable(false);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

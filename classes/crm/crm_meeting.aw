@@ -1242,7 +1242,7 @@ class crm_meeting extends task
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["participants_h"] = 0;

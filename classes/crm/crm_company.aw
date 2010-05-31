@@ -9,7 +9,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CRM_CATEGORY, on_create
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_CRM_COMPANY, on_create_company)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 
-@classinfo syslog_type=ST_CRM_COMPANY confirm_save_data=1 versioned=1 prop_cb=1 no_status=1 maintainer=markop
+@classinfo syslog_type=ST_CRM_COMPANY confirm_save_data=1 versioned=1 prop_cb=1 no_status=1
 
 @tableinfo kliendibaas_firma index=oid master_table=objects master_index=oid
 @tableinfo aw_account_balances master_index=oid master_table=objects index=aw_oid
@@ -3709,7 +3709,7 @@ class crm_company extends class_base
 	/*
 		k6ik lingid saavad $key muutuja lisaks
 	*/
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		if($this->use_group === "stats_stats" || $this->use_group === "stats")
 		{

@@ -290,7 +290,7 @@ class flv_file extends class_base
 		die($s_content);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

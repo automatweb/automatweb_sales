@@ -34,7 +34,7 @@ class crm_company_stats_impl extends class_base
 		$arr["prop"]["value"] = $arr["request"]["stats_s_worker_sel"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

@@ -144,7 +144,7 @@ class crm_working_time_scenario extends class_base
 		}
 		return $retval;
 	}
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["add_bill"] = "";	
 		$arr["post_ru"] = post_ru();

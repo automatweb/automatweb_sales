@@ -325,7 +325,7 @@ class scm_contestant extends class_base
 		$arr["obj_inst"]->save();
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}

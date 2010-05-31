@@ -2871,7 +2871,7 @@ class webform extends class_base
 		));
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		if($_GET["group"] == "send_mails")
 		{
