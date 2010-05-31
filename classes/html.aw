@@ -604,7 +604,8 @@ class html
 	{
 		extract($args);
 		$value = isset($value) ? str_replace('"', '\"', $value) : '';
-		return "<input type=\"hidden\" id=\"{$name}\" name=\"{$name}\" value=\"{$value}\" />\n";
+		$id = str_replace(array("[", "]"), "_", $name);
+		return "<input type=\"hidden\" id=\"{$id}\" name=\"{$name}\" value=\"{$value}\" />\n";
 	}
 
 	/**File upload
@@ -1421,6 +1422,8 @@ class html
 	/**Link
 	@attrib api=1 params=name
 
+	@param id optional type=string
+		id of the span tag
 	@param class optional type=string
 		style class name
 	@param textsize optional type=string

@@ -101,13 +101,17 @@ class crm_offer extends class_base
 				"parent" => "price_component",
 			));
 			$t->define_field(array(
-				"name" => "price_component_calculation",
+				"name" => "price_component_price_change",
 				"caption" => t("Hinnamuutus"),
+				"callback" => array($this, "callback_content_table_price_component_price_change"),
+				"callb_pass_row" => true,
 				"parent" => "price_component",
 			));
 		$t->define_field(array(
 			"name" => "price",
 			"caption" => t("Hind"),
+			"callback" => array($this, "callback_content_table_price"),
+			"callb_pass_row" => true,
 		));
 	}
 
@@ -152,7 +156,9 @@ class crm_offer extends class_base
 			array(
 				"min" => $min,
 				"max" => $max,
-				"places" => 0
+				"places" => 0,
+				"intermediateChanges" => true,
+				"onChange" => "awCrmOffer.calculateRow({$row["row"]->id()});"
 			),
 			array(
 				"id" => "content_table_{$row["row"]->id()}_price_component_{$row["price_component"]->id()}_value",
@@ -178,6 +184,24 @@ class crm_offer extends class_base
 		));
 	}
 
+	public function callback_content_table_price_component_price_change($row)
+	{
+		return html::span(array(
+			"id" => "content_table_{$row["row"]->id()}_price_component_{$row["price_component"]->id()}_price_change",
+		)).html::hidden(array(
+			"name" => "content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][price_change]",
+		));
+	}
+
+	public function callback_content_table_price($row)
+	{
+		return html::span(array(
+			"id" => "content_table_{$row["row"]->id()}_price",
+		)).html::hidden(array(
+			"name" => "content_table[{$row["row"]->id()}][price]",
+		));
+	}
+
 	public function _get_content_table($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
@@ -189,7 +213,7 @@ class crm_offer extends class_base
 
 		foreach($rows as $row)
 		{
-			$price_components = $offer->get_price_components_for_row($row);
+			$this->rows[$row->id()]["price_components"] = $price_components = $offer->get_price_components_for_row($row);
 			foreach($price_components->arr() as $price_component)
 			{
 				$t->define_data(array(
@@ -231,7 +255,7 @@ class crm_offer extends class_base
 					$apply = !empty($price_component_data["apply"]);
 					if ($apply)
 					{
-						$row->apply_price_component($price_component_id, $price_component_data["value"]);
+						$row->apply_price_component($price_component_id, $price_component_data["value"], $price_component_data["price_change"]);
 					}
 					elseif ($row->price_component_is_applied($price_component_id))
 					{
@@ -242,6 +266,17 @@ class crm_offer extends class_base
 				$row->save();
 			}
 		}
+	}
+
+	public function _set_salesman($arr)
+	{
+		if(!is_oid($arr["prop"]["value"]))
+		{
+			$arr["prop"]["error"] = t("Palun sisestage olemasolev m&uuml;&uuml;giesindaja!");
+			return PROP_FATAL_ERROR;
+		}
+
+		return PROP_OK;
 	}
 
 	public function _set_customer($arr)
@@ -274,14 +309,55 @@ class crm_offer extends class_base
 
 	public function callback_generate_scripts($arr)
 	{
+		$js = "";
+
+		if("content" === $this->use_group)
+		{
+			//	Offer Content Calculation Data
+			$aw_crm_offer_rows = array();
+			$aw_crm_offer_price_components = array();
+			foreach($this->rows as $row_id => $row_data)
+			{
+				$row_price_components = array();
+				foreach($row_data["price_components"]->arr() as $row_price_component)
+				{
+					$row_price_components[] = $row_price_component->id();
+					if(!isset($aw_crm_offer_price_components[$row_price_component->id()]))
+					{
+						$aw_crm_offer_price_components[$row_price_component->id()] = array(
+							"oid" => $row_price_component->id(),
+							"type" => $row_price_component->prop("type"),
+							"is_ratio" => (boolean) $row_price_component->prop("is_ratio"),
+							"prerequisites" => array_values($row_price_component->get_all_prerequisites()),
+						);
+					}
+				}
+				$aw_crm_offer_rows[$row_id] = array(
+					"oid" => $row_id,
+					"price_components" => $row_price_components
+				);
+			}
+
+			$aw_crm_offer = array(
+				"rows" => $aw_crm_offer_rows,
+				"price_components" => $aw_crm_offer_price_components,
+			);
+			$js = sprintf("
+			var awCrmOffer = %s;", json_encode($aw_crm_offer));
+			$js .= file_get_contents(AW_DIR . "classes/applications/crm/sales/crm_offer.js");
+
+			load_javascript("jquery/plugins/jquery.calculation.js");
+//			load_javascript("jquery/plugins/jquery.numberformatter-1.1.0.js");
+		}
+
 		if (isset($this->zend_view) && $this->zend_view->dojo()->isEnabled())
 		{
-			$js = "</script>";
+			$js .= "</script>";
 			$js .= $this->zend_view->dojo();
 			$js .= "<script type=\"text/javascript\">";
-			return $js;
+			$js;
 		}
-		return "";
+		return $js;
 	}
 
 	public function callback_pre_edit($arr)
@@ -293,6 +369,9 @@ class crm_offer extends class_base
 	{
 		if ("content" === $this->use_group)
 		{
+			//	This will be used to store row data (i.e. price components, etc) and will be used afterwards to generate a JS variable.
+			$this->rows = array();
+
 			Zend_Dojo_View_Helper_Dojo::setUseProgrammatic();
 			$this->zend_view = new Zend_View();
 			$this->zend_view->addHelperPath('Zend/Dojo/View/Helper/', 'Zend_Dojo_View_Helper');

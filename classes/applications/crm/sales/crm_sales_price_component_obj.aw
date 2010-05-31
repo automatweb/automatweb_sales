@@ -2,11 +2,18 @@
 
 class crm_sales_price_component_obj extends _int_object
 {
+	const TYPE_NET_VALUE = 1;
+	const TYPE_UNIT = 2;
+	const TYPE_ROW = 3;
+	const TYPE_TOTAL = 4;
+
 	protected $applicables;
 	protected $applicables_loaded = false;
 
 	protected $restrictions;
 	protected $restrictions_loaded = false;
+
+	protected $all_prerequisites;
 
 	public function prop_str($k, $is_oid = NULL)
 	{
@@ -278,6 +285,82 @@ class crm_sales_price_component_obj extends _int_object
 		}
 
 		return $this->restrictions;
+	}
+
+	/**	Checks if the given set of prerequisites creates a cycle. Returns true if this is the case, false otherwise
+		@attrib api=1 params=pos
+		@param oid required type=int
+		@param prerequisites required type=int[]
+		@returns boolean
+	**/
+	public static function check_prerequisites_cycle($id, $initial_prerequisites)
+	{
+		//	This is used to later return the cycle details. Not implemented yet though...
+//		$prerequisites_by_oid = array($id => $initial_prerequisites);
+
+		$new_prerequisites = $initial_prerequisites;
+		while(count($new_prerequisites) !== 0)
+		{
+			$odl = new object_data_list(
+				array(
+					"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+					"oid" => $new_prerequisites,
+					"site_id" => array(),
+					"lang_id" => array(),
+				),
+				array(
+					CL_CRM_SALES_PRICE_COMPONENT => array("prerequisites")
+				)
+			);
+
+			$new_prerequisites = array();
+			foreach($odl->get_element_from_all("prerequisites") as $price_component_id => $prerequisites)
+			{
+				if(in_array($id, $prerequisites))
+				{
+					return true;
+				}
+//				$prerequisites_by_oid[$price_component_id] = $prerequisites;
+				$new_prerequisites += $prerequisites;
+			}
+		}
+
+		return false;
+	}
+
+	/**	Returns an array of all prerequisites recursively for this price component
+		@attrib api=1
+		@returns int[]
+	**/
+	public function get_all_prerequisites()
+	{
+		if(!isset($this->all_prerequisites))
+		{
+			$this->all_prerequisites = $new_prerequisites = safe_array($this->prop("prerequisites"));
+			while(count($new_prerequisites) !== 0)
+			{
+				$odl = new object_data_list(
+					array(
+						"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+						"oid" => $new_prerequisites,
+						"site_id" => array(),
+						"lang_id" => array(),
+					),
+					array(
+						CL_CRM_SALES_PRICE_COMPONENT => array("prerequisites")
+					)
+				);
+
+				$new_prerequisites = array();
+				foreach($odl->get_element_from_all("prerequisites") as $price_component_id => $prerequisites)
+				{
+					$new_prerequisites += $prerequisites;
+				}
+				$this->all_prerequisites += $new_prerequisites;
+			}
+		}
+
+		return $this->all_prerequisites;
 	}
 
 	protected function load_restrictions()

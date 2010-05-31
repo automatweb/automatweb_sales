@@ -1,7 +1,8 @@
 <?php
 
-class crm_presentation_obj extends task_object
+class crm_presentation_obj extends task_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
+	const AW_CONST = 1560;
 	const RESULT_CALL = 1; // reserve for future use, check applicable code for integrity when starting to use
 	const RESULT_PRESENTATION = 2; // reserve for future use, check applicable code for integrity when starting to use
 	const RESULT_SALE = 3;
@@ -41,6 +42,15 @@ class crm_presentation_obj extends task_object
 		"real_maker",
 		"deadline"
 	);
+
+	//	Written solely for testing purposes!
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+		return $ol;
+	}
 
 	public function set_prop($name, $value)
 	{
