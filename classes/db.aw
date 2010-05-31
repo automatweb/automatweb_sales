@@ -43,7 +43,7 @@ class db_connector
 	const DEFAULT_CID_STR = "DBMAIN";
 
 	private static $open_database_connections = array(); # this is where we hold all open connections
-	private static $supported_drivers = array("mysql", "mssql", "pgsql");
+	private static $supported_drivers = array("mysql", "mysql_pdo", "mssql", "pgsql");
 
 	protected $dc = array(); // connections used in this instance
 	protected $default_cid = "";
