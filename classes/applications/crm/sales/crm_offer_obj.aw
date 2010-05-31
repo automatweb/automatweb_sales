@@ -8,6 +8,7 @@ class crm_offer_obj extends _int_object
 	protected $row_price_components;
 	protected $row_price_components_loaded = array();
 	protected $salesman_data;
+	protected $all_prerequisites_by_price_component;
 
 	public function save($exclusive = false, $previous_state = null)
 	{
@@ -230,6 +231,19 @@ class crm_offer_obj extends _int_object
 		return array($min, $max);
 	}
 
+	public function sort_price_components($a, $b)
+	{
+		if(in_array($a->id(), $this->all_prerequisites_by_price_component[$b->id()]))
+		{
+			return -1;
+		}
+		elseif(in_array($b->id(), $this->all_prerequisites_by_price_component[$a->id()]))
+		{
+			return 1;
+		}
+		return 0;
+	}
+
 	/**	Loads relevant data to check if price component is compulsory and to find the correct tolerance.
 	 *	Relevant data is currently section, work_relation and profession, all of which will be taken from the salesman of the offer.
 	**/
@@ -260,8 +274,9 @@ class crm_offer_obj extends _int_object
 		$odl = new object_data_list(
 			array(
 				"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
-				"type" => array(crm_sales_price_component::TYPE_UNIT, crm_sales_price_component::TYPE_ROW),
-				"applicables.id" => $row->prop("object")
+				"type" => array(crm_sales_price_component_obj::TYPE_UNIT, crm_sales_price_component_obj::TYPE_ROW, crm_sales_price_component_obj::TYPE_NET_VALUE),
+				"applicables.id" => $row->prop("object"),
+				"application" => automatweb::$request->get_application()->id()
 			),
 			array(
 				CL_CRM_SALES_PRICE_COMPONENT => array("applicables")
@@ -271,7 +286,7 @@ class crm_offer_obj extends _int_object
 		$valid_price_components = array();
 		foreach($odl->arr() as $oid => $odata)
 		{
-			if(true)
+			if(true)	//	This is the place to check applicables
 			{
 				$valid_price_components[] = $oid;
 			}
@@ -279,9 +294,26 @@ class crm_offer_obj extends _int_object
 
 		$ol = new object_list();
 		$ol->add($valid_price_components);
+		$ol->add($this->price_components[crm_sales_price_component_obj::TYPE_UNIT]);
+		$ol->add($this->price_components[crm_sales_price_component_obj::TYPE_ROW]);
+
+		$this->load_all_prerequisites_for_price_component_ol($ol);
+
+		$ol->sort_by_cb(array($this, "sort_price_components"));
 		$this->row_price_components[$row->id()] = $ol;
 
 		$this->row_price_components_loaded[$row->id()] = true;
+	}
+
+	protected function load_all_prerequisites_for_price_component_ol($ol)
+	{
+		foreach($ol->arr() as $o)
+		{
+			if(!isset($this->all_prerequisites_by_price_component[$o->id()]))
+			{
+				$this->all_prerequisites_by_price_component[$o->id()] = $o->get_all_prerequisites();
+			}
+		}
 	}
 
 	protected function load_price_components()
@@ -289,6 +321,55 @@ class crm_offer_obj extends _int_object
 		/*
 		 *	This is the place where we'll load all the price components that are not row specific
 		 */
+
+		$this->all_prerequisites_by_price_component = array();
+
+		//	Price components without applicables
+		$q = sprintf("
+			SELECT o.oid
+			FROM objects o LEFT JOIN aliases a ON o.oid = a.source AND a.reltype = %u
+			WHERE a.target IS NULL AND o.class_id = %u;", 2 /* RELTYPE_APPLICABLE */, CL_CRM_SALES_PRICE_COMPONENT);
+
+		$price_components_without_applicables = array();
+		foreach($this->instance()->db_fetch_array($q) as $row)
+		{
+			$price_components_without_applicables[] = $row["oid"];
+		}		
+		if(!empty($price_components_without_applicables))
+		{
+			$odl = new object_data_list(
+				array(
+					"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+					"oid" => $price_components_without_applicables,
+					"type" => array(crm_sales_price_component_obj::TYPE_UNIT, crm_sales_price_component_obj::TYPE_ROW, crm_sales_price_component_obj::TYPE_TOTAL),
+					"application" => automatweb::$request->get_application()->id()
+				),
+				array(
+					CL_CRM_SALES_PRICE_COMPONENT => array("type"),
+				)
+			);
+			$price_component_ids_by_type = array(
+				crm_sales_price_component_obj::TYPE_UNIT => array(),
+				crm_sales_price_component_obj::TYPE_ROW => array(),
+				crm_sales_price_component_obj::TYPE_TOTAL => array(),
+			);
+			foreach($odl->arr() as $oid => $odata)
+			{
+				$price_component_ids_by_type[$odata["type"]][] = $oid;
+			}
+			$ol = new object_list();
+			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_UNIT]);
+			$this->price_components[crm_sales_price_component_obj::TYPE_UNIT] = $ol;
+			
+			$ol = new object_list();
+			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_ROW]);
+			$this->price_components[crm_sales_price_component_obj::TYPE_ROW] = $ol;
+			
+			$ol = new object_list();
+			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_TOTAL]);
+			$this->price_components[crm_sales_price_component_obj::TYPE_TOTAL] = $ol;
+		}
+
 		$this->price_components_loaded = true;
 	}
 
