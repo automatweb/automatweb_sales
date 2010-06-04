@@ -9,7 +9,8 @@
  *				"oid": [crm_offer_row_oid],
  *				"price_components": [[price_component_oid]]		//	MUST BE ORDERED!!!
  *			}
- *		}
+ *		},
+ *		"price_components_for_total": [[price_component_oid]],	//	MUST BE ORDERED!!!
  *		"price_components": {
  *			[price_component_oid]: {
  *				"oid": [price_component_oid],
@@ -26,7 +27,6 @@
  *					sum: [sum]
  *				}
  *			}
- *			
  *		}
  *	};
  *
@@ -37,7 +37,7 @@
  *	TYPE_ROW = 3;
  *	TYPE_TOTAL = 4;
  *
- *	-kaarel 6.05.2010
+ *	-kaarel 3.06.2010
  */
 
 awCrmOffer.sums = {};
@@ -52,15 +52,36 @@ awCrmOffer.findLatestApplicableSum = function(row_id, price_component){
 			}
 		}
 	}
-	return 0;
+
+	if ("total" == row_id){
+		return $("input[type=hidden][name$='][price]']").sum();
+	}
+	else {
+		return 0;
+	}
+}
+
+awCrmOffer.calculateTotalPrice = function(){
+	$("#content_total_price_components_total_price").html(
+		Number(
+			$("#content_total_price_components_total_price_").val(
+				$("input[type=hidden][name$='][price_change]']").sum()
+			).val()
+		).toFixed(2)
+	);
 }
 
 awCrmOffer.calculateRow = function(row_id){
 	var total = 0;
 	awCrmOffer.sums[row_id] = new Array();
-	row = awCrmOffer.rows[row_id];
-	for (var i = 0; i < row.price_components.length; i++){
-		var price_component_id = row.price_components[i];
+	if ("total" == row_id){
+		var price_components = awCrmOffer.price_components_for_total;
+	}
+	else {
+		var price_components = awCrmOffer.rows[row_id].price_components;
+	}
+	for (var i = 0; i < price_components.length; i++){
+		var price_component_id = price_components[i];
 		var price_component = awCrmOffer.price_components[price_component_id];
 		if ($("#content_table_"+row_id+"__price_component__"+price_component_id+"__apply_").attr("type") != "hidden" && !$("#content_table_"+row_id+"__price_component__"+price_component_id+"__apply_").attr("checked")){
 			var formula = "0";
@@ -68,7 +89,7 @@ awCrmOffer.calculateRow = function(row_id){
 		else if (2 == price_component.type){	//	TYPE_UNIT
 			var formula = "amount * value";
 		}
-		else if (3 == price_component.type){	//	TYPE_ROW
+		else if (3 == price_component.type || 4 == price_component.type){	//	TYPE_ROW or TYPE_TOTAL
 			var formula = "value";
 		}
 		var sum = awCrmOffer.findLatestApplicableSum(row_id, price_component);
@@ -105,10 +126,18 @@ $(document).ready(function(){
 	$.each(awCrmOffer.rows, function(row_id, row){
 		awCrmOffer.calculateRow(row_id);
 	});
+	awCrmOffer.calculateRow("total");
+	awCrmOffer.calculateTotalPrice();
+
 	$("input[name$='][amount]']").keyup(function(){
 		awCrmOffer.calculateRow(this.name.replace(/[^0-9]/gi, ""));
 	});
 	$("input[name$='][apply]']").click(function(){
-		awCrmOffer.calculateRow(this.name.substr(10, 20).replace(/[^0-9]/gi, ""));
+		var row_id = this.name.substr(10, 20).replace(/[^0-9]/gi, "");
+		if ("" != row_id){
+			awCrmOffer.calculateRow(row_id);
+		}
+		awCrmOffer.calculateRow("total");
+		awCrmOffer.calculateTotalPrice();
 	});
 });

@@ -1,6 +1,6 @@
 <?php
 
-class crm_offer_obj extends _int_object
+class crm_offer_obj extends crm_offer_price_component_handler
 {
 	protected $rows;
 	protected $price_components;
@@ -99,7 +99,8 @@ class crm_offer_obj extends _int_object
 
 	/**
 		@attrib api=1
-		@returns crm_price_component[]
+		@returns object_list
+		@errors Throws awex_crm_offer if this offer is not saved
 	**/
 	public function get_price_components_for_row(object $row)
 	{
@@ -128,6 +129,28 @@ class crm_offer_obj extends _int_object
 		}
 
 		return $this->row_price_components[$row->id()];
+	}
+
+	/**
+		@attrib api=1
+		@returns object_list
+		@errors Throws awex_crm_offer if this offer is not saved
+	**/
+	public function get_price_components_for_total()
+	{
+		if (!$this->price_components_loaded)
+		{
+			try
+			{
+				$this->load_price_components();
+			}
+			catch (awex_crm_offer $e)
+			{
+				throw $e;
+			}
+		}
+
+		return $this->price_components[crm_sales_price_component_obj::TYPE_TOTAL];
 	}
 
 	/**	Returns true if given price component is compulsory for this offer, false otherwise

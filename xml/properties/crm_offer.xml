@@ -59,6 +59,16 @@
             <store>no</store>
             <field>content_table</field>
       </property>
+      <property>
+            <name>content_total_price_components</name>
+            <table>aw_crm_offer</table>
+            <group>content</group>
+            <type>table</type>
+            <editonly>1</editonly>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>content_total_price_components</field>
+      </property>
       <classinfo>
             <syslog_type>ST_CRM_OFFER</syslog_type>
             <relationmgr>yes</relationmgr>
