@@ -131,6 +131,8 @@ $(document).ready(function(){
 
 	$("input[name$='][amount]']").keyup(function(){
 		awCrmOffer.calculateRow(this.name.replace(/[^0-9]/gi, ""));
+		awCrmOffer.calculateRow("total");
+		awCrmOffer.calculateTotalPrice();
 	});
 	$("input[name$='][apply]']").click(function(){
 		var row_id = this.name.substr(10, 20).replace(/[^0-9]/gi, "");
