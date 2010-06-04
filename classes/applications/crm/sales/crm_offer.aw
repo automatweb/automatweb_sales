@@ -158,7 +158,7 @@ class crm_offer extends class_base
 				"max" => $max,
 				"places" => 0,
 				"intermediateChanges" => true,
-				"onChange" => "awCrmOffer.calculateRow({$row["row"]->id()});"
+				"onChange" => "awCrmOffer.calculateRow({$row["row"]->id()}); awCrmOffer.calculateRow('total'); awCrmOffer.calculateTotalPrice();"
 			),
 			array(
 				"id" => "content_table_{$row["row"]->id()}_price_component_{$row["price_component"]->id()}_value",
@@ -377,7 +377,7 @@ class crm_offer extends class_base
 				"max" => $max,
 				"places" => 0,
 				"intermediateChanges" => true,
-				"onChange" => "awCrmOffer.calculateRow('total');"
+				"onChange" => "awCrmOffer.calculateRow('total'); awCrmOffer.calculateTotalPrice();"
 			),
 			array(
 				"id" => "content_total_price_components_{$row["price_component"]->id()}_value",
