@@ -23,11 +23,7 @@ function autoload($class_name)
 	if (0 === strpos($class_name, "Zend"))
 	{
 		$class_file = AW_DIR . "addons/" . str_replace("_", "/", $class_name) . ".php";
-
-		if (file_exists($class_file))
-		{
-			require_once $class_file;
-		}
+		require_once $class_file;
 
 		if (!class_exists($class_name, false) and !interface_exists($class_name, false))
 		{
@@ -45,8 +41,6 @@ function autoload($class_name)
 	catch (awex_clidx_double_dfn $e)
 	{
 		exit ("Class '" . $e->clidx_cl_name . "' redeclared. Fix error in '" . $e->clidx_path1 . "' or '" . $e->clidx_path2 . "'.");//TODO tmp
-		//TODO take action -- delete/rename one of the classes or load both or ...
-		// $class_file = class_index::get_file_by_name($class_name);
 	}
 	catch (awex_clidx $e)
 	{

@@ -257,21 +257,17 @@ $this->bc = 0;
 		{
 			$class = self::$request->class_name();
 
-			$c = AW_DIR . "classes/applications/crm/customer.aw";
-			$z = new Zend_CodeGenerator_Php_File::fromReflectedFileName($c);
-
-
 			if (class_exists($class))
 			{
-				// $o = new $class();
+				$o = new $class();
 				$class_id = $class::AW_CLID;
 
-				// $action = self::$request->action();
-				// $method = $o->aw_get_action_method($action);
+				$action = self::$request->action();
+				$method = $o->aw_get_action_method($action);
 
 				if ($o instanceof class_base)
 				{
-					// $o->$method(self::$request->get_args());
+					$o->$method(self::$request->get_args());
 				}
 			}
 		}
