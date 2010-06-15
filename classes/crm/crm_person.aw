@@ -1222,16 +1222,18 @@ class crm_person extends class_base
 		return $retval;
 	}
 
-	//V6tsin k6ik WORKER jne jne seostamise 2ra, salvestamisel ei ole vast vaja vana systeemi toimimist
 	function _set_work_tbl($arr)
 	{
 		foreach($arr["request"]["work_tbl"] as $wr_id => $data)
 		{
-			$wr = obj($wr_id, array(), CRM_PERSON_WORK_RELATION);
-			$wr->set_prop("org", $data["org"]);
-			$wr->set_prop("section", $data["sec"]);
-			$wr->set_prop("profession", $data["pro"]);
-			$wr->save();
+			if (is_oid($wr_id))
+			{
+				$wr = obj($wr_id, array(), CRM_PERSON_WORK_RELATION);
+				$wr->set_prop("org", $data["org"]);
+				$wr->set_prop("section", $data["sec"]);
+				$wr->set_prop("profession", $data["pro"]);
+				$wr->save();
+			}
 		}
 	}
 

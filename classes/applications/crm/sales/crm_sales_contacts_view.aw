@@ -337,21 +337,28 @@ class crm_sales_contacts_view
 				// phones
 				$phones = new object_list($customer->connections_from(array("type" => "RELTYPE_PHONE")));
 				$phones_str = array();
-				$phone = $phones->begin();
-				do
+				if ($phones->count())
 				{
-					$number = trim($phone->name());
-					if (strlen($number) > 1)
+					$phone = $phones->begin();
+					do
 					{
-						$request = (array) $arr["request"];
-						$request["return_url"] = get_ru();
-						unset($request["action"]);
-						$phone_nr = $phone->name();
-						$phones_str[] = $phone_nr;
+						$number = trim($phone->name());
+						if (strlen($number) > 1)
+						{
+							$request = (array) $arr["request"];
+							$request["return_url"] = get_ru();
+							unset($request["action"]);
+							$phone_nr = $phone->name();
+							$phones_str[] = $phone_nr;
+						}
 					}
+					while ($phone = $phones->next());
+					$phones_str = implode(", ", $phones_str);
 				}
-				while ($phone = $phones->next());
-				$phones_str = count($phones_str) ? implode(", ", $phones_str) : $not_available_str;
+				else
+				{
+					$phones_str = $not_available_str;
+				}
 
 				// address
 				$address = $customer->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
@@ -506,6 +513,7 @@ class crm_sales_contacts_view
 		{
 			$table->define_pageselector (array (
 				"type" => "nav",
+				"records_per_page" => $this_o->prop("tables_rows_per_page"),
 				"position" => "both"
 			));
 		}

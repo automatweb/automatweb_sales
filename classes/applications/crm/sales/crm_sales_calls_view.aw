@@ -30,6 +30,7 @@ class crm_sales_calls_view
 						"cs_call_real_start_to",
 						"cs_address",
 						"cs_phone",
+						"cs_count",
 						"cs_status"
 					));
 				}
@@ -68,12 +69,13 @@ class crm_sales_calls_view
 	{
 		$this_o = $arr["obj_inst"];
 		$filter = array();
+		$calls_count = 0;
 
 		// result limit
 		$per_page = $this_o->prop("tables_rows_per_page");
 		$page = isset($arr["request"]["ft_page"]) ? (int) $arr["request"]["ft_page"] : 0;
 		$start = $page*$per_page;
-		$limit = new obj_predicate_limit($per_page, $start);
+		$limit = new obj_predicate_limit($per_page + 1, $start);// plus one is to make nav pageselector aware that there's a next page
 
 		// sorting
 		$sort_modes = array(
@@ -90,22 +92,25 @@ class crm_sales_calls_view
 		$sort_mode = isset($sort_modes[$sort_by]) ? $sort_modes[$sort_by] . $sort_dir : "current";
 
 //!!! tmp paginaatori jaoks
-$application = automatweb::$request->get_application();
-if ($application->is_a(CL_CRM_SALES) and crm_sales_obj::ROLE_TELEMARKETING_MANAGER == $application->get_current_user_role())
+if (!empty($arr["request"]["cs_count"]))
 {
-	$calls_count = 100000;//!!! tmp
-}
-else
-{
-	$calls_count = 1000;//!!! tmp
+	$application = automatweb::$request->get_application();
+	if ($application->is_a(CL_CRM_SALES) and crm_sales_obj::ROLE_TELEMARKETING_MANAGER == $application->get_current_user_role())
+	{
+		$calls_count = 100000;//!!! tmp
+	}
+	else
+	{
+		$calls_count = 1000;//!!! tmp
+	}
 }
 //!!! END tmp paginaatori jaoks
 
 		if (crm_sales::CALLS_SEARCH === crm_sales::$calls_list_view)
 		{
-			// search by address only -- special optimization
+			// search by address and/or phone only -- special optimization
 			if (
-				(!empty($arr["request"]["cs_address"]) xor !empty($arr["request"]["cs_phone"]))
+				(!empty($arr["request"]["cs_address"]) or !empty($arr["request"]["cs_phone"]))
 				and empty($arr["request"]["cs_name"])
 				and empty($arr["request"]["cs_salesman"])
 				and empty($arr["request"]["cs_last_caller"])
@@ -117,24 +122,30 @@ else
 				and empty($arr["request"]["cs_lead_source"])
 			)
 			{
+				$phone_string = $address_search_string = "";
 
-				if (empty($arr["request"]["cs_phone"]))
+				if (!empty($arr["request"]["cs_address"]))
 				{
 					$address_search_string = crm_sales::parse_search_string($arr["request"]["cs_address"]);
-					$phone_string = "";
 				}
-				else
+
+				if (!empty($arr["request"]["cs_phone"]))
 				{
-					$address_search_string = "";
 					$phone_string = (string)(int) $arr["request"]["cs_phone"];
 				}
+
 				$status = (int) $arr["request"]["cs_status"];
 				$params = array(
 					"address" => $address_search_string,
 					"phone" => $phone_string,
 					"status" => $status
 				);
-				$calls_count = $this_o->get_current_calls_to_make(null, $params, $sort_mode);
+
+				if (!empty($arr["request"]["cs_count"]))
+				{
+					$calls_count = $this_o->get_current_calls_to_make(null, $params, $sort_mode);
+				}
+
 				$calls = $this_o->get_current_calls_to_make($limit, $params, $sort_mode);
 				return array($calls, $calls_count);
 			}
@@ -225,7 +236,6 @@ else
 		elseif (crm_sales::CALLS_CURRENT === crm_sales::$calls_list_view)
 		{
 			$calls = $this_o->get_current_calls_to_make($limit, array(), $sort_mode);
-			$calls_count = 10000;
 			return array($calls, $calls_count);
 		}
 
@@ -299,6 +309,9 @@ else
 			{
 				if ($call->is_locked())
 				{
+					$table->define_data(array(
+						"name" => t("[Lukustatud]")
+					));
 					continue;
 				}
 
@@ -361,7 +374,7 @@ else
 						{ // last call info
 							$last_call = $this_o->get_last_call_made($customer_relation);
 
-							if ($last_call->is_locked())
+							if (!is_object($last_call) or $last_call->is_locked())
 							{
 								$last_call_timestamp = $last_call_result_int = 0;
 								$last_call_time = $last_call_result = $last_call_maker = $locked_str;
@@ -399,56 +412,63 @@ else
 						// phones
 						$phones = new object_list($customer->connections_from(array("type" => "RELTYPE_PHONE")));
 						$phones_str = array();
-						$phone = $phones->begin();
-						do
+
+						if ($phones->count())
 						{
-							$phone_nr = trim($phone->name());
-							if (strlen($phone_nr) > 1)
+							$phone = $phones->begin();
+							do
 							{
-								if ($call->prop("real_start") < 2)
-								{ // a normal unstarted call
-									$url = $core->mk_my_orb("change", array(
-										"id" => $call->id(),
-										"return_url" => "{URLVAR:return_url}",
-										"preparing_to_call" => 1,
-										"phone_id" => $phone->id()
-									), "crm_call");
-									$title = t("Ava k&otilde;ne sel numbril");
-									$phone_nr = html::href(array("caption" => $phone_nr, "url" => $url, "title" => $title));
-								}
-								elseif ($call->prop("real_duration") < 1 and trim($call->prop("phone.name")) === $phone_nr)
-								{ // a call made to this number that is started but not finished
-									$phone_nr = "<span style=\"color: red;\">" . $phone_nr . "</span>";
-									if ($user_can_edit_calls or $call->prop("real_maker") == $current_person->id())
-									{
+								$phone_nr = trim($phone->name());
+								if (strlen($phone_nr) > 1)
+								{
+									if ($call->prop("real_start") < 2)
+									{ // a normal unstarted call
 										$url = $core->mk_my_orb("change", array(
 											"id" => $call->id(),
-											"unlock_call" => 1,
-											"return_url" => "{URLVAR:return_url}"
+											"return_url" => "{URLVAR:return_url}",
+											"preparing_to_call" => 1,
+											"phone_id" => $phone->id()
 										), "crm_call");
-										$title = t("L&otilde;petamata k&otilde;ne");
+										$title = t("Ava k&otilde;ne sel numbril");
 										$phone_nr = html::href(array("caption" => $phone_nr, "url" => $url, "title" => $title));
 									}
-								}
-								elseif (trim($call->prop("phone.name")) === $phone_nr)
-								{ // call was made to this number
-									$url = $core->mk_my_orb("change", array(
-										"id" => $call->id(),
-										"return_url" => "{URLVAR:return_url}"
-									), "crm_call");
-									$title = t("Tehtud k&otilde;ne");
-									$phone_nr = html::href(array("caption" => $phone_nr, "url" => $url, "title" => $title));
-								}
-								else
-								{ // a call has been made but not on this number
-								}
+									elseif ($call->prop("real_duration") < 1 and trim($call->prop("phone.name")) === $phone_nr)
+									{ // a call made to this number that is started but not finished
+										$phone_nr = "<span style=\"color: red;\">" . $phone_nr . "</span>";
+										if ($user_can_edit_calls or $call->prop("real_maker") == $current_person->id())
+										{
+											$url = $core->mk_my_orb("change", array(
+												"id" => $call->id(),
+												"unlock_call" => 1,
+												"return_url" => "{URLVAR:return_url}"
+											), "crm_call");
+											$title = t("L&otilde;petamata k&otilde;ne");
+											$phone_nr = html::href(array("caption" => $phone_nr, "url" => $url, "title" => $title));
+										}
+									}
+									elseif (trim($call->prop("phone.name")) === $phone_nr)
+									{ // call was made to this number
+										$url = $core->mk_my_orb("change", array(
+											"id" => $call->id(),
+											"return_url" => "{URLVAR:return_url}"
+										), "crm_call");
+										$title = t("Tehtud k&otilde;ne");
+										$phone_nr = html::href(array("caption" => $phone_nr, "url" => $url, "title" => $title));
+									}
+									else
+									{ // a call has been made but not on this number
+									}
 
-								$phones_str[] = $phone_nr;
+									$phones_str[] = $phone_nr;
+								}
 							}
+							while ($phone = $phones->next());
+							$phones_str = implode(", ", $phones_str);
 						}
-						while ($phone = $phones->next());
-
-						$phones_str = implode(", ", $phones_str);
+						else
+						{
+							$phones_str = $not_available_str;
+						}
 
 						// address
 						$address = $customer->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
@@ -539,13 +559,42 @@ else
 			}
 			while ($call = $calls->next());
 
+			// define calls table caption
 			if (crm_sales::CALLS_SEARCH === crm_sales::$calls_list_view)
 			{
-				$table->set_caption(sprintf(crm_sales::$calls_list_views[crm_sales::CALLS_SEARCH]["caption"], $calls_count));
+				if (empty($arr["request"]["cs_count"]))
+				{
+					$page = isset($arr["request"]["ft_page"]) ? ($arr["request"]["ft_page"] + 1) : 1;
+					$table->set_caption(sprintf(crm_sales::$calls_list_views[crm_sales::CALLS_SEARCH]["caption_no_count"], $page));
+				}
+				else
+				{
+					$table->set_caption(sprintf(crm_sales::$calls_list_views[crm_sales::CALLS_SEARCH]["caption"], $calls_count));
+				}
 			}
 			else
 			{
 				$table->set_caption(crm_sales::$calls_list_views[crm_sales::$calls_list_view]["caption"]);
+			}
+
+			// define page selector
+			if ($calls_count)
+			{
+				$table->define_pageselector (array (
+					"type" => (crm_sales::CALLS_CURRENT === crm_sales::$calls_list_view) ? "nav" : "lbtxt",
+					"position" => "both",
+					"d_row_cnt" => $calls_count,
+					"records_per_page" => $this_o->prop("tables_rows_per_page")
+				));
+			}
+			else
+			{
+				$table->define_pageselector (array (
+					"type" => "nav",
+					"records_per_page" => $this_o->prop("tables_rows_per_page"),
+					"d_row_cnt" => $calls->count(),
+					"position" => "both"
+				));
 			}
 		}
 		return PROP_OK;
@@ -645,12 +694,6 @@ else
 		));
 
 		$table->set_numeric_field(array("call_timestamp", "last_call_timestamp", "last_call_result_int"));
-		$table->define_pageselector (array (
-			"type" => (crm_sales::CALLS_CURRENT === crm_sales::$calls_list_view) ? "nav" : "lbtxt",
-			"position" => "both",
-			"d_row_cnt" => $calls_count,
-			"records_per_page" => $this_o->prop("tables_rows_per_page")
-		));
 		$table->set_footer(self::draw_colour_legend());
 	}
 

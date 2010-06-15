@@ -10,7 +10,7 @@ $aw_dir = str_replace("//", "/", $aw_dir);
 define("AW_DIR", $aw_dir);
 define("AW_FILE_EXT", substr($__FILE__, strrpos($__FILE__, "automatweb") + 10)); // extension can't be 'automatweb'
 
-// required for Zend
+// required for Zend Framework classes autoloading
 set_include_path(implode(PATH_SEPARATOR, array(
 	AW_DIR . "addons/",
 	get_include_path(),
@@ -25,7 +25,6 @@ ini_set("track_errors", "1");
 
 class automatweb
 {
-	const MODE_DEFAULT = 1;//!!! get rid of this!
 	const MODE_DBG = 2;
 	const MODE_PRODUCTION = 4;
 	const MODE_REASONABLE = 8;
@@ -450,7 +449,7 @@ class automatweb
 			}
 		}
 
-		if ((self::MODE_DEFAULT === $id) or (self::MODE_PRODUCTION === $id))
+		if (self::MODE_PRODUCTION === $id)
 		{
 			error_reporting(0);
 			ini_set("display_errors", "0");

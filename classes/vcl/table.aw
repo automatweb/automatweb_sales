@@ -576,7 +576,7 @@ class aw_table extends aw_template
 	{
 		$this->has_pages = true;
 		$this->pageselector = $arr["type"];
-		$this->records_per_page = "nav" === $this->pageselector ? 0 : $arr["records_per_page"];
+		$this->records_per_page = $arr["records_per_page"];
 		$this->pageselector_position = isset($arr["position"]) ? $arr["position"] : "top";
 
 		if(isset($arr["d_row_cnt"]))
@@ -1107,7 +1107,7 @@ class aw_table extends aw_template
 		}
 
 		$this->vars(array(
-			"sel_row_style" => $this->tr_sel,
+			"sel_row_style" => $this->tr_sel
 		));
 
 		$this->read_template("scripts.tpl");
@@ -1119,7 +1119,6 @@ class aw_table extends aw_template
 				$tbl .= $this->parse("hilight_script");
 			}
 		}
-
 
 		if (!isset($act_page))
 		{
@@ -1135,18 +1134,18 @@ class aw_table extends aw_template
 
 		// parse pageselector
 		$pageselector = "";
-		$this->d_row_cnt = empty($arr["d_row_cnt"]) ? $this->d_row_cnt : $arr["d_row_cnt"];
-		if (!empty($this->pageselector) and $this->d_row_cnt > $this->records_per_page)
+		$this->d_row_cnt = !isset($arr["d_row_cnt"]) ? $this->d_row_cnt : $arr["d_row_cnt"];
+		if (!empty($this->pageselector))
 		{
-			if ("text" === $this->pageselector)
+			if ("text" === $this->pageselector and $this->d_row_cnt > $this->records_per_page)
 			{
 				$this->parsed_pageselector = $this->draw_text_pageselector(array());
 			}
-			elseif ("buttons" === $this->pageselector)
+			elseif ("buttons" === $this->pageselector and $this->d_row_cnt > $this->records_per_page)
 			{
 				$this->parsed_pageselector = $this->draw_button_pageselector(array());
 			}
-			elseif ("lb" === $this->pageselector or "lbtxt" === $this->pageselector)
+			elseif (("lb" === $this->pageselector or "lbtxt" === $this->pageselector) and $this->d_row_cnt > $this->records_per_page)
 			{
 				$this->parsed_pageselector = $this->draw_lb_pageselector(array());
 			}
@@ -1155,27 +1154,6 @@ class aw_table extends aw_template
 				$this->parsed_pageselector = $this->draw_nav_pageselector(array());
 			}
 		}
-
-		// moodustame v&auml;limise raami alguse
-		/*
-		if (is_array($this->frameattribs))
-		{
-			$tmp = $this->frameattribs;
-			$tmp["name"] = "table";
-			$tbl .= $this->opentag($tmp);
-			$tbl .= "<tr>\n";
-			$tattr = array(
-				"name" => "td",
-				"bgcolor" => $this->framebgcolor,
-			);
-			if ($this->framebgclass != "")
-			{
-				$tattr["class"] = $this->framebgclass;
-				unset($tattr["bgcolor"]);
-			}
-			$tbl .= $this->opentag($tattr);
-		};
-		*/
 
 		// moodustame tabeli alguse
 		if (empty($arr["no_table_tags"]) && is_array($this->tableattribs))
@@ -1238,7 +1216,7 @@ END;
 				if (isset($this->has_pages) && $this->has_pages && isset($this->records_per_page) && $this->records_per_page && !$this->no_recount)
 				{
 					$cur_page = (int)(($p_counter-1) / $this->records_per_page);
-					if ($cur_page != $act_page)
+					if ($cur_page !== $act_page)
 					{
 						continue;
 					}
@@ -2526,12 +2504,8 @@ END;
 		$_drc = isset($arr["d_row_cnt"]) ? $arr["d_row_cnt"] : $this->d_row_cnt;
 		$records_per_page = empty($arr["records_per_page"]) ? $this->records_per_page : $arr["$records_per_page"];
 		$page = (int) automatweb::$request->arg("ft_page");
-		if ($page*$records_per_page > $_drc)
-		{
-			$page = 0;
-		}
 
-		if ($page)
+		if ($page > 0)
 		{
 			$url->set_arg("ft_page", $page - 1);
 			$this->vars(array(
@@ -2541,7 +2515,7 @@ END;
 			$this->vars(array("prev" => $this->parse("prev")));
 		}
 
-		if ($_drc > $records_per_page and ($_drc - $page*$records_per_page) > $records_per_page)
+		if ($_drc > $records_per_page)
 		{
 			$url->set_arg("ft_page", $page + 1);
 			$this->vars(array(
@@ -2550,6 +2524,7 @@ END;
 			));
 			$this->vars(array("next" => $this->parse("next")));
 		}
+
 		return $this->finish_pageselector($arr);
 	}
 
@@ -2765,12 +2740,12 @@ END;
 					$sufix = $this->sorder[$v["name"]] == "desc" ? $this->up_arr : $this->dn_arr;
 					$so = $this->sorder[$v["name"]] == "desc" ? "asc" : "desc";
 				}
-				else
-				if (!empty($_GET["sort_order"]) && $_GET["sort_order"] == $v["name"])
+				elseif (!empty($_GET["sort_order"]) && $_GET["sort_order"] == $v["name"])
 				{
 					$sufix = $_GET["sort_order"] == "desc" ? $this->up_arr : $this->dn_arr;
 					$so = $_GET["sort_order"] == "desc" ? "asc" : "desc";
 				}
+
 				if (isset($this->REQUEST_URI))
 				{
 					$url = $this->REQUEST_URI;

@@ -891,6 +891,19 @@
             <caption>Kontakti staatus</caption>
       </property>
       <property>
+            <name>cs_count</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>calls</group>
+            <type>checkbox</type>
+            <parent>calls_search_box</parent>
+            <store>no</store>
+            <captionside>top</captionside>
+            <comment>Ilma tulemuste arvu kokkulugemiseta on p&amp;amp;auml;ringud kiiremad.</comment>
+            <caption>N&amp;amp;auml;ita tulemuste arvu</caption>
+      </property>
+      <property>
             <name>cs_submit</name>
             <table>objects</table>
             <field>meta</field>

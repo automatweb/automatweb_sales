@@ -320,6 +320,10 @@ PROPERTY DECLARATIONS
 		@property cs_status type=select parent=calls_search_box store=no captionside=top
 		@caption Kontakti staatus
 
+		@property cs_count type=checkbox parent=calls_search_box store=no captionside=top
+		@comment Ilma tulemuste arvu kokkulugemiseta on p&auml;ringud kiiremad.
+		@caption N&auml;ita tulemuste arvu
+
 		@property cs_submit type=submit value=Otsi parent=calls_search_box store=no
 		@caption Otsi
 
@@ -632,6 +636,7 @@ class crm_sales extends class_base
 			),
 			self::CALLS_SEARCH => array(
 				"caption" => t("Otsingu tulemused (kokku %s)"),
+				"caption_no_count" => t("Otsingu tulemused (lehek&uuml;lg %s)"),
 				"in_tree" => false
 			)
 		);

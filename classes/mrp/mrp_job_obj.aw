@@ -979,6 +979,7 @@ class mrp_job_obj extends _int_object
 		$applicable_states = array (
 			self::STATE_INPROGRESS
 		);
+
 		if (in_array ($this->mrp_state, $applicable_states))
 		{ // job is in progress, normal execution flow
 			try
@@ -1005,14 +1006,7 @@ class mrp_job_obj extends _int_object
 				if ($this->prop("done") >= $this->mrp_case->prop("order_quantity")*$this->prop("component_quantity"))
 				{ // whole job done
 					// free resource
-					try
-					{
-						$this->mrp_resource->stop_job($this->ref());
-					}
-					catch (awex_mrp_resource_job $e)
-					{
-						// ignore that job was marked in process but resource wasn't processing it
-					}
+					$this->mrp_resource->stop_job($this->ref());
 
 					### finish job
 					$time = time ();

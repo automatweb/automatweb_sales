@@ -223,6 +223,23 @@ class crm_call_obj extends task_object implements crm_sales_price_component_inte
 					$job->plan();
 					$job->start();
 				}
+				catch (awex_mrp_case_state $e)
+				{ //XXX: see if possible w/o dbl check for same exception
+					try
+					{
+						// try to plan customer case and try start again
+						$customer_relation = new object($this->prop("customer_relation"));
+						$customer_case = $customer_relation->get_sales_case(false);
+						$customer_case->plan();
+						$job->start();
+					}
+					catch (Exception $e)
+					{
+						$job->set_prop("resource", $old_resource);
+						$job->save();
+						throw $e;
+					}
+				}
 				catch (Exception $e)
 				{
 					$job->set_prop("resource", $old_resource);

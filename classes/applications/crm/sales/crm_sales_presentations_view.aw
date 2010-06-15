@@ -356,8 +356,12 @@ break;
 							}
 						}
 						while ($phone = $phones->next());
+						$phones_str = implode(", ", $phones_str);
 					}
-					$phones_str = count($phones_str) ? implode(", ", $phones_str) : $not_available_str;
+					else
+					{
+						$phones_str = $not_available_str;
+					}
 
 					// define table row
 					$table->define_data(array(

@@ -418,14 +418,22 @@ class relpicker extends  core
 			empty($val["no_edit"])
 		)
 		{
-			$val["post_append_text"] .= " ".html::href(array(
-				"url" => html::get_change_url($this->obj->prop($val["name"]), array(
+			try
+			{
+				$change_url = html::get_change_url($this->obj->prop($val["name"]), array(
 					"save_autoreturn" => !empty($val["add_edit_autoreturn"]),
 					"return_url" => get_ru()
-				)),
-				"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/edit.gif' border=0>",
-				"title" => t("Muuda")
-			));
+				));
+				$val["post_append_text"] .= " ".html::href(array(
+					"url" => $change_url,
+					"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/edit.gif' border=0>",
+					"title" => t("Muuda")
+				));
+			}
+			catch (Exception $e)
+			{
+				$val["post_append_text"] .= " " . t("Objekt on kustutatud");
+			}
 		}
 		elseif (
 			isset($val["type"]) && $val["type"] === "select" &&
