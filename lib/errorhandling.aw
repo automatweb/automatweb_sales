@@ -141,9 +141,7 @@ function aw_error_handler($errno, $errstr, $errfile, $errline, $context)
 	if (aw_is_fatal_error($errno))
 	{
 		$class = aw_get_error_exception_class($errno);
-		$e = new $class($errstr, $errno);
-		$e->errfile = $errfile;
-		$e->errline = $errline;
+		$e = new $class($errstr, 0, $errno, $errfile, $errline);
 		$e->context = $context;
 		throw $e;
 	}
@@ -169,9 +167,7 @@ function aw_dbg_error_handler($errno, $errstr, $errfile, $errline, $context)
 	$class = aw_get_error_exception_class($errno);
 	if (aw_is_fatal_error($errno))
 	{ // generate and throw exception when fatal error occurs
-		$e = new $class($errstr, $errno);
-		$e->errfile = $errfile;
-		$e->errline = $errline;
+		$e = new $class($errstr, 0, $errno, $errfile, $errline);
 		$e->context = $context;
 		throw $e;
 	}
@@ -327,10 +323,8 @@ class aw_exception extends \Exception
 /** Indicates that instruction has already been carried out **/
 class awex_redundant_instruction extends aw_exception {}
 
-class awex_php_generic_error extends aw_exception
+class awex_php_generic_error extends \ErrorException
 {
-	public $errfile;
-	public $errline;
 	public $context;
 }
 
