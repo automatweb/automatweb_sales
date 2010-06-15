@@ -436,6 +436,7 @@ class crm_sales_contacts_search
 		$crm_company_clid = CL_CRM_COMPANY;
 		$cro_clid = CL_CRM_COMPANY_CUSTOMER_DATA;
 		$db = new db_connector();
+		$db->init();
 		$real_duration_constraint = $order_by = $limit_str = $group_by = "";
 		$additional_joins = $this->additional_joins;
 
@@ -463,18 +464,19 @@ class crm_sales_contacts_search
 			}
 		}
 
+		// customer status constraint
+		if (empty($this->p_status))
+		{
+			$customer_status_constraint = "";
+		}
+		else
+		{
+			$customer_status_constraint = "aw_crm_customer_data.`aw_sales_status`= {$this->p_status} AND";
+		}
+
 		 // special case for address search
 		if (!empty($this->p_address))
 		{
-			if (empty($this->p_status))
-			{
-				$customer_status_constraint = "";
-			}
-			else
-			{
-				$customer_status_constraint = "aw_crm_customer_data.`aw_sales_status`= {$this->p_status} AND";
-			}
-
 			$q = <<<EOQ
 SELECT
 	{$select}
@@ -506,15 +508,6 @@ EOQ;
 		 // special case for phone number search
 		elseif (!empty($this->p_phone))
 		{
-			if (empty($this->p_status))
-			{
-				$customer_status_constraint = "";
-			}
-			else
-			{
-				$customer_status_constraint = "aw_crm_customer_data.`aw_sales_status`= {$this->p_status} AND";
-			}
-
 			$q = <<<EOQ
 SELECT
 	{$select}

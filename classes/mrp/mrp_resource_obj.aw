@@ -926,7 +926,6 @@ class mrp_resource_obj extends _int_object
 						try
 						{
 							$thread->finish($job);
-							$finish = true;
 						}
 						catch (awex_mrp_resource_job $e) // probably pointless double checking
 						{
@@ -935,13 +934,6 @@ class mrp_resource_obj extends _int_object
 						}
 					}
 				}
-			}
-
-			// report data integrity loss or invalid request
-			if (!$finish)
-			{
-				$this->ref()->unlock();
-				throw new awex_mrp_resource_job("Job (" . $job->id() . ") not found in processed jobs on  resource (" . $this->id() . ")");
 			}
 
 			$this->save ();

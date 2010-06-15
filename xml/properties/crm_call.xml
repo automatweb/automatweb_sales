@@ -153,6 +153,15 @@
             <caption>Plaanitud aeg</caption>
       </property>
       <property>
+            <name>end</name>
+            <table>planner</table>
+            <group>general</group>
+            <type>datepicker</type>
+            <parent>top_2way_right</parent>
+            <field>end</field>
+            <caption>L&amp;amp;otilde;peb</caption>
+      </property>
+      <property>
             <name>deadline</name>
             <table>planner</table>
             <group>general</group>

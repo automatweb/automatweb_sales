@@ -6872,8 +6872,6 @@ class mrp_workspace extends class_base
 		}
 
 		$t = $arr["prop"]["vcl_inst"];
-		classload("core/icons");
-
 		$all_customers = $co->get_all_customer_ids();
 
 		$cases = $arr["obj_inst"]->get_all_mrp_cases_data();
@@ -6890,21 +6888,18 @@ class mrp_workspace extends class_base
 				$customer_count[$data["customer"]] = 1;
 			}
 		}
-/*		foreach($customer_count as $id => $count)//ei k6ike panna, sest miskeid nulle ja asju tuleb alati sisse ja siis annab errorit
-		{
-			if($this->can("view" , $id))
-			{
-				$customers->add($id);
-			}
-		}
-*/
+
 		foreach($all_customers as $id)//ei k6ike panna, sest miskeid nulle ja asju tuleb alati sisse ja siis annab errorit
 		{
-			if($this->can("view" , $id))
+			try
 			{
 				$customers->add($id);
 			}
+			catch (Exception $e)
+			{
+			}
 		}
+
 		$reload = array(
 			"layouts" => array("customers_search_table"),
 			"props" => array("projects_list"),

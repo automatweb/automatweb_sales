@@ -1368,16 +1368,17 @@ class class_base extends aw_template
 				$args["in_popup"] = 1;
 			}
 
-			if (method_exists($this->inst,"callback_mod_retval"))
+			if (method_exists($this->inst, "callback_mod_retval"))
 			{
-				$this->inst->callback_mod_retval(array(
+				$tmp = array(
 					"action" => &$action,
 					"args" => &$args,
 					"request" => &$request,
 					"orb_class" => &$orb_class,
 					"clid" => $this->clid,
-					"new" => $this->new,
-				));
+					"new" => $this->new
+				);
+				$this->inst->callback_mod_retval($tmp);
 
 				if (!empty($args["goto"]))
 				{

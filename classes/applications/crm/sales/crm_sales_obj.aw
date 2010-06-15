@@ -1118,18 +1118,18 @@ EOQ;
 				$customer_status_constraint = "aw_crm_customer_data.`aw_sales_status`= {$status} AND";
 			}
 
-			// if (empty($customer_params["phone"]))
-			// {
+			if (empty($customer_params["phone"]))
+			{
 				$phone_constraint = "";
-			// }
-			// else
-			// {
-				// $phone_string = addslashes($customer_params["phone"]);
-				// $phone_constraint = "phone_objects.name LIKE '{$phone_string}%' AND";
-				// $additional_joins .= "INNER JOIN aliases phone_aliases on phone_aliases.source = customer_objects.oid\n";
-				// $additional_joins .= "INNER JOIN objects phone_objects on phone_aliases.target = phone_objects.oid\n";
-				// $additional_joins .= "LEFT JOIN planner phone_data on phone_objects.oid = planner.id\n";
-			// }
+			}
+			else
+			{
+				$phone_string = addslashes($customer_params["phone"]);
+				$phone_constraint = "phone_objects.name LIKE '{$phone_string}%' AND";
+				$additional_joins .= "INNER JOIN aliases phone_aliases on phone_aliases.source = customer_objects.oid\n";
+				$additional_joins .= "INNER JOIN objects phone_objects on phone_aliases.target = phone_objects.oid\n";
+				$additional_joins .= "LEFT JOIN planner phone_data on phone_objects.oid = planner.id\n";
+			}
 
 			$address_string = addslashes($customer_params["address"]);
 			$q = <<<EOQ
@@ -1167,7 +1167,7 @@ EOQ;
 		elseif (!empty($customer_params["phone"]))
 		{ // special case for phone search
 			if (strlen($customer_params["phone"]) < 2)
-			{
+			{ // if searching by phone number only then this requirement
 				throw new awex_obj_type("Phone search string must be longer than one character.");
 			}
 

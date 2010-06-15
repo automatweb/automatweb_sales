@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/crm/crm_meeting.aw,v 1.120 2009/03/10 16:20:34 markop Exp $
+
 // kohtumine.aw - Kohtumine
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_MEETING_DELETE_PARTICIPANTS,CL_CRM_MEETING, submit_delete_participants_from_calendar);
@@ -427,38 +427,9 @@ class crm_meeting extends task
 				break;
 
 			case "hrs_table":
-				$this->_hrs_table($arr);
+				// $this->_hrs_table($arr);
 				break;
 
-			case "add_clauses":
-//				if (!is_object($arr["obj_inst"]))
-//				{
-					return PROP_IGNORE;
-//				}
-
-				$has_work_time = $arr["obj_inst"]->has_work_time();
-				$data["options"] = array(
-					"status" => t("Aktiivne"),
-					"is_done" => t("Tehtud"),
-					"whole_day" => t("Terve p&auml;ev"),
-					"is_personal" => t("Isiklik"),
-					"send_bill" => t("Arvele"),
-//					"is_work" => t("T&ouml;&ouml;aeg"),
-				);
-				$data["value"] = array(
-					"status" => $arr["obj_inst"]->prop("status") == STAT_ACTIVE ? 1 : 0,
-					"is_done" => $arr["obj_inst"]->prop("is_done") ? 8 : 0,
-					"whole_day" => $arr["obj_inst"]->prop("whole_day") ? 1 : 0,
-					"is_personal" => $arr["obj_inst"]->prop("is_personal") ? 1 : 0,
-					"send_bill" => $arr["obj_inst"]->prop("send_bill") ? 1 : 0,
-//					"is_work" => $arr["obj_inst"]->prop("is_work") ? 1 : 0,
-				);
-				if(!$has_work_time)
-				{
-					$data["options"]["is_work"] = t("T&ouml;&ouml;aeg");
-				}
-
-				break;
 			case "is_done":
 			case "status":
 			case "whole_day":
