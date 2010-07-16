@@ -1,6 +1,6 @@
 <?php
 
-class crm_offer_obj extends _int_object
+class crm_offer_obj extends crm_offer_price_component_handler
 {
 	protected $rows;
 	protected $price_components;
@@ -9,6 +9,53 @@ class crm_offer_obj extends _int_object
 	protected $row_price_components_loaded = array();
 	protected $salesman_data;
 	protected $all_prerequisites_by_price_component;
+	protected static $state_names;
+
+	const STATE_NEW = 0;
+	const STATE_SENT = 1;
+	const STATE_CONFIRMED = 2; 
+	const STATE_CANCELLED = 3;
+
+	public static function state_names($state = null)
+	{
+		if (0 === count(self::$state_names))
+		{
+			self::$state_names = array(
+				self::STATE_NEW => t("Koostamisel"),
+				self::STATE_SENT => t("Saadetud"),
+				self::STATE_CONFIRMED => t("Kinnitatud"),
+				self::STATE_CANCELLED => t("T&uuml;histatud")
+			);
+		}
+
+		if (isset($state))
+		{
+			if (isset(self::$state_names[$state]))
+			{
+				$state_names = array($state => self::$state_names[$state]);
+			}
+			else
+			{
+				$state_names = array();
+			}
+			return $state_names;
+		}
+		else
+		{
+			return self::$state_names;
+		}
+	}
+
+	public function confirm()
+	{
+		$this->set_prop("state", self::STATE_CONFIRMED);
+		$this->save();
+	}
+
+	public function awobj_get_sum()
+	{
+		return aw_math_calc::string2float(parent::prop("sum"));
+	}
 
 	public function save($exclusive = false, $previous_state = null)
 	{
@@ -18,6 +65,12 @@ class crm_offer_obj extends _int_object
 		}
 
 		return parent::save($exclusive, $previous_state);
+	}
+
+	public function awobj_get_date()
+	{
+		$date = parent::prop("date");
+		return !empty($date) ? $date : time();
 	}
 
 	/**	Returns true if this offer contains the given object, false otherwise
@@ -99,7 +152,8 @@ class crm_offer_obj extends _int_object
 
 	/**
 		@attrib api=1
-		@returns crm_price_component[]
+		@returns object_list
+		@errors Throws awex_crm_offer if this offer is not saved
 	**/
 	public function get_price_components_for_row(object $row)
 	{
@@ -128,6 +182,28 @@ class crm_offer_obj extends _int_object
 		}
 
 		return $this->row_price_components[$row->id()];
+	}
+
+	/**
+		@attrib api=1
+		@returns object_list
+		@errors Throws awex_crm_offer if this offer is not saved
+	**/
+	public function get_price_components_for_total()
+	{
+		if (!$this->price_components_loaded)
+		{
+			try
+			{
+				$this->load_price_components();
+			}
+			catch (awex_crm_offer $e)
+			{
+				throw $e;
+			}
+		}
+
+		return $this->price_components[crm_sales_price_component_obj::TYPE_TOTAL];
 	}
 
 	/**	Returns true if given price component is compulsory for this offer, false otherwise
@@ -276,7 +352,7 @@ class crm_offer_obj extends _int_object
 				"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
 				"type" => array(crm_sales_price_component_obj::TYPE_UNIT, crm_sales_price_component_obj::TYPE_ROW, crm_sales_price_component_obj::TYPE_NET_VALUE),
 				"applicables.id" => $row->prop("object"),
-				"application" => automatweb::$request->get_application()->id()
+//				"application" => automatweb::$request->get_application()->id()
 			),
 			array(
 				CL_CRM_SALES_PRICE_COMPONENT => array("applicables")
@@ -342,7 +418,7 @@ class crm_offer_obj extends _int_object
 					"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
 					"oid" => $price_components_without_applicables,
 					"type" => array(crm_sales_price_component_obj::TYPE_UNIT, crm_sales_price_component_obj::TYPE_ROW, crm_sales_price_component_obj::TYPE_TOTAL),
-					"application" => automatweb::$request->get_application()->id()
+//					"application" => automatweb::$request->get_application()->id()
 				),
 				array(
 					CL_CRM_SALES_PRICE_COMPONENT => array("type"),

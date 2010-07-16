@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CRM_SALES_PRICE_COMPONENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=SYSTEM
+@classinfo syslog_type=ST_CRM_SALES_PRICE_COMPONENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kaarel
 @tableinfo aw_crm_sales_price_component master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_crm_sales_price_component
