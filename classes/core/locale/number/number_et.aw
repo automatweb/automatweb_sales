@@ -7,7 +7,7 @@ class awlc_number_et implements awlc_number
 	public static function get_lc_number($number)
 	{
 		$number = (int)$number;
-		$singles = array("","üks","kaks","kolm","neli","viis","kuus","seitse","kaheksa","üheksa");
+		$singles = array("","&uuml;ks","kaks","kolm","neli","viis","kuus","seitse","kaheksa","&uuml;heksa");
 		$jargud1 = array(" miljon "," tuhat "," ");
 		$jargud2 = array(" miljonit "," tuhat "," ");
 		$res = "";
@@ -37,7 +37,7 @@ class awlc_number_et implements awlc_number
 					{
 						if (end($pieces) == 0)
 						{
-							$res .= "kümme";
+							$res .= "k&uuml;mme";
 						}
 						else
 						{
@@ -46,7 +46,7 @@ class awlc_number_et implements awlc_number
 					}
 					else
 					{
-						$res .= $singles[reset($pieces)] . "kümmend";
+						$res .= $singles[reset($pieces)] . "k&uuml;mmend";
 						$res .= " " . $singles[end($pieces)];
 					};
 				}

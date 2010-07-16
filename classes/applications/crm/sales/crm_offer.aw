@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CRM_OFFER relationmgr=yes no_name=1 no_comment=1 no_status=1 prop_cb=1 maintainer=SYSTEM
+@classinfo syslog_type=ST_CRM_OFFER relationmgr=yes no_name=1 no_comment=1 no_status=1 prop_cb=1 maintainer=kaarel
 @tableinfo aw_crm_offer master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_crm_offer
@@ -15,6 +15,21 @@
 	@property salesman type=objpicker clid=CL_CRM_PERSON field=aw_salesman
 	@caption M&uuml;&uuml;giesindaja nimi
 
+	@property currency type=objpicker clid=CL_CURRENCY field=aw_currency
+	@caption Valuuta
+
+	@property state type=select field=aw_state
+	@caption Staatus
+
+	@property send type=text store=no editonly=1
+	@caption Saada kliendile
+
+	@property sum type=hidden field=aw_sum
+	@caption Summa
+
+	@property date type=hidden field=aw_date
+	@caption Kuup&auml;ev
+
 @groupinfo content caption=Sisu
 @default group=content
 
@@ -23,6 +38,13 @@
 	@property content_toolbar type=toolbar editonly=1 no_caption=1 store=no
 
 	@property content_table type=table editonly=1 no_caption=1 store=no
+
+	@property content_total_price_components type=table editonly=1 no_caption=1 store=no
+
+@groupinfo preview caption=Eelvaade
+@default group=preview
+
+	@property preview type=text store=no no_caption=1 editonly=1
 
 */
 
@@ -34,6 +56,19 @@ class crm_offer extends class_base
 			"tpldir" => "applications/crm/sales/crm_offer",
 			"clid" => CL_CRM_OFFER
 		));
+	}
+
+	public function _get_send($arr)
+	{
+		$arr["prop"]["value"] = html::href(array(
+			"caption" => t("Saada kliendile"),
+			"url" => $this->mk_my_orb("new", array("return_url" => get_ru(), "offer" => $arr["obj_inst"]->id(), "parent" => $arr["obj_inst"]->id()), CL_CRM_OFFER_SENT),
+		));
+	}
+
+	public function _get_state($arr)
+	{
+		$arr["prop"]["options"] = crm_offer_obj::state_names();
 	}
 
 	public function _get_content_toolbar($arr)
@@ -82,15 +117,10 @@ class crm_offer extends class_base
 			"caption" => t("Hinnakomponent"),
 		));
 			$t->define_field(array(
-				"name" => "price_component_apply",
-				"caption" => t("Rakendatud"),
-				"callback" => array($this, "callback_content_table_price_component_apply"),
-				"callb_pass_row" => true,
-				"parent" => "price_component",
-			));
-			$t->define_field(array(
 				"name" => "price_component_name",
 				"caption" => t("Nimi"),
+				"callback" => array($this, "callback_content_table_price_component_name"),
+				"callb_pass_row" => true,
 				"parent" => "price_component",
 			));
 			$t->define_field(array(
@@ -115,7 +145,7 @@ class crm_offer extends class_base
 		));
 	}
 
-	public function callback_content_table_price_component_apply($row)
+	public function callback_content_table_price_component_name($row)
 	{
 		$compulsory = $this->offer->price_component_is_compulsory($row["price_component"]);
 		if($compulsory)
@@ -124,7 +154,9 @@ class crm_offer extends class_base
 				"name" => "content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][apply_dummy]",
 				"checked" => true,
 				"disabled" => true,
-			)).html::hidden(array(
+			))
+			."&nbsp;".$row["price_component"]->name()
+			.html::hidden(array(
 				"name" => "content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][apply]",
 				"value" => 1,
 			));
@@ -135,7 +167,8 @@ class crm_offer extends class_base
 				"name" => "content_table[{$row["row"]->id()}][price_component][{$row["price_component"]->id()}][apply]",
 				"checked" => $row["row"]->price_component_is_applied($row["price_component"]->id()),
 				"disabled" => false,
-			));
+			))
+			."&nbsp;".$row["price_component"]->name();
 		}
 	}
 
@@ -158,7 +191,7 @@ class crm_offer extends class_base
 				"max" => $max,
 				"places" => 0,
 				"intermediateChanges" => true,
-				"onChange" => "awCrmOffer.calculateRow({$row["row"]->id()});"
+				"onChange" => "awCrmOffer.calculateRow({$row["row"]->id()}); awCrmOffer.calculateRow('total'); awCrmOffer.calculateTotalPrice();"
 			),
 			array(
 				"id" => "content_table_{$row["row"]->id()}_price_component_{$row["price_component"]->id()}_value",
@@ -237,6 +270,8 @@ class crm_offer extends class_base
 			"oid" => "object",
 			"price" => "object",
 		));
+
+		$t->set_caption("Pakkumise sisu ja komponentide hinnakujundus");
 	}
 
 	public function _set_content_table($arr)
@@ -246,25 +281,172 @@ class crm_offer extends class_base
 		{
 			foreach($data as $row_id => $row_data)
 			{
-				$row = obj($row_id);
-				$row->set_prop("unit", $row_data["unit"]);
-				$row->set_prop("amount", $row_data["amount"]);
-
-				foreach($row_data["price_component"] as $price_component_id => $price_component_data)
+				if (is_oid($row_id))
 				{
-					$apply = !empty($price_component_data["apply"]);
-					if ($apply)
+					$row = obj($row_id);
+					$row->set_prop("unit", $row_data["unit"]);
+					$row->set_prop("amount", $row_data["amount"]);
+
+					foreach($row_data["price_component"] as $price_component_id => $price_component_data)
 					{
-						$row->apply_price_component($price_component_id, $price_component_data["value"], $price_component_data["price_change"]);
+						$apply = !empty($price_component_data["apply"]);
+						if ($apply)
+						{
+							$row->apply_price_component($price_component_id, $price_component_data["value"], $price_component_data["price_change"]);
+						}
+						elseif ($row->price_component_is_applied($price_component_id))
+						{
+							$row->remove_price_component($price_component_id);
+						}
 					}
-					elseif ($row->price_component_is_applied($price_component_id))
+
+					$row->save();
+				}
+				elseif ("total" == $row_id){
+
+					foreach($row_data["price_component"] as $price_component_id => $price_component_data)
 					{
-						$row->remove_price_component($price_component_id);
+						$offer = $arr["obj_inst"];
+
+						$apply = !empty($price_component_data["apply"]);
+						if ($apply)
+						{
+							$offer->apply_price_component($price_component_id, $price_component_data["value"], $price_component_data["price_change"]);
+						}
+						elseif ($offer->price_component_is_applied($price_component_id))
+						{
+							$offer->remove_price_component($price_component_id);
+						}
 					}
 				}
-
-				$row->save();
 			}
+		}
+	}
+
+	public function define_content_total_price_components_header($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->define_field(array(
+			"name" => "name",
+			"caption" => t("Hinnakomponent"),
+			"callback" => array($this, "callback_content_total_price_components_name"),
+			"callb_pass_row" => true,
+		));
+		$t->define_field(array(
+			"name" => "value",
+			"caption" => t("Summa v&otilde;i protsent"),
+			"callback" => array($this, "callback_content_total_price_components_value"),
+			"callb_pass_row" => true,
+		));
+		$t->define_field(array(
+			"name" => "price_change",
+			"caption" => t("Hinnamuutus"),
+			"callback" => array($this, "callback_content_total_price_components_price_change"),
+			"callb_pass_row" => true,
+		));
+	}
+
+	public function _get_content_total_price_components($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$offer = $arr["obj_inst"];
+
+		$this->define_content_total_price_components_header($arr);
+
+		$price_components = $offer->get_price_components_for_total();
+		foreach($price_components->arr() as $price_component)
+		{
+			$t->define_data(array(
+				"price_component" => $price_component,
+				"name" => $price_component->name(),
+				"value" => $price_component->prop("value"),
+			));
+		}
+		$t->define_data(array(
+			"name" => html::bold(t("KOGUHIND")),
+		));
+	}
+
+	public function callback_content_total_price_components_price_change($row)
+	{
+		if(!isset($row["price_component"]) || !is_object($row["price_component"]))
+		{
+			return html::span(array(
+				"id" => "content_total_price_components_total_price",
+			)).html::hidden(array(
+				"name" => "content_total_price_components[total_price]",
+			));
+		}
+
+		return html::span(array(
+			"id" => "content_table_total_price_component_{$row["price_component"]->id()}_price_change",
+		)).html::hidden(array(
+			"name" => "content_table[total][price_component][{$row["price_component"]->id()}][price_change]",
+		));
+	}
+
+	public function callback_content_total_price_components_value($row)
+	{
+		if(!isset($row["price_component"]) || !is_object($row["price_component"]))
+		{
+			return "";
+		}
+
+		$value = $row["value"];
+		if($this->offer->price_component_is_applied($row["price_component"]->id()))
+		{
+			$value = $this->offer->get_value_for_price_component($row["price_component"]->id());
+		}
+		list($min, $max) = $this->offer->get_tolerance_for_price_component($row["price_component"]);
+
+		$this->zend_view->dojo()->requireModule('dijit.form.NumberSpinner');
+
+		return $this->zend_view->numberSpinner(
+			"content_table[total][price_component][{$row["price_component"]->id()}][value]",
+			$value,
+			array(
+				"min" => $min,
+				"max" => $max,
+				"places" => 0,
+				"intermediateChanges" => true,
+				"onChange" => "awCrmOffer.calculateRow('total'); awCrmOffer.calculateTotalPrice();"
+			),
+			array(
+				"id" => "content_total_price_components_{$row["price_component"]->id()}_value",
+			)
+		).($row["price_component"]->prop("is_ratio") ? t("%") : "");
+	}
+
+	public function callback_content_total_price_components_name($row)
+	{
+		if(!isset($row["price_component"]) || !is_object($row["price_component"]))
+		{
+			return $row["name"];
+		}
+
+		$compulsory = $this->offer->price_component_is_compulsory($row["price_component"]);
+		if($compulsory)
+		{
+			return html::checkbox(array(
+				"name" => "content_table[total][price_component][{$row["price_component"]->id()}][apply_dummy]",
+				"checked" => true,
+				"disabled" => true,
+			))
+			."&nbsp;".$row["price_component"]->name()
+			.html::hidden(array(
+				"name" => "content_table[total][price_component][{$row["price_component"]->id()}][apply]",
+				"value" => 1,
+			));
+		}
+		else
+		{
+			return html::checkbox(array(
+				"name" => "content_table[total][price_component][{$row["price_component"]->id()}][apply]",
+				"checked" => $this->offer->price_component_is_applied($row["price_component"]->id()),
+				"disabled" => false,
+			))
+			."&nbsp;".$row["price_component"]->name();
 		}
 	}
 
@@ -307,6 +489,104 @@ class crm_offer extends class_base
 		}
 	}
 
+	public function _get_sum($arr)
+	{
+		return PROP_IGNORE;
+	}
+
+	public function _set_sum($arr)
+	{
+		return PROP_IGNORE;
+	}
+
+	public function _get_preview($arr)
+	{
+		die($this->show(array(
+			"id" => $arr["obj_inst"]->id(),
+		)));
+	}
+
+	/**	Returns parsed HTML of the crm_offer template.
+		@attrib api=1
+		@param id required type=int
+			The OID of the crm_offer object to be shown.
+		@param show_confirmation optional type=boolean default=false
+			The OID of the crm_offer object to be shown.
+	**/
+	public function show($arr)
+	{
+		$this->read_template("show.tpl");
+
+		$o = new object($arr["id"]);
+
+		$this->vars(array(
+			"id" => $o->id(),
+			"date" => $o->prop("date"),
+			"currency" => obj($o->prop("currency"))->name(), //$o->prop("currency.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+			"customer" => obj($o->prop("customer"))->name(), //$o->prop("customer.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+		));
+
+		$ROW = "";
+		foreach($o->get_rows() as $row)
+		{
+			$this->vars(array(
+				"object" => obj($row->prop("object"))->name(),	//$row->prop("object.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+				"unit" => obj($row->prop("unit"))->name(),	//$row->prop("unit.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+				"amount" => $row->prop("amount"),
+				"price" => number_format($row->get_price($row) / $row->prop("amount"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+				"sum" => number_format($row->get_price($row), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+			));
+			$ROW .= $this->parse("ROW");
+		}
+
+		if($o->state != crm_offer_obj::STATE_CONFIRMED && !empty($arr["show_confirmation"]))
+		{
+			$this->vars(array(
+				"do_confirmation_url" => aw_url_change_var("do_confirm", 1),
+			));
+
+			$this->vars(array(
+				"CONFIRMATION" => $this->parse("CONFIRMATION"),
+			));
+		}
+
+		$this->vars(array(
+			"sum" => number_format($o->prop("sum"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+			"sum_text" => aw_locale::get_lc_money_text($o->prop("sum"), $o->currency()),
+			"ROW" => $ROW
+		));
+
+		return $this->parse();
+	}
+
+	/**
+		@attrib name=confirm params=name nologin=1
+		@param id required type=int
+		@param do_confirm optional type=boolean default=false
+	**/
+	public function confirm($arr)
+	{
+		if(!empty($arr["do_confirm"]))
+		{
+			$o = obj($arr["id"]);
+			$o->confirm();
+		}
+
+		die($this->show(array(
+			"id" => $arr["id"],
+			"show_confirmation" => true,
+		)));
+	}
+
+	public function callback_post_save($arr)
+	{
+		if(isset($arr["request"]["content_total_price_components"]["total_price"]))
+		{
+			$arr["obj_inst"]->set_prop("sum", aw_math_calc::string2float($arr["request"]["content_total_price_components"]["total_price"]));
+			$arr["obj_inst"]->save();
+		}
+	}
+
 	public function callback_generate_scripts($arr)
 	{
 		$js = "";
@@ -338,8 +618,25 @@ class crm_offer extends class_base
 				);
 			}
 
+			$aw_crm_offer_price_components_for_total = array();
+			foreach($this->offer->get_price_components_for_total()->arr() as $price_component)
+			{
+				$aw_crm_offer_price_components_for_total[] = $price_component->id();
+
+				if(!isset($aw_crm_offer_price_components[$price_component->id()]))
+				{
+					$aw_crm_offer_price_components[$price_component->id()] = array(
+						"oid" => $price_component->id(),
+						"type" => $price_component->prop("type"),
+						"is_ratio" => (boolean) $price_component->prop("is_ratio"),
+						"prerequisites" => array_values($price_component->get_all_prerequisites()),
+					);
+				}
+			}
+
 			$aw_crm_offer = array(
 				"rows" => $aw_crm_offer_rows,
+				"price_components_for_total" => $aw_crm_offer_price_components_for_total,
 				"price_components" => $aw_crm_offer_price_components,
 			);
 			$js = sprintf("
@@ -394,9 +691,25 @@ class crm_offer extends class_base
 			case "aw_customer_relation":
 			case "aw_salesman":
 			case "aw_customer":
+			case "aw_currency":
+			case "aw_date":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "int(11)"
+				));
+				return true;
+
+			case "aw_state":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "tinyint(1)"
+				));
+				return true;
+
+			case "aw_sum":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "decimal(19,4)"
 				));
 				return true;
 		}
