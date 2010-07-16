@@ -117,6 +117,19 @@ class crm_offer_price_component_handler extends _int_object
 	**/
 	public function get_value_for_price_component($price_component)
 	{
+		return $this->get_price_component_prop("value", $price_component);
+	}
+
+	/**
+		@attrib api=1
+	**/
+	public function get_price_for_price_component($price_component)
+	{
+		return $this->get_price_component_prop("price_change", $price_component);
+	}
+
+	protected function get_price_component_prop($prop, $price_component)
+	{
 		$price_component_id = is_object($price_component) ? $price_component->id() : $price_component;
 
 		if (!is_oid($price_component_id))
@@ -141,7 +154,7 @@ class crm_offer_price_component_handler extends _int_object
 			throw new awex_crm_offer_price_component(sprintf(t("No crm_sales_price_component_obj with OID %u applied to crm_offer_row_obj with OID %u!"), $price_component_id, $this->id()));
 		}
 
-		return $this->applied_price_components[$price_component]["value"];
+		return $this->applied_price_components[$price_component][$prop];
 	}
 
 	protected function load_applied_price_components()

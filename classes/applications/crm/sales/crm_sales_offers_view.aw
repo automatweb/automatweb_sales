@@ -113,6 +113,8 @@ class crm_sales_offers_view
 		$sort_dir = obj_predicate_sort::DESC;
 		$sortable_fields = array( // table field => array( default sort order, database field name)
 			"customer_name" => array(obj_predicate_sort::ASC, "CL_CRM_OFFER.customer.name"),
+			"salesman_name" => array(obj_predicate_sort::ASC, "CL_CRM_OFFER.salesman.name"),
+			"sum" => array(obj_predicate_sort::ASC, "CL_CRM_OFFER.sum"),
 		);
 		if (isset($arr["request"]["sortby"]) and isset($sortable_fields[$arr["request"]["sortby"]]))
 		{
@@ -145,28 +147,18 @@ class crm_sales_offers_view
 				$customer_relation = new object($offer->prop("customer_relation"));
 				if (is_oid($customer_relation->id()))
 				{
-					$customer = $customer_relation->get_first_obj_by_reltype("RELTYPE_BUYER");
-
-					// salesman and unit
-					$salesman = $customer_relation->prop("salesman");
+					$salesman = $offer->prop("salesman");
 					if (is_oid($salesman))
 					{
 						$salesman = new object($salesman);
-						// assigned salesman's company unit
-						$unit = $salesman->get_org_section();
-						if ($unit)
-						{
-							$unit = new object($unit);
-							$unit = $unit->name();
-						}
-
 						$salesman = $salesman->name();
 					}
 					else
 					{
-						$unit = $salesman = $not_available_str;
+						$salesman = $not_available_str;
 					}
 
+					$customer = $customer_relation->get_first_obj_by_reltype("RELTYPE_BUYER");
 					$customer_name = html::obj_change_url($customer_relation, crm_sales::parse_customer_name($customer));
 
 					$oid = $offer->id();
@@ -175,9 +167,13 @@ class crm_sales_offers_view
 
 					$modified = aw_locale::get_lc_date($offer->prop("modified"), aw_locale::DATETIME_SHORT_FULLYEAR);
 
+					$sum = $offer->prop("sum");
+
 					// define table row
 					$table->define_data(array(
 						"customer_name" => $customer_name,
+						"salesman_name" => $salesman,
+						"sum" => $sum,
 						"oid" => $oid,
 						"id" => $offer_id,
 						"modified" => $modified,
@@ -216,8 +212,16 @@ class crm_sales_offers_view
 			"caption" => t("Kliendi nimi")
 		));
 		$table->define_field(array(
+			"name" => "salesman_name",
+			"caption" => t("M&uuml;&uuml;giesindaja nimi")
+		));
+		$table->define_field(array(
 			"name" => "id",
 			"caption" => t("Pakkumise ID")
+		));
+		$table->define_field(array(
+			"name" => "sum",
+			"caption" => t("Summa")
 		));
 		$table->define_field(array(
 			"name" => "modified",

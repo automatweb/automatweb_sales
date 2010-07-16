@@ -31,6 +31,49 @@
             <caption>M&amp;amp;uuml;&amp;amp;uuml;giesindaja nimi</caption>
       </property>
       <property>
+            <name>currency</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CURRENCY</clid>
+            <field>aw_currency</field>
+            <caption>Valuuta</caption>
+      </property>
+      <property>
+            <name>state</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_state</field>
+            <caption>Staatus</caption>
+      </property>
+      <property>
+            <name>send</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <field>send</field>
+            <caption>Saada kliendile</caption>
+      </property>
+      <property>
+            <name>sum</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_sum</field>
+            <caption>Summa</caption>
+      </property>
+      <property>
+            <name>date</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_date</field>
+            <caption>Kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
             <name>content_add</name>
             <table>aw_crm_offer</table>
             <group>content</group>
@@ -69,6 +112,16 @@
             <store>no</store>
             <field>content_total_price_components</field>
       </property>
+      <property>
+            <name>preview</name>
+            <table>aw_crm_offer</table>
+            <group>preview</group>
+            <type>text</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <editonly>1</editonly>
+            <field>preview</field>
+      </property>
       <classinfo>
             <syslog_type>ST_CRM_OFFER</syslog_type>
             <relationmgr>yes</relationmgr>
@@ -76,12 +129,15 @@
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>SYSTEM</maintainer>
+            <maintainer>kaarel</maintainer>
       </classinfo>
       <groupinfo>
             <content>
                   <caption>Sisu</caption>
             </content>
+            <preview>
+                  <caption>Eelvaade</caption>
+            </preview>
       </groupinfo>
       <tableinfo>
             <aw_crm_offer>
