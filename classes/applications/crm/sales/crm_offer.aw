@@ -522,8 +522,6 @@ class crm_offer extends class_base
 		$this->vars(array(
 			"id" => $o->id(),
 			"date" => $o->prop("date"),
-			"sum" => number_format($o->prop("sum"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
-			"sum_text" => aw_locale::get_lc_money_text($o->prop("sum"), $o->currency()),
 			"currency" => obj($o->prop("currency"))->name(), //$o->prop("currency.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
 			"customer" => obj($o->prop("customer"))->name(), //$o->prop("customer.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
 		));
@@ -553,6 +551,8 @@ class crm_offer extends class_base
 		}
 
 		$this->vars(array(
+			"sum" => number_format($o->prop("sum"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+			"sum_text" => aw_locale::get_lc_money_text($o->prop("sum"), $o->currency()),
 			"ROW" => $ROW
 		));
 
