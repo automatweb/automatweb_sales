@@ -15,6 +15,21 @@
 	@property salesman type=objpicker clid=CL_CRM_PERSON field=aw_salesman
 	@caption M&uuml;&uuml;giesindaja nimi
 
+	@property currency type=objpicker clid=CL_CURRENCY field=aw_currency
+	@caption Valuuta
+
+	@property state type=select field=aw_state
+	@caption Staatus
+
+	@property send type=text store=no editonly=1
+	@caption Saada kliendile
+
+	@property sum type=hidden field=aw_sum
+	@caption Summa
+
+	@property date type=hidden field=aw_date
+	@caption Kuup&auml;ev
+
 @groupinfo content caption=Sisu
 @default group=content
 
@@ -26,6 +41,11 @@
 
 	@property content_total_price_components type=table editonly=1 no_caption=1 store=no
 
+@groupinfo preview caption=Eelvaade
+@default group=preview
+
+	@property preview type=text store=no no_caption=1 editonly=1
+
 */
 
 class crm_offer extends class_base
@@ -36,6 +56,19 @@ class crm_offer extends class_base
 			"tpldir" => "applications/crm/sales/crm_offer",
 			"clid" => CL_CRM_OFFER
 		));
+	}
+
+	public function _get_send($arr)
+	{
+		$arr["prop"]["value"] = html::href(array(
+			"caption" => t("Saada kliendile"),
+			"url" => $this->mk_my_orb("new", array("return_url" => get_ru(), "offer" => $arr["obj_inst"]->id(), "parent" => $arr["obj_inst"]->id()), CL_CRM_OFFER_SENT),
+		));
+	}
+
+	public function _get_state($arr)
+	{
+		$arr["prop"]["options"] = crm_offer_obj::state_names();
 	}
 
 	public function _get_content_toolbar($arr)
@@ -456,6 +489,104 @@ class crm_offer extends class_base
 		}
 	}
 
+	public function _get_sum($arr)
+	{
+		return PROP_IGNORE;
+	}
+
+	public function _set_sum($arr)
+	{
+		return PROP_IGNORE;
+	}
+
+	public function _get_preview($arr)
+	{
+		die($this->show(array(
+			"id" => $arr["obj_inst"]->id(),
+		)));
+	}
+
+	/**	Returns parsed HTML of the crm_offer template.
+		@attrib api=1
+		@param id required type=int
+			The OID of the crm_offer object to be shown.
+		@param show_confirmation optional type=boolean default=false
+			The OID of the crm_offer object to be shown.
+	**/
+	public function show($arr)
+	{
+		$this->read_template("show.tpl");
+
+		$o = new object($arr["id"]);
+
+		$this->vars(array(
+			"id" => $o->id(),
+			"date" => $o->prop("date"),
+			"sum" => number_format($o->prop("sum"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+			"sum_text" => aw_locale::get_lc_money_text($o->prop("sum"), $o->currency()),
+			"currency" => obj($o->prop("currency"))->name(), //$o->prop("currency.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+			"customer" => obj($o->prop("customer"))->name(), //$o->prop("customer.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+		));
+
+		$ROW = "";
+		foreach($o->get_rows() as $row)
+		{
+			$this->vars(array(
+				"object" => obj($row->prop("object"))->name(),	//$row->prop("object.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+				"unit" => obj($row->prop("unit"))->name(),	//$row->prop("unit.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+				"amount" => $row->prop("amount"),
+				"price" => number_format($row->get_price($row) / $row->prop("amount"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+				"sum" => number_format($row->get_price($row), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+			));
+			$ROW .= $this->parse("ROW");
+		}
+
+		if($o->state != crm_offer_obj::STATE_CONFIRMED && !empty($arr["show_confirmation"]))
+		{
+			$this->vars(array(
+				"do_confirmation_url" => aw_url_change_var("do_confirm", 1),
+			));
+
+			$this->vars(array(
+				"CONFIRMATION" => $this->parse("CONFIRMATION"),
+			));
+		}
+
+		$this->vars(array(
+			"ROW" => $ROW
+		));
+
+		return $this->parse();
+	}
+
+	/**
+		@attrib name=confirm params=name nologin=1
+		@param id required type=int
+		@param do_confirm optional type=boolean default=false
+	**/
+	public function confirm($arr)
+	{
+		if(!empty($arr["do_confirm"]))
+		{
+			$o = obj($arr["id"]);
+			$o->confirm();
+		}
+
+		die($this->show(array(
+			"id" => $arr["id"],
+			"show_confirmation" => true,
+		)));
+	}
+
+	public function callback_post_save($arr)
+	{
+		if(isset($arr["request"]["content_total_price_components"]["total_price"]))
+		{
+			$arr["obj_inst"]->set_prop("sum", aw_math_calc::string2float($arr["request"]["content_total_price_components"]["total_price"]));
+			$arr["obj_inst"]->save();
+		}
+	}
+
 	public function callback_generate_scripts($arr)
 	{
 		$js = "";
@@ -560,9 +691,25 @@ class crm_offer extends class_base
 			case "aw_customer_relation":
 			case "aw_salesman":
 			case "aw_customer":
+			case "aw_currency":
+			case "aw_date":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "int(11)"
+				));
+				return true;
+
+			case "aw_state":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "tinyint(1)"
+				));
+				return true;
+
+			case "aw_sum":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "decimal(19,4)"
 				));
 				return true;
 		}
