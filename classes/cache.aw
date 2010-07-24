@@ -186,7 +186,7 @@ class cache extends core
 		));
 	}
 
-	private static function get_fqfn($key)
+	public static function get_fqfn($key)
 	{
 		$hash = md5($key);
 

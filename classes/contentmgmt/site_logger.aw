@@ -15,14 +15,13 @@ class site_logger extends core
 	// !writes a pageview event to the aw log
 	function add($arr)
 	{
-		register_shutdown_function("log_pv", $GLOBALS["awt"]->timers["__global"]["started"]);
 		if (aw_ini_get("syslog.log_pageviews") != 1)
 		{
 			return false;
 		};
 		$this->_log(
-			16 /*ST_MENUEDIT*/, 
-			19 /*SA_PAGEVIEW*/, 
+			16 /*ST_MENUEDIT*/,
+			19 /*SA_PAGEVIEW*/,
 			$this->get_log_message(),
 			aw_global_get("section")
 		);
@@ -42,7 +41,7 @@ class site_logger extends core
 			$path_str = $sec_o->path_str();
 		}
 
-		// now also, if we are in some fg incremental search, 
+		// now also, if we are in some fg incremental search,
 		// log the "address" of that as well.
 		if (!empty($GLOBALS["tbl_sk"]))
 		{

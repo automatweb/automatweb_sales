@@ -29,6 +29,7 @@ function __autoload($class_name)
 
 		if (!class_exists($class_name, false) and !interface_exists($class_name, false))
 		{
+			debug_print_backtrace();
 			exit("Fatal classload error. Tried to load Zend framework class '" . $class_name . "'");//!!! tmp
 		}
 
@@ -110,6 +111,7 @@ function __autoload($class_name)
 		}
 		catch (awex_clidx $e)
 		{
+			debug_print_backtrace();
 			exit("Fatal classload error. " . $e->getMessage() . " Tried to load '" . $class_name . "'");//!!! tmp
 		}
 	}

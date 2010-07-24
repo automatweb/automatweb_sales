@@ -1,15 +1,13 @@
 <?php
-/*
-@classinfo maintainer=robert
-*/
+
 class meta_obj extends _int_object
 {
 	function meta($var = false)
 	{
-		if($var == "translations")
+		if($var === "translations")
 		{
 			$trans = parent::meta("translations");
-			if(!strlen($trans["name"]))
+			if(!isset($trans["name"]) or !strlen($trans["name"]))
 			{
 				$tolge = parent::meta("tolge");
 				if(count($tolge))
@@ -27,7 +25,7 @@ class meta_obj extends _int_object
 
 	function trans_get_val($prop, $lang_id = false, $ignore_status = false)
 	{
-		if($prop == "name")
+		if($prop === "name")
 		{
 			$this->meta("translations");
 		}
