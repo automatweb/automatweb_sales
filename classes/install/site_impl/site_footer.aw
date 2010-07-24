@@ -18,7 +18,7 @@ if (aw_global_get("uid"))
 {
 	$sf->vars(array(
 		"login" => "",
-		"uid"  => aw_global_get("uid"),
+		"uid"  => aw_global_get("uid")
 	));
 	$sf->vars(array("logged" => $sf->parse("logged")));
 }
@@ -61,20 +61,20 @@ else
 {
 	$str = $sf->parse();
 }
-if (aw_ini_get("content.doctype") == "html" )
+if (aw_ini_get("content.doctype") === "html" )
 {
-	$str = str_replace  ( "<br />", "<br>", $str);
+	$str = str_replace  ( array("<br />", "<br/>"), "<br>", $str);
 }
-else if (aw_ini_get("content.doctype") == "xhtml" )
+else if (aw_ini_get("content.doctype") === "xhtml" )
 {
-	$str = str_replace  ( "<br>", "<br />", $str);
+	$str = str_replace  ( array("<br>", "<BR>"), "<br />", $str);
 }
 
 // include the javascripts
 $s_plugins = "";
 foreach( $a_plugins as $key => $var )
 {
-	if ( $var["type"] == "js" )
+	if ( $var["type"] === "js" )
 	{
 		$s_plugins .= '<script type="text/javascript" src="'.aw_ini_get("baseurl").$key.'"></script>';
 	}

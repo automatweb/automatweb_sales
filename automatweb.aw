@@ -269,7 +269,148 @@ class automatweb
 
 		if (strpos($request_uri, "/automatweb") === false)
 		{
-			aw_redirect(new aw_uri(aw_ini_get("baseurl") . "/automatweb/"));
+			// aw_redirect(new aw_uri(aw_ini_get("baseurl") . "/automatweb/"));
+
+/********************** XXX legacy site startup *************************/
+//TODO new site startup
+$section = null;
+$pi = "";
+
+$PATH_INFO = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : null;
+$QUERY_STRING = isset($_SERVER["QUERY_STRING"]) ? $_SERVER["QUERY_STRING"] : null;
+$REQUEST_URI = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : null;
+
+$PATH_INFO = isset($PATH_INFO) ? preg_replace("|\?automatweb=[^&]*|","", $PATH_INFO) : "";
+$QUERY_STRING = isset($QUERY_STRING) ? preg_replace("|\?automatweb=[^&]*|","", $QUERY_STRING) : "";
+
+if (($QUERY_STRING == "" && $PATH_INFO == "") && $REQUEST_URI != "")
+{
+        $QUERY_STRING = $REQUEST_URI;
+        $QUERY_STRING = str_replace("xmlrpc.aw", "", str_replace("index.aw", "", str_replace("orb.aw", "", str_replace("login.aw", "", str_replace("reforb.aw", "", $QUERY_STRING)))));
+}
+
+if (strlen($PATH_INFO) > 1)
+{
+	$pi = $PATH_INFO;
+}
+
+if (strlen($QUERY_STRING) > 1)
+{
+	$pi .= "?".$QUERY_STRING;
+}
+
+$pi = trim($pi);
+
+if (substr($pi, 0, strlen("/class=image")) == "/class=image")
+{
+	$pi = substr(str_replace("/", "&", str_replace("?", "&", $pi)), 1);
+	parse_str($pi, $_GET);
+}
+
+if (substr($pi, 0, strlen("/class=file")) == "/class=file")
+{
+	$pi = substr(str_replace("/", "&", str_replace("?", "&", $pi)), 1);
+	parse_str($pi, $_GET);
+}
+elseif (substr($pi, 0, strlen("/class=flv_file")) == "/class=flv_file")
+{
+	$pi = substr(str_replace("/", "&", str_replace("?", "&", $pi)), 1);
+	parse_str($pi, $_GET);
+}
+else
+{
+	$_SERVER["REQUEST_URI"] = isset($_SERVER['REQUEST_URI']) ? preg_replace("|\?automatweb=[^&]*|","", $_SERVER["REQUEST_URI"]) : "";
+	$pi = preg_replace("|\?automatweb=[^&]*|ims", "", $pi);
+	if ($pi)
+	{
+		if (($_pos = strpos($pi, "section=")) === false)
+		{
+			// ok, we need to check if section is followed by = then it is not really the section but
+			// for instance index.aw/set_lang_id=1
+			// we check for that like this:
+			// if there are no / or ? chars before = then we don't prepend
+
+			$qpos = strpos($pi, "?");
+			$slpos = strpos($pi, "/");
+			$eqpos = strpos($pi, "=");
+			$qpos = $qpos ? $qpos : 20000000;
+			$slpos = $slpos ? $slpos : 20000000;
+
+			if (!$eqpos || ($eqpos > $qpos || $slpos > $qpos))
+			{
+				// if no section is in url, we assume that it is the first part of the url and so prepend section = to it
+				$pi = str_replace("?", "&", "section=".substr($pi, 1));
+			}
+		}
+
+		// support for links like http://bla/index.aw?291?lcb=117 ?424242?view=3&date=20
+		// this is a quick fix for a specific problem on june 22th 2010 with opera.ee site
+		// might have been a configuration error, for increase of tolerance in that case then
+		if (preg_match("/^\\?([0-9]+)\\?/", $pi, $section_info))
+		{
+			$section = $section_info[1];
+		}
+
+		if (($_pos = strpos($pi, "section=")) !== false)
+		{
+			// this here adds support for links like http://bla/index.aw/section=291/lcb=117
+			$t_pi = substr($pi, $_pos+strlen("section="));
+			if (($_eqp = strpos($t_pi, "="))!== false)
+			{
+				$t_pi = substr($t_pi, 0, $_eqp);
+				$_tpos1 = strpos($t_pi, "?");
+				$_tpos2 = strpos($t_pi, "&");
+				if ($_tpos1 !== false || $_tpos2 !== false)
+				{
+					// if the thing contains ? or & , then section is the part before it
+					if ($_tpos1 === false)
+					{
+						$_tpos = $_tpos2;
+					}
+					else
+					if ($_tpos2 === false)
+					{
+						$_tpos = $_tpos1;
+					}
+					else
+					{
+						$_tpos = min($_tpos1, $_tpos2);
+					}
+					$section = substr($t_pi, 0, $_tpos);
+				}
+				else
+				{
+					// if not, then te section is the part upto the last /
+					$_lslp = strrpos($t_pi, "/");
+					if ($_lslp !== false)
+					{
+						$section = substr($t_pi, 0, $_lslp);
+					}
+					else
+					{
+						$section = $t_pi;
+					}
+				}
+			}
+			else
+			{
+				$section = $t_pi;
+			}
+		}
+	}
+}
+
+aw_global_set("section", $section);
+
+
+			// can't use classload here, cause it will be included from within a function and then all kinds of nasty
+			// scoping rules come into action. blech.
+			$script = basename($_SERVER["SCRIPT_FILENAME"], AW_FILE_EXT);
+			$path = aw_ini_get("classdir") . "/" . aw_ini_get("site_impl_dir") . "/" . $script . "_impl" . AW_FILE_EXT;
+			if (file_exists($path))
+			{
+				self::$result->set_data(get_include_contents($path));
+			}
 		}
 		else
 		{
@@ -505,4 +646,3 @@ class automatweb
 	}
 }
 
-?>

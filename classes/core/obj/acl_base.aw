@@ -389,22 +389,16 @@ class acl_base extends db_connector
 			return $GLOBALS["object_loader"]->can($access, $oid);
 		}
 
-		static $acl_cache;
-		if (!$acl_cache)
-		{
-			$acl_cache = get_instance("cache");
-		}
-
 		$this->save_handle();
 		if (!($max_acl = aw_cache_get("__aw_acl_cache", $oid)))
 		{
 			$_uid = isset($_SESSION["uid"]) ? $_SESSION["uid"] : "";
 			$fn = "acl-".$oid."-uid-".$_uid;
-			if (($str_max_acl = $acl_cache->file_get_pt_oid("acl", $oid, $fn)) == false)
+			if (($str_max_acl = cache::file_get_pt_oid("acl", $oid, $fn)) == false)
 			{
 				$max_acl = $this->can_aw($access,$oid);
 
-				$acl_cache->file_set_pt_oid("acl", $oid, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
+				cache::file_set_pt_oid("acl", $oid, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
 				aw_cache_set("__aw_acl_cache", $oid, $max_acl);
 			}
 			else

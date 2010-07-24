@@ -275,16 +275,16 @@ class classificator extends class_base
 		if (false !== strpos($name,"["))
 		{
 			$name = substr($name,strpos($name,"[")+1,-1);
-		};
-
-		$clf_type = $oft->meta("clf_type");
-		$use_type = $clf_type[$name];
+		}
 
 		// XXX: implement some error checking
-		if(!$this->can("view", $clf[$name]))
+		if(!isset($clf[$name]) or !$this->can("view", $clf[$name]))
 		{
 			return false;
 		}
+
+		$clf_type = $oft->meta("clf_type");
+		$use_type = isset($clf_type[$name]) ? $clf_type[$name] : ""; //FIXME data corrupt -- fix, ignore, abort, ..?
 		$ofto = new object($clf[$name]);
 		$vars = array(
 			"parent" => $clf[$name],

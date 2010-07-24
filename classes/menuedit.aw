@@ -153,7 +153,7 @@ class menuedit extends aw_template implements request_startup
 					$dt = get_instance(CL_DOCUMENT_STATISTICS);
 					$dt->add_hit($realsect);
 				}
-			};
+			}
 		}
 
 		if ($set_ct_lang_id)
@@ -190,7 +190,7 @@ class menuedit extends aw_template implements request_startup
 				$tmp = aw_ini_get("ini_frontpage");
 				$GLOBALS["cfg"]["frontpage"] = $tmp[aw_global_get("lang_id")];
 			}
-		};
+		}
 		aw_global_set("section",$realsect);
 	}
 
@@ -526,7 +526,7 @@ class menuedit extends aw_template implements request_startup
 					}
 				}
 			}
-		};
+		}
 
 		if (!$section)
 		{

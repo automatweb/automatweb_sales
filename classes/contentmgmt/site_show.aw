@@ -111,9 +111,6 @@ class site_show extends class_base
 		$this->left_pane = (isset($arr["no_left_pane"]) && $arr["no_left_pane"] == true) ? false : true;
 		$this->right_pane = (isset($arr["no_right_pane"]) && $arr["no_right_pane"] == true) ? false : true;
 
-		//print "aa";
-		//flush();
-
 		$this->_init_path_vars($arr);
 		// figure out the menu that is active
 		$this->sel_section = $this->_get_sel_section(aw_global_get("section"));
@@ -134,10 +131,10 @@ class site_show extends class_base
 		}
 
 		$this->do_check_properties($arr);
-		
-		$apd = get_instance("layout/active_page_data");
+
+		$apd = new active_page_data();
 		$rv = $this->do_show_template($arr);
-		
+
 		$apd->on_shutdown_get_styles($rv);
 		return $rv;
 	}
@@ -325,7 +322,7 @@ class site_show extends class_base
 			$si->init_gen_site_html(array(
 				"tpldir" => &$arr["tpldir"],
 				"template" => &$arr["template"],
-				"inst" => &$this
+				"inst" => $this
 			));
 		}
 
@@ -1443,12 +1440,12 @@ class site_show extends class_base
 		{
 			return;
 		}
+
 		if ($this->sel_section_obj->prop("periodic") && $arr["text"] == "")
 		{
 			$docc = $this->show_periodic_documents($arr);
 		}
-		else
-		if ($arr["text"] == "")
+		elseif ($arr["text"] == "")
 		{
 			$docc = $this->show_documents($arr);
 		}
@@ -1457,7 +1454,7 @@ class site_show extends class_base
 			$docc = $arr["text"];
 		}
 
-		if (!empty($GLOBALS["real_no_menus"]))
+		if (aw_global_get("real_no_menus"))
 		{
 			die($docc);
 		}
@@ -2238,7 +2235,7 @@ class site_show extends class_base
 		static $last_mod;
 		if (!$last_mod)
 		{
-			if (($last_mod = $this->cache->file_get("objlastmod")) === false)
+			if (($last_mod = cache::file_get("objlastmod")) === false)
 			{
 				$add = "";
 				if (aw_ini_get("site_show.objlastmod_only_menu"))
@@ -2246,7 +2243,7 @@ class site_show extends class_base
 					$add = " WHERE class_id = ".CL_MENU;
 				}
 				$last_mod = $this->db_fetch_field("SELECT MAX(modified) as m FROM objects".$add, "m");
-				$this->cache->file_set("objlastmod", $last_mod);
+				cache::file_set("objlastmod", $last_mod);
 			}
 			// also compiled menu template
 			$last_mod = max($last_mod, @filemtime($this->compiled_filename));
@@ -2545,9 +2542,9 @@ class site_show extends class_base
 			"IS_NOT_FRONTPAGE2" => (!$isfp ? $this->parse("IS_NOT_FRONTPAGE2") : ""),
 			"IS_NOT_FRONTPAGE3" => (!$isfp ? $this->parse("IS_NOT_FRONTPAGE3") : ""),
 			"IS_NOT_FRONTPAGE4" => (!$isfp ? $this->parse("IS_NOT_FRONTPAGE4") : ""),
-			"POPUP_MENUS_SITE" => $this->cache->file_get("aw_toolbars") // toolbar menu button menuitem layer
+			"POPUP_MENUS_SITE" => cache::file_get("aw_toolbars") // toolbar menu button menuitem layer
 		));
-		$this->cache->file_set("aw_toolbars", "");
+		cache::file_set("aw_toolbars", "");
 
 
 		if (aw_global_get("uid") == "")
@@ -2978,7 +2975,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		$what_to_replace = array('/','.','\\',':');
 		$str_part = str_replace($what_to_replace, '_', $tpl);
 
-		$fn = $this->cache->get_fqfn("compiled_menu_template-".$str_part."-".aw_global_get("lang_id"));
+		$fn = cache::get_fqfn("compiled_menu_template-".$str_part."-".aw_global_get("lang_id"));
 
 		if ($tpl[0] != "/")
 		{
@@ -3017,7 +3014,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		if (isset($arr["tpldir"]) && $arr["tpldir"] != "")
 		{
 			$this->tpl_init(sprintf("../%s/automatweb/menuedit",$arr["tpldir"]));
-			$tpldir = $arr["tpldir"]."/automatweb/menuedit";;
+			$tpldir = $arr["tpldir"]."/automatweb/menuedit";
 		}
 
 
@@ -3032,7 +3029,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 
 		// import language constants
 		lc_site_load("menuedit",$this);
-		
+
 		$this->do_sub_callbacks(isset($arr["sub_callbacks"]) ? $arr["sub_callbacks"] : array());
 
 		if (($docc = $this->do_show_documents($arr)) != "")
@@ -3048,9 +3045,8 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 
 		$this->make_langs();
 
-		classload("core/util/minify_js_and_css");
 		minify_js_and_css::parse_site_header($this);
-		
+
 		// execute menu drawing code
 		$this->do_draw_menus($arr);
 		// repeated here, so you can use things both ways

@@ -834,7 +834,7 @@ class personnel_management extends class_base
 		$retval = PROP_OK;
 		$person_language_inst = new crm_person_language();
 
-		if($this->can("view", $arr["request"]["search_save"]))
+		if(isset($arr["request"]["search_save"]) and $this->can("view", $arr["request"]["search_save"]))
 		{	// If 'Varasem otsing' is selected.
 			$sso = obj($arr["request"]["search_save"]);
 			$arr["request"] += $sso->meta();
@@ -922,7 +922,7 @@ class personnel_management extends class_base
 				));
 				$prop["options"] = array(0 => t("--vali--")) + $ssol->names();
 				$prop["onchange"] = "submit_changeform();";
-				if($this->can("view", $arr["request"]["search_save"]))
+				if(isset($arr["request"]["search_save"]) and $this->can("view", $arr["request"]["search_save"]))
 				{
 					$prop["value"] = $arr["request"]["search_save"];
 				}
@@ -1088,8 +1088,15 @@ class personnel_management extends class_base
 			case "os_contact":
 
 			case "vs_name":
-				$s = $arr['request'][$prop["name"]];
-				$this->dequote($s);
+				if (isset($arr['request'][$prop["name"]]))
+				{
+					$s = $arr['request'][$prop["name"]];
+					$this->dequote($s);
+				}
+				else
+				{
+					$s = "";
+				}
 				$prop['value'] = $s;
 				break;
 
@@ -1153,12 +1160,14 @@ class personnel_management extends class_base
 
 			case "cv_driving_licence":
 				$cats = get_instance(CL_CRM_PERSON)->drivers_licence_categories();
+				$prop["value"] = "";
 				foreach($cats as $k => $c)
 				{
+					$checked = isset($arr["request"]["cv_driving_licence"][$k]) ? ($arr["request"]["cv_driving_licence"][$k] == $k) : false;
 					$prop["value"] .= html::checkbox(array(
 						"name" => "cv_driving_licence[".$k."]",
 						"value" => $k,
-						"checked" => $arr["request"]["cv_driving_licence"][$k] == $k,
+						"checked" => $checked,
 						"caption" => $c,
 						"nbsp" => 1,
 						"span" => 1,
@@ -4696,19 +4705,22 @@ class personnel_management extends class_base
 
 	function add_skill_options(&$skills, &$options, &$disabled_options, $id, $lvl)
 	{
-		foreach($skills[$id] as $sid => $sdata)
+		if (isset($skills[$id]) and is_array($skills[$id]))
 		{
-			if($sdata["subheading"])
-				$disabled_options[] = $sid;
-
-			$str = "";
-			for($i = 0; $i < $lvl; $i++)
+			foreach($skills[$id] as $sid => $sdata)
 			{
-				$str .= "- ";
-			}
+				if($sdata["subheading"])
+					$disabled_options[] = $sid;
 
-			$options[$sid] = $str.$sdata["name"];
-			$this->add_skill_options($skills, $options, $disabled_options, $sid, $lvl + 1);
+				$str = "";
+				for($i = 0; $i < $lvl; $i++)
+				{
+					$str .= "- ";
+				}
+
+				$options[$sid] = $str.$sdata["name"];
+				$this->add_skill_options($skills, $options, $disabled_options, $sid, $lvl + 1);
+			}
 		}
 	}
 
