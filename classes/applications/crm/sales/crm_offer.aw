@@ -533,7 +533,7 @@ class crm_offer extends class_base
 				"object" => obj($row->prop("object"))->name(),	//$row->prop("object.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
 				"unit" => obj($row->prop("unit"))->name(),	//$row->prop("unit.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
 				"amount" => $row->prop("amount"),
-				"price" => number_format($row->get_price($row) / $row->prop("amount"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+				"price" => $row->prop("amount") != 0 ? number_format($row->get_price($row) / $row->prop("amount"), 2) : $row->get_price($row),	// number_format() SHOULD BE DONE ON TPL LEVEL!
 				"sum" => number_format($row->get_price($row), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
 			));
 			$ROW .= $this->parse("ROW");
@@ -563,13 +563,19 @@ class crm_offer extends class_base
 		@attrib name=confirm params=name nologin=1
 		@param id required type=int
 		@param do_confirm optional type=boolean default=false
+		@param firstname optional type=string
+		@param lastname optional type=string
+		@param organisation optional type=string
+		@param profession optional type=string
+		@param phone optional type=string
+		@param email optional type=string
 	**/
 	public function confirm($arr)
 	{
 		if(!empty($arr["do_confirm"]))
 		{
 			$o = obj($arr["id"]);
-			$o->confirm();
+			$o->confirm($arr);
 		}
 
 		die($this->show(array(
@@ -680,9 +686,21 @@ class crm_offer extends class_base
 
 	public function do_db_upgrade($t, $f)
 	{
-		if ($f == "")
+		if ("aw_crm_offer" === $t and $f === "")
 		{
 			$this->db_query("CREATE TABLE aw_crm_offer(aw_oid int primary key)");
+			return true;
+		}
+		elseif("aw_crm_offer_confirmations" === $t and $f === "")
+		{
+			$this->db_query("CREATE TABLE aw_crm_offer_confirmations (
+				aw_offer int primary key,
+				aw_firstname varchar (100),
+				aw_lastname varchar (100),
+				aw_organisation varchar (100),
+				aw_profession varchar (100),
+				aw_phone varchar (100),
+				aw_email varchar (100))");
 			return true;
 		}
 
@@ -693,6 +711,8 @@ class crm_offer extends class_base
 			case "aw_customer":
 			case "aw_currency":
 			case "aw_date":
+
+			case "aw_offer":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "int(11)"
@@ -712,6 +732,19 @@ class crm_offer extends class_base
 					"type" => "decimal(19,4)"
 				));
 				return true;
+
+			case "aw_firstname":
+			case "aw_lastname":
+			case "aw_organisation":
+			case "aw_profession":
+			case "aw_phone":
+			case "aw_email":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "varchar(100)"
+				));
+				return true;
+
 		}
 	}
 }
