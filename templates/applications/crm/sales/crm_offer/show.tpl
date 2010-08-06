@@ -3,7 +3,7 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset={VAR:charset}" />
 	<title>Pakkumine nr {VAR:id}</title>
 
 	<style type="text/css">
@@ -34,6 +34,10 @@
 		#bill tr td.main table tr td.words strong { color: #666666; padding-right: 1em; }
 
 		#bill tr td.footer { border-top: 1px solid #cccccc; text-align: center; font-size: 11px; color: #666666; vertical-align: bottom; height: 2em; }
+
+		#confirmation { width: 200px; height: 100%; margin: auto; vertical-align: top; padding: 3em 0 3em 0; }
+		#confirmation label { font-size: 12px; font-family: Arial; display: block; clear: both; padding: 3px 0px; }
+
 	</style>
 
 	<style type="text/css" media="print">
@@ -49,89 +53,117 @@
 <body>
 
 <table id="bill" cellpadding="0" cellspacing="0" border="0">
-	<tr class="header">
-		<td class="logo">
-			<img src="http://intranet.automatweb.com/img/bill/logo.png">
-		</td>
-	</tr>
 	<tr>
-		<td colspan="2" class="heading">
-			<h1>Pakkumine nr {VAR:id}</h1>
+		<!-- SUB: CONFIRMATION -->
+		<td id="confirmation">
+			<form name="confirm" method="get">
+				<label for="firstname">Eesnimi:</label>
+					<input type="text" name="firstname" id="firstname" /><br />
+				<label for="firstname">Perekonnanimi:</label>
+					<input type="text" name="lastname" id="lastname" /><br />
+				<label for="firstname">Organisatsioon:</label>
+					<input type="text" name="organisation" id="organisation" /><br />
+				<label for="firstname">Amet:</label>
+					<input type="text" name="profession" id="profession" /><br />
+				<label for="firstname">Telefon:</label>
+					<input type="text" name="phone" id="phone" /><br />
+				<label for="firstname">E-post:</label>
+					<input type="text" name="email" id="email" /><br />
+
+				<input type="hidden" name="class" value="crm_offer" />
+				<input type="hidden" name="action" value="confirm" />
+				<input type="hidden" name="id" value="{VAR:id}" />
+				<input type="hidden" name="do_confirm" value="1" />
+
+				<br /><br />
+
+				<input type="submit" value="Kinnitan pakkumise">
+			</form>
 		</td>
-	</tr>
-	<tr>
-		<td class="info">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<tr>
-					<td class="caption">Tellija:</td>
-					<td class="content">{VAR:customer}</td>
-				</tr>
-				<!-- 
-				<tr>
-					<td class="caption"></td>
-					<td class="content">{VAR:orderer_street}</td>
+		<!-- END SUB: CONFIRMATION -->
+		<td>
+			<table>
+				<tr class="header">
+					<td class="logo">
+						<img src="http://intranet.automatweb.com/img/bill/logo.png">
+					</td>
 				</tr>
 				<tr>
-					<td class="caption"></td>
-					<td class="content">{VAR:orderer_index}, {VAR:orderer_city}</td>
+					<td colspan="2" class="heading">
+						<h1>Pakkumine nr {VAR:id}</h1>
+					</td>
 				</tr>
 				<tr>
-					<td class="caption"></td>
-					<td class="content bottom">{VAR:orderer_country}</td>
+					<td class="info">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td class="caption">Tellija:</td>
+								<td class="content">{VAR:customer}</td>
+							</tr>
+							<!-- 
+							<tr>
+								<td class="caption"></td>
+								<td class="content">{VAR:orderer_street}</td>
+							</tr>
+							<tr>
+								<td class="caption"></td>
+								<td class="content">{VAR:orderer_index}, {VAR:orderer_city}</td>
+							</tr>
+							<tr>
+								<td class="caption"></td>
+								<td class="content bottom">{VAR:orderer_country}</td>
+							</tr>
+							-->
+						</table>
+					</td>
+					<td class="info">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td class="caption">Pakkumise nr:</td>
+								<td class="content">{VAR:id}</td>
+							</tr>
+							<tr>
+								<td class="caption">Pakkumise kuup&auml;ev:</td>
+								<td class="content">{DATE:date|d.m.y}</td>
+							</tr>
+						</table>
+					</td>
 				</tr>
-				-->
+				<tr>
+					<td colspan="2" class="main">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<th width="50%">Selgitus</th>
+								<th width="10%">&Uuml;hik</th>
+								<th width="10%">Kogus</th>
+								<th width="10%">Hind</th>
+								<th width="20%">Summa</th>
+							</tr>
+							<!-- SUB: ROW -->
+							<tr>
+								<td>{VAR:object}&nbsp;</td>
+								<td>{VAR:unit}&nbsp;</td>
+								<td>{VAR:amount}&nbsp;</td>
+								<td>{VAR:price}&nbsp;</td>
+								<td>{VAR:sum} {VAR:currency}&nbsp;</td>
+							</tr>
+							<!-- END SUB: ROW -->
+							<tr>
+								<td colspan="4" class="caption">Summa:</td>
+								<td>{VAR:sum} {VAR:currency}</td>
+							</tr>
+							<tr>
+								<td colspan="5" class="words"><strong>Summa s&otilde;nadega:</strong> {VAR:sum_text}</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="footer">
+						<p>www.automatweb.com</p>
+					</td>
+				</tr>
 			</table>
-		</td>
-		<td class="info">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<tr>
-					<td class="caption">Pakkumise nr:</td>
-					<td class="content">{VAR:id}</td>
-				</tr>
-				<tr>
-					<td class="caption">Pakkumise kuupäev:</td>
-					<td class="content">{DATE:date|d.m.y}</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" class="main">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<tr>
-					<th width="50%">Selgitus</th>
-					<th width="10%">Ühik</th>
-					<th width="10%">Kogus</th>
-					<th width="10%">Hind</th>
-					<th width="20%">Summa</th>
-				</tr>
-				<!-- SUB: ROW -->
-				<tr>
-					<td>{VAR:object}&nbsp;</td>
-					<td>{VAR:unit}&nbsp;</td>
-					<td>{VAR:amount}&nbsp;</td>
-					<td>{VAR:price}&nbsp;</td>
-					<td>{VAR:sum} {VAR:currency}&nbsp;</td>
-				</tr>
-				<!-- END SUB: ROW -->
-				<tr>
-					<td colspan="4" class="caption">Summa:</td>
-					<td>{VAR:sum} {VAR:currency}</td>
-				</tr>
-				<tr>
-					<td colspan="5" class="words"><strong>Summa sõnadega:</strong> {VAR:sum_text}</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-	<!-- SUB: CONFIRMATION -->
-	<a href="{VAR:do_confirmation_url}">Kinnitan pakkumise</a>
-	<!-- END SUB: CONFIRMATION -->
-	</tr>
-	<tr>
-		<td colspan="2" class="footer">
-			<p>www.automatweb.com</p>
 		</td>
 	</tr>
 </table>
