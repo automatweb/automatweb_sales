@@ -1,6 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/gallery/mini_gallery.aw,v 1.50 2008/10/23 08:42:08 kristo Exp $
-// mini_gallery.aw - Minigalerii 
+// mini_gallery.aw - Minigalerii
 /*
 
 @classinfo syslog_type=ST_MINI_GALLERY relationmgr=yes no_status=1 maintainer=kristo
@@ -8,11 +7,11 @@
 @default table=objects
 
 @default group=data
-	
+
 	@property name type=textbox rel=1 trans=1 table=objects
 	@caption Nimi
 
-	@property folder type=relpicker multiple=1 reltype=RELTYPE_IMG_FOLDER field=meta method=serialize 
+	@property folder type=relpicker multiple=1 reltype=RELTYPE_IMG_FOLDER field=meta method=serialize
 	@caption Piltide kataloog
 
 	@property cols type=textbox size=5 field=meta method=serialize default=2
@@ -25,7 +24,7 @@
 
 	@property comments type=checkbox field=flags method=bitmask ch_value=1
 	@caption Pildid kommenteeritavad
-	
+
 	@property style type=relpicker reltype=RELTYPE_STYLE field=meta method=serialize
 	@caption Piltide stiil
 
@@ -82,11 +81,11 @@ class mini_gallery extends class_base
 		));
 		$this->sorts = array(
 			"objects.name" => t("Nimi"),
-			"objects.jrk" => t("J&auml;rjekord"), 
-			"objects.created" => t("Loomise kuup&auml;ev vanemad enne"), 
+			"objects.jrk" => t("J&auml;rjekord"),
+			"objects.created" => t("Loomise kuup&auml;ev vanemad enne"),
 			"objects.modified" => t("Muutmise kuup&auml;ev vanemad enne"),
 			"images.aw_date_taken" => t("Pildistamise kuup&auml;ev vanemad enne"),
-			"objects.created desc" => t("Loomise kuup&auml;ev uuemad enne"), 
+			"objects.created desc" => t("Loomise kuup&auml;ev uuemad enne"),
 			"objects.modified desc" => t("Muutmise kuup&auml;ev uuemad enne"),
 			"images.aw_date_taken desc" => t("Pildistamise kuup&auml;ev uuemad enne"),
 		);
@@ -101,7 +100,7 @@ class mini_gallery extends class_base
 			case "mg_fld_table":
 				$this->_get_mg_fld_table($arr);
 				break;
-				
+
 			case "sorter":
 				$prop["options"] = array("" => "") + $this->sorts;
 				break;
@@ -135,7 +134,7 @@ class mini_gallery extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function parse_alias($arr)
 	{
@@ -179,7 +178,7 @@ class mini_gallery extends class_base
 
 				case "objects.modified desc":
 					return $b->modified() - $a->modified();
-				
+
 				case "images.aw_date_taken desc":
 					return $b->prop("date_taken") - $a->prop("date_taken");
 
@@ -281,7 +280,7 @@ class mini_gallery extends class_base
 			$rows = ceil($img_c / $ob->prop("cols"));
 			$cols = $ob->prop("cols");
 		}
-		$img = $images->begin(); 
+		$img = $images->begin();
 
 		if ($ob->prop("rows"))
 		{
@@ -299,7 +298,7 @@ class mini_gallery extends class_base
 
 		$tplar = array();
 		$f_tplar = array();
-		
+
 		$tpls = array(
 			"IMAGE" => "image",
 			"IMAGE_LINKED" => "image_linked",
@@ -309,7 +308,7 @@ class mini_gallery extends class_base
 		foreach($tpls as $uc_name => $lc_name)
 		{
 			$f_uc_name = "FIRST_".$uc_name;
-				
+
 			if ($this->is_template($uc_name))
 			{
 				$imtpl = $this->get_template_string($uc_name);
@@ -436,7 +435,7 @@ class mini_gallery extends class_base
 			mkdir($folder, 0777);
 			$tn = $folder;
 			$zip = zip_open($zip);
-			while ($zip_entry = zip_read($zip)) 
+			while ($zip_entry = zip_read($zip))
 			{
 				zip_entry_open($zip, $zip_entry, "r");
 				$fn = $folder."/".basename(zip_entry_name($zip_entry));
@@ -465,25 +464,23 @@ class mini_gallery extends class_base
 
 
 			$files = array();
-			if ($dir = @opendir($tn)) 
+			if ($dir = @opendir($tn))
 			{
-				while (($file = readdir($dir)) !== false) 
+				while (($file = readdir($dir)) !== false)
 				{
 					if (!($file == "." || $file == ".."))
 					{
 						$files[] = $file;
 					}
-				}  
+				}
 				closedir($dir);
 			}
 		}
 
-		$imgi = get_instance(CL_IMAGE);
-		$fi = get_instance(CL_FILE);
+		$imgi = new image();
+		$fi = new file();
 		foreach($files as $file)
 		{
-			echo "leidsin faili $file <br>\n";
-			flush();
 			$fp = $tn."/".$file;
 
 			if ($_POST["refresh"] == 1)
@@ -493,8 +490,6 @@ class mini_gallery extends class_base
 					"class_id" => CL_IMAGE,
 					"name" => $file,
 					"parent" => $fld,
-					"lang_id" => array(),
-					"site_id" => array()
 				));
 				if ($ol->count())
 				{
@@ -513,7 +508,7 @@ class mini_gallery extends class_base
 			$img->set_parent($fld);
 			$img->set_status(STAT_ACTIVE);
 			$img->set_name($file);
-			
+
 			if (function_exists("exif_read_data"))
 			{
 				$dat = exif_read_data($fp);
@@ -527,16 +522,13 @@ class mini_gallery extends class_base
 				"content" => $this->get_file(array("file" => $fp))
 			));
 			$img->set_prop("file", $fl);
-
 			$img->save();
 
 			$imgi->do_apply_gal_conf($img);
 
-			@unlink($fp);
+			unlink($fp);
 		}
-		echo "valmis<br>\n";
-		flush();
-		@rmdir($tn);
+		rmdir($tn);
 	}
 
 	function _do_pageselector($ob, $img_c, $rows, $cols)

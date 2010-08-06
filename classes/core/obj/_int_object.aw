@@ -2290,23 +2290,29 @@ class _int_object
 
 		if (!empty($param["full_path"]))
 		{
-			$rootmenu = 1;
+			$rootmenu = array(1);
 			$add = false;
 		}
 		else
 		if (is_admin())
 		{
-			$rootmenu = (array)$GLOBALS["cfg"]["admin_rootmenu2"];
+			$rootmenu = array(aw_ini_get("admin_rootmenu2"));
 			$add = false;
 		}
 		else
 		{
-			$rootmenu = array($GLOBALS["cfg"]["rootmenu"]);
+			$rootmenu = array(aw_ini_get("rootmenu"));
 			$add = true;
 		}
 
+// /* dbg */ if ($GLOBALS["gdg"] == 1)
+// /* dbg */ echo "int path enter ".dbg::dump($param)." parent = $parent root = ".dbg::dump($rootmenu)." <br>\n";
+
 		while ($parent && !in_array($parent, $rootmenu))
 		{
+// /* dbg */ if ($GLOBALS["gdg"] == 1)
+// /* dbg */ echo "loop with $parent <br>\n";
+
 			if ($GLOBALS["object_loader"]->ds->can("view", $parent))
 			{
 				unset($t);
@@ -2351,6 +2357,9 @@ class _int_object
 				return;
 			}
 		}
+
+// /* dbg */ if ($GLOBALS["gdg"] == 1)
+// /* dbg */ echo "int path return ".dbg::dump($ret)." <br>\n";
 
 		if ($add && !aw_global_get("__is_install"))
 		{

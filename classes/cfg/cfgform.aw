@@ -2532,9 +2532,12 @@ class cfgform extends class_base
 
 							case "relpicker":
 								$this->vars(array(
-									"no_edit_caption" => t("Nuppudeta"),
+									"no_edit_caption" => t("Muutmine keelatud"),
 									"no_edit_checked" => isset($property["no_edit"]) ? checked($property["no_edit"] == 1) : "",
 									"no_edit" => isset($property["no_edit"]) ? $property["no_edit"] : "",
+									"no_search_caption" => t("Otsing keelatud"),
+									"no_search_checked" => isset($property["no_search"]) ? checked($property["no_search"] == 1) : "",
+									"no_search" => isset($property["no_search"]) ? $property["no_search"] : "",
 									"displayradio_caption" => t("Valikud"),
 									"displayradio_ch" => (isset($property["display"]) and "radio" === $property["display"]) ? ' checked="1"' : "",
 									"displayselect_caption" => t("Selectbox"),

@@ -319,8 +319,6 @@ class personnel_management_job_offer_webview extends class_base
 			"parent" => array(),
 			"status" => object::STAT_ACTIVE,
 			"confirmed" => 1,
-			"site_id" => array(),
-			"lang_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -330,22 +328,27 @@ class personnel_management_job_offer_webview extends class_base
 			)),
 			"start" => new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, time()),
 		);
+
 		if(is_array($o->org) && count($o->org) > 0)
 		{
-			$ol_prms["CL_PERSONNEL_MANAGEMENT_JOB_OFFER.company"] = $o->org;
+			// $ol_prms["CL_PERSONNEL_MANAGEMENT_JOB_OFFER.company"] = $o->org;
 		}
+
 		if(is_array($o->secs) && count($o->secs) > 0)
 		{
 			$ol_prms["CL_PERSONNEL_MANAGEMENT_JOB_OFFER.sect"] = $o->secs;
 		}
+
 		if(is_array($o->areas) && count($o->areas) > 0)
 		{
 			$ol_prms["CL_PERSONNEL_MANAGEMENT_JOB_OFFER.loc_area"] = $o->areas;
 		}
+
 		if(is_array($o->counties) && count($o->counties) > 0)
 		{
 			$ol_prms["CL_PERSONNEL_MANAGEMENT_JOB_OFFER.loc_county"] = $o->counties;
 		}
+
 		if(is_array($o->cities) && count($o->cities) > 0)
 		{
 			$ol_prms["CL_PERSONNEL_MANAGEMENT_JOB_OFFER.loc_city"] = $o->cities;
@@ -357,7 +360,7 @@ class personnel_management_job_offer_webview extends class_base
 		$this->ord_info = $this->order_ord_info($o->meta("ord_tbl"));
 		$this->ordi = 0;
 		uasort($jos, array($this, "decide_ord"));
-		
+
 		$this->ord_info = $this->order_ord_info($o->meta("grp_ord_tbl"));
 
 		switch ($o->grp_rule)
@@ -373,7 +376,7 @@ class personnel_management_job_offer_webview extends class_base
 					"county" => t("Maakonnad"),
 					"city" => t("Linnad"),
 				);
-				$GROUP_LVL1 = "";				
+				$GROUP_LVL1 = "";
 				$ol_prms = array(
 					"parent" => array(),
 					"status" => array(),
@@ -411,12 +414,12 @@ class personnel_management_job_offer_webview extends class_base
 
 					$GROUP_LVL1 = "";
 					uasort($ol_arr, array($this, "decide_ord"));
-					
+
 					foreach($ol_arr as $loc)
 					{
 						$denied = $denied_by_clid[$loc->class_id()];
-						$loc_jos = $loc->get_job_offers()->ids();
-						$JOB_OFFER = $this->job_offer(&$jos, &$props, &$loc_jos, &$denied);
+						$loc_jos = $loc->get_job_offers(array())->ids();
+						$JOB_OFFER = $this->job_offer($jos, $props, $loc_jos, $denied);
 						if(empty($JOB_OFFER))
 						{
 							continue;
@@ -549,7 +552,7 @@ class personnel_management_job_offer_webview extends class_base
 					$GROUP_LVL2 = "";
 					foreach($secs as $sec_id)
 					{
-						$sec = obj($sec_id);						
+						$sec = obj($sec_id);
 						$sec_jos = $sec->get_job_offers()->ids();
 						$JOB_OFFER = $this->job_offer(&$jos, &$props, &$sec_jos);
 						if(empty($JOB_OFFER))
@@ -639,7 +642,7 @@ class personnel_management_job_offer_webview extends class_base
 		}
 	}
 
-	private function job_offer($jos, $props, $allowed = NULL, $denied = array())
+	private function job_offer(&$jos, &$props, &$allowed = NULL, &$denied = array())
 	{
 		$JOB_OFFER = "";
 		foreach($jos as $jo)

@@ -129,11 +129,13 @@ class date_edit
 		if ($timestamp == "+24h")
 		{
 			$timestamp = time() + (60 * 60 * 24);
-		};
+		}
+
 		if ($timestamp == "+48h")
 		{
 			$timestamp = time() + (2 * 60 * 60 * 24);
-		};
+		}
+
 		$this->varname = $varname;
 		$this->timestamp = $timestamp;
 		$clid = "";
@@ -143,7 +145,7 @@ class date_edit
 		};
 		// support for ISO-8601 date format
 		list($year,$month,$day) = sscanf($this->timestamp,"%4d-%2d-%2d");
-		if ($this->timestamp == -1)
+		if ($this->timestamp == -1 or !is_numeric($this->timestamp))
 		{
 			$year = $month = $day = $hour = $minute = -1;
 		}
@@ -153,7 +155,7 @@ class date_edit
 		}
 		else
 		{
-			list($year,$month,$day,$hour,$minute) = explode(" ",date("Y n j H i",$this->timestamp));
+			list($year,$month,$day,$hour,$minute) = explode(" ", date("Y n j H i", $this->timestamp));
 		}
 
 		$retval = "";

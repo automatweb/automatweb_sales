@@ -2636,7 +2636,12 @@ class class_base extends aw_template
 			$val["type"] = "text";
 		}
 
-		if (isset($val["orig_type"]) && $val["orig_type"] === "select" && isset($val["value"]) && is_scalar($val["value"]) && isset($val["options"][$val["value"]]) && $val["options"][$val["value"]] != "" && $this->view == 1)
+		if (
+			$this->view == 1
+			&& isset($val["orig_type"]) && $val["orig_type"] === "select"
+			&& isset($val["value"]) && is_scalar($val["value"])
+			&& isset($val["options"][$val["value"]]) && $val["options"][$val["value"]] != ""
+		)
 		{
 			$val["value"] = $val["options"][$val["value"]];
 		}
@@ -4576,8 +4581,8 @@ class class_base extends aw_template
 				{
 					if (is_oid($cfg_cntrl_id))
 					{
-						$tmp = array();
-						$controller_inst->check_property($cfg_cntrl_id, $this->obj_inst->id(), $tmp, $args, array(), $this->obj_inst);
+						$tmp = $tmp2 = array();
+						$controller_inst->check_property($cfg_cntrl_id, $this->obj_inst->id(), $tmp, $args, $tmp2, $this->obj_inst);
 					}
 				}
 			}

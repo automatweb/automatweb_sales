@@ -750,16 +750,19 @@ class personnel_management extends class_base
 			"name" => "os_type",
 			"sort_callback" => "CL_PERSONNEL_MANAGEMENT::cmp_function",
 		));
-		foreach($r[4]["list_names"] as $jo_type_id => $jo_type_name)
+		if (isset($r[4]["list_names"]) and is_array($r[4]["list_names"]))
 		{
-			$this->groupinfo["offers_type_".$jo_type_id] = array(
-				"caption" => $jo_type_name,
-				"parent" => "offers",
-				"submit" => "no",
-			);
-			$this->grpmap["offers"]["offers_type_".$jo_type_id] = $this->groupinfo["offers_type_".$jo_type_id];
-			$this->_cfg_props["offers_tree"]["groups"][] = "offers_type_".$jo_type_id;
-			$this->prop_by_group["offers_type_".$jo_type_id] = 1;
+			foreach($r[4]["list_names"] as $jo_type_id => $jo_type_name)
+			{
+				$this->groupinfo["offers_type_".$jo_type_id] = array(
+					"caption" => $jo_type_name,
+					"parent" => "offers",
+					"submit" => "no",
+				);
+				$this->grpmap["offers"]["offers_type_".$jo_type_id] = $this->groupinfo["offers_type_".$jo_type_id];
+				$this->_cfg_props["offers_tree"]["groups"][] = "offers_type_".$jo_type_id;
+				$this->prop_by_group["offers_type_".$jo_type_id] = 1;
+			}
 		}
 		// Set archive the last one!
 		$tmp = $this->grpmap["offers"]["offers_archive"];
@@ -4537,17 +4540,18 @@ class personnel_management extends class_base
 		$active = false;
 		$ol = new object_list(array(
 			"class_id" => $this->clid,
-			"lang_id" => array(),
 			"flags" => array(
 				"mask" => OBJ_FLAG_IS_SELECTED,
 				"flags" => OBJ_FLAG_IS_SELECTED
 			)
 		));
+
 		if (sizeof($ol->ids()) > 0)
 		{
 			$first = $ol->begin();
 			$active = $first->id();
-		};
+		}
+
 		if($active)
 		{
 			return $active;
@@ -4557,8 +4561,7 @@ class personnel_management extends class_base
 			// If none of those is default, we return the first one
 			$ol = new object_list(array(
 				"class_id" => $this->clid,
-				"lang_id" => array(),
-				"sort_by" => "oid",
+				"sort_by" => "oid"
 			));
 			if(sizeof($ol->ids()) > 0)
 			{
@@ -5811,13 +5814,11 @@ class personnel_management extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMPANY,
 			"parent" => obj($this->get_sysdefault())->schools_fld,
-			"lang_id" => array(),
+			"site_id" => aw_ini_get("site_id"),
 		));
 		$ops = array();
 		$ol_arr = $ol->arr();
-		enter_function("uasort");
 		uasort($ol_arr, array($this, "cmp_function"));
-		exit_function("uasort");
 		foreach($ol_arr as $o)
 		{
 			$ops[$o->id()] = $o->trans_get_val("name");

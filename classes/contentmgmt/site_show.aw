@@ -548,10 +548,11 @@ class site_show extends class_base
 	function get_default_document($arr = array())
 	{
 		$docid = null;
-		if (isset($arr["docid"]) && $arr["docid"])
+		if (isset($arr["docid"]) && $arr["docid"] > 0)
 		{
 			return $arr["docid"];
 		}
+
 		if (isset($arr["obj"]))
 		{
 			$obj = $arr["obj"];
@@ -726,8 +727,7 @@ class site_show extends class_base
 					$so->class_id() == CL_MENU ? $so->id() : $so->parent()
 				);
 			}
-			else
-			if (!empty($arr["include_submenus"]))
+			elseif (!empty($arr["include_submenus"]))
 			{
 				$ot = new object_tree(array(
 					"class_id" => CL_MENU,
@@ -737,8 +737,7 @@ class site_show extends class_base
 				));
 				$sections += $this->make_keys($ot->ids());
 			}
-			else
-			if ($obj->class_id() == CL_PROMO)
+			elseif ($obj->class_id() == CL_PROMO)
 			{
 				if ($obj->prop("show_inact") == 1)
 				{
@@ -897,7 +896,7 @@ class site_show extends class_base
 						}
 					}
 				}
-			};
+			}
 
 			if ($obj->meta("all_pers"))
 			{
@@ -923,7 +922,8 @@ class site_show extends class_base
 			else
 			{
 				$filter["parent"] = $obj->id();
-			};
+			}
+
 			if ($ndocs > 0)
 			{
 				$filter["limit"] = $ndocs;
@@ -992,6 +992,7 @@ class site_show extends class_base
 					};
 				}
 			}
+
 			if ($ordby == "")
 			{
 				$ordby = "objects.jrk";
@@ -1153,6 +1154,7 @@ class site_show extends class_base
 				{
 					continue;
 				}
+
 				$done_oids[$o->brother_of()] = 1;
 				if ($o->site_id() != $rsid && !$o->is_brother() && !aw_ini_get("menuedit.objects_from_other_sites"))
 				{
@@ -1163,6 +1165,7 @@ class site_show extends class_base
 				{
 					continue;
 				}
+
 				if ($skipfirst > 0 && $tc < $skipfirst)
 				{
 					$tc++;
@@ -1197,13 +1200,13 @@ class site_show extends class_base
 					}
 				}
 			}
+
 			if ($cnt > 1)
 			{
 				// a list of documents
 				return $docid;
 			}
-			else
-			if ($cnt == 1)
+			elseif ($cnt == 1)
 			{
 				// the correct id
 				return $docid[0];
