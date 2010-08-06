@@ -71,9 +71,9 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	public function confirm($arr)
 	{
 		$this->instance()->db_query(sprintf("INSERT INTO aw_crm_offer_confirmations
-			(aw_offer, aw_firstname, aw_lastname, aw_organisation, aw_profession, aw_phone, aw_email)
-			VALUES (%u, '%s', '%s', '%s', '%s', '%s', '%s')",
-			$this->id(), $arr["firstname"], $arr["lastname"], $arr["organisation"], $arr["profession"], $arr["phone"], $arr["email"]));
+			(aw_offer, aw_firstname, aw_lastname, aw_organisation, aw_profession, aw_phone, aw_email, aw_time)
+			VALUES (%u, '%s', '%s', '%s', '%s', '%s', '%s', %u)",
+			$this->id(), $arr["firstname"], $arr["lastname"], $arr["organisation"], $arr["profession"], $arr["phone"], $arr["email"], time()));
 
 		$this->set_prop("state", self::STATE_CONFIRMED);
 		$this->save();
@@ -88,11 +88,11 @@ class crm_offer_obj extends crm_offer_price_component_handler
 			$this->id()));
 
 		$data = array();
-		foreach($rows as $row)
+		foreach($rows as $i => $row)
 		{
 			foreach($row as $k => $v)
 			{
-				$data[str_replace("aw_", "", $k)] = $v;
+				$data[$i][str_replace("aw_", "", $k)] = $v;
 			}
 		}
 
