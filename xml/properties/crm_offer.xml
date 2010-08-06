@@ -122,6 +122,16 @@
             <editonly>1</editonly>
             <field>preview</field>
       </property>
+      <property>
+            <name>confirmations_table</name>
+            <table>aw_crm_offer</table>
+            <group>confirmations</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <editonly>1</editonly>
+            <field>confirmations_table</field>
+      </property>
       <classinfo>
             <syslog_type>ST_CRM_OFFER</syslog_type>
             <relationmgr>yes</relationmgr>
@@ -138,6 +148,9 @@
             <preview>
                   <caption>Eelvaade</caption>
             </preview>
+            <confirmations>
+                  <caption>Kinnitused</caption>
+            </confirmations>
       </groupinfo>
       <tableinfo>
             <aw_crm_offer>

@@ -46,6 +46,11 @@
 
 	@property preview type=text store=no no_caption=1 editonly=1
 
+@groupinfo confirmations caption=Kinnitused
+@default group=confirmations
+
+	@property confirmations_table type=table store=no no_caption=1 editonly=1
+
 */
 
 class crm_offer extends class_base
@@ -56,6 +61,53 @@ class crm_offer extends class_base
 			"tpldir" => "applications/crm/sales/crm_offer",
 			"clid" => CL_CRM_OFFER
 		));
+	}
+
+	protected function define_confirmations_table_header($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->define_field(array(
+			"name" => "name",
+			"caption" => t("Nimi"),
+		));
+		$t->define_field(array(
+			"name" => "organisation",
+			"caption" => t("Organisatsioon"),
+		));
+		$t->define_field(array(
+			"name" => "profession",
+			"caption" => t("Amet"),
+		));
+		$t->define_field(array(
+			"name" => "phone",
+			"caption" => t("Telefon"),
+		));
+		$t->define_field(array(
+			"name" => "email",
+			"caption" => t("E-post"),
+		));
+		$t->define_field(array(
+			"name" => "time",
+			"caption" => t("Kinnitamise aeg"),
+		));
+	}
+
+	public function _get_confirmations_table($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$offer = $arr["obj_inst"];
+
+		$this->define_confirmations_table_header($arr);
+
+		$confirmations = $offer->confirmed_by();
+		foreach($confirmations as $confirmation)
+		{
+			$row = $confirmation;
+			$row["name"] = sprintf("%s %s", $row["firstname"], $row["lastname"]);
+			$row["time"] = aw_locale::get_lc_date($row["time"], aw_locale::DATETIME_SHORT_FULLYEAR);
+			$t->define_data($row);
+		}
 	}
 
 	public function _get_send($arr)
@@ -694,13 +746,14 @@ class crm_offer extends class_base
 		elseif("aw_crm_offer_confirmations" === $t and $f === "")
 		{
 			$this->db_query("CREATE TABLE aw_crm_offer_confirmations (
-				aw_offer int primary key,
+				aw_offer int,
 				aw_firstname varchar (100),
 				aw_lastname varchar (100),
 				aw_organisation varchar (100),
 				aw_profession varchar (100),
 				aw_phone varchar (100),
-				aw_email varchar (100))");
+				aw_email varchar (100),
+				aw_time int)");
 			return true;
 		}
 
