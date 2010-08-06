@@ -12,7 +12,7 @@
 		h2 { font-size: 14px; color: #666666; padding: 0 0 0 0.4em; margin: 0; }
 		p { margin: 0; }
 
-		#bill { width: 760px; height: 100%; margin: auto; }
+		#bill { width: 900px; height: 100%; margin: auto; }
 
 		#bill td.logo { padding-left: 0.4em; }
 		#bill td.text { width: 50%; padding-right: 1em; border-right: 3px solid #D50000; text-align: right; font-size: 11px; color: #666666; height: 6em; }
@@ -35,7 +35,7 @@
 
 		#bill tr td.footer { border-top: 1px solid #cccccc; text-align: center; font-size: 11px; color: #666666; vertical-align: bottom; height: 2em; }
 
-		#confirmation { width: 200px; height: 100%; margin: auto; vertical-align: top; padding: 3em 0 3em 0; }
+		#confirmation { width: 200px; height: 100%; margin: auto; vertical-align: top; padding: 3em 0 3em 3 em; }
 		#confirmation label { font-size: 12px; font-family: Arial; display: block; clear: both; padding: 3px 0px; }
 
 	</style>
@@ -54,33 +54,6 @@
 
 <table id="bill" cellpadding="0" cellspacing="0" border="0">
 	<tr>
-		<!-- SUB: CONFIRMATION -->
-		<td id="confirmation">
-			<form name="confirm" method="get">
-				<label for="firstname">Eesnimi:</label>
-					<input type="text" name="firstname" id="firstname" /><br />
-				<label for="firstname">Perekonnanimi:</label>
-					<input type="text" name="lastname" id="lastname" /><br />
-				<label for="firstname">Organisatsioon:</label>
-					<input type="text" name="organisation" id="organisation" /><br />
-				<label for="firstname">Amet:</label>
-					<input type="text" name="profession" id="profession" /><br />
-				<label for="firstname">Telefon:</label>
-					<input type="text" name="phone" id="phone" /><br />
-				<label for="firstname">E-post:</label>
-					<input type="text" name="email" id="email" /><br />
-
-				<input type="hidden" name="class" value="crm_offer" />
-				<input type="hidden" name="action" value="confirm" />
-				<input type="hidden" name="id" value="{VAR:id}" />
-				<input type="hidden" name="do_confirm" value="1" />
-
-				<br /><br />
-
-				<input type="submit" value="Kinnitan pakkumise">
-			</form>
-		</td>
-		<!-- END SUB: CONFIRMATION -->
 		<td>
 			<table>
 				<tr class="header">
@@ -165,6 +138,33 @@
 				</tr>
 			</table>
 		</td>
+		<!-- SUB: CONFIRMATION -->
+		<td id="confirmation">
+			<form name="confirm" method="get">
+				<label for="firstname">Eesnimi:</label>
+					<input type="text" name="firstname" id="firstname" /><br />
+				<label for="firstname">Perekonnanimi:</label>
+					<input type="text" name="lastname" id="lastname" /><br />
+				<label for="firstname">Organisatsioon:</label>
+					<input type="text" name="organisation" id="organisation" /><br />
+				<label for="firstname">Amet:</label>
+					<input type="text" name="profession" id="profession" /><br />
+				<label for="firstname">Telefon:</label>
+					<input type="text" name="phone" id="phone" /><br />
+				<label for="firstname">E-post:</label>
+					<input type="text" name="email" id="email" /><br />
+
+				<input type="hidden" name="class" value="crm_offer" />
+				<input type="hidden" name="action" value="confirm" />
+				<input type="hidden" name="id" value="{VAR:id}" />
+				<input type="hidden" name="do_confirm" value="1" />
+
+				<br /><br />
+
+				<input type="submit" value="Kinnitan pakkumise">
+			</form>
+		</td>
+		<!-- END SUB: CONFIRMATION -->
 	</tr>
 </table>
 
