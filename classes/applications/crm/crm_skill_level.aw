@@ -11,7 +11,7 @@
 @property skill type=relpicker reltype=RELTYPE_SKILL store=connect no_edit=1 automatic=1
 @caption Oskus
 
-@property level type=relpicker reltype=RELTYPE_LEVEL store=connect no_edit=1 
+@property level type=relpicker reltype=RELTYPE_LEVEL store=connect no_edit=1
 @caption Tase
 
 @property other type=textbox field=comment
@@ -117,7 +117,7 @@ class crm_skill_level extends class_base
 						}
 					}
 				}
-				
+
 				if ($this->can("view", $skill_id))
 				{
 					$skill_obj = obj($skill_id);
@@ -132,9 +132,7 @@ class crm_skill_level extends class_base
 							"sort_by" => "jrk",
 						));
 						$objs = $ol->arr();
-						enter_function("uasort");
-						uasort($objs, array(get_instance(CL_PERSONNEL_MANAGEMENT, "cmp_function")));
-						exit_function("uasort");
+						uasort($objs, array(get_instance(CL_PERSONNEL_MANAGEMENT), "cmp_function"));
 						foreach($objs as $o)
 						{
 							$prop["options"][$o->id()] = $o->trans_get_val("name");
@@ -205,23 +203,26 @@ class crm_skill_level extends class_base
 	{
 		$this->level++;
 		$cnt = 0;
-		foreach($by_parent[$parent] as $opt_id)
+		if (is_array($by_parent[$parent]))
 		{
-			if(substr($opt_id, 0, 6) == "other_")
+			foreach($by_parent[$parent] as $opt_id)
 			{
-				$tmp = obj($parent);
-				$opts[$opt_id] = str_repeat("&nbsp;&nbsp;", $this->level-1).$tmp->trans_get_val("other");
-			}
-			else
-			{
-				$tmp = obj($opt_id);
-				$opts[$opt_id] = str_repeat("&nbsp;&nbsp;", $this->level-1).$tmp->trans_get_val("name");
-				if ($this->_format_opts($opts, $opt_id, $by_parent, $disabled_opts) != 0)
+				if(substr($opt_id, 0, 6) == "other_")
 				{
-					$disabled_opts[$opt_id] = $opt_id;
+					$tmp = obj($parent);
+					$opts[$opt_id] = str_repeat("&nbsp;&nbsp;", $this->level-1).$tmp->trans_get_val("other");
 				}
+				else
+				{
+					$tmp = obj($opt_id);
+					$opts[$opt_id] = str_repeat("&nbsp;&nbsp;", $this->level-1).$tmp->trans_get_val("name");
+					if ($this->_format_opts($opts, $opt_id, $by_parent, $disabled_opts) != 0)
+					{
+						$disabled_opts[$opt_id] = $opt_id;
+					}
+				}
+				$cnt++;
 			}
-			$cnt++;
 		}
 		$this->level--;
 		return $cnt;
@@ -310,7 +311,7 @@ class crm_skill_level extends class_base
 		}
 		return $ret;
 	}
-	
+
 	function do_db_upgrade($tbl, $field, $q, $err)
 	{
 		if ($tbl == "crm_skill_level" && $field == "")
