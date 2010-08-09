@@ -58,6 +58,25 @@
             <caption>Saada kliendile</caption>
       </property>
       <property>
+            <name>save_as_template</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <field>save_as_template</field>
+            <caption>Salvesta &amp;amp;scaron;abloonina</caption>
+      </property>
+      <property>
+            <name>template_name</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>hidden</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <field>template_name</field>
+      </property>
+      <property>
             <name>sum</name>
             <table>aw_crm_offer</table>
             <group>general</group>

@@ -44,6 +44,7 @@ class crm_sales_offers_view
 	public static function _get_offers_toolbar(&$arr)
 	{
 		$this_o = $arr["obj_inst"];
+		$core = new core();
 		$r = PROP_IGNORE;
 
 		if ($this_o->has_privilege("offer_edit"))
@@ -51,7 +52,38 @@ class crm_sales_offers_view
 			$toolbar = $arr["prop"]["vcl_inst"];
 			if (is_oid($this_o->prop("offers_folder")))
 			{
-				$toolbar->add_new_button(array(CL_CRM_OFFER), $this_o->prop("offers_folder"));
+				$toolbar->add_menu_button(array(
+					"name" => "new",
+					"tooltip" => t("Uus arendus&uuml;lesanne"),
+				));
+
+				$toolbar->add_menu_item(array(
+					"parent" => "new",
+					"text" => t("T&uuml;hi pakkumine"),
+					"link" => html::get_new_url(CL_CRM_OFFER, $this_o->prop("offers_folder"), array("return_url" => get_ru()))
+				));
+				$tpls = $this_o->get_offer_templates();
+				if($tpls->count() > 0)
+				{					
+					$toolbar->add_sub_menu(array(
+						"parent" => "new",
+						"name" => "new_from_tpl",
+						"text" => t("&Scaron;ablooni p&otilde;hjal"),
+					));
+
+					foreach($tpls->names() as $tpl_oid => $tpl_name)
+					{						
+						$toolbar->add_menu_item(array(
+							"parent" => "new_from_tpl",
+							"text" => $tpl_name,
+							"link" => $core->mk_my_orb(
+								"new_from_template",
+								array("tpl" => $tpl_oid, "parent" => $this_o->prop("offers_folder"), "return_url" => get_ru()),
+								CL_CRM_OFFER
+							),
+						));
+					}
+				}
 			}
 			$toolbar->add_button(array(
 				"name" => "save",
@@ -136,7 +168,7 @@ class crm_sales_offers_view
 		$owner = $arr["obj_inst"]->prop("owner");
 		list($offers, $offers_count) = self::get_offers_list($arr);
 		self::define_offers_list_tbl_header($arr, $offers_count);
-		$not_available_str = "";
+		$not_available_str = html::italic(t("M&auml;&auml;ramata"));
 		$role = automatweb::$request->get_application()->get_current_user_role();
 
 		if ($offers->count())
@@ -147,38 +179,42 @@ class crm_sales_offers_view
 				$customer_relation = new object($offer->prop("customer_relation"));
 				if (is_oid($customer_relation->id()))
 				{
-					$salesman = $offer->prop("salesman");
-					if (is_oid($salesman))
-					{
-						$salesman = new object($salesman);
-						$salesman = $salesman->name();
-					}
-					else
-					{
-						$salesman = $not_available_str;
-					}
-
 					$customer = $customer_relation->get_first_obj_by_reltype("RELTYPE_BUYER");
 					$customer_name = html::obj_change_url($customer_relation, crm_sales::parse_customer_name($customer));
-
-					$oid = $offer->id();
-
-					$offer_id = html::obj_change_url($offer, $oid);
-
-					$modified = aw_locale::get_lc_date($offer->prop("modified"), aw_locale::DATETIME_SHORT_FULLYEAR);
-
-					$sum = $offer->prop("sum");
-
-					// define table row
-					$table->define_data(array(
-						"customer_name" => $customer_name,
-						"salesman_name" => $salesman,
-						"sum" => $sum,
-						"oid" => $oid,
-						"id" => $offer_id,
-						"modified" => $modified,
-					));
 				}
+				else
+				{
+					$customer_name = $not_available_str;
+				}
+
+				$salesman = $offer->prop("salesman");
+				if (is_oid($salesman))
+				{
+					$salesman = new object($salesman);
+					$salesman = $salesman->name();
+				}
+				else
+				{
+					$salesman = $not_available_str;
+				}
+
+				$oid = $offer->id();
+
+				$offer_id = html::obj_change_url($offer, $oid);
+
+				$modified = aw_locale::get_lc_date($offer->prop("modified"), aw_locale::DATETIME_SHORT_FULLYEAR);
+
+				$sum = $offer->prop("sum");
+
+				// define table row
+				$table->define_data(array(
+					"customer_name" => $customer_name,
+					"salesman_name" => $salesman,
+					"sum" => $sum,
+					"oid" => $oid,
+					"id" => $offer_id,
+					"modified" => $modified,
+				));
 			}
 			while ($offer = $offers->next());
 

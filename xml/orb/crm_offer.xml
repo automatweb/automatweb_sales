@@ -15,6 +15,20 @@
 				</arguments>
 			</function>
 		</action>
+		<action name="create_template">
+			<function name="create_template">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		<action name="new_from_template">
+			<function name="new_from_template">
+				<arguments>
+					<required name="tpl" type="int" />
+					<optional name="return_url" type="string" />
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>
 		
