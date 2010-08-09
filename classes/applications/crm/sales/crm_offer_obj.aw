@@ -46,13 +46,34 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		}
 	}
 
+	/**	Creates crm_offer_template object enabling user to use this crm_offer as a template when creating new ones
+		@attrib api=1 params=pos
+		@param name required type=string
+		@returns void
+		@errors Throws awex_crm_offer if this offer is not saved
+	**/
+	public function create_template($name)
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before it can be saved as a template!");
+		}
+
+		$o = obj();
+		$o->set_class_id(CL_CRM_OFFER_TEMPLATE);
+		$o->set_parent($this->id());
+		$o->set_name($name);
+		$o->set_prop("offer", $this->id());
+		$o->save();
+	}
+
 	/**	Creates duplicate of this crm_offer_obj object and returns the new crm_offer_obj object.
 		@attrib api=1
 		@returns crm_offer_obj object
 	**/
 	public function duplicate()
 	{
-		$o = $this->save_new();
+		$o = obj($this->save_new());
 		$o->set_prop("state", self::STATE_NEW);
 		$o->save();
 

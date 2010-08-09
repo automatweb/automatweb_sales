@@ -24,6 +24,11 @@
 	@property send type=text store=no editonly=1
 	@caption Saada kliendile
 
+	@property save_as_template type=text store=no editonly=1
+	@caption Salvesta &scaron;abloonina
+
+	@property template_name type=hidden store=no editonly=1
+
 	@property sum type=hidden field=aw_sum
 	@caption Summa
 
@@ -108,6 +113,21 @@ class crm_offer extends class_base
 			$row["time"] = aw_locale::get_lc_date($row["time"], aw_locale::DATETIME_SHORT_FULLYEAR);
 			$t->define_data($row);
 		}
+	}
+
+	public function _get_save_as_template($arr)
+	{
+		$arr["prop"]["value"] = html::href(array(
+			"caption" => t("Salvesta &scaron;abloonina"),
+			"url" => "javascript:void(0);",
+			"onclick" => '$.prompt(offer_template_name_html, {
+				callback: function(v,m){
+					$("input[type=hidden][name=template_name]").val(m.children("#offer_template_name").val());
+					submit_changeform("create_template");
+				},
+				buttons: { "Salvesta": true, "Katkesta": false }
+			});',
+		));
 	}
 
 	public function _get_send($arr)
@@ -513,17 +533,6 @@ class crm_offer extends class_base
 		return PROP_OK;
 	}
 
-	public function _set_customer($arr)
-	{
-		if(!is_oid($arr["prop"]["value"]))
-		{
-			$arr["prop"]["error"] = t("Palun sisestage olemasolev klient!");
-			return PROP_FATAL_ERROR;
-		}
-
-		return PROP_OK;
-	}
-
 	public function _set_content_add($arr)
 	{
 		$o = $arr["obj_inst"];
@@ -612,6 +621,32 @@ class crm_offer extends class_base
 	}
 
 	/**
+		@attrib name=new_from_template
+	**/
+	public function new_from_template($arr)
+	{
+		$tpl = obj($arr["tpl"]);
+		$old_offer = obj($tpl->offer);
+		$new_offer = $old_offer->duplicate();
+
+		return html::get_change_url($new_offer->id(), array("return_url" => $arr["return_url"]));
+	}
+
+	/**
+		@attrib name=create_template
+	**/
+	public function create_template($arr)
+	{
+		if(!empty($arr["template_name"]))
+		{
+			$o = obj($arr["id"]);
+			$o->create_template($arr["template_name"]);
+		}
+
+		return $arr["post_ru"];
+	}
+
+	/**
 		@attrib name=confirm params=name nologin=1
 		@param id required type=int
 		@param do_confirm optional type=boolean default=false
@@ -648,6 +683,8 @@ class crm_offer extends class_base
 	public function callback_generate_scripts($arr)
 	{
 		$js = "";
+
+		$js .= 'var offer_template_name_html = "'.t("Palun sisesta &scaron;ablooni nimi:<br /><input type='text' id='offer_template_name' name='offer_template_name' size='40' />\";");
 
 		if("content" === $this->use_group)
 		{

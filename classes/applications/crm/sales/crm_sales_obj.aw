@@ -880,6 +880,21 @@ class crm_sales_obj extends _int_object implements application_interface
 		$customer_relation->save();
 	}
 
+	public function get_offer_templates()
+	{
+		static $ol;
+
+		if(!isset($ol))
+		{
+			$ol = new object_list(array(
+				"class_id" => CL_CRM_OFFER_TEMPLATE,
+				"offer(CL_CRM_OFFER).parent" => $this->prop("offers_folder"),
+			));
+		}
+
+		return $ol;
+	}
+
 	public function get_cfgform_for_object(object $object)
 	{
 		$clid = $object->class_id();

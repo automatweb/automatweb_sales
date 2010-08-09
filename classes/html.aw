@@ -1522,6 +1522,19 @@ class html
 		return "<b>{$content}</b>";
 	}
 
+	/**	Italic text
+	@attrib api=1 params=pos
+	@param content required type=string
+		html to insert between div tags
+	@returns string/html
+	@comments
+		draws <i>$content</i>
+	**/
+	public static function italic($content)
+	{
+		return "<i>{$content}</i>";
+	}
+
 	/**
 	@attrib api=1 params=pos
 
