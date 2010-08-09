@@ -1623,7 +1623,7 @@
             <no_caption>1</no_caption>
       </property>
       <property>
-            <name>offers_tree</name>
+            <name>offers_tree_state</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
@@ -1631,18 +1631,29 @@
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>offers_tree_box</parent>
+            <parent>offers_tree_box_state</parent>
       </property>
       <property>
-            <name>offers_list</name>
+            <name>offers_tree_timespan</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
             <group>offers</group>
-            <type>table</type>
+            <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>offers_vsplitbox</parent>
+            <parent>offers_tree_box_timespan</parent>
+      </property>
+      <property>
+            <name>offers_tree_customer_category</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>offers</group>
+            <type>treeview</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>offers_tree_box_customer_category</parent>
       </property>
       <property>
             <name>os_customer_name</name>
@@ -1670,6 +1681,17 @@
             <parent>offers_search_box</parent>
             <store>no</store>
             <caption>Otsi</caption>
+      </property>
+      <property>
+            <name>offers_list</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>offers</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>offers_vsplitbox</parent>
       </property>
       <property>
             <name>tmstat_display_table</name>
@@ -2076,13 +2098,27 @@
                   <group>offers</group>
                   <area_caption></area_caption>
             </offers_box>
-            <offers_tree_box>
+            <offers_tree_box_state>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Pakkumiste&amp;amp;nbsp;valik</area_caption>
+                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;staatuse&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>offers_box</parent>
                   <group>offers</group>
-            </offers_tree_box>
+            </offers_tree_box_state>
+            <offers_tree_box_timespan>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;perioodi&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <parent>offers_box</parent>
+                  <group>offers</group>
+            </offers_tree_box_timespan>
+            <offers_tree_box_customer_category>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;kliendikategooria&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <parent>offers_box</parent>
+                  <group>offers</group>
+            </offers_tree_box_customer_category>
             <offers_search_box>
                   <type>vbox</type>
                   <closeable>1</closeable>

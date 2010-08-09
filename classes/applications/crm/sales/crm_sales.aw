@@ -498,20 +498,28 @@ PROPERTY DECLARATIONS
 	@layout offers_vsplitbox type=hbox width=25%:75%
 
 		@layout offers_box type=vbox parent=offers_vsplitbox
+			
+			@layout offers_tree_box_state type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;staatuse&nbsp;j&auml;rgi parent=offers_box
 
-			@layout offers_tree_box type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik parent=offers_box
+				@property offers_tree_state type=treeview store=no no_caption=1 parent=offers_tree_box_state
+		
+			@layout offers_tree_box_timespan type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;perioodi&nbsp;j&auml;rgi parent=offers_box
 
-				@property offers_tree type=treeview store=no no_caption=1 parent=offers_tree_box
+				@property offers_tree_timespan type=treeview store=no no_caption=1 parent=offers_tree_box_timespan
+		
+			@layout offers_tree_box_customer_category type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;kliendikategooria&nbsp;j&auml;rgi parent=offers_box
 
-			@property offers_list type=table store=no no_caption=1 parent=offers_vsplitbox
+				@property offers_tree_customer_category type=treeview store=no no_caption=1 parent=offers_tree_box_customer_category
 
-	@layout offers_search_box type=vbox closeable=1 area_caption=Pakkumiste&nbsp;otsing parent=offers_box
+		@layout offers_search_box type=vbox closeable=1 area_caption=Pakkumiste&nbsp;otsing parent=offers_box
 
-		@property os_customer_name type=textbox view_element=1 parent=offers_search_box store=no size=20 captionside=top
-		@caption Kliendi nimi
+			@property os_customer_name type=textbox view_element=1 parent=offers_search_box store=no size=20 captionside=top
+			@caption Kliendi nimi
 
-		@property os_submit type=submit value=Otsi view_element=1 parent=offers_search_box store=no
-		@caption Otsi
+			@property os_submit type=submit value=Otsi view_element=1 parent=offers_search_box store=no
+			@caption Otsi
+
+		@property offers_list type=table store=no no_caption=1 parent=offers_vsplitbox
 
 
 @default group=statistics_telemarketing
@@ -604,7 +612,7 @@ class crm_sales extends class_base
 	public static $presentations_list_view = self::PRESENTATIONS_DEFAULT;
 
 	public static $offers_list_views = array();
-	public static $offers_list_view = self::PRESENTATIONS_DEFAULT;
+	public static $offers_list_view = self::OFFERS_DEFAULT;
 
 	private static $no_edit_contact_entry_props = array(
 		"contact_entry_co_contact_1",
@@ -777,11 +785,17 @@ class crm_sales extends class_base
 				self::$presentations_list_view = self::PRESENTATIONS_SEARCH;
 			}
 		}
-		elseif ("offers" === $this->use_group and (
-			!empty($arr["request"]["os_customer"])
-		))
+		elseif ("offers" === $this->use_group)
 		{
-				self::$offers_list_view = self::OFFERS_SEARCH;
+			$list_id = isset($arr["request"]["crmListId"]) ? (int) $arr["request"]["crmListId"] : 0;
+			if(isset(self::$offers_list_views[$list_id]))
+			{
+					self::$offers_list_view = $list_id;
+			}
+			elseif(!empty($arr["request"]["os_customer"]))
+			{
+					self::$offers_list_view = self::OFFERS_SEARCH;
+			}
 		}
 		elseif ("data_entry" === substr($this->use_group, 0, 10))
 		{
