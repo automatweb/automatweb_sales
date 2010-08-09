@@ -2,7 +2,7 @@
 
 class crm_sales_offers_view
 {
-	public static function _get_offers_tree(&$arr)
+	public static function _get_offers_tree_timespan(&$arr)
 	{
 		$tree = $arr["prop"]["vcl_inst"];
 		$views_to_clear_search_for = array(
@@ -38,6 +38,107 @@ class crm_sales_offers_view
 		}
 
 		$tree->set_selected_item (crm_sales::$offers_list_view);
+		return PROP_OK;
+	}
+
+	public static function _get_offers_tree_state(&$arr)
+	{
+		$tree = $arr["prop"]["vcl_inst"];
+		$states_to_clear_search_for = array(
+			crm_offer_obj::STATE_NEW,
+			crm_offer_obj::STATE_SENT,
+			crm_offer_obj::STATE_CONFIRMED,
+			crm_offer_obj::STATE_CANCELLED
+		);
+
+		$url = automatweb::$request->get_uri();
+		$url->unset_arg(array(
+			"crmListState",
+			"ft_page",
+			"os_submit",
+			"os_name"
+		));
+
+		$tree->add_item (0, array (
+			"name" => t("K&otilde;ik pakkumised"),
+			"id" => "all",
+			"parent" => 0,
+			"url" => $url->get()
+		));
+
+		foreach (crm_offer_obj::state_names() as $state => $caption)
+		{
+			$url = automatweb::$request->get_uri();
+			$url->set_arg("crmListState", $state);
+
+			if (in_array($state, $states_to_clear_search_for))
+			{
+				$url->unset_arg(array(
+					"ft_page",
+					"os_submit",
+					"os_name"
+				));
+			}
+
+			$tree->add_item (0, array (
+				"name" => $caption,
+				"id" => sprintf("s_%u", $state),
+				"parent" => 0,
+				"url" => $url->get()
+			));
+		}
+
+		if(automatweb::$request->arg_isset("crmListState"))
+		{
+			$tree->set_selected_item(sprintf("s_%u", automatweb::$request->arg("crmListState")));
+		}
+		else
+		{
+			$tree->set_selected_item("all");
+		}
+		return PROP_OK;
+	}
+
+	public static function _get_offers_tree_customer_category(&$arr)
+	{
+		$tree = $arr["prop"]["vcl_inst"];
+
+		$url = automatweb::$request->get_uri();
+		$url->unset_arg(array(
+			"crmListCustCat",
+			"ft_page",
+			"os_submit",
+			"os_name"
+		));
+
+		$tree->add_item (0, array (
+			"name" => t("K&otilde;ik pakkumised"),
+			"id" => "all",
+			"parent" => 0,
+			"url" => $url->get()
+		));
+
+		$categories = $arr['obj_inst']->prop("owner")->get_customer_categories();
+		foreach ($categories->arr() as $category)
+		{
+			$parent = $category->prop("parent_category") ? (int) $category->prop("parent_category") : 0;
+			$url->set_arg("crmListCustCat", $category->id());
+			$tree->add_item ($parent, array (
+				"name" => $category->name(),
+				"id" => $category->id(),
+				"parent" => $parent,
+				"url" => $url->get()
+			));
+		}
+
+		if(automatweb::$request->arg_isset("crmListCustCat"))
+		{
+			$tree->set_selected_item(automatweb::$request->arg("crmListCustCat"));
+		}
+		else
+		{
+			$tree->set_selected_item("all");
+		}
 		return PROP_OK;
 	}
 
@@ -109,7 +210,7 @@ class crm_sales_offers_view
 			$limit_results = false;
 			$from = mktime(0, 0, 0, date("n"), date("j"), date("Y"));
 			$to = $from + 86400;
-			$filter["start1"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN, $from, $to);
+			$filter["modified"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN, $from, $to);
 			$arr["request"]["sortby"] = "modified";
 		}
 		elseif (crm_sales::OFFERS_YESTERDAY === crm_sales::$offers_list_view)
@@ -117,8 +218,18 @@ class crm_sales_offers_view
 			$limit_results = false;
 			$from = mktime(0, 0, 0, date("n"), (date("j") - 1), date("Y"));
 			$to = $from + 86400;
-			$filter["start1"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN, $from, $to);
+			$filter["modified"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN, $from, $to);
 			$arr["request"]["sortby"] = "modified";
+		}
+
+		if (automatweb::$request->arg_isset("crmListState") and array_key_exists(automatweb::$request->arg("crmListState"), crm_offer_obj::state_names()))
+		{
+			$filter["state"] = automatweb::$request->arg("crmListState");
+		}
+
+		if (automatweb::$request->arg_isset("crmListCustCat"))
+		{
+			$filter["customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).categories"] = automatweb::$request->arg("crmListCustCat");
 		}
 
 		$offers_count = new object_data_list(
@@ -170,6 +281,7 @@ class crm_sales_offers_view
 		self::define_offers_list_tbl_header($arr, $offers_count);
 		$not_available_str = html::italic(t("M&auml;&auml;ramata"));
 		$role = automatweb::$request->get_application()->get_current_user_role();
+		$offer_state_names = crm_offer_obj::state_names();
 
 		if ($offers->count())
 		{
@@ -206,11 +318,14 @@ class crm_sales_offers_view
 
 				$sum = $offer->prop("sum");
 
+				$state = $offer_state_names[$offer->state];
+
 				// define table row
 				$table->define_data(array(
 					"customer_name" => $customer_name,
 					"salesman_name" => $salesman,
 					"sum" => $sum,
+					"state" => $state,
 					"oid" => $oid,
 					"id" => $offer_id,
 					"modified" => $modified,
@@ -258,6 +373,10 @@ class crm_sales_offers_view
 		$table->define_field(array(
 			"name" => "sum",
 			"caption" => t("Summa")
+		));
+		$table->define_field(array(
+			"name" => "state",
+			"caption" => t("Staatus")
 		));
 		$table->define_field(array(
 			"name" => "modified",
