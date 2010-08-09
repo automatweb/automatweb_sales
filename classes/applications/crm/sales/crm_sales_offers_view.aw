@@ -229,7 +229,7 @@ class crm_sales_offers_view
 
 		if (automatweb::$request->arg_isset("crmListCustCat"))
 		{
-			$filter["customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).categories"] = automatweb::$request->arg("crmListCustCat");
+			$filter["customer_relation(CL_CRM_COMPANY_CUSTOMER_DATA).RELTYPE_CATEGORY"] = automatweb::$request->arg("crmListCustCat");
 		}
 
 		$offers_count = new object_data_list(
