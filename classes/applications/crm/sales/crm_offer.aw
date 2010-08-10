@@ -585,11 +585,15 @@ class crm_offer extends class_base
 
 		$o = new object($arr["id"]);
 
+		$customer = $o->customer();
+
 		$this->vars(array(
 			"id" => $o->id(),
 			"date" => $o->prop("date"),
 			"currency" => obj($o->prop("currency"))->name(), //$o->prop("currency.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
-			"customer" => obj($o->prop("customer"))->name(), //$o->prop("customer.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+			"customer" => $customer->name(),
+			"customer.mail" => $customer->get_mail(),
+//			"customer.phone" => $customer->get_phone(),
 		));
 
 		$ROW = "";
