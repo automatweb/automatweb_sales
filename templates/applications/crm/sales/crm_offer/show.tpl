@@ -146,13 +146,13 @@
 				<label for="firstname">Perekonnanimi:</label>
 					<input type="text" name="lastname" id="lastname" /><br />
 				<label for="firstname">Organisatsioon:</label>
-					<input type="text" name="organisation" id="organisation" /><br />
+					<input type="text" name="organisation" id="organisation" value="{VAR:customer}" /><br />
 				<label for="firstname">Amet:</label>
 					<input type="text" name="profession" id="profession" /><br />
 				<label for="firstname">Telefon:</label>
 					<input type="text" name="phone" id="phone" /><br />
 				<label for="firstname">E-post:</label>
-					<input type="text" name="email" id="email" /><br />
+					<input type="text" name="email" id="email" value="{VAR:customer.mail}" /><br />
 
 				<input type="hidden" name="class" value="crm_offer" />
 				<input type="hidden" name="action" value="confirm" />
