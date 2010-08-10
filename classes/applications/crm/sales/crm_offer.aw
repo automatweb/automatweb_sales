@@ -132,6 +132,11 @@ class crm_offer extends class_base
 
 	public function _get_send($arr)
 	{
+		if (!is_oid($arr["obj_inst"]->customer))
+		{
+			return PROP_IGNORE;
+		}
+
 		$arr["prop"]["value"] = html::href(array(
 			"caption" => t("Saada kliendile"),
 			"url" => $this->mk_my_orb("new", array("return_url" => get_ru(), "offer" => $arr["obj_inst"]->id(), "parent" => $arr["obj_inst"]->id()), CL_CRM_OFFER_SENT),
