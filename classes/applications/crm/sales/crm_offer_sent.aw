@@ -53,9 +53,45 @@ class crm_offer_sent extends class_base
 		));
 	}
 
+	public function callback_on_load($arr)
+	{
+		$o = obj(automatweb::$request->arg("id"));
+		$this->offer = $o->is_saved() ? $o->offer() : obj(automatweb::$request->arg("offer"));
+	}
+
 	function callback_mod_reforb($arr)
 	{
 		$arr["post_ru"] = post_ru();
+	}
+
+	public function _get_name($arr)
+	{
+		$arr["prop"]["value"] = sprintf(t("Pakkumise nr %u saatmine"), $this->offer->id());
+	}
+
+	public function _get_send_to_mail($arr)
+	{
+		$arr["prop"]["value"] = $this->offer->customer()->get_mail();
+	}
+
+	public function _get_send_to_name($arr)
+	{
+		$arr["prop"]["value"] = $this->offer->customer()->name();
+	}
+
+	public function _get_send_subject($arr)
+	{
+		$arr["prop"]["value"] = sprintf(t("Pakkumine nr %u"), $this->offer->id());
+	}
+
+	public function _get_send_from_adr($arr)
+	{
+		$arr["prop"]["value"] = $this->offer->salesman()->get_mail();
+	}
+
+	public function _get_send_from_name($arr)
+	{
+		$arr["prop"]["value"] = $this->offer->salesman()->name();
 	}
 
 	function _get_legend($arr)
