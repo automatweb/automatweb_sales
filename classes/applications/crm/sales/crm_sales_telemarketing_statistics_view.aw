@@ -223,7 +223,7 @@ class crm_sales_telemarketing_statistics_view
 		$table->define_data($row_data);
 
 		// ...
-		$efficiency = $presentations_month_sum/$arrangements_month_sum * 100;
+		$efficiency = $arrangements_month_sum > 0 ? ($presentations_month_sum/$arrangements_month_sum * 100) : 0;
 		$text = sprintf(t("%s (Efektiivsus %s)"), $employee_name, number_format($efficiency, 1, ",", " "));
 		$table->change_row_group_name("employee", $employee_name, $text);
 	}
