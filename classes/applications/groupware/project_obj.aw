@@ -1,10 +1,18 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
-class project_obj extends _int_object
+class project_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
-	function set_prop($pn, $pv)
+	const AW_CLID = 239;
+
+	//	Written solely for testing purposes!
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+		return $ol;
+	}
+
+	public function set_prop($pn, $pv)
 	{
 		switch($pn)
 		{
