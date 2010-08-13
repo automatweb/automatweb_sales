@@ -280,17 +280,6 @@ class aw_uri
 		{
 			$val = $val->__toString();
 		}
-		elseif (is_array($val))
-		{
-			$args2 = array();
-
-			foreach ($val as $key => $value)
-			{
-				$this->_set_arg("{$name}%5B{$key}%5D", $value, $args2);
-			}
-
-			$val = $args2;
-		}
 		elseif (is_scalar($val) or is_null($val))
 		{
 		}
@@ -299,7 +288,7 @@ class aw_uri
 			throw new awex_uri_type("Tried to assign non-scalar, non-null value to URI query argument. Conversion attempts failed.");
 		}
 
-		$args[$name] = (string) $val;
+		$args[$name] = $val;
 	}
 
 	/**
