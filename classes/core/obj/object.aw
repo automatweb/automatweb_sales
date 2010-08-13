@@ -878,10 +878,37 @@ class object
 			$class = $o->class_title();
 			printf("'%s' is of the type '%s'!", $o->name(), $o->class_title());	// Prints 'Foo' is of the type 'Bar'!
 	**/
-	function class_title()
+	public function class_title()
 	{
 		$this->_check_lock_read();
 		return $GLOBALS["objects"][$this->oid]->class_title();
+	}
+
+	/**	returns the class title of the given clid
+		@attrib api=1
+
+		@errors
+			none
+
+		@returns
+			class title of the clid, NULL is returned if invalid clid is given
+
+		@examples
+			$clid = 145;
+			$class = object::class_title($clid);
+			printf("%u is clid for '%s'!", $clid, $o->class_title());	// Prints "145 is of the type 'Bar'!"
+	**/
+	public static function class_title_by_clid($clid)
+	{
+		try
+		{
+			$class_title = aw_ini_get(sprintf("classes.%u.name", $clid));
+		}
+		catch(awex_cfg_key $e)
+		{
+			$class_title = NULL;
+		}
+		return $class_title;
 	}
 
 	/** returns the status of the object

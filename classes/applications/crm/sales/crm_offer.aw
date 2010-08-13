@@ -151,11 +151,33 @@ class crm_offer extends class_base
 	public function _get_content_toolbar($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
-		$t->add_search_button(array(
+
+		$t->add_menu_button(array(
 			"name" => "content_search",
-			"pn" => "content_add",
-			"clid" => crm_offer_row_obj::get_applicable_clids(),
+			"img" => "search.gif",
+			"tooltip" => t("Lisa pakkumisse artikleid"),
 		));
+
+		$clids = crm_offer_row_obj::get_applicable_clids();
+		$url = new aw_uri($this->mk_my_orb("do_search", array("pn" => "content_add"), "popup_search"));
+		foreach($clids as $clid)
+		{
+			$url->set_arg("clid", $clid);
+			$caption = object::class_title_by_clid($clid);
+			$t->add_menu_item(array(
+				"parent" => "content_search",
+				"text" => $caption,
+				"link" => "javascript:aw_popup_scroll('{$url}','{$caption}',".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
+			));
+		}
+		$url->set_arg("clid", $clids);
+		$caption = t("K&otilde;ik v&otilde;imalikud objektid");
+		$t->add_menu_item(array(
+			"parent" => "content_search",
+			"text" => $caption,
+			"link" => "javascript:aw_popup_scroll('{$url}','{$caption}',".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
+		));
+
 		$t->add_delete_button();
 		$t->add_save_button();
 	}
@@ -168,7 +190,7 @@ class crm_offer extends class_base
 
 		$t->define_field(array(
 			"name" => "object",
-			"caption" => t("Sisukomponent"),
+			"caption" => t("Artikkel"),
 		));
 			$t->define_field(array(
 				"name" => "object_name",

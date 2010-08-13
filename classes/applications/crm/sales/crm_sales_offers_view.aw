@@ -155,7 +155,7 @@ class crm_sales_offers_view
 			{
 				$toolbar->add_menu_button(array(
 					"name" => "new",
-					"tooltip" => t("Uus arendus&uuml;lesanne"),
+					"tooltip" => t("Lisa uus"),
 				));
 
 				$toolbar->add_menu_item(array(
@@ -169,7 +169,7 @@ class crm_sales_offers_view
 					$toolbar->add_sub_menu(array(
 						"parent" => "new",
 						"name" => "new_from_tpl",
-						"text" => t("&Scaron;ablooni p&otilde;hjal"),
+						"text" => t("Pakkumine &scaron;ablooni p&otilde;hjal"),
 					));
 
 					foreach($tpls->names() as $tpl_oid => $tpl_name)
@@ -186,12 +186,6 @@ class crm_sales_offers_view
 					}
 				}
 			}
-			$toolbar->add_button(array(
-				"name" => "save",
-				"img" => "save.gif",
-				"action" => "submit",
-				"tooltip" => t("Salvesta")
-			));
 			$toolbar->add_delete_button();
 			$r = PROP_OK;
 		}
@@ -359,16 +353,16 @@ class crm_sales_offers_view
 		}
 
 		$table->define_field(array(
+			"name" => "id",
+			"caption" => t("Pakkumise ID")
+		));
+		$table->define_field(array(
 			"name" => "customer_name",
 			"caption" => t("Kliendi nimi")
 		));
 		$table->define_field(array(
 			"name" => "salesman_name",
 			"caption" => t("M&uuml;&uuml;giesindaja nimi")
-		));
-		$table->define_field(array(
-			"name" => "id",
-			"caption" => t("Pakkumise ID")
 		));
 		$table->define_field(array(
 			"name" => "sum",
