@@ -517,6 +517,14 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		$this->price_components_loaded = true;
 	}
 
+	/**	Used to set rows to be used with get_rows().
+		@attrib api=1
+	**/
+	public function set_rows($rows)
+	{
+		$this->rows = $rows;
+	}
+
 	protected function load_rows()
 	{
 		if(!$this->is_saved())

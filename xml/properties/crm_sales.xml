@@ -1737,6 +1737,50 @@
             <store>no</store>
             <caption>Vaata</caption>
       </property>
+      <property>
+            <name>statistics_offers_tree_state</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_offers</group>
+            <type>treeview</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>statistics_offers_tree_box_state</parent>
+      </property>
+      <property>
+            <name>statistics_offers_tree_timespan</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_offers</group>
+            <type>treeview</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>statistics_offers_tree_box_timespan</parent>
+      </property>
+      <property>
+            <name>statistics_offers_tree_customer_category</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_offers</group>
+            <type>treeview</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>statistics_offers_tree_box_customer_category</parent>
+      </property>
+      <property>
+            <name>statistics_offers_list</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>statistics_offers</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>statistics_offers_vsplitbox</parent>
+      </property>
       <classinfo>
             <syslog_type>ST_CRM_SALES</syslog_type>
             <relationmgr>yes</relationmgr>
@@ -1816,6 +1860,7 @@
             </data_entry_import>
             <offers>
                   <caption>Pakkumised</caption>
+                  <submit>no</submit>
             </offers>
             <statistics>
                   <caption>&amp;amp;Uuml;levaated</caption>
@@ -1827,6 +1872,9 @@
             </statistics_telemarketing>
             <statistics_offers>
                   <caption>Pakkumised</caption>
+                  <parent>statistics</parent>
+                  <submit>no</submit>
+                  <submit_method>get</submit_method>
             </statistics_offers>
       </groupinfo>
       <reltypes>
@@ -2132,6 +2180,39 @@
                   <area_caption>Parameetrid</area_caption>
                   <group>statistics_telemarketing</group>
             </tmstat_control_container>
+            <statistics_offers_vsplitbox>
+                  <type>hbox</type>
+                  <width>25%:75%</width>
+                  <group>statistics_offers</group>
+                  <area_caption></area_caption>
+            </statistics_offers_vsplitbox>
+            <statistics_offers_box>
+                  <type>vbox</type>
+                  <parent>statistics_offers_vsplitbox</parent>
+                  <group>statistics_offers</group>
+                  <area_caption></area_caption>
+            </statistics_offers_box>
+            <statistics_offers_tree_box_state>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;staatuse&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <parent>statistics_offers_box</parent>
+                  <group>statistics_offers</group>
+            </statistics_offers_tree_box_state>
+            <statistics_offers_tree_box_timespan>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;perioodi&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <parent>statistics_offers_box</parent>
+                  <group>statistics_offers</group>
+            </statistics_offers_tree_box_timespan>
+            <statistics_offers_tree_box_customer_category>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;kliendikategooria&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <parent>statistics_offers_box</parent>
+                  <group>statistics_offers</group>
+            </statistics_offers_tree_box_customer_category>
       </layout>
 </properties>
 
