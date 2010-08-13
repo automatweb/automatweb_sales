@@ -1,9 +1,20 @@
 <?php
 
-class crm_person_obj extends _int_object implements crm_customer_interface
+class crm_person_obj extends _int_object implements crm_customer_interface, crm_sales_price_component_interface, crm_offer_row_interface
 {
+	const AW_CLID = 145;
+
 	protected $all_jobs;
 	protected $current_jobs;
+
+	//	Written solely for testing purposes!
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+		return $ol;
+	}
 
 	public function awobj_set_is_quickmessenger_enabled($value)
 	{

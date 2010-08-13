@@ -1,8 +1,19 @@
 <?php
 
-class crm_company_obj extends _int_object implements crm_customer_interface
+class crm_company_obj extends _int_object implements crm_customer_interface, crm_sales_price_component_interface, crm_offer_row_interface
 {
-	function prop($k)
+	const AW_CLID = 129;
+
+	//	Written solely for testing purposes!
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+		return $ol;
+	}
+
+	public function prop($k)
 	{
 		if(substr($k, 0, 5) === "fake_" && is_oid($this->id()))
 		{
