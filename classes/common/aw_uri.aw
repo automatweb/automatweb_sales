@@ -280,12 +280,12 @@ class aw_uri
 		{
 			$val = $val->__toString();
 		}
-		elseif (is_scalar($val) or is_null($val))
+		elseif (is_scalar($val) or is_null($val) or is_array($val))
 		{
 		}
 		else
 		{
-			throw new awex_uri_type("Tried to assign non-scalar, non-null value to URI query argument. Conversion attempts failed.");
+			throw new awex_uri_type("Tried to assign non-scalar, non-null, non-array value to URI query argument. Conversion attempts failed.");
 		}
 
 		$args[$name] = $val;
