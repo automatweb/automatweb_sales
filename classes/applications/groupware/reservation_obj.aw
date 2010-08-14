@@ -580,7 +580,7 @@ class reservation_obj extends _int_object
 			$tpl = "preview.tpl";
 		}
 		$res_inst->read_site_template($tpl);
-		lc_site_load("room_reservation", &$res_inst);
+		lc_site_load("room_reservation", $res_inst);
 		$res_inst->vars($this->get_bron_data());
 		$html =  $res_inst->parse();
 
@@ -968,7 +968,7 @@ class reservation_obj extends _int_object
 			room settings object
 		@return array()
 	 **/
-	public function get_product_images($settings)
+	public function get_product_images(&$settings)
 	{
 		$ret = array();
 		$this->get_products();
@@ -1025,7 +1025,7 @@ class reservation_obj extends _int_object
 				$value = join(" ," , $codes);
 				break;
 			case "product_image":
-				$image = $this->get_product_images(&$settings);
+				$image = $this->get_product_images($settings);
 				$value = join(" ," , $image);
 				break;
 			case "cp_phone":

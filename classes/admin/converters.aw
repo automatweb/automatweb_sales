@@ -1374,7 +1374,7 @@ class converters extends aw_template
 
 				//echo "got curacl as ".dbg::dump($curacl);
 				$ser = aw_serialize($curacl);
-				$this->quote(&$ser);
+				$this->quote($ser);
 
 				$this->db_query("UPDATE objects SET acldata = '$ser' WHERE oid = $row[oid]");
 				$this->restore_handle();

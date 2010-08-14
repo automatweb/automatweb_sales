@@ -125,7 +125,7 @@ class shop_matrix_obj extends _int_object
 		foreach($data as $k => $v)
 		{
 			$retval[$k] = array_merge(safe_array(ifset($retval, $k)), $parents);
-			self::get_matrix_structure_parents($v, &$retval, $parents + array($k => $k));
+			self::get_matrix_structure_parents($v, $retval, $parents + array($k => $k));
 		}
 	}
 

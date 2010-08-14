@@ -82,7 +82,7 @@ class crm_document_base extends class_base
 				break;
 
 			case "customer":
-				if($arr["new"] && $this->can("view" , $arr["request"]["project"]))
+				if(!empty($arr["new"]) && isset($arr["request"]["project"]) && $this->can("view", $arr["request"]["project"]))
 				{
 					$project = obj($arr["request"]["project"]);
 					$prop["value"] = $project->get_orderer();
