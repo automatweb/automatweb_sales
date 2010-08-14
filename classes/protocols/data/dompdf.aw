@@ -17,7 +17,7 @@ class dompdf extends class_base
 			"clid" => CL_DOMPDF
 		));
 		$this->tmpfile = aw_ini_get("server.tmpdir")."/aw-html2pdf-".gen_uniq_id();
-		$this->tmptofile = aw_ini_get("server.tmpdir")."/aw_html2pdf-".gen_uniq_id(); 
+		$this->tmptofile = aw_ini_get("server.tmpdir")."/aw_html2pdf-".gen_uniq_id();
 	}
 
 	/**
@@ -34,7 +34,7 @@ class dompdf extends class_base
 	public function convert($arr)
 	{
 		$this->set_html_source($arr["source"]);
-		$this->set_paper("a4", $arr["landscape"]);
+		$this->set_paper("a4", !empty($arr["landscape"]));
 		return $this->output_pdf();
 	}
 
@@ -80,7 +80,6 @@ class dompdf extends class_base
 		$lds .= " -o ".$this->orientation;
 		$hd = aw_ini_get("html2pdf.dompdf_path");
 		$cmdl = "php ".$hd."/dompdf.php ".$lds;
-		$cmdl2 = "php ".$hd."/dompdf.php ".$lds2;//arr($cmdl);arr($this->source); die();
 		shell_exec($cmdl);
 		unlink($this->tmpfile);
 	}

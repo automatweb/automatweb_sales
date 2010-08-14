@@ -1080,11 +1080,8 @@ class cfgform extends class_base
 		$retval = array();
 		foreach ($this->prplist as $prop)
 		{
-			$caption = $prop["caption"];
-			if(!$caption)
-			{
-				$caption = $prop["name"];
-			}
+			$caption = empty($prop["caption"]) ? $prop["name"] : $prop["caption"];
+
 			$retval[] = array(
 				"name" => "view_controllers[".$prop["name"]."]",
 				"caption" => $caption,
@@ -2522,7 +2519,7 @@ class cfgform extends class_base
 								$this->vars(array(
 									"size_caption" => t("Laius"),
 									"size" => empty($property["size"]) ? "" : $property["size"],
-									"maxlength" => $property["maxlength"],
+									"maxlength" => empty($property["maxlength"]) ? "" : $property["maxlength"],
 									"maxlength_caption" => t("T&auml;hem&auml;rkide piirang"),
 									"prp_key" => $property["name"],
 								));
@@ -2597,7 +2594,7 @@ class cfgform extends class_base
 							case "select":
 								$this->vars(array(
 									"size_caption" => t("K&otilde;rgus"),
-									"size" => $property["size"],
+									"size" => empty($property["size"]) ? "" : $property["size"],
 									"prp_key" => $property["name"]
 								));
 								$property["cfgform_additional_options"] = $this->parse("select_options");
@@ -2676,9 +2673,9 @@ class cfgform extends class_base
 							case "chooser":
 								$this->vars(array(
 									"orienth_caption" => t("Horisontaalselt"),
-									"orienth_ch" => ("horizontal" === $property["orient"]) ? ' checked="1"' : "",
+									"orienth_ch" => isset($property["orient"]) && ("horizontal" === $property["orient"]) ? ' checked="1"' : "",
 									"orientv_caption" => t("Vertikaalselt"),
-									"orientv_ch" => ("vertical" === $property["orient"]) ? ' checked="1"' : "",
+									"orientv_ch" => isset($property["orient"]) && ("vertical" === $property["orient"]) ? ' checked="1"' : "",
 									"prp_key" => $property["name"],
 								));
 								$property["cfgform_additional_options"] = $this->parse("chooser_options");

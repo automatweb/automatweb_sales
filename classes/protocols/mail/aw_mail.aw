@@ -11,10 +11,6 @@
 // ideaalis peaks see edaspidi toetama ka teisi mailisaatmismeetodeid
 // peale PHP mail funktsiooni
 
-/*
-@classinfo  maintainer=kristo
-*/
-
 define('X_MAILER',"AW Mail 2.0");
 define('WARNING','This is a MIME encoded message');
 define('OCTET','application/octet-stream');
@@ -27,6 +23,16 @@ define('BASE64','base64');
 
 class aw_mail
 {
+	const X_MAILER = "AW Mail 2.0";
+	const WARNING = "This is a MIME encoded message";
+	const OCTET = "application/octet-stream";
+	const TEXT = "text/plain";
+	const HTML = "text/html";
+	const INLINE = "inline";
+	const ATTACH = "attachment";
+	const CRLF = "\n";
+	const BASE64 = "base64";
+
 	var $bounce;
 	var $boundary;
 	var $body_replacements;
@@ -34,6 +40,9 @@ class aw_mail
 	var $message; // siin hoiame teate erinevaid osasid
 	var $mimeparts; // siin hoiame teate MIME osasid
 	var $headers; // headerid
+
+	private $charset = "";
+
 	////
 	// !Konstruktor
 	// argumendid
@@ -41,7 +50,7 @@ class aw_mail
 	function aw_mail($args = array())
 	{
 		$ll = new languages();
-		define('CHARSET',$ll->get_charset());
+		$this->charset = $ll->get_charset();
 		return $this->clean($args);
 	}
 
@@ -310,7 +319,6 @@ class aw_mail
 	**/
 	function create_message($args = array())
 	{
-
 		if (is_array($args))
 		{
 			if (!empty($args["body"]))
@@ -321,9 +329,8 @@ class aw_mail
 
 			if (empty($args["X-Mailer"]))
 			{
-				$args["X-Mailer"] = X_MAILER;
-			};
-
+				$args["X-Mailer"] = self::X_MAILER;
+			}
 
 			$this->from = $args["froma"];
 			$this->subject = $args["subject"];
@@ -374,18 +381,18 @@ class aw_mail
 
 		if (empty($contenttype))
 		{
-			$contenttype = OCTET;
+			$contenttype = self::OCTET;
 		}
 
 		if (empty($encoding))
 		{
-			$encoding = BASE64;
+			$encoding = self::BASE64;
 		}
 
-		if ($encoding == BASE64)
+		if ($encoding == self::BASE64)
 		{
 			$emsg = base64_encode($data);
-			$emsg = chunk_split($emsg,76,CRLF);
+			$emsg = chunk_split($emsg,76,self::CRLF);
 		}
 		else
 		{
@@ -395,12 +402,12 @@ class aw_mail
 		$emsg = trim($emsg);
 
 
-		if (preg_match("!^".TEXT."!i", $contenttype) && !preg_match("!;charset=!i", $contenttype))
+		if (preg_match("!^".self::TEXT."!i", $contenttype) && !preg_match("!;charset=!i", $contenttype))
 		{
-			$contenttype .= ";" . CRLF . " charset=".CHARSET ;
+			$contenttype .= ";" . self::CRLF . " charset=".$this->charset;
 		}
 
-		if ($args["body"])
+		if (!empty($args["body"]))
 		{
 			if ($description)
 			{
@@ -412,22 +419,22 @@ class aw_mail
 				$this->headers["Content-Disposition"] = $disp;
 			}
 
-			$pref = "Content-Type: text/plain; charset=ISO-8859-1" . CRLF;
+			$pref = "Content-Type: text/plain; charset=ISO-8859-1" . self::CRLF;
 			$pref .= "Content-Transfer-Encoding: 8bit";
 
 
 			//$this->headers["Content-Type"] = $contenttype;
 			$this->headers["Content-Transfer-Encoding"] = $encoding;
-			$this->mimeparts[0] = $pref . CRLF . $emsg;
+			$this->mimeparts[0] = $pref . self::CRLF . $emsg;
 		}
 		else
 		{
 			$msg = sprintf("Content-Type: %sContent-Transfer-Encoding: %s%s%s%s",
-						$contenttype.CRLF,
-						$encoding.CRLF,
-						(($description) ? "Content-Description: $description".CRLF:""),
-						(($disp) ? "Content-Disposition: $disp".CRLF:""),
-						CRLF.$emsg.CRLF);
+						$contenttype.self::CRLF,
+						$encoding.self::CRLF,
+						(($description) ? "Content-Description: $description".self::CRLF:""),
+						(($disp) ? "Content-Disposition: $disp".self::CRLF:""),
+						self::CRLF.$emsg.self::CRLF);
 			$this->mimeparts[] = $msg;
 		};
 
@@ -458,25 +465,28 @@ class aw_mail
 	function htmlbodyattach($args=array())
 	{
 		extract($args);
+
+		$heads = isset($args["heads"]) ? $args["heads"] : "";
+
 		// nii, kuidas seda siis teha?
 		// tuleb teha juurde yx mime part, mille Content-Type: multipart/alternative;
 		// sinna sisse paneme vana message body ja eraldatult uue html body.
 		$boundary='AW'.chr(rand(65,91)).'--'.md5(uniqid(rand()));
-		$atc="Content-Type: multipart/alternative;".CRLF." boundary=\"$boundary\"".CRLF.CRLF;
+		$atc="Content-Type: multipart/alternative;".self::CRLF." boundary=\"$boundary\"".self::CRLF.self::CRLF;
 
 		$plain = strtr($this->body,array("<br />"=>"\r\n","<br />"=>"\r\n","</p>"=>"\r\n","</p>"=>"\r\n"));
 		$plain = $this->strip_html($plain);
 
-		$atc.= "--".$boundary. CRLF;
-		$atc.="Content-Type: text/plain; charset=".CHARSET . CRLF;
-		$atc.="Content-Transfer-Encoding: 8bit".CRLF.CRLF.$plain.CRLF.CRLF;
-		$atc.="--".$boundary.CRLF;
+		$atc.= "--".$boundary. self::CRLF;
+		$atc.="Content-Type: text/plain; charset=" . $this->charset . self::CRLF;
+		$atc.="Content-Transfer-Encoding: 8bit".self::CRLF.self::CRLF.$plain.self::CRLF.self::CRLF;
+		$atc.="--".$boundary.self::CRLF;
 
 		$data = str_replace("\\\"","\"",$data);
-		$atc.="Content-Type: text/html; charset=".CHARSET . CRLF;
-		$atc.="Content-Transfer-Encoding: 8bit".CRLF.CRLF.$this->gen_htmlbody($data, $heads).CRLF.CRLF;
+		$atc.="Content-Type: text/html; charset=" . $this->charset . self::CRLF;
+		$atc.="Content-Transfer-Encoding: 8bit".self::CRLF.self::CRLF.$this->gen_htmlbody($data, $heads).self::CRLF.self::CRLF;
 
-		$atc .= "--".$boundary."--".CRLF;
+		$atc .= "--".$boundary."--".self::CRLF;
 
 		// see peab kindlalt olema esimene 2tt2ts.
 		$this->mimeparts=array_merge(array($atc),$this->mimeparts);
@@ -558,22 +568,18 @@ class aw_mail
 	function fattach($args = array())
 	{
 		extract($args);
-		if (!$contenttype)
-		{
-			$contenttype = OCTET;
-		};
 
-		if (substr($contenttype,0,4) == "text")
+		$contenttype = isset($args["contenttype"]) ? $args["contenttype"] : self::OCTET;
+		$encoding = isset($args["encoding"]) ? $args["encoding"] : self::BASE64;
+		$description = isset($args["description"]) ? $args["description"] : "";
+		$disp = isset($args["disp"]) ? $args["disp"] : "";
+
+		if (substr($contenttype,0,4) === "text")
 		{
 			$encoding = "8bit";
-		};
+		}
 
-		if (!$encoding)
-		{
-			$encoding = BASE64;
-		};
-
-		if ($content == "")
+		if (!isset($content) or strlen($content) === 0)
 		{
 			// read the fscking file
 			$fp = fopen($path,"rb");
@@ -586,7 +592,8 @@ class aw_mail
 			if (!$name)
 			{
 				$name = basename($path);
-			};
+			}
+
 			$data = fread($fp, filesize($path));
 		}
 		else
@@ -594,14 +601,14 @@ class aw_mail
 			$data = $content;
 		}
 
-		$contenttype .= ";" . CRLF . " name=\"".$name . "\"";
+		$contenttype .= ";" . self::CRLF . " name=\"".$name . "\"";
 		return $this->attach(array(
-				"data" => $data,
-				"description" => $description,
-				"contenttype" => $contenttype,
-				"encoding" => $encoding,
-				"disp" => $disp,
-			));
+			"data" => $data,
+			"description" => $description,
+			"contenttype" => $contenttype,
+			"encoding" => $encoding,
+			"disp" => $disp,
+		));
 	}
 
 
@@ -629,38 +636,39 @@ class aw_mail
 		// we have more than one attach
 		if (is_array($this->mimeparts) && ($nparts > 1))
 		{
-			//$c_ver = "MIME-Version: 1.0".CRLF;
+			//$c_ver = "MIME-Version: 1.0".self::CRLF;
 			$this->headers["MIME-Version"] = "1.0";
-			//$this->headers["Content-Type"] = "multipart/mixed;" . CRLF . " boundary=\"$boundary\"";
-			$this->headers["Content-Type"] = "multipart/mixed;" . CRLF . " boundary=\"$boundary\"";
+			//$this->headers["Content-Type"] = "multipart/mixed;" . self::CRLF . " boundary=\"$boundary\"";
+			$this->headers["Content-Type"] = "multipart/mixed;" . self::CRLF . " boundary=\"$boundary\"";
 			$this->headers["Content-Transfer-Encoding"] = "8bit";
-			if ($c_desc)
+			if (!empty($c_desc))
 			{
 				$this->headers["Content-Description"] = $c_desc;
-			};
-			$warning = WARNING.CRLF;
+			}
+			$warning = self::WARNING.self::CRLF;
 
 			// Since we are here, it means we do have attachments => body must become
 			// and attachment too.
-			if (!empty($this->body)) {
+			if (!empty($this->body))
+			{
 				$this->attach(array(
 					"data" => $this->body,
 					"body" => 1,
-					"contenttype" => TEXT,
+					"contenttype" => self::TEXT,
 					"encoding" => "8bit",
 				));
-			};
+			}
 
 			// Now create the MIME parts of the email!
 			for ($i=0; $i < $nparts; $i++)
 			{
 				if (!empty($this->mimeparts[$i]))
 				{
-					$msg .= CRLF."--".$boundary.CRLF.$this->mimeparts[$i].CRLF;
+					$msg .= self::CRLF."--".$boundary.self::CRLF.$this->mimeparts[$i].self::CRLF;
 				};
 			};
 
-			$msg .= "--".$boundary."--".CRLF;
+			$msg .= "--".$boundary."--".self::CRLF;
 			$msg = $warning.$msg;
 		}
 		else
@@ -732,7 +740,7 @@ class aw_mail
 		if (empty($this->headers["Content-Type"]))
 		{
 			$ll = new languages();
-			$this->set_header("Content-Type","text/plain; charset=\"".$ll->get_charset()."\"");
+			$this->set_header("Content-Type","text/plain; charset=\"". $this->charset ."\"");
 		}
 
 		unset($this->headers["To"]);
@@ -744,7 +752,7 @@ class aw_mail
 		{
 			if ($value)
 			{
-				$headers .= sprintf("%s: %s%s",$name,$value,CRLF);
+				$headers .= sprintf("%s: %s%s",$name,$value,self::CRLF);
 			}
 		}
 

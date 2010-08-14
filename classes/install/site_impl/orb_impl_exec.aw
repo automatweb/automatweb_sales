@@ -39,9 +39,7 @@ if (isset($vars['fastcall']) && $vars["fastcall"] == 1)
 }
 
 include(aw_ini_get("classdir")."/".aw_ini_get("site_impl_dir")."/site_header.".aw_ini_get("ext"));
-register_shutdown_function("log_pv", $GLOBALS["awt"]->timers["__global"]["started"]);
-enter_function("orb_impl_exec::process_request");
-classload("core/orb/orb");
+
 $orb = new orb();
 $orb->process_request(array(
 	"class" => isset($_POST["class"]) ? $_POST["class"] : $_GET["class"],
@@ -52,12 +50,12 @@ $orb->process_request(array(
 	"silent" => false,
 ));
 $content = $orb->get_data();
-exit_function("orb_impl_exec::process_request");
+
 
 // et kui orb_data on link, siis teeme ymbersuunamise
 // see ei ole muidugi parem lahendus. In fact, see pole yldse
 // mingi lahendus
-if (substr($content,0,5) == "http:" || !empty($vars["reforb"]) || substr($content,0,6) == "https:")
+if (substr($content,0,5) === "http:" || !empty($vars["reforb"]) || substr($content,0,6) === "https:")
 {
 	if (headers_sent())
         {

@@ -456,6 +456,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		extract($arr);
 		// $type, $id, $return_as_odl
 
+		$return_as_odl = isset($arr["return_as_odl"]) ? (bool) $arr["return_as_odl"] : false;
+		$id = empty($arr["id"]) ? parent::id() : (int) $arr["id"];
+
 		$prms = array(
 			"class_id" => CL_CRM_PHONE,
 			"status" => array(),
@@ -463,17 +466,18 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"CL_CRM_PHONE.RELTYPE_PHONE(CL_CRM_PERSON)" => isset($id) ? $id : parent::id(),
-					"CL_CRM_PHONE.RELTYPE_PHONE(CL_CRM_PERSON_WORK_RELATION).RELTYPE_CURRENT_JOB(CL_CRM_PERSON)" => isset($id) ? $id : parent::id(),
+					"CL_CRM_PHONE.RELTYPE_PHONE(CL_CRM_PERSON)" => $id,
+					"CL_CRM_PHONE.RELTYPE_PHONE(CL_CRM_PERSON_WORK_RELATION).RELTYPE_CURRENT_JOB(CL_CRM_PERSON)" => $id,
 				),
 			)),
 		);
+
 		if(isset($type))
 		{
 			$prms["CL_CRM_PHONE.type"] = $type;
 		}
 
-		if($return_as_odl === true)
+		if($return_as_odl)
 		{
 			$ret = new object_data_list($prms, array(
 				CL_CRM_PHONE => array("oid", "name", "type"),
@@ -491,6 +495,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		extract($arr);
 		// $type, $id, $return_as_odl
 
+		$return_as_odl = isset($arr["return_as_odl"]) ? (bool) $arr["return_as_odl"] : false;
+		$id = empty($arr["id"]) ? parent::id() : (int) $arr["id"];
+
 		$prms = array(
 			"class_id" => CL_ML_MEMBER,
 			"status" => array(),
@@ -500,13 +507,13 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_PERSON)" => isset($id) ? $id : parent::id(),
-					"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_PERSON_WORK_RELATION).RELTYPE_CURRENT_JOB(CL_CRM_PERSON)" => isset($id) ? $id : parent::id(),
+					"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_PERSON)" => $id,
+					"CL_ML_MEMBER.RELTYPE_EMAIL(CL_CRM_PERSON_WORK_RELATION).RELTYPE_CURRENT_JOB(CL_CRM_PERSON)" => $id,
 				),
 			)),
 		);
 
-		if($return_as_odl === true)
+		if($return_as_odl)
 		{
 			$ret = new object_data_list($prms, array(
 				CL_ML_MEMBER => array("oid", "mail"),
@@ -646,7 +653,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		$n = false;
 		if ($GLOBALS["object_loader"]->cache->can("view", $this->prop("email")))
-
 		{
 			$this->set_meta("tmp_fake_email", $mail);
 			$this->set_meta("sim_fake_email", 1);
@@ -1242,6 +1248,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		{
 			$list = new object_list(array(
 				"class_id" => CL_CRM_PERSON_WORK_RELATION,
+				"employer" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
 				"employee" => $this->id(),
 				"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time()),
 				new object_list_filter(array(
@@ -1337,9 +1344,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		return $ol->ids();
 	}
 
-	/** returns all current job relations
-		@attrib api=1
-	**/
 	public function set_current_jobs()
 	{
 		if(!$this->current_jobs)
@@ -1372,9 +1376,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		}
 	}
 
-	/**
-		@attrib api=1
-	**/
 	public function set_all_jobs()
 	{
 		if(!$this->all_jobs)
@@ -1431,32 +1432,33 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		return reset($this->get_section_names($co, $sec));
 	}
 
-	/** returns person profession names
+	/** returns profession names of person's active work relations
 		@attrib api=1
-		@param co optional type=oid
-			company id
-		@param proffessions optional type=array
-			profession object ids
+		@param employer optional type=CL_CRM_COMPANY
+			employer
+		@param sections optional type=object_list
+			if professions in specific sections desired
 		@return array
 			profession names
 	**/
-	public function get_profession_names($co, $professions = array())
+	public function get_profession_names(object $employer = null, object_list $sections = null)
 	{
 		$this->set_current_jobs();
-		$sections = array();
-		foreach($this->current_jobs->arr() as $o)
+		$profession_names = array();
+
+		foreach($this->current_jobs->arr() as $work_relation)
 		{
-			if(sizeof($professions) && !in_array($o->prop("profession") , $professions))//kui pole ette antud yksustes j2tab vahele
+			if (
+				$employer and $work_relation->prop("employer") == $employer->id() or
+				$sections and $sections->in_list($work_relation->prop("section")) or
+				!$employer and !$sections
+			)
 			{
-				continue;
-			}
-			if((!$co || $co == $o->prop("org")) && $o->prop("profession.name"))
-			{
-				$sections[] = $o->prop("profession.name");
+				$profession_names[] = $work_relation->prop("profession.name");
 			}
 		}
 
-		return $sections;
+		return $profession_names;
 	}
 
 	/**	Returns object list of all current professions
@@ -1644,10 +1646,10 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 					if (is_email($addr))
 					{
 						$this->send_nfy_mail($addr, $conn->to(), $modified);
-					};
-				};
-			};
-		};
+					}
+				}
+			}
+		}
 	}
 
 	public function send_nfy_mail($addr, $o, $modified = false)
@@ -1965,6 +1967,20 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		return $ol;
 	}
 
+
+	/** Returns all kind of variables useful for this person
+		@attrib api=1
+		@return array
+	**/
+	public function get_data()
+	{
+		$data = array();
+		foreach($this->properties() as $prop => $val)
+		{
+			$data[$prop] = $this->prop_str($prop);
+		}
+		return $data;
+	}
 }
 
 ?>

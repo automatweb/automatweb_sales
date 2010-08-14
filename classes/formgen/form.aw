@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/formgen/form.aw,v 1.135 2009/01/12 10:40:17 kristo Exp $
+
 // form.aw - Class for creating forms
 /*
 @classinfo  maintainer=kristo
@@ -14,7 +14,7 @@
 // filling them and processing the results. It's needed to complete our plan to take over the world.
 lc_load("automatweb");
 
-// constants for get_elements_for_row - specify wheter the return array is 
+// constants for get_elements_for_row - specify wheter the return array is
 // element_name => element_value
 define("ARR_ELNAME", 1);
 // or element_id => element_value
@@ -36,7 +36,7 @@ class form extends form_base
 
 		$this->sub_merge = 1;
 
-		// these types are used in the "add new form" page 
+		// these types are used in the "add new form" page
 		// feel free to move them to the ini file
 		$this->ftypes = array(
 			FTYPE_ENTRY => $this->vars["LC_FORMS_TYPE_ENTRY"],
@@ -87,17 +87,17 @@ class form extends form_base
 		echo "</table>";
 	}
 
-	/** Generates form admin interface 
-		
+	/** Generates form admin interface
+
 		@attrib name=change params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param return_url optional
 		@param alias_to optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		$arr[id] - form id, required
 		FIXME: Move form editing functions into a separate class
@@ -118,8 +118,8 @@ class form extends form_base
 			{
 				$this->vars(array(
 					"add_col" => $this->mk_orb("add_col", array(
-								"id" => $this->id, 
-								"after" => -1, 
+								"id" => $this->id,
+								"after" => -1,
 								"count" => 1,
 								)),
 				));
@@ -150,7 +150,7 @@ class form extends form_base
 			}
 
 			$this->vars(array(
-				"FIRST_C" => $fi, 
+				"FIRST_C" => $fi,
 				"DELETE_COL" => $cd,
 				"add_col"	=> $this->mk_orb("add_col", array("id" => $this->id, "count" => 1, "after" => $a))
 			));
@@ -167,7 +167,7 @@ class form extends form_base
 				{
 					continue;
 				}
-				
+
 				if (is_object($this->arr["contents"][$arr["r_row"]][$arr["r_col"]]))
 				{
 					$els = $this->arr["contents"][$arr["r_row"]][$arr["r_col"]]->get_elements();
@@ -180,7 +180,7 @@ class form extends form_base
 				{
 					// the element's can_view property is ignored here
 					$this->vars(array(
-						"form_cell_text"	=> $v["text"], 
+						"form_cell_text"	=> $v["text"],
 						"form_cell_order"	=> $v["order"],
 						"element_id"			=> $v["id"],
 						"el_name"					=> ($v["name"] == "" ? "&nbsp;" : $v["name"]),
@@ -235,10 +235,10 @@ class form extends form_base
 				}
 
 				$this->vars(array(
-					"SPLIT_HORIZONTAL" => $sh, 
-					"SPLIT_VERTICAL" => $sv, 
-					"EXP_UP" => $eu, 
-					"EXP_LEFT" => $el, 
+					"SPLIT_HORIZONTAL" => $sh,
+					"SPLIT_VERTICAL" => $sv,
+					"EXP_UP" => $eu,
+					"EXP_LEFT" => $el,
 					"EXP_RIGHT" => $er,
 					"EXP_DOWN" => $ed
 				));
@@ -254,8 +254,8 @@ class form extends form_base
 			$cd = $this->parse("DELETE_ROW");
 
 			$this->vars(array(
-				"COL" => $cols, 
-				"FIRST_R" => $fi, 
+				"COL" => $cols,
+				"FIRST_R" => $fi,
 				"DELETE_ROW" => $cd,
 				"add_row" => $this->mk_orb("add_row", array("id" => $this->id, "after" => $i, "count" => 1))
 			));
@@ -272,14 +272,14 @@ class form extends form_base
 	}
 
 	/** Shows all form elements and lets user pick their style
-		
+
 		@attrib name=all_elements2 params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		TODO: Move to another class
 
@@ -304,12 +304,12 @@ class form extends form_base
 			$cols="";
 			for ($a=0; $a < $this->arr["cols"]; $a++)
 			{
-				$this->vars(array("ELEMENT"	=> "", "STYLEITEMS" => "", "SOME_ELEMENTS" => ""));	
+				$this->vars(array("ELEMENT"	=> "", "STYLEITEMS" => "", "SOME_ELEMENTS" => ""));
 				if (!($arr = $this->get_spans($i, $a)))
 				{
 					continue;
 				}
-						
+
 				$cell = &$this->arr["contents"][$arr["r_row"]][$arr["r_col"]]->arr;
 				$el_t = "";
 
@@ -382,11 +382,11 @@ class form extends form_base
 				}
 
 				$this->vars(array(
-					"ELEMENT" => $el_t, 
-					"col" => $arr["r_col"], 
+					"ELEMENT" => $el_t,
+					"col" => $arr["r_col"],
 					"row" => $arr["r_row"],
 					"row1" => $arr["r_row"]+1
-				));	
+				));
 
 				$this->vars(array("SOME_ELEMENTS" => $this->parse("SOME_ELEMENTS")));
 
@@ -406,7 +406,7 @@ class form extends form_base
 		return $this->do_menu_return();
 	}
 
-	/** 
+	/**
 
 		@attrib name=submit_all_els2
 
@@ -423,7 +423,7 @@ class form extends form_base
 				{
 					continue;
 				}
-					
+
 				$cell = &$this->arr["contents"][$arr["r_row"]][$arr["r_col"]]->arr;
 				$_cell = new aw_array($cell);
 				foreach($_cell->get() as $idx => $el)
@@ -467,19 +467,19 @@ class form extends form_base
 			}
 		}
 		$this->save();
-		
+
 		return $this->mk_my_orb("all_elements2", array("id" => $id));
 	}
 
-	/** Shows all form elements and lets user pick their style 
-		
+	/** Shows all form elements and lets user pick their style
+
 		@attrib name=all_elements params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		TODO: Move to another class
 
@@ -508,12 +508,12 @@ class form extends form_base
 			$cols="";
 			for ($a=0; $a < $this->arr["cols"]; $a++)
 			{
-				$this->vars(array("ELEMENT"	=> "", "STYLEITEMS" => "", "SOME_ELEMENTS" => ""));	
+				$this->vars(array("ELEMENT"	=> "", "STYLEITEMS" => "", "SOME_ELEMENTS" => ""));
 				if (!($arr = $this->get_spans($i, $a)))
 				{
 					continue;
 				}
-						
+
 				$cell = &$this->arr["contents"][$arr["r_row"]][$arr["r_col"]];
 				$els = array();
 				if (is_object($cell))
@@ -541,12 +541,12 @@ class form extends form_base
 					$__stsel = $this->arr["contents"][$arr["r_row"]][$arr["r_col"]]->get_style();
 				}
 				$this->vars(array(
-					"ELEMENT"				=> $el, 
+					"ELEMENT"				=> $el,
 					"style_name" => $stylesel[$__stsel],
-					"col"						=> $arr["r_col"], 
+					"col"						=> $arr["r_col"],
 					"row"						=> $arr["r_row"],
 					"row1" => $arr["r_row"]+1
-				));	
+				));
 
 				$this->vars(array("SOME_ELEMENTS" => $this->parse("SOME_ELEMENTS")));
 
@@ -566,14 +566,14 @@ class form extends form_base
 		return $this->do_menu_return();
 	}
 
-	/** saves the selected styles from viewing all element layout 
-		
+	/** saves the selected styles from viewing all element layout
+
 		@attrib name=submit_all_els params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 		TODO: Move to another class
 
@@ -600,8 +600,8 @@ class form extends form_base
 					{
 						// we must add an element of the specified type to this cell
 						$this->arr["contents"][$row][$col]->do_add_element(array(
-							"parent" => $this->arr["newel_parent"], 
-							"name" => "uus_element_".(++$newelcnt), 
+							"parent" => $this->arr["newel_parent"],
+							"name" => "uus_element_".(++$newelcnt),
 							"based_on" => $addel
 						));
 					}
@@ -705,14 +705,14 @@ class form extends form_base
 		return $this->mk_my_orb("all_elements", array("id" => $id));
 	}
 
-	/** saves the table properties of the form 
-		
+	/** saves the table properties of the form
+
 		@attrib name=save_settings params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 		TODO: Move to another class
 
@@ -817,14 +817,14 @@ class form extends form_base
 		return $this->mk_orb("table_settings", array("id" => $id));
 	}
 
-	/** saves the changes the user has made in the form generated by gen_grid 
-		
+	/** saves the changes the user has made in the form generated by gen_grid
+
 		@attrib name=submit_grid params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 		TODO: Move to another class
 
@@ -860,14 +860,14 @@ class form extends form_base
 				{
 					// since this element is in some other forms as well, we must create a replica and remove the old one from this form
 					$el = $this->get_element_by_id($elid);
-					
+
 					if ($el)
 					{
 						$el_parent = $this->db_fetch_field("SELECT parent FROM objects WHERE oid = ".$el->get_id(),"parent");
 
 						$newelid = $this->arr["contents"][$el->get_row()][$el->get_col()]->do_add_element(array(
-							"name" => $el->get_el_name(), 
-							"parent" => $this->arr["tear_folder"], 
+							"name" => $el->get_el_name(),
+							"parent" => $this->arr["tear_folder"],
 							"based_on" => $elid,
 							"props" => $el->get_props()
 						));
@@ -919,17 +919,17 @@ class form extends form_base
 		return $this->mk_orb("change",array("id" => $this->id));
 	}
 
-	/** Adds $count columns after column $after in form $id 
-		
+	/** Adds $count columns after column $after in form $id
+
 		@attrib name=add_col params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param after required
 		@param count required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -972,17 +972,17 @@ class form extends form_base
 		}
 	}
 
-	/** Adds rows to the form 
-		
+	/** Adds rows to the form
+
 		@attrib name=add_row params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param after required
 		@param count required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		parameters:
 		id - form id
@@ -1001,7 +1001,7 @@ class form extends form_base
 		header("Location: $orb");
 		return $orb;
 	}
-	
+
 	function do_add_row($arr)
 	{
 		extract($arr);
@@ -1028,16 +1028,16 @@ class form extends form_base
 		}
 	}
 
-	/** Deletes column $col of form $id 
-		
+	/** Deletes column $col of form $id
+
 		@attrib name=del_col params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param col required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1053,14 +1053,14 @@ class form extends form_base
 		header("Location: $orb");
 		return $orb;
 	}
-	
+
 	function do_delete_column($arr)
 	{
 		extract($arr);
 		for ($i=0; $i < $this->arr["rows"]; $i++)
 		{
 			// we don't delete the element from the database, we jsut delete it
-			// from this form. 
+			// from this form.
 			$this->arr["elements"][$i][$col] = array();
 			$this->arr["contents"][$i][$col]->del();
 			$this->arr["contents"][$i][$col] = "";
@@ -1082,16 +1082,16 @@ class form extends form_base
 		$this->arr["cols"]--;
 	}
 
-	/** Deletes row $row from form $id 
-		
+	/** Deletes row $row from form $id
+
 		@attrib name=del_row params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param row required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1101,7 +1101,7 @@ class form extends form_base
 		$this->load($id);
 
 		$this->do_delete_row($arr);
-		
+
 		$this->save();
 		$orb = $this->mk_orb("change", array("id" => $this->id));
 		header("Location: $orb");
@@ -1133,15 +1133,15 @@ class form extends form_base
 		$this->arr["rows"]--;
 	}
 
-	/** Generates the form used in modifying the table settings 
-		
+	/** Generates the form used in modifying the table settings
+
 		@attrib name=table_settings params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1339,18 +1339,18 @@ class form extends form_base
 			"SEARCH" => "",
 			"reforb"	=> $this->mk_reforb("save_settings", array("id" => $this->id))
 		));
-		return $this->do_menu_return();				
+		return $this->do_menu_return();
 	}
 
-	/** Wrapper for showing alias manager inside the formgen 
-		
+	/** Wrapper for showing alias manager inside the formgen
+
 		@attrib name=form_aliasmgr params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -1361,14 +1361,14 @@ class form extends form_base
 		$this->vars(array(
 			"aliasmgr_link" => $this->mk_my_orb("list_aliases",array("id" => $id),"aliasmgr"),
 		));
-		return $this->do_menu_return();				
+		return $this->do_menu_return();
 
 	}
 
-	/** shows form $id 
-		
+	/** shows form $id
+
 		@attrib name=show params=name nologin="1" default="0"
-		
+
 		@param id required
 		@param entry_id optional
 		@param extraids optional
@@ -1377,10 +1377,10 @@ class form extends form_base
 		@param load_entry_data_form optional
 		@param load_chain_data optional
 		@param method optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		optional parameters:
 		$entry_id - the entry to show
@@ -1509,7 +1509,7 @@ class form extends form_base
 					enter_function("form::load_chain_data::gae");
 					$lf_els = $lf_fm->get_all_els();
 					exit_function("form::load_chain_data::gae");
-					
+
 					enter_function("form::load_chain_data::le");
 					$lf_fm->load_entry($c_eid);
 					exit_function("form::load_chain_data::le");
@@ -1642,7 +1642,7 @@ class form extends form_base
 				"EDIT" => $this->parse("EDIT"),
 			));
 		}
-		
+
 		$in_grps = true;
 		if (aw_ini_get("form.translator_groups") != "")
 		{
@@ -1701,7 +1701,7 @@ class form extends form_base
 			));
 		}
 
-		$st = $this->parse();				
+		$st = $this->parse();
 
 		// siia array sisse pannaxe css stiilide nimed ja id'd form_cell::gen_user_html sees, mis vaja genereerida
 		if (is_array($this->styles))
@@ -1758,14 +1758,14 @@ class form extends form_base
 	}
 
 
-	/** saves the entry for the form $id, if $entry_id specified, updates it instead of creating a new one 
-		
+	/** saves the entry for the form $id, if $entry_id specified, updates it instead of creating a new one
+
 		@attrib name=process_entry params=name nologin="1" default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 		elements are assumed to be prefixed by $prefix
 		optional argument $chain_entry_id - if creating a new entry and it is specified, the entry is created with that chain entry id
@@ -1779,9 +1779,6 @@ class form extends form_base
 	{
 		extract($arr);
 
-		global $awt;
-		$awt->start("fg");
-
 		aw_set_exec_time(AW_LONG_PROCESS);
 		// values can be passed from the caller inside the $values argument, or..
 		if (is_array($values))
@@ -1794,7 +1791,7 @@ class form extends form_base
 			// .. if that is not the case, then we just import all the POST variables.
 			$this->post_vars = safe_array($_POST) + safe_array($_GET);
 		};
-		
+
 		// if this is set to true, then a variable in the session will be set to the created/loaded entry id, so that
 		// the next time the form is viewed in the current session, this entry id will be used if not specified in the url
 		$this->set_use_eid_once = false;
@@ -1803,10 +1800,10 @@ class form extends form_base
 		{
 			$this->load($id);
 		}
-		
-		// tshekime et kas see entry on ikka loaditud formi jaox 
+
+		// tshekime et kas see entry on ikka loaditud formi jaox
 		if ($entry_id && $this->arr["save_table"] != 1)
-		{	
+		{
 			$fid = $this->get_form_for_entry($entry_id);
 			// ja kui pole siis ignoorime seda
 			if ($fid != $id && $fid != "")
@@ -1830,7 +1827,7 @@ class form extends form_base
 		$this->controller_errors = array();
 
 		$new = ($entry_id) ? false : true;
-	
+
 		// check_calendar might want to alter those
 		$controllers_ok = true;
 		$controller_warnings_ok = true;
@@ -1846,7 +1843,7 @@ class form extends form_base
 			{
 				for ($a=0; $a < $this->arr["cols"]; $a++)
 				{
-					// gather the data from the bunch of POST variables into $this->entry 
+					// gather the data from the bunch of POST variables into $this->entry
 					// - an array of element_id => element_data
 					$this->arr["contents"][$i][$a] -> process_entry(&$this->entry, $this->entry_id,$prefix);
 				}
@@ -1857,13 +1854,13 @@ class form extends form_base
 				$cval = $this->controller_instance->eval_controller(
 					$dat["ctrl_id"],
 					$dat["val"],
-					&$this, 
+					&$this,
 					&$this->arr["contents"][$dat["row"]][$dat["col"]]->arr[$dat["idx"]]
 				);
 				$this->arr["contents"][$dat["row"]][$dat["col"]]->arr[$dat["idx"]]->entry = $cval;
 				$this->entry[$dat["id"]] = $cval;
 			}
-		
+
 			foreach($this->controller_queue as $ctrl)
 			{
 				if (!$ctrl["val"])
@@ -1892,7 +1889,7 @@ class form extends form_base
 			}
 
 			// moved calendar checks after value controller checks, so that calendar can use value
-			// controller generated values. 
+			// controller generated values.
 
 			$this->has_controller_warnings = !$controller_warnings_ok;
 			$this->has_controller_errors = !$controllers_ok;
@@ -1926,7 +1923,7 @@ class form extends form_base
 					$this->controller_instance->eval_controller(
 						$this->arr["calendar_controller"],
 						$fcal->msg,
-						&$this 
+						&$this
 					);
 				}
 
@@ -1945,7 +1942,7 @@ class form extends form_base
 					$entry_id = 0;
 				}
 
-				// we must stick the data that was entered in the session, 
+				// we must stick the data that was entered in the session,
 				aw_session_set("form_".$this->id."_entry_".$entry_id."_data", $this->entry);
 				aw_session_set("form_".$this->id."_entry_".$entry_id."_errors", $this->controller_errors);
 				aw_session_set("form_".$this->id."_entry_".$entry_id."_is_error", true);
@@ -2002,7 +1999,7 @@ class form extends form_base
 		}
 
 		$this->update_entry_name($this->entry_id,$this->entry_parent);
-		
+
 		if ($new)
 		{
 			// now write the data from the previously gathered array to the storage medium
@@ -2013,7 +2010,7 @@ class form extends form_base
 				"chain_entry_id" => $chain_entry_id,
 				"cal_id"  => $cal_id,
 			));
-		
+
 			$this->is_new_entry = true;
 			// see logimine on omal kohal ainult siis, kui titmine toimub
 			// lbi veebi.
@@ -2028,7 +2025,7 @@ class form extends form_base
 		}
 
 		$eid = $this->entry_id;
-		
+
 		// if this form has anything to do with calendars, perform the necessary
 		// actions. If we got here, all checks have been passed.
 		if (!$no_process_entry && ($this->subtype & FSUBTYPE_EV_ENTRY))
@@ -2127,7 +2124,7 @@ class form extends form_base
 				}
 				break;
 		}
-	
+
 		aw_session_del("form_redir_after_submit_".$this->id);
 		return $l;
 	}
@@ -2192,19 +2189,19 @@ class form extends form_base
 		}
 	}
 
-	/** shows entry $entry_id of form $id using output $op_id 
-		
+	/** shows entry $entry_id of form $id using output $op_id
+
 		@attrib name=show_entry params=name nologin="1" default="0"
-		
+
 		@param op_id required type=int
 		@param id optional
 		@param entry_id optional
 		@param search_el optional
 		@param search_val optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		if $no_load_entry == true, the loaded entry is used
 		if $no_load_op == true, the loaded output is used
@@ -2283,9 +2280,9 @@ class form extends form_base
 		{
 			$this->read_template("show_user.tpl");
 		}
-	
+
 		$t_style = get_instance(CL_STYLE);
-		// kui on tabeli stiil m22ratud v2ljundile, siis kasutame seda, kui pole, siis vaatame kas sellele formile on 
+		// kui on tabeli stiil m22ratud v2ljundile, siis kasutame seda, kui pole, siis vaatame kas sellele formile on
 		// m22ratud default stiil ja kui on, siis kasutame seda
 		$fcol_style = 0;
 		$fcol_cnt = 0;
@@ -2299,7 +2296,7 @@ class form extends form_base
 			$frow_cnt = $t_style->get_num_frows($this->output["table_style"]);
 		}
 
-		// kui tabeli stiilis ei m22ratud default stiili, siis v6etakse see formist. I guess. 
+		// kui tabeli stiilis ei m22ratud default stiili, siis v6etakse see formist. I guess.
 		if ($this->arr["def_style"] && $fcol_cnt < 1 && $frow_cnt < 1)
 		{
 			$fcol_style = $this->arr["def_style"];
@@ -2307,7 +2304,7 @@ class form extends form_base
 			$frow_style = $this->arr["def_style"];
 			$frow_cnt = $this->output["rows"];
 		}
-	
+
 		$op_far = $this->get_op_forms($op_id);
 
 		// tsykkel yle koigi outputi ridade ja cellide
@@ -2327,7 +2324,7 @@ class form extends form_base
 				$style_id = $op_cell["style"];
 				if ($style_id == 0)
 				{
-					// now. find the defult style based on the row / col default styles. 
+					// now. find the defult style based on the row / col default styles.
 					// start with cols
 					if ($col < $fcol_cnt && $fcol_style)
 					{
@@ -2353,8 +2350,8 @@ class form extends form_base
 						// now fake the correct id
 						// ok, we have to make a backup of $this->entry - because we just might overwrite important entries in it
 						// if the element id's in the output are the same as the element id's in the linked form
-	
-						// damn, we have to set relation form and element from the original form in the element 
+
+						// damn, we have to set relation form and element from the original form in the element
 						// - the output does not contain them :(
 						if ($el->arr["subtype"] == "relation")
 						{
@@ -2438,17 +2435,17 @@ class form extends form_base
 		return $retval;
 	}
 
-	/** Merge the cell above cell($row,$col) in form $id 
-		
+	/** Merge the cell above cell($row,$col) in form $id
+
 		@attrib name=exp_cell_up params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param row required
 		@param col required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2463,17 +2460,17 @@ class form extends form_base
 		return $orb;
 	}
 
-	/** Merges the cell ($row,$col) in form $id with the cell immediately below it 
-		
+	/** Merges the cell ($row,$col) in form $id with the cell immediately below it
+
 		@attrib name=exp_cell_down params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param row required
 		@param col required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2488,17 +2485,17 @@ class form extends form_base
 		return $orb;
 	}
 
-	/** Expand cell at $row,$col with the cell to it's left, in form $id 
-		
+	/** Expand cell at $row,$col with the cell to it's left, in form $id
+
 		@attrib name=exp_cell_left params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param row required
 		@param col required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2513,17 +2510,17 @@ class form extends form_base
 		return $orb;
 	}
 
-	/** Merges the cell ($row, $col) in form $id with the cell right to it 
-		
+	/** Merges the cell ($row, $col) in form $id with the cell right to it
+
 		@attrib name=exp_cell_right params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param row required
 		@param col required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2556,17 +2553,17 @@ class form extends form_base
 		}
 	}
 
-	/** Splits the cell ($row, $col) in form $id vertically 
-		
+	/** Splits the cell ($row, $col) in form $id vertically
+
 		@attrib name=split_cell_ver params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param row required
 		@param col required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2581,17 +2578,17 @@ class form extends form_base
 		return $orb;
 	}
 
-	/** splits the cell at ($row, $col) in form $id vertically 
-		
+	/** splits the cell at ($row, $col) in form $id vertically
+
 		@attrib name=split_cell_hor params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param row required
 		@param col required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2606,16 +2603,16 @@ class form extends form_base
 		return $orb;
 	}
 
-	/** generates the form for selecting among which forms to search for search form $id 
-		
+	/** generates the form for selecting among which forms to search for search form $id
+
 		@attrib name=sel_search params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param page optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2666,9 +2663,9 @@ class form extends form_base
 			}
 			$sel = $this->arr["search_from"][$row["oid"]] == 1 ? $this->arr["search_outputs"][$row["oid"]] : 0;
 			$this->vars(array(
-				"form_name"	=> $row["name"], 
-				"form_comment" => $row["comment"], 
-				"form_location" => $row["parent"], 
+				"form_name"	=> $row["name"],
+				"form_comment" => $row["comment"],
+				"form_location" => $row["parent"],
 				"form_change" => $this->mk_my_orb("change", array("id" => $row["oid"])),
 				"form_id" => $row["oid"],
 				"row"	=> $cnt,
@@ -2689,13 +2686,13 @@ class form extends form_base
 		//////////////////////////////////////////////////
 		// new version starts here
 
-		// we let the user pick one - either the form searches from a form chain 
+		// we let the user pick one - either the form searches from a form chain
 		// or it searches from several forms
 		// if the user picks several forms, they will be checked, whether it is possible to bind them all together via relation elements
 		// if not, the user is notified of the error and the selection will not be saved
 		// after successfully selecting some forms the user will be able to select the output to use when showing the search results
-		// 
-		// if the user picks that the form searches from a chain 
+		//
+		// if the user picks that the form searches from a chain
 		// he can select the chain and after saving also select the output with what the data will be shown
 
 		$status_msg = aw_global_get("status_msg");
@@ -2783,14 +2780,14 @@ class form extends form_base
 		return $this->do_menu_return();
 	}
 
-	/** saves the forms from which to search for search form $id 
-		
+	/** saves the forms from which to search for search form $id
+
 		@attrib name=save_search_sel params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -2814,7 +2811,7 @@ class form extends form_base
 
 			$this->arr["se_chain"] = $se_chain;
 		}
-		
+
 		$this->save();
 
 		////////////////////////////////////////////
@@ -2832,7 +2829,7 @@ class form extends form_base
 				$this->arr["search_forms"][$fid] = $fid;
 			}
 		}
-		
+
 		$this->arr["search_form_op"] = $form_op;
 
 		$this->arr["search_chain"] = $search_chain;
@@ -2846,8 +2843,8 @@ class form extends form_base
 			$this->arr["search_forms"] = $this->get_forms_for_chain($this->arr["search_chain"]);
 		}
 
-		// here we must check if the users selection is valid - whether all the selected forms are connected via 
-		// relation elements and also remember the form where one should start in order to be able to traverse 
+		// here we must check if the users selection is valid - whether all the selected forms are connected via
+		// relation elements and also remember the form where one should start in order to be able to traverse
 		// all the selected forms in the most efficient manner
 		// if the users selection is not valid, save the data in the session and give an error message
 
@@ -2873,7 +2870,7 @@ class form extends form_base
 	}
 
 	////
-	// !this checks if the search from forms settings are all nice and clean - if all the forms can be reached from 
+	// !this checks if the search from forms settings are all nice and clean - if all the forms can be reached from
 	// any other and sets the optimal form to start from
 	function check_search_target_form_relations()
 	{
@@ -2890,7 +2887,7 @@ class form extends form_base
 				$this->req_check_stf_relations_map = array();
 				$this->req_check_stf_relations($fid);
 				// now we must check the map if all the selected forms are covered in it and there also must be no
-				// "holes" in it - meaning that you must be able to access all the selected forms startig from one of them 
+				// "holes" in it - meaning that you must be able to access all the selected forms startig from one of them
 				// and touching all of them, but not any others - they might have relations to some other forms
 				// but you must not have to use those relations to access all of the search forms
 				$all_filled = true;
@@ -2939,10 +2936,10 @@ class form extends form_base
 
 	////
 	// !this recurses through all the relations and writes the info in a map - so we can check if it managed to touch
-	// all the selected forms or not. 
+	// all the selected forms or not.
 	function req_check_stf_relations($fid)
 	{
-		// now here we must try to figure out if the form is connected to any others - via relation elements 
+		// now here we must try to figure out if the form is connected to any others - via relation elements
 
 		$this->req_check_stf_relations_map[$fid] = $fid;
 
@@ -2966,7 +2963,7 @@ class form extends form_base
 	// !searches and displays the results
 	// paramters:
 	//	$id - search form id - if not specified, assumes the form is loaded
-	//	$entry_id - search form entry id - if not specified, assumes loaded 
+	//	$entry_id - search form entry id - if not specified, assumes loaded
 	//	$section - the active section
 	//  $no_form_tags - the <form> </form> tags will be omitted
 	//	restrict_search_el - array of element id's that should be added to the search
@@ -2996,7 +2993,7 @@ class form extends form_base
 			$this->load_entry($entry_id);
 			$this->_do_value_controllers();
 		}
-		
+
 		if (is_array($restrict_search_el))
 		{
 			// alter the loaded search entry with the data
@@ -3019,7 +3016,7 @@ class form extends form_base
 		$used_els = array();
 		$group_els = array();
 
-		// now, if the results are to be shown in a table, load the table and ask it for the necessary elements 
+		// now, if the results are to be shown in a table, load the table and ask it for the necessary elements
 		// if it is not to be shown in a table - but as a list of outputs - or whatever - assume all elements are necessary
 		if ($this->arr["show_table"])
 		{
@@ -3094,7 +3091,7 @@ class form extends form_base
 				$cf = $this->db_next();
 				// $row now contains the record which shows us the characteristics
 				// of the event entry form used
-				// if the chain has no 
+				// if the chain has no
 				if (!$cf)
 				{
 					$has_vacancies = false;
@@ -3179,7 +3176,7 @@ class form extends form_base
 				{
 					$groups[$row[$_key]] = $vacs;
 				}
-				
+
 			};
 		};
 
@@ -3221,8 +3218,8 @@ class form extends form_base
 				$show_form->load_entry($row["entry_id"]);
 				$result.=$show_form->gen_preview(array(
 					"id" => $show_form->id,
-					"entry_id" => $row["entry_id"], 
-					"no_load_entry" => true, 
+					"entry_id" => $row["entry_id"],
+					"no_load_entry" => true,
 					"tpl" => "show_noform.tpl",
 					"prefix" => "sr_".$row["entry_id"]."_",
 					"no_submit" => !($cur_row == ($total_rows-1))
@@ -3239,7 +3236,7 @@ class form extends form_base
 					$cid = $this->get_chain_for_chain_entry($row["chain_entry_id"]);
 					$this->restore_handle();
 				};
-				
+
 				//print "processing entry $row[entry_id]<br />";
 				if ($has_calendar)
 				{
@@ -3279,7 +3276,7 @@ class form extends form_base
 			else
 			{
 				// this should load the entry without doing any db queries - from the result row data
-				// hm - but - maybe we shouldn't do this - maybe the form also has some other relations that are 
+				// hm - but - maybe we shouldn't do this - maybe the form also has some other relations that are
 				// not selected as search forms - so their data will not get loaded. damn. ok, so we just do load_entry for the form
 				$show_form->reset();
 				$show_form->_init_vars();
@@ -3290,7 +3287,7 @@ class form extends form_base
 			$this->restore_handle();
 		}
 
-		// now if we are showing table, finish the table 
+		// now if we are showing table, finish the table
 		if ($this->arr["show_table"] && !$this->arr["show_s_res_as_forms"])
 		{
 			$result = $form_table->finalize_table(array("no_form_tags" => $no_form_tags));
@@ -3323,7 +3320,7 @@ class form extends form_base
 	// an array, that has one entry for each form selected as a search target
 	// and that entry is an array of matching entries for that form
 	// parent(int) - millise parenti alt entrysid otsida
-	// $restrict_el - if set, the element in the search form that is linked to this element 
+	// $restrict_el - if set, the element in the search form that is linked to this element
 	// will be set to value $restrict_val
 	function search($entry_id = 0,$parent = 0,$search_el = "",$search_val = "",$restrict_search_el = 0, $restrict_search_val = "")
 	{
@@ -3349,7 +3346,7 @@ class form extends form_base
 			$word_search = true;
 			// TODO: restrict search here
 		}
-		
+
 		if (is_array($restrict_search_el))
 		{
 			// alter the loaded search entry with the data
@@ -3391,7 +3388,7 @@ class form extends form_base
 			}
 			else
 			{
-				// leiame kas see otsing on p2rja kohta. 
+				// leiame kas see otsing on p2rja kohta.
 				$fidstr = join(",", map2("%s",$this->arr["search_from"]));
 				if ($fidstr != "")
 				{
@@ -3419,12 +3416,12 @@ class form extends form_base
 			$forms_in_q = array(); // here we store all the ids of the forms that are actually used in the query and thus must be linked
 			$ch_q = array();
 			reset($els);
-			// loop through all the elements of this form 
+			// loop through all the elements of this form
 			while( list(,$el) = each($els))
 			{
-				if ($el->arr["linked_form"] && $el->arr["linked_element"])	
+				if ($el->arr["linked_form"] && $el->arr["linked_element"])
 				{
-					if (trim($el->get_value()) != "")	
+					if (trim($el->get_value()) != "")
 					{
 						if ($el->get_type() == "multiple")
 						{
@@ -3441,7 +3438,7 @@ class form extends form_base
 						}
 						else
 						if ($el->get_type() == "checkbox")
-						{	
+						{
 							//checkboxidest ocime aint siis kui nad on tshekitud
 							if ($el->get_value(true) == 1)
 							{
@@ -3513,7 +3510,7 @@ class form extends form_base
 					}
 				}
 			}
-	
+
 			// k2ime l2bi erinevad checkboxide grupid ja paneme gruppide vahele AND ja checkboxide vahele OR
 			foreach($ch_q as $chgrp => $ch_ar)
 			{
@@ -3575,7 +3572,7 @@ class form extends form_base
 				$query .= sprintf(" AND objects.parent IN (%s)",join(",",$parent));
 			}
 
-			// loop through all the elements of this form 
+			// loop through all the elements of this form
 			$ch_q = array();
 			reset($els);
 			while( list(,$el) = each($els))
@@ -3601,7 +3598,7 @@ class form extends form_base
 					}
 					else
 					if ($el->get_type() == "checkbox")
-					{	
+					{
 						//checkboxidest ocime aint siis kui nad on tshekitud
 						if ($el->get_value(true) == 1)
 						{
@@ -3637,7 +3634,7 @@ class form extends form_base
 					{
 						// blah
 					}
-					else 
+					else
 					if ($el->get_type() == "listbox")
 					{
 						$value = $el->get_value();
@@ -3645,7 +3642,7 @@ class form extends form_base
 						$qstr = " $elname LIKE '%$value%' ";
 						$query.= "AND ($qstr)";
 					}
-					else if ($el->get_value() != "")	
+					else if ($el->get_value() != "")
 					{
 						$value = $el->get_value();
 						$elname = sprintf("ev_%s",$el->arr["linked_element"]);
@@ -3706,14 +3703,14 @@ class form extends form_base
 			$ret = $matches;
 			$this->form_search_only = true;
 		}
-	
+
 		return $ret;
 	}
 
 	function do_search($entry_id, $output_id,$search_el,$search_val, $no_tags)
 	{
 		global $section,$use_table, $restrict_search_el, $restrict_search_val,$search_form;
-		
+
 		if ($this->arr["new_search_engine"] == 1)
 		{
 			// convert old settings to new ones
@@ -3734,12 +3731,12 @@ class form extends form_base
 			$this->arr["search_form_op"] = $op;
 			$this->arr["search_chain"] = $this->arr["se_chain"];
 			$this->arr["search_chain_op"] = $op;*/
-			// well, this MIGHT do the trick - we can't know for sure, because 
+			// well, this MIGHT do the trick - we can't know for sure, because
 			// the previous version allowed for ambiguous settings
 
 			return $this->new_do_search(array(
 				"entry_id" => $entry_id,
-				"restrict_search_el" => $restrict_search_el, 
+				"restrict_search_el" => $restrict_search_el,
 				"restrict_search_val" => $restrict_search_val,
 				"use_table" => $use_table,
 				"section" => $section,
@@ -3839,19 +3836,19 @@ class form extends form_base
 						{
 							$cnt++;
 
-							// dis shit here makes the link that does a new search on the element you clicked 
+							// dis shit here makes the link that does a new search on the element you clicked
 							if (is_array($ft->table["doelsearchcols"]))
 							{
 								foreach($ft->table["doelsearchcols"] as $_de_col => $_de_elid_ar)
 								{
 									if ($row["ev_".$_de_elid_ar["elid"]] != "")
 									{
-										$_de_url = $this->mk_my_orb("show_entry", 
+										$_de_url = $this->mk_my_orb("show_entry",
 											array(
-												"id" => $this->id, 
-												"entry_id" => $this->entry_id, 
-												"op_id" => 1, 
-												"search_el" => $linked_els[$_de_elid_ar["elid"]], 
+												"id" => $this->id,
+												"entry_id" => $this->entry_id,
+												"op_id" => 1,
+												"search_el" => $linked_els[$_de_elid_ar["elid"]],
 												"search_val" => $row["ev_".$_de_elid_ar["elid"]]
 											)
 										);
@@ -3866,7 +3863,7 @@ class form extends form_base
 			}
 			else
 			{
-				// figure out what elements from what forms are used in the table and bring in the data from those forms and 
+				// figure out what elements from what forms are used in the table and bring in the data from those forms and
 				// those forms elements only.
 				$joins = array();
 				$q_els = array();
@@ -3889,7 +3886,7 @@ class form extends form_base
 						$q_els[] = "form_".$form_id."_entries.ev_".$elid." as ev_".$elid;
 					}
 				}
-					
+
 				$eids = join(",", $matches);
 				if ($eids != "")
 				{
@@ -3924,14 +3921,14 @@ class form extends form_base
 							$row["ev_created"] = $this->time2date($row["created"], 2);
 							$row["ev_uid"] = $row["modifiedby"];
 							$row["ev_modified"] = $this->time2date($row["modified"], 2);
-							$row["ev_view"] = "<a href='".$this->mk_my_orb("show_entry", array("id" => $real_form_id,"entry_id" => $row["entry_id"], "op_id" => $this->arr["search_outputs"][$real_form_id],"section" => $section))."'>".$ft->table["texts"]["view"][$ft->lang_id]."</a>";		
+							$row["ev_view"] = "<a href='".$this->mk_my_orb("show_entry", array("id" => $real_form_id,"entry_id" => $row["entry_id"], "op_id" => $this->arr["search_outputs"][$real_form_id],"section" => $section))."'>".$ft->table["texts"]["view"][$ft->lang_id]."</a>";
 							if ($this->can("delete", $row["entry_id"])  || $this->cfg["site_id"]== 11)
 							{
 								$row["ev_delete"] = "<a href='javascript:box2(\"Kas oled kindel et tahad kustutada?\",\"".$this->mk_my_orb(
-									"delete_entry", 
+									"delete_entry",
 										array(
 											"id" => $real_form_id ,
-											"entry_id" => $row["chain_entry_id"], 
+											"entry_id" => $row["chain_entry_id"],
 											"after" => $this->binhex($this->mk_my_orb("show_entry", array("id" => $this->id, "entry_id" => $entry_id, "op_id" => $output_id,"section" => $section)))
 										),
 									"form")."\")'>".$ft->table["texts"]["delete"][$ft->lang_id]."</a>";
@@ -3945,7 +3942,7 @@ class form extends form_base
 								$row["ev_".$ft->table["change_col"]] = "<a href='".$this->mk_my_orb("show", array("id" => $this->chain_id,"section" => 1,"entry_id" => $row["chain_entry_id"],"section" => $section), "form_chain")."'>".$row["ev_".$ft->table["change_col"]]."</a>";
 							}
 
-							// dis shit here makes the link that does a new search on the element you clicked 
+							// dis shit here makes the link that does a new search on the element you clicked
 							if (is_array($ft->table["doelsearchcols"]))
 							{
 								foreach($ft->table["doelsearchcols"] as $_de_col => $_de_elid_ar)
@@ -4047,7 +4044,7 @@ class form extends form_base
 		}
 		else
 		{
-			// n2itame sisestusi lihtsalt yxteise j2rel 
+			// n2itame sisestusi lihtsalt yxteise j2rel
 			if ($this->form_search_only)
 			{
 				$fid = $this->search_form;
@@ -4076,19 +4073,19 @@ class form extends form_base
 				}
 			}
 		}
-	
+
 		return " ".$html;
 	}
 
-	/** this gets called when the user views search results as a table that has a submit button. 
-		
+	/** this gets called when the user views search results as a table that has a submit button.
+
 		@attrib name=submit_table params=name default="0"
-		
+
 		@param return required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		here we must change the activity / loactio of the form entries
 
@@ -4150,18 +4147,18 @@ class form extends form_base
 		return $this->parse();
 	}
 
-	/** Adds a new form 
-		
+	/** Adds a new form
+
 		@attrib name=new params=name default="0"
-		
+
 		@param parent required acl="add"
 		@param alias_doc optional
 		@param return_url optional
 		@param alias_to optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4173,7 +4170,7 @@ class form extends form_base
 		$mlist = $this->get_menu_list();
 
 		// generate a list of files in the config directory. actually I only need this for
-		// config forms, so this will be gone from here as soon as I figure out another 
+		// config forms, so this will be gone from here as soon as I figure out another
 		// way to show the file picker only if it is needed
 		$files = $this->get_directory(array("dir" => aw_ini_get("basedir") . "/xml/config"));
 
@@ -4187,14 +4184,14 @@ class form extends form_base
 		return $this->parse();
 	}
 
-	/** Submits the new form 
-		
+	/** Submits the new form
+
 		@attrib name=submit_add params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4244,7 +4241,7 @@ class form extends form_base
 			// why yes. yes I do :) -- terryf
 			$this->_clone_from($base,$id);
 		}
-		
+
 		$this->save();
 
 		// change is gen_grid
@@ -4280,8 +4277,8 @@ class form extends form_base
 							$el_parent = $this->db_fetch_field("SELECT parent FROM objects WHERE oid = $elid", "parent");
 
 							$newel = $bf->arr["contents"][$row][$col]->do_add_element(array(
-								"parent" => $el_parent, 
-								"name" => $elval["name"], 
+								"parent" => $el_parent,
+								"name" => $elval["name"],
 								"based_on" => $elid
 							));
 
@@ -4297,7 +4294,7 @@ class form extends form_base
 							{
 								$this->db_query("SELECT * FROM form_relations WHERE id = ".$elval["rel_table_id"]);
 								$dat = $this->db_next();
-								$this->db_query("INSERT INTO form_relations(form_from, form_to, el_from, el_to) 
+								$this->db_query("INSERT INTO form_relations(form_from, form_to, el_from, el_to)
 								VALUES('".$dat["form_from"]."','".$dat["form_to"]."','".$dat["el_from"]."','".$dat["el_to"]."')");
 								$elval["rel_table_id"] = $this->db_last_insert_id();
 							}
@@ -4321,17 +4318,17 @@ class form extends form_base
 		$this->arr["search_from"][$base]=1;
 	}
 
-	/** Generates admin form for editing cell at ($row,$col) in form $id 
-		
+	/** Generates admin form for editing cell at ($row,$col) in form $id
+
 		@attrib name=admin_cell params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param row required
 		@param col required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4342,17 +4339,17 @@ class form extends form_base
 		return $this->arr["contents"][$row][$col]->admin_cell();
 	}
 
-	/** Adds an element to the end of 
-		
+	/** Adds an element to the end of
+
 		@attrib name=add_element params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param row required
 		@param col required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4363,14 +4360,14 @@ class form extends form_base
 		return $this->arr["contents"][$row][$col]->add_element();
 	}
 
-	/** submits a new element to form (from add_element) 
-		
+	/** submits a new element to form (from add_element)
+
 		@attrib name=submit_element params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4382,14 +4379,14 @@ class form extends form_base
 		return $this->mk_my_orb("admin_cell", array("id" => $id, "row" => $row, "col" => $col));
 	}
 
-	/** saves the elements in the cell ($row, $col) in form $id 
-		
+	/** saves the elements in the cell ($row, $col) in form $id
+
 		@attrib name=submit_cell params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4402,16 +4399,16 @@ class form extends form_base
 		return $this->mk_my_orb("admin_cell", array("id" => $this->id, "row" => $row, "col" => $col));
 	}
 
-	/** deletes form $id 
-		
+	/** deletes form $id
+
 		@attrib name=delete params=name default="0"
-		
+
 		@param id required
 		@param parent required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4557,18 +4554,18 @@ class form extends form_base
 		return false;
 	}
 
-	/** generates the form for changing the form element's position in the hierarchy and in the cells 
-		
+	/** generates the form for changing the form element's position in the hierarchy and in the cells
+
 		@attrib name=change_el_pos params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param col required
 		@param row required
 		@param el_id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4580,14 +4577,14 @@ class form extends form_base
 		return $el->change_pos($arr,&$this);
 	}
 
-	/** saves the element position changes 
-		
+	/** saves the element position changes
+
 		@attrib name=submit_chpos params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4595,7 +4592,7 @@ class form extends form_base
 	{
 		extract($arr);
 		$this->load($id);
-		
+
 		$tmp = obj($el_id);
 		$tmp->set_parent($parent);
 		$tmp->save();
@@ -4611,13 +4608,13 @@ class form extends form_base
 				list($r,$c) = explode("_", $rowc);
 				// $r,$c = kuhu kopeerida element
 				// kordame niimitu korda kui mitu elementi tyyp tahtis
-				
+
 				for ($i=0; $i < $el_count; $i++)
 				{
 					$name = $oldel["name"]."_".$cnt;
 					$this->arr["contents"][$row][$col]->do_add_element(array(
-						"name" => $name, 
-						"parent" => $oldel_ob->parent(), 
+						"name" => $name,
+						"parent" => $oldel_ob->parent(),
 						"based_on" => $el_id
 					));
 					$cnt++;
@@ -4664,7 +4661,7 @@ class form extends form_base
 		$this->dequote(&$str);
 
 		$row = unserialize($str);
-		// basically, we create a new object and insert the stuff in the array right back in it. 
+		// basically, we create a new object and insert the stuff in the array right back in it.
 		$o = obj();
 		$o->set_parent($parent);
 		$o->set_name($row["name"]);
@@ -4674,7 +4671,7 @@ class form extends form_base
 		$o->set_alias($row["alias"]);
 		$oid = $o->save();
 
-		// same with the form. 
+		// same with the form.
 		$this->quote(&$row);
 		$this->quote(&$row);
 		$this->db_query("INSERT INTO forms(id,content,type,cols,rows) values($oid,'".$row["content"]."','".$row["type"]."','".$row["cols"]."','".$row["rows"]."')");
@@ -4700,19 +4697,19 @@ class form extends form_base
 				}
 			}
 		}
-		// and we should be done? ok, except for form actions and outputs, but we do those l8r. 
+		// and we should be done? ok, except for form actions and outputs, but we do those l8r.
 		return $oid;
 	}
 
-	/** generates the form for changing output metainfo 
-		
+	/** generates the form for changing output metainfo
+
 		@attrib name=metainfo params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4729,7 +4726,7 @@ class form extends form_base
 		}
 
 		$this->vars(array(
-			"created" => $this->time2date($row->created(),2), 
+			"created" => $this->time2date($row->created(),2),
 			"created_by" => $row->createdby(),
 			"modified" => $this->time2date($row->modified(),2),
 			"modified_by" => $row->modifiedby(),
@@ -4744,14 +4741,14 @@ class form extends form_base
 	}
 
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_metainfo params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -4781,7 +4778,7 @@ class form extends form_base
 	}
 
 	////
-	// !returns the value of the entered element. finds the first element of $type (and $subtype)  and 
+	// !returns the value of the entered element. finds the first element of $type (and $subtype)  and
 	// ignores the rest. form entry must be loaded before calling this.
 	function get_element_value_by_type($type,$subtype = "")
 	{
@@ -4980,14 +4977,14 @@ class form extends form_base
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=convels params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5013,14 +5010,14 @@ class form extends form_base
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=convtype params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5038,14 +5035,14 @@ class form extends form_base
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=convindexes params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5055,34 +5052,34 @@ class form extends form_base
 		while ($row = $this->db_next())
 		{
 			$this->save_handle();
-			
+
 			$this->db_query("SELECT * FROM element2form WHERE form_id = ".$row["oid"]);
 			while ($erow ->db_next())
 			{
 				$this->save_handle();
-				
+
 				echo "q = ALTER TABLE form_".$row["oid"]."_entries ADD index ev_".$erow["el_id"]."(ev_".$erow["el_id"]."(10)) ";
 				flush();
 				$this->db_query("ALTER TABLE form_".$row["oid"]."_entries ADD index ev_".$erow["el_id"]."(ev_".$erow["el_id"]."(10))");
 				echo "q = ALTER TABLE form_".$row["oid"]."_entries ADD index el_".$erow["el_id"]."(ev_".$erow["el_id"]."(10)) ";
 				flush();
 				$this->db_query("ALTER TABLE form_".$row["oid"]."_entries ADD index el_".$erow["el_id"]."(el_".$erow["el_id"]."(10))");
-				
+
 				$this->restore_handle();
 			}
-			
+
 			$this->restore_handle();
 		}
 	}
 
-	/** converts form_xx_entries table and adds ev_xxx columns 
-		
+	/** converts form_xx_entries table and adds ev_xxx columns
+
 		@attrib name=convtables params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5092,31 +5089,31 @@ class form extends form_base
 		while ($row = $this->db_next())
 		{
 			$this->save_handle();
-			
+
 			$this->db_query("SELECT * FROM element2form WHERE form_id = ".$row["oid"]);
 			while ($erow = $this->db_next())
 			{
 				$this->save_handle();
-				
+
 				echo "q = ALTER TABLE form_".$row["oid"]."_entries ADD ev_".$erow["el_id"]." text <br />";
 				flush();
 				$this->db_query("ALTER TABLE form_".$row["oid"]."_entries ADD ev_".$erow["el_id"]." text");
-				
+
 				$this->restore_handle();
 			}
-			
+
 			$this->restore_handle();
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=conventries params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5124,7 +5121,7 @@ class form extends form_base
 	{
 		$run = true;
 		$this->db_query("SELECT * FROM objects WHERE class_id = ".CL_FORM);
-		
+
 		while ($frow = $this->db_next())
 		{
 
@@ -5148,7 +5145,7 @@ class form extends form_base
 					flush();
 				}
 				$this->save_handle();
-				
+
 				$form->load_entry($erow["id"]);
 				for ($row = 0; $row < $form->arr["rows"]; $row++)
 				{
@@ -5170,7 +5167,7 @@ class form extends form_base
 						}
 					}
 				}
-				
+
 				$this->restore_handle();
 			}
 
@@ -5179,14 +5176,14 @@ class form extends form_base
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=convchains params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5207,15 +5204,15 @@ class form extends form_base
 		}
 	}
 
-	/** lets the user select all folders for the form 
-		
+	/** lets the user select all folders for the form
+
 		@attrib name=set_folders params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5269,14 +5266,14 @@ class form extends form_base
 		return $this->do_menu_return();
 	}
 
-	/** Salvestab vormi settingutes mratud folderite asukohad. 
-		
+	/** Salvestab vormi settingutes mratud folderite asukohad.
+
 		@attrib name=save_folders params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5284,7 +5281,7 @@ class form extends form_base
 	{
 		extract($arr);
 		$this->load($id);
-		
+
 		// ff_folder - kuhu pannakse vormi sisestused?
 		$this->arr["ff_folder"] = $ff_folder;
 
@@ -5371,15 +5368,15 @@ class form extends form_base
 		$this->active_currency = $cuid;
 	}
 
-	/** shows the form texts translation form 
-		
+	/** shows the form texts translation form
+
 		@attrib name=translate params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5817,14 +5814,14 @@ class form extends form_base
 		return $this->do_menu_return();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_translate params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5905,14 +5902,14 @@ class form extends form_base
 		return $this->mk_my_orb("translate", array("id" => $id));
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=convformat params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -5940,15 +5937,15 @@ class form extends form_base
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=sel_tables params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6109,14 +6106,14 @@ class form extends form_base
 		return $this->do_menu_return();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_tables params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6174,7 +6171,7 @@ class form extends form_base
 		else
 		{
 			aw_session_set("status_msg",$msg);
-			// and here we must stuff all that shite in the session and set a flag indicating it. 
+			// and here we must stuff all that shite in the session and set a flag indicating it.
 			$f_t_o = array();
 			$f_t_o["save_tables_rel_els"] = $this->arr["save_tables_rel_els"];
 			$f_t_o["save_tables_rels"] = $this->arr["save_tables_rels"];
@@ -6191,11 +6188,11 @@ class form extends form_base
 
 	////
 	// !this is the tricky bit. here we must check if the database tables' relations are complete and non-cyclic
-	// that means that no table may be related to itself either directly or indirectly and you must be able to 
+	// that means that no table may be related to itself either directly or indirectly and you must be able to
 	// reach any table from any other table by crawling through the relations
 	function check_table_relation_integrity()
 	{
-		// we assume everything is fine if 
+		// we assume everything is fine if
 		// a) we don't save things to existing tables
 		// b) no tables are selected as save targets
 		// c) just one table is selected
@@ -6216,7 +6213,7 @@ class form extends form_base
 
 		// ok, so let's try to detect cycles first
 
-		// so we do that by starting from one table and following the relations and if we get back to any table we already 
+		// so we do that by starting from one table and following the relations and if we get back to any table we already
 		// visited it means we have a cyclic dependency. and we don't like their kind around here. yessireee <ptui>
 		foreach($this->arr["save_tables"] as $tbl => $col)
 		{
@@ -6227,7 +6224,7 @@ class form extends form_base
 			}
 		}
 
-		// now try and find if the chain is broken anywhere 
+		// now try and find if the chain is broken anywhere
 		// once again, we go crawling through the relations and mark down the tables that we reach by crawling
 		// and after we finish we check if we managed to cover all the tables. right?
 		// and as a side-effect - a very useful side-effect as I might add :) - if we succeed in touching all the tables
@@ -6237,14 +6234,14 @@ class form extends form_base
 		{
 			if ($this->do_chain_dep($tbl,&$break_table))
 			{
-				// if we get here then that means that if we start from $tbl we can reach all the other tables as well 
+				// if we get here then that means that if we start from $tbl we can reach all the other tables as well
 				// - so we mark that down, to be used l8r
 				$this->arr["save_table_start_from"] = $tbl;
 				return "ok";
 			}
 		}
 
-		// if we end up here - that means that req_chain_dep failed every time and we have a broken 
+		// if we end up here - that means that req_chain_dep failed every time and we have a broken
 		// relation on our hands - so we report it to the user
 		return "Table $break_table was not reachable through any relation - changes not saved!";
 	}
@@ -6259,7 +6256,7 @@ class form extends form_base
 		$this->chain_dep_map = array();
 
 		// make a local copy so we don't screw up internal pointers
-		$_tmp = $this->arr["save_tables"];	
+		$_tmp = $this->arr["save_tables"];
 
 		foreach($_tmp as $_tbl => $col)
 		{
@@ -6272,7 +6269,7 @@ class form extends form_base
 
 		// check if we missed any tables - but we must also check that maybe the table we started from has no relations
 		// then it would be nicer to report this table to the user, not the first - so how do we do that? maybe we should record
-		// tha maximim depth of the recursion and if it's zero, return the starting table? sounds like it might work. 
+		// tha maximim depth of the recursion and if it's zero, return the starting table? sounds like it might work.
 		if ($this->chain_dep_depth == 0)
 		{
 			$break_table = $tbl;
@@ -6303,7 +6300,7 @@ class form extends form_base
 		$_tmp = $this->arr["save_tables_rels"][$tbl];
 		if (!is_array($_tmp))
 		{
-			// if we reached an end of relation return 
+			// if we reached an end of relation return
 			return;
 		}
 
@@ -6348,16 +6345,16 @@ class form extends form_base
 		return true;
 	}
 
-	/** generates the form for selecting the used filter 
-		
+	/** generates the form for selecting the used filter
+
 		@attrib name=sel_filter_search params=name default="0"
-		
+
 		@param id required acl="edit;view"
 		@param page optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6405,11 +6402,11 @@ class form extends form_base
 					$tar[$opid] = $opname;
 				}
 			}
-			
+
 			$this->vars(array(
-				"flt_name"	=> $row["name"], 
-				"flt_comment" => $row["comment"], 
-				"flt_location" => $row["parent"], 
+				"flt_name"	=> $row["name"],
+				"flt_comment" => $row["comment"],
+				"flt_location" => $row["parent"],
 				"flt_id" => $row["oid"],
 				"row"	=> $cnt,
 				"checked" => checked($this->arr["search_filter"] == $row["oid"]),
@@ -6425,14 +6422,14 @@ class form extends form_base
 		return $this->do_menu_return();
 	}
 
-	/** saves the used filter for search form $id 
-		
+	/** saves the used filter for search form $id
+
 		@attrib name=save_filter_search_sel params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6459,9 +6456,9 @@ class form extends form_base
 
 		$sf->__load_filter();
 		$this->load_entry($entry_id);
-		//Nd tuleb filtri osad kigu pealt mlus ra muuta ja 
+		//Nd tuleb filtri osad kigu pealt mlus ra muuta ja
 		// panna asemele see kamm, mille kasutaja sisestas
-		
+
 		for ($row = 0; $row < $this->arr["rows"]; $row++)
 		{
 			for ($col = 0; $col < $this->arr["cols"]; $col++)
@@ -6495,7 +6492,7 @@ class form extends form_base
 
 		$arr["no_menu"]=1;
 		$arr["dont_load_filter"]=1;
-		
+
 		$arr["this_page"]=$this->mk_my_orb("show_entry",array("id"=>$arr["id"],"entry_id"=>$entry_id,"op_id" => $arr["op_id"]));
 		$arr["this_page_array"]=array("class" => "form", "action" => "show_entry","id" => $arr["id"],"entry_id"=>$entry_id,"op_id" => $arr["op_id"]);
 		$arr["id"]=$sf->id;
@@ -6537,16 +6534,16 @@ class form extends form_base
 	{
 		$this->current_chain_entry = $id;
 	}
-	
-	/**  
-		
+
+	/**
+
 		@attrib name=calendar params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6554,7 +6551,7 @@ class form extends form_base
 	{
 		extract($args);
 		$this->if_init($id,"calendar.tpl", "Kalendris&auml;tungid");
-	
+
 		$_els = $this->get_all_elements(array("type" => 1));
 
 		$els_start = $els_end = $els_count = $els_period = $els_release = array("0" => " -- Vali --");
@@ -6567,29 +6564,29 @@ class form extends form_base
 			{
 				$els_start[$key] = $val["name"];
 			};
-			
+
 			if ( ($val["type"] == "date") && ($val["subtype"] == "to") )
 			{
 				$els_end[$key] = $val["name"];
 			};
-			
+
 			if ( ($val["type"] == "textbox") && ($val["subtype"] == "count") )
 			{
 				$els_count[$key] = $val["name"];
 			};
-			
+
 			if ( ($val["type"] == "timeslice") && ($val["subtype"] == "period") )
 			{
 				$els_period[$key] = $val["name"];
 			};
-			
+
 			if ( ($val["type"] == "timeslice") && ($val["subtype"] == "release") )
 			{
 				$els_release[$key] = $val["name"];
 			};
 
 		};
-			
+
 		if ($this->subtype == FSUBTYPE_CAL_CONF)
 		{
 			$fc = get_instance("formgen/form_calendar");
@@ -6603,7 +6600,7 @@ class form extends form_base
 				"id" => $this->id,
 				"all_els" => &$_els,
 			));
-			return $this->do_menu_return($_cont);				
+			return $this->do_menu_return($_cont);
 		};
 
 		$ol = new object_list(array(
@@ -6612,7 +6609,7 @@ class form extends form_base
 			"lang_id" => array()
 		));
 		$forms = $ol->names();
-			
+
 		$ol = new object_list(array(
 			"class_id" => CL_FORM_CHAIN,
 			"flags" => array(
@@ -6623,7 +6620,7 @@ class form extends form_base
 			"lang_id" => array()
 		));
 		$chains = $ol->names();
-			
+
 		$of_target_type = ($this->arr["of_target_type"]) ? $this->arr["of_target_type"] : "form";
 
 		$lines = "";
@@ -6684,7 +6681,7 @@ class form extends form_base
 			$this->parse("DEFINE2");
 		};
 
-		
+
 		$this->vars(array(
 			//"roles" => $this->picker($this->subtype,$roles),
 			"event_display_tables" => $this->picker($this->arr["event_display_table"],$tables),
@@ -6716,18 +6713,18 @@ class form extends form_base
 
 			default:
 		};
-		
-		return $this->do_menu_return();				
+
+		return $this->do_menu_return();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_calendar params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6773,29 +6770,29 @@ class form extends form_base
 
 	}
 
-	/** Adds or Edits a new event<->calendar relation 
-		
+	/** Adds or Edits a new event<->calendar relation
+
 		@attrib name=new_cal_rel params=name default="0"
-		
+
 		@param form_id required type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 		if id is set, we are editing, otherwise we are adding a new one
 
 	**/
-	/**  
-		
+	/**
+
 		@attrib name=edit_cal_rel params=name default="0"
-		
+
 		@param id required type=int
 		@param form_id required type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6803,27 +6800,27 @@ class form extends form_base
 	{
 		extract($args);
 		$this->if_init($form_id,"calendar_relation.tpl", "Kalendris&auml;tungid");
-		
+
 		$els = $this->get_all_elements(array("type" => 1));
 
 		$fcal = get_instance("formgen/form_calendar");
 		$c = $fcal->edit_calendar_relation(array(
 			"els" => &$els,
 			"id" => $id,
-			"form_id" => $form_id,	
+			"form_id" => $form_id,
 		));
 
-		return $this->do_menu_return($c);				
+		return $this->do_menu_return($c);
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_cal_rel params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6834,16 +6831,16 @@ class form extends form_base
 		return $this->mk_my_orb("calendar",array("id" => $args["form_id"]));
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=del_cal_rel params=name default="0"
-		
+
 		@param id required type=int
 		@param form_id required type=int
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6944,16 +6941,16 @@ class form extends form_base
 		return $search_res;
 	}
 
-	/** handles sql writer form submits 
-		
+	/** handles sql writer form submits
+
 		@attrib name=submit_writer params=name default="0"
-		
+
 		@param id required
 		@param entry_id optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -6971,7 +6968,7 @@ class form extends form_base
 				}
 			}
 		}
-		
+
 		$this->load($id);
 //		echo "load $id <br />";
 
@@ -6994,7 +6991,7 @@ class form extends form_base
 
 		$wrf->ef = get_instance(CL_FORM);
 		$wrf->ef->load($wrf->arr["sql_writer_writer_form"]);
-		
+
 		// now we must load all selected entries
 		// and for each
 		// calculate the value in the writer form based on the entered elements value and let controllers process it
@@ -7035,7 +7032,7 @@ class form extends form_base
 			}
 			$wrf->ef->process_entry(array(
 				"id" => $wrf->arr["sql_writer_writer_form"],
-				"entry_id" => $seid, 
+				"entry_id" => $seid,
 				"no_load_form" => true,
 				"no_load_entry" => true,
 				"no_process_entry" => true
@@ -7069,7 +7066,7 @@ class form extends form_base
 	}
 
 	////
-	// !returns all the entry elements that are connected to the loaded output 
+	// !returns all the entry elements that are connected to the loaded output
 	// returns array[form_id][el_id] = el_id
 	function get_op_linked_elements()
 	{
@@ -7101,7 +7098,7 @@ class form extends form_base
 		}
 		else
 		{
-			// get form id 
+			// get form id
 			preg_match("/form_(\d*)_entries/", $tb, $mt);
 			if (!isset($this->form_name_cache))
 			{
@@ -7169,7 +7166,7 @@ class form extends form_base
 	}
 
 	////
-	// !uses the new search engine to do the search for the form that is loaded 
+	// !uses the new search engine to do the search for the form that is loaded
 	// and the search terms are specified in entry $entry_id
 	// the difference between new_do_search and this is that new_do_search returns html for the search results
 	// but this returns an array of matching entry id's
@@ -7209,37 +7206,37 @@ class form extends form_base
 		return is_array($this->matched_chain_entries) ? array_unique($this->matched_chain_entries) : array();
 	}
 
-	/** Generates a preview of the form and adds the formgen menubars to it 
-		
+	/** Generates a preview of the form and adds the formgen menubars to it
+
 		@attrib name=preview_form params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
-	function preview_form($args = array()) 
-	{ 
-		extract($args); 
-		$this->if_init($id,"show.tpl", "Eelvaade"); 
-		$this->vars(array( 
-			"LINE" => $this->gen_preview(array("id" => $id)), 
-		)); 
-		return $this->do_menu_return();                                 
-	} 
+	function preview_form($args = array())
+	{
+		extract($args);
+		$this->if_init($id,"show.tpl", "Eelvaade");
+		$this->vars(array(
+			"LINE" => $this->gen_preview(array("id" => $id)),
+		));
+		return $this->do_menu_return();
+	}
 
-	/**  
-		
+	/**
+
 		@attrib name=joins params=name default="0"
-		
+
 		@param id required acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -7247,7 +7244,7 @@ class form extends form_base
 	{
 		extract($arr);
 		$this->if_init($id, "joins.tpl", "Seosed");
-		
+
 		$ol = new object_list(array(
 			"class_id" => CL_FORM,
 			"site_id" => array(),
@@ -7273,7 +7270,7 @@ class form extends form_base
 		{
 			foreach($_td as $_tf_id => $_jdat)
 			{
-				$froe = $_jdat["el_from"]; 
+				$froe = $_jdat["el_from"];
 				if ($froe != "chain_id")
 				{
 					$froe = $elnms[$froe];
@@ -7282,7 +7279,7 @@ class form extends form_base
 						$froe = $this->db_fetch_field("SELECT name FROM objects WHERE oid = ".$_jdat["el_from"], "name");
 					}
 				}
-				$toe = $_jdat["el_to"]; 
+				$toe = $_jdat["el_to"];
 				if ($toe != "chain_id")
 				{
 					$toe = $elnms[$toe];
@@ -7315,14 +7312,14 @@ class form extends form_base
 		return $this->do_menu_return();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_joins params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -7337,15 +7334,15 @@ class form extends form_base
 		return $this->mk_my_orb("joins", array("id" => $id));
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=export params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -7353,7 +7350,7 @@ class form extends form_base
 	{
 		extract($arr);
 		$this->read_template("export.tpl");
-	
+
 		$this->id = $id;
 
 		$this->vars(array(
@@ -7364,14 +7361,14 @@ class form extends form_base
 		return $this->do_menu_return();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_export params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -7489,16 +7486,16 @@ class form extends form_base
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit_sr params=name default="0"
-		
+
 		@param id required
 		@param entry_id optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/

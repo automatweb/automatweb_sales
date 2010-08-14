@@ -116,7 +116,6 @@ class auth_server_local extends class_base
 	}
 }
 
-class awex_auth extends aw_exception {}
 class awex_auth_pw extends awex_auth {}
 
 ?>

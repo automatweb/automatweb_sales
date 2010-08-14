@@ -151,7 +151,7 @@ class relationmgr extends aw_template
 		{
 			if(empty($reltypes[$rel["value"]]) && empty($rel["hidden"]))
 			{
-				$reltypes[$rel["value"]] = $rel["caption"];
+				$reltypes[$rel["value"]] = empty($rel["caption"]) ? t("[nimetu]") : $rel["caption"];
 			}
 		}
 		return $reltypes;

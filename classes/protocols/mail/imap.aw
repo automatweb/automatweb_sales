@@ -1,6 +1,6 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/protocols/mail/imap.aw,v 1.47 2008/05/23 08:03:34 kristo Exp $
-// imap.aw - IMAP login 
+
+// imap.aw - IMAP login
 /*
 	peaks miskise imap_listscan varjandi ka leiutama.. ese oskab vist kirju otsida kiirelt.. &otilde;igemini ta tagastab need boxid kus seike kiri sees
 */
@@ -99,12 +99,12 @@ class imap extends class_base
 		};
 		return $retval;
 	}
-	
+
 	/**
 	@attrib api=1 params=name
 	@param obj_inst required type=object
 		Imap object
-	@example 
+	@example
 		$imap_i = $imap->instance();
 		$imap_i->connect_server(array(
 			"obj_inst" => $imap
@@ -115,7 +115,7 @@ class imap extends class_base
 		$fld_c = $imap_i->get_folder_contents(array("from" => 0, "to" => 100000));
 		$ms = $imap_i->fetch_message(array("msgid" => $id));
 	@return string "things seem to be working okey" if there is connection , "stream is dead" if not
-	@comment 
+	@comment
 		Tests if connection is alive
 	**/
 	function test_connection($arr)
@@ -126,8 +126,8 @@ class imap extends class_base
 
 		$this->connect_server(array(
 			"obj_inst" => $ob,
-		));	
-	
+		));
+
 		$errors = imap_errors();
 		if (is_array($errors) && sizeof($errors) > 0)
 		{
@@ -159,7 +159,7 @@ class imap extends class_base
 
 		}
 		return $retval;
-	}	
+	}
 	*/
 
 	////
@@ -170,9 +170,9 @@ class imap extends class_base
 		Imap object
 	@example ${test_connection}
 	@return string / errors , if there are.
-	@errors 
+	@errors
 		This function returns an array of all of the IMAP error messages generated since the last imap_errors() call, or the beginning of the page.
-	@comment 
+	@comment
 		Connects to server
 	**/
 	function connect_server($arr)
@@ -207,8 +207,8 @@ class imap extends class_base
 		$this->reset_cache_ids();
 
 		$cache = get_instance("cache");
-		$ser = $cache->file_get($this->mbox_msg_list_cache_id);	
-		
+		$ser = $cache->file_get($this->mbox_msg_list_cache_id);
+
 		$t = microtime();
 		$t2 = time();
 		//d($this->mbox);
@@ -218,13 +218,13 @@ class imap extends class_base
 		$ovr = $this->_get_overview();
 		$last_check = $ovr[$this->mboxspec];
 		$new_check = $this->_get_ovr_checksum($mboxinf);
-	
+
 		if(!$ser || $last_check != $new_check)
 		{
 			$cache->file_set($this->mbox_msg_list_cache_id, aw_serialize($this->_imap_sort()));
 		}
 	}
-	
+
 	/**
 	@attrib api=1 params=name
 	@return array / folders.
@@ -238,7 +238,7 @@ class imap extends class_base
 		$this->servspec = $this->drv_inst->get_opt("servspec");
                 $this->mboxspec = $this->drv_inst->get_opt("mboxspec");
 		$this->mailboxlist = $this->drv_inst->list_folders();
-	@comment 
+	@comment
 		Returns a list of folders
 	**/
 	function list_folders($arr = array())
@@ -274,7 +274,7 @@ class imap extends class_base
 		};
 		return $res;
 	}
-	
+
 
 	/** imap_sort must be used from here. this insures that synatax is same and so will be order of messages
 	**/
@@ -290,16 +290,13 @@ class imap extends class_base
 	**/
 	function _gen_missing_msg_list($arr)
 	{
-		global $awt;
 		if (!is_array($arr["cache"]))
 		{
 			$arr["cache"] = array();
 		};
 
-		$awt->start("msgr::imap::get_folder_contents / imap_sort");
 		$fo = $this->_imap_sort();
 
-		$awt->stop("msgr::imap::get_folder_contents / imap_sort");
 		$fop = array();
 		foreach($fo as $k=>$v)
 		{
@@ -329,12 +326,11 @@ class imap extends class_base
 		Needed if $to is an integer
 	@example ${test_connection}
 	@return array/contents
-	@comment 
+	@comment
 		Gets folder contents
 	**/
 	function get_folder_contents($arr)
 	{
-		global $awt;
 		$cache = get_instance("cache");
 
 		$mboxinf = imap_status($this->mbox, $this->use_mailbox, SA_ALL);
@@ -351,7 +347,6 @@ class imap extends class_base
 		$this->count = $count;
 		// mailbox has changed, reload from server
 		// fooook!.. this sucks bigtime. what if i want mails that i haven't seen yet, i'll say you what then happens.. you don't see them!!
-		$awt->start("msgr::imap::get_folder_contents / before last&new check");
 		$arg = array(
 			"cache" => &$mbox_over["contents"],
 			"from" => $arr["from"],
@@ -364,9 +359,7 @@ class imap extends class_base
 			// update ovr
 			$ovr[$this->mboxspec] = $new_check;
 			$this->_set_overview($ovr);
-			$awt->start("msgr::imap::get_folder_contents / mailboxmsginfo");
 			$mboxinf = imap_status($this->mbox);
-			$awt->stop("msgr::imap::get_folder_contents / mailboxmsginfo");
 
 			$req_msgs = $mbox_over["contents"];
 			// this will update the message cache ... it has to contain all
@@ -374,10 +367,8 @@ class imap extends class_base
 			if (count($to_fetch) > 0)
 			{
 				$overview = "";
-				$awt->start("msgr::imap::get_folder_contents / fetch missing mails");
 				foreach($to_fetch as $cur_enum => $msg_uid)
 				{
-					$awt->count("msgr::imap::get_folder_contents / fetch missing mails");
 					//print "fetching message with uid $msg_uid<br>";
 					//flush();
 					$hdrinfo = @imap_headerinfo($this->mbox,$msg_uid);
@@ -411,9 +402,8 @@ class imap extends class_base
 						"has_attachments" => ($str->type == 1) ? true : false,
 						"enum" => $cur_enum,
 					);
-				};
-				$awt->stop("msgr::imap::get_folder_contents / fetch missing mails");
-			};
+				}
+			}
 			uasort($req_msgs,array($this,"__date_sort"));
 			$mbox_over["contents"] = $req_msgs;
 			$cache->file_set($this->mbox_cache_id,aw_serialize($mbox_over));
@@ -434,7 +424,7 @@ class imap extends class_base
 		};
 
 		$rv = $mbox_over["contents"];
-		enter_function("imap::from_filter");
+
 		if(strlen($arr["from_filter"]))
 		{
 			foreach($rv as $k => $v)
@@ -443,7 +433,7 @@ class imap extends class_base
 					unset($rv[$k]);
 			}
 		}
-		exit_function("imap::from_filter");
+
 		return $rv;
 	}
 
@@ -475,9 +465,9 @@ class imap extends class_base
 				}
 			}
 		}
-		
+
 	}
-	
+
 	/**
 		@param mailbox type=string
 		@comment
@@ -493,7 +483,7 @@ class imap extends class_base
 		$status = imap_status($this->mbox, $this->servspec . $arr["use_mailbox"], SA_ALL);
 		return array($status->messages => $status->unseen);
 	}
-	
+
 
 	/**
 		@comment
@@ -521,10 +511,10 @@ class imap extends class_base
 	**/
 	function reset_cache_ids()
 	{
-		
+
 		// chachefile for single mailbox, this is a separate function because it has to be regenerated after every folderchange
 		$this->reset_mbox_cache_id();
-		
+
 
 		// this is where we store _all_ folders for that account
 		$this->fldr_cache_id = "imapfld" . md5("imap-acc-folders".$this->servspec.$this->user.$this->obj_id);
@@ -579,7 +569,7 @@ class imap extends class_base
 			returns currently connected mailbox'es name
 		@return
 			returns currently connected mailbox'es name
-		
+
 	**/
 	function current_mailbox()
 	{
@@ -590,7 +580,7 @@ class imap extends class_base
 	@attrib api=1 params=pos
 	@param string required type=string
 		criteria
-	@example 
+	@example
 		$this->drv_inst = get_instance("protocols/mail/imap");
 		$matches = $this->drv_inst->search_folder(join(" ",$str));
 	@return array of messages matching the given search criteria
@@ -613,7 +603,7 @@ class imap extends class_base
 	@attrib api=1 params=pos
 	@param arr required type=array
 		Array of mail id's
-	@example 
+	@example
 		$this->drv_inst = get_instance("protocols/mail/imap");
 		$this->_connect_server(array(
 			"msgr_id" => $arr["id"],
@@ -640,7 +630,7 @@ class imap extends class_base
 		}
 
 	}
-	
+
 	/**
 	@attrib api=1 params=name
 	@param id required type=array
@@ -648,7 +638,7 @@ class imap extends class_base
 	@param to required type=string
 		specified mailbox
 	@return string/the full text of the last IMAP error message that occurred on the current page
-	@example 
+	@example
 		$this->drv_inst = get_instance("protocols/mail/imap");
 		$this->_connect_server(array(
 			"msgr_id" => $arr["id"],
@@ -695,9 +685,9 @@ class imap extends class_base
 		Fetches a single message from the currently connected mailbox.
 		$this->mbox must be set
 		returns something like :
-		Array([from] => Anti Veeranna 
+		Array([from] => Anti Veeranna
 			[reply_to] => predev@struktuur.ee
-			[to] => Anti Veeranna 
+			[to] => Anti Veeranna
 			[subject] => [Predev] Re: cvs commit by markop in	automatweb_dev/classes/applications/mailinglist
 			[cc] => predev@struktuur.ee
 			[date] =>  4-May-2006 19:25:40 +0300
@@ -712,8 +702,8 @@ class imap extends class_base
 		$msg_no = imap_msgno($this->mbox,$arr["msgid"]);
 		$hdrinfo = imap_headerinfo($this->mbox,$msg_no);
 
-		// I should mark the message as "read" in the cache as well	
-			
+		// I should mark the message as "read" in the cache as well
+
 		$cache = get_instance("cache");
 		$src = $cache->file_get($this->mbox_cache_id);
 		$mbox_over = aw_unserialize($src);
@@ -751,7 +741,7 @@ class imap extends class_base
 		print_r($body);
 		print "</pre>";
 		*/
-		
+
 		$decoder = new Mail_mimeDecode($header. $body);
 		$structure = $decoder->decode($params);
 
@@ -821,7 +811,7 @@ class imap extends class_base
 			}
 			elseif(!empty($val->disposition) && ($val->disposition == "attachment" || $val->disposition == "inline") && !empty($val->d_parameters["filename"]))
 			{
-				// this disposition attachment or inline is because thunderbird uses inline somewhy .. 
+				// this disposition attachment or inline is because thunderbird uses inline somewhy ..
 
 				$this->attachments[$key]["filename"] = $val->d_parameters["filename"];
 				$this->attachments[$key]["size"] = strlen($val->body);
@@ -946,16 +936,16 @@ class imap extends class_base
 	@param return optional type=bool
 		if not set, sets the header and die();
 	@return Array("content-type", "name" , "content") if $return is set
-	@example 
+	@example
 		$this->drv_inst = get_instance("protocols/mail/imap");
 		$this->drv_inst->fetch_part(array(
 			"msgid" => $msgid,
 			"part" => $arr["part"],
 		));
 	@comment
-		This function causes a fetch of the complete, unfiltered RFC2822  format header of the specified message. If $return is not set, 
+		This function causes a fetch of the complete, unfiltered RFC2822  format header of the specified message. If $return is not set,
 	**/
-	function fetch_part($arr) 
+	function fetch_part($arr)
 	{
 		$header = imap_fetchheader($this->mbox,$arr["msgid"],FT_UID);
 		$body = imap_body($this->mbox,$arr["msgid"],FT_UID);
@@ -966,13 +956,13 @@ class imap extends class_base
 		$params['include_bodies'] = true;
 		$params['decode_bodies']  = true;
 		$params['decode_headers'] = true;
-		
+
 		$decoder = new Mail_mimeDecode($header. $body);
 
 		$structure = $decoder->decode($params);
 
 		$part = $structure->parts[$arr["part"]];
-		
+
 		$mime_type = strtolower($part->ctype_primary . "/" . $part->ctype_secondary);
 		$att_name = $part->d_parameters["filename"];
 
@@ -1009,7 +999,7 @@ class imap extends class_base
 	@param message optional type=string
 		mail body
 
-	@example 
+	@example
 		$this->drv_inst = get_instance("protocols/mail/imap");
 		$msgr->drv_inst->store_message(array(
 			"from" => $from,
@@ -1049,7 +1039,7 @@ class imap extends class_base
 		$cache = get_instance("cache");
 		if (!$this->overview_cache_id)
 		{
-			$this->reset_cache_ids();	
+			$this->reset_cache_ids();
 		}
 		$cache->file_set($this->overview_cache_id,aw_serialize($ovr));
 	}
@@ -1058,13 +1048,13 @@ class imap extends class_base
 	{
 		return md5($dat->Nmsgs . $dat->Size . "tambovihunt2");
 	}
-	
+
 	/**
 	@attrib api=1 params=pos
 	@param arg required type=string
 		sender's name and adress
 	@return array([name] , [addr])
-	@example 
+	@example
 		$this->drv_inst = get_instance("protocols/mail/imap");
 		$addrinf = $this->drv_inst->_extract_address($message->fromaddress);
 	@comment
@@ -1088,7 +1078,7 @@ class imap extends class_base
 		}
 		return $rv;
 	}
-	
+
 	////
 	// !Dekodeerib MIME encodingus teate
 	/**
@@ -1096,7 +1086,7 @@ class imap extends class_base
 	@param string required type=string
 		Message you want to decode
 	@return string/decoded message
-	@example 
+	@example
 		$this->drv_inst = get_instance("protocols/mail/imap");
 		$fromn = $this->drv_inst->MIME_decode($addrinf["name"]);
 	@comment
@@ -1120,7 +1110,7 @@ class imap extends class_base
 
 		$search = substr($string, $pos + 2, 75); // the mime header spec says this is the longest a single encoded word can be
 		$d1 = strpos($search, '?');
-		if (!is_int($d1)) 
+		if (!is_int($d1))
 		{
 			return $string;
 		}
@@ -1129,7 +1119,7 @@ class imap extends class_base
 		$search = substr($search, $d1 + 1);
 
 		$d2 = strpos($search, '?');
-		if (!is_int($d2)) 
+		if (!is_int($d2))
 		{
 			return $string;
 		}
@@ -1138,7 +1128,7 @@ class imap extends class_base
 		$search = substr($search, $d2+1);
 
 		$end = strpos($search, '?=');
-		if (!is_int($end)) 
+		if (!is_int($end))
 		{
 			return $string;
 		}
@@ -1146,7 +1136,7 @@ class imap extends class_base
 		$encoded_text = substr($search, 0, $end);
 		$rest = substr($string, (strlen($preceding . $charset . $encoding . $encoded_text) + 6));
 
-		switch ($encoding) 
+		switch ($encoding)
 		{
 			case 'Q':
 			case 'q':
@@ -1154,7 +1144,7 @@ class imap extends class_base
 				$encoded_text = str_replace('=', '%', $encoded_text);
 				$decoded = urldecode($encoded_text);
 
-				if (strtolower($charset) == 'windows-1251') 
+				if (strtolower($charset) == 'windows-1251')
 				{
 					$decoded = convert_cyr_string($decoded, 'w', 'k');
 				}
@@ -1164,7 +1154,7 @@ class imap extends class_base
 			case 'b':
 				$decoded = urldecode(base64_decode($encoded_text));
 
-				if (strtolower($charset) == 'windows-1251') 
+				if (strtolower($charset) == 'windows-1251')
 				{
 					$decoded = convert_cyr_string($decoded, 'w', 'k');
 				}

@@ -4,7 +4,6 @@
 
 /*
 EMIT_MESSAGE(MSG_MAIL_SENT)
-@classinfo maintainer=kristo
 */
 
 	define("DEFS",1);
@@ -447,7 +446,6 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 				unset($to_arr[$key]);
 			}
 			$to = join("," , $to_arr);
-
 		}
 
 		if(!(sizeof($to_arr) && $correct_mails_to_sent))
@@ -473,7 +471,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			$to_arr = explode(",", $to);
 			foreach($to_arr as $t)
 			{
-				$smtp->send_message(
+				$r = $smtp->send_message(
 					aw_ini_get("mail.smtp_server"),
 					$mt[1],
 					$t,
@@ -499,28 +497,32 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			}
 		}
 
-/*
-		$bt = debug_backtrace();
-		// find the sender app from the backtrace
-		$app = $bt[1]["class"];
-		if ($app == "aw_mail")
+		if ($r)
 		{
-			$app = $bt[2]["class"];
+			$bt = debug_backtrace();
+			// find the sender app from the backtrace
+			$app = $bt[1]["class"];
+			if ($app === "aw_mail" and isset($bt[2]["class"]))
+			{
+				$app = $bt[2]["class"];
+			}
+
+			if (strlen($app) < 2)
+			{
+				$app = $bt[1]["file"].":".$bt[1]["line"];
+			}
+
+			post_message("MSG_MAIL_SENT", array(
+				"from" => $from,
+				"to" => $to,
+				"subject" => $subject,
+				"headers" => $headers,
+				"arguments" => $arguments,
+				"content" => $msg,
+				"app" => $app
+			));
 		}
 
-		if ($app == "")
-		{
-			$app = $bt[1]["file"].":".$bt[1]["line"];
-		}
-		post_message("MSG_MAIL_SENT", array(
-			"from" => $from,
-			"to" => $to,
-			"subject" => $subject,
-			"headers" => $headers,
-			"arguments" => $arguments,
-			"content" => $msg,
-			"app" => $app
-		)); */
 		return $r;
 	}
 
@@ -1278,75 +1280,6 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		}
 
 		return $retval;
-	}
-
-
-	/// I think we should just use the PHP superglobal $GLOBALS for storing
-	// those variables instead of messing with our own objects. Empty it
-	// first and then put variables we need into it.
-
-	// oh, dammit. Shouldn't the aw_globals also be initalized and accesed
-	// through the aw_dir/init.aw - ?
-
-	// well. our own stuff kinda.. I dunno, feels better. but yeah, it also feels a lot slower.
-	// and yeah. we shouldn't need these before aw_startup() and we could init it in there.. - terryf
-
-	// .. and now they are.
-	function _aw_global_init()
-	{
-		// reset aw_global_* function globals
-		$GLOBALS["__aw_globals"] = array();
-
-		// import CGI spec variables and apache variables
-
-		// but we must do this in a certain order - first the global vars, then the session vars and then the server vars
-		// why? well, then you can't override server vars from the url.
-
-		// known variables - these can be modified by the user and are not to be trusted, so we get them first
-		$impvars = array("lang_id","DEBUG","no_menus","section","class","action","fastcall","reforb","set_lang_id","admin_lang","admin_lang_lc","LC","period","oid","print","sortby","sort_order","cal","date", "project", "view");
-		foreach($impvars as $k)
-		{
-			if (isset($GLOBALS[$k]))
-			{
-				aw_global_set($k, $GLOBALS[$k]);
-			}
-			elseif (isset($_REQUEST[$k]))
-			{
-				aw_global_set($k,$_REQUEST[$k]);
-			}
-		}
-
-
-		// why don't we just use $_SESSION everywhere in the code where session variables ar used?
-
-		// SESSION vars - these cannot be modified by the user except through aw, so they are relatively trustworthy
-		if (is_array($_SESSION))
-		{
-			foreach($_SESSION as $k => $v)
-			{
-				aw_global_set($k,$v);
-			}
-		}
-		aw_global_set("uid", isset($_SESSION["uid"]) ? $_SESSION["uid"] : "");
-
-		// server vars - these can be trusted pretty well, so we do these last
-		$server = array("SERVER_SOFTWARE", "SERVER_NAME", "GATEWAY_INTERFACE", "SERVER_PROTOCOL", "SERVER_PORT","REQUEST_METHOD",  "PATH_TRANSLATED","SCRIPT_NAME", "QUERY_STRING", "REMOTE_ADDR", "REMOTE_HOST", "HTTP_ACCEPT","HTTP_ACCEPT_CHARSET", "HTTP_ACCEPT_ENCODING", "HTTP_ACCEPT_LANGUAGE", "HTTP_CONNECTION", "HTTP_HOST", "HTTP_REFERER", "HTTP_USER_AGENT","REMOTE_PORT","SCRIPT_FILENAME", "SERVER_ADMIN", "SERVER_PORT", "SERVER_SIGNATURE", "PATH_TRANSLATED", "SCRIPT_NAME", "REQUEST_URI", "PHP_SELF", "DOCUMENT_ROOT", "PATH_INFO", "SERVER_ADDR", "HTTP_X_FORWARDED_FOR");
-
-		// why don't we just use $_SERVER where needed?
-		foreach($server as $var)
-		{
-			aw_global_set($var,isset($_SERVER[$var]) ? $_SERVER[$var] : null);
-		}
-
-		if (isset($_COOKIE["lang_id"]) && !isset($_SESSION["lang_id"]))
-		{
-			aw_global_set("lang_id", $_COOKIE["lang_id"]);
-		}
-		if (isset($_REQUEST))
-		{
-			aw_global_set("request",$_REQUEST);
-		};
-		$GLOBALS["__aw_globals_inited"] = true;
 	}
 
 	/** read value from a memory cache

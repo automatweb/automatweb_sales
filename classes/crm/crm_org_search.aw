@@ -1,6 +1,6 @@
 <?php
 // $Header: /home/cvs/automatweb_dev/classes/crm/crm_org_search.aw,v 1.18 2008/02/28 11:50:56 kristo Exp $
-// crm_org_search.aw - kliendibaasi otsing 
+// crm_org_search.aw - kliendibaasi otsing
 /*
 @classinfo  maintainer=markop
 
@@ -32,7 +32,7 @@
 @caption Otsi
 
 @property search_results type=table no_caption=1
-@caption Otsingutulemused 
+@caption Otsingutulemused
 
 @property no_reforb type=hidden value=1
 
@@ -52,7 +52,7 @@ class crm_org_search extends class_base
 	function init_search($arr)
 	{
 		// search only, if this is set
-		// and get_property sets it, once it figures out that there is something 
+		// and get_property sets it, once it figures out that there is something
 		// to search for
 		$this->valid_search = false;
 	}
@@ -87,10 +87,7 @@ class crm_org_search extends class_base
 
 	function do_search($arr, $xfilter=array())
 	{
-		global $awt;
-		
-		$awt->start("crm-org-search");
-		$tf = &$arr["prop"]["vcl_inst"];
+		$tf = $arr["prop"]["vcl_inst"];
 		$tf->define_field(array(
 			"name" => "name",
 			"caption" => t("Organisatsioon"),
@@ -108,7 +105,7 @@ class crm_org_search extends class_base
 			"caption" => t("Aadress"),
 			"sortable" => 1,
 		));
-	
+
 		$tf->define_field(array(
 			"name" => "email",
 			"caption" => t("E-post"),
@@ -146,12 +143,12 @@ class crm_org_search extends class_base
 		$req = $arr["request"];
 
 		array_walk($req, create_function('&$v,$k', '$v = trim($v);'));
-		
+
 		if (!empty($req["name"]))
 		{
 			$filter["name"] = "%" . $req["name"] . "%";
 		};
-		
+
 		if (!empty($req["reg_nr"]))
 		{
 			$filter["reg_nr"] = "%" . $req["reg_nr"] . "%";
@@ -186,17 +183,17 @@ class crm_org_search extends class_base
 			};
 		};
 		$addr_filter = array();
-		
+
 		if (!empty($req["city"]))
 		{
 			$addr_filter["linn"] = $req["city"];
 		};
-		
+
 		if (!empty($req["county"]))
 		{
 			$addr_filter["maakond"] = $req["county"];
 		};
-		
+
 		if (!empty($req["address"]))
 		{
 			$addr_filter["name"] = "%" . $req["address"] . "%";
@@ -240,7 +237,7 @@ class crm_org_search extends class_base
 			}
 			unset($xfilter['maakond']);
 		}
-	
+
 		if(sizeof($xfilter['address']))
 		{
 			$addr_xfilter['name'] = &$xfilter['address'];
@@ -253,10 +250,10 @@ class crm_org_search extends class_base
 			{
 				$addr_filter = $addr_xfilter;
 			}
-			
+
 			$addr_filter["class_id"] = CL_CRM_ADDRESS;
 			$addr_filter["limit"] = 1000;
-			
+
 			$addr_list = new object_list($addr_filter);
 			if (sizeof($addr_list->ids()) > 0)
 			{
@@ -271,12 +268,12 @@ class crm_org_search extends class_base
 				$no_results=true;
 			}
 		};
-		
+
 		if(sizeof($xfilter))
 		{
 			$filter = $xfilter;
 		}
-		
+
 		$filter['class_id'] = CL_CRM_COMPANY;
 		$filter['limit'] = 100;
 		$filter["site_id"] = array();
@@ -304,7 +301,7 @@ class crm_org_search extends class_base
 				$tmp = new object($o->prop("pohitegevus"));
 				$tegevus = $tmp->name();
 			};*/
-			
+
 			if (is_oid($o->prop("contact")))
 			{
 				$tmp = new object($o->prop("contact"));
@@ -323,8 +320,8 @@ class crm_org_search extends class_base
 				$ph_obj = new object($o->prop("phone_id"));
 				$phone = $ph_obj->name();
 			};
-				
-			
+
+
 			if ($this->can("view", $o->prop("url_id")))
 			{
 				$url_obj = new object($o->prop("url_id"));
@@ -376,8 +373,7 @@ class crm_org_search extends class_base
 		if ($count == 0)
 		{
 			$tf->set_header(t("Otsing ei leidnud ühtegi objekti"));
-		};
-		$awt->stop("cmr-org-search");
+		}
 	}
 }
 ?>

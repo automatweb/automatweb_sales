@@ -4,15 +4,11 @@
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_USER, on_delete_user)
 
-HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_USER, on_save_user)
-
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_USER, on_delete_alias)
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_USER, on_add_alias)
 
 EMIT_MESSAGE(MSG_USER_CREATE);
-
-HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_ML_MEMBER, on_save_addr)
 
 */
 
@@ -1217,8 +1213,8 @@ EOF;
 			*/
 			get_instance(CL_GROUP)->remove_user_from_group($o, $grp_o);
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+
+		cache::file_clear_pt("acl");
 	}
 
 	function on_delete_alias($arr)
@@ -1502,86 +1498,18 @@ EOF;
 			die();
 		}
 
-		// save email to person
-		if ($arr["obj_inst"]->prop("email") != "")
+		// update connected email object
+		if (
+			is_email($arr["obj_inst"]->prop("email"))
+			and $ml = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_EMAIL")
+		)
 		{
-			$p = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_PERSON");
-			if ($p)
+			if ($ml->prop("mail") !== $arr["obj_inst"]->prop("email"))
 			{
-				if ($p->prop("email.mail") != $arr["obj_inst"]->prop("email"))
-				{
-					if ($this->can("view", $p->prop("email.mail")))
-					{
-						$ml = obj($p->prop("email.mail"));
-						$ml->set_prop("mail", $arr["obj_inst"]->prop("email"));
-						$ml->set_name($arr["obj_inst"]->prop("email"));
-						$ml->save();
-					}
-					else
-					{
-						$ml = obj();
-						$ml->set_class_id(CL_ML_MEMBER);
-						$ml->set_parent($p->id());
-						$ml->set_prop("mail", $arr["obj_inst"]->prop("email"));
-						$ml->set_name($arr["obj_inst"]->prop("email"));
-						$ml->save();
-						$p->set_prop("email", $ml->id());
-						$p->connect(array(
-							"to" => $ml->id(),
-							"type" => "RELTYPE_EMAIL"
-						));
-					}
-				}
+				$ml->set_prop("mail", $arr["obj_inst"]->prop("email"));
+				$ml->set_name($arr["obj_inst"]->prop("email"));
+				$ml->save();
 			}
-		}
-	}
-
-	function on_save_user($arr)
-	{
-		$o = obj($arr["oid"]);
-
-		$pid = $o->meta("person");
-		if(is_oid($pid) && $this->can("view", $pid))
-		{
-			$o->connect(array(
-				"to" => $pid,
-				"reltype" => "RELTYPE_PERSON",
-			));
-			$o->set_meta("person", "");
-		}
-
-		// create email object
-		$umail = $o->prop("email");
-		$uname = $o->prop("real_name");
-
-		if($mail = $o->get_first_obj_by_reltype("RELTYPE_EMAIL"))
-		{
-			if ($mail->class_id() != CL_ML_MEMBER)
-			{
-				$o->disconnect(array("from" => $mail->id(), "type" => "RELTYPE_EMAIL"));
-				$this->on_save_user($arr);
-				return;
-			}
-			$mail->set_prop("mail", $umail);
-			$mail->set_prop("name", $uname);
-			$mail->set_name($uname." &lt;".$umail."&gt;");
-			$mail->save();
-		}
-		else
-		{
-			$mail = new object();
-			$mail->set_class_id(CL_ML_MEMBER);
-			$p = obj($this->get_person_for_user($o));
-
-			$mail->set_parent($p->id());
-			$mail->set_prop("mail", $umail);
-			$mail->set_prop("name", $uname);
-			$mail->set_name($uname." &lt;".$umail."&gt;");
-			$mail->save();
-			$o->connect(array(
-				"to" => $mail->id(),
-				"reltype" => "RELTYPE_EMAIL",
-			));
 		}
 	}
 
@@ -1858,7 +1786,7 @@ EOF;
 
 		$o->set_prop("home_folder", $this->users->hfid);
 		$o->set_password($password);
-		if(is_oid($person) && $this->can("view", $person))
+		if(isset($person) && $this->can("view", $person))
 		{
 			$o->set_meta("person", $person);
 		}
@@ -2086,10 +2014,10 @@ EOF;
 		foreach($ids as $bp => $name)
 		{
 			$cn = $int & (1 << $bp);
-			$str[] = $names[$name]." => ".($cn ? "Jah" : "Ei");
+			$str[] = $names[$name]." => ".($cn ? t("Jah") : t("Ei"));
 		}
 
-		return join("<br>", $str);
+		return join("<br />", $str);
 	}
 
 	private function _new_acl_string($acl)
@@ -2099,10 +2027,10 @@ EOF;
 		$str = array();
 		foreach($names as $key => $name)
 		{
-			$str[] = $name." => ".($acl[$key] ? "Jah" : "Ei");
+			$str[] = $name." => ".($acl[$key] ? t("Jah") : t("Ei"));
 		}
 
-		return join("<br>", $str);
+		return join("<br />", $str);
 	}
 
 	/** displays a form to let the user to change her password
@@ -2270,33 +2198,6 @@ EOF;
 			return true;
 		}
 		return false;
-	}
-
-	function on_save_addr($arr)
-	{ //mailinglist annab igatahes errorit siin muidu XXX: mis m6ttes muidu?
-		$ml_m = obj($arr["oid"]);
-		if(!is_oid($ml_m->id()))
-		{
-			return;
-		}
-
-		$connections = $ml_m->connections_to(array("from.class_id" => CL_USER, "type" => 6));
-		$c = reset($connections);
-
-		if (!$c)
-		{
-			return;
-		}
-		$user = $c->from();
-
-		$rn = $user->prop("real_name");
-
-		if ($user->prop("email") != $ml_m->prop("mail") || $rn != $ml_m->prop("name"))
-		{
-			$user->set_prop("email", $ml_m->prop("mail"));
-			$user->set_prop("real_name", $ml_m->prop("name"));
-			$user->save();
-		}
 	}
 
 	/**

@@ -120,8 +120,6 @@ class document extends aw_template
 
 		$lang_id = aw_global_get("lang_id");
 
-		global $awt;
-
 		// kysime dokumendi kohta infot
 		// muide docid on kindlasti numbriline, aliaseid kasutatakse ainult
 		// menueditis.
@@ -790,12 +788,9 @@ class document extends aw_template
 			}
 		};
 
-		$awt->start("almgr-parse-oo-aliases");
-		$awt->count("almgr-parse-oo-aliases");
 		$al = get_instance("alias_parser");
 		$al->parse_oo_aliases($doc["docid"],&$doc["content"],array("templates" => &$this->templates,"meta" => &$meta));
 
-		$awt->stop("almgr-parse-oo-aliases");
 		$this->vars($al->get_vars());
 
 		$al->parse_oo_aliases($doc["docid"],&$doc["title"],array("templates" => &$this->templates,"meta" => &$meta));
@@ -1455,7 +1450,6 @@ class document extends aw_template
 
 			$this->vars(array("LANG_BRO" => $langs));
 		}; // keeleseosed
-		global $awt;
 
 		$this->do_subtpl_handlers($doc_o);
 
