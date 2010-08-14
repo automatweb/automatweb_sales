@@ -2669,7 +2669,7 @@ END;
 		}
 		foreach($this->rowdefs as $rd)
 		{
-			if (isset($rd["parent"]) and $rd["parent"] == $parent)
+			if ($rd["parent"] == $parent)
 			{
 				$this->_get_max_level_cnt($rd["name"]);
 			}
