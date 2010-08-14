@@ -26,9 +26,10 @@
 		#bill tr td.info table tr td.bottom { border: 0px; }
 
 		#bill tr td.main { vertical-align: top; padding: 3em 0 3em 0; }
+		#bill tr td.main div.comment { font-size: 10px; color: #666666; }
 		#bill tr td.main table { width: 100%; font-size: 12px; font-family: Arial; }
 		#bill tr td.main table tr th { text-align: left; border-bottom: 1px solid #cccccc; padding: 0.4em; color: #666666; }
-		#bill tr td.main table tr td { border-bottom: 1px solid #cccccc; padding: 0.4em; }
+		#bill tr td.main table tr td { border-bottom: 1px solid #cccccc; padding: 0.4em; vertical-align: top; }
 		#bill tr td.main table tr td.caption { text-align: right; color: #666666; font-weight: bold; padding-right: 1em; border: 0px;}
 		#bill tr td.main table tr td.words { border: 0px; text-align: right; }
 		#bill tr td.main table tr td.words strong { color: #666666; padding-right: 1em; }
@@ -114,7 +115,14 @@
 							</tr>
 							<!-- SUB: ROW -->
 							<tr>
-								<td>{VAR:object}&nbsp;</td>
+								<td>
+									{VAR:name}&nbsp;
+									<!-- SUB: ROW_COMMENT -->
+									<div class="comment">
+									{VAR:comment}&nbsp;
+									</div>
+									<!-- END SUB: ROW_COMMENT -->
+								</td>
 								<td>{VAR:unit}&nbsp;</td>
 								<td>{VAR:amount}&nbsp;</td>
 								<td>{VAR:price}&nbsp;</td>

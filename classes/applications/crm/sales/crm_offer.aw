@@ -193,8 +193,10 @@ class crm_offer extends class_base
 			"caption" => t("Artikkel"),
 		));
 			$t->define_field(array(
-				"name" => "object_name",
-				"caption" => t("Nimi"),
+				"name" => "row_name_and_comment",
+				"caption" => t("Pealkiri ja kommentaar"),
+				"callback" => array($this, "callback_content_table_row_name_and_comment"),
+				"callb_pass_row" => true,
 				"parent" => "object",
 			));
 			$t->define_field(array(
@@ -241,6 +243,20 @@ class crm_offer extends class_base
 			"caption" => t("Hind"),
 			"callback" => array($this, "callback_content_table_price"),
 			"callb_pass_row" => true,
+		));
+	}
+
+	public function callback_content_table_row_name_and_comment($row)
+	{
+		return html::textbox(array(
+			"name" => "content_table[{$row["row"]->id()}][name]",
+			"value" => $row["row"]->prop("name"),
+			"size" => 65,
+		)).html::linebreak().html::textarea(array(
+			"name" => "content_table[{$row["row"]->id()}][comment]",
+			"value" => $row["row"]->prop("comment"),
+			"rows" => 3,
+			"cols" => 50,
 		));
 	}
 
@@ -355,7 +371,6 @@ class crm_offer extends class_base
 					"price_component_name" => $price_component->name(),
 					"price_component_value" => $price_component->prop("value"),
 					"object" => $row->prop("object"),
-					"object_name" => obj($row->prop("object"))->name(),
 					"amount" => $row->prop("amount"),
 					"unit" => $row->prop("unit"),
 				));
@@ -363,7 +378,7 @@ class crm_offer extends class_base
 		}
 
 		$t->set_vgroupby(array(
-			"object_name" => "object",
+			"row_name_and_comment" => "object",
 			"amount" => "object",
 			"unit" => "object",
 			"oid" => "object",
@@ -383,6 +398,8 @@ class crm_offer extends class_base
 				if (is_oid($row_id))
 				{
 					$row = obj($row_id);
+					$row->set_prop("name", $row_data["name"]);
+					$row->set_prop("comment", $row_data["comment"]);
 					$row->set_prop("unit", $row_data["unit"]);
 					$row->set_prop("amount", $row_data["amount"]);
 
@@ -622,12 +639,21 @@ class crm_offer extends class_base
 		foreach($o->get_rows() as $row)
 		{
 			$this->vars(array(
+				"name" => $row->prop("name"),
+				"comment" => $row->prop("comment"),
 				"object" => obj($row->prop("object"))->name(),	//$row->prop("object.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
 				"unit" => obj($row->prop("unit"))->name(),	//$row->prop("unit.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
 				"amount" => $row->prop("amount"),
 				"price" => $row->prop("amount") != 0 ? number_format($row->get_price($row) / $row->prop("amount"), 2) : $row->get_price($row),	// number_format() SHOULD BE DONE ON TPL LEVEL!
 				"sum" => number_format($row->get_price($row), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+				"ROW_COMMENT" => "",
 			));
+			if(strlen($row->prop("comment")) > 0)
+			{
+				$this->vars(array(
+					"ROW_COMMENT" => $this->parse("ROW_COMMENT"),
+				));
+			}
 			$ROW .= $this->parse("ROW");
 		}
 
