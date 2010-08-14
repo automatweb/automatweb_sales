@@ -282,6 +282,11 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	**/
 	public function price_component_is_compulsory($price_component)
 	{
+		if($price_component->type == crm_sales_price_component_obj::TYPE_NET_VALUE)
+		{
+			return true;
+		}
+
 		$compulsory = false;
 		
 		if(!isset($this->salesman_data))
@@ -295,9 +300,6 @@ class crm_offer_obj extends crm_offer_price_component_handler
 				throw $e;
 			}
 		}
-
-		$min = $max = $price_component->prop("value");
-		$value = $price_component->prop("value");
 
 		$priority_of_current_compulsoriness = 0;
 		$priorities_of_compulsoriness = array(
@@ -388,6 +390,18 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		return 0;
 	}
 
+	public function get_all_prerequisites_for_price_component(object $price_component)
+	{
+		if(isset($this->all_prerequisites_by_price_component[$price_component->id()]))
+		{
+			return $this->all_prerequisites_by_price_component[$price_component->id()];
+		}
+		else
+		{
+			return array();
+		}
+	}
+
 	/**	Loads relevant data to check if price component is compulsory and to find the correct tolerance.
 	 *	Relevant data is currently section, work_relation and profession, all of which will be taken from the salesman of the offer.
 	**/
@@ -451,11 +465,26 @@ class crm_offer_obj extends crm_offer_price_component_handler
 
 	protected function load_all_prerequisites_for_price_component_ol($ol)
 	{
+		$net_value_price_components = array();
 		foreach($ol->arr() as $o)
 		{
 			if(!isset($this->all_prerequisites_by_price_component[$o->id()]))
 			{
 				$this->all_prerequisites_by_price_component[$o->id()] = $o->get_all_prerequisites();
+			}
+
+			if($o->type == crm_sales_price_component_obj::TYPE_NET_VALUE)
+			{
+				$net_value_price_components[$o->id()] = $o->id();
+			}
+		}
+
+		foreach($ol->arr() as $o)
+		{
+			$this->all_prerequisites_by_price_component[$o->id()] += $net_value_price_components;
+			if(isset($this->all_prerequisites_by_price_component[$o->id()][$o->id()]))
+			{
+				unset($this->all_prerequisites_by_price_component[$o->id()][$o->id()]);
 			}
 		}
 	}

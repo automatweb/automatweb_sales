@@ -763,7 +763,7 @@ class crm_offer extends class_base
 							"oid" => $row_price_component->id(),
 							"type" => $row_price_component->prop("type"),
 							"is_ratio" => (boolean) $row_price_component->prop("is_ratio"),
-							"prerequisites" => array_values($row_price_component->get_all_prerequisites()),
+							"prerequisites" => array_values($arr["obj_inst"]->get_all_prerequisites_for_price_component($row_price_component)),
 						);
 					}
 				}

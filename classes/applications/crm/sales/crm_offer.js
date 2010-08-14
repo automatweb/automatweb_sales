@@ -89,7 +89,7 @@ awCrmOffer.calculateRow = function(row_id){
 		else if (2 == price_component.type){	//	TYPE_UNIT
 			var formula = "amount * value";
 		}
-		else if (3 == price_component.type || 4 == price_component.type){	//	TYPE_ROW or TYPE_TOTAL
+		else if (1 == price_component.type || 3 == price_component.type || 4 == price_component.type){	//	TYPE_ROW or TYPE_TOTAL
 			var formula = "value";
 		}
 		var sum = awCrmOffer.findLatestApplicableSum(row_id, price_component);
