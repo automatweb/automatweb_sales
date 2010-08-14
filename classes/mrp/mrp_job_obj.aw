@@ -6,8 +6,10 @@
 
 require_once "mrp_header.aw";
 
-class mrp_job_obj extends _int_object
+class mrp_job_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
+	const AW_CLID = 826;
+
 	const PRSN_HNDL_S = 1;
 	const PRSN_HNDL_F = 2;
 	const PRSN_HNDL_S_OR_F = 3;
@@ -156,6 +158,15 @@ class mrp_job_obj extends _int_object
 
 			$this->set_prop("component_quantity", 1);
 		}
+	}
+
+	//	Written solely for testing purposes!
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+		return $ol;
 	}
 
 	/** Loads and verifies full job data

@@ -24,6 +24,11 @@
 	@property send type=text store=no editonly=1
 	@caption Saada kliendile
 
+	@property save_as_template type=text store=no editonly=1
+	@caption Salvesta &scaron;abloonina
+
+	@property template_name type=hidden store=no editonly=1
+
 	@property sum type=hidden field=aw_sum
 	@caption Summa
 
@@ -46,6 +51,11 @@
 
 	@property preview type=text store=no no_caption=1 editonly=1
 
+@groupinfo confirmations caption=Kinnitused
+@default group=confirmations
+
+	@property confirmations_table type=table store=no no_caption=1 editonly=1
+
 */
 
 class crm_offer extends class_base
@@ -58,8 +68,75 @@ class crm_offer extends class_base
 		));
 	}
 
+	protected function define_confirmations_table_header($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->define_field(array(
+			"name" => "name",
+			"caption" => t("Nimi"),
+		));
+		$t->define_field(array(
+			"name" => "organisation",
+			"caption" => t("Organisatsioon"),
+		));
+		$t->define_field(array(
+			"name" => "profession",
+			"caption" => t("Amet"),
+		));
+		$t->define_field(array(
+			"name" => "phone",
+			"caption" => t("Telefon"),
+		));
+		$t->define_field(array(
+			"name" => "email",
+			"caption" => t("E-post"),
+		));
+		$t->define_field(array(
+			"name" => "time",
+			"caption" => t("Kinnitamise aeg"),
+		));
+	}
+
+	public function _get_confirmations_table($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$offer = $arr["obj_inst"];
+
+		$this->define_confirmations_table_header($arr);
+
+		$confirmations = $offer->confirmed_by();
+		foreach($confirmations as $confirmation)
+		{
+			$row = $confirmation;
+			$row["name"] = sprintf("%s %s", $row["firstname"], $row["lastname"]);
+			$row["time"] = aw_locale::get_lc_date($row["time"], aw_locale::DATETIME_SHORT_FULLYEAR);
+			$t->define_data($row);
+		}
+	}
+
+	public function _get_save_as_template($arr)
+	{
+		$arr["prop"]["value"] = html::href(array(
+			"caption" => t("Salvesta &scaron;abloonina"),
+			"url" => "javascript:void(0);",
+			"onclick" => '$.prompt(offer_template_name_html, {
+				callback: function(v,m){
+					$("input[type=hidden][name=template_name]").val(m.children("#offer_template_name").val());
+					submit_changeform("create_template");
+				},
+				buttons: { "Salvesta": true, "Katkesta": false }
+			});',
+		));
+	}
+
 	public function _get_send($arr)
 	{
+		if (!is_oid($arr["obj_inst"]->customer))
+		{
+			return PROP_IGNORE;
+		}
+
 		$arr["prop"]["value"] = html::href(array(
 			"caption" => t("Saada kliendile"),
 			"url" => $this->mk_my_orb("new", array("return_url" => get_ru(), "offer" => $arr["obj_inst"]->id(), "parent" => $arr["obj_inst"]->id()), CL_CRM_OFFER_SENT),
@@ -74,11 +151,33 @@ class crm_offer extends class_base
 	public function _get_content_toolbar($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
-		$t->add_search_button(array(
+
+		$t->add_menu_button(array(
 			"name" => "content_search",
-			"pn" => "content_add",
-			"clid" => crm_offer_row_obj::get_applicable_clids(),
+			"img" => "search.gif",
+			"tooltip" => t("Lisa pakkumisse artikleid"),
 		));
+
+		$clids = crm_offer_row_obj::get_applicable_clids();
+		$url = new aw_uri($this->mk_my_orb("do_search", array("pn" => "content_add"), "popup_search"));
+		foreach($clids as $clid)
+		{
+			$url->set_arg("clid", $clid);
+			$caption = object::class_title_by_clid($clid);
+			$t->add_menu_item(array(
+				"parent" => "content_search",
+				"text" => $caption,
+				"link" => "javascript:aw_popup_scroll('{$url}','{$caption}',".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
+			));
+		}
+		$url->set_arg("clid", $clids);
+		$caption = t("K&otilde;ik v&otilde;imalikud objektid");
+		$t->add_menu_item(array(
+			"parent" => "content_search",
+			"text" => $caption,
+			"link" => "javascript:aw_popup_scroll('{$url}','{$caption}',".popup_search::PS_WIDTH.",".popup_search::PS_HEIGHT.")",
+		));
+
 		$t->add_delete_button();
 		$t->add_save_button();
 	}
@@ -91,7 +190,7 @@ class crm_offer extends class_base
 
 		$t->define_field(array(
 			"name" => "object",
-			"caption" => t("Sisukomponent"),
+			"caption" => t("Artikkel"),
 		));
 			$t->define_field(array(
 				"name" => "object_name",
@@ -461,17 +560,6 @@ class crm_offer extends class_base
 		return PROP_OK;
 	}
 
-	public function _set_customer($arr)
-	{
-		if(!is_oid($arr["prop"]["value"]))
-		{
-			$arr["prop"]["error"] = t("Palun sisestage olemasolev klient!");
-			return PROP_FATAL_ERROR;
-		}
-
-		return PROP_OK;
-	}
-
 	public function _set_content_add($arr)
 	{
 		$o = $arr["obj_inst"];
@@ -519,11 +607,15 @@ class crm_offer extends class_base
 
 		$o = new object($arr["id"]);
 
+		$customer = $o->customer();
+
 		$this->vars(array(
 			"id" => $o->id(),
 			"date" => $o->prop("date"),
 			"currency" => obj($o->prop("currency"))->name(), //$o->prop("currency.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
-			"customer" => obj($o->prop("customer"))->name(), //$o->prop("customer.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
+			"customer" => $customer->name(),
+			"customer.mail" => $customer->get_mail(),
+//			"customer.phone" => $customer->get_phone(),
 		));
 
 		$ROW = "";
@@ -533,7 +625,7 @@ class crm_offer extends class_base
 				"object" => obj($row->prop("object"))->name(),	//$row->prop("object.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
 				"unit" => obj($row->prop("unit"))->name(),	//$row->prop("unit.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
 				"amount" => $row->prop("amount"),
-				"price" => number_format($row->get_price($row) / $row->prop("amount"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+				"price" => $row->prop("amount") != 0 ? number_format($row->get_price($row) / $row->prop("amount"), 2) : $row->get_price($row),	// number_format() SHOULD BE DONE ON TPL LEVEL!
 				"sum" => number_format($row->get_price($row), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
 			));
 			$ROW .= $this->parse("ROW");
@@ -560,16 +652,48 @@ class crm_offer extends class_base
 	}
 
 	/**
+		@attrib name=new_from_template
+	**/
+	public function new_from_template($arr)
+	{
+		$tpl = obj($arr["tpl"]);
+		$old_offer = obj($tpl->offer);
+		$new_offer = $old_offer->duplicate();
+
+		return html::get_change_url($new_offer->id(), array("return_url" => $arr["return_url"]));
+	}
+
+	/**
+		@attrib name=create_template
+	**/
+	public function create_template($arr)
+	{
+		if(!empty($arr["template_name"]))
+		{
+			$o = obj($arr["id"]);
+			$o->create_template($arr["template_name"]);
+		}
+
+		return $arr["post_ru"];
+	}
+
+	/**
 		@attrib name=confirm params=name nologin=1
 		@param id required type=int
 		@param do_confirm optional type=boolean default=false
+		@param firstname optional type=string
+		@param lastname optional type=string
+		@param organisation optional type=string
+		@param profession optional type=string
+		@param phone optional type=string
+		@param email optional type=string
 	**/
 	public function confirm($arr)
 	{
 		if(!empty($arr["do_confirm"]))
 		{
 			$o = obj($arr["id"]);
-			$o->confirm();
+			$o->confirm($arr);
 		}
 
 		die($this->show(array(
@@ -590,6 +714,8 @@ class crm_offer extends class_base
 	public function callback_generate_scripts($arr)
 	{
 		$js = "";
+
+		$js .= 'var offer_template_name_html = "'.t("Palun sisesta &scaron;ablooni nimi:<br /><input type='text' id='offer_template_name' name='offer_template_name' size='40' />\";");
 
 		if("content" === $this->use_group)
 		{
@@ -680,9 +806,22 @@ class crm_offer extends class_base
 
 	public function do_db_upgrade($t, $f)
 	{
-		if ($f == "")
+		if ("aw_crm_offer" === $t and $f === "")
 		{
 			$this->db_query("CREATE TABLE aw_crm_offer(aw_oid int primary key)");
+			return true;
+		}
+		elseif("aw_crm_offer_confirmations" === $t and $f === "")
+		{
+			$this->db_query("CREATE TABLE aw_crm_offer_confirmations (
+				aw_offer int,
+				aw_firstname varchar (100),
+				aw_lastname varchar (100),
+				aw_organisation varchar (100),
+				aw_profession varchar (100),
+				aw_phone varchar (100),
+				aw_email varchar (100),
+				aw_time int)");
 			return true;
 		}
 
@@ -693,6 +832,8 @@ class crm_offer extends class_base
 			case "aw_customer":
 			case "aw_currency":
 			case "aw_date":
+
+			case "aw_offer":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "int(11)"
@@ -712,6 +853,19 @@ class crm_offer extends class_base
 					"type" => "decimal(19,4)"
 				));
 				return true;
+
+			case "aw_firstname":
+			case "aw_lastname":
+			case "aw_organisation":
+			case "aw_profession":
+			case "aw_phone":
+			case "aw_email":
+				$this->db_add_col($t, array(
+					"name" => $f,
+					"type" => "varchar(100)"
+				));
+				return true;
+
 		}
 	}
 }

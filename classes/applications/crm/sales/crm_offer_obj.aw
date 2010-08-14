@@ -46,10 +46,78 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		}
 	}
 
-	public function confirm()
+	/**	Creates crm_offer_template object enabling user to use this crm_offer as a template when creating new ones
+		@attrib api=1 params=pos
+		@param name required type=string
+		@returns void
+		@errors Throws awex_crm_offer if this offer is not saved
+	**/
+	public function create_template($name)
 	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before it can be saved as a template!");
+		}
+
+		$o = obj();
+		$o->set_class_id(CL_CRM_OFFER_TEMPLATE);
+		$o->set_parent($this->id());
+		$o->set_name($name);
+		$o->set_prop("offer", $this->id());
+		$o->save();
+	}
+
+	/**	Creates duplicate of this crm_offer_obj object and returns the new crm_offer_obj object.
+		@attrib api=1
+		@returns crm_offer_obj object
+	**/
+	public function duplicate()
+	{
+		$o = obj($this->save_new());
+		$o->set_prop("state", self::STATE_NEW);
+		$o->save();
+
+		return $o;
+	}
+
+	/**
+		@attrib api=1 params=name
+		@param firstname required type=string
+		@param lastname required type=string
+		@param organisation required type=string
+		@param profession required type=string
+		@param phone required type=string
+		@param email required type=string
+	**/
+	public function confirm($arr)
+	{
+		$this->instance()->db_query(sprintf("INSERT INTO aw_crm_offer_confirmations
+			(aw_offer, aw_firstname, aw_lastname, aw_organisation, aw_profession, aw_phone, aw_email, aw_time)
+			VALUES (%u, '%s', '%s', '%s', '%s', '%s', '%s', %u)",
+			$this->id(), $arr["firstname"], $arr["lastname"], $arr["organisation"], $arr["profession"], $arr["phone"], $arr["email"], time()));
+
 		$this->set_prop("state", self::STATE_CONFIRMED);
 		$this->save();
+	}
+
+	/**
+		@attrib api=1
+	**/
+	public function confirmed_by()
+	{
+		$rows = $this->instance()->db_fetch_array(sprintf("SELECT * FROM aw_crm_offer_confirmations WHERE aw_offer = %u;",
+			$this->id()));
+
+		$data = array();
+		foreach($rows as $i => $row)
+		{
+			foreach($row as $k => $v)
+			{
+				$data[$i][str_replace("aw_", "", $k)] = $v;
+			}
+		}
+
+		return $data;
 	}
 
 	public function awobj_get_sum()
@@ -447,6 +515,14 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		}
 
 		$this->price_components_loaded = true;
+	}
+
+	/**	Used to set rows to be used with get_rows().
+		@attrib api=1
+	**/
+	public function set_rows($rows)
+	{
+		$this->rows = $rows;
 	}
 
 	protected function load_rows()

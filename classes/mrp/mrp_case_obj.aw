@@ -1,13 +1,10 @@
 <?php
 
-/*
-@classinfo  maintainer=voldemar
-*/
-
 require_once "mrp_header.aw";
 
-class mrp_case_obj extends _int_object
+class mrp_case_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
+	const AW_CLID = 828;
 	const STATE_NEW = 1; // project hasn't been planned yet
 	const STATE_PLANNED = 2; // start time has been planned. project is in schedule
 	const STATE_ABORTED = 4; // work was started but then stopped with no knowledge if resumed in future
@@ -22,9 +19,18 @@ class mrp_case_obj extends _int_object
 	protected static $mrp_state_names = array(); // array of state => human_readable_name
 	protected $workspace; // project owner
 
-/** Class constructor
-	@attrib api=1 params=pos
-**/
+	//	Written solely for testing purposes!
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+		return $ol;
+	}
+
+	/** Class constructor
+		@attrib api=1 params=pos
+	**/
 	function __construct($objdata)
 	{
 		parent::__construct($objdata);

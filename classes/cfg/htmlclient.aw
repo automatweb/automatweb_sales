@@ -546,9 +546,9 @@ class htmlclient extends aw_template
 	function put_subitem($args)
 	{
 		$tpl_vars = array(
-			"caption" => $args["caption"],
+			"caption" => isset($args["caption"]) ? $args["caption"] : "",
 			"element" => $this->draw_element($args),
-			"space" => $args["space"],
+			"space" => isset($args["space"]) ? $args["space"] : 0,
 		);
 		// SUBITEM - element first, caption right next to it
 		// SUBITEM2 - caption first, element right next to it
