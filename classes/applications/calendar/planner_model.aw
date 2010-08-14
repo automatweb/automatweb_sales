@@ -62,7 +62,7 @@ class planner_model extends core
 	}
 
 	/** returns a list of folders for a specified calendar, this is more efficient that returning a list of events
-	
+
 	**/
 	function get_event_folders($arr)
 	{
@@ -70,11 +70,11 @@ class planner_model extends core
 		// otherwise just id-s - suitable for feeding to object_list
 		$cal_obj = new object($arr["id"]);
 		$folders = array();
-	
+
 		if (!is_oid($arr["id"]))
 		{
 			return $folders;
-		}	
+		}
 		$evt_folder = $cal_obj->prop("event_folder");
 		if (is_oid($evt_folder))
 		{
@@ -118,18 +118,14 @@ class planner_model extends core
 			"date" => isset($date) ? $date : date("d-m-Y"),
 			"type" => $type,
 		));
-	
+
 		$start = $di["start"];
 		$end = $di["end"];
 
 
 		$obj = new object($id);
 		$this->id = $id;
-		
-		global $awt;
-		$awt->start("get-event-list");
 		$events = $this->get_event_list($args);
-		$awt->stop("get-event-list");
 
 		if (count($events))
 {
@@ -174,7 +170,6 @@ class planner_model extends core
 }
 		$reflist = array();
 		$rv = array();
-		$awt->start("calendar-full-event-list");
 		// that eidlist thingie is no good! I might have events out of my range which I still need to include
 		// I need folders! Folders! I'm telling you! Folders! Those I can probably include in my query!
 		foreach($events as $event)
@@ -198,13 +193,12 @@ class planner_model extends core
 				"cal_id" => $this->id,
 				"event_id" => $event["id"],
 			));
-	
+
 			$eo = $of;
 			if ($row["status"] == 0)
 			{
 				continue;
 			};
-			$awt->start("hmm");
 			if ($row["brother_of"] != $row["oid"])
 			{
 				$real_obj = $of->get_original();
@@ -245,10 +239,8 @@ class planner_model extends core
 			{
 				$reflist[] = &$rv[$gx][$row["brother_of"]];
 			};
+		}
 
-			$awt->stop("hmm");
-		};
-		$awt->stop("calendar-full-event-list");
 		return isset($args["flatlist"]) ? $reflist : $rv;
 	}
 
@@ -343,8 +335,8 @@ class planner_model extends core
 			};
 		};
 		exit_function("get_event_list::my_projects");
-		
-		
+
+
 		$rv = array();
 		$eidstr = $parstr = "";
 
@@ -387,7 +379,7 @@ class planner_model extends core
 		// see on 1 case.
 
 		// and I have a second one too
-			
+
 		if(is_array($arr["status"]))
 		{
 			$q .= "IN (".implode(",", $arr["status"]).")";
@@ -397,12 +389,12 @@ class planner_model extends core
 		 	$q .= "!= 0";
 		}
 
-		// lyhidalt. planneri tabelis peaks kirjas olema. No, but it can't be there 
+		// lyhidalt. planneri tabelis peaks kirjas olema. No, but it can't be there
 		// I need to connect that god damn recurrence table into this fucking place.
 
 		// if events from a project were requested, then include events
 		// from that projects only - id's are in event_ids array()
-		
+
 		//if ($project)
 		//{
 		//	$q .= $eidstr;
@@ -472,14 +464,14 @@ class planner_model extends core
 			$e_m = date("m", $_end);
 			$pred = $s_m > $e_m ? "OR" : "AND";
 			$q = "
-				SELECT 
+				SELECT
 					objects.name as name,
 					objects.oid as oid,
 					kliendibaas_isik.birthday as bd
-				FROM 
-					objects  LEFT JOIN kliendibaas_isik ON kliendibaas_isik.oid = objects.brother_of  
-				WHERE	
-					objects.class_id = '145' AND 
+				FROM
+					objects  LEFT JOIN kliendibaas_isik ON kliendibaas_isik.oid = objects.brother_of
+				WHERE
+					objects.class_id = '145' AND
 					objects.status > 0  AND
 					kliendibaas_isik.birthday != '' AND kliendibaas_isik.birthday != 0 AND kliendibaas_isik.birthday is not null
 			";
@@ -536,7 +528,7 @@ class planner_model extends core
 		{
 			return html::get_change_url($evo->id(), array("return_url" => get_ru()));
 		}
-		
+
 		return $this->mk_my_orb("change",array(
 			"id" => $arr["cal_id"],
 			"group" => "add_event",

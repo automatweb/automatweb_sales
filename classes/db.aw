@@ -172,7 +172,7 @@ class db_connector
 
 		if (aw_global_get("debug.db_query"))
 		{
-			echo "<b>QUERYING DATABASE:</b> " . nl2br($qtext);
+			echo "<hr><b>QUERYING DATABASE:</b><br />" . nl2br($qtext);
 		}
 
 		return $retval;

@@ -472,6 +472,86 @@ function load_config ($files = array(), $cache_file = null)
 	}
 }
 
+
+/// I think we should just use the PHP superglobal $GLOBALS for storing
+// those variables instead of messing with our own objects. Empty it
+// first and then put variables we need into it.
+
+// oh, dammit. Shouldn't the aw_globals also be initalized and accesed
+// through the aw_dir/init.aw - ?
+
+// well. our own stuff kinda.. I dunno, feels better. but yeah, it also feels a lot slower.
+// and yeah. we shouldn't need these before aw_startup() and we could init it in there.. - terryf
+
+// .. and now they are.
+function _aw_global_init()
+{
+	// reset aw_global_* function globals
+	$GLOBALS["__aw_globals"] = array();
+
+	// import CGI spec variables and apache variables
+
+	// but we must do this in a certain order - first the global vars, then the session vars and then the server vars
+	// why? well, then you can't override server vars from the url.
+
+	// known variables - these can be modified by the user and are not to be trusted, so we get them first
+	$impvars = array(
+		"lang_id",
+		"DEBUG",
+		"no_menus",
+		"section",
+		"class",
+		"action",
+		"fastcall",
+		"reforb",
+		"set_lang_id",
+		"admin_lang",
+		"admin_lang_lc",
+		"LC","period",
+		"oid",
+		"print",
+		"sortby",
+		"sort_order",
+		"cal",
+		"date",
+		"project",
+		"view"
+	);
+
+	foreach($impvars as $k)
+	{
+		if (isset($GLOBALS[$k]))
+		{
+			aw_global_set($k, $GLOBALS[$k]);
+		}
+		elseif (isset($_REQUEST[$k]))
+		{
+			aw_global_set($k,$_REQUEST[$k]);
+		}
+	}
+
+	// server vars - these can be trusted pretty well, so we do these last
+	$server = array("SERVER_SOFTWARE", "SERVER_NAME", "GATEWAY_INTERFACE", "SERVER_PROTOCOL", "SERVER_PORT","REQUEST_METHOD",  "PATH_TRANSLATED","SCRIPT_NAME", "QUERY_STRING", "REMOTE_ADDR", "REMOTE_HOST", "HTTP_ACCEPT","HTTP_ACCEPT_CHARSET", "HTTP_ACCEPT_ENCODING", "HTTP_ACCEPT_LANGUAGE", "HTTP_CONNECTION", "HTTP_HOST", "HTTP_REFERER", "HTTP_USER_AGENT","REMOTE_PORT","SCRIPT_FILENAME", "SERVER_ADMIN", "SERVER_PORT", "SERVER_SIGNATURE", "PATH_TRANSLATED", "SCRIPT_NAME", "REQUEST_URI", "PHP_SELF", "DOCUMENT_ROOT", "PATH_INFO", "SERVER_ADDR", "HTTP_X_FORWARDED_FOR");
+
+	// why don't we just use $_SERVER where needed?
+	foreach($server as $var)
+	{
+		aw_global_set($var,isset($_SERVER[$var]) ? $_SERVER[$var] : null);
+	}
+
+	if (isset($_COOKIE["lang_id"]) && !isset($_SESSION["lang_id"]))
+	{
+		aw_global_set("lang_id", $_COOKIE["lang_id"]);
+	}
+
+	if (isset($_REQUEST))
+	{
+		aw_global_set("request",$_REQUEST);
+	}
+
+	$GLOBALS["__aw_globals_inited"] = true;
+}
+
 /** Generic configuration error condition **/
 class awex_cfg extends aw_exception {}
 

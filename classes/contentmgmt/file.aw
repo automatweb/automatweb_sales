@@ -481,7 +481,6 @@ class file extends class_base
 		switch($data["name"])
 		{
 			case "mail_notify_toolbar":
-				classload("vcl/mail_notify");
 				$mn = new mail_notify();
 				$mn->process_vcl_property($arr);
 				break;
@@ -515,7 +514,7 @@ class file extends class_base
 				// ah sa raisk k&uuml;ll, siinkohal on mul ju konkreetse faili sisu
 				if (is_array($data["value"]))
 				{
-					$file = $data["value"]["tmp_name"];
+					$file = isset($data["value"]["tmp_name"]) ? $data["value"]["tmp_name"] : "";
 					$file_type = $data["value"]["type"];
 					$file_name = $data["value"]["name"];
 				}
@@ -524,7 +523,7 @@ class file extends class_base
 					$file = $_FILES["file"]["tmp_name"];
 					$file_name = $_FILES["file"]["name"];
 					$file_type = $_FILES["file"]["type"];
-				};
+				}
 
 				// get extension and check whitelist
 				/*if ($file != "" && !$this->file_is_in_whitelist($file_name))
@@ -543,7 +542,6 @@ class file extends class_base
 							return PROP_FATAL_ERROR;
 						}
 					}
-
 
 					$pathinfo = pathinfo($file_name);
 					if (empty($file_type))
@@ -569,16 +567,18 @@ class file extends class_base
 						unlink($arr["obj_inst"]->prop("file"));
 					}
 				}
-				else
-				if (is_array($data["value"]) && $data["value"]["content"] != "")
+				elseif (is_array($data["value"]) && isset($data["value"]["content"]))
 				{
-					$file_type = $file_type?$file_type:"text/html";
+					if (empty($file_type))
+					{
+						$file_type = "text/html";
+					}
 					$final_name = $this->generate_file_path(array(
 						"file_name" => $file_name
 					));
 					$fc = fopen($final_name, "w");
 					fwrite($fc, $data["value"]["content"]);
-					fclose($f);
+					fclose($fc);
 					$arr["obj_inst"]->set_name($data["value"]["name"]);
 					$arr["obj_inst"]->set_prop("type", $file_type);
 					$data["value"] = $final_name;
@@ -607,16 +607,17 @@ class file extends class_base
 
 	function callback_post_save($arr)
 	{
-		if ($arr["request"]["save_and_index"])
+		if (!empty($arr["request"]["save_and_index"]))
 		{
-			$i = get_instance(CL_SITE_SEARCH_CONTENT);
+			$i = new site_search_content();
 			$i->add_single_object_to_index(array("oid" => $arr["obj_inst"]->id()));
 		}
-		if ($arr["request"]["save_and_doc"] != "")
+
+		if (!empty($arr["request"]["save_and_doc"]))
 		{
 			$link_url = $this->get_url($arr["obj_inst"]->id(), $arr["obj_inst"]->name());
 			$url = $this->mk_my_orb("fetch_file_alias_for_doc", array("doc_id" => $arr["request"]["docid"], "file_id" => $arr["obj_inst"]->id()), CL_FILE);
-			$i = get_instance(CL_IMAGE);
+			$i = new image();
 			$i->gen_image_alias_for_doc(array(
 				"img_id" => $arr["obj_inst"]->id(),
 				"doc_id" => $arr["request"]["docid"] ? $arr["request"]["docid"] : $arr["request"]["id"],
@@ -1559,9 +1560,9 @@ class file extends class_base
 		$data["file"] = array(
 			"content" => $arr["content"],
 			"name" => $arr["name"],
-			"type" => $arr["type"],
+			"type" => $arr["type"]
 		);
-		$t = get_instance(CL_FILE);
+		$t = new file();
 		$rv = $t->submit($data);
 		return $rv;
 	}
@@ -1624,7 +1625,7 @@ class file extends class_base
 
 	function callback_mod_retval($arr)
 	{
-		$arr["args"]["docid"] = $arr["request"]["docid"];
+		$arr["args"]["docid"] = isset($arr["request"]["docid"]) ? $arr["request"]["docid"] : 0;
 	}
 
 	function callback_get_transl($arr)

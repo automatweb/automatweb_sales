@@ -50,6 +50,15 @@
             <caption>Arve esitaja</caption>
       </property>
       <property>
+            <name>assembler</name>
+            <table>aw_crm_bill</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_assembler</field>
+            <parent>top_left</parent>
+            <caption>Koostaja</caption>
+      </property>
+      <property>
             <name>bill_date</name>
             <table>aw_crm_bill</table>
             <group>general</group>
@@ -155,6 +164,16 @@
             <caption>Allahindlus (%)</caption>
       </property>
       <property>
+            <name>overdue_charge</name>
+            <table>aw_crm_bill</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_overdue_charge</field>
+            <size>5</size>
+            <parent>bottom_left</parent>
+            <caption>Viivis (%)</caption>
+      </property>
+      <property>
             <name>language</name>
             <table>objects</table>
             <group>general</group>
@@ -220,6 +239,16 @@
             <caption>Allkirjastajad</caption>
       </property>
       <property>
+            <name>signature_type</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <parent>bottom_left</parent>
+            <caption>Allkirja t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
             <name>customer_name</name>
             <table>aw_crm_bill</table>
             <group>general</group>
@@ -275,16 +304,6 @@
             <store>no</store>
             <parent>top_right</parent>
             <field>customer_add_meta_cb</field>
-      </property>
-      <property>
-            <name>customer_address_meta</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>text</type>
-            <no_caption>1</no_caption>
-            <parent>top_right</parent>
-            <field>customer_address_meta</field>
-            <caption>Kliendi aadressi muutujad metas</caption>
       </property>
       <property>
             <name>warehouse_info</name>
@@ -512,6 +531,15 @@
             <caption>Kasutajadefineeritud muutuja 5</caption>
       </property>
       <property>
+            <name>is_overdue_bill</name>
+            <table>aw_crm_bill</table>
+            <group>other_data</group>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <field>aw_is_overdue_bill</field>
+            <caption>Viivisarve</caption>
+      </property>
+      <property>
             <name>project</name>
             <table>objects</table>
             <group>other_data</group>
@@ -521,6 +549,15 @@
             <multiple>1</multiple>
             <field>project</field>
             <caption>Projekt</caption>
+      </property>
+      <property>
+            <name>bill_text</name>
+            <table>objects</table>
+            <group>other_data</group>
+            <type>textarea</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Arve tekst</caption>
       </property>
       <property>
             <name>comments</name>
@@ -539,6 +576,17 @@
             <store>no</store>
             <field>comments_add</field>
             <caption>Lisa</caption>
+      </property>
+      <property>
+            <name>mail_reciever</name>
+            <table>objects</table>
+            <group>other_data</group>
+            <type>relpicker</type>
+            <store>connect</store>
+            <multiple>1</multiple>
+            <reltype>RELTYPE_RECIEVER</reltype>
+            <field>mail_reciever</field>
+            <caption>Maili saaja</caption>
       </property>
       <property>
             <name>bill_mail_to</name>
@@ -801,11 +849,6 @@
                   <clid>CL_CRM_ADDRESS</clid>
                   <caption>L&amp;amp;auml;hetusaadress</caption>
             </ADDRESS>
-            <BUG>
-                  <value>16</value>
-                  <clid>CL_BUG</clid>
-                  <caption>Bugi</caption>
-            </BUG>
             <PROJECT>
                   <value>17</value>
                   <clid>CL_PROJECT</clid>
@@ -816,6 +859,11 @@
                   <clid>CL_CURRENCY</clid>
                   <caption>Valuuta</caption>
             </CURRENCY>
+            <RECIEVER>
+                  <value>19</value>
+                  <clid>CL_CRM_PERSON</clid>
+                  <caption>Arve saaja</caption>
+            </RECIEVER>
       </reltypes>
       <layout>
             <main_split>

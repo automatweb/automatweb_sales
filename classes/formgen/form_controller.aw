@@ -3,7 +3,7 @@
 @classinfo  maintainer=kristo
 */
 
-// controller types in element - each controller can be used for every one of these, 
+// controller types in element - each controller can be used for every one of these,
 // they are just here to specify for which controller in the element the controller is selected
 define("CTRL_USE_TYPE_ENTRY", 1);			// entry controller - checks on form submit
 define("CTRL_USE_TYPE_SHOW", 2);			// show controller - checks on form showing
@@ -19,16 +19,16 @@ class form_controller extends form_base
 		$this->form_base();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=new params=name default="0"
-		
+
 		@param parent required type=int acl="add"
 		@param alias_to optional type=int
 
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -37,7 +37,7 @@ class form_controller extends form_base
 		extract($arr);
 		$this->read_template("add_controller.tpl");
 		$this->mk_path($parent, "Lisa kontroller");
-	
+
 		$l = get_instance("languages");
 		$lar = $l->listall();
 		foreach($lar as $ld)
@@ -55,14 +55,14 @@ class form_controller extends form_base
 		return $this->parse();
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=submit params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -112,15 +112,15 @@ class form_controller extends form_base
 		return $this->mk_my_orb("change", array("id" => $id));
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=change params=name default="0"
-		
+
 		@param id required type=int acl="edit;view"
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -241,7 +241,7 @@ class form_controller extends form_base
 	}
 
 	////
-	// !this validates entered data $entry via controller $id 
+	// !this validates entered data $entry via controller $id
 	// $form_ref is a reference to the form that the controller is connected to
 	// it is used to access the current entry element values
 	// $el_ref is a reference to the current element - it is used to import metadata values
@@ -276,26 +276,16 @@ class form_controller extends form_base
 		{
 			return true;	// don't remove this, otherwise all controller checks will fail withut a controller
 		}
-//echo "cpontroller $id <br>\n";
-//flush();
-		enter_function("form_controller::eval_controller");
-		enter_function("form_controller::eval_controller::$id");
+
 		$this->form_ref =& $form_ref;
 		$this->el_ref =& $el_ref;
 		$this->entry = $entry;
 
-		global $awt;
-		if ($_COOKIE["profile_controllers"] == "1")
-		{
-				$awt->start("eval_controller::$id");
-				$awt->count("eval_controller::$id");
-				echo "eval_controller_ref $id for entry $entry , el ".(is_object($el_ref) ? $el_ref->get_id() : "")." <br />";
-		}
 		$co = $this->load_controller($id);
 		$eq = $this->replace_vars($co,$co["meta"]["eq"],true,$form_ref, $el_ref, $entry);
-		
+
 		$eq = "\$res = ".$eq.";\$contr_finish = true;";
-		dbg::p2("controller id $id: evaling $eq <br />");
+
 		if (aw_ini_get("site_id") == 139)
 		{
 			@eval($eq);
@@ -308,19 +298,13 @@ class form_controller extends form_base
 			}
 			@eval($eq);
 		}
-		dbg::p2("evaled $id, res: ".dbg::dump($res)." <br />");
+
 		if (!$contr_finish)
 		{
 			$this->dequote(&$eq);
 			@eval($eq);
 		}
-		if ($_COOKIE["profile_controllers"] == "1")
-		{
-			echo "got result $res, elapsed time = ".$awt->elapsed("eval_controller::$id")." <br /><br />";
-		}
 
-		exit_function("form_controller::eval_controller");
-		exit_function("form_controller::eval_controller::".$co[OID]);
 		return $res;
 	}
 
@@ -339,17 +323,11 @@ class form_controller extends form_base
 		$this->el_ref =& $el_ref;
 		$this->entry = $entry;
 
-		global $awt;
-		if ($_COOKIE["profile_controllers"] == "1")
-		{
-				$awt->start("eval_controller::$id");
-				echo "eval_controller $id for entry $entry , el ".(is_object($el_ref) ? $el_ref->get_id() : "")." <br />";
-		}
 		$co = $this->load_controller($id);
 		$eq = $this->replace_vars($co,$co["meta"]["eq"],true,$form_ref, $el_ref, $entry);
 
 		$eq = "\$res = ".$eq.";\$contr_finish = true;";
-		dbg::p2("controller id $id: evaling $eq <br />");
+
 		if (aw_ini_get("site_id") == 139)
 		{
 			eval($eq);
@@ -359,15 +337,10 @@ class form_controller extends form_base
 			eval($eq);
 		}
 
-		dbg::p2("evaled $id, res: ".dbg::dump($res)." <br /><br />");
 		if (!$contr_finish)
 		{
 			$this->dequote(&$eq);
 			@eval($eq);
-		}
-		if ($_COOKIE["profile_controllers"] == "1")
-		{
-			echo "got result $res, elapsed time = ".$awt->elapsed("eval_controller::$id")." <br />";
 		}
 
 		return $res;
@@ -452,15 +425,15 @@ class form_controller extends form_base
 		return $eq;
 	}
 
-	/** presents the interface for adding variables to controller 
-		
+	/** presents the interface for adding variables to controller
+
 		@attrib name=add_var params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -477,14 +450,14 @@ class form_controller extends form_base
 		return $this->parse();
 	}
 
-	/** saves the variable prefs 
-		
+	/** saves the variable prefs
+
 		@attrib name=submit_var params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -527,16 +500,16 @@ class form_controller extends form_base
 		}
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=change_var params=name default="0"
-		
+
 		@param id required
 		@param var_name required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -647,7 +620,7 @@ class form_controller extends form_base
 		enter_function("form_controller::get_var_value");
 		$fid = $co["meta"]["vars"][$var_name]["form_id"];
 		$elid = $co["meta"]["vars"][$var_name]["el_id"];
-		
+
 		$o_fid = $co["meta"]["vars"][$var_name]["other_form_id"];
 		$o_elid = $co["meta"]["vars"][$var_name]["other_el_id"];
 
@@ -687,7 +660,7 @@ class form_controller extends form_base
 					$entry_id = $chd[$fid];
 					if (!$entry_id)
 					{
-						// if the entry for this form has not been made in the chain or is in a related form, 
+						// if the entry for this form has not been made in the chain or is in a related form,
 						// try and load any entry from the chain, since it will contain all the available elements anyway! yay!
 						if (is_array($chd))
 						{
@@ -735,14 +708,14 @@ class form_controller extends form_base
 						$rel_ch_eid = $this->db_fetch_field("SELECT chain_id FROM form_".$t_fid."_entries WHERE id = '$rel_eid'", "chain_id");
 					}
 //					echo "got rel_ch_eid as $rel_ch_eid <br />";
-					
+
 					$chd = $this->get_chain_entry($rel_ch_eid, true);
 //					echo "got chd as ".dbg::dump($chd)." <br />";
 					$entry_id = $chd[$fid];
 //					echo "got entry_id as $entry_id <br />";
 					if (!$entry_id)
 					{
-						// if the entry for this form has not been made in the chain or is in a related form, 
+						// if the entry for this form has not been made in the chain or is in a related form,
 						// try and load any entry from the chain, since it will contain all the available elements anyway! yay!
 						if (is_array($chd))
 						{
@@ -813,16 +786,16 @@ class form_controller extends form_base
 		exit_function("form_controller::get_var_value");
 	}
 
-	/**  
-		
+	/**
+
 		@attrib name=del_var params=name default="0"
-		
+
 		@param id required
 		@param var_name optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -836,22 +809,22 @@ class form_controller extends form_base
 	}
 
 	////
-	// !returns, for the current loaded controller whether 
+	// !returns, for the current loaded controller whether
 	// error messages should be shown instead of elements in show controllers
 	function get_show_errors()
 	{
 		return $this->loaded_controller["meta"]["show_errors_showctl"];
 	}
 
-	/** shows the user in what forms what elements use this controller and lets the user remove it 
-		
+	/** shows the user in what forms what elements use this controller and lets the user remove it
+
 		@attrib name=form_list params=name default="0"
-		
+
 		@param id required
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -866,7 +839,7 @@ class form_controller extends form_base
 		// since we bloody well can't load every form in the database we must have the relations
 		// somewhere written down
 		// so we will get table called form_controller2element(ctrl_id, form_id, el_id, type)
-	
+
 		$this->vars(array(
 			"ENTRY_ELEMENT" => $this->_do_type($id,CTRL_USE_TYPE_ENTRY,"ENTRY_ELEMENT"),
 			"SHOW_ELEMENT" => $this->_do_type($id,CTRL_USE_TYPE_SHOW,"SHOW_ELEMENT"),
@@ -881,7 +854,7 @@ class form_controller extends form_base
 	function _do_type($id, $type, $tpl)
 	{
 		$ret = "";
-		$this->db_query("SELECT form_id, el_id, form_o.name as form_name, el_o.name as el_name 
+		$this->db_query("SELECT form_id, el_id, form_o.name as form_name, el_o.name as el_name
 										 FROM form_controller2element AS fc2e
 										 LEFT JOIN objects AS form_o ON form_o.oid = fc2e.form_id
 										 LEFT JOIN objects AS el_o ON el_o.oid = fc2e.el_id
@@ -899,14 +872,14 @@ class form_controller extends form_base
 		return $ret;
 	}
 
-	/** saves the changes the user has made to the element list 
-		
+	/** saves the changes the user has made to the element list
+
 		@attrib name=submit_form_list params=name default="0"
-		
-		
+
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
@@ -998,7 +971,7 @@ class form_controller extends form_base
 			{
 				$str .= "<font color='red' size='2'>";
 				$str .= $res;
-				$str .= "</font>";			
+				$str .= "</font>";
 			}
 		}
 		return $str;

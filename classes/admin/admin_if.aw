@@ -741,7 +741,15 @@ class admin_if extends class_base
 				"title" => $title,
 			));
 
-			$row["class_id"] = $clss[$row_d["class_id"]]["name"];
+			try
+			{
+				$row["class_id"] = aw_ini_get("classes." . $row_d["class_id"] . ".name");
+			}
+			catch (Exception $e)
+			{
+				$row["class_id"] = t("[klassi ei leitud]");
+			}
+
 			if ($row["oid"] != $row_d["brother_of"])
 			{
 				$row["class_id"] .= " (vend)";
@@ -878,18 +886,25 @@ class admin_if extends class_base
 			$grp = "transl";
 		}
 
-		$class = basename($GLOBALS["cfg"]["classes"][$clid]["file"]);
-		if ($this->can("edit", $id))
-		{
-			$this->pm->add_item(array(
-				"link" => sprintf($this->change_url_template, $class, $id, $parent, $period, $grp).$this->post_ru_append,
-				"text" => t("Muuda")
-			));
 
-			$this->pm->add_item(array(
-				"link" => sprintf($this->if_cut_url_template, $id, $parent, $id).$this->post_ru_append,
-				"text" => t("L&otilde;ika")
-			));
+		try
+		{
+			$class = basename(aw_ini_get("classes.{$clid}.file"));
+			if ($this->can("edit", $id))
+			{
+				$this->pm->add_item(array(
+					"link" => sprintf($this->change_url_template, $class, $id, $parent, $period, $grp).$this->post_ru_append,
+					"text" => t("Muuda")
+				));
+
+				$this->pm->add_item(array(
+					"link" => sprintf($this->if_cut_url_template, $id, $parent, $id).$this->post_ru_append,
+					"text" => t("L&otilde;ika")
+				));
+			}
+		}
+		catch (Exception $e)
+		{
 		}
 
 		$this->pm->add_item(array(
@@ -923,7 +938,7 @@ class admin_if extends class_base
 			$tree = unserialize($tree);
 		}
 
-		if(!is_array($tree))
+		if(!isset($tree) or !is_array($tree))
 		{
 			$tree = $atc->get_class_tree(array(
 				"az" => 1,

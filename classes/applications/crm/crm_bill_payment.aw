@@ -176,7 +176,7 @@ class crm_bill_payment extends class_base
 				{
 					if($bill == "new")
 					{
-						$bill_id = $bi->get_bill_id(array(
+						$bill_id = crm_bill_obj::get_bill_id(array(
 							"no" => $data["no"],
 						));
 						if($bill_id)

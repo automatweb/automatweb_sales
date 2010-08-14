@@ -154,7 +154,24 @@ class crm_bill_row_object extends _int_object
 			"lang_id" => array(),
 			"CL_CRM_BILL.RELTYPE_ROW" => $this->id(),
 		));
-		return reset($bills_list->ids());
+		$ids = $bills_list->ids();
+		return reset($ids);
+	}
+
+	/** returns bill row bill id
+		@attrib api=1
+		@returns oid
+			bill id
+	**/
+	function get_bill_object()
+	{
+		$bills_list = new object_list(array(
+			"class_id" => CL_CRM_BILL,
+			"lang_id" => array(),
+			"site_id" => array(),
+			"CL_CRM_BILL.RELTYPE_ROW" => $this->id(),
+		));
+		return $bills_list->begin();
 	}
 
 	/** checks if bill has other customers...
@@ -285,6 +302,29 @@ class crm_bill_row_object extends _int_object
 		return $prods;
 	}
 
+	/** returns bill projects
+		@attrib api=1
+		@returns array
+	**/
+	public function get_project_selection()
+	{
+		$projects = array();
+		$bill = $this->get_bill();
+		if($GLOBALS["object_loader"]->cache->can("view" , $bill))
+		{
+			$bill_obj = obj($bill);
+			foreach($bill_obj->connections_from(array("type" => "RELTYPE_PROJECT")) as $c)
+			{
+				$projects[$c->prop("to")] = $c->prop("to.name");
+			}
+		}
+		if($this->prop("project"))
+		{
+			$projects[$this->prop("project")] = get_name($this->prop("project"));
+		}
+		return $projects;
+	}
+
 	/** returns bill row unit selection
 		@attrib api=1
 		@returns array
@@ -409,6 +449,11 @@ class crm_bill_row_object extends _int_object
 			}
 		}
 		return $res;
+	}
+
+	public function is_writeoff()
+	{
+		return $this->prop("writeoff");
 	}
 }
 ?>

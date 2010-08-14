@@ -1490,11 +1490,7 @@ class converters extends aw_template
 			));
 			if (!count($c))
 			{
-				// trigger message handler
-				$u = $o->instance();
-				$u->on_save_user(array(
-					"oid" => $o->id()
-				));
+				$o->save();
 				echo "added mail <br>\n";
 				flush();
 			}
@@ -1835,42 +1831,42 @@ echo "mod ".$con["to.name"]."<br>";
 					case "":
 						$this->db_query("CREATE TABLE mrp_log (`id` INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (`id`))");
 						break;
-	
+
 					case "project_id":
 						$this->db_add_col($t, array(
 							"name" => $f,
 							"type" => "INT"
 						));
 						break;
-	
+
 					case "job_id":
 						$this->db_add_col($t, array(
 							"name" => $f,
 							"type" => "INT"
 						));
 						break;
-	
+
 					case "uid":
 						$this->db_add_col($t, array(
 							"name" => $f,
 							"type" => "VARCHAR(255)"
 						));
 						break;
-					
+
 					case "tm":
 						$this->db_add_col($t, array(
 							"name" => $f,
 							"type" => "INT"
 						));
 						break;
-					
+
 					case "message":
 						$this->db_add_col($t, array(
 							"name" => $f,
 							"type" => "TEXT"
 						));
 						break;
-	
+
 					case "comment":
 						$this->db_add_col($t, array(
 							"name" => $f,

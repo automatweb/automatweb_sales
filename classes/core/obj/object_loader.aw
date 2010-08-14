@@ -80,7 +80,7 @@ class _int_object_loader extends core
 		}
 	}
 
-	function oid_for_alias($alias)
+	private static function oid_for_alias($alias)
 	{
 		if (substr($alias,-1) === "/")
 		{
@@ -96,14 +96,14 @@ class _int_object_loader extends core
 
 			$part = array_shift($parts);
 
-			$parent = $this->ds->get_oid_by_alias(array(
+			$parent = $GLOBALS["object_loader"]->ds->get_oid_by_alias(array(
 				"alias" => $part,
 				"site_id" => aw_ini_get("site_id")
 			));
 
 			foreach($parts as $part)
 			{
-				$parent = $this->ds->get_oid_by_alias(array(
+				$parent = $GLOBALS["object_loader"]->ds->get_oid_by_alias(array(
 					"alias" => $part,
 					"site_id" => aw_ini_get("site_id"),
 					"parent" => $parent
@@ -114,7 +114,7 @@ class _int_object_loader extends core
 		else
 		// else just try to match the whole string
 		{
-			return $this->ds->get_oid_by_alias(array(
+			return $GLOBALS["object_loader"]->ds->get_oid_by_alias(array(
 				"alias" => $alias,
 				"site_id" => aw_ini_get("site_id")
 			));
@@ -131,7 +131,7 @@ class _int_object_loader extends core
 		}
 		elseif (is_string($param))
 		{
-			$oid = $this->oid_for_alias($param);
+			$oid = self::oid_for_alias($param);
 			if (!$oid)
 			{
 				throw new awex_oid("Invalid object alias '{$param}'");
@@ -223,6 +223,7 @@ class _int_object_loader extends core
 		if (!isset($ob) || !is_object($ob))
 		{
 			// check access rights to object
+			///TODO: access should be checked separately from loading
 			if (!$GLOBALS["object_loader"]->ds->can("view", $oid))
 			{
 				$e = new awex_obj_acl("No view access object with id '{$oid}'.");

@@ -1228,8 +1228,8 @@ class crm_person extends class_base
 		{
 			if (is_oid($wr_id))
 			{
-				$wr = obj($wr_id, array(), CRM_PERSON_WORK_RELATION);
-				$wr->set_prop("org", $data["org"]);
+				$wr = obj($wr_id, array(), CL_CRM_PERSON_WORK_RELATION);
+				$wr->set_prop("employer", $data["org"]);
 				$wr->set_prop("section", $data["sec"]);
 				$wr->set_prop("profession", $data["pro"]);
 				$wr->save();
@@ -3967,6 +3967,7 @@ class crm_person extends class_base
 		{
 			$arr["sel"] = $arr["check"];
 		}
+
 		if (!is_array($arr["sel"]) && is_array($arr["select"]))
 		{
 			foreach ($arr["select"] as $oid)
@@ -3975,12 +3976,17 @@ class crm_person extends class_base
 				$obj->delete();
 			}
 		}
-		foreach ($arr["sel"] as $del_conn)
+
+		if (isset($arr["sel"]) and is_array($arr["sel"]))
 		{
-			$conn = new connection($del_conn);
-			$obj = $conn->to();
-			$obj->delete();
+			foreach ($arr["sel"] as $del_conn)
+			{
+				$conn = new connection($del_conn);
+				$obj = $conn->to();
+				$obj->delete();
+			}
 		}
+
 		return  $arr["post_ru"];
 	}
 
@@ -4153,9 +4159,7 @@ class crm_person extends class_base
 
 			if ($mod)
 			{
-				aw_disable_acl();
 				$u->save();
-				aw_restore_acl();
 			}
 		}
 
@@ -4941,6 +4945,12 @@ class crm_person extends class_base
 		if (is_admin())
 		{
 		return
+		//FIXME: load_javascritpi kasutada
+		/// teha korda pikemate tekstide kuvamine alert klassis css-is jne
+		/// korrastada skripti
+		"</script><script type=\"text/javascript\" src=\"js/alert/alert.js\"></script>\n".
+		"<script type=\"text/javascript\" src=\"js/alert/js-core.js\"></script>\n".
+		"<link rel=\"stylesheet\" type=\"text/css\" href=\"js/alert/alert.css\" /><script type=\"text/javascript\">\n".
 		"function aw_submit_handler() {".
 		"if (document.changeform.firstname.value=='".$arr["obj_inst"]->prop("firstname")."' && document.changeform.lastname.value=='".$arr["obj_inst"]->prop("lastname")."') { return true; }".
 		// fetch list of companies with that name and ask user if count > 0
@@ -4950,14 +4960,37 @@ class crm_person extends class_base
 		"num= parseInt(ct);".
 		"if (num >0)
 		{
-			var ansa = confirm('Sellise nimega isik on juba olemas. Kas soovite minna selle objekti muutmisele?');
-			if (ansa)
-			{
-				window.location = '".$this->mk_my_orb("go_to_first_person_by_name", array("return_url" => $arr["request"]["return_url"]))."&co_name=' + document.changeform.firstname.value + ' '+document.changeform.lastname.value;
-				return false;
-			}
+
+fnCallbackEdit = function()
+{
+	window.location = '".$this->mk_my_orb("go_to_first_person_by_name", array("return_url" => $arr["request"]["return_url"]))."&co_name=' + document.changeform.firstname.value + ' '+document.changeform.lastname.value;
+}
+
+fnCallbackAddNew = function()
+{
+	document.changeform.submit();
+}
+
+ Alert.fnCustom( {
+     'sTitle': '" . t("Sellise nimega isik on juba olemas") . "',
+     'sMessage': '" . t("Kuidas toimida?") . "',
+     'sDisplay': 'aabc',
+     'aoButtons': [
+         {
+             'sLabel': '" . t("Ava olemasolev muutmiseks") . "',
+             'fnSelect': fnCallbackEdit,
+             'cPosition': 'c'
+         },
+         {
+             'sLabel': '" . t("Lisa uus sama nimega") . "',
+             'fnSelect': fnCallbackAddNew,
+             'cPosition': 'b'
+         }
+     ]
+ } );
+ return false;
 		}".
-		"return true;}".$f;
+		"return true;}";
 		}
 		return $f;
 	}
@@ -5191,15 +5224,15 @@ class crm_person extends class_base
 			$person_obj = $ob;
 			//return false;
 		}
-		$person_obj = &obj($person_obj->prop("from"));
+		$person_obj = obj($person_obj->prop("from"));
 
 		// Dunno where prop("email") gets its value, but it's not OID!
 		if(is_oid($person_obj->prop("email")))
-			$email_obj = &obj($person_obj->prop("email"));
+			$email_obj = obj($person_obj->prop("email"));
 		else
 			// Not the neatest way to solve it, but seriously. What if person has no e-mail??
 			$email_obj = new object();
-		$phone_obj = &obj($person_obj->prop("phone"));
+		$phone_obj = obj($person_obj->prop("phone"));
 
 		// Why did I write the next line of code? Good question. See init.aw:319. -kaarel
 		$this->template_dir = aw_ini_get("site_tpldir")."/crm/person";

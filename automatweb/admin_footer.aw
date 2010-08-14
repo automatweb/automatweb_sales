@@ -57,14 +57,14 @@ while (!empty($ru) && empty($pf))
 	}
 	$ru = isset($vals["return_url"]) ? $vals["return_url"] : NULL;
 }
-aw_disable_acl();
+
 $p = get_current_person();
 $co = get_current_company();
 if (!$co)
 {
 	$co = obj();
 }
-aw_restore_acl();
+
 if (!empty($_GET["id"]) and $sf->can("view", $_GET["id"]))
 {
 	$cur_obj = obj($_GET["id"]);
