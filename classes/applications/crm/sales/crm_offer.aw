@@ -606,9 +606,12 @@ class crm_offer extends class_base
 
 	public function _get_preview($arr)
 	{
-		die($this->show(array(
+		automatweb::$result->set_data($this->show(array(
 			"id" => $arr["obj_inst"]->id(),
 		)));
+		automatweb::$result->send();
+
+		die;
 	}
 
 	/**	Returns parsed HTML of the crm_offer template.
