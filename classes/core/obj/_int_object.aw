@@ -1413,7 +1413,7 @@ class _int_object
 				$this->_int_set_ot_mod("metadata", ifset($this->obj, "meta", $propi["name"]), $val);
 				$this->obj["meta"][$propi["name"]] = $val;
 			}
-			elseif ($propi["method"] === "bitmask")
+			elseif ($propi["method"] === "bitmask" and isset($this->obj["flags"]))
 			{
 				// it's flags, sync to that
 				$mask = $this->obj["flags"];

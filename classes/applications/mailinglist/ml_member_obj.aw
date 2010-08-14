@@ -2,21 +2,10 @@
 
 class ml_member_obj extends _int_object
 {
-	function set_name($v)
+	function prop($name)
 	{
-// this breaks e-mail sending!
-//		$v = htmlspecialchars($v);
-		return parent::set_name($v);
-	}
-
-	function set_prop($k, $v)
-	{
-		$html_allowed = array("name");
-		if(!in_array($k, $html_allowed) && !is_array($v))
-		{
-			$v = htmlspecialchars($v);
-		}
-		return parent::set_prop($k, $v);
+		//FIXME: konverteerimine viia mujale. kasutada prop_xml-i vms.
+		return htmlspecialchars(parent::prop($name));
 	}
 
 	/**
@@ -89,12 +78,12 @@ class ml_member_obj extends _int_object
 		// Getting the current name..
 		$q = oql::compile_query("SELECT mail FROM CL_ML_MEMBER WHERE CL_ML_MEMBER.oid = %u");
 		$r = oql::execute_query($q, $oid);
-		
+
 		$nmail = parent::prop("mail");
 		$cmail = $r[$oid]["mail"];
 
 		$old_obj = obj($oid);
-		
+
 		if($nmail !== $cmail)
 		{
 			$ol = new object_list(array(
@@ -148,7 +137,7 @@ class ml_member_obj extends _int_object
 		return parent::save();
 	}
 */
-	/*	object::set_prop(brother_of, ): no property brother_of defined for current object! 
+	/*	object::set_prop(brother_of, ): no property brother_of defined for current object!
 	function delete()
 	{
 		$ol = new object_list(array(

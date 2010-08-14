@@ -2081,11 +2081,8 @@ class project extends class_base
 		$ev_ids = array();
 		if (!empty($arr["project_id"]))
 		{
-			global $awt;
-			$awt->start("project-event-loader");
 			#$ev_ids = $this->get_events_for_project(array("project_id" => $arr["project_id"]));
 			$ev_ids = $arr["project_id"];
-			$awt->stop("project-event-loader");
 		}
 		else
 		if ($arr["type"] == "my_projects")
@@ -3486,13 +3483,14 @@ class project extends class_base
 					));
 				}
 			}
+			$params = array(
+				"source_id" => $org_obj->id(),
+				"event_id" => $this->event_id,
+			);
 			post_message_with_param(
 				MSG_EVENT_ADD,
 				$org_obj->class_id(),
-				array(
-					"source_id" => $org_obj->id(),
-					"event_id" => $this->event_id,
-				)
+				$params
 			);
 		}
 		return PROP_OK;
@@ -3500,16 +3498,16 @@ class project extends class_base
 
 	function callback_mod_tab($args)
 	{
-		if ($args["activegroup"] != "add_event" && $args["id"] == "add_event")
+		if ($args["activegroup"] !== "add_event" && $args["id"] === "add_event")
 		{
 			return false;
 		};
 
-		if ($args["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($args["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}
-		if ($args["id"] == "trans")
+		if ($args["id"] === "trans")
 		{
 			return false;
 		}
@@ -3527,7 +3525,7 @@ class project extends class_base
 		if ($this->event_id)
 		{
 			$args["event_id"] = $this->event_id;
-			if ($this->emb_group && $this->emb_group != "general")
+			if ($this->emb_group && $this->emb_group !== "general")
 			{
 				$args["cb_group"] = $this->emb_group;
 			};
@@ -3545,7 +3543,7 @@ class project extends class_base
 		{
 		  $args["team"] = $arr["request"]["hidden_team"];
 		}
-		if($arr["request"]["group"] == "goals_edit")
+		if($arr["request"]["group"] === "goals_edit")
 		{
 			$args["search_part"] = $arr["request"]["search_part"];
 			$args["search_start"] = $arr["request"]["search_start"];
@@ -3556,7 +3554,7 @@ class project extends class_base
 		$args["team_search_person"] = $arr["request"]["team_search_person"];
 		$args["team_search_co"] = $arr["request"]["team_search_co"];
 
-		if($arr["request"]["group"] == "files")
+		if($arr["request"]["group"] === "files")
 		{
 			$args["files_find_name"] = $arr["request"]["files_find_name"];
 			$args["files_find_type"] = $arr["request"]["files_find_type"];
@@ -8557,8 +8555,12 @@ arr($stats_by_ppl);
 		{
 			if(substr($key , 0 , 4) == "row_");
 			$data = explode( "_" , $key);
-			$rows[] = $data[1];
+			if (is_oid($data[1]))
+			{
+				$rows[] = $data[1];
+			}
 		}
+
 		if(sizeof($rows))
 		{
 			$ol = new object_list();

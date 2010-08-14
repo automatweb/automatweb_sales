@@ -109,6 +109,7 @@ class class_base extends aw_template
 	protected $classconfig;
 	protected $name_prefix = "";
 
+	private $cfgform_obj;
 	private $cfg_debug = false;
 
 	private $data_processing_result_status = PROP_OK;
@@ -374,7 +375,8 @@ class class_base extends aw_template
 			$cfgform_id = null;
 		}
 
-		$this->cfgform_id = $cfgform_id;
+		$this->load_cfgform($cfgform_id);
+
 
 		// well, i NEED to get the right property group BEFORE i get the right view..
 		// i hope this doesn't qualify as a hack, because nobody changes the args
@@ -382,7 +384,7 @@ class class_base extends aw_template
 		$filter = array(
 			"clid" => $this->clid,
 			"clfile" => $this->clfile,
-			"cfgform_id" => $cfgform_id,
+			"cfgform_id" => $this->cfgform_id,
 			"cb_part" => isset($args["cb_part"]) ? $args["cb_part"] : "",
 		);
 
@@ -416,10 +418,9 @@ class class_base extends aw_template
 
 		$defview = 0;
 
-		if($this->can("view", $this->cfgform_id) && $args["action"] != "view")
+		if($this->cfgform_obj and $args["action"] != "view")
 		{
-			$f = obj($this->cfgform_id);
-			$grps = safe_array($f->meta("cfg_groups"));
+			$grps = safe_array($this->cfgform_obj->meta("cfg_groups"));
 			if(!empty($grps[$this->use_group]["grpview"]))
 			{
 				$defview = 1;
@@ -799,7 +800,7 @@ class class_base extends aw_template
 			"alias_to" => isset($this->request["alias_to"]) ? $this->request["alias_to"] : "",
 			"alias_to_prop" => isset($this->request["alias_to_prop"]) ? $this->request["alias_to_prop"] : "",
 			"save_autoreturn" => isset($this->request["save_autoreturn"]) ? $this->request["save_autoreturn"] : "",
-			"cfgform" => empty($this->auto_cfgform) && isset($this->cfgform_id) && is_numeric($this->cfgform_id) ? $this->cfgform_id : "",
+			"cfgform" => empty($this->auto_cfgform) && $this->cfgform_id && is_numeric($this->cfgform_id) ? $this->cfgform_id : "",
 			"return_url" => !empty($this->request["return_url"]) ? $this->request["return_url"] : "",
 			"subgroup" => $this->subgroup,
 			"awcb_display_mode" => $this->awcb_display_mode,
@@ -1641,6 +1642,8 @@ class class_base extends aw_template
 
 		// 3. failing that, if there is a config form specified in the object metainfo,
 		//  we will use it
+		// DEPRECATED. considered a bad practice. skip this step
+		/*
 		if (($action === "change") && is_oid($args["obj_inst"]->meta("cfgform_id")))
 		{
 			$cgid = $args["obj_inst"]->meta("cfgform_id");
@@ -1653,6 +1656,7 @@ class class_base extends aw_template
 				return $cgid;
 			}
 		}
+		*/
 
 		// 4. failing that too, we will check whether this class has a default cfgform
 		// and if so, use it
@@ -1916,10 +1920,13 @@ class class_base extends aw_template
 		{
 			$sec_obj = obj(aw_global_get("section"));
 			if($sec_obj->prop("submenus_from_cb"))
-			{
+			{//FIXME: a block of dubious code. cfgform from meta only, mixed sources for request arguments, ...
 				$hide_tabs = 1;
 				$subcb = obj($_GET["id"]);
-				if($subcb->meta("cfgform_id"))$this->cfgform_id = $subcb->meta("cfgform_id");
+				if($subcb->meta("cfgform_id"))
+				{
+					$this->cfgform_id = $subcb->meta("cfgform_id");
+				}
 
 				if (!empty($this->request["return_url"]))
 				{
@@ -1929,6 +1936,7 @@ class class_base extends aw_template
 						"caption" => $subcb->name()?$subcb->name():t("Nimetu"),
 					));
 				}
+
 				if(automatweb::$request->arg("group") && is_object($subcb))
  				{
  					$cfgform_i = get_instance(CL_CFGFORM);
@@ -2100,10 +2108,9 @@ class class_base extends aw_template
 			$cli_args["form_only"] = true;
 		}
 
-		if ($this->can("view", $this->cfgform_id))
+		if ($this->cfgform_obj)
 		{
-			$cfgform_o = new object($this->cfgform_id);
-			$cli_args["awcb_cfgform"] = $cfgform_o;
+			$cli_args["awcb_cfgform"] = $this->cfgform_obj;
 		}
 
 		$ui_messages = aw_global_get("awcb__global_ui_messages");
@@ -2436,9 +2443,8 @@ class class_base extends aw_template
 			};
 		}
 
-		//var_dump($this->cfgform_id);
 
-		$tmp = empty($this->cfgform_id) ? $_all_props : $proplist;
+		$tmp = $this->cfgform_obj ? $proplist : $_all_props;
 		foreach($tmp as $k => $val)
 		{
 			// if a config form is loaded, then ignore stuff that isn't
@@ -2449,7 +2455,7 @@ class class_base extends aw_template
 				continue;
 			}
 
-			if (!empty($this->cfgform_id))
+			if ($this->cfgform_obj)
 			{
 				// we can have as many relpickers as we want
 				if ($val["type"] === "relpicker")
@@ -2465,7 +2471,7 @@ class class_base extends aw_template
 
 			// override original property definitions with those in config form
 			$orig = $val;
-			if (!empty($this->cfgform_id))
+			if ($this->cfgform_obj)
 			{
 				$val = array_merge($_all_props[$k],$val);
 				// use the default caption, if the one in config form
@@ -2558,7 +2564,7 @@ class class_base extends aw_template
 				if (!empty($args["type"]) || in_array($key,array_keys($group_el_cnt)))
 				{
 					// skip the group, if it is not listed in the config form object
-					if (!empty($this->cfgform_id) && empty($grplist[$key]) )
+					if ($this->cfgform_obj && empty($grplist[$key]) )
 					{
 						continue;
 					}
@@ -3510,11 +3516,12 @@ class class_base extends aw_template
 			}
 		}
 
-		if ((!isset($this->cfgform_id) || !$this->cfgform_id) && $this->clid == CL_DOCUMENT)
+		if (!is_object($this->cfgform_obj) && $this->clid == CL_DOCUMENT)
 		{
-			$this->cfgform_id = aw_ini_get("document.default_cfgform");
+			$this->load_cfgform(aw_ini_get("document.default_cfgform"));
 		}
-		if(isset($this->cfgform_id) && $this->cfgform_id && $controllers = $this->get_all_view_controllers($this->cfgform_id))
+
+		if(is_object($this->cfgform_obj) && $controllers = $this->get_all_view_controllers($this->cfgform_id))
 		{
 			$this->process_view_controllers($resprops, $controllers, $argblock);
 		}
@@ -3730,12 +3737,15 @@ class class_base extends aw_template
 
 	function get_all_view_controllers($config_id)
 	{
-		if (!$this->can("view", $config_id))
+		try
+		{
+			$obj = obj($config_id);
+			return $obj->meta("view_controllers");
+		}
+		catch (awex_obj $e)
 		{
 			return false;
 		}
-		$obj = obj($config_id);
-		return $obj->meta("view_controllers");
 	}
 
 	////
@@ -3970,8 +3980,8 @@ class class_base extends aw_template
 
 		if (!empty($args["cfgform"]))
 		{
+			$this->load_cfgform($args["cfgform"]);
 			$filter["cfgform_id"] = $args["cfgform"];
-			$this->cfgform_id = $args["cfgform"];
 		}
 		else
 		{
@@ -4005,7 +4015,7 @@ class class_base extends aw_template
 
 		$errors = $this->validate_data(array(
 			"request" => $args,
-			"cfgform_id" => isset($this->cfgform_id) ? $this->cfgform_id : NULL,
+			"cfgform_id" => is_object($this->cfgform_obj) ? $this->cfgform_id : NULL,
 			"props" => &$properties,
 			"obj_inst" => $this->obj_inst
 		));
@@ -4314,6 +4324,11 @@ class class_base extends aw_template
 				if (!isset($pvalues[$name]))
 				{
 					$pvalues[$name] = 0;
+				}
+
+				if (!isset($args["rawdata"][$name]))
+				{
+					$args["rawdata"][$name] = 0;
 				}
 
 				if ( ($pvalues[$name] & $property["ch_value"]) && !($args["rawdata"][$name] & $property["ch_value"]))
@@ -5213,18 +5228,9 @@ class class_base extends aw_template
 		);
 		$rv = false;
 
-		if (is_oid($id) && $this->can("view", $id))
+		try
 		{
-			// load cfgform class&obj
-			$cfgform_obj = new object($id);
-			if ($cfgform_obj->class_id() != CL_CFGFORM)
-			{
-				error::raise(array(
-					"msg" => sprintf(t("%s is not a valid configuration form!"), $id),
-					"fatal" => true,
-				));
-			}
-
+			$cfgform_obj = obj($id, array(), CL_CFGFORM);
 			$ci = $cfgform_obj->instance();
 
 			// get property cfg
@@ -5297,6 +5303,9 @@ class class_base extends aw_template
 			}
 
 			$this->groupinfo = $tmp;
+		}
+		catch (awex_obj $e)
+		{
 		}
 
 		return $rv;
@@ -6756,5 +6765,20 @@ class class_base extends aw_template
 		die($o->id());
 	}
 
+	private function load_cfgform($cfgform_id = null)
+	{
+		if (!is_oid($cfgform_id))
+		{
+		}
+
+		try
+		{
+			$this->cfgform_obj = obj($cfgform_id, array(), CL_CFGFORM);
+			$this->cfgform_id = $cfgform_id;
+		}
+		catch (awex_obj $e)
+		{
+		}
+	}
 }
 ?>

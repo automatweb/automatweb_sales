@@ -328,10 +328,10 @@ class auth_config extends class_base
 
 		$ol = new object_list(array(
 			"class_id" => CL_USER,
-			"name" => $cred["uid"],
-			"brother_of" => new obj_predicate_prop("id")
+			"uid" => $cred["uid"]
 		));
 		$confo = obj($auth_id);
+
 
 		$has = false;
 		$obo = false;
@@ -486,8 +486,16 @@ class auth_config extends class_base
 
 	function _upd_udata($u, $cred, $confo)
 	{
-		$u->set_prop("email", $cred["mail"]);
-		$u->set_prop("real_name", $cred["name"]);
+		if (!empty($cred["mail"]))
+		{
+			$u->set_prop("email", $cred["mail"]);
+		}
+
+		if (!empty($cred["name"]))
+		{
+			$u->set_prop("real_name", $cred["name"]);
+		}
+
 		$u->save();
 		// get group from auth conf
 		if (($grp = $confo->prop("no_user_grp")))
@@ -503,4 +511,7 @@ class auth_config extends class_base
 		return t("Ligip&auml;&auml;s puudub");
 	}
 }
+
+class awex_auth extends aw_exception {}
+
 ?>

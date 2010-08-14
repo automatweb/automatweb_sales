@@ -5,16 +5,6 @@
       <func>activate_next_auto_export</func>
       <param>CL_RECURRENCE</param>
 </num_0>
-<num_1>
-      <class>/core/users/user</class>
-      <func>on_save_user</func>
-      <param>CL_USER</param>
-</num_1>
-<num_2>
-      <class>/core/users/user</class>
-      <func>on_save_addr</func>
-      <param>CL_ML_MEMBER</param>
-</num_2>
 <num_3>
       <class>/core/obj_inherit_props_conf</class>
       <func>on_save_conf</func>

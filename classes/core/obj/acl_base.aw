@@ -22,7 +22,8 @@ class acl_base extends db_connector
 		{
 			$this->cfg["acl"]["ids"] = $GLOBALS["cfg"]["acl"]["ids"];
 		}
-		if(strtolower(aw_ini_get('db.driver')=='mssql'))
+
+		if(strtolower(aw_ini_get('db.driver') === 'mssql'))
 		{
 			reset($this->cfg["acl"]["ids"]);
 			while (list($bitpos, $name) = each($this->cfg["acl"]["ids"]))
@@ -381,7 +382,19 @@ class acl_base extends db_connector
 
 		if (aw_ini_get("acl.no_check"))
 		{
-			return true;
+			try
+			{
+				$objdata = $GLOBALS["object_loader"]->ds->get_objdata($oid);
+				return !empty($objdata["oid"]);
+			}
+			catch (awex_obj_na $e)
+			{
+				return false;
+			}
+			catch (awex_obj_acl $e)
+			{
+				return false;
+			}
 		}
 
 		if (aw_ini_get("acl.use_new_acl"))

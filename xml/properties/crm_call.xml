@@ -176,6 +176,7 @@
             <group>general</group>
             <type>text</type>
             <parent>top_2way_right</parent>
+            <editonly>1</editonly>
             <field>real_start</field>
             <caption>Tegelik algus</caption>
       </property>
@@ -186,8 +187,9 @@
             <type>text</type>
             <datatype>int</datatype>
             <parent>top_2way_right</parent>
+            <editonly>1</editonly>
             <field>real_duration</field>
-            <caption>Tegelik kestus</caption>
+            <caption>Tegelik kestus (h)</caption>
       </property>
       <property>
             <name>real_maker</name>
@@ -297,6 +299,16 @@
             <store>no</store>
             <parent>reults_bit</parent>
             <field>task_results_table</field>
+      </property>
+      <property>
+            <name>project</name>
+            <table>planner</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <field>project</field>
+            <reltype>RELTYPE_PROJECT</reltype>
+            <parent>center_bit_right_top</parent>
+            <caption>Projekt</caption>
       </property>
       <property>
             <name>is_done</name>
@@ -534,6 +546,11 @@
             </planner>
       </tableinfo>
       <reltypes>
+            <PROJECT>
+                  <value>4</value>
+                  <clid>CL_PROJECT</clid>
+                  <caption>Projekt</caption>
+            </PROJECT>
             <PREDICATE>
                   <value>9</value>
                   <clid>

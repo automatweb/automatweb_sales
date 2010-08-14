@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class promo_display implements main_subtemplate_handler
 {
@@ -41,15 +38,10 @@ class promo_display implements main_subtemplate_handler
 			$filter["lang_id"] = aw_global_get("lang_id");
 		}
 
-
-		enter_function("promo_get_list");
 		$list = new object_list($filter);
-
 		$parr = $list->arr();
 		$list->sort_by(array("prop" => "ord"));
 		$parr = $list->arr();
-
-		exit_function("promo_get_list");
 
 		// pre-fetch all RELTYPE_ASSIGNED_MENU's for all containers
 		$con = new connection();
@@ -92,15 +84,13 @@ class promo_display implements main_subtemplate_handler
 
 		foreach($parr as $o)
 		{
-if (!empty($_GET["PROMO_DBG"]))
-{
-	echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>";
-}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>"; }
+
 			if ($o->lang_id() != $lang_id && !$o->prop("content_all_langs"))
 			{
 				continue;
 			}
-			
+
 
 			$found = false;
 
@@ -120,19 +110,16 @@ if (!empty($_GET["PROMO_DBG"]))
 				}
 			}
 
-if (!empty($_GET["PROMO_DBG"]))
-{
-	echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>";
-}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])){ echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>"; }
+
 			$doc->doc_count = 0;
 
 			$show_promo = false;
-			
+
 			$msec = ifset($assigned_menu_conns_by_promo, $o->id());
 
 			$section_include_submenus = $o->meta("section_include_submenus");
 
-//echo "allm = ".$o->meta("all_menus")." o = ".$o->name()." site_id = ".$o->site_id()." <br>";
 			if ($o->meta("all_menus") && ($o->site_id() == aw_ini_get("site_id") || aw_ini_get("promo.show_all_works")))
 			{
 				$show_promo = true;
@@ -162,10 +149,8 @@ if (!empty($_GET["PROMO_DBG"]))
 				}
 			}
 
-if (!empty($_GET["PROMO_DBG"]))
-{
-	echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>";
-}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." <br>"; }
+
 			// do ignore menus
 			$ign_subs = $o->meta("section_no_include_submenus");
 
@@ -189,36 +174,29 @@ if (!empty($_GET["PROMO_DBG"]))
 				}
 			}
 
-if (!empty($_GET["PROMO_DBG"]))
-{
-	echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>";
-}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>"; }
+
 			if ($found == false)
 			{
 				$show_promo = false;
-			};
-if (!empty($_GET["PROMO_DBG"]))
-{
-	echo "promo = ".$o->id()." show = ".dbg::dump($show_promo)." <br>";
-}
+			}
+
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "promo = ".$o->id()." show = ".dbg::dump($show_promo)." <br>"; }
+
 			if ($o->meta("not_in_search") == 1 && $_GET["class"] == "site_search_content")
 			{
 				$show_promo = false;
 			}
 
-if (!empty($_GET["PROMO_DBG"]))
-{
-	echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>";
-}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>"; }
+
 			if (aw_ini_get("user_interface.hide_untranslated") && !$o->prop_is_translated("name"))
 			{
 				$show_promo = false;
 			}
 
-if (!empty($_GET["PROMO_DBG"]))
-{
-	echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>";
-}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>"; }
+
 			$so = obj(aw_global_get("section"));
 			if ($o->meta("not_in_doc_view") == 1 && (($so->class_id() == CL_DOCUMENT || $_GET["docid"]) || (is_oid($inst->get_default_document_list()))))
 			{
@@ -228,10 +206,8 @@ if (!empty($_GET["PROMO_DBG"]))
 			// this line decides, whether we should show this promo box here or not.
 			// now, how do I figure out whether the promo box is actually in my path?
 
-if (!empty($_GET["PROMO_DBG"]))
-{
-	echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>";
-}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($show_promo)." <br>"; }
+
 			if ($show_promo)
 			{
 				$displayed_promos[$o->id()] = $o;
@@ -254,16 +230,13 @@ if (!empty($_GET["PROMO_DBG"]))
 			}
 		}
 
-	
+
 
 			foreach($displayed_promos as $o)
 			{
-				enter_function("show_promo::".$o->name());
 				// visible. so show it
 				// get list of documents in this promo box
 				$pr_c = "";
-				global $awt;
-				$awt->start("def-doc");
 
 				if ($o->prop("is_dyn"))
 				{
@@ -276,10 +249,9 @@ if (!empty($_GET["PROMO_DBG"]))
 				{
 					$has_rand = true;
 				}
-			
+
 				if (!$has_rand && $o->meta("version") == 2 && (aw_ini_get("promo.version") == 2) && !$o->prop("auto_period") && !$o->prop("docs_from_current_menu") && false)
 				{
-					enter_function("mainc-contentmgmt/promo-read_docs");
 					$docid = array_values(safe_array($o->meta("content_documents")));
 					foreach($docid as $_idx => $_did)
 					{
@@ -294,7 +266,7 @@ if (!empty($_GET["PROMO_DBG"]))
 						$ol = new object_list(array("oid" => $docid));
 						$tt = $ol->arr();
 						$nids = $ol->ids();
-						$tmp = array();	
+						$tmp = array();
 						foreach($docid as $_id)
 						{
 							if (in_array($_id, $nids))
@@ -304,43 +276,30 @@ if (!empty($_GET["PROMO_DBG"]))
 						}
 						$docid = $tmp;
 					}
-					exit_function("mainc-contentmgmt/promo-read_docs");
 				}
 				else
 				{
-					enter_function("mainc-contentmgmt/promo-read_docs-old");
 					// get_default_document prefetches docs by itself so no need to do list here
-					if (!empty($_GET["PROMO_DBG"]))
-					{
-						$_GET["INTENSE_DUKE"] = 1;
-						obj_set_opt("no_cache", 1);
-					}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { $_GET["INTENSE_DUKE"] = 1; obj_set_opt("no_cache", 1); }
+
 					$docid = $inst->get_default_document(array(
 						"obj" => $o,
 						"all_langs" => true,
 						"dsdi_cache" => !isset($dsdi_list_by_promo[$o->id()]) ? array() : $dsdi_list_by_promo[$o->id()]
 					));
-					exit_function("mainc-contentmgmt/promo-read_docs-old");
-					if (!empty($_GET["PROMO_DBG"]))
-					{
-						$_GET["INTENSE_DUKE"] = 0;
-						echo "version1 <br>";
-					}
-				}
-				if (!empty($_GET["PROMO_DBG"]))
-				{
-					echo "3promo = ".$o->id()." show = ".dbg::dump($docid)." <br>";
-				}
-				$awt->stop("def-doc");
 
-				if (!empty($_GET["PROMO_DBG"]))
-				{
-					echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($docid)." <br>";
+///* dbg */ if (!empty($_GET["PROMO_DBG"])){ $_GET["INTENSE_DUKE"] = 0; echo "version1 <br>"; }
+
 				}
+
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "3promo = ".$o->id()." show = ".dbg::dump($docid)." <br>"; }
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo __FILE__."::".__LINE__." with promo ".$o->id()." ".$o->name()." show = ".dbg::dump($docid)." <br>"; }
+
 				if (!$docid)
 				{
 					continue;
 				}
+
 				if (!is_array($docid))
 				{
 					if ($inst->can("view", $docid))
@@ -353,10 +312,7 @@ if (!empty($_GET["PROMO_DBG"]))
 					$docid = array($docid);
 				}
 
-if (!empty($_GET["PROMO_DBG"]))
-				{
-					echo "showing promo ".$o->name()." (".$o->id().")  type = ".$o->meta("type")." docs = ".join(", ", $docid)."<br>";
-				}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "showing promo ".$o->name()." (".$o->id().")  type = ".$o->meta("type")." docs = ".join(", ", $docid)."<br>"; }
 
 				$d_cnt = 0;
 				$d_total = count($docid);
@@ -380,23 +336,19 @@ if (!empty($_GET["PROMO_DBG"]))
 				}
 
 				$set_tpl_filename = $tpl_filename;
-				enter_function("mainc-contentmgmt/promo-show-docs");
 
 				foreach($docid as $d)
 				{
-if (!empty($_GET["PROMO_DBG"]))
-				{
-					echo "doc $d <br>";
-				}
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc $d <br>"; }
+
 					$do = obj($d);
 					if (aw_ini_get("user_interface.hide_untranslated") && !$do->prop_is_translated("content"))
 					{
 						continue;
 					}
-if (!empty($_GET["PROMO_DBG"]))
-				{
-					echo "doc2 $d <br>";
-				}
+
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc2 $d <br>"; }
+
 					$add_2 = false;
 					if (($d_cnt % 2)  == 1)
 					{
@@ -406,20 +358,19 @@ if (!empty($_GET["PROMO_DBG"]))
 							$add_2 = true;
 						}
 					}
-					
+
 					if(!$add_2)
 					{
 						$tpl_filename = $set_tpl_filename;
 					}
 
 					if ($d_cnt >= $o->prop("tpl_lead_last_count") && $o->prop("tpl_lead_last"))
-                                        {
+					{
 						$tpl_filename = $tplmgr->get_template_file_by_id(array(
-		                                        "id" => $o->prop("tpl_lead_last"),
-			                        ));
-                                        }
+							"id" => $o->prop("tpl_lead_last")
+						));
+					}
 
-					enter_function("promo-prev");
 					$cont = $doc->gen_preview(array(
 						"docid" => $d,
 						"tpl" => $tpl_filename,
@@ -434,23 +385,17 @@ if (!empty($_GET["PROMO_DBG"]))
 						"not_last_in_list" => (($d_cnt+1) < $d_total)
 					));
 
-					if (!empty($_GET["PROMO_DBG"]))
-					{
-						echo "doc $d cont = ".htmlentities($cont)." <br>";
-					}
-					exit_function("promo-prev");
+///* dbg */ if (!empty($_GET["PROMO_DBG"])) { echo "doc $d cont = ".htmlentities($cont)." <br>"; }
+
 					$pr_c .= $cont;
 					// X marks the spot
 					//$pr_c .= str_replace("\r","",str_replace("\n","",$cont));
 					$d_cnt++;
 				}
-				exit_function("mainc-contentmgmt/promo-show-docs");
+
 				aw_global_set("in_promo_display", 0);
 
-				if (true || $inst->is_template("PREV_LINK"))
-				{
-					$this->do_prev_next_links($docid, $inst);
-				}
+				$this->do_prev_next_links($docid, $inst);
 
 				if ($o->prop("separate_pages"))
 				{
@@ -509,17 +454,17 @@ if (!empty($_GET["PROMO_DBG"]))
 				$promo_link = $this->get_promo_link($o);
 				$inst->vars_safe(array(
 					"comment" => $o->trans_get_val("comment"),
-					"title" => $o->trans_get_val("name"), 
+					"title" => $o->trans_get_val("name"),
 					"caption" => $o->trans_get_val("caption"),
 					"content" => $pr_c,
 					"url" => $promo_link,
 					"link" => $promo_link,
 					"link_caption" => $o->trans_get_val("link_caption"),
 					"promo_doc_count" => (int)$d_cnt,
-					"image" => $image, 
+					"image" => $image,
 					"image_url" => $image_url,
 					"image_or_title" => ($image == "" ? $o->trans_get_val("caption") : $image),
-					"promo_oid" => $o->id()	
+					"promo_oid" => $o->id()
 				));
 
 				// which promo to use? we need to know this to use
@@ -542,7 +487,7 @@ if (!empty($_GET["PROMO_DBG"]))
 						"3" => "DOWN_PROMO",
 					);
 				}
-	
+
 				$use_tpl = $templates[$o->meta("type")];
 				if (!$use_tpl)
 				{
@@ -605,9 +550,11 @@ if (!empty($_GET["PROMO_DBG"]))
 				// nil the variables that were imported for promo boxes
 				// if we dont do that we can get unwanted copys of promo boxes
 				// in places we dont want them
-				$inst->vars_safe(array("title" => 
-					"", "content" => "","url" => ""));
-				exit_function("show_promo::".$o->name());
+				$inst->vars_safe(array(
+					"title" => "",
+					"content" => "",
+					"url" => ""
+				));
 			}
 
 		$inst->vars_safe($promos);
@@ -665,18 +612,18 @@ if (!empty($_GET["PROMO_DBG"]))
 	function get_promo_link($o)
 	{
 		$link_str = $o->trans_get_val("link");
-		$i = get_instance(CL_FILE);
+		$i = new file();
 		if ($i->can("view", $o->meta("linked_obj")))
 		{
 			$linked_obj = obj($o->meta("linked_obj"));
 			if ($linked_obj->class_id() == CL_MENU)
 			{
-				$ss = get_instance("contentmgmt/site_show");
+				$ss = new site_show();
 				$link_str = $ss->make_menu_link($linked_obj);
 			}
 			else
 			{
-				$dd = get_instance("doc_display");
+				$dd = new doc_display();
 				$link_str = $dd->get_doc_link($linked_obj);
 			}
 		}

@@ -558,10 +558,13 @@ class crm_company_cust_impl extends class_base
 		}
 		foreach($iter as $r_p_id => $r_p_data)
 		{
-			if ($this->can("view", $r_p_id))
+			try
 			{
 				$r_p_o = obj($r_p_id);
 				$roles[] = html::get_change_url($r_p_o->id(), array(), parse_obj_name($r_p_o->name())).": ".join(",", $r_p_data);
+			}
+			catch (awex_obj $e)
+			{
 			}
 		}
 		$roles = join("<br>", $roles);
@@ -718,7 +721,7 @@ class crm_company_cust_impl extends class_base
 		}
 		$link = "#";
 		$this->_do_cust_cat_tb_submenus($tb, $link, $arr["obj_inst"], "save_as_cust", "document.changeform.elements.cust_cat.value=%s;submit_changeform('save_as_customer')");
-		$this->_do_cust_cat_tb_submenus2($tb);
+		$this->_do_cust_cat_tb_submenus2($tb, $arr["obj_inst"]);
 		$tb->add_separator();
 
 		$c = new popup_menu();
@@ -2128,12 +2131,6 @@ class crm_company_cust_impl extends class_base
 			// aga &uuml;lej&auml;&auml;nud on k&otilde;ik seosed!
 			$name = $client_manager = $pm = $vorm = $tegevus = $contact = $juht = $juht_id = $phone = $fax = $url = $mail = $ceo = "";
 
-			if ($this->can("view", $o->prop("ettevotlusvorm")))
-			{
-				$tmp = new object($o->prop("ettevotlusvorm"));
-				$vorm = $tmp->prop('shortname');
-			}
-
 			# rollid
 			if ($default_cfg or in_array("rollid", $visible_fields))
 			{
@@ -2144,8 +2141,18 @@ class crm_company_cust_impl extends class_base
 				));
 			}
 
-			if ($o->class_id() == CL_CRM_COMPANY)
+			if ($o->is_a(CL_CRM_COMPANY))
 			{
+				try
+				{
+					$tmp = obj($o->prop("ettevotlusvorm"), array(), CL_CRM_CORPFORM);
+					$vorm = $tmp->prop("shortname");
+				}
+				catch (awex_obj $e)
+				{
+					$vorm = "";
+				}
+
 				# ceo
 				if ($default_cfg or in_array("ceo", $visible_fields))
 				{
@@ -2153,7 +2160,7 @@ class crm_company_cust_impl extends class_base
 				}
 
 				# email
-				if (($default_cfg or in_array("email", $visible_fields)) and ($this->can("view", $o->prop("email_id"))))
+				if ($default_cfg or in_array("email", $visible_fields))
 				{
 					$mail_obj = new object($o->prop("email_id"));
 					$mail = $mail_obj->prop("mail");
@@ -2179,20 +2186,25 @@ class crm_company_cust_impl extends class_base
 					));
 				}
 			}
-			else
+			elseif ($o->is_a(CL_CRM_PERSON))
 			{
-				$mail = "";
-				if (is_oid($o->prop("email")) && $this->can("view", $o->prop("email")))
+				// e-mail address
+				try
 				{
-					$mail_obj = new object($o->prop("email"));
-					$mail .= html::href(array(
+					$mail_obj = obj($o->prop("email"), array(), CL_ML_MEMBER);
+					$mail = html::href(array(
 						"url" => "mailto:" . $mail_obj->prop("mail"),
 						"caption" => $mail_obj->prop("mail"),
 					));
-				};
-				if ($this->can("view", $o->prop("url")))
+				}
+				catch (awex_obj $e)
 				{
-					$urlo = obj($o->prop("url"));
+				}
+
+				// web address
+				try
+				{
+					$urlo = obj($o->prop("url"), array(), CL_EXTLINK);
 					$ru = $urlo->prop_str("url");
 					if (substr($ru, 0, 4) != "http")
 					{
@@ -2203,22 +2215,30 @@ class crm_company_cust_impl extends class_base
 						"caption" => $urlo->prop_str("url"),
 					));
 				}
-				if ($this->can("view", $o->prop("phone")))
+				catch (awex_obj $e)
 				{
-					$urlo = obj($o->prop("phone"));
-					$phone = $urlo->name();
+				}
+
+				// phone
+				try
+				{
+					$tmp = obj($o->prop("phone"), array(), CL_CRM_PHONE);
+					$phone = $tmp->name();
+				}
+				catch (awex_obj $e)
+				{
 				}
 			}
 
 			# phone
-			if (($default_cfg or in_array("phone", $visible_fields)) and $this->can("view", $o->prop("phone_id")))
+			if ($default_cfg or in_array("phone", $visible_fields))
 			{
 				$phone = obj($o->prop("phone_id"));
 				$phone = $phone->name();
 			}
 
 			# fax
-			if (($default_cfg or  in_array("fax", $visible_fields)) and $this->can("view", $o->prop("telefax_id")))
+			if ($default_cfg or  in_array("fax", $visible_fields))
 			{
 				$fax = obj($o->prop("telefax_id"));
 				$fax = $fax->name();
@@ -2510,12 +2530,11 @@ class crm_company_cust_impl extends class_base
 		return $cnt;
 	}
 
-	function _do_cust_cat_tb_submenus2($tb)
+	function _do_cust_cat_tb_submenus2($tb, $company_o)
 	{
-
 		$st = new crm_company_status();
 		$categories = $st->categories(0);
-		$company = get_current_company();
+		$company = $company_o;
 		$link = "document.changeform.elements.cust_cat.value='%s';submit_changeform('save_as_customer')";
 		foreach($categories as $id=>$cat)
 		{

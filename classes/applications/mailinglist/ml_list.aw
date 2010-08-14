@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/mailinglist/ml_list.aw,v 1.161 2009/08/22 20:08:06 markop Exp $
+
 // ml_list.aw - Mailing list
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_MENU, on_mconnect_to)
@@ -375,7 +375,7 @@ class ml_list extends class_base
 			"clid" => CL_ML_LIST,
 		));
 		lc_load("definition");
-		lc_site_load("ml_list", &$this);
+		lc_site_load("ml_list", $this);
 	}
 
 	function callback_mod_layout(&$arr)
@@ -406,7 +406,7 @@ class ml_list extends class_base
 
 	function on_mconnect_to($arr)
 	{
-		$con = &$arr["connection"];
+		$con = $arr["connection"];
 		if($con->prop("from.class_id") == CL_ML_LIST)
 		{
 			if($con->prop("reltype") == 6)
@@ -963,7 +963,7 @@ class ml_list extends class_base
 		$message = $msg_obj->prop("message");
 		if(!$msg_obj->prop("html_mail")) $message = nl2br($message);
 		$al = get_instance("alias_parser");
-		$al->parse_oo_aliases($msg_obj->id(), &$message);
+		$al->parse_oo_aliases($msg_obj->id(), $message);
 
 		$c_title = $msg_obj->prop("msg_contener_title");
 		$c_content = $msg_obj->prop("msg_contener_content");
@@ -1192,7 +1192,7 @@ class ml_list extends class_base
 				break;
 
 			case "search_tb":
-				$toolbar = &$prop["vcl_inst"];
+				$toolbar = $prop["vcl_inst"];
 /*				$toolbar->add_button(array(
 					"name" => "new",
 					"img" => "new.gif",
@@ -1358,7 +1358,7 @@ class ml_list extends class_base
 				break;
 
 			case "mail_toolbar":
-				$tb = &$prop["vcl_inst"];
+				$tb = $prop["vcl_inst"];
 				$tb->add_button(array(
 					"name" => "save",
 					"img" => "save.gif",
@@ -1783,7 +1783,7 @@ class ml_list extends class_base
 
 	function gen_unsent_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "id",
 			"caption" => t("ID"),
@@ -1837,7 +1837,7 @@ class ml_list extends class_base
 
 	function gen_unsent_tb($arr)
 	{
-		$toolbar = &$arr["prop"]["toolbar"];
+		$toolbar = $arr["prop"]["toolbar"];
 		$toolbar->add_button(array(
 			"name" => "delete",
 			"tooltip" => t("Kustuta"),
@@ -1856,7 +1856,7 @@ class ml_list extends class_base
 	**/
 	function export_members($arr)
 	{
-		$arr["obj_inst"] = &obj($arr["id"]);
+		$arr["obj_inst"] = obj($arr["id"]);
 		if($arr["obj_inst"]->prop("export_folders"))
 		{
 			$srcs = $arr["obj_inst"]->prop("export_folders");
@@ -1875,7 +1875,7 @@ class ml_list extends class_base
 
 		if($arr["obj_inst"]->prop("member_config"))
 		{
-			$config_obj = &obj($arr["obj_inst"]->prop("member_config"));
+			$config_obj = obj($arr["obj_inst"]->prop("member_config"));
 			$config_data = array();
 			$config_data = $config_obj->meta("cfg_proplist");
 			uasort($config_data, array($this,"__sort_props_by_ord"));
@@ -1899,7 +1899,7 @@ class ml_list extends class_base
 			{
 				$imported[] = $mailto;
 
-				$member = &obj($memberdata["id"]);
+				$member = obj($memberdata["id"]);
 				if($member->created() > $arr["export_date"] || ($arr["export_date"] < 100))
 				{
 					switch($arr["export_type"])
@@ -2238,7 +2238,7 @@ foreach($ol->arr() as $o)
 			"time" => time()-120,
 		));
 		*/
-		$toolbar = &$arr["prop"]["toolbar"];
+		$toolbar = $arr["prop"]["toolbar"];
 		$toolbar->add_button(array(
 			"name" => "new",
 			"tooltip" => t("Uus kiri"),
@@ -2265,7 +2265,7 @@ foreach($ol->arr() as $o)
 		));
 	}
 
-	function _gen_ls_table(&$t)
+	function _gen_ls_table($t)
 	{
 		$t->define_field(array(
 			"name" => "qid",
@@ -2352,7 +2352,7 @@ foreach($ol->arr() as $o)
 		*/
 		$sched = get_instance("scheduler");
 		$mq = get_instance("applications/mailinglist/ml_queue");
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_gen_ls_table($t);
 		$q = "SELECT ml_queue.* FROM ml_queue LEFT JOIN objects ON (ml_queue.mid = objects.oid) WHERE objects.status != 0 AND lid = " . $arr["obj_inst"]->id() . " ORDER BY start_at DESC";
 		$this->db_query($q);
@@ -3002,7 +3002,6 @@ foreach($ol->arr() as $o)
 	function parse_alias($args = array())
 	{
 		$targ = obj($args["alias"]["target"]);
-		enter_function("ml_list::parse_alias");
 		$cb_errmsg = aw_global_get("cb_errmsg");
 		$cb_errmsgs = aw_global_get("cb_errmsgs");
 		$cb_reqdata = aw_global_get("cb_reqdata");
@@ -3022,78 +3021,83 @@ foreach($ol->arr() as $o)
 		}
 		$tpl = ($sub_form_type == 0) ? "subscribe.tpl" : "unsubscribe.tpl";
 		$this->read_template($tpl);
-		lc_site_load("ml_list", &$this);
+		lc_site_load("ml_list", $this);
+
 		if ($this->is_template("FOLDER") && $tobj->prop("multiple_folders") == 1 && $sub_form_type == 0)
 		{
 			$langid = aw_global_get("lang_id");
 			$c = "";
 			$choose_menu = $targ->prop("choose_menu");
-			foreach($choose_menu as $folder)
+
+			if (is_array($choose_menu))
 			{
-				$folder_obj = obj($folder);
-				$folders = $folder_obj->connections_from(array(
-					"type" => "RELTYPE_LANG_REL",
-					"to.lang_id" => $langid,
-				));
-
-				if($langid == $folder_obj -> lang_id())
+				foreach($choose_menu as $folder)
 				{
-					$this->vars(array(
-						"folder_name" => $folder_obj -> trans_get_val("name"),
-						"folder_id" => $folder_obj -> id(),
+					$folder_obj = obj($folder);
+					$folders = $folder_obj->connections_from(array(
+						"type" => "RELTYPE_LANG_REL",
+						"to.lang_id" => $langid,
 					));
-					$c .= $this->parse("FOLDER");
-				}
 
-				else
-				{
-					if(count($folders)>1)
+					if($langid == $folder_obj -> lang_id())
 					{
-						foreach($folders as $folder_conn)
-						{
-							$conn_fold_obj = obj($folder_conn->prop("to"));
-							if(($langid == $conn_fold_obj->lang_id()) && ($folder_conn->prop("from") == $folder))
-							{
-								$this->vars(array(
-									"folder_name" => $conn_fold_obj->trans_get_val("name"),
-//									"folder_name" => $folder_conn->prop("to.name"),
-									"folder_id" => $folder_conn->prop("to"),
-								));
-								$c .= $this->parse("FOLDER");
-							}
-						}
+						$this->vars(array(
+							"folder_name" => $folder_obj -> trans_get_val("name"),
+							"folder_id" => $folder_obj -> id(),
+						));
+						$c .= $this->parse("FOLDER");
 					}
+
 					else
 					{
-						$conns_to_orig = $folder_obj->connections_to(array(
-							"type" => 22,
-//							"to.lang_id" => $langid,
-						));
-						foreach($conns_to_orig as $conn)
+						if(count($folders)>1)
 						{
-							if($conn->prop("from.lang_id") == $langid)
+							foreach($folders as $folder_conn)
 							{
-								$this->vars(array(
-								"folder_name" => $conn->prop("from.name"),
-								"folder_id" => $conn->prop("from"),
-								));
-								$c .= $this->parse("FOLDER");
-							}
-							else
-							{
-								$from_obj = obj($conn->prop("from"));
-								$conns = $from_obj->connections_from(array(
-									"type" => "RELTYPE_LANG_REL",
-									"to.lang_id" => $user_lang,
-								));
-								foreach($conns as $conn)
+								$conn_fold_obj = obj($folder_conn->prop("to"));
+								if(($langid == $conn_fold_obj->lang_id()) && ($folder_conn->prop("from") == $folder))
 								{
 									$this->vars(array(
-									"folder_name" => $conn_fold_obj->trans_get_val("name"),
-//"folder_name" => $conn->prop("to.name"),
-									"folder_id" => $conn->prop("to"),
+										"folder_name" => $conn_fold_obj->trans_get_val("name"),
+	//									"folder_name" => $folder_conn->prop("to.name"),
+										"folder_id" => $folder_conn->prop("to"),
 									));
 									$c .= $this->parse("FOLDER");
+								}
+							}
+						}
+						else
+						{
+							$conns_to_orig = $folder_obj->connections_to(array(
+								"type" => 22,
+								// "to.lang_id" => $langid
+							));
+							foreach($conns_to_orig as $conn)
+							{
+								if($conn->prop("from.lang_id") == $langid)
+								{
+									$this->vars(array(
+									"folder_name" => $conn->prop("from.name"),
+									"folder_id" => $conn->prop("from"),
+									));
+									$c .= $this->parse("FOLDER");
+								}
+								else
+								{
+									$from_obj = obj($conn->prop("from"));
+									$conns = $from_obj->connections_from(array(
+										"type" => "RELTYPE_LANG_REL",
+										"to.lang_id" => $user_lang,
+									));
+									foreach($conns as $conn)
+									{
+										$this->vars(array(
+											"folder_name" => $conn_fold_obj->trans_get_val("name"),
+											//"folder_name" => $conn->prop("to.name"),
+											"folder_id" => $conn->prop("to")
+										));
+										$c .= $this->parse("FOLDER");
+									}
 								}
 							}
 						}
@@ -3104,6 +3108,7 @@ foreach($ol->arr() as $o)
 				"FOLDER" => $c,
 			));
 		}
+
 		if ($this->is_template("LANGFOLDER") && $tobj->prop("multiple_languages") == 1)
 		{
 			$lg = get_instance("languages");
@@ -3262,7 +3267,7 @@ foreach($ol->arr() as $o)
 	function gen_mail_report_table($arr)
 	{
 		$perpage = 100;
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "member",
 			"caption" => t("Kellele"),
@@ -3363,19 +3368,19 @@ foreach($ol->arr() as $o)
 	function callback_mod_tab($arr)
 	{
 		// hide it, if no mail report is open
-		if ($arr["id"] == "mail_report" && empty($arr["request"]["mail_id"]))
+		if ($arr["id"] === "mail_report" && empty($arr["request"]["mail_id"]))
 		{
 			return false;
 		}
-		if ($arr["id"] == "show_mail" && empty($arr["request"]["s_mail_id"]))
+		if ($arr["id"] === "show_mail" && empty($arr["request"]["s_mail_id"]))
 		{
 			return false;
 		}
-		if ($arr["id"] == "mail_report")
+		if ($arr["id"] === "mail_report")
 		{
 			$arr["link"] .= "&mail_id=" . $arr["request"]["mail_id"].'&qid='.$arr["request"]["qid"];
 		}
-		if ($arr["id"] == "write_mail" && $arr["request"]["group"] != "write_mail")
+		if ($arr["id"] === "write_mail" && $arr["request"]["group"] !== "write_mail")
 		{
 			return false;
 		}
@@ -3600,16 +3605,22 @@ foreach($ol->arr() as $o)
 	}
 */
 
-	function submit_write_mail($arr)//+-+-
+	function submit_write_mail($arr)
 	{
 		$img_inst = get_instance(CL_IMAGE);
 		$msg_data = $arr["request"];
 		$msg_data["id"] = (int)$arr["request"]["message_id"];
 		$msg_data["name"] = $arr["request"]["subject"];
+
 		if(!$msg_data["html_mail"])
 		{
 			$msg_data["html_mail"] = "0";
-		}else $msg_data["html_mail"] = 1024;
+		}
+		else
+		{
+			$msg_data["html_mail"] = 1024;
+		}
+
 		unset($msg_data["rawdata"]);
 
 		$msg_data["mto"] = $arr["obj_inst"]->id();
@@ -3654,7 +3665,7 @@ foreach($ol->arr() as $o)
 		}
 		$tpl = $msg_data["template_selector"];
 		$msg_obj->set_meta("list_source", $arr["obj_inst"]->prop("write_user_folder"));
-//arr($msg_data);arr(strlen($msg_data["message"]));die();
+
 		if((!strlen(trim(str_replace("<br>" , "" , $msg_data["message"]))) > 0 ) && $msg_data["copy_template"])
 		{
 			if(is_oid($msg_data["copy_template"]))
@@ -3738,10 +3749,8 @@ foreach($ol->arr() as $o)
 		$message_id = $msg_obj->id();
 		$writer->id = $msg_obj->id();
 /*
-		arr($msg_obj->prop("message"));
 		$msg_obj->set_prop("message" , $msg_data["message"]);
 		$msg_obj->save();
-arr($msg_obj->prop("message"));
 */
 
 		$sender = $msg_obj->prop("mfrom");
@@ -3752,7 +3761,7 @@ arr($msg_obj->prop("message"));
 				"reltype" => "RELTYPE_SENDER",
 			));
 		}
-		//arr($msg_data["message"]);
+
 		//$msg_obj->set_prop("message" , $msg_data["message"]);
 		//$msg_obj->save();
 
@@ -4092,7 +4101,7 @@ arr($msg_obj->prop("message"));
 		print "<script language='javascript'>window.opener.location.reload();;
 			window.close();
 		</script>";
-		arr("kustutab saasta");
+		arr("delete");
 	}
 
 	/**
@@ -4126,7 +4135,7 @@ arr($msg_obj->prop("message"));
 		return html::get_change_url($o->id(), array("return_url" => $arr["ru"]));
 	}
 
-	private function _init_members_table(&$t, $list)
+	private function _init_members_table($t, $list)
 	{
 		$t->define_field(array(
 			"name" => "id",
@@ -4191,7 +4200,7 @@ arr($msg_obj->prop("message"));
 		$cfg = $list->prop("member_config");
 		if(is_oid($cfg) && $this->can("view", $cfg))
 		{
-			$config_obj = &obj($cfg);
+			$config_obj = obj($cfg);
 			$config_data = $config_obj->meta("cfg_proplist");
 			uasort($config_data, array($this,"__sort_props_by_ord"));
 
@@ -4237,7 +4246,7 @@ arr($msg_obj->prop("message"));
 		$search_name = $arr["request"]["search_name"];
 		$search_mail = $arr["request"]["search_mail"];
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_default_sortby("id");
 		$t->set_default_sorder("desc");
 
@@ -4417,7 +4426,7 @@ arr($msg_obj->prop("message"));
 
 	function _get_sources_data_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "id",
 			"caption" => t("ID"),

@@ -132,12 +132,13 @@ class auth_server_openldap extends class_base
 		{
 			$res = ldap_connect($srv);
 		}
+
 		if (!$res)
 		{
 			return array(false, sprintf(t("Ei saanud &uuml;hendust LDAP serveriga %s"), $server->prop("server")));
 		}
 		ldap_set_option($res, LDAP_OPT_PROTOCOL_VERSION, 3);
-		ldap_set_option($res, LDAP_OPT_NETWORK_TIMEOUT, 3);
+		// ldap_set_option($res, LDAP_OPT_NETWORK_TIMEOUT, 3);
 
 		$uid = $credentials["uid"];
 
@@ -177,6 +178,10 @@ class auth_server_openldap extends class_base
 					$break = true;
 				}
 			}
+		}
+		else
+		{
+			throw new awex_auth_ldap_bind(ldap_error($res));
 		}
 		return array(false, t("Sellist kasutajat pole v&otilde;i parool on vale!"), $break);
 	}
@@ -268,7 +273,7 @@ class auth_server_openldap extends class_base
 			return;
 		}
 
-		if ($info["count"] > 0 && $info[0]["displayname"]["count"] > 0)
+		if ($info["count"] > 0 && isset($info[0]["displayname"]["count"]) && $info[0]["displayname"]["count"] > 0)
 		{
 			$cred["name"] = $info[0]["displayname"]["0"];
 		}
@@ -299,4 +304,8 @@ class auth_server_openldap extends class_base
 		}
 	}
 }
+
+class awex_auth_ldap extends awex_auth {}
+class awex_auth_ldap_bind extends awex_auth_ldap {}
+
 ?>

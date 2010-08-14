@@ -71,11 +71,11 @@
 			@property deadline type=datepicker table=planner field=deadline parent=top_2way_right
 			@caption T&auml;htaeg
 
-			@property real_start type=text table=planner parent=top_2way_right
+			@property real_start type=text table=planner parent=top_2way_right editonly=1
 			@caption Tegelik algus
 
-			@property real_duration type=text datatype=int table=planner parent=top_2way_right
-			@caption Tegelik kestus
+			@property real_duration type=text datatype=int table=planner parent=top_2way_right editonly=1
+			@caption Tegelik kestus (h)
 
 			@property real_maker type=objpicker datatype=int table=planner parent=top_2way_right disabled=1 clid=CL_CRM_PERSON
 			@caption K&otilde;ne tegija
@@ -108,6 +108,9 @@
 @layout reults_bit type=vbox closeable=1 area_caption=Tulemused
 	@property task_results_toolbar type=toolbar no_caption=1 store=no parent=reults_bit
 	@property task_results_table type=table no_caption=1 store=no parent=reults_bit
+
+	@property project type=relpicker table=planner field=project reltype=RELTYPE_PROJECT parent=center_bit_right_top
+	@caption Projekt
 
 @property is_done type=checkbox table=objects field=flags method=bitmask ch_value=8 // OBJ_IS_DONE
 @caption Tehtud
@@ -179,6 +182,9 @@
 
 
 // ------------------- RELATION TYPES -------------------
+@reltype PROJECT value=4 clid=CL_PROJECT
+@caption Projekt
+
 @reltype PREDICATE value=9 clid=CL_TASK,CL_CRM_CALL,CL_CRM_MEETING
 @caption Eeldustegevus
 

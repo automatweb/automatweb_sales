@@ -7,6 +7,8 @@
 
 class aw_table extends aw_template
 {
+	const DATE_DEFAULT_FORMAT = "dmY";
+
 	////
 	// !constructor - paramaters:
 	// prefix - a symbolic name for the table so we could tell it apart from the others
@@ -32,6 +34,7 @@ class aw_table extends aw_template
 	var $table_class_id = "awmenuedittabletag";
 	var $d_row_cnt = 0;
 	var $tr_sel;
+	var $default_field_values = array();
 
 	protected $cfgform;
 	protected $cfg_data = array();
@@ -109,7 +112,7 @@ class aw_table extends aw_template
 
 		if (!empty($data["prop_name"]))
 		{
-			$this->filter_name = $data["prop_name"].$_GET["id"];
+			$this->filter_name = $data["prop_name"]. (empty($_GET["id"]) ? "" : $_GET["id"]);
 		}
 		elseif (!empty($_GET["id"]) && !empty($_GET["group"]))
 		{
@@ -1417,7 +1420,7 @@ END;
 						"onclick" => isset($v1["onclick"]) && isset($v[$v1["onclick"]]) ? $v[$v1["onclick"]] : "",
 	//					"onclick" => isset($v1["onclick"]) && isset($v[$v1["onclick"]]) ? $v[$v1["onclick"]] : "",
 					));
-					if ($v1["name"] == "rec")
+					if ($v1["name"] === "rec")
 					{
 						$val = $counter;
 					}
@@ -1453,7 +1456,7 @@ END;
 							else
 							{
 								$val = date($v1["format"],$val);
-							};
+							}
 						}
 						else
 						{
@@ -1464,26 +1467,31 @@ END;
 								$val = $tmt[2];
 							}
 
-							if (!isset ($val))
+							if (!isset($val))
 							{
 								$val = "";
 							}
 							elseif ($val < 1)
 							{
-								$val = "n/a";
+								$val = t("n/a");
+							}
+							elseif (!empty($v1["format"]))
+							{
+								$val = date($v1["format"], $val);
 							}
 							else
 							{
-								$val = date($v1["format"],$val);
-							};
+								$val = date(self::DATE_DEFAULT_FORMAT, $val);
+							}
+
 							if ($is_link)
 							{
 								$val = "<a ".$tmt[1].">".$val."</a>";
 							}
-						};
-					};
+						}
+					}
 
-					if (!strlen($val) && $v1["type"]!="int")
+					if (!strlen($val) && $v1["type"] !== "int")
 					{
 						$val = "&nbsp;";
 					};
@@ -1653,6 +1661,7 @@ END;
 	**/
 	function get_csv_file($sep = ";")
 	{
+		$this->sort_by();
 		//$sep = "\t";
 		$d = array();
 		reset($this->rowdefs);
@@ -2105,6 +2114,42 @@ END;
 		return count($this->rowdefs)-1;
 	}
 
+	/**adds multiple fields to table
+		@attrib api=1 params=pos
+		@param fields optional type=array
+			Fields array: field name => field caption
+		@returns 1
+	**/
+	public function add_fields($fields)
+	{
+		foreach($fields as $name => $caption)
+		{
+			$define = array();
+			$define["name"] = $name;
+			$define["caption"] = $caption;
+			foreach($this->default_field_values as $param => $value)
+			{
+				if(!empty($value))
+				{
+					$define[$param] = $value;
+				}
+			}
+			$this->define_field($define);
+		}
+		return 1;
+	}
+
+	/**sets default params to table fields
+		@attrib api=1 params=pos
+		@param param required type=string
+			paramerer name
+		@param value required
+			paramerer value
+	**/
+	function set_default($param , $value)
+	{
+		$this->default_field_values[$param] = $value;
+	}
 
 	function get_defined_fields()
 	{
@@ -2465,7 +2510,9 @@ END;
 			$url = new aw_uri(aw_global_get("REQUEST_URI"));
 
 			$_drc = isset($arr["d_row_cnt"]) ? $arr["d_row_cnt"] : $this->d_row_cnt;
-			$records_per_page = empty($arr["records_per_page"]) ? $this->records_per_page : $arr["$records_per_page"];
+
+			$records_per_page = empty($arr["records_per_page"]) ? $this->records_per_page : $arr["records_per_page"];
+
 			$page = (int) automatweb::$request->arg("ft_page");
 			if ($page*$records_per_page > $_drc)
 			{
@@ -2622,7 +2669,7 @@ END;
 		}
 		foreach($this->rowdefs as $rd)
 		{
-			if ($rd["parent"] == $parent)
+			if (isset($rd["parent"]) and $rd["parent"] == $parent)
 			{
 				$this->_get_max_level_cnt($rd["name"]);
 			}
@@ -2640,7 +2687,7 @@ END;
 		$tbl .= "<tr>\n";
 		foreach($this->rowdefs as $k => $v)
 		{
-			if (!(($parent == "" && empty($v["parent"])) || isset($parent[$v["parent"]])))
+			if (!(($parent == "" && empty($v["parent"])) || isset($v["parent"]) && isset($parent[$v["parent"]])))
 			{
 				continue;
 			}

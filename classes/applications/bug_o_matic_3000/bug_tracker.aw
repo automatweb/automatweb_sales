@@ -3,7 +3,7 @@
 
 define("MENU_ITEM_LENGTH", 20);
 
-/* 
+/*
 
 @classinfo syslog_type=ST_BUG_TRACKER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=robert
 
@@ -619,7 +619,6 @@ define("MENU_ITEM_LENGTH", 20);
 @caption Bugi t&uuml;&uuml;pide kaust
 */
 
-classload("applications/bug_o_matic_3000/bug");
 class bug_tracker extends class_base
 {
 	var $combined_priority_formula;
@@ -637,7 +636,7 @@ class bug_tracker extends class_base
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
-		if($arr["request"]["group"] == "bugs")
+		if($arr["request"]["group"] === "bugs")
 		{
 			$arr["request"]["group"] = "by_default";
 		}
@@ -653,12 +652,12 @@ class bug_tracker extends class_base
 				break;
 		}
 
-		if ($prop["name"][0] == "s" && $prop["name"][1] == "_")
+		if ($prop["name"][0] === "s" && $prop["name"][1] === "_" && isset($arr["request"][$prop["name"]]))
 		{
 			$prop["value"] = $arr["request"][$prop["name"]];
 		}
 
-		if (substr($prop["name"], 0, 4) == "reqs")
+		if (substr($prop["name"], 0, 4) === "reqs")
 		{
 			static $r_i;
 			if (!$r_i)
@@ -668,7 +667,7 @@ class bug_tracker extends class_base
 			$fn = "_get_".$prop["name"];
 			return $r_i->$fn($arr);
 		}
-		if (substr($prop["name"], 0, 4) == "devo" || substr($prop["name"], 0, 5) == "dev_o")
+		if (substr($prop["name"], 0, 4) === "devo" || substr($prop["name"], 0, 5) === "dev_o")
 		{
 			static $d_i;
 			if (!$d_i)
@@ -678,7 +677,7 @@ class bug_tracker extends class_base
 			$fn = "_get_".$prop["name"];
 			return $d_i->$fn($arr);
 		}
-		if (isset($prop["group"]) && substr((string)$prop["group"], 0, 8) == "problems")
+		if (isset($prop["group"]) && substr((string)$prop["group"], 0, 8) === "problems")
 		{
 			static $p_i;
 			if (!$p_i)
@@ -689,7 +688,7 @@ class bug_tracker extends class_base
 			return $p_i->$fn($arr);
 		}
 
-		if(isset($prop["group"]) && (string)$prop["group"] == "projects")
+		if(isset($prop["group"]) && (string)$prop["group"] === "projects")
 		{
 			static $proj_i;
 			if (!$proj_i)
@@ -701,7 +700,7 @@ class bug_tracker extends class_base
 			{
 				return $proj_i->$fn($arr);
 			}
-			elseif(strpos($prop["name"], "proj_search") !== false && $prop["type"] != "submit")
+			elseif(strpos($prop["name"], "proj_search") !== false && $prop["type"] !== "submit")
 			{
 				$prop["value"] = $arr["request"][$prop["name"]];
 				if(!$prop["value"] && strpos($prop["type"], "date") !== false)
@@ -756,7 +755,7 @@ class bug_tracker extends class_base
 
 			case "s_date_from":
 			case "s_date_to":
-				if(!$prop["value"])
+				if(empty($prop["value"]))
 				{
 					$prop["value"] = -1;
 				}
@@ -1044,7 +1043,7 @@ class bug_tracker extends class_base
 
 	function _get_commits_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_complete_table($t);
 		$prevm = time()-30*24*60*60;
 		$c_ol = new object_list(array(
@@ -1069,7 +1068,7 @@ class bug_tracker extends class_base
 		}
 	}
 
-	function _init_complete_table(&$t)
+	function _init_complete_table($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -1131,7 +1130,7 @@ class bug_tracker extends class_base
 
 	function _get_complete_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_complete_table($t);
 		$cur_u = aw_global_get("uid");
 		$ol = new object_list(array(
@@ -1145,9 +1144,8 @@ class bug_tracker extends class_base
 
 	}
 
-	function get_table_from_ol($ol, &$t, $arr)
+	function get_table_from_ol($ol, $t, $arr)
 	{
-		classload("core/icons");
 		$u = get_instance(CL_USER);
 		$us = get_instance("users");
 		$bug_i = get_instance(CL_BUG);
@@ -1246,7 +1244,7 @@ class bug_tracker extends class_base
 	{
 		classload("core/date/date_calc");
 
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
@@ -1331,7 +1329,7 @@ class bug_tracker extends class_base
 		foreach ($bug_comments->arr() as $id => $bug_comment)
 		{
 			$bug_id = $bug_comment->task_id();
-			
+
 			if ($bug_comment->createdby() == '')
 			{
 				$text = $bug_comment->comment();
@@ -1367,7 +1365,7 @@ class bug_tracker extends class_base
 			{
 				$working_hours += $comment->prop('add_wh');
 			}
-			
+
 			$development = $bug->prop("customer") == $our_company->id() ? 1 : 0;
 			if($development && $bug->class_id() == CL_BUG)
 			{
@@ -1420,7 +1418,7 @@ class bug_tracker extends class_base
 
 	function _bug_toolbar($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		if ($arr["request"]["group"] == "by_class")
 		{
@@ -1615,7 +1613,7 @@ class bug_tracker extends class_base
 		{
 			return $arr["post_ru"];
 		}
-		
+
 		foreach($ids as $id)
 		{
 			if($this->can("view", $id))
@@ -1643,7 +1641,6 @@ class bug_tracker extends class_base
 	**/
 	function get_node($arr)
 	{
-		classload("core/icons");
 		$node_tree = get_instance("vcl/treeview");
 		$node_tree->start_tree (array (
 			"type" => TREE_DHTML,
@@ -1720,7 +1717,6 @@ class bug_tracker extends class_base
 	function get_node_cat($arr)
 	{
 		$arr["parent"] = substr($arr["parent"], 1);
-		classload("core/icons");
 		$pr_i = get_instance("applications/bug_o_matic_3000/bt_projects_impl");
 
 		$tree = get_instance("vcl/treeview");
@@ -1786,7 +1782,7 @@ class bug_tracker extends class_base
 							$this->__insert_classes_tree($tree, 0, $tmp[1], $arr);
 							break;
 					}
-				} 
+				}
 		}
 		die($tree->finalize_tree());
 	}
@@ -1866,7 +1862,7 @@ class bug_tracker extends class_base
 					), false, $arr["set_retu"]),
 				));
 			}
-			
+
 		}
 	}
 
@@ -1906,7 +1902,7 @@ class bug_tracker extends class_base
 				{
 					$num_ol = new object_list(array(
 						"class_id" => CL_BUG,
-						"site_id" => array(),	
+						"site_id" => array(),
 						"lang_id" => array(),
 						"bug_class" => $id,
 					));
@@ -1927,8 +1923,7 @@ class bug_tracker extends class_base
 
 	function _bug_tree($arr)
 	{
-		classload("core/icons");
-		$this->tree = get_instance("vcl/treeview");
+		$this->tree = new treeview();
 		$this->active_group = $arr["request"]["group"];
 		$this->sort_type = aw_global_get("bug_tree_sort");
 		$this->self_id = $arr["obj_inst"]->id();
@@ -2340,8 +2335,7 @@ class bug_tracker extends class_base
 
 	function _bug_list($arr)
 	{
-		classload("vcl/table");
-		$t = new vcl_table;
+		$t = new vcl_table();
 		$this->_init_bug_list_tbl($t);
 		$t->set_caption(t("Nimekiri arendus&uuml;lesannetest"));
 
@@ -2501,7 +2495,6 @@ class bug_tracker extends class_base
 
 	function populate_bug_list_table_from_list(&$t, $ol, $params = array(), $s = array())
 	{
-		classload("core/icons");
 		$u = get_instance(CL_USER);
 		$us = get_instance("users");
 		$bug_i = get_instance(CL_BUG);
@@ -2893,7 +2886,7 @@ class bug_tracker extends class_base
 		$txtf = array("oid", "name", "bug_url", "bug_component", "bug_mail");
 		foreach($txtf as $field)
 		{
-			if (trim($r["s_".$field]) != "")
+			if (isset($r["s_".$field]) and strlen(trim($r["s_".$field])))
 			{
 				$res[$field] = $this->_get_string_filt($r["s_".$field]);
 			}
@@ -2902,15 +2895,15 @@ class bug_tracker extends class_base
 		$sf = array("bug_status", "bug_class", "bug_severity", "bug_priority", "cust_status");
 		foreach($sf as $field)
 		{
-			if (trim($r["s_".$field]) != "")
+			if (isset($r["s_".$field]) and (!is_string($r["s_".$field]) or strlen(trim($r["s_".$field]))))
 			{
 				$res[$field] = $r["s_".$field];
 			}
 		}
 
-		if($dt = $r["s_date_type"])
+		if(isset($r["s_date_type"]))
 		{
-			switch($dt)
+			switch($r["s_date_type"])
 			{
 				case 1:
 					$prop = "created";
@@ -2920,6 +2913,7 @@ class bug_tracker extends class_base
 					$prop = "modified";
 					break;
 			}
+
 			if($prop)
 			{
 				$from = date_edit::get_timestamp($r["s_date_from"]);
@@ -2939,17 +2933,17 @@ class bug_tracker extends class_base
 			}
 		}
 
-		if (trim($r["s_monitors"]) != "")
+		if (isset($r["s_monitors"]) and strlen(trim($r["s_monitors"])))
 		{
 			$res["CL_BUG.RELTYPE_MONITOR.name"] = $this->_get_string_filt($r["s_monitors"]);
 		}
 
-		if (trim($r["s_feedback_p"]) != "")
+		if (isset($r["s_feedback_p"]) and strlen(trim($r["s_feedback_p"])))
 		{
 			$res["CL_BUG.bug_feedback_p.name"] = $this->_get_string_filt($r["s_feedback_p"]);
 		}
 
-		if ($r["s_finance_type"] != 0)
+		if (isset($r["s_finance_type"]) and $r["s_finance_type"])
 		{
 			if ($r["s_finance_type"] == -1)
 			{
@@ -2970,28 +2964,29 @@ class bug_tracker extends class_base
 		$cplx = array("who", "customer", "project");
 		foreach($cplx as $field)
 		{
-			if (trim($r["s_".$field]) != "")
+			if (isset($r["s_".$field]) and strlen(trim($r["s_".$field])))
 			{
 				$res["CL_BUG.".$field.".name"] = $this->_get_string_filt($r["s_".$field]);
 			}
 		}
 
-		if (trim($r["s_bug_type"]) != "")
+		if (isset($r["s_bug_type"]) and strlen(trim($r["s_bug_type"])))
 		{
 			$res["CL_BUG.bug_type(CL_META).name"] = $this->_get_string_filt($r["s_bug_type"]);
 		}
-                if (trim($r["s_bug_app"]) != "")
-                {
-                        $res["CL_BUG.bug_app(CL_META).name"] = $this->_get_string_filt($r["s_bug_app"]);
-                }
 
-		if ($r["s_who_empty"] == 1)
+		if (isset($r["s_bug_app"]) and strlen(trim($r["s_bug_app"])))
+		{
+			$res["CL_BUG.bug_app(CL_META).name"] = $this->_get_string_filt($r["s_bug_app"]);
+		}
+
+		if (isset($r["s_who_empty"]) and $r["s_who_empty"] == 1)
 		{
 			$res["who"] = new obj_predicate_compare(OBJ_COMP_EQUAL, "");
 			unset($res["CL_BUG.who.name"]);
 		}
 
-		if (trim($r["s_bug_content"]) != "")
+		if (isset($r["s_bug_content"]) and strlen(trim($r["s_bug_content"])))
 		{
 			$res[] = new object_list_filter(array(
 				"logic" => "OR",
@@ -3002,7 +2997,7 @@ class bug_tracker extends class_base
 			));
 		}
 
-		if (trim($r["s_createdby"]) != "")
+		if (isset($r["s_createdby"]) and strlen(trim($r["s_createdby"])))
 		{
 			// map name to possible persons, get users for those and search by that
 			$ul = new object_list(array(
@@ -3025,26 +3020,27 @@ class bug_tracker extends class_base
 
 	function _get_string_filt($s)
 	{
-		$this->dequote(&$s);
+		$this->dequote($s);
 		// separated by commas delimited by "
 		$p = array();
 		$len = strlen($s);
+		$cur_str = "";
 		for ($i = 0; $i < $len; $i++)
 		{
-			if ($s[$i] == "\"" && $in_q)
+			if ($s[$i] === "\"" && $in_q)
 			{
 				// end of quoted string
 				$p[] = $cur_str;
 				$in_q = false;
 			}
 			else
-			if ($s[$i] == "\"" && !$in_q)
+			if ($s[$i] === "\"" && !$in_q)
 			{
 				$cur_str = "";
 				$in_q = true;
 			}
 			else
-			if ($s[$i] == "," && !$in_q)
+			if ($s[$i] === "," && !$in_q)
 			{
 				$p[] = $cur_str;
 				$cur_str = "";
@@ -3062,7 +3058,7 @@ class bug_tracker extends class_base
 
 	function _search_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		// save search
 		$tb->add_button(array(
@@ -3123,7 +3119,7 @@ class bug_tracker extends class_base
 	function _get_apps_tb($arr)
 	{
 		$parent = $arr["obj_inst"]->id();
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(array(CL_BUG_APP_TYPE), $parent, '',array());
 		$tb->add_delete_button();
 		$tb->add_save_button();
@@ -3132,7 +3128,7 @@ class bug_tracker extends class_base
 	function _get_apps_table($arr)
 	{
 		$parent = $arr["obj_inst"]->id();
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_chooser(array(
 			"name" => "sel",
@@ -3231,7 +3227,7 @@ class bug_tracker extends class_base
 		return $arr["post_ru"];
 	}
 
-	function _init_saved_searches(&$t)
+	function _init_saved_searches($t)
 	{
 		$t->define_field(array(
 			"name" => "who",
@@ -3259,8 +3255,8 @@ class bug_tracker extends class_base
 
 	function _saved_searches($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
-		$this->_init_saved_searches(&$t);
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_saved_searches($t);
 
 		$bug_props = $arr["obj_inst"]->get_property_list();
 		$bugi = get_instance(CL_BUG);
@@ -3419,9 +3415,9 @@ class bug_tracker extends class_base
 		));
 	}
 
-	function _gantt($arr)
+	function _gantt(&$arr)
 	{
-		$chart = get_instance ("vcl/gantt_chart");
+		$chart = new gantt_chart();
 		$udata = is_object($arr["obj_inst"]) ? $arr["obj_inst"]->meta("gantt_user_ends") : array();
 		$cur = aw_global_get("uid_oid");
 		if($cs = $udata[$cur])
@@ -3655,7 +3651,7 @@ class bug_tracker extends class_base
 		$arr["prop"]["value"] = $chart->draw_chart ();
 		return $chart;
 	}
-	
+
 	/**
 	@attrib name=aw_firefoxtools_gantt
 	@param id required type=int
@@ -3663,7 +3659,7 @@ class bug_tracker extends class_base
 	function aw_firefoxtools_gantt($arr)
 	{
 		$arr["obj_inst"] = obj($arr["id"]);
-		$chart = $this->_gantt(& $arr);
+		$chart = $this->_gantt($arr);
 		$rows = $chart->get_rows();
 
 		$out = "menu = [";
@@ -3672,7 +3668,7 @@ class bug_tracker extends class_base
 			$name = utf8_encode(html_entity_decode($row["title"]));
 			$url = $row["uri"];
 			$class = $row["name_class"];
-			
+
 			$out .= '{"name":"'.$name.'",'.
 				'"url":"'.$url.'",'.
 				'"class":"'.strtolower($class).'"'.
@@ -3681,7 +3677,7 @@ class bug_tracker extends class_base
 		$out .= '];';
 		die($out);
 	}
-	
+
 	/**
 	@attrib name=aw_firefoxtools_bugs_history
 	**/
@@ -3725,7 +3721,7 @@ class bug_tracker extends class_base
 		{
 			$ol->add($tasks);
 		}
-		
+
 		$out = "menu = [";
 		foreach($ol->arr() as $o)
 		{
@@ -3734,7 +3730,7 @@ class bug_tracker extends class_base
 				"id" => $o->id(),
 			), "bug");
 			$class = "";
-			
+
 			$out .= '{"name":"'.$name.'",'.
 				'"url":"'.$url.'",'.
 				'"modified":"'.$o->modified.'"'.
@@ -3743,7 +3739,7 @@ class bug_tracker extends class_base
 		$out .= '];';
 		die($out);
 	}
-	
+
 	/**
 	@attrib name=aw_firefoxtools_new_bug_url
 	@param id required type=int
@@ -3752,16 +3748,16 @@ class bug_tracker extends class_base
 	function aw_firefoxtools_new_bug_url($arr)
 	{
 		$tree = array();
-	
+
 		$bug_url = $arr["bug_url"];
 		$arr["obj_inst"] = obj($arr["id"]);
-		
+
 		$ol = new object_list(array(
 			"class_id" => CL_BUG,
 			"bug_url" => "%$bug_url%",
 			"limit" => "0,3",
 		));
-		
+
 		// find parent folder of bug even if under subbugs
 		if($ol->count())
 		{
@@ -3779,7 +3775,7 @@ class bug_tracker extends class_base
 				{
 					array_push($tree, $o);
 					$tree = array_reverse($tree);
-					
+
 					// check if we found correct place for our new bug
 					if($tree[0]->name()=="Kliendid" &&
 						strlen($tree[1]->name())==1 )
@@ -4102,7 +4098,6 @@ class bug_tracker extends class_base
 	**/
 	function get_node_monitor($arr)
 	{
-	    classload("core/icons");
 		$node_tree = get_instance("vcl/treeview");
 		$node_tree->start_tree (array (
 			"type" => TREE_DHTML,
@@ -4912,13 +4907,13 @@ echo "<div style='font-size: 10px;'>";
 		die();
 	}
 
-	function _add_custs_to_tree(&$t)
+	function _add_custs_to_tree($t)
 	{
 		$co = get_current_company();
 		$this->_req_cust_tree($t, $co, 0);
 	}
 
-	function _req_cust_tree(&$t, $co, $pt)
+	function _req_cust_tree($t, $co, $pt)
 	{
 		foreach($co->connections_from(array("type" => "RELTYPE_CATEGORY")) as $c)
 		{
@@ -4954,7 +4949,6 @@ echo "<div style='font-size: 10px;'>";
 			"site_id" => array(),
 			"parent" => $pt
 		));
-		classload("vcl/table");
 		$t = new vcl_table();
 		$t->table_from_ol($ol, array("name", "created", "pri", "req_co", "req_p", "project", "process", "planned_time", "desc", "state", "budget"), CL_PROCUREMENT_REQUIREMENT);
 		header('Content-type: application/octet-stream');
@@ -5361,7 +5355,7 @@ die("a");
 			2 => t("Projekti l&otilde;ppedes"),
 			3 => t("Arendus")
 		);
-		$arr["prop"]["value"] = $arr["request"]["s_finance_type"];
+		$arr["prop"]["value"] = isset($arr["request"]["s_finance_type"]) ? $arr["request"]["s_finance_type"] : "";
 	}
 
 	function _get_owner($arr)

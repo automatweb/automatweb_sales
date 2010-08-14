@@ -40,11 +40,62 @@ class user_obj extends _int_object
 	public function save($exclusive = false, $previous_state = null)
 	{
 		$new = !$this->is_saved();
+
+		$person_oid = $this->meta("person");
+		$this->set_meta("person", "");
+
 		$rv = parent::save($exclusive, $previous_state);
 
 		if ($new)
 		{
 			$this->_handle_user_create();
+		}
+
+		if ($person_oid)
+		{
+			$this->connect(array(
+				"to" => $person_oid,
+				"reltype" => "RELTYPE_PERSON"
+			));
+		}
+
+		// create or update email object
+		$umail = $this->prop("email");
+		$uname = $this->prop("real_name");
+
+		if ($umail)
+		{
+			if($mail = $this->get_first_obj_by_reltype("RELTYPE_EMAIL"))
+			{
+				if (!$mail->is_a(CL_ML_MEMBER)) //XXX: connection error fixing for unknown reasons
+				{
+					$this->disconnect(array("from" => $mail->id(), "type" => "RELTYPE_EMAIL"));
+					$mail = false;
+				}
+				elseif ($mail->prop("mail") !== $umail or $mail->name() !== $uname)
+				{
+					$mail->set_prop("mail", $umail);
+					$mail->set_name($uname." &lt;".$umail."&gt;");
+					$mail->save();
+				}
+			}
+
+			if (!$mail)
+			{
+				$mail = new object();
+				$mail->set_class_id(CL_ML_MEMBER);
+				$p = obj($this->get_person_for_user($o));
+
+				$mail->set_parent($p->id());
+				$mail->set_prop("mail", $umail);
+				$mail->set_prop("name", $uname);
+				$mail->set_name($uname." &lt;".$umail."&gt;");
+				$mail->save();
+				$this->connect(array(
+					"to" => $mail->id(),
+					"reltype" => "RELTYPE_EMAIL"
+				));
+			}
 		}
 
 		return $rv;
@@ -248,10 +299,6 @@ class user_obj extends _int_object
 	**/
 	public function get_phone()
 	{
-		if($this->prop("phone"))
-		{
-			return $this->prop("phone");
-		}
 		$person = obj($this->get_person_for_user());
 		return $person->get_phone();
 	}

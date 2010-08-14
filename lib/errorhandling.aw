@@ -117,13 +117,16 @@ function aw_dbg_exception_handler($e)
 		echo "<b>Stack trace:</b> <br />\n";
 		echo $trace;
 
-		$fwd = $e->get_forwarded_exceptions();
-		if (count($fwd))
+		if ($e instanceof aw_exception)
 		{
-			echo "<br />\n<b>Forwarded exceptions:</b> <br />\n";
-			foreach ($fwd as $fwd_e)
+			$fwd = $e->get_forwarded_exceptions();
+			if (count($fwd))
 			{
-				arr($fwd_e);
+				echo "<br />\n<b>Forwarded exceptions:</b> <br />\n";
+				foreach ($fwd as $fwd_e)
+				{
+					arr($fwd_e);
+				}
 			}
 		}
 
@@ -132,6 +135,7 @@ function aw_dbg_exception_handler($e)
 		{
 			ob_flush();
 		}
+
 		automatweb::shutdown();
 	}
 	catch (Exception $e)
