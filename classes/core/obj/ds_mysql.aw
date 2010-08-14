@@ -353,7 +353,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$ret[$prop["name"]] = isset($unser[$prop["name"]]) ? $unser[$prop["name"]] : null;
 					}
 
-					if (isset($prop["datatype"]) && $prop["datatype"] === "int" && $ret[$prop["name"]] == "")
+					if (isset($prop["datatype"]) && $prop["datatype"] === "int" && empty($ret[$prop["name"]]))
 					{
 						$ret[$prop["name"]] = "0";
 					}
