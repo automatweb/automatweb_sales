@@ -168,7 +168,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Flash </caption>
+            <caption>Flash</caption>
       </property>
       <property>
             <name>new_w</name>

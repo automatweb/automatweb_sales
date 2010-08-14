@@ -147,7 +147,8 @@ class aw_template extends core
 			"baseurl" => aw_ini_get("baseurl"),
 			"baseurl_ssl" => str_replace("http", "https", aw_ini_get("baseurl")),
 			"cur_lang_id" => aw_global_get("lang_id"),
-			"current_url" => urlencode(get_ru())
+			"current_url" => urlencode(get_ru()),
+			"charset" => aw_global_get("charset")
 		);
 	}
 

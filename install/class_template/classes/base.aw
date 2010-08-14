@@ -24,7 +24,7 @@ class __classname extends class_base
 
 		if ("__table_name" === $table)
 		{
-			if (empty($field)
+			if (empty($field))
 			{
 				$this->db_query("CREATE TABLE `__table_name` (
 				  `aw_oid` int(11) UNSIGNED NOT NULL DEFAULT '0',

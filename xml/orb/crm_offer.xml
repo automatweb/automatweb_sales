@@ -6,6 +6,26 @@
 				<arguments>
 					<required name="id" type="int" />
 					<optional name="do_confirm" type="boolean" default="false" />
+					<optional name="firstname" type="string" default="false" />
+					<optional name="lastname" type="string" default="false" />
+					<optional name="organisation" type="string" default="false" />
+					<optional name="profession" type="string" default="false" />
+					<optional name="phone" type="string" default="false" />
+					<optional name="email" type="string" default="false" />
+				</arguments>
+			</function>
+		</action>
+		<action name="create_template">
+			<function name="create_template">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+		<action name="new_from_template">
+			<function name="new_from_template">
+				<arguments>
+					<required name="tpl" type="int" />
+					<optional name="return_url" type="string" />
 				</arguments>
 			</function>
 		</action>

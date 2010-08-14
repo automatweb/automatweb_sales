@@ -1,7 +1,22 @@
 <?php
 
-class shop_product_obj extends _int_object
+class shop_product_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
+	const AW_CLID = 295;
+
+	/** Get units that can be used to measure product quantity
+		@attrib api=1
+		@returns object_list
+	**/
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+			"oid" => $this->_get_units(),
+		));
+		return $ol;
+	}
+
 	/** Sets the price for the product by currency
 		@attrib api=1 params=pos
 
@@ -162,14 +177,7 @@ class shop_product_obj extends _int_object
 		return parent::prop($k);
  	}
 
-	/** Get units that can be used to measure product quantity
-		@attrib api=1
-		@returns array of CL_UNIT
-			array(0=> unit1, 1=> unit2, etc).
-			First unit is the default/base unit
-		@comment Some of the results may be undefined, beware of that.//!!!!!! ???
-	**/
-	public function get_units()
+	protected function _get_units()
 	{
 		if($meta_units = $this->meta("units"))
 		{

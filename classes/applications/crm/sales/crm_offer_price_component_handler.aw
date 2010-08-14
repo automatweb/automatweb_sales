@@ -7,6 +7,27 @@ class crm_offer_price_component_handler extends _int_object
 
 	/**
 		@attrib api=1
+		@returns crm_sales_price_component_applied[]
+	**/
+	public function get_applied_price_components()
+	{
+		if(!$this->applied_price_components_loaded)
+		{
+			try
+			{
+				$this->load_applied_price_components();
+			}
+			catch(awex_crm_offer_price_component $e)
+			{
+				throw $e;
+			}
+		}
+
+		return $this->applied_price_components;
+	}
+
+	/**
+		@attrib api=1
 	**/
 	public function price_component_is_applied($price_component)
 	{
@@ -126,6 +147,14 @@ class crm_offer_price_component_handler extends _int_object
 	public function get_price_for_price_component($price_component)
 	{
 		return $this->get_price_component_prop("price_change", $price_component);
+	}
+
+	/**
+	**/
+	public function set_applied_price_components($applied_price_components)
+	{
+		$this->applied_price_components = $applied_price_components;
+		$this->applied_price_components_loaded = true;
 	}
 
 	protected function get_price_component_prop($prop, $price_component)
