@@ -1,6 +1,6 @@
 <?php
 // $Header: /home/cvs/automatweb_dev/classes/contentmgmt/document_statistics.aw,v 1.21 2008/01/31 13:52:14 kristo Exp $
-// document_statistics.aw - Dokumentide vaatamise statistika 
+// document_statistics.aw - Dokumentide vaatamise statistika
 /*
 
 @classinfo syslog_type=ST_DOCUMENT_STATISTICS relationmgr=yes no_status=1 maintainer=kristo
@@ -20,10 +20,10 @@
 @groupinfo folders caption="Kataloogid ja perioodid"
 @default group=folders
 
-@property folders type=table store=no 
+@property folders type=table store=no
 @caption Kataloogid
 
-@property periods type=table store=no 
+@property periods type=table store=no
 @caption Perioodid
 
 @property period_type type=select field=meta method=serialize
@@ -105,7 +105,7 @@ class document_statistics extends class_base
 					return PROP_IGNORE;
 				}
 				$st = $this->get_stat_arr($arr["obj_inst"]);
-				
+
 				$data["vcl_inst"]->define_field(array(
 					"name" => "docid",
 					"caption" => t("Dokument")
@@ -157,7 +157,7 @@ class document_statistics extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function _init_folders_table(&$t)
 	{
@@ -235,11 +235,7 @@ class document_statistics extends class_base
 	function show($arr)
 	{
 		$ob = new object($arr["id"]);
-		global $awt;
-		$awt->start("stat-arr");
 		$st = $this->get_stat_arr($ob, $arr["yesterday"]);
-		$awt->stop("stat-arr");
-				
 
 		$this->read_template("show.tpl");
 		$this->vars(array(
@@ -286,7 +282,7 @@ class document_statistics extends class_base
 		// daily stat
 		$fname = date("Y-m-d").".txt";
 		$this->_upd_stat_file($fld . "/" . $fname,$docid);
-	
+
 		// monthly stat
 		$fname = date("Y-m").".txt";
 		$this->_upd_stat_file($fld . "/" . $fname,$docid);
@@ -335,7 +331,7 @@ class document_statistics extends class_base
 
 		@comment
 
-			returns an array of document id => hit count 
+			returns an array of document id => hit count
 			taking into account the display statistics from the object passed as a parameter
 	**/
 	function get_stat_arr($obj, $yesterday = false)
@@ -353,7 +349,6 @@ class document_statistics extends class_base
 		}
 
 		classload("core/date/date_calc");
-		global $awt;
 		if ($timespan == "week")
 		{
 			$fc = array();
@@ -374,7 +369,6 @@ class document_statistics extends class_base
 		{
 			$fc = array();
 			$tm = get_month_start();
-			$awt->start("docstat-get-file");
 			$fp = $this->cfg["site_basedir"]."/files/docstats/".date("Y-m").".txt";
 			if (file_exists($fp))
 			{
@@ -384,7 +378,6 @@ class document_statistics extends class_base
 			/*
 			while ($tm < $rtm)
 			{
-				$awt->count("docstat-get-file");
 				$fp = $this->cfg["site_basedir"]."/files/docstats/".date("Y-m-d", $tm).".txt";
 				if (file_exists($fp))
 				{
@@ -397,7 +390,6 @@ class document_statistics extends class_base
 				$tm += 24*3600;
 			}
 			*/
-			$awt->stop("docstat-get-file");
 		}
 		else
 		{
@@ -405,12 +397,9 @@ class document_statistics extends class_base
 			$fp = $this->cfg["site_basedir"]."/files/docstats/".date("Y-m-d", $rtm).".txt";
 			$fc = explode("\n", $this->get_file(array("file" => $fp)));
 		}
-		$awt->start("calc2");
 
-		// now, get list of documents 
+		// now, get list of documents
 		$c_dids = $this->_get_document_list($obj);
-
-		$awt->stop("calc2");
 
 		$ds_arr = array();
 
@@ -426,7 +415,7 @@ class document_statistics extends class_base
 				$ds_arr[$did] += $hc;
 			}
 		}
-		
+
 		arsort($ds_arr);
 		$ret = array();
 		$i = 0;
@@ -436,7 +425,7 @@ class document_statistics extends class_base
 			{
 				return $ret;
 			}
-		
+
 			$ret[$did] = $hc;
 			$i++;
 		}
@@ -451,7 +440,7 @@ class document_statistics extends class_base
 
 		$subs = $o->meta("subs");
 		foreach($o->connections_from(array("type" => "RELTYPE_SHOW_FOLDER")) as $c)
-		{	
+		{
 			$menus[$c->prop("to")] = $c->prop("to");
 
 			if ($subs[$c->prop("to")] == 1)
@@ -513,7 +502,7 @@ class document_statistics extends class_base
 	}
 
 	/** sends e-mail woth statistics. called via scheduler 8:00 AM every day
-		
+
 		@attrib name=do_send_mail nologin="1"
 
 		@param id required type=int acl=view

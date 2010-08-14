@@ -1,6 +1,6 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_report_entry.aw,v 1.3 2009/02/04 17:27:57 markop Exp $
-// crm_report_entry.aw - Aruanne 
+
+// crm_report_entry.aw - Aruanne
 /*
 
 @classinfo syslog_type=ST_CRM_REPORT_ENTRY relationmgr=yes no_comment=1 no_status=1  maintainer=markop
@@ -89,8 +89,9 @@ class crm_report_entry extends class_base
 				}
 				$fn = "_get_stats_s_".$prop["name"];
 				$val = $prop["value"];
-				$arr["obj_inst"] = obj(get_current_company());
-				$retval = $stats_impl->$fn($arr);
+				$tmp = $arr;
+				$tmp["obj_inst"] = obj(get_current_company());
+				$retval = $stats_impl->$fn($tmp);
 				$prop["value"] = $val;
 				break;
 
@@ -104,6 +105,7 @@ class crm_report_entry extends class_base
 				{
 					$r["stats_s_".$pn] = $pv;
 				}
+				$tmp["obj_inst"] = obj(get_current_company());
 				$tmp["request"] = $r;
 				$retval = $si->$fn($tmp);
 				$prop["value"] = $val;
@@ -120,7 +122,7 @@ class crm_report_entry extends class_base
 		{
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{

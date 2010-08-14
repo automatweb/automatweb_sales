@@ -984,13 +984,15 @@ class planner extends class_base
 					));
 				}
 			}
+
+			$args =	array(
+				"source_id" => $org_obj->id(),
+				"event_id" => $this->event_id
+			);
 			post_message_with_param(
 				MSG_EVENT_ADD,
 				$org_obj->class_id(),
-				array(
-					"source_id" => $org_obj->id(),
-					"event_id" => $this->event_id,
-				)
+				$args
 			);
 		}
 		return PROP_OK;
@@ -1456,15 +1458,12 @@ class planner extends class_base
 			"viewtype" => $arr["request"]["viewtype"] ? $arr["request"]["viewtype"] : $viewtype,
 		));
 
-		global $awt;
-		$awt->start("init-event-source");
 		$events = $this->_init_event_source(array(
 			"id" => $arr["request"]["id"],
 			"type" => $range["viewtype"],
 			"flatlist" => 1,
 			"date" => date("d-m-Y",$range["timestamp"]),
 		));
-		$awt->stop("init-event-source");
 		$multi_e = $arr["obj_inst"]->prop("multi_days");
 
 		foreach($events as $event)
@@ -2826,13 +2825,15 @@ class planner extends class_base
 					));
 				}
 			}
+
+			$args = array(
+				"source_id" => $org_obj->id(),
+				"event_id" => $event->id()
+			);
 			post_message_with_param(
 				MSG_EVENT_ADD,
 				$org_obj->class_id(),
-				array(
-					"source_id" => $org_obj->id(),
-					"event_id" => $event->id(),
-				)
+				$args
 			);
 		}
 	}

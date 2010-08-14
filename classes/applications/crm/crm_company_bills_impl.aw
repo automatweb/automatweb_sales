@@ -1,20 +1,15 @@
 <?php
-/*
-@classinfo  maintainer=markop
-*/
-define("BILL_SUM", 1);
-define("BILL_SUM_WO_TAX", 2);
-define("BILL_SUM_TAX", 3);
-define("BILL_AMT", 4);
 
 class crm_company_bills_impl extends class_base
 {
+	private $show_bill_balance = false;
+
 	function crm_company_bills_impl()
 	{
 		$this->init();
 	}
 
-	function _init_bill_proj_list_t(&$t, $custs)
+	function _init_bill_proj_list_t($t, $custs)
 	{
 		$t->define_field(array(
 			"caption" => t("Ava"),
@@ -75,7 +70,7 @@ class crm_company_bills_impl extends class_base
 			{$row = obj($row_id);
 				if($row->prop("task")) continue;
 				$cnt++;
-				
+
 				print "rida id=".$row_id." nimi=".$row->name()." saab taski id=".$task->id()." nimega ".$task->name()."<br>\n";
 				$row->set_prop("task", $task->id());
 				$row->save();
@@ -230,8 +225,8 @@ $x++;
 
 }
 */
-	enter_function("bills_impl::_get_bill_proj_list1");
-		$t =& $arr["prop"]["vcl_inst"];
+
+		$t = $arr["prop"]["vcl_inst"];
 		$this->get_time_between($arr["request"]);
 
 		$format = t('%s maksmata t&ouml;&ouml;d');
@@ -264,8 +259,6 @@ $x++;
 		}
 
 //--------------list all task rows that are not billed yet
-		exit_function("bills_impl::_get_bill_proj_list1");
-		enter_function("bills_impl::_get_bill_proj_list2");
 		$rows_filter = array(
 			"class_id" => CL_TASK_ROW,
 			"bill_id" => new obj_predicate_compare(OBJ_COMP_EQUAL, ''),
@@ -356,8 +349,8 @@ $x++;
 		$tasksres = array(
 			CL_CRM_MEETING => array(
 				"hr_price" => "hr_price",
-				"project" => "project",
-			),
+				"project" => "project"
+			)
 		);
 		$tasks_arr= new object_data_list($tasks_filter , $tasksres);
 		$tasks_data+= $tasks_arr->list_data;
@@ -369,8 +362,8 @@ $x++;
 		$tasksres = array(
 			CL_CRM_CALL => array(
 				"hr_price" => "hr_price",
-				"project" => "project",
-			),
+				"project" => "project"
+			)
 		);
 		$tasks_arr = new object_data_list($tasks_filter , $tasksres);
 		$tasks_data+=$tasks_arr->list_data;
@@ -387,8 +380,6 @@ $x++;
 				$this->sum2proj[$project]+= $this->tasks_hours[$bcs["oid"]] * $bcs["hr_price"];
 			}
 		}
-		exit_function("bills_impl::_get_bill_proj_list2");
-		enter_function("bills_impl::_get_bill_proj_list3");
 
 //--------------------------muud kulud---------
 		$this->expenses_for_project = array();
@@ -409,9 +400,7 @@ $x++;
 				$this->sum2proj[$c->prop("to")] += $row->prop("cost");
 			}
 		}
-		
-		exit_function("bills_impl::_get_bill_proj_list3");
-		enter_function("bills_impl::_get_bill_proj_list4");
+
 		$custs = array();
 		foreach($this->sum2proj as $p => $sum)
 		{
@@ -467,7 +456,6 @@ $x++;
 		}
 
 		$t->set_default_sortby("cust_name");
-		exit_function("bills_impl::_get_bill_proj_list4");
 		return;
 
 		// get all open tasks
@@ -600,9 +588,7 @@ $x++;
 		{
 			return PROP_IGNORE;
 		}
-		enter_function("bills_impl::_get_bill_task_list");
-		enter_function("bills_impl::_get_bill_task_list1");
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->unset_filter();
 		$this->_init_bill_task_list_t($t, $arr["request"]["proj"]);
 		$rows = new object_list();
@@ -651,8 +637,6 @@ $x++;
 			"project" => $arr["request"]["proj"],
 			"brother_of" => new obj_predicate_prop("id"),
 		));*/
-		exit_function("bills_impl::_get_bill_task_list1");
-		enter_function("bills_impl::_get_bill_task_list2");
 
 		$tasks = new object_list();
 		$sum2task = array();
@@ -683,10 +667,7 @@ $x++;
 			$rows->add($this->rows_for_project[$arr["request"]["proj"]]);
 		}
 
-		
 
-		exit_function("bills_impl::_get_bill_task_list2");
-		enter_function("bills_impl::_get_bill_task_list3");
 		$co_stat_inst = get_instance("applications/crm/crm_company_stats_impl");
 		foreach($rows-> arr() as $row)
 		{
@@ -763,7 +744,7 @@ $x++;
 				{
 					continue;
 				}
-				
+
 				$task = obj($conn["from"]);
 				if ($task->prop("project") == $arr["request"]["proj"])
 				{
@@ -776,8 +757,7 @@ $x++;
 				}
 			}
 		}*/
-		exit_function("bills_impl::_get_bill_task_list3");
-		enter_function("bills_impl::_get_bill_task_list4");
+
 /*
 		foreach($tasks->ids() as $id)
 		{
@@ -854,10 +834,7 @@ $x++;
 		$t->set_default_sorder("asc");
 		$t->set_default_sortby("set_date");
 		$t->sort_by();
-		exit_function("bills_impl::_get_bill_task_list4");
 
-
-enter_function("bills_impl::_get_bill_task_list5");
 		if(isset($this->bugs_for_project[$arr["request"]["proj"]]) && sizeof($this->bugs_for_project[$arr["request"]["proj"]]))
 		{
 			foreach($this->bugs_for_project[$arr["request"]["proj"]] as $id)
@@ -885,8 +862,6 @@ enter_function("bills_impl::_get_bill_task_list5");
 			}
 		}
 
-exit_function("bills_impl::_get_bill_task_list5");
-exit_function("bills_impl::_get_bill_task_list");
 		return;
 		if ($arr["request"]["cust"])
 		{
@@ -1059,7 +1034,7 @@ exit_function("bills_impl::_get_bill_task_list");
 					{
 						asd[0].value=0;
 					}
-					window.opener.submit_changeform('create_bill'); 
+					window.opener.submit_changeform('create_bill');
 					window.close();
 				</script></body></html>
 			");
@@ -1129,10 +1104,10 @@ exit_function("bills_impl::_get_bill_task_list");
 
 	function _get_mails_list($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"] = new vcl_table();
 		$this->_init_mails_list_t($t, $arr["request"]);
 
-		$stats = get_instance("applications/crm/crm_company_stats_impl");
+		$stats = new crm_company_stats_impl();
 		$bills = $stats->search_bills(array("stats_s_bill_state" => 1));
 
 		$sum = $tol = $deadline = $mhpa = $custs= array();
@@ -1180,8 +1155,8 @@ exit_function("bills_impl::_get_bill_task_list");
 
 		$mails = $this->get_bill_mails(array("bills" => $bills->ids()));
 		$user_inst = get_instance(CL_USER);
-//arr($mhpa);
-		$stats = get_instance("classes/applications/crm/crm_company_stats_impl");
+
+		$stats = new crm_company_stats_impl();
 		foreach($mails as $mail)
 		{
 			$addr = array();//explode("," , htmlspecialchars($mail["mto"]));
@@ -1257,7 +1232,7 @@ exit_function("bills_impl::_get_bill_task_list");
 				}
 			}
 
-			
+
 			$user = $mail["createdby"];
 			$person = $user_inst->get_person_for_uid($user);
 			$data = array();
@@ -1272,12 +1247,10 @@ exit_function("bills_impl::_get_bill_task_list");
 			$data["date"] = date("d.m.Y H:i" , $mail["created"]);
 			$t->define_data($data);
 		}
-
-
 	}
 
-	function _init_mails_list_t(&$t, $r)
-	{//aatja nimi (NB!!! mitte kasutada kasutajanime!!!!!), Saaja isikute nimed, asutused, telefon laual ja mobiil, ametinimetus, meilidaadressid; arve summa, arve laekumise t2htaeg; arve staatus.
+	function _init_mails_list_t($t, $r)
+	{//saatja nimi (NB!!! mitte kasutada kasutajanime!!!!!), Saaja isikute nimed, asutused, telefon laual ja mobiil, ametinimetus, meilidaadressid; arve summa, arve laekumise t2htaeg; arve staatus.
 		$t->define_field(array(
 			"name" => "sender",
 			"caption" => t("Saatja nimi"),
@@ -1322,7 +1295,7 @@ exit_function("bills_impl::_get_bill_task_list");
 		));
 	}
 
-	function _init_bills_list_t(&$t, $r)
+	function _init_bills_list_t($t, $r)
 	{
 		$t->define_field(array(
 			"name" => "bill_no",
@@ -1331,7 +1304,8 @@ exit_function("bills_impl::_get_bill_task_list");
 			"numeric" => 1,
 			"chgbgcolor" => "color",
 		));
-		if ($r["group"] == "bills_monthly")
+
+		if ($r["group"] === "bills_monthly")
 		{
 			$t->define_field(array(
 				"name" => "create_new",
@@ -1341,6 +1315,7 @@ exit_function("bills_impl::_get_bill_task_list");
 			"chgbgcolor" => "color",
 			));
 		}
+
 		$t->define_field(array(
 			"name" => "bill_date",
 			"caption" => t("Kuup&auml;ev"),
@@ -1373,7 +1348,7 @@ exit_function("bills_impl::_get_bill_task_list");
 			"format" => "d.m.Y",
 			"numeric" => 1,
 			"sortable" => 1
-		)); 
+		));
 */
 		$t->define_field(array(
 			"name" => "customer",
@@ -1443,7 +1418,7 @@ exit_function("bills_impl::_get_bill_task_list");
 			"align" => "right"
 		));
 */
-		if ($r["group"] != "bills_monthly")
+		if ($r["group"] !== "bills_monthly")
 		{
 			$t->define_field(array(
 				"name" => "state",
@@ -1520,11 +1495,12 @@ exit_function("bills_impl::_get_bill_task_list");
 			}
 		}
 
-		if($arr["request"]["show_bill_balance"])
+		if(!empty($arr["request"]["show_bill_balance"]))
 		{
 			$this->show_bill_balance = 1;
 		}
-		if($arr["request"]["bill_s_with_tax"] == 0)
+
+		if(empty($arr["request"]["bill_s_with_tax"]))
 		{
 			$tax_add = 2;
 		}
@@ -1532,10 +1508,10 @@ exit_function("bills_impl::_get_bill_task_list");
 		{
 			$tax_add = $arr["request"]["bill_s_with_tax"];
 		}
-		$cg = $arr["request"]["currency_grouping"];
+		$cg = isset($arr["request"]["currency_grouping"]) ? $arr["request"]["currency_grouping"] : null;
 
-		$t =& $arr["prop"]["vcl_inst"];
-		if($_GET["get_all_customers_without_client_relation"])
+		$t = $arr["prop"]["vcl_inst"];
+		if(!empty($_GET["get_all_customers_without_client_relation"]))
 		{
 			$t = $arr["obj_inst"]->get_all_customers_without_client_relation();
 			return 1;
@@ -1543,13 +1519,13 @@ exit_function("bills_impl::_get_bill_task_list");
 
 		$this->_init_bills_list_t($t, $arr["request"]);
 
-		$d = get_instance("applications/crm/crm_data");
-		$bill_i = get_instance(CL_CRM_BILL);
-		$curr_inst = get_instance(CL_CURRENCY);
-		$co_stat_inst = get_instance("applications/crm/crm_company_stats_impl");
-		$pop = get_instance("vcl/popup_menu");
+		$d = new crm_data();
+		$bill_i = new crm_bill();
+		$curr_inst = new currency();
+		$co_stat_inst = new crm_company_stats_impl();
+		$pop = new popup_menu();
 
-		if ($arr["request"]["group"] == "bills_monthly")
+		if ($arr["request"]["group"] === "bills_monthly")
 		{
 			$bills = $d->get_bills_by_co($arr["obj_inst"], array("monthly" => 1));
 			$format = t('%s kuuarved');
@@ -1557,47 +1533,47 @@ exit_function("bills_impl::_get_bill_task_list");
 		else
 		{
 			$filt = array();
-			if($arr["request"]["st"] || $arr["request"]["timespan"] || $arr["request"]["bill_status"])
+			if(!empty($arr["request"]["st"]) || !empty($arr["request"]["timespan"]) || !empty($arr["request"]["bill_status"]))
 			{
 				$stuff = explode("_" , $arr["request"]["st"]);
 				switch($stuff[0])
 				{
 					case "prman":
 						$filt["project_mgr"] = $stuff[1];
-					break;
+						break;
 					case "mails":
 						return $this->_get_mails_list($arr);
-					break;
+						break;
 					case "custman":
 						$filt["client_mgr"] = $stuff[1];
-					break;
+						break;
 					case "cust":
 						$filt["customer"] = $stuff[1];
-					break;
+						break;
 
 					default:
-					if($arr["request"]["st"] > 1)
-					{
-						$filt["state"] = $arr["request"]["st"]-10;
-					}
+						if($arr["request"]["st"] > 1)
+						{
+							$filt["state"] = $arr["request"]["st"]-10;
+						}
 				}
 //				if(isset($stuff[2]))
 //				{
 //					$filt["state"] = $stuff[2];
 //				}
 
-				
 
-				if( $arr["request"]["bill_status"])
+
+				if(!empty($arr["request"]["bill_status"]))
 				{
 					$filt["state"] = $arr["request"]["bill_status"] - 10;
 				}
-				
-				if($arr["request"]["timespan"])
+
+				if(!empty($arr["request"]["timespan"]))
 				{
 					$filt["bill_date_range"] = $this->get_range($arr["request"]["timespan"]);
 				}
-				if(!isset($arr["request"]["timespan"]))
+				else
 				{
 					$filt["bill_date_range"] = array(
 						"from" => mktime(0,0,0, date("m"), 0, date("Y")),
@@ -1605,7 +1581,7 @@ exit_function("bills_impl::_get_bill_task_list");
 					);
 				}
 			}
-			elseif ($arr["request"]["bill_s_from"] == "")
+			elseif (empty($arr["request"]["bill_s_from"]))
 			{
 				// init default search opts
 				//$u = get_instance(CL_USER);
@@ -1619,10 +1595,11 @@ exit_function("bills_impl::_get_bill_task_list");
 			}
 			else
 			{
-				if ($arr["request"]["bill_s_cust"] != "")
+				if (!empty($arr["request"]["bill_s_cust"]))
 				{
 					$filt["customer"] = "%".$arr["request"]["bill_s_cust"]."%";
 				}
+
 				if($arr["request"]["bill_s_bill_no"] && $arr["request"]["bill_s_bill_to"])
 				{
 					$filt["bill_no"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $arr["request"]["bill_s_bill_no"] , $arr["request"]["bill_s_bill_to"], "int");
@@ -1638,14 +1615,17 @@ exit_function("bills_impl::_get_bill_task_list");
 //					$filt["bill_no"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $arr["request"]["bill_s_bill_to"], "","int");
 					$filt["bill_no"] = $arr["request"]["bill_s_bill_to"];
 				}
+
 				$filt["bill_date_range"] = array(
 					"from" => date_edit::get_timestamp($arr["request"]["bill_s_from"]),
 					"to" => date_edit::get_day_end_timestamp($arr["request"]["bill_s_to"])
 				);
+
 				if ($arr["request"]["bill_s_client_mgr"] != "")
 				{
 					$filt["client_mgr"] = "%".$arr["request"]["bill_s_client_mgr"]."%";
 				}
+
 				if($arr["request"]["bill_s_status"] == -6)
 				{
 					$filt["on_demand"] = 1;
@@ -1665,7 +1645,7 @@ exit_function("bills_impl::_get_bill_task_list");
 
 		$company_curr = $co_stat_inst->get_company_currency();
 
-		if ($arr["request"]["export_hr"] > 0)
+		if (isset($arr["request"]["export_hr"]) and $arr["request"]["export_hr"] > 0)
 		{
 			if (is_array($arr["request"]["bi"]) && count($arr["request"]["bi"]))
 			{
@@ -1676,10 +1656,9 @@ exit_function("bills_impl::_get_bill_task_list");
 		}
 
 		$sum_in_curr = $bal_in_curr = array();
-		$balance = 0;
+		$balance = $sum = $tax = 0;
 		foreach($bills->arr() as $bill)
 		{
-enter_function("bill::start");
 			$cust = "";
 			$cm = "";
 			$payments_total = 0;
@@ -1692,7 +1671,7 @@ enter_function("bill::start");
 			if ($arr["request"]["group"] == "bills_search")
 			{
 				$state = $bill_i->states[$bill->prop("state")];
-			}	
+			}
 			else
 			{
 				$state = html::select(array(
@@ -1702,8 +1681,8 @@ enter_function("bill::start");
 					"width" => 100,
 				));
 			}
-exit_function("bill::start");
-enter_function("bill::startcurr");
+
+
 			$cursum = $own_currency_sum = $bill->get_bill_sum(2);//$bill_i->get_bill_sum($bill,$tax_add);
 			$curid = $bill->get_bill_currency_id();
 			$cur_name = $bill->get_bill_currency_name();
@@ -1723,10 +1702,8 @@ enter_function("bill::startcurr");
 			{
 				$sum_str = number_format($own_currency_sum, 2);
 			}
-exit_function("bill::startcurr");
 
 
-enter_function("bill::tax");
 			$curtax = $own_currency_tax = $bill->get_bill_sum(3);//$bill_i->get_bill_sum($bill,$tax_add);
 			if($company_curr && $curid && ($company_curr != $curid))
 			{
@@ -1735,6 +1712,7 @@ enter_function("bill::tax");
 					"o" => $bill,
 				));
 			}
+
 			if($cg)//kliendi valuutas
 			{
 				$tax_str = number_format($curtax, 2)." ".$cur_name;
@@ -1743,12 +1721,8 @@ enter_function("bill::tax");
 			else//oma organisatsiooni valuutas
 			{
 				$tax_str = number_format($own_currency_tax, 2);
-			}//arr($tax_str);
+			}
 
-exit_function("bill::tax");
-
-
-enter_function("bill::start0");
 
 			$pop->begin_menu("bill_".$bill->id());
 			$pop->add_item(Array(
@@ -1775,7 +1749,7 @@ enter_function("bill::start0");
 				"bill_no" => html::get_change_url($bill->id(), array("return_url" => get_ru()), parse_obj_name($bill->prop("bill_no"))),
 				"create_new" => html::href(array(
 					"url" => $this->mk_my_orb("create_new_monthly_bill", array(
-						"id" => $bill->id(), 
+						"id" => $bill->id(),
 						"co" => $arr["obj_inst"]->id(),
 						"post_ru" => get_ru()
 						), CL_CRM_COMPANY),
@@ -1791,8 +1765,7 @@ enter_function("bill::start0");
 				"print" => $pop->get_menu(),
 				"tax" => $tax_str,
 			);
-exit_function("bill::start0");
-enter_function("bill::start1");
+
 			if($bill->prop("state") == 1)
 			{
 				$bill_data["payment_over_date"] = $bill->get_payment_over_date();
@@ -1802,7 +1775,7 @@ enter_function("bill::start1");
 					$bill_data["color"] = "#FF9999";
 				}
 			}
-exit_function("bill::start1");
+
 /*
 			//laekunud summa
 			if($payments_sum = $bill->get_payments_sum())
@@ -1815,13 +1788,13 @@ exit_function("bill::start1");
 			{
 				$bill_data["late"] = (int)((time() - $bill->prop("bill_due_date")) / (3600*24));
 			}
-			
+
 			//laekumiskuup2ev
 			if($payment_date = $bill->get_last_payment_date())
 			{
 				$bill_data["payment_date"] = $payment_date;
 			}
-*/			enter_function("bill::project_leaders");
+*/
 			$project_leaders = $bill->project_leaders();
 			if($project_leaders->count())
 			{
@@ -1834,14 +1807,14 @@ exit_function("bill::start1");
 					));
 				}
 				$bill_data["project_leader"] = join("<br>" , $pl_array);
-			}exit_function("bill::project_leaders");
-			enter_function("bill::balance");
-			if($arr["request"]["show_bill_balance"])
+			}
+
+			if(!empty($arr["request"]["show_bill_balance"]))
 			{
 				$curr_balance = $bill->get_bill_needs_payment();
 				if($company_curr && $curid && ($company_curr != $curid))
 				{
-					
+
 					$total_balance = $own_currency_sum;
 					foreach($bill->connections_from(array("type" => "RELTYPE_PAYMENT")) as $conn)
 					{
@@ -1878,7 +1851,7 @@ exit_function("bill::start1");
 				$balance += $total_balance;
 //				$bill_data["balance"] = number_format($bill_data["balance"], 2);
 			}
-exit_function("bill::balance");
+
 			$t->define_data($bill_data);
 			// number_format here to round the number the same way in the add, so the sum is correct
 			$sum+= number_format($own_currency_sum,2,".", "");
@@ -1924,7 +1897,7 @@ exit_function("bill::balance");
 		{
 			$final_dat["tax"] = "<b>".number_format($tax, 2)."</b>";
 			$final_dat["sum"] = "<b>".number_format($sum, 2)."</b>";
-			if($arr["request"]["show_bill_balance"])
+			if(!empty($arr["request"]["show_bill_balance"]))
 			{
 				$final_dat["balance"] .= "<b>".number_format($balance, 2)."</b><br>";
 			}
@@ -1938,7 +1911,7 @@ exit_function("bill::balance");
 			0 => t("K&auml;ibemaksuta"),
 			1 => t("K&auml;ibemaksuga"),
 		);
-		if($arr["request"]["bill_s_with_tax"] == "")
+		if(empty($arr["request"]["bill_s_with_tax"]))
 		{
 			$arr["prop"]["value"] = 1;
 		}
@@ -1951,20 +1924,8 @@ exit_function("bill::balance");
 
 	function _get_bill_s_client_mgr($arr)
 	{
-		if ($arr["request"]["bill_s_from"] == "")
-		{
-//			$u = get_instance(CL_USER);
-//			$p = obj($u->get_current_person());
-//
-//			if($p->is_cust_mgr())
-//			{
-//				$v = $p->name();
-//			}
-		}
-		else
-		{
-			$v = $arr["request"]["bill_s_client_mgr"];
-		}
+		$v = empty($arr["request"]["bill_s_client_mgr"]) ? null : $arr["request"]["bill_s_client_mgr"];
+
 		$tt = t("Kustuta");
 		$arr["prop"]["value"] = html::textbox(array(
 			"name" => "bill_s_client_mgr",
@@ -1976,9 +1937,9 @@ exit_function("bill::balance");
 
 	function _get_bill_s_status($arr)
 	{
-		$b = get_instance(CL_CRM_BILL);
+		$b = new crm_bill();
 		$arr["prop"]["options"] = array("-1" => "") + $b->states + array("-6" => t("Sissen&otilde;udmisel"));
-		if ($arr["request"]["bill_s_from"] == "")
+		if (empty($arr["request"]["bill_s_from"]))
 		{
 			$arr["prop"]["value"] = -1;
 		}
@@ -1990,25 +1951,17 @@ exit_function("bill::balance");
 
 	function _get_billable_start($arr)
 	{
-		$arr["prop"]["value"] = $arr["request"]["billable_start"];
-		if(!$arr["prop"]["value"])
-		{
-			$arr["prop"]["value"] = mktime(0,0,0, (date("m" , time()) - 1),1 ,date("Y" , time()));
-		}
+		$arr["prop"]["value"] = empty($arr["request"]["billable_start"]) ? mktime(0,0,0, (date("m" , time()) - 1),1 ,date("Y" , time())) : $arr["request"]["billable_start"];
 	}
 
 	function _get_billable_end($arr)
 	{
-		$arr["prop"]["value"] = $arr["request"]["billable_end"];
-		if(!$arr["prop"]["value"])
-		{
-			$arr["prop"]["value"] = mktime(-1,0,0, date("m" , time()),1 ,date("Y" , time()));
-		}
+		$arr["prop"]["value"] = empty($arr["request"]["billable_end"]) ? mktime(-1,0,0, date("m" , time()),1 ,date("Y" , time())) : $arr["request"]["billable_end"];
 	}
 
 	function _get_bills_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			'name' => 'new',
 			'img' => 'new.gif',
@@ -2072,7 +2025,7 @@ exit_function("bill::balance");
 
 	function _get_bills_mon_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			'name' => 'save',
 			'img' => 'save.gif',
@@ -2090,7 +2043,7 @@ exit_function("bill::balance");
 
 	function _get_bs_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "create_bill",
 			"tooltip" => t("Loo arve"),
@@ -2216,7 +2169,7 @@ exit_function("bill::balance");
 			$brow[] = 0;						// 0 (teadmata - vaikevaartus 0)
 			$brow[] = $penalty;					// 0,00 (teadmata - vaikevaartus 0,00) viivis
 			$brow[] = "";
-			$brow[] = $payment_mode?$payment_mode:1;//1;		// 1 (teadmata - vaikev22rtus 1) 
+			$brow[] = $payment_mode?$payment_mode:1;//1;		// 1 (teadmata - vaikev22rtus 1)
 			$brow[] = "";
 			$brow[] = $rfn;						// OBJEKT (kasutaja eesnimi suurte tahtedega, nt TEDDI)
 			$brow[] = "";
@@ -2288,12 +2241,12 @@ exit_function("bill::balance");
 			// payment row
 			$pr = array();
 			$pr[] = "0,00";	// (teadmata - vaikevaartus 0,00)
-//			$pr[] = str_replace(".", ",", round($i->get_bill_sum($b,BILL_SUM_WO_TAX)*2.0+0.049,1)/2.0);		// 33492,03 (summa kaibemaksuta)
-			$pr[] = str_replace(".", ",", $i->get_bill_sum($b,BILL_SUM_WO_TAX));		// 33492,03 (summa kaibemaksuta)
+//			$pr[] = str_replace(".", ",", round($i->get_bill_sum($b,crm_bill_obj::BILL_SUM_WO_TAX)*2.0+0.049,1)/2.0);		// 33492,03 (summa kaibemaksuta)
+			$pr[] = str_replace(".", ",", $i->get_bill_sum($b,crm_bill_obj::BILL_SUM_WO_TAX));		// 33492,03 (summa kaibemaksuta)
 
 			$pr[] = "";
-			$pr[] = str_replace(".", ",", round($i->get_bill_sum($b,BILL_SUM_TAX)*2.0+0.049,1)/2.0);		// 6028,57 (kaibemaks)
-			$pr[] = str_replace(".", ",", round($i->get_bill_sum($b,BILL_SUM)*2.0+0.049,1)/2.0);		// 39520,60 (Summa koos kaibemaksuga)
+			$pr[] = str_replace(".", ",", round($i->get_bill_sum($b,crm_bill_obj::BILL_SUM_TAX)*2.0+0.049,1)/2.0);		// 6028,57 (kaibemaks)
+			$pr[] = str_replace(".", ",", round($i->get_bill_sum($b,crm_bill_obj::BILL_SUM)*2.0+0.049,1)/2.0);		// 39520,60 (Summa koos kaibemaksuga)
 			$pr[] = "";
 			$pr[] = "";
 			$pr[] = "";
@@ -2319,12 +2272,12 @@ exit_function("bill::balance");
 			$pr[] = "0";	// (teadmata - vaikevaartus 0)
 			$pr[] = "";
 
-			$sum = round(str_replace(",", ".", $i->get_bill_sum($b,BILL_SUM))*2.0+0.049,1)/2.0;
+			$sum = round(str_replace(",", ".", $i->get_bill_sum($b,crm_bill_obj::BILL_SUM))*2.0+0.049,1)/2.0;
 			$pr[] = str_replace(".", ",", $sum);	//39520,60 (Summa koos kaibemaksuga)
 			$pr[] = "";
 			$pr[] = "";
 			$pr[] = "";
-			$pr[] = str_replace(".", ",", $i->get_bill_sum($b,BILL_SUM_WO_TAX));		// 33492,03 (summa kaibemaksuta)
+			$pr[] = str_replace(".", ",", $i->get_bill_sum($b,crm_bill_obj::BILL_SUM_WO_TAX));		// 33492,03 (summa kaibemaksuta)
 			$pr[] = "0";	// (teadmata - vaikevaartus 0)
 			$pr[] = "0";	//  (teadmata - vaikevaartus 0)
 			$pr[] = "";
@@ -2338,7 +2291,7 @@ exit_function("bill::balance");
 			$pr[] = "";
 			$pr[] =	"0";	// (teadmata - vaikevaartus 0)
 			$pr[] = "";
-			//$pr[] = str_replace(".", ",", $i->get_bill_sum($b, BILL_AMT)); //77,00 (kogus kokku)
+			//$pr[] = str_replace(".", ",", $i->get_bill_sum($b, crm_bill_obj::BILL_AMT)); //77,00 (kogus kokku)
 			$pr[] = "";
 			$pr[] = "";	// (teadmata - vaikevaartus 0,00)
 			$pr[] = "";	// (teadmata - vaikevaartus 0,00)
@@ -2526,7 +2479,7 @@ exit_function("bill::balance");
 		$comments = array();
 		if (count($row["persons"]) == 0 && $this->can("view", $b->prop("customer")))
 		{
-			$cc = get_instance(CL_CRM_COMPANY);
+			$cc = new crm_company();
 			$crel = $cc->get_cust_rel(obj($b->prop("customer")));
 			if (!$crel)
 			{
@@ -2561,14 +2514,14 @@ exit_function("bill::balance");
 		}
 		return $s;
 	}
-	
+
 	function get_billable_bugs($r)
 	{
 
 /*
 		//viimase 2 kuu bugid muudab 2ra
 		$ol = new object_list(array(
-			"class_id" => CL_BUG_COMMENT, 
+			"class_id" => CL_BUG_COMMENT,
 			"created" => new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, (time() - 3600*24*60)),
 		));
 		arr(sizeof($ol->ids()));
@@ -2676,7 +2629,7 @@ exit_function("bill::balance");
 			$ret = 	"<script type='text/javascript'>window.close();</script>";
 			die($ret);
 		}
-	
+
 		if(!$this->can("view" , $arr["id"]))
 		{
 			die(t("Bugi id puudu..."));
@@ -2694,7 +2647,6 @@ exit_function("bill::balance");
 			die(t("Valitud bugil pole arvele minevaid kommentaare..."));
 		}
 
-		get_instance("vcl/table");
 		$t = new vcl_table();
 
 
@@ -2715,7 +2667,7 @@ exit_function("bill::balance");
 			"field" => "oid",
 			"name" => "sel"
 		));
-		
+
 		foreach($comments->arr() as $comment)
 		{
 			$capt = substr($comment->prop("content"), 0 , 300);
@@ -2727,8 +2679,8 @@ exit_function("bill::balance");
 				"oid" => $comment->id(),
 			));
 		}
-		
-		$h = get_instance("cfg/htmlclient");
+
+		$h = new htmlclient();
 		$h->start_output();
 
 		$table_prop = array("type" => "text" , "no_caption" => "1" , "value" =>$t->draw());
@@ -2766,7 +2718,7 @@ exit_function("bill::balance");
 
 	private function get_time_between($r)
 	{
-		if(!$r["billable_start"])
+		if(empty($r["billable_start"]))
 		{
 			$r["billable_start"] = mktime(0,0,0, (date("m" , time()) - 1),1 ,date("Y" , time()));
 		}
@@ -2775,7 +2727,7 @@ exit_function("bill::balance");
 			$r["billable_start"] = date_edit::get_timestamp($r["billable_start"]);
 		}
 
-		if(!$r["billable_end"])
+		if(empty($r["billable_end"]))
 		{
 			$r["billable_end"] = mktime(-1,0,0, date("m" , time()),1 ,date("Y" , time()));
 		}
@@ -2800,11 +2752,9 @@ exit_function("bill::balance");
 
 	function _get_bills_stats_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "bill_status";
 		$tv->set_selected_item(isset($arr["request"][$var]) ? $arr["request"][$var] : "all_stats");
-
-		classload("core/icons");
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -2827,7 +2777,14 @@ exit_function("bill::balance");
 		$count = array();
 		foreach($t->list_data as $data)
 		{
-			$count[$data["state"]]++;
+			if (!isset($count[$data["state"]]))
+			{
+				$count[$data["state"]] = 1;
+			}
+			else
+			{
+				++$count[$data["state"]];
+			}
 		}
 
 		$tv->add_item(0,array(
@@ -2841,7 +2798,7 @@ exit_function("bill::balance");
 		{
 			$tv->add_item("all_stats", array(
 				"id" => "".($id+10)."",
-				"name" => $caption.($count[$id]? " (".$count[$id].")" : ""),
+				"name" => $caption.(empty($count[$id]) ? "" : " (".$count[$id].")"),
 				"url" => aw_url_change_var(array(
 					$var => ($id+10),
 				)),
@@ -2857,40 +2814,43 @@ exit_function("bill::balance");
 			"lang_id" => array(),
 			"site_id" => array(),
 		);
-		$stuff = explode("_" , $arr["request"]["st"]);
+
+		$stuff = empty($arr["request"]["st"]) ?  array("default") : explode("_" , $arr["request"]["st"]);
 		switch($stuff[0])
 		{
 			case "prman":
 				$filter["RELTYPE_PROJECT.proj_mgr"] = $stuff[1];
-			break;
+				break;
 			case "custman":
 				$filter["customer.client_mgr"] = $stuff[1];
-			break;
+				break;
 			case "cust":
 				$filter["customer"] = $stuff[1];
-			break;
-				default:
-				if($arr["request"]["st"] > 1)
+				break;
+			default:
+				if(isset($arr["request"]["st"]) and $arr["request"]["st"] > 1)
 				{
 					$filter["state"] = $arr["request"]["st"]-10;
 				}
 		}
-		if( $arr["request"]["bill_status"])
+
+		if(!empty($arr["request"]["bill_status"]))
 		{
 			$filter["state"] = $arr["request"]["bill_status"] - 10;
 		}
-		
-		if($arr["request"]["timespan"])
+
+		if(!empty($arr["request"]["timespan"]))
 		{
 			$bill_date_range = $this->get_range($arr["request"]["timespan"]);
 		}
-		if(!isset($arr["request"]["timespan"]))
+		else
 		{
 			$bill_date_range = array(
 				"from" => mktime(0,0,0, date("m"), 0, date("Y")),
 				"to" => mktime(0,0,0, date("m")+1, 0, date("Y")),
 			);
 		}
+
 		if(is_array($bill_date_range))
 		{
 			$filter["bill_date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $bill_date_range["from"], $bill_date_range["to"]);
@@ -2900,7 +2860,7 @@ exit_function("bill::balance");
 
 	function _get_bills_time_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "timespan";
 		$tv->set_selected_item(isset($arr["request"][$var]) ? $arr["request"][$var] : "period_current");
 
@@ -2940,7 +2900,7 @@ exit_function("bill::balance");
 
 	function _get_bills_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "st";
 
 		if(!isset($_GET[$var]))
@@ -2954,9 +2914,10 @@ exit_function("bill::balance");
 				$_GET[$var] = 10;
 			}
 		}
-		classload("core/icons");
 
-		$bills_data = $this->all_bills_data($arr["request"]["timespan"] , $arr["request"]["bill_status"] - 10);
+		$timespan = isset($arr["request"]["timespan"]) ? $arr["request"]["timespan"] : null;
+		$bill_status = isset($arr["request"]["bill_status"]) ? $arr["request"]["bill_status"] : null;
+		$bills_data = $this->all_bills_data($timespan, $bill_status - 10);
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -2972,7 +2933,7 @@ exit_function("bill::balance");
 			"url" => aw_url_change_var($var, null),
 		));
 
-		$bills_inst = get_instance(CL_CRM_BILL);
+		$bills_inst = new crm_bill();
 		$states = $bills_inst->states;
 
 
@@ -2988,12 +2949,12 @@ exit_function("bill::balance");
 			"overtolerance" => t("Laekumata &uuml;le tolerantsi"),
 			"all" => t("Laekumata kokku"),
 		);
-/* 
-b) 
+/*
+b)
 (alla kuvab kliendtide nimekirja, kus kliendi nime j2rel sulus on vastav arvete arv)
-c) 
+c)
 (vt. punkt b)
-d) 
+d)
 */
 /*		$bill_mails = $this->get_bill_mails(array(
 			"state" => 1,
@@ -3032,15 +2993,22 @@ d)
 
 			$bills_data = $this->all_bills_data($id);
 			$pm_statuses = array();
+
 			foreach($bills_data as $bd)
 			{
-				$pm_statuses[$bd["state"]] ++;
+				if (!isset($pm_statuses[$bd["state"]]))
+				{
+					$pm_statuses[$bd["state"]] = 0;
+				}
+
+				++$pm_statuses[$bd["state"]];
 			}
+
 			if(array_sum($pm_statuses))
 			{
 				$name = $name." (".array_sum($pm_statuses).")";
 			}
-			if (isset($_GET[$var]) && $_GET[$var] == "prman_".$id)
+			if (isset($_GET[$var]) && $_GET[$var] === "prman_".$id)
 			{
 				$name = "<b>".$name."</b>";
 			}
@@ -3061,7 +3029,7 @@ d)
 					{
 						$name = "<b>".$name."</b>";
 					}
-		
+
 					$tv->add_item("prman".$id,array(
 						"name" => $name,
 						"id" => "prman_".$id."_".$status,
@@ -3360,24 +3328,22 @@ d)
 	private function all_bills_data($filt = null , $stat = null)
 	{
 		$filter = array(
-			"class_id" => CL_CRM_BILL,
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => CL_CRM_BILL
 		);
 
 		if(is_oid($filt))
 		{
 			$filter["CL_CRM_BILL.RELTYPE_PROJECT.proj_mgr"] = $filt;
 		}
-		elseif($filt == "period_last")
+		elseif($filt === "period_last")
 		{
 			$filter["bill_date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, mktime(0,0,0, date("m")-1, 0, date("Y")), mktime(0,0,0, date("m"), 0, date("Y")));
 		}
-		elseif($filt == "period_current")
+		elseif($filt === "period_current")
 		{
 			$filter["bill_date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, mktime(0,0,0, date("m"), 0, date("Y")), mktime(0,0,0, date("m")+1, 0, date("Y")));
 		}
-		elseif($filt == "period_next")
+		elseif($filt === "period_next")
 		{
 			$filter["bill_date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, mktime(0,0,0, date("m")+1, 0, date("Y")), mktime(0,0,0, date("m")+2, 0, date("Y")));
 		}
@@ -3410,7 +3376,7 @@ d)
 			"lang_id" => array(),
 			"parent" => $arr["bills"],
 		);
-		
+
 		$t = new object_data_list(
 			$filter,
 			array(
@@ -3573,7 +3539,7 @@ d)
 //					)),
 				));
 			}
-			
+
 		}
 
 	}

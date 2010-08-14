@@ -817,8 +817,6 @@ class messenger_v2 extends class_base
 
 		if (!$this->connected || $arr["force_reconnect"])
 		{
-			global $awt;
-
 			if (!extension_loaded("imap"))
 			{
 				$this->connect_errors = t("IMAP extension not available");
@@ -843,7 +841,6 @@ class messenger_v2 extends class_base
 			$this->drv_inst = get_instance("protocols/mail/imap");
 			$this->drv_inst->set_opt("use_mailbox",$this->use_mailbox);
 			$this->drv_inst->set_opt("outbox",$this->outbox);
-			$awt->start("imap-server-connect");
 			$errors = $this->drv_inst->connect_server(array(
 				"obj_inst" => $_sdat->to(),
 				"arr" => $arr,
@@ -853,7 +850,6 @@ class messenger_v2 extends class_base
 				$this->connect_errors = $errors;
 				return false;
 			}
-			$awt->stop("imap-server-connect");
 			$this->drv_inst->set_opt("messenger_id",$arr["msgr_id"]);
 
 			$this->mbox = $this->drv_inst->get_opt("mbox");
@@ -867,14 +863,13 @@ class messenger_v2 extends class_base
 			{
 				$msg_cfg_obj = new object($msg_cfg);
 				$this->perpage = $msg_cfg_obj->prop("msgs_on_page");
-			};
-			$awt->start("imap-list-folders");
+			}
+
 			if (!$arr["no_folders"])
 			{
 				$this->mailboxlist = $this->drv_inst->list_folders();
-			};
-			$awt->stop("imap-list-folders");
-		};
+			}
+		}
 		return true;
 	}
 
@@ -972,14 +967,11 @@ class messenger_v2 extends class_base
 	**/
 	function gen_message_list(&$arr)
 	{
-		global $awt;
-		$awt->start("msgr::gen_message_list/connect_server");
 		$this->_connect_server(array(
 			"msgr_id" => $arr["obj_inst"]->id(),
 			"no_folders" => true,
 			"gen_mess_list_srat" => "1",
 		));
-		$awt->stop("msgr::gen_message_list/connect_server");
 
 		if ($this->connect_errors)
 		{
@@ -991,9 +983,6 @@ class messenger_v2 extends class_base
 
 		$ft_page = (int)$arr["request"]["ft_page"];
 
-		global $awt;
-		$awt->start("msgr::gen_message_list/list-folder-contents");
-		$awt->count("msgr::gen_message_list/list-folder-contents");
 		$contents = $this->drv_inst->get_folder_contents(array(
 			"to" => ($perpage * ($ft_page + 1)) - 1,
 			"from" => $perpage * $ft_page,
@@ -1047,7 +1036,6 @@ class messenger_v2 extends class_base
 			}
 			$t->set_header("<div width=\"100%\" align=\"right\">".join("&nbsp;", $ps)."</div>");
 		}
-		$awt->stop("msgr::gen_message_list/list-folder-contents");
 
 		$this->_mk_mb_table($t, $arr["obj_inst"]);
 
@@ -1066,7 +1054,6 @@ class messenger_v2 extends class_base
 			));
 		}
 
-		$awt->start("msgr::gen_message_list/loop-over-contents");
 		foreach($contents as $key => $message)
 		{
 			if($grouping)
@@ -1124,9 +1111,7 @@ class messenger_v2 extends class_base
 				"attach" => $message["has_attachments"] ? html::img(array("url" => $this->cfg["baseurl"] . "/automatweb/images/attach.gif")) : "",
 			));
 
-		};
-		$awt->stop("msgr::gen_message_list/loop-over-contents");
-
+		}
 
 		$t->set_default_sortby("date");
 		$t->set_default_sorder("desc");

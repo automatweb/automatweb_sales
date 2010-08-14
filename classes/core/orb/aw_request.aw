@@ -318,7 +318,11 @@ class aw_request
 
 	public function parse_args()
 	{ //!!! "restore previous application" on vaja ka teaostada, sest n2iteks kui k2iakse teises applicationis ja minnakse tagasi eelmisest avatud allobjektile, on application vale
-		$this->_is_fastcall = !empty($this->_args["fastcall"]);
+		if (!empty($this->_args["fastcall"]))
+		{
+			$this->_is_fastcall = true;
+			aw_global_set("no_db_connection", 1);
+		}
 		// no name validation because requests can be formed and sent to other servers where different classes, methods, etc. defined
 		// $this->_class = empty($this->_args["class"]) ? self::DEFAULT_CLASS : $this->_args["class"];
 		// $this->_action = empty($this->_args["action"]) ? self::DEFAULT_ACTION : $this->_args["action"];

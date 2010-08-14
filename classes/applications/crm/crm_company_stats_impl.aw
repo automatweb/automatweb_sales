@@ -29,7 +29,7 @@ class crm_company_stats_impl extends class_base
 
 
 	function _get_project_mgr($arr)
-	{//arr($arr); die();
+	{
 		$c = get_instance(CL_CRM_COMPANY);
 		$arr["prop"]["options"] = $c->get_employee_picker($arr["obj_inst"], true);
 		$arr["prop"]["value"] = $arr["request"]["stats_s_worker_sel"];
@@ -93,7 +93,7 @@ class crm_company_stats_impl extends class_base
 
 	function _init_stats_s_res_t($t, $req)
 	{
-		if ($req["stats_s_res_type"] == "cust")
+		if ($req["stats_s_res_type"] === "cust")
 		{
 			$t->define_field(array(
 				"name" => "cust",
@@ -102,7 +102,7 @@ class crm_company_stats_impl extends class_base
 			));
 		}
 		else
-		if ($req["stats_s_res_type"] == "proj")
+		if ($req["stats_s_res_type"] === "proj")
 		{
 			$t->define_field(array(
 				"name" => "cust",
@@ -117,7 +117,7 @@ class crm_company_stats_impl extends class_base
 			));
 		}
 		else
-		if ($req["stats_s_res_type"] == "task")
+		if ($req["stats_s_res_type"] === "task")
 		{
 			$t->define_field(array(
 				"name" => "cust",
@@ -195,7 +195,7 @@ class crm_company_stats_impl extends class_base
 			"align" => "center"
 		));
 
-		if ($req["stats_s_res_type"] == "task")
+		if ($req["stats_s_res_type"] === "task")
 		{
 			$t->define_field(array(
 				"name" => "payment_over_date",
@@ -204,7 +204,7 @@ class crm_company_stats_impl extends class_base
 			));
 		}
 
-		if ($req["stats_s_res_type"] != "pers" && $req["stats_s_res_type"] != "task")
+		if ($req["stats_s_res_type"] !== "pers" && $req["stats_s_res_type"] !== "task")
 		{
 			$t->define_field(array(
 				"name" => "otherexp",
@@ -226,7 +226,7 @@ class crm_company_stats_impl extends class_base
 		// get all persons from company
 		$u = get_instance(CL_USER);
 		$slaves = array();
-		$c = get_instance(CL_CRM_COMPANY);
+		$c = new crm_company();
 		$c->get_all_workers_for_company($arr["obj_inst"], $slaves);
 
 		if (is_array($arr["request"]["stats_s_worker_sel"]))
@@ -508,12 +508,11 @@ class crm_company_stats_impl extends class_base
 
 	function hours_format($num)
 	{
-		enter_function("stats::hours_format");
 //		$num = number_format($num, 3 , ',', '');
 		$num = round($num , 4);
 		$xnum = explode("." , $num);
 
-		if(!($xnum[1] > 0))
+		if(!isset($xnum[1]) or !($xnum[1] > 0))
 		{
 			$xnum[1] = "00";
 		}
@@ -526,13 +525,11 @@ class crm_company_stats_impl extends class_base
 			$xnum[1] = substr($xnum[1] , 0 , 4);
 		}
 		$num = join("," , $xnum);
-		exit_function("stats::hours_format");
 		return $num;
 	}
 
 	function _get_tasks_from_search($r)
 	{
-		enter_function("stats::task_search");
 		$this->tasksearchstart = microtime();
 		$filt = array(
 			"class_id" => CL_TASK,
@@ -597,10 +594,10 @@ class crm_company_stats_impl extends class_base
 		{
 			$filt["CL_TASK.project.name"] = map("%%%s%%", explode(",", $r["stats_s_proj"]));
 		}
-//arr($r["stats_s_from"]);
+
 		$r["stats_s_from"] = date_edit::get_timestamp($r["stats_s_from"]);
 		$r["stats_s_to"] = date_edit::get_timestamp($r["stats_s_to"]);
-//arr(date("j.m H:i" , $r["stats_s_from"]));
+
 		if ($r["stats_s_time_sel"] != "")
 		{
 			classload("core/date/date_calc");
@@ -744,17 +741,9 @@ class crm_company_stats_impl extends class_base
 
 		if (is_array($filt["oid"]) && count($filt["oid"])== 0)
 		{
-			exit_function("stats::task_search");
 			return new object_list();
 		}
 		$ol = new object_list($filt);
-		if($_GET["debug"])
-		{
-			list($usec, $sec) = explode(" ", $this->tasksearchstart);
-			list($usec2, $sec2) = explode(" ", microtime());
-			arr("taskide otsing: " . ($sec2 - $sec).",".($usec2 - $usec));
-		}
-		exit_function("stats::task_search");
 		return $ol;
 	}
 
@@ -1747,23 +1736,22 @@ ini_set("memory_limit", "1500M");
 	public function search_bills($r)
 	{
 		$filter = array(
-			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"class_id" => CL_CRM_BILL
 		);
-		if($r["between"])
+
+		if(!empty($r["between"]))
 		{
 			$filter["CL_CRM_BILL.bill_date"] = $r["between"];
 		}
 		else
 		{
-			if(is_array($r["stats_s_from"]) || is_array($r["stats_s_to"]))
+			if(isset($r["stats_s_from"]) && is_array($r["stats_s_from"]) || isset($r["stats_s_to"]) && is_array($r["stats_s_to"]))
 			{
 				$r["stats_s_from"] = date_edit::get_timestamp($r["stats_s_from"]);
 				$r["stats_s_to"] = date_edit::get_timestamp($r["stats_s_to"]);
 			}
 
-			if ($r["stats_s_time_sel"] != "")
+			if (!empty($r["stats_s_time_sel"]))
 			{
 				classload("core/date/date_calc");
 				switch($r["stats_s_time_sel"])
@@ -1794,31 +1782,32 @@ ini_set("memory_limit", "1500M");
 						break;
 				}
 			}
-			if($r["stats_s_from"] == -1)
+
+			if(isset($r["stats_s_from"]) && $r["stats_s_from"] == -1)
 			{
 				$r["stats_s_from"] = 0;//et aegade algusest
 			}
-			if($r["stats_s_to"] == -1)
+
+			if(isset($r["stats_s_to"]) && $r["stats_s_to"] == -1)
 			{
 				$r["stats_s_to"] = 991154552400;//suht suva suur number
 			}
 
-			if ($r["stats_s_from"] > 1 && $r["stats_s_to"])
+			if (isset($r["stats_s_from"]) && $r["stats_s_from"] > 1 && !empty($r["stats_s_to"]))
 			{
 				$filter["CL_CRM_BILL.bill_date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN, ($r["stats_s_from"] - 1), ($r["stats_s_to"] + 86399));
 			}
-			else
-			if ($r["stats_s_from"] > 1)
+			elseif (isset($r["stats_s_from"]) && $r["stats_s_from"] > 1)
 			{
 				$filter["CL_CRM_BILL.bill_date"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $r["stats_s_from"]-1);
 			}
-			else
-			if ($r["stats_s_to"])
+			elseif (!empty($r["stats_s_to"]))
 			{
 				$filter["CL_CRM_BILL.bill_date"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, ($r["stats_s_to"]+ 86399));
 			}
 		}
-		if ($r["stats_s_cust"] != "")
+
+		if (!empty($r["stats_s_cust"]))
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
@@ -1829,46 +1818,46 @@ ini_set("memory_limit", "1500M");
 			));
 		}
 
-		if ($r["stats_s_cust_type"] != "")
+		if (!empty($r["stats_s_cust_type"]))
 		{
 			$filter["CL_CRM_BILL.customer.class_id"] = $r["stats_s_cust_type"];
 		}
 
-		if($r["stats_s_proj"] != "")
+		if (!empty($r["stats_s_proj"]))
 		{
 			$filter["CL_CRM_BILL.RELTYPE_TASK.project.name"] = "%".$r["stats_s_proj"]."%";
 		}
 
-		if($r["stats_s_state"] != "")
+		if (!empty($r["stats_s_state"]))
 		{
-			if($r["stats_s_state"] == "done")
+			if($r["stats_s_state"] === "done")
 			{
 				$filter["CL_CRM_BILL.RELTYPE_TASK.is_done"] = 1;
 			}
-			if($r["stats_s_state"] == "not_done")
+			if($r["stats_s_state"] === "not_done")
 			{
 				$filter["CL_CRM_BILL.RELTYPE_TASK.is_done"] = 0;
 			}
 		}
 
 		//valdkond
-		if ($r["stats_s_area"] != "")
+		if (!empty($r["stats_s_area"]))
 		{
 			$filter["CL_CRM_BILL.RELTYPE_TASK.project.RELTYPE_TYPE"] = $r["stats_s_area"];
 		}
 
 		//arve staatus
-		if($r["stats_s_bill_state"] != "" && ($r["stats_s_bill_state"] >= 0 || $r["stats_s_bill_state"] == -5))
+		if(!empty($r["stats_s_bill_state"]) && ($r["stats_s_bill_state"] >= 0 || $r["stats_s_bill_state"] == -5))
 		{
 			$filter["CL_CRM_BILL.state"] = $r["stats_s_bill_state"];
 		}
 
-		if($r["stats_s_bill_state"] == -6)//sisse n6udmisel
+		if(isset($r["stats_s_bill_state"]) && $r["stats_s_bill_state"] == -6)//sisse n6udmisel
 		{
 			$filter["CL_CRM_BILL.on_demand"] = 1;
 		}
 
-		if ($r["stats_s_bill_state"] == -4)//yle t2htaja...
+		if (isset($r["stats_s_bill_state"]) && $r["stats_s_bill_state"] == -4)//yle t2htaja...
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
@@ -1892,15 +1881,16 @@ ini_set("memory_limit", "1500M");
 		}
 
 		//t88taja
-		if(is_array($r["stats_s_worker_sel"]) || $r["stats_s_worker"])//kliendihalduri j2rgi
+		if(isset($r["stats_s_worker_sel"]) and is_array($r["stats_s_worker_sel"]) or !empty($r["stats_s_worker"]))//kliendihalduri j2rgi
 		{
-			$pf = array("class_id" => CL_CRM_PERSON, "lang_id" => array(), "site_id" => array());
+			$pf = array("class_id" => CL_CRM_PERSON);
 
-			if($r["stats_s_worker"])
+			if(!empty($r["stats_s_worker"]))
 			{
 				$pf["name"] = "%".$r["stats_s_worker"]."%";
 			}
-			if(is_array($r["stats_s_worker_sel"]))
+
+			if(isset($r["stats_s_worker_sel"]) and is_array($r["stats_s_worker_sel"]))
 			{
 				$pf["oid"] = $r["stats_s_worker_sel"];
 			}
@@ -3467,6 +3457,7 @@ ini_set("memory_limit", "1500M");
 			}
 			$partial = "";
 			if($bill->prop("state") == 3 && $bill->prop("partial_recieved") && $bill->prop("partial_recieved") < $cursum) $partial = '<br>'.t("osaliselt");
+
 			$t->define_data(array(
 				"bill_no" => html::get_change_url($bill->id(), array("return_url" => get_ru()), parse_obj_name($bill->prop("bill_no"))),
 				"bill_date" => $bill->prop("bill_date"),
@@ -3554,17 +3545,18 @@ ini_set("memory_limit", "1500M");
 			"class_id" => CL_BUG,
 			"lang_id" => array(),
 			"site_id" => array(),
-			"limit" => 1,
+			"limit" => 1
 		);
 
 		$t = new object_data_list(
 			$filter,
 			array(
-				CL_BUG =>  array(new obj_sql_func(OBJ_SQL_COUNT,"cnt" , "*"))
+				CL_BUG =>  array(new obj_sql_func(OBJ_SQL_COUNT, "cnt" , "*"))
 			)
 		);
 
-		$count = reset($t->arr());
+		$bug_data = $t->arr();
+		$count = reset($bug_data);
 		return $count["cnt"];
 	}
 
@@ -3578,6 +3570,7 @@ ini_set("memory_limit", "1500M");
 	function _get_stats_stats_tb($arr)
 	{
 	}
+
 	function _get_stats_tree($arr)
 	{
 		$tv = $arr["prop"]["vcl_inst"];
@@ -3698,7 +3691,7 @@ ini_set("memory_limit", "1500M");
 		}
 		$between = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING,$start, $end);
 
-		$c = &$arr["prop"]["vcl_inst"];
+		$c = $arr["prop"]["vcl_inst"];
 		$c->set_type(GCHART_PIE_3D);
 		$c->set_size(array(
 			"width" => 400,

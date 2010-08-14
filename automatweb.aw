@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo maintainer=voldemar
-*/
 
 // get aw directory and file extension
 $__FILE__ = __FILE__;//!!! to check if works with zend encoder (__FILE__)
@@ -28,6 +25,7 @@ class automatweb
 	const MODE_DBG = 2;
 	const MODE_PRODUCTION = 4;
 	const MODE_REASONABLE = 8;
+	const MODE_DBG_EXTENDED = 16;
 
 	private $mode; // current mode
 	private $request_loaded = false; // whether request is loaded or only empty initialized
@@ -124,6 +122,13 @@ class automatweb
 		// start aw
 		++self::$current_instance_nr;
 		$aw = new automatweb();
+		_aw_global_init();//TODO: viia aw instantsi sisse ___aw_globals
+
+		if (!session_id())
+		{
+			self::start_session();
+		}
+
 		$request = new aw_request();
 		$result = new aw_resource();
 		self::$instance_data[self::$current_instance_nr] = array(
@@ -135,6 +140,33 @@ class automatweb
 		self::$instance = $aw;
 		self::$request = $request;
 		self::$result = $result;
+
+		// For quick debugging -kaarel 14.05.2009
+		// Hannes will add this to his AW Mozilla add-on, so debugging will be SO much easier!
+		if(!empty($_COOKIE["manual_automatweb_mode"]))
+		{
+			$mode_id = constant("self::MODE_".$_COOKIE["manual_automatweb_mode"]);
+			if($mode_id !== NULL)
+			{
+				$aw->mode($mode_id);
+			}
+		}
+	}
+
+	private function start_session()
+	{
+		ini_set("session.save_handler", "files");
+		session_name("automatweb");
+		session_start();
+
+		if (is_array($_SESSION))
+		{
+			foreach($_SESSION as $k => $v)
+			{
+				aw_global_set($k,$v);
+			}
+		}
+		aw_global_set("uid", isset($_SESSION["uid"]) ? $_SESSION["uid"] : "");
 	}
 
 	/**
@@ -219,11 +251,6 @@ class automatweb
 			$mode = constant($mode);
 			automatweb::$instance->mode($mode);
 		}
-
-		if (!aw_global_get("no_db_connection"))
-		{
-			$GLOBALS["object_loader"] = new _int_object_loader();
-		}
 	}
 
 	/**
@@ -238,6 +265,11 @@ class automatweb
 		{ // autoload request
 			$request = aw_request::autoload();
 			$this->set_request($request);
+		}
+
+		if (!aw_global_get("no_db_connection") )
+		{
+			$GLOBALS["object_loader"] = new _int_object_loader();
 		}
 
 		if (self::$request instanceof aw_http_request)
@@ -401,6 +433,7 @@ else
 }
 
 aw_global_set("section", $section);
+/******************* END XXX legacy site startup *************************/
 
 
 			// can't use classload here, cause it will be included from within a function and then all kinds of nasty
@@ -431,10 +464,10 @@ aw_global_set("section", $section);
 				}
 
 				// execute fastcall if requested
-				if (isset($vars["fastcall"]) && $vars["fastcall"] == 1)
+				if (self::$request->is_fastcall())
 				{
 					classload("fastcall_base");
-					$inst = new $class;
+					$inst = new $class();
 					self::$result->set_data($inst->$action($vars));
 					return;
 				}
@@ -579,17 +612,6 @@ aw_global_set("section", $section);
 	**/
 	public function mode($id = null)
 	{
-		// For quick debugging -kaarel 14.05.2009
-		// Hannes will add this to his AW Mozilla add-on, so debugging will be SO much easier!
-		if($id !== null && !empty($_COOKIE["manual_automatweb_mode"]))
-		{
-			$tmp_id = constant("self::MODE_".$_COOKIE["manual_automatweb_mode"]);
-			if($tmp_id !== NULL)
-			{
-				$id = $tmp_id;
-			}
-		}
-
 		if (self::MODE_PRODUCTION === $id)
 		{
 			error_reporting(0);
@@ -607,6 +629,19 @@ aw_global_set("section", $section);
 			ini_set("ignore_repeated_errors", "1");
 			ini_set("mysql.trace_mode", "1");
 			aw_ini_set("debug_mode", "1");
+			set_exception_handler("aw_dbg_exception_handler");
+			set_error_handler ("aw_dbg_error_handler");
+			$this->mode = $id;
+		}
+		elseif (self::MODE_DBG_EXTENDED === $id)
+		{
+			error_reporting(E_ALL | E_STRICT);
+			ini_set("display_errors", "1");
+			ini_set("display_startup_errors", "1");
+			ini_set("ignore_repeated_errors", "1");
+			ini_set("mysql.trace_mode", "1");
+			aw_ini_set("debug_mode", "1");
+			aw_global_set("debug.db_query", "1");
 			set_exception_handler("aw_dbg_exception_handler");
 			set_error_handler ("aw_dbg_error_handler");
 			$this->mode = $id;
@@ -639,10 +674,6 @@ aw_global_set("section", $section);
 		$this->bc = true;
 		require_once(AW_DIR . "lib/bc" .AW_FILE_EXT);
 		include AW_DIR . "const" . AW_FILE_EXT;
-		ini_set("session.save_handler", "files");
-		session_name("automatweb");
-		session_start();
-		_aw_global_init();
 	}
 }
 

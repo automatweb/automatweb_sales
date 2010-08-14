@@ -544,8 +544,8 @@ if(!$level)
 
 			@param products optional type=array
 				array { product_id => how_many } for all products in the reservation
-				
-		@comment 
+
+		@comment
 			et siis arvutab broneeringu hinna arvestades miinimumhinda, ja kui anda objekt ette, siis v6tab ylej22nud info sealt
 
 		@returns
@@ -977,7 +977,7 @@ if(!$level)
 
 	private function get_time_($arr)
 	{
-		if(!$arr["start"]) 
+		if(!$arr["start"])
 		{
 			return "";
 		}
@@ -1152,25 +1152,8 @@ if(!$level)
 			"uid" => aw_global_get("uid"),
 			"charset" => aw_global_get("charset")
 		));
-//		die($ret);
-		$s = $sf->parse();
-		global $awt;
-		$sums = $awt->summaries();
 
-		echo "<!--\n";
-		while(list($k,$v) = each($sums))
-		{
-			print "$k = $v\n";
-		};
-		echo " querys = ".aw_global_get("qcount")." \n";
-		if (function_exists("get_time"))
-		{
-			echo "total  = ".(get_time()-$GLOBALS["__START"])."\n";
-			echo "proc  = ".($GLOBALS["__END_DISP"]-$GLOBALS["__START"])."\n";
-			echo "print  = ".(get_time()-$GLOBALS["__END_DISP"])."\n";
-		}
-		echo "-->\n";
-																																
+		$s = $sf->parse();
 		die($s);
 	}
 
@@ -1439,7 +1422,7 @@ if(!$level)
 			$arr["room"] =  $_SESSION["room_reservation"]["room_id"];
 		}
 		extract($arr);
-		
+
 		//et ei saaks mingi valemiga maksma minna seda mille eest on juba makstud
 		if($this->can("view" , $bron_id))
 		{
@@ -1526,7 +1509,7 @@ if(!$level)
 		$bank_payment = $loc->prop("bank_payment");
 		//if(aw_global_get("uid") == "struktuur"){arr($lang); die();}
 		$_SESSION["bank_payment"]["url"] = null;
-		
+
 		if(is_oid($res))
 		{
 			$expl_res = " (".$res.")"; //et broneerimise objekt ka n2ha j22ks
@@ -1612,7 +1595,7 @@ if(!$level)
 //			header("Location:".$this->mk_my_orb("parse_alias", array("level" => 1, "preview" => 1, "id" => $arr["id"] , "tpl" => $tpl,)));
 			header("Location:".
 				str_replace("automatweb/orb.aw" , "" , $this->mk_my_orb(
-					"parse_alias", 
+					"parse_alias",
 					array("level" => 1, "preview" => 1, "id" => $arr["id"] , "tpl" => $tpl,)
 				))
 			);
@@ -1764,7 +1747,7 @@ if(!$level)
 			$bron->set_prop("verified" , 1);
 			//broneeringusse maksest tuleva info, niipalju kui seda saab...siia seep2rast, et ei taha mitmes kohas acl disableda
 			$bron->set_meta("payment_info" , $bank_inst->get_payment_info());
-			// this was turned off in kalevspa	
+			// this was turned off in kalevspa
 			//$bron->set_prop("paid" , 1);
 			aw_disable_acl();
 			if(!$bron->meta("mail_sent"))//topelt mailide v2ltimiseks

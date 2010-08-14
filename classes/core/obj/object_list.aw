@@ -259,6 +259,29 @@ class object_list extends _int_obj_container_base
 		return $this->_int_get_at($GLOBALS["object_loader"]->param_to_oid($param));
 	}
 
+	/** tells if object is in list
+		@attrib api=1
+
+		@param object required type=oid,object
+			the oid or object instance of the object to be checked for.
+
+		@errors
+			none
+
+		@returns bool
+
+		@examples
+			$ol = new object_list(array(
+				"id" => "90"
+			));
+			$is_ob_90_in_list = $ol->in_list(90);
+	**/
+	function in_list($param)
+	{
+		$object_id = ($object instanceof object) ? $param->id() : $param;
+		return isset($this->list[$object_id]);
+	}
+
 	/** calls the save method on all the members of the list
 		@attrib api=1
 

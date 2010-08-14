@@ -798,8 +798,8 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					}
 					else
 					{
-						$_field_val = aw_unserialize($tbls[$data["table"]]["defaults"][$data["field"]], false, true);
-						$_field_val[$prop] = $data["default"];
+						$_field_val = isset($tbls[$data["table"]]["defaults"][$data["field"]]) ? aw_unserialize($tbls[$data["table"]]["defaults"][$data["field"]], false, true) : "";
+						$_field_val[$prop] = isset($data["default"]) ? $data["default"] : "";
 						$tbls[$data["table"]]["defaults"][$data["field"]] = aw_serialize($_field_val, SERIALIZE_NATIVE);
 					}
 				}

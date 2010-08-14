@@ -138,6 +138,14 @@
             <field>task_row</field>
             <caption>Toimetuse read</caption>
       </property>
+      <property>
+            <name>project</name>
+            <table>aw_crm_bill_rows</table>
+            <group>general</group>
+            <type>select</type>
+            <field>project</field>
+            <caption>Projekt</caption>
+      </property>
       <classinfo>
             <syslog_type>ST_CRM_BILL_ROW</syslog_type>
             <relationmgr>yes</relationmgr>
