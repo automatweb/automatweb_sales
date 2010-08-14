@@ -3083,7 +3083,7 @@ class shop_product extends class_base
 	**/
 	function get_units($o)
 	{
-		return $o->get_units();
+		return $o->get_units()->ids();
 	}
 
 	/** get product's warehouse amounts
