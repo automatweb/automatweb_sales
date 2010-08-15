@@ -26,6 +26,103 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 		return array($offers, $offers_count);
 	}
 
+	protected static function define_offers_list_tbl_header(&$arr, $offers_count)
+	{
+		$this_o = $arr["obj_inst"];
+		$table = $arr["prop"]["vcl_inst"];
+
+		$table->define_field(array(
+			"name" => "id",
+			"caption" => t("Pakkumise ID"),
+			"sortable" => true,
+			"numeric" => true,
+		));
+		$table->define_field(array(
+			"name" => "state",
+			"caption" => t("Staatus"),
+			"sortable" => true,
+		));
+		$table->define_field(array(
+			"name" => "customer_name",
+			"caption" => t("Kliendi nimi"),
+			"sortable" => true,
+		));
+		$table->define_field(array(
+			"name" => "salesman_name",
+			"caption" => t("M&uuml;&uuml;giesindaja nimi"),
+			"sortable" => true,
+		));
+		$table->define_field(array(
+			"name" => "modified",
+			"sortable" => true,
+			"sorting_field" => "modified_timestamp",
+			"caption" => t("Viimati muudetud")
+		));
+		$table->set_numeric_field(array("modified_timestamp"));
+
+		$table->define_field(array(
+			"name" => "sums",
+			"caption" => t("Summa")
+		));
+		$table->define_field(array(
+			"parent" => "sums",
+			"name" => "sum_net_value",
+			"caption" => t("Juurhind"),
+			"sortable" => true,
+			"numeric" => true,
+		));
+		
+		$categories_to_be_shown = $arr["obj_inst"]->get_price_component_categories_shown_in_statistics();
+		$table->define_field(array(
+			"parent" => "sums",
+			"name" => "sum_price_components",
+			"caption" => t("Hinnakomponendid"),
+			"sortable" => count($categories_to_be_shown) === 0,
+			"numeric" => true,
+		));
+
+		if(count($categories_to_be_shown) > 0)
+		{
+			$category_names = $arr["obj_inst"]->get_price_component_category_list()->names();
+			foreach($categories_to_be_shown as $category_id)
+			{
+				$table->define_field(array(
+					"parent" => "sum_price_components",
+					"name" => "sum_price_components_{$category_id}",
+					"caption" => $category_names[$category_id],
+					"sortable" => true,
+					"numeric" => true,
+				));
+			}
+			$table->define_field(array(
+				"parent" => "sum_price_components",
+				"name" => "sum_price_components_rest",
+				"caption" => t("&Uuml;lej&auml;&auml;nud"),
+				"sortable" => true,
+				"numeric" => true,
+			));
+		}
+
+		$table->define_field(array(
+			"parent" => "sums",
+			"name" => "sum",
+			"caption" => t("Kokku"),
+			"sortable" => true,
+			"numeric" => true,
+		));
+
+		$table->set_default_sortby("modified");
+		$table->set_default_sorder("desc");
+
+		$table->define_pageselector (array (
+			"type" => "lbtxt",
+			"position" => "both",
+			"d_row_cnt" => $offers_count,
+			"records_per_page" => $this_o->prop("tables_rows_per_page")
+		));
+
+	}
+
 	public static function _get_statistics_offers_list(&$arr)
 	{
 		$this_o = $arr["obj_inst"];
@@ -88,7 +185,7 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 					"modified_timestamp" => $offer->prop("modified"),
 				));
 
-				$total += $sums["sum"];
+				$total += aw_math_calc::string2float($sums["sum"]);
 			}
 			while ($offer = $offers->next());
 
@@ -100,6 +197,13 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 			{
 				$table->set_caption(crm_sales::$offers_list_views[crm_sales::$offers_list_view]["caption"] . " ({$offers_count})");
 			}
+
+			$table->sort_by();
+			$table->set_sortable(false);
+			$table->define_data(array(
+				"state" => html::bold(t("Summa")),
+				"sum" => html::bold(number_format($total, 2)),
+			));
 		}
 		return PROP_OK;
 	}
@@ -156,87 +260,6 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 		}
 
 		return $sums;
-	}
-
-	protected static function define_offers_list_tbl_header(&$arr, $offers_count)
-	{
-		$this_o = $arr["obj_inst"];
-		$table = $arr["prop"]["vcl_inst"];
-
-		$table->define_field(array(
-			"name" => "id",
-			"caption" => t("Pakkumise ID")
-		));
-		$table->define_field(array(
-			"name" => "state",
-			"caption" => t("Staatus")
-		));
-		$table->define_field(array(
-			"name" => "customer_name",
-			"caption" => t("Kliendi nimi")
-		));
-		$table->define_field(array(
-			"name" => "salesman_name",
-			"caption" => t("M&uuml;&uuml;giesindaja nimi")
-		));
-		$table->define_field(array(
-			"name" => "modified",
-			"sortable" => 1,
-			"sorting_field" => "modified_timestamp",
-			"caption" => t("Viimati muudetud")
-		));
-		$table->set_numeric_field(array("modified_timestamp"));
-
-		$table->define_field(array(
-			"name" => "sums",
-			"caption" => t("Summa")
-		));
-		$table->define_field(array(
-			"parent" => "sums",
-			"name" => "sum_net_value",
-			"caption" => t("Juurhind")
-		));
-		$table->define_field(array(
-			"parent" => "sums",
-			"name" => "sum_price_components",
-			"caption" => t("Hinnakomponendid")
-		));
-
-		$categories_to_be_shown = $arr["obj_inst"]->get_price_component_categories_shown_in_statistics();
-		if(count($categories_to_be_shown) > 0)
-		{
-			$category_names = $arr["obj_inst"]->get_price_component_category_list()->names();
-			foreach($categories_to_be_shown as $category_id)
-			{
-				$table->define_field(array(
-					"parent" => "sum_price_components",
-					"name" => "sum_price_components_{$category_id}",
-					"caption" => $category_names[$category_id],
-				));
-			}
-			$table->define_field(array(
-				"parent" => "sum_price_components",
-				"name" => "sum_price_components_rest",
-				"caption" => t("&Uuml;lej&auml;&auml;nud")
-			));
-		}
-
-		$table->define_field(array(
-			"parent" => "sums",
-			"name" => "sum",
-			"caption" => t("Kokku")
-		));
-
-		$table->set_default_sortby("modified");
-		$table->set_default_sorder("desc");
-
-		$table->define_pageselector (array (
-			"type" => "lbtxt",
-			"position" => "both",
-			"d_row_cnt" => $offers_count,
-			"records_per_page" => $this_o->prop("tables_rows_per_page")
-		));
-
 	}
 }
 
