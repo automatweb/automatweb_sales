@@ -64,6 +64,19 @@
             <caption>Hinnakomponentide kaust</caption>
       </property>
       <property>
+            <name>price_component_categories_folder</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings_general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <clid>CL_MENU</clid>
+            <parent>folders_box</parent>
+            <comment>Kaust kust loetakse selle m&amp;amp;uuml;&amp;amp;uuml;gikeskkonna hinnakomponendi kategooriate objekte</comment>
+            <caption>Hinnakomponendi kategooriate kaust</caption>
+      </property>
+      <property>
             <name>warehouse</name>
             <table>objects</table>
             <field>meta</field>
@@ -521,6 +534,17 @@
             <caption>Peida kohustuslikud hinnakomponendid</caption>
       </property>
       <property>
+            <name>cfgf_offers_price_component_categories_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings_offers</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>settings_offers_right</parent>
+      </property>
+      <property>
             <name>cfgf_offers_price_components_table</name>
             <table>objects</table>
             <field>meta</field>
@@ -529,7 +553,7 @@
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>settings_offers_vsplitbox</parent>
+            <parent>settings_offers_right</parent>
       </property>
       <property>
             <name>contacts_toolbar</name>
@@ -1861,6 +1885,7 @@
             <offers>
                   <caption>Pakkumised</caption>
                   <submit>no</submit>
+                  <submit_method>get</submit_method>
             </offers>
             <statistics>
                   <caption>&amp;amp;Uuml;levaated</caption>
@@ -1997,6 +2022,12 @@
                   <area_caption>Pakkumiste&amp;amp;nbsp;seaded</area_caption>
                   <group>settings_offers</group>
             </settings_offers_left>
+            <settings_offers_right>
+                  <type>vbox</type>
+                  <parent>settings_offers_vsplitbox</parent>
+                  <group>settings_offers</group>
+                  <area_caption></area_caption>
+            </settings_offers_right>
             <contacts_vsplitbox>
                   <type>hbox</type>
                   <width>25%:75%</width>

@@ -52,6 +52,15 @@
             <caption>T&amp;amp;uuml;&amp;amp;uuml;p</caption>
       </property>
       <property>
+            <name>category</name>
+            <table>aw_crm_sales_price_component</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_category</field>
+            <parent>general_left_top</parent>
+            <caption>Kategooria</caption>
+      </property>
+      <property>
             <name>value_absolute</name>
             <table>aw_crm_sales_price_component</table>
             <group>general</group>

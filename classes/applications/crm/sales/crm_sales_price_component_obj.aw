@@ -17,9 +17,10 @@ class crm_sales_price_component_obj extends _int_object
 
 	public function prop_str($k, $is_oid = NULL)
 	{
-		if($k === "value")
+		switch($k)
 		{
-			return (string)$this->awobj_get_value() . ($this->prop("is_ratio") ? "%" : "");
+			case "value":
+				return (string)$this->awobj_get_value() . ($this->prop("is_ratio") ? "%" : "");
 		}
 
 		return parent::prop_str($k, $is_oid);
