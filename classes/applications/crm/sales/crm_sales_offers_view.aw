@@ -338,6 +338,7 @@ class crm_sales_offers_view
 					"oid" => $oid,
 					"id" => $offer_id,
 					"modified" => $modified,
+					"modified_timestamp" => $offer->prop("modified"),
 				));
 			}
 			while ($offer = $offers->next());

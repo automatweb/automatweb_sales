@@ -85,6 +85,7 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 					"oid" => $oid,
 					"id" => $offer_id,
 					"modified" => $modified,
+					"modified_timestamp" => $offer->prop("modified"),
 				));
 
 				$total += $sums["sum"];
