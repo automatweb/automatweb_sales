@@ -855,7 +855,7 @@ class sys extends aw_template
 			throw new awex_sys_webmaintenance("Web maintenance is turned off");
 		}
 
-		if (preg_match("/[^a-z,_0-9]/Ui", $arr["classes"]))
+		if (isset($arr["classes"]) && preg_match("/[^a-z,_0-9]/Ui", $arr["classes"]))
 		{
 			throw new awex_sys("Invalid argument");
 		}

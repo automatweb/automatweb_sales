@@ -629,6 +629,7 @@ class orb extends aw_template
 //		$arr['server'] = isset($arr['server']) ? str_replace('http://','',$arr['server']) : NULL;
 
 		extract($arr);
+		$params = isset($arr["params"]) ? $arr["params"] : array();
 
 		$this->fatal = true;
 		$this->silent = false;
@@ -733,7 +734,7 @@ class orb extends aw_template
 					else
 					// note, there seems to be some bitrot here, isset breaks things
 
-					if ($orb_defs[$class][$action]["defaults"][$key])
+					if (!empty($orb_defs[$class][$action]["defaults"][$key]))
 					{
 						$ret[$key] = $orb_defs[$class][$action]["defaults"][$key];
 					}
