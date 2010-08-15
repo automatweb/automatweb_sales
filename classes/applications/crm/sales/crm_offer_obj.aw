@@ -120,6 +120,11 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		return $data;
 	}
 
+	public function awobj_get_name()
+	{
+		return $this->id();
+	}
+
 	public function awobj_get_sum()
 	{
 		return aw_math_calc::string2float(parent::prop("sum"));
