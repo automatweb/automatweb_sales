@@ -236,6 +236,14 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 		foreach($offer->get_applied_price_components() as $price_component)
 		{
 			$sums_by_type[$price_component->type] += $price_component->price();
+			if(in_array($price_component->category, $categories_to_be_shown))
+			{
+				$sums_by_category[$price_component->category] += $price_component->price();
+			}
+			elseif(crm_sales_price_component_obj::TYPE_NET_VALUE != $price_component->type)
+			{
+				$sums_by_category["rest"] += $price_component->price();
+			}
 		}
 
 		foreach($offer->get_rows() as $row)
@@ -247,7 +255,7 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 				{
 					$sums_by_category[$price_component->category] += $price_component->price();
 				}
-				else
+				elseif(crm_sales_price_component_obj::TYPE_NET_VALUE != $price_component->type)
 				{
 					$sums_by_category["rest"] += $price_component->price();
 				}
