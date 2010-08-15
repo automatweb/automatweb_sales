@@ -57,7 +57,6 @@
             <method>serialize</method>
             <type>text</type>
             <caption>Testi tulemused</caption>
-            <comment></comment>
       </property>
       <classinfo>
             <syslog_type>ST_PROTO_IMAP</syslog_type>
