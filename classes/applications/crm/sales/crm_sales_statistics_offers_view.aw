@@ -134,11 +134,11 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 		$not_available_str = html::italic(t("M&auml;&auml;ramata"));
 		$role = automatweb::$request->get_application()->get_current_user_role();
 		$offer_state_names = crm_offer_obj::state_names();
+		$totals = array();
 
 		if ($offers->count())
 		{
 			$offer = $offers->begin();
-			$total = 0;
 			do
 			{
 				$customer_relation = new object($offer->prop("customer_relation"));
@@ -174,6 +174,16 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 				$categories_to_be_shown = $this_o->get_price_component_categories_shown_in_statistics();
 				$sums = self::calculate_statistics_offers_list_sums($offer, $categories_to_be_shown);
 
+				foreach($sums as $sum_key => $sum_value)
+				{
+					if(!isset($totals[$sum_key]))
+					{
+						$totals[$sum_key] = 0;
+					}
+
+					$totals[$sum_key] += aw_math_calc::string2float($sum_value);
+				}
+
 				// define table row
 				$table->define_data($sums + array(
 					"customer_name" => $customer_name,
@@ -184,8 +194,6 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 					"modified" => $modified,
 					"modified_timestamp" => $offer->prop("modified"),
 				));
-
-				$total += aw_math_calc::string2float($sums["sum"]);
 			}
 			while ($offer = $offers->next());
 
@@ -200,9 +208,12 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 
 			$table->sort_by();
 			$table->set_sortable(false);
-			$table->define_data(array(
+			foreach($totals as $total_key => $total_value)
+			{
+				$totals[$total_key] = html::bold(number_format($total_value, 2));
+			}
+			$table->define_data($totals + array(
 				"state" => html::bold(t("Summa")),
-				"sum" => html::bold(number_format($total, 2)),
 			));
 		}
 		return PROP_OK;
