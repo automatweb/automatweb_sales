@@ -200,7 +200,7 @@ class calendar_registration_form_conf extends class_base
 
 	}
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		$id = $arr["alias"]["target"];
 		$obj = new object($id);
