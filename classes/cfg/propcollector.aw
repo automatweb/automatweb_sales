@@ -496,7 +496,7 @@ class propcollector extends aw_template
 
 	private function add_comment($comment)
 	{
-		if ($this->last_element === "property")
+		if (isset($this->last_element) && $this->last_element === "property")
 		{
 			$this->properties[$this->name]["comment"] = htmlentities($comment);
 		};
