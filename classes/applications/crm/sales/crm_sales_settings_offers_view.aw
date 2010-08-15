@@ -162,6 +162,7 @@ class crm_sales_settings_offers_view
 				"img" => "new.gif",
 			));
 		}
+		$t->add_save_button();
 		$t->add_delete_button();
 
 		return PROP_OK;
