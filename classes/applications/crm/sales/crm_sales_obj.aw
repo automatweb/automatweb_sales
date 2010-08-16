@@ -1302,11 +1302,11 @@ EOQ;
 		return $ol;
 	}
 
-	/**	Returns list of price component categories to be shown as a separate column in the offers statistics view.
+	/**	Returns list of price component and price component categories to be shown as a separate column in the offers statistics view.
 		@attrib api=1
 		@returns int[]
 	**/
-	public function get_price_component_categories_shown_in_statistics()
+	public function get_price_components_and_categories_shown_in_statistics()
 	{
 		$ret = $this->meta("show_in_statistics");
 		return is_array($ret) ? $ret : array();
@@ -1316,7 +1316,7 @@ EOQ;
 		@attrib api=1 params=pos
 		@param ids required type=int[]
 	**/
-	public function set_price_component_categories_shown_in_statistics($ids)
+	public function set_price_components_and_categories_shown_in_statistics($ids)
 	{
 		$this->set_meta("show_in_statistics", $ids);
 	}
