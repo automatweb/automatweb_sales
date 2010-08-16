@@ -29,6 +29,14 @@ class crm_sales_settings_offers_view
 			"caption" => t("Kategooria"),
 			"sortable" => true
 		));
+		$t->define_field(array(
+			"name" => "show_in_statistics",
+			"caption" => t("Kuva eraldi tulbana '&Uuml;levaated' kaardil"),
+			"align" => "center",
+			"callback" => array("crm_sales_settings_offers_view", "callback_cfgf_offers_price_components_table_show_in_statistics"),
+			"callb_pass_row" => true,
+			"sortable" => true
+		));
 	}
 
 	public static function _get_cfgf_offers_price_components_table(&$arr)
@@ -42,6 +50,7 @@ class crm_sales_settings_offers_view
 		self::define_cfgf_offers_price_components_tbl_header($arr);
 		$price_components = automatweb::$request->get_application()->get_price_component_list();
 		$categories = automatweb::$request->get_application()->get_price_component_category_list()->names();
+		$show_in_statistics = $arr["obj_inst"]->get_price_components_and_categories_shown_in_statistics();
 		foreach($price_components->arr() as $price_component)
 		{
 			$t->define_data(array(
@@ -50,6 +59,7 @@ class crm_sales_settings_offers_view
 				"type" => $price_component_types[$price_component->prop("type")],
 				"value" => $price_component->prop_str("value"),
 				"category" => isset($categories[$price_component->prop("category")]) ? $categories[$price_component->prop("category")] : $not_available_str,
+				"show_in_statistics" => in_array($price_component->id(), $show_in_statistics),
 			));
 		}
 
@@ -86,13 +96,18 @@ class crm_sales_settings_offers_view
 		));
 	}
 
+	public static function callback_cfgf_offers_price_components_table_show_in_statistics($row)
+	{
+		return self::callback_cfgf_offers_price_component_categories_table_show_in_statistics($row);
+	}
+
 	public static function _get_cfgf_offers_price_component_categories_table(&$arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 
 		self::define_cfgf_offers_price_component_categories_tbl_header($arr);
 
-		$show_in_statistics = $arr["obj_inst"]->get_price_component_categories_shown_in_statistics();
+		$show_in_statistics = $arr["obj_inst"]->get_price_components_and_categories_shown_in_statistics();
 		$categories = automatweb::$request->get_application()->get_price_component_category_list();
 		foreach($categories->arr() as $category)
 		{
@@ -121,7 +136,7 @@ class crm_sales_settings_offers_view
 			}
 		}
 
-		$arr["obj_inst"]->set_price_component_categories_shown_in_statistics($show_in_statistics);
+		$arr["obj_inst"]->set_price_components_and_categories_shown_in_statistics($show_in_statistics);
 	}
 
 	public static function _get_cfgf_offers_toolbar(&$arr)
