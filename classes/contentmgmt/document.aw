@@ -42,7 +42,7 @@ class document extends aw_template
 		$this->metafields = array("show_print","show_last_changed","show_real_pos","dcache");
 
 
-		lc_site_load("document",&$this);
+		lc_site_load("document", $this);
 
 		if (isset($GLOBALS["lc_document"]) && is_array($GLOBALS["lc_document"]))
 		{
@@ -187,7 +187,7 @@ class document extends aw_template
 			}*/
 		}
 
-		$this->dequote(&$doc["lead"]);
+		$this->dequote($doc["lead"]);
 		// if there is no document with that id, then bail out
 		if (!isset($doc))
 		{
@@ -241,8 +241,8 @@ class document extends aw_template
 			// augh .. backwards compatiblity is a fucking bitch
 			// that parse_document thingie expects $doc _array_ .. and wants
 			// to modify it .. and allah only knows where this is used ...
-			$si->parse_document(&$doc);
-			if (!$si->can_show_document(&$doc))
+			$si->parse_document($doc);
+			if (!$si->can_show_document($doc))
 			{
 				return "";
 			}
@@ -329,7 +329,7 @@ class document extends aw_template
 			$this->vars($txts->get());
 		}
 
-		lc_site_load("document", &$this);
+		lc_site_load("document", $this);
 
 		if (( ($meta["show_print"]) && (not($print)) && $leadonly != 1) && empty($is_printing))
 		{
@@ -459,7 +459,7 @@ class document extends aw_template
 			"act_per_image_url" => ($pdat['data']['image']['url']) ? $pdat['data']['image']['url'] : "/automatweb/images.trans.gif",
 		));
 
-		$this->dequote(&$doc["title"]);
+		$this->dequote($doc["title"]);
 		$this->title = $doc["title"];
 
 		// hide the content of the document after the marker if the document is from the current period
@@ -642,7 +642,7 @@ class document extends aw_template
 		$this->source = $doc["content"];
 
 		$this->register_parsers();
-		$this->create_relative_links(&$doc["content"]);
+		$this->create_relative_links($doc["content"]);
 		// viimati muudetud dokude listi rida
 		if (preg_match("/#viimati_muudetud num=\"(.*)\"#/",$doc["content"], $matches))
 		{
@@ -692,8 +692,8 @@ class document extends aw_template
 		// on links on the paper they dont make sense there :P
 		if ($this->cfg["keyword_relations"] && not($print) && $params["keywords"])
 		{
-			$this->create_keyword_relations(&$doc["content"]);
-			$this->create_keyword_relations(&$doc["lead"]);
+			$this->create_keyword_relations($doc["content"]);
+			$this->create_keyword_relations($doc["lead"]);
 		}
 
 
@@ -743,17 +743,17 @@ class document extends aw_template
 
 		if (trim($doc["user3"]) != "" && strpos($doc["user3"],"#") !== false)
 		{
-			$al->parse_oo_aliases($doc["docid"],&$doc["user3"],array("templates" => &$this->templates,"meta" => &$meta));
+			$al->parse_oo_aliases($doc["docid"], $doc["user3"], array("templates" => &$this->templates, "meta" => &$meta));
 		}
 
 		if (trim($doc["moreinfo"]) != "" && strpos($doc["moreinfo"],"#") !== false)
 		{
-			$al->parse_oo_aliases($doc["docid"],&$doc["moreinfo"],array("templates" => &$this->templates,"meta" => &$meta));
+			$al->parse_oo_aliases($doc["docid"], $doc["moreinfo"], array("templates" => &$this->templates, "meta" => &$meta));
 		}
 
 		if (trim($doc["user2"]) != "" && strpos($doc["user2"],"#") !== false)
 		{
-			$al->parse_oo_aliases($doc["docid"],&$doc["user2"],array("templates" => &$this->templates,"meta" => &$meta));
+			$al->parse_oo_aliases($doc["docid"], $doc["user2"], array("templates" => &$this->templates, "meta" => &$meta));
 		}
 
 		// where do I put that shit? that break conversion thingie?
@@ -789,16 +789,16 @@ class document extends aw_template
 		};
 
 		$al = get_instance("alias_parser");
-		$al->parse_oo_aliases($doc["docid"],&$doc["content"],array("templates" => &$this->templates,"meta" => &$meta));
+		$al->parse_oo_aliases($doc["docid"], $doc["content"], array("templates" => &$this->templates, "meta" => &$meta));
 
 		$this->vars($al->get_vars());
 
-		$al->parse_oo_aliases($doc["docid"],&$doc["title"],array("templates" => &$this->templates,"meta" => &$meta));
-                if ($leadonly > -1)
-                {
-                        /*$doc["title"] = str_replace("</a>", "</a><a href='/".$doc["docid"]."'>", $doc["title"]);
-                        $doc["title"] = str_replace("<a", "</a><a", $doc["title"]);*/
-                }
+		$al->parse_oo_aliases($doc["docid"], $doc["title"], array("templates" => &$this->templates, "meta" => &$meta));
+		if ($leadonly > -1)
+		{
+				/*$doc["title"] = str_replace("</a>", "</a><a href='/".$doc["docid"]."'>", $doc["title"]);
+				$doc["title"] = str_replace("<a", "</a><a", $doc["title"]);*/
+		}
 		$this->vars($al->get_vars());
 
 		// this damn ugly-ass hack is here because we need to be able to put the last search value
@@ -1361,7 +1361,7 @@ class document extends aw_template
 
 		if (is_object($si) && method_exists($si,"get_document_vars"))
 		{
-			$this->vars($si->get_document_vars(&$doc));
+			$this->vars($si->get_document_vars($doc));
 		};
 
 		if ($title != "")
@@ -1727,7 +1727,7 @@ class document extends aw_template
 		$this->tpl_init("automatweb/documents");
 		// kas ei peaks checkkima ka teiste argumentide oigsust?
 		$ostr = $str;
-		$this->quote(&$str);
+		$this->quote($str);
 
 		// otsingustringi polnud, redirect veateatele. Mdx, kas selle
 		// asemel ei voiks ka mingit custom dokut kasutada?
@@ -1996,7 +1996,7 @@ class document extends aw_template
 			// hook for site specific document parsing
 			if (is_object($si))
 			{
-				if ($si->parse_search_result_document(&$row) == -1)
+				if ($si->parse_search_result_document($row) == -1)
 				{
 					continue;
 				}
@@ -2212,8 +2212,8 @@ class document extends aw_template
 		));
 
 		$this->_log(ST_SEARCH, SA_DO_SEARCH, "otsis stringi $str , alamjaotusest nr $parent, leiti $cnt dokumenti");
-		$this->quote(&$str);
-		$this->quote(&$parent);
+		$this->quote($str);
+		$this->quote($parent);
 		$this->db_query("INSERT INTO searches(str,s_parent,numresults,ip,tm) VALUES('$str','$parent','$cnt','".aw_global_get("REMOTE_ADDR")."','".time()."')");
 
 		$retval = $this->parse();
@@ -3152,8 +3152,8 @@ class document extends aw_template
 	{
 		// that's the whole magic
 		$parser = xml_parser_create();
-		xml_parse_into_struct($parser,$data,&$values,&$tags);
-		xml_parser_set_option($parser,XML_OPTION_SKIP_WHITE,1);
+		xml_parse_into_struct($parser, $data, $values, $tags);
+		xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);
 		xml_parser_free($parser);
 
 		foreach ($values as $element)
