@@ -236,13 +236,13 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 		foreach($offer->get_applied_price_components() as $price_component)
 		{
 			$sums_by_type[$price_component->type] += $price_component->price();
-			if (in_array($price_component->category, $categories_to_be_shown))
-			{
-				$sums_by_category[$price_component->category] += $price_component->price();
-			}
-			elseif (in_array($price_component->id(), $categories_to_be_shown))
+			if (in_array($price_component->id(), $categories_to_be_shown))
 			{
 				$sums_by_category[$price_component->id()] += $price_component->price();
+			}
+			elseif (in_array($price_component->category, $categories_to_be_shown))
+			{
+				$sums_by_category[$price_component->category] += $price_component->price();
 			}
 			elseif (crm_sales_price_component_obj::TYPE_NET_VALUE != $price_component->type)
 			{
@@ -255,15 +255,15 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 			foreach($row->get_applied_price_components() as $price_component)
 			{
 				$sums_by_type[$price_component->type] += $price_component->price();
-				if(in_array($price_component->category, $categories_to_be_shown))
-				{
-					$sums_by_category[$price_component->category] += $price_component->price();
-				}
-				elseif (in_array($price_component->id(), $categories_to_be_shown))
+				if (in_array($price_component->id(), $categories_to_be_shown))
 				{
 					$sums_by_category[$price_component->id()] += $price_component->price();
 				}
-				elseif(crm_sales_price_component_obj::TYPE_NET_VALUE != $price_component->type)
+				elseif (in_array($price_component->category, $categories_to_be_shown))
+				{
+					$sums_by_category[$price_component->category] += $price_component->price();
+				}
+				elseif (crm_sales_price_component_obj::TYPE_NET_VALUE != $price_component->type)
 				{
 					$sums_by_category["rest"] += $price_component->price();
 				}
