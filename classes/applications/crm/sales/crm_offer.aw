@@ -21,6 +21,9 @@
 	@property state type=select field=aw_state
 	@caption Staatus
 
+	@property contracts type=chooser multiple=1 orient=vertical store=no
+	@caption Lepingud
+
 	@property send type=text store=no editonly=1
 	@caption Saada kliendile
 
@@ -55,6 +58,9 @@
 @default group=confirmations
 
 	@property confirmations_table type=table store=no no_caption=1 editonly=1
+
+@reltype CONTRACT value=1 clid=CL_CRM_DEAL
+@caption Leping
 
 */
 
@@ -115,7 +121,29 @@ class crm_offer extends class_base
 		}
 	}
 
-	public function _get_save_as_template($arr)
+	public function _get_contracts(&$arr)
+	{
+		$arr["prop"]["options"] = automatweb::$request->get_application()->get_contract_list()->names();
+
+		//	For some reason chooser requires the key and value to be equal.
+		$contracts = array();
+		foreach($arr["obj_inst"]->prop("contracts")->ids() as $contract)
+		{
+			$contracts[$contract] = $contract;
+		}
+		$arr["prop"]["value"] = $contracts;
+
+		return PROP_OK;
+	}
+
+	public function _set_contracts(&$arr)
+	{
+		$arr["obj_inst"]->set_prop("contracts", $arr["prop"]["value"]);
+
+		return PROP_OK;
+	}
+
+	public function _get_save_as_template(&$arr)
 	{
 		$arr["prop"]["value"] = html::href(array(
 			"caption" => t("Salvesta &scaron;abloonina"),
@@ -659,6 +687,20 @@ class crm_offer extends class_base
 			}
 			$ROW .= $this->parse("ROW");
 		}
+
+		$CONTRACT = "";
+		
+		foreach($o->prop("contracts")->arr() as $contract)
+		{
+			$this->vars(array(
+				"contract.id" => $contract->id(),
+				"contract.link" => doc_display::get_doc_link($contract->document()),
+			));
+			$CONTRACT .= $this->parse("CONTRACT");
+		}
+		$this->vars(array(
+			"CONTRACT" => $CONTRACT,
+		));
 
 		if($o->state != crm_offer_obj::STATE_CONFIRMED && !empty($arr["show_confirmation"]))
 		{

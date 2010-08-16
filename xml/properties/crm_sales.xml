@@ -38,6 +38,19 @@
             <caption>Esitluste kaust</caption>
       </property>
       <property>
+            <name>contracts_folder</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings_general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_FOLDER</reltype>
+            <clid>CL_MENU</clid>
+            <parent>folders_box</parent>
+            <comment>Kaust kuhu salvestatakse ning kust loetakse selle m&amp;amp;uuml;&amp;amp;uuml;gikeskkonna lepingud</comment>
+            <caption>Lepingute kaust</caption>
+      </property>
+      <property>
             <name>offers_folder</name>
             <table>objects</table>
             <field>meta</field>

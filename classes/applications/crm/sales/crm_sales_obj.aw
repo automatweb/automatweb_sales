@@ -1260,6 +1260,15 @@ EOQ;
 		return $calls;
 	}
 
+	public function get_contract_list()
+	{
+		$ol = is_oid($this->id()) ? new object_list(array(
+			"class_id" => CL_CRM_DEAL,
+			"parent" => $this->prop("contracts_folder"),
+		)) : new object_list();
+		return $ol;
+	}
+
 	/**
 	@attrib api=1
 

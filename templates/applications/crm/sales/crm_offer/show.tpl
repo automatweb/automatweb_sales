@@ -1,13 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
-<html>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset={VAR:charset}" />
 	<title>Pakkumine nr {VAR:id}</title>
 
 	<style type="text/css">
-		body { font-size: 12px; font-family: Arial; margin: 2em 0 2em 0; text-align: center; }
+		body { font-size: 12px; font-family: Arial; margin: 2em 0 2em 0; }
 		h1 { font-size: 16px; color: #05A6E9; padding: 1em 0 1em 0.4em; }
 		h2 { font-size: 14px; color: #666666; padding: 0 0 0 0.4em; margin: 0; }
 		p { margin: 0; }
@@ -36,8 +35,10 @@
 
 		#bill tr td.footer { border-top: 1px solid #cccccc; text-align: center; font-size: 11px; color: #666666; vertical-align: bottom; height: 2em; }
 
-		#confirmation { width: 200px; height: 100%; margin: auto; vertical-align: top; padding: 3em 0 3em 3 em; }
+		#content { padding: 0 10px 0 0; }
+		#confirmation { height: 100%; margin: auto; vertical-align: top; padding: 10px; border: 1px solid #05A6E9; }
 		#confirmation label { font-size: 12px; font-family: Arial; display: block; clear: both; padding: 3px 0px; }
+		#confirmation div.contract { font-size: 12px; font-family: Arial; padding: 10px 0px; }
 
 	</style>
 
@@ -49,13 +50,14 @@
 		#bill tr td.main table tr td { border-bottom: 1px solid #aaaaaa; }
 		#bill tr td.footer { border-top: 1px solid #aaaaaa; }
 	</style>
+	<script type="text/javascript" src="http://localhost/automatweb/js/jquery/jquery-1.3.2.min.js"></script>
 </head>
 
 <body>
 
 <table id="bill" cellpadding="0" cellspacing="0" border="0">
 	<tr>
-		<td>
+		<td id="content">
 			<table>
 				<tr class="header">
 					<td class="logo">
@@ -162,6 +164,13 @@
 				<label for="firstname">E-post:</label>
 					<input type="text" name="email" id="email" value="{VAR:customer.mail}" /><br />
 
+				<!-- SUB: CONTRACT -->
+				<div class="contract">
+				<input type="checkbox" name="contract[{VAR:contract.id}]" id="contract_{VAR:contract.id}" value="1" />
+				N&otilde;ustun <a href="{VAR:contract.link}" target="_blank">lepingu nr {VAR:contract.id}</a> tingimustega.<br />
+				</div>
+				<!-- END SUB: CONTRACT -->
+
 				<input type="hidden" name="class" value="crm_offer" />
 				<input type="hidden" name="action" value="confirm" />
 				<input type="hidden" name="id" value="{VAR:id}" />
@@ -169,12 +178,23 @@
 
 				<br /><br />
 
-				<input type="submit" value="Kinnitan pakkumise">
+				<input type="submit" value="Kinnitan pakkumise" id="submit">
 			</form>
 		</td>
 		<!-- END SUB: CONFIRMATION -->
 	</tr>
 </table>
+
+<script type="text/javascript"> 
+$(document).ready(function(){
+	$("#submit").click(function(){
+		if($("input[type=checkbox][name^=contract]").size() - $("input[type=checkbox][name^=contract]:checked").size() > 0){
+			alert("Pakkumise kinnitamiseks peate kinnitama ka lepingu(te) tingimused!");
+			return false;
+		}
+	});
+});
+</script> 
 
 </body>
 </html>

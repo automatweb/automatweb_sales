@@ -130,6 +130,53 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		return aw_math_calc::string2float(parent::prop("sum"));
 	}
 
+	public function awobj_get_contracts()
+	{
+		$ol = $this->is_saved() ? new object_list(array(
+			"class_id" => CL_CRM_DEAL,
+			"CL_CRM_DEAL.RELTYPE_CONTRACT(CL_CRM_OFFER)" => $this->id(),
+		)) : new object_list();
+		return $ol;
+	}
+
+	public function awobj_set_contracts($contracts)
+	{
+		$contracts = (array)$contracts;
+		if($this->is_saved())
+		{
+			$conns = $this->connections_from(array(
+				"type" => "RELTYPE_CONTRACT",
+			));
+			$done = array();
+			foreach($conns as $conn)
+			{
+				if(!in_array($conn->prop("to"), $contracts))
+				{
+					$conn->delete();
+				}
+				else
+				{
+					$done[] = $conn->prop("to");
+				}
+			}
+
+			foreach($contracts as $contract)
+			{
+				if(!in_array($contract, $done))
+				{
+					$this->connect(array(
+						"to" => $contract,
+						"type" => "RELTYPE_CONTRACT"
+					));
+				}
+			}
+		}
+		else
+		{
+			$this->set_meta("contracts", $v);
+		}
+	}
+
 	public function save($exclusive = false, $previous_state = null)
 	{
 		if(is_oid($this->prop("customer")))
