@@ -67,6 +67,10 @@ PROPERTY DECLARATIONS
 	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna esitlused
 	@caption Esitluste kaust
 
+	@property contracts_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
+	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna lepingud
+	@caption Lepingute kaust
+
 	@property offers_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
 	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna pakkumisobjektid
 	@caption Pakkumiste kaust

@@ -48,6 +48,17 @@
             <caption>Staatus</caption>
       </property>
       <property>
+            <name>contracts</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <orient>vertical</orient>
+            <store>no</store>
+            <field>contracts</field>
+            <caption>Lepingud</caption>
+      </property>
+      <property>
             <name>send</name>
             <table>aw_crm_offer</table>
             <group>general</group>
@@ -178,5 +189,12 @@
                   <index>aw_oid</index>
             </aw_crm_offer>
       </tableinfo>
+      <reltypes>
+            <CONTRACT>
+                  <value>1</value>
+                  <clid>CL_CRM_DEAL</clid>
+                  <caption>Leping</caption>
+            </CONTRACT>
+      </reltypes>
 </properties>
 
