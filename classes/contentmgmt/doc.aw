@@ -380,7 +380,7 @@ class doc extends class_base
 	{
 		// let site mod props
 		$si = __get_site_instance();
-		if ($si)
+		if ($si && !empty($arr["prop"]["name"]))
 		{
 			$meth = "get_property_doc_".$arr["prop"]["name"];
 			if (method_exists($si, $meth))
@@ -1304,7 +1304,7 @@ class doc extends class_base
 		if ($arr["request"]["set_act_ver"] != "")
 		{
 			$sav = $arr["request"]["set_act_ver"];
-			$this->quote(&$sav);
+			$this->quote($sav);
 			$data = $this->db_fetch_row("SELECT * FROM documents_versions WHERE docid = '".$arr["obj_inst"]->id()."' AND version_id = '$sav'");
 			if ($data)
 			{
@@ -1322,7 +1322,7 @@ class doc extends class_base
 
 
 				// write version to objtable
-				$this->quote(&$data);
+				$this->quote($data);
 				$id = $arr["obj_inst"]->id();
 				$this->db_query("DESCRIBE documents");
 				$sets = array();
@@ -1435,7 +1435,7 @@ class doc extends class_base
 		$o = obj($arr["id"]);
 		foreach(safe_array($arr["del_version"]) as $v)
 		{
-			$this->quote(&$v);
+			$this->quote($v);
 			$this->db_query("DELETE FROM documents_versions WHERE docid = '".$o->id()."' AND version_id = '$v'");
 		}
 
@@ -1586,7 +1586,7 @@ class doc extends class_base
 		$id = $arr["obj_inst"]->id();
 		foreach(safe_array($arr["obj_inst"]->meta("translations")) as $lid => $props)
 		{
-			$this->quote(&$props);
+			$this->quote($props);
 			if ($this->db_fetch_field("select oid FROM doc_ct_content WHERE oid = '$id' AND lang_id ='$lid'", "oid"))
 			{
 				$this->db_query("UPDATE doc_ct_content SET

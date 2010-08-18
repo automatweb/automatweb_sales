@@ -1,68 +1,13 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>customer</name>
-            <table>aw_crm_deal</table>
-            <group>general</group>
-            <type>popup_search</type>
-            <clid>
-                  <num_0>CL_CRM_COMPANY</num_0>
-                  <num_1>CL_CRM_PERSON</num_1>
-            </clid>
-            <field>aw_customer</field>
-            <style>autocomplete</style>
-            <caption>Klient</caption>
-      </property>
-      <property>
-            <name>project</name>
-            <table>aw_crm_deal</table>
-            <group>general</group>
-            <type>popup_search</type>
-            <clid>CL_PROJECT</clid>
-            <field>aw_project</field>
-            <style>autocomplete</style>
-            <caption>Projekt</caption>
-      </property>
-      <property>
-            <name>task</name>
-            <table>aw_crm_deal</table>
-            <group>general</group>
-            <type>popup_search</type>
-            <clid>
-                  <num_0>CL_TASK</num_0>
-                  <num_1>CL_CRM_MEETING</num_1>
-                  <num_2>CL_BUG</num_2>
-                  <num_3>CL_CRM_CALL</num_3>
-            </clid>
-            <field>aw_task</field>
-            <style>autocomplete</style>
-            <caption>&amp;amp;Uuml;lesanne</caption>
-      </property>
-      <property>
-            <name>creator</name>
+            <name>document</name>
             <table>aw_crm_deal</table>
             <group>general</group>
             <type>relpicker</type>
-            <reltype>RELTYPE_CREATOR</reltype>
-            <field>aw_creator</field>
-            <caption>Koostaja</caption>
-      </property>
-      <property>
-            <name>reader</name>
-            <table>aw_crm_deal</table>
-            <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_READER</reltype>
-            <field>aw_reader</field>
-            <caption>Lugeja</caption>
-      </property>
-      <property>
-            <name>reg_date</name>
-            <table>aw_crm_deal</table>
-            <group>general</group>
-            <type>date_select</type>
-            <field>aw_reg_date</field>
-            <caption>Reg kuup&amp;amp;auml;ev</caption>
+            <reltype>RELTYPE_DOCUMENT</reltype>
+            <field>aw_document</field>
+            <caption>Sisudokument</caption>
       </property>
       <property>
             <name>comment</name>
@@ -82,72 +27,47 @@
             <store>connect</store>
             <multiple>1</multiple>
             <reltype>RELTYPE_SIDE</reltype>
-            <field>meta</field>
-            <method>serialize</method>
+            <field>sides</field>
             <caption>Osapooled</caption>
       </property>
       <property>
-            <name>files_tb</name>
+            <name>reg_date</name>
+            <table>aw_crm_deal</table>
+            <group>general</group>
+            <type>date_select</type>
+            <field>aw_reg_date</field>
+            <caption>Allkirjastamise kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>files_toolbar</name>
             <table>objects</table>
             <group>files</group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
-            <field>files_tb</field>
-            <caption>Failid</caption>
+            <field>files_toolbar</field>
       </property>
       <property>
-            <name>files</name>
+            <name>files_table</name>
             <table>objects</table>
             <group>files</group>
             <type>table</type>
-            <store>no</store>
-            <field>files</field>
-            <caption>Failid</caption>
-      </property>
-      <property>
-            <name>parts_tb</name>
-            <table>objects</table>
-            <group>parts</group>
-            <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
-            <field>parts_tb</field>
-      </property>
-      <property>
-            <name>acts</name>
-            <table>objects</table>
-            <group>parts</group>
-            <type>table</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <field>acts</field>
-            <caption>Tegevused</caption>
-      </property>
-      <property>
-            <name>acl</name>
-            <table>objects</table>
-            <group>acl</group>
-            <type>acl_manager</type>
-            <store>no</store>
-            <field>acl</field>
-            <caption>&amp;amp;Otilde;igused</caption>
+            <field>files_table</field>
       </property>
       <classinfo>
             <syslog_type>ST_CRM_DEAL</syslog_type>
             <relationmgr>yes</relationmgr>
             <maintainer>markop</maintainer>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
             <files>
                   <caption>Failid</caption>
+                  <submit>no</submit>
             </files>
-            <parts>
-                  <caption>Osalejad</caption>
-            </parts>
-            <acl>
-                  <caption>&amp;amp;Otilde;igused</caption>
-            </acl>
       </groupinfo>
       <tableinfo>
             <aw_crm_deal>
@@ -160,31 +80,21 @@
             <FILE>
                   <value>1</value>
                   <clid>CL_FILE</clid>
-                  <caption>fail</caption>
+                  <caption>Fail</caption>
             </FILE>
-            <CREATOR>
+            <DOCUMENT>
                   <value>2</value>
-                  <clid>CL_CRM_PERSON</clid>
-                  <caption>looja</caption>
-            </CREATOR>
-            <READER>
-                  <value>3</value>
-                  <clid>CL_CRM_PERSON</clid>
-                  <caption>lugeja</caption>
-            </READER>
+                  <clid>CL_DOCUMENT</clid>
+                  <caption>Sisudokument</caption>
+            </DOCUMENT>
             <SIDE>
-                  <value>4</value>
+                  <value>3</value>
                   <clid>
                         <num_0>CL_CRM_COMPANY</num_0>
                         <num_1>CL_CRM_PERSON</num_1>
                   </clid>
                   <caption>Osapool</caption>
             </SIDE>
-            <ACTION>
-                  <value>8</value>
-                  <clid>CL_CRM_DOCUMENT_ACTION</clid>
-                  <caption>Tegevus</caption>
-            </ACTION>
       </reltypes>
 </properties>
 

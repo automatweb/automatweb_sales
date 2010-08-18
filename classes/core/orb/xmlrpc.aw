@@ -21,7 +21,7 @@ class xmlrpc extends aw_template
 			echo "sending request = <pre>", htmlspecialchars($xml),"</pre> <br />";
 		}
 
-		$this->no_errors = $arr["no_errors"];
+		$this->no_errors = !empty($arr["no_errors"]);
 		$resp = $this->send_request(array(
 			"server" => $arr["remote_host"],
 			"port" => 80,

@@ -86,7 +86,7 @@ awCrmOffer.calculateRow = function(row_id){
 		if ($("#content_table_"+row_id+"__price_component__"+price_component_id+"__apply_").attr("type") != "hidden" && !$("#content_table_"+row_id+"__price_component__"+price_component_id+"__apply_").attr("checked")){
 			var formula = "0";
 		}
-		else if (2 == price_component.type){	//	TYPE_UNIT
+		else if (1 == price_component.type || 2 == price_component.type){	//	TYPE_UNIT
 			var formula = "amount * value";
 		}
 		else if (3 == price_component.type || 4 == price_component.type){	//	TYPE_ROW or TYPE_TOTAL

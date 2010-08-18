@@ -153,7 +153,7 @@ class automatweb
 		}
 	}
 
-	private function start_session()
+	private static function start_session()
 	{
 		ini_set("session.save_handler", "files");
 		session_name("automatweb");

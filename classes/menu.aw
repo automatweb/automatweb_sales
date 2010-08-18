@@ -1648,9 +1648,18 @@ class menu extends class_base implements main_subtemplate_handler
 		}
 
 		$ps = get_instance("vcl/popup_search");
-		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_sss"], 9 /* RELTYPE_DOCS_FROM_MENU */);
-		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["_set_no_sss"], 24 /* RELTYPE_NO_DOCS_FROM_MENU */);
-		$ps->do_create_rels($arr["obj_inst"], $arr["request"]["sad_s"], 18 /* RELTYPE_SEEALSO_DOCUMENT */);
+		$rels = array(
+			"_set_sss" => 9, /* RELTYPE_DOCS_FROM_MENU */
+			"_set_no_sss" => 24, /* RELTYPE_NO_DOCS_FROM_MENU */
+			"sad_s" => 18, /* RELTYPE_SEEALSO_DOCUMENT */
+		);
+		foreach($rels as $rel_key => $rel_type)
+		{
+			if(!empty($arr["request"]["_set_sss"]))
+			{
+				$ps->do_create_rels($arr["obj_inst"], $arr["request"][$rels_key], $rel_type);
+			}
+		}
 	}
 
 	function callback_pre_save($arr)
@@ -1667,7 +1676,7 @@ class menu extends class_base implements main_subtemplate_handler
 			));
 		};
 
-		if ($this->can("view", $arr["request"]["link_pops"]))
+		if (isset($arr["request"]["link_pops"]) && $this->can("view", $arr["request"]["link_pops"]))
 		{
 			$arr["obj_inst"]->set_meta("linked_obj", $arr["request"]["link_pops"]);
 		}

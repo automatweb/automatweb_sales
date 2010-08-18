@@ -900,7 +900,7 @@
             <ADM_MESSAGE>
                   <value>3</value>
                   <clid>CL_MESSAGE</clid>
-                  <caption>administratiivne teade </caption>
+                  <caption>administratiivne teade</caption>
             </ADM_MESSAGE>
             <TEMPLATE>
                   <value>4</value>

@@ -2,6 +2,18 @@
 
 class crm_offer_row_obj extends crm_offer_price_component_handler
 {
+	public function awobj_get_name()
+	{
+		$name = parent::name();
+		return strlen($name) > 0 ? $name : $this->prop("object.name");
+	}
+
+	public function awobj_get_comment()
+	{
+		$comment = parent::comment();
+		return strlen($comment) > 0 ? $comment : $this->prop("object.comment");
+	}
+
 	public function awobj_get_amount()
 	{
 		return aw_math_calc::string2float(parent::prop("amount"));

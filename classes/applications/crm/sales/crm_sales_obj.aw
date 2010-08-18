@@ -1260,6 +1260,15 @@ EOQ;
 		return $calls;
 	}
 
+	public function get_contract_list()
+	{
+		$ol = is_oid($this->id()) ? new object_list(array(
+			"class_id" => CL_CRM_DEAL,
+			"parent" => $this->prop("contracts_folder"),
+		)) : new object_list();
+		return $ol;
+	}
+
 	/**
 	@attrib api=1
 
@@ -1277,6 +1286,39 @@ EOQ;
 			)),
 		)) : new object_list();
 		return $ol;
+	}
+
+	/**
+		@attrib api=1
+
+		@returns object_list
+	**/
+	public function get_price_component_category_list()
+	{
+		$ol = is_oid($this->id()) ? new object_list(array(
+			"class_id" => CL_CRM_SALES_PRICE_COMPONENT_CATEGORY,
+			"parent" => $this->prop("price_component_categories_folder"),
+		)) : new object_list();
+		return $ol;
+	}
+
+	/**	Returns list of price component and price component categories to be shown as a separate column in the offers statistics view.
+		@attrib api=1
+		@returns int[]
+	**/
+	public function get_price_components_and_categories_shown_in_statistics()
+	{
+		$ret = $this->meta("show_in_statistics");
+		return is_array($ret) ? $ret : array();
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param ids required type=int[]
+	**/
+	public function set_price_components_and_categories_shown_in_statistics($ids)
+	{
+		$this->set_meta("show_in_statistics", $ids);
 	}
 }
 

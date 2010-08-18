@@ -29,6 +29,9 @@
 				@property type type=select field=aw_type parent=general_left_top
 				@caption T&uuml;&uuml;p
 
+				@property category type=select field=aw_category parent=general_left_top
+				@caption Kategooria
+
 				@property value_absolute type=textbox store=no maxlength=20 parent=general_left_top
 				@caption Summa
 
@@ -102,6 +105,21 @@ class crm_sales_price_component extends class_base
 	public function _set_value($arr)
 	{
 		return PROP_IGNORE;
+	}
+
+	public function _get_category($arr)
+	{
+		if(is_object($this->application))
+		{
+			$options = array(t("--Vali--"));
+			$price_components = $this->application->get_price_component_category_list();
+			$options += $price_components->names();
+			$arr["prop"]["options"] = $options;
+		}
+		else
+		{
+			return PROP_IGNORE;
+		}
 	}
 
 	public function _get_value_ratio($arr)
@@ -497,6 +515,7 @@ class crm_sales_price_component extends class_base
 				));
 				return true;
 
+			case "aw_category":
 			case "aw_application":
 				$this->db_add_col($t, array(
 					"name" => $f,
