@@ -43,6 +43,12 @@ class aw_http_response extends aw_resource
 
 		parent::send();
 	}
+
+	public function sysmsg($message)
+	{
+		echo nl2br(htmlspecialchars($message));
+		flush();
+	}
 }
 
 ?>

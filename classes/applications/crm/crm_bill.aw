@@ -1306,12 +1306,12 @@ class crm_bill extends class_base
 					"name" => $mail_person->name(),
 					"oid" => $mail_person->id(),
 					"phone" => $mail_person->get_phone(),
-					"rank" => join(", " , $mail_person->get_profession_names($arr["obj_inst"]->prop("customer"))),
+					"rank" => $arr["obj_inst"]->prop("customer") ? join(", " , $mail_person->get_profession_names(obj($arr["obj_inst"]->prop("customer")))) : "",
 					"mail" => $mail_person->get_mail($arr["obj_inst"]->prop("customer")),
 					"co" => $mail_person->company_name(),
 					"selection" => html::checkbox(array(
 						"name" => "bill_targets[".$mail_person->id()."]",
-						"checked" => !(is_array($bill_targets) && sizeof($bill_targets) && !$bill_targets[$mail_person->id()]),
+						"checked" => !(is_array($bill_targets) && sizeof($bill_targets) && empty($bill_targets[$mail_person->id()])),
 						"ch_value" => $mail_person->id()
 					)),"sel2" => "bcc"
 				));

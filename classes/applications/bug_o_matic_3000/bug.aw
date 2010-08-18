@@ -1,7 +1,7 @@
 <?php
 /*
 
-@classinfo syslog_type=ST_BUG relationmgr=yes no_comment=1 no_status=1 r2=yes maintainer=robert
+@classinfo relationmgr=yes no_comment=1 no_status=1 r2=yes
 
 @tableinfo aw_bugs index=aw_id master_index=brother_of master_table=objects
 
@@ -1186,7 +1186,11 @@ class bug extends class_base
 				}
 
 				$c = get_current_company();
-				$prop["options"][$c->id()] = $c->name();
+				if ($c)
+				{
+					$prop["options"][$c->id()] = $c->name();
+				}
+
 				foreach($prop["options"] as $_id => $_nm)
 				{
 					if (strlen($_nm) > 15)
@@ -1215,12 +1219,15 @@ class bug extends class_base
 				break;
 
 			case "bug_url":
-				$url = $prop["value"];
-				if(strpos($url, "?") !== 0 && strpos($url, "orb.aw") !== 0 && strpos($url, "://") === false)
+				if (!empty($prop["value"]))
 				{
-					$url = "http://" . $url;
+					$url = $prop["value"];
+					if(strpos($url, "?") !== 0 && strpos($url, "orb.aw") !== 0 && strpos($url, "://") === false)
+					{
+						$url = "http://" . $url;
+					}
+					$prop["post_append_text"] = ' <a href="' . $url . '" target="_blank">Ava</a>';
 				}
-				$prop["post_append_text"] = ' <a href="' . $url . '" target="_blank">Ava</a>';
 				break;
 
 			case "bug_property":
@@ -2441,7 +2448,7 @@ class bug extends class_base
 			{
 				$o->set_prop("new_state", $new_state);
 			}
-			
+
 			$o->set_prop("time_real", ($o->prop("time_real") + $add_wh));
 			$o->set_prop("time_to_cust", ($o->prop("time_to_cust") + $add_wh_cust));
 			$o->set_prop("time_guess", ($o->prop("time_guess") + $add_wh_guess));
@@ -2470,7 +2477,7 @@ class bug extends class_base
 				"type" => "RELTYPE_COMMENT"
 			));
 		}
-	
+
 
 		if($add_wh_guess)
 		{
@@ -2858,7 +2865,7 @@ class bug extends class_base
 				}
 			}
 			$mails["creator"] = $mail;
-	
+
 			foreach($mails as $id => $mail)
 			{
 				if($mail)
@@ -2876,7 +2883,7 @@ class bug extends class_base
 							$admin = true;
 						}
 					}
-	
+
 					$bug_url = $this->mk_my_orb("change", array("id" => $o->id()), CL_DEVELOPMENT_ORDER, $admin);
 					if(!$admin)
 					{
@@ -2909,7 +2916,7 @@ class bug extends class_base
 					$adr = $mail->prop("mail");
 					send_mail($adr, t("Lisati arendustellimus"), $mail_contents, "From: bugtrack@".substr(strstr(aw_ini_get("baseurl"), "//"), 2));
 				}
-	
+
 			}
 		}
 

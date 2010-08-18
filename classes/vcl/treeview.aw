@@ -432,6 +432,12 @@ class treeview extends class_base
 		{
 			$item["caption"]= substr($item["caption"], 0, $this->item_name_length).(strlen($item["caption"]) > 20 ? "..." : "");
 		}
+
+		if (!isset($item["id"]) )
+		{
+			$item["id"] = uniqid("aw_treeview_item_");
+		}
+
 		$this->itemdata[$item["id"]] = $item;
 		$this->items[$parent][] = &$this->itemdata[$item["id"]];
 		if (!empty($item["is_open"]))
@@ -940,7 +946,7 @@ class treeview extends class_base
 				$item["url"] = "javascript:void(0)";
 			}
 
-			$name = $item["name"];
+			$name = isset($item["name"]) ? $item["name"] : "";
 			if ($item["id"] === $this->selected_item)
 			{
 				// XXX: Might want to move this into the template
