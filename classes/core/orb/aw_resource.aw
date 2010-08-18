@@ -97,6 +97,19 @@ class aw_resource
 		}
 		return $value;
 	}
+
+	/** Attempts to instantly send $message to current application request maker
+		@attrib api=1 params=pos
+		@param message type=string
+			Text to send. May contain line breaks
+		@returns void
+		@errors none
+	**/
+	public function sysmsg($message)
+	{
+		echo $message;
+		flush();
+	}
 }
 
 ?>

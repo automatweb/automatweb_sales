@@ -3562,7 +3562,7 @@ class project extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb($arr, $request)
 	{
 		switch($arr["group"])
 		{
@@ -3575,10 +3575,10 @@ class project extends class_base
 		$arr["implementor"] = "0";
 		$arr["participants"] = "0";
 		$arr["orderer"] = "0";
-		$arr["tf"] = $_GET["tf"];
-		$arr["team"] = $_GET["team"];
-		$arr["connect_orderer"] = $_GET["connect_orderer"];
-		$arr["connect_impl"] = $_GET["connect_impl"];
+		$arr["tf"] = isset($request["tf"]) ? $request["tf"] : "";
+		$arr["team"] = isset($request["team"]) ? $request["team"] : "";
+		$arr["connect_orderer"] = isset($request["connect_orderer"]) ? $request["connect_orderer"] : "";
+		$arr["connect_impl"] = isset($request["connect_impl"]) ? $request["connect_impl"] : "";
 		$arr["prod_search_res"] = "0";
 	}
 
@@ -7093,7 +7093,7 @@ exit_function("bills::all_cust_bills");
 
 	function _impl_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_impl_table($t);
 
 		if (!is_oid($arr["obj_inst"]->id()))
@@ -7125,7 +7125,7 @@ exit_function("bills::all_cust_bills");
 
 	function _parts_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"tooltip" => t("Uus"),
@@ -7236,7 +7236,7 @@ exit_function("bills::all_cust_bills");
 		));
 
 		$cur = get_current_company();
-		$s = array("co" => array($cur->id() => $cur->id()));
+		$s = $cur ? array("co" => array($cur->id() => $cur->id())) : array();
 		if (is_oid($arr["obj_inst"]->id()))
 		{
 			foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_CUSTOMER")) as $c)
@@ -7344,8 +7344,6 @@ exit_function("bills::all_cust_bills");
 		// bugs
 		$ol = new object_list(array(
 			"class_id" => CL_BUG,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"project" => $o->id()
 		));
 		$hrs = 0;
@@ -7357,8 +7355,6 @@ exit_function("bills::all_cust_bills");
 		// tasks
 		$ol = new object_list(array(
 			"class_id" => array(CL_TASK,CL_CRM_MEETING,CL_CRM_CALL),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"project" => $o->id(),
 			"brother_of" => new obj_predicate_prop("id")
 		));
@@ -7410,7 +7406,7 @@ exit_function("bills::all_cust_bills");
 				"class_id" => array(CL_PROCUREMENT_REQUIREMENT)
 			));
 		}
-		classload("vcl/table");
+
 		$t = new vcl_table();
 		$t->table_from_ol($ol, array("name", "created", "pri", "req_co", "req_p", "project", "process", "planned_time", "desc", "state", "budget"), CL_PROCUREMENT_REQUIREMENT);
 		header('Content-type: application/octet-stream');
@@ -7421,7 +7417,7 @@ exit_function("bills::all_cust_bills");
 
 	function _get_prods_toolbar($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_search_button(array(
 			"pn" => "prod_search_res",
 			"multiple" => 1,
@@ -7432,7 +7428,7 @@ exit_function("bills::all_cust_bills");
 
 	function _get_prods_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->table_from_ol(
 			new object_list($arr["obj_inst"]->connections_from(array(
 				"type" => "RELTYPE_PRODUCT"
@@ -7442,7 +7438,7 @@ exit_function("bills::all_cust_bills");
 		);
 	}
 
-	private function _init_stats_table(&$t, $types)
+	private function _init_stats_table($t, $types)
 	{
 		$t->define_field(array(
 			"name" => "person",
@@ -7506,7 +7502,7 @@ exit_function("bills::all_cust_bills");
 
 	private function _get_stats_money_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$work_data = $arr["obj_inst"]->get_workers_stats();
 
@@ -7597,7 +7593,7 @@ exit_function("bills::all_cust_bills");
 
 	private function _get_hours_stats_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$all_data = $arr["obj_inst"]->get_rows_data();
 		$work_data = array();
@@ -7707,7 +7703,7 @@ exit_function("bills::all_cust_bills");
 
 	private function _get_stats_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		classload("core/date/date_calc");
 		$all_data = $arr["obj_inst"]->get_rows_data();
 		$work_data = array();
@@ -7976,7 +7972,7 @@ arr($stats_by_ppl);
 
 	private function _get_stats_entry_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_stats_entry_table($t);
 
 		$this->clss = aw_ini_get("classes");
@@ -8134,7 +8130,7 @@ arr($stats_by_ppl);
 
 	function _get_stats_money_by_person_chart($arr)
 	{
-		$c2 = &$arr["prop"]["vcl_inst"];
+		$c2 = $arr["prop"]["vcl_inst"];
 		$c2->set_type(GCHART_LINE_CHARTXY);
 		$c2->set_size(array(
 			"width" => 1000,

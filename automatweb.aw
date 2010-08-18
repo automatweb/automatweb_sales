@@ -614,6 +614,11 @@ aw_global_set("section", $section);
 	{
 		if (self::MODE_PRODUCTION === $id)
 		{
+			if (self::MODE_DBG === $this->mode or self::MODE_DBG_EXTENDED === $this->mode)
+			{
+				self::$result->sysmsg("Switching away from debug mode\n");
+			}
+
 			error_reporting(0);
 			ini_set("display_errors", "0");
 			ini_set("display_startup_errors", "0");

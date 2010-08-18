@@ -672,7 +672,7 @@ class bug_tracker extends class_base
 			static $d_i;
 			if (!$d_i)
 			{
-				$d_i = get_instance("applications/bug_o_matic_3000/bt_devo_impl");
+				$d_i = new bt_devo_impl();
 			}
 			$fn = "_get_".$prop["name"];
 			return $d_i->$fn($arr);
@@ -682,7 +682,7 @@ class bug_tracker extends class_base
 			static $p_i;
 			if (!$p_i)
 			{
-				$p_i = get_instance("applications/bug_o_matic_3000/bt_problems_impl");
+				$p_i = new bt_problems_impl();
 			}
 			$fn = "_get_".$prop["name"];
 			return $p_i->$fn($arr);
@@ -693,7 +693,7 @@ class bug_tracker extends class_base
 			static $proj_i;
 			if (!$proj_i)
 			{
-				$proj_i = get_instance("applications/bug_o_matic_3000/bt_projects_impl");
+				$proj_i = new bt_projects_impl();
 			}
 			$fn = "_get_".$prop["name"];
 			if(method_exists($proj_i, $fn))
@@ -702,7 +702,7 @@ class bug_tracker extends class_base
 			}
 			elseif(strpos($prop["name"], "proj_search") !== false && $prop["type"] !== "submit")
 			{
-				$prop["value"] = $arr["request"][$prop["name"]];
+				$prop["value"] = isset($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : "";
 				if(!$prop["value"] && strpos($prop["type"], "date") !== false)
 				{
 					$prop["value"] = -1;
@@ -735,7 +735,7 @@ class bug_tracker extends class_base
 				break;
 
 			case "cat":
-				if($this->can("view", $arr["request"]["cat"]))
+				if(isset($arr["request"]["cat"]) and $this->can("view", $arr["request"]["cat"]))
 				{
 					$prop["value"] = $arr["request"]["cat"];
 				}
@@ -1789,7 +1789,7 @@ class bug_tracker extends class_base
 
 	private function __insert_ppl_tree1($tree, $parent, $arr, $prop)
 	{
-		$owner = $this->_get_owner($arr);
+		$owner = self::_get_owner($arr);
 		if(!$owner)
 		{
 			return;
@@ -1826,10 +1826,10 @@ class bug_tracker extends class_base
 		}
 	}
 
-	private function __insert_ppl_tree2(&$tree, $o, $parent, $arr, $prop)
+	private function __insert_ppl_tree2($tree, $o, $parent, $arr, $prop)
 	{
-		$bp_i = get_instance("classes/applications/bug_o_matic_3000/bt_projects_impl");
-		$owner = $this->_get_owner($arr);
+		$bp_i = new bt_projects_impl();
+		$owner = self::_get_owner($arr);
 		if(!$owner)
 		{
 			return;
@@ -1866,7 +1866,7 @@ class bug_tracker extends class_base
 		}
 	}
 
-	private function __insert_classes_tree(&$tree, $parent, $cl_parent, $arr)
+	private function __insert_classes_tree($tree, $parent, $cl_parent, $arr)
 	{
 		if($parent != 0)
 		{
@@ -1875,7 +1875,7 @@ class bug_tracker extends class_base
 				"url" => "#",
 			));
 		}
-		$bp_i = get_instance("classes/applications/bug_o_matic_3000/bt_projects_impl");
+		$bp_i = new bt_projects_impl();
 		$f = aw_ini_get("classfolders");
 		foreach($f as $id => $dat)
 		{
@@ -5358,9 +5358,9 @@ die("a");
 		$arr["prop"]["value"] = isset($arr["request"]["s_finance_type"]) ? $arr["request"]["s_finance_type"] : "";
 	}
 
-	function _get_owner($arr)
+	public static function _get_owner($arr)
 	{
-		$obj_inst = $arr["id"] ? obj($arr["id"]) : ($arr["inst_id"] ? obj($arr["inst_id"]) : obj($arr["request"]["id"]));
+		$obj_inst = !empty($arr["id"]) ? obj($arr["id"]) : (!empty($arr["inst_id"]) ? obj($arr["inst_id"]) : obj($arr["request"]["id"]));
 		$conn = $obj_inst->connections_from(array(
 			"type" => "RELTYPE_OWNER",
 		));

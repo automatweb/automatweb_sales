@@ -150,16 +150,7 @@ function aw_dbg_exception_handler($e)
 function aw_error_handler($errno, $errstr, $errfile, $errline, $context)
 {
 	// generate and throw exception when fatal error occurs. ignore all other errors
-	if (aw_is_fatal_error($errno))
-	{
-		$class = aw_get_error_exception_class($errno);
-		$e = new $class($errstr, $errno);
-		$e->errfile = $errfile;
-		$e->errline = $errline;
-		$e->context = $context;
-		throw $e;
-	}
-	elseif (E_USER_WARNING === $errno)
+	if (E_USER_WARNING === $errno)
 	{
 		error::raise(array(
 			"id" => "USER WARNING",
@@ -167,6 +158,15 @@ function aw_error_handler($errno, $errstr, $errfile, $errline, $context)
 			"fatal" => false,
 			"show" => false
 		));
+	}
+	elseif (!aw_is_non_fatal_error($errno))
+	{
+		$class = aw_get_error_exception_class($errno);
+		$e = new $class($errstr, $errno);
+		$e->errfile = $errfile;
+		$e->errline = $errline;
+		$e->context = $context;
+		throw $e;
 	}
 	return true;
 }
@@ -179,15 +179,7 @@ function aw_dbg_error_handler($errno, $errstr, $errfile, $errline, $context)
 	}
 
 	$class = aw_get_error_exception_class($errno);
-	if (aw_is_fatal_error($errno))
-	{ // generate and throw exception when fatal error occurs
-		$e = new $class($errstr, $errno);
-		$e->errfile = $errfile;
-		$e->errline = $errline;
-		$e->context = $context;
-		throw $e;
-	}
-	else
+	if (aw_is_non_fatal_error($errno))
 	{ // display non-fatal error information
 		$err = strtoupper(substr($class, 9));
 		echo "[{$err}] <b>{$errstr}</b> in {$errfile} on line {$errline}<br><br>\n\n"; //!!! aw_response objekti ja sealt footerite kaudu templatesse
@@ -201,6 +193,14 @@ function aw_dbg_error_handler($errno, $errstr, $errfile, $errline, $context)
 		{
 			ob_flush();
 		}
+	}
+	else
+	{ // generate and throw exception when fatal error occurs
+		$e = new $class($errstr, $errno);
+		$e->errfile = $errfile;
+		$e->errline = $errline;
+		$e->context = $context;
+		throw $e;
 	}
 	return true;
 }
@@ -240,7 +240,7 @@ function aw_reasonable_error_handler($errno, $errstr, $errfile, $errline, $conte
 	}
 
 	$r = true;
-	if ($current_user_is_maintainer or aw_is_fatal_error($errno) or E_WARNING === $errno)
+	if ($current_user_is_maintainer or !aw_is_non_fatal_error($errno) or E_WARNING === $errno)
 	{
 		$r = aw_dbg_error_handler($errno, $errstr, $errfile, $errline, $context);
 	}
@@ -256,7 +256,7 @@ function aw_fatal_error_handler($e = null)
 			$e = error_get_last();
 		}
 
-		if (!empty($e) and aw_is_fatal_error($e["type"]))
+		if (!empty($e) and !aw_is_non_fatal_error($e["type"]))
 		{
 			// this is to find out the name of current exception handler function
 			$current_exception_handler = set_exception_handler("aw_exception_handler");
@@ -308,16 +308,18 @@ function aw_get_error_exception_class($error_type)
 	return $class;
 }
 
-function aw_is_fatal_error($error_type)
+function aw_is_non_fatal_error($error_type)
 {
-	static $fatal_errors = array(
-		E_COMPILE_ERROR,
-		E_PARSE,
-		E_ERROR,
-		E_USER_ERROR,
-		E_CORE_ERROR
+	static $non_fatal_errors = array(
+		E_NOTICE => 1,
+		E_STRICT => 1,
+		E_WARNING => 1,
+		E_USER_NOTICE => 1,
+		E_USER_WARNING => 1,
+		E_CORE_WARNING => 1,
+		E_COMPILE_WARNING => 1
 	);
-	return in_array($error_type, $fatal_errors);
+	return isset($non_fatal_errors[$error_type]);
 }
 
 /** Generic automatweb exception **/

@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=markop
-*/
+
 class crm_company_cust_impl extends class_base
 {
 	public $use_group = "";
@@ -215,7 +213,7 @@ class crm_company_cust_impl extends class_base
 		$data = array();
 		foreach ($conns_ol->arr() as $project_obj)
 		{
-			$this->_get_proj_data_row($project_obj, $data);
+			$this->_get_proj_data_row($project_obj, $data, $arr["request"]["id"]);
 		}
 		$this->do_projects_table_header($table, $data, isset($arr["prj"]));
 		foreach($data as $row)
@@ -225,12 +223,41 @@ class crm_company_cust_impl extends class_base
 		return PROP_OK;
 	}
 
-	function _get_proj_data_row($project_obj, &$data)
+	function _get_proj_data_row($project_obj, &$data, $org_id)
 	{
+		$rc_by_co = array();
+		$role_entry_list = new object_list(array(
+			"class_id" => CL_CRM_COMPANY_ROLE_ENTRY,
+			"company" => $org_id,
+			"client" => $orderer,
+			"project" => $project_obj->id()
+		));
+
+		foreach($role_entry_list->arr() as $role_entry)
+		{
+			$rc_by_co[$role_entry->prop("client")][$role_entry->prop("project")][$role_entry->prop("person")][] = html::get_change_url(
+					$org_id,
+					array(
+						"group" => "contacts2",
+						"unit" => $role_entry->prop("unit"),
+					),
+					parse_obj_name($role_entry->prop_str("unit"))
+				)
+				."/".
+				html::get_change_url(
+					$org_id,
+					array(
+						"group" => "contacts2",
+						"cat" => $role_entry->prop("role")
+					),
+					parse_obj_name($role_entry->prop_str("role"))
+				);
+		}
+
 		$orderer = $project_obj->get_first_obj_by_reltype("RELTYPE_ORDERER");
 		if(is_object($orderer)) $orderer = $orderer->id();
 		$roles = $this->_get_role_html(array(
-			"from_org" => $arr["request"]["id"],
+			"from_org" => $org_id,
 			"to_org" => $orderer,
 			"rc_by_co" => $rc_by_co,
 			"to_project" => $project_obj->id()
@@ -1194,7 +1221,7 @@ class crm_company_cust_impl extends class_base
 			}
 		}
 
-		$rs_by_co = array();
+		$rc_by_co = array();
 		$role_entry_list = new object_list(array(
 			"class_id" => CL_CRM_COMPANY_ROLE_ENTRY,
 			"company" => $arr["request"]["id"],
@@ -1999,9 +2026,7 @@ class crm_company_cust_impl extends class_base
 			}
 		}
 		$ol = new object_list(array(
-			"oid" => $ids,
-			"lang_id" => array(),
-			"site_id" => array()
+			"oid" => $ids
 		));
 		$nms = $ol->names();
 		foreach($nms as $id => $nm)
@@ -2772,8 +2797,28 @@ class crm_company_cust_impl extends class_base
 		);
 
 		$ol = new object_list();
-		$ol->add($t->get_element_from_all("orderer"));
-		$ol->add($t2->get_element_from_all("participant"));
+		foreach ($t->get_element_from_all("orderer") as $orderer_oid)
+		{
+			try
+			{
+				$ol->add($orderer_oid);
+			}
+			catch (awex_obj $e)
+			{
+			}
+		}
+
+		foreach ($t->get_element_from_all("participant") as $participant_oid)
+		{
+			try
+			{
+				$ol->add($participant_oid);
+			}
+			catch (awex_obj $e)
+			{
+			}
+		}
+
 		return $ol;
 	}
 

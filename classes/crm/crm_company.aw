@@ -2270,25 +2270,6 @@ class crm_company extends class_base
 				$data["direct_links"] = 1;
 				break;
 
-			case "client_manager":
-				$u = get_instance(CL_USER);
-				$data["options"] = $this->get_employee_picker($arr["obj_inst"], true);
-				if ($arr["new"])
-				{
-					$data["value"] = $u->get_current_person();
-				}
-
-				if (($rel = $this->get_cust_rel($arr["obj_inst"])))
-				{
-					$data["value"] = $rel->prop($data["name"]);
-				}
-				if (isset($data["options"]) && !isset($data["options"][$data["value"]]) && $this->can("view", $data["value"]))
-				{
-					$tmp = obj($data["value"]);
-					$data["options"][$data["value"]] = $tmp->name();
-				}
-				break;
-
 			case "pohitegevus":
 				$this->_get_pohitegevus($arr);
 				break;
@@ -3233,7 +3214,6 @@ class crm_company extends class_base
 			case "contact_person2":
 			case "contact_person3":
 			case "priority":
-			case "client_manager":
 			case "bill_due_days":
 				// save to rel
 				if (($rel = $this->get_cust_rel($arr["obj_inst"])))
@@ -5027,25 +5007,16 @@ class crm_company extends class_base
 			$ret[] = $c["to"];
 		}
 
-		// get cust conns for co
-		if ($co)
-		{
-			foreach($co->connections_from(array("type" => "RELTYPE_CUSTOMER")) as $c)
-			{
-				$ret[] = $c->prop("to");
-			}
-		}
-
 		// add all customers to whom I am cust mgr
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = $u->get_current_person();
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_COMPANY,
+			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 			"client_manager" => $p
 		));
-		foreach($ol->ids() as $_id)
+		foreach($ol->arr() as $customer_relation_o)
 		{
-			$ret[] = $_id;
+			$ret[] = $customer_relation_o->prop("seller");
 		}
 
 		$ret = array_unique($ret);
