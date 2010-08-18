@@ -2769,11 +2769,11 @@ class class_base extends aw_template
 			return;
 		}
 
-		$nm = $property["name"];
+		$nm = isset($property["name"]) ? $property["name"] : "";
 
 		try
 		{
-			$property_value_from_obj = $this->obj_inst->prop($property["name"]);
+			$property_value_from_obj = $this->obj_inst->prop($nm);
 		}
 		catch (Exception $e)
 		{
@@ -3148,29 +3148,29 @@ class class_base extends aw_template
 
 		foreach($properties as $key => $val)
 		{
-			if ($val["name"] === "tabpanel" && $this->view)
+			if (isset($val["name"]) && $val["name"] === "tabpanel" && $this->view)
 			{
 				continue;
 			};
 
-			if ($val["name"] === "name" && !empty($this->classinfo["no_name"]))
+			if (isset($val["name"]) && $val["name"] === "name" && !empty($this->classinfo["no_name"]))
 			{
 				continue;
 			};
 
 
 			// XXX: need to get rid of that "text" index
-			if ($val["name"] === "status" && !empty($this->classinfo["no_status"]))
+			if (isset($val["name"]) && $val["name"] === "status" && !empty($this->classinfo["no_status"]))
 			{
 				continue;
 			};
 
-			if ($val["name"] === "comment" && !empty($this->classinfo["no_comment"]))
+			if (isset($val["name"]) && $val["name"] === "comment" && !empty($this->classinfo["no_comment"]))
 			{
 				continue;
 			}
 
-			if ($val["type"] === "textarea" && $has_rte == false)
+			if ($val["type"] === "textarea" && !$has_rte)
 			{
 				unset($val["richtext"]);
 			}
@@ -3208,7 +3208,7 @@ class class_base extends aw_template
 				$remap_children = true;
 			}
 
-			$name = $val["name"];
+			$name = isset($val["name"]) ? $val["name"] : "";
 			if (is_array($val) && $val["type"] !== "callback" && $val["type"] !== "submit")
 			{
 				$this->get_value($val);
@@ -3259,7 +3259,7 @@ class class_base extends aw_template
 				continue;
 			}
 
-			$pname = $val["name"];
+			$pname = isset($val["name"]) ? $val["name"] : "";
 			$getter = "_get_" . $pname;
 			$status = null;
 			if ( !empty($this->classinfo['prop_cb']) && in_array($getter,$class_methods))
@@ -3424,7 +3424,7 @@ class class_base extends aw_template
 					if ($this->layout_mode === "fixed_toolbar")
 					{
 						//$this->groupinfo = $this->groupinfo();
-						$no_rte = $_GET["no_rte"];
+						$no_rte = automatweb::$request->arg("no_rte");
 						foreach($this->groupinfo as $grp_id => $grp_data)
 						{
 							// disable all other buttons besides the general when
@@ -5122,7 +5122,7 @@ class class_base extends aw_template
 				}
 			}
 
-			if (!empty($propdata["richtext"]) && 0 == $this->classinfo["allow_rte"])
+			if (!empty($propdata["richtext"]) && empty($this->classinfo["allow_rte"]))
 			{
 				unset($propdata["richtext"]);
 			};

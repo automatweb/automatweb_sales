@@ -412,9 +412,9 @@ class html
 		textarea name
 	@param value optional type=string
 		textarea value
-	@param cols optional type=int
+	@param cols optional type=int default=60
 		number of columns
-	@param rows optional type=int
+	@param rows optional type=int default=40
 		number of rows
 	@param disabled optional type=bool
 		if true, textarea is disabled
@@ -461,13 +461,14 @@ class html
 		}
 
 		$textsize = (empty($textsize) ? "" : " style=\"font-size: {$textsize};\"");
+		$id = str_replace(array("[", "]"), "_", $name);
 		// now, the browser detection is best done in javascript
 
 		if (!empty($richtext))
 		{
 			if($rte_type == 2)
 			{
-				$retval .= "<textarea id=\"{$name}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$textsize}{$onkeyup}{$onchange}>{$value}</textarea>\n";
+				$retval .= "<textarea id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$textsize}{$onkeyup}{$onchange}>{$value}</textarea>\n";
 			}
 			elseif($rte_type == 3)
 			{
@@ -476,7 +477,7 @@ class html
 				{
 					$hval = htmlspecialchars($hval);
 				}
-				$retval = "<textarea class=\"codepress php\" id=\"{$name}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\" wrap=\"off\" >{$value}</textarea>
+				$retval = "<textarea class=\"codepress php\" id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\" wrap=\"off\" >{$value}</textarea>
 				<br />
 				<input type=\"checkbox\" onClick=\"{$name}.toggleAutoComplete();\" checked /> AutoComplete\n";
 			}
@@ -493,7 +494,7 @@ class html
 		else
 		{
 			$disabled = (empty($disabled) ? "" : ' disabled="disabled"');
-			$retval = "<textarea ".(empty($style) ? "" : "style=\"".$style."\"")." id=\"{$name}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$disabled}{$textsize}{$onkeyup}{$onFocus}{$onBlur}{$onchange}>{$value}</textarea>\n";
+			$retval = "<textarea ".(empty($style) ? "" : "style=\"".$style."\"")." id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$disabled}{$textsize}{$onkeyup}{$onFocus}{$onBlur}{$onchange}>{$value}</textarea>\n";
 		}
 
 		return $retval;
@@ -1507,6 +1508,17 @@ class html
 		$id = ($id ? " id=\"{$id}\"" : "");
 		$content = isset($content) ? $content : "";
 		return "<div{$class}{$style}{$id}>{$content}</div>";
+	}
+
+	/**	HTML of line break(s)
+		@attrib api=1 params=pos
+		@param n optional type=int default=1
+			The number of line breaks to be returned.
+		@returns string/html
+	**/
+	public static function linebreak($n = 1)
+	{
+		return str_repeat("<br />", $n);
 	}
 
 	/**Bold text

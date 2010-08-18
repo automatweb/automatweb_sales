@@ -203,8 +203,8 @@ class crm_sales_offers_view
 		{
 			$limit_results = false;
 			$from = mktime(0, 0, 0, date("n"), date("j"), date("Y"));
-			$to = $from + 86400;
-			$filter["modified"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN, $from, $to);
+			$to = $from + 86400 - 1;
+			$filter["modified"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, $from, $to);
 			$arr["request"]["sortby"] = "modified";
 		}
 		elseif (crm_sales::OFFERS_YESTERDAY === crm_sales::$offers_list_view)
@@ -212,7 +212,23 @@ class crm_sales_offers_view
 			$limit_results = false;
 			$from = mktime(0, 0, 0, date("n"), (date("j") - 1), date("Y"));
 			$to = $from + 86400;
-			$filter["modified"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN, $from, $to);
+			$filter["modified"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, $from, $to);
+			$arr["request"]["sortby"] = "modified";
+		}
+		elseif (crm_sales::OFFERS_THIS_WEEK === crm_sales::$offers_list_view)
+		{
+			$limit_results = false;
+			$from = mktime(0, 0, 0, date("n"), (date("j") - (date("w") == 0 ? 6 : (date("w") - 1))), date("Y"));
+			$to = $from + 7 * 86400 - 1;
+			$filter["modified"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, $from, $to);
+			$arr["request"]["sortby"] = "modified";
+		}
+		elseif (crm_sales::OFFERS_LAST_WEEK === crm_sales::$offers_list_view)
+		{
+			$limit_results = false;
+			$from = mktime(0, 0, 0, date("n"), (date("j") - (date("w") == 0 ? 6 : (date("w") - 1)) - 7), date("Y"));
+			$to = $from + 7 * 24 * 3600 - 1;
+			$filter["modified"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, $from, $to);
 			$arr["request"]["sortby"] = "modified";
 		}
 
@@ -245,7 +261,6 @@ class crm_sales_offers_view
 		}
 
 		// sorting
-		// default sort order by planned start
 		$sort_by = "CL_CRM_OFFER.modified";
 		$sort_dir = obj_predicate_sort::DESC;
 		$sortable_fields = array( // table field => array( default sort order, database field name)
@@ -323,6 +338,7 @@ class crm_sales_offers_view
 					"oid" => $oid,
 					"id" => $offer_id,
 					"modified" => $modified,
+					"modified_timestamp" => $offer->prop("modified"),
 				));
 			}
 			while ($offer = $offers->next());

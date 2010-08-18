@@ -67,6 +67,10 @@ PROPERTY DECLARATIONS
 	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna esitlused
 	@caption Esitluste kaust
 
+	@property contracts_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
+	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna lepingud
+	@caption Lepingute kaust
+
 	@property offers_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
 	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna pakkumisobjektid
 	@caption Pakkumiste kaust
@@ -74,6 +78,10 @@ PROPERTY DECLARATIONS
 	@property price_components_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
 	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna hinnakomponentide objekte
 	@caption Hinnakomponentide kaust
+
+	@property price_component_categories_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
+	@comment Kaust kust loetakse selle m&uuml;&uuml;gikeskkonna hinnakomponendi kategooriate objekte
+	@caption Hinnakomponendi kategooriate kaust
 
 	@property warehouse type=objpicker clid=CL_SHOP_WAREHOUSE parent=folders_box
 	@caption Ladu
@@ -223,7 +231,11 @@ PROPERTY DECLARATIONS
 			@property cfgf_offers_hide_mandatory_price_components type=checkbox parent=settings_offers_left
 			@caption Peida kohustuslikud hinnakomponendid
 
-		@property cfgf_offers_price_components_table type=table store=no no_caption=1 parent=settings_offers_vsplitbox
+		@layout settings_offers_right type=vbox parent=settings_offers_vsplitbox
+
+			@property cfgf_offers_price_component_categories_table type=table store=no no_caption=1 parent=settings_offers_right
+
+			@property cfgf_offers_price_components_table type=table store=no no_caption=1 parent=settings_offers_right
 
 @default group=contacts
 	@layout contacts_vsplitbox type=hbox width=25%:75%
@@ -614,6 +626,8 @@ class crm_sales extends class_base
 	const OFFERS_SEARCH = 2;
 	const OFFERS_YESTERDAY = 3;
 	const OFFERS_TODAY = 4;
+	const OFFERS_THIS_WEEK = 5;
+	const OFFERS_LAST_WEEK = 6;
 
 	// colours for different states
 	const COLOUR_CAN_START = "#EFF6D5";
@@ -631,7 +645,7 @@ class crm_sales extends class_base
 	public static $presentations_list_view = self::PRESENTATIONS_DEFAULT;
 
 	public static $offers_list_views = array();
-	public static $offers_list_view = self::OFFERS_DEFAULT;
+	public static $offers_list_view = self::OFFERS_THIS_WEEK;
 
 	private static $no_edit_contact_entry_props = array(
 		"contact_entry_co_contact_1",
@@ -725,6 +739,14 @@ class crm_sales extends class_base
 			),
 			self::OFFERS_YESTERDAY => array(
 				"caption" => t("Eilsed pakkumised"),
+				"in_tree" => true
+			),
+			self::OFFERS_THIS_WEEK => array(
+				"caption" => t("K&auml;esoleva n&auml;dala pakkumised"),
+				"in_tree" => true
+			),
+			self::OFFERS_LAST_WEEK => array(
+				"caption" => t("M&ouml;&ouml;dunud n&auml;dala pakkumised"),
 				"in_tree" => true
 			),
 			self::OFFERS_SEARCH => array(
@@ -1382,6 +1404,22 @@ class crm_sales extends class_base
 		elseif (is_object($this->contact_entry_edit_object) and in_array($arr["prop"]["name"], self::$no_edit_contact_entry_props))
 		{ // hide properties that aren't editable when editing an added contact in contact entry view
 			$ret = PROP_IGNORE;
+		}
+
+		return $ret;
+	}
+
+	function set_property(&$arr)
+	{
+		$ret = PROP_OK;
+
+		if ("settings_offers" === $this->use_group)
+		{
+			$method_name = "_set_{$arr["prop"]["name"]}";
+			if (method_exists("crm_sales_settings_offers_view", $method_name))
+			{
+				$ret = crm_sales_settings_offers_view::$method_name($arr);
+			}
 		}
 
 		return $ret;

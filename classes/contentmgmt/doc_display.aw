@@ -86,7 +86,7 @@ class doc_display extends aw_template
 		{
 			$al->parse_oo_aliases(
 				$doc->id(),
-				&$text,
+				$text,
 				array(
 					"templates" => &$this->templates,
 					"meta" => &$mt
@@ -98,7 +98,7 @@ class doc_display extends aw_template
 		{
 			$al->parse_oo_aliases(
 				$doc->id(),
-				&$content,
+				$content,
 				array(
 					"templates" => &$this->templates,
 					"meta" => &$mt
@@ -110,7 +110,7 @@ class doc_display extends aw_template
 		{
 			$al->parse_oo_aliases(
 				$doc->id(),
-				&$lead,
+				$lead,
 				array(
 					"templates" => &$this->templates,
 					"meta" => &$mt
@@ -140,50 +140,50 @@ class doc_display extends aw_template
 		$orig = $doc->get_original();
 
 		$user1 = $doc->trans_get_val("user1");
-		$al->parse_oo_aliases($doc->id(), &$user1, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user1")));
+		$al->parse_oo_aliases($doc->id(), $user1, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user1")));
 		$user2 = $doc->trans_get_val("user2");
-		$al->parse_oo_aliases($doc->id(), &$user2, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user2")));
+		$al->parse_oo_aliases($doc->id(), $user2, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user2")));
 		$user3 = $doc->trans_get_val("user3");
-		$al->parse_oo_aliases($doc->id(), &$user3, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user3")));
+		$al->parse_oo_aliases($doc->id(), $user3, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user3")));
 		$user4 = $doc->trans_get_val("user4");
-		$al->parse_oo_aliases($doc->id(), &$user4, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user4")));
+		$al->parse_oo_aliases($doc->id(), $user4, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user4")));
 		$user5 = $doc->trans_get_val("user5");
-		$al->parse_oo_aliases($doc->id(), &$user5, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user5")));
+		$al->parse_oo_aliases($doc->id(), $user5, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user5")));
 		$user6 = $doc->trans_get_val("user6");
-		$al->parse_oo_aliases($doc->id(), &$user6, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user6")));
+		$al->parse_oo_aliases($doc->id(), $user6, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user6")));
 		$user7 = $doc->trans_get_val("user7");
-		$al->parse_oo_aliases($doc->id(), &$user7, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user7")));
+		$al->parse_oo_aliases($doc->id(), $user7, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user7")));
 		$user8 = $doc->trans_get_val("user8");
-		$al->parse_oo_aliases($doc->id(), &$user8, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user8")));
+		$al->parse_oo_aliases($doc->id(), $user8, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user8")));
 		$user9 = $doc->trans_get_val("user9");
-		$al->parse_oo_aliases($doc->id(), &$user9, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user9")));
+		$al->parse_oo_aliases($doc->id(), $user9, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user9")));
 		$user10 = $doc->trans_get_val("user10");
-		$al->parse_oo_aliases($doc->id(), &$user10, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user10")));
+		$al->parse_oo_aliases($doc->id(), $user10, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user10")));
 		$user11 = $doc->trans_get_val("user11");
-		$al->parse_oo_aliases($doc->id(), &$user11, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user11")));
+		$al->parse_oo_aliases($doc->id(), $user11, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user11")));
 		$user12 = $doc->trans_get_val("user12");
-		$al->parse_oo_aliases($doc->id(), &$user12, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user12")));
+		$al->parse_oo_aliases($doc->id(), $user12, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user12")));
 		$user13 = $doc->trans_get_val("user13");
-		$al->parse_oo_aliases($doc->id(), &$user13, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user13")));
+		$al->parse_oo_aliases($doc->id(), $user13, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user13")));
 		$user14 = $doc->trans_get_val("user14");
-		$al->parse_oo_aliases($doc->id(), &$user14, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user14")));
+		$al->parse_oo_aliases($doc->id(), $user14, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user14")));
 		$user15 = $doc->trans_get_val("user15");
-		$al->parse_oo_aliases($doc->id(), &$user15, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user15")));
+		$al->parse_oo_aliases($doc->id(), $user15, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user15")));
 		$user16 = $doc->trans_get_val("user16");
-		$al->parse_oo_aliases($doc->id(), &$user16, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user16")));
+		$al->parse_oo_aliases($doc->id(), $user16, array("templates" => $this->templates, "meta" => $mt, "data" => array("prop" => "user16")));
 
 		$userta1 = $orig->trans_get_val("userta1");
-		$al->parse_oo_aliases($doc->id(), &$userta1, array("templates" => $this->templates, "meta" => $mt));
+		$al->parse_oo_aliases($doc->id(), $userta1, array("templates" => $this->templates, "meta" => $mt));
 		$userta2 = $orig->trans_get_val("userta2");
-		$al->parse_oo_aliases($doc->id(), &$userta2, array("templates" => $this->templates, "meta" => $mt));
+		$al->parse_oo_aliases($doc->id(), $userta2, array("templates" => $this->templates, "meta" => $mt));
 		$userta3 = $orig->trans_get_val("userta3");
-		$al->parse_oo_aliases($doc->id(), &$userta3, array("templates" => $this->templates, "meta" => $mt));
+		$al->parse_oo_aliases($doc->id(), $userta3, array("templates" => $this->templates, "meta" => $mt));
 		$userta4 = $orig->trans_get_val("userta4");
-		$al->parse_oo_aliases($doc->id(), &$userta4, array("templates" => $this->templates, "meta" => $mt));
+		$al->parse_oo_aliases($doc->id(), $userta4, array("templates" => $this->templates, "meta" => $mt));
 		$userta5 = $orig->trans_get_val("userta5");
-		$al->parse_oo_aliases($doc->id(), &$userta5, array("templates" => $this->templates, "meta" => $mt));
+		$al->parse_oo_aliases($doc->id(), $userta5, array("templates" => $this->templates, "meta" => $mt));
 		$userta6 = $orig->trans_get_val("userta6");
-		$al->parse_oo_aliases($doc->id(), &$userta6, array("templates" => $this->templates, "meta" => $mt));
+		$al->parse_oo_aliases($doc->id(), $userta6, array("templates" => $this->templates, "meta" => $mt));
 	
 		$title = $doc->trans_get_val("title");
 		if (aw_global_get("set_doc_title") != "")
@@ -442,9 +442,9 @@ class doc_display extends aw_template
 		
 		if (aw_ini_get("document.use_wiki_parser") == 1)
 		{
-			$this->parse_wiki(& $text, $doc);
+			$this->parse_wiki($text, $doc);
 		}
-		$this->_parse_youtube_links(& $text);
+		$this->_parse_youtube_links($text);
 		
 		// line break conversion between wysiwyg and not
 		$cb_nb = $doc->meta("cb_nobreaks");
@@ -471,7 +471,7 @@ class doc_display extends aw_template
 				}
 				$li = get_instance("aw_template");
 				$li->init();
-				lc_site_load("login", &$li);
+				lc_site_load("login", $li);
 				$li->read_template("login.tpl");
 				$text = str_replace("#login#", $li->parse(), $text);
 			}
@@ -516,9 +516,9 @@ class doc_display extends aw_template
 		
 		if (aw_ini_get("document.use_wiki_parser") == 1)
 		{
-			$this->parse_wiki(& $text, $doc);
+			$this->parse_wiki($text, $doc);
 		}
-		$this->_parse_youtube_links(& $text);
+		$this->_parse_youtube_links($text);
 		
 		// line break conversion between wysiwyg and not
 		$cb_nb = $doc->meta("cb_nobreaks");
@@ -543,9 +543,9 @@ class doc_display extends aw_template
 		
 		if (aw_ini_get("document.use_wiki_parser") == 1)
 		{
-			$this->parse_wiki(& $text, $doc);
+			$this->parse_wiki($text, $doc);
 		}
-		$this->_parse_youtube_links(& $text);
+		$this->_parse_youtube_links($text);
 		
 		// line break conversion between wysiwyg and not
 		$cb_nb = $doc->meta("cb_nobreaks");
@@ -579,25 +579,25 @@ class doc_display extends aw_template
 		@returns
 			none, the string is parsed and formatted in-place
 	**/
-	function parse_wiki($str, $doc)
+	function parse_wiki(&$str, $doc)
 	{
 		$str = trim($str);
-		$this->_parse_wiki_links(& $str);
-		$this->_parse_wiki_lists(& $str);
-		$this->_parse_wiki_titles(& $str);
-		$this->_parse_wiki_create_paragraphs(& $str);
+		$this->_parse_wiki_links($str);
+		$this->_parse_wiki_lists($str);
+		$this->_parse_wiki_titles($str);
+		$this->_parse_wiki_create_paragraphs($str);
 		// ''italic''
 		// '''bold'''
 		// '''''italic and bold''''''
-		$this->_parse_wiki_fontstyle(& $str);
+		$this->_parse_wiki_fontstyle($str);
 		// ~~~ = username
 		// ~~~~ = username date/time (UTC)
 		// ~~~~~ = date/time alone (UTC)
-		$this->_parse_wiki_sign(& $str, $doc);
-		$this->_parse_wiki_table(& $str);
+		$this->_parse_wiki_sign($str, $doc);
+		$this->_parse_wiki_table($str);
 	}
 	
-	private function _parse_wiki_table($str)
+	private function _parse_wiki_table(&$str)
 	{
 		if ( preg_match_all("/{\|.*\|}/imsU", $str, $mt_wiki_tables ) !== 0)
 		{
@@ -607,13 +607,13 @@ class doc_display extends aw_template
 			// read lines to array
 			while ( strlen(trim( $tmp)) > 0 )
 			{
-				if (preg_match  ( "/^(.*)\r\n/U" , $tmp, &$mt))
+				if (preg_match( "/^(.*)\r\n/U" , $tmp, $mt))
 				{
-					$tmp = preg_replace  ( "/^(.*)\r\n/U"  , "" , $tmp );
+					$tmp = preg_replace( "/^(.*)\r\n/U"  , "" , $tmp );
 				}
-				else if (preg_match  ( "/^(.*)$/U" , $tmp, &$mt))
+				else if (preg_match( "/^(.*)$/U" , $tmp, $mt))
 				{
-					$tmp = preg_replace  ( "/^(.*)$/U"  , "" , $tmp );
+					$tmp = preg_replace( "/^(.*)$/U"  , "" , $tmp );
 				}
 				$a_text[] = array ("text" => $mt[1]);
 			}
@@ -727,7 +727,7 @@ class doc_display extends aw_template
 		return $a_out;
 	}
 	
-	private function _parse_wiki_links($str)
+	private function _parse_wiki_links(&$str)
 	{
 		$a_pattern = array();
 		$a_replacement = array();
@@ -747,7 +747,7 @@ class doc_display extends aw_template
 		$str = preg_replace  ( $a_pattern  , $a_replacement  , $str );
 	}
 	
-	private function _parse_wiki_sign($str, $doc)
+	private function _parse_wiki_sign(&$str, $doc)
 	{
 		if (strpos($str, "~~~")!== false )
 		{
@@ -768,7 +768,7 @@ class doc_display extends aw_template
 		}
 	}
 	
-	private function _parse_wiki_fontstyle($str)
+	private function _parse_wiki_fontstyle(&$str)
 	{
 		if (strpos($str, "''")!== false)
 		{
@@ -787,7 +787,7 @@ class doc_display extends aw_template
 	}
 	
 	// because 2 br's dont't make paragraph
-	private function _parse_wiki_create_paragraphs($str)
+	private function _parse_wiki_create_paragraphs(&$str)
 	{
 		if (strlen(trim($str))>0)
 		{
@@ -799,7 +799,7 @@ class doc_display extends aw_template
 		}
 	}
 	
-	private function _parse_wiki_titles($str)
+	private function _parse_wiki_titles(&$str)
 	{
 		$a_str = explode("\r\n", $str);
 		$i_a_str_count = count($a_str);
@@ -826,7 +826,7 @@ class doc_display extends aw_template
 		$str = implode  ( "\r\n", $a_str );
 	}
 	
-	private function _parse_wiki_lists($str)
+	private function _parse_wiki_lists(&$str)
 	{
 		$tmp = $str;
 		$a_text = array();
@@ -835,15 +835,15 @@ class doc_display extends aw_template
 		$i=0;
 		while ( strlen(trim( $tmp)) > 0 )
 		{
-			if (preg_match  ( "/^(.*)\r\n/U" , $tmp, &$mt))
+			if (preg_match  ( "/^(.*)\r\n/U" , $tmp, $mt))
 			{
 				$tmp = preg_replace  ( "/^(.*)\r\n/U"  , "" , $tmp );
 			}
-			else if (preg_match  ( "/^(.*)$/U" , $tmp, &$mt))
+			else if (preg_match  ( "/^(.*)$/U" , $tmp, $mt))
 			{
 				$tmp = preg_replace  ( "/^(.*)$/U"  , "" , $tmp );
 			}
-			else if (preg_match  ( "/^(.*)\n/U" , $tmp, &$mt))
+			else if (preg_match  ( "/^(.*)\n/U" , $tmp, $mt))
 			{
 				$tmp = preg_replace  ( "/^(.*)\n/U"  , "" , $tmp );
 			}
@@ -992,7 +992,7 @@ class doc_display extends aw_template
 		);
 	}
 	
-	private function _parse_youtube_links($str)
+	private function _parse_youtube_links(&$str)
 	{
 		$tmp_template_explode = explode("/", $this->template_filename);
 		$tmp_template = end($tmp_template_explode);
@@ -1074,7 +1074,7 @@ class doc_display extends aw_template
 				{
 					$s_comment = $row["comment"];
 					//$this->_parse_youtube_links(& $s_comment);
-					$this->parse_wiki(& $s_comment, $doc);
+					$this->parse_wiki($s_comment, $doc);
 					$s_name = $row["name"];
 					$s_url = $row["url"];
 					if (strlen($s_url)>0)
@@ -1085,7 +1085,7 @@ class doc_display extends aw_template
 							"rel" => "nofollow",
 						));
 					}
-					$this->dequote(&$s_comment);
+					$this->dequote($s_comment);
 					$s_comment = nl2br ($s_comment);
 					$this->vars(array(
 						"id" => $row["id"],
@@ -1338,7 +1338,7 @@ class doc_display extends aw_template
 		@returns 
 			A link that displays the current document in the website
 	**/
-	function get_doc_link($doc, $lc = null)
+	public static function get_doc_link($doc, $lc = null)
 	{
 		$doc_link = obj_link($doc->id());
 		if (aw_ini_get("document.links_to_same_section"))
