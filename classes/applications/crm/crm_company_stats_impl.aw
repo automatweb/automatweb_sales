@@ -1,12 +1,9 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
-
-define("DAY", 86400);
 
 class crm_company_stats_impl extends class_base
 {
+	private $co_currency;
+
 	function crm_company_stats_impl()
 	{
 		$this->init();
@@ -889,8 +886,8 @@ class crm_company_stats_impl extends class_base
 
 			if ($r["stats_s_from"] > 0 && $r["stats_s_to"] > 0)
 			{
-				$bc_filt["date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN, ($r["stats_s_from"] - 1), ($r["stats_s_to"] + DAY));
-				$filt["CL_BUG.RELTYPE_COMMENT.date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN, ($r["stats_s_from"] - 1), ($r["stats_s_to"] + DAY));
+				$bc_filt["date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN, ($r["stats_s_from"] - 1), ($r["stats_s_to"] + 86400));
+				$filt["CL_BUG.RELTYPE_COMMENT.date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN, ($r["stats_s_from"] - 1), ($r["stats_s_to"] + 86400));
 			}
 			elseif ($r["stats_s_from"] > 0)
 			{
@@ -899,8 +896,8 @@ class crm_company_stats_impl extends class_base
 			}
 			elseif ($r["stats_s_to"] > 0)
 			{
-				$bc_filt["date"] = new obj_predicate_compare(OBJ_COMP_LESS, ($r["stats_s_to"] + DAY));
-				$filt["CL_BUG.RELTYPE_COMMENT.date"] = new obj_predicate_compare(OBJ_COMP_LESS, ($r["stats_s_to"] + DAY));
+				$bc_filt["date"] = new obj_predicate_compare(OBJ_COMP_LESS, ($r["stats_s_to"] + 86400));
+				$filt["CL_BUG.RELTYPE_COMMENT.date"] = new obj_predicate_compare(OBJ_COMP_LESS, ($r["stats_s_to"] + 86400));
 			}
 		}
 		// gather all bug comments in the correct range, so we can count the time only spent in the correct range
@@ -3124,9 +3121,8 @@ ini_set("memory_limit", "1500M");
 		die($sf->parse());
 	}
 
-	function check_date($date , $start , $end)
+	function check_date($date, $start, $end)
 	{
-		extract($date);
 		$start = (mktime(0, 0, 0, $start["month"], $start["day"], $start["year"]));
 		$end = (mktime(0, 0, 0, $end["month"], $end["day"], $end["year"]));
 		if($date > $start && $date < $end)
@@ -3141,14 +3137,16 @@ ini_set("memory_limit", "1500M");
 
 	function get_company_currency()
 	{
-		if($this->co_currency)
+		if(!$this->co_currency)
 		{
-			return $this->co_currency;
+			$u = get_instance(CL_USER);
+			$company = obj($u->get_current_company());
+			if ($company)
+			{
+				$this->co_currency = $company->prop("currency");
+			}
 		}
-		$u = get_instance(CL_USER);
-		$company = obj($u->get_current_company());
-		$this->co_currency = $company->prop("currency");
-		return $company->prop("currency");
+		return $this->co_currency;
 	}
 
 
@@ -3164,7 +3162,7 @@ ini_set("memory_limit", "1500M");
 	function convert_to_company_currency($args)
 	{
 		extract($args);
-		if(!is_oid($company_curr))
+		if(empty($company_curr))
 		{
 			$company_curr = $this->get_company_currency();
 		}
@@ -3183,6 +3181,7 @@ ini_set("memory_limit", "1500M");
 				$date = date_edit::get_timestamp($date);
 			}
 		}
+
 		if($o->class_id() == CL_TASK)
 		{
 			$object_curr = $o->prop("hr_price_currency");
@@ -3196,16 +3195,19 @@ ini_set("memory_limit", "1500M");
 				$date = $o->prop("start1");
 			}
 		}
+
 		if($o->class_id() == CL_CRM_BILL)
 		{
 			$object_curr = $o->get_bill_currency_id();
 			$date = $o->prop("bill_date");
 		}
+
 		if($o->class_id() == CL_CRM_BILL_PAYMENT)
 		{
 			$date = $o->prop("date");
 			$object_curr = $o->prop("currency");
 		}
+
 		if(
 			is_oid($company_curr)
 			&& $this->can("view" , $company_curr)
@@ -3651,11 +3653,11 @@ ini_set("memory_limit", "1500M");
 			{
 				case "next":
 					$start = time();
-					$end = time() + DAY*1000;
+					$end = time() + 86400*1000;
 					break;
 				case "cur_week":
 					$start = get_week_start();
-					$end = get_week_start()+7*DAY-1;
+					$end = get_week_start()+7*86400-1;
 					break;
 				case "cur_mon":
 					$start = get_month_start();
@@ -3862,11 +3864,11 @@ ini_set("memory_limit", "1500M");
 			{
 				case "next":
 					$start = time();
-					$end = time() + DAY*1000;
+					$end = time() + 86400*1000;
 					break;
 				case "cur_week":
 					$start = get_week_start();
-					$end = get_week_start()+7*DAY-1;
+					$end = get_week_start()+7*86400-1;
 					break;
 				case "cur_mon":
 					$start = get_month_start();
@@ -4066,11 +4068,11 @@ ini_set("memory_limit", "1500M");
 			{
 				case "next":
 					$start = time();
-					$end = time() + DAY*1000;
+					$end = time() + 86400*1000;
 					break;
 				case "cur_week":
 					$start = get_week_start();
-					$end = get_week_start()+7*DAY-1;
+					$end = get_week_start()+7*86400-1;
 					break;
 				case "cur_mon":
 					$start = get_month_start();

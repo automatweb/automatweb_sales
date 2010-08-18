@@ -2740,21 +2740,15 @@ class crm_company extends class_base
 			case 'docs_s_user':
 			case 'docs_s_sbt':
 			case 'docs_s_clear':
-				$data['value'] = $arr['request'][$data["name"]];
-				break;
-
 			case "dn_s_name":
 			case "dn_s_lead":
 			case "dn_s_content":
-				$data["value"] = $arr["request"][$data["name"]];
-				break;
-
 			case "bill_s_cust":
 			case "bill_s_bill_no":
 			case "bill_s_bill_to":
 			case "show_bill_balance":
 			case "currency_grouping":
-				$data['value'] = $arr['request'][$data["name"]];
+				$data["value"] = isset($arr["request"][$data["name"]]) ? $arr["request"][$data["name"]] : "";
 				break;
 
 			case "bill_s_from":
@@ -2789,12 +2783,14 @@ class crm_company extends class_base
 					$data["value"] = -1;
 				}
 				break;
+
 			case 'bill_task_list':
 				if($arr["request"]["different_customers"])
 				{
 					$data["error"] = t("T&ouml;&ouml;d on teostatud erinevatele klientidele, palun kontrolli!");
 					return PROP_ERROR;
 				}
+
 			case 'bill_proj_list':
 			case 'bill_tb':
 			case 'bills_list':
@@ -2815,7 +2811,7 @@ class crm_company extends class_base
 				static $bills_impl;
 				if (!$bills_impl)
 				{
-					$bills_impl = get_instance("applications/crm/crm_company_bills_impl");
+					$bills_impl = new crm_company_bills_impl();
 				}
 				$fn = "_get_".$data["name"];
 				return $bills_impl->$fn($arr);
@@ -2828,9 +2824,10 @@ class crm_company extends class_base
 			case "bill_payments_from":
 			case "bill_payments_to":
 			case "bill_payments_client_mgr":
-  	                          $bills_p_impl = get_instance("applications/crm/crm_bill_payment");
-  	                          $fn = "_get_".$data["name"];
-  	                        return $bills_p_impl->$fn($arr);
+				$bills_p_impl = new crm_bill_payment();
+				$fn = "_get_".$data["name"];
+				return $bills_p_impl->$fn($arr);
+
 			case "stats_s_to":
 				if ($arr["request"][$data["name"]]["year"] > 1)
 				{
@@ -3003,30 +3000,30 @@ class crm_company extends class_base
 				break;
 
 			case "polls_tb":
-				$i = get_instance("applications/crm/crm_company_my_view");
+				$i = new crm_company_my_view();
 				$data["value"] = $i->_get_polls_tb($arr);
 				break;
 
 			case "polls_tbl":
-				$i = get_instance("applications/crm/crm_company_my_view");
+				$i = new crm_company_my_view();
 				$data["value"] = $i->_get_polls_tbl($arr);
 				break;
 
 			case "my_view":
-				$i = get_instance("applications/crm/crm_company_my_view");
+				$i = new crm_company_my_view();
 				$data["value"] = $i->_get_my_view($arr);
 				break;
 			case "sell_offers":
-				$procurement_center = get_instance(CL_PROCUREMENT_CENTER);
+				$procurement_center = new procurement_center();
 				$procurement_center->_sell_offers_table($arr);
 				break;
 			case "sell_offers_prods":
-				$procurement_center = get_instance(CL_PROCUREMENT_CENTER);
+				$procurement_center = new procurement_center();
 				$procurement_center->_sell_offers_prod_table($arr);
 				break;
 			case "see_all_link":
 			case "see_all_link2":
-				$procurement_center = get_instance(CL_PROCUREMENT_CENTER);
+				$procurement_center = new procurement_center();
 				$data["value"] = $procurement_center->_see_all_link($arr);
 				break;
 		};

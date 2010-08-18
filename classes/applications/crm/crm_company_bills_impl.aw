@@ -1535,28 +1535,32 @@ $x++;
 			$filt = array();
 			if(!empty($arr["request"]["st"]) || !empty($arr["request"]["timespan"]) || !empty($arr["request"]["bill_status"]))
 			{
-				$stuff = explode("_" , $arr["request"]["st"]);
-				switch($stuff[0])
+				$stuff = !empty($arr["request"]["st"]) ? explode("_" , $arr["request"]["st"]) : array();
+				if (isset($stuff[0]))
 				{
-					case "prman":
-						$filt["project_mgr"] = $stuff[1];
-						break;
-					case "mails":
-						return $this->_get_mails_list($arr);
-						break;
-					case "custman":
-						$filt["client_mgr"] = $stuff[1];
-						break;
-					case "cust":
-						$filt["customer"] = $stuff[1];
-						break;
+					switch($stuff[0])
+					{
+						case "prman":
+							$filt["project_mgr"] = $stuff[1];
+							break;
+						case "mails":
+							return $this->_get_mails_list($arr);
+							break;
+						case "custman":
+							$filt["client_mgr"] = $stuff[1];
+							break;
+						case "cust":
+							$filt["customer"] = $stuff[1];
+							break;
 
-					default:
-						if($arr["request"]["st"] > 1)
-						{
-							$filt["state"] = $arr["request"]["st"]-10;
-						}
+						default:
+							if($arr["request"]["st"] > 1)
+							{
+								$filt["state"] = $arr["request"]["st"]-10;
+							}
+					}
 				}
+
 //				if(isset($stuff[2]))
 //				{
 //					$filt["state"] = $stuff[2];

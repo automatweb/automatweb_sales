@@ -691,7 +691,8 @@ class bug extends class_base
 				{
 					$co = get_current_company();
 				}
-				if($co->class_id() != CL_CRM_COMPANY)
+
+				if(!$co or $co->class_id() != CL_CRM_COMPANY)
 				{
 					return;
 				}
