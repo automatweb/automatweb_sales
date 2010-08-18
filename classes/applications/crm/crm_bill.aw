@@ -2,7 +2,7 @@
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @tableinfo aw_crm_bill index=aw_oid master_index=brother_of master_table=objects
-@classinfo syslog_type=ST_CRM_BILL relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1 maintainer=markop
+@classinfo syslog_type=ST_CRM_BILL relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1
 @default table=objects
 
 @default group=general
@@ -1257,7 +1257,7 @@ class crm_bill extends class_base
 
 	private function _bill_targets($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 /*		$t->define_chooser(array(
 			"field" => "oid",
 			"name" => "bill_targets",
@@ -1326,17 +1326,16 @@ class crm_bill extends class_base
 				"name" => $arr["obj_inst"]->get_customer_name(),
 				"oid" => $id,
 				"mail" => $mail,
-				"phone" => $this->get_phone_by_mail_id($id , $bill_t_names[$id] ,  $phone),
-
+				"phone" => $this->get_phone_by_mail_id($id, (isset($bill_t_names[$id]) ? $bill_t_names[$id] : ""), $phone),
 				"co" => $arr["obj_inst"]->get_customer_name(),
 				"selection" => html::checkbox(array(
 					"name" => "bill_targets[".$id."]",
-					"checked" => !(is_array($bill_targets) && sizeof($bill_targets) && !$bill_targets[$id]),
+					"checked" => !(is_array($bill_targets) && sizeof($bill_targets) && empty($bill_targets[$id])),
 					"ch_value" => $id
 				)),
 				"name_over" => html::textbox(array(
 					"name" => "bill_t_names[".$id."]",
-					"value" => $bill_t_names[$id],
+					"value" => (isset($bill_t_names[$id]) ? $bill_t_names[$id] : ""),
 					"size" => 20
 				))
 			));
@@ -4883,7 +4882,7 @@ class crm_bill extends class_base
 			$data["to"] = join("<br>" , $addr);
 
 			$data["attachments"] = "";
-			$aos = $mail->prop("attachments");
+			$aos = safe_array($mail->prop("attachments"));
 			foreach($aos as $ao)
 			{
 				$o = obj($ao);

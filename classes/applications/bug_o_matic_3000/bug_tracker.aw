@@ -5,7 +5,7 @@ define("MENU_ITEM_LENGTH", 20);
 
 /*
 
-@classinfo syslog_type=ST_BUG_TRACKER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=robert
+@classinfo syslog_type=ST_BUG_TRACKER relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general_sub
@@ -1796,10 +1796,8 @@ class bug_tracker extends class_base
 		}
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"CL_CRM_PERSON.RELTYPE_MONITOR(CL_BUG).class_id" => CL_BUG,
-			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.org.oid" => $owner->id(),
+			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.org.oid" => $owner->id()
 		));
 		$ppl = $ol->ids();
 		$ol = new object_list();
