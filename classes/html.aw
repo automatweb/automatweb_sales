@@ -265,10 +265,6 @@ class html
 		$onkeyup = isset($onkeyup) ? " onkeyup=\"{$onkeyup}\"" : '';
 		$style = isset($style) ? " style=\"{$style}\"":"";
 		$class = isset($class) ? " class=\"{$class}\"":"";
-		if(!isset($selected) && strlen($value) > 0)
-		{
-			$selected = (array) $value;
-		}
 
 		if(is_admin() && !empty($autocomplete_class_id))
 		{
