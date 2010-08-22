@@ -1,6 +1,5 @@
 <?php
 /*
-	@classinfo  maintainer=markop
 	@tableinfo kliendibaas_riik index=oid master_table=objects master_index=oid
 
 	@default table=objects
@@ -27,7 +26,7 @@
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-	
+
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
@@ -94,4 +93,4 @@ class crm_country extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 }
-?>
+

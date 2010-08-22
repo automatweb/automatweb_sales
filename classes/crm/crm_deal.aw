@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/crm/crm_deal.aw,v 1.24 2008/09/08 10:52:34 markop Exp $
-// crm_deal.aw - Tehing 
+
+// crm_deal.aw - Tehing
 /*
 
-@classinfo syslog_type=ST_CRM_DEAL relationmgr=yes maintainer=markop no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -102,7 +102,7 @@ class crm_deal extends class_base
 		));
 		return $this->mk_my_orb("change", array("id" => $file->id(), "return_url" => $arr["ru"], "group" => "general"), CL_FILE);
 	}
-	
+
 	/**
 		@attrib name=save_files
 	**/
@@ -130,7 +130,7 @@ class crm_deal extends class_base
 			$fname = $file_inst->check_file_path($f->prop("file"));
 			$t->define_data(array(
 /*				"name" => //html::textbox(array("size" => 70,"value" => //html::href(array(
-					//"url" => 
+					//"url" =>
 				//	$file_inst->get_url($f->id(), $f->name()),
 				//	"caption" => $f->name(),))
 				//)),
@@ -139,7 +139,7 @@ class crm_deal extends class_base
 				"change" => html::obj_change_url($f->id(),t("Muuda")),
 				"changed" => date("d.m.Y h:i" , $f->prop("modified")),
 				"changer" => $f->modifiedby(),
-				
+
 				"name" => html::href(array(
 					"url" => $file_inst->get_url($f->id(), $f->name()),
 					"caption" => $f->name(),
@@ -153,7 +153,7 @@ class crm_deal extends class_base
 		$t->set_caption(t("Lepingu failid"));
 	}
 
-	function _init_files_table(&$t)
+	function _init_files_table($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -180,9 +180,9 @@ class crm_deal extends class_base
 			"name" => "sel",
 			"field" => "oid",
 		));
-	}	
+	}
 
-	public function callback_mod_reforb($arr)
+	public function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
@@ -206,4 +206,3 @@ class crm_deal extends class_base
 		}
 	}
 }
-?>

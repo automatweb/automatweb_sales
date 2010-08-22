@@ -14,6 +14,65 @@ class crm_bill_obj extends _int_object
 	const BILL_SUM_TAX = 3;
 	const BILL_AMT = 4;
 
+	const STATUS_DRAFT = 0;
+	const STATUS_READY = 8;
+	const STATUS_VERIFIED = 7;
+	const STATUS_SENT = 1;
+	const STATUS_PAID = 2;
+	const STATUS_RECEIVED = 3;
+	const STATUS_PARTIALLY_RECEIVED = 6;
+	const STATUS_CREDIT = 4;
+	const STATUS_CREDIT_MADE = 5;
+	const STATUS_DISCARDED = -5;
+	const STATUS_OFFER = 16;
+
+	private static $status_names = array();
+
+	/** Returns list of bill status names
+	@attrib api=1 params=pos
+	@param status type=int
+		Status constant value to get name for, one of crm_bill_obj::STATUS_*
+	@returns array
+		Format option value => human readable name, if $status parameter set, array with one element returned and empty array when that status not found.
+	**/
+	public static function status_names($status = null)
+	{
+		if (empty(self::$status_names))
+		{
+			self::$status_names = array(
+				self::STATUS_DRAFT => t("Koostamisel"),
+				self::STATUS_READY => t("Koostatud"),
+				self::STATUS_VERIFIED => t("Kinnitatud"),
+				self::STATUS_SENT => t("Saadetud"),
+				self::STATUS_PAID => t("Makstud"),
+				self::STATUS_RECEIVED => t("Laekunud"),
+				self::STATUS_PARTIALLY_RECEIVED => t("Osaliselt laekunud"),
+				self::STATUS_CREDIT => t("Kreeditarve"),
+				self::STATUS_CREDIT_MADE => t("Tehtud kreeditarve"),
+				self::STATUS_DISCARDED => t("Maha kantud"),
+				self::STATUS_OFFER => t("Pakkumus")
+			);
+		}
+
+		if (isset($status))
+		{
+			if (isset(self::$status_names[$status]))
+			{
+				$status_names = array($status => self::$status_names[$status]);
+			}
+			else
+			{
+				$status_names = array();
+			}
+		}
+		else
+		{
+			$status_names = self::$status_names;
+		}
+
+		return $status_names;
+	}
+
 	function set_prop($name,$value)
 	{
 		switch($name)
@@ -30,28 +89,39 @@ class crm_bill_obj extends _int_object
 			case "state":
 				if($value != $this->prop("state"))
 				{
-					$bill_inst = get_instance(CL_CRM_BILL);
-					$_SESSION["bill_change_comments"][] = t("Staatus") .": " .$bill_inst->states[$this->prop("state")]. " => " .$bill_inst->states[$value];
+					$prev_state = self::status_names($this->prop("state"));
+					$prev_state = reset($prev_state);
+					$new_state = self::status_names($value);
+					$new_state = reset($new_state);
+					$_SESSION["bill_change_comments"][] = t("Staatus") .": {$prev_state} => {$new_state}";
 				}
 				break;
 			case "bill_due_date":
 				break;
 			case "project":
 				$old = $new = "";
-				foreach($this->prop($name) as $old_id)
+				if (is_array($this->prop("project")))
 				{
-					$old.= " ".get_name($old_id);
+					foreach($this->prop("project") as $old_id)
+					{
+						$old.= " ".get_name($old_id);
+					}
 				}
 
-				foreach($value as $new_id)
+				if (is_array($value))
 				{
-					$new.= " ".get_name($new_id);
+					foreach($value as $new_id)
+					{
+						$new.= " ".get_name($new_id);
+					}
 				}
+
 				if(!is_array($this->prop($name)) || !is_array($value) ||  array_sum($value) != array_sum($this->prop($name)))
 				{
 					$_SESSION["bill_change_comments"][] = $GLOBALS["properties"][CL_CRM_BILL][$name]["caption"] ." : " .$old. " => " .$new;
 				}
 				break;
+
 			default :
 				if($value != $this->prop($name))
 				{
@@ -1228,18 +1298,18 @@ class crm_bill_obj extends _int_object
 		{
 			return 0;
 		}
-		enter_function("bill::get_bill_sum");
+
 		$rs = "";
 		$sum_wo_tax = $tot_amt = $tot_cur_sum = 0;
 		$tax = 0;
 		$sum = 0;
 
 		$agreement_price = $this->get_agreement_price();
-		if(is_array($agreement_price) && $agreement_price[0]["price"] && strlen($agreement_price[0]["name"]) > 0)
+		if(is_array($agreement_price) && isset($agreement_price[0]["price"]) && strlen($agreement_price[0]["name"]) > 0)
 		{
 			$rows = $agreement_price;
 		}
-		elseif(is_array($agreement_price) && $agreement_price["price"] && strlen($agreement_price["name"]) > 0)
+		elseif(is_array($agreement_price) && isset($agreement_price["price"]) && strlen($agreement_price["name"]) > 0)
 		{
 			$rows = array($agreement_price);
 		}
@@ -1247,6 +1317,7 @@ class crm_bill_obj extends _int_object
 		{
 			$rows = $this->get_bill_rows_dat();
 		}
+
 		foreach($rows as $row)
 		{
 			$cur_tax = 0;
@@ -1279,8 +1350,7 @@ class crm_bill_obj extends _int_object
 					$cur_pr = $row["price"];
 				}
 			}
-			else
-			if ($row["tax"])
+			elseif (!empty($row["tax"]))
 			{
 				// tax needs to be added
 				$cur_tax = ($row["sum"] * ($row["tax"]/100.0));
@@ -1301,7 +1371,7 @@ class crm_bill_obj extends _int_object
 			$tot_amt += $row["amt"];
 			$tot_cur_sum += $cur_sum;
 		}
-		exit_function("bill::get_bill_sum");
+
 		switch($type)
 		{
 			case self::BILL_SUM_TAX:
@@ -1366,7 +1436,6 @@ class crm_bill_obj extends _int_object
 				"has_tax" => $row->prop("has_tax"),
 				"tax" => $row->get_row_tax(),
 				"date" => $row->prop("date"),
-				"id" => $row->id(),
 				"persons" => $ppl,
 				"has_task_row" => $row->has_task_row(),
 				"task_rows" => $row->task_rows(),
@@ -1869,8 +1938,8 @@ class crm_bill_obj extends _int_object
 		$contact_person = trim($this->prop("ctp_text")) ? trim($this->prop("ctp_text")) : $contact_person->name();
 
 		$replace = array(
-			"#type#" => $this->prop("state") ==  16 ? t("pakkumuse") : t("arve"),
-			"#type2#" => $this->prop("state") ==  16 ? t("Pakkumus") : t("Arve"),
+			"#type#" => $this->prop("state") == self::STATUS_OFFER ? t("pakkumuse") : t("arve"),
+			"#type2#" => $this->prop("state") == self::STATUS_OFFER ? t("Pakkumus") : t("Arve"),
 			"#bill_no#" => $this->prop("bill_no"),
 			"#customer_name#" => $this->get_customer_name(),
 			"#contact_person#" => $contact_person,
@@ -1924,8 +1993,8 @@ class crm_bill_obj extends _int_object
 		$contact_person = trim($this->prop("ctp_text")) ? trim($this->prop("ctp_text")) : $contact_person->name();
 
 		$replace = array(
-			"#type#" => $this->prop("state") ==  16 ? t("pakkumuse") : t("arve"),
-			"#type2#" => $this->prop("state") ==  16 ? t("Pakkumus") : t("Arve"),
+			"#type#" => $this->prop("state") == self::STATUS_OFFER ? t("pakkumuse") : t("arve"),
+			"#type2#" => $this->prop("state") == self::STATUS_OFFER ? t("Pakkumus") : t("Arve"),
 			"#bill_no#" => $this->prop("bill_no"),
 			"#customer_name#" => $this->get_bill_target_name(),
 			"#contact_person#" => $contact_person,
@@ -2017,7 +2086,7 @@ class crm_bill_obj extends _int_object
 		$id = $f->create_file_from_string(array(
 			"parent" => $this->id(),
 			"content" => $this->get_pdf(),
-			"name" => ($this->prop("state") ==  16 ? t("pakkumus_nr") : t("arve_nr")). "_".$this->prop("bill_no").".pdf",
+			"name" => ($this->prop("state") == self::STATUS_OFFER ? t("pakkumus_nr") : t("arve_nr")). "_".$this->prop("bill_no").".pdf",
 			"type" => "application/pdf"
 		));
 
@@ -2043,7 +2112,7 @@ class crm_bill_obj extends _int_object
 		$id = $f->create_file_from_string(array(
 			"parent" => $this->id(),
 			"content" => $this->get_pdf_add(),
-			"name" => ($this->prop("state") ==  16 ? t("pakkumuse_nr") : t("arve_nr")). "_".$this->prop("bill_no")."_".t("aruanne").".pdf",
+			"name" => ($this->prop("state") == self::STATUS_OFFER ? t("pakkumuse_nr") : t("arve_nr")). "_".$this->prop("bill_no")."_".t("aruanne").".pdf",
 			"type" => "application/pdf"
 		));
 		return obj($id);
@@ -2218,13 +2287,11 @@ class crm_bill_obj extends _int_object
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_ML_MEMBER,
-				"site_id" => array(),
-				"lang_id" => array(),
-				"mail" => $from,
+				"mail" => $from
 			));
 			if($ol->count())
 			{
-				$o = reset($ol->arr());
+				$o = $ol->begin();
 				$mail->set_prop("mfrom" , $o->id());
 			}
 		}
@@ -2238,14 +2305,16 @@ class crm_bill_obj extends _int_object
 		$comment = sprintf(t("%s saatis arve nr %s; summa %s; kuup&auml;ev: %s; kellaaeg: %s; aadressidele: %s; tekst: %s; lisatud failid: %s. "), aw_global_get("uid"), $this->prop("bill_no") , $this->prop("sum") , date("d.m.Y") , date("H:i") , htmlspecialchars(join (", " , $to)), $body, $att_comment);
 		$this->add_comment($comment);
 
-		switch($this->prop("state"))
+		$state = (int) $this->prop("state");
+		if ( false
+			or self::STATUS_DRAFT === $state
+			or self::STATUS_READY === $state
+			or self::STATUS_VERIFIED === $state
+			or self::STATUS_DISCARDED === $state
+		)
 		{
-			case 0:
-			case 8:
-			case 7:
-			case -5:
-				$this->set_prop("state" , 1);
-				$this->save();
+			$this->set_prop("state" , 1);
+			$this->save();
 		}
 	}
 
@@ -2258,8 +2327,6 @@ class crm_bill_obj extends _int_object
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"site_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -2735,7 +2802,6 @@ class crm_bill_obj extends _int_object
 
 	public function get_bill_recieved_money($payment=0)
 	{
-		enter_function("bill::get_bill_recieved_money");
 		$bill_sum = $this->get_bill_sum();
 		$needed = $this->get_bill_needs_payment();
 		if($payment)
@@ -2747,7 +2813,6 @@ class crm_bill_obj extends _int_object
 			return min($free_sum , $needed_wtp);
 		}
 
-		exit_function("bill::get_bill_recieved_money");
 		return $this->posValue($bill_sum - $needed);
 	}
 
@@ -2898,11 +2963,12 @@ class crm_bill_obj extends _int_object
 	**/
 	public function make_overdue_bill()
 	{
-		if($this->prop("state") != 3)
+		if($this->prop("state") != self::STATUS_RECEIVED)
 		{
 			$_SESSION["bill_error"] = t("Viivisarvet koostatakse ainult laekunud arvete kohta");
 			return null;
 		}
+
 		if(!($this->get_overdue_charge() > 0))
 		{
 			$_SESSION["bill_error"] = t("Viivise m&auml;&auml;r peab olema > 0");
@@ -2942,7 +3008,7 @@ class crm_bill_obj extends _int_object
 		$nb->set_prop("bill_date" , time());
 		$nb->set_prop("bill_accounting_date" , time());
 
-		$nb->set_prop("state" , 0);
+		$nb->set_prop("state" , self::STATUS_DRAFT);
 		$nb->set_name(t("Viivsarve arvele")." ".$this->prop("bill_no"));
 		$nb->save();
 		$row = $nb->add_row();
@@ -3045,7 +3111,7 @@ class crm_bill_obj extends _int_object
 			$ord = obj($this->prop("customer"));
 			try
 			{
-				$contact_person = obj($ord->prop("contact_person"), array(), CL_CRM_PERSON);
+				$contact_person = obj($ord->prop("firmajuht"), array(), CL_CRM_PERSON);
 			}
 			catch (awex_obj $e)
 			{
@@ -3055,7 +3121,7 @@ class crm_bill_obj extends _int_object
 			{
 				try
 				{
-					$contact_person = obj($ord->prop("firmajuht"), array(), CL_CRM_PERSON);
+					$contact_person = obj($ord->prop("contact_person"), array(), CL_CRM_PERSON);
 				}
 				catch (awex_obj $e)
 				{

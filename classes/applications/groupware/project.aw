@@ -4,7 +4,7 @@
 /*
 
 
-@classinfo syslog_type=ST_PROJECT relationmgr=yes maintainer=markop
+@classinfo relationmgr=yes
 
 @tableinfo aw_projects index=aw_oid master_table=objects master_index=brother_of
 @tableinfo aw_account_balances master_index=oid master_table=objects index=aw_oid
@@ -3501,7 +3501,7 @@ class project extends class_base
 		if ($args["activegroup"] !== "add_event" && $args["id"] === "add_event")
 		{
 			return false;
-		};
+		}
 
 		if ($args["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
@@ -3519,7 +3519,7 @@ class project extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		$args = &$arr["args"];
 		if ($this->event_id)
@@ -3562,7 +3562,7 @@ class project extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr, $request)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		switch($arr["group"])
 		{
@@ -9025,5 +9025,4 @@ arr($stats_by_ppl);
 		return $val;
 	}
 
-};
-?>
+}

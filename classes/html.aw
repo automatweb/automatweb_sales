@@ -371,7 +371,7 @@ class html
 
 		if ($option_is_tuple)
 		{
-			$hidden_value = "";
+			$hidden_value = $value;
 
 			if (isset($selected) && is_array($selected))
 			{

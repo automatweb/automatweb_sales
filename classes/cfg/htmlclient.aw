@@ -5,9 +5,6 @@
 // for editing objects, then we can just add other clients
 // (xmlrpc, rdf, tty, etc) which take care of converting the data
 // from the cfgmanager to the required form.
-/*
-@classinfo  maintainer=kristo
-*/
 
 class htmlclient extends aw_template
 {
@@ -16,6 +13,10 @@ class htmlclient extends aw_template
 	var $error = "";
 	var $view_mode;
 	var $style;
+
+	public $object_id = 0;
+	public $use_group = "";
+	public $class_name = "";
 
 	private $has_property_help = false;
 	private $ui_messages = array();
@@ -30,19 +31,26 @@ class htmlclient extends aw_template
 		$this->init(array("tpldir" => $tpldir));
 		$this->res = "";
 		$this->layout_mode = "default";
+		$this->use_group = automatweb::$request->arg("group");
+		$this->object_id = (int) automatweb::$request->arg("id");
+		$this->class_name = automatweb::$request->class_name();
 		$this->form_target = "";
 		$this->tpl_vars = !empty($arr["tpl_vars"]) ? $arr["tpl_vars"] : array();
 		$this->styles = !empty($arr["styles"]) ? $arr["styles"] : array();
 		$this->tabs = (isset($arr["tabs"]) && $arr["tabs"] === false) ? false : true;
+
 		if (!empty($arr["embedded"]))
 		{
 			$this->embedded = true;
-		};
+		}
+
 		if (!empty($arr["layout_mode"]))
 		{
 			$this->set_layout_mode($arr["layout_mode"]);
-		};
+		}
+
 		$this->form_layout = "";
+
 		if (!empty($arr["template"]))
 		{
 			// apparently some places try to specify a template without an extension,
@@ -63,7 +71,7 @@ class htmlclient extends aw_template
 
 		if ($this->tabs)
 		{
-			$this->tp = get_instance("vcl/tabpanel");
+			$this->tp = new tabpanel();
 		}
 	}
 
@@ -120,7 +128,7 @@ class htmlclient extends aw_template
 	function set_group_style($styl)
 	{
 		$this->group_style = $styl;
-		$this->tmp = get_instance("cfg/htmlclient",array("tpldir" => "htmlclient"));
+		$this->tmp = new htmlclient(array("tpldir" => "htmlclient"));
 		$this->tmp->read_template($styl . ".tpl");
 	}
 
@@ -477,32 +485,32 @@ class htmlclient extends aw_template
 
 	private function _do_cfg_edit_mode_check($arr)
 	{
-		if (!isset($_SESSION["cfg_admin_mode"]) || !$_SESSION["cfg_admin_mode"] == 1 || !is_oid($_GET["id"]))
+		if (!isset($_SESSION["cfg_admin_mode"]) || !$_SESSION["cfg_admin_mode"] == 1 || !is_oid($this->object_id))
 		{
 			return "";
 		}
 
 		static $cur_cfgform;
 		static $cur_cfgform_found = false;
-		$o = obj($_GET["id"]);
+		$o = obj($this->object_id);
 
 		if (!$cur_cfgform_found)
 		{
 			$cur_cfgfor_found = true;
-			$i = get_instance(CL_FILE);
+			$i = new class_base();
 			$i->clid = $o->class_id();
 			$cur_cfgform = $i->get_cfgform_for_object(array(
-				"args" => $_GET,
+				"args" => automatweb::$request->get_args(),
 				"obj_inst" => $o,
 				"ignore_cfg_admin_mode" => 1
 			));
 		}
 
-		$green = " <a href='javascript:void(0)' onClick='cfEditClick(\"".$arr["name"]."\", ".$_GET["id"].");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_green.png' id='cfgEditProp".$arr["name"]."'/></a>";
-		$red = " <a href='javascript:void(0)' onClick='cfEditClick(\"".$arr["name"]."\", ".$_GET["id"].");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_red.png' id='cfgEditProp".$arr["name"]."'/></a>";
+		$green = " <a href='javascript:void(0)' onClick='cfEditClick(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_green.png' id='cfgEditProp".$arr["name"]."'/></a>";
+		$red = " <a href='javascript:void(0)' onClick='cfEditClick(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_edit_red.png' id='cfgEditProp".$arr["name"]."'/></a>";
 
-		$time_active_icon = " <a href='javascript:void(0)' onClick='cfEditClickTime(\"".$arr["name"]."\", ".$_GET["id"].");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_timer_active.png' id='cfgEditPropTime".$arr["name"]."'/></a>";
-		$time_inactive_icon = " <a href='javascript:void(0)' onClick='cfEditClickTime(\"".$arr["name"]."\", ".$_GET["id"].");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_timer_inactive.png' id='cfgEditPropTime".$arr["name"]."'/></a>";
+		$time_active_icon = " <a href='javascript:void(0)' onClick='cfEditClickTime(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_timer_active.png' id='cfgEditPropTime".$arr["name"]."'/></a>";
+		$time_inactive_icon = " <a href='javascript:void(0)' onClick='cfEditClickTime(\"".$arr["name"]."\", ".$this->object_id.");'><img src='".aw_ini_get("baseurl")."/automatweb/images/icons/cfg_timer_inactive.png' id='cfgEditPropTime".$arr["name"]."'/></a>";
 
 		// get default cfgform for this object and get property status from that
 		$cf = $cur_cfgform;
@@ -794,7 +802,7 @@ class htmlclient extends aw_template
 			$data["no_reforb"] = 1;
 			foreach ($data as $key => $value)
 			{
-				if (strlen($value) < 1)
+				if (is_array($value) and empty($value) or !is_array($value) and strlen($value) < 1)
 				{
 					unset($data[$key]);
 				}
@@ -956,9 +964,9 @@ class htmlclient extends aw_template
 				"WARNING_LAYER" => !empty($this->config["warn"]) ? $tp->parse("WARNING_LAYER") : "",
 				"HAS_WARNING" => !empty($this->config["warn"]) ? $tp->parse("HAS_WARNING") : "",
 				"feedback_link" => $this->mk_my_orb("redir_new_feedback", array(
-					"d_class" => isset($_GET["class"]) ? $_GET["class"] : null,
-					"d_obj" => isset($_GET["id"]) ? $_GET["id"] : null,
-					"object_grp" => isset($_GET["group"]) ? $_GET["group"] : null,
+					"d_class" => $this->class_name,
+					"d_obj" => $this->object_id,
+					"object_grp" => $this->use_group,
 					"url" => get_ru(),
 				), "customer_feedback_entry"),
 				"feedback_text" => t("Tagasiside"),
@@ -988,18 +996,21 @@ class htmlclient extends aw_template
 					"HAS_SEARCH" => $tp->parse("HAS_SEARCH")
 				));
 			}
-			if (empty($_GET["in_popup"]))
+
+			if (!automatweb::$request->arg("in_popup"))
 			{
 				$tp->vars_safe(array(
 					"NOT_POPUP" => $tp->parse("NOT_POPUP")
 				));
 			}
+
 			if (aw_ini_get("site_id") == 155)
 			{
 				$tp->vars_safe(array(
 					"NEWIF" => $tp->parse("NEWIF"),
 				));
 			}
+
 			if (!empty($this->config["show_help"]))
 			{
 				$tp->vars(array(
@@ -1343,10 +1354,11 @@ class htmlclient extends aw_template
 	{
 		$layout_items = array();
 		$sub_layouts = array();
-		if(!empty($this->view_layout) && ($this->view_layout == $layout_name || isset($this->parent_layouts) && !empty($this->show_layouts[$this->parent_layouts[$layout_name]])))
+		if(!empty($this->view_layout) && ($this->view_layout === $layout_name || isset($this->parent_layouts) && !empty($this->show_layouts[$this->parent_layouts[$layout_name]])))
 		{
 			$this->show_layouts[$layout_name] = 1;
 		}
+
 		foreach(safe_array(isset($this->layout_by_parent[$layout_name]) ? $this->layout_by_parent[$layout_name] : null) as $lkey => $lval)
 		{
 			$this->parent_layouts[$lkey] = $layout_name;
@@ -1424,9 +1436,9 @@ class htmlclient extends aw_template
 						};
 						unset($this->proplist[$pkey]["__ignore"]);
 						unset($sub_layouts[$gx]);
-					};
-				};
-			};
+					}
+				}
+			}
 		}
 		else
 		{
@@ -1448,7 +1460,7 @@ class htmlclient extends aw_template
 			if (!empty($ldata["width"]))
 			{
 				$cell_widths = explode(":",$ldata["width"]);
-			};
+			}
 
 			$content = "";
 			foreach($layout_items as $cell_nr => $layout_item)
@@ -1464,12 +1476,7 @@ class htmlclient extends aw_template
 			$closer = $ghc = $gce = "";
 			if (!empty($ldata["area_caption"]))
 			{
-				$u = get_instance(CL_USER);
-				$state = $u->get_layer_state(array(
-					"u_class" => automatweb::$request->arg("class"),
-					"u_group" => automatweb::$request->arg("group"),
-					"u_layout" => $layout_name
-				));
+				$state = active_page_data::get_layer_state($this->class_name, $this->use_group, $layout_name);
 
 				if (!empty($ldata["closeable"]))
 				{
@@ -1477,18 +1484,18 @@ class htmlclient extends aw_template
 						"grid_name" => $layout_name,
 						"close_text" => t("Kinni"),
 						"open_text" => t("Lahti"),
-						"start_text" => $state ? t("Kinni") : t("Lahti"),
+						"start_text" => active_page_data::LAYER_CLOSED === $state ? t("Lahti") : t("Kinni"),
 						"open_layer_url" => $this->mk_my_orb("open_layer", array(
-							"u_class" => automatweb::$request->arg("class"),
+							"u_class" => $this->class_name,
 							"u_group" => automatweb::$request->arg("group"),
 							"u_layout" => $layout_name
-						), "user"),
+						), "active_page_data"),
 						"close_layer_url" => $this->mk_my_orb("close_layer", array(
-							"u_class" => automatweb::$request->arg("class"),
+							"u_class" => $this->class_name,
 							"u_group" => automatweb::$request->arg("group"),
 							"u_layout" => $layout_name
-						), "user"),
-						"closer_state" => $state ? "up" : "down"
+						), "active_page_data"),
+						"closer_state" => active_page_data::LAYER_CLOSED === $state ? "down" : "up"
 					));
 					$closer = $this->parse("GRID_HAS_CLOSER");
 				}
@@ -1496,7 +1503,7 @@ class htmlclient extends aw_template
 				$this->vars_safe(array(
 					"grid_name" => $layout_name,
 					"area_caption" => htmlspecialchars(aw_html_entity_decode($ldata["area_caption"])),
-					"display" => $state ? "block" : "none",
+					"display" => active_page_data::LAYER_CLOSED === $state ? "none" : "block",
 					"GRID_HAS_CLOSER" => $closer,
 				));
 				$ghc = $this->parse("GRID_HAS_CAPTION");
@@ -1511,7 +1518,7 @@ class htmlclient extends aw_template
 
 			$_t = $this->parse("GRID_HBOX");
 
-			if($this->view_layout && $this->view_layout == $layout_name && !$this->view_outer)
+			if($this->view_layout && $this->view_layout === $layout_name && !$this->view_outer)
 			{
 				$html .= $_t;
 			}
@@ -1542,12 +1549,7 @@ class htmlclient extends aw_template
 			$closer = $ghc = $gce = "";
 			if (!empty($ldata["area_caption"]))
 			{
-				$u = get_instance(CL_USER);
-				$state = $u->get_layer_state(array(
-					"u_class" => automatweb::$request->arg("class"),
-					"u_group" => automatweb::$request->arg("group"),
-					"u_layout" => $layout_name
-				));
+				$state = active_page_data::get_layer_state($this->class_name, $this->use_group, $layout_name);
 
 				if (!empty($ldata["closeable"]))
 				{
@@ -1555,18 +1557,18 @@ class htmlclient extends aw_template
 						"grid_name" => $layout_name,
 						"close_text" => t("Kinni"),
 						"open_text" => t("Lahti"),
-						"start_text" => $state ? t("Kinni") : t("Lahti"),
+						"start_text" => active_page_data::LAYER_CLOSED === $state ? t("Lahti") : t("Kinni"),
 						"open_layer_url" => $this->mk_my_orb("open_layer", array(
-							"u_class" => automatweb::$request->arg("class"),
+							"u_class" => $this->class_name,
 							"u_group" => automatweb::$request->arg("group"),
 							"u_layout" => $layout_name
-						), "user"),
+						), "active_page_data"),
 						"close_layer_url" => $this->mk_my_orb("close_layer", array(
-							"u_class" => automatweb::$request->arg("class"),
-							"u_group" => automatweb::$request->arg("group"),
+							"u_class" => $this->class_name,
+							"u_group" => $this->use_group,
 							"u_layout" => $layout_name
-						), "user"),
-						"closer_state" => $state ? "up" : "down"
+						), "active_page_data"),
+						"closer_state" => active_page_data::LAYER_CLOSED === $state ? "down" : "up"
 					));
 					$closer = $this->parse("VGRID_HAS_CLOSER");
 				}
@@ -1579,7 +1581,7 @@ class htmlclient extends aw_template
 				$this->vars_safe(array(
 					"grid_name" => $layout_name,
 					"area_caption" => htmlspecialchars(aw_html_entity_decode($ldata["area_caption"])),
-					"display" => $state ? "block" : "none",
+					"display" => active_page_data::LAYER_CLOSED === $state ? "none" : "block",
 					"VGRID_HAS_CLOSER" => $closer,
 					"VGRID_HAS_PADDING" => !empty($ldata["no_padding"]) ? "" : $this->parse("VGRID_HAS_PADDING"),
 					"VGRID_NO_PADDING" => !empty($ldata["no_padding"]) ? $this->parse("VGRID_NO_PADDING") : "",
@@ -1594,7 +1596,7 @@ class htmlclient extends aw_template
 			));
 
 			$_t = $this->parse("GRID_VBOX");
-			if($this->view_layout && $this->view_layout == $layout_name && !$this->view_outer)
+			if($this->view_layout && $this->view_layout === $layout_name && !$this->view_outer)
 			{
 				$html .= $_t;
 			}
@@ -1602,7 +1604,7 @@ class htmlclient extends aw_template
 			{
 				$this->vars_safe(array(
 					"GRID_VBOX" => $_t,
-					"grid_outer_name" => $layout_name."_outer",
+					"grid_outer_name" => $layout_name . "_outer",
 				));
 				$html .= $this->parse("GRID_VBOX_OUTER");
 			}
@@ -1625,8 +1627,7 @@ class htmlclient extends aw_template
 			$closer = $ghc = $gce = "";
 			if (!empty($ldata["area_caption"]))
 			{
-				$u = get_instance(CL_USER);
-				$state = $u->get_layer_state(array("u_class" => $_GET["class"], "u_group" => $_GET["group"], "u_layout" => $layout_name));
+				$state = active_page_data::get_layer_state($this->class_name, $this->use_group, $layout_name);
 
 				if (!empty($ldata["closeable"]))
 				{
@@ -1634,18 +1635,18 @@ class htmlclient extends aw_template
 						"grid_name" => $layout_name,
 						"close_text" => t("Kinni"),
 						"open_text" => t("Lahti"),
-						"start_text" => $state ? t("Kinni") : t("Lahti"),
+						"start_text" => active_page_data::LAYER_CLOSED === $state ? t("Lahti") : t("Kinni"),
 						"open_layer_url" => $this->mk_my_orb("open_layer", array(
-							"u_class" => $_GET["class"],
-							"u_group" => $_GET["group"],
+							"u_class" => $this->class_name,
+							"u_group" => $this->use_group,
 							"u_layout" => $layout_name
-						), "user"),
+						), "active_page_data"),
 						"close_layer_url" => $this->mk_my_orb("close_layer", array(
-							"u_class" => $_GET["class"],
-							"u_group" => $_GET["group"],
+							"u_class" => $this->class_name,
+							"u_group" => $this->use_group,
 							"u_layout" => $layout_name
-						), "user"),
-						"closer_state" => $state ? "up" : "down"
+						), "active_page_data"),
+						"closer_state" => active_page_data::LAYER_CLOSED === $state ? "down" : "up"
 					));
 					$closer = $this->parse("VSGRID_HAS_CLOSER");
 				}
@@ -1653,7 +1654,7 @@ class htmlclient extends aw_template
 				$this->vars_safe(array(
 					"grid_name" => $layout_name,
 					"area_caption" => htmlspecialchars(aw_html_entity_decode($ldata["area_caption"])),
-					"display" => $state ? "block" : "none",
+					"display" => active_page_data::LAYER_CLOSED === $state ? "none" : "block",
 					"VSGRID_HAS_CLOSER" => $closer,
 					"VSGRID_HAS_PADDING" => !empty($ldata["no_padding"]) ? "" : $this->parse("VSGRID_HAS_PADDING"),
 					"VSGRID_NO_PADDING" => !empty($ldata["no_padding"]) ? $this->parse("VSGRID_NO_PADDING") : "",
@@ -1668,7 +1669,7 @@ class htmlclient extends aw_template
 			));
 
 			$_t = $this->parse("GRID_VBOX_SUB");
-			if($this->view_layout && $this->view_layout == $layout_name && !$this->view_outer)
+			if($this->view_layout && $this->view_layout === $layout_name && !$this->view_outer)
 			{
 				$html .= $_t;
 			}
@@ -1748,12 +1749,10 @@ class htmlclient extends aw_template
 
 	private function my_get_ru($class)
 	{
-		if($class == $_GET["class"])
+		if($class == $this->class_name)
 		{
 			return isset($_GET["return_url"]) ? $_GET["return_url"] : (isset($_GET["url"]) ? $_GET["url"] : NULL);
 		}
 		return get_ru();
 	}
 }
-
-?>

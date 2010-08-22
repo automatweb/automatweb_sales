@@ -349,6 +349,18 @@ class bug extends class_base
 	const BUG_VIEWING = 13;
 	const BUG_DEVORDER = 14;
 	const BUG_VIEWED = 15;
+
+	private $_ac_old_state;
+	private $_ac_new_state;
+	private $_change_status;
+	private $who_set;
+	private $_acc_add_wh;
+	private $_acc_add_wh_cust;
+	private $_acc_add_wh_guess;
+	private $comment_for_all;
+	private $new_bug;
+	private $notify_monitors;
+
 	function bug()
 	{
 		$this->init(array(
@@ -386,16 +398,16 @@ class bug extends class_base
 		);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["from_problem"] = ifset($_GET, "from_problem");
+		$arr["from_problem"] = ifset($request, "from_problem");
 		$arr["do_split"] = "0";
 		$arr["post_ru"] = get_ru();
 	}
 
 	function callback_on_load($arr)
 	{
-		$this->cx = get_instance("cfg/cfgutils");
+		$this->cx = new cfgutils();
 		$pt = !empty($arr["request"]["parent"]) ? $arr["request"]["parent"] : $arr["request"]["id"];
 		if($pt && $this->can("view", $pt) && obj($pt)->class_id() == CL_DEVELOPMENT_ORDER)
 		{
@@ -699,10 +711,11 @@ class bug extends class_base
 				$co_i = $co->instance();
 				$sects = $co_i->get_all_org_sections($co);
 				$prop["options"] = array("" => t("--vali--"));
-				if($prop["value"])
+				if(!empty($prop["value"]))
 				{
 					$prop["options"][$prop["value"]] = obj($prop["value"])->name();
 				}
+
 				if (count($sects))
 				{
 					$ol = new object_list(array("oid" => $sects, "lang_id" => array(), "site_id" => array()));
@@ -712,9 +725,9 @@ class bug extends class_base
 					}
 				}
 				$p = get_current_person();
-				if ($arr["new"])
+				if (!empty($arr["new"]))
 				{
-					if ($arr["request"]["from_problem"])
+					if (!empty($arr["request"]["from_problem"]))
 					{
 						$tmp = obj($arr["request"]["from_problem"]);
 						$prop["value"] = $tmp->prop("orderer_unit");
@@ -839,13 +852,13 @@ class bug extends class_base
 					$crea = sprintf(t("Looja: %s / %s"), $p->name(), date("d.m.Y H:i", $arr["obj_inst"]->created()));
 				}
 				else
-				if ($arr["request"]["from_req"])
+				if (!empty($arr["request"]["from_req"]))
 				{
 					$r = obj($arr["request"]["from_req"]);
 					$prop["value"] = $r->name();
 				}
 				else
-				if ($arr["request"]["from_problem"])
+				if (!empty($arr["request"]["from_problem"]))
 				{
 					$r = obj($arr["request"]["from_problem"]);
 					$prop["value"] = $r->name();
@@ -853,9 +866,10 @@ class bug extends class_base
 				break;
 
 			case "expl_txt":
+				$crea = "";
 				if (is_oid($arr["obj_inst"]->id()))
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$p = $u->get_person_for_uid($arr["obj_inst"]->createdby());
 					$crea = sprintf(t("Looja: %s (%s)"), $p->name(), date("d.m.Y H:i", $arr["obj_inst"]->created()));
 				}
@@ -880,16 +894,18 @@ class bug extends class_base
 				break;
 
 			case "bug_content":
-				if (!$arr["new"])
+				if (empty($arr["new"]))
 				{
 					return PROP_IGNORE;
 				}
-				if ($arr["request"]["from_req"])
+
+				if (!empty($arr["request"]["from_req"]))
 				{
 					$r = obj($arr["request"]["from_req"]);
 					$prop["value"] = $r->prop("desc");
 				}
-				if ($arr["request"]["from_problem"])
+
+				if (!empty($arr["request"]["from_problem"]))
 				{
 					$r = obj($arr["request"]["from_problem"]);
 					$prop["value"] = $r->prop("content");
@@ -897,7 +913,7 @@ class bug extends class_base
 				break;
 
 			case "cust_comments":
-				if($arr["new"])
+				if(!empty($arr["new"]))
 				{
 					return PROP_IGNORE;
 				}
@@ -905,7 +921,7 @@ class bug extends class_base
 				break;
 
 			case "bug_comments":
-				if($arr["new"])
+				if(!empty($arr["new"]))
 				{
 					return PROP_IGNORE;
 				}
@@ -915,12 +931,12 @@ class bug extends class_base
 			case "bug_status":
 				$prop["onchange"] = "if(this.value==10){ $('#settings_col1_outer .sisu3:eq(1)').css('display', 'block') }";
 				$statuses = $this->bug_statuses;
-				$this->filter_bug_statuses(&$statuses, $arr);
+				$this->filter_bug_statuses($statuses, $arr);
 				$prop["options"] = $statuses;
 				break;
 
 			case "bug_type":
-				if (is_oid($arr["request"]["id"]))
+				if (!empty($arr["request"]["id"]))
 				{
 					$o = obj($arr["request"]["id"]);
 				}
@@ -1000,20 +1016,24 @@ class bug extends class_base
 					}
 					$prop["options"] = array("" => t("--vali--")) + $tmp;
 				}
-				if ($this->can("view", $prop["value"]) && !isset($prop["options"][$prop["value"]]))
-				{
-					$tmp = obj($prop["value"]);
-					$prop["options"][$tmp->id()] = $tmp->name();
-				}
 
-				if (is_array($prop["value"]))
+				if (isset($prop["value"]))
 				{
-					foreach($prop["value"] as $val)
+					if ($this->can("view", $prop["value"]) && !isset($prop["options"][$prop["value"]]))
 					{
-						if ($this->can("view", $val))
+						$tmp = obj($prop["value"]);
+						$prop["options"][$tmp->id()] = $tmp->name();
+					}
+
+					if (is_array($prop["value"]))
+					{
+						foreach($prop["value"] as $val)
 						{
-							$tmp = obj($val);
-							$prop["options"][$tmp->id()] = $tmp->name();
+							if ($this->can("view", $val))
+							{
+								$tmp = obj($val);
+								$prop["options"][$tmp->id()] = $tmp->name();
+							}
 						}
 					}
 				}
@@ -1024,15 +1044,15 @@ class bug extends class_base
 					$prop["options"][$r->prop("req_p")] = $r->prop("req_p.name");
 				}
 
-				if ($prop["name"] == "monitors" && (!$bt_obj || !$bt_obj->prop("bug_only_bt_ppl")))
+				if ($prop["name"] === "monitors" && (!$bt_obj || !$bt_obj->prop("bug_only_bt_ppl")))
 				{
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$cur = obj($u->get_current_person());
 					$sections = $cur->connections_from(array(
 							"class_id" => CL_CRM_SECTION,
       							"type" => "RELTYPE_SECTION"
 					));
-					$ppl = array();
+					$ppl = $professions = array();
 					foreach($sections as $s)
 					{
 						$sc = obj($s->conn["to"]);
@@ -1045,11 +1065,12 @@ class bug extends class_base
 							$professions[$p->conn["to"]] = $p->conn["to"];
 						}
 					}
+
 					$c = new connection();
 					$people = $c->find(array(
 						"from.class_id" => CL_CRM_PERSON,
-     						 "type" => "RELTYPE_RANK",
-    						  "to" => $professions
+     					"type" => "RELTYPE_RANK",
+    						"to" => $professions
 					));
 					foreach($people as $person)
 					{
@@ -1058,9 +1079,10 @@ class bug extends class_base
 					}
 					$prop["options"] += $ppl;
 				}
-				if($prop["name"] == "bug_feedback_p")
+
+				if($prop["name"] === "bug_feedback_p")
 				{
-					foreach($arr["obj_inst"]->prop("monitors") as $oid)
+					foreach(safe_array($arr["obj_inst"]->prop("monitors")) as $oid)
 					{
 						if($this->can("view", $oid))
 						{
@@ -1103,7 +1125,7 @@ class bug extends class_base
 
 				$prop["options"] = array("" => t("--vali--")) + $ol->names();
 
-				if (!isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
+				if (isset($prop["value"]) && !isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
 				{
 					$tmp = obj($prop["value"]);
 					$prop["options"][$tmp->id()] = $tmp->name();
@@ -1114,7 +1136,7 @@ class bug extends class_base
 					$prop["value"] = $arr["request"]["set_proj"];
 				}
 
-				if($arr["new"])
+				if(!empty($arr["new"]))
 				{
 					foreach($this->parent_options[$prop["name"]] as $key => $val)
 					{
@@ -1130,10 +1152,9 @@ class bug extends class_base
 				break;
 
 			case "customer":
-				$i = get_instance(CL_CRM_COMPANY);
-				enter_function("bug::get_my_customers");
+				$i = new crm_company();
 				$cst = $i->get_my_customers();
-				exit_function("bug::get_my_customers");
+
 				if (!count($cst))
 				{
 					$prop["options"] = array("" => t("--vali--"));
@@ -1173,13 +1194,14 @@ class bug extends class_base
 					$prop["options"][$tmp->id()] = $tmp->name();
 				}
 
-				if($arr["new"])
+				if(!empty($arr["new"]))
 				{
 					foreach($this->parent_options[$prop["name"]] as $key => $val)
 					{
 						$prop["options"][$key] = $val;
 					}
 				}
+
 				if (!empty($arr["request"]["from_req"]))
 				{
 					$r = obj($arr["request"]["from_req"]);
@@ -1209,11 +1231,11 @@ class bug extends class_base
 					"source_id" => $arr["obj_inst"]->id(),
 					"name" => $arr["obj_inst"]->name()
 				), CL_TASK);
-				$prop["value"] = "<span style=\"font-size: 14px;\">".$prop["value"]."</span> <a href='javascript:void(0)' onClick='aw_popup_scroll(\"$url\",\"aw_timers\",800,600)'>".t("Stopper")."</a><br />\n".(($arr["request"]["action"] == "new") ? "" : $this->get_person_times($arr));
+				$prop["value"] = "<span style=\"font-size: 14px;\">".(isset($prop["value"]) ?  $prop["value"] : 0)."</span> <a href='javascript:void(0)' onClick='aw_popup_scroll(\"$url\",\"aw_timers\",800,600)'>".t("Stopper")."</a><br />\n".(($arr["request"]["action"] === "new") ? "" : $this->get_person_times($arr));
 				break;
 
 			case "num_hrs_guess":
-				if($arr["request"]["action"] != "new")
+				if($arr["request"]["action"] !== "new")
 				{
 					$prop["post_append_text"] = "<br />\n".$this->get_person_times($arr);
 				}
@@ -1395,7 +1417,7 @@ class bug extends class_base
 
 				$arr["obj_inst"]->set_prop("deadline", $opv);
 				$arr["obj_inst"]->set_prop("bug_priority", $opri);
-				$arr["obj_inst"]->set_prop("bug_severity", $osevri);
+				$arr["obj_inst"]->set_prop("bug_severity", $osev);
 
 				$n_ovr = array();
 				foreach($ovr2 as $item)
@@ -1485,7 +1507,7 @@ class bug extends class_base
 					break;
 				}
 			case "bug_status":
-				if($arr["request"]["is_order"])
+				if(!empty($arr["request"]["is_order"]))
 				{
 					$c = $arr["obj_inst"]->connections_from(array(
 						"type" => "RELTYPE_DEV_ORDER"
@@ -1495,16 +1517,19 @@ class bug extends class_base
 						$prop["value"] = self::BUG_DEVORDER;
 					}
 				}
+
 				if(!$this->_ac_old_state || !$this->_ac_new_state)
 				{
 					$this->_ac_old_state = $arr["obj_inst"]->prop("bug_status");
 					$this->_ac_new_state = $prop["value"];
 				}
+
 				if(!$this->_change_status)
 				{
 					$this->_change_status = "bug";
 				}
-				if (!$arr["new"])
+
+				if (empty($arr["new"]))
 				{
 					$retval = $this->_handle_status_change(
 						$this->_ac_old_state,
@@ -1513,12 +1538,14 @@ class bug extends class_base
 						$prop
 					);
 				}
-				if ($this->_ac_old_state != $prop["value"] && !$arr["new"])
+
+				if ($this->_ac_old_state != $prop["value"] && empty($arr["new"]))
 				{
 					$com = sprintf(t("Staatus muudeti %s => %s"), html_entity_decode($this->bug_statuses[$this->_ac_old_state]), html_entity_decode($this->bug_statuses[$prop["value"]]));
 					$this->add_comments[] = $com;
 					$this->notify_monitors = true;
 				}
+
 				$po = obj($arr["request"]["parent"] ? $arr["request"]["parent"] : $arr["request"]["id"]);
 				$pt = $po->path();
 				$bt_obj = null;
@@ -1529,6 +1556,8 @@ class bug extends class_base
 						$bt = $pi;
 					}
 				}
+
+				$change_bug_status = 0;
 				if($bt)
 				{
 					$bcs = $bt->meta("cust_bug_status_conns");
@@ -1537,6 +1566,7 @@ class bug extends class_base
 						$change_bug_status = 1;
 					}
 				}
+
 				if($change_bug_status && $prop["value"] != $arr["obj_inst"]->prop($prop["name"]))
 				{
 					$arr["obj_inst"]->set_prop("cust_status", $bcs[$prop["value"]]);
@@ -1602,6 +1632,7 @@ class bug extends class_base
 					$this->notify_monitors = true;
 					$this->newwho = $prop["value"];
 				}
+
 				if($this->who_set)
 				{
 					return PROP_IGNORE;
@@ -1609,10 +1640,10 @@ class bug extends class_base
 				break;
 
 			case "monitors":
-				if (!$arr["new"] && $arr["request"]["who"])
+				if (empty($arr["new"]) && $arr["request"]["who"])
 				{
 					$mon = $arr["request"]["monitors"];
-					if(!$mon[$arr["request"]["who"]])
+					if(empty($mon[$arr["request"]["who"]]))
 					{
 						$mon[$arr["request"]["who"]] = $arr["request"]["who"];
 						$prop["value"] = $mon;
@@ -1622,9 +1653,11 @@ class bug extends class_base
 
 			case "bug_class":
 				$clss = aw_ini_get("classes");
-				$old = $clss[(int)$arr["obj_inst"]->prop($prop["name"])]["name"];
-				$nv = $clss[(int)$prop["value"]]["name"];
-				if ($old != $nv && !$arr["new"])
+				$old_clid = (int) $arr["obj_inst"]->prop($prop["name"]);
+				$new_clid = (int) $prop["value"];
+				$old = isset($clss[$old_clid]) ? $clss[$old_clid]["name"] : "";
+				$nv = isset($clss[$new_clid]) ? $clss[$new_clid]["name"] : "";
+				if ($old != $nv && empty($arr["new"]))
 				{
 					$com = sprintf(t("Klass muudeti %s => %s"), $old, $nv);
 					//$this->_add_comment($arr["obj_inst"], $com);
@@ -2657,16 +2690,17 @@ class bug extends class_base
 			$this->_add_comment($arr["obj_inst"], join("\n", $this->add_comments), $this->_ac_old_state, $this->_ac_new_state, $this->_acc_add_wh, $this->notify_monitors, $this->_acc_add_wh_cust, $this->_acc_add_wh_guess);
 		}
 
-		if ($arr["new"])
+		if (!empty($arr["new"]))
 		{
 			$this->new_bug = 1;
 			$this->notify_monitors($arr["obj_inst"], $arr["obj_inst"]->prop("bug_content"));
 			// if this is a new bug, then parse the content and create sub/subsub bugs from it
-			if ($arr["request"]["do_split"])
+			if (!empty($arr["request"]["do_split"]))
 			{
 				$this->_parse_add_bug_content($arr["obj_inst"]);
 			}
-			if ($arr["request"]["from_problem"])
+
+			if (!empty($arr["request"]["from_problem"]))
 			{
 				$arr["obj_inst"]->connect(array(
 					"to" => $arr["request"]["from_problem"],
@@ -2675,7 +2709,7 @@ class bug extends class_base
 			}
 		}
 
-		if($arr["request"]["is_order"])
+		if(!empty($arr["request"]["is_order"]))
 		{
 			$c = $arr["obj_inst"]->connections_from(array(
 				"type" => "RELTYPE_DEV_ORDER"
@@ -3513,9 +3547,10 @@ die($email);
 	function _get_customer_person($arr)
 	{
 		// list all ppl for the selected co
-		if ($arr["new"])
+		$cust = $unit = 0;
+		if (!empty($arr["new"]))
 		{
-			if ($arr["request"]["from_problem"])
+			if (!empty($arr["request"]["from_problem"]))
 			{
 				$pr = obj($arr["request"]["from_problem"]);
 				$cust = $pr->prop("customer");
@@ -3526,25 +3561,29 @@ die($email);
 			$cust = $arr["obj_inst"]->prop("customer");
 			$unit = $arr["obj_inst"]->prop("customer_unit");
 		}
+
 		if ($this->can("view", $cust) && $this->can("view", $unit))
 		{
 			// get all ppl for the section
-			$sect = get_instance(CL_CRM_SECTION);
+			$sect = new crm_section();
 			$work_ol = $sect->get_section_workers($unit, true);
 			$arr["prop"]["options"] = array("" => t("--vali--")) + $work_ol->names();
 		}
-		else
-		if ($this->can("view", $cust))
+		elseif ($this->can("view", $cust))
 		{
-			$co = get_instance(CL_CRM_COMPANY);
+			$co = new crm_company();
 			$arr["prop"]["options"] = $co->get_employee_picker(obj($cust), true);
+		}
+		else
+		{
+			$arr["prop"]["options"] = array("" => t("--vali--"));
 		}
 
 		$p = get_current_person();
 		// add the current person and his boss
 		$arr["prop"]["options"][$p->id()] = $p->name();
 
-		$sect = get_instance(CL_CRM_SECTION);
+		$sect = new crm_section();
 		$units = safe_array($p->prop("org_section"));
 		$unit = reset($units);
 		if ($this->can("view", $unit))
@@ -3561,7 +3600,7 @@ die($email);
 	{
 		if (!empty($arr["new"]))
 		{
-			if ($arr["request"]["from_problem"])
+			if (!empty($arr["request"]["from_problem"]))
 			{
 				$pr = obj($arr["request"]["from_problem"]);
 				$cust = $pr->prop("orderer_co");
@@ -3573,12 +3612,12 @@ die($email);
 			$arr["prop"]["value"] = $cust;
 		}
 
-		if (!is_array($arr["prop"]["options"]))
+		if (!isset($arr["prop"]["options"]) or !is_array($arr["prop"]["options"]))
 		{
 			$arr["prop"]["options"] = array("" => t("--vali--"));
 		}
 
-		if (!isset($arr["prop"]["options"][$arr["prop"]["value"]]) && $this->can("view", $arr["prop"]["value"]))
+		if (isset($arr["prop"]["value"]) && !isset($arr["prop"]["options"][$arr["prop"]["value"]]) && $this->can("view", $arr["prop"]["value"]))
 		{
 			$tmp = obj($arr["prop"]["value"]);
 			$arr["prop"]["options"][$arr["prop"]["value"]] = $tmp->name();
@@ -3599,10 +3638,11 @@ die($email);
 		$co_i = $co->instance();
 		$sects = $co_i->get_all_org_sections($co);
 		$prop["options"] = array("" => t("--vali--"));
-		if($prop["value"])
+		if(!empty($prop["value"]))
 		{
 			$prop["options"][$prop["value"]] = obj($prop["value"])->name();
 		}
+
 		if (count($sects))
 		{
 			$ol = new object_list(array("oid" => $sects, "lang_id" => array(), "site_id" => array()));
@@ -3611,10 +3651,12 @@ die($email);
 				$prop["options"][$oid] = $o->name();
 			}
 		}
+
 		$p = get_current_person();
-		if ($arr["new"])
+
+		if (!empty($arr["new"]))
 		{
-			if ($arr["request"]["from_problem"])
+			if (!empty($arr["request"]["from_problem"]))
 			{
 				$tmp = obj($arr["request"]["from_problem"]);
 				$prop["value"] = $tmp->prop("orderer_unit");
@@ -3629,9 +3671,10 @@ die($email);
 	function _get_orderer_person($arr)
 	{
 		// list all ppl for the selected co
-		if ($arr["new"])
+		$cust = $unit = 0;
+		if (!empty($arr["new"]))
 		{
-			if ($arr["request"]["from_problem"])
+			if (!empty($arr["request"]["from_problem"]))
 			{
 				$pr = obj($arr["request"]["from_problem"]);
 				$cust = $pr->prop("orderer_co");
@@ -3643,6 +3686,7 @@ die($email);
 			$cust = $arr["obj_inst"]->prop("orderer");
 			$unit = $arr["obj_inst"]->prop("orderer_unit");
 		}
+
 		if ($this->can("view", $cust) && $this->can("view", $unit))
 		{
 			// get all ppl for the section
@@ -3654,8 +3698,7 @@ die($email);
 				$arr["prop"]["options"][$oid] =  $o->name();
 			}
 		}
-		else
-		if ($this->can("view", $cust))
+		elseif ($this->can("view", $cust))
 		{
 			$co = get_instance(CL_CRM_COMPANY);
 			$arr["prop"]["options"] = $co->get_employee_picker(obj($cust), true);
@@ -3664,7 +3707,7 @@ die($email);
 
 	function _get_problems_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ol = new object_list($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_FROM_PROBLEM")));
 		$t->table_from_ol($ol, array("name", "createdby", "created", "orderer_co", "orderer_unit", "customer", "project", "requirement", "from_dev_order", "from_bug"), CL_CUSTOMER_PROBLEM_TICKET);
 	}
@@ -3759,7 +3802,7 @@ die($email);
 
 	function callback_get_cfgmanager($arr)
 	{
-		if (is_oid($arr["request"]["id"]))
+		if (!empty($arr["request"]["id"]))
 		{
 			$o = obj($arr["request"]["id"]);
 		}
@@ -3906,7 +3949,7 @@ die($email);
 		$("#bug_stopper_watch_time").stopper_watch();
 EOF;
 		$bt = $this->_get_bt($arr["obj_inst"]);
-		if(!$bt && $arr["request"]["action"] == "new")
+		if(!$bt && $arr["request"]["action"] === "new")
 		{
 			$p = $arr["request"]["parent"];
 			$tmpo = obj($p);
@@ -3920,6 +3963,8 @@ EOF;
 				}
 			}
 		}
+
+		$maintainers = "";
 		if($bt)
 		{
 			$url = $this->mk_my_orb("maintainer_ajax", array("id" => $bt->id()));
@@ -3979,7 +4024,7 @@ EOF;
 			}';
 		}
 
-		if (automatweb::$request->arg("group") == "general" || automatweb::$request->arg("group") == "")
+		if (automatweb::$request->arg("group") === "general" || automatweb::$request->arg("group") == "")
 		{
 			$hide_fb = <<<EOF
 				if ($("#bug_status").val() != 10)
@@ -3989,7 +4034,7 @@ EOF;
 EOF;
 		}
 
-		if (is_oid($arr["request"]["id"]))
+		if (!empty($arr["request"]["id"]))
 		{
 			$o = obj($arr["request"]["id"]);
 		}
@@ -3997,17 +4042,16 @@ EOF;
 		{
 			$o = obj($arr["request"]["parent"]);
 		}
+
 		$bt = $this->_get_bt($o);
+		$options = array(0 => t("--vali--"));
 		if($bt)
 		{
 			$ol = new object_list(array(
 				"parent" => $bt->id(),
-				"class_id" => array(CL_BUG_APP_TYPE),
-				"site_id" => array(),
-				"lang_id" => array(),
+				"class_id" => array(CL_BUG_APP_TYPE)
 			));
 			$ol->sort_by_cb(array($this, "__bug_app_sorter"));
-			$options = array(0 => t("--vali--"));
 			foreach($ol->arr() as $oid => $o)
 			{
 				$t = $o->get_first_obj_by_reltype("RELTYPE_TYPE");
@@ -4201,9 +4245,10 @@ EOF;
 				$bt = $pi;
 			}
 		}
+
 		if($bt)
 		{
-			if($arr["prop"]["name"] == "bug_status")
+			if($arr["prop"]["name"] === "bug_status")
 			{
 				if($arr["obj_inst"]->class_id() == CL_BUG)
 				{
@@ -4225,7 +4270,7 @@ EOF;
 			}
 			foreach($statuses as $stid => $status)
 			{
-				if(ifset($filter, $stid) == "no")
+				if(ifset($filter, $stid) === "no")
 				{
 					unset($statuses[$stid]);
 				}

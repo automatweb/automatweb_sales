@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=hannes
-*/
+
 class multifile_upload extends class_base
 {
 	function multifile_upload()
@@ -15,14 +13,14 @@ class multifile_upload extends class_base
 	{
 		$this->read_template("multifile_upload.tpl");
 		$content = "";
-		$tmp = "";	
-		
+		$tmp = "";
+
 		// read props from the given class
 		$prop = $arr["prop"];
-	
+
 		$tp = $arr["prop"];
 		$tp["type"] = "text";
-		
+
 		if ( $prop["max_files"] )
 		{
 			$i_max_files = $prop["max_files"];
@@ -31,7 +29,7 @@ class multifile_upload extends class_base
 		{
 			$i_max_files = 999;
 		}
-		
+
 		if ($arr["new"] != 1)
 		{
 			$i = 1;
@@ -39,7 +37,7 @@ class multifile_upload extends class_base
 			{
 				$fo = $file->to();
 				$file_instance = $fo->instance();
-				
+
 				$this->vars(array(
 					"id" => $fo->id(),
 					"counter" => $i++,
@@ -51,16 +49,16 @@ class multifile_upload extends class_base
 				$tmp .= $this->parse('file');
 			}
 		}
-		
-		
+
+
 		$this->vars(array(
 			"file" => $tmp,
 			"max" => $i_max_files,
 		));
-		
-		
+
+
 		$content = $this->parse();
-		
+
 		$tp["value"] = $content;
 		return array($tp["name"] => $tp);
 	}
@@ -76,7 +74,7 @@ class multifile_upload extends class_base
 		$oid = $arr["obj_inst"]->id();
 		$clid = $arr["obj_inst"]->class_id();
 		$o = obj($oid);
-		if($arr["prop"]["image"])
+		if(!empty($arr["prop"]["image"]))
 		{
 			$fi = get_instance(CL_IMAGE);
 		}
@@ -96,9 +94,9 @@ class multifile_upload extends class_base
 
 	/**
 	@attrib name=ajax_delete_obj
-	
+
 	@param id required type=int
-	
+
 	@comment
 		Get directory listing
 	**/

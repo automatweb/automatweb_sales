@@ -2,7 +2,7 @@
 // auth_server_openldap.aw - Autentimisserver OpenLDAP
 /*
 
-@classinfo syslog_type=ST_AUTH_SERVER_OPENLDAP relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1
 
 @default table=objects
 @default group=general
@@ -17,6 +17,9 @@
 
 @property server_ldaps type=checkbox ch_value=1
 @caption SSL &Uuml;hendus
+
+@property server_passwords_md5 type=checkbox ch_value=1
+@caption Parool md5 r&auml;sina
 
 @property ad_base_dn type=textbox
 @caption Baas-DN kasutajate otsimiseks
@@ -141,15 +144,10 @@ class auth_server_openldap extends class_base
 		// ldap_set_option($res, LDAP_OPT_NETWORK_TIMEOUT, 3);
 
 		$uid = $credentials["uid"];
+		$password = $server->prop("server_passwords_md5") ? md5($credentials["password"]) : $credentials["password"];
+		$bind = ldap_bind($res, "uid=".$uid.",".$server->prop("ad_base_dn"), $password);
 
 		$break = false;
-		$bind = ldap_bind($res, "uid=".$uid.",".$server->prop("ad_base_dn"), md5($credentials["password"]));
-
-		if (!$bind)
-		{
-			$bind = ldap_bind($res, "uid=".$uid.",".$server->prop("ad_base_dn"), $credentials["password"]);
-		}
-
 		if ($bind)
 		{
 			$grp = $server->prop("ad_grp_txt");
@@ -157,6 +155,7 @@ class auth_server_openldap extends class_base
 			{
 				$grp = $server->prop("ad_grp");
 			}
+
 			if ($grp == "" || ($grp != "" && $this->_is_member_of($res, $server, $grp, $credentials)))
 			{
 				$this->_proc_credentials($res, $server, $credentials);
@@ -307,5 +306,3 @@ class auth_server_openldap extends class_base
 
 class awex_auth_ldap extends awex_auth {}
 class awex_auth_ldap_bind extends awex_auth_ldap {}
-
-?>

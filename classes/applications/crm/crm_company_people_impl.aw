@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
+
 define("CRM_ALL_PERSONS_CAT", 999999);
 
 class crm_company_people_impl extends class_base
@@ -910,7 +908,10 @@ class crm_company_people_impl extends class_base
 
 		foreach($owners as $owner)
 		{
-			$ret[$u2p[$owner["to"]]] = $owner["from"];
+			if (isset($u2p[$owner["to"]]))
+			{
+				$ret[$u2p[$owner["to"]]] = $owner["from"];
+			}
 		}
 
 		return $ret;
@@ -1157,4 +1158,3 @@ class crm_company_people_impl extends class_base
 		$this->_get_human_resources($arr);
 	}
 }
-?>

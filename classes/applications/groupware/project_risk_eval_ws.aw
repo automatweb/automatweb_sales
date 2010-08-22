@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_risk_eval_ws.aw,v 1.4 2007/12/06 14:33:32 kristo Exp $
-// project_risk_eval_ws.aw - Riskide hindamise t&ouml;&ouml;laud 
+
+// project_risk_eval_ws.aw - Riskide hindamise t&ouml;&ouml;laud
 /*
 
-@classinfo syslog_type=ST_PROJECT_RISK_EVAL_WS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo aw_project_risk_eval_ws index=aw_oid master_index=brother_of master_table=objects
 
@@ -23,7 +23,7 @@
 
 @default group=strat_res_tree
 
-	@layout srt_hb type=hbox 
+	@layout srt_hb type=hbox
 
 		@property srt type=treeview parent=srt_hb store=no no_caption=1
 		@property srt_tbl type=table parent=srt_hb store=no no_caption=1
@@ -69,14 +69,14 @@ class project_risk_eval_ws extends class_base
 		return $retval;
 	}
 
-	function _init_risks_t(&$t)
+	function _init_risks_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Risk"),
 			"align" => "center"
 		));
-		$t->define_field(array(		
+		$t->define_field(array(
 			"name" => "infl",
 			"caption" => t("M&otilde;ju"),
 			"align" => "center",
@@ -84,13 +84,13 @@ class project_risk_eval_ws extends class_base
 		));
 		$t->define_field(array(
 			"name" => "occ",
-			"caption" => t("Juhtub"),	
+			"caption" => t("Juhtub"),
 			"align" => "center",
 			"sortable" => 1
 		));
 		$t->define_field(array(
 			"name" => "tot",
-			"caption" => t("Kokku"),	
+			"caption" => t("Kokku"),
 			"align" => "center",
 			"sortable" => 1
 		));
@@ -98,7 +98,7 @@ class project_risk_eval_ws extends class_base
 
 	function _risks($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_risks_t($t);
 
 		$p = $this->_get_proj($arr["obj_inst"]);
@@ -170,12 +170,12 @@ class project_risk_eval_ws extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = post_ru();
-		$arr["project"] = $_GET["project"];
+		$arr["project"] = $request["project"];
 	}
 
 
@@ -187,19 +187,19 @@ class project_risk_eval_ws extends class_base
 			$project->connect(array("to" => $arr["id"], "reltype" => "RISK_EVAL"));
 		}
 	}
-	
+
 	function _save_risks($arr)
 	{
 		$se = $this->_get_eval($arr["obj_inst"]);
 		$se->set_meta("infl", $arr["request"]["infl"]);
 		$se->set_meta("occ", $arr["request"]["occ"]);
 		$se->save();
-		
+
 	}
 
 	function _strat_res($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$proj  = $this->_get_proj($arr["obj_inst"]);
 		$this->_init_risks_t($t, $proj);
@@ -242,7 +242,7 @@ class project_risk_eval_ws extends class_base
 
 	function _srt($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		// add all evaluators
 		$ol = new object_list(array(
 			"class_id" => CL_PROJECT_RISK_EVALUATION,
@@ -266,7 +266,7 @@ class project_risk_eval_ws extends class_base
 		{
 			return;
 		}
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$proj  = $this->_get_proj($arr["obj_inst"]);
 		$this->_init_risks_t($t, $proj);
@@ -317,4 +317,3 @@ class project_risk_eval_ws extends class_base
 		}
 	}
 }
-?>

@@ -1,6 +1,6 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/groupware/reservation.aw,v 1.162 2009/08/24 11:56:48 instrumental Exp $
-// reservation.aw - Broneering 
+
+// reservation.aw - Broneering
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_RESERVATION, on_delete_reservation)
 
@@ -8,7 +8,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_RESERVATION, on_delete_reservat
 @tableinfo aw_room_reservations index=aw_oid master_table=objects master_index=brother_of
 
 
-@classinfo syslog_type=ST_RESERVATION relationmgr=yes no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -26,10 +26,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_RESERVATION, on_delete_reservat
 
 	@property name type=textbox field=name method=none size=20 parent=general_up_up
 	@caption Nimi
-	
+
 	@property deadline type=datetime_select table=planner field=deadline parent=general_up_up
 	@caption Maksmist&auml;htaeg
-			
+
 	@property verified type=checkbox ch_value=1 table=aw_room_reservations field=aw_verified no_caption=1 default=1 parent=general_up_up
 	@caption Kinnitatud
 
@@ -43,7 +43,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_RESERVATION, on_delete_reservat
 
 	@property other_rooms type=select multiple=1 store=no parent=general_up_up
 	@caption Lisaks ruumid
-	
+
 	@property customer type=relpicker table=planner field=customer reltype=RELTYPE_CUSTOMER parent=general_up_up
 	@caption Klient
 
@@ -52,28 +52,28 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_RESERVATION, on_delete_reservat
 
 	@property cp_ln type=textbox store=no size=20 parent=general_up_up
 	@caption Perenimi
-	
+
 	@property cp_phone type=textbox store=no size=12 parent=general_up_up
 	@caption Telefon
-	
+
 	@property cp_email type=textbox store=no size=20 parent=general_up_up
 	@caption E-mail
-	
+
 	@property project type=relpicker table=planner field=project reltype=RELTYPE_PROJECT type=popup_search style=autocomplete parent=general_up_up
 	@caption Projekt
-	
+
 	@property send_bill type=checkbox ch_value=1 table=planner field=send_bill no_caption=1 parent=general_up_up
 	@caption Saata arve
-	
+
 	@property bill_no type=hidden table=planner  parent=general_up_up
 	@caption Arve number
-	
+
 	@property comment type=textarea cols=40 rows=1 parent=general_up_up
 	@caption Kommentaar
-	
+
 	@property content type=textarea cols=40 rows=5 field=description table=planner parent=general_up_up
 	@caption Sisu
-	
+
 	@property time_closed type=checkbox ch_value=1 table=aw_room_reservations field=aw_time_closed parent=general_up_up
 	@caption Suletud
 
@@ -81,18 +81,18 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_RESERVATION, on_delete_reservat
 	@caption Sulgemise p&otilde;hjus
 
 	@layout sbt_layout type=hbox parent=general_up
-	
+
 	@property sbt type=submit no_caption=1 parent=sbt_layout
 	@caption Salvesta
 
 	@property sbt_close type=submit no_caption=1 parent=sbt_layout
 	@caption Salvesta ja sulge
-	
+
 @layout general_down type=vbox closeable=1 area_caption=Aeg&#44;&nbsp;ja&nbsp;hind parent=general_split
-	
+
 	@property people_count type=textbox size=3 table=aw_room_reservations field=aw_people_count parent=general_down
 	@caption Inimesi
-		
+
 	@property start1 type=datetime_select field=start table=planner parent=general_down
 	@caption Algus
 
@@ -107,10 +107,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_RESERVATION, on_delete_reservat
 
 	@property special_sum type=textbox size=5 table=aw_room_reservations field=aw_special_sum parent=general_down
 	@caption Spetsiaal hind
-	
+
 	@property products_discount type=hidden size=5 table=aw_room_reservations field=aw_products_discount no_caption=1 parent=general_down
 	@caption Toodete allahindlus
-	
+
 	property code type=hidden size=5 table=planner field=code parent=general_down
 	caption Kood
 
@@ -133,13 +133,13 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_RESERVATION, on_delete_reservat
 	@caption Summa
 
 	@property modder type=text store=no no_caption=1 parent=general_down
-	
+
 property summary type=textarea cols=80 rows=30 table=planner field=description no_caption=1
 caption Kokkuv&otilde;te
 
 @groupinfo reserved_resources caption="Ressursid"
 @default group=reserved_resources
-	
+
 	@property resources_tbl type=table no_caption=1
 
 	@property resources_price type=hidden table=aw_room_reservations field=resources_price no_caption=1
@@ -152,7 +152,7 @@ caption Kokkuv&otilde;te
 
 @groupinfo products caption="Tooted"
 @default group=products
-	
+
 	@property products_tbl type=table no_caption=1
 
 @groupinfo prices caption="Hinnad"
@@ -162,7 +162,7 @@ caption Kokkuv&otilde;te
 
 @groupinfo ppl caption="Kliendid"
 @default group=ppl
-	
+
 	@property ppl_tb type=toolbar no_caption=1 store=no
 	@property ppl type=table no_caption=1 store=no
 
@@ -240,7 +240,7 @@ class reservation extends class_base
 		switch($prop["name"])
 		{
 			case "type":
-		
+
 	/*			$ol = new object_list(array(
 					"class_id" => CL_RFP,
 					"lang_id" => array(),
@@ -325,7 +325,7 @@ class reservation extends class_base
 			case "sbt_close":
 				$prop["type"] = "text";
 				$prop["value"] = "<input id='cbsubmit' type='submit' name='sbt_close' value='Salvesta ja sulge' class='sbtbutton' onclick=''  />";
-				/*$prop["value"] = "<input id='cbsubmit' type='submit' name='sbt_close' value='Salvesta ja sulge' class='sbtbutton' 
+				/*$prop["value"] = "<input id='cbsubmit' type='submit' name='sbt_close' value='Salvesta ja sulge' class='sbtbutton'
 					onclick='
 						if (typeof(aw_submit_handler) != \"undefined\")
 						{
@@ -400,7 +400,7 @@ class reservation extends class_base
 					$prop["value"] = null;
 				}
 				break;*/
-				
+
 			case "sum":
 				if($is_lower_bron) return PROP_IGNORE;
 				$prop["value"] = $this->_format_sum($arr["obj_inst"]);
@@ -409,7 +409,7 @@ class reservation extends class_base
 			case "deadline":
 				if($arr["obj_inst"]->prop("verified"))
 				{
-					return PROP_IGNORE; 
+					return PROP_IGNORE;
 				}
 				if(!$prop["value"])
 				{
@@ -437,11 +437,11 @@ class reservation extends class_base
 					$prop["value"] = $prop["value"] == 1 ? t("Jah") : t("Ei");
 				}
 				break;
-				
+
 			case "products_text":
 				if($is_lower_bron) return PROP_IGNORE;
 				$prop["value"] = $this->get_products_text($arr["obj_inst"]);
-				break;	
+				break;
 
 			case "people":
 				if(is_oid($arr["obj_inst"]->prop("resource")))
@@ -498,7 +498,7 @@ class reservation extends class_base
 					}*/
 				}
 				break;
-				
+
 //			case "sum":
 //				break;
 
@@ -676,7 +676,7 @@ class reservation extends class_base
 				if($rfpmo->prop("rv_cfgmanager"))
 				{
 					return $rfpmo->prop("rv_cfgmanager");
-				}	
+				}
 			}
 		}
 	}
@@ -859,7 +859,7 @@ class reservation extends class_base
 					}
 				}
 				break;
-				
+
 			case "special_sum":
 				$arr["obj_inst"]->set_special_sum($prop["value"]);
 //				$this->set_total_price(array(
@@ -894,7 +894,7 @@ class reservation extends class_base
 				}
 		}
 		return $retval;
-	}	
+	}
 
 	function calc_obj_name($o)
 	{
@@ -927,7 +927,7 @@ class reservation extends class_base
 	}
 /*	function set_sum($arr)
 	{
-		extract($arr);		
+		extract($arr);
 		$this_obj = obj($id);
 		if(!is_oid($resource))
 		{
@@ -949,12 +949,12 @@ class reservation extends class_base
 					arr($price->prop("weekdays"));
 //				}
 			}
-		
+
 		}
-			
+
 //		if($people_count <= $room->prop("normal_capacity"))
 //		{
-//			$sum = $people_count * 
+//			$sum = $people_count *
 //		}
 		$sum = 0;
 		$this_obj->set_prop("sum" , $sum);
@@ -962,40 +962,45 @@ class reservation extends class_base
 		return $sum;
 	}*/
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		$arr["args"]["saved"] = 1;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["reason"] = " ";
 		$arr["add_p"] = "0";
-		if($_GET["calendar"]) 
+		if(!empty($request["calendar"]))
 		{
-			$arr["calendar"] = $_GET["calendar"];
+			$arr["calendar"] = $request["calendar"];
 		}
-		if(!$arr["id"])
+
+		if(empty($arr["id"]))
 		{
-			$arr["resource"] = $_GET["resource"];
+			$arr["resource"] = $request["resource"];
 		}
+
 		// rfp crap
-		if($_GET["rfp"])
+		if(!empty($request["rfp"]))
 		{
-			$arr["rfp"] = $_GET["rfp"];
+			$arr["rfp"] = $request["rfp"];
 		}
-		if($_GET["rfp_reltype"])
+
+		if(!empty($request["rfp_reltype"]))
 		{
-			$arr["rfp_reltype"] = $_GET["rfp_reltype"];
+			$arr["rfp_reltype"] = $request["rfp_reltype"];
 		}
-		if($_GET["rfp_organisation"])
+
+		if(!empty($request["rfp_organisation"]))
 		{
-			$arr["rfp_organisation"] = $_GET["rfp_organisation"];
+			$arr["rfp_organisation"] = $request["rfp_organisation"];
 		}
-		if($_GET["type"])
+
+		if(!empty($request["type"]))
 		{
-			$arr["type"] = $_GET["type"];
+			$arr["type"] = $request["type"];
 		}
 	}
 
@@ -1087,9 +1092,9 @@ class reservation extends class_base
 	{
 		$ob = new object($arr["id"]);
 		$this->read_template("show.tpl");
-		
 
-		
+
+
 		$this->vars(array(
 			"name" => $ob->prop("name"),
 			"verified" => ($ob->prop("verified") ? t("Kinnitatud") : t("Kinnitamata")),
@@ -1100,7 +1105,7 @@ class reservation extends class_base
 		));
 		return $this->parse();
 	}
-	
+
 	function get_time_str($arr)
 	{
 		$room_inst = get_instance(CL_ROOM);
@@ -1115,14 +1120,14 @@ class reservation extends class_base
 		$res.= date("H:i" , $arr["end"]);
 		return $res;
 	}
-	
+
 	function request_execute ($this_object)
 	{
 		return $this->show (array (
 			"this" => $this_object,
 		));
 	}
-	
+
 
 //-- methods --//
 
@@ -1359,7 +1364,7 @@ class reservation extends class_base
 			"reservation" => $arr["request"]["id"],
 			"discount" => $arr["request"]["resources_total_discount"],
 		));
-		
+
 		// old
 		// well, this old function should point to new as well.. or smth
 		//$this->set_resource_info($arr["obj_inst"]->id(), $arr["request"]["cnt"]);
@@ -1379,7 +1384,7 @@ class reservation extends class_base
 		}
 		return $ol;
 	}
-	
+
 	function _get_products_order_view($arr)
 	{//arr($arr);
 		extract($arr);
@@ -1399,23 +1404,23 @@ class reservation extends class_base
 					$soc = obj($w_obj->prop("order_center"));
 					$pl_ol =  $room_instance->get_active_items($room);
 					$pl = $pl_ol->arr();
-					
+
 					//peksab need v2lja mis ruumi juures aktiivseks pole l2inud
 					$shop_order_center->do_sort_packet_list($pl, $soc->meta("itemsorts"), $soc->prop("grouping"));
-				
+
 					// get the template for products for this folder
 					$layout = $shop_order_center->get_prod_layout_for_folder($soc, $room_obj->prop("resources_fld"));
-		
+
 					// get the table layout for this folder
 					$t_layout = $shop_order_center->get_prod_table_layout_for_folder($soc, $room_obj->prop("resources_fld"));
 					$shop_order_center->web_discount = $room_instance->get_prod_discount(array("room" =>  $room_obj->id()));
 					$html .= $shop_order_center->do_draw_prods_with_layout(array(
-						"t_layout" => $t_layout, 
-						"layout" => $layout, 
+						"t_layout" => $t_layout,
+						"layout" => $layout,
 						"pl" =>  $pl,
 						"soc" => $soc,
 					));
-					return $html;	
+					return $html;
 				}
 			}
 		}
@@ -1426,7 +1431,7 @@ class reservation extends class_base
 		));
 		return 0;
 	}
-	
+
 	function set_products_info($oid, $arr)
 	{
 		if($this->can("view", $oid))
@@ -1491,7 +1496,7 @@ class reservation extends class_base
 				"reservation" => $o->id(),
 				"discount" => $arr["discount"],
 			));
-			
+
 //			$o->set_meta("prod_discount", $arr["discount"]);
 			$o->save();
 			return true;
@@ -1560,7 +1565,7 @@ class reservation extends class_base
 				$sell_products = 1;
 			}
 		}
-		
+
 		if(is_object($room))
 		{
 			$ri = $room->instance();
@@ -1609,7 +1614,7 @@ class reservation extends class_base
 						"value" => $discount[$prod->id()],
 						"size" => 2,
 					))." %",
-					
+
 					"price" => $is_admin ? $this->_get_admin_price_view($prod,$prod_price):number_format($prod_price, 2),
 					"sum" => "<span id='pr".$prod->id()."'>".number_format($prod_sum, 2)."</span>",
 					//ei julge praegu kylge panna
@@ -1619,7 +1624,7 @@ class reservation extends class_base
 						"size" => 5,
 	//					"onChange" => "el=document.getElementById('pr".$prod->id()."');el.innerHTML=this.value*".$prod->prop("price").";els=document.getElementsByTagName('span');tots = 0;for(i=0; i < els.length; i++) { el=els[i]; if (el.id.indexOf('pr') == 0) { tots += parseInt(el.innerHTML);}} te=document.getElementById('total');te.innerHTML=tots;disc=parseInt(document.changeform.discount.value);disc_el=document.getElementById('disc_val');if(disc>0){disc_el.innerHTML=(tots*(disc/100));} sum_val = document.getElementById('sum_val');if (disc > 0) {sum_val.innerHTML=(tots-(tots*(disc/100)));} else { sum_val.innerHTML=tots; } "
 					)),
-*/					
+*/
 					"parent" => $po->name()
 				));
 				$sum += $prod_sum;
@@ -1668,9 +1673,9 @@ class reservation extends class_base
 	//	$t->set_default_sortby("name");
 	//	$t->sort_by(array("rgroupby" => array("parent" => "parent")));
 		$t->set_sortable(false);
-		
+
 		//if(aw_global_get("uid") == "struktuur"){arr($total_price_set); arr($discount[$prod->id()]);}
-		
+
 		$total_price_set = $this->get_products_price(array("reservation" => $arr["obj_inst"]));
 		$t->define_data(array(
 			"name" => t("Kogusumma"),
@@ -1701,7 +1706,7 @@ class reservation extends class_base
 			"name" => t("<b>Summa</b>"),
 			"sum" => "<span id='sum_val'>".number_format($sum-$disc, 2)."</span>"
 		));
-		
+
 		return $t;
 	}
 
@@ -1721,7 +1726,7 @@ class reservation extends class_base
 		{
 			$t->define_field(array(
 				"name" => "name",
-				"caption" => t("Reserveering"),	
+				"caption" => t("Reserveering"),
 				"chgbgcolor" => "split",
 			));
 			$rvs = array();
@@ -1746,7 +1751,7 @@ class reservation extends class_base
 				foreach($ol->arr() as $obj)
 				{
 					$tableoptions[$obj->id()] = $obj->name();
-				} 
+				}
 			}
 		}
 		if($arr["request"]["do_room_separators"])
@@ -1912,7 +1917,7 @@ class reservation extends class_base
 
 	function _get_admin_price_view($prod,$sum)
 	{
-		//if(aw_global_get("uid") != "struktuur") 
+		//if(aw_global_get("uid") != "struktuur")
 		return number_format($sum, 2); //$prod->prop("price");
 		return number_format($sum, 2).
 			html::href(array(
@@ -1928,7 +1933,7 @@ class reservation extends class_base
 			)).
 		"</div>";
 	}
-	
+
 
 	function add_order($reservation, $order, $time = false)
 	{
@@ -1957,7 +1962,7 @@ class reservation extends class_base
 		$reservation = obj($reservation);
 		return $reservation->meta("order_times");
 	}
-	
+
 	/**
 		@attrib name=mark_arrived_popup params=name all_args=1
 		@param bron required type=oid
@@ -1988,7 +1993,7 @@ class reservation extends class_base
 				$res = obj($bron_obj->prop("resource"));
 				$ret.= "\n<br>".$res->name();
 			}
-			
+
 			if(is_oid($bron_obj->prop("customer")))
 			{
 				$customer = obj($bron_obj->prop("customer"));
@@ -2115,7 +2120,7 @@ class reservation extends class_base
 		$len = $arr["obj_inst"]->prop("end") - $arr["obj_inst"]->prop("start1");
 		if ($len > 3600)
 		{
-			$arr["prop"]["post_append_text"] = sprintf(t("/ Hetkel pikkus: %d tundi"), 
+			$arr["prop"]["post_append_text"] = sprintf(t("/ Hetkel pikkus: %d tundi"),
 				floor($len / 3600),
 				floor(($len - floor($len / 3600)*3600) / 60)
 			);
@@ -2218,7 +2223,7 @@ class reservation extends class_base
                         return PROP_IGNORE;
                 }
         }
-	
+
 	function _get_cp_phone($arr)
         {
                 if (!$this->can("view", $arr["obj_inst"]->prop("customer")))
@@ -2262,12 +2267,12 @@ class reservation extends class_base
                         return PROP_IGNORE;
                 }
         }
-	
-	
+
+
 	function _get_people_count($arr)
         {
 		if($arr["obj_inst"]->is_lower_bron())
-		{ 	 
+		{
 			$arr["prop"]["type"] = "text";
 		}
 		if($arr["request"]["people_count_rfp"])
@@ -2277,8 +2282,8 @@ class reservation extends class_base
 		return PROP_OK;
         }
 
-	
-	
+
+
 	function get_room_prop($room, $prop)
 	{
 		if(is_oid($room) && $this->can("view" , $room))
@@ -2293,7 +2298,7 @@ class reservation extends class_base
 		}
 		return null;
 	}
-	
+
 	function _set_cp_fn($arr)
 	{
                 if (!$this->can("view", $arr["obj_inst"]->prop("customer")) && $arr["prop"]["value"] != "")
@@ -2346,7 +2351,7 @@ class reservation extends class_base
 
         function _set_cp_ln($arr)
          {
-	 
+
                 if (!$this->can("view", $arr["obj_inst"]->prop("customer")) || $arr["prop"]["value"] == "")
                 {
                         return PROP_IGNORE;
@@ -2466,7 +2471,7 @@ class reservation extends class_base
 			html::obj_change_url($mp),$mc,
 			date("d.m.Y H:i", $arr["obj_inst"]->modified())
 		);
-	
+
 		//l6ppu maksmise infi, juhul kui on makstud
 		//ei n2inud m6tet eraldi property tegemiseks
 		//default valuuta tuleb systeemis olev default, juhul kui makse infost seda k2tte ei saa
@@ -2552,12 +2557,12 @@ class reservation extends class_base
 	{
 		$res = "";
 		//kliendi nimi, kontaktid, aeg, broneeritud ruum, toidud
-		$res .= sprintf(t("Klient: %s / %s / %s\n"), 
+		$res .= sprintf(t("Klient: %s / %s / %s\n"),
 			$bron->prop("customer.name"),
 			$bron->prop("customer.email.mail"),
 			$bron->prop("customer.phone.name")
 		);
-		$res .= sprintf(t("Aeg: %s: %s-%s\n"), 
+		$res .= sprintf(t("Aeg: %s: %s-%s\n"),
 			date("d.m.Y", $bron->prop("start1")),
 			date("H:i", $bron->prop("start1")),
 			date("H:i", $bron->prop("end"))
@@ -2713,7 +2718,7 @@ class reservation extends class_base
 		);
 if(is_oid($o->id())){	$sum = $o->get_sum();
 
-                foreach($sum as $cur => $price)	
+                foreach($sum as $cur => $price)
 		{                 $d["price".$cur] = number_format($price, 2);
               }
 }
@@ -2722,7 +2727,7 @@ else{
 		{
 			$d["price".$cur] = number_format($price + $sum["prod_price"][$cur], 2);
 		}}
-			
+
 
 		$t->define_data($d);
 
@@ -2838,7 +2843,7 @@ flush();
 		}
 		return false;
 	}
-	
+
 	function bank_return($arr)
 	{
 		$rr = get_instance(CL_ROOM_RESERVATION);
@@ -2849,7 +2854,7 @@ flush();
 	function _get_ppl_tb($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
-		
+
 		$disp = true;
 		if ($this->can("view", $arr["obj_inst"]->prop("resource")))
 		{
@@ -3308,10 +3313,10 @@ flush();
 		@attrib params=pos api=1
 		@param id required type=oid
 			Reservation object id
-			
+
 		@comment
 			Fetches information about this reservation resources
-		@returns 
+		@returns
 			array of information about resources
 			array(
 				RESOURCE_OID => array(
@@ -3362,13 +3367,13 @@ flush();
 		$obj->save();
 		return true;
 	}
-	
+
 	//annab kogusumma(kui on)
 	/**
 		@attrib api=1 params=pos
 		@param reservation required type=oid
 			Reservation object oid
-		@returns 
+		@returns
 			resources special prices in array
 			array(
 				CURRENCY_OBJECT_OID => price,
@@ -3383,7 +3388,7 @@ flush();
 		$o = obj($oid);
 		return aw_unserialize($o->prop("resources_price"));
 	}
-	
+
 	/** sets resources price for bron
 		@attrib api=1 params=name
 		@param reservation required type=oid
@@ -3410,7 +3415,7 @@ flush();
 		$reservation->save();
 		return true;
 	}
-	
+
 	/** gets reservation resources discount
 		@attrib api=1 params=pos
 		@param reservation required type=oid
@@ -3432,8 +3437,8 @@ flush();
 		}
 		return $reservation->prop("resources_discount");
 	}
-	
-	
+
+
 	/** sets reservation resources discount
 		@attrib api=1 params=name
 		@param reservation required type=oid
@@ -3458,7 +3463,7 @@ flush();
 		$reservation->save();
 		return true;
 	}
-	
+
 // edasi toodete kr2pp
 	/** Returns products data
 		@attrib api=1 params=name
@@ -3477,7 +3482,7 @@ flush();
 		{
 			return false;
 		}
-	
+
 		$prd = $reservation->meta("amount");
 		foreach($prd as $product => $amount)
 		{
@@ -3486,7 +3491,7 @@ flush();
 		}
 		return $products;
 	}
-	
+
 	/**
 		@attrib api=1 params=name
 		@param reservation required type=object/oid
@@ -3506,7 +3511,7 @@ flush();
 			return false;
 		}
 		$amount = $reservation->meta("amount");
-		$price = $reservation->meta("products_price");		
+		$price = $reservation->meta("products_price");
 		foreach($data as $prod => $val)
 		{
 			$amount[$prod] = $val["amount"];
@@ -3516,12 +3521,12 @@ flush();
 		$reservation->set_meta("products_price", $price);
 		return true;
 	}
-	
+
 	/**
 		@attrib api=1 params=name
 		@param reservation required type=object/oid
 		@param curr optional type=oid
-			currency object id	
+			currency object id
 	**/
 	function get_products_price($arr)
 	{
@@ -3564,7 +3569,7 @@ flush();
 		}
 		return 0;
 	}
-	
+
 	/** sets products price for bron
 		@attrib api=1 params=name
 		@param reservation required type=object/oid
@@ -3587,7 +3592,7 @@ flush();
 			return false;
 		}
 		$prod_info = $reservation->meta("products_total_price");
-	
+
 		//kui m22ratakse kindla valuutaga summa, kui mitte, siis v6ib arvestada default valuutana
 		if(!$curr)
 		{
@@ -3605,7 +3610,7 @@ flush();
 		$reservation->save();
 		return 1;
 	}
-	
+
 	/** sets products price for bron
 		@attrib api=1 params=name
 		@param reservation required type=object/oid
@@ -3640,7 +3645,7 @@ flush();
 		{
 			$products = array($product => $sum);
 		}
-		
+
 		foreach($products as $product => $sum)
 		{
 			//kui m22ratakse kindla valuutaga summa, kui mitte, siis v6ib arvestada default valuutana
@@ -3657,7 +3662,7 @@ flush();
 		$reservation->save();
 		return 1;
 	}
-	
+
 	/** sets reservation products discount
 		@attrib api=1 params=name
 		@param reservation required type=object/oid
@@ -3678,7 +3683,7 @@ flush();
 		$reservation->set_prop("products_discount" , $discount);
 		return 1;
 	}
-	
+
 	/** sets reservation product discount
 		@attrib api=1 params=name
 		@param reservation required type=object/oid
@@ -3699,7 +3704,7 @@ flush();
 		}
 		$discount = $reservation->meta("product_discount");
 		if(!is_array($discount)) $discount = array();
-		
+
 		foreach($products as $p => $d)
 		{
 			if(isset($d))
@@ -3711,13 +3716,13 @@ flush();
 		return 1;
 	}
 
-//siit alumised juba v6iks t88tada	
+//siit alumised juba v6iks t88tada
 //totaalse hinna ja allahindluse teema
 	/**
 		@attrib api=1 params=name
 		@param reservation required type=object/oid
 		@param curr optional type=oid
-			currency object id	
+			currency object id
 	**/
 	function get_total_price($arr)
 	{
@@ -3783,7 +3788,7 @@ flush();
 		{
 			return 0;
 		}
-		
+
 		//kui m22ratakse kindla valuutaga summa, kui mitte, siis v6ib arvestada default valuutana
 		if(!$curr)
 		{
@@ -3802,7 +3807,7 @@ flush();
 		$reservation->save();
 		return 1;
 	}
-	
+
 	// - annab kogusumma sooduse (kui on)
 	/**
 		@attrib api=1 params=pos
@@ -3820,7 +3825,7 @@ flush();
 		}
 		return $reservation->meta("special_discount");
 	}
-	
+
 	// - m22rab kogusumma sooduse
 	/**
 		@attrib api=1 params=pos
@@ -3842,7 +3847,7 @@ flush();
 		$reservation->save();
 		return 1;
 	}
-	
+
 	//leiab default valuuta broneeringu jaoks
 	//objekti annab kaasa selleks, et miskeid muid tingimusi 2kki broneeringul oleks kust valuuta v6tta
 	/**
@@ -3863,7 +3868,7 @@ flush();
 		$curr_inst = get_instance(CL_CURRENCY);
 		return $curr_inst->get_default_currency();
 	}
-	
+
 	/**
 		@attrib api=1 params=name
 		@param reservation required type=object/oid
@@ -3905,7 +3910,7 @@ flush();
 			return false;
 		}
 	}
-	
+
 	function _get_product_price_from_product($product, $r, $curr)
 	{
 		$p = obj($product);
@@ -3920,7 +3925,7 @@ flush();
 			{
 				return $prices[$this->get_default_currency($r)];
 			}
-			else return false;	
+			else return false;
 		}
 		else
 		{
@@ -3947,7 +3952,7 @@ flush();
 		}
 		return false;
 	}
-	
+
 	function _get_product_price_from_meta($arr)
 	{
 		extract($arr);
@@ -4002,7 +4007,7 @@ flush();
 	 **/
 	public function get_correct_name($obj)
 	{
-		return sprintf(t("%s: %s / %s-%s %s"), 
+		return sprintf(t("%s: %s / %s-%s %s"),
 			$obj->prop("customer.name"),
 			date("d.m.Y", $obj->prop("start1")),
 			date("H:i", $obj->prop("start1")),
@@ -4011,4 +4016,3 @@ flush();
 		);
 	}
 }
-?>

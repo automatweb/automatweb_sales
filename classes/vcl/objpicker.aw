@@ -15,7 +15,7 @@ class objpicker extends core implements vcl_interface
 		@param object required type=object
 			The object the picker picks objects for
 
-		@param clid required type=int
+		@param clid required type=array
 			Class id-s of objects to be picked from. Default is empty array, meaning any class object can be picked. If not specified, options must be defined or mode 'autocomplete'
 
 		@param mode optional type=string default=text

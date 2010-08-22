@@ -3,18 +3,15 @@
 /*
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_USER, on_delete_user)
-
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_USER, on_delete_alias)
-
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_USER, on_add_alias)
-
 EMIT_MESSAGE(MSG_USER_CREATE);
 
 */
 
 /*
 
-@classinfo syslog_type=ST_USERS relationmgr=yes no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_status=1
 
 @groupinfo chpwd caption="Salas&otilde;na muutmine"
 @groupinfo groups caption=Kasutajagrupid
@@ -691,9 +688,8 @@ class user extends class_base
 		}
 	}
 
-	function &_start_shortcuts_table()
+	function _start_shortcuts_table()
 	{
-		load_vcl("table");
 		$t = new aw_table(array("layout" => "generic","prefix" => "uglist"));
 
 		$t->define_field(array(
@@ -711,8 +707,8 @@ class user extends class_base
 		$t->define_chooser(array(
 			"name" => "delete",
 			"caption" => t("Kustuta"),
-	        "field" => "oid"
-        ));
+			"field" => "oid"
+		));
 
 		return $t;
 	}
@@ -726,7 +722,7 @@ class user extends class_base
 		// get all groups this user is member of
 		$groups = $o->get_groups_for_user();
 
-		$t =& $this->_start_gm_table();
+		$t = $this->_start_gm_table();
 		foreach($gl as $g_oid => $g_name)
 		{
 			$go = obj($g_oid);
@@ -858,9 +854,8 @@ class user extends class_base
 		$c->file_clear_pt("acl");
 	}
 
-	function &_start_gm_table()
+	function _start_gm_table()
 	{
-		load_vcl("table");
 		$t = new aw_table(array("layout" => "generic","prefix" => "uglist"));
 
 		$t->define_field(array(
@@ -2359,7 +2354,7 @@ EOF;
 	**/
 	function settings_lod($arr)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("settings_pop");
 
 		$gl = aw_global_get("gidlist_oid");
@@ -2413,7 +2408,7 @@ EOF;
 	**/
 	function hist_lod($arr)
 	{
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("history_pop");
 
 		$u = obj(aw_global_get("uid_oid"));
@@ -2452,66 +2447,6 @@ EOF;
 		die($pm->get_menu(array(
 			"text" => '<img src="/automatweb/images/aw06/ikoon_ajalugu.gif" alt="" width="13" height="13" border="0" class="ikoon" />'.t("Ajalugu").' <img src="/automatweb/images/aw06/ikoon_nool_alla.gif" alt="#" width="5" height="3" border="0" style="margin: 0 -3px 1px 0px" />'
 		)));
-	}
-
-	/**
-		@attrib name=open_layer
-		@param u_class required
-		@param u_group required
-		@param u_layout required
-	**/
-	function open_layer($arr)
-	{
-		exit;
-		extract($arr);
-		$this->get_layer_state($arr);
-		$this->db_query("UPDATE layer_states SET aw_state = 1 WHERE aw_class = '$u_class' AND aw_group = '$u_group' AND aw_layer = '$u_layout' AND aw_uid = '".aw_global_get("uid")."'");
-		die();
-	}
-	/**
-		@attrib name=close_layer
-		@param u_class required
-		@param u_group required
-		@param u_layout required
-	**/
-	function close_layer($arr)
-	{
-		exit;
-		extract($arr);
-		$this->get_layer_state($arr);
-		$this->db_query("UPDATE layer_states SET aw_state = 0 WHERE aw_class = '$u_class' AND aw_group = '$u_group' AND aw_layer = '$u_layout' AND aw_uid = '".aw_global_get("uid")."'");
-		die();
-	}
-
-	/** returns the state of the layer
-		@attrib api=1
-		@param u_class required
-		@param u_group required
-		@param u_layout required
-	**/
-	function get_layer_state($arr)
-	{
-		return 1;
-		extract($arr);
-		$val = $this->db_query("SELECT aw_state FROM layer_states WHERE aw_class = '$u_class' AND aw_group = '$u_group' AND aw_layer = '$u_layout' AND aw_uid = '".aw_global_get("uid")."'", false);
-		if (!$val)
-		{
-			$val = $this->db_query("CREATE TABLE layer_states (aw_class varchar(255), aw_group varchar(255), aw_layer varchar(255), aw_state int default 1, aw_uid varchar(255))", false);
-			if (!$val)
-			{
-				$this->db_query("ALTER TABLE layer_states ADD aw_uid varchar(255)");
-			}
-			$this->db_query("SELECT aw_state FROM layer_states WHERE aw_class = '$u_class' AND aw_group = '$u_group' AND aw_layer = '$u_layout' AND aw_uid = '".aw_global_get("uid")."'");
-		}
-		$row = $this->db_next();
-		$val = $row["aw_state"];
-		if ($val === null)
-		{
-			// insert new rec
-			$this->db_query("INSERT INTO layer_states (aw_class,aw_group, aw_layer, aw_state,aw_uid) values('$u_class','$u_group','$u_layout',1,'".aw_global_get("uid")."')");
-			return 1;
-		}
-		return $val;
 	}
 
 	public static function require_password_change($uid)
@@ -2577,4 +2512,3 @@ EOF;
 	}
 }
 
-?>

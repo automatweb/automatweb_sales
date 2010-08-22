@@ -623,11 +623,11 @@ class object_tree extends _int_obj_container_base
 		{
 			error::raise(array(
 				"id" => ERR_PARAM,
-				"msg" => t("object_tree::filter(): parent filter parameter mut always be passed!")
+				"msg" => t("object_tree::filter(): parent filter parameter must always be passed!")
 			));
 		}
 
-		if ($filter["parent"])
+		if (!empty($filter["parent"]))
 		{
 			$filter["parent"] = $GLOBALS["object_loader"]->param_to_oid($filter["parent"]);
 		}

@@ -6,7 +6,7 @@
 	// stuff that goes into the objects table
 	@default table=objects
 
-	@classinfo trans=1 maintainer=kristo
+	@classinfo trans=1
 
 	@groupinfo general_sub caption="&Uuml;ldine" parent=general
 
@@ -1034,7 +1034,7 @@ class menu extends class_base implements main_subtemplate_handler
 	function callback_generate_scripts ()
 	{
 		$output = "";
-		if (isset($_GET["group"]) && $_GET["group"] == "presentation")
+		if ($this->use_group === "presentation")
 		{
 			$id = $_GET["id"];
 			$menu_images_cnt = $this->menu_images_get_cnt(array("id"=>$id));
@@ -2251,7 +2251,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function _do_seealso_docs_t($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_seealso_docs_t($t);
 
 		$sad_opts = $arr["obj_inst"]->meta("sad_opts");
@@ -2298,7 +2298,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function kw_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_button(array(
 			"name" => "new_kw",
@@ -2398,7 +2398,7 @@ class menu extends class_base implements main_subtemplate_handler
 
 	private function _get_sss_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_menu_button(array(
 			"name" => "search",
@@ -2420,15 +2420,15 @@ class menu extends class_base implements main_subtemplate_handler
 
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["_set_sss"] = "0";
 		$arr["_set_no_sss"] = "0";
 		$arr["sad_s"] = "0";
 		$arr["link_pops"] = "0";
-		if (isset($_GET["group"]) && $_GET["group"] == "relationmgr")
+		if (isset($request["group"]) && $request["group"] === "relationmgr")
 		{
-			$arr["return_url"] = $_GET["return_url"];
+			$arr["return_url"] = $request["return_url"];
 		}
 		else
 		{
@@ -2453,7 +2453,7 @@ class menu extends class_base implements main_subtemplate_handler
 		));
 	}
 
-	private function _init_stats_table(&$t)
+	private function _init_stats_table($t)
 	{
 		$t->define_field(array(
 			"name" => "tm",
@@ -2675,5 +2675,4 @@ class menu extends class_base implements main_subtemplate_handler
 		}
 		return false;
 	}
-};
-?>
+}

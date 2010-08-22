@@ -172,7 +172,7 @@ class crm_company_cust_impl extends class_base
 		if ($my_co->id() == $arr["obj_inst"]->id())
 		{
 			// get list via search
-			if ($arr["request"]["do_proj_search"] != 1)
+			if (empty($arr["request"]["do_proj_search"]))
 			{
 				$p = get_current_person();
 				$arr["request"]["proj_search_part"] = $p->name();
@@ -229,7 +229,7 @@ class crm_company_cust_impl extends class_base
 		$role_entry_list = new object_list(array(
 			"class_id" => CL_CRM_COMPANY_ROLE_ENTRY,
 			"company" => $org_id,
-			"client" => $orderer,
+			"client" => $project_obj->prop("orderer"),
 			"project" => $project_obj->id()
 		));
 
@@ -581,8 +581,9 @@ class crm_company_cust_impl extends class_base
 		$iter = isset($rc_by_co[$to_org]) ? safe_array($rc_by_co[$to_org]) :  array();
 		if (!empty($to_project))
 		{
-			$iter = safe_array($rc_by_co[$to_org][$to_project]);
+			$iter = isset($rc_by_co[$to_org][$to_project]) ? safe_array($rc_by_co[$to_org][$to_project]) : array();
 		}
+
 		foreach($iter as $r_p_id => $r_p_data)
 		{
 			try
@@ -1300,9 +1301,9 @@ class crm_company_cust_impl extends class_base
 				array(
 					"connect_impl" => $arr["obj_inst"]->id(),
 					"return_url" => get_ru(),
-					"connect_orderer" => $arr["request"]["org_id"],
+					"connect_orderer" => empty($arr["request"]["org_id"]) ? "" : $arr["request"]["org_id"],
 				)
-			),
+			)
 		));
 
 		$tb->add_menu_item(array(
@@ -1314,7 +1315,7 @@ class crm_company_cust_impl extends class_base
 				array(
 					"connect_orderer" => $arr["obj_inst"]->id(),
 					"return_url" => get_ru(),
-					"connect_impl" => $arr["request"]["org_id"],
+					"connect_impl" => empty($arr["request"]["org_id"]) ? "" : $arr["request"]["org_id"],
 				)
 			),
 		));
@@ -1327,7 +1328,7 @@ class crm_company_cust_impl extends class_base
 				$arr["obj_inst"]->id(),
 				array(
 					"alias_to" => $arr["obj_inst"]->id(),
-					"reltype" => 39,
+					"reltype" => 39,//FIXME
 					"return_url" => get_ru()
 				)
 			),
@@ -1414,7 +1415,7 @@ class crm_company_cust_impl extends class_base
 		);
 
 
-		if($ar["pf"])//kui valik tuleb puust... siis edasi ei otsi ka
+		if(!empty($ar["pf"]))//kui valik tuleb puust... siis edasi ei otsi ka
 		{
 			$ar = array("pf" => $ar["pf"]);
 			$stuff = explode("_" , $ar["pf"]);
@@ -1440,7 +1441,7 @@ class crm_company_cust_impl extends class_base
 			}
 		}
 
-		if ($ar[$prefix."proj_search_cust"] != "")
+		if (!empty($ar[$prefix."proj_search_cust"]))
 		{
 			$ret[] = new object_list_filter(array(
 				"logic" => "OR",
@@ -1451,74 +1452,69 @@ class crm_company_cust_impl extends class_base
 			));
 		}
 
-		if ($ar[$prefix."proj_search_part"] != "")
+		if (!empty($ar[$prefix."proj_search_part"]))
 		{
 			$ret["CL_PROJECT.RELTYPE_PARTICIPANT.name"] = map("%%%s%%", explode(",", $ar[$prefix."proj_search_part"]));
 		}
 
-		if ($ar[$prefix."proj_search_name"] != "")
+		if (!empty($ar[$prefix."proj_search_name"]))
 		{
 			$ret["name"] = "%".$ar[$prefix."proj_search_name"]."%";
 		}
 
-		if ($ar[$prefix."proj_search_code"] != "")
+		if (!empty($ar[$prefix."proj_search_code"]))
 		{
 			$ret["code"] = "%".$ar[$prefix."proj_search_code"]."%";
 		}
 
-		if ($ar[$prefix."proj_search_arh_code"] != "")
+		if (!empty($ar[$prefix."proj_search_arh_code"]))
 		{
 			$ret["archive_code"] = "%".$ar[$prefix."proj_search_arh_code"]."%";
 		}
 
-		if ($ar[$prefix."proj_search_task_name"] != "")
+		if (!empty($ar[$prefix."proj_search_task_name"]))
 		{
 			$ret["CL_PROJECT.RELTYPE_PRJ_EVENT.name"] = "%".$ar[$prefix."proj_search_task_name"]."%";
 		}
 
-		$ar[$prefix."proj_search_dl_from"] = date_edit::get_timestamp($ar[$prefix."proj_search_dl_from"]);
-		$ar[$prefix."proj_search_dl_to"] = date_edit::get_timestamp($ar[$prefix."proj_search_dl_to"]);
+		$ar[$prefix."proj_search_dl_from"] = isset($ar[$prefix."proj_search_dl_from"]) ? date_edit::get_timestamp($ar[$prefix."proj_search_dl_from"]) : 0;
+		$ar[$prefix."proj_search_dl_to"] = isset($ar[$prefix."proj_search_dl_to"]) ? date_edit::get_timestamp($ar[$prefix."proj_search_dl_to"]) : 0;
 
 		if ($ar[$prefix."proj_search_dl_from"] > 1 && $ar[$prefix."proj_search_dl_to"] > 1)
 		{
 			$ret["deadline"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $ar[$prefix."proj_search_dl_from"], $ar[$prefix."proj_search_dl_to"]);
 		}
-		else
-		if ($ar[$prefix."proj_search_dl_from"] > 1)
+		elseif ($ar[$prefix."proj_search_dl_from"] > 1)
 		{
 			$ret["deadline"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $ar[$prefix."proj_search_dl_from"]);
 		}
-		else
-		if ($ar[$prefix."proj_search_dl_to"] > 1)
+		elseif ($ar[$prefix."proj_search_dl_to"] > 1)
 		{
 			$ret["deadline"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $ar[$prefix."proj_search_dl_to"]);
 		}
 
-
-		$ar[$prefix."proj_search_end_from"] = date_edit::get_timestamp($ar[$prefix."proj_search_end_from"]);
-		$ar[$prefix."proj_search_end_to"] = date_edit::get_timestamp($ar[$prefix."proj_search_end_to"]);
+		$ar[$prefix."proj_search_end_from"] = isset($ar[$prefix."proj_search_end_from"]) ? date_edit::get_timestamp($ar[$prefix."proj_search_end_from"]) : 0;
+		$ar[$prefix."proj_search_end_to"] = isset($ar[$prefix."proj_search_end_to"]) ? date_edit::get_timestamp($ar[$prefix."proj_search_end_to"]) : 0;
 
 		if ($ar[$prefix."proj_search_end_from"] > 1 && $ar[$prefix."proj_search_end_to"] > 1)
 		{
 			$ret["end"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $ar[$prefix."proj_search_end_from"], $ar[$prefix."proj_search_end_to"]);
 		}
-		else
-		if ($ar[$prefix."proj_search_end_from"] > 1)
+		elseif ($ar[$prefix."proj_search_end_from"] > 1)
 		{
 			$ret["end"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $ar[$prefix."proj_search_end_from"]);
 		}
-		else
-		if ($ar[$prefix."proj_search_end_to"] > 1)
+		elseif ($ar[$prefix."proj_search_end_to"] > 1)
 		{
 			$ret["end"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $ar[$prefix."proj_search_end_to"]);
 		}
 
-		if ($ar[$prefix."proj_search_state"])
+		if (!empty($ar[$prefix."proj_search_state"]))
 		{
 			$ret["state"] = $ar[$prefix."proj_search_state"];
 		}
 
-		if ($ar[$prefix."proj_search_contact_person"])
+		if (!empty($ar[$prefix."proj_search_contact_person"]))
 		{
 			$ret["CL_PROJECT.contact_person_implementor.name"] = "%".$ar[$prefix."proj_search_contact_person"]."%";
 		}
@@ -1664,6 +1660,7 @@ class crm_company_cust_impl extends class_base
 
 	function _get_proj_search_part($arr)
 	{
+		$v = "";
 		if (empty($arr["request"]["proj_search_dl_from"]))
 		{
 			$p = get_current_person();
@@ -2939,4 +2936,3 @@ class crm_company_cust_impl extends class_base
 		}
 	}
 }
-?>

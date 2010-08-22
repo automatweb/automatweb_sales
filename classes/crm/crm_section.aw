@@ -420,4 +420,4 @@ class crm_section extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 }
-?>
+

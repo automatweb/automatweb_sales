@@ -3,7 +3,7 @@
 // crm_address.aw - It's not really a physical address but a collection of data required to
 // contact a person.
 /*
-	@classinfo relationmgr=yes syslog_type=ST_CRM_ADDRESS maintainer=markop
+	@classinfo relationmgr=yes
 	@tableinfo kliendibaas_address index=oid master_table=objects master_index=oid
 
 	@default table=objects
@@ -1228,4 +1228,3 @@ class crm_address extends class_base
 		return $rv;
 	}
 }
-?>

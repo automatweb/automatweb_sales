@@ -44,8 +44,6 @@
 	@property ext_id type=hidden table=kliendibaas_tegevusala field=ext_id
 	@caption V&auml;line ID
 
-	@classinfo syslog_type=ST_CRM_SECTOR maintainer=markop
-
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
@@ -278,4 +276,3 @@ class crm_sector extends class_base
 		return get_instance("menu")->write_trans_aliases($arr);
 	}
 }
-?>

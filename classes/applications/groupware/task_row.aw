@@ -3,7 +3,7 @@
 // task_row.aw - Toimetuse rida
 /*
 
-@classinfo syslog_type=ST_TASK_ROW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo aw_task_rows index=aw_oid master_table=objects master_index=brother_of
 
@@ -158,7 +158,7 @@ class task_row extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
@@ -436,4 +436,3 @@ class task_row extends class_base
 	}
 
 }
-?>

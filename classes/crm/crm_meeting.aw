@@ -4,7 +4,7 @@
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_MEETING_DELETE_PARTICIPANTS,CL_CRM_MEETING, submit_delete_participants_from_calendar);
 
-@classinfo syslog_type=ST_CRM_MEETING confirm_save_data=1 maintainer=markop
+@classinfo syslog_type=ST_CRM_MEETING confirm_save_data=1
 
 @default table=objects
 
@@ -1183,7 +1183,7 @@ class crm_meeting extends task
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}
@@ -1209,20 +1209,20 @@ class crm_meeting extends task
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["participants_h"] = 0;
-		$arr["orderer_h"] = isset($_GET["alias_to_org"]) ? $_GET["alias_to_org"] : 0;
-		$arr["project_h"] = isset($_GET["set_proj"]) ? $_GET["set_proj"] : 0;
+		$arr["orderer_h"] = isset($request["alias_to_org"]) ? $request["alias_to_org"] : 0;
+		$arr["project_h"] = isset($request["set_proj"]) ? $request["set_proj"] : 0;
 		$arr["files_h"] = 0;
-		if ($_GET["action"] == "new")
+		if ($request["action"] == "new")
 		{
-			$arr["add_to_cal"] = $_GET["add_to_cal"];
-			$arr["alias_to_org"] = $_GET["alias_to_org"];
-			$arr["reltype_org"] = $_GET["reltype_org"];
-			$arr["set_pred"] = $_GET["set_pred"];
-			$arr["set_resource"] = $_GET["set_resource"];
+			$arr["add_to_cal"] = $request["add_to_cal"];
+			$arr["alias_to_org"] = $request["alias_to_org"];
+			$arr["reltype_org"] = $request["reltype_org"];
+			$arr["set_pred"] = $request["set_pred"];
+			$arr["set_resource"] = $request["set_resource"];
 		}
 	}
 /*

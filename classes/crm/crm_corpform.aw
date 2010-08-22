@@ -17,7 +17,7 @@
 //	@property vorm type=textbox size=10
 //	@caption vorm
 
-	@classinfo no_status=1 syslog_type=ST_CRM_CORPFORM maintainer=markop
+	@classinfo no_status=1
 */
 
 
@@ -43,5 +43,4 @@ class crm_corpform extends class_base
 		));
 	}
 
-};
-?>
+}

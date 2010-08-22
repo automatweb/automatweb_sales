@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_SHOP_PAYMENT_TYPE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_shop_payment_type master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_shop_payment_type
@@ -19,7 +19,7 @@
 
 	@groupinfo matrix_settings caption="Maatriksi seaded" parent=matrix
 	@default group=matrix_settings
-			
+
 			@property matrix_col_order type=table store=no
 			@caption Veeru gruppide j&auml;rjekord
 
@@ -39,7 +39,7 @@
 			@caption Tootekategooriad
 
 		@property code type=hidden field=aw_code
-			
+
 @groupinfo priorities caption=Prioriteedid
 @default group=priorities
 
@@ -207,7 +207,7 @@ class shop_payment_type extends shop_matrix
 				if(isset($this->condition) && is_oid($this->condition) && $this->can("view", $this->condition))
 				{
 					$o = obj($this->condition);
-					$arr["area_caption"] = sprintf(t("J&auml;relmaksuseaded vahemikus %s %s - %s %s"), 
+					$arr["area_caption"] = sprintf(t("J&auml;relmaksuseaded vahemikus %s %s - %s %s"),
 						$o->prop("currency.name"),
 						$o->prop("min_amt"),
 						$o->prop("currency.name"),
@@ -306,7 +306,7 @@ class shop_payment_type extends shop_matrix
 				$v["group"] = "advanced_layer";
 				$v["parent"] = "advanced_layer_properties";
 				$v["value"] = $o->prop($k);
-								
+
 				if(in_array($k, array("min_amt", "max_amt", "min_payment")))
 				{
 					$v["post_append_text"] = " ".html::checkbox(array(
@@ -376,7 +376,7 @@ class shop_payment_type extends shop_matrix
 		{
 			$t->add_item(0, array(
 				"id" => (int)$o->id(),
-				"name" => sprintf(t("%s %s - %s %s"), 
+				"name" => sprintf(t("%s %s - %s %s"),
 					$o->prop("currency.name"),
 					$o->prop("min_amt"),
 					$o->prop("currency.name"),
@@ -461,7 +461,7 @@ class shop_payment_type extends shop_matrix
 				$o->set_prop("payment_type", $arr["payment_type"]);
 				$o->set_prop("row", is_oid($arr["row"]) ? $arr["row"] : 0);
 				$o->set_prop("col", is_oid($arr["col"]) ? $arr["col"] : 0);
-				
+
 				$o->set_parent($arr["payment_type"]);
 			}
 			foreach(array_merge(array("ignore_min_amt" => 0, "ignore_max_amt" => 0, "ignore_min_payment" => 0), $arr) as $k => $v)
@@ -528,4 +528,3 @@ class shop_payment_type extends shop_matrix
 	}
 }
 
-?>

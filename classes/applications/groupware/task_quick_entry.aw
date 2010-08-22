@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/groupware/task_quick_entry.aw,v 1.49 2009/02/05 09:31:49 kristo Exp $
-// task_quick_entry.aw - Kiire toimetuse lisamine 
+
+// task_quick_entry.aw - Kiire toimetuse lisamine
 /*
 
-@classinfo syslog_type=ST_TASK_QUICK_ENTRY no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo no_comment=1 no_status=1 prop_cb=1
 
 @groupinfo general caption=&Uuml;ldine default=1 icon=edit focus=customer
 
@@ -49,13 +49,13 @@
 @property content type=textarea store=no rows=10 cols=50
 @caption Sisu
 
-@property submit_but type=submit 
+@property submit_but type=submit
 @caption Salvesta
 
-@property submit_and_add type=text 
+@property submit_and_add type=text
 @caption &nbsp;
 
-	
+
 @layout general_down type=vbox closeable=1 area_caption=Osalejad parent=general_split
 @default parent=general_down
 
@@ -129,22 +129,22 @@ class task_quick_entry extends class_base
 			case "project":
 				$prop["autocomplete_source"] = $this->mk_my_orb("proj_autocomplete_source");
 				$prop["autocomplete_params"] = array("customer_name", "project");
-				if($this->customer_set) 
+				if($this->customer_set)
 				$prop["autocomplete_params"] = array("customer", "project");
 				break;
 
 			case "task":
 				$prop["autocomplete_source"] = $this->mk_my_orb("task_autocomplete_source");
 				$prop["autocomplete_params"] = array("customer_name", "project", "task");
-				if($this->customer_set) 
+				if($this->customer_set)
 				$prop["autocomplete_params"] = array("customer", "project", "task");
 				break;
-			
+
 			case "custp_ln":
 				$prop["autocomplete_source"] = $this->mk_my_orb("name_autocomplete_source");
 				$prop["autocomplete_params"] = array("custp_fn" , "custp_ln");
 				break;
-			
+
 			case "cust_type":
 				if($this->customer_name_set)
 				{
@@ -155,7 +155,7 @@ class task_quick_entry extends class_base
 					{
 						d = 'block';
 					}
-					else 
+					else
 					{
 						d = 'table-row';
 					}
@@ -165,7 +165,7 @@ class task_quick_entry extends class_base
 						document.getElementById('customer').parentNode.parentNode.style.display = 'none';
 //						document.getElementById('cust_nAWAutoCompleteTextbox').parentNode.parentNode.style.display = 'none';
 					}
-					else 
+					else
 					{
 						document.getElementById('customer').parentNode.parentNode.style.display = d;
 						document.getElementById('custp_fn').parentNode.parentNode.style.display = 'none';
@@ -173,7 +173,7 @@ class task_quick_entry extends class_base
 //						document.getElementById('cust_nAWAutoCompleteTextbox').parentNode.parentNode.style.display = d;
 					}";
 				break;
-			
+
 			case "ettevotlusvorm":
 				$ol = new object_list(array(
 					"class_id" => CL_CRM_CORPFORM,
@@ -223,9 +223,9 @@ class task_quick_entry extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["button_p"] = 0;
@@ -274,7 +274,7 @@ $start = ((float)$usec + (float)$sec);
 		$asd = $cl_json->encode($option_data);
 		list($usec, $sec) = explode(" ", microtime());
 		$end = ((float)$usec + (float)$sec);
-		
+
 		$autocomplete_options[0] = $arr["customer"].substr(($end - $start), 0, 6);ksort($autocomplete_options);
 		header("Content-type: text/html; charset=utf-8");
 		exit ($cl_json->encode($option_data));
@@ -404,7 +404,7 @@ $start = ((float)$usec + (float)$sec);
 		));
 		$autocomplete_options = $ol->names();
                 foreach($ol->arr() as $k => $v)
-               	{ 
+               	{
                         $autocomplete_options[$k] = iconv(aw_global_get("charset"), "UTF-8", $v->prop("lastname"));
                 }
 		header("Content-type: text/html; charset=utf-8");
@@ -505,7 +505,7 @@ $start = ((float)$usec + (float)$sec);
 		}
 		//$arr["request"]["content"] = iconv("UTF-8", aw_global_get("charset"), $arr["request"]["content"]);
 		$arr["request"]["duration"] = str_replace(",", ".", $arr["request"]["duration"]);
-		
+
 		//et ta kuramus IEga topelt ei teeks mingi valemiga
 		$rows = new object_list(array(
 			"class_id" => array(CL_TASK_ROW),
@@ -588,7 +588,7 @@ $start = ((float)$usec + (float)$sec);
 			}
 			$arr["request"]["customer"] = $arr["request"]["custp_fn"].' '.$arr["request"]["custp_ln"];
 		}
-		
+
 		// if project exists
 		$ol = new object_list(array(
 			"class_id" => array(CL_PROJECT),
@@ -633,7 +633,7 @@ $start = ((float)$usec + (float)$sec);
 		{
 			$o = $ol->begin();
 		}
-		
+
 		// if task exists
 		$ol = new object_list(array(
 			"class_id" => array(CL_TASK),
@@ -723,7 +723,7 @@ $start = ((float)$usec + (float)$sec);
 			{
 				$r->set_prop("orderer", $o->id());
 			}
-			
+
 			$r->set_prop("content", $arr["request"]["content"]);
 			$r->set_prop("date", date_edit::get_timestamp($arr["request"]["date"]));
 			$r->set_prop("time_guess", $arr["request"]["duration"]);
@@ -802,10 +802,10 @@ $start = ((float)$usec + (float)$sec);
 .((!$this->customer_name_set) ? "
 		if (navigator.userAgent.toLowerCase().indexOf('msie')>=0)
 			{d = 'block';}
-		else 
+		else
 		{
 			d = 'table-row';
-		} 
+		}
 		document.getElementById('customer').parentNode.parentNode.style.display = d;
 		document.getElementById('custp_fn').parentNode.parentNode.style.display = 'none';
 		document.getElementById('custp_ln').parentNode.parentNode.style.display = 'none';
@@ -909,6 +909,5 @@ $start = ((float)$usec + (float)$sec);
 		header("Content-type: text/html; charset=".aw_global_get("charset"));
 		die(/*iconv(aw_global_get("charset"), "UTF-8",*/ ($ret));
 	}
-	
+
 }
-?>

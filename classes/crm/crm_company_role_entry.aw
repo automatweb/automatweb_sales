@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/crm/crm_company_role_entry.aw,v 1.4 2008/01/31 13:54:12 kristo Exp $
-// crm_company_role_entry.aw - Rolli kirje 
+
+// crm_company_role_entry.aw - Rolli kirje
 /*
 
-@classinfo syslog_type=ST_CRM_COMPANY_ROLE_ENTRY relationmgr=yes maintainer=markop
+@classinfo relationmgr=yes
 
 @default group=general
 
@@ -53,27 +53,4 @@ class crm_company_role_entry extends class_base
 			"clid" => CL_CRM_COMPANY_ROLE_ENTRY
 		));
 	}
-
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		}
-		return $retval;
-	}	
 }
-?>

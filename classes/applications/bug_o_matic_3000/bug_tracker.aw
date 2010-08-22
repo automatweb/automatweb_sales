@@ -5,7 +5,7 @@ define("MENU_ITEM_LENGTH", 20);
 
 /*
 
-@classinfo syslog_type=ST_BUG_TRACKER relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general_sub
@@ -27,6 +27,9 @@ define("MENU_ITEM_LENGTH", 20);
 
 	@property order_tree_conf type=select field=meta method=serialize table=objects
 	@caption Tellimuste puus kuvatakse
+
+	@property tables_show_items type=textbox datatype=int default=50 table=objects field=meta method=serialize
+	@caption Ridu tabelites
 
 @default group=projects
 
@@ -621,6 +624,8 @@ define("MENU_ITEM_LENGTH", 20);
 
 class bug_tracker extends class_base
 {
+	private $tables_show_items = 50;
+	private $_rq_lev;
 	var $combined_priority_formula;
 
 	function bug_tracker()
@@ -662,7 +667,7 @@ class bug_tracker extends class_base
 			static $r_i;
 			if (!$r_i)
 			{
-				$r_i = get_instance("applications/bug_o_matic_3000/bt_req_impl");
+				$r_i = new bt_req_impl();
 			}
 			$fn = "_get_".$prop["name"];
 			return $r_i->$fn($arr);
@@ -1805,9 +1810,7 @@ class bug_tracker extends class_base
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_CRM_SECTION,
-				"CL_CRM_SECTION.RELTYPE_SECTION(CL_CRM_PERSON_WORK_RELATION).RELTYPE_CURRENT_JOB(CL_CRM_PERSON)" => $ppl,
-				"site_id" => array(),
-				"lang_id" => array(),
+				"CL_CRM_SECTION.RELTYPE_SECTION(CL_CRM_PERSON_WORK_RELATION).RELTYPE_CURRENT_JOB(CL_CRM_PERSON)" => $ppl
 			));
 		}
 		foreach($ol->arr() as $o)
@@ -1837,8 +1840,6 @@ class bug_tracker extends class_base
 			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.RELTYPE_SECTION" => $o->id(),
 			"CL_CRM_PERSON.RELTYPE_MONITOR(CL_BUG).class_id" => CL_BUG,
 			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.org.oid" => $owner->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
 		));
 		foreach($ol->arr() as $oid => $o)
 		{
@@ -2132,7 +2133,7 @@ class bug_tracker extends class_base
 		return number_format($arr["sort_priority"], 1, '.', '') . "...";
 	}
 
-	function _init_bug_list_tbl(&$t)
+	function _init_bug_list_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -2341,19 +2342,17 @@ class bug_tracker extends class_base
 		if($this->can("view", $pt) && empty($arr["request"]["filt_type"]))
 		{
 			// arhiivi tab
-			if($arr["request"]["group"] == "archive")
+			if($this->use_group == "archive")
 			{
 				$ot = new object_tree(array(
 					"parent" => $pt,
-					"class_id" => array(
-						CL_BUG,CL_MENU,
-					),
+					"class_id" => array(CL_BUG, CL_MENU)
 				));
 
 				$ol = new object_list(array(
 					"oid" => $ot->ids(),
 					"class_id" => CL_BUG,
-					"bug_status" => bug::BUG_CLOSED,
+					"bug_status" => bug::BUG_CLOSED
 				));
 			}
 			// bugid tab
@@ -2361,7 +2360,7 @@ class bug_tracker extends class_base
 			{
 				$filt = array(
 					"parent" => $pt,
-					"class_id" => array(CL_BUG,CL_MENU,CL_DEVELOPMENT_ORDER),
+					"class_id" => array(CL_BUG,CL_MENU,CL_DEVELOPMENT_ORDER)
 				);
 				$closed = 0;
 				foreach($arr["request"] as $r)
@@ -2426,17 +2425,13 @@ class bug_tracker extends class_base
 					$filt["CL_BUG.RELTYPE_MONITOR"] = $arr["request"]["b_mon"];
 					unset($filt["parent"]);
 				}
-				$filt["lang_id"] = array();
-				$filt["site_id"] = array();
 				$ol = new object_list($filt);
 			}
 		}
 		elseif(!empty($arr["request"]["filt_type"]) && !empty($arr["request"]["filt_value"]))
 		{
 			$filt = array(
-				"class_id" => CL_BUG,
-				"lang_id" => array(),
-				"site_id" => array(),
+				"class_id" => CL_BUG
 			);
 			$val = $arr["request"]["filt_value"];
 			switch($arr["request"]["filt_type"])
@@ -2491,7 +2486,7 @@ class bug_tracker extends class_base
 		}
 	}
 
-	function populate_bug_list_table_from_list(&$t, $ol, $params = array(), $s = array())
+	function populate_bug_list_table_from_list($t, $ol, $params = array(), $s = array())
 	{
 		$u = get_instance(CL_USER);
 		$us = get_instance("users");
@@ -2515,11 +2510,10 @@ class bug_tracker extends class_base
 			$comment_ol = new object_list(array(
 				"parent" => $ol->ids(),
 				"class_id" => array(CL_TASK_ROW,CL_BUG_COMMENT),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"sort_by" => "created asc",
 			));
 		}
+
 		$comments_by_bug = array();
 		$date_from = date_edit::get_timestamp(isset($s["s_date_from"]) ? $s["s_date_from"] : NULL);
 		$date_to = date_edit::get_timestamp(isset($s["s_date_to"]) ? $s["s_date_to"] : NULL);
@@ -2543,7 +2537,8 @@ class bug_tracker extends class_base
 			}
 			$times_by_bug[$comm->parent()] += $comm->prop("add_wh");
 		}
-		if ($_GET["action"] == "list_only_fetch")
+
+		if ($_GET["action"] === "list_only_fetch")
 		{
 			$t->set_request_uri($this->mk_my_orb("change", array("id" => $params["bt"]->id(), "group" => "by_default", "b_id" => $_GET["b_id"]), "bug_tracker"));
 		}
@@ -2597,6 +2592,7 @@ class bug_tracker extends class_base
 				$nl = html::obj_change_url($bug);
 				$opurl = aw_url_change_var("b_id", $bug->id());
 			}
+
 			if (!empty($params["path"]))
 			{
 				$nl = $bug->path_str(array(
@@ -2669,7 +2665,7 @@ class bug_tracker extends class_base
 		return $arr["post_ru"];
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		$arr["args"]["sp_p_name"] = $arr["request"]["sp_p_name"];
 		$arr["args"]["sp_p_co"] = $arr["request"]["sp_p_co"];
@@ -2713,14 +2709,14 @@ class bug_tracker extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["tf"] = automatweb::$request->arg("tf");
 		$arr["assign_to"] = 0;
 		$arr["b_id"] = automatweb::$request->arg("b_id");
 		$arr["save_search_name"] = "";
 		$arr["post_ru"] = aw_url_change_var("post_ru", null, post_ru());
-		if($arr["group"] == "settings_statuses")
+		if($this->use_group === "settings_statuses")
 		{
 			foreach(get_instance(CL_BUG)->bug_statuses as $stid => $stat)
 			{
@@ -2733,9 +2729,9 @@ class bug_tracker extends class_base
 			}
 		}
 
-		if($arr["group"] == "projects")
+		if($this->use_group === "projects")
 		{
-			$arr["filt_value"] = $_GET["filt_value"];
+			$arr["filt_value"] = $request["filt_value"];
 		}
 	}
 
@@ -2866,6 +2862,7 @@ class bug_tracker extends class_base
 			$ol = new object_list();
 			$ol->add(array_keys($bugs));
 		}
+
 		$this->populate_bug_list_table_from_list($t, $ol, array(
 			"path" => true,
 			"bt" => $arr["obj_inst"],
@@ -3403,14 +3400,15 @@ class bug_tracker extends class_base
 		{
 			return null;
 		}
-		return $this->_gantt(array(
+		$args = array(
 			"request" =>  array(
 				"filt_p" => $p,
 			),
 			"ret_b_time" => $bug->id(),
 			"ret_b" => $bug,
 			"obj_inst" => $this_o
-		));
+		);
+		return $this->_gantt($args);
 	}
 
 	function _gantt(&$arr)
@@ -3418,7 +3416,7 @@ class bug_tracker extends class_base
 		$chart = new gantt_chart();
 		$udata = is_object($arr["obj_inst"]) ? $arr["obj_inst"]->meta("gantt_user_ends") : array();
 		$cur = aw_global_get("uid_oid");
-		if($cs = $udata[$cur])
+		if(isset($udata[$cur]) && $cs = $udata[$cur])
 		{
 			$columns = $cs;
 		}
@@ -3521,8 +3519,9 @@ class bug_tracker extends class_base
 				$real_hrs = $gt->prop("num_hrs_real");
 				$hrs_by_p = false;
 			}
+
 			$gbp = $gt->meta("guess_by_p");
-			if($gbp[$p->id()] > 0 && $hrs_by_p)
+			if(isset($gbp[$p->id()]) && $gbp[$p->id()] > 0 && $hrs_by_p)
 			{
 				$guess_hrs = $gbp[$p->id()];
 			}
@@ -3530,6 +3529,11 @@ class bug_tracker extends class_base
 			{
 				$guess_hrs = $gt->prop("num_hrs_guess");
 			}
+			else
+			{
+				$guess_hrs = 0;
+			}
+
 			if ($guess_hrs > 0)
 			{
 				$length = $guess_hrs * 3600 - ($real_hrs * 3600);
@@ -3769,7 +3773,7 @@ class bug_tracker extends class_base
 					"oid" => $parent_id,
 				));
 				$o = $ol->begin();
-				if($o->prop("name")=="Kliendid")
+				if($o->prop("name") === "Kliendid")
 				{
 					array_push($tree, $o);
 					$tree = array_reverse($tree);
@@ -3799,20 +3803,20 @@ class bug_tracker extends class_base
 
 	function check_sect(&$sect, &$curday)
 	{
-		if($sect[$curday]["len"] <= 0)
+		if(!isset($sect[$curday]) or !is_array($sect[$curday]))
+		{
+			$this->gt_start = $this->get_next_avail_time_from($this->gt_start, $this->day2wh);
+			$sect = $this->get_sect();
+			$curday = 0;
+			$this->gt_start = $sect[$curday]["start"];
+		}
+		elseif($sect[$curday]["len"] <= 0)
 		{
 			$curday++;
 			if(is_array($sect[$curday]))
 			{
 				$this->gt_start = $sect[$curday]["start"];
 			}
-		}
-		if(!is_array($sect[$curday]))
-		{
-			$this->gt_start = $this->get_next_avail_time_from($this->gt_start, $this->day2wh);
-			$sect = $this->get_sect();
-			$curday = 0;
-			$this->gt_start = $sect[$curday]["start"];
 		}
 	}
 
@@ -4245,8 +4249,8 @@ class bug_tracker extends class_base
 		$this->_rq_lev++;
 		$hr = date("H", $tm);
 		$day = date("w", $tm);
-		$day_start = $day2wh[$day][0];
-		$day_end = $day2wh[$day][1];
+		$day_start = isset($day2wh[$day][0]) ? $day2wh[$day][0] : 0;
+		$day_end = isset($day2wh[$day][1]) ? $day2wh[$day][1] : 0;
 		if ($day_start == $day_end || $hr >= $day_end)
 		{
 			$rv = $this->get_next_avail_time_from(mktime(0,0,0, date("m", $tm), date("d", $tm)+1, date("Y", $tm)), $day2wh);
@@ -5370,4 +5374,3 @@ die("a");
 		return $owner;
 	}
 }
-?>

@@ -7,7 +7,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_TASK, on_connect_to_task)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_PERSONNEL_MANAGEMENT_JOB_WANTED, on_connect_job_wanted_to_person)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT_JOB_WANTED, on_disconnect_job_wanted_from_person)
 
-@classinfo relationmgr=yes syslog_type=ST_CRM_PERSON no_status=1 confirm_save_data=1 prop_cb=1
+@classinfo relationmgr=yes no_status=1 confirm_save_data=1 prop_cb=1
 @tableinfo kliendibaas_isik index=oid master_table=objects master_index=oid
 @tableinfo aw_account_balances master_index=oid master_table=objects index=aw_oid
 
@@ -4731,8 +4731,7 @@ class crm_person extends class_base
 					"type" => "int",
 				));
 				// clear cache
-				$c = get_instance("cache");
-				$c->file_clear_pt("storage_object_data");
+				cache::file_clear_pt("storage_object_data");
 				return true;
 				break;
 
@@ -4827,26 +4826,26 @@ class crm_person extends class_base
 		}
 	}
 
-	function callback_mod_reforb(&$arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		if(isset($_GET["add_to_task"]))
+		if(isset($request["add_to_task"]))
 		{
-			$arr["add_to_task"] = $_GET["add_to_task"];
+			$arr["add_to_task"] = $request["add_to_task"];
 		}
 
-		if(isset($_GET["add_to_co"]))
+		if(isset($request["add_to_co"]))
 		{
-			$arr["add_to_co"] = $_GET["add_to_co"];
+			$arr["add_to_co"] = $request["add_to_co"];
 		}
 
-		if(isset($_GET["ofr_id"]))
+		if(isset($request["ofr_id"]))
 		{
-			$arr["ofr_id"] = $_GET["ofr_id"];
+			$arr["ofr_id"] = $request["ofr_id"];
 		}
 
-		if(isset($_GET["job_offer_id"]) && $this->can("view", $_GET["job_offer_id"]))
+		if(isset($request["job_offer_id"]) && $this->can("view", $request["job_offer_id"]))
 		{
-			aw_session_set("job_offer_obj_id_for_candidate", $_GET["job_offer_id"]);
+			aw_session_set("job_offer_obj_id_for_candidate", $request["job_offer_id"]);
 		}
 	}
 
@@ -9136,4 +9135,3 @@ fnCallbackAddNew = function()
 		return get_instance("crm_person_obj")->emails($arr);
 	}
 }
-?>

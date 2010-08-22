@@ -8,7 +8,7 @@
 // awcb -- automatweb class_base
 
 /*
-	@classinfo relationmgr=yes syslog_type=ST_CFGFORM maintainer=voldemar
+	@classinfo relationmgr=yes
 
 	@groupinfo groupdata caption=Tabid
 		@groupinfo groupdata_a caption=Tabid parent=groupdata
@@ -1102,7 +1102,7 @@ class cfgform extends class_base
 
 	function do_sysdefaults($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "act",
 			"caption" => t("S&uuml;steemi default"),
@@ -1500,13 +1500,13 @@ class cfgform extends class_base
 		return true;
 	}
 
-	function callback_mod_reforb($arr, $request)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = get_ru();
 		$arr["cfgform_add_grp"] = isset($request["cfgform_add_grp"]) ? $request["cfgform_add_grp"] : "";
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		if (!empty($arr["request"]["cfgform_add_grp"]))
 		{
@@ -5446,5 +5446,3 @@ class cfgform extends class_base
 		}
 	}
 }
-
-?>

@@ -2,7 +2,7 @@
 // crm_call.aw - phone call
 /*
 
-@classinfo syslog_type=ST_CRM_CALL no_status=1 confirm_save_data=1 maintainer=markop prop_cb=1
+@classinfo no_status=1 confirm_save_data=1 prop_cb=1
 
 @tableinfo planner index=id master_table=objects master_index=brother_of
 
@@ -1274,4 +1274,3 @@ EOS;
 		return $r;
 	}
 }
-?>

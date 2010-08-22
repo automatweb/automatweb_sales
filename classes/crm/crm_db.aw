@@ -1,8 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/crm/crm_db.aw,v 1.64 2009/05/07 11:25:57 instrumental Exp $
+
 // crm_db.aw - CRM database
 /*
-@classinfo relationmgr=yes syslog_type=ST_CRM_DB maintainer=markop prop_cb=1
+@classinfo relationmgr=yes prop_cb=1
 @default table=objects
 @default group=general
 
@@ -57,7 +57,7 @@
 		@property flimit type=select
 		@caption Kirjeid &uuml;hel lehel
 
-		@property all_ct_data type=checkbox ch_value=1 
+		@property all_ct_data type=checkbox ch_value=1
 		@caption Kuva k&otilde;iki kontaktandmeid
 
 		@property org_tbl_fields type=select multiple=1
@@ -66,17 +66,17 @@
 -----------------------------------------------------------------------------
 @groupinfo org caption=Kataloog submit=no
 @default group=org
-	
+
 	@property org_tlb type=toolbar no_caption=1 store=no
 
 	@layout o_main type=hbox width=20%:80%
-		
+
 		@layout o_left type=vbox parent=o_main
-			
+
 			@layout o_left_top type=vbox parent=o_left closeable=1 area_caption=Kataloogi&nbsp;puu
 
 				@property org_tree type=treeview store=no no_caption=1 parent=o_left_top
-			
+
 			@layout o_left_bottom type=vbox parent=o_left closeable=1 area_caption=Otsi&nbsp;kataloogist
 
 				@property os_name type=textbox store=no captionside=top parent=o_left_bottom
@@ -234,7 +234,7 @@ class crm_db extends class_base
 			}
 		}
 	}
-		
+
 	function get_property(&$arr)
 	{
 		$prop = &$arr["prop"];
@@ -248,7 +248,7 @@ class crm_db extends class_base
 			case "flimit":
 				$prop["options"] = array (30 => 30, 60 => 60, 100 => 100);
 				break;
-			
+
 			case "os_show_in_webview":
 				$prop["options"] = array(
 					1 => t("Ei kuvata veebis"),
@@ -404,7 +404,7 @@ class crm_db extends class_base
 					"oid" => $ids,
 					"lang_id" => array(),
 					"site_id" => array(),
-				), 
+				),
 				array(
 					CL_CRM_SECTOR => array("parent", "name")
 				)
@@ -517,7 +517,7 @@ class crm_db extends class_base
 		if ($arr["obj_inst"]->prop("flimit") != "")
 		{
 			$perpage = $arr["obj_inst"]->prop("flimit");
-		};	
+		};
 
 		list($companys, $customer_data) = $this->get_org_tbl_data($arr);
 
@@ -612,7 +612,7 @@ class crm_db extends class_base
 				}
 				$phs = join(", ", $pha);
 			}
-			
+
 			if (!$arr["obj_inst"]->prop("all_ct_data") && $this->can("view", $com->prop("url_id")))
 			{
 				$url = $com->prop("url_id.url");
@@ -653,7 +653,7 @@ class crm_db extends class_base
 				}
 				$cts = join(", ", $pha);
 			}
-			
+
 			$pm = $this->get_org_popupmenu(array("oid" => $com->id(), "cd_oid" => $customer_data[$com->id()]));
 			$jrk = isset($_GET["branch_id"]) && $this->can("view", $_GET["branch_id"]) ? (isset($jrks[$com->id()]) ? (int)$jrks[$com->id()] : 0) : (int)$com->ord();
 			$sector = isset($_GET["branch_id"]) && $this->can("view", $_GET["branch_id"]) ? html::hidden(array(
@@ -737,7 +737,7 @@ class crm_db extends class_base
 		$cal_id = $pl->get_calendar_for_user(array(
 			"uid" => aw_global_get("uid"),
 		));
-		if(!empty($cal_id))	
+		if(!empty($cal_id))
 		{
 			$tb->add_button(array(
 				"name" => "user_calendar",
@@ -780,7 +780,7 @@ class crm_db extends class_base
 				));
 			}
 		}
-		
+
 		$conns = $arr["obj_inst"]->connections_from(array(
 			"class" => CL_CRM_SELECTION,
 			"sort_by" => "to.name",
@@ -849,10 +849,10 @@ class crm_db extends class_base
 		}
 	}
 
-	/**  
-		
-		@attrib name=delete_organizations params=name all_args="1" 
-		
+	/**
+
+		@attrib name=delete_organizations params=name all_args="1"
+
 	**/
 	function delete_organizations($arr)
 	{
@@ -866,11 +866,11 @@ class crm_db extends class_base
 		}
 		return urldecode($arr["post_ru"]);
 	}
-	
-	/**  
-		
-		@attrib name=copy_to_selection params=name all_args="1" 
-		
+
+	/**
+
+		@attrib name=copy_to_selection params=name all_args="1"
+
 	**/
 	function copy_to_selection($arr)
 	{
@@ -886,12 +886,12 @@ class crm_db extends class_base
 		return $this->mk_my_orb("change", $arr);
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		$args = &$arr["args"];
 		// no I need add all those things in search_form1 do my request vars
@@ -923,7 +923,7 @@ class crm_db extends class_base
 			return $arr["post_ru"];
 		}
 		$seller = obj($arr["id"])->owner_org;
-		
+
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 			"lang_id" => array(),
@@ -967,7 +967,7 @@ class crm_db extends class_base
 			return $arr["post_ru"];
 		}
 		$seller = obj($arr["id"])->owner_org;
-		
+
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 			"lang_id" => array(),
@@ -1082,7 +1082,7 @@ class crm_db extends class_base
 			}
 		}
 		else
-		{				
+		{
 			// Tegevusala
 			if(isset($_GET["branch_id"]) && $this->can("view", $_GET["branch_id"]))
 			{
@@ -1152,7 +1152,7 @@ class crm_db extends class_base
 			"text" => t("Muuda organisatsiooni"),
 			"link" => html::get_change_url($arr["oid"], array("return_url" => get_ru()))
 		));
-		
+
 		$pm->add_item(array(
 			"text" => t("Muuda kliendisuhet"),
 			"link" => html::get_change_url($arr["cd_oid"], array("return_url" => get_ru()))
@@ -1161,4 +1161,3 @@ class crm_db extends class_base
 		return $pm;
 	}
 }
-?>
