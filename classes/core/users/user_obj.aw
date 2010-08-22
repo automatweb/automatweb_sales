@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class user_obj extends _int_object
 {
@@ -509,4 +506,3 @@ class user_obj extends _int_object
 	}
 }
 
-?>

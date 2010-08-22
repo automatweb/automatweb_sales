@@ -4,7 +4,6 @@
 this message will be sent when the contents of the popup search listbox change
 so that clients can perform actions based on the change
 EMIT_MESSAGE(MSG_POPUP_SEARCH_CHANGE)
-@classinfo  maintainer=kristo
 
 */
 class popup_search extends aw_template
@@ -692,7 +691,7 @@ class popup_search extends aw_template
 					"select_this" => html::href(array(
 						"url" => "javascript:void(0)",
 						"caption" => t("Vali see"),
-						"onClick" => "el=aw_get_el(\"$elname\",window.opener.document.changeform);if (!el) { el=aw_get_el(\"$elname_n\", window.opener.document.changeform);} if (!el) { el=aw_get_el(\"$elname_l\", window.opener.document.changeform);} if (el.options) {sz= el.options.length;el.options.length=sz+1;el.options[sz].value=".$o->id().";el.options[sz].selected = 1;} else {el.value = ".$o->id().";} ".(!empty($arr["no_submit"])?"":"window.opener.document.changeform.submit();")."window.close()"
+						"onClick" => "el=aw_get_el(\"{$elname}\",window.opener.document.changeform);if (!el) { el=aw_get_el(\"{$elname_n}\", window.opener.document.changeform);} if (!el) { el=aw_get_el(\"{$elname_l}\", window.opener.document.changeform);} if (el.options) {sz= el.options.length;el.options.length=sz+1;el.options[sz].value=".$o->id()."; el.options[sz].selected = 1;} else {el.value = ".$o->id().";} ".(!empty($arr["no_submit"])?"":"window.opener.document.changeform.submit();")."window.close()"
 					)),
 					"icon" => html::img(array("url" => icons::get_icon_url($o->class_id())))
 				);
@@ -712,9 +711,9 @@ class popup_search extends aw_template
 			"select_text" => t("Vali"),
 			"table" => $t->draw(),
 			"reforb" => $this->mk_reforb("final_submit", array(
-				"id" => $arr["id"],
+				"id" => isset($arr["id"]) ? $arr["id"] : "",
+				"multiple" => isset($arr["multiple"]) ? $arr["multiple"] : "",
 				"pn" => $arr["pn"],
-				"multiple" => $arr["multiple"],
 				"clid" => $arr["clid"],
 				"no_submit" => ifset($arr, "no_submit"),
 				"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
@@ -1049,7 +1048,8 @@ function aw_get_el(name,form)
 		$form_html = $this->_get_search_form($arr);
 		$arr["return"] = 1;
 		$res_html = html::div(array("id" => "result" , "content" => $this->get_search_results($arr)));
-		return $form_html."<br />".$res_html;
+
+		return $form_html."<br>".$res_html;
 	}
 
 	/**
@@ -1101,6 +1101,8 @@ function aw_get_el(name,form)
 		));
 
 		$arr["clid"] = join("," , $arr["clid"]);
+		$reload_layout = isset($arr["reload_layout"]) ? "\nreload_layout: '".$arr["reload_layout"]."'," : "";
+		$reload_property = isset($arr["reload_property"]) ? "\nreload_property: '".$arr["reload_property"]."'," : "";
 
 		$htmlc->add_property(array(
 			"name" => "s[submit]",
@@ -1120,8 +1122,8 @@ function aw_get_el(name,form)
 				oid: oids.value,
 				name: names.value,
 				clid: '".$arr["clid"]."',
-				reload_layout: '".(isset($arr["reload_layout"]) ? $arr["reload_layout"] : "")."',
-				reload_property: '".$arr["reload_property"]."',
+				".$reload_property."
+				".$reload_layout."
 				property: '".$arr["property"]."'
 			}, function (html) {
 				x=document.getElementById('result');
@@ -1229,7 +1231,9 @@ function aw_get_el(name,form)
 		));
 
 		$obj = obj($arr["id"]);
-		$cx = new cfgutils();
+
+//se valimine vaja ka t88le saada, muidu pole kasu sest valitavusest
+/*		$cx = get_instance("cfg/cfgutils");
 		$props = $cx->load_class_properties(array(
 			"clid" => $obj->class_id(),
 		));
@@ -1241,7 +1245,7 @@ function aw_get_el(name,form)
 				"field" => "oid",
 			));
 		}
-
+*/
 		$t->set_default_sortby("name");
 
 		$filter = array(
@@ -1287,11 +1291,13 @@ function aw_get_el(name,form)
 			$reload.= "window.opener.reload_layout('".$arr["reload_layout"]."');";
 
 		}
+
 		if(!empty($arr["reload_property"]))
 		{
 			$reload.= "window.opener.reload_property('".$arr["reload_property"]."');";
 
 		}
+
 		$javascript = "<script language='javascript'>
 			function set_prop(value)
 			{
@@ -1315,7 +1321,7 @@ function aw_get_el(name,form)
 			"select_text" => t("Vali"),
 			"table" => $t->draw().$javascript,
 		));
-		if($arr["return"])
+		if(!empty($arr["return"]))
 		{
 			return $this->parse();
 		}

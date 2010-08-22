@@ -1,16 +1,14 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
 class aw_request
 {
 	// const DEFAULT_CLASS = "admin_if";
 	// const DEFAULT_ACTION = "change";
 
 	private $_args = array(); // Request parameters. Associative array of argument name/value pairs. read-only
-	private $_class; // requested class. aw_class.class_name
-	private $_action; // requested class action. one of aw_class.actions
+	private $_class = ""; // requested class. aw_class.class_name
+	private $_class_id = 0; // requested class id. aw_class.class_id
+	private $_action = ""; // requested class action. one of aw_class.actions
 	private $_is_fastcall = false; // boolean
 	private $_application; // object
 	private static $_application_classes = array( //!!! tmp. teha n2iteks interface-ga. implements application
@@ -283,6 +281,18 @@ class aw_request
 
 	/**
 	@attrib api=1 params=pos
+	@comment
+		Class id is set only if requested class is a registered automatweb class. Otherwise this returns 0.
+	@returns int
+		Requested class id
+	**/
+	public function class_id()
+	{
+		return $this->_class_id;
+	}
+
+	/**
+	@attrib api=1 params=pos
 	@returns string
 		Requested class action/public method name
 	**/
@@ -326,8 +336,21 @@ class aw_request
 		// no name validation because requests can be formed and sent to other servers where different classes, methods, etc. defined
 		// $this->_class = empty($this->_args["class"]) ? self::DEFAULT_CLASS : $this->_args["class"];
 		// $this->_action = empty($this->_args["action"]) ? self::DEFAULT_ACTION : $this->_args["action"];
-		$this->_class = empty($this->_args["class"]) ? "" : $this->_args["class"];
 		$this->_action = empty($this->_args["action"]) ? "" : $this->_args["action"];
+
+		if (!empty($this->_args["class"]))
+		{
+			$this->_class = $this->_args["class"];
+			if (!class_exists($this->_class))
+			{
+				throw new awex_request_na("Requested class doesn't exist.");
+			}
+		}
+
+		if (aw_ini_isset("class_lut.{$this->_class}"))
+		{
+			$this->_class_id = aw_ini_get("class_lut.{$this->_class}");
+		}
 	}
 
 	public function __isset($name)
@@ -369,5 +392,3 @@ class awex_request_na extends awex_request {}
 
 /** Invalid parameter **/
 class awex_request_param extends awex_request {}
-
-?>

@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/crm/crm_company_status.aw,v 1.4 2008/02/22 10:03:29 robert Exp $
-// crm_company_status.aw - Organisatsiooni Staatus 
+
+// crm_company_status.aw - Organisatsiooni Staatus
 /*
 
-@classinfo syslog_type=ST_CRM_COMPANY_STATUS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -45,7 +45,7 @@ class crm_company_status extends class_base
 			return $categories;
 		}
 	}
-	
+
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
@@ -91,13 +91,13 @@ class crm_company_status extends class_base
 			break;
 		}
 		return $retval;
-	}	
+	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		if($_GET["category"])
+		if(!empty($request["category"]))
 		{
-			$arr["category"] = $_GET["category"];
+			$arr["category"] = $request["category"];
 		}
 		$arr["post_ru"] = post_ru();
 	}
@@ -116,7 +116,4 @@ class crm_company_status extends class_base
 		));
 		return $this->parse();
 	}
-
-//-- methods --//
 }
-?>

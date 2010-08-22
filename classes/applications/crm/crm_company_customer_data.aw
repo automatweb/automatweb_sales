@@ -2,7 +2,7 @@
 // crm_company_customer_data.aw - Kliendi andmed
 /*
 
-@classinfo syslog_type=ST_CRM_COMPANY_CUSTOMER_DATA relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo aw_crm_customer_data index=aw_oid master_index=brother_of master_table=objects
 
@@ -968,4 +968,3 @@ Aadress: %s
 		}
 	}
 }
-?>

@@ -2,7 +2,7 @@
 // crm_insurance.aw - Kindlustus
 /*
 
-@classinfo syslog_type=ST_CRM_INSURANCE relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo crm_insurance index=oid master_table=objects master_index=oid
 
 @default table=crm_insurance
@@ -75,7 +75,7 @@ class crm_insurance extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
@@ -148,5 +148,3 @@ class crm_insurance extends class_base
 		return false;
 	}
 }
-
-?>

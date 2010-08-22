@@ -1,5 +1,6 @@
 <?php
 /*
+	@classinfo no_status=1
 	@tableinfo kliendibaas_linn index=oid master_table=objects master_index=oid
 
 	@default table=objects
@@ -11,16 +12,16 @@
 	@default field=meta
 	@property country type=relpicker reltype=RELTYPE_COUNTRY
 	@caption Riik
-	
+
 	@property area type=relpicker reltype=RELTYPE_AREA
 	@caption Piirkond
-	
+
 	@property county type=relpicker reltype=RELTYPE_COUNTY
 	@caption Maakond
 
 	@property comment type=textarea cols=40 rows=3 table=objects field=comment
 	@caption Kommentaar
-		
+
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
 
@@ -40,13 +41,12 @@
 
 
 
-	@classinfo no_status=1 syslog_type=ST_CRM_CITY maintainer=markop
-	
+
 	//@property location type=textarea
 	//@caption Asukoha kirjeldus
 
-	//@default table=kliendibaas_linn	
-	
+	//@default table=kliendibaas_linn
+
 */
 /*
 CREATE TABLE `kliendibaas_linn` (
@@ -69,7 +69,7 @@ class crm_city extends class_base
 			"name", "comment"
 		);
 	}
-	
+
 	function set_property($arr = array())
 	{
 		$prop = &$arr["prop"];
@@ -82,10 +82,9 @@ class crm_city extends class_base
 		}
 		return $retval;
 	}
-	
+
 	function callback_get_transl($arr)
 	{
 		return $this->trans_callback($arr, $this->trans_props);
 	}
-};
-?>
+}

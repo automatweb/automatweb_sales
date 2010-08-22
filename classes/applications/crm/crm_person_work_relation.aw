@@ -9,7 +9,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_ML_MEMBER, on_connect_e
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PHONE, on_disconnect_phone_from_work_relation)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_ML_MEMBER, on_disconnect_email_from_work_relation)
 
-@classinfo syslog_type=ST_CRM_PERSON_WORK_RELATION relationmgr=yes no_comment=1 no_status=1 prop_cb=1 no_name=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1 no_name=1
 @tableinfo aw_crm_person_work_relation index=aw_oid master_index=brother_of master_table=objects
 
 @default group=general
@@ -227,4 +227,3 @@ class crm_person_work_relation extends class_base
 		return $ret_val;
 	}
 }
-?>

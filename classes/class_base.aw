@@ -9,8 +9,6 @@
 //
 // Common properties for all classes
 /*
-	@classinfo  maintainer=voldemar
-
 	@default table=objects
 	@default group=general
 
@@ -76,7 +74,7 @@ class class_base extends aw_template
 	var $changeform_target;
 	var $new;
 	var $no_buttons;
-	var $inst;
+	var $inst; //FIXME: an instance of the same class embedded, any reason?
 
 	var $group;
 	var $use_group;
@@ -636,9 +634,12 @@ class class_base extends aw_template
 		}
 
 		$this->cli = $cli;
+		$this->cli->use_group = $this->use_group;
+		$this->cli->object_id = $this->id;
+		$this->cli->class_name = get_class($this->inst);
 
 		// aga mis siis, kui see on sama aken?
-		$cbtrans = get_instance("applications/cb_trans/cb_translate");
+		$cbtrans = new cb_translate();
 		$trans_default_id = $cbtrans->get_sysdefault();
 
 		if ($trans_default_id)
@@ -6781,4 +6782,3 @@ class class_base extends aw_template
 		}
 	}
 }
-?>

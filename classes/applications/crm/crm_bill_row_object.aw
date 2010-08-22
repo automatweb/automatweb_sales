@@ -201,7 +201,7 @@ class crm_bill_row_object extends _int_object
 
 	/** connects bill row to a task row
 		@attrib api=1
-		@returns 
+		@returns
 			error string if unsuccessful
 	**/
 	function connect_task_row($row)
@@ -239,7 +239,7 @@ class crm_bill_row_object extends _int_object
 		@attrib api=1 params=pos
 		@param id required type=oid
 			bug comment object id
-		@returns 
+		@returns
 	**/
 	function connect_bug_comment($id)
 	{
@@ -375,7 +375,7 @@ class crm_bill_row_object extends _int_object
 		@attrib api=1 params=pos
 		@param advise optional type=boolean
 			true: if tax not set, then returns possible value
-		@returns 
+		@returns
 	**/
 	public function get_row_tax($advise = false)
 	{
@@ -383,6 +383,7 @@ class crm_bill_row_object extends _int_object
 		{
 			return $this->prop("tax");
 		}
+
 		if($this->prop("has_tax"))
 		{
 
@@ -402,7 +403,7 @@ class crm_bill_row_object extends _int_object
 			{
 				return $this->prop("prod.tax_rate.tax_amt");
 			}
-			
+
 			return $this->get_default_tax();
 
 		}

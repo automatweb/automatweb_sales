@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/crm/crm_conference_room.aw,v 1.2 2008/01/31 13:54:12 kristo Exp $
-// room.aw - Ruum 
+
+// room.aw - Ruum
 /*
 
-@classinfo syslog_type=ST_CRM_CONFERENCE_ROOM relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo room index=oid master_table=objects master_index=oid
 
 @default table=room
@@ -16,7 +16,7 @@
 
 		@property area type=textbox parent=left
 		@caption Pindala
-		
+
 		@property description type=textarea rows=8 cols=35 parent=left
 		@caption Kirjeldus
 
@@ -26,10 +26,10 @@
 
 		@property type_chair_table type=textbox parent=right
 		@caption Tool + Laud
-		
+
 		@property type_conference_table type=textbox parent=right
 		@caption N&otilde;upidamislaud
-		
+
 		@property type_u_table type=textbox parent=right
 		@caption U-kujuline laud
 
@@ -52,29 +52,7 @@ class crm_conference_room extends class_base
 		));
 	}
 
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			//-- get_property --//
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			//-- set_property --//
-		}
-		return $retval;
-	}	
-
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
@@ -127,4 +105,3 @@ class crm_conference_room extends class_base
 
 	}
 }
-?>

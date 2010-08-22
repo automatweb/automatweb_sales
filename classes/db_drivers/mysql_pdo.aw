@@ -122,7 +122,8 @@ class mysql_pdo
 
 			if (!$this->qID)
 			{
-				$err_str = SplFixedArray::fromArray($this->dbh->errorInfo())->offsetGet(2);
+				$err = $this->dbh->errorInfo();
+				$err_str = $err[2];
 				$err_code = $this->dbh->errorCode();
 				if (!$errors)
 				{

@@ -1,5 +1,24 @@
 <?xml version='1.0'?>
 <orb>
-	<class name="active_page_data" folder="www/dev/terryf/automatweb_dev/classes/layout" extends="class_base">
+	<class name="active_page_data" folder="classes/layout" extends="class_base">
+		<action name="open_layer">
+			<function name="open_layer">
+				<arguments>
+					<required name="u_class" />
+					<required name="u_group" />
+					<required name="u_layout" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="close_layer">
+			<function name="close_layer">
+				<arguments>
+					<required name="u_class" />
+					<required name="u_group" />
+					<required name="u_layout" />
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>

@@ -55,6 +55,9 @@
 @property task_row type=relpicker reltype=RELTYPE_TASK_ROW store=connect multiple=1
 @caption Toimetuse read
 
+@property project type=select
+@caption Projekt
+
 @reltype PROD value=1 clid=CL_CHOP_PRODUCT
 @caption Toode
 
@@ -140,6 +143,7 @@ class crm_bill_row extends class_base
 					$o->save();
 				}
 				return true;
+			case "project":
 			case "aw_writeoff":
 				$this->db_add_col($table, array(
 					"name" => $field,

@@ -2,7 +2,7 @@
 
 // crm_profession.aw - Ametikoht
 /*
-@classinfo relationmgr=yes maintainer=markop
+@classinfo relationmgr=yes
 @tableinfo kliendibaas_amet index=oid master_table=objects master_index=oid
 
 @default table=objects
@@ -137,4 +137,3 @@ class crm_profession extends class_base
 	}
 }
 
-?>

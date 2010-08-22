@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_strat_goal_eval_ws.aw,v 1.4 2007/12/06 14:33:32 kristo Exp $
-// project_strat_goal_eval_ws.aw - Projekti eesm&auml;rkide hindamislaud 
+
+// project_strat_goal_eval_ws.aw - Projekti eesm&auml;rkide hindamislaud
 /*
 
-@classinfo syslog_type=ST_PROJECT_STRAT_GOAL_EVAL_WS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_project_strat_goal_eval_ws index=aw_oid master_index=brother_of master_table=objects
 
 @default table=objects
@@ -22,7 +22,7 @@
 
 @default group=strat_res_tree
 
-	@layout srt_hb type=hbox 
+	@layout srt_hb type=hbox
 
 		@property srt type=treeview parent=srt_hb store=no no_caption=1
 		@property srt_tbl type=table parent=srt_hb store=no no_caption=1
@@ -31,7 +31,7 @@
 
 	@property strat_wt type=table no_caption=1 store=no
 
-@groupinfo strat_res_wt caption="Hindajad" 
+@groupinfo strat_res_wt caption="Hindajad"
 
 @groupinfo eval caption="Hindamine"
 @groupinfo strat_res caption="Hindamise tulemused"
@@ -93,12 +93,12 @@ class project_strat_goal_eval_ws extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = post_ru();
-		$arr["project"] = $_GET["project"];
+		$arr["project"] = $request["project"];
 	}
 
 
@@ -112,7 +112,7 @@ class project_strat_goal_eval_ws extends class_base
 	}
 
 
-	function _init_strat_a_tbl(&$t, $o)
+	function _init_strat_a_tbl($t, $o)
 	{
 		$t->define_field(array(
 			"name" => "task",
@@ -270,7 +270,7 @@ class project_strat_goal_eval_ws extends class_base
 		$t->define_data($sbs);
 
 	}
-	
+
 	function _get_strat_eval($p)
 	{
 		$pp = get_current_person();
@@ -453,4 +453,3 @@ class project_strat_goal_eval_ws extends class_base
 		}
 	}
 }
-?>

@@ -6,7 +6,7 @@
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CRM_PERSON_WORK_RELATION, on_connect_work_relation_to_phone)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON_WORK_RELATION, on_disconnect_work_relation_from_phone)
 
-@classinfo syslog_type=ST_CRM_PHONE relationmgr=yes maintainer=markop
+@classinfo relationmgr=yes
 @tableinfo kliendibaas_telefon master_table=objects master_index=oid index=oid
 
 @default table=objects
@@ -306,12 +306,11 @@ class crm_phone extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		if(isset($arr["request"]["conn_id"]))
 		{
 			$arr["args"]["conn_id"] = $arr["request"]["conn_id"];
 		}
 	}
-};
-?>
+}

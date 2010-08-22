@@ -360,7 +360,7 @@ class _int_object
 			}
 			if (isset($param["type"]))
 			{
-				if (!is_numeric($param["type"]) && substr($param["type"], 0, 7) == "RELTYPE" && is_class_id($param["from.class_id"]))
+				if (!is_numeric($param["type"]) && !is_array($param["type"]) && substr($param["type"], 0, 7) == "RELTYPE" && is_class_id($param["from.class_id"]))
 				{
 					// it is "RELTYPE_FOO"
 					// resolve it to numeric

@@ -58,6 +58,17 @@
             <caption>Tellimuste puus kuvatakse</caption>
       </property>
       <property>
+            <name>tables_show_items</name>
+            <table>objects</table>
+            <group>general_sub</group>
+            <default>50</default>
+            <datatype>int</datatype>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Ridu tabelites</caption>
+      </property>
+     <property>
             <name>proj_toolbar</name>
             <table>objects</table>
             <group>projects</group>

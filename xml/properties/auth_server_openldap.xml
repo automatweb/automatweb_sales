@@ -29,6 +29,16 @@
             <caption>SSL &amp;amp;Uuml;hendus</caption>
       </property>
       <property>
+            <name>server_passwords_md5</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <caption>Parool md5 r&amp;amp;auml;sina</caption>
+      </property>
+      <property>
             <name>ad_base_dn</name>
             <table>objects</table>
             <group>general</group>

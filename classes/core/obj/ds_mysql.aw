@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class _int_obj_ds_mysql extends _int_obj_ds_base
 {
@@ -124,7 +121,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		}
 
 		$ret["meta"] = aw_unserialize($ret["metadata"], false, true);
-		if ($ret["metadata"] != "" && $ret["meta"] === NULL)
+		if (!empty($ret["metadata"]) && $ret["meta"] === NULL)
 		{
 			$ret["meta"] = aw_unserialize(stripslashes(stripslashes($ret["metadata"])), false, true); //!!! miks siin topelt stripslashes vajalik on?
 		}
@@ -353,7 +350,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$ret[$prop["name"]] = isset($unser[$prop["name"]]) ? $unser[$prop["name"]] : null;
 					}
 
-					if (isset($prop["datatype"]) && $prop["datatype"] === "int" && empty($ret[$prop["name"]]))
+					if (isset($prop["datatype"]) && $prop["datatype"] === "int" && $ret[$prop["name"]] == "")
 					{
 						$ret[$prop["name"]] = "0";
 					}
@@ -998,7 +995,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						if (!isset($seta[$prop["field"]]))
 						{
 							// jost objects.flags support for now
-							$seta[$prop["field"]] = $objdata["flags"];
+							$seta[$prop["field"]] = isset($objdata["flags"]) ? $objdata["flags"] : null;
 						}
 
 						// make mask for the flag - mask value is the previous field value with the
@@ -4072,5 +4069,3 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		return array($pl[$prop], $tmp->get_tableinfo());
 	}
 }
-
-?>

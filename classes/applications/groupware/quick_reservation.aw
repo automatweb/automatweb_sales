@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/groupware/quick_reservation.aw,v 1.6 2008/09/10 11:26:24 markop Exp $
-// reservation.aw - Broneering 
+
+// reservation.aw - Broneering
 /*
 
-@classinfo syslog_type=ST_QUICK_RESERVATION relationmgr=yes no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -162,7 +162,7 @@ class quick_reservation extends class_base
 			"post_msg_after_reservation" => $arr["request"]["post_msg_after_reservation"],
 			"other_rooms" => $arr["request"]["bron"]["other_rooms"],
 		));
-		
+
 		die("<script type='text/javascript'>
 			window.location.href='".$url."';
 		</script>
@@ -179,10 +179,9 @@ class quick_reservation extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr, $request)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_msg_after_reservation"] = $request["post_msg_after_reservation"];
 		$arr["bron[people_count]"] = $request["people_count"];
 	}
 }
-?>

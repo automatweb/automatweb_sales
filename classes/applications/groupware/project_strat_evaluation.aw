@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/groupware/project_strat_evaluation.aw,v 1.2 2007/12/06 14:33:32 kristo Exp $
-// project_strat_evaluation.aw - Strateegiliste edutegurite hindamine 
+
+// project_strat_evaluation.aw - Strateegiliste edutegurite hindamine
 /*
 
-@classinfo syslog_type=ST_PROJECT_STRAT_EVALUATION relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_strat_evals index=aw_oid master_table=objects master_index=brother_of
 
 @default group=general
@@ -31,27 +31,7 @@ class project_strat_evaluation extends class_base
 		));
 	}
 
-	function get_property($arr)
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-		};
-		return $retval;
-	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-		}
-		return $retval;
-	}	
-
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
@@ -65,4 +45,4 @@ class project_strat_evaluation extends class_base
 		}
 	}
 }
-?>
+

@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class autocomplete
 {
 	function autocomplete()
@@ -12,7 +10,10 @@ class autocomplete
 	{
 		foreach($arr as $k => $v)
 		{
-			$arr[$k] = iconv("UTF-8", aw_global_get("charset"), $v);
+			if (is_scalar($v))
+			{
+				$arr[$k] = iconv("UTF-8", aw_global_get("charset"), $v);
+			}
 		}
 		return $arr;
 	}
@@ -39,4 +40,3 @@ class autocomplete
 		exit ($cl_json->encode($option_data));
 	}
 }
-?>

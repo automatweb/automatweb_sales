@@ -3,7 +3,7 @@
 /*
 HANDLE_MESSAGE(MSG_USER_LOGIN, on_user_login)
 
-@classinfo syslog_type=ST_MESSENGER relationmgr=yes maintainer=tarvo
+@classinfo relationmgr=yes
 
 @default table=objects
 @default group=settings
@@ -726,12 +726,12 @@ class messenger_v2 extends class_base
 				if (el.style.display == 'none')
 				{
 					el.style.display = 'block';
-					im.src = '/automatweb/images/aw06/closer_up.gif';	aw_get_url_contents('/automatweb/orb.aw?class=user&action=open_layer&u_class=messenger_v2&u_group=main_view&u_layout=' + subject);
+					im.src = '/automatweb/images/aw06/closer_up.gif';	aw_get_url_contents('/automatweb/orb.aw?class=active_page_data&action=open_layer&u_class=messenger_v2&u_group=main_view&u_layout=' + subject);
 				}
 				else
 				{
 					el.style.display = 'none';
-					im.src = '/automatweb/images/aw06/closer_down.gif';	aw_get_url_contents('/automatweb/orb.aw?class=user&action=close_layer&u_class=messenger_v2&u_group=main_view&u_layout=' + subject);
+					im.src = '/automatweb/images/aw06/closer_down.gif';	aw_get_url_contents('/automatweb/orb.aw?class=active_page_data&action=close_layer&u_class=messenger_v2&u_group=main_view&u_layout=' + subject);
 				}
 			}
 
@@ -1856,4 +1856,3 @@ class messenger_v2 extends class_base
 		die();
 	}
 }
-?>

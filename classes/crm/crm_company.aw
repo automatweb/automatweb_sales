@@ -513,7 +513,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 					@property all_proj_search_name type=textbox store=no parent=all_proj_search_b_top size=33 captionside=top
 					@caption Projekti nimi
 
-					@property all_proj_search_cust type=textbox store=no parent=all_proj_search_b_top size=33 captionside=top
+					@property all_proj_search_cust type=objpicker options_callback=crm_company::get_customer_options store=no parent=all_proj_search_b_top size=33 captionside=top
 					@caption Klient
 
 					@property all_proj_search_part type=text size=28 parent=all_proj_search_b_top store=no captionside=top
@@ -2431,12 +2431,12 @@ class crm_company extends class_base
 				{
 					return PROP_IGNORE;
 				}
+
 				if (!isset($arr["request"]["proj_search_sbt"]))
 				{
 					$data["value"] = -1; //mktime(0,0,0, date("m"), date("d"), date("Y")+1);
 				}
-				else
-				if ($arr["request"]["proj_search_dl_to"]["year"] > 1)
+				elseif ($arr["request"]["proj_search_dl_to"]["year"] > 1)
 				{
 					$data["value"] = $arr["request"]["proj_search_dl_to"];
 				}
@@ -2448,7 +2448,7 @@ class crm_company extends class_base
 
 			case "proj_search_state":
 
-				$proj_i = get_instance(CL_PROJECT);
+				$proj_i = new project();
 				$data["options"] = array("" => t("K&otilde;ik")) + $proj_i->states;
 				if (!isset($arr["request"]["proj_search_state"]))
 				{
@@ -2461,7 +2461,7 @@ class crm_company extends class_base
 				break;
 
 			case "proj_search_cust":
-				if ($arr["request"]["do_proj_search"])
+				if (!empty($arr["request"]["do_proj_search"]))
 				{
 					$data["value"] = $arr["request"][$data["name"]];
 				}
@@ -2475,7 +2475,7 @@ class crm_company extends class_base
 					return PROP_IGNORE;
 				}
 			case "proj_search_name":
-				if ($arr["request"]["do_proj_search"])
+				if (!empty($arr["request"]["do_proj_search"]))
 				{
 					$data["value"] = $arr["request"][$data["name"]];
 				}
@@ -2492,7 +2492,7 @@ class crm_company extends class_base
 				}
 				break;
 			case "all_proj_search_state":
-				$proj_i = get_instance(CL_PROJECT);
+				$proj_i = new project();
 				$data["options"] = array("" => "") + $proj_i->states;
 				if ($arr["request"]["search_all_proj"])
 				{
@@ -2573,7 +2573,7 @@ class crm_company extends class_base
 				static $obj_impl;
 				if (!$obj_impl)
 				{
-					$obj_impl = get_instance("applications/crm/crm_company_objects_impl");
+					$obj_impl = new crm_company_objects_impl();
 				}
 				$fn = "_get_".$data["name"];
 				return $obj_impl->$fn($arr);
@@ -2611,7 +2611,7 @@ class crm_company extends class_base
 				static $overview_impl;
 				if (!$overview_impl)
 				{
-					$overview_impl = get_instance("applications/crm/crm_company_overview_impl");
+					$overview_impl = new crm_company_overview_impl();
 				}
 				$fn = "_get_".$data["name"];
 				return $overview_impl->$fn($arr);
@@ -3678,7 +3678,7 @@ class crm_company extends class_base
 	/*
 		k6ik lingid saavad $key muutuja lisaks
 	*/
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		if($this->use_group === "stats_stats" || $this->use_group === "stats")
 		{
@@ -4001,7 +4001,7 @@ class crm_company extends class_base
 		die();
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		if($this->use_group === "stats_s" || $this->use_group === "stats")
 		{
@@ -6074,7 +6074,7 @@ class crm_company extends class_base
 		}
 	}
 
-	function get_employee_picker(object $co, $add_empty = false, $important_only = false)
+	public static function get_employee_picker(object $co, $add_empty = false, $important_only = false)
 	{
 		static $cache;
 		if (isset($cache[$co->id()][$add_empty][$important_only]))
@@ -6125,12 +6125,12 @@ class crm_company extends class_base
 			$ol = new object_list();
 		}
 		$res = ($add_empty ? array("" => t("--vali--")) : array()) +  $ol->names();
-		uasort($res, array(&$this, "__person_name_sorter"));
+		uasort($res, array("self", "__person_name_sorter"));
 		$cache[$co->id()][$add_empty][$important_only] = $res;
 		return $res;
 	}
 
-	function __person_name_sorter($a, $b)
+	private static function __person_name_sorter($a, $b)
 	{
 		if(sizeof(explode(" ", $a)) > 1)
 		{
@@ -6649,7 +6649,7 @@ class crm_company extends class_base
 
 	function callback_post_save($arr)
 	{
-		if ($arr["request"]["co_is_buyer"] == 1)
+		if (!empty($arr["request"]["co_is_buyer"]))
 		{
 			$company = $arr["obj_inst"];
 			$cur = get_current_company();
@@ -6680,7 +6680,7 @@ class crm_company extends class_base
 		}
 	}
 
-	function callback_mod_layout(&$arr)
+	function callback_mod_layout($arr)
 	{
 		if($arr["name"] === "all_act_search" && aw_global_get("crm_task_view") == CRM_TASK_VIEW_CAL)
 		{
@@ -6759,7 +6759,7 @@ class crm_company extends class_base
 			}
 		}
 
-		if($arr["id"] == "ovrv_email")
+		if($arr["id"] === "ovrv_email")
 		{
 			$seti = get_instance(CL_CRM_SETTINGS);
 			$sts = $seti->get_current_settings();
@@ -8663,7 +8663,7 @@ Bank accounts: yksteise all
 
 	function _get_statuses_tb($arr)
 	{
-		$tb = &$arr["prop"]["toolbar"];
+		$tb = $arr["prop"]["toolbar"];
 
 		$company = get_current_company();
 		$parent = (strlen($arr['request']['tf'])>1)?$arr['request']['tf']:$company->id();
@@ -8709,7 +8709,7 @@ Bank accounts: yksteise all
 
 	function _get_statuses_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->start_tree(array(
 			"type" => TREE_DHTML,
 			"has_root" => 0,
@@ -8757,7 +8757,7 @@ Bank accounts: yksteise all
 		}
 	}
 
-	function get_s_tree_stuff($parent, &$t, $cat)
+	function get_s_tree_stuff($parent, $t, $cat)
 	{
 		if(substr($parent,0,3) == 'cat')
 		{
@@ -8794,7 +8794,7 @@ Bank accounts: yksteise all
 
 	function _get_statuses_set_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "cat",
@@ -8834,7 +8834,7 @@ Bank accounts: yksteise all
 
 	function _get_statuses_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$st = get_instance(CL_CRM_COMPANY_STATUS);
 		$categories = $st->categories(0);
@@ -9066,10 +9066,8 @@ Bank accounts: yksteise all
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMPANY,
 			"name" => $arr["name"],
-			"lang_id" => array(),
 			"parent" => array(),
-			"site_id" => array(),
-			"limit" => 1,
+			"limit" => 1
 		));
 		$d = array(
 			"address" => "",
@@ -9115,9 +9113,7 @@ Bank accounts: yksteise all
 				$comm->uname = $t["user"];
 				$comm->commtext = $t["text"];
 				$comm->commtype = $t["type"];
-				aw_disable_acl();
 				$comm->save();
-				aw_restore_acl();
 				$arr["obj_inst"]->connect(array(
 					"to" => $comm->id(),
 					"type" => "RELTYPE_COMMENT",
@@ -9222,7 +9218,7 @@ Bank accounts: yksteise all
 
 	/**
 
-		@attrib name=change params=name all_args="1" nologin="1"
+		@attrib name=change params=name all_args="1"
 
 		@param id optional type=int acl="edit"
 		@param group optional
@@ -9245,12 +9241,56 @@ Bank accounts: yksteise all
 	}
 
 	/** Saves the data that comes from the form generated by change
-		@attrib name=submit params=name nologin="1"
+		@attrib name=submit params=name
 	**/
 	function dsubmit($args = array())
 	{
 		return parent::submit($args);
 	}
+
+	/** Outputs autocomplete options matching customer name search string $typed_text in bsnAutosuggest format json
+		@attrib name=get_category_options
+		@param id required type=oid
+			Company oid whose customers are sought
+		@param typed_text optional type=string
+	**/
+	//TODO: searches to use this
+	public static function get_customer_options($args)
+	{
+		$choices = array("results" => array());
+		$typed_text = $args["typed_text"];
+		$seller_o = new object($args["id"]);
+		$limit = $this_o->prop("autocomplete_options_limit") ? (int) $this_o->prop("autocomplete_options_limit") : 20;
+		$list = new object_list(array(
+			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+			"seller" => $seller_o->prop("owner")->id(),
+			"buyer.name" => "{$typed_text}%",
+			new obj_predicate_limit($limit)
+		));
+
+		if ($list->count() > 0)
+		{
+			$results = array();
+			$o = $list->begin();
+			do
+			{
+				$value = $o->prop_xml("name");
+				$info = "";
+				$results[] = array("id" => $o->id(), "value" => iconv("iso-8859-4", "UTF-8", $value), "info" => $info);//FIXME charsets
+			}
+			while ($o = $list->next());
+			$choices["results"] = $results;
+		}
+
+		ob_start("ob_gzhandler");
+		header("Content-Type: application/json");
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+		header("Pragma: no-cache"); // HTTP/1.0
+		exit(json_encode($choices));
+	}
+
 
 	/**
 		@attrib name=commix api=1 params=name all_args=1
@@ -9273,5 +9313,3 @@ Bank accounts: yksteise all
 		}
 	}
 }
-
-?>

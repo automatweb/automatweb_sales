@@ -1,9 +1,7 @@
 <?php
 
 // calendar.aw - VCL calendar
-/*
-@classinfo  maintainer=kristo
-*/
+
 class vcalendar extends aw_template
 {
 	var $container_template = "container.tpl"; // access?
@@ -73,7 +71,7 @@ class vcalendar extends aw_template
 			{
 				$retval = true;
 			}
-		};
+		}
 
 		if (is_object($this->evt_tpl) && $feature === "project_media")
 		{
@@ -81,9 +79,9 @@ class vcalendar extends aw_template
 			{
 				$retval = true;
 			}
-		};
-		return $retval;
+		}
 
+		return $retval;
 	}
 
 	/**
@@ -100,7 +98,7 @@ class vcalendar extends aw_template
 	**/
 	function init_output($arr)
 	{
-		$this->evt_tpl = get_instance("aw_template");
+		$this->evt_tpl = new aw_template();
 		$this->evt_tpl->tpl_init($this->cal_tpl_dir);
 		if ($this->overview_func)
 		{
@@ -399,13 +397,13 @@ class vcalendar extends aw_template
 		$data["_id"] = $this->el_count;
 		$data["id"] = isset($arr["data"]["id"]) ? $arr["data"]["id"] : "";
 		$data["comment"] = isset($arr["data"]["comment"]) ? $arr["data"]["comment"] : "";
-		$data["bgcolor"] = $arr["bgcolor"];
+		$data["bgcolor"] = empty($arr["bgcolor"]) ? "" : $arr["bgcolor"];
 
 		if ($end_tm > $start_tm)
 		{
 			$data["item_end"] = mktime($this->day_end["hour"],$this->day_end["minute"],59,$em,$ed,$ey);
 			//$data["time"] = "Algab: " . date("H:i",$data["item_start"]);
-		};
+		}
 
 		$this->evt_list[$this->el_count] = $data;
 		$this->items[$use_date][] = &$this->evt_list[$this->el_count];
@@ -575,7 +573,7 @@ class vcalendar extends aw_template
 				"viewtype" => "day",
 			));
 			$this->range["viewtype"] = "day";
-		};
+		}
 
 		if (!$this->output_initialized)
 		{
@@ -775,7 +773,7 @@ class vcalendar extends aw_template
 			{
 				$ts .= $this->parse(($type == $this->range["viewtype"]) ? "SEL_PAGE" : "PAGE");
 			}
-		};
+		}
 
 
 		$tasks = array();
@@ -809,12 +807,12 @@ class vcalendar extends aw_template
 			$this->vars(array(
 				"TASKS" => $this->parse("TASKS"),
 			));
-		};
+		}
 
 		for ($i = 1; $i <= 12; $i++)
 		{
 			$mnames[$i] = aw_locale::get_lc_month($i);
-		};
+		}
 
 		for ($i = 2003; $i <= 2010; $i++)
 		{
@@ -1202,15 +1200,16 @@ class vcalendar extends aw_template
 					{
 						$this->first_event = reset($events);
 					}
+
 					foreach($events as $event)
 					{
 						$sday = $this->draw_event($event);
 						$events_for_day .= $sday;
 						$ev_count++;
-					};
-				};
-				$et .= $events_for_day;
+					}
+				}
 
+				$et .= $events_for_day;
 			}
 
 			// XX: add optional skip_empty argument
@@ -1661,7 +1660,7 @@ class vcalendar extends aw_template
 				}
 
 				$events_str = "";
-				if (is_array($this->overview_items_oids[$dstamp]))
+				if (isset($this->overview_items_oids[$dstamp]) and is_array($this->overview_items_oids[$dstamp]))
 				{
 					foreach ($this->overview_items_oids[$dstamp] as $event_oid)
 					{

@@ -1,10 +1,9 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
 
 class planner_model extends core
 {
+	public $recur_info;
+
 	function planner_model()
 	{
 		$this->init();
@@ -110,8 +109,6 @@ class planner_model extends core
 	function _init_event_source($args = array())
 	{
 		extract($args);
-
-		classload("core/icons");
 		classload("core/date/date_calc");
 
 		$di = get_date_range(array(
@@ -128,46 +125,45 @@ class planner_model extends core
 		$events = $this->get_event_list($args);
 
 		if (count($events))
-{
-		// load participant list
-		$ol = new object_list(array(
-			"class_id" => CL_CRM_MEETING,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"oid" => array_keys($events)
-		));
-		$meetings = $ol->ids();
-		$c = new connection();
-		$conns = $c->find(array(
-			"from.class_id" => CL_CRM_PERSON,
-			"to" => $meetings,
-			"type" => "RELTYPE_PERSON_MEETING"
-		));
-		$participants = array();
-		foreach($conns as $con)
 		{
-			$participants[$con["to"]][$con["from"]] = array(
-				"id" => $con["from"],
-				"name" => $con["from.name"],
-				"class_id" => $con["from.class_id"],
-			);
+			// load participant list
+			$ol = new object_list(array(
+				"class_id" => CL_CRM_MEETING,
+				"oid" => array_keys($events)
+			));
+			$meetings = $ol->ids();
+			$c = new connection();
+			$conns = $c->find(array(
+				"from.class_id" => CL_CRM_PERSON,
+				"to" => $meetings,
+				"type" => "RELTYPE_PERSON_MEETING"
+			));
+			$participants = array();
+			foreach($conns as $con)
+			{
+				$participants[$con["to"]][$con["from"]] = array(
+					"id" => $con["from"],
+					"name" => $con["from.name"],
+					"class_id" => $con["from.class_id"],
+				);
+			}
+
+			$conns = $c->find(array(
+				"from.class_id" => CL_CRM_MEETING,
+				"from" => $meetings,
+				"type" => "RELTYPE_CUSTOMER"
+			));
+			$customers = array();
+			foreach($conns as $con)
+			{
+				$customers[$con["from"]][$con["to"]] = array(
+					"id" => $con["to"],
+					"name" => $con["to.name"],
+					"class_id" => $con["to.class_id"],
+				);
+			}
 		}
 
-		$conns = $c->find(array(
-			"from.class_id" => CL_CRM_MEETING,
-			"from" => $meetings,
-			"type" => "RELTYPE_CUSTOMER"
-		));
-		$customers = array();
-		foreach($conns as $con)
-		{
-			$customers[$con["from"]][$con["to"]] = array(
-				"id" => $con["to"],
-				"name" => $con["to.name"],
-				"class_id" => $con["to.class_id"],
-			);
-		}
-}
 		$reflist = array();
 		$rv = array();
 		// that eidlist thingie is no good! I might have events out of my range which I still need to include
@@ -176,17 +172,15 @@ class planner_model extends core
 		{
 			// fuck me. plenty of places expect different data from me .. until I'm
 			// sure that nothing breaks, I can't remove this
-			enter_function("get-edit-link");
 			if (!$this->can("view", $event["id"]))
 			{
 				continue;
 			}
 			$of = new object($event["id"]);
 			$row = $event + $of->properties();
-			$row["parts"] = $participants[$event["id"]];
-			$row["custs"] = $customers[$event["id"]];
+			$row["parts"] = isset($participants[$event["id"]]) ? $participants[$event["id"]] : null;
+			$row["custs"] = isset($customers[$event["id"]]) ? $customers[$event["id"]] : null;
 
-			exit_function("get-edit-link");
 			$rec = array();
 			$gx = date("dmY",$event["start"]);
 			$row["link"] = $this->get_event_edit_link(array(
@@ -198,7 +192,8 @@ class planner_model extends core
 			if ($row["status"] == 0)
 			{
 				continue;
-			};
+			}
+
 			if ($row["brother_of"] != $row["oid"])
 			{
 				$real_obj = $of->get_original();
@@ -207,7 +202,7 @@ class planner_model extends core
 				$row["comment"] = $real_obj->comment();
 				$row["status"] = $real_obj->status();
 				$row["flags"] = $real_obj->flags();
-			};
+			}
 
 			if ($of->class_id() == CL_BUG)
 			{
@@ -229,6 +224,7 @@ class planner_model extends core
 			{
 				$row["event_icon_url"] = icons::get_icon_url($eo);
 			}
+
 			if ($of->class_id() == CL_CRM_PERSON)
 			{
 				$row["name"] = sprintf(t("%s s&uuml;nnip&auml;ev!"), $of->name());
@@ -238,7 +234,7 @@ class planner_model extends core
 			if ($args["flatlist"])
 			{
 				$reflist[] = &$rv[$gx][$row["brother_of"]];
-			};
+			}
 		}
 
 		return isset($args["flatlist"]) ? $reflist : $rv;
@@ -282,7 +278,6 @@ class planner_model extends core
 		// also include events from any projects that are connected to this calender
 		// if the user wants so
 
-		enter_function("get_event_list::my_projects");
 		// "my_projects" is misleading, what it actually does is that it includes
 		// events from projects that the owner of the current calendar participiates in
 		if ($obj->prop("my_projects") == 1)
@@ -304,7 +299,6 @@ class planner_model extends core
 			}
 			else
 			{
-
 				$user_ids = array();
 
 				foreach($owners as $owner)
@@ -312,7 +306,7 @@ class planner_model extends core
 					$user_ids[] = $owner->prop("to");
 				};
 
-				$prj = get_instance(CL_PROJECT);
+				$prj = new project();
 				$tmp = $prj->get_event_folders(array(
 					"user_ids" => $user_ids,
 					"project_id" => aw_global_get("project"),
@@ -322,7 +316,7 @@ class planner_model extends core
 				if (!is_array($tmp))
 				{
 					$tmp = array($tmp);
-				};
+				}
 
 				if (aw_global_get("project"))
 				{
@@ -331,10 +325,9 @@ class planner_model extends core
 				else
 				{
 					$folders = $folders + $tmp;
-				};
-			};
-		};
-		exit_function("get_event_list::my_projects");
+				}
+			}
+		}
 
 
 		$rv = array();
@@ -380,7 +373,7 @@ class planner_model extends core
 
 		// and I have a second one too
 
-		if(is_array($arr["status"]))
+		if(isset($arr["status"]) and is_array($arr["status"]))
 		{
 			$q .= "IN (".implode(",", $arr["status"]).")";
 		}
@@ -408,13 +401,12 @@ class planner_model extends core
 			};
 		//}
 
-		if($arr["group_by"])
+		if(!empty($arr["group_by"]))
 		{
 			$q .= "GROUP BY ".$this->db_fn("planner.start");
 		}
 
 		// now, I need another clue string .. perhaps even in that big fat ass query?
-		enter_function("get_event_list::query");
 		$this->db_query($q);
 		while($row = $this->db_next())
 		{
@@ -423,12 +415,10 @@ class planner_model extends core
 				"start" => $row["start"],
 				"end" => $row["end"],
 			);
-		};
-		exit_function("get_event_list::query");
+		}
 
 		$fldstr = join(",",$folders);
 
-		enter_function("get_event_list::recur");
 		if (aw_ini_get("calendar.recurrence_enabled") == 1)
 		{
 			// now collect recurrence data
@@ -455,7 +445,6 @@ class planner_model extends core
 				$this->recur_info[$row["id"]][] = $row["recur_start"];
 			};
 		};
-		exit_function("get_event_list::recur");
 
 		// get b-days
 		if ($obj->prop("show_bdays") == 1)
@@ -538,4 +527,3 @@ class planner_model extends core
 
 	}
 }
-?>
