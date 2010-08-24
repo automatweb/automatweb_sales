@@ -8,8 +8,10 @@ require_once "mrp_header.aw";
 
 /* A manufacturing resource is a processing unit that converts 'input products' to 'output products' */
 
-class mrp_resource_obj extends _int_object
+class mrp_resource_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
+	const AW_CLID = 825;
+
 	const STATE_AVAILABLE = 10;
 	const STATE_RESERVED = 14;
 	const STATE_PROCESSING = 11;
@@ -44,6 +46,15 @@ class mrp_resource_obj extends _int_object
 			$this->set_prop ("state", self::STATE_AVAILABLE);
 			$this->set_prop ("production_feedback_option_values", array(1));
 		}
+	}
+
+	//	Written solely for testing purposes!
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+		return $ol;
 	}
 
 	public function get_type_options()
