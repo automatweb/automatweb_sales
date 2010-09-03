@@ -85,6 +85,14 @@
             <caption>Sisu</caption>
       </property>
       <property>
+            <name>sent_content</name>
+            <table>aw_crm_offer_sent</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_sent_content</field>
+            <caption>Saadetud sisu</caption>
+      </property>
+      <property>
             <name>do_send</name>
             <table>aw_crm_offer_sent</table>
             <group>general</group>
