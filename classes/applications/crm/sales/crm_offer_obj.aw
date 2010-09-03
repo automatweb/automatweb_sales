@@ -81,6 +81,24 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	}
 
 	/**
+		@attrib api=1
+	**/
+	public function sent()
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before 'sent to's can be queried!");
+		}
+
+		$ol = new object_list(array(
+			"class_id" => CL_CRM_OFFER_SENT,
+			"offer" => $this->id(),
+		));
+
+		return $ol;
+	}
+
+	/**
 		@attrib api=1 params=name
 		@param firstname required type=string
 		@param lastname required type=string
