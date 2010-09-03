@@ -144,6 +144,10 @@ class crm_offer extends class_base
 		$t->define_field(array(
 			"name" => "time",
 			"caption" => t("Aeg"),
+			"align" => "center",
+			"type" => "time",
+			"numeric" => true,
+			"format" => "d.m.Y H:i",
 		));
 		$t->define_field(array(
 			"name" => "to",
