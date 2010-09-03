@@ -669,12 +669,10 @@
             <caption>Arvele m&amp;amp;auml;&amp;amp;auml;ramise kuup&amp;amp;auml;ev</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_BUG</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <r2>yes</r2>
-            <maintainer>robert</maintainer>
       </classinfo>
       <groupinfo>
             <cust>
