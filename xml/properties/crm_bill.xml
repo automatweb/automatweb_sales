@@ -426,7 +426,7 @@
             <no_caption>1</no_caption>
             <parent>writeoff_layout</parent>
             <field>writeoffs</field>
-            <caption>Maha kantud arve read</caption>
+            <caption>Mahakantud arve read</caption>
       </property>
       <property>
             <name>show_oe_add</name>

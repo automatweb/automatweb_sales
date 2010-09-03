@@ -170,9 +170,7 @@
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_SECTION</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <Kontaktid>
