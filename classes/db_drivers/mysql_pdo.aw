@@ -106,7 +106,7 @@ class mysql_pdo
 			if ($errors)
 			{
 				$e_cnt = 0;
-				while (!$this->qID && $this->_proc_error($qtext, $errstr = $this->dbh->errorInfo()) && $e_cnt < 200)
+				while (!$this->qID && $this->_proc_error($qtext, $error_info = $this->dbh->errorInfo()) && $e_cnt < 200)
 				{
 					$this->qID = $this->dbh->query($qtext);
 					$e_cnt++;
@@ -722,8 +722,10 @@ class mysql_pdo
 		return DB_TABLE_TYPE_TABLE;
 	}
 
-	function _proc_error($q, $errstr)
+	function _proc_error($q, $error_info)
 	{
+		$errstr = $error_info[2];
+
 		if (strpos($errstr, "Unknown column") !== false)
 		{
 			if (!preg_match("/Unknown column '(.*)\.(.*)'/imsU" , $errstr, $mt))
