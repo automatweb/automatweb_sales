@@ -2,7 +2,7 @@
 // auth_config.aw - Autentimise Seaded
 /*
 
-@classinfo syslog_type=ST_AUTH_CONFIG relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1
 
 @default table=objects
 @default group=general
@@ -58,9 +58,7 @@ class auth_config extends class_base
 		{
 			case "activity":
 				$ol = new object_list(array(
-					"class_id" => CL_AUTH_CONFIG,
-					"lang_id" => array(),
-					"site_id" => array()
+					"class_id" => CL_AUTH_CONFIG
 				));
 				for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 				{
@@ -89,13 +87,11 @@ class auth_config extends class_base
 	{
 		// this is supposed to return a list of all authconfigs
 		// to let the user choose the active one
-		$table = &$arr["prop"]["vcl_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 		$table->parse_xml_def("activity_list");
 
 		$pl = new object_list(array(
-			"class_id" => CL_AUTH_CONFIG,
-			"site_id" => array(),
-			"lang_id" => array()
+			"class_id" => CL_AUTH_CONFIG
 		));
 		for($o = $pl->begin(); !$pl->end(); $o = $pl->next())
 		{
@@ -140,7 +136,7 @@ class auth_config extends class_base
 
 	function do_servers($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_servers_tbl($t);
 
 		$clss = aw_ini_get("classes");
@@ -156,7 +152,7 @@ class auth_config extends class_base
 				"use" => html::checkbox(array(
 					"name" => "data[".$serv->id()."][use]",
 					"value" => 1,
-					"checked" => ($data[$serv->id()]["use"] == 1)
+					"checked" => !empty($data[$serv->id()]["use"])
 				)),
 				"jrk" => html::textbox(array(
 					"name" => "data[".$serv->id()."][jrk]",
@@ -182,15 +178,12 @@ class auth_config extends class_base
 	**/
 	function has_config()
 	{
-		aw_disable_acl();
 		$ol = new object_list(array(
 			"class_id" => CL_AUTH_CONFIG,
 			"flags" => array(
 				"mask" => OBJ_FLAG_IS_SELECTED,
 				"flags" => OBJ_FLAG_IS_SELECTED
-			),
-			"lang_id" => array(),
-			"site_id" => array()
+			)
 		));
 		if ($ol->count())
 		{
@@ -204,7 +197,6 @@ class auth_config extends class_base
 			}
 			return $tmp->id();
 		}
-		aw_restore_acl();
 		return false;
 	}
 
@@ -274,7 +266,6 @@ class auth_config extends class_base
 		{
 			return array();
 		}
-		aw_disable_acl();
 		$o = obj($id);
 		$s = self::_get_server_list($o);
 		asort($s);
@@ -284,7 +275,6 @@ class auth_config extends class_base
 		{
 			$ret[] = obj($sid);
 		}
-		aw_restore_acl();
 		return $ret;
 	}
 
@@ -294,7 +284,6 @@ class auth_config extends class_base
 	{
 		$ret = array();
 		$s = $o->meta("auth");
-		aw_disable_acl();
 		foreach($o->connections_from(array("type" => "RELTYPE_AUTH_SERVER")) as $c)
 		{
 			$to_id = $c->prop("to");
@@ -304,7 +293,6 @@ class auth_config extends class_base
 			}
 		}
 
-		aw_restore_acl();
 		return $ret;
 	}
 
@@ -514,4 +502,3 @@ class auth_config extends class_base
 
 class awex_auth extends aw_exception {}
 
-?>

@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
+
 class project_files_impl extends class_base
 {
 	function project_files_impl()
@@ -25,7 +23,7 @@ class project_files_impl extends class_base
 	{
 		$pt = $this->_get_files_pt($arr);
 
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$types = array(
 			CL_MENU => t("Kataloog"),
@@ -119,7 +117,7 @@ class project_files_impl extends class_base
 		return $ff->id();
 	}
 
-	
+
 	function _get_parent_folders($obj)
 	{
 		$parents = array();
@@ -146,12 +144,11 @@ class project_files_impl extends class_base
 		$otf = $arr["request"]["tf"];
 		unset($arr["request"]["tf"]);
 		$pt = $this->_get_files_pt($arr);
-		classload("core/icons");
 		$parent_folders = $this->_get_parent_folders($arr["obj_inst"]);
 		$parent_folders[] = $arr["obj_inst"]->id();
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
-				"type" => TREE_DHTML, 
+				"type" => TREE_DHTML,
 				"persist_state" => true,
 				"tree_id" => "crm_proj_t",
 			),
@@ -176,7 +173,7 @@ class project_files_impl extends class_base
 			"name" => $nm,
 			"url" => aw_url_change_var("tf", "unsorted"),
 		));
-		
+
 		$nm = t("T&uuml;&uuml;bi j&auml;rgi");
 		if ($otf == "by_type")
 		{
@@ -185,15 +182,15 @@ class project_files_impl extends class_base
 		$arr["prop"]["vcl_inst"]->add_item(0, array(
 			"id" => "by_type",
 			"name" => $nm,
-			"url" => aw_url_change_var("tf", "by_type"),
+			"url" => aw_url_change_var("tf", "by_type")
 		));
-		
+
 		$types = array(
 			CL_FILE => t("Fail"),
 			CL_CRM_MEMO => t("Memo"),
 			CL_CRM_DOCUMENT => t("CRM Dokument"),
 			CL_CRM_DEAL => t("Leping"),
-			CL_CRM_OFFER => t("Pakkumine"),
+			CL_CRM_OFFER => t("Pakkumus"),
 			CL_PROJECT_STRAT_GOAL_EVAL_WS => t("Eesm&auml;rkide hindamise t&ouml;&ouml;laud"),
 			CL_PROJECT_RISK_EVAL_WS => t("Riskide hindamise t&ouml;&ouml;laud"),
 			CL_PROJECT_ANALYSIS_WS => t("Anal&uuml;&uuml;si t&ouml;&ouml;laud"),
@@ -204,9 +201,8 @@ class project_files_impl extends class_base
 		{
 			$filter = array(
 				"class_id" => $clid,
-				"lang_id" => array(),
 			);
-			if(in_array($clid ,array(CL_CRM_DOCUMENT,CL_CRM_DEAL,CL_CRM_MEMO,CL_CRM_OFFER,CL_DEVELOPMENT_ORDER)))
+			if(in_array($clid ,array(CL_CRM_DOCUMENT,CL_CRM_DEAL,CL_CRM_MEMO,CL_DEVELOPMENT_ORDER)))
 			{
 				$filter["project"] = $pr;
 			}
@@ -223,12 +219,12 @@ class project_files_impl extends class_base
 			$arr["prop"]["vcl_inst"]->add_item("by_type", array(
 				"id" => $clid,
 				"name" => $nm,
-				"url" => aw_url_change_var("tf", $clid),
+				"url" => aw_url_change_var("tf", $clid)
 			));
 		}
 	}
 
-	function _init_files_tbl(&$t)
+	function _init_files_tbl($t)
 	{
 		$t->define_field(array(
 			"caption" => t(""),
@@ -289,9 +285,9 @@ class project_files_impl extends class_base
 		if($arr["request"])
 		{
 			$pt = $this->_get_files_pt($arr);
-		}	
-		
-		$t =& $arr["prop"]["vcl_inst"];
+		}
+
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_files_tbl($t);
 		$pr = NULL;
 
@@ -302,7 +298,7 @@ class project_files_impl extends class_base
 				"class_id" => array(CL_FILE,CL_CRM_DOCUMENT, CL_CRM_DEAL, CL_CRM_MEMO, CL_CRM_OFFER , CL_PROJECT_STRAT_GOAL_EVAL_WS ,CL_PROJECT_RISK_EVAL_WS ,CL_PROJECT_ANALYSIS_WS,CL_DEVELOPMENT_ORDER),
 				"lang_id" => array(),
 				"name" => "%".$arr["request"]["files_find_name"]."%",
-				
+
 			);
 			if($arr["request"]["files_find_comment"])
 			{
@@ -322,7 +318,7 @@ class project_files_impl extends class_base
 	//			$pt = new obj_predicate_not(array($pt, $pt) + $ot->ids());
 				$pr = $arr["obj_inst"]->id();
 				$pt = new obj_predicate_not($this->_get_parent_folders($arr["obj_inst"]));
-			
+
 			}
 			$filter = array(
 				$filters,
@@ -341,7 +337,7 @@ class project_files_impl extends class_base
 					"CL_CRM_OFFER.project" => $pr,
 				))
 			);
-	
+
 			if(in_array($arr["request"]["tf"], array(CL_FILE,CL_CRM_MEMO,CL_CRM_DOCUMENT,CL_CRM_DEAL,CL_CRM_OFFER,CL_PROJECT_STRAT_GOAL_EVAL_WS,CL_PROJECT_RISK_EVAL_WS,CL_PROJECT_ANALYSIS_WS,CL_DEVELOPMENT_ORDER)))
 			{
 				$pr = $arr["obj_inst"]->id();
@@ -362,14 +358,12 @@ class project_files_impl extends class_base
 		}
 
 		$ol = new object_list($filter);
-		classload("core/icons");
 		$clss = aw_ini_get("classes");
-		get_instance(CL_FILE);
 		foreach($ol->arr() as $o)
 		{
 			$pm = get_instance("vcl/popup_menu");
 			$pm->begin_menu("sf".$o->id());
-			
+
 			if ($o->class_id() == CL_FILE)
 			{
 				$pm->add_item(array(
@@ -387,7 +381,7 @@ class project_files_impl extends class_base
 					));
 				}
 			}
-			
+
 			$t->define_data(array(
 				"icon" => $pm->get_menu(array(
 					"icon" => icons::get_icon_url($o)
@@ -406,5 +400,3 @@ class project_files_impl extends class_base
 		$t->set_default_sorder("desc");
 	}
 }
-
-?>

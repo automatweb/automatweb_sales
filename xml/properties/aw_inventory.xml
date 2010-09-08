@@ -1,11 +1,38 @@
 <?xml version='1.0'?>
 <properties>
+      <property>
+            <name>keep_records</name>
+            <type>hidden</type>
+            <default>1</default>
+            <field>meta</field>
+            <method>serialize</method>
+            <comment>Transactions will be stored</comment>
+      </property>
+      <property>
+            <name>keep_inventory</name>
+            <type>hidden</type>
+            <default>1</default>
+            <field>meta</field>
+            <method>serialize</method>
+            <comment>Item quantities will be stored</comment>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
-            <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>voldemar</maintainer>
-            <confirm_save_data>1</confirm_save_data>
       </classinfo>
+      <tableinfo>
+            <aw_inventory>
+                  <index>aw_oid</index>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+            </aw_inventory>
+      </tableinfo>
+      <reltypes>
+            <SUB_INVENTORY>
+                  <value>1</value>
+                  <clid>CL_AW_INVENTORY</clid>
+                  <caption>Sub-inventory</caption>
+            </SUB_INVENTORY>
+      </reltypes>
 </properties>
 

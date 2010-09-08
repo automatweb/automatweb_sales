@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class users extends users_user implements request_startup
 {
@@ -1099,9 +1096,7 @@ class users extends users_user implements request_startup
 		$ol = new object_list(array(
 			"class_id" => CL_GROUP,
 			"gid" => $gid,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"limit" => 1,
+			"limit" => 1
 		));
 		if($ol->count())
 		{
@@ -1114,4 +1109,4 @@ class users extends users_user implements request_startup
 		}
 	}
 }
-?>
+

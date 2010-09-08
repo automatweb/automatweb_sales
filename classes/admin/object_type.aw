@@ -1,8 +1,7 @@
 <?php
 /*
-$Header: /home/cvs/automatweb_dev/classes/admin/object_type.aw,v 1.31 2009/02/18 13:46:32 instrumental Exp $
 
-@classinfo relationmgr=yes syslog_type=ST_OBJECT_TYPE maintainer=kristo
+@classinfo relationmgr=yes
 
 @default table=objects
 @default group=general
@@ -60,9 +59,7 @@ class object_type extends class_base
 			case "default_object":
 				$ol = new object_list(array(
 					"class_id" => CL_OBJECT_TYPE,
-					"subclass" => $arr["obj_inst"]->prop("type"),
-					"lang_id" => array(),
-					"site_id" => array(),
+					"subclass" => $arr["obj_inst"]->prop("type")
 				));
 				$data["options"] = $ol->names();
 				for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
@@ -71,8 +68,8 @@ class object_type extends class_base
 					if ($o->flag(OBJ_FLAG_IS_SELECTED))
 					{
 						$data["value"] = $o->id();
-					};
-				};
+					}
+				}
 				break;
 		}
 		return $retval;
@@ -109,9 +106,7 @@ class object_type extends class_base
 			case "default_object":
 				$ol = new object_list(array(
 					"class_id" => $this->clid,
-					"subclass" => $arr["obj_inst"]->prop("type"),
-					"lang_id" => array(),
-					"site_id" => array(),
+					"subclass" => $arr["obj_inst"]->prop("type")
 				));
 
 				for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
@@ -126,7 +121,7 @@ class object_type extends class_base
 						$o->set_flag(OBJ_FLAG_IS_SELECTED, true);
 						$o->save();
 					};
-				};
+				}
 				break;
 
 		};
@@ -140,7 +135,7 @@ class object_type extends class_base
 			The class id to find the object type for
 
 		@param general optional type=bool
-			If set to true, the object type returned does not have to be set as default, it is randomly selected from the available ones for the given class. 
+			If set to true, the object type returned does not have to be set as default, it is randomly selected from the available ones for the given class.
 
 		@returns
 			Matching object type object id
@@ -149,9 +144,7 @@ class object_type extends class_base
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_OBJECT_TYPE,
-			"subclass" => $arr["clid"],
-			"lang_id" => array(),
-			"site_id" => array(),
+			"subclass" => $arr["clid"]
 		));
 		$rv = false;
 		for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
@@ -289,10 +282,10 @@ class object_type extends class_base
 		$tmp = aw_ini_get("classes");
 		foreach($tmp as $clid => $cldat)
 		{
-			//if ($cldat["can_add"] == 1)
-			//{
+			if (isset($cldat["name"]))
+			{
 				$ret[$clid] = $cldat["name"];
-			//}
+			}
 		}
 		asort($ret);
 		$ret = array("__all_objs" => t("K&otilde;ik")) + $ret;
@@ -302,8 +295,8 @@ class object_type extends class_base
 	/** builds the url for adding a new object, given an object type object id for the class
 		@attrib api=1 params=name
 
-		@param id required type=oid 
-			The object type object id to read the addable class id from 
+		@param id required type=oid
+			The object type object id to read the addable class id from
 
 		@param parent required type=oid
 			The object to add the new object under
@@ -311,7 +304,7 @@ class object_type extends class_base
 		@param section optional type=oid
 			The section to display the new object adding form under
 
-		@returns 
+		@returns
 			url that displays the new object form for the class specified in the given object type object
 	**/
 	function get_add_url($arr)
@@ -337,16 +330,16 @@ class object_type extends class_base
 		@attrib api=1 params=pos
 
 		@param o required type=cl_object_type
-			The object type object to read the class and cfgform from 
+			The object type object to read the class and cfgform from
 
 		@returns
-			array { property name => property data, ... }  containing all properties in the class given in the object type 
+			array { property name => property data, ... }  containing all properties in the class given in the object type
 			or if the object type also has a config form set, then properties are read from that
 	**/
 	function get_properties($o)
 	{
 		// get a list of properties in both classes
-		$cfgx = get_instance("cfg/cfgutils");
+		$cfgx = new cfgutils();
 		$ret = $cfgx->load_properties(array(
 			"clid" => $o->subclass(),
 		));
@@ -422,4 +415,3 @@ class object_type extends class_base
 		return $ops;
 	}
 }
-?>

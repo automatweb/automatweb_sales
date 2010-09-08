@@ -55,7 +55,7 @@
             <name>start1</name>
             <table>planner</table>
             <group>general</group>
-            <type>datetime_select</type>
+            <type>datepicker</type>
             <field>start</field>
             <parent>top_2way_right</parent>
             <caption>Algus</caption>
@@ -64,7 +64,7 @@
             <name>end</name>
             <table>planner</table>
             <group>general</group>
-            <type>datetime_select</type>
+            <type>datepicker</type>
             <parent>top_2way_right</parent>
             <field>end</field>
             <caption>L&amp;amp;otilde;peb</caption>
@@ -73,7 +73,7 @@
             <name>deadline</name>
             <table>planner</table>
             <group>general</group>
-            <type>datetime_select</type>
+            <type>datepicker</type>
             <field>deadline</field>
             <parent>top_2way_right</parent>
             <caption>T&amp;amp;auml;htaeg</caption>

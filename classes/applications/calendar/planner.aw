@@ -1,4 +1,5 @@
 <?php
+
 // planner.aw - kalender
 /*
 
@@ -216,6 +217,8 @@ define("CAL_SHOW_MONTH",4);
 lc_load("calendar");
 class planner extends class_base
 {
+	/* scope? */ var $event_id = 0;
+
 	function planner($args = array())
 	{
 		$this->init(array(
@@ -1022,12 +1025,12 @@ class planner extends class_base
 		if ($this->event_id)
 		{
 			$arr["args"]["event_id"] = $this->event_id;
-			if ($this->emb_group && $this->emb_group != "general")
+			if ($this->emb_group && $this->emb_group !== "general")
 			{
 				$arr["args"]["cb_group"] = $this->emb_group;
 			}
 		}
-		if ($arr["request"]["project"])
+		if (!empty($arr["request"]["project"]))
 		{
 			$arr["args"]["project"] = $arr["request"]["project"];
 		}
@@ -1688,10 +1691,11 @@ class planner extends class_base
 			}
 		}
 
+		$cnt = 0;
 		while((isset($arr["until"]) && $tstamp < $arr["until"]) || sizeof($slots) < $vac_count)
 		{
 			// event list eh?
-			if ($wds[date("w", $tstamp)])
+			if (!empty($wds[date("w", $tstamp)]))
 			{
 				$slots = $slots + $this->_get_free_slots_for_day(array(
 					"id" => $arr["obj_inst"]->id(),
@@ -1713,7 +1717,7 @@ class planner extends class_base
 
 	function gen_vacancies($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		// mis v2ljad peavad olema
 		// jrk, algus, l6pp, checkbox kinnita
 		$t->define_field(array(
@@ -1737,6 +1741,7 @@ class planner extends class_base
 
 		$slots = $this->_gen_vac_slots($arr);
 
+		$ord = 0;
 		foreach($slots as $slot)
 		{
 			$start = $slot["start"];
@@ -1755,9 +1760,10 @@ class planner extends class_base
 
 	function gen_vacancies_cal($arr)
 	{
+		$viewtype = "week";
 		$range = $arr["prop"]["vcl_inst"]->get_range(array(
-			"date" => $arr["request"]["date"],
-			"viewtype" => $arr["request"]["viewtype"] ? $arr["request"]["viewtype"] : $viewtype,
+			"date" => empty($arr["request"]["date"]) ? 0 : $arr["request"]["date"],
+			"viewtype" => empty($arr["request"]["viewtype"]) ? $viewtype : $arr["request"]["viewtype"]
 		));
 
 		$arr["until"] = $range["end"];
@@ -2802,8 +2808,8 @@ class planner extends class_base
 		preg_match('/alias_to_org=(\w*|\d*)&/', $gl, $o);
 		preg_match('/reltype_org=(\w*|\d*)&/', $gl, $r);
 		preg_match('/alias_to_org_arr=(.*)$/', $gl, $s);
-		$r[1] = str_replace("&", "", $r[1]);
-		$o[1] = str_replace("&", "", $o[1]);
+		$r[1] = isset($r[1]) ? str_replace("&", "", $r[1]) : null;
+		$o[1] = isset($o[1]) ? str_replace("&", "", $o[1]) : null;
 		if (is_numeric($o[1]) && is_numeric($r[1]))
 		{
 			$org_obj = new object($o[1]);

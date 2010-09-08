@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 // tegeleb ORB requestide handlimisega
 lc_load("automatweb");
@@ -547,8 +544,9 @@ class orb extends aw_template
 	{
 		if (!is_readable(AW_DIR."xml/orb/{$class}.xml") && !is_readable(aw_ini_get("site_basedir")."/xml/orb/{$class}.xml"))
 		{
-			$this->raise_error("ERR_ORB_NOTFOUND",sprintf(E_ORB_CLASS_NOT_FOUND,$class),true,$this->silent);
+			throw new awex_orb_class("Class '$class' ORB definition not found");
 		}
+
 		$ret = $this->load_xml_orb_def($class);
 
 		if (isset($ret[$class]["_extends"]))
@@ -1074,4 +1072,10 @@ class orb extends aw_template
 		return true;
 	}
 }
-?>
+
+/** Generic ORB exception **/
+class awex_orb extends aw_exception {}
+
+/** ORB class related exception **/
+class awex_orb_class extends awex_orb {}
+

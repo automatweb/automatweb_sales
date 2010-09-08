@@ -1,28 +1,21 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
-classload("vcl/popup_search");
+
 class crm_participant_search extends popup_search
 {
-	function crm_participant_search()
-	{
-		$this->popup_search();
-	}
-
-	function _insert_form_props(&$htmlc, $arr)
+	function _insert_form_props($htmlc, $arr)
 	{
 		parent::_insert_form_props($htmlc, $arr);
 		$htmlc->add_property(array(
 			"name" => "s[search_co]",
 			"type" => "textbox",
-			"value" => $arr["s"]["search_co"],
+			"value" => isset($arr["s"]["search_co"]) ? $arr["s"]["search_co"] : "",
 			"caption" => t("Organisatsioon"),
 		));
 		$cur_co = get_current_company();
 		$opts = array();
 		$def = array("cur_co" => 1, $cur_co->id() => 1);
-		if (is_array($arr["s"]["co"]))
+		$has_cur = false;
+		if (isset($arr["s"]["co"]) and is_array($arr["s"]["co"]))
 		{
 			foreach($arr["s"]["co"] as $co)
 			{
@@ -57,22 +50,26 @@ class crm_participant_search extends popup_search
 			"orient" => "vertical",
 			"options" => $opts
 		));
-		if($arr["s"]["show_vals"])
+
+		if(!empty($arr["s"]["show_vals"]))
 		{
+			$my_cust = $imp = 0;
+			$cos = array();
 			$tmp = $arr["s"]["show_vals"];
-			if($tmp["my_cust"])
+			if(!empty($tmp["my_cust"]))
 			{
 				$my_cust = 1;
 				unset($tmp["my_cust"]);
 			}
-			if($tmp["imp"])
+
+			if(!empty($tmp["imp"]))
 			{
 				$imp = 1;
 				unset($tmp["imp"]);
 			}
+
 			if(count($tmp))
 			{
-				$cos = array();
 				foreach($tmp as $co)
 				{
 					if ($this->can("view", $co))
@@ -82,20 +79,23 @@ class crm_participant_search extends popup_search
 					}
 				}
 			}
-			$text = array();
+
 			if($my_cust)
 			{
 				$cos[] = t("minu klientide");
 			}
+
 			$text = implode(t(' v&otilde;i '), $cos);
 			if($text)
 			{
 				$text .= t(" t&ouml;&ouml;tajaid");
 			}
+
 			if($imp)
 			{
 				$text = t("olulisi ").$text;
 			}
+
 			$htmlc->add_property(array(
 				"name" => "info",
 				"type" => "text",
@@ -107,19 +107,23 @@ class crm_participant_search extends popup_search
 
 	function _process_reforb_args(&$data)
 	{
-		$data["s"] = array(
-			"co" => $_GET["s"]["co"]
-		);
+		if (isset($_GET["s"]["co"]))
+		{
+			$data["s"] = array(
+				"co" => $_GET["s"]["co"]
+			);
+		}
+		parent::_process_reforb_args($data);
 	}
 
 	function _get_filter_props(&$filter, $arr)
 	{
 		parent::_get_filter_props($filter, $arr);
 
-		if (!$_GET["MAX_FILE_SIZE"])
+		if (empty($_GET["MAX_FILE_SIZE"]))
 		{
 			$arr["s"]["show_vals"]["cur_co"] = 1;
-			if (is_array($arr["s"]["co"]))
+			if (isset($arr["s"]["co"]) and is_array($arr["s"]["co"]))
 			{
 				foreach($arr["s"]["co"] as $co)
 				{
@@ -130,7 +134,8 @@ class crm_participant_search extends popup_search
 				}
 			}
 		}
-		if ($arr["s"]["search_co"] != "")
+
+		if (!empty($arr["s"]["search_co"]))
 		{
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
@@ -142,25 +147,24 @@ class crm_participant_search extends popup_search
 			//$filter["CL_CRM_PERSON.RELTYPE_WORK.name"] = map("%%%s%%", array_filter(explode(",", $arr["s"]["search_co"]), create_function('$a','return $a != "";')));
 		}
 
-		if (is_array($arr["s"]["show_vals"]) && !$arr["s"]["search_co"])
+		if (isset($arr["s"]["show_vals"]) && is_array($arr["s"]["show_vals"]) && empty($arr["s"]["search_co"]))
 		{
 			$c = get_instance(CL_CRM_COMPANY);
-			if ($arr["s"]["show_vals"]["cur_co"])
+			if (!empty($arr["s"]["show_vals"]["cur_co"]))
 			{
 				$u = get_instance(CL_USER);
-				$filter["oid"] = array_keys($c->get_employee_picker(obj($u->get_current_company()),false,($arr["s"]["show_vals"]["imp"]?true:false)));
+				$filter["oid"] = array_keys($c->get_employee_picker(obj($u->get_current_company()),false,!empty($arr["s"]["show_vals"]["imp"])));
 			}
 
-			if ($arr["s"]["show_vals"]["my_cust"])
+			if (!empty($arr["s"]["show_vals"]["my_cust"]))
 			{
-				$i = get_instance(CL_CRM_COMPANY);
+				$i = new crm_company();
 				$my_c = $i->get_my_customers();
 				if (!count($my_c) && !is_array($filter["oid"]))
 				{
 					$filter["oid"] = -1;
 				}
-				else
-				if (count($my_c))
+				elseif (count($my_c))
 				{
 					foreach($my_c as $oid)
 					{
@@ -169,7 +173,7 @@ class crm_participant_search extends popup_search
 				}
 			}
 
-			if ($arr["s"]["show_vals"]["imp"] && $do_imp)
+			if (!empty($arr["s"]["show_vals"]["imp"]) && $do_imp)
 			{
 				$u = get_instance(CL_USER);
 
@@ -189,11 +193,11 @@ class crm_participant_search extends popup_search
 				}
 			}
 
-			if ($arr["s"]["show_vals"]["def"])
+			if (!empty($arr["s"]["show_vals"]["def"]))
 			{
 				$ol = new object_list(array("class_id" => CL_CRM_PERSON, "lang_id" => array(), "site_id" => array(), "limit" => 30));
 
-				$tmp = array();			
+				$tmp = array();
 				foreach($ol->ids() as $_id)
 				{
 					$tmp[$_id] = $_id;
@@ -209,7 +213,7 @@ class crm_participant_search extends popup_search
 				}
 			}
 
-			if (is_array($arr["s"]["show_vals"]))
+			if (isset($arr["s"]["show_vals"]) and is_array($arr["s"]["show_vals"]))
 			{
 				foreach($arr["s"]["show_vals"] as $k => $v)
 				{
@@ -234,8 +238,5 @@ class crm_participant_search extends popup_search
 		{
 			$filter["oid"] = -1;
 		}
-//		die(dbg::dump($filter["oid"]));
 	}
 }
-
-?>

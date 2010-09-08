@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 // god damn, this is a fucking great idea!
 // how to get around the php copy-object problem.
@@ -2303,7 +2300,7 @@ class object
 
 	public function __toString()
 	{
-		return "AW Object: ".(string)$this->oid;
+		return "AutomatWeb " . aw_ini_get("classes.".$this->class_id().".def") . " object '".(string)$this->oid . "'";
 	}
 
 	public function __get($prop)
@@ -2460,5 +2457,3 @@ class awex_obj_state_new extends awex_obj_state
 {
 	protected $message = "Operation can't be executed on a new object";
 }
-
-?>

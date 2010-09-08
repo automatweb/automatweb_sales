@@ -1982,5 +1982,3 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		return $data;
 	}
 }
-
-?>

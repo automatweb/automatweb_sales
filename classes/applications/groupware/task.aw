@@ -30,13 +30,13 @@
 
 		@layout top_2way_right type=vbox parent=top_2way
 
-			@property start1 type=datetime_select field=start table=planner parent=top_2way_right
+			@property start1 type=datepicker field=start table=planner parent=top_2way_right
 			@caption Algus
 
-			@property end type=datetime_select table=planner parent=top_2way_right
+			@property end type=datepicker table=planner parent=top_2way_right
 			@caption L&otilde;peb
 
-			@property deadline type=datetime_select table=planner field=deadline parent=top_2way_right
+			@property deadline type=datepicker table=planner field=deadline parent=top_2way_right
 			@caption T&auml;htaeg
 
 
@@ -291,6 +291,7 @@ class task extends class_base
 {
 	protected $add_to_proj;
 	protected $post_save_add_parts = array();
+	protected $mail_data = array();
 
 	function task()
 	{
@@ -1197,7 +1198,7 @@ class task extends class_base
 
 			case "content":
 				$data["style"] = "width: 100%";
-				if(isset($this->mail_data))
+				if(!empty($this->mail_data))
 				{
 					$data["value"] = sprintf(
 					"From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s",
@@ -1258,11 +1259,13 @@ class task extends class_base
 					$calo = obj($cal);
 					$data["minute_step"] = $calo->prop("minute_step");
 				}
-				if ($arr["new"])
+
+				if (!empty($arr["new"]))
 				{
 					$data["value"] = time();
-					if($day = $arr["request"]["date"])
+					if(!empty($arr["request"]["date"]))
 					{
+						$day = $arr["request"]["date"];
 						$da = explode("-", $day);
 						$data["value"] = mktime(date('h',$data["value"]), date('i', $data["value"]), 0, $da[1], $da[0], $da[2]);
 					}
@@ -1274,15 +1277,17 @@ class task extends class_base
 				break;
 
 			case "name":
-				if(isset($this->mail_data) && $this->mail_data)
+				if($this->mail_data)
 				{
 					$data["value"] = $this->mail_data["subject"];
 				}
-				if (is_object($arr["obj_inst"]) && $data["value"] == "")
+
+				if (is_object($arr["obj_inst"]) && empty($data["value"]))
 				{
 					$data["value"] = $this->_get_default_name($arr["obj_inst"]);
 				}
-				if($arr["new"])
+
+				if(!empty($arr["new"]))
 				{
 					if(isset($arr["request"]["title"]) && $arr["request"]["title"])
 					{
@@ -1377,7 +1382,7 @@ class task extends class_base
 
 			case "hr_price":
 				// get first person connected as participant and read their hr price
-				if ($data["value"] == "" && is_object($arr["obj_inst"]) && is_oid($arr["obj_inst"]->id()))
+				if (empty($data["value"]) && is_object($arr["obj_inst"]) && is_oid($arr["obj_inst"]->id()))
 				{
 					$conns = $arr['obj_inst']->connections_to(array());
 					foreach($conns as $conn)
@@ -1407,7 +1412,7 @@ class task extends class_base
 
 			case 'task_toolbar' :
 			{
-				$tb = &$data['toolbar'];
+				$tb = $data['toolbar'];
 				$tb->add_button(array(
 					'name' => 'del',
 					'img' => 'delete.gif',
@@ -1829,12 +1834,12 @@ class task extends class_base
 		$hrs = floor($len / 900) / 4;
 
 		// write length to time fields if empty
-		if ($arr["obj_inst"]->is_property("time_to_cust") and $arr["obj_inst"]->prop("time_to_cust") == "")
+		if ($arr["obj_inst"]->is_property("time_to_cust") and !$arr["obj_inst"]->prop("time_to_cust"))
 		{
 			$arr["obj_inst"]->set_prop("time_to_cust", $hrs);
 		}
 
-		if ($arr["request"]["set_resource"] != "")
+		if (!empty($arr["request"]["set_resource"]))
 		{
 			$arr["obj_inst"]->connect(array(
 				"to" => $arr["request"]["set_resource"],
@@ -2300,7 +2305,7 @@ class task extends class_base
 			"caption" => t("Teostaja"),
 			"align" => "center",
 			"filter" => $impl_filt,
-			"filter_compare" => array(&$this, "__impl_filt_comp")
+			"filter_compare" => array($this, "__impl_filt_comp")
 		));
 
 		$t->define_field(array(
@@ -2308,7 +2313,7 @@ class task extends class_base
 			"caption" => t("Tunde"),
 			"align" => "left",
 			"nowrap" => 1,
-			"callback" =>  array(&$this, "__time_format"),
+			"callback" =>  array($this, "__time_format"),
 			"callb_pass_row" => true,
 		));
 
@@ -2346,7 +2351,7 @@ class task extends class_base
 				t("Arvel"),
 				t("Arveta")
 			),
-			"filter_compare" => array(&$this, "__bill_filt_comp")
+			"filter_compare" => array($this, "__bill_filt_comp")
 		));
 
 		$t->define_field(array(
@@ -2357,7 +2362,7 @@ class task extends class_base
 				t("Jah"),
 				t("Ei")
 			),
-			"filter_compare" => array(&$this, "__com_filt_comp")
+			"filter_compare" => array($this, "__com_filt_comp")
 		));
 
 		$t->define_chooser(array(
@@ -2669,7 +2674,9 @@ class task extends class_base
 				));
 				$bv = ($row->class_id() == CL_CRM_MEETING ? $row->prop("send_bill") : $row->prop("on_bill"));
 			}
-			$this->sum+= $row->prop("time_to_cust");
+
+			$time_to_cust = $row->is_property("time_to_cust") ? $row->prop("time_to_cust") : 0;
+			$this->sum+= $time_to_cust;
 
 			//kui arve on olemas, siis ei tahaks lasta muuta enam asju
 			if($this->can("view" , $row->prop("bill_id")))
@@ -2685,7 +2692,7 @@ class task extends class_base
 					"ord_val" => $row->prop("ord"),
 					"date_val" => $date,
 					"date_sel" => $date_sel,
-					"sum_val" => $row->prop("time_to_cust"),
+					"sum_val" => $time_to_cust,
 					"ord" => $row->prop("ord"),
 					"id" => $row->id(),
 					"task" => $row->prop("content"),
@@ -2699,7 +2706,7 @@ class task extends class_base
 //					"multiple" => 1
 //				)),
 					"impl_val" => $is_str,
-					"time" => $row->prop("time_guess")." - ".t("Prognoos")."<br>".$row->prop("time_real")." - ".t("Kulunud")."<br>".$row->prop("time_to_cust")." - ".t("Kliendile")."<br>",
+					"time" => $row->prop("time_guess")." - ".t("Prognoos")."<br>".$row->prop("time_real")." - ".t("Kulunud")."<br>".$time_to_cust." - ".t("Kliendile")."<br>",
 					"done" => "",
 					"done_val" => $row->class_id() == CL_CRM_MEETING ? $row->prop("is_done") : $row->prop("done"),
 					"on_bill" => $onbill,
@@ -2718,7 +2725,7 @@ class task extends class_base
 					"ord_val" => $row->prop("ord"),
 					"date_val" => $date,
 					"date_sel" => $date_sel,
-					"sum_val" => $row->prop("time_to_cust"),
+					"sum_val" => $time_to_cust,
 					"ord" => $row->prop("ord"),
 					"id" => $row->id(),
 					"task" => $pref."<a name='row_".$idx."'></a>".html::textarea(array(
@@ -2747,7 +2754,7 @@ class task extends class_base
 					))." - ".t("Kulunud")."<br>".
 					html::textbox(array(
 						"name" => "rows[$idx][time_to_cust]",
-						"value" => $row->prop("time_to_cust"),
+						"value" => $time_to_cust,
 						"size" => 3
 					))." - ".t("Kliendile")."<br>".$stopper,
 					"done" => html::checkbox(array(
@@ -2886,15 +2893,16 @@ class task extends class_base
 			if (($row->prop("send_bill") || $row->prop("on_bill") == 1 || !$only_on_bill) && ($bill_id === null || $row->prop("bill_id") == $bill_id || $row->prop("bill_no") == $bill_id))
 			{
 				$id = $task->id()."_".$idx;
+				$time_to_cust = $row->is_property("time_to_cust") ? $row->prop("time_to_cust") : 0;
 				$rows[$id] = array(
 					"name" => $row->prop("content"),
 					"unit" => t("tund"),
 					"date" => $row->class_id() == CL_CRM_MEETING ? $row->prop("start1") : $row->prop("date"),
 					"price" => $task->prop("hr_price"),
-					"amt" => $row->prop("time_to_cust"),
+					"amt" => $time_to_cust,
 					"amt_real" => $row->prop("time_real"),
 					"amt_guess" => $row->prop("time_guess"),
-					"sum" => str_replace(",", ".", $row->prop("time_to_cust")) * $task->prop("hr_price"),
+					"sum" => str_replace(",", ".", $time_to_cust) * $task->prop("hr_price"),
 					"has_tax" => 1,
 					"on_bill" => 1,
 					"bill_id" => $row->prop("bill_id") ? $row->prop("bill_id") : $row->prop("bill_no"),
@@ -3940,11 +3948,11 @@ class task extends class_base
 		$arr["files_h"] = 0;
 		if ($request["action"] === "new")
 		{
-			$arr["add_to_cal"] = $request["add_to_cal"];
-			$arr["alias_to_org"] = $request["alias_to_org"];
-			$arr["reltype_org"] = $request["reltype_org"];
-			$arr["set_pred"] = $request["set_pred"];
-			$arr["set_resource"] = $request["set_resource"];
+			if (isset($request["add_to_cal"])) $arr["add_to_cal"] = $request["add_to_cal"];
+			if (isset($request["alias_to_org"])) $arr["alias_to_org"] = $request["alias_to_org"];
+			if (isset($request["reltype_org"])) $arr["reltype_org"] = $request["reltype_org"];
+			if (isset($request["set_pred"])) $arr["set_pred"] = $request["set_pred"];
+			if (isset($request["set_resource"])) $arr["set_resource"] = $request["set_resource"];
 		}
 	}
 
@@ -4660,15 +4668,18 @@ class task extends class_base
 		}
 
 		$cur_co = $cur  = get_current_company();
-		$tb->add_menu_item(array(
-			"text" => sprintf(t("Lisa isik organisatsiooni %s"), $cur_co->name()),
-			"parent" => "part",
-			"link" => html::get_new_url(CL_CRM_PERSON, $cur_co->id(), array(
-				"return_url" => get_ru(),
-				"add_to_task" => $arr["obj_inst"]->id(),
-				"add_to_co" => $cur_co->id()
-			))
-		));
+		if ($cur_co)
+		{
+			$tb->add_menu_item(array(
+				"text" => sprintf(t("Lisa isik organisatsiooni %s"), $cur_co->name()),
+				"parent" => "part",
+				"link" => html::get_new_url(CL_CRM_PERSON, $cur_co->id(), array(
+					"return_url" => get_ru(),
+					"add_to_task" => $arr["obj_inst"]->id(),
+					"add_to_co" => $cur_co->id()
+				))
+			));
+		}
 
 		$s = isset($arr["s"]) ? $arr["s"] : null;
 
@@ -4688,18 +4699,18 @@ class task extends class_base
 
 
 		//otsib enda ja kliendi t88tajate hulgast osalejaid
-		if (is_oid($cur->id()))
+		if ($cur_co)
 		{
-			$workers = crm_company::get_employee_picker($cur, false, true);
+			$workers = crm_company::get_employee_picker($cur_co, false, true);
 			if(!count($workers))
 			{
-				$workers = crm_company::get_employee_picker($cur, false, false);
+				$workers = crm_company::get_employee_picker($cur_co, false, false);
 			}
 			if(sizeof($workers))
 			{
-			$tb->add_sub_menu(array(
+				$tb->add_sub_menu(array(
 					"parent" => "search_part",
-					"text" => $cur->name(),
+					"text" => $cur_co->name(),
 					"name" => "part_our",
 				));
 				foreach($workers as $oid=>$name)
@@ -5010,7 +5021,7 @@ class task extends class_base
 			"CL_PROJECT.RELTYPE_ORDERER.id" => $customers
 		);
 
-		if($arr["request"]["class"] == "crm_meeting")
+		if($arr["request"]["class"] === "crm_meeting")
 		{
 			$user = get_instance(CL_USER);
 			$person = $user->get_current_person();
@@ -5179,7 +5190,7 @@ class task extends class_base
 
 	function _save_co_table($arr)
 	{
-		$rows = safe_array($arr["request"]["orderers"]);
+		$rows = isset($arr["request"]["orderers"]) ? safe_array($arr["request"]["orderers"]) : array();
 		foreach($rows as $key => $row)
 		{
 			$set = 0;
@@ -5382,7 +5393,7 @@ class task extends class_base
 
 	function save_parts_table($arr)
 	{
-		$rows = safe_array($arr["request"]["rows"]);
+		$rows = isset($arr["request"]["rows"]) ? safe_array($arr["request"]["rows"]) : array();
 		foreach($rows as $key => $row)
 		{
 			if(!isset($row["on_bill"]))
@@ -5415,7 +5426,7 @@ class task extends class_base
 		{
 			return;
 		}
-		$p = get_instance(CL_PROJECT);
+		$p = new project();
 
 		//syndmuste kiirlisamiseks teeb sellise h2ki
 		$types = array();
@@ -5499,6 +5510,7 @@ class task extends class_base
  		{
  			$impl = $u->get_current_company();
  		}
+
  		if ($this->can("view", $impl))
  		{
  			$implo = obj($impl);
@@ -5552,10 +5564,11 @@ class task extends class_base
  		{
  			$impl = $u->get_current_company();
  		}
+
  		if ($this->can("view", $impl))
  		{
  			$implo = obj($impl);
- 			$f = get_instance("applications/crm/crm_company_docs_impl");
+ 			$f = new crm_company_docs_impl();
  			$fldo = $f->_init_docs_fld($implo);
  			$ot = new object_tree(array(
  				"parent" => $fldo->id(),

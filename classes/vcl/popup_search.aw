@@ -1,4 +1,5 @@
 <?php
+
 /*
 
 this message will be sent when the contents of the popup search listbox change
@@ -11,7 +12,7 @@ class popup_search extends aw_template
 	const PS_WIDTH = 800;
 	const PS_HEIGHT = 500;
 
-	function popup_search()
+	public function __construct()
 	{
 		load_javascript("reload_properties_layouts.js");
 		$this->init("popup_search");
@@ -454,7 +455,7 @@ class popup_search extends aw_template
 					}
 			}
 	**/
-	protected function _insert_form_props(&$htmlc, $arr)
+	protected function _insert_form_props($htmlc, $arr)
 	{
 		$htmlc->add_property(array(
 			"name" => "s[name]",
@@ -515,7 +516,6 @@ class popup_search extends aw_template
 		));
 
 		$html = $htmlc->get_result();
-
 		return $html;
 	}
 
@@ -637,7 +637,7 @@ class popup_search extends aw_template
 
 		$filter = array();
 		$count = 0;
-		if ($arr['clid'] > 0)
+		if (!empty($arr['clid']))
 		{
 			$filter['class_id'] = $arr['clid'];
 			$count = 1;
@@ -714,7 +714,7 @@ class popup_search extends aw_template
 				"id" => isset($arr["id"]) ? $arr["id"] : "",
 				"multiple" => isset($arr["multiple"]) ? $arr["multiple"] : "",
 				"pn" => $arr["pn"],
-				"clid" => $arr["clid"],
+				"clid" => !empty($arr["clid"]) ? $arr["clid"] : "0",
 				"no_submit" => ifset($arr, "no_submit"),
 				"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
 			), $_GET["class"]),
@@ -1118,7 +1118,7 @@ function aw_get_el(name,form)
 			var names = document.getElementById('s_name_');
 			javascript:$.get('/automatweb/orb.aw', {class: 'popup_search',
 				action: 'get_search_results',
-				id: '".$arr["id"]."',
+				id: '".(isset($arr["id"]) ? $arr["id"] : "0")."',
 				oid: oids.value,
 				name: names.value,
 				clid: '".$arr["clid"]."',
@@ -1134,7 +1134,7 @@ function aw_get_el(name,form)
 		));
 
 		$data = array(
-			"id" => $arr["id"],
+			"id" => isset($arr["id"]) ? $arr["id"] : 0,
 			"clid" => $arr["clid"],
 			"no_submit" => ifset($arr, "no_submit"),
 			"append_html" => htmlspecialchars(ifset($arr,"append_html"), ENT_QUOTES),
@@ -1147,7 +1147,7 @@ function aw_get_el(name,form)
 			"action" => "do_search",
 			"method" => "GET",
 			"data" => $data,
-			"submit" => "no",
+			"submit" => "no"
 		));
 
 		$html = $htmlc->get_result();
@@ -1230,22 +1230,6 @@ function aw_get_el(name,form)
 			"caption" => t("Vali"),
 		));
 
-		$obj = obj($arr["id"]);
-
-//se valimine vaja ka t88le saada, muidu pole kasu sest valitavusest
-/*		$cx = get_instance("cfg/cfgutils");
-		$props = $cx->load_class_properties(array(
-			"clid" => $obj->class_id(),
-		));
-
-		if(!empty($props[$arr["property"]]["multiple"]))
-		{
-			$t->define_chooser(array(
-				"name" => "sel",
-				"field" => "oid",
-			));
-		}
-*/
 		$t->set_default_sortby("name");
 
 		$filter = array(
@@ -1303,7 +1287,7 @@ function aw_get_el(name,form)
 			{
 				$.get('/automatweb/orb.aw', {class: 'popup_search',
 					action: 'ajax_set_property',
-					id: '".$arr["id"]."',
+					id: '".(!empty($arr["id"]) ? $arr["id"] : "0")."',
 					value: value,
 					property: '".$arr["property"]."'
 				}, function (html) {
@@ -1333,4 +1317,3 @@ function aw_get_el(name,form)
 
 	//----------------------------------------------------------
 }
-?>

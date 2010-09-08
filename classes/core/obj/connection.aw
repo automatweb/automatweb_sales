@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 /*
 
@@ -727,5 +724,3 @@ class connection
 		}
 	}
 }
-
-?>

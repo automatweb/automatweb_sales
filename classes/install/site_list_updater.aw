@@ -1,9 +1,7 @@
 <?php
 
 /*
-@classinfo maintainer=kristo
 HANDLE_MESSAGE(MSG_USER_LOGIN, on_login)
-
 */
 
 class site_list_updater extends aw_template
@@ -64,13 +62,13 @@ class site_list_updater extends aw_template
 		header("Content-Type: image/gif");
 		header("Content-Length: 43");
 		header("Connection: close");
-		echo base64_decode("R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==")."\n";
+		echo base64_decode("R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==")."\n"; // an encoded 1x1 px empty gif image
 		flush();
 
 		$this->_set_last_update_time();
 		// update this site's info in the site list
 		// check if we have a session key for this site
-		if (!($key = $this->_get_session_key()) || $key == "Array")
+		if (!($key = $this->_get_session_key()) || $key === "Array")
 		{
 			// if not, request a session key from the site list server
 			$key = $this->_init_session_key();
@@ -92,6 +90,7 @@ class site_list_updater extends aw_template
 
 		// send it to the register
 		$this->_do_update($data);
+		exit; // TODO: tmp solution to headers sent error later from aw_response. send headers through aw_response
 	}
 
 	function _get_last_update_time()
@@ -173,4 +172,3 @@ class site_list_updater extends aw_template
 		}
 	}
 }
-?>

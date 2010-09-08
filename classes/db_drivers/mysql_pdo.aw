@@ -106,14 +106,14 @@ class mysql_pdo
 			if ($errors)
 			{
 				$e_cnt = 0;
-				while (!$this->qID && $this->_proc_error($qtext, $errstr = $this->dbh->errorCode()) && $e_cnt < 200)
+				while (!$this->qID && $this->_proc_error($qtext, $errstr = $this->dbh->errorInfo()) && $e_cnt < 200)
 				{
 					$this->qID = $this->dbh->query($qtext);
 					$e_cnt++;
 				}
 			}
 
-			if (mysql_errno($this->dbh) == 2013)
+			if ($this->dbh->errorCode() == 2013)
 			{
 				// retry with connection
 				$this->db_connect(aw_ini_get("db.host"), aw_ini_get("db.base"), aw_ini_get("db.user"), aw_ini_get("db.pass"));

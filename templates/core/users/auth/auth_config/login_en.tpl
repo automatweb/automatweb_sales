@@ -90,9 +90,9 @@
 			<b>You must be logged in to use this resource!</b>
 		</td>
 	</tr>
-	
+
 	<!-- SUB: SERVER_PICKER -->
-	<tr> 
+	<tr>
                             <td  class="caption">Server:</td>
                             <td class="element"><select name="server" class="select">{VAR:servers}</select></td>
 	</tr>
@@ -144,7 +144,7 @@
 	</tr>
 	<tr>
 		<td class="footer" colspan="2">
-			OÜ Struktuur Meedia<br>Address: Pärnu mnt. 154, 11317, Tallinn<br>Phone: 655 8336<br>E-mail: <a href="mailto:info@struktuur.ee">info@struktuur.ee</a>
+			OÜ Struktuur Varahaldus<br>Address: Pärnu mnt. 158/1, 11317, Tallinn<br>Phone: +372 5558 0898<br>E-mail: <a href="mailto:info@automatweb.com">info@automatweb.com</a>
 		</td>
 	</tr>
 

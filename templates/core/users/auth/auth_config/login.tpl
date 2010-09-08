@@ -163,7 +163,7 @@
 						<p>Aadress: P&auml;rnu mnt. 158b, 11317, Tallinn</p>
 					</td>
 					<td class="right">
-						<p>Infotelefon: 655 8336</p>
+						<p>Infotelefon: +372 5558 0898</p>
 						<p>E-post: <a href="mailto:info@automatweb.com">info@automatweb.com</a></p>
 					</td>
 				</tr>

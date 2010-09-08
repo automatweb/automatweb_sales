@@ -2,7 +2,7 @@
 
 /*
 
-@classinfo syslog_type=ST_CRM_SALES relationmgr=yes no_status=1 maintainer=voldemar prop_cb=1
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 
 GROUP DECLARATIONS
 @groupinfo settings caption="Seaded"
@@ -510,15 +510,15 @@ PROPERTY DECLARATIONS
 	@layout offers_vsplitbox type=hbox width=25%:75%
 
 		@layout offers_box type=vbox parent=offers_vsplitbox
-			
+
 			@layout offers_tree_box_state type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;staatuse&nbsp;j&auml;rgi parent=offers_box
 
 				@property offers_tree_state type=treeview store=no no_caption=1 parent=offers_tree_box_state
-		
+
 			@layout offers_tree_box_timespan type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;perioodi&nbsp;j&auml;rgi parent=offers_box
 
 				@property offers_tree_timespan type=treeview store=no no_caption=1 parent=offers_tree_box_timespan
-		
+
 			@layout offers_tree_box_customer_category type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;kliendikategooria&nbsp;j&auml;rgi parent=offers_box
 
 				@property offers_tree_customer_category type=treeview store=no no_caption=1 parent=offers_tree_box_customer_category
@@ -548,15 +548,15 @@ PROPERTY DECLARATIONS
 	@layout statistics_offers_vsplitbox type=hbox width=25%:75%
 
 		@layout statistics_offers_box type=vbox parent=statistics_offers_vsplitbox
-			
+
 			@layout statistics_offers_tree_box_state type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;staatuse&nbsp;j&auml;rgi parent=statistics_offers_box
 
 				@property statistics_offers_tree_state type=treeview store=no no_caption=1 parent=statistics_offers_tree_box_state
-		
+
 			@layout statistics_offers_tree_box_timespan type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;perioodi&nbsp;j&auml;rgi parent=statistics_offers_box
 
 				@property statistics_offers_tree_timespan type=treeview store=no no_caption=1 parent=statistics_offers_tree_box_timespan
-		
+
 			@layout statistics_offers_tree_box_customer_category type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;kliendikategooria&nbsp;j&auml;rgi parent=statistics_offers_box
 
 				@property statistics_offers_tree_customer_category type=treeview store=no no_caption=1 parent=statistics_offers_tree_box_customer_category
@@ -2945,5 +2945,3 @@ SCRIPT;
 		return strlen($customer->name()) > 1 ? ($customer->is_a(CL_CRM_COMPANY) ? $customer->get_title() : $customer->name()) : t("[Nimetu]");
 	}
 }
-
-?>

@@ -3,7 +3,7 @@
 // user_bookmarks.aw - Kasutaja j&auml;rjehoidjad
 /*
 
-@classinfo syslog_type=ST_USER_BOOKMARKS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo user_bookmarks index=aw_oid master_index=brother_of master_table=objects
 
@@ -165,7 +165,7 @@ class user_bookmarks extends class_base
 	function _bm_tb($arr)
 	{
 		$pt = isset($arr["request"]["tf"]) ? $arr["request"]["tf"] : $arr["obj_inst"]->id();
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"tooltip" => t("Uus"),
@@ -181,7 +181,7 @@ class user_bookmarks extends class_base
 			"link" => html::get_new_url(CL_EXTLINK, $pt, array("return_url" => get_ru()))
 		));
 
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$tb->add_cdata($ps->get_popup_search_link(array(
 			"pn" => "objs",
 		)));
@@ -334,7 +334,6 @@ class user_bookmarks extends class_base
 
 	function _bm_tree($arr)
 	{
-		classload("core/icons");
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML,
@@ -462,7 +461,7 @@ class user_bookmarks extends class_base
 
 	function _bm_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 		$this->_init_bm_table($t);
 
@@ -521,7 +520,7 @@ class user_bookmarks extends class_base
 			));
 			if(count($conn))
 			{
-				$popup_menu = get_instance("vcl/popup_menu");
+				$popup_menu = new popup_menu();
 				$popup_menu->begin_menu("grp".$o->id());
 				foreach($conn as $con)
 				{
@@ -610,7 +609,7 @@ class user_bookmarks extends class_base
 
 	function _shared_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "saveb",
 			"action" => "save_show_shared",
@@ -621,7 +620,7 @@ class user_bookmarks extends class_base
 
 	function _shared_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->start_tree(array(
 			"type" => TREE_DHTML,
 			"has_root" => 0,
@@ -732,7 +731,7 @@ class user_bookmarks extends class_base
 	function _shared_table($arr)
 	{
 		$pt = isset($arr["request"]["tf"]) ? $arr["request"]["tf"] : 0;
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_shared_table($t);
 		$cur_u = aw_global_get("uid");
 		$bm = isset($arr["request"]["user"])?obj($arr["request"]["user"]):0;
@@ -889,11 +888,10 @@ class user_bookmarks extends class_base
 	{
 		$bm = $this->init_bm();
 
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("user_bookmarks");
-		$c = get_instance("cache");
 		$time = 5*24*60*60;
-		if (!($cd = $c->file_get_ts("bms".$bm->id(), time() - $time)))
+		if (!($cd = cache::file_get_ts("bms".$bm->id(), time() - $time)))
 		{
 			$parents = array();
 			$list = array();
@@ -909,7 +907,7 @@ class user_bookmarks extends class_base
 				"listids" => $listids,
 				"parents" => $parents,
 			);
-			$c->file_set("bms".$bm->id(), aw_serialize($cd));
+			cache::file_set("bms".$bm->id(), aw_serialize($cd));
 		}
 		if($cd && !is_array($cd))
 		{
@@ -933,8 +931,9 @@ class user_bookmarks extends class_base
 		foreach($list->arr() as $li)
 		{
 			$pt = null;
-			if($pa = $parents[$li->id()])
+			if(!empty($parents[$li->id()]))
 			{
+				$pa = $parents[$li->id()];
 				$pt = "mn".$pa;
 			}
 			elseif ($li->parent() != $bm->id() && $li->class_id() != CL_USER_BOOKMARKS && array_search($li->parent(), $oids)!==false)
@@ -1107,8 +1106,7 @@ class user_bookmarks extends class_base
 
 	function clear_cache($bm)
 	{
-		$c = get_instance("cache");
-		$c->file_invalidate("bms".$bm->id());
+		cache::file_invalidate("bms".$bm->id());
 	}
 
 	function show($arr)
@@ -1125,8 +1123,6 @@ class user_bookmarks extends class_base
 		// now, add items from the bum
 		$ot = new object_tree(array(
 			"parent" => $bm->id(),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"sort_by" => "objects.jrk"
 		));
 		$mt = $bm->meta("grp_sets");
@@ -1211,15 +1207,13 @@ class user_bookmarks extends class_base
 	function do_db_upgrade($tbl, $field, $q, $err)
 	{
 
-		if($tbl == "user_bookmarks")
+		if($tbl === "user_bookmarks")
 		{
 			if($field=="")
 			{
 				$this->db_query("CREATE TABLE user_bookmarks (`aw_oid` int primary key, `sharing` int)");
 				$ol = new object_list(array(
-					"class_id" => CL_USER_BOOKMARKS,
-					"site_id" => array(),
-					"lang_id" => array(),
+					"class_id" => CL_USER_BOOKMARKS
 				));
 				foreach($ol->arr() as $o)
 				{
@@ -1243,14 +1237,14 @@ class user_bookmarks extends class_base
 
 	function callback_mod_tab($arr)
 	{
-		if($arr["id"] == "shared" && $arr["obj_inst"]->createdby() != aw_global_get("uid"))
+		if($arr["id"] === "shared" && $arr["obj_inst"]->createdby() != aw_global_get("uid"))
 		{
 			return false;
 		}
 		return true;
 	}
 
-	function fetch_shared_bms($bm, &$ol, &$parents)
+	function fetch_shared_bms($bm, $ol, &$parents)
 	{
 		$paths = array();
 		$conn = $bm->connections_from(array(
@@ -1400,4 +1394,3 @@ class user_bookmarks extends class_base
 		return $ol;
 	}
 }
-?>

@@ -267,9 +267,10 @@ class automatweb
 			$this->set_request($request);
 		}
 
+		// initiate data source
 		if (!aw_global_get("no_db_connection") )
 		{
-			$GLOBALS["object_loader"] = new _int_object_loader();
+			$GLOBALS["object_loader"] = object_loader::instance();
 		}
 
 		if (self::$request instanceof aw_http_request)

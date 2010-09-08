@@ -281,7 +281,7 @@ class crm_company_stats_impl extends class_base
 				return $this->_get_row_stats($slaves, $tasks, $arr["request"]);
 
 			case "bugs":
-				$data = $this->_get_bug_stats($slaves, $tasks, $arr["request"], $bugs, &$t);
+				$data = $this->_get_bug_stats($slaves, $tasks, $arr["request"], $bugs, $t);
 				break;
 		}
 
@@ -4121,7 +4121,7 @@ ini_set("memory_limit", "1500M");
 		{
 			case "bills":
 				$filt = $arr["request"];
-				$this->_get_bills_stats($slaves, $tasks, $filt, &$arr["prop"]["vcl_inst"]);
+				$this->_get_bills_stats($slaves, $tasks, $filt, $arr["prop"]["vcl_inst"]);
 				break;
 			case "projects":
 //				$arr["request"]["stats_s_res_type"] = "proj";
@@ -5092,7 +5092,7 @@ ini_set("memory_limit", "1500M");
 
 	private function _get_stats_workers($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$this->_init_workers_t($t);
 
@@ -5308,7 +5308,7 @@ ini_set("memory_limit", "1500M");
 
 	private function _get_stats_different_tasks($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		if($arr["request"]["class_id"] == CL_CRM_MEETING)
 		{
 			$meetings = $this->get_meetings($arr["request"]);
@@ -5427,9 +5427,7 @@ ini_set("memory_limit", "1500M");
 		}
 */
 		$bc_filt = array(
-			"class_id" => CL_TASK_ROW,
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => CL_TASK_ROW
 		);
 		if($f["between"])
 		{
@@ -5548,8 +5546,6 @@ ini_set("memory_limit", "1500M");
 	{
 		$filter = array();
 		$filter["class_id"] = CL_CRM_BILL_PAYMENT;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 		$filter["brother_of"] = new obj_predicate_prop("id");
 		if($arr["between"])
 		{
@@ -5586,8 +5582,6 @@ ini_set("memory_limit", "1500M");
 	{
 		$filter = array();
 		$filter["class_id"] = CL_CRM_BILL_ROW;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 
 		if($arr["between"])
 		{
@@ -5613,8 +5607,6 @@ ini_set("memory_limit", "1500M");
 	{
 		$filter = array();
 		$filter["class_id"] = CL_CRM_BILL_ROW;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 
 		if($arr["between"])
 		{
@@ -5628,8 +5620,6 @@ ini_set("memory_limit", "1500M");
 	{
 		$filter = array();
 		$filter["class_id"] = CL_CRM_BILL;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 		$filter["brother_of"] = new obj_predicate_prop("id");
 
 		if($arr["between"])
@@ -5644,8 +5634,6 @@ ini_set("memory_limit", "1500M");
 	{
 		$filter = array();
 		$filter["class_id"] = CL_BUG;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 		$filter["brother_of"] = new obj_predicate_prop("id");
 		if($arr["status"])
 		{
@@ -5689,8 +5677,6 @@ ini_set("memory_limit", "1500M");
 	{
 		$filter = array();
 		$filter["class_id"] = CL_TASK;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 		$filter["brother_of"] = new obj_predicate_prop("id");
 		if($arr["project_manager"])
 		{
@@ -5729,8 +5715,6 @@ ini_set("memory_limit", "1500M");
 	{
 		$filter = array();
 		$filter["class_id"] = CL_CRM_MEETING;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 		$filter["brother_of"] = new obj_predicate_prop("id");
 		if($arr["project_manager"])
 		{
@@ -5784,8 +5768,6 @@ ini_set("memory_limit", "1500M");
 	{
 		$filter = array();
 		$filter["class_id"] = CL_CRM_CALL;
-		$filter["lang_id"] = array();
-		$filter["site_id"] = array();
 		$filter["brother_of"] = new obj_predicate_prop("id");
 
 		if($arr["project_manager"])
@@ -5849,4 +5831,3 @@ ini_set("memory_limit", "1500M");
 
 }
 
-?>

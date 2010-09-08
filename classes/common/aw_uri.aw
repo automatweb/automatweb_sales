@@ -97,7 +97,7 @@ class aw_uri
 	**/
 	public function set($uri)
 	{
-		$tmp = @parse_url($uri);//!!! @ operaatorist lahti saada
+		$tmp = parse_url($uri);
 
 		if (false === $tmp)
 		{

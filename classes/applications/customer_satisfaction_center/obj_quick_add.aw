@@ -3,7 +3,7 @@
 // obj_quick_add.aw - Kiirlisamine
 /*
 
-@classinfo syslog_type=ST_OBJ_QUICK_ADD relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=bms
@@ -58,7 +58,7 @@ class obj_quick_add extends class_base
 	function _bm_tb($arr)
 	{
 		$pt = isset($arr["request"]["tf"]) ? $arr["request"]["tf"] : $arr["obj_inst"]->id();
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"tooltip" => t("Uus"),
@@ -179,7 +179,6 @@ class obj_quick_add extends class_base
 
 	function _bm_tree($arr)
 	{
-		classload("core/icons");
 		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects(array(
 			"tree_opts" => array(
 				"type" => TREE_DHTML,
@@ -198,7 +197,7 @@ class obj_quick_add extends class_base
 		));
 	}
 
-	function _init_bm_table(&$t)
+	function _init_bm_table($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -242,7 +241,7 @@ class obj_quick_add extends class_base
 
 	function _bm_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 		$this->_init_bm_table($t);
 
@@ -255,7 +254,7 @@ class obj_quick_add extends class_base
 		));
 		$mt = $arr["obj_inst"]->meta("grp_sets");
 		$clss = aw_ini_get("classes");
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		foreach($ol->arr() as $o)
 		{
 			$clid = "";
@@ -307,10 +306,13 @@ class obj_quick_add extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = post_ru();
-		$arr["tf"] = $_GET["tf"];
+		if (isset($request["tf"]))
+		{
+			$arr["tf"] = $request["tf"];
+		}
 	}
 
 	/**
@@ -325,14 +327,12 @@ class obj_quick_add extends class_base
 		$q = $bits["query"];
 		parse_str($q, $td);
 
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("user_qa");
 
 		// now, add items from the bum
 		$ot = new object_tree(array(
 			"parent" => $bm->id(),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"sort_by" => "objects.jrk"
 		));
 		$list = $ot->to_list();
@@ -455,14 +455,12 @@ class obj_quick_add extends class_base
 			$o->set_class_id(CL_OBJ_QUICK_ADD);
 			$o->set_parent(aw_ini_get("amenustart"));
 			$o->set_name(sprintf(t("%s kiirlisamine"), $p->name()));
-			aw_disable_acl();
 			$o->save();
 
 			$o->connect(array(
 				"to" => $p->id(),
 				"type" => "RELTYPE_PERSON"
 			));
-			aw_restore_acl();
 			return $o;
 		}
 		else
@@ -516,9 +514,7 @@ class obj_quick_add extends class_base
 
 		$bm = $this->init_qa();
 		$ot = new object_tree(array(
-			"parent" => $bm->id(),
-			"lang_id" => array(),
-			"site_id" => array()
+			"parent" => $bm->id()
 		));
 		$list = $ot->to_list();
 		foreach($list->arr() as $item)
@@ -563,4 +559,3 @@ class obj_quick_add extends class_base
 		return $arr["post_ru"];
 	}
 }
-?>

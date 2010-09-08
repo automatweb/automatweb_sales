@@ -2599,7 +2599,7 @@ function get_active_lang()
 
 /**
 @attrib api=1
-@param bytes_string required type=string
+@param bytes_string type=string
 	String to convert. A number optionally followed by a factor suffix k, m or g in lower or upper case
 @comment Converts the string to integer value number of bytes.
 @returns int
@@ -2625,4 +2625,31 @@ function aw_bytes_string_to_int($bytes_string)
 	return $val;
 }
 
-?>
+/** Returns element at given index from given array or given default if nothing set at that index
+@attrib api=1 params=pos
+@param array type=array
+	Array to search
+@param default type=mixed
+	Value to return if not set
+@param index type=mixed
+	Any number of additional parameters for array index keys each referencing next (deeper) dimension in $array
+@return mixed
+**/
+function aw_ifset($array, $default)
+{
+	$index_args_count = func_num_args();
+
+	for ($i = 2; $i < $index_args_count and $index_key = func_get_arg($i) and isset($array[$index_key]); $i++)
+	{
+		if (is_array($array[$index_key]))
+		{
+			$array = $array[$index_key];
+		}
+		else
+		{
+			$default = $array[$index_key];
+		}
+	}
+
+	return $default;
+}
