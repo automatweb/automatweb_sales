@@ -405,7 +405,7 @@ class mrp_resource extends class_base
 		return array(mrp_resource_obj::STATE_AVAILABLE, $max_jobs-$available);
 	}
 
-	function callback_mod_reforb ($arr)
+	function callback_mod_reforb (&$arr)
 	{
 		if ($this->workspace)
 		{
