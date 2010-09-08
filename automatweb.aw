@@ -151,6 +151,10 @@ class automatweb
 				$aw->mode($mode_id);
 			}
 		}
+		else
+		{
+			$aw->mode(self::MODE_PRODUCTION);
+		}
 	}
 
 	private static function start_session()
