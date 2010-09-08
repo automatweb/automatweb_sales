@@ -59,26 +59,6 @@
             <caption>Lepingud</caption>
       </property>
       <property>
-            <name>send</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>text</type>
-            <store>no</store>
-            <editonly>1</editonly>
-            <field>send</field>
-            <caption>Saada kliendile</caption>
-      </property>
-      <property>
-            <name>save_as_template</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>text</type>
-            <store>no</store>
-            <editonly>1</editonly>
-            <field>save_as_template</field>
-            <caption>Salvesta &amp;amp;scaron;abloonina</caption>
-      </property>
-      <property>
             <name>template_name</name>
             <table>aw_crm_offer</table>
             <group>general</group>
@@ -102,6 +82,40 @@
             <type>hidden</type>
             <field>aw_date</field>
             <caption>Kuup&amp;amp;auml;ev</caption>
+      </property>
+      <property>
+            <name>submit</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>submit</type>
+            <store>no</store>
+            <parent>buttons</parent>
+            <field>submit</field>
+            <caption>Salvesta</caption>
+      </property>
+      <property>
+            <name>save_as_template</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>button</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <no_caption>1</no_caption>
+            <parent>buttons</parent>
+            <field>save_as_template</field>
+            <caption>Salvesta &amp;amp;scaron;abloonina</caption>
+      </property>
+      <property>
+            <name>send</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>button</type>
+            <store>no</store>
+            <editonly>1</editonly>
+            <no_caption>1</no_caption>
+            <parent>buttons</parent>
+            <field>send</field>
+            <caption>Saada kliendile</caption>
       </property>
       <property>
             <name>content_add</name>
@@ -162,6 +176,16 @@
             <editonly>1</editonly>
             <field>confirmations_table</field>
       </property>
+      <property>
+            <name>sent_table</name>
+            <table>aw_crm_offer</table>
+            <group>sent</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <editonly>1</editonly>
+            <field>sent_table</field>
+      </property>
       <classinfo>
             <syslog_type>ST_CRM_OFFER</syslog_type>
             <relationmgr>yes</relationmgr>
@@ -172,6 +196,10 @@
             <maintainer>kaarel</maintainer>
       </classinfo>
       <groupinfo>
+            <general>
+                  <submit>no</submit>
+                  <caption>&amp;amp;Uuml;ldine</caption>
+            </general>
             <content>
                   <caption>Sisu</caption>
             </content>
@@ -180,7 +208,12 @@
             </preview>
             <confirmations>
                   <caption>Kinnitused</caption>
+                  <submit>no</submit>
             </confirmations>
+            <sent>
+                  <caption>Saadetud&amp;amp;nbsp;pakkumised</caption>
+                  <submit>no</submit>
+            </sent>
       </groupinfo>
       <tableinfo>
             <aw_crm_offer>
@@ -196,5 +229,12 @@
                   <caption>Leping</caption>
             </CONTRACT>
       </reltypes>
+      <layout>
+            <buttons>
+                  <type>hbox</type>
+                  <group>general</group>
+                  <area_caption></area_caption>
+            </buttons>
+      </layout>
 </properties>
 

@@ -4,6 +4,8 @@
 @tableinfo aw_crm_offer master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_crm_offer
+
+@groupinfo general submit=no caption=&Uuml;ldine
 @default group=general
 
 	@property customer_relation type=hidden datatype=int field=aw_customer_relation
@@ -24,12 +26,6 @@
 	@property contracts type=chooser multiple=1 orient=vertical store=no
 	@caption Lepingud
 
-	@property send type=text store=no editonly=1
-	@caption Saada kliendile
-
-	@property save_as_template type=text store=no editonly=1
-	@caption Salvesta &scaron;abloonina
-
 	@property template_name type=hidden store=no editonly=1
 
 	@property sum type=hidden field=aw_sum
@@ -37,6 +33,17 @@
 
 	@property date type=hidden field=aw_date
 	@caption Kuup&auml;ev
+
+	@layout buttons type=hbox
+
+		@property submit type=submit store=no parent=buttons
+		@caption Salvesta
+
+		@property save_as_template type=button store=no editonly=1 no_caption=1 parent=buttons
+		@caption Salvesta &scaron;abloonina
+
+		@property send type=button store=no editonly=1 no_caption=1 parent=buttons
+		@caption Saada kliendile
 
 @groupinfo content caption=Sisu
 @default group=content
@@ -54,10 +61,15 @@
 
 	@property preview type=text store=no no_caption=1 editonly=1
 
-@groupinfo confirmations caption=Kinnitused
+@groupinfo confirmations caption=Kinnitused submit=no
 @default group=confirmations
 
 	@property confirmations_table type=table store=no no_caption=1 editonly=1
+
+@groupinfo sent caption=Saadetud&nbsp;pakkumised submit=no
+@default group=sent
+
+	@property sent_table type=table store=no no_caption=1 editonly=1
 
 @reltype CONTRACT value=1 clid=CL_CRM_DEAL
 @caption Leping
@@ -121,6 +133,58 @@ class crm_offer extends class_base
 		}
 	}
 
+	protected function define_sent_table_header($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->define_field(array(
+			"name" => "from",
+			"caption" => t("Saatja"),
+		));
+		$t->define_field(array(
+			"name" => "time",
+			"caption" => t("Aeg"),
+			"align" => "center",
+			"type" => "time",
+			"numeric" => true,
+			"format" => "d.m.Y H:i",
+		));
+		$t->define_field(array(
+			"name" => "to",
+			"caption" => t("Saaja"),
+		));
+		$t->define_field(array(
+			"name" => "content",
+			"caption" => t("Sisu"),
+		));
+		/*
+		$t->define_field(array(
+			"name" => "version",
+			"caption" => t("Saadetud versioon"),
+		));
+		*/
+	}
+
+	public function _get_sent_table($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$offer = $arr["obj_inst"];
+
+		$this->define_sent_table_header($arr);
+
+		$sents = $offer->sent();
+		foreach($sents->arr() as $sent)
+		{
+			$t->define_data(array(
+				"from" => htmlspecialchars(sprintf("%s <%s>", $sent->send_from_name, $sent->send_from_adr)),
+				"time" => $sent->sent_when,
+				"to" => htmlspecialchars(sprintf("%s <%s>", $sent->send_to_name, $sent->send_to_mail)),
+				"content" => nl2br(strlen($sent->sent_content) !== 0 ? $sent->sent_content : $sent->instance()->_format_content($sent)),
+				"version" => ""
+			));
+		}
+	}
+
 	public function _get_contracts(&$arr)
 	{
 		$arr["prop"]["options"] = automatweb::$request->get_application()->get_contract_list()->names();
@@ -145,17 +209,16 @@ class crm_offer extends class_base
 
 	public function _get_save_as_template(&$arr)
 	{
-		$arr["prop"]["value"] = html::href(array(
-			"caption" => t("Salvesta &scaron;abloonina"),
-			"url" => "javascript:void(0);",
-			"onclick" => '$.prompt(offer_template_name_html, {
-				callback: function(v,m){
-					$("input[type=hidden][name=template_name]").val(m.children("#offer_template_name").val());
-					submit_changeform("create_template");
-				},
-				buttons: { "Salvesta": true, "Katkesta": false }
-			});',
-		));
+		$arr["prop"]["class"] = "sbtbutton";
+		$arr["prop"]["onclick"] = "$.prompt(offer_template_name_html, {
+			callback: function(v,m){
+				if(v == true){
+					$('input[type=hidden][name=template_name]').val(m.children('#offer_template_name').val());
+					submit_changeform('create_template');
+				}
+			},
+			buttons: { 'Salvesta': true, 'Katkesta': false }
+		});";
 	}
 
 	public function _get_send($arr)
@@ -165,10 +228,8 @@ class crm_offer extends class_base
 			return PROP_IGNORE;
 		}
 
-		$arr["prop"]["value"] = html::href(array(
-			"caption" => t("Saada kliendile"),
-			"url" => $this->mk_my_orb("new", array("return_url" => get_ru(), "offer" => $arr["obj_inst"]->id(), "parent" => $arr["obj_inst"]->id()), CL_CRM_OFFER_SENT),
-		));
+		$arr["prop"]["class"] = "sbtbutton";
+		$arr["prop"]["onclick"] = sprintf("document.location = '%s'", $this->mk_my_orb("new", array("return_url" => get_ru(), "offer" => $arr["obj_inst"]->id(), "parent" => $arr["obj_inst"]->id()), CL_CRM_OFFER_SENT));
 	}
 
 	public function _get_state($arr)
@@ -210,7 +271,7 @@ class crm_offer extends class_base
 		$t->add_save_button();
 	}
 
-	public function define_content_table_header($arr)
+	protected function define_content_table_header($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 

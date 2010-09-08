@@ -36,6 +36,9 @@
 	@property send_content type=textarea rows=20 cols=50 field=aw_send_content
 	@caption Sisu
 
+	@property sent_content type=hidden field=aw_sent_content
+	@caption Saadetud sisu
+
 	@property do_send type=checkbox ch_value=1 field=aw_do_send
 	@caption Saada
 
@@ -151,13 +154,15 @@ class crm_offer_sent extends class_base
 
 	public function do_send_offer($o)
 	{
+		$content = $this->_format_content($o);
+
 		$awm = get_instance("protocols/mail/aw_mail");
 		$awm->create_message(array(
 			"froma" => $o->send_from_adr,
 			"fromn" => $o->send_from_name,
 			"subject" => $o->send_subject,
 			"To" => $o->send_to_name." <".$o->send_to_mail.">",
-			"body" => $this->_format_content($o),
+			"body" => $content,
 			"cc" => $o->send_to_cc
 		));
 
@@ -169,10 +174,12 @@ class crm_offer_sent extends class_base
 		$awm->clean();
 
 		$o->sent_when = time();
+		$o->set_prop("sent_content", $content);
 		$o->save();
 	}
 
-	private function _format_content($o)
+	//	Should be protected. Set public only as a temporary measure to fix not saving the sent content before. -- kaarel @ 03.09.2010
+	public function _format_content($o)
 	{
 		$offer = $o->offer();
 
@@ -224,6 +231,7 @@ class crm_offer_sent extends class_base
 						break;
 
 					case "aw_send_content":
+					case "aw_sent_content":
 						$this->db_add_col($table, array(
 							"name" => $field,
 							"type" => "mediumtext"
