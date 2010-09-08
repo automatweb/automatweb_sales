@@ -178,10 +178,7 @@ class auth_server_openldap extends class_base
 				}
 			}
 		}
-		else
-		{
-			throw new awex_auth_ldap_bind(ldap_error($res));
-		}
+
 		return array(false, t("Sellist kasutajat pole v&otilde;i parool on vale!"), $break);
 	}
 

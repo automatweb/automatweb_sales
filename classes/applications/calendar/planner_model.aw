@@ -109,9 +109,8 @@ class planner_model extends core
 	function _init_event_source($args = array())
 	{
 		extract($args);
-		classload("core/date/date_calc");
 
-		$di = get_date_range(array(
+		$di = date_calc::get_date_range(array(
 			"date" => isset($date) ? $date : date("d-m-Y"),
 			"type" => $type,
 		));
@@ -194,7 +193,7 @@ class planner_model extends core
 				continue;
 			}
 
-			if ($row["brother_of"] != $row["oid"])
+			if (!isset($row["oid"]) or $row["brother_of"] != $row["oid"])
 			{
 				$real_obj = $of->get_original();
 				$eo = $real_obj;
@@ -250,7 +249,6 @@ class planner_model extends core
 		$event_ids = array();
 		$folders = $this->get_event_folders(array("id" => $obj->id()));
 
-		classload("core/date/date_calc");
 		if(!isset($arr["start"]) && isset($arr["range"]["start"]))
 		{
 			$arr["start"] = $arr["range"]["start"];
@@ -261,7 +259,7 @@ class planner_model extends core
 		}
 		if (empty($arr["start"]))
 		{
-			$di = get_date_range(array(
+			$di = date_calc::get_date_range(array(
 				"date" => isset($arr["date"]) ? $arr["date"] : date("d-m-Y"),
 				"type" => $arr["type"],
 				"fullweeks" => 1,

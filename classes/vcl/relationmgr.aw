@@ -2,9 +2,7 @@
  // this is the new relationmanager, unfortunately for now, still template based, let's hope
  // that class_base will one day be powerful enough to replace these with properties without
  // a headache -- ahz
-/*
-@classinfo maintainer=kristo
-*/
+
 class relationmgr extends aw_template
 {
 	function relationmgr()
@@ -1211,5 +1209,3 @@ class relationmgr extends aw_template
 		return $this->mk_my_orb("disp_relmgr", array("id" => $arr["id"]));;
 	}
 }
-
-?>

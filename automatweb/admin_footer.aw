@@ -305,7 +305,6 @@ if (!empty($html_title_obj))
 	$html_title .=  ": " . $html_title_obj;
 }
 
-$cache = new cache();
 
 $sf->vars(array(
 	"content"	=> $content,
@@ -313,9 +312,9 @@ $sf->vars(array(
 	"title_action" => $ta,
 	"html_title" => $html_title,
 	"MINIFY_JS_AND_CSS" => aw_ini_get("site_id") != 477 ? (minify_js_and_css::parse_admin_header($sf->parse("MINIFY_JS_AND_CSS"))) : $sf->parse("MINIFY_JS_AND_CSS"),
-	"POPUP_MENUS" => $cache->file_get("aw_toolbars_".aw_global_get("uid")),
+	"POPUP_MENUS" => cache::file_get("aw_toolbars_".aw_global_get("uid")),
 ));
-$cache->file_set("aw_toolbars_".aw_global_get("uid"), "");
+cache::file_set("aw_toolbars_".aw_global_get("uid"), "");
 
 if ($sf->is_template("aw_styles"))
 {
@@ -331,6 +330,57 @@ $str= $sf->parse();
 if (!$styles_done)
 {
 	$str .= $styles;
+}
+
+if (isset($_GET["TPL"]) and $_GET["TPL"] === "1")
+{
+	// fix for logged out users - dint show templates after page refresh
+	if (aw_global_get("uid")=="")
+	{
+		if (strlen(cache::file_get("tpl_equals_1_cache_".aw_global_get("section")))==0)
+		{
+			cache::file_set("tpl_equals_1_cache_".aw_global_get("section"), aw_global_get("TPL=1"));
+		}
+		else
+		{
+			aw_global_set("TPL=1", cache::file_get("tpl_equals_1_cache_".aw_global_get("section")));
+		}
+	}
+	else
+	{
+		cache::file_set("tpl_equals_1_cache_".aw_global_get("section"), aw_global_get("TPL=1"));
+	}
+
+	$tmp = $sf->template_dir;
+	$sf->template_dir = aw_ini_get("tpldir");
+	$sf->read_template("debug/tpl_equals_1.tpl");
+	$sf->template_dir = $tmp;
+	$tmp = "";
+	eval (aw_global_get("TPL=1"));
+	foreach ($_aw_tpl_equals_1 as $key=>$var)
+	{
+		$count = 0;
+		foreach($_aw_tpl_equals_1_counter as $var2)
+		{
+			if ($key == $var2)
+			{
+				$count++;
+			}
+		}
+
+		$sf->vars(array(
+			"text" => $key,
+			"link" => $var["link"],
+			"count" => $count,
+		));
+		$tmp .= $sf->parse("TEMPLATE");
+	}
+
+	$sf->vars(array(
+		"TEMPLATE" => $tmp
+	));
+	aw_global_set("TPL=1", $sf->parse());
+	$str = preg_replace("/<body.*>/imsU", "\\0".aw_global_get("TPL=1"), $str);
 }
 
 $content = $str;

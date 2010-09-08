@@ -2,7 +2,7 @@
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @tableinfo aw_crm_bill index=aw_oid master_index=brother_of master_table=objects
-@classinfo syslog_type=ST_CRM_BILL relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1
+@classinfo relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1
 @default table=objects
 
 @default group=general
@@ -344,6 +344,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 class crm_bill extends class_base
 {
 	private $tot_amt = 0;
+	private $customer_object;
 
 	function crm_bill()
 	{
@@ -431,8 +432,11 @@ class crm_bill extends class_base
 		switch($prop["name"])
 		{
 			case "assembler" :
-				$maker = $arr["obj_inst"]->get_the_person_who_made_this_fucking_thing();
-				$prop["options"] = array($maker->id() => $maker->name());
+				if ($arr["obj_inst"]->is_saved())
+				{
+					$maker = $arr["obj_inst"]->get_the_person_who_made_this_fucking_thing();
+					$prop["options"] = array($maker->id() => $maker->name());
+				}
 				$ps = new popup_search();
 				$ps->set_class_id(array(CL_CRM_PERSON));
 				$ps->set_id($arr["obj_inst"]->id());
@@ -453,9 +457,14 @@ class crm_bill extends class_base
 					"caption" => t("Loo viivisarve"),
 				));
 				break;
+
 			case "currency":
-				$prop["value"] = $arr["obj_inst"]->get_bill_currency_id();
-				if(!$prop["options"][$prop["value"]])
+				if ($arr["obj_inst"]->is_saved())
+				{
+					$prop["value"] = $arr["obj_inst"]->get_bill_currency_id();
+				}
+
+				if(!empty($prop["value"]) and empty($prop["options"][$prop["value"]]))
 				{
 					$prop["options"][$prop["value"]] = $arr["obj_inst"]->get_bill_currency_name();
 				}
@@ -486,12 +495,15 @@ class crm_bill extends class_base
 				{
 					$sum = $arr["obj_inst"]->get_bill_recieved_money();
 				}
-
-				$prop["value"] = number_format($sum, 2);
-				$prop["value"] .= " ".$arr["obj_inst"]->get_bill_currency_name();
+				else
+				{
+					$sum = 0;
+				}
 
 				if(!$arr["new"])
 				{
+					$prop["value"] = number_format($sum, 2);
+					$prop["value"] .= " ".$arr["obj_inst"]->get_bill_currency_name();
 					$payment_id = $arr["obj_inst"]->get_payment_id();
 					if($payment_id)
 					{
@@ -565,16 +577,15 @@ class crm_bill extends class_base
 				break;
 
 			case "bill_no":
-				if ($prop["value"] == "")
+				if (empty($prop["value"]))
 				{
 					$time = $arr["obj_inst"]->prop("bill_date");
 					if(!$time) $time = time();
-					$i = get_instance(CL_CRM_NUMBER_SERIES);
+					$i = new crm_number_series();
 					$prop["value"] = $i->find_series_and_get_next(CL_CRM_BILL, 0 , $time);
 					if (!$arr["new"] && is_oid($arr["obj_inst"]->id()))
 					{
 						$arr["obj_inst"]->set_prop("bill_no" , $prop["value"]);
-						$arr["obj_inst"]->save();
 					}
 				}
 				break;
@@ -647,7 +658,7 @@ class crm_bill extends class_base
 				}
 
 				$agreement_prices = $arr["obj_inst"]->meta("agreement_price");
-				if(is_array($agreement_prices) && $agreement_prices[0]["price"] && strlen($agreement_prices[0]["name"]) > 0)
+				if(is_array($agreement_prices) && !empty($agreement_prices[0]["price"]) && strlen($agreement_prices[0]["name"]) > 0)
 				{
 					$sum = 0;
 					foreach($agreement_prices as $agreement_price)
@@ -753,11 +764,9 @@ class crm_bill extends class_base
 				$ol = new object_list(array(
 					"class_id" => CL_SHOP_WAREHOUSE,
 					"conf" => $ids,
-					"site_id" => array(),
-					"lang_id" => array(),
 				));
 				$val = array();
-				if($this->can("view", $prop["value"]) && !in_array($prop["value"], $ids))
+				if(isset($prop["value"]) && $this->can("view", $prop["value"]) && !in_array($prop["value"], $ids))
 				{
 					$val = array($prop["value"] => obj($prop["value"])->name());
 				}
@@ -852,8 +861,6 @@ class crm_bill extends class_base
 					$ol = new object_list(array(
 						"class_id" => CL_CRM_BILL,
 						"bill_no" => $prop["value"],
-						"lang_id" => array(),
-						"site_id" => array(),
 						"oid" => new obj_predicate_not($arr["obj_inst"]->id())
 					));
 					if ($ol->count())
@@ -899,6 +906,7 @@ class crm_bill extends class_base
 
 				}
 				break;
+
 			case "customer_name":
 			case "customer_code":
 			case "customer_address":
@@ -916,16 +924,16 @@ class crm_bill extends class_base
 				}
 
 			case "customer":
-				// check if the
-				if($prop["name"] == "customer" && isset($arr["request"]["customer_name"]))
+				if(isset($arr["request"]["customer_name"]))
 				{
 					return PROP_IGNORE;
 				}
+
 				if ($this->can("view", $prop["value"]) && (($arr["obj_inst"]->prop("bill_due_date_days") == 0) || ($arr["obj_inst"]->prop("bill_due_date_days") == null)))
 				{
-					$cc = get_instance(CL_CRM_COMPANY);
+					$cc = new crm_company();
 					$crel = $cc->get_cust_rel(obj($prop["value"]));
-					$u = get_instance(CL_USER);
+					$u = new user();
 					$my_co = $u->get_current_company();
 					$co_obj = obj($co_obj);
 					$client_obj = obj($prop["value"]);
@@ -934,28 +942,31 @@ class crm_bill extends class_base
 						$ol = new object_list(array(
 							"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 							"buyer" => $prop["value"],
-							"seller" => $my_co,
-							"lang_id" => array(),
+							"seller" => $my_co
 						));
 						$crel = reset($ol->arr());
 					}
+
 					if ($prop["value"] != $arr["obj_inst"]->prop($prop["name"]))
 					{
 						if ($crel)
 						{
 							$this->_set_bddd = $crel->prop("bill_due_date_days");
 						}
+
 						if(!$this->_set_bddd && !($arr["obj_inst"]->prop("bill_due_date_days") > 0))
 						{
 							$this->_set_bddd = $co_obj->prop("bill_due_days");
 						}
+
 						if(!$this->_set_bddd && !($arr["obj_inst"]->prop("bill_due_date_days") > 0) && $client_obj->class_id() == CL_CRM_COMPANY)
 						{
 							$this->_set_bddd = $client_obj->prop("bill_due_days");
 						}
 					}
 				}
-				if ($prop["name"] == "customer")// && ($this->can("view", $prop["value"]) || $this->can("view", $arr["obj_inst"]->prop("customer"))))
+
+				if ($prop["name"] === "customer")// && ($this->can("view", $prop["value"]) || $this->can("view", $arr["obj_inst"]->prop("customer"))))
 				{
 					if($this->can("view", $prop["value"]))
 					{
@@ -966,6 +977,7 @@ class crm_bill extends class_base
 					{
 						$cust_obj = obj($arr["obj_inst"]->prop("customer"));
 					}
+
 					$arr["obj_inst"]->set_prop("customer_name" , $cust_obj->name());
 					$arr["obj_inst"]->set_prop("customer_code" ,$cust_obj->prop("code"));
 					$customer_addr = array();
@@ -990,7 +1002,6 @@ class crm_bill extends class_base
 						$customer_addr["index"] = $cust_obj->prop("address.postiindeks");
 					}
 					$arr["obj_inst"]->set_meta("customer_addr" , $customer_addr);
-					$arr["obj_inst"]->save();
 				}
 				break;
 		}
@@ -1204,7 +1215,7 @@ class crm_bill extends class_base
 
 	private function _writeoffs($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_bill_rows_t($t);
 
 		$task_i = get_instance(CL_TASK);
@@ -1435,7 +1446,7 @@ class crm_bill extends class_base
 
 	function _dn_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"field" => "oid",
 			"name" => "sel",
@@ -1473,7 +1484,7 @@ class crm_bill extends class_base
 		}
 	}
 
-	function _init_bill_rows_t(&$t)
+	function _init_bill_rows_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -2866,7 +2877,7 @@ class crm_bill extends class_base
 			$bpct = $ord->prop("bill_penalty_pct");
 			if (!$bpct)
 			{
-				$bpct = $imp_vars["impl_penalty"];
+				$bpct = isset($imp_vars["impl_penalty"]) ? $imp_vars["impl_penalty"] : 0;
 			}
 		}
 		//need enne vaja 2ra leida, sest hiljem subide jaoks ka vaja
@@ -2914,6 +2925,7 @@ class crm_bill extends class_base
 				"NO_DUE_DATE" => $this->parse("NO_DUE_DATE")
 			));
 		}
+
 		if($this->bill->prop("udef1")) $this->vars(array("userch1_checked" => $this->parse("userch1_checked")));
 		if($this->bill->prop("udef2")) $this->vars(array("userch2_checked" => $this->parse("userch2_checked")));
 		if($this->bill->prop("udef3")) $this->vars(array("userch3_checked" => $this->parse("userch3_checked")));
@@ -3588,7 +3600,7 @@ class crm_bill extends class_base
 			{
 				continue;
 			}
-			$tax_rate = (double) $row["tax"] / 100.0;
+			$tax_rate = isset($row["tax"]) ? ((double) $row["tax"] / 100.0) : 0;
 			$cur_tax = 0;
 			$cur_sum = 0;
 
@@ -4020,30 +4032,32 @@ class crm_bill extends class_base
 
 	function _bill_tb($arr)
 	{
-
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$this->set_current_settings();
-		$has_val = !$arr["obj_inst"]->has_not_initialized_rows();
+		$has_val = $arr["obj_inst"]->is_saved() ? !$arr["obj_inst"]->has_not_initialized_rows() : false;
 		$onclick_start = empty($has_val) ? " fRet = confirm('".t("Arvel on ridu, mille v&auml;&auml;rtus on 0 krooni")."');	if(fRet){" : "";
 		$onclick_end = empty($has_val) ? "}else;" : "";
 
-		$tb->add_menu_button(array(
-			"name" => "new",
-			"tooltip" => t("Uus"),
-			"img" => "new.gif"
-		));
-		$tb->add_menu_item(array(
-			"parent" => "new",
-			"url" => "javascript:;",
-			"text" => t("Lisa t&uuml;hi rida"),
-			"onClick" => "add_row();",
-		));
-		$tb->add_menu_item(array(
-			"parent" => "new",
-			"url" => "#",
-			"onClick" => "win = window.open('".$this->mk_my_orb("bug_search", array("is_popup" => 1, "customer" => $arr["obj_inst"]->get_bill_customer()), CL_CRM_BILL)."','bug_search','width=720,height=600,statusbar=yes, scrollbars=yes ');",
-			"text" => t("Lisa arendus&uuml;lesanne")
-		));
+		if ($arr["obj_inst"]->is_saved())
+		{
+			$tb->add_menu_button(array(
+				"name" => "new",
+				"tooltip" => t("Uus"),
+				"img" => "new.gif"
+			));
+			$tb->add_menu_item(array(
+				"parent" => "new",
+				"url" => "javascript:;",
+				"text" => t("Lisa t&uuml;hi rida"),
+				"onClick" => "add_row();",
+			));
+			$tb->add_menu_item(array(
+				"parent" => "new",
+				"url" => "#",
+				"onClick" => "win = window.open('".$this->mk_my_orb("bug_search", array("is_popup" => 1, "customer" => $arr["obj_inst"]->get_bill_customer()), CL_CRM_BILL)."','bug_search','width=720,height=600,statusbar=yes, scrollbars=yes ');",
+				"text" => t("Lisa arendus&uuml;lesanne")
+			));
+		}
 
 		$tb->add_save_button();
 
@@ -4052,7 +4066,6 @@ class crm_bill extends class_base
 			"tooltip" => t("Prindi"),
 			"img" => "print.gif"
 		));
-		exit_function("bill_tb_init");
 
 		$onclick_middle = "win = window.open('".$this->mk_my_orb("change", array("openprintdialog" => 1,"id" => $arr["obj_inst"]->id(), "group" => "preview"), CL_CRM_BILL)."','billprint','width=100,height=100,statusbar=yes');";
 		$tb->add_menu_item(array(
@@ -4322,7 +4335,7 @@ class crm_bill extends class_base
 	}
 
 
-	function _init_bill_task_list(&$t)
+	function _init_bill_task_list($t)
 	{
 		$t->add_fields(array(
 			"br" => t("Arve rida"),

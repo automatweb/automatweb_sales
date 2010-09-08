@@ -1,8 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/register/register_data.aw,v 1.49 2008/11/26 09:46:02 kristo Exp $
-// register_data.aw - Registri andmed 
+// register_data.aw - Registri andmed
 /*
-@classinfo syslog_type=ST_REGISTER_DATA relationmgr=yes no_comment=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1
 @default group=general
 @default table=aw_register_data
 
@@ -341,7 +340,7 @@
 @caption User-defined select 2
 
 @property usersel3 type=select
-@caption User-defined select 3 
+@caption User-defined select 3
 
 @property usersel4 type=select
 @caption User-defined select 4
@@ -1020,7 +1019,7 @@
 
 @property userim1 type=releditor reltype=RELTYPE_IMAGE1 rel_id=first use_form=emb field=meta method=serialize
 @caption Pildiupload 1
-	
+
 @property userim2 type=releditor reltype=RELTYPE_IMAGE2 rel_id=first use_form=emb field=meta method=serialize
 @caption Pildiupload 2
 
@@ -1553,7 +1552,7 @@ class register_data extends class_base
 			"clid" => CL_REGISTER_DATA
 		));
 	}
-	
+
 	function callback_pre_edit($arr)
 	{
 		if($register = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_REGISTER"))
@@ -1604,7 +1603,7 @@ class register_data extends class_base
 		}
 
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
@@ -1667,7 +1666,7 @@ class register_data extends class_base
 			}
 		}
 	}
-	
+
 	function callback_post_save($arr)
 	{
 		if($arr['new'] && $arr['request']['cfgform'])
@@ -1675,9 +1674,9 @@ class register_data extends class_base
 			$tmp_cfgform = obj($arr['request']['cfgform']);
 			$conns = $tmp_cfgform->connections_to(array("from.class_id" => CL_REGISTER));
 			$register_obj = $conns[0]->from();
-			
+
 			$mail_addr_to = $register_obj->prop("mail_address_to");
-	
+
 			$mail_addresses_to = "";
 			$mail_addresses = new aw_array($mail_addr_to);
 			foreach($mail_addresses->get() as $address)
@@ -1688,11 +1687,11 @@ class register_data extends class_base
 					$mail_addresses_to .= $tmp->prop("mail").", ";
 				}
 			}
-			
+
 
 			if(!empty($mail_addresses_to))
 			{
-			
+
 				$mail_addr_from = $register_obj->prop("mail_address_from");
 				if (empty($mail_addr_from))
 				{
@@ -1731,14 +1730,14 @@ class register_data extends class_base
 	function callback_mod_retval($arr)
 	{
 		// if there is some address set in register obj. where the user should be redirected, then
-		// lets do it 
+		// lets do it
 		if (!empty($arr['request']['set_register_id']))
 		{
 			$register = obj($arr['request']['set_register_id']);
 			$data_return_url = $register->prop("data_return_url");
 			if (!empty($data_return_url))
 			{
-				$arr['args']['goto'] = aw_ini_get("baseurl")."/".$register->prop("data_return_url");	
+				$arr['args']['goto'] = aw_ini_get("baseurl")."/".$register->prop("data_return_url");
 			}
 		}
 	}
@@ -1767,7 +1766,7 @@ class register_data extends class_base
 				$return_url = $url;
 			}
 		}
-		
+
 		return $cf->draw_cfgform_from_ot(array(
 			"ot" => $ot_id,
 			"reforb" => $this->mk_reforb("save_form_data", array(
@@ -1780,7 +1779,7 @@ class register_data extends class_base
 	/**
 
 		@attrib name=save_form_data nologin=1 all_args=1
-		
+
 		@param id required type=int acl=view
 		@param return_url optional
 	**/
@@ -1797,7 +1796,7 @@ class register_data extends class_base
 			return $rval;
 		}
 		$ot = obj($ot_id);
-		
+
 		$is_valid = $this->validate_data(array(
 			"cfgform_id" => $ot->prop("use_cfgform"),
 			"request" => $arr,
@@ -1827,7 +1826,7 @@ class register_data extends class_base
 		}
 		return $rval;
 	}
-	
+
 	/**
 
 		@attrib name=view nologin=1 all_args=1
@@ -1860,4 +1859,3 @@ class register_data extends class_base
 		}
 	}
 }
-?>

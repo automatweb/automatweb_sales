@@ -4,7 +4,7 @@
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_MEETING_DELETE_PARTICIPANTS,CL_CRM_MEETING, submit_delete_participants_from_calendar);
 
-@classinfo syslog_type=ST_CRM_MEETING confirm_save_data=1
+@classinfo confirm_save_data=1
 
 @default table=objects
 
@@ -26,13 +26,13 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_MEETING_DELETE_PARTICIPANTS,CL_CRM_MEETING, submit
 
 		@layout top_2way_right type=vbox parent=top_2way
 
-			@property start1 type=datetime_select parent=top_2way_right field=start table=planner
+			@property start1 type=datepicker parent=top_2way_right field=start table=planner
 			@caption Algus
 
-			@property end type=datetime_select parent=top_2way_right table=planner
+			@property end type=datepicker parent=top_2way_right table=planner
 			@caption L&otilde;peb
 
-			@property deadline type=datetime_select table=planner field=deadline parent=top_2way_right
+			@property deadline type=datepicker table=planner field=deadline parent=top_2way_right
 			@caption T&auml;htaeg
 
 	@property hrs_table type=table no_caption=1 store=no parent=top_bit
@@ -337,7 +337,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_MEETING_DELETE_PARTICIPANTS,CL_CRM_MEETING, submit
 
 class crm_meeting extends task
 {
-	var $return_url;
+	var $return_url;// scope??
+	var $mail_data = array();//scope??
 
 	function crm_meeting()
 	{
@@ -354,7 +355,7 @@ class crm_meeting extends task
 	{
 		if(isset($arr["request"]["msgid"]) && $arr["request"]["msgid"])
 		{
-			$mail = get_instance(CL_MESSAGE);
+			$mail = new message();
 			$this->mail_data = $mail->fetch_message(Array(
 				"mailbox" => "INBOX" ,
 				"msgrid" => $arr["request"]["msgrid"],
@@ -368,14 +369,13 @@ class crm_meeting extends task
 	{
 		if (is_object($arr["obj_inst"]) && $arr["obj_inst"]->prop("is_personal") && aw_global_get("uid") != $arr["obj_inst"]->createdby())
 		{
-			if (!($arr["prop"]["name"] == "start1" || $arr["prop"]["name"] == "end" || $arr["prop"]["name"] == "deadline"))
+			if (!($arr["prop"]["name"] === "start1" || $arr["prop"]["name"] === "end" || $arr["prop"]["name"] === "deadline"))
 			{
 				return PROP_IGNORE;
 			}
 		}
 
 		$data = &$arr['prop'];
-		$i = get_instance(CL_TASK);
 		switch($data['name'])
 		{
 			case "comment":
@@ -395,27 +395,27 @@ class crm_meeting extends task
 				break;
 
 			case "parts_tb":
-				$i->_parts_tb($arr);
+				parent::_parts_tb($arr);
 				break;
 
 			case "co_table":
-				$i->_co_table($arr);
+				parent::_co_table($arr);
 				break;
 
 			case "proj_table":
-				$i->_proj_table($arr);
+				parent::_proj_table($arr);
 				break;
 
 			case "parts_table":
-				$i->_parts_table($arr);
+				parent::_parts_table($arr);
 				break;
 
 			case "files_tb":
-				$i->_files_tb($arr);
+				parent::_files_tb($arr);
 				break;
 
 			case "files_table":
-				$i->_files_table($arr);
+				parent::_files_table($arr);
 				break;
 
 			case "bills_tb":
@@ -467,7 +467,7 @@ class crm_meeting extends task
 				break;
 
 			case "name":
-				if(isset($this->mail_data))
+				if(isset($this->mail_data["subject"]))
 				{
 					$data["value"] = $this->mail_data["subject"];
 					break;
@@ -479,20 +479,21 @@ class crm_meeting extends task
 				break;
 			case "content":
 				$data["style"] = "width: 100%";
-				if(isset($this->mail_data))
+				if(!empty($this->mail_data))
 				{
 					$data["value"] = sprintf(
 					"From: %s\nTo: %s\nSubject: %s\nDate: %s\n\n%s",
-						$this->mail_data["from"],
-						$this->mail_data["to"],
-						$this->mail_data["subject"],
-						$this->mail_data["date"],
-						$this->mail_data["content"]);
+						isset($this->mail_data["from"]) ? $this->mail_data["from"] : "",
+						isset($this->mail_data["to"]) ? $this->mail_data["to"] : "",
+						isset($this->mail_data["subject"]) ? $this->mail_data["subject"] : "",
+						isset($this->mail_data["date"]) ? $this->mail_data["date"] : "",
+						isset($this->mail_data["content"]) ? $this->mail_data["content"] : ""
+					);
 				}
 				break;
 			case "start1":
 			case "end":
-				$p = get_instance(CL_PLANNER);
+				$p = new planner();
 				$cal = $p->get_calendar_for_user();
 				if ($cal)
 				{
@@ -668,7 +669,7 @@ class crm_meeting extends task
 				}
 
 				$i = get_instance(CL_CRM_COMPANY);
-				uasort($opts, array(&$i, "__person_name_sorter"));
+				uasort($opts, array($i, "__person_name_sorter"));
 
 				$data["options"] = array("" => t("--Vali--")) + $opts;
 				$data["value"] = $p;
@@ -677,7 +678,7 @@ class crm_meeting extends task
 
 			case 'task_toolbar' :
 			{
-				$tb = &$data['toolbar'];
+				$tb = $data['toolbar'];
 				$tb->add_button(array(
 					'name' => 'del',
 					'img' => 'delete.gif',
@@ -764,7 +765,7 @@ class crm_meeting extends task
 	}
 
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		$target = new object($arr["alias"]["target"]);
 		return html::href(array(
@@ -826,8 +827,7 @@ class crm_meeting extends task
 				break;
 
 			case "sel_resources":
-				$t = get_instance(CL_TASK);
-				$t->_set_resources($arr);
+				parent::_set_resources($arr);
 				break;
 
 			case "project":
@@ -1195,9 +1195,9 @@ class crm_meeting extends task
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 
-	function add_participant($task, $person)
+	function add_participant(object $task, object $person)
 	{
-		$pl = get_instance(CL_PLANNER);
+		$pl = new planner();
 		$person->connect(array(
 			"to" => $task->id(),
 			"reltype" => "RELTYPE_PERSON_MEETING"
@@ -1266,11 +1266,6 @@ class crm_meeting extends task
 		}
 	}
 */
-	function callback_generate_scripts($arr)
-	{
-		$task = get_instance(CL_TASK);
-		return $task->callback_generate_scripts($arr);
-	}
 /*
 	function _hrs_table($arr)
 	{
@@ -1687,16 +1682,17 @@ class crm_meeting extends task
 
 	function do_db_upgrade($tbl, $field, $q, $err)
 	{
-		if ($tbl == "kliendibaas_kohtumine" && $field == "")
+		if ($tbl === "kliendibaas_kohtumine" && $field == "")
 		{
-			$this->db_query("create table kliendibaas_kohtumine (id int primary key)");
+			$this->db_query("CREATE table kliendibaas_kohtumine (id INT PRIMARY KEY)");
 			return true;
 		}
-		if ("planner" == $tbl)
+
+		if ("planner" === $tbl)
 		{
-			$i = get_instance(CL_TASK);
-			return $i->do_db_upgrade($tbl, $field);
+			return parent::do_db_upgrade($tbl, $field);
 		}
+
 		switch($field)
 		{
 			case "udefch1":
@@ -1793,8 +1789,6 @@ class crm_meeting extends task
 			{
 				$customers = new object_list(array(
 					"class_id" => CL_CRM_COMPANY,
-					"site_id" => array(),
-					"lang_id" => array(),
 					"name" => $arr["customer"],
 					"limit" => 1,
 				));
@@ -1813,8 +1807,6 @@ class crm_meeting extends task
 			{
 				$customer_persons = new object_list(array(
 					"class_id" => CL_CRM_PERSON,
-					"site_id" => array(),
-					"lang_id" => array(),
 					"name" => $arr["customer_person"],
 					"limit" => 1,
 				));
@@ -1983,4 +1975,3 @@ class crm_meeting extends task
 	}
 
 }
-?>

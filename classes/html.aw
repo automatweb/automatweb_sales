@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class html
 {
@@ -905,21 +902,23 @@ class html
 	{
 		load_vcl("date_edit");
 		$selector = new date_edit($args["name"]);
-		$selector->set("minute_step", ($args["minute_step"] ? $args["minute_step"] : 1));
+		$selector->set("minute_step", (empty($args["minute_step"]) ? 1 : $args["minute_step"]));
 		$selector->configure(array("hour" => 1, "minute" => 1));
-		list($d,$m,$y) = explode("-",date("d-m-Y"));
-		$val = mktime($args["value"]["hour"], $args["value"]["minute"], 0, $m, $d, $y);
+		list($d,$m,$y, $h, $i) = explode("-", date("d-m-Y-H-i"));
+		$h = isset($args["value"]["hour"]) ? (int) $args["value"]["hour"] : $h;
+		$i = isset($args["value"]["minute"]) ? (int) $args["value"]["minute"] : $i;
+		$val = mktime($h, $i, 0, $m, $d, $y);
 
-		if ($args["disabled"] or $args["textsize"])
+		if (!empty($args["disabled"]) or !empty($args["textsize"]))
 		{
 			$name = array ("name" => $args["name"]);
 
-			if ($args["disabled"])
+			if (!empty($args["disabled"]))
 			{
 				$name["disabled"] = true;
 			}
 
-			if ($args["textsize"])
+			if (!empty($args["textsize"]))
 			{
 				$name["textsize"] = $args["textsize"];
 			}
@@ -961,7 +960,6 @@ class html
 	**/
 	public static function datetime_select($args = array())
 	{
-		load_vcl("date_edit");
 		$selector = new date_edit($args["name"]);
 		$selector->set("minute_step", (isset($args["minute_step"]) ? $args["minute_step"] : 1));
 		$set = array();
@@ -1082,7 +1080,6 @@ class html
 	**/
 	public static function date_select($args = array())
 	{
-		load_vcl("date_edit");
 		$selector = new date_edit($args["name"]);
 
 		$set = array();
@@ -1108,6 +1105,7 @@ class html
 		{
 			$set["day"] = 1;
 		}
+
 		if (!empty($args["month"]) && $args["month"] === "text")
 		{
 			$set["month_textbox"] = 1;
@@ -1221,10 +1219,11 @@ class html
 	public static function img($args = array())
 	{
 		$xhtml_slash = "";
-		if (aw_ini_get("content.doctype") == "xhtml")
+		if (aw_ini_get("content.doctype") === "xhtml")
 		{
 			$xhtml_slash = " /";
 		}
+
 		extract($args);
 		$ret = "<img src='$url'";
 		if (isset($width))
@@ -1810,5 +1809,3 @@ class awex_html extends aw_exception {}
 
 /* Method parameter errors */
 class awex_html_param extends awex_html {}
-
-?>

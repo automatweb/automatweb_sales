@@ -205,7 +205,7 @@ class crm_section extends class_base
 
 	function get_all_org_job_ids($org_oid)
 	{
-		$obj = &obj($org_oid);
+		$obj = obj($org_oid);
 		foreach ($obj->connections_from(array("type" => 19)) as $job)
 		{
 			$job_ids[$job->prop("to")] = "";
@@ -296,10 +296,11 @@ class crm_section extends class_base
 		return $rtrn;
 	}
 
+	// DEPRECATED. use crm_company_obj::get_employees() with section argument
 	function get_section_workers($section_id, $recrusive = false)
 	{
 		static $retval;
-		$section = &obj($section_id);
+		$section = obj($section_id);
 		if(!$retval)
 		{
 			$retval = $section->get_workers();
@@ -327,7 +328,7 @@ class crm_section extends class_base
 	{
 		static $jobs_ids;
 
-		$section_obj = &obj($unit_id);
+		$section_obj = obj($unit_id);
 
 		foreach ($section_obj->connections_from(array("type" => "RELTYPE_JOB_OFFER")) as $joboffer)
 		{

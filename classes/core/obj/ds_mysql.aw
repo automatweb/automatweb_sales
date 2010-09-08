@@ -15,14 +15,16 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 	function get_oid_by_alias($arr)
 	{
 		extract($arr);
+		$parent = $site_id = "";
+
 		if (isset($arr["parent"]))
 		{
-			$parent = " AND parent = '".$parent."'";
+			$parent = " AND parent = '".$arr["parent"]."'";
 		}
 
 		if (isset($arr["site_id"]))
 		{
-			$site_id = " AND site_id = '".$site_id."'";
+			$site_id = " AND site_id = '".$arr["site_id"]."'";
 		}
 
 		$this->quote($alias);
@@ -74,7 +76,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 						$pn = false;
 						foreach($ps as $pid => $pd)
 						{
-							if ($pd["store"] == "connect" && $rts[$pd["reltype"]]["value"] == $d2["reltype"])
+							if ($pd["store"] === "connect" && $rts[$pd["reltype"]]["value"] == $d2["reltype"])
 							{
 								$v = $d2["target"];
 								if (!empty($pd["multiple"]))

@@ -357,9 +357,11 @@ class bug extends class_base
 	private $_acc_add_wh;
 	private $_acc_add_wh_cust;
 	private $_acc_add_wh_guess;
+	private $add_comments = array();
 	private $comment_for_all;
 	private $new_bug;
 	private $notify_monitors;
+	private $parent_data = array();
 
 	function bug()
 	{
@@ -512,7 +514,7 @@ class bug extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 				$c->set_type(GCHART_PIE_3D);
 				$c->set_size(array(
 					"width" => 400,
@@ -558,7 +560,7 @@ class bug extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 				$c->set_type(GCHART_LINE_CHART);
 				$c->set_size(array(
 					"width" => 400,
@@ -685,16 +687,16 @@ class bug extends class_base
 				}
 				break;
 			case "customer_unit":
-				if($this->parent_data[$prop["name"]])
+				if(!empty($this->parent_data[$prop["name"]]))
 				{
 					break;
 				}
+
 				if ($this->can("view", $arr["obj_inst"]->prop("customer")))
 				{
 					$co = obj($arr["obj_inst"]->prop("customer"));
 				}
-				else
-				if (!empty($arr["request"]["from_problem"]))
+				elseif (!empty($arr["request"]["from_problem"]))
 				{
 					$tmp = obj($arr["request"]["from_problem"]);
 					$co = obj($tmp->prop("customer"));
@@ -740,35 +742,35 @@ class bug extends class_base
 				break;
 
 			case "customer_person":
-				if($this->parent_data[$prop["name"]])
+				if(!empty($this->parent_data[$prop["name"]]))
 				{
 					break;
 				}
 				return $this->_get_customer_person($arr);
 
 			case "orderer":
-				if($this->parent_data[$prop["name"]])
+				if(!empty($this->parent_data[$prop["name"]]))
 				{
 					break;
 				}
 				return $this->_get_orderer($arr);
 
 			case "orderer_unit":
-				if($this->parent_data[$prop["name"]])
+				if(!empty($this->parent_data[$prop["name"]]))
 				{
 					break;
 				}
 				return $this->_get_orderer_unit($arr);
 
 			case "orderer_person":
-				if($this->parent_data[$prop["name"]])
+				if(!empty($this->parent_data[$prop["name"]]))
 				{
 					break;
 				}
 				return $this->_get_orderer_person($arr);
 
 			case "actual_live_date":
-				if($arr["new"] && !$this->parent_data[$prop["name"]])
+				if(!empty($arr["new"]) && empty($this->parent_data[$prop["name"]]))
 				{
 					$prop["value"] = -1;
 				}
@@ -780,11 +782,12 @@ class bug extends class_base
 					$r = obj($arr["request"]["from_req"]);
 					$prop["value"] = $r->prop("planned_time");
 				}
-				if($arr["new"] && is_oid($arr["request"]["parent"]) && !$this->parent_data[$prop["name"]])
+
+				if(!empty($arr["new"]) && is_oid($arr["request"]["parent"]) && empty($this->parent_data[$prop["name"]]))
 				{
 					$po = obj($arr["request"]["parent"] ? $arr["request"]["parent"] : $arr["request"]["id"]);
 					$pt = $po->path();
-					$bt_obj = null;
+					$bt = null;
 					foreach($pt as $pi)
 					{
 						if ($pi->class_id() == CL_BUG_TRACKER)
@@ -792,6 +795,7 @@ class bug extends class_base
 							$bt = $pi;
 						}
 					}
+
 					if ($bt)
 					{
 						$bdd = $bt->prop("bug_def_deadline");
@@ -833,7 +837,7 @@ class bug extends class_base
 				if ($this->can("view", $arr["obj_inst"]->prop("project")))
 				{
 					$opts = array("" => t("--vali--"));
-					$pi = get_instance(CL_PROJECT);
+					$pi = new project();
 					$team = $pi->get_team(obj($arr["obj_inst"]->prop("project")));
 					foreach($team as $team_id)
 					{
@@ -1103,9 +1107,7 @@ class bug extends class_base
 				{
 					$filt = array(
 						"class_id" => CL_PROJECT,
-						"CL_PROJECT.RELTYPE_ORDERER" => $arr["obj_inst"]->prop("customer"),
-						"lang_id" => array(),
-						"site_id" => array()
+						"CL_PROJECT.RELTYPE_ORDERER" => $arr["obj_inst"]->prop("customer")
 					);
 					$ol = new object_list($filt);
 				}
@@ -1136,7 +1138,7 @@ class bug extends class_base
 					$prop["value"] = $arr["request"]["set_proj"];
 				}
 
-				if(!empty($arr["new"]))
+				if(!empty($arr["new"]) and !empty($this->parent_options[$prop["name"]]))
 				{
 					foreach($this->parent_options[$prop["name"]] as $key => $val)
 					{
@@ -1188,13 +1190,14 @@ class bug extends class_base
 						$prop["value"] = $arr["request"]["alias_to_org"];
 					}
 				}
-				if (!isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
+
+				if (isset($prop["value"]) && !isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
 				{
 					$tmp = obj($prop["value"]);
 					$prop["options"][$tmp->id()] = $tmp->name();
 				}
 
-				if(!empty($arr["new"]))
+				if(!empty($arr["new"]) and isset($this->parent_options[$prop["name"]]))
 				{
 					foreach($this->parent_options[$prop["name"]] as $key => $val)
 					{
@@ -2530,7 +2533,7 @@ class bug extends class_base
 
 	function _comments_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "user",
 			"caption" => t("Kasutaja"),
@@ -3419,7 +3422,7 @@ die($email);
 		{
 			return;
 		}
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_menu_button(array(
 			"name" => "new",
@@ -3565,9 +3568,16 @@ die($email);
 		if ($this->can("view", $cust) && $this->can("view", $unit))
 		{
 			// get all ppl for the section
-			$sect = new crm_section();
-			$work_ol = $sect->get_section_workers($unit, true);
-			$arr["prop"]["options"] = array("" => t("--vali--")) + $work_ol->names();
+			try
+			{
+				$customer = obj($cust, array(), CL_CRM_COMPANY);
+				$section = obj($unit, array(), CL_CRM_SECTION);
+				$work_ol = $customer->get_employees(true, null, $section);
+				$arr["prop"]["options"] = array("" => t("--vali--")) + $work_ol->names();
+			}
+			catch (awex_obj $e)
+			{
+			}
 		}
 		elseif ($this->can("view", $cust))
 		{
@@ -4192,7 +4202,7 @@ EOF;
 		$conn = $arr["obj_inst"]->connections_from(array(
 			"type" => "RELTYPE_COMMENT",
 		));
-		$ppltimes = array();
+		$ppl_r_times = $ppl_g_times = array();
 		foreach($conn as $c)
 		{
 			$cmo = $c->to();
@@ -4201,7 +4211,7 @@ EOF;
 		}
 		$ui = get_instance(CL_USER);
 		$total = 0;
-		foreach((($arr["prop"]["name"] == "num_hrs_real") ? $ppl_r_times : $ppl_g_times) as $u => $time)
+		foreach((($arr["prop"]["name"] === "num_hrs_real") ? $ppl_r_times : $ppl_g_times) as $u => $time)
 		{
 			if($time)
 			{
@@ -4703,4 +4713,3 @@ EOF;
 
 
 }
-?>

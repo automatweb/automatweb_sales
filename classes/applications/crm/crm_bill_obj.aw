@@ -371,7 +371,7 @@ class crm_bill_obj extends _int_object
 			$p = $conn->to();
 			$data[$p->id()]["currency"] = $p->get_currency_name();
 			$bill_sums = $p->meta("sum_for_bill");
-			$data[$p->id()]["sum"] = $bill_sums[$this->id()];
+			$data[$p->id()]["sum"] = isset($bill_sums[$this->id()]) ? $bill_sums[$this->id()] : 0;
 			$data[$p->id()]["total_sum"] = $p->prop("sum");
 			$data[$p->id()]["date"] = $p->prop("date");
 		}
@@ -1421,6 +1421,7 @@ class crm_bill_obj extends _int_object
 					$ppl[$p_id] = $p_id;
 				}
 			}
+
 			$rd = array(
 				"amt" => $row->prop("amt"),
 				"prod" => $row->prop("prod"),

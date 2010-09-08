@@ -7,9 +7,9 @@
 class aw_template extends core
 {
 	/** the main template folder **/
-	public $template_dir;
-	public $adm_template_dir;
-	public $site_template_dir;
+	public $template_dir = "";
+	public $adm_template_dir = "";
+	public $site_template_dir = "";
 	/** template variable values **/
 	public $vars;
 	public $sub_merge;
@@ -349,7 +349,7 @@ class aw_template extends core
 			else
 			{
 				// raise_error drops out, therefore $retval has no meaning here
-				$this->raise_error(ERR_TPL_NOTPL,sprintf(t("Template '%s/%s' not found"), $this->template_dir, $name),true);
+				$this->raise_error("ERR_TPL_NOTPL", sprintf(t("Template '%s/%s' not found"), $this->template_dir, $name),true);
 			};
 		}
 		return $retval;
@@ -427,7 +427,7 @@ class aw_template extends core
 			else
 			{
 				// raise_error drops out, therefore $retval has no meaning here
-				$this->raise_error(ERR_TPL_NOTPL,sprintf(t("Template '%s' not found"), $this->template_filename),true);
+				$this->raise_error("ERR_TPL_NOTPL", sprintf(t("Template '%s' not found"), $this->template_filename),true);
 			}
 		}
 		return $retval;
@@ -474,7 +474,7 @@ class aw_template extends core
 			else
 			{
 				// raise_error drops out, therefore $retval has no meaning here
-				$this->raise_error(ERR_TPL_NOTPL,sprintf(t("Template '%s' not found"), $this->template_filename),true);
+				$this->raise_error("ERR_TPL_NOTPL", sprintf(t("Template '%s' not found"), $this->template_filename),true);
 			};
 		}
 		return $retval;
@@ -532,7 +532,7 @@ class aw_template extends core
 				else
 				{
 					// raise_error drops out, therefore $retval has no meaning here
-					$this->raise_error(ERR_TPL_NOTPL,sprintf(t("Template '%s' not found in admin or site folder"), $this->template_filename),true);
+					$this->raise_error("ERR_TPL_NOTPL",sprintf(t("Template '%s' not found in admin or site folder"), $this->template_filename),true);
 				};
 			}
 		}
@@ -977,7 +977,8 @@ class aw_template extends core
 			$tpl_doc_link = ($pos === false) ? str_replace(aw_ini_get('basedir')."/templates", "http://dev.struktuur.ee/wiki/index.php/Templates", $this->template_filename) :
 			str_replace(aw_ini_get("tpldir"), "http://dev.struktuur.ee/wiki/index.php/Templates", $this->template_filename);
 			aw_global_set("TPL=1", aw_global_get("TPL=1").'$_aw_tpl_equals_1["'.$this->template_filename.'"]=array("link"=>"'.$tpl_doc_link.'");$_aw_tpl_equals_1_counter[]="'.$this->template_filename.'";');
-		};
+		}
+
 		$this->tpl_reset();
 		if (is_array($arr))
 		{

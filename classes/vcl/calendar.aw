@@ -380,6 +380,7 @@ class vcalendar extends aw_template
 		$this->el_count++;
 		$data = $arr["data"];
 		$data["timestamp"] = $arr["timestamp"];
+		$start_tm = $end_tm = 0;
 
 		if (!empty($arr["item_start"]))
 		{
@@ -1289,6 +1290,7 @@ class vcalendar extends aw_template
 				{
 					uasort($events,array($this,"__asc_sort"));
 				}
+
 				if(!$this->first_event)
 				{
 					$this->first_event = reset($events);
@@ -1303,6 +1305,7 @@ class vcalendar extends aw_template
 			{
 				continue;
 			}
+
 			$wn = date("w",$reals);
 			if ($wn == 0)
 			{
@@ -1336,7 +1339,7 @@ class vcalendar extends aw_template
 			$rv .= $this->parse($tpl);
 		}
 
-		$this->last_event = $event;
+		$this->last_event = isset($event) ? $event : null;
 		$this->vars(array(
 			"DAY" => $rv,
 		));

@@ -1,8 +1,5 @@
 <?php
 /*
-@classinfo  maintainer=kristo
-*/
-/*
 
 this message will get called whenever an object is saved and given the class_id as the message type parameter
 and the object's id as the "oid" parameter
@@ -13,6 +10,31 @@ and the object's id as the "oid" parameter
 EMIT_MESSAGE(MSG_STORAGE_NEW)
 
 */
+
+class object_loader
+{
+	private static $instance = false;
+
+	public static function instance()
+	{
+		if (false === self::$instance)
+		{
+			$GLOBALS["objects"] = array();
+			$GLOBALS["properties"] = array();
+			$GLOBALS["tableinfo"] = array();
+			$GLOBALS["of2prop"] = array();
+			$GLOBALS["__obj_sys_opts"] = array();
+			self::$instance = new _int_object_loader();
+		}
+
+		return self::$instance;
+	}
+
+	public static function can($action, $object_id)
+	{
+		return false === self::$instance ? false : self::$instance->can($action, $object_id);
+	}
+}
 
 class _int_object_loader extends core
 {
@@ -55,7 +77,7 @@ class _int_object_loader extends core
 
 		$clname = "_int_obj_ds_".$dss[0];
 		// the first is the db specific ds, that does not contain anything
-		$this->ds = new $clname;
+		$this->ds = new $clname();
 
 		for ($i = 1; $i < count($dss); $i++)
 		{
@@ -80,7 +102,7 @@ class _int_object_loader extends core
 		}
 	}
 
-	private static function oid_for_alias($alias)
+	private function oid_for_alias($alias)
 	{
 		if (substr($alias,-1) === "/")
 		{
@@ -96,14 +118,14 @@ class _int_object_loader extends core
 
 			$part = array_shift($parts);
 
-			$parent = $GLOBALS["object_loader"]->ds->get_oid_by_alias(array(
+			$parent = $this->ds->get_oid_by_alias(array(
 				"alias" => $part,
 				"site_id" => aw_ini_get("site_id")
 			));
 
 			foreach($parts as $part)
 			{
-				$parent = $GLOBALS["object_loader"]->ds->get_oid_by_alias(array(
+				$parent = $this->ds->get_oid_by_alias(array(
 					"alias" => $part,
 					"site_id" => aw_ini_get("site_id"),
 					"parent" => $parent
@@ -114,7 +136,7 @@ class _int_object_loader extends core
 		else
 		// else just try to match the whole string
 		{
-			return $GLOBALS["object_loader"]->ds->get_oid_by_alias(array(
+			return $this->ds->get_oid_by_alias(array(
 				"alias" => $alias,
 				"site_id" => aw_ini_get("site_id")
 			));
@@ -122,7 +144,7 @@ class _int_object_loader extends core
 	}
 
 	// returns oid in param, no list!
-	public static function param_to_oid($param)
+	public function param_to_oid($param)
 	{
 		if (is_oid($param))
 		{
@@ -131,7 +153,7 @@ class _int_object_loader extends core
 		}
 		elseif (is_string($param))
 		{
-			$oid = self::oid_for_alias($param);
+			$oid = $this->oid_for_alias($param);
 			if (!$oid)
 			{
 				throw new awex_oid("Invalid object alias '{$param}'");
@@ -151,14 +173,14 @@ class _int_object_loader extends core
 	}
 
 	// returns array of oids in param
-	public static function param_to_oid_list($param)
+	public function param_to_oid_list($param)
 	{
 		if (is_array($param))
 		{
 			$res = array();
 			foreach($param as $item)
 			{
-				$res[] = self::param_to_oid($item);
+				$res[] = $this->param_to_oid($item);
 			}
 			return $res;
 		}
@@ -172,7 +194,7 @@ class _int_object_loader extends core
 		}
 		else
 		{
-			return array(self::param_to_oid($param));
+			return array($this->param_to_oid($param));
 		}
 
 		throw new awex_oid("Invalid object parameter " . var_export($param, true));
@@ -180,7 +202,7 @@ class _int_object_loader extends core
 
 	////
 	// !returns temp id for new object
-	function load_new_object($objdata = array(), $constructor_args = array())
+	public function load_new_object($objdata = array(), $constructor_args = array())
 	{
 		// get tmp oid
 		if (!isset($objdata["oid"]))
@@ -194,21 +216,21 @@ class _int_object_loader extends core
 			unset($objdata["oid"]); // _int_object built to not know its own oid until saved. when this changes, remove.
 		}
 
-		// determine class
-		if (isset($objdata["class_id"]) and is_class_id($class = $objdata["class_id"]) and isset($GLOBALS["cfg"]["classes"][$class]["object_override"]))
-		{
-			$class = basename($GLOBALS["cfg"]["classes"][$class]["object_override"]);
-		}
-		else
-		{
+ 		// determine class
+		if (isset($objdata["class_id"]) and is_class_id($class = $objdata["class_id"]) and aw_ini_isset("classes.{$class}.object_override"))
+ 		{
+			$class = basename(aw_ini_get("classes.{$class}.object_override"));
+ 		}
+ 		else
+ 		{
 			$class = "_int_object";
-		}
+ 		}
 
 		$GLOBALS["objects"][$oid] = new $class($objdata, $constructor_args);
 		return $oid;
 	}
 
-	function load($oid, $constructor_args = array())
+	public function load($oid, $constructor_args = array())
 	{
 		if (!is_oid($oid))
 		{
@@ -224,7 +246,7 @@ class _int_object_loader extends core
 		{
 			// check access rights to object
 			///TODO: access should be checked separately from loading
-			if (!$GLOBALS["object_loader"]->ds->can("view", $oid))
+			if (!$this->ds->can("view", $oid))
 			{
 				$e = new awex_obj_acl("No view access object with id '{$oid}'.");
 				$e->awobj_id = $oid;
@@ -240,11 +262,11 @@ class _int_object_loader extends core
 			}
 			else
 			{
-				$objdata = $GLOBALS["object_loader"]->ds->get_objdata($oid);
+				$objdata = $this->ds->get_objdata($oid);
 			}
 
 			// get class
-			$class = isset($GLOBALS["cfg"]["classes"][$objdata["class_id"]]["object_override"]) ? basename($GLOBALS["cfg"]["classes"][$objdata["class_id"]]["object_override"]) : "_int_object";
+			$class = aw_ini_isset("classes.{$objdata["class_id"]}.object_override") ? basename(aw_ini_get("classes.{$objdata["class_id"]}.object_override")) : "_int_object";
 			$objdata["__obj_load_parameter"] = $oid;
 
 			$ref = new $class($objdata, $constructor_args);
@@ -271,7 +293,7 @@ class _int_object_loader extends core
 		return $GLOBALS["objects"][$oid]->id();
 	}
 
-	function save($oid, $exclusive = false, $previous_state = null)
+	public function save($oid, $exclusive = false, $previous_state = null)
 	{
 		if (!is_object($GLOBALS["objects"][$oid]))
 		{
@@ -325,7 +347,7 @@ class _int_object_loader extends core
 		return $t_oid;
 	}
 
-	function save_new($oid)
+	public function save_new($oid)
 	{
 		if (!is_object($GLOBALS["objects"][$oid]))
 		{
@@ -360,7 +382,7 @@ class _int_object_loader extends core
 	}
 
 	// load properties - arr[file] , arr[clid]
-	function load_properties($arr)
+	public function load_properties($arr)
 	{
 		if ($arr["file"] === "document" || $arr["file"] === "document_brother")
 		{
@@ -399,7 +421,7 @@ class _int_object_loader extends core
 		new conn is the new database connection to set the datasource to
 		returns the old connection
 	**/
-	function switch_db_connection($new_conn)
+	public function switch_db_connection($new_conn)
 	{
 		// ok, we need to find the real connection.
 		// iterate over the ds chain until we hit the last one.
@@ -425,7 +447,7 @@ class _int_object_loader extends core
 		return $old;
 	}
 
-	function can($acl_name, $oid, $dbg = false)
+	public function can($acl_name, $oid)
 	{
 		$acl_name = "can_" . $acl_name;
 
@@ -467,7 +489,7 @@ class _int_object_loader extends core
 		return (int) isset($max_acl[$acl_name]) ? $max_acl[$acl_name] : 0;
 	}
 
-	function _calc_max_acl($oid)
+	private function _calc_max_acl($oid)
 	{
 		$max_priority = -1;
 		$max_acl = $GLOBALS["cfg"]["acl"]["default"];
@@ -649,10 +671,3 @@ class _int_object_loader extends core
 	}
 }
 
-$GLOBALS["objects"] = array();
-$GLOBALS["properties"] = array();
-$GLOBALS["tableinfo"] = array();
-$GLOBALS["of2prop"] = array();
-$GLOBALS["__obj_sys_opts"] = array();
-
-?>
