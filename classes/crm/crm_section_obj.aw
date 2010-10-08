@@ -166,7 +166,7 @@ class crm_section_obj extends _int_object
 		{
 			return 1;
 		}
-		
+
 		$rels = $this->get_work_relations(array("limit" => 1));
 		if(sizeof($rels->ids()))
 		{
@@ -186,9 +186,7 @@ class crm_section_obj extends _int_object
 	{
 		$filter = array(
 			"class_id" => CL_CRM_PERSON_WORK_RELATION,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"section" => $this->id(),
+			"section" => $this->id()
 		);
 		if($arr["limit"])
 		{
@@ -198,13 +196,18 @@ class crm_section_obj extends _int_object
 		return $ol;
 	}
 
-	function get_professions()
+	/** Returns list of professions in this section
+		@attrib api=1 params=name
+		@return object_list
+	**/
+	public function get_professions()
 	{
 		$ol = new object_list();
-		foreach($this->connections_from(array(
+		$connections = $this->connections_from(array(
 			"type" => "RELTYPE_PROFESSIONS",
 			"sort_by_num" => "to.jrk"
-		)) as $conn)
+		));
+		foreach($connections as $conn)
 		{
 			$ol->add($conn->prop("to"));
 		}
@@ -239,5 +242,3 @@ class crm_section_obj extends _int_object
 		return $r;
 	}
 }
-
-?>

@@ -1,9 +1,6 @@
 <?php
 
 // object_list.aw - with this you can manage object lists
-/*
-@classinfo  maintainer=kristo
-*/
 
 class object_list extends _int_obj_container_base
 {
@@ -865,8 +862,7 @@ class object_list extends _int_obj_container_base
 		$this->_int_remove_from_list(array_diff($ids, $ids_));
 	}
 
-	// static
-	function iterate_list($oids, $func, $param1 = null, $param2 = null, $param3 = null)
+	public static function iterate_list($oids, $func, $param1 = null, $param2 = null, $param3 = null)
 	{
 		if (!is_array($oids) || !count($oids))
 		{
@@ -1203,4 +1199,3 @@ class object_list extends _int_obj_container_base
 		return $clid;
 	}
 }
-?>

@@ -2,7 +2,7 @@
 
 class inventory_manager
 {
-	public static function commit_transaction(inventory_transaction $transaction)
+	public static function commit_transaction(object $transaction)
 	{
 	}
 

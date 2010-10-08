@@ -884,7 +884,7 @@ class bug_tracker extends class_base
 			case "stat_hrs_start":
 				if (empty($arr["request"][$prop["name"]]))
 				{
-					$prop["value"] = mktime(0, 0, 0, date("n"), 1, date("Y"), 1);
+					$prop["value"] = mktime(0, 0, 0, date("n"), 1, date("Y"));
 				}
 				else
 				{
@@ -1802,7 +1802,7 @@ class bug_tracker extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
 			"CL_CRM_PERSON.RELTYPE_MONITOR(CL_BUG).class_id" => CL_BUG,
-			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.org.oid" => $owner->id()
+			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.employer.oid" => $owner->id()
 		));
 		$ppl = $ol->ids();
 		$ol = new object_list();
@@ -1839,7 +1839,7 @@ class bug_tracker extends class_base
 			"class_id" => CL_CRM_PERSON,
 			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.RELTYPE_SECTION" => $o->id(),
 			"CL_CRM_PERSON.RELTYPE_MONITOR(CL_BUG).class_id" => CL_BUG,
-			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.org.oid" => $owner->id(),
+			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.employer.oid" => $owner->id(),
 		));
 		foreach($ol->arr() as $oid => $o)
 		{
@@ -3605,12 +3605,13 @@ class bug_tracker extends class_base
 				$chart->add_bar ($bar);
 				$this->gt_start += $length;
 			}
+
 			if ($gt->prop("deadline") > 300 && $this->gt_start > $gt->prop("deadline"))
 			{
 				$this->over_deadline[$gt->id()] = $gt;
 			}
 
-			if ($gt->id() == $arr["ret_b_time"])
+			if (isset($arr["ret_b_time"]) and $gt->id() == $arr["ret_b_time"])
 			{
 				return $this->gt_start;
 			}

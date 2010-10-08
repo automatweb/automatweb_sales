@@ -1819,10 +1819,8 @@
             <parent>statistics_offers_vsplitbox</parent>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_SALES</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
-            <maintainer>voldemar</maintainer>
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>

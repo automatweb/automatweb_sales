@@ -101,7 +101,6 @@
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
-            <maintainer>markop</maintainer>
             <no_status>1</no_status>
       </classinfo>
       <groupinfo>

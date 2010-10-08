@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>keep_records</name>
+            <name>record_transactions</name>
             <type>hidden</type>
             <default>1</default>
             <field>meta</field>
@@ -9,7 +9,15 @@
             <comment>Transactions will be stored</comment>
       </property>
       <property>
-            <name>keep_inventory</name>
+            <name>record_values</name>
+            <type>hidden</type>
+            <default>1</default>
+            <field>meta</field>
+            <method>serialize</method>
+            <comment>Items' values will be stored</comment>
+      </property>
+      <property>
+            <name>record_quantities</name>
             <type>hidden</type>
             <default>1</default>
             <field>meta</field>
@@ -21,11 +29,21 @@
             <prop_cb>1</prop_cb>
       </classinfo>
       <tableinfo>
-            <aw_inventory>
+            <aw_inventory_values>
                   <index>aw_oid</index>
                   <master_index>brother_of</master_index>
                   <master_table>objects</master_table>
-            </aw_inventory>
+            </aw_inventory_values>
+            <aw_inventory_quantities>
+                  <index>aw_oid</index>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+            </aw_inventory_quantities>
+            <aw_inventory_transactions>
+                  <index>aw_oid</index>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+            </aw_inventory_transactions>
       </tableinfo>
       <reltypes>
             <SUB_INVENTORY>

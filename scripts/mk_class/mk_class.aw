@@ -1,6 +1,6 @@
 <?php
 ob_implicit_flush(true);
-$basedir = realpath(".");
+$basedir = str_replace("\\", "/", realpath("."));
 include($basedir . "/automatweb.aw");
 
 function _file_get_contents($name)
@@ -285,4 +285,3 @@ if (!$args_from_caller)
 	automatweb::shutdown();
 }
 
-?>

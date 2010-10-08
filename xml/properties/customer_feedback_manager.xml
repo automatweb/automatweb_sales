@@ -24,15 +24,6 @@
             <no_caption>1</no_caption>
             <field>fb_t</field>
       </property>
-      <property>
-            <name>contact_text</name>
-            <table>objects</table>
-            <group>contact</group>
-            <type>text</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <field>contact_text</field>
-      </property>
       <classinfo>
             <syslog_type>ST_CUSTOMER_FEEDBACK_MANAGER</syslog_type>
             <relationmgr>yes</relationmgr>

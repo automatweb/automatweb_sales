@@ -42,13 +42,17 @@ class cache extends core
 	**/
 	public static function set($oid,$arr,$content,$xxx = true, $real_section = NULL)
 	{
-		if ($real_section === NULL)
+		if (
+			aw_ini_get("cache.use_page_cache") &&
+			!aw_global_get("uid") && // no cache for logged in users
+			!aw_global_get("no_cache")
+		)
 		{
-			$real_section = $oid;
-		}
+			if ($real_section === NULL)
+			{
+				$real_section = $oid;
+			}
 
-		if (aw_ini_get("cache.use_page_cache") && !aw_global_get("uid") && !aw_global_get("no_cache"))
-		{
 			$fname = "/".str_replace("/","_",$oid);
 			foreach($arr as $v)
 			{
@@ -85,13 +89,17 @@ class cache extends core
 	**/
 	public static function get($oid,$arr, $real_oid = NULL)
 	{
-		if ($real_oid === NULL)
+		if (
+			aw_ini_get("cache.use_page_cache") &&
+			!aw_global_get("uid") && // no cache for logged in users
+			!aw_global_get("no_cache")
+		)
 		{
-			$real_oid = $oid;
-		}
+			if ($real_oid === NULL)
+			{
+				$real_oid = $oid;
+			}
 
-		if (aw_ini_get("cache.use_page_cache") && !aw_global_get("uid"))
-		{
 			$fname = "/".str_replace("/","_",$oid);
 			foreach($arr as $v)
 			{

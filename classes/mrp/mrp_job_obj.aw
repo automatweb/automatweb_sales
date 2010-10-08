@@ -197,7 +197,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			$resource = $this->prop("resource");
 			if (!is_oid($resource))
 			{
-				throw new awex_mrp_job_data("Resource not defined", 1);
+				throw new awex_mrp_job_data("Resource not defined for job " . $this->id(), 1);
 			}
 			$this->mrp_resource = obj($resource, array(), CL_MRP_RESOURCE);
 
@@ -205,7 +205,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			$project = $this->prop("project");
 			if (!is_oid($this->prop("project")))
 			{
-				throw new awex_mrp_job_data("Project not defined", 2);
+				throw new awex_mrp_job_data("Project not defined for job " . $this->id(), 2);
 			}
 			$this->mrp_case = obj($project, array(), CL_MRP_CASE);
 

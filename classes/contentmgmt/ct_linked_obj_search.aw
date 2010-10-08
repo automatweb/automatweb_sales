@@ -1,18 +1,9 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
-classload("vcl/popup_search");
 /** Linked object (link property) search for menu and container. popup_search extender **/
 class ct_linked_obj_search extends popup_search
 {
-	function ct_linked_obj_search()
-	{
-		$this->popup_search();
-	}
-
-	protected function _insert_form_props(&$htmlc, $arr)
+	protected function _insert_form_props($htmlc, $arr)
 	{
 		parent::_insert_form_props($htmlc, $arr);
 
@@ -54,5 +45,3 @@ class ct_linked_obj_search extends popup_search
 		}
 	}
 }
-
-?>

@@ -1863,19 +1863,21 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			@returns
 				array { resolved name, ip address }
 		**/
-		function gethostbyaddr($addr)
+		public static function gethostbyaddr($addr)
 		{
 			// idee on selles, et parsib lahti ntx syslogis olevad
 			// aadressid kujul host.ee / 1.2.3.4
 			if (preg_match("/^(.*?)\s*?\/\s+?([0-9\.]+?)$/",$addr,$parts))
 			{
 				$addr = $parts[2];
-			};
+			}
+
 			if (!($ret = aw_cache_get("solved",$addr)))
 			{
 				$ret = gethostbyaddr($addr);
 				aw_cache_set("solved",$addr,$ret);
-			};
+			}
+
 			return array($ret,$addr);
 		}
 
@@ -1888,7 +1890,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			@comment
 				wrapper for gethostbyname, caches results for speed
 		**/
-		function name2ip($name)
+		public static function name2ip($name)
 		{
 			if (!($ret = aw_cache_get("name2ip_solved",$name)))
 			{

@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/flash.aw,v 1.21 2009/08/09 20:07:15 dragut Exp $
+
 // flash.aw - Deals with flash applets
 /*
 
@@ -24,8 +24,6 @@
 
 	@property preview type=text store=no
 	@caption Eelvaade
-
-	@classinfo syslog_type=ST_FLASH maintainer=kristo
 
 @default group=transl
 
@@ -74,8 +72,8 @@ class flash extends class_base
 		};
 		return $retval;
 	}
-	
- 
+
+
 	function set_property($arr)
 	{
 		$prop = &$arr["prop"];
@@ -106,8 +104,8 @@ class flash extends class_base
 					if (!$arr["obj_inst"]->prop("name"))
 					{
 						$arr["obj_inst"]->set_prop("name",$fdata["name"]);
-					};
-				};
+					}
+				}
 			}
 			else
 			{
@@ -126,9 +124,9 @@ class flash extends class_base
 		{
 			$arr["obj_inst"]->set_prop("width",$this->real_width);
 			$arr["obj_inst"]->set_prop("height",$this->real_height);
-		};
+		}
 	}
-	
+
 	function get_url($url)
 	{
 		if ($url)
@@ -159,15 +157,14 @@ class flash extends class_base
 	}
 
 
-	/**  
-		
+	/**
+
 		@attrib name=show params=name nologin="1" default="0"
-		
+
 		@param file required
-		
+
 		@returns
-		
-		
+
 		@comment
 
 	**/
@@ -178,17 +175,17 @@ class flash extends class_base
 		$rootdir = aw_ini_get("site_basedir");
 		$f1 = substr($file,0,1);
 		$fname = $rootdir . "/img/$f1/" . $file;
-		if ($file) 
+		if ($file)
 		{
-			if (strpos("/",$file) !== false) 
+			if (strpos("/",$file) !== false)
 			{
 				header("Content-type: text/html");
 				print "access denied,";
-			} 
+			}
 
 			// the site's img folder
-			$passed = false;	
-			if (is_file($fname) && is_readable($fname)) 
+			$passed = false;
+			if (is_file($fname) && is_readable($fname))
 			{
 				$passed = true;
 			}
@@ -197,7 +194,7 @@ class flash extends class_base
 			{
 				$rootdir = aw_ini_get("site_basedir");
 				$fname = $rootdir . "/files/$f1/" . $file;
-				if (is_file($fname) && is_readable($fname)) 
+				if (is_file($fname) && is_readable($fname))
 				{
 					$passed = true;
 				}
@@ -205,7 +202,6 @@ class flash extends class_base
 
 			if ($passed)
 			{
-
 				header("Content-type: application/x-shockwave-flash");
 				//for IE (flash over https)
 				if ($_SERVER['SERVER_PORT'] == '443')
@@ -213,16 +209,16 @@ class flash extends class_base
 					header("Pragma: cache");
 				}
 				readfile($fname);
-			} 
-			else 
+			}
+			else
 			{
 				print "access denied:";
 			};
-		} 
-		else 
+		}
+		else
 		{
 			print "access denied;";
-		};
+		}
 		die();
 	}
 
@@ -242,22 +238,23 @@ class flash extends class_base
 			$url = $this->get_url($ob->prop("file"));
 		}
 
-		if ($args["clickTAG"] != "")
+		if (!empty($args["clickTAG"]))
 		{
 			$url = aw_url_change_var("clickTAG", $args["clickTAG"], $url);
 			$url = str_ireplace("&clickTAG=", "&amp;clickTAG=", $url);
 		}
-		else
-		if ($ob->trans_get_val("click_tag") != "")
+		elseif ($ob->trans_get_val("click_tag"))
 		{
 			$url = aw_url_change_var("clickTAG", $ob->trans_get_val("click_tag"), $url);
 			$url = str_ireplace("&clickTAG=", "&amp;clickTAG=", $url);
 		}
+
 		$tmp = '';
-		if (aw_global_get("class") == "flash")
+		if (aw_global_get("class") === "flash")
 		{
 			$tmp = $this->parse("IN_ADMIN");
 		}
+
 		$this->vars(array(
 			"id" => "aw_flash_".$ob->id(),
 			"url" => $url,
@@ -271,7 +268,7 @@ class flash extends class_base
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}
@@ -283,4 +280,3 @@ class flash extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 }
-?>

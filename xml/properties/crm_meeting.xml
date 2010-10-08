@@ -784,9 +784,7 @@
             <caption>Aliastehaldur</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_MEETING</syslog_type>
             <confirm_save_data>1</confirm_save_data>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <recurrence>

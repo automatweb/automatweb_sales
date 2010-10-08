@@ -668,7 +668,7 @@ class crm_company_people_impl extends class_base
 		$i->generate_tree(array(
 			'tree_inst' => $tree_inst,
 			'obj_inst' => $arr['obj_inst'],
-			'node_id' => $node_id,
+			'node_id' => &$node_id,
 			'conn_type' => 'RELTYPE_SECTION',
 			'attrib' => 'unit',
 			'leafs' => true,
@@ -739,7 +739,7 @@ class crm_company_people_impl extends class_base
 		else
 		{
 			$jobs_ids = $section_cl->get_all_org_job_ids($arr["obj_inst"]->id());
-			$professions = $section_cl->get_all_org_proffessions($arr["obj_inst"]->id(), true);
+			$professions = $section_cl->get_all_org_professions($arr["obj_inst"]->id(), true);
 		}
 
 		if(!$jobs_ids)
@@ -798,12 +798,12 @@ class crm_company_people_impl extends class_base
 		$tree_inst = $arr['prop']['vcl_inst'];
 		$node_id = 0;
 		$i = new crm_company();
-		$i->active_node = (int)$arr['request']['unit'];
+		$i->active_node = isset($arr['request']['unit']) ? (int) $arr['request']['unit'] : 0;
 
 		$i->generate_tree(array(
 			'tree_inst' => $tree_inst,
 			'obj_inst' => $arr['obj_inst'],
-			'node_id' => $node_id,
+			'node_id' => &$node_id,
 			'conn_type' => 'RELTYPE_SECTION',
 			'attrib' => 'unit',
 			'leafs' => true,
@@ -837,14 +837,14 @@ class crm_company_people_impl extends class_base
 
 		$section_cl = new crm_section();
 
-		if(is_oid($arr['request']['unit']))
+		if(!empty($arr['request']['unit']))
 		{
 			$jobs_ids = $section_cl->get_section_job_ids_recursive($arr['request']['unit']);
 		}
 		else
 		{
 			$jobs_ids = $section_cl->get_all_org_job_ids($arr["obj_inst"]->id());
-			$professions = $section_cl->get_all_org_proffessions($arr["obj_inst"]->id(), true);
+			$professions = $section_cl->get_all_org_professions($arr["obj_inst"]->id(), true);
 		}
 
 		if(!$jobs_ids)
@@ -859,7 +859,7 @@ class crm_company_people_impl extends class_base
         	"reltype" => 66666, //RELTYPE_CANDIDATE
 		));
 
-		$professions = $section_cl->get_all_org_proffessions($arr["obj_inst"]->id(), true);
+		$professions = $section_cl->get_all_org_professions($arr["obj_inst"]->id(), true);
 
 		foreach ($candidate_conns as $candidate_conn)
 		{
@@ -1131,7 +1131,7 @@ class crm_company_people_impl extends class_base
 		$i->generate_tree(array(
 			'tree_inst' => $tree_inst,
 			'obj_inst' => $arr['obj_inst'],
-			'node_id' => $node_id,
+			'node_id' => &$node_id,
 			'conn_type' => 'RELTYPE_SECTION',
 			'attrib' => 'unit',
 			'leafs' => true,

@@ -649,7 +649,7 @@ class personnel_management_job_offer extends class_base
 				if($this->can("view", $this->owner_org))
 				{
 					$section_inst = get_instance(CL_CRM_SECTION);
-					$prop["options"] = $section_inst->get_all_org_proffessions($this->owner_org);
+					$prop["options"] = $section_inst->get_all_org_professions($this->owner_org);
 				}
 				*/
 			case "loc_country":

@@ -1,7 +1,7 @@
 <?php
 /*
 
-@classinfo syslog_type=ST_MRP_JOB relationmgr=yes no_status=1 confirm_save_data=1 maintainer=voldemar
+@classinfo relationmgr=yes no_status=1 confirm_save_data=1
 
 @tableinfo mrp_job index=oid master_table=objects master_index=oid
 @tableinfo mrp_schedule index=oid master_table=objects master_index=oid
@@ -1389,5 +1389,3 @@ class mrp_job extends class_base
 		}
 	}
 }
-
-?>

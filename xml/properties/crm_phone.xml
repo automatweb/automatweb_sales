@@ -78,9 +78,7 @@
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_PHONE</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>markop</maintainer>
             <no_status>1</no_status>
       </classinfo>
       <groupinfo>

@@ -411,7 +411,7 @@ class user extends class_base
 	function set_property(&$arr)
 	{
 		$prop =& $arr["prop"];
-		load_vcl("date_edit");
+
 		switch($prop['name'])
 		{
 			case "blocked":
@@ -561,7 +561,7 @@ class user extends class_base
 	function _get_settings_shortcuts_settings_shortcuts($arr)
 	{
 		$prop = & $arr["prop"];
-		$t =& $this->_start_shortcuts_table();
+		$t = $this->_start_shortcuts_table();
 		$o = $arr["obj_inst"];
 
 		if (!$o->prop("settings_shortcuts_shortcut_sets"))
@@ -1417,7 +1417,7 @@ EOF;
 
 		$arr["obj_inst"]->set_name($arr["obj_inst"]->prop("uid"));
 
-		if ($arr["request"]["group"] === "settings")
+		if ($this->use_group === "settings")
 		{
 			$arr["obj_inst"]->set_prop("ui_language", $arr["request"]["set_ui_lang"]);
 		}

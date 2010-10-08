@@ -2780,7 +2780,7 @@ class class_base extends aw_template
 		{
 			$property_value_from_obj = null;
 			$property["error"] = t("Viga v&auml;&auml;rtuse lugemisel");
-			trigger_error("Caught exception " . get_class($e) . " while reading property. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": " . $e->getMessage(), E_USER_WARNING);
+			trigger_error("Caught exception " . get_class($e) . " while reading property '{$nm}' from '" . $this->obj_inst->id() . "'. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": " . $e->getMessage(), E_USER_WARNING);
 		}
 
 		// if this is a new object and the property has a default value, use it
@@ -5272,10 +5272,10 @@ class class_base extends aw_template
 						if (empty($gitem["icon"]) && !empty($grplist[$gkey]["icon"]))
 						{
 							$grps[$gkey]["icon"] = $grplist[$gkey]["icon"];
-						};
-					};
-				};
-			};
+						}
+					}
+				}
+			}
 
 			$tmp = array();
 			foreach($grps as $gkey => $gval)

@@ -986,7 +986,7 @@ class task extends class_base
 				$cs = $arr["obj_inst"]->connections_from(array(
 					"type" => "RELTYPE_EXPENSE",
 				));
-				$stats_inst = get_instance("applications/crm/crm_company_stats_impl");
+				$stats_inst = new crm_company_stats_impl();
 				$cu_name = "";
 				$sum = 0;
 				if(is_oid($arr["obj_inst"]->prop("hr_price_currency")))
@@ -1473,7 +1473,7 @@ class task extends class_base
 				}
 				else
 				{
-					$i = get_instance(CL_CRM_COMPANY);
+					$i = new crm_company();
 					$prj = $i->get_my_projects();
 					if (!count($prj))
 					{
@@ -2675,7 +2675,7 @@ class task extends class_base
 				$bv = ($row->class_id() == CL_CRM_MEETING ? $row->prop("send_bill") : $row->prop("on_bill"));
 			}
 
-			$time_to_cust = $row->is_property("time_to_cust") ? $row->prop("time_to_cust") : 0;
+			$time_to_cust = $row->is_saved() && $row->is_property("time_to_cust") ? $row->prop("time_to_cust") : 0;
 			$this->sum+= $time_to_cust;
 
 			//kui arve on olemas, siis ei tahaks lasta muuta enam asju
@@ -3192,7 +3192,13 @@ class task extends class_base
 
 		$task = obj($arr["id"]);
 
-		$i = get_instance(CL_CRM_COMPANY);
+		if (!$co)
+		{ // a user with no work relation can't create bills
+			class_base::show_error_text(t("Arvet ei saa luua kui te pole &uuml;heski organisatsioonis liige/t&ouml;&ouml;taja"));
+			return;
+		}
+
+		$i = new crm_company();
 		return $i->create_bill(array(
 			"id" => $co,
 			"proj" => $task->prop("project"),
@@ -3233,7 +3239,7 @@ class task extends class_base
 		$co = $u->get_current_company();
 		$w = array();
 		$i = get_instance(CL_CRM_COMPANY);
-		$w = array_keys($i->get_employee_picker(obj($co), false, true));
+		$w = $co ? array_keys($i->get_employee_picker(obj($co), false, true)) : array();
 		foreach($w as $oid)
 		{
 			$t = obj($oid);
@@ -4570,26 +4576,30 @@ class task extends class_base
 	{
 		$tb = $arr["prop"]["vcl_inst"];
 
-		$tb->add_button(array(
-			"name" => "new_cust",
-			"parent" => "cust",
-			"tooltip" => t("Uus Organisatsioon"),
-			"url" => html::get_new_url(CL_CRM_COMPANY, $arr["obj_inst"]->parent(), array(
-				"return_url" => get_ru(),
-				"alias_to" => $arr["obj_inst"]->id(),
-				"reltype" => 3 // RELTYPE_CUSTOMER
-			)),
-		));
-		$tb->add_button(array(
-			"name" => "new_cust2",
-			"parent" => "cust2",
-			"tooltip" => t("Uus isik"),
-			"url" => html::get_new_url(CL_CRM_PERSON, $arr["obj_inst"]->parent(), array(
-				"return_url" => get_ru(),
-				"alias_to" => $arr["obj_inst"]->id(),
-				"reltype" => 3 // RELTYPE_CUSTOMER
-			)),
-		));
+//TMP DISABLED
+//TODO: these must call a proper method for adding a customer
+// reltype_customer is deprecated!
+		// $tb->add_button(array(
+			// "name" => "new_cust",
+			// "parent" => "cust",
+			// "tooltip" => t("Uus Organisatsioon"),
+			// "url" => html::get_new_url(CL_CRM_COMPANY, $arr["obj_inst"]->parent(), array(
+				// "return_url" => get_ru(),
+				// "alias_to" => $arr["obj_inst"]->id(),
+				// "reltype" => 3 // RELTYPE_CUSTOMER
+			// )),
+		// ));
+		// $tb->add_button(array(
+			// "name" => "new_cust2",
+			// "parent" => "cust2",
+			// "tooltip" => t("Uus isik"),
+			// "url" => html::get_new_url(CL_CRM_PERSON, $arr["obj_inst"]->parent(), array(
+				// "return_url" => get_ru(),
+				// "alias_to" => $arr["obj_inst"]->id(),
+				// "reltype" => 3 // RELTYPE_CUSTOMER
+			// )),
+		// ));
+//END TMP DISABLED
 
 		$url = $this->mk_my_orb("do_search", array("pn" => "orderer_h", "clid" => array(
 			CL_CRM_PERSON,

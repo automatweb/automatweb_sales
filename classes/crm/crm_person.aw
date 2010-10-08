@@ -1174,8 +1174,10 @@ class crm_person extends class_base
 			case "bill_penalty_pct":
 			case "referal_type":
 			case "client_manager":
-
-				if($prop["name"] == "bill_penalty_pct") $prop["value"] = str_replace(",", ".", $prop["value"]);
+				if($prop["name"] === "bill_penalty_pct")
+				{
+					$prop["value"] = str_replace(",", ".", $prop["value"]);
+				}
 				$this->set_cust_rel_data($arr);
 				break;
 
@@ -2132,7 +2134,12 @@ class crm_person extends class_base
 				$u = get_instance(CL_USER);
 				$ws = array();
 				$c = get_instance(CL_CRM_COMPANY);
-				$c->get_all_workers_for_company(obj($u->get_current_company()), $ws);
+				$users_organization = $u->get_current_company();
+				if (!$users_organization)
+				{
+					return PROP_IGNORE;
+				}
+				$c->get_all_workers_for_company(obj($users_organization), $ws);
 				if (count($ws))
 				{
 					$ol = new object_list(array("oid" => $ws));
@@ -2879,7 +2886,7 @@ class crm_person extends class_base
 		$relpicker = get_instance("vcl/relpicker");
 		foreach($arr["obj_inst"]->get_active_work_relations()->arr() as $wr)
 		{
-			$orgid = $wr->prop("org");
+			$orgid = $wr->prop("employer");
 			$secid = $wr->prop("section");
 			if($orgid !== $org_fixed && $org_fixed !== 0)
 			{
@@ -3929,18 +3936,18 @@ class crm_person extends class_base
 		foreach ($cs as $conn)
 		{
 			$prevjob = $conn->to();
-			if($prevjob->prop("org"))
+			if($prevjob->prop("employer"))
 			{
 					$url = html::href(array(
-						"caption" => $prevjob->prop_str("org"),
+						"caption" => $prevjob->prop_str("employer"),
 						"url" => $this->mk_my_orb("change", array(
-							"id" => $prevjob->prop("org"),
+							"id" => $prevjob->prop("employer"),
 							"return_url" => get_ru(),
 						), CL_CRM_COMPANY),
 					));
 			}
 			$table->define_data(array(
-				"asutus" => $prevjob->prop_str("org")?$url:t("-"),
+				"asutus" => $prevjob->prop_str("employer")?$url:t("-"),
 				"alates" => get_lc_date($prevjob->prop("start")),
 				"ametikoht" => $prevjob->prop("profession")?$prevjob->prop_str("profession"):t("-"),
 				"kuni" => get_lc_date($prevjob->prop("end")),
@@ -4060,7 +4067,7 @@ class crm_person extends class_base
 				));
 				$arr["obj_inst"]->save();
 			}
-			$o->set_prop("org", $arr["obj_inst"]->prop("work_contact"));
+			$o->set_prop("employer", $arr["obj_inst"]->prop("work_contact"));
 			$o->connect(array(
 				"to" => $arr["obj_inst"]->prop("work_contact"),
 				"type" => "RELTYPE_ORG",
@@ -4616,8 +4623,8 @@ class crm_person extends class_base
 		foreach($conns as $conn)
 		{
 			$obj = $conn->to();
-			if(is_oid($obj->prop('org')))
-				$rtrn[$obj->prop('org')] = $obj->prop('org.name');
+			if(is_oid($obj->prop("employer")))
+				$rtrn[$obj->prop("employer")] = $obj->prop("employer.name");
 			if(is_oid($obj->prop('section')))
 			{
 				$this->_get_work_contacts(obj($obj->prop('section')), $rtrn);
@@ -5251,7 +5258,7 @@ fnCallbackAddNew = function()
 			$kogemus = $kogemus->to();
 
 			$this->vars(array(
-				"company" => $kogemus->prop_str("org"),
+				"company" => $kogemus->prop_str("employer"),
 				"start" => get_lc_date($kogemus->prop("start")),
 				"end" => get_lc_date($kogemus->prop("end")),
 				"profession" => $kogemus->prop("proffession"),
@@ -6703,7 +6710,7 @@ fnCallbackAddNew = function()
 			$start = !empty($s) ? date("Y", $s) : t("M&auml;&auml;ramata");
 			$end = !empty($e) ? date("Y", $e) : t("M&auml;&auml;ramata");
 			$this->vars(array(
-				"crm_person_work_relation.org" => $to->prop("org.name"),
+				"crm_person_work_relation.org" => $to->prop("employer.name"),
 				"crm_person_work_relation.section" => $to->prop("section.name"),
 				"crm_person_work_relation.profession" => $to->prop("profession.name"),
 				"crm_person_work_relation.start" => $start,
@@ -7667,7 +7674,7 @@ fnCallbackAddNew = function()
 			{
 				$wr = $cn->to();
 				$profession = $wr->prop("profession.name");
-				$company = $wr->prop("org.name");
+				$company = $wr->prop("employer.name");
 				$person = obj($ro->prop("person"));
 				$phone = "";
 				$email = "";
@@ -7928,7 +7935,7 @@ fnCallbackAddNew = function()
 		foreach($p->get_active_work_relations()->arr() as $to)		// RELTYPE_CURRENT_JOB
 		{
 			$toid = $to->id();
-			$orgid = $to->prop("org");
+			$orgid = $to->prop("employer");
 			if(($orgid != $org_fixed && $org_fixed != 0 ) || !$orgid)
 			{
 				continue;
@@ -9029,11 +9036,11 @@ fnCallbackAddNew = function()
 		$qry = parse_str($url["query"], $res);
 		$url2 = parse_url($res["return_url"]);
 		$qry2 = parse_str($url2["query"], $res2);
-		if($res2["class"] == "crm_company")
+		if($res2["class"] === "crm_company")
 		{
 			if($this->can("view", $res2["id"]))
 			{
-				$wr->org = $res2["id"];
+				$wr->employer = $res2["id"];
 			}
 			if($this->can("view", $res2["unit"]))
 			{

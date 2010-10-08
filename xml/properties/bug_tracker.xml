@@ -61,14 +61,14 @@
             <name>tables_show_items</name>
             <table>objects</table>
             <group>general_sub</group>
-            <default>50</default>
-            <datatype>int</datatype>
             <type>textbox</type>
+            <datatype>int</datatype>
+            <default>50</default>
             <field>meta</field>
             <method>serialize</method>
             <caption>Ridu tabelites</caption>
       </property>
-     <property>
+      <property>
             <name>proj_toolbar</name>
             <table>objects</table>
             <group>projects</group>
@@ -1514,12 +1514,10 @@
             <field>proj_bug_gantt</field>
       </property>
       <classinfo>
-            <syslog_type>ST_BUG_TRACKER</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>robert</maintainer>
       </classinfo>
       <groupinfo>
             <general_sub>

@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/messenger/mail_message.aw,v 1.54 2009/08/22 20:05:59 markop Exp $
+
 // mail_message.aw - Mail message
 
 /*
-	@classinfo no_comment=1 no_status=1 syslog_type=ST_MAIL_MESSAGE relationmgr=yes maintainer=markop
+	@classinfo no_comment=1 no_status=1 relationmgr=yes
 	@default group=general
 	@default table=messages
 
@@ -1867,5 +1867,4 @@ arr($row);*/
 		}
 		return $mls;
 	}
-};
-?>
+}

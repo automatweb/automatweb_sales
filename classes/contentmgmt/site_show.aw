@@ -1,7 +1,6 @@
 <?php
 
 /*
-@classinfo  maintainer=kristo
 
 This message will get posted when we are showing the site.
 parameters:
@@ -2023,7 +2022,7 @@ class site_show extends class_base
 					$new_url = $this->make_menu_link($this->section_obj, $row["acceptlang"]);
 				}
 				$url = $new_url;
-				if (substr(ifset($_GET, "class"), 0, 4) == "shop")
+				if (substr(ifset($_GET, "class"), 0, 4) === "shop")
 				{
 					$url = aw_url_change_var("section", $row["acceptlang"]."/".aw_global_get("section"));
 				}
@@ -2226,7 +2225,7 @@ class site_show extends class_base
 				}
 				else
 				{
-					$this->current_login_menu_id = array_search("LOGGED", aw_ini_get("menuedit.menu_defs"));
+					$this->current_login_menu_id = array_search("LOGGED", safe_array(aw_ini_get("menuedit.menu_defs")));
 				}
 			}
 		}
@@ -3192,7 +3191,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 
 	function do_seealso_items()
 	{
-		foreach(aw_ini_get("menuedit.menu_defs") as $id => $_name)
+		foreach(safe_array(aw_ini_get("menuedit.menu_defs")) as $id => $_name)
 		{
 			if (!$this->can("view", $id))
 			{
@@ -3412,4 +3411,3 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		return $ordby;
 	}
 }
-?>

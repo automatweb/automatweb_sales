@@ -2,7 +2,7 @@
 // treeview.aw - tree generator
 /*
 
-	@classinfo relationmgr=yes syslog_type=ST_TREEVIEW maintainer=kristo
+	@classinfo relationmgr=yes
 
 	@default table=objects
 	@default group=general
@@ -938,7 +938,7 @@ class treeview extends class_base
 			else
 			{
 				$iconurl = $this->cfg["baseurl"] . "/automatweb/images/closed_folder.gif";
-			};
+			}
 
 			if(!isset($item['url']) && isset($item['reload']))
 			{
@@ -1611,5 +1611,4 @@ class treeview extends class_base
 	{
 		$this->rootnode = $rn;
 	}
-};
-?>
+}

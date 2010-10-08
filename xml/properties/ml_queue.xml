@@ -7,9 +7,6 @@
             <type>textbox</type>
             <caption>Staatus</caption>
       </property>
-      <classinfo>
-            <maintainer>markop</maintainer>
-      </classinfo>
       <tableinfo>
             <ml_queue>
                   <index>qid</index>

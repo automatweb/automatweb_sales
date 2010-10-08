@@ -941,7 +941,6 @@
       </property>
       <classinfo>
             <trans>1</trans>
-            <maintainer>kristo</maintainer>
             <relationmgr>yes</relationmgr>
             <objtable>menu</objtable>
             <objtable_index>id</objtable_index>
