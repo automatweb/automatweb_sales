@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_ADMIN_IF no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
+@classinfo no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=o
@@ -71,7 +71,7 @@ class admin_if extends class_base
 		);
 
 		// init get_popup_data stuff
-		$this->pm = get_instance("vcl/popup_menu");
+		$this->pm = new popup_menu();
 
 		$this->post_ru_append = "&return_url=".urlencode(get_ru());
 		$this->change_url_template = str_replace("__", "%s", $this->mk_my_orb("change", array(
@@ -121,7 +121,7 @@ class admin_if extends class_base
 		}
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = post_ru();
 
@@ -131,16 +131,19 @@ class admin_if extends class_base
 		}
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
-		$arr["args"]["parent"] = $arr["request"]["parent"];
+		if (isset($arr["request"]["parent"]))
+		{
+			$arr["args"]["parent"] = $arr["request"]["parent"];
+		}
 	}
 
 	function _get_o_tb($arr)
 	{
 		$parent = !empty($arr["request"]["parent"]) ? $arr["request"]["parent"] : aw_ini_get("rootmenu");
 
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		// add button only visible if the add privilege is set
 		$can_add = $this->can("add", $parent);
 		if ($can_add)
@@ -275,7 +278,7 @@ class admin_if extends class_base
 
 	function _get_o_tree($arr)
 	{
-		$tree =& $arr["prop"]["vcl_inst"];
+		$tree = $arr["prop"]["vcl_inst"];
 
 		$rn = empty($this->use_parent) ? aw_ini_get("admin_rootmenu2") : $this->use_parent;
 
@@ -420,7 +423,7 @@ class admin_if extends class_base
 	**/
 	function gen_folders($arr)
 	{
-		$t = get_instance("vcl/treeview");
+		$t = new treeview();
 		$this->use_parent = (int)$arr["parent"];
 		$this->_get_o_tree(array(
 			"prop" => array(
@@ -555,7 +558,7 @@ class admin_if extends class_base
 		$this->period = $tmp;
 	}
 
-	private function setup_rf_table(&$t, $row_count, $per_page)
+	private function setup_rf_table($t, $row_count, $per_page)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -686,7 +689,7 @@ class admin_if extends class_base
 			$this->data_list_ot_flds
 		);
 
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->setup_rf_table($t, $object_count, $per_page);
 
 		$this->_init_admin_modifier_list();
@@ -795,7 +798,7 @@ class admin_if extends class_base
 		$this->_do_o_tbl_sorting($t, $parent);
 	}
 
-	private function _do_o_tbl_sorting(&$t, $parent)
+	private function _do_o_tbl_sorting($t, $parent)
 	{
 		$sortby = empty($_GET["sortby"]) ? "hidden_jrk" : $_GET["sortby"];
 
@@ -928,13 +931,12 @@ class admin_if extends class_base
 
 	private function generate_new($tb, $i_parent, $period)
 	{
-		$atc = get_instance(CL_ADD_TREE_CONF);
+		$atc = new add_tree_conf();
 
 		// although fast enough allready .. caching makes it 3 times as fast
-		$c = get_instance("cache");
 		if(aw_ini_get("admin_if.cache_toolbar_new"))
 		{
-			$tree = $c->file_get("newbtn_tree_cache_".aw_global_get("uid"));
+			$tree = cache::file_get("newbtn_tree_cache_".aw_global_get("uid"));
 			$tree = unserialize($tree);
 		}
 
@@ -947,7 +949,7 @@ class admin_if extends class_base
 				"parent" => "--pt--",
 				"period" => "--pr--",
 			));
-			$c->file_set("newbtn_tree_cache_".aw_global_get("uid"), serialize($tree));
+			cache::file_set("newbtn_tree_cache_".aw_global_get("uid"), serialize($tree));
 		}
 
 		$new_url_template = str_replace("__", "%s", $this->mk_my_orb("new",array("parent" => "__"),"__"));
@@ -1320,9 +1322,7 @@ class admin_if extends class_base
 		if (is_array($sel))
 		{
 			$ol = new object_list(array(
-				"oid" => array_keys($sel),
-				"site_id" => array(),
-				"lang_id" => array()
+				"oid" => array_keys($sel)
 			));
 			for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 			{
@@ -1363,9 +1363,7 @@ class admin_if extends class_base
 			return $_SESSION["cur_admin_if"];
 		}
 		$ol = new object_list(array(
-			"class_id" => CL_ADMIN_IF,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_ADMIN_IF
 		));
 		if ($ol->count())
 		{
@@ -1689,7 +1687,7 @@ class admin_if extends class_base
 
 		if (!empty($_GET["sortby"]))
 		{
-			if ($_GET["sortby"] == "hidden_jrk")
+			if ($_GET["sortby"] === "hidden_jrk")
 			{
 				$filter[] = new obj_predicate_sort(array(
 					"type" => "desc",	// this makes sure menus are first
@@ -2136,4 +2134,3 @@ interface admin_if_plugin
 	**/
 	function admin_if_modify_data(&$data);
 }
-?>

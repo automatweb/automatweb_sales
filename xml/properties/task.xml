@@ -709,9 +709,7 @@
             <caption>Verstapost</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_TASK</syslog_type>
             <confirm_save_data>1</confirm_save_data>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <rows>

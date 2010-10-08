@@ -1183,9 +1183,7 @@
             <field>prods_table</field>
       </property>
       <classinfo>
-            <syslog_type>ST_PROJECT</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <general2>

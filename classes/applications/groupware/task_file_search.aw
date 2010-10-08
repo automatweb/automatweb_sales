@@ -1,16 +1,8 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
-classload("vcl/popup_search");
+
 class task_file_search extends popup_search
 {
-	function task_file_search()
-	{
-		$this->popup_search();
-	}
-
-	function _insert_form_props(&$htmlc, $arr)
+	function _insert_form_props($htmlc, $arr)
 	{
 		parent::_insert_form_props($htmlc, $arr);
 
@@ -56,5 +48,3 @@ class task_file_search extends popup_search
 		}
 	}
 }
-
-?>

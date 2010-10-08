@@ -1540,7 +1540,8 @@
             <name>all_proj_search_cust</name>
             <table>objects</table>
             <group>org_projects_archive</group>
-            <type>textbox</type>
+            <type>objpicker</type>
+            <options_callback>crm_company::get_customer_options</options_callback>
             <store>no</store>
             <parent>all_proj_search_b_top</parent>
             <size>33</size>
@@ -3703,12 +3704,10 @@
             <field>sell_offers_prods</field>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_COMPANY</syslog_type>
             <confirm_save_data>1</confirm_save_data>
             <versioned>1</versioned>
             <prop_cb>1</prop_cb>
             <no_status>1</no_status>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <general_sub>

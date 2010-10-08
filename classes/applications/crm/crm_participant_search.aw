@@ -13,7 +13,7 @@ class crm_participant_search extends popup_search
 		));
 		$cur_co = get_current_company();
 		$opts = array();
-		$def = array("cur_co" => 1, $cur_co->id() => 1);
+		$def = $cur_co ? array("cur_co" => 1, $cur_co->id() => 1) : array("cur_co" => 0);
 		$has_cur = false;
 		if (isset($arr["s"]["co"]) and is_array($arr["s"]["co"]))
 		{

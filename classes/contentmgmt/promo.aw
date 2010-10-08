@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/promo.aw,v 1.113 2009/05/19 11:05:46 kristo Exp $
+
 // promo.aw - promokastid.
 
 /* content documents for promo boxes are handled thusly:
@@ -23,7 +23,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE,CL_DOCUMENT, on_delete_document)
 /*
 	@classinfo trans=1
 
-	@groupinfo general_sub caption="&Uuml;ldine" parent=general maintainer=kristo
+	@groupinfo general_sub caption="&Uuml;ldine" parent=general
 
 		@property name type=textbox rel=1 trans=1 table=objects group=general_sub
 		@caption Nimi
@@ -36,7 +36,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE,CL_DOCUMENT, on_delete_document)
 		@property status type=status trans=1 default=1 table=objects group=general_sub
 		@caption Aktiivne
 		@comment Kas objekt on aktiivne
-	
+
 		@property caption type=textbox table=objects field=meta method=serialize trans=1 group=general_sub
 		@caption Pealkiri
 
@@ -145,7 +145,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE,CL_DOCUMENT, on_delete_document)
 		@property last_menus type=table group=menus_sub method=serialize store=no
 		@caption Vali men&uuml;&uuml;d, mille alt viimaseid dokumente v&otilde;etakse
 
-		@property ndocs type=textbox size=4 group=menus_sub table=menu field=ndocs 
+		@property ndocs type=textbox size=4 group=menus_sub table=menu field=ndocs
 		@caption Mitu viimast dokumenti
 
 		@property start_ndocs type=textbox size=4 group=menus_sub table=objects field=meta method=serialize
@@ -177,7 +177,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE,CL_DOCUMENT, on_delete_document)
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-	
+
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
@@ -196,13 +196,13 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE,CL_DOCUMENT, on_delete_document)
 
 	@reltype IMAGE value=3 clid=CL_IMAGE
 	@caption pilt
-	
+
 	@reltype NO_SHOW_MENU value=4 clid=CL_MENU
 	@caption &Auml;ra n&auml;ita men&uuml;&uuml; juures
 
 	@reltype KEYWORD value=5 clid=CL_KEYWORD
 	@caption V&otilde;tmes&otilde;na
-			
+
 	@reltype DOC_IGNORE value=6 clid=CL_MENU
 	@caption ignoreeri dokumente selle men&uuml;&uuml; alt
 */
@@ -225,7 +225,7 @@ class promo extends class_base implements main_subtemplate_handler
 	function get_property($arr = array())
 	{
 		$prop = &$arr["prop"];
-		$retval = PROP_OK; 
+		$retval = PROP_OK;
 		switch($prop["name"])
 		{
 			case "sss_tb":
@@ -257,7 +257,7 @@ class promo extends class_base implements main_subtemplate_handler
 					"caption" => t("Vali template")
 				));
 				break;
-	
+
 			case "type":
 				$pa = aw_ini_get("promo.areas");
 				if (is_array($pa) && count($pa) > 0)
@@ -310,7 +310,7 @@ class promo extends class_base implements main_subtemplate_handler
 					'ASC' => t("V&auml;iksem (vanem) enne"),
 				);
 				break;
-	
+
 			case "last_menus":
 				$this->get_doc_sources($arr);
 				break;
@@ -366,7 +366,7 @@ class promo extends class_base implements main_subtemplate_handler
 		$obj = $arr["obj_inst"];
 		$section_include_submenus = $obj->meta("section_include_submenus");
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "id",
 			"caption" => t("ID"),
@@ -549,7 +549,7 @@ class promo extends class_base implements main_subtemplate_handler
 			print "See objekt on vanas formaadis. Enne kui seda muuta saab, tuleb k&otilde;ik s&uuml;steemis olevad promokastid uude formaati konvertida. <a href='$convert_url'>Kliki siia</a> konversiooni alustamiseks";
 			exit;
 		};
-		
+
 		// now, check, whether we have to convert the current contents of comment and sss to relation objects
 		// we use a flag in object metainfo for that
 		// converters->convert_promo_relations()
@@ -564,7 +564,7 @@ class promo extends class_base implements main_subtemplate_handler
 		$oldaliases = $obj->connections_from(array(
 			"class" => CL_MENU
 		));
-		
+
 		$section = array();
 		$last_menus = array();
 
@@ -574,7 +574,7 @@ class promo extends class_base implements main_subtemplate_handler
 			{
 				$section[$alias->prop("to")] = $alias->prop("to");
 			};
-			
+
 			if ($alias->prop("reltype") == RELTYPE_DOC_SOURCE)
 			{
 				$last_menus[$alias->prop("to")] = $alias->prop("to");
@@ -634,8 +634,8 @@ class promo extends class_base implements main_subtemplate_handler
 				"sort_by" => $_ob,
 				"lang_id" => array()
 			));
-			
-			
+
+
 			$def = new aw_array($ol->ids());
 		}
 
@@ -675,8 +675,8 @@ class promo extends class_base implements main_subtemplate_handler
 		{
 			aw_global_set("no_cache", 1);
 		}
-	
-		
+
+
 		$_numdocs = count($def->get());
 		$_curdoc = 1;
 		foreach($def->get() as $key => $val)
@@ -832,9 +832,7 @@ class promo extends class_base implements main_subtemplate_handler
 		// to do that
 		// make a list of all promo boxes
 		$boxes = new object_list(array(
-			"class_id" => CL_PROMO,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_PROMO
 		));
 
 		$o = $o->get_original();
@@ -843,9 +841,7 @@ class promo extends class_base implements main_subtemplate_handler
 		$path = $o->path();
 	 	// get brothers as well, causet they might be in boxes as well
 		$bros = new object_list(array(
-			"brother_of" => $o->brother_of(),
-			"lang_id" => array(),
-			"site_id" => array()
+			"brother_of" => $o->brother_of()
 		));
 		$paths = array();
 		foreach($bros->arr() as $bro)
@@ -858,7 +854,7 @@ class promo extends class_base implements main_subtemplate_handler
 		{
 			$add_to_list = false;
 
-			// for each box, check the folders where it gets documents and if this document's parent is one of them, 
+			// for each box, check the folders where it gets documents and if this document's parent is one of them,
 			$fld = $this->_get_folders_for_box($box);
 			$is_in_promo = false;
 			foreach($fld as $f => $subs)
@@ -886,7 +882,7 @@ class promo extends class_base implements main_subtemplate_handler
 				{
 					// if so, check the sorting order and compare the current document to the current list
 					// if it belongs in the list, add it to the list
-					// how do we do that? 
+					// how do we do that?
 					// well, make an list of the documents in the current list
 					// add the new document to it
 					// and give the id's and sort by and length to an object_list and let the database sort it all out
@@ -1029,7 +1025,7 @@ class promo extends class_base implements main_subtemplate_handler
 
 		// get list of docs for promo
 		$si = get_instance("contentmgmt/site_show");
-		
+
 		$dd = $si->get_default_document(array(
 			"obj" => $o
 		));
@@ -1067,7 +1063,7 @@ class promo extends class_base implements main_subtemplate_handler
 		{
 			$add_to_list = false;
 
-			// for each box, check the folders where it gets documents and if this document's parent is one of them, 
+			// for each box, check the folders where it gets documents and if this document's parent is one of them,
 			$fld = $this->_get_folders_for_box($box);
 			$is_in_promo = false;
 			foreach($fld as $f => $subs)
@@ -1083,7 +1079,7 @@ class promo extends class_base implements main_subtemplate_handler
 			{
 				// get list of docs for promo
 				$si = get_instance("contentmgmt/site_show");
-		
+
 				$box->set_meta("content_documents", $this->make_keys($si->get_default_document(array(
 					"obj" => $box
 				))));
@@ -1100,7 +1096,7 @@ class promo extends class_base implements main_subtemplate_handler
 	function kw_tb($arr)
 	{
 		$tb =& $arr["prop"]["vcl_inst"];
-		
+
 		$pt = $arr["obj_inst"]->id();
 		if (aw_ini_get("config.keyword_folder"))
 		{
@@ -1202,4 +1198,3 @@ class promo extends class_base implements main_subtemplate_handler
 		return $link_str;
 	}
 }
-?>

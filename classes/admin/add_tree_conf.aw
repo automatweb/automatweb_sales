@@ -1,6 +1,6 @@
 <?php
 /*
-	@classinfo no_comment=1 no_status=1 syslog_type=ST_ADD_TREE_CONF maintainer=kristo prop_cb=1
+	@classinfo no_comment=1 no_status=1 prop_cb=1
 
 	@default table=objects
 	@default field=meta
@@ -20,6 +20,9 @@ class add_tree_conf extends class_base
 	private static $system_classes = array(
 		"sys",
 		"popup_search",
+		"config",
+		"objpicker",
+		"relationmgr",
 		"acl_manager"
 	);
 
@@ -864,5 +867,3 @@ class add_tree_conf extends class_base
 		return $by_parent;
 	}
 }
-
-?>

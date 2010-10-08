@@ -23,8 +23,19 @@ class cfg_view_controller extends class_base
 			"clid" => CL_CFG_VIEW_CONTROLLER
 		));
 	}
-	
-		
+
+	public function parse_alias($args = array())
+	{
+		$retval = "";
+		if (!empty($args["alias"]["to"]) and $this->can("view", $args["alias"]["to"]))
+		{
+			$this_o = obj($args["alias"]["to"]);
+			$formula = $this_o->prop("formula");
+			eval($formula);
+		}
+		return $retval;
+	}
+
 	/** runs the controller given
 		@attrib api=1
 
@@ -39,12 +50,12 @@ class cfg_view_controller extends class_base
 
 		@errors
 			error is thrown if the controller object given does not exist
-	
+
 		@returns
 			the value that the controller sets to the variable $retval
 
 		@examples
-			$ctr = find_controller_object();	
+			$ctr = find_controller_object();
 			$ctr_instance = $crt->instance();
 			$prop = array("name" => "whatever");
 			echo "the controller said ".$ctr_instance->check_property($prop, $ctr->id(), array("a" => "b"));

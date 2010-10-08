@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/object_treeview/object_treeview_v2.aw,v 1.125 2009/05/05 13:21:08 markop Exp $
+
 // object_treeview_v2.aw - Objektide nimekiri v2
 /*
 
-@classinfo syslog_type=ST_OBJECT_TREEVIEW_V2 relationmgr=yes no_status=1 no_comment=1 maintainer=kristo
+@classinfo relationmgr=yes no_status=1 no_comment=1
 
 @default table=objects
 @default group=general
@@ -576,14 +576,14 @@ class object_treeview_v2 extends class_base
 		{
 			return "";
 		}
-		enter_function("otv2::show");
+
 		$ob = obj($id);
 		$search_i = false;
 
 		if ("1" === $_GET["otv2srch"] and $ob->prop("show_search_btn") and $this->can("view", $ob->prop("search")))
 		{// show search form and table instead
 			// toolbar
-			$tb = get_instance("vcl/toolbar");
+			$tb = new toolbar();
 			$url = aw_url_change_var("otv2srch", null);
 			$tb->add_button(array(
 				"name" => "browse",
@@ -596,7 +596,6 @@ class object_treeview_v2 extends class_base
 
 			// search
 			$res .= $search_i->show(array("id" => $ob->prop("search"), "extra_args" => array("otv2srch" => "1")));
-			exit_function("otv2::show");
 			return $res;
 		}
 
@@ -1035,7 +1034,7 @@ class object_treeview_v2 extends class_base
 			foreach($conn as $cn)
 			{
 				$controllers[] = $cn->prop("to");
-			}				
+			}
 			$view_controller_inst = get_instance(CL_CFG_VIEW_CONTROLLER);
 			foreach($ol as $odata)
 			{
@@ -1232,11 +1231,9 @@ class object_treeview_v2 extends class_base
 
 		if (strpos($res, "<a") !== false || strpos($res, "< a") !== false || strpos($res, "<A") !== false)
 		{
-			exit_function("otv2::show");
 			return $res;
 		}
 
-		exit_function("otv2::show");
 		return create_email_links($res);
 	}
 
@@ -1407,7 +1404,7 @@ class object_treeview_v2 extends class_base
 					"value" => 1,
 					"checked" => $cols_date_as_text[$colid],
 				));
-		
+
 				$show_as_date = html::checkbox(array(
 					"name" => "column_show_as_date[".$colid."]",
 					"value" => 1,
@@ -1511,9 +1508,7 @@ class object_treeview_v2 extends class_base
 
 	function _insert_styles($o)
 	{
-		enter_function("object_treeview_v2::_insert_styles");
 		$style = "textmiddle";
-		classload("layout/active_page_data");
 		$header_css = "textmiddle";
 		if ($o->prop("header_css"))
 		{
@@ -1568,12 +1563,10 @@ class object_treeview_v2 extends class_base
 			"header_bgcolor" => $header_bg,
 			"group_header_bgcolor" => $group_header_bg,
 		));
-		exit_function("object_treeview_v2::_insert_styles");
 	}
 
 	function _get_bgcolor($ob, $line)
 	{
-		enter_function("object_treeview_v2::_get_bgcolor");
 		$ret = "";
 		if (($line % 2) == 1)
 		{
@@ -1587,13 +1580,11 @@ class object_treeview_v2 extends class_base
 		{
 			$ret = "#".$ret;
 		}
-		exit_function("object_treeview_v2::_get_bgcolor");
 		return $ret;
 	}
 
 	function _get_style_text($ob, $line)
 	{
-		enter_function("object_treeview_v2::_get_style_text");
 		$ret = "";
 		if (($line % 2) == 1)
 		{
@@ -1608,7 +1599,6 @@ class object_treeview_v2 extends class_base
 		{
 			$ret = " style=\"$ret\"";
 		}
-		exit_function("object_treeview_v2::_get_style_text");
 		return $ret;
 	}
 
@@ -1618,7 +1608,6 @@ class object_treeview_v2 extends class_base
 		{
 			return;
 		}
-		enter_function("object_treeview_v2::_draw_folders");
 	//	$tree_type = $ob->prop("tree_type");
 		if (empty($tree_type))
 		{
@@ -1669,7 +1658,6 @@ class object_treeview_v2 extends class_base
 					$table->define_data($row);
 				}
 
-				exit_function("object_treeview_v2::_draw_folders");
 				return $table->draw();
 
 			case "TREE_DHTML":
@@ -1702,14 +1690,12 @@ class object_treeview_v2 extends class_base
 
 				$tv->set_selected_item($_GET["tv_sel"]);
 				$pms = array();
-				exit_function("object_treeview_v2::_draw_folders");
 				return $tv->finalize_tree($pms);
 		}
 	}
 
 	function _get_add_toolbar($ob, $drv = NULL)
 	{
-		enter_function("object_treeview_v2::_get_add_toolbar");
 		// must read these from the datasource
 		$ds_o = obj($ob->prop("ds"));
 		$ds_i = $ds_o->instance();
@@ -1783,7 +1769,6 @@ class object_treeview_v2 extends class_base
 			$has_b = true;
 		}
 
-		exit_function("object_treeview_v2::_get_add_toolbar");
 		if ($has_b)
 		{
 			return $tb->get_toolbar();
@@ -1793,7 +1778,6 @@ class object_treeview_v2 extends class_base
 
 	function _do_parse_file_line($arr, $drv, $d_o, $parms)
 	{
-		enter_function("object_treeview_v2::_do_parse_file_line");
 		extract($parms);
 		extract($arr);
 
@@ -1802,7 +1786,7 @@ class object_treeview_v2 extends class_base
 		$sep_after = $parms["tree_obj_ih"]->meta("sel_columns_sep_after");
 		$date_as_text = $parms["tree_obj_ih"]->meta("sel_columns_date_as_text");
 		$show_as_date = $parms["tree_obj_ih"]->meta("sel_columns_show_as_date");
-		
+
 		$formatv = array(
 			"show" => $url,
 			"name" => $name,
@@ -1868,7 +1852,7 @@ class object_treeview_v2 extends class_base
 				{
 					$content = $formatv[$colid];
 				}
-				else 
+				else
 				if (strpos($sel_columns_full_prop_info[$colid]['type'], "date") !== false || !empty($show_as_date[$colid]))
 				{
 					$content = date("d.m.Y", $arr[$colid]);
@@ -2010,7 +1994,6 @@ class object_treeview_v2 extends class_base
 			"style_text" => $this->_get_style_text($style_obj, $this->cnt)
 		));
 
-		exit_function("object_treeview_v2::_do_parse_file_line");
 		return $this->parse("FILE");
 	}
 
@@ -2021,7 +2004,6 @@ class object_treeview_v2 extends class_base
 	//
 	function _get_col_list($params = array())
 	{
-		enter_function("object_treeview_v2::_get_col_list");
 		extract($params);
 
 		$tmp = $o->meta("sel_columns");
@@ -2056,7 +2038,6 @@ class object_treeview_v2 extends class_base
 		// sort
 		$this->__sby = $o->meta("sel_columns_ord");
 		uksort($cold, array(&$this, "__sby"));
-		exit_function("object_treeview_v2::_get_col_list");
 		return $cold;
 	}
 
@@ -2071,7 +2052,6 @@ class object_treeview_v2 extends class_base
 
 	function get_folders_as_object_list($object, $level, $parent_o)
 	{
-		enter_function("object_treeview_v2::get_folders_as_object_list");
 		$this->tree_ob = $object;
 
 		if (is_oid($object->prop("inherit_view_props_from")) && $this->can("view", $object->prop("inherit_view_props_from")))
@@ -2124,7 +2104,6 @@ class object_treeview_v2 extends class_base
 			}
 		}
 
-		exit_function("object_treeview_v2::get_folders_as_object_list");
 		return $ol;
 	}
 
@@ -2148,8 +2127,7 @@ class object_treeview_v2 extends class_base
 
 	function do_sortbl(&$arr)
 	{
-		enter_function("object_treeview_v2::do_sortbl");
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_sortbl($t);
 
 		$ob = $arr["obj_inst"];
@@ -2230,7 +2208,6 @@ class object_treeview_v2 extends class_base
 		));
 
 		$t->set_sortable(false);
-		exit_function("object_treeview_v2::do_sortbl");
 	}
 
 	function do_save_sortbl(&$arr)
@@ -2248,7 +2225,7 @@ class object_treeview_v2 extends class_base
 		$arr["obj_inst"]->set_meta("itemsorts", $res);
 	}
 
-	function _init_sortbl(&$t)
+	function _init_sortbl($t)
 	{
 		$t->define_field(array(
 			"name" => "sby",
@@ -2271,7 +2248,6 @@ class object_treeview_v2 extends class_base
 
 	function __is_sorter($a, $b)
 	{
-		enter_function("object_treeview_v2::__is_sorter");
 		$comp_a = NULL;
 		$comp_b = NULL;
 		// find the first non-matching element
@@ -2308,7 +2284,6 @@ class object_treeview_v2 extends class_base
 			}
 		}
 
-		exit_function("object_treeview_v2::__is_sorter");
 		// sort by that element
 		if ($comp_a  == $comp_b)
 		{
@@ -2325,7 +2300,7 @@ class object_treeview_v2 extends class_base
 		}
 	}
 
-	function _init_filter_table(&$t)
+	function _init_filter_table($t)
 	{
 		$t->define_field(array(
 			"name" => "filter_group",
@@ -2361,7 +2336,7 @@ class object_treeview_v2 extends class_base
 
 	function do_filter_table(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_filter_table($t);
 
 		$ob = $arr["obj_inst"];
@@ -2589,7 +2564,6 @@ class object_treeview_v2 extends class_base
 // "otv_obj" => otv object
 	function filter_data($arr)
 	{
-		enter_function("object_treeview_v2::filter_data");
 		$ol = $arr['ol'];
 		$ob = $arr['otv_obj'];
 		$ih_ob = $arr['otv_obj_ih'];
@@ -2649,12 +2623,10 @@ class object_treeview_v2 extends class_base
 					}
 				}
 			}
-			exit_function("object_treeview_v2::filter_data");
-			return $ol;
 
+			return $ol;
 		}
 
-		exit_function("object_treeview_v2::filter_data");
 		return $ol;
 	}
 
@@ -2706,7 +2678,7 @@ class object_treeview_v2 extends class_base
 		));
 	}
 
-	function _init_columns_modify_t(&$t)
+	function _init_columns_modify_t($t)
 	{
 		$t->define_field(array(
 			"name" => "col",
@@ -2750,4 +2722,3 @@ class object_treeview_v2 extends class_base
 		}
 	}
 }
-?>

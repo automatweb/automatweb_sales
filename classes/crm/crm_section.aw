@@ -232,7 +232,7 @@ class crm_section extends class_base
 		return  $job_ids;
 	}
 
-	function get_all_org_proffessions($org_id, $recrusive=false)
+	function get_all_org_professions($org_id, $recrusive=false)
 	{
 		$obj = &obj($org_id);
 		foreach ($obj->connections_from(array("type" => "RELTYPE_PROFESSIONS")) as $prof_conn)

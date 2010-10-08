@@ -2697,7 +2697,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					$new_t = $GLOBALS["tableinfo"][$join["from_class"]];
 					$do_other_join = false;
 					$and_buster = "";
-					if (!is_array($new_t) || !isset($GLOBALS["properties"][$join["from_class"]][$join["prop"]]) || $GLOBALS["properties"][$join["from_class"]][$join["prop"]]["table"] == "objects")
+					if (!is_array($new_t) || !isset($GLOBALS["properties"][$join["from_class"]][$join["prop"]]) || $GLOBALS["properties"][$join["from_class"]][$join["prop"]]["table"] === "objects")
 					{
 						// class only has objects table, so join that
 						$tbl = "objects_rel_".$prev["from_class"]."_".$prev["reltype"]."_".$join["from_class"]."_".$prev["reltype"]."_".$prev_prev["reltype"];
@@ -2734,8 +2734,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 					break;
 				}
-				else
-				if (!$join["to_class"])
+				elseif (!$join["to_class"])
 				{
 					if ($pos == (count($this->join_data)-1))
 					{
@@ -2973,6 +2972,15 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				{
 					switch ($cur_prop["type"])
 					{
+						case "objpicker":
+							$new_clid = false;
+							$prop_clid = $cur_prop["clid"];
+							if ($prop_clid)
+							{
+								$new_clid = constant($prop_clid);
+							}
+							break;
+
 						case "relpicker":
 						case "hidden"://? v6ib ju
 						case "relmanager":
@@ -2987,7 +2995,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 							if (!$relt)
 							{
-								$new_clid = @constant($cur_prop["clid"]);
+								$new_clid = constant($cur_prop["clid"]);
 							}
 
 							error::raise_if(!$relt && !$new_clid, array(

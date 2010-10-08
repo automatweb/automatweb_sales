@@ -1076,9 +1076,17 @@ function aw_get_el(name,form)
 		{
 			$val = $arr["value"];
 		}
-		$o->set_prop($arr["property"] , $val);
-		$o->save();
-		die($o->prop($arr["property"]));
+
+		try
+		{
+			$o->set_prop($arr["property"] , $val);
+			$o->save();
+			exit($o->prop($arr["property"]));
+		}
+		catch (awex_obj $e)
+		{
+			exit("");//TODO: something.
+		}
 	}
 
 	function _get_search_form($arr)

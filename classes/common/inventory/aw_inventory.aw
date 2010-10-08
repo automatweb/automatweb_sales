@@ -21,20 +21,6 @@
 
 */
 
-// andmevajadused:
-// palju on x-i hetkel y (t2na, eile, ...) omaduse z j2rgi (raha, kogus (meetrid, tykki, ...))
-// salvestada iga kirjega palju sel hetkel selle artikli kogus on
-// transactions:
-// item id
-// date
-// src inventory?
-// dest inventory?
-// requester
-// qty
-// value?
-// status
-
-
 class aw_inventory extends class_base
 {
 	public function __construct()

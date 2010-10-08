@@ -67,10 +67,6 @@
             <field>transl</field>
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
-      <classinfo>
-            <syslog_type>ST_FLASH</syslog_type>
-            <maintainer>kristo</maintainer>
-      </classinfo>
       <groupinfo>
             <transl>
                   <caption>T&amp;amp;otilde;lgi</caption>

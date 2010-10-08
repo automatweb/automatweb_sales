@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=robert
-*/
 
 class bt_stat_impl extends core
 {
@@ -10,7 +7,7 @@ class bt_stat_impl extends core
 		$this->init();
 	}
 
-	function _init_stat_hrs_ov_t(&$t)
+	function _init_stat_hrs_ov_t($t)
 	{
 		$t->define_field(array(
 			"name" => "p",
@@ -41,8 +38,8 @@ class bt_stat_impl extends core
 	{
 		// table year is group, month is col
 		// row is person
-		$req_start = empty($arr["request"]["stat_hrs_start"]) ? mktime(0, 0, 0, date("n"), 1, date("Y"), 1) : mktime(0, 0, 0, $arr["request"]["stat_hrs_start"]["month"], $arr["request"]["stat_hrs_start"]["day"], $arr["request"]["stat_hrs_start"]["year"], 1);
-		$req_end = empty($arr["request"]["stat_hrs_end"]) ? time() + 86400 : mktime(23, 59, 59, $arr["request"]["stat_hrs_end"]["month"], $arr["request"]["stat_hrs_end"]["day"], $arr["request"]["stat_hrs_end"]["year"], 1);
+		$req_start = empty($arr["request"]["stat_hrs_start"]) ? mktime(0, 0, 0, date("n"), 1, date("Y")) : mktime(0, 0, 0, $arr["request"]["stat_hrs_start"]["month"], $arr["request"]["stat_hrs_start"]["day"], $arr["request"]["stat_hrs_start"]["year"]);
+		$req_end = empty($arr["request"]["stat_hrs_end"]) ? time() + 86400 : mktime(23, 59, 59, $arr["request"]["stat_hrs_end"]["month"], $arr["request"]["stat_hrs_end"]["day"], $arr["request"]["stat_hrs_end"]["year"]);
 		$time_constraint = null;
 
 		$co_conn = $arr["obj_inst"]->connections_from(array(
@@ -57,17 +54,15 @@ class bt_stat_impl extends core
 			$time_constraint = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $req_start, $req_end);
 		}
 		$stat_hrs = array();
-		if($arr["request"]["stat_hr_bugs"] || !$arr["request"]["stat_hrs_end"])
+		if(!empty($arr["request"]["stat_hr_bugs"]) || empty($arr["request"]["stat_hrs_end"]))
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_BUG_COMMENT,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"add_wh" => new obj_predicate_not(0),
 				"created" => $time_constraint
 			));
-			
-	
+
+
 			foreach($ol->arr() as $o)
 			{
 				$stat_hrs[$o->createdby()][] = $o;
@@ -109,10 +104,10 @@ class bt_stat_impl extends core
 		}
 */
 		$classes = array();
-		if($arr["request"]["stat_hr_tasks"]) $classes[] = CL_TASK;
-		if($arr["request"]["stat_hr_calls"]) $classes[] = CL_CRM_CALL;
-		if($arr["request"]["stat_hr_meetings"]) $classes[] = CL_CRM_MEETING;
-		if($arr["request"]["stat_hr_bugs"]) $classes[] = CL_BUG;
+		if(!empty($arr["request"]["stat_hr_tasks"])) $classes[] = CL_TASK;
+		if(!empty($arr["request"]["stat_hr_calls"])) $classes[] = CL_CRM_CALL;
+		if(!empty($arr["request"]["stat_hr_meetings"])) $classes[] = CL_CRM_MEETING;
+		if(!empty($arr["request"]["stat_hr_bugs"])) $classes[] = CL_BUG;
 
 		$ol = new object_list(array(
 			"class_id" => CL_TASK_ROW,
@@ -128,7 +123,6 @@ class bt_stat_impl extends core
 			{
 				continue;
 			}
-			$tp = $type["types"];
 			$impl = $o->prop("impl");
 			foreach(safe_array($impl) as $pid)
 			{
@@ -143,7 +137,7 @@ class bt_stat_impl extends core
 			}
 		}
 
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_stat_hrs_ov_t($t);
 		foreach($stat_hrs as $uid => $coms)
 		{
@@ -164,7 +158,7 @@ class bt_stat_impl extends core
 				elseif($com->class_id() == CL_TASK)
 				{
 					$dmz[date("Y", $com->prop("start1"))]["m".date("m",$com->prop("start1"))] += $com->prop("num_hrs_real");
-					
+
 				}
 				elseif($com->class_id() == CL_CRM_MEETING || $com->class_id() == CL_CRM_CALL)
 				{
@@ -222,7 +216,7 @@ class bt_stat_impl extends core
 		$t->set_default_sorder("desc");
 	}
 
-	function _init_stat_det_t(&$t)
+	function _init_stat_det_t($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -256,13 +250,13 @@ class bt_stat_impl extends core
 
 	function _get_stat_hrs_detail($arr)
 	{
-		if (!$arr["request"]["det_uid"] || !$arr["request"]["det_year"] || !$arr["request"]["det_mon"])
+		if (empty($arr["request"]["det_uid"]) || empty($arr["request"]["det_year"]) || empty($arr["request"]["det_mon"]))
 		{
 			return PROP_IGNORE;
 		}
 
 		// list all bugs and their times for that person for that time
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_stat_det_t($t);
 		if($dds = $arr["request"]["det_day_start"])
 		{
@@ -297,7 +291,7 @@ class bt_stat_impl extends core
 				"created" => $fancy_filter,
 				"createdby" => $arr["request"]["det_uid"]
 			));
-	
+
 			$bugs = array();
 			foreach($ol->arr() as $com)
 			{
@@ -307,7 +301,7 @@ class bt_stat_impl extends core
 			}
 		}
 //		$types = $this->get_event_types();
-		
+
 		$ui = get_instance(CL_USER);
 		$p = $ui->get_person_for_uid($arr["request"]["det_uid"]);
 		$startd = mktime(0,0,0, $arr["request"]["det_mon"], $startday, $arr["request"]["det_year"]);
@@ -363,7 +357,7 @@ class bt_stat_impl extends core
 			}
 		}
 
-		$this->_insert_det_data_from_arr($bugs, &$t);
+		$this->_insert_det_data_from_arr($bugs, $t);
 
 		$u = get_instance(CL_USER);
 		$p = $u->get_person_for_uid($arr["request"]["det_uid"]);
@@ -462,7 +456,7 @@ class bt_stat_impl extends core
 		return $types;
 	}
 
-	function _init_errs_t(&$t)
+	function _init_errs_t($t)
 	{
 		$t->define_field(array(
 			"name" => "bug",
@@ -483,17 +477,16 @@ class bt_stat_impl extends core
 
 	function _get_stat_hrs_errs($arr)
 	{
-		if (!$arr["request"]["dbg"])
+		if (empty($arr["request"]["dbg"]))
 		{
 			return PROP_IGNORE;
 		}
-		$t =& $arr["prop"]["vcl_inst"];
+
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_errs_t($t);
 
 		$ol = new object_list(array(
 			"class_id" => CL_BUG_COMMENT,
-			"lang_id" => array(),
-			"site_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -554,7 +547,7 @@ class bt_stat_impl extends core
 
 	function _get_stat_proj_detail($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_stat_proj_det($t);
 		$req_start = empty($arr["request"]["stat_proj_hrs_start"]) ? mktime(0, 0, 1, date("m"), 1, date("Y")) : mktime(0, 0, 0, $arr["request"]["stat_proj_hrs_start"]["month"], $arr["request"]["stat_proj_hrs_start"]["day"], $arr["request"]["stat_proj_hrs_start"]["year"], 1);
 		$req_end = empty($arr["request"]["stat_proj_hrs_end"]) ? time() + 86400 : mktime(23, 59, 59, $arr["request"]["stat_proj_hrs_end"]["month"], $arr["request"]["stat_proj_hrs_end"]["day"], $arr["request"]["stat_proj_hrs_end"]["year"], 1);
@@ -602,19 +595,19 @@ class bt_stat_impl extends core
 				$stat_hrs[$o->createdby()][] = $o;
 				$bugids[$o->parent()] = 1;
 			}
-	
+
 			if(!$bugids)
 			{
 				$bugids = array(-1 => -1);
 			}
-	
+
 			$bug_ol = new object_list(array(
 				"oid" => array_keys($bugids),
 				"lang_id" => array(),
 				"site_id" => array()
 			));
 			$bug_ol->begin();
-	
+
 			foreach($ol->arr() as $com)
 			{
 				if($com->prop("add_wh"))
@@ -686,7 +679,6 @@ class bt_stat_impl extends core
 		$ol = new object_list($rows_filter);
 		foreach($ol->arr() as $o)
 		{
-			$tp = $type["types"];
 			$impl = $o->prop("impl");
 			if (!($task_o = $o->task()))
 			{
@@ -1206,7 +1198,7 @@ class bt_stat_impl extends core
 		{
 			$p_ids[$p->id] = $p->id;
 		}
-		
+
 		$bug_list = new object_list(array(
 			"class_id" => CL_BUG,
 			"bug_status" => array(BUG_OPEN,BUG_INPROGRESS,BUG_FATALERROR,BUG_TESTING,BUG_VIEWING),
@@ -1246,7 +1238,7 @@ class bt_stat_impl extends core
 
 		$i->gt_start = $i->get_next_avail_time_from(time(), $i->day2wh);
 		$i->gt_days_in_col = 1;
-		
+
 		$sect = $i->get_sect();
 		$curday = 0;
 		$i->job_count = count($gt_list);
@@ -1320,4 +1312,3 @@ class bt_stat_impl extends core
 		}
 	}
 }
-

@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class site_cache extends aw_template
 {
@@ -16,6 +13,7 @@ class site_cache extends aw_template
 		{
 			$arr["template"] = "main.tpl";
 		}
+
 		$log = get_instance("contentmgmt/site_logger");
 		$log->add($arr);
 		$si = __get_site_instance();
@@ -28,8 +26,7 @@ class site_cache extends aw_template
 		{
 			$arr["content_only"] = 1;
 		}
-		else
-		if (($content = $this->get_cached_content($arr)))
+		elseif (($content = $this->get_cached_content($arr)))
 		{
 			$this->ip_access($arr);
 			return $this->do_final_content_checks($content);
@@ -37,7 +34,7 @@ class site_cache extends aw_template
 
 		// okey, now
 
-		$inst = get_instance("contentmgmt/site_show");
+		$inst = new site_show();
 		$content = $inst->show($arr);
 		if (aw_ini_get("menuedit.content_from_class_base") == 1)
 		{
@@ -61,16 +58,10 @@ class site_cache extends aw_template
 					"id" => aw_ini_get("site_container"),
 					"group" => $_REQUEST["group"],
 				));
-
-
-			};
-
-		};
-
-		if (!aw_global_get("no_cache"))
-		{
-			$this->set_cached_content($arr, $content);
+			}
 		}
+
+		$this->set_cached_content($arr, $content);
 		return $this->do_final_content_checks($content);
 	}
 
@@ -79,16 +70,6 @@ class site_cache extends aw_template
 	// if no user is logged in and the page exist in the cache
 	function get_cached_content($arr)
 	{
-		if (aw_global_get("uid") != "")
-		{
-			return false;
-		}
-
-		if (aw_global_get("no_cache"))
-		{
-			return false;
-		}
-
 		// don't cache pages with generated content, they usually change for each request
 		if ($arr["text"] != "")
 		{
@@ -100,19 +81,12 @@ class site_cache extends aw_template
 
 		// check cache
 		$cp = $this->get_cache_params($arr);
-
-		$cache = get_instance("cache");
-		$tmp = $cache->get(aw_global_get("raw_section"), $cp, aw_global_get("section"));
+		$tmp = cache::get(aw_global_get("raw_section"), $cp, aw_global_get("section"));
 		return $tmp;
 	}
 
 	function set_cached_content($arr, $content)
 	{
-		if (aw_global_get("uid") != "")
-		{
-			return false;
-		}
-
 		// don't cache pages with generated content, they usually change for each request
 		if (!empty($arr["text"]))
 		{
@@ -124,9 +98,7 @@ class site_cache extends aw_template
 
 		// check cache
 		$cp = $this->get_cache_params($arr);
-
-		$cache = get_instance("cache");
-		$cache->set(aw_global_get("raw_section"), $cp, $content, true, aw_global_get("section"));
+		cache::set(aw_global_get("raw_section"), $cp, $content, true, aw_global_get("section"));
 	}
 
 	////
@@ -394,4 +366,3 @@ class site_cache extends aw_template
 		}
 	}
 }
-?>

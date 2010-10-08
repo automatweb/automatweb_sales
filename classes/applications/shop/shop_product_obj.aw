@@ -10,10 +10,19 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 	**/
 	public function get_units()
 	{
-		$ol = new object_list(array(
-			"class_id" => CL_UNIT,
-			"oid" => $this->_get_units(),
-		));
+		$unit_oids =  $this->_get_units();
+
+		if (count($unit_oids))
+		{
+			$ol = new object_list(array(
+				"class_id" => CL_UNIT,
+				"oid" => $unit_oids,
+			));
+		}
+		else
+		{
+			$ol = new object_list();
+		}
 		return $ol;
 	}
 
@@ -305,7 +314,7 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 			'class_id' => CL_SHOP_PRODUCT,
 			'type_code' => $this->prop('type_code'),
 		));
-		
+
 		// add replacement products via connections
 		$conns = $this->connections_from(array(
 			'type' => 'RELTYPE_REPLACEMENT_PROD'
@@ -314,7 +323,7 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 		{
 			$ol->add($conn->to());
 		}
-		return $ol->arr();	
+		return $ol->arr();
 	}
 
 	/**
@@ -698,7 +707,7 @@ $data["code"] =  $this->prop("code");
 			return "";
 		}
 	}
-	
+
 	public function get_product_image_url()
 	{
 		$product = $this->get_product();
@@ -735,7 +744,7 @@ $data["code"] =  $this->prop("code");
 		$product = $this->get_product();
 		$pic = $product->get_first_obj_by_reltype("RELTYPE_IMAGE");
 		if(is_object($pic))
-		{ 
+		{
 			return $pic->get_on_click_js();
 
 		}

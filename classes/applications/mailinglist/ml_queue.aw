@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/mailinglist/ml_queue.aw,v 1.49 2008/06/19 14:16:57 markop Exp $
+
 // ml_queue.aw - Deals with mailing list queues
 
 
@@ -12,7 +12,7 @@ define("ML_QUEUE_STOPPED",4);
 define("ML_QUEUE_PROCESSING",5);
 
 /*
-@classinfo maintainer=markop
+@classinfo
 	@default field=meta
 	@default method=serialize
 
@@ -42,8 +42,8 @@ class ml_queue extends aw_template
 		);
 	}
 
-	/**  
-		@attrib name=submit_manager params=name 
+	/**
+		@attrib name=submit_manager params=name
 		@returns
 		@comment
 		! Handlib "vasakus puus oleva proge" submitti
@@ -57,17 +57,17 @@ class ml_queue extends aw_template
 	}
 
 	/**
-		@attrib name=queue params=name 
-		
+		@attrib name=queue params=name
+
 		@param id optional
 		@param fid optional
 		@param show optional
 		@param sortby optional
 		@param sort_order optional
 		@param manager optional
-		
+
 		@returns
-		
+
 		@comment
 		! Naitab queuet
 		kui manager=1 siis naitab ka manegeri
@@ -83,7 +83,7 @@ class ml_queue extends aw_template
 		$t = new aw_table(array(
 			"prefix" => "ml_queue",
 		));
-		
+
 		if ($show && $show != "all")
 		{
 			$fid=(int)$fid;
@@ -94,7 +94,7 @@ class ml_queue extends aw_template
 		if ($queue_back)
 		{
 			$headerarray=array( $queue_back => "Tagasi");
-		} 
+		}
 		else
 		{
 			$headerarray=array();
@@ -102,7 +102,7 @@ class ml_queue extends aw_template
 
 		$headerarray['javascript:Do("queue_delete")']="Kustuta";
 		$headerarray['javascript:Do("queue_send_now")']="Saada kohe";
-		
+
 		switch ($show)
 		{
 			case "list":
@@ -194,13 +194,13 @@ class ml_queue extends aw_template
 		return $this->parse();
 	}
 
-	/**  
-		@attrib name=queue_change params=name 
-		
+	/**
+		@attrib name=queue_change params=name
+
 		@param id required
-		
+
 		@returns
-		
+
 		@comment
 		! Naitab queue itemi $id muutmist (reschedulemist)
 	**/
@@ -216,7 +216,7 @@ class ml_queue extends aw_template
 		{
 			$this->vars(array("teade" => "Juba t&auml;idetud queue objekti ei saa muuta !"));
 			$viga = $this->parse("viga");
-		} 
+		}
 		else
 		{
 			load_vcl("date_edit");
@@ -248,11 +248,11 @@ class ml_queue extends aw_template
 		return $this->parse();
 	}
 
-	/**  
-		@attrib name=submit_queue_change params=name 
-		
+	/**
+		@attrib name=submit_queue_change params=name
+
 		@returns
-		
+
 		@comment
 		! Handleb queue itemi reschedulemist
 	**/
@@ -262,7 +262,7 @@ class ml_queue extends aw_template
 		if ($ostatus=="0") //kui on uus, siis muuda algusaega
 		{
 			$field="start_at";
-		} 
+		}
 		else // muidu muuda viimase saatmise aega
 		{
 			$field="last_sent";
@@ -292,11 +292,11 @@ class ml_queue extends aw_template
            "language='JavaScript'>opener.history.go(0);window.close();</script>");
 	}
 
-	/**  
-		@attrib name=queue_delete params=name 
-		
+	/**
+		@attrib name=queue_delete params=name
+
 		@returns
-		
+
 		@comment
 		! Kustutab queue itemi $id
 	**/
@@ -327,11 +327,11 @@ class ml_queue extends aw_template
 		}
 	}
 
-	/**  
-		@attrib name=queue_send_now params=name 
-		
+	/**
+		@attrib name=queue_send_now params=name
+
 		@returns
-		
+
 		@comment
 		! Margib itemi $id kohe saatmiseks
 	**/
@@ -374,19 +374,19 @@ class ml_queue extends aw_template
 		if (!$kogu)
 		{
 			$p=100;
-		} 
+		}
 		else
 		{
 			$p=(int)((int)$osa * 100 / (int)$kogu);
 		};
 		$not_p=100-$p;
 		//echo("qri($osa,$kogu)=$p");//dbg
-		
+
 		// tekst pane sinna, kus on rohkem ruumi.
 		if ($p>$not_p)
 		{
 			$p1t="<span Style='font-size:10px;font-face:verdana;'><font color='white'>".$p."%</font></span>";
-		} 
+		}
 		else
 		{
 			$p2t="<span Style='font-size:10px;font-face:verdana;'><font color='black'>".$p."%</font></span>";
@@ -395,8 +395,8 @@ class ml_queue extends aw_template
 		return "<!-- $p --><table bgcolor='#CCCCCC' Style='height:12;width:100%'><tr><td width=\"$p%\" bgcolor=\"blue\">$p1t</td><td width=\"$not_p%\">$p2t</td></tr></table>";
 	}
 
-	/**  
-		@attrib name=process_queue params=name nologin="1" 
+	/**
+		@attrib name=process_queue params=name nologin="1"
 		@returns
 		@comment
 		kontrollib kas saatmine on ikka scheduleris
@@ -424,11 +424,11 @@ class ml_queue extends aw_template
 		}
 	}
 
-	/**  
-		@attrib name=process_queue params=name nologin="1" 
-		
+	/**
+		@attrib name=process_queue params=name nologin="1"
+
 		@returns
-		
+
 		@comment
 		! Processes all active mailing list queues
 		Invoked from the scheduler
@@ -482,7 +482,7 @@ class ml_queue extends aw_template
 			if (!($patch_size))
 			{
 				// everything at once
-				
+
 				//$all_at_once = true;
 				//paneb maksimumiks 5000, et yle selle voib sql pange joosta
 				$patch_size = $r["total"];
@@ -493,14 +493,14 @@ class ml_queue extends aw_template
 			};
 //
 
-			//kontrollib, et 'kki vahepeal moni teine queue on otsa jooksnud ja konkreetset maili juba saatma hakanud.... siis on admed muutunud ju... lukusatatud ju pole... ja alguses koik ara lukustada pole ka hea mote... 
+			//kontrollib, et 'kki vahepeal moni teine queue on otsa jooksnud ja konkreetset maili juba saatma hakanud.... siis on admed muutunud ju... lukusatatud ju pole... ja alguses koik ara lukustada pole ka hea mote...
 			$test_qid = $r["qid"];
 			$test_q = $this->db_fetch_row("SELECT * FROM ml_queue WHERE qid = '$test_qid'");
 			//arr($test_q);
-			
+
 			$tm = time();
 			$old = time() - 10 * 60;//kui nyyd 2 minutit m66das viimase maili saatmisest, siis voib suht kindel olla, et eelmine queue on pange pand
-			
+
 			if(
 			   !($test_q["status"] == 1)
 			&& !($test_q["status"] == 0)
@@ -528,7 +528,7 @@ class ml_queue extends aw_template
 					$bounce = $mail_object->meta("bounce");
 				}
 			}
-			
+
 			// vaata, kas on aeg saata
 			if (!$r["last_sent"] || ($tm-$r["last_sent"]) >= $r["delay"] || $all_at_once)
 			{
@@ -537,7 +537,7 @@ class ml_queue extends aw_template
 				if(!($total = $this->check_queue_stats($r)))
 				{
 					echo t("Nothing to send...").$qid."<br />";
-					continue;	
+					continue;
 				}
 				echo t("Not sent: ").$total."<br />";
 				if($total < $patch_size)
@@ -545,7 +545,7 @@ class ml_queue extends aw_template
 					$patch_size = $total;
 				}
 				echo t("Now sending next ").$patch_size."<br />";
-				
+
 
 				flush();//dbg
 				$this->save_handle();
@@ -553,13 +553,13 @@ class ml_queue extends aw_template
 
 
 				//nyyd see siis tapselt enne lukustamist, voibolla aitab veidi
-					//kontrollib, et 'kki vahepeal moni teine queue on otsa jooksnud ja konkreetset maili juba saatma hakanud.... siis on admed muutunud ju... lukusatatud ju pole... ja alguses koik ara lukustada pole ka hea mote... 
+					//kontrollib, et 'kki vahepeal moni teine queue on otsa jooksnud ja konkreetset maili juba saatma hakanud.... siis on admed muutunud ju... lukusatatud ju pole... ja alguses koik ara lukustada pole ka hea mote...
 					$test_qid = $r["qid"];
 					$test_q = $this->db_fetch_row("SELECT * FROM ml_queue WHERE qid = '$test_qid'");
 					//arr($test_q);
 					$tm = time();
 					$old = time() - 1800;//kui nyyd 30 minutit m66das viimase maili saatmisest, siis voib suht kindel olla, et eelmine queue on pange pand
-					
+
 					if(
 					!($test_q["status"] == 1)
 					&& !($test_q["status"] == 0)
@@ -657,7 +657,7 @@ class ml_queue extends aw_template
 		{
 			return $count["cnt"];
 		}
-		else 
+		else
 		{
 			$qx = "SELECT count(*) as cnt FROM ml_sent_mails WHERE qid = ".$q["qid"];
 			$this->db_query($qx);
@@ -685,16 +685,16 @@ class ml_queue extends aw_template
 			echo "statisika ok";
 			return 0;
 		}
-		else 
+		else
 		{
 			$qx = "SELECT count(*) as cnt FROM ml_sent_mails WHERE qid = ".$qid." AND mail_sent = 1";
 			$this->db_query($qx);
 			$count_sent = $this->db_next();
-			
+
 			$qx = "SELECT count(*) as cnt FROM ml_sent_mails WHERE qid = ".$qid;
 			$this->db_query($qx);
 			$count_all = $this->db_next();
-				
+
 			$qx = "UPDATE ml_queue SET position=".$count_sent["cnt"]." , total=".$count_all["cnt"]."  WHERE qid = ".$qid;
 			$this->db_query($qx);
 			echo "statisika porno";
@@ -714,7 +714,7 @@ class ml_queue extends aw_template
 			echo t("couldn't send mail<br />\n");
 			return;
 		}
-		
+
 		$msg_obj = new object($msg["mail"]);
 		$is_html = $msg_obj->prop("html_mail");
 		//$is_html=$msg["type"] & MSG_HTML;
@@ -726,7 +726,7 @@ class ml_queue extends aw_template
 		else
 		{
 			$target = explode("<",$msg["target"]);
-			
+
 			$arr = array(
 				"mail_id" => $msg["mail"],
 				"vars" => $msg["vars"],
@@ -756,7 +756,7 @@ class ml_queue extends aw_template
 			{
 				$subject = $tsubject;
 			}
-			
+
 			$template = str_replace("#title#", $c_title, $template);
 			$template = str_replace("#container#", $c_content, $template);
 			$message = str_replace("#content#", $message, $template);
@@ -782,7 +782,7 @@ class ml_queue extends aw_template
 		{
 			$message = str_replace("<br />", "<br />\n" ,$message);
 			$message = str_replace("<br>", "<br>\n" ,$message);
-	 		$message = str_replace("</p>", "</p>\n" ,$message);	
+	 		$message = str_replace("</p>", "</p>\n" ,$message);
 			$this->awm->htmlbodyattach(array(
 				"data" => $message,
 			));
@@ -810,7 +810,7 @@ class ml_queue extends aw_template
 		flush();
 		if(strlen($msg["bounce"]) > 3) $this->awm->bounce = $msg["bounce"];
 		$this->awm->set_header("Content-Type","text/plain; charset=\"".$msg["charset"]."\"");
-		
+
 		//see on viimane kaitseliin, et topelt kuhugi maile minna ei saaks
 		$qx = "SELECT mail_sent FROM ml_sent_mails WHERE id = ".$msg["id"];
 		$this->db_query($qx);
@@ -825,7 +825,7 @@ class ml_queue extends aw_template
 		$q = "UPDATE ml_sent_mails SET mail_sent = 1,tm = '$t' WHERE id = " . $msg["id"];
 		$this->db_query($q);
 		echo "<b>.... SENT!</b><br />\n";
-		flush();	
+		flush();
 		return ML_QUEUE_IN_PROGRESS;
 	}
 
@@ -859,5 +859,4 @@ class ml_queue extends aw_template
 //		echo "UPDATE ml_queue SET status = 3 WHERE qid = '$qid'";
 	}
 
-};
-?>
+}

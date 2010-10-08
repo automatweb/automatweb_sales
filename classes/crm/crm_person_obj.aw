@@ -1514,6 +1514,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			$arr["org"] = $company->id();
 		}
 
+		$arr["employer"] = $arr["org"];
+		unset($arr["org"]);
+
 		if(empty($arr["start"]))
 		{
 			$arr["start"] = time();
@@ -1536,7 +1539,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			"to" => $wr->id(),
 			"reltype" => "RELTYPE_CURRENT_JOB",
 		));
-		unset($this->current_jobs);
+		$this->current_jobs = null;
 		return $wr->id();
 	}
 
@@ -1555,7 +1558,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	**/
 	public function finish_work_relation($arr = array())
 	{
-		if(is_oid($arr["id"]))
+		if(!empty($arr["id"]))
 		{
 			$wr = obj($wr);
 		}
@@ -1571,7 +1574,8 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				$wr = obj($wr_id);
 			}
 		}
-		if(is_object($wr))
+
+		if(isset($wr) and is_object($wr))
 		{
 			$wr->finish();
 

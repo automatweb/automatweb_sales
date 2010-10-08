@@ -1955,7 +1955,6 @@
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
-            <syslog_type>ST_CRM_PERSON</syslog_type>
             <no_status>1</no_status>
             <confirm_save_data>1</confirm_save_data>
             <prop_cb>1</prop_cb>
