@@ -1,6 +1,18 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>organization</name>
+            <type>hidden</type>
+            <table>aw_crm_section</table>
+            <field>organization</field>
+      </property>
+      <property>
+            <name>parent_section</name>
+            <type>hidden</type>
+            <table>aw_crm_section</table>
+            <field>parent_section</field>
+      </property>
+      <property>
             <name>description</name>
             <table>objects</table>
             <group>general</group>
@@ -183,21 +195,28 @@
                   <caption>T&amp;amp;otilde;lgi</caption>
             </transl>
       </groupinfo>
+      <tableinfo>
+            <aw_crm_section>
+                  <index>aw_oid</index>
+                  <master_table>objects</master_table>
+                  <master_index>oid</master_index>
+            </aw_crm_section>
+      </tableinfo>
       <reltypes>
             <SECTION>
                   <value>1</value>
                   <clid>CL_CRM_SECTION</clid>
-                  <caption>Alam&amp;amp;uuml;ksus</caption>
+                  <caption>(pole kasutusel)</caption>
             </SECTION>
             <WORKERS>
                   <value>2</value>
                   <clid>CL_CRM_PERSON</clid>
-                  <caption>Liige</caption>
+                  <caption>(pole kasutusel)</caption>
             </WORKERS>
             <PROFESSIONS>
                   <value>3</value>
                   <clid>CL_CRM_PROFESSION</clid>
-                  <caption>Roll</caption>
+                  <caption>(pole kasutusel)</caption>
             </PROFESSIONS>
             <JOB_OFFER>
                   <value>4</value>

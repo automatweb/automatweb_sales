@@ -1,8 +1,5 @@
 <?php
 // converters.aw - this is where all kind of converters should live in
-/*
-@classinfo maintainer=kristo
-*/
 
 class converters extends aw_template
 {
@@ -18,11 +15,7 @@ class converters extends aw_template
 	/**
 
 		@attrib name=menu_convimages params=name default="0"
-
-
 		@returns
-
-
 		@comment
 
 	**/
@@ -116,11 +109,7 @@ class converters extends aw_template
 	/**
 
 		@attrib name=menu_reset_template_sets params=name default="0"
-
-
 		@returns
-
-
 		@comment
 
 	**/
@@ -149,11 +138,7 @@ class converters extends aw_template
 	/**
 
 		@attrib name=promo_convert params=name default="0"
-
-
 		@returns
-
-
 		@comment
 
 	**/
@@ -308,11 +293,7 @@ class converters extends aw_template
 	/**
 
 		@attrib name=convert_aliases params=name default="0"
-
-
 		@returns
-
-
 		@comment
 
 	**/
@@ -1969,8 +1950,6 @@ echo "mod ".$con["to.name"]."<br>";
 	{
 		$ol_args = array(
 			"class_id" => CL_DOCUMENT,
-			"site_id" => array(),
-			"lang_id" => array(),
 		);
 
 		if (is_oid($arr["id"]))
@@ -1997,13 +1976,15 @@ echo "mod ".$con["to.name"]."<br>";
 				$o->set_prop("lead",str_replace("\n","<br>\n",$o->prop("lead")));
 				$cbdat["lead"] = 1;
 				$save = true;
-			};
+			}
+
 			if (empty($cbdat["moreinfo"]))
 			{
 				$o->set_prop("moreinfo",str_replace("\n","<br>\n",$o->prop("moreinfo")));
 				$cbdat["moreinfo"] = 1;
 				$save = true;
-			};
+			}
+
 			if ($save)
 			{
 				$o->set_meta("cb_nobreaks",$cbdat);
@@ -2013,13 +1994,226 @@ echo "mod ".$con["to.name"]."<br>";
 			else
 			{
 				print "not saving";
-			};
-			//arr($o->meta());
+			}
+
 			print "done";
 			print "<hr>";
 			flush();
-		};
-
+		}
 	}
-};
-?>
+
+	/**
+		@attrib name=convert_sections
+	**/
+	function convert_sections($arr)
+	{
+		$objlist_size_limit = aw_ini_get("performance.objlist_size_limit");
+		$page = 0;
+
+		do
+		{
+			$sections = new object_list(array(
+				"class_id" => CL_CRM_SECTION,
+				new obj_predicate_limit($objlist_size_limit, $page * $objlist_size_limit)
+			));
+			$countdown = $objlist_size_limit;
+
+			if($sections->count())
+			{
+				$section = $sections->begin();
+
+				do
+				{
+					automatweb::$result->sysmsg("Processing section '" . $section->name() . "' [" . $section->id() . "]");
+					$connected_sections = $section->connections_to(array("type" => "RELTYPE_SECTION", "from.class_id" => CL_CRM_SECTION));
+					if (count($connected_sections))
+					{
+						$c = reset($connected_sections);
+						$parent_section = $c->from();
+						$section->set_prop("parent_section", $parent_section->id());
+						automatweb::$result->sysmsg("Found parent section '" . $parent_section->name() . "' [" . $parent_section->id() . "]");
+					}
+
+					$connected_companies = $section->connections_to(array("type" => "RELTYPE_SECTION", "from.class_id" => CL_CRM_COMPANY));
+
+					if (count($connected_companies))
+					{
+						$c = reset($connected_companies);
+						$organization = $c->from()->id();
+					}
+					else
+					{
+						$organization = false;
+						do
+						{
+							$parent = $section->connections_to(array("from.class_id" => CL_CRM_COMPANY, "reltype" => "RELTYPE_SECTION"));
+							if (count($parent))
+							{
+								$c = reset($parent);
+								$section = $c->from();
+								if ($section->is_a(CL_CRM_COMPANY))
+								{
+									$organization = $section->id();
+								}
+							}
+							else
+							{
+								$parent = $section->connections_to(array("from.class_id" => CL_CRM_SECTION, "reltype" => "RELTYPE_SECTION"));
+								if (count($parent))
+								{
+									$c = reset($parent);
+									$section = $c->from();
+								}
+								else
+								{
+									$organization = 0;
+								}
+							}
+						}
+						while (false === $organization);
+					}
+
+					automatweb::$result->sysmsg("Found organization [" . $organization . "]");
+					$section->set_prop("organization", $organization);
+					$section->save();
+					automatweb::$result->sysmsg("");
+					--$countdown;
+				}
+				while ($section = $sections->next() and $countdown);
+			}
+
+			++$page;
+		}
+		while ($sections->count() === $objlist_size_limit);
+		automatweb::$result->sysmsg("Done");
+		exit;
+	}
+
+	/**
+		@attrib name=convert_professions
+	**/
+	function convert_professions($arr)
+	{
+		$objlist_size_limit = aw_ini_get("performance.objlist_size_limit");
+		$page = 0;
+
+		do
+		{
+			$professions = new object_list(array(
+				"class_id" => CL_CRM_PROFESSION,
+				new obj_predicate_limit($objlist_size_limit, $page * $objlist_size_limit)
+			));
+			$countdown = $objlist_size_limit;
+
+			if($professions->count())
+			{
+				$o = $professions->begin();
+
+				do
+				{
+					$this->process_profession_object($o);
+					automatweb::$result->sysmsg("");
+					--$countdown;
+				}
+				while ($o = $professions->next() and $countdown);
+			}
+
+			++$page;
+		}
+		while ($professions->count() === $objlist_size_limit);
+		automatweb::$result->sysmsg("Done");
+		exit;
+	}
+
+	private function process_profession_object(object $profession)
+	{
+		$connected_sections = $profession->connections_to(array("type" => "RELTYPE_PROFESSIONS", "from.class_id" => CL_CRM_SECTION));
+		$connected_companies = $profession->connections_to(array("type" => "RELTYPE_PROFESSIONS", "from.class_id" => CL_CRM_COMPANY));
+		$profession_name = $profession->name();
+
+		automatweb::$result->sysmsg("Processing profession '" . $profession->name() . "' [" . $profession->id() . "]");
+
+		if (!count($connected_sections) and count($connected_companies))
+		{
+			$done_companies = array();
+
+			// copy profession to all connected organizations
+			foreach ($connected_companies as $c)
+			{
+				$company = $c->from();
+				automatweb::$result->sysmsg("Found connected company '" . $company->name() . "' [" . $company->id() . "]");
+
+				if (!in_array($company->id(), $done_companies))
+				{
+					if (false === $profession)
+					{
+						$profession = obj(null, array(), CL_CRM_PROFESSION);
+						automatweb::$result->sysmsg("Created a copy");
+					}
+
+					$profession->set_name($profession_name);
+					$profession->set_prop("organization", $company->id());
+					$profession->save();
+					$done_companies[] = $company->id();
+					$profession = false;
+				}
+			}
+		}
+		elseif (count($connected_sections))
+		{
+			$done_sections = array();
+			foreach ($connected_sections as $c)
+			{
+				$section = $c->from();
+				automatweb::$result->sysmsg("Found connected section '" . $section->name() . "' [" . $section->id() . "]");
+
+				if (!in_array($section->id(), $done_sections))
+				{
+					if (false === $profession)
+					{
+						$profession = obj(null, array(), CL_CRM_PROFESSION);
+						automatweb::$result->sysmsg("Created a copy");
+					}
+					$profession->set_prop("section", $section->id());
+
+					// find company
+					$organization = false;
+					do
+					{
+						$parent = $section->connections_to(array("from.class_id" => CL_CRM_COMPANY, "reltype" => "RELTYPE_SECTION"));
+						if (count($parent))
+						{
+							$c = reset($parent);
+							$section = $c->from();
+							if ($section->is_a(CL_CRM_COMPANY))
+							{
+								$organization = $section->id();
+							}
+						}
+						else
+						{
+							$parent = $section->connections_to(array("from.class_id" => CL_CRM_SECTION, "reltype" => "RELTYPE_SECTION"));
+							if (count($parent))
+							{
+								$c = reset($parent);
+								$section = $c->from();
+							}
+							else
+							{
+								$organization = 0;
+							}
+						}
+					}
+					while (false === $organization);
+
+					automatweb::$result->sysmsg("Found organization [" . $organization . "]");
+					$profession->set_name($profession_name);
+					$profession->set_prop("organization", $organization);
+					$profession->save();
+					$done_sections[] = $section->id();
+					$profession = false;
+				}
+			}
+		}
+	}
+}

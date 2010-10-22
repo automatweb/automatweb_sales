@@ -7,6 +7,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CRM_PERSON, on_connect_
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disconnect_person_from_section)
 
 @classinfo relationmgr=yes
+@tableinfo aw_crm_section index=aw_oid master_table=objects master_index=oid
+
+@property organization type=hidden table=aw_crm_section
+@property parent_section type=hidden table=aw_crm_section
 
 @default table=objects
 @default group=general
@@ -71,14 +75,18 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON, on_disco
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
+//DEPRECATED
 @reltype SECTION value=1 clid=CL_CRM_SECTION
-@caption Alam&uuml;ksus
-
+@caption (pole kasutusel)
+// @caption Alam&uuml;ksus
+//DEPRECATED
 @reltype WORKERS value=2 clid=CL_CRM_PERSON
-@caption Liige
-
+@caption (pole kasutusel)
+// @caption Liige
+//DEPRECATED
 @reltype PROFESSIONS value=3 clid=CL_CRM_PROFESSION
-@caption Roll
+@caption (pole kasutusel)
+// @caption Roll
 
 @reltype JOB_OFFER value=4 clid=CL_PERSONNEL_MANAGEMENT_JOB_OFFER
 @caption T&ouml;&ouml;pakkumine
@@ -419,6 +427,31 @@ class crm_section extends class_base
 	function callback_get_transl($arr)
 	{
 		return $this->trans_callback($arr, $this->trans_props);
+	}
+
+	function do_db_upgrade($table, $field, $q, $err)
+	{
+		$ret_val = false;
+		$migrate = false;
+
+		if ("aw_crm_section" === $table)
+		{
+			if (empty($field))
+			{
+				$this->db_query("
+					CREATE TABLE `aw_crm_section` (
+						`aw_oid` int(11) UNSIGNED NOT NULL default '0',
+						`organization` int(11) UNSIGNED NOT NULL default '0',
+						`parent_section` int(11) UNSIGNED NOT NULL default '0',
+						PRIMARY KEY (`aw_oid`),
+						INDEX (`organization`, `parent_section`)
+					);
+				");
+				$ret_val = true;
+			}
+		}
+
+		return $ret_val;
 	}
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-define("CRM_ALL_PERSONS_CAT", 999999);
+define("CRM_ALL_PERSONS_CAT",  "all");
 
 class crm_company_people_impl extends class_base
 {
@@ -18,7 +18,7 @@ class crm_company_people_impl extends class_base
 			'tooltip'=> t('Uus')
 		));
 
-		if (!empty($arr["request"]["cat"]) and CRM_ALL_PERSONS_CAT != $arr["request"]["cat"])
+		if (!empty($arr["request"]["cat"]) and CRM_ALL_PERSONS_CAT !== $arr["request"]["cat"])
 		{
 			$tb->add_menu_item(array(
 				'parent'=>'add_item',
@@ -159,7 +159,7 @@ class crm_company_people_impl extends class_base
 		$nm = t("K&otilde;ik t&ouml;&ouml;tajad");
 		$tree_inst->add_item(0, array(
 			"id" => CRM_ALL_PERSONS_CAT,
-			"name" => $cat == CRM_ALL_PERSONS_CAT ? "<b>".$nm."</b>" : $nm,
+			"name" => $cat === CRM_ALL_PERSONS_CAT ? "<b>".$nm."</b>" : $nm,
 			"url" => aw_url_change_var(array(
 				"cat" =>  CRM_ALL_PERSONS_CAT,
 				"unit" =>  NULL,
@@ -206,7 +206,7 @@ class crm_company_people_impl extends class_base
 			array(
 				'name' => 'image',
 				'caption' => t('&nbsp;'),
-				"chgbgcolor" => "cutcopied",
+				"chgbgcolor" => "legend",
 				"align" => "center",
 				"width" => 1
 			),
@@ -214,31 +214,31 @@ class crm_company_people_impl extends class_base
 				'name' => 'name',
 				'caption' => t('Nimi'),
 				'sortable' => '1',
-				"chgbgcolor" => "cutcopied",
+				"chgbgcolor" => "legend",
 				'callback' => array($this, 'callb_human_name'),
 				'callb_pass_row' => true,
 			),
 			array(
 				'name' => 'phone',
-				"chgbgcolor" => "cutcopied",
+				"chgbgcolor" => "legend",
 				'caption' => t('Telefon'),
 				'sortable' => '1',
 			),
 			array(
 				'name' => 'email',
-				"chgbgcolor" => "cutcopied",
+				"chgbgcolor" => "legend",
 				'caption' => t('E-post'),
 				'sortable' => '1',
 			),
 			array(
 				'name' => 'work_relation',
-				"chgbgcolor" => "cutcopied",
+				"chgbgcolor" => "legend",
 				'caption' => t('T&ouml;&ouml;suhe'),
 				'sortable' => '1',
 			),
 			array(
 				'name' => 'authorized',
-				"chgbgcolor" => "cutcopied",
+				"chgbgcolor" => "legend",
 				'caption' => t('Volitatud'),
 				'sortable' => '1',
 			)
@@ -313,7 +313,7 @@ class crm_company_people_impl extends class_base
 		}
 
 //----------------------- teatud ameti inimesed--------------------------------
-		if(!empty($arr['request']['cat']) && $arr["request"]["cat"] != CRM_ALL_PERSONS_CAT)
+		if(!empty($arr['request']['cat']) && $arr["request"]["cat"] !== CRM_ALL_PERSONS_CAT)
 		{
 			$tmp_obj = obj($arr['request']['cat'], array(), CL_CRM_PROFESSION);
 			$worker_ol = $arr["obj_inst"]->get_employees(false, $tmp_obj);
@@ -335,7 +335,7 @@ class crm_company_people_impl extends class_base
 		}
 
 //---------------------- k6ik asutuse inimesed------------------kas siis kui tahetud k6iki v6i siis kui ei saanud yhtgi tulemust ja on m22ratud et sellisel juhul l2hevad k6ik
-		if (isset($arr["request"]["cat"]) && $arr["request"]["cat"] == CRM_ALL_PERSONS_CAT || (isset($arr["request"]["all_if_empty"]) && $arr["request"]["all_if_empty"] && !($worker_ol && $worker_ol->count())))
+		if (isset($arr["request"]["cat"]) && $arr["request"]["cat"] === CRM_ALL_PERSONS_CAT || (isset($arr["request"]["all_if_empty"]) && $arr["request"]["all_if_empty"] && !($worker_ol && $worker_ol->count())))
 		{
 			$worker_ol = $arr["obj_inst"]->get_employees(false);
 			$persons = $worker_ol->ids();
@@ -403,9 +403,11 @@ class crm_company_people_impl extends class_base
 			$rels = $arr["obj_inst"]->get_work_relations(array(
 				"employee" => $person->id(),
 				"section" => empty($arr['request']['unit']) ? null : $arr['request']['unit'],
-				"profession" => (empty($arr['request']['cat']) or $arr['request']['cat'] == 999999) ? null : $arr['request']['cat'],
+				"profession" => (empty($arr['request']['cat']) or $arr['request']['cat'] === CRM_ALL_PERSONS_CAT) ? null : $arr['request']['cat'],
 			));
 			$rels_count = $rels->count();
+			$time = time();
+			$active = false;
 
 			if($rels_count)
 			{
@@ -414,6 +416,7 @@ class crm_company_people_impl extends class_base
 				{
 					$rel_start = $rel->prop("start") > 1 ? aw_locale::get_lc_date($rel->prop("start"), aw_locale::DATE_SHORT_FULLYEAR) : t("(M&auml;&auml;ramata)");
 					$rel_end = $rel->prop("end") > 1 ? aw_locale::get_lc_date($rel->prop("end"), aw_locale::DATE_SHORT_FULLYEAR) : t("(M&auml;&auml;ramata)");
+					$active = ($active or (($rel->prop("end") > $time or $rel->prop("end") < 1) and ($rel->prop("start") < $time or $rel->prop("start") < 1)));
 					$rel_menu->add_item(array(
 						"text" => "{$rel_start} - {$rel_end}",
 						"link" => html::get_change_url($rel->id(), array(
@@ -433,7 +436,7 @@ class crm_company_people_impl extends class_base
 						"return_url" => get_ru(),
 						"employee" => $person->id(),
 						"section" => empty($arr['request']['unit']) ? null : $arr['request']['unit'],
-						"profession" => (empty($arr['request']['cat']) or $arr['request']['cat'] == 999999) ? null : $arr['request']['cat'],
+						"profession" => (empty($arr['request']['cat']) or $arr['request']['cat'] === CRM_ALL_PERSONS_CAT) ? null : $arr['request']['cat'],
 						"employer" => $arr["obj_inst"]->id()
 					)
 				)
@@ -447,6 +450,7 @@ class crm_company_people_impl extends class_base
 			$tdata["lastname"] = $person->prop("lastname");
 			$tdata["name"] = $person->name();
 			$tdata["image"] = $person->get_image_tag();
+			$tdata["legend"] = $active ? "lightgreen" : "silver";
 			$t->define_data($tdata);
 		}
 	}
@@ -460,7 +464,7 @@ class crm_company_people_impl extends class_base
 			$parent = isset($arr["request"]["unit"]) ? $arr["request"]["unit"] : 0;
 		}
 
-		if ($parent && $parent != 999999)
+		if ($parent && $parent !== CRM_ALL_PERSONS_CAT)
 		{
 			$o = obj($parent);
 		}
@@ -632,7 +636,7 @@ class crm_company_people_impl extends class_base
 			'confirm' => t("Kas oled kindel et soovid valitud t&ouml;&ouml;pakkumised kustudada?")
 		));
 
-		if($arr["request"]["cat"] && $arr["request"]["unit"] && $arr["request"]["cat"] != CRM_ALL_PERSONS_CAT)
+		if($arr["request"]["cat"] && $arr["request"]["unit"] && $arr["request"]["cat"] !== CRM_ALL_PERSONS_CAT)
 		{
 			$alias_to =  $arr["request"]["unit"];
 			$reltype = 4;
@@ -651,7 +655,7 @@ class crm_company_people_impl extends class_base
 					'alias_to'=>$alias_to,
 					'reltype'=> $reltype,
 					'return_url'=>get_ru(),
-					'cat' => $arr["request"]["cat"] != CRM_ALL_PERSONS_CAT ? $arr["request"]["cat"] : NULL,
+					'cat' => $arr["request"]["cat"] !== CRM_ALL_PERSONS_CAT ? $arr["request"]["cat"] : NULL,
 					'unit' => $arr["request"]["unit"],
 					'org' => $arr['obj_inst']->id(),
 			), CL_PERSONNEL_MANAGEMENT_JOB_OFFER)
@@ -749,7 +753,7 @@ class crm_company_people_impl extends class_base
 
 		$job_obj_list = new object_list(array(
 			"oid" => array_keys($jobs_ids),
-			"profession" => $arr["request"]["cat"] != CRM_ALL_PERSONS_CAT ? $arr["request"]["cat"] : NULL,
+			"profession" => $arr["request"]["cat"] !== CRM_ALL_PERSONS_CAT ? $arr["request"]["cat"] : NULL,
 			"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER
 		));
 		$job_obj_list = $job_obj_list->arr();
@@ -932,49 +936,75 @@ class crm_company_people_impl extends class_base
 			$alias_to = (int) $arr['request']['unit'];
 		}
 
-		if (!empty($arr["request"]["cat"]) and CRM_ALL_PERSONS_CAT != $arr["request"]["cat"])
+		if (!empty($arr["request"]["cat"]) and CRM_ALL_PERSONS_CAT !== $arr["request"]["cat"])
 		{
 			$tb->add_menu_item(array(
-				'parent'=>'add_item',
-				'text'=> t('T&ouml;&ouml;taja'),
-				'link'=>aw_url_change_var(array(
-					"action" => "add_employee",
-					"id" => $arr["obj_inst"]->id(),
-					"return_url" => get_ru(),
-					"class" => "crm_company",
-					"profession" => $arr["request"]["cat"]
-				))
+				"parent" => "add_item",
+				"text"=> t("T&ouml;&ouml;taja"),
+				"link" => $this->mk_my_orb("add_employee", array(
+						"id" => $arr["obj_inst"]->id(),
+						"return_url" => get_ru(),
+						"save_autoreturn" => "1",
+						"profession" => $arr["request"]["cat"]
+					),
+					"crm_company"
+				)
 			));
 		}
 
-		if (empty($arr["request"]["cat"]) or $arr["request"]["cat"] != 999999)
+		if (empty($arr["request"]["cat"]) or $arr["request"]["cat"] !== CRM_ALL_PERSONS_CAT)
 		{
 			$tb->add_menu_item(array(
-				'parent'=>'add_item',
-				'text' => t('&Uuml;ksus'),
-				'link'=>$this->mk_my_orb('new',array(
-						'parent'=>$arr['obj_inst']->id(),
-						'alias_to'=>$alias_to,
-						'reltype'=> empty($arr["request"]["unit"]) ? 28 : 1,
-						'return_url'=>get_ru()
+				"parent" => "add_item",
+				"text"=> t("&Uuml;ksus"),
+				"link" => $this->mk_my_orb("add_section", array(
+						"id" => $arr["obj_inst"]->id(),
+						"return_url" => get_ru(),
+						"save_autoreturn" => "1",
+						"parent_section" => isset($arr["request"]["unit"]) ? $arr["request"]["unit"] : ""
 					),
-					'crm_section'
+					"crm_company"
 				)
 			));
 		}
 
 		$tb->add_menu_item(array(
-			'parent'=>'add_item',
-			'text' => t('Ametikoht'),
-			'link'=>$this->mk_my_orb('new',array(
-					'parent'=>$arr['obj_inst']->id(),
-					'alias_to'=>$alias_to,
-					'reltype'=> empty($arr['request']['unit']) ? 29 : 3,
-					'return_url'=>get_ru()
+			"parent" => "add_item",
+			"text"=> t("Ametikoht"),
+			"link" => $this->mk_my_orb("add_profession", array(
+					"id" => $arr["obj_inst"]->id(),
+					"return_url" => get_ru(),
+					"save_autoreturn" => "1",
+					"parent_section" => isset($arr["request"]["unit"]) ? $arr["request"]["unit"] : ""
 				),
-				'crm_profession'
+				"crm_company"
 			)
 		));
+
+		//  search and add employee from existing persons in database
+		if (!empty($arr["request"]["cat"]))
+		{
+			$url = $this->mk_my_orb("do_search", array(
+				"clid" => CL_CRM_PERSON,
+				"pn" => "sbt_data"
+			), "popup_search");
+			$tb->add_button(array(
+				'name' => 'Search',
+				'img' => 'search.gif',
+				"tooltip" => t("Lisa t&ouml;&ouml;taja olemasolevate isikute hulgast"),
+				'link' => '#',
+				'url' => '#',
+				"onClick" => html::popup(array(
+					"url" => $url,
+					"resizable" => true,
+					"scrollbars" => "auto",
+					"height" => 500,
+					"width" => 600,
+					"no_link" => true,
+					"quote" => "'"
+				))
+			));
+		}
 
 		//delete button
 		$tb->add_menu_button(array(
@@ -1002,70 +1032,6 @@ class crm_company_people_impl extends class_base
 			"confirm" => t("Oled kindel et soovid kustutada valitud t&ouml;&ouml;tajad?"),
 			'action' => 'submit_delete_ppl',
 		));
-
-		$tb->add_separator();
-
-		if (!empty($arr["request"]["unit"]))
-		{
-			$tb->add_menu_button(array(
-				'name' => 'Search',
-				'img' => 'search.gif',
-				'tooltip' => t('Otsi'),
-				'action' => 'search_for_contacts'
-			));
-
-			if (!empty($arr["request"]["cat"]))
-			{
-				$url = $this->mk_my_orb("do_search", array(
-					"clid" => CL_CRM_PERSON,
-					"pn" => "sbt_data"
-				), "popup_search");
-				$tb->add_menu_item(array(
-					'parent'=>'Search',
-					'text' => t('Isikuid'),
-					'link'=> "#",
-					"onClick" => html::popup(array(
-						"url" => $url,
-						"resizable" => true,
-						"scrollbars" => "auto",
-						"height" => 500,
-						"width" => 600,
-						"no_link" => true,
-						"quote" => "'"
-					))
-				));
-			}
-
-			$url = $this->mk_my_orb("do_search", array(
-				"clid" => CL_CRM_PROFESSION,
-				"pn" => "sbt_data2"
-			), "popup_search");
-
-			$tb->add_menu_item(array(
-				'parent'=>'Search',
-				'text' => t('Ametikohti'),
-				'link'=> "#",
-				"onClick" => html::popup(array(
-					"url" => $url,
-					"resizable" => true,
-					"scrollbars" => "auto",
-					"height" => 500,
-					"width" => 600,
-					"no_link" => true,
-					"quote" => "'"
-				))
-			));
-		}
-
-		if(!empty($arr['request']['contact_search']))
-		{
-			$tb->add_button(array(
-				'name' => 'Save',
-				'img' => 'save.gif',
-				'tooltip' => t('Salvesta'),
-				'action' => 'save_search_results'
-			));
-		}
 
 		$tb->add_separator();
 
@@ -1117,39 +1083,92 @@ class crm_company_people_impl extends class_base
 
 	function _get_cedit_tree($arr)
 	{
-		$tree_inst = $arr['prop']['vcl_inst'];
-		$node_id = 0;
-		$cat = 0;
-		$i = new crm_company();
-		$i->active_node = isset($arr['request']['unit']) ? (int)$arr['request']['unit'] : 0;
+		$tree = $arr['prop']['vcl_inst'];
+		$this_o = $arr["obj_inst"];
 
 		if(!empty($arr['request']['cat']))
 		{
-			$cat = $arr["request"]["cat"];
-			$i->active_node = $cat;
+			$cat = (int) $arr["request"]["cat"];
+			$unit = 0;
+			$selected_item = $cat;
 		}
-		$i->generate_tree(array(
-			'tree_inst' => $tree_inst,
-			'obj_inst' => $arr['obj_inst'],
-			'node_id' => &$node_id,
-			'conn_type' => 'RELTYPE_SECTION',
-			'attrib' => 'unit',
-			'leafs' => true,
+		elseif (!empty($arr['request']['unit']))
+		{
+			$cat = 0;
+			$unit = (int) $arr['request']['unit'];
+			$selected_item = $unit;
+		}
+		else
+		{
+			$cat = $unit = $selected_item = 0;
+		}
+
+		$sections = new object_list(array(
+			"class_id" => CL_CRM_SECTION,
+			"organization" => $this_o->id()
 		));
 
+		if($sections->count())
+		{
+			$section = $sections->begin();
+			do
+			{
+				$parent = $section->prop("parent_section") ? $section->prop("parent_section") : 0;
+				$tree->add_item($parent, array(
+					"id" => (int) $section->id(),
+					"name" => $section->name(),
+					"iconurl" => icons::get_icon_url(CL_MENU),
+					// "iconurl" => icons::get_icon_url(CL_CRM_SECTION),
+					"url" => aw_url_change_var(array(
+						"unit" => $section->id(),
+						"cat" => null
+					))
+				));
+			}
+			while ($section = $sections->next());
+		}
+
+		$professions = new object_list(array(
+			"class_id" => CL_CRM_PROFESSION,
+			"organization" => $this_o->id()
+		));
+
+		if($professions->count())
+		{
+			$profession = $professions->begin();
+
+			do
+			{
+				$profession_name = $profession->prop("name_in_plural") ? $profession->prop("name_in_plural") : $profession->name();
+				$parent = $profession->prop("section") ? $profession->prop("section") : 0;
+				$tree->add_item($parent, array(
+					"id" => (int) $profession->id(),
+					"name" => $profession_name,
+					"iconurl" => icons::get_icon_url(CL_CRM_PROFESSION),
+					"url" => aw_url_change_var(array(
+						"cat" => $profession->id(),
+						"unit" => null
+					))
+				));
+			}
+			while ($profession = $professions->next());
+		}
+
+		// all employees node
 		$nm = t("K&otilde;ik t&ouml;&ouml;tajad");
-		$tree_inst->add_item(0, array(
+		$tree->add_item(0, array(
 			"id" => CRM_ALL_PERSONS_CAT,
-			"name" => $cat == CRM_ALL_PERSONS_CAT ? "<b>".$nm."</b>" : $nm,
+			"name" => $cat === CRM_ALL_PERSONS_CAT ? "<b>".$nm."</b>" : $nm,
 			"url" => aw_url_change_var(array(
-				"cat" =>  CRM_ALL_PERSONS_CAT,
-				"unit" =>  NULL,
+				"cat" => CRM_ALL_PERSONS_CAT,
+				"unit" => null
 			))
 		));
 
-		$tree_inst->set_root_name($arr["obj_inst"]->name());
-		$tree_inst->set_root_icon(icons::get_icon_url(CL_CRM_COMPANY));
-		$tree_inst->set_root_url(aw_url_change_var("cat", NULL, aw_url_change_var("unit", NULL)));
+		$tree->set_selected_item($selected_item);
+		$tree->set_root_name($arr["obj_inst"]->name());
+		$tree->set_root_icon(icons::get_icon_url(CL_CRM_COMPANY));
+		$tree->set_root_url(aw_url_change_var("cat", NULL, aw_url_change_var("unit", NULL)));
 	}
 
 	function _get_cedit_table($arr)

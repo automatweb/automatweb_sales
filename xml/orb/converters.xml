@@ -235,5 +235,19 @@
 			</function>
 		</action>
 
+		<action name="convert_professions">
+			<function name="convert_professions">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="convert_sections">
+			<function name="convert_sections">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

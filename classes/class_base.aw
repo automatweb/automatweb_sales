@@ -102,6 +102,7 @@ class class_base extends aw_template
 
 	public $form_only = false;
 	public $no_form = false;
+	public static $msgs_closed = false;
 
 	protected $_cfg_props;
 	protected $classconfig;
@@ -1112,7 +1113,10 @@ class class_base extends aw_template
 	**/
 	public static function show_error_text($text)
 	{
-		self::push_msg($text, "ERROR");
+		if (!self::$msgs_closed)
+		{
+			self::push_msg($text, "ERROR");
+		}
 	}
 
 	/** Shows a success message text to user
@@ -1121,7 +1125,10 @@ class class_base extends aw_template
 	**/
 	public static function show_success_text($text)
 	{
-		self::push_msg($text, "OK");
+		if (!self::$msgs_closed)
+		{
+			self::push_msg($text, "OK");
+		}
 	}
 
 	/** Shows an informative message to user
@@ -1130,7 +1137,10 @@ class class_base extends aw_template
 	**/
 	public static function show_msg_text($text)
 	{
-		self::push_msg($text, "");
+		if (!self::$msgs_closed)
+		{
+			self::push_msg($text, "");
+		}
 	}
 
 	function _get_sub_layouts($lay)
@@ -4158,7 +4168,7 @@ class class_base extends aw_template
 
 			if (PROP_ERROR == $status)
 			{
-				$propvalues[$name]["error"] = $argblock["prop"]["error"];
+				$propvalues[$name]["error"] = empty($argblock["prop"]["error"]) ? t("Tundmatu viga") : $argblock["prop"]["error"];
 				aw_session_set("cb_values",$propvalues);
 				$this->cb_values = $propvalues;
 				$status = PROP_IGNORE;
@@ -4433,7 +4443,15 @@ class class_base extends aw_template
 		$this->obj_inst->save();
 		$this->id = $this->obj_inst->id();
 
-		$this->show_success_text(t("Andmed salvestatud!"));
+		if ($this->new)
+		{
+			$class_title = aw_ini_get("classes." . $this->obj_inst->class_id() . ".name");
+			$this->show_success_text(sprintf(t("Uus %s salvestatud!"), strtolower($class_title)));
+		}
+		else
+		{
+			$this->show_success_text(t("Andmed salvestatud!"));
+		}
 
 		if ($new)
 		{

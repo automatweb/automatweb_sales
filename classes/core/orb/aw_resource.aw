@@ -7,6 +7,8 @@ class aw_resource
 	// metainformation
 	protected $last_modified; // unix timestamp
 
+	protected $data_chunk_separator = "\n";
+
 	public function __construct()
 	{
 		$this->last_modified = time();
@@ -81,7 +83,7 @@ class aw_resource
 
 	public function __toString()
 	{
-		$line_separator = "\n";
+		$line_separator = $this->data_chunk_separator;
 		$value = "";
 		foreach ($this->data as $data)
 		{
@@ -107,7 +109,7 @@ class aw_resource
 	**/
 	public function sysmsg($message)
 	{
-		echo $message;
+		echo $message . $this->data_chunk_separator;
 		flush();
 	}
 }

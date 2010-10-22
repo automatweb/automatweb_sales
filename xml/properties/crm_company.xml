@@ -3744,12 +3744,11 @@
                   <caption>T&amp;amp;ouml;&amp;amp;ouml;tajad</caption>
                   <save>no</save>
             </people>
-            <contacts2>
-                  <caption>Inimesed puuvaates</caption>
+            <contacts_edit>
+                  <caption>Toimeta isikuid</caption>
                   <parent>people</parent>
                   <submit>no</submit>
-                  <save>no</save>
-            </contacts2>
+            </contacts_edit>
             <personal_offers>
                   <caption>T&amp;amp;ouml;&amp;amp;ouml;pakkumised</caption>
                   <parent>people</parent>
@@ -3762,11 +3761,6 @@
                   <submit>no</submit>
                   <save>no</save>
             </personal_candits>
-            <contacts_edit>
-                  <caption>Toimeta isikuid</caption>
-                  <parent>people</parent>
-                  <submit>no</submit>
-            </contacts_edit>
             <resources>
                   <caption>Ressursid</caption>
                   <submit>no</submit>

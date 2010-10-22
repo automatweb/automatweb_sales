@@ -116,6 +116,7 @@
 				<arguments>
 					<required name="id" type="oid" />
 					<required name="profession" type="oid" />
+					<optional name="save_autoreturn" />
 					<optional name="return_url" />
 				</arguments>
 			</function>
@@ -126,6 +127,29 @@
 				<arguments>
 					<required name="id" type="oid" />
 					<optional name="parent" type="oid" />
+					<optional name="save_autoreturn" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_profession">
+			<function name="add_profession">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="section" type="oid" />
+					<optional name="save_autoreturn" />
+					<optional name="return_url" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="add_section">
+			<function name="add_section">
+				<arguments>
+					<required name="id" type="oid" />
+					<optional name="parent_section" type="oid" />
+					<optional name="save_autoreturn" />
 					<optional name="return_url" />
 				</arguments>
 			</function>

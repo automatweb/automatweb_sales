@@ -1523,7 +1523,7 @@ class releditor extends core
 		$props = $clinst->load_defaults();
 
 		$propname = $prop["name"];
-		$proplist = is_array($prop["props"]) ? $prop["props"] : array($prop["props"]);
+		$proplist = isset($prop["props"]) ? (is_array($prop["props"]) ? $prop["props"] : array($prop["props"])) : array();
 
 		$el_count = 0;
 
@@ -1540,22 +1540,25 @@ class releditor extends core
 						// ot, aga miks need 2 caset siin on?
 						$name = $item["name"];
 						$_fileinf = $_FILES[$elname];
-						$filename = $_fileinf["name"][$name];
-						$filetype = $_fileinf["type"][$name];
-						$tmpname = $_fileinf["tmp_name"][$name];
-						// tundub, et polnud sellist faili, eh?
-						if(empty($tmpname) || !is_uploaded_file($tmpname))
+						if (!empty($_fileinf["tmp_name"][$name]))
 						{
+							$filename = $_fileinf["name"][$name];
+							$filetype = $_fileinf["type"][$name];
+							$tmpname = $_fileinf["tmp_name"][$name];
+							// tundub, et polnud sellist faili, eh?
+							if(empty($tmpname) || !is_uploaded_file($tmpname))
+							{
+							}
+							else
+							{
+								$emb[$name] = array(
+									"tmp_name" => $tmpname,
+									"type" => $filetype,
+									"name" => $filename,
+								);
+								$el_count++;
+							}
 						}
-						else
-						{
-							$emb[$name] = array(
-								"tmp_name" => $tmpname,
-								"type" => $filetype,
-								"name" => $filename,
-							);
-							$el_count++;
-						};
 					}
 					/*
 					// ok, wtf is that code supposed to do?
@@ -1572,19 +1575,18 @@ class releditor extends core
 							));
 
 							$el_count++;
-						};
-					};
-
+						}
+					}
 				}
 				else
 				{
 					// this shit takes care of those non-empty select boxes
-					if ($emb[$item["name"]] && $item["type"] != "datetime_select" && $item["name"] != "status")
+					if (!empty($emb[$item["name"]]) && $item["type"] !== "datetime_select" && $item["name"] !== "status")
 					{
 						$el_count++;
 					}
 
-					if ($item["type"] === "checkbox" && !$emb[$item["name"]])
+					if ($item["type"] === "checkbox" && empty($emb[$item["name"]]))
 					{
 						$emb[$item["name"]] = 0;
 					}

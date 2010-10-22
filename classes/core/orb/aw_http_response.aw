@@ -46,9 +46,7 @@ class aw_http_response extends aw_resource
 
 	public function sysmsg($message)
 	{
-		echo nl2br(htmlspecialchars($message));
+		echo nl2br(htmlspecialchars($message)) . "<br />\n";
 		flush();
 	}
 }
-
-?>
