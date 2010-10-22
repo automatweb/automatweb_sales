@@ -3,9 +3,6 @@
 // socket.aw - low level communications
 // provides functions that can be used by other classes to connect to hosts
 // and read/write information to/from those hosts
-/*
-@classinfo  maintainer=kristo
-*/
 class socket
 {
 	var $host;
@@ -39,10 +36,10 @@ class socket
 	function open($args = array())
 	{
 		extract($args);
-		$this->sock = fsockopen($host, $port, $errno, $errstr, 5);
-		if (not($this->sock))
+		$this->sock = fsockopen($host, $port, $errno, $errstr, $this->timeout);
+		if (!is_resource($this->sock))
 		{
-			//print "WARNING: Connection to $host:$port failed, $errstr\n";
+			throw new awex_socket("Connection to $host:$port failed. Error $errno '$errstr'");
 		}
 		stream_set_timeout($this->sock, $this->timeout);
 	}
@@ -72,7 +69,7 @@ class socket
 		{
 			//print "WARNING: No open socket to write to\n";
 			return 0;
-		};
+		}
 
 		if (not(fputs($this->sock, $data, strlen($data))))
 		{
@@ -113,5 +110,3 @@ class socket
 
 class awex_socket extends aw_exception {}
 class awex_socket_timeout extends awex_socket {}
-
-?>

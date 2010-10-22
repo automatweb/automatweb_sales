@@ -2,7 +2,7 @@
 // webform.aw - Veebivorm
 /*
 
-@classinfo syslog_type=ST_WEBFORM relationmgr=yes no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_status=1
 
 @default table=objects
 
@@ -514,7 +514,7 @@ class webform extends class_base
 			case "disp_after_entry_print":
 				$prop["options"] = array("" => t("--vali--")) + $this->get_directory(array("dir" => aw_ini_get("site_tpldir")."/contentmgmt/webform/disp"));
 				break;
-		
+
 			case "search_mail_info":
 				$prop["value"] = t("Otsi aadressit");
 				break;
@@ -901,7 +901,7 @@ class webform extends class_base
 		$set_controllers = array(
 			array(
 				"name" => t("M&auml;&auml;ra saaja aadressiks"),
-				"formula" => 'if (is_email($prop["value"])) {$vals = aw_global_get("recievers_name");$vals[$prop["value"]] = $prop["value"]; aw_global_set("recievers_name", $vals);} else { $value = is_array($prop["value"]) ? $prop["value"] : array($prop["value"]);$vals = aw_global_get("recievers_name");foreach($value as $val){if(is_oid($val) && $this->can("view", $val)){$obj = obj($val);$vals[$val] = $obj->comment();}}if(!empty($vals)){aw_global_set("recievers_name", $vals);}}',
+				"formula" => 'if (is_email($prop["value"])) {$vals = aw_global_get("receivers_name");$vals[$prop["value"]] = $prop["value"]; aw_global_set("receivers_name", $vals);} else { $value = is_array($prop["value"]) ? $prop["value"] : array($prop["value"]);$vals = aw_global_get("receivers_name");foreach($value as $val){if(is_oid($val) && $this->can("view", $val)){$obj = obj($val);$vals[$val] = $obj->comment();}}if(!empty($vals)){aw_global_set("receivers_name", $vals);}}',
 			),
 			array(
 				"name" => t("M&auml;&auml;ra saatja aadressiks"),
@@ -2602,7 +2602,7 @@ class webform extends class_base
 				$email = $emx->to();
 				$emails[$email->id()] = $email->prop("mail");
 			}
-			$emls = safe_array(aw_global_get("recievers_name"));
+			$emls = safe_array(aw_global_get("receivers_name"));
 			$emails = $emails + $emls;
 			/*if (aw_global_get("uid") == "struktuur")
 			{
@@ -2965,7 +2965,7 @@ class webform extends class_base
 				"mail" => $o->prop("mail"),
 			));
 		}
-		
+
 	}
 
 	/**
@@ -3051,4 +3051,3 @@ class webform extends class_base
 		}
 	}
 }
-?>

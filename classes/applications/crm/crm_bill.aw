@@ -228,7 +228,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property comments_add type=textarea store=no
 	@caption Lisa
 
-	@property mail_reciever type=relpicker store=connect multiple=1 reltype=RELTYPE_RECIEVER
+	@property mail_receiver type=relpicker store=connect multiple=1 reltype=RELTYPE_RECEIVER
 	@caption Maili saaja
 
 @default group=bill_mail
@@ -337,7 +337,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @reltype CURRENCY value=18 clid=CL_CURRENCY
 @caption Valuuta
 
-@reltype RECIEVER value=19 clid=CL_CRM_PERSON
+@reltype RECEIVER value=19 clid=CL_CRM_PERSON
 @caption Arve saaja
 */
 
@@ -572,7 +572,7 @@ class crm_bill extends class_base
 				$ps->set_class_id(array(CL_CRM_PERSON));
 				$ps->set_id($arr["obj_inst"]->id());
 				$ps->set_reload_layout("almost_bottom");
-				$ps->set_property("mail_reciever");
+				$ps->set_property("mail_receiver");
 				$prop["post_append_text"] = $ps->get_search_button();
 				break;
 
@@ -5025,4 +5025,3 @@ class crm_bill extends class_base
 		}
 	}
 }
-?>

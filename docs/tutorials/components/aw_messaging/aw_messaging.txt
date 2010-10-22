@@ -16,16 +16,16 @@ Storage needs a way to tell modules that their data has changed. For instance, i
 
 The solution to both problems - messaging. 
 
-The idea behind messaging is, that it can connect several classes tohether, without creating explicit dependencies between them, just dependencies on the messaging subsystem, but that is part of the core and everything depends on core anyway. Messages are posted from the class that wants to notify other classes of an event and other classes can subscribe to messages. The message sender does not know who will listen to the message and the message recievers do not know who sent the message. This enables the message dispatcher to check what modules are present on the system and which of those modules wants to listen to the message. When a new module is added, it can start recieving messages and the sender of the message will not even know that a listener has been added. Thus, the modules are not dependent on each other, but they can communicate. 
+The idea behind messaging is, that it can connect several classes tohether, without creating explicit dependencies between them, just dependencies on the messaging subsystem, but that is part of the core and everything depends on core anyway. Messages are posted from the class that wants to notify other classes of an event and other classes can subscribe to messages. The message sender does not know who will listen to the message and the message receivers do not know who sent the message. This enables the message dispatcher to check what modules are present on the system and which of those modules wants to listen to the message. When a new module is added, it can start recieving messages and the sender of the message will not even know that a listener has been added. Thus, the modules are not dependent on each other, but they can communicate. 
 
 
-There is another problem though - all listeners might not want to listen to all messages of a given type. For instance, storage sends a message whenever an object is modified. But most classes will only want to listen to that message when an object of their type is modified. The document class only wants to know when documents are modified. The user class only wants to know when users are copy-pasted. Therefore the concept of parametrized messages exists. The sender of the message can add a parameter to the message and all the recievers can define that they only want to recieve the message if the parameter matches. 
+There is another problem though - all listeners might not want to listen to all messages of a given type. For instance, storage sends a message whenever an object is modified. But most classes will only want to listen to that message when an object of their type is modified. The document class only wants to know when documents are modified. The user class only wants to know when users are copy-pasted. Therefore the concept of parametrized messages exists. The sender of the message can add a parameter to the message and all the receivers can define that they only want to recieve the message if the parameter matches. 
 
 
 
 <b>How does the message dispatcher work?</b>
 
-The message dispatcher reads message sending/recieving information from class file headers. It stores the messages in xml files in the $AW/xml/msgmaps folder, one file per message. When a message reciever/new message is defined, the command "make msg" must be activated from the $AW folder.
+The message dispatcher reads message sending/recieving information from class file headers. It stores the messages in xml files in the $AW/xml/msgmaps folder, one file per message. When a message receiver/new message is defined, the command "make msg" must be activated from the $AW folder.
 
 <b>How are messages defined?</b>
 

@@ -1,9 +1,5 @@
 <?php
 
-/*
-@classinfo  maintainer=voldemar
-*/
-
 class crm_sales_obj extends _int_object implements application_interface
 {
 	// sales application users are always given a role
@@ -1342,5 +1338,3 @@ class awex_crm_sales_call extends awex_crm_sales {}
 
 /** Task type is not what expected **/
 class awex_crm_sales_task_type extends awex_crm_sales {}
-
-?>

@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/bug_o_matic_3000/bug_comment.aw,v 1.9 2008/10/07 13:40:07 kristo Exp $
-// bug_comment.aw - Bugi kommentaar 
+
+// bug_comment.aw - Bugi kommentaar
 /*
 
-@classinfo syslog_type=ST_BUG_COMMENT relationmgr=yes no_status=1 prop_cb=1 maintainer=robert
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 
 @tableinfo aw_bug_comments index=aw_oid master_index=brother_of master_table=objects
 
@@ -72,18 +72,7 @@ class bug_comment extends class_base
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		}
-		return $retval;
-	}	
-
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["post_ru"] = post_ru();
 	}
@@ -122,4 +111,3 @@ class bug_comment extends class_base
 		}
 	}
 }
-?>

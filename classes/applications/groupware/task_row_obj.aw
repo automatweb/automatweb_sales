@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
+
 class task_row_obj extends _int_object
 {
 	private $in_save = false;
@@ -192,12 +190,12 @@ class task_row_obj extends _int_object
 		//default esimesel salvestamisel et k6ik l2hevad arvele
 		if(!is_oid($this->id()))
 		{
-			$this->set_prop("on_bill" , 1);
+			$this->set_prop("on_bill", 1);
 		}
 		//igal salvestamisel v6iks osa infot yle kontrollida toimetuse juurest
 		if($this->prop("primary"))
 		{
-			$this->set_prop("done" , 1);
+			$this->set_prop("done", 1);
 		}
 		if(!is_oid($this->id()))
 		{
@@ -312,4 +310,3 @@ class task_row_obj extends _int_object
 		}
 	}
 }
-?>

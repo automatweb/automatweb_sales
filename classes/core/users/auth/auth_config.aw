@@ -176,7 +176,7 @@ class auth_config extends class_base
 
 		@attrib api=1
 	**/
-	function has_config()
+	public static function has_config()
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_AUTH_CONFIG,
@@ -260,7 +260,7 @@ class auth_config extends class_base
 
 	/** returns sorted array of server id's
 	**/
-	function _get_auth_servers($id)
+	static function _get_auth_servers($id)
 	{
 		if (!is_oid($id))
 		{
@@ -280,7 +280,7 @@ class auth_config extends class_base
 
 	/** returns array id => jrk
 	**/
-	function _get_server_list($o)
+	static function _get_server_list($o)
 	{
 		$ret = array();
 		$s = $o->meta("auth");

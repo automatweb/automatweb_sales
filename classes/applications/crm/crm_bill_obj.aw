@@ -1788,6 +1788,7 @@ class crm_bill_obj extends _int_object
 		{
 			$ol->add($this->get_customer_data("bill_person"));
 		}
+
 		foreach($ol->arr() as $mail_person)
 		{
  			if(!(is_array($bill_targets) && sizeof($bill_targets) && !$bill_targets[$mail_person->id()]))
@@ -1819,7 +1820,7 @@ class crm_bill_obj extends _int_object
 	public function get_mail_persons()
 	{
 		$ol = new object_list();
-		foreach($this->connections_from(array("type" => "RELTYPE_RECIEVER")) as $c)
+		foreach($this->connections_from(array("type" => "RELTYPE_RECEIVER")) as $c)
 		{
 			$ol->add($c->prop("to"));
 		}

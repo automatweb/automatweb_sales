@@ -1335,7 +1335,6 @@
             <store>no</store>
             <ch_value>1</ch_value>
             <default>1</default>
-            <no_caption>1</no_caption>
             <parent>stat_hrs_s</parent>
             <field>stat_hr_bugs</field>
             <caption>&amp;amp;Uuml;lesanded</caption>
@@ -1348,7 +1347,6 @@
             <store>no</store>
             <ch_value>1</ch_value>
             <default>1</default>
-            <no_caption>1</no_caption>
             <parent>stat_hrs_s</parent>
             <field>stat_hr_meetings</field>
             <caption>Kohtumised</caption>
@@ -1361,7 +1359,6 @@
             <store>no</store>
             <ch_value>1</ch_value>
             <default>1</default>
-            <no_caption>1</no_caption>
             <parent>stat_hrs_s</parent>
             <field>stat_hr_tasks</field>
             <caption>Toimetused</caption>
@@ -1374,7 +1371,6 @@
             <store>no</store>
             <ch_value>1</ch_value>
             <default>1</default>
-            <no_caption>1</no_caption>
             <parent>stat_hrs_s</parent>
             <field>stat_hr_calls</field>
             <caption>K&amp;amp;otilde;ned</caption>

@@ -578,14 +578,14 @@
             <caption>Lisa</caption>
       </property>
       <property>
-            <name>mail_reciever</name>
+            <name>mail_receiver</name>
             <table>objects</table>
             <group>other_data</group>
             <type>relpicker</type>
             <store>connect</store>
             <multiple>1</multiple>
-            <reltype>RELTYPE_RECIEVER</reltype>
-            <field>mail_reciever</field>
+            <reltype>RELTYPE_RECEIVER</reltype>
+            <field>mail_receiver</field>
             <caption>Maili saaja</caption>
       </property>
       <property>
@@ -859,11 +859,11 @@
                   <clid>CL_CURRENCY</clid>
                   <caption>Valuuta</caption>
             </CURRENCY>
-            <RECIEVER>
+            <RECEIVER>
                   <value>19</value>
                   <clid>CL_CRM_PERSON</clid>
                   <caption>Arve saaja</caption>
-            </RECIEVER>
+            </RECEIVER>
       </reltypes>
       <layout>
             <main_split>

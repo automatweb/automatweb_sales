@@ -12,7 +12,7 @@ if (($port = aw_ini_get("auth.display_over_ssl_port")) > 0)
 	}
 }
 
-$te = new aw_template;
+$te = new aw_template();
 $te->init("");
 $te->read_template("login.tpl");
 lc_site_load("login", $te);
@@ -20,7 +20,7 @@ lc_site_load("login", $te);
 $ac = get_instance(CL_AUTH_CONFIG);
 
 $te->vars(array(
-	"uid" => @$_GET["uid"]
+	"uid" => isset($_GET["uid"]) ? $_GET["uid"] : ""
 ));
 
 if (is_oid($ac_id = auth_config::has_config()))
@@ -39,12 +39,12 @@ if (is_oid($ac_id = auth_config::has_config()))
 	}
 }
 
-$m = get_instance("contentmgmt/site_cache");
+$m = new site_cache();
 
-$si =&__get_site_instance();
+$si = &__get_site_instance();
 $tfl = "";
 
-if(@$_SESSION["text_for_login"])
+if(!empty($_SESSION["text_for_login"]))
 {
 	$te->vars(array(
 		"logintext" => $_SESSION["text_for_login"],
@@ -52,15 +52,15 @@ if(@$_SESSION["text_for_login"])
 	$tfl = $te->parse("TEXT_FOR_LOGIN");
 }
 $te->vars(array(
-	"uid" => @$_SESSION["uid_for_login"] ? $_SESSION["uid_for_login"] : @$_GET["uid"],
+	"uid" => empty($_SESSION["uid_for_login"]) ? (empty($_GET["uid"]) ? "" : $_GET["uid"]) : $_SESSION["uid_for_login"],
 	"TEXT_FOR_LOGIN" => $tfl,
 ));
 
 $content = $m->show(array(
-	"vars" => $si->on_page(),
+	"vars" => $si ? $si->on_page() : "",
 	"text" => $te->parse(),
 	"no_right_pane" => (int) !empty($content),
-	"sub_callbacks" => $si->get_sub_callbacks()
+	"sub_callbacks" => $si ? $si->get_sub_callbacks() : ""
 ));
 aw_session_set("text_for_login", "");
 aw_session_set("uid_for_login", "");
@@ -73,4 +73,3 @@ else
 {
 	include(aw_ini_get("classdir")."/".aw_ini_get("site_impl_dir")."/site_footer.".aw_ini_get("ext"));
 }
-?>
