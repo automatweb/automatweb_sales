@@ -106,12 +106,11 @@ class crm_profession extends class_base
 					CREATE TABLE `kliendibaas_amet` (
 						`oid` int(11) UNSIGNED NOT NULL default '0',
 						`organization` int(11) UNSIGNED NOT NULL default '0',
-						`section` int(11) UNSIGNED default NULL,
+						`section` int(11) UNSIGNED NOT NULL default '0',
 						`name_in_plural` varchar(255) default '',
-						PRIMARY KEY  (`oid`)
+						PRIMARY KEY (`oid`),
+						INDEX (`organization`)
 					);
-
-					CREATE INDEX organization ON kliendibaas_amet (organization);
 				");
 				$ret_val = true;
 			}

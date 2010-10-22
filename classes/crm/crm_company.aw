@@ -1187,10 +1187,10 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 
 @groupinfo people caption="T&ouml;&ouml;tajad" save=no
 
-	@groupinfo contacts2 caption="Inimesed puuvaates" parent=people submit=no save=no
+	// @groupinfo contacts2 caption="Inimesed puuvaates" parent=people submit=no save=no
+	@groupinfo contacts_edit caption="Toimeta isikuid" parent=people submit=no
 	@groupinfo personal_offers caption="T&ouml;&ouml;pakkumised" parent=people submit=no save=no
 	@groupinfo personal_candits caption="Kandideerijad" parent=people submit=no save=no
-	@groupinfo contacts_edit caption="Toimeta isikuid" parent=people submit=no
 
 @groupinfo resources caption="Ressursid"  submit=no save=no parent=people
 @groupinfo contacts caption="Kontaktid"
@@ -1344,6 +1344,7 @@ groupinfo qv caption="Vaata"  submit=no save=no
 @reltype ORDER value=27 clid=CL_SHOP_ORDER
 @caption tellimus
 
+//DEPRECATED
 @reltype SECTION value=28 clid=CL_CRM_SECTION
 @caption &Uuml;ksus
 
@@ -1722,17 +1723,17 @@ class crm_company extends class_base
 			$tree->add_item($tli,$tree_node_info);
 			//$this->generate_tree(&$tree,&$tmp_obj,&$node_id,$tmp_type,&$skip, &$attrib, $leafs);
 			$this->generate_tree(array(
-						'tree_inst' => $tree,
-						'obj_inst' => $tmp_obj,
-						'node_id' => &$node_id,
-						'conn_type' => $tmp_type,
-						'skip' => &$skip,
-						'attrib' => &$attrib,
-						'leafs' => $leafs,
-						"edit_mode" => isset($edit_mode) ? $edit_mode : NULL,
-						"show_people" => $show_people,
-						"url" => $origurl,
-						"name_format_cb" => isset($arr["name_format_cb"]) ? $arr["name_format_cb"] : "",
+				'tree_inst' => $tree,
+				'obj_inst' => $tmp_obj,
+				'node_id' => &$node_id,
+				'conn_type' => $tmp_type,
+				'skip' => &$skip,
+				'attrib' => &$attrib,
+				'leafs' => $leafs,
+				"edit_mode" => isset($edit_mode) ? $edit_mode : NULL,
+				"show_people" => $show_people,
+				"url" => $origurl,
+				"name_format_cb" => isset($arr["name_format_cb"]) ? $arr["name_format_cb"] : "",
 			));
 		}
 
@@ -1780,6 +1781,7 @@ class crm_company extends class_base
 								"customer_search_submit_and_change" => null,
 							), false, $origurl),
 						));
+
 						if($_GET["tf"] == 'st'.$o->id())
 						{
 							$tree->set_selected_item('cat'.$o->id());
@@ -1861,9 +1863,9 @@ class crm_company extends class_base
 					)
 				);
 
-				if($tmp_obj->id() == $this->active_node && ($_GET["unit"] == $obj->id()))
+				if($tmp_obj->id() == $this->active_node)
 				{
-					$tree->set_selected_item($node_id);
+					$tree->set_selected_item($tmp_obj->id());
 				}
 
 				if($show_people && count($p2s) > 0)
@@ -1896,7 +1898,6 @@ class crm_company extends class_base
 			}
 			while ($tmp_obj = $professions->next());
 		}
-
 
 		if($show_people)
 		{
@@ -3095,30 +3096,6 @@ class crm_company extends class_base
 				$this->_save_ext_sys_t($arr);
 				break;
 
-			case "cedit_table":
-				if ($arr["request"]["sbt_data"])
-				{
-					$dat = explode(",",$arr["request"]["sbt_data"]);
-					// add these people to the section
-					$r = $arr["request"];
-					$r["check"] = $dat;
-					$this->save_search_results($r);
-				}
-				if ($arr["request"]["sbt_data2"] && $arr["request"]["unit"])
-				{
-					$dat = explode(",",$arr["request"]["sbt_data2"]);
-					// add the professions to the current unit
-					$unit = obj($arr["request"]["unit"]);
-					foreach($dat as $prof)
-					{
-						$unit->connect(array(
-							"type" => "RELTYPE_PROFESSIONS",
-							"to" => $prof
-						));
-					}
-				}
-				break;
-
 			case "comment_history":
 				$connect_comment_to_customer_data = false;
 				$parent = $this->eligible_to_comment($arr, $connect_comment_to_customer_data);
@@ -3267,6 +3244,58 @@ class crm_company extends class_base
 				break;
 		}
 		return PROP_OK;
+	}
+
+	function _set_cedit_table(&$arr)
+	{
+		$return = PROP_IGNORE;
+		if ($arr["request"]["sbt_data"])
+		{
+			$selected_persons = explode(",", $arr["request"]["sbt_data"]);
+			$this_o = $arr["obj_inst"];
+
+			if (empty($arr["request"]["cat"]))
+			{
+				$this->show_error_text(t("Ametinimetus valimata. Isikuid ei lisatud t&ouml;&ouml;tajateks."));
+				return PROP_ERROR;
+			}
+
+			try
+			{
+				$profession = obj($arr["request"]["cat"], array(), CL_CRM_PROFESSION);
+			}
+			catch (Exception $e)
+			{
+				$this->show_error_text(t("Ametinimetuse leidmisel tekkis viga. Isikuid ei lisatud t&ouml;&ouml;tajateks."));
+				return PROP_ERROR;
+			}
+
+			// add people to the section, create work relation
+			$failed_person_oids = array();
+			foreach ($selected_persons as $person_oid)
+			{
+				try
+				{
+					$person = obj($person_oid, array(), CL_CRM_PERSON);
+					$this_o->add_employee($profession, $person);
+				}
+				catch (Exception $e)
+				{
+					$failed_person_oids[] = $person_oid;
+				}
+			}
+
+			if (count($failed_person_oids))
+			{
+				$this->show_error_text(t("Osa valitud isikuid ei saanud lisada t&ouml;&ouml;tajateks."));
+			}
+			else
+			{
+				$this->show_success_text(t("Valitud isikud lisatud t&ouml;&ouml;tajateks."));
+				self::$msgs_closed = true;
+			}
+		}
+		return $return;
 	}
 
 	function callback_pre_edit($arr)
@@ -3493,7 +3522,6 @@ class crm_company extends class_base
 					{
 						// also remove user and its group
 						// user removal must succeed regardless of access rights
-						aw_disable_acl();
 						$user = $cl_crm_person->has_user($p);
 						$p->delete();
 
@@ -3501,7 +3529,6 @@ class crm_company extends class_base
 						{
 							$user->delete();
 						}
-						aw_restore_acl();
 					}
 					else
 					{
@@ -3550,16 +3577,12 @@ class crm_company extends class_base
 			}
 			$cust_rel_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"buyer" => $arr["check"],
 				"seller" => $arr["id"],
 			));
 			$cust_rel_list->delete();
 			$cust_rel_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"buyer" => $arr["id"],
 				"seller" => $arr["check"],
 			));
@@ -3576,23 +3599,53 @@ class crm_company extends class_base
 	**/
 	function submit_delete_relations($arr)
 	{
-		$main_obj = new object($arr['id']);
-		if (is_array($arr["check"]))
+		try
 		{
-			foreach($arr['check'] as $key => $value)
+			$this_o = obj($arr['id'], array(), CL_CRM_COMPANY);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("Organisatsiooniobjekt polnud loetav."));
+			return $arr["post_ru"];
+		}
+
+		if (isset($arr["check"]) and is_array($arr["check"]) and !empty($arr["cat"]))
+		{
+			$failed_person_oids = array();
+			foreach($arr['check'] as $person_oid)
 			{
-				if (is_oid($value))
+				try
 				{
-					$person = obj($value, array(), CL_CRM_PERSON);
-					$person->finish_work_relation(array("org" => $main_obj->id()));
-					//!!! block user. AL local change
-					$user = $person->instance()->has_user($person);
-					if($user !== false)
+					$person = obj($person_oid, array(), CL_CRM_PERSON);
+					$profession = obj($arr["cat"], array(), CL_CRM_PROFESSION);
+
+					$work_relations = crm_person_work_relation_obj::find($person, $profession, $this_o);
+					if($work_relations->count())
 					{
-						$user->set_prop("blocked", 1);
-						$user->save();
+						$work_relation = $work_relations->begin();
+
+						do
+						{
+							$this_o->finish_work_relation($work_relation);
+						}
+						while ($work_relation = $work_relations->next());
 					}
+
 				}
+				catch (Exception $e)
+				{
+					$failed_person_oids[] = $person_oid;
+				}
+			}
+
+			if (count($failed_person_oids))
+			{
+				$this->show_error_text(t("Osa valitud isikuid polnud loetavad."));
+			}
+			else
+			{
+				$this->show_success_text(t("Valitud isikutega antud ameti all t&ouml;&ouml;suhted l&otilde;petatud."));
+				self::$msgs_closed = true;
 			}
 		}
 
@@ -4275,8 +4328,8 @@ class crm_company extends class_base
 		@attrib name=save_search_results
 	**/
 	function save_search_results($arr)
-	{return;//!!! todo,. teha korda kui vaja seda ylse
-/* 		foreach($arr['check'] as $key=>$value)
+	{
+		foreach($arr['check'] as $key=>$value)
 		{
 			if(!empty($arr['unit']))
 			{
@@ -4313,7 +4366,7 @@ class crm_company extends class_base
 			),
 			$arr['class']
 		);
- */	}
+ 	}
 
 	//goes through all the relations and builds a set of id into $data
 	// FIXME category is an unknown parameter
@@ -4422,15 +4475,62 @@ class crm_company extends class_base
 
 		@param id required type=oid
 		@param profession required type=oid
+		@param save_autoreturn optional type=bool
 		@param return_url optional type=string
 	**/
 	public function add_employee($arr)
 	{
 		$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
-		$profession = obj($arr["profession"], array(), CL_CRM_PROFESSION);
+		$profession = empty($arr["profession"]) ? null : obj($arr["profession"], array(), CL_CRM_PROFESSION);
 		$work_rel = $this_o->add_employee($profession);
-		$params = !empty($arr["return_url"]) ? array("return_url" => $arr["return_url"]) : array();
+
+		$params = array();
+		if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
+		if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
+
 		return html::get_change_url($work_rel->prop("employee"), $params);
+	}
+
+	/**
+		@attrib name=add_profession
+
+		@param id required type=oid
+		@param section optional type=oid
+		@param save_autoreturn optional type=bool
+		@param return_url optional type=string
+	**/
+	public function add_profession($arr)
+	{
+		$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+		$section = empty($arr["section"]) ? null : obj($arr["section"], array(), CL_CRM_SECTION);
+		$profession = $this_o->add_profession($section);
+
+		$params = array();
+		if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
+		if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
+
+		return html::get_change_url($profession->id(), $params);
+	}
+
+	/**
+		@attrib name=add_section
+
+		@param id required type=oid
+		@param parent_section optional type=oid
+		@param save_autoreturn optional type=bool
+		@param return_url optional type=string
+	**/
+	public function add_section($arr)
+	{
+		$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+		$parent_section = empty($arr["parent_section"]) ? null : obj($arr["parent_section"], array(), CL_CRM_SECTION);
+		$section = $this_o->add_section($parent_section);
+
+		$params = array();
+		if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
+		if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
+
+		return html::get_change_url($section->id(), $params);
 	}
 
 	/**
@@ -4438,14 +4538,19 @@ class crm_company extends class_base
 
 		@param id required type=oid
 		@param parent optional type=oid
+		@param save_autoreturn optional type=bool
 		@param return_url optional type=string
 	**/
 	public function add_customer_category($arr)
 	{
 		$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
-		$parent = !empty($arr["parent"]) ? obj($arr["parent"], array(), CL_CRM_CATEGORY) : null;
-		$category = $this_o->add_customer_category($parent);
-		$params = !empty($arr["return_url"]) ? array("return_url" => $arr["return_url"]) : array();
+		$parent_category = empty($arr["parent"]) ? null : obj($arr["parent"], array(), CL_CRM_CATEGORY);
+		$category = $this_o->add_customer_category($parent_category);
+
+		$params = array();
+		if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
+		if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
+
 		return html::get_change_url($category->id(), $params);
 	}
 
@@ -4530,11 +4635,30 @@ class crm_company extends class_base
 	function copy_p($arr)
 	{
 		// in copy we must just remember the person
+		$msg_text1 = $msg_text2 = "";
 
 		unset($_SESSION["crm_copy_p"]);
 		foreach(safe_array($arr["check"]) as $p_id)
 		{
-			$_SESSION["crm_copy_p"][$p_id] = $p_id;
+			$copied_object = obj($p_id);
+
+			if ($copied_object->is_a(CL_CRM_PROFESSION))
+			{
+				$msg_text1 = t("Ametinimetusi ei saa kopeerida. ");
+			}
+			elseif ($copied_object->is_a(CL_CRM_SECTION))
+			{
+				$msg_text2 = t("&Uuml;ksusi ei saa kopeerida. ");
+			}
+			else
+			{
+				$_SESSION["crm_copy_p"][$p_id] = $p_id;
+			}
+		}
+
+		if ($msg_text1 or $msg_text2)
+		{
+			$this->show_msg_text($msg_text1 . $msg_text2);
 		}
 
 		return $arr["post_ru"];
@@ -4547,205 +4671,172 @@ class crm_company extends class_base
 	**/
 	function paste_p($arr)
 	{
-		// first cut persons
+		try
+		{
+			$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("Antud organisatsioon pole loetav."));
+			unset($_SESSION["crm_cut_p"]);
+			unset($_SESSION["crm_copy_p"]);
+			return $arr["post_ru"];
+		}
+
+		$errors = false;
+		$error_object_names = array();
+		$msg_text1 = $msg_text2 = "";
+
+		// first cut objects
 		if (isset($_SESSION["crm_cut_p"]))
 		{
 			foreach(safe_array($_SESSION["crm_cut_p"]) as $p_id => $p_from)
 			{
-				if (!(is_oid($p_id) && $this->can("view", $p_id)))
+				try
 				{
-					continue;
+					$cut_object = obj($p_id);
+				}
+				catch (Exception $e)
+				{
+					$errors = true;
 				}
 
-				$p = obj($p_id);
-
-
-				switch($p->class_id())
+				if ($cut_object->is_a(CL_CRM_PERSON))
 				{
-					case CL_CRM_PERSON:
-						// if copied from a profession
-						if (is_oid($p_from["profession"]))
+					try
+					{
+						if (empty($arr["cat"]))
 						{
-							// disconnect from that profession
-							if ($p->is_connected_to(array("to" => $p_from["profession"], "type" => 7)))
+							throw new Exception();
+						}
+
+						$profession = obj($arr["cat"], array(), CL_CRM_PROFESSION);
+						$this_o->add_employee($profession, $cut_object);
+
+						$old_profession = obj($p_from["profession"], array(), CL_CRM_PROFESSION);
+						$old_work_relations = crm_person_work_relation_obj::find($cut_object, $old_profession);
+
+						if($old_work_relations->count())
+						{
+							$old_work_relation = $old_work_relations->begin();
+
+							do
 							{
-								$p->disconnect(array(
-									"from" => $p_from["profession"],
-									"type" => 7 // crm_person.reltype_rank
-								));
+								$old_work_relation->finish();
 							}
+							while ($old_work_relation = $old_work_relations->next());
 						}
 
-						// else
-						// if from unit
-						if (is_oid($p_from["unit"]))
-						{
-							// disconnect from that unit
-							if ($p->is_connected_to(array("to" => $p_from["unit"])))
-							{
-								$p->disconnect(array(
-									"from" => $p_from["unit"],
-								));
-							}
-							$unit = obj($p_from["unit"]);
-
-							// disconnect from that unit
-							if ($unit->is_connected_to(array("to" => $p->id())))
-							{
-								$unit->disconnect(array(
-									"from" => $p->id(),
-								));
-							}
-						}
-
-						//uus systeem... kui on t88suhe, siis uut ei tee
-						if(!$p->get_work_relation_id(array(
-							"org" => $arr["id"],
-							"section" => $arr["unit"],
-							"profession" => $arr["cat"],
-						)))
-						{
-							$p->add_work_relation(array(
-								"org" => $arr["id"],
-								"section" => $arr["unit"],
-								"profession" => $arr["cat"],
-							));
-						}
-						$p->finish_work_relation(array(
-							"org" => $arr["id"],
-							"section" => $p_from["unit"],
-							"profession" => $p_from["profession"],
-						));
-
-						break;
-
-					case CL_CRM_PROFESSION:
-						if (is_oid($p_from["unit"]))
-						{
-							// disconnect from that unit
-							$unit = obj($p_from["unit"]);
-							if ($unit->is_connected_to(array("to" => $p->id())))
-							{
-								$unit->disconnect(array(
-									"from" => $p->id(),
-								));
-							}
-						}
-
-						if ($arr["unit"])
-						{
-							$unit = obj($arr["unit"]);
-							$unit->connect(array(
-								"to" => $p->id(),
-								"type" => "RELTYPE_PROFESSIONS"
-							));
-						}
-						break;
-
-					case CL_CRM_SECTION:
-						if (is_oid($p_from["unit"]))
-						{
-							// disconnect from that unit
-							$unit = obj($p_from["unit"]);
-							if ($unit->is_connected_to(array("to" => $p->id())))
-							{
-								$unit->disconnect(array(
-									"from" => $p->id(),
-								));
-							}
-						}
-
-						if ($arr["unit"])
-						{
-							$unit = obj($arr["unit"]);
-							$unit->connect(array(
-								"to" => $p->id(),
-								"type" => "RELTYPE_SECTION"
-							));
+					}
+					catch (Exception $e)
+					{
+						$error_object_names[] = $cut_object->name();
+					}
+				}
+				elseif ($cut_object->is_a(CL_CRM_PROFESSION))
+				{
+					try
+					{
+						if (empty($arr["unit"]))
+						{ // moving section to top level in company
+							$cut_object->set_prop("section", 0);
+							$cut_object->save();
 						}
 						else
-						{
-							$co = obj($arr["id"]);
-							$co->connect(array(
-								"to" => $p->id(),
-								"type" => "RELTYPE_SECTION"
-							));
+						{ // moving section under a different section
+							$new_parent_section = obj($arr["unit"], array(), CL_CRM_SECTION);
+							$cut_object->set_prop("section", $new_parent_section->id());
+							$cut_object->save();
 						}
-						break;
+					}
+					catch (Exception $e)
+					{
+						$error_object_names[] = $cut_object->name();
+					}
+				}
+				elseif ($cut_object->is_a(CL_CRM_SECTION))
+				{
+					try
+					{
+						if (empty($arr["unit"]))
+						{ // moving section to top level in company
+							$cut_object->set_prop("parent_section", 0);
+							$cut_object->save();
+						}
+						else
+						{ // moving section under a different section
+							$new_parent_section = obj($arr["unit"], array(), CL_CRM_SECTION);
+							$cut_object->set_prop("parent_section", $new_parent_section->id());
+							$cut_object->save();
+						}
+					}
+					catch (Exception $e)
+					{
+						$error_object_names[] = $cut_object->name();
+					}
 				}
 			}
 		}
 
-		// now copied persons
+		// now copied objects
 		if (isset($_SESSION["crm_copy_p"]))
 		{
 			foreach(safe_array($_SESSION["crm_copy_p"]) as $p_id)
 			{
-				if (!(is_oid($p_id) && $this->can("view", $p_id)))
+				try
 				{
-					continue;
+					$copied_object = obj($p_id);
+				}
+				catch (Exception $e)
+				{
+					$errors = true;
 				}
 
-				$p = obj($p_id);
+				if ($copied_object->is_a(CL_CRM_PERSON))
+				{ // just create a new work relation
+					try
+					{
+						if (empty($arr["cat"]))
+						{
+							throw new Exception();
+						}
 
-				switch($p->class_id())
+						$profession = obj($arr["cat"], array(), CL_CRM_PROFESSION);
+						$this_o->add_employee($profession, $copied_object);
+					}
+					catch (Exception $e)
+					{
+						$error_object_names[] = $copied_object->name();
+					}
+				}
+				elseif ($copied_object->is_a(CL_CRM_PROFESSION))
 				{
-					case CL_CRM_PERSON:
-						//uus systeem... kui on t88suhe, siis uut ei tee
-						if(!$p->get_work_relation_id(array(
-							"org" => $arr["id"],
-							"section" => $arr["unit"],
-							"profession" => $arr["cat"],
-						)))
-						{
-							$p->add_work_relation(array(
-								"org" => $arr["id"],
-								"section" => $arr["unit"],
-								"profession" => $arr["cat"],
-							));
-						}
-
-						break;
-
-					case CL_CRM_SECTION:
-						// save the copied section as a new one and connect
-						$p->save_new($p->parent());
-						if ($arr["unit"])
-						{
-							$unit = obj($arr["unit"]);
-							$unit->connect(array(
-								"to" => $p->id(),
-								"type" => "RELTYPE_SECTION"
-							));
-						}
-						else
-						{
-							$co = obj($arr["id"]);
-							$co->connect(array(
-								"to" => $p->id(),
-								"type" => "RELTYPE_SECTION"
-							));
-						}
-						break;
-
-					case CL_CRM_PROFESSION:
-						if ($arr["unit"])
-						{
-							$p->save_new($p->parent());
-							$unit = obj($arr["unit"]);
-							$unit->connect(array(
-								"to" => $p->id(),
-								"type" => "RELTYPE_PROFESSIONS"
-							));
-						}
-						break;
+					$msg_text1 = t("Ametinimetusi ei saa kopeerida. ");
+				}
+				elseif ($copied_object->is_a(CL_CRM_SECTION))
+				{
+					$msg_text2 = t("&Uuml;ksusi ei saa kopeerida. ");
 				}
 			}
 		}
 
+		if ($msg_text1 or $msg_text2)
+		{
+			$this->show_msg_text($msg_text1 . $msg_text2);
+		}
+
+		if ($errors)
+		{
+			$this->show_error_text(t("Osa valitud objekte polnud loetavad."));
+		}
+
+		if (count($error_object_names))
+		{
+			$this->show_error_text(t("Esinesid vead osa valitud objektide 'kleepimisel' (". implode(", ", $error_object_names) .")"));
+		}
+
 		unset($_SESSION["crm_cut_p"]);
 		unset($_SESSION["crm_copy_p"]);
-
 		return $arr["post_ru"];
 	}
 
@@ -6568,7 +6659,7 @@ class crm_company extends class_base
 
 		$seller = $conn->to();
 		// add customer relation object if it does not exist already
-		if($_POST["co_is_cust"])
+		if(!empty($_POST["co_is_cust"]))
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,

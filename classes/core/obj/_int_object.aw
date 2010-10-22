@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 /*
 
@@ -360,7 +357,7 @@ class _int_object
 			}
 			if (isset($param["type"]))
 			{
-				if (!is_numeric($param["type"]) && !is_array($param["type"]) && substr($param["type"], 0, 7) == "RELTYPE" && is_class_id($param["from.class_id"]))
+				if (!is_numeric($param["type"]) && !is_array($param["type"]) && substr($param["type"], 0, 7) === "RELTYPE" && isset($param["from.class_id"]) && is_class_id($param["from.class_id"]))
 				{
 					// it is "RELTYPE_FOO"
 					// resolve it to numeric
@@ -382,6 +379,7 @@ class _int_object
 
 				$filter["type"] = $param["type"];
 			}
+
 			if (isset($param["from"]))
 			{
 				$filter["from"] = $GLOBALS["object_loader"]->param_to_oid_list($param["from"]);
@@ -2928,5 +2926,3 @@ class _int_object
 		}
 	}
 }
-
-?>

@@ -2,7 +2,7 @@
 
 // image.aw - image management
 /*
-	@classinfo syslog_type=ST_IMAGE trans=1 maintainer=kristo
+	@classinfo trans=1
 
 	@tableinfo images index=id master_table=objects master_index=oid
 	@tableinfo img_d index=aw_oid master_table=objects master_index=oid
@@ -450,7 +450,8 @@ class image extends class_base
 				{
 					$size = $i_size;
 				}
-			};
+			}
+
 			if ($idata["url"] == "")
 			{
 				return "";
@@ -460,7 +461,8 @@ class image extends class_base
 			{
 				$idata['link'] = $args['link_prefix'].$idata['oid'];
 			}
-			$d = get_instance("doc_display");
+
+			$d = new doc_display();
 			$vars = array(
 				"width" => $i_size[0],
 				"height" => $i_size[1],
@@ -487,8 +489,8 @@ class image extends class_base
 				"comments" => $num_comments,
 				"longdesc" => $this->mk_my_orb("disp_longdesc", array("id" => $idata["oid"]))
 			);
-			$tmp = new aw_template;
-			lc_site_load("document", &$tmp);
+			$tmp = new aw_template();
+			lc_site_load("document", $tmp);
 			if (is_array($tmp->vars))
 			{
 				$vars += $tmp->vars;
@@ -1778,7 +1780,7 @@ class image extends class_base
 		$imo = obj($id);
 		$this->read_any_template("show_big.tpl");
 		$this->lc_load("image","lc_image");
-		lc_site_load("image", &$this);
+		lc_site_load("image", $this);
 		if ($this->can("view", $imo->prop("big_flash")))
 		{
 			$fli = get_instance(CL_FLASH);
@@ -2687,4 +2689,3 @@ class image extends class_base
 		}
 	}
 }
-?>

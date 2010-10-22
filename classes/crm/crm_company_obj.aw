@@ -460,12 +460,27 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 				"conditions" => array(
 					new object_list_filter(array(
 						"conditions" => array(
-							"end" => new obj_predicate_compare(OBJ_COMP_LESS, 1)
+							"end" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
 						)
 					)),
 					new object_list_filter(array(
 						"conditions" => array(
-							"end" => new obj_predicate_compare(OBJ_COMP_GREATER, time())
+							"end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time())
+						)
+					))
+				)
+			));
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					new object_list_filter(array(
+						"conditions" => array(
+							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
+						)
+					)),
+					new object_list_filter(array(
+						"conditions" => array(
+							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time())
 						)
 					))
 				)
@@ -769,6 +784,26 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		$wr = $this->add_employee(null, $o);
 		return $wr->prop("employee");
+	}
+
+	/** Adds new employee
+		@attrib api=1 params=pos
+		@param work_relation optional type=CL_CRM_PERSON_WORK_RELATION
+		@return void
+	**/
+	function finish_work_relation(object $work_relation)
+	{
+		$work_relations = crm_person_work_relation_obj::find(obj($work_relation->prop("employee")), null, $this->ref());
+		if ($work_relations->count() == 1 and $work_relation->id() === $work_relations->begin()->id())
+		{ // last relation, block user too
+			$user = $person->instance()->has_user($person);
+			if($user !== false)
+			{
+				$user->set_prop("blocked", 1);
+				$user->save();
+			}
+		}
+		$work_relation->finish();
 	}
 
 	/** Adds a new employee, creates a person if none given
@@ -1126,6 +1161,81 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			$o->save();
 		}
 		$this->connect(array("to" => $o->id(),  "type" => "RELTYPE_TEGEVUSALAD"));
+	}
+
+	/** Adds a profession
+		@attrib api=1 params=pos
+		@param section type=CL_CRM_SECTION default=NULL
+			Section to add new profession under. Default means top level.
+		@return CL_CRM_PROFESSION
+			Newly created profession object
+		@errors
+			throws awex_obj_type when parent is of wrong type
+			throws awex_obj_state_new when this company is not saved yet.
+	**/
+	public function add_profession(object $section = null)
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new();
+		}
+
+		$profession = obj(null, array(), CL_CRM_PROFESSION);
+		$profession->set_parent($this->id());
+		$profession->set_prop("organization", $this->id());
+
+		if ($section)
+		{
+			if (!$section->is_a(CL_CRM_SECTION))
+			{
+				throw new awex_obj_type("Given section " . $section->id() . " is not a section object (clid is " . $section->class_id() . ")");
+			}
+			$profession->set_prop("section", $section->id());
+		}
+
+		$profession->save();
+		return $profession;
+	}
+
+	/** Adds a company section
+		@attrib api=1 params=pos
+		@param parent_section type=CL_CRM_SECTION default=NULL
+			Section to add new section under. Default means top level.
+		@param properties type=CL_CRM_SECTION default=NULL
+			Optional section properties.
+		@return CL_CRM_SECTION
+			Newly created section object
+		@errors
+			throws awex_obj_type when parent is of wrong type
+			throws awex_obj_state_new when this company is not saved yet.
+	**/
+	public function add_section(object $parent_section = null, $properties = array())
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new();
+		}
+
+		$section = obj(null, array(), CL_CRM_SECTION);
+		$section->set_parent($this->id());
+		$section->set_prop("organization", $this->id());
+
+		foreach ($properties as $name => $value)
+		{
+			$section->set_prop($name, $value);
+		}
+
+		if ($parent_section)
+		{
+			if (!$parent_section->is_a(CL_CRM_SECTION))
+			{
+				throw new awex_obj_type("Given parent section " . $parent_section->id() . " is not a section object (clid is " . $parent_section->class_id() . ")");
+			}
+			$section->set_prop("parent_section", $parent_section->id());
+		}
+
+		$section->save();
+		return $section;
 	}
 
 	/** Adds customer/partner category
@@ -1836,31 +1946,10 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 				return $key;
 			}
 		}
-		$customer_unit = $this->add_section($section);
 
-		return $customer_unit;
-	}
-
-	/** adds new section to company
-		@attrib api=1 params=pos
-		@param section optional type=string
-			form oid
-		@return oid
-			customer object id
-	**/
-	public function add_section($section)
-	{
-		$sectiono = new object();
-		$sectiono -> set_parent($this->id());
-		$sectiono -> set_class_id(CL_CRM_SECTION);
-		$sectiono -> set_name($section);
-		$sectiono -> save();
-
-		$this->connect(array(
-			"to" => $sectiono->id(),
-			"type" => "RELTYPE_SECTION"
-		));
-		return $sectiono -> id();
+		$properties = array("name" => $section);
+		$customer_unit = $this->add_section(null, $properties);
+		return $customer_unit->id();
 	}
 
 	public function get_customer_prop($co , $prop)
