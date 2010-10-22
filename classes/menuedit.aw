@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class menuedit extends aw_template implements request_startup
 {
 	function menuedit()
@@ -345,9 +343,9 @@ class menuedit extends aw_template implements request_startup
 					if (aw_ini_get("user_interface.full_content_trans") && !count($candidates))
 					{
 						// do the same check for the translated aliases
-						$this->quote(&$last);
+						$this->quote($last);
 						$lang_id = aw_global_get("ct_lang_id");
-						$this->quote(&$lang_id);
+						$this->quote($lang_id);
 						$rows = $this->db_fetch_array("SELECT menu_id FROM aw_alias_trans WHERE alias = '$last' AND lang_id = '$lang_id'");
 						$ol = new object_list(array(
 							"alias" => $last,
@@ -421,7 +419,7 @@ class menuedit extends aw_template implements request_startup
 			else
 			{
 				// vaatame, kas selle nimega aliast on?
-				$this->quote(&$section);
+				$this->quote($section);
 				$ol = new object_list(array(
 					"alias" => $section,
 					//"status" => STAT_ACTIVE,
@@ -432,7 +430,7 @@ class menuedit extends aw_template implements request_startup
 				{
 					$lang_id = aw_ini_get("user_interface.full_content_trans") ? aw_global_get("ct_lang_id") : aw_global_get("lang_id");
 					// check translations
-					$this->quote(&$section);
+					$this->quote($section);
 					$menu_id = null;
 					if (aw_ini_get("user_interface.full_content_trans"))
 					{
@@ -645,4 +643,3 @@ class menuedit extends aw_template implements request_startup
 		exit;
 	}
 }
-?>

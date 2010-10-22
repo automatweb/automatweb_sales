@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="inventory_management" folder="applications/inventory_management" extends="class_base">
+	</class>
+</orb>
+		

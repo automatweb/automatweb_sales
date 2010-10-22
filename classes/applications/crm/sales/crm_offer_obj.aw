@@ -13,7 +13,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 
 	const STATE_NEW = 0;
 	const STATE_SENT = 1;
-	const STATE_CONFIRMED = 2; 
+	const STATE_CONFIRMED = 2;
 	const STATE_CANCELLED = 3;
 
 	public static function state_names($state = null)
@@ -266,7 +266,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		$row->save();
 	}
 
-	/**	Returns array of 
+	/**	Returns array of
 		@attrib api=1
 		@returs crm_offer_row_obj[]
 		@error Throws awex_crm_offer if this offer is not saved
@@ -358,7 +358,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		}
 
 		$compulsory = false;
-		
+
 		if(!isset($this->salesman_data))
 		{
 			try
@@ -577,7 +577,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		foreach($this->instance()->db_fetch_array($q) as $row)
 		{
 			$price_components_without_applicables[] = $row["oid"];
-		}		
+		}
 		if(!empty($price_components_without_applicables))
 		{
 			$odl = new object_data_list(
@@ -603,11 +603,11 @@ class crm_offer_obj extends crm_offer_price_component_handler
 			$ol = new object_list();
 			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_UNIT]);
 			$this->price_components[crm_sales_price_component_obj::TYPE_UNIT] = $ol;
-			
+
 			$ol = new object_list();
 			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_ROW]);
 			$this->price_components[crm_sales_price_component_obj::TYPE_ROW] = $ol;
-			
+
 			$ol = new object_list();
 			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_TOTAL]);
 			$this->price_components[crm_sales_price_component_obj::TYPE_TOTAL] = $ol;
@@ -657,5 +657,3 @@ class crm_offer_obj extends crm_offer_price_component_handler
 
 /** Generic crm offer error **/
 class awex_crm_offer extends awex_crm {}
-
-?>

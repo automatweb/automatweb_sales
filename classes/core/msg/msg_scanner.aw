@@ -25,20 +25,20 @@ class msg_scanner extends class_base
 		$files[] = AW_DIR . "lib/defs.aw"; // temporary. until MSG_MAIL_SENT emit declaration moved from defs.aw
 
 		// scan them for all dispatched / recieved messages
-		list($messages, $recievers, $recievers_param) = $this->_scan_files($files);
+		list($messages, $receivers, $receivers_param) = $this->_scan_files($files);
 
 		// check the maps for validity
-		$this->_check_message_maps($messages, $recievers, $recievers_param);
+		$this->_check_message_maps($messages, $receivers, $receivers_param);
 
-		// generate one xml file for each message that lists the recievers of that message
-		$this->_save_message_maps($messages, $recievers, $recievers_param);
+		// generate one xml file for each message that lists the receivers of that message
+		$this->_save_message_maps($messages, $receivers, $receivers_param);
 	}
 
 	function _scan_files($files)
 	{
 		$messages = array();
-		$recievers = array();
-		$recievers_param = array();
+		$receivers = array();
+		$receivers_param = array();
 		foreach($files as $file)
 		{
 			$blen = strlen(AW_DIR."classes")+1;
@@ -57,11 +57,11 @@ class msg_scanner extends class_base
 			{
 				foreach($mt as $m)
 				{
-					if (isset($recievers[trim($m[1])][$class]))
+					if (isset($receivers[trim($m[1])][$class]))
 					{
-						die(sprintf(t("ERROR: function %s already defined as message handler\n       for message %s, can not define several recievers\n       for one message in the same class!\n\n"), $recievers[trim($m[1])][$class], $m[1]));
+						die(sprintf(t("ERROR: function %s already defined as message handler\n       for message %s, can not define several receivers\n       for one message in the same class!\n\n"), $receivers[trim($m[1])][$class], $m[1]));
 					}
-					$recievers[trim($m[1])][$class] = trim($m[2]);
+					$receivers[trim($m[1])][$class] = trim($m[2]);
 				}
 			}
 
@@ -69,20 +69,20 @@ class msg_scanner extends class_base
 			{
 				foreach($mt as $m)
 				{
-					if (isset($recievers_param[trim($m[1])][$class][trim($m[2])]))
+					if (isset($receivers_param[trim($m[1])][$class][trim($m[2])]))
 					{
-						die(sprintf(t("ERROR: function %s already defined as message handler\n       for message %s with param %s, can not define several recievers\n       for one message with same param in the same class!\n\n"), $recievers[trim($m[1])][$class][trim($m[2])], $m[1], $m[2]));
+						die(sprintf(t("ERROR: function %s already defined as message handler\n       for message %s with param %s, can not define several receivers\n       for one message with same param in the same class!\n\n"), $receivers[trim($m[1])][$class][trim($m[2])], $m[1], $m[2]));
 					}
-					$recievers_param[trim($m[1])][$class][trim($m[2])] = trim($m[3]);
+					$receivers_param[trim($m[1])][$class][trim($m[2])] = trim($m[3]);
 				}
 			}
 		}
-		return array($messages, $recievers, $recievers_param);
+		return array($messages, $receivers, $receivers_param);
 	}
 
-	function _check_message_maps($messages, $recievers, $recievers_param)
+	function _check_message_maps($messages, $receivers, $receivers_param)
 	{
-		foreach($recievers as $msg => $cldat)
+		foreach($receivers as $msg => $cldat)
 		{
 			if (!in_array($msg, $messages))
 			{
@@ -107,7 +107,7 @@ class msg_scanner extends class_base
 			}
 		}
 
-		foreach($recievers_param as $msg => $cldat)
+		foreach($receivers_param as $msg => $cldat)
 		{
 			if (!in_array($msg, $messages))
 			{
@@ -136,20 +136,20 @@ class msg_scanner extends class_base
 		}
 	}
 
-	function _save_message_maps($messages, $recievers, $recievers_param)
+	function _save_message_maps($messages, $receivers, $receivers_param)
 	{
 		$this->_delete_old_maps();
 
 		foreach($messages as $msg)
 		{
-			// find all recievers for this message
-			$m_recvs = new aw_array($recievers[$msg]);
+			// find all receivers for this message
+			$m_recvs = new aw_array($receivers[$msg]);
 			$r = array();
 			foreach($m_recvs->get() as $class => $func)
 			{
 				$r[] = array("class" => $class, "func" => $func);
 			}
-			$m_recvs = new aw_array($recievers_param[$msg]);
+			$m_recvs = new aw_array($receivers_param[$msg]);
 			foreach($m_recvs->get() as $class => $fdat)
 			{
 				foreach($fdat as $param => $func)

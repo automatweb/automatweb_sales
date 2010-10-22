@@ -767,52 +767,19 @@ function &__get_site_instance()
 
 		if (class_exists("site", false))
 		{
-			$__site_instance = new site;
+			$__site_instance = new site();
 		}
 		else
 		{
 			$__site_instance = false;
-		};
+		}
 	}
 	return $__site_instance;
 }
 
-function enter_function($name,$args = array())
-{return;
-	if (empty($GLOBALS["cfg"]["debug"]["profile"]))
-	{
-		return;
-	}
-	global $awt;
-	if(is_object($awt))
-	{
-		$awt->start($name);
-		$awt->count($name);
-	}
-	if (!isset($GLOBALS['enter_function_calls']))
-	{
-		$GLOBALS["enter_function_calls"] = 0;
-	}
-	$GLOBALS["enter_function_calls"]++;
-}
-
-function exit_function($name,$ret = "")
-{return;
-	if (empty($GLOBALS["cfg"]["debug"]["profile"]))
-	{
-		return;
-	}
-	global $awt;
-	if(is_object($awt))
-	{
-		$awt->stop($name);
-	}
-	if (!isset($GLOBALS["exit_function_calls"]))
-	{
-		$GLOBALS["exit_function_calls"] = 0;
-	}
-	$GLOBALS["exit_function_calls"]++;
-}
+// DEPRECATED profiling functions
+function enter_function($name,$args = array()){}
+function exit_function($name,$ret = ""){}
 
 function aw_set_exec_time($c_type)
 {

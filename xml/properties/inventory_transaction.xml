@@ -1,0 +1,84 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>item</name>
+            <table>aw_inventory_transaction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>item</field>
+      </property>
+      <property>
+            <name>source_inventory</name>
+            <table>aw_inventory_transaction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>source_inventory</field>
+            <comment>Source inventory reference. Data type integer (length 11). Holds aw object id-s</comment>
+      </property>
+      <property>
+            <name>destination_inventory</name>
+            <table>aw_inventory_transaction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>destination_inventory</field>
+            <comment>Destination inventory reference. Data type integer (length 11). Holds aw object id-s</comment>
+      </property>
+      <property>
+            <name>quantity</name>
+            <table>aw_inventory_transaction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>quantity</field>
+      </property>
+      <property>
+            <name>requester</name>
+            <table>aw_inventory_transaction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>requester</field>
+      </property>
+      <property>
+            <name>type</name>
+            <table>aw_inventory_transaction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>type</field>
+            <comment>Transaction type identifier. Data type integer (length 11). Should hold aw object id-s</comment>
+      </property>
+      <property>
+            <name>result_quantity</name>
+            <table>aw_inventory_transaction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>result_quantity</field>
+            <comment>Quantity of item in source inventoryTransaction requester identifier. Data type integer (length 11). Should hold aw object id-s</comment>
+      </property>
+      <property>
+            <name>from_inventory</name>
+            <table>aw_inventory_transaction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>from_inventory</field>
+      </property>
+      <property>
+            <name>to_inventory</name>
+            <table>aw_inventory_transaction</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>to_inventory</field>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_inventory_transaction>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_inventory_transaction>
+      </tableinfo>
+</properties>
+

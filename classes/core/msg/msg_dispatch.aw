@@ -50,7 +50,7 @@ class msg_dispatch
 	// !this delivers posted messages with a parameter
 	// parameters:
 	//	msg - message 
-	//	param - the parameter through which message recievers are filtered
+	//	param - the parameter through which message receivers are filtered
 	//	params - array of parameters
 	function post_message_with_param($arr)
 	{

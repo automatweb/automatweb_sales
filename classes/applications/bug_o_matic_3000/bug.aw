@@ -1853,7 +1853,7 @@ class bug extends class_base
 			}
 		}
 
-		// add who to the list of mail recievers
+		// add who to the list of mail receivers
 		$monitors[] = $bug->prop("who");
 
 		// I should add a way to send CC-s to arbitraty e-mail addresses as well
@@ -2468,7 +2468,7 @@ class bug extends class_base
 		{
 			$this->notify_monitors($bug, $comment, $old_state, $new_state);
 		}
-//print "kasutaja: ".aw_global_get("uid");
+
 		$p = get_current_person()->id();
 		if($bug->class_id() == CL_BUG)
 		{
@@ -3754,6 +3754,7 @@ die($email);
 					}
 				}
 			}
+
 			if(!$canclose && false)
 			{
 				$retval = PROP_FATAL_ERROR;
@@ -3952,8 +3953,6 @@ die($email);
 				ans = ans.substring(0,len-2) + "." + ans.substring(len-2,len)
 				return ans
 			}
-
-
 		}
 
 		$("#bug_stopper_watch_time").stopper_watch();
@@ -4120,7 +4119,6 @@ EOF;
 			return "";
 		}
 
-
 		return
 		"function aw_submit_handler() {".
 		"var url = '".$this->mk_my_orb("check_multiple_content")."';".
@@ -4200,7 +4198,7 @@ EOF;
 	function get_person_times($arr)
 	{
 		$conn = $arr["obj_inst"]->connections_from(array(
-			"type" => "RELTYPE_COMMENT",
+			"type" => "RELTYPE_COMMENT"
 		));
 		$ppl_r_times = $ppl_g_times = array();
 		foreach($conn as $c)
@@ -4218,12 +4216,13 @@ EOF;
 				$person = obj($ui->get_person_for_user($ui->get_obj_for_uid($u)));
 				$values[] = $person->name().": ".html::span(array(
 					"content" => $time,
-					"color" => ($arr["prop"]["name"] == "num_hrs_real" && $time > $ppl_g_times[$u]) ? "#FF0000" : "",
+					"color" => ($arr["prop"]["name"] === "num_hrs_real" && $time > $ppl_g_times[$u]) ? "#FF0000" : "",
 				));
 				$total += $time;
 			}
 		}
-		if($arr["prop"]["name"] == "num_hrs_guess" && isset($values) && count($values) > 1)
+
+		if($arr["prop"]["name"] === "num_hrs_guess" && isset($values) && count($values) > 1)
 		{
 			$values[] = t("Kokku:")." ".$total;
 		}
@@ -4296,9 +4295,7 @@ EOF;
 			return $parent;
 		}
 		$bugtracks = new object_list(array(
-			"class_id" => CL_BUG_TRACKER,
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => CL_BUG_TRACKER
 		));
 		$bugtrack = reset();
 		foreach($bugtracks->arr() as $bugtrack)
@@ -4344,10 +4341,8 @@ EOF;
 			{
 				$customers = new object_list(array(
 					"class_id" => CL_CRM_COMPANY,
-					"site_id" => array(),
-					"lang_id" => array(),
 					"name" => $arr["customer"],
-					"limit" => 1,
+					"limit" => 1
 				));
 				$customer = reset($customers->arr());
 				if(!$customer)
@@ -4373,10 +4368,8 @@ EOF;
 			{
 				$customer_persons = new object_list(array(
 					"class_id" => CL_CRM_PERSON,
-					"site_id" => array(),
-					"lang_id" => array(),
 					"name" => $arr["customer_person"],
-					"limit" => 1,
+					"limit" => 1
 				));
 				$customer_person = reset($customer_persons->ids());
 				if(!$customer_person)
@@ -4396,10 +4389,8 @@ EOF;
 			{
 				$orderers = new object_list(array(
 					"class_id" => CL_CRM_COMPANY,
-					"site_id" => array(),
-					"lang_id" => array(),
 					"name" => $arr["orderer"],
-					"limit" => 1,
+					"limit" => 1
 				));
 				$orderer = reset($orderers->arr());
 				if(is_object($orderer))
@@ -4412,10 +4403,8 @@ EOF;
 			{
 				$orderer_units = new object_list(array(
 					"class_id" => CL_CRM_SECTION,
-					"site_id" => array(),
-					"lang_id" => array(),
 					"name" => $arr["orderer_unit"],
-					"limit" => 1,
+					"limit" => 1
 				));
 				$orderer_unit = $orderer->get_section_by_name($arr["orderer_unit"]);
 				if($orderer_unit)
@@ -4428,10 +4417,8 @@ EOF;
 			{
 				$orderer_persons = new object_list(array(
 					"class_id" => CL_CRM_PERSON,
-					"site_id" => array(),
-					"lang_id" => array(),
 					"name" => $arr["orderer_person"],
-					"limit" => 1,
+					"limit" => 1
 				));
 				$orderer_person = reset($orderer_persons->ids());
 				if(!$orderer_person)
@@ -4469,10 +4456,8 @@ EOF;
 				{
 					$projects = new object_list(array(
 						"class_id" => CL_PROJECT,
-						"site_id" => array(),
-						"lang_id" => array(),
 						"name" => $arr["project"],
-						"limit" => 1,
+						"limit" => 1
 					));
 					$project = reset($projects->ids());
 				}
@@ -4642,7 +4627,7 @@ EOF;
 			"caption" => t("Lisa uus &Uuml;lesanne!")
 		));
 		$data = array(
-			"orb_class" => $_GET["class"]?$_GET["class"]:$_POST["class"],
+			"orb_class" => $_GET["class"] ? $_GET["class"]:$_POST["class"],
 			"reforb" => 0,
 			"parent" => $_GET["parent"],
 		);
@@ -4683,9 +4668,7 @@ EOF;
 		$customers = new object_list(array(
 			"class_id" => array(CL_CRM_COMPANY),
 			"name" => iconv("UTF-8", aw_global_get("charset"), $arr["customer"])."%",
-			"lang_id" => array(),
-			"site_id" => array(),
-			"limit" => 3,
+			"limit" => 3
 		));
 		$orderers = new object_list();
 		foreach($customers->arr() as $cust)
@@ -4696,20 +4679,15 @@ EOF;
 		$ol = new object_list(array(
 			"class_id" => array(CL_PERSON),
 			"name" => iconv("UTF-8", aw_global_get("charset"), $arr["orderer"])."%",
-			"oid" => $orderers->ids(),
-			"lang_id" => array(),
-			"site_id" => array(),
+			"oid" => $orderers->ids()
 		));
 		$autocomplete_options = $orderers->names();
 
-                foreach($autocomplete_options as $k => $v)
-                {
-                        $autocomplete_options[$k] = iconv(aw_global_get("charset"), "UTF-8", parse_obj_name($v));
-                }
+		foreach($autocomplete_options as $k => $v)
+		{
+			$autocomplete_options[$k] = iconv(aw_global_get("charset"), "UTF-8", parse_obj_name($v));
+		}
 		header("Content-type: text/html; charset=utf-8");
 		exit ($cl_json->encode($option_data));
 	}
-
-
-
 }

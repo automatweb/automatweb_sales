@@ -481,16 +481,16 @@ define("MENU_ITEM_LENGTH", 20);
 
 		@layout stat_hrs_s type=vbox parent=stat_hrs_o
 
-		@property stat_hr_bugs type=checkbox store=no ch_value=1 default=1 no_caption=1 parent=stat_hrs_s
+		@property stat_hr_bugs type=checkbox store=no ch_value=1 default=1 parent=stat_hrs_s
 		@caption &Uuml;lesanded
 
-		@property stat_hr_meetings type=checkbox store=no ch_value=1 default=1 no_caption=1 parent=stat_hrs_s
+		@property stat_hr_meetings type=checkbox store=no ch_value=1 default=1 parent=stat_hrs_s
 		@caption Kohtumised
 
-		@property stat_hr_tasks type=checkbox store=no ch_value=1 default=1 no_caption=1 parent=stat_hrs_s
+		@property stat_hr_tasks type=checkbox store=no ch_value=1 default=1 parent=stat_hrs_s
 		@caption Toimetused
 
-		@property stat_hr_calls type=checkbox store=no ch_value=1 default=1 no_caption=1 parent=stat_hrs_s
+		@property stat_hr_calls type=checkbox store=no ch_value=1 default=1 parent=stat_hrs_s
 		@caption K&otilde;ned
 
 	@property stat_hrs_submit type=submit store=no
@@ -799,9 +799,9 @@ class bug_tracker extends class_base
 				$udata = $arr["obj_inst"]->meta("gantt_user_ends");
 				$cur = aw_global_get("uid_oid");
 				$days = 7;
-				if($ue = $udata[$cur])
+				if(!empty($udata[$cur]))
 				{
-					$days = $ue;
+					$days = $udata[$cur];
 				}
 				$prop["value"] = time() + ($days-1) * 24 * 60 * 60;
 				break;
@@ -809,7 +809,7 @@ class bug_tracker extends class_base
 			case "gantt_p":
 			case "unset_p":
 			case "my_bugs_stat_p":
-				if ($this->can("view", $arr["request"]["filt_p"]))
+				if (isset($arr["request"]["filt_p"]) and $this->can("view", $arr["request"]["filt_p"]))
 				{
 					$p = obj($arr["request"]["filt_p"]);
 				}
@@ -818,8 +818,8 @@ class bug_tracker extends class_base
 					$u = get_instance(CL_USER);
 					$p = obj($u->get_current_person());
 				}
-				$co = get_instance(CL_CRM_COMPANY);
-				$c = get_instance("vcl/popup_menu");
+				$co = new crm_company();
+				$c = new popup_menu();
 				$c->begin_menu("bt_g");
 				$ppl = $this->get_people_list($arr["obj_inst"]);
 				foreach($ppl as $p_id => $p_n)
@@ -853,7 +853,7 @@ class bug_tracker extends class_base
 				static $sp_i;
 				if (!$sp_i)
 				{
-					$sp_i = get_instance("applications/bug_o_matic_3000/bt_settings_people_impl");
+					$sp_i = new bt_settings_people_impl();
 				}
 				$fn = "_get_".$arr["prop"]["name"];
 				return $sp_i->$fn($arr);
@@ -876,7 +876,7 @@ class bug_tracker extends class_base
 				static $st_i;
 				if (!$st_i)
 				{
-					$st_i = get_instance("applications/bug_o_matic_3000/bt_stat_impl");
+					$st_i = new bt_stat_impl();
 				}
 				$fn = "_get_".$prop["name"];
 				return $st_i->$fn($arr);
@@ -922,7 +922,7 @@ class bug_tracker extends class_base
 				{
 					$prop["value"] = 1;
 				}
-				else
+				elseif (!empty($arr["request"][$prop["name"]]))
 				{
 					$prop["value"] = $arr["request"][$prop["name"]];
 				}
@@ -2667,43 +2667,43 @@ class bug_tracker extends class_base
 
 	function callback_mod_retval(&$arr)
 	{
-		$arr["args"]["sp_p_name"] = $arr["request"]["sp_p_name"];
-		$arr["args"]["sp_p_co"] = $arr["request"]["sp_p_co"];
-		$arr["args"]["stat_hrs_start"] = $arr["request"]["stat_hrs_start"];
-		$arr["args"]["stat_hrs_end"] = $arr["request"]["stat_hrs_end"];
-		$arr["args"]["stat_proj_hrs_start"] = $arr["request"]["stat_proj_hrs_start"];
-		$arr["args"]["stat_proj_hrs_end"] = $arr["request"]["stat_proj_hrs_end"];
-		$arr["args"]["stat_hr_bugs"] = $arr["request"]["stat_hr_bugs"];
-		$arr["args"]["stat_hr_tasks"] = $arr["request"]["stat_hr_tasks"];
-		$arr["args"]["stat_hr_calls"] = $arr["request"]["stat_hr_calls"];
-		$arr["args"]["stat_hr_meetings"] = $arr["request"]["stat_hr_meetings"];
-		$arr["args"]["stat_proj_bugs"] = $arr["request"]["stat_proj_bugs"];
-		$arr["args"]["stat_proj_tasks"] = $arr["request"]["stat_proj_tasks"];
-		$arr["args"]["stat_proj_calls"] = $arr["request"]["stat_proj_calls"];
-		$arr["args"]["stat_proj_meetings"] = $arr["request"]["stat_proj_meetings"];
-		$arr["args"]["my_bugs_stat_start"] = $arr["request"]["my_bugs_stat_start"];
-		$arr["args"]["my_bugs_stat_end"] = $arr["request"]["my_bugs_stat_end"];
+		$arr["args"]["sp_p_name"] = isset($arr["request"]["sp_p_name"]) ? $arr["request"]["sp_p_name"] : "";
+		$arr["args"]["sp_p_co"] = isset($arr["request"]["sp_p_co"]) ? $arr["request"]["sp_p_co"] : "";
+		$arr["args"]["stat_hrs_start"] = isset($arr["request"]["stat_hrs_start"]) ? $arr["request"]["stat_hrs_start"] : "";
+		$arr["args"]["stat_hrs_end"] = isset($arr["request"]["stat_hrs_end"]) ? $arr["request"]["stat_hrs_end"] : "";
+		$arr["args"]["stat_proj_hrs_start"] = isset($arr["request"]["stat_proj_hrs_start"]) ? $arr["request"]["stat_proj_hrs_start"] : "";
+		$arr["args"]["stat_proj_hrs_end"] = isset($arr["request"]["stat_proj_hrs_end"]) ? $arr["request"]["stat_proj_hrs_end"] : "";
+		$arr["args"]["stat_hr_bugs"] = isset($arr["request"]["stat_hr_bugs"]) ? $arr["request"]["stat_hr_bugs"] : "";
+		$arr["args"]["stat_hr_tasks"] = isset($arr["request"]["stat_hr_tasks"]) ? $arr["request"]["stat_hr_tasks"] : "";
+		$arr["args"]["stat_hr_calls"] = isset($arr["request"]["stat_hr_calls"]) ? $arr["request"]["stat_hr_calls"] : "";
+		$arr["args"]["stat_hr_meetings"] = isset($arr["request"]["stat_hr_meetings"]) ? $arr["request"]["stat_hr_meetings"] : "";
+		$arr["args"]["stat_proj_bugs"] = isset($arr["request"]["stat_proj_bugs"]) ? $arr["request"]["stat_proj_bugs"] : "";
+		$arr["args"]["stat_proj_tasks"] = isset($arr["request"]["stat_proj_tasks"]) ? $arr["request"]["stat_proj_tasks"] : "";
+		$arr["args"]["stat_proj_calls"] = isset($arr["request"]["stat_proj_calls"]) ? $arr["request"]["stat_proj_calls"] : "";
+		$arr["args"]["stat_proj_meetings"] = isset($arr["request"]["stat_proj_meetings"]) ? $arr["request"]["stat_proj_meetings"] : "";
+		$arr["args"]["my_bugs_stat_start"] = isset($arr["request"]["my_bugs_stat_start"]) ? $arr["request"]["my_bugs_stat_start"] : "";
+		$arr["args"]["my_bugs_stat_end"] = isset($arr["request"]["my_bugs_stat_end"]) ? $arr["request"]["my_bugs_stat_end"] : "";
+		$arr["args"]["stat_proj_ppl"] = isset($arr["request"]["stat_proj_ppl"]) ? $arr["request"]["stat_proj_ppl"] : "";
 
-		$arr["args"]["stat_proj_ppl"] = $arr["request"]["stat_proj_ppl"];
 		if ("stat_hrs_overview" === $arr["args"]["group"])
 		{
 			$arr["args"]["just_saved"] = null;
 		}
 
-		if ($arr["request"]["proj_search_sbt"])
+		if (!empty($arr["request"]["proj_search_sbt"]))
 		{
-			$arr["args"]["proj_search_cust"] = $arr["request"]["proj_search_cust"];
-			$arr["args"]["proj_search_part"] = $arr["request"]["proj_search_part"];
-			$arr["args"]["proj_search_name"] = $arr["request"]["proj_search_name"];
-			$arr["args"]["proj_search_code"] = $arr["request"]["proj_search_code"];
-			$arr["args"]["proj_search_arh_code"] = $arr["request"]["proj_search_code"];
-			$arr["args"]["proj_search_proj_mgr"] = $arr["request"]["proj_search_proj_mgr"];
-			$arr["args"]["proj_search_task_name"] = $arr["request"]["proj_search_task_name"];
-			$arr["args"]["proj_search_dl_from"] = $arr["request"]["proj_search_dl_from"];
-			$arr["args"]["proj_search_dl_to"] = $arr["request"]["proj_search_dl_to"];
-			$arr["args"]["proj_search_end_from"] = $arr["request"]["proj_search_end_from"];
-			$arr["args"]["proj_search_end_to"] = $arr["request"]["proj_search_end_to"];
-			$arr["args"]["proj_search_state"] = $arr["request"]["proj_search_state"];
+			$arr["args"]["proj_search_cust"] = isset($arr["request"]["proj_search_cust"]) ? $arr["request"]["proj_search_cust"] : "";
+			$arr["args"]["proj_search_part"] = isset($arr["request"]["proj_search_part"]) ? $arr["request"]["proj_search_part"] : "";
+			$arr["args"]["proj_search_name"] = isset($arr["request"]["proj_search_name"]) ? $arr["request"]["proj_search_name"] : "";
+			$arr["args"]["proj_search_code"] = isset($arr["request"]["proj_search_code"]) ? $arr["request"]["proj_search_code"] : "";
+			$arr["args"]["proj_search_arh_code"] = isset($arr["request"]["proj_search_arh_code"]) ? $arr["request"]["proj_search_arh_code"] : "";
+			$arr["args"]["proj_search_proj_mgr"] = isset($arr["request"]["proj_search_proj_mgr"]) ? $arr["request"]["proj_search_proj_mgr"] : "";
+			$arr["args"]["proj_search_task_name"] = isset($arr["request"]["proj_search_task_name"]) ? $arr["request"]["proj_search_task_name"] : "";
+			$arr["args"]["proj_search_dl_from"] = isset($arr["request"]["proj_search_dl_from"]) ? $arr["request"]["proj_search_dl_from"] : "";
+			$arr["args"]["proj_search_dl_to"] = isset($arr["request"]["proj_search_dl_to"]) ? $arr["request"]["proj_search_dl_to"] : "";
+			$arr["args"]["proj_search_end_from"] = isset($arr["request"]["proj_search_end_from"]) ? $arr["request"]["proj_search_end_from"] : "";
+			$arr["args"]["proj_search_end_to"] = isset($arr["request"]["proj_search_end_to"]) ? $arr["request"]["proj_search_end_to"] : "";
+			$arr["args"]["proj_search_state"] = isset($arr["request"]["proj_search_state"]) ? $arr["request"]["proj_search_state"] : "";
 			$arr["args"]["proj_search_sbt"] = 1;
 			$arr["args"]["do_proj_search"] = 1;
 		}
@@ -3432,7 +3432,7 @@ class bug_tracker extends class_base
 		}
 		$col_length = $this->gt_days_in_col*24*60*60;
 
-		if ($this->can("view", $arr["request"]["filt_p"]))
+		if (isset($arr["request"]["filt_p"]) and $this->can("view", $arr["request"]["filt_p"]))
 		{
 			$p = obj($arr["request"]["filt_p"]);
 		}
@@ -3493,10 +3493,10 @@ class bug_tracker extends class_base
 			}
 		}
 
-		if (!$has && $arr["ret_b"])
+		if (!$has && !empty($arr["ret_b"]))
 		{
 			$gt_list[] = $arr["ret_b"];
-			usort($gt_list, array(&$this, "__gantt_sort"));
+			usort($gt_list, array($this, "__gantt_sort"));
 		}
 		$this->day2wh = $this->get_person_whs($p);
 

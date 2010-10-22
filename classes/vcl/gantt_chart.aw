@@ -2,7 +2,7 @@
 // gantt_chart.aw - Gantti diagramm
 /*
 
-@classinfo syslog_type=ST_GANTT_CHART relationmgr=yes maintainer=voldemar
+@classinfo relationmgr=yes
 
 @default table=objects
 @default field=meta
@@ -224,7 +224,7 @@ class gantt_chart extends class_base
 			"name_class" => $row_name_class,
 		);
 	}
-	
+
 	/** Get protected rows. Used in bug_gracker.aw -> aw_firefoxtools_gantt
 		@errors none
 		@returns array
@@ -393,7 +393,7 @@ class gantt_chart extends class_base
 		$collapsed = false;
 		$this->pending_bars = array ();
 		$this->read_template ("chart_" . $this->style . ".tpl");
-		
+
 		foreach ($this->rows as $row)
 		{
 			$row_contents = "";
@@ -639,7 +639,7 @@ class gantt_chart extends class_base
 			}
 		}
 
-		$caption = $navigation = $timespans = "";
+		$caption = $navigation = $timespans = $footer = "";
 
 		if ($this->timespans)
 		{
@@ -1040,4 +1040,3 @@ class gantt_chart extends class_base
 	}
 }
 
-?>

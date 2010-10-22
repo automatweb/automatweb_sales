@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>managed_warehouses</name>
+            <group>settings</group>
+            <type>relpicker</type>
+            <multiple>1</multiple>
+            <size>8</size>
+            <reltype>RELTYPE_MANAGED_WAREHOUSE</reltype>
+            <field>managed_warehouses</field>
+            <caption>Hallatavad laod</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_INVENTORY_MANAGEMENT</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <groupinfo>
+            <settings>
+                  <parent>general</parent>
+                  <caption>Seaded</caption>
+            </settings>
+      </groupinfo>
+      <reltypes>
+            <MANAGED_WAREHOUSE>
+                  <value>1</value>
+                  <clid>CL_WAREHOUSE</clid>
+                  <caption>Hallatav ladu</caption>
+            </MANAGED_WAREHOUSE>
+      </reltypes>
+</properties>
+
