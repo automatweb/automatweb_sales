@@ -1,6 +1,8 @@
 <?php
-// crm_company_customer_data.aw - Kliendi andmed
+
 /*
+Customer relations are per contract, meaning provision
+and acquisition contracts are represented in separate customer relation objects
 
 @classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
@@ -40,13 +42,14 @@
 	@caption Kuva veebis
 
 
+
 @groupinfo buyer caption="Ostja"
 @default group=buyer
-
-
 	@property buyer_contract_creator type=select table=aw_crm_customer_data field=aw_buyer_cust_contract_creator
 	@caption Hankijasuhte looja
 
+	//DEPRECATED. use 'cust_contract_date' property instead. Customer relations are per contract, meaning provision
+	// and acquisition contracts are represented in separate customer relation objects
 	@property buyer_contract_date type=date_select table=aw_crm_customer_data field=aw_buyer_cust_contract_date
 	@caption Hankijasuhte alguskuup&auml;ev
 
@@ -65,9 +68,9 @@
 	@property bill_person type=relpicker reltype=RELTYPE_BILL_PERSON store=connect multiple=1
 	@caption Arve saajad
 
+
 @groupinfo seller caption="M&uuml;&uuml;ja"
 @default group=seller
-
 	@property cust_contract_creator type=select table=aw_crm_customer_data field=aw_cust_contract_creator
 	@caption Kliendisuhte looja
 

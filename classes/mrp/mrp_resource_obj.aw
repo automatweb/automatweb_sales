@@ -10,7 +10,7 @@ require_once "mrp_header.aw";
 
 class mrp_resource_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
-	const AW_CLID = 825;
+	const CLID = 825;
 
 	const STATE_AVAILABLE = 10;
 	const STATE_RESERVED = 14;

@@ -30,7 +30,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 			@property reg_nr type=textbox size=10 maxlength=20 table=kliendibaas_firma parent=co_top_left
 			@caption Registri number
 
-			@property ettevotlusvorm type=relpicker table=kliendibaas_firma automatic=1 reltype=RELTYPE_ETTEVOTLUSVORM parent=co_top_left
+			@property ettevotlusvorm type=relpicker table=kliendibaas_firma automatic=1 reltype=RELTYPE_ETTEVOTLUSVORM parent=co_top_left no_search=1 no_edit=1
 			@caption &Otilde;iguslik vorm
 
 			@property comment type=textarea cols=40 rows=2 table=objects parent=co_top_left
@@ -232,53 +232,53 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 	@caption Organisatsiooni dokumentide asukohad
 
 --------------------------------------
-@default group=contacts2
+// @default group=contacts2
 
-	@layout hbox_toolbar type=hbox
+	// @layout hbox_toolbar type=hbox
 
-		@property contact_toolbar type=toolbar no_caption=1 store=no parent=hbox_toolbar
-		@caption "The Green Button"
+		// @property contact_toolbar type=toolbar no_caption=1 store=no parent=hbox_toolbar
+		// @caption "The Green Button"
 
-	@layout hbox_others type=hbox width=20%:80%
+	// @layout hbox_others type=hbox width=20%:80%
 
-		@layout vbox_contacts_left type=vbox parent=hbox_others closeable=1 area_caption=Organisatsiooni&nbsp;struktuur
+		// @layout vbox_contacts_left type=vbox parent=hbox_others closeable=1 area_caption=Organisatsiooni&nbsp;struktuur
 
-			@property unit_listing_tree type=treeview no_caption=1 store=no parent=vbox_contacts_left
-			@caption Puu
+			// @property unit_listing_tree type=treeview no_caption=1 store=no parent=vbox_contacts_left
+			// @caption Puu
 
 			///////////// contact search
-			@property contact_search_name type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			@caption Nimi
+			// @property contact_search_name type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
+			// @caption Nimi
 
-			@property contact_search_firstname type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			@caption Eesnimi
+			// @property contact_search_firstname type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
+			// @caption Eesnimi
 
-			@property contact_search_lastname type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			@caption Perenimi
+			// @property contact_search_lastname type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
+			// @caption Perenimi
 
-			@property contact_search_code type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			@caption Isikukood
+			// @property contact_search_code type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
+			// @caption Isikukood
 
-			@property contact_search_ext_id_alphanum type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			@caption Siduss&uuml;steemi ID
+			// @property contact_search_ext_id_alphanum type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
+			// @caption Siduss&uuml;steemi ID
 
-			@property contact_search_ext_id type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
-			@caption Numbriline siduss&uuml;steemi ID
+			// @property contact_search_ext_id type=textbox size=30 store=no parent=vbox_contacts_left captionside=top
+			// @caption Numbriline siduss&uuml;steemi ID
 
-			@property contact_search type=hidden store=no no_caption=1 parent=vbox_contacts_left value=1 captionside=top
-			@caption contact_search
+			// @property contact_search type=hidden store=no no_caption=1 parent=vbox_contacts_left value=1 captionside=top
+			// @caption contact_search
 
-			@property contact_search_submit type=submit store=no parent=vbox_contacts_left no_caption=1 captionside=top
-			@caption Otsi
+			// @property contact_search_submit type=submit store=no parent=vbox_contacts_left no_caption=1 captionside=top
+			// @caption Otsi
 
 
-		@layout vbox_contacts_right type=vbox parent=hbox_others
+		// @layout vbox_contacts_right type=vbox parent=hbox_others
 
-			@property human_resources type=table store=no no_caption=1 parent=vbox_contacts_right
-			@caption Inimesed
+			// @property human_resources type=table store=no no_caption=1 parent=vbox_contacts_right
+			// @caption Inimesed
 
-			@property contacts_search_results type=table store=no no_caption=1 parent=vbox_contacts_right
-			@caption Otsingutulemused
+			// @property contacts_search_results type=table store=no no_caption=1 parent=vbox_contacts_right
+			// @caption Otsingutulemused
 
 
 @default group=contacts_edit
@@ -415,7 +415,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 			@layout vvoc_customers_tree_left type=vbox parent=tree_search_split closeable=1 area_caption=Kliendivalik
 				@property customer_listing_tree type=treeview no_caption=1 parent=vvoc_customers_tree_left
-				@caption R&uuml;hmade puu
+				@caption Kliendikategooriad hierarhiliselt
 
 			@layout vbox_customers_left type=vbox parent=tree_search_split closeable=1 area_caption=Otsing
 				@layout vbox_customers_left_top type=vbox parent=vbox_customers_left
@@ -1928,6 +1928,7 @@ class crm_company extends class_base
 	{
 		$data = &$arr['prop'];
 		$retval = PROP_OK;
+		$arr["use_group"] = $this->use_group;
 
 		switch($data['name'])
 		{
@@ -2312,7 +2313,6 @@ class crm_company extends class_base
 			case "customer_search_cust_mgr":
 			case "customer_search_is_co":
 			case "my_customers_toolbar":
-			case "my_customers_listing_tree":
 			case "my_customers_table":
 			case "offers_listing_toolbar":
 			case "offers_listing_tree":
@@ -3210,6 +3210,7 @@ class crm_company extends class_base
 
 			case "contact":
 				return PROP_IGNORE;
+
 			case "client_category":
 				if($arr["request"]["category"])
 				{
@@ -3547,6 +3548,38 @@ class crm_company extends class_base
 		return $arr["post_ru"];
 	}
 
+	/** Delete customer relations and customer objects completely
+		@attrib name=remove_delete_cust
+		@param id required type=oid
+		@param check required type=array
+		@param post_ru optional type=string
+	**/
+	function remove_delete_cust($arr)
+	{
+		if (is_array($arr["check"]))
+		{
+			foreach($arr["check"] as $customer_oid)
+			{
+				try
+				{
+					$customer = obj($value);
+					$this_o->delete_customer($customer, true);
+				}
+				catch (Exception $e)
+				{
+					$errors[] = $customer->name();
+				}
+			}
+		}
+
+		if ($errors)
+		{
+			$this->show_error_text(sprintf(t("Kliente %s kustutada ei &otilde;nnestunud."), ("'" . implode("', '", $errors) . "'")));
+		}
+
+		return $arr["post_ru"];
+	}
+
 	/**
 		@attrib name=remove_from_category all_args=1
 	**/
@@ -3578,13 +3611,13 @@ class crm_company extends class_base
 			$cust_rel_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 				"buyer" => $arr["check"],
-				"seller" => $arr["id"],
+				"seller" => $arr["id"]
 			));
 			$cust_rel_list->delete();
 			$cust_rel_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 				"buyer" => $arr["id"],
-				"seller" => $arr["check"],
+				"seller" => $arr["check"]
 			));
 			$cust_rel_list->delete();
 		}
@@ -3754,8 +3787,6 @@ class crm_company extends class_base
 		$arr['proj'] = automatweb::$request->arg("proj");
 		$arr["tf"] = automatweb::$request->arg("tf");
 		$arr["cust_cat"] = 1;
-		$arr["sbt_data"] = 0;
-		$arr["sbt_data2"] = 0;
 		$arr["search_tbl"] = 0;
 		$arr["sector"] = automatweb::$request->arg("sector");
 		$arr["bunch_bugs"] = "";
@@ -3763,6 +3794,15 @@ class crm_company extends class_base
 		{
 			$arr["set_buyer_status"] = automatweb::$request->arg('set_buyer_status');
 		}
+
+		// placeholders/pseudo-properties for popup search actions
+		if("relorg" === substr($this->use_group, 0, 6))
+		{
+			$arr["sbt_data_add_seller"] = 0;
+			$arr["sbt_data_add_buyer"] = 0;
+		}
+		$arr["sbt_data"] = 0;
+		$arr["sbt_data2"] = 0;
 	}
 
 	function get_cust_bds()
@@ -6195,6 +6235,7 @@ class crm_company extends class_base
 		{
 			$res = array();
 		}
+
 		$workers = $co->get_workers();
 		$res += $workers->ids();
 
@@ -9373,7 +9414,6 @@ Bank accounts: yksteise all
 		exit(json_encode($choices));
 	}
 
-
 	/**
 		@attrib name=commix api=1 params=name all_args=1
 	**/
@@ -9393,5 +9433,123 @@ Bank accounts: yksteise all
 				return $arr["post_ru"];
 			}
 		}
+	}
+
+	/** Adds customer. c or o must be defined.
+		@attrib name=add_customer
+		@param id required type=oid
+			Company oid where customer added
+		@param t required type=int
+			Relation type (seller or buyer). One of crm_company_obj::CUSTOMER_TYPE_... constant values
+		@param c optional type=clid
+			Customer class id (person or organization) to create
+		@param o optional type=oid
+			Customer object to be added (person or organization)
+		@param s optional type=oid
+			Customer category
+		@param return_url required type=string
+	**/
+	function add_customer($arr)
+	{
+		$r = $arr["return_url"];
+		$type = (int) $arr["t"];
+
+		// load company where customer is added
+		try
+		{
+			$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(sprintf(t("Viga p&auml;ringus! Lubamatu organisatsiooni id '%s'"), $arr["id"]));
+			return $r;
+		}
+
+		if (crm_company_obj::CUSTOMER_TYPE_BUYER !== $type and crm_company_obj::CUSTOMER_TYPE_SELLER !== $type)
+		{
+			$this->show_error_text(t("Loodava kliendisuhte t&uuml;&uuml;p m&auml;&auml;ramata"));
+			return $r;
+		}
+
+		if (!empty($arr["o"]))
+		{
+			$customer = new object($arr["o"]);
+			if (!$customer->is_saved() or !$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(CL_CRM_PERSON))
+			{
+				$this->show_error_text(sprintf(t("Antud klient (id '%s') ei ole lisatav"), $customer->id()));
+				return $r;
+			}
+		}
+		elseif (!empty($arr["c"]))
+		{
+			$customer = obj(null, array(), $arr["c"]);
+			$customer->set_parent($this_o->id());
+			if (!$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(CL_CRM_PERSON))
+			{
+				$this->show_error_text(sprintf(t("Antud objekt ('%s') pole lisatav kliendina"), $customer->class_id()));
+				return $r;
+			}
+			$customer->save();
+			$params = array();
+			$params["return_url"] = $arr["return_url"];
+			$params["save_autoreturn"] = "1";
+
+			$r = html::get_change_url($customer, $params);
+		}
+
+		try
+		{
+			$customer_relation = $this_o->create_customer_relation($type, $customer);
+
+			// set category if specified
+			if (!empty($arr["s"]))
+			{
+				try
+				{
+					$category = obj($arr["s"], array(), CL_CRM_CATEGORY);
+					$customer_relation->add_category($category);
+				}
+				catch (Exception $e)
+				{
+					$this->show_error_text(sprintf(t("Kategooria m&auml;&auml;ramine eba&otilde;nnestus! Lubamatu objekti id '%s'"), $args["s"]));
+					return $r;
+				}
+			}
+		}
+		catch (Exception $e)
+		{
+			trigger_error("Caught exception " . get_class($e) . " while trying to add customer ".$customer->id().". Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br> Backtrace:<br>" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
+			$this->show_error_text(t("Kliendi lisamine eba&otilde;nnestus."));
+		}
+
+		return $r;
+	}
+
+	function submit($args = array())
+	{
+		if(!empty($args["sbt_data_add_buyer"]) or !empty($args["sbt_data_add_seller"]))
+		{ // process popup search customer add request
+			$args["s"] = isset($args["category"]) ? $args["category"] : "";
+			$args["return_url"] = isset($args["post_ru"]) ? $args["post_ru"] : "";
+
+			if (!empty($args["sbt_data_add_buyer"]))
+			{
+				$args["o"] = $args["sbt_data_add_buyer"];
+				$args["t"] = crm_company_obj::CUSTOMER_TYPE_BUYER;
+			}
+			elseif (!empty($args["sbt_data_add_seller"]))
+			{
+				$args["o"] = $args["sbt_data_add_seller"];
+				$args["t"] = crm_company_obj::CUSTOMER_TYPE_SELLER;
+			}
+
+			$r = $this->add_customer($args);
+		}
+		else
+		{ // normal submit
+			$r = parent::submit($args);
+		}
+
+		return $r;
 	}
 }

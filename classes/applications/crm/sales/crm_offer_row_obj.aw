@@ -54,7 +54,7 @@ class crm_offer_row_obj extends crm_offer_price_component_handler
 		$possible_clids = array();
 		foreach($possible_classes as $possible_class)
 		{
-			$constant_name = $possible_class."::AW_CLID";
+			$constant_name = $possible_class."::CLID";
 			if (defined($constant_name))
 			{
 				$possible_clids[] = constant($constant_name);

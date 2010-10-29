@@ -53,7 +53,7 @@ class crm_sales_price_component_obj extends _int_object
 		$possible_clids = array();
 		foreach($possible_classes as $possible_class)
 		{
-			$constant_name = $possible_class."::AW_CLID";
+			$constant_name = $possible_class."::CLID";
 			if(defined($constant_name))
 			{
 				$possible_clids[] = constant($constant_name);

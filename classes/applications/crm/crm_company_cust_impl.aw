@@ -610,95 +610,180 @@ class crm_company_cust_impl extends class_base
 	function _get_my_customers_toolbar($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
+		$category = 0;
 
-		$category = isset($arr['request']['category']) ? $arr['request']['category'] : "";
-		$cat = $category;
-		if (!$cat)
+		// category is set if cat argument is numeric, else it is a first letter selection
+		if (isset($arr["request"]["cat"]))
 		{
-			$cat = $this->_get_first_cust_cat($arr["obj_inst"]);
-			if ($cat)
-			{
-				$cat = $cat->id();
-			}
+			$category = is_numeric($arr["request"]["cat"]) ? (int) $arr["request"]["cat"] : 0;
 		}
 
-		$add = 1;
-		$stchk = explode('_', $category);
-		$lp = array(
-			'parent' => $arr['obj_inst']->id(),
-			'return_url' => get_ru(),
-		);
-
-		if($stchk[0] !== 'st')
-		{
-			$lp['alias_to'] = $cat;
-			$lp['reltype'] = 3; // crm_company.CUSTOMER,
-		}
-
-		if ($arr["request"]["group"] === "relorg_b")
-		{
-			$lp["set_as_is_buyer"] = 1;
-			if($stchk[0] == 'st')
-			{
-				$lp["set_buyer_status"] = $stchk[1];
-			}
-		}
-		elseif ($arr["request"]["group"] === "relorg_s")
-		{
-			$lp["set_as_is_cust"] = 1;
-		}
-		elseif($stchk[0] === 'st')
-		{
-			$add = 0;
-		}
-
-		$tb->add_menu_item(array(
-			'parent'=> "add_item",
-			'text' => t("Organisatsioon"),
-			'link' => $this->mk_my_orb('new',$lp,
-				'crm_company'
-			)
+		$tb->add_menu_button(array(
+			"name"=>"add_item",
+			"img" => "new.gif",
+			"tooltip"=> t("Uus")
 		));
 
-		if($add == 1)
-		{
-			$tb->add_menu_button(array(
-				'name'=>'add_item',
-				'tooltip'=> t('Uus')
+		$tb->add_menu_button(array(
+			"name" => "search_item",
+			"img" => "search.gif",
+			"tooltip" => t("Otsi")
+		));
+
+		// add category
+		$tb->add_menu_item(array(
+			"parent"=>"add_item",
+			"text" => t("Kliendikategooria"),
+			"link" => $this->mk_my_orb("add_customer_category",array(
+				"id" => $arr["obj_inst"]->id(),
+				"save_autoreturn" => "1",
+				"c" => $category,
+				"return_url" => get_ru()
+			), "crm_company")
+		));
+
+		// menu items for adding customers
+		if ("relorg_b" === $arr["use_group"])
+		{ // buyers
+			$tb->add_menu_item(array(
+				"parent"=> "add_item",
+				"text" => t("Ostja - organisatsioon"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
+					"c" => CL_CRM_COMPANY,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
+			));
+
+			$tb->add_menu_item(array(
+				"parent"=> "add_item",
+				"text" => t("Ostja - eraisik"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
+					"c" => CL_CRM_PERSON,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
 			));
 		}
-
-		if($stchk[0] !== 'st')
-		{
+		elseif ("relorg_s" === $arr["use_group"])
+		{ // sellers
 			$tb->add_menu_item(array(
-				'parent'=> "add_item",
-				'text' => t("Erasik"),
-				'link' => $this->mk_my_orb('new',array(
-						'parent' => $arr['obj_inst']->id(),
-						'alias_to' => $cat,
-						'reltype' => 3, // crm_company.CUSTOMER,
-						'return_url' => get_ru()
-					),
-					CL_CRM_PERSON
-				)
+				"parent"=> "add_item",
+				"text" => t("M&uuml;&uuml;ja - organisatsioon"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
+					"c" => CL_CRM_COMPANY,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
 			));
 
-			// add category
-			$parent = null;
-
-			if((int) $category)
-			{
-				$parent = (int) $category;
-			}
+			$tb->add_menu_item(array(
+				"parent"=> "add_item",
+				"text" => t("M&uuml;&uuml;ja - eraisik"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
+					"c" => CL_CRM_PERSON,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
+			));
+		}
+		else
+		{ // all
+			$tb->add_menu_item(array(
+				"parent"=> "add_item",
+				"text" => t("Ostja - organisatsioon"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
+					"c" => CL_CRM_COMPANY,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
+			));
 
 			$tb->add_menu_item(array(
-				'parent'=>'add_item',
-				'text' => t('Kliendigrupp'),
-				'link' => $this->mk_my_orb('add_customer_category',array(
-					'id' => $arr['obj_inst']->id(),
-					'parent' => $parent,
-					'return_url' => get_ru()
+				"parent"=> "add_item",
+				"text" => t("Ostja - eraisik"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
+					"c" => CL_CRM_PERSON,
+					"s" => $category,
+					"return_url" => get_ru()
 				), "crm_company")
+			));
+
+			$tb->add_menu_item(array(
+				"parent"=> "add_item",
+				"text" => t("M&uuml;&uuml;ja - organisatsioon"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
+					"c" => CL_CRM_COMPANY,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
+			));
+
+			$tb->add_menu_item(array(
+				"parent"=> "add_item",
+				"text" => t("M&uuml;&uuml;ja - eraisik"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
+					"c" => CL_CRM_PERSON,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
+			));
+
+			//  search and add customer from existing persons/organizations in database
+			$url = $this->mk_my_orb("do_search", array(
+				"clid" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
+				"pn" => "sbt_data_add_buyer"
+			), "popup_search");
+			$tb->add_menu_item(array(
+				"parent" => "search_item",
+				"text" => t("Lisa ostja olemasolevate isikute/organisatsioonide hulgast"),
+				"link" => "#",
+				"url" => "#",
+				"onClick" => html::popup(array(
+					"url" => $url,
+					"resizable" => true,
+					"scrollbars" => "auto",
+					"height" => 500,
+					"width" => 700,
+					"no_link" => true,
+					"quote" => "'"
+				))
+			));
+
+			$url = $this->mk_my_orb("do_search", array(
+				"clid" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
+				"pn" => "sbt_data_add_seller"
+			), "popup_search");
+			$tb->add_menu_item(array(
+				"parent" => "search_item",
+				"text" => t("Lisa m&uuml;&uuml;ja olemasolevate isikute/organisatsioonide hulgast"),
+				"link" => "#",
+				"url" => "#",
+				"onClick" => html::popup(array(
+					"url" => $url,
+					"resizable" => true,
+					"scrollbars" => "auto",
+					"height" => 500,
+					"width" => 700,
+					"no_link" => true,
+					"quote" => "'"
+				))
 			));
 		}
 
@@ -706,103 +791,42 @@ class crm_company_cust_impl extends class_base
 
 		//delete button
 		$tb->add_menu_button(array(
-			'name'=>'delete',
-			'tooltip'=> t('Kustuta'),
+			"name"=>"delete",
+			"tooltip"=> t("Kustuta"),
 			"img" => "delete.gif"
 		));
 
 		$tb->add_menu_item(array(
-			'parent'=> "delete",
-			'text' => t("Eemalda grupist"),
+			"parent"=> "delete",
+			"text" => t("Eemalda kategooriast"),
 			"action" => "remove_from_category"
 		));
 
 		$tb->add_menu_item(array(
-			'parent'=> "delete",
-			'text' => t("L&otilde;peta klinedisuhe"),
+			"parent"=> "delete",
+			"text" => t("L&otilde;peta kliendisuhe"),
 			"action" => "remove_cust_relations"
 		));
 
 		$tb->add_menu_item(array(
-			'parent'=> "delete",
-			'text' => t("Kustuta l&otilde;plikult"),
-			"action" => "submit_delete_ppl"
+			"parent"=> "delete",
+			"text" => t("Kustuta l&otilde;plikult"),
+			"action" => "remove_delete_cust"
 		));
 
-		//save
-		$tb->add_menu_button(array(
-			'name'=>'save_as_cust',
-			'tooltip'=> t('Salvesta kliendina'),
-			"img" => "nool1.gif"
-		));
+		////////////////////TODO: viia mujale, myygitarkvarasse n2iteks
+		// $seti = new crm_settings();
+		// $sts = $seti->get_current_settings();
 
-		$seti = new crm_settings();
-		$sts = $seti->get_current_settings();
-		if ($sts && $sts->prop("send_mail_feature"))
-		{
-			$tb->add_button(array(
-				'name'=>'send_email',
-				'tooltip'=> t('Saada kiri'),
-				"img" => "mail_send.gif",
-				'action' => 'send_mails'
-			));
-		}
-		$link = "#";
-		$this->_do_cust_cat_tb_submenus($tb, $link, $arr["obj_inst"], "save_as_cust", "document.changeform.elements.cust_cat.value=%s;submit_changeform('save_as_customer')");
-		$this->_do_cust_cat_tb_submenus2($tb, $arr["obj_inst"]);
-		$tb->add_separator();
-
-		$c = new popup_menu();
-		$c->begin_menu("crm_co_ppl_filt");
-
-		$c->add_item(array(
-			"text" => t("T&uuml;hista"),
-			"link" => aw_url_change_var("filt_p", null)
-		));
-
-		for($i = ord('A'); $i < ord("Z"); $i++)
-		{
-			$c->add_item(array(
-				"text" => chr($i).(!empty($arr["request"]["filt_p"]) and $arr["request"]["filt_p"] === chr($i) ? " ".t("(Valitud)") : "" ),
-				"link" => aw_url_change_var("filt_p", chr($i))
-			));
-		}
-
-		$tb->add_cdata(" ".t("Vali filter:")." ".$c->get_menu().(!empty($arr["request"]["filt_p"]) ? t("Valitud:").$arr["request"]["filt_p"] : "" ));
-	}
-
-	function _get_my_customers_listing_tree($arr)
-	{
-		$tree_inst = $arr['prop']['vcl_inst'];
-		$node_id = 0;
-
-		$i = new crm_company();
-		$i->active_node = !empty($arr['request']['category'])  ? (int)$arr['request']['category'] : 0;
-
-		$i->generate_tree(array(
-			'tree_inst' => $tree_inst,
-			'obj_inst' => $arr['obj_inst'],
-			'node_id' => &$node_id,
-			'conn_type' => 'RELTYPE_CATEGORY',
-			'skip' => array(CL_CRM_COMPANY),
-			'attrib' => 'category',
-			'leafs' => 'false',
-			'style' => 'nodetextbuttonlike',
-			"edit_mode" => 1
-		));
-
-		//need to delete every category of the tree that the person doesn't
-		//have a relation with
-		$my_data = array();
-		$person = get_current_person();
-		$conns = $person->connections_from(array(
-			'type' => "RELTYPE_HANDLER",
-		));
-
-		foreach($conns as $conn)
-		{
-			$my_data[$conn->prop('to')] = $conn->prop('to');
-		}
+		// if ($sts && $sts->prop("send_mail_feature"))
+		// {
+			// $tb->add_button(array(
+				// "name"=>"send_email",
+				// "tooltip"=> t("Saada kiri"),
+				// "img" => "mail_send.gif",
+				// "action" => "send_mails"
+			// ));
+		// }
 	}
 
 	private function _add_categories($arr, treeview $tree_inst)
@@ -814,7 +838,7 @@ class crm_company_cust_impl extends class_base
 		// caption
 		$tree_inst->add_item(0, array(
 			"id" => "categories",
-			"name" => t("Kliendigrupp"),
+			"name" => t("Kategooriate j&auml;rgi"),
 			"url" => $url->get()
 		));
 
@@ -1406,14 +1430,10 @@ class crm_company_cust_impl extends class_base
 
 	function _get_my_proj_search_filt($ar, $oids, $prefix = "")
 	{
-
 		$ret = array(
 			"class_id" => CL_PROJECT,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"oid" => $oids
 		);
-
 
 		if(!empty($ar["pf"]))//kui valik tuleb puust... siis edasi ei otsi ka
 		{
@@ -1977,21 +1997,21 @@ class crm_company_cust_impl extends class_base
 
 	function _get_customer_listing_tree($arr)
 	{
-		$tree_inst = $arr['prop']['vcl_inst'];
+		$tree_inst = $arr["prop"]["vcl_inst"];
 		$tree_inst->set_only_one_level_opened(1);
-		$category = isset($arr['request']['category']) ? (int) $arr['request']['category'] : 0;
+		$category = isset($arr["request"]["category"]) ? (int) $arr["request"]["category"] : 0;
 
-		if (!empty($arr['request']['category']))
+		if (!empty($arr["request"]["category"]))
 		{
 			$f_cat = $this->_get_first_cust_cat($arr["obj_inst"]);
 			if ($f_cat)
 			{
-				$arr['request']['category'] = $f_cat->id();
+				$arr["request"]["category"] = $f_cat->id();
 			}
 		}
 
-		$this->_add_categories($arr, $tree_inst);
 		$this->_add_cust_mgr($arr, $tree_inst);
+		$this->_add_categories($arr, $tree_inst);
 		$this->_add_cust_alpha($arr, $tree_inst);
 
 		return PROP_OK;
@@ -2001,18 +2021,18 @@ class crm_company_cust_impl extends class_base
 	{
 		$tree_inst->add_item(0, array(
 			"id" => "cmgr",
-			"name" => t("Kliendihaldur"),
+			"name" => t("Minu kliendid"),
 			"url" => aw_url_change_var("category", null, aw_url_change_var("filt_p", null))
 		));
+
 		$ol = new object_data_list(array(
-			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"seller" => $arr["obj_inst"]->id()
-		),
-		array(
-			CL_CRM_COMPANY_CUSTOMER_DATA => array(new obj_sql_func(OBJ_SQL_UNIQUE, "client_manager", "client_manager"))
-		));
+				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"seller" => $arr["obj_inst"]->id()
+			),
+			array(
+				CL_CRM_COMPANY_CUSTOMER_DATA => array(new obj_sql_func(OBJ_SQL_UNIQUE, "client_manager", "client_manager"))
+			)
+		);
 		$tmp = $ol->arr();
 		$ids = array(-1);
 		foreach($tmp as $item)
@@ -2045,14 +2065,14 @@ class crm_company_cust_impl extends class_base
 	{
 		$tree_inst->add_item(0, array(
 			"id" => "alpha",
-			"name" => t("T&auml;hestik"),
+			"name" => t("T&auml;hestiku j&auml;rgi"),
 			"url" => aw_url_change_var("category", null)
 		));
 		for($i = ord("A"); $i < ord("Z"); $i++)
 		{
 			$tree_inst->add_item("alpha", array(
 				"id" => "alpha_".chr($i),
-				"name" => chr($i),
+				"name" => chr($i) . ".......",
 				"url" => aw_url_change_var("category", null, aw_url_change_var("filt_p", chr($i)))
 			));
 		}
@@ -2078,7 +2098,7 @@ class crm_company_cust_impl extends class_base
 		}
 		else
 		{
-			$format = (($tmp = $arr["request"]["group"]) == "relorg_t" || $tmp = "relorg")?$format_t:$format_s;
+			$format = (($tmp = $arr["request"]["group"]) === "relorg_t" || $tmp = "relorg")?$format_t:$format_s;
 			$tf->set_caption(sprintf($format, $org->name(), $arr["obj_inst"]->name()));
 		}
 		$this->_org_table_header($tf);
@@ -2285,6 +2305,11 @@ class crm_company_cust_impl extends class_base
 					"text" => t("Muuda"),
 					"link" => html::get_change_url($o->id(), array("return_url" => get_ru()))
 				));
+				$pm->add_item(array(
+					"text" => t("Muuda kliendisuhet"),
+					"link" => html::get_change_url($o->id(), array("return_url" => get_ru()))
+				));
+
 				if (!empty($arr["request"]["category"]))
 				{
 					$pm->add_item(array(
@@ -2472,7 +2497,7 @@ class crm_company_cust_impl extends class_base
 			}
 			else
 			{
-				//will list the companys from the category
+				//will list the companies from the category
 				//if category is selected
 				$customer_relations_search = new crm_sales_contacts_search();
 
@@ -2485,7 +2510,8 @@ class crm_company_cust_impl extends class_base
 					$customer_relations_search->seller = $arr['obj_inst'];
 				}
 				else
-				{
+				{ // list both
+
 				}
 
 				if (!empty($arr["request"]["filt_p"]))
@@ -2493,14 +2519,14 @@ class crm_company_cust_impl extends class_base
 					$customer_relations_search->name = $arr["request"]["filt_p"] . "%";
 				}
 
-				try
+				if (!empty($category))
 				{
-					$category = obj($category, array(), CL_CRM_CATEGORY);
-					$customer_relations_search->category = $category;
-				}
-				catch (Exception $e)
-				{
-					if (!empty($category))
+					try
+					{
+						$category = obj($category, array(), CL_CRM_CATEGORY);
+						$customer_relations_search->category = $category;
+					}
+					catch (Exception $e)
 					{
 						$this->show_error_text(t("Kategooria parameeter ei vasta n&otilde;uetele"));
 					}

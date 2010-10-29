@@ -24,10 +24,10 @@
             <name>name</name>
             <table>objects</table>
             <group>general</group>
-            <type>textbox</type>
+            <type>text</type>
             <field>name</field>
             <parent>top_left</parent>
-            <caption>Nimi</caption>
+            <no_caption>1</no_caption>
       </property>
       <property>
             <name>bill_no</name>
@@ -718,12 +718,10 @@
             <field>bill_task_list</field>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_BILL</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
             <confirm_save_data>1</confirm_save_data>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <other_data>

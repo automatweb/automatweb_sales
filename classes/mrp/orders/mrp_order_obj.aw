@@ -5,7 +5,7 @@ class mrp_order_obj extends _int_object
 	/**
 		@attrib api=1
 	**/
-	public function get_customer_relation()
+	public function find_customer_relation()
 	{
 		if (!is_oid($this->id()))
 		{

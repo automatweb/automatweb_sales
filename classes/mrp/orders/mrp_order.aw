@@ -181,7 +181,7 @@ class mrp_order extends class_base
 
 	function _get_orderer_person($arr)
 	{
-		if (!($crel = $arr["obj_inst"]->get_customer_relation()))
+		if (!($crel = $arr["obj_inst"]->find_customer_relation()))
 		{
 			return PROP_IGNORE;
 		}
@@ -202,7 +202,7 @@ class mrp_order extends class_base
 
 	function _get_seller_person($arr)
 	{	
-		if (!($crel = $arr["obj_inst"]->get_customer_relation()))
+		if (!($crel = $arr["obj_inst"]->find_customer_relation()))
 		{
 			return PROP_IGNORE;
 		}

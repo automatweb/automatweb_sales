@@ -10,7 +10,7 @@ interface crm_customer_interface
 			if no customer relation object, make one
 		@returns CL_CRM_COMPANY_CUSTOMER_DATA
 	**/
-	function get_customer_relation($my_co = null, $crea_if_not_exists = false);
+	function find_customer_relation($my_co = null, $crea_if_not_exists = false);
 
 	/** returns customer relation creator
 		@attrib api=1

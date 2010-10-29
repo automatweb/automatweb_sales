@@ -1888,7 +1888,8 @@ class bug extends class_base
 					$new_s = $this->_cust_new_status;
 				}
 			}
-			if(stripos($comment, "kellele muudeti") !== false && $bt->prop("send_newwho_mails"))
+
+			if(stripos($comment, "kellele muudeti") !== false && $bt && $bt->prop("send_newwho_mails"))
 			{
 				$newwho = $bug->prop("who");
 			}
@@ -1900,10 +1901,12 @@ class bug extends class_base
 			$old_s = $old_state;
 			$new_s = $new_state;
 		}
+
 		if($bt && $get_mg)
 		{
 			$mg = $bt->meta($mails_var);
 		}
+
 		$pi = get_instance(CL_CRM_PERSON);
 		$adrs = array();
 		foreach(array_unique($monitors) as $person)
@@ -3636,18 +3639,25 @@ die($email);
 
 	function _get_orderer_unit($arr)
 	{
+		$sects = array();
 		$prop =& $arr["prop"];
 		if ($this->can("view", $arr["obj_inst"]->prop("orderer")))
 		{
 			$co = obj($arr["obj_inst"]->prop("orderer"));
 		}
+
 		if(!isset($co) || $co->class_id() != CL_CRM_COMPANY)
 		{
 			$co = get_current_company();
+			if ($co)
+			{
+				$co_i = $co->instance();
+				$sects = $co_i->get_all_org_sections($co);
+			}
 		}
-		$co_i = $co->instance();
-		$sects = $co_i->get_all_org_sections($co);
+
 		$prop["options"] = array("" => t("--vali--"));
+
 		if(!empty($prop["value"]))
 		{
 			$prop["options"][$prop["value"]] = obj($prop["value"])->name();

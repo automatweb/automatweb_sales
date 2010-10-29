@@ -1,19 +1,12 @@
 <?php
 
 /*
-@classinfo  maintainer=kristo
 @comment
 	Class for caching data, cache is kept in the file system, in folder defined in ini file by variable cache.page_cache
 */
 
 class cache extends core
 {
-	function cache()
-	{
-		$this->db_init();
-		aw_config_init_class($this);
-	}
-
 	/** writes a page to the html page cache
 		@attrib params=pos api=1
 
@@ -952,4 +945,3 @@ class cache extends core
 		}
 	}
 }
-?>

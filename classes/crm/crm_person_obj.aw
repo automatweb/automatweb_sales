@@ -2,7 +2,7 @@
 
 class crm_person_obj extends _int_object implements crm_customer_interface, crm_sales_price_component_interface, crm_offer_row_interface
 {
-	const AW_CLID = 145;
+	const CLID = 145;
 
 	protected $all_jobs;
 	protected $current_jobs;
@@ -1689,7 +1689,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	**/
 	public function get_cust_rel_creator_name()
 	{
-		$o = $this->get_customer_relation();
+		$o = $this->find_customer_relation();
 		if(is_object($o))
 		{
 			return $o->prop("cust_contract_creator.name");
@@ -1704,7 +1704,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			if no customer relation object, makes one
 		@returns object
 	**/
-	public function get_customer_relation($my_co_id = null, $crea_if_not_exists = false)
+	public function find_customer_relation($my_co_id = null, $crea_if_not_exists = false)
 	{
 		if ($my_co_id === null)
 		{

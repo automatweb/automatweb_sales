@@ -999,7 +999,7 @@ class crm_company_people_impl extends class_base
 					"resizable" => true,
 					"scrollbars" => "auto",
 					"height" => 500,
-					"width" => 600,
+					"width" => 700,
 					"no_link" => true,
 					"quote" => "'"
 				))
@@ -1086,6 +1086,7 @@ class crm_company_people_impl extends class_base
 		$tree = $arr['prop']['vcl_inst'];
 		$this_o = $arr["obj_inst"];
 
+		// determine selected category and profession
 		if(!empty($arr['request']['cat']))
 		{
 			$cat = (int) $arr["request"]["cat"];
@@ -1103,6 +1104,7 @@ class crm_company_people_impl extends class_base
 			$cat = $unit = $selected_item = 0;
 		}
 
+		// add sections to tree
 		$sections = new object_list(array(
 			"class_id" => CL_CRM_SECTION,
 			"organization" => $this_o->id()
@@ -1128,6 +1130,7 @@ class crm_company_people_impl extends class_base
 			while ($section = $sections->next());
 		}
 
+		// add professions to tree
 		$professions = new object_list(array(
 			"class_id" => CL_CRM_PROFESSION,
 			"organization" => $this_o->id()
@@ -1165,6 +1168,7 @@ class crm_company_people_impl extends class_base
 			))
 		));
 
+		// configure tree
 		$tree->set_selected_item($selected_item);
 		$tree->set_root_name($arr["obj_inst"]->name());
 		$tree->set_root_icon(icons::get_icon_url(CL_CRM_COMPANY));

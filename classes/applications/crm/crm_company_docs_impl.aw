@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
 
 // tf parameter format is $docs_folder_oid|$selected_item_id. $docs_folder_oid|$docs_folder_oid when no subitem selected.
 
@@ -1291,4 +1288,3 @@ class crm_company_docs_impl extends class_base
 		));
 	}
 }
-?>

@@ -2,7 +2,7 @@
 
 class menu_obj extends _int_object
 {
-	const AW_CLID = 1;
+	const CLID = 1;
 
 	const TYPE_CLIENT = 69;
 	// sisurubriik

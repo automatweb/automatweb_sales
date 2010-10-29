@@ -123,7 +123,7 @@ class crm_sales_obj extends _int_object implements application_interface
 	{
 		if (!$owner->is_a(CL_CRM_COMPANY))
 		{
-			throw new awex_crm_sales_owner("Owner must be CL_CRM_COMPANY object");
+			throw new awex_crm_sales_owner("Owner must be CL_CRM_COMPANY object. Object with class id '".$owner->class_id()."' given");
 		}
 
 		return parent::set_prop("owner", $owner->id());

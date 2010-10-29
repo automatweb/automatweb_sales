@@ -1204,7 +1204,7 @@ class join_site extends class_base
 		if (strpos($obj->prop("username_element"), "_") !== false)
 		{
 			list($clid, $el) = explode("_", $obj->prop("username_element"), 2);
-			$arr["typo_".user_obj::AW_CLID]["uid_entry"] = $arr["typo_".$clid][$el];
+			$arr["typo_".user_obj::CLID]["uid_entry"] = $arr["typo_".$clid][$el];
 		}
 
 		// update session data in sess[site_join_status]
@@ -1219,9 +1219,9 @@ class join_site extends class_base
 
 		if($obj->prop("generate_password"))
 		{
-			unset($req[user_obj::AW_CLID]["passwd"]);
-			unset($req[user_obj::AW_CLID]["passwd_again"]);
-			$sessd["typo_".user_obj::AW_CLID]["passwd"] = $sessd["typo_".user_obj::AW_CLID]["passwd_again"] = get_instance("user_obj")->generate_password();
+			unset($req[user_obj::CLID]["passwd"]);
+			unset($req[user_obj::CLID]["passwd_again"]);
+			$sessd["typo_".user_obj::CLID]["passwd"] = $sessd["typo_".user_obj::CLID]["passwd_again"] = get_instance("user_obj")->generate_password();
 		}
 
 		$filled = true;

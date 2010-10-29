@@ -2,7 +2,9 @@
 
 class crm_company_obj extends _int_object implements crm_customer_interface, crm_sales_price_component_interface, crm_offer_row_interface
 {
-	const AW_CLID = 129;
+	const CLID = 129;
+	const CUSTOMER_TYPE_SELLER = 1;
+	const CUSTOMER_TYPE_BUYER = 2;
 
 	//	Written solely for testing purposes!
 	public function get_units()
@@ -439,7 +441,8 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			return only people in given section
 		@return object_list of CL_CRM_PERSON
 		@errors
-		throws awex_obj_class when a parameter object class id is not what expected (profession)
+			throws awex_obj_class when a parameter object class id is not what expected (profession)
+		@qc date=20101026 standard=aw3
 	**/
 	public function get_employees($only_active = true, object $profession = null, object $section = null)
 	{
@@ -786,10 +789,11 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $wr->prop("employee");
 	}
 
-	/** Adds new employee
+	/** Terminates given work relation in this company
 		@attrib api=1 params=pos
 		@param work_relation optional type=CL_CRM_PERSON_WORK_RELATION
 		@return void
+		@qc date=20101026 standard=aw3
 	**/
 	function finish_work_relation(object $work_relation)
 	{
@@ -815,13 +819,15 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			Created employment relation object
 		@errors
 			throws awex_obj_type if given profession or person of wrong type
+			throws awex_obj_state_new when this company is not saved yet.
 			throws awex_redundant_instruction if person already is employed in this organization on given profession
+		@qc date=20101026 standard=aw3
 	**/
 	public function add_employee(object $profession = null, object $person = null)
 	{
 		if (!$this->is_saved())
 		{
-			return;
+			throw new awex_obj_state_new();
 		}
 
 		if ($profession and !$profession->is_a(CL_CRM_PROFESSION))
@@ -1172,6 +1178,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@errors
 			throws awex_obj_type when parent is of wrong type
 			throws awex_obj_state_new when this company is not saved yet.
+		@qc date=20101026 standard=aw3
 	**/
 	public function add_profession(object $section = null)
 	{
@@ -1208,6 +1215,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@errors
 			throws awex_obj_type when parent is of wrong type
 			throws awex_obj_state_new when this company is not saved yet.
+		@qc date=20101026 standard=aw3
 	**/
 	public function add_section(object $parent_section = null, $properties = array())
 	{
@@ -1247,6 +1255,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@errors
 			throws awex_obj_type when parent is of wrong type
 			throws awex_obj_state_new when this company is not saved yet.
+		@qc date=20101026 standard=aw3
 	**/
 	public function add_customer_category(object $parent = null)
 	{
@@ -1408,7 +1417,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	**/
 	public function get_cust_rel_creator_name()
 	{
-		$o = $this->get_customer_relation();
+		$o = $this->find_customer_relation();
 		if(is_object($o))
 		{
 			return $o->prop("cust_contract_creator.name");
@@ -1424,7 +1433,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			if no customer relation object, makes one
 		@return CL_CRM_COMPANY_CUSTOMER_DATA
 	**/
-	public function get_customer_relation($my_co = null, $crea_if_not_exists = false)
+	public function find_customer_relation($my_co = null, $crea_if_not_exists = false)
 	{
 		if ($my_co === null)
 		{
@@ -1851,9 +1860,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_PROJECT,
-			"CL_PROJECT.RELTYPE_ORDERER" => $this->id(),
-			"lang_id" => array(),
-			"site_id" => array()
+			"CL_PROJECT.RELTYPE_ORDERER" => $this->id()
 		));
 		return $ol;
 	}
@@ -1883,6 +1890,160 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $o->id();
 	}
 
+	/** Finds customer relation object if given object is already a customer of that type.
+		@attrib api=1 params=pos
+		@param type type=int
+			one of crm_company_obj::CUSTOMER_TYPE_... constants
+		@param customer type=CL_CRM_COMPANY,CL_CRM_PERSON
+		@param create type=bool default=FALSE
+			Find and create if not found. Only find by default.
+		@return CL_CRM_COMPANY_CUSTOMER_DATA/NULL
+			Created/found customer relation object. NULL depending on $create
+		@errors
+			throws awex_obj_type on parameter type errors
+			throws awex_obj_state_new when this company or customer is not saved yet.
+			throws awex_redundant_instruction if person already is employed in this organization on given profession
+		@qc date=20101027 standard=aw3 status=pending
+	**/
+	public function get_customer_relation($type, object $customer, $create = false)
+	{
+		if (self::CUSTOMER_TYPE_SELLER !== $type and self::CUSTOMER_TYPE_BUYER !== $type)
+		{
+			throw new awex_obj_type("Invalid customer type '{$type}'. Customer {$customer}");
+		}
+
+		if (aw_cache::is_set(self::CLID, $type, $customer->id()))
+		{
+			return aw_cache::get(self::CLID, $type, $customer->id());
+		}
+
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new("Company not saved");
+		}
+
+		if (!$customer->is_saved())
+		{
+			throw new awex_obj_state_new("Customer not saved");
+		}
+
+		if (!$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(CL_CRM_PERSON))
+		{
+			throw new awex_obj_type("Customer can be either company or person. Given class id: " . $customer->class_id());
+		}
+
+		if ($create and $this->id() === $customer->id())
+		{
+			throw new awex_obj_type("Company can't be its own customer. Id: " . $customer->id());
+		}
+
+		return $this->_get_customer_relation($type, $customer, $create);
+	}
+
+	private function _get_customer_relation($type, $customer, $create)
+	{
+		if (self::CUSTOMER_TYPE_BUYER === $type)
+		{
+			$customer_relations = new object_list(array(
+				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"buyer" => $customer->id(),
+				"seller" => $this->id()
+				//TODO: arvestada suhte alguse ja l6puga, ainult aktiivsed kliendid
+			));
+		}
+		else
+		{
+			$customer_relations = new object_list(array(
+				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+				"buyer" => $this->id(),
+				"seller" => $customer->id()
+				//TODO: arvestada suhte alguse ja l6puga, ainult aktiivsed kliendid
+			));
+		}
+
+		if (1 === $customer_relations->count())
+		{
+			$customer_relation = $customer_relations->begin();
+			aw_cache::set($customer_relation, self::CLID, $type, $customer->id());
+		}
+		elseif ($create)
+		{
+			$customer_relation = $this->_create_customer_relation($type, $customer);
+			aw_cache::set($customer_relation, self::CLID, $type, $customer->id());
+		}
+		else
+		{
+			$customer_relation = null;
+		}
+
+		return $customer_relation;
+	}
+
+	/** Creates a new customer relation of given type.
+		@attrib api=1 params=pos
+		@param type type=int
+			one of crm_company_obj::CUSTOMER_TYPE_... constants
+		@param customer type=CL_CRM_COMPANY,CL_CRM_PERSON
+		@return CL_CRM_COMPANY_CUSTOMER_DATA
+			Created customer relation object
+		@errors
+			throws awex_obj_type on parameter type errors
+			throws awex_obj_state_new when this company or customer is not saved yet.
+			throws awex_redundant_instruction if person already is employed in this organization on given profession
+		@qc date=20101027 standard=aw3 status=pending
+	**/
+	public function create_customer_relation($type, object $customer)
+	{
+		if (self::CUSTOMER_TYPE_SELLER !== $type and self::CUSTOMER_TYPE_BUYER !== $type)
+		{
+			throw new awex_obj_type("Invalid customer type '{$type}'. Customer {$customer}");
+		}
+
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new("Company not saved");
+		}
+
+		if (!$customer->is_saved())
+		{
+			throw new awex_obj_state_new("Customer not saved");
+		}
+
+		if (!$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(CL_CRM_PERSON))
+		{
+			throw new awex_obj_type("Customer can be either company or person. Given class id: " . $customer->class_id());
+		}
+
+		if ($this->id() === $customer->id())
+		{
+			throw new awex_obj_type("Company can't be its own customer. Id: " . $customer->id());
+		}
+
+		return $this->_create_customer_relation($type, $customer);
+	}
+
+	private function _create_customer_relation($type, $customer)
+	{
+		$customer_relation = obj(null, array(), CL_CRM_COMPANY_CUSTOMER_DATA);
+		$customer_relation->set_parent($this->id());
+
+		if (self::CUSTOMER_TYPE_BUYER === $type)
+		{
+			$customer_relation->set_name($this->name()." => ".$customer->name());
+			$customer_relation->set_prop("seller", $this->id());
+			$customer_relation->set_prop("buyer", $customer->id());
+		}
+		else
+		{
+			$customer_relation->set_name($this->name()." <= ".$customer->name());
+			$customer_relation->set_prop("seller", $customer->id());
+			$customer_relation->set_prop("buyer", $this->id());
+		}
+
+		$customer_relation->save();
+		return $customer_relation;
+	}
+
 	/** adds customer to company
 		@attrib api=1 params=pos
 		@param customer optional type=oid/string
@@ -1896,18 +2057,14 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_CRM_COMPANY,
-				"oid" => $customer,
-				"lang_id" => array(),
-				"site_id" => array()
+				"oid" => $customer
 			));
 		}
 		else
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_PROJECT,
-				"name" => $customer,
-				"lang_id" => array(),
-				"site_id" => array()
+				"name" => $customer
 			));
 		}
 
@@ -1925,7 +2082,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			$co->save();
 		}
 
-		$rel = $co->get_customer_relation(null, true);
+		$rel = $co->find_customer_relation(null, true);
 		return $co->id();
 	}
 
@@ -1958,7 +2115,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		{
 
 			$o = obj($co);
-			$rel = $o->get_customer_relation($this);
+			$rel = $o->find_customer_relation($this);
 			if(!is_object($rel))
 			{
 				return;
@@ -1975,7 +2132,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		{
 
 			$o = obj($co);
-			$rel = $o->get_customer_relation($this , 1);
+			$rel = $o->find_customer_relation($this , 1);
 			$ret = $rel->set_prop($prop , $value);
 			$rel->save();
 			return $ret;
@@ -2032,10 +2189,9 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	{
 		$filter = array(
 			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"seller" => $this->id(),
+			"seller" => $this->id()
 		);
+
 		if($arr["name"])
 		{
 			$filter["buyer.name"] = $arr["name"]."%";
@@ -2100,6 +2256,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@return object_list
 		@errors
 			throws awex_obj_type if given parent is of wrong class
+		@qc date=20101026 standard=aw3
 	**/
 	public function get_customer_categories(object $parent = null)
 	{
@@ -2175,5 +2332,3 @@ class awex_crm_workrel extends awex_crm {}
 
 /** customer category related error **/
 class awex_crm_category extends awex_crm {}
-
-?>

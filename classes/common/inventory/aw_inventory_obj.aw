@@ -2,7 +2,7 @@
 
 class aw_inventory_obj extends _int_object
 {
-	const AW_CLID = 1710;
+	const CLID = 1710;
 }
 
 class inventory_transaction_

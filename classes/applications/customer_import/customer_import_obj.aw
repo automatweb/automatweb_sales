@@ -710,7 +710,7 @@ echo "updated ".html::obj_change_url($aw)." <br>";
 		$aw->set_class_id(CL_CRM_COMPANY);
 		$aw->set_parent($co->id());
 		$this->_update_existing_customer($external, $aw, true, $existing_cats);
-		$aw->get_customer_relation($co, true);
+		$aw->find_customer_relation($co, true);
 	}
 
 	private function _delete_unused_customer($aw)

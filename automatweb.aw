@@ -123,6 +123,7 @@ class automatweb
 		++self::$current_instance_nr;
 		$aw = new automatweb();
 		_aw_global_init();//TODO: viia aw instantsi sisse ___aw_globals
+		aw_cache::setup();//TODO: make aw thread safe
 
 		if (!session_id())
 		{

@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/procurement_center/procurement_offer.aw,v 1.32 2007/12/06 14:33:50 kristo Exp $
+
 // procurement_offer.aw - Pakkumine hankele
 /*
 
-@classinfo syslog_type=ST_PROCUREMENT_OFFER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo aw_procurement_offers index=aw_oid master_table=objects master_index=brother_of
 
@@ -167,7 +167,7 @@ class procurement_offer extends class_base
 				break;
 
 			case "files_tb":
-				$tb =&$arr["prop"]["vcl_inst"];
+				$tb = $arr["prop"]["vcl_inst"];
 				$tb->add_button(array(
 					'name' => 'delete',
 					'img' => 'delete.gif',
@@ -236,7 +236,7 @@ class procurement_offer extends class_base
 			case "p_tbl":
 				$this->_p_tbl($arr);
 				break;
-				
+
 			case "procurement_nr":
 				$prop["value"] = $arr["obj_inst"]->prop("procurement.procurement_nr");
 				break;
@@ -494,7 +494,7 @@ class procurement_offer extends class_base
 		));
 		return true;
 	}
-	
+
 	/** Disconnects row and offer
 		@attrib name=disconnect_offer_and_row params=name api=1
 		@param offer required type=id/object
@@ -529,7 +529,7 @@ class procurement_offer extends class_base
 		));
 		return true;
 	}
-	
+
 
 	/**
 		@attrib name=set_type
@@ -1474,12 +1474,12 @@ class procurement_offer extends class_base
 			{
 				$s = $sf->instance();
 				$fld = $s->get_folders($sf);
-				$t =& $arr["prop"]["vcl_inst"];
+				$t = $arr["prop"]["vcl_inst"];
 
 				usort($fld, create_function('$a,$b', 'return strcmp($a["name"], $b["name"]);'));
 
 				$folders[$sf->id().":/"] = $sf->name();
-				$this->_req_get_s_folders($fld, $sf, $folders, 0);
+				// $this->_req_get_s_folders($fld, $sf, $folders, 0);//FIXME: taskis ja projektis on sellise nimega meetod. leida mida siin tahetud on
 			}
 		}
 		else
@@ -1550,7 +1550,6 @@ class procurement_offer extends class_base
 			}
 		}
 
-		classload("vcl/table");
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));
@@ -1587,7 +1586,8 @@ class procurement_offer extends class_base
 
 		$arr["prop"]["value"] = $t->draw();
 	}
-		function _set_files($arr)
+
+	function _set_files($arr)
 	{
 		$t = obj($arr["request"]["id"]);
 		$u = get_instance(CL_USER);
@@ -1746,4 +1746,3 @@ class procurement_offer extends class_base
 */	}
 
 }
-?>
