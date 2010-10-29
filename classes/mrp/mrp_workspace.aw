@@ -7173,7 +7173,7 @@ class mrp_workspace extends class_base
 					continue;
 				}
 
-				$cust_rel = $cust->get_customer_relation($co);
+				$cust_rel = $cust->find_customer_relation($co);
 				$t->define_data(array(
 					"name" => html::get_change_url($cust->id(), array("return_url" => get_ru()), $cust->name()),
 					"address" => $cust->prop_str("contact"),

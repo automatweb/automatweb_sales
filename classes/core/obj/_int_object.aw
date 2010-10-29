@@ -367,7 +367,7 @@ class _int_object
 						self::_int_load_properties($param["from.class_id"]);
 					}
 
-					if (!$GLOBALS["relinfo"][$param["from.class_id"]][$param["type"]]["value"])
+					if (empty($GLOBALS["relinfo"][$param["from.class_id"]][$param["type"]]["value"]))
 					{
 						$param["type"] = -1; // won't match anything
 					}

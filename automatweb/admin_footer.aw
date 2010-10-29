@@ -172,7 +172,7 @@ $sf->vars(array(
 ));
 
 
-if (!automatweb::$request->arg("in_popup"))
+if (!automatweb::$request->arg("in_popup") and empty($_GET["in_popup"]))
 {
 	if ($sf->prog_acl("view", "disp_person"))
 	{
@@ -509,4 +509,3 @@ if (isset($_SESSION["user_history_count"]) and $_SESSION["user_history_count"] >
 		}
 	}
 }
-?>

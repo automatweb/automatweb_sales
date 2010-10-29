@@ -3,7 +3,7 @@
 HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_SHOP_WAREHOUSE, on_popup_search_change)
 
 @tableinfo aw_shop_warehouses index=aw_oid master_table=objects master_index=brother_of
-@classinfo syslog_type=ST_SHOP_WAREHOUSE relationmgr=yes maintainer=kristo prop_cb=1
+@classinfo relationmgr=yes prop_cb=1
 
 @default table=objects
 
@@ -8361,7 +8361,6 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 
 	function _get_orders_ol($arr)
 	{
-
 		if(empty($arr["request"]["sell_orders_s_status"]))
 		{
 			$arr["request"]["sell_orders_s_status"] = 5;
@@ -8491,8 +8490,6 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 			}
 			//$params["warehouse"] = $wh;
 			$params["class_id"] = $class_id;
-			$params["site_id"] = array();
-			$params["lang_id"] = array();
 			$ol->add(new object_list($params));
 		}
 		return $ol;
@@ -8664,7 +8661,7 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 			if($this->can("view" , $o->prop("purchaser")) && $this->can("view" , $arr["obj_inst"]->prop("conf.owner")))
 			{
 				$orderer_object = obj($o->prop("purchaser"));
-				$cust_rel = $orderer_object->get_customer_relation(obj($arr["obj_inst"]->prop("conf.owner")), true);
+				$cust_rel = $orderer_object->find_customer_relation(obj($arr["obj_inst"]->prop("conf.owner")), true);
 				$cust_code =  html::obj_change_url($cust_rel , $cust_rel->id());
 			}
 
@@ -11070,7 +11067,7 @@ if($arr["request"]["group"] == "sell_orders")$sell_capt = t("M&uuml;&uuml;gitell
 		}
 		$params["parent"] = " ";
 		$gbf = $this->mk_my_orb("get_clients_groups_tree_level", $params, CL_SHOP_WAREHOUSE);
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$g = $this->get_search_group($arr);
 		$t->start_tree(array(
 			"has_root" => true,
@@ -11562,11 +11559,11 @@ if($arr["request"]["group"] == "sell_orders")$sell_capt = t("M&uuml;&uuml;gitell
 
 			if(strpos($g, "sales") !== false)
 			{
-				$relation = $o->get_customer_relation($ownerobject , true);
+				$relation = $o->find_customer_relation($ownerobject , true);
 			}
 			else
 			{
-				$relation = $ownerobject->get_customer_relation($o , true);
+				$relation = $ownerobject->find_customer_relation($o , true);
 			}
 
 			if(is_object($relation))
@@ -12844,10 +12841,4 @@ if($arr["request"]["group"] == "sell_orders")$sell_capt = t("M&uuml;&uuml;gitell
 
 		return $content;
 	}
-
-
-
-
 }
-
-?>

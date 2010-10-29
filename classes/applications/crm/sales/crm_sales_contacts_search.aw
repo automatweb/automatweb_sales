@@ -312,17 +312,31 @@ class crm_sales_contacts_search
 	{
 		$filter = array("class_id" => CL_CRM_COMPANY_CUSTOMER_DATA);
 
-		// seller constraint
-		if ($this->p_seller)
+		if ($this->p_seller and $this->p_buyer)
+		{ // search relations where $seller OR $buyer
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array (
+					"CL_CRM_COMPANY_CUSTOMER_DATA.seller" => $this->p_seller ,
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer" => $this->p_buyer
+				)
+			));
+		}
+		else
 		{
-			$filter["seller"] = $this->p_seller;
+			// seller constraint
+			if ($this->p_seller)
+			{
+				$filter["seller"] = $this->p_seller;
+			}
+
+			// buyer constraint
+			if ($this->p_buyer)
+			{
+				$filter["buyer"] = $this->p_buyer;
+			}
 		}
 
-		// buyer constraint
-		if ($this->p_buyer)
-		{
-			$filter["buyer"] = $this->p_buyer;
-		}
 
 		// category constraint
 		if ($this->p_category)
@@ -584,5 +598,3 @@ EOQ;
 
 class awex_crm_contacts_search extends awex_crm {}
 class awex_crm_contacts_search_param extends awex_crm_contacts_search {}
-
-?>

@@ -395,10 +395,8 @@ class popup_search extends aw_template
 	{
 		$_GET["in_popup"] = 1;
 		$form_html = $this->_get_form($arr);
-
 		$res_html = $this->_get_results($arr);
-
-		return $form_html."<br>".$res_html;
+		return $form_html."<br />".$res_html;
 	}
 
 	/**
@@ -625,14 +623,20 @@ class popup_search extends aw_template
 				"type" => "time"
 			));
 		}
+
 		$t->define_field(array(
 			"name" => "select_this",
 			"caption" => t("Vali"),
 		));
-		$t->define_field(array(
-			"name" => "sel",
-			"caption" => "<a href='javascript:void(0)' onClick='aw_sel_chb(document.cf,\"sel\")'>".t("Vali")."</a>"
-		));
+
+		if (!empty($arr["multiple"]))
+		{
+			$t->define_field(array(
+				"name" => "sel",
+				"caption" => "<a href='javascript:void(0)' onClick='aw_sel_chb(document.cf,\"sel\")'>".t("Vali")."</a>"
+			));
+		}
+
 		$t->set_default_sortby("name");
 
 		$filter = array();
@@ -669,6 +673,7 @@ class popup_search extends aw_template
 			$elname = $arr["pn"];
 			$elname_n = $arr["pn"];
 			$elname_l = $arr["pn"];
+
 			if (!empty($arr["multiple"]))
 			{
 				$elname .= "[]";
@@ -683,11 +688,6 @@ class popup_search extends aw_template
 					"parent" => $o->path_str(array("max_len" => 3)),
 					"modifiedby" => $o->modifiedby(),
 					"modified" => $o->modified(),
-					"sel" => html::checkbox(array(
-						"name" => "sel[]",
-						"value" => $o->id(),
-						"checked" => 0 //isset($checked[$o->id()]) ? $checked[$o->id()] : 0,
-					)),
 					"select_this" => html::href(array(
 						"url" => "javascript:void(0)",
 						"caption" => t("Vali see"),
@@ -695,6 +695,16 @@ class popup_search extends aw_template
 					)),
 					"icon" => html::img(array("url" => icons::get_icon_url($o->class_id())))
 				);
+
+				if (!empty($arr["multiple"]))
+				{
+					$dat["sel"] = html::checkbox(array(
+						"name" => "sel[]",
+						"value" => $o->id(),
+						"checked" => 0 //isset($checked[$o->id()]) ? $checked[$o->id()] : 0,
+					));
+				}
+
 				if (isset($arr["tbl_props"]) && is_array($arr["tbl_props"]))
 				{
 					foreach($arr["tbl_props"] as $pn)
@@ -706,10 +716,22 @@ class popup_search extends aw_template
 			}
 		}
 
+		if (!empty($arr["multiple"]))
+		{
+			$this->vars(array(
+				"select_text" => t("Vali")
+			));
+			$submit_button = $this->parse("SUBMIT_BUTTON");
+		}
+		else
+		{
+			$submit_button = "";
+		}
+
 		$t->sort_by();
 		$this->vars(array(
-			"select_text" => t("Vali"),
 			"table" => $t->draw(),
+			"SUBMIT_BUTTON" => $submit_button,
 			"reforb" => $this->mk_reforb("final_submit", array(
 				"id" => isset($arr["id"]) ? $arr["id"] : "",
 				"multiple" => isset($arr["multiple"]) ? $arr["multiple"] : "",

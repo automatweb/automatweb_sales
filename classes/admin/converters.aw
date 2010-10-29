@@ -701,11 +701,7 @@ class converters extends aw_template
 	/**
 
 		@attrib name=convert_copy_makes_brother params=name nologin="1" default="0"
-
-
 		@returns
-
-
 		@comment
 
 	**/
@@ -755,11 +751,7 @@ class converters extends aw_template
 	/** creates the active_documents list for each folder in the system. the shitty part about this is, of course that
 
 		@attrib name=convert_active_documents_list params=name nologin="1" default="0"
-
-
 		@returns
-
-
 		@comment
 		all section modifiers will be fucked.
 
@@ -787,12 +779,8 @@ class converters extends aw_template
 	/**
 
 		@attrib name=convert_doc_templates params=name nologin="1" default="0"
-
 		@param parent required
-
 		@returns
-
-
 		@comment
 
 	**/
@@ -2044,25 +2032,26 @@ echo "mod ".$con["to.name"]."<br>";
 					else
 					{
 						$organization = false;
+						$section_tmp = $section;
 						do
 						{
-							$parent = $section->connections_to(array("from.class_id" => CL_CRM_COMPANY, "reltype" => "RELTYPE_SECTION"));
+							$parent = $section_tmp->connections_to(array("from.class_id" => CL_CRM_COMPANY, "reltype" => "RELTYPE_SECTION"));
 							if (count($parent))
 							{
 								$c = reset($parent);
-								$section = $c->from();
-								if ($section->is_a(CL_CRM_COMPANY))
+								$section_tmp = $c->from();
+								if ($section_tmp->is_a(CL_CRM_COMPANY))
 								{
-									$organization = $section->id();
+									$organization = $section_tmp->id();
 								}
 							}
 							else
 							{
-								$parent = $section->connections_to(array("from.class_id" => CL_CRM_SECTION, "reltype" => "RELTYPE_SECTION"));
+								$parent = $section_tmp->connections_to(array("from.class_id" => CL_CRM_SECTION, "reltype" => "RELTYPE_SECTION"));
 								if (count($parent))
 								{
 									$c = reset($parent);
-									$section = $c->from();
+									$section_tmp = $c->from();
 								}
 								else
 								{
@@ -2130,6 +2119,7 @@ echo "mod ".$con["to.name"]."<br>";
 		$connected_sections = $profession->connections_to(array("type" => "RELTYPE_PROFESSIONS", "from.class_id" => CL_CRM_SECTION));
 		$connected_companies = $profession->connections_to(array("type" => "RELTYPE_PROFESSIONS", "from.class_id" => CL_CRM_COMPANY));
 		$profession_name = $profession->name();
+		$profession_parent = $profession->parent();
 
 		automatweb::$result->sysmsg("Processing profession '" . $profession->name() . "' [" . $profession->id() . "]");
 
@@ -2148,6 +2138,7 @@ echo "mod ".$con["to.name"]."<br>";
 					if (false === $profession)
 					{
 						$profession = obj(null, array(), CL_CRM_PROFESSION);
+						$profession->set_parent($profession_parent);
 						automatweb::$result->sysmsg("Created a copy");
 					}
 
@@ -2172,6 +2163,7 @@ echo "mod ".$con["to.name"]."<br>";
 					if (false === $profession)
 					{
 						$profession = obj(null, array(), CL_CRM_PROFESSION);
+						$profession->set_parent($profession_parent);
 						automatweb::$result->sysmsg("Created a copy");
 					}
 					$profession->set_prop("section", $section->id());

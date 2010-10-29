@@ -155,6 +155,19 @@
 			</function>
 		</action>
 
+		<action name="add_customer">
+			<function name="add_customer">
+				<arguments>
+					<required name="id" type="oid" />
+					<required name="t" type="int" />
+					<required name="return_url" type="string" />
+					<optional name="c" type="clid" />
+					<optional name="o" type="oid" />
+					<optional name="s" type="oid" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="cut">
 			<function name="cut">
 				<arguments>

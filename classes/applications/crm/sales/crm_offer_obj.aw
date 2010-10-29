@@ -645,7 +645,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		{
 			$owner = $application->prop("owner");
 			$customer = new object($this->prop("customer"));
-			$customer_relation = $customer->get_customer_relation($owner, true);
+			$customer_relation = $customer->find_customer_relation($owner, true);
 			if(is_object($customer_relation))
 			{
 				$customer_relation_id = $customer_relation->id();

@@ -2,7 +2,7 @@
 
 class user_obj extends _int_object
 {
-	const AW_CLID = 197;
+	const CLID = 197;
 
 	public function awobj_get_password()
 	{
@@ -101,7 +101,7 @@ class user_obj extends _int_object
 	private function _handle_user_create()
 	{
 		// create home folder
-		$o = obj(null, array(), menu_obj::AW_CLID);
+		$o = obj(null, array(), menu_obj::CLID);
 		$o->set_parent(aw_ini_get("users.home_folders_parent"));
 		$o->set_name($this->prop("uid"));
 		$o->set_comment(sprintf(t("%s kodukataloog"), $this->prop("uid")));
@@ -113,7 +113,7 @@ class user_obj extends _int_object
 		// create default group
 		// in the bloody eau database the object with oid 1 is the groups folder. bloody hell.
 		// this really needs a better solution :(
-		$gid = obj(get_instance(group_obj::AW_CLID)->add_group((aw_ini_get("site_id") == 65 ? 5 : 1), $this->prop("uid"), group_obj::TYPE_DEFAULT, USER_GROUP_PRIORITY));
+		$gid = obj(get_instance(group_obj::CLID)->add_group((aw_ini_get("site_id") == 65 ? 5 : 1), $this->prop("uid"), group_obj::TYPE_DEFAULT, USER_GROUP_PRIORITY));
 
 		$i = new menu();
 
@@ -151,11 +151,11 @@ class user_obj extends _int_object
 	**/
 	function get_groups_for_user()
 	{
-		$ol = get_instance(self::AW_CLID)->get_groups_for_user(parent::prop("uid"));
+		$ol = get_instance(self::CLID)->get_groups_for_user(parent::prop("uid"));
 		$rv = $ol->arr();
 		// now, the user's own group is not in this list probably, so we go get that as well
 		$ol = new object_list(array(
-			"class_id" => group_obj::AW_CLID,
+			"class_id" => group_obj::CLID,
 			"name" => $this->name(),
 			"type" => group_obj::TYPE_DEFAULT
 		));
@@ -183,7 +183,7 @@ class user_obj extends _int_object
 		}
 		// now, the user's own group is not in this list probably, so we go get that as well
 		$ol = new object_list(array(
-			"class_id" => group_obj::AW_CLID,
+			"class_id" => group_obj::CLID,
 			"name" => $this->name(),
 			"type" => group_obj::TYPE_DEFAULT
 		));
@@ -233,10 +233,10 @@ class user_obj extends _int_object
 	function create_brother($p)
 	{
 		$rv = parent::create_brother($p);
-		if(obj($p)->class_id() == group_obj::AW_CLID)
+		if(obj($p)->class_id() == group_obj::CLID)
 		{
 			// If you save user under group, the user must be added into that group!
-			get_instance(group_obj::AW_CLID)->add_user_to_group(obj(parent::id()), obj($p), array("brother_done" => true));
+			get_instance(group_obj::CLID)->add_user_to_group(obj(parent::id()), obj($p), array("brother_done" => true));
 		}
 		return $rv;
 	}
@@ -357,7 +357,7 @@ class user_obj extends _int_object
 		// for each group in path from the to-add group
 		foreach($group->path() as $p_o)
 		{
-			if ($p_o->class_id() != group_obj::AW_CLID)
+			if ($p_o->class_id() != group_obj::CLID)
 			{
 				continue;
 			}

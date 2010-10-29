@@ -2,7 +2,7 @@
 
 class shop_product_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
-	const AW_CLID = 295;
+	const CLID = 295;
 
 	/** Get units that can be used to measure product quantity
 		@attrib api=1

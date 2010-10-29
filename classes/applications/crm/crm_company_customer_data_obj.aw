@@ -159,9 +159,7 @@ class crm_company_customer_data_obj extends _int_object
 	public function get_recalls()
 	{
 		$filter = array(
-			"class_id" => CL_SHOP_ORDER,
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => CL_SHOP_ORDER
 		);
 		return new object_list($filter);
 	}
@@ -170,10 +168,8 @@ class crm_company_customer_data_obj extends _int_object
 	{
 		$filter = array(
 			"class_id" => CL_SHOP_DELIVERY_NOTE,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"customer" => $this->prop("buyer"),
-			"impl" => $this->prop("seller"),
+			"impl" => $this->prop("seller")
 		);
 		return new object_list($filter);
 	}
@@ -182,6 +178,33 @@ class crm_company_customer_data_obj extends _int_object
 	{
 		// USE classes like CL_COUNTRY, CL_COUNTRY_ADMINISTRATIVE_UNIT, CL_COUNTRY_CITY etc
 		return new object_list();
+	}
+
+	/** Adds a customer category to this customer relation. Customer will be in that category iow.
+		@attrib api=1 params=pos
+		@param category type=CL_CRM_CATEGORY
+		@returns void
+		@errors
+			awex_obj_state_new if this object not saved
+			awex_obj_type if invalid/unsaved category object given
+		@qc date=20101027 standard=aw3
+	**/
+	public function add_category(object $category)
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new();
+		}
+
+		if (!$category->is_saved() or !$category->is_a(CL_CRM_CATEGORY))
+		{
+			throw new awex_obj_type("Invalid category {$category}");
+		}
+
+		$this->connect(array(
+			"to" => $category,
+			"reltype" => "RELTYPE_CATEGORY"
+		));
 	}
 
 	public function get_customer_categories()
@@ -217,6 +240,20 @@ class crm_company_customer_data_obj extends _int_object
 		{
 			$this->awobj_set_sales_state(self::SALESSTATE_LEAD);
 		}
+
+		if (!$this->is_saved())
+		{
+			if (!$this->prop("cust_contract_creator"))
+			{
+				$this->set_prop("cust_contract_creator", aw_global_get("uid_oid"));
+			}
+
+			if (!$this->prop("cust_contract_date"))
+			{
+				$this->set_prop("cust_contract_date", time());
+			}
+		}
+
 		$r = parent::save($exclusive, $previous_state);
 	}
 }

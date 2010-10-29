@@ -150,10 +150,11 @@ class crm_participant_search extends popup_search
 		if (isset($arr["s"]["show_vals"]) && is_array($arr["s"]["show_vals"]) && empty($arr["s"]["search_co"]))
 		{
 			$c = get_instance(CL_CRM_COMPANY);
-			if (!empty($arr["s"]["show_vals"]["cur_co"]))
+			$u = get_instance(CL_USER);
+			$cur_co_oid = $u->get_current_company();
+			if (!empty($arr["s"]["show_vals"]["cur_co"]) and $cur_co_oid)
 			{
-				$u = get_instance(CL_USER);
-				$filter["oid"] = array_keys($c->get_employee_picker(obj($u->get_current_company()),false,!empty($arr["s"]["show_vals"]["imp"])));
+				$filter["oid"] = array_keys($c->get_employee_picker(obj($cur_co_oid), false, !empty($arr["s"]["show_vals"]["imp"])));
 			}
 
 			if (!empty($arr["s"]["show_vals"]["my_cust"]))
@@ -173,12 +174,10 @@ class crm_participant_search extends popup_search
 				}
 			}
 
-			if (!empty($arr["s"]["show_vals"]["imp"]) && $do_imp)
+			if (!empty($arr["s"]["show_vals"]["imp"]) && $do_imp && $cur_co_oid)
 			{
-				$u = get_instance(CL_USER);
-
 				$tmp = array();
-				foreach(array_keys($c->get_employee_picker(obj($u->get_current_company()), false, true)) as $_id)
+				foreach(array_keys($c->get_employee_picker(obj($cur_co_oid), false, true)) as $_id)
 				{
 					$tmp[$_id] = $_id;
 				}

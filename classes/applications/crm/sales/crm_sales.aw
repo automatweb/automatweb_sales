@@ -897,7 +897,7 @@ class crm_sales extends class_base
 		if (is_object($this->contact_entry_edit_object))
 		{
 			$owner = $arr["obj_inst"]->prop("owner");
-			$customer_relation = $this->contact_entry_edit_object->get_customer_relation($owner);
+			$customer_relation = $this->contact_entry_edit_object->find_customer_relation($owner);
 			$arr["prop"]["value"] = $customer_relation->prop("salesman");
 		}
 
@@ -974,7 +974,7 @@ class crm_sales extends class_base
 		if (is_object($this->contact_entry_edit_object))
 		{
 			$owner = $arr["obj_inst"]->prop("owner");
-			$customer_relation = $this->contact_entry_edit_object->get_customer_relation($owner);
+			$customer_relation = $this->contact_entry_edit_object->find_customer_relation($owner);
 			$arr["prop"]["value"] = $customer_relation->prop("sales_lead_source.name");
 		}
 		return $r;
@@ -998,7 +998,7 @@ class crm_sales extends class_base
 		if (is_object($this->contact_entry_edit_object))
 		{
 			$owner = $arr["obj_inst"]->prop("owner");
-			$customer_relation = $this->contact_entry_edit_object->get_customer_relation($owner);
+			$customer_relation = $this->contact_entry_edit_object->find_customer_relation($owner);
 			$categories = new object_list($customer_relation->connections_from(array("type" => "RELTYPE_CATEGORY")));
 			$arr["prop"]["value"] = $categories->ids();
 		}
@@ -1028,7 +1028,7 @@ class crm_sales extends class_base
 		if (is_object($this->contact_entry_edit_object))
 		{
 			$owner = $arr["obj_inst"]->prop("owner");
-			$customer_relation = $this->contact_entry_edit_object->get_customer_relation($owner);
+			$customer_relation = $this->contact_entry_edit_object->find_customer_relation($owner);
 			$arr["prop"]["value"] = $customer_relation->prop("sales_lead_source");
 		}
 		return $r;
@@ -2116,7 +2116,7 @@ SCRIPT;
 			$o->set_prop("fake_mobile", $arr["prop"]["value"]["fake_mobile"]);
 			$o->set_prop("fake_email", $arr["prop"]["value"]["fake_email"]);
 			$o->save();
-			$customer_relation = $o->get_customer_relation($owner);
+			$customer_relation = $o->find_customer_relation($owner);
 
 			// comment
 			if (!empty($arr["request"]["contact_entry_add_comment"]))
@@ -2229,7 +2229,7 @@ SCRIPT;
 					$o->connect(array("to" => $address, "reltype" => "RELTYPE_ADDRESS_ALT"));
 				}
 
-				$customer_relation = $o->get_customer_relation($owner, true);
+				$customer_relation = $o->find_customer_relation($owner, true);
 
 				// category
 				if (!empty($arr["request"]["contact_entry_category"]))
@@ -2479,7 +2479,7 @@ SCRIPT;
 			$o->set_prop("fake_phone", $arr["prop"]["value"]["fake_phone"]);
 			$o->set_prop("fake_email", $arr["prop"]["value"]["fake_email"]);
 			$o->save();
-			$customer_relation = $o->get_customer_relation($owner);
+			$customer_relation = $o->find_customer_relation($owner);
 
 			// comment
 			if (!empty($arr["request"]["contact_entry_add_comment"]))
@@ -2604,7 +2604,7 @@ SCRIPT;
 					$o->connect(array("to" => $address, "reltype" => "RELTYPE_ADDRESS_ALT"));
 				}
 
-				$customer_relation = $o->get_customer_relation($owner, true);
+				$customer_relation = $o->find_customer_relation($owner, true);
 
 				// category
 				if (!empty($arr["request"]["contact_entry_category"]))
@@ -2863,8 +2863,17 @@ SCRIPT;
 
 	function _set_owner($arr)
 	{
-		$arr["prop"]["value"] = new object($arr["prop"]["value"]);
-		return PROP_OK;
+		if (empty($arr["prop"]["value"]))
+		{
+			$r = PROP_FATAL_ERROR;
+			$arr["prop"]["error"] = t("Keskkonna omanik peab olema m&auml;&auml;ratud");
+		}
+		else
+		{
+			$arr["prop"]["value"] = new object($arr["prop"]["value"]);
+			$r = PROP_OK;
+		}
+		return $r;
 	}
 
 	function delete_objects($arr)
