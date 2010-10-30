@@ -1487,12 +1487,12 @@ class htmlclient extends aw_template
 						"start_text" => active_page_data::LAYER_CLOSED === $state ? t("Lahti") : t("Kinni"),
 						"open_layer_url" => $this->mk_my_orb("open_layer", array(
 							"u_class" => $this->class_name,
-							"u_group" => automatweb::$request->arg("group"),
+							"u_group" => $this->use_group,
 							"u_layout" => $layout_name
 						), "active_page_data"),
 						"close_layer_url" => $this->mk_my_orb("close_layer", array(
 							"u_class" => $this->class_name,
-							"u_group" => automatweb::$request->arg("group"),
+							"u_group" => $this->use_group,
 							"u_layout" => $layout_name
 						), "active_page_data"),
 						"closer_state" => active_page_data::LAYER_CLOSED === $state ? "down" : "up"
@@ -1560,7 +1560,7 @@ class htmlclient extends aw_template
 						"start_text" => active_page_data::LAYER_CLOSED === $state ? t("Lahti") : t("Kinni"),
 						"open_layer_url" => $this->mk_my_orb("open_layer", array(
 							"u_class" => $this->class_name,
-							"u_group" => automatweb::$request->arg("group"),
+							"u_group" => $this->use_group,
 							"u_layout" => $layout_name
 						), "active_page_data"),
 						"close_layer_url" => $this->mk_my_orb("close_layer", array(

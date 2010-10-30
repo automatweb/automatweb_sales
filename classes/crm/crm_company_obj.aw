@@ -505,7 +505,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			{
 				throw new awex_obj_class("Wrong section object class " . $section->class_id());
 			}
-			$filter["section"] = $section->id();
+			$filter["company_section"] = $section->id();
 		}
 
 		$work_relations_list = new object_data_list(
@@ -571,7 +571,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		if(!empty($arr["section"]))
 		{
-			$filter["section"] = (int) $arr["section"];
+			$filter["company_section"] = (int) $arr["section"];
 		}
 
 		if(!empty($arr["employee"]))
@@ -883,9 +883,9 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			try
 			{
 				// set section if found
-				$section_oid = new aw_oid($profession->prop("section"));
+				$section_oid = new aw_oid($profession->prop("parent_section"));
 				$section = obj($section_oid, array(), CL_CRM_SECTION);
-				$work_relation->set_prop("section", $section->id());
+				$work_relation->set_prop("company_section", $section->id());
 			}
 			catch (Exception $e)
 			{
@@ -910,15 +910,80 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $r;
 	}
 
-	function get_sections()
+	/** Returns list of sections in this company
+		@attrib api=1 params=pos
+		@param parent type=CL_CRM_SECTION/CL_CRM_COMPANY default=NULL
+			If not set, all sections will be returned. If section object given, then sections from under that section.
+			If company object given, only sections in top level
+		@comment
+		@returns object_list
+		@errors
+			throws awex_obj_type if parent parameter is invalid
+		@qc date=20101030 standard=aw3
+	**/
+	function get_sections(object $parent = null)
 	{
-		$r = new object_list();
-		foreach($this->connections_from(array("type" => "RELTYPE_SECTION")) as $conn)
+		if ($parent and !$parent->is_a(CL_CRM_SECTION) and !$parent->is_a(CL_CRM_COMPANY))
 		{
-			$parent = $conn->to();
-			$r->add($parent->get_sections());
+			throw new awex_obj_type("Invalid parent (id ".$parent->id().") parameter of class " .$parent->class_id());
 		}
-		return $r;
+
+		$params = array(
+			"class_id" => CL_CRM_SECTION,
+			"organization" => $this->id(),
+		);
+
+		if ($parent)
+		{
+			if ($parent->is_a(CL_CRM_SECTION))
+			{
+				$params["parent_section"] = $parent->id();
+			}
+			elseif ($parent->is_a(CL_CRM_COMPANY))
+			{
+				$params["parent_section"] = 0;
+			}
+		}
+
+		return new object_list($params);
+	}
+
+	/** Returns list of professions in this company
+		@attrib api=1 params=pos
+		@param parent type=CL_CRM_SECTION/CL_CRM_COMPANY default=NULL
+			If not set, all professions will be returned. If section object given, then professions from under that section.
+			If company object given, only professions in top level
+		@comment
+		@returns object_list
+		@errors
+			throws awex_obj_type if parent parameter is invalid
+		@qc date=20101030 standard=aw3
+	**/
+	function get_professions(object $parent = null)
+	{
+		if ($parent and !$parent->is_a(CL_CRM_SECTION) and !$parent->is_a(CL_CRM_COMPANY))
+		{
+			throw new awex_obj_type("Invalid parent (id ".$parent->id().") parameter of class " .$parent->class_id());
+		}
+
+		$params = array(
+			"class_id" => CL_CRM_PROFESSION,
+			"organization" => $this->id(),
+		);
+
+		if ($parent)
+		{
+			if ($parent->is_a(CL_CRM_SECTION))
+			{
+				$params["parent_section"] = $parent->id();
+			}
+			elseif ($parent->is_a(CL_CRM_COMPANY))
+			{
+				$params["parent_section"] = 0;
+			}
+		}
+
+		return new object_list($params);
 	}
 
 	/** Returns a list of task stats types for the company
@@ -1197,7 +1262,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			{
 				throw new awex_obj_type("Given section " . $section->id() . " is not a section object (clid is " . $section->class_id() . ")");
 			}
-			$profession->set_prop("section", $section->id());
+			$profession->set_prop("parent_section", $section->id());
 		}
 
 		$profession->save();

@@ -112,7 +112,7 @@ class crm_person_work_relation_obj extends _int_object
 				throw new awex_obj_type("Given section parameter (object '".$section->id()."') isn't a section object. Class id is '".$section->class_id()."'");
 			}
 
-			$params["section"] = $section->id();
+			$params["company_section"] = $section->id();
 		}
 
 		if ($active)

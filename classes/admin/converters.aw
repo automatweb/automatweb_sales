@@ -2166,7 +2166,7 @@ echo "mod ".$con["to.name"]."<br>";
 						$profession->set_parent($profession_parent);
 						automatweb::$result->sysmsg("Created a copy");
 					}
-					$profession->set_prop("section", $section->id());
+					$profession->set_prop("parent_section", $section->id());
 
 					// find company
 					$organization = false;

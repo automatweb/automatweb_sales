@@ -321,7 +321,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				"type" => "RELTYPE_CURRENT_JOB",
 			));
 		}
-		$sp = $org_rel->set_prop("section", $v);
+		$sp = $org_rel->set_prop("company_section", $v);
 		$org_rel->save();
 		return $sp;
 	}
@@ -338,7 +338,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		{
 			return false;
 		}
-		return $org_rel->prop("section");
+		return $org_rel->prop("company_section");
 	}
 
 	function add_person_to_list($arr)
@@ -871,9 +871,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $o)
 		{
-			if((!$co || $co == $o->prop("org")) && $o->prop("section"))
+			if((!$co || $co == $o->prop("employer")) && $o->prop("company_section"))
 			{
-				return $o->prop("section");
+				return $o->prop("company_section");
 			}
 		}
 		return null;
@@ -939,12 +939,12 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		foreach(parent::connections_from(array("type" => "RELTYPE_CURRENT_JOB")) as $cn)
 		{
 			$current_job = $cn->to();
-			if($co && $current_job->prop("org") != $co)
+			if($co && $current_job->prop("employer") != $co)
 			{
 				continue;
 			}
 
-			if($sect && $current_job->prop("section") != $sect)
+			if($sect && $current_job->prop("company_section") != $sect)
 			{
 				continue;
 			}
@@ -987,7 +987,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				continue;
 			}
 
-			if($sect && $current_job->prop("section") != $sect)
+			if($sect && $current_job->prop("company_section") != $sect)
 			{
 				continue;
 			}
@@ -1020,7 +1020,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 				continue;
 			}
 
-			if($sect && $current_job->prop("section") != $sect)
+			if($sect && $current_job->prop("company_section") != $sect)
 			{
 				continue;
 			}
@@ -1167,7 +1167,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $job)
 		{
-			if($arr["section"] && $job->prop("section") != $arr["section"])
+			if($arr["section"] && $job->prop("company_section") != $arr["section"])
 			{
 				continue;
 			}
@@ -1242,41 +1242,36 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			return;
 		}
 
-		static $id;
+		$list = new object_list(array(
+			"class_id" => CL_CRM_PERSON_WORK_RELATION,
+			"employer" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
+			"employee" => $this->id(),
+			"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time()),
+			new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					new object_list_filter(array(
+						"conditions" => array(
+							"end" => new obj_predicate_compare(OBJ_COMP_LESS, 1)
+						)
+					)),
+					new object_list_filter(array(
+						"conditions" => array(
+							"end" => new obj_predicate_compare(OBJ_COMP_GREATER, time())
+						)
+					))
+				)
+			))
+		));
 
-		if ($id === null)
+		if ($list->count())
 		{
-			$list = new object_list(array(
-				"class_id" => CL_CRM_PERSON_WORK_RELATION,
-				"employer" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
-				"employee" => $this->id(),
-				"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time()),
-				new object_list_filter(array(
-					"logic" => "OR",
-					"conditions" => array(
-						new object_list_filter(array(
-							"conditions" => array(
-								"end" => new obj_predicate_compare(OBJ_COMP_LESS, 1)
-							)
-						)),
-						new object_list_filter(array(
-							"conditions" => array(
-								"end" => new obj_predicate_compare(OBJ_COMP_GREATER, time())
-							)
-						))
-					)
-				))
-			));
-
-			if ($list->count())
-			{
-				$work_rel = $list->begin();
-				$id = $work_rel->prop("employer");
-			}
-			else
-			{
-				$id = false;
-			}
+			$work_rel = $list->begin();
+			$id = $work_rel->prop("employer");
+		}
+		else
+		{
+			$id = 0;
 		}
 
 		return $id;
@@ -1407,13 +1402,13 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$sections = array();
 		foreach($this->current_jobs->arr() as $o)
 		{
-			if(sizeof($sec) && !in_array($o->prop("section") , $sec))//kui pole ette antud yksustes j2tab vahele
+			if(sizeof($sec) && !in_array($o->prop("company_section") , $sec))//kui pole ette antud yksustes j2tab vahele
 			{
 				continue;
 			}
-			if((!$co || $co == $o->prop("org")) && $o->prop("section.name"))
+			if((!$co || $co == $o->prop("employer")) && $o->prop("company_section.name"))
 			{
-				$sections[$o->prop("section")] = $o->prop("section.name");
+				$sections[$o->prop("company_section")] = $o->prop("company_section.name");
 			}
 		}
 
@@ -1450,7 +1445,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		{
 			if (
 				$employer and $work_relation->prop("employer") == $employer->id() or
-				$sections and $sections->in_list($work_relation->prop("section")) or
+				$sections and $sections->in_list($work_relation->prop("company_section")) or
 				!$employer and !$sections
 			)
 			{
