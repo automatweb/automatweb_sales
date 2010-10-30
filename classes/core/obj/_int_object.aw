@@ -1318,10 +1318,12 @@ class _int_object
 				$val = $val == $pd["ch_value"] ? t("Jah") : t("Ei");
 				break;
 		}
-		if ($val === "0" || $val === 0)
+
+		if (empty($val))
 		{
-			$val = "";
+			$val = t("[Nimetu]");
 		}
+
 		return $val;
 	}
 

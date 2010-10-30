@@ -200,13 +200,14 @@ class crm_company_people_impl extends class_base
 		$fields_data = array(
 			array(
 				"name" => "cal",
+				"chgbgcolor" => "cutcopied",
 				"caption" => t("&nbsp;"),
 				"width" => 1
 			),
 			array(
 				'name' => 'image',
 				'caption' => t('&nbsp;'),
-				"chgbgcolor" => "legend",
+				"chgbgcolor" => "cutcopied",
 				"align" => "center",
 				"width" => 1
 			),
@@ -214,19 +215,19 @@ class crm_company_people_impl extends class_base
 				'name' => 'name',
 				'caption' => t('Nimi'),
 				'sortable' => '1',
-				"chgbgcolor" => "legend",
+				"chgbgcolor" => "cutcopied",
 				'callback' => array($this, 'callb_human_name'),
 				'callb_pass_row' => true,
 			),
 			array(
 				'name' => 'phone',
-				"chgbgcolor" => "legend",
+				"chgbgcolor" => "cutcopied",
 				'caption' => t('Telefon'),
 				'sortable' => '1',
 			),
 			array(
 				'name' => 'email',
-				"chgbgcolor" => "legend",
+				"chgbgcolor" => "cutcopied",
 				'caption' => t('E-post'),
 				'sortable' => '1',
 			),
@@ -238,7 +239,7 @@ class crm_company_people_impl extends class_base
 			),
 			array(
 				'name' => 'authorized',
-				"chgbgcolor" => "legend",
+				"chgbgcolor" => "cutcopied",
 				'caption' => t('Volitatud'),
 				'sortable' => '1',
 			)
@@ -254,8 +255,7 @@ class crm_company_people_impl extends class_base
 
 		$t->define_chooser(array(
 			'name'=>'check',
-			'field'=>'id',
-			"chgbgcolor" => "cutcopied",
+			'field'=>'id'
 		));
 		$t->set_default_sortby("name");
 	}
@@ -457,7 +457,9 @@ class crm_company_people_impl extends class_base
 
 	function _add_edit_stuff_to_table($arr)
 	{
-		$arr["prop"]["vcl_inst"]->set_sortable(false);
+		$this_o = $arr["obj_inst"];
+		$table = $arr["prop"]["vcl_inst"];
+		$table->set_sortable(false);
 		$parent = isset($arr["request"]["cat"]) ? $arr["request"]["cat"] : 0;
 		if (!$parent)
 		{
@@ -466,38 +468,58 @@ class crm_company_people_impl extends class_base
 
 		if ($parent && $parent !== CRM_ALL_PERSONS_CAT)
 		{
-			$o = obj($parent);
+			$parent = obj($parent);
 		}
 		else
 		{
-			$o = $arr["obj_inst"];
+			$parent = $arr["obj_inst"];
 		}
 
 		$section_img = html::img(array("url" => icons::get_icon_url(CL_CRM_SECTION), "border" => "0", "alt" => t("&Uuml;ksus")));
-		$prof_img = html::img(array("url" => icons::get_icon_url(CL_CRM_PROFESSION), "border" => "0", "alt" => t("Amet")));
+		$profession_img = html::img(array("url" => icons::get_icon_url(CL_CRM_PROFESSION), "border" => "0", "alt" => t("Amet")));
 
-		foreach($o->connections_from(array("type" => "RELTYPE_SECTION")) as $c)
+		$sections = $this_o->get_sections($parent);
+		if($sections->count())
 		{
-			$ccp = (isset($_SESSION["crm_copy_p"][$c->prop("to")]) || isset($_SESSION["crm_cut_p"][$c->prop("to")]) ? "#E2E2DB" : "");
-			// This produces an error if there are more than 2 words in the name.
-			$arr["prop"]["vcl_inst"]->define_data(array(
-				"image" => $section_img,
-				"name" => $c->prop("to.name"),
-				"id" => $c->prop("to"),
-				"cutcopied" => $ccp
-			));
+			$section = $sections->begin();
+			$section_id = $section->id();
+
+			do
+			{
+				$ccp = (isset($_SESSION["crm_cut_p"][$section_id]) ? "#E2E2DB" : "");
+				// This produces an error if there are more than 2 words in the name.
+				$table->define_data(array(
+					"image" => $section_img,
+					"name" => $section->name(),
+					"id" => $section_id,
+					"cutcopied" => $ccp
+				));
+			}
+			while ($section = $sections->next());
 		}
 
-		foreach($o->connections_from(array("type" => "RELTYPE_PROFESSIONS")) as $c)
+		$professions = $this_o->get_professions($parent);
+		if($professions->count())
 		{
-			$ccp = (isset($_SESSION["crm_copy_p"][$c->prop("to")]) || isset($_SESSION["crm_cut_p"][$c->prop("to")]) ? "#E2E2DB" : "");
-			// This produces an error if there are more than 2 words in the name.
-			$arr["prop"]["vcl_inst"]->define_data(array(
-				"image" => $prof_img,
-				"name" => $c->prop("to.name"),
-				"id" => $c->prop("to"),
-				"cutcopied" => $ccp
-			));
+			$profession = $professions->begin();
+			$profession_id = $profession->id();
+
+			do
+			{
+				$ccp = (isset($_SESSION["crm_cut_p"][$profession_id]) ? "#E2E2DB" : "");
+				// This produces an error if there are more than 2 words in the name.
+				$table->define_data(array(
+					"image" => $profession_img,
+					"name" => $profession->name(),
+					"id" => $profession_id,
+					"cutcopied" => $ccp
+				));
+			}
+			while ($profession = $professions->next());
+		}
+
+		foreach($parent->connections_from(array("type" => "RELTYPE_PROFESSIONS")) as $c)
+		{
 		}
 	}
 
@@ -975,7 +997,7 @@ class crm_company_people_impl extends class_base
 					"id" => $arr["obj_inst"]->id(),
 					"return_url" => get_ru(),
 					"save_autoreturn" => "1",
-					"parent_section" => isset($arr["request"]["unit"]) ? $arr["request"]["unit"] : ""
+					"section" => isset($arr["request"]["unit"]) ? $arr["request"]["unit"] : ""
 				),
 				"crm_company"
 			)
@@ -986,7 +1008,7 @@ class crm_company_people_impl extends class_base
 		{
 			$url = $this->mk_my_orb("do_search", array(
 				"clid" => CL_CRM_PERSON,
-				"pn" => "sbt_data"
+				"pn" => "sbt_data_add_employee"
 			), "popup_search");
 			$tb->add_button(array(
 				'name' => 'Search',
@@ -1078,7 +1100,6 @@ class crm_company_people_impl extends class_base
 			"text" => t("Eemalda olulisuse m&auml;rge"),
 			"action" => "unmark_p_as_important",
 		));
-
 	}
 
 	function _get_cedit_tree($arr)
@@ -1142,8 +1163,8 @@ class crm_company_people_impl extends class_base
 
 			do
 			{
-				$profession_name = $profession->prop("name_in_plural") ? $profession->prop("name_in_plural") : $profession->name();
-				$parent = $profession->prop("section") ? $profession->prop("section") : 0;
+				$profession_name = $profession->prop("name_in_plural") ? $profession->prop("name_in_plural") : $profession->prop_str("name");
+				$parent = $profession->prop("parent_section") ? $profession->prop("parent_section") : 0;
 				$tree->add_item($parent, array(
 					"id" => (int) $profession->id(),
 					"name" => $profession_name,

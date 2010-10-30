@@ -17,7 +17,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_ML_MEMBER, on_discon
 	@property employer type=objpicker clid=CL_CRM_COMPANY
 	@caption T&ouml;&ouml;andja
 
-	@property section type=objpicker clid=CL_CRM_SECTION
+	@property company_section type=objpicker clid=CL_CRM_SECTION field=section
 	@caption &Uuml;ksus
 
 	@property profession type=objpicker clid=CL_CRM_PROFESSION

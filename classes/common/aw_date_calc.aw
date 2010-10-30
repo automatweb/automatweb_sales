@@ -461,7 +461,7 @@ class date_calc
 		echo date("d.m.Y", get_week_start()); // echos the date for last monday
 
 **/
-	public static public static function get_week_start($timestamp = null)
+	public static function get_week_start($timestamp = null)
 	{
 		if ($timestamp === null)
 		{

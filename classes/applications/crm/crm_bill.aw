@@ -569,15 +569,6 @@ class crm_bill extends class_base
 				$this->_billt_tb($arr);
 				break;
 
-			case 'bill_rec_name':
-				$ps = get_instance("vcl/popup_search");
-				$ps->set_class_id(array(CL_CRM_PERSON));
-				$ps->set_id($arr["obj_inst"]->id());
-				$ps->set_reload_layout("almost_bottom");
-				$ps->set_property("mail_receiver");
-				$prop["post_append_text"] = $ps->get_search_button();
-				break;
-
 			case "bill_no":
 				if (empty($prop["value"]))
 				{
@@ -1010,6 +1001,37 @@ class crm_bill extends class_base
 		return $retval;
 	}
 
+	function _get_bill_rec_name(&$arr)
+	{
+		$r = PROP_OK;
+		$arr["prop"]["value"] = "";
+		$ps = new popup_search();
+		$ps->set_class_id(array(CL_CRM_PERSON));
+		$ps->set_id($arr["obj_inst"]->id());
+		$ps->set_reload_layout("almost_bottom");
+		$ps->set_property("mail_receiver");
+		$arr["prop"]["post_append_text"] = $ps->get_search_button();
+		return $r;
+	}
+
+	function _set_bill_rec_name(&$arr)
+	{
+		$r = PROP_IGNORE;
+		if (!empty($arr["prop"]["value"]))
+		{
+			try
+			{
+				$arr["obj_inst"]->add_receiver($arr["prop"]["value"]);
+			}
+			catch (Exception $e)
+			{
+				$r = PROP_ERROR;
+				$arr["prop"]["error"] = t("Vigane e-posti aadress");
+			}
+		}
+		return $r;
+	}
+
 	function _dn_tb($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
@@ -1321,12 +1343,12 @@ class crm_bill extends class_base
 			if($mail_person->class_id() == CL_CRM_PERSON)
 			{
 				$t->define_data(array(
-					"name" => $mail_person->name(),
+					"name" => html::obj_change_url($mail_person, $mail_person->name()),
 					"oid" => $mail_person->id(),
 					"phone" => $mail_person->get_phone(),
 					"rank" => $arr["obj_inst"]->prop("customer") ? join(", " , $mail_person->get_profession_names(obj($arr["obj_inst"]->prop("customer")))) : "",
 					"mail" => $mail_person->get_mail($arr["obj_inst"]->prop("customer")),
-					"co" => $mail_person->company_name(),
+					"co" => html::obj_change_url($mail_person->company_id(), $mail_person->company_name()),
 					"selection" => html::checkbox(array(
 						"name" => "bill_targets[".$mail_person->id()."]",
 						"checked" => !(is_array($bill_targets) && sizeof($bill_targets) && empty($bill_targets[$mail_person->id()])),
@@ -1341,7 +1363,7 @@ class crm_bill extends class_base
 			$phone = "";
 
 			$t->define_data(array(
-				"name" => $arr["obj_inst"]->get_customer_name(),
+				"name" => html::obj_change_url($arr["obj_inst"]->prop("customer"), $arr["obj_inst"]->get_customer_name()),
 				"oid" => $id,
 				"mail" => $mail,
 				"phone" => $this->get_phone_by_mail_id($id, (isset($bill_t_names[$id]) ? $bill_t_names[$id] : ""), $phone),
@@ -1378,6 +1400,7 @@ class crm_bill extends class_base
 				"sel2" => "bcc"
 			));
 		}
+
 		if (aw_global_get("uid_oid") != "")
 		{
 			$user_inst = get_instance(CL_USER);
@@ -1663,7 +1686,7 @@ class crm_bill extends class_base
 			$agreement_prices = array();
 		}
 
-		$agreement_prices[] = array();
+		// $agreement_prices[] = array();//agreement_price is a deprecated structure. here disabling it for further use. compatibility preserved with older bills
 		$x = 0;
 		foreach($agreement_prices as $key => $agreement_price)
 		{
@@ -4968,7 +4991,7 @@ class crm_bill extends class_base
 
 	function _get_dn_confirm_tbl($arr)
 	{
-		if($arr["new"])
+		if(!empty($arr["new"]))
 		{
 			return PROP_IGNORE;
 		}

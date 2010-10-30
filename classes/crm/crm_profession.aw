@@ -29,7 +29,7 @@
 @caption Ametijuhend
 
 @property organization type=hidden table=kliendibaas_amet
-@property section type=hidden table=kliendibaas_amet
+@property parent_section type=hidden table=kliendibaas_amet field=section
 
 @property name_in_plural type=textbox table=kliendibaas_amet
 @caption Nimi mitmuses

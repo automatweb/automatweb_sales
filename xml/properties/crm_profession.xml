@@ -62,7 +62,7 @@
             <field>organization</field>
       </property>
       <property>
-            <name>section</name>
+            <name>parent_section</name>
             <table>kliendibaas_amet</table>
             <group>general</group>
             <type>hidden</type>

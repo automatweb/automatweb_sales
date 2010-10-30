@@ -1232,7 +1232,7 @@ class crm_person extends class_base
 			{
 				$wr = obj($wr_id, array(), CL_CRM_PERSON_WORK_RELATION);
 				$wr->set_prop("employer", $data["org"]);
-				$wr->set_prop("section", $data["sec"]);
+				$wr->set_prop("company_section", $data["sec"]);
 				$wr->set_prop("profession", $data["pro"]);
 				$wr->save();
 			}
@@ -2887,7 +2887,7 @@ class crm_person extends class_base
 		foreach($arr["obj_inst"]->get_active_work_relations()->arr() as $wr)
 		{
 			$orgid = $wr->prop("employer");
-			$secid = $wr->prop("section");
+			$secid = $wr->prop("company_section");
 			if($orgid !== $org_fixed && $org_fixed !== 0)
 			{
 				continue;
@@ -6711,7 +6711,7 @@ fnCallbackAddNew = function()
 			$end = !empty($e) ? date("Y", $e) : t("M&auml;&auml;ramata");
 			$this->vars(array(
 				"crm_person_work_relation.org" => $to->prop("employer.name"),
-				"crm_person_work_relation.section" => $to->prop("section.name"),
+				"crm_person_work_relation.section" => $to->prop("company_section.name"),
 				"crm_person_work_relation.profession" => $to->prop("profession.name"),
 				"crm_person_work_relation.start" => $start,
 				"crm_person_work_relation.end" => $end,

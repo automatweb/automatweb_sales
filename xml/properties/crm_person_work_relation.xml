@@ -10,7 +10,7 @@
             <caption>T&amp;amp;ouml;&amp;amp;ouml;andja</caption>
       </property>
       <property>
-            <name>section</name>
+            <name>company_section</name>
             <group>general</group>
             <table>aw_crm_person_work_relation</table>
             <type>objpicker</type>

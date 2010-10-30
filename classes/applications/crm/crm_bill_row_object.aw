@@ -1,9 +1,9 @@
 <?php
-/*
-@classinfo  maintainer=markop
-*/
+
 class crm_bill_row_object extends _int_object
 {
+	private $crm_settings;
+
 	function set_name($name)
 	{
 		$rv = parent::set_name($name);
@@ -457,4 +457,3 @@ class crm_bill_row_object extends _int_object
 		return $this->prop("writeoff");
 	}
 }
-?>

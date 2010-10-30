@@ -1841,6 +1841,7 @@ class crm_bill_obj extends _int_object
 		{
 			return array();
 		}
+
 		$cust = obj($this->prop("customer"));
 		if($cust->class_id() == CL_CRM_PERSON)
 		{
@@ -1850,7 +1851,9 @@ class crm_bill_obj extends _int_object
 		{
 			$mails = $cust->get_mails(array());
 		}
+
 		$ret = array();
+		$default_mail = null;
 		foreach($mails->arr() as $mail)
 		{
 			if($mail->prop("mail"))
@@ -1862,6 +1865,7 @@ class crm_bill_obj extends _int_object
 				}
 			}
 		}
+
 		if(!sizeof($ret) && is_object($default_mail))
 		{
 			$ret[$default_mail->id()]= $default_mail->prop("mail");
@@ -2097,7 +2101,7 @@ class crm_bill_obj extends _int_object
 
 	public function make_reminder_pdf()
 	{
-                $f = get_instance(CL_FILE);
+		$f = new file();
 		$id = $f->create_file_from_string(array(
 			"parent" => $this->id(),
 			"content" => $this-> get_reminder_pdf(),
@@ -2110,7 +2114,7 @@ class crm_bill_obj extends _int_object
 
 	public function make_add_pdf()
 	{
-                $f = get_instance(CL_FILE);
+		$f = new file();
 		$id = $f->create_file_from_string(array(
 			"parent" => $this->id(),
 			"content" => $this->get_pdf_add(),
@@ -2452,8 +2456,6 @@ class crm_bill_obj extends _int_object
 		{
 			$cust_rel_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"buyer" => $this->prop("customer"),
 				"seller" => $this->prop("impl")
 			));
@@ -2576,9 +2578,7 @@ class crm_bill_obj extends _int_object
 	{
 		// get prords from co
 		$filter = array(
-			"class_id" => CL_UNIT,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"class_id" => CL_UNIT
 		);
 
 		$t = new object_data_list(
@@ -2606,9 +2606,7 @@ class crm_bill_obj extends _int_object
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_UNIT,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"name" => $name,
+			"name" => $name
 		));
 		$ids = $ol->ids();
 		if(sizeof($ids))
@@ -2784,7 +2782,6 @@ class crm_bill_obj extends _int_object
 		return null;
 	}
 
-
 	public function get_bill_cust_data_object()
 	{
 		if(isset($this->cust_data_object))
@@ -2793,8 +2790,6 @@ class crm_bill_obj extends _int_object
 		}
 		$cust_rel_list = new object_list(array(
 			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"buyer" => $this->prop("customer"),
 			"seller" => $this->prop("impl")
 		));
@@ -2913,6 +2908,58 @@ class crm_bill_obj extends _int_object
 		return null;
 	}
 
+	/** Return all bill e-mail receivers as associative array
+		@attrib api=1 params=pos
+		@comment
+		@returns array
+			e-mail address => person object. Person object may be NULL or CL_CRM_PERSON
+		@errors
+	**/
+	public function get_receivers()
+	{
+		$bill_receivers = safe_array($this->meta("bill_receivers"));
+		return $bill_receivers;
+		//TODO: other receiving emails from elsewhere
+	}
+
+	/** Add bill e-mail receiver
+		@attrib api=1 params=pos
+		@param email type=CL_ML_MEMBER/string
+		@param person type=CL_CRM_PERSON
+		@returns void
+		@errors
+			throws awex_obj_type if a parameter is invalid
+	**/
+	public function add_receiver($email, object $person = null)
+	{
+		if(!is_email($email))
+		{
+			throw new awex_obj_type("Invalid e-mail address");
+		}
+
+		$bill_receivers = safe_array($this->meta("bill_receivers"));
+		$bill_receivers[$email] = null;
+		$this->set_meta("bill_receivers", $bill_receivers);
+		$this->save();
+		//TODO: person, don't store in meta
+	}
+
+	/** Remove bill e-mail receiver by email address
+		@attrib api=1 params=pos
+		@param email type=string
+		@returns void
+		@errors
+			throws awex_obj_prop if given email is not in receivers list
+	**/
+	public function remove_receiver($email)
+	{
+		$bill_receivers = safe_array($this->meta("bill_receivers"));
+		$bill_receivers[$email] = null;
+		$this->set_meta("bill_receivers", $bill_receivers);
+		$this->save();
+		//TODO
+	}
+
 	 /** returns bill id
 		@attrib api=1 all_args=1
 	@param no required type=int
@@ -2924,14 +2971,10 @@ class crm_bill_obj extends _int_object
 	{
 		$bills = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"bill_no" => $arr["no"],
+			"bill_no" => $arr["no"]
 		));
-		if(sizeof($bills->count()))
-		{
-			$ids = $bills->ids();
-			return reset($ids);
-		}
+		$id = $bills->count() ? (int) $bills->begin()->id() : 0;
+		return $id;
 	}
 
 	 /** returns bill overdue charge
@@ -3149,10 +3192,9 @@ class crm_bill_obj extends _int_object
 			{
 				if(in_array($p->id() , $d["impl"])) $c+=$d["time_real"];
 			}
-		//	var_dump($data);
 		}
 		return $c;
 	}
 }
 
-?>
+
