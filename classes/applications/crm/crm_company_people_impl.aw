@@ -478,48 +478,47 @@ class crm_company_people_impl extends class_base
 		$section_img = html::img(array("url" => icons::get_icon_url(CL_CRM_SECTION), "border" => "0", "alt" => t("&Uuml;ksus")));
 		$profession_img = html::img(array("url" => icons::get_icon_url(CL_CRM_PROFESSION), "border" => "0", "alt" => t("Amet")));
 
-		$sections = $this_o->get_sections($parent);
-		if($sections->count())
+		if ($parent->is_a(CL_CRM_COMPANY) or $parent->is_a(CL_CRM_SECTION))
 		{
-			$section = $sections->begin();
-			$section_id = $section->id();
-
-			do
+			$sections = $this_o->get_sections($parent);
+			if($sections->count())
 			{
-				$ccp = (isset($_SESSION["crm_cut_p"][$section_id]) ? "#E2E2DB" : "");
-				// This produces an error if there are more than 2 words in the name.
-				$table->define_data(array(
-					"image" => $section_img,
-					"name" => $section->name(),
-					"id" => $section_id,
-					"cutcopied" => $ccp
-				));
+				$section = $sections->begin();
+				$section_id = $section->id();
+
+				do
+				{
+					$ccp = (isset($_SESSION["crm_cut_p"][$section_id]) ? "#E2E2DB" : "");
+					// This produces an error if there are more than 2 words in the name.
+					$table->define_data(array(
+						"image" => $section_img,
+						"name" => $section->name(),
+						"id" => $section_id,
+						"cutcopied" => $ccp
+					));
+				}
+				while ($section = $sections->next());
 			}
-			while ($section = $sections->next());
-		}
 
-		$professions = $this_o->get_professions($parent);
-		if($professions->count())
-		{
-			$profession = $professions->begin();
-			$profession_id = $profession->id();
-
-			do
+			$professions = $this_o->get_professions($parent);
+			if($professions->count())
 			{
-				$ccp = (isset($_SESSION["crm_cut_p"][$profession_id]) ? "#E2E2DB" : "");
-				// This produces an error if there are more than 2 words in the name.
-				$table->define_data(array(
-					"image" => $profession_img,
-					"name" => $profession->name(),
-					"id" => $profession_id,
-					"cutcopied" => $ccp
-				));
-			}
-			while ($profession = $professions->next());
-		}
+				$profession = $professions->begin();
+				$profession_id = $profession->id();
 
-		foreach($parent->connections_from(array("type" => "RELTYPE_PROFESSIONS")) as $c)
-		{
+				do
+				{
+					$ccp = (isset($_SESSION["crm_cut_p"][$profession_id]) ? "#E2E2DB" : "");
+					// This produces an error if there are more than 2 words in the name.
+					$table->define_data(array(
+						"image" => $profession_img,
+						"name" => $profession->name(),
+						"id" => $profession_id,
+						"cutcopied" => $ccp
+					));
+				}
+				while ($profession = $professions->next());
+			}
 		}
 	}
 

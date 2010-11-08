@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/video.aw,v 1.11 2009/04/27 14:19:29 hannes Exp $
-// video.aw - Video 
+
+// video.aw - Video
 /*
 
-@classinfo syslog_type=ST_VIDEO relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 
 @default table=objects
@@ -52,7 +52,7 @@
 	@caption T&otilde;ge
 
 @default group=transl
-	
+
 	@property transl type=callback callback=callback_get_transl
 	@caption T&otilde;lgi
 
@@ -80,29 +80,12 @@ class video extends class_base
 		);
 	}
 
-	function get_property($arr)
+	function _set_transl(&$arr)
 	{
-		$prop = &$arr["prop"];
 		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		};
+		$this->trans_save($arr, $this->trans_props);
 		return $retval;
 	}
-
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			case "transl":
-				$this->trans_save($arr, $this->trans_props);
-				break;
-		}
-		return $retval;
-	}	
 
 	function parse_alias($arr)
 	{
@@ -128,7 +111,7 @@ class video extends class_base
 			$this->read_template("show.tpl");
 		}
 
-		$im = get_instance(CL_IMAGE);
+		$im = new image();
 
 		$image = "";
 		$imc = reset($ob->connections_from(array("type" => "RELTYPE_IMAGE")));
@@ -163,10 +146,10 @@ class video extends class_base
 				));
 			}
 		}
-	
+
 		return $this->parse();
 	}
-	
+
 	function request_execute($o)
 	{
 		$this->read_template("autoplay.tpl");
@@ -176,12 +159,12 @@ class video extends class_base
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}
 		else
-		if ($arr["id"] == "trans" && aw_ini_get("user_interface.content_trans") == 1)
+		if ($arr["id"] === "trans" && aw_ini_get("user_interface.content_trans") == 1)
 		{
 			return false;
 		}
@@ -193,4 +176,3 @@ class video extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 }
-?>

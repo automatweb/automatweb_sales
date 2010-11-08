@@ -816,7 +816,7 @@ class mrp_workspace extends class_base
 			"clid" => CL_MRP_WORKSPACE
 		));
 
-		$this->import = get_instance(CL_MRP_PRISMA_IMPORT);
+		$this->import = new mrp_prisma_import();
 	}
 
 	/**
@@ -864,7 +864,7 @@ class mrp_workspace extends class_base
 	public function _get_res_settings_tb($arr)
 	{
 		$pt = $this->_get_res_set_pt($arr);
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(isset($arr["request"]["res_fld"]) ? array(CL_MRP_RESOURCE_SETTING_CATEGORY, CL_MRP_RESOURCE_SETTING) : array(CL_MRP_RESOURCE_SETTING_CATEGORY), $pt, 7);
 		$tb->add_delete_button();
 	}
@@ -920,7 +920,7 @@ class mrp_workspace extends class_base
 	public function _get_res_formats_tb($arr)
 	{
 		$pt = $this->_get_res_fmt_pt($arr);
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(isset($arr["request"]["res_fld"]) ? array(CL_MRP_RESOURCE_FORMAT_CATEGORY, CL_MRP_ORDER_PRINT_FORMAT) : array(CL_MRP_RESOURCE_FORMAT_CATEGORY), $pt, 8);
 		$tb->add_delete_button();
 	}
@@ -1714,7 +1714,7 @@ class mrp_workspace extends class_base
 					{
 						case "subcontracts":
 							### update schedule
-							$schedule = get_instance (CL_MRP_SCHEDULE);
+							$schedule = new mrp_schedule();
 							$schedule->create (array("mrp_workspace" => $this_object->id()));
 
 							$this->create_subcontract_jobs_list ($arr);
@@ -1731,7 +1731,7 @@ class mrp_workspace extends class_base
 						case "overdue":
 						case "subcontracts":
 							### update schedule
-							$schedule = get_instance (CL_MRP_SCHEDULE);
+							$schedule = new mrp_schedule();
 							$schedule->create (array("mrp_workspace" => $this_object->id()));
 
 						default:
@@ -1831,7 +1831,7 @@ class mrp_workspace extends class_base
 					$labels[$o["state"]] = $this->states[$o["state"]]." (".$data[$o["state"]].")";
 				}
 
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 				$c->set_type(GCHART_PIE_3D);
 				$c->set_size(array(
 					"width" => 500,
@@ -1908,7 +1908,7 @@ class mrp_workspace extends class_base
 					}
 				}
 				$labels[0] = sprintf(t("(M&Auml;&Auml;RAMATA) (%u)"), $data[0]);
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 				$c->set_type(GCHART_PIE_3D);
 				$c->set_size(array(
 					"width" => 800,
@@ -1978,7 +1978,7 @@ class mrp_workspace extends class_base
 					$labels[$key] = $names[$key]." (".$data[$key].")";
 				}
 
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 				$c->set_type(GCHART_PIE_3D);
 				$c->set_size(array(
 					"width" => 500,
@@ -1998,7 +1998,7 @@ class mrp_workspace extends class_base
 
 			case "master_schedule_chart":
 				### update schedule
-				$schedule = get_instance (CL_MRP_SCHEDULE);
+				$schedule = new mrp_schedule();
 				$schedule->create (array("mrp_workspace" => $this_object->id()));
 
 				$prop["value"] = $this->create_schedule_chart($arr);
@@ -2076,7 +2076,7 @@ class mrp_workspace extends class_base
 
 			case "hr_time_format":
 				$prop["options"] = array(
-					0 => t("Tunnid k&auml;ndendmurruna"),
+					0 => t("Tunnid k&uuml;mnendmurruna"),
 					1 => t("Tunnid ja minutid"),
 				);
 				$prop["value"] = isset($prop["value"]) ? (int)$prop["value"] : 0;
@@ -2114,7 +2114,7 @@ class mrp_workspace extends class_base
 				}
 
 				### update schedule
-				$schedule = get_instance (CL_MRP_SCHEDULE);
+				$schedule = new mrp_schedule();
 				$schedule->create (array("mrp_workspace" => $this_object->id()));
 
 				$this->_printer_jobs($arr);
@@ -2346,7 +2346,7 @@ class mrp_workspace extends class_base
 			ksort($data[$pid]);
 		}
 
-		$c = &$arr["prop"]["vcl_inst"];
+		$c = $arr["prop"]["vcl_inst"];
 		$c->use_cache(false);
 		$c->set_type(GCHART_LINE_CHART);
 		$c->set_size(array(
@@ -2470,7 +2470,7 @@ class mrp_workspace extends class_base
 			$data[$k] = $_data[$k];
 		}
 
-		$c = &$arr["prop"]["vcl_inst"];
+		$c = $arr["prop"]["vcl_inst"];
 		$c->use_cache(false);
 		$c->set_type(GCHART_PIE_3D);
 		$c->set_size(array(
@@ -2490,7 +2490,7 @@ class mrp_workspace extends class_base
 
 	public function _get_charts_clients_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_item(0, array(
 			"id" => "all",
 			"name" => t("K&otilde;ik"),
@@ -2554,7 +2554,7 @@ class mrp_workspace extends class_base
 
 	public function _init_persons_quantity_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_caption(t("T&uuml;kiarvestus"));
 
 		$t->define_field(array(
@@ -2605,7 +2605,7 @@ class mrp_workspace extends class_base
 	public function _get_persons_quantity_tbl($arr)
 	{
 		$this->_init_persons_quantity_tbl($arr);
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		list($from, $to) = $this->get_hours_from_to();
 		$groupby = array_values(array_merge(array("person"), safe_array($arr["obj_inst"]->prop("poo_quantity_broup_by"))));
@@ -2632,7 +2632,7 @@ class mrp_workspace extends class_base
 
 	public function _get_poo_started_finished_by($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_titlebar_display(false);
 		$t->set_sortable(false);
 
@@ -2776,7 +2776,7 @@ class mrp_workspace extends class_base
 				$years[date("Y", $i)] = date("Y", $i);
 			}
 
-			$c = &$arr["prop"]["vcl_inst"];
+			$c = $arr["prop"]["vcl_inst"];
 			$c->set_type(GCHART_LINE_CHARTXY);
 			$c->set_size(array(
 				"width" => 800,
@@ -2833,7 +2833,7 @@ class mrp_workspace extends class_base
 
 	public function _get_persons_jobs_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->set_caption("Tehtud t&ouml;&ouml;d");
 
@@ -3126,8 +3126,18 @@ class mrp_workspace extends class_base
 		$end = is_numeric($end) ? ($end + 24*3600 -1) : time();
 		$span = $end - $start;
 
-		$res = array();
-		$inst = get_instance("mrp_resource");
+		$res = array(
+			"unavail" => array(),
+			"free" => array(),
+			"real" => array(),
+			"over_plan" => array(),
+			"under_plan" => array(),
+			"paus" => array(),
+			"name" => array(),
+			"plan" => array(),
+			"fake" => array()
+		);
+		$inst = new mrp_resource();
 		foreach(array_merge($resource_tree->to_list()->arr(), array(obj($resources_folder))) as $o)
 		{
 			if($o->class_id() == CL_MRP_RESOURCE)
@@ -3187,6 +3197,7 @@ class mrp_workspace extends class_base
 
 			$res["plan"][$k] = (int) (isset($res["plan"][$k]) ? $res["plan"][$k] + $plan : $plan);
 		}
+
 		foreach($res["free"] as $k => $v)
 		{
 			$res["real"][$k] = round($res["real"][$k] / $span * 100, 2);
@@ -3354,7 +3365,7 @@ class mrp_workspace extends class_base
 				$colors[] = str_repeat(dechex($i), 2)."ceec";
 			}
 
-			$c = &$arr["prop"]["vcl_inst"];
+			$c = $arr["prop"]["vcl_inst"];
 			$c->set_type(GCHART_PIE_3D);
 			$c->set_size(array(
 				"width" => 400,
@@ -3651,7 +3662,7 @@ class mrp_workspace extends class_base
 //		$c = $arr["obj_inst"]->prop("owner");
 //		$o = obj($c);
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		if(!isset($arr["request"]["material"]))
 		{
@@ -3660,7 +3671,7 @@ class mrp_workspace extends class_base
 
 		$t->set_selected_item($arr["request"]["material"]);
 		$t->start_tree(array(
-			"type" => TREE_DHTML,
+			"type" => treeview::TYPE_DHTML,
 			"persist_state" => true,
 			"tree_id" => "grp_material_tree",
 		));
@@ -3703,9 +3714,7 @@ class mrp_workspace extends class_base
 		}
 		$ol = new object_list(array(
 			"class_id" => array(CL_SHOP_PRODUCT_CATEGORY),
-			"site_id" => array(),
-			"lang_id" => array(),
-			"parent" => $parent,
+			"parent" => $parent
 		));
 
 		foreach($ol->names() as $id => $name)
@@ -3721,8 +3730,6 @@ class mrp_workspace extends class_base
 
 		$products = new object_list(array(
 			"class_id" => array(CL_SHOP_PRODUCT),
-			"site_id" => array(),
-			"lang_id" => array(),
 			"CL_SHOP_PRODUCT.RELTYPE_CATEGORY" => $parent,
 		));
 		foreach($products->names() as $id => $name)
@@ -3741,11 +3748,12 @@ class mrp_workspace extends class_base
 		$c = $arr["obj_inst"]->prop("owner");
 		$o = obj($c);
 
-		$i = get_instance(CL_CRM_COMPANY);
+		$i = new crm_company();
 		$i->active_node = empty($arr["request"]["cat"]) ? (empty($arr["request"]["unit"]) ? $c : $arr["request"]["unit"]) : $arr["request"]["cat"];
 
-		$t = &$arr["prop"]["vcl_inst"];
-		if(empty($_GET["unit"]))
+		$t = $arr["prop"]["vcl_inst"];
+
+		if(empty($arr["request"]["unit"]))
 		{
 			$t->set_selected_item($c);
 		}
@@ -3759,7 +3767,7 @@ class mrp_workspace extends class_base
 			)),
 		));
 		$i->generate_tree(array(
-			"tree_inst" => &$t,
+			"tree_inst" => $t,
 			"obj_inst" => $o,
 			"node_id" => $c,
 			"conn_type" => "RELTYPE_SECTION",
@@ -3785,10 +3793,10 @@ class mrp_workspace extends class_base
 		$c = $arr["obj_inst"]->prop("owner");
 		$o = obj($c);
 
-		$i = get_instance(CL_CRM_COMPANY);
+		$i = new crm_company();
 		$i->active_node = empty($arr["request"]["cat"]) ? (empty($arr["request"]["unit"]) ? $c : $arr["request"]["unit"]) : $arr["request"]["cat"];
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		if(empty($_GET["unit"]))
 		{
 			$t->set_selected_item($c);
@@ -3803,7 +3811,7 @@ class mrp_workspace extends class_base
 			)),
 		));
 		$i->generate_tree(array(
-			"tree_inst" => &$t,
+			"tree_inst" => $t,
 			"obj_inst" => $o,
 			"node_id" => $c,
 			"conn_type" => "RELTYPE_SECTION",
@@ -3843,7 +3851,7 @@ class mrp_workspace extends class_base
 		### resource tree
 		$resources_folder = $this_object->prop ("resources_folder");
 
-		if($arr["request"]["group"] == "my_resources" || $arr["request"]["group"] == "grp_printer_general")
+		if ($this->use_group === "my_resources" || $this->use_group === "grp_printer_general")
 		{
 			$resids = $this->get_cur_printer_resources(array(
 				"ws" => $arr["obj_inst"],
@@ -3891,7 +3899,7 @@ class mrp_workspace extends class_base
 		// archived res removal backwards compatible version
 		$this->mrp_remove_resources_from_tree = array();
 		$resource_tree->foreach_cb(array(
-			"func" => array(&$this, "cb_remove_inactive_res"),
+			"func" => array($this, "cb_remove_inactive_res"),
 			"save" => false,
 		));
 
@@ -3901,16 +3909,15 @@ class mrp_workspace extends class_base
 		}
 		// END archived res removal backwards compatible version
 
-		classload("vcl/treeview");
 		$tree_prms = array(
 			"tree_opts" => array(
-				"type" => TREE_DHTML,
+				"type" => treeview::TYPE_DHTML,
 				"tree_id" => "resourcetree",
 				"persist_state" => true,
 			),
 			"root_item" => obj ($resources_folder),
 			"ot" => $resource_tree,
-			"var" => $attrb,
+			"var" => "mrp_tree_active_item",
 			"node_actions" => array (
 				CL_MRP_RESOURCE => "change",
 			),
@@ -3921,7 +3928,7 @@ class mrp_workspace extends class_base
 			unset($tree_prms["node_actions"]);
 		}
 
-		$treeview_inst = new treeview;
+		$treeview_inst = new treeview();
 		$tree = $treeview_inst->tree_from_objects($tree_prms);
 		// Hack the tree with reload stuff
 		foreach($tree->get_item_ids() as $id)
@@ -3930,6 +3937,7 @@ class mrp_workspace extends class_base
 			$item["url"] = "javascript:$('[name=resource]').val('".$id."'); update_material_table();";
 			$tree->set_item($item);
 		}
+
 		if (isset($arr["prop"]["value"]))
 		{
 			$arr["prop"]["value"] .= $tree->finalize_tree ();
@@ -3938,8 +3946,6 @@ class mrp_workspace extends class_base
 		{
 			$arr["prop"]["value"] = $tree->finalize_tree ();
 		}
-
-
 	}
 
 	public function _get_persons_resource_span_tree($arr)
@@ -3963,12 +3969,12 @@ class mrp_workspace extends class_base
 	}
 	public function _get_grp_material_time_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$var = "timespan";
 		$tv->set_selected_item(isset($arr["request"][$var]) ? $arr["request"][$var] : "period_week");
 
 		$tv->start_tree(array(
-			"type" => TREE_DHTML,
+			"type" => treeview::TYPE_DHTML,
 			"persist_state" => true,
 			"tree_id" => "proj_bills_time_tree",
 		));
@@ -4007,7 +4013,7 @@ class mrp_workspace extends class_base
 
 	function _get_time_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_selected_item(isset($arr["request"]["timespan"]) ? $arr["request"]["timespan"] : "all");
 		$branches = array(
 			0 => array(
@@ -4049,7 +4055,7 @@ class mrp_workspace extends class_base
 
 	function _get_projects_time_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_selected_item(isset($arr["request"]["timespan"]) ? $arr["request"]["timespan"] : "all");
 		$branches = array(
 			0 => array(
@@ -4119,7 +4125,7 @@ class mrp_workspace extends class_base
 			return PROP_IGNORE;
 		}
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		// Init
 		$t->define_field(array(
@@ -4182,7 +4188,7 @@ class mrp_workspace extends class_base
 			),
 		);
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => $kf,
 			"caption" => $kd[$kf]["caption"],
@@ -4270,7 +4276,7 @@ class mrp_workspace extends class_base
 
 	function _get_pp_birthdays($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
@@ -4331,7 +4337,7 @@ class mrp_workspace extends class_base
 
 	function _get_pp_resources($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
@@ -4352,7 +4358,7 @@ class mrp_workspace extends class_base
 
 		if(count($rs) > 0)
 		{
-			$inst = get_instance(CL_MRP_RESOURCE);
+			$inst = new mrp_resource();
 
 			foreach($rs as $r_id)
 			{
@@ -4373,7 +4379,7 @@ class mrp_workspace extends class_base
 
 	function _get_printer_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$branches = array(
 			"grp_printer_current" => "Jooksvad t&ouml;&ouml;d",
@@ -4489,7 +4495,7 @@ class mrp_workspace extends class_base
 				if ($requested_period and !$saved_period)
 				{
 					### add archiving scheduler
-					$scheduler = get_instance("scheduler");
+					$scheduler =  new scheduler();
 					$event = $this->mk_my_orb("archive_projects", array("id" => $this_object->id()));
 
 					$scheduler->add(array(
@@ -4502,7 +4508,7 @@ class mrp_workspace extends class_base
 				elseif (!$requested_period and $saved_period)
 				{
 					### delete archiving scheduler
-					$scheduler = get_instance("scheduler");
+					$scheduler = new scheduler();
 					$event = $this->mk_my_orb("archive_projects", array("id" => $this_object->id()));
 					$scheduler->remove(array(
 						"event" => $event,
@@ -4511,7 +4517,7 @@ class mrp_workspace extends class_base
 				elseif ($requested_period and $saved_period and $requested_period != $saved_period)
 				{
 					### delete old event
-					$scheduler = get_instance("scheduler");
+					$scheduler = new scheduler();
 					$event = $this->mk_my_orb("archive_projects", array("id" => $this_object->id()));
 					$scheduler->remove(array(
 						"event" => $event,
@@ -4667,7 +4673,7 @@ class mrp_workspace extends class_base
 
 	// method only needed in self::create_resources_tree() method archived res removal backwards compatible version
 //	function cb_remove_inactive_res(&$o, $parent)
-	function cb_remove_inactive_res(&$o)
+	function cb_remove_inactive_res(object $o)
 	{
 		if (CL_MRP_RESOURCE == $o->class_id() and MRP_STATUS_RESOURCE_INACTIVE == $o->prop("state"))
 		{
@@ -4679,8 +4685,6 @@ class mrp_workspace extends class_base
 	{
 		$filter = array();
 		$filter["class_id"] = CL_MRP_RESOURCE_OPERATOR;
-		$filter["site_id"] = array();
-		$filter["lang_id"] = array();
 		$person = get_current_person();
 		if(is_object($person))
 		{
@@ -4722,7 +4726,7 @@ class mrp_workspace extends class_base
 		### resource tree
 		$resources_folder = $this_object->prop ("resources_folder");
 
-		if($arr["request"]["group"] == "my_resources" || $arr["request"]["group"] == "grp_printer_general")
+		if($this->use_group === "my_resources" || $this->use_group === "grp_printer_general")
 		{
 			$resids = $this->get_cur_printer_resources(array(
 				"ws" => $arr["obj_inst"],
@@ -4770,7 +4774,7 @@ class mrp_workspace extends class_base
 		// archived res removal backwards compatible version
 		$this->mrp_remove_resources_from_tree = array();
 		$resource_tree->foreach_cb(array(
-			"func" => array(&$this, "cb_remove_inactive_res"),
+			"func" => array($this, "cb_remove_inactive_res"),
 			"save" => false,
 		));
 
@@ -4780,10 +4784,9 @@ class mrp_workspace extends class_base
 		}
 		// END archived res removal backwards compatible version
 
-		classload("vcl/treeview");
 		$tree_prms = array(
 			"tree_opts" => array(
-				"type" => TREE_DHTML,
+				"type" => treeview::TYPE_DHTML,
 				"tree_id" => "resourcetree",
 				"persist_state" => true,
 			),
@@ -4876,7 +4879,7 @@ class mrp_workspace extends class_base
 		$table->define_field(array(
 			"name" => "order",
 			"caption" => t("Jrk."),
-			"callback" => array (&$this, "order_field_callback"),
+			"callback" => array ($this, "order_field_callback"),
 			"callb_pass_row" => false,
 			"sortable" => 1,
 			"numeric" => 1
@@ -5095,9 +5098,9 @@ class mrp_workspace extends class_base
 			}
 		}
 
-		$tree = get_instance("vcl/treeview");
+		$tree = new treeview();
 		$tree->start_tree (array (
-			"type" => TREE_DHTML,
+			"type" => treeview::TYPE_DHTML,
 			"tree_id" => "projecttree",
 			"persist_state" => 0,
 			"has_root" => 1,
@@ -5313,7 +5316,7 @@ class mrp_workspace extends class_base
 					"name" => "priority",
 					"chgbgcolor" => "bgcolour_overdue",
 					"caption" => t("Prio&shy;ri&shy;teet"),
-					"callback" => array (&$this, "priority_field_callback"),
+					"callback" => array ($this, "priority_field_callback"),
 					"callb_pass_row" => false,
 					"sortable" => 1,
 				));
@@ -5724,7 +5727,7 @@ class mrp_workspace extends class_base
 	{
 		$time =  time();
 		$this_object = $arr["obj_inst"];
-		$chart = get_instance ("vcl/gantt_chart");
+		$chart = new gantt_chart();
 		$columns = (int) (isset($arr["request"]["mrp_chart_length"]) ? $arr["request"]["mrp_chart_length"] : 7);
 		$range_start = (int) (isset($arr["request"]["mrp_chart_start"]) ? $arr["request"]["mrp_chart_start"] : $this->get_week_start ());
 		$range_end = (int) ($range_start + $columns * 86400);
@@ -5748,7 +5751,7 @@ class mrp_workspace extends class_base
 		));
 		$toplevel_categories->add(new object($this_object->prop ("resources_folder")));
 
-		$mrp_schedule = get_instance(CL_MRP_SCHEDULE);
+		$mrp_schedule = new mrp_schedule();
 
 		for ($category = $toplevel_categories->begin(); !$toplevel_categories->end(); $category = $toplevel_categories->next())
 		{
@@ -6443,7 +6446,7 @@ class mrp_workspace extends class_base
 			$co = $o->instance();
 			$co->callback_on_load($arr);
 
-			$i = get_instance("applications/crm/crm_company_people_impl");
+			$i = new crm_company_people_impl();
 			$i->_get_contact_toolbar($arr);
 
 			$tb = $arr["prop"]["vcl_inst"];
@@ -6482,7 +6485,7 @@ class mrp_workspace extends class_base
 			$co = $o->instance();
 			$co->callback_on_load($arr);
 
-			$i = get_instance("applications/crm/crm_company_people_impl");
+			$i = new crm_company_people_impl();
 			$i->$fun($arr);
 			$arr["obj_inst"] = $tmp;
 		}
@@ -6531,7 +6534,7 @@ class mrp_workspace extends class_base
 			$arr['return_url'] = get_ru();
 		}
 
-		aw_register_header_text_cb(array(&$this, "make_aw_header"));
+		aw_register_header_text_cb(array($this, "make_aw_header"));
 
 		if ($group !== "grp_worksheet")
 		{
@@ -6626,7 +6629,7 @@ class mrp_workspace extends class_base
 		}
 	}
 
-	function _init_user_mgr(&$t)
+	function _init_user_mgr($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -6998,7 +7001,7 @@ class mrp_workspace extends class_base
 		}
 	}
 
-	function _req_create_customers_tree($co, &$t)
+	function _req_create_customers_tree($co, $t)
 	{
 		foreach($co->connections_from(array("type" => "RELTYPE_CATEGORY")) as $c)
 		{
@@ -7048,7 +7051,7 @@ class mrp_workspace extends class_base
 		return $count;
 	}
 
-	function _init_cust_list_t(&$t)
+	function _init_cust_list_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -7192,7 +7195,7 @@ class mrp_workspace extends class_base
 		return $retval;
 	}
 
-	function _init_cust_list_proj_t(&$t)
+	function _init_cust_list_proj_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -7310,14 +7313,14 @@ class mrp_workspace extends class_base
 	**/
 	function import_project($arr)
 	{
-		$i = get_instance(CL_MRP_PRISMA_IMPORT);
+		$i = new mrp_prisma_import();
 		$id = $i->import_project($arr["id"]);
 
 		header("Location: ".html::get_change_url($id)."&return_url=".urlencode(html::get_change_url(aw_ini_get("prisma.ws"))."&group=grp_projects"));
 		die();
 	}
 
-	function _init_printer_jobs_t(&$t, $grp)
+	function _init_printer_jobs_t($t, $grp)
 	{
 		if ("grp_printer_done" == $grp)
 		{
@@ -7370,7 +7373,7 @@ class mrp_workspace extends class_base
 			"chgbgcolor" => "bgcol",
 			"sortable" => 1,
 			"numeric" => 1,
-			"callback" => array(&$this, "pj_project_field_callback"),
+			"callback" => array($this, "pj_project_field_callback"),
 			"callb_pass_row" => true
 		));
 
@@ -7682,7 +7685,7 @@ class mrp_workspace extends class_base
 
 		$workers = $this->get_workers_for_resources($res);
 
-		$mrp_case = get_instance(CL_MRP_CASE);
+		$mrp_case = new mrp_case();
 
 		$cnt = 0;
 		foreach($jobs as $job)
@@ -8091,7 +8094,7 @@ class mrp_workspace extends class_base
 //!!!
 		);
 
-		if($arr["timespan"])
+		if(!empty($arr["timespan"]))
 		{
 			switch($arr["timespan"])
 			{
@@ -8242,7 +8245,7 @@ class mrp_workspace extends class_base
 	{
 		$arr["obj_inst"] = $job;
 		$arr["request"]["id"] = $job->id();
-		$j = get_instance(CL_MRP_JOB);
+		$j = new mrp_job();
 		$j->callback_on_load($arr);
 		$j->create_job_toolbar($arr);
 
@@ -8261,7 +8264,7 @@ class mrp_workspace extends class_base
 	function start ($arr)
 	{
 		$tmp = $arr;
-		$j = get_instance(CL_MRP_JOB);
+		$j = new mrp_job();
 		$arr["id"] = $arr["pj_job"];
 
 		$ud = parse_url($j->start($arr));
@@ -8290,7 +8293,7 @@ class mrp_workspace extends class_base
 	function done ($arr)
 	{
 		$tmp = $arr;
-		$j = get_instance(CL_MRP_JOB);
+		$j = new mrp_job();
 		$arr["id"] = $arr["pj_job"];
 
 		$ud = parse_url($j->done($arr));
@@ -8319,7 +8322,7 @@ class mrp_workspace extends class_base
 	function abort ($arr)
 	{
 		$tmp = $arr;
-		$j = get_instance(CL_MRP_JOB);
+		$j = new mrp_job();
 		$arr["id"] = $arr["pj_job"];
 		$job_id = $arr["id"];
 
@@ -8351,7 +8354,7 @@ class mrp_workspace extends class_base
 	function pause ($arr)
 	{
 		$tmp = $arr;
-		$j = get_instance(CL_MRP_JOB);
+		$j = new mrp_job();
 		$arr["id"] = $arr["pj_job"];
 
 		$ud = parse_url($j->pause($arr));
@@ -8380,7 +8383,7 @@ class mrp_workspace extends class_base
 	function scontinue ($arr)
 	{
 		$tmp = $arr;
-		$j = get_instance(CL_MRP_JOB);
+		$j = new mrp_job();
 		$arr["id"] = $arr["pj_job"];
 
 		$ud = parse_url($j->scontinue($arr));
@@ -8409,7 +8412,7 @@ class mrp_workspace extends class_base
 	function acontinue ($arr)
 	{
 		$tmp = $arr;
-		$j = get_instance(CL_MRP_JOB);
+		$j = new mrp_job();
 		$arr["id"] = $arr["pj_job"];
 
 		$ud = parse_url($j->acontinue($arr));
@@ -8438,7 +8441,7 @@ class mrp_workspace extends class_base
 	function end_shift ($arr)
 	{
 		$tmp = $arr;
-		$j = get_instance(CL_MRP_JOB);
+		$j = new mrp_job();
 		$arr["id"] = $arr["pj_job"];
 
 		$ud = parse_url($j->end_shift($arr));
@@ -8463,8 +8466,8 @@ class mrp_workspace extends class_base
 	function mrp_log($proj, $job, $msg, $comment = '')
 	{
 		///!!!! logging_disabled teha.
-		$this->quote(&$comment);
-		$this->quote(&$msg);
+		$this->quote($comment);
+		$this->quote($msg);
 		$this->db_query("INSERT INTO mrp_log (
 					project_id,job_id,uid,tm,message,comment
 				)
@@ -8835,7 +8838,6 @@ class mrp_workspace extends class_base
 	**/
 	function ajax_update_projects_table($arr)
 	{
-		classload("vcl/table");
 		$t = new vcl_table();
 
 		$arr["prop"] = array("vcl_inst" => $t);
@@ -9137,7 +9139,7 @@ class mrp_workspace extends class_base
 
 	function _pjp_case_wf($arr)
 	{
-		$case = get_instance(CL_MRP_CASE);
+		$case = new mrp_case();
 		$arr["no_edit"] = 1;
 		$job = obj($arr["request"]["pj_job"]);
 		$arr["obj_inst"] = obj($job->prop("project"));
@@ -9149,7 +9151,7 @@ class mrp_workspace extends class_base
 	{
 		$job = obj($arr["request"]["pj_job"]);
 		$t = $arr["prop"]["vcl_inst"];
-		$res = get_instance(CL_MRP_JOB);
+		$res = new mrp_job();
 		$res->draw_expense_list_table($t , $job);
 	}
 
@@ -9161,7 +9163,7 @@ class mrp_workspace extends class_base
 		}
 
 		$t = $arr["prop"]["vcl_inst"];
-		$res = get_instance(CL_MRP_RESOURCE);
+		$res = new mrp_resource();
 		$res->_init_job_list_table($t);
 		$t->define_field(array(
 			"name" => "resource",
@@ -9253,7 +9255,7 @@ END ajutine
 */
 
 		### add next archiving event to scheduler
-		$scheduler = get_instance("scheduler");
+		$scheduler = new scheduler();
 		$event = $this->mk_my_orb("archive_projects", array("id" => $this_object->id()));
 
 		$scheduler->add(array(
@@ -9291,9 +9293,9 @@ END ajutine
 			$bottom_level = isset($period_data[1]);
 			$this_object = obj($arr["this"]);
 
-			$tree = get_instance("vcl/treeview");
+			$tree = new treeview();
 			$tree->start_tree (array (
-				"type" => TREE_DHTML,
+				"type" => treeview::TYPE_DHTML,
 				"tree_id" => "projecttree",
 				"has_root" => false,
 				"persist_state" => 0,
@@ -9566,12 +9568,10 @@ END ajutine
 		switch($property)
 		{
 			case "material_stats_table":
-				classload("vcl/table");
 				$t = new vcl_table();
 				break;
 			case "grp_material_tree":
 			case "grp_material_time_tree":
-				classload("vcl/treeview");
 				$t = new treeview();
 				break;
 		}
@@ -9585,8 +9585,8 @@ END ajutine
 
 	function _get_material_stats_table($arr)
 	{
-		$group = $arr["request"]["grouping"];
-		$t = &$arr["prop"]["vcl_inst"];
+		$group = isset($arr["request"]["grouping"]) ? $arr["request"]["grouping"] : "";
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_caption(t("Materjalide kulu"));
 		$t->set_sortable(false);
 
@@ -9595,6 +9595,7 @@ END ajutine
 			"caption" => t("Materjal"),
 			"align" => "left"
 		));
+
 		if($group)
 		{
 			switch($group)
@@ -9628,8 +9629,8 @@ END ajutine
 					));
 					break;
 			}
-
 		}
+
 		$t->define_field(array(
 			"name" => "prog",
 			"caption" => t("Prognoositud"),
@@ -9647,11 +9648,13 @@ END ajutine
 			"caption" => t("&Uuml;hik"),
 			"align" => "left"
 		));
+
 		$filter = array();
 		if(isset($arr["request"]["timespan"]))
 		{
 			$filter = $this->get_range($arr["request"]["timespan"]);
 		}
+
 		if(isset($arr["request"]["material"]) && $this->can("view" , $arr["request"]["material"]))
 		{
 			$mat = obj($arr["request"]["material"]);
@@ -9664,6 +9667,7 @@ END ajutine
 				$filter["category"] = $arr["request"]["material"];
 			}
 		}
+
 		if(isset($arr["request"]["resource"]) && $this->can("view" , $arr["request"]["resource"]))
 		{
 			$mat = obj($arr["request"]["resource"]);
@@ -9676,6 +9680,7 @@ END ajutine
 				$filter["resource"] = $arr["obj_inst"]->get_menu_resources($arr["request"]["resource"]);
 			}
 		}
+
 		if(isset($arr["request"]["people"]))
 		{
 			if(sizeof(explode("_" , $arr["request"]["people"])) > 1)
@@ -9758,6 +9763,7 @@ END ajutine
 					$gp = "job.person";
 					break;
 			}
+
 			switch($group)
 			{
 				case "work":
@@ -9940,5 +9946,3 @@ END ajutine
 	// }
 // }
 // /* dbg */
-
-?>

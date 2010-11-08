@@ -28,7 +28,7 @@ else
 	$sf->vars(array("login" => $sf->parse("login")));
 }
 
-$a_plugins = Array();
+$a_plugins = array();
 if ( aw_ini_get("plugin.jquery") )
 {
 	$a_plugins["/automatweb/js/jquery_latest.aw"] = array("type" => "js");
@@ -121,25 +121,25 @@ if (strpos($str, "var aw_flash_"))
 if (isset($_GET["TPL"]) and $_GET["TPL"] === "1")
 {
 	// fix for logged out users - dint show templates after page refresh
-	$cache = get_instance('cache');
 	if (aw_global_get("uid")=="")
 	{
-		if (strlen($cache->file_get("tpl_equals_1_cache_".aw_global_get("section")))==0)
+		if (strlen(cache::file_get("tpl_equals_1_cache_".aw_global_get("section")))==0)
 		{
-			$cache->file_set("tpl_equals_1_cache_".aw_global_get("section"), aw_global_get("TPL=1"));
+			cache::file_set("tpl_equals_1_cache_".aw_global_get("section"), aw_global_get("TPL=1"));
 		}
 		else
 		{
-			aw_global_set("TPL=1", $cache->file_get("tpl_equals_1_cache_".aw_global_get("section")));
+			aw_global_set("TPL=1", cache::file_get("tpl_equals_1_cache_".aw_global_get("section")));
 		}
 	}
 	else
 	{
-		$cache->file_set("tpl_equals_1_cache_".aw_global_get("section"), aw_global_get("TPL=1"));
+		cache::file_set("tpl_equals_1_cache_".aw_global_get("section"), aw_global_get("TPL=1"));
 	}
 
 	$sf->read_template("debug/tpl_equals_1.tpl");
 	eval (aw_global_get("TPL=1"));
+	$tmp = "";
 	foreach ($_aw_tpl_equals_1 as $key=>$var)
 	{
 		$count = 0;
@@ -189,4 +189,3 @@ if (filectime(aw_ini_get("cache.page_cache")."/temp/lmod") < (time() - 3600))
 	$m = get_instance("scheduler");
 	$m->static_sched(array());
 }
-?>

@@ -77,7 +77,7 @@ class relationmgr extends aw_template
 		}
 		$cli->finish_output(array(
 			"method" => "GET",
-			"action" => $arr["srch"] == 1 ? "disp_relmgr" : "submit",
+			"action" => !empty($arr["srch"]) ? "disp_relmgr" : "submit",
 			"submit" => "no",
 			"data" => array(
 				"orb_class" => "relationmgr",
@@ -643,17 +643,24 @@ class relationmgr extends aw_template
 			foreach($this->reltypes as $k => $v)
 			{
 				$single_select = "capt_new_object";
-				$sele = NULL;
-				$vals = $this->true_rel_classes[$k];
-				$vals = $this->mk_kstring($vals);
 
-				if (isset($this->true_rel_classes[$k][$objtype]))
+				if (isset($this->true_rel_classes[$k]))
 				{
-					$sele = $objtype;
+					$vals = $this->true_rel_classes[$k];
+					$vals = $this->mk_kstring($vals);
+
+					if (isset($this->true_rel_classes[$k][$objtype]))
+					{
+						$sele = $objtype;
+					}
+					else
+					{
+						$sele = key($this->true_rel_classes[$k]);
+					}
 				}
 				else
 				{
-					$sele = key($this->true_rel_classes[$k]);
+					$sele = $vals = null;
 				}
 
 				if(!empty($vals))

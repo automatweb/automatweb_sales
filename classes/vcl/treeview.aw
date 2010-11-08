@@ -48,6 +48,20 @@ define("DATA_IN_PLACE",3);
 
 class treeview extends class_base
 {
+	const TYPE_HTML = 1;
+	const TYPE_DHTML = 3;
+	const TYPE_DHTML_WITH_CHECKBOXES = 4;
+	const TYPE_DHTML_WITH_BUTTONS = 5;
+
+	// does this tree type support loading branches on-demand?
+	const LOAD_ON_DEMAND = 1;
+
+	// does this tree type support persist state (using cookies)
+	const PERSIST_STATE = 2;
+
+	// for load on demand, to show that subelemenets are loaded and no load-on-demand is used anymore
+	const DATA_IN_PLACE = 3;
+
 	var $only_one_level_opened = 0;
 	var $level;
 	var $selected_item;
@@ -318,7 +332,6 @@ class treeview extends class_base
 
 		@examples
 
-		classload('vcl/treeview');
 		$t = new treeview();
 		$t->start_tree(array(
 			'type' => TREE_DHTML,

@@ -85,6 +85,18 @@ class relpicker extends  core
 	function create_relpicker($arr)
 	{
 		extract($arr);
+		$oid = isset($arr["oid"]) ? $arr["oid"] : 0;
+		$value = isset($arr["value"]) ? $arr["value"] : 0;
+		$options = isset($arr["options"]) ? $arr["options"] : array();
+		$no_sel = isset($arr["no_sel"]) ? $arr["no_sel"] : 0;
+		$no_edit = isset($arr["no_edit"]) ? $arr["no_edit"] : 0;
+		$no_search = isset($arr["no_search"]) ? $arr["no_search"] : 0;
+		$disabled = isset($arr["disabled"]) ? $arr["disabled"] : 0;
+		$multiple = isset($arr["multiple"]) ? $arr["multiple"] : 0;
+		$size = isset($arr["size"]) ? $arr["size"] : 1;
+		$width = isset($arr["width"]) ? $arr["width"] : 0;
+		$automatic = isset($arr["automatic"]) ? $arr["automatic"] : 0;
+		$buttonspos = isset($arr["buttonspos"]) ? $arr["buttonspos"] : 0;
 
 		if(!$this->can("view", $oid))
 		{
@@ -93,7 +105,7 @@ class relpicker extends  core
 
 		$o = new object($oid);
 		$relinfo = $o->get_relinfo();
-		$clids = $relinfo[$reltype]["clid"];
+		$clids = isset($relinfo[$reltype]["clid"]) ? $relinfo[$reltype]["clid"] : array();
 
 		if($value)
 		{
@@ -103,10 +115,9 @@ class relpicker extends  core
 		{
 			$selected = $o->prop($property);
 		}
-
-		if(!is_array($options))
+		else
 		{
-			$options = array();
+			$selected = 0;
 		}
 
 		if($no_sel != 1)
@@ -116,7 +127,7 @@ class relpicker extends  core
 
 		// generate option list
 		// if automatic is set, then create a list of all properties of that type
-		if (isset($automatic))
+		if ($automatic)
 		{
 			foreach($clids as $clid)
 			{
@@ -124,8 +135,6 @@ class relpicker extends  core
 				{
 					$olist = new object_list(array(
 						"class_id" => $clid,
-						"site_id" => array(),
-						"lang_id" => array(),
 						"brother_of" => new obj_predicate_prop("id")
 					));
 					$names = $olist->names();
@@ -194,7 +203,7 @@ class relpicker extends  core
 		}
 		elseif(is_array($selected) && !$no_edit)
 		{
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu(str_replace(array("[", "]"), "", $name)."_rp_editbtn");
 			foreach($selected as $id)
 			{
@@ -214,7 +223,7 @@ class relpicker extends  core
 		if(!$no_edit)
 		{
 			$clss = aw_ini_get("classes");
-			if (count($clid) > 1)
+			if (count($clids) > 1)
 			{
 				$pm = new popup_menu();
 				$pm->begin_menu($name."_relp_pop");
@@ -897,5 +906,3 @@ class relpicker extends  core
 		}
 	}
 }
-
-?>

@@ -1,9 +1,6 @@
 <?php
 // aw_table.aw - generates the html for tables - you just have to feed it the data
 //
-/*
-@classinfo  maintainer=kristo
-*/
 
 class aw_table extends aw_template
 {
@@ -3321,7 +3318,7 @@ class vcl_table extends aw_table
 			The class_id of the objects in the table, for reading property captions
 
 	**/
-	function table_from_ol(&$ol, $props, $clid)
+	function table_from_ol($ol, $props, $clid)
 	{
 		$tmp = obj();
 		$tmp->set_class_id($clid);
@@ -3333,39 +3330,43 @@ class vcl_table extends aw_table
 		$ps["modified"]["caption"] = t("Muudetud");
 		foreach($props as $prop)
 		{
-			$capt = $ps[$prop]["caption"];
-			if ($prop == "createdby_person")
+			if (isset($ps[$prop]["caption"]))
 			{
-				$capt = t("Looja");
+				$capt = $ps[$prop]["caption"];
+				if ($prop === "createdby_person")
+				{
+					$capt = t("Looja");
+				}
+				if ($prop === "modifiedby_person")
+				{
+					$capt = t("Muutja");
+				}
+				$d = array(
+					"name" => $prop,
+					"caption" => $capt,
+					"align" => "center",
+					"sortable" => 1
+				);
+
+				if ($prop === "created" || $prop === "modified" || $ps[$prop]["type"] === "datetime_select")
+				{
+					$d["type"] = "time";
+					$d["numeric"] = 1;
+					$d["format"] = "d.m.Y H:i";
+				}
+				elseif ($ps[$prop]["type"] === "date_select")
+				{
+					$d["type"] = "time";
+					$d["numeric"] = 1;
+					$d["format"] = "d.m.Y";
+				}
+
+				if (isset($ps[$prop]["type"]) and $ps[$prop]["type"] === "relpicker")
+				{
+					$d["_type"] = "rel";
+				}
+				$this->define_field($d);
 			}
-			if ($prop === "modifiedby_person")
-			{
-				$capt = t("Muutja");
-			}
-			$d = array(
-				"name" => $prop,
-				"caption" => $capt,
-				"align" => "center",
-				"sortable" => 1
-			);
-			if ($prop === "created" || $prop === "modified" || $ps[$prop]["type"] === "datetime_select")
-			{
-				$d["type"] = "time";
-				$d["numeric"] = 1;
-				$d["format"] = "d.m.Y H:i";
-			}
-			else
-			if ($ps[$prop]["type"] === "date_select")
-			{
-				$d["type"] = "time";
-				$d["numeric"] = 1;
-				$d["format"] = "d.m.Y";
-			}
-			if ($ps[$prop]["type"] === "relpicker")
-			{
-				$d["_type"] = "rel";
-			}
-			$this->define_field($d);
 		}
 		$this->define_chooser(array(
 			"field" => "oid",
@@ -3391,6 +3392,3 @@ class awex_awtbl extends aw_exception {}
 
 /* Indicates configuration errors */
 class awex_awtbl_cfg extends awex_awtbl {}
-
-
-?>

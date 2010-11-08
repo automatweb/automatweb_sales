@@ -55,7 +55,7 @@ class date_calc
 		extract($args);
 		if (!empty($date))
 		{
-			list($d,$m,$y) = split("-",$date);
+			list($d,$m,$y) = explode("-",$date);
 			if ($d && $m && !$y)    // 09-2009 format
 			{
 				$y = $m;
@@ -78,7 +78,7 @@ class date_calc
 		}
 		else
 		{
-			list($d,$m,$y) = split("-",date("d-m-Y",$time));
+			list($d,$m,$y) = explode("-",date("d-m-Y",$time));
 		}
 
 		$timestamp = mktime(0,0,0,$m,$d,$y);

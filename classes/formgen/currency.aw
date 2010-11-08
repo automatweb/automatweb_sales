@@ -1,17 +1,16 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/formgen/currency.aw,v 1.22 2009/03/26 12:52:24 markop Exp $
 // currency.aw - Currency management
 
 /*
 
-@classinfo syslog_type=ST_CURRENCY no_status=1 maintainer=kristo
+@classinfo no_status=1
 
 @default group=general
 
 @property ord type=textbox table=objects field=jrk size=5
 @caption J&auml;rjekord
 
-@property comment type=textbox table=objects field=comment 
+@property comment type=textbox table=objects field=comment
 @caption Kurss euro suhtes
 
 @property unit_name type=textbox table=objects field=meta method=serialize
@@ -32,7 +31,7 @@
 @groupinfo translate caption=T&otilde;lge
 @default group=translate
 
-@property translate type=table no_caption=1 
+@property translate type=table no_caption=1
 
 
 */
@@ -42,6 +41,9 @@ define("RET_ARR",2);
 
 class currency extends class_base
 {
+	private $default_currency;
+	private $co_currency;
+
 	function currency()
 	{
 		$this->init(array(
@@ -49,7 +51,7 @@ class currency extends class_base
 			"clid" => CL_CURRENCY
 		));
 		$this->sub_merge = 1;
-		$this->lc_load("currency","lc_currency");	
+		$this->lc_load("currency","lc_currency");
 		lc_load("definition");
 	}
 
@@ -91,7 +93,7 @@ class currency extends class_base
 
 	function do_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "lang",
 			"caption" => t("Keel"),
@@ -105,7 +107,7 @@ class currency extends class_base
 			"name" => "small_unit",
 			"caption" => t("Peenraha"),
 		));
-		
+
 		$langdata = array();
 		aw_global_set("output_charset", "utf-8");
 		$lg = get_instance("languages");
@@ -113,7 +115,7 @@ class currency extends class_base
 
 		$unit_meta = $arr["obj_inst"]->meta("unit");
 		$small_unit_meta = $arr["obj_inst"]->meta("small_unit");
-		
+
 		//kui ei ole keelt valitud, siis ei tule eriti suurt valikut mitte
 /*		$t->define_data(array(
 			"unit" => html::textbox(array(
@@ -128,7 +130,7 @@ class currency extends class_base
 				"size" => 10,
 			)),
 		));
-*/		
+*/
 		foreach($langdata as $id => $lang)
 		{
 			if($arr["obj_inst"]->lang_id() != $id)
@@ -163,19 +165,18 @@ class currency extends class_base
 		$count = sizeof($rates);
 		if($count > 0 && !$rates[$count-1]["rate"])$count--;
 		if($count > 0 && !$rates[$count-1]["rate"])$count--;
-		
+
 		$curr_object_list = new object_list(array(
 			"class_id" => CL_CURRENCY,
 			"lang_id" => array(),
 		));
-		
+
 		$curr_opt = array();
 		foreach($curr_object_list->arr() as $curr)
 		{
 			if($arr["obj_inst"]->id() != $curr->id()) $curr_opt[$curr->id()] = $curr->name();
 		}
-		
-		load_vcl("table");
+
 		$t = new aw_table(array(
 			"layout" => "generic"
 		));
@@ -360,7 +361,7 @@ class currency extends class_base
 		$this->co_currency = $company->prop("currency");
 		return $company->prop("currency");
 	}
-	
+
 	function _check_curr_date($date , $start , $end)
 	{
 		extract($date);
@@ -370,7 +371,7 @@ class currency extends class_base
 		{
 			return true;
 		}
-		else return false;	
+		else return false;
 	}
 
 
@@ -384,7 +385,7 @@ class currency extends class_base
 		{
 			return "EEK";
 		}
-		
+
 		$o = obj($c);
 		return $o->name();
 	}
@@ -398,6 +399,7 @@ class currency extends class_base
 		{
 			return $this->default_currency;
 		}
+
 		if($this->get_company_currency())
 		{
 			$curr = $this->get_company_currency();
@@ -405,9 +407,7 @@ class currency extends class_base
 		else
 		{
 			$cs = new object_list(array(
-				"lang_id" => array(),
-				"class_id" => CL_CURRENCY,
-				"site_id" => array(),
+				"class_id" => CL_CURRENCY
 			));
 			$c = reset($cs->arr());
 			if (!$c)
@@ -450,8 +450,6 @@ class currency extends class_base
 		}
 		$ol = new object_list(array(
 			"class_id" => CL_CURRENCY,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"name" => $symbol
 		));
 		if (!$ol->count())
@@ -467,5 +465,3 @@ class currency extends class_base
 class awex_err_param extends aw_exception {}
 class awex_currency extends aw_exception {}
 class awex_currency_not_found extends awex_currency {}
-
-?>

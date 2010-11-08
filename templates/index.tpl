@@ -4,7 +4,7 @@
 </head>
 <body bgcolor="#CCCCCC">
 <font face="Verdana,Arial,Helvetica,sans-serif" size="+3">
-Tegin yhe uue tyhja template selle saidi jaoks.
+{VAR:site_title}
 </font>
 <p>
 <!-- SUB: LOGIN -->
@@ -40,5 +40,9 @@ Pass: <input type="password" name="password" size="20"><br>
 <font face="Verdana,Arial,Helvetica,sans-serif" size="-1">
 <small>{VAR:qcount} | {VAR:qtime} | {VAR:tpl_load} | {VAR:tpl_parse}</small>
 </font>
+<br />
+
+{VAR:content}
+
 </body>
 </html>

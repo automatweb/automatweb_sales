@@ -28,6 +28,15 @@ class crm_bill_obj extends _int_object
 
 	private static $status_names = array();
 
+	public static $customer_address_properties = array(
+		"street" => "street",
+		"index" => "index",
+		"city" => "city",
+		"county" => "county",
+		"country" => "country",
+		"country_en" => "country_en"
+	);
+
 	/** Returns list of bill status names
 	@attrib api=1 params=pos
 	@param status type=int
@@ -633,12 +642,12 @@ class crm_bill_obj extends _int_object
 		}
 		if($customer != $this->prop("customer"))
 		{
-			if($GLOBALS["object_loader"]->cache->can("view",$customer))
+			if(object_loader::can("view",$customer))
 			{
 				$new_name = get_name($customer);
 
 			}
-			if($GLOBALS["object_loader"]->cache->can("view",$this->prop("customer")))
+			if(object_loader::can("view",$this->prop("customer")))
 			{
 				$old_name = get_name($this->prop("customer"));
 			}
@@ -1099,8 +1108,6 @@ class crm_bill_obj extends _int_object
 		{
 			$cust_rel_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"buyer" => $this->prop("customer"),
 				"seller" => $this->prop("impl")
 			));
@@ -1236,8 +1243,6 @@ class crm_bill_obj extends _int_object
 	{
 		$filter = array();
 		$filter["class_id"] = CL_CRM_BILL_ROW;
-		$filter["site_id"] = array();
-		$filter["lang_id"] = array();
 		$filter["CL_CRM_BILL_ROW.RELTYPE_ROW(CL_CRM_BILL)"] = $this->id();
 		$filter["writeoff"] = new obj_predicate_not(1);
 		return $filter;
@@ -1266,8 +1271,6 @@ class crm_bill_obj extends _int_object
 	{
 		$filter = array();
 		$filter["class_id"] = CL_CRM_BILL_ROW;
-		$filter["site_id"] = array();
-		$filter["lang_id"] = array();
 		$filter["CL_CRM_BILL_ROW.RELTYPE_ROW(CL_CRM_BILL)"] = $this->id();
 		$filter["writeoff"] = 1;
 
@@ -1632,7 +1635,6 @@ class crm_bill_obj extends _int_object
 
 	public function get_comments_text()
 	{
-		get_instance("vcl/table");
 		$t = new vcl_table();
 		$t->define_field(array(
 			"name" => "choose",
@@ -1701,8 +1703,6 @@ class crm_bill_obj extends _int_object
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMMENT,
 			"parent" => $this->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
 			"sort_by" => "objects.created desc",
 		));
 		return $ol;
@@ -1728,7 +1728,7 @@ class crm_bill_obj extends _int_object
 	public function get_bcc()
 	{
 		$ret = array();
-		$bill_targets = $this->meta("bill_targets");
+		$bill_targets = safe_array($this->meta("bill_targets"));
 		$ol = new object_list();
 
 		if($this->project_leaders())
@@ -1738,7 +1738,7 @@ class crm_bill_obj extends _int_object
 
 		foreach($ol->arr() as $mail_person)
 		{
-			if(!(is_array($bill_targets) && sizeof($bill_targets) && !$bill_targets[$mail_person->id()]))
+			if(empty($bill_targets) or $bill_targets[$mail_person->id()])
 			{
 				$ret[$mail_person->get_mail($this->prop("customer"))] = $mail_person->name() . " <" . $mail_person->get_mail($this->prop("customer")) . ">";
 			}
@@ -1749,7 +1749,8 @@ class crm_bill_obj extends _int_object
 			$ret[$this->crm_settings->prop("bill_mail_to")] = $this->crm_settings->prop("bill_mail_to");
 		}
 
-		if (aw_global_get("uid_oid") != "")
+		// add current user
+		if (aw_global_get("uid_oid"))
 		{
 			$user_inst = new user();
 			$u = obj(aw_global_get("uid_oid"));
@@ -1763,24 +1764,11 @@ class crm_bill_obj extends _int_object
 	public function get_mail_targets()
 	{
 		$res = array();
-/*
-		if($this->set_crm_settings() && $this->crm_settings->prop("bill_mail_to"))
-		{
-			$res[$this->crm_settings->prop("bill_mail_to")] = $this->crm_settings->prop("bill_mail_to");
-		}
-*/
-		$bill_targets = $this->meta("bill_targets");
-		$bill_t_names = $this->meta("bill_t_names");
+		$bill_targets = safe_array($this->meta("bill_targets"));
+		$bill_t_names = safe_array($this->meta("bill_t_names"));
 		if($this->prop("bill_mail_to"))
 		{
-			if(is_array($bill_t_names) && sizeof($bill_t_names) && $bill_t_names[0])
-			{
-				$res[$this->prop("bill_mail_to")] = $bill_t_names[0] . " <" . $this->prop("bill_mail_to") . ">";
-			}
-			else
-			{
-				$res[$this->prop("bill_mail_to")] = $this->prop("bill_mail_to");
-			}
+			$res[$this->prop("bill_mail_to")] = $this->prop("bill_mail_to");
 		}
 
 		$ol = new object_list();
@@ -1791,26 +1779,34 @@ class crm_bill_obj extends _int_object
 
 		foreach($ol->arr() as $mail_person)
 		{
- 			if(!(is_array($bill_targets) && sizeof($bill_targets) && !$bill_targets[$mail_person->id()]))
+ 			if(empty($bill_targets) or $bill_targets[$mail_person->id()])
 			{
-				$name = $mail_person->name();
-				if(is_array($bill_t_names) && sizeof($bill_t_names) && $bill_t_names[$mail_person->id()])
+				if(!empty($bill_t_names[$mail_person->id()]))
 				{
 					$name = $bill_t_names[$mail_person->id()];
 				}
+				else
+				{
+					$name = $mail_person->name();
+				}
+
 				$res[$mail_person->get_mail($this->prop("customer"))]  = $name . " <" . $mail_person->get_mail($this->prop("customer")) . ">";
 			}
 		}
 
 		foreach($this->get_cust_mails() as $id => $mail)
 		{
-			if(!(is_array($bill_targets) && sizeof($bill_targets) && !$bill_targets[$id]))
+			if(empty($bill_targets) or $bill_targets[$id])
 			{
-				$name = $this->get_customer_name();
-				if(is_array($bill_t_names) && sizeof($bill_t_names) && $bill_t_names[$id])
+				if(!empty($bill_t_names[$id]))
 				{
 					$name = $bill_t_names[$id];
 				}
+				else
+				{
+					$name = $this->get_customer_name();
+				}
+
 				$res[$mail] = $name . " <" . $mail . ">";
 			}
 		}
@@ -1933,8 +1929,6 @@ class crm_bill_obj extends _int_object
 			}
 		}
 
-
-
 		return $ret;
 	}
 
@@ -2048,9 +2042,7 @@ class crm_bill_obj extends _int_object
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_MESSAGE,
-			"site_id" => array(),
-			"lang_id" => array(),
-			"parent" => $this->id(),
+			"parent" => $this->id()
 		));
 		return $ol;
 	}
@@ -2841,7 +2833,6 @@ class crm_bill_obj extends _int_object
 			}
 		}
 
-
 		if(!$prop)
 		{
 			if($this->prop("customer_name"))
@@ -2885,6 +2876,18 @@ class crm_bill_obj extends _int_object
 				return "";
 			}
 		}
+	}
+
+	public function set_customer_address($prop, $value)
+	{
+		if (!isset(self::$customer_address_properties[$prop]))
+		{
+			throw new awex_crm_bill_address("Invalid address property '$prop'");
+		}
+
+		$cust_addr = $this->meta("customer_addr");
+		$cust_addr[$prop] = $value;
+		$this->set_meta("customer_addr", $cust_addr);
 	}
 
 	function get_customer_code()
@@ -3144,29 +3147,57 @@ class crm_bill_obj extends _int_object
 		return $person;
 	}
 
-	 /** returns bill customer contact person object
+	 /** Returns bill customer contact person object
 		@attrib api=1
-		@returns object
+		@returns CL_CRM_PERSON/NULL
+			returns NULL if contact person not found
 	**/
 	public function get_contact_person()
 	{
 		$contact_person = null;
-		if($GLOBALS["object_loader"]->cache->can("view" , $this->prop("customer")))
+		if(object_loader::can("view" , $this->prop("customer")))
 		{
 			$ord = obj($this->prop("customer"));
-			try
+
+			if ($this->prop("impl"))
 			{
-				$contact_person = obj($ord->prop("firmajuht"), array(), CL_CRM_PERSON);
-			}
-			catch (awex_obj $e)
-			{
+				try
+				{
+					$ol = new object_list(array(
+						"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+						"buyer" => $ord->id(),
+						"seller" => $this->prop("impl")
+					));
+					$crel = $ol->begin();
+
+					$contact_person = $crel->get_first_obj_by_reltype("RELTYPE_BILL_PERSON");
+
+					if (!$contact_person)
+					{
+						if ($crel->prop("buyer_contact_person"))
+						{
+							$contact_person = obj($crel->prop("buyer_contact_person"), array(), CL_CRM_PERSON);
+						}
+						elseif ($crel->prop("buyer_contact_person2"))
+						{
+							$contact_person = obj($crel->prop("buyer_contact_person2"), array(), CL_CRM_PERSON);
+						}
+						elseif ($crel->prop("buyer_contact_person3"))
+						{
+							$contact_person = obj($crel->prop("buyer_contact_person3"), array(), CL_CRM_PERSON);
+						}
+					}
+				}
+				catch (awex_obj $e)
+				{
+				}
 			}
 
 			if (!$contact_person or !$contact_person->is_saved())
 			{
 				try
 				{
-					$contact_person = obj($ord->prop("contact_person"), array(), CL_CRM_PERSON);
+					$contact_person = obj($ord->prop("firmajuht"), array(), CL_CRM_PERSON);
 				}
 				catch (awex_obj $e)
 				{
@@ -3179,6 +3210,73 @@ class crm_bill_obj extends _int_object
 			}
 		}
 		return $contact_person;
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@return CL_CRM_COMPANY_CUSTOMER_DATA
+			Customer relation object
+		@errors
+			throws awex_crm_bill_customer customer not defined
+			throws awex_crm_bill_implementor if implementor not defined
+	**/
+	public function load_customer_data()
+	{
+		if (!$this->prop("customer"))
+		{
+			throw new awex_crm_bill_customer("Customer not defined");
+		}
+
+		if (!$this->prop("impl"))
+		{
+			throw new awex_crm_bill_implementor("Implementor not defined");
+		}
+
+		$implementor_o = obj($this->prop("impl"));
+		$customer_o = obj($this->prop("customer"));
+
+		$ol = new object_list(array(
+			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
+			"buyer" => $customer_o->id(),
+			"seller" => $implementor_o->id()
+		));
+
+		if ($ol->count())
+		{
+			$customer_relation_o = $ol->begin();
+		}
+		else
+		{
+			$customer_relation_o = $implementor_o->create_customer_relation(crm_company_obj::CUSTOMER_TYPE_BUYER, $customer_o);
+		}
+
+		// load/reload due date days
+		$this->set_prop("bill_due_date_days", $customer_relation_o->prop("bill_due_date_days"));
+
+		// load/reload customer address
+		$this->set_prop("customer_name", $customer_o->name());
+		$this->set_prop("customer_code", $customer_o->prop("code"));
+		$customer_addr = array();
+		if($customer_o->class_id() == CL_CRM_COMPANY)
+		{
+			$this->set_prop("customer_address", $customer_o->prop("contact.name"));
+			$this->set_customer_address("street", $customer_o->prop("contact.aadress"));
+			$this->set_customer_address("city", $customer_o->prop("contact.linn.name"));
+			$this->set_customer_address("county", $customer_o->prop("contact.maakond.name"));
+			$this->set_customer_address("country", $customer_o->prop("contact.riik.name"));
+			$this->set_customer_address("country_en", $customer_o->prop("contact.riik.name_en"));
+			$this->set_customer_address("index", $customer_o->prop("contact.postiindeks"));
+		}
+		else
+		{
+			$this->set_prop("customer_address", $customer_o->prop("address.name"));
+			$this->set_customer_address("street", $customer_o->prop("address.aadress"));
+			$this->set_customer_address("city", $customer_o->prop("address.linn.name"));
+			$this->set_customer_address("county", $customer_o->prop("address.maakond.name"));
+			$this->set_customer_address("country", $customer_o->prop("address.riik.name"));
+			$this->set_customer_address("country_en", $customer_o->prop("address.riik.name_en"));
+			$this->set_customer_address("index", $customer_o->prop("address.postiindeks"));
+		}
 	}
 
 	public function get_my_hours()
@@ -3197,4 +3295,25 @@ class crm_bill_obj extends _int_object
 	}
 }
 
+// A static "constructor":
+crm_bill_obj::$customer_address_properties = array(
+	"street" => t("T&auml;nav, maja, korter"),
+	"index" => t("Postiindeks"),
+	"city" => t("Linn"),
+	"county" => t("Maakond"),
+	"country" => t("Riik"),
+	"country_en" => t("Riik inglise keeles")
+);
 
+
+/** Generic bill exception **/
+class awex_crm_bill extends awex_crm {}
+
+/** Customer errors **/
+class awex_crm_bill_customer extends awex_crm_bill {}
+
+/** Implementor errors **/
+class awex_crm_bill_implementor extends awex_crm_bill {}
+
+/** Address errors **/
+class awex_crm_bill_address extends awex_crm_bill {}

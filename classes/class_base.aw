@@ -4423,6 +4423,7 @@ class class_base extends aw_template
 			catch (Exception $e)
 			{
 				$this->show_error_text(t("Esines olulisi vigu. Andmed v&otilde;ivad j&auml;&auml;da osaliselt salvestamata"));
+				trigger_error("Caught exception " . get_class($e) . " while saving data. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br> Backtrace:<br>" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
 			}
 		}
 

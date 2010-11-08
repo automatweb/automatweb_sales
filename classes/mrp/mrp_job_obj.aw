@@ -1,9 +1,5 @@
 <?php
 
-/*
-@classinfo  maintainer=voldemar
-*/
-
 require_once "mrp_header.aw";
 
 class mrp_job_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
@@ -2217,6 +2213,10 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		{
 			$resources = "aw_resource_id IN (".implode(",", $resources).") AND";
 		}
+		else
+		{
+			$resources = "";
+		}
 
 		$q = $i->db_fetch_array(self::something_hours_build_query($arr, "aw_resource_id", "resource_id", $resources));
 		self::something_hours_insert_data($q, "resource_id", $data, $arr);
@@ -2224,7 +2224,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 		return $data;
 	}
 
-	private static function something_hours_build_query($arr, $field, $key, $additionnal)
+	private static function something_hours_build_query($arr, $field, $key, $additional)
 	{
 		$states = isset($arr["state"]) ? (array)$arr["state"] : array(self::STATE_INPROGRESS, self::STATE_PAUSED);
 		$from = (int)(isset($arr["from"]) ? $arr["from"] : 0);
@@ -2250,7 +2250,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 			FROM
 				mrp_job_rows
 			WHERE
-				$additionnal
+				$additional
 				$jobs
 				aw_job_previous_state IN('".implode("','", $states)."') AND
 				(aw_tm BETWEEN $from AND {$to} OR aw_tm - aw_job_last_duration < $to AND aw_tm > $from)
@@ -2526,5 +2526,3 @@ class awex_mrp_job_type extends awex_mrp_job {}
 
 /** Job state doesn't allow this operation **/
 class awex_mrp_job_state extends awex_mrp_job {}
-
-?>

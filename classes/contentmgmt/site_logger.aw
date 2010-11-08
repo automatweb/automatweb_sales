@@ -1,14 +1,11 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class site_logger extends core
 {
 	function site_logger()
 	{
 		$this->init();
-		aw_config_init_class(&$this);
+		aw_config_init_class($this);
 	}
 
 	////
@@ -18,7 +15,8 @@ class site_logger extends core
 		if (aw_ini_get("syslog.log_pageviews") != 1)
 		{
 			return false;
-		};
+		}
+
 		$this->_log(
 			16 /*ST_MENUEDIT*/,
 			19 /*SA_PAGEVIEW*/,
@@ -98,5 +96,3 @@ class site_logger extends core
 		return $msg;
 	}
 }
-
-?>

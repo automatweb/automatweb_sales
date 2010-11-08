@@ -1,8 +1,7 @@
 <?php
 /*
 
-
-@classinfo trans=1 relationmgr=yes syslog_type=ST_FILE maintainer=kristo
+@classinfo trans=1 relationmgr=yes
 @tableinfo files index=id master_table=objects master_index=oid
 @default table=files
 
@@ -833,30 +832,38 @@ class file extends class_base
 		if (!empty($arr["file_name"]) && $this->file_is_in_whitelist($arr["file_name"]))
 		{
 			$file_name = basename($arr["file_name"]);
+			$files_dir = aw_ini_get("site_basedir") . "/files";
+			if (!is_dir($files_dir))
+			{
+				mkdir($files_dir, 0777);
+			}
+
 			$i = 0;
 			while(1)
 			{
-				$fn = aw_ini_get("site_basedir")."/files/".$i."/".$file_name;
-				$dir = aw_ini_get("site_basedir")."/files/".$i;
+				$fn = "{$files_dir}/{$i}/{$file_name}";
+				$dir = "{$files_dir}/{$i}";
+
 				if (!is_dir($dir))
 				{
 					mkdir($dir, 0777);
 				}
+
 				if (!file_exists($fn))
 				{
 					return $fn;
 				}
 				$i++;
 			}
-
 		}
-		$mt = get_instance("core/aw_mime_types");
+
+		$mt = new aw_mime_types();
 		$site_basedir = aw_ini_get("site_basedir");
 		// find the extension for the file
 		if (strpos($arr["type"], "/") !== false)
 		{
 			list($major,$minor) = explode("/",$arr["type"]);
-			if ($minor == "pjpeg" || $minor == "jpeg")
+			if ($minor === "pjpeg" || $minor === "jpeg")
 			{
 				$minor = "jpg";
 			}
@@ -1908,7 +1915,7 @@ class file extends class_base
 
 	function _sp_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_p_tbl($t);
 
 		foreach($this->get_people_list($arr["obj_inst"]) as $p_id => $p_nm)
@@ -1943,4 +1950,3 @@ class file extends class_base
 		return $ol->names();
 	}
 }
-?>

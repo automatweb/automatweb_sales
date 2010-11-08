@@ -2,7 +2,7 @@
 // crm_bill_payment.aw - Laekumine
 /*
 
-@classinfo syslog_type=ST_CRM_BILL_PAYMENT relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 
@@ -18,16 +18,16 @@
 @property payment_type type=chooser field=aw_payment_type
 @caption Tasumisviis
 
-@property sum type=textbox field=aw_sum 
+@property sum type=textbox field=aw_sum
 @caption Summa
 
-@property currency type=relpicker reltype=RELTYPE_CURRENCY field=aw_currency 
+@property currency type=relpicker reltype=RELTYPE_CURRENCY field=aw_currency
 @caption Valuuta
 
-@property customer type=relpicker reltype=RELTYPE_CUSTOMER field=aw_customer 
+@property customer type=relpicker reltype=RELTYPE_CUSTOMER field=aw_customer
 @caption Klient
 
-@property currency_rate type=textbox field=currency_rate field=aw_currency_rate 
+@property currency_rate type=textbox field=currency_rate field=aw_currency_rate
 @caption Valuutakurss
 
 @property bills type=table store=no
@@ -74,7 +74,7 @@ class crm_bill_payment extends class_base
 						"pn" => "add_bill",
 						"clid" => CL_CRM_BILL,
 					), "popup_search", false, true);
-	
+
 					$prop["value"].= "<br>".html::href(array(
 						"url" => "javascript:aw_popup_scroll(\"$url\",\"Otsing\",550,500)",
 						"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0>",
@@ -100,7 +100,6 @@ class crm_bill_payment extends class_base
 
 	function _get_bills_table($arr)
 	{
-		classload("vcl/table");
 		$t = new vcl_table;
 		$t->define_field(array(
 			"name" => "nr",
@@ -146,7 +145,7 @@ class crm_bill_payment extends class_base
 //			$prop["value"] .= t("Arve nr:").html::obj_change_url($o->id(),$o->prop("bill_no")).", ".$o->prop("customer.name").",  ".
 //			html::textbox(array("name" => "bills[".$o->id()."][sum]", "value" => $bill_sum , "size" => 8))
 //			." ".$arr["obj_inst"]->get_currency_name()."<br>\n";
-			
+
 		}
 		$t->define_data(array(
 			"nr" => html::textbox(array("name" => "bills[new][no]" , "size" => 8)),
@@ -158,7 +157,7 @@ class crm_bill_payment extends class_base
 //			html::textbox(array("name" => "bills[new][no]" , "size" => 8))." ".t("Summa").": ".
 //			html::textbox(array("name" => "bills[new][sum]", "value" => 0 , "size" => 8))
 //			." ".$arr["obj_inst"]->get_currency_name()."<br>\n";
-		return $t->draw();	
+		return $t->draw();
 	}
 
 	function set_property($arr = array())
@@ -170,7 +169,6 @@ class crm_bill_payment extends class_base
 		{
 			case "bills":
 			{
-				$bi = get_instance(CL_CRM_BILL);
 				$bills = $arr["request"]["bills"];
 				foreach($bills as $bill => $data)
 				{
@@ -181,10 +179,11 @@ class crm_bill_payment extends class_base
 						));
 						if($bill_id)
 						{
-							$arr["obj_inst"]->add_bill(array(
+							$params = array(
 								"o" => $bill_id,
-								"sum" => $data["sum"],
-							));
+								"sum" => $data["sum"]
+							);
+							$arr["obj_inst"]->add_bill($params);
 						}
 					}
 					elseif($this->can("view" , $bill))
@@ -241,7 +240,7 @@ class crm_bill_payment extends class_base
 	function _get_bill_payments_tb($arr)
 	{
 		$_SESSION["create_bill_ru"] = get_ru();
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_button(array(
 			'name' => 'new',
@@ -265,7 +264,7 @@ class crm_bill_payment extends class_base
 // 		));
 	}
 
-	function _init_bills_list_t(&$t, $r)
+	function _init_bills_list_t($t, $r)
 	{
 		$t->define_field(array(
 			"name" => "date",
@@ -324,6 +323,7 @@ class crm_bill_payment extends class_base
 	{
 		$arr["prop"]["value"] = $arr["request"]["bill_payments_cust"];
 	}
+
 	function _get_bill_payments_client_mgr(&$arr)
 	{
 		$v = $arr["request"]["bill_payments_client_mgr"];
@@ -331,8 +331,9 @@ class crm_bill_payment extends class_base
 			"name" => "bill_payments_client_mgr",
 			"value" => $v,
 			"size" => 25
-		))."<a href='javascript:void(0)' onClick='document.changeform.bill_s_client_mgr.value=\"\"' title=\"$tt\" alt=\"$tt\"><img title=\"$tt\" alt=\"$tt\" src='".aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif' border=0></a>";	
+		))."<a href='javascript:void(0)' onClick='document.changeform.bill_s_client_mgr.value=\"\"' title=\"$tt\" alt=\"$tt\"><img title=\"$tt\" alt=\"$tt\" src='".aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif' border=0></a>";
 	}
+
 	function _get_bill_payments_from(&$arr)
 	{
 		if(!$arr["request"]["bill_payments_from"])
@@ -341,14 +342,17 @@ class crm_bill_payment extends class_base
 		}
 		$arr["prop"]["value"] = $arr["request"]["bill_payments_from"];
 	}
+
 	function _get_bill_payments_to(&$arr)
 	{
 		$arr["prop"]["value"] = $arr["request"]["bill_payments_to"];
 	}
+
 	function _get_bill_payments_bill_no(&$arr)
 	{
 		$arr["prop"]["value"] = $arr["request"]["bill_payments_bill_no"];
 	}
+
 	function _get_bill_payments_bill_to(&$arr)
 	{
 		$arr["prop"]["value"] = $arr["request"]["bill_payments_bill_to"];
@@ -357,8 +361,7 @@ class crm_bill_payment extends class_base
 	function _get_bill_payments_table($arr)
 	{
 		$filter = array(
-			"class_id" => array(CL_CRM_BILL_PAYMENT),
-			"lang_id" => array(),
+			"class_id" => array(CL_CRM_BILL_PAYMENT)
 		);
 		$srch = $arr["request"];
 		if($srch["bill_payments_search"])
@@ -382,7 +385,7 @@ class crm_bill_payment extends class_base
 
 				if($srch["bill_payments_client_mgr"])
 				{
-	
+
 					$relist = new object_list(array(
 						"class_id" => CL_CRM_COMPANY_ROLE_ENTRY,
 						"CL_CRM_COMPANY_ROLE_ENTRY.person.name" => map("%%%s%%", explode(",", $srch["bill_payments_client_mgr"]))
@@ -419,7 +422,7 @@ class crm_bill_payment extends class_base
 
 				$bills = new object_list($bfilter);
 				$ids = array();
-				
+
 				foreach($bills->arr() as $bill)
 				{
 					$conns_tmp = $bill->connections_from(array(
@@ -461,7 +464,7 @@ class crm_bill_payment extends class_base
 		}
 		$ol = new object_list($filter);
 
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_bills_list_t($t, $arr["request"]);
 
 		$t->set_caption(t("Laekumised"));
@@ -490,7 +493,7 @@ class crm_bill_payment extends class_base
 			foreach($bills->arr() as $b)
 			{
 				$bills_array[]= html::get_change_url($b->id(), array("return_url" => get_ru()),$b->name()?$b->name():t("nimetu"));
-				
+
 			}
 			$bills_list = join(" ," ,$bills_array);
 
@@ -523,7 +526,7 @@ class crm_bill_payment extends class_base
 
 	function callback_mod_reforb($arr)
 	{
-		$arr["add_bill"] = "";	
+		$arr["add_bill"] = "";
 		$arr["post_ru"] = post_ru();
 	}
 
@@ -539,7 +542,7 @@ class crm_bill_payment extends class_base
 
 	function do_db_upgrade($t, $f)
 	{
-		if ($f == "" && $t == "aw_crm_bill_payment")
+		if ($f == "" && $t === "aw_crm_bill_payment")
 		{
 			$this->db_query("CREATE TABLE aw_crm_bill_payment(aw_oid int primary key,
 				aw_date int,
@@ -548,7 +551,7 @@ class crm_bill_payment extends class_base
 				aw_currency int,
 				aw_customer int,
 				aw_currency_rate double,
-				
+
 			)");
 			return true;
 		}
@@ -566,5 +569,3 @@ class crm_bill_payment extends class_base
 
 
 }
-
-?>

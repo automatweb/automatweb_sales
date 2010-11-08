@@ -1,8 +1,5 @@
 <?php
 // toolbar.aw - drawing toolbars
-/*
-@classinfo  maintainer=kristo
-*/
 class toolbar extends aw_template
 {
 	private $menus = array();
@@ -884,5 +881,3 @@ class awex_awtlb extends aw_exception {}
 
 /* Indicates button configuration errors */
 class awex_awtlb_btn_cfg extends awex_awtlb {}
-
-?>

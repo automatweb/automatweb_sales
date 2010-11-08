@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/import/scala_import.aw,v 1.22 2008/01/31 13:54:39 kristo Exp $
-// scala_import.aw - Scala import 
+
+// scala_import.aw - Scala import
 /*
 
-@classinfo syslog_type=ST_SCALA_IMPORT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=hannes
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo scala_import index=oid master_table=objects master_index=oid
 
 @default table=objects
@@ -52,7 +52,7 @@
 	@caption Customers.xml
 
 	@property ftp_file_location_availability type=textbox table=scala_import size=70
-	@caption Availability.xml 
+	@caption Availability.xml
 
 @groupinfo import_config caption="Impordi seaded"
 @default group=import_config
@@ -61,18 +61,18 @@
 	@groupinfo prices caption="Hinnad" parent=import_config
 	@default group=prices
 
-		@property prices_config_table type=table 
+		@property prices_config_table type=table
 		@caption Hindade seadete tabel
 
 	@groupinfo users caption="Kasutajad" parent=import_config
 	@default group=users
-		
+
 		@property users_config_table type=table
 		@caption Kasutajate seadete tabel
 
 	@groupinfo categories caption="Kategooriad" parent=import_config
 	@default group=categories
-		
+
 		@property categories_config_table type=table
 		@caption Kategooriate seadete tabel
 
@@ -134,7 +134,7 @@ class scala_import extends class_base
 				{
 					$sections[$key] = $this->import_sections[$key];
 					$url_params[$key] = 1;
-					
+
 				}
 				$import_url = $this->mk_my_orb('do_import', array(
 					'id' => $arr['obj_inst']->id()
@@ -152,20 +152,9 @@ class scala_import extends class_base
 		return $retval;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			//-- set_property --//
-		}
-		return $retval;
-	}	
-
 	function _get_prices_config_table($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
@@ -188,7 +177,7 @@ class scala_import extends class_base
 			$all_properties = $cfgform_inst->get_props_from_cfgform(array(
 				'id' => $arr['obj_inst']->prop('config_form'),
 			));
-			
+
 		}
 		else
 		{
@@ -210,7 +199,7 @@ class scala_import extends class_base
 
 		$format = t('Toote objektidele hinnad XML fail (%s) p&otilde;hjal');
 		$t->set_caption(sprintf($format, basename($xml_file)));
-	
+
 		$saved_config = $arr['obj_inst']->meta('prices_config');
 
 		foreach ( $all_properties as $name => $data )
@@ -235,7 +224,7 @@ class scala_import extends class_base
 
 	function _get_users_config_table($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
@@ -269,7 +258,7 @@ class scala_import extends class_base
 				'property' => $all_properties[$name]['caption'],
 				'xml_tag' => html::textbox(array(
 					'name' => 'users_config['.$name.']',
-					'value' => $saved_config[$name]	
+					'value' => $saved_config[$name]
 				))
 			));
 		}
@@ -285,7 +274,7 @@ class scala_import extends class_base
 
 	function _get_categories_config_table($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
@@ -330,7 +319,7 @@ class scala_import extends class_base
 
 	function _get_availability_config_table($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
@@ -352,7 +341,7 @@ class scala_import extends class_base
 			$all_properties = $cfgform_inst->get_props_from_cfgform(array(
 				'id' => $arr['obj_inst']->prop('config_form'),
 			));
-			
+
 		}
 		else
 		{
@@ -365,7 +354,7 @@ class scala_import extends class_base
 		$format = t('Lao toote objektid XML faili %s p&otilde;hjal');
 		$t->set_caption(sprintf($format, basename($xml_file)));
 
-		
+
 		$saved_config = $arr['obj_inst']->meta('availability_config');
 
 		foreach ( $all_properties as $name => $data)
@@ -374,7 +363,7 @@ class scala_import extends class_base
 				'property' => $data['caption'],
 				'xml_tag' => html::textbox(array(
 					'name' => 'availability_config['.$name.']',
-					'value' => $saved_config[$name]	
+					'value' => $saved_config[$name]
 				))
 			));
 		}
@@ -408,18 +397,18 @@ class scala_import extends class_base
 		return $this->parse();
 	}
 
-	/** 
+	/**
 		@attrib name=do_import nologin=1
 
 		@param id required type=int acl=view
 			Scala import object id
-		@param pricing optional type=int 
+		@param pricing optional type=int
 			Import pricing data
-		@param users optional type=int 
+		@param users optional type=int
 			Import users
 		@param categories optional type=int
 			Import categories
-		@param availability optional type=int 
+		@param availability optional type=int
 			Import availability data
         **/
 	function do_import($arr)
@@ -440,8 +429,7 @@ class scala_import extends class_base
 		}
 
 		// we need ftp connection
-
-		$ftp = get_instance('protocols/file/ftp');
+		$ftp = new ftp();
 
 		$connection = $ftp->connect(array(
 			'host' => $o->prop('ftp_host'),
@@ -449,8 +437,6 @@ class scala_import extends class_base
 			'pass' => $o->prop('ftp_password')
 		));
 
-
-		aw_disable_acl();
 		// import users
 		if ( $arr['users'] )
 		{
@@ -479,9 +465,9 @@ class scala_import extends class_base
 		{
 			// lets disable the acl checks for better performance during import
 
-			$warehouse_inst = get_instance(CL_SHOP_WAREHOUSE);
+			$warehouse_inst = new shop_warehouse();
 			$warehouse = $o->prop('warehouse');
-			
+
 			if ( $this->can('view', $warehouse) )
 			{
 				$warehouse = new object($warehouse);
@@ -542,7 +528,7 @@ class scala_import extends class_base
 			}
 			// lets restore the acl checking after import
 		}
-		
+
 		// import pricing
 		if ( $arr['pricing'] )
 		{
@@ -563,7 +549,7 @@ class scala_import extends class_base
 			{
 				$this->log_str .= "[ error ] Couldn\"t get the ".$pricing_xml." file, so will not import pricing data\n";
 			}
-			
+
 		}
 
 		echo "Import complete";
@@ -571,9 +557,7 @@ class scala_import extends class_base
 		// an easy way to check if the cron has executed the import and has it completed or not
 		$o->set_meta('import_end_time', time());
 		$o->save();
-		aw_restore_acl();
 		$this->write_log();
-
 	}
 
 	function _import_prices($arr)
@@ -644,7 +628,7 @@ class scala_import extends class_base
 		$arr['raw_xml'] = str_replace('&', '&amp;', $arr['raw_xml']);
 
 		list($xml_values, $xml_tags) = parse_xml_def(array('xml' => $arr['raw_xml']));
-		
+
 		$config = array_flip($arr['obj_inst']->meta('users_config'));
 
 		$user_inst = get_instance(CL_USER);
@@ -724,7 +708,7 @@ class scala_import extends class_base
 					$o->set_status(STAT_ACTIVE);
 					$o->save();
 				}
-				
+
 				unset($existing_categories[$parent]);
 			}
 
@@ -803,12 +787,12 @@ class scala_import extends class_base
 			'parent' => $arr['products_folder']
 		));
 
-		// existing products 
+		// existing products
 		$existing_products = array();
 
 		$warehouse_products = $arr['warehouse_inst']->get_packet_list(array(
 			'id' => $arr['warehouse']->id(),
-			'parent' => array_keys($categories) 
+			'parent' => array_keys($categories)
 		));
 
 		foreach ($warehouse_products as $o)
@@ -859,7 +843,7 @@ class scala_import extends class_base
 					echo "\t#### set status to active<br />\n";
 					$data_changed = true;
 				}
-				
+
 				// the properties:
 				foreach ($properties as $property)
 				{
@@ -942,7 +926,7 @@ class scala_import extends class_base
 		));
 
 		$ol = $ot->to_list();
-		
+
 		foreach ($ol->arr() as $o)
 		{
 			$categories[$o->id()] = $o->name();
@@ -1023,4 +1007,3 @@ class scala_import extends class_base
 		return false;
 	}
 }
-?>

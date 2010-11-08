@@ -15,6 +15,15 @@
 			</function>
 		</action>
 
+		<action name="reload_customer_data">
+			<function name="reload_customer_data">
+				<arguments>
+					<required name="id" type="oid" acl="view" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="get_row_change_fields" all_args="1">
 			<function name="ajax_get_row_change_fields">
 				<arguments>

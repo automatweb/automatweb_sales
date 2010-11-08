@@ -1,20 +1,20 @@
 <?php
 /*
 
-@classinfo syslog_type=ST_FTP_LOGIN mantainer=kristo prop_cb=1
+@classinfo prop_cb=1
 
 @default table=objects
 @default group=general
 @default field=meta
 @default method=serialize
 
-@property server type=textbox 
+@property server type=textbox
 @caption Server
 
-@property username type=textbox 
+@property username type=textbox
 @caption Kasutajanimi
 
-@property password type=password 
+@property password type=password
 @caption Parool
 
 @property default_folder type=textbox
@@ -61,10 +61,10 @@ class ftp extends class_base
 		return extension_loaded("ftp");
 	}
 
-	
+
 	/**
 	@attrib api=1 params=name
-		
+
 	@param host required type=string
 		The FTP server address.
 		This parameter shouldn't have any trailing slashes and shouldn't be prefixed with ftp://
@@ -72,8 +72,8 @@ class ftp extends class_base
 	@param pass required type=string
 	@param timeout optional type=int default=10;
 		it does nothing
-	
-	@returns 
+
+	@returns
 		FTP_ERR_CONNECT - if cant connect
 		FTP_ERR_LOGIN - if cant login
 
@@ -92,7 +92,7 @@ class ftp extends class_base
 		}
 		if ($ftp_inst->cd(array("path" => "cool_files/") == true) echo 'this folder really does exist';
 		$ftp_inst->disconnect();
-	
+
 	@comment creates connection to ftp server
 	**/
 	function connect($arr)
@@ -102,7 +102,7 @@ class ftp extends class_base
 		{
 			$timeout = 10;
 		}
-	
+
 		if ($this->verbose)
 		{
 			echo "connect, ".dbg::dump($arr)." <br />";
@@ -126,13 +126,13 @@ class ftp extends class_base
 		if ($this->verbose)
 		{
 			echo "success , $this->handle <br />";
-		};
+		}
 	}
 
 	/**
 	@attrib api=1
 	@comment closes FTP connection
-	
+
 	@examples ${connect}
 	**/
 	function disconnect()
@@ -146,13 +146,13 @@ class ftp extends class_base
 
 	/**
 	@attrib api=1 params=pos
-		
+
 	@param folder required
 		The directory to be listed.
 		This parameter can also include arguments, eg. ftp_nlist($conn_id, "-la /your/dir");
-		Note that this parameter isn't escaped so there may be some issues with filenames 
+		Note that this parameter isn't escaped so there may be some issues with filenames
 		containing spaces and other characters
-	
+
 	@returns an array of filenames in the current server in folder $folder on success
 		FTP_ERR_NOTCONNECTED if not connected
 
@@ -180,9 +180,9 @@ class ftp extends class_base
 						{
 							continue;
 						}
-           
+
 						$narr= explode("/", $current[7]);
-	
+
 						$struc['perms']    = $current[1];
 						$struc['owner']    = $current[2];
 						$struc['group']    = $current[2];
@@ -194,10 +194,10 @@ class ftp extends class_base
 						$struc["type"] = $current[0] == "d" ? "dir" : "file";
 						$ret[] = $struc;
 						break;
-				
+
 					default:
 						$current = preg_split("/[\s]+/",$folder,9);
-           
+
 						$struc['perms']    = $current[0];
 						$struc['number']= $current[1];
 						$struc['owner']    = $current[2];
@@ -224,14 +224,14 @@ class ftp extends class_base
 
 	/**
 	@attrib api=1 params=pos
-		
+
 	@param file required type=string
 		The remote file path
-	@returns 
+	@returns
 		contents of file $file in the current server
 		FTP_ERR_NOTCONNECTED - if not connected
 		FALSE if there is no file with that name
-	
+
 	@examples ${connect}
 	**/
 	function get_file($file)
@@ -242,7 +242,7 @@ class ftp extends class_base
 		}
 
 		$fn = tempnam(aw_ini_get("server.tmpdir"), "aw_ftp");
-		$res = @ftp_get($this->handle, $fn, $file, FTP_BINARY);
+		$res = ftp_get($this->handle, $fn, $file, FTP_BINARY);
 
 		if ($res)
 		{
@@ -255,26 +255,25 @@ class ftp extends class_base
 			if ($this->verbose)
 			{
 				echo "cannot find $file on server ";
-			};
+			}
 			return false;
-		};
-
+		}
 	}
-	
+
 	/**
 	@attrib api=1 params=pos
-		
+
 	@param remote_file required type=string
 		The remote file path
 	@param file required type=string
 		The local file
-	@returns 
+	@returns
 		FTP_ERR_NOTCONNECTED - if not connected
 		TRUE on success
 		FALSE on failure.
-	
+
 	@examples
-	@comments 
+	@comments
 		puts file to the current server
 	**/
 	function put_file($remote_file,$content)
@@ -293,17 +292,17 @@ class ftp extends class_base
 		unlink($fn);
 		return $res;
 	}
-	
+
 	/**
 	@attrib api=1 params=name
-		
+
 	@param file required type=string
 		The file to delete
 	@returns
 		FTP_ERR_NOTCONNECTED - if not connected
 		TRUE on success
 		FALSE on failure
-	
+
 	@comments
 		deletes $file on the current server
 	@examples ${connect}
@@ -323,14 +322,14 @@ class ftp extends class_base
 
 	/**
 	@attrib api=1 params=name
-		
+
 	@param path required type=string
 		The target directory
 	@returns
 		FTP_ERR_NOTCONNECTED - if not connected
 		TRUE on success
 		FALSE on failure
-	
+
 	@comments
 		changes the directory on the current server to $path
 	@examples ${connect}
@@ -347,16 +346,16 @@ class ftp extends class_base
 		}
 		return false;
 	}
-	
+
 	/**
 	@attrib api=1 params=pos
-		
+
 	@param url required type=string
 		The target directory
 	@returns
 		string / contents of file
 		FALSE on failure
-	
+
 	@comments
 		Reads entire file into a string
 	**/
@@ -365,13 +364,13 @@ class ftp extends class_base
 		$this->last_url = $url;
 		return file_get_contents($url);
 	}
-	
+
 	/**
 	@attrib api=1
-	
+
 	@returns string / file type
 		FALSE , if there is no info for this extension
-	
+
 	@comments
 		returns type of file last used with function get()
 	**/
@@ -597,7 +596,7 @@ class ftp extends class_base
 			"size" => t("Suurus")
 		);
 	}
-	
+
 	function has_feature($str)
 	{
 		return false;
@@ -649,4 +648,3 @@ class ftp extends class_base
 		return true;
 	}
 }
-?>
