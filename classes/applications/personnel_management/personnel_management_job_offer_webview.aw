@@ -2,7 +2,7 @@
 // personnel_management_job_offer_webview.aw - T&ouml;&ouml;pakkumised veebis
 /*
 
-@classinfo syslog_type=ST_PERSONNEL_MANAGEMENT_JOB_OFFER_WEBVIEW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -782,5 +782,3 @@ class personnel_management_job_offer_webview extends class_base
 		&lt;!-- END SUB: JOB_OFFER.WEOFFER --&gt;");
 	}
 }
-
-?>

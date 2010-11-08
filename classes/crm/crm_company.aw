@@ -1943,10 +1943,13 @@ class crm_company extends class_base
  			case "language":
  				if(!$data["value"])
  				{
- 					$ol = new object_list(array("class_id" => CL_LANGUAGE, "site_id" => array() , "lang_id" => array(), "name" => "Eesti"));
- 					if(sizeof($ol->ids()))
+ 					$ol = new object_list(array(
+						"class_id" => CL_LANGUAGE,
+						"name" => "Eesti"
+					));
+ 					if($ol->count())
  					{
- 						$l = reset($ol->arr());
+ 						$l = $ol->begin();
  						$data["value"] = $l->id();
  						$data["options"][$l->id()] = $l->name();
  					}
@@ -1968,7 +1971,7 @@ class crm_company extends class_base
 				static $st_impl;
 				if (!$st_impl)
 				{
-					$st_impl = get_instance("applications/crm/crm_company_objects_impl");
+					$st_impl = new crm_company_objects_impl();
 				}
 				$fn = "_get_".$data["name"];
 				return $st_impl->$fn($arr);
@@ -8449,10 +8452,7 @@ Bank accounts: yksteise all
 		$conns = $p->connections_from(array(
 			"type" => "RELTYPE_ADDRESS",
 		));
-		if(sizeof($conns) > 1)
-		{
-			$multi_addr = 1;
-		}
+		$multi_addr = (count($conns) > 1);
 		$count = 0;
 		foreach($conns as $c)
 		{
@@ -8475,7 +8475,7 @@ Bank accounts: yksteise all
 			}
 		}
 		$conns = $p->connections_from(array(
-			"type" => "RELTYPE_PHONE",
+			"type" => "RELTYPE_PHONE"
 		));
 		if(sizeof($conns))
 		{
@@ -8491,7 +8491,7 @@ Bank accounts: yksteise all
 			));
 		}
 		$conns = $p->connections_from(array(
-			"type" => "RELTYPE_TELEFAX",
+			"type" => "RELTYPE_TELEFAX"
 		));
 		if(sizeof($conns))
 		{
@@ -8507,7 +8507,7 @@ Bank accounts: yksteise all
 			));
 		}
 		$conns = $p->connections_from(array(
-			"type" => "RELTYPE_EMAIL",
+			"type" => "RELTYPE_EMAIL"
 		));
 		if(sizeof($conns))
 		{
@@ -8524,10 +8524,10 @@ Bank accounts: yksteise all
 		}
 
 		$conns = $p->connections_from(array(
-			"type" => "RELTYPE_URL",
+			"type" => "RELTYPE_URL"
 		));
 
-		if(sizeof($conns))
+		if(count($conns))
 		{
 			$aa = array();
 			foreach($conns as $c)
@@ -8542,10 +8542,10 @@ Bank accounts: yksteise all
 		}
 
 		$conns = $p->connections_from(array(
-			"type" => "RELTYPE_BANK_ACCOUNT",
+			"type" => "RELTYPE_BANK_ACCOUNT"
 		));
 
-		if(sizeof($conns))
+		if(count($conns))
 		{
 			$aa = array();
 			foreach($conns as $c)
@@ -8816,7 +8816,6 @@ Bank accounts: yksteise all
 			"persist_state" => 1,
 		));
 
-		classload("core/icons");
 		$st = get_instance(CL_CRM_COMPANY_STATUS);
 		$categories = $st->categories(0);
 		$company = get_current_company();

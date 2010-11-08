@@ -1,7 +1,7 @@
 <?php
 /*
 
-@classinfo syslog_type=ST_MRP_RESOURCE relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1 maintainer=voldemar
+@classinfo relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1
 
 	@groupinfo grp_general2 caption="Andmed" parent=general
 	@groupinfo grp_resource_settings caption="Seaded" parent=general
@@ -248,7 +248,7 @@ class mrp_resource extends class_base
 
 	function callback_on_load ($arr)
 	{
-		if (!is_oid ($arr["request"]["id"]))
+		if (!isset($arr["request"]["id"]) or !is_oid($arr["request"]["id"]))
 		{
 			if (is_oid ($arr["request"]["mrp_workspace"]))
 			{
@@ -256,17 +256,17 @@ class mrp_resource extends class_base
 			}
 			else
 			{
-				$this->mrp_error .= t("Uut ressurssi saab luua vaid ressursihalduskeskkonnast. ");
+				$this->show_error_text = t("Uut ressurssi saab luua vaid ressursihalduskeskkonnast.");
 			}
 		}
 		else
 		{
-			$this_object = obj ($arr["request"]["id"]);
+			$this_object = obj ($arr["request"]["id"], array(), CL_MRP_RESOURCE);
 			$this->workspace = $this_object->prop("workspace");
 
 			if (!$this->workspace)
 			{
-				$this->mrp_error .= t("Ressurss ei kuulu &uuml;hessegi ressursihalduss&uuml;steemi. ");
+				$this->show_error_text = t("Ressurss ei kuulu &uuml;hessegi ressursihalduss&uuml;steemi.");
 			}
 		}
 
@@ -383,7 +383,7 @@ class mrp_resource extends class_base
 	{
 		if (!is_oid($resource->id()))
 		{
-			return;
+			return array(0, 0);
 		}
 
 		if ($resource->prop("state") == mrp_resource_obj::STATE_OUTOFSERVICE)
@@ -1542,29 +1542,42 @@ class mrp_resource extends class_base
 
 	public function _get_job_client_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_item(0, array(
 			"id" => "all",
 			"name" => t("K&otilde;ik"),
 			"url" => aw_url_change_var("clientspan", NULL),
 		));
 
-		$i = new mrp_workspace;
+		$i = new mrp_workspace();
 		$i->create_customers_tree(array_merge($arr, array("obj_inst" => $arr["obj_inst"]->prop("workspace"))));
 
 		// Hack the URLs
 		foreach($t->get_item_ids() as $id)
 		{
 			$item = $t->get_item($id);
-			$uri = new aw_uri($item["url"]);
-			$special_param = strlen($uri->arg("cat")) ? $uri->arg("cat") : (strlen($uri->arg("cust")) ? $uri->arg("cust") : $uri->arg("alph"));
-			$uri->unset_arg(array("cat", "cust", "alph", "clientspan"));
-			if(!empty($special_param))
+			if (isset($item["url"]))
 			{
-				$uri->set_arg("clientspan", $special_param);
+				$uri = new aw_uri($item["url"]);
+				$special_param = strlen($uri->arg("cat")) ? $uri->arg("cat") : (strlen($uri->arg("cust")) ? $uri->arg("cust") : $uri->arg("alph"));
+				$uri->unset_arg(array("cat", "cust", "alph", "clientspan"));
+				if(!empty($special_param))
+				{
+					$uri->set_arg("clientspan", $special_param);
+				}
+				$item["url"] = $uri->get();
+				$t->set_item($item);
 			}
-			$item["url"] = $uri->get();
-			$t->set_item($item);
+			elseif (isset($item["reload"]))
+			{
+				$reload = array(
+					"layouts" => array("resource_deviation_chart", "job_list_table"),
+					"props" => array("job_list", "resource_deviation_chart"),
+				);
+				$reload["params"]["cat"] = $reload["params"]["cust"] = NULL;
+				$item["reload"] = $reload;
+				$t->set_item($item);
+			}
 		}
 
 		$clientspan = automatweb::$request->arg("clientspan");
@@ -2346,5 +2359,3 @@ class mrp_resource extends class_base
 		$arr["prop"]["vcl_inst"]->set_caption(sprintf(t("Ressursi %s j&otilde;udlused formaatide ja aja l&otilde;ikes"), $arr["obj_inst"]->name()));
 	}
 }
-
-?>

@@ -2,7 +2,7 @@
 // mrp_schedule.aw - Ressursiplaneerija
 /*
 
-@classinfo syslog_type=ST_MRP_SCHEDULE relationmgr=yes maintainer=voldemar
+@classinfo relationmgr=yes
 
 @default table=objects
 @default group=general
@@ -12,7 +12,7 @@
 */
 
 require_once "mrp_header.aw";
-ini_set ("max_execution_time", "60");
+ini_set ("max_execution_time", "600");
 
 class mrp_schedule extends db_connector
 {
@@ -243,13 +243,13 @@ class mrp_schedule extends db_connector
 **/
 	public function create ($arr)
 	{
-		enter_function("mrp_schedule::create");
 // /* dbg */ list($micro,$sec) = split(" ",microtime());
 // /* dbg */ $ts_s = $sec + $micro;
 
 		$workspace_id = (int) $arr["mrp_workspace"];
 		$not_win32 = ("win32" !== aw_ini_get("server.platform"));
 		$workspace = new object($workspace_id);
+		$sem_id = 0;
 
 		if (CL_MRP_WORKSPACE != $workspace->class_id())
 		{
@@ -257,7 +257,7 @@ class mrp_schedule extends db_connector
 		}
 
 		// Ee, lock ei t88ta vist
-		if (false && $not_win32)
+		if ($not_win32)
 		{
 			### get and acquire semaphore for given workspace
 			$sem_id = sem_get($workspace_id, 1, 0666, 1);
@@ -285,7 +285,6 @@ class mrp_schedule extends db_connector
 					// "fatal" => true,
 					// "show" => true,
 				// ));//!!! vaadata uurida miks ikkagi aegajalt ei saada seda semafori k2tte.
-				exit_function("mrp_schedule::create");
 				throw new awex_mrp_schedule_lock("Lock acquiring failed");
 			}
 		}
@@ -295,9 +294,7 @@ class mrp_schedule extends db_connector
 		{
 			### set scheduling not needed, and start scheduling
 			$workspace->set_prop("rescheduling_needed", 0);
-			aw_disable_acl();
 			$workspace->save();
-			aw_restore_acl();
 		}
 		elseif ($not_win32)
 		{
@@ -322,12 +319,10 @@ class mrp_schedule extends db_connector
 				// ));
 			}
 
-			exit_function("mrp_schedule::create");
 			return;
 		}
 		else
 		{
-			exit_function("mrp_schedule::create");
 			return;
 		}
 
@@ -469,7 +464,6 @@ class mrp_schedule extends db_connector
 
 		if (!is_oid($workspace->prop ("projects_folder")))
 		{
-			exit_function("mrp_schedule::create");
 			return;
 		}
 		$this->db_query (
@@ -823,7 +817,6 @@ class mrp_schedule extends db_connector
 // /* dbg */ $ts_e = $sec + $micro;
 // /* dbg */ $GLOBALS["timings"]["planning_time"] = $ts_s - $ts_e;
  // /* timing */ timing ();
-		exit_function("mrp_schedule::create");
 // /* dbg */ exit;
 	}
 
@@ -2015,5 +2008,3 @@ class awex_mrp_schedule_save extends awex_mrp_schedule {}
 
 /** Scheduling semaphore lock failure **/
 class awex_mrp_schedule_lock extends awex_mrp_schedule {}
-
-?>

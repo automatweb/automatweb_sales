@@ -1262,8 +1262,7 @@ class _int_object
 							$_tmp[] = $con["target_name"];
 						}
 					}
-					else
-					if (is_oid($this->id()))
+					elseif (is_oid($this->id()))
 					{
 						$rels = new object_list($this->connections_from(array(
 							"type" => $pd["reltype"]
@@ -1273,6 +1272,10 @@ class _int_object
 
 					if (count($_tmp))
 					{
+						foreach ($_tmp as $key => $value)
+						{
+							$_tmp[$key] = strlen($value) ? $value : t("[Nimetu]");
+						}
 						$val = join(", ", $_tmp);
 					}
 					else
@@ -1282,31 +1285,36 @@ class _int_object
 					break;
 				}
 
+			case "objpicker":
 			case "oid":
 				if (is_oid($val))
 				{
-					if ($GLOBALS["object_loader"]->ds->can("view", $val))
+					if (object_loader::can("view", $val))
 					{
 						$tmp = new object($val);
 						$val = $tmp->name();
 					}
 					else
 					{
-						$val = "";
+						$val = t("[Puudub ligip&auml;&auml;s]");
 					}
 				}
-				else
-				if (is_array($val))
+				elseif (is_array($val))
 				{
 					$vals = array();
 					foreach($val as $k)
 					{
 						if (is_oid($k))
 						{
-							if ($GLOBALS["object_loader"]->ds->can("view", $k))
+							if (object_loader::can("view", $k))
 							{
 								$tmp = new object($k);
-								$vals[] = $tmp->name();
+								$tmp = $tmp->name();
+								$vals[] = strlen($tmp) ? $tmp : t("[Nimetu]");
+							}
+							else
+							{
+								$vals[] = t("[Puudub ligip&auml;&auml;s]");
 							}
 						}
 					}
@@ -1321,7 +1329,7 @@ class _int_object
 
 		if (empty($val))
 		{
-			$val = t("[Nimetu]");
+			$val = "";
 		}
 
 		return $val;

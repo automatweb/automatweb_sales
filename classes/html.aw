@@ -826,22 +826,31 @@ class html
 
 	@param name optional type=string
 		button name
+
 	@param type optional type=string
 		button type
+
 	@param value optional type=string
 		button value
+
 	@param class optional type=string
 		style class name
+
 	@param textsize optional type=string
 		Examples: "10px", "0.7em", "smaller"
+
 	@param disabled optional type=bool
 		If set, the button is disabled
+
 	@param onclick optional type=string
 		stuff what will happen if you click the button - javascript
+
 	@param id optional type=string
 		button id
+
 	@param post_append_text optional type=string
 		any text or html code you want to see after button
+
 	@param reload optional type=array
 		array of parameters for reloading properties
 		@param reload.submit optional type=string

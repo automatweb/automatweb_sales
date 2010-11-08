@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 //// DEPRECATED. moved to object class' constants
 // object statuses
@@ -1355,5 +1352,3 @@ class core extends acl_base
 		return $obj->name();
 	}
 }
-
-?>

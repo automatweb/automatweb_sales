@@ -17,6 +17,7 @@ class htmlclient extends aw_template
 	public $object_id = 0;
 	public $use_group = "";
 	public $class_name = "";
+	public $view_layout = "";
 
 	private $has_property_help = false;
 	private $ui_messages = array();
@@ -839,8 +840,7 @@ class htmlclient extends aw_template
 		{
 			// this will apply a new style to the BODY node, it's required
 			// to get the classbase layoyt with iframe working correctly
-			$apd = get_instance("layout/active_page_data");
-			$apd->add_serialized_css_style($this->parse("iframe_body_style"));
+			active_page_data::add_serialized_css_style($this->parse("iframe_body_style"));
 		}
 
 		if(empty($this->no_form))

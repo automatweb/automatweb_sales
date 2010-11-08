@@ -1,32 +1,31 @@
 <?php
-/*
-@classinfo maintainer=robert
-*/
+
 class link_fix extends _int_object
 {
 	private $si;
+	private $url = "";
 
-	function prop($k)
+	public function awobj_get_url()
 	{
-		$rv = parent::prop($k);
-		if ($k == "url" && $this->meta("linked_obj") && $GLOBALS["object_loader"]->can("view", $this->meta("linked_obj")))
+		if ($this->meta("linked_obj") && object_loader::can("view", $this->meta("linked_obj")))
 		{
 			if (!is_object($this->si))
 			{
-				$this->si = get_instance("contentmgmt/site_show");
+				$this->si = new site_show();
 			}
 			$rv = $this->si->make_menu_link(obj($this->meta("linked_obj")));
 		}
+		else
+		{
+			$rv = $this->prop("url");
+		}
+
 		return $rv;
 	}
 
-	function set_prop($var, $val)
+	public function awobj_set_url($value)
 	{
-		if($var == "url")
-		{
-			$this->url = $url;
-		}
-		return parent::set_prop($var, $val);
+		$this->url = $value;
+		return $this->set_prop("url", $value);
 	}
 }
-?>

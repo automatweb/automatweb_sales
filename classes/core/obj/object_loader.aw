@@ -451,7 +451,7 @@ class _int_object_loader extends core
 	{
 		$acl_name = "can_" . $acl_name;
 
-		if (!in_array($acl_name, $this->acl_ids))
+		if (!is_oid($oid) or !in_array($acl_name, $this->acl_ids))
 		{
 			return 0;
 		}

@@ -1,6 +1,5 @@
 <?php
 /*
-@classinfo  maintainer=kristo
 @comment
 	The aw template engine
 */
@@ -63,25 +62,27 @@ class aw_template extends core
 			aw_config_init_class($this);
 		}
 
+		$site_basedir = aw_ini_get("site_basedir");
+
 		if (substr($basedir,0,1) != "/" && !preg_match("/^[a-z]:/i", substr($basedir,0,2)))
 		{
 			if ($has_top_level_folder)
 			{
-				$this->template_dir = aw_ini_get("site_basedir") . "/$basedir";
-				$this->adm_template_dir = AW_DIR . "templates/$basedir";
-				$this->site_template_dir = aw_ini_get("site_basedir")."/".$basedir;
+				$this->template_dir = "{$site_basedir}/{$basedir}";
+				$this->adm_template_dir = AW_DIR . "templates/{$basedir}";
+				$this->site_template_dir = "{$site_basedir}/{$basedir}";
 			}
 			else
 			{
 				if (is_admin())
 				{
-					$this->template_dir = AW_DIR . "templates/$basedir";
+					$this->template_dir = AW_DIR . "templates/{$basedir}";
 				}
 				else
 				{
-					$this->template_dir = $this->_find_site_template_dir() . "/$basedir";
+					$this->template_dir = $this->_find_site_template_dir() . "/{$basedir}";
 				}
-				$this->adm_template_dir = AW_DIR . "templates/$basedir";
+				$this->adm_template_dir = AW_DIR . "templates/{$basedir}";
 				$this->site_template_dir = $this->_find_site_template_dir()."/".$basedir;
 			}
 		}
@@ -179,10 +180,10 @@ class aw_template extends core
 	**/
 	function set_parse_method($method = "")
 	{
-		if ($method == "eval")
+		if ($method === "eval")
 		{
 			$this->use_eval = true;
-		};
+		}
 	}
 
 	/** resets the template parser to the default state - clears all variables and loaded templates
@@ -308,7 +309,7 @@ class aw_template extends core
 	**/
 	function read_template($name,$silent = 0)
 	{
-		$this->template_filename = $this->template_dir."/".$name;
+		$this->template_filename = $this->template_dir.$name;
 
 		if (!file_exists($this->template_filename))
 		{
@@ -317,7 +318,7 @@ class aw_template extends core
 			{
 				$this->template_filename = get_file_version($this->template_filename);
 			}
-		};
+		}
 
 		// try to load a template from aw directory then
 		if (file_exists($this->template_filename))
@@ -350,7 +351,7 @@ class aw_template extends core
 			{
 				// raise_error drops out, therefore $retval has no meaning here
 				$this->raise_error("ERR_TPL_NOTPL", sprintf(t("Template '%s/%s' not found"), $this->template_dir, $name),true);
-			};
+			}
 		}
 		return $retval;
 	}
@@ -956,13 +957,14 @@ class aw_template extends core
 	   		$this->vars[$object] .= $src;
 		}
 
-		if ($this->debug_mode == 1 && isset($_GET["TPL"]) && $_GET["TPL"] == 2 && $object == "MAIN")
+		if ($this->debug_mode == 1 && isset($_GET["TPL"]) && $_GET["TPL"] === "2" && $object === "MAIN")
 		{
 			print "Available variables for: " . $this->template_filename;
 			print "<pre>";
 			print_r($this->vars);
 			print "</pre>";
-		};
+		}
+
 		return $src;
 	}
 
@@ -1163,4 +1165,3 @@ class awex_bad_file_path extends aw_exception
 		$this->path = $path;
 	}
 }
-?>

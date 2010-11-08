@@ -797,10 +797,11 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	**/
 	function finish_work_relation(object $work_relation)
 	{
-		$work_relations = crm_person_work_relation_obj::find(obj($work_relation->prop("employee")), null, $this->ref());
+		$employee = obj($work_relation->prop("employee"), array(), CL_CRM_PERSON);
+		$work_relations = crm_person_work_relation_obj::find($employee, null, $this->ref());
 		if ($work_relations->count() == 1 and $work_relation->id() === $work_relations->begin()->id())
 		{ // last relation, block user too
-			$user = $person->instance()->has_user($person);
+			$user = $employee->instance()->has_user($employee);
 			if($user !== false)
 			{
 				$user->set_prop("blocked", 1);
@@ -2257,7 +2258,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			"seller" => $this->id()
 		);
 
-		if($arr["name"])
+		if(!empty($arr["name"]))
 		{
 			$filter["buyer.name"] = $arr["name"]."%";
 		}

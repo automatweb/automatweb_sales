@@ -9,7 +9,7 @@ class crm_bill_payment_obj extends _int_object
 			parent::set_prop($name,$value);
 			if(!$this->id())
 			{
-				$this->save();//kui id'd pole , siis l2heb lolliks 
+				$this->save();//kui id'd pole , siis l2heb lolliks
 			}
 			$ol = new object_list(array(
 				"class_id" => CL_CRM_BILL,
@@ -36,7 +36,7 @@ class crm_bill_payment_obj extends _int_object
 			return;
 		}
 */
-		if($name == "currency_rate")
+		if($name === "currency_rate")
 		{
 			if(!$value && $this->prop("currency"))
 			{
@@ -108,12 +108,10 @@ class crm_bill_payment_obj extends _int_object
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"CL_CRM_BILL.RELTYPE_PAYMENT.id" => $this->id(),
+			"CL_CRM_BILL.RELTYPE_PAYMENT.id" => $this->id()
 		));
 		$sum = 0;
 
-		$bi = get_instance(CL_CRM_BILL);
 		foreach($ol->arr() as $o)
 		{
 			$sum+= $this->get_bill_sum($o->id());
@@ -151,24 +149,23 @@ class crm_bill_payment_obj extends _int_object
 
 	/**
 		@attrib api=1 all_args=1
-	@param o required type=oid/object
-		bill object you want to add
-	@param sum optional type=int
-		sum paid for bill
-	@returns string error
+		@param o required type=oid/object
+			bill object you want to add
+		@param sum optional type=int
+			sum paid for bill
+		@returns string error
 
-	@comment
-		adds bill to payment or returns error message if cant
+		@comment
+			adds bill to payment or returns error message if cant
 	**/
 	function add_bill($arr)
 	{
 		extract($arr);
 		//kui in id, siis objektiks
-		if(!is_object($o) && is_oid($o) && $this->can("view", $o))
+		if(!is_object($o) && object_loader::can("view", $o))
 		{
 			$o = obj($o);
 		}
-		$bi = get_instance("applications/crm/crm_bill");
 
 		//m6ned asjad mis v6ivad saada operatsiooni takistuseks
 		//seda esimest pole vaja t6en2oliselt, sest summa laekumisel on tegelikult selline s6ltuv suurus
@@ -182,10 +179,9 @@ class crm_bill_payment_obj extends _int_object
 		}
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"CL_CRM_BILL.RELTYPE_PAYMENT.id" => $this->id(),
+			"CL_CRM_BILL.RELTYPE_PAYMENT.id" => $this->id()
 		));
-		$eb = reset($ol->arr());
+		$eb = $ol->begin();
 		if(is_object($eb) && $eb->prop("customer") != $o->prop("customer"))
 		{
 			return t("laekumine ei saa olla erinevate klientidega arvetele");
@@ -207,9 +203,9 @@ class crm_bill_payment_obj extends _int_object
 			$curr = $o->get_bill_currency_id();
 			$this->set_prop("currency" , $curr);
 
-			$ci = get_instance(CL_CURRENCY);
+			$ci = new currency();
 			$rate = 1;
-			if(($default_c = $ci->get_default_currency) != $curr)
+			if(($default_c = $ci->get_default_currency()) != $curr)
 			{
 				$rate = $ci->convert(array(
 					"sum" => 1,
@@ -240,7 +236,6 @@ class crm_bill_payment_obj extends _int_object
 		}
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
 			"CL_CRM_BILL.RELTYPE_PAYMENT.id" => $this->id(),
 		));
 		foreach($ol -> arr() as $o)

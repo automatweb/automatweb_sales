@@ -1028,7 +1028,7 @@ function aw_get_el(name,form)
 		$ret = 	html::href(array(
 			"url" => "javascript:;",
 			"onclick" => 'win = window.open("'.$this->get_popup_url().'" ,"categoty_search","width=720,height=600,statusbar=yes, scrollbars=yes");',
-			"caption" => html::img(array("url" =>  $this->cfg["baseurl"] . "/automatweb/images/icons/search.gif")),
+			"caption" => html::img(array("url" =>  aw_ini_get("baseurl") . "/automatweb/images/icons/search.gif")),
 		));
 
 		return $ret;

@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=markop
-*/
+
 class crm_company_cedit_impl extends core
 {
 	function crm_company_cedit_impl()
@@ -535,12 +533,14 @@ class crm_company_cedit_impl extends core
 		if ($arr["obj_inst"]->class_id() == CL_CRM_PERSON)
 		{
 			$pn = "url";
+			$sts = 0;
 		}
 		else
 		{
-			$seti = get_instance(CL_CRM_SETTINGS);
+			$seti = new crm_settings();
 			$sts = $seti->get_current_settings();
 		}
+
 		if($sts && $sts->prop("org_link_menu"))
 		{
 			$parent = $sts->prop("org_link_menu");

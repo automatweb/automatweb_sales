@@ -746,22 +746,22 @@ function aw_shutdown()
 {
 }
 
-function &__get_site_instance()
+function __get_site_instance()
 {
-	global $__site_instance;
+	static $__site_instance;
 	if (!is_object($__site_instance))
 	{
 		$fname = aw_ini_get("site_basedir")."/public/site".AW_FILE_EXT;
 		if (is_readable($fname))
 		{
-			include($fname);
+			include_once($fname);
 		}
 		else
 		{
 			$fname = aw_ini_get("site_basedir")."/htdocs/site".AW_FILE_EXT;
 			if (is_readable($fname))
 			{
-				include($fname);
+				include_once($fname);
 			}
 		}
 
@@ -771,7 +771,7 @@ function &__get_site_instance()
 		}
 		else
 		{
-			$__site_instance = false;
+			$__site_instance = new site_base();
 		}
 	}
 	return $__site_instance;

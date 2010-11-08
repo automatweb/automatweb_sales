@@ -41,7 +41,7 @@ if (is_oid($ac_id = auth_config::has_config()))
 
 $m = new site_cache();
 
-$si = &__get_site_instance();
+$si = __get_site_instance();
 $tfl = "";
 
 if(!empty($_SESSION["text_for_login"]))

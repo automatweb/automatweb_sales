@@ -1226,15 +1226,18 @@ class crm_person extends class_base
 
 	function _set_work_tbl($arr)
 	{
-		foreach($arr["request"]["work_tbl"] as $wr_id => $data)
+		if (isset($arr["request"]["work_tbl"]) and is_array($arr["request"]["work_tbl"]))
 		{
-			if (is_oid($wr_id))
+			foreach($arr["request"]["work_tbl"] as $wr_id => $data)
 			{
-				$wr = obj($wr_id, array(), CL_CRM_PERSON_WORK_RELATION);
-				$wr->set_prop("employer", $data["org"]);
-				$wr->set_prop("company_section", $data["sec"]);
-				$wr->set_prop("profession", $data["pro"]);
-				$wr->save();
+				if (is_oid($wr_id))
+				{
+					$wr = obj($wr_id, array(), CL_CRM_PERSON_WORK_RELATION);
+					$wr->set_prop("employer", $data["org"]);
+					$wr->set_prop("company_section", $data["sec"]);
+					$wr->set_prop("profession", $data["pro"]);
+					// $wr->save();
+				}
 			}
 		}
 	}
@@ -2737,6 +2740,7 @@ class crm_person extends class_base
 
 	function recursive_connections_from($ids, $reltype, &$array)
 	{
+		$new_ids = array();
 		foreach(connection::find(array("from" => $ids, "type" => $reltype)) as $conn)
 		{
 			$array[$conn["to"]] = $conn["to.name"];
@@ -2786,9 +2790,7 @@ class crm_person extends class_base
 				$fol = new object_list(array(
 					"oid" => $to->prop("field"),
 					"parent" => array(),
-					"lang_id" => array(),
-					"site_id" => array(),
-					"status" => array(),
+					"status" => array()
 				));
 				$field = "";
 				foreach($fol->names() as $name)
@@ -2812,7 +2814,7 @@ class crm_person extends class_base
 	{
 		$org_fixed = 0;
 		$query = $this->parse_url_parse_query($arr["request"]["return_url"]);
-		if($query["class"] == "crm_company" && $this->can("view", $query["id"]))
+		if($query["class"] === "crm_company" && $this->can("view", $query["id"]))
 		{
 			$org_fixed = $query["id"];
 		}
@@ -2883,7 +2885,7 @@ class crm_person extends class_base
 			"field" => "sel",
 			"width" => "60",
 		));
-		$relpicker = get_instance("vcl/relpicker");
+		$relpicker = new relpicker();
 		foreach($arr["obj_inst"]->get_active_work_relations()->arr() as $wr)
 		{
 			$orgid = $wr->prop("employer");
@@ -2892,10 +2894,12 @@ class crm_person extends class_base
 			{
 				continue;
 			}
+
+			$sec_options = array();
 			if($this->can("view", $orgid))
 			{
 				$org_obj = new object($orgid);
-				if(!is_array($sec_options[$orgid]))
+				if(empty($sec_options[$orgid]) or !is_array($sec_options[$orgid]))
 				{
 					$ids = array();
 					foreach($org_obj->connections_from(array("type" => 28)) as $org_conn)
@@ -2918,26 +2922,31 @@ class crm_person extends class_base
 					$pro_options[$pro_conn->prop("to")] = $pro_conn->prop("to.name");
 				}
 			}
-			elseif(count($sec_options[$orgid]) > 0)
+			elseif(isset($sec_options[$orgid]) and count($sec_options[$orgid]))
 			{
 				foreach(connection::find(array("from" => array_flip($sec_options[$orgid]), "type" => 3)) as $pro_conn)
 				{
 					$pro_options[$pro_conn["to"]] = $pro_conn["to.name"];
 				}
 			}
+
 			$t->define_data(array(
+				"org" => $wr->prop_str("employer"),
+				"sec" => $wr->prop_str("company_section"),
+				"pro" => $wr->prop_str("profession")
+/*
 				"org" => $relpicker->create_relpicker(array(
 					"name" => "work_tbl[".$wr->id()."][org]",
 					"reltype" => 1,
 					"oid" => $wr->id(),
-					"property" => "org",
+					"property" => "employer",
 //					"buttonspos" => "bottom",
 				)),
 				"sec" => $relpicker->create_relpicker(array(
 					"name" => "work_tbl[".$wr->id()."][sec]",
 					"reltype" => 7,
 					"oid" => $wr->id(),
-					"property" => "section",
+					"property" => "company_section",
 					"options" => $sec_options[$orgid],
 				)),
 				"pro" => $relpicker->create_relpicker(array(
@@ -2948,6 +2957,7 @@ class crm_person extends class_base
 					"options" => $pro_options,
 				)),
 				"sel" => $wr->id(),
+*/
 			));
 		}
 	}
@@ -5428,7 +5438,7 @@ fnCallbackAddNew = function()
 		$gidlist = aw_global_get("gidlist_oid");
 		$personname = $person_obj->name();
 		$cur_job = $this->has_current_job_relation($ob->id());
-		$bd = split("-", $ob->prop("birthday"));
+		$bd = explode("-", $ob->prop("birthday"));
 		$bd = mktime(0,0,0,$bd[1],$bd[2], $bd[0]);
 		$tio = $cur_job?(time() - $cur_job->prop("start")):false;
 		$m = $tio?round(((($tio/60)/60)/24)/30, 0):0;
@@ -5546,9 +5556,10 @@ fnCallbackAddNew = function()
 			$tmpo->set_class_id($clid);
 			foreach($tmpo->get_property_list() as $prop_id => $prop_data)
 			{
+				$caption = isset($prop_data["caption"]) ? $prop_data["caption"] : "";
 				$this->vars(array(
 					//$prefix.$prop_id.".caption" => htmlentities($prop_data["caption"], ENT_NOQUOTES, "ISO-8859-1", false),
-					$prefix.$prop_id.".caption" => iconv("", $charset, $prop_data["caption"]),
+					$prefix.$prop_id.".caption" => iconv("", $charset, $caption),
 				));
 			}
 
@@ -7991,8 +8002,9 @@ fnCallbackAddNew = function()
 		{
 			if(strlen($ret) > 0)
 			{
-				$ret .= "<br>";
+				$ret .= "<br />";
 			}
+
 			if($this->can("view", $org_id))
 			{
 				$ret .= html::obj_change_url($org_id);
@@ -8001,34 +8013,49 @@ fnCallbackAddNew = function()
 			{
 				$ret .= " <i>ORGANISATSIOON M&Auml;&Auml;RAMATA</i>";
 			}
-			foreach($data["professions"] as $prof)
-			{
-				if(!$this->can("view", $prof))
-				{
-					continue;
-				}
-				$ret .= ", ".html::obj_change_url($prof);
-			}
-			foreach($data["phones"] as $ph_id => $ph)
-			{
-				$ph_obj = obj($ph_id);
-				$ret .= ", ".html::obj_change_url($ph_id, $ph, array("conn_id" => $ph_obj->conn_id));
-			}
-			foreach($data["emails"] as $ml_id => $ml)
-			{
-				$ml_obj = new object($ml_id);
-				$ret .= ", ".html::obj_change_url($ml_id, (strlen($ml_obj->prop("mail")) ? $ml_obj->prop("mail") : t("[m&auml;&auml;ramata]")));
-			}
-			if(sizeof($data["faxes"]) > 0)
-				$ret .= ", faks ";
-			$mtof = false;
-			foreach($data["faxes"] as $fx_id => $fx)
-			{
-				if($mtof)
-					$ret .= ",";
 
-				$ret .= " ".html::obj_change_url($fx_id);
-				$mtof = true;
+			if (!empty($data["professions"]))
+			{
+				foreach($data["professions"] as $prof)
+				{
+					if(!$this->can("view", $prof))
+					{
+						continue;
+					}
+					$ret .= ", ".html::obj_change_url($prof);
+				}
+			}
+
+			if (!empty($data["phones"]))
+			{
+				foreach($data["phones"] as $ph_id => $ph)
+				{
+					$ph_obj = obj($ph_id);
+					$ret .= ", ".html::obj_change_url($ph_id, $ph, array("conn_id" => $ph_obj->conn_id));
+				}
+			}
+
+			if (!empty($data["emails"]))
+			{
+				foreach($data["emails"] as $ml_id => $ml)
+				{
+					$ml_obj = new object($ml_id);
+					$ret .= ", ".html::obj_change_url($ml_id, (strlen($ml_obj->prop("mail")) ? $ml_obj->prop("mail") : t("[m&auml;&auml;ramata]")));
+				}
+			}
+
+			if (!empty($data["faxes"]))
+			{
+				if (sizeof($data["faxes"]) > 0) $ret .= ", faks ";
+				$mtof = false;
+				foreach($data["faxes"] as $fx_id => $fx)
+				{
+					if($mtof)
+						$ret .= ",";
+
+					$ret .= " ".html::obj_change_url($fx_id);
+					$mtof = true;
+				}
 			}
 		}
 		return $ret;

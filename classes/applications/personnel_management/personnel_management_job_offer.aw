@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/personnel_management/personnel_management_job_offer.aw,v 1.70 2009/05/26 14:05:54 instrumental Exp $
+
 // personnel_management_job_offer.aw - T&ouml;&ouml;pakkumine
 /*
 
@@ -8,7 +8,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_PERSONNEL_MANAGEMENT_CAND
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT_CANDIDATE, on_disconnect_candidate_from_job_offer)
 
-@classinfo syslog_type=ST_PERSONNEL_MANAGEMENT_JOB_OFFER relationmgr=yes r2=yes no_comment=1 prop_cb=1 maintainer=instrumental
+@classinfo relationmgr=yes r2=yes no_comment=1 prop_cb=1
 @tableinfo personnel_management_job_offer index=oid master_table=objects master_index=oid
 
 @default table=objects
@@ -150,7 +150,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_PERSONNEL_MANAGEMENT
 	@layout conditions_split type=hbox width=25%:75%
 
 		@layout condition_groups_tree type=vbox parent=conditions_split area_caption=Tingimuste&nbsp;grupid
-			
+
 			@property condition_groups_tree type=treeview no_caption=1 store=no parent=condition_groups_tree
 
 		@layout conditions_table type=vbox parent=conditions_split
@@ -772,7 +772,7 @@ class personnel_management_job_offer extends class_base
 				"url" => aw_url_change_var("condition_group_id", $oid)
 			));
 		}
-		
+
 		$t->add_item(0, array(
 			"id" => "condition_groups",
 			"name" => sprintf(t("Tingimuste grupid (%u)"), $ol->count()),
@@ -2752,4 +2752,3 @@ class personnel_management_job_offer extends class_base
 		}
 	}
 }
-?>
