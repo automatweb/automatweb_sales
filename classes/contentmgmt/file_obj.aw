@@ -1,9 +1,5 @@
 <?php
-/*
 
-@classinfo maintainer=markop
-
-*/
 class file_obj extends _int_object
 {
 	////
@@ -100,5 +96,19 @@ class file_obj extends _int_object
 		return $retval;
 	}
 
+	function delete($full_delete = false)
+	{
+		$r = parent::delete($full_delete);
+
+		if ($full_delete)
+		{ // also delete file from file system
+			$file = file::check_file_path($this->prop("file"));
+			if (is_file($file))
+			{
+				unlink($file);
+			}
+		}
+
+		return $r;
+	}
 }
-?>

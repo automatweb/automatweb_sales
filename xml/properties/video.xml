@@ -1,6 +1,24 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>file</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>fileupload</type>
+            <caption>Fail</caption>
+      </property>
+      <property>
+            <name>file2</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>fileuploader</type>
+            <caption>Fail suur</caption>
+      </property>
+      <property>
             <name>image</name>
             <table>objects</table>
             <field>meta</field>
@@ -108,6 +126,17 @@
             <caption>URL (Windows Media)</caption>
       </property>
       <property>
+            <name>video_galleries</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>relmanager</type>
+            <reltype>RELTYPE_GALLERY</reltype>
+            <comment>Videogaleriid mille alla see video kuulub</comment>
+            <caption>Galeriid</caption>
+      </property>
+      <property>
             <name>trans</name>
             <table>objects</table>
             <field>meta</field>
@@ -128,11 +157,10 @@
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_VIDEO</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
-            <maintainer>kristo</maintainer>
+            <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
             <trans>
@@ -148,6 +176,11 @@
                   <clid>CL_IMAGE</clid>
                   <caption>Video pilt</caption>
             </IMAGE>
+            <GALLERY>
+                  <value>2</value>
+                  <clid>CL_VIDEO_GALLERY</clid>
+                  <caption>Videogalerii</caption>
+            </GALLERY>
       </reltypes>
 </properties>
 

@@ -971,7 +971,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
@@ -985,7 +984,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>hidden</type>
             <no_caption>1</no_caption>
@@ -998,7 +996,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>treeview</type>
             <no_caption>1</no_caption>
@@ -1013,7 +1010,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>textbox</type>
             <size>30</size>
@@ -1029,7 +1025,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>textbox</type>
             <size>30</size>
@@ -1045,7 +1040,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>textbox</type>
             <size>30</size>
@@ -1061,7 +1055,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>textbox</type>
             <size>30</size>
@@ -1077,7 +1070,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>textbox</type>
             <size>30</size>
@@ -1093,7 +1085,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>textbox</type>
             <size>30</size>
@@ -1109,7 +1100,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>textbox</type>
             <size>30</size>
@@ -1125,7 +1115,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>textbox</type>
             <size>30</size>
@@ -1141,7 +1130,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>chooser</type>
             <store>no</store>
@@ -1157,7 +1145,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>text</type>
             <size>25</size>
@@ -1173,7 +1160,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>text</type>
             <size>25</size>
@@ -1189,7 +1175,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>select</type>
             <store>no</store>
@@ -1204,7 +1189,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>classificator</type>
             <store>no</store>
@@ -1219,7 +1203,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>select</type>
             <store>no</store>
@@ -1234,7 +1217,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>checkbox</type>
             <parent>vbox_customers_left_top</parent>
@@ -1251,7 +1233,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>submit</type>
             <size>15</size>
@@ -1267,7 +1248,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>submit</type>
             <parent>vbox_customers_left_search_btn</parent>
@@ -1282,7 +1262,6 @@
             <group>
                   <num_0>relorg_s</num_0>
                   <num_1>relorg_b</num_1>
-                  <num_2>relorg_t</num_2>
             </group>
             <type>table</type>
             <store>no</store>
@@ -3720,19 +3699,6 @@
                   <focus>customer_search_name</focus>
                   <save>no</save>
             </relorg>
-            <relorg_t>
-                  <caption>K&amp;amp;otilde;ik</caption>
-                  <parent>relorg</parent>
-                  <submit>no</submit>
-                  <save>no</save>
-            </relorg_t>
-            <relorg_s>
-                  <caption>M&amp;amp;uuml;&amp;amp;uuml;jad</caption>
-                  <focus>customer_search_name</focus>
-                  <parent>relorg</parent>
-                  <submit>no</submit>
-                  <save>no</save>
-            </relorg_s>
             <relorg_b>
                   <caption>Ostjad</caption>
                   <focus>customer_search_name</focus>
@@ -3740,6 +3706,13 @@
                   <submit>no</submit>
                   <save>no</save>
             </relorg_b>
+            <relorg_s>
+                  <caption>M&amp;amp;uuml;&amp;amp;uuml;jad</caption>
+                  <focus>customer_search_name</focus>
+                  <parent>relorg</parent>
+                  <submit>no</submit>
+                  <save>no</save>
+            </relorg_s>
             <org_images>
                   <caption>Pildid</caption>
                   <submit>yes</submit>
@@ -4539,7 +4512,6 @@
                   <group>
                         <num_0>relorg_s</num_0>
                         <num_1>relorg_b</num_1>
-                        <num_2>relorg_t</num_2>
                   </group>
                   <area_caption></area_caption>
             </my_cust_bot>
@@ -4549,7 +4521,6 @@
                   <group>
                         <num_0>relorg_s</num_0>
                         <num_1>relorg_b</num_1>
-                        <num_2>relorg_t</num_2>
                   </group>
                   <area_caption></area_caption>
             </tree_search_split>
@@ -4561,7 +4532,6 @@
                   <group>
                         <num_0>relorg_s</num_0>
                         <num_1>relorg_b</num_1>
-                        <num_2>relorg_t</num_2>
                   </group>
             </vvoc_customers_tree_left>
             <vbox_customers_left>
@@ -4572,7 +4542,6 @@
                   <group>
                         <num_0>relorg_s</num_0>
                         <num_1>relorg_b</num_1>
-                        <num_2>relorg_t</num_2>
                   </group>
             </vbox_customers_left>
             <vbox_customers_left_top>
@@ -4581,7 +4550,6 @@
                   <group>
                         <num_0>relorg_s</num_0>
                         <num_1>relorg_b</num_1>
-                        <num_2>relorg_t</num_2>
                   </group>
                   <area_caption></area_caption>
             </vbox_customers_left_top>
@@ -4591,7 +4559,6 @@
                   <group>
                         <num_0>relorg_s</num_0>
                         <num_1>relorg_b</num_1>
-                        <num_2>relorg_t</num_2>
                   </group>
                   <area_caption></area_caption>
             </vbox_customers_left_search_btn>

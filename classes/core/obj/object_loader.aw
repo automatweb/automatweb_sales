@@ -48,6 +48,7 @@ class _int_object_loader extends core
 	private $acl_ids;
 	private static $tmp_id_count = 0;
 	private $registered = false;
+	public $obj_inherit_props_conf = array();
 
 	function _int_object_loader()
 	{
@@ -89,7 +90,6 @@ class _int_object_loader extends core
 		$this->cfgu = new cfgutils();
 		$this->cache = new cache();
 
-		$this->obj_inherit_props_conf = array();
 		$fn = aw_ini_get("site_basedir")."/files/obj_inherit_props.conf";
 		if (file_exists($fn) && is_readable($fn))
 		{

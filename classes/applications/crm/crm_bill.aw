@@ -5,6 +5,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @classinfo relationmgr=yes no_status=1 prop_cb=1 confirm_save_data=1
 @default table=objects
 
+
+@property customer type=hidden table=aw_crm_bill field=aw_customer
+
 @default group=general
 
 	@property billp_tb type=toolbar store=no no_caption=1
@@ -32,7 +35,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 					@layout bottom_right_right type=vbox parent=bottom_right
 
-		@layout almost_bottom parent=main_split type=vbox closeable=1 area_caption=Arve&nbsp;saajad
+		// @layout almost_bottom parent=main_split type=vbox closeable=1 area_caption=Arve&nbsp;saajad
 
 		@layout bottom parent=main_split type=vbox closeable=1 area_caption=Read
 
@@ -116,9 +119,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property customer_name type=textbox table=aw_crm_bill field=aw_customer_name parent=top_right
 	@caption Kliendi nimi
 
-	@property customer type=relpicker table=aw_crm_bill field=aw_customer reltype=RELTYPE_CUST parent=top_right
-	@caption Klient
-
 	@property customer_code type=textbox table=aw_crm_bill field=aw_customer_code parent=top_right
 	@caption Kliendikood
 
@@ -129,10 +129,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@caption Kliendi aadress
 
 	@property customer_add_meta_cb type=callback callback=customer_add_meta_cb store=no parent=top_right
-
-#	@property customer_address_meta type=text no_caption=1 parent=top_right
-#	@caption Kliendi aadressi muutujad metas
-
 
 
 	// bottom right lyt
@@ -162,11 +158,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 	// bottom lyt
 
-	@property bill_targets type=table store=no no_caption=1 parent=almost_bottom
-	@caption Arve saajad
+	// @property bill_targets type=table store=no no_caption=1 parent=almost_bottom
+	// @caption Arve saajad
 
-	@property bill_rec_name type=textbox table=objects field=meta method=serialize parent=almost_bottom
-	@caption Arve saaja nimi
 
 	@property bill_rows type=text store=no no_caption=1 parent=bottom
 	@caption Arveread
@@ -175,11 +169,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 		@property writeoffs type=table store=no no_caption=1 parent=writeoff_layout
 		@caption Mahakantud arve read
 
-	#leftovers
+
 
 
 @default group=other_data
-
 	@property show_oe_add type=checkbox ch_value=1 field=meta method=serialize
 	@caption N&auml;ita arve lisas muid kulusid
 
@@ -229,62 +222,106 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@caption Lisa
 
 	@property mail_receiver type=relpicker store=connect multiple=1 reltype=RELTYPE_RECEIVER
-	@caption Maili saaja
+	@caption Arve e-kirja saaja
+
 
 @default group=bill_mail
-
 	@property bill_mail_to type=textbox field=meta method=serialize
-	@caption Kellele meil saata
+	@caption Saaja
 
 	@property bill_mail_from type=textbox field=meta method=serialize
-	@caption Meili from aadress
+	@caption Saatja aadress
 
 	@property bill_mail_from_name type=textbox field=meta method=serialize
-	@caption Meili from nimi
-
-	@property bill_mail_subj type=textbox field=meta method=serialize
-	@caption Meili subjekt
+	@caption Saatja nimi
 
 	@property bill_mail_legend type=text store=no
-	@caption Meili sisu legend
+	@comment E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&auml;&auml;rtustega
+	@caption Kasutatavad muutujad
+
+	@property bill_mail_subj type=textbox field=meta method=serialize
+	@caption Pealkiri
 
 	@property bill_mail_ct type=textarea rows=20 cols=50 field=meta method=serialize
-	@caption Meili sisu
+	@caption Sisu
+
 
 @default group=sent_mails
-
 	@property mail_table type=table no_caption=1 no_caption=1
+
+
+@default group=send_mail
+	@property sendmail_toolbar type=toolbar store=no no_caption=1
+	@layout sendmail_settings type=hbox closeable=1 area_caption=Kirja&nbsp;seaded
+		@property sendmail_attachments type=chooser multiple=1 store=no parent=sendmail_settings orient=vertical
+		@caption Lisatavad dokumendid
+
+	@layout sendmail_recipients type=vbox closeable=1 area_caption=Kirja&nbsp;saajad
+		@property sendmail_recipients type=table store=no parent=sendmail_recipients no_caption=1
+
+		@property bill_rec_name type=textbox store=no parent=sendmail_recipients
+		@comment Otsi olemasolevate isikute hulgast v&otilde;i sisesta kehtiv suvaline e-posti aadress
+		@caption Lisa arve saaja
+
+	@layout sendmail_content type=hbox closeable=1 area_caption=Kirja&nbsp;sisu width=50%:50%
+		@layout sendmail_content_l type=vbox parent=sendmail_content closeable=0 area_caption=Muutmine&nbsp;(muudatused&nbsp;kehtivad&nbsp;vaid&nbsp;sellel&nbsp;saatmiskorral)
+		@layout sendmail_content_r type=vbox parent=sendmail_content closeable=0 area_caption=Eelvaade&nbsp;(kliki&nbsp;tekstil&nbsp;et&nbsp;uuendada)
+
+	@property sendmail_subject_edit type=textbox store=no parent=sendmail_content_l captionside=top
+	@caption Pealkiri
+
+	@property sendmail_body_edit type=textarea rows=10 cols=40 store=no parent=sendmail_content_l captionside=top
+	@caption Sisu
+
+	@property sendmail_subject type=text parent=sendmail_content_r captionside=top
+	@caption Pealkiri
+
+	@property sendmail_body type=text store=no parent=sendmail_content_r captionside=top
+	@caption Sisu
+
+
+
 
 @default group=delivery_notes
 	@property dn_tb type=toolbar store=no no_caption=1
 	@property dn_tbl type=table store=no no_caption=1
 
+
 @default group=preview
 	@property preview type=text store=no no_caption=1
+
 
 @default group=preview_add
 	@property preview_add type=text store=no no_caption=1
 
+
 @default group=preview_w_rows
 	@property preview_w_rows type=text store=no no_caption=1
+
 
 @default group=tasks
 	@property bill_tb type=toolbar store=no no_caption=1
 	@layout bill_task_list_l type=vbox
 		@property bill_task_list type=table store=no no_caption=1 parent=bill_task_list_l
 
+
+
+//=========== GROUP DEFINITIONS ==============
+
 @groupinfo other_data caption="Muud andmed"
 @groupinfo mails caption="Kirjad"
-
-@groupinfo sent_mails caption="Saadetud kirjad" parent=mails
-@groupinfo bill_mail caption="Kirjade seaded" parent=mails
-
+	@groupinfo sent_mails caption="Saadetud kirjad" parent=mails
+	@groupinfo bill_mail caption="Kirjade seaded" parent=mails
+	@groupinfo send_mail caption="Arve saatmine" parent=mails confirm_save_data=0 submit=no
 @groupinfo delivery_notes caption="Saatelehed"
 @groupinfo tasks caption="Toimetused" submit=no
 @groupinfo preview caption="Eelvaade"
 @groupinfo preview_add caption="Arve Lisa"
 @groupinfo preview_w_rows caption="Eelvaade ridadega"
 
+
+
+//=========== RELTYPE DEFINITIONS ==============
 
 @reltype TASK value=1 clid=CL_TASK,CL_BUG
 @caption &Uuml;lesanne
@@ -416,8 +453,6 @@ class crm_bill extends class_base
 		}
 		$cust_rel_list = new object_list(array(
 			"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"buyer" => $bill->prop("customer"),
 			"seller" => $bill->prop("impl")
 		));
@@ -440,13 +475,15 @@ class crm_bill extends class_base
 				$ps = new popup_search();
 				$ps->set_class_id(array(CL_CRM_PERSON));
 				$ps->set_id($arr["obj_inst"]->id());
-				$ps->set_reload_layout("almost_bottom");
+				$ps->set_reload_layout("top_left");
 				$ps->set_property("assembler");
 				$prop["post_append_text"] = $ps->get_search_button();
 				break;
+
 			case "signature_type":
 				$pop["options"] = array(0,t("Tavaline"), t("Digitaalne"));
 				break;
+
 			case "overdue_charge":
 				if(empty($pop["value"]) && !$arr["new"])
 				{
@@ -490,7 +527,7 @@ class crm_bill extends class_base
 				$prop["value"] = $arr["obj_inst"]->get_comments_text();
 				break;
 
-			case 'partial_recieved':
+			case "partial_recieved":
 				if(!$arr["new"])
 				{
 					$sum = $arr["obj_inst"]->get_bill_recieved_money();
@@ -551,7 +588,6 @@ class crm_bill extends class_base
 
 			case 'dn_tb':
 			case 'dn_tbl':
-			case 'bill_targets':
 			case 'bill_task_list':
 			case "writeoffs":
 			case "preview":
@@ -613,14 +649,25 @@ class crm_bill extends class_base
 				$ps->set_property("customer");
 				$search_button = $ps->get_search_button();
 				$confirm = t("Laadida kliendi andmed uuesti? (Sisestatud aadressi ja t&auml;htaja muudatused kustutatakse)");
-				$reload_button = html::href(array(
-					"url" => "javascript:;",
-					"onclick" => "if(!confirm(\"{$confirm}\")) { return false; }; submit_changeform(\"reload_customer_data\");",
-					"caption" => html::img(array("url" =>  aw_ini_get("baseurl") . "/automatweb/images/icons/refresh.gif")),
-				));
+				if($arr["obj_inst"]->prop("customer"))
+				{
+					$reload_button = " " . html::href(array(
+						"url" => "javascript:;",
+						"onclick" => "if(!confirm(\"{$confirm}\")) { return false; }; submit_changeform(\"reload_customer_data\");",
+						"caption" => html::img(array("url" =>  aw_ini_get("baseurl") . "/automatweb/images/icons/refresh.gif")),
+					));
+				}
+				else
+				{
+					$prop["caption"] = t("Klient");
+					$prop["disabled"] = "1";
+					$reload_button = "";
+				}
 
-				$prop["post_append_text"] = " {$search_button} {$reload_button}";
+				$prop["post_append_text"] = " {$search_button}{$reload_button}";
+				break;
 
+			case "ctp_text":
 			case "customer_code":
 			case "customer_address":
 				if(!$arr["obj_inst"]->prop("customer"))
@@ -630,25 +677,16 @@ class crm_bill extends class_base
 				break;
 
 			case "customer":
-				if($arr["obj_inst"]->prop("customer"))
-				{
-					return PROP_IGNORE;
-				}
-				elseif($arr["new"] && $this->customer_object)
+				if($this->customer_object)
 				{
 					$prop["value"] = $this->customer_object->id();
 				}
+
+				$retval = PROP_IGNORE;
 				break;
 
 			case "bill_text":
 				$prop["value"] = $arr["obj_inst"]->get_bill_text();
-				break;
-
-			case "bill_due_date_days":
-				if($arr["new"] && $this->customer_object)
-				{
-					$prop["value"] = $this->customer_object->prop("bill_due_date_days");
-				}
 				break;
 
 			case "sum":
@@ -729,8 +767,6 @@ class crm_bill extends class_base
 //			case "bill_mail_to":
 			case "bill_mail_from":
 			case "bill_mail_from_name":
-			case "bill_mail_subj":
-			case "bill_mail_ct":
 				if(empty($prop["value"]))
 				{
 					$this->set_current_settings();
@@ -742,7 +778,7 @@ class crm_bill extends class_base
 				break;
 
 			case "bill_mail_legend":
-				$prop["value"] = $this->get_mail_legend();
+				$prop["value"] = nl2br($this->get_mail_legend());
 				break;
 
 			case "warehouse":
@@ -790,18 +826,328 @@ class crm_bill extends class_base
 					return PROP_IGNORE;
 				}
 				break;
-		};
+		}
 		return $retval;
 	}
 
-	function get_mail_legend()
+	function _get_sendmail_toolbar(&$arr)
 	{
-		return "#bill_no# => Arve number \n<br>
-			#customer_name# => Kliendi nimi \n<br>
-			#contact_person# => Kontaktisik,
-			#signature# => saatja allkiri"
-		;
+		$r = PROP_OK;
+		$t = $arr["prop"]["vcl_inst"];
+		$t->add_button(array(
+			"name" => "send",
+			"img" => "mail_send.gif",
+			"tooltip" => t("Saada arve"),
+			"confirm" => t("Oled kindel et soovid arve saata?"),
+			"action" => "send_bill"
+		));
+
+		return $r;
 	}
+
+	function _get_sendmail_recipients(&$arr)
+	{
+		$this_o = $arr["obj_inst"];
+		if(!$this_o->prop("customer"))
+		{
+			return PROP_IGNORE;
+		}
+
+		$r = PROP_OK;
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->add_fields(array(
+			"email" => t("E-posti aadress"),
+			"send" => t("Saata"),
+			"name" => t("Nimi"),
+			"rank" => t("Ametinimetus"),
+			"phone" =>  t("Telefon"),
+			"co" => t("Organisatsioon")
+		));
+		$t->set_rgroupby(array("title" => "title"));
+
+		/// potential email recipients by type
+		// 'customer_bill' -- customer bill reception email contacts
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("customer_bill"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "customer";
+				$prop_name = $this->add_recipient_propdefn($t, $email_address, $data, $this_o, t("Kliendi arveaadressid"));
+			}
+		}
+
+		// 'customer_general' -- general customer email contacts
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("customer_general"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "customer";
+				$prop_name = $this->add_recipient_propdefn($t, $email_address, $data, $this_o, t("Kliendi &uuml;ldaadressid"));
+			}
+		}
+
+		// 'user' -- bill creator and current user
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("user"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "implementor";
+				$prop_name = $this->add_recipient_propdefn($t, $email_address, $data, $this_o, t("Kasutaja"));
+			}
+		}
+
+		// 'project_managers' -- people associated with this project as project managers
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("project_managers"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "implementor";
+				$prop_name = $this->add_recipient_propdefn($t, $email_address, $data, $this_o, t("Seotud projektijuhid"));
+			}
+		}
+
+		// 'custom' -- user defined custom recipients
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("custom"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "";
+				$prop_name = $this->add_recipient_propdefn($t, $email_address, $data, $this_o, t("Lisaaadressid"));
+			}
+		}
+
+		// 'default' -- crm default bill recipients
+		$recipients = $arr["obj_inst"]->get_mail_recipients(array("default"));
+		if (count($recipients))
+		{
+			foreach ($recipients as $email_address => $data)
+			{
+				$data[2] = "";
+				$prop_name = $this->add_recipient_propdefn($t, $email_address, $data, $this_o, t("Vaikimisi koopiasaajad"), true);
+			}
+		}
+
+		return $r;
+	}
+
+	private function add_recipient_propdefn(vcl_table $t, $email_address, $recipient_data, $this_o, $title, $disabled = false)
+	{
+		static $i;
+		++$i;
+		$recipient_oid = $recipient_data[0];
+		$name = $recipient_data[1];
+		$phones = $organization = $profession = $chooser = "";
+
+		if ($recipient_oid)
+		{
+			$recipient = new object($recipient_oid);
+
+			if ($recipient->is_a(CL_CRM_PERSON))
+			{
+				if ("implementor" === $recipient_data[2])
+				{
+					$organization_o = new object($this_o->prop("impl"));
+				}
+				elseif ("customer" === $recipient_data[2])
+				{
+					$organization_o = new object($this_o->prop("customer"));
+				}
+				else
+				{
+					$organization_o = new object($recipient->company_id());
+				}
+
+				$organization = html::obj_change_url($organization_o->id(), $organization_o->name());
+				$profession = implode(", " , $recipient->get_profession_names($organization_o));
+				$name = html::obj_change_url($recipient->id(), $recipient->name());
+			}
+			elseif ($recipient->is_a(CL_CRM_COMPANY))
+			{
+				$organization = html::obj_change_url($recipient->id(), $name);
+				$name = "";
+			}
+
+			if (method_exists($recipient, "get_phones"))
+			{
+				$phones = implode(", ", $recipient->get_phones());
+			}
+		}
+
+		// recipient selector chooser
+		$prop_name = "recipient[{$i}]";
+		$chooser = html::radiobutton(array(
+			"caption" => t("to"),
+			"name" => $prop_name,
+			"checked" => 0,
+			"value" => "{$email_address}-to",
+			"disabled" => $disabled
+		));
+		$chooser .= " ";
+		$chooser .= html::radiobutton(array(
+			"caption" => t("cc"),
+			"name" => $prop_name,
+			"checked" => 0,
+			"value" => "{$email_address}-cc",
+			"disabled" => $disabled
+		));
+		$chooser .= " ";
+		$chooser .= html::radiobutton(array(
+			"caption" => t("bcc"),
+			"name" => $prop_name,
+			"checked" => 0,
+			"value" => "{$email_address}-bcc",
+			"disabled" => $disabled
+		));
+		$chooser = html::span(array("content" => $chooser, "nowrap" => 1));
+
+		//
+		$t->define_data(array(
+			"title" => $title,
+			"send" => $chooser,
+			"email" => $email_address,
+			"name" => $name,
+			"phone" => $phones,
+			"rank" => $profession,
+			"co" => $organization
+		));
+	}
+
+	function _get_sendmail_attachments(&$arr)
+	{
+		$r = PROP_OK;
+		$invoice_pdf_o = $reminder_pdf_o = $appendix_pdf_o = null;
+		$invoice_pdf_link = $reminder_pdf_link = $appendix_pdf_link = "";
+		$value = array();
+
+		if (isset($arr["request"]["sendmail_type"]))
+		{
+			if ("p" === $arr["request"]["sendmail_type"])
+			{
+				$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
+			}
+			elseif ("r" === $arr["request"]["sendmail_type"])
+			{
+				$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
+			}
+			elseif ("pa" === $arr["request"]["sendmail_type"])
+			{
+				$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
+				$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
+			}
+			elseif ("ra" === $arr["request"]["sendmail_type"])
+			{
+				$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
+				$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
+			}
+		}
+
+		if ($invoice_pdf_o)
+		{
+			$file_data = $invoice_pdf_o->get_file();
+			$invoice_pdf_link = " " . html::href(array(
+				"caption" => html::img(array(
+					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"border" => 0
+				)) . $invoice_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
+				"url" => $invoice_pdf_o->get_url(),
+			));
+			$value["p"] = "p";
+		}
+		elseif ($reminder_pdf_o)
+		{
+			$file_data = $reminder_pdf_o->get_file();
+			$reminder_pdf_link = " " . html::href(array(
+				"caption" => html::img(array(
+					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"border" => 0
+				)) . $reminder_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
+				"url" => $reminder_pdf_o->get_url(),
+			));
+			$value["r"] = "r";
+		}
+
+		if ($appendix_pdf_o)
+		{
+			$file_data = $appendix_pdf_o->get_file();
+			$appendix_pdf_link = " " . html::href(array(
+				"caption" => html::img(array(
+					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"border" => 0
+				)) . $appendix_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
+				"url" => $appendix_pdf_o->get_url(),
+			));
+			$value["a"] = "a";
+		}
+
+		$arr["prop"]["options"] = array(
+			"p" => t("Arve PDF") . $invoice_pdf_link,
+			"r" => t("Meeldetuletuse PDF") . $reminder_pdf_link,
+			"a" => t("Arve lisa PDF") . $appendix_pdf_link
+		);
+
+		$arr["prop"]["value"] = $value;
+
+		return $r;
+	}
+
+	function _get_bill_mail_subj(&$arr)
+	{
+		$r = PROP_OK;
+		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_subject(false);
+		return $r;
+	}
+
+	function _get_sendmail_subject_edit(&$arr)
+	{
+		$r = PROP_OK;
+		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_subject(false);
+		$arr["prop"]["onblur"] = "crm_bill_refresh_mail_text_changes();";
+		return $r;
+	}
+
+	function _get_sendmail_subject(&$arr)
+	{
+		$r = PROP_OK;
+		$arr["prop"]["value"] = html::span(array(
+			"content" => $arr["obj_inst"]->get_mail_subject(true),
+			"id" => "sendmail_subject_text_element"
+		)) . html::linebreak();
+		return $r;
+	}
+
+	function _get_bill_mail_ct(&$arr)
+	{
+		$r = PROP_OK;
+		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_body(false);
+		return $r;
+	}
+
+	function _get_sendmail_body_edit(&$arr)
+	{
+		$r = PROP_OK;
+		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_body(false);
+		$arr["prop"]["onblur"] = "crm_bill_refresh_mail_text_changes();";
+		return $r;
+	}
+
+	function _get_sendmail_body(&$arr)
+	{
+		$r = PROP_OK;
+		$arr["prop"]["value"] = html::span(array(
+			"content" => nl2br($arr["obj_inst"]->get_mail_body(true)),
+			"id" => "sendmail_body_text_element"
+		));
+		return $r;
+	}
+
+	//DEPRECATED. use crm_bill_obj::get_mail_parse_legend() instead
+	function get_mail_legend() { 	return crm_bill_obj::get_mail_parse_legend(); }
 
 	function set_property($arr = array())
 	{
@@ -809,10 +1155,6 @@ class crm_bill extends class_base
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
-			case 'bill_targets':
-				$this->set_bill_targets($arr);
-				break;
-
 			case "comments_add":
 				if($prop["value"])
 				{
@@ -825,7 +1167,7 @@ class crm_bill extends class_base
 				$arr["obj_inst"]->set_meta("important_comment" , $arr["request"]["set_important_comment"]);
 				break;
 
-			case 'partial_recieved':
+			case "partial_recieved":
 				$pa = array();
 				if (isset($arr["request"]["new_payment"]))
 				{
@@ -919,7 +1261,7 @@ class crm_bill extends class_base
 				break;
 
 			case "customer":
-				if (!empty($prop["value"]) and $arr["obj_inst"]->prop("customer") != $prop["value"])
+				if (isset($prop["value"]) and $arr["obj_inst"]->prop("customer") != $prop["value"])
 				{
 					if (!object_loader::can("view", $prop["value"]))
 					{
@@ -929,14 +1271,13 @@ class crm_bill extends class_base
 
 					$customer_o = new object($prop["value"]);
 
-					if (!$customer_o->is_a(CL_CRM_PERSON) and $customer_o->is_a(CL_CRM_COMPANY))
+					if (!$customer_o->is_a(CL_CRM_PERSON) and !$customer_o->is_a(CL_CRM_COMPANY))
 					{
 						$prop["error"] = sprintf(t("Sobimatu kliendi id (%s)"), $customer_o->id());
 						return PROP_ERROR;
 					}
 
-					$arr["obj_inst"]->set_prop("customer", $customer_o->id());
-					$arr["obj_inst"]->load_customer_data();
+					$this->customer_object = $customer_o;
 				}
 				else
 				{
@@ -954,9 +1295,14 @@ class crm_bill extends class_base
 		$ps = new popup_search();
 		$ps->set_class_id(array(CL_CRM_PERSON));
 		$ps->set_id($arr["obj_inst"]->id());
-		$ps->set_reload_layout("almost_bottom");
+		$ps->set_reload_layout("sendmail_settings_l");
 		$ps->set_property("mail_receiver");
-		$arr["prop"]["post_append_text"] = $ps->get_search_button();
+		$save_btn = " " . html::href(array(
+			"url" => "javascript:submit_changeform('submit')",
+			"title" => t("Lisa sisestatud e-posti aadress"),
+			"caption" => html::img(array("url" => icons::get_std_icon_url("save")))
+		)) . " ";
+		$arr["prop"]["post_append_text"] = $save_btn . $ps->get_search_button();
 		return $r;
 	}
 
@@ -974,6 +1320,19 @@ class crm_bill extends class_base
 				$r = PROP_ERROR;
 				$arr["prop"]["error"] = t("Vigane e-posti aadress");
 			}
+		}
+		return $r;
+	}
+
+	function _set_customer_address(&$arr)
+	{
+		if (!$arr["obj_inst"]->prop("customer"))
+		{
+			$r = PROP_IGNORE;
+		}
+		else
+		{
+			$r = PROP_OK;
 		}
 		return $r;
 	}
@@ -1169,7 +1528,7 @@ class crm_bill extends class_base
 //---------------end
 
 
-	private function set_bill_targets($arr)
+	private function _set_bill_targets(&$arr)
 	{
 		if (isset($arr["request"]["bill_t_names"]))
 		{
@@ -1228,53 +1587,53 @@ class crm_bill extends class_base
 				)),
 				"change" => $this->get_row_html($row["id"],"change",$arr),
 				"person" => $this->get_row_html($row["id"],"person",$arr),
-				"color" => "gray",
+				"color" => "gray"
 			));
 		}
 	}
 
-	private function _bill_targets($arr)
+	private function _get_bill_targets(&$arr)
 	{
+		if($arr["new"])
+		{
+			return PROP_IGNORE;
+		}
+
 		$t = $arr["prop"]["vcl_inst"];
-/*		$t->define_chooser(array(
-			"field" => "oid",
-			"name" => "bill_targets",
-		));*/
+
 		$t->define_field(array(
 			"name" => "selection",
 			"caption" => t("*"),
-			"align" => "center",
+			"align" => "center"
 		));
-
 		$t->define_field(array(
 			"name" => "sel2",
 			"caption" => "",
-			"align" => "center",
+			"align" => "center"
 		));
-
 		$t->define_field(array(
 			"name" => "name2",
-			"caption" => t("Nimi"),
+			"caption" => t("Nimi")
 		));
 		$t->define_field(array(
 			"name" => "name_over",
 			"caption" => "",
-			"parent" => "name2",
+			"parent" => "name2"
 		));
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => "",
-			"parent" => "name2",
+			"parent" => "name2"
 		));
 		$t->add_fields(array(
 			"rank" => t("Ametinimetus"),
 			"mail" =>  t("Mailiaadress"),
 			"phone" =>  t("Telefon"),
-			"co" => t("Organisatsioon"),
+			"co" => t("Organisatsioon")
 		));
 
-		$bill_targets = $arr["obj_inst"]->meta("bill_targets");
-		$bill_t_names = $arr["obj_inst"]->meta("bill_t_names");
+		$bill_targets = safe_array($arr["obj_inst"]->meta("bill_targets"));
+		$bill_t_names = safe_array($arr["obj_inst"]->meta("bill_t_names"));
 		$phone = $arr["obj_inst"]->get_customer_phone();
 		foreach($arr["obj_inst"]->get_mail_persons()->arr() as $mail_person)
 		{
@@ -1289,9 +1648,10 @@ class crm_bill extends class_base
 					"co" => html::obj_change_url($mail_person->company_id(), $mail_person->company_name()),
 					"selection" => html::checkbox(array(
 						"name" => "bill_targets[".$mail_person->id()."]",
-						"checked" => !(is_array($bill_targets) && sizeof($bill_targets) && empty($bill_targets[$mail_person->id()])),
+						"checked" => !empty($bill_targets[$mail_person->id()]),
 						"ch_value" => $mail_person->id()
-					)),"sel2" => "bcc"
+					)),
+					"sel2" => t("bcc")
 				));
 			}
 		}
@@ -1299,7 +1659,6 @@ class crm_bill extends class_base
 		foreach($arr["obj_inst"]->get_cust_mails() as $id => $mail)
 		{
 			$phone = "";
-
 			$t->define_data(array(
 				"name" => html::obj_change_url($arr["obj_inst"]->prop("customer"), $arr["obj_inst"]->get_customer_name()),
 				"oid" => $id,
@@ -1335,7 +1694,7 @@ class crm_bill extends class_base
 		{
 			$t->define_data(array(
 				"mail" => $arr["obj_inst"]->crm_settings->prop("bill_mail_to"),
-				"sel2" => "bcc"
+				"sel2" => t("bcc")
 			));
 		}
 
@@ -1356,7 +1715,7 @@ class crm_bill extends class_base
 			$t->define_data(array(
 				"name" => $person->name(),
 				"mail" =>$mail,
-				"sel2" => "bcc"
+				"sel2" => t("bcc")
 			));
 		}
 	}
@@ -1376,11 +1735,8 @@ class crm_bill extends class_base
 		$c = new connection();
 		$t2row = $c->find(array(
 			"from.class_id" => CL_CRM_PERSON_WORK_RELATION,
-			"to" => $mail,
+			"to" => $mail
 		));
-
-
-
 
 		foreach($t2row as $conn)
 		{
@@ -1492,7 +1848,7 @@ class crm_bill extends class_base
 			"caption" => html::href(array(
 				"url" => "javascript:selall('rows')",
 				"caption" => t("+KM?"),
-				"title" => t("+KM?")
+				"title" => t("Lisandub k&auml;ibemaks?")
 			)),
 			"chgbgcolor" => "color"
 		));
@@ -1517,7 +1873,7 @@ class crm_bill extends class_base
 
 		$sum = 0;
 
-		$pps = get_instance("applications/crm/crm_participant_search");
+		$pps = new crm_participant_search();
 		$curr_inst = get_instance(CL_CURRENCY);
 		$task_i = get_instance(CL_TASK);
 		$u = get_instance(CL_USER);
@@ -1721,7 +2077,7 @@ class crm_bill extends class_base
 					)),
 					"unit" => $ut->draw(array("no_titlebar" => 1)),
 					"has_tax" => html::checkbox(array(
-				"name" => "agreement_price[".$x."][has_tax]",
+						"name" => "agreement_price[".$x."][has_tax]",
 						"ch_value" => 1,
 						"checked" => empty($agreement_price["has_tax"]) ? false : true
 					)),
@@ -1848,7 +2204,7 @@ class crm_bill extends class_base
 	function get_row_change_fields($arr)
 	{
 		$row = obj($arr["id"]);
-		$pps = get_instance("applications/crm/crm_participant_search");
+		$pps = new crm_participant_search();
 		extract($arr);
 		$ret = "";//'<div id="row_'.$id.'_'.$field.'">';
 		switch($arr["field"])
@@ -1993,7 +2349,7 @@ class crm_bill extends class_base
 				{
 					$ret.=html::textbox(array(
 						"name" => "rows[$id][has_tax]",
-						"value" => $row->get_row_tax(1),
+						"value" => $row->get_row_tax(true),
 						"size" => 3,
 					));
 				}
@@ -2012,7 +2368,7 @@ class crm_bill extends class_base
 			case "tax":
 				$ret.=html::textbox(array(
 					"name" => "rows[$id][has_tax]",
-					"value" => $row->get_row_tax(1),
+					"value" => $row->get_row_tax(true),
 						"size" => 3,
 				));
 				break;
@@ -2079,7 +2435,7 @@ class crm_bill extends class_base
 					"options" => array("" => t("--vali--")) + $row->get_project_selection(),
 					"value" => $row->prop("project"),
 				));
-				$ps = get_instance("vcl/popup_search");
+				$ps = new popup_search();
 				$ps->set_class_id(array(CL_PROJECT));
 				$ps->set_reload_layout("bottom");
 				$ps->set_property("project");
@@ -2514,17 +2870,12 @@ class crm_bill extends class_base
 
 	function callback_pre_save($arr)
 	{
-		$bt = $arr["obj_inst"]->prop("bill_date");
-		$arr["obj_inst"]->set_prop("bill_due_date",
-			mktime(3,3,3, date("m", $bt), date("d", $bt) + $arr["obj_inst"]->prop("bill_due_date_days"), date("Y", $bt))
-		);
-
 		if (!empty($this->_set_recv_date))
 		{
 			$arr["obj_inst"]->set_prop("bill_recieved", $this->_set_recv_date);
 		}
 
-		if (isset($arr["request"]["address_meta"]))
+		if (!$this->customer_object and isset($arr["request"]["address_meta"]))
 		{
 			$arr["obj_inst"]->set_customer_address("street", $arr["request"]["address_meta"]["street"]);
 			$arr["obj_inst"]->set_customer_address("city", $arr["request"]["address_meta"]["city"]);
@@ -3700,6 +4051,7 @@ class crm_bill extends class_base
 			{
 				$o = obj($oid);
 			}
+
 			if(!$this->can("view", $row["unit"]))
 			{
 				$uo = obj();
@@ -3714,7 +4066,8 @@ class crm_bill extends class_base
 			{
 				$unit = $row["unit"];
 			}
-			if($row["quality"])
+
+			if(!empty($row["quality"]))
 			{
 				$o->create_brother($row["quality"]);
 			}
@@ -3724,64 +4077,46 @@ class crm_bill extends class_base
 			$o->set_prop("date", $row["date"]);
 			$o->set_prop("unit", $unit);
 			$o->set_meta("jrk", $row["jrk"]);
-			$o->set_prop("price", str_replace(",", ".", $row["price"]));
-			$o->set_prop("amt", str_replace(",", ".", $row["amt"]));
-			$o->set_prop("sum", str_replace(",", ".", $row["sum"]));
-			$o->set_prop("prod", $row["prod"]);
-			$o->set_prop("has_tax", (int)$row["has_tax"]);
-			$o->set_prop("people", $row["person"]);
 
-			if($row["has_tax"])
+			if (isset($row["price"]))
 			{
-				$o->set_prop("tax", $o->get_row_tax(1));
+				$o->set_prop("price", $row["price"]);
+			}
+
+			if (isset($row["amt"]))
+			{
+				$o->set_prop("amt", $row["amt"]);
+			}
+
+			if (isset($row["prod"]))
+			{
+				$o->set_prop("prod", $row["prod"]);
+			}
+
+			if (isset($row["has_tax"]))
+			{
+				$o->set_prop("has_tax", (int) $row["has_tax"]);
+
+				if ((int) $row["has_tax"])
+				{
+					$o->set_prop("tax", $o->get_row_tax(1));
+				}
+			}
+
+			if (isset($row["person"]))
+			{
+				$o->set_prop("people", $row["person"]);
 			}
 
 			$o->save();
 		}
 
-		$agreement_price = array();
+// agreement_price is DEPRECATED. voldemar 23 nov 2010
+$agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_array($arr["request"]["agreement_price"])) { 		$this->set_current_settings(); foreach($arr["request"]["agreement_price"] as $key => $agreement_price) {$arr["request"]["agreement_price"][$key]["comment"] = $agreement_price["name"]; if ($this->crm_settings && !$arr["request"]["agreement_price"][$key]["prod"]) { $arr["request"]["agreement_price"][$key]["prod"] = $this->crm_settings->prop("bill_def_prod");} $arr["request"]["agreement_price"][$key]["sum"] = str_replace("," , "." , $arr["request"]["agreement_price"][$key]["price"])*str_replace("," , "." , $arr["request"]["agreement_price"][$key]["amt"]); if(!$arr["request"]["agreement_price"][$key]["price"] && !(strlen($arr["request"]["agreement_price"][$key]["name"]) > 1) && empty($arr["request"]["agreement_price"][$key]["atm"])) { unset($arr["request"]["agreement_price"][$key]); } if(isset($arr["request"]["agreement_price"][$key]["prod"])) { $tmp = explode("(", $arr["request"]["agreement_price"][$key]["prod"]); $tmp2 = explode(")", $tmp[count($tmp)-1]); $prod = $tmp2[0]; $arr["request"]["agreement_price"][$key]["prod"] = $prod; } if(!empty($arr["request"]["agreement_price"][$key]["has_tax"])) { $arr["request"]["agreement_price"][$key]["tax"] = $this->crm_settings->get_default_vat(); } } $agreement_price = $arr["request"]["agreement_price"]; } $arr["obj_inst"]->set_meta("agreement_price", $agreement_price); $arr["obj_inst"]->save();
+///////////////
 
-		//summa 6igeks
-		if(isset($arr["request"]["agreement_price"]) and is_array($arr["request"]["agreement_price"]))
-		{
-			$this->set_current_settings();
-			foreach($arr["request"]["agreement_price"] as $key => $agreement_price)
-			{
-				//comment on see mis nagu nitama hakkab... et paneb selle samaks mis nimi
 
-				$arr["request"]["agreement_price"][$key]["comment"] = $agreement_price["name"];
-				//vaikimisi artikkel ka
-
-				if ($this->crm_settings && !$arr["request"]["agreement_price"][$key]["prod"])
-				{
-					$arr["request"]["agreement_price"][$key]["prod"] = $this->crm_settings->prop("bill_def_prod");
-				}
-
-				$arr["request"]["agreement_price"][$key]["sum"] = str_replace("," , "." , $arr["request"]["agreement_price"][$key]["price"])*str_replace("," , "." , $arr["request"]["agreement_price"][$key]["amt"]);
-
-				if(!$arr["request"]["agreement_price"][$key]["price"] && !(strlen($arr["request"]["agreement_price"][$key]["name"]) > 1) && empty($arr["request"]["agreement_price"][$key]["atm"]))
-				{
-					unset($arr["request"]["agreement_price"][$key]);
-				}
-
-				if(isset($arr["request"]["agreement_price"][$key]["prod"]))
-				{
-					$tmp = explode("(", $arr["request"]["agreement_price"][$key]["prod"]);
-					$tmp2 = explode(")", $tmp[count($tmp)-1]);
-					$prod = $tmp2[0];
-					$arr["request"]["agreement_price"][$key]["prod"] = $prod;
-				}
-
-				if(!empty($arr["request"]["agreement_price"][$key]["has_tax"]))
-				{
-					$arr["request"]["agreement_price"][$key]["tax"] = $this->crm_settings->get_default_vat();
-				}
-			}
-
-			$agreement_price = $arr["request"]["agreement_price"];
-		}
-
-		$arr["obj_inst"]->set_meta("agreement_price", $agreement_price);
+		////TODO: vaja salvestada? v ainult agreemendi jaoks?
 		$arr["obj_inst"]->save();
 	}
 
@@ -3877,8 +4212,28 @@ class crm_bill extends class_base
 
 	function callback_generate_scripts($arr)
 	{
+		$scripts = "";
+		$id = $arr["obj_inst"]->id();
+
+		if ("send_mail" === $this->use_group)
+		{
+			$scripts .= <<<ENDSENDSCRIPT
+function crm_bill_refresh_mail_text_changes() {
+	// subject
+	$.get('/automatweb/orb.aw', {class: 'crm_bill', action: 'ajax_parse_mail_text', id: '{$id}', text: document.getElementById('sendmail_subject_edit').value}, function (html) {
+	x=document.getElementById('sendmail_subject_text_element');
+	x.innerHTML=html;});
+
+	// body
+	$.get('/automatweb/orb.aw', {class: 'crm_bill', action: 'ajax_parse_mail_text', id: '{$id}', text: document.getElementById('sendmail_body_edit').value}, function (html) {
+	x=document.getElementById('sendmail_body_text_element');
+	x.innerHTML=html;});
+}
+ENDSENDSCRIPT;
+		}
+
 		$url = $this->mk_my_orb("get_comment_for_prod");
-		return '
+		$scripts .= '
 			function add_row()
 			{
 				$.get("/automatweb/orb.aw", {class: "crm_bill", action: "add_row", id: "'.$arr["obj_inst"]->id().'"}, function (html) {
@@ -3973,6 +4328,25 @@ class crm_bill extends class_base
 			    }
 
 		';
+
+		return $scripts;
+	}
+
+	/**
+		@attrib name=ajax_parse_mail_text all_args=1
+	**/
+	// params id and text
+	function ajax_parse_mail_text($arr)
+	{
+		try
+		{
+			$this_o = obj($arr["id"], array(), CL_CRM_BILL);
+			echo nl2br($this_o->parse_mail_text($arr["text"]));
+		}
+		catch (Exception $e)
+		{
+		}
+		exit;
 	}
 
 	/**
@@ -4128,6 +4502,47 @@ class crm_bill extends class_base
 			"img" => "mail_send.gif",
 		));
 
+		$url= aw_url_change_var(array(
+			"group" => "send_mail",
+			"sendmail_type" => "p"
+		));
+		$tb->add_menu_item(array(
+			"parent" => "send_bill",
+			"url" => $url,
+			"text" => t("Saada arve pdf")
+		));
+
+		$url= aw_url_change_var(array(
+			"group" => "send_mail",
+			"sendmail_type" => "pa"
+		));
+		$tb->add_menu_item(array(
+			"parent" => "send_bill",
+			"url" => $url,
+			"text" => t("Saada arve pdf koos lisaga")
+		));
+
+		$url= aw_url_change_var(array(
+			"group" => "send_mail",
+			"sendmail_type" => "r"
+		));
+		$tb->add_menu_item(array(
+			"parent" => "send_bill",
+			"url" => $url,
+			"text" => t("Saada arve meeldetuletuse pdf")
+		));
+
+		$url= aw_url_change_var(array(
+			"group" => "send_mail",
+			"sendmail_type" => "ra"
+		));
+		$tb->add_menu_item(array(
+			"parent" => "send_bill",
+			"url" => $url,
+			"text" => t("Saada arve meeldetuletuse pdf koos lisaga")
+		));
+
+/*
 		$onclick= "win = window.open('".$this->mk_my_orb("send_bill", array(
 			"id" => $arr["obj_inst"]->id(),
 			"in_popup" => 1
@@ -4175,14 +4590,16 @@ class crm_bill extends class_base
 			"onClick" => $onclick,
 			"text" => t("Saada arve meeldetuletuse pdf koos lisaga")
 		));
+*/
 
-		$tb->add_menu_item(array(
-			"parent" => "send_bill",
-			"url" => $this->mk_my_orb("change", array(
-				"id" => $arr["obj_inst"]->id(),
-				"group" => "bill_mail"), CL_CRM_BILL),
-			"text" => t("Kirjade seaded")
-		));
+		// bill recipients are now configured when sending email. voldemar 17 nov 2010
+		// $tb->add_menu_item(array(
+			// "parent" => "send_bill",
+			// "url" => $this->mk_my_orb("change", array(
+				// "id" => $arr["obj_inst"]->id(),
+				// "group" => "bill_mail"), CL_CRM_BILL),
+			// "text" => t("Kirjade seaded")
+		// ));
 
 		if(empty($this->crm_settings) || !$this->crm_settings->prop("bill_hide_pwr"))
 		{
@@ -4342,7 +4759,7 @@ class crm_bill extends class_base
 
 	function _bill_task_list($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 		$this->_init_bill_task_list($t);
 		$stats = get_instance("applications/crm/crm_company_stats_impl");
@@ -4585,15 +5002,6 @@ class crm_bill extends class_base
 		}
 	}
 
-	function callback_on_load()
-	{
-		if(isset($_SESSION["bill_error"]))
-		{
-			$this->error = $_SESSION["bill_error"];
-			unset($_SESSION["bill_error"]);
-		}
-	}
-
 	function callback_mod_retval(&$arr)
 	{
 		if(isset( $arr["request"]["project"]))
@@ -4616,7 +5024,7 @@ class crm_bill extends class_base
 
 	function callback_mod_tab($arr)
 	{
-		if ($arr["id"] == "preview_w_rows")
+		if ($arr["id"] === "preview_w_rows")
 		{
 			$this->set_current_settings();
 			if($this->crm_settings && $this->crm_settings->prop("bill_hide_pwr"))
@@ -4628,19 +5036,106 @@ class crm_bill extends class_base
 	}
 
 	/**
-		@attrib name=send_bill api=1 all_args=1
+	@attrib name=send_bill all_args=1
 	@param id required type=int
 		bill id
-	@param preview_add optional type=int
-	@param preview_add_pdf optional type=int
-	@param reminder optional type=int
-	@param preview_pdf optional type=int
-	@returns int
-		bill id
+	@param post_ru required type=string
+	@returns string
 	**/
 	function send_bill($arr)
 	{
-		$obj = obj($arr["id"]);
+		$r = $arr["post_ru"];
+		try
+		{
+			$this_o = obj($arr["id"], array(), CL_CRM_BILL);
+		}
+		catch (awex_obj $e)
+		{
+			$this->show_error_text(t("Arve id vale."));
+			return $r;
+		}
+
+		if (empty($arr["sendmail_attachments"]) or !is_array($arr["sendmail_attachments"]))
+		{
+			$this->show_error_text(t("Arvet ei saa saata saadetavat dokumenti valimata."));
+			return $r;
+		}
+
+		if (empty($arr["recipient"]) or !is_array($arr["recipient"]))
+		{
+			$this->show_error_text(t("Arvet ei saa saata saajaid valimata."));
+			return $r;
+		}
+
+		$to = $cc = $bcc = array();
+		$recipients = $this_o->get_mail_recipients();
+		$selected_recipients = array_flip($arr["recipient"]);
+		foreach ($recipients as $email_address => $data)
+		{
+			if (isset($selected_recipients[$email_address . "-to"]))
+			{
+				$to[$email_address] = $data[1] ? $data[1] : "";
+			}
+			elseif (isset($selected_recipients[$email_address . "-cc"]))
+			{
+				$cc[$email_address] = $data[1] ? $data[1] : "";
+			}
+			elseif (isset($selected_recipients[$email_address . "-bcc"]))
+			{
+				$bcc[$email_address] = $data[1] ? $data[1] : "";
+			}
+		}
+
+		$subject = $this_o->parse_mail_text($arr["sendmail_subject_edit"]);
+		$body = $this_o->parse_mail_text($arr["sendmail_body_edit"]);
+		$reminder = isset($arr["sendmail_attachments"]["r"]);
+		$appendix = isset($arr["sendmail_attachments"]["a"]);
+
+		try
+		{
+			$this_o->send_by_mail($to, $subject, $body, $cc, $bcc, $appendix, $reminder);
+			$this->show_completed_text(t("Arve saadetud."));
+		}
+		catch (awex_crm_bill_email $e)
+		{
+			if ($e->email)
+			{
+				$this->show_error_text(sprintf(t("Arvet ei saadetud. Antud vigane aadress: '%s'"), $e->email));
+			}
+			else
+			{
+				$this->show_error_text(sprintf(t("Arvet ei saa saata saajaid m&auml;&auml;ramata"), $e->email));
+			}
+		}
+		catch (awex_crm_bill_file $e)
+		{
+			$this->show_error_text(t("Arvet ei saadetud. Dokumendi lisamine eba&otilde;nnestus"));
+		}
+		catch (awex_crm_bill_send $e)
+		{
+			$this->show_error_text(t("Arvet ei saadetud. Viga t&otilde;en&auml;oliselt serveri meiliseadetes."));
+		}
+		catch (Exception $e)
+		{
+			trigger_error("Caught exception " . get_class($e) . " while sending bill. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
+			$this->show_error_text(t("Esines vigu. Arvet ei saadetud."));
+		}
+
+		$this->show_completed_text(t("Arve edukalt saadetud!"));
+		return $r;
+	}
+
+	function send_bill_old($arr)
+	{
+		try
+		{
+			$obj = obj($arr["id"], array(), CL_CRM_BILL);
+		}
+		catch (awex_obj $e)
+		{
+			$this->show_error_text(t("Arve id vale."));
+			return $arr["post_ru"];
+		}
 
 		if(!empty($arr["preview_pdf"]))
 		{
@@ -4698,54 +5193,82 @@ class crm_bill extends class_base
 			"main_split" => array(
 				"type" => "hbox"
 			),
-			"view" => array(
-				"type" => "vbox",
-				"parent" => "main_split"
-			),
 			"edit" => array(
 				"type" => "vbox",
-				"parent" => "main_split"
+				"parent" => "main_split",
+				"area_caption" => t("Kirja seaded")
+			),
+			"view" => array(
+				"type" => "vbox",
+				"parent" => "main_split",
+				"area_caption" => t("Eelvaade")
 			)
-		));
-
-		$htmlc->add_property(array(
-			"name" => "to",
-			"type" => "text",
-			"parent" => "view",
-			"value" => str_replace("____[AWCRMBILLLINEBREAKTOKEN]____", "<br />", htmlspecialchars(implode("____[AWCRMBILLLINEBREAKTOKEN]____", $targets))),
-			"caption" => t("To")
-		));
-
-		$htmlc->add_property(array(
-			"name" => "bcc",
-			"type" => "text",
-			"parent" => "view",
-			"value" => str_replace("____[AWCRMBILLLINEBREAKTOKEN]____", "<br />", htmlspecialchars(implode("____[AWCRMBILLLINEBREAKTOKEN]____", $obj->get_bcc()))),
-			"caption" => t("Bcc")
 		));
 
 		$htmlc->add_property(array(
 			"name" => "from",
 			"type" => "text",
-			"parent" => "view",
+			"parent" => "edit",
 			"value" => htmlspecialchars($obj->get_mail_from_name()." <".$obj->get_mail_from().">"),
-			"caption" => t("From"),
+			"caption" => t("Saatja"),
+		));
+
+		$mail_recipients = $obj->get_mail_recipients();
+		// generate radio choosers to select 'to' and who gets copies and who gets blind copies
+		foreach ($mail_recipients as $key => $value)
+		{
+			$htmlc->add_property(array(
+				"name" => "recipient[]",
+				"type" => "chooser",
+				"parent" => "edit",
+				"value" => $to_choice,
+				// "value" => str_replace("____[AWCRMBILLLINEBREAKTOKEN]____", "<br />", htmlspecialchars(implode("____[AWCRMBILLLINEBREAKTOKEN]____", $targets))),
+				"caption" => t("Kellele")
+			));
+		}
+
+/* bill recipients now selected by radio choosers. voldemar 17 nov 2010
+		$htmlc->add_property(array(
+			"name" => "to",
+			"type" => "text",
+			"parent" => "edit",
+			"value" => $to_choice,
+			// "value" => str_replace("____[AWCRMBILLLINEBREAKTOKEN]____", "<br />", htmlspecialchars(implode("____[AWCRMBILLLINEBREAKTOKEN]____", $targets))),
+			"caption" => t("Kellele")
 		));
 
 		$htmlc->add_property(array(
-			"name" => "subject",
+			"name" => "cc",
+			"type" => "text",
+			"parent" => "edit",
+			"value" => $cc_choice,
+			// "value" => str_replace("____[AWCRMBILLLINEBREAKTOKEN]____", "<br />", htmlspecialchars(implode("____[AWCRMBILLLINEBREAKTOKEN]____", $obj->get_bcc()))),
+			"caption" => t("Koopia")
+		));
+
+		$htmlc->add_property(array(
+			"name" => "bcc",
+			"type" => "text",
+			"parent" => "edit",
+			"value" => $bcc_choice,
+			// "value" => str_replace("____[AWCRMBILLLINEBREAKTOKEN]____", "<br />", htmlspecialchars(implode("____[AWCRMBILLLINEBREAKTOKEN]____", $obj->get_bcc()))),
+			"caption" => t("Pimekoopia")
+		));
+*/
+		$htmlc->add_property(array(
+			"name" => "subject_preview",
 			"parent" => "view",
 			"type" => "text",
 			"value" => $obj->get_mail_subject(),
-			"caption" => t("Subject")
+			"caption" => t("Teema")
 		));
 
 		$htmlc->add_property(array(
-			"name" => "body",
+			"name" => "body_preview",
 			"parent" => "view",
 			"type" => "text",
 			"value" => $obj->get_mail_body(),
-			"caption" => t("Contents")
+			"caption" => t("Sisu")
 		));
 
 		$htmlc->add_property(array(
@@ -4753,47 +5276,61 @@ class crm_bill extends class_base
 			"type" => "text",
 			"parent" => "view",
 			"value" => $attatchments,
-			"caption" => t("Attachments"),
+			"caption" => t("Lisad"),
 		));
 
 		$htmlc->add_property(array(
-			"name" => "subject",
+			"name" => "subject_edit",
 			"parent" => "edit",
 			"type" => "textbox",
+			"onblur" => "crm_bill_copy_changes('subject')",
 			"value" => $obj->get_mail_subject(),
-			"caption" => t("Edit subject")
+			"caption" => t("Muuda pealkirja")
 		));
 
 		$htmlc->add_property(array(
-			"name" => "body",
+			"name" => "body_edit",
+			"onblur" => "crm_bill_copy_changes('body')",
 			"parent" => "edit",
 			"type" => "textarea",
 			"rows" => "7",
 			"cols" => "30",
 			"value" => $obj->get_mail_body(),
-			"caption" => t("Edit contents")
+			"caption" => t("Muuda sisu")
+		));
+
+		$htmlc->add_property(array(
+			"name" => "subject",
+			"type" => "hidden",
+			"value" => $obj->get_mail_subject()
+		));
+
+		$htmlc->add_property(array(
+			"name" => "body",
+			"type" => "hidden",
+			"value" => $obj->get_mail_body()
 		));
 
 
 		$htmlc->add_property(array(
 			"name" => "sub",
 			"type" => "button",
-			"parent" => "view",
-			"value" => t("Send!"),
+			// "no_caption" => "1",
+			"value" => t("Saada!"),
 			"onclick" => "fRet = confirm('".t("Kas olete kindel et soovite arve saata?")."');if(fRet){
 				changeform.submit();
 				}else;",
-			"caption" => t("Send!")
+			"caption" => t("Saada!")
 		));
 
 		$htmlc->finish_output(array(
 			"action" => "send_bill",
-			"method" => "POST",
+			"method" => "post",
 			"data" => $data,
 			"submit" => "no"
 		));
 
-		$content = $htmlc->get_result();
+		$content = html::script(file_get_contents("crm_bill_send.js")) . $htmlc->get_result();
 		return $content;
 //		$obj->send_bill($arr["preview_add"]);
 	}
@@ -5035,7 +5572,24 @@ class crm_bill extends class_base
 	**/
 	public function make_overdue_bill($arr)
 	{
-		$id = obj($arr["id"])->make_overdue_bill();
+		try
+		{
+			$id = obj($arr["id"])->make_overdue_bill();
+		}
+		catch (awex_crm_bill_state $e)
+		{
+			$this->show_error_text(t("Viivisarvet koostatakse ainult laekunud arvete kohta"));
+		}
+		catch (awex_obj_type $e)
+		{
+			$this->show_error_text(t("Viivise m&auml;&auml;r peab olema > 0"));
+		}
+		catch (Exception $e)
+		{
+			trigger_error("Caught exception " . get_class($e) . ". called make_overdue_bill(). Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
+			$this->show_error_text(t("Tundmatu viga"));
+		}
+
 		if(is_oid($id))
 		{
 			return  $this->mk_my_orb("change", array("id" => $id, "return_url" => $arr["ru"]), CL_CRM_BILL);

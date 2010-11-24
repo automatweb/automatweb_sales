@@ -327,7 +327,7 @@ class mail_message extends class_base
 				#$to_addr = join(",",$lists);
 			};
 			$to_list = true;
-		};
+		}
 
 
 		if ($to_list)
@@ -356,7 +356,8 @@ class mail_message extends class_base
 					"qid" => $qid,
 					"group" => "mail_report"),
 				CL_ML_LIST);
-			};
+			}
+
 			aw_session_set("route_back", $route_back);
 			// scheduleerib kirjade saatmise
 			$url = $mllist->route_post_message(array(
@@ -366,7 +367,8 @@ class mail_message extends class_base
 			));
 			Header("Location: $url");
 			die();
-		};
+		}
+
 		if ($msgobj->prop("html_mail"))
 		{
 			$this->awm->create_message(array(
@@ -435,14 +437,11 @@ class mail_message extends class_base
 				"bcc" => $msgobj->prop("bcc"),
 				"body" => $message,
 			));
-		};
+		}
 
 		$conns = $msgobj->connections_from(array(
 			"type" => "RELTYPE_ATTACHMENT",
 		));
-
-		$mimeregistry = get_instance("core/aw_mime_types");
-
 
 
 		foreach($conns as $conn)
@@ -453,7 +452,7 @@ class mail_message extends class_base
 			{
 				continue;
 			};
-			$realtype = $mimeregistry->type_for_file($to_o->name());
+			$realtype = aw_mime_types::type_for_file($to_o->name());
 			$this->awm->fattach(array(
 				"path" => $to_o->prop("file"),
 				"contenttype"=> $mimeregistry->type_for_file($to_o->name()),
@@ -543,10 +542,7 @@ class mail_message extends class_base
 							aw_global_set("title_action",$m[2]);
 						};
 						$rv .= $this->parse("header_line");
-
-
-
-					};
+					}
 				}
 				else
 				{

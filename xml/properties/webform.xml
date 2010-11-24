@@ -429,10 +429,8 @@
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_WEBFORM</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <general_sub>

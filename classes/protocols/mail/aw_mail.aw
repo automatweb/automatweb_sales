@@ -767,5 +767,3 @@ class aw_mail
 		return send_mail($to,$subject,$email,$headers,$arguments);
 	}
 }
-
-?>

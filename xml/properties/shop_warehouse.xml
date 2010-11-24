@@ -2979,9 +2979,7 @@
             <caption>Statistika tabel</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_SHOP_WAREHOUSE</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>kristo</maintainer>
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>

@@ -158,12 +158,10 @@
             <caption>Tutorial</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_PERSONNEL_MANAGEMENT_JOB_OFFER_WEBVIEW</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>instrumental</maintainer>
       </classinfo>
       <groupinfo>
             <display>

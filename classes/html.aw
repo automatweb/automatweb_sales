@@ -29,8 +29,8 @@ class html
 		if true, multiple selection abled
 	@param size optional type=int
 		the size of the selection visible
-	@param onBlur optional type=string
-		If set, then onBlur=$onBlur.
+	@param onblur optional type=string
+		If set, then onblur=$onblur.
 
 	@returns string / html select
 
@@ -98,7 +98,7 @@ class html
 			$onc = " onchange=\"{$onchange}\"";
 		}
 
-		$onBlur = isset($onBlur) ? " onblur=\"{$onBlur}\"" : '';
+		$onblur = isset($onblur) ? " onblur=\"{$onblur}\"" : '';
 
 		// build options
 		$optstr = "";
@@ -149,7 +149,7 @@ class html
 		*/
 
 		//
-		return "<select name=\"{$name}\" id=\"{$id}\"{$cl}{$sz}{$mz}{$onc}{$disabled}{$onBlur}{$ti}{$style}>\n{$optstr}</select>{$post_append_text}\n";
+		return "<select name=\"{$name}\" id=\"{$id}\"{$cl}{$sz}{$mz}{$onc}{$disabled}{$onblur}{$ti}{$style}>\n{$optstr}</select>{$post_append_text}\n";
 	}
 
 	/**
@@ -174,8 +174,8 @@ class html
 		If set, then onkeypress=$onkeypress. Not allowed if autocomplete used.
 	@param onFocus optional type=string
 		If set, then onFocus=$onFocus.
-	@param onBlur optional type=string
-		If set, then onBlur=$onBlur.
+	@param onblur optional type=string
+		If set, then onblur=$onblur.
 
 	@param autocomplete_source optional type=string
 		Relative (to web root -- it seems that certain browsers don't allow javascript http connections to absolute paths) http URL that refers to source of autocomplete options. Response expected in JSON format (http://www.json.org/)(classes/protocols/data/aw_json). Response is an array:
@@ -254,7 +254,7 @@ class html
 		$onkeypress = isset($onkeypress) ? " onkeypress=\"{$onkeypress}\"" : "";
 		$onload = isset($onload) ? " onload=\"{$onload}\"" : '';
 		$onFocus = isset($onFocus) ? " onfocus=\"{$onFocus}\"" : '';
-		$onBlur = isset($onBlur) ? " onblur=\"{$onBlur}\"" : '';
+		$onblur = isset($onblur) ? " onblur=\"{$onblur}\"" : '';
 		$ti = isset($tabindex) ? " tabindex=\"{$tabindex}\"" : '';
 		$autocomplete = "";
 		$js_name = str_replace(array("[", "]", "-"), "_", $name);
@@ -395,7 +395,7 @@ class html
 			$value = isset($content) ? $content : "";
 		}
 
-		return "<input type=\"text\" id=\"{$id}\" name=\"{$name}\" size=\"{$size}\" value=\"{$value}\"{$maxlength}{$style}{$onkeypress}{$onkeyup}{$onload}{$onFocus}{$onBlur}{$disabled}{$textsize}{$ti}{$ac_off}{$onchange}{$class} />{$post_append_text}\n{$value_elem}{$autocomplete}";
+		return "<input type=\"text\" id=\"{$id}\" name=\"{$name}\" size=\"{$size}\" value=\"{$value}\"{$maxlength}{$style}{$onkeypress}{$onkeyup}{$onload}{$onFocus}{$onblur}{$disabled}{$textsize}{$ti}{$ac_off}{$onchange}{$class} />{$post_append_text}\n{$value_elem}{$autocomplete}";
 	}
 
 	/**
@@ -419,8 +419,8 @@ class html
 		textarea style
 	@param onFocus optional type=string
 		if set, onFocus=$onFocus.
-	@param onBlur optional type=string
-		if set, onBlur=$onBlur.
+	@param onblur optional type=string
+		if set, onblur=$onblur.
 	@param onkeyup optional type=string
 		if set, onkeyup=$onkeyup.
 	@param onchange optional type=string
@@ -444,7 +444,7 @@ class html
 		$rows = !empty($rows) ? $rows : 40;
 		$value = isset($value) ? $value : "";
 		$onFocus = isset($onFocus) ? " onfocus=\"{$onFocus}\"" : "";
-		$onBlur = isset($onBlur) ? " onblur=\"{$onBlur}\"" : "";
+		$onblur = isset($onblur) ? " onblur=\"{$onblur}\"" : "";
 		$onkeyup = isset($onkeyup) ? " onkeyup=\"{$onkeyup}\"" : "";
 		$onchange = !empty($onchange) ? " onchange=\"{$onchange}\"" : "";
 
@@ -487,7 +487,7 @@ class html
 		else
 		{
 			$disabled = (empty($disabled) ? "" : ' disabled="disabled"');
-			$retval = "<textarea ".(empty($style) ? "" : "style=\"".$style."\"")." id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$disabled}{$textsize}{$onkeyup}{$onFocus}{$onBlur}{$onchange}>{$value}</textarea>\n";
+			$retval = "<textarea ".(empty($style) ? "" : "style=\"".$style."\"")." id=\"{$id}\" name=\"{$name}\" cols=\"{$cols}\" rows=\"{$rows}\"{$disabled}{$textsize}{$onkeyup}{$onFocus}{$onblur}{$onchange}>{$value}</textarea>\n";
 		}
 
 		return $retval;
@@ -704,7 +704,7 @@ class html
 
 		$id = str_replace(array("[", "]"), "_", $name);
 
-		$onBlur = isset($onBlur) ? " onblur=\"{$onBlur}\"" : '';
+		$onblur = isset($onblur) ? " onblur=\"{$onblur}\"" : '';
 
 
 		//$tpl = get_instance("cfg/htmlclient");//ma ei tea, yle 1.5 sekundi v6idab m6nest vaatest selle v6lja kommenteerimisega n2iteks
@@ -714,7 +714,7 @@ class html
 			$tpl->vars(array(
 				"name" => $name,
 				"value" => $value,
-				"onblur" => $onBlur,
+				"onblur" => $onblur,
 				"onclick" => $onc,
 				"checked" => $checked,
 				"disabled" => $disabled,
@@ -725,7 +725,7 @@ class html
 		}
 		else
 		{
-			$rv = "$span<input class=\"checkbox\" type=\"checkbox\" id=\"{$id}\" name=\"{$name}\" value=\"{$value}\"{$onBlur}{$title}{$onc}{$checked}{$disabled} />{$capt}{$span_}{$post_append_text}\n";
+			$rv = "$span<input class=\"checkbox\" type=\"checkbox\" id=\"{$id}\" name=\"{$name}\" value=\"{$value}\"{$onblur}{$title}{$onc}{$checked}{$disabled} />{$capt}{$span_}{$post_append_text}\n";
 		}
 		return $rv;
 	}
@@ -1810,6 +1810,21 @@ class html
 		*/
 
 		return $onclick;
+	}
+
+	/** Constructs a javascript type SCRIPT html element
+		@attrib api=1 params=pos
+		@param script type=string
+			Javascript code
+		@comment
+		@returns
+		@errors
+	**/
+	public static function script($script)
+	{
+		$r = <<<ENDJAVASCRIPT
+<script type="text/javascript">{$script}</script>
+ENDJAVASCRIPT;
 	}
 }
 

@@ -452,12 +452,10 @@
             <caption>Ressursi j&amp;amp;otilde;udluse tabel</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_MRP_RESOURCE</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
             <confirm_save_data>1</confirm_save_data>
-            <maintainer>voldemar</maintainer>
       </classinfo>
       <groupinfo>
             <grp_general2>

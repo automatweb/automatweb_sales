@@ -12,6 +12,11 @@
 
 
 @default group=general
+	@property file type=fileupload
+	@caption Fail
+
+	@property file2 type=fileuploader
+	@caption Fail suur
 
 	@property image type=releditor reltype=RELTYPE_IMAGE use_form=emb rel_id=first
 	@caption Pilt
@@ -46,6 +51,10 @@
 	@property src_wm type=textbox
 	@caption URL (Windows Media)
 
+	@property video_galleries type=relmanager reltype=RELTYPE_GALLERY
+	@comment Videogaleriid mille alla see video kuulub
+	@caption Galeriid
+
 @default group=trans
 
 	@property trans type=translator group=trans props=name
@@ -62,6 +71,9 @@
 
 @reltype IMAGE value=1 clid=CL_IMAGE
 @caption Video pilt
+
+@reltype GALLERY value=2 clid=CL_VIDEO_GALLERY
+@caption Videogalerii
 
 
 */
@@ -87,7 +99,7 @@ class video extends class_base
 		return $retval;
 	}
 
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}

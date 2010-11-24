@@ -41,7 +41,7 @@ EMIT_MESSAGE(MSG_USER_CREATE);
 	@caption Sisselogimisi
 
 	@property lastaction field=lastaction type=text
-	@caption Viimane sisse logimine
+	@caption Viimane sisselogimine
 
 	@property created field=created type=date table=objects
 	@caption Loodud
@@ -298,7 +298,7 @@ class user extends class_base
 
 			case "lastaction";
 				$prop["value"] = $this->db_fetch_field("SELECT lastaction FROM users WHERE uid = '".$arr["obj_inst"]->prop("uid")."'", "lastaction");
-				$prop['value'] = $this->time2date($prop['value'],2);
+				$prop["value"] = $this->time2date($prop['value'],2);
 				break;
 
 			case "uid_entry":
@@ -713,7 +713,6 @@ class user extends class_base
 		return $t;
 	}
 
-
 	function _get_group_membership($o, $id)
 	{
 		$group = new group();
@@ -822,7 +821,7 @@ class user extends class_base
 		// now, add to all groups
 		foreach($member as $g_oid => $is)
 		{
-			if ($is && !$groups[$g_oid])
+			if ($is && empty($groups[$g_oid]))
 			{
 				$group = obj($g_oid);
 				$user = $o;
@@ -856,12 +855,12 @@ class user extends class_base
 
 	function _start_gm_table()
 	{
-		$t = new aw_table(array("layout" => "generic","prefix" => "uglist"));
+		$t = new aw_table(array("layout" => "generic", "prefix" => "uglist"));
 
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
-			"sortable" => 1,
+			"sortable" => 1
 		));
 
 		$t->define_field(array(
@@ -1005,7 +1004,7 @@ class user extends class_base
 					{
 						$user->connect(array(
 							"to" => $p_o->id(),
-							"reltype" => "RELTYPE_GRP",
+							"reltype" => "RELTYPE_GRP"
 						));
 
 						// add reverse alias to group
@@ -1144,14 +1143,16 @@ EOF;
 		{
 			return;
 		}
+
 		aw_global_set("__from_raise_error", 1);
 		$grp_o = obj($o->parent());
-		if ($GLOBALS["aw_is_error"] == 1)
+		if (!empty($GLOBALS["aw_is_error"]))
 		{
 			aw_global_set("__from_raise_error", 0);
 			$GLOBALS["aw_is_error"] = 0;
 			return;
 		}
+
 		if ($grp_o->class_id() == CL_GROUP)
 		{
 			// sync manually here.

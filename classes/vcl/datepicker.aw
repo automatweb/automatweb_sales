@@ -1,9 +1,5 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
-
 class datepicker extends core implements vcl_interface
 {
 	function __construct()
@@ -195,5 +191,3 @@ EOS;
 
 class awex_datepicker extends awex_vcl {}
 class awex_datepicker_param extends awex_datepicker {}
-
-?>

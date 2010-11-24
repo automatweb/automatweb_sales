@@ -1152,7 +1152,6 @@ class htmlclient extends aw_template
 					if (isset($arr["orient"]) and $arr["orient"] === "vertical")
 					{
 						$retval .= "<br />";
-
 					}
 				}
 				break;

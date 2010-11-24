@@ -487,7 +487,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			}
 			// from the PHP manual: Since PHP 4.2.3 this parameter is disabled in safe_mode  and the mail()
 			// function will expose a warning message and return FALSE if you're trying to use it.
-			if ((bool)ini_get("safe_mode"))
+			if ((bool) ini_get("safe_mode"))
 			{
 				$r = mail($to,$subject,$msg,$headers);
 			}

@@ -258,8 +258,6 @@
       <classinfo>
             <trans>1</trans>
             <relationmgr>yes</relationmgr>
-            <syslog_type>ST_FILE</syslog_type>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <settings>

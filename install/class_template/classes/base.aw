@@ -1,7 +1,7 @@
 <?php
 
 /*
-@classinfo syslog_type=__syslog_type relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo __table_name master_index=brother_of master_table=objects index=aw_oid
 
 @default table=__table_name

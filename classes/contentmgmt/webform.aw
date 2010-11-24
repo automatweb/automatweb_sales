@@ -523,7 +523,7 @@ class webform extends class_base
 				$prop["option_is_tuple"] = 1;
 				$prop["autocomplete_source"] = $this->mk_my_orb($prop["name"] == "search_mail_name" ? "mail_name_autocomplete_source" : "mail_email_autocomplete_source");
 				$prop["autocomplete_params"] = array($prop["name"]);
-				$prop["onBlur"] = "get_mail_field('".(($prop["name"]=="search_mail_name")?"search_mail_email": "search_mail_name")."', '".(($prop["name"]=="search_mail_email")?"search_mail_email": "search_mail_name")."')";
+				$prop["onblur"] = "get_mail_field('".(($prop["name"]=="search_mail_name")?"search_mail_email": "search_mail_name")."', '".(($prop["name"]=="search_mail_email")?"search_mail_email": "search_mail_name")."')";
 				break;
 
 			case "mails_tb":

@@ -596,7 +596,7 @@ class crm_company_cedit_impl extends core
 		}
 	}
 
-	function _get_email_tbl(&$t, $arr)
+	function _get_email_tbl($t, $arr)
 	{
 		$org_fixed = 0;
 		$mail_inst = get_instance(CL_ML_MEMBER);
@@ -627,7 +627,7 @@ class crm_company_cedit_impl extends core
 			));
 		}
 
-		$wrs = array();
+		$wrs = $cns_mls = array();
 		foreach($cns2wrs as $cn2wr)
 		{
 			$wr = $cn2wr->to();
@@ -700,19 +700,19 @@ class crm_company_cedit_impl extends core
 			}
 			else
 			{
-				$popup_menu = get_instance("vcl/popup_menu");
+				$popup_menu = new popup_menu();
 				$popup_menu->begin_menu("c2wr".$obj->id());
 				foreach($wrs as $wr_id => $wr_name)
 				{
 					$popup_menu->add_item(array(
-							"text" => $wr_name.($cns2mls[$wr_id][$obj->id()] == 1 ? t("(eemalda)") : t("(seosta)")),
-							"link" => $this->mk_my_orb("c2wr", array(
-								"id" => $arr["obj_inst"]->oid,
-								"wrid" => $wr_id,
-								"toid" => $obj->id(),
-								"reltype" => 9,
-								"return_url" => get_ru(),
-							), CL_CRM_PERSON)
+						"text" => $wr_name.(isset($cns2mls[$wr_id][$obj->id()]) && $cns2mls[$wr_id][$obj->id()] == 1 ? t("(eemalda)") : t("(seosta)")),
+						"link" => $this->mk_my_orb("c2wr", array(
+							"id" => $arr["obj_inst"]->oid,
+							"wrid" => $wr_id,
+							"toid" => $obj->id(),
+							"reltype" => 9,
+							"return_url" => get_ru(),
+						), CL_CRM_PERSON)
 					));
 				}
 				$popup_menu->add_item(array(

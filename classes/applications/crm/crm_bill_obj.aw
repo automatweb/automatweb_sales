@@ -27,6 +27,8 @@ class crm_bill_obj extends _int_object
 	const STATUS_OFFER = 16;
 
 	private static $status_names = array();
+	private $implementor_object = false;
+	private $reset_pdf_files_cache = true;
 
 	public static $customer_address_properties = array(
 		"street" => "street",
@@ -159,15 +161,76 @@ class crm_bill_obj extends _int_object
 
 			unset($_SESSION["bill_change_comments"]);
 		}
+
+		// update due date according to bill date
+		$bt = $this->prop("bill_accounting_date");
+		if ($bt)
+		{
+			$this->set_prop("bill_due_date",
+				mktime(0, 0, 1, date("m", $bt), date("d", $bt) + $this->prop("bill_due_date_days"), date("Y", $bt))
+			);
+		}
+
+		// delete useless temporary pdf files
+		if ($this->reset_pdf_files_cache)
+		{
+			$document = $this->meta("last_preview_pdf_file_oid");
+			if ($document)
+			{
+				try
+				{
+					$document = new object($document);
+					$document->delete(true);
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+
+			$reminder = $this->meta("last_reminder_pdf_file_oid");
+			if ($reminder)
+			{
+				try
+				{
+					$reminder = new object($reminder);
+					$reminder->delete(true);
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+
+			$appendix = $this->meta("last_appendix_pdf_file_oid");
+			if ($appendix)
+			{
+				try
+				{
+					$appendix = new object($appendix);
+					$appendix->delete(true);
+				}
+				catch (Exception $e)
+				{
+				}
+			}
+
+			$this->set_meta("last_preview_pdf_file_oid", "");
+			$this->set_meta("last_reminder_pdf_file_oid", "");
+			$this->set_meta("last_appendix_pdf_file_oid", "");
+		}
+
+		//
 		$this->set_prop("sum", $this->_calc_sum());
 
 		$rv = parent::save($exclusive, $previous_state);
 
+		///FIXME: doesn't belong here (voldemar 12 nov 2010)
 		if(isset($_SESSION["bill_change_comments"]) && is_array($_SESSION["bill_change_comments"]))
 		{
 			$this->add_comment(join("<br>\n" , $_SESSION["bill_change_comments"]));
 			unset($_SESSION["bill_change_comments"]);
 		}
+		///
+
 		return $rv;
 	}
 
@@ -1116,7 +1179,7 @@ class crm_bill_obj extends _int_object
 				$cust_rel = $cust_rel_list->begin();
 				$this->set_prop("bill_due_date_days", $cust_rel->prop("bill_due_date_days"));
 			}
-
+//TODO: bill_default_due_days from crm_settings. voldemar 8 nov 2010
 			if(!$this->prop("bill_due_date_days"))
 			{
 				$this->set_prop("bill_due_date_days", $this->prop("customer.bill_due_days"));
@@ -1556,6 +1619,7 @@ class crm_bill_obj extends _int_object
 					$o->set_prop("bill_no" , "");
 					$o->save();
 					break;
+
 				case CL_TASK_ROW:
 					$o->set_prop("bill_id" , "");
 					$o->save();
@@ -1703,7 +1767,7 @@ class crm_bill_obj extends _int_object
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMMENT,
 			"parent" => $this->id(),
-			"sort_by" => "objects.created desc",
+			"sort_by" => "objects.created desc"
 		));
 		return $ol;
 	}
@@ -1717,6 +1781,174 @@ class crm_bill_obj extends _int_object
 		$o->set_comment($comment);
 		$o->save();
 		return $o->id();
+	}
+
+	/** Returns bill email recipients data
+		@attrib api=1 params=pos
+		@param type type=array default=array()
+			Type(s) of recipients to return. Empty/default means all.
+			Valid options for array elements:
+				'' -- all recipients
+				'project_managers' -- people associated with this project as project managers
+				'user' -- bill creator and current user
+				'default' -- crm default bill recipients
+				'customer_general' -- general customer email contacts
+				'customer_bill' -- customer bill reception email contacts
+				'custom' -- user defined custom recipients
+		@returns array
+			Associative multidimensional array
+				$string_recipient_email_address => array($string_recipient_oid_or_zero, $string_recipient_name)
+		@errors
+	**/
+	public function get_mail_recipients($type = array())
+	{
+		if (!is_array($type))
+		{
+			throw new awex_obj_type("Invalid type argument " . var_export($type, true));
+		}
+
+		$recipients = array();
+		$customer_oid = $this->prop("customer");
+
+		if (!count($type) or in_array("project_managers", $type))
+		{
+			// add project managers
+			$project_managers = $this->project_leaders();
+			if($project_managers->count())
+			{
+				$project_manager = $project_managers->begin();
+
+				do
+				{
+					$email = $project_manager->get_mail($customer_oid);
+					if (is_email($email))
+					{
+						$recipients[$email] = array($project_manager->id(), $project_manager->name());
+					}
+				}
+				while ($project_manager = $project_managers->next());
+			}
+		}
+
+		if (!count($type) or in_array("user", $type))
+		{
+			// add current user
+			if (aw_global_get("uid_oid"))
+			{
+				$user_inst = new user();
+				$u = obj(aw_global_get("uid_oid"));
+				$person = obj($user_inst->get_current_person());
+				$email = $u->get_user_mail_address();
+				if (is_email($email))
+				{
+					$recipients[$email] = array($person->id(), $person->name());
+				}
+			}
+
+			// add bill creator
+			if ($this->prop("assembler"))
+			{
+				$person = obj($this->prop("assembler"));
+				$email = $person->get_mail($customer_oid);
+				if (is_email($email))
+				{
+					$recipients[$email] = array($person->id(), $person->name());
+				}
+			}
+		}
+
+		if (!count($type) or in_array("default", $type))
+		{
+			if($this->set_crm_settings() and $this->crm_settings->prop("bill_mail_to"))
+			{
+				$emails = explode(",", $this->crm_settings->prop("bill_mail_to"));
+				foreach ($emails as $email)
+				{
+					$email = trim($email);
+					if (is_email($email))
+					{
+						$recipients[$email] = array(0, "");
+					}
+				}
+			}
+		}
+
+		if (!count($type) or in_array("customer_general", $type))
+		{
+			$name = $this->get_customer_name();
+			$oid = $this->prop("customer");
+			foreach($this->get_cust_mails() as $email)
+			{
+				if (is_email($email))
+				{
+					$recipients[$email] = array($oid, $name);
+				}
+			}
+		}
+
+		if (!count($type) or in_array("customer_bill", $type))
+		{
+			if(is_email($this->prop("bill_mail_to")))
+			{
+				$recipients[$this->prop("bill_mail_to")] = array(0, "");
+			}
+
+			$cro = $this->get_bill_cust_data_object();
+
+			if ($cro)
+			{
+				$bill_person_ol = new object_list($cro->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
+				if($bill_person_ol->count())
+				{
+					$person = $bill_person_ol->begin();
+
+					do
+					{
+						$email = $person->get_mail($customer_oid);
+						if (is_email($email))
+						{
+							$recipients[$email]  = array($person->id(), $person->name());
+						}
+					}
+					while ($person = $bill_person_ol->next());
+				}
+			}
+		}
+
+		if (!count($type) or in_array("custom", $type))
+		{
+			// manually added recipients
+			$custom = $this->get_receivers();
+			foreach ($custom as $email => $person_oid)
+			{
+				if (is_email($email))
+				{
+					if ($person_oid)
+					{
+						$person = new object($person_oid);
+						$recipients[$email]  = array($person->id(), $person->name());
+					}
+					else
+					{
+						$recipients[$email]  = array(0, "");
+					}
+				}
+			}
+
+			// recipients defined by object relation
+			$custom = $this->connections_from(array("type" => "RELTYPE_RECEIVER"));
+			foreach($custom as $c)
+			{
+				$person = $c->to();
+				$email = $person->get_mail();
+				if (is_email($email))
+				{
+					$recipients[$email]  = array($person->id(), $person->name());
+				}
+			}
+		}
+
+		return $recipients;
 	}
 
 /**
@@ -1932,20 +2164,16 @@ class crm_bill_obj extends _int_object
 		return $ret;
 	}
 
-	public function get_mail_subject()
+	/** Returns mail subject string
+		@attrib api=1 params=pos
+		@param parse type=bool default=TRUE
+			Whether to return parsed subject with special tags replaced by values or raw string
+		@comment
+		@returns string
+		@errors
+	**/
+	public function get_mail_subject($parse = true)
 	{
-		$contact_person = $this->get_contact_person();
-		$contact_person = trim($this->prop("ctp_text")) ? trim($this->prop("ctp_text")) : $contact_person->name();
-
-		$replace = array(
-			"#type#" => $this->prop("state") == self::STATUS_OFFER ? t("pakkumuse") : t("arve"),
-			"#type2#" => $this->prop("state") == self::STATUS_OFFER ? t("Pakkumus") : t("Arve"),
-			"#bill_no#" => $this->prop("bill_no"),
-			"#customer_name#" => $this->get_customer_name(),
-			"#contact_person#" => $contact_person,
-			"#signature#" => $this->get_sender_signature(),
-		);
-		$subject = "";
 		if($this->prop("bill_mail_subj"))
 		{
 			$subject = $this->prop("bill_mail_subj");
@@ -1954,10 +2182,16 @@ class crm_bill_obj extends _int_object
 		{
 			$subject = $this->crm_settings->prop("bill_mail_subj");
 		}
-		foreach($replace as $key => $val)
+		else
 		{
-			$subject = str_replace($key , $val , $subject);
+			$subject = "";
 		}
+
+		if ($subject and $parse)
+		{
+			$subject = $this->parse_mail_text($subject);
+		}
+
 		return $subject;
 	}
 
@@ -1987,7 +2221,54 @@ class crm_bill_obj extends _int_object
 		return $ret;
 	}
 
-	public function get_mail_body()
+	/** Returns mail body/contents string
+		@attrib api=1 params=pos
+		@param parse type=bool default=TRUE
+			Whether to return parsed contents with special tags replaced by values or raw string
+		@comment
+		@returns string
+		@errors
+	**/
+	public function get_mail_body($parse = true)
+	{
+		if($this->prop("bill_mail_ct"))
+		{
+			$content = $this->prop("bill_mail_ct");
+		}
+		elseif($this->set_crm_settings() && $this->crm_settings->prop("bill_mail_ct"))
+		{
+			$content = $this->crm_settings->prop("bill_mail_ct");
+		}
+		else
+		{
+			$content = "";
+		}
+
+		if ($content and $parse)
+		{
+			$content = $this->parse_mail_text($content);
+		}
+
+		return $content;
+	}
+
+	/** Parses variables in invoice e-mail body or subject text
+		@attrib api=1 params=pos
+		@param text type=string
+			Text to parse variables in
+		@comment
+			Available variables are
+			#type#
+			#type2#
+			#bill_no#
+			#customer_name#
+			#contact_person#
+			#signature#
+
+		@returns string
+		@errors
+	**/
+	public function parse_mail_text($text)
 	{
 		$contact_person = $this->get_contact_person();
 		$contact_person = trim($this->prop("ctp_text")) ? trim($this->prop("ctp_text")) : $contact_person->name();
@@ -2001,22 +2282,21 @@ class crm_bill_obj extends _int_object
 			"#signature#" => $this->get_sender_signature(),
 		);
 
-		$content = "";
-		if($this->prop("bill_mail_ct"))
-		{
-			$content = $this->prop("bill_mail_ct");
-		}
-		elseif($this->set_crm_settings() && $this->crm_settings->prop("bill_mail_ct"))
-		{
-			$content = $this->crm_settings->prop("bill_mail_ct");
-		}
-
 		foreach($replace as $key => $val)
 		{
-			$content = str_replace($key , $val , $content);
+			$text = str_replace($key, $val , $text);
 		}
 
-		return $content;
+		return $text;
+	}
+
+	public static function get_mail_parse_legend()
+	{
+		return '#bill_no# => '.t("Arve number").'
+#customer_name# => '.t("Kliendi nimi").'
+#contact_person# => '.t("Kontaktisiku nimi").'
+#signature# => '.t("Saatja allkiri").'
+';
 	}
 
 	// Can't be private (nor protected). Called in crm_bill::_bill_targets()! -kaarel 21.07.2009
@@ -2087,6 +2367,10 @@ class crm_bill_obj extends _int_object
 			"name" => ($this->prop("state") == self::STATUS_OFFER ? t("pakkumus_nr") : t("arve_nr")). "_".$this->prop("bill_no").".pdf",
 			"type" => "application/pdf"
 		));
+		$this->set_meta("last_preview_pdf_file_oid", $id);
+		$this->reset_pdf_files_cache = false;
+		$this->save();
+		$this->reset_pdf_files_cache = true;
 
 		return obj($id);
 	}
@@ -2100,6 +2384,10 @@ class crm_bill_obj extends _int_object
 			"name" => t("Arve_nr"). "_".$this->prop("bill_no")."_".t("meeldetuletus").".pdf",
 			"type" => "application/pdf"
 		));
+		$this->set_meta("last_reminder_pdf_file_oid", $id);
+		$this->reset_pdf_files_cache = false;
+		$this->save();
+		$this->reset_pdf_files_cache = true;
 
 		return obj($id);
 	}
@@ -2113,7 +2401,272 @@ class crm_bill_obj extends _int_object
 			"name" => ($this->prop("state") == self::STATUS_OFFER ? t("pakkumuse_nr") : t("arve_nr")). "_".$this->prop("bill_no")."_".t("aruanne").".pdf",
 			"type" => "application/pdf"
 		));
+		$this->set_meta("last_appendix_pdf_file_oid", $id);
+		$this->reset_pdf_files_cache = false;
+		$this->save();
+		$this->reset_pdf_files_cache = true;
+
 		return obj($id);
+	}
+
+	/** Sends invoice document by mail
+		@attrib api=1 params=pos
+		@param to type=array
+			Associative array of email addresses => names to send e-mail to
+		@param subject type=string
+			E-mail subject
+		@param body type=string
+			E-mail body text
+		@param cc type=array
+			Associative array of email addresses => names to send e-mail copy to
+		@param bcc type=array
+			Associative array of email addresses => names to send e-mail blind copy to
+		@param appendix type=bool
+			Whether to send invoice appendix describing invoice rows in detail
+		@param reminder type=bool
+			Whether to send invoice document as a reminder
+		@comment
+		@returns void
+		@errors
+			throws awex_crm_bill_email if an invalid e-mail address given. awex_crm_bill_email::$email empty if no recipients or the faulty email address if encountered
+			throws awex_crm_bill_send if sending e-mail fails
+			throws awex_crm_bill_file if file attachment fails
+	**/
+	public function send_by_mail($to, $subject, $body, $cc = array(), $bcc = array(), $appendix = false, $reminder = false)
+	{
+		if (!count($to) and !count($cc) and !count($bcc))
+		{
+			throw new awex_crm_bill_email("Can't send mail, no recipients specified");
+		}
+
+		// get or create file attachments
+		/// main invoice document
+		if (!$reminder)
+		{ // regular
+			$invoice_pdf = $this->meta("last_preview_pdf_file_oid");
+			if ($invoice_pdf)
+			{
+				try
+				{
+					$invoice_pdf = obj($invoice_pdf, array(), CL_FILE);
+				}
+				catch (awex_obj $e)
+				{
+				}
+			}
+
+			if (!is_object($invoice_pdf))
+			{
+				$invoice_pdf = $this->make_preview_pdf();
+			}
+		}
+		else
+		{ // sent as a reminder
+			$invoice_pdf = $this->meta("last_reminder_pdf_file_oid");
+			if ($invoice_pdf)
+			{
+				try
+				{
+					$invoice_pdf = obj($invoice_pdf, array(), CL_FILE);
+				}
+				catch (awex_obj $e)
+				{
+				}
+			}
+
+			if (!is_object($invoice_pdf))
+			{
+				$invoice_pdf = $this->make_reminder_pdf();
+			}
+		}
+
+		if (!is_object($invoice_pdf))
+		{
+			throw new awex_crm_bill_file("Main invoice file lost or not created. Bill id " . $this->id());
+		}
+
+		/// appendix
+		if ($appendix)
+		{
+			$appendix_pdf = $this->meta("last_appendix_pdf_file_oid");
+			if ($appendix_pdf)
+			{
+				try
+				{
+					$appendix_pdf = obj($appendix_pdf, array(), CL_FILE);
+				}
+				catch (awex_obj $e)
+				{
+				}
+			}
+
+			if (!is_object($appendix_pdf))
+			{
+				$appendix_pdf = $this->make_add_pdf();
+			}
+		}
+
+		// parse recipients
+		foreach ($to as $email_address => $recipient_name)
+		{
+			if (!is_email($email_address))
+			{
+				$e = new awex_crm_bill_email("Invalid email address '{$email_address}'. Sending bill " . $this->id());
+				$e->email = $email_address;
+				throw $e;
+			}
+
+			$to[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
+		}
+		$to = implode(",", $to);
+
+		foreach ($cc as $email_address => $recipient_name)
+		{
+			if (!is_email($email_address))
+			{
+				$e = new awex_crm_bill_email("Invalid email address '{$email_address}'. Sending bill " . $this->id());
+				$e->email = $email_address;
+				throw $e;
+			}
+
+			$cc[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
+		}
+		$cc = implode(",", $cc);
+
+		foreach ($bcc as $email_address => $recipient_name)
+		{
+			if (!is_email($email_address))
+			{
+				$e = new awex_crm_bill_email("Invalid email address '{$email_address}'. Sending bill " . $this->id());
+				$e->email = $email_address;
+				throw $e;
+			}
+
+			$bcc[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
+		}
+
+		/// add crm default recipients
+		$default_recipients = $this->get_mail_recipients(array("default"));
+		foreach ($default_recipients as $email_address => $data)
+		{
+			$bcc[$email_address] = $email_address;
+		}
+
+		$bcc = implode(",", $bcc);
+
+		// compose mail
+		$from = $this->get_mail_from();
+		$from_name = $this->get_mail_from_name();
+		$att_comment = "";
+
+		$awm = new aw_mail();
+		$awm->create_message(array(
+			"froma" => $from,
+			"fromn" => $from_name,
+			"subject" => $subject,
+			"body" => $body,
+			"to" => $to,
+			"cc" => $cc,
+			"bcc" => $bcc
+		));
+
+		/// add attachments
+		$success = $awm->fattach(array(
+			"path" => $invoice_pdf->prop("file"),
+			"contenttype"=> aw_mime_types::type_for_file($invoice_pdf->name()),
+			"name" => $invoice_pdf->name(),
+		));
+		$att_comment .= html::href(array(
+			"caption" => html::img(array(
+				"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+				"border" => 0,
+			)).$invoice_pdf->name(),
+			"url" => $invoice_pdf->get_url(),
+		));
+
+		if (!$success)
+		{
+			throw new awex_crm_bill_file("Attaching main invoice file (id: " . $invoice_pdf->id() . ") failed. Bill id " . $this->id());
+		}
+
+
+		if($appendix)
+		{
+			$success = $awm->fattach(array(
+				"path" => $appendix_pdf->prop("file"),
+				"contenttype"=> aw_mime_types::type_for_file($appendix_pdf->name()),
+				"name" => $appendix_pdf->name(),
+			));
+			$att_comment .= html::href(array(
+				"caption" => html::img(array(
+					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"border" => 0,
+				)) . $appendix_pdf->name(),
+				"url" => $appendix_pdf->get_url(),
+			));
+
+			if (!$success)
+			{
+				throw new awex_crm_bill_file("Attaching  invoice appendix file (id: " . $appendix_pdf->id() . ") failed. Bill id " . $this->id());
+			}
+		}
+
+		$awm->htmlbodyattach(array(
+			"data" => $body
+		));
+
+
+		// send mail
+		$mail_sent = $awm->gen_mail();
+
+		if (!$mail_sent)
+		{
+			throw new awex_crm_bill_send ("Sending '".$this->id()."' failed");
+		}
+
+		// write log
+		/// mail message object for logging
+		$mail = obj(null, array(), CL_MESSAGE);
+		$mail->set_parent($this->id());
+		$mail->set_name(t("saadetud arve")." ".$this->prop("bill_no")." ".t("kliendile")." ".$this->get_customer_name());
+		$mail->save();
+
+		$attachments = array($invoice_pdf);
+		$invoice_pdf ->set_parent($mail->id());
+		$invoice_pdf->save();
+
+		if ($appendix)
+		{
+			$attachments[] = $appendix_pdf;
+			$appendix_pdf ->set_parent($mail->id());
+			$appendix_pdf->save();
+		}
+
+		$mail->set_prop("attachments", $attachments);
+		$mail->set_prop("customer", $this->prop("customer"));
+		$mail->set_prop("message", $body);
+		$mail->set_prop("html_mail", 1);
+		$mail->set_prop("mfrom_name", $from_name);
+		$mail->set_prop("mto", $to);
+		$mail->set_prop("cc", $cc);
+		$mail->set_prop("bcc", $bcc);
+		$mail->save();
+
+		$comment = html_entity_decode(sprintf(t("%s saatis arve nr. %s; summa %s; kuup&auml;ev: %s; kellaaeg: %s; aadressidele: %s; koopia aadressidele: %s; tekst: %s; lisatud failid: %s. "), aw_global_get("uid"), $this->prop("bill_no") , $this->prop("sum") , date("d.m.Y") , date("H:i") , htmlspecialchars($to), htmlspecialchars($cc), $body, $att_comment));
+		$this->add_comment($comment);
+
+		$state = (int) $this->prop("state");
+		if ( false
+			or self::STATUS_DRAFT === $state
+			or self::STATUS_READY === $state
+			or self::STATUS_VERIFIED === $state
+		)
+		{
+			$this->set_prop("state", self::STATUS_SENT);
+		}
+
+		// save to clear attachment file references among other things
+		$this->save();
 	}
 
 	/** sends bill pdf to lots of people
@@ -2143,10 +2696,8 @@ class crm_bill_obj extends _int_object
 			"subject" => $subject,
 			"to" => implode("," , $to),
 			"body" => $body,
-			"bcc" => implode(",", $copies_to),
+			"bcc" => implode(",", $copies_to)
 		));
-
-		$mimeregistry = get_instance("core/aw_mime_types");
 
 		//$to_o = $this->make_preview_pdf();
 		$to_o = obj($preview);
@@ -2154,7 +2705,7 @@ class crm_bill_obj extends _int_object
 		$to_o->save();
 		$success_file1 = $awm->fattach(array(
 			"path" => $to_o->prop("file"),
-			"contenttype"=> $mimeregistry->type_for_file($to_o->name()),
+			"contenttype"=> aw_mime_types::type_for_file($to_o->name()),
 			"name" => $to_o->name(),
 		));
 		$att_comment.= html::href(array(
@@ -2174,7 +2725,7 @@ class crm_bill_obj extends _int_object
 			$to_o->save();
 			$success_file2 = $awm->fattach(array(
 				"path" => $to_o->prop("file"),
-				"contenttype"=> $mimeregistry->type_for_file($to_o->name()),
+				"contenttype"=> aw_mime_types::type_for_file($to_o->name()),
 				"name" => $to_o->name(),
 			));
 			$att_comment.= html::href(array(
@@ -2417,7 +2968,7 @@ class crm_bill_obj extends _int_object
 
 			$inf[] = $rd;
 		}
-		usort($inf, array(&$this, "__br_sort"));
+		usort($inf, array($this, "__br_sort"));
 		return $inf;
 	}
 
@@ -2435,10 +2986,20 @@ class crm_bill_obj extends _int_object
 
 	private function set_implementor()
 	{
-		if(is_oid($this->prop("impl")))
+		if(false === $this->implementor_object and is_oid($this->prop("impl")))
 		{
 			$this->implementor_object = obj($this->prop("impl"));
 		}
+	}
+
+	public function awobj_set_customer($value)
+	{
+		$r = $this->set_prop("customer", $value);
+		if ($r != $value)
+		{
+			$this->load_customer_data();
+		}
+		return $r;
 	}
 
 	public function get_customer_data($prop)
@@ -2449,7 +3010,7 @@ class crm_bill_obj extends _int_object
 			$cust_rel_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 				"buyer" => $this->prop("customer"),
-				"seller" => $this->prop("impl")
+				"seller" => $this->implementor_object->id()
 			));
 			if ($cust_rel_list->count())
 			{
@@ -2762,9 +3323,7 @@ class crm_bill_obj extends _int_object
 			}
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_WAREHOUSE,
-				"conf" => $ids,
-				"site_id" => array(),
-				"lang_id" => array(),
+				"conf" => $ids
 			));
 			if($ol->count() == 1)
 			{
@@ -2776,7 +3335,7 @@ class crm_bill_obj extends _int_object
 
 	public function get_bill_cust_data_object()
 	{
-		if(isset($this->cust_data_object))
+		if(!empty($this->cust_data_object))
 		{
 			return $this->cust_data_object;
 		}
@@ -2798,7 +3357,6 @@ class crm_bill_obj extends _int_object
 			$needed_wtp = $this->get_bill_needs_payment(array("payment" => $payment));
 			$payment = obj($payment);
 			$free_sum = $payment->get_free_sum($this->id());
-			exit_function("bill::get_bill_recieved_money");
 			return min($free_sum , $needed_wtp);
 		}
 
@@ -2815,7 +3373,7 @@ class crm_bill_obj extends _int_object
 	{
 		if(!$this->prop("customer_name") || !$this->prop("customer_address"))
 		{
-			if($GLOBALS["object_loader"]->cache->can("view" , $this->prop("customer")))
+			if(object_loader::can("view" , $this->prop("customer")))
 			{
 				$cust_obj = obj($this->prop("customer"));
 				if($cust_obj->class_id() == CL_CRM_COMPANY)
@@ -2873,7 +3431,6 @@ class crm_bill_obj extends _int_object
 					if($cust_obj->prop($a.".riik.name_en")) return $cust_obj->prop($a.".riik.name_en");
 					else return $cust_obj->prop($a.".riik.name");
 				break;
-				return "";
 			}
 		}
 	}
@@ -2915,7 +3472,7 @@ class crm_bill_obj extends _int_object
 		@attrib api=1 params=pos
 		@comment
 		@returns array
-			e-mail address => person object. Person object may be NULL or CL_CRM_PERSON
+			e-mail address => person object id. Person object may be NULL or CL_CRM_PERSON oid
 		@errors
 	**/
 	public function get_receivers()
@@ -2935,7 +3492,7 @@ class crm_bill_obj extends _int_object
 	**/
 	public function add_receiver($email, object $person = null)
 	{
-		if(!is_email($email))
+		if($email instanceof object and !$email->is_a(CL_ML_MEMBER) or !is_email($email))
 		{
 			throw new awex_obj_type("Invalid e-mail address");
 		}
@@ -3008,19 +3565,20 @@ class crm_bill_obj extends _int_object
 		@attrib api=1
 		@returns oid
 			new bill id
+		@errors
+			throws awex_obj_type if overdue interest is not set or incorrect (> 0 required)
+			throws awex_crm_bill_state if state isn't RECEIVED
 	**/
 	public function make_overdue_bill()
 	{
 		if($this->prop("state") != self::STATUS_RECEIVED)
 		{
-			$_SESSION["bill_error"] = t("Viivisarvet koostatakse ainult laekunud arvete kohta");
-			return null;
+			throw new awex_crm_bill_state("Status must be 'received'");
 		}
 
-		if(!($this->get_overdue_charge() > 0))
+		if($this->get_overdue_charge() <= 0)
 		{
-			$_SESSION["bill_error"] = t("Viivise m&auml;&auml;r peab olema > 0");
-			return null;
+			throw new awex_obj_type("Overdue interest can't be 0 or negative");
 		}
 
 		$nb = new object();
@@ -3250,32 +3808,55 @@ class crm_bill_obj extends _int_object
 			$customer_relation_o = $implementor_o->create_customer_relation(crm_company_obj::CUSTOMER_TYPE_BUYER, $customer_o);
 		}
 
-		// load/reload due date days
-		$this->set_prop("bill_due_date_days", $customer_relation_o->prop("bill_due_date_days"));
-
-		// load/reload customer address
-		$this->set_prop("customer_name", $customer_o->name());
-		$this->set_prop("customer_code", $customer_o->prop("code"));
-		$customer_addr = array();
-		if($customer_o->class_id() == CL_CRM_COMPANY)
+		// load/reload customer data bill properties
+		if ($this->set_crm_settings())
 		{
-			$this->set_prop("customer_address", $customer_o->prop("contact.name"));
-			$this->set_customer_address("street", $customer_o->prop("contact.aadress"));
-			$this->set_customer_address("city", $customer_o->prop("contact.linn.name"));
-			$this->set_customer_address("county", $customer_o->prop("contact.maakond.name"));
-			$this->set_customer_address("country", $customer_o->prop("contact.riik.name"));
-			$this->set_customer_address("country_en", $customer_o->prop("contact.riik.name_en"));
-			$this->set_customer_address("index", $customer_o->prop("contact.postiindeks"));
+			$this->set_prop("bill_due_date_days", $this->crm_settings->prop("bill_default_due_days"));
+			$this->set_prop("overdue_charge", $this->crm_settings->prop("bill_default_overdue_interest"));
 		}
 		else
 		{
-			$this->set_prop("customer_address", $customer_o->prop("address.name"));
-			$this->set_customer_address("street", $customer_o->prop("address.aadress"));
-			$this->set_customer_address("city", $customer_o->prop("address.linn.name"));
-			$this->set_customer_address("county", $customer_o->prop("address.maakond.name"));
-			$this->set_customer_address("country", $customer_o->prop("address.riik.name"));
-			$this->set_customer_address("country_en", $customer_o->prop("address.riik.name_en"));
-			$this->set_customer_address("index", $customer_o->prop("address.postiindeks"));
+			$this->set_prop("bill_due_date_days", crm_settings_obj::DEFAULT_BILL_DUE_DAYS);
+			$this->set_prop("overdue_charge", crm_settings_obj::DEFAULT_BILL_OVERDUE_INTEREST);
+		}
+
+		if (strlen($customer_relation_o->prop("bill_due_date_days")))
+		{
+			$this->set_prop("bill_due_date_days", $customer_relation_o->prop("bill_due_date_days"));
+		}
+
+		if (strlen($customer_relation_o->prop("overdue_charge")))
+		{
+			$this->set_prop("overdue_charge", $customer_relation_o->prop("bill_penalty_pct"));
+		}
+
+		// load/reload customer address
+		$this->set_prop("customer_name", (string) $customer_o->name());
+		$this->set_prop("customer_code", (string) $customer_o->prop("code"));
+		$customer_addr = array();
+		if ($customer_o->class_id() == CL_CRM_COMPANY)
+		{
+			$this->set_prop("customer_address", (string) $customer_o->prop("contact.name"));
+			$orderer_contact_person = $this->get_contact_person();
+			$orderer_contact_person_name = $orderer_contact_person ? $orderer_contact_person->name() : "";
+			$this->set_prop("ctp_text", (string) $orderer_contact_person_name);
+			$this->set_customer_address("street", (string) $customer_o->prop("contact.aadress"));
+			$this->set_customer_address("city", (string) $customer_o->prop("contact.linn.name"));
+			$this->set_customer_address("county", (string) $customer_o->prop("contact.maakond.name"));
+			$this->set_customer_address("country", (string) $customer_o->prop("contact.riik.name"));
+			$this->set_customer_address("country_en", (string) $customer_o->prop("contact.riik.name_en"));
+			$this->set_customer_address("index", (string) $customer_o->prop("contact.postiindeks"));
+		}
+		else
+		{
+			$this->set_prop("customer_address", (string) $customer_o->prop("address.name"));
+			$this->set_prop("ctp_text", (string) $customer_o->name());
+			$this->set_customer_address("street", (string) $customer_o->prop("address.aadress"));
+			$this->set_customer_address("city", (string) $customer_o->prop("address.linn.name"));
+			$this->set_customer_address("county", (string) $customer_o->prop("address.maakond.name"));
+			$this->set_customer_address("country", (string) $customer_o->prop("address.riik.name"));
+			$this->set_customer_address("country_en", (string) $customer_o->prop("address.riik.name_en"));
+			$this->set_customer_address("index", (string) $customer_o->prop("address.postiindeks"));
 		}
 	}
 
@@ -3317,3 +3898,18 @@ class awex_crm_bill_implementor extends awex_crm_bill {}
 
 /** Address errors **/
 class awex_crm_bill_address extends awex_crm_bill {}
+
+/** E-mail address errors **/
+class awex_crm_bill_email extends awex_crm_bill
+{
+	public $email;
+}
+
+/** E-mail sending errors **/
+class awex_crm_bill_send extends awex_crm_bill {}
+
+/** PDF or other files related errors **/
+class awex_crm_bill_file extends awex_crm_bill {}
+
+/** status related errors **/
+class awex_crm_bill_state extends awex_crm_bill {}

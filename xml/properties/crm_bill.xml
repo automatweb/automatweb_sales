@@ -1,6 +1,12 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>customer</name>
+            <table>aw_crm_bill</table>
+            <type>hidden</type>
+            <field>aw_customer</field>
+      </property>
+      <property>
             <name>billp_tb</name>
             <table>objects</table>
             <group>general</group>
@@ -258,16 +264,6 @@
             <caption>Kliendi nimi</caption>
       </property>
       <property>
-            <name>customer</name>
-            <table>aw_crm_bill</table>
-            <group>general</group>
-            <type>relpicker</type>
-            <field>aw_customer</field>
-            <reltype>RELTYPE_CUST</reltype>
-            <parent>top_right</parent>
-            <caption>Klient</caption>
-      </property>
-      <property>
             <name>customer_code</name>
             <table>aw_crm_bill</table>
             <group>general</group>
@@ -384,27 +380,6 @@
             <parent>bottom_right_right</parent>
             <store>no</store>
             <field>dn_confirm_tbl</field>
-      </property>
-      <property>
-            <name>bill_targets</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>table</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <parent>almost_bottom</parent>
-            <field>bill_targets</field>
-            <caption>Arve saajad</caption>
-      </property>
-      <property>
-            <name>bill_rec_name</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <parent>almost_bottom</parent>
-            <caption>Arve saaja nimi</caption>
       </property>
       <property>
             <name>bill_rows</name>
@@ -586,7 +561,7 @@
             <multiple>1</multiple>
             <reltype>RELTYPE_RECEIVER</reltype>
             <field>mail_receiver</field>
-            <caption>Maili saaja</caption>
+            <caption>Arve e-kirja saaja</caption>
       </property>
       <property>
             <name>bill_mail_to</name>
@@ -595,7 +570,7 @@
             <type>textbox</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Kellele meil saata</caption>
+            <caption>Saaja</caption>
       </property>
       <property>
             <name>bill_mail_from</name>
@@ -604,7 +579,7 @@
             <type>textbox</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Meili from aadress</caption>
+            <caption>Saatja aadress</caption>
       </property>
       <property>
             <name>bill_mail_from_name</name>
@@ -613,16 +588,7 @@
             <type>textbox</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Meili from nimi</caption>
-      </property>
-      <property>
-            <name>bill_mail_subj</name>
-            <table>objects</table>
-            <group>bill_mail</group>
-            <type>textbox</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Meili subjekt</caption>
+            <caption>Saatja nimi</caption>
       </property>
       <property>
             <name>bill_mail_legend</name>
@@ -631,7 +597,17 @@
             <type>text</type>
             <store>no</store>
             <field>bill_mail_legend</field>
-            <caption>Meili sisu legend</caption>
+            <comment>E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&amp;amp;auml;&amp;amp;auml;rtustega</comment>
+            <caption>Kasutatavad muutujad</caption>
+      </property>
+      <property>
+            <name>bill_mail_subj</name>
+            <table>objects</table>
+            <group>bill_mail</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Pealkiri</caption>
       </property>
       <property>
             <name>bill_mail_ct</name>
@@ -642,7 +618,7 @@
             <cols>50</cols>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Meili sisu</caption>
+            <caption>Sisu</caption>
       </property>
       <property>
             <name>mail_table</name>
@@ -652,6 +628,93 @@
             <no_caption>1</no_caption>
             <store>no</store>
             <field>mail_table</field>
+      </property>
+      <property>
+            <name>sendmail_toolbar</name>
+            <table>objects</table>
+            <group>send_mail</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>sendmail_toolbar</field>
+      </property>
+      <property>
+            <name>sendmail_attachments</name>
+            <table>objects</table>
+            <group>send_mail</group>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <store>no</store>
+            <parent>sendmail_settings</parent>
+            <orient>vertical</orient>
+            <field>sendmail_attachments</field>
+            <caption>Lisatavad dokumendid</caption>
+      </property>
+      <property>
+            <name>sendmail_recipients</name>
+            <table>objects</table>
+            <group>send_mail</group>
+            <type>table</type>
+            <store>no</store>
+            <parent>sendmail_recipients</parent>
+            <no_caption>1</no_caption>
+            <field>sendmail_recipients</field>
+      </property>
+      <property>
+            <name>bill_rec_name</name>
+            <table>objects</table>
+            <group>send_mail</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>sendmail_recipients</parent>
+            <field>bill_rec_name</field>
+            <comment>Otsi olemasolevate isikute hulgast v&amp;amp;otilde;i sisesta kehtiv suvaline e-posti aadress</comment>
+            <caption>Lisa arve saaja</caption>
+      </property>
+      <property>
+            <name>sendmail_subject_edit</name>
+            <table>objects</table>
+            <group>send_mail</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>sendmail_content_l</parent>
+            <captionside>top</captionside>
+            <field>sendmail_subject_edit</field>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>sendmail_body_edit</name>
+            <table>objects</table>
+            <group>send_mail</group>
+            <type>textarea</type>
+            <rows>10</rows>
+            <cols>40</cols>
+            <store>no</store>
+            <parent>sendmail_content_l</parent>
+            <captionside>top</captionside>
+            <field>sendmail_body_edit</field>
+            <caption>Sisu</caption>
+      </property>
+      <property>
+            <name>sendmail_subject</name>
+            <table>objects</table>
+            <group>send_mail</group>
+            <type>text</type>
+            <parent>sendmail_content_r</parent>
+            <captionside>top</captionside>
+            <field>sendmail_subject</field>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>sendmail_body</name>
+            <table>objects</table>
+            <group>send_mail</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>sendmail_content_r</parent>
+            <captionside>top</captionside>
+            <field>sendmail_body</field>
+            <caption>Sisu</caption>
       </property>
       <property>
             <name>dn_tb</name>
@@ -738,6 +801,12 @@
                   <caption>Kirjade seaded</caption>
                   <parent>mails</parent>
             </bill_mail>
+            <send_mail>
+                  <caption>Arve saatmine</caption>
+                  <parent>mails</parent>
+                  <confirm_save_data>0</confirm_save_data>
+                  <submit>no</submit>
+            </send_mail>
             <delivery_notes>
                   <caption>Saatelehed</caption>
             </delivery_notes>
@@ -928,13 +997,6 @@
                   <group>general</group>
                   <area_caption></area_caption>
             </bottom_right_right>
-            <almost_bottom>
-                  <parent>main_split</parent>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>Arve&amp;amp;nbsp;saajad</area_caption>
-                  <group>general</group>
-            </almost_bottom>
             <bottom>
                   <parent>main_split</parent>
                   <type>vbox</type>
@@ -949,6 +1011,39 @@
                   <parent>main_split</parent>
                   <group>general</group>
             </writeoff_layout>
+            <sendmail_settings>
+                  <type>hbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kirja&amp;amp;nbsp;seaded</area_caption>
+                  <group>send_mail</group>
+            </sendmail_settings>
+            <sendmail_recipients>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kirja&amp;amp;nbsp;saajad</area_caption>
+                  <group>send_mail</group>
+            </sendmail_recipients>
+            <sendmail_content>
+                  <type>hbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kirja&amp;amp;nbsp;sisu</area_caption>
+                  <width>50%:50%</width>
+                  <group>send_mail</group>
+            </sendmail_content>
+            <sendmail_content_l>
+                  <type>vbox</type>
+                  <parent>sendmail_content</parent>
+                  <closeable>0</closeable>
+                  <area_caption>Muutmine&amp;amp;nbsp;(muudatused&amp;amp;nbsp;kehtivad&amp;amp;nbsp;vaid&amp;amp;nbsp;sellel&amp;amp;nbsp;saatmiskorral)</area_caption>
+                  <group>send_mail</group>
+            </sendmail_content_l>
+            <sendmail_content_r>
+                  <type>vbox</type>
+                  <parent>sendmail_content</parent>
+                  <closeable>0</closeable>
+                  <area_caption>Eelvaade&amp;amp;nbsp;(kliki&amp;amp;nbsp;tekstil&amp;amp;nbsp;et&amp;amp;nbsp;uuendada)</area_caption>
+                  <group>send_mail</group>
+            </sendmail_content_r>
             <bill_task_list_l>
                   <type>vbox</type>
                   <group>tasks</group>

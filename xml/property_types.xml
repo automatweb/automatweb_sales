@@ -186,8 +186,7 @@
 			</display>
 			<size>
 			</size>
-			<disabled>
-			</disabled>
+			<disabled />
 		</checkbox>
 
 		<toolbar>
@@ -216,6 +215,9 @@
 			</reltype>
 		</fileupload>
 
+		<fileuploader>
+		</fileuploader>
+
 		<hidden>
 			<value />
 		</hidden>
@@ -231,8 +233,7 @@
 			</option_is_tuple>
 			<autocomplete_class_id>
 			</autocomplete_class_id>
-			<disabled>
-			</disabled>
+			<disabled />
 		</textbox>
 
 		<table>
@@ -283,6 +284,7 @@
 			</size>
 			<width>
 			</width>
+			<disabled />
 		</select>
 
 		<text>
@@ -336,6 +338,7 @@
 			<width />
 			<height />
 			<maxlength />
+			<disabled />
 		</textarea>
 
 		<chooser>

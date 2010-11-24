@@ -1065,7 +1065,7 @@ class relationmgr extends aw_template
 					list($astr) = explode(",", $classes[$aclid]["old_alias"]);
 				}
 				$astr = sprintf("#%s%d#", $astr, $alias->prop("idx"));
-				$adat["alias"] = sprintf("<input type='text' size='10' value='%s' onClick='this.select()' onBlur='this.value=\"%s\"'>", $astr, $astr);
+				$adat["alias"] = sprintf("<input type='text' size='10' value='%s' onClick='this.select()' onblur='this.value=\"%s\"'>", $astr, $astr);
 			}
 
 			$adat["link"] = html::checkbox(array(

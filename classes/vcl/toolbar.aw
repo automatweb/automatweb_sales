@@ -22,9 +22,9 @@ class toolbar extends aw_template
 			$imgbase = "/automatweb/images/icons";
 		}
 
-		$this->imgbase = $this->cfg["baseurl"] . $imgbase;
+		$this->imgbase = aw_ini_get("baseurl") . $imgbase;
 		$this->vars(array(
-			"imgbase" => $this->cfg["baseurl"] . $imgbase,
+			"imgbase" => aw_ini_get("baseurl") . $imgbase,
 		));
 	}
 

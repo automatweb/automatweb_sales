@@ -402,12 +402,10 @@
             <caption>Saatelehtede tabel</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_COMPANY_CUSTOMER_DATA</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <buyer>
