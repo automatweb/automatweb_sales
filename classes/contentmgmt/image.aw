@@ -880,7 +880,7 @@ class image extends class_base
 
 			// the site's img folder
 			$passed = false;
-			if (@is_file($fname) && @is_readable($fname))
+			if (is_file($fname) && is_readable($fname))
 			{
 				$passed = true;
 			}
@@ -994,7 +994,7 @@ class image extends class_base
 					}
 
 					readfile($fname);
-				};
+				}
 			}
 			else
 			{

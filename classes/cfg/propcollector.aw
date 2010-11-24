@@ -1,8 +1,5 @@
 <?php
 // creates xml files out of property definitions
-/*
-@classinfo maintainer=kristo
-*/
 
 class propcollector extends aw_template
 {
@@ -179,13 +176,13 @@ class propcollector extends aw_template
 				if ($tagname === "classinfo")
 				{
 					$this->classinfo = array_merge($this->classinfo,$attribs);
-				};
+				}
+
 				if ($tagname === "default")
 				{
 					$this->defaults = array_merge($this->defaults,$attribs);
-				};
-
-			};
+				}
+			}
 
 			if (isset($tags[$tagname]) && $tags[$tagname] == self::TAG_CTX)
 			{
@@ -413,13 +410,13 @@ class propcollector extends aw_template
 						));
 						$this->groupinfo[$id][$_name] = $_value;
 						$tmp = "";
-					};
+					}
 					$open_token = false;
 				}
 				else
 				{
 					$tmp .= $chr;
-				};
+				}
 			}
 			else
 			{
@@ -450,10 +447,9 @@ class propcollector extends aw_template
 				else
 				{
 					$tmp .= $chr;
-				};
-			};
-
-		};
+				}
+			}
+		}
 	}
 
 	private function set_tableinfo($id,$data)
@@ -652,7 +648,7 @@ class propcollector extends aw_template
 		}
 
 		### parse file
-		$lines = @file($name);
+		$lines = file($name);
 
 		if (is_array($lines))
 		{
@@ -889,5 +885,3 @@ class propcollector extends aw_template
 
 /** property parser error message **/
 class awex_propcollector extends aw_exception {}
-
-?>

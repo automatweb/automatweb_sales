@@ -47,30 +47,13 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		return $user_name;
 	}
 
+	// a DEPRECATED and potentially harmful method.
 	function set_rank($v)
 	{
-		// It won't work with new object, so we need to save it first.
-		if(!is_oid($this->id()))
-		{
-			$this->save();
-		}
+		throw new Exception("crm_person_obj::set_rank() may not be used");
 
-		$o = obj($this->id());
-		$org_rel = $o->get_first_obj_by_reltype("RELTYPE_CURRENT_JOB");
-		if (!$org_rel)
-		{
-			$org_rel = obj();
-			$org_rel->set_class_id(CL_CRM_PERSON_WORK_RELATION);
-			$org_rel->set_parent($o->id());
-			$org_rel->save();
-			$o->connect(array(
-				"to" => $org_rel->id(),
-				"type" => "RELTYPE_CURRENT_JOB",
-			));
-		}
-		$sp = $org_rel->set_prop("profession", $v);
-		$org_rel->save();
-		return $sp;
+		// It won't work with new object, so we need to save it first.
+		if(!is_oid($this->id())) { 	$this->save(); } $o = obj($this->id()); $org_rel = $o->get_first_obj_by_reltype("RELTYPE_CURRENT_JOB"); if (!$org_rel) {$org_rel = obj(); $org_rel->set_class_id(CL_CRM_PERSON_WORK_RELATION); $org_rel->set_parent($o->id()); $org_rel->save(); $o->connect(array( "to" => $org_rel->id(), "type" => "RELTYPE_CURRENT_JOB", )); } $sp = $org_rel->set_prop("profession", $v); $org_rel->save(); return $sp;
 	}
 
 	function get_rank($org = null)
@@ -79,11 +62,11 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		if(!is_oid($this->id())) return false;
 
 		$rank = null;
-		foreach($this->connections_from(array("type" => "RELTYPE_CURRENT_JOB")) as $conn)
+		$this->set_current_jobs();
+		foreach($this->current_jobs->arr() as $current_job)
 		{
-			$org_rel = $conn->to();
- 			$rank = $org_rel->prop("profession");
-			if(!$org || $org == $org_rel->prop("org"))
+ 			$rank = $current_job->prop("profession");
+			if(!$org || $org == $current_job->prop("employer"))
 			{
 				break;
 			}
@@ -261,21 +244,20 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	function find_work_contact()
 	{
-		// It won't work with new object, so we need to check the oid.
-		if(!is_oid($this->id()))
-			return false;
-
-		$o = obj($this->id());
-		$org_rel = $o->get_first_obj_by_reltype("RELTYPE_CURRENT_JOB");
+		$this->set_current_jobs();
+		$org_rel = $this->current_jobs->begin();
 		if (!$org_rel)
 		{
 			return false;
 		}
-		return $org_rel->prop("org");
+		return $org_rel->prop("employer");
 	}
 
+	// a DEPRECATED and potentially harmful method
 	function set_work_contact($v)
 	{
+		throw new Exception("crm_person_obj::set_work_contact() may not be used");
+		/*
 		// It won't work with new object, so we need to save it first.
 		if(!is_oid($this->id()))
 		{
@@ -298,10 +280,15 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$sp = $org_rel->set_prop("org", $v);
 		$org_rel->save();
 		return $sp;
+		*/
 	}
 
+	// a DEPRECATED and potentially harmful method
 	function set_org_section($v)
 	{
+		throw new Exception("crm_person_obj::set_org_section() may not be used");
+
+		/*
 		// It won't work with new object, so we need to save it first.
 		if(!is_oid($this->id()))
 		{
@@ -324,16 +311,13 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$sp = $org_rel->set_prop("company_section", $v);
 		$org_rel->save();
 		return $sp;
+		*/
 	}
 
 	function get_org_section()
 	{
-		// It won't work with new object, so we need to check the oid.
-		if(!is_oid($this->id()))
-			return false;
-
-		$o = obj($this->id());
-		$org_rel = $o->get_first_obj_by_reltype("RELTYPE_CURRENT_JOB");
+		$this->set_current_jobs();
+		$org_rel = $this->current_jobs->begin();
 		if (!$org_rel)
 		{
 			return false;
@@ -502,8 +486,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			"class_id" => CL_ML_MEMBER,
 			"status" => array(),
 			"parent" => array(),
-			"site_id" => array(),
-			"lang_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -600,8 +582,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	{
 		$filt = array(
 			"class_id" => CL_CRM_DOCUMENT_ACTION,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"actor" => $this->id(),
 		);
 
@@ -852,13 +832,10 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	function get_sections()
 	{
 		$ol = new object_list();
-		foreach($this->connections_from(array("type" => "RELTYPE_CURRENT_JOB")) as $conn)
+		$this->set_current_jobs();
+		foreach($this->current_jobs->arr() as $to)
 		{
-			$to = $conn->to();
-			if(is_oid($to->section) && $GLOBALS["object_loader"]->cache->can("view", $to->section))
-			{
-				$ol->add($to->section);
-			}
+			$ol->add($to->prop("company_section"));
 		}
 		return $ol;
 	}
@@ -885,14 +862,12 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	function get_companies()
 	{
 		$ol = new object_list();
-		foreach($this->connections_from(array("type" => "RELTYPE_CURRENT_JOB")) as $conn)
+		$this->set_current_jobs();
+		foreach($this->current_jobs->arr() as $to)
 		{
-			$to = $conn->to();
-			if(is_oid($to->org) && $GLOBALS["object_loader"]->cache->can("view", $to->org))
-			{
-				$ol->add($to->org);
-			}
+			$ol->add($to->prop("employer"));
 		}
+
 		return $ol;
 	}
 
@@ -936,9 +911,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	**/
 	public function get_phone($co = null , $sect = null, $type = null)
 	{
-		foreach(parent::connections_from(array("type" => "RELTYPE_CURRENT_JOB")) as $cn)
+		$this->set_current_jobs();
+		foreach($this->current_jobs->arr() as $current_job)
 		{
-			$current_job = $cn->to();
 			if($co && $current_job->prop("employer") != $co)
 			{
 				continue;
@@ -979,9 +954,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	**/
 	public function get_mail($co = null , $sect = null)
 	{
-		foreach(parent::connections_from(array("type" => "RELTYPE_CURRENT_JOB")) as $cn)
+		$this->set_current_jobs();
+		foreach($this->current_jobs->arr() as $current_job)
 		{
-			$current_job = $cn->to();
 			if($co && $current_job->prop("org") != $co)
 			{
 				continue;
@@ -1012,9 +987,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 	**/
 	public function get_mail_id($co = null , $sect = null)
 	{
-		foreach(parent::connections_from(array("type" => "RELTYPE_CURRENT_JOB")) as $cn)
+		$this->set_current_jobs();
+		foreach($this->current_jobs->arr() as $current_job)
 		{
-			$current_job = $cn->to();
 			if($co && $current_job->prop("org") != $co)
 			{
 				continue;
@@ -1525,15 +1500,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			}
 		}
 		$wr->save();
-
-		$wr->connect(array(
-			"to" => $this->id(),
-			"reltype" => "RELTYPE_PERSON",
-		));
-		$this->connect(array(
-			"to" => $wr->id(),
-			"reltype" => "RELTYPE_CURRENT_JOB",
-		));
 		$this->current_jobs = null;
 		return $wr->id();
 	}

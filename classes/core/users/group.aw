@@ -16,7 +16,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_GROUP, on_remove_alias
 /*
 
 
-@classinfo syslog_type=ST_GROUP relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo relationmgr=yes no_comment=1 no_status=1
 
 @groupinfo dyn_search caption=Otsing submit=no
 @groupinfo import caption=Import
@@ -725,8 +725,7 @@ class group extends class_base
 				));
 			}
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+		cache::file_clear_pt("acl");
 	}
 
 	function on_add_alias_to_group($arr)
@@ -780,8 +779,7 @@ class group extends class_base
 				}
 			}
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+		cache::file_clear_pt("acl");
 	}
 
 	function on_delete_grp($arr)
@@ -789,16 +787,12 @@ class group extends class_base
 		extract($arr);
 
 		// check if this is the user's default group and if so, block delete
-		aw_disable_acl();
 		$g_o = obj($oid);
 		if ($g_o->prop("type") == 1)
 		{
 			die(t("Kasutaja vaikimisi gruppi ei saa kustutada, palun kustutage kasutaja objekt!"));
 		}
-		aw_restore_acl();
-
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+		cache::file_clear_pt("acl");
 	}
 
 	function callback_get_default_acl($arr)
@@ -860,12 +854,13 @@ class group extends class_base
 	function on_add_alias_for_group($arr)
 	{
 		if($arr["connection"]->prop("reltype") == RELTYPE_MEMBER  && $arr["connection"]->prop("from.class_id") == CL_GROUP && aw_ini_get("users.use_group_membership") == 1)
-		{
+		{//FIXME: siia ei satuta kunagi sest konstant RELTYPE_MEMBER ei eksisteeri ja reltype pole string 'RELTYPE_MEMBER'.
 			// Selliseid krdi seoseid ei tohiks yldse luua!
 			arr(debug_backtrace(), true);
 		}
+
 		if ($arr["connection"]->prop("reltype") == RELTYPE_ACL)
-		{
+		{//FIXME: siia ei satuta kunagi sest konstant RELTYPE_ACL ei eksisteeri ja reltype pole string 'RELTYPE_ACL'.
 			// handle acl add
 			$from = $arr["connection"]->from();
 			$grp = $arr["connection"]->to();
@@ -879,7 +874,7 @@ class group extends class_base
 	function on_remove_alias_for_group($arr)
 	{
 		if ($arr["connection"]->prop("reltype") == RELTYPE_ACL)
-		{
+		{//FIXME: siia ei satuta kunagi sest konstant RELTYPE_ACL ei eksisteeri ja reltype pole string 'RELTYPE_ACL'.
 			// handle acl add
 			$from = $arr["connection"]->from();
 			$grp = $arr["connection"]->to();
@@ -916,8 +911,6 @@ class group extends class_base
 				$ol_args = array(
 					"class_id" => CL_GROUP_MEMBERSHIP,
 					"status" => array(),	// If it's inactive, we'll activate it! ;)
-					"lang_id" => array(),	// The lang_id is never checked for these anyway.
-					"site_id" => array(),	// The site_id is never checked for these anyway.
 					"parent" => array(),	// The parent doesn't make a difference here.
 					"gms_user" => $user->id(),
 					"gms_group" => $group->id(),
@@ -981,8 +974,8 @@ class group extends class_base
 				$brother_id = $user->create_brother($p_o->id());
 			}
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+
+		cache::file_clear_pt("acl");
 	}
 
 	/** removes user $user from group $group
@@ -1073,8 +1066,7 @@ class group extends class_base
 				$o->save();
 			}
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+		cache::file_clear_pt("acl");
 	}
 
 	/** Returns an array of user objects in the given group
@@ -1173,12 +1165,9 @@ class group extends class_base
 			if ($nlg_gid)
 			{
 				// convert to oid and store that
-				aw_disable_acl();
 				$ol = new object_list(array(
 					"class_id" => CL_GROUP,
-					"gid" => $nlg_gid,
-					"lang_id" => array(),
-					"site_id" => array()
+					"gid" => $nlg_gid
 				));
 				if ($ol->count())
 				{
@@ -1190,15 +1179,12 @@ class group extends class_base
 				{
 					throw awex_no_group(sprintf(t("could not find the group oid for gid %s"), $nlg_gid));
 				}
-				aw_restore_acl();
 			}
 			else
 			{
 				// create nlg group
 				$grpp = aw_ini_get("groups.tree_root");
-				aw_disable_acl();
 				$nlg_o = obj(get_instance(CL_GROUP)->add_group($grpp, "Sisse logimata kasutajad", group_obj::TYPE_REGULAR, 1));
-				aw_restore_acl();
 				$c->set_simple_config("non_logged_in_users_group_oid", $nlg_o->id());
 				$nlg_oid = $nlg_o->id();
 			}
@@ -1210,4 +1196,3 @@ class group extends class_base
 }
 
 class awex_no_group extends aw_exception {};
-?>

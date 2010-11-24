@@ -1994,6 +1994,7 @@ END;
 
 		@param onclick optional type=string
 			variable name for onClick actions in define_field function
+
 		@param rowspan optional type=string
 			variable name for roswpan in define_field function
 

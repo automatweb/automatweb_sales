@@ -273,7 +273,6 @@ class file extends class_base
 			case "mail_notify_subject":
 			case "mail_notify_from":
 			case "mail_notify_content":
-				classload("vcl/mail_notify");
 				$mn = new mail_notify();
 				$fn = "callback_".$data["name"];
 				$data = $mn->$fn($arr);
@@ -305,7 +304,6 @@ class file extends class_base
 					$retval = PROP_IGNORE;
 					break;
 				}
-				classload("core/icons");
 
 				$fname = $this->check_file_path($arr["obj_inst"]->prop("file"));
 				if ($fname == "" && $arr["obj_inst"]->prop("file_url") == "")
@@ -320,7 +318,7 @@ class file extends class_base
 
 				if (is_file($file))
 				{
-					$size = @filesize($file);
+					$size = filesize($file);
 					if ($size > 1024)
 					{
 						$filesize = number_format($size / 1024, 2)."kb";
@@ -812,9 +810,9 @@ class file extends class_base
 	// returns the name of the file that the data was saved in
 	function _put_fs($arr)
 	{
-		if ($arr["fs_folder_to_save_to"])
+		if (!empty($arr["fs_folder_to_save_to"]))
 		{
-			$file = $arr["fs_folder_to_save_to"]."/".$arr["name"];
+			$file = safe_file_path($arr["fs_folder_to_save_to"])."/".$arr["name"];
 		}
 		else
 		{
@@ -829,61 +827,30 @@ class file extends class_base
 
 	function generate_file_path($arr)
 	{
-		if (!empty($arr["file_name"]) && $this->file_is_in_whitelist($arr["file_name"]))
+		if ($this->file_is_in_whitelist($arr["file_name"]))
 		{
-			$file_name = basename($arr["file_name"]);
-			$files_dir = aw_ini_get("site_basedir") . "/files";
-			if (!is_dir($files_dir))
-			{
-				mkdir($files_dir, 0777);
-			}
-
-			$i = 0;
-			while(1)
-			{
-				$fn = "{$files_dir}/{$i}/{$file_name}";
-				$dir = "{$files_dir}/{$i}";
-
-				if (!is_dir($dir))
-				{
-					mkdir($dir, 0777);
-				}
-
-				if (!file_exists($fn))
-				{
-					return $fn;
-				}
-				$i++;
-			}
-		}
-
-		$mt = new aw_mime_types();
-		$site_basedir = aw_ini_get("site_basedir");
-		// find the extension for the file
-		if (strpos($arr["type"], "/") !== false)
-		{
-			list($major,$minor) = explode("/",$arr["type"]);
-			if ($minor === "pjpeg" || $minor === "jpeg")
-			{
-				$minor = "jpg";
-			}
+			$path = filesystem_manager::generate_path($arr["file_name"]);
 		}
 		else
 		{
-			$minor = $arr["type"];
+			// find the extension for the file
+			if (strpos($arr["type"], "/") !== false)
+			{
+				list($major,$minor) = explode("/",$arr["type"]);
+				if ($minor === "pjpeg" || $minor === "jpeg")
+				{
+					$minor = "jpg";
+				}
+			}
+			else
+			{
+				$minor = $arr["type"];
+			}
+
+			$path = filesystem_manager::generate_path($arr["file_name"]) . $minor;
 		}
 
-		// first, we need to find a path to put the file
-		$filename = gen_uniq_id();
-		$prefix = substr($filename,0,1);
-		if (!is_dir($site_basedir . "/files/" . $prefix))
-		{
-			mkdir($site_basedir . "/files/" . $prefix,0705);
-		}
-
-		//$minor = $mt->ext_for_type($arr["type"]);
-		$file = $site_basedir . "/files/" . $prefix . "/" . "$filename.$minor";
-		return $file;
+		return $path;
 	}
 
 	////
@@ -1073,7 +1040,7 @@ class file extends class_base
 		else
 		{
 			$path = aw_ini_get("site_basedir") . "/files";
-		};
+		}
 
 		if ($args["path"])
 		{
@@ -1097,12 +1064,12 @@ class file extends class_base
 		else
 		{
 			$path = aw_ini_get("site_basedir") . "/files";
-		};
+		}
 
 		if ($args["path"])
 		{
 			$path .= "/" . $args["path"];
-		};
+		}
 
 		$contents  =$this->get_file(array(
 			"file" => $path . "/" . $args["name"],
@@ -1532,10 +1499,8 @@ class file extends class_base
 
 	// static
 	// useless. deprecate
-	function get_file_size($fn)
-	{
-		return @filesize($fn);
-	}
+	function get_file_size($fn)	{ return filesize($fn);}
+
 
 	/** creates/updates a file object from the arguments
 		@attrib api=1
@@ -1863,7 +1828,7 @@ class file extends class_base
 
 	function _sp_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "save",
 			"tooltip" => t("Salvesta"),
@@ -1885,7 +1850,7 @@ class file extends class_base
 		));
 	}
 
-	function _init_p_tbl(&$t)
+	function _init_p_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "name",

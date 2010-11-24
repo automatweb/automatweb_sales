@@ -2081,14 +2081,11 @@ class _int_object
 		}
 
 		// first, update modifier fields
-
 		if (!$this->no_modify)
 		{
 			$this->_int_set_of_value("modified", time());
 			$this->_int_set_of_value("modifiedby", aw_global_get("uid"));
 		}
-
-
 
 		if (!is_array($GLOBALS["properties"][$this->obj["class_id"]]))
 		{
@@ -2099,7 +2096,6 @@ class _int_object
 		if (empty($this->obj["oid"]))
 		{
 			$this->_int_init_new();
-
 			$this->_int_do_inherit_new_props();
 
 			// no exclusive when creating
@@ -2163,8 +2159,9 @@ class _int_object
 				{
 					$this->connect($new_conn);
 				}
-			};
-		};
+			}
+		}
+
 		if (isset($this->obj["_create_brothers"]) && is_array($this->obj["_create_brothers"]))
 		{
 			foreach($this->obj["_create_brothers"] as $bro_args)
@@ -2210,11 +2207,12 @@ class _int_object
 
 	protected function _int_do_inherit_new_props()
 	{
-		$data = $GLOBALS["object_loader"]->obj_inherit_props_conf;
+		$data = object_loader::instance()->obj_inherit_props_conf;
 		if (!is_array($data))
 		{
 			return;
 		}
+
 		foreach($data as $from_oid => $ihd)
 		{
 			if (is_array($ihd))
@@ -2223,7 +2221,7 @@ class _int_object
 				{
 					if ($r_ihd["to_class"] == $this->obj["class_id"] && (!is_array($r_ihd["only_to_objs"]) || count($r_ihd["only_to_objs"]) == 0))
 					{
-						if ($GLOBALS["object_loader"]->ds->can("edit", $from_oid))
+						if (object_loader::can("edit", $from_oid))
 						{
 							$orig = obj($from_oid);
 							$this->_int_set_prop_mod($r_ihd["to_prop"], $this->obj["properties"][$r_ihd["to_prop"]], $orig->prop($r_ihd["from_prop"]));
@@ -2246,9 +2244,7 @@ class _int_object
 
 				// find all object os correct type
 				$filt = array(
-					"class_id" => $ihd["to_class"],
-					"site_id" => array(),
-					"lang_id" => array()
+					"class_id" => $ihd["to_class"]
 				);
 				if (is_array($ihd["only_to_objs"]) && count($ihd["only_to_objs"]) > 0)
 				{
@@ -2450,6 +2446,7 @@ class _int_object
 		$this->_int_set_of_value("created", time());
 		$this->_int_set_of_value("createdby", aw_global_get("uid"));
 		$this->_int_set_of_value("hits", 0);
+
 		if (empty($this->obj["site_id"]))
 		{
 			$this->_int_set_of_value("site_id", $GLOBALS["cfg"]["site_id"]);
@@ -2466,6 +2463,8 @@ class _int_object
 		{
 			$this->_int_set_of_value("lang_id", aw_global_get("lang_id"));
 		}
+
+		// set property defaults
 	}
 
 	protected function _int_is_property($prop)
@@ -2656,7 +2655,7 @@ class _int_object
 			"draft_object" => $this->id(),
 			"draft_property" => $prop,
 			"draft_user" => $user_oid,
-			"limit" => 1,
+			"limit" => 1
 		);
 		if(!is_oid($this->id()))
 		{

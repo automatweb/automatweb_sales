@@ -1089,7 +1089,7 @@ function aw_get_el(name,form)
 		$properties = $cx->load_class_properties(array(
 			"clid" => $o->class_id(),
 		));
-		if($properties[$arr["property"]]["multiple"] > 0)
+		if(isset($properties[$arr["property"]]["multiple"]) and $properties[$arr["property"]]["multiple"] > 0)
 		{
 			$val = $o->prop($arr["property"]);
 			$val[] = $arr["value"];
@@ -1107,7 +1107,7 @@ function aw_get_el(name,form)
 		}
 		catch (awex_obj $e)
 		{
-			exit("");//TODO: something.
+			exit("Error");//TODO: something.
 		}
 	}
 
@@ -1309,7 +1309,6 @@ function aw_get_el(name,form)
 		if(!empty($arr["reload_property"]))
 		{
 			$reload.= "window.opener.reload_property('".$arr["reload_property"]."');";
-
 		}
 
 		$javascript = "<script language='javascript'>

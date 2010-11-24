@@ -89,11 +89,9 @@
             <caption>Arve</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_BUG_COMMENT</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>robert</maintainer>
       </classinfo>
       <tableinfo>
             <aw_bug_comments>

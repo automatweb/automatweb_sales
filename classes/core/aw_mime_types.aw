@@ -1,10 +1,8 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class aw_mime_types
 {
-	var $type2ext = array(
+	private static $type2ext = array(
 		"application/andrew-inset" => "ez",
 		"application/mac-binhex40" => "hqx",
 		"application/mac-compactpro" => "cpt",
@@ -113,7 +111,7 @@ class aw_mime_types
 		@param ext required type=string
 			File extension
 
-		@returns 
+		@returns
 			MIME type of the extension
 			false, if the MIME type for the extension is unknown
 
@@ -122,10 +120,10 @@ class aw_mime_types
 			echo $mimeregistry->type_for_ext('rtf'); // prints 'text/rtf'
 
 	**/
-	function type_for_ext($ext)
+	public static function type_for_ext($ext)
 	{
 		$ext = strtolower($ext);
-		foreach($this->type2ext as $type => $_ext)
+		foreach(self::$type2ext as $type => $_ext)
 		{
 			if (in_array($ext, explode(",", $_ext)))
 			{
@@ -142,7 +140,7 @@ class aw_mime_types
 		@param file required type=string
 			File name
 
-		@returns 
+		@returns
 			MIME type of the file
 			false, if the MIME type for the file is unknown
 
@@ -154,10 +152,10 @@ class aw_mime_types
 			echo $mimeregistry->type_for_file('my_cv.rtf'); // prints 'text/rtf'
 
 	**/
-	function type_for_file($file)
+	public static function type_for_file($file)
 	{
 		$pathinfo = pathinfo($file);
-		return $this->type_for_ext($pathinfo["extension"]);
+		return self::type_for_ext($pathinfo["extension"]);
 	}
 
 	/** Returns the extension for a MIME type
@@ -167,7 +165,7 @@ class aw_mime_types
 		@param type required type=string
 			MIME type
 
-		@returns 
+		@returns
 			Extension for the MIME type
 
 		@examples
@@ -175,10 +173,9 @@ class aw_mime_types
 			echo $mimeregistry->ext_for_type('text/rtf'); // prints 'rtf'
 
 	**/
-	function ext_for_type($type)
+	public static function ext_for_type($type)
 	{
-		list($ext) = explode(",", $this->type2ext[$type]);
+		list($ext) = explode(",", self::$type2ext[$type]);
 		return $ext;
 	}
 }
-?>

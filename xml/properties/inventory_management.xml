@@ -5,7 +5,7 @@
             <group>settings</group>
             <type>relpicker</type>
             <multiple>1</multiple>
-            <size>8</size>
+            <size>5</size>
             <reltype>RELTYPE_MANAGED_WAREHOUSE</reltype>
             <field>managed_warehouses</field>
             <caption>Hallatavad laod</caption>

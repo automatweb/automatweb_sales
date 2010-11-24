@@ -319,6 +319,7 @@
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <field>meta</field>
+            <parent>bills_mail_settings</parent>
             <caption>Saata arve saab m&amp;amp;auml;&amp;amp;auml;rata toimetusele vaid kliendihaldur</caption>
       </property>
       <property>
@@ -328,7 +329,8 @@
             <type>textbox</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Kellele meil saata</caption>
+            <parent>bills_mail_settings</parent>
+            <caption>Saaja(d)</caption>
       </property>
       <property>
             <name>bill_mail_from</name>
@@ -337,7 +339,8 @@
             <type>textbox</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Meili from aadress</caption>
+            <parent>bills_mail_settings</parent>
+            <caption>Saatja aadress</caption>
       </property>
       <property>
             <name>bill_mail_from_name</name>
@@ -346,7 +349,19 @@
             <type>textbox</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Meili from nimi</caption>
+            <parent>bills_mail_settings</parent>
+            <caption>Saatja nimi</caption>
+      </property>
+      <property>
+            <name>bill_mail_legend</name>
+            <table>objects</table>
+            <group>bill</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>bills_mail_settings</parent>
+            <field>bill_mail_legend</field>
+            <comment>E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&amp;amp;auml;&amp;amp;auml;rtustega</comment>
+            <caption>Kasutatavad muutujad</caption>
       </property>
       <property>
             <name>bill_mail_subj</name>
@@ -355,16 +370,9 @@
             <type>textbox</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Meili subjekt</caption>
-      </property>
-      <property>
-            <name>bill_mail_legend</name>
-            <table>objects</table>
-            <group>bill</group>
-            <type>text</type>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>Meili sisu legend</caption>
+            <parent>bills_mail_settings</parent>
+            <captionside>top</captionside>
+            <caption>Pealkiri</caption>
       </property>
       <property>
             <name>bill_mail_ct</name>
@@ -375,7 +383,36 @@
             <cols>50</cols>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Meili sisu</caption>
+            <parent>bills_mail_settings</parent>
+            <captionside>top</captionside>
+            <caption>Sisu</caption>
+      </property>
+      <property>
+            <name>bill_default_due_days</name>
+            <table>objects</table>
+            <group>bill</group>
+            <type>textbox</type>
+            <size>3</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <datatype>int</datatype>
+            <default>14</default>
+            <parent>bills_other_settings</parent>
+            <comment>P&amp;amp;auml;eva. Vaikev&amp;amp;auml;&amp;amp;auml;rtus 14</comment>
+            <caption>Vaikimisi makset&amp;amp;auml;htaeg</caption>
+      </property>
+      <property>
+            <name>bill_default_overdue_interest</name>
+            <table>objects</table>
+            <group>bill</group>
+            <type>textbox</type>
+            <size>3</size>
+            <field>meta</field>
+            <method>serialize</method>
+            <default>0.15</default>
+            <parent>bills_other_settings</parent>
+            <comment>Vaikev&amp;amp;auml;&amp;amp;auml;rtus 0.15</comment>
+            <caption>Vaikimisi viivis (%)</caption>
       </property>
       <property>
             <name>bill_hide_pwr</name>
@@ -385,6 +422,7 @@
             <ch_value>1</ch_value>
             <field>meta</field>
             <method>serialize</method>
+            <parent>bills_other_settings</parent>
             <caption>Peita eelvaade ridadega</caption>
       </property>
       <property>
@@ -395,17 +433,16 @@
             <ch_value>1</ch_value>
             <field>meta</field>
             <method>serialize</method>
+            <parent>bills_other_settings</parent>
             <caption>Peita koonda read nupp</caption>
       </property>
       <property>
             <name>bill_no_agreement_price</name>
             <table>objects</table>
             <group>bill</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
+            <type>hidden</type>
             <field>meta</field>
             <method>serialize</method>
-            <caption>&amp;amp;Auml;ra kasuta kokkuleppehinda</caption>
       </property>
       <property>
             <name>bill_def_prod</name>
@@ -415,6 +452,7 @@
             <reltype>RELTYPE_PROD</reltype>
             <field>meta</field>
             <method>serialize</method>
+            <parent>bills_other_settings</parent>
             <caption>Vaikimisi toode arve ridadel</caption>
       </property>
       <property>
@@ -424,6 +462,7 @@
             <type>select</type>
             <field>meta</field>
             <method>serialize</method>
+            <parent>bills_other_settings</parent>
             <caption>Vaikimisi &amp;amp;Uuml;hik</caption>
       </property>
       <property>
@@ -434,16 +473,15 @@
             <multiple>1</multiple>
             <store>connect</store>
             <reltype>RELTYPE_TAX_RATE</reltype>
+            <parent>bills_other_settings</parent>
             <field>bill_default_tax</field>
             <caption>Vaikimisi k&amp;amp;auml;ibemaks</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_CRM_SETTINGS</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <tables>
@@ -526,6 +564,24 @@
                   <group>tables</group>
                   <area_caption></area_caption>
             </vsplitbox>
+            <bill_main>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
+                  <group>bill</group>
+                  <area_caption></area_caption>
+            </bill_main>
+            <bills_mail_settings>
+                  <type>vbox</type>
+                  <parent>bill_main</parent>
+                  <area_caption>Arvete&amp;amp;nbsp;e-kirjade&amp;amp;nbsp;vaikimisi&amp;amp;nbsp;seaded</area_caption>
+                  <group>bill</group>
+            </bills_mail_settings>
+            <bills_other_settings>
+                  <type>vbox</type>
+                  <parent>bill_main</parent>
+                  <area_caption>Muud&amp;amp;nbsp;seaded</area_caption>
+                  <group>bill</group>
+            </bills_other_settings>
       </layout>
 </properties>
 

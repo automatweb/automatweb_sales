@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CRM_OFFER relationmgr=yes no_name=1 no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_name=1 no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_crm_offer master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_crm_offer

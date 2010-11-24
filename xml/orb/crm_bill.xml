@@ -38,6 +38,13 @@
 			</function>
 		</action>
 
+		<action name="ajax_parse_mail_text" all_args="1">
+			<function name="ajax_parse_mail_text">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="add_task_row_to_bill_row">
 			<function name="add_task_row_to_bill_row">
 				<arguments>
@@ -142,10 +149,7 @@
 			<function name="send_bill">
 				<arguments>
 					<required name="id" type="int" />
-					<optional name="preview_add" type="int" />
-					<optional name="preview_add_pdf" type="int" />
-					<optional name="reminder" type="int" />
-					<optional name="preview_pdf" type="int" />
+					<optional name="post_ru" type="string" />
 				</arguments>
 			</function>
 		</action>

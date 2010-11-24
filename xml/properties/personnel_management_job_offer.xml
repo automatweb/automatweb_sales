@@ -634,12 +634,10 @@
             <caption>T&amp;amp;otilde;lgi</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_PERSONNEL_MANAGEMENT_JOB_OFFER</syslog_type>
             <relationmgr>yes</relationmgr>
             <r2>yes</r2>
             <no_comment>1</no_comment>
             <prop_cb>1</prop_cb>
-            <maintainer>instrumental</maintainer>
       </classinfo>
       <groupinfo>
             <candidate>

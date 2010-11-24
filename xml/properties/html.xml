@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <properties>
-      <classinfo>
-            <maintainer>kristo</maintainer>
-      </classinfo>
+      <property>
+            <comment>draws simple html text with given textsize</comment>
+      </property>
 </properties>
 

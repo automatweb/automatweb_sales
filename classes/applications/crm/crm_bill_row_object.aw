@@ -4,9 +4,16 @@ class crm_bill_row_object extends _int_object
 {
 	private $crm_settings;
 
-	function set_name($name)
+	public function set_name($name)
 	{
 		$rv = parent::set_name($name);
+		$this->set_prop("desc", $name);
+		return $rv;
+	}
+
+	public function awobj_set_name($name)
+	{
+		$rv = parent::set_prop("name", $name);
 		$this->set_prop("desc", $name);
 		return $rv;
 	}
@@ -19,20 +26,25 @@ class crm_bill_row_object extends _int_object
 		}
 
 		$rv = parent::set_prop($p, $v);
-		if ($p == "name")
-		{
-			$this->set_prop("desc", $v);
-		}
-		if ($p == "price")
-		{
-			$value = str_replace(",",".",$value);
-		}
-		if ($p == "amt")
-		{
-			$value = str_replace(",",".",$value);
-		}
-
 		return $rv;
+	}
+
+	public function awobj_set_price($value)
+	{
+		$value = str_replace(",",".",$value);
+		return $this->set_prop("price", $value);
+	}
+
+	public function awobj_set_amt($value)
+	{
+		$value = str_replace(",",".",$value);
+		return $this->set_prop("amt", $value);
+	}
+
+	public function awobj_set_sum($value)
+	{
+		$value = str_replace(",",".",$value);
+		return $this->set_prop("sum", $value);
 	}
 
 	private function add_bill_comment_data($data)
@@ -40,7 +52,7 @@ class crm_bill_row_object extends _int_object
 		$_SESSION["bill_change_comments"][] = $data;
 	}
 
-	function get_sum()
+	public function get_sum()
 	{
 		if($this->prop("sum"))
 		{
@@ -363,7 +375,7 @@ class crm_bill_row_object extends _int_object
 	{
 		$bill = $this->get_bill();
 		$date = null;
-		if($GLOBALS["object_loader"]->cache->can("view" , $bill))
+		if(object_loader::can("view" , $bill))
 		{
 			$bill_obj = obj($bill);
 			$date = $bill_obj->prop("bill_date");
@@ -386,8 +398,7 @@ class crm_bill_row_object extends _int_object
 
 		if($this->prop("has_tax"))
 		{
-
-			if (!$GLOBALS["object_loader"]->cache->can("view", $this->prop("prod.tax_rate")))
+			if (!object_loader::can("view", $this->prop("prod.tax_rate")))
 			{
 				return 18;
 			}
@@ -399,7 +410,7 @@ class crm_bill_row_object extends _int_object
 
 		if($advise)
 		{
-			if ($GLOBALS["object_loader"]->cache->can("view", $this->prop("prod.tax_rate")))
+			if (object_loader::can("view", $this->prop("prod.tax_rate")))
 			{
 				return $this->prop("prod.tax_rate.tax_amt");
 			}

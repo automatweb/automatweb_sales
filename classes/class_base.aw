@@ -102,7 +102,6 @@ class class_base extends aw_template
 
 	public $form_only = false;
 	public $no_form = false;
-	public static $msgs_closed = false;
 
 	protected $_cfg_props;
 	protected $classconfig;
@@ -110,6 +109,7 @@ class class_base extends aw_template
 
 	private $cfgform_obj;
 	private $cfg_debug = false;
+	private static $msgs_closed = false;
 
 	private $data_processing_result_status = PROP_OK;
 	private $vcl_has_getter = array();
@@ -1102,6 +1102,12 @@ class class_base extends aw_template
 				$ui_messages = array();
 			}
 
+			if ("DONE" === $class and in_array("DONE", $ui_messages))
+			{ // clear previous DONE message
+				$tmp = array_flip($ui_messages);
+				unset($ui_messages[$tmp["DONE"]]);
+			}
+
 			$ui_messages[$text] = $class;
 			aw_session_set("awcb__global_ui_messages", serialize($ui_messages));
 		}
@@ -1113,10 +1119,7 @@ class class_base extends aw_template
 	**/
 	public static function show_error_text($text)
 	{
-		if (!self::$msgs_closed)
-		{
-			self::push_msg($text, "ERROR");
-		}
+		self::push_msg($text, "ERROR");
 	}
 
 	/** Shows a success message text to user
@@ -1125,10 +1128,17 @@ class class_base extends aw_template
 	**/
 	public static function show_success_text($text)
 	{
-		if (!self::$msgs_closed)
-		{
-			self::push_msg($text, "OK");
-		}
+		self::push_msg($text, "OK");
+	}
+
+	/** Shows (or disables) an operation completed successfully message text to user. Can be called only once per request. Last call executed, others after it ignored
+	@attrib api=1 params=pos
+	@param text type=string default=""
+		If empty string given, no 'completed' message shown at all
+	**/
+	public static function show_completed_text($text = "")
+	{
+		self::push_msg($text, "DONE");
 	}
 
 	/** Shows an informative message to user
@@ -1137,10 +1147,7 @@ class class_base extends aw_template
 	**/
 	public static function show_msg_text($text)
 	{
-		if (!self::$msgs_closed)
-		{
-			self::push_msg($text, "");
-		}
+		self::push_msg($text, "");
 	}
 
 	function _get_sub_layouts($lay)
@@ -1572,7 +1579,7 @@ class class_base extends aw_template
 	{
 		$this->show_error_text(t("Andmete salvestamisel esines viga"));
 		$this->data_processing_result_status = PROP_FATAL_ERROR;
-		trigger_error("Caught exception " . get_class($caught_exception) . " while saving data. Thrown in '" . $caught_exception->getFile() . "' on line " . $caught_exception->getLine() . ": '" . $caught_exception->getMessage() . "' <br> Backtrace:<br>" . dbg::process_backtrace($caught_exception->getTrace(), -1, true), E_USER_WARNING);
+		trigger_error("Caught exception " . get_class($caught_exception) . " while saving data. Thrown in '" . $caught_exception->getFile() . "' on line " . $caught_exception->getLine() . ": '" . $caught_exception->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($caught_exception->getTrace(), -1, true), E_USER_WARNING);
 		return false;
 	}
 
@@ -3201,15 +3208,15 @@ class class_base extends aw_template
 					$val["vcl_inst"]->set_opt("button_target","contentarea");
 				}
 			}
-			elseif (($val["type"] === "relmanager") && !is_object($val["vcl_inst"]))
+			elseif ($val["type"] === "relmanager" && (!isset($val["vcl_inst"]) or !is_object($val["vcl_inst"])))
 			{
 				$val["vcl_inst"] = new relmanager();
 			}
-			elseif ( ($val['type'] === 'range') && !is_object($val['vcl_inst']) )
+			elseif ($val["type"] === "range" && (!isset($val["vcl_inst"]) or !is_object($val["vcl_inst"])))
 			{
 				$val['vcl_inst'] = new range();
 			}
-			elseif (($val["type"] === "calendar") && (!isset($val["vcl_inst"]) or !is_object($val["vcl_inst"])))
+			elseif ($val["type"] === "calendar" && (!isset($val["vcl_inst"]) or !is_object($val["vcl_inst"])))
 			{
 				$val["vcl_inst"] = new vcalendar();
 			}
@@ -4447,11 +4454,11 @@ class class_base extends aw_template
 		if ($this->new)
 		{
 			$class_title = aw_ini_get("classes." . $this->obj_inst->class_id() . ".name");
-			$this->show_success_text(sprintf(t("Uus %s salvestatud!"), strtolower($class_title)));
+			$this->show_completed_text(sprintf(t("Uus '%s' salvestatud!"), $class_title));
 		}
 		else
 		{
-			$this->show_success_text(t("Andmed salvestatud!"));
+			$this->show_completed_text(t("Andmed salvestatud!"));
 		}
 
 		if ($new)

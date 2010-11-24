@@ -1,15 +1,11 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/core/icons.aw,v 1.14 2009/08/05 11:52:14 instrumental Exp $
-/*
-@classinfo  maintainer=kristo
-*/
-class icons extends aw_template
-{
-	function icons()
-	{
-		$this->init("automatweb/config");
-	}
 
+class icons
+{
+	public static function get_std_icon_url($name)
+	{
+		return aw_ini_get("baseurl") . "/automatweb/images/icons/{$name}.gif";
+	}
 
 	/** returns the url for the icons for the given class / object name (for file objects)
 
@@ -19,7 +15,7 @@ class icons extends aw_template
 			arg1 - class id / object class instance
 			name - object name
 	**/
-	public static function get_icon_url($arg1,$name = "")
+	public static function get_icon_url($arg1, $name = "")
 	{
 		$done = false;
 
@@ -94,7 +90,7 @@ class icons extends aw_template
 	**/
 	public static function get_icon($o)
 	{
-		if (!is_object($o) && $GLOBALS["object_loader"]->cache->can("view", $o))
+		if (!is_object($o) && object_loader::can("view", $o))
 		{
 			$o = obj($o);
 		}
@@ -122,15 +118,11 @@ class icons extends aw_template
 		// $ic conains
 		// <img src='http://_blabla_/automatweb/images/icons/class_1.gif'>
 	**/
-	function get_class_icon($clid)
+	public static function get_class_icon($clid)
 	{
-
 		return html::img(array(
 			"url" => icons::get_icon_url($clid),
 			"border" => 0
 		));
 	}
-
-
 }
-?>

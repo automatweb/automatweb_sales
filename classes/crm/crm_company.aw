@@ -402,7 +402,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 ---------------------------------------------------
 
 /////start of my_customers
-@default group=relorg_s,relorg_b,relorg_t
+@default group=relorg_s,relorg_b
 
 	@property my_customers_toolbar type=toolbar no_caption=1 store=no
 	@caption "Klientide toolbar"
@@ -1214,9 +1214,9 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 	@groupinfo all_reports caption="K&otilde;ik raportid" submit=no parent=projs save=no
 
 @groupinfo relorg caption="Kliendid" focus=customer_search_name save=no
-	@groupinfo relorg_t caption="K&otilde;ik" parent=relorg submit=no save=no
-	@groupinfo relorg_s caption="M&uuml;&uuml;jad" focus=customer_search_name parent=relorg submit=no save=no
+	// @groupinfo relorg_t caption="K&otilde;ik" parent=relorg submit=no save=no
 	@groupinfo relorg_b caption="Ostjad" focus=customer_search_name parent=relorg submit=no save=no
+	@groupinfo relorg_s caption="M&uuml;&uuml;jad" focus=customer_search_name parent=relorg submit=no save=no
 
 
 @groupinfo org_images caption="Pildid" submit=yes parent=general
@@ -3628,8 +3628,7 @@ class crm_company extends class_base
 			}
 			else
 			{
-				$this->show_success_text(t("Valitud isikutega antud ameti all t&ouml;&ouml;suhted l&otilde;petatud."));
-				self::$msgs_closed = true;
+				$this->show_completed_text(t("Valitud isikutega antud ameti all t&ouml;&ouml;suhted l&otilde;petatud."));
 			}
 		}
 
@@ -6822,6 +6821,14 @@ class crm_company extends class_base
 			case "calls":
 			case "bugs":
 				return false;
+
+			// don't show customers tab if current company isn't the one being viewed
+			// iow customers can't have customers in this system
+			case "relorg":
+			case "relorg_b":
+			case "relorg_s":
+				$co = user::get_current_company();
+				return ($arr["request"]["id"] == $co);
 		}
 
 		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
@@ -6829,21 +6836,8 @@ class crm_company extends class_base
 			return false;
 		}
 
-		if($arr["id"] === "sell_offers")
+		if($arr["id"] === "sell_offers" and !is_oid($arr["request"]["buyer"]))
 		{
-			if(!is_oid($arr["request"]["buyer"]))
-			{
-				return false;
-			}
-		}
-
-		if($arr["id"] === "relorg_t")
-		{
-			$co = user::get_current_company();
-			if ($arr["request"]["id"] == $co)
-			{
-				return true;
-			}
 			return false;
 		}
 

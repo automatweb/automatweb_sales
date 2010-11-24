@@ -60,8 +60,6 @@
             <comment>closes FTP connection</comment>
       </property>
       <classinfo>
-            <syslog_type>ST_FTP_LOGIN</syslog_type>
-            <mantainer>kristo</mantainer>
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>

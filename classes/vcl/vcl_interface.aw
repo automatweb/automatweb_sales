@@ -7,5 +7,3 @@ interface vcl_interface
 }
 
 class awex_vcl extends aw_exception {}
-
-?>

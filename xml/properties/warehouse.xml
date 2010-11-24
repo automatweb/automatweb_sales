@@ -1,5 +1,12 @@
 <?xml version='1.0'?>
 <properties>
+      <property>
+            <name>inventory_engine</name>
+            <table>aw_warehouse</table>
+            <group>settings</group>
+            <type>hidden</type>
+            <field>inventory_engine</field>
+      </property>
       <classinfo>
             <syslog_type>ST_WAREHOUSE</syslog_type>
             <relationmgr>yes</relationmgr>

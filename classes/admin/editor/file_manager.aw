@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo maintainer=kristo
-*/
 
 class file_manager extends aw_editor_manager_base
 {
@@ -147,7 +144,7 @@ class file_manager extends aw_editor_manager_base
 					"caption" => t("Vali see"),
 					"onClick" => ($doctype == "mail") ? null:"
 						FCK=window.parent.opener.FCK;
-						var eSelected = FCK.Selection.GetSelectedElement() ; 
+						var eSelected = FCK.Selection.GetSelectedElement() ;
 						if (eSelected)
 						{
 							if (eSelected.tagName == \"SPAN\" && eSelected._awfileplaceholder  )
@@ -409,4 +406,3 @@ class file_manager extends aw_editor_manager_base
 		$tb->add_button($args);
 	}
 }
-?>

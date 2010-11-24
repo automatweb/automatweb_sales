@@ -3,7 +3,7 @@
 // crm_settings.aw - Kliendibaasi seaded
 /*
 
-@classinfo syslog_type=ST_CRM_SETTINGS relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 
@@ -148,45 +148,56 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 
 @default group=bill
+	@layout bill_main type=hbox width=50%:50%
+		@layout bills_mail_settings type=vbox parent=bill_main area_caption=Arvete&nbsp;e-kirjade&nbsp;vaikimisi&nbsp;seaded
+			@property billable_only_by_mrg type=checkbox ch_value=1 table=objects field=meta parent=bills_mail_settings
+			@caption Saata arve saab m&auml;&auml;rata toimetusele vaid kliendihaldur
 
-	@property billable_only_by_mrg type=checkbox ch_value=1 table=objects field=meta
-	@caption Saata arve saab m&auml;&auml;rata toimetusele vaid kliendihaldur
+			@property bill_mail_to type=textbox field=meta method=serialize parent=bills_mail_settings
+			@caption Saaja(d)
 
-	@property bill_mail_to type=textbox field=meta method=serialize
-	@caption Kellele meil saata
+			@property bill_mail_from type=textbox field=meta method=serialize parent=bills_mail_settings
+			@caption Saatja aadress
 
-	@property bill_mail_from type=textbox field=meta method=serialize
-	@caption Meili from aadress
+			@property bill_mail_from_name type=textbox field=meta method=serialize parent=bills_mail_settings
+			@caption Saatja nimi
 
-	@property bill_mail_from_name type=textbox field=meta method=serialize
-	@caption Meili from nimi
+			@property bill_mail_legend type=text store=no parent=bills_mail_settings
+			@comment E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&auml;&auml;rtustega
+			@caption Kasutatavad muutujad
 
-	@property bill_mail_subj type=textbox field=meta method=serialize
-	@caption Meili subjekt
+			@property bill_mail_subj type=textbox field=meta method=serialize parent=bills_mail_settings captionside=top
+			@caption Pealkiri
 
-	@property bill_mail_legend type=text field=meta method=serialize
-	@caption Meili sisu legend
+			@property bill_mail_ct type=textarea rows=20 cols=50 field=meta method=serialize parent=bills_mail_settings captionside=top
+			@caption Sisu
 
-	@property bill_mail_ct type=textarea rows=20 cols=50 field=meta method=serialize
-	@caption Meili sisu
+		@layout bills_other_settings type=vbox parent=bill_main area_caption=Muud&nbsp;seaded
+			@property bill_default_due_days type=textbox size=3 field=meta method=serialize datatype=int default=14 parent=bills_other_settings
+			@comment P&auml;eva. Vaikev&auml;&auml;rtus 14
+			@caption Vaikimisi makset&auml;htaeg
 
-	@property bill_hide_pwr type=checkbox ch_value=1 table=objects field=meta method=serialize
-	@caption Peita eelvaade ridadega
+			@property bill_default_overdue_interest type=textbox size=3 table=objects field=meta method=serialize default=0.15 parent=bills_other_settings
+			@comment Vaikev&auml;&auml;rtus 0.15
+			@caption Vaikimisi viivis (%)
 
-	@property bill_hide_cr type=checkbox ch_value=1 table=objects field=meta method=serialize
-	@caption Peita koonda read nupp
+			@property bill_hide_pwr type=checkbox ch_value=1 table=objects field=meta method=serialize parent=bills_other_settings
+			@caption Peita eelvaade ridadega
 
-	@property bill_no_agreement_price type=checkbox ch_value=1 table=objects field=meta method=serialize
-	@caption &Auml;ra kasuta kokkuleppehinda
+			@property bill_hide_cr type=checkbox ch_value=1 table=objects field=meta method=serialize parent=bills_other_settings
+			@caption Peita koonda read nupp
 
-	@property bill_def_prod type=relpicker reltype=RELTYPE_PROD table=objects field=meta method=serialize
-	@caption Vaikimisi toode arve ridadel
+			@property bill_no_agreement_price type=hidden table=objects field=meta method=serialize
 
-	@property bill_default_unit type=select table=objects field=meta method=serialize
-	@caption Vaikimisi &Uuml;hik
+			@property bill_def_prod type=relpicker reltype=RELTYPE_PROD table=objects field=meta method=serialize parent=bills_other_settings
+			@caption Vaikimisi toode arve ridadel
 
-	@property bill_default_tax type=relpicker multiple=1 store=connect reltype=RELTYPE_TAX_RATE
-	@caption Vaikimisi k&auml;ibemaks
+			@property bill_default_unit type=select table=objects field=meta method=serialize parent=bills_other_settings
+			@caption Vaikimisi &Uuml;hik
+
+			@property bill_default_tax type=relpicker multiple=1 store=connect reltype=RELTYPE_TAX_RATE parent=bills_other_settings
+			@caption Vaikimisi k&auml;ibemaks
+
 
 @groupinfo tables caption="Tabelid"
 @groupinfo whom caption="Kellele kehtib"
@@ -292,15 +303,15 @@ class crm_settings extends class_base
 		);
 
 		$this->bills_filter_options = array(
-					"" => "",
-					0 => t("Jah"),
-					1 => t("Ei"),
-					2 => t("Arvel"),
-					3 => t("Arveta"),
+			"" => "",
+			0 => t("Jah"),
+			1 => t("Ei"),
+			2 => t("Arvel"),
+			3 => t("Arveta"),
 		);
 	}
 
-	function get_property($arr)
+	function get_property(&$arr)
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
@@ -325,14 +336,11 @@ class crm_settings extends class_base
 				$prop["options"] = $this->get_company_tabs();
 				break;
 			case "bill_mail_legend":
-				$bill = get_instance(CL_CRM_BILL);
-				$prop["value"] = $bill->get_mail_legend();
+				$prop["value"] = nl2br(crm_bill_obj::get_mail_parse_legend());
 				break;
 			case "bill_default_unit":
 				$filter = array(
-					"class_id" => CL_UNIT,
-					"lang_id" => array(),
-					"site_id" => array(),
+					"class_id" => CL_UNIT
 				);
 				$prop["options"] = array("" => "");
 				$t = new object_data_list(
@@ -348,18 +356,21 @@ class crm_settings extends class_base
 				{
 					$ol = new object_list(array(
 						"class_id" => CL_UNIT,
-						"lang_id" => array(),
-						"site_id" => array(),
-						"name" => $name,
+						"name" => $name
 					));
-					$prop["options"][reset($ol->ids())] = $name;
+
+					if ($ol->count())
+					{
+						$o = $ol->begin();
+						$prop["options"][$o->id()] = $o->name();
+					}
 				}
 				break;
 		}
 		return $retval;
 	}
 
-	function get_company_tabs($arr)
+	function get_company_tabs()
 	{
 		$o = new object();
 		$o->set_class_id(CL_CRM_COMPANY);
@@ -373,7 +384,7 @@ class crm_settings extends class_base
 
 	function _get_status_limits_table($arr)
 	{
-		$t =&$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Staatus"),
@@ -402,16 +413,10 @@ class crm_settings extends class_base
 		));
 
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_COMPANY_STATUS,
-			"lang_id" => array(),
-			"site_id" => array(),
-
+			"class_id" => CL_CRM_COMPANY_STATUS
 		));
 		$gl = new object_list(array(
-			"class_id" => CL_GROUP,
-			"lang_id" => array(),
-			"site_id" => array(),
-
+			"class_id" => CL_GROUP
 		));
 		$groups = $gl->names();
 
@@ -430,16 +435,16 @@ class crm_settings extends class_base
 				));
 			}
 			$data["ignore_groups"] = html::select(array(
-					"name" => "limits[".$o->id()."][ignore_groups]",
-					"options" => $groups,
-					"multiple" => 1,
-					"value" => $limits[$o->id()]["ignore_groups"],
-					"size" => 5,
-	//				"checked" => $limits[$o->id()][$key],
-				));//"Grupp 1, Grupp2";
+				"name" => "limits[".$o->id()."][ignore_groups]",
+				"options" => $groups,
+				"multiple" => 1,
+				"value" => $limits[$o->id()]["ignore_groups"],
+				"size" => 5,
+//				"checked" => $limits[$o->id()][$key],
+			));//"Grupp 1, Grupp2";
 			$t->define_data($data);
 		}
-/*- Kliendibaasi seadetesse vaade: Staatuste piirangud
+/*TODO: - Kliendibaasi seadetesse vaade: Staatuste piirangud
 See v6imaldab vastavusse viia mitmesuguseid piiranguid mingi kliendi staatusega (crm_company_status).
 Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid piiranguid v6ib olla veel (myyk keelatud, pakkumised keelatud, l2hetamine keelatud) ja lisaks saab m22rata kasutajagruppe, kellel on 6igus sellest piirangust yle minna, ehk defineerida erandid.
 */
@@ -478,7 +483,7 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 	function _get_tables_toolbar($arr = array ())
 	{
 		$this_object = $arr["obj_inst"];
-		$toolbar =& $arr["prop"]["toolbar"];
+		$toolbar = $arr["prop"]["toolbar"];
 
 		### save button
 		$toolbar->add_button(array(
@@ -515,7 +520,7 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 
 	function _get_tables_treemenu($arr)
 	{
-		$tree =& $arr["prop"]["vcl_inst"];
+		$tree = $arr["prop"]["vcl_inst"];
 
 		$tree->add_item(0, array(
 			"id" => "work",
@@ -775,35 +780,24 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 		return PROP_OK;
 	}
 
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-
-		switch($prop["name"])
-		{
-			case "status_limits":
-				$this->set_status_limits($arr);
-				break;
-		}
-		return $retval;
-	}
-
-	function set_status_limits($arr)
+	function _set_status_limits($arr)
 	{
 		$arr["obj_inst"]->set_meta("limits" , $arr["request"]["limits"]);
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
-		$arr["args"]["tables_treemenu_item"] = $arr["request"]["tables_treemenu_item"];
+		if (isset($arr["request"]["tables_treemenu_item"]))
+		{
+			$arr["args"]["tables_treemenu_item"] = $arr["request"]["tables_treemenu_item"];
+		}
 	}
 
-	function callback_mod_reforb($arr, $request)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = post_ru();
 
-		if ($request["tables_treemenu_item"])
+		if (isset($request["tables_treemenu_item"]))
 		{
 			$arr["tables_treemenu_item"] = $request["tables_treemenu_item"];
 		}
@@ -836,110 +830,8 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 		return $settings->prop("controller_meeting");
 	}
 
-	function get_current_settings()
-	{
-		static $cache;
-		if ($cache != null)
-		{
-			return $cache;
-		}
-
-		$u = get_instance(CL_USER);
-		$curp = $u->get_current_person();
-		$curco = $u->get_current_company();
-		$cd = get_instance("applications/crm/crm_data");
-		$cursec = $cd->get_current_section();
-		$curprof = $cd->get_current_profession();
-
-		$ol = new object_list(array(
-			"class_id" => CL_CRM_SETTINGS,
-			"lang_id" => array(),
-			"site_id" => array(),
-			new object_list_filter(array(
-				"logic" => "OR",
-				"conditions" => array(
-					"CL_CRM_SETTINGS.RELTYPE_USER" => aw_global_get("uid_oid"),
-					"CL_CRM_SETTINGS.RELTYPE_PERSON" => $curp,
-					"CL_CRM_SETTINGS.RELTYPE_COMPANY" => $curco,
-					"CL_CRM_SETTINGS.RELTYPE_SECTION" => $cursec,
-					"CL_CRM_SETTINGS.RELTYPE_PROFESSION" => $curprof,
-					"CL_CRM_SETTINGS.everyone" => 1
-				)
-			))
-		));
-
-		if ($ol->count() > 1)
-		{
-			// the most accurate setting SHALL Prevail!
-			$has_co = $has_p = $has_u = $has_all = $has_sec = $has_prof = false;
-			foreach($ol->arr() as $o)
-			{
-				if ($cursec && $o->is_connected_to(array("to" => $cursec)))
-				{
-					$has_sec = $o;
-				}
-				if ($curprof && $o->is_connected_to(array("to" => $curprof)))
-				{
-					$has_prof = $o;
-				}
-
-				if ($o->is_connected_to(array("to" => $curco)))
-				{
-					$has_co = $o;
-				}
-				if ($o->is_connected_to(array("to" => $curp)))
-				{
-					$has_p = $o;
-				}
-				if ($o->is_connected_to(array("to" => aw_global_get("uid_oid"))))
-				{
-					$has_u = $o;
-				}
-				if ($o->prop("everyone"))
-				{
-					$has_all = $o;
-				}
-			}
-
-			if ($has_u)
-			{
-				$cache = $has_u;
-				return $has_u;
-			}
-			if ($has_p)
-			{
-				$cache = $has_p;
-				return $has_p;
-			}
-			if ($has_prof)
-			{
-				$cache = $has_prof;
-				return $has_prof;
-			}
-			if ($has_sec)
-			{
-				$cache = $has_sec;
-				return $has_sec;
-			}
-			if ($has_co)
-			{
-				$cache = $has_co;
-				return $has_co;
-			}
-			if ($has_all)
-			{
-				$cache = $has_all;
-				return $has_all;
-			}
-		}
-
-		if ($ol->count())
-		{
-			$rv = $ol->begin();
-			$cache = $rv;
-			return $rv;
-		}
-	}
+	// DEPRECATED. use crm_settings_obj::get_active_instance() instead
+	function get_current_settings() { return crm_settings_obj::get_active_instance(); }
 
 /*{ PUBLIC METHODS */
 
@@ -969,4 +861,3 @@ Nt staatus Halb maksja seotakse piiranguga: Sularahata myyk keelatud. Selliseid 
 
 /*} END PUBLIC METHODS */
 }
-?>

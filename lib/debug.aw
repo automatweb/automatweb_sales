@@ -36,5 +36,3 @@ function arr($arr, $die=false, $see_html=false)
 		exit;
 	}
 }
-
-?>
