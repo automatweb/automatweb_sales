@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="video_gallery" folder="contentmgmt/gallery" extends="class_base">
+	</class>
+</orb>
+		

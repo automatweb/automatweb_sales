@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>default_player</name>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>objpicker</type>
+            <clid>CL_VIDEO_PLAYER</clid>
+            <caption>Vaikimisi player</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+</properties>
+
