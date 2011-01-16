@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="work_load_manager" folder="applications/work_load_management" extends="class_base">
+	</class>
+</orb>
+		
