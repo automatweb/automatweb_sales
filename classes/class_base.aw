@@ -106,6 +106,7 @@ class class_base extends aw_template
 	protected $_cfg_props;
 	protected $classconfig;
 	protected $name_prefix = "";
+	protected $stop_processing = false;
 
 	private $cfgform_obj;
 	private $cfg_debug = false;
@@ -4426,6 +4427,11 @@ class class_base extends aw_template
 					"request" => &$args,
 					"obj_inst" => $this->obj_inst
 				));
+
+				if ($this->stop_processing)
+				{
+					return false;
+				}
 			}
 			catch (Exception $e)
 			{
@@ -6807,4 +6813,40 @@ class class_base extends aw_template
 		{
 		}
 	}
+
+	/** Returns data for properties defined for this class base interface class
+		@attrib api=1 params=pos
+		@param name type=string default=""
+			name of property to get data for, leave empty to get an associative array (prop. name as index) of all properties data
+		@comment
+		@returns
+		@errors
+	**/
+	public static function reflection_get_property_data($name = "")
+	{
+		if (defined("self::CLID"))
+		{
+			$this_clid = self::CLID;
+		}
+		else
+		{
+			$this_clid = get_class($this);
+
+			if (!aw_ini_isset("class_lut.{$this_clid}"))
+			{
+				throw new awex_cb_class("Class '{$this_clid}' not registered");
+			}
+
+			$this_clid = aw_ini_get("class_lut.{$this_clid}");
+		}
+
+		///TODO: ...
+		$cfgu = new cfgutils();//!!!
+		$properties = $cfgu->load_class_properties(array("clid" => $this_clid));
+	}
 }
+
+class awex_cb extends aw_exception {}
+
+/** class related errors **/
+class awex_cb_class extends awex_cb {}

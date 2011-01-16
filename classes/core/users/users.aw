@@ -1061,7 +1061,7 @@ class users extends users_user implements request_startup
 
 		$lang_id = aw_global_get("lang_id");
 		$gf = $o->meta("grp_frontpage");
-		if (is_array($gf) && $gf[$lang_id])
+		if (is_array($gf) && !empty($gf[$lang_id]))
 		{
 			aw_ini_set("frontpage",$gf[$lang_id]);
 		}

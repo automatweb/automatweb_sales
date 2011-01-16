@@ -112,11 +112,11 @@ class object
 		}
 		elseif(!method_exists($GLOBALS["objects"][$this->oid], $method))
 		{
-			throw new awex_obj_method("Call to undefined method '" . $method . "' on an instance of '" . get_class($GLOBALS["objects"][$this->oid]) . "' with clid '" . $GLOBALS["objects"][$this->oid]->class_id() . "'.");
+			throw new awex_obj_method("Call to undefined method '" . $method . "' on an instance of '" . get_class($GLOBALS["objects"][$this->oid]) . "' (id: " . $this->oid . ") with clid '" . $GLOBALS["objects"][$this->oid]->class_id() . "'.");
 		}
 		else
 		{
-			throw new awex_obj_method("Call to private or protected method '" . $method . "' on an instance of '" . get_class($GLOBALS["objects"][$this->oid]) . "' with clid '" . $GLOBALS["objects"][$this->oid]->class_id() . "'.");
+			throw new awex_obj_method("Call to private or protected method '" . $method . "' on an instance of '" . get_class($GLOBALS["objects"][$this->oid]) . "' (id: " . $this->oid . ") with clid '" . $GLOBALS["objects"][$this->oid]->class_id() . "'.");
 		}
 	}
 
@@ -2256,7 +2256,7 @@ class object
 	**/
 	public function has_method ($name)
 	{
-		return $GLOBALS["objects"][$this->oid]->has_method($class_id);
+		return $GLOBALS["objects"][$this->oid]->has_method($name);
 	}
 
 	/** Return the translation of the property

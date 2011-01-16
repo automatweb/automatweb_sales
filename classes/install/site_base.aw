@@ -95,7 +95,7 @@ class site_base extends aw_template
 	// !this can be used in on_frontpage when we need to draw the menus on frontpage
 	function do_fp_menus_return($ret,$arr = array())
 	{
-		$m = get_instance("contentmgmt/site_cache");
+		$m = new site_cache();
 		if (isset($arr["vars"]) && is_array($arr["vars"]))
 		{
 			$arr["vars"] += $this->on_page();
@@ -143,13 +143,15 @@ class site_base extends aw_template
 	**/
 	function on_login()
 	{
-
 	}
 
 	/**	This gets called when an user is added from the old site interface. Parameter is uid. No return value
 	**/
 	function on_add_user_site($uid)
 	{
+	}
 
+	function init_gen_site_html($arr)
+	{
 	}
 }

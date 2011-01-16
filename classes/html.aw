@@ -1581,8 +1581,7 @@ class html
 
 		if (!is_object($o))
 		{
-			$inst = get_instance(CL_FILE);
-			if ($inst->can("view", $o))
+			if (object_loader::can("view", $o))
 			{
 				$o = obj($o);
 			}

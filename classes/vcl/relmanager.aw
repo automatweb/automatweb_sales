@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/vcl/relmanager.aw,v 1.16 2008/01/31 13:55:36 kristo Exp $
+
 /*
 // !Displays a table of relations and adds one line with edit fields to allow adding
 // of new objects
@@ -8,9 +8,9 @@
 // like the single relpicker .. radiobutton is used for selecting data
 
 // can I perhaps merge those things?
-@classinfo maintainer=kristo
+
 */
-class relmanager extends aw_template 
+class relmanager extends aw_template
 {
 	function relmanager()
 	{
@@ -30,7 +30,6 @@ class relmanager extends aw_template
 			return PROP_OK;
 		};
 
-		load_vcl("table");
 		$this->t = new aw_table(array(
 			"layout" => "generic",
 		));
@@ -97,9 +96,9 @@ class relmanager extends aw_template
 
 		// first set the keys, this makes the properties be in the same order you
 		// define them, and then figure out property data for each
-		
+
 		$xproplist = array_flip(array_values($proplist));
-		
+
 		// load properties for the target class and then add lines to the
 		// table
 		$cfgu = get_instance("cfg/cfgutils");
@@ -137,7 +136,7 @@ class relmanager extends aw_template
 			{
 				$to_prop["file"] = "";
 			};
-			
+
 			if ($use_chooser)
 			{
 				$to_prop["chooser"] = html::radiobutton(array(
@@ -174,7 +173,7 @@ class relmanager extends aw_template
 			};
 
 			$addline = array();
-			
+
 			// this has to be optional, I might now want any "Uus" captions
 			if ($use_chooser)
 			{
@@ -226,12 +225,11 @@ class relmanager extends aw_template
 	{
 		// now I need to load the bloody properties again and do some shit with them
 		$clid = $arr["prop"]["relinfo"]["clid"][0];
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$props = $cfgu->load_properties(array(
 			"clid" => $clid,
 		));
-		$proplist = is_array($arr["prop"]["props"]) ? $arr["prop"]["props"] : array($arr["prop"]["props"]);
-
+		$proplist = isset($arr["prop"]["props"]) ? (is_array($arr["prop"]["props"]) ? $arr["prop"]["props"] : array($arr["prop"]["props"])) : array();
 		$xproplist = array();
 
 		foreach($props as $item)
@@ -239,14 +237,12 @@ class relmanager extends aw_template
 			if (in_array($item["name"],$proplist))
 			{
 				$xproplist[$item["name"]] = $item;
-			};
-		};
+			}
+		}
 
 		$propname = $arr["prop"]["name"];
-
-		$req = $arr["request"]["cb_emb"][$propname];
-
-		$num_items = sizeof($req["new"]);
+		$req = isset($arr["request"]["cb_emb"][$propname]) ? $arr["request"]["cb_emb"][$propname] : array();
+		$num_items = isset($req["new"]) ? count($req["new"]) : 0;
 
 		if (is_oid($arr["obj_inst"]->id()))
 		{
@@ -260,7 +256,7 @@ class relmanager extends aw_template
 		}
 
 		// if this is the first object of this kind, then it needs a bit of special processing
-		$first_object = (sizeof($existing_connections) == 0);
+		$first_object = (count($existing_connections) == 0);
 
 		for ($i = 0; $i < $num_items; $i++)
 		{
@@ -289,15 +285,14 @@ class relmanager extends aw_template
 					if (!empty($req["new"][$i][$name]))
 					{
 						$arglist[$name] = $req["new"][$i][$name];
-					};
-				};
+					}
+				}
+			}
 
-			};
-
-			if (sizeof($arglist) == 0)
+			if (count($arglist) == 0)
 			{
 				continue;
-			};
+			}
 
 			// You can set newly created object's parent to be current object
 			if (!empty($arr['prop']['override_parent']) && $arr['prop']['override_parent'] == 'this')
@@ -331,10 +326,7 @@ class relmanager extends aw_template
 			{
 				$arr["prop"]["value"] = $obj_id;
 				$first_object = false;
-			};
-		};
-
+			}
+		}
 	}
-
-};
-?>
+}

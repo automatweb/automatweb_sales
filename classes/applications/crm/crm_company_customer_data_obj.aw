@@ -264,4 +264,3 @@ class awex_crm_cust_data extends awex_crm {}
 /** Unexpected sales state **/
 class awex_crm_cust_data_sales_state extends awex_crm_cust_data {}
 
-?>

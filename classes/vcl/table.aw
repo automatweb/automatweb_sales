@@ -492,8 +492,8 @@ class aw_table extends aw_template
 			else
 			{
 				$hlinks[] = sprintf("<a href='$k' $hlcl>$v</a>",$k,$v);
-			};
-		};
+			}
+		}
 		$this->headerlinks = join(" | ",$hlinks);
 	}
 

@@ -1,6 +1,5 @@
 <?php
 
-// maintainer=markop
 class task_object extends _int_object
 {
 	protected $_no_display;
@@ -189,7 +188,14 @@ class task_object extends _int_object
 	public function update_cust_hours()
 	{
 		$hours = $this->get_row_cust_hours();
-		$this->set_prop("time_to_cust", $hours);
+		if ($this->is_property("time_to_cust"))
+		{
+			$this->set_prop("time_to_cust", $hours);
+		}
+		elseif ($this->is_property("num_hrs_to_cust"))
+		{
+			$this->set_prop("num_hrs_to_cust", $hours);
+		}
 		$this->save();
 		$GLOBALS["do_not_change_task_cust_time"] = 1;
 	}
@@ -233,13 +239,12 @@ class task_object extends _int_object
 	{
 		$filter = array(
 			"class_id" => CL_TASK_ROW,
-			"task" => $this->id(),
-			"lang_id" => array()
+			"task" => $this->id()
 		);
 		$req = array
 		(
 			CL_TASK_ROW => array(
-				 "time_real" => "time_real",
+				"time_real" => "time_real",
 				"time_to_cust" => "time_to_cust"
 			)
 		);
@@ -888,4 +893,3 @@ class task_object extends _int_object
 		return $person->is_connected_to(array("to" => $this->id(), "reltype" => "RELTYPE_PERSON_TASK"));
 	}
 }
-?>

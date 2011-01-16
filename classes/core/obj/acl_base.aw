@@ -1,7 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
 
+/*
 HANDLE_MESSAGE(MSG_USER_LOGIN, on_user_login)
 */
 
@@ -724,4 +723,3 @@ class acl_base extends db_connector
 		$this->init_acl();
 	}
 }
-?>

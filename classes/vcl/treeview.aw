@@ -926,7 +926,7 @@ class treeview extends class_base
 		if (!is_array($data))
 		{
 			return "";
-		};
+		}
 
 		$this->level++;
 		$result = "";

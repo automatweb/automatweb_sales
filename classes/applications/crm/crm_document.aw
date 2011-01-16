@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_document.aw,v 1.17 2008/11/06 18:52:15 markop Exp $
-// crm_document.aw - CRM Dokument 
+
+// crm_document.aw - CRM Dokument
 /*
 
-@classinfo syslog_type=ST_CRM_DOCUMENT relationmgr=yes no_status=1 prop_cb=1 maintainer=markop
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 
 @default table=objects
 @tableinfo aw_crm_document index=aw_oid master_index=brother_of master_table=objects
@@ -43,7 +43,7 @@
 
 @default group=files
 
-	@property files type=releditor reltype=RELTYPE_FILE field=meta method=serialize mode=manager props=filename table_fields=filename 
+	@property files type=releditor reltype=RELTYPE_FILE field=meta method=serialize mode=manager props=filename table_fields=filename
 	@caption Failid
 
 @default group=parts
@@ -55,7 +55,7 @@
 
 @groupinfo acl caption=&Otilde;igused
 @default group=acl
-	
+
 	@property acl type=acl_manager store=no
 	@caption &Otilde;igused
 
@@ -63,7 +63,7 @@
 
 	@property sp_tb type=toolbar store=no no_caption=1
 
-	@property sp_table type=table store=no 
+	@property sp_table type=table store=no
 	@caption Valitud isikud
 
 	@property sp_p_name type=textbox store=no
@@ -75,12 +75,12 @@
 	@property sp_sbt type=submit
 	@caption Otsi
 
-	@property sp_s_res type=table store=no 
+	@property sp_s_res type=table store=no
 	@caption Otsingu tulemused
 
 
 @groupinfo files caption="Failid"
-@groupinfo parts_main caption="Osalejad" 
+@groupinfo parts_main caption="Osalejad"
 
 	@groupinfo parts caption="Osalejad" parent=parts_main
 	@groupinfo notify caption="Teavitamine" parent=parts_main
@@ -127,7 +127,7 @@ class crm_document extends class_base
 			case "sp_s_res":
 				$this->_sp_s_res($arr);
 				break;
-		
+
 			case "sp_p_name":
 			case "sp_p_co":
 				$prop["value"] = $arr["request"][$prop["name"]];
@@ -148,7 +148,7 @@ class crm_document extends class_base
 		{
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_post_save($arr)
 	{
@@ -196,7 +196,7 @@ class crm_document extends class_base
 			"img" => "",
 			"action" => "send_notify_mail",
 		));
-	
+
 	}
 
 	function _init_p_tbl(&$t)
@@ -228,7 +228,7 @@ class crm_document extends class_base
 	}
 
 	function _sp_table($arr)
-	{	
+	{
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_p_tbl($t);
 
@@ -280,7 +280,7 @@ class crm_document extends class_base
 		@attrib name=add_s_res_to_p_list
 	**/
 	function add_s_res_to_p_list($arr)
-	{	
+	{
 		$o = obj($arr["id"]);
 		$persons = $o->meta("imp_p");
 		foreach(safe_array($arr["sel"]) as $p_id)
@@ -296,7 +296,7 @@ class crm_document extends class_base
 		@attrib name=remove_p_from_l_list
 	**/
 	function remove_p_from_l_list($arr)
-	{	
+	{
 		$o = obj($arr["id"]);
 		$persons = $o->meta("imp_p");
 		foreach(safe_array($arr["sel"]) as $p_id)
@@ -384,6 +384,5 @@ class crm_document extends class_base
 			);
 		}
 		return $arr["post_ru"];
-	}	
+	}
 }
-?>

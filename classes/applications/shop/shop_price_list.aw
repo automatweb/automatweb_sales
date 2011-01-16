@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_SHOP_PRICE_LIST relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=instrumental
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @tableinfo aw_shop_price_list master_index=brother_of master_table=objects index=aw_oid
 
@@ -27,13 +27,13 @@
 
 	@groupinfo matrix_settings caption="Maatriksi seaded" parent=general
 	@default group=matrix_settings
-			
+
 			@property matrix_col_order type=table store=no
 			@caption Veeru gruppide j&auml;rjekord
-			
+
 			@property matrix_advanced type=checkbox field=aw_matrix_advanced
 			@caption Power-user mode
-		
+
 		@property matrix_cols_subtitle type=text subtitle=1 store=no
 		@caption Maatriksi veerud
 
@@ -45,10 +45,10 @@
 
 		@property matrix_rows_subtitle type=text subtitle=1 store=no
 		@caption Maatriksi read
-		
+
 			@property matrix_rows type=chooser field=aw_matrix_rows multiple=1 orient=vertical table=objects field=meta method=serialize
 			@caption Maatriksi read
-			
+
 			@property matrix_product_categories type=relpicker reltype=RELTYPE_PRODUCT_CATEGORY multiple=1 store=connect
 			@caption Tootekategooriad
 
@@ -250,13 +250,20 @@ class shop_price_list extends shop_matrix
 			"structure" => true
 		);
 
-		$mtime = explode(' ', microtime()); 
+		$mtime = explode(' ', microtime());
 		$starttime = $mtime[1] + $mtime[0];
+		$result = $short_result = "";
 		for($i = 0; $i < 1; $i++)
 		{
-			$result = shop_price_list_obj::price($prms);
-			unset($prms["structure"]);
-			$short_result = shop_price_list_obj::price($prms);
+			try
+			{
+				$result = shop_price_list_obj::price($prms);
+				unset($prms["structure"]);
+				$short_result = shop_price_list_obj::price($prms);
+			}
+			catch (Exception $e)
+			{
+			}
 		}
 		$mtime = explode(" ", microtime());
 		$endtime = $mtime[1] + $mtime[0];
@@ -633,5 +640,3 @@ class shop_price_list extends shop_matrix
 		return $ret;
 	}
 }
-
-?>

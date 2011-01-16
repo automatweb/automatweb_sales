@@ -64,6 +64,16 @@
 			</function>
 		</action>
 
+		<action name="remove_delete_cust">
+			<function name="remove_delete_cust">
+				<arguments>
+					<required name="id" type="oid" acl="view" />
+					<required name="check" type="array" />
+					<optional name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="submit_delete_relations">
 			<function name="submit_delete_relations">
 				<arguments>

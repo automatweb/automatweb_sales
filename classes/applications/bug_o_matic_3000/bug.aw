@@ -981,45 +981,42 @@ class bug extends class_base
 			case "bug_feedback_p":
 			case "who":
 			case "monitors":
-				if ($arr["new"] || true)
+				foreach(safe_array(ifset($this->parent_options, $prop["name"])) as $key => $val)
 				{
-					foreach(safe_array(ifset($this->parent_options, $prop["name"])) as $key => $val)
+					$key_o = obj($key);
+					if ($key_o->class_id() == CL_CRM_PERSON)
 					{
-						$key_o = obj($key);
-						if ($key_o->class_id() == CL_CRM_PERSON)
-						{
-							$tmp[$key] = $val;
-						}
+						$tmp[$key] = $val;
 					}
-					// also, the current person
-					$u = get_instance(CL_USER);
-					$p = obj($u->get_current_person());
-					$tmp[$p->id()] = $p->name();
-
-					if (ifset($prop, "multiple") == 1 && $arr["new"])
-					{
-					//	$prop["value"] = $this->make_keys(array_keys($tmp));
-						$prop["value"] = array($p->id(), $p->id());
-					}
-
-					// find tracker for the bug and get people list from that
-					$po = obj(!empty($arr["request"]["parent"]) ? $arr["request"]["parent"] : $arr["request"]["id"]);
-					$pt = $po->path();
-					$bt_obj = null;
-					foreach($pt as $pi)
-					{
-						if ($pi->class_id() == CL_BUG_TRACKER)
-						{
-							$bt_obj = $pi;
-							$bt = $pi->instance();
-							foreach($bt->get_people_list($pi) as $pid => $pnm)
-							{
-								$tmp[$pid] = $pnm;
-							}
-						}
-					}
-					$prop["options"] = array("" => t("--vali--")) + $tmp;
 				}
+				// also, the current person
+				$u = get_instance(CL_USER);
+				$p = obj($u->get_current_person());
+				$tmp[$p->id()] = $p->name();
+
+				if (ifset($prop, "multiple") == 1 && $arr["new"])
+				{
+				//	$prop["value"] = $this->make_keys(array_keys($tmp));
+					$prop["value"] = array($p->id(), $p->id());
+				}
+
+				// find tracker for the bug and get people list from that
+				$po = obj(!empty($arr["request"]["parent"]) ? $arr["request"]["parent"] : $arr["request"]["id"]);
+				$pt = $po->path();
+				$bt_obj = null;
+				foreach($pt as $pi)
+				{
+					if ($pi->class_id() == CL_BUG_TRACKER)
+					{
+						$bt_obj = $pi;
+						$bt = $pi->instance();
+						foreach($bt->get_people_list($pi) as $pid => $pnm)
+						{
+							$tmp[$pid] = $pnm;
+						}
+					}
+				}
+				$prop["options"] = array("" => t("--vali--")) + $tmp;
 
 				if (isset($prop["value"]))
 				{
@@ -1054,7 +1051,7 @@ class bug extends class_base
 					$cur = obj($u->get_current_person());
 					$sections = $cur->connections_from(array(
 							"class_id" => CL_CRM_SECTION,
-      							"type" => "RELTYPE_SECTION"
+      						"type" => "RELTYPE_SECTION"
 					));
 					$ppl = $professions = array();
 					foreach($sections as $s)
@@ -1062,7 +1059,7 @@ class bug extends class_base
 						$sc = obj($s->conn["to"]);
 						$profs = $sc->connections_from(array(
 							"class_id" => CL_CRM_PROFESSION,
-	       						"type" => "RELTYPE_PROFESSIONS"
+       						"type" => "RELTYPE_PROFESSIONS"
 					  	));
 						foreach($profs as $p)
 						{
@@ -1083,8 +1080,7 @@ class bug extends class_base
 					}
 					$prop["options"] += $ppl;
 				}
-
-				if($prop["name"] === "bug_feedback_p")
+				elseif($prop["name"] === "bug_feedback_p")
 				{
 					foreach(safe_array($arr["obj_inst"]->prop("monitors")) as $oid)
 					{
@@ -1094,6 +1090,7 @@ class bug extends class_base
 						}
 					}
 				}
+
 				$this->_sort_bug_ppl(&$arr);
 				break;
 
@@ -1322,6 +1319,7 @@ class bug extends class_base
 							$bt = $po;
 						}
 					}
+
 					if($bt && $bt->prop("finance_required"))
 					{
 						$arr["prop"]["error"] = t("Kulude katmise aeg valimata!");

@@ -1811,18 +1811,6 @@ EOF;
 		return $o;
 	}
 
-	private function can_mess_with($oid, $user)
-	{
-
-		$max_acl = $GLOBALS["object_loader"]->_calc_max_acl($oid);
-		if ($max_acl === false)
-		{
-			$max_acl = array_combine($this->acl_ids, array_fill(0, count($this->acl_ids), false));
-		}
-
-		return $max_acl;
-	}
-
 	function aclwizard_ponder($arr)
 	{
 		extract($arr);
@@ -1840,13 +1828,11 @@ EOF;
 		{
 			return $str.t("Objekt on kustutatud. Pole &otilde;igusi!");
 		}
-		else
-		if ("not" === $isd)
+		elseif ("not" === $isd)
 		{
 			return $str.t("Objekti pole ega pole kunagi olnud! Pole &otilde;igusi!");
 		}
-		else
-		if ("delp" === $isd)
+		elseif ("delp" === $isd)
 		{
 			return $str.sprintf(t("Objekti &uuml;lemobjekt (%s) on kustutatud. Pole &otilde;igusi!"), $dat);
 		}
@@ -1858,10 +1844,14 @@ EOF;
 
 		if (aw_ini_get("acl.use_new_acl"))
 		{
-			$names = aw_ini_get("acl.names");
-			$acl = $this->can_mess_with($oid , $user);
+			$acl = array();
+			$acl["add"] = $this->can("add", $oid);
+			$acl["view"] = $this->can("view", $oid);
+			$acl["edit"] = $this->can("edit", $oid);
+			$acl["delete"] = $this->can("delete", $oid);
+			$acl["admin"] = $this->can("admin", $oid);
  			return $str.sprintf(t("<br>M&auml;&auml;ratud &otilde;igused on j&auml;rgnevad:<br>
-				%s"),$this->_new_acl_string($acl));
+				%s"), $this->_new_acl_string($acl));
 		}
 
 		$ca = $this->_aclw_get_controlling_acl($user, $oid);
@@ -2013,7 +2003,7 @@ EOF;
 			$str[] = $names[$name]." => ".($cn ? t("Jah") : t("Ei"));
 		}
 
-		return join("<br />", $str);
+		return implode("<br />", $str);
 	}
 
 	private function _new_acl_string($acl)
@@ -2023,10 +2013,10 @@ EOF;
 		$str = array();
 		foreach($names as $key => $name)
 		{
-			$str[] = $name." => ".($acl[$key] ? t("Jah") : t("Ei"));
+			$str[] = $name . " => " . ($acl[$key] ? t("Jah") : t("Ei"));
 		}
 
-		return join("<br />", $str);
+		return implode("<br />", $str);
 	}
 
 	/** displays a form to let the user to change her password
