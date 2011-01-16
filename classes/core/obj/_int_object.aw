@@ -238,6 +238,11 @@ class _int_object
 			return array();
 		}
 
+		if (!isset($param["type"]) && isset($param["reltype"]))
+		{
+			$param["type"] = $param["reltype"];
+		}
+
 		$filter = array(
 			"from" => $this->obj["brother_of"]
 		);
@@ -252,6 +257,7 @@ class _int_object
 				));
 				return;
 			}
+
 			if (isset($param["type"]))
 			{
 				$param["type"] = $GLOBALS["object_loader"]->resolve_reltype($param["type"], $this->obj["class_id"]);
@@ -260,10 +266,12 @@ class _int_object
 					$filter["type"] = $param["type"];
 				}
 			}
+
 			if (isset($param["to"]))
 			{
 				$filter["to"] = $GLOBALS["object_loader"]->param_to_oid_list($param["to"]);
 			}
+
 			if (isset($param["idx"]))
 			{
 				$filter["idx"] = $param["idx"];
@@ -339,6 +347,11 @@ class _int_object
 			));
 			*/
 			return array();
+		}
+
+		if (!isset($param["type"]) && isset($param["reltype"]))
+		{
+			$param["type"] = $param["reltype"];
 		}
 
 		$filter = array(
@@ -2751,7 +2764,7 @@ class _int_object
 				if (!$prop_dat && $GLOBALS["object_loader"]->is_object_member_fun($part))
 				{
 					$cur_v = $o->$part();
-					if ($part == "parent")
+					if ($part === "parent")
 					{
 						$o = obj($cur_v);
 					}
@@ -2791,6 +2804,7 @@ class _int_object
 		{
 			$pd = $GLOBALS["properties"][$this->obj["class_id"]][$prop];
 		}
+
 		if ($pd && $pd["field"] === "meta" && $pd["table"] === "objects" && isset($this->obj["meta"][$pd["name"]]))
 		{
 			$this->_scan_warning_possibility($this->obj["meta"][$pd["name"]], $pd);

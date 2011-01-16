@@ -21,7 +21,7 @@ class multifile_upload extends class_base
 		$tp = $arr["prop"];
 		$tp["type"] = "text";
 
-		if ( $prop["max_files"] )
+		if (!empty($prop["max_files"]))
 		{
 			$i_max_files = $prop["max_files"];
 		}
@@ -55,7 +55,6 @@ class multifile_upload extends class_base
 			"file" => $tmp,
 			"max" => $i_max_files,
 		));
-
 
 		$content = $this->parse();
 
@@ -107,4 +106,3 @@ class multifile_upload extends class_base
 		die();
 	}
 }
-?>

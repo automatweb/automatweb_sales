@@ -2,7 +2,6 @@
 
 class discount_obj extends _int_object
 {
-
 	public static function get_valid_discount($arr)
 	{
 		if(!is_oid($arr["object"]))
@@ -15,7 +14,7 @@ class discount_obj extends _int_object
 			"lang_id" => array(),
 			"CL_DISCOUNT.object" => $arr["object"],
 		);
-		
+
 		$ol = new object_list($filter);
 		return reset($ol);
 	}
@@ -26,7 +25,7 @@ class discount_obj extends _int_object
 		{
 			return 0;
 		}
-		$coefficient = 0;	
+		$coefficient = 0;
 		$filter = array(
 			"class_id" => array(CL_DISCOUNT),
 			"site_id" => array(),
@@ -45,11 +44,9 @@ class discount_obj extends _int_object
 
 	public static function get_discounts($arr)
 	{
-		$coefficient = 0;	
+		$coefficient = 0;
 		$filter = array(
-			"class_id" => array(CL_DISCOUNT),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => array(CL_DISCOUNT)
 		);
 
 		if($arr["object"])
@@ -84,7 +81,7 @@ class discount_obj extends _int_object
 
 	public static function set_discount($arr)
 	{
-		$coefficient = 0;	
+		$coefficient = 0;
 
 		if(is_oid($arr["id"]))
 		{
@@ -125,5 +122,3 @@ class discount_obj extends _int_object
 	}
 
 }
-
-?>

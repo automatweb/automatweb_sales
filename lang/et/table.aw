@@ -67,6 +67,3 @@ $lc_table["LC_TABLE_CHOOSE_COLOR"] = "vali v&auml;rv";
 $lc_table["LC_TABLE_EDGE_WIDTH"] = "Serva laius";
 $lc_table["LC_TABLE_STYLE_S"] = "stiil";
 $lc_table["LC_TABLE_SAVE_TABLE"] = "Salvesta tabel";
-
-
-?>

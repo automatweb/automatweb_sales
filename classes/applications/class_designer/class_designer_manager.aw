@@ -1,12 +1,12 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/class_designer/class_designer_manager.aw,v 1.29 2009/08/19 08:11:27 dragut Exp $
+
 // class_designer_manager.aw - Klasside brauser
 
 //			automatweb::$instance->mode(automatweb::MODE_DBG);
 
 /*
 
-@classinfo syslog_type=ST_CLASS_DESIGNER_MANAGER relationmgr=yes no_comment=1 no_status=1 maintainer=kristo prop_cb=1
+@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -486,9 +486,7 @@ class class_designer_manager extends class_base
 		$this->_init_mgr_tbl($t);
 
 		$ol = new object_list(array(
-			"class_id" => CL_CLASS_DESIGNER,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_CLASS_DESIGNER
 		));
 		$designed = array();
 		foreach($ol->arr() as $designer)
@@ -622,13 +620,11 @@ class class_designer_manager extends class_base
 
 	function _rels_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_rels_tree($t);
 
 		$ol = new object_list(array(
-			"class_id" => CL_CLASS_DESIGNER,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_CLASS_DESIGNER
 		));
 		$designed = array();
 		foreach($ol->arr() as $designer)
@@ -1137,9 +1133,7 @@ class class_designer_manager extends class_base
 			$filt = array(
 				"parent" => $o->id(),
 				"class_id" => CL_MENU,
-				"name" => $inf["name"],
-				"lang_id" => array(),
-				"site_id" => array()
+				"name" => $inf["name"]
 			);
 			$ol = new object_list($filt);
 			if (!$ol->count())
@@ -1596,7 +1590,7 @@ window.location.href='".html::get_new_url(CL_SM_CLASS_STATS_GROUP, $pt, array("r
 
 	function _get_cl_usage_stats_list($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_cl_usage_stats_list_table($t);
 
 		$clss = aw_ini_get("classes");
@@ -1618,7 +1612,7 @@ window.location.href='".html::get_new_url(CL_SM_CLASS_STATS_GROUP, $pt, array("r
 
 	function _get_site_usage_stats_list($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_site_usage_stats_list_table($t);
 
 		$clss = aw_ini_get("classes");
@@ -1742,7 +1736,7 @@ window.location.href='".html::get_new_url(CL_SM_CLASS_STATS_GROUP, $pt, array("r
 
 	function _get_cl_usage_props_stats_list($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_cl_usage_props_stats_list($t);
 
 		if (empty($arr["request"]["class_id"]))
@@ -2378,9 +2372,7 @@ window.location.href='".html::get_new_url(CL_SM_CLASS_STATS_GROUP, $pt, array("r
 	function _set_sites_list($arr)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_SM_SITE_GROUP,
-			"site_id" => array(),
-			"lang_id" => array()
+			"class_id" => CL_SM_SITE_GROUP
 		));
 		$grps = $ol->names();
 		$grps_sel = array();
@@ -2393,9 +2385,7 @@ window.location.href='".html::get_new_url(CL_SM_CLASS_STATS_GROUP, $pt, array("r
 		}
 
 		$ol = new object_list(array(
-			"class_id" => CL_AW_SITE_ENTRY,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_AW_SITE_ENTRY
 		));
 		foreach($ol->arr() as $o)
 		{
@@ -3737,4 +3727,3 @@ window.location.href='".html::get_new_url(CL_SM_SITE_GROUP, $pt, array("return_u
 		$c->add_axis_range(0, array(0, $max));
 	}
 }
-?>

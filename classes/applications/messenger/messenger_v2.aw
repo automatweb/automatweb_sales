@@ -814,14 +814,14 @@ class messenger_v2 extends class_base
 
 	function _connect_server($arr)
 	{
-
 		if (!$this->connected || $arr["force_reconnect"])
 		{
 			if (!extension_loaded("imap"))
 			{
 				$this->connect_errors = t("IMAP extension not available");
 				return false;
-			};
+			}
+
 			$this->msgobj = new object($arr["msgr_id"]);
 			$conns = $this->msgobj->connections_from(array("type" => "RELTYPE_MAIL_SOURCE"));
 
@@ -833,12 +833,13 @@ class messenger_v2 extends class_base
 			{
 				$this->connect_errors = t("IMAP sissep&auml;&auml;s on konfigureerimata");
 				return false;
-			};
+			}
+
 			$sdat = new object($_sdat->to());
 
 			$this->_name = $sdat->prop("name");
 
-			$this->drv_inst = get_instance("protocols/mail/imap");
+			$this->drv_inst = new imap();
 			$this->drv_inst->set_opt("use_mailbox",$this->use_mailbox);
 			$this->drv_inst->set_opt("outbox",$this->outbox);
 			$errors = $this->drv_inst->connect_server(array(
@@ -1610,13 +1611,13 @@ class messenger_v2 extends class_base
 		print "all done<br>";
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		$args = &$arr["args"];
 		if (!empty($arr["request"]["ft_page"]))
 		{
 			$args["ft_page"] = $arr["request"]["ft_page"];
-		};
+		}
 	}
 
 	function _get_identity_list($arr)

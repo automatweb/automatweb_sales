@@ -835,7 +835,10 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $to)
 		{
-			$ol->add($to->prop("company_section"));
+			if ($to->prop("company_section"))
+			{
+				$ol->add($to->prop("company_section"));
+			}
 		}
 		return $ol;
 	}
@@ -865,7 +868,10 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $to)
 		{
-			$ol->add($to->prop("employer"));
+			if ($to->prop("employer"))
+			{
+				$ol->add($to->prop("employer"));
+			}
 		}
 
 		return $ol;
@@ -1296,9 +1302,9 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $conn)
 		{
-			if($conn->prop("org"))
+			if($conn->prop("employer"))
 			{
-				$ol->add($conn->prop("org"));
+				$ol->add($conn->prop("employer"));
 			}
 		}
 		return $ol;

@@ -1,16 +1,8 @@
 <?php
-/*
-@classinfo maintainer=markop
-*/
-classload("vcl/popup_search");
+
 class shop_product_popup_search extends popup_search
 {
-	function shop_product_popup_search()
-	{
-		$this->popup_search();
-	}
-
-	function _insert_form_props(&$htmlc, $arr)
+	function _insert_form_props($htmlc, $arr)
 	{
 		parent::_insert_form_props($htmlc, $arr);
 		$htmlc->add_property(array(
@@ -31,5 +23,3 @@ class shop_product_popup_search extends popup_search
 		}
 	}
 }
-
-?>

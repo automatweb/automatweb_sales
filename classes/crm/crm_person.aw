@@ -1136,7 +1136,7 @@ class crm_person extends class_base
 				{
 					$arr["obj_inst"]->set_meta("no_create_user_yet", true);
 					$arr["obj_inst"]->set_meta("tmp_crm_person_username", $prop["value"]);
-					$cl_user_creator = get_instance("crm/crm_user_creator");
+					$cl_user_creator = new crm_user_creator();
 					$errors = $cl_user_creator->get_uid_for_person($arr["obj_inst"], true);
 
 					if ($errors)

@@ -367,12 +367,10 @@ function lc_init()
 
 function aw_config_init_class($that)
 {
-//	enter_function("__global::aw_config_init_class",array());
 	$class = get_class($that);
 	$that->cfg = array_merge((isset($GLOBALS["cfg"][$class]) ? $GLOBALS["cfg"][$class] : array()),$GLOBALS["cfg__default__short"]);
 	$that->cfg["acl"] = $GLOBALS["cfg"]["acl"];
 	$that->cfg["config"] = $GLOBALS["cfg"]["config"];
-//	exit_function("__global::aw_config_init_class");
 }
 
 // loads localization variables from the site's $site_basedir
@@ -392,18 +390,22 @@ function lc_site_load($file, $obj)
 		$LC = "et";
 	}
 
-	$fname = aw_ini_get("site_basedir")."/lang/{$LC}/{$file}".AW_FILE_EXT;
-	if (is_readable($fname))
+	$fname_site = aw_ini_get("site_basedir")."/lang/{$LC}/{$file}" . AW_FILE_EXT;
+	$fname_default = AW_DIR . "lang/{$LC}/{$file}" . AW_FILE_EXT;
+	if (is_readable($fname_site))
 	{
-		include_once($fname);
+		include_once $fname_site;
+	}
+	elseif (is_readable($fname_default))
+	{
+		include_once $fname_default;
 	}
 
 	if ($obj instanceof aw_template)
 	{
 		// kui objekt anti kaasa, siis loeme tema template sisse muutuja $lc_$file
-		$var = "lc_".$file;
-		global $$var;
-		if (is_array($$var))
+		$var = "lc_{$file}";
+		if (isset($$var) and is_array($$var))
 		{
 			$obj->vars($$var);
 		}

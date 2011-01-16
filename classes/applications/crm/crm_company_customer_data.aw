@@ -547,7 +547,7 @@ Aadress: %s
 
 		$this->show_bill_balance = 1;
 		$cg = 1;
-		$d = get_instance("applications/crm/crm_data");
+		$d = new crm_data();
 		$bill_i = new crm_bill();
 		$curr_inst = new currency();
 		$co_stat_inst = new crm_company_stats_impl();
@@ -569,14 +569,14 @@ Aadress: %s
 		$balance = 0;
 		foreach($bills->arr() as $bill)
 		{
-			$cust = "";
-			$cm = "";
+			$cust = $cm = "";
+			$customer_o = null;
 			$payments_total = 0;
 			if (is_oid($customer_id = $bill->get_bill_customer()))
 			{
-				$tmp = obj($customer_id);
-				$cust = $tmp->name() ?  html::get_change_url($tmp->id(), array("return_url" => get_ru()), ($tmp->prop("short_name") ? $tmp->prop("short_name") : $tmp->name()) , $tmp->name()) : "";
-				$cm = html::obj_change_url($tmp->prop("client_manager"));
+				$customer_o = obj($customer_id);
+				$cust = $customer_o->name() ?  html::get_change_url($customer_o->id(), array("return_url" => get_ru()), ($customer_o->prop("short_name") ? $customer_o->prop("short_name") : $customer_o->name()) , $customer_o->name()) : "";
+				$cm = html::obj_change_url($customer_o->prop("client_manager"));
 			}
 			$state = $bill_i->states[$bill->prop("state")];
 
@@ -618,11 +618,13 @@ Aadress: %s
 				"link" => "#",
 				"oncl" => "onClick='window.open(\"".$this->mk_my_orb("change", array("openprintdialog_b" => 1,"id" => $bill->id(), "group" => "preview"), CL_CRM_BILL)."\",\"billprintadd\",\"width=100,height=100\");'"
 			));
+
 			$partial = "";
 			if($bill->prop("state") == 3 && $bill->prop("partial_recieved") && $bill->prop("partial_recieved") < $cursum)
 			{
 				$partial = '<br>'.t("osaliselt");
 			}
+
 			$bill_data = array(
 				"bill_no" => html::get_change_url($bill->id(), array("return_url" => get_ru()), parse_obj_name($bill->prop("bill_no"))),
 				"create_new" => html::href(array(
@@ -646,7 +648,8 @@ Aadress: %s
 			if($bill->prop("state") == 1)
 			{
 				$bill_data["payment_over_date"] = $bill->get_payment_over_date();
-				$tolerance = $arr["obj_inst"]->get_customer_prop($bill->prop("customer"), "bill_tolerance");
+				$customer_rel_o = $bill->get_bill_cust_data_object();
+				$tolerance = $customer_rel_o ? $customer_rel_o->prop("bill_tolerance") : 0;
 				if($bill_data["payment_over_date"] > $tolerance)
 				{
 					$bill_data["color"] = "#FF9999";

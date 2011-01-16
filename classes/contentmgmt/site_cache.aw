@@ -9,18 +9,19 @@ class site_cache extends aw_template
 
 	function show($arr = array())
 	{
-		if (!isset($arr["template"]) || $arr["template"] == "")
+		if (empty($arr["template"]))
 		{
 			$arr["template"] = "main.tpl";
 		}
 
-		$log = get_instance("contentmgmt/site_logger");
+		$log = new site_logger();
 		$log->add($arr);
 		$si = __get_site_instance();
 		if (is_object($si) && method_exists($si,"pre_start_display"))
 		{
 			$si->pre_start_display($arr);
 		}
+
 		//if (aw_ini_get("menuedit.content_from_class_base") == 1 && aw_global_get("section") != aw_ini_get("frontpage"))
 		if (aw_ini_get("menuedit.content_from_class_base") == 1)
 		{
@@ -33,7 +34,6 @@ class site_cache extends aw_template
 		}
 
 		// okey, now
-
 		$inst = new site_show();
 		$content = $inst->show($arr);
 		if (aw_ini_get("menuedit.content_from_class_base") == 1)
@@ -131,7 +131,7 @@ class site_cache extends aw_template
 
 		foreach($_SESSION as $k => $v)
 		{
-			if (substr($k, 0, 6) == "style_")
+			if (substr($k, 0, 6) === "style_")
 			{
 				$cp[] = $k."_".$v;
 			}
@@ -141,7 +141,7 @@ class site_cache extends aw_template
 		foreach(automatweb::$request->get_args() as $var => $val)
 		{
 			// just to make sure that each user does not get it's own copy
-			if ($var != "automatweb" && $var != "set_lang_id")
+			if ($var !== "automatweb" && $var !== "set_lang_id")
 			{
 				if (is_array($val))
 				{
@@ -275,8 +275,7 @@ class site_cache extends aw_template
 		// I mean we always read information about _all_ the popups
 		$pl = new object_list(array(
 			"status" => STAT_ACTIVE,
-			"class_id" => CL_HTML_POPUP,
-			"site_id" => array(),
+			"class_id" => CL_HTML_POPUP
 		));
 
 		if (count($pl->ids()) > 0)

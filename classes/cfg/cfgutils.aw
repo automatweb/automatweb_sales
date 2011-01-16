@@ -1,13 +1,10 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class cfgutils extends aw_template
 {
 	private $fbasedir = "xml/properties/";
 	private $f_site_basedir = "xml/properties/";
 	private $clist_init_done = false;
-	private $cache;
 	private $clist = array();
 
 	public $groupinfo = array();
@@ -17,7 +14,6 @@ class cfgutils extends aw_template
 		$this->init("");
 		$this->fbasedir = $this->fbasedir;
 		$this->f_site_basedir = $this->f_site_basedir;
-		$this->cache = get_instance("cache");
 	}
 
 	private function _init_clist()
@@ -155,7 +151,6 @@ class cfgutils extends aw_template
 	function load_class_properties($args = array())
 	{
 		$args["load_trans"] = isset($args["load_trans"])?$args["load_trans"]:1;
-		enter_function("load_class_properties");
 		$clid = null;
 		extract($args);
 
@@ -564,7 +559,7 @@ class cfgutils extends aw_template
 				if (empty($_tmp["form"]))
 				{
 					$_tmp["form"] = "";
-				};
+				}
 				if ($do_filter)
 				{
 					$pass = 0;
@@ -610,9 +605,10 @@ class cfgutils extends aw_template
 				else
 				{
 					$res[$name] = $_tmp;
-				};
-			};
-		};
+				}
+			}
+		}
+
 		if (!$from_cache && !empty($cachename))
 		{
 			//print "writing out";
@@ -622,8 +618,8 @@ class cfgutils extends aw_template
 			$str .= "?>";
 			fwrite($fp, $str);
 			fclose($fp);
-		};
-		exit_function("load_class_properties");
+		}
+
 		return $res;
 	}
 
@@ -710,7 +706,7 @@ class cfgutils extends aw_template
 
 		$args["adm_ui_lc"] = $adm_ui_lc;
 		$key = md5(serialize($args));
-		$res = $this->cache->file_get_ts($key, max($ts, $tft));
+		$res = cache::file_get_ts($key, max($ts, $tft));
 		$cache_d = null;
 		if ($res)
 		{
@@ -736,7 +732,7 @@ class cfgutils extends aw_template
 				"propdef" => $this->propdef,
 				"ret" => $ret
 			);
-			$this->cache->file_set($key, aw_serialize($cache_d, SERIALIZE_PHP_FILE));
+			cache::file_set($key, aw_serialize($cache_d, SERIALIZE_PHP_FILE));
 		}
 		return $ret;
 	}
@@ -744,7 +740,6 @@ class cfgutils extends aw_template
 	private function load_properties_unc($args)
 	{
 		$args["load_trans"] = isset($args["load_trans"])?$args["load_trans"]:1;
-		enter_function("load-properties");
 		extract($args);
 		$filter = isset($args["filter"]) ? $args["filter"] : array();
 		$clinf = aw_ini_get("classes");
@@ -790,7 +785,7 @@ class cfgutils extends aw_template
 
 		if (isset($cldat["generated"]))
 		{
-			$fld = $this->cfg["site_basedir"]."/files/classes";
+			$fld = aw_ini_get("site_basedir")."/files/classes";
 			$loc = $fld . "/" . $cldat["file"] . "." . aw_ini_get("ext");
 
 			$anakin = get_instance("cfg/propcollector");
@@ -857,13 +852,11 @@ class cfgutils extends aw_template
 				if (isset($coreprops[$name]))
 				{
 					unset($coreprops[$name]);
-				};
-
-			};
-		};
+				}
+			}
+		}
 
 		$rv = array_merge($coreprops,$objprops);
-		exit_function("load-properties");
 		return $rv;
 	}
 
@@ -977,5 +970,4 @@ class cfgutils extends aw_template
 	{
 		return $this->groupinfo;
 	}
-};
-?>
+}
