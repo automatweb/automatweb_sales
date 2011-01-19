@@ -65,31 +65,44 @@
 @groupinfo academic_activity caption="Akadeemiline tegevus"
 @default group=academic_activity
 
-	@property aa_toolbar type=toolbar no_caption=1
+	@groupinfo contact_and_e_learning caption="Kontakt- ja e-&otilde;pe" parent=academic_activity
+	@default group=contact_and_e_learning
 
-	@layout aa_split type=hbox width=50%:50%
+		@property cael_toolbar type=toolbar no_caption=1
 
-		@layout aa_left type=vbox parent=aa_split
+		@property contact_learning_courses type=table no_caption=1
 
-			@property contact_learning_courses type=table no_caption=1 parent=aa_left
+	@groupinfo e_learning caption="E-&otilde;pe" parent=academic_activity
+	@default group=e_learning
 
-			@property e_learning_courses type=table no_caption=1 parent=aa_left
+		@property el_toolbar type=toolbar no_caption=1
 
-		@layout aa_right type=vbox parent=aa_split
+		@property e_learning_courses type=table no_caption=1
 
-			@layout aa_right_upper type=vbox parent=aa_right
+	@groupinfo publications caption="Publikatsioonid, kaitstud/oponeeritud tööd jm akadeemiline tegevus" parent=academic_activity
+	@default group=publications
 
-				@property defended_thesises type=table no_caption=1 parent=aa_right_upper
+		@property publications_toolbar type=toolbar no_caption=1
 
-			@layout aa_right_middle type=hbox width=50%:50% parent=aa_right
+		@layout publications_split type=hbox width=50%:50%
 
-				@property opposed_thesises type=table no_caption=1 parent=aa_right_middle
+			@layout publications_left type=vbox parent=publications_split
 
-				@property defended_phd_thesises type=table no_caption=1 parent=aa_right_middle
+				@property publications type=table no_caption=1 parent=publications_left
 
-			@property other_academic_activities type=table no_caption=1 parent=aa_right
+			@layout publications_right type=vbox parent=publications_split
 
-			@property publications type=table no_caption=1 parent=aa_right
+				@layout publications_right_upper type=vbox parent=publications_right
+
+					@property defended_thesises type=table no_caption=1 parent=publications_right_upper
+
+				@layout publications_right_middle type=hbox width=50%:50% parent=publications_right
+
+					@property opposed_thesises type=table no_caption=1 parent=publications_right_middle
+
+					@property defended_phd_thesises type=table no_caption=1 parent=publications_right_middle
+
+				@property other_academic_activities type=table no_caption=1 parent=publications_right
 
 @groupinfo previous_period caption="Eelmine periood"
 @default group=previous_period
@@ -122,7 +135,23 @@ class work_load_declaration extends class_base
 		return PROP_OK;
 	}
 
-	public function _get_aa_toolbar($arr)
+	public function _get_el_toolbar($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$t->add_save_button();
+
+		return PROP_OK;
+	}
+
+	public function _get_cl_toolbar($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$t->add_save_button();
+
+		return PROP_OK;
+	}
+
+	public function _get_publications_toolbar($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$t->add_save_button();
@@ -180,15 +209,7 @@ class work_load_declaration extends class_base
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_professions_header($t);
 
-		$professions = array(
-			t("Professor"),
-			t("Juhtivteadur"),
-			t("Dotsent"),
-			t("Vanemteadur"),
-			t("Lektor"),
-			t("Teadur"),
-			t("&Otilde;petaja v&otilde; assistent")
-		);
+		$professions = $arr["obj_inst"]->manager()->get_professions()->names();
 
 		foreach($professions as $id => $profession)
 		{
@@ -227,12 +248,7 @@ class work_load_declaration extends class_base
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_competence_header($t);
 
-		$competences = array(
-			t("PhD"),
-			t("Teadusmagister, FL"),
-			t("Magister 3+2 s&uuml;steemis"),
-			t("BA  4+2 s&uuml;steemis")
-		);
+		$competences = $arr["obj_inst"]->manager()->get_competences()->names();
 
 		foreach($competences as $id => $competence)
 		{
@@ -271,13 +287,7 @@ class work_load_declaration extends class_base
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_research_groups_header($t);
 
-		$research_groups = array(
-			t("SF uurimisr&uuml;hma juht"),
-			t("SF uurimisr&uuml;hma p&otilde;hit&auml;itja"),
-			t("ETF grandi hoidja"),
-			t("EL finantseeritava r&uuml;hma juht"),
-			t("EL grandi hoidja")
-		);
+		$research_groups = $arr["obj_inst"]->manager()->get_research_groups()->names();
 
 		foreach($research_groups as $id => $research_group)
 		{
@@ -882,19 +892,7 @@ class work_load_declaration extends class_base
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_publications_header($t);
 
-		$categories = array(
-			"1.1.",
-			"1.2.",
-			"1.3.",
-			"2.1.",
-			"2.2.",
-			"3.1.",
-			"3.2.",
-			"3.3.",
-			"4.1.",
-			"5.1.",
-			"Tõlge/ptk",
-		);
+		$categories = $arr["obj_inst"]->manager()->get_publication_categories()->names();
 
 		foreach($categories as $id => $category)
 		{
@@ -1067,6 +1065,15 @@ class work_load_declaration extends class_base
 						$(this).keyup(function(){
 							sum_courses_points(this);
 						});
+					});
+
+					$('input[name^=publications]').keyup(function(){
+						name = this.name.substr(0, this.name.length -6);
+						$(\"input[name='\" + name.replace('years', 'total') + \"']\").val($(\"input[name^='\" + name + \"']\").sum());
+					});
+					$('input[name^=defended_thesises]').keyup(function(){
+						name = this.name.substr(0, this.name.length -6);
+						$(\"input[name='\" + name.replace('years', 'total') + \"']\").val($(\"input[name^='\" + name + \"']\").sum());
 					});
 				})();
 			});

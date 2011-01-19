@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+<properties>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_work_load_declaration_entry>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_work_load_declaration_entry>
+      </tableinfo>
+</properties>
+

@@ -143,83 +143,99 @@
             <field>accounting_rates</field>
       </property>
       <property>
-            <name>aa_toolbar</name>
+            <name>cael_toolbar</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>contact_and_e_learning</group>
             <store>no</store>
             <type>toolbar</type>
             <no_caption>1</no_caption>
-            <field>aa_toolbar</field>
+            <field>cael_toolbar</field>
       </property>
       <property>
             <name>contact_learning_courses</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>contact_and_e_learning</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_left</parent>
             <field>contact_learning_courses</field>
+      </property>
+      <property>
+            <name>el_toolbar</name>
+            <table>aw_work_load_declaration</table>
+            <group>e_learning</group>
+            <store>no</store>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <field>el_toolbar</field>
       </property>
       <property>
             <name>e_learning_courses</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>e_learning</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_left</parent>
             <field>e_learning_courses</field>
+      </property>
+      <property>
+            <name>publications_toolbar</name>
+            <table>aw_work_load_declaration</table>
+            <group>publications</group>
+            <store>no</store>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <field>publications_toolbar</field>
+      </property>
+      <property>
+            <name>publications</name>
+            <table>aw_work_load_declaration</table>
+            <group>publications</group>
+            <store>no</store>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <parent>publications_left</parent>
+            <field>publications</field>
       </property>
       <property>
             <name>defended_thesises</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>publications</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_right_upper</parent>
+            <parent>publications_right_upper</parent>
             <field>defended_thesises</field>
       </property>
       <property>
             <name>opposed_thesises</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>publications</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_right_middle</parent>
+            <parent>publications_right_middle</parent>
             <field>opposed_thesises</field>
       </property>
       <property>
             <name>defended_phd_thesises</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>publications</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_right_middle</parent>
+            <parent>publications_right_middle</parent>
             <field>defended_phd_thesises</field>
       </property>
       <property>
             <name>other_academic_activities</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>publications</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_right</parent>
+            <parent>publications_right</parent>
             <field>other_academic_activities</field>
-      </property>
-      <property>
-            <name>publications</name>
-            <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
-            <store>no</store>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <parent>aa_right</parent>
-            <field>publications</field>
       </property>
       <property>
             <name>pp_toolbar</name>
@@ -263,6 +279,18 @@
             <academic_activity>
                   <caption>Akadeemiline tegevus</caption>
             </academic_activity>
+            <contact_and_e_learning>
+                  <caption>Kontakt- ja e-&amp;amp;otilde;pe</caption>
+                  <parent>academic_activity</parent>
+            </contact_and_e_learning>
+            <e_learning>
+                  <caption>E-&amp;amp;otilde;pe</caption>
+                  <parent>academic_activity</parent>
+            </e_learning>
+            <publications>
+                  <caption>Publikatsioonid, kaitstud/oponeeritud t&amp;ouml;&amp;ouml;d jm akadeemiline tegevus</caption>
+                  <parent>academic_activity</parent>
+            </publications>
             <previous_period>
                   <caption>Eelmine periood</caption>
             </previous_period>
@@ -311,37 +339,37 @@
                   <group>work_loads</group>
                   <area_caption></area_caption>
             </wl_right>
-            <aa_split>
+            <publications_split>
                   <type>hbox</type>
                   <width>50%:50%</width>
-                  <group>academic_activity</group>
+                  <group>publications</group>
                   <area_caption></area_caption>
-            </aa_split>
-            <aa_left>
+            </publications_split>
+            <publications_left>
                   <type>vbox</type>
-                  <parent>aa_split</parent>
-                  <group>academic_activity</group>
+                  <parent>publications_split</parent>
+                  <group>publications</group>
                   <area_caption></area_caption>
-            </aa_left>
-            <aa_right>
+            </publications_left>
+            <publications_right>
                   <type>vbox</type>
-                  <parent>aa_split</parent>
-                  <group>academic_activity</group>
+                  <parent>publications_split</parent>
+                  <group>publications</group>
                   <area_caption></area_caption>
-            </aa_right>
-            <aa_right_upper>
+            </publications_right>
+            <publications_right_upper>
                   <type>vbox</type>
-                  <parent>aa_right</parent>
-                  <group>academic_activity</group>
+                  <parent>publications_right</parent>
+                  <group>publications</group>
                   <area_caption></area_caption>
-            </aa_right_upper>
-            <aa_right_middle>
+            </publications_right_upper>
+            <publications_right_middle>
                   <type>hbox</type>
                   <width>50%:50%</width>
-                  <parent>aa_right</parent>
-                  <group>academic_activity</group>
+                  <parent>publications_right</parent>
+                  <group>publications</group>
                   <area_caption></area_caption>
-            </aa_right_middle>
+            </publications_right_middle>
             <pp_split>
                   <type>hbox</type>
                   <width>50%:50%</width>

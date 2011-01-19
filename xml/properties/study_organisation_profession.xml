@@ -1,0 +1,66 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>ord</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>4</size>
+            <field>jrk</field>
+            <caption>Jrk</caption>
+      </property>
+      <property>
+            <name>teaching</name>
+            <table>aw_study_organisation_profession</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_teaching</field>
+            <caption>&amp;amp;Otilde;ppet&amp;ouml;&amp;ouml; (min)</caption>
+      </property>
+      <property>
+            <name>research</name>
+            <table>aw_study_organisation_profession</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_research</field>
+            <caption>Teadust&amp;ouml;&amp;ouml; (min)</caption>
+      </property>
+      <property>
+            <name>administrating</name>
+            <table>aw_study_organisation_profession</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_administrating</field>
+            <caption>Administratiivt&amp;ouml;&amp;ouml;</caption>
+      </property>
+      <property>
+            <name>competence</name>
+            <table>aw_study_organisation_profession</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_competence</field>
+            <caption>N&amp;amp;otilde;utav kompetents</caption>
+      </property>
+      <property>
+            <name>load</name>
+            <table>aw_study_organisation_profession</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_load</field>
+            <caption>N&amp;amp;otilde;utav t&amp;ouml;&amp;ouml;maht</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_study_organisation_profession>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_study_organisation_profession>
+      </tableinfo>
+</properties>
+

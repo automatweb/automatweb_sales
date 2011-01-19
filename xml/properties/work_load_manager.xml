@@ -1,11 +1,61 @@
 <?xml version='1.0'?>
 <properties>
+      <property>
+            <name>toolbar</name>
+            <table>aw_work_load_manager</table>
+            <group>settings</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>toolbar</field>
+      </property>
+      <property>
+            <name>professions</name>
+            <table>aw_work_load_manager</table>
+            <group>settings</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>professions</field>
+      </property>
+      <property>
+            <name>competences</name>
+            <table>aw_work_load_manager</table>
+            <group>settings</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>competences</field>
+      </property>
+      <property>
+            <name>research_groups</name>
+            <table>aw_work_load_manager</table>
+            <group>settings</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>research_groups</field>
+      </property>
+      <property>
+            <name>publication_categories</name>
+            <table>aw_work_load_manager</table>
+            <group>settings</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>publication_categories</field>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
       </classinfo>
+      <groupinfo>
+            <settings>
+                  <caption>Seaded</caption>
+            </settings>
+      </groupinfo>
       <tableinfo>
             <aw_work_load_manager>
                   <master_index>brother_of</master_index>
