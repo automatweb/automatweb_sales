@@ -92,7 +92,7 @@ class site_show extends class_base
 	// tpldir - if set, templates are read from $tpldir/automatweb/menuedit folder
 	function show($arr)
 	{
-		if (isset($arr["type"]) && $arr["type"] != "" && $arr["type"] != "html")
+		if (!empty($arr["type"]) && $arr["type"] !== "html")
 		{
 			return $this->_show_type($arr);
 		}
@@ -101,6 +101,7 @@ class site_show extends class_base
 		{
 			$_SESSION["doc_content_type"] = $_GET["set_doc_content_type"];
 		}
+
 		if (!empty($_GET["clear_doc_content_type"]))
 		{
 			unset($_SESSION["doc_content_type"]);
@@ -484,7 +485,7 @@ class site_show extends class_base
 			$sub_callbacks = false;
 			if (function_exists("__get_site_instance"))
 			{
-				$si =&__get_site_instance();
+				$si = __get_site_instance();
 				if (is_object($si))
 				{
 					if (method_exists($si, "get_sub_callbacks_after"))
@@ -499,7 +500,7 @@ class site_show extends class_base
 			// ok, check if the new and better OO (TM) way exists
 			if (function_exists("__get_site_instance"))
 			{
-				$si =&__get_site_instance();
+				$si = __get_site_instance();
 				if (is_object($si))
 				{
 					foreach($sub_callbacks as $sub => $fun)
@@ -632,8 +633,6 @@ class site_show extends class_base
 			{
 				$ol = new object_list(array(
 					"class_id" => CL_DOCUMENT,
-					"lang_id" => array(),
-					"site_id" => array(),
 					"oid" => $docid,
 					"doc_content_type" => $_SESSION["doc_content_type"]
 				));
@@ -652,8 +651,6 @@ class site_show extends class_base
 					// get all current target audiences
 					$ta_list = new object_list(array(
 						"class_id" => CL_TARGET_AUDIENCE,
-						"lang_id" => array(),
-						"site_id" => array(),
 						"ugroup" => aw_global_get("gidlist_oid")
 					));
 				}
@@ -661,8 +658,6 @@ class site_show extends class_base
 				{
 					$ol = new object_list(array(
 						"class_id" => CL_DOCUMENT,
-						"lang_id" => array(),
-						"site_id" => array(),
 						"oid" => $docid,
 						"target_audience" => $ta_list->ids()
 					));
@@ -1308,10 +1303,10 @@ class site_show extends class_base
 		else
 		{
 			if (!empty($_GET["only_document_content"]) && $_GET["templ"] != "")
-                        {
-                                $template = $_GET["templ"];
-                        }
-                        else
+			{
+				$template = $_GET["templ"];
+			}
+			else
 			{
 				$template = $tplmgr->get_long_template($section_id);
 			}
@@ -2263,6 +2258,7 @@ class site_show extends class_base
 		{
 			$this->read_template("../../".$tpldir."/".$tpl,true);
 		}
+
 		if ($filename == "")
 		{
 			error::raise(array(
@@ -2346,7 +2342,7 @@ class site_show extends class_base
 						));
 					}
 					$inst->on_get_subtemplate_content(array(
-						"inst" => &$this,
+						"inst" => $this,
 						"content_for" => $ask_content,
 						"request" => $_REQUEST
 					));
@@ -2375,7 +2371,7 @@ class site_show extends class_base
 				{
 					$inst = get_instance(CL_PROMO);
 					$inst->on_get_subtemplate_content(array(
-						"inst" => &$this,
+						"inst" => $this,
 					));
 				}
 			}
@@ -2995,7 +2991,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 	// !compiles the template and saves the code in a cache file, returns the cache file
 	function cache_compile_template($path, $tpl, $mdefs = NULL, $no_cache = false)
 	{
-		$co = get_instance("contentmgmt/site_template_compiler");
+		$co = new site_template_compiler();
 		$code = $co->compile($path, $tpl, $mdefs, $no_cache);
 		$tpl = $path."/".$tpl;
 
@@ -3003,22 +2999,20 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		$str_part = str_replace($what_to_replace, "_", $tpl);
 		$fn = "compiled_menu_template-".$str_part."-".aw_global_get('lang_id');
 
-		$ca = get_instance("cache");
-		$ca->file_set($fn, $code);
-
-		return $ca->get_fqfn($fn);
+		cache::file_set($fn, $code);
+		return cache::get_fqfn($fn);
 	}
 
 	function do_show_template($arr)
 	{
-		$tpldir = str_replace(aw_ini_get("site_basedir")."/", "", aw_ini_get("tpldir"))."/automatweb/menuedit";
-
-		if (isset($arr["tpldir"]) && $arr["tpldir"] != "")
+		$tpldir = str_replace(aw_ini_get("site_basedir")."/", "", aw_ini_get("tpldir"));
+		$tpldir = str_replace(aw_ini_get("site_basedir"), "", $tpldir)."/automatweb/menuedit";
+//FIXME: imelik koht, site_basedir vaja yhtlustada vms.
+		if (!empty($arr["tpldir"]))
 		{
 			$this->tpl_init(sprintf("../%s/automatweb/menuedit",$arr["tpldir"]));
 			$tpldir = $arr["tpldir"]."/automatweb/menuedit";
 		}
-
 
 		$arr["tpldir"] = $tpldir;
 		// right. now, do the template compiler bit
@@ -3103,7 +3097,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 			if (method_exists($content_obj_inst, "request_execute"))
 			{
 				$arr["text"] = $content_obj_inst->request_execute($content_obj);
-			};
+			}
 
 		}
 
@@ -3132,15 +3126,14 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 				}
 			}
 		}
-		else
-		if (is_oid($this->section_obj->id()))
+		elseif (is_oid($this->section_obj->id()))
 		{
 			$this->path = $this->section_obj->path();
 		}
 		else
 		{
 			$this->path = array();
-		};
+		}
 
 		if (aw_ini_get("ini_rootmenu"))
 		{

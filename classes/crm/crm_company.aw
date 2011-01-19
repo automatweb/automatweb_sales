@@ -3507,6 +3507,16 @@ class crm_company extends class_base
 	**/
 	function remove_delete_cust($arr)
 	{
+		try
+		{
+			$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+		}
+		catch (Exception $e)
+		{
+			$this->show_error_text(t("Organisatsiooniobjekt polnud loetav."));
+			return $arr["post_ru"];
+		}
+
 		if (is_array($arr["check"]))
 		{
 			foreach($arr["check"] as $customer_oid)
@@ -6384,8 +6394,8 @@ class crm_company extends class_base
 			$n->set_prop("bill_recieved", -1);
 			$n->set_prop("disc", $b->prop("disc"));
 			$n->set_prop("language", $b->prop("language"));
-			$n->set_prop("customer", $b->prop("customer"));
 			$n->set_prop("impl", $b->prop("impl"));
+			$n->set_prop("customer", $b->prop("customer"));
 			$n->set_prop("disc", $b->prop("disc"));
 			$n->set_prop("sum", $b->prop("sum"));
 

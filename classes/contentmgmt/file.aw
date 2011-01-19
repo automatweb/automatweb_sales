@@ -142,6 +142,29 @@
 
 class file extends class_base
 {
+	//TODO: tmp public, since no spec. if used elsewhere
+	public static $trans_props = array(
+		"comment"
+	);
+
+	//TODO: tmp public, since no spec. if used elsewhere
+	public static $type_whitelist = array(
+		"ez" , "hqx", "cpt", "doc", "bin", "dms", "lha", "lzh", "exe", "dll",
+		"oda", "pdf", "ai" , "eps", "ps" , "smi", "smil","mif", "xls", "ppt",
+		"wbxml", "wmlc", "wmlsc", "bcpio", "vcd", "pgn", "cpio", "dcr", "dir",
+		"dxr", "dvi", "spl", "gtar", "hdf", "js", "skp", "skd", "skt", "skm",
+		"latex", "nc", "cdf", "shar", "swf", "sit", "sv4cpio", "sv4crc", "tar",
+		"tcl", "tex", "texinfo", "texi", "roff", "man", "me", "ms", "ustar",
+		"xhtml", "zip", "au", "snd", "mid", "midi", "kar", "mpga", "mp2", "mp3",
+		"aif", "aiff", "aifc", "m3u", "ram", "rm", "rpm", "ra", "wav", "pdb", "xyz",
+		"bmp", "gif", "ief", "jpeg", "jpg", "jpe", "png", "tiff", "tif", "djvu",
+		"djv", "wbmp", "ras", "pnm", "pbm", "pgm", "ppm", "rgb", "xbm", "xpm",
+		"xwd", "igs", "iges", "msh", "mesh", "silo", "wrl", "vrml", "css", "html",
+		"htm", "asc", "txt", "rtx", "rtf", "sgml", "sgm", "tsv", "wml", "wmls",
+		"etx", "xml", "xsl", "mpeg", "mpg", "mpe", "qt", "mov", "mxu", "avi",
+		"movie", "ice", "sxw", "sxc"
+	);
+
 	////
 	// !Konstruktor
 	function file()
@@ -152,28 +175,6 @@ class file extends class_base
 		));
 		lc_load("definition");
 		$this->lc_load("file","lc_file");
-
-		$this->trans_props = array(
-			"comment"
-		);
-
-
-		$this->type_whitelist = array(
-			"ez" , "hqx", "cpt", "doc", "bin", "dms", "lha", "lzh", "exe", "dll",
-			"oda", "pdf", "ai" , "eps", "ps" , "smi", "smil","mif", "xls", "ppt",
-			"wbxml", "wmlc", "wmlsc", "bcpio", "vcd", "pgn", "cpio", "dcr", "dir",
-			"dxr", "dvi", "spl", "gtar", "hdf", "js", "skp", "skd", "skt", "skm",
-			"latex", "nc", "cdf", "shar", "swf", "sit", "sv4cpio", "sv4crc", "tar",
-			"tcl", "tex", "texinfo", "texi", "roff", "man", "me", "ms", "ustar",
-			"xhtml", "zip", "au", "snd", "mid", "midi", "kar", "mpga", "mp2", "mp3",
-			"aif", "aiff", "aifc", "m3u", "ram", "rm", "rpm", "ra", "wav", "pdb", "xyz",
-			"bmp", "gif", "ief", "jpeg", "jpg", "jpe", "png", "tiff", "tif", "djvu",
-			"djv", "wbmp", "ras", "pnm", "pbm", "pgm", "ppm", "rgb", "xbm", "xpm",
-			"xwd", "igs", "iges", "msh", "mesh", "silo", "wrl", "vrml", "css", "html",
-			"htm", "asc", "txt", "rtx", "rtf", "sgml", "sgm", "tsv", "wml", "wmls",
-			"etx", "xml", "xsl", "mpeg", "mpg", "mpe", "qt", "mov", "mxu", "avi",
-			"movie", "ice", "sxw", "sxc"
-		);
 	}
 
 	function get_property($arr)
@@ -546,7 +547,7 @@ class file extends class_base
 						$mimeregistry = get_instance("core/aw_mime_types");
 						$realtype = $mimeregistry->type_for_ext($pathinfo["extension"]);
 						$file_type = $realtype;
-					};
+					}
 
 					$final_name = $this->generate_file_path(array(
 						"type" => $file_type,
@@ -588,7 +589,7 @@ class file extends class_base
 				else
 				{
 					$retval = PROP_IGNORE;
-				};
+				}
 				break;
 
 			case "type":
@@ -597,7 +598,7 @@ class file extends class_base
 					$data["value"] = $this->file_type;
 				}
 				break;
-		};
+		}
 		// cause everything is alreay handled here
 		return $retval;
 	}
@@ -827,16 +828,18 @@ class file extends class_base
 
 	function generate_file_path($arr)
 	{
-		if ($this->file_is_in_whitelist($arr["file_name"]))
+		$file_name = isset($arr["file_name"]) ? $arr["file_name"] : "";
+		$file_ext = isset($arr["type"]) ? $arr["type"] : "";//FIXME: siin pole 8eldud kas type on extension v6i mime type
+		if ($this->file_is_in_whitelist($file_name))
 		{
-			$path = filesystem_manager::generate_path($arr["file_name"]);
+			$path = filesystem_manager::generate_path($file_name);
 		}
 		else
 		{
 			// find the extension for the file
-			if (strpos($arr["type"], "/") !== false)
+			if (strpos($file_ext, "/") !== false)
 			{
-				list($major,$minor) = explode("/",$arr["type"]);
+				list($major, $minor) = explode("/", $file_ext);
 				if ($minor === "pjpeg" || $minor === "jpeg")
 				{
 					$minor = "jpg";
@@ -844,10 +847,10 @@ class file extends class_base
 			}
 			else
 			{
-				$minor = $arr["type"];
+				$minor = $file_ext;//FIXME: segadus type argumendiga, image.aw annab mime type stringi, see ei sobi extensioniks
 			}
 
-			$path = filesystem_manager::generate_path($arr["file_name"]) . $minor;
+			$path = filesystem_manager::generate_path($file_name) . ($file_name ? "" : ".") . $minor;
 		}
 
 		return $path;
@@ -1763,35 +1766,35 @@ class file extends class_base
 		var not_span = false;
 		if (window.parent && window.parent.opener)
 		{
-		FCK=window.parent.opener.FCK;
-		if(FCK.EditorDocument.selection != null)
-		{
-			selection = FCK.EditorDocument.selection.createRange().text;
-			eSelected = FCK.EditorDocument.selection;
-		}
-		else
-		{
-			selection = FCK.EditorWindow.getSelection(); // after this, wont be a string
-			selection = "" + selection; // now a string again
-    	}
+			FCK=window.parent.opener.FCK;
+			if(FCK.EditorDocument.selection != null)
+			{
+				selection = FCK.EditorDocument.selection.createRange().text;
+				eSelected = FCK.EditorDocument.selection;
+			}
+			else
+			{
+				selection = FCK.EditorWindow.getSelection(); // after this, wont be a string
+				selection = "" + selection; // now a string again
+				}
 
-		eSelected = FCK.Selection.GetSelectedElement();
-		if (eSelected)
-		{
-			if (eSelected.tagName != "SPAN" && !eSelected._awfileplaceholder )
+			eSelected = FCK.Selection.GetSelectedElement();
+			if (eSelected)
+			{
+				if (eSelected.tagName != "SPAN" && !eSelected._awfileplaceholder )
+				{
+					not_span = true;
+				}
+			}
+			else
 			{
 				not_span = true;
 			}
-		}
-		else
-		{
-			not_span = true;
-		}
 
-		if (not_span && selection.length>0)
-		{
-			$("#comment").val(selection);
-		}
+			if (not_span && selection.length>0)
+			{
+				$("#comment").val(selection);
+			}
 		}
 		';
 
@@ -1819,11 +1822,16 @@ class file extends class_base
 	function file_is_in_whitelist($fn)
 	{
 		$ext = substr($fn, strrpos($fn, ".")+1);
-		if (in_array($ext, $this->type_whitelist))
+		if (in_array($ext, self::$type_whitelist))
 		{
 			return true;
 		}
 		return false;
+	}
+
+	function type_is_in_whitelist($type)
+	{
+		return in_array($type, self::$type_whitelist);
 	}
 
 	function _sp_tb($arr)

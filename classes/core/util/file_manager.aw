@@ -32,11 +32,7 @@ class filesystem_manager
 	**/
 	public static function generate_path($file_name = "")
 	{
-		if (!self::$initialized)
-		{
-			self::setup();
-		}
-
+		self::setup();
 		$files_dir = self::$site_files_dir;
 
 		if (!empty($file_name))
@@ -50,7 +46,11 @@ class filesystem_manager
 
 				if (!is_dir($dir))
 				{
-					mkdir($dir, 0777);
+					$r = mkdir($dir, 0777);
+					if (!$r)
+					{
+						throw new awex_filemanager_filesdir("Couldn't create directory '{$dir}' for file '{$file_name}'");
+					}
 				}
 
 				if (!file_exists($fn))
@@ -68,7 +68,11 @@ class filesystem_manager
 
 		if (!is_dir($dir))
 		{
-			mkdir($dir, 0705);
+			$r = mkdir($dir, 0705);
+			if (!$r)
+			{
+				throw new awex_filemanager_filesdir("Couldn't create directory '{$dir}' for autonamed file '{$filename}'");
+			}
 		}
 
 		$file = $dir . $filename;
@@ -77,19 +81,22 @@ class filesystem_manager
 
 	private static function setup()
 	{
-		$files_dir = aw_ini_get("site_basedir") . "/files/";
-		if (!is_dir($files_dir))
+		if (!self::$initialized)
 		{
-			mkdir($files_dir, 0777);
-
+			$files_dir = aw_ini_get("file.site_files_dir");
 			if (!is_dir($files_dir))
 			{
-				throw new awex_filemanager_filesdir("Couldn't create files directory for site ('$files_dir')");
+				$r = mkdir($files_dir, 0777);
+
+				if (!$r)
+				{
+					throw new awex_filemanager_filesdir("Couldn't create files directory for site ('{$files_dir}')");
+				}
 			}
 
 			self::$site_files_dir = $files_dir;
+			self::$initialized = true;
 		}
-		self::$initialized = true;
 	}
 }
 

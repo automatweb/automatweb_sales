@@ -1,22 +1,13 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>file</name>
-            <table>objects</table>
-            <field>meta</field>
-            <method>serialize</method>
-            <group>general</group>
-            <type>fileupload</type>
-            <caption>Fail</caption>
-      </property>
-      <property>
-            <name>file2</name>
+            <name>video_file</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
             <group>general</group>
             <type>fileuploader</type>
-            <caption>Fail suur</caption>
+            <caption>Fail</caption>
       </property>
       <property>
             <name>image</name>

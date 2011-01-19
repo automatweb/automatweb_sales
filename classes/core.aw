@@ -83,10 +83,10 @@ class core extends acl_base
 		@param text required type=string
 			the text of the log message.
 
-		@param oid optional type=int
-			defaults to 0 The object id of the object this action is about.
+		@param oid optional type=int default=0
+			The object id of the object this action is about.
 
-		@param honor_ini optional type=bool
+		@param honor_ini optional type=bool default=TRUE
 			if set to true, the disable logging ini setting will be ignored.
 
 		@comment
@@ -103,6 +103,9 @@ class core extends acl_base
 	**/
 	function _log($type,$action,$text,$oid = 0,$honor_ini = true, $object_name = null)
 	{
+		//FIXME: system logging is disabled until its implementation revised and standardized
+		return;
+
 		if(aw_ini_get('logging_disabled') && $honor_ini)
 		{
 			return;

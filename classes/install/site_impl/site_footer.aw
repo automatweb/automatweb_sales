@@ -61,6 +61,7 @@ else
 {
 	$str = $sf->parse();
 }
+
 if (aw_ini_get("content.doctype") === "html" )
 {
 	$str = str_replace  ( array("<br />", "<br/>"), "<br>", $str);

@@ -8369,12 +8369,12 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 		$group = $this->get_search_group($arr);
 
 		$co_prop = "purchaser";
-		if($group == "purchase_orders")
+		if($group === "purchase_orders")
 		{
 			$co_filt = "purchaser";
 			$class_id = CL_SHOP_PURCHASE_ORDER;
 		}
-		elseif($group == "sell_orders")
+		elseif($group === "sell_orders")
 		{
 			$co_filt = "buyer";
 			$class_id = CL_SHOP_SELL_ORDER;
@@ -8383,15 +8383,18 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 		{
 			return $ol;
 		}
+
 		if(isset($arr["request"]["channel"]) && is_oid(isset($arr["request"]["channel"])))
 		{
 			$params["channel"] = $arr["request"]["channel"];
 
 		}
+
 		if(!empty($arr["request"][$group."_s_number"]) && $n = $arr["request"][$group."_s_number"])
 		{
 			$params["number"] = "%".$n."%";
 		}
+
 		if(!empty($arr["request"][$group."_s_".$co_filt]) && $co = $arr["request"][$group."_s_".$co_filt])
 		{
 			$co = $arr["request"][$group."_s_".$co_filt];
@@ -8401,7 +8404,8 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 			$co = obj($arr["request"]["filt_cust"]);
 			if($co->class_id() == CL_CRM_CATEGORY)
 			{
-				$params[$co_prop.".RELTYPE_CUSTOMER(CL_CRM_CATEGORY)"] = $co->id();
+				// $params[$co_prop.".RELTYPE_CUSTOMER(CL_CRM_CATEGORY)"] = $co->id();
+				//FIXME: RELTYPE_CUSTOMER reltype doesn't exist
 				unset($co);
 			}
 			else
@@ -8409,22 +8413,27 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 				$co = $co->name();
 			}
 		}
+
 		if(!empty($co))
 		{
 			$params[$co_prop.".name"] = "%".$co."%";
 		}
+
 		if(!empty($arr["request"][$group."_s_sales_manager"]) && $sm = $arr["request"][$group."_s_sales_manager"])
 		{
 			$params["job.RELTYPE_MRP_MANAGER.name"] = "%".$sm."%";
 		}
+
 		if(!empty($arr["request"][$group."_s_job_name"]) && $jn = $arr["request"][$group."_s_job_name"])
 		{
 			$params["job.comment"] = "%".$jn."%";
 		}
+
 		if(!empty($arr["request"][$group."_s_job_number"]) && $jno = $arr["request"][$group."_s_job_number"])
 		{
 			$params["job.name"] = "%".$jno."%";
 		}
+
 		if(!empty($arr["request"][$group."_s_status"]) && $s = $arr["request"][$group."_s_status"])
 		{
 			if($s != STORAGE_FILTER_CONFIRMATION_ALL)
@@ -8436,6 +8445,7 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 				$params["order_status"] = new obj_predicate_anything();
 			}
 		}
+
 		$t = isset($arr["request"][$group."_s_to"]) ? date_edit::get_timestamp($arr["request"][$group."_s_to"]) : 0;
 		$f = isset($arr["request"][$group."_s_from"]) ? date_edit::get_timestamp($arr["request"][$group."_s_from"]) : 0;
 		if($t > 1 && $f > 1 && !$arr["request"]["filt_time"])
@@ -8458,7 +8468,8 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 			unset($arr["end"]);
 			$v = $this->_get_status_orders_time_filt($arr);
 			$params["date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $v["filt_start"], $v["filt_end"]);
-		}//arr($arr);arr(date("d.m.Y" , $v["filt_start"]));arr($params["date"]);
+		}
+
 		$prods = $this->get_art_filter_ol($arr);
 		if($prods)
 		{
@@ -8478,6 +8489,7 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 				$params["oid"] = array(-1);
 			}
 		}
+
 		if(count($params) || $arr["request"]["just_saved"] || $arr["request"]["filt_time"] == "all")
 		{
 			if(empty($arr["warehouses"]) && $arr["obj_inst"]->class_id() == CL_SHOP_WAREHOUSE)
@@ -8497,12 +8509,13 @@ $oo = get_instance(CL_SHOP_SELL_ORDER);
 
 	function _get_purchase_orders(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$group = $this->get_search_group($arr);
 		if(($arr["obj_inst"]->class_id() == CL_SHOP_PURCHASE_MANAGER_WORKSPACE && $group == "purchase_orders") || ($arr["obj_inst"]->class_id() == CL_SHOP_SALES_MANAGER_WORKSPACE && $group == "sell_orders"))
 		{
 			$arr["extra"] = 1;
 		}
+
 		if($group == "sell_orders" && $ws = $arr["obj_inst"]->prop("mrp_workspace"))
 		{
 			$schedule = new mrp_schedule();

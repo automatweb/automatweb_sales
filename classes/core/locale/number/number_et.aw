@@ -80,7 +80,7 @@ class awlc_number_et implements awlc_number
 			{
 				$currency->set_class_id(CL_CURRENCY);
 			}
-			$currency->set_prop("unit_name", "krooni");
+			$currency->set_prop("unit_name", "eurot");
 			$currency->set_prop("small_unit_name", "senti");
 		}
 
