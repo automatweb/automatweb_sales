@@ -1035,6 +1035,44 @@ class work_load_declaration extends class_base
 		return PROP_OK;
 	}
 
+	public function callback_generate_scripts($arr)
+	{
+		load_javascript("jquery/plugins/jquery.calculation.js");
+		return "
+			$(document).ready(function() {
+				(function() {
+					function sum_courses_points(o) {
+						suffix = false;
+						if(o.name.substr(-8) == '[points]') {
+							suffix = 'points';
+						} else if(o.name.substr(-14) == '[participants]') {
+							suffix = 'participants';
+						}
+						if(suffix != false) {
+							$('#' + o.id.replace(suffix, 'points_given')).calc('points * participants', {
+								points: $('#' + o.id.replace(suffix, 'points')).val(),
+								participants: $('#' + o.id.replace(suffix, 'participants')).val(),
+							});
+						}
+					}
+
+					$('input[name^=contact_learning_courses]').each(function(){
+						sum_courses_points(this);
+						$(this).keyup(function(){
+							sum_courses_points(this);
+						});
+					});
+					$('input[name^=e_learning_courses]').each(function(){
+						sum_courses_points(this);
+						$(this).keyup(function(){
+							sum_courses_points(this);
+						});
+					});
+				})();
+			});
+		";
+	}
+
 	public function do_db_upgrade($table, $field, $query, $error)
 	{
 		$r = false;
