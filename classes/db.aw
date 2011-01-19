@@ -1,6 +1,5 @@
 <?php
 /*
-@classinfo  maintainer=kristo
 
 	// this still works
 	$this->db_query($q);
@@ -839,4 +838,3 @@ class db_connector
 		$this->dc[$this->default_cid]->db_free_result();
 	}
 }
-?>

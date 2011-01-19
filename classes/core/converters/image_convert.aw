@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 define("IMAGE_PNG", 1);
 define("IMAGE_JPEG", 2);
 define("IMAGE_GIF", 3);
@@ -27,7 +25,7 @@ class image_convert extends class_base
 	// this is here, because the authors of the php gd module are stupid idiots.
 	// there is *NO* safe way of telling which version of gd is installed for all 4.x versions of php
 	// except for this.
-	function my_gd_info() 
+	function my_gd_info()
 	{
 		ob_start();
 		eval("phpinfo();");
@@ -55,7 +53,7 @@ class image_convert extends class_base
 			if (function_exists("gd_info"))
 			{
 				$dat = gd_info();
-				if ($dat["JPG Support"] && $dat["PNG Support"] && strpos($dat["GD Version"], "2.") !== false)
+				if (!empty($dat["JPG Support"]) && !empty($dat["PNG Support"]) && isset($dat["GD Version"]) && strpos($dat["GD Version"], "2.") !== false)
 				{
 					// accept all gd's that can use jpg and png and have version number 2.x
 					$driver = "gd";
@@ -113,7 +111,7 @@ class image_convert extends class_base
 	{
 		return $this->_get_driver() != "" ? true : false;
 	}
-	
+
 	/**
 		@attrib api=1 params=pos
 		@param str required type=string
@@ -266,7 +264,7 @@ class image_convert extends class_base
 		));
 		list($w, $h) = $this->size();
 		return $this->driver->resize(array(
-			"x" => 0, 
+			"x" => 0,
 			"y" => 0,
 			"height" => $h,
 			"width" => $w,
@@ -323,9 +321,9 @@ class image_convert extends class_base
 			2 - jpeg
 			3 - gif
 			4 - wbmp
-		
+
 		@comment
-			saves the currently loaded image into $filename in $type format. 
+			saves the currently loaded image into $filename in $type format.
 		@errors
 			raises ERR_IMAGE_TYPE, if param $type is not one of the allowed types
 		@examples
@@ -359,7 +357,7 @@ class image_convert extends class_base
 			a copy on the class instance.
 		@errors
 			raises ERR_IMAGE_DRIVER error if there isn't any driver loaded.
-		@examples 
+		@examples
 	**/
 	function &copy()
 	{
@@ -534,7 +532,7 @@ class _int_image_convert_driver_gd extends aw_template
 		}
 	}
 
-	
+
 	function size()
 	{
 		return array(imagesx($this->image), imagesy($this->image));
@@ -623,7 +621,7 @@ class _int_image_convert_driver_gd extends aw_template
 	function merge($arr)
 	{
 		extract($arr);
-		// make transparency as well.	
+		// make transparency as well.
 		$trans = imagecolorat ($source->driver->image, 0, 0);
 		imagecolortransparent($source->driver->image, $trans);
 
@@ -677,7 +675,7 @@ class _int_image_convert_driver_imagick extends aw_template
 		$this->load_from_string($str);
 	}
 
-	
+
 	function size()
 	{
 		$cmd = $this->identify." -format \"%w %h\" ".$this->filename;
@@ -857,7 +855,7 @@ class _int_image_convert_driver_imagick_module extends aw_template
 		}
 	}
 
-	
+
 	function size()
 	{
 		$tmp = array(imagick_getwidth($this->handle), imagick_getheight($this->handle));
@@ -947,5 +945,3 @@ class _int_image_convert_driver_imagick_module extends aw_template
 		$this->filename = $tn;
 	}
 }
-
-?>

@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 define("OP_START_BLK", 1);
 define("OP_END_BLK", 2);
@@ -96,7 +93,6 @@ class site_template_compiler extends aw_template
 
 	function compile($path, $tpl, $mdefs = NULL, $no_cache = false)
 	{
-		enter_function("site_template_compiler::compile");
 		$this->tpl_init($path, true);
 		$this->no_use_ma_cache = $no_cache;
 		//echo "compiling \$this->read_template($tpl,true)<br>";
@@ -109,7 +105,6 @@ class site_template_compiler extends aw_template
 		$this->parse_template_parts($mdefs);
 		$this->compile_template_parts();
 		$code =  "<?php\n".$this->generate_code()."?>";
-		exit_function("site_template_compiler::compile");
 		return $code;
 	}
 
@@ -1484,7 +1479,7 @@ class site_template_compiler extends aw_template
 		$ret .= $this->_gi()."for(\n((\"make_menu_item\" == " . $fun_name . ") ? (\$mmi_cnt = 1) : (".$o_name." = ".$list_name."->begin())), ((\"make_menu_item\" == " . $fun_name . ") ? ((".$fun_name."_cb)?(\$tmp_vars_array = " . $inst_name . "->make_menu_item_from_tabs(\$tmp,".$arr["level"].",\$parent_obj, \$this,\$cnt_menus)):\$tmp_vars_array = " . $inst_name . "->make_menu_item(\$tmp,".$arr["level"].",\$parent_obj, \$this,\$cnt_menus))  : (null)),".$loop_counter_name." = 0, ((\"make_menu_item\" == " . $fun_name . ") ? \$mmi_cnt : (\$prev_obj = NULL));\n ((\"make_menu_item\" == " . $fun_name . ") ? is_array(\$tmp_vars_array) : (!".$list_name."->end()));\n ((\"make_menu_item\" == " . $fun_name . ") ? ((".$fun_name."_cb)? \$tmp_vars_array = " . $inst_name . "->make_menu_item_from_tabs(\$tmp,".$arr["level"].",\$parent_obj, \$this,\$cnt_menus):\$tmp_vars_array = " . $inst_name . "->make_menu_item(\$tmp,".$arr["level"].",\$parent_obj, \$this,\$cnt_menus)) : (\$prev_obj = ".$o_name.")), ((\"make_menu_item\" == " . $fun_name . ") ? \$mmi_cnt : (".$o_name." = ".$list_name."->next())), ".$loop_counter_name."++\n)\n";
 		$ret .= $this->_gi()."{\n";
 		$this->brace_level++;
-			
+
 			$ret .= $this->_gi()."if(!empty(".$fun_name."_cb))\$cnt_menus++;\n";
 			$ret .= $this->_gi()."\$tmp_vars".$arr["level"]." = isset(\$tmp_vars_array) ? \$tmp_vars_array : array();\n";
 			$ret .= $this->_gi()."if (empty(\$mmi_cnt))\n";
@@ -2469,4 +2464,3 @@ class site_template_compiler extends aw_template
 		return $res;
 	}
 }
-?>

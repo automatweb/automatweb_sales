@@ -64,12 +64,12 @@ class aw_template extends core
 
 		$site_basedir = aw_ini_get("site_basedir");
 
-		if (substr($basedir,0,1) != "/" && !preg_match("/^[a-z]:/i", substr($basedir,0,2)))
+		if (substr($basedir,0,1) !== "/" && !preg_match("/^[a-z]:/i", substr($basedir,0,2)))
 		{
 			if ($has_top_level_folder)
 			{
 				$this->template_dir = "{$site_basedir}/{$basedir}";
-				$this->adm_template_dir = AW_DIR . "templates/{$basedir}";
+				$this->adm_template_dir = AW_DIR . "{$basedir}";
 				$this->site_template_dir = "{$site_basedir}/{$basedir}";
 			}
 			else
@@ -124,6 +124,7 @@ class aw_template extends core
 		{
 			return aw_ini_get("tpldir");
 		}
+
 		$rv = aw_ini_get("tpldir");
 		foreach(obj($sect)->path() as $path_item)
 		{
@@ -350,7 +351,7 @@ class aw_template extends core
 			else
 			{
 				// raise_error drops out, therefore $retval has no meaning here
-				$this->raise_error("ERR_TPL_NOTPL", sprintf(t("Template '%s/%s' not found"), $this->template_dir, $name),true);
+				$this->raise_error("ERR_TPL_NOTPL", sprintf(t("Template '%s' not found"), $this->template_filename),true);
 			}
 		}
 		return $retval;

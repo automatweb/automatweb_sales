@@ -213,8 +213,15 @@ class aw_request
 			{
 				if (isset($this->_args["id"]) and is_oid($this->_args["id"]))
 				{
-					$application = new object($this->_args["id"]);
-					aw_session_set("aw_request_application_object_oid", $application->id());
+					try
+					{
+						$application = new object($this->_args["id"]);
+						aw_session_set("aw_request_application_object_oid", $application->id());
+					}
+					catch (Exception $e)
+					{
+						$application = new object(); //!!! mis on default?
+					}
 				}
 				elseif ("admin_if" === $this->_class)
 				{
@@ -235,7 +242,14 @@ class aw_request
 			}
 			elseif (is_oid(aw_global_get("aw_request_application_object_oid")))
 			{
-				$application = new object(aw_global_get("aw_request_application_object_oid"));
+				try
+				{
+					$application = new object(aw_global_get("aw_request_application_object_oid"));
+				}
+				catch (Exception $e)
+				{
+					$application = new object(); //!!! mis on default?
+				}
 			}
 			else
 			{

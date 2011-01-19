@@ -142,6 +142,13 @@ define("FL_IMAGE_CAN_COMMENT", 1);
 
 class image extends class_base
 {
+	private $_set_dt;
+	private $do_resize = false;
+	private $new_w = 0;
+	private $new_h = 0;
+	private $new_h_big = 0;
+	private $new_w_big = 0;
+
 	function image()
 	{
 		$this->init(array(
@@ -224,7 +231,7 @@ class image extends class_base
 					$row["big_url"] = $this->get_url($row["meta"]["file2"]);
 					$_tmp = basename($row["meta"]["file2"]);
 					$f1 = substr($_tmp,0,1);
-					$row["meta"]["file2"] = aw_ini_get("site_basedir") . "/files/$f1/" . $_tmp;
+					$row["meta"]["file2"] = aw_ini_get("file.site_files_dir") . "$f1/" . $_tmp;
 					$row['file2'] = &$row['meta']['file2'];
 				}
 				aw_cache_set("get_image_by_id", $id, $row);
@@ -301,14 +308,14 @@ class image extends class_base
 			return $path;
 		}
 		$tmp = basename($path);
-		$tmp = aw_ini_get("site_basedir")."/files/".$tmp[0]."/".$tmp;
+		$tmp = aw_ini_get("file.site_files_dir").$tmp[0]."/".$tmp;
 		if (file_exists($tmp))
 		{
 			return $tmp;
 		}
 		$tmp = dirname($path);
 		$slp = strrpos($tmp, "/");
-		$tmp = aw_ini_get("site_basedir")."/files/".substr($tmp, $slp)."/".basename($path);
+		$tmp = aw_ini_get("file.site_files_dir").substr($tmp, $slp)."/".basename($path);
 		return $tmp;
 	}
 
@@ -397,7 +404,7 @@ class image extends class_base
 			$size = array(0 => null, 1 => null);
 			if (!empty($idata["meta"]["file2"]))
 			{
-				$size = @getimagesize($idata["meta"]["file2"]);
+				$size = getimagesize($idata["meta"]["file2"]);
 			};
 			if (isset($idata["meta"]["big_flash"]) && $this->can("view", $idata["meta"]["big_flash"]))
 			{
@@ -835,7 +842,7 @@ class image extends class_base
 			{
 				$id = $this->get_image_by_id($img_id);
 				// we need to return the image size as well
-				$sz = @getimagesize($id['file']);
+				$sz = getimagesize($id['file']);
 				$fl = $id["file"];
  				return array(
 					"id" => $img_id,
@@ -879,21 +886,23 @@ class image extends class_base
 			}
 
 			// the site's img folder
-			$passed = false;
 			if (is_file($fname) && is_readable($fname))
 			{
 				$passed = true;
 			}
-
-			if (!$passed)
+			else
 			{
-				$rootdir = aw_ini_get("site_basedir");
-				$fname = $rootdir . "/files/$f1/" . $file;
+				$fname = aw_ini_get("file.site_files_dir") . "{$f1}/{$file}";
 				if (is_file($fname) && is_readable($fname))
 				{
 					$passed = true;
 				}
+				else
+				{
+					$passed = false;
+				}
 			}
+
 			if ($passed)
 			{
 				if ($this->is_flash($file))
@@ -903,7 +912,7 @@ class image extends class_base
 				else
 				{
 					$size = GetImageSize($fname);
-				};
+				}
 
 				if (!is_array($size))
 				{
@@ -999,7 +1008,7 @@ class image extends class_base
 			else
 			{
 				print "access denied:";
-			};
+			}
 		}
 		else
 		{
@@ -1280,9 +1289,9 @@ class image extends class_base
 				{
 					if ($fl{0} != "/")
 					{
-						$fl = aw_ini_get("site_basedir")."/files/".$fl{0}."/".$fl;
+						$fl = aw_ini_get("file.site_files_dir").$fl{0}."/".$fl;
 					}
-					$sz = @getimagesize($fl);
+					$sz = getimagesize($fl);
 					$prop["value"] = $sz[0] . " X " . $sz[1];
 				}
 				else
@@ -1296,15 +1305,15 @@ class image extends class_base
 				{
 					// rewrite $fl to be correct if site moved
 					$fl = basename($fl);
-					$fl = aw_ini_get("site_basedir")."/files/".$fl{0}."/".$fl;
+					$fl = aw_ini_get("file.site_files_dir").$fl{0}."/".$fl;
 
-					$sz = @getimagesize($fl);
+					$sz = getimagesize($fl);
 					$prop["value"] = $sz[0] . " X " . $sz[1];
 				}
 				else
 				{
 					$retval = PROP_IGNORE;
-				};
+				}
 				break;
 			case "comments_tb":
 				$this->_comments_tb($arr);
@@ -1348,8 +1357,7 @@ class image extends class_base
 					$src_file = $_FILES[$prop["name"]]["tmp_name"];
 					$ftype = $_FILES[$prop["name"]]["type"];
 				}
-				else
-				if (!empty($prop["value"]["tmp_name"]))
+				elseif (!empty($prop["value"]["tmp_name"]))
 				{
 					// this happens if for example releditor is used
 					$src_file = $prop["value"]["tmp_name"];
@@ -1359,25 +1367,30 @@ class image extends class_base
 					if (empty($ftype))
 					{
 						$ftype = "image/jpg";
-					};
-				};
+					}
+				}
 
 				// if a file was found, then move it to wherever it should be located
 				if (is_uploaded_file($src_file))
 				{
-					$_fi = get_instance(CL_FILE);
+					$_fi = new file();
 					$final_name = $_fi->generate_file_path(array(
 						"type" => $ftype,
 					));
 					move_uploaded_file($src_file, $final_name);
 
-					if (function_exists("exif_read_data"))
+					if (function_exists("exif_read_data") and function_exists("strptime"))
 					{
-						$dat = exif_read_data($final_name);
-						$dt = $dat["DateTime"];
-						$dt = strptime($dt, "%Y:%m:%d %H:%M:%S");
-						$this->_set_dt = $dt;
+						$type = exif_imagetype($final_name);
+						if (IMAGETYPE_JPEG === $type or IMAGETYPE_TIFF_II  === $type or IMAGETYPE_TIFF_MM  === $type)
+						{
+							$dat = exif_read_data($final_name);
+							$dt = $dat["DateTime"];
+							$dt = strptime($dt, "%Y:%m:%d %H:%M:%S");
+							$this->_set_dt = $dt;
+						}
 					}
+
 					// get rid of the old file
 					if (file_exists($oldfile))
 					{
@@ -1386,16 +1399,15 @@ class image extends class_base
 						// because copy/paste on images creates a new object that points to the same file.
 						$ol = new object_list(array(
 							"class_id" => CL_IMAGE,
-							"lang_id" => array(),
-							"site_id" => array(),
 							"file" => "%".basename($oldfile)."%",
 							"oid" => new obj_predicate_not($arr["obj_inst"]->id())
 						));
 						if (!$ol->count())
 						{
-							@unlink($oldfile);
+							unlink($oldfile);
 						}
 					}
+
 					if ($arr["obj_inst"]->name() == "")
 					{
 						if ($prop["value"]["name"] != "")
@@ -1412,7 +1424,7 @@ class image extends class_base
 				else
 				{
 					$retval = PROP_IGNORE;
-				};
+				}
 				break;
 
 			case "date_taken":
@@ -1430,8 +1442,8 @@ class image extends class_base
 					$oldfile = $arr["obj_inst"]->prop("file2");
 					if (file_exists($oldfile))
 					{
-						@unlink($oldfile);
-					};
+						unlink($oldfile);
+					}
 					$arr["obj_inst"]->set_prop("file2","");
 				};
 				break;
@@ -1455,7 +1467,7 @@ class image extends class_base
 			case "new_w_big":
 				$this->new_w_big = $prop["value"];
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -1569,7 +1581,7 @@ class image extends class_base
 
 		$img = get_instance("core/converters/image_convert");
 		$fn = basename($im[$file]);
-		$fn = aw_ini_get("site_basedir")."/files/".$fn{0}."/".$fn;
+		$fn = aw_ini_get("file.site_files_dir").$fn{0}."/".$fn;
 		$img->load_from_file($fn);
 		list($i_width, $i_height) = $img->size();
 		$width = $arr['width'];
@@ -1669,8 +1681,8 @@ class image extends class_base
 			$this->resize_picture($arr);
 		}
 
-		$this->do_apply_gal_conf(obj($arr["id"]), $prop["value"]);
-		if ($arr["request"]["save_and_doc"] != "")
+		$this->do_apply_gal_conf(obj($arr["id"]));
+		if (!empty($arr["request"]["save_and_doc"]))
 		{
 			$url = $this->mk_my_orb("fetch_image_alias_for_doc", array("doc_id" => $arr["request"]["docid"], "image_id" => $arr["obj_inst"]->id()));
 			$image_url = $this->get_url_by_id($arr["obj_inst"]->id());
@@ -1869,7 +1881,7 @@ class image extends class_base
 				{
 					$im = obj($im_id);
 					$fn = $this->_mk_fn($im->prop("file"));
-					$sz = @getimagesize($fn);
+					$sz = getimagesize($fn);
 					$this->vars(array(
 						"next_url" => aw_url_change_var("id", $im_id),
 						"width" => $sz[0],
@@ -1886,7 +1898,7 @@ class image extends class_base
 					{
 						$im = obj($im_id);
 						$fn = $this->_mk_fn($im->prop("file"));
-						$sz = @getimagesize($fn);
+						$sz = getimagesize($fn);
 						$this->vars(array(
 							"prev_url" => aw_url_change_var("id", $prev),
 							"width" => $sz[0],
@@ -2302,14 +2314,14 @@ class image extends class_base
 		if ($o->prop("file2") != "")
 		{
 			$file2 = basename($o->prop("file2"));
-			$file2 = aw_ini_get("site_basedir")."/files/".$file2{0}."/".$file2;
+			$file2 = aw_ini_get("file.site_files_dir").$file2{0}."/".$file2;
 			if ($has_big_alt !== NULL)
 			{
 				$alt = $has_big_alt;
 			}
 			$imagetag = image::make_img_tag($u, $alt, $size, $arr);
 
-			$size = @getimagesize($file2);
+			$size = getimagesize($file2);
 
 			$bi_show_link = $that->mk_my_orb("show_big", array("id" => $id), "image");
 			$bi_link = "window.open(\"$bi_show_link\",\"popup\",\"width=".($size[0]).",height=".($size[1])."\");";
@@ -2359,7 +2371,7 @@ class image extends class_base
 
 		$that = new image;
 
-		$size = @getimagesize(self::_get_fs_path($o->prop("file2")));
+		$size = getimagesize(self::_get_fs_path($o->prop("file2")));
 		$bi_show_link = $that->mk_my_orb("show_big", array("id" => $id), "image");
 		return  "window.open(\"$bi_show_link\",\"popup\",\"width=".($size[0]).",height=".($size[1])."\");";
 	}
@@ -2370,12 +2382,15 @@ class image extends class_base
 
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
-		$arr["docid"] = $_GET["docid"];
+		if (isset($_GET["docid"]))
+		{
+			$arr["docid"] = $_GET["docid"];
+		}
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		$arr["args"]["docid"] = $arr["request"]["docid"];
 	}
@@ -2438,7 +2453,7 @@ class image extends class_base
 	function _mk_fn($fn)
 	{
 		$ret = basename($fn);
-		return aw_ini_get("site_basedir")."/files/".$ret{0}."/".$ret;
+		return $ret ? (aw_ini_get("file.site_files_dir").$ret{0}."/{$ret}") : "";
 	}
 
 	/**
@@ -2534,7 +2549,7 @@ class image extends class_base
 			if ("#".$alias_name."#" == $alias_string)
 			{
 				$o = obj($obj_id);
-				$size = @getimagesize($this->_get_fs_path($o->prop("file")));
+				$size = getimagesize($this->_get_fs_path($o->prop("file")));
 				$out .= 'var item = {"name" : "'.$o->name().'", "id" : '.$obj_id.', "comment" : "'.$o->prop("comment").'", "url" : "'.$this->get_url_by_id($obj_id).'", "width" : '.$size[0].', "height" : '.$size[1].'};'.$sufix;
 				$out .= 'connection_details_for_doc["#'.$arr["alias_name"].'#"] = item;'.$sufix;
 			}
