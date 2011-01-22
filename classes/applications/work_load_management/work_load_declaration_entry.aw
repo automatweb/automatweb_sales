@@ -7,6 +7,9 @@
 @default table=aw_work_load_declaration_entry
 @default group=general
 
+	@property user type=objpicker clid=CL_USER field=aw_user
+	@caption Kasutaja
+
 */
 
 class work_load_declaration_entry extends class_base
@@ -33,11 +36,11 @@ class work_load_declaration_entry extends class_base
 				)");
 				$r = true;
 			}
-			elseif ("" === $field)
+			elseif ("aw_user" === $field)
 			{
 				$this->db_add_col("aw_work_load_declaration_entry", array(
-					"name" => "",
-					"type" => ""
+					"name" => $field,
+					"type" => "int"
 				));
 				$r = true;
 			}

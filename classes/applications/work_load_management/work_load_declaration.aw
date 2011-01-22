@@ -119,12 +119,39 @@
 
 class work_load_declaration extends class_base
 {
+	private $entry;
+
 	public function __construct()
 	{
 		$this->init(array(
 			"tpldir" => "applications/work_load_management/work_load_declaration",
 			"clid" => CL_WORK_LOAD_DECLARATION
 		));
+	}
+
+	public function callback_pre_edit($arr)
+	{
+		$this->entry = $arr["obj_inst"]->get_declaration_entry_for_user();
+	}
+
+	public function _get_wl_name($arr)
+	{
+		$arr["prop"]["value"] = $this->entry->val("name");
+	}
+
+	public function _get_wl_profession($arr)
+	{
+		$arr["prop"]["value"] = $this->entry->val("profession");
+	}
+
+	public function _get_wl_unit($arr)
+	{
+		$arr["prop"]["value"] = $this->entry->val("unit");
+	}
+
+	public function _get_wl_salary($arr)
+	{
+		$arr["prop"]["value"] = $this->entry->val("salary");
 	}
 
 	public function _get_wl_toolbar($arr)
@@ -191,6 +218,7 @@ class work_load_declaration extends class_base
 	{
 		return html::checkbox(array(
 			"name" => "professions[{$row["id"]}][active]",
+			"checked" => $row["active"],
 			"onclick" => "if(this.checked){ $('#professions_{$row["id"]}__load_').removeAttr('disabled') } else { $('#professions_{$row["id"]}__load_').attr('disabled', 'disabled'); }"
 		));
 	}
@@ -199,6 +227,7 @@ class work_load_declaration extends class_base
 	{
 		return html::textbox(array(
 			"name" => "professions[{$row["id"]}][load]",
+			"value" => $row["load"],
 			"size" => 4,
 			"disabled" => empty($row["active"]),
 		));
@@ -210,12 +239,15 @@ class work_load_declaration extends class_base
 		$this->_professions_header($t);
 
 		$professions = $arr["obj_inst"]->manager()->get_professions()->names();
+		$data = $this->entry->val("professions");
 
 		foreach($professions as $id => $profession)
 		{
 			$t->define_data(array(
 				"id" => $id,
-				"profession" => $profession
+				"profession" => $profession,
+				"active" => !empty($data[$id]["active"]),
+				"load" => !empty($data[$id]["load"]) ? $data[$id]["load"] : 0,
 			));
 		}
 
@@ -239,7 +271,8 @@ class work_load_declaration extends class_base
 	public function callback_competence_active($row)
 	{
 		return html::checkbox(array(
-			"name" => "competence[{$row["id"]}][active]",
+			"name" => "competences[{$row["id"]}][active]",
+			"checked" => $row["active"],
 		));
 	}
 
@@ -249,12 +282,14 @@ class work_load_declaration extends class_base
 		$this->_competence_header($t);
 
 		$competences = $arr["obj_inst"]->manager()->get_competences()->names();
+		$data = $this->entry->val("competences");
 
 		foreach($competences as $id => $competence)
 		{
 			$t->define_data(array(
 				"id" => $id,
-				"competence" => $competence
+				"competence" => $competence,
+				"active" => !empty($data[$id]["active"])
 			));
 		}
 
@@ -279,6 +314,7 @@ class work_load_declaration extends class_base
 	{
 		return html::checkbox(array(
 			"name" => "research_groups[{$row["id"]}][active]",
+			"checked" => $row["active"],
 		));
 	}
 
@@ -288,12 +324,14 @@ class work_load_declaration extends class_base
 		$this->_research_groups_header($t);
 
 		$research_groups = $arr["obj_inst"]->manager()->get_research_groups()->names();
+		$data = $this->entry->val("research_groups");
 
 		foreach($research_groups as $id => $research_group)
 		{
 			$t->define_data(array(
 				"id" => $id,
-				"research_group" => $research_group
+				"research_group" => $research_group,
+				"active" => !empty($data[$id]["active"]),
 			));
 		}
 
@@ -494,85 +532,80 @@ class work_load_declaration extends class_base
 		$t->define_field(array(
 			"name" => "course",
 			"caption" => t("Kursus"),
-			"callback" => array($this, "callback_contact_learning_courses_course"),
+			"callback" => array($this, "callback_contact_learning_courses_textbox"),
 			"callb_pass_row" => true,
 		));
 		$t->define_field(array(
 			"name" => "hours",
 			"caption" => t("Tunde"),
-			"callback" => array($this, "callback_contact_learning_courses_hours"),
+			"callback" => array($this, "callback_contact_learning_courses_textbox"),
 			"callb_pass_row" => true,
 		));
 		$t->define_field(array(
 			"name" => "points",
 			"caption" => t("AP"),
-			"callback" => array($this, "callback_contact_learning_courses_points"),
+			"callback" => array($this, "callback_contact_learning_courses_textbox"),
 			"callb_pass_row" => true,
 		));
 		$t->define_field(array(
 			"name" => "participants",
 			"caption" => t("Osalejaid"),
-			"callback" => array($this, "callback_contact_learning_courses_participants"),
+			"callback" => array($this, "callback_contact_learning_courses_textbox"),
 			"callb_pass_row" => true,
 		));
 		$t->define_field(array(
 			"name" => "points_given",
 			"caption" => t("Antavad AP"),
-			"callback" => array($this, "callback_contact_learning_courses_points_given"),
+			"callback" => array($this, "callback_contact_learning_courses_textbox"),
 			"callb_pass_row" => true,
 		));
 	}
 
-	public function callback_contact_learning_courses_course($row)
+	public function callback_contact_learning_courses_textbox($row)
 	{
-		return html::textbox(array(
-			"name" => "contact_learning_courses[{$row["id"]}][course]",
-		));
-	}
+		$args = array(
+			"name" => "contact_learning_courses[{$row["id"]}][{$row["_this_cell"]}]",
+			"value" => !empty($row[$row["_this_cell"]]) ? $row[$row["_this_cell"]] : 0,
+			"size" => 4
+		);
 
-	public function callback_contact_learning_courses_hours($row)
-	{
-		return html::textbox(array(
-			"name" => "contact_learning_courses[{$row["id"]}][hours]",
-			"size" => 4,
-		));
-	}
+		switch($row["_this_cell"])
+		{
+			case "course":
+				unset($args["size"]);
+				$args["value"] = isset($row[$row["_this_cell"]]) ? $row[$row["_this_cell"]] : "";
+				break;
 
-	public function callback_contact_learning_courses_points($row)
-	{
-		return html::textbox(array(
-			"name" => "contact_learning_courses[{$row["id"]}][points]",
-			"size" => 4,
-		));
-	}
+			case "points_given":
+				$args["disabled"] = true;
+				break;
+		}
 
-	public function callback_contact_learning_courses_participants($row)
-	{
-		return html::textbox(array(
-			"name" => "contact_learning_courses[{$row["id"]}][participants]",
-			"size" => 4,
-		));
-	}
-
-	public function callback_contact_learning_courses_points_given($row)
-	{
-		return html::textbox(array(
-			"name" => "contact_learning_courses[{$row["id"]}][points_given]",
-			"size" => 4,
-			"disabled" => true
-		));
+		return html::textbox($args);
 	}
 
 	public function _get_contact_learning_courses($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_contact_learning_courses_header($t);
+		$data = array_values($this->entry->val("contact_learning_courses"));
 
-		for($i = 0; $i < 6; $i++)
+		for($i = 0; $i < count($data) + 4; $i++)
 		{
-			$t->define_data(array(
+			$row = array(
 				"id" => $i
-			));
+			);
+
+			if(isset($data[$i]))
+			{
+				$row = array_merge($row, $data[$i]);
+				if(empty($row["course"]))
+				{
+					continue;
+				}
+			}
+
+			$t->define_data($row);
 		}
 
 		return PROP_OK;
@@ -585,71 +618,74 @@ class work_load_declaration extends class_base
 		$t->define_field(array(
 			"name" => "course",
 			"caption" => t("Kursus"),
-			"callback" => array($this, "callback_e_learning_courses_course"),
+			"callback" => array($this, "callback_e_learning_courses_textbox"),
 			"callb_pass_row" => true,
 		));
 		$t->define_field(array(
 			"name" => "points",
 			"caption" => t("AP"),
-			"callback" => array($this, "callback_e_learning_courses_points"),
+			"callback" => array($this, "callback_e_learning_courses_textbox"),
 			"callb_pass_row" => true,
 		));
 		$t->define_field(array(
 			"name" => "participants",
 			"caption" => t("Osalejaid"),
-			"callback" => array($this, "callback_e_learning_courses_participants"),
+			"callback" => array($this, "callback_e_learning_courses_textbox"),
 			"callb_pass_row" => true,
 		));
 		$t->define_field(array(
 			"name" => "points_given",
 			"caption" => t("Antavad AP"),
-			"callback" => array($this, "callback_e_learning_courses_points_given"),
+			"callback" => array($this, "callback_e_learning_courses_textbox"),
 			"callb_pass_row" => true,
 		));
 	}
 
-	public function callback_e_learning_courses_course($row)
+	public function callback_e_learning_courses_textbox($row)
 	{
-		return html::textbox(array(
-			"name" => "e_learning_courses[{$row["id"]}][course]",
-		));
-	}
+		$args = array(
+			"name" => "e_learning_courses[{$row["id"]}][{$row["_this_cell"]}]",
+			"value" => !empty($row[$row["_this_cell"]]) ? $row[$row["_this_cell"]] : 0,
+			"size" => 4
+		);
 
-	public function callback_e_learning_courses_points($row)
-	{
-		return html::textbox(array(
-			"name" => "e_learning_courses[{$row["id"]}][points]",
-			"size" => 4,
-		));
-	}
+		switch($row["_this_cell"])
+		{
+			case "course":
+				unset($args["size"]);
+				$args["value"] = isset($row[$row["_this_cell"]]) ? $row[$row["_this_cell"]] : "";
+				break;
 
-	public function callback_e_learning_courses_participants($row)
-	{
-		return html::textbox(array(
-			"name" => "e_learning_courses[{$row["id"]}][participants]",
-			"size" => 4,
-		));
-	}
+			case "points_given":
+				$args["disabled"] = true;
+				break;
+		}
 
-	public function callback_e_learning_courses_points_given($row)
-	{
-		return html::textbox(array(
-			"name" => "e_learning_courses[{$row["id"]}][points_given]",
-			"size" => 4,
-			"disabled" => true
-		));
+		return html::textbox($args);
 	}
 
 	public function _get_e_learning_courses($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_e_learning_courses_header($t);
+		$data = array_values($this->entry->val("e_learning_courses"));
 
-		for($i = 0; $i < 6; $i++)
+		for($i = 0; $i < count($data) + 4; $i++)
 		{
-			$t->define_data(array(
+			$row = array(
 				"id" => $i
-			));
+			);
+
+			if(isset($data[$i]))
+			{
+				$row = array_merge($row, $data[$i]);
+				if(empty($row["course"]))
+				{
+					continue;
+				}
+			}
+
+			$t->define_data($row);
 		}
 
 		return PROP_OK;
@@ -682,8 +718,10 @@ class work_load_declaration extends class_base
 
 	public function callback_defended_thesises_years($row)
 	{
+		$year = substr($row["_this_cell"], -4);
 		return html::textbox(array(
-			"name" => "defended_thesises[{$row["id"]}][years][" . substr($row["_this_cell"], -4) . "]",
+			"name" => "defended_thesises[{$row["id"]}][years][{$year}]",
+			"value" => !empty($row["years"][$year]) ? $row["years"][$year] : 0,
 			"size" => 4,
 		));
 	}
@@ -692,6 +730,7 @@ class work_load_declaration extends class_base
 	{
 		return html::textbox(array(
 			"name" => "defended_thesises[{$row["id"]}][total]",
+			"value" => array_sum($row["years"]),
 			"size" => 4,
 			"disabled" => true
 		));
@@ -703,11 +742,13 @@ class work_load_declaration extends class_base
 		$this->_defended_thesises_header($t);
 
 		$thesis_categories = array("seminaritöö", "BA", "MA");
+		$data = $this->entry->val("defended_thesises");
 		
 		foreach($thesis_categories as $id => $thesis_category)
 		{
 			$t->define_data(array(
 				"id" => $id,
+				"years" => isset($data[$id]["years"]) ? $data[$id]["years"] : array(),
 				"category" => $thesis_category
 			));
 		}
@@ -717,8 +758,11 @@ class work_load_declaration extends class_base
 
 	public function callback_opposed_thesises_years($row)
 	{
+		$year = substr($row["_this_cell"], -4);
+
 		return html::textbox(array(
-			"name" => "opposed_thesises[{$row["id"]}][years][" . substr($row["_this_cell"], -4) . "]",
+			"name" => "opposed_thesises[{$row["id"]}][years][{$year}]",
+			"value" => !empty($row["years"][$year]) ? $row["years"][$year] : 0,
 			"size" => 4,
 		));
 	}
@@ -746,11 +790,13 @@ class work_load_declaration extends class_base
 		$this->_opposed_thesises_header($t);
 
 		$thesis_categories = array("BA", "MA", "PhD");
+		$data = $this->entry->val("opposed_thesises");
 		
 		foreach($thesis_categories as $id => $thesis_category)
 		{
 			$t->define_data(array(
 				"id" => $id,
+				"years" => isset($data[$id]["years"]) ? $data[$id]["years"] : array(),
 				"category" => $thesis_category
 			));
 		}
@@ -769,15 +815,16 @@ class work_load_declaration extends class_base
 		$t->define_field(array(
 			"name" => "total",
 			"caption" => t("Juhendamisel kaitstud tööde arv"),
-			"callback" => array($this, "callback_defended_phd_thesises_total"),
+			"callback" => array($this, "callback_defended_phd_thesises"),
 			"callb_pass_row" => true,
 		));
 	}
 
-	public function callback_defended_phd_thesises_total($row)
+	public function callback_defended_phd_thesises($row)
 	{
 		return html::textbox(array(
-			"name" => "defended_phd_thesises[{$row["year"]}][total]",
+			"name" => "defended_phd_thesises[{$row["year"]}]",
+			"value" => $row[$row["year"]],
 			"size" => 4,
 		));
 	}
@@ -786,11 +833,13 @@ class work_load_declaration extends class_base
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_defended_phd_thesises_header($t);
+		$data = $this->entry->val("defended_phd_thesises");
 
 		for($i = 2006; $i < 2009; $i++)
 		{
 			$t->define_data(array(
 				"year" => $i,
+				$i => isset($data[$i]) ? $data[$i] : 0,
 			));
 		}
 
@@ -815,6 +864,7 @@ class work_load_declaration extends class_base
 	{
 		return html::textbox(array(
 			"name" => "other_academic_activities[{$row["id"]}][amount]",
+			"value" => $row["amount"],
 			"size" => 4,
 		));
 	}
@@ -833,11 +883,13 @@ class work_load_declaration extends class_base
 			"Väljatöötatud uusi õppekavu",
 			"Koostatud õppevahendeid (kursuste jaoks, maht AP)"
 		);
+		$data = $this->entry->val("other_academic_activities");
 
 		foreach($activities as $id => $activity)
 		{
 			$t->define_data(array(
 				"id" => $id,
+				"amount" => !empty($data[$id]["amount"]) ? $data[$id]["amount"] : 0,
 				"activity" => $activity
 			));
 		}
@@ -872,8 +924,10 @@ class work_load_declaration extends class_base
 
 	public function callback_publications_years($row)
 	{
+		$year = substr($row["_this_cell"], -4);
 		return html::textbox(array(
-			"name" => "publications[{$row["id"]}][years][" . substr($row["_this_cell"], -4) . "]",
+			"name" => "publications[{$row["id"]}][years][{$year}]",
+			"value" => !empty($row["years"][$year]) ? $row["years"][$year] : 0,
 			"size" => 4,
 		));
 	}
@@ -882,6 +936,7 @@ class work_load_declaration extends class_base
 	{
 		return html::textbox(array(
 			"name" => "publications[{$row["id"]}][total]",
+			"value" => array_sum($row["years"]),
 			"size" => 4,
 			"disabled" => true,
 		));
@@ -893,11 +948,13 @@ class work_load_declaration extends class_base
 		$this->_publications_header($t);
 
 		$categories = $arr["obj_inst"]->manager()->get_publication_categories()->names();
+		$data = $this->entry->val("publications");
 
 		foreach($categories as $id => $category)
 		{
 			$t->define_data(array(
 				"id" => $id,
+				"years" => isset($data[$id]["years"]) ? $data[$id]["years"] : array(),
 				"category" => $category,
 			));
 		}
@@ -931,6 +988,7 @@ class work_load_declaration extends class_base
 	{
 		return html::textbox(array(
 			"name" => "previous_declaration[{$row["id"]}][declared]",
+			"value" => $row["declared"],
 			"size" => 4
 		));
 	}
@@ -939,6 +997,7 @@ class work_load_declaration extends class_base
 	{
 		return html::textbox(array(
 			"name" => "previous_declaration[{$row["id"]}][actual]",
+			"value" => $row["actual"],
 			"size" => 4
 		));
 	}
@@ -963,11 +1022,14 @@ class work_load_declaration extends class_base
 			"Juhitud komisjone",
 			"Õppekoormus kokku",
 		);
+		$data = $this->entry->val("previous_declaration");
 
 		foreach($categories as $id => $category)
 		{
 			$t->define_data(array(
 				"id" => $id,
+				"declared" => !empty($data[$id]["declared"]) ? $data[$id]["declared"] : 0,
+				"actual" => !empty($data[$id]["actual"]) ? $data[$id]["actual"] : 0,
 				"category" => $category,
 			));
 		}
@@ -1005,6 +1067,7 @@ class work_load_declaration extends class_base
 	{
 		return html::textbox(array(
 			"name" => "premiums[{$row["id"]}][amount]",
+			"value" => $row["amount"],
 			"size" => 10
 		));
 	}
@@ -1014,19 +1077,30 @@ class work_load_declaration extends class_base
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_premiums_header($t);
 
-		$premiums = array(
-			"Õppekava juhtimine",
-			"",
-			"",
-			"",
-			"",
-		);
+		$premiums = $this->entry->val("premiums");
 
+		$i = 0;
 		foreach($premiums as $id => $premium)
 		{
+			if(empty($premium["premium"]))
+			{
+				continue;
+			}
+
 			$t->define_data(array(
 				"id" => $id,
-				"premium" => $premium,
+				"amount" => !empty($premium["amount"]) ? $premium["amount"] : 0,
+				"premium" => $premium["premium"],
+			));
+			$i = max($i, $id + 1);
+		}
+
+		for($j = $i; $j < $i + 4; $j++)
+		{
+			$t->define_data(array(
+				"id" => $j,
+				"amount" => 0,
+				"premium" => "",
 			));
 		}
 
@@ -1078,6 +1152,16 @@ class work_load_declaration extends class_base
 				})();
 			});
 		";
+	}
+
+	public function callback_post_save($arr)
+	{
+		$o = $arr["obj_inst"]->get_declaration_entry_for_user();
+		foreach($arr["request"] as $k => $v)
+		{
+			$o->set_meta($k, $v);
+		}
+		$o->save();
 	}
 
 	public function do_db_upgrade($table, $field, $query, $error)
