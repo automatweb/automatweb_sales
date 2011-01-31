@@ -49,6 +49,14 @@
             <field>aw_load</field>
             <caption>N&amp;amp;otilde;utav t&amp;ouml;&amp;ouml;maht</caption>
       </property>
+      <property>
+            <name>rated</name>
+            <table>aw_study_organisation_profession</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_rated</field>
+            <caption>Kuva arvestusm&amp;auml;&amp;auml;rade tabelis</caption>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
