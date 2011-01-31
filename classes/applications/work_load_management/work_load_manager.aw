@@ -446,8 +446,12 @@ class work_load_manager extends class_base
 		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_chooser();
+		$t->set_default("sortable", true);
 		$t->add_fields(array(
-			"name" => t("Nimi")
+			"name" => t("Nimi"),
+			"profession" => t("Ametikoht"),
+			"unit" => t("Üksus"),
+			"competences" => t("Akadeemiline kompetents"),
 		));
 
 		$entries = $arr["obj_inst"]->get_entries();
@@ -457,12 +461,28 @@ class work_load_manager extends class_base
 			"manager" => $arr["obj_inst"]->id,
 		));
 		$declaration = $ol->begin();
+		$competence_names = $arr["obj_inst"]->get_competences()->names();
 
 		foreach($entries->arr() as $entry)
 		{
+			$competences = array();
+			if(is_array($entry->val("competences")))
+			{
+				foreach($entry->val("competences") as $competence_id => $competence_data)
+				{
+					if(!empty($competence_data["active"]))
+					{
+						$competences[] = $competence_names[$competence_id];
+					}
+				}
+			}
+
 			$t->define_data(array(
 				"oid" => $entry->id,
 				"name" => html::obj_change_url($declaration, $entry->val("name"), array("entry_id" => $entry->id, "group" => "work_loads")),
+				"profession" => $entry->val("profession"),
+				"unit" => $entry->val("unit"),
+				"competences" => implode(", ", $competences),
 			));
 		}
 	}
