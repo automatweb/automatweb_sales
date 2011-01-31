@@ -133,28 +133,28 @@
             <field>research_groups</field>
       </property>
       <property>
-            <name>accounting_rates</name>
+            <name>rates</name>
             <table>aw_work_load_declaration</table>
             <group>work_loads</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
             <parent>wl_right</parent>
-            <field>accounting_rates</field>
+            <field>rates</field>
       </property>
       <property>
-            <name>cael_toolbar</name>
+            <name>cl_toolbar</name>
             <table>aw_work_load_declaration</table>
-            <group>contact_and_e_learning</group>
+            <group>contact_learning</group>
             <store>no</store>
             <type>toolbar</type>
             <no_caption>1</no_caption>
-            <field>cael_toolbar</field>
+            <field>cl_toolbar</field>
       </property>
       <property>
             <name>contact_learning_courses</name>
             <table>aw_work_load_declaration</table>
-            <group>contact_and_e_learning</group>
+            <group>contact_learning</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
@@ -194,47 +194,53 @@
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>publications_left</parent>
             <field>publications</field>
+      </property>
+      <property>
+            <name>thesises_toolbar</name>
+            <table>aw_work_load_declaration</table>
+            <group>thesises</group>
+            <store>no</store>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <field>thesises_toolbar</field>
       </property>
       <property>
             <name>defended_thesises</name>
             <table>aw_work_load_declaration</table>
-            <group>publications</group>
+            <group>thesises</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>publications_right_upper</parent>
             <field>defended_thesises</field>
       </property>
       <property>
             <name>opposed_thesises</name>
             <table>aw_work_load_declaration</table>
-            <group>publications</group>
+            <group>thesises</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>publications_right_middle</parent>
+            <parent>thesises_split</parent>
             <field>opposed_thesises</field>
       </property>
       <property>
             <name>defended_phd_thesises</name>
             <table>aw_work_load_declaration</table>
-            <group>publications</group>
+            <group>thesises</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>publications_right_middle</parent>
+            <parent>thesises_split</parent>
             <field>defended_phd_thesises</field>
       </property>
       <property>
             <name>other_academic_activities</name>
             <table>aw_work_load_declaration</table>
-            <group>publications</group>
+            <group>thesises</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>publications_right</parent>
             <field>other_academic_activities</field>
       </property>
       <property>
@@ -279,18 +285,22 @@
             <academic_activity>
                   <caption>Akadeemiline tegevus</caption>
             </academic_activity>
-            <contact_and_e_learning>
-                  <caption>Kontakt- ja e-&amp;amp;otilde;pe</caption>
+            <contact_learning>
+                  <caption>Kontakt&amp;amp;otilde;pe</caption>
                   <parent>academic_activity</parent>
-            </contact_and_e_learning>
+            </contact_learning>
             <e_learning>
                   <caption>E-&amp;amp;otilde;pe</caption>
                   <parent>academic_activity</parent>
             </e_learning>
             <publications>
-                  <caption>Publikatsioonid, kaitstud/oponeeritud t&amp;ouml;&amp;ouml;d jm akadeemiline tegevus</caption>
+                  <caption>Publikatsioonid</caption>
                   <parent>academic_activity</parent>
             </publications>
+            <thesises>
+                  <caption>Kaitstud/oponeeritud t&amp;ouml;&amp;ouml;d jm akadeemiline tegevus</caption>
+                  <parent>academic_activity</parent>
+            </thesises>
             <previous_period>
                   <caption>Eelmine periood</caption>
             </previous_period>
@@ -339,37 +349,12 @@
                   <group>work_loads</group>
                   <area_caption></area_caption>
             </wl_right>
-            <publications_split>
+            <thesises_split>
                   <type>hbox</type>
                   <width>50%:50%</width>
-                  <group>publications</group>
+                  <group>thesises</group>
                   <area_caption></area_caption>
-            </publications_split>
-            <publications_left>
-                  <type>vbox</type>
-                  <parent>publications_split</parent>
-                  <group>publications</group>
-                  <area_caption></area_caption>
-            </publications_left>
-            <publications_right>
-                  <type>vbox</type>
-                  <parent>publications_split</parent>
-                  <group>publications</group>
-                  <area_caption></area_caption>
-            </publications_right>
-            <publications_right_upper>
-                  <type>vbox</type>
-                  <parent>publications_right</parent>
-                  <group>publications</group>
-                  <area_caption></area_caption>
-            </publications_right_upper>
-            <publications_right_middle>
-                  <type>hbox</type>
-                  <width>50%:50%</width>
-                  <parent>publications_right</parent>
-                  <group>publications</group>
-                  <area_caption></area_caption>
-            </publications_right_middle>
+            </thesises_split>
             <pp_split>
                   <type>hbox</type>
                   <width>50%:50%</width>

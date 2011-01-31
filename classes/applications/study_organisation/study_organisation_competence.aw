@@ -13,6 +13,9 @@
 	@property value type=textbox type=textbox field=aw_value
 	@caption Punktiline v&auml;&auml;rtus
 
+	@property rated type=checkbox field=aw_rated
+	@caption Kuva arvestusmäärade tabelis
+
 */
 
 class study_organisation_competence extends class_base
@@ -41,9 +44,17 @@ class study_organisation_competence extends class_base
 			}
 			elseif ("aw_value" === $field)
 			{
-				$this->db_add_col("aw_study_organisation_competence", array(
+				$this->db_add_col($table, array(
 					"name" => $field,
 					"type" => "smallint unsigned"
+				));
+				$r = true;
+			}
+			elseif ("aw_rated" === $field)
+			{
+				$this->db_add_col($table, array(
+					"name" => $field,
+					"type" => "boolean"
 				));
 				$r = true;
 			}

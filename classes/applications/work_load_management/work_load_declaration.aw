@@ -60,15 +60,15 @@
 	
 		@layout wl_right type=vbox parent=wl_lower
 
-			@property accounting_rates type=table no_caption=1 parent=wl_right
+			@property rates type=table no_caption=1 parent=wl_right
 
 @groupinfo academic_activity caption="Akadeemiline tegevus"
 @default group=academic_activity
 
-	@groupinfo contact_and_e_learning caption="Kontakt- ja e-&otilde;pe" parent=academic_activity
-	@default group=contact_and_e_learning
+	@groupinfo contact_learning caption="Kontakt&otilde;pe" parent=academic_activity
+	@default group=contact_learning
 
-		@property cael_toolbar type=toolbar no_caption=1
+		@property cl_toolbar type=toolbar no_caption=1
 
 		@property contact_learning_courses type=table no_caption=1
 
@@ -79,30 +79,27 @@
 
 		@property e_learning_courses type=table no_caption=1
 
-	@groupinfo publications caption="Publikatsioonid, kaitstud/oponeeritud tööd jm akadeemiline tegevus" parent=academic_activity
+	@groupinfo publications caption="Publikatsioonid" parent=academic_activity
 	@default group=publications
 
 		@property publications_toolbar type=toolbar no_caption=1
 
-		@layout publications_split type=hbox width=50%:50%
+		@property publications type=table no_caption=1
+	
+	@groupinfo thesises caption="Kaitstud/oponeeritud tööd jm akadeemiline tegevus" parent=academic_activity
+	@default group=thesises
 
-			@layout publications_left type=vbox parent=publications_split
+		@property thesises_toolbar type=toolbar no_caption=1
 
-				@property publications type=table no_caption=1 parent=publications_left
+		@property defended_thesises type=table no_caption=1
 
-			@layout publications_right type=vbox parent=publications_split
+		@layout thesises_split type=hbox width=50%:50%
 
-				@layout publications_right_upper type=vbox parent=publications_right
+			@property opposed_thesises type=table no_caption=1 parent=thesises_split
 
-					@property defended_thesises type=table no_caption=1 parent=publications_right_upper
+			@property defended_phd_thesises type=table no_caption=1 parent=thesises_split
 
-				@layout publications_right_middle type=hbox width=50%:50% parent=publications_right
-
-					@property opposed_thesises type=table no_caption=1 parent=publications_right_middle
-
-					@property defended_phd_thesises type=table no_caption=1 parent=publications_right_middle
-
-				@property other_academic_activities type=table no_caption=1 parent=publications_right
+		@property other_academic_activities type=table no_caption=1
 
 @groupinfo previous_period caption="Eelmine periood"
 @default group=previous_period
@@ -338,188 +335,49 @@ class work_load_declaration extends class_base
 		return PROP_OK;
 	}
 
-	protected function _accounting_rates_header($t)
+	protected function _rates_header($arr)
 	{
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_caption("Kehtestatud arvestusm&auml;&auml;rad");
 
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Arvestusm&auml;&auml;r"),
 		));
-		$t->define_field(array(
-			"name" => "ma",
-			"caption" => t("MA"),
-		));
-		$t->define_field(array(
-			"name" => "tma",
-			"caption" => t("tMA"),
-		));
-		$t->define_field(array(
-			"name" => "phd",
-			"caption" => t("PhD"),
-		));
-		$t->define_field(array(
-			"name" => "prof_jt",
-			"caption" => t("Prof/JT"),
-		));
+
+		
+		$applicables = $arr["obj_inst"]->manager()->get_rate_applicables();
+
+		foreach($applicables->names() as $oid => $name)
+		{
+			$t->define_field(array(
+				"name" => "applicable_$oid",
+				"caption" => $name
+			));
+		}
 	}
 
-	public function _get_accounting_rates($arr)
+	public function _get_rates($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
-		$this->_accounting_rates_header($t);
+		$this->_rates_header($arr);
 
-		$accounting_rates = array(
-			array(
-				"name" => t("Kontakttunnid (10 auditoorset tundi)"),
-				"ma" => 20,
-				"tma" => 25,
-				"phd" => 30,
-				"prof_jt" => 40,
-			),
-			array(
-				"name" => t("E-&otilde;ppe kursus (EAP)"),
-				"ma" => 25,
-				"tma" => 30,
-				"phd" => 40,
-				"prof_jt" => 50,
-			),
-			array(
-				"name" => t("Antavad tingainepunktid (100 TEAP kohta)"),
-				"ma" => 6,
-				"tma" => 8,
-				"phd" => 10,
-				"prof_jt" => 12,
-			),
-			array(
-				"name" => t("Üliõpilastööde juhendamine viimasel 3 aastal (10 TEAP kohta)"),
-				"ma" => 4,
-				"tma" => 4,
-				"phd" => 6,
-				"prof_jt" => 6,
-			),
-			array(
-				"name" => t("Doktoritööde juhendamine viimasel 3 aastal (töid)"),
-				"phd" => 90,
-				"prof_jt" => 120,
-			),
-			array(
-				"name" => t("BA-tööde oponeerimine (töid)"),
-				"ma" => 2,
-				"tma" => 2,
-				"phd" => 3,
-				"prof_jt" => 4,
-			),
-			array(
-				"name" => t("MA-tööde oponeerimine (töid)"),
-				"ma" => 5,
-				"tma" => 5,
-				"phd" => 8,
-				"prof_jt" => 10,
-			),
-			array(
-				"name" => t("PhD-tööde oponeerimine (töid)"),
-				"phd" => 3,
-				"prof_jt" => 4,
-			),
-			array(
-				"name" => t("Õppevahendi koostamine (1 EAP mahus kursuse kohta)"),
-				"ma" => 6,
-				"tma" => 6,
-				"phd" => 10,
-				"prof_jt" => 12,
-			),
-			array(
-				"name" => t("Vastuvõtu- ja kaitsekomisjoni juht (komisjonide hulk)"),
-				"tma" => 10,
-				"phd" => 12,
-				"prof_jt" => 15,
-			),
-			array(
-				"name" => t("Kaitsmiskomisjoni liige (päevi)"),
-				"ma" => 10,
-				"tma" => 10,
-				"phd" => 12,
-				"prof_jt" => 15,
-			),
-			array(
-				"name" => t("Vastuvõtukomisjoni liige (päevi)"),
-				"ma" => 6,
-				"tma" => 6,
-				"phd" => 8,
-				"prof_jt" => 10,
-			),
-			array(
-				"name" => t("Doktorinõukogu liikmelisus"),
-				"phd" => 20,
-				"prof_jt" => 20,
-			),
-			array(
-				"name" => t("Uue õppekava väljatöötamise juhtimine"),
-				"phd" => 60,
-				"prof_jt" => 80,
-			),
-			array(
-				"name" => t("SF-teema juhtimine"),
-				"ma" => 300,
-				"tma" => 300,
-				"phd" => 300,
-				"prof_jt" => 300,
-			),
-			array(
-				"name" => t("Osalus SF-teemas põhitäitjana, ETF grandi hoidmine"),
-				"ma" => 150,
-				"tma" => 150,
-				"phd" => 150,
-				"prof_jt" => 150,
-			),
-			array(
-				"name" => t("1.1. ja 3.1. publikatsioonid"),
-				"ma" => 150,
-				"tma" => 150,
-				"phd" => 150,
-				"prof_jt" => 150,
-			),
-			array(
-				"name" => t("2.1. monograafiad"),
-				"ma" => 450,
-				"tma" => 450,
-				"phd" => 450,
-				"prof_jt" => 450,
-			),
-			array(
-				"name" => t("2.2. monograafiad"),
-				"ma" => 210,
-				"tma" => 210,
-				"phd" => 210,
-				"prof_jt" => 210,
-			),
-			array(
-				"name" => t("1.2., 3.3., 5 kategooria publikatsioonid"),
-				"ma" => 70,
-				"tma" => 70,
-				"phd" => 70,
-				"prof_jt" => 70,
-			),
-			array(
-				"name" => t("1.3., 3.2., 4 kategooria publikatsioonid"),
-				"ma" => 40,
-				"tma" => 40,
-				"phd" => 40,
-				"prof_jt" => 40,
-			),
-			array(
-				"name" => t("Teaduslik kommenteeritud tõlge (artikkel/peatükk)"),
-				"ma" => 15,
-				"tma" => 15,
-				"phd" => 15,
-				"prof_jt" => 15,
-			),
-		);
+		$rates = $arr["obj_inst"]->manager()->get_rates();
 
-		foreach($accounting_rates as $accounting_rate)
+		foreach($rates->arr() as $oid => $rate)
 		{
-			$t->define_data($accounting_rate);
+			$row = array(
+				"oid" => $oid,
+				"name" => $rate->name,
+			);
+			if(is_array($rate->applicables))
+			{
+				foreach($rate->applicables as $applicable_id => $applicable_value)
+				{
+					$row["applicable_".$applicable_id] = $applicable_value;
+				}
+			}
+			$t->define_data($row);
 		}
 
 		return PROP_OK;
@@ -699,7 +557,7 @@ class work_load_declaration extends class_base
 			"name" => "category",
 			"caption" => t("Kaitstud töö kategooria")
 		));
-		for($i = 2006; $i < 2009; $i++)
+		for($i = 2004; $i < 2012; $i++)
 		{
 			$t->define_field(array(
 				"name" => "acad_year_$i",
@@ -775,7 +633,7 @@ class work_load_declaration extends class_base
 			"name" => "category",
 			"caption" => t("Oponeeritud töö kategooria")
 		));
-		$i = 2008;
+		$i = 2011;
 		$t->define_field(array(
 			"name" => "acad_year_$i",
 			"caption" => t(sprintf("%s-%s", strval($i), substr(strval($i+1), 2))),
@@ -789,7 +647,7 @@ class work_load_declaration extends class_base
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_opposed_thesises_header($t);
 
-		$thesis_categories = array("BA", "MA", "PhD");
+		$thesis_categories = array(1 => "BA", "MA", "PhD");
 		$data = $this->entry->val("opposed_thesises");
 		
 		foreach($thesis_categories as $id => $thesis_category)
@@ -835,7 +693,7 @@ class work_load_declaration extends class_base
 		$this->_defended_phd_thesises_header($t);
 		$data = $this->entry->val("defended_phd_thesises");
 
-		for($i = 2006; $i < 2009; $i++)
+		for($i = 2004; $i < 2012; $i++)
 		{
 			$t->define_data(array(
 				"year" => $i,
@@ -905,7 +763,7 @@ class work_load_declaration extends class_base
 			"name" => "category",
 			"caption" => t("Publikatsiooni kategooria")
 		));
-		for($i = 2004; $i < 2009; $i++)
+		for($i = 2004; $i < 2012; $i++)
 		{
 			$t->define_field(array(
 				"name" => "year_$i",
@@ -1110,48 +968,91 @@ class work_load_declaration extends class_base
 	public function callback_generate_scripts($arr)
 	{
 		load_javascript("jquery/plugins/jquery.calculation.js");
-		return "
-			$(document).ready(function() {
-				(function() {
-					function sum_courses_points(o) {
-						suffix = false;
-						if(o.name.substr(-8) == '[points]') {
-							suffix = 'points';
-						} else if(o.name.substr(-14) == '[participants]') {
-							suffix = 'participants';
-						}
-						if(suffix != false) {
-							$('#' + o.id.replace(suffix, 'points_given')).calc('points * participants', {
-								points: $('#' + o.id.replace(suffix, 'points')).val(),
-								participants: $('#' + o.id.replace(suffix, 'participants')).val(),
-							});
-						}
-					}
+		load_javascript("applications/study_organisation/work_load_declaration.{$this->use_group}.js");
+		
+		switch($this->use_group)
+		{
+			case "work_loads":
+				$rate_inst = new study_organisation_rate();
+				
+				$rates = array();
+				foreach($arr["obj_inst"]->manager()->get_rates()->arr() as $rate)
+				{
+					$rates[$rate->id] = array(
+						"id" => $rate->id,
+						"type" => $rate->type,
+						"category" => $rate->category,
+						"applicables" => (array)$rate->applicables,
+						"publication_categories" => (array)$rate->publication_categories,
+						"thesis_categories" => (array)$rate->thesis_categories,
+						"years" => (array)$rate->years
+					);
+				}
 
-					$('input[name^=contact_learning_courses]').each(function(){
-						sum_courses_points(this);
-						$(this).keyup(function(){
-							sum_courses_points(this);
-						});
-					});
-					$('input[name^=e_learning_courses]').each(function(){
-						sum_courses_points(this);
-						$(this).keyup(function(){
-							sum_courses_points(this);
-						});
-					});
 
-					$('input[name^=publications]').keyup(function(){
-						name = this.name.substr(0, this.name.length -6);
-						$(\"input[name='\" + name.replace('years', 'total') + \"']\").val($(\"input[name^='\" + name + \"']\").sum());
-					});
-					$('input[name^=defended_thesises]').keyup(function(){
-						name = this.name.substr(0, this.name.length -6);
-						$(\"input[name='\" + name.replace('years', 'total') + \"']\").val($(\"input[name^='\" + name + \"']\").sum());
-					});
-				})();
-			});
-		";
+				$contact_learning = array("total" => 0);
+				$e_learning = array("total" => 0);
+
+				foreach(array_values($this->entry->val("contact_learning_courses")) as $course)
+				{
+					$contact_learning["total"] += aw_math_calc::string2float($course["points"]) * aw_math_calc::string2float($course["participants"]);
+				}
+				foreach(array_values($this->entry->val("e_learning_courses")) as $course)
+				{
+					$e_learning["total"] += aw_math_calc::string2float($course["points"]) * aw_math_calc::string2float($course["participants"]);
+				}
+
+				$publications = array();
+				foreach($this->entry->val("publications") as $category => $publication)
+				{
+					$publications[$category] = $publication["years"];
+				}
+
+				$thesises = array(
+					"defended" => array(),
+					"opposed" => array(),
+				);
+				foreach($this->entry->val("defended_thesises") as $category => $years)
+				{
+					$thesises["defended"][$category] = $years["years"];
+				}
+				$thesises["defended"][3] = $this->entry->val("defended_phd_thesises");
+				foreach($this->entry->val("opposed_thesises") as $category => $years)
+				{
+					$thesises["opposed"][$category] = $years["years"];
+				}
+
+				$professions = array();
+				foreach($arr["obj_inst"]->manager()->get_professions()->arr() as $profession)
+				{
+					$professions[$profession->id] = array(
+						"load" => $profession->load,
+					);
+				}
+
+				$rates = json_encode($rates);
+				$contact_learning = json_encode($contact_learning);
+				$e_learning = json_encode($e_learning);
+				$publications = json_encode($publications);
+				$thesises =  json_encode($thesises);
+				$professions = json_encode($professions);
+
+				return "
+					declaration = {
+						points: {},
+						configuration: {
+							'rates': {$rates}
+						},
+						contact_learning: {$contact_learning},
+						e_learning: {$e_learning},
+						publications: {$publications},
+						thesises: {$thesises},
+						professions: {$professions}
+					};
+				";
+		}
+
+		return "";
 	}
 
 	public function callback_post_save($arr)

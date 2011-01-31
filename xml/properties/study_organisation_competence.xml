@@ -17,6 +17,14 @@
             <field>aw_value</field>
             <caption>Punktiline v&amp;amp;auml;&amp;amp;auml;rtus</caption>
       </property>
+      <property>
+            <name>rated</name>
+            <table>aw_study_organisation_competence</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_rated</field>
+            <caption>Kuva arvestusm&amp;auml;&amp;auml;rade tabelis</caption>
+      </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>

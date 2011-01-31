@@ -1,49 +1,112 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>toolbar</name>
+            <name>professions_toolbar</name>
             <table>aw_work_load_manager</table>
-            <group>settings</group>
+            <group>professions</group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
-            <field>toolbar</field>
+            <field>professions_toolbar</field>
       </property>
       <property>
             <name>professions</name>
             <table>aw_work_load_manager</table>
-            <group>settings</group>
+            <group>professions</group>
             <type>table</type>
             <no_caption>1</no_caption>
             <store>no</store>
             <field>professions</field>
       </property>
       <property>
+            <name>competences_toolbar</name>
+            <table>aw_work_load_manager</table>
+            <group>competences</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>competences_toolbar</field>
+      </property>
+      <property>
             <name>competences</name>
             <table>aw_work_load_manager</table>
-            <group>settings</group>
+            <group>competences</group>
             <type>table</type>
             <no_caption>1</no_caption>
             <store>no</store>
             <field>competences</field>
       </property>
       <property>
+            <name>research_groups_toolbar</name>
+            <table>aw_work_load_manager</table>
+            <group>research_groups</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>research_groups_toolbar</field>
+      </property>
+      <property>
             <name>research_groups</name>
             <table>aw_work_load_manager</table>
-            <group>settings</group>
+            <group>research_groups</group>
             <type>table</type>
             <no_caption>1</no_caption>
             <store>no</store>
             <field>research_groups</field>
       </property>
       <property>
+            <name>publications_toolbar</name>
+            <table>aw_work_load_manager</table>
+            <group>publications</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>publications_toolbar</field>
+      </property>
+      <property>
             <name>publication_categories</name>
             <table>aw_work_load_manager</table>
-            <group>settings</group>
+            <group>publications</group>
             <type>table</type>
             <no_caption>1</no_caption>
             <store>no</store>
             <field>publication_categories</field>
+      </property>
+      <property>
+            <name>rates_toolbar</name>
+            <table>aw_work_load_manager</table>
+            <group>rates</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>rates_toolbar</field>
+      </property>
+      <property>
+            <name>rates</name>
+            <table>aw_work_load_manager</table>
+            <group>rates</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>rates</field>
+      </property>
+      <property>
+            <name>declarations_toolbar</name>
+            <table>aw_work_load_manager</table>
+            <group>declarations</group>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>declarations_toolbar</field>
+      </property>
+      <property>
+            <name>declarations</name>
+            <table>aw_work_load_manager</table>
+            <group>declarations</group>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>declarations</field>
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
@@ -55,6 +118,29 @@
             <settings>
                   <caption>Seaded</caption>
             </settings>
+            <professions>
+                  <caption>Ametikohad</caption>
+                  <parent>settings</parent>
+            </professions>
+            <competences>
+                  <caption>Kompetentsid</caption>
+                  <parent>settings</parent>
+            </competences>
+            <research_groups>
+                  <caption>Uurimisr&amp;uuml;hmad</caption>
+                  <parent>settings</parent>
+            </research_groups>
+            <publications>
+                  <caption>Publikatsioonid</caption>
+                  <parent>settings</parent>
+            </publications>
+            <rates>
+                  <caption>Arvestusm&amp;auml;&amp;auml;rad</caption>
+                  <parent>settings</parent>
+            </rates>
+            <declarations>
+                  <caption>T&amp;auml;idetud deklaratsioonid</caption>
+            </declarations>
       </groupinfo>
       <tableinfo>
             <aw_work_load_manager>

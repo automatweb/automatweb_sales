@@ -25,6 +25,9 @@
 	@property load type=textbox field=aw_load
 	@caption N&otilde;utav töömaht
 
+	@property rated type=checkbox field=aw_rated
+	@caption Kuva arvestusmäärade tabelis
+
 */
 
 class study_organisation_profession extends class_base
@@ -53,9 +56,17 @@ class study_organisation_profession extends class_base
 			}
 			elseif (in_array($field, array("aw_teaching", "aw_research", "aw_administrating", "aw_competence", "aw_load")))
 			{
-				$this->db_add_col("aw_study_organisation_profession", array(
+				$this->db_add_col($table, array(
 					"name" => $field,
 					"type" => "smallint unsigned"
+				));
+				$r = true;
+			}
+			elseif ("aw_rated" === $field)
+			{
+				$this->db_add_col($table, array(
+					"name" => $field,
+					"type" => "boolean"
 				));
 				$r = true;
 			}
