@@ -128,7 +128,7 @@ class work_load_declaration extends class_base
 
 	public function callback_pre_edit($arr)
 	{
-		$this->entry = $arr["obj_inst"]->get_declaration_entry_for_user();
+		$this->load_entry($arr);
 	}
 
 	public function _get_wl_name($arr)
@@ -446,7 +446,7 @@ class work_load_declaration extends class_base
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_contact_learning_courses_header($t);
-		$data = array_values($this->entry->val("contact_learning_courses"));
+		$data = is_array($this->entry->val("contact_learning_courses")) ? array_values($this->entry->val("contact_learning_courses")) : array();
 
 		for($i = 0; $i < count($data) + 4; $i++)
 		{
@@ -526,7 +526,7 @@ class work_load_declaration extends class_base
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_e_learning_courses_header($t);
-		$data = array_values($this->entry->val("e_learning_courses"));
+		$data = is_array($this->entry->val("e_learning_courses")) ? array_values($this->entry->val("e_learning_courses")) : array();
 
 		for($i = 0; $i < count($data) + 4; $i++)
 		{
@@ -935,7 +935,7 @@ class work_load_declaration extends class_base
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_premiums_header($t);
 
-		$premiums = $this->entry->val("premiums");
+		$premiums = is_array($this->entry->val("premiums")) ? $this->entry->val("premiums") : array();
 
 		$i = 0;
 		foreach($premiums as $id => $premium)
@@ -993,33 +993,48 @@ class work_load_declaration extends class_base
 				$contact_learning = array("total" => 0);
 				$e_learning = array("total" => 0);
 
-				foreach(array_values($this->entry->val("contact_learning_courses")) as $course)
+				if(is_array($this->entry->val("contact_learning_courses")))
 				{
-					$contact_learning["total"] += aw_math_calc::string2float($course["points"]) * aw_math_calc::string2float($course["participants"]);
+					foreach(array_values($this->entry->val("contact_learning_courses")) as $course)
+					{
+						$contact_learning["total"] += aw_math_calc::string2float($course["points"]) * aw_math_calc::string2float($course["participants"]);
+					}
 				}
-				foreach(array_values($this->entry->val("e_learning_courses")) as $course)
+				if(is_array($this->entry->val("e_learning_courses")))
 				{
-					$e_learning["total"] += aw_math_calc::string2float($course["points"]) * aw_math_calc::string2float($course["participants"]);
+					foreach(array_values($this->entry->val("e_learning_courses")) as $course)
+					{
+						$e_learning["total"] += aw_math_calc::string2float($course["points"]) * aw_math_calc::string2float($course["participants"]);
+					}
 				}
 
 				$publications = array();
-				foreach($this->entry->val("publications") as $category => $publication)
+				if(is_array($this->entry->val("publications")))
 				{
-					$publications[$category] = $publication["years"];
+					foreach($this->entry->val("publications") as $category => $publication)
+					{
+						$publications[$category] = $publication["years"];
+					}
 				}
 
 				$thesises = array(
 					"defended" => array(),
 					"opposed" => array(),
 				);
-				foreach($this->entry->val("defended_thesises") as $category => $years)
+				if(is_array($this->entry->val("defended_thesises")))
 				{
-					$thesises["defended"][$category] = $years["years"];
+					foreach($this->entry->val("defended_thesises") as $category => $years)
+					{
+						$thesises["defended"][$category] = $years["years"];
+					}
 				}
 				$thesises["defended"][3] = $this->entry->val("defended_phd_thesises");
-				foreach($this->entry->val("opposed_thesises") as $category => $years)
+				if(is_array($this->entry->val("opposed_thesises")))
 				{
-					$thesises["opposed"][$category] = $years["years"];
+					foreach($this->entry->val("opposed_thesises") as $category => $years)
+					{
+						$thesises["opposed"][$category] = $years["years"];
+					}
 				}
 
 				$professions = array();
@@ -1057,12 +1072,35 @@ class work_load_declaration extends class_base
 
 	public function callback_post_save($arr)
 	{
-		$o = $arr["obj_inst"]->get_declaration_entry_for_user();
+		$this->load_entry($arr);
 		foreach($arr["request"] as $k => $v)
 		{
-			$o->set_meta($k, $v);
+			$this->entry->set_meta($k, $v);
 		}
-		$o->save();
+		$entry_id = $this->entry->save();
+	}
+
+	public function callback_mod_tab($arr)
+	{
+		if(automatweb::$request->arg_isset("entry_id"))
+		{
+			$url = new aw_uri($arr["link"]);
+			$url->set_arg("entry_id", automatweb::$request->arg("entry_id"));
+			$arr["link"] = $url->get();
+		}
+	}
+
+	public function callback_mod_reforb(&$arr)
+	{
+		if(automatweb::$request->arg_isset("entry_id"))
+		{
+			$arr["entry_id"] = automatweb::$request->arg("entry_id");
+		}
+	}
+
+	public function callback_mod_retval(&$arr)
+	{
+		$arr["args"]["entry_id"] = $this->entry->id;
 	}
 
 	public function do_db_upgrade($table, $field, $query, $error)
@@ -1090,5 +1128,17 @@ class work_load_declaration extends class_base
 		}
 
 		return $r;
+	}
+
+	private function load_entry($arr)
+	{
+		if(automatweb::$request->arg_isset("entry_id"))
+		{
+			$this->entry = $arr["obj_inst"]->get_declaration_entry_by_id(automatweb::$request->arg("entry_id"));
+		}
+		else
+		{
+			$this->entry = $arr["obj_inst"]->get_declaration_entry_for_user();
+		}
 	}
 }

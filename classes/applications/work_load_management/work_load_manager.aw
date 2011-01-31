@@ -44,7 +44,7 @@
 
 		@property rates type=table no_caption=1 store=no
 
-@groupinfo declarations caption="Täidetud deklaratsioonid"
+@groupinfo declarations caption="Deklaratsioonid"
 @default group=declarations
 
 	@property declarations_toolbar type=toolbar no_caption=1 store=no
@@ -66,6 +66,16 @@ class work_load_manager extends class_base
 	public function _get_declarations_toolbar($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
+		$ol = new object_list(array(
+			"class_id" => CL_WORK_LOAD_DECLARATION,
+			"manager" => $arr["obj_inst"]->id,
+		));
+		$t->add_button(array(
+			"name" => "new",
+			"caption" => t("Sisesta uus deklaratsioon"),
+			"img" => "new.gif",
+			"url" => html::get_change_url($ol->begin(), array("entry_id" => "new", "group" => "work_loads")),
+		));
 		$t->add_delete_button();
 	}
 
@@ -435,15 +445,24 @@ class work_load_manager extends class_base
 	{
 		$t = $arr["prop"]["vcl_inst"];
 
+		$t->define_chooser();
 		$t->add_fields(array(
 			"name" => t("Nimi")
 		));
 
 		$entries = $arr["obj_inst"]->get_entries();
+		
+		$ol = new object_list(array(
+			"class_id" => CL_WORK_LOAD_DECLARATION,
+			"manager" => $arr["obj_inst"]->id,
+		));
+		$declaration = $ol->begin();
+
 		foreach($entries->arr() as $entry)
 		{
 			$t->define_data(array(
-				"name" => $entry->val("name"),
+				"oid" => $entry->id,
+				"name" => html::obj_change_url($declaration, $entry->val("name"), array("entry_id" => $entry->id, "group" => "work_loads")),
 			));
 		}
 	}
