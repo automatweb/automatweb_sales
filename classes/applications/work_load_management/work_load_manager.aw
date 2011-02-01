@@ -73,6 +73,16 @@
 		
 		@layout declarations_right type=vbox parent=declarations_split
 
+			@layout declarations_charts type=hbox width=50%:50% parent=declarations_right
+
+				@layout declarations_chart_professions type=vbox area_caption=Ametikohtade&nbsp;osakaalud parent=declarations_charts
+					
+					@property chart_professions type=google_chart parent=declarations_chart_professions no_caption=1 store=no
+
+				@layout declarations_chart_competences type=vbox area_caption=Kompetentside&nbsp;jaotus parent=declarations_charts
+					
+					@property chart_competences type=google_chart parent=declarations_chart_competences no_caption=1 store=no
+
 			@property declarations type=table no_caption=1 store=no parent=declarations_right
 
 */
@@ -148,6 +158,104 @@ class work_load_manager extends class_base
 		}
 
 		return PROP_OK;
+	}
+
+	public function _get_chart_professions($arr)
+	{
+		$c = $arr["prop"]["vcl_inst"];
+		$c->set_type(GCHART_PIE_3D);
+		$c->set_size(array(
+			"width" => 400,
+			"height" => 100,
+		));
+		$c->add_fill(array(
+			"area" => GCHART_FILL_BACKGROUND,
+			"type" => GCHART_FILL_SOLID,
+			"colors" => array(
+				"color" => "e9e9e9",
+			),
+		));
+		$data = array();
+		$labels = array();
+		foreach($arr["obj_inst"]->get_entries()->arr() as $entry)
+		{
+			if(!is_array($entry->val("professions")) or !$this->declaration_filter($entry))
+			{
+				continue;
+			}
+
+			foreach($entry->val("professions") as $id => $profession)
+			{
+				if(!empty($profession["active"]))
+				{
+					if(!isset($data[$id]))
+					{
+						$data[$id] = $profession["load"];
+						$labels[$id] = obj($id)->name();
+					}
+					else
+					{
+						$data[$id] += $profession["load"];
+					}
+				}
+			}
+		}
+		$c->add_data($data);
+		$c->set_labels($labels);
+		$c->set_title(array(
+			"text" => t("Ametikohtade osakaalud kogukoormuste kaupa"),
+			"color" => "666666",
+			"size" => 11,
+		));
+	}
+
+	public function _get_chart_competences($arr)
+	{
+		$c = $arr["prop"]["vcl_inst"];
+		$c->set_type(GCHART_PIE);
+		$c->set_size(array(
+			"width" => 400,
+			"height" => 100,
+		));
+		$c->add_fill(array(
+			"area" => GCHART_FILL_BACKGROUND,
+			"type" => GCHART_FILL_SOLID,
+			"colors" => array(
+				"color" => "e9e9e9",
+			),
+		));
+		$data = array();
+		$labels = array();
+		foreach($arr["obj_inst"]->get_entries()->arr() as $entry)
+		{
+			if(!is_array($entry->val("competences")) or !$this->declaration_filter($entry))
+			{
+				continue;
+			}
+
+			foreach($entry->val("competences") as $id => $competence)
+			{
+				if(!empty($competence["active"]))
+				{
+					if(!isset($data[$id]))
+					{
+						$data[$id] = 1;
+						$labels[$id] = obj($id)->name();
+					}
+					else
+					{
+						$data[$id]++;
+					}
+				}
+			}
+		}
+		$c->add_data($data);
+		$c->set_labels($labels);
+		$c->set_title(array(
+			"text" => t("Akadeemiliste kompetentside osakaalud deklaratsioonides"),
+			"color" => "666666",
+			"size" => 11,
+		));
 	}
 
 	public function _get_declarations_toolbar($arr)
