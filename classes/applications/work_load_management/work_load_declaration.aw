@@ -373,6 +373,7 @@ class work_load_declaration extends class_base
 			$t->define_field(array(
 				"name" => "applicable_{$applicable->id}",
 				"caption" => $applicable->name,
+				"align" => "right",
 				"parent" => $applicable->is_a(CL_STUDY_ORGANISATION_PROFESSION) ? "profession" : "competence"
 			));
 		}
