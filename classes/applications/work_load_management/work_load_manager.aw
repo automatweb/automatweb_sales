@@ -377,9 +377,13 @@ class work_load_manager extends class_base
 
 	public function professions_checkbox($row)
 	{
-		return html::checkbox(array(
+		return html::hidden(array(
 			"name" => "professions[{$row["oid"]}][{$row["_this_cell"]}]",
-			"checked" => $row[$row["_this_cell"]]
+			"value" => $row[$row["_this_cell"]] ? 1 : 0,
+		)).html::checkbox(array(
+			"name" => "dummy",
+			"checked" => $row[$row["_this_cell"]],
+			"onclick" => "if($(this).is(':checked')){ $('#professions_{$row["oid"]}__{$row["_this_cell"]}_').val(1); }else{ $('#professions_{$row["oid"]}__{$row["_this_cell"]}_').val(0); }",
 		));
 	}
 
@@ -438,9 +442,13 @@ class work_load_manager extends class_base
 
 	public function competences_checkbox($row)
 	{
-		return html::checkbox(array(
+		return html::hidden(array(
 			"name" => "competences[{$row["oid"]}][{$row["_this_cell"]}]",
-			"checked" => $row[$row["_this_cell"]]
+			"value" => $row[$row["_this_cell"]] ? 1 : 0,
+		)).html::checkbox(array(
+			"name" => "dummy",
+			"checked" => $row[$row["_this_cell"]],
+			"onclick" => "if($(this).is(':checked')){ $('#competences_{$row["oid"]}__{$row["_this_cell"]}_').val(1); }else{ $('#competences_{$row["oid"]}__{$row["_this_cell"]}_').val(0); }",
 		));
 	}
 
