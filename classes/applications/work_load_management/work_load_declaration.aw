@@ -348,11 +348,32 @@ class work_load_declaration extends class_base
 		
 		$applicables = $arr["obj_inst"]->manager()->get_rate_applicables();
 
-		foreach($applicables->names() as $oid => $name)
+		foreach($applicables->arr() as $applicable)
+		{
+			if(empty($defined["profession"]) && $applicable->is_a(CL_STUDY_ORGANISATION_PROFESSION))
+			{
+				$t->define_field(array(
+					"name" => "profession",
+					"caption" => t("Ametikohad")
+				));
+				$defined["profession"] = true;
+			}
+			elseif(empty($defined["competence"]))
+			{
+				$t->define_field(array(
+					"name" => "competence",
+					"caption" => t("Kompetentsid")
+				));
+				$defined["competence"] = true;
+			}
+		}
+
+		foreach($applicables->arr() as $applicable)
 		{
 			$t->define_field(array(
-				"name" => "applicable_$oid",
-				"caption" => $name
+				"name" => "applicable_{$applicable->id}",
+				"caption" => $applicable->name,
+				"parent" => $applicable->is_a(CL_STUDY_ORGANISATION_PROFESSION) ? "profession" : "competence"
 			));
 		}
 	}
