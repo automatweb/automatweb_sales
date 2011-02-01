@@ -100,12 +100,67 @@
             <field>declarations_toolbar</field>
       </property>
       <property>
+            <name>declarations_filter</name>
+            <table>aw_work_load_manager</table>
+            <group>declarations</group>
+            <type>treeview</type>
+            <parent>declarations_filter</parent>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>declarations_filter</field>
+      </property>
+      <property>
+            <name>decs_name</name>
+            <table>aw_work_load_manager</table>
+            <group>declarations</group>
+            <type>textbox</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>declarations_search</parent>
+            <field>decs_name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>decs_profession</name>
+            <table>aw_work_load_manager</table>
+            <group>declarations</group>
+            <type>textbox</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>declarations_search</parent>
+            <field>decs_profession</field>
+            <caption>Ametikoht</caption>
+      </property>
+      <property>
+            <name>decs_unit</name>
+            <table>aw_work_load_manager</table>
+            <group>declarations</group>
+            <type>textbox</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>declarations_search</parent>
+            <field>decs_unit</field>
+            <caption>&amp;Uuml;ksus</caption>
+      </property>
+      <property>
+            <name>decs_submit</name>
+            <table>aw_work_load_manager</table>
+            <group>declarations</group>
+            <type>submit</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>declarations_search</parent>
+            <field>decs_submit</field>
+            <caption>Otsi</caption>
+      </property>
+      <property>
             <name>declarations</name>
             <table>aw_work_load_manager</table>
             <group>declarations</group>
             <type>table</type>
             <no_caption>1</no_caption>
             <store>no</store>
+            <parent>declarations_right</parent>
             <field>declarations</field>
       </property>
       <classinfo>
@@ -140,6 +195,8 @@
             </rates>
             <declarations>
                   <caption>Deklaratsioonid</caption>
+                  <submit>no</submit>
+                  <submit_method>get</submit_method>
             </declarations>
       </groupinfo>
       <tableinfo>
@@ -149,5 +206,37 @@
                   <index>aw_oid</index>
             </aw_work_load_manager>
       </tableinfo>
+      <layout>
+            <declarations_split>
+                  <type>hbox</type>
+                  <width>25%:75%</width>
+                  <group>declarations</group>
+                  <area_caption></area_caption>
+            </declarations_split>
+            <declarations_left>
+                  <type>vbox</type>
+                  <parent>declarations_split</parent>
+                  <group>declarations</group>
+                  <area_caption></area_caption>
+            </declarations_left>
+            <declarations_filter>
+                  <type>vbox</type>
+                  <parent>declarations_left</parent>
+                  <area_caption>Deklaratsioonide&amp;amp;nbsp;filter</area_caption>
+                  <group>declarations</group>
+            </declarations_filter>
+            <declarations_search>
+                  <type>vbox</type>
+                  <parent>declarations_left</parent>
+                  <area_caption>Deklaratsioonide&amp;amp;nbsp;otsing</area_caption>
+                  <group>declarations</group>
+            </declarations_search>
+            <declarations_right>
+                  <type>vbox</type>
+                  <parent>declarations_split</parent>
+                  <group>declarations</group>
+                  <area_caption></area_caption>
+            </declarations_right>
+      </layout>
 </properties>
 

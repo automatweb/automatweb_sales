@@ -44,12 +44,36 @@
 
 		@property rates type=table no_caption=1 store=no
 
-@groupinfo declarations caption="Deklaratsioonid"
+@groupinfo declarations caption="Deklaratsioonid" submit=no submit_method=get
 @default group=declarations
 
 	@property declarations_toolbar type=toolbar no_caption=1 store=no
 
-	@property declarations type=table no_caption=1 store=no
+	@layout declarations_split type=hbox width=25%:75%
+
+		@layout declarations_left type=vbox parent=declarations_split
+
+			@layout declarations_filter type=vbox parent=declarations_left area_caption=Deklaratsioonide&nbsp;filter
+
+				@property declarations_filter type=treeview parent=declarations_filter store=no no_caption=1
+
+			@layout declarations_search type=vbox parent=declarations_left area_caption=Deklaratsioonide&nbsp;otsing
+
+				@property decs_name type=textbox store=no captionside=top parent=declarations_search
+				@caption Nimi
+
+				@property decs_profession type=textbox store=no captionside=top parent=declarations_search
+				@caption Ametikoht
+
+				@property decs_unit type=textbox store=no captionside=top parent=declarations_search
+				@caption Üksus
+
+				@property decs_submit type=submit store=no no_caption=1 parent=declarations_search
+				@caption Otsi
+		
+		@layout declarations_right type=vbox parent=declarations_split
+
+			@property declarations type=table no_caption=1 store=no parent=declarations_right
 
 */
 
@@ -61,6 +85,69 @@ class work_load_manager extends class_base
 			"tpldir" => "applications/work_load_management/work_load_manager",
 			"clid" => CL_WORK_LOAD_MANAGER
 		));
+	}
+
+	public function _get_decs_name($arr)
+	{
+		if(automatweb::$request->arg_isset("decs_name"))
+		{
+			$arr["prop"]["value"] = automatweb::$request->arg("decs_name");
+		}
+		return PROP_OK;
+	}
+
+	public function _get_decs_profession($arr)
+	{
+		if(automatweb::$request->arg_isset("decs_profession"))
+		{
+			$arr["prop"]["value"] = automatweb::$request->arg("decs_profession");
+		}
+		return PROP_OK;
+	}
+
+	public function _get_decs_unit($arr)
+	{
+		if(automatweb::$request->arg_isset("decs_unit"))
+		{
+			$arr["prop"]["value"] = automatweb::$request->arg("decs_unit");
+		}
+		return PROP_OK;
+	}
+
+	public function _get_declarations_filter($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$url = new aw_uri(get_ru());
+		$url->unset_arg("decf_competence");
+		
+		$t->add_item (0, array (
+			"name" => t("Kõik kompetentsid"),
+			"id" => "competences",
+			"parent" => 0,
+			"url" => $url->get()
+		));
+		foreach($arr["obj_inst"]->get_competences()->names() as $id => $name)
+		{
+			$url->set_arg("decf_competence", $id);
+			$t->add_item ("competences", array(
+				"name" => $name,
+				"id" => "competence_".$id,
+				"parent" => 0,
+				"url" => $url->get()
+			));
+		}
+
+		if(automatweb::$request->arg_isset("decf_competence"))
+		{
+			$t->set_selected_item("competence_".automatweb::$request->arg("decf_competence"));
+		}
+		else
+		{
+			$t->set_selected_item("competences");
+		}
+
+		return PROP_OK;
 	}
 
 	public function _get_declarations_toolbar($arr)
@@ -465,6 +552,11 @@ class work_load_manager extends class_base
 
 		foreach($entries->arr() as $entry)
 		{
+			if(!$this->declaration_filter($entry))
+			{
+				continue;
+			}
+
 			$competences = array();
 			if(is_array($entry->val("competences")))
 			{
@@ -485,6 +577,28 @@ class work_load_manager extends class_base
 				"competences" => implode(", ", $competences),
 			));
 		}
+	}
+
+	private function declaration_filter($entry)
+	{
+		if(strlen(automatweb::$request->arg_isset("decs_name")) > 0 && !stristr($entry->val("name"), automatweb::$request->arg("decs_name")))
+		{
+			return false;
+		}
+		if(strlen(automatweb::$request->arg("decs_profession")) > 0 && !stristr($entry->val("profession"), automatweb::$request->arg("decs_profession")))
+		{
+			return false;
+		}
+		if(strlen(automatweb::$request->arg("decs_unit")) > 0 && !stristr($entry->val("unit"), automatweb::$request->arg("decs_unit")))
+		{
+			return false;
+		}
+		if(automatweb::$request->arg_isset("decf_competence") > 0 && (!is_array($entry->val("competences")) || !in_array(automatweb::$request->arg("decf_competence"), array_keys($entry->val("competences")))))
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	public function callback_post_save($arr)
