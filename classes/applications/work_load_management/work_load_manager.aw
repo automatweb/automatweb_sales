@@ -570,9 +570,15 @@ class work_load_manager extends class_base
 
 		$applicables = $arr["obj_inst"]->get_rate_applicables();
 		$defined = array();
+
 		foreach($applicables->arr() as $applicable)
 		{
-			if(empty($defined["profession"]) && $applicable->is_a(CL_STUDY_ORGANISATION_PROFESSION))
+			if(!$applicable->is_a(CL_STUDY_ORGANISATION_PROFESSION))
+			{
+				continue;
+			}
+
+			if(empty($defined["profession"]))
 			{
 				$t->define_field(array(
 					"name" => "profession",
@@ -580,22 +586,32 @@ class work_load_manager extends class_base
 				));
 				$defined["profession"] = true;
 			}
-			elseif(empty($defined["competence"]))
-			{
-				$t->define_field(array(
-					"name" => "competence",
-					"caption" => t("Kompetentsid")
-				));
-				$defined["competence"] = true;
-			}
+			$t->define_field(array(
+				"name" => "applicable_{$applicable->id}",
+				"caption" => $applicable->name,
+				"parent" => "profession"
+			));
 		}
 
 		foreach($applicables->arr() as $applicable)
 		{
+			if($applicable->is_a(CL_STUDY_ORGANISATION_PROFESSION))
+			{
+				continue;
+			}
+
+			if(empty($defined["competence"]))
+			{
+				$t->define_field(array(
+					"name" => "competence",
+					"caption" => t("Akadeemilised kompetentsid")
+				));
+				$defined["competence"] = true;
+			}
 			$t->define_field(array(
 				"name" => "applicable_{$applicable->id}",
 				"caption" => $applicable->name,
-				"parent" => $applicable->is_a(CL_STUDY_ORGANISATION_PROFESSION) ? "profession" : "competence"
+				"parent" => "competence"
 			));
 		}
 
