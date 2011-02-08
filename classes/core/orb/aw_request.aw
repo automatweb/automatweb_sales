@@ -355,10 +355,6 @@ class aw_request
 		if (!empty($this->_args["class"]))
 		{
 			$this->_class = $this->_args["class"];
-			if (!class_exists($this->_class))
-			{
-				throw new awex_request_na("Requested class doesn't exist.");
-			}
 		}
 
 		if (aw_ini_isset("class_lut.{$this->_class}"))

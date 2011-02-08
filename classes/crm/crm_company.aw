@@ -152,7 +152,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 	@property insurance_title type=text subtitle=1
 	@caption Kindlustus
 
-	@property insurance_expires type=date_select table=objects field=meta method=serialize default=-1
+	@property insurance_expires type=datepicker time=0 table=objects field=meta method=serialize default=-1
 	@caption Kindlustus aegub
 
 	@property insurance_status type=text store=no
@@ -167,7 +167,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 	@property tax_clearance_title type=text subtitle=1
 	@caption Maksuinfo
 
-	@property tax_clearance_expires type=date_select table=objects field=meta method=serialize default=-1
+	@property tax_clearance_expires type=datepicker time=0 table=objects field=meta method=serialize default=-1
 	@caption Maksuv&otilde;la puudumise t&otilde;end aegub
 
 	@property tax_clearance_status type=text store=no
@@ -536,18 +536,18 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 				@layout all_proj_search_b_dl type=vbox parent=all_proj_search_b
 
-					@property all_proj_search_dl_from type=date_select store=no parent=all_proj_search_b_dl  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property all_proj_search_dl_from type=datepicker time=0 store=no parent=all_proj_search_b_dl  captionside=top
 					@caption T&auml;htaeg alates
 
-					@property all_proj_search_dl_to type=date_select store=no parent=all_proj_search_b_dl  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property all_proj_search_dl_to type=datepicker time=0 store=no parent=all_proj_search_b_dl  captionside=top
 					@caption T&auml;htaeg kuni
 
 				@layout all_proj_search_b_end type=vbox parent=all_proj_search_b
 
-					@property all_proj_search_end_from type=date_select store=no parent=all_proj_search_b_end  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property all_proj_search_end_from type=datepicker time=0 store=no parent=all_proj_search_b_end  captionside=top
 					@caption L&otilde;pp alates
 
-					@property all_proj_search_end_to type=date_select store=no parent=all_proj_search_b_end  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property all_proj_search_end_to type=datepicker time=0 store=no parent=all_proj_search_b_end  captionside=top
 					@caption L&otilde;pp kuni
 
 
@@ -602,10 +602,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 				@layout my_proj_search_b_dl type=vbox parent=my_proj_search_b
 
-					@property proj_search_dl_from type=date_select store=no parent=my_proj_search_b_dl  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property proj_search_dl_from type=datepicker time=0 store=no parent=my_proj_search_b_dl  captionside=top
 					@caption T&auml;htaeg alates
 
-					@property proj_search_dl_to type=date_select store=no parent=my_proj_search_b_dl  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property proj_search_dl_to type=datepicker time=0 store=no parent=my_proj_search_b_dl  captionside=top
 					@caption T&auml;htaeg kuni
 
 
@@ -662,7 +662,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 					@property docs_s_customer type=textbox size=30 store=no captionside=top parent=docs_s_f
 					@caption Klient
 
-					@property docs_s_created_after type=date_select store=no captionside=top parent=docs_s_f
+					@property docs_s_created_after type=datepicker time=0 store=no captionside=top parent=docs_s_f
 					@caption Loodud peale
 
 				@layout docs_s_but_row type=hbox parent=docs_left_search
@@ -714,10 +714,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 		@layout billable_search type=vbox parent=billable closeable=1 area_caption=Arvele&nbsp;minevate&nbsp;ridade&nbsp;Otsing
 
-			@property billable_start type=date_select store=no default=-1 parent=billable_search
+			@property billable_start type=datepicker time=0 store=no default=-1 parent=billable_search
 			@caption Alates
 
-			@property billable_end type=date_select store=no default=-1 parent=billable_search
+			@property billable_end type=datepicker time=0 store=no default=-1 parent=billable_search
 			@caption Kuni
 
 			@property billable_search_button type=submit store=no parent=billable_search captionside=top no_caption=1
@@ -755,10 +755,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property bill_payments_bill_to type=textbox size=15 store=no parent=bills_payments_s captionside=top
 			@caption Arve nr kuni
 
-			@property bill_payments_from type=date_select store=no parent=bills_payments_s captionside=top format=day_textbox,month_textbox,year_textbox
+			@property bill_payments_from type=datepicker time=0 store=no parent=bills_payments_s captionside=top
 			@caption Laekunud alates
 
-			@property bill_payments_to type=date_select store=no parent=bills_payments_s captionside=top format=day_textbox,month_textbox,year_textbox
+			@property bill_payments_to type=datepicker time=0 store=no parent=bills_payments_s captionside=top
 			@caption Laekunud kuni
 
 			@property bill_payments_client_mgr type=text store=no parent=bills_payments_s captionside=top
@@ -812,10 +812,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property bill_s_bill_to type=textbox size=15 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Arve nr kuni
 
-			@property bill_s_from type=date_select store=no parent=bills_list_s captionside=top group=bills_list format=day_textbox,month_textbox,year_textbox
+			@property bill_s_from type=datepicker time=0 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Esitatud alates
 
-			@property bill_s_to type=date_select store=no parent=bills_list_s captionside=top group=bills_list format=day_textbox,month_textbox,year_textbox
+			@property bill_s_to type=datepicker time=0 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Esitatud kuni
 
 			@property bill_s_client_mgr type=text store=no parent=bills_list_s captionside=top group=bills_list
@@ -911,10 +911,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property act_s_proj_name type=textbox size=18 parent=act_s_dl_layout_top store=no captionside=top group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
 			@caption Projekti nimi
 
-			@property act_s_dl_from type=date_select store=no parent=act_s_dl_layout_top captionside=top format=day_textbox,month_textbox,year_textbox group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
+			@property act_s_dl_from type=datepicker time=0 store=no parent=act_s_dl_layout_top captionside=top group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
 			@caption T&auml;htaeg alates
 
-			@property act_s_dl_to type=date_select store=no parent=act_s_dl_layout_top captionside=top format=day_textbox,month_textbox,year_textbox group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
+			@property act_s_dl_to type=datepicker time=0 store=no parent=act_s_dl_layout_top captionside=top group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
 			@caption T&auml;htaeg kuni
 
 			@property act_s_status type=chooser parent=act_s_dl_layout_top store=no captionside=top
@@ -972,10 +972,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 				@property stats_stats_time_sel type=select store=no parent=stats_list_s captionside=top
 				@caption Ajavahemik
 
-				@property stats_stats_from type=date_select store=no parent=stats_list_s captionside=top format=day_textbox,month_textbox,year_textbox
+				@property stats_stats_from type=datepicker time=0 store=no parent=stats_list_s captionside=top
 				@caption Alates
 
-				@property stats_stats_to type=date_select store=no parent=stats_list_s captionside=top format=day_textbox,month_textbox,year_textbox
+				@property stats_stats_to type=datepicker time=0 store=no parent=stats_list_s captionside=top
 				@caption Kuni
 
 				@property stats_stats_search type=submit store=no parent=stats_list_s captionside=top no_caption=1
@@ -1013,10 +1013,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 	@property project_mgr type=select store=no
 	@caption Projektijuht
 
-	@property stats_s_from type=date_select store=no format=day_textbox,month_textbox,year_textbox
+	@property stats_s_from type=datepicker time=0 store=no
 	@caption Alates
 
-	@property stats_s_to type=date_select store=no format=day_textbox,month_textbox,year_textbox
+	@property stats_s_to type=datepicker time=0 store=no
 	@caption Kuni
 
 	@property stats_s_time_sel type=select store=no
@@ -1063,10 +1063,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 	@property my_stats_tb type=toolbar no_caption=1 store=no
 
-	@property my_stats_s_from type=date_select store=no
+	@property my_stats_s_from type=datepicker time=0 store=no
 	@caption Alates
 
-	@property my_stats_s_to type=date_select store=no
+	@property my_stats_s_to type=datepicker time=0 store=no
 	@caption Kuni
 
 	@property my_stats_s_time_sel type=select store=no
@@ -2307,7 +2307,7 @@ class crm_company extends class_base
 				break;
 
 			case "activity_keywords":
-				$data["value"] = trim($data["value"]) ? substr($data["value"], 1) : "";
+				$data["value"] = isset($data["value"]) && trim($data["value"]) ? substr($data["value"], 1) : "";
 				break;
 
 			/// CUSTOMER tab
@@ -4561,21 +4561,34 @@ class crm_company extends class_base
 		@attrib name=add_customer_category
 
 		@param id required type=oid
-		@param parent optional type=oid
+		@param c optional type=oid
+			Parent category
+		@param t optional type=oid
+			Category type (one of crm_category_obj::TYPE_...)
 		@param save_autoreturn optional type=bool
 		@param return_url optional type=string
 	**/
 	public function add_customer_category($arr)
 	{
-		$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
-		$parent_category = empty($arr["parent"]) ? null : obj($arr["parent"], array(), CL_CRM_CATEGORY);
-		$category = $this_o->add_customer_category($parent_category);
+		try
+		{
+			$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+			$parent_category = empty($arr["c"]) ? null : obj($arr["c"], array(), CL_CRM_CATEGORY);
+			$type = empty($arr["t"]) ? crm_category_obj::TYPE_GENERIC : (int) $arr["t"];
+			$category = $this_o->add_customer_category($parent_category, $type);
 
-		$params = array();
-		if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
-		if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
+			$params = array();
+			if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
+			if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
+			$r = html::get_change_url($category->id(), $params);
+		}
+		catch (Exception $e)
+		{//TODO: distinguish different exceptions
+			$this->show_error_text(t("Viga. Kategooriat ei lisatud"));
+			$r = $arr["return_url"];
+		}
 
-		return html::get_change_url($category->id(), $params);
+		return $r;
 	}
 
 	/**
@@ -8769,9 +8782,9 @@ Bank accounts: yksteise all
 		$tb = $arr["prop"]["toolbar"];
 
 		$company = get_current_company();
-		$parent = (strlen($arr['request']['tf'])>1)?$arr['request']['tf']:$company->id();
+		$parent = (isset($arr['request']['tf']) && strlen($arr['request']['tf'])>1)?$arr['request']['tf']:$company->id();
 		$params = array();
-		if($arr["request"]["category"])
+		if(!empty($arr["request"]["category"]))
 		{
 			$params["category"] =  $arr["request"]["category"];
 		}
@@ -8779,8 +8792,8 @@ Bank accounts: yksteise all
 		{
 			$params["category"] =  0;
 		}
-		$tb->add_new_button(array(CL_CRM_COMPANY_STATUS), $parent, '', $params);
 
+		$tb->add_new_button(array(CL_CRM_COMPANY_STATUS), $parent, '', $params);
 		$tb->add_delete_button();
 
 		$company2 = obj($arr["request"]["id"]);
@@ -8917,6 +8930,8 @@ Bank accounts: yksteise all
 			"seller" => $company->id(),
 			"class_id" => array(CL_CRM_COMPANY_CUSTOMER_DATA)
 		));
+
+		$conn = array();
 		foreach($customer_data->list as $cd)
 		{
 			$cd = obj($cd);
@@ -8924,6 +8939,7 @@ Bank accounts: yksteise all
 				"type" => RELTYPE_STATUS
 			));
 		}
+
 		foreach($conn as $c)
 		{
 			$status = obj($c->conn["to"]);
@@ -8941,7 +8957,7 @@ Bank accounts: yksteise all
 		$st = get_instance(CL_CRM_COMPANY_STATUS);
 		$categories = $st->categories(0);
 
-		if(!$arr["request"]["tf"])
+		if(empty($arr["request"]["tf"]))
 		{
 			$t->define_field(array(
 				"caption" => t("Nimi"),
@@ -9238,7 +9254,7 @@ Bank accounts: yksteise all
 			"limit" => 1
 		));
 		$crm_settings = $ol->begin();
-		if($this->can("add", $crm_settings->comment_menu))
+		if($crm_settings and $this->can("add", $crm_settings->comment_menu))
 		{
 			$parent = $crm_settings->comment_menu;
 		}

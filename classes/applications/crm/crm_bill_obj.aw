@@ -2125,7 +2125,7 @@ class crm_bill_obj extends _int_object
 		$ret[]= reset($names);
 		$ret[]= $p->get_phone();
 		$ret[]= $p->get_mail();
-		return join("<br />\n" , $ret);
+		return join("\n" , $ret);
 	}
 
 	public function get_mail_from()
@@ -2504,6 +2504,7 @@ class crm_bill_obj extends _int_object
 			throws awex_crm_bill_email if an invalid e-mail address given. awex_crm_bill_email::$email empty if no recipients or the faulty email address if encountered
 			throws awex_crm_bill_send if sending e-mail fails
 			throws awex_crm_bill_file if file attachment fails
+		@qc date=20110127 standard=aw3
 	**/
 	public function send_by_mail($to, $subject, $body, $cc = array(), $bcc = array(), $appendix = false, $reminder = false, $from = "", $from_name = "")
 	{
@@ -3296,7 +3297,8 @@ class crm_bill_obj extends _int_object
 				);
 			}
 		}
-		if($arr["dno"] == "new")
+
+		if($arr["dno"] === "new")
 		{
 			$dno = $o->create_dn(sprintf(t("%s saateleht #%s"), $this->name(), count($this->connections_from(array(
 				"type" => "RELTYPE_DELIVERY_NOTE"
@@ -3326,6 +3328,7 @@ class crm_bill_obj extends _int_object
 				$o->create_dn_row($row);
 			}
 		}
+
 		foreach($arr["sel_rows"] as $tmp => $oid)
 		{
 			$row = obj($oid);

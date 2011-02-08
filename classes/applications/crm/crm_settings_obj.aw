@@ -16,7 +16,7 @@ class crm_settings_obj extends _int_object
 	{
 		if (false === self::$instance_cache)
 		{
-			$u = get_instance(CL_USER);
+			$u = new user();
 			$curp = $u->get_current_person();
 			$curco = $u->get_current_company();
 			$cd = new crm_data();

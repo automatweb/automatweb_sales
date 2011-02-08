@@ -75,7 +75,8 @@
             <name>bill_date</name>
             <table>aw_crm_bill</table>
             <group>general</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>aw_date</field>
             <parent>top_left</parent>
             <caption>Kuup&amp;amp;auml;ev</caption>
@@ -84,7 +85,8 @@
             <name>bill_accounting_date</name>
             <table>aw_crm_bill</table>
             <group>general</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>aw_bill_accounting_date</field>
             <parent>top_left</parent>
             <caption>Raamatupidamise kuup&amp;amp;auml;ev</caption>
@@ -103,7 +105,8 @@
             <name>bill_due_date</name>
             <table>aw_crm_bill</table>
             <group>general</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>aw_due_date</field>
             <parent>top_left</parent>
             <caption>Tasumise kuup&amp;amp;auml;ev</caption>
@@ -112,7 +115,8 @@
             <name>bill_recieved</name>
             <table>aw_crm_bill</table>
             <group>general</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>aw_recieved</field>
             <default>-1</default>
             <parent>top_left</parent>
@@ -232,7 +236,8 @@
             <name>bill_trans_date</name>
             <table>aw_crm_bill</table>
             <group>general</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>aw_trans_date</field>
             <default>-1</default>
             <parent>bottom_left</parent>
@@ -433,7 +438,9 @@
             <name>comment</name>
             <table>objects</table>
             <group>other_data</group>
-            <type>textbox</type>
+            <type>textarea</type>
+            <rows>15</rows>
+            <cols>50</cols>
             <field>comment</field>
             <caption>Kommentaar lisale</caption>
       </property>

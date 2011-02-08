@@ -1148,15 +1148,15 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$this->set_current_jobs();
 		foreach($this->current_jobs->arr() as $job)
 		{
-			if($arr["section"] && $job->prop("company_section") != $arr["section"])
+			if(!empty($arr["section"]) && $job->prop("company_section") != $arr["section"])
 			{
 				continue;
 			}
-			if($arr["profession"] && $job->prop("profession") != $arr["profession"])
+			if(!empty($arr["profession"]) && $job->prop("profession") != $arr["profession"])
 			{
 				continue;
 			}
-			if($arr["company"] && $job->prop("org") != $arr["company"])
+			if($arr["company"] && $job->prop("employer") != $arr["company"])
 			{
 				continue;
 			}
@@ -1337,13 +1337,15 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 					"logic" => "OR",
 					"conditions" => array(
 						new object_list_filter(array(
+							"logic" => "AND",
 							"conditions" => array(
-								"end" => new obj_predicate_compare(OBJ_COMP_LESS, 1)
+								"end" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
 							)
 						)),
 						new object_list_filter(array(
+							"logic" => "AND",
 							"conditions" => array(
-								"end" => new obj_predicate_compare(OBJ_COMP_GREATER, time())
+								"end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time())
 							)
 						))
 					)

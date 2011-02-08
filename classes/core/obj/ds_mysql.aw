@@ -2,6 +2,8 @@
 
 class _int_obj_ds_mysql extends _int_obj_ds_base
 {
+	private $last_search_query_string = "";
+
 	function _int_obj_ds_mysql()
 	{
 		$this->init();
@@ -122,7 +124,15 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			}
 		}
 
-		$ret["meta"] = aw_unserialize($ret["metadata"], false, true);
+		$ret["meta"] = aw_unserialize(
+			stripslashes($ret["metadata"]),
+				//FIXME: stripslashes added here because some metadata records
+				// contain strings "\\'" which cause parse errors when aw_unserialize'd.
+				// need to find root cause of this, temporary fix here
+			false,
+			true
+		);
+
 		if (!empty($ret["metadata"]) && $ret["meta"] === NULL)
 		{
 			$ret["meta"] = aw_unserialize(stripslashes(stripslashes($ret["metadata"])), false, true); //!!! miks siin topelt stripslashes vajalik on?
@@ -1516,6 +1526,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			$objdata = array();
 
 			$this->db_query($q);
+			$this->last_search_query_string = $q;
 
 			if ($datafetch)
 			{
@@ -4077,5 +4088,16 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		$pl = $tmp->get_property_list();
 
 		return array($pl[$prop], $tmp->get_tableinfo());
+	}
+
+	/** Returns last executed search query string for debugging purposes
+		@attrib api=1 params=pos
+		@comment
+		@returns string
+		@errors none
+	**/
+	public function last_search_query_string()
+	{
+		return $this->last_search_query_string;
 	}
 }

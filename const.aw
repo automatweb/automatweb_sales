@@ -488,6 +488,7 @@ function classload($args)
 				}
 			}
 		}
+
 		if (is_readable($lib))
 		{
 			include_once($lib);
@@ -1056,4 +1057,3 @@ function check_pagecache_folders()
 
 
 }
-?>

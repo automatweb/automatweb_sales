@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_order.aw,v 1.85 2009/07/28 09:38:19 markop Exp $
 // shop_order.aw - Tellimus
 /*
 
-@classinfo syslog_type=ST_SHOP_ORDER relationmgr=yes no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_SHOP_ORDER relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -1229,7 +1228,7 @@ class shop_order extends class_base
 			foreach($ol->ids() as $cp_oid)
 			{
 				$inst->add_subscriber(array(
-					"user" => aw_global_get("uid_oid"), 
+					"user" => aw_global_get("uid_oid"),
 					"content_package" => $cp_oid
 				));
 			}
@@ -1510,7 +1509,7 @@ class shop_order extends class_base
 		@param id required type=int acl=view
 	**/
 	function show($arr)
-	{//arr(dbg::short_backtrace());if(aw_global_get("uid") == "markop")arr();
+	{
 		if (!$arr["template"])
 		{
 			$arr["template"] = "show.tpl";
@@ -2070,7 +2069,7 @@ class shop_order extends class_base
 		else
 		{
 			$changed_vars = array();
-		}if(aw_global_get("uid") == "struktuur.markop"){ var_dump($oc->prop("order_show_controller"));var_dump($changed_vars);}
+		}
 		$this->vars($changed_vars);
 
 		return $this->parse();
@@ -2259,4 +2258,3 @@ class shop_order extends class_base
 		return $res;
 	}
 }
-?>

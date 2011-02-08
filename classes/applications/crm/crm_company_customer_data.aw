@@ -864,7 +864,7 @@ Aadress: %s
 		{
 			$sum+= $order -> get_sum();
 			$t->define_data(array(
-				"no" => html::obj_change_url($order , $order -> prop("number")),
+				"no" => html::obj_change_url($order , ($order -> prop("number") ? $order -> prop("number") : $order -> id())),
 				"sum" => $order -> get_sum(),
 				"date" => date("d.m.Y" , $order -> prop("date")),
 				"currency" => get_name($order->prop("currency")),

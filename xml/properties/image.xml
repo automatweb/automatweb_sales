@@ -80,7 +80,7 @@
       <property>
             <name>date_taken</name>
             <group>general</group>
-            <type>datetime_select</type>
+            <type>datepicker</type>
             <table>images</table>
             <field>aw_date_taken</field>
             <caption>Pildistamise aeg</caption>

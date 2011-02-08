@@ -2837,7 +2837,7 @@ class shop_warehouse extends class_base
 
 	function do_order_undone_tbl(&$arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$cl = $arr["cl"];
 		$xls = $arr["xls"];
 		$this->_init_undone_tbl($t,$cl);
@@ -2845,12 +2845,14 @@ class shop_warehouse extends class_base
 		// list orders from order folder
 		$filter = array(
 			"class_id" => CL_SHOP_ORDER,
-//			"confirmed" => 0
+			"confirmed" => new obj_predicate_not(1)
 		);
+
 		if($arr["client"])
 		{
 			$filter["orderer_company"] = $arr["client"];
 		}
+
 		if($cl)
 		{
 			$filter["createdby"] = aw_global_get("uid");
@@ -2875,7 +2877,7 @@ class shop_warehouse extends class_base
 			}
 		}
 		$upkeys = array_keys($undone_products);
-		usort($upkeys, array(&$this, "__br_sort"));
+		usort($upkeys, array($this, "__br_sort"));
 		foreach($upkeys as $product)
 		{
 			$order = $undone_products[$product];
@@ -2956,13 +2958,13 @@ class shop_warehouse extends class_base
 
 	function _get_arrivals_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_save_button();
 	}
 
 	function _get_arrival_products_list($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
@@ -3002,8 +3004,6 @@ class shop_warehouse extends class_base
 		));
 		$c_ol = new object_list(array(
 			"class_id" => CL_CRM_COMPANY,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"parent" => $this->config->prop("arrival_company_folder"),
 			"sort_by" => "name asc",
 		));
@@ -3030,8 +3030,6 @@ class shop_warehouse extends class_base
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
-				"site_id" => array(),
-				"lang_id" => array(),
 				"warehouse" => $arr["obj_inst"]->id(),
 				"product" => $prodid,
 			));
@@ -3074,8 +3072,6 @@ class shop_warehouse extends class_base
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
-				"site_id" => array(),
-				"lang_id" => array(),
 				"warehouse" => $arr["obj_inst"]->id(),
 				"product" => $oid,
 			));
@@ -3107,7 +3103,7 @@ class shop_warehouse extends class_base
 
 	function _get_arrivals_bc_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "company",
 			"caption" => t("Organisatsioon"),
@@ -3180,9 +3176,7 @@ class shop_warehouse extends class_base
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
 				"company" => $oid,
-				"warehouse" => $arr["obj_inst"]->id(),
-				"site_id" => array(),
-				"lang_id" => array(),
+				"warehouse" => $arr["obj_inst"]->id()
 			));
 
 			$date1 = mktime(0, 0, 0, (int)$data["date1"]["month"], (int)$data["date1"]["day"], (int)$data["date1"]["year"]);

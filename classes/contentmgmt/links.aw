@@ -1,7 +1,7 @@
 <?php
 
 /*
-@classinfo no_status=1 syslog_type=ST_LINKS maintainer=kristo
+@classinfo no_status=1 syslog_type=ST_LINKS
 @tableinfo extlinks index=id master_table=objects master_index=oid
 
 @default group=general
@@ -334,9 +334,14 @@ class links extends class_base
 						"caption" => html::img(array("url" => aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif", "border" => 0))
 					))." / ";
 				}
+				else
+				{
+					$p["post_append_text"] = "";
+				}
+
 				$p["post_append_text"] .= t(" Otsi uus objekt: ").$ps->get_popup_search_link(array(
 					"pn" => "link_pops",
-					"clid" => array(CL_DOCUMENT,CL_LINK)
+					"clid" => array(CL_DOCUMENT, CL_EXTLINK)
 				));
 				break;
 
@@ -404,7 +409,7 @@ class links extends class_base
 
 	// registreerib kliki lingile
 	// peab ehitama ka mehhanisimi sp&auml;mmimise v&auml;ltimiseks
-	function add_hit($id,$host,$uid)
+	function add_hit($id)
 	{
 		$o = obj($id);
 		aw_disable_acl();
@@ -553,4 +558,3 @@ class links extends class_base
 		}
 	}
 }
-?>

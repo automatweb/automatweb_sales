@@ -1522,7 +1522,7 @@ class html
 	**/
 	public static function linebreak($n = 1)
 	{
-		return str_repeat("<br />", $n);
+		return str_repeat("<br />\n", $n);
 	}
 
 	/**Bold text

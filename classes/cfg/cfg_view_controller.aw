@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CFG_VIEW_CONTROLLER relationmgr=yes maintainer=kristo allow_rte=3
+@classinfo syslog_type=ST_CFG_VIEW_CONTROLLER relationmgr=yes allow_rte=3
 
 @default table=objects
 @default group=general
@@ -74,4 +74,3 @@ class cfg_view_controller extends class_base
 		return $retval;
 	}
 }
-?>

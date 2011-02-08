@@ -17,6 +17,13 @@
             <field>aw_parent_category</field>
       </property>
       <property>
+            <name>category_type</name>
+            <table>aw_crm_category</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>aw_category_type</field>
+      </property>
+      <property>
             <name>organization</name>
             <table>aw_crm_category</table>
             <group>general</group>

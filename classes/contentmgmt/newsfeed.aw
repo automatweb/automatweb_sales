@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/newsfeed.aw,v 1.32 2009/04/16 10:58:58 kristo Exp $
-// newsfeed.aw - Newsfeed 
+
+// newsfeed.aw - Newsfeed
 /*
 
-@classinfo syslog_type=ST_NEWSFEED relationmgr=yes maintainer=robert
+@classinfo syslog_type=ST_NEWSFEED relationmgr=yes
 
 @default table=objects
 
@@ -29,10 +29,10 @@
 	@property days type=textbox size=2
 	@caption Mitme viimase p&auml;eva omad
 
-	@property sort_by type=select 
+	@property sort_by type=select
 	@caption Mille j&auml;rgi sorteeritakse
 
-	@property sort_ord type=select 
+	@property sort_ord type=select
 
 	@property parse_embed type=checkbox ch_value=1 default=1
 	@caption N&auml;ita ka lisatud objekte
@@ -42,11 +42,11 @@
 
 @default group=folders
 
-	@property folders type=table store=no 
+	@property folders type=table store=no
 	@caption Kaustade seaded
 
 @default group=fields
-	
+
 	@property separator type=textbox field=meta method=serialize default="<br>"
 	@caption V&auml;ljade eraldaja
 
@@ -136,14 +136,13 @@ class newsfeed extends class_base
 			case "fields_table":
 				$this->do_fields_table($arr);
 				break;
-
-		};
+		}
 		return $retval;
 	}
 
 	function do_fields_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "sel",
 			"caption" => t("Vali"),
@@ -182,12 +181,12 @@ class newsfeed extends class_base
 				"name" => $name,
 			));
 		}
-		
+
 	}
 
 	function do_folders_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "id",
 			"caption" => t("ID"),
@@ -244,7 +243,7 @@ class newsfeed extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_post_save($arr)
 	{
@@ -342,7 +341,7 @@ class newsfeed extends class_base
 						{
 							$docid[$con["from"]] = $con["from"];
 						}
-					}	
+					}
 					else
 					{
 						$non_docid[$con["from"]] = $con["from"];
@@ -454,8 +453,8 @@ class newsfeed extends class_base
 				{
 					foreach($props as $prop=>$val)
 					{
-					
-						$props[$prop] = preg_replace("/#(\w+?)(\d+?)(v|k|p|)#/i","",$val); 
+
+						$props[$prop] = preg_replace("/#(\w+?)(\d+?)(v|k|p|)#/i","",$val);
 						$props[$prop] = preg_replace("/#d#(.*)#\/d#/imsU","\\1",$val);
 					}
 
@@ -466,7 +465,7 @@ class newsfeed extends class_base
 					$separator = "<br>";
 				}
 				$description = implode($separator, $props);
-				
+
 				if ($o->prop("alias") != "")
 				{
 					if (true || aw_ini_get("menuedit.language_in_url"))
@@ -488,45 +487,42 @@ class newsfeed extends class_base
 				{
 					$doc_link = $baseurl . "/" . $oid;
 				}
-				
+
 				$items[] = array(
-				//	"item_id" => $oid,
+					// "item_id" => $oid,
 					"title" => $title,
 					"link" => $doc_link,
-				//	"artdate" => date("Y-m-d",$mod_date),
-				//	"start_date" => date("Y-m-d H:i:s",$mod_date),
-			//		"end_date" => "0000-00-00 00:00:00", // documents have no ending date
-					"author" => $o->prop("author"),
-					"source" => $source,
-//     				"art_lead" => $art_lead,
-					"description" => $description,
+					// "artdate" => date("Y-m-d",$mod_date),
+					// "start_date" => date("Y-m-d H:i:s",$mod_date),
+					// "end_date" => "0000-00-00 00:00:00", // documents have no ending date
+					// "author" => $o->prop("author"),
+					// "source" => $source,
+    					// "art_lead" => $art_lead,
+					"description" => str_replace("& " , "&amp; " , str_replace("&&" , "&amp;&amp;" , $description)),
 					"guid" => $baseurl . "/" . $oid,
-					"pubDate" => date("r",$mod_date),
-				);	
-			};
-		};
+					"pubDate" => str_replace("  ", " ", date("r",$mod_date)),
+				);
+			}
+		}
+
 		$data = array(
 			"channeldata" => array(
 				"title" => $feedobj->name(),
 				"link" => aw_ini_get("baseurl"),
 				"description" => $feedobj->comment(),
 				"language" => $feedobj->lang(),
-//				"LastBuildDate" => date("r",$first),
-			),  
+				// "LastBuildDate" => date("r",$first),
+			),
 			"items" => $items,
 		);
+
 		switch($feedobj->prop("feedtype"))
 		{
-			case "wtf":
-				print "just go away";
-			
 			default:
 				header('Content-Type: text/xml; charset=ISO-8859-1');
 				print $this->rss20_encode($data);
-		};
+		}
 		exit;
-
-
 	}
 
 	function rss20_encode($data)
@@ -534,7 +530,8 @@ class newsfeed extends class_base
 		$res = "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
 		$res .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' . " \n";
 		$res .= "\t<channel>\n";
-		$res .= '<atom:link href="http://www.innove.ee/refernet_rss" rel="self" type="application/rss+xml" />';
+		$rss_url = aw_ini_get("baseurl").aw_url_change_var("");
+		$res .= "\t\t<atom:link href=\"{$rss_url}\" rel=\"self\" type=\"application/rss+xml\" />\n";
 
 		foreach($data["channeldata"] as $key => $val)
 		{
@@ -546,7 +543,7 @@ class newsfeed extends class_base
 			};
 			*/
 			$res .= "\t\t<${key}>" . $val . "</${key}>\n";
-		};
+		}
 
 		$encoded_attribs = array("title","link","author","source","art_lead","description","guid");
 
@@ -565,9 +562,11 @@ class newsfeed extends class_base
 					continue;
 				}
 				$res .= "\t\t\t<${key}>" . $val . "</${key}>\n";
-			};
+			}
+
 			$res .= "\t\t</item>\n";
-		};
+		}
+
 		$res .= "\t</channel>\n";
 		$res .= "</rss>\n";
 		//$res = str_replace("<br />","",$res);
@@ -585,7 +584,7 @@ class newsfeed extends class_base
 		return "<![CDATA[" . nl2br($src) . "]]>";
 	}
 
-	function _init_kw_t(&$t)
+	function _init_kw_t($t)
 	{
 		$t->define_field(array(
 			"name" => "kw",
@@ -602,7 +601,7 @@ class newsfeed extends class_base
 
 	function _kw($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_kw_t($t);
 
 		$use = $arr["obj_inst"]->meta("use_kws");
@@ -630,4 +629,3 @@ class newsfeed extends class_base
 		$arr["obj_inst"]->set_meta("use_kws", safe_array($arr["request"]["use"]));
 	}
 }
-?>

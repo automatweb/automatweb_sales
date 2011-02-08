@@ -4,7 +4,6 @@
 	Displays a form for editing one connection
 	or alternatively provides an interface to edit
 	multiple connections
-@classinfo maintainer=kristo
 */
 
 class releditor extends core
@@ -1600,10 +1599,11 @@ class releditor extends core
 		{
 			$emb["group"] = "general";
 			$obj_parent = $obj->parent();
-			if (is_oid($prop["obj_parent"]))
+			if (!empty($prop["obj_parent"]))
 			{
 				$obj_parent = $prop["obj_parent"];
-			};
+			}
+
 			if ($prop["override_parent"] === "this")
 			{
 				$obj_parent = $obj->id();
@@ -2371,5 +2371,3 @@ class releditor extends core
 		)));
 	}
 }
-
-?>
