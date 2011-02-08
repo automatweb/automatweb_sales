@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>ord</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>4</size>
+            <field>jrk</field>
+            <caption>Jrk</caption>
+      </property>
+      <property>
+            <name>value</name>
+            <table>aw_study_organisation_competence</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_value</field>
+            <caption>Punktiline v&amp;amp;auml;&amp;amp;auml;rtus</caption>
+      </property>
+      <property>
+            <name>rated</name>
+            <table>aw_study_organisation_competence</table>
+            <group>general</group>
+            <type>checkbox</type>
+            <field>aw_rated</field>
+            <caption>Kuva arvestusm&amp;auml;&amp;auml;rade tabelis</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_study_organisation_competence>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_study_organisation_competence>
+      </tableinfo>
+</properties>
+

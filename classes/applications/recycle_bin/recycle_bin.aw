@@ -1,14 +1,18 @@
 <?php
-// recycle_bin.aw - Pr&uuml;gikast
+// $Header: /home/cvs/automatweb_dev/classes/applications/recycle_bin/recycle_bin.aw,v 1.31 2009/01/16 11:37:33 kristo Exp $
+// recycle_bin.aw - Pr&uuml;gikast 
 /*
 
 @default table=objects
+
+@classinfo syslog_type=ST_RECYCLE_BIN maintainer=kristo
+
 @default group=recycle_list
 	@property toolbar type=toolbar store=no no_caption=1 group=recycle_list,recycle_search
 	@property recycle_table type=text store=no no_caption=1
 
-@default group=recycle_search
-	@property s_name type=textbox
+@default group=recycle_search 
+	@property s_name type=textbox 
 	@caption Nimi
 
 	@property s_comment type=textbox
@@ -20,7 +24,7 @@
 	@property s_oid type=textbox
 	@caption OID
 
-	@property s_modifiedby type=textbox
+	@property s_modifiedby type=textbox 
 	@caption Kustutaja
 
 	@property s_modified_from type=datetime_select
@@ -29,7 +33,7 @@
 	@property s_modified_to type=datetime_select
 	@caption Kustutatud kuni
 
-	@property submit_btn type=submit
+	@property submit_btn type=submit 
 	@caption Otsi
 
 	@property s_inf type=text subtitle=1
@@ -56,7 +60,7 @@
 @groupinfo recycle submit=no caption="Pr&uuml;gikast"
 @groupinfo recycle_list submit=no caption="Nimekiri" parent=recycle
 @groupinfo recycle_search caption="Otsing" parent=recycle submit_method=get
-@groupinfo recycle_settings caption="M&auml;&auml;rangud"
+@groupinfo recycle_settings caption="M&auml;&auml;rangud" 
 	@groupinfo recycle_groups parent=recycle_settings caption="Grupid"
 	@groupinfo recycle_autoclean parent=recycle_settings caption="Automaatne t&uuml;hjendamine"
 
@@ -79,7 +83,7 @@ class recycle_bin extends class_base
 			"clid" => CL_RECYCLE_BIN,
 		));
 	}
-
+	
 	function callback_mod_tab($arr)
 	{
 		if($arr["id"] == "general")
@@ -112,7 +116,7 @@ class recycle_bin extends class_base
 			return $rv;
 		}
 	}
-
+	
 	function get_property($arr)
 	{
 		$prop = &$arr["prop"];
@@ -121,6 +125,7 @@ class recycle_bin extends class_base
 		{
 			case "s_name":
 			case "s_comment":
+			case "s_class_id":
 			case "s_modifiedby":
 			case "s_oid":
 				$prop["value"] = $arr["request"][$prop["name"]];
@@ -128,6 +133,7 @@ class recycle_bin extends class_base
 
 			case "s_modified_from":
 			case "s_modified_to":
+				load_vcl("date_edit");
 				$ts = date_edit::get_timestamp($arr["request"][$prop["name"]]);
 				$prop["value"] = $ts;
 				break;
@@ -139,13 +145,12 @@ class recycle_bin extends class_base
 			case "recycle_table":
 				$prop["value"] = $this->do_recycle_table($arr);
 				break;
-
+		
 			case "s_res":
 				$this->_do_s_res($arr);
 				break;
 
 			case "s_class_id":
-				$prop["value"] = $arr["request"][$prop["name"]];
 				$prop["options"] = get_class_picker();
 				break;
 
@@ -173,20 +178,20 @@ class recycle_bin extends class_base
 		);
 	}
 
-	function _init_table($table)
+	function _init_table(&$table)
 	{
 		$table->define_field(array(
 			"name" => "icon",
 			"caption" => t(""),
 			"width" => 15,
 		));
-
+		
 		$table->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
 			"sortable" => 1,
 		));
-
+		
 		$table->define_field(array(
 			"name" => "oid",
 			"caption" => t("ID"),
@@ -194,19 +199,19 @@ class recycle_bin extends class_base
 			"width" => 50,
 			"numeric" => 1
 		));
-
+		
 		$table->define_field(array(
 			"name" => "restore",
 			"caption" => t("Tegevus"),
 		));
-
+		
 		$table->define_field(array(
 			"name" => "class_id",
 			"caption" => t("Objektit&uuml;&uuml;p"),
 			"sortable" => 1,
 			"width" => 1,
 		));
-
+		
 		$table->define_field(array(
 			"name" => "modifiedby",
 			"caption" => t("Kustutaja"),
@@ -214,7 +219,7 @@ class recycle_bin extends class_base
 			"width" => 80,
 			"align" => "center",
 		));
-
+		
 		$table->define_field(array(
 			"name" => "modified",
 			"caption" => t("Kustutatud"),
@@ -225,7 +230,7 @@ class recycle_bin extends class_base
 			"format" => "d.m.y - H:m:s",
 			"align" => "center",
 		));
-
+		
 		$table->define_chooser(array(
     		"name" => "mark",
     		"field" => "id",
@@ -235,12 +240,14 @@ class recycle_bin extends class_base
 
 	function do_recycle_table($arr)
 	{
+		//$table = &$arr["prop"]["vcl_inst"];
+		classload("vcl/table");
 		$table = new aw_table();
-
-		$this->_init_table($table);
-
+	
+		$this->_init_table($table);	
+	
 		$cnt = $this->db_fetch_field("SELECT count(*) as cnt FROM objects WHERE status=0 ", "cnt");
-
+		
 		if ($arr["request"]["sortby"] == "")
 		{
 			$arr["request"]["sortby"] = "modified";
@@ -271,10 +278,10 @@ class recycle_bin extends class_base
 		)).$table->draw();
 	}
 
-	function _insert_tbl($rows, $table, $obj_id)
-	{
+	function _insert_tbl($rows, &$table, $obj_id)
+	{	
 		$classes = aw_ini_get("classes");
-
+		
 		get_instance("core/icons");
 
 		$paths = $this->_get_paths($rows);
@@ -314,17 +321,17 @@ class recycle_bin extends class_base
 					"alt" => $paths[$row["oid"]],
 					"title" => $paths[$row["oid"]]
 				))
-			));
+			));	
 		}
 	 	$table->set_default_sorder("desc");
 		$table->set_default_sortby("modified");
 
-		$table->sort_by();
+		$table->sort_by();		
 	}
-
+	
 	function do_toolbar($arr)
 	{
-		$tb = $arr["prop"]["vcl_inst"];
+		$tb = &$arr["prop"]["vcl_inst"];
 		$tb->add_menu_button(array(
 			"name" => "restore",
 			"tooltip" => t("Taasta"),
@@ -335,7 +342,7 @@ class recycle_bin extends class_base
 			"text" => t("Valitud objektid"),
 			"link" => "#",
 			"onClick" => "submit_changeform('restore_objects')",
-		));
+		));		
 		$tb->add_menu_item(array(
 			"parent" => "restore",
 			"text" => t("Objektid ja alamobjektid"),
@@ -437,8 +444,9 @@ class recycle_bin extends class_base
 		$query = "UPDATE objects SET status=1 WHERE oid =".$arr['oid'];
 		$this->db_query($query);
 		// clear cache
-		cache::file_clear_pt("acl");
-
+		$c = get_instance("cache");
+		$c->file_clear_pt("acl");
+		
 		$ob = obj($arr["id"]);
 		$oid = $arr["oid"];
 		$this->check_parent($oid, $ob);
@@ -449,7 +457,7 @@ class recycle_bin extends class_base
 
 		return $arr["return_url"];
 	}
-
+	
 	/**
 		@attrib name=restore_objects
 	**/
@@ -480,7 +488,8 @@ class recycle_bin extends class_base
 		}
 
 		// clear cache
-		cache::file_clear_pt("acl");
+		$c = get_instance("cache");
+		$c->file_clear_pt("acl");
 
 		return aw_ini_get("baseurl").$arr["return_url"];
 	}
@@ -570,7 +579,7 @@ class recycle_bin extends class_base
 			{
 				continue;
 			}
-
+			
 			// load props by clid
 			$file = $cl[$clid]["file"];
 			if ($clid == 29)

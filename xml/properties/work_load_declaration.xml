@@ -133,93 +133,115 @@
             <field>research_groups</field>
       </property>
       <property>
-            <name>accounting_rates</name>
+            <name>rates</name>
             <table>aw_work_load_declaration</table>
             <group>work_loads</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
             <parent>wl_right</parent>
-            <field>accounting_rates</field>
+            <field>rates</field>
       </property>
       <property>
-            <name>aa_toolbar</name>
+            <name>cl_toolbar</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>contact_learning</group>
             <store>no</store>
             <type>toolbar</type>
             <no_caption>1</no_caption>
-            <field>aa_toolbar</field>
+            <field>cl_toolbar</field>
       </property>
       <property>
             <name>contact_learning_courses</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>contact_learning</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_left</parent>
             <field>contact_learning_courses</field>
+      </property>
+      <property>
+            <name>el_toolbar</name>
+            <table>aw_work_load_declaration</table>
+            <group>e_learning</group>
+            <store>no</store>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <field>el_toolbar</field>
       </property>
       <property>
             <name>e_learning_courses</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>e_learning</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_left</parent>
             <field>e_learning_courses</field>
+      </property>
+      <property>
+            <name>publications_toolbar</name>
+            <table>aw_work_load_declaration</table>
+            <group>publications</group>
+            <store>no</store>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <field>publications_toolbar</field>
+      </property>
+      <property>
+            <name>publications</name>
+            <table>aw_work_load_declaration</table>
+            <group>publications</group>
+            <store>no</store>
+            <type>table</type>
+            <no_caption>1</no_caption>
+            <field>publications</field>
+      </property>
+      <property>
+            <name>thesises_toolbar</name>
+            <table>aw_work_load_declaration</table>
+            <group>thesises</group>
+            <store>no</store>
+            <type>toolbar</type>
+            <no_caption>1</no_caption>
+            <field>thesises_toolbar</field>
       </property>
       <property>
             <name>defended_thesises</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>thesises</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_right_upper</parent>
             <field>defended_thesises</field>
       </property>
       <property>
             <name>opposed_thesises</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>thesises</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_right_middle</parent>
+            <parent>thesises_split</parent>
             <field>opposed_thesises</field>
       </property>
       <property>
             <name>defended_phd_thesises</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>thesises</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_right_middle</parent>
+            <parent>thesises_split</parent>
             <field>defended_phd_thesises</field>
       </property>
       <property>
             <name>other_academic_activities</name>
             <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
+            <group>thesises</group>
             <store>no</store>
             <type>table</type>
             <no_caption>1</no_caption>
-            <parent>aa_right</parent>
             <field>other_academic_activities</field>
-      </property>
-      <property>
-            <name>publications</name>
-            <table>aw_work_load_declaration</table>
-            <group>academic_activity</group>
-            <store>no</store>
-            <type>table</type>
-            <no_caption>1</no_caption>
-            <parent>aa_right</parent>
-            <field>publications</field>
       </property>
       <property>
             <name>pp_toolbar</name>
@@ -263,6 +285,22 @@
             <academic_activity>
                   <caption>Akadeemiline tegevus</caption>
             </academic_activity>
+            <contact_learning>
+                  <caption>Kontakt&amp;amp;otilde;pe</caption>
+                  <parent>academic_activity</parent>
+            </contact_learning>
+            <e_learning>
+                  <caption>E-&amp;amp;otilde;pe</caption>
+                  <parent>academic_activity</parent>
+            </e_learning>
+            <publications>
+                  <caption>Publikatsioonid</caption>
+                  <parent>academic_activity</parent>
+            </publications>
+            <thesises>
+                  <caption>Kaitstud/oponeeritud t&amp;ouml;&amp;ouml;d jm akadeemiline tegevus</caption>
+                  <parent>academic_activity</parent>
+            </thesises>
             <previous_period>
                   <caption>Eelmine periood</caption>
             </previous_period>
@@ -311,37 +349,12 @@
                   <group>work_loads</group>
                   <area_caption></area_caption>
             </wl_right>
-            <aa_split>
+            <thesises_split>
                   <type>hbox</type>
                   <width>50%:50%</width>
-                  <group>academic_activity</group>
+                  <group>thesises</group>
                   <area_caption></area_caption>
-            </aa_split>
-            <aa_left>
-                  <type>vbox</type>
-                  <parent>aa_split</parent>
-                  <group>academic_activity</group>
-                  <area_caption></area_caption>
-            </aa_left>
-            <aa_right>
-                  <type>vbox</type>
-                  <parent>aa_split</parent>
-                  <group>academic_activity</group>
-                  <area_caption></area_caption>
-            </aa_right>
-            <aa_right_upper>
-                  <type>vbox</type>
-                  <parent>aa_right</parent>
-                  <group>academic_activity</group>
-                  <area_caption></area_caption>
-            </aa_right_upper>
-            <aa_right_middle>
-                  <type>hbox</type>
-                  <width>50%:50%</width>
-                  <parent>aa_right</parent>
-                  <group>academic_activity</group>
-                  <area_caption></area_caption>
-            </aa_right_middle>
+            </thesises_split>
             <pp_split>
                   <type>hbox</type>
                   <width>50%:50%</width>

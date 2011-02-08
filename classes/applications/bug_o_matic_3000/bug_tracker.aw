@@ -4048,6 +4048,8 @@ class bug_tracker extends class_base
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
 			"name" => $arr["sp_p_p"]."%",
+			"lang_id" => array(),
+			"site_id" => array(),
 			"limit" => 200
 		));
 		return $ac->finish_ac($ol->names());
@@ -4065,7 +4067,9 @@ class bug_tracker extends class_base
 		}
 
 		$ol = new object_list(array(
-			"oid" => $persons
+			"oid" => $persons,
+			"lang_id" => array(),
+			"site_id" => array()
 		));
 		return $ol->names();
 	}

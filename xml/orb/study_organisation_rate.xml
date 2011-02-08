@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="study_organisation_rate" folder="applications/study_organisation" extends="class_base">
+	</class>
+</orb>
+		

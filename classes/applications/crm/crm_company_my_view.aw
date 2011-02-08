@@ -1,5 +1,7 @@
 <?php
-
+/*
+@classinfo maintainer=markop
+*/
 class crm_company_my_view extends class_base
 {
 	function crm_company_my_view()
@@ -10,14 +12,14 @@ class crm_company_my_view extends class_base
 	function _get_my_view($arr)
 	{
 		$this->read_template("my_day.tpl");
-		$pl = new planner();
+		$pl = get_instance(CL_PLANNER);
 		$this->cal_id = $pl->get_calendar_for_user(array(
 			"uid" => aw_global_get("uid"),
 		));
 
 		$cur_co = get_current_company();
 		$curp = get_current_person();
-		$co =  new crm_company();
+		$co = get_instance(CL_CRM_COMPANY);
 		$this->vars(array(
 			"uid" => aw_global_get("uid"),
 			"date" => date("d.m.Y / H:i"),
@@ -36,21 +38,25 @@ class crm_company_my_view extends class_base
 			"change_pwd" => $this->mk_my_orb("change_pwd", array(), "users"),
 			"logout" => $this->mk_my_orb("logout", array(), "users"),
 			"POLL" => $this->_do_poll($arr),
-			"others" => $this->picker($curp->id(), $co->get_employee_picker($cur_co, true, true)),
+			"others" => $this->picker($curp->id(), $co->get_employee_picker(null, true, true)),
 			"EVENT" => $this->_events($arr, time()),
 			"EVENT2" => $this->_events($arr, time() + 24*3600),
 			"MY_FILE" => $this->_my_files($arr),
 			"MY_LINK" => $this->_my_links($arr),
 			"forum" => $this->_forums($arr)
 		));
-
+		
 		return $this->parse();
 		$this->read_template("my_view.tpl");
 
 		/*
-			Teha Avalehe vaade, kus on näha tänased ja homsed sündmused,
-			mulle lisatud failid, foorumi viimased teemad,
+			Teha Avalehe vaade, kus on näha tänased ja homsed sündmused, 
+			mulle lisatud failid, foorumi viimased teemad, 
 		*/
+
+		classload("vcl/table");
+		classload("core/date/date_calc");
+		classload("core/icons");
 
 		$this->vars(array(
 			"events" => $this->_events($arr),
@@ -61,10 +67,10 @@ class crm_company_my_view extends class_base
 		return $this->parse();
 	}
 
-	function _init_events_t($t)
+	function _init_events_t(&$t)
 	{
 		$t->define_field(array(
-			"name" => "icon",
+			"name" => "icon",	
 			"caption" => t(""),
 			"align" => "center",
 			"width" => 1,
@@ -72,21 +78,21 @@ class crm_company_my_view extends class_base
 		));
 
 		$t->define_field(array(
-			"name" => "name",
+			"name" => "name",	
 			"caption" => t("Nimi"),
 			"align" => "center",
 			"sortable" => 1
 		));
 
 		$t->define_field(array(
-			"name" => "comment",
+			"name" => "comment",	
 			"caption" => t("Kommentaar"),
 			"align" => "center",
 			"sortable" => 1
 		));
 
 		$t->define_field(array(
-			"name" => "when",
+			"name" => "when",	
 			"caption" => t("Aeg"),
 			"align" => "center",
 			"sortable" => 1,
@@ -95,21 +101,21 @@ class crm_company_my_view extends class_base
 		));
 
 		$t->define_field(array(
-			"name" => "cust",
+			"name" => "cust",	
 			"caption" => t("Klient"),
 			"align" => "center",
 			"sortable" => 1
 		));
 
 		$t->define_field(array(
-			"name" => "proj",
+			"name" => "proj",	
 			"caption" => t("Projekt"),
 			"align" => "center",
 			"sortable" => 1
 		));
 
 		$t->define_field(array(
-			"name" => "parts",
+			"name" => "parts",	
 			"caption" => t("Osalejad"),
 			"align" => "center",
 			"sortable" => 1
@@ -155,10 +161,10 @@ class crm_company_my_view extends class_base
 		if (!$fo)
 		{
 			return;
-		}
+		}		
 
 		$f = $fo->instance();
-
+		
 
 		$folders = new object_tree(array(
 			"class_id" => CL_MENU,
@@ -212,7 +218,7 @@ class crm_company_my_view extends class_base
 		return $t->draw();
 	}
 
-	function _init_topic_t($t)
+	function _init_topic_t(&$t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -251,7 +257,7 @@ class crm_company_my_view extends class_base
 
 	function _get_polls_tb($arr)
 	{
-		$tb = $arr["prop"]["vcl_inst"];
+		$tb =& $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "new",
 			"img" => "new.gif",
@@ -272,7 +278,7 @@ class crm_company_my_view extends class_base
 		));
 	}
 
-	function _init_polls_t($t)
+	function _init_polls_t(&$t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -309,12 +315,14 @@ class crm_company_my_view extends class_base
 
 	function _get_polls_tbl($arr)
 	{
-		$t = $arr["prop"]["vcl_inst"];
+		$t =& $arr["prop"]["vcl_inst"];
 		$this->_init_polls_t($t);
 
 		$ol = new object_list(array(
 			"class_id" => CL_POLL,
-			"parent" => $arr["obj_inst"]->id()
+			"parent" => $arr["obj_inst"]->id(),
+			"lang_id" => array(),
+			"site_id" => array()
 		));
 		$def_poll = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_DEF_POLL");
 		if ($def_poll)
@@ -355,6 +363,7 @@ class crm_company_my_view extends class_base
 	function _events($arr, $tm)
 	{
 		$p = get_current_person();
+		classload("core/icons");
 		$i = get_instance("applications/crm/crm_company_overview_impl");
 		$filt = $i->_get_tasks_search_filt(
 			array(
@@ -399,14 +408,16 @@ class crm_company_my_view extends class_base
 	}
 
 	function _my_files($arr)
-	{
+	{	
 		$rv = "";
 		$clid = CL_CRM_DOCUMENT_ACTION;
 		// now, find all thingies that I am part of
 		$u = get_instance(CL_USER);
 		$filt = array(
 			"class_id" => CL_CRM_DOCUMENT_ACTION,
-			"actor" => $u->get_current_person()
+			"site_id" => array(),
+			"lang_id" => array(),
+			"actor" => $u->get_current_person(),
 		);
 		$filt["is_done"] = new obj_predicate_not(1);
 		$ol = new object_list($filt);
@@ -457,6 +468,8 @@ class crm_company_my_view extends class_base
 		$rv = "";
 		$ol = new object_list(array(
 			"class_id" => CL_EXTLINK,
+			"lang_id" => array(),
+			"site_id" => array(),
 			"parent" => $p->id()
 		));
 		foreach($ol->arr() as $o)
@@ -476,3 +489,5 @@ class crm_company_my_view extends class_base
 		return $rv;
 	}
 }
+
+?>
