@@ -202,24 +202,20 @@ class project_files_impl extends class_base
 			$filter = array(
 				"class_id" => $clid,
 			);
-
-			if(in_array($clid ,array(CL_CRM_DOCUMENT,CL_CRM_MEMO,CL_DEVELOPMENT_ORDER)))
+			if(in_array($clid ,array(CL_CRM_DOCUMENT,CL_CRM_DEAL,CL_CRM_MEMO,CL_DEVELOPMENT_ORDER)))
 			{
 				$filter["project"] = $pr;
 			}
-
 			if(in_array($clid ,array(CL_FILE,CL_PROJECT_STRAT_GOAL_EVAL_WS,CL_PROJECT_RISK_EVAL_WS,CL_PROJECT_ANALYSIS_WS)))
 			{
 				$filter["parent"] = $parent_folders;
 			}
-
 			$ol = new object_list($filter);
 			$nm = $capt." (".sizeof($ol->ids()).")";
 			if ($otf == $clid)
 			{
 				$nm = "<b>".$nm."</b>";
 			}
-
 			$arr["prop"]["vcl_inst"]->add_item("by_type", array(
 				"id" => $clid,
 				"name" => $nm,

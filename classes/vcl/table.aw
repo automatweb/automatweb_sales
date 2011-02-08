@@ -2006,6 +2006,14 @@ END;
 	**/
 	function define_field($args = array())
 	{
+		foreach($this->default_field_values as $param => $value)
+		{
+			if(!isset($args[$param]))
+			{
+				$args[$param] = $value;
+			}
+		}
+
 		if($this->cfgform && ($def = $this->cfg_data["fields"][$args["name"]]))
 		{
 			if($def["hide"])
@@ -2127,10 +2135,7 @@ END;
 			$define["caption"] = $caption;
 			foreach($this->default_field_values as $param => $value)
 			{
-				if(!empty($value))
-				{
-					$define[$param] = $value;
-				}
+				$define[$param] = $value;
 			}
 			$this->define_field($define);
 		}

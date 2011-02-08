@@ -685,29 +685,34 @@ class crm_company_cust_impl extends class_base
 					"return_url" => get_ru()
 				), "crm_company")
 			));
-
-			// search and add customer from existing persons/organizations in database
-			$url = $this->mk_my_orb("do_search", array(
-				"clid" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
-				"pn" => "sbt_data_add_buyer"
-			), "popup_search");
+		}
+		elseif ("relorg_s" === $arr["use_group"])
+		{ // sellers
 			$tb->add_menu_item(array(
-				"parent" => "search_item",
-				"text" => t("Lisa ostja olemasolevate isikute/organisatsioonide hulgast"),
-				"link" => "#",
-				"url" => "#",
-				"onClick" => html::popup(array(
-					"url" => $url,
-					"resizable" => true,
-					"scrollbars" => "auto",
-					"height" => 500,
-					"width" => 700,
-					"no_link" => true,
-					"quote" => "'"
-				))
+				"parent"=> "add_item",
+				"text" => t("M&uuml;&uuml;ja - organisatsioon"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
+					"c" => CL_CRM_COMPANY,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
 			));
 
+			$tb->add_menu_item(array(
+				"parent"=> "add_item",
+				"text" => t("M&uuml;&uuml;ja - eraisik"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
+					"c" => CL_CRM_PERSON,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
+			));
 		}
+<<<<<<< HEAD
 		elseif ("relorg_s" === $arr["use_group"])
 		{ // sellers
 			// add seller category
@@ -719,6 +724,30 @@ class crm_company_cust_impl extends class_base
 					"save_autoreturn" => "1",
 					"c" => $category,
 					"t" => crm_category_obj::TYPE_SELLER,
+=======
+		else
+		{ // all
+			$tb->add_menu_item(array(
+				"parent"=> "add_item",
+				"text" => t("Ostja - organisatsioon"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
+					"c" => CL_CRM_COMPANY,
+					"s" => $category,
+					"return_url" => get_ru()
+				), "crm_company")
+			));
+
+			$tb->add_menu_item(array(
+				"parent"=> "add_item",
+				"text" => t("Ostja - eraisik"),
+				"link" => $this->mk_my_orb("add_customer", array(
+					"id" => $arr["obj_inst"]->id(),
+					"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
+					"c" => CL_CRM_PERSON,
+					"s" => $category,
+>>>>>>> 2aa8a071dcfc6e9fb11a338861eff0165112e58e
 					"return_url" => get_ru()
 				), "crm_company")
 			));
@@ -747,7 +776,27 @@ class crm_company_cust_impl extends class_base
 				), "crm_company")
 			));
 
-			// search and add customer from existing persons/organizations in database
+			//  search and add customer from existing persons/organizations in database
+			$url = $this->mk_my_orb("do_search", array(
+				"clid" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
+				"pn" => "sbt_data_add_buyer"
+			), "popup_search");
+			$tb->add_menu_item(array(
+				"parent" => "search_item",
+				"text" => t("Lisa ostja olemasolevate isikute/organisatsioonide hulgast"),
+				"link" => "#",
+				"url" => "#",
+				"onClick" => html::popup(array(
+					"url" => $url,
+					"resizable" => true,
+					"scrollbars" => "auto",
+					"height" => 500,
+					"width" => 700,
+					"no_link" => true,
+					"quote" => "'"
+				))
+			));
+
 			$url = $this->mk_my_orb("do_search", array(
 				"clid" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
 				"pn" => "sbt_data_add_seller"
@@ -768,7 +817,6 @@ class crm_company_cust_impl extends class_base
 				))
 			));
 		}
-
 
 		$tb->add_separator();
 
@@ -2255,14 +2303,14 @@ class crm_company_cust_impl extends class_base
 			}
 
 			# phone
-			if (($default_cfg or in_array("phone", $visible_fields)) and object_loader::can("view", $o->prop("phone_id")))
+			if ($default_cfg or in_array("phone", $visible_fields))
 			{
 				$phone = obj($o->prop("phone_id"));
 				$phone = $phone->name();
 			}
 
 			# fax
-			if (($default_cfg or  in_array("fax", $visible_fields)) and object_loader::can("view", $o->prop("telefax_id")))
+			if ($default_cfg or  in_array("fax", $visible_fields))
 			{
 				$fax = obj($o->prop("telefax_id"));
 				$fax = $fax->name();

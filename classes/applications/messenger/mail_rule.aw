@@ -1,7 +1,8 @@
 <?php
-// mail_rule.aw - Maili ruul
+// $Header: /home/cvs/automatweb_dev/classes/applications/messenger/mail_rule.aw,v 1.8 2007/12/06 14:33:40 kristo Exp $
+// mail_rule.aw - Maili ruul 
 /*
-@classinfo relationmgr=yes
+@classinfo syslog_type=ST_MAIL_RULE relationmgr=yes maintainer=markop
 
 @default table=objects
 @default group=general
@@ -68,36 +69,29 @@ class mail_rule extends class_base
 						"obj_inst" => $arr["obj_inst"],
 					));
 				}
-
-				$folders = array();
 				if (!empty($msgr_id))
 				{
 					$msgr_obj = new object($msgr_id);
 					if ($msgr_obj->class_id() == CL_MESSENGER_V2)
 					{
 						$msgr = $msgr_obj->instance();
-						$r = $msgr->_connect_server(array("msgr_id" => $msgr_obj->id()));
-						if ($r)
+						$msgr->_connect_server(array("msgr_id" => $msgr_obj->id()));
+						$tmp = $msgr->drv_inst->list_folders();
+						foreach($tmp as $item)
 						{
-							$tmp = $msgr->drv_inst->list_folders();
-							foreach($tmp as $item)
-							{
-								$folders[$item["fullname"]] = $item;
-							}
-						}
-					}
-				}
-
+							$folders[$item["fullname"]] = $item;
+						};
+					};
+				};
 				foreach($folders as $key => $fld)
 				{
 					$tmp[$key] = $fld["name"];
-				}
-
+				};
 				$prop["options"] = $tmp;
 				break;
 
 			case "on_server":
-				$ftp = new ftp_login();
+				$ftp = get_instance(CL_FTP_LOGIN);
 				if (!$ftp->is_available())
 				{
 					$prop["error"] = t("FTP extension is required for this feature");
@@ -126,8 +120,7 @@ class mail_rule extends class_base
 			{
 				$name_parts[] = "From: $from";
 			};
-		}
-
+		};
 		if (empty($name) && count($name_parts) > 0)
 		{
 			$arr["obj_inst"]->set_name(join(", ",$name_parts));
@@ -206,11 +199,16 @@ class mail_rule extends class_base
 					else
 					{
 						$new_rule_file = $fdat . $rule;
-					}
-				}
+					};
+				};
 
 				$t->put_file($rulefilename,$new_rule_file);
-			}
-		}
+			};
+
+		};
+
+
 	}
-}
+
+};
+?>

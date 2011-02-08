@@ -16,6 +16,8 @@ class shop_price_list_obj extends shop_matrix_obj
 		{
 			$prms = array(
 				"class_id" => CL_SHOP_PRICE_LIST,
+				"lang_id" => array(),
+				"site_id" => array(),
 				new obj_predicate_sort(array(
 					"jrk" => "ASC",
 				)),
@@ -118,6 +120,7 @@ class shop_price_list_obj extends shop_matrix_obj
 			throw $e;
 		}
 
+		enter_function("shop_price_list_obj::price");
 		/**
 			# STRUCTURE of $retval (if $arr["structure"] is true)
 			array(
@@ -184,6 +187,7 @@ class shop_price_list_obj extends shop_matrix_obj
 				$retval[$currency]["log"] = array_merge($retval[$currency]["log"], safe_array($price_data["log"]));
 			}
 		}
+		exit_function("shop_price_list_obj::price");
 		return empty($arr["structure"]) ? $prices_only_retval : $retval;
 	}
 
@@ -194,7 +198,6 @@ class shop_price_list_obj extends shop_matrix_obj
 			$e = new awex_price_list_parameter(t("Parameter 'shop' must be a valid OID!"));
 			throw $e;
 		}
-
 		if((!isset($arr["product"]) || !is_oid($arr["product"])) && (!isset($arr["product_packaging"]) || !is_oid($arr["product_packaging"])))
 		{
 			$e = new awex_price_list_parameter(t("Either parameter 'product' or 'product_packaging' must be a valid OID!"));
@@ -287,6 +290,8 @@ class shop_price_list_obj extends shop_matrix_obj
 			array(
 				"class_id" => CL_SHOP_PRICE_LIST_CONDITION,
 				"price_list" => $this->id(),
+				"lang_id" => array(),
+				"site_id" => array(),
 				"currency" => new obj_predicate_compare(OBJ_COMP_GREATER, 0, false, "int"),
 			),
 			array(
@@ -357,7 +362,7 @@ class shop_price_list_obj extends shop_matrix_obj
 										));
 										$QUANTITY_CONDITION_SINGLE .= rtrim($i->parse("QUANTITY_CONDITION_SINGLE"), "\t");
 										break;
-
+										
 									case "range":
 										$i->vars(array(
 											"quantity_from" => $quantity_condition["quantity_from"],
@@ -369,7 +374,7 @@ class shop_price_list_obj extends shop_matrix_obj
 								$i->vars(array(
 									"QUANTITY_CONDITION_SINGLE" => $QUANTITY_CONDITION_SINGLE,
 									"QUANTITY_CONDITION_RANGE" => $QUANTITY_CONDITION_RANGE,
-								));
+								));							
 								$QUANTITY_CONDITION .= rtrim($i->parse("QUANTITY_CONDITION".(++$quantity_condition_count === 1 ? "_FIRST" : "")), "\t");
 							}
 							$i->vars(array(
@@ -500,3 +505,4 @@ class awex_price_list extends aw_exception {}
 /* Indicates invalid argument */
 class awex_price_list_parameter extends awex_price_list {}
 
+?>

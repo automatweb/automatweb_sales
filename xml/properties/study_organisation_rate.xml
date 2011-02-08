@@ -1,0 +1,91 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>ord</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textbox</type>
+            <size>4</size>
+            <field>jrk</field>
+            <caption>Jrk</caption>
+      </property>
+      <property>
+            <name>type</name>
+            <table>aw_study_organisation_rate</table>
+            <group>general</group>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <field>aw_type</field>
+            <caption>Akadeemilise t&amp;amp;ouml;&amp;amp;ouml; t&amp;amp;uuml;&amp;amp;uuml;p</caption>
+      </property>
+      <property>
+            <name>category</name>
+            <table>aw_study_organisation_rate</table>
+            <group>general</group>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <field>aw_category</field>
+            <caption>Arvestusm&amp;amp;auml;&amp;amp;auml;ra kategooria</caption>
+      </property>
+      <property>
+            <name>applicables</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+      </property>
+      <property>
+            <name>publication_categories</name>
+            <table>aw_study_organisation_rate</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PUBLICATION_CATEGORY</reltype>
+            <multiple>1</multiple>
+            <store>connect</store>
+            <no_edit>1</no_edit>
+            <field>publication_categories</field>
+            <caption>Publikatsioonide kategooriad</caption>
+      </property>
+      <property>
+            <name>thesis_categories</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <multiple>1</multiple>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Oponeeritud/kaitstud t&amp;ouml;&amp;ouml;de kategooriad</caption>
+      </property>
+      <property>
+            <name>years</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>select</type>
+            <multiple>1</multiple>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Aastad</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <tableinfo>
+            <aw_study_organisation_rate>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_study_organisation_rate>
+      </tableinfo>
+      <reltypes>
+            <PUBLICATION_CATEGORY>
+                  <value>1</value>
+                  <clid>CL_STUDY_ORGANISATION_PUBLICATION_CATEGORY</clid>
+                  <caption>Publikatsioonide kategooria</caption>
+            </PUBLICATION_CATEGORY>
+      </reltypes>
+</properties>
+
