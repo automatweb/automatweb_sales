@@ -273,7 +273,7 @@ class automatweb
 		}
 
 		// initiate data source
-		if (!aw_global_get("no_db_connection") )
+		if (!aw_global_get("no_db_connection"))
 		{
 			$GLOBALS["object_loader"] = object_loader::instance();
 		}
@@ -305,7 +305,23 @@ class automatweb
 		$baseurl .= (("/" === substr($baseurl, -1)) ? "" : "/");
 		$request_uri = $_SERVER["REQUEST_URI"];
 
-		if (strpos($request_uri, "/automatweb") === false)
+		// execute fastcall if requested
+		if (self::$request->is_fastcall())
+		{
+			require_once(AW_DIR . "lib/fastcall_base" . AW_FILE_EXT);
+			if (!class_exists("class_base"))
+			{
+				throw new aw_exception("Failed to load 'fastcall' module");
+			}
+
+			$vars = self::$request->get_args();
+			$class = self::$request->class_name();
+			$action = self::$request->action();
+			$inst = new $class();
+			self::$result->set_data($inst->$action($vars));
+			exit();
+		}
+		elseif (strpos($request_uri, "/automatweb") === false)
 		{
 			// aw_redirect(new aw_uri(aw_ini_get("baseurl") . "/automatweb/"));
 
@@ -467,15 +483,6 @@ aw_global_set("section", $section);
 				if (empty($class) && !empty($vars["alias"]))
 				{
 					$class = $vars["alias"];
-				}
-
-				// execute fastcall if requested
-				if (self::$request->is_fastcall())
-				{
-					classload("fastcall_base");
-					$inst = new $class();
-					self::$result->set_data($inst->$action($vars));
-					return;
 				}
 
 				include(AW_DIR . "automatweb/admin_header".AW_FILE_EXT);

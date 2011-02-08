@@ -418,7 +418,7 @@ class class_base extends aw_template
 
 		$defview = 0;
 
-		if($this->cfgform_obj and $args["action"] != "view")
+		if($this->cfgform_obj and $args["action"] !== "view")
 		{
 			$grps = safe_array($this->cfgform_obj->meta("cfg_groups"));
 			if(!empty($grps[$this->use_group]["grpview"]))
@@ -4333,7 +4333,7 @@ class class_base extends aw_template
 			}
 			elseif (($type === "select") && isset($property["multiple"]))
 			{
-				$property["value"] = $this->make_keys($args["rawdata"][$name]);
+				$property["value"] = isset($args["rawdata"][$name]) ? $this->make_keys($args["rawdata"][$name]) : null;
 			}
 
 			if (isset($property["method"]) && $property["method"] === "bitmask")

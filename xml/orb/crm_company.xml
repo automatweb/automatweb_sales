@@ -136,7 +136,8 @@
 			<function name="add_customer_category">
 				<arguments>
 					<required name="id" type="oid" />
-					<optional name="parent" type="oid" />
+					<optional name="c" type="oid" />
+					<optional name="t" type="oid" />
 					<optional name="save_autoreturn" />
 					<optional name="return_url" />
 				</arguments>

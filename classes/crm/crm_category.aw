@@ -11,6 +11,7 @@
 	@caption J&auml;rjekord
 
 	@property parent_category type=hidden table=aw_crm_category field=aw_parent_category
+	@property category_type type=hidden table=aw_crm_category field=aw_category_type
 	@property organization type=hidden table=aw_crm_category field=aw_organization
 
 */
@@ -40,6 +41,7 @@ class crm_category extends class_base
 				  `aw_oid` int(11) UNSIGNED NOT NULL default '0',
 				  `aw_organization` int(11) UNSIGNED default NULL,
 				  `aw_parent_category` int(11) UNSIGNED default NULL,
+				  `aw_category_type` tinyint UNSIGNED NOT NULL default '1',
 				  PRIMARY KEY  (`aw_oid`)
 				)");
 			}
@@ -56,6 +58,13 @@ class crm_category extends class_base
 				$this->db_add_col($table, array(
 					"name" => "aw_parent_category",
 					"type" => "int(11) UNSIGNED default NULL"
+				));
+			}
+			elseif ("aw_category_type" === $field)
+			{
+				$this->db_add_col($table, array(
+					"name" => "aw_category_type",
+					"type" => "tinyint UNSIGNED NOT NULL default '1'"
 				));
 			}
 		}

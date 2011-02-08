@@ -57,19 +57,19 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property assembler type=select table=aw_crm_bill field=aw_assembler parent=top_left
 	@caption Koostaja
 
-	@property bill_date type=date_select table=aw_crm_bill field=aw_date parent=top_left
+	@property bill_date type=datepicker time=0 table=aw_crm_bill field=aw_date parent=top_left
 	@caption Kuup&auml;ev
 
-	@property bill_accounting_date type=date_select table=aw_crm_bill field=aw_bill_accounting_date parent=top_left
+	@property bill_accounting_date type=datepicker time=0 table=aw_crm_bill field=aw_bill_accounting_date parent=top_left
 	@caption Raamatupidamise kuup&auml;ev
 
 	@property bill_due_date_days type=textbox table=aw_crm_bill field=aw_due_date_days size=5 parent=top_left
 	@caption Makset&auml;htaeg (p&auml;evi)
 
-	@property bill_due_date type=date_select table=aw_crm_bill field=aw_due_date parent=top_left
+	@property bill_due_date type=datepicker time=0 table=aw_crm_bill field=aw_due_date parent=top_left
 	@caption Tasumise kuup&auml;ev
 
-	@property bill_recieved type=date_select table=aw_crm_bill field=aw_recieved default=-1 parent=top_left
+	@property bill_recieved type=datepicker time=0 table=aw_crm_bill field=aw_recieved default=-1 parent=top_left
 	@caption Laekumiskuup&auml;ev
 
 	@property payment_mode type=select table=aw_crm_bill field=aw_payment_mode parent=top_left
@@ -86,7 +86,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 	@property partial_recieved type=text field=meta method=serialize parent=top_left
 	@caption Osaline laekumine
-
 
 
 
@@ -109,7 +108,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property approved type=checkbox table=aw_crm_bill ch_value=1 field=aw_approved parent=bottom_left
 	@caption Kinnitatud
 
-	@property bill_trans_date type=date_select table=aw_crm_bill field=aw_trans_date default=-1 parent=bottom_left
+	@property bill_trans_date type=datepicker time=0 table=aw_crm_bill field=aw_trans_date default=-1 parent=bottom_left
 	@caption Kandekuup&auml;ev
 
 	@property signers type=crm_participant_search reltype=RELTYPE_SIGNER multiple=1 table=objects field=meta method=serialize style=relpicker parent=bottom_left
@@ -182,7 +181,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property rows_different_pages type=text field=meta method=serialize
 	@caption Read erinevatel lehek&uuml;lgedel
 
-	@property comment type=textbox table=objects field=comment
+	@property comment type=textarea rows=15 cols=50 table=objects field=comment
 	@caption Kommentaar lisale
 
 	@property time_spent_desc type=textbox table=aw_crm_bill field=aw_time_spent_desc
@@ -305,8 +304,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 @groupinfo other_data caption="Muud andmed"
 @groupinfo mails caption="Kirjad"
-	@groupinfo sent_mails caption="Saadetud kirjad" parent=mails
 	@groupinfo send_mail caption="Arve saatmine" parent=mails confirm_save_data=0
+	@groupinfo sent_mails caption="Saadetud kirjad" parent=mails
 @groupinfo delivery_notes caption="Saatelehed"
 @groupinfo tasks caption="Toimetused" submit=no
 @groupinfo preview caption="Eelvaade"
@@ -518,7 +517,7 @@ class crm_bill extends class_base
 				}
 				if(isset($this->error))
 				{
-					$prop["value"].= "<br><font color=red size=+1>".html::bold($this->error)."</font>";
+					$prop["value"].= html::linebreak() . "<font color=red size=+1>".html::bold($this->error)."</font>";
 				}
 				break;
 
@@ -565,14 +564,14 @@ class crm_bill extends class_base
 						"url" => "javascript:aw_popup_scroll('".$url."','Otsing', 550, 500)",
 						"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0>",
 						"title" => t("Otsi")
-					))."<br>";
+					)) . html::linebreak();
 				}
 
 				if($arr["obj_inst"]->id() > 1)
 				{
 					foreach($arr["obj_inst"]->get_bill_payments_data() as $dat)
 					{
-						$prop["value"].= "\n<br>".date("d.m.Y" , $dat["date"])." ".$dat["sum"]." ".$dat["currency"];
+						$prop["value"].= html::linebreak().date("d.m.Y" , $dat["date"])." ".$dat["sum"]." ".$dat["currency"];
 					}
 				}
 				break;
@@ -730,7 +729,7 @@ class crm_bill extends class_base
 					$val[] = t("Mahakantud ridade summa:")." ".number_format($writeoffs_sum, 2)." ".$arr["obj_inst"]->get_bill_currency_name();
 				}
 
-				$prop["value"] = join ("\n<br>", $val);
+				$prop["value"] = join (html::linebreak(), $val);
 				break;
 
 			case "rows_different_pages":
@@ -1890,7 +1889,7 @@ class crm_bill extends class_base
 			}
 			else
 			{
-				$person = $rel->get_first_object_by_reltype("RELTYPE_PERSON");
+				$person = $rel->get_first_obj_by_reltype("RELTYPE_PERSON");
 				if(is_object($person))
 				{
 					return $person->get_phone();
@@ -2139,8 +2138,8 @@ class crm_bill extends class_base
 						"sum" => $agreement_price["price"],
 						"date" =>  $arr["obj_inst"]->prop("bill_date"),
 					));
-					$price_cc = "<br>".$cc_price." ".$ccurrency_name;
-					$sum_cc = "<br>".$cc_price*$agreement_price["amt"]." ".$ccurrency_name;
+					$price_cc = html::linebreak().$cc_price." ".$ccurrency_name;
+					$sum_cc = html::linebreak().$cc_price*$agreement_price["amt"]." ".$ccurrency_name;
 				}
 				$ut->clear_data();
 
@@ -2203,11 +2202,11 @@ class crm_bill extends class_base
 					"url" => $url
 				));
 				$t->define_data(array(
-					"name" => t("Kokkuleppehind")." ".($x+1)."<br>".html::textbox(array(
+					"name" => t("Kokkuleppehind")." ".($x+1).html::linebreak().html::textbox(array(
 						"name" => "agreement_price[".$x."][date]",
 						"value" => isset($agreement_price["date"]) ? $agreement_price["date"] : "",
 						"size" => 8
-					))."<br>".html::textarea(array(
+					)).html::linebreak().html::textarea(array(
 						"name" => "agreement_price[".$x."][name]",
 						"value" => isset($agreement_price["name"]) ? $agreement_price["name"] : "",
 						"rows" => 5,
@@ -2233,7 +2232,7 @@ class crm_bill extends class_base
 						"name" => "sel_rows[]",
 						"value" => $x
 					)),
-					"person" => "<br>".$pps->get_popup_search_link(array(
+					"person" => html::linebreak().$pps->get_popup_search_link(array(
 						"pn" => "agreement_price[".$x."][person]",
 						"multiple" => 1,
 						"clid" => array(CL_CRM_PERSON)
@@ -2259,14 +2258,25 @@ class crm_bill extends class_base
 		{
 			die(0);
 		}
+
 		$o = obj($arr["id"]);
-		$props = array("name" , "comment" , "date" , "price" , "amt", "unit");
+		$props = array("name" , "comment", "date", "unit");
 		foreach($props as $prop)
 		{
 			if(isset($arr[$prop]))
 			{
 				$o->set_prop($prop , iconv("UTF-8", aw_global_get("charset"), $arr[$prop]));
 			}
+		}
+
+		if(!empty($arr["price"]))
+		{
+			$o->set_prop("price" , aw_math_calc::string2float($arr["price"]));
+		}
+
+		if(!empty($arr["amt"]))
+		{
+			$o->set_prop("amt" , aw_math_calc::string2float($arr["amt"]));
 		}
 
 		if(isset($arr["prod"]) && $this->can("view", $arr["prod"]) && obj($arr["prod"])->class_id() == CL_SHOP_PRODUCT)
@@ -2281,17 +2291,17 @@ class crm_bill extends class_base
 
 		if(!empty($arr["jrk"]))
 		{
-			$o->set_meta("jrk" , $arr["jrk"]);
+			$o->set_meta("jrk" , (int) $arr["jrk"]);
 		}
 
-			foreach($o->connections_from(array("type" => "RELTYPE_PEOPLE")) as $c)
+		foreach($o->connections_from(array("type" => "RELTYPE_PEOPLE")) as $c)
+		{
+			if(!in_array($c->prop("to") , explode("," ,$arr["people"])))
 			{
-				if(!in_array($c->prop("to") , explode("," ,$arr["people"])))
-				{
-					$c->delete();
-				}
+				$c->delete();
 			}
-			$o->set_prop("people" , explode("," ,$arr["people"]));
+		}
+		$o->set_prop("people" , explode("," ,$arr["people"]));
 
 		if(isset($arr["has_tax"]))
 		{
@@ -2412,28 +2422,34 @@ class crm_bill extends class_base
 						",
 				));
 				break;
+
 			case "name":
-				$ret.="<table><tr><td width=400>".
+				$ret.="<table><tr><td width=400> " . t("Jrk.") . " " .
 				html::textbox(array(
 					"name" => "rows[".$row->id()."][jrk]",
 					"value" => $row->meta("jrk"),
 					"size" => 3
-				)).html::textbox(array(
+				))
+				. " " . t("Kuup&auml;ev") . " " .
+				html::textbox(array(
 					"name" => "rows[".$row->id()."][date]",
 					"value" => $row->prop("date"),
 					"size" => 8
-				)).($row->is_writeoff() ? t("mahakantud") : "")."<br>".html::textbox(array(
+				)) . ($row->is_writeoff() ? t("mahakantud") : "") . html::linebreak() .
+				html::textbox(array(
 					"name" => "rows[".$row->id()."][comment]",
 					"value" => $row->comment(),
 					"size" => 70
-				))."<br>".html::textarea(array(
+				)) . html::linebreak() .
+				html::textarea(array(
 					"name" => "rows[".$row->id()."][name]",
 					"value" => $row->prop("desc"),
 					"rows" => 5,
 					"cols" => 70
 				))
-					."</td></tr></table>";
+				."</td></tr></table>";
 				break;
+
 			case "code":
 				$ret.=html::textbox(array(
 					"name" => "rows[".$row->id()."][code]",
@@ -2441,6 +2457,7 @@ class crm_bill extends class_base
 					"size" => 10
 				));
 				break;
+
 			case "unit":
 				$ut = new vcl_table(array(
 					"layout" => "generic",
@@ -2486,6 +2503,7 @@ class crm_bill extends class_base
 				));
 				$ret.=$ut->draw(array("no_titlebar" => 1));
 				break;
+
 			case "has_tax":
 				if($row->prop("tax"))
 				{
@@ -2507,6 +2525,7 @@ class crm_bill extends class_base
 				}
 
 				break;
+
 			case "tax":
 				$ret.=html::textbox(array(
 					"name" => "rows[$id][has_tax]",
@@ -2514,6 +2533,7 @@ class crm_bill extends class_base
 						"size" => 3,
 				));
 				break;
+
 			case "prod":
 				if(!$row->meta("dno"))
 				{
@@ -2567,10 +2587,11 @@ class crm_bill extends class_base
 					"name" => "rows[$id][prod]",
 					"size" => 20,
 					"value" => $row->prop("prod"),
-				)).$s."<br />".($row->meta("dno") ? sprintf(t("Saatelehel %s"), obj($row->meta("dno"))->name()) : "<div id='dn_info_$id'>".t("Liiguta saatelehele:").$m->get_menu(array(
+				)).$s.html::linebreak().($row->meta("dno") ? sprintf(t("Saatelehel %s"), obj($row->meta("dno"))->name()) : "<div id='dn_info_$id'>".t("Liiguta saatelehele:").$m->get_menu(array(
 					"icon" => "copy.gif",
 				))."</div>");
 				break;
+
 			case "project":
 				$ret.= html::select(array(
 					"name" => "rows[$id][project]",
@@ -2591,7 +2612,7 @@ class crm_bill extends class_base
 					"options" => array("" => t("--vali--"))+$row->get_person_selection(),
 					"value" => array_keys($row->get_person_selection()),
 					"multiple" => 1
-				))."<br>".$pps->get_popup_search_link(array(
+				)).html::linebreak().$pps->get_popup_search_link(array(
 					"pn" => "rows[$id][person]",
 					"multiple" => 1,
 					"no_submit" => 1,
@@ -2697,11 +2718,11 @@ class crm_bill extends class_base
 				break;
 			case "name":
 				$ret.="<div>".
-					$row->meta("jrk")."<br>".
-					$row->prop("date")."<br>".
-					"<b>".$row->prop("comment")."</b><br>".
+					$row->meta("jrk").html::linebreak().
+					$row->prop("date").html::linebreak().
+					"<b>".$row->prop("comment")."</b>".html::linebreak().
 					//preg_replace('/([^\s]{100})(?=[^\s])/m', '$1 ', $row->prop("name")).
-					wordwrap(htmlspecialchars(($row->prop("desc"))), 100, "<br>", true).
+					wordwrap(nl2br(htmlspecialchars(($row->prop("desc")))), 100, html::linebreak(), true).
 					"</div>";
 				break;
 			case "code":
@@ -2730,12 +2751,13 @@ class crm_bill extends class_base
 						"sum" => $row->prop("price"),
 						"date" =>  $date,
 					));
-					$price_cc = "<br>".round($cc_price , 2)." ".$ccurrency_name;
-					$sum_cc = "<br>".round($cc_price*$row->prop("amt") , 2)." ".$ccurrency_name;
+					$ccurrency_o = new object($ccurrency);
+					$price_cc = html::linebreak().round($cc_price , 2)." ".$ccurrency_o->name();
+					$sum_cc = html::linebreak().round($cc_price*$row->prop("amt") , 2)." ".$ccurrency_o->name();
 				}
-				$ret.=$row->prop("unit.name")."<br>".
-					t("Hind").": ".$row->prop("price")."<br>".$price_cc.
-					t("Kogus").": ".$row->prop("amt")."<br>".$sum_cc.
+				$ret.=$row->prop("unit.name").html::linebreak().
+					t("Hind").": ".$row->prop("price").html::linebreak().$price_cc.
+					t("Kogus").": ".$row->prop("amt").html::linebreak().$sum_cc.
 					t("Summa").": ".$row->prop("price")*$row->prop("amt");
 				break;
 			case "has_tax":
@@ -2753,10 +2775,10 @@ class crm_bill extends class_base
 				}
 				break;
 			case "prod":
-				$ret.=$row->prop("prod.name").(($dn = $row->meta("dno")) ? "<br />".sprintf(t("(Saatelehel %s)"), obj($dn)->name()): "");
+				$ret.=$row->prop("prod.name").(($dn = $row->meta("dno")) ? html::linebreak().sprintf(t("(Saatelehel %s)"), obj($dn)->name()): "");
 				break;
 			case "person":
-				$ret.=join("<br>" , $row->get_person_selection());
+				$ret.=join(html::linebreak(), $row->get_person_selection());
 				break;
 		}
 		return $ret.'</div>';
@@ -2797,7 +2819,7 @@ class crm_bill extends class_base
 			}
 			if($error)
 			{
-				$content.= $error."<br>";
+				$content.= $error.html::linebreak();
 			}
 			else
 			{
@@ -3156,6 +3178,15 @@ class crm_bill extends class_base
 			$vars["imp_penalty"] = $impl->prop("bill_penalty_pct");
 			$vars["impl_ou"] = $impl->prop("ettevotlusvorm.shortname");
 
+			$impl_logo = $impl->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
+			if ($impl_logo)
+			{
+				$this->vars["impl_logo_url"] = $impl_logo->instance()->get_url_by_id($impl_logo->id());
+				$this->vars(array(
+					"HAS_IMPL_LOGO" => $this->parse("HAS_IMPL_LOGO")
+				));
+			}
+
 			$ba = "";
 			foreach($impl->connections_from(array("type" => "RELTYPE_BANK_ACCOUNT")) as $c)
 			{
@@ -3196,7 +3227,7 @@ class crm_bill extends class_base
 					$vars["impl_city"] = $ct->prop_str("linn");
 					$ap[] = $ct->prop_str("linn");
 				}
-				$aps = join(", ", $ap)."<br>";
+				$aps = join(", ", $ap).html::linebreak();
 				$aps .= $ct->prop_str("maakond");
 				$aps .= " ".$ct->prop("postiindeks");
 				$vars["impl_index"] = $ct->prop("postiindeks");
@@ -3373,7 +3404,7 @@ class crm_bill extends class_base
 			"bill_due" => date("d.m.Y", $this->bill->prop("bill_due_date")),
 			"orderer_contact" => $orderer_contact_person_name,
 			"orderer_contact_profession" => $orderer_contact_person_profession,
-			"comment" => $this->bill->prop("notes"),
+			"comment" => $this->bill->comment(),
 			"overdue" => $this->bill->get_overdue_charge(),
 			"bill_text" => $this->bill->get_bill_text(),
 		));
@@ -3871,11 +3902,12 @@ class crm_bill extends class_base
 		$ord = obj();
 		$currency = $this->bill->get_bill_currency_id();
 		$cur = obj($currency);
+		$ord_addr = $ord_ct = "";
+
 		if ($this->can("view", $this->bill->prop("customer")))
 		{
 			$ord = obj($this->bill->prop("customer"));
 			$_ord_ct = $ord->prop("firmajuht");
-			$ord_ct = "";
 			if ($this->can("view", $_ord_ct))
 			{
 				$ct = obj($_ord_ct);
@@ -3889,7 +3921,7 @@ class crm_bill extends class_base
 				{
 					$ap[] = $ct->prop_str("linn");
 				}
-				$aps = join(", ", $ap)."<br>";
+				$aps = join(", ", $ap).html::linebreak();
 				$aps .= $ct->prop_str("maakond");
 				$aps .= " ".$ct->prop("postiindeks");
 				$ord_addr = $aps;//$ct->name()." ".$ct->prop("postiindeks");
@@ -3907,7 +3939,7 @@ class crm_bill extends class_base
 			$bpct = $ord->prop("bill_penalty_pct");
 			if (!$bpct)
 			{
-				$bpct = $impl_vars["impl_penalty"];
+				$bpct = isset($impl_vars["impl_penalty"]) ? $impl_vars["impl_penalty"] : 0;
 			}
 		}
 
@@ -3923,8 +3955,6 @@ class crm_bill extends class_base
 			"payment_due_days" => $this->bill->prop("bill_due_date_days"),
 			"bill_due" => date("d.m.Y", $this->bill->prop("bill_due_date")),
 			"orderer_contact" => $ord_ct,
-			"comment" => $this->bill->prop("notes"),
-			"comment" => $this->bill->comment(),
 			"time_spent_desc" => $this->bill->prop("time_spent_desc")
 		));
 
@@ -4001,7 +4031,8 @@ class crm_bill extends class_base
 			"total" => number_format($this->sum, 2,".", " "),
 			"total_text" => aw_locale::get_lc_money_text($this->sum, $cur, $lc),
 			"tot_amt" => $this->stats->hours_format($this->tot_amt),
-			"page_no" => $page_no,
+			"comment" => nl2br($this->bill->comment()),
+			"page_no" => $page_no
 		));
 
  	//k6ikidele muutujatele HAS_ sub
@@ -4100,7 +4131,7 @@ class crm_bill extends class_base
 					"amt" => $this->stats->hours_format($row["amt"]),
 					"price" => number_format($row["price"], 2,".", " "),
 					"sum" => number_format($cur_sum, 2,"." , " "),
-					"desc" => $row["name"],
+					"desc" => nl2br($row["name"]),
 					"date" => isset($row["date"]) ? $row["date"] : "",
 					"row_orderer" => isset($row["orderer"]) ? $row["orderer"] : "",
 					"comment" => isset($row["comment"]) ? $row["comment"] : "",
@@ -4771,7 +4802,7 @@ ENDSENDSCRIPT;
 		{
 			$tb->add_button(array(
 				"name" => "reconcile",
-				"tooltip" => t("Koonda read"),
+				"tooltip" => t("Koonda blokiks"),
 				"action" => "reconcile_rows",
 				// get all checked rows and check their prices, if they are different, ask the user for a new price
 				"onClick" => "nfound=0;curp=-1;form=document.changeform;len = form.elements.length;for(i = 0; i < len; i++){if (form.elements[i].name.indexOf('sel_rows') != -1 && form.elements[i].checked)	{nfound++; neln = 'rows_'+form.elements[i].value+'__price_';nel = document.getElementById(neln); if (nfound == 1) { curp = nel.value; } else if(curp != nel.value) {price_diff = 1;}}}; if (price_diff) {v=prompt('Valitud ridade hinnad on erinevad, sisesta palun koondatud rea hind'); if (v) { document.changeform.reconcile_price.value = v;return true; } else {return false;} }"
@@ -5234,7 +5265,7 @@ ENDSENDSCRIPT;
 		}
 
 		$subject = $this_o->parse_mail_text($arr["bill_mail_subj"]);
-		$body = $this_o->parse_mail_text($arr["bill_mail_ct"]);
+		$body = nl2br($this_o->parse_mail_text($arr["bill_mail_ct"]));
 		$reminder = isset($arr["sendmail_attachments"]["r"]);
 		$appendix = isset($arr["sendmail_attachments"]["a"]);
 		$from = $arr["bill_mail_from"];
@@ -5325,7 +5356,7 @@ ENDSENDSCRIPT;
 		{
 			$to_o2 = $obj->make_add_pdf();
 			$file_data = $to_o2->get_file();
-			$attatchments.= "<br>".html::href(array(
+			$attatchments.= html::linebreak().html::href(array(
 				"caption" => html::img(array(
 					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
 					"border" => 0,
@@ -5643,7 +5674,7 @@ ENDSENDSCRIPT;
 			$data["content"] = $mail->prop("message");
 			$addr = explode("," , htmlspecialchars($mail->prop("mto")));
 
-			$data["to"] = join("<br>" , $addr);
+			$data["to"] = join(html::linebreak() , $addr);
 
 			$data["attachments"] = "";
 			$aos = safe_array($mail->prop("attachments"));
@@ -5653,7 +5684,7 @@ ENDSENDSCRIPT;
 				{
 					$o = obj($ao);
 					$file_data = $o->get_file();
-					$data["attachments"].= "<br>\n".html::href(array(
+					$data["attachments"].= html::linebreak().html::href(array(
 						"caption" => html::img(array(
 							"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
 							"border" => 0,

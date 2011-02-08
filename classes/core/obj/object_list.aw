@@ -8,6 +8,8 @@ class object_list extends _int_obj_container_base
 	var $list_names = array();
 	var $list_objdata = array();
 
+	public $ds_query_string = ""; // database query executed to retrieve list data. use for debugging only
+
 	protected $filter = array();
 
 	/** creates the object list, can also initialize it with objects
@@ -924,11 +926,16 @@ class object_list extends _int_obj_container_base
 		$this->_int_init_empty();
 		$tmp = $GLOBALS["object_loader"]->ds->search($filter);
 
+		if (method_exists($GLOBALS["object_loader"]->ds, "last_search_query_string"))
+		{
+			$this->ds_query_string = $GLOBALS["object_loader"]->ds->last_search_query_string();
+		}
+
 		list($oids, $meta_filter, $acldata, $parentdata, $objdata) = $tmp;
 		if (!is_array($oids))
 		{
 			return false;
-		};
+		}
 
 		// set acldata to memcache
 		if (is_array($acldata))

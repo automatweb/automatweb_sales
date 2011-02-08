@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
 
 class _int_obj_ds_memcache extends _int_obj_ds_decorator
 {
@@ -520,5 +517,3 @@ class awex_obj_memcache_connect extends awex_obj_memcache {}
 
 /** Caching attempt failure **/
 class awex_obj_memcache_set extends awex_obj_memcache {}
-
-?>

@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_CFGCONTROLLER relationmgr=yes maintainer=kristo allow_rte=3
+@classinfo syslog_type=ST_CFGCONTROLLER relationmgr=yes allow_rte=3
 
 @default table=objects
 @default group=general
@@ -15,17 +15,17 @@
 @comment Kuvatakse, kui kontroller blokeerib sisestuse
 
 property show_error type=checkbox ch_value=1
-caption Kas n&auml;itamise kontroller n&auml;itab elemendi asemel veateadet? 
+caption Kas n&auml;itamise kontroller n&auml;itab elemendi asemel veateadet?
 
 property only_warn type=checkbox ch_value=1
 caption Ainult hoiatus
 
 property error_in_popup type=checkbox ch_value=1
-caption Veateade popupis 
+caption Veateade popupis
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-	
+
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
 
@@ -49,14 +49,14 @@ class cfgcontroller extends class_base
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
-		
+
 		switch($prop["name"])
 		{
-			
+
 		};
 		return $retval;
 	}
-	
+
 	function set_property($arr = array())
 	{
 		$data = &$arr["prop"];
@@ -73,7 +73,7 @@ class cfgcontroller extends class_base
 	function callback_mod_tab($arr)
 	{
 		$trc = aw_ini_get("user_interface.trans_classes");
-		
+
 		if ($arr["id"] == "transl" && (aw_ini_get("user_interface.content_trans") != 1 && !$trc[$this->clid]))
 		{
 			return false;
@@ -85,7 +85,7 @@ class cfgcontroller extends class_base
 	{
 		return $this->trans_callback($arr, $this->trans_props);
 	}
-	
+
 	/** runs the controller given
 		@attrib api=1
 
@@ -109,12 +109,12 @@ class cfgcontroller extends class_base
 
 		@errors
 			error is thrown if the controller object given does not exist
-	
+
 		@returns
 			the value that the controller sets to the variable $retval
 
 		@examples
-			$ctr = obj(59);	
+			$ctr = obj(59);
 			$object_to_run_on = obj(100);
 			$ctr_instance = $crt->instance();
 			$prop = array("name" => "whatever");
@@ -134,4 +134,3 @@ class cfgcontroller extends class_base
 		return $retval;
 	}
 }
-?>

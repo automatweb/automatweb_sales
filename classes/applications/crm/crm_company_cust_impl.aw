@@ -40,9 +40,13 @@ class crm_company_cust_impl extends class_base
 			));
 		}
 
+		$filt = array(
+			"project_participants" => array(),
+			"project_orderer" => array(),
+			"project_impl" => array()
+		);
 		if (is_array($data))
 		{
-			$filt = array();
 			foreach($data as $row)
 			{
 				if (trim($row["project_orderer"]) != "")
@@ -101,7 +105,7 @@ class crm_company_cust_impl extends class_base
 			"format" => "d.m.Y"
 		));
 
-		if ($_GET["group"] === "org_projects_archive")
+		if ($this->use_group === "org_projects_archive")
 		{
 			$table->define_field(array(
 				"name" => "project_end",
@@ -645,6 +649,19 @@ class crm_company_cust_impl extends class_base
 		// menu items for adding customers
 		if ("relorg_b" === $arr["use_group"])
 		{ // buyers
+			// add buyer category
+			$tb->add_menu_item(array(
+				"parent"=>"add_item",
+				"text" => t("Ostjate kategooria"),
+				"link" => $this->mk_my_orb("add_customer_category",array(
+					"id" => $arr["obj_inst"]->id(),
+					"save_autoreturn" => "1",
+					"c" => $category,
+					"t" => crm_category_obj::TYPE_BUYER,
+					"return_url" => get_ru()
+				), "crm_company")
+			));
+
 			$tb->add_menu_item(array(
 				"parent"=> "add_item",
 				"text" => t("Ostja - organisatsioon"),
@@ -693,6 +710,19 @@ class crm_company_cust_impl extends class_base
 		}
 		elseif ("relorg_s" === $arr["use_group"])
 		{ // sellers
+			// add seller category
+			$tb->add_menu_item(array(
+				"parent"=>"add_item",
+				"text" => t("M&uuml;&uuml;jate kategooria"),
+				"link" => $this->mk_my_orb("add_customer_category",array(
+					"id" => $arr["obj_inst"]->id(),
+					"save_autoreturn" => "1",
+					"c" => $category,
+					"t" => crm_category_obj::TYPE_SELLER,
+					"return_url" => get_ru()
+				), "crm_company")
+			));
+
 			$tb->add_menu_item(array(
 				"parent"=> "add_item",
 				"text" => t("M&uuml;&uuml;ja - organisatsioon"),

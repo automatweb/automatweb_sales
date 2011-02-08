@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_warehouse_export.aw,v 1.7 2008/01/31 13:50:07 kristo Exp $
 // shop_warehouse_export.aw - Lao v&auml;ljaminek 
 /*
 
-@classinfo syslog_type=ST_SHOP_WAREHOUSE_EXPORT relationmgr=yes no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_SHOP_WAREHOUSE_EXPORT relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -131,21 +130,24 @@ class shop_warehouse_export extends class_base
 		$inf = new aw_array($o->meta("exp_content"));
 		foreach($inf->get() as $id => $prod)
 		{
-			$to = obj($id);
-			$prod = new aw_array($prod);
-			if ($to->is_property("item_count"))
+			if ($this->can ("view", $id))
 			{
-				$item_count = $to->prop("item_count");
-				foreach($prod->get() as $x => $val)
+				$to = obj($id);
+				$prod = new aw_array($prod);
+				if ($to->is_property("item_count"))
 				{
-					$item_count -= is_numeric($val) ? $val : $val["items"];
+					$item_count = $to->prop("item_count");
+					foreach($prod->get() as $x => $val)
+					{
+						$item_count -= is_numeric($val) ? $val : $val["items"];
+					}
+					$to->set_prop("item_count", $item_count);
+					$to->save();
 				}
-				$to->set_prop("item_count", $item_count);
-				$to->save();
 			}
 		}
 		$o->set_prop("confirm", 1);
 		$o->save();
 	}
 }
-?>
+

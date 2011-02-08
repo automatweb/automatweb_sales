@@ -323,23 +323,27 @@ class currency extends class_base
 			));
 		}
 
-		foreach($to_obj->meta("rates") as $rate)
+		$currency_rates = (array) $to_obj->meta("rates");
+		$changed = false;
+		foreach($currency_rates as $rate)
 		{
 			if($rate["currency"] == $from && $rate["rate"] && $this->_check_curr_date($date, $rate["start_date"],$rate["end_date"]))
 			{
 				$sum = $sum * $rate["rate"];
-				$changed = 1;
+				$changed = true;
 				continue;
 			}
 		}
+
 		if(!$changed)//et kui ei saanud vahetuskurssi tulemuse valuuta juurest, siis vaatab teisest
 		{
-			foreach($from_obj->meta("rates") as $rate)
+			$currency_rates = (array) $from_obj->meta("rates");
+			foreach($currency_rates as $rate)
 			{
 				if($rate["currency"] == $to && $rate["rate"] && $this->_check_curr_date($date, $rate["start_date"],$rate["end_date"]))
 				{
 					$sum = $sum/$rate["rate"];
-					$changed = 1;
+					$changed = true;
 					continue;
 				}
 			}
@@ -364,7 +368,6 @@ class currency extends class_base
 
 	function _check_curr_date($date , $start , $end)
 	{
-		extract($date);
 		$start = (mktime(0, 0, 0, $start["month"], $start["day"], $start["year"]));
 		$end = (mktime(0, 0, 0, $end["month"], $end["day"], $end["year"]));
 		if($date > $start && $date < $end)

@@ -1,10 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_field_accommodation.aw,v 1.6 2007/12/06 14:33:17 kristo Exp $
-// crm_field_accommodation.aw - Majutusettev&otilde;te (valdkond) 
+// crm_field_accommodation.aw - Majutusettev&otilde;te (valdkond)
 /*
 
 INFO ABOUT CRM_FIELD_* CLASSES:
-Creating a new class: 
+Creating a new class:
   oh: make sure it's name starts with 'crm_field_'
  one: you should copy the common properties from one of the existing classes
  two: register the class in following places:
@@ -18,7 +17,7 @@ Modifing classes:
 
 
 
-@classinfo syslog_type=ST_CRM_FIELD_ACCOMMODATION no_status=1 prop_cb=1 maintainer=markop
+@classinfo syslog_type=ST_CRM_FIELD_ACCOMMODATION no_status=1 prop_cb=1
 
 @default table=objects
 @default field=meta
@@ -31,7 +30,7 @@ Modifing classes:
 
 	@property location type=chooser
 	@caption Asukoht
-	
+
 	@property loc_fromcity type=textbox default=0 size=5
 	@caption Kaugus linnast (km)
 
@@ -40,7 +39,7 @@ Modifing classes:
 
 	@property price_level type=chooser multiple=1
 	@caption Hinnaklass
-	
+
 	@property price_txt type=textbox size=5
 	@caption Hinnavahemik
 
@@ -53,16 +52,16 @@ Modifing classes:
 	@property has_showers type=checkbox
 	@caption Pesemisv&otilde;imalus toas
 
-	@property has_tv type=checkbox 
+	@property has_tv type=checkbox
 	@caption Teler toas
-	
-	@property has_sat_tv type=checkbox 
+
+	@property has_sat_tv type=checkbox
 	@caption SAT-TV
 
-	@property has_phone type=checkbox 
+	@property has_phone type=checkbox
 	@caption Telefon toas
-	
-	@property has_phone_service type=checkbox 
+
+	@property has_phone_service type=checkbox
 	@caption Telefoniteenus
 
 	@property has_spneeds_rooms type=checkbox
@@ -141,7 +140,7 @@ Modifing classes:
 	@caption Giiditeenus
 
 	@property ign_spacer type=text store=no
-	@caption 
+	@caption
 
 	@property has_grill type=checkbox
 	@caption L&otilde;kkeplats/grill
@@ -234,20 +233,20 @@ Modifing classes:
 
 @default group=images
 
-	@property images type=releditor reltype=RELTYPE_IMAGE field=meta method=serialize mode=manager props=name,ord,status,file,file2,new_w,new_h,new_w_big,new_h_big,comment table_fields=name,ord table_edit_fields=ord override_parent=this direct_links=1 
+	@property images type=releditor reltype=RELTYPE_IMAGE field=meta method=serialize mode=manager props=name,ord,status,file,file2,new_w,new_h,new_w_big,new_h_big,comment table_fields=name,ord table_edit_fields=ord override_parent=this direct_links=1
 	@caption Pildid
 
 @default group=transl
-	
+
 	@property transl type=callback callback=callback_get_transl
 	@caption T&otilde;lgi
 
 @groupinfo products caption="Tooted" submit=no
 
 @groupinfo services caption="Lisateenused"
-@groupinfo catering caption="Toitlustamine" 
-@groupinfo active_vacation caption="Aktiivne puhkus" 
-@groupinfo cedit caption="Kontaktandmed" 
+@groupinfo catering caption="Toitlustamine"
+@groupinfo active_vacation caption="Aktiivne puhkus"
+@groupinfo cedit caption="Kontaktandmed"
 @groupinfo images caption="Pildid" submit=no
 @groupinfo transl caption=T&otilde;lgi
 
@@ -270,7 +269,7 @@ class crm_field_accommodation extends class_base
 {
 	function crm_field_accommodation()
 	{
-		// change this to the folder under the templates folder, where this classes templates will be, 
+		// change this to the folder under the templates folder, where this classes templates will be,
 		// if they exist at all. Or delete it, if this class does not use templates
 		$this->init(array(
 			"tpldir" => "applications/crm/crm_field_accommodation",
@@ -345,7 +344,7 @@ class crm_field_accommodation extends class_base
 
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_tab($arr)
 	{
@@ -361,15 +360,7 @@ class crm_field_accommodation extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 
-	////////////////////////////////////
-	// the next functions are optional - delete them if not needed
-	////////////////////////////////////
-
-	////
-	// !this will be called if the object is put in a document by an alias and the document is being shown
-	// parameters
-	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
@@ -385,7 +376,4 @@ class crm_field_accommodation extends class_base
 		));
 		return $this->parse();
 	}
-
-//-- methods --//
 }
-?>

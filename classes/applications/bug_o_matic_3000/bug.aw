@@ -66,19 +66,19 @@
 		@property monitors type=relpicker reltype=RELTYPE_MONITOR multiple=1 size=5 store=connect parent=settings_col3 captionside=top
 		@caption J&auml;lgijad
 
-		@property prognosis type=date_select default=-1 parent=settings_col3 captionside=top
+		@property prognosis type=datepicker time=0 default=-1 parent=settings_col3 captionside=top
 		@caption Prognoositav kuup&auml;ev
 
-		@property deadline type=date_select parent=settings_col3 captionside=top
+		@property deadline type=datepicker time=0 parent=settings_col3 captionside=top
 		@caption T&auml;htaeg
 
-		@property actual_live_date type=date_select captionside=top parent=settings_col3 field=meta method=serialize table=objects default=-1
+		@property actual_live_date type=datepicker time=0 captionside=top parent=settings_col3 field=meta method=serialize table=objects default=-1
 		@caption Tegelik Live kuup&auml;ev
 
 		@property finance_type type=chooser captionside=top parent=settings_col3 table=aw_bugs field=aw_finance_type
 		@caption Kulud kaetakse
 
-		@property hr_price type=textbox captionside=top parent=settings_col3 table=aw_bugs field=aw_hr_price
+		@property hr_price type=textbox size=10 captionside=top parent=settings_col3 table=aw_bugs field=aw_hr_price
 		@caption Tunnihind
 
 		@property send_bill type=checkbox ch_value=1 parent=settings_col3 table=aw_bugs field=aw_send_bill
@@ -224,10 +224,10 @@
 	@property cust_solution type=textarea rows=10 cols=50 field=aw_cust_solution
 	@caption Kliendipoolne lahendus
 
-	@property cust_live_date type=date_select field=aw_cust_live_date
+	@property cust_live_date type=datepicker time=0 field=aw_cust_live_date
 	@caption Kasutusvalmis
 
-	@property wish_live_date type=date_select field=meta method=serialize table=objects
+	@property wish_live_date type=datepicker time=0 field=meta method=serialize table=objects
 	@caption Soovitav Live kuup&auml;ev
 
 	@property cust_crit type=textarea rows=10 cols=50 field=aw_cust_crit
@@ -855,14 +855,12 @@ class bug extends class_base
 					$p = $u->get_person_for_uid($arr["obj_inst"]->createdby());
 					$crea = sprintf(t("Looja: %s / %s"), $p->name(), date("d.m.Y H:i", $arr["obj_inst"]->created()));
 				}
-				else
-				if (!empty($arr["request"]["from_req"]))
+				elseif (!empty($arr["request"]["from_req"]))
 				{
 					$r = obj($arr["request"]["from_req"]);
 					$prop["value"] = $r->name();
 				}
-				else
-				if (!empty($arr["request"]["from_problem"]))
+				elseif (!empty($arr["request"]["from_problem"]))
 				{
 					$r = obj($arr["request"]["from_problem"]);
 					$prop["value"] = $r->name();
@@ -1091,7 +1089,7 @@ class bug extends class_base
 					}
 				}
 
-				$this->_sort_bug_ppl(&$arr);
+				$this->_sort_bug_ppl($arr);
 				break;
 
 			case "bug_class":
@@ -1320,7 +1318,7 @@ class bug extends class_base
 						}
 					}
 
-					if($bt && $bt->prop("finance_required"))
+					if(!empty($bt) && $bt->prop("finance_required"))
 					{
 						$arr["prop"]["error"] = t("Kulude katmise aeg valimata!");
 						return PROP_FATAL_ERROR;
@@ -1331,6 +1329,7 @@ class bug extends class_base
 			case "name":
 				$po = obj($arr["request"]["parent"] ? $arr["request"]["parent"] : $arr["request"]["id"]);
 				$pt = $po->path();
+				$bt = null;
 				foreach($pt as $pi)
 				{
 					if ($pi->class_id() == CL_BUG_TRACKER)
@@ -1338,6 +1337,7 @@ class bug extends class_base
 						$bt = $pi;
 					}
 				}
+
 				if (!$this->can("view", $arr["request"]["who"]) && !$arr["obj_inst"]->prop("who"))
 				{
 					if($bt)
@@ -1351,6 +1351,7 @@ class bug extends class_base
 							$bt_display = obj($c->prop("from"));
 						}
 					}
+
 					if($arr["request"]["bug_type"] && $bt_display)
 					{
 						$user = $bt_display->meta("type".$arr["request"]["bug_type"]);
@@ -1369,6 +1370,7 @@ class bug extends class_base
 					{
 						$err = 1;
 					}
+
 					if($err)
 					{
 						$prop["error"] = t("Kellele ei tohi olla t&uuml;hi!");
@@ -1381,7 +1383,6 @@ class bug extends class_base
 					return PROP_OK;
 				}
 
-				classload("core/date/date_calc");
 				$ev = date_edit::get_timestamp($arr["request"]["deadline"]);
 
 				if ($ev == $arr["obj_inst"]->prop("deadline"))
@@ -1389,13 +1390,13 @@ class bug extends class_base
 					return PROP_OK;
 				}
 				else
-				if ($ev > 300 && $ev < get_day_start())
+				if ($ev > 300 && $ev < date_calc::get_day_start())
 				{
 					$prop["error"] = t("T&auml;htaeg ei tohi olla minevikus!");
 					return PROP_FATAL_ERROR;
 				}
 
-				$bt_i = get_instance(CL_BUG_TRACKER);
+				$bt_i = new bug_tracker();
 				if($arr["request"]["who"])
 				{
 					$arr["obj_inst"]->set_prop("who", $arr["request"]["who"]);
@@ -1429,6 +1430,7 @@ class bug extends class_base
 					}
 				}
 
+/*
 				if (count($n_ovr) && false) // && false on temp lahendus, eks terryf vaatab &uuml;le kui puhkuselt tuleb
 				{
 					$nms = array();
@@ -1439,6 +1441,7 @@ class bug extends class_base
 					$prop["error"] = sprintf(t("Selliste parameetritega ei saa salvestada, kuna see l&uuml;kkaks j&auml;rgnevad bugid &uuml;le t&auml;htaja: %s!"), join("<br>", $nms));
 					return PROP_FATAL_ERROR;
 				}
+*/
 
 				if ($ev > 100 && $estend > ($ev+24*3600))
 				{
@@ -1559,7 +1562,7 @@ class bug extends class_base
 				}
 
 				$change_bug_status = 0;
-				if($bt)
+				if(!empty($bt))
 				{
 					$bcs = $bt->meta("cust_bug_status_conns");
 					if($bcs[$prop["value"]])
@@ -1653,11 +1656,10 @@ class bug extends class_base
 				break;
 
 			case "bug_class":
-				$clss = aw_ini_get("classes");
 				$old_clid = (int) $arr["obj_inst"]->prop($prop["name"]);
 				$new_clid = (int) $prop["value"];
-				$old = isset($clss[$old_clid]) ? $clss[$old_clid]["name"] : "";
-				$nv = isset($clss[$new_clid]) ? $clss[$new_clid]["name"] : "";
+				$old = aw_ini_isset("classes.{$old_clid}") ? aw_ini_get("classes.{$old_clid}.name") : "";
+				$nv = aw_ini_isset("classes.{$new_clid}") ? aw_ini_get("classes.{$new_clid}.name") : "";
 				if ($old != $nv && empty($arr["new"]))
 				{
 					$com = sprintf(t("Klass muudeti %s => %s"), $old, $nv);
@@ -1691,6 +1693,7 @@ class bug extends class_base
 					$this->notify_monitors = true;
 				}
 				break;
+
 			case "deadline":
 				$po = obj($arr["request"]["parent"] ? $arr["request"]["parent"] : $arr["request"]["id"]);
 				$pt = $po->path();
@@ -1702,7 +1705,8 @@ class bug extends class_base
 						$bt = $pi;
 					}
 				}
-				if($bt)
+
+				if(!empty($bt))
 				{
 					$bdd = $bt->prop("bug_def_deadline");
 					if($arr["new"] && ((int)$bdd)>0)
@@ -1712,6 +1716,7 @@ class bug extends class_base
 					}
 				}
 				break;
+
 			case "comments_table":
 				$total = 0;
 				foreach($arr["request"]["add_wh"] as $oid => $hrs)
@@ -1785,7 +1790,7 @@ class bug extends class_base
 		return $retval;
 	}
 
-	function _sort_bug_ppl($arr)
+	function _sort_bug_ppl(&$arr)
 	{
 		$prop = &$arr["prop"];
 		$tmp_options = $prop["options"];
@@ -2650,6 +2655,7 @@ class bug extends class_base
 		}
 
 		$pt = $po->path();
+		$bt = null;
 
 		foreach($pt as $pi)
 		{

@@ -166,7 +166,8 @@
             <name>prognosis</name>
             <group>general</group>
             <table>aw_bugs</table>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <default>-1</default>
             <parent>settings_col3</parent>
             <captionside>top</captionside>
@@ -177,7 +178,8 @@
             <name>deadline</name>
             <group>general</group>
             <table>aw_bugs</table>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <parent>settings_col3</parent>
             <captionside>top</captionside>
             <field>deadline</field>
@@ -187,7 +189,8 @@
             <name>actual_live_date</name>
             <group>general</group>
             <table>objects</table>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <captionside>top</captionside>
             <parent>settings_col3</parent>
             <field>meta</field>
@@ -210,6 +213,7 @@
             <group>general</group>
             <table>aw_bugs</table>
             <type>textbox</type>
+            <size>10</size>
             <captionside>top</captionside>
             <parent>settings_col3</parent>
             <field>aw_hr_price</field>
@@ -592,7 +596,8 @@
             <name>cust_live_date</name>
             <group>cust</group>
             <table>aw_bugs</table>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>aw_cust_live_date</field>
             <caption>Kasutusvalmis</caption>
       </property>
@@ -600,7 +605,8 @@
             <name>wish_live_date</name>
             <group>cust</group>
             <table>objects</table>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>meta</field>
             <method>serialize</method>
             <caption>Soovitav Live kuup&amp;amp;auml;ev</caption>

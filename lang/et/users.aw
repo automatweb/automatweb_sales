@@ -5,7 +5,6 @@
 define("USR_LOGGED_IN","Logis sisse");
 define("USR_LOGGED_OUT","Logis välja");
 
-
 // errors
 define("E_USR_UID_TOO_SHORT","Liiga lühike kasutajanimi, uid=%s, pass=%s");
 define("E_USR_EXISTS","Kasutaja '%s' on juba olemas");
@@ -36,4 +35,3 @@ $lc_users["LC_PROPERTIES"] = "M&auml;&auml;rangud";
 $lc_users["LC_CHANGE_PWD"] = "Muuda parooli";
 $lc_users["LC_DELETE"] = "Kustuta";
 
-?>

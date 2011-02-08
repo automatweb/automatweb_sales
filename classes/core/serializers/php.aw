@@ -47,14 +47,14 @@ class php_serializer
 			else
 			{
 				$td[] = "'$k'"."=>".$v;
-			};
+			}
 		}
 		return $str.join(",\n",$td).")\n";
 	}
 
 	function php_unserialize($str)
 	{
-		eval($str);
+		$r = eval($str);
 		if (!isset($arr) || !is_array($arr))
 		{
 			eval(stripslashes($str));

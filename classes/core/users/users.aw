@@ -7,7 +7,10 @@ class users extends users_user implements request_startup
 	function users()
 	{
 		$this->init("automatweb/users");
-		lc_site_load("users", $this);
+		if (!defined("USR_LOGGED_IN"))
+		{
+			lc_site_load("users", $this);
+		}
 	}
 
 	/** generates the form for changing the current users password

@@ -372,11 +372,16 @@ class vcalendar extends aw_template
 				// events where the start date is later than end. But maybe
 				// I shouldn't care
 				$arr["item_end"] = $arr["item_start"];
-			};
+			}
+		}
+
+		if (empty($arr["timestamp"]))
+		{
+			throw new awex_vcl_calendar_time("Timestamp for item is required.");
 		}
 
 		// convert timestamp to day, since calendar is usually day based
-		$use_date = date("Ymd",$arr["timestamp"]);
+		$use_date = date("Ymd", $arr["timestamp"]);
 		$this->el_count++;
 		$data = $arr["data"];
 		$data["timestamp"] = $arr["timestamp"];
@@ -2028,4 +2033,6 @@ class vcalendar extends aw_template
 		}
 	}
 }
-?>
+
+class awex_vcl_calendar extends aw_exception {}
+class awex_vcl_calendar_time extends awex_vcl_calendar {}
