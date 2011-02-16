@@ -2047,7 +2047,7 @@ EOF;
 		}
 		$groups_list = array();
 		$tmp = $this->users->get_oid_for_uid($uid);
-		if (is_oid($tmp) && $this->can("view", $tmp))
+		if ($this->can("view", $tmp))
 		{
 			$user_obj = obj($tmp);
 			if(aw_ini_get("users.use_group_membership") == 1)
@@ -2055,8 +2055,6 @@ EOF;
 				$groups_list = new object_list(array(
 					"class_id" => CL_GROUP,
 					"status" => object::STAT_ACTIVE,
-					"lang_id" => array(),
-					"site_id" => array(),
 					"CL_GROUP.RELTYPE_GROUP(CL_GROUP_MEMBERSHIP).RELTYPE_USER" => $tmp,
 					"CL_GROUP.RELTYPE_GROUP(CL_GROUP_MEMBERSHIP).status" => object::STAT_ACTIVE,
 					new object_list_filter(array(
@@ -2067,12 +2065,10 @@ EOF;
 								"logic" => "AND",
 								"conditions" => array(
 									"CL_GROUP.RELTYPE_GROUP(CL_GROUP_MEMBERSHIP).date_start" => new obj_predicate_compare(
-										OBJ_COMP_LESS_OR_EQ
-										, time()
+										obj_predicate_compare::LESS_OR_EQ, time()
 									),
 									"CL_GROUP.RELTYPE_GROUP(CL_GROUP_MEMBERSHIP).date_end" => new obj_predicate_compare(
-										OBJ_COMP_GREATER,
-										time()
+										obj_predicate_compare::GREATER, time()
 									),
 								),
 							)),

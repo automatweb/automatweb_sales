@@ -4,13 +4,12 @@
 		displays the data that the docgen analyzer generates
 
 	@author terryf <kristo@struktuur.ee>
-	@cvs $Id: docgen_viewer.aw,v 1.35 2009/08/10 10:15:33 dragut Exp $
 
 **/
 
 /*
 
-@classinfo no_status=1 no_comment=1 relationmgr=yes syslog_type=ST_DOCGEN_VIEWER prop_cb=1 maintainer=kristo
+@classinfo no_status=1 no_comment=1 relationmgr=yes syslog_type=ST_DOCGEN_VIEWER prop_cb=1
 @default table=objects
 @default group=general
 
@@ -100,7 +99,7 @@ class docgen_viewer extends class_base
 
 	function _get_class_tree($arr)
 	{
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -126,7 +125,6 @@ class docgen_viewer extends class_base
 			- terryf.
 		*/
 
-		$this->ic = get_instance("core/icons");
 		$this->_req_mk_clf_tree($tv, $this->cfg["classdir"]);
 
 		$arr["prop"]["value"] = $tv->finalize_tree(array(
@@ -138,10 +136,10 @@ class docgen_viewer extends class_base
 
 	function _get_class_inf($arr)
 	{
-		$analyzer = get_instance("core/aw_code_analyzer/aw_code_analyzer");
+		$analyzer = new aw_code_analyzer();
 
 		$data = $analyzer->analyze_file($arr["request"]["tf"]);
-//die(dbg::dump($data));
+
 		foreach($data["classes"] as $class => $class_data)
 		{
 			if ($class != "")
@@ -162,7 +160,7 @@ class docgen_viewer extends class_base
 	{
 		$this->read_template("classlist.tpl");
 
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -172,7 +170,7 @@ class docgen_viewer extends class_base
 			"url_target" => "list"
 		));
 
-		$ip = get_instance("applications/docgen/docgen_ini_file_parser");
+		$ip = new docgen_ini_file_parser();
 		$ks = $ip->get_tree_items();
 		ksort($ks);
 		foreach($ks as $id => $desc)
@@ -202,7 +200,7 @@ class docgen_viewer extends class_base
 	{
 		$this->read_template("show_ini_setting.tpl");
 
-		$ip = get_instance("applications/docgen/docgen_ini_file_parser");
+		$ip = new docgen_ini_file_parser();
 		$d = $ip->get_setting_data($arr["setting"]);
 
 		$il = "";
@@ -299,7 +297,7 @@ class docgen_viewer extends class_base
 	{
 		$this->read_template("classlist.tpl");
 
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -329,7 +327,6 @@ class docgen_viewer extends class_base
 		}
 
 
-		$this->ic = get_instance("core/icons");
 		$this->_req_mk_clf_tree($tv, $this->cfg["classdir"], $classes);
 
 		$this->vars(array(
@@ -341,7 +338,7 @@ class docgen_viewer extends class_base
 		die($this->finish_with_style($this->parse()));
 	}
 
-	function _req_mk_clf_tree(&$tv, $path, $classes)
+	function _req_mk_clf_tree($tv, $path, $classes)
 	{
 		$dc = array();
 		$fc = array();
@@ -395,7 +392,7 @@ class docgen_viewer extends class_base
 					"name" => $file,
 					"id" => $fp,
 					"url" => $url,
-					"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+					"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 					"target" => "classinfo"
 				));
 			}
@@ -405,7 +402,7 @@ class docgen_viewer extends class_base
 					"name" => $file,
 					"id" => $fp,
 					"url" => $url,
-					"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+					"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 					"target" => "classinfo"
 				));
 				foreach($classes[$fp] as $clinf)
@@ -437,7 +434,7 @@ class docgen_viewer extends class_base
 						"name" => $v,
 						"id" => $fp."::".$clinf["class_name"],
 						"url" => $this->mk_my_orb("class_info", array("file" => $awpath, "disp" => $clinf["class_name"])),
-						"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+						"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 						"target" => "classinfo"
 					));
 				}
@@ -459,15 +456,70 @@ class docgen_viewer extends class_base
 	**/
 	function frameset($arr)
 	{
-		$this->read_template("frameset.tpl");
+		if (empty($arr["id"]))
+		{
+			$this->read_template("frameset_initial.tpl");
 
-		$this->vars(array(
-			"left" => $this->mk_my_orb("api_class_list"),
-			"right" => $this->mk_my_orb("intro"),
-			"doclist" => $this->mk_my_orb("doclist"),
-			"topf" => $this->mk_my_orb("topf", array("id" => $arr["id"]))
-		));
-		die($this->parse());
+			$list = new object_list(array(
+				"class_id" => CL_AW_DOCGEN_VIEWER
+			));
+
+
+			if ($list->count() === 1)
+			{ // one found, redirect
+				$id = $list->begin()->id();
+				$url = $this->mk_my_orb("frames", array(array("id" => $id)));
+				aw_redirect(new aw_uri($url));
+			}
+			elseif ($list->count() === 0)
+			{ // none found, offer to create if logged in
+				if (aw_global_get("uid"))
+				{
+					$user = new object(aw_global_get("uid_oid"));
+					$this->vars(array(
+						"create_url" => $this->mk_my_orb("new", array(array("parent" => $user->prop("home_folder"))))
+					));
+					$this->vars(array("CREATE" => $this->parse("CREATE")));
+				}
+				else
+				{
+					$auth = new auth_config();
+					echo $auth->show_login();
+					exit;
+				}
+			}
+			else
+			{ // many found, offer selection
+				$o = $list->begin();
+				$selection = "";
+				do
+				{
+					$this->vars(array(
+						"url" => $this->mk_my_orb("frameset", array(array("id" => $o->id()))),
+						"name" => $o->name(),
+						"oid" => $o->id()
+					));
+					$selection .= $this->parse("LIST_ITEM");
+				}
+				while ($o = $list->next());
+				$this->vars(array("LIST_ITEM" => $selection));
+				$this->vars(array("SELECTION_LIST" => $this->parse("SELECTION_LIST")));
+			}
+		}
+		else
+		{
+			$this->read_template("frameset.tpl");
+
+			$this->vars(array(
+				"left" => $this->mk_my_orb("api_class_list"),
+				"right" => $this->mk_my_orb("intro"),
+				"doclist" => $this->mk_my_orb("doclist"),
+				"topf" => $this->mk_my_orb("topf", array("id" => $arr["id"]))
+			));
+		}
+
+		echo $this->parse();
+		exit;
 	}
 
 	function display_class($data, $cur_file, $opts = array())
@@ -507,7 +559,7 @@ class docgen_viewer extends class_base
 		{
 			$cln = "doc";
 		}
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$props = $cfgu->load_properties(array(
 			"file" => $cln,
 			"clid" => $usage_class
@@ -815,7 +867,7 @@ class docgen_viewer extends class_base
 					$clf = "/../lib/errorhandling.aw";
 					break;
 
-				default:					
+				default:
 					try
 					{
 						$clf = class_index::get_file_by_name(basename($impl));
@@ -922,7 +974,7 @@ class docgen_viewer extends class_base
 					$clf = "/../lib/errorhandling.aw";
 					break;
 
-				default:					
+				default:
 					try
 					{
 						$clf = class_index::get_file_by_name(basename($impl));
@@ -1003,7 +1055,7 @@ class docgen_viewer extends class_base
 	{
 		extract($arr);
 
-		$analyzer = get_instance("core/aw_code_analyzer/aw_code_analyzer");
+		$analyzer = new aw_code_analyzer();
 
 		$data = $analyzer->analyze_file($file);
 //die(dbg::dump($data));
@@ -1065,7 +1117,7 @@ class docgen_viewer extends class_base
 		$file = urldecode($file);
 		$file = str_replace(".","",dirname($file)) . "/" . basename($file);
 
-		$da = get_instance("core/aw_code_analyzer/aw_code_analyzer");
+		$da = new aw_code_analyzer();
 		$data = $da->analyze_file($file);
 
 		if ($func)
@@ -1133,7 +1185,7 @@ class docgen_viewer extends class_base
 					$clf = "/../lib/errorhandling.aw";
 					break;
 
-				default:					
+				default:
 					try
 					{
 						$clf = class_index::get_file_by_name(basename($impl));
@@ -1165,7 +1217,7 @@ class docgen_viewer extends class_base
 		{
 			$cln = "doc";
 		}
-		$cfgu = get_instance("cfg/cfgutils");
+		$cfgu = new cfgutils();
 		$props = $cfgu->load_properties(array(
 			"file" => $cln,
 			"clid" => $clid
@@ -1233,8 +1285,8 @@ class docgen_viewer extends class_base
 
 	function _display_extends($dat)
 	{
-		$orb = get_instance("core/orb/orb");
-		$that = get_instance("core/aw_code_analyzer/aw_code_analyzer");
+		$orb = new orb();
+		$that = new aw_code_analyzer();
 
 		// now, do extended classes. we do that by parsing all the extends classes
 		// which of course slows us to hell and beyond. these parses should be cached or something
@@ -1273,7 +1325,7 @@ class docgen_viewer extends class_base
 						$clf = class_index::get_file_by_name(basename($dat["extends"]));
 						break;
 				}
-			
+
 			}
 			catch (awex_clidx_filesys $e)
 			{
@@ -1329,7 +1381,7 @@ class docgen_viewer extends class_base
 
 	function do_class_doclist()
 	{
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -1340,7 +1392,6 @@ class docgen_viewer extends class_base
 		));
 
 		$this->basedir = $this->cfg["basedir"]."/docs/classes";
-		$this->ic = get_instance("core/icons");
 		$this->_req_mk_clfdoc_tree($tv, $this->basedir);
 
 		$str = $tv->finalize_tree(array(
@@ -1349,7 +1400,7 @@ class docgen_viewer extends class_base
 		die($this->finish_with_style($str));
 	}
 
-	function _req_mk_clfdoc_tree(&$tv, $path)
+	function _req_mk_clfdoc_tree($tv, $path)
 	{
 		$dc = array();
 		$fc = array();
@@ -1391,7 +1442,7 @@ class docgen_viewer extends class_base
 				"name" => $file,
 				"id" => $fp,
 				"url" => $this->mk_my_orb("show_doc", array("file" => str_replace($this->basedir, "", $fp))),
-				"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+				"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 				"target" => "classinfo"
 			));
 		}
@@ -1399,7 +1450,7 @@ class docgen_viewer extends class_base
 
 	function do_tut_doclist()
 	{
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -1410,7 +1461,6 @@ class docgen_viewer extends class_base
 		));
 
 		$this->basedir = $this->cfg["basedir"]."/docs/tutorials";
-		$this->ic = get_instance("core/icons");
 		$this->_req_mk_clfdoc_tree($tv, $this->basedir);
 
 		$str = $tv->finalize_tree(array(
@@ -1457,7 +1507,7 @@ class docgen_viewer extends class_base
 
 	function finish_with_style($str)
 	{
-		$tpl = get_instance("applications/docgen/docgen_viewer");
+		$tpl = new docgen_viewer();
 		$tpl->read_template("style.tpl");
 		$tpl->vars(array(
 			"content" => $str
@@ -1526,7 +1576,7 @@ class docgen_viewer extends class_base
 
 
 		$ret[] = html::href(array(
-			"url" => $this->mk_my_orb("proplist",array('id'=>$arr['id'])),
+			"url" => $this->mk_my_orb("proplist", array('id'=>$arr['id'])),
 			"target" => "classlist",
 			"caption" => t("Classbase tags")
 		));
@@ -1570,7 +1620,7 @@ class docgen_viewer extends class_base
 	{
 		$this->read_template("classlist.tpl");
 
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -1580,7 +1630,6 @@ class docgen_viewer extends class_base
 			"url_target" => "list"
 		));
 
-		$this->ic = get_instance("core/icons");
 		// gather data about things in files
 		$this->db_query("SELECT * from aw_da_classes WHERE class_type = 'interface'");
 		while ($row = $this->db_next())
@@ -1589,7 +1638,7 @@ class docgen_viewer extends class_base
 				"name" => $row["class_name"],
 				"id" => $row["class_name"],
 				"url" => $this->mk_my_orb("class_info", array("file" => str_replace("/classes/", "/",$row["file"]), "disp" => $row["class_name"])),
-				"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+				"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 				"target" => "classinfo"
 			));
 		}
@@ -1610,7 +1659,7 @@ class docgen_viewer extends class_base
 	{
 		$this->read_template("classlist.tpl");
 
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -1620,7 +1669,6 @@ class docgen_viewer extends class_base
 			"url_target" => "list"
 		));
 
-		$this->ic = get_instance("core/icons");
 		// gather data about things in files
 		$this->db_query("SELECT * from aw_da_classes ");
 		$c = array();
@@ -1639,7 +1687,7 @@ class docgen_viewer extends class_base
 				"name" => $maintainer,
 				"id" => $maintainer,
 				"url" => "",
-				"iconurl" => $this->ic->get_icon_url(CL_MENU,""),
+				"iconurl" => icons::get_icon_url(CL_MENU,""),
 				"target" => "classinfo"
 			));
 			foreach($clss as $row)
@@ -1648,7 +1696,7 @@ class docgen_viewer extends class_base
 					"name" => $row["class_name"],
 					"id" => $row["class_name"],
 					"url" => $this->mk_my_orb("class_info", array("file" => str_replace("/classes/", "/",$row["file"]), "disp" => $row["class_name"])),
-					"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+					"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 					"target" => "classinfo"
 				));
 			}
@@ -1670,7 +1718,7 @@ class docgen_viewer extends class_base
 	{
 		$this->read_template("classlist.tpl");
 
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -1680,7 +1728,6 @@ class docgen_viewer extends class_base
 			"url_target" => "list"
 		));
 
-		$this->ic = get_instance("core/icons");
 		// gather data about things in files
 		foreach($this->_get_exception_list() as $row)
 		{
@@ -1688,7 +1735,7 @@ class docgen_viewer extends class_base
 				"name" => $row["class_name"],
 				"id" => $row["class_name"],
 				"url" => $this->mk_my_orb("class_info", array("file" => str_replace("/classes/", "/",$row["file"]), "disp" => $row["class_name"])),
-				"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+				"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 				"target" => "classinfo"
 			));
 		}
@@ -1720,7 +1767,7 @@ class docgen_viewer extends class_base
 	function doc_proplist($arr)
 	{
 		$this->read_template("proplist.tpl");
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -1729,8 +1776,6 @@ class docgen_viewer extends class_base
 			"root_name" => t("Classes"),
 			"url_target" => "list"
 		));
-
-		$this->ic = get_instance("core/icons");
 
 		$this->_req_mk_prop_tree(array(
 			'id' => $arr['id'],
@@ -1790,7 +1835,7 @@ class docgen_viewer extends class_base
 	{
 		$this->read_template("classlist.tpl");
 
-		$tv = get_instance(CL_TREEVIEW);
+		$tv = new treeview();
 
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
@@ -1810,7 +1855,6 @@ class docgen_viewer extends class_base
 			$classes[$fp][] = $row;
 		}
 
-		$this->ic = get_instance("core/icons");
 		$this->_req_mk_clf_api_tree($tv, $this->cfg["classdir"], $api_files, $classes);
 
 		$this->vars(array(
@@ -1879,7 +1923,7 @@ class docgen_viewer extends class_base
 					"name" => $file,
 					"id" => $fp,
 					"url" => $this->mk_my_orb("class_info", array("file" => $awpath, "api_only" => 1)),
-					"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+					"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 					"target" => "classinfo"
 				));
 			}
@@ -1889,7 +1933,7 @@ class docgen_viewer extends class_base
 					"name" => $file,
 					"id" => $fp,
 					"url" => $this->mk_my_orb("class_info", array("file" => $awpath, "api_only" => 1)),
-					"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+					"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 					"target" => "classinfo"
 				));
 				foreach($classes[$fp] as $clinf)
@@ -1921,7 +1965,7 @@ class docgen_viewer extends class_base
 						"name" => $v,
 						"id" => $fp."::".$clinf["class_name"],
 						"url" => $this->mk_my_orb("class_info", array("file" => $awpath, "api_only" => 1, "disp" => $clinf["class_name"])),
-						"iconurl" => $this->ic->get_icon_url(CL_OBJECT_TYPE,""),
+						"iconurl" => icons::get_icon_url(CL_OBJECT_TYPE,""),
 						"target" => "classinfo"
 					));
 				}
@@ -2073,6 +2117,3 @@ class aw_language_documenter
 		return $tmp;
 	}
 }
-
-
-?>

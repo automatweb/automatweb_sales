@@ -435,7 +435,7 @@ class group extends class_base
 		}
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		if (!empty($arr["request"]["edit_acl"]))
 		{
@@ -589,7 +589,7 @@ class group extends class_base
 	function callback_mod_tab($parm)
 	{
 		$id = $parm['id'];
-		if ($id == 'dyn_search')
+		if ($id === 'dyn_search')
 		{
 			if ($parm['obj_inst']->prop("type") != group_obj::TYPE_DYNAMIC)
 			{

@@ -6,6 +6,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	protected $all_jobs;
 	protected $current_jobs;
+	private static $company_id_cache;
 
 	//	Written solely for testing purposes!
 	public function get_units()
@@ -1222,40 +1223,45 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		{
 			return;
 		}
-
-		$list = new object_list(array(
-			"class_id" => CL_CRM_PERSON_WORK_RELATION,
-			"employer" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
-			"employee" => $this->id(),
-			"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time()),
-			new object_list_filter(array(
-				"logic" => "OR",
-				"conditions" => array(
-					new object_list_filter(array(
-						"conditions" => array(
-							"end" => new obj_predicate_compare(OBJ_COMP_LESS, 1)
-						)
-					)),
-					new object_list_filter(array(
-						"conditions" => array(
-							"end" => new obj_predicate_compare(OBJ_COMP_GREATER, time())
-						)
-					))
-				)
-			))
-		));
-
-		if ($list->count())
+		elseif (null === self::$company_id_cache)
 		{
-			$work_rel = $list->begin();
-			$id = $work_rel->prop("employer");
-		}
-		else
-		{
-			$id = 0;
+			$list = new object_list(array(
+				"class_id" => CL_CRM_PERSON_WORK_RELATION,
+				"employer" => new obj_predicate_compare(obj_predicate_compare::GREATER, 0),
+				"employee" => $this->id(),
+				"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time()),
+				new object_list_filter(array(
+					"logic" => "OR",
+					"conditions" => array(
+						new object_list_filter(array(
+							"conditions" => array(
+								"end" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
+							)
+						)),
+						new object_list_filter(array(
+							"conditions" => array(
+								"end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time())
+							)
+						))
+					)
+				)),
+				new obj_predicate_limit(1)
+			));
+
+			if ($list->count())
+			{
+				$work_rel = $list->begin();
+				$id = $work_rel->prop("employer");
+			}
+			else
+			{
+				$id = 0;
+			}
+
+			self::$company_id_cache = $id;
 		}
 
-		return $id;
+		return self::$company_id_cache;
 	}
 
 	/** Gets organisations with which this person has a relation to

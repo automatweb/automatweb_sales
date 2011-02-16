@@ -8,6 +8,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 @property customer type=hidden table=aw_crm_bill field=aw_customer
 
+//deprecated
+@property bill_mail_to type=hidden field=meta method=serialize
+
 @default group=general
 
 	@property billp_tb type=toolbar store=no no_caption=1
@@ -224,36 +227,24 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@caption Arve e-kirja saaja
 
 
-@default group=bill_mail
-	@property bill_mail_to type=textbox field=meta method=serialize
-	@caption Saaja
-
-	@property bill_mail_from type=textbox field=meta method=serialize
-	@caption Saatja aadress
-
-	@property bill_mail_from_name type=textbox field=meta method=serialize
-	@caption Saatja nimi
-
-	@property bill_mail_legend type=text store=no
-	@comment E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&auml;&auml;rtustega
-	@caption Kasutatavad muutujad
-
-	@property bill_mail_subj type=textbox field=meta method=serialize
-	@caption Pealkiri
-
-	@property bill_mail_ct type=textarea rows=20 cols=50 field=meta method=serialize
-	@caption Sisu
-
-
 @default group=sent_mails
 	@property mail_table type=table no_caption=1 no_caption=1
 
 
 @default group=send_mail
+// properties 'sendmail_attachments' and 'sendmail_recipients' in send_mail group are
+// temporarily saved in active session and cleared, when send_bill action is requested by user
 	@property sendmail_toolbar type=toolbar store=no no_caption=1
-	@layout sendmail_settings type=hbox closeable=1 area_caption=Kirja&nbsp;seaded
-		@property sendmail_attachments type=chooser multiple=1 store=no parent=sendmail_settings orient=vertical
-		@caption Lisatavad dokumendid
+	@layout sendmail_settings type=hbox closeable=1 area_caption=Kirja&nbsp;seaded width=50%:50%
+	@layout sendmail_sender type=vbox closeable=0 area_caption=Saatja parent=sendmail_settings
+		@property bill_mail_from type=textbox store=no parent=sendmail_sender
+		@caption E-posti aadress
+
+		@property bill_mail_from_name type=textbox store=no parent=sendmail_sender
+		@caption Nimi
+
+	@layout sendmail_attachments type=vbox closeable=0 area_caption=Lisatavad&nbsp;dokumendid parent=sendmail_settings
+		@property sendmail_attachments type=chooser multiple=1 store=no parent=sendmail_attachments orient=vertical no_caption=1
 
 	@layout sendmail_recipients type=vbox closeable=1 area_caption=Kirja&nbsp;saajad
 		@property sendmail_recipients type=table store=no parent=sendmail_recipients no_caption=1
@@ -263,19 +254,23 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 		@caption Lisa arve saaja
 
 	@layout sendmail_content type=hbox closeable=1 area_caption=Kirja&nbsp;sisu width=50%:50%
-		@layout sendmail_content_l type=vbox parent=sendmail_content closeable=0 area_caption=Muutmine&nbsp;(muudatused&nbsp;kehtivad&nbsp;vaid&nbsp;sellel&nbsp;saatmiskorral)
+		@layout sendmail_content_l type=vbox parent=sendmail_content closeable=0 area_caption=Muutmine
 		@layout sendmail_content_r type=vbox parent=sendmail_content closeable=0 area_caption=Eelvaade&nbsp;(kliki&nbsp;tekstil&nbsp;et&nbsp;uuendada)
 
-	@property sendmail_subject_edit type=textbox store=no parent=sendmail_content_l captionside=top
+	@property bill_mail_subj type=textbox parent=sendmail_content_l captionside=top table=objects field=meta method=serialize
 	@caption Pealkiri
 
-	@property sendmail_body_edit type=textarea rows=10 cols=40 store=no parent=sendmail_content_l captionside=top
+	@property bill_mail_ct type=textarea rows=20 cols=53 parent=sendmail_content_l captionside=top table=objects field=meta method=serialize
 	@caption Sisu
 
-	@property sendmail_subject type=text parent=sendmail_content_r captionside=top
+	@property bill_mail_legend type=text store=no parent=sendmail_content_l captionside=top
+	@comment E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&auml;&auml;rtustega
+	@caption Kasutatavad muutujad
+
+	@property sendmail_subject_view type=text parent=sendmail_content_r captionside=top
 	@caption Pealkiri
 
-	@property sendmail_body type=text store=no parent=sendmail_content_r captionside=top
+	@property sendmail_body_view type=text store=no parent=sendmail_content_r captionside=top
 	@caption Sisu
 
 
@@ -402,6 +397,11 @@ class crm_bill extends class_base
 
 	function callback_post_save($arr)
 	{
+		if ("send_mail" === $this->use_group)
+		{
+			$arr["obj_inst"]->reset_pdf_files_cache(true);
+		}
+
 		if(isset($arr["request"]["project"]) && $this->can("view" , $arr["request"]["project"]))
 		{
 			$arr["obj_inst"]->set_project($arr["request"]["project"]);
@@ -649,20 +649,24 @@ class crm_bill extends class_base
 				$confirm = t("Laadida kliendi andmed uuesti? (Sisestatud aadressi ja t&auml;htaja muudatused kustutatakse)");
 				if($arr["obj_inst"]->prop("customer"))
 				{
+					$edit_button = " " . html::href(array(
+						"url" => html::get_change_url($arr["obj_inst"]->prop("customer"), array("return_url" => get_ru())),
+						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "/automatweb/images/icons/edit.gif"))
+					));
 					$reload_button = " " . html::href(array(
 						"url" => "javascript:;",
 						"onclick" => "if(!confirm(\"{$confirm}\")) { return false; }; submit_changeform(\"reload_customer_data\");",
-						"caption" => html::img(array("url" =>  aw_ini_get("baseurl") . "/automatweb/images/icons/refresh.gif")),
+						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "/automatweb/images/icons/refresh.gif"))
 					));
 				}
 				else
 				{
 					$prop["caption"] = t("Klient");
 					$prop["disabled"] = "1";
-					$reload_button = "";
+					$reload_button = $edit_button = "";
 				}
 
-				$prop["post_append_text"] = " {$search_button}{$reload_button}";
+				$prop["post_append_text"] = " {$search_button}{$edit_button}{$reload_button}";
 				break;
 
 			case "ctp_text":
@@ -759,24 +763,9 @@ class crm_bill extends class_base
 				}
 				$prop["value"] = $val;
 				break;
+
 			case "bill_trans_date":
 				if($prop["value"] == -1) $prop["value"] = time();
-				break;
-//			case "bill_mail_to":
-			case "bill_mail_from":
-			case "bill_mail_from_name":
-				if(empty($prop["value"]))
-				{
-					$this->set_current_settings();
-					if(is_object($this->crm_settings))
-					{
-						$prop["value"] = $this->crm_settings->prop($prop["name"]);
-					}
-				}
-				break;
-
-			case "bill_mail_legend":
-				$prop["value"] = nl2br($this->get_mail_legend());
 				break;
 
 			case "warehouse":
@@ -828,6 +817,47 @@ class crm_bill extends class_base
 		return $retval;
 	}
 
+	function _get_bill_mail_from(&$arr)
+	{
+		$r = PROP_OK;
+		$tmp = aw_global_get("crm_bill_sendmail_sender_email_tmp");
+		$arr["prop"]["value"] = $tmp ? $tmp : $arr["obj_inst"]->get_mail_from();
+		return $r;
+	}
+
+	function _get_bill_mail_from_name(&$arr)
+	{
+		$r = PROP_OK;
+		$tmp = aw_global_get("crm_bill_sendmail_sender_name_tmp");
+		$arr["prop"]["value"] = $tmp ? $tmp : $arr["obj_inst"]->get_mail_from_name();
+		return $r;
+	}
+
+	function _set_bill_mail_from(&$arr)
+	{
+		if (isset($arr["request"]["bill_mail_from"]))
+		{
+			aw_session_set("crm_bill_sendmail_sender_email_tmp", $arr["request"]["bill_mail_from"]);
+		}
+		return PROP_IGNORE;
+	}
+
+	function _set_bill_mail_from_name(&$arr)
+	{
+		if (isset($arr["request"]["bill_mail_from_name"]))
+		{
+			aw_session_set("crm_bill_sendmail_sender_name_tmp", $arr["request"]["bill_mail_from_name"]);
+		}
+		return PROP_IGNORE;
+	}
+
+	function _get_bill_mail_legend(&$arr)
+	{
+		$r = PROP_OK;
+		$arr["prop"]["value"] = nl2br(crm_bill_obj::get_mail_parse_legend());
+		return $r;
+	}
+
 	function _get_sendmail_toolbar(&$arr)
 	{
 		$r = PROP_OK;
@@ -840,7 +870,24 @@ class crm_bill extends class_base
 			"action" => "send_bill"
 		));
 
+		$t->add_button(array(
+			"name" => "save",
+			"img" => "save.gif",
+			"tooltip" => t("Salvesta muudatused ajutiselt"),
+			"action" => "submit"
+		));
+
 		return $r;
+	}
+
+	function _set_sendmail_recipients($arr)
+	{
+		if (isset($arr["request"]["recipient"]))
+		{
+			$recipients_tmp = array_flip($arr["request"]["recipient"]);
+			aw_session_set("crm_bill_sendmail_recipients_tmp", $recipients_tmp);
+		}
+		return PROP_IGNORE;
 	}
 
 	function _get_sendmail_recipients(&$arr)
@@ -971,18 +1018,27 @@ class crm_bill extends class_base
 				$name = "";
 			}
 
-			if (method_exists($recipient, "get_phones"))
+			if ($recipient->has_method("get_phones"))
 			{
 				$phones = implode(", ", $recipient->get_phones());
 			}
 		}
 
 		// recipient selector chooser
+		$checked_to = $checked_cc = $checked_bcc = 0;
+		if (!$disabled)
+		{ // temporarily saved mail send view data
+			$recipients_tmp = aw_global_get("crm_bill_sendmail_recipients_tmp");
+			$checked_to = !empty($recipients_tmp["{$email_address}-to"]);
+			$checked_cc = !empty($recipients_tmp["{$email_address}-cc"]);
+			$checked_bcc = !empty($recipients_tmp["{$email_address}-bcc"]);
+		}
+
 		$prop_name = "recipient[{$i}]";
 		$chooser = html::radiobutton(array(
 			"caption" => t("to"),
 			"name" => $prop_name,
-			"checked" => 0,
+			"checked" => $checked_to,
 			"value" => "{$email_address}-to",
 			"disabled" => $disabled
 		));
@@ -990,7 +1046,7 @@ class crm_bill extends class_base
 		$chooser .= html::radiobutton(array(
 			"caption" => t("cc"),
 			"name" => $prop_name,
-			"checked" => 0,
+			"checked" => $checked_cc,
 			"value" => "{$email_address}-cc",
 			"disabled" => $disabled
 		));
@@ -998,7 +1054,7 @@ class crm_bill extends class_base
 		$chooser .= html::radiobutton(array(
 			"caption" => t("bcc"),
 			"name" => $prop_name,
-			"checked" => 0,
+			"checked" => $checked_bcc,
 			"value" => "{$email_address}-bcc",
 			"disabled" => $disabled
 		));
@@ -1022,28 +1078,60 @@ class crm_bill extends class_base
 		$invoice_pdf_o = $reminder_pdf_o = $appendix_pdf_o = null;
 		$invoice_pdf_link = $reminder_pdf_link = $appendix_pdf_link = "";
 		$value = array();
+		$attachments_tmp = safe_array(aw_global_get("crm_bill_sendmail_attachments_tmp"));
 
-		if (isset($arr["request"]["sendmail_type"]))
+		if (count($attachments_tmp))
+		{
+			try
+			{
+				if (!empty($attachments_tmp["p"]))
+				{
+					$invoice_pdf_o = obj($attachments_tmp["p"], array(), CL_FILE);
+				}
+				elseif (!empty($attachments_tmp["r"]))
+				{
+					$invoice_pdf_o = obj($attachments_tmp["r"], array(), CL_FILE);
+				}
+
+				if (!empty($attachments_tmp["a"]))
+				{
+					$appendix_pdf_o = obj($attachments_tmp["a"], array(), CL_FILE);
+				}
+			}
+			catch (Exception $e)
+			{
+				aw_session_del("crm_bill_sendmail_attachments_tmp");
+			}
+		}
+		elseif (isset($arr["request"]["sendmail_type"]))
 		{
 			if ("p" === $arr["request"]["sendmail_type"])
 			{
 				$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
+				$attachments_tmp["p"] = $invoice_pdf_o->id();
 			}
 			elseif ("r" === $arr["request"]["sendmail_type"])
 			{
 				$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
+				$attachments_tmp["r"] = $invoice_pdf_o->id();
 			}
 			elseif ("pa" === $arr["request"]["sendmail_type"])
 			{
 				$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
 				$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
+				$attachments_tmp["p"] = $invoice_pdf_o->id();
+				$attachments_tmp["a"] = $appendix_pdf_o->id();
 			}
 			elseif ("ra" === $arr["request"]["sendmail_type"])
 			{
 				$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
 				$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
+				$attachments_tmp["r"] = $invoice_pdf_o->id();
+				$attachments_tmp["a"] = $appendix_pdf_o->id();
 			}
 		}
+
+		aw_session_set("crm_bill_sendmail_attachments_tmp", $attachments_tmp);
 
 		if ($invoice_pdf_o)
 		{
@@ -1094,14 +1182,80 @@ class crm_bill extends class_base
 		return $r;
 	}
 
-	function _get_bill_mail_subj(&$arr)
+	function _set_sendmail_attachments($arr)
 	{
-		$r = PROP_OK;
-		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_subject(false);
-		return $r;
+		$attachments_tmp = safe_array(aw_global_get("crm_bill_sendmail_attachments_tmp"));
+		$attachments_tmp["p"] = empty($arr["prop"]["value"]["p"]) ? 0 : $attachments_tmp["p"];
+		$attachments_tmp["r"] = empty($arr["prop"]["value"]["r"]) ? 0 : $attachments_tmp["r"];
+		$attachments_tmp["a"] = empty($arr["prop"]["value"]["a"]) ? 0 : $attachments_tmp["a"];
+
+		if (!empty($arr["prop"]["value"]["p"]))
+		{
+			if (empty($attachments_tmp["p"]))
+			{
+				$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
+			}
+			else
+			{
+				try
+				{
+					$invoice_pdf_o = obj($attachments_tmp["p"], array(), CL_FILE);
+				}
+				catch (Exception $e)
+				{
+					$invoice_pdf_o = $arr["obj_inst"]->make_preview_pdf();
+				}
+			}
+
+			$attachments_tmp["p"] = $invoice_pdf_o->id();
+		}
+		elseif (!empty($arr["prop"]["value"]["r"]))
+		{
+			if (empty($attachments_tmp["r"]))
+			{
+				$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
+			}
+			else
+			{
+				try
+				{
+					$reminder_pdf_o = obj($attachments_tmp["r"], array(), CL_FILE);
+				}
+				catch (Exception $e)
+				{
+					$reminder_pdf_o = $arr["obj_inst"]->make_reminder_pdf();
+				}
+			}
+
+			$attachments_tmp["r"] = $reminder_pdf_o->id();
+		}
+
+		if (!empty($arr["prop"]["value"]["a"]))
+		{
+			if (empty($attachments_tmp["a"]))
+			{
+				$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
+			}
+			else
+			{
+				try
+				{
+					$appendix_pdf_o = obj($attachments_tmp["a"], array(), CL_FILE);
+				}
+				catch (Exception $e)
+	{
+					$appendix_pdf_o = $arr["obj_inst"]->make_add_pdf();
+				}
+			}
+
+			$attachments_tmp["a"] = $appendix_pdf_o->id();
+		}
+
+		aw_session_set("crm_bill_sendmail_attachments_tmp", $attachments_tmp);
+		return PROP_IGNORE;
 	}
 
-	function _get_sendmail_subject_edit(&$arr)
+	function _get_bill_mail_subj(&$arr)
 	{
 		$r = PROP_OK;
 		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_subject(false);
@@ -1109,13 +1263,13 @@ class crm_bill extends class_base
 		return $r;
 	}
 
-	function _get_sendmail_subject(&$arr)
+	function _get_sendmail_subject_view(&$arr)
 	{
 		$r = PROP_OK;
 		$arr["prop"]["value"] = html::span(array(
 			"content" => $arr["obj_inst"]->get_mail_subject(true),
 			"id" => "sendmail_subject_text_element"
-		)) . html::linebreak();
+		)) . html::linebreak(2);
 		return $r;
 	}
 
@@ -1123,18 +1277,11 @@ class crm_bill extends class_base
 	{
 		$r = PROP_OK;
 		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_body(false);
-		return $r;
-	}
-
-	function _get_sendmail_body_edit(&$arr)
-	{
-		$r = PROP_OK;
-		$arr["prop"]["value"] = $arr["obj_inst"]->get_mail_body(false);
 		$arr["prop"]["onblur"] = "crm_bill_refresh_mail_text_changes();";
 		return $r;
 	}
 
-	function _get_sendmail_body(&$arr)
+	function _get_sendmail_body_view(&$arr)
 	{
 		$r = PROP_OK;
 		$arr["prop"]["value"] = html::span(array(
@@ -1143,9 +1290,6 @@ class crm_bill extends class_base
 		));
 		return $r;
 	}
-
-	//DEPRECATED. use crm_bill_obj::get_mail_parse_legend() instead
-	function get_mail_legend() { 	return crm_bill_obj::get_mail_parse_legend(); }
 
 	function set_property($arr = array())
 	{
@@ -2001,7 +2145,7 @@ class crm_bill extends class_base
 
 				$unit_id = 0;
 				$unit_name = "";
-				if (isset($agreement_price["unit"]))
+				if (isset($agreement_price["unit"]) and is_oid($agreement_price["unit"]))
 				{
 					$unit_obj = obj($agreement_price["unit"], array(), CL_UNIT);
 					$unit_id = $unit_obj->id();
@@ -2140,12 +2284,12 @@ class crm_bill extends class_base
 			$o->set_prop("prod", $arr["prod"]);
 		}
 
-		if($arr["name"])
+		if(!empty($arr["name"]))
 		{
 			$o->set_prop("desc" , iconv("UTF-8", aw_global_get("charset"), $arr["name"]));
 		}
 
-		if($arr["jrk"])
+		if(!empty($arr["jrk"]))
 		{
 			$o->set_meta("jrk" , (int) $arr["jrk"]);
 		}
@@ -2159,7 +2303,7 @@ class crm_bill extends class_base
 		}
 		$o->set_prop("people" , explode("," ,$arr["people"]));
 
-		if($arr["has_tax"] != "")
+		if(isset($arr["has_tax"]))
 		{
 			if($arr["has_tax"] === "true")
 			{
@@ -2167,7 +2311,7 @@ class crm_bill extends class_base
 			}
 			elseif($arr["has_tax"] > 0)
 			{
-				$o->set_prop("tax" , $arr["has_tax"]);
+				$o->set_prop("tax" , (int) $arr["has_tax"]);
 				$o->set_prop("has_tax" , 1);
 			}
 			else
@@ -2231,7 +2375,7 @@ class crm_bill extends class_base
 						var has_tax = document.getElementsByName('rows[".$id."][has_tax]')[0].value;
 						if(document.getElementsByName('rows[".$id."][has_tax]')[0].type == 'checkbox')
 						{
-							 has_tax = document.getElementsByName('rows[".$id."][has_tax]')[0].checked;
+							 has_tax = 0;
 						}
 
 					$.post('/automatweb/orb.aw?class=crm_bill&action=post_row', {
@@ -2248,7 +2392,6 @@ class crm_bill extends class_base
 						, price: document.getElementsByName('rows[".$id."][price]')[0].value
 						, amt: document.getElementsByName('rows[".$id."][amt]')[0].value
 						, project: document.getElementsByName('rows[".$id."][project]')[0].value
-						, has_tax: document.getElementsByName('rows[".$id."][has_tax]')[0].value
 						},function(data){load_new_data".$id."(); });
 
 						function load_new_data".$id."()
@@ -2857,7 +3000,7 @@ class crm_bill extends class_base
 	**/
 	function unit_options_autocomplete_source($arr)
 	{
-		$ac = get_instance("vcl/autocomplete");
+		$ac = new autocomplete();
 		$arr = $ac->get_ac_params($arr);
 		$ol = new object_list(array(
 			"class_id" => CL_UNIT,
@@ -2891,6 +3034,11 @@ class crm_bill extends class_base
 
 	function callback_pre_save($arr)
 	{
+		if ("send_mail" === $this->use_group)
+		{
+			$arr["obj_inst"]->reset_pdf_files_cache(false);
+		}
+
 		if (!empty($this->_set_recv_date))
 		{
 			$arr["obj_inst"]->set_prop("bill_recieved", $this->_set_recv_date);
@@ -4250,12 +4398,12 @@ $agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_
 			$scripts .= <<<ENDSENDSCRIPT
 function crm_bill_refresh_mail_text_changes() {
 	// subject
-	$.get('/automatweb/orb.aw', {class: 'crm_bill', action: 'ajax_parse_mail_text', id: '{$id}', text: document.getElementById('sendmail_subject_edit').value}, function (html) {
+	$.get('/automatweb/orb.aw', {class: 'crm_bill', action: 'ajax_parse_mail_text', id: '{$id}', text: document.getElementById('bill_mail_subj').value}, function (html) {
 	x=document.getElementById('sendmail_subject_text_element');
 	x.innerHTML=html;});
 
 	// body
-	$.get('/automatweb/orb.aw', {class: 'crm_bill', action: 'ajax_parse_mail_text', id: '{$id}', text: document.getElementById('sendmail_body_edit').value}, function (html) {
+	$.get('/automatweb/orb.aw', {class: 'crm_bill', action: 'ajax_parse_mail_text', id: '{$id}', text: document.getElementById('bill_mail_ct').value}, function (html) {
 	x=document.getElementById('sendmail_body_text_element');
 	x.innerHTML=html;});
 }
@@ -4417,7 +4565,7 @@ ENDSENDSCRIPT;
 		$tb = $arr["prop"]["vcl_inst"];
 		$this->set_current_settings();
 		$has_val = $arr["obj_inst"]->is_saved() ? !$arr["obj_inst"]->has_not_initialized_rows() : false;
-		$onclick_start = empty($has_val) ? " fRet = confirm('".t("Arvel on ridu, mille v&auml;&auml;rtus on 0 krooni")."');	if(fRet){" : "";
+		$onclick_start = empty($has_val) ? " fRet = confirm('".t("Arvel on ridu, mille v&auml;&auml;rtus on 0 eurot")."');	if(fRet){" : "";
 		$onclick_end = empty($has_val) ? "}else;" : "";
 
 		if ($arr["obj_inst"]->is_saved())
@@ -5120,10 +5268,12 @@ ENDSENDSCRIPT;
 		$body = nl2br($this_o->parse_mail_text($arr["bill_mail_ct"]));
 		$reminder = isset($arr["sendmail_attachments"]["r"]);
 		$appendix = isset($arr["sendmail_attachments"]["a"]);
+		$from = $arr["bill_mail_from"];
+		$from_name = $arr["bill_mail_from_name"];
 
 		try
 		{
-			$this_o->send_by_mail($to, $subject, $body, $cc, $bcc, $appendix, $reminder);
+			$this_o->send_by_mail($to, $subject, $body, $cc, $bcc, $appendix, $reminder, $from, $from_name);
 			$this->show_completed_text(t("Arve saadetud."));
 		}
 		catch (awex_crm_bill_email $e)
@@ -5151,6 +5301,8 @@ ENDSENDSCRIPT;
 			$this->show_error_text(t("Esines vigu. Arvet ei saadetud."));
 		}
 
+		// remove temporary changes
+		$this->clear_send_mail_tmp();
 		$this->show_completed_text(t("Arve edukalt saadetud!"));
 		return $r;
 	}
@@ -5654,5 +5806,13 @@ ENDSENDSCRIPT;
 		$this_o->load_customer_data();
 		$this_o->save();
 		return $arr["post_ru"];
+	}
+
+	private function clear_send_mail_tmp()
+	{
+		aw_session_del("crm_bill_sendmail_sender_email_tmp");
+		aw_session_del("crm_bill_sendmail_sender_name_tmp");
+		aw_session_del("crm_bill_sendmail_recipients_tmp");
+		aw_session_del("crm_bill_sendmail_attachments_tmp");
 	}
 }

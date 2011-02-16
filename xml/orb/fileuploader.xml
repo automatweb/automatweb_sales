@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="fileuploader" folder="" extends="aw_template">
+		<action name="process_upload" all_args="1" nologin="1">
+			<function name="process_upload">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

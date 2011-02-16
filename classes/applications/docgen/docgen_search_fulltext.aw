@@ -11,7 +11,7 @@ class docgen_search_fulltext extends core implements docgen_search_module, docge
 	{
 		return t("Fulltext search");
 	}
-	
+
 	function do_search($arr)
 	{
 		$ret = array();
@@ -27,10 +27,10 @@ class docgen_search_fulltext extends core implements docgen_search_module, docge
 			$ret[] = 'In tutorials:';
 			$ret = array_merge($ret, $tut_ret);
 		}
-		
+
 		$classdir = isset($this->cfg["classdir"]) ? $this->cfg["classdir"] : NULL;
 		$cl_ret = array();
-		$this->doc_srch_class_info($classdir, $words, &$cl_ret);
+		$this->doc_srch_class_info($classdir, $words, $cl_ret);
 		if(count($cl_ret))
 		{
 			$ret[] = '';
@@ -103,7 +103,7 @@ class docgen_search_fulltext extends core implements docgen_search_module, docge
 		}
 	}
 
-	/** searches from the fulltext search database 
+	/** searches from the fulltext search database
 	**/
 	function doc_srch_class_info($dir, $words, &$ret)
 	{

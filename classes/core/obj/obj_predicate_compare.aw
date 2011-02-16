@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 // DEPRECATED! use class constants instead
 define("OBJ_COMP_LESS", 1);
@@ -106,5 +103,3 @@ class obj_predicate_compare
 		return $this->comparator;
 	}
 }
-
-?>
