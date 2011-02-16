@@ -1037,21 +1037,19 @@ class crm_company_people_impl extends class_base
 		$tb->add_menu_item(array(
 			"parent" => "delete_item",
 			"text" => t("L&otilde;peta t&ouml;&ouml;suhted"),
-			'name' => 'del',
+			'name' => 'del_rels',
 			'img' => 'delete.gif',
-			'tooltip' => t('Kustuta valitud'),
 			"confirm" => t("Oled kindel et soovid valitud isikutega t&ouml;&ouml;suhted l&otilde;petada?"),
-			'action' => 'submit_delete_relations',
+			"action" => "submit_delete_relations"
 		));
 
 		$tb->add_menu_item(array(
 			"parent" => "delete_item",
 			"text" => t("Kustuta isikud s&uuml;steemist"),
-			'name' => 'del',
+			'name' => 'del_objs',
 			'img' => 'delete.gif',
-			'tooltip' => t('Kustuta valitud'),
 			"confirm" => t("Oled kindel et soovid kustutada valitud t&ouml;&ouml;tajad?"),
-			'action' => 'submit_delete_ppl',
+			'action' => 'submit_delete_ppl'
 		));
 
 		$tb->add_separator();

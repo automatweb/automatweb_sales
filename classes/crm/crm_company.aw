@@ -1833,7 +1833,7 @@ class crm_company extends class_base
 			$p2s = array();
 			$c = new connection();
 			$r_conns = $c->find(array(
-				"from.class_id" => CL_CRM_PERSON,
+				"from.class_id" => crm_person_obj::CLID,
 				"type" => "RELTYPE_SECTION",
 				"to.oid" => $obj->id()
 			));
@@ -1871,7 +1871,7 @@ class crm_company extends class_base
 				if($show_people && count($p2s) > 0)
 				{
 					$pol = new object_list(array(
-						"class_id" => CL_CRM_PERSON,
+						"class_id" => crm_person_obj::CLID,
 						"CL_CRM_PERSON.RELTYPE_RANK" => $tmp_obj->id(),
 						"oid" => $p2s
 					));
@@ -1941,7 +1941,7 @@ class crm_company extends class_base
 				break;
 
  			case "language":
- 				if(!$data["value"])
+ 				if(empty($data["value"]))
  				{
  					$ol = new object_list(array(
 						"class_id" => CL_LANGUAGE,
@@ -2982,7 +2982,7 @@ class crm_company extends class_base
 				break;
 
 			case "my_stats":
-				$i = get_instance(CL_CRM_PERSON);
+				$i = new crm_person();
 				$arr["request"]["stats_s_cust"] = $arr["request"]["my_stats_s_cust"];
 				$arr["request"]["stats_s_from"] = $arr["request"]["my_stats_s_from"];
 				$arr["request"]["stats_s_to"] = $arr["request"]["my_stats_s_to"];
@@ -3253,7 +3253,7 @@ class crm_company extends class_base
 	function callback_pre_edit($arr)
 	{
 		// initialize
-		$pl = get_instance(CL_PLANNER);
+		$pl = new planner();
 		$this->cal_id = $pl->get_calendar_for_user(array(
 			"uid" => aw_global_get("uid"),
 		));
@@ -3289,13 +3289,13 @@ class crm_company extends class_base
 	{
 		foreach ($arr["select"] as $deleted_obj_id)
 		{
-			$deleted_obj = &obj($deleted_obj_id);
+			$deleted_obj = obj($deleted_obj_id);
 			$deleted_obj->delete();
 		}
 		return $this->mk_my_orb("change", array(
 			"id" => $arr["id"],
 			"group" => $arr["group"],
-			"org_id" => $arr["offers_current_org_id"]),
+			"org_id" => isset($arr["offers_current_org_id"]) ? $arr["offers_current_org_id"] : 0),
 			$arr["class"]
 		);
 	}
@@ -3468,7 +3468,7 @@ class crm_company extends class_base
 			{
 				$p = obj($value);
 
-				if ($p->is_a(CL_CRM_PERSON))
+				if ($p->is_a(crm_person_obj::CLID))
 				{ // only delete people
 					if ($this->can("delete", $p->id()))
 					{
@@ -3603,15 +3603,15 @@ class crm_company extends class_base
 			return $arr["post_ru"];
 		}
 
-		if (isset($arr["check"]) and is_array($arr["check"]) and !empty($arr["cat"]))
+		if (isset($arr["check"]) and is_array($arr["check"]))
 		{
 			$failed_person_oids = array();
 			foreach($arr['check'] as $person_oid)
 			{
 				try
 				{
-					$person = obj($person_oid, array(), CL_CRM_PERSON);
-					$profession = obj($arr["cat"], array(), CL_CRM_PROFESSION);
+					$person = obj($person_oid, array(), crm_person_obj::CLID);
+					$profession = empty($arr["cat"]) ? null : obj($arr["cat"], array(), CL_CRM_PROFESSION);
 
 					$work_relations = crm_person_work_relation_obj::find($person, $profession, $this_o);
 					if($work_relations->count())
@@ -4741,7 +4741,7 @@ class crm_company extends class_base
 					$errors = true;
 				}
 
-				if ($cut_object->is_a(CL_CRM_PERSON))
+				if ($cut_object->is_a(crm_person_obj::CLID))
 				{
 					try
 					{
@@ -4832,7 +4832,7 @@ class crm_company extends class_base
 					$errors = true;
 				}
 
-				if ($copied_object->is_a(CL_CRM_PERSON))
+				if ($copied_object->is_a(crm_person_obj::CLID))
 				{ // just create a new work relation
 					try
 					{
@@ -5119,8 +5119,7 @@ class crm_company extends class_base
 			$conns_ol = new object_list(array(
 				"oid" => $conns_ol->ids(),
 				"class_id" => CL_PROJECT,
-				"state" => new obj_predicate_not(PROJ_DONE),
-				"lang_id" => array()
+				"state" => new obj_predicate_not(PROJ_DONE)
 			));
 		}
 		return $conns_ol->ids();
@@ -5135,13 +5134,13 @@ class crm_company extends class_base
 			"from.class_id" => CL_PROJECT,
 			"type" => "RELTYPE_PARTICIPANT",
 			"from" => $projs,
-			"to.class_id" => array(CL_CRM_COMPANY,CL_CRM_PERSON)
+			"to.class_id" => array(CL_CRM_COMPANY, crm_person_obj::CLID)
 		));
 
 		$ret = array();
 		foreach($conns as $c)
 		{
-			if ($c["to.class_id"] == CL_CRM_PERSON)
+			if ($c["to.class_id"] == crm_person_obj::CLID)
 			{
 				$p = obj($c["to"]);
 				if (!$p->prop("is_customer"))
@@ -5174,7 +5173,7 @@ class crm_company extends class_base
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $u->get_current_person(),
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID,
 			"type" => "RELTYPE_PERSON_TASK",
 		));
 		$ids = array();
@@ -5218,7 +5217,7 @@ class crm_company extends class_base
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $u->get_current_person(),
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID,
 			"type" => "RELTYPE_PERSON_MEETING",
 		));
 		$oids = array();
@@ -5236,7 +5235,7 @@ class crm_company extends class_base
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $u->get_current_person(),
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID,
 			"type" => "RELTYPE_PERSON_CALL",
 		));
 		$oids = array();
@@ -5290,7 +5289,7 @@ class crm_company extends class_base
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $cp,
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID,
 			"type" => array("RELTYPE_PERSON_TASK", "RELTYPE_PERSON_MEETING", "RELTYPE_PERSON_CALL"),
 		));
 
@@ -5580,8 +5579,6 @@ class crm_company extends class_base
 		{
 			$cust_rel_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"buyer" => $bill->prop("customer"),
 				"seller" => $bill->prop("impl")
 			));
@@ -6320,7 +6317,7 @@ class crm_company extends class_base
 					"CL_CRM_COMPANY.contact.riik.name" => $rk->name()
 				));
 				$ol2 = new object_list(array(
-					"class_id" => CL_CRM_PERSON,
+					"class_id" => crm_person_obj::CLID,
 					"CL_CRM_PERSON.address.riik.name" => $rk->name()
 				));
 				$code .= sprintf("%04d", $ol->count() + $ol2->count());
@@ -7343,7 +7340,7 @@ class crm_company extends class_base
 			$arr["name"] = $arr["stats_s_cust"];
 		}
 		$ol = new object_list(array(
-			"class_id" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
+			"class_id" => array(CL_CRM_COMPANY, crm_person_obj::CLID),
 			"name" => $arr["name"]."%"
 		));
 		$autocomplete_options = $ol->names();
@@ -9102,7 +9099,7 @@ Bank accounts: yksteise all
 			try
 			{
 				$pid = new aw_oid($pid);
-				$person = obj($pid, array(), CL_CRM_PERSON);
+				$person = obj($pid, array(), crm_person_obj::CLID);
 				$company->add_employee(null, $person);
 				++$count_success;
 			}
@@ -9468,7 +9465,7 @@ Bank accounts: yksteise all
 		if (!empty($arr["o"]))
 		{
 			$customer = new object($arr["o"]);
-			if (!$customer->is_saved() or !$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(CL_CRM_PERSON))
+			if (!$customer->is_saved() or !$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(crm_person_obj::CLID))
 			{
 				$this->show_error_text(sprintf(t("Antud klient (id '%s') ei ole lisatav"), $customer->id()));
 				return $r;
@@ -9478,7 +9475,7 @@ Bank accounts: yksteise all
 		{
 			$customer = obj(null, array(), $arr["c"]);
 			$customer->set_parent($this_o->id());
-			if (!$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(CL_CRM_PERSON))
+			if (!$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(crm_person_obj::CLID))
 			{
 				$this->show_error_text(sprintf(t("Antud objekt ('%s') pole lisatav kliendina"), $customer->class_id()));
 				return $r;
@@ -9574,7 +9571,7 @@ Bank accounts: yksteise all
 			// found profession. load person, create work relation
 			try
 			{
-				$person = obj($args["sbt_data_add_employee"], array(), CL_CRM_PERSON);
+				$person = obj($args["sbt_data_add_employee"], array(), crm_person_obj::CLID);
 				$this_o->add_employee($profession, $person);
 			}
 			catch (Exception $e)

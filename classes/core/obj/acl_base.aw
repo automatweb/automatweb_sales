@@ -497,14 +497,14 @@ class acl_base extends db_connector
 	// !Wrapper for "prog_acl", used to display the login form if the user is not logged in
 	function prog_acl_auth($right,$progid)
 	{
-		if (aw_global_get("uid") != "")
+		if (aw_global_get("uid"))
 		{
 			return $this->prog_acl($right,$progid);
 		}
 		else
 		{
 			// show the login form
-			$auth = get_instance("core/users/auth/auth_config");
+			$auth = new auth_config();
 			print $auth->show_login();
 			// dat sucks
 			exit;

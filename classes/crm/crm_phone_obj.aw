@@ -2,6 +2,79 @@
 
 class crm_phone_obj extends _int_object
 {
+	const TYPE_WORK = 2;
+	const TYPE_HOME = 3;
+	const TYPE_SHORT = 4;
+	const TYPE_MOBILE = 5;
+	const TYPE_FAX = 6;
+	const TYPE_SKYPE = 7;
+	const TYPE_INTERCOM = 8;
+
+	private static $type_names = array();
+	private static $type_lut = array(
+		self::TYPE_WORK => "work",
+		self::TYPE_HOME => "home",
+		self::TYPE_SHORT => "short",
+		self::TYPE_MOBILE => "mobile",
+		self::TYPE_FAX => "fax",
+		self::TYPE_SKYPE => "skype",
+		self::TYPE_INTERCOM => "extension"
+	);
+
+	/** Returns list of phone number type names
+	@attrib api=1 params=pos
+	@param type type=int
+		Type constant value to get name for, one of crm_phone_obj::TYPE_*
+	@returns array
+		Format option value => human readable name, if $type parameter set, array with one element returned and empty array when that type not found.
+	**/
+	public static function type_names($type = null)
+	{
+		if (empty(self::$type_names))
+		{
+			self::$type_names = array(
+				self::TYPE_WORK => t("t&ouml;&ouml;l"),
+				self::TYPE_HOME => t("kodus"),
+				self::TYPE_SHORT => t("l&uuml;hinumber"),
+				self::TYPE_MOBILE => t("mobiil"),
+				self::TYPE_FAX => t("faks"),
+				self::TYPE_SKYPE => t("skype"),
+				self::TYPE_INTERCOM => t("sisetelefon")
+			);
+		}
+
+		if (isset($type))
+		{
+			if (isset(self::$type_names[$type]))
+			{
+				$type_names = array($type => self::$type_names[$type]);
+			}
+			else
+			{
+				$type_names = array();
+			}
+		}
+		else
+		{
+			$type_names = self::$type_names;
+		}
+
+		return $type_names;
+	}
+
+	public static function get_old_type_options()
+	{
+		return array(
+			"work" => t("t&ouml;&ouml;l"),
+			"home" => t("kodus"),
+			"short" => t("l&uuml;hinumber"),
+			"mobile" => t("mobiil"),
+			"fax" => t("faks"),
+			"skype" => t("skype"),
+			"extension" => t("sisetelefon"),
+		);
+	}
+
 	/**
 		@param id required type=oid,array(oid)
 	**/
@@ -200,9 +273,7 @@ class crm_phone_obj extends _int_object
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PHONE,
 			"name" => parent::prop("name"),
-			"lang_id" => array(),
-			"site_id" => array(),
-			"limit" => 1,
+			"limit" => 1
 		));
 		if($ol->count() > 0)
 		{
@@ -235,5 +306,3 @@ class crm_phone_obj extends _int_object
 		}
 	}
 }
-
-?>

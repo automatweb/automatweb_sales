@@ -2,6 +2,52 @@
 
 class crm_person_work_relation_obj extends _int_object
 {
+	const CLID = 1060;
+
+	const STATE_UNDEFINED = 0;
+	const STATE_ACTIVE = 2;
+	const STATE_ENDED = 3;
+	const STATE_NEW = 4;
+
+	private static $state_names = array();
+
+	/** Returns list of state names
+	@attrib api=1 params=pos
+	@param status type=int
+		state constant value to get name for, one of crm_bill_obj::STATE_*
+	@returns array
+		Format option value => human readable name, if $state parameter set, array with one element returned and empty array when that state not found.
+	**/
+	public static function state_names($state = null)
+	{
+		if (empty(self::$state_names))
+		{
+			self::$state_names = array(
+				self::STATE_UNDEFINED => t("M&auml;&auml;ramata"),
+				self::STATE_ACTIVE => t("Aktiivne"),
+				self::STATE_ENDED => t("L&otilde;petatud")
+			);
+		}
+
+		if (isset($state))
+		{
+			if (isset(self::$state_names[$state]))
+			{
+				$state_names = array($state => self::$state_names[$state]);
+			}
+			else
+			{
+				$state_names = array();
+			}
+		}
+		else
+		{
+			$state_names = self::$state_names;
+		}
+
+		return $state_names;
+	}
+
 	/** sets mail address to work relation
 		@attrib api=1 params=pos
 		@param mail required type=string
@@ -62,14 +108,15 @@ class crm_person_work_relation_obj extends _int_object
 		@attrib api=1 params=pos
 		@param person type=CL_CRM_PERSON default=NULL
 		@param profession type=CL_CRM_PROFESSION default=NULL
-		@param organization type=CL_CRM_COMPANY default=NULL
+		@param organization type=CL_CRM_COMPANY|array(CL_CRM_COMPANY)|array(int) default=NULL
+			Employer organization(s), object, array of objects, or array of object id-s
 		@param section type=CL_CRM_SECTION default=NULL
 		@param active type=bool default=TRUE
 		@return object_list of CL_CRM_PERSON_WORK_RELATION
 		@errors
-			throws awex_obj_type when a parameter object is not of correct class
+			throws awex_obj_type when a parameter object is not of correct type
 	**/
-	public static function find(object $person = null, object $profession = null, object $organization = null, object $section = null, $active = true)
+	public static function find(object $person = null, object $profession = null, $organization = null, object $section = null, $active = true)
 	{
 		$params = array(
 			"class_id" => CL_CRM_PERSON_WORK_RELATION,
@@ -87,12 +134,40 @@ class crm_person_work_relation_obj extends _int_object
 
 		if ($organization)
 		{
-			if (!$organization->is_a(CL_CRM_COMPANY))
+			$employer = array();
+			if (is_array($organization))
+			{
+				foreach ($organization as $org)
+				{
+					if (is_object($org))
+					{
+						if (!$org->is_a(CL_CRM_COMPANY))
+						{
+							throw new awex_obj_type("Given organization parameter (object '".$org->id()."') isn't a company object. Class id is '".$org->class_id()."'");
+						}
+						$org = $org->id();
+					}
+					elseif (!is_oid($org))
+					{
+						throw new awex_obj_type("Given organization parameter (".var_export($organization, true).") contains an invalid object id");
+					}
+					$employer[] = $org;
+				}
+			}
+			elseif (!$organization instanceof object)
+			{
+				throw new awex_obj_type("Given organization parameter (".var_export($organization, true).") isn't a company object");
+			}
+			elseif (!$organization->is_a(CL_CRM_COMPANY))
 			{
 				throw new awex_obj_type("Given organization parameter (object '".$organization->id()."') isn't a company object. Class id is '".$organization->class_id()."'");
 			}
+			else
+			{
+				$employer[] = $organization->id();
+			}
 
-			$params["employer"] = $organization->id();
+			$params["employer"] = $employer;
 		}
 
 		if ($profession)
@@ -117,37 +192,7 @@ class crm_person_work_relation_obj extends _int_object
 
 		if ($active)
 		{
-			$params[] = new object_list_filter(array( // end is not defined or in the future
-				"logic" => "OR",
-				"conditions" => array(
-					new object_list_filter(array(
-						"conditions" => array(
-							"end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time())
-						)
-					)),
-					new object_list_filter(array(
-						"conditions" => array(
-							"end" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
-						)
-					)),
-				)
-			));
-
-			$params[] = new object_list_filter(array( // start is not defined on in the past
-				"logic" => "OR",
-				"conditions" => array(
-					new object_list_filter(array(
-						"conditions" => array(
-							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, time())
-						)
-					)),
-					new object_list_filter(array(
-						"conditions" => array(
-							"start" => new obj_predicate_compare(obj_predicate_compare::LESS, 1)
-						)
-					)),
-				)
-			));
+			$params["state"] = self::STATE_ACTIVE;
 		}
 
 		$list = new object_list($params);
@@ -156,6 +201,7 @@ class crm_person_work_relation_obj extends _int_object
 
 	public function save($exclusive = false, $previous_state = null)
 	{
+		// update work relation object name
 		if (strlen($this->name()) < 1)
 		{
 			if ($this->prop("employer") and $this->prop("employee"))
@@ -163,6 +209,24 @@ class crm_person_work_relation_obj extends _int_object
 				$this->set_name($this->prop("employer.name") . " => " . $this->prop("employee.name"));
 			}
 		}
+
+		// update state according to start/end properties
+		$state = self::STATE_UNDEFINED;
+		$time = time();
+		if ($this->prop("start") > 1 and $this->prop("start") < $time and ($this->prop("end") > $time or $this->prop("end") == 0))
+		{
+			$state = self::STATE_ACTIVE;
+		}
+		elseif ($this->prop("start") > $time)
+		{
+			$state = self::STATE_NEW;
+		}
+		elseif ($this->prop("end") < $time and $this->prop("end") > 1)
+		{
+			$state = self::STATE_ENDED;
+		}
+		$this->set_prop("state", $state);
+
 		return parent::save($exclusive, $previous_state);
 	}
 }

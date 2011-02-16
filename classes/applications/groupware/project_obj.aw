@@ -1,45 +1,32 @@
 <?php
+
 class project_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
 	const CLID = 239;
 
-	//	Written solely for testing purposes!
-	public function get_units()
+	public function awobj_set_participants($pv)
 	{
-		$ol = new object_list(array(
-			"class_id" => CL_UNIT,
-		));
-		return $ol;
-	}
-
-	public function set_prop($pn, $pv)
-	{
-		switch($pn)
+		$set = (array) $this->prop("implementor");
+		foreach((array)$this->prop("orderer") as $val)
 		{
-			case "participants":
-				$set = (array)$this->prop("implementor");
-				foreach((array)$this->prop("orderer") as $val)
-				{
-					$set[$val] = $val;
-				}
-
-				foreach($set as $id)
-				{
-					$this->connect(array(
-						"to" => $id,
-						"type" => "RELTYPE_PARTICPANT"
-					));
-					$pv[$id] = $id;
-				}
-				break;
+			$set[$val] = $val;
 		}
 
-		return parent::set_prop($pn, $pv);
+		foreach($set as $id)
+		{
+			$this->connect(array(
+				"to" => $id,
+				"type" => "RELTYPE_PARTICPANT"
+			));
+			$pv[$id] = $id;
+		}
+
+		return $this->set_prop("participants", $pv);
 	}
 
 	function save($exclusive = false, $previous_state = null)
 	{
-		$new = !is_oid($this->id());
+		$new = !$this->is_saved();
 		$rv = parent::save($exclusive, $previous_state);
 		if ($new && !count($this->connections_from(array("type" => "RELTYPE_IMPLEMENTOR"))))
 		{
@@ -51,6 +38,61 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		}
 		return $rv;
 	}
+
+	/** Returns all or found people associated with this project (orderers, implementors, participants and their employees if they're organizations)
+		@attrib api=1 params=pos
+		@param name_search type=string default=""
+			Return onlly people whose name contains search string
+		@param type type=string default="everyone"
+			Role (everyone|orderers|implementors|participants)
+		@comment
+		@returns object_list
+		@errors
+	**/
+	public function get_people($name_search = "", $type = "everyone")
+	{
+		// add independent people
+		$people = new object_list($this->connections_from(array(
+			"type" => array(
+				"RELTYPE_ORDERER",
+				"RELTYPE_IMPLEMENTOR",
+				"RELTYPE_PARTICPANT",
+			),
+			"to.class_id" => crm_person_obj::CLID
+		)));
+
+		// add organized people
+		$organizations = array();
+		$list = new object_list($this->connections_from(array(
+			"type" => array(
+				"RELTYPE_ORDERER",
+				"RELTYPE_IMPLEMENTOR",
+				"RELTYPE_PARTICPANT"
+			),
+			"to.class_id" => crm_company_obj::CLID
+		)));
+		$organizations = $list->ids();
+		$organizations = array_unique($organizations);
+
+		$work_relations = crm_person_work_relation_obj::find(null, null, $organizations);
+
+		if($work_relations->count())
+		{
+			$o = $work_relations->begin();
+
+			do
+			{
+				if (object_loader::can("view", $o->prop("employee")))
+				{
+					$people->add($o->prop("employee"));
+				}
+			}
+			while ($o = $work_relations->next());
+		}
+
+		return $people;
+	}
+
 
 	/** Returns project tasks
 		@attrib api=1 params=name
@@ -1198,7 +1240,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		{
 			$ret[] = round($sum , 2)." ".$curr;
 		}
-		return join("<br>" , $ret);
+		return join(html::linebreak() , $ret);
 	}
 
 	/** Returns project planned hours
@@ -1275,4 +1317,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		}
 		return $prods;
 	}
+
+	//	Written solely for testing purposes!
+	public function get_units(){$ol = new object_list(array("class_id" => CL_UNIT,));return $ol;}
 }

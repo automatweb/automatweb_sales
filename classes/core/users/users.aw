@@ -376,8 +376,8 @@ class users extends users_user implements request_startup
 		else
 		{
 			$u_obj = obj($u_oid);
-			if ($u_obj->class_id() != CL_USER)
-			{
+			if (!$u_obj->is_a(user_obj::CLID))
+			{//XXX: miks peaks u_obj mitte kasutaja objekt olema yldse? throw exceptione?
 				$gl = array();
 			}
 			else
@@ -430,7 +430,7 @@ class users extends users_user implements request_startup
 			$_SESSION["nliug"] = null;
 		}
 
-		if (($uid = aw_global_get("uid")) != "")
+		if ($uid = aw_global_get("uid"))
 		{
 			if(empty($_SESSION["uid_oid"]))
 			{
@@ -445,6 +445,7 @@ class users extends users_user implements request_startup
 			}
 			// get highest priority group
 			$hig = 0;
+			$hig_o = null;
 			$hig_p = -1;
 			$hig_w_u = 0;
 			$hig_w_u_p = -1;
@@ -948,7 +949,7 @@ class users extends users_user implements request_startup
 				$oid = $this->get_oid_for_uid($arr["uid"]);
 				aw_session_set("uid_oid", $oid);
 
-				if (is_oid($oid) && $this->can("view", $oid))
+				if ($this->can("view", $oid))
 				{
 					$o = obj($oid);
 					aw_session_set("user_adm_ui_lc", $o->prop("ui_language"));

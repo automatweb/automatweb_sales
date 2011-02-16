@@ -509,6 +509,7 @@ class bug extends class_base
 					$prop["value"] = 1;
 				}
 				break;
+
 			case "persons_chart":
 				if($arr["new"])
 				{
@@ -673,6 +674,7 @@ class bug extends class_base
 					$retval = PROP_IGNORE;
 				}
 				break;
+
 			case "skill_used":
 				if (!$this->can("view", $arr["obj_inst"]->prop("who")))
 				{
@@ -686,6 +688,7 @@ class bug extends class_base
 					$prop["value"] = t("p&auml;devused m&auml;&auml;ramata");
 				}
 				break;
+
 			case "customer_unit":
 				if(!empty($this->parent_data[$prop["name"]]))
 				{
@@ -892,7 +895,7 @@ class bug extends class_base
 					html::span(array(
 						"content" => '<a href="">00:00:00 (0.0000)</a>',
 						"id" => "bug_stopper_watch_time",
-					));;
+					));
 				break;
 
 			case "bug_content":
@@ -979,54 +982,110 @@ class bug extends class_base
 			case "bug_feedback_p":
 			case "who":
 			case "monitors":
-				if ($arr["new"] || true)
+				$tmp = array();
+				foreach(safe_array(ifset($this->parent_options, $prop["name"])) as $key => $val)
 				{
-					foreach(safe_array(ifset($this->parent_options, $prop["name"])) as $key => $val)
+					$key_o = obj($key);
+					if ($key_o->class_id() == crm_person_obj::CLID)
 					{
-						$key_o = obj($key);
-						if ($key_o->class_id() == CL_CRM_PERSON)
+						$tmp[$key] = $val;
+					}
+				}
+				// also, the current person
+				$u = get_instance(CL_USER);
+				$p = obj($u->get_current_person());
+				$tmp[$p->id()] = $p->name();
+
+				if (ifset($prop, "multiple") == 1 && $arr["new"])
+				{
+				//	$prop["value"] = $this->make_keys(array_keys($tmp));
+					$prop["value"] = array($p->id(), $p->id());
+				}
+
+				// find tracker for the bug and get people list from that
+				$po = obj(!empty($arr["request"]["parent"]) ? $arr["request"]["parent"] : $arr["request"]["id"]);
+				$pt = $po->path();
+				$bt_obj = null;
+				foreach($pt as $pi)
+				{
+					if ($pi->class_id() == CL_BUG_TRACKER)
+					{
+						$bt_obj = $pi;
+						$bt = $pi->instance();
+						foreach($bt->get_people_list($pi) as $pid => $pnm)
 						{
-							$tmp[$key] = $val;
+							$tmp[$pid] = $pnm;
 						}
 					}
-					// also, the current person
-					$u = get_instance(CL_USER);
-					$p = obj($u->get_current_person());
-					$tmp[$p->id()] = $p->name();
+				}
+				$prop["options"] = array("" => t("--vali--")) + $tmp;
 
-					if (ifset($prop, "multiple") == 1 && $arr["new"])
+				if (!empty($arr["request"]["from_req"]))
+				{
+					$r = obj($arr["request"]["from_req"]);
+					$prop["options"][$r->prop("req_p")] = $r->prop("req_p.name");
+				}
+
+				if (($prop["name"] === "who" or $prop["name"] === "monitors") && (!$bt_obj || !$bt_obj->prop("bug_only_bt_ppl")))
+				{ // monitors property. no bt specified people for this bug
+					// load people from company specified by project
+					if (!empty($arr["request"]["set_proj"]) or $arr["obj_inst"]->prop("project"))
 					{
-					//	$prop["value"] = $this->make_keys(array_keys($tmp));
-						$prop["value"] = array($p->id(), $p->id());
+						$project = !empty($arr["request"]["set_proj"]) ? obj($arr["request"]["set_proj"], array(), project_obj::CLID) : new object($arr["obj_inst"]->prop("project"));
+						$prop["options"] += $project->get_people()->names();
+					}
+					else
+					{
+						// no project, load nothing
 					}
 
-					// find tracker for the bug and get people list from that
-					$po = obj(!empty($arr["request"]["parent"]) ? $arr["request"]["parent"] : $arr["request"]["id"]);
-					$pt = $po->path();
-					$bt_obj = null;
-					foreach($pt as $pi)
+					$u = new user();
+					$cur = obj($u->get_current_person());
+					$sections = $cur->connections_from(array(
+						"class_id" => CL_CRM_SECTION,
+						"type" => "RELTYPE_SECTION"
+					));
+					$ppl = $professions = array();
+					foreach($sections as $s)
 					{
-						if ($pi->class_id() == CL_BUG_TRACKER)
+						$sc = obj($s->conn["to"]);
+						$profs = $sc->connections_from(array(
+							"class_id" => CL_CRM_PROFESSION,
+       						"type" => "RELTYPE_PROFESSIONS"
+					  	));
+						foreach($profs as $p)
 						{
-							$bt_obj = $pi;
-							$bt = $pi->instance();
-							foreach($bt->get_people_list($pi) as $pid => $pnm)
-							{
-								$tmp[$pid] = $pnm;
-							}
+							$professions[$p->conn["to"]] = $p->conn["to"];
 						}
 					}
-					$prop["options"] = array("" => t("--vali--")) + $tmp;
+
+					$c = new connection();
+					$people = $c->find(array(
+						"from.class_id" => crm_person_obj::CLID,
+     					"type" => "RELTYPE_RANK",
+    						"to" => $professions
+					));
+
+					foreach($people as $person)
+					{
+						$ob = obj($person["from"]);
+						$ppl[$ob->id()] = $ob->name();
+					}
+					$prop["options"] += $ppl;
+				}
+				elseif($prop["name"] === "bug_feedback_p")
+				{
+					foreach(safe_array($arr["obj_inst"]->prop("monitors")) as $oid)
+					{
+						if($this->can("view", $oid))
+						{
+							$prop["options"][$oid] = obj($oid)->name();
+						}
+					}
 				}
 
 				if (isset($prop["value"]))
-				{
-					if ($this->can("view", $prop["value"]) && !isset($prop["options"][$prop["value"]]))
-					{
-						$tmp = obj($prop["value"]);
-						$prop["options"][$tmp->id()] = $tmp->name();
-					}
-
+				{ // add people selected in combobox to options if for some reason they're not on the list
 					if (is_array($prop["value"]))
 					{
 						foreach($prop["value"] as $val)
@@ -1038,66 +1097,14 @@ class bug extends class_base
 							}
 						}
 					}
-				}
-
-				if (!empty($arr["request"]["from_req"]))
-				{
-					$r = obj($arr["request"]["from_req"]);
-					$prop["options"][$r->prop("req_p")] = $r->prop("req_p.name");
-				}
-
-				if ($prop["name"] === "monitors" && (!$bt_obj || !$bt_obj->prop("bug_only_bt_ppl")))
-				{
-					$u = new user();
-					$cur = obj($u->get_current_person());
-					$sections = $cur->connections_from(array(
-							"class_id" => CL_CRM_SECTION,
-      							"type" => "RELTYPE_SECTION"
-					));
-					$ppl = $professions = array();
-					foreach($sections as $s)
+					elseif ($this->can("view", $prop["value"]) && !isset($prop["options"][$prop["value"]]))
 					{
-						$sc = obj($s->conn["to"]);
-						$profs = $sc->connections_from(array(
-							"class_id" => CL_CRM_PROFESSION,
-	       						"type" => "RELTYPE_PROFESSIONS"
-					  	));
-						foreach($profs as $p)
-						{
-							$professions[$p->conn["to"]] = $p->conn["to"];
-						}
-					}
-
-					$c = new connection();
-					$people = $c->find(array(
-						"from.class_id" => CL_CRM_PERSON,
-     					"type" => "RELTYPE_RANK",
-    						"to" => $professions
-					));
-					foreach($people as $person)
-					{
-						$ob = obj($person["from"]);
-						$ppl[$ob->id()] = $ob->name();
-					}
-					$prop["options"] += $ppl;
-				}
-
-				if($prop["name"] === "bug_feedback_p")
-				{
-					foreach(safe_array($arr["obj_inst"]->prop("monitors")) as $oid)
-					{
-						if($this->can("view", $oid))
-						{
-							$prop["options"][$oid] = obj($oid)->name();
-						}
+						$tmp = obj($prop["value"]);
+						$prop["options"][$tmp->id()] = $tmp->name();
 					}
 				}
-<<<<<<< HEAD
 
 				$this->_sort_bug_ppl($arr);
-=======
-				$this->_sort_bug_ppl(&$arr);
->>>>>>> 2aa8a071dcfc6e9fb11a338861eff0165112e58e
 				break;
 
 			case "bug_class":
@@ -1109,14 +1116,14 @@ class bug extends class_base
 				if (is_object($arr["obj_inst"]) && $this->can("view", $arr["obj_inst"]->prop("customer")))
 				{
 					$filt = array(
-						"class_id" => CL_PROJECT,
+						"class_id" => project_obj::CLID,
 						"CL_PROJECT.RELTYPE_ORDERER" => $arr["obj_inst"]->prop("customer")
 					);
 					$ol = new object_list($filt);
 				}
 				else
 				{
-					$i = get_instance(CL_CRM_COMPANY);
+					$i = new crm_company();
 					$prj = $i->get_my_projects();
 					if (!count($prj))
 					{
@@ -1183,7 +1190,7 @@ class bug extends class_base
 				if (isset($arr["request"]["alias_to_org"]) && $this->can("view", $arr["request"]["alias_to_org"]))
 				{
 					$ao = obj($arr["request"]["alias_to_org"]);
-					if ($ao->class_id() == CL_CRM_PERSON)
+					if ($ao->class_id() == crm_person_obj::CLID)
 					{
 						$u = get_instance(CL_USER);
 						$prop["value"] = $u->get_company_for_person($ao->id());
@@ -1297,7 +1304,7 @@ class bug extends class_base
 			case "bug_add_guess":
 				$prop["value"] = "";
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -1325,12 +1332,8 @@ class bug extends class_base
 							$bt = $po;
 						}
 					}
-<<<<<<< HEAD
 
 					if(!empty($bt) && $bt->prop("finance_required"))
-=======
-					if($bt && $bt->prop("finance_required"))
->>>>>>> 2aa8a071dcfc6e9fb11a338861eff0165112e58e
 					{
 						$arr["prop"]["error"] = t("Kulude katmise aeg valimata!");
 						return PROP_FATAL_ERROR;
@@ -1807,7 +1810,6 @@ class bug extends class_base
 		$prop = &$arr["prop"];
 		$tmp_options = $prop["options"];
 		unset($tmp_options[""]);
-		uksort($tmp_options, array($this, "__sort_ppl"));
 		$options = array();
 		if(!empty($prop["value"]))
 		{
@@ -1837,12 +1839,8 @@ class bug extends class_base
 		$prop["options"] = $options;
 	}
 
-	function __sort_ppl($a, $b)
-	{
-		$o1 = obj($a);
-		$o2 = obj($b);
-		return strcasecmp($o1->prop("lastname"), $o2->prop("lastname"));
-	}
+	// DEPRACETED. a malpractice in its extreme
+	function __sort_ppl($a, $b) { $o1 = obj($a); $o2 = obj($b); return strcasecmp($o1->prop("lastname"), $o2->prop("lastname")); }
 
 	function notify_monitors($bug, $comment, $old_state = null, $new_state = null)
 	{
@@ -1917,6 +1915,7 @@ class bug extends class_base
 			$new_s = $new_state;
 		}
 
+		$mg = null;
 		if($bt && $get_mg)
 		{
 			$mg = $bt->meta($mails_var);
@@ -1942,6 +1941,7 @@ class bug extends class_base
 			{
 				$cont = true;
 			}
+
 			if(!$this->comment_for_all && $mg && $uo = $pi->has_user($person_obj))
 			{
 				$conn = $uo->connections_from(array(
@@ -2329,8 +2329,6 @@ class bug extends class_base
 		$params = array(
 			"class_id" => array(CL_TASK_ROW,CL_BUG_COMMENT),
 			"parent" => $o->id(),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"sort_by" => "objects.created $so"
 		);
 
@@ -3077,7 +3075,6 @@ $diff = explode("*" , $result["diff"]);
 	**/
 	function handle_commit($arr)
 	{
-		aw_disable_acl();
 		$u_inst = get_instance("users");
 		$bug = obj($arr["bugno"]);
 		$msg = trim($this->hexbin($arr["msg"]));
@@ -3100,7 +3097,6 @@ $diff = explode("*" , $result["diff"]);
 		{
 			if($this->add_to_last_comment($bug, $msg))
 			{
-				aw_restore_acl();
 				die(sprintf(t("Modified bug %s last comment"), $arr["bugno"]));
 			}
 		}
@@ -3162,9 +3158,6 @@ $diff = explode("*" , $result["diff"]);
 		}
 
 		$this->_add_comment($bug, $msg, $ostat, $nstat, $add_wh, $com);
-		print "test\n";
-
-		aw_restore_acl();
 		die(sprintf(t("Added comment to bug %s"), $arr["bugno"]));
 	}
 
@@ -3174,11 +3167,8 @@ $diff = explode("*" , $result["diff"]);
 		$email = "";
 		if($who)
 		{
-		 	aw_disable_acl();
  			$ol = new object_list(array(
- 			"class_id" => CL_BUG_TRACKER,
-				"site_id" => array(),
- 				"lang_id" => array(),
+	 			"class_id" => CL_BUG_TRACKER
  			));
  			$users = array();
  			foreach($ol->arr() as $o)
@@ -3212,7 +3202,6 @@ $diff = explode("*" , $result["diff"]);
 					}
 				}
  			}
-			aw_restore_acl();
 		}
 		return $email;
 	}
@@ -3247,7 +3236,7 @@ $diff = explode("*" , $result["diff"]);
 		{
 			$email = $this->get_cvs_user_email($who);
 		}
-die($email);
+
 		if($email)
 		{
 			$text= "Class ".$file." changed\n\n".$this->hexbin($msg);

@@ -80,7 +80,6 @@ class users_user extends aw_template
 		}
 
 		//If user logs on first time and there is setting in .ini file then he/she must change password before login is completed
-		aw_disable_acl();
 		$u_oid = users::get_oid_for_uid($uid);
 		if (!$u_oid)
 		{
@@ -99,7 +98,6 @@ class users_user extends aw_template
 			$user_obj->set_prop("lastaction", time());
 			$user_obj->save();
 		}
-		aw_restore_acl();
 
 		aw_session_set("user_adm_ui_lc", $user_obj->prop("ui_language"));
 

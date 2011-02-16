@@ -532,7 +532,7 @@ class orb extends aw_template
 	// login
 	function check_login($class, $action)
 	{
-		if ((!aw_global_get("uid")) && (!isset($this->orb_defs[$class][$action]["nologin"])))
+		if (!aw_global_get("uid") && !isset($this->orb_defs[$class][$action]["nologin"]))
 		{
 			$auth = new auth_config();
 			print $auth->show_login();

@@ -107,7 +107,7 @@ class crm_phone extends class_base
 		return $retval;
 	}
 
-	function get_phone_types()
+	public static function get_phone_types()
 	{
 		return $this->phone_types;
 	}
