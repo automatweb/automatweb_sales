@@ -257,7 +257,7 @@ class mysql_pdo
 				else
 				{
 					$arr[$k] = addslashes($arr[$k]);
-				};
+				}
 			}
 			reset($arr);
 		}
