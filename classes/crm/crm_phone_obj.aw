@@ -2,6 +2,8 @@
 
 class crm_phone_obj extends _int_object
 {
+	const CLID = 219;
+
 	const TYPE_WORK = 2;
 	const TYPE_HOME = 3;
 	const TYPE_SHORT = 4;

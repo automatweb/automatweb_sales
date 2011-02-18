@@ -787,10 +787,9 @@ class mysql_pdo
 
 				foreach(safe_array($ti) as $tn => $td)
 				{
-					if (isset($mt[1]) && $mt[1] == $tn)
+					if (isset($mt[1]) && $mt[1] === $tn)
 					{
 						// got our class
-						classload($inf["file"]);
 						$i = $o->instance();
 						if (method_exists($i, "do_db_upgrade"))
 						{
@@ -803,7 +802,7 @@ class mysql_pdo
 			if (!isset($upgrade_result))
 			{
 				// if not found, then call the static upgrader
-				$cv = get_instance("admin/converters");
+				$cv = new converters();
 				$upgrade_result = $cv->do_db_upgrade($mt[1], $mt[2], $q, $errstr);
 			}
 
@@ -832,9 +831,8 @@ class mysql_pdo
 				$ti = $o->get_tableinfo();
 				foreach($ti as $tn => $td)
 				{
-					if ($mt[2] == $tn)
+					if ($mt[2] === $tn)
 					{
-						classload($inf["file"]);
 						// got our class
 						$i = $o->instance();
 						if (method_exists($i, "do_db_upgrade"))
@@ -849,6 +847,7 @@ class mysql_pdo
 			$cv = new converters();
 			return $cv->do_db_upgrade($mt[2], "", $q, $errstr);
 		}
+
 		return false;
 	}
 

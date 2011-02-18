@@ -812,7 +812,7 @@ class user extends class_base
 				continue;
 			}
 			$group = obj($g_oid);
-			if ($member[$g_oid] != 1 && $is && isset($gl[$g_oid]))
+			if ((!isset($member[$g_oid]) || $member[$g_oid] != 1) && $is && isset($gl[$g_oid]))
 			{
 				group::remove_user_from_group($o, $group);
 			}
@@ -1217,7 +1217,7 @@ EOF;
 	{
 		// now, if the alias deleted was a group alias, then
 		// remove the user from that goup and do all the other movements
-		if ($arr["connection"]->prop("reltype") == RELTYPE_GRP)
+		if ($arr["connection"]->prop("reltype") == 1) //1 - RELTYPE_GRP
 		{
 			$user = $arr["connection"]->from();
 			$group = $arr["connection"]->to();
@@ -1372,7 +1372,7 @@ EOF;
 			$grps = $group->path();
 			foreach($grps as $p_o)
 			{
-				if ($p_o->class_id() == CL_GROUP)
+				if ($p_o->class_id() == group_obj::CLID)
 				{
 					$user->connect(array(
 						"to" => $p_o->id(),

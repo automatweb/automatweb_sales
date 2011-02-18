@@ -243,6 +243,8 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 class crm_settings extends class_base
 {
+	const LIST_LENGTH_DEFAULT = 25;
+
 	// var ${"_properties" . CL_CRM_COMPANY} = array();
 	// var ${"_properties" . CL_CRM_PERSON} = array();
 	var $crmcfg_defined_tables = array();

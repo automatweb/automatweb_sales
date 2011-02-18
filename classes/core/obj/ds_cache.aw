@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class _int_obj_ds_cache extends _int_obj_ds_decorator
 {
@@ -397,4 +394,3 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 		}
 	}
 }
-?>

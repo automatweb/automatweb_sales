@@ -310,6 +310,7 @@ class crm_sales_contacts_search
 
 	private function search_obj($limit)
 	{
+		$result = array();
 		$filter = array("class_id" => CL_CRM_COMPANY_CUSTOMER_DATA);
 
 		if ($this->p_seller and $this->p_buyer)
@@ -443,6 +444,7 @@ class crm_sales_contacts_search
 
 	private function search_db($limit)
 	{
+		$result = array();
 		$seller = $this->p_seller;
 		$address_clid = CL_ADDRESS;
 		$phone_clid = CL_CRM_PHONE;

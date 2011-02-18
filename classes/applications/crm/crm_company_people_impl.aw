@@ -300,7 +300,7 @@ class crm_company_people_impl extends class_base
 		$sections = array();
 		//if section present, i'll get all the professions
 
-//-------------------osakonna inimesed-------------
+		//-------------------osakonna inimesed-------------
 		if(!empty($arr['request']['unit']))
 		{
 			$tmp_obj = new object($arr['request']['unit']);
@@ -312,7 +312,7 @@ class crm_company_people_impl extends class_base
 			}
 		}
 
-//----------------------- teatud ameti inimesed--------------------------------
+		//----------------------- teatud ameti inimesed--------------------------------
 		if(!empty($arr['request']['cat']) && $arr["request"]["cat"] !== CRM_ALL_PERSONS_CAT)
 		{
 			$tmp_obj = obj($arr['request']['cat'], array(), CL_CRM_PROFESSION);
@@ -321,7 +321,7 @@ class crm_company_people_impl extends class_base
 			$professions = array($arr['request']['cat']);
 		}
 
-//------------------------- ainult olulisteks m2rgitud inimesed-------------------
+		//------------------------- ainult olulisteks m2rgitud inimesed-------------------
 		if(empty($arr['request']['cat']) && empty($arr['request']['unit']))
 		{
 			$section_ol = $arr["obj_inst"]->get_sections();
@@ -334,7 +334,8 @@ class crm_company_people_impl extends class_base
 			}
 		}
 
-//---------------------- k6ik asutuse inimesed------------------kas siis kui tahetud k6iki v6i siis kui ei saanud yhtgi tulemust ja on m22ratud et sellisel juhul l2hevad k6ik
+		//---------------------- k6ik asutuse inimesed------------------
+		// kas siis kui tahetud k6iki v6i siis kui ei saanud yhtgi tulemust ja on m22ratud et sellisel juhul l2hevad k6ik
 		if (isset($arr["request"]["cat"]) && $arr["request"]["cat"] === CRM_ALL_PERSONS_CAT || (isset($arr["request"]["all_if_empty"]) && $arr["request"]["all_if_empty"] && !($worker_ol && $worker_ol->count())))
 		{
 			$worker_ol = $arr["obj_inst"]->get_employees(false);

@@ -2,15 +2,15 @@
 
 class icons
 {
+	private static $icon_other_classes = array("promo_box","brother","conf_icon_other","conf_icon_programs","conf_icon_classes","conf_icon_ftypes","conf_icons","conf_jf","conf_users","conf_icon_import","conf_icon_db","homefolder","hf_groups"); //XXX: determine what these are for exactly
+
 	public static function get_std_icon_url($name)
 	{
 		return aw_ini_get("baseurl") . "/automatweb/images/icons/{$name}.gif";
 	}
 
 	/** returns the url for the icons for the given class / object name (for file objects)
-
-		@attrib api=1
-
+		@attrib api=1 params=pos
 		@comment
 			arg1 - class id / object class instance
 			name - object name
@@ -45,8 +45,7 @@ class icons
 			return $icon_url;
 			// return aw_ini_get("icons.server")."/ftype_".strtolower($pi["extension"]).".gif";
 		}
-		else
-		if (in_array($clid,array("promo_box","brother","conf_icon_other","conf_icon_programs","conf_icon_classes","conf_icon_ftypes","conf_icons","conf_jf","conf_users","conf_icon_import","conf_icon_db","homefolder","hf_groups")))
+		elseif (in_array($clid, self::$icon_other_classes))
 		{
 			return aw_ini_get("icons.server")."/iother_".$clid.".gif";
 		}
@@ -60,12 +59,12 @@ class icons
 	/**
 		@attrib params=pos api=1
 		@param fid required type=int
-		Feature id which icon to search
+			Feature id which icon to search
 
 		@comment
-		Returns url to required features icon
+			Returns url to required features icon
 		@returns
-		url to required icon
+			url to required icon
 	**/
 	public static function get_feature_icon_url($fid)
 	{
@@ -74,19 +73,16 @@ class icons
 
 	/**
 		@attrib params=pos api=1
-		@param clid required type=int
-		The class id which icon you wanna get.
-
+		@param o required type=object
+			The object whose icon you wanna get.
 		@comment
-		Locates the correct icon for given class and returns html image tag
-		@returns
-		<img src="corrent iconurl">
+			Locates the currect icon for given class and returns html image tag
+		@returns string
+			<img src="icon_url">
 		@examples
-		classload("core/icons");
-		$ic = icons::get_icon(CL_MENU);
-
-		// $ic conains
-		// <img src='http://_blabla_/automatweb/images/icons/class_1.gif'>
+			$ic = icons::get_icon(CL_MENU);
+			// $ic contains
+			// <img src='http://_blabla_/automatweb/images/icons/class_1.gif'>
 	**/
 	public static function get_icon($o)
 	{
@@ -105,17 +101,14 @@ class icons
 	/**
 		@attrib params=pos api=1
 		@param clid required type=int
-		The class id which icon you wanna get.
-
+			The class id which icon you wanna get.
 		@comment
-		Locates the correct icon for given class and returns html image tag
-		@returns
-		<img src="corrent iconurl">
+			Locates the currect icon for given class and returns html image tag
+		@returns string
+			<img src="icon_url">
 		@examples
-		classload("core/icons");
 		$ic = icons::get_icon_tag(CL_MENU);
-
-		// $ic conains
+		// $ic contains
 		// <img src='http://_blabla_/automatweb/images/icons/class_1.gif'>
 	**/
 	public static function get_class_icon($clid)
