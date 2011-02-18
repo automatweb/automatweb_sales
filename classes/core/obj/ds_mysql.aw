@@ -869,25 +869,26 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 	function save_properties($arr)
 	{
 		extract($arr);
+		$objdata = $arr["objdata"];
 		if ($arr["create_new_version"] == 1)
 		{
 			return $this->save_properties_new_version($arr);
 		}
 
-		if (!empty($GLOBALS["object2version"][$arr["objdata"]["oid"]]))
+		if (!empty($GLOBALS["object2version"][$objdata["oid"]]))
 		{
-			$arr["objdata"]["version_id"] = $GLOBALS["object2version"][$arr["objdata"]["oid"]];
+			$objdata["version_id"] = $GLOBALS["object2version"][$objdata["oid"]];
 			return $this->save_properties_new_version($arr);
 		}
 
-		$metadata = aw_serialize((isset($arr["objdata"]["meta"]) ? $arr["objdata"]["meta"] : ""), SERIALIZE_NATIVE);
+		$metadata = aw_serialize((isset($objdata["meta"]) ? $objdata["meta"] : ""), SERIALIZE_NATIVE);
 		$this->quote($metadata);
-		$this->quote($arr["objdata"]);
-		$arr["objdata"]["metadata"] = $metadata;
+		$this->quote($objdata);
+		$objdata["metadata"] = $metadata;
 
-		if ($arr["objdata"]["brother_of"] == 0)
+		if ($objdata["brother_of"] == 0)
 		{
-			$arr["objdata"]["brother_of"] = $arr["objdata"]["oid"];
+			$objdata["brother_of"] = $objdata["oid"];
 		}
 
 		$ot_sets = array();
@@ -900,9 +901,10 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		{
 			$ot_sets[] = " {$_field} = '{$objdata[$_field]}' ";
 		}
+
 		$ot_sets = join(" , ", $ot_sets);
 
-		if ($ot_sets != "")
+		if ($ot_sets)
 		{
 			$ot_sets = " , {$ot_sets}";
 		}
