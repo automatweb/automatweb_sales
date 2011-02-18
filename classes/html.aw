@@ -1525,6 +1525,17 @@ class html
 		return str_repeat("<br />\n", $n);
 	}
 
+	/**	HTML of non-breaking space
+		@attrib api=1 params=pos
+		@param n optional type=int default=1
+			The number of space chars to be returned.
+		@returns string/html
+	**/
+	public static function space($n = 1)
+	{
+		return str_repeat("&nbsp;", $n);
+	}
+
 	/**Bold text
 	@attrib api=1 params=pos
 	@param content required type=string

@@ -5,7 +5,7 @@
 
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_CRM_PERSON, on_add_person)
 
-@classinfo syslog_type=ST_PERSONNEL_MANAGEMENT relationmgr=yes r2=yes no_name=1 no_status=1 no_comment=1 prop_cb=1 maintainer=instrumental
+@classinfo syslog_type=ST_PERSONNEL_MANAGEMENT relationmgr=yes r2=yes no_name=1 no_status=1 no_comment=1 prop_cb=1
 @default table=objects
 
 @groupinfo general caption="Seaded"
@@ -4385,9 +4385,9 @@ class personnel_management extends class_base
 			$arr["args"]["search_save"] = $arr["request"]["search_save"];
 		}
 
-		if($arr["request"]["customer_search_submit"])
+		if($arr["request"]["cs_sbt"])
 		{
-			$arr['args']['customer_search_name'] = ($arr['request']['customer_search_name']);
+			$arr['args']['cs_n'] = ($arr['request']['cs_n']);
 			$arr['args']['customer_search_worker'] = ($arr['request']['customer_search_worker']);
 			$arr['args']['customer_search_ev'] = ($arr['request']['customer_search_ev']);
 			$arr['args']['customer_search_cust_mgr'] = ($arr['request']['customer_search_cust_mgr']);
@@ -4398,31 +4398,11 @@ class personnel_management extends class_base
 			$arr['args']['customer_search_address'] = ($arr['request']['customer_search_address']);
 			$arr['args']['customer_search_city'] = ($arr['request']['customer_search_city']);
 			$arr['args']['customer_search_county'] = ($arr['request']['customer_search_county']);
-			$arr['args']['customer_search_submit'] = $arr['request']['customer_search_submit'];
+			$arr['args']['cs_sbt'] = $arr['request']['cs_sbt'];
 			$arr['args']['customer_search_is_co'] = $arr['request']['customer_search_is_co'];
 			$arr["args"]["customer_search_print_view"] = $arr["request"]["customer_search_print_view"];
 			$arr["args"]["customer_search_keywords"] = $arr["request"]["customer_search_keywords"];
 			$arr["args"]["customer_search_classif1"] = $arr["request"]["customer_search_classif1"];
-		}
-
-		if($arr["request"]["customer_search_submit_and_change"])
-		{
-			$arr['args']['customer_search_name'] = ($arr['request']['customer_search_name']);
-			$arr['args']['customer_search_cust_grp'] = ($arr['request']['customer_search_cust_grp']);
-			$arr['args']['customer_search_reg'] = ($arr['request']['customer_search_reg']);
-			$arr['args']['customer_search_is_co'] = $arr['request']['customer_search_is_co'];
-			$arr['args']['customer_search_submit_and_change'] = $arr['request']['customer_search_submit_and_change'];
-
-			if ( aw_global_get('crm_customers_search_mode') == CRM_CUSTOMERS_SEARCH_DETAIL )
-			{
-				$_SESSION['crm_customers_search_mode'] = CRM_CUSTOMERS_SEARCH_SIMPLE;
-				$this->set_cval( aw_global_get('uid').'_crm_customers_search_mode', CRM_CUSTOMERS_SEARCH_SIMPLE );
-			}
-			else
-			{
-				$_SESSION['crm_customers_search_mode'] = CRM_CUSTOMERS_SEARCH_DETAIL;
-				$this->set_cval( aw_global_get('uid').'_crm_customers_search_mode', CRM_CUSTOMERS_SEARCH_DETAIL );
-			}
 		}
 
 		if($arr["request"]["os_sbt"])
@@ -5996,4 +5976,3 @@ class personnel_management extends class_base
 		return $arr["post_ru"];
 	}
 }
-?>

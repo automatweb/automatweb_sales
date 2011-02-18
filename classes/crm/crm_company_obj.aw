@@ -2322,23 +2322,25 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@attrib api=1 params=pos
 		@param parent type=CL_CRM_CATEGORY default=NULL
 			category whose subcategories are desired
+		@param types type=array default=array(crm_category_obj::TYPE_GENERIC)
 		@return object_list
 		@errors
 			throws awex_obj_type if given parent is of wrong class
 		@qc date=20101026 standard=aw3
 	**/
-	public function get_customer_categories(object $parent = null)
+	public function get_customer_categories(object $parent = null, $types = array(crm_category_obj::TYPE_GENERIC))
 	{
 		if ($this->is_saved())
 		{
 			$filter = array(
-				"class_id" => CL_CRM_CATEGORY,
-				"organization" => $this->id()
+				"class_id" => crm_category_obj::CLID,
+				"organization" => $this->id(),
+				"category_type" => $types
 			);
 
 			if ($parent)
 			{
-				if (!$parent->is_a(CL_CRM_CATEGORY))
+				if (!$parent->is_a(crm_category_obj::CLID))
 				{
 					throw new awex_obj_type("Given category " . $parent->id() . " is not a category object (clid is " . $parent->class_id() . ")");
 				}

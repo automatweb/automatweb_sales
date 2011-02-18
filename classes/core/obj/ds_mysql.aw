@@ -880,14 +880,14 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			return $this->save_properties_new_version($arr);
 		}
 
-		$metadata = aw_serialize((isset($objdata["meta"]) ? $objdata["meta"] : ""), SERIALIZE_NATIVE);
+		$metadata = aw_serialize((isset($arr["objdata"]["meta"]) ? $arr["objdata"]["meta"] : ""), SERIALIZE_NATIVE);
 		$this->quote($metadata);
-		$this->quote($objdata);
-		$objdata["metadata"] = $metadata;
+		$this->quote($arr["objdata"]);
+		$arr["objdata"]["metadata"] = $metadata;
 
-		if ($objdata["brother_of"] == 0)
+		if ($arr["objdata"]["brother_of"] == 0)
 		{
-			$objdata["brother_of"] = $objdata["oid"];
+			$arr["objdata"]["brother_of"] = $arr["objdata"]["oid"];
 		}
 
 		$ot_sets = array();
@@ -1059,6 +1059,9 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$insert_q_values = "'" . implode("','", (array_merge(array($objdata["brother_of"]), array_values($seta)))) . "'";
 				$q = "INSERT INTO {$tbl} ({$insert_q_fields}) VALUES ({$insert_q_values}) ON DUPLICATE KEY UPDATE {$sets}"; // insert new row into data table or update if exists
 				// $q = "UPDATE {$tbl} SET {$sets} WHERE {$tableinfo[$tbl]["index"]} = '{$objdata["brother_of"]}'"; // reserve for performance upgrade when other means of row existence checking available
+
+/*~AWdbg*/ if (aw_ini_get("debug_mode") and automatweb::$request->arg("AW_DUKE") === "ds") { dbg::dump($q); }
+
 				$used_tables[$tbl] = $tbl;
 				$data_qs[] = $q;
 			}

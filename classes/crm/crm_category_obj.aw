@@ -6,6 +6,8 @@
 
 class crm_category_obj extends _int_object
 {
+	const CLID = 483;
+
 	const TYPE_GENERIC = 1;
 	const TYPE_BUYER = 2;
 	const TYPE_SELLER = 3;

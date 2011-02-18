@@ -1703,14 +1703,14 @@ echo "mod ".$con["to.name"]."<br>";
 		{
 			case "aw_da_classes":
 				$this->db_query("CREATE TABLE `aw_da_classes` (
-  `file` varchar(255) default NULL,
-  `class_name` varchar(255) default NULL,
-  `extends` varchar(255) default NULL,
-  `implements` varchar(255) default NULL,
-  `class_type` varchar(255) default NULL,
-  `has_apis` int(11) default NULL,
-  `maintainer` varchar(255) default NULL
-)");
+				  `file` varchar(255) default NULL,
+				  `class_name` varchar(255) default NULL,
+				  `extends` varchar(255) default NULL,
+				  `implements` varchar(255) default NULL,
+				  `class_type` varchar(255) default NULL,
+				  `has_apis` int(11) default NULL,
+				  `maintainer` varchar(255) default NULL
+				)");
 				return true;
 
 			case "banner_views":

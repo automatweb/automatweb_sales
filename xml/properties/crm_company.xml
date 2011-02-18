@@ -1007,7 +1007,7 @@
             <caption>Kliendikategooriad hierarhiliselt</caption>
       </property>
       <property>
-            <name>customer_search_name</name>
+            <name>cs_n</name>
             <table>objects</table>
             <group>
                   <num_0>relorg_s</num_0>
@@ -1018,7 +1018,7 @@
             <store>no</store>
             <parent>vbox_customers_left_top</parent>
             <captionside>top</captionside>
-            <field>customer_search_name</field>
+            <field>cs_n</field>
             <caption>Nimi</caption>
       </property>
       <property>
@@ -1230,7 +1230,7 @@
             <caption>Printvaade</caption>
       </property>
       <property>
-            <name>customer_search_submit</name>
+            <name>cs_sbt</name>
             <table>objects</table>
             <group>
                   <num_0>relorg_s</num_0>
@@ -1241,22 +1241,8 @@
             <store>no</store>
             <parent>vbox_customers_left_search_btn</parent>
             <no_caption>1</no_caption>
-            <field>customer_search_submit</field>
+            <field>cs_sbt</field>
             <caption>Otsi</caption>
-      </property>
-      <property>
-            <name>customer_search_submit_and_change</name>
-            <table>objects</table>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
-            <type>submit</type>
-            <parent>vbox_customers_left_search_btn</parent>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>customer_search_submit_and_change</field>
-            <caption>Otsi ja muuda</caption>
       </property>
       <property>
             <name>my_customers_table</name>
@@ -3639,21 +3625,19 @@
             </all_reports>
             <relorg>
                   <caption>Kliendid</caption>
-                  <focus>customer_search_name</focus>
+                  <focus>cs_n</focus>
                   <save>no</save>
             </relorg>
             <relorg_b>
                   <caption>Ostjad</caption>
-                  <focus>customer_search_name</focus>
+                  <focus>cs_n</focus>
                   <parent>relorg</parent>
-                  <submit>no</submit>
                   <save>no</save>
             </relorg_b>
             <relorg_s>
                   <caption>M&amp;amp;uuml;&amp;amp;uuml;jad</caption>
-                  <focus>customer_search_name</focus>
+                  <focus>cs_n</focus>
                   <parent>relorg</parent>
-                  <submit>no</submit>
                   <save>no</save>
             </relorg_s>
             <org_images>

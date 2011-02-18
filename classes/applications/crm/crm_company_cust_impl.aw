@@ -252,7 +252,7 @@ class crm_company_cust_impl extends class_base
 					$org_id,
 					array(
 						"group" => "contacts2",
-						"cat" => $role_entry->prop("role")
+						crm_company::REQVAR_CATEGORY => $role_entry->prop("role")
 					),
 					parse_obj_name($role_entry->prop_str("role"))
 				);
@@ -302,9 +302,7 @@ class crm_company_cust_impl extends class_base
 		$projects = new object_list(array(
 			"class_id" => CL_PROJECT,
 			"CL_PROJECT.RELTYPE_IMPLEMENTOR" => $arr["obj_inst"]->id(),
-			"lang_id" => array(),
-			"site_id" => array(),
-			"state" => $applicable_states,
+			"state" => $applicable_states
 		));
 
 		$this->proj_count = $projects->count();
@@ -617,9 +615,9 @@ class crm_company_cust_impl extends class_base
 		$category = 0;
 
 		// category is set if cat argument is numeric, else it is a first letter selection
-		if (isset($arr["request"]["cat"]))
+		if (isset($arr["request"][crm_company::REQVAR_CATEGORY]))
 		{
-			$category = is_numeric($arr["request"]["cat"]) ? (int) $arr["request"]["cat"] : 0;
+			$category = is_numeric($arr["request"][crm_company::REQVAR_CATEGORY]) ? (int) $arr["request"][crm_company::REQVAR_CATEGORY] : 0;
 		}
 
 		$tb->add_menu_button(array(
@@ -668,7 +666,7 @@ class crm_company_cust_impl extends class_base
 				"link" => $this->mk_my_orb("add_customer", array(
 					"id" => $arr["obj_inst"]->id(),
 					"t" => crm_company_obj::CUSTOMER_TYPE_BUYER,
-					"c" => CL_CRM_COMPANY,
+					"c" => crm_company_obj::CLID,
 					"s" => $category,
 					"return_url" => get_ru()
 				), "crm_company")
@@ -688,7 +686,7 @@ class crm_company_cust_impl extends class_base
 
 			// search and add customer from existing persons/organizations in database
 			$url = $this->mk_my_orb("do_search", array(
-				"clid" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
+				"clid" => array(crm_company_obj::CLID, CL_CRM_PERSON),
 				"pn" => "sbt_data_add_buyer"
 			), "popup_search");
 			$tb->add_menu_item(array(
@@ -729,7 +727,7 @@ class crm_company_cust_impl extends class_base
 				"link" => $this->mk_my_orb("add_customer", array(
 					"id" => $arr["obj_inst"]->id(),
 					"t" => crm_company_obj::CUSTOMER_TYPE_SELLER,
-					"c" => CL_CRM_COMPANY,
+					"c" => crm_company_obj::CLID,
 					"s" => $category,
 					"return_url" => get_ru()
 				), "crm_company")
@@ -749,7 +747,7 @@ class crm_company_cust_impl extends class_base
 
 			//  search and add customer from existing persons/organizations in database
 			$url = $this->mk_my_orb("do_search", array(
-				"clid" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
+				"clid" => array(crm_company_obj::CLID, CL_CRM_PERSON),
 				"pn" => "sbt_data_add_seller"
 			), "popup_search");
 			$tb->add_menu_item(array(
@@ -814,9 +812,10 @@ class crm_company_cust_impl extends class_base
 
 	private function _add_categories($arr, treeview $tree_inst)
 	{
-		$url = automatweb::$request->get_uri();
-		$selected = $url->arg("category");
-		$url->set_arg("category", null);
+		$url = new aw_uri($this->mk_my_orb($arr["request"]["action"], array(
+			"group" => $arr["request"]["group"],
+			"id" => $arr["request"]["id"],
+		), $arr["request"]["class"]));
 
 		// caption
 		$tree_inst->add_item(0, array(
@@ -829,19 +828,32 @@ class crm_company_cust_impl extends class_base
 		$categories = $arr['obj_inst']->get_customer_categories();
 		foreach ($categories->arr() as $category)
 		{
+			////////// temporary. a popup menu for editing categories. a not very aesthetic solution
+			$pm = new popup_menu();
+			$pm->begin_menu("custcat".$category->id());
+			$pm->add_item(array(
+				"text" => t("Muuda"),
+				"link" => $this->mk_my_orb("change", array("id" => $category->id(), "return_url" => get_ru()), "crm_category")
+			));
+			$pm->add_item(array(
+				"text" => t("Kustuta"),
+				"link" => $this->mk_my_orb("delete", array("id" => $category->id(), "return_url" => get_ru()), "crm_category")
+			));
+			//////////
+
 			$parent = $category->prop("parent_category") ? (int) $category->prop("parent_category") : "categories";
-			$url->set_arg("category", $category->id());
+			$url->set_arg(crm_company::REQVAR_CATEGORY, $category->id());
 			$tree_inst->add_item ($parent, array (
-				"name" => $category->name(),
+				"name" => $category->name() . $pm->get_menu(),
 				"id" => $category->id(),
 				"parent" => $parent,
 				"url" => $url->get()
 			));
 		}
 
-		if ($selected)
+		if (!empty($arr["request"][crm_company::REQVAR_CATEGORY]))
 		{
-			$tree_inst->set_selected_item($selected);
+			$tree_inst->set_selected_item($arr["request"][crm_company::REQVAR_CATEGORY]);
 		}
 	}
 
@@ -947,7 +959,7 @@ class crm_company_cust_impl extends class_base
 		));
 
 		$i = new crm_company();
-		$i->active_node = (int)$arr['request']['category'];
+		$i->active_node = (int)$arr['request'][crm_company::REQVAR_CATEGORY];
 		$i->tree_uses_oid = true;
 		$i->generate_tree(array(
 			'tree_inst' => $tree,
@@ -1088,9 +1100,9 @@ class crm_company_cust_impl extends class_base
 				"class_id" => CL_CRM_OFFER,
 			);
 
-			if(is_oid($arr["request"]["category"]))
+			if(is_oid($arr["request"][crm_company::REQVAR_CATEGORY]))
 			{
-				$cat = obj($arr["request"]["category"]);
+				$cat = obj($arr["request"][crm_company::REQVAR_CATEGORY]);
 				$data = array();
 				$i = new crm_company();
 				$i->get_customers_for_company($cat,$data,true);
@@ -1108,7 +1120,7 @@ class crm_company_cust_impl extends class_base
 					$offers = new object_list($params);
 				}
 			}
-			if(!$arr["request"]["org_id"] && !$arr["request"]["category"])
+			if(!$arr["request"]["org_id"] && !$arr["request"][crm_company::REQVAR_CATEGORY])
 			{
 				$offers = new object_list($params);
 			}
@@ -1252,7 +1264,7 @@ class crm_company_cust_impl extends class_base
 					$arr["request"]["id"],
 					array(
 						"group" => "contacts2",
-						"cat" => $role_entry->prop("role")
+						crm_company::REQVAR_CATEGORY => $role_entry->prop("role")
 					),
 					parse_obj_name($role_entry->prop_str("role"))
 				);
@@ -1383,7 +1395,7 @@ class crm_company_cust_impl extends class_base
 				"tooltip" => t("Otsi projekte"),
 				"url" => aw_url_change_var(array(
 					"search_all_proj" => 1,
-					"category" => NULL,
+					crm_company::REQVAR_CATEGORY => NULL,
 					"org_id" => NULL
 				))
 			));
@@ -1538,7 +1550,7 @@ class crm_company_cust_impl extends class_base
 			"tooltip" => t("Otsi projekte"),
 			"url" => aw_url_change_var(array(
 				"search_all_proj" => 1,
-				"category" => NULL,
+				crm_company::REQVAR_CATEGORY => NULL,
 				"org_id" => NULL
 			))
 		));
@@ -1687,7 +1699,7 @@ class crm_company_cust_impl extends class_base
 
 	function _get_customer_search_cust_mgr($arr)
 	{
-		if (empty($arr["request"]["customer_search_submit"]))
+		if (empty($arr["request"]["cs_sbt"]))
 		{
 			$p = get_current_person();
 			if($p->is_cust_mgr())
@@ -1727,7 +1739,7 @@ class crm_company_cust_impl extends class_base
 	function _get_customer_search_filter($r, $within = false, $oids)
 	{
 		$ret = array(
-			"class_id" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
+			"class_id" => array(crm_company_obj::CLID, CL_CRM_PERSON),
 		);
 
 		$has_params = false;
@@ -1736,16 +1748,12 @@ class crm_company_cust_impl extends class_base
 			$ret["oid"] = $within;
 		}
 
-		if ($r["customer_search_name"] != "")
+		if ($r["cs_n"] != "")
 		{
-			$ret["name"] = "%".$r["customer_search_name"]."%";
+			$ret["name"] = "%".$r["cs_n"]."%";
 			$has_params = true;
 		}
-		else
-		{
-			$ret["site_id"] = array();
-			$ret["lang_id"] = array();
-		}
+
 		if ($r["customer_search_reg"] != "")
 		{
 			$ret["reg_nr"] = "%".$r["customer_search_reg"]."%";
@@ -1871,7 +1879,7 @@ class crm_company_cust_impl extends class_base
 		else
 		if (!empty($r["customer_search_is_co"]["is_co"]) && empty($r["customer_search_is_co"]["is_person"]))
 		{
-			$ret["class_id"] = CL_CRM_COMPANY;
+			$ret["class_id"] = crm_company_obj::CLID;
 		}
 		else
 		{
@@ -1956,8 +1964,8 @@ class crm_company_cust_impl extends class_base
 		}
 
 		$ret["sort_by"] = "name";
-		$ret["limit"] = (100*$_GET["ft_page"]).", 100";
-		$ret["sort_by"].= " ".( $_GET["sort_order"] == "desc" ? "DESC" : "ASC");
+		$ret["limit"] = (100 * $arr["request"]["ft_page"]).", 100";
+		$ret["sort_by"].= " ".( $arr["request"]["sort_order"] === "desc" ? "DESC" : "ASC");
 
 		return $ret;
 	}
@@ -1968,7 +1976,7 @@ class crm_company_cust_impl extends class_base
 			"is_co" => t("Organisatsioon"),
 			"is_person" => t("Eraisik")
 		);
-		if (empty($arr["request"]["customer_search_submit"]))
+		if (empty($arr["request"]["cs_sbt"]))
 		{
 			$arr["prop"]["value"] = array("is_co" => "is_co", "is_person" => "is_person");
 		}
@@ -1982,21 +1990,9 @@ class crm_company_cust_impl extends class_base
 	{
 		$tree_inst = $arr["prop"]["vcl_inst"];
 		$tree_inst->set_only_one_level_opened(1);
-		$category = isset($arr["request"]["category"]) ? (int) $arr["request"]["category"] : 0;
-
-		if (!empty($arr["request"]["category"]))
-		{
-			$f_cat = $this->_get_first_cust_cat($arr["obj_inst"]);
-			if ($f_cat)
-			{
-				$arr["request"]["category"] = $f_cat->id();
-			}
-		}
-
 		$this->_add_cust_mgr($arr, $tree_inst);
 		$this->_add_categories($arr, $tree_inst);
 		$this->_add_cust_alpha($arr, $tree_inst);
-
 		return PROP_OK;
 	}
 
@@ -2005,7 +2001,7 @@ class crm_company_cust_impl extends class_base
 		$tree_inst->add_item(0, array(
 			"id" => "cmgr",
 			"name" => t("Minu kliendid"),
-			"url" => aw_url_change_var("category", null, aw_url_change_var("filt_p", null))
+			"url" => aw_url_change_var(crm_company::REQVAR_CATEGORY, null, aw_url_change_var("filt_p", null))
 		));
 
 		$ol = new object_data_list(array(
@@ -2034,7 +2030,7 @@ class crm_company_cust_impl extends class_base
 			$tree_inst->add_item("cmgr", array(
 				"id" => "cmgr_".$id,
 				"name" => parse_obj_name($nm),
-				"url" => aw_url_change_var("category", null, aw_url_change_var("filt_p", null, aw_url_change_var("cmgr", $id)))
+				"url" => aw_url_change_var(crm_company::REQVAR_CATEGORY, null, aw_url_change_var("filt_p", null, aw_url_change_var("cmgr", $id)))
 			));
 		}
 
@@ -2049,14 +2045,14 @@ class crm_company_cust_impl extends class_base
 		$tree_inst->add_item(0, array(
 			"id" => "alpha",
 			"name" => t("T&auml;hestiku j&auml;rgi"),
-			"url" => aw_url_change_var("category", null)
+			"url" => aw_url_change_var(crm_company::REQVAR_CATEGORY, null)
 		));
 		for($i = ord("A"); $i < ord("Z"); $i++)
 		{
 			$tree_inst->add_item("alpha", array(
 				"id" => "alpha_".chr($i),
 				"name" => chr($i) . ".......",
-				"url" => aw_url_change_var("category", null, aw_url_change_var("filt_p", chr($i)))
+				"url" => aw_url_change_var(crm_company::REQVAR_CATEGORY, null, aw_url_change_var("filt_p", chr($i)))
 			));
 		}
 
@@ -2066,7 +2062,7 @@ class crm_company_cust_impl extends class_base
 		}
 	}
 
-	function _finish_org_tbl($arr, &$orglist)
+	function _finish_org_tbl($arr, &$customer_list)
 	{
 		$tf = $arr["prop"]["vcl_inst"];
 		$org = obj($arr["request"]["id"]);
@@ -2107,7 +2103,7 @@ class crm_company_cust_impl extends class_base
 			$role_entry_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_ROLE_ENTRY,
 				"company" => $arr["request"]["id"],
-				"client" => $orglist,
+				"client" => $customer_list,
 				"project" => new obj_predicate_compare(OBJ_COMP_LESS, 1)
 			));
 			foreach($role_entry_list->arr() as $role_entry)
@@ -2125,7 +2121,7 @@ class crm_company_cust_impl extends class_base
 						$arr["request"]["id"],
 						array(
 							"group" => "contacts2",
-							"cat" => $role_entry->prop("role")
+							crm_company::REQVAR_CATEGORY => $role_entry->prop("role")
 						),
 						parse_obj_name($role_entry->prop_str("role"))
 					);
@@ -2135,13 +2131,13 @@ class crm_company_cust_impl extends class_base
 		# table contents
 		$perpage = 100;
 		$page_nr = isset($arr["request"]["ft_page"]) ? (int) $arr["request"]["ft_page"] : 0;
-		$org_count = count($orglist);
+		$org_count = count($customer_list);
 		if($perpage > $org_count)
 		{
 			$page_nr = 0;
 		}
 
-		foreach($orglist as $org)
+		foreach($customer_list as $org)
 		{
 			try
 			{
@@ -2165,16 +2161,15 @@ class crm_company_cust_impl extends class_base
 				));
 			}
 
-			if ($o->is_a(CL_CRM_COMPANY))
+			if ($o->is_a(crm_company_obj::CLID))
 			{
 				try
 				{
 					$tmp = obj($o->prop("ettevotlusvorm"), array(), CL_CRM_CORPFORM);
-					$vorm = $tmp->prop("shortname");
+					$vorm = html::space() . $tmp->prop("shortname");
 				}
 				catch (awex_obj $e)
 				{
-					$vorm = "";
 				}
 
 				# ceo
@@ -2292,13 +2287,13 @@ class crm_company_cust_impl extends class_base
 					"link" => html::get_change_url($o->id(), array("return_url" => get_ru()))
 				));
 
-				if (!empty($arr["request"]["category"]))
+				if (!empty($arr["request"][crm_company::REQVAR_CATEGORY]))
 				{
 					$pm->add_item(array(
 						"text" => t("Eemalda kliendigrupist"),
 						"link" => $this->mk_my_orb("remove_from_cust_grp", array(
 							"id" => $o->id(),
-							"cgrp" => $arr["request"]["category"],
+							"cgrp" => $arr["request"][crm_company::REQVAR_CATEGORY],
 							"post_ru" => get_ru()
 						))
 					));
@@ -2309,11 +2304,22 @@ class crm_company_cust_impl extends class_base
 			# name
 			if ($default_cfg or in_array("name", $visible_fields))
 			{
-				$name = html::get_change_url($o->id(), array("return_url" => get_ru()), ($o->name() ? $o->name() : t("[Nimetu]"))." ".$vorm);
-			}
+				$name = html::span(array(
+					"nowrap" => true,
+					"content" => icons::get_class_icon($o->class_id()) . html::space() . html::get_change_url($o->id(), array("return_url" => get_ru()), ($o->name() ? $o->name() : t("[Nimetu]")) . $vorm
+				)));
 
-			$_url = $this->mk_my_orb("get_cust_contact_table", array("id" => $o->id(), "return_url" => post_ru()));//FIXME: $o can be CL_CRM_PERSON, here assumed crm_co only
-			$namp = " (<a id='tnr".$o->id()."' href='javascript:void(0)' onClick='co_contact(".$o->id().",\"".$_url."\");'>".t("Kontaktid")."</a>) ";
+				if ($o->is_a(crm_company_obj::CLID))
+				{
+					$_url = $this->mk_my_orb("get_cust_contact_table", array("id" => $o->id(), "return_url" => post_ru()));
+					$name .= html::href(array(
+						"url" => "javascript:void(0)",
+						"id" => "tnr" . $o->id(),
+						"caption" => t("(Kontaktid)"),
+						"onclick" => "co_contact(" . $o->id() . ",\"{$_url}\");"
+					));
+				}
+			}
 
 			$c = $o->connections_from(array(
 				"type" => "RELTYPE_METAMGR"
@@ -2336,11 +2342,11 @@ class crm_company_cust_impl extends class_base
 			//!!! todo: define and get data only for fields configured to be shown in current crm settings.
 			$tf->define_data(array(
 				"id" => $o->id(),
-				"name" => $name.$namp,
+				"name" => $name,
 				"classif1" => $classif1,
 				"customer_rel_creator" => method_exists($o, "get_cust_rel_creator_name") ? $o->get_cust_rel_creator_name() : "n/a",///!!!! teha korda
 				"reg_nr" => $o->prop("reg_nr"),
-				"address" => $o->class_id() == CL_CRM_COMPANY ? $o->prop_str("contact") : $o->prop("RELTYPE_ADDRESS.name"),
+				"address" => $o->class_id() == crm_company_obj::CLID ? $o->prop_str("contact") : $o->prop("RELTYPE_ADDRESS.name"),
 				"ceo" => $ceo,
 				"phone" => $phone,
 				"fax" => $fax,
@@ -2367,11 +2373,11 @@ class crm_company_cust_impl extends class_base
 			return PROP_IGNORE;
 		}
 
-		$orglist = array();
+		$customer_list = array();
 
 		if ($filter)
 		{
-			$orglist = $this->make_keys($filter);
+			$customer_list = $this->make_keys($filter);
 		}
 		else
 		{
@@ -2397,13 +2403,13 @@ class crm_company_cust_impl extends class_base
 			{
 				$filt = $this->_get_customer_search_filter($arr["request"], $ol2);
 				$ol = new object_list($filt);
-				$orglist = $this->make_keys($ol->ids());
+				$customer_list = $this->make_keys($ol->ids());
 			}
 			else
 			{
 				$filt = $this->_get_customer_search_filter($arr["request"], $ol2);
 				$ol = new object_list($filt);
-				$orglist = $this->make_keys($ol->ids());
+				$customer_list = $this->make_keys($ol->ids());
 			}
 
 			if(!empty($arr["request"]["filt_p"]))
@@ -2417,13 +2423,13 @@ class crm_company_cust_impl extends class_base
 			$t = new object_data_list(
 				$filt,
 				array(
-					CL_CRM_COMPANY =>  array(new obj_sql_func(OBJ_SQL_COUNT,"cnt" , "*"))
+					crm_company_obj::CLID =>  array(new obj_sql_func(OBJ_SQL_COUNT,"cnt" , "*"))
 				)
 			);
 			$this->result_count = reset(reset($t->arr()));
 		}
 
-		$this->_finish_org_tbl($arr, $orglist);
+		$this->_finish_org_tbl($arr, $customer_list);
 
 		if (!empty($arr["request"]["customer_search_print_view"]))
 		{
@@ -2461,13 +2467,23 @@ class crm_company_cust_impl extends class_base
 			$customer_relations_search->name = $arr["request"]["filt_p"] . "%";
 		}
 
+		if (!empty($arr["request"]["cs_n"]))
+		{
+			$customer_relations_search->name = "%{$arr["request"]["cs_n"]}%";
+		}
+
+		if (!empty($arr["request"]["filt_p"]))
+		{
+			$customer_relations_search->name = $arr["request"]["filt_p"] . "%";
+		}
+
 		$customer_relations_search->set_sort_order("name-asc");
 
-		if (!empty($category))
+		if (!empty($arr["request"][crm_company::REQVAR_CATEGORY]))
 		{
 			try
 			{
-				$category = obj($category, array(), CL_CRM_CATEGORY);
+				$category = obj($arr["request"][crm_company::REQVAR_CATEGORY], array(), CL_CRM_CATEGORY);
 				$customer_relations_search->category = $category;
 			}
 			catch (Exception $e)
@@ -2476,28 +2492,28 @@ class crm_company_cust_impl extends class_base
 			}
 		}
 
-		$cro_oids = $customer_relations_search->get_customer_relation_oids(new obj_predicate_limit(50)/* //!!!! tmp */);
-
+		$cro_oids = $customer_relations_search->get_customer_relation_oids(new obj_predicate_limit(crm_settings::LIST_LENGTH_DEFAULT));
+		$customer_list = array();
 		foreach($cro_oids as $key => $cro_oid_data)
 		{
 			$cro = obj($cro_oid_data["oid"]);
 			$customer_oid = $cro->prop("buyer");
-			$orglist[$customer_oid] = $customer_oid;
+			$customer_list[$customer_oid] = $customer_oid;
 		}
 
-		$this->_finish_org_tbl($arr, $orglist);
+		$this->_finish_org_tbl($arr, $customer_list);
 	}
 
 	function _get_my_customers_table_old($arr)
 	{
-		if(!empty($arr["request"]["customer_search_submit"]) || !empty($arr["request"]["customer_search_submit_and_change"]))
+		if(!empty($arr["request"]["cs_sbt"]))
 		{
 			$this->_get_customer($arr);
 		}
 		else
 		{
-			$orglist = array();
-			$category = isset($arr['request']['category']) ? $arr['request']['category'] : "";
+			$customer_list = array();
+			$category = isset($arr['request'][crm_company::REQVAR_CATEGORY]) ? $arr['request'][crm_company::REQVAR_CATEGORY] : "";
 			$stchk = explode('_', $category);
 			if($stchk[0] === 'st')
 			{
@@ -2507,7 +2523,7 @@ class crm_company_cust_impl extends class_base
 					"seller" => $arr['obj_inst']->id(),
 					"class_id" => array(CL_CRM_COMPANY_CUSTOMER_DATA)
 				));
-				$orglist = array();
+				$customer_list = array();
 				foreach($all_cust_data->list as $cd)
 				{
 					$cust_data = obj($cd);
@@ -2517,7 +2533,7 @@ class crm_company_cust_impl extends class_base
 					));
 					if(count($cust_st))
 					{
-						$orglist[$cust_data->prop("buyer")] = $cust_data->prop("buyer");
+						$customer_list[$cust_data->prop("buyer")] = $cust_data->prop("buyer");
 					}
 				}
 			}
@@ -2556,17 +2572,17 @@ class crm_company_cust_impl extends class_base
 					}
 				}
 
-				$cro_oids = $customer_relations_search->get_customer_relation_oids(new obj_predicate_limit(50)/* //!!!! tmp */);
+				$cro_oids = $customer_relations_search->get_customer_relation_oids(new obj_predicate_limit(crm_settings::LIST_LENGTH_DEFAULT));
 
 				foreach($cro_oids as $key => $cro_oid_data)
 				{
 					$cro = obj($cro_oid_data["oid"]);
 					$customer_oid = $cro->prop("buyer");
-					$orglist[$customer_oid] = $customer_oid;
+					$customer_list[$customer_oid] = $customer_oid;
 				}
 			}
 
-			$this->_finish_org_tbl($arr, $orglist);
+			$this->_finish_org_tbl($arr, $customer_list);
 		}
 	}
 
@@ -2722,9 +2738,7 @@ class crm_company_cust_impl extends class_base
 	{
 		$dat = array();
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_INSURANCE_TYPE,
-			"site_id" => array(),
-			"lang_id" => array()
+			"class_id" => CL_CRM_INSURANCE_TYPE //TODO: kas ikka vaja k6ik systeemi objektid?
 		));
 		$dat = $ol->names();
 		$arr["prop"]["options"] = array("" => "") + $dat;
@@ -2786,9 +2800,7 @@ class crm_company_cust_impl extends class_base
 	private function all_projects_data($filt)
 	{
 		$filter = array(
-			"class_id" => CL_PROJECT,
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => CL_PROJECT
 		);
 
 		if(is_oid($filt))
@@ -2902,15 +2914,15 @@ class crm_company_cust_impl extends class_base
 			{
 				$name = $name." (".sizeof($project_data).")";
 			}
-			if (isset($_GET[$var]) && $_GET[$var] === "prman_".$id)
+			if (isset($arr["request"][$var]) && $arr["request"][$var] === "prman_".$id)
 			{
-				$name = "<b>".$name."</b>";
+				$name = html::bold($name);
 			}
 
 			$tv->add_item("pr_mgr",array(
 				"name" => $name,
 				"id" => "prman".$id,
-				"iconurl" => icons::get_icon_url(CL_CRM_PERSON),
+				"iconurl" => icons::get_icon_url(crm_person_obj::CLID),
 				"url" => aw_url_change_var($var, "prman_".$id),
 			));
 		}
@@ -2927,9 +2939,9 @@ class crm_company_cust_impl extends class_base
 			{
 				continue;
 			}
-			if (isset($_GET[$var]) && $_GET[$var] === "custman_".$id)
+			if (isset($arr["request"][$var]) && $arr["request"][$var] === "custman_".$id)
 			{
-				$name = "<b>".$name."</b>";
+				$name = html::bold($name);
 			}
 			$tv->add_item("cust_mgr",array(
 				"name" => $name,
@@ -2960,27 +2972,27 @@ class crm_company_cust_impl extends class_base
 		foreach($customers_by_1_letter as $letter1 => $customers)
 		{
 			$name = $letter1 ." (".sizeof($customers).")";
-			if (isset($_GET[$var]) && $_GET[$var] === "cust_".$letter1)
+			if (isset($arr["request"][$var]) && $arr["request"][$var] === "cust_".$letter1)
 			{
-				$name = "<b>".$name."</b>";
+				$name = html::bold($name);
 			}
 			$tv->add_item("cust",array(
 				"name" => $name,
 				"id" => "cust".$letter1,
-			//	"iconurl" => icons::get_icon_url(CL_CRM_COMPANY),
+			//	"iconurl" => icons::get_icon_url(crm_company_obj::CLID),
 				"url" => aw_url_change_var($var, "cust_".$letter1),
 			));
 
 			foreach($customers as $id => $name)
 			{
-				if (isset($_GET[$var]) && $_GET[$var] === "cust_".$id)
+				if (isset($arr["request"][$var]) && $arr["request"][$var] === "cust_".$id)
 				{
-					$name = "<b>".$name."</b>";
+					$name = html::bold($name);
 				}
 				$tv->add_item("cust".$letter1,array(
 					"name" => $name,
 					"id" => "cust".$id,
-					"iconurl" => icons::get_icon_url(CL_CRM_COMPANY),
+					"iconurl" => icons::get_icon_url(crm_company_obj::CLID),
 					"url" => aw_url_change_var($var, "cust_".$id),
 				));
 			}

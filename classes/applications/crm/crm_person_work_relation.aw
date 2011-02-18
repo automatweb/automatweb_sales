@@ -104,7 +104,7 @@ class crm_person_work_relation extends class_base
 	function _get_state($arr)
 	{
 		$retval = PROP_OK;
-		$value = isset($arr["prop"]["value"]) ? crm_person_work_relation_obj::state_names($arr["prop"]["value"]) : crm_person_work_relation_obj::STATE_UNDEFINED;
+		$value = isset($arr["prop"]["value"]) ? crm_person_work_relation_obj::state_names($arr["prop"]["value"]) : crm_person_work_relation_obj::state_names(crm_person_work_relation_obj::STATE_UNDEFINED);
 		$arr["prop"]["value"] = array_pop($value);
 		return $retval;
 	}
