@@ -1732,17 +1732,17 @@ $x++;
 			$pop->add_item(Array(
 				"text" => t("Prindi arve"),
 				"link" => "#",
-				"oncl" => "onClick='window.open(\"".$this->mk_my_orb("change", array("openprintdialog" => 1,"id" => $bill->id(), "group" => "preview"), CL_CRM_BILL)."\",\"billprint\",\"width=100,height=100\");'"
+				"onclick" => "window.open(\"".$this->mk_my_orb("change", array("openprintdialog" => 1,"id" => $bill->id(), "group" => "preview"), CL_CRM_BILL)."\",\"billprint\",\"width=100,height=100\");"
 			));
 			$pop->add_item(Array(
 				"text" => t("Prindi arve lisa"),
 				"link" => "#",
-				"oncl" => "onClick='window.open(\"".$this->mk_my_orb("change", array("openprintdialog" => 1,"id" => $bill->id(), "group" => "preview_add"), CL_CRM_BILL)."\",\"billprintadd\",\"width=100,height=100\");'"
+				"onclick" => "window.open(\"".$this->mk_my_orb("change", array("openprintdialog" => 1,"id" => $bill->id(), "group" => "preview_add"), CL_CRM_BILL)."\",\"billprintadd\",\"width=100,height=100\");"
 			));
 			$pop->add_item(array(
 				"text" => t("Prindi arve koos lisaga"),
 				"link" => "#",
-				"oncl" => "onClick='window.open(\"".$this->mk_my_orb("change", array("openprintdialog_b" => 1,"id" => $bill->id(), "group" => "preview"), CL_CRM_BILL)."\",\"billprintadd\",\"width=100,height=100\");'"
+				"onclick" => "window.open(\"".$this->mk_my_orb("change", array("openprintdialog_b" => 1,"id" => $bill->id(), "group" => "preview"), CL_CRM_BILL)."\",\"billprintadd\",\"width=100,height=100\");"
 			));
 			$partial = "";
 			if($bill->prop("state") == 3 && $bill->prop("partial_recieved") && $bill->prop("partial_recieved") < $cursum)
@@ -3549,4 +3549,3 @@ d)
 	}
 
 }
-?>

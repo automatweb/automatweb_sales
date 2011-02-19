@@ -119,9 +119,6 @@ class toolbar extends aw_template
 	**/
 	public function add_menu_item($arr)
 	{
-		global $mc_counter;
-		$mc_counter++;
-
 		$id = empty($arr["href_id"]) ? "" : " id=\"".$arr["href_id"]."\"";
 		$onclick = empty($arr["onClick"]) ? "" : " onclick=\"{$arr["onClick"]}\"";
 

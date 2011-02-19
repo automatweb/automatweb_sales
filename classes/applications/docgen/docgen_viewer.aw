@@ -1545,12 +1545,6 @@ class docgen_viewer extends class_base
 		));
 
 		$ret[] = html::href(array(
-			"url" => $this->mk_my_orb("maintainer_class_list"),
-			"target" => "classlist",
-			"caption" => t("Classes by maintainer")
-		));
-
-		$ret[] = html::href(array(
 			"url" => $this->mk_my_orb("interface_list"),
 			"target" => "classlist",
 			"caption" => t("Interfaces")
@@ -1598,11 +1592,14 @@ class docgen_viewer extends class_base
 			$o = obj($arr["id"]);
 			$f_id = $o->prop("foorum");
 
-			$ret[] = html::href(array(
-				"url" => $this->mk_my_orb("change", array("id" => $f_id, "group" => "contents"), CL_FORUM_V2),
-				"target" => "list",
-				"caption" => t("Foorum")
-			));
+			if ($f_id)
+			{
+				$ret[] = html::href(array(
+					"url" => $this->mk_my_orb("change", array("id" => $f_id, "group" => "contents"), CL_FORUM_V2),
+					"target" => "list",
+					"caption" => t("Foorum")
+				));
+			}
 		}
 
 

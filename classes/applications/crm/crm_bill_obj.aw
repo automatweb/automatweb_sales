@@ -28,6 +28,7 @@ class crm_bill_obj extends _int_object
 
 	private static $status_names = array();
 	private $implementor_object = false;
+	private $cust_data_object = null;
 	private $reset_pdf_files_cache = true;
 
 	public static $customer_address_properties = array(
@@ -94,9 +95,11 @@ class crm_bill_obj extends _int_object
 					$this->set_prop("customer_name" , "");
 				}
 				break;
+
 			case "bill_no":
 				$this->set_name(t("Arve nr")." ".$value);
 				break;
+
 			case "state":
 				if($value != $this->prop("state"))
 				{
@@ -107,8 +110,7 @@ class crm_bill_obj extends _int_object
 					$_SESSION["bill_change_comments"][] = t("Staatus") .": {$prev_state} => {$new_state}";
 				}
 				break;
-			case "bill_due_date":
-				break;
+
 			case "project":
 				$old = $new = "";
 				if (is_array($this->prop("project")))
@@ -141,6 +143,16 @@ class crm_bill_obj extends _int_object
 				break;
 		}
 		parent::set_prop($name,$value);
+	}
+
+	/** Sets if file cache for mail attachments is to be cleared or not on save()
+		@attrib api=1 params=pos
+		@param value type=bool
+		@returns void
+	**/
+	public function reset_pdf_files_cache($value)
+	{
+		$this->reset_pdf_files_cache = (bool) $value;
 	}
 
 	function save($exclusive = false, $previous_state = null)
@@ -271,23 +283,23 @@ class crm_bill_obj extends _int_object
 
 	function get_bill_print_popup_menu()
 	{
-		$bill_inst = get_instance(CL_CRM_BILL);
-		$pop = get_instance("vcl/popup_menu");
+		$bill_inst = get_instance(CL_CRM_BILL);//FIXME: ...
+		$pop = new popup_menu();
 		$pop->begin_menu("bill_".$this->id());
 		$pop->add_item(Array(
 			"text" => t("Prindi arve"),
 			"link" => "#",
-			"oncl" => "onClick='window.open(\"".$bill_inst->mk_my_orb("change", array("openprintdialog" => 1,"id" => $this->id(), "group" => "preview"), CL_CRM_BILL)."\",\"billprint\",\"width=100,height=100\");'"
+			"onclick" => "window.open(\"".$bill_inst->mk_my_orb("change", array("openprintdialog" => 1,"id" => $this->id(), "group" => "preview"), CL_CRM_BILL)."\",\"billprint\",\"width=100,height=100\");"
 		));
 		$pop->add_item(Array(
 			"text" => t("Prindi arve lisa"),
 			"link" => "#",
-			"oncl" => "onClick='window.open(\"".$bill_inst->mk_my_orb("change", array("openprintdialog" => 1,"id" => $this->id(), "group" => "preview_add"), CL_CRM_BILL)."\",\"billprintadd\",\"width=100,height=100\");'"
+			"onclick" => "window.open(\"".$bill_inst->mk_my_orb("change", array("openprintdialog" => 1,"id" => $this->id(), "group" => "preview_add"), CL_CRM_BILL)."\",\"billprintadd\",\"width=100,height=100\");"
 		));
 		$pop->add_item(array(
 			"text" => t("Prindi arve koos lisaga"),
 			"link" => "#",
-			"oncl" => "onClick='window.open(\"".$bill_inst->mk_my_orb("change", array("openprintdialog_b" => 1,"id" => $this->id(), "group" => "preview"), CL_CRM_BILL)."\",\"billprintadd\",\"width=100,height=100\");'"
+			"onclick" => "window.open(\"".$bill_inst->mk_my_orb("change", array("openprintdialog_b" => 1,"id" => $this->id(), "group" => "preview"), CL_CRM_BILL)."\",\"billprintadd\",\"width=100,height=100\");"
 		));
 		return $pop->get_menu();
 	}
@@ -493,7 +505,7 @@ class crm_bill_obj extends _int_object
 
 		$id = "";
 
-		if (is_oid($this->prop("customer")) && $GLOBALS["object_loader"]->cache->can("view", $this->prop("customer")))
+		if (is_oid($this->prop("customer")) && object_loader::can("view", $this->prop("customer")))
 		{
 			return $this->prop("customer");
 		}
@@ -2119,19 +2131,11 @@ class crm_bill_obj extends _int_object
 	public function get_mail_from()
 	{
 		$ret = "";
-		if($this->prop("bill_mail_from"))
+		if($this->set_crm_settings() && $this->crm_settings->prop("bill_mail_from"))
 		{
-			$ret = $this->prop("bill_mail_from");
+			$ret = $this->crm_settings->prop("bill_mail_from");
 		}
 		else
-		{
-			if($this->set_crm_settings() && $this->crm_settings->prop("bill_mail_from"))
-			{
-				$ret = $this->crm_settings->prop("bill_mail_from");
-			}
-		}
-
-		if(!$ret)
 		{
 			$u = obj(aw_global_get("uid_oid"));
 			$ret = $u->get_user_mail_address();
@@ -2142,22 +2146,27 @@ class crm_bill_obj extends _int_object
 
 	public function get_mail_from_name()
 	{
-		$ret = aw_global_get("uid");
-		$u = get_instance(CL_USER);
-		$p = obj($u->get_current_person());
-		if(is_object($p))
+		$ret = "";
+		if($this->set_crm_settings() && $this->crm_settings->prop("bill_mail_from_name"))
 		{
-			$ret = $p->name();
-		}
-		if($this->prop("bill_mail_from_name"))
-		{
-			$ret = $this->prop("bill_mail_from_name");
+			$ret = $this->crm_settings->prop("bill_mail_from_name");
 		}
 		else
 		{
-			if($this->set_crm_settings() && $this->crm_settings->prop("bill_mail_from_name"))
+			$ret = aw_global_get("uid");
+			$u = get_instance(CL_USER);
+			$p = $u->get_current_person();
+
+			if($p)
 			{
-				$ret = $this->crm_settings->prop("bill_mail_from_name");
+				try
+				{
+					$p = obj($p, array(), CL_CRM_PERSON);
+					$ret = $p->name();
+				}
+				catch (Exception $e)
+				{
+				}
 			}
 		}
 
@@ -2360,53 +2369,113 @@ class crm_bill_obj extends _int_object
 
 	public function make_preview_pdf()
 	{
-		$f = new file();
-		$id = $f->create_file_from_string(array(
-			"parent" => $this->id(),
-			"content" => $this->get_pdf(),
-			"name" => ($this->prop("state") == self::STATUS_OFFER ? t("pakkumus_nr") : t("arve_nr")). "_".$this->prop("bill_no").".pdf",
-			"type" => "application/pdf"
-		));
-		$this->set_meta("last_preview_pdf_file_oid", $id);
-		$this->reset_pdf_files_cache = false;
-		$this->save();
-		$this->reset_pdf_files_cache = true;
+		$preview_pdf = null;
+		if (object_loader::can("view", $this->meta("last_preview_pdf_file_oid")))
+		{
+			try
+			{
+				$id = $this->meta("last_preview_pdf_file_oid");
+				if (is_oid($id))
+				{
+					$preview_pdf = obj($id, array(), CL_FILE);
+				}
+			}
+			catch (awex_obj $e)
+			{
+			}
+		}
 
-		return obj($id);
+		if (!$preview_pdf)
+		{
+			$f = new file();
+			$id = $f->create_file_from_string(array(
+				"parent" => $this->id(),
+				"content" => $this->get_pdf(),
+				"name" => ($this->prop("state") == self::STATUS_OFFER ? t("pakkumus_nr") : t("arve_nr")). "_".$this->prop("bill_no").".pdf",
+				"type" => "application/pdf"
+			));
+			$this->set_meta("last_preview_pdf_file_oid", $id);
+			$this->reset_pdf_files_cache = false;
+			$this->save();
+			$this->reset_pdf_files_cache = true;
+			$preview_pdf = obj($id, array(), CL_FILE);
+		}
+
+		return $preview_pdf;
 	}
 
 	public function make_reminder_pdf()
 	{
-		$f = new file();
-		$id = $f->create_file_from_string(array(
-			"parent" => $this->id(),
-			"content" => $this-> get_reminder_pdf(),
-			"name" => t("Arve_nr"). "_".$this->prop("bill_no")."_".t("meeldetuletus").".pdf",
-			"type" => "application/pdf"
-		));
-		$this->set_meta("last_reminder_pdf_file_oid", $id);
-		$this->reset_pdf_files_cache = false;
-		$this->save();
-		$this->reset_pdf_files_cache = true;
+		$reminder_pdf = null;
+		if (object_loader::can("view", $this->meta("last_reminder_pdf_file_oid")))
+		{
+			try
+			{
+				$id = $this->meta("last_reminder_pdf_file_oid");
+				if (is_oid($id))
+				{
+					$reminder_pdf = obj($id, array(), CL_FILE);
+				}
+			}
+			catch (awex_obj $e)
+			{
+			}
+		}
 
-		return obj($id);
+		if (!$reminder_pdf)
+		{
+			$f = new file();
+			$id = $f->create_file_from_string(array(
+				"parent" => $this->id(),
+					"content" => $this->get_reminder_pdf(),
+				"name" => t("Arve_nr"). "_".$this->prop("bill_no")."_".t("meeldetuletus").".pdf",
+				"type" => "application/pdf"
+			));
+			$this->set_meta("last_reminder_pdf_file_oid", $id);
+			$this->reset_pdf_files_cache = false;
+			$this->save();
+			$this->reset_pdf_files_cache = true;
+			$reminder_pdf = obj($id, array(), CL_FILE);
+		}
+
+		return $reminder_pdf;
 	}
 
 	public function make_add_pdf()
 	{
-		$f = new file();
-		$id = $f->create_file_from_string(array(
-			"parent" => $this->id(),
-			"content" => $this->get_pdf_add(),
-			"name" => ($this->prop("state") == self::STATUS_OFFER ? t("pakkumuse_nr") : t("arve_nr")). "_".$this->prop("bill_no")."_".t("aruanne").".pdf",
-			"type" => "application/pdf"
-		));
-		$this->set_meta("last_appendix_pdf_file_oid", $id);
-		$this->reset_pdf_files_cache = false;
-		$this->save();
-		$this->reset_pdf_files_cache = true;
+		$appendix_pdf = null;
+		if (object_loader::can("view", $this->meta("last_appendix_pdf_file_oid")))
+		{
+			try
+			{
+				$id = $this->meta("last_appendix_pdf_file_oid");
+				if (is_oid($id))
+				{
+					$appendix_pdf = obj($id, array(), CL_FILE);
+				}
+			}
+			catch (awex_obj $e)
+			{
+			}
+		}
 
-		return obj($id);
+		if (!$appendix_pdf)
+		{
+			$f = new file();
+			$id = $f->create_file_from_string(array(
+				"parent" => $this->id(),
+				"content" => $this->get_pdf_add(),
+				"name" => ($this->prop("state") == self::STATUS_OFFER ? t("pakkumuse_nr") : t("arve_nr")). "_".$this->prop("bill_no")."_".t("aruanne").".pdf",
+				"type" => "application/pdf"
+			));
+			$this->set_meta("last_appendix_pdf_file_oid", $id);
+			$this->reset_pdf_files_cache = false;
+			$this->save();
+			$this->reset_pdf_files_cache = true;
+			$appendix_pdf = obj($id, array(), CL_FILE);
+		}
+
+		return $appendix_pdf;
 	}
 
 	/** Sends invoice document by mail
@@ -2425,6 +2494,10 @@ class crm_bill_obj extends _int_object
 			Whether to send invoice appendix describing invoice rows in detail
 		@param reminder type=bool
 			Whether to send invoice document as a reminder
+		@param from type=string default=""
+			Sender e-mail address, default means either defined system default or current user e-mail address
+		@param from_name type=string default=""
+			Sender name, default means either defined system default or current user name
 		@comment
 		@returns void
 		@errors
@@ -2433,7 +2506,7 @@ class crm_bill_obj extends _int_object
 			throws awex_crm_bill_file if file attachment fails
 		@qc date=20110127 standard=aw3
 	**/
-	public function send_by_mail($to, $subject, $body, $cc = array(), $bcc = array(), $appendix = false, $reminder = false)
+	public function send_by_mail($to, $subject, $body, $cc = array(), $bcc = array(), $appendix = false, $reminder = false, $from = "", $from_name = "")
 	{
 		if (!count($to) and !count($cc) and !count($bcc))
 		{
@@ -2444,41 +2517,11 @@ class crm_bill_obj extends _int_object
 		/// main invoice document
 		if (!$reminder)
 		{ // regular
-			$invoice_pdf = $this->meta("last_preview_pdf_file_oid");
-			if ($invoice_pdf)
-			{
-				try
-				{
-					$invoice_pdf = obj($invoice_pdf, array(), CL_FILE);
-				}
-				catch (awex_obj $e)
-				{
-				}
-			}
-
-			if (!is_object($invoice_pdf))
-			{
-				$invoice_pdf = $this->make_preview_pdf();
-			}
+			$invoice_pdf = $this->make_preview_pdf();
 		}
 		else
 		{ // sent as a reminder
-			$invoice_pdf = $this->meta("last_reminder_pdf_file_oid");
-			if ($invoice_pdf)
-			{
-				try
-				{
-					$invoice_pdf = obj($invoice_pdf, array(), CL_FILE);
-				}
-				catch (awex_obj $e)
-				{
-				}
-			}
-
-			if (!is_object($invoice_pdf))
-			{
-				$invoice_pdf = $this->make_reminder_pdf();
-			}
+			$invoice_pdf = $this->make_reminder_pdf();
 		}
 
 		if (!is_object($invoice_pdf))
@@ -2489,22 +2532,7 @@ class crm_bill_obj extends _int_object
 		/// appendix
 		if ($appendix)
 		{
-			$appendix_pdf = $this->meta("last_appendix_pdf_file_oid");
-			if ($appendix_pdf)
-			{
-				try
-				{
-					$appendix_pdf = obj($appendix_pdf, array(), CL_FILE);
-				}
-				catch (awex_obj $e)
-				{
-				}
-			}
-
-			if (!is_object($appendix_pdf))
-			{
-				$appendix_pdf = $this->make_add_pdf();
-			}
+			$appendix_pdf = $this->make_add_pdf();
 		}
 
 		// parse recipients
@@ -2556,8 +2584,8 @@ class crm_bill_obj extends _int_object
 		$bcc = implode(",", $bcc);
 
 		// compose mail
-		$from = $this->get_mail_from();
-		$from_name = $this->get_mail_from_name();
+		$from = is_email($from) ? $from : $this->get_mail_from();
+		$from_name = empty($from_name) ? $this->get_mail_from_name() : $from_name;
 		$att_comment = "";
 
 		$awm = new aw_mail();
@@ -2632,13 +2660,13 @@ class crm_bill_obj extends _int_object
 		$mail->set_name(t("saadetud arve")." ".$this->prop("bill_no")." ".t("kliendile")." ".$this->get_customer_name());
 		$mail->save();
 
-		$attachments = array($invoice_pdf);
+		$attachments = array($invoice_pdf->id());
 		$invoice_pdf ->set_parent($mail->id());
 		$invoice_pdf->save();
 
 		if ($appendix)
 		{
-			$attachments[] = $appendix_pdf;
+			$attachments[] = $appendix_pdf->id();
 			$appendix_pdf ->set_parent($mail->id());
 			$appendix_pdf->save();
 		}
@@ -2666,7 +2694,10 @@ class crm_bill_obj extends _int_object
 			$this->set_prop("state", self::STATUS_SENT);
 		}
 
-		// save to clear attachment file references among other things
+		// clear attachment file references so they won't be deleted as junk
+		$this->set_meta("last_preview_pdf_file_oid", "");
+		$this->set_meta("last_reminder_pdf_file_oid", "");
+		$this->set_meta("last_appendix_pdf_file_oid", "");
 		$this->save();
 	}
 
@@ -2856,11 +2887,11 @@ class crm_bill_obj extends _int_object
 		$this->add_comment($comment);
 
 		$state = (int) $this->prop("state");
-		if ( false
-			or self::STATUS_DRAFT === $state
-			or self::STATUS_READY === $state
-			or self::STATUS_VERIFIED === $state
-			or self::STATUS_DISCARDED === $state
+		if (
+			self::STATUS_DRAFT === $state or
+			self::STATUS_READY === $state or
+			self::STATUS_VERIFIED === $state or
+			self::STATUS_DISCARDED === $state
 		)
 		{
 			$this->set_prop("state" , 1);
@@ -3347,7 +3378,10 @@ class crm_bill_obj extends _int_object
 			"buyer" => $this->prop("customer"),
 			"seller" => $this->prop("impl")
 		));
-		$this->cust_data_object = $cust_rel_list->begin();
+		if ($cust_rel_list->count())
+		{
+			$this->cust_data_object = $cust_rel_list->begin();
+		}
 		return $this->cust_data_object;
 	}
 
@@ -3503,7 +3537,9 @@ class crm_bill_obj extends _int_object
 		$bill_receivers = safe_array($this->meta("bill_receivers"));
 		$bill_receivers[$email] = null;
 		$this->set_meta("bill_receivers", $bill_receivers);
+		$this->reset_pdf_files_cache = false; // no need to clear cache when adding e-mail recipients
 		$this->save();
+		$this->reset_pdf_files_cache = true;
 		//TODO: person, don't store in meta
 	}
 
@@ -3729,23 +3765,26 @@ class crm_bill_obj extends _int_object
 						"buyer" => $ord->id(),
 						"seller" => $this->prop("impl")
 					));
-					$crel = $ol->begin();
 
-					$contact_person = $crel->get_first_obj_by_reltype("RELTYPE_BILL_PERSON");
-
-					if (!$contact_person)
+					if ($ol->count())
 					{
-						if ($crel->prop("buyer_contact_person"))
+						$crel = $ol->begin();
+						$contact_person = $crel->get_first_obj_by_reltype("RELTYPE_BILL_PERSON");
+
+						if (!$contact_person)
 						{
-							$contact_person = obj($crel->prop("buyer_contact_person"), array(), CL_CRM_PERSON);
-						}
-						elseif ($crel->prop("buyer_contact_person2"))
-						{
-							$contact_person = obj($crel->prop("buyer_contact_person2"), array(), CL_CRM_PERSON);
-						}
-						elseif ($crel->prop("buyer_contact_person3"))
-						{
-							$contact_person = obj($crel->prop("buyer_contact_person3"), array(), CL_CRM_PERSON);
+							if ($crel->prop("buyer_contact_person"))
+							{
+								$contact_person = obj($crel->prop("buyer_contact_person"), array(), CL_CRM_PERSON);
+							}
+							elseif ($crel->prop("buyer_contact_person2"))
+							{
+								$contact_person = obj($crel->prop("buyer_contact_person2"), array(), CL_CRM_PERSON);
+							}
+							elseif ($crel->prop("buyer_contact_person3"))
+							{
+								$contact_person = obj($crel->prop("buyer_contact_person3"), array(), CL_CRM_PERSON);
+							}
 						}
 					}
 				}

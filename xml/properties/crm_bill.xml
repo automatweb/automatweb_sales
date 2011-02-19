@@ -782,15 +782,15 @@
             <mails>
                   <caption>Kirjad</caption>
             </mails>
-            <sent_mails>
-                  <caption>Saadetud kirjad</caption>
-                  <parent>mails</parent>
-            </sent_mails>
             <send_mail>
                   <caption>Arve saatmine</caption>
                   <parent>mails</parent>
                   <confirm_save_data>0</confirm_save_data>
             </send_mail>
+            <sent_mails>
+                  <caption>Saadetud kirjad</caption>
+                  <parent>mails</parent>
+            </sent_mails>
             <delivery_notes>
                   <caption>Saatelehed</caption>
             </delivery_notes>
