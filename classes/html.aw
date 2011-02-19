@@ -1270,14 +1270,18 @@ class html
 	@attrib api=1 params=name
 
 	@param url optional type=string
-		link's url
+		link's url. May contain single quotes but not double quotes
+	@param style optional type=string
+	@param rel optional type=string
+	@param onmouseover optional type=string
+	@param onmouseout optional type=string
 	@param onclick optional type=string
 		stuff that will happen , if you press the link - javascript
 	@param textsize optional type=string
 		examples: "10px", "0.7em", "smaller"
-	@param target optional type=int
+	@param target optional type=string
 		frame name where stuff should open
-	@param title optional type=int
+	@param title optional type=string
 		you can see this text when scrolling over the link
 	@param class optional type=string
 		style class name

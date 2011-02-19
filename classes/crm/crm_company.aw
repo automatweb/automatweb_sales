@@ -6252,7 +6252,7 @@ class crm_company extends class_base
 	function callback_pre_save($arr)
 	{
 		$this->_gen_company_code($arr["obj_inst"]);
-		if ($arr["request"]["sector"] && $arr["new"])
+		if (!empty($arr["request"]["sector"]) && $arr["new"])
 		{
 			$arr["obj_inst"]->set_prop("pohitegevus", $arr["request"]["sector"]);
 		}

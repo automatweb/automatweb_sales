@@ -1100,6 +1100,7 @@ class crm_bill extends class_base
 			}
 			catch (Exception $e)
 			{
+				$this->show_error_text(t("Viga PDF dokumendi laadimisel"));
 				aw_session_del("crm_bill_sendmail_attachments_tmp");
 			}
 		}
@@ -1907,7 +1908,6 @@ class crm_bill extends class_base
 			$person = obj($conn["from"]);
 			return $person->get_phone();
 		}
-
 
 		return $phone;
 	}
@@ -3279,11 +3279,6 @@ class crm_bill extends class_base
 			$lc = $this->bill->prop("language.lang_acceptlang");
 		}
 
-		if(isset($_GET["pdf"]))
-		{
-			$arr["pdf"] = $_GET["pdf"];
-		}
-
 		if(!empty($arr["reminder"]))
 		{
 			$tpl .= "_remind";
@@ -3298,9 +3293,9 @@ class crm_bill extends class_base
 		{
 			$tpl .= "_pdf";
 			$tpl .= "_".$lc;
-			if ($this->read_site_template($tpl.".tpl", true) === false)
+			if ($this->read_template("{$tpl}.tpl", true) === false)
 			{
-				if ($this->read_site_template("show_".$tpl_suffix.$lc.".tpl", true) === false)
+				if ($this->read_template("show_{$tpl_suffix}{$lc}.tpl", true) === false)
 				{
 					$this->read_template("show{$tpl_suffix}.tpl");
 				}
@@ -3309,7 +3304,7 @@ class crm_bill extends class_base
 		else
 		{
 			$tpl .= "_".$lc;
-			if ($this->read_site_template($tpl.".tpl", true) === false)
+			if ($this->read_template($tpl.".tpl", true) === false)
 			{
 				$this->read_template("show{$tpl_suffix}.tpl");
 			}
@@ -3589,7 +3584,7 @@ class crm_bill extends class_base
 					"row_tax" => number_format($grp_row["tax"], 2, ".", " "),
 					"desc" => $desc,
 					"date" => "",
-					"row_orderer" => $grp_row["orderer"],
+					"row_orderer" => $grp_row["orderer"]
 				));
 				$rs[] = array("str" => $this->parse("ROW"), "date" => $grp_row["date"] , "jrk" => $grp_row["jrk"] , "id" => $grp_row["id"],);
 
@@ -3629,7 +3624,7 @@ class crm_bill extends class_base
 				"price" => number_format($cur_pr, 2, ".", " "),
 				"sum" => number_format($cur_sum, 2, ".",  " "),
 				"desc" => $name,
-				"date" => $row["date"] ? "(".$row["date"].")" : "",
+				"date" => $row["date"] ? "(".$row["date"].")" : ""
 			));
 
 			$rs[] = array("str" => $this->parse("ROW"), "date" => $row["date"] , "jrk" => $row["jrk"] , "id" => $grp_row["id"],);
@@ -3707,6 +3702,7 @@ class crm_bill extends class_base
 			}
 		}
 		$res =  $this->parse();
+
 	//kuvamine
 		if(!empty($arr["pdf"]))
 		{
@@ -3871,30 +3867,24 @@ class crm_bill extends class_base
 			$tpl = "show_remit";
 		}
 
-		if(isset($_GET["pdf"]))
-		{
-			$arr["pdf"] = $_GET["pdf"];
-		}
-
-
 		if(!empty($arr["pdf"]))
 		{
 			$tpl .= "_pdf";
 			$tpl .= "_".$lc;
-			if ($this->read_site_template($tpl.".tpl", true) === false)
+			if ($this->read_template($tpl.".tpl", true) === false)
 			{
-				if ($this->read_site_template("show{$tpl_suffix}_add_".$lc.".tpl", true) === false)
+				if ($this->read_template("show{$tpl_suffix}_add_".$lc.".tpl", true) === false)
 				{
-					$this->read_site_template("show{$tpl_suffix}_add.tpl");
+					$this->read_template("show{$tpl_suffix}_add.tpl");
 				}
 			}
 		}
 		else
 		{
 			$tpl .= "_".$lc;
-			if ($this->read_site_template($tpl.".tpl", true) === false)
+			if ($this->read_template($tpl.".tpl", true) === false)
 			{
-				$this->read_site_template("show{$tpl_suffix}_add.tpl");
+				$this->read_template("show{$tpl_suffix}_add.tpl");
 			}
 		}
 	//templeidi valik l6pp

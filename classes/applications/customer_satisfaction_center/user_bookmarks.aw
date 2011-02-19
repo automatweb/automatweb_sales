@@ -109,19 +109,17 @@ class user_bookmarks extends class_base
 		return $retval;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr["post_ru"] = post_ru();
 		$arr["objs"] = 0;
-		$arr["tf"] = $_GET["tf"];
-		$arr["user"] = $_GET["user"];
-		if($arr["group"] == "bms")
+		$arr["tf"] = $request["tf"];
+		$arr["user"] = $request["user"];
+		if($arr["group"] === "bms")
 		{
-			$pt = isset($arr["request"]["tf"]) ? $arr["request"]["tf"] : $arr["id"];
+			$pt = isset($request["tf"]) ? $request["tf"] : $arr["id"];
 			$ol = new object_list(array(
 				"parent" => $pt,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"sort_by" => "objects.class_id asc, objects.name asc"
 			));
 			foreach($ol->arr() as $o)
@@ -131,7 +129,7 @@ class user_bookmarks extends class_base
 		}
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		$arr["args"]["tf"] = $arr["request"]["tf"];
 	}
@@ -140,10 +138,9 @@ class user_bookmarks extends class_base
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_USER_BOOKMARKS,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"createdby" => aw_global_get("uid")
 		));
+
 		if (!$ol->count())
 		{
 			$o = obj();
@@ -151,9 +148,7 @@ class user_bookmarks extends class_base
 			$o->set_parent(aw_ini_get("amenustart"));
 			$p = get_current_person();
 			$o->set_name(sprintf(t("%s j&auml;rjehoidja"), $p->name()));
-			aw_disable_acl();
 			$o->save();
-			aw_restore_acl();
 			return $o;
 		}
 		else
@@ -247,9 +242,7 @@ class user_bookmarks extends class_base
 		}
 		$ol = new object_list(array(
 			"class_id" => array(CL_MENU, CL_EXTLINK),
-			"parent" => $parent,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"parent" => $parent
 		));
 		foreach($ol->arr() as $ob)
 		{
@@ -343,8 +336,6 @@ class user_bookmarks extends class_base
 			"root_item" => $arr["obj_inst"],
 			"ot" => new object_tree(array(
 				"parent" => $arr["obj_inst"]->id(),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"class_id" => CL_MENU
 			)),
 			"var" => "tf",
@@ -408,7 +399,7 @@ class user_bookmarks extends class_base
 		return $arr['post_ru'];
 	}
 
-	function _init_bm_table(&$t)
+	function _init_bm_table($t)
 	{
 		$t->define_field(array(
 			"name" => "share",
@@ -468,8 +459,6 @@ class user_bookmarks extends class_base
 		$pt = isset($arr["request"]["tf"]) ? $arr["request"]["tf"] : $arr["obj_inst"]->id();
 		$ol = new object_list(array(
 			"parent" => $pt,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"sort_by" => "objects.class_id asc, objects.name asc"
 		));
 		$mt = $arr["obj_inst"]->meta("grp_sets");
@@ -586,8 +575,6 @@ class user_bookmarks extends class_base
 		$pt = $arr["request"]["tf"] ? $arr["request"]["tf"] : $arr["obj_inst"]->id();
 		$ol = new object_list(array(
 			"parent" => $pt,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"sort_by" => "objects.class_id asc, objects.name asc"
 		));
 		foreach($ol->arr() as $o)
@@ -923,8 +910,6 @@ class user_bookmarks extends class_base
 		{
 			$params["oid"] = $oids;
 		}
-		$params["lang_id"] = array();
-		$params["site_id"] = array();
 		$params["sort_by"] = "objects.jrk ASC";
 		$list = new object_list($params);
 		$mt = $bm->meta("grp_sets");
@@ -992,14 +977,17 @@ class user_bookmarks extends class_base
 
 		$pm->add_separator();
 		$pm->add_item(array(
+			"emphasized" => true,
 			"text" => t("Pane j&auml;rjehoidjasse"),
 			"link" => $this->mk_my_orb("add_to_bm", array("url" => $arr["url"]))
 		));
 		$pm->add_item(array(
+			"emphasized" => true,
 			"text" => t("Eemalda j&auml;rjehoidjast"),
 			"link" => $this->mk_my_orb("remove_from_bm", array("url" => $arr["url"]))
 		));
 		$pm->add_item(array(
+			"emphasized" => true,
 			"text" => t("Toimeta j&auml;rjehoidjat"),
 			"link" => html::get_change_url($bm->id(), array("return_url" => $arr["url"], "group" => "bms"))
 		));
@@ -1015,8 +1003,6 @@ class user_bookmarks extends class_base
 		// now, add items from the bum
 		$ot = new object_tree(array(
 			"parent" => $bm->id(),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"sort_by" => "objects.jrk"
 		));
 		$list = $ot->to_list();
@@ -1084,9 +1070,7 @@ class user_bookmarks extends class_base
 	{
 		$bm = $this->init_bm();
 		$ot = new object_tree(array(
-			"parent" => $bm->id(),
-			"lang_id" => array(),
-			"site_id" => array()
+			"parent" => $bm->id()
 		));
 		$list = $ot->to_list();
 		foreach($list->arr() as $item)
@@ -1136,7 +1120,7 @@ class user_bookmarks extends class_base
 		return $this->parse();
 	}
 
-	function _req_show($bm, &$ol, $parents, $parent)
+	function _req_show($bm, $ol, $parents, $parent)
 	{
 		$this->ct .= $this->parse("LEVEL_BEGIN");
 		$oids = $ol->ids();
@@ -1332,8 +1316,6 @@ class user_bookmarks extends class_base
 		{
 			$ol2 = new object_list(array(
 				"oid" => array_keys($data),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"sort_by" => "objects.jrk"
 			));
 			foreach($ol2->arr() as $o)
@@ -1371,8 +1353,6 @@ class user_bookmarks extends class_base
 			{
 				$ot = new object_tree(array(
 					"parent" => $o->id(),
-					"lang_id" => array(),
-					"site_id" => array(),
 					"sort_by" => "objects.jrk"
 				));
 				$sol = $ot->to_list();

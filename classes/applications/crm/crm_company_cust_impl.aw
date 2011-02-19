@@ -767,7 +767,6 @@ class crm_company_cust_impl extends class_base
 			));
 		}
 
-
 		$tb->add_separator();
 
 		//delete button
@@ -836,6 +835,7 @@ class crm_company_cust_impl extends class_base
 				"link" => $this->mk_my_orb("change", array("id" => $category->id(), "return_url" => get_ru()), "crm_category")
 			));
 			$pm->add_item(array(
+				"confirmation" => t("Kustuta ikka?"),
 				"text" => t("Kustuta"),
 				"link" => $this->mk_my_orb("delete", array("id" => $category->id(), "return_url" => get_ru()), "crm_category")
 			));
@@ -1964,8 +1964,8 @@ class crm_company_cust_impl extends class_base
 		}
 
 		$ret["sort_by"] = "name";
-		$ret["limit"] = (100 * $arr["request"]["ft_page"]).", 100";
-		$ret["sort_by"].= " ".( $arr["request"]["sort_order"] === "desc" ? "DESC" : "ASC");
+		$ret["limit"] = (100*$_GET["ft_page"]).", 100";
+		$ret["sort_by"].= " ".( $_GET["sort_order"] == "desc" ? "DESC" : "ASC");
 
 		return $ret;
 	}

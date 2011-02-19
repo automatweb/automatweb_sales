@@ -378,7 +378,7 @@ class aw_template extends core
 			));
 			echo $tpl->parse();
 	**/
-	function use_template($source)
+	public function use_template($source)
 	{
 		$slines = explode("\n",$source);
 		return $this->read_tpl($slines);
@@ -407,7 +407,7 @@ class aw_template extends core
 			));
 			echo $tpl->parse();
 	**/
-	function read_adm_template($name,$silent = 0)
+	public function read_adm_template($name,$silent = 0)
 	{
 		$retval = true;
 		$this->template_filename = $this->adm_template_dir."/".$name;
@@ -458,7 +458,7 @@ class aw_template extends core
 			));
 			echo $tpl->parse();
 	**/
-	function read_site_template($name,$silent = 0)
+	public function read_site_template($name,$silent = 0)
 	{
 		$retval = true;
 		$this->template_filename = $this->site_template_dir."/".$name;
@@ -477,7 +477,7 @@ class aw_template extends core
 			{
 				// raise_error drops out, therefore $retval has no meaning here
 				$this->raise_error("ERR_TPL_NOTPL", sprintf(t("Template '%s' not found"), $this->template_filename),true);
-			};
+			}
 		}
 		return $retval;
 	}
@@ -504,7 +504,7 @@ class aw_template extends core
 			));
 			echo $tpl->parse();
 	**/
-	function read_any_template($name, $silent = false)
+	public function read_any_template($name, $silent = false)
 	{
 		$this->template_filename = $this->site_template_dir."/".$name;
 		$this->template_filename = trim($this->template_filename);
@@ -958,7 +958,7 @@ class aw_template extends core
 	   		$this->vars[$object] .= $src;
 		}
 
-		if ($this->debug_mode == 1 && isset($_GET["TPL"]) && $_GET["TPL"] === "2" && $object === "MAIN")
+		if (aw_ini_get("debug_mode") === "1" && isset($_GET["TPL"]) && $_GET["TPL"] === "2" && $object === "MAIN")
 		{
 			print "Available variables for: " . $this->template_filename;
 			print "<pre>";
@@ -1146,13 +1146,16 @@ class aw_template extends core
 
 	private function _record_template_load($fn)
 	{
+
 		return;
+		/*
 		if (strpos($fn, aw_ini_get("site_basedir")) !== false)
 		{
 			$f = fopen(aw_ini_get("site_basedir")."/files/template_log_".date("Y_m").".log", "a");
 			fwrite($f, time()."|".get_ru()."|".$fn."\n");
 			fclose($f);
 		}
+		*/
 	}
 }
 
