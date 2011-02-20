@@ -16,7 +16,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		{
 			$this->connect(array(
 				"to" => $id,
-				"type" => "RELTYPE_PARTICPANT"
+				"type" => "RELTYPE_PARTICIPANT"
 			));
 			$pv[$id] = $id;
 		}
@@ -56,7 +56,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			"type" => array(
 				"RELTYPE_ORDERER",
 				"RELTYPE_IMPLEMENTOR",
-				"RELTYPE_PARTICPANT",
+				"RELTYPE_PARTICIPANT",
 			),
 			"to.class_id" => crm_person_obj::CLID
 		)));
@@ -67,12 +67,11 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			"type" => array(
 				"RELTYPE_ORDERER",
 				"RELTYPE_IMPLEMENTOR",
-				"RELTYPE_PARTICPANT"
+				"RELTYPE_PARTICIPANT"
 			),
 			"to.class_id" => crm_company_obj::CLID
 		)));
 		$organizations = $list->ids();
-		$organizations = array_unique($organizations);
 
 		$work_relations = crm_person_work_relation_obj::find(null, null, $organizations);
 

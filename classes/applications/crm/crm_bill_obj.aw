@@ -9,6 +9,8 @@ define("BILL_AMT", 4);
 
 class crm_bill_obj extends _int_object
 {
+	const CLID = 1009;
+
 	const BILL_SUM = 1;
 	const BILL_SUM_WO_TAX = 2;
 	const BILL_SUM_TAX = 3;
@@ -2280,7 +2282,7 @@ class crm_bill_obj extends _int_object
 	public function parse_mail_text($text)
 	{
 		$contact_person = $this->get_contact_person();
-		$contact_person = trim($this->prop("ctp_text")) ? trim($this->prop("ctp_text")) : $contact_person->name();
+		$contact_person = trim($this->prop("ctp_text")) ? trim($this->prop("ctp_text")) : ($contact_person ? $contact_person->name() : "");
 
 		$replace = array(
 			"#type#" => $this->prop("state") == self::STATUS_OFFER ? t("pakkumuse") : t("arve"),

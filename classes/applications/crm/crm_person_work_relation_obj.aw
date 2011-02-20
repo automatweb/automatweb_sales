@@ -100,8 +100,21 @@ class crm_person_work_relation_obj extends _int_object
 	**/
 	public function finish()
 	{
+		if ($this->prop("state") == self::STATE_ENDED)
+		{
+			throw new awex_crm_workrelation_state("An aldready ended relation can't be finished.");
+		}
+
 		$this->set_prop("end" , time());
 		$this->save();
+	}
+
+	/** Tells if finished
+		@attrib api=1
+	**/
+	public function is_finished()
+	{
+		return $this->prop("state") == self::STATE_ENDED;
 	}
 
 	/** Returns work relations for person on given profession
@@ -111,12 +124,13 @@ class crm_person_work_relation_obj extends _int_object
 		@param organization type=CL_CRM_COMPANY|array(CL_CRM_COMPANY)|array(int) default=NULL
 			Employer organization(s), object, array of objects, or array of object id-s
 		@param section type=CL_CRM_SECTION default=NULL
-		@param active type=bool default=TRUE
+		@param state type=array default=array(self::STATE_ACTIVE, self::STATE_UNDEFINED)
+			Default value returns "not inactive" relations
 		@return object_list of CL_CRM_PERSON_WORK_RELATION
 		@errors
 			throws awex_obj_type when a parameter object is not of correct type
 	**/
-	public static function find(object $person = null, object $profession = null, $organization = null, object $section = null, $active = true)
+	public static function find(object $person = null, object $profession = null, $organization = null, object $section = null, $state = array(self::STATE_ACTIVE, self::STATE_UNDEFINED))
 	{
 		$params = array(
 			"class_id" => CL_CRM_PERSON_WORK_RELATION,
@@ -190,9 +204,9 @@ class crm_person_work_relation_obj extends _int_object
 			$params["company_section"] = $section->id();
 		}
 
-		if ($active)
+		if ($state)
 		{
-			$params["state"] = self::STATE_ACTIVE;
+			$params["state"] = $state;
 		}
 
 		$list = new object_list($params);
@@ -211,17 +225,18 @@ class crm_person_work_relation_obj extends _int_object
 		}
 
 		// update state according to start/end properties
+		// time comparisons must take into account tha finish() or some other method may have set 'end' or 'start' less than a second ago
 		$state = self::STATE_UNDEFINED;
 		$time = time();
-		if ($this->prop("start") > 1 and $this->prop("start") < $time and ($this->prop("end") > $time or $this->prop("end") == 0))
+		if ($this->prop("start") > 1 and $this->prop("start") <= $time and ($this->prop("end") > $time or $this->prop("end") == 0))
 		{
 			$state = self::STATE_ACTIVE;
 		}
-		elseif ($this->prop("start") > $time)
+		elseif ($this->prop("start") >= $time)
 		{
 			$state = self::STATE_NEW;
 		}
-		elseif ($this->prop("end") < $time and $this->prop("end") > 1)
+		elseif ($this->prop("end") <= $time and $this->prop("end") > 1)
 		{
 			$state = self::STATE_ENDED;
 		}
@@ -230,3 +245,9 @@ class crm_person_work_relation_obj extends _int_object
 		return parent::save($exclusive, $previous_state);
 	}
 }
+
+/** Generic work relation error **/
+class awex_crm_workrelation extends awex_obj {}
+
+/** State related error condition **/
+class awex_crm_workrelation_state extends awex_crm_workrelation {}

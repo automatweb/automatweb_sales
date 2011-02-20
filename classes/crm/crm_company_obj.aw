@@ -808,7 +808,11 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 				$user->save();
 			}
 		}
-		$work_relation->finish();
+
+		if (!$work_relation->is_finished())
+		{
+			$work_relation->finish();
+		}
 	}
 
 	/** Adds a new employee, creates a person if none given

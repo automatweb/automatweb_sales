@@ -324,6 +324,11 @@ function load_config ($files = array(), $cache_file = null)
 		// and write to cache if file is specified
 		if (isset($cache_file))
 		{
+			if (!is_dir(dirname($cache_file)))
+			{
+				mkdir(dirname($cache_file), 0660);
+			}
+
 			if (!is_writable(dirname($cache_file)))
 			{
 				$success = chmod($cache_file, 0770);
@@ -567,5 +572,3 @@ class awex_cfg_file extends awex_cfg
 	public $awcfg_file;
 	public $awcfg_line;
 }
-
-?>

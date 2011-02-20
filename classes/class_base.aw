@@ -6441,25 +6441,27 @@ class class_base extends aw_template
 
 			if($arr["request"]["class"] === "admin_if" || $arr["request"]["class"] === "personnel_management" && isset($arr["request"]["group"]) && isset($arr["request"]["group"]) && $arr["request"]["group"] === "offers")
 			{
-				$if_clause = "
-				anything_changed = false;
-				statuses = new Array();
-				statuses_val = new Array();
-				for(i = 0; i < f.elements.length; i++)
-				{
-					el1 = f.elements[i];
-					if(el1.name.indexOf('old[status][') == 0)
-					{
-						el2 = aw_get_el('new[status][' + el1.name.substring(12));
-						if(el1.value == el2.value && !el2.checked || el1.value != el2.value && el2.checked)
-						{
-							anything_changed = true;
-							break;
-						}
-					}
-				}
-				if(anything_changed)";
-				$asd = "aktiveerin/deaktiveerin";
+				$if_clause = <<<ENDSCRIPT
+anything_changed = false;
+statuses = new Array();
+statuses_val = new Array();
+for(i = 0; i < f.elements.length; i++)
+{
+	el1 = f.elements[i];
+	if(el1.name.indexOf('old[status][') == 0)
+	{
+		el2 = aw_get_el('new[status][' + el1.name.substring(12));
+		if(el1.value == el2.value && !el2.checked || el1.value != el2.value && el2.checked)
+		{
+			anything_changed = true;
+			break;
+		}
+	}
+}
+if(anything_changed)
+ENDSCRIPT;
+
+				$asd = t("aktiveerin/deaktiveerin");
 				$all_trans_status_value = 1;
 				$if_clause2 = "true";
 			}
@@ -6474,44 +6476,47 @@ class class_base extends aw_template
 				{
 					$status_variable = "status_".(($arr["obj_inst"]->status() == STAT_ACTIVE) ? 2 : 1);
 				}
-				$asd = ($arr["obj_inst"]->status() != STAT_ACTIVE) ? "aktiveerin" : "deaktiveerin";
-				$if_clause = "if(!f.".$status_variable.".checked)";
-				$all_trans_status_value = ($arr["obj_inst"]->status() == STAT_ACTIVE) ? 2 : 1;
+				$asd = ($arr["obj_inst"]->status() != STAT_ACTIVE) ? t("aktiveerin") : t("deaktiveerin");
+				$if_clause = "if(!f.{$status_variable}.checked)";
+				$all_trans_status_value = ($arr["obj_inst"]->status() == STAT_ACTIVE) ? "2" : "1";
 			}
 
-			$function_check = "
-			function el_exists(id)
-			{
-				var ret = 0;
-				for(i = 0; i < document.changeform.elements.length; i++)
-				{
-					el = document.changeform.elements[i];
-					if(el.id.indexOf(id) == 0)
-					{
-						ret = 1;
-					}
-				}
-				return ret;
-			}
-			function check()
-			{
-				if(".$if_clause2.")
-				{
-					var f = document.forms['changeform'];
-					".$if_clause."
-					{
-						if(confirm('Kas " . $asd . " koik tolked?'))
-						{
-							f.all_trans_status.value = ".$all_trans_status_value.";
-						}
-					}
-				}
-			}
+			$function_check = <<<ENDSCRIPT
 
-			aw_submit_handler = check;";
+function el_exists(id)
+{
+	var ret = 0;
+	for(i = 0; i < document.changeform.elements.length; i++)
+	{
+		el = document.changeform.elements[i];
+		if(el.id.indexOf(id) == 0)
+		{
+			ret = 1;
+		}
+	}
+	return ret;
+}
+
+function check()
+{
+	if({$if_clause2})
+	{
+		var f = document.forms['changeform'];
+		{$if_clause}
+		{
+			if(confirm('Kas {$asd} koik tolked?'))
+			{
+				f.all_trans_status.value = {$all_trans_status_value};
+			}
+		}
+	}
+}
+
+aw_submit_handler = check;
+ENDSCRIPT;
 			$retval .= $function_check;
 		}
-		return $retval;
+		return $retval . "\n\n";
 	}
 
 	//yldine autocomplete funktsioon juhuks kui on vaja leida vaid objekti nime ja klassi j2rgi
@@ -6524,14 +6529,12 @@ class class_base extends aw_template
 	function object_name_autocomplete_source($arr)
 	{
 		$cid = $arr["class_ids"];
-		$ac = get_instance("vcl/autocomplete");
+		$ac = new autocomplete();
 		$arr = $ac->get_ac_params($arr);
 
 		$filter = array(
 			"class_id" => $cid,
 			"name" => $arr[$arr["param"]]."%",
-			"lang_id" => array(),
-			"site_id" => array(),
 			"limit" => 100
 		);
 		if($arr["parent"])
@@ -6551,14 +6554,12 @@ class class_base extends aw_template
 	**/
 	function co_autocomplete_source($arr)
 	{
-		$ac = get_instance("vcl/autocomplete");
+		$ac = new autocomplete();
 		$arr = $ac->get_ac_params($arr);
 
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMPANY,
 			"name" => $arr["sp_p_co"]."%",
-			"lang_id" => array(),
-			"site_id" => array(),
 			"limit" => 100
 		));
 		return $ac->finish_ac($ol->names());
@@ -6570,14 +6571,12 @@ class class_base extends aw_template
 	**/
 	function p_autocomplete_source($arr)
 	{
-		$ac = get_instance("vcl/autocomplete");
+		$ac = new autocomplete();
 		$arr = $ac->get_ac_params($arr);
 
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
 			"name" => $arr["sp_p_p"]."%",
-			"lang_id" => array(),
-			"site_id" => array(),
 			"limit" => 200
 		));
 		return $ac->finish_ac($ol->names());

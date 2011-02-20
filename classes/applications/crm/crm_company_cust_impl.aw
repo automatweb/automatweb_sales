@@ -835,7 +835,7 @@ class crm_company_cust_impl extends class_base
 				"link" => $this->mk_my_orb("change", array("id" => $category->id(), "return_url" => get_ru()), "crm_category")
 			));
 			$pm->add_item(array(
-				"confirmation" => t("Kustuta ikka?"),
+				"confirm" => t("Kustutada kategooria?"),
 				"text" => t("Kustuta"),
 				"link" => $this->mk_my_orb("delete", array("id" => $category->id(), "return_url" => get_ru()), "crm_category")
 			));
