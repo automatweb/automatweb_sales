@@ -18,19 +18,39 @@ class mysql_pdo
 	{
 	}
 
-	function db_connect($server,$base,$username,$password)
+	function db_connect($server = "localhost", $base = "", $username = "", $password = "", $cid = db_connector::DEFAULT_CID_STR)
 	{
-		$dsn = "mysql:host={$server};dbname={$base}";
-		$this->dbh = new PDO($dsn, $username, $password);
-
-		if (!$this->dbh)
+		if ($base and $username)
 		{
-			$err =  "Can't connect to database";
-			$err .= '<br />';
-			$err .= mysql_error();
-			call_fatal_handler($err);
-			echo $err;
-			exit;
+			$dsn = "mysql:host={$server};dbname={$base}";
+		}
+		elseif (db_connector::DEFAULT_CID_STR === $cid)
+		{
+			$dsn = "mysql:host=" . aw_ini_get("db.host") . ";dbname=" . aw_ini_get("db.base");
+			$username = aw_ini_get("db.user");
+			$password = aw_ini_get("db.pass");
+		}
+		else
+		{
+			try
+			{
+				$dsn = "mysql:host=" . aw_ini_isset("db.connections.{$cid}.host") ? aw_ini_get("db.connections.{$cid}.host") : "localhost" . ";dbname=" . aw_ini_get("db.connections.{$cid}.base");
+				$username = aw_ini_get("db.connections.{$cid}.user");
+				$password = aw_ini_get("db.connections.{$cid}.pass");
+			}
+			catch (awex_cfg_key $e)
+			{
+				throw new aw_exception("Incomplete connection parameters for {$cid}: " . $e->getMessage());
+			}
+		}
+
+		try
+		{
+			$this->dbh = new PDO($dsn, $username, $password);
+		}
+		catch (Exception $e)
+		{
+			throw new aw_exception("Database connection failed: " . $e->getMessage());
 		}
 
 		$this->db_base = $base;

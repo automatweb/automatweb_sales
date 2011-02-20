@@ -42,7 +42,14 @@ class db_connector
 	const DEFAULT_CID_STR = "DBMAIN";
 
 	private static $open_database_connections = array(); # this is where we hold all open connections
-	private static $supported_drivers = array("mysql", "mysql_pdo", "mssql", "pgsql");
+	private static $supported_drivers = array(
+		"mysql",
+		"mysql_pdo",
+
+		//TODO: currently not supported. implementor classes for those are outdated and have to be reviewed
+		// "mssql",
+		// "pgsql"
+	);
 
 	protected $dc = array(); // connections used in this instance
 	protected $default_cid = "";
@@ -77,14 +84,7 @@ class db_connector
 			return false;
 		}
 
-		$this->db_connect(array(
-			"cid" => $this->default_cid,
-			"driver" => aw_ini_get("db.driver"),
-			"server" => aw_ini_get("db.host"),
-			"base" => aw_ini_get("db.base"),
-			"username" => aw_ini_get("db.user"),
-			"password" => aw_ini_get("db.pass")
-		));
+		$this->db_connect();
 	}
 
 	/** deprecated - do not use, use init() instead **/
@@ -96,16 +96,21 @@ class db_connector
 	/** Connects to the database
 		@attrib api=1 params=name
 
-		@param driver required type=string
-			the type of the SQL driver to use
-		@param server required type=string
+		@param cid type=string default=$this->default_cid
+			Connection identifier. Default means the one found in aw.ini defined by db.* variables
+			This is the recommended way. Optionally all variables including plain password string can be specified
+
+		@param driver type=string default=""
+			the type of the SQL driver to use. Required if $cid not given
+		@param server type=string default="localhost"
 			SQL server location
-		@param base required type=string
-			SQL base
-		@param username required type=string
-		@param password required type=string
-		@param cid optional type=oid default=$this->default_cid
-			connetion name
+		@param base type=string default=""
+			Database name. Required if $cid not given
+		@param username type=string default=""
+			Required if $cid not given
+		@param password type=string default=""
+			Required if $cid not given. No checking performed if empty password given, assumed that other means of authentication used
+
 		@errors
 			die(t("this driver is not supported")) - if that driver doesn't exist
 
@@ -115,31 +120,62 @@ class db_connector
 			Creates a connection to a data source
 
 		@examples
-			$db->db_connect(array(
-				'driver' => 'mysql',
-				'server' => aw_ini_get('install.mysql_host'),
-				'base' => 'mysql',
-				'username' => aw_ini_get('install.mysql_user'),
-				'password' => aw_ini_get('install.mysql_pass')
-			));
+			$db->db_connect();
 	**/
 	function db_connect($args = array())
 	{
-		$cid = (string) $args["cid"];
-		if ("" === trim($cid))
+		if (!empty($args["cid"]) or empty($args["driver"]))
 		{
-			$cid = self::DEFAULT_CID_STR;
+			if (empty($args["cid"]))
+			{
+				$cid = self::DEFAULT_CID_STR;
+			}
+			elseif (aw_ini_isset("db.connections.{$args["cid"]}"))
+			{
+				$cid = (string) $args["cid"];
+			}
+			else
+			{
+				throw new aw_exception("Database connection data identified by '{$args["cid"]}' not found");
+			}
+
+			if (self::DEFAULT_CID_STR === $cid)
+			{
+				$driver = aw_ini_get("db.driver");
+			}
+			else
+			{
+				$driver = aw_ini_isset("db.connections.{$cid}.driver") ? aw_ini_get("db.connections.{$cid}.driver") : "mysql";
+			}
+
+			if (!in_array($driver, self::$supported_drivers))
+			{
+				throw new aw_exception("Database driver '{$driver}' for cid '{$cid}' not supported");
+			}
+
+			$dc = new $driver();
+			$dc->db_connect("", "", "", "", $cid);
+		}
+		else
+		{
+			if (empty($args["driver"]) or empty($args["base"]) or empty($args["username"]))
+			{
+				if (isset($args["password"])) unset($args["password"]);
+				throw new aw_exception("Data connection parameters not correctly specified (password removed from dump): " . var_export($args, true));
+			}
+
+			$server = empty($args["server"]) ? "localhost" : $args["server"];
+
+			$driver = $args["driver"];
+			if (!in_array($driver, self::$supported_drivers))
+			{
+				throw new aw_exception("Database driver '{$driver}' not supported");
+			}
+
+			$dc = new $driver();
+			$dc->db_connect($server, $args["base"], $args["username"], $args["password"], "");
 		}
 
-		$driver = $args["driver"];
-
-		if (!in_array($driver, self::$supported_drivers))
-		{
-			throw new aw_exception("Database driver '{$driver}' not supported");
-		}
-
-		$dc = new $driver();
-		$dc->db_connect($args["server"], $args["base"], $args["username"], $args["password"]);
 		self::$open_database_connections[$cid] = $dc;
 		$this->dc[$cid] = $dc;
 		return $dc;

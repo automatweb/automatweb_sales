@@ -1018,6 +1018,7 @@ class bug extends class_base
 						}
 					}
 				}
+
 				$prop["options"] = array("" => t("--vali--")) + $tmp;
 
 				if (!empty($arr["request"]["from_req"]))
@@ -1027,7 +1028,7 @@ class bug extends class_base
 				}
 
 				if (($prop["name"] === "who" or $prop["name"] === "monitors") && (!$bt_obj || !$bt_obj->prop("bug_only_bt_ppl")))
-				{ // monitors property. no bt specified people for this bug
+				{ // monitors/who property. no bt specified people for this bug
 					// load people from company specified by project
 					if (!empty($arr["request"]["set_proj"]) or $arr["obj_inst"]->prop("project"))
 					{
@@ -1038,40 +1039,6 @@ class bug extends class_base
 					{
 						// no project, load nothing
 					}
-
-					$u = new user();
-					$cur = obj($u->get_current_person());
-					$sections = $cur->connections_from(array(
-						"class_id" => CL_CRM_SECTION,
-						"type" => "RELTYPE_SECTION"
-					));
-					$ppl = $professions = array();
-					foreach($sections as $s)
-					{
-						$sc = obj($s->conn["to"]);
-						$profs = $sc->connections_from(array(
-							"class_id" => CL_CRM_PROFESSION,
-       						"type" => "RELTYPE_PROFESSIONS"
-					  	));
-						foreach($profs as $p)
-						{
-							$professions[$p->conn["to"]] = $p->conn["to"];
-						}
-					}
-
-					$c = new connection();
-					$people = $c->find(array(
-						"from.class_id" => crm_person_obj::CLID,
-     					"type" => "RELTYPE_RANK",
-    						"to" => $professions
-					));
-
-					foreach($people as $person)
-					{
-						$ob = obj($person["from"]);
-						$ppl[$ob->id()] = $ob->name();
-					}
-					$prop["options"] += $ppl;
 				}
 				elseif($prop["name"] === "bug_feedback_p")
 				{

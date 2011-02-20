@@ -35,7 +35,8 @@ class site_list_updater extends aw_template
 
 		try
 		{
-			get_instance("protocols/file/http")->get($url);
+			$http = new http();
+			$http->get($url);
 		}
 		catch (awex_socket $e)
 		{

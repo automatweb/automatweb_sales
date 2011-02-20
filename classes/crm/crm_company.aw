@@ -1542,6 +1542,7 @@ define("CRM_COMPANY_USECASE_EMPLOYER", "work");
 
 class crm_company extends class_base
 {
+	const REQVAL_ALL_SELECTION = -1; // value for all items selection (in treeviews e.g.). should be integer, explicit type casting used extesively
 	const REQVAR_CATEGORY = "cs_c"; // request parameter name for customer category
 
 	public $unit = 0;
@@ -3536,10 +3537,14 @@ class crm_company extends class_base
 	}
 
 	/**
-		deletes the relations unit -> person || organization -> person
+		Ends selected work relations, if
 		@attrib name=submit_delete_relations
 		@param id required type=int acl=view
-		@param unit optional type=int
+		@param post_ru required type=string
+		@param cat optional type=int
+			Profession oid. Delete only relations with that profession
+		@param check optional type=array
+			Array of person object id-s
 	**/
 	function submit_delete_relations($arr)
 	{
@@ -3556,12 +3561,13 @@ class crm_company extends class_base
 		if (isset($arr["check"]) and is_array($arr["check"]))
 		{
 			$failed_person_oids = array();
+			$profession = null;
 			foreach($arr['check'] as $person_oid)
 			{
 				try
 				{
 					$person = obj($person_oid, array(), crm_person_obj::CLID);
-					$profession = empty($arr["cat"]) ? null : obj($arr["cat"], array(), CL_CRM_PROFESSION);
+					if (!empty($arr["cat"]) and is_oid($arr["cat"])) $profession = obj($arr["cat"], array(), CL_CRM_PROFESSION);
 
 					$work_relations = crm_person_work_relation_obj::find($person, $profession, $this_o);
 					if($work_relations->count())
@@ -3570,14 +3576,17 @@ class crm_company extends class_base
 
 						do
 						{
-							$this_o->finish_work_relation($work_relation);
+							if (!$work_relation->is_finished())
+							{
+								$this_o->finish_work_relation($work_relation);
+							}
 						}
 						while ($work_relation = $work_relations->next());
 					}
-
 				}
 				catch (Exception $e)
 				{
+					/*~AWdbg*/ if (aw_ini_get("debug_mode")) { echo nl2br($e); exit; }
 					$failed_person_oids[] = $person_oid;
 				}
 			}

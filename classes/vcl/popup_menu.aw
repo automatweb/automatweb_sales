@@ -44,7 +44,7 @@ class popup_menu extends aw_template
 		@param action optional type=string default=""
 			Action to submit on current 'changeform', takes precedence over $link if specified
 		@param onclick optional type=string default=""
-			What to do on click event. May contain double quotes
+			What to do on click event. May contain double quotes. Must end with semicolon.
 		@param href_id optional type=string default=""
 			Element DOM identifier
 		@param title optional type=string default=""
@@ -55,7 +55,7 @@ class popup_menu extends aw_template
 			Show an unusable menu item
 		@param emphasized optional type=bool default=false
 			Menu item visual emphasis
-		@param confirmation optional type=string default=""
+		@param confirm optional type=string default=""
 			Yes/no question to show user for confirmation
 
 		@comment
@@ -93,7 +93,7 @@ class popup_menu extends aw_template
 			}
 			else
 			{
-				$attribs["url"] = "javascript:void();";
+				$attribs["url"] = "javascript:void(0);";
 			}
 
 			// onclick
@@ -105,13 +105,13 @@ class popup_menu extends aw_template
 			if (!empty($arr["target"])) $attribs["target"] = "_blank";
 
 			// confirmation dialog
-			if (!empty($arr["confirmation"])) $attribs["onclick"] .= ";return confirm(\"{$arr["confirmation"]}\");";
+			if (!empty($arr["confirm"])) $attribs["onclick"] .= "return confirm(\"{$arr["confirm"]}\");";
 
 			$style = "";
 		}
 		else
 		{
-			$attribs["url"] = "javascript:void();";
+			$attribs["url"] = "javascript:void(0);";
 			$style = "color: gray; text-decoration: none; cursor: default;";
 		}
 

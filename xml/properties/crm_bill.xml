@@ -14,19 +14,19 @@
             <method>serialize</method>
       </property>
       <property>
-            <name>billp_tb</name>
+            <name>bill_tb</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>billp_tb</field>
+            <field>bill_tb</field>
             <caption>Arve toolbar</caption>
       </property>
       <property>
             <name>important_comment</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>text</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -36,7 +36,7 @@
       <property>
             <name>name</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>text</type>
             <field>name</field>
             <parent>top_left</parent>
@@ -45,7 +45,7 @@
       <property>
             <name>bill_no</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>textbox</type>
             <field>aw_bill_no</field>
             <parent>top_left</parent>
@@ -54,7 +54,7 @@
       <property>
             <name>impl</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>popup_search</type>
             <style>relpicker</style>
             <field>aw_impl</field>
@@ -65,7 +65,7 @@
       <property>
             <name>assembler</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>select</type>
             <field>aw_assembler</field>
             <parent>top_left</parent>
@@ -74,7 +74,7 @@
       <property>
             <name>bill_date</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>datepicker</type>
             <time>0</time>
             <field>aw_date</field>
@@ -84,7 +84,7 @@
       <property>
             <name>bill_accounting_date</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>datepicker</type>
             <time>0</time>
             <field>aw_bill_accounting_date</field>
@@ -94,7 +94,7 @@
       <property>
             <name>bill_due_date_days</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>textbox</type>
             <field>aw_due_date_days</field>
             <size>5</size>
@@ -104,7 +104,7 @@
       <property>
             <name>bill_due_date</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>datepicker</type>
             <time>0</time>
             <field>aw_due_date</field>
@@ -114,7 +114,7 @@
       <property>
             <name>bill_recieved</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>datepicker</type>
             <time>0</time>
             <field>aw_recieved</field>
@@ -125,7 +125,7 @@
       <property>
             <name>payment_mode</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>select</type>
             <field>aw_payment_mode</field>
             <parent>top_left</parent>
@@ -134,7 +134,7 @@
       <property>
             <name>state</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>select</type>
             <field>aw_state</field>
             <parent>top_left</parent>
@@ -143,7 +143,7 @@
       <property>
             <name>sum</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>text</type>
             <field>aw_sum</field>
             <size>5</size>
@@ -153,7 +153,7 @@
       <property>
             <name>currency</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>relpicker</type>
             <field>aw_currency</field>
             <parent>top_left</parent>
@@ -163,7 +163,7 @@
       <property>
             <name>partial_recieved</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>text</type>
             <field>meta</field>
             <method>serialize</method>
@@ -173,7 +173,7 @@
       <property>
             <name>disc</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>textbox</type>
             <field>aw_discount</field>
             <size>5</size>
@@ -183,7 +183,7 @@
       <property>
             <name>overdue_charge</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>textbox</type>
             <field>aw_overdue_charge</field>
             <size>5</size>
@@ -193,7 +193,7 @@
       <property>
             <name>language</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>relpicker</type>
             <automatic>1</automatic>
             <field>meta</field>
@@ -205,7 +205,7 @@
       <property>
             <name>on_demand</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>checkbox</type>
             <field>aw_on_demand</field>
             <parent>bottom_left</parent>
@@ -214,7 +214,7 @@
       <property>
             <name>mail_notify</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <store>no</store>
@@ -225,7 +225,7 @@
       <property>
             <name>approved</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
             <field>aw_approved</field>
@@ -235,7 +235,7 @@
       <property>
             <name>bill_trans_date</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>datepicker</type>
             <time>0</time>
             <field>aw_trans_date</field>
@@ -246,7 +246,7 @@
       <property>
             <name>signers</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>crm_participant_search</type>
             <reltype>RELTYPE_SIGNER</reltype>
             <multiple>1</multiple>
@@ -259,7 +259,7 @@
       <property>
             <name>signature_type</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>select</type>
             <field>meta</field>
             <method>serialize</method>
@@ -269,7 +269,7 @@
       <property>
             <name>customer_name</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>textbox</type>
             <field>aw_customer_name</field>
             <parent>top_right</parent>
@@ -278,7 +278,7 @@
       <property>
             <name>customer_code</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>textbox</type>
             <field>aw_customer_code</field>
             <parent>top_right</parent>
@@ -287,7 +287,7 @@
       <property>
             <name>ctp_text</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>textbox</type>
             <field>meta</field>
             <method>serialize</method>
@@ -297,7 +297,7 @@
       <property>
             <name>customer_address</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>textbox</type>
             <field>aw_customer_address</field>
             <parent>top_right</parent>
@@ -306,7 +306,7 @@
       <property>
             <name>customer_add_meta_cb</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>callback</type>
             <callback>customer_add_meta_cb</callback>
             <store>no</store>
@@ -316,7 +316,7 @@
       <property>
             <name>warehouse_info</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>text</type>
             <store>no</store>
             <parent>bottom_right_left</parent>
@@ -326,7 +326,7 @@
       <property>
             <name>warehouse</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>relpicker</type>
             <field>aw_warehouse</field>
             <reltype>RELTYPE_WAREHOUSE</reltype>
@@ -336,7 +336,7 @@
       <property>
             <name>price_list</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>relpicker</type>
             <field>aw_price_list</field>
             <reltype>RELTYPE_PRICE_LIST</reltype>
@@ -346,7 +346,7 @@
       <property>
             <name>transfer_method</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>relpicker</type>
             <field>aw_transfer_method</field>
             <reltype>RELTYPE_TRANSFER_METHOD</reltype>
@@ -356,7 +356,7 @@
       <property>
             <name>transfer_condition</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>relpicker</type>
             <field>aw_transfer_condition</field>
             <reltype>RELTYPE_TRANSFER_CONDITION</reltype>
@@ -366,7 +366,7 @@
       <property>
             <name>selling_order</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>relpicker</type>
             <field>aw_selling_order</field>
             <reltype>RELTYPE_SELLING_ORDER</reltype>
@@ -376,7 +376,7 @@
       <property>
             <name>transfer_address</name>
             <table>aw_crm_bill</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>relpicker</type>
             <reltype>RELTYPE_ADDRESS</reltype>
             <field>aw_transfer_address</field>
@@ -386,34 +386,12 @@
       <property>
             <name>dn_confirm_tbl</name>
             <table>objects</table>
-            <group>general</group>
+            <group>general_data</group>
             <type>table</type>
             <no_caption>1</no_caption>
             <parent>bottom_right_right</parent>
             <store>no</store>
             <field>dn_confirm_tbl</field>
-      </property>
-      <property>
-            <name>bill_rows</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>text</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <parent>bottom</parent>
-            <field>bill_rows</field>
-            <caption>Arveread</caption>
-      </property>
-      <property>
-            <name>writeoffs</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>table</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <parent>writeoff_layout</parent>
-            <field>writeoffs</field>
-            <caption>Mahakantud arve read</caption>
       </property>
       <property>
             <name>show_oe_add</name>
@@ -576,6 +554,41 @@
             <reltype>RELTYPE_RECEIVER</reltype>
             <field>mail_receiver</field>
             <caption>Arve e-kirja saaja</caption>
+      </property>
+      <property>
+            <name>rows_toolbar</name>
+            <table>objects</table>
+            <group>rows</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <editonly>1</editonly>
+            <field>rows_toolbar</field>
+            <caption>Arve ridade tegevused</caption>
+      </property>
+      <property>
+            <name>bill_rows</name>
+            <table>objects</table>
+            <group>rows</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <editonly>1</editonly>
+            <parent>bill_rows_container</parent>
+            <field>bill_rows</field>
+            <caption>Arve read</caption>
+      </property>
+      <property>
+            <name>writeoffs</name>
+            <table>objects</table>
+            <group>rows</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <editonly>1</editonly>
+            <parent>bill_writeoff_rows_container</parent>
+            <field>writeoffs</field>
+            <caption>Mahakantud read</caption>
       </property>
       <property>
             <name>mail_table</name>
@@ -751,13 +764,13 @@
             <field>preview_w_rows</field>
       </property>
       <property>
-            <name>bill_tb</name>
+            <name>billt_tb</name>
             <table>objects</table>
             <group>tasks</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <field>bill_tb</field>
+            <field>billt_tb</field>
       </property>
       <property>
             <name>bill_task_list</name>
@@ -776,9 +789,17 @@
             <confirm_save_data>1</confirm_save_data>
       </classinfo>
       <groupinfo>
+            <general_data>
+                  <caption>P&amp;amp;otilde;hiandmed</caption>
+                  <parent>general</parent>
+            </general_data>
             <other_data>
                   <caption>Muud andmed</caption>
+                  <parent>general</parent>
             </other_data>
+            <rows>
+                  <caption>Read</caption>
+            </rows>
             <mails>
                   <caption>Kirjad</caption>
             </mails>
@@ -919,19 +940,19 @@
       <layout>
             <main_split>
                   <type>vbox</type>
-                  <group>general</group>
+                  <group>general_data</group>
                   <area_caption></area_caption>
             </main_split>
             <top_split>
                   <parent>main_split</parent>
                   <type>hbox</type>
-                  <group>general</group>
+                  <group>general_data</group>
                   <area_caption></area_caption>
             </top_split>
             <left_split>
                   <type>vbox</type>
                   <parent>top_split</parent>
-                  <group>general</group>
+                  <group>general_data</group>
                   <area_caption></area_caption>
             </left_split>
             <top_left>
@@ -939,19 +960,19 @@
                   <parent>left_split</parent>
                   <closeable>1</closeable>
                   <area_caption>&amp;amp;Uuml;ldandmed</area_caption>
-                  <group>general</group>
+                  <group>general_data</group>
             </top_left>
             <bottom_left>
                   <type>vbox</type>
                   <parent>left_split</parent>
                   <closeable>1</closeable>
                   <area_caption>Lisainfo</area_caption>
-                  <group>general</group>
+                  <group>general_data</group>
             </bottom_left>
             <right_split>
                   <type>vbox</type>
                   <parent>top_split</parent>
-                  <group>general</group>
+                  <group>general_data</group>
                   <area_caption></area_caption>
             </right_split>
             <top_right>
@@ -959,7 +980,7 @@
                   <parent>right_split</parent>
                   <closeable>1</closeable>
                   <area_caption>Kliendi&amp;amp;nbsp;andmed</area_caption>
-                  <group>general</group>
+                  <group>general_data</group>
             </top_right>
             <bottom_right>
                   <type>hbox</type>
@@ -967,34 +988,30 @@
                   <closeable>1</closeable>
                   <area_caption>Ladu</area_caption>
                   <width>50%:50%</width>
-                  <group>general</group>
+                  <group>general_data</group>
             </bottom_right>
             <bottom_right_left>
                   <type>vbox</type>
                   <parent>bottom_right</parent>
-                  <group>general</group>
+                  <group>general_data</group>
                   <area_caption></area_caption>
             </bottom_right_left>
             <bottom_right_right>
                   <type>vbox</type>
                   <parent>bottom_right</parent>
-                  <group>general</group>
+                  <group>general_data</group>
                   <area_caption></area_caption>
             </bottom_right_right>
-            <bottom>
-                  <parent>main_split</parent>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>Read</area_caption>
-                  <group>general</group>
-            </bottom>
-            <writeoff_layout>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>Maha&amp;amp;nbsp;kantud&amp;amp;nbsp;arve&amp;amp;nbsp;read</area_caption>
-                  <parent>main_split</parent>
-                  <group>general</group>
-            </writeoff_layout>
+            <bill_rows_container>
+                  <type>hbox</type>
+                  <group>rows</group>
+                  <area_caption></area_caption>
+            </bill_rows_container>
+            <bill_writeoff_rows_container>
+                  <type>hbox</type>
+                  <group>rows</group>
+                  <area_caption></area_caption>
+            </bill_writeoff_rows_container>
             <sendmail_settings>
                   <type>hbox</type>
                   <closeable>1</closeable>
