@@ -350,6 +350,7 @@ class bug extends class_base
 	const BUG_DEVORDER = 14;
 	const BUG_VIEWED = 15;
 
+	private $_set_feedback = "";
 	private $_ac_old_state;
 	private $_ac_new_state;
 	private $_change_status;
@@ -2064,7 +2065,7 @@ class bug extends class_base
 
 		if (empty($formula))
 		{
-			$rv = $sp_lut[$bug->prop("bug_status")] + $bug->prop("bug_priority");
+			$rv = (isset($sp_lut[$bug->prop("bug_status")]) ? $sp_lut[$bug->prop("bug_status")] : 0) + $bug->prop("bug_priority");
 			// also, if the bug has a deadline, then we need to up the priority as the deadline comes closer
 			if (($dl = $bug->prop("deadline")) > 200)
 			{
