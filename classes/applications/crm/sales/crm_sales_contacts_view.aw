@@ -519,5 +519,3 @@ class crm_sales_contacts_view
 		}
 	}
 }
-
-?>

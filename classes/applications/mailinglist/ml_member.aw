@@ -7,7 +7,6 @@
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CRM_PERSON_WORK_RELATION, on_connect_work_relation_to_email)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_CRM_PERSON_WORK_RELATION, on_disconnect_work_relation_from_email)
 
-@classinfo maintainer=markop
 	@default table=objects
 	@default group=general
 
@@ -480,5 +479,4 @@ class ml_member extends class_base
 	}
 
 
-};
-?>
+}
