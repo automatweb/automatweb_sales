@@ -3,7 +3,6 @@
 // ml_queue.aw - Deals with mailing list queues
 
 
-
 define("ML_QUEUE_NEW",0);
 define("ML_QUEUE_IN_PROGRESS",1);
 define("ML_QUEUE_READY",2);
@@ -583,7 +582,7 @@ class ml_queue extends aw_template
 				flush();
 			echo "loeb maile baasist";
 			$stime=time();
-				$this->db_query($qx);
+			$this->db_query($qx);
 			echo "...see vottis aega ".(time()-$stime)." sekundit...<br>\n";
 				$msg_data = true;
 				while ($c < $patch_size && $stat == ML_QUEUE_IN_PROGRESS && $msg_data)
