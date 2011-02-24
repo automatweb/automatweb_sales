@@ -1230,3 +1230,9 @@ class object_list extends _int_obj_container_base
 		return $clid;
 	}
 }
+
+/** Generic objectlist exception. All objectlist extensions should also derive their exception classes from this **/
+class awex_objlist extends aw_exception {}
+
+/** Object id error **/
+class awex_objlist_oid extends awex_objlist {}

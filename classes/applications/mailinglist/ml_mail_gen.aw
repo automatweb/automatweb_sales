@@ -1,6 +1,5 @@
 <?php
 /*
-@classinfo maintainer=markop
 @default table=objects
 @default field=meta
 @default method=serialize
@@ -11,7 +10,7 @@
 @property background process control type=text
 
 */
-classload("core/run_in_background");
+
 class ml_mail_gen extends run_in_background
 {
 	function ml_mail_gen()
@@ -20,29 +19,26 @@ class ml_mail_gen extends run_in_background
 		$this->bg_checkpoint_steps = 1000 ;
 		$this->bg_log_steps = 50;
 	}
-	
+
 	function bg_run_get_log_entry($o)
 	{
 		;
 	}
-	
+
 	function bg_checkpoint($o)
 	{
 		$o->set_meta("checkpointed_var", $this->state);
 	}
-	
+
 	function bg_run_step($o)
 	{
-		arr($o);
 		//if (rand(1,20) < 5) {arr("die....!"); die(); }
 		// process step
-		aw_disable_acl();
 		if(!(is_array($this->mails_to_gen)))
 		{
 			$this->make_send_list($o);
 		}
 		$arr = $o->meta("mail_data");
-		aw_restore_acl();
 		extract($arr);
 		$qid = (int)$qid;
 		if(!(sizeof($this->mails_to_gen) > 0))
@@ -55,13 +51,11 @@ class ml_mail_gen extends run_in_background
 		if (!isset($this->d))
 		{
 			$this->d = get_instance(CL_MESSAGE);
-		};
+		}
 		$ml_list_inst = get_instance(CL_ML_LIST);
-		aw_disable_acl();
 		$list_obj = new object($arr["list_id"]);
 		$msg = $this->d->msg_get(array("id" => $arr["mail_id"]));
 		$this->no_mails_to_base = $list_obj->prop("no_mails_to_base");
-		aw_restore_acl();
 		$this->qid = $arr["qid"];
 		$this->preprocess_one_message(array(
 			"name" => $tmp["name"],
@@ -106,7 +100,7 @@ class ml_mail_gen extends run_in_background
 		set_time_limit(0);
 
 	print 'already generated mails:';arr($this->made_mails);
-		
+
 		$mail_object = obj($arr["mail_id"]);
 		$address_selection = $mail_object->meta("chosen_before_sent");
 
@@ -152,7 +146,7 @@ class ml_mail_gen extends run_in_background
 		$users = get_instance("users");
 		// 1) replaces variables in the message
 		// 2) store to ml_sent_mails (which has a default value of '0' in mail_sent values
-		// use all variables. 
+		// use all variables.
 		//print "<tr><td>".$arr["name"]."</td><td>".$arr["mail"]."</td></tr>\n";
 		$vars = md5(uniqid(rand(), true));
 		$data = array(
@@ -190,12 +184,12 @@ class ml_mail_gen extends run_in_background
 
 		$subject = $this->replace_tags($arr["msg"]["subject"], $data);
 		$from = $address = $arr["msg"]["meta"]["mail_data"]["mfrom"];
-		if(is_oid($from) && $this->can("view", $from))
+		if($this->can("view", $from))
 		{
 			$adr = obj($from);
 			$address = $adr->prop("mail");
 		}
-		
+
 		//$mailfrom = $this->replace_tags($address, $data);
 		$mailfrom = trim($address);
 		$subject = trim($subject);
@@ -208,8 +202,8 @@ class ml_mail_gen extends run_in_background
 		$qid = $this->qid;
 //		$target = $arr["name"] . " <" . $arr["mail"] . ">";
 		$target = $this->_get_target(array("name" => $arr["name"] , "mail" => $arr["mail"]));
-		
-		
+
+
 		$this->quote($message);
 		$this->quote($subject);
 		$this->quote($target);
@@ -220,10 +214,10 @@ class ml_mail_gen extends run_in_background
 
 		// there is an additional field mail_sent in that table with a default value of 0
 		$this->db_query("INSERT INTO ml_sent_mails (mail,member,uid,lid,tm,vars,message,subject,mailfrom,qid,target) VALUES ('$mid','$member','".aw_global_get("uid")."','$lid','".time()."','$vars','$message','$subject','$mailfrom','$qid','$target')");
-		//3) process queue then only retrieves messages from that table where mail_sent is 
+		//3) process queue then only retrieves messages from that table where mail_sent is
 		//set to 0
 	}
-	
+
 	//name, mail
 	function _get_target($arr)
 	{
@@ -255,16 +249,18 @@ class ml_mail_gen extends run_in_background
 			if (!isset($this->d))
 			{
 				$this->d = get_instance(CL_MESSAGE);
-			};
+			}
 			$ml_list_inst = get_instance(CL_ML_LIST);
 			$arr["msg"] = $this->d->msg_get(array("id" => $arr["mail_id"]));
 		}
+
 		if(!$arr["msg"]["message"])
 		{
 			$mail_object = obj($arr["mail_id"]);
 			$arr["msg"]["message"] = $mail_object->meta("message");
-			
+
 		}
+
 		$mail_obj = obj($arr["mail_id"]);
 
 		$mail_meta = $mail_obj->meta();
@@ -279,14 +275,16 @@ class ml_mail_gen extends run_in_background
 		);
 		$this->used_variables = array();
 
-		if(is_oid($arr["member_id"]))
+		if($this->can("view", $arr["member_id"]))
 		{
 			$obj = obj($arr["member_id"]);
-			$user = reset($obj->connections_to(array(
+			$connections = $obj->connections_to(array(
 				"type" => 6,
 				"from.class_id" => CL_USER,
-			)));
+			));
+			$user = reset($connections);
 		}
+
 		if(is_object($user))
 		{
 			$data["username"] = $user->prop("from.name");
@@ -297,7 +295,7 @@ class ml_mail_gen extends run_in_background
 			"usr" => $arr["member_id"] ,
 			"list" => $mail_meta["list_id"]
 		);
-		
+
 		//teeb lahkumise lingi ymber selliseks, et ei oleks massiivi
 		if(is_array($arr["msg"]["meta"]["list_source"]))
 		{
@@ -308,7 +306,7 @@ class ml_mail_gen extends run_in_background
 				$n++;
 			}
 		}
-		
+
 		$unsubscribe_link = $this->mk_my_orb(
 			"unsubscribe",
 			$us_array,
@@ -325,12 +323,12 @@ class ml_mail_gen extends run_in_background
 		$message = preg_replace("#\#ala\#(.*?)\#/ala\##si", '<div class="doc-titleSub">\1</div>', $message);
 		$message = str_replace("#lahkumine#" , $html_mail_unsubscribe[0].$unsubscribe_link.$html_mail_unsubscribe[1] , $message);
 		$message = str_replace("#e-mail#" , $arr["mail"] , $message);
-		
+
 		$add_co = substr_count($message, '#organisatsioon#');
 		$add_per = substr_count($message, '#isik#');
 		$add_pro = substr_count($message, '#ametinimetus#');
 		$add_sec = substr_count($message, '#osakond#');
-arr($obj); arr($arr["member_id"]); arr($add_co); arr($add_pro);
+
 		if($obj && ($add_pro || $add_co || $add_sec))
 		{
 			$member = obj($arr["member_id"]);
@@ -376,12 +374,12 @@ arr($obj); arr($arr["member_id"]); arr($add_co); arr($add_pro);
 				$message = str_replace("#osakond#" , $sector_name , $message);
 			}
 		}
-		
+
 
 		//parse stuff
 		$parser = get_instance("alias_parser");
 		$parser->parse_oo_aliases($arr["mail_id"], $message);
-		
+
 		$message = $this->replace_tags($message, $data);
 		$message = str_replace("href='/", "href='".aw_ini_get("baseurl")."/" , $message);
 		$message = str_replace('href="/', 'href="'.aw_ini_get("baseurl").'/' , $message);
@@ -400,11 +398,9 @@ arr($obj); arr($arr["member_id"]); arr($add_co); arr($add_pro);
 				{
 					$this->used_variables[$v] = 1;
 					if($data[$v]) $text = preg_replace("/#$v#/", $data[$v] ? $data[$v] : "", $text);
-					//decho("matced $v<br />");
 				}
-			};
-		};
+			}
+		}
 		return $text;
 	}
 }
-?>

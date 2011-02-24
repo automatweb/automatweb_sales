@@ -495,7 +495,7 @@ class docgen_viewer extends class_base
 				do
 				{
 					$this->vars(array(
-						"url" => $this->mk_my_orb("frameset", array(array("id" => $o->id()))),
+						"url" => $this->mk_my_orb("frames", array(array("id" => $o->id()))),
 						"name" => $o->name(),
 						"oid" => $o->id()
 					));

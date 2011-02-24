@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class object_tree extends _int_obj_container_base
 {
@@ -212,10 +209,14 @@ class object_tree extends _int_obj_container_base
 			{
 				$cnt++;
 
-				$tmp = obj($_oid);
+				if (!is_object($o))
+				{
+					$o = new object($_oid);
+				}
+
 				if (isset($param["params"]))
 				{
-					call_user_func_array(array(&$o, $func), $param["params"]);
+					call_user_func_array(array($o, $func), $param["params"]);
 				}
 				else
 				{
@@ -653,7 +654,7 @@ class object_tree extends _int_obj_container_base
 		foreach($oids as $oid => $oname)
 		{
 			// in ut, one folder was brothered benath itself - this made the tree go in an infinite loop
-			if ($GLOBALS["object_loader"]->ds->can("view", $oid) && $parentdata[$oid] != $objdata[$oid]["brother_of"])
+			if (object_loader::can("view", $oid) && $parentdata[$oid] != $objdata[$oid]["brother_of"])
 			{
 				$this->tree_objdata[$parentdata[$oid]][$oid] = $objdata[$oid];
 				$this->tree_names[$oid] = $oname;
@@ -692,7 +693,7 @@ class object_tree extends _int_obj_container_base
 		{
 			$filter["parent"] = $acl_oids;
 			$this->_int_req_filter($filter);
-		};
+		}
 	}
 
 	function _int_subtree($parent)
@@ -749,5 +750,3 @@ class object_tree extends _int_obj_container_base
 		}
 	}
 }
-
-?>
