@@ -286,7 +286,7 @@ class planner extends class_base
 		if (!is_array($rv) || empty($rv))
 		{
 			$rv = $this->make_keys($this->default_entry_classes);
-		};
+		}
 		return $rv;
 	}
 
