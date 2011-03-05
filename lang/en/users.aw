@@ -5,7 +5,6 @@
 define("USR_LOGGED_IN","Logged in");
 define("USR_LOGGED_OUT","Logged out");
 
-
 // errors
 define("E_USR_UID_TOO_SHORT","Username too short, uid=%s, pass=%s");
 define("E_USR_PASS_TOO_SHORT","Password too short, uid=%s, pass=%s");
@@ -35,4 +34,3 @@ $lc_users["LC_PROPERTIES"] = "Properties";
 $lc_users["LC_CHANGE_PWD"] = "Change password";
 $lc_users["LC_DELETE"] = "Delete";
 
-?>

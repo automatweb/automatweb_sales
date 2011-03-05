@@ -63,12 +63,12 @@ class crm_sales_contacts_view
 		// caption
 		$tree->add_item(0, array(
 			"id" => "categories",
-			"name" => t("Kliendigrupid"),
+			"name" => t("Kliendikategooriad"),
 			"url" => $url->get()
 		));
 
 		// categories themselves
-		$categories = $arr['obj_inst']->prop("owner")->get_customer_categories();
+		$categories = $arr['obj_inst']->prop("owner")->get_customer_categories(null, array(crm_category_obj::TYPE_GENERIC, crm_category_obj::TYPE_BUYER));
 		foreach ($categories->arr() as $category)
 		{
 			$parent = $category->prop("parent_category") ? (int) $category->prop("parent_category") : "categories";
@@ -519,5 +519,3 @@ class crm_sales_contacts_view
 		}
 	}
 }
-
-?>

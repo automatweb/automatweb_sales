@@ -2,10 +2,7 @@
 
 /** aw code analyzer
 
-	@classinfo  maintainer=kristo
-
 	@author terryf <kristo@struktuur.ee>
-	@cvs $Id: aw_code_analyzer.aw,v 1.23 2009/08/07 11:55:55 instrumental Exp $
 
 	@comment
 	analyses aw code
@@ -821,7 +818,7 @@ class aw_code_analyzer extends core
 				$class_o = $class;
 				if(!strlen($class))
 				{
-					$class = $GLOBALS["_REQUEST"]["file"];
+					$class = isset($GLOBALS["_REQUEST"]["file"]) ? $GLOBALS["_REQUEST"]["file"] : "";//XXX: miks m6nikord klassi pole? [NOTICE] Undefined index: file in ...aw_code_analyzer.aw on line 821
 				}
 				else
 				{
@@ -993,7 +990,7 @@ class aw_code_analyzer extends core
 
 					case T_STRING:
 						// the string is the CL_ define
-						$class = $this->classinfo[constant($cln[1])]["file"];
+						$class = $this->classinfo[constant($cln[1])]["file"];//FIXME: when a 'self::CONSTANTNAME' construct found in code here must replace 'self' with class name. 'classname::CONSTANTNAME' doesn't work either.
 						//echo "from tstring got class $class <br>";
 						break;
 
@@ -1684,7 +1681,7 @@ echo "ding<br>";*/
 
 	function handle_t_implements()
 	{
-		if (!is_array($this->data["classes"][$this->current_class]["implements"]))
+		if (!isset($this->data["classes"][$this->current_class]["implements"]) or !is_array($this->data["classes"][$this->current_class]["implements"]))
 		{
 			$this->data["classes"][$this->current_class]["implements"] = array();
 		}
@@ -1805,5 +1802,3 @@ echo "ding<br>";*/
 		return $rv;
 	}
 }
-
-?>

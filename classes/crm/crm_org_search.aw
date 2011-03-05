@@ -1,8 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/crm/crm_org_search.aw,v 1.18 2008/02/28 11:50:56 kristo Exp $
+
 // crm_org_search.aw - kliendibaasi otsing
 /*
-@classinfo  maintainer=markop
+@classinfo
 
 @default group=general
 @default form=crm_search
@@ -157,7 +157,8 @@ class crm_org_search extends class_base
 		if (!empty($req["ettevotlusvorm"]))
 		{
 			$filter["ettevotlusvorm"] = $req["ettevotlusvorm"];
-		};
+		}
+
 		if (!empty($req["ceo"]) || !empty($xfilter['firmajuht']))
 		{
 			// search by ceo name? first create a list of all crm_persons
@@ -180,8 +181,9 @@ class crm_org_search extends class_base
 				{
 					$xfilter['firmajuht'] = &$filter['firmajuht'];
 				}
-			};
-		};
+			}
+		}
+
 		$addr_filter = array();
 
 		if (!empty($req["city"]))
@@ -267,7 +269,7 @@ class crm_org_search extends class_base
 			{
 				$no_results=true;
 			}
-		};
+		}
 
 		if(sizeof($xfilter))
 		{
@@ -330,8 +332,8 @@ class crm_org_search extends class_base
 				if (empty($url))
 				{
 					$url = $url_obj->name();
-				};
-			};
+				}
+			}
 
 			if ($this->can("view", $o->prop("email_id")))
 			{
@@ -376,4 +378,3 @@ class crm_org_search extends class_base
 		}
 	}
 }
-?>

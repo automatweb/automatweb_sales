@@ -310,6 +310,7 @@ class user_obj extends _int_object
 		@attrib api=1
 		@returns object list
 	**/
+	//XXX: slaves?
 	public function get_slaves()
 	{
 		$ol = new object_list(array(
@@ -324,6 +325,7 @@ class user_obj extends _int_object
 		@attrib api=1
 		@returns string
 	**/
+	//XXX: slaves?
 	public function get_new_slave_name()
 	{
 		$uid = aw_global_get("uid");
@@ -493,7 +495,7 @@ class user_obj extends _int_object
 		}
 		else
 		{
-			if (aw_global_get("uid") === $this->prop("uid") && !$GLOBALS["object_loader"]->cache->can("edit", $person_c->prop("to")))
+			if (aw_global_get("uid") === $this->prop("uid") && !object_loader::can("edit", $person_c->prop("to")))
 			{
 				$p = obj($person_c->prop("to"));
 				$p->acl_set(

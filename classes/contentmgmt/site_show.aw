@@ -3245,14 +3245,14 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		{
 			return;
 		}
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("site_edit_".$menu->id());
 		if ($this->can("add", $menu->parent()))
 		{
 			$url = $this->mk_my_orb("new", array("parent" => $menu->parent(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_MENU, true);
 			$pm->add_item(array(
 				"text" => t("Lisa uus k&otilde;rvale"),
-				"oncl" => "onClick=\"aw_popup_scroll('$url', 'aw_doc_edit',600, 400)\"",
+				"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\", 600, 400);",
 				"link" => "javascript:void(0)"
 			));
 		}
@@ -3262,7 +3262,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 			$url = $this->mk_my_orb("new", array("parent" => $menu->id(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_MENU, true);
 			$pm->add_item(array(
 				"text" => t("Lisa uus alamkaust"),
-				"oncl" => "onClick=\"aw_popup_scroll('$url', 'aw_doc_edit',600, 400)\"",
+				"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\", 600, 400);",
 				"link" => "javascript:void(0)"
 			));
 		}
@@ -3272,7 +3272,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 			$url = $this->mk_my_orb("change", array("id" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_MENU, true);
 			$pm->add_item(array(
 				"text" => t("Muuda"),
-				"oncl" => "onClick=\"aw_popup_scroll('$url', 'aw_doc_edit',600, 400)\"",
+				"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\", 600, 400);",
 				"link" => "javascript:void(0)"
 			));
 		}
@@ -3282,7 +3282,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 			$url = $this->mk_my_orb("disp_manager", array("id" => $menu->id()), "acl_manager", true);
 			$pm->add_item(array(
 				"text" => t("Muuda &otilde;igusi"),
-				"oncl" => "onClick=\"aw_popup_scroll('$url', 'aw_doc_edit_acl',800, 500)\"",
+				"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\", 800, 500);",
 				"link" => "javascript:void(0)"
 			));
 		}
@@ -3315,7 +3315,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		{
 			return;
 		}
-		$pm = get_instance("vcl/popup_menu");
+		$pm = new popup_menu();
 		$pm->begin_menu("site_edit_new");
 
 		if ($this->can("add", $this->sel_section))
@@ -3323,7 +3323,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 			$url = $this->mk_my_orb("new", array("parent" => $this->sel_section, "return_url" => get_ru(), "is_sa" => 1), CL_DOCUMENT, true);
 			$pm->add_item(array(
 				"text" => t("Lisa uus"),
-				"oncl" => "onClick=\"aw_popup_scroll('$url', 'aw_doc_edit',800, 600)\"",
+				"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\", 800, 600);",
 				"link" => "javascript:void(0)"
 			));
 		}

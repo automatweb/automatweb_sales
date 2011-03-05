@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class doc_display extends aw_template
 {
 	var $no_left_pane;
@@ -17,7 +15,7 @@ class doc_display extends aw_template
 
 		@param docid required type=oid
 			document id
-		
+
 		@param tpl optional type=string
 			template file to use
 
@@ -26,9 +24,9 @@ class doc_display extends aw_template
 
 		@param vars optional type=array
 			extra vars for doc template
-			
+
 		@param not_last_in_list optional type=bool
-			
+
 		@param no_link_if_not_act optional type=bool
 
 	**/
@@ -57,7 +55,7 @@ class doc_display extends aw_template
 		{
 			$si->parse_document_new($doc);
 		}
-	
+
 		if ($this->template_has_var("text"))
 		{
 			$text = $this->get_document_text($arr, $doc);
@@ -72,7 +70,7 @@ class doc_display extends aw_template
 		{
 			$content = $this->_get_content($arr, $doc);
 		}
-		
+
 		// parse keyword subs
 		$this->parse_keywords($doc);
 
@@ -81,7 +79,7 @@ class doc_display extends aw_template
 
 		$al = get_instance("alias_parser");
 		$mt = $doc->meta();
-		
+
 		if ($this->template_has_var("text"))
 		{
 			$al->parse_oo_aliases(
@@ -93,7 +91,7 @@ class doc_display extends aw_template
 				)
 			);
 		}
-		
+
 		if ($this->template_has_var("content"))
 		{
 			$al->parse_oo_aliases(
@@ -105,7 +103,7 @@ class doc_display extends aw_template
 				)
 			);
 		}
-		
+
 		if ($this->template_has_var("lead"))
 		{
 			$al->parse_oo_aliases(
@@ -117,7 +115,7 @@ class doc_display extends aw_template
 				)
 			);
 		}
-		
+
 		lc_site_load("document",$this);
 		$this->vars(array("image_inplace" => ""));
 		$this->vars($al->get_vars());
@@ -184,14 +182,14 @@ class doc_display extends aw_template
 		$al->parse_oo_aliases($doc->id(), $userta5, array("templates" => $this->templates, "meta" => $mt));
 		$userta6 = $orig->trans_get_val("userta6");
 		$al->parse_oo_aliases($doc->id(), $userta6, array("templates" => $this->templates, "meta" => $mt));
-	
+
 		$title = $doc->trans_get_val("title");
 		if (aw_global_get("set_doc_title") != "")
 		{
 			$title = aw_global_get("set_doc_title");
 			aw_global_set("set_doc_title","");
 		}
-		
+
 		$uinst = get_instance(CL_USER);
 		$mb_person = obj();
 		if ($this->template_has_var_full("modified_by"))
@@ -199,11 +197,11 @@ class doc_display extends aw_template
 			$mb_person = $uinst->get_person_for_uid($doc->prop("modifiedby"));
 		}
 		$this->vars($al->get_vars());
-		
+
 		$lang_id = aw_global_get("lang_id");
 		$l = get_instance("languages");
 		$sel_lang = $l->fetch($lang_id);
-		
+
 		$title = $doc->trans_get_val("title");
 		$tmp = $arr;
 		$tmp["leadonly"] = -1;
@@ -251,7 +249,7 @@ class doc_display extends aw_template
 			"userta5" => $userta5,
 			"userta6" => $userta6,
 			"link_text" => $doc->prop("link_text"),
-			"page_title" => strip_tags($title),			
+			"page_title" => strip_tags($title),
 			"date" => $_date,
 			"doc_modified" => $_date, // backward compability
 			"edit_doc" => $em,
@@ -274,7 +272,7 @@ class doc_display extends aw_template
 				"ablock" => $this->parse("ablock")
 			));
 		}
-		
+
 		$nll = "";
 		if (!empty($arr["not_last_in_list"]))
 		{
@@ -358,7 +356,7 @@ class doc_display extends aw_template
 		{
 			return $arr["tpl"];
 		}
-		
+
 		// do template autodetect from parent
 		$tplmgr = get_instance("templatemgr");
 		if ($leadonly > -1)
@@ -376,7 +374,7 @@ class doc_display extends aw_template
 		return $tpl;
 	}
 
-	/** Returns the text for the document, based on the settings. 
+	/** Returns the text for the document, based on the settings.
 		@attrib api=1 params=pos
 
 		@param arr required type=array
@@ -385,7 +383,7 @@ class doc_display extends aw_template
 		@param doc required type=cl_document
 			The document to get text for
 
-		@returns 
+		@returns
 			Text content for the document, as per the settings
 
 	**/
@@ -411,7 +409,7 @@ class doc_display extends aw_template
 		$content = str_replace("]-->","] -->", $content);
 		if ($arr["leadonly"] > -1)
 		{
-			$text = $lead; 
+			$text = $lead;
 		}
 		else
 		{
@@ -431,24 +429,24 @@ class doc_display extends aw_template
 				}
 				else
 				{
-					$text = $content; 
+					$text = $content;
 				}
 			}
 			else
 			{
-				$text = $content; 
+				$text = $content;
 			}
 		}
-		
+
 		if (aw_ini_get("document.use_wiki_parser") == 1)
 		{
 			$this->parse_wiki($text, $doc);
 		}
 		$this->_parse_youtube_links($text);
-		
+
 		// line break conversion between wysiwyg and not
 		$cb_nb = $doc->meta("cb_nobreaks");
-		if (!($doc->prop("nobreaks") || $cb_nb["content"]))	
+		if (!($doc->prop("nobreaks") || $cb_nb["content"]))
 		{
 			$text = str_replace("\r\n","<br />",$text);
 			$text = str_replace("</li><br />", "</li>", $text);
@@ -489,10 +487,10 @@ class doc_display extends aw_template
 			));
 			return $this->parse("IFRAME");
 		}
-		
+
 		return $text;
 	}
-	
+
 	private function _get_lead($arr, $doc)
 	{
 		$lead = $doc->trans_get_val("lead");
@@ -506,50 +504,50 @@ class doc_display extends aw_template
 		{
 			$lead = $sps["lead"];
 		}
-		
+
 		if (trim(strtolower($lead)) == "<br>")
 		{
 			$lead = "";
 		}
-		
+
 		$text = $lead; //$doc->trans_get_val("lead");
-		
+
 		if (aw_ini_get("document.use_wiki_parser") == 1)
 		{
 			$this->parse_wiki($text, $doc);
 		}
 		$this->_parse_youtube_links($text);
-		
+
 		// line break conversion between wysiwyg and not
 		$cb_nb = $doc->meta("cb_nobreaks");
-		if (!($doc->prop("nobreaks") || $cb_nb["content"]))	
+		if (!($doc->prop("nobreaks") || $cb_nb["content"]))
 		{
 			$text = str_replace("\r\n","<br />",$text);
 			$text = str_replace("</li><br />", "</li>", $text);
 			$text = str_replace("<br /><ul><br />", "<ul>", $text);
 			$text = str_replace("</ul><br />", "</ul>", $text);
 		}
-		
+
 		return $text;
 	}
-	
+
 	private function _get_content($arr, $doc)
 	{
 		$content = $doc->trans_get_val("content");
 		$content = str_replace("<!--[", "<!-- [", $content);
 		$content = str_replace("]-->","] -->", $content);
-		
+
 		$text = $content; //$doc->trans_get_val("content");
-		
+
 		if (aw_ini_get("document.use_wiki_parser") == 1)
 		{
 			$this->parse_wiki($text, $doc);
 		}
 		$this->_parse_youtube_links($text);
-		
+
 		// line break conversion between wysiwyg and not
 		$cb_nb = $doc->meta("cb_nobreaks");
-		if (!($doc->prop("nobreaks") || $cb_nb["content"]))	
+		if (!($doc->prop("nobreaks") || $cb_nb["content"]))
 		{
 			if (aw_ini_get("content.doctype") == "xhtml")
 			{
@@ -563,10 +561,10 @@ class doc_display extends aw_template
 				$text = str_replace("<br /><ul><br />", "<ul>", $text);
 				$text = str_replace("</ul><br />", "</ul>", $text);
 		}
-		
+
 		return $text;
 	}
-	
+
 	/** Parses the given text as a wiki entry and formats it for display
 		@attrib api=1 params=pos
 
@@ -596,14 +594,14 @@ class doc_display extends aw_template
 		$this->_parse_wiki_sign($str, $doc);
 		$this->_parse_wiki_table($str);
 	}
-	
+
 	private function _parse_wiki_table(&$str)
 	{
 		if ( preg_match_all("/{\|.*\|}/imsU", $str, $mt_wiki_tables ) !== 0)
 		{
 			$tmp = $str;
 			$a_text = array();
-			
+
 			// read lines to array
 			while ( strlen(trim( $tmp)) > 0 )
 			{
@@ -617,13 +615,13 @@ class doc_display extends aw_template
 				}
 				$a_text[] = array ("text" => $mt[1]);
 			}
-			
+
 			$a_tables = array();
 			foreach($mt_wiki_tables[0] as $key => $var)
 			{
 				$a_tables[] = $this->_parse_wiki_table_get_to_array( $var );
 			}
-			
+
 			$ti = get_instance("vcl/table");
 			$ti = new aw_table();
 			$ti->set_layout("generic");
@@ -632,23 +630,23 @@ class doc_display extends aw_template
 			{
 				$s_tables[] = $this->_parse_wiki_table_parse_array_to_html( $a_tables[$key], $i_tableid++ );
 			}
-			
+
 			for ($i=0;$i<count($s_tables);$i++)
 			{
 				$str = preg_replace  ("/{\|.*\|}/imsU",  $s_tables[$i], $str, 1);
 			}
-			
+
 			//arr($a_tables, true);
 			//arr($mt_wiki_tables, true);
 		}
 	}
-	
+
 	private function _parse_wiki_table_parse_array_to_html($a_table, $i_tableid)
 	{
 		$ti = get_instance("vcl/table");
 		$ti = new aw_table();
 		$ti->set_layout("generic");
-		
+
 		// header
 		$i_colnr =0;
 		foreach ($a_table["data"]["header"] as $key => $val)
@@ -668,7 +666,7 @@ class doc_display extends aw_template
 				"align" => "left"
 			));
 		}
-		
+
 		// rows
 		foreach ($a_table["data"]["rows"] as $key => $val)
 		{
@@ -684,26 +682,26 @@ class doc_display extends aw_template
 				{
 					$s_data = $val2;
 				}
-			
+
 				$a_define_data[$i_tableid."_col_".$i_colnr] = $s_data;
 				$i_colnr++;
 			}
 			$ti->define_data($a_define_data);
 		}
-		
+
 		return $ti->draw();
 	}
-	
+
 	private function _parse_wiki_table_get_to_array($s_table)
 	{
 		$a_out = array();
-		
+
 		// header
 		{
 			// table atribs
 			preg_match("/{\|\s(.*)\r\n/U", $s_table, $mt );
 			$a_out["table_atributes"] = $mt[1];
-			
+
 			// table header
 			preg_match("/.*\|\-(.*)\|\-/imsU", $s_table, $mt);
 			// if cell contains style elements then deal with it in
@@ -713,7 +711,7 @@ class doc_display extends aw_template
 		}
 		// rows
 		{
-			
+
 			preg_match("/.*\|\-.*\|-(.*)\|}/imsU", $s_table, $mt);
 			$rows = explode ("|-", $mt[1] );
 			foreach($rows as $key => $var)
@@ -723,15 +721,15 @@ class doc_display extends aw_template
 				$a_out["data"]["rows"][] = $cols;
 			}
 		}
-		
+
 		return $a_out;
 	}
-	
+
 	private function _parse_wiki_links(&$str)
 	{
 		$a_pattern = array();
 		$a_replacement = array();
-		
+
 		$a_pattern[] = "/\[([http|https].*)\s{1}(.*)\]/U";
 		$a_replacement[] = html::href(array(
 			"url" => "\\1",
@@ -746,7 +744,7 @@ class doc_display extends aw_template
 		));
 		$str = preg_replace  ( $a_pattern  , $a_replacement  , $str );
 	}
-	
+
 	private function _parse_wiki_sign(&$str, $doc)
 	{
 		if (strpos($str, "~~~")!== false )
@@ -755,7 +753,7 @@ class doc_display extends aw_template
 			$i_month = (int)gmdate( "n",  $ts);
 			$s_month = ucfirst(aw_locale::get_lc_month($i_month));
 			$s_created  = gmdate( "H:i, j ",  $ts).$s_month." ". gmdate( "Y (\U\TC)",  $ts);
-			
+
 			$a_pattern = array();
 			$a_replacement = array();
 			$a_pattern[] = "/~~~~~/";
@@ -767,7 +765,7 @@ class doc_display extends aw_template
 			$str = preg_replace  ( $a_pattern  , $a_replacement  , $str );
 		}
 	}
-	
+
 	private function _parse_wiki_fontstyle(&$str)
 	{
 		if (strpos($str, "''")!== false)
@@ -785,7 +783,7 @@ class doc_display extends aw_template
 			$str = preg_replace  ( $a_pattern  , $a_replacement  , $str );
 		}
 	}
-	
+
 	// because 2 br's dont't make paragraph
 	private function _parse_wiki_create_paragraphs(&$str)
 	{
@@ -798,7 +796,7 @@ class doc_display extends aw_template
 			}
 		}
 	}
-	
+
 	private function _parse_wiki_titles(&$str)
 	{
 		$a_str = explode("\r\n", $str);
@@ -819,18 +817,18 @@ class doc_display extends aw_template
 				$a_replacement[5] = "<h2>\\1</h2>";
 				$a_pattern[6] = "/^=(.+)=$/";
 				$a_replacement[6] = "<h1>\\1</h1>";
-				
+
 				$a_str[$i] = preg_replace  ( $a_pattern  , $a_replacement  , $a_str[$i] );
 			}
 		}
 		$str = implode  ( "\r\n", $a_str );
 	}
-	
+
 	private function _parse_wiki_lists(&$str)
 	{
 		$tmp = $str;
 		$a_text = array();
-		
+
 		// read lines to array
 		$i=0;
 		while ( strlen(trim( $tmp)) > 0 )
@@ -850,7 +848,7 @@ class doc_display extends aw_template
 			$a_text[] = array ("text" => $mt[1]);
 			$i++;
 		}
-		
+
 		// get more info to $a_text:
 		// recursion level
 		// list type (ordered, unordered)
@@ -865,7 +863,7 @@ class doc_display extends aw_template
 			$a_text[$i]["listlevel"] = $a_tmp["listlevel"] == "same_as_last" ? $a_text[$i-1]["listlevel"] : $a_tmp["listlevel"];
 			$a_text[$i]["listype"] = $a_tmp["listype"];
 		}
-		
+
 		// and finally output the list
 		for ($i=0;$i<$i_text_count;$i++)
 		{
@@ -887,7 +885,7 @@ class doc_display extends aw_template
 				$s_list_sufix = "</dl>";
 				$s_list_item = "<dd>";
 			}
-			
+
 			if ($a_text[$i-1]["listlevel"]==1 && $a_text[$i]["listlevel"]==0)
 			{
 				$tmp .= $s_list_sufix;
@@ -909,7 +907,7 @@ class doc_display extends aw_template
 				{
 					$tmp .= $s_list_prefix;
 				}
-				
+
 				// listitems
 				if (strpos  ( $a_text[$i]["text"], "*:" ) === false || strpos  ( $a_text[$i]["text"], "#:" ) === false )
 				{
@@ -921,7 +919,7 @@ class doc_display extends aw_template
 				{
 					$tmp .= "<br>".$a_text[$i]["text"];
 				}
-				
+
 				// end list
 				if ($a_text[$i]["listlevel"]>$a_text[$i+1]["listlevel"])
 				{
@@ -933,7 +931,7 @@ class doc_display extends aw_template
 				}
 			}
 		}
-		
+
 		// for debug
 		if (count($a_text)>4)
 		{
@@ -942,7 +940,7 @@ class doc_display extends aw_template
 		}
 		$str = $tmp;
 	}
-	
+
 	private function _parse_wiki_lists_get_info_about_listitem_at_line($s_line)
 	{
 		if ( preg_match  ( "/^(\*.*)\s/U" , $s_line, $mt) )
@@ -954,13 +952,13 @@ class doc_display extends aw_template
 						"listype" => "unordered",
 				);
 			}
-			
+
 			return array (
 				"listlevel" => strlen($mt[1]),
 				"listype" => "unordered",
 			);
 		}
-		
+
 		if ( preg_match  ( "/^(\#.*)\s/U" , $s_line, $mt) )
 		{
 			if (strpos  ( $s_line, "#:" ) !== false )
@@ -970,28 +968,28 @@ class doc_display extends aw_template
 						"listype" => "ordered",
 				);
 			}
-			
+
 			return array (
 				"listlevel" => strlen($mt[1]),
 				"listype" => "ordered",
 			);
 		}
-		
+
 		if ( preg_match  ( "/^(:*)\s/U" , $s_line, $mt) )
 		{
 			return array (
 				"listlevel" => strlen($mt[1]),
 				"listype" => "definitionlist",
 			);
-			
+
 		}
-		
+
 		return array (
 			"listlevel" => "0",
 			"listype" => "",
 		);
 	}
-	
+
 	private function _parse_youtube_links(&$str)
 	{
 		$tmp_template_explode = explode("/", $this->template_filename);
@@ -1006,13 +1004,13 @@ class doc_display extends aw_template
 			$str = preg_replace  ("/http:\/\/www.youtube.com\/v\/([A-Za-z0-9_-]*)|http:\/\/www.youtube.com\/v\/([A-Za-z0-9_-]*)/ims", $s_embed, $str);
 		}
 	}
-	
+
 	private function _do_forum($doc)
 	{
 		$fr = "";
 		if ($doc->prop("is_forum") &&
 			($this->is_template("FORUM_ADD_SUB") || $this->is_template("FORUM_ADD_SUB_ALWAYS") || $this->is_template("FORUM_ADD"))
-			
+
 	     	)
 		{
 			$_sect = aw_global_get("section");
@@ -1049,7 +1047,7 @@ class doc_display extends aw_template
 		$this->vars(array(
 			'FORUM_ADD' => $fr
 		));
-		
+
 		if ($doc->prop("is_forum") && $this->is_template("FORUM_POST"))
 		{
 			if ($num_comments>0)
@@ -1068,7 +1066,7 @@ class doc_display extends aw_template
 					AND
 						lang_id = ".aw_global_get("ct_lang_id")."
 					ORDER BY time ASC");
-				
+
 				$i=1;
 				while($row = $this->db_next())
 				{
@@ -1095,7 +1093,7 @@ class doc_display extends aw_template
 						"count" => $i++,
 					));
 					$tmp .= $this->parse("FORUM_POST");
-					
+
 					$this->vars(array(
 						"FORUM_POST" => $tmp,
 					));
@@ -1134,7 +1132,7 @@ class doc_display extends aw_template
 			));
 		}
 	}
-	
+
 	private function _get_edit_menu($menu)
 	{
 		if (!$this->prog_acl() || !empty($_SESSION["no_display_site_editing"]))
@@ -1146,13 +1144,13 @@ class doc_display extends aw_template
 		$url = $this->mk_my_orb("new", array("parent" => $menu->parent(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_DOCUMENT, true);
 		$pm->add_item(array(
 			"text" => t("Lisa uus"),
-			"oncl" => "onClick=\"aw_popup_scroll('$url', 'aw_doc_edit',800, 600)\"",
+			"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\",800, 600);",
 			"link" => "javascript:void(0)"
 		));
 		$url = $this->mk_my_orb("change", array("id" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_DOCUMENT, true);
 		$pm->add_item(array(
 			"text" => t("Muuda"),
-			"oncl" => "onClick=\"aw_popup_scroll('$url', 'aw_doc_edit',800, 600)\"",
+			"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\",800, 600);",
 			"link" => "javascript:void(0)"
 		));
 		$pm->add_item(array(
@@ -1176,11 +1174,11 @@ class doc_display extends aw_template
 	/** Converts aw-style relative links (#1# ... #s1#, ... } to real relative hrefs
 		@attrib api=1 params=pos
 
-		@param text required type=string 
+		@param text required type=string
 			Passed by reference, The text to replace
 
 		@returns
-			none, text is replaced in-place. 
+			none, text is replaced in-place.
 	**/
 	function create_relative_links(&$text)
 	{
@@ -1335,7 +1333,7 @@ class doc_display extends aw_template
 		@param lc optional type=string
 			The language to create the link for. Defaults to the current language
 
-		@returns 
+		@returns
 			A link that displays the current document in the website
 	**/
 	public static function get_doc_link($doc, $lc = null)
@@ -1373,7 +1371,7 @@ class doc_display extends aw_template
 
 		return $doc_link;
 	}
-	
+
 	// todo 2 viimast if'i
 	public function get_date_human_readable($i_timestamp_created)
 	{
@@ -1391,9 +1389,9 @@ class doc_display extends aw_template
 			11=>t("november"),
 			12=>t("detsember")
 		);
-	
+
 		$i_time_from_created_to_current_time = time() - $i_timestamp_created;
-		
+
 		if ($i_time_from_created_to_current_time < 60)
 		{
 			return t("Just postitatud");
@@ -1438,12 +1436,12 @@ class doc_display extends aw_template
 		{
 			return date("j", $i_timestamp_created).". ".$a_months[date("n", $i_timestamp_created)];
 		}
-		else 
+		else
 		{
 			return date("j", $i_timestamp_created).". ".$a_months[date("n", $i_timestamp_created)]." ".date("Y", $i_timestamp_created);
 		}
 	}
-	
+
 	private function parse_keywords($doc)
 	{
 		// parse subs KEYWORD_BEGIN, KEYWORD and KEYWORD_END
@@ -1458,7 +1456,7 @@ class doc_display extends aw_template
 			{
 				$a_keywords = explode(",", $doc->prop("keywords"));
 			}
-			
+
 			$tmp = "";
 			for ($i=0;$i<count($a_keywords);$i++)
 			{
@@ -1468,38 +1466,38 @@ class doc_display extends aw_template
 						"text" => $a_keywords[$i],
 						"link" => "link",
 					));
-					
+
 					$tmp .= trim($this->parse("KEYWORD_BEGIN"));
 					continue;
 				}
-				
+
 				if ($i<count($a_keywords)-1 && $this->is_template("KEYWORD"))
 				{
 					$this->vars(array(
 						"text" =>  $a_keywords[$i],
 						"link" => "link",
 					));
-					
+
 					$tmp .= trim($this->parse("KEYWORD"));
 					continue;
 				}
-				
+
 				if ($i==count($a_keywords)-1 && $this->is_template("KEYWORD_END"))
 				{
 					$this->vars(array(
 						"text" =>  $a_keywords[$i],
 						"link" => "link",
 					));
-					
+
 					$tmp .= trim($this->parse("KEYWORD_END"));
 					continue;
 				}
-				
+
 				$this->vars(array(
 						"text" =>  $a_keywords[$i],
 						"link" => "link",
 					));
-				
+
 				$tmp .= trim($this->parse("KEYWORD"));
 			}
 			// now try to put the keywords to template
@@ -1515,8 +1513,8 @@ class doc_display extends aw_template
 						"KEYWORD" => $tmp,
 				));
 			}
-			
-			
+
+
 		}
 
 	}

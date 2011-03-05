@@ -1797,7 +1797,7 @@ class task extends class_base
 						if($orderer->id() == $arr["obj_inst"]->prop("customer")) $different_customers = 0;
 					}
 				}
-				//if($different_customers) $prop["error"]arr("asdasd");
+
 				$url = $this->mk_my_orb("error_popup", array(
 					"text" => t("<br /><br /><br />Valitud Projekti ja Toimetuse kliendid erinevad"),
 				));
@@ -1806,10 +1806,11 @@ class task extends class_base
 					$prop["error"] = "<script name= javascript>window.open('".$url."','', 'toolbar=no, directories=no, status=no, location=no, resizable=yes, scrollbars=yes, menubar=no, height=150, width=500')</script>";
 					return PROP_ERROR;
 				}
+
 				if (!(strlen($arr["request"]["hr_price"])> 0))
 				{
 					$prop["error"] = t("Tunnihind sisestamata!");
-					//return PROP_ERROR;
+					return PROP_ERROR;
 				}
 				break;
 
@@ -1819,9 +1820,9 @@ class task extends class_base
 		return $retval;
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
-		$arr["args"]["stop_pop"] = $arr["request"]["ppa"];
+		if (isset($arr["request"]["ppa"])) $arr["args"]["stop_pop"] = $arr["request"]["ppa"];
 	}
 
 	function callback_pre_save($arr)
@@ -1892,73 +1893,64 @@ class task extends class_base
 			}
 		}
 
-		if (is_oid($arr["request"]["predicates"]) && $this->can("view", $arr["request"]["predicates"]))
+		if (!empty($arr["request"]["predicates"]))
 		{
-			$arr["obj_inst"]->connect(array(
-				"to" => $arr["request"]["predicates"],
-				"reltype" => "RELTYPE_PREDICATE"
-			));
-		}
-
-		if ($this->can("view", $_POST["predicates"]))
-		{
-			$arr["obj_inst"]->connect(array(
-				"to" => $_POST["predicates"],
-				"type" => "RELTYPE_PREDICATE"
-			));
-		}
-
-		if ($_POST["predicates"] > 0)
-		{
-			foreach(explode(",", $_POST["predicates"]) as $pred)
+			$predicates = explode(",", $arr["request"]["predicates"]);
+			foreach($predicates as $pred)
 			{
-				$arr["obj_inst"]->connect(array(
-					"to" => $pred,
-					"type" => "RELTYPE_PREDICATE"
-				));
+				if ($this->can("view", $pred))
+				{
+					$arr["obj_inst"]->connect(array(
+						"to" => $pred,
+						"type" => "RELTYPE_PREDICATE"
+					));
+				}
 			}
 		}
 
-		if ($arr["request"]["participants_h"] > 0)
+		if (!empty($arr["request"]["participants_h"]))
 		{
 			$this->post_save_add_parts = explode(",", $arr["request"]["participants_h"]);
 		}
 
-		if ($_POST["participants_h"] > 0)
-		{
-			$this->post_save_add_parts = explode(",", $_POST["participants_h"]);
-		}
-
-		if ($this->can("view", $_POST["orderer_h"]))
+		if (!empty($arr["request"]["orderer_h"]) and $this->can("view", $arr["request"]["orderer_h"]))
 		{
 			$arr["obj_inst"]->connect(array(
-				"to" => $_POST["orderer_h"],
+				"to" => $arr["request"]["orderer_h"],
 				"type" => "RELTYPE_CUSTOMER"
 			));
-			$arr["obj_inst"]->set_prop("customer" , $_POST["orderer_h"]);
+			$arr["obj_inst"]->set_prop("customer" , $arr["request"]["orderer_h"]);
 			$arr["obj_inst"]->save();
 		}
 
-		if ($_POST["project_h"] > 0)
+		if (!empty($arr["request"]["project_h"]))
 		{
-			foreach(explode(",", $_POST["project_h"]) as $proj)
+			$projects = explode(",", $arr["request"]["project_h"]);
+			foreach($projects as $proj)
 			{
-				$arr["obj_inst"]->connect(array(
-					"to" => $proj,
-					"type" => "RELTYPE_PROJECT"
-				));
-				$arr["obj_inst"]->create_brother($proj);
+				if ($this->can("view", $proj))
+				{
+					$arr["obj_inst"]->connect(array(
+						"to" => $proj,
+						"type" => "RELTYPE_PROJECT"
+					));
+					$arr["obj_inst"]->create_brother($proj);
+				}
 			}
 		}
 
-		if ($_POST["files_h"] > 0)
+		if (!empty($arr["request"]["files_h"]))
 		{
-			foreach(explode(",", $_POST["files_h"]) as $proj)
+			$files = explode(",", $arr["request"]["files_h"]);
+			foreach($files as $file)
 			{
-				$arr["obj_inst"]->connect(array(
-					"to" => $proj,
-					"type" => "RELTYPE_FILE"
-				));
+				if ($this->can("view", $file))
+				{
+					$arr["obj_inst"]->connect(array(
+						"to" => $file,
+						"type" => "RELTYPE_FILE"
+					));
+				}
 			}
 		}
 
@@ -1973,8 +1965,8 @@ class task extends class_base
 			{
 				$this->add_participant($arr["obj_inst"], obj($person));
 			}
-
 		}
+
 		//the person who added the task will be a participant, whether he likes it
 		//or not
 		if(!empty($arr['new']))
@@ -2037,13 +2029,9 @@ class task extends class_base
 			unset($_SESSION["add_to_task"]);
 		}
 
-
-		if($arr["obj_inst"]->class_id() == CL_CRM_CALL)
+		if($arr["obj_inst"]->class_id() == CL_CRM_CALL and !empty($arr["request"]["add_clauses"]["create_bug"]))
 		{
-			if($arr["request"]["add_clauses"]["create_bug"])
-			{
-				$arr["obj_inst"]->create_bug();
-			}
+			$arr["obj_inst"]->create_bug();
 		}
 	}
 
@@ -4560,7 +4548,7 @@ class task extends class_base
 		}
 		else
 		{
-			print sprintf(t("Puuduvad &otilde;igused m&auml;&auml;rata tehtud t&ouml;id arvele! P&ouml;&ouml;rduge kliendihaldur %s poole!"), $arr["obj_inst"]->get_client_mgr_name());
+			$this->show_error_text(sprintf(t("Puuduvad &otilde;igused m&auml;&auml;rata tehtud t&ouml;id arvele! P&ouml;&ouml;rduge kliendihaldur %s poole!"), $arr["obj_inst"]->get_client_mgr_name()));
 			return PROP_ERROR;
 		}
 
@@ -5096,7 +5084,6 @@ class task extends class_base
 			window.close();
 			</script>'
 		);
-		//die($arr["error"]."\n<br>"."<input type=button value='OK' onClick='javascript:window.close();'>");
 	}
 
 	/**
@@ -5112,7 +5099,6 @@ class task extends class_base
 			window.close();
 			</script>'
 		);
-		//die($arr["error"]."\n<br>"."<input type=button value='OK' onClick='javascript:window.close();'>");
 	}
 
 	function _init_co_table($t)

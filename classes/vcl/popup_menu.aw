@@ -1,13 +1,10 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class popup_menu extends aw_template
 {
 	var $items = array();
 	var $menus = array();
 	var $menu_id;
-
 
 	function popup_menu()
 	{
@@ -42,18 +39,34 @@ class popup_menu extends aw_template
 			Item's caption
 		@param link required type=string
 			Item's link
-		@param target optional type=string
-			If true, link iopens in new window
+		@param parent optional type=string
+			Submenu id. Created with popup_menu::add_sub_menu()
+		@param action optional type=string default=""
+			Action to submit on current 'changeform', takes precedence over $link if specified
+		@param onclick optional type=string default=""
+			What to do on click event. May contain double quotes. Must end with semicolon.
+		@param href_id optional type=string default=""
+			Element DOM identifier
+		@param title optional type=string default=""
+			A tooltip style title
+		@param target optional type=bool default=false
+			If true, link opens in new window
+		@param disabled optional type=bool default=false
+			Show an unusable menu item
+		@param emphasized optional type=bool default=false
+			Menu item visual emphasis
+		@param confirm optional type=string default=""
+			Yes/no question to show user for confirmation
 
 		@comment
 			adds new item to popup menu
 		@examples
-                        $popup_menu = get_instance("vcl/popup_menu");
-                        $popup_menu->begin_menu("my_popup_menu");
-                        $popup_menu->add_item(array(
-                                "text" => t("Valik"),
-                                "link" => 'http://www.neti.ee'
-                        ));
+			$popup_menu = new popup_menu();
+			$popup_menu->begin_menu("my_popup_menu");
+			$popup_menu->add_item(array(
+					"text" => t("Valik"),
+					"link" => 'http://www.neti.ee/'
+			));
 	**/
 	function add_item($arr)
 	{
@@ -62,62 +75,57 @@ class popup_menu extends aw_template
 			$arr["parent"] = $this->menu_id;
 		}
 
-		global $mc_counter;
-		$mc_counter++;
-		if (!empty($arr["onClick"]))
+		$caption = empty($arr["text"]) ? "[MENU ITEM]" : $arr["text"];
+		$attribs = array("class" => "menuItem", "caption" => $caption);
+		if (!empty($arr["href_id"])) $attribs["id"] = $arr["href_id"]; // DOM id
+		if (!empty($arr["title"])) $attribs["title"] = $arr["title"]; // link title
+
+		if(empty($arr["disabled"]))
 		{
-			$arr["onClick"] = " onClick=\"". $arr["onClick"] . "\"";
+			// href
+			if (!empty($arr["action"]))
+			{
+				$attribs["url"] = "javascript:submit_changeform('{$arr["action"]}');";
+			}
+			elseif (!empty($arr["link"]))
+			{
+				$attribs["url"] = $arr["link"];
+			}
+			else
+			{
+				$attribs["url"] = "javascript:void(0);";
+			}
+
+			// onclick
+			$attribs["onclick"] = "";
+			if (!empty($arr["onClick"])) $attribs["onclick"] = $arr["onClick"];
+			if (!empty($arr["onclick"])) $attribs["onclick"] = $arr["onclick"];
+
+			// target window/frame
+			if (!empty($arr["target"])) $attribs["target"] = "_blank";
+
+			// confirmation dialog
+			if (!empty($arr["confirm"])) $attribs["onclick"] .= "return confirm(\"{$arr["confirm"]}\");";
+
+			$style = "";
 		}
 		else
 		{
-			$arr["onClick"] = "";
+			$attribs["url"] = "javascript:void(0);";
+			$style = "color: gray; text-decoration: none; cursor: default;";
 		}
 
-		if (!empty($arr["oncl"]))
-		{
-			$arr["onClick"] = $arr["oncl"];
-		}
+		if (!empty($arr["emphasized"])) $style .= "background-color: silver;"; // emphasis
 
-		if (isset($arr["link"]))
-		{
-			$arr["url"] = $arr["link"];
-		}
+		$attribs["style"] = $style;
 
-		if (isset($arr["action"]))
-		{
-			$arr["url"] = "javascript:submit_changeform('$arr[action]');";
-		}
-
-		$id = "";
-		if (!empty($arr["href_id"]))
-		{
-			$id = "id='$arr[href_id]'";
-		}
-
-		$target = "";
-		if (!empty($arr["target"]))
-		{
-			$target = " target=\"_blank\" ";
-		}
-		$title = "";
-		if(!empty($arr["title"]))
-		{
-			$title = $arr["title"];
-		}
-
-		if (empty($arr["disabled"]))
-		{
-			$rv ='<a '.$id.' class="menuItem" '.$target.' href="'.$arr["url"].'" '.$arr["onClick"].'>'.$arr["text"]."</a>\n";
-		}
-		else
-		{
-			$rv = '<a '.$id.' class="menuItem" '.$target.' href="" title="'.$title.'" onclick="return false;" style="color:gray">'.$arr["text"]."</a>\n";
-		}
+		$rv = html::href($attribs);
 
 		if (!isset($this->menus[$arr["parent"]]))
 		{
 			$this->menus[$arr["parent"]] = "";
 		}
+
 		$this->menus[$arr["parent"]] .= $rv;
 	}
 
@@ -270,4 +278,3 @@ class popup_menu extends aw_template
 		return $this->parse();
 	}
 }
-?>

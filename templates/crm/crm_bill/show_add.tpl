@@ -1,92 +1,105 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-4">
-<title>arve</title>
-<style type="text/css" media="all">
-<!--
-html {
-	height: 100%
-}
-body {
-	font-family: Arial, Helvetica, sans-serif;
-	color: #000;
-	font-size: 12px;
-	margin-left: 15px;
-	margin-top: 60px;
-}
-.suur {
-	font-size: 18px;
-}
-.border {
-	border-bottom: 1px solid #000;
-}
-.style3 {
-	font-family: "Times New Roman", Times, serif;
-	font-size: 18px;
-	font-weight: bold;
-}
-.style6 {
-	font-family: "Times New Roman", Times, serif;
-	font-size: 16px;
-}
-.style8 {font-size: 14px}
--->
-</style>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Arve nr {VAR:bill_no} aruanne</title>
+
+	<style type="text/css">
+		body { font-size: 12px; font-family: Arial; margin: 2em 0 2em 0; text-align: center; }
+		h1 { font-size: 16px; color: #05A6E9; padding: 1em 0 0 0.4em; margin: 0; }
+		h2 { font-size: 14px; color: #666666; padding: 2em 0 1em 0.4em; margin: 0; }
+		p { margin: 0; }
+
+		#bill { width: 760px; height: 100%; margin: auto; }
+
+		#bill td.logo { padding-left: 0.4em; }
+		#bill td.text { width: 50%; padding-right: 1em; border-right: 3px solid #D50000; text-align: right; font-size: 11px; color: #666666; height: 6em; }
+
+		#bill tr td.heading { height: 2em; }
+
+		#bill tr td.main { vertical-align: top; padding: 0 0 3em 0; }
+		#bill tr td.main table { width: 100%; font-size: 12px; font-family: Arial; }
+		#bill tr td.main table tr th { text-align: left; border-bottom: 1px solid #cccccc; padding: 0.4em; color: #666666; }
+		#bill tr td.main table tr td { border-bottom: 1px solid #cccccc; padding: 0.4em; }
+		#bill tr td.main table tr td.caption { text-align: right; color: #666666; font-weight: bold; padding-right: 1em; border: 0px;}
+		#bill tr td.main table tr td.words { border: 0px; text-align: right; }
+		#bill tr td.main table tr td.words strong { color: #666666; padding-right: 1em; }
+
+		#bill tr td.footer { border-top: 1px solid #cccccc; text-align: center; font-size: 11px; color: #666666; vertical-align: bottom; height: 2em; }
+	</style>
+
+	<style type="text/css" media="print">
+		body { margin: 0; }
+		#bill { width: 100%; }
+		#bill tr td.main table tr th { border-bottom: 1px solid #aaaaaa; }
+		#bill tr td.main table tr td { border-bottom: 1px solid #aaaaaa; }
+		#bill tr td.footer { border-top: 1px solid #aaaaaa; }
+	</style>
 </head>
 
 <body>
-<table width="20" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td height="25">&nbsp;</td>
-  </tr>
+
+<table id="bill" cellpadding="0" cellspacing="0" border="0">
+	<tr class="header">
+		<td class="logo">
+			<img src="http://intranet.automatweb.com/img/bill/logo.png">
+		</td>
+		<td class="text">
+			<p><strong>{VAR:impl_name}</strong></p>
+			<p>Reg. nr. {VAR:impl_reg_nr}</p>
+			<p>a/a {VAR:acct_no}</p>
+			<p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city}</p>
+			<p>Tel 6 558 334</p>
+			<p>www.automatweb.com</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="heading">
+			<h1>Arve nr {VAR:bill_no} aruanne</h1>
+		</td>
+	</tr>
+	<!-- SUB: HAS_COMMENT -->
+	<tr>
+		<td colspan="2" style="font-size: 12px; font-family: Arial; padding: 2em 0 1em 0; text-align: left;">
+			{VAR:comment}
+		</td>
+	</tr>
+	<!-- END SUB: HAS_COMMENT -->
+	<tr>
+		<td colspan="2" class="main">
+			<!-- SUB: GROUP_ROWS -->
+			<h2>{VAR:uniter}</h2>
+			<table cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<th width="10%">ID</th>
+					<th width="10%">Kuupäev</th>
+					<th width="40%">Selgitus</th>
+					<th width="10%">Kogus</th>
+					<th width="10%">Hind</th>
+					<th width="20%">Summa</th>
+				</tr>
+				<!-- SUB: ROW -->
+				<tr>
+					<td>{VAR:task_row_id}&nbsp;</td>
+					<td>{VAR:date}&nbsp;</td>
+					<td>{VAR:desc}&nbsp;</td>
+					<td>{VAR:amt}&nbsp;</td>
+					<td>{VAR:price}&nbsp;</td>
+					<td>{VAR:sum} {VAR:ord_currency_name}&nbsp;</td>
+				</tr>
+				<!-- END SUB: ROW -->
+			</table>
+			<!-- END SUB: GROUP_ROWS -->
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="footer">
+			<p>{VAR:impl_name} | Reg. nr. {VAR:impl_reg_nr} | {VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel 6 558 334 | www.automatweb.com</p>
+		</td>
+	</tr>
 </table>
 
-<table width="690" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
-  
-  
-  <tr>
-    <td height="48" colspan="6" align="left" valign="middle" bgcolor="#CCCCCC" class="style3" style="padding-left:111px">Lisa nr. 1 arvele nr. {VAR:bill_no}<br>
-    {VAR:time_spent_desc} </td>
-  </tr>
-
-  
-  <tr valign="middle">
-    <td width="96" height="44" align="center"><span class="style3">Kuup&auml;ev</span></td>
-    <td width="465" align="left" style="padding-left:6px"><span class="style3"> </span></td>
-    <td width="465" align="left" style="padding-left:6px"><span class="style3"> T&ouml;&ouml; sisu </span></td>
-    <td width="97" align="center"><span class="style3">Kulunud aeg</span> </td>
-  </tr>
-  <!-- SUB: ROW -->
-  <tr valign="middle">
-    <td height="28" align="center"><span class="style8">{VAR:date}</span></td>
-    <td height="28" align="center"><span class="style8">{VAR:comment}</span></td>
-    <td align="left" style="padding-left: 6px"><span class="style8">{VAR:desc}</span></td>
-   
-    <td align="center"><span class="style8">{VAR:amt}</span></td>
-  </tr>
-    <!-- END SUB: ROW -->
-  <tr valign="middle">  <td height="28" colspan="3" align="left" bgcolor="#CCCCCC"></td>
-
-    <td height="28" colspan="3" align="left" bgcolor="#CCCCCC">
-
-
-
-<table width="99" border="0" align="right" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="99"><div align="center" class="style3">{VAR:tot_amt} t</div></td>
-      </tr>
-    </table></td>
-  </tr>
-</table>
-<br>
-<br>
-<table width="690" border="0" cellspacing="2" cellpadding="1">
-  <tr>
-    <td><span class="style6">{VAR:comment} </span></td>
-  </tr>
-</table>
-<p>&nbsp;</p>
 </body>
 </html>

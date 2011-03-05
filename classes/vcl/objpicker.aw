@@ -1,9 +1,5 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
-
 class objpicker extends core implements vcl_interface
 {
 	/**
@@ -243,6 +239,3 @@ class awex_vcl_objpicker extends awex_vcl {}
 
 /** Argument type error indicator **/
 class awex_vcl_objpicker_arg extends awex_vcl {}
-
-
-?>

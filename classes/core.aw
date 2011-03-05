@@ -263,7 +263,7 @@ class core extends acl_base
 		if ($oid)
 		{
 			$this->db_query("UPDATE hits SET hits=hits+1 WHERE oid = $oid");
-		};
+		}
 	}
 
 	/** Signals an error condition, displays it to the user if specified, sends an e-mail and registers error if configured. All relavant variables and a backtrace are displayed. If specified, also halts execution.

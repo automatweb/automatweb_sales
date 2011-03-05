@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class object_list_filter
 {
@@ -44,5 +41,3 @@ class object_list_filter
 		return "object_list_filter(".serialize($this->filter).")";
 	}
 }
-
-?>

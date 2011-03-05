@@ -33,7 +33,7 @@
 	</td>
 	<td width="2" bgcolor="#000000"><img src='{VAR:baseurl}/automatweb/images/trans.gif'></td>
 
-	<td valign="top"  width="25%" class="text"><B>Depends</b><Br>
+	<td valign="top"  width="25%" class="text"><b>Depends</b><br>
 		<!-- SUB: DEP -->
 		&nbsp; - <a href='{VAR:link}'>{VAR:name}</a><br>
 		<!-- END SUB: DEP -->
@@ -45,14 +45,14 @@
 	</td>
 	<td width="2" bgcolor="#000000"><img src='{VAR:baseurl}/automatweb/images/trans.gif'></td>
 
-	<td valign="top"  width="25%" class="text"><B>Implements</b><br>
+	<td valign="top"  width="25%" class="text"><b>Implements</b><br>
 		<!-- SUB: IMPLEMENTS -->
 		&nbsp; - <a href='{VAR:link}'>{VAR:name}</a><br>
 		<!-- END SUB: IMPLEMENTS -->
 	</td>
 	<td width="2" bgcolor="#000000"><img src='{VAR:baseurl}/automatweb/images/trans.gif'></td>
 
-	<td valign="top"  width="25%" class="text"><B>Throws</b><Br>
+	<td valign="top"  width="25%" class="text"><b>Throws</b><br>
 		<!-- SUB: THROWS -->
 		&nbsp; - <a href='{VAR:link}'>{VAR:name}</a><br>
 		<!-- END SUB: THROWS -->
@@ -70,25 +70,25 @@
 		<!-- SUB: HAS_API -->
 		<b>API methods:</b><br>
 		<!-- SUB: API_FUNCTION -->
-		<a href='{VAR:view_func}'>{VAR:name}</a><br>
+		<li><a href='{VAR:view_func}'>{VAR:name}</a></li>
 		<i>{VAR:short_comment}</i>
 		<!-- END SUB: API_FUNCTION -->
 		<br>
 		<!-- END SUB: HAS_API -->
 
 		<!-- SUB: HAS_ORB -->
-		<B>ORB methods:</b><br>
+		<b>ORB methods:</b><br>
 		<!-- SUB: ORB_FUNCTION -->
-		<a href='{VAR:view_func}'>{VAR:name}</a><br>
+		<li><a href='{VAR:view_func}'>{VAR:name}</a></li>
 		<i>{VAR:short_comment}</i>
 		<!-- END SUB: ORB_FUNCTION -->
 		<br>
 		<!-- END SUB: HAS_ORB -->
 
 		<!-- SUB: HAS_IF -->
-		<B>methods from interface {VAR:if_name}:</b><br>
+		<b>methods from interface {VAR:if_name}:</b><br>
 		<!-- SUB: IF_FUNCTION -->
-		<a href='{VAR:view_func}'>{VAR:name}</a><br>
+		<li><a href='{VAR:view_func}'>{VAR:name}</a></li>
 		<i>{VAR:short_comment}</i>
 		<!-- END SUB: IF_FUNCTION -->
 		<br>
@@ -97,7 +97,7 @@
 		<!-- SUB: HAS_CB -->
 		<b>class_base methods:</b><br>
 		<!-- SUB: CB_FUNCTION -->
-		<a href='{VAR:view_func}'>{VAR:name}</a><br>
+		<li><a href='{VAR:view_func}'>{VAR:name}</a></li>
 		<i>{VAR:short_comment}</i>
 		<!-- END SUB: CB_FUNCTION -->
 		<br>
@@ -106,7 +106,7 @@
 		<!-- SUB: HAS_OTHER -->
 		<b>other public methods</b><br>
 		<!-- SUB: OTHER_FUNCTION -->
-		<a href='{VAR:view_func}'>{VAR:name}</a><br>
+		<li><a href='{VAR:view_func}'>{VAR:name}</a></li>
 		<i>{VAR:short_comment}</i>
 		<!-- END SUB: OTHER_FUNCTION -->
 		<br>
@@ -115,7 +115,7 @@
 		<!-- SUB: HAS_PRIVATE -->
 		<b>private methods</b><br>
 		<!-- SUB: PRIVATE_FUNCTION -->
-		<a href='{VAR:view_func}'>{VAR:name}</a><br>
+		<li><a href='{VAR:view_func}'>{VAR:name}</a></li>
 		<i>{VAR:short_comment}</i>
 		<!-- END SUB: PRIVATE_FUNCTION -->
 		<br>
@@ -196,7 +196,7 @@
 		<!-- END SUB: DEFINES -->
 		</table>
 		<br>
-		<B>Templates, from folder {VAR:tpl_folder}:</b><br>
+		<b>Templates, from folder {VAR:tpl_folder}:</b><br>
 		<table border="0" cellpadding="1" cellspacing="0" width="100%" class="class_info">
 			<th>Function</th>
 			<th>Template file</th>

@@ -98,8 +98,10 @@ class toolbar extends aw_template
 			An URL, to where the item links to.
 		@param action
 			A action name which item shold trigger.
-		@param onClick
-			An onclick action.(javascript etc)
+		@param onclick
+			An onclick action.(javascript etc). Double quotes must be escaped. Must end with semicolon.
+		@param confirm optional type=string default=""
+			Yes/no question to show user for confirmation. Double quotes must be escaped.
 		@comment
 			Adds menu item under specified menu button.
 		@examples
@@ -119,11 +121,15 @@ class toolbar extends aw_template
 	**/
 	public function add_menu_item($arr)
 	{
-		global $mc_counter;
-		$mc_counter++;
-
 		$id = empty($arr["href_id"]) ? "" : " id=\"".$arr["href_id"]."\"";
-		$onclick = empty($arr["onClick"]) ? "" : " onclick=\"{$arr["onClick"]}\"";
+
+		if (!empty($arr["onClick"])) $arr["onclick"] = $arr["onClick"];
+		$onclick = empty($arr["onclick"]) ? "" : $arr["onclick"];
+
+		// confirmation dialog
+		if (!empty($arr["confirm"])) $onclick .= "return confirm('{$arr["confirm"]}');";
+
+		$onclick = $onclick ? " onclick=\"{$onclick}\"" : "";
 
 		if (!empty($arr["link"]))
 		{
@@ -141,7 +147,7 @@ class toolbar extends aw_template
 		}
 		else
 		{
-			$rv = "<a class=\"menuItem\" href=\"\" title=\"{$arr["title"]}\"{$id} onclick=\"return false;\" style=\"color:gray\">{$arr["text"]}</a>\n";
+			$rv = "<a class=\"menuItem\" href=\"\" title=\"{$arr["title"]}\"{$id} onclick=\"javascript:void(0);\" style=\"color:gray\">{$arr["text"]}</a>\n";
 		}
 
 		if (isset($this->menus[$arr["parent"]]))
