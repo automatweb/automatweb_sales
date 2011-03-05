@@ -186,10 +186,14 @@ class mysql_pdo
 	{
 		# this function cannot be called before a query is made
 		// don't need numeric indices
-		$res = $this->qID->fetch(PDO::FETCH_ASSOC);
-		if ($res)
+		$res = array();
+		if ($this->qID)
 		{
-			$this->rec_count++;
+			$res = $this->qID->fetch(PDO::FETCH_ASSOC);
+			if ($res)
+			{
+				$this->rec_count++;
+			}
 		}
 		return $res;
 	}
