@@ -89,9 +89,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			{
 				$i->create_obj_access($tmp);
 			}
-			aw_disable_acl();
 			$curp = obj($tmp);
-			aw_restore_acl();
 		}
 		return $curp;
 	}
@@ -2527,7 +2525,6 @@ function eval_buffer($res)
 			$user->save();
 		}
 		aw_switch_user(array("uid" => $user->name()));
-		aw_disable_acl();
 	}
 
 	/**
@@ -2537,7 +2534,6 @@ function eval_buffer($res)
 	function end_superuser()
 	{
 		aw_restore_user();
-		aw_restore_acl();
 	}
 
 	/**

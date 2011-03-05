@@ -1,9 +1,5 @@
 <?php
 
-/*
-@classinfo  maintainer=markop
-*/
-
 class crm_company_overview_impl extends class_base
 {
 	function crm_company_overview_impl()
@@ -770,7 +766,7 @@ class crm_company_overview_impl extends class_base
 			$done_ic_url = aw_ini_get("baseurl")."/automatweb/images/icons/class_".$task->class_id()."_done.gif";
 			$pm->add_item(array(
 				"text" => t("M&auml;rgi tehtuks"),
-				"oncl" => "onClick=\"bg_mark_task_done('$link', 'task$task_nr', '$done_ic_url')\"",
+				"onclick" => "bg_mark_task_done(\"{$link}\", \"task{$task_nr}\", \"{$done_ic_url}\");",
 				"link" => "javascript:void(0)"
 			));
 			$pm->add_item(array(
@@ -792,7 +788,7 @@ class crm_company_overview_impl extends class_base
 				$pm->add_item(array(
 					"text" => t("K&auml;ivita stopper"),
 					"link" => "#",
-					"oncl" => "onClick='aw_popup_scroll(\"$url\",\"aw_timers\",320,400)'"
+					"onclick" => "aw_popup_scroll(\"{$url}\",\"aw_timers\",320,400)"
 				));
 			}
 			else
@@ -813,15 +809,15 @@ class crm_company_overview_impl extends class_base
 				$pm->add_item(array(
 					"text" => sprintf(t("Peata stopper (%s)"), $elapsed),
 					"link" => "#",
-					"oncl" => "onClick='aw_popup_scroll(\"$url\",\"aw_timers\",320,400)'"
+					"onclick" => "aw_popup_scroll(\"{$url}\",\"aw_timers\",320,400)"
 				));
 			}
 			$pm->add_item(array(
 				"text" => t("Kustuta"),
-				"oncl" => "onClick=\"if(!confirm('".t("Olete kindel et soovide toimetust kustutada?")."')) { return false; } else {window.location = '".$this->mk_my_orb("delete_tasks", array(
+				"onclick" => "if(!confirm(\"".t("Olete kindel et soovide toimetust kustutada?")."\")) { return false; } else {window.location = \"".$this->mk_my_orb("delete_tasks", array(
 					"sel" => array($t_id => $t_id),
 					"post_ru" => get_ru()
-				), CL_CRM_COMPANY)."'}\"",
+				), CL_CRM_COMPANY)."\"}",
 				"link" => "#"
 			));
 			// if this thing has recurrences attached, then stick those in there
@@ -1475,7 +1471,7 @@ class crm_company_overview_impl extends class_base
 					}
 					break;
 			}
-			
+
 
 // 			$col = new object_list(array(
 // 				"class_id" => array(CL_CRM_MEETING, CL_CRM_CALL, CL_TASK, CL_BUG , CL_DOCUMENT),
@@ -1910,7 +1906,7 @@ class crm_company_overview_impl extends class_base
 					$tasks = $this->make_keys($ol->ids());
 				break;
 
-			default: 
+			default:
 				enter_function("_get_task_list:2:1");
 				$clid = array(CL_TASK,CL_CRM_MEETING,CL_CRM_CALL,CL_CRM_OFFER);
 				$clid2 = array("CL_TASK","CL_CRM_MEETING","CL_CRM_CALL");
@@ -2463,33 +2459,33 @@ class crm_company_overview_impl extends class_base
 // 			CL_CRM_MEETING => t("Kohtumine"),
 // 			CL_CRM_CALL => t("K&otilde;ne")
 // 		);
-// 
+//
 // 		$time_types = array(
 // 			"currentweek" => t("Jooksev n&auml;dal"),
 // 			"currentmonth" => t("Jooksev kuu"),
 // 			"lastmonth" => t("Eelmine kuu"),
 // 		);
-// 
+//
 //  		$call_params = array(
 //  			"done" => t("Tehtud"),
 //  			"planned" => t("Plaanis"),
 //  		);
-//  
+//
 //  		$meeting_params = array(
 //  			"past" => t("Toimunud"),
 //  			"planned" => t("Tulekul"),
 //  		);
-//  
+//
 //  		$task_params = array(
 //  			"undone" => t("Tegemata"),
 //  			"overdeadline" => t("&Uuml;le t&auml;htaja"),
 //  		);
-//  
+//
 //  		$bugs_params = array(
 //  			"undone" => t("Tegemata"),
 //  			"overdeadline" => t("&Uuml;le t&auml;htaja"),
 //  		);
-// 
+//
 // 		foreach($types as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".$type_id)
@@ -2503,7 +2499,7 @@ class crm_company_overview_impl extends class_base
 // 				"iconurl" => icons::get_icon_url($type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($time_types as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".$type_id)
@@ -2516,7 +2512,7 @@ class crm_company_overview_impl extends class_base
 // 				"url" => aw_url_change_var("st", $parent."_".$type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($call_params as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_CRM_CALL."_".$type_id)
@@ -2541,7 +2537,7 @@ class crm_company_overview_impl extends class_base
 // 				"url" => aw_url_change_var("st", $parent."_".CL_CRM_CALL."_".$type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($meeting_params as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_CRM_MEETING."_".$type_id)
@@ -2566,7 +2562,7 @@ class crm_company_overview_impl extends class_base
 // 				"url" => aw_url_change_var("st", $parent."_".CL_CRM_MEETING."_".$type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($task_params as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_TASK."_".$type_id)
@@ -2591,7 +2587,7 @@ class crm_company_overview_impl extends class_base
 // 				"url" => aw_url_change_var("st", $parent."_".CL_TASK."_".$type_id),
 // 			));
 // 		}
-// 
+//
 // 		foreach($bugs_params as $type_id => $type)
 // 		{
 // 			if (isset($_GET["st"]) && $_GET["st"] == $parent."_".CL_BUG."_".$type_id)
@@ -2684,18 +2680,18 @@ class crm_company_overview_impl extends class_base
  			"done" => t("Tehtud"),
  			"planned" => t("Plaanis"),
  		);
- 
+
  		$meeting_params = array(
  			"past" => t("Toimunud"),
  			"planned" => t("Tulekul"),
  		);
- 
+
  		$task_params = array(
  			"done" => t("Tehtud"),
  			"undone" => t("Tegemata"),
  			"overdeadline" => t("&Uuml;le t&auml;htaja"),
  		);
- 
+
  		$bugs_params = array(
  			"done" => t("L&otilde;petatud"),
  			"undone" => t("Pooleli"),
@@ -2966,8 +2962,8 @@ class crm_company_overview_impl extends class_base
 	{
 		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(
-			array(CL_CRM_ACTIVITY_STATS_TYPE), 
-			$arr["obj_inst"]->id(), 
+			array(CL_CRM_ACTIVITY_STATS_TYPE),
+			$arr["obj_inst"]->id(),
 			71 /* RELTYPE_ACTIVITY_STATS_TYPE */
 		);
 		$tb->add_delete_button();
@@ -2983,4 +2979,3 @@ class crm_company_overview_impl extends class_base
 		);
 	}
 }
-?>

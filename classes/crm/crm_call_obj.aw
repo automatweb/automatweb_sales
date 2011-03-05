@@ -21,6 +21,8 @@ class crm_call_obj extends task_object implements crm_sales_price_component_inte
 	const ERR_STATE_ENDED = 1; // call state error code for situations where 'ended' is unexpected
 	const ERR_STATE_NEW = 2;// call state error code for situations where 'new' is unexpected
 
+	const DEFAULT_DURATION = 600; // default planned call length, seconds
+
 	private static $read_only_when_done = array(
 		"real_start", "start1", "end", "real_duration", "real_maker", "deadline"
 	);

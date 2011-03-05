@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=robert
-*/
 
 class bug_object extends _int_object
 {
@@ -22,7 +19,7 @@ class bug_object extends _int_object
 
 	function set_prop($name,$value)
 	{
-		if($name == "project" && is_oid($value) && is_oid($this->id()))
+		if($name === "project" && is_oid($value) && is_oid($this->id()))
 		{
 			foreach($this->connections_from(array(
 				"type" => "RELTYPE_PROJECT",
@@ -34,7 +31,7 @@ class bug_object extends _int_object
 				}
 			}
 		}
-		if($name == "send_bill" && !$this->prop("send_bill"))
+		if($name === "send_bill" && !$this->prop("send_bill"))
 		{
 			$this->set_prop("to_bill_date" , time());
 		}
@@ -88,7 +85,7 @@ class bug_object extends _int_object
 		}
 		return $sum;
 	}
-	
+
 	function get_lifespan($arr)
 	{
 		// calculate timestamp
@@ -97,19 +94,17 @@ class bug_object extends _int_object
 		{
 			$o_bug_comments = new object_list(array(
 				"class_id" => array(CL_TASK_ROW,CL_BUG_COMMENT),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"parent" => $this->id(),
 				"sort_by" => "objects.created"
 			));
-			
+
 			$i_lifespan = end($o_bug_comments->arr())->created() - $i_created;
 		}
 		else
 		{
 			$i_lifespan = time() - $i_created;
 		}
-		
+
 		// format output
 		$i_lifespan_hours = $i_lifespan/3600;
 		if ($i_lifespan_hours<=24)
@@ -148,7 +143,7 @@ class bug_object extends _int_object
 				$s_out = ($i_temp = round($i_lifespan_hours/24))==1 ? $i_temp." ".t("p&auml;ev") : $i_temp." ".t("p&auml;eva");
 			}
 		}
-		
+
 		return $s_out;
 	}
 
@@ -203,7 +198,7 @@ class bug_object extends _int_object
 		return $ol;
 	}
 
-	/** 
+	/**
 		@attrib api=1 params=pos
 		@param start
 		@param end
@@ -213,8 +208,6 @@ class bug_object extends _int_object
 	{
 		$sum = 0;
 		$filter = array(
-			"lang_id" => array(),
-			"site_id" => array(),
 			"class_id" => array(CL_TASK_ROW,CL_BUG_COMMENT),
 			"parent" => $this->id(),
 			"sort_by" => "objects.created desc",
@@ -246,7 +239,7 @@ class bug_object extends _int_object
 	}
 
 	//see testimiseks praegu annab k6ik kommentaarid.. pole veel arvega yhendamist tehtud
-	/** returns bug comments without bill 
+	/** returns bug comments without bill
 		@attrib api=1
 		@returns object list
 	**/
@@ -263,8 +256,8 @@ class bug_object extends _int_object
 			$comment = $c->to();
 //selle asemele peaks miski ilus filter olema hoopis
 			if(
-				($arr["start"] && $arr["start"] > $comment->prop("date")) || 
-				($arr["end"] && $arr["end"] < $comment->prop("date")) 
+				($arr["start"] && $arr["start"] > $comment->prop("date")) ||
+				($arr["end"] && $arr["end"] < $comment->prop("date"))
 			)
 			{
 				continue;
@@ -347,5 +340,4 @@ class bug_object extends _int_object
 			$comment->save();
 		}
 	}
-
 }

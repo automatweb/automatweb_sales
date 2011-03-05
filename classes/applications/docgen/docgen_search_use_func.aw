@@ -11,11 +11,11 @@ class docgen_search_use_func extends core implements docgen_search_module, docge
 	{
 		return t("Method usage");
 	}
-	
+
 	function do_search($arr)
 	{
 		$s = $arr["search"];
-		$this->quote(&$s);
+		$this->quote($s);
 		if (strpos($s, "::") !== false)
 		{
 			list($class, $method) = explode("::", $s);
@@ -38,7 +38,7 @@ class docgen_search_use_func extends core implements docgen_search_module, docge
 					$cl_file = "/".$tclass["file"].".aw";
 				}
 			}
-			
+
 			if ($row["caller_class"] == "")
 			{
 				$row["caller_class"] = "defs";
@@ -113,38 +113,44 @@ class docgen_search_use_func extends core implements docgen_search_module, docge
 	function handle_index_method($rel_file, $class, $fname, $fdata)
 	{
 		// caller data
-		foreach(safe_array($fdata["local_calls"]) as $calld)
+		if (isset($fdata["local_calls"]))
 		{
-			$calld["class"] = basename($calld["class"]);
-			$class = basename($class);
-			$this->db_query("
-				INSERT INTO 
-					aw_da_callers(
-						caller_class,			caller_func,			caller_line,
-						callee_class,			callee_func
-					) 
-					values(
-						'$class',				'$fname',				'".$calld["line"]."',
-						'$class',				'".$calld["func"]."'
-					)
-			");
+			foreach(safe_array($fdata["local_calls"]) as $calld)
+			{
+				$calld["class"] = isset($calld["class"]) ? basename($calld["class"]) : "";
+				$class = basename($class);
+				$this->db_query("
+					INSERT INTO
+						aw_da_callers(
+							caller_class,			caller_func,			caller_line,
+							callee_class,			callee_func
+						)
+						values(
+							'$class',				'$fname',				'".$calld["line"]."',
+							'$class',				'".$calld["func"]."'
+						)
+				");
+			}
 		}
 
-		foreach(safe_array($fdata["foreign_calls"]) as $calld)
+		if (isset($fdata["foreign_calls"]))
 		{
-			$calld["class"] = basename($calld["class"]);
-			$class = basename($class);
-			$this->db_query("
-				INSERT INTO 
-					aw_da_callers(
-						caller_class,			caller_func,			caller_line,
-						callee_class,			callee_func
-					) 
-					values(
-						'$class',				'$fname',				'".$calld["line"]."',
-						'".$calld["class"]."',				'".$calld["func"]."'
-					)
-			");
+			foreach(safe_array($fdata["foreign_calls"]) as $calld)
+			{
+				$calld["class"] = isset($calld["class"]) ? basename($calld["class"]) : "";
+				$class = basename($class);
+				$this->db_query("
+					INSERT INTO
+						aw_da_callers(
+							caller_class,			caller_func,			caller_line,
+							callee_class,			callee_func
+						)
+						values(
+							'$class',				'$fname',				'".$calld["line"]."',
+							'".$calld["class"]."',				'".$calld["func"]."'
+						)
+				");
+			}
 		}
 	}
 }

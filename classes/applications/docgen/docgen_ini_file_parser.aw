@@ -4,7 +4,7 @@ class docgen_ini_file_parser
 {
 	function __construct()
 	{
-		
+
 	}
 
 	function get_tree_items()
@@ -36,10 +36,10 @@ class docgen_ini_file_parser
 		foreach($sets as $k => $d)
 		{
 			list($d, $def) = explode("=", $d);
-			if ((strpos($d, ".") === false && $setting == "__main") || substr($d, 0, strlen($setting)) == $setting)
+			if ((strpos($d, ".") === false && $setting === "__main") || substr($d, 0, strlen($setting)) == $setting)
 			{
-				list($f1, $f2) = explode(".", $d);
-				$val = $f1.".".$f2;
+				$tmp = explode(".", $d);
+				$val = $tmp[0] . (isset($tmp[1]) ? ("." . $tmp[1]) : "");
 
 				if (!isset($rv[$val]))
 				{
@@ -59,12 +59,12 @@ class docgen_ini_file_parser
 		foreach(explode("\n", $com) as $line)
 		{
 			$line = str_replace("#", "", trim($line));
-			if (trim($line) != "")
+			if (trim($line))
 			{
 				$rv[] = trim($line);
 			}
 		}
-		return join("<br>", $rv);
+		return implode(html::linebreak(), $rv);
 	}
 
 	private function parse_config($file, $return = false)
@@ -77,13 +77,21 @@ class docgen_ini_file_parser
 
 		foreach($fd as $linenum => $line)
 		{
+			$line = trim($line);
 			// ok, parse line
-			if (strlen(trim($line)) and $line{0} == "#") 
+			if (strlen($line) and $line{0} === "#")
 			{
-				$last_comment .= $line;
+				if (!empty($line{1}) and $line{1} === "#")
+				{
+					// clear section comments
+					$last_comment = "";
+				}
+				else
+				{
+					$last_comment .= $line;
+				}
 			}
-			else
-			if (strlen(trim($line)) and $line{0} != "#") // exclude comments and empty lines
+			elseif (strlen($line) and $line{0} !== "#") // exclude comments and empty lines
 			{
 				// now, config opts are variable = value. variable is class1. ... .classN.
 				$data = explode("=", $line, 2);
@@ -112,7 +120,7 @@ class docgen_ini_file_parser
 						foreach ($setting_index as $key => $index)
 						{
 							$setting_path .= "['" . $index . "']";
-	
+
 							if (isset($setting_index[$key + 1]) and eval("return (isset(" . $setting_path . ") and !is_array(" . $setting_path . "));"))
 							{
 								eval($setting_path . " = array();");
@@ -137,12 +145,12 @@ class docgen_ini_file_parser
 
 						return false;
 					}
-	
+
 					if ($return)
 					{
 						$config = array_merge($config, parse_config($ifile, true));
 					}
-					else	
+					else
 					{
 						parse_config($ifile);
 					}
@@ -156,4 +164,3 @@ class docgen_ini_file_parser
 		}
 	}
 }
-?>

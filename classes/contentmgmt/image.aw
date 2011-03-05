@@ -33,7 +33,7 @@
 	@property link type=textbox table=images field=link
 	@caption Link
 
-	@property date_taken type=datetime_select table=images field=aw_date_taken
+	@property date_taken type=datepicker table=images field=aw_date_taken
 	@caption Pildistamise aeg
 
 	@property can_comment type=checkbox table=objects field=flags method=bitmask ch_value=1
@@ -200,8 +200,7 @@ class image extends class_base
 			{
 				$this->db_query($q);
 				$row = $this->db_fetch_row();
-			};
-
+			}
 
 			if ($row)
 			{
@@ -216,7 +215,7 @@ class image extends class_base
 				// if the image is from another site, then make the url point to that
 				if ($row["site_id"] != aw_ini_get("site_id"))
 				{
-					$sl = get_instance("install/site_list");
+					$sl = new site_list();
 					$row["url"] = str_replace(aw_ini_get("baseurl"), $sl->get_url_for_site($row["site_id"]), $row["url"]);
 				}
 				$row["meta"] = aw_unserialize($row["metadata"]);
@@ -279,7 +278,7 @@ class image extends class_base
 			{
 				$imgbaseurl = aw_ini_get("image.imgbaseurl");
 				$first = substr(basename($url),0,1);
-				if (substr($imgbaseurl, 0, 4) == "http")
+				if (substr($imgbaseurl, 0, 4) === "http")
 				{
 					$url = $imgbaseurl . "/" . $first . "/" . basename($url);
 				}
@@ -297,7 +296,7 @@ class image extends class_base
 		else
 		{
 			$retval = "";
-		};
+		}
 		return $retval;
 	}
 
@@ -326,7 +325,7 @@ class image extends class_base
 	{
 		// Defaults
 		$xhtml_slash = "";
-		if (aw_ini_get("content.doctype") == "xhtml")
+		if (aw_ini_get("content.doctype") === "xhtml")
 		{
 			$xhtml_slash = " /";
 		}
@@ -442,7 +441,7 @@ class image extends class_base
 				return array(
 					"replacement" => $replacement,
 					"inplace" => "",
-                                );
+                    );
 			}
 
 			if ($idata["file"] != "")
@@ -519,13 +518,11 @@ class image extends class_base
 			{
 				$replacement = localparse($tpls["image_flash"],$vars);
 			}
-			else
-			if ($this->can("view", $idata["meta"]["big_flash"]) && isset($tpls["image_big_flash"]))
+			elseif ($this->can("view", $idata["meta"]["big_flash"]) && isset($tpls["image_big_flash"]))
 			{
 				$replacement = localparse($tpls["image_big_flash"],$vars);
 			}
-			else
-			if ($idata["link"] != "")
+			elseif ($idata["link"] != "")
 			{
 				if ($idata["big_url"] != "" && isset($tpls["image_big_linked"]))
 				{
@@ -573,15 +570,13 @@ class image extends class_base
 					$inplace = $tpl;
 					//$this->image_inplace_used = true;
 				}
-				else
-				if (!empty($tpls["image_inplace_".$args["data"]["prop"]]) /*&& $this->image_inplace_used*/)
+				elseif (!empty($tpls["image_inplace_".$args["data"]["prop"]]) /*&& $this->image_inplace_used*/)
 				{
 					$tpl = "image_inplace_".$args["data"]["prop"];
 					$inplace = $tpl;
 					$this->image_inplace_used = true;
 				}
-				else
-				if (!empty($tpls["image_inplace"]) && !$GLOBALS["image_inplace_used"][$f["from"]])
+				elseif (!empty($tpls["image_inplace"]) && !$GLOBALS["image_inplace_used"][$f["from"]])
 				{
 					$tpl = "image_inplace";
 					$inplace = $tpl;
@@ -603,7 +598,8 @@ class image extends class_base
 					}
 
 					$inplace = 0;
-				};
+				}
+
 				if (isset($tpls[$tpl]))
 				{
 					$replacement = localparse($tpls[$tpl],$vars);
@@ -615,10 +611,12 @@ class image extends class_base
 					{
 						$replacement .= "<table border='0' cellpadding='5' cellspacing='0' $vars[align]><tr><td>";
 					}
+
 					if (!empty($idata["big_url"]) || $do_comments)
 					{
 						$replacement .= "<a href=\"javascript:void(0)\" onClick=\"$bi_link\">";
-					};
+					}
+
 					$replacement .= "<img src='$idata[url]' alt='$alt' title='$alt' border=\"0\" class=\"$use_style\" width='".$i_size[0]."' height='".$i_size[1]."'$xhtml_slash>";
 					if (!empty($idata["big_url"]) || $do_comments)
 					{
@@ -630,10 +628,12 @@ class image extends class_base
 					{
 						$subtxt .= $idata['comment'];
 					}
+
 					if (!empty($idata['meta']['author']))
 					{
 						$subtxt .= ' ('.$idata['meta']['author'].')';
 					}
+
 					if (strlen($subtxt))
 					{
 						$replacement .= "<br /><span class=\"imagecomment\">".$subtxt."</span>";
@@ -641,12 +641,13 @@ class image extends class_base
 						{
 							$replacement .= "<br />";
 						}
-					};
+					}
+
 					if ($vars["align"] != "")
 					{
 						$replacement .= "</td></tr></table>";
 					}
-				};
+				}
 			}
 		}
 
@@ -790,7 +791,7 @@ class image extends class_base
 	{
 		$img_id = (int)$img_id;
 
-		$_fi = get_instance(CL_FILE);
+		$_fi = new file();
 		if ($_FILES[$name]['tmp_name'] != "" && $_FILES[$name]['tmp_name'] != "none")
 		{
 			if (!$this->can("view", $img_id))
@@ -821,6 +822,7 @@ class image extends class_base
 
 					$img_obj->set_prop("file", $fl);
 				}
+
 				if($file2)
 				{
 					$f2 = $_fi->_put_fs(array(
@@ -934,11 +936,10 @@ class image extends class_base
 						case "69":
 							$type = "application/x-shockwave-flash";
 							break;
-
-					};
+					}
 
 					// if resize requested
-					if ($GLOBALS["resize_x"] > 0 || $GLOBALS["resize_y"] > 0)
+					if (isset($GLOBALS["resize_x"]) && $GLOBALS["resize_x"] > 0 || isset($GLOBALS["resize_y"]) && $GLOBALS["resize_y"] > 0)
 					{
 						$im = imagecreatefromstring(file_get_contents($fname));
 
@@ -984,7 +985,7 @@ class image extends class_base
 					header("Content-length: ".filesize($fname));
 					header("ETag: ".$cur_etag);
 
-					if(strtotime($_SERVER["HTTP_IF_MODIFIED_SINCE"]) > filemtime($fname))
+					if(isset($_SERVER["HTTP_IF_MODIFIED_SINCE"]) and strtotime($_SERVER["HTTP_IF_MODIFIED_SINCE"]) > filemtime($fname))
 					{
 						header("HTTP/1.x 304 Not Modified");
 						die();
@@ -992,13 +993,16 @@ class image extends class_base
 
 					// check if we got an if-none-match and if we did, then check the etag and
 					// finally, return is cached if all checks out
-					foreach(explode(",", $_SERVER["HTTP_IF_NONE_MATCH"]) as $check_etag)
+					if (isset($_SERVER["HTTP_IF_NONE_MATCH"]))
 					{
-						$check_etag = trim($check_etag);
-						if ($check_etag == $cur_etag)
+						foreach(explode(",", $_SERVER["HTTP_IF_NONE_MATCH"]) as $check_etag)
 						{
-							header("HTTP/1.x 304 Not Modified");
-							die();
+							$check_etag = trim($check_etag);
+							if ($check_etag == $cur_etag)
+							{
+								header("HTTP/1.x 304 Not Modified");
+								die();
+							}
 						}
 					}
 
@@ -1007,13 +1011,13 @@ class image extends class_base
 			}
 			else
 			{
-				print "access denied:";
+				print "Access denied.";
 			}
 		}
 		else
 		{
-			print "access denied;";
-		};
+			print "Access denied.";
+		}
 		die();
 	}
 
@@ -1161,13 +1165,6 @@ class image extends class_base
 		$retval = PROP_OK;
 		switch($prop["name"])
 		{
-			case "date_taken":
-				if (!is_oid($arr["obj_inst"]->id()) || $prop["value"] < 100)
-				{
-					$prop["value"] = -1;
-				}
-				break;
-
 			case "newwindow":
 			case "no_print":
 				$retval = PROP_IGNORE;
@@ -1227,9 +1224,10 @@ class image extends class_base
 					), CL_IMAGE);
 					if($this->can("delete", $arr["obj_inst"]->id()))
 					{
+						$delete_url = $this->mk_my_orb("delete_image", array("id" => $arr["obj_inst"]->id()));
 						$prop["value"] .= "<br />\n".html::href(array(
 							"url" => "javascript:void(0)",
-							"onclick" => "if(confirm(\"Oled kindel?\")){ $.ajax({url: \"".$this->mk_my_orb("delete_image", array("id" => $arr["obj_inst"]->id()))."\"}); $(\"#image_".$arr["obj_inst"]->id()."\").hide(); }",
+							"onclick" => "if(confirm(\"Oled kindel?\")){ $.ajax({url: \"{$delete_url}\"}); $(\"#image_".$arr["obj_inst"]->id()."\").hide(); }",
 							"caption" => t("Kustuta pilt"),
 						));
 					}
@@ -1271,6 +1269,7 @@ class image extends class_base
 					$prop["value"] = "";
 				}
 				break;
+
 			case "file2":
 				$url = $this->get_url($arr["obj_inst"]->prop($prop["name"]));
 				if ($url != '')
@@ -1280,7 +1279,7 @@ class image extends class_base
 				else
 				{
 					$prop["value"] = "";
-				};
+				}
 				break;
 
 			case "dimensions_big":
@@ -1306,7 +1305,6 @@ class image extends class_base
 					// rewrite $fl to be correct if site moved
 					$fl = basename($fl);
 					$fl = aw_ini_get("file.site_files_dir").$fl{0}."/".$fl;
-
 					$sz = getimagesize($fl);
 					$prop["value"] = $sz[0] . " X " . $sz[1];
 				}
@@ -1315,13 +1313,15 @@ class image extends class_base
 					$retval = PROP_IGNORE;
 				}
 				break;
+
 			case "comments_tb":
 				$this->_comments_tb($arr);
 				break;
+
 			case "comments_tbl":
 				$this->_comments_tbl($arr);
 				break;
-		};
+		}
 
 		return $retval;
 	}
@@ -1351,7 +1351,7 @@ class image extends class_base
 			case "file2":
 				$src_file = $ftype = "";
 				$oldfile = $arr["obj_inst"]->prop($prop["name"]);
-				if (is_uploaded_file($_FILES[$prop["name"]]["tmp_name"]))
+				if (isset($_FILES[$prop["name"]]["tmp_name"]) and is_uploaded_file($_FILES[$prop["name"]]["tmp_name"]))
 				{
 					// this happens if file is uploaded from the image class directly
 					$src_file = $_FILES[$prop["name"]]["tmp_name"];
@@ -1445,7 +1445,7 @@ class image extends class_base
 						unlink($oldfile);
 					}
 					$arr["obj_inst"]->set_prop("file2","");
-				};
+				}
 				break;
 
 			case "do_resize":
@@ -1820,7 +1820,6 @@ class image extends class_base
 		if ($comments)
 		{
 			$parse = "with_comments";
-			classload("vcl/comments");
 			$comments = new comments();
 			$ret_list = $comments->init_vcl_property(array(
 				'property' => array(
@@ -1849,7 +1848,6 @@ class image extends class_base
 					'value' => t("Lisa"),
 				),
 			);
-			classload("cfg/htmlclient");
 			$hc_inst = new htmlclient(array(
 				'template' => "real_webform",
 			));
@@ -1923,12 +1921,8 @@ class image extends class_base
 	/**
 
 		@attrib name=show_small params=name nologin="1"
-
 		@param id required type=int
-
 		@returns
-
-
 		@comment
 
 	**/
@@ -1971,7 +1965,7 @@ class image extends class_base
 	**/
 	function get_url_by_id($id)
 	{
-		if (!$this->can("view", $id))
+		if (!object_loader::can("view", $id))
 		{
 			return "";
 		}
@@ -2378,21 +2372,16 @@ class image extends class_base
 
 	function mime_type_for_image($arr)
 	{
-
-
 	}
 
-	function callback_mod_reforb(&$arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		if (isset($_GET["docid"]))
-		{
-			$arr["docid"] = $_GET["docid"];
-		}
+		if (isset($request["docid"])) $arr["docid"] = $request["docid"];
 	}
 
 	function callback_mod_retval(&$arr)
 	{
-		$arr["args"]["docid"] = $arr["request"]["docid"];
+		if (isset($arr["request"]["docid"])) $arr["args"]["docid"] = $arr["request"]["docid"];
 	}
 
 	function callback_mod_tab($arr)
@@ -2401,7 +2390,7 @@ class image extends class_base
 		{
 			$arr["link"] = aw_url_change_var("docid", $_REQUEST["docid"], $arr["link"]);
 		}
-		if ($arr["id"] == "resize" || $arr["id"] == "resize_big")
+		if ($arr["id"] === "resize" || $arr["id"] === "resize_big")
 		{
 			$cv = get_instance("core/converters/image_convert");
 			$ret = $cv->can_convert();
@@ -2410,7 +2399,7 @@ class image extends class_base
 				$cv->set_error_reporting(false);
 
 				$prop = "file2";
-				if ($arr["id"] == "resize")
+				if ($arr["id"] === "resize")
 				{
 					$prop = "file";
 				}
@@ -2430,7 +2419,7 @@ class image extends class_base
 			return $ret;
 		}
 
-		if ($arr["id"] == "transl" && aw_ini_get("user_interface.content_trans") != 1)
+		if ($arr["id"] === "transl" && aw_ini_get("user_interface.content_trans") != 1)
 		{
 			return false;
 		}
@@ -2496,7 +2485,7 @@ class image extends class_base
 	**/
 	function fetch_image_alias_for_doc($arr)
 	{
-		$alp = get_instance("alias_parser");
+		$alp = new alias_parser();
 		$alias_list = $alp->get_alias_list_for_obj_as_aliasnames($arr["doc_id"]);
 
 		foreach($alias_list as $obj_id => $alias_string)
@@ -2560,14 +2549,14 @@ class image extends class_base
 
 	function _comments_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(array(CL_COMMENT),$arr["obj_inst"]->id());
 		$tb->add_delete_button();
 	}
 
 	function _comments_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -2684,23 +2673,18 @@ class image extends class_base
 
 	/**
 		@attrib name=delete_image
-
 		@param id required type=int acl=delete
-
-		@param delete_file type=bool default=false
-
 	**/
 	function delete_image($arr)
 	{
 		if($this->can("delete", $arr["id"]))
 		{
-			$o = obj($arr["id"]);
-			unlink($o->file);
-			unlink($o->file2);
-			if(isset($arr["delete_file"]) && $arr["delete_file"])
-			{
-				$o->delete();
-			}
+			$this_o = obj($arr["id"]);
+			unlink($this_o->prop("file"));
+			unlink($this_o->prop("file2"));
+			$this_o->set_prop("file", "");
+			$this_o->set_prop("file2", "");
+			$this_o->save();
 		}
 	}
 }

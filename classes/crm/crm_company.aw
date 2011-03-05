@@ -152,7 +152,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 	@property insurance_title type=text subtitle=1
 	@caption Kindlustus
 
-	@property insurance_expires type=date_select table=objects field=meta method=serialize default=-1
+	@property insurance_expires type=datepicker time=0 table=objects field=meta method=serialize default=-1
 	@caption Kindlustus aegub
 
 	@property insurance_status type=text store=no
@@ -167,7 +167,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 	@property tax_clearance_title type=text subtitle=1
 	@caption Maksuinfo
 
-	@property tax_clearance_expires type=date_select table=objects field=meta method=serialize default=-1
+	@property tax_clearance_expires type=datepicker time=0 table=objects field=meta method=serialize default=-1
 	@caption Maksuv&otilde;la puudumise t&otilde;end aegub
 
 	@property tax_clearance_status type=text store=no
@@ -420,7 +420,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@layout vbox_customers_left type=vbox parent=tree_search_split closeable=1 area_caption=Otsing
 				@layout vbox_customers_left_top type=vbox parent=vbox_customers_left
 
-					@property customer_search_name type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
+					@property cs_n type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
 					@caption Nimi
 
 					@property customer_search_reg type=textbox size=30 store=no parent=vbox_customers_left_top captionside=top
@@ -467,11 +467,8 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 				@layout vbox_customers_left_search_btn type=hbox parent=vbox_customers_left
 
-					@property customer_search_submit type=submit size=15 store=no parent=vbox_customers_left_search_btn no_caption=1
+					@property cs_sbt type=submit size=15 store=no parent=vbox_customers_left_search_btn no_caption=1
 					@caption Otsi
-
-					@property customer_search_submit_and_change type=submit parent=vbox_customers_left_search_btn no_caption=1
-					@caption Otsi ja muuda
 
 		@property my_customers_table type=table store=no no_caption=1 parent=my_cust_bot
 		@caption Kliendid
@@ -536,18 +533,18 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 				@layout all_proj_search_b_dl type=vbox parent=all_proj_search_b
 
-					@property all_proj_search_dl_from type=date_select store=no parent=all_proj_search_b_dl  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property all_proj_search_dl_from type=datepicker time=0 store=no parent=all_proj_search_b_dl  captionside=top
 					@caption T&auml;htaeg alates
 
-					@property all_proj_search_dl_to type=date_select store=no parent=all_proj_search_b_dl  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property all_proj_search_dl_to type=datepicker time=0 store=no parent=all_proj_search_b_dl  captionside=top
 					@caption T&auml;htaeg kuni
 
 				@layout all_proj_search_b_end type=vbox parent=all_proj_search_b
 
-					@property all_proj_search_end_from type=date_select store=no parent=all_proj_search_b_end  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property all_proj_search_end_from type=datepicker time=0 store=no parent=all_proj_search_b_end  captionside=top
 					@caption L&otilde;pp alates
 
-					@property all_proj_search_end_to type=date_select store=no parent=all_proj_search_b_end  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property all_proj_search_end_to type=datepicker time=0 store=no parent=all_proj_search_b_end  captionside=top
 					@caption L&otilde;pp kuni
 
 
@@ -602,10 +599,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 				@layout my_proj_search_b_dl type=vbox parent=my_proj_search_b
 
-					@property proj_search_dl_from type=date_select store=no parent=my_proj_search_b_dl  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property proj_search_dl_from type=datepicker time=0 store=no parent=my_proj_search_b_dl  captionside=top
 					@caption T&auml;htaeg alates
 
-					@property proj_search_dl_to type=date_select store=no parent=my_proj_search_b_dl  captionside=top format=day_textbox,month_textbox,year_textbox
+					@property proj_search_dl_to type=datepicker time=0 store=no parent=my_proj_search_b_dl  captionside=top
 					@caption T&auml;htaeg kuni
 
 
@@ -662,7 +659,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 					@property docs_s_customer type=textbox size=30 store=no captionside=top parent=docs_s_f
 					@caption Klient
 
-					@property docs_s_created_after type=date_select store=no captionside=top parent=docs_s_f
+					@property docs_s_created_after type=datepicker time=0 store=no captionside=top parent=docs_s_f
 					@caption Loodud peale
 
 				@layout docs_s_but_row type=hbox parent=docs_left_search
@@ -714,10 +711,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 		@layout billable_search type=vbox parent=billable closeable=1 area_caption=Arvele&nbsp;minevate&nbsp;ridade&nbsp;Otsing
 
-			@property billable_start type=date_select store=no default=-1 parent=billable_search
+			@property billable_start type=datepicker time=0 store=no default=-1 parent=billable_search
 			@caption Alates
 
-			@property billable_end type=date_select store=no default=-1 parent=billable_search
+			@property billable_end type=datepicker time=0 store=no default=-1 parent=billable_search
 			@caption Kuni
 
 			@property billable_search_button type=submit store=no parent=billable_search captionside=top no_caption=1
@@ -755,10 +752,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property bill_payments_bill_to type=textbox size=15 store=no parent=bills_payments_s captionside=top
 			@caption Arve nr kuni
 
-			@property bill_payments_from type=date_select store=no parent=bills_payments_s captionside=top format=day_textbox,month_textbox,year_textbox
+			@property bill_payments_from type=datepicker time=0 store=no parent=bills_payments_s captionside=top
 			@caption Laekunud alates
 
-			@property bill_payments_to type=date_select store=no parent=bills_payments_s captionside=top format=day_textbox,month_textbox,year_textbox
+			@property bill_payments_to type=datepicker time=0 store=no parent=bills_payments_s captionside=top
 			@caption Laekunud kuni
 
 			@property bill_payments_client_mgr type=text store=no parent=bills_payments_s captionside=top
@@ -812,10 +809,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property bill_s_bill_to type=textbox size=15 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Arve nr kuni
 
-			@property bill_s_from type=date_select store=no parent=bills_list_s captionside=top group=bills_list format=day_textbox,month_textbox,year_textbox
+			@property bill_s_from type=datepicker time=0 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Esitatud alates
 
-			@property bill_s_to type=date_select store=no parent=bills_list_s captionside=top group=bills_list format=day_textbox,month_textbox,year_textbox
+			@property bill_s_to type=datepicker time=0 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Esitatud kuni
 
 			@property bill_s_client_mgr type=text store=no parent=bills_list_s captionside=top group=bills_list
@@ -911,10 +908,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property act_s_proj_name type=textbox size=18 parent=act_s_dl_layout_top store=no captionside=top group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
 			@caption Projekti nimi
 
-			@property act_s_dl_from type=date_select store=no parent=act_s_dl_layout_top captionside=top format=day_textbox,month_textbox,year_textbox group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
+			@property act_s_dl_from type=datepicker time=0 store=no parent=act_s_dl_layout_top captionside=top group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
 			@caption T&auml;htaeg alates
 
-			@property act_s_dl_to type=date_select store=no parent=act_s_dl_layout_top captionside=top format=day_textbox,month_textbox,year_textbox group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
+			@property act_s_dl_to type=datepicker time=0 store=no parent=act_s_dl_layout_top captionside=top group=my_tasks,meetings,calls,ovrv_offers,all_actions,bills_search,documents_all_manage,bugs
 			@caption T&auml;htaeg kuni
 
 			@property act_s_status type=chooser parent=act_s_dl_layout_top store=no captionside=top
@@ -972,10 +969,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 				@property stats_stats_time_sel type=select store=no parent=stats_list_s captionside=top
 				@caption Ajavahemik
 
-				@property stats_stats_from type=date_select store=no parent=stats_list_s captionside=top format=day_textbox,month_textbox,year_textbox
+				@property stats_stats_from type=datepicker time=0 store=no parent=stats_list_s captionside=top
 				@caption Alates
 
-				@property stats_stats_to type=date_select store=no parent=stats_list_s captionside=top format=day_textbox,month_textbox,year_textbox
+				@property stats_stats_to type=datepicker time=0 store=no parent=stats_list_s captionside=top
 				@caption Kuni
 
 				@property stats_stats_search type=submit store=no parent=stats_list_s captionside=top no_caption=1
@@ -1013,10 +1010,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 	@property project_mgr type=select store=no
 	@caption Projektijuht
 
-	@property stats_s_from type=date_select store=no format=day_textbox,month_textbox,year_textbox
+	@property stats_s_from type=datepicker time=0 store=no
 	@caption Alates
 
-	@property stats_s_to type=date_select store=no format=day_textbox,month_textbox,year_textbox
+	@property stats_s_to type=datepicker time=0 store=no
 	@caption Kuni
 
 	@property stats_s_time_sel type=select store=no
@@ -1063,10 +1060,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 	@property my_stats_tb type=toolbar no_caption=1 store=no
 
-	@property my_stats_s_from type=date_select store=no
+	@property my_stats_s_from type=datepicker time=0 store=no
 	@caption Alates
 
-	@property my_stats_s_to type=date_select store=no
+	@property my_stats_s_to type=datepicker time=0 store=no
 	@caption Kuni
 
 	@property my_stats_s_time_sel type=select store=no
@@ -1213,10 +1210,10 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 	@groupinfo my_reports caption="Minu raportid" submit=no parent=projs save=no
 	@groupinfo all_reports caption="K&otilde;ik raportid" submit=no parent=projs save=no
 
-@groupinfo relorg caption="Kliendid" focus=customer_search_name save=no
+@groupinfo relorg caption="Kliendid" focus=cs_n save=no
 	// @groupinfo relorg_t caption="K&otilde;ik" parent=relorg submit=no save=no
-	@groupinfo relorg_b caption="Ostjad" focus=customer_search_name parent=relorg submit=no save=no
-	@groupinfo relorg_s caption="M&uuml;&uuml;jad" focus=customer_search_name parent=relorg submit=no save=no
+	@groupinfo relorg_b caption="Ostjad" focus=cs_n parent=relorg save=no
+	@groupinfo relorg_s caption="M&uuml;&uuml;jad" focus=cs_n parent=relorg save=no
 
 
 @groupinfo org_images caption="Pildid" submit=yes parent=general
@@ -1545,6 +1542,9 @@ define("CRM_COMPANY_USECASE_EMPLOYER", "work");
 
 class crm_company extends class_base
 {
+	const REQVAL_ALL_SELECTION = -1; // value for all items selection (in treeviews e.g.). should be integer, explicit type casting used extesively
+	const REQVAR_CATEGORY = "cs_c"; // request parameter name for customer category
+
 	public $unit = 0;
 	public $category = 0;
 	public $cat = 0;
@@ -1681,7 +1681,7 @@ class crm_company extends class_base
 				'url'=>aw_url_change_var(array(
 					'cat' => NULL,
 					'org_id' => NULL,
-					'customer_search_submit' => NULL,
+					'cs_sbt' => NULL,
 					$attrib => $conn->prop('to'),
 				), false, $origurl),
 				'oid' => $conn->prop('to'),
@@ -1764,8 +1764,7 @@ class crm_company extends class_base
 						"iconurl" => icons::get_icon_url(CL_MENU),
 						"url" => aw_url_change_var(array(
 							"tf" => 'cat'.$id,
-							"customer_search_submit" => null,
-							"customer_search_submit_and_change" => null,
+							"cs_sbt" => null
 						), false, $origurl)
 					));
 
@@ -1776,13 +1775,12 @@ class crm_company extends class_base
 							"name" => $o->name(),
 							"url" => aw_url_change_var(array(
 								"tf" => 'st'.$o->id(),
-								"category" => 'st_'.$o->id(),
-								"customer_search_submit" => null,
-								"customer_search_submit_and_change" => null,
+								self::REQVAR_CATEGORY => 'st_'.$o->id(),
+								"cs_sbt" => null
 							), false, $origurl),
 						));
 
-						if($_GET["tf"] == 'st'.$o->id())
+						if($_GET["tf"] === 'st'.$o->id())
 						{
 							$tree->set_selected_item('cat'.$o->id());
 						}
@@ -1833,7 +1831,7 @@ class crm_company extends class_base
 			$p2s = array();
 			$c = new connection();
 			$r_conns = $c->find(array(
-				"from.class_id" => CL_CRM_PERSON,
+				"from.class_id" => crm_person_obj::CLID,
 				"type" => "RELTYPE_SECTION",
 				"to.oid" => $obj->id()
 			));
@@ -1871,7 +1869,7 @@ class crm_company extends class_base
 				if($show_people && count($p2s) > 0)
 				{
 					$pol = new object_list(array(
-						"class_id" => CL_CRM_PERSON,
+						"class_id" => crm_person_obj::CLID,
 						"CL_CRM_PERSON.RELTYPE_RANK" => $tmp_obj->id(),
 						"oid" => $p2s
 					));
@@ -1933,7 +1931,7 @@ class crm_company extends class_base
 		switch($data['name'])
 		{
 			case "ettevotlusvorm":
-				$pm_inst = get_instance(CL_PERSONNEL_MANAGEMENT);
+				$pm_inst = new personnel_management();
 				if(is_oid($pm_inst->get_sysdefault()))
 				{
 					$data["options"] = array(0 => t("--vali--")) + safe_array($pm_inst->get_legal_forms());
@@ -1941,7 +1939,7 @@ class crm_company extends class_base
 				break;
 
  			case "language":
- 				if(!$data["value"])
+ 				if(empty($data["value"]))
  				{
  					$ol = new object_list(array(
 						"class_id" => CL_LANGUAGE,
@@ -1965,6 +1963,7 @@ class crm_company extends class_base
 					return PROP_IGNORE;
 				}
 				break;
+
 			case "stypes_tb":
 			case "stypes_tbl":
 			case "stypes_tree":
@@ -2063,9 +2062,6 @@ class crm_company extends class_base
 				break;
 
 			// END CEDIT tab
-
-			case "client_category":
-				return $this->_client_category($arr);
 
 			case "comments_display":
 				if(!$arr["obj_inst"]->meta("comments_stored_in_objects"))
@@ -2307,7 +2303,7 @@ class crm_company extends class_base
 				break;
 
 			case "activity_keywords":
-				$data["value"] = trim($data["value"]) ? substr($data["value"], 1) : "";
+				$data["value"] = isset($data["value"]) && trim($data["value"]) ? substr($data["value"], 1) : "";
 				break;
 
 			/// CUSTOMER tab
@@ -2396,22 +2392,10 @@ class crm_company extends class_base
 				$data['value'] = $s;
 				break;
 
-			case "customer_search_submit_and_change":
-				if ( aw_global_get('crm_customers_search_mode') != CRM_CUSTOMERS_SEARCH_DETAIL  )
-				{
-					$data['caption'] = t('Otsi ja t&auml;ienda');
-				}
-				else
-				{
-					$data['caption'] = t('Lihtne otsing');
-				}
-				$data['value'] = $data['caption'];
-				break;
 			case "customer_search_reg":
-			case "customer_search_name":
-			case "customer_search_submit":
+			case "cs_n":
+			case "cs_sbt":
 			case "customer_search":
-			case "customer_search_submit":
 				$s = isset($arr['request'][$data["name"]]) ? $arr['request'][$data["name"]] : "";
 				$this->dequote($s);
 				$data['value'] = $s;
@@ -2982,7 +2966,7 @@ class crm_company extends class_base
 				break;
 
 			case "my_stats":
-				$i = get_instance(CL_CRM_PERSON);
+				$i = new crm_person();
 				$arr["request"]["stats_s_cust"] = $arr["request"]["my_stats_s_cust"];
 				$arr["request"]["stats_s_from"] = $arr["request"]["my_stats_s_from"];
 				$arr["request"]["stats_s_to"] = $arr["request"]["my_stats_s_to"];
@@ -3213,39 +3197,6 @@ class crm_company extends class_base
 
 			case "contact":
 				return PROP_IGNORE;
-
-			case "client_category":
-				if($arr["request"]["category"])
-				{
-					if($this->can("view" , $arr["request"]["category"]))
-					{
-						$conns = $arr["obj_inst"]->connections_from(array(
-							"type" => "RELTYPE_CATEGORY"
-						));
-						foreach($conns as $conn)
-						{
-							$conn->delete();
-						}
-						$conns = $arr["obj_inst"]->connections_to(array(
-							"from.class_id" => CL_CRM_CATEGORY,
-							"type" => "RELTYPE_CUSTOMER"
-						));
-						foreach($conns as $conn)
-						{
-							$conn->delete();
-						}
-						$cat = obj($arr["request"]["category"]);
-						$cat->connect(array(
-							"to" => $arr["obj_inst"]->id(),
-							"type" => "RELTYPE_CUSTOMER",
-						));
-						$arr["obj_inst"]->connect(array(
-							"to" =>	$cat->id(),
-							"type" => "RELTYPE_CATEGORY",
-						));
-					}
-				}
-				break;
 		}
 		return PROP_OK;
 	}
@@ -3253,7 +3204,7 @@ class crm_company extends class_base
 	function callback_pre_edit($arr)
 	{
 		// initialize
-		$pl = get_instance(CL_PLANNER);
+		$pl = new planner();
 		$this->cal_id = $pl->get_calendar_for_user(array(
 			"uid" => aw_global_get("uid"),
 		));
@@ -3289,13 +3240,13 @@ class crm_company extends class_base
 	{
 		foreach ($arr["select"] as $deleted_obj_id)
 		{
-			$deleted_obj = &obj($deleted_obj_id);
+			$deleted_obj = obj($deleted_obj_id);
 			$deleted_obj->delete();
 		}
 		return $this->mk_my_orb("change", array(
 			"id" => $arr["id"],
 			"group" => $arr["group"],
-			"org_id" => $arr["offers_current_org_id"]),
+			"org_id" => isset($arr["offers_current_org_id"]) ? $arr["offers_current_org_id"] : 0),
 			$arr["class"]
 		);
 	}
@@ -3468,7 +3419,7 @@ class crm_company extends class_base
 			{
 				$p = obj($value);
 
-				if ($p->is_a(CL_CRM_PERSON))
+				if ($p->is_a(crm_person_obj::CLID))
 				{ // only delete people
 					if ($this->can("delete", $p->id()))
 					{
@@ -3546,9 +3497,9 @@ class crm_company extends class_base
 	**/
 	function remove_from_category($arr)
 	{
-		if (is_array($arr["check"]) && is_oid($arr["category"]) && $this->can("view" , $arr["category"]))
+		if (is_array($arr["check"]) && $this->can("view" , $arr[self::REQVAR_CATEGORY]))
 		{
-			$c = obj($arr["category"]);
+			$c = obj($arr[self::REQVAR_CATEGORY]);
 			foreach($arr['check'] as $key => $value)
 			{
 				$c->disconnect(array('from' => $value));
@@ -3586,10 +3537,14 @@ class crm_company extends class_base
 	}
 
 	/**
-		deletes the relations unit -> person || organization -> person
+		Ends selected work relations, if
 		@attrib name=submit_delete_relations
 		@param id required type=int acl=view
-		@param unit optional type=int
+		@param post_ru required type=string
+		@param cat optional type=int
+			Profession oid. Delete only relations with that profession
+		@param check optional type=array
+			Array of person object id-s
 	**/
 	function submit_delete_relations($arr)
 	{
@@ -3603,15 +3558,16 @@ class crm_company extends class_base
 			return $arr["post_ru"];
 		}
 
-		if (isset($arr["check"]) and is_array($arr["check"]) and !empty($arr["cat"]))
+		if (isset($arr["check"]) and is_array($arr["check"]))
 		{
 			$failed_person_oids = array();
+			$profession = null;
 			foreach($arr['check'] as $person_oid)
 			{
 				try
 				{
-					$person = obj($person_oid, array(), CL_CRM_PERSON);
-					$profession = obj($arr["cat"], array(), CL_CRM_PROFESSION);
+					$person = obj($person_oid, array(), crm_person_obj::CLID);
+					if (!empty($arr["cat"]) and is_oid($arr["cat"])) $profession = obj($arr["cat"], array(), CL_CRM_PROFESSION);
 
 					$work_relations = crm_person_work_relation_obj::find($person, $profession, $this_o);
 					if($work_relations->count())
@@ -3620,14 +3576,17 @@ class crm_company extends class_base
 
 						do
 						{
-							$this_o->finish_work_relation($work_relation);
+							if (!$work_relation->is_finished())
+							{
+								$this_o->finish_work_relation($work_relation);
+							}
 						}
 						while ($work_relation = $work_relations->next());
 					}
-
 				}
 				catch (Exception $e)
 				{
+					/*~AWdbg*/ if (aw_ini_get("debug_mode")) { echo nl2br($e); exit; }
 					$failed_person_oids[] = $person_oid;
 				}
 			}
@@ -3672,12 +3631,13 @@ class crm_company extends class_base
 		{
 			return $arr["post_ru"];
 		}
-		$main_obj = new Object($arr['id']);
 
-		if((int)$arr['category'])
+		$main_obj = new object($arr['id']);
+		if(!empty($arr[self::REQVAR_CATEGORY]))
 		{
-			$main_obj = new Object($arr['category']);
+			$main_obj = new object($arr[self::REQVAR_CATEGORY]);
 		}
+
 		foreach($arr['check'] as $key=>$value)
 		{
 			$vo = obj($value);
@@ -3711,19 +3671,22 @@ class crm_company extends class_base
 			$this->do_search = $arr['contact_search'];
 		}
 
-		if(is_oid(automatweb::$request->arg('cat')))
+		if(!empty($arr["request"]['cat']))
 		{
-			$this->cat = automatweb::$request->arg('cat');
+			$this->cat = $arr["request"]['cat'];
 		}
 
-		$this->unit = automatweb::$request->arg('unit');
-		$this->category = automatweb::$request->arg('category');
+		if(!empty($arr["request"]['unit']))
+		{
+			$this->unit = $arr["request"]['unit'];
+		}
 
 		if ( $this->get_cval(aw_global_get('uid').'_crm_projects_search_mode') == CRM_PROJECTS_SEARCH_DETAIL )
 		{
 			$_SESSION['crm_projects_search_mode'] = CRM_PROJECTS_SEARCH_DETAIL;
 			aw_global_set('crm_projects_search_mode', CRM_PROJECTS_SEARCH_DETAIL);
 		}
+
 		if($this->get_cval(aw_global_get('uid').'_crm_customers_search_mode') == CRM_CUSTOMERS_SEARCH_DETAIL )
 		{
 			$_SESSION['crm_customers_search_mode'] = CRM_CUSTOMERS_SEARCH_DETAIL;
@@ -3737,27 +3700,34 @@ class crm_company extends class_base
 	*/
 	function callback_mod_reforb(&$arr, $request)
 	{
-		if($this->use_group === "stats_stats" || $this->use_group === "stats")
-		{
-			$arr['st'] = automatweb::$request->arg("st");
-		}
-		$arr['unit'] = $this->unit;
-		$arr['category'] = $this->category;
-		$arr['cat'] = $this->cat;
-		$arr['proj'] = automatweb::$request->arg("proj");
-		$arr["tf"] = automatweb::$request->arg("tf");
+		if (isset($request["proj"])) $arr["proj"] = $request["proj"];
+		if (isset($request["unit"])) $arr["unit"] = $request["unit"];
+		if (isset($request["cat"])) $arr["cat"] = $request["cat"];
+		if (isset($request["tf"])) $arr["tf"] = $request["tf"];
+		if (isset($request["sector"])) $arr["sector"] = $request["sector"];
+		if (isset($request["proj"])) $arr["proj"] = $request["proj"];
+		if (isset($request["proj"])) $arr["proj"] = $request["proj"];
+		if (isset($request["proj"])) $arr["proj"] = $request["proj"];
+
 		$arr["cust_cat"] = 1;
 		$arr["search_tbl"] = 0;
-		$arr["sector"] = automatweb::$request->arg("sector");
 		$arr["bunch_bugs"] = "";
-		if(automatweb::$request->arg('set_buyer_status') && automatweb::$request->arg('action') === 'new')
+
+		if(isset($request['set_buyer_status']) && $request['action'] === 'new')
 		{
-			$arr["set_buyer_status"] = automatweb::$request->arg('set_buyer_status');
+			$arr["set_buyer_status"] = $request['set_buyer_status'];
 		}
 
-		// placeholders/pseudo-properties for popup search actions
-		if("relorg" === substr($this->use_group, 0, 6))
+		if($this->use_group === "stats_stats" || $this->use_group === "stats")
 		{
+			if (isset($request["st"])) $arr["st"] = $request["st"];
+		}
+		// placeholders/pseudo-properties for popup search actions
+		elseif("relorg" === substr($this->use_group, 0, 6))
+		{
+			if (isset($request[self::REQVAR_CATEGORY])) $arr[self::REQVAR_CATEGORY] = $request[self::REQVAR_CATEGORY];
+
+			//
 			$arr["sbt_data_add_seller"] = 0;
 			$arr["sbt_data_add_buyer"] = 0;
 		}
@@ -3929,10 +3899,10 @@ class crm_company extends class_base
 		));
 		$new_company->set_class_id(CL_CRM_COMPANY);
 		$new_company->save();
-		if(strlen(trim($arr['customer_search_name'])))
+		if(strlen(trim($arr['cs_n'])))
 		{
 			//the company GETS A NAME!!!
-			$new_company->set_prop('name',trim($arr['customer_search_name']));
+			$new_company->set_prop('name',trim($arr['cs_n']));
 		}
 		if(strlen(trim($arr['customer_search_reg'])))
 		{
@@ -4092,23 +4062,20 @@ class crm_company extends class_base
 			$arr['args']['stats_s_group_by_task'] = ($arr['request']['stats_s_group_by_task']);
 			$arr['args']['MAX_FILE_SIZE'] = ($arr["request"]["MAX_FILE_SIZE"]);
 		}
-
-		if($this->use_group === "stats_stats" || $this->use_group === "stats")
+		elseif($this->use_group === "stats_stats" || $this->use_group === "stats")
 		{
 			$arr['args']['stats_stats_time_sel'] = ($arr['request']['stats_stats_time_sel']);
 			$arr['args']['stats_stats_from'] = ($arr['request']['stats_stats_from']);
 			$arr['args']['stats_stats_to'] = ($arr['request']['stats_stats_to']);
 			$arr['args']['st'] = ($arr['request']['st']);
 		}
-
-		if($this->use_group === "ovrv_email")
+		elseif($this->use_group === "ovrv_email")
 		{
 			$arr['args']['mail_s_subj'] = ($arr['request']['mail_s_subj']);
 			$arr['args']['mail_s_body'] = ($arr['request']['mail_s_body']);
 			$arr['args']['mail_s_to'] = ($arr['request']['mail_s_to']);
 		}
-
-		if($this->use_group === "stats_my")
+		elseif($this->use_group === "stats_my")
 		{
 			$arr['args']['my_stats_s_type'] = ($arr['request']['my_stats_s_type']);
 			$arr['args']['my_stats_s_from'] = ($arr['request']['my_stats_s_from']);
@@ -4116,6 +4083,11 @@ class crm_company extends class_base
 			$arr['args']['my_stats_s_time_sel'] = ($arr['request']['my_stats_s_time_sel']);
 			$arr['args']['my_stats_s_cust'] = ($arr['request']['my_stats_s_cust']);
 			$arr['args']['MAX_FILE_SIZE'] = ($arr["request"]["MAX_FILE_SIZE"]);
+		}
+		elseif("relorg" === substr($this->use_group, 0, 6))
+		{
+			if (isset($arr["request"]["cs_sbt"])) $arr["args"]["cs_sbt"] = $arr["request"]["cs_sbt"];
+			if (isset($arr["request"]["cs_n"])) $arr["args"]["cs_n"] = $arr["request"]["cs_n"];
 		}
 
 		if($this->do_search)
@@ -4128,26 +4100,6 @@ class crm_company extends class_base
 			$arr['args']['contact_search_ext_id'] = ($arr['request']['contact_search_ext_id']);
 			$arr['args']['contact_search'] = $this->do_search;
 			$arr['args']['contacts_search_show_results'] = 1;
-		}
-
-		if(!empty($arr["request"]["customer_search_submit"]))
-		{
-			$arr['args']['customer_search_name'] = ($arr['request']['customer_search_name']);
-			$arr['args']['customer_search_worker'] = ($arr['request']['customer_search_worker']);
-			$arr['args']['customer_search_ev'] = ($arr['request']['customer_search_ev']);
-			$arr['args']['customer_search_cust_mgr'] = ($arr['request']['customer_search_cust_mgr']);
-			$arr['args']['customer_rel_creator'] = ($arr['request']['customer_rel_creator']);
-			$arr['args']['customer_search_cust_grp'] = ($arr['request']['customer_search_cust_grp']);
-			$arr['args']['customer_search_insurance_exp'] = ($arr['request']['customer_search_insurance_exp']);
-			$arr['args']['customer_search_reg'] = ($arr['request']['customer_search_reg']);
-			$arr['args']['customer_search_address'] = ($arr['request']['customer_search_address']);
-			$arr['args']['customer_search_city'] = ($arr['request']['customer_search_city']);
-			$arr['args']['customer_search_county'] = ($arr['request']['customer_search_county']);
-			$arr['args']['customer_search_submit'] = $arr['request']['customer_search_submit'];
-			$arr['args']['customer_search_is_co'] = $arr['request']['customer_search_is_co'];
-			$arr["args"]["customer_search_print_view"] = $arr["request"]["customer_search_print_view"];
-			$arr["args"]["customer_search_keywords"] = $arr["request"]["customer_search_keywords"];
-			$arr["args"]["customer_search_classif1"] = $arr["request"]["customer_search_classif1"];
 		}
 
 		if (!empty($arr["request"]["proj_search_sbt"]))
@@ -4181,26 +4133,6 @@ class crm_company extends class_base
 			{
 				$_SESSION['crm_projects_search_mode'] = CRM_PROJECTS_SEARCH_DETAIL;
 				$this->set_cval( aw_global_get('uid').'_crm_projects_search_mode', CRM_PROJECTS_SEARCH_DETAIL );
-			}
-		}
-
-		if(!empty($arr["request"]["customer_search_submit_and_change"]))
-		{
-			$arr['args']['customer_search_name'] = ($arr['request']['customer_search_name']);
-			$arr['args']['customer_search_cust_grp'] = ($arr['request']['customer_search_cust_grp']);
-			$arr['args']['customer_search_reg'] = ($arr['request']['customer_search_reg']);
-			$arr['args']['customer_search_is_co'] = $arr['request']['customer_search_is_co'];
-			$arr['args']['customer_search_submit_and_change'] = $arr['request']['customer_search_submit_and_change'];
-
-			if ( aw_global_get('crm_customers_search_mode') == CRM_CUSTOMERS_SEARCH_DETAIL )
-			{
-				$_SESSION['crm_customers_search_mode'] = CRM_CUSTOMERS_SEARCH_SIMPLE;
-				$this->set_cval( aw_global_get('uid').'_crm_customers_search_mode', CRM_CUSTOMERS_SEARCH_SIMPLE );
-			}
-			else
-			{
-				$_SESSION['crm_customers_search_mode'] = CRM_CUSTOMERS_SEARCH_DETAIL;
-				$this->set_cval( aw_global_get('uid').'_crm_customers_search_mode', CRM_CUSTOMERS_SEARCH_DETAIL );
 			}
 		}
 
@@ -4561,21 +4493,34 @@ class crm_company extends class_base
 		@attrib name=add_customer_category
 
 		@param id required type=oid
-		@param parent optional type=oid
+		@param c optional type=oid
+			Parent category
+		@param t optional type=oid
+			Category type (one of crm_category_obj::TYPE_...)
 		@param save_autoreturn optional type=bool
 		@param return_url optional type=string
 	**/
 	public function add_customer_category($arr)
 	{
-		$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
-		$parent_category = empty($arr["parent"]) ? null : obj($arr["parent"], array(), CL_CRM_CATEGORY);
-		$category = $this_o->add_customer_category($parent_category);
+		try
+		{
+			$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+			$parent_category = empty($arr["c"]) ? null : obj($arr["c"], array(), CL_CRM_CATEGORY);
+			$type = empty($arr["t"]) ? crm_category_obj::TYPE_GENERIC : (int) $arr["t"];
+			$category = $this_o->add_customer_category($parent_category, $type);
 
-		$params = array();
-		if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
-		if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
+			$params = array();
+			if (isset($arr["return_url"])) $params["return_url"] = $arr["return_url"];
+			if (isset($arr["save_autoreturn"])) $params["save_autoreturn"] = $arr["save_autoreturn"];
+			$r = html::get_change_url($category->id(), $params);
+		}
+		catch (Exception $e)
+		{//TODO: distinguish different exceptions
+			$this->show_error_text(t("Viga. Kategooriat ei lisatud"));
+			$r = $arr["return_url"];
+		}
 
-		return html::get_change_url($category->id(), $params);
+		return $r;
 	}
 
 	/**
@@ -4728,7 +4673,7 @@ class crm_company extends class_base
 					$errors = true;
 				}
 
-				if ($cut_object->is_a(CL_CRM_PERSON))
+				if ($cut_object->is_a(crm_person_obj::CLID))
 				{
 					try
 					{
@@ -4819,7 +4764,7 @@ class crm_company extends class_base
 					$errors = true;
 				}
 
-				if ($copied_object->is_a(CL_CRM_PERSON))
+				if ($copied_object->is_a(crm_person_obj::CLID))
 				{ // just create a new work relation
 					try
 					{
@@ -5106,8 +5051,7 @@ class crm_company extends class_base
 			$conns_ol = new object_list(array(
 				"oid" => $conns_ol->ids(),
 				"class_id" => CL_PROJECT,
-				"state" => new obj_predicate_not(PROJ_DONE),
-				"lang_id" => array()
+				"state" => new obj_predicate_not(PROJ_DONE)
 			));
 		}
 		return $conns_ol->ids();
@@ -5122,13 +5066,13 @@ class crm_company extends class_base
 			"from.class_id" => CL_PROJECT,
 			"type" => "RELTYPE_PARTICIPANT",
 			"from" => $projs,
-			"to.class_id" => array(CL_CRM_COMPANY,CL_CRM_PERSON)
+			"to.class_id" => array(CL_CRM_COMPANY, crm_person_obj::CLID)
 		));
 
 		$ret = array();
 		foreach($conns as $c)
 		{
-			if ($c["to.class_id"] == CL_CRM_PERSON)
+			if ($c["to.class_id"] == crm_person_obj::CLID)
 			{
 				$p = obj($c["to"]);
 				if (!$p->prop("is_customer"))
@@ -5161,7 +5105,7 @@ class crm_company extends class_base
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $u->get_current_person(),
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID,
 			"type" => "RELTYPE_PERSON_TASK",
 		));
 		$ids = array();
@@ -5205,7 +5149,7 @@ class crm_company extends class_base
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $u->get_current_person(),
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID,
 			"type" => "RELTYPE_PERSON_MEETING",
 		));
 		$oids = array();
@@ -5223,7 +5167,7 @@ class crm_company extends class_base
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $u->get_current_person(),
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID,
 			"type" => "RELTYPE_PERSON_CALL",
 		));
 		$oids = array();
@@ -5277,7 +5221,7 @@ class crm_company extends class_base
 		$c = new connection();
 		$cs = $c->find(array(
 			"from" => $cp,
-			"from.class_id" => CL_CRM_PERSON,
+			"from.class_id" => crm_person_obj::CLID,
 			"type" => array("RELTYPE_PERSON_TASK", "RELTYPE_PERSON_MEETING", "RELTYPE_PERSON_CALL"),
 		));
 
@@ -5567,8 +5511,6 @@ class crm_company extends class_base
 		{
 			$cust_rel_list = new object_list(array(
 				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"buyer" => $bill->prop("customer"),
 				"seller" => $bill->prop("impl")
 			));
@@ -6307,7 +6249,7 @@ class crm_company extends class_base
 					"CL_CRM_COMPANY.contact.riik.name" => $rk->name()
 				));
 				$ol2 = new object_list(array(
-					"class_id" => CL_CRM_PERSON,
+					"class_id" => crm_person_obj::CLID,
 					"CL_CRM_PERSON.address.riik.name" => $rk->name()
 				));
 				$code .= sprintf("%04d", $ol->count() + $ol2->count());
@@ -6319,7 +6261,7 @@ class crm_company extends class_base
 	function callback_pre_save($arr)
 	{
 		$this->_gen_company_code($arr["obj_inst"]);
-		if ($arr["request"]["sector"] && $arr["new"])
+		if (!empty($arr["request"]["sector"]) && $arr["new"])
 		{
 			$arr["obj_inst"]->set_prop("pohitegevus", $arr["request"]["sector"]);
 		}
@@ -7330,7 +7272,7 @@ class crm_company extends class_base
 			$arr["name"] = $arr["stats_s_cust"];
 		}
 		$ol = new object_list(array(
-			"class_id" => array(CL_CRM_COMPANY, CL_CRM_PERSON),
+			"class_id" => array(CL_CRM_COMPANY, crm_person_obj::CLID),
 			"name" => $arr["name"]."%"
 		));
 		$autocomplete_options = $ol->names();
@@ -7732,7 +7674,7 @@ class crm_company extends class_base
 		return $i->vm_delete_versions($arr);
 	}
 
-	function _client_category($arr)
+	function _get_client_category($arr)
 	{
 		if (!is_oid($arr["obj_inst"]->id()))
 		{
@@ -8769,18 +8711,18 @@ Bank accounts: yksteise all
 		$tb = $arr["prop"]["toolbar"];
 
 		$company = get_current_company();
-		$parent = (strlen($arr['request']['tf'])>1)?$arr['request']['tf']:$company->id();
+		$parent = (isset($arr['request']['tf']) && strlen($arr['request']['tf'])>1)?$arr['request']['tf']:$company->id();
 		$params = array();
-		if($arr["request"]["category"])
+		if(!empty($arr["request"][self::REQVAR_CATEGORY]))
 		{
-			$params["category"] =  $arr["request"]["category"];
+			$params[self::REQVAR_CATEGORY] =  $arr["request"][self::REQVAR_CATEGORY];
 		}
 		else
 		{
-			$params["category"] =  0;
+			$params[self::REQVAR_CATEGORY] =  0;
 		}
-		$tb->add_new_button(array(CL_CRM_COMPANY_STATUS), $parent, '', $params);
 
+		$tb->add_new_button(array(CL_CRM_COMPANY_STATUS), $parent, '', $params);
 		$tb->add_delete_button();
 
 		$company2 = obj($arr["request"]["id"]);
@@ -8831,7 +8773,7 @@ Bank accounts: yksteise all
 				"iconurl" => icons::get_icon_url(CL_MENU),
 				"url" => aw_url_change_var(array(
 					"tf"=> $id,
-					"category" => $id
+					self::REQVAR_CATEGORY => $id
 				))
 			));
 
@@ -8839,29 +8781,29 @@ Bank accounts: yksteise all
 				"class_id" => array(CL_CRM_COMPANY_STATUS),
 				"category" => $id,
 				"parent" => $company->id()
-
 			));
+
 			if(count($ol->list))
-			foreach($ol->arr() as $o)
 			{
-				$t->add_item($id, array(
-					"id" => $o->id(),
-					"name" => $o->name(),
-					"url" => aw_url_change_var(array(
-						"tf" => $o->id(),
-						"category" => $id
-					)),
-				));
-				$this->get_s_tree_stuff($o->id(), $t, $id);
+				foreach($ol->arr() as $o)
+				{
+					$t->add_item($id, array(
+						"id" => $o->id(),
+						"name" => $o->name(),
+						"url" => aw_url_change_var(array(
+							"tf" => $o->id(),
+							self::REQVAR_CATEGORY => $id
+						)),
+					));
+					$this->get_s_tree_stuff($o->id(), $t, $id);
+				}
 			}
-
-
 		}
 	}
 
 	function get_s_tree_stuff($parent, $t, $cat)
 	{
-		if(substr($parent,0,3) == 'cat')
+		if(substr($parent,0,3) === 'cat')
 		{
 			$parent = substr($parent,3);
 			$add = 'cat';
@@ -8877,11 +8819,11 @@ Bank accounts: yksteise all
 				$o = obj($o);
 				$url = array(
 					"tf" => $add.$o->id(),
-					"category" => 'st_'.$o->id()
+					self::REQVAR_CATEGORY => 'st_'.$o->id()
 				);
 				if($cat)
 				{
-					$url["category"] = $cat;
+					$url[self::REQVAR_CATEGORY] = $cat;
 				}
 				$t->add_item($add.$parent, array(
 					"id" => $add.$o->id(),
@@ -8917,6 +8859,8 @@ Bank accounts: yksteise all
 			"seller" => $company->id(),
 			"class_id" => array(CL_CRM_COMPANY_CUSTOMER_DATA)
 		));
+
+		$conn = array();
 		foreach($customer_data->list as $cd)
 		{
 			$cd = obj($cd);
@@ -8924,6 +8868,7 @@ Bank accounts: yksteise all
 				"type" => RELTYPE_STATUS
 			));
 		}
+
 		foreach($conn as $c)
 		{
 			$status = obj($c->conn["to"]);
@@ -8941,7 +8886,7 @@ Bank accounts: yksteise all
 		$st = get_instance(CL_CRM_COMPANY_STATUS);
 		$categories = $st->categories(0);
 
-		if(!$arr["request"]["tf"])
+		if(empty($arr["request"]["tf"]))
 		{
 			$t->define_field(array(
 				"caption" => t("Nimi"),
@@ -8957,7 +8902,7 @@ Bank accounts: yksteise all
 					"name" => html::href(array(
 						"url" => aw_url_change_var(array(
 							"tf" => $id,
-							"category" => $id
+							self::REQVAR_CATEGORY => $id
 						)),
 						"caption" => $cat,
 					)),
@@ -8967,7 +8912,7 @@ Bank accounts: yksteise all
 		}
 		elseif(strlen($arr["request"]["tf"]) < 2)
 		{
-			$t->set_caption($categories[$arr["request"]["category"]]);
+			$t->set_caption($categories[$arr["request"][self::REQVAR_CATEGORY]]);
 
 			$t->define_field(array(
 				"caption" => t("Vali"),
@@ -9086,7 +9031,7 @@ Bank accounts: yksteise all
 			try
 			{
 				$pid = new aw_oid($pid);
-				$person = obj($pid, array(), CL_CRM_PERSON);
+				$person = obj($pid, array(), crm_person_obj::CLID);
 				$company->add_employee(null, $person);
 				++$count_success;
 			}
@@ -9238,7 +9183,7 @@ Bank accounts: yksteise all
 			"limit" => 1
 		));
 		$crm_settings = $ol->begin();
-		if($this->can("add", $crm_settings->comment_menu))
+		if($crm_settings and $this->can("add", $crm_settings->comment_menu))
 		{
 			$parent = $crm_settings->comment_menu;
 		}
@@ -9452,7 +9397,7 @@ Bank accounts: yksteise all
 		if (!empty($arr["o"]))
 		{
 			$customer = new object($arr["o"]);
-			if (!$customer->is_saved() or !$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(CL_CRM_PERSON))
+			if (!$customer->is_saved() or !$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(crm_person_obj::CLID))
 			{
 				$this->show_error_text(sprintf(t("Antud klient (id '%s') ei ole lisatav"), $customer->id()));
 				return $r;
@@ -9462,7 +9407,7 @@ Bank accounts: yksteise all
 		{
 			$customer = obj(null, array(), $arr["c"]);
 			$customer->set_parent($this_o->id());
-			if (!$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(CL_CRM_PERSON))
+			if (!$customer->is_a(CL_CRM_COMPANY) and !$customer->is_a(crm_person_obj::CLID))
 			{
 				$this->show_error_text(sprintf(t("Antud objekt ('%s') pole lisatav kliendina"), $customer->class_id()));
 				return $r;
@@ -9507,7 +9452,7 @@ Bank accounts: yksteise all
 	{
 		if(!empty($args["sbt_data_add_buyer"]) or !empty($args["sbt_data_add_seller"]))
 		{ // process popup search customer add request
-			$args["s"] = isset($args["category"]) ? $args["category"] : "";
+			$args["s"] = isset($args[self::REQVAR_CATEGORY]) ? $args[self::REQVAR_CATEGORY] : "";
 			$args["return_url"] = isset($args["post_ru"]) ? $args["post_ru"] : "";
 
 			if (!empty($args["sbt_data_add_buyer"]))
@@ -9558,7 +9503,7 @@ Bank accounts: yksteise all
 			// found profession. load person, create work relation
 			try
 			{
-				$person = obj($args["sbt_data_add_employee"], array(), CL_CRM_PERSON);
+				$person = obj($args["sbt_data_add_employee"], array(), crm_person_obj::CLID);
 				$this_o->add_employee($profession, $person);
 			}
 			catch (Exception $e)

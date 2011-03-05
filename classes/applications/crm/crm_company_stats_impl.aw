@@ -3216,9 +3216,9 @@ ini_set("memory_limit", "1500M");
 			&& is_oid($object_curr)
 		)
 		{
-		//arr($object_curr);arr($sum);
 			$company_curr_obj = obj($company_curr);
-			foreach($company_curr_obj->meta("rates") as $rate)
+			$currency_rates = (array) $company_curr_obj->meta("rates");
+			foreach($currency_rates as $rate)
 			{
 				if($rate["currency"] == $object_curr && $rate["rate"] && $this->check_date($date, $rate["start_date"],$rate["end_date"]))
 				{
@@ -3227,10 +3227,12 @@ ini_set("memory_limit", "1500M");
 					continue;
 				}
 			}
+
 			if(!$changed)//et kui ei saanud vahetuskurssi asutuse valuuta juurest, siis vaatab teisest
 			{
 				$curr_obj = obj($object_curr);
-				foreach($curr_obj->meta("rates") as $rate)
+				$currency_rates = (array) $curr_obj->meta("rates");
+				foreach($currency_rates as $rate)
 				{
 					if($rate["currency"] == $company_curr && $rate["rate"] && $this->check_date($date, $rate["start_date"],$rate["end_date"]))
 					{
@@ -3545,8 +3547,6 @@ ini_set("memory_limit", "1500M");
 	{
 		$filter = array(
 			"class_id" => CL_BUG,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"limit" => 1
 		);
 

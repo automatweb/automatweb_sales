@@ -191,7 +191,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		}
 		else
 		{
-			$this->set_meta("contracts", $v);
+			$this->set_meta("contracts", $contracts);
 		}
 	}
 
@@ -578,6 +578,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		{
 			$price_components_without_applicables[] = $row["oid"];
 		}
+
 		if(!empty($price_components_without_applicables))
 		{
 			$odl = new object_data_list(
@@ -610,6 +611,17 @@ class crm_offer_obj extends crm_offer_price_component_handler
 
 			$ol = new object_list();
 			$ol->add($price_component_ids_by_type[crm_sales_price_component_obj::TYPE_TOTAL]);
+			$this->price_components[crm_sales_price_component_obj::TYPE_TOTAL] = $ol;
+		}
+		else
+		{
+			$ol = new object_list();
+			$this->price_components[crm_sales_price_component_obj::TYPE_UNIT] = $ol;
+
+			$ol = new object_list();
+			$this->price_components[crm_sales_price_component_obj::TYPE_ROW] = $ol;
+
+			$ol = new object_list();
 			$this->price_components[crm_sales_price_component_obj::TYPE_TOTAL] = $ol;
 		}
 

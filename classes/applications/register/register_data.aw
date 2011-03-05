@@ -1538,6 +1538,7 @@
 @reltype FILE5 value=90 clid=CL_FILE
 @caption fail5
 
+
 @property aliasmgr type=aliasmgr store=no editonly=1 group=data,classificators,textboxes,textareas,texts trans=1
 @caption Aliastehaldur
 

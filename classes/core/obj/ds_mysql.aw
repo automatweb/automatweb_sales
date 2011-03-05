@@ -2,6 +2,8 @@
 
 class _int_obj_ds_mysql extends _int_obj_ds_base
 {
+	private $last_search_query_string = "";
+
 	function _int_obj_ds_mysql()
 	{
 		$this->init();
@@ -122,7 +124,15 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			}
 		}
 
-		$ret["meta"] = aw_unserialize($ret["metadata"], false, true);
+		$ret["meta"] = aw_unserialize(
+			stripslashes($ret["metadata"]),
+				//FIXME: stripslashes added here because some metadata records
+				// contain strings "\\'" which cause parse errors when aw_unserialize'd.
+				// need to find root cause of this, temporary fix here
+			false,
+			true
+		);
+
 		if (!empty($ret["metadata"]) && $ret["meta"] === NULL)
 		{
 			$ret["meta"] = aw_unserialize(stripslashes(stripslashes($ret["metadata"])), false, true); //!!! miks siin topelt stripslashes vajalik on?
@@ -859,14 +869,15 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 	function save_properties($arr)
 	{
 		extract($arr);
+		$objdata = $arr["objdata"];
 		if ($arr["create_new_version"] == 1)
 		{
 			return $this->save_properties_new_version($arr);
 		}
 
-		if (!empty($GLOBALS["object2version"][$arr["objdata"]["oid"]]))
+		if (!empty($GLOBALS["object2version"][$objdata["oid"]]))
 		{
-			$arr["objdata"]["version_id"] = $GLOBALS["object2version"][$arr["objdata"]["oid"]];
+			$objdata["version_id"] = $GLOBALS["object2version"][$objdata["oid"]];
 			return $this->save_properties_new_version($arr);
 		}
 
@@ -890,9 +901,10 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		{
 			$ot_sets[] = " {$_field} = '{$objdata[$_field]}' ";
 		}
+
 		$ot_sets = join(" , ", $ot_sets);
 
-		if ($ot_sets != "")
+		if ($ot_sets)
 		{
 			$ot_sets = " , {$ot_sets}";
 		}
@@ -1049,6 +1061,9 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				$insert_q_values = "'" . implode("','", (array_merge(array($objdata["brother_of"]), array_values($seta)))) . "'";
 				$q = "INSERT INTO {$tbl} ({$insert_q_fields}) VALUES ({$insert_q_values}) ON DUPLICATE KEY UPDATE {$sets}"; // insert new row into data table or update if exists
 				// $q = "UPDATE {$tbl} SET {$sets} WHERE {$tableinfo[$tbl]["index"]} = '{$objdata["brother_of"]}'"; // reserve for performance upgrade when other means of row existence checking available
+
+/*~AWdbg*/ if (aw_ini_get("debug_mode") and automatweb::$request->arg("AW_DUKE") === "ds") { dbg::dump($q); }
+
 				$used_tables[$tbl] = $tbl;
 				$data_qs[] = $q;
 			}
@@ -1516,6 +1531,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			$objdata = array();
 
 			$this->db_query($q);
+			$this->last_search_query_string = $q;
 
 			if ($datafetch)
 			{
@@ -4077,5 +4093,16 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		$pl = $tmp->get_property_list();
 
 		return array($pl[$prop], $tmp->get_tableinfo());
+	}
+
+	/** Returns last executed search query string for debugging purposes
+		@attrib api=1 params=pos
+		@comment
+		@returns string
+		@errors none
+	**/
+	public function last_search_query_string()
+	{
+		return $this->last_search_query_string;
 	}
 }

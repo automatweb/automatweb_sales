@@ -21,23 +21,6 @@ if (!empty($vars["action"]))
 	$action = $vars["action"];
 }
 
-if (isset($vars['fastcall']) && $vars["fastcall"] == 1)
-{
-	session_name("automatweb");
-	session_start();
-	// loadime klassi
-	classload("core/fastcall_base");
-	if (!class_exists("class_base"))
-	{
-		classload("class_base");
-	}
-	// instantseerime
-	classload($class);
-	$inst = new $class;
-	// ja ongi k6ik
-	die($inst->$action($vars));
-}
-
 include(aw_ini_get("classdir")."/".aw_ini_get("site_impl_dir")."/site_header.".aw_ini_get("ext"));
 
 $orb = new orb();

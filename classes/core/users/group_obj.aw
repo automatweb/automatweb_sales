@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 class group_obj extends _int_object
 {
@@ -27,7 +24,7 @@ class group_obj extends _int_object
 
 	function set_prop($k, $v)
 	{
-		if ($k == "name" || $k == "gp_name")
+		if ($k === "name" || $k === "gp_name")
 		{
 			$this->set_name($v);
 		}
@@ -68,9 +65,7 @@ class group_obj extends _int_object
 		if(aw_ini_get("users.use_group_membership") == 1)
 		{
 			$ol = new object_list(array(
-				"class_id" => CL_USER,
-				"lang_id" => array(),
-				"site_id" => array(),
+				"class_id" => user_obj::CLID,
 				"CL_USER.RELTYPE_USER(CL_GROUP_MEMBERSHIP).RELTYPE_GROUP" => $this->id(),
 				"CL_USER.RELTYPE_USER(CL_GROUP_MEMBERSHIP).status" => object::STAT_ACTIVE,
 				new object_list_filter(array(
@@ -80,8 +75,8 @@ class group_obj extends _int_object
 						new object_list_filter(array(
 							"logic" => "AND",
 							"conditions" => array(
-								"CL_USER.RELTYPE_USER(CL_GROUP_MEMBERSHIP).date_start" => new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, time()),
-								"CL_USER.RELTYPE_USER(CL_GROUP_MEMBERSHIP).date_end" => new obj_predicate_compare(OBJ_COMP_GREATER, time()),
+								"CL_USER.RELTYPE_USER(CL_GROUP_MEMBERSHIP).date_start" => new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, time()),
+								"CL_USER.RELTYPE_USER(CL_GROUP_MEMBERSHIP).date_end" => new obj_predicate_compare(obj_predicate_compare::GREATER, time()),
 							),
 						)),
 					),
@@ -91,15 +86,11 @@ class group_obj extends _int_object
 		else
 		{
 			$ol = new object_list(array(
-				"class_id" => CL_USER,
-				"parent" => $this->id(),
-				"lang_id" => array(),
-				"site_id" => array()
+				"class_id" => user_obj::CLID,
+				"parent" => $this->id()
 			));
 		}
 
 		return $ol;
 	}
 }
-
-?>

@@ -18,19 +18,39 @@ class mysql_pdo
 	{
 	}
 
-	function db_connect($server,$base,$username,$password)
+	function db_connect($server = "localhost", $base = "", $username = "", $password = "", $cid = db_connector::DEFAULT_CID_STR)
 	{
-		$dsn = "mysql:host={$server};dbname={$base}";
-		$this->dbh = new PDO($dsn, $username, $password);
-
-		if (!$this->dbh)
+		if ($base and $username)
 		{
-			$err =  "Can't connect to database";
-			$err .= '<br />';
-			$err .= mysql_error();
-			call_fatal_handler($err);
-			echo $err;
-			exit;
+			$dsn = "mysql:host={$server};dbname={$base}";
+		}
+		elseif (db_connector::DEFAULT_CID_STR === $cid)
+		{
+			$dsn = "mysql:host=" . aw_ini_get("db.host") . ";dbname=" . aw_ini_get("db.base");
+			$username = aw_ini_get("db.user");
+			$password = aw_ini_get("db.pass");
+		}
+		else
+		{
+			try
+			{
+				$dsn = "mysql:host=" . aw_ini_isset("db.connections.{$cid}.host") ? aw_ini_get("db.connections.{$cid}.host") : "localhost" . ";dbname=" . aw_ini_get("db.connections.{$cid}.base");
+				$username = aw_ini_get("db.connections.{$cid}.user");
+				$password = aw_ini_get("db.connections.{$cid}.pass");
+			}
+			catch (awex_cfg_key $e)
+			{
+				throw new aw_exception("Incomplete connection parameters for {$cid}: " . $e->getMessage());
+			}
+		}
+
+		try
+		{
+			$this->dbh = new PDO($dsn, $username, $password);
+		}
+		catch (Exception $e)
+		{
+			throw new aw_exception("Database connection failed: " . $e->getMessage());
 		}
 
 		$this->db_base = $base;
@@ -261,7 +281,7 @@ class mysql_pdo
 				else
 				{
 					$arr[$k] = addslashes($arr[$k]);
-				};
+				}
 			}
 			reset($arr);
 		}
@@ -791,10 +811,9 @@ class mysql_pdo
 
 				foreach(safe_array($ti) as $tn => $td)
 				{
-					if (isset($mt[1]) && $mt[1] == $tn)
+					if (isset($mt[1]) && $mt[1] === $tn)
 					{
 						// got our class
-						classload($inf["file"]);
 						$i = $o->instance();
 						if (method_exists($i, "do_db_upgrade"))
 						{
@@ -807,7 +826,7 @@ class mysql_pdo
 			if (!isset($upgrade_result))
 			{
 				// if not found, then call the static upgrader
-				$cv = get_instance("admin/converters");
+				$cv = new converters();
 				$upgrade_result = $cv->do_db_upgrade($mt[1], $mt[2], $q, $errstr);
 			}
 
@@ -836,9 +855,8 @@ class mysql_pdo
 				$ti = $o->get_tableinfo();
 				foreach($ti as $tn => $td)
 				{
-					if ($mt[2] == $tn)
+					if ($mt[2] === $tn)
 					{
-						classload($inf["file"]);
 						// got our class
 						$i = $o->instance();
 						if (method_exists($i, "do_db_upgrade"))
@@ -853,6 +871,7 @@ class mysql_pdo
 			$cv = new converters();
 			return $cv->do_db_upgrade($mt[2], "", $q, $errstr);
 		}
+
 		return false;
 	}
 

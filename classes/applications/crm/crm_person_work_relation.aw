@@ -26,6 +26,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_ML_MEMBER, on_discon
 	@property employee type=objpicker clid=CL_CRM_PERSON
 	@caption T&ouml;&ouml;v&otilde;tja
 
+	@property state type=text
+	@caption T&ouml;&ouml;suhe
+
 	@property start type=datepicker
 	@caption Suhte algus
 
@@ -96,6 +99,14 @@ class crm_person_work_relation extends class_base
 		$this->init(array(
 			"clid" => CL_CRM_PERSON_WORK_RELATION
 		));
+	}
+
+	function _get_state($arr)
+	{
+		$retval = PROP_OK;
+		$value = isset($arr["prop"]["value"]) ? crm_person_work_relation_obj::state_names($arr["prop"]["value"]) : crm_person_work_relation_obj::state_names(crm_person_work_relation_obj::STATE_UNDEFINED);
+		$arr["prop"]["value"] = array_pop($value);
+		return $retval;
 	}
 
 	function _get_load(&$arr)
@@ -218,8 +229,28 @@ class crm_person_work_relation extends class_base
 						`employee` int(11) UNSIGNED NOT NULL default '0',
 						`start` int(11) UNSIGNED NOT NULL default '0',
 						`end` int(11) UNSIGNED NOT NULL default '0',
+						`state` tinyint UNSIGNED NOT NULL default '".crm_person_work_relation_obj::STATE_UNDEFINED."',
 						PRIMARY KEY  (`aw_oid`));
 				");
+				$this->db_query("CREATE INDEX `state` ON `aw_crm_person_work_relation` (`state`);");
+				$ret_val = true;
+			}
+			elseif ("state" === $field)
+			{
+				$this->db_add_col("aw_crm_person_work_relation", array(
+					"name" => "state",
+					"type" => "tinyint UNSIGNED NOT NULL default '0'"
+				));
+
+				// populate new column
+				$time = time();
+				$this->db_query("UPDATE `aw_crm_person_work_relation` SET `state`= (if((`start` > 1 and `start` < {$time} and (`end` > {$time} or `end` = 0 or `end` is null)), ".crm_person_work_relation_obj::STATE_ACTIVE.", ".crm_person_work_relation_obj::STATE_UNDEFINED."))"); // active relations
+				$this->db_query("UPDATE `aw_crm_person_work_relation` SET `state`= (if((`end` > 1 and `end` < {$time}), ".crm_person_work_relation_obj::STATE_ENDED.", `state`))"); // ended relations
+				$this->db_query("UPDATE `aw_crm_person_work_relation` SET `state`= (if((`start` > {$time}), ".crm_person_work_relation_obj::STATE_NEW.", `state`))"); // starting relations
+
+				// add index
+				$this->db_query("CREATE INDEX `state` ON `aw_crm_person_work_relation` (`state`);");
+
 				$ret_val = true;
 			}
 		}

@@ -434,7 +434,8 @@
             <name>insurance_expires</name>
             <table>objects</table>
             <group>add_info</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>meta</field>
             <method>serialize</method>
             <default>-1</default>
@@ -486,7 +487,8 @@
             <name>tax_clearance_expires</name>
             <table>objects</table>
             <group>add_info</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>meta</field>
             <method>serialize</method>
             <default>-1</default>
@@ -1005,7 +1007,7 @@
             <caption>Kliendikategooriad hierarhiliselt</caption>
       </property>
       <property>
-            <name>customer_search_name</name>
+            <name>cs_n</name>
             <table>objects</table>
             <group>
                   <num_0>relorg_s</num_0>
@@ -1016,7 +1018,7 @@
             <store>no</store>
             <parent>vbox_customers_left_top</parent>
             <captionside>top</captionside>
-            <field>customer_search_name</field>
+            <field>cs_n</field>
             <caption>Nimi</caption>
       </property>
       <property>
@@ -1228,7 +1230,7 @@
             <caption>Printvaade</caption>
       </property>
       <property>
-            <name>customer_search_submit</name>
+            <name>cs_sbt</name>
             <table>objects</table>
             <group>
                   <num_0>relorg_s</num_0>
@@ -1239,22 +1241,8 @@
             <store>no</store>
             <parent>vbox_customers_left_search_btn</parent>
             <no_caption>1</no_caption>
-            <field>customer_search_submit</field>
+            <field>cs_sbt</field>
             <caption>Otsi</caption>
-      </property>
-      <property>
-            <name>customer_search_submit_and_change</name>
-            <table>objects</table>
-            <group>
-                  <num_0>relorg_s</num_0>
-                  <num_1>relorg_b</num_1>
-            </group>
-            <type>submit</type>
-            <parent>vbox_customers_left_search_btn</parent>
-            <no_caption>1</no_caption>
-            <store>no</store>
-            <field>customer_search_submit_and_change</field>
-            <caption>Otsi ja muuda</caption>
       </property>
       <property>
             <name>my_customers_table</name>
@@ -1464,15 +1452,11 @@
             <name>all_proj_search_dl_from</name>
             <table>objects</table>
             <group>org_projects_archive</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>all_proj_search_b_dl</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>all_proj_search_dl_from</field>
             <caption>T&amp;amp;auml;htaeg alates</caption>
       </property>
@@ -1480,15 +1464,11 @@
             <name>all_proj_search_dl_to</name>
             <table>objects</table>
             <group>org_projects_archive</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>all_proj_search_b_dl</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>all_proj_search_dl_to</field>
             <caption>T&amp;amp;auml;htaeg kuni</caption>
       </property>
@@ -1496,15 +1476,11 @@
             <name>all_proj_search_end_from</name>
             <table>objects</table>
             <group>org_projects_archive</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>all_proj_search_b_end</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>all_proj_search_end_from</field>
             <caption>L&amp;amp;otilde;pp alates</caption>
       </property>
@@ -1512,15 +1488,11 @@
             <name>all_proj_search_end_to</name>
             <table>objects</table>
             <group>org_projects_archive</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>all_proj_search_b_end</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>all_proj_search_end_to</field>
             <caption>L&amp;amp;otilde;pp kuni</caption>
       </property>
@@ -1654,15 +1626,11 @@
             <name>proj_search_dl_from</name>
             <table>objects</table>
             <group>my_projects</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>my_proj_search_b_dl</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>proj_search_dl_from</field>
             <caption>T&amp;amp;auml;htaeg alates</caption>
       </property>
@@ -1670,15 +1638,11 @@
             <name>proj_search_dl_to</name>
             <table>objects</table>
             <group>my_projects</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>my_proj_search_b_dl</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>proj_search_dl_to</field>
             <caption>T&amp;amp;auml;htaeg kuni</caption>
       </property>
@@ -1864,7 +1828,8 @@
                   <num_0>documents_all</num_0>
                   <num_1>documents_all_browse</num_1>
             </group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <captionside>top</captionside>
             <parent>docs_s_f</parent>
@@ -2029,7 +1994,8 @@
             <name>billable_start</name>
             <table>objects</table>
             <group>bills_create</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <default>-1</default>
             <parent>billable_search</parent>
@@ -2040,7 +2006,8 @@
             <name>billable_end</name>
             <table>objects</table>
             <group>bills_create</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <default>-1</default>
             <parent>billable_search</parent>
@@ -2147,15 +2114,11 @@
             <name>bill_payments_from</name>
             <table>objects</table>
             <group>bill_payments</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>bills_payments_s</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>bill_payments_from</field>
             <caption>Laekunud alates</caption>
       </property>
@@ -2163,15 +2126,11 @@
             <name>bill_payments_to</name>
             <table>objects</table>
             <group>bill_payments</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>bills_payments_s</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>bill_payments_to</field>
             <caption>Laekunud kuni</caption>
       </property>
@@ -2291,15 +2250,11 @@
             <name>bill_s_from</name>
             <table>objects</table>
             <group>bills_list</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>bills_list_s</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>bill_s_from</field>
             <caption>Esitatud alates</caption>
       </property>
@@ -2307,15 +2262,11 @@
             <name>bill_s_to</name>
             <table>objects</table>
             <group>bills_list</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>bills_list_s</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>bill_s_to</field>
             <caption>Esitatud kuni</caption>
       </property>
@@ -2682,15 +2633,11 @@
                   <num_6>documents_all_manage</num_6>
                   <num_7>bugs</num_7>
             </group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>act_s_dl_layout_top</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>act_s_dl_from</field>
             <caption>T&amp;amp;auml;htaeg alates</caption>
       </property>
@@ -2707,15 +2654,11 @@
                   <num_6>documents_all_manage</num_6>
                   <num_7>bugs</num_7>
             </group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>act_s_dl_layout_top</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>act_s_dl_to</field>
             <caption>T&amp;amp;auml;htaeg kuni</caption>
       </property>
@@ -2918,15 +2861,11 @@
             <name>stats_stats_from</name>
             <table>objects</table>
             <group>stats_stats</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>stats_list_s</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>stats_stats_from</field>
             <caption>Alates</caption>
       </property>
@@ -2934,15 +2873,11 @@
             <name>stats_stats_to</name>
             <table>objects</table>
             <group>stats_stats</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <parent>stats_list_s</parent>
             <captionside>top</captionside>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>stats_stats_to</field>
             <caption>Kuni</caption>
       </property>
@@ -3056,13 +2991,9 @@
             <name>stats_s_from</name>
             <table>objects</table>
             <group>stats_s</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>stats_s_from</field>
             <caption>Alates</caption>
       </property>
@@ -3070,13 +3001,9 @@
             <name>stats_s_to</name>
             <table>objects</table>
             <group>stats_s</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
-            <format>
-                  <num_0>day_textbox</num_0>
-                  <num_1>month_textbox</num_1>
-                  <num_2>year_textbox</num_2>
-            </format>
             <field>stats_s_to</field>
             <caption>Kuni</caption>
       </property>
@@ -3215,7 +3142,8 @@
             <name>my_stats_s_from</name>
             <table>objects</table>
             <group>stats_my</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <field>my_stats_s_from</field>
             <caption>Alates</caption>
@@ -3224,7 +3152,8 @@
             <name>my_stats_s_to</name>
             <table>objects</table>
             <group>stats_my</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <store>no</store>
             <field>my_stats_s_to</field>
             <caption>Kuni</caption>
@@ -3696,21 +3625,19 @@
             </all_reports>
             <relorg>
                   <caption>Kliendid</caption>
-                  <focus>customer_search_name</focus>
+                  <focus>cs_n</focus>
                   <save>no</save>
             </relorg>
             <relorg_b>
                   <caption>Ostjad</caption>
-                  <focus>customer_search_name</focus>
+                  <focus>cs_n</focus>
                   <parent>relorg</parent>
-                  <submit>no</submit>
                   <save>no</save>
             </relorg_b>
             <relorg_s>
                   <caption>M&amp;amp;uuml;&amp;amp;uuml;jad</caption>
-                  <focus>customer_search_name</focus>
+                  <focus>cs_n</focus>
                   <parent>relorg</parent>
-                  <submit>no</submit>
                   <save>no</save>
             </relorg_s>
             <org_images>

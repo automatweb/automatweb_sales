@@ -2,7 +2,7 @@
 
 class crm_presentation_obj extends task_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
-	const AW_CONST = 1560;
+	const CLID = 1560;
 	const RESULT_CALL = 1; // reserve for future use, check applicable code for integrity when starting to use
 	const RESULT_PRESENTATION = 2; // reserve for future use, check applicable code for integrity when starting to use
 	const RESULT_SALE = 3;
@@ -66,7 +66,7 @@ class crm_presentation_obj extends task_object implements crm_sales_price_compon
 
 	/** Returns list of presentation result options
 	@attrib api=1 params=pos
-	@param result type=int
+	@param result type=int default=NULL
 		Result constant value to get name for, one of crm_presentation_obj::RESULT_*
 	@returns array
 		Format option value => human readable name, if result parameter set, array with one element returned and empty array when that result not found.

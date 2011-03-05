@@ -64,13 +64,13 @@
 		@layout center_bit type=vbox parent=up_bit no_padding=1
 			@layout project_time type=vbox parent=center_bit closeable=1 no_padding=1 area_caption=Ajad
 
-			@property start type=date_select table=aw_projects field=aw_start parent=project_time
+			@property start type=datepicker time=0 table=aw_projects field=aw_start parent=project_time
 			@caption Algus
 
-			@property end type=date_select table=aw_projects field=aw_end parent=project_time
+			@property end type=datepicker time=0 table=aw_projects field=aw_end parent=project_time
 			@caption L&otilde;pp
 
-			@property deadline type=date_select table=aw_projects field=aw_deadline parent=project_time
+			@property deadline type=datepicker time=0 table=aw_projects field=aw_deadline parent=project_time
 			@caption T&auml;htaeg
 
 			@property hrs_guess type=textbox table=aw_projects field=aw_hrs_guess size=5 parent=project_time
@@ -318,10 +318,10 @@
  				@property search_part type=textbox captionside=top store=no parent=task_types_search_lay
 				@caption Osaleja
 
-				@property search_start type=date_select captionside=top store=no parent=task_types_search_lay
+				@property search_start type=datepicker time=0 captionside=top store=no parent=task_types_search_lay
 				@caption Algus
 
-				@property search_end type=date_select captionside=top store=no parent=task_types_search_lay
+				@property search_end type=datepicker time=0 captionside=top store=no parent=task_types_search_lay
 				@caption L&otilde;pp
 
 				@property search_type type=text captionside=top store=no parent=task_types_search_lay
@@ -551,6 +551,9 @@ class project extends class_base
 {
 	const DAY_LENGTH_SECONDS = 86400;
 
+	private $do_create_task = 0;
+	private $event_id = 0;
+
 	function project()
 	{
 		$this->init(array(
@@ -558,10 +561,9 @@ class project extends class_base
 			"tpldir" => "applications/groupware/project",
 		));
 
-		lc_site_load("project",&$this);
+		lc_site_load("project", $this);
 
 		$this->event_entry_classes = array(CL_CALENDAR_EVENT, CL_STAGING, CL_CRM_MEETING, CL_TASK, CL_CRM_CALL, CL_PARTY, CL_COMICS);
-		classload("core/icons");
 
 		$this->states = array(
 			PROJ_IN_PROGRESS => t("T&ouml;&ouml;s"),
@@ -571,7 +573,6 @@ class project extends class_base
 		$this->trans_props = array(
 			"name"
 		);
-
 
 		$this->event_types = array(
 			CL_BUG => "&Uuml;lesanded",
@@ -678,7 +679,7 @@ class project extends class_base
 
 	function _get_income_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "group",
@@ -780,33 +781,33 @@ class project extends class_base
 			case "search_part":
 			case "search_start":
 			case "search_end":
-				$data["value"] = $arr["request"][$data["name"]];
+				$data["value"] = isset($arr["request"][$data["name"]]) ? $arr["request"][$data["name"]] : "";
 				break;
 			case "search_type":
 				$data["value"]= html::checkbox(array(
 					"name" => "search_type[".CL_TASK."]",
 					"value" => 1,
-					"checked" => $arr["request"][$data["name"]][CL_TASK] ? 1 : 0
+					"checked" => !empty($arr["request"][$data["name"]][CL_TASK]) ? 1 : 0
 				))." ".t("Toimetus")."<br>".
 				$data["value"] = html::checkbox(array(
 					"name" => "search_type[".CL_CRM_MEETING."]",
 					"value" => 1,
-					"checked" => $arr["request"][$data["name"]][CL_CRM_MEETING] ? 1 : 0
+					"checked" => !empty($arr["request"][$data["name"]][CL_CRM_MEETING]) ? 1 : 0
 				))." ".t("Kohtumine")."<br>".
 				$data["value"] = html::checkbox(array(
 					"name" => "search_type[".CL_CRM_CALL."]",
 					"value" => 1,
-					"checked" => $arr["request"][$data["name"]][CL_CRM_CALL] ? 1 : 0
+					"checked" => !empty($arr["request"][$data["name"]][CL_CRM_CALL]) ? 1 : 0
 				))." ".t("K&otilde;ne")."<br>".
 				$data["value"] = html::checkbox(array(
 					"name" => "search_type[".CL_BUG."]",
 					"value" => 1,
-					"checked" => $arr["request"][$data["name"]][CL_BUG] ? 1 : 0
+					"checked" => !empty($arr["request"][$data["name"]][CL_BUG]) ? 1 : 0
 				))." ".t("Arendus&uuml;lesanne");
-
 				break;
+
 			case "hours_stats_by_person_chart":
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 				$c->set_colors(array(
 					"990000","000033","000066","000099","0000cc",
 					"000000","003300","006600","009900","00cc00",
@@ -820,7 +821,7 @@ class project extends class_base
 					return PROP_IGNORE;
 				}
 
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 
 				$c->set_type(GCHART_PIE_3D);
 				$c->set_size(array(
@@ -873,7 +874,7 @@ class project extends class_base
 				}
 
 
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 				$c->set_type(GCHART_BAR_GV);
 				$c->set_size(array(
 					"width" => 640,
@@ -976,7 +977,7 @@ class project extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 				$c->set_type(GCHART_PIE_3D);
 				$c->set_size(array(
 					"width" => 650,
@@ -1042,7 +1043,7 @@ class project extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$c = &$arr["prop"]["vcl_inst"];
+				$c = $arr["prop"]["vcl_inst"];
 				$c->set_type(GCHART_PIE_3D);
 				$c->set_size(array(
 					"width" => 350,
@@ -1094,7 +1095,7 @@ class project extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$c2 = &$arr["prop"]["vcl_inst"];
+				$c2 = $arr["prop"]["vcl_inst"];
 				$c2->set_type(GCHART_LINE_CHART);
 				$c2->set_size(array(
 					"width" => 1000,
@@ -1112,7 +1113,6 @@ class project extends class_base
 				$data1 = array();
 				$bot_axis = array();
 
-				classload("core/date/date_calc");
 				$all_data = $arr["obj_inst"]->get_rows_data();
 				$work_data = array();
 				$end = $arr["obj_inst"]->prop("end");
@@ -1145,7 +1145,7 @@ class project extends class_base
 				{
 					$start = $end - self::DAY_LENGTH_SECONDS * 600;
 				}
-				$start = get_week_start($start);
+				$start = date_calc::get_week_start($start);
 				if(!($end > 1 && $start > 1))
 				{
 					return;
@@ -1209,7 +1209,7 @@ class project extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$c2 = &$arr["prop"]["vcl_inst"];
+				$c2 = $arr["prop"]["vcl_inst"];
 				$c2->set_type(GCHART_LINE_CHART);
 				$c2->set_size(array(
 					"width" => 450,
@@ -1466,7 +1466,7 @@ class project extends class_base
 				if ($this->can("view", $arr["obj_inst"]->prop("implementor")))
 				{
 					$inf = array();
-					$i->get_all_workers_for_company(obj($arr["obj_inst"]->prop("implementor")),&$inf);
+					$i->get_all_workers_for_company(obj($arr["obj_inst"]->prop("implementor")), $inf);
 					$ol = new object_list(array("oid" => $inf));
 					$data["options"] = array("" => "") + $ol->names();
 				}
@@ -1495,7 +1495,7 @@ class project extends class_base
 					if($c->class_id() == CL_CRM_COMPANY){
 						$wl = array();
 						$i = get_instance(CL_CRM_COMPANY);
-						$i->get_all_workers_for_company($c, &$wl);
+						$i->get_all_workers_for_company($c, $wl);
 						if (count($wl))
 						{
 							$ol = new object_list(array("oid" => $wl));
@@ -1535,7 +1535,7 @@ class project extends class_base
 					if($c->class_id() == CL_CRM_COMPANY){
 						$wl = array();
 						$i = get_instance(CL_CRM_COMPANY);
-						$i->get_all_workers_for_company($c, &$wl);
+						$i->get_all_workers_for_company($c, $wl);
 						if (count($wl))
 						{
 							$ol = new object_list(array("oid" => $wl));
@@ -1803,11 +1803,11 @@ class project extends class_base
 			case "orderer":
 			case "implementor":
 			case "implementor_person":
-				if ($arr["request"]["connect_orderer"] && $prop["name"] == "orderer")
+				if ($arr["request"]["connect_orderer"] && $prop["name"] === "orderer")
 				{
 					$prop["value"] = $arr["request"]["connect_orderer"];
 				}
-				if ($arr["request"]["connect_impl"] && $prop["name"] == "implementor")
+				if ($arr["request"]["connect_impl"] && $prop["name"] === "implementor")
 				{
 					$prop["value"] = $arr["request"]["connect_impl"];
 				}
@@ -1903,10 +1903,10 @@ class project extends class_base
 	// !Optionally this also needs to support date range ..
 	function gen_event_list($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$arr["prop"]["vcl_inst"]->configure(array(
-			"overview_func" => array(&$this,"get_overview"),
+			"overview_func" => array($this,"get_overview"),
 			"full_weeks" => 1,
 		));
 
@@ -1922,7 +1922,6 @@ class project extends class_base
 		};
 
 		$end = $range["end"];
-		classload("core/icons");
 
 		// event translations have the id of the object in original language
 		$o = $arr["obj_inst"];
@@ -1978,8 +1977,6 @@ class project extends class_base
 		$ol->add($ol2);
 
 		$req = get_ru();
-		$clss = aw_ini_get("classes");
-
 		$disp = array();
 		foreach($ol->arr() as $o)
 		{
@@ -1989,12 +1986,6 @@ class project extends class_base
 				continue;
 			}
 			$disp[$o->brother_of()] = 1;
-			//if ($id != $o->brother_of())
-			//{
-				// this will break things, but makes estonia work for now
-				//continue;
-			//};
-
 
 			if ($o->class_id() == CL_BUG)
 			{
@@ -2006,10 +1997,8 @@ class project extends class_base
 				$start = $o->prop("start1");
 				$end = $o->prop("end");
 			}
+
 			$clid = $o->class_id();
-
-			$clinf = $clss[$clid];
-
 			$link = $this->mk_my_orb("change",array("id" => $id,"return_url" => $req),$clid);
 
 			$rows = safe_array($o->meta("rows"));
@@ -2377,7 +2366,6 @@ class project extends class_base
 
 		// SELECT objects.oid AS id, objects.parent, objects.class_id, objects.brother_of, objects.name, planner.start, planner.end FROM planner LEFT JOIN objects ON (planner.id = objects.brother_of) WHERE ((planner.start >= '1099260000' AND planner.start <= '1104530399') OR (planner.end >= '1099260000' AND planner.end <= '1104530399')) AND objects.status != 0 AND objects.parent IN (2186)
 
-		enter_function("project::query");
 		$this->db_query($q);
 		$events = array();
 		$pl = get_instance(CL_PLANNER);
@@ -2431,34 +2419,32 @@ class project extends class_base
 			$event_parent = $e_obj->parent();
 			$event_brother = $e_obj->brother_of();
 
-			enter_function("assign-event");
 			if (!($limit_counter >= ($limit_num) && $limit_num))
 			{
 				if (!isset($events[$event_brother]))
 				{
 					$limit_counter++;
 				}
-			$events[$event_brother] = array(
-				"start" => $row["start"],
-				"end" => $row["end"],
-				"pr" => $prid,
-				"name" => $e_obj->name(),
-				"parent" => $event_parent,
-				"comment" => $e_obj->comment(),
-				"lang_id" => $e_obj->lang_id(),
-				"id" => $eid,
-				//"project_image" => $row["project_image"],
-				"original_id" => $row["brother_of"],
-				//"project_weblink" => aw_ini_get("baseurl") . "/" . $web_page_id,
-				//"project_day_url" => aw_ini_get("baseurl") . "/" . $web_page_id . "?view=3&date=" . date("d-m-Y",$row["start"]),
-				"project_name" => $project_name,
-				"project_name_ucase" => strtoupper($project_name),
-				"link" => $this->mk_my_orb("change",array(
+				$events[$event_brother] = array(
+					"start" => $row["start"],
+					"end" => $row["end"],
+					"pr" => $prid,
+					"name" => $e_obj->name(),
+					"parent" => $event_parent,
+					"comment" => $e_obj->comment(),
+					"lang_id" => $e_obj->lang_id(),
 					"id" => $eid,
-				),$row["class_id"],true,true),
-			);
+					//"project_image" => $row["project_image"],
+					"original_id" => $row["brother_of"],
+					//"project_weblink" => aw_ini_get("baseurl") . "/" . $web_page_id,
+					//"project_day_url" => aw_ini_get("baseurl") . "/" . $web_page_id . "?view=3&date=" . date("d-m-Y",$row["start"]),
+					"project_name" => $project_name,
+					"project_name_ucase" => strtoupper($project_name),
+					"link" => $this->mk_my_orb("change",array(
+						"id" => $eid,
+					),$row["class_id"],true,true),
+				);
 			}
-			exit_function("assign-event");
 			$ids[$row["brother_of"]] = $row["brother_of"];
 			$ids[$e_obj->brother_of()] = $e_obj->brother_of();
 
@@ -2469,7 +2455,7 @@ class project extends class_base
 			{
 				break;
 			}*/
-		};
+		}
 
 
 		$pr_list = new object_list(array(
@@ -2478,10 +2464,6 @@ class project extends class_base
 
 		$pr_data = $pr_list->names();
 
-		// kas ma saan pr-i hiljem arvutada?
-		exit_function("project::query");
-
-		// kuidas ma saan sellest jamast lahti?
 
 		// now i have a list of all projects .. I need to figure out which menus connect to those projects
 		$web_pages = $project_images = array();
@@ -2517,28 +2499,7 @@ class project extends class_base
 			"from.lang_id" => aw_global_get("lang_id"),
 			"type" => 17,
 		));
-		//foreach($conns as $conn)
-		//{
-			//print $conn["to"] . " - " . $conn["from"];
-			//$tx = new object($conn["from"]);
-			//arr($tx->properties());
-			//print "<br>";
-			/*
-			if (aw_global_get("uid") == "meff")
-			{
-				print "connection from " . $conn["from"] . " to " .$conn["to"] . "<br>";
-			};
-			*/
 
-			//$web_pages[$conn["to"]] = $conn["from"];
-		//};
-
-		/*
-		if (aw_global_get("uid") == "meff")
-		{
-			print "<hr>";
-		};
-		*/
 		$conns = $c->find(array(
 			//"to" => $projects,
 			//"to" => $projects,
@@ -2546,28 +2507,11 @@ class project extends class_base
 			"from.class_id" => CL_MENU,
 			"type" => 17,
 		));
-		$clinf = aw_ini_get("classes");
+
 		foreach($conns as $conn)
 		{
-			//print $conn["to"] . " - " . $conn["from"];
-			//$tx = new object($conn["from"]);
-			//arr($tx->properties());
-			//print "<br>";
 			$web_pages[$conn["to"]] = $conn["from"];
-			/*
-			if (aw_global_get("uid") == "meff")
-			{
-				// nii, aga mind huvitab see, et kas mul on seos olemas aktiivse keele jaoks
-
-				// ja mida ma teen, kui ei ole? Kuidas ma saan selle 6ige asja leida?
-				$o1 = new object($conn["from"]);
-				$o2 = new object($conn["to"]);
-
-				//print "connection from " . $conn["from"] . " to " .$conn["to"] . "<br>";
-				printf("connection from %s %s (%s | %s) to %s %s (%s)<br>",$clinf[$o1->class_id()]["name"],$o1->name(),$o1->id(),$o1->lang(),$clinf[$o2->class_id()]["name"],$o2->name(),$o2->id());
-			};
-			*/
-		};
+		}
 
 		$lc = aw_global_get("LC");
 		$current_charset = aw_global_get("charset");
@@ -2654,13 +2598,6 @@ class project extends class_base
 
 		$baseurl = aw_ini_get("baseurl");
 
-		/*
-		if (aw_global_get("uid") == "meff")
-		{
-			arr($project_videos);
-		};
-		*/
-
 		foreach($events as $key => $event)
 		{
 			$prid = $event["pr"];
@@ -2744,7 +2681,6 @@ class project extends class_base
 			// yield a list of project id's which is then matched against the
 			// project level numbers - and this gives us the desired result
 
-			enter_function("find-parent");
 			$ox = $ol->arr();
 			foreach($ox as $brot)
 			{
@@ -2756,21 +2692,15 @@ class project extends class_base
 				$prnt = new object($brot->parent());
 				$pid = $prnt->id();
 				$prj_level = $this->_ptree[$pid];
-				enter_function("get-original");
 				$orig = $brot->get_original();
-				exit_function("get-original");
 
 				if ($prj_level)
 				{
-					enter_function("project-assign-event");
 					$events[$orig->id()]["parent_" . $prj_level . "_name"] = $this->_pnames[$pid];
 					$events[$orig->id()]["parent_" . $prj_level . "_oid"] = $this->_oids[$pid];
-					exit_function("project-assign-event");
 				};
-			};
-			exit_function("find-parent");
-
-		};
+			}
+		}
 		return $events;
 	}
 
@@ -2886,16 +2816,16 @@ class project extends class_base
 
 	function gen_event_toolbar($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
-		/*
+		$tb = $arr["prop"]["vcl_inst"];
+		$this_o = $arr["obj_inst"];
+
+
+		/* XXX: some specific event class adding buttons, not used, determine if neeeded at all
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"img" => "new.gif",
 			"tooltip" => t("Uus"),
 		));
-		*/
-		$o = $arr["obj_inst"];
-		$inst = $o->instance();
 
 		$int = $GLOBALS["relinfo"][$this->clid][3]; //RELTYPE_PRJ_EVENT
 
@@ -2905,17 +2835,15 @@ class project extends class_base
 		{
 			if (in_array($key,$int["clid"]))
 			{
-				/*
 				$tb->add_menu_item(array(
 					"parent" => "new",
 					"text" => $val["name"],
 					"link" => "link",
 				));
-				*/
+			}
+		}
+		*/
 
-
-			};
-		};
 		//$tb->add_separator();
 		$tb->add_menu_button(array(
 			"name" => "subprj",
@@ -2926,10 +2854,8 @@ class project extends class_base
 		// see nupp peaks kuvama ka alamprojektid
 
 		$this->used = array();
-		enter_function("recurse_projects");
 		$this->prj_level = 0;
-		$this->_recurse_projects(0,$o->id());
-		exit_function("recurse_projects");
+		$this->_recurse_projects(0, $this_o->id());
 
 		$form_connections = $arr["obj_inst"]->connections_from(array(
 			"type" => "RELTYPE_PRJ_CFGFORM",
@@ -2939,18 +2865,14 @@ class project extends class_base
 		foreach($form_connections as $form_connection)
 		{
 			$forms[$form_connection->prop("to")] = $form_connection->prop("to.name");
-		};
+		}
 
-		$cl_inf = aw_ini_get("classes");
 		$adds = array(CL_STAGING, CL_TASK, CL_CRM_CALL, CL_CRM_MEETING);
-
-		$cl_name = $cl_inf[CL_STAGING]["name"];
-
-
+		$cl_name = aw_ini_get("classes.".CL_STAGING.".name");
 		$create_args = array();
 
 		if (false && is_array($this->prj_map))
-		{
+		{ //XXX: determine if needed at all, and why the 'false'
 			// how do I know that I'm dealing with first level items?
 			foreach($this->prj_map as $parent => $items)
 			{
@@ -3005,7 +2927,7 @@ class project extends class_base
 									$tb->add_menu_item(array(
 										"name" => "x_" . $prj_id . "_" . $form_id."_".$add_clid,
 										"parent" => $prj_id,
-										"text" => $cl_inf[$add_clid]["name"],
+										"text" => aw_ini_get("classes.{$add_clid}.name"),
 										"link" => $url,
 									));
 								}
@@ -3014,7 +2936,7 @@ class project extends class_base
 									$tb->add_menu_item(array(
 										"name" => "x_" . $prj_id . "_" . $form_id."_".$add_clid,
 										"parent" => $prj_id,
-										"text" => $cl_inf[$add_clid]["name"],
+										"text" => aw_ini_get("classes.{$add_clid}.name"),
 										"link" => $this->mk_my_orb("new",array(
 											"parent" => $prj_id,
 											"group" => "change",
@@ -3022,14 +2944,14 @@ class project extends class_base
 									));
 								}
 							}
-						};
-					};
-				};
-			};
+						}
+					}
+				}
+			}
 		}
 		else
 		{
-			$conns = $o->connections_from(array(
+			$conns = $this_o->connections_from(array(
 				"type" => "RELTYPE_PRJ_CFGFORM",
 			));
 
@@ -3043,14 +2965,14 @@ class project extends class_base
 						"parent" => "subprj",
 						"text" => $cobj->name(),
 						"link" => $this->mk_my_orb("new",array(
-							"parent" => $o->id(),
+							"parent" => $this_o->id(),
 							"group" => "change",
 							"cfgform" => $cobj->id(),
 							"clid" => $cobj->subclass(),
 							"return_url" => get_ru(),
 						),$cobj->subclass()),
 					));
-				};
+				}
 			}
 			else
 			{
@@ -3078,28 +3000,28 @@ class project extends class_base
 							"set_proj" => $arr["obj_inst"]->id()
 						), CL_TASK);
 						$tb->add_menu_item(array(
-							"name" => "x_" . $o->id()."_".$add_clid,
+							"name" => "x_" . $this_o->id()."_".$add_clid,
 							"parent" => "subprj",
-							"text" => $cl_inf[$add_clid]["name"],
+							"text" => aw_ini_get("classes.{$add_clid}.name"),
 							"link" => $url,
 						));
 					}
 					else
 					{
 						$tb->add_menu_item(array(
-							"name" => "x_" . $o->id()."_".$add_clid,
+							"name" => "x_" . $this_o->id()."_".$add_clid,
 							"parent" => "subprj",
-							"text" => $cl_inf[$add_clid]["name"],
+							"text" => aw_ini_get("classes.{$add_clid}.name"),
 							"link" => $this->mk_my_orb("new",array(
-								"parent" => $o->id(),
+								"parent" => $this_o->id(),
 								"group" => "change",
 								"return_url" => get_ru(),
 							),$add_clid),
 						));
 					}
 				}
-			};
-		};
+			}
+		}
 
 		// and now .. to the lowest level ... I need to add configuration forms .. or that other stuff
 
@@ -3321,10 +3243,9 @@ class project extends class_base
 			else
 			{
 				// 1 - get an instance of that class, for this I need to
-				aw_session_set('org_action',aw_global_get('REQUEST_URI'));
-				$tmp = aw_ini_get("classes");
-				$clfile = $tmp[$clid]["file"];
-				$t = get_instance($clfile);
+				aw_session_set('org_action', aw_global_get('REQUEST_URI'));
+				$clfile = basename(aw_ini_get("classes.{$clid}.file"));
+				$t =  new $clfile();
 				$t->init_class_base();
 				$emb_group = "general";
 				if ($this->event_id && $args["request"]["cb_group"])
@@ -3348,14 +3269,14 @@ class project extends class_base
 
 				//$resprops = array();
 				$resprops["capt"] = $this->do_group_headers(array(
-					"t" => &$t,
+					"t" => $t,
 				));
 
 				foreach($xprops as $key => $val)
 				{
 					$val["emb"] = 1;
 					$resprops[$key] = $val;
-				};
+				}
 
 				$resprops[] = array("emb" => 1,"type" => "hidden","name" => "emb[class]","value" => basename($clfile));
 				$resprops[] = array("emb" => 1,"type" => "hidden","name" => "emb[action]","value" => "submit");
@@ -3411,8 +3332,8 @@ class project extends class_base
 		if (!empty($emb["clid"]))
 		{
 			$tmp = aw_ini_get("classes");
-			$clfile = $tmp[$emb["clid"]]["file"];
-			$t = get_instance($clfile);
+			$clfile = basename(aw_ini_get("classes.{$emb["clid"]}.file"));
+			$t =  new $clfile();
 			$t->init_class_base();
 		}
 
@@ -3528,38 +3449,36 @@ class project extends class_base
 			if ($this->emb_group && $this->emb_group !== "general")
 			{
 				$args["cb_group"] = $this->emb_group;
-			};
-		};
-
-		switch($arr["request"]["group"])
-		{
-			case "stats":
-				$args["month_chooser"] = $arr["request"]["month_chooser"];
-				break;
+			}
 		}
 
-
-		if($arr["request"]["hidden_team"] && !$args["team"])
+		if(!empty($arr["request"]["hidden_team"]) && empty($args["team"]))
 		{
-		  $args["team"] = $arr["request"]["hidden_team"];
+			$args["team"] = $arr["request"]["hidden_team"];
 		}
-		if($arr["request"]["group"] === "goals_edit")
+
+		if($this->use_group === "goals_edit")
 		{
 			$args["search_part"] = $arr["request"]["search_part"];
 			$args["search_start"] = $arr["request"]["search_start"];
 			$args["search_end"] = $arr["request"]["search_end"];
 			$args["search_type"] = $arr["request"]["search_type"];
 		}
-
-		$args["team_search_person"] = $arr["request"]["team_search_person"];
-		$args["team_search_co"] = $arr["request"]["team_search_co"];
-
-		if($arr["request"]["group"] === "files")
+		elseif($this->use_group === "files")
 		{
 			$args["files_find_name"] = $arr["request"]["files_find_name"];
 			$args["files_find_type"] = $arr["request"]["files_find_type"];
 			$args["files_find_comment"] = $arr["request"]["files_find_comment"];
 		}
+		elseif($this->use_group === "stats")
+		{
+			$args["files_find_name"] = $arr["request"]["files_find_name"];
+			$args["files_find_type"] = $arr["request"]["files_find_type"];
+			$args["files_find_comment"] = $arr["request"]["files_find_comment"];
+		}
+
+		if (isset($arr["request"]["team_search_person"])) $args["team_search_person"] = $arr["request"]["team_search_person"];
+		if (isset($arr["request"]["team_search_co"])) $args["team_search_co"] = $arr["request"]["team_search_co"];
 	}
 
 	function callback_mod_reforb(&$arr, $request)
@@ -3671,13 +3590,13 @@ class project extends class_base
 			"start_from" => $start_from
 		));
 
-		classload("core/date/date_calc");
 		$dt = aw_global_get("date");
 		if (empty($dt))
 		{
 			$dt = date("d-m-Y");
-		};
-		$rg = get_date_range(array(
+		}
+
+		$rg = date_calc::get_date_range(array(
 			"type" => $viewtype,
 			"date" => $dt,
 		));
@@ -3687,14 +3606,6 @@ class project extends class_base
 		// in the web
 
 		$lang_id = aw_global_get("lang_id");
-
-		/*
-		if (aw_global_get("uid") == "meff")
-		{
-			global $DUKE;
-			$DUKE = 1;
-		};
-		*/
 
 		/*
 			[15:17] <terryf_home> ongi sihuke kood
@@ -3732,14 +3643,14 @@ class project extends class_base
 				if (!$first)
 				{
 					continue;
-				};
+				}
 
 				if ($conn["type"] != 7)
 				{
 					continue;
-				};
+				}
 
-				$t = get_instance(CL_DOCUMENT);
+				$t = new document();
 				$description = $t->gen_preview(array(
 					"docid" => $conn["to"],
 					"leadonly" => -1,
@@ -3811,7 +3722,7 @@ class project extends class_base
 		return $res;
 	}
 
-	function get_master_project($o,&$level)
+	function get_master_project($o, &$level)
 	{
 		$o2 = $o;
 		$level = 0;
@@ -3848,7 +3759,6 @@ class project extends class_base
 		$ol = new object_list(array(
 			"parent" => $arr["id"],
 			"sort_by" => "planner.start",
-			"site_id" => array(),
 			new object_list_filter(array("non_filter_classes" => CL_CRM_MEETING)),
 			new obj_predicate_compare(OBJ_COMP_IN_TIMESPAN,array("start1", "end"), array($arr["start"], $arr["end"]))
 		));
@@ -3870,15 +3780,16 @@ class project extends class_base
 						"url" => "/" . $o->id(),
 						"start" => $i * 86400,
 					);
-				};
-			};
-		};
+				}
+			}
+		}
 		return $rv;
 	}
 
 	function _goal_tb($arr)
 	{
-		$t =& $arr["prop"]["toolbar"];
+		$t = $arr["prop"]["toolbar"];
+		$tf = isset($arr["request"]["tf"]) ? $arr["request"]["tf"] :  0;
 
 		$t->add_menu_button(array(
 			"name" => "new",
@@ -3910,7 +3821,7 @@ class project extends class_base
 					"return_url" => get_ru(),
 					"alias_to_org" => $ord,
 					"set_proj" => $arr["obj_inst"]->id(),
-					"set_pred" => $arr["request"]["tf"]
+					"set_pred" => $tf
 				)
 			),
 			"text" => t("Toimetus"),
@@ -3925,7 +3836,7 @@ class project extends class_base
 					"return_url" => get_ru(),
 					"alias_to_org" => $ord,
 					"set_proj" => $arr["obj_inst"]->id(),
-					"set_pred" => $arr["request"]["tf"]
+					"set_pred" => $tf
 				)
 			),
 			"text" => t("K&otilde;ne"),
@@ -3940,7 +3851,7 @@ class project extends class_base
 					"return_url" => get_ru(),
 					"alias_to_org" => $ord,
 					"set_proj" => $arr["obj_inst"]->id(),
-					"set_pred" => $arr["request"]["tf"]
+					"set_pred" => $tf
 				)
 			),
 			"text" => t("Kohtumine"),
@@ -3956,7 +3867,7 @@ class project extends class_base
 					"return_url" => get_ru(),
 					"alias_to_org" => $ord,
 					"set_proj" => $arr["obj_inst"]->id(),
-					"set_pred" => $arr["request"]["tf"]
+					"set_pred" => $tf
 				)
 			),
 			"text" => t("Arendus&uuml;lesanne"),
@@ -3977,7 +3888,7 @@ class project extends class_base
 			"tooltip" => t("L&otilde;ika"),
 		));
 
-		if (is_array($_SESSION["proj_cut_goals"]) && count($_SESSION["proj_cut_goals"]))
+		if (!empty($_SESSION["proj_cut_goals"]) and is_array($_SESSION["proj_cut_goals"]))
 		{
 			$t->add_button(array(
 				"name" => "paste",
@@ -3990,12 +3901,12 @@ class project extends class_base
 
 	function _get_bills_tree($arr)
 	{
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$bill_state_count = $arr["obj_inst"]->get_bill_state_count();
 		$var = "st";
-		if(!isset($_GET[$var]))
+		if(!isset($arr["request"][$var]))
 		{
-			$_GET[$var] = 10;
+			$arr["request"][$var] = 10;
 		}
 
 		$tv->start_tree(array(
@@ -4012,7 +3923,7 @@ class project extends class_base
 			{
 				$state.= " (".$bill_state_count[$stat_id].")";
 			}
-			if (isset($_GET[$var]) && $_GET[$var] == $stat_id+10)
+			if (isset($arr["request"][$var]) && $arr["request"][$var] == $stat_id+10)
 			{
 				$state = "<b>".$state."</b>";
 			}
@@ -4026,9 +3937,9 @@ class project extends class_base
 
 	function _get_bills_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
-		$show_payment_info = (!isset($_GET["st"]) || $_GET["st"] > 10)? 1 : 0;
+		$show_payment_info = (!isset($arr["request"]["st"]) || $arr["request"]["st"] > 10)? 1 : 0;
 
 		$t->define_field(array(
 			"name" => "bill_no",
@@ -4089,7 +4000,7 @@ class project extends class_base
 			));
 		}
 
-		if(isset($_GET["st"]) && $_GET["st"] == 100)
+		if(isset($arr["request"]["st"]) && $arr["request"]["st"] == 100)
 		{
 			$t->define_field(array(
 				"name" => "state",
@@ -4108,12 +4019,12 @@ class project extends class_base
 			"name" => "sel"
 		));
 
-		if(!isset($_GET["st"]))
+		if(!isset($arr["request"]["st"]))
 		{
 			return;
 		}
 
-		$bill_params = (isset($_GET["st"]) && $_GET["st"] != 100) ? array("status" =>  $_GET["st"] - 10) : null;
+		$bill_params = (isset($arr["request"]["st"]) && $arr["request"]["st"] != 100) ? array("status" =>  $arr["request"]["st"] - 10) : null;
 		$bills = $arr["obj_inst"]->get_bills($bill_params);
 		$bill_i = get_instance(CL_CRM_BILL);
 		$curr_inst = get_instance(CL_CURRENCY);
@@ -4158,7 +4069,7 @@ class project extends class_base
 				$partial = '<br>'.t("osaliselt");
 			}
 
-			if(isset($_GET["st"]) && $_GET["st"] == 100)
+			if(isset($arr["request"]["st"]) && $arr["request"]["st"] == 100)
 			{
 				$state = $bills_inst->states[$bill->prop("state")];
 			}
@@ -4276,7 +4187,7 @@ class project extends class_base
 	function _get_bills_tb($arr)
 	{
 		$_SESSION["create_bill_ru"] = get_ru();
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_button(array(
 			'name' => 'new',
@@ -4294,7 +4205,7 @@ class project extends class_base
 
 	function _get_create_bill_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 /*
 		$tb->add_button(array(
 			'name' => 'new',
@@ -4309,9 +4220,7 @@ class project extends class_base
 			'tooltip' => t('Loo arve'),
 			'action' => "create_bill",
 		));
-		enter_function("bills::all_cust_bills");
 		$bills = $arr["obj_inst"]->get_bills(array("status" =>  0));
-exit_function("bills::all_cust_bills");
 		if($bills->count())
 		{
 			$tb->add_menu_button(array(
@@ -4340,7 +4249,7 @@ exit_function("bills::all_cust_bills");
 	{
 		foreach($arr as $k => $v)
 		{
-			if (substr($k, 0, 3) == "sel")
+			if (substr($k, 0, 3) === "sel")
 			{
 				foreach($v as $v_id)
 				{
@@ -4392,9 +4301,9 @@ exit_function("bills::all_cust_bills");
 				break;
 			case "bills_r":
 				$var = 10;
-				if(isset($_GET["st"]))
+				if(isset($arr["request"]["st"]))
 				{
-					$var = $_GET["st"];
+					$var = $arr["request"]["st"];
 				}
 				if($var == 14)
 				{
@@ -4446,7 +4355,7 @@ exit_function("bills::all_cust_bills");
 
 	function _get_work_list($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 		$t->define_field(array(
 			"caption" => t("<a href='javascript:void(0)' onclick='openall();'>Ava</a>"),
@@ -4610,7 +4519,7 @@ exit_function("bills::all_cust_bills");
 					"bug" => $bug->id(),
 				),
 				"prop" => array(
-					"vcl_inst" => &$table
+					"vcl_inst" => $table
 				)
 			);
 
@@ -4654,7 +4563,7 @@ exit_function("bills::all_cust_bills");
 
 	}
 
-	private function _init_bug_row_list(&$t, $bug)
+	private function _init_bug_row_list($t, $bug)
 	{
 		$t->define_field(array(
 			"caption" => t("Sisu"),
@@ -4690,13 +4599,12 @@ exit_function("bills::all_cust_bills");
 
 	private function _get_bug_row_list($arr)
 	{
-		enter_function("bills_impl::_get_bill_task_list");
 		if(!($bug = obj($arr["request"]["bug"])))
 		{
 			return "";
 		}
 
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$project =& $arr["request"]["project"];
 		$t->unset_filter();
 		$this->_init_bug_row_list($t,$arr["request"]["bug"]);
@@ -4728,14 +4636,12 @@ exit_function("bills::all_cust_bills");
 				"date" => date("d.m.Y" , $comment->prop("date")),
 			));
 		}
-		exit_function("bills_impl::_get_bill_task_list");
 	}
 
 	function _task_types_tree($arr)
 	{
-		classload("core/icons");
-		$act = $arr["request"]["tf"];
-		$tv =& $arr["prop"]["vcl_inst"];
+		$act = isset($arr["request"]["tf"]) ? $arr["request"]["tf"] : 0;
+		$tv = $arr["prop"]["vcl_inst"];
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
 			"persist_state" => true,
@@ -4755,14 +4661,28 @@ exit_function("bills::all_cust_bills");
 		$bugs_count = array();
 		foreach($bugs_data as $bd)
 		{
-			$bugs_count[$bd["bug_status"]] ++;
+			if (isset($bugs_count[$bd["bug_status"]]))
+			{
+				$bugs_count[$bd["bug_status"]]++;
+			}
+			else
+			{
+				$bugs_count[$bd["bug_status"]] = 1;
+			}
 		}
 
 		$tasks_data = $arr["obj_inst"]->get_all_tasks_data();
 		$tasks_count = array();
 		foreach($tasks_data as $bd)
 		{
-			$tasks_count[$bd["class_id"]][$bd["is_done"]] ++;
+			if (isset($tasks_count[$bd["class_id"]][$bd["is_done"]]))
+			{
+				$tasks_count[$bd["class_id"]][$bd["is_done"]] ++;
+			}
+			else
+			{
+				$tasks_count[$bd["class_id"]][$bd["is_done"]] = 1;
+			}
 		}
 
 		$count = 0;
@@ -4771,12 +4691,12 @@ exit_function("bills::all_cust_bills");
 
 		foreach($types as $clid => $name)
 		{
-			if($clid == CL_BUG)
+			if ($clid == CL_BUG)
 			{
 				$name = $name." (".array_sum($bugs_count).")";
 			}
 
-			if($tasks_count[$clid])
+			if (!empty($tasks_count[$clid]))
 			{
 				$name = $name." (".array_sum($tasks_count[$clid]).")";
 			}
@@ -4796,7 +4716,7 @@ exit_function("bills::all_cust_bills");
 		//bugi staatuste kaupa
 		foreach($bug_inst->bug_statuses as $stat_id => $caption)
 		{
-			if($bugs_count[$stat_id])
+			if(!empty($bugs_count[$stat_id]))
 			{
 				$caption = $caption." (".$bugs_count[$stat_id].")";
 			}
@@ -4812,7 +4732,7 @@ exit_function("bills::all_cust_bills");
 		$clid = CL_TASK;
 		$tf = $clid."_0";
 		$nm = t("Tegemata");
-		if($tasks_count[$clid][0])
+		if(!empty($tasks_count[$clid][0]))
 		{
 			$nm = $nm." (".$tasks_count[$clid][0].")";
 		}
@@ -4824,7 +4744,7 @@ exit_function("bills::all_cust_bills");
 		));
 		$tf = $clid."_1";
 		$nm = t("Valmis");
-		if($tasks_count[$clid][8])
+		if(!empty($tasks_count[$clid][8]))
 		{
 			$nm = $nm." (".$tasks_count[$clid][8].")";
 		}
@@ -4838,7 +4758,7 @@ exit_function("bills::all_cust_bills");
 		$clid = CL_CRM_MEETING;
 		$tf = $clid."_0";
 		$nm = t("Tulekul");
-		if($tasks_count[$clid][0])
+		if(!empty($tasks_count[$clid][0]))
 		{
 			$nm = $nm." (".$tasks_count[$clid][0].")";
 		}
@@ -4849,7 +4769,7 @@ exit_function("bills::all_cust_bills");
 		));
 		$tf = $clid."_1";
 		$nm = t("L&otilde;pppenud");
-		if($tasks_count[$clid][8])
+		if(!empty($tasks_count[$clid][8]))
 		{
 			$nm = $nm." (".$tasks_count[$clid][8].")";
 		}
@@ -4863,7 +4783,7 @@ exit_function("bills::all_cust_bills");
 		$clid = CL_CRM_CALL;
 		$tf = $clid."_0";
 		$nm = t("Plaanis olevad");
-		if($tasks_count[$clid][0])
+		if(!empty($tasks_count[$clid][0]))
 		{
 			$nm = $nm." (".$tasks_count[$clid][0].")";
 		}
@@ -4874,7 +4794,7 @@ exit_function("bills::all_cust_bills");
 		));
 		$tf = $clid."_1";
 		$nm = t("Tehtud");
-		if($tasks_count[$clid][8])
+		if(!empty($tasks_count[$clid][8]))
 		{
 			$nm = $nm." (".$tasks_count[$clid][8].")";
 		}
@@ -4936,7 +4856,6 @@ exit_function("bills::all_cust_bills");
 
 	function _goal_tree($arr)
 	{
-		classload("core/icons");
 		$ol = new object_list(array(
 			"class_id" => array(CL_TASK,CL_CRM_CALL,CL_CRM_MEETING),
 //			"project" => $arr["obj_inst"]->id(),
@@ -4947,7 +4866,7 @@ exit_function("bills::all_cust_bills");
 		));
 		$ids = $this->make_keys($ol->ids());
 		// now make tree, based on predicate tasks
-		$tv =& $arr["prop"]["vcl_inst"];
+		$tv = $arr["prop"]["vcl_inst"];
 		$tv->start_tree(array(
 			"type" => TREE_DHTML,
 			"persist_state" => true,
@@ -4990,7 +4909,7 @@ exit_function("bills::all_cust_bills");
 		}
 	}
 
-	function _init_goal_table(&$t)
+	function _init_goal_table($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -5035,7 +4954,7 @@ exit_function("bills::all_cust_bills");
 
 	function _goal_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_goal_table($t);
 
 //		$parent = is_oid($arr["request"]["tf"]) ? $arr["request"]["tf"] : new obj_predicate_compare(OBJ_COMP_NULL);
@@ -5070,37 +4989,40 @@ exit_function("bills::all_cust_bills");
 		{
 			$tasks = new object_list();
 
-			if($arr["request"]["search_part"] || $arr["request"]["search_start"] || $arr["request"]["search_end"] || $arr["request"]["search_type"])
+			if(!empty($arr["request"]["search_part"]) || !empty($arr["request"]["search_start"]) || !empty($arr["request"]["search_end"]) || !empty($arr["request"]["search_type"]))
 			{
 				$search = array();
-				if($arr["request"]["search_part"])
+				if(!empty($arr["request"]["search_part"]))
 				{
 					$search["participant"] = $arr["request"]["search_part"];
 				}
-				if($arr["request"]["search_start"])
+
+				if(!empty($arr["request"]["search_start"]))
 				{
 					$search["from"] = date_edit::get_timestamp($arr["request"]["search_start"]);
 				}
-				if($arr["request"]["search_end"])
+
+				if(!empty($arr["request"]["search_end"]))
 				{
 					$search["to"] = date_edit::get_timestamp($arr["request"]["search_end"]);
 				}
 
-				if(!$arr["request"]["search_type"] || $arr["request"]["search_type"][CL_BUG])
+				if(empty($arr["request"]["search_type"]) || !empty($arr["request"]["search_type"][CL_BUG]))
 				{
 					$tasks->add($arr["obj_inst"]->get_bugs($search));
 				}
 
-				if(!$arr["request"]["search_type"] || $arr["request"]["search_type"][CL_TASK])
+				if(empty($arr["request"]["search_type"]) || !empty($arr["request"]["search_type"][CL_TASK]))
 				{
 					$tasks->add($arr["obj_inst"]->get_tasks($search));
 				}
 
-				if(!$arr["request"]["search_type"] || $arr["request"]["search_type"][CL_CRM_MEETING])
+				if(empty($arr["request"]["search_type"]) || !empty($arr["request"]["search_type"][CL_CRM_MEETING]))
 				{
 					$tasks->add($arr["obj_inst"]->get_meetings($search));
 				}
-				if(!$arr["request"]["search_type"] || $arr["request"]["search_type"][CL_CRM_CALL])
+
+				if(empty($arr["request"]["search_type"]) || !empty($arr["request"]["search_type"][CL_CRM_CALL]))
 				{
 					$tasks->add($arr["obj_inst"]->get_calls($search));
 				}
@@ -5162,11 +5084,12 @@ exit_function("bills::all_cust_bills");
 
 	function _goals_gantt($arr)
 	{
-		$columns = $arr["request"]["column_n"];
+		$units = isset($arr["request"]["units"]) ? $arr["request"]["units"] : "";
+		$columns = isset($arr["request"]["column_n"]) ? $arr["request"]["column_n"] : "";
 		if(!$columns) $columns = 10;
 		$time =  time();
-		$this_object =& $arr["obj_inst"];
-		$chart = get_instance ("vcl/gantt_chart");
+		$this_object = $arr["obj_inst"];
+		$chart = new gantt_chart();
 
 		//k6igepealt default v22rtused ... mis siis muutuvad kui tegu on kuude v6i n2dalatega
 		$subdivisions = 1;
@@ -5174,15 +5097,14 @@ exit_function("bills::all_cust_bills");
 		$days = array ("P", "E", "T", "K", "N", "R", "L");
 		$column_length = 86400;
 
-		if($arr["request"]["units"] == "months")
+		if($units === "months")
 		{
 			$days = array (t("Jaanuar"), t("Veebruar"), t("M&auml;rts"), t("Aprill"), t("Mai"), t("Juuni"), t("Juuli"), t("August"), t("September"), t("Oktoober"), t("November"), t("Detsember"));
 			$subdivisions = 1;
 			$subdivisions = (int)(10/$columns)*3;
 			$column_length = 86400*30.5;
 		}
-
-		if($arr["request"]["units"] == "weeks")
+		elseif($units === "weeks")
 		{
 			$days = array();
 			$x = 0;
@@ -5222,7 +5144,9 @@ exit_function("bills::all_cust_bills");
 					break;
 			}
 		}
-		if($arr["request"]["start"]) $range_start = $arr["request"]["start"];
+
+		if (!empty($arr["request"]["start"])) $range_start = $arr["request"]["start"];
+
 		foreach($gt_list->arr() as $gt)
 		{
 			$chart->add_row (array (
@@ -5281,14 +5205,13 @@ exit_function("bills::all_cust_bills");
 
 		### define columns
 		$i = 0;
-
 		while ($i < $columns)
 		{
 			$day_start = ($range_start + ($i * 86400));
 			$day = date ("w", $day_start);
 			$date = date ("j/m/Y", $day_start);
 			$title = $days[$day] . " - " . $date;
-			if($arr["request"]["units"] == "weeks")
+			if($units === "weeks")
 			{
 				$day_start = ($range_start + ($i * 86400*7));
 				$day = (int)date ("W", $day_start);
@@ -5296,7 +5219,7 @@ exit_function("bills::all_cust_bills");
 				$date.= " - " .date ("j/m/Y", $day_start+ 86400*6);
 				$title = $days[$day] . " " . $date;
 			}
-			if($arr["request"]["units"] == "months")
+			elseif($units === "months")
 			{
 				$day_start = ($range_start + ($i * 86400*30.5));
 				$day = (int)date ("m", $day_start) - 1;
@@ -5313,9 +5236,9 @@ exit_function("bills::all_cust_bills");
 			$i++;
 		}
 		$links = $this->gen_gantt_header_links(array(
-			"column_n" => $arr["request"]["column_n"],
+			"column_n" => $columns,
 			"id" => $arr["request"]["id"],
-			"units" => $arr["request"]["units"],
+			"units" => $units,
 			"start" => $range_start,
 		));
 
@@ -5509,6 +5432,7 @@ exit_function("bills::all_cust_bills");
 		{
 			$arr["obj_inst"]->save();
 		}
+
 		if ($this->do_create_task == 1)
 		{
 			$this->_create_task($arr);
@@ -5516,7 +5440,7 @@ exit_function("bills::all_cust_bills");
 
 		if($arr["request"]["participants"])
 		{
-			$ps = get_instance('vcl/popup_search');
+			$ps = new popup_search();
 			$ps->do_create_rels($arr['obj_inst'], $arr["request"]["participants"], RELTYPE_PARTICIPANT);
 		}
 		if(substr_count($arr["request"]["return_url"] , "action=new") && (substr_count($arr["request"]["return_url"] , "class=crm_task") || substr_count($arr["request"]["return_url"] , "class=crm_call") || substr_count($arr["request"]["return_url"] , "class=crm_meeting")))
@@ -5581,7 +5505,7 @@ exit_function("bills::all_cust_bills");
 		{
 			$wl = array();
 			$i = get_instance(CL_CRM_COMPANY);
-			$i->get_all_workers_for_company($ord, &$wl);
+			$i->get_all_workers_for_company($ord, $wl);
 			if (count($wl))
 			{
 				$ol = new object_list(array("oid" => $wl));
@@ -5593,7 +5517,7 @@ exit_function("bills::all_cust_bills");
 
 	function _sides_tb($arr)
 	{
-		$tb =& $arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		// add, search, del
 		$tb->add_menu_button(array(
@@ -5655,7 +5579,7 @@ exit_function("bills::all_cust_bills");
 		));
 	}
 
-	function _init_sides_t(&$t)
+	function _init_sides_t($t)
 	{
 		$t->define_field(array(
 			"name" => "side",
@@ -5670,7 +5594,7 @@ exit_function("bills::all_cust_bills");
 
 	function _sides($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_sides_t($t);
 
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_SIDE")) as $c)
@@ -5797,7 +5721,7 @@ exit_function("bills::all_cust_bills");
 /*
 	function _get_team($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_team_t($t);
 
 		$p = get_instance(CL_CRM_PERSON);
@@ -5890,7 +5814,7 @@ exit_function("bills::all_cust_bills");
 	}
 */
 /*
-	function _init_team_search_res_t(&$t)
+	function _init_team_search_res_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -6117,7 +6041,7 @@ exit_function("bills::all_cust_bills");
 			{
 				$s = $sf->instance();
 				$fld = $s->get_folders($sf);
-				$t =& $arr["prop"]["vcl_inst"];
+				$t = $arr["prop"]["vcl_inst"];
 
 				usort($fld, create_function('$a,$b', 'return strcmp($a["name"], $b["name"]);'));
 
@@ -6131,7 +6055,6 @@ exit_function("bills::all_cust_bills");
 			$folders = array();
 		}
 
-		$clss = aw_ini_get("classes");
 		foreach($objs as $idx => $o)
 		{
 			$this->vars(array(
@@ -6155,7 +6078,7 @@ exit_function("bills::all_cust_bills");
 				$data[] = array(
 					"name" => html::get_change_url($o->id(), array("return_url" => get_ru()), $o->name()),
 					"file" => $fu,
-					"type" => $clss[$o->class_id()]["name"],
+					"type" => aw_ini_get("classes." . $o->class_id() . ".name"),
 					"del" => html::href(array(
 						"url" => $this->mk_my_orb("del_file_rel", array(
 								"return_url" => get_ru(),
@@ -6192,7 +6115,6 @@ exit_function("bills::all_cust_bills");
 			}
 		}
 
-		classload("vcl/table");
 		$t = new vcl_table(array(
 			"layout" => "generic",
 		));
@@ -6506,7 +6428,7 @@ exit_function("bills::all_cust_bills");
 		$se->save();
 	}
 
-	function _init_risks_eval_tbl(&$t, $o)
+	function _init_risks_eval_tbl($t, $o)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -6537,7 +6459,7 @@ exit_function("bills::all_cust_bills");
 
 	function _risks_eval($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_risks_eval_tbl($t, $arr["obj_inst"]);
 
 		$u = get_instance(CL_USER);
@@ -6555,7 +6477,7 @@ exit_function("bills::all_cust_bills");
 		}
 	}
 */
-	function _init_strat_t(&$t)
+	function _init_strat_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -6593,7 +6515,7 @@ exit_function("bills::all_cust_bills");
 
 	function _strat($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_strat_t($t);
 
 		$u = get_instance(CL_USER);
@@ -6616,7 +6538,7 @@ exit_function("bills::all_cust_bills");
 
 	function _strat_tb($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->add_button(array(
 			"name" => "new",
@@ -6634,7 +6556,7 @@ exit_function("bills::all_cust_bills");
 /*
 	function _strat_a_tb($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->add_button(array(
 			"name" => "new",
@@ -6653,7 +6575,7 @@ exit_function("bills::all_cust_bills");
 
 	function _risks_eval_tb($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->add_button(array(
 			"name" => "new",
@@ -6670,7 +6592,7 @@ exit_function("bills::all_cust_bills");
 
 	}
 
-	function _init_strat_a_t(&$t)
+	function _init_strat_a_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -6701,7 +6623,7 @@ exit_function("bills::all_cust_bills");
 
 	function _strat_a($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_strat_a_t($t);
 
 		$u = get_instance(CL_USER);
@@ -6719,7 +6641,7 @@ exit_function("bills::all_cust_bills");
 		}
 	}
 */
-	function _init_risks_t(&$t)
+	function _init_risks_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -6749,7 +6671,7 @@ exit_function("bills::all_cust_bills");
 
 	function _risks($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_risks_t($t);
 
 		$pr = get_instance(CL_PROJECT_RISK);
@@ -6768,7 +6690,7 @@ exit_function("bills::all_cust_bills");
 
 	function _risks_tb($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->add_button(array(
 			"name" => "new",
@@ -6953,7 +6875,7 @@ exit_function("bills::all_cust_bills");
 		return $arr["post_ru"];
 	}
 
-	function _init_orderer_table(&$t)
+	function _init_orderer_table($t)
 	{
 		$t->define_chooser(array(
 			"name" => "sel_ord",
@@ -6981,7 +6903,7 @@ exit_function("bills::all_cust_bills");
 
 	function _orderer_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_orderer_table($t);
 
 		if (!is_oid($arr["obj_inst"]->id()))
@@ -7009,7 +6931,7 @@ exit_function("bills::all_cust_bills");
 		}
 	}
 
-	function _init_part_table(&$t)
+	function _init_part_table($t)
 	{
 		$t->define_chooser(array(
 			"name" => "sel_part",
@@ -7037,7 +6959,7 @@ exit_function("bills::all_cust_bills");
 
 	function _part_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_part_table($t);
 
 		if (!is_oid($arr["obj_inst"]->id()))
@@ -7065,7 +6987,7 @@ exit_function("bills::all_cust_bills");
 		}
 	}
 
-	function _init_impl_table(&$t)
+	function _init_impl_table($t)
 	{
 		$t->define_chooser(array(
 			"name" => "sel_ord",
@@ -7446,7 +7368,6 @@ exit_function("bills::all_cust_bills");
 			"align" => "right"
 		));
 
-		$clss = aw_ini_get("classes");
 		$all_types = array(
 			"paid" => t("Tasuline"),
 			"unpaid" => t("Tasuta")
@@ -7455,7 +7376,7 @@ exit_function("bills::all_cust_bills");
 		{
 			$t->define_field(array(
 				"name" => "type_".$type_id,
-				"caption" => $clss[$type_id]["name"],
+				"caption" => aw_ini_get("classes.{$type_id}.name"),
 				"align" => "center"
 			));
 
@@ -7704,7 +7625,6 @@ exit_function("bills::all_cust_bills");
 	private function _get_stats_table($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
-		classload("core/date/date_calc");
 		$all_data = $arr["obj_inst"]->get_rows_data();
 		$work_data = array();
 		$this->event_types = $this->event_types;
@@ -7817,7 +7737,7 @@ exit_function("bills::all_cust_bills");
 			));
 		}
 */
-		$start = get_day_start($start);
+		$start = date_calc::get_day_start($start);
 		if(!($end > 1 && $start > 1))
 		{
 			return;
@@ -7843,7 +7763,7 @@ exit_function("bills::all_cust_bills");
 				"caption" => date("d" , $start),
 				"align" => "right",
 				"parent" => date("my" , $start),
-				"callback" =>  array(&$this, "__tm_field_format"),
+				"callback" =>  array($this, "__tm_field_format"),
 				"callb_pass_row" => true,
 			));
 			$start += self::DAY_LENGTH_SECONDS;
@@ -7974,14 +7894,11 @@ arr($stats_by_ppl);
 	{
 		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_stats_entry_table($t);
-
-		$this->clss = aw_ini_get("classes");
 		$this->act_stats_types = get_current_company()->get_activity_stats_types();
 
-		if ($arr["request"]["show_last"])
+		if (!empty($arr["request"]["show_last"]))
 		{
-			classload("core/date/date_calc");
-			$com_list = $arr["obj_inst"]->get_bug_comments(get_day_start()-24*3600)->arr();
+			$com_list = $arr["obj_inst"]->get_bug_comments(date_calc::get_day_start()-24*3600)->arr();
 		}
 		else
 		{
@@ -8002,7 +7919,7 @@ arr($stats_by_ppl);
 		$d = array(
 			"name" => html::obj_change_url($o->parent()),
 			"person" => html::obj_change_url(get_instance(CL_USER)->get_person_for_uid($o->createdby)),
-			"type" => $this->clss[$o->class_id]["name"],
+			"type" => aw_ini_get("classes.{$o->class_id}.name"),
 			"content" => nl2br(substr($o->comment, 0, 100)),
 			"add_wh" => $o->add_wh,
 			"on_bill" => html::checkbox(array(
@@ -8105,8 +8022,8 @@ arr($stats_by_ppl);
 			{
 				continue;
 			}
-			classload("core/date/date_calc");
-			$com_list = $o->get_bug_comments(get_day_start()-24*3600)->arr();
+
+			$com_list = $o->get_bug_comments(date_calc::get_day_start()-24*3600)->arr();
 			if (count($com_list) > 0)
 			{
 				// send mail to maintainer
@@ -8146,7 +8063,6 @@ arr($stats_by_ppl);
 		));
 		$time = array();
 		$time_data = array();
-		classload("core/date/date_calc");
 		$all_data = $arr["obj_inst"]->get_rows_data();
 		$payments = $arr["obj_inst"]->get_payments_data();
 		$end = $arr["obj_inst"]->prop("end");

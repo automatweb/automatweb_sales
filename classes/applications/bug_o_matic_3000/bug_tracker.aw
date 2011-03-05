@@ -641,20 +641,20 @@ class bug_tracker extends class_base
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
-		if($arr["request"]["group"] === "bugs")
+
+		if("bugs" === $this->use_group)
 		{
 			$arr["request"]["group"] = "by_default";
 		}
-		switch($arr["request"]["group"])
+		elseif ("by_default" === $this->use_group)
 		{
-			case "by_default":
-				$this->sort_type = "parent";
-				aw_session_set("bug_tree_sort",array("name" => "parent"));
-				break;
-			case "by_prop":
-				$this->sort_type = "cat";
-				aw_session_set("bug_tree_sort",array("name" => "cat"));
-				break;
+			$this->sort_type = "parent";
+			aw_session_set("bug_tree_sort",array("name" => "parent"));
+		}
+		elseif ("by_prop" === $this->use_group)
+		{
+			$this->sort_type = "cat";
+			aw_session_set("bug_tree_sort",array("name" => "cat"));
 		}
 
 		if ($prop["name"][0] === "s" && $prop["name"][1] === "_" && isset($arr["request"][$prop["name"]]))

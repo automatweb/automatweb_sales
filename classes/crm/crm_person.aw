@@ -1344,7 +1344,7 @@ class crm_person extends class_base
 			return PROP_IGNORE;
 		}
 
-		$file_inst = get_instance(CL_FILE);
+		$file_inst = new file();
 		$arr["prop"]["value"] = html::img(array(
 				"url" => icons::get_icon_url(CL_FILE),
 			)).html::href(array(
@@ -1358,7 +1358,7 @@ class crm_person extends class_base
 		$personnel_management_inst = get_instance(CL_PERSONNEL_MANAGEMENT);
 		$pm = obj($personnel_management_inst->get_sysdefault());
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_menu_button(array(
 			"name" => "new_skill",
 			"img" => "new.gif",
@@ -1844,7 +1844,7 @@ class crm_person extends class_base
 				break;
 
 			case "jobs_wanted_tb":
-				$t = &$data["vcl_inst"];
+				$t = $data["vcl_inst"];
 				$t->add_new_button(array(CL_PERSONNEL_MANAGEMENT_JOB_WANTED), $arr["obj_inst"]->id(), 77);
 				$t->add_button(array(
 					"name" => "delete",
@@ -1857,9 +1857,7 @@ class crm_person extends class_base
 
 			case "nationality":
 				$ol = new object_list(array(
-					"site_id" => array(),
-					"lang_id" => array(),
-					"class_id" => CL_NATIONALITY,
+					"class_id" => CL_NATIONALITY //FIXME: k6ik objektid ikka vajalik laadida?
 				));
 				$data["options"] = array("" => " ")  + $ol->names();
 				break;
@@ -1872,7 +1870,7 @@ class crm_person extends class_base
 				break;
 
 			case "work_projects":
-				$t = &$data["vcl_inst"];
+				$t = $data["vcl_inst"];
 				$t->define_field(array(
 					"name" => "select",
 					"caption" => t("CV"),

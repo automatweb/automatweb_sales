@@ -1,45 +1,32 @@
 <?php
+
 class project_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
 	const CLID = 239;
 
-	//	Written solely for testing purposes!
-	public function get_units()
+	public function awobj_set_participants($pv)
 	{
-		$ol = new object_list(array(
-			"class_id" => CL_UNIT,
-		));
-		return $ol;
-	}
-
-	public function set_prop($pn, $pv)
-	{
-		switch($pn)
+		$set = (array) $this->prop("implementor");
+		foreach((array)$this->prop("orderer") as $val)
 		{
-			case "participants":
-				$set = (array)$this->prop("implementor");
-				foreach((array)$this->prop("orderer") as $val)
-				{
-					$set[$val] = $val;
-				}
-
-				foreach($set as $id)
-				{
-					$this->connect(array(
-						"to" => $id,
-						"type" => "RELTYPE_PARTICPANT"
-					));
-					$pv[$id] = $id;
-				}
-				break;
+			$set[$val] = $val;
 		}
 
-		return parent::set_prop($pn, $pv);
+		foreach($set as $id)
+		{
+			$this->connect(array(
+				"to" => $id,
+				"type" => "RELTYPE_PARTICIPANT"
+			));
+			$pv[$id] = $id;
+		}
+
+		return $this->set_prop("participants", $pv);
 	}
 
 	function save($exclusive = false, $previous_state = null)
 	{
-		$new = !is_oid($this->id());
+		$new = !$this->is_saved();
 		$rv = parent::save($exclusive, $previous_state);
 		if ($new && !count($this->connections_from(array("type" => "RELTYPE_IMPLEMENTOR"))))
 		{
@@ -51,6 +38,60 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		}
 		return $rv;
 	}
+
+	/** Returns all or found people associated with this project (orderers, implementors, participants and their employees if they're organizations)
+		@attrib api=1 params=pos
+		@param name_search type=string default=""
+			Return onlly people whose name contains search string
+		@param type type=string default="everyone"
+			Role (everyone|orderers|implementors|participants)
+		@comment
+		@returns object_list
+		@errors
+	**/
+	public function get_people($name_search = "", $type = "everyone")
+	{
+		// add independent people
+		$people = new object_list($this->connections_from(array(
+			"type" => array(
+				"RELTYPE_ORDERER",
+				"RELTYPE_IMPLEMENTOR",
+				"RELTYPE_PARTICIPANT",
+			),
+			"to.class_id" => crm_person_obj::CLID
+		)));
+
+		// add organized people
+		$organizations = array();
+		$list = new object_list($this->connections_from(array(
+			"type" => array(
+				"RELTYPE_ORDERER",
+				"RELTYPE_IMPLEMENTOR",
+				"RELTYPE_PARTICIPANT"
+			),
+			"to.class_id" => crm_company_obj::CLID
+		)));
+		$organizations = $list->ids();
+
+		$work_relations = crm_person_work_relation_obj::find(null, null, $organizations);
+
+		if($work_relations->count())
+		{
+			$o = $work_relations->begin();
+
+			do
+			{
+				if (object_loader::can("view", $o->prop("employee")))
+				{
+					$people->add($o->prop("employee"));
+				}
+			}
+			while ($o = $work_relations->next());
+		}
+
+		return $people;
+	}
+
 
 	/** Returns project tasks
 		@attrib api=1 params=name
@@ -147,26 +188,24 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 	private function _get_bugs_filter($arr = array())
 	{
 		$filter = array(
-			"lang_id" => array(),
-			"site_id" => array(),
 			"class_id" => CL_BUG,
 			"project" => $this->id(),
-			"sort_by" => "objects.created desc",
+			"sort_by" => "objects.created desc"
 		);
-
-		extract($arr);
+		$from = isset($arr["from"]) ? (int) $arr["from"] : 0;
+		$to = isset($arr["to"]) ? (int) $arr["to"] : 0;
+		$participant = isset($arr["participant"]) ? $arr["participant"] : "";
+		$status = isset($arr["status"]) ? (int) $arr["status"] : 0;
 
 		if ($from && $to)
 		{
 			$filter["CL_BUG.RELTYPE_COMMENT.created"] = new obj_predicate_compare(OBJ_COMP_BETWEEN, $from-1, $to);
 		}
-		else
-		if ($from)
+		elseif ($from)
 		{
 			$filter["CL_BUG.RELTYPE_COMMENT.created"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $from);
 		}
-		else
-		if ($to)
+		elseif ($to)
 		{
 			$filter["CL_BUG.RELTYPE_COMMENT.created"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $to);
 		}
@@ -179,9 +218,8 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			}
 			else
 			{
-				$filter["CL_BUG.RELTYPE_MONITOR.name"] = "%".$participant."%";;
+				$filter["CL_BUG.RELTYPE_MONITOR.name"] = "%".$participant."%";
 			}
-
 		}
 
 		if($status)
@@ -190,7 +228,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		}
 
 		return $filter;
-
 	}
 
 	/** returns all billable bugs related to current project
@@ -199,7 +236,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 	**/
 	function get_billable_bugs()
 	{
-		enter_function("project::_get_billable_bugs");
 /*		$all_bugs = new object_list(array(
 			"lang_id" => array(),
 			"site_id" => array(),
@@ -220,10 +256,9 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		foreach($rows_arr->list_data as $bcs)
 		{
 			$bugs[$bcs["task"]] = $bcs["task"];
-		}//arr($bugs);
-		$bugs_list->add($bugs);
-		exit_function("project::_get_billable_bugs");
+		}
 
+		$bugs_list->add($bugs);
 		return $bugs_list;
 	}
 
@@ -233,8 +268,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			"class_id" => CL_TASK_ROW,
 			"bill_id" => new obj_predicate_compare(OBJ_COMP_EQUAL, ''),
 			"on_bill" => 1,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"done" => 1,
 			"task.class_id" => CL_BUG,
 //			"CL_TASK_ROW.task(CL_BUG).send_bill" => 1,
@@ -335,8 +368,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		// classes that take time from projects crm_call crm_meeting task bug
 		$filt = array(
 			"class_id" => array(CL_CRM_CALL, CL_CRM_MEETING, CL_TASK),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"project" => $this->id()
 		);
 		$ol = new object_list($filt);
@@ -399,8 +430,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 	{
 		$filt_bug = array(
 			"class_id" => CL_BUG,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"project" => $this->id()
 		);
 		$ol2 = new object_list($filt_bug);
@@ -408,9 +437,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 
 		$bug_comments = new object_list(array(
 			"class_id" => array(CL_BUG_COMMENT,CL_TASK_ROW),
-			"parent" => $bug_ids,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"parent" => $bug_ids
 		));
 		foreach($bug_comments->arr() as $com)
 		{
@@ -462,7 +489,8 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 
 
 	function get_project_bugs()
-	{return $this->get_bugs();
+	{
+		return $this->get_bugs();
 	}
 
 	/** Returns orderer id
@@ -549,15 +577,13 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 
 		$filter = array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"site_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
 					"oid" => $ids,
 					"CL_CRM_BILL.RELTYPE_PROJECT" => $this->id(),
 				)
-			)),
+			))
 		);
 
 		if(isset($status))
@@ -653,9 +679,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		$ol = new object_list(array(
 			"class_id" => array(CL_TASK, CL_CRM_MEETING,CL_CRM_CALL),
 			"send_bill" => 1,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"lang_id" => array(),
 			"brother_of" => new obj_predicate_prop("id"),
 			"deal_price" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
 			new object_list_filter(array(
@@ -693,8 +716,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			"bill_id" => new obj_predicate_compare(OBJ_COMP_EQUAL, ''),
 			"on_bill" => 1,
 			"done" => 1,
-			"site_id" => array(),
-			"lang_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -730,8 +751,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		$billed_hours_filter = array(
 			"class_id" => CL_TASK_ROW,
 			"bill_id" => new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, 1),
-			"site_id" => array(),
-			"lang_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -765,9 +784,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			"class_id" => CL_TASK_ROW,
 //			"bill_id" => new obj_predicate_compare(OBJ_COMP_EQUAL, ''),
 //			"done" => 1,
-			"CL_TASK_ROW.RELTYPE_PROJECT" => $this->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"CL_TASK_ROW.RELTYPE_PROJECT" => $this->id()
 		);
 	}
 
@@ -807,9 +824,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 					"CL_TASK_ROW.task(CL_CRM_CALL).send_bill" => 1,
 				)
 			)),
-			"CL_TASK_ROW.RELTYPE_PROJECT" => $this->id(),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"CL_TASK_ROW.RELTYPE_PROJECT" => $this->id()
 		));
 		return $ol;
 	}
@@ -870,7 +885,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					"oid" => $ids,
+					// "oid" => $ids,
 					"CL_TASK.RELTYPE_PROJECT" => $this->id(),
 					"CL_CRM_MEETING.RELTYPE_PROJECT" => $this->id(),
 					"CL_CRM_CALL.RELTYPE_PROJECT" => $this->id(),
@@ -907,14 +922,12 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 	private function _get_tasks_filter($arr = array())
 	{
 		$filter = array(
-			"lang_id" => array(),
-			"site_id" => array(),
 			//"class_id" => CL_TASK,
 			"brother_of" => new obj_predicate_prop("id"),
 		);
 
 		$clids = array(CL_TASK => "CL_TASK", CL_CRM_MEETING => "CL_CRM_MEETING" , CL_CRM_CALL => "CL_CRM_CALL");
-		if($arr["clid"])
+		if(!empty($arr["clid"]))
 		{
 			$search_clids = array($arr["clid"]);
 		}
@@ -935,17 +948,16 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			"conditions" => $project_cond,
 		));
 
-		if ($arr["from"] > 1 && $arr["to"])
+		$time_filt = false;
+		if (isset($arr["from"]) && $arr["from"] > 1 && !empty($arr["to"]))
 		{
 			$time_filt = new obj_predicate_compare(OBJ_COMP_BETWEEN, $arr["from"], $arr["to"]);
 		}
-		else
-		if ($arr["from"] > 1)
+		elseif (isset($arr["from"]) && $arr["from"] > 1)
 		{
 			$time_filt = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $arr["from"]);
 		}
-		else
-		if ($arr["to"] > 1)
+		elseif (isset($arr["to"]) && $arr["to"] > 1)
 		{
 			$time_filt = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $arr["to"]);
 		}
@@ -978,7 +990,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		}
 
 		//kui k6igile osalus, siis toimisk
-		if($arr["participant"])
+		if(!empty($arr["participant"]))
 		{
 			$rows_filter = array("class_id" => CL_TASK_ROW);
 			$rows_filter["CL_TASK_ROW.RELTYPE_PROJECT"] = $this->id();
@@ -991,19 +1003,19 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			{
 				$rows_filter["CL_TASK_ROW.impl(CL_CRM_PERSON).name"] = "%".$arr["participant"]."%";
 			}
-			$task_ids = array();
 
+			$task_ids = array();
 			$rowsres = array(
 				CL_TASK_ROW => array(
 					"task" => "task",
 				),
 			);
 			$rows_arr = new object_data_list($rows_filter , $rowsres);
-
 			foreach($rows_arr->list_data as $bcs)
 			{
 				$task_ids[$bcs["task"]] = $bcs["task"];
 			}
+
 			if(sizeof($task_ids))
 			{
 				$filter["oid"] = $task_ids;
@@ -1227,7 +1239,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		{
 			$ret[] = round($sum , 2)." ".$curr;
 		}
-		return join("<br>" , $ret);
+		return join(html::linebreak() , $ret);
 	}
 
 	/** Returns project planned hours
@@ -1305,5 +1317,6 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		return $prods;
 	}
 
+	//	Written solely for testing purposes!
+	public function get_units(){$ol = new object_list(array("class_id" => CL_UNIT,));return $ol;}
 }
-?>

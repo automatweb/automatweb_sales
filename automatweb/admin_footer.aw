@@ -24,15 +24,15 @@ $apd = new active_page_data();
 $txt = "";
 $styles = $apd->on_shutdown_get_styles($txt);
 $styles_done = false;
-// check the url for classes and if any of those are in a prod family, then set that
+
+// check the url for classes and if any of those are in a product family, then set that
 $pf = "";
-$clss = aw_ini_get("classes");
 if (!empty($_GET["class"]))
 {
 	$clid = clid_for_name($_GET["class"]);
-	if (!empty($clss[$clid]["prod_family"]))
+	if (aw_ini_isset("classes.{$clid}.prod_family"))
 	{
-		$pf = $clss[$clid]["prod_family"];
+		$pf = aw_ini_get("classes.{$clid}.prod_family");
 		$pf_url = aw_global_get("REQUEST_URI");
 	}
 }
@@ -49,9 +49,9 @@ while (!empty($ru) && empty($pf))
 	if (!empty($vals["class"]))
 	{
 		$clid = clid_for_name($vals["class"]);
-		if (!empty($clss[$clid]["prod_family"]))
+		if (aw_ini_isset("classes.{$clid}.prod_family"))
 		{
-			$pf = $clss[$clid]["prod_family"];
+			$pf = aw_ini_get("classes.{$clid}.prod_family");
 			$pf_url = $ru;
 		}
 	}

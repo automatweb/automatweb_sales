@@ -435,7 +435,7 @@ class group extends class_base
 		}
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		if (!empty($arr["request"]["edit_acl"]))
 		{
@@ -589,7 +589,7 @@ class group extends class_base
 	function callback_mod_tab($parm)
 	{
 		$id = $parm['id'];
-		if ($id == 'dyn_search')
+		if ($id === 'dyn_search')
 		{
 			if ($parm['obj_inst']->prop("type") != group_obj::TYPE_DYNAMIC)
 			{
@@ -853,7 +853,7 @@ class group extends class_base
 
 	function on_add_alias_for_group($arr)
 	{
-		if($arr["connection"]->prop("reltype") == RELTYPE_MEMBER  && $arr["connection"]->prop("from.class_id") == CL_GROUP && aw_ini_get("users.use_group_membership") == 1)
+		if($arr["connection"]->prop("reltype") == 2  /*RELTYPE_MEMBER tmp fix*/ && $arr["connection"]->prop("from.class_id") == group_obj::CLID && aw_ini_get("users.use_group_membership") == 1)
 		{//FIXME: siia ei satuta kunagi sest konstant RELTYPE_MEMBER ei eksisteeri ja reltype pole string 'RELTYPE_MEMBER'.
 			// Selliseid krdi seoseid ei tohiks yldse luua!
 			arr(debug_backtrace(), true);

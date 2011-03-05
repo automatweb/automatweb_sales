@@ -808,7 +808,11 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 				$user->save();
 			}
 		}
-		$work_relation->finish();
+
+		if (!$work_relation->is_finished())
+		{
+			$work_relation->finish();
+		}
 	}
 
 	/** Adds a new employee, creates a person if none given
@@ -1316,14 +1320,16 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@attrib api=1 params=pos
 		@param parent type=CL_CRM_CATEGORY default=NULL
 			Category to add new category under. Default means top level.
+		@param type type=int default=crm_category_obj::TYPE_GENERIC
+			Category type. One of crm_category_obj::TYPE_...
 		@return CL_CRM_CATEGORY
 			Newly created category object
 		@errors
-			throws awex_obj_type when parent is of wrong type
+			throws awex_obj_type when parent or type is of wrong type
 			throws awex_obj_state_new when this company is not saved yet.
 		@qc date=20101026 standard=aw3
 	**/
-	public function add_customer_category(object $parent = null)
+	public function add_customer_category(object $parent = null, $type = crm_category_obj::TYPE_GENERIC)
 	{
 		if (!$this->is_saved())
 		{
@@ -1332,6 +1338,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		$cat = obj(null, array(), CL_CRM_CATEGORY);
 		$cat->set_parent($this->id());
+		$cat->set_prop("category_type", $type);
 		$cat->set_prop("organization", $this->id());
 
 		if ($parent)
@@ -2319,23 +2326,25 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@attrib api=1 params=pos
 		@param parent type=CL_CRM_CATEGORY default=NULL
 			category whose subcategories are desired
+		@param types type=array default=array(crm_category_obj::TYPE_GENERIC)
 		@return object_list
 		@errors
 			throws awex_obj_type if given parent is of wrong class
 		@qc date=20101026 standard=aw3
 	**/
-	public function get_customer_categories(object $parent = null)
+	public function get_customer_categories(object $parent = null, $types = array(crm_category_obj::TYPE_GENERIC))
 	{
 		if ($this->is_saved())
 		{
 			$filter = array(
-				"class_id" => CL_CRM_CATEGORY,
-				"organization" => $this->id()
+				"class_id" => crm_category_obj::CLID,
+				"organization" => $this->id(),
+				"category_type" => $types
 			);
 
 			if ($parent)
 			{
-				if (!$parent->is_a(CL_CRM_CATEGORY))
+				if (!$parent->is_a(crm_category_obj::CLID))
 				{
 					throw new awex_obj_type("Given category " . $parent->id() . " is not a category object (clid is " . $parent->class_id() . ")");
 				}

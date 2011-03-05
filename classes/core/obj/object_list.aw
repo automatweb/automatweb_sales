@@ -8,7 +8,10 @@ class object_list extends _int_obj_container_base
 	var $list_names = array();
 	var $list_objdata = array();
 
+	public $ds_query_string = ""; // database query executed to retrieve list data. use for debugging only
+
 	protected $filter = array();
+	protected $object_id_property = "oid";
 
 	/** creates the object list, can also initialize it with objects
 		@attrib api=1
@@ -47,8 +50,10 @@ class object_list extends _int_obj_container_base
 				"limit" => "2,6"
 			));
 	**/
-	function object_list($param = NULL)
+	function object_list($param = NULL, $object_id_property = "oid")
 	{
+		$this->object_id_property = $object_id_property;
+
 		if ($param != NULL)
 		{
 			$this->filter($param);
@@ -126,8 +131,6 @@ class object_list extends _int_obj_container_base
 				}
 				$param = array(
 					"class_id" => array(),
-					"site_id" => array(),
-					"lang_id" => array(),
 					"oid" => $arr
 				);
 			}
@@ -924,11 +927,16 @@ class object_list extends _int_obj_container_base
 		$this->_int_init_empty();
 		$tmp = $GLOBALS["object_loader"]->ds->search($filter);
 
+		if (method_exists($GLOBALS["object_loader"]->ds, "last_search_query_string"))
+		{
+			$this->ds_query_string = $GLOBALS["object_loader"]->ds->last_search_query_string();
+		}
+
 		list($oids, $meta_filter, $acldata, $parentdata, $objdata) = $tmp;
 		if (!is_array($oids))
 		{
 			return false;
-		};
+		}
 
 		// set acldata to memcache
 		if (is_array($acldata))
@@ -944,7 +952,19 @@ class object_list extends _int_obj_container_base
 		{
 			foreach($oids as $oid => $oname)
 			{
-				if ($GLOBALS["object_loader"]->ds->can("view", $oid))
+				if ($this->object_id_property !== "oid" and isset($objdata[$oid][$this->object_id_property]))
+				{
+					if (!isset($objdata[$oid][$this->object_id_property]))
+					{
+						throw new awex_objlist_oid("Invalid key property '{$this->object_id_property}' specified");
+					}
+					else
+					{
+						$oid = $objdata[$oid][$this->object_id_property];
+					}
+				}
+
+				if (object_loader::can("view", $oid))
 				{
 					$add = true;
 					$_o = new object($oid);
@@ -993,7 +1013,19 @@ class object_list extends _int_obj_container_base
 		{
 			foreach($oids as $oid => $oname)
 			{
-				if ($GLOBALS["object_loader"]->ds->can("view", $oid))
+				if ($this->object_id_property !== "oid" and isset($objdata[$oid][$this->object_id_property]))
+				{
+					if (!isset($objdata[$oid][$this->object_id_property]))
+					{
+						throw new awex_objlist_oid("Invalid key property '{$this->object_id_property}' specified");
+					}
+					else
+					{
+						$oid = $objdata[$oid][$this->object_id_property];
+					}
+				}
+
+				if (object_loader::can("view", $oid))
 				{
 					$this->list[$oid] = $oid;
 					$this->list_names[$oid] = $oname;
@@ -1122,7 +1154,6 @@ class object_list extends _int_obj_container_base
 	function _int_sort_list_cb($cb)
 	{
 		// cb is checked before getting here
-
 		$this->cb = $cb;
 
 		// init list
@@ -1181,7 +1212,7 @@ class object_list extends _int_obj_container_base
 		$data = $GLOBALS["object_loader"]->ds->fetch_list($to_fetch);
 	}
 
-	function _is_single_clid()
+	private function _is_single_clid()
 	{
 		$clid = null;
 		foreach($this->arr() as $item)

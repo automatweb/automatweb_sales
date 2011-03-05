@@ -998,7 +998,6 @@ class relationmgr extends aw_template
 
 		$alinks = $arr["obj_inst"]->meta("aliaslinks");
 
-		$classes = aw_ini_get("classes");
 		if(!empty($_SESSION["rel_reverse"][$arr["request"]["id"]]))
 		{
 			$conn = $arr["obj_inst"]->connections_to();
@@ -1021,15 +1020,14 @@ class relationmgr extends aw_template
 		if(count($conn_ids))
 		{
 			$loader_ol = new object_list(array(
-				"site_id" => array(),
-				"lang_id" => array(),
-				"oid" => $conn_ids,
+				"oid" => $conn_ids
 			));
 		}
 		else
 		{
 			$loader_ol = new object_list();
 		}
+
 		foreach($loader_ol->arr() as $oid => $target_obj)
 		{
 			$alias = $conns[$oid];
@@ -1044,7 +1042,7 @@ class relationmgr extends aw_template
 			$adat["lang"] = $target_obj->lang();
 			$aclid = $target_obj->prop("class_id");
 
-			$edfile = $classes[$aclid]["file"];
+			$edfile = aw_ini_get("classes.{$aclid}.file");
 			if ($aclid == CL_DOCUMENT)
 			{
 				$edfile = "doc";
@@ -1059,11 +1057,16 @@ class relationmgr extends aw_template
 
 			if ($reltype_id == 0)
 			{
-				list($astr) = explode(",", $classes[$aclid]["alias"]);
-				if ($astr == "")
+				$astr = "";
+				if (aw_ini_isset("classes.{$aclid}.alias"))
 				{
-					list($astr) = explode(",", $classes[$aclid]["old_alias"]);
+					list($astr) = explode(",", aw_ini_get("classes.{$aclid}.alias"));
 				}
+				elseif (aw_ini_isset("classes.{$aclid}.old_alias"))
+				{
+					list($astr) = explode(",", aw_ini_get("classes.{$aclid}.old_alias"));
+				}
+
 				$astr = sprintf("#%s%d#", $astr, $alias->prop("idx"));
 				$adat["alias"] = sprintf("<input type='text' size='10' value='%s' onClick='this.select()' onblur='this.value=\"%s\"'>", $astr, $astr);
 			}
@@ -1074,7 +1077,7 @@ class relationmgr extends aw_template
 				"checked" => $alinks[$alias->prop($cn)],
 			));
 
-			$adat["title"] = $classes[$aclid]["name"];
+			$adat["title"] = aw_ini_get("classes.{$aclid}.name");
 
 			// for the chooser
 			$adat["id"] = $alias->prop("id");
@@ -1103,7 +1106,7 @@ class relationmgr extends aw_template
 			if ($alias->prop("relobj_id"))
 			{
 				$adat["reltype"] = html::href(array(
-					"url" => $this->mk_my_orb("change", array("id" => $alias->prop("relobj_id"),"return_url" => get_ru()), $classes[$aclid]["file"]),
+					"url" => $this->mk_my_orb("change", array("id" => $alias->prop("relobj_id"),"return_url" => get_ru()), $edfile),
 					"caption" => $type_str,
 				));
 			}

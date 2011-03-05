@@ -204,8 +204,6 @@
 
 class crm_call extends task
 {
-	private $mail_data = array();
-
 	function crm_call()
 	{
 		$this->init(array(
@@ -250,12 +248,11 @@ class crm_call extends task
 		$r = PROP_OK;
 		$this_o = $arr["obj_inst"];
 		$cro = obj($this_o->prop("customer_relation"), array(), CL_CRM_COMPANY_CUSTOMER_DATA);
-		$customer = obj($cro->prop("buyer"));
+		$customer = is_object($cro) ? obj($cro->prop("buyer")) : null;
 
 		if (!is_object($customer) or !$customer->is_saved())
 		{
-			$arr["prop"]["error"] = t("Klienti ei leitud");
-			$r = PROP_FATAL_ERROR;
+			$r = PROP_IGNORE;
 		}
 		else
 		{
@@ -274,8 +271,8 @@ class crm_call extends task
 
 		if (!is_object($customer) or !$customer->is_saved())
 		{
-			$arr["prop"]["error"] = t("Klienti ei leitud");
-			$r = PROP_FATAL_ERROR;
+			// $arr["prop"]["error"] = t("Klienti ei leitud");
+			// $r = PROP_ERROR;
 		}
 		else
 		{
@@ -383,6 +380,19 @@ class crm_call extends task
 	function _get_start1(&$arr)
 	{
 		// $arr["prop"]["onblur"] = date("d.m.Y H:i", $arr["prop"]["value"]);
+
+		// preset start time either from request 'day' param. or default
+		if (!empty($arr["new"]))
+		{
+			if (!empty($arr["request"]["pt"]))
+			{
+				$arr["prop"]["value"] = (int) $arr["request"]["pt"];
+			}
+			else
+			{
+				$arr["prop"]["value"] = time();
+			}
+		}
 		return PROP_OK;
 	}
 
@@ -554,20 +564,19 @@ class crm_call extends task
 				}
 				break;
 
-			case "start1":
 			case "end":
-				if ($data["name"] ===  "end" && $arr["new"])
-				{
-					$data["value"] = time() + 900;
-				}
-
 				if (!empty($arr["new"]))
 				{
-					if($day = $arr["request"]["date"])
+					if (!empty($arr["request"]["pt"]))
 					{
-						$da = explode("-", $day);
-						$data["value"] = mktime(date('h',$data["value"]), date('i', $data["value"]), 0, $da[1], $da[0], $da[2]);
+						$data["value"] = (int) $arr["request"]["pt"];
 					}
+					else
+					{
+						$data["value"] = date_calc::get_day_start();
+					}
+
+					$data["value"] += crm_call_obj::DEFAULT_DURATION;
 				}
 				break;
 		}
@@ -722,14 +731,14 @@ class crm_call extends task
 		return parent::new_change($arr);
 	}
 
-	function callback_mod_reforb(&$arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		if ($_GET["action"] === "new")
 		{
-			$arr["alias_to_org"] = $_GET["alias_to_org"];
-			$arr["reltype_org"] = $_GET["reltype_org"];
-			$arr["set_pred"] = $_GET["set_pred"];
-			$arr["set_resource"] = $_GET["set_resource"];
+			if (isset($request["alias_to_org"])) $arr["alias_to_org"] = $request["alias_to_org"];
+			if (isset($request["reltype_org"])) $arr["reltype_org"] = $request["reltype_org"];
+			if (isset($request["set_pred"])) $arr["set_pred"] = $request["set_pred"];
+			if (isset($request["set_resource"])) $arr["set_resource"] = $request["set_resource"];
 		}
 
 		if (is_oid(automatweb::$request->arg("phone_id")))

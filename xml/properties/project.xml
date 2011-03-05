@@ -174,7 +174,8 @@
             <name>start</name>
             <table>aw_projects</table>
             <group>general2</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>aw_start</field>
             <parent>project_time</parent>
             <caption>Algus</caption>
@@ -183,7 +184,8 @@
             <name>end</name>
             <table>aw_projects</table>
             <group>general2</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>aw_end</field>
             <parent>project_time</parent>
             <caption>L&amp;amp;otilde;pp</caption>
@@ -192,7 +194,8 @@
             <name>deadline</name>
             <table>aw_projects</table>
             <group>general2</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <field>aw_deadline</field>
             <parent>project_time</parent>
             <caption>T&amp;amp;auml;htaeg</caption>
@@ -884,7 +887,8 @@
             <name>search_start</name>
             <table>objects</table>
             <group>goals_edit</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <captionside>top</captionside>
             <store>no</store>
             <parent>task_types_search_lay</parent>
@@ -895,7 +899,8 @@
             <name>search_end</name>
             <table>objects</table>
             <group>goals_edit</group>
-            <type>date_select</type>
+            <type>datepicker</type>
+            <time>0</time>
             <captionside>top</captionside>
             <store>no</store>
             <parent>task_types_search_lay</parent>

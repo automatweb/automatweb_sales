@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_bill_row.aw,v 1.11 2009/06/29 14:08:27 markop Exp $
-// crm_bill_row.aw - Arve rida 
+// crm_bill_row.aw - Arve rida
 /*
 
-@classinfo syslog_type=ST_CRM_BILL_ROW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo syslog_type=ST_CRM_BILL_ROW relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=aw_crm_bill_rows
 @default group=general
@@ -109,7 +108,7 @@ class crm_bill_row extends class_base
 		{
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
@@ -118,7 +117,7 @@ class crm_bill_row extends class_base
 
 	function do_db_upgrade($table, $field, $q, $err)
 	{
-		if ($table == "aw_crm_bill_rows" && $field == "")
+		if ($table === "aw_crm_bill_rows" && $field == "")
 		{
 			$this->db_query("create table aw_crm_bill_rows (aw_oid int primary key, aw_amt double,aw_prod int,aw_price double,aw_unit varchar(100),aw_is_oe int,aw_has_tax int ,aw_date varchar(255), aw_writeoff int)");
 			return true;
@@ -159,4 +158,3 @@ class crm_bill_row extends class_base
 		}
 	}
 }
-?>

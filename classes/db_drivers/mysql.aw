@@ -22,8 +22,33 @@ class mysql
 	////
 	// !We need to be able to create multiple connections
 	// even better, connections might go to different databases
-	function db_connect($server,$base,$username,$password)
+	function db_connect($server = "localhost", $base = "", $username = "", $password = "", $cid = db_connector::DEFAULT_CID_STR)
 	{
+		if ($base and $username)
+		{
+		}
+		elseif (db_connector::DEFAULT_CID_STR === $cid)
+		{
+			$server = aw_ini_get("db.host");
+			$base = aw_ini_get("db.base");
+			$username = aw_ini_get("db.user");
+			$password = aw_ini_get("db.pass");
+		}
+		else
+		{
+			try
+			{
+				$server = aw_ini_isset("db.connections.{$cid}.host") ? aw_ini_get("db.connections.{$cid}.host") : "localhost";
+				$base = aw_ini_get("db.connections.{$cid}.base");
+				$username = aw_ini_get("db.connections.{$cid}.user");
+				$password = aw_ini_get("db.connections.{$cid}.pass");
+			}
+			catch (awex_cfg_key $e)
+			{
+				throw new aw_exception("Incomplete connection parameters for {$cid}: " . $e->getMessage());
+			}
+		}
+
 		global $DEBUG;
 		// $this->dbh = mysql_connect($server,$username,$password);
 		$this->dbh = mysql_connect($server,$username,$password,false,128);// enables use of mysql load data local
@@ -971,4 +996,3 @@ class mysql
 		$this->qID = null;
 	}
 }
-?>

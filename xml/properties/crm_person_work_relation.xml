@@ -37,6 +37,14 @@
             <caption>T&amp;amp;ouml;&amp;amp;ouml;v&amp;amp;otilde;tja</caption>
       </property>
       <property>
+            <name>state</name>
+            <group>general</group>
+            <table>aw_crm_person_work_relation</table>
+            <type>text</type>
+            <field>state</field>
+            <caption>T&amp;amp;ouml;&amp;amp;ouml;suhe</caption>
+      </property>
+      <property>
             <name>start</name>
             <group>general</group>
             <table>aw_crm_person_work_relation</table>

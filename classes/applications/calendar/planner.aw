@@ -217,47 +217,49 @@ define("CAL_SHOW_MONTH",4);
 lc_load("calendar");
 class planner extends class_base
 {
-	/* scope? */ var $event_id = 0;
+	private $event_id = 0;
+	private $date;
+	private $vt = array();
+	private $viewtypes = array(
+		"1" => "day",
+		"3" => "week",
+		"4" => "month",
+		"5" => "relative"
+	);
+
+	//  list all clids here, that can be added to the calendar (those should at least have a reference to planner.start)
+	private $event_entry_classes = array(CL_TASK, CL_CRM_CALL, CL_CRM_OFFER, CL_CRM_MEETING, CL_CALENDAR_VACANCY, CL_CALENDAR_EVENT, CL_PARTY , CL_COMICS, CL_STAGING, CL_BUG,CL_RESERVATION, CL_CRM_PRESENTATION);
+
+	// list all clids, that should be shown by default
+	private $default_entry_classes = array(CL_TASK, CL_CRM_CALL, CL_CRM_MEETING, CL_RESERVATION);
+
+	private $default_day_start = array(
+		"hour" => 9,
+		"minute" => 0
+	);
+
+	private $default_day_end = array(
+		"hour" => 17,
+		"minute" => 0
+	);
 
 	function planner($args = array())
 	{
 		$this->init(array(
 			"tpldir" => "planner",
-			"clid" => CL_PLANNER,
+			"clid" => CL_PLANNER
 		));
-		extract($args);
-		$this->date = isset($date) ? $date : date("d-m-Y");
+
+		$this->date = isset($args["date"]) ? $args["date"] : date("d-m-Y");
 		lc_load("definition");
 		$this->lc_load("planner","lc_planner");
 
-		$this->viewtypes = array(
-			"1" => "day",
-			"3" => "week",
-			"4" => "month",
-			"5" => "relative",
-		);
 		$this->vt = array(
 			"day" => t("P&auml;ev"),
 			"week" => t("N&auml;dal"),
 			"month" => t("Kuu"),
 			"relative" => t("&Uuml;levaade"),
 			"search" => t("Otsing"),
-		);
-
-
-		//  list all clids here, that can be added to the calendar (those should at least have a reference to planner.start)
-		$this->event_entry_classes = array(CL_TASK, CL_CRM_CALL, CL_CRM_OFFER, CL_CRM_MEETING, CL_CALENDAR_VACANCY, CL_CALENDAR_EVENT, CL_PARTY , CL_COMICS, CL_STAGING, CL_BUG,CL_RESERVATION, CL_CRM_PRESENTATION);
-		// list all clids, that should be shown by default
-		$this->default_entry_classes = array(CL_TASK, CL_CRM_CALL, CL_CRM_MEETING, CL_RESERVATION);
-
-		$this->default_day_start = array(
-			"hour" => 9,
-			"minute" => 0,
-		);
-
-		$this->default_day_end = array(
-			"hour" => 17,
-			"minute" => 0,
 		);
 	}
 
@@ -284,7 +286,7 @@ class planner extends class_base
 		if (!is_array($rv) || empty($rv))
 		{
 			$rv = $this->make_keys($this->default_entry_classes);
-		};
+		}
 		return $rv;
 	}
 
@@ -455,7 +457,7 @@ class planner extends class_base
 			case "event_search_name":
 			case "event_search_content":
 			case "event_search_comment":
-				$data["value"] = $arr["request"][$data["name"]];
+				$data["value"] = isset($arr["request"][$data["name"]]) ? $arr["request"][$data["name"]] : "";
 				break;
 
 
@@ -470,7 +472,7 @@ class planner extends class_base
 					CL_CRM_PRESENTATION => t("M&uuml;&uuml;giesitlus")
 				);
 
-				if($arr["request"]["event_search_type"])
+				if(!empty($arr["request"]["event_search_type"]))
 				{
 					$data["value"] = $arr["request"]["event_search_type"];
 				}
@@ -488,7 +490,7 @@ class planner extends class_base
 
 				break;
 			case "event_search_results_table":
-				if(($arr["request"]["event_search_name"] or $arr["request"]["event_search_content"] or $arr["request"]["event_search_type"]))
+				if(!empty($arr["request"]["event_search_name"]) or !empty($arr["request"]["event_search_content"]) or !empty($arr["request"]["event_search_type"]))
 				{
 					$results = $this->do_event_search($arr["request"]);
 					if($results->count() > 0)
@@ -507,7 +509,7 @@ class planner extends class_base
 				break;
 
 			case "event_search_tb":
-				if ($arr["request"]["add_part_to_events"])
+				if (!empty($arr["request"]["add_part_to_events"]))
 				{
 					$this->do_add_parts_to_events($arr);
 					unset($arr["request"]["add_part_to_events"]);
@@ -516,7 +518,7 @@ class planner extends class_base
 					die();
 				}
 
-				if(!$arr["request"]["event_search_name"] && !$arr["request"]["event_search_content"] && !$arr["request"]["event_search_type"])
+				if(empty($arr["request"]["event_search_name"]) && empty($arr["request"]["event_search_content"]) && empty($arr["request"]["event_search_type"]))
 				{
 					return PROP_IGNORE;
 				}
@@ -546,7 +548,7 @@ class planner extends class_base
 				break;
 
 			case "event_search_add":
-				if($arr["request"]["event_search_add"])
+				if(!empty($arr["request"]["event_search_add"]))
 				{
 					$data["value"] = $arr["request"]["event_search_add"];
 				}
@@ -1150,7 +1152,7 @@ class planner extends class_base
 		while($row = $this->db_next())
 		{
 			$res[$row["id"]] = $row;
-		};
+		}
 		return $res;
 	}
 
@@ -1159,21 +1161,25 @@ class planner extends class_base
 		if (!is_numeric($rel_id))
 		{
 			return false;
-		};
+		}
 		$q = "SELECT aliases2.source AS source FROM aliases
 			LEFT JOIN aliases AS aliases2 ON (aliases.target = aliases2.relobj_id)
 			WHERE aliases.relobj_id = '$rel_id'";
 		return $this->db_fetch_field($q,"source");
 	}
 
-	////
-	// !Tagastab timestambi mingi kuup2evastambi kohta
-	// $date - d-m-Y
-	function tm_convert($date)
+	/** Converts planner date to timestamp
+		@attrib api=1 params=pos
+		@param date type=string
+			Date string to convert. d-m-Y format (31-07-2011)
+		@comment
+		@returns int
+			Timestamp
+		@errors
+	**/
+	public static function tm_convert($date)
 	{
-		extract($args);
-		list($d,$m,$y) = split("-",$args["date"]);
-		// miski modification voiks ka olla
+		list($d,$m,$y) = explode("-", $date);
 		$retval = mktime(0,0,0,$m,$d,$y);
 		return $retval;
 	}
@@ -1194,21 +1200,28 @@ class planner extends class_base
 			));
 			$conn_count = 0;
 			$parent = $this->can("view", $arr["obj_inst"]->prop("event_folder")) ? $arr["obj_inst"]->prop("event_folder") : $id;
+			$preset_time = (isset($arr["request"]["viewtype"]) and "day" === $arr["request"]["viewtype"] and !empty($arr["request"]["date"])) ? self::tm_convert($arr["request"]["date"]) : time();
 			foreach($conns as $conn)
 			{
 				$conn_count++;
 				$cf = $conn->to();
 				$toolbar->add_menu_item(array(
 					"parent" => "create_event",
-					"link" => html::get_new_url($cf->prop("subclass"), $parent, array("return_url" => get_ru(), "add_to_cal" => $id, "cfgform" => $conn->prop("to"), "day" => ($arr["request"]["viewtype"] == "day")?$arr["request"]["date"]:0)),
+					"link" => $this->mk_my_orb("new", array(
+						"parent" => $parent,
+						"return_url" => get_ru(),
+						"add_to_cal" => $id,
+						"cfgform" => $conn->prop("to"),
+						"pt" => $preset_time,
+						"day" => (isset($arr["request"]["viewtype"]) and $arr["request"]["viewtype"] === "day") ? $arr["request"]["date"] : 0
+					), $cf->prop("subclass")),
 					"text" => $conn->prop("to.name"),
 				));
-			};
+			}
 
 			// now I need to figure out which other classes are valid for that relation type
 			//$clidlist = $this->event_entry_classes;
 			$clidlist = $this->get_event_entry_classes($arr["obj_inst"]);
-			$tmp = aw_ini_get("classes");
 			if ($conn_count == 0)
 			{
 				foreach($clidlist as $clid)
@@ -1217,15 +1230,24 @@ class planner extends class_base
 					{
 						continue;
 					}
+
+					$parent = $this->can("view", $arr["obj_inst"]->prop("event_folder")) ? $arr["obj_inst"]->prop("event_folder") : $id;
+					$preset_time = (isset($arr["request"]["viewtype"]) and "day" === $arr["request"]["viewtype"] and !empty($arr["request"]["date"])) ? self::tm_convert($arr["request"]["date"]) : time();
 					$toolbar->add_menu_item(array(
 						"parent" => "create_event",
-						"link" => html::get_new_url($clid, $id, array("return_url" => get_ru(), "add_to_cal" => $id)),
-						"text" => $tmp[$clid]["name"]
+						"link" => $this->mk_my_orb("new", array(
+							"parent" => $parent,
+							"return_url" => get_ru(),
+							"add_to_cal" => $id,
+							"pt" => $preset_time,
+							"day" => (isset($arr["request"]["viewtype"]) and $arr["request"]["viewtype"] === "day") ? $arr["request"]["date"] : 0
+						), $clid),
+						"text" => aw_ini_get("classes.{$clid}.name")
 					));
-				};
-			};
+				}
+			}
 
-			$dt = date("d-m-Y",time());
+			$dt = date("d-m-Y", time());
 
 			/*
 			$toolbar->add_button(array(
@@ -1260,6 +1282,7 @@ class planner extends class_base
 					}
 				}
 			}
+
 			if($this->can("edit", $arr["obj_inst"]->id()) && in_array($view, $views))
 			{
 				$toolbar->add_button(array(
@@ -1312,9 +1335,9 @@ class planner extends class_base
 						foreach($conns as $conn)
 						{
 							$prj_opts[$conn->prop("from")] = $conn->prop("from.name");
-						};
-					};
-				};
+						}
+					}
+				}
 
 				$toolbar->add_cdata("&nbsp;&nbsp;".html::select(array(
 					"name" => "prj",
@@ -1373,7 +1396,7 @@ class planner extends class_base
 					"text" => t("Tuleviku s&uuml;ndmused"),
 				));
 			}
-		};
+		}
 	}
 
 	function connect_event($arr)
@@ -1411,7 +1434,7 @@ class planner extends class_base
 		// if no workdays are defined, use all of them
 		for($wd = 1; $wd <= 7; $wd++)
 		{
-			if(!$wds[$wd])
+			if(empty($wds[$wd]))
 			{
 				$full_weeks = false;
 				break;
@@ -1523,7 +1546,15 @@ class planner extends class_base
 				{
 					$varx["item_end"] = $event["end"];
 				}
-				$arr["prop"]["vcl_inst"]->add_item($varx);
+
+				try
+				{
+					$arr["prop"]["vcl_inst"]->add_item($varx);
+				}
+				catch (awex_vcl_calendar_time $e)
+				{
+					$this->show_error_text(t("Kalendris&uuml;ndmusel '{$event["name"]}' algusaeg m&auml;&auml;ramata"));
+				}
 			}
 			else
 			{
@@ -1913,14 +1944,13 @@ class planner extends class_base
 				$em = $start_tm + ($span) - 1;
 				$vaco->set_prop("end",$start_tm + ($span) - 1);
 				$vaco->save();
-			};
-		};
-
+			}
+		}
 	}
 
 	function create_event_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "start",
 			//"type" => "time",
@@ -2010,7 +2040,7 @@ class planner extends class_base
 
 	function do_events_results_table(&$arr, &$data)
 	{
-		$table = &$arr["prop"]["vcl_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 
 		$table->define_field(array(
 			"name" => "icon",
@@ -2065,13 +2095,10 @@ class planner extends class_base
 			));
 		}
 
-		get_instance("core/icons");
-
-		$user_inst = get_instance(CL_USER);
-		$users_i = get_instance("users");
+		$user_inst = new user();
+		$users_i = new users();
 		foreach ($data->arr() as $result)
 		{
-
 			$participants = $result->connections_to(array(
 				"type" => array(8,9,10),
 				"from.class_id" => CL_CRM_PERSON,
@@ -2081,13 +2108,10 @@ class planner extends class_base
 			$sep = "";
 			foreach ($participants as $participant)
 			{
-				if(!$tmp_not_first)
-				{
-					$par_href.= $sep.html::href(array(
-						"caption" => $participant->prop("from.name"),
-						"url" => html::get_change_url($participant->prop("from")),
-					));
-				}
+				$par_href.= $sep.html::href(array(
+					"caption" => $participant->prop("from.name"),
+					"url" => html::get_change_url($participant->prop("from")),
+				));
 				$sep = ", ";
 			}
 
@@ -2097,7 +2121,7 @@ class planner extends class_base
 				$iconurl = str_replace(".gif", "_done.gif", $iconurl);
 			}
 
-			$author_user = &obj($users_i->get_oid_for_uid($result->createdby()));
+			$author_user = obj($users_i->get_oid_for_uid($result->createdby()));
 			if (!$author_user->id())
 			{
 				$author_person_obj = obj();
@@ -2105,7 +2129,7 @@ class planner extends class_base
 			else
 			{
 				$author_person_id = $user_inst->get_person_for_user($author_user);
-				$author_person_obj = &obj($author_person_id);
+				$author_person_obj = obj($author_person_id);
 			}
 
 			$comment = "";
@@ -2138,14 +2162,11 @@ class planner extends class_base
 	**/
 	function do_event_search($arr)
 	{
-
 		//IF search from all calenders
-		if($arr["event_search_add"]["all_cal"])
+		if(!empty($arr["event_search_add"]["all_cal"]))
 		{
 			$calender_list = new object_list(array(
-				"class_id" => CL_PLANNER,
-				"lang_id" => array(),
-				"site_id" => array(),
+				"class_id" => CL_PLANNER
 			));
 			$list = array();
 			foreach ($calender_list->arr() as $cal)
@@ -2159,7 +2180,7 @@ class planner extends class_base
 		}
 		else
 		{
-			$obj_cal = &obj($arr["id"]);
+			$obj_cal = obj($arr["id"]);
 			$parents[] = $obj_cal->prop("event_folder");
 		}
 
@@ -2239,7 +2260,7 @@ class planner extends class_base
 	**/
 	function do_handle_cae_props(&$props, $request)
 	{
-		if ($request["cb_group"] == "participants")
+		if ($request["cb_group"] === "participants")
 		{
 			if ($request["search_contact_firstname"] != "" || $request["search_contact_lastname"] || $request["search_contact_code"] || $request["search_contact_company"])
 			{
@@ -2260,7 +2281,7 @@ class planner extends class_base
 		}
 	}
 
-	function _init_search_res_t(&$t)
+	function _init_search_res_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -2300,7 +2321,6 @@ class planner extends class_base
 
 	function do_search_contact_results_tbl($r)
 	{
-		classload("vcl/table");
 		$t = new aw_table();
 		$this->_init_search_res_t($t);
 

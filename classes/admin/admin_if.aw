@@ -1332,10 +1332,12 @@ class admin_if extends class_base
 				}
 			}
 		}
-		if ($arr["post_ru"])
+
+		if (!empty($arr["post_ru"]))
 		{
 			return $arr["post_ru"];
 		}
+
 		return $this->mk_my_orb("change", array(
 			"id" => $arr["ret_id"],
 			"parent" => $arr["parent"],

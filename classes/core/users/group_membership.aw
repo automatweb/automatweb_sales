@@ -6,7 +6,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_GROUP_MEMBERSHIP, on_conn
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_FROM, CL_GROUP_MEMBERSHIP, on_disconnect_from_group_membership)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_GROUP_MEMBERSHIP, on_disconnect_to_group_membership)
 
-@classinfo syslog_type=ST_GROUP_MEMBERSHIP relationmgr=yes no_comment=1 prop_cb=1 maintainer=instrumental
+@classinfo syslog_type=ST_GROUP_MEMBERSHIP relationmgr=yes no_comment=1 prop_cb=1
 @tableinfo aw_group_membership master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_group_membership
@@ -181,5 +181,3 @@ class group_membership extends class_base
 		return get_instance("group_membership_obj")->gms_valid();
 	}
 }
-
-?>

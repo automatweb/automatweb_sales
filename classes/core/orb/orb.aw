@@ -532,7 +532,7 @@ class orb extends aw_template
 	// login
 	function check_login($class, $action)
 	{
-		if ((!aw_global_get("uid")) && (!isset($this->orb_defs[$class][$action]["nologin"])))
+		if (!aw_global_get("uid") && !isset($this->orb_defs[$class][$action]["nologin"]))
 		{
 			$auth = new auth_config();
 			print $auth->show_login();
@@ -1070,6 +1070,148 @@ class orb extends aw_template
 		));
 
 		return true;
+	}
+
+	/** Creates orb links
+		@attrib api=1 params=pos
+		@param action type=string
+		@param class type=int|string
+		@param o type=int|object|aw_oid default=0
+		@param args type=array default=array()
+			Additional arguments
+		@param sep type=string default='&'
+			Argument separator
+		@returns
+		@errors
+			throws awex_orb_class if no valid class given
+		@comment
+	**/
+	public static function create_request_url($class, $action, $o = 0, $args = array(), $sep = "&")
+	{//TODO: pooleli
+		// resolve to name
+		if (is_numeric($class))
+		{
+			try
+			{
+				$class = basename(aw_ini_get("classes.{$class}.file"));
+			}
+			catch (Exception $e)
+			{
+				throw new awex_orb_class("Invalid class id '{$class}'");
+			}
+		}
+		elseif (!aw_ini_isset("class_lut.{$class}"))
+		{
+			throw new awex_orb_class("Invalid class name '{$class}'");
+		}
+
+		// tracked_vars comes from orb->process_request
+		if (isset($GLOBALS["tracked_vars"]) and is_array($GLOBALS["tracked_vars"]))
+		{
+			$args = $args + $GLOBALS["tracked_vars"];
+		}
+
+		$args["class"] = $class;
+		$args["action"] = $action;
+
+		// figure out the request method once.
+		static $r_use_orb;
+		if (!isset($r_use_orb))
+		{
+			$r_use_orb = basename($_SERVER["SCRIPT_NAME"],".aw") === "orb";
+		}
+
+		if (!$honor_r_orb)
+		{
+			$r_use_orb = false;
+		}
+
+		$in_admin = isset($GLOBALS["cfg"]["in_admin"]) ? (bool) $GLOBALS["cfg"]["in_admin"] : false;
+
+		$ru = null;
+		if (isset($args["return_url"]))
+		{
+			$ru = $args["return_url"];
+			unset($args["return_url"]);
+		}
+
+		$args = self::encode_request_args($args, "");
+		$res = aw_ini_get("baseurl") . "/";
+		if ($force_admin || $in_admin)
+		{
+			$res .= "automatweb/";
+			$use_orb = true;
+		}
+
+		if ($use_orb || $r_use_orb)
+		{
+			$res .= "orb.aw";
+		}
+
+		$res .= ($sep == "/") ? "/" : "?";
+		foreach($this->orb_values as $name => $value)
+		{
+			// lets skip the parameter only when it is empty string --dragut
+			if ($value !== '')
+			{
+				$add = $name."=".$value.$sep;
+				if(strlen($res.$add) > 2047)
+				{
+					$add = substr($add, 0, 2000);
+				}
+				$res .= $add;
+			}
+		}
+
+		if ($ru !== null)
+		{
+			$rv = $res."return_url=".urlencode($ru).$sep;
+		}
+		else
+		{
+			$rv = substr($res,0,-strlen($sep));
+		}
+
+		$len = strlen($rv);
+		if ($len > 2047)
+		{
+			$rv = substr($rv, 0, 2047);
+		}
+		return $rv;
+	}
+
+	private static function encode_request_args($args, $prefix, $no_urlencoding = false, $use_empty = false)
+	{
+		foreach($args as $name => $value)
+		{
+			if (is_array($value))
+			{
+				$_tpref = "" == $prefix ? $name : "[".$name."]";
+				$args[$name] = self::encode_request_args($args[$name], $prefix.$_tpref, $no_urlencoding, $use_empty);
+			}
+			else
+			{
+				// commented this out, because it breaks stuff - namely, urls that are created via
+				// $this->mk_orb("admin_cell", array("id" => $this->id, "col" => (int)$args["r_col"], "row" => (int)$args["r_row"]))
+				// where the col and row parameters will be "0"
+				// it will not include them.. damned if I know why
+				// so, before putting this back, check that
+				// - terryf
+
+				// 0 will get included now, "" will not. reforb sets use_empty so
+				// that gets everything
+				if ((isset($value) && ($value !== "")) || $use_empty)
+				//{
+					if (!$no_urlencoding)
+					{
+						$value = urlencode($value);
+					}
+					$args[empty($prefix) ? $name : $prefix."[".$name."]"] = $value;
+				//};
+			}
+		}
+
+		return $args;
 	}
 }
 
