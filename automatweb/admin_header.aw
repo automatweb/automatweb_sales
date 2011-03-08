@@ -52,5 +52,3 @@ if (is_readable($lc_file))
 $sf = new aw_template();
 $sf->db_init();
 $sf->tpl_init("automatweb");
-
-lc_load("automatweb");

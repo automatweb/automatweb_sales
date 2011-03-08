@@ -1,9 +1,5 @@
 <?php
 
-/*
-@classinfo  maintainer=kristo
-*/
-
 /** various system management methods **/
 class sys extends aw_template
 {
@@ -14,7 +10,7 @@ class sys extends aw_template
 	}
 
 	/** Generates xml database structure
-		@attrib name=gen_db_struct params=name nologin="1" default="0"
+		@attrib name=gen_db_struct params=name default="0"
 	**/
 	function gen_db_struct($args = array())
 	{
@@ -76,7 +72,7 @@ class sys extends aw_template
 
 
 	/** Generates SQL statements that create a correct aw database structure
-		@attrib name=gen_create_tbl params=name nologin="1"
+		@attrib name=gen_create_tbl params=name
 	**/
 	function gen_create_tbl($args = array())
 	{
@@ -285,7 +281,7 @@ class sys extends aw_template
 	}
 
 	/** Processes the selected fields from the dbsync compare databases display
-		@attrib name=submit_compare_db params=name nologin="1" default="0"
+		@attrib name=submit_compare_db params=name default="0"
 	**/
 	function submit_compare_db($args = array())
 	{
@@ -424,7 +420,7 @@ class sys extends aw_template
 	}
 
 	/** Checks if the database tables have correct indexes and if not, creates them
-		@attrib name=check_indexes nologin="1"
+		@attrib name=check_indexes
 	**/
 	function do_check_indexes($arr)
 	{
@@ -474,7 +470,7 @@ class sys extends aw_template
 	}
 
 	/** checks if any objects of the given class exist in the current database
-		@attrib name=has_objects nologin=1
+		@attrib name=has_objects
 
 		@param clid required type=int
 			The class id to check for
@@ -485,9 +481,7 @@ class sys extends aw_template
 	function has_objects($arr)
 	{
 		$ol = new object_list(array(
-			"class_id" => $arr["clid"],
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => $arr["clid"]
 		));
 		if ($ol->count())
 		{
@@ -694,7 +688,7 @@ class sys extends aw_template
 
 	/** tests sites in site list. will only be called from register site
 
-		@attrib name=test_sites nologin=1
+		@attrib name=test_sites
 	**/
 	function test_sites($arr)
 	{
@@ -783,11 +777,11 @@ class sys extends aw_template
 	function site_gzip($arr)
 	{
 		$fld = aw_ini_get("site_basedir")."/files/dumper/";
-		@mkdir($fld, 0777);
+		mkdir($fld, 0777);
 
 
 		$fn = $fld."dump.tar.gz";
-		@unlink($fn);
+		unlink($fn);
 
 		$base = aw_ini_get("basedir")."/";
 
@@ -806,17 +800,17 @@ class sys extends aw_template
 	}
 
 	/**
-		@attrib name=do_test_dump nologin=1
+		@attrib name=do_test_dump
 
 	**/
 	function do_test_dump($arr)
 	{
 		$fld = aw_ini_get("site_basedir")."/files/dumper/";
-		@mkdir($fld, 0777);
+		mkdir($fld, 0777);
 
 
 		$fn = $fld."dump.tar.gz";
-		@unlink($fn);
+		unlink($fn);
 
 		$base = aw_ini_get("basedir")."/";
 
@@ -860,9 +854,9 @@ class sys extends aw_template
 			throw new awex_sys("Invalid argument");
 		}
 
-		$_GET["in_popup"] = 1;
 		$classes = isset($arr["classes"]) ? explode(",", $arr["classes"]) : array();
 		$this->_make_property_definitions($classes);
+		exit; //TODO: tmp, move header from admin_footer to cb or htmlc
 	}
 
 	private function _make_property_definitions($classes = array())
@@ -931,9 +925,9 @@ class sys extends aw_template
 			throw new awex_sys_webmaintenance("Web maintenance is turned off");
 		}
 
-		$_GET["in_popup"] = 1;
 		$classes = isset($arr["classes"]) ? explode(",", $arr["classes"]) : array();
 		$this->_make_orb_definitions($classes);
+		exit; //TODO: tmp, move header from admin_footer to cb or htmlc
 	}
 
 	private function _make_orb_definitions($classes = array())
@@ -958,6 +952,7 @@ class sys extends aw_template
 		}
 
 		$this->_make_message_maps();
+		exit; //TODO: tmp, move header from admin_footer to cb or htmlc
 	}
 
 	private function _make_message_maps()
@@ -970,11 +965,9 @@ class sys extends aw_template
 		echo "</pre>";
 	}
 
-/**
-	@attrib name=make_ini
-**/
+	// DEPRECATED. separate ini files not used anymore
 	function make_ini_file()
-	{
+	{ return;
 		if (!aw_ini_get("enable_web_maintenance"))
 		{
 			throw new awex_sys_webmaintenance("Web maintenance is turned off");
@@ -984,8 +977,9 @@ class sys extends aw_template
 		$this->_make_ini_file();
 	}
 
+	// DEPRECATED. separate ini files not used anymore
 	function _make_ini_file()
-	{
+	{ return;
 		$basedir = aw_ini_get("basedir");
 		$input_file = $basedir . "/aw.ini.root";
 		$output_file = $basedir . "/aw.ini";
@@ -1029,7 +1023,9 @@ class sys extends aw_template
 		{
 			throw new awex_sys_webmaintenance("Web maintenance is turned off");
 		}
+
 		$this->_make_translations();
+		exit; //TODO: tmp, move header from admin_footer to cb or htmlc
 	}
 
 	private function _make_translations()
@@ -1078,6 +1074,7 @@ class sys extends aw_template
 		}
 
 		$this->show_class_form();
+		exit; //TODO: tmp, move header from admin_footer to cb or htmlc
 	}
 
 /**
@@ -1155,7 +1152,7 @@ ENDCLASSFORM;
 	}
 
 	/**
-		@attrib name=consolidate_template_logs nologin="1"
+		@attrib name=consolidate_template_logs
 	**/
 	public function consolidate_template_logs($arr)
 	{
@@ -1216,7 +1213,7 @@ ENDCLASSFORM;
 	}
 
 	/**
-		@attrib name=prop_stats nologin="1"
+		@attrib name=prop_stats
 	**/
 	function prop_stats()
 	{
@@ -1252,7 +1249,7 @@ ENDCLASSFORM;
 	}
 
 	/**
-		@attrib name=clid_stats nologin="1"
+		@attrib name=clid_stats
 	**/
 	function clid_stats()
 	{
@@ -1288,5 +1285,3 @@ class awex_sys_mkprop_cl extends awex_sys
 {
 	public $failed_classes = array();
 }
-
-?>

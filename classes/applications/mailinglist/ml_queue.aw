@@ -501,11 +501,11 @@ class ml_queue extends aw_template
 			$old = time() - 10 * 60;//kui nyyd 2 minutit m66das viimase maili saatmisest, siis voib suht kindel olla, et eelmine queue on pange pand
 
 			if(
-			   !($test_q["status"] == 1)
-			&& !($test_q["status"] == 0)
-			&& !($test_q["status"] == 3
-				&& $test_q["position"] < $test_q["total"]
-				&& $test_q["last_sent"] < $old
+				!($test_q["status"] == 1)
+				&& !($test_q["status"] == 0)
+				&& !($test_q["status"] == 3
+					&& $test_q["position"] < $test_q["total"]
+					&& $test_q["last_sent"] < $old
 				)
 			)
 			continue;
@@ -518,7 +518,7 @@ class ml_queue extends aw_template
 
 			$list = obj($lid);
 			$bounce = $list->prop("default_bounce");
-			if(is_oid($mid) && $this->can("view" , $mid))
+			if($this->can("view" , $mid))
 			{
 				$mail_object = obj($mid);
 				$charset = $mail_object->meta("charset");

@@ -378,11 +378,9 @@
             <caption>Vali muudetavad seaded</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_GROUP</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <dyn_search>

@@ -63,7 +63,6 @@
             <relationmgr>yes</relationmgr>
             <syslog_type>ST_DOCGEN_VIEWER</syslog_type>
             <prop_cb>1</prop_cb>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <more_options>
