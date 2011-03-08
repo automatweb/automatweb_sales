@@ -45,7 +45,11 @@ if(isset($pdf))
 
 <table class="header">
 <tr>
-	<td width="40%" class="logo"><img src="http://intranet.automatweb.com/img/automatweb.jpg" alt="AutomatWeb" width="277" height="48"></td>
+	<td class="logo" width="40%">
+		<!-- SUB: HAS_IMPL_LOGO -->
+		<img src="{VAR:impl_logo_url}">
+		<!-- END SUB: HAS_IMPL_LOGO -->
+	</td>
 	<td width="35%">
 		<strong>{VAR:impl_ou} {VAR:impl_name}</strong><br>
 		Reg. nr {VAR:impl_reg_nr}<br>

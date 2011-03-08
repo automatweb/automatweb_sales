@@ -11,7 +11,7 @@ if ( typeof jQuery == "undefined" )
 		<!-- SUB: button -->
 		{VAR:surround_start}
 		<div nowrap class="tb_but" onMouseOver="this.className='tb_but_ov'" onMouseOut="this.className='tb_but'" onMouseDown="this.className='tb_but_ov'" onMouseUp="this.className='tb_but'">
-		<a href="{VAR:url}" onClick="{VAR:onClick}" name="{VAR:name}" target="{VAR:target}" {VAR:href_id}><img style="button" src="{VAR:img_url}" border="0" title="{VAR:tooltip}" alt="{VAR:tooltip}" /></a>
+		<a href="{VAR:url}" onclick="{VAR:onclick}" name="{VAR:name}" target="{VAR:target}" {VAR:href_id}><img style="button" src="{VAR:img_url}" border="0" title="{VAR:tooltip}" alt="{VAR:tooltip}" /></a>
 		</div>
 		{VAR:surround_end}
 		<!-- END SUB: button -->
@@ -31,10 +31,10 @@ if ( typeof jQuery == "undefined" )
 			<table cellpadding=0 cellspacing=0>
 				<tr>
 					<td valign='bottom'>
-					<a href="{VAR:url}" target="{VAR:target}" onClick="{VAR:onClick}"><img src="{VAR:img_url}" title="{VAR:tooltip}" alt="{VAR:tooltip}" border="0" /></a>
+					<a href="{VAR:url}" target="{VAR:target}" onclick="{VAR:onclick}"><img src="{VAR:img_url}" title="{VAR:tooltip}" alt="{VAR:tooltip}" border="0" /></a>
 					</td>
 					<td valign='bottom'>
-						<a href="{VAR:url}" target="{VAR:target}" onClick="{VAR:onClick}"><img src="{VAR:imgbase}/downarr.png" alt="" border="0"></a></td>
+						<a href="{VAR:url}" target="{VAR:target}" onclick="{VAR:onclick}"><img src="{VAR:imgbase}/downarr.png" alt="" border="0"></a></td>
 					</a>
 				</tr>
 			</table>
@@ -46,10 +46,10 @@ if ( typeof jQuery == "undefined" )
 			<table cellpadding=0 cellspacing=0>
 				<tr>
 					<td valign='bottom'>
-					<a href="javascript:void(0);" onClick="tb_tb_lod{VAR:tb_lod_num}()"><img src="{VAR:img_url}" border="0"  width="16" height="16" title="{VAR:tooltip}" alt="{VAR:tooltip}" /></a>
+					<a href="javascript:void(0);" onclick="tb_tb_lod{VAR:tb_lod_num}()"><img src="{VAR:img_url}" border="0"  width="16" height="16" title="{VAR:tooltip}" alt="{VAR:tooltip}" /></a>
 					</td>
 					<td valign='bottom'>
-						<a href="javascript:void(0);" onClick="tb_tb_lod{VAR:tb_lod_num}()"><img src="{VAR:imgbase}/downarr.png" border="0"  width="7" height="4" title="{VAR:tooltip}" alt="{VAR:tooltip}" /></a></td>
+						<a href="javascript:void(0);" onclick="tb_tb_lod{VAR:tb_lod_num}()"><img src="{VAR:imgbase}/downarr.png" border="0"  width="7" height="4" title="{VAR:tooltip}" alt="{VAR:tooltip}" /></a></td>
 					</a>
 				</tr>
 			</table>
@@ -69,11 +69,11 @@ if ( typeof jQuery == "undefined" )
 		<!-- END SUB: menu_button_lod -->
 
 		<!-- SUB: text_button -->
-		 <div class="tb_but" valign="middle" onMouseOver="this.className='tb_but_ov'" onMouseOut="this.className='tb_but'" onMouseDown="this.className='tb_but_ov'" onMouseUp="this.className='tb_but'" title="{VAR:tooltip}" alt="{VAR:tooltip}"><a href="{VAR:url}" target="{VAR:target}" onClick="{VAR:onClick}" style="text-decoration: none; white-space: nowrap;">{VAR:caption}</a></div>
+		 <div class="tb_but" valign="middle" onMouseOver="this.className='tb_but_ov'" onMouseOut="this.className='tb_but'" onMouseDown="this.className='tb_but_ov'" onMouseUp="this.className='tb_but'" title="{VAR:tooltip}" alt="{VAR:tooltip}"><a href="{VAR:url}" target="{VAR:target}" onclick="{VAR:onclick}" style="text-decoration: none; white-space: nowrap;">{VAR:caption}</a></div>
 		<!-- END SUB: text_button -->
 
 		<!-- SUB: text_menu_button -->
-		<div class="tb_but" valign="middle" onMouseOver="this.className='tb_but_ov'" onMouseOut="this.className='tb_but'" onMouseDown="this.className='tb_but_ov'" onMouseUp="this.className='tb_but'" title="{VAR:tooltip}" alt="{VAR:tooltip}"><a  href="{VAR:url}" target="{VAR:target}" onClick="{VAR:onClick}" style="text-decoration: none; white-space: nowrap;">{VAR:text}</a>
+		<div class="tb_but" valign="middle" onMouseOver="this.className='tb_but_ov'" onMouseOut="this.className='tb_but'" onMouseDown="this.className='tb_but_ov'" onMouseUp="this.className='tb_but'" title="{VAR:tooltip}" alt="{VAR:tooltip}"><a  href="{VAR:url}" target="{VAR:target}" onclick="{VAR:onclick}" style="text-decoration: none; white-space: nowrap;">{VAR:text}</a>
 		</div>
 		<!-- END SUB: text_menu_button -->
 

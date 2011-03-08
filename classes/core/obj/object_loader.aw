@@ -646,7 +646,89 @@ class _int_object_loader extends core
 
 	function handle_cache_update($oid, $site_id, $type)
 	{
-		return;
+		if (!$this->registered)
+		{
+			register_shutdown_function(array($this, "on_shutdown_update_cache"));
+			$this->cache_handlers = array();
+			$this->registered = true;
+		}
+
+		// register cache update to sites using same object system with different cache location
+		try
+		{
+			$repl = aw_ini_get("object_cache.replicate_sites");
+		}
+		catch (Exception $e)
+		{
+			$repl = null;
+		}
+
+		if ($repl and is_array($repl) or $site_id != aw_ini_get("site_id"))
+		{
+			$this->cache_handlers[$site_id][$oid][$type] = $type;
+		}
+	}
+
+	function on_shutdown_update_cache()
+	{
+		// go over all the registered cache updates and if they are for another site, then propagate them to that one
+		$sl = new site_list();
+		$f = fopen(aw_ini_get("site_basedir")."/files/updlog.txt", "a");
+
+		try // shutdown functions can't throw exceptions
+		{
+			$repl = aw_ini_get("object_cache.replicate_sites");
+			$cur_sid = aw_ini_get("site_id");
+		}
+		catch (Exception $e)
+		{
+			$repl = null;
+			$cur_sid = null;
+		}
+
+		foreach($this->cache_handlers as $site_id => $data)
+		{
+			if (is_array($repl))
+			{
+				foreach($repl as $url)
+				{
+					$this->_do_repl_call($url, $data, $f);
+				}
+				continue;
+			}
+			else
+			if ($site_id == $cur_sid)
+			{
+				continue;
+			}
+			else
+			{
+				$url = $sl->get_url_for_site($site_id);
+			}
+			$this->_do_repl_call($url, $data, $f);
+		}
+		fclose($f);
+	}
+
+	function _do_repl_call($url, $data, $f)
+	{
+		fwrite($f, "call {$site_id} => ".dbg::dump($data)." from site {$url}\n\n");
+		fflush($f);
+		if ($url != "")
+		{
+			aw_global_set("__from_raise_error", 1);
+			$this->do_orb_method_call(array(
+				"server" => $url,
+				"method" => "xmlrpc",
+				"class" => "object_cache_updater",
+				"action" => "handle_remote_update",
+				"params" => array(
+					"data" => $data
+				),
+				"no_errors" => 1	// sites may not respond or be password protected or whatever and the user does not need to see that
+			));
+			aw_global_set("__from_raise_error", 0);
+		}
 	}
 
 	function handle_no_cache_clear()

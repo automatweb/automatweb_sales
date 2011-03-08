@@ -936,6 +936,11 @@
                   <clid>CL_CRM_PERSON</clid>
                   <caption>Arve saaja</caption>
             </RECEIVER>
+            <ROW_BLOCK>
+                  <value>20</value>
+                  <clid>CL_CRM_BILL_ROW_BLOCK</clid>
+                  <caption>Reablokk</caption>
+            </ROW_BLOCK>
       </reltypes>
       <layout>
             <main_split>

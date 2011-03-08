@@ -57,6 +57,7 @@
 @property project type=select
 @caption Projekt
 
+// RELTYPES
 @reltype PROD value=1 clid=CL_CHOP_PRODUCT
 @caption Toode
 
@@ -119,7 +120,17 @@ class crm_bill_row extends class_base
 	{
 		if ($table === "aw_crm_bill_rows" && $field == "")
 		{
-			$this->db_query("create table aw_crm_bill_rows (aw_oid int primary key, aw_amt double,aw_prod int,aw_price double,aw_unit varchar(100),aw_is_oe int,aw_has_tax int ,aw_date varchar(255), aw_writeoff int)");
+			$this->db_query("create table aw_crm_bill_rows (
+				aw_oid int primary key,
+				aw_amt double,
+				aw_prod int,
+				aw_price double,
+				aw_unit varchar(100),
+				aw_is_oe int,
+				aw_has_tax int,
+				aw_date varchar(255),
+				aw_writeoff int
+			)");
 			return true;
 		}
 
@@ -132,9 +143,7 @@ class crm_bill_row extends class_base
 				));
 				// convert data as well
 				$ol = new object_list(array(
-					"class_id" => CL_CRM_BILL_ROW,
-					"lang_id" => array(),
-					"site_id" => array(),
+					"class_id" => CL_CRM_BILL_ROW
 				));
 				foreach($ol->arr() as $o)
 				{

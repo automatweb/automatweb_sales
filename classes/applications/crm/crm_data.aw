@@ -1,14 +1,12 @@
 <?php
-/*
-@classinfo  maintainer=markop
-*/
+
 class crm_data extends class_base
 {
 	function crm_data()
 	{
 		$this->init();
 	}
-	
+
 	///////////// BILLS
 
 	/**
@@ -28,8 +26,6 @@ class crm_data extends class_base
 	{
 		$of = array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"site_id" => array(),
 /*			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -108,7 +104,7 @@ class crm_data extends class_base
 						"class_id" => CL_CRM_COMPANY_ROLE_ENTRY,
 						"CL_CRM_COMPANY_ROLE_ENTRY.person.name" => map("%%%s%%", explode(",", $filter["client_mgr"]))
 					));
-	
+
 					$relist3 = new object_list(array(
 						"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
 						"CL_CRM_COMPANY_CUSTOMER_DATA.client_manager.name" => map("%%%s%%", explode(",", $filter["client_mgr"]))
@@ -168,10 +164,10 @@ class crm_data extends class_base
 							)
 						));
 					}
-				}
-				$of[] = $ft;
-				$of2[] = $ft;
 
+					$of[] = $ft;
+					$of2[] = $ft;
+				}
 			}
 		}
 		$ret =  new object_list($of);
@@ -184,7 +180,7 @@ class crm_data extends class_base
 
 	///////////////// customers
 
-	/** returns customers for company 
+	/** returns customers for company
 	**/
 	function get_customers_for_company($co)
 	{
@@ -200,7 +196,7 @@ class crm_data extends class_base
 		{
 			$ret[$c->prop("to")] = $c->prop("to");
 		}
-		
+
 		foreach($co->connections_from(array("type" => "RELTYPE_CATEGORY")) as $c)
 		{
 			$this->_int_req_get_cust_co($c->to(), $ret);
@@ -209,7 +205,7 @@ class crm_data extends class_base
 
 	//////////////////////////////////////////// company
 
-	/** returns sections from the given company 
+	/** returns sections from the given company
 	**/
 	function get_section_picker_from_company($co)
 	{
@@ -255,7 +251,7 @@ class crm_data extends class_base
 	{
 		$u = get_instance(CL_USER);
 		$p = obj($u->get_current_person());
-	
+
 		if (!is_oid($p->id()))
 		{
 			return null;
@@ -288,4 +284,3 @@ class crm_data extends class_base
 		return $i->get_employee_picker($co, $add_empty, $important_only);
 	}
 }
-?>

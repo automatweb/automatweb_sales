@@ -49,10 +49,25 @@ if (substr($content,0,5) === "http:" || !empty($vars["reforb"]) || substr($conte
         }
         else
         {
-                header("Location: $content");
+                header("Location: {$content}");
                 print "\n\n";
         }
         exit;
 }
+elseif (is_oid($content))
+{
+	$url = aw_ini_get("baseurl") . "/{$content}";
+	if (headers_sent())
+	{
+		print html::href(array(
+			"url" => $url,
+			"caption" => t("Kliki siia j&auml;tkamiseks"),
+		));
+	}
+	else
+	{
+		header("Location: {$url}");
+	}
+	exit;
+}
 
-?>
