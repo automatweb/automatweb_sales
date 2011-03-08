@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="linguistic_expression" folder="applications/dictionary" extends="class_base">
+	</class>
+</orb>
+		
