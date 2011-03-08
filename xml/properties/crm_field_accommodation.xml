@@ -348,7 +348,6 @@
             <group>services</group>
             <type>text</type>
             <store>no</store>
-            <caption></caption>
       </property>
       <property>
             <name>has_grill</name>
@@ -646,7 +645,6 @@
             <syslog_type>ST_CRM_FIELD_ACCOMMODATION</syslog_type>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <products>

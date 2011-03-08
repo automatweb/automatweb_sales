@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=markop
-*/
+
 class crm_company_qv_impl extends class_base
 {
 	function crm_company_qv_impl()
@@ -9,7 +7,7 @@ class crm_company_qv_impl extends class_base
 		$this->init("crm");
 	}
 
-	function _init_qv_t(&$t)
+	function _init_qv_t($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -56,7 +54,7 @@ class crm_company_qv_impl extends class_base
 
 	function _get_qv_t($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_qv_t($t);
 
 		$this->hrs_total = 0;
@@ -68,14 +66,14 @@ class crm_company_qv_impl extends class_base
 		$this->bills_paid_sum = 0;
 
 		$r = array();
-		if($arr["request"]["between"])
+		if(!empty($arr["request"]["between"]))
 		{
 			$time_filt = $arr["request"]["between"];
 		}
 		else
 		{
-			$r["stats_s_from"] = date_edit::get_timestamp($arr["request"]["stats_s_from"]);
-			$r["stats_s_to"] = date_edit::get_timestamp($arr["request"]["stats_s_to"]);
+			$r["stats_s_from"] = !empty($arr["request"]["stats_s_from"]) ? date_edit::get_timestamp($arr["request"]["stats_s_from"]) : 0;
+			$r["stats_s_to"] = !empty($arr["request"]["stats_s_to"]) ? date_edit::get_timestamp($arr["request"]["stats_s_to"]) : 0;
 			if ($r["stats_s_from"] > 1 && $r["stats_s_to"])
 			{
 				$time_filt = new obj_predicate_compare(OBJ_COMP_BETWEEN, $r["stats_s_from"], $r["stats_s_to"]);
@@ -90,39 +88,38 @@ class crm_company_qv_impl extends class_base
 			{
 				$time_filt = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $r["stats_s_to"]);
 			}
+			else
+			{
+				$time_filt = null;
+			}
 		}
-		
-		
+
 		// projs
 		if (!empty($arr["proj"]))
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_PROJECT,
 				"CL_PROJECT.RELTYPE_ORDERER" => $arr["obj_inst"]->id(),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"sort_by" => "aw_deadline desc",
 				"state" => "%",
 				"oid" => $arr["proj"]
 			));
-			$pd = "<b>" . t("Projektid") . "</b>";
+			$pd = html::bold(t("Projektid"));
 		}
 		else
 		{
 			$ol = new object_list(array(
 				"class_id" => CL_PROJECT,
 				"CL_PROJECT.RELTYPE_ORDERER" => $arr["obj_inst"]->id(),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"sort_by" => "aw_deadline desc",
 				"state" => "%",
 //				"limit" => 5
 			));
 			$pd = "<b>" . t("Projektid (5 v&auml;rskemat)") . "</b>";
 		}
-		$pi = get_instance(CL_PROJECT);
-		$t_i = get_instance(CL_TASK);
-		$stat = get_instance("applications/crm/crm_company_stats_impl");
+		$pi = new project();
+		$t_i = new task();
+		$stat = new crm_company_stats_impl();
 
 		$ount = 0;
 		foreach($ol->arr() as $o)
@@ -152,11 +149,9 @@ class crm_company_qv_impl extends class_base
 /*
 			$t_ol = new object_list(array(
 				"class_id" => CL_TASK,
-				"lang_id" => array(),
-				"site_id" => array(),
 				"project" => $o->id(),
 				"brother_of" => new obj_predicate_prop("id"),
-				
+
 			));
 */
 			foreach($t_ol->arr() as $task)
@@ -187,13 +182,14 @@ class crm_company_qv_impl extends class_base
 			));
 			$count++;
 		}
+
 		if ($ol->count() == 0)
 		{
 			$t->define_data(array(
 				"date" => "",
 				"name" => t("Valitud ajavahemikus ei ole &uuml;htegi projekti!"),
 				"parts" => "",
-				"grp_desc" => $bd,
+				"grp_desc" => "",
 				"grp_num" => 3,
 			));
 		}
@@ -210,26 +206,24 @@ class crm_company_qv_impl extends class_base
 				$ol = new object_list(array(
 					"class_id" => CL_TASK,
 					"customer" => $arr["obj_inst"]->id(),
-					"lang_id" => array(),
-					"site_id" => array(),
 					"sort_by" => "deadline desc",
 					"deadline" => "%",
 					"oid" => $arr["tasks"]->ids(),
 					"brother_of" => new obj_predicate_prop("id")
 				));
-	
+
 				// also add call/meeting/offer by range
 				$filt = array(
 					"class_id" => array(CL_CRM_MEETING, CL_CRM_CALL, CL_CRM_OFFER),
 					"customer" => $arr["obj_inst"]->id(),
 					"brother_of" => new obj_predicate_prop("id")
 				);
-	
+
 				$r = array();
 				$r["stats_s_from"] = date_edit::get_timestamp($arr["request"]["stats_s_from"]);
 				$r["stats_s_to"] = date_edit::get_timestamp($arr["request"]["stats_s_to"]);
-	
-	
+
+
 				$filt["start1"] = $time_filt;
 				$ol2 = new object_list($filt);
 				$ol->add($ol2);
@@ -241,15 +235,13 @@ class crm_company_qv_impl extends class_base
 			$ol = new object_list(array(
 				"class_id" => CL_TASK,
 				"customer" => $arr["obj_inst"]->id(),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"sort_by" => "deadline desc",
 				"deadline" => "%",
 	//			"limit" => 10
 			));
 			$grpd = "<b>" . t("Tegevused (10 v&auml;rskemat)") . "</b>";
 		}
-		classload("core/icons");
+
 		$count = 0;
 		foreach($ol->arr() as $o)
 		{
@@ -284,8 +276,6 @@ class crm_company_qv_impl extends class_base
 			$parts = array();
 			$pol = new object_list(array(
 				"class_id" => CL_CRM_PERSON,
-				"site_id" => array(),
-				"lang_id" => array(),
 				"CL_CRM_PERSON.RELTYPE_PERSON_TASK" => $o->id(),//kui k6ik panen, jookseb miskit kokku
 //				new object_list_filter(array(
 //					"logic" => "OR",
@@ -296,7 +286,7 @@ class crm_company_qv_impl extends class_base
 //					)
 //				)),
 			));
-	
+
 			foreach($pol->arr() as $person)
 			{
 				$parts[] = html::obj_change_url($person->id());
@@ -321,25 +311,24 @@ class crm_company_qv_impl extends class_base
 			));
 			$count++;
 		}
+
 		if ($ol->count() == 0)
 		{
 			$t->define_data(array(
 				"date" => "",
 				"name" => t("Valitud ajavahemikus ei ole &uuml;htegi tegevust!"),
 				"parts" => "",
-				"grp_desc" => $bd,
+				"grp_desc" => "",
 				"grp_num" => 3,
 			));
 		}
 
 		// bugs
 		$bug_count = 0;
-		$bi = get_instance(CL_BUG);
+		$bi = new bug();
 		$ol = new object_list(array(
 			"class_id" => CL_BUG,
 			"customer" => $arr["obj_inst"]->id(),
-			"lang_id" => array(),
-			"site_id" => array(),
 //			"sort_by" => "objects.created desc",
 			"who" => "%",
 //			"limit" => 10
@@ -375,9 +364,9 @@ class crm_company_qv_impl extends class_base
 			{
 				$hrs += str_replace(",", ".",$row["amt"]);
 			}
-			
+
 			$c_time = $o->get_last_comment_time();
-			
+
 			$t->define_data(array(
 				"date" => $c_time > 100 ? date("d.m.Y", $c_time) : "",
 				"name" => html::get_change_url($o->id(), array("return_url" => get_ru(), "group" => "preview"), ($o->name()?$o->name():t("Nimetu"))),
@@ -392,6 +381,7 @@ class crm_company_qv_impl extends class_base
 			));
 			$bug_count++;
 		}
+
 		if ($ol->count() == 0)
 		{
 			$t->define_data(array(
@@ -410,8 +400,6 @@ class crm_company_qv_impl extends class_base
 			$f = array(
 				"class_id" => CL_CRM_BILL,
 				"customer" => $arr["obj_inst"]->id(),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"sort_by" => "aw_crm_bill.aw_date desc",
 				"bill_no" => "%",
 				"CL_CRM_BILL.RELTYPE_TASK" => $ol->ids() // only from the task list for this co
@@ -424,8 +412,6 @@ class crm_company_qv_impl extends class_base
 			$ol = new object_list(array(
 				"class_id" => CL_CRM_BILL,
 				"customer" => $arr["obj_inst"]->id(),
-				"lang_id" => array(),
-				"site_id" => array(),
 				"sort_by" => "aw_crm_bill.aw_date desc",
 				"bill_no" => "%",
 //				"limit" => 10
@@ -474,7 +460,7 @@ class crm_company_qv_impl extends class_base
 				"sb" => $o->prop("bill_date"),
 			));
 
-			$count++; 
+			$count++;
 		}
 		if ($ol->count() == 0)
 		{
@@ -510,13 +496,14 @@ class crm_company_qv_impl extends class_base
 
 		$o = $arr["obj_inst"];
 
+		$cp = "";
 		$u = get_instance(CL_USER);
 		$cur_p = obj($u->get_current_person());
 		$conns = $cur_p->connections_from(array(
 			"type" => "RELTYPE_IMPORTANT_PERSON",
 		));
 
-		$i = get_instance(CL_CRM_COMPANY);
+		$i = new crm_company();
 		$all_persons = array();
 		$i->get_all_workers_for_company($arr["obj_inst"], $all_persons);
 
@@ -528,6 +515,7 @@ class crm_company_qv_impl extends class_base
 				unset($conns[$idx]);
 			}
 		}
+
 		foreach($conns as $c)
 		{
 			$_cp = $c->to();
@@ -541,24 +529,19 @@ class crm_company_qv_impl extends class_base
 			$ev = $ev->prop("shortname");
 		}
 
-		if (!class_exists("vcl_table"))
-		{
-			classload("vcl/table");
-		}
-
 		$this->_get_qv_t(array(
 			"prop" => array(
 				"vcl_inst" => new vcl_table(),
 			),
-			"proj" => $arr["proj"],
+			"proj" => isset($arr["proj"]) ? $arr["proj"] : null,
 			"obj_inst" => $arr["obj_inst"],
-			"tasks" => $arr["tasks"],
-			"request" => $arr["request"]
+			"tasks" => isset($arr["tasks"]) ? $arr["tasks"] : null,
+			"request" => isset($arr["request"]) ? $arr["request"] : null
 		));
 
 		$tg = $_GET;
 
-		if (!$tg["stats_s_to"])
+		if (empty($tg["stats_s_to"]))
 		{
 			$tg["stats_s_to"] = time();
 		}
@@ -567,7 +550,7 @@ class crm_company_qv_impl extends class_base
 			$tg["stats_s_to"] = date_edit::get_timestamp($tg["stats_s_to"]);
 		}
 
-		if (!$tg["stats_s_from"])
+		if (empty($tg["stats_s_from"]))
 		{
 			$tg["stats_s_from"] = $o->prop("cust_contract_date");
 		}
@@ -636,5 +619,3 @@ class crm_company_qv_impl extends class_base
 		));
 	}
 }
-
-?>

@@ -255,6 +255,7 @@ echo "created classes/$clnf...\n";
 
 $fc = _file_get_contents(($args_from_caller ? AW_DIR : "") . "install/class_template/classes/class.aw");
 $fc = str_replace("__classname", $class['file'] . "_obj", $fc);
+$fc = str_replace("__classid", $new_clid, $fc);
 _file_put_contents(($args_from_caller ? AW_DIR : "") . "classes/$clnf_oo",$fc);
 echo "created classes/$clnf_oo...\n";
 

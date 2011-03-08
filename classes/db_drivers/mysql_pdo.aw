@@ -776,7 +776,7 @@ class mysql_pdo
 			$clss = aw_ini_get("classes");
 			$upgrade_result = null;
 
-			if ($mt[1] == "" && $mt[2] != "")
+			if (empty($mt[1]) && !empty($mt[2]))
 			{
 				// find property with field given and table in the error query
 				foreach($clss as $clid => $inf)

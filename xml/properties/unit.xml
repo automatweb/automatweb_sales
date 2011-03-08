@@ -1,13 +1,43 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>name_partitive_1</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <comment>&amp;amp;Uuml;hiku nimi ainsuse osastavas k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on 1</comment>
+            <caption>Ainsuse partitiiv (1 ...)</caption>
+      </property>
+      <property>
+            <name>name_partitive_2</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <comment>&amp;amp;Uuml;hiku nimi ainsuse osastavas k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on 2</comment>
+            <caption>Ainsuse partitiiv (2 ...)</caption>
+      </property>
+      <property>
+            <name>name_partitive</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <comment>&amp;amp;Uuml;hiku nimi ainsuse osastavas k&amp;amp;auml;&amp;amp;auml;ndes</comment>
+            <caption>Ainsuse partitiiv (n ...)</caption>
+      </property>
+      <property>
             <name>unit_code</name>
             <table>objects</table>
             <group>general</group>
             <field>meta</field>
             <method>serialize</method>
             <type>textbox</type>
-            <caption>&amp;amp;Uuml;hiku kood</caption>
+            <caption>&amp;amp;Uuml;hiku t&amp;amp;auml;his</caption>
       </property>
       <property>
             <name>unit_sort</name>
@@ -16,7 +46,8 @@
             <field>meta</field>
             <method>serialize</method>
             <type>select</type>
-            <caption>&amp;amp;Uuml;hiku liik</caption>
+            <comment>Suurus, mida &amp;amp;uuml;hik m&amp;amp;otilde;&amp;amp;otilde;dab</comment>
+            <caption>Suurus</caption>
       </property>
       <property>
             <name>transl</name>
@@ -35,7 +66,6 @@
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>markop</maintainer>
       </classinfo>
       <groupinfo>
             <transl>

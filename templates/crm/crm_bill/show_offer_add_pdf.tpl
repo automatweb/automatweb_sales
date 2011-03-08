@@ -51,7 +51,9 @@
 <table id="bill" cellpadding="0" cellspacing="0" border="0">
 	<tr class="header">
 		<td class="logo">
-			<img src="http://intranet.automatweb.com/img/automatweb.jpg" alt="AutomatWeb" width="277" height="48">
+			<!-- SUB: HAS_IMPL_LOGO -->
+			<img src="{VAR:impl_logo_url}">
+			<!-- END SUB: HAS_IMPL_LOGO -->
 		</td>
 		<td class="text">
 			<p><strong>{VAR:impl_name}</strong></p>

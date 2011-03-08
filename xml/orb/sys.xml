@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="sys" folder="" extends="aw_template">
-		<action name="gen_db_struct" nologin="1">
+		<action name="gen_db_struct">
 			<function name="gen_db_struct">
 				<arguments>
 				</arguments>
@@ -15,7 +15,7 @@
 			</function>
 		</action>
 
-		<action name="gen_create_tbl" nologin="1">
+		<action name="gen_create_tbl">
 			<function name="gen_create_tbl">
 				<arguments>
 				</arguments>
@@ -36,21 +36,21 @@
 			</function>
 		</action>
 
-		<action name="submit_compare_db" nologin="1">
+		<action name="submit_compare_db">
 			<function name="submit_compare_db">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="check_indexes" nologin="1">
+		<action name="check_indexes">
 			<function name="do_check_indexes">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="has_objects" nologin="1">
+		<action name="has_objects">
 			<function name="has_objects">
 				<arguments>
 					<required name="clid" type="int" />
@@ -80,7 +80,7 @@
 			</function>
 		</action>
 
-		<action name="test_sites" nologin="1">
+		<action name="test_sites">
 			<function name="test_sites">
 				<arguments>
 				</arguments>
@@ -101,7 +101,7 @@
 			</function>
 		</action>
 
-		<action name="do_test_dump" nologin="1">
+		<action name="do_test_dump">
 			<function name="do_test_dump">
 				<arguments>
 				</arguments>
@@ -167,21 +167,21 @@
 			</function>
 		</action>
 
-		<action name="consolidate_template_logs" nologin="1">
+		<action name="consolidate_template_logs">
 			<function name="consolidate_template_logs">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="prop_stats" nologin="1">
+		<action name="prop_stats">
 			<function name="prop_stats">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="clid_stats" nologin="1">
+		<action name="clid_stats">
 			<function name="clid_stats">
 				<arguments>
 				</arguments>

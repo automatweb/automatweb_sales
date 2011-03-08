@@ -36,7 +36,6 @@
       <classinfo>
             <syslog_type>ST_CFGCONTROLLER</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>kristo</maintainer>
             <allow_rte>3</allow_rte>
       </classinfo>
       <groupinfo>

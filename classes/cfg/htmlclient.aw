@@ -363,7 +363,7 @@ class htmlclient extends aw_template
 				STAT_ACTIVE => t("Aktiivne"),
 				STAT_NOTACTIVE => t("Deaktiivne"),
 			);
-		};
+		}
 
 		if ($args["type"] === "colorpicker")
 		{
@@ -731,7 +731,7 @@ class htmlclient extends aw_template
 		{
 			if($this->rte_type == 2)
 			{
-				$rte = get_instance("vcl/fck_editor");
+				$rte = new fck_editor();
 				$res .= $rte->draw_editor(array(
 					"lang" => aw_ini_get("user_interface.default_language"),
 					"props" => $this->rtes,
@@ -743,7 +743,7 @@ class htmlclient extends aw_template
 			}
 			elseif($this->rte_type == 3)
 			{
-				$rte = get_instance("vcl/codepress");
+				$rte = new codepress();
 				$res .= $rte->draw_editor(array(
 					"props" => $this->rtes,
 				));

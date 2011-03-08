@@ -222,21 +222,18 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		{
 			if ($prop["store"] === "connect")
 			{
-				if ($GLOBALS["cfg"]["site_id"] != 139)
+				$_co_reltype = $prop["reltype"];
+				$_co_reltype = $GLOBALS["relinfo"][$objdata["class_id"]][$_co_reltype]["value"];
+
+				if ($_co_reltype == "")
 				{
-					$_co_reltype = $prop["reltype"];
-					$_co_reltype = $GLOBALS["relinfo"][$objdata["class_id"]][$_co_reltype]["value"];
-
-					if ($_co_reltype == "")
-					{
-						error::raise(array(
-							"id" => "ERR_NO_RT",
-							"msg" => sprintf(t("ds_mysql::read_properties(): no reltype for prop %s (%s)"), $prop["name"], $prop["reltype"])
-						));
-					}
-
-					$conn_prop_fetch[$prop["name"]] = $_co_reltype;
+					error::raise(array(
+						"id" => "ERR_NO_RT",
+						"msg" => sprintf(t("ds_mysql::read_properties(): no reltype for prop %s (%s)"), $prop["name"], $prop["reltype"])
+					));
 				}
+
+				$conn_prop_fetch[$prop["name"]] = $_co_reltype;
 			}
 			elseif ($prop["method"] === "serialize")
 			{
@@ -296,21 +293,18 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				}
 				elseif ($prop["store"] === "connect")
 				{
-					if ($GLOBALS["cfg"]["site_id"] != 139)
+					$_co_reltype = $prop["reltype"];
+					$_co_reltype = $GLOBALS["relinfo"][$objdata["class_id"]][$_co_reltype]["value"];
+
+					if ($_co_reltype == "")
 					{
-						$_co_reltype = $prop["reltype"];
-						$_co_reltype = $GLOBALS["relinfo"][$objdata["class_id"]][$_co_reltype]["value"];
-
-						if ($_co_reltype == "")
-						{
-							error::raise(array(
-								"id" => "ERR_NO_RT",
-								"msg" => sprintf(t("ds_mysql::read_properties(): no reltype for prop %s (%s)"), $prop["name"], $prop["reltype"])
-							));
-						}
-
-						$conn_prop_fetch[$prop["name"]] = $_co_reltype;
+						error::raise(array(
+							"id" => "ERR_NO_RT",
+							"msg" => sprintf(t("ds_mysql::read_properties(): no reltype for prop %s (%s)"), $prop["name"], $prop["reltype"])
+						));
 					}
+
+					$conn_prop_fetch[$prop["name"]] = $_co_reltype;
 				}
 				elseif (isset($prop['type']) and $prop['type'] === 'range') //!!! mis olukord on see kus prop[type] on tyhi?
 				{
@@ -477,13 +471,10 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 			if ($data["store"] === "connect")
 			{
-				if ($GLOBALS["cfg"]["site_id"] != 139)
-				{
-					// resolve reltype and do find_connections
-					$_co_reltype = $data["reltype"];
-					$_co_reltype = $GLOBALS["relinfo"][$class_id][$_co_reltype]["value"];
-					$conn_prop_fetch[$data["name"]] = $_co_reltype;
-				}
+				// resolve reltype and do find_connections
+				$_co_reltype = $data["reltype"];
+				$_co_reltype = $GLOBALS["relinfo"][$class_id][$_co_reltype]["value"];
+				$conn_prop_fetch[$data["name"]] = $_co_reltype;
 			}
 
 			if ($data["table"] !== "objects")
@@ -3576,21 +3567,18 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				else
 				if ($prop["store"] === "connect")
 				{
-					if ($GLOBALS["cfg"]["site_id"] != 139)
+					$_co_reltype = $prop["reltype"];
+					$_co_reltype = $GLOBALS["relinfo"][$objdata["class_id"]][$_co_reltype]["value"];
+
+					if ($_co_reltype == "")
 					{
-						$_co_reltype = $prop["reltype"];
-						$_co_reltype = $GLOBALS["relinfo"][$objdata["class_id"]][$_co_reltype]["value"];
-
-						if ($_co_reltype == "")
-						{
-							error::raise(array(
-								"id" => "ERR_NO_RT",
-								"msg" => sprintf(t("ds_mysql::read_properties(): no reltype for prop %s (%s)"), $prop["name"], $prop["reltype"])
-							));
-						}
-
-						$conn_prop_fetch[$prop["name"]] = $_co_reltype;
+						error::raise(array(
+							"id" => "ERR_NO_RT",
+							"msg" => sprintf(t("ds_mysql::read_properties(): no reltype for prop %s (%s)"), $prop["name"], $prop["reltype"])
+						));
 					}
+
+					$conn_prop_fetch[$prop["name"]] = $_co_reltype;
 				}
 				else
 				{

@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <properties>
-      <classinfo>
-            <maintainer>kristo</maintainer>
-      </classinfo>
+      <property>
+            <comment>writes property files from changed classes. echoes text to the console as it goes about.</comment>
+      </property>
 </properties>
 

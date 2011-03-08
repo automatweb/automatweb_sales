@@ -229,12 +229,6 @@ class _int_object
 	{
 		if (empty($this->obj["oid"]))
 		{
-			/*
-			error::raise(array(
-				"id" => "ERR_NO_OBJ",
-				"msg" => t("object::connections_from(): no current object loaded!")
-			));
-			*/
 			return array();
 		}
 
@@ -340,12 +334,6 @@ class _int_object
 	{
 		if (empty($this->obj["oid"]))
 		{
-			/*
-			error::raise(array(
-				"id" => "ERR_NO_OBJ",
-				"msg" => t("object::connections_to(): no current object loaded!")
-			));
-			*/
 			return array();
 		}
 

@@ -1,7 +1,9 @@
 <?php
 
-class crm_bill_row_object extends _int_object
+class crm_bill_row_obj extends _int_object
 {
+	const CLID = 1054;
+
 	private $crm_settings;
 
 	public function set_name($name)
@@ -22,7 +24,7 @@ class crm_bill_row_object extends _int_object
 	{
 		if(is_oid($this->id()) && $v != $this->prop($p) && !(!$v && !$this->prop($p)))
 		{
-			$this->add_bill_comment_data(t("Rida")." ".$this->id()." ". $GLOBALS["properties"][CL_CRM_BILL_ROW][$p]["caption"] ." : " .$this->prop($p). " => " .$v);
+			$this->add_bill_comment_data(t("Rida")." ".$this->id()." ". $GLOBALS["properties"][self::CLID][$p]["caption"] ." : " .$this->prop($p). " => " .$v);
 		}
 
 		$rv = parent::set_prop($p, $v);
@@ -31,28 +33,20 @@ class crm_bill_row_object extends _int_object
 
 	public function awobj_set_price($value)
 	{
-		$value = str_replace(",",".",$value);
-		return $this->set_prop("price", $value);
+		return $this->set_prop("price", aw_math_calc::string2float($value));
 	}
 
 	public function awobj_set_amt($value)
 	{
-		$value = str_replace(",",".",$value);
-		return $this->set_prop("amt", $value);
+		return $this->set_prop("amt", aw_math_calc::string2float($value));
 	}
 
 	public function awobj_set_sum($value)
 	{
-		$value = str_replace(",",".",$value);
-		return $this->set_prop("sum", $value);
+		return $this->set_prop("sum", aw_math_calc::string2float($value));
 	}
 
-	private function add_bill_comment_data($data)
-	{
-		$_SESSION["bill_change_comments"][] = $data;
-	}
-
-	public function get_sum()
+	public function awobj_get_sum()
 	{
 		if($this->prop("sum"))
 		{
@@ -60,10 +54,19 @@ class crm_bill_row_object extends _int_object
 		}
 		else
 		{
-			$sum = str_replace(",", ".", $this->prop("amt")) * str_replace(",", ".", $this->prop("price"));
+			$sum = $this->prop("amt") * $this->prop("price");
 		}
+
 		return $sum;
 	}
+
+	private function add_bill_comment_data($data)
+	{
+		$_SESSION["bill_change_comments"][] = $data;
+	}
+
+	// DEPRECATED. use this::prop("sum");
+	public function get_sum() { return $this->awobj_get_sum(); }
 
 	/** checks if task row is connected to bill row
 		@attrib api=1

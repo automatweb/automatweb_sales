@@ -1102,9 +1102,7 @@ class converters extends aw_template
 	function convert_docs_from_menu($arr)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_MENU,
-			"site_id" => array(),
-			"lang_id" => array()
+			"class_id" => CL_MENU
 		));
 		echo "converting docs from menu relations <br>\n";
 		flush();
@@ -1414,8 +1412,6 @@ class converters extends aw_template
 		aw_disable_messages();
 		$ul = new object_list(array(
 			"class_id" => CL_USER,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"brother_of" => new obj_predicate_prop("id")
 		));
 		foreach($ul->arr() as $o)
@@ -1523,9 +1519,7 @@ class converters extends aw_template
 	function convert_bill_rows($arr)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_CRM_BILL
 		));
 		foreach($ol->arr() as $bill)
 		{
@@ -1619,9 +1613,7 @@ echo "mod ".$con["to.name"]."<br>";
 	function bill_row_to_text($arr)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_BILL_ROW,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_CRM_BILL_ROW
 		));
 		foreach($ol->arr() as $o)
 		{
@@ -1853,9 +1845,7 @@ echo "mod ".$con["to.name"]."<br>";
 	function rename_file_names($arr)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_FILE,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_FILE
 		));
 		$mt = get_instance("core/aw_mime_types");
 		$fi = get_instance(CL_FILE);
