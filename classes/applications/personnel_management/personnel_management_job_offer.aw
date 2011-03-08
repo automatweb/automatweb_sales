@@ -502,9 +502,7 @@ class personnel_management_job_offer extends class_base
 						"class_id" => CL_CRM_PERSON,
 						"oid" => $arr["request"]["sel"],
 						"parent" => array(),
-						"status" => array(),
-						"lang_id" => array(),
-						"site_id" => array(),
+						"status" => array()
 					));
 					if($arr["request"]["sms"])
 					{
@@ -601,8 +599,6 @@ class personnel_management_job_offer extends class_base
 					"class_id" => CL_CFGFORM,
 					"subclass" => CL_CRM_PERSON,
 					"parent" => array(),
-					"site_id" => array(),
-					"lang_id" => array(),
 					"status" => array(),
 				));
 				$prop["options"] = array("" => t("--vali--")) + $ol->names();
@@ -656,17 +652,17 @@ class personnel_management_job_offer extends class_base
 			case "loc_area":
 			case "loc_county":
 			case "loc_city":
-				if((!isset($prop["mode"]) || $prop["mode"] != "autocomplete") && $prop["type"] != "textbox")
+				if((!isset($prop["mode"]) || $prop["mode"] !== "autocomplete") && $prop["type"] !== "textbox")
 				{
-					if(substr($prop["name"], 0, 4) == "loc_")
+					if(substr($prop["name"], 0, 4) === "loc_")
 					{
 						$prop["options"] = get_instance(CL_PERSONNEL_MANAGEMENT)->get_locations(constant("CL_CRM_".strtoupper(substr($prop["name"], 4))));
 					}
-					elseif($prop["name"] == "profession")
+					elseif($prop["name"] === "profession")
 					{
 						$prop["options"] = get_instance(CL_PERSONNEL_MANAGEMENT)->get_professions();
 					}
-					elseif($prop["name"] == "company")
+					elseif($prop["name"] === "company")
 					{
 						$cp = get_instance(CL_USER)->get_person_for_uid(aw_global_get("uid"));
 						$org = obj($cp->company_id());
@@ -708,7 +704,7 @@ class personnel_management_job_offer extends class_base
 	{
 		$condition_group = obj((int)automatweb::$request->arg("condition_group_id"));
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->set_caption(sprintf(t("Tingimuste grupi '%s' tingimused"), $condition_group->name()));
 
@@ -733,13 +729,11 @@ class personnel_management_job_offer extends class_base
 		if(is_oid($condition_group_id) && $this->can("view", $condition_group_id))
 		{
 			$this->_init_conditions_table($arr);
-			$t = &$arr["prop"]["vcl_inst"];
+			$t = $arr["prop"]["vcl_inst"];
 
 			$odl = new object_data_list(
 				array(
 					"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER_CONDITION,
-					"lang_id" => array(),
-					"site_id" => array(),
 					"RELTYPE_CONDITION(CL_PERSONNEL_MANAGEMENT_JOB_OFFER_CONDITION_GROUP).id" => $condition_group_id,
 				),
 				array(
@@ -761,7 +755,7 @@ class personnel_management_job_offer extends class_base
 
 	public function _get_condition_groups_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$ol = new object_list($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_CONDITION_GROUP")));
 		foreach($ol->names() as $oid => $name)
@@ -784,7 +778,7 @@ class personnel_management_job_offer extends class_base
 
 	public function _get_conditions_toolbar($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->add_new_button(array(CL_PERSONNEL_MANAGEMENT_JOB_OFFER_CONDITION_GROUP), $arr["obj_inst"]->id(), 27);
 		$t->add_delete_button();
@@ -792,7 +786,7 @@ class personnel_management_job_offer extends class_base
 
 	function _get_sent_fb_email_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "person",
 			"caption" => t("Isik"),
@@ -853,7 +847,7 @@ class personnel_management_job_offer extends class_base
 
 	function _get_sent_fb_sms_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "person",
 			"caption" => t("Isik"),
@@ -962,7 +956,7 @@ class personnel_management_job_offer extends class_base
 		{
 			return false;
 		}
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 		$fields = array(
 			"group" => t("Grupp"),
@@ -1031,7 +1025,7 @@ class personnel_management_job_offer extends class_base
 	{
 		$pm = obj(get_instance(CL_PERSONNEL_MANAGEMENT)->get_sysdefault());
 		$parent = $this->can("add", $pm->persons_fld) ? $pm->persons_fld : $arr["obj_inst"]->id();
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_button(array(
 			"name" => "add",
 			"tooltip" => t("Lisa uus kandideerija"),
@@ -1062,7 +1056,7 @@ class personnel_management_job_offer extends class_base
 
 	function _get_toolbar($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"name" => "save",
 			"tooltip" => t("Salvesta"),
@@ -1097,7 +1091,7 @@ class personnel_management_job_offer extends class_base
 
 	function _get_candidate_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "person",
@@ -1261,8 +1255,6 @@ class personnel_management_job_offer extends class_base
 				{
 					$ol_prms = array(
 						"class_id" => CL_CRM_PERSON,
-						"lang_id" => array(),
-						"site_id" => array(),
 						"parent" => array(),
 					);
 
@@ -1320,8 +1312,6 @@ class personnel_management_job_offer extends class_base
 					$pm = obj(get_instance(CL_PERSONNEL_MANAGEMENT)->get_sysdefault());
 					$ol = new object_list(array(
 						"class_id" => CL_CRM_PROFESSION,
-						"lang_id" => array(),
-						"site_id" => array(),
 						"parent" => array(),
 					));
 					$rev_nms = array_flip($ol->names());
@@ -1461,8 +1451,6 @@ class personnel_management_job_offer extends class_base
 					"class_id" => CL_ML_MEMBER,
 					"oid" => $tos,
 					"parent" => array(),
-					"lang_id" => array(),
-					"site_id" => array(),
 					"status" => array(),
 				),
 				array(
@@ -1493,8 +1481,6 @@ class personnel_management_job_offer extends class_base
 				array(
 					"class_id" => CL_ML_MEMBER,
 					"parent" => $this->can("view", $pm->fb_from_fld) ? $pm->fb_from_fld : $arr["obj_inst"]->id(),
-					"lang_id" => array(),
-					"site_id" => array(),
 					"status" => array(),
 				),
 				array(
@@ -1602,8 +1588,6 @@ class personnel_management_job_offer extends class_base
 						"class_id" => CL_CRM_PHONE,
 						"oid" => $arr["request"]["receivers"],
 						"parent" => array(),
-						"lang_id" => array(),
-						"site_id" => array(),
 						"status" => array(),
 					),
 					array(
@@ -1812,7 +1796,7 @@ class personnel_management_job_offer extends class_base
 	function do_stats_table(&$arr)
 	{
 
-		$table=&$arr["prop"]["vcl_inst"];
+		$table=$arr["prop"]["vcl_inst"];
 
 		$table->define_field(array(
 			"name" => "person",
@@ -1916,11 +1900,11 @@ class personnel_management_job_offer extends class_base
 		if($company)
 		{
 			// get_first_obj_by_reltype return the obj not the connection obj!
-			//$company = &obj($company->prop("from"));
+			//$company = obj($company->prop("from"));
 			$location = " - ";
 			if ($ob->prop("asukoht"))
 			{
-				$location = &obj($ob->prop("asukoht"));
+				$location = obj($ob->prop("asukoht"));
 				$location = $location->name();
 			}
 
@@ -1943,7 +1927,7 @@ class personnel_management_job_offer extends class_base
 		{
 			if($ob->prop("phone"))
 			{
-				$phone_nr = &obj($ob->prop("phone"));
+				$phone_nr = obj($ob->prop("phone"));
 				$this->vars(array(
 					"phone_nr" => $phone_nr->name(),
 				));
@@ -1959,7 +1943,7 @@ class personnel_management_job_offer extends class_base
 		{
 			if($ob->prop("email"))
 			{
-				$email = &obj($ob->prop("email"));
+				$email = obj($ob->prop("email"));
 
 				$this->vars(array(
 					"email" => $email->prop("name"),
@@ -2304,15 +2288,13 @@ class personnel_management_job_offer extends class_base
 
 	function do_db_upgrade($tbl, $field, $q, $err)
 	{
-		if ($tbl == "personnel_management_job_offer" && $field == "")
+		if ($tbl === "personnel_management_job_offer" && $field == "")
 		{
 			$this->db_query("create table personnel_management_job_offer (oid int primary key)");
 			$ol = new object_list(array(
 				"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER,
 				"parent" => array(),
-				"site_id" => array(),
-				"lang_id" => array(),
-				"status" => array(),
+				"status" => array()
 			));
 			foreach($ol->ids() as $oid)
 			{
@@ -2358,8 +2340,6 @@ class personnel_management_job_offer extends class_base
 					$ol = new object_list(array(
 						"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER,
 						"parent" => array(),
-						"site_id" => array(),
-						"lang_id" => array(),
 						"status" => array(),
 					));
 					foreach($ol->arr() as $o)
@@ -2389,8 +2369,6 @@ class personnel_management_job_offer extends class_base
 					$ol = new object_list(array(
 						"class_id" => CL_PERSONNEL_MANAGEMENT_JOB_OFFER,
 						"parent" => array(),
-						"site_id" => array(),
-						"lang_id" => array(),
 						"status" => array(),
 					));
 					foreach($ol->arr() as $o)
@@ -2484,8 +2462,6 @@ class personnel_management_job_offer extends class_base
 
 		$odl_prms = array(
 			"class_id" => CL_ML_MEMBER,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"limit" => 500,
 		);
 
@@ -2563,8 +2539,6 @@ class personnel_management_job_offer extends class_base
 		{
 			$ol_prms = array(
 				"class_id" => $clids[$prop],
-				"lang_id" => array(),
-				"site_id" => array(),
 				"limit" => 500,
 			);
 

@@ -1230,3 +1230,6 @@ class object_list extends _int_obj_container_base
 		return $clid;
 	}
 }
+
+class awex_objlist extends aw_exception {}
+class awex_objlist_oid extends awex_objlist {}

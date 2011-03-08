@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
 // take the filter from an object_list, make the where from that
 // but take the fetch from another array and allow sql funcs in that
@@ -10,7 +7,7 @@
 class object_data_list
 {
 	/** Returns object_data_list.
-		@attrib params=pos name=object_data_list
+		@attrib params=pos name=object_data_list api=1
 
 		@param params
 
@@ -92,7 +89,7 @@ class object_data_list
 	}
 
 	/** Returns an array of all the objects in the list.
-		@attrib api=
+		@attrib api=1
 
 		@errors
 			none
@@ -252,4 +249,3 @@ class object_data_list
 		return $ret;
 	}
 }
-?>

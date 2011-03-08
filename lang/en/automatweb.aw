@@ -12,4 +12,3 @@ define("E_ORB_REFFERER","ORB: refferer incorrect (%s)");
 define("E_ORB_LOGIN_REQUIRED","ORB: you have to be logged in to do that");
 define("E_ORB_NOT_INTEGER","ORB: parameter (%s) requires an integer value");
 
-?>

@@ -4056,7 +4056,7 @@ class crm_person extends class_base
 			));
 			aw_session_set("candidate_obj_id_for_candidate", $candidate->id());
 			// Don't need this one anymore.
-			aw_session_set("job_offer_obj_id_for_candidate", "");
+			aw_session_del("job_offer_obj_id_for_candidate");
 			aw_global_set("job_offer_obj_id_for_candidate", "");
 		}
 		/*
@@ -4304,7 +4304,7 @@ class crm_person extends class_base
 
 	function do_education_tb(&$arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_menu_button(array(
 			'name'=>'new',

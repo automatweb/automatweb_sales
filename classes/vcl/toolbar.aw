@@ -64,7 +64,7 @@ class toolbar extends aw_template
 	{
 		$this->_init_menu();
 		$name = $arr["name"];
-		$arr["onClick"] = "return buttonClick(event, '${name}');";
+		$arr["onclick"] = "return buttonClick(event, '${name}');";
 		$arr["class"] = "menuButton";
 		$arr["url"] = "";
 		$arr["type"] = "button";
@@ -273,7 +273,7 @@ class toolbar extends aw_template
 			Sets the links target.
 		@param confirm optional type=string
 			If is set, asks for confirmation displaying given text as question.
-		@param onClick optional type=string
+		@param onclick optional type=string
 			If set, this javascript code etc is triggered on click of the button:)
 		@comment
 			Adds button to toolbar.
@@ -312,9 +312,14 @@ class toolbar extends aw_template
 			$args["target"] = $this->button_target;
 		}
 
+		$onclick = "";
+		if (isset($args["onClick"])) $args["onclick"] = $args["onClick"];
+		if (isset($args["onclick"])) $onclick = $args["onclick"];
+
 		if (isset($args["confirm"]))
 		{
-			$args["onClick"] = "if(!confirm('$args[confirm]')) { return false; };".(isset($args["onClick"]) ? $args["onClick"] : "");
+			$prompt = html::quote_js ($args["confirm"]);
+			$args["onclick"] = "if(!confirm('{$prompt}')) { return false; };".$onclick; //TODO: t2psustada seda dokumentatsioonis
 		}
 
 		if (isset($args["href_id"]))
@@ -423,9 +428,9 @@ class toolbar extends aw_template
 						$val["target"] = isset($args["target"]) ? $args["target"] : (isset($val["target"]) ? $val["target"] : null);
 					}
 
-					if (empty($val["onClick"]))
+					if (empty($val["onclick"]))
 					{
-						$val["onClick"] = "";
+						$val["onclick"] = "";
 					}
 
 					if (empty($val["tooltip"]))
@@ -552,7 +557,7 @@ class toolbar extends aw_template
 			$clss = $this->picker("", $clp);
 
 			$url = $this->mk_my_orb("redir_search", array("url" => get_ru(), "MAX_FILE_SIZE" => 100000), "aw_object_search");
-			$sb = "<input type=text size=10 name=tb_quicksearch> <select name=tb_qs_clid>".$clss."</select> <input type=button onClick='changed=0;window.location=\"".$url."&s_name=\"+document.changeform.tb_quicksearch.value+\"&s_clid=\"+document.changeform.tb_qs_clid.options[document.changeform.tb_qs_clid.selectedIndex].value' value='".t("Otsi")."'>";
+			$sb = "<input type=text size=10 name=tb_quicksearch> <select name=tb_qs_clid>".$clss."</select> <input type=button onclick='changed=0;window.location=\"".$url."&s_name=\"+document.changeform.tb_quicksearch.value+\"&s_clid=\"+document.changeform.tb_qs_clid.options[document.changeform.tb_qs_clid.selectedIndex].value' value='".t("Otsi")."'>";
 
 			$sb = '<div nowrap class="tb_but" onMouseOver="this.className=\'tb_but_ov\'" onMouseOut="this.className=\'tb_but\'" onMouseDown="this.className=\'tb_but_ov\'" onMouseUp="this.className=\'tb_but\'">'.$sb.'</div>';
 
@@ -682,7 +687,7 @@ class toolbar extends aw_template
 			"name" => "new",
 			"img" => "new.gif",
 			"url" => "javascript:;",
-			"onClick" => $js,
+			"onclick" => $js,
 			"tooltip" => !empty($arr["tooltip"]) ? $arr["tooltip"] : null,
 		));
 	}

@@ -132,7 +132,6 @@
       <classinfo>
             <syslog_type>ST_NEWSFEED</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>robert</maintainer>
       </classinfo>
       <groupinfo>
             <folders>
