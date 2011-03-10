@@ -78,47 +78,10 @@ class mysql_pdo
 		}
 		elseif ($this->qID)
 		{
-			// $this->db_free_result();
+			// $this->db_free_result();//TODO: make it happen. can't right away because of save_handle/restore_handle
 		}
-
-		$query_starttime = microtime(true);
 
 		$this->qID = $this->dbh->query($qtext);
-
-		$query_endtime = microtime(true);
-		$query_time = $query_endtime - $query_starttime;
-		if ($query_time > self::SLOW_QUERY_THRESHOLD and automatweb::$instance->mode() === automatweb::MODE_PRODUCTION)
-		{
-			$content = "Slow query (time {$query_starttime}, took {$query_time}s): \n{$qtext}";
-			$content.= "\n\n\nuid: ".aw_global_get("uid");
-			$content.= "\nurl: " . aw_ini_get("baseurl") . aw_global_get("REQUEST_URI");
-			$content.= "\nreferer: " . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : "");
-			$content.="\n\n\n" . dbg::process_backtrace(debug_backtrace());
-
-			$get = $_GET;
-			$post = $_POST;
-			if (!empty($get["password"]))
-			{
-				$get["password"] = "xxx";
-			}
-			if (!empty($post["password"]))
-			{
-				$post["password"] = "xxx";
-			}
-
-			$content .= "\n\n\$_GET:\n";
-			$content .= print_r($get, true);
-			$content .= "\n\n\$_POST:\n";
-			$content .= print_r($post, true);
-			$content .= "\n\n\$_COOKIE:\n";
-			$content .= print_r($_COOKIE, true);
-			$content .= "\n\n\$_SERVER:\n\n";
-			$content .= print_r($_SERVER, true);
-			$server_address = new aw_uri(aw_ini_get("baseurl"));
-			$server_address = $server_address->get_host();
-			send_mail(aw_ini_get("errors.send_to"), "SLOW QUERY", $content, "From: automatweb@{$server_address}\n");
-		}
-
 		// $this->log_query($qtext);
 
 		if (!$this->qID )
@@ -680,7 +643,7 @@ class mysql_pdo
 	// logs the query, if user has a cookie named log_query
 	function log_query($msg)
 	{
-		if (isset($GLOBALS["HTTP_COOKIE_VARS"]["log_query"]))
+		if (isset($GLOBALS["HTTP_COOKIE_VARS"]["log_query"])) //TODO: control this from somewhere securer
 		{
 			$uid = aw_global_get("uid");
 			$logfile = "/www/log/mysql-" . $uid . ".log";
@@ -715,7 +678,7 @@ class mysql_pdo
 				else
 				if (!empty($bt[$i+1]["function"]))
 				{
-					if ($bt[$i+1]["function"] != "include")
+					if ($bt[$i+1]["function"] !== "include")
 					{
 						$fnm = $bt[$i+1]["function"];
 					}
