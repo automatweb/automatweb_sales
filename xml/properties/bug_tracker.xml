@@ -9,6 +9,16 @@
             <caption>Nimi</caption>
       </property>
       <property>
+            <name>owner</name>
+            <table>objects</table>
+            <group>general_sub</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_OWNER</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Omanikorganisatsioon</caption>
+      </property>
+      <property>
             <name>object_type</name>
             <table>objects</table>
             <group>general_sub</group>

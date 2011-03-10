@@ -51,7 +51,9 @@
 <table id="bill" cellpadding="0" cellspacing="0" border="0">
 	<tr class="header">
 		<td class="logo">
-			<img src="http://intranet.automatweb.com/img/bill/logo.png">
+			<!-- SUB: HAS_IMPL_LOGO -->
+			<img src="{VAR:impl_logo_url}">
+			<!-- END SUB: HAS_IMPL_LOGO -->
 		</td>
 		<td class="text">
 			<p><strong>{VAR:impl_ou} {VAR:impl_name}</strong></p>
@@ -62,7 +64,7 @@
 			<p>IBAN EE652200221044517419</p>
 			<p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city}</p>
 			<p>Tel +372 6 558 334</p>
-			<p>www.automatweb.com</p>
+			<p>{VAR:impl_url}</p>
 		</td>
 	</tr>
 	<tr>
@@ -101,7 +103,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" class="footer">
-			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | VAT nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel +372 6 558 334 | www.automatweb.com</p>
+			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | VAT nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel +372 6 558 334 | {VAR:impl_url}</p>
 		</td>
 	</tr>
 </table>
@@ -109,7 +111,7 @@
 <table id="footer" cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		<td>
-			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | VAT nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel +372 6 558 334 | www.automatweb.com</p>
+			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | VAT nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel +372 6 558 334 | {VAR:impl_url}</p>
 		</td>
 	</tr>
 </table>

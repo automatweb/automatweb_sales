@@ -4749,7 +4749,6 @@ class personnel_management extends class_base
 	**/
 	function check_special_acl_for_cat($oid, $clid, $pm = NULL)
 	{
-		enter_function("personnel_management::check_special_acl_for_cat");
 		if(!is_object($pm))
 		{
 			$pm = obj($this->get_sysdefault());
@@ -4771,7 +4770,6 @@ class personnel_management extends class_base
 		{
 			$ok = $ok && $this->can($a, $oid);
 		}
-		exit_function("personnel_management::check_special_acl_for_cat");
 		return $ok;
 	}
 
@@ -4785,7 +4783,6 @@ class personnel_management extends class_base
 	**/
 	function check_special_acl_for_obj($o, $pm = NULL)
 	{
-		enter_function("personnel_management::check_special_acl_for_obj");
 		if(!is_object($pm))
 		{
 			$pm = obj($this->get_sysdefault());
@@ -4800,11 +4797,9 @@ class personnel_management extends class_base
 				{
 					$ok = $ok || $this->check_special_acl_for_cat($o->prop("loc_".$loc), $clid);
 				}
-				exit_function("personnel_management::check_special_acl_for_obj");
 				return $ok;
 
 			case CL_CRM_PERSON:
-				enter_function("personnel_management::check_special_acl_for_obj(CL_CRM_PERSON)_conns");
 				$ok = false;
 				$check_cnt = 0;
 				foreach($o->connections_from(array("type" => "RELTYPE_WORK_WANTED")) as $conn)
@@ -4823,13 +4818,9 @@ class personnel_management extends class_base
 						}
 					}
 				}
-				exit_function("personnel_management::check_special_acl_for_obj(CL_CRM_PERSON)_conns");
-				enter_function("personnel_management::check_special_acl_for_obj(CL_CRM_PERSON)");
 				$ol = new object_list(array(
 					"class_id" => CL_PERSONNEL_MANAGEMENT_CANDIDATE,
-					"person" => $id,
-					"site_id" => array(),
-					"lang_id" => array(),
+					"person" => $id
 				));
 				foreach($ol->arr() as $cand)
 				{
@@ -4846,12 +4837,9 @@ class personnel_management extends class_base
 				}
 				// If there's no reason to show it and no reason not to show it, we'l show it.
 				$ok = $check_cnt == 0 || $ok;
-				exit_function("personnel_management::check_special_acl_for_obj(CL_CRM_PERSON)");
-				exit_function("personnel_management::check_special_acl_for_obj");
 				return $ok;
 
 			case CL_PERSONNEL_MANAGEMENT_CANDIDATE:
-				exit_function("personnel_management::check_special_acl_for_obj");
 				return false;
 		}
 	}

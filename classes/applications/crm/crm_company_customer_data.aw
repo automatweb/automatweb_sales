@@ -547,7 +547,7 @@ Aadress: %s
 
 		$this->show_bill_balance = 1;
 		$cg = 1;
-		$d = get_instance("applications/crm/crm_data");
+		$d = new crm_data();
 		$bill_i = new crm_bill();
 		$curr_inst = new currency();
 		$co_stat_inst = new crm_company_stats_impl();
@@ -555,7 +555,7 @@ Aadress: %s
 
 		$company_curr = $co_stat_inst->get_company_currency();
 
-		if ($arr["request"]["export_hr"] > 0)
+		if (isset($arr["request"]["export_hr"]) and $arr["request"]["export_hr"] > 0)
 		{
 			if (is_array($arr["request"]["bi"]) && count($arr["request"]["bi"]))
 			{
@@ -646,7 +646,7 @@ Aadress: %s
 			if($bill->prop("state") == 1)
 			{
 				$bill_data["payment_over_date"] = $bill->get_payment_over_date();
-				$tolerance = $arr["obj_inst"]->get_customer_prop($bill->prop("customer"), "bill_tolerance");
+				$tolerance = $arr["obj_inst"]->get_customer_prop($bill->prop("customer"), "bill_tolerance");//FIXME: no method get_customer_prop in cro object. what does this do?
 				if($bill_data["payment_over_date"] > $tolerance)
 				{
 					$bill_data["color"] = "#FF9999";

@@ -22,6 +22,10 @@
 		@caption Aktiivne
 		@comment Kas objekt on aktiivne
 
+		@property status_recursive type=checkbox ch_value=1 default=0 group=general_sub store=no editonly=1
+		@caption Aktiveeri/deaktiveeri ka alamkaustad
+		@comment Suure hulga alamkaustade olemasolul on see operatsioon ajamahukas
+
 		@property alias_ch type=checkbox ch_value=1 default=1 group=general_sub field=meta method=serialize
 		@caption Genereeri alias automaatselt
 
@@ -1390,7 +1394,7 @@ class menu extends class_base implements main_subtemplate_handler
 				if ($ob->id())
 				{
 					$this->save_menu_keywords($data["value"],$ob->id());
-				};
+				}
 				$retval = PROP_IGNORE;
 				break;
 
@@ -1407,7 +1411,6 @@ class menu extends class_base implements main_subtemplate_handler
 				$ob->set_prop("left_pane",isset($data["value"]["left_pane"]) ? 1 : 0);
 				$ob->set_prop("right_pane",isset($data["value"]["right_pane"]) ? 1 : 0);
 				break;
-
 
 			case "target":
 			case "clickable":
@@ -1505,8 +1508,8 @@ class menu extends class_base implements main_subtemplate_handler
 						$save_fields[] = $val;
 						$str[] = $val . " " . $request["sort_order"][$key];
 						$save_orders[] = $request["sort_order"][$key];
-					};
-				};
+					}
+				}
 				$ob->set_meta("sort_fields",$save_fields);
 				$ob->set_meta("sort_order",$save_orders);
 				$ob->set_meta("sort_by",join(",",$str));
@@ -1550,7 +1553,7 @@ class menu extends class_base implements main_subtemplate_handler
 			case "seealso_docs_t":
 				$arr["obj_inst"]->set_meta("sad_opts", $arr["request"]["sad_opts"]);
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -1638,16 +1641,27 @@ class menu extends class_base implements main_subtemplate_handler
 	function callback_post_save($arr)
 	{
 		$request = &$arr["request"];
-		if(($request["group"] == "general_sub" || $request["group"] == "general" || $request["group"] == "") && aw_ini_get("menu.automatic_aliases")  && $arr["obj_inst"]->prop("alias_ch") == 1)
+		if(
+			("general_sub" === $this->use_group || "general" === $this->use_group || empty($this->use_group)) &&
+			aw_ini_get("menu.automatic_aliases")  &&
+			$arr["obj_inst"]->prop("alias_ch") == 1 &&
+			!strlen($arr["obj_inst"]->alias())
+		)
 		{
-			if(!strlen($arr["obj_inst"]->alias()))
+			$arr["obj_inst"]->set_alias($this->gen_nice_alias($request["name"], $arr["obj_inst"]->id()));
+			$arr["obj_inst"]->save();
+		}
+
+		if (!empty($arr["request"]["status_recursive"]))
+		{
+			$r = $arr["obj_inst"]->set_status_recursive();
+			if (!$r)
 			{
-				$arr["obj_inst"]->set_alias($this->gen_nice_alias($request["name"], $arr["obj_inst"]->id()));
-				$arr["obj_inst"]->save();
+				$this->show_error_text(t("Alamkaustade staatuse muutmine eba&otilde;nnestus."));
 			}
 		}
 
-		$ps = get_instance("vcl/popup_search");
+		$ps = new popup_search();
 		$rels = array(
 			"_set_sss" => 9, /* RELTYPE_DOCS_FROM_MENU */
 			"_set_no_sss" => 24, /* RELTYPE_NO_DOCS_FROM_MENU */
@@ -1665,7 +1679,7 @@ class menu extends class_base implements main_subtemplate_handler
 	function callback_pre_save($arr)
 	{
 		$request = &$arr["request"];
-		if ($request["group"] == "import_export")
+		if ("import_export" === $this->use_group)
 		{
 			$menu_export = get_instance("export/menu_export");
 			$menu_export->export_menus(array(
@@ -1674,7 +1688,7 @@ class menu extends class_base implements main_subtemplate_handler
 				"allactive" => $request["allactive"],
 				"ex_icons" => $request["ex_icons"],
 			));
-		};
+		}
 
 		if (isset($arr["request"]["link_pops"]) && $this->can("view", $arr["request"]["link_pops"]))
 		{

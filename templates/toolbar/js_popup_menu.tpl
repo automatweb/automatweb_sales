@@ -4,7 +4,7 @@
 <!-- END SUB: MENU_HEADER -->
 <div id="{VAR:id}" class="menu" onmouseover="menuMouseover(event)">
 <!-- SUB: MENU_ITEM -->
-<a class="menuItem" href="{VAR:url}" {VAR:onClick}>{VAR:text}</a>
+<a class="menuItem" href="{VAR:url}" {VAR:onclick}>{VAR:text}</a>
 <!-- END SUB: MENU_ITEM -->
 
 <!-- SUB: MENU_ITEM_DISABLED -->
@@ -24,8 +24,3 @@
 <!-- END SUB: MENU_SEPARATOR -->
 
 </div>
-
-
-
-
-

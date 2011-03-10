@@ -1362,9 +1362,9 @@ EOF;
 
 	function on_add_alias($arr)
 	{
-		if ($arr["connection"]->prop("reltype") == RELTYPE_GRP)
+		if ($arr["connection"]->prop("reltype") == 1) //RELTYPE_GRP
 		{
-			// it was a group alias, add the suer to the group and all below it
+			// it was a group alias, add the user to the group and all below it
 			$user = $arr["connection"]->from();
 			$group = $arr["connection"]->to();
 
@@ -1393,8 +1393,7 @@ EOF;
 			$c = get_instance("cache");
 			$c->file_clear_pt("acl");
 		}
-		else
-		if ($arr["connection"]->prop("reltype") == 7 )// FG_PROFILE
+		elseif ($arr["connection"]->prop("reltype") == 7)// FG_PROFILE
 		{
 			// set join form entry
 			$u = $arr["connection"]->from();

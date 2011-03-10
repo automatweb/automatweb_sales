@@ -42,7 +42,7 @@
             <group>general</group>
             <field>lastaction</field>
             <type>text</type>
-            <caption>Viimane sisse logimine</caption>
+            <caption>Viimane sisselogimine</caption>
       </property>
       <property>
             <name>created</name>

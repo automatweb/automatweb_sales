@@ -232,7 +232,6 @@
       <classinfo>
             <no_status>1</no_status>
             <syslog_type>ST_LINKS</syslog_type>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <Javascript>

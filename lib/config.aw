@@ -250,7 +250,8 @@ function load_config ($files = array(), $cache_file = null)
 	}
 
 	$GLOBALS["cfg"]["basedir"] = AW_DIR;
-	$site_basedir = isset($_SERVER["DOCUMENT_ROOT"]) ? str_replace("\\", "/", realpath($_SERVER["DOCUMENT_ROOT"]."/../")) : "";//TODO: what if docroot not set?
+	//TODO: if DOCUMENT_ROOT not available, then site dir set to aw framework code directory files subdir. may not be a good solution. check for errors
+	$site_basedir = empty($_SERVER["DOCUMENT_ROOT"]) ? AW_DIR . "files/" : str_replace("\\", "/", realpath($_SERVER["DOCUMENT_ROOT"]."/../")) . "/";
 	$GLOBALS["cfg"]["site_basedir"] = $site_basedir;
 
 	// get the modification date on the ini cache

@@ -46,6 +46,68 @@ class taket_tellimuste_list extends class_base
 	**/
 	function show($arr)
 	{
+
+		if(!empty($_POST["password"]))
+		{
+			if($_POST["password"] != $_POST["password_again"])
+			{
+				die(t("paroolid erinevad"));
+			}
+			if(strlen($_POST["password"]) < 2)
+			{
+				die(t("Parool liiga l&uuml;hike"));
+			}
+			$o = obj(aw_global_get("uid_oid"));
+			$o->set_password($_POST["password"]);
+			aw_disable_acl();
+			$o->save();
+			aw_restore_acl();
+			die(t("Parool muudetud"));
+		}
+		//h'kk parooli muutmiseks
+		return '
+
+
+
+	<form style="margin-top: 0px;" id="changeform" name="changeform" enctype="multipart/form-data" method="post">
+<table class="content">
+<tr>
+	<td>
+		<div class="text">
+
+		<input type="hidden" value="100000000" name="MAX_FILE_SIZE">
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" id="awcbContentTblDefault">
+				<tr>
+				    <td width="100" id="linecaption"></td>
+					<td id="lineelment"><div id="change_password_result"></div></td>
+				</tr>
+				<tr>
+				    <td width="100" id="linecaption">Parool</td>
+					<td id="lineelment"><input type="password" maxlength="50" size="40" name="password" id="password"></td>
+				</tr>
+				<tr>
+					<td width="100" id="linecaption">Parool uuesti</td>
+				    <td id="lineelment"><input type="password" maxlength="50" size="40" name="password_again" id="password_again"></td>
+				</tr>
+				<tr>
+					<td width="100"></td>
+					<td id="buttons">
+<input class="submit" name="submit" value="Muuda" onclick="$.post(\'http://tellimine.taket.automatweb.com/2918923\', {
+				password: $(\'#password\').val(),
+				password_again: $(\'#password_again\').val(),
+		},function(html){
+			$(\'#change_password_result\').html(html);
+		});" type="button">
+
+					</td>
+				</tr>
+			</table>
+		</div>
+	</td>
+</tr>
+</table>
+</form>
+';
 		$ob = new object($arr["id"]);
 
 		//tavajuuser saab j2rgmise listingu

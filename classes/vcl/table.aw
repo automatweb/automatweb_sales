@@ -6,38 +6,37 @@ class aw_table extends aw_template
 {
 	const DATE_DEFAULT_FORMAT = "dmY";
 
+	public $d_row_cnt = 0;
+	public $rowdefs = array();
+	public $data = array();
+	public $create_rgroup_links = true;
+
 	////
 	// !constructor - paramaters:
 	// prefix - a symbolic name for the table so we could tell it apart from the others
 	// tbgcolor - default cell background color
-	var $scripts;
-	var $id = 'table_0';
-	var $filter_name = "awTblFlt";
-	var $name = "awTable0";
+	protected $scripts;
+	protected $id = 'table_0';
+	protected $filter_name = "awTblFlt";
+	protected $name = "awTable0";
 
-	var $parsed_pageselector = '';
-	var $no_recount;
-	protected $vgroupby;
-	protected $rgroupby;
-	var $titlebar_under_groups;
-	var $_gml;
-	var $_max_gml;
-	var $_sh_req_level;
-	var $records_per_page = 0;
-	var $final_enum;
-	var $titlebar_repeat_bottom;
-	var $hide_rgroupby;
-	var $non_filtered;
-	var $table_class_id = "awmenuedittabletag";
-	var $d_row_cnt = 0;
-	var $tr_sel;
-	var $default_field_values = array();
+	protected $parsed_pageselector = '';
+	protected $no_recount;
+	protected $titlebar_under_groups;
+	protected $_gml;
+	protected $_max_gml;
+	protected $_sh_req_level;
+	protected $records_per_page = 0;
+	protected $final_enum;
+	protected $titlebar_repeat_bottom;
+	protected $non_filtered;
+	protected $table_class_id = "awmenuedittabletag";
+	protected $tr_sel;
+	protected $default_field_values = array();
 
 	protected $cfgform;
 	protected $cfg_data = array();
-	public $rowdefs = array();
 	protected $rowdefs_key_index = array();
-	public $data = array();
 	protected $all_data = array();
 	protected $actions = array();
 	protected $col_styles = array();
@@ -75,10 +74,19 @@ class aw_table extends aw_template
 	/* a symbolic name for the table so we can tell it apart from others */
 	protected $prefix = "";
 
-	private $headerextrasize = 0;
-	private $userfields_defined = false;
+	protected $headerextrasize = 0;
+	protected $userfields_defined = false;
 
-	private $rgroupdat = array();
+	protected $actionrows;
+
+	// column and row grouping
+	protected $vgroupby = array();
+	protected $rgroupby = array();
+	protected $hide_rgroupby = array();
+	protected $rgroupdat = array();
+	protected $rgroupsortdat = array();
+	protected $vgrowspans = array();
+	protected $vgrouplastvals = array();
 
 	function aw_table($data = array())
 	{
@@ -172,9 +180,10 @@ class aw_table extends aw_template
 		$this->sortable = $arg;
 	}
 
-	/**
+	/** Group rows. Causes rows with same content to be grouped under a "title" row containing that common content
 	@attrib api=1 params=pos
 	@param arg required type=array
+		Array of col_name => el_name to group rows by
 	**/
 	function set_rgroupby($arg)
 	{
@@ -217,10 +226,10 @@ class aw_table extends aw_template
 		@example
 		$t->set_rgroupby(array(
 			"field_a" => "field_a",
-			"field_b" => "field_b",
+			"field_b" => "field_b"
 		));
 		$t->hide_rgroupby(array(
-			"field_a" => "field_a",
+			"field_a" => "field_a"
 		));
 
 		// well, this rgroups using values from two fields, but hides one of these fields from table.
@@ -406,7 +415,7 @@ class aw_table extends aw_template
 		$this->data[$cnt-1]  = array_merge($this->data[$cnt-1],$row);
 	}
 
-	/**
+	/** Here you can add action columns/rows to the table.
 	@attrib api=1 params=name
 	@param link optional type=string
 		Part of the action's link,
@@ -422,7 +431,7 @@ class aw_table extends aw_template
 		If specified, the link will open in a new window and this parameter also must contain the height,width of the popup
 		)
 	@comments
-		here you can add action rows to the table
+		An action is a column for specifying operations for rows.
 	**/
 	function define_action($row)
 	{
@@ -683,7 +692,7 @@ class aw_table extends aw_template
 
 		// grouping - whenever a value of one of these elements changes an extra row gets inserted into the table
 		$this->rgroupby = isset($params["rgroupby"]) ? $params["rgroupby"] : $this->rgroupby;
-		$this->rgroupsortdat = isset($params["rgroupsortdat"]) ? $params["rgroupsortdat"] : "";
+		$this->rgroupsortdat = isset($params["rgroupsortdat"]) ? $params["rgroupsortdat"] : array();
 		$this->rgroupdat = isset($params["rgroupdat"]) ? $params["rgroupdat"] : "";
 		$this->vgroupby = isset($params["vgroupby"]) ? $params["vgroupby"] : (isset($this->vgroupby) ? $this->vgroupby : NULL);
 		$this->vgroupdat = isset($params["vgroupdat"]) ? $params["vgroupdat"] : "";
@@ -1226,7 +1235,7 @@ END;
 				if (!empty($v["_active"]))
 				{
 					$row_style = $this->tr_active;
-				};
+				}
 
 				$tmp = "";
 				if (isset($rgroupby) && is_array($rgroupby))
@@ -1261,7 +1270,7 @@ END;
 					if ($this->chooser_hilight)
 					{
 						$onclick = " onclick=\"hilight(this,'${rowid}')\" ";
-					};
+					}
 					$stl = "";
 					if (!empty($this->chooser_config["chgbgcolor"]) && !empty($v[$this->chooser_config["chgbgcolor"]]))
 					{
@@ -1280,7 +1289,7 @@ END;
 					{
 						$tbl .= "<td align='center'>&nbsp;</td>";
 					}
-				};
+				}
 
 				$cols = 0;
 				$skip_for_colspan = 0;
@@ -1292,8 +1301,8 @@ END;
 					{
 						continue;
 					}
-					// hides a the rgroupby column if told so
-					if(is_array($this->hide_rgroupby) and in_array($v1["name"], $this->hide_rgroupby))
+					// hides the rgroupby column if told so
+					if(in_array($v1["name"], $this->hide_rgroupby))
 					{
 						continue;
 					}
@@ -1304,13 +1313,7 @@ END;
 					}
 					$rowspan = 1;
 					$style = false;
-					/*
-					arr(array(
-						$this->vgroupby,
-						$this->vgrouplastvals,
-						$this->vgrowspans
-					));
-					*/
+
 					if (isset($this->vgroupby) && is_array($this->vgroupby))
 					{
 						if (isset($this->vgroupby[$v1["name"]]))
@@ -1329,10 +1332,11 @@ END;
 									break;
 								}
 							}
+
 							if (!isset($this->vgrouplastvals[$_value]))
 							{
 								$this->vgrouplastvals[$_value] = $_value;
-								$rowspan = $this->vgrowspans[$_value];
+								$rowspan = isset($this->vgrowspans[$_value]) ? $this->vgrowspans[$_value] : 1;
 								$style = $this->group_style;
 							}
 							else
@@ -1363,7 +1367,7 @@ END;
 						else
 						{
 							$style = "";
-						};
+						}
 
 						if (!$style)
 						{
@@ -1417,6 +1421,7 @@ END;
 						"onclick" => isset($v1["onclick"]) && isset($v[$v1["onclick"]]) ? $v[$v1["onclick"]] : "",
 	//					"onclick" => isset($v1["onclick"]) && isset($v[$v1["onclick"]]) ? $v[$v1["onclick"]] : "",
 					));
+
 					if ($v1["name"] === "rec")
 					{
 						$val = $counter;
@@ -1431,15 +1436,15 @@ END;
 						else
 						{
 							$val = isset($v[$v1["name"]]) ? $v[$v1["name"]] : "";
-						};
-					};
+						}
+					}
 
 					if (empty($v1["type"]))
 					{
 						$v1["type"] = "";
-					};
+					}
 
-					if (isset($v1["type"]) && $v1["type"] === "time")
+					if ($v1["type"] === "time")
 					{
 						if (!empty($v1["smart"]))
 						{
@@ -1491,7 +1496,7 @@ END;
 					if (!strlen($val) && $v1["type"] !== "int")
 					{
 						$val = "&nbsp;";
-					};
+					}
 
 					//v&otilde;eh, &uuml;hes&otilde;naga laseme $val l&auml;bi functsiooni, mis on defineeritud v&auml;ljakutsuva klassi sees
 					//ja $t->define_field(array(
@@ -1526,17 +1531,17 @@ END;
 					if ($arow > 1)
 					{
 						$tbl .= "<tr>\n";
-					};
+					}
 					$style = (($counter % 2) == 0) ? $this->style1 : $this->style2;
 					// joonistame actionid
 					foreach($this->actions as $ak => $av)
 					{
 						// joonista ainult need actionid, mis siia ritta kuuluvad
-						if ($this->actionrows ? ($arow == $av["row"] || ($arow==1 && !$av["row"]) ):1)
+						if ($this->actionrows ? ($arow == $av["row"] || ($arow==1 && !$av["row"]) ) : 1)
 						{
 							$tbl .= $this->opentag(array(
 								"name"=>"td",
-								"classid" => ($av["style"]) ? $av["style"] : $style,
+								"classid" => !empty($av["style"]) ? $av["style"] : $style,
 								"align" => "center",
 								"colspan" => ($av["cspan"] ? $av["cspan"] : ""),
 								"rowspan" => ($av["rspan"] ? $av["rspan"] : ""),
@@ -1552,7 +1557,8 @@ END;
 
 					// rida lopeb
 					$tbl .= "</tr>\n";
-				};
+				}
+
 				if($this->final_enum)
 				{
 					aw_session_set("table_enum", $enum);
@@ -1569,6 +1575,7 @@ END;
 					{
 						$add_rows[] = $v["add_row"];
 					}
+
 					foreach($add_rows as $rv)
 					{
 						$tbl .= "<tr>\n";
@@ -2277,6 +2284,7 @@ END;
 		{
 			$this->sortby = ($this->sortby == "" ? array() : array($this->sortby => $this->sortby));
 		}
+
 		if (!is_array($this->sorder))
 		{
 			$tmp = $this->sorder;
@@ -2287,6 +2295,7 @@ END;
 				$this->sorder[$_eln] = $tmp == "" ? "asc" : $tmp;
 			}
 		}
+
 		if (is_array($this->vgroupdat))
 		{
 			foreach($this->vgroupdat as $_eln => $dat)
@@ -2297,6 +2306,7 @@ END;
 				}
 			}
 		}
+
 		if (is_array($this->rgroupsortdat))
 		{
 			foreach($this->rgroupsortdat as $_eln => $dat)
@@ -2381,14 +2391,19 @@ END;
 		$tbl = "";
 		foreach($rgroupby as $rgel)
 		{
-			$_a = preg_replace("/<a (.*)>(.*)<\/a>/U","\\2",$v[$rgel]);
-			$links = true;
-			if (strpos($_a, "http") === false)
+			$links = false;
+			$_a = $v[$rgel];
+
+			if ($this->create_rgroup_links)
 			{
-				$links = false;
-				$_a = $v[$rgel];
+				$_a = preg_replace("/<a (.*)>(.*)<\/a>/U","\\2",$v[$rgel]);
+				if (strpos($_a, "http") !== false)
+				{
+					$links = true;
+				}
 			}
-			if (strtolower(strip_tags(ifset($this->lgrpvals, $rgel))) != strtolower(strip_tags(ifset($v, $rgel))))
+
+			if (strtolower(strip_tags(ifset($this->lgrpvals, $rgel))) !== strtolower(strip_tags(ifset($v, $rgel))))
 			{
 				//$this->rgroupby
 				// kui on uus v22rtus grupeerimistulbal, siis paneme rea vahele
@@ -2429,6 +2444,7 @@ END;
 					{
 						$tbl .= $rgroupby_sep[$rgel]["real_sep_before"];
 					}
+
 					if ($links)
 					{
 						$tbl.= create_links($_a);

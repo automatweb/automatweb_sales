@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/calendar/rfp.aw,v 1.191 2009/08/24 08:54:38 instrumental Exp $
-// rfp.aw - Pakkumise saamise palve 
+
+// rfp.aw - Pakkumise saamise palve
 /*
 
-@classinfo syslog_type=ST_RFP relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=tarvo allow_rte=2
+@classinfo syslog_type=ST_RFP relationmgr=yes no_comment=1 no_status=1 prop_cb=1 allow_rte=2
 
 
 @tableinfo rfp index=aw_oid master_index=brother_of master_table=objects
@@ -51,7 +51,7 @@
 
 			@property data_subm_country type=textbox group=submitter_info,final_client parent=client_info
 			@caption Riik
-			
+
 			@property data_subm_phone type=textbox group=submitter_info,final_client parent=client_info
 			@caption Telefon
 
@@ -60,7 +60,7 @@
 
 			@property data_subm_email type=textbox group=submitter_info,final_client parent=client_info
 			@caption E-mail
-			
+
 
 			@property data_subm_contact_preference type=relpicker reltype=RELTYPE_PREFERENCE group=submitter_info,final_client parent=client_info
 			@caption Kontakteerumise eelistus
@@ -136,7 +136,7 @@
 
 			@property data_gen_dates_are_flexible type=checkbox ch_value=1 default=0
 			@caption Kuup&auml;evad on paindlikud
-			
+
 			@property data_gen_meeting_pattern type=hidden
 			@caption Kuup&auml;evade muster
 
@@ -214,10 +214,10 @@
 
 			@property data_mf_catering type=text group=main_fun
 			@caption Pea&uuml;rituse toitlustus
-			
+
 			@property data_mf_catering_type type=textbox
 			@caption Pea&uuml;rituse toitlustuse t&uuml;&uuml;p
-			
+
 			@property data_mf_catering_attendees_no type=textbox
 			@caption Pea&uuml;rituse toitlustuse osalejate arv
 
@@ -235,7 +235,7 @@
 
 		@groupinfo billing caption="Arve info" parent=data
 		@default group=billing,final_client
-			
+
 			@property data_billing_company type=textbox parent=billing_info autocomplete_class_id=129 option_is_tuple=1
 			@caption Organisatsioon
 
@@ -275,12 +275,12 @@
 		@groupinfo files caption="Failid" parent=data
 		@default group=files
 			@property files_tb type=toolbar store=no no_caption=1
-			
+
 			@property files_tbl type=table store=no no_caption=1
 
 
 	@groupinfo final_info caption="Tellimuskirjeldus"
-		
+
 		@groupinfo final_general caption="&Uuml;ldine" parent=final_info
 		@default group=final_general
 
@@ -331,7 +331,7 @@
 			@layout client_hsplit type=hbox width=50%:50%
 
 				@layout client_info type=vbox closeable=1 area_caption=Tellija&nbsp;kontaktandmed parent=client_hsplit
-		
+
 				@layout billing_info type=vbox closeable=1 area_caption=Arve&nbsp;info parent=client_hsplit
 
 		@groupinfo final_prices caption="Ruumid" parent=final_info
@@ -349,7 +349,7 @@
 					@property prices_tbl parent=prs_right type=text store=no no_caption=1
 
 			@layout add_inf_room type=vbox closeable=1 area_caption="Lisainfo"
-				
+
 				@property additional_room_information type=textarea parent=add_inf_room rows=7 cols=100 no_caption=1
 				@caption Ruumide lisainfo
 
@@ -374,15 +374,15 @@
 				@layout cat_rightsplit parent=cat_hsplit type=vbox
 
 					@layout cat_right_top parent=cat_rightsplit type=vbox closeable=1 area_caption=Reserveeringute&nbsp;lisamine
-	
+
 						@property products_add_bron_tbl parent=cat_right_top type=table store=no no_caption=1
 
 					@layout cat_right parent=cat_rightsplit type=vbox closeable=1 area_caption=Tooted
-	
+
 						@property products_tbl parent=cat_right type=text store=no no_caption=1
-		
+
 			@layout add_inf_catering type=vbox closeable=1 area_caption="Lisainfo"
-				
+
 				@property additional_catering_information type=textarea parent=add_inf_catering rows=7 cols=100 no_caption=1
 				@caption Toitlustuse lisainfo
 
@@ -401,10 +401,10 @@
 					@property resources_tbl parent=res_right type=table store=no no_caption=1
 
 			@layout add_inf_resource type=vbox closeable=1 area_caption="Lisainfo"
-				
+
 				@property additional_resource_information type=textarea parent=add_inf_resource rows=7 cols=100 no_caption=1
 				@caption Ressursid lisainfo
-					
+
 
                 @groupinfo final_housing caption="Majutus" parent=final_info
                 @default group=final_housing
@@ -414,7 +414,7 @@
                         @property housing_tbl type=table store=no no_caption=1
 
 			@layout add_inf_housing type=vbox closeable=1 area_caption="Lisainfo"
-				
+
 				@property additional_housing_information type=textarea parent=add_inf_housing rows=7 cols=100 no_caption=1
 				@caption Majutuse lisainfo
 
@@ -427,7 +427,7 @@
                         @property additional_services_tbl type=table store=no no_caption=1
 
 			@layout add_inf_services type=vbox closeable=1 area_caption="Lisainfo"
-				
+
 				@property additional_services_information type=textarea parent=add_inf_services rows=7 cols=100 no_caption=1
 				@caption Lisateenuste lisainfo
 
@@ -450,7 +450,7 @@
 
 		@groupinfo final_offer caption="Pakkumine" parent=final_info
 		@default group=final_offer
-	
+
 			@property offer_pdf type=text store=no
 			@caption Lae PDF
 
@@ -462,7 +462,7 @@
 
 			@property offer_preface type=textarea cols=70 rows=20
 			@caption Pakkumise eess&otilde;na
-			
+
 		@groupinfo final_submission caption="Kinnitamine" parent=final_info
 		@default group=final_submission
 
@@ -482,7 +482,7 @@
 			@caption Lae PDF
 
 			@property submission type=text no_caption=1 store=no
-	
+
 #reltypes
 
 @reltype ROOM clid=CL_ROOM value=1
@@ -603,7 +603,7 @@ class rfp extends class_base
 			"data_gen_double_rooms",
 			"data_gen_suites",
 			"data_gen_attendees_no",
-			
+
 			// these are props that need special handlig below..
 			"data_mf_event_type",
 			"data_mf_catering",
@@ -618,7 +618,7 @@ class rfp extends class_base
 			}
 			return $retval;
 		}*/
-		
+
 		// this here deals with props with values to table
 		$prop["name"] = (strstr($prop["name"], "ign_") && !strstr($prop["name"], "foreign"))?substr($prop["name"], 4):$prop["name"];
 		$props_to_map = array(
@@ -683,7 +683,7 @@ class rfp extends class_base
 					}
 				}
 				break;
-	
+
 			case "final_foreign_countries":
 				if($cf = $this->rfpm->prop("country_folder"))
 				{
@@ -749,8 +749,8 @@ class rfp extends class_base
 					$prop["value"] = $arr["obj_inst"]->prop($props_to_map[$prop["name"]]);
 				}
 				break;
-			
-			
+
+
 			case "data_billing_company":
 				if(!$prop["value"])
 				{
@@ -808,7 +808,7 @@ class rfp extends class_base
 					foreach($ol->arr() as $obj)
 					{
 						$prop["options"][$obj->id()] = $obj->name();
-					} 
+					}
 				}
 				break;
 			case "final_theme":
@@ -823,7 +823,7 @@ class rfp extends class_base
 					foreach($ol->arr() as $obj)
 					{
 						$prop["options"][$obj->id()] = $obj->name();
-					} 
+					}
 				}
 				break;
 			case "conference_planner":
@@ -957,7 +957,7 @@ class rfp extends class_base
 					"final_prices" => "RELTYPE_RESERVATION",
 					"final_resource" => "RELTYPE_RESERVATION",
 				);
-				
+
 				$data_name = $arr["obj_inst"]->prop("data_subm_name");
 				if($this->can("view", $data_name))
 				{
@@ -967,7 +967,7 @@ class rfp extends class_base
 				}
 				else
 				{
-					$data_name = split("[ ]", $data_name); 
+					$data_name = split("[ ]", $data_name);
 					$new_reservation_args["person_rfp_fname"] = $data_name[0];
 					unset($data_name[0]);
 	                                $new_reservation_args["person_rfp_lname"] = count($data_name)?join(" ", $data_name):"";
@@ -991,14 +991,14 @@ class rfp extends class_base
 				$new_reservation_args["start1"] = (($_t = $arr["obj_inst"]->prop("data_mf_catering_start_admin")) > 1)?$_t:$arr["obj_inst"]->prop("data_gen_arrival_date_admin");
 				$new_reservation_args["end"] = (($_t = $arr["obj_inst"]->prop("data_mf_catering_end_admin")) > 1)?$_t:$arr["obj_inst"]->prop("data_gen_departure_date_admin");
 
-				
+
 				foreach($rooms as $room)
 				{
 					$new_reservation_args["resource"] = $room;
 					$new_reservation_args["parent"] = $room;
 					$url = $this->mk_my_orb("new", $new_reservation_args, CL_RESERVATION);
 					$o = obj($room);
-					
+
 					$tb->add_menu_item(array(
 						"parent" => "add",
 						"text" => sprintf(t("Ruumi '%s'"), $o->name()),
@@ -1020,7 +1020,7 @@ class rfp extends class_base
 					"post_msg_after_reservation" => array(
 						"rfp_oid" => $arr["obj_inst"]->id(),
 						"class_id" => CL_RFP,
-						"action" => "handle_new_reservation" 
+						"action" => "handle_new_reservation"
 					),
 					"alter_reservation_name" => array(
 						"rfp_oid" => $arr["obj_inst"]->id(),
@@ -1072,7 +1072,7 @@ class rfp extends class_base
 							)),
 						));
 					}
-					
+
 				}
 				$reltypes = array(
 					"final_catering" => "RELTYPE_CATERING_RESERVATION",
@@ -1198,8 +1198,8 @@ class rfp extends class_base
 				// we have to figure out if the reservation is too short/long (considering min & max hours)
 				$args["request"]["use_rfp_minmax_hours_pricecalc"] = true;
 				$args["request"]["rfp_oid"] = $arr["obj_inst"]->id();
-				
-				
+
+
 				$rfpm = get_instance(CL_RFP_MANAGER);
 				$rfpm = obj($rfpm->get_sysdefault());
 				$extra = $rfpm->get_extra_hours_prices();
@@ -1291,7 +1291,7 @@ class rfp extends class_base
 				}
 				$prop["value"] = $t->draw();
 				break;
-			
+
 			case "housing_tb":
 			case "services_tb":
 				$tb = &$arr["prop"]["vcl_inst"];
@@ -1389,9 +1389,9 @@ class rfp extends class_base
 			"caption" => t("Ressurss"),
 			"chgbgcolor" => "split",
 		));
-		
+
 		$curs = $this->gather_reservation_currencys($arr["obj_inst"]);
-		
+
 		foreach($curs as $cur)
 		{
 			$cur = obj($cur);
@@ -1431,7 +1431,7 @@ class rfp extends class_base
 		));
 
 	}
-	
+
 	/** Finds and returns currency oids used by rfp system
 		@param obj required
 			RFP obj
@@ -1448,7 +1448,7 @@ class rfp extends class_base
 		}
 		return $this->_gather_resources_currencys($ress);
 	}
-	
+
 	function _gather_resources_currencys($reservations = array())
 	{
 		$curs = array();
@@ -1553,7 +1553,7 @@ class rfp extends class_base
 
 		}
 		$t->set_sortable(false);
-		
+
 		// total-total
 		$t->define_data(array(
 			"split" => "#CCCCCC",
@@ -1933,7 +1933,7 @@ class rfp extends class_base
 				"class_id" => CL_ROOM,
 				"parent" => $rf,
 			));
-			
+
 			foreach($ol->arr() as $o)
 			{
 				$rooms[$o->id()] = $o->name();
@@ -2128,7 +2128,7 @@ class rfp extends class_base
 						"prod_parent" => $arr["request"]["show_all_prods"][$rv->id()] ? $prod->prop("parent.name") : '',
 						"prod_ord" => $prod->ord(),
 					);
-			
+
 					$t->define_data($data);
 				//}
 				$prod_count++;
@@ -2233,7 +2233,7 @@ class rfp extends class_base
 	function _get_housing_tbl($arr)
 	{
 		$t = &$arr["prop"]["vcl_inst"];
-		
+
 		$t->define_field(array(
 			"name" => "datefrom",
 			"caption" => t("Alates"),
@@ -2288,7 +2288,7 @@ class rfp extends class_base
 			"chgbgcolor" => "split",
 		));
 		$t->set_sortable(false);
-		
+
 		$rooms = $arr["obj_inst"]->meta("housing");
 
 		if(is_array($rooms))
@@ -2552,7 +2552,7 @@ class rfp extends class_base
 			"time" => $arr["obj_inst"]->prop("data_gen_arrival_date_admin"),
 			"time_to" => $arr["obj_inst"]->prop("data_gen_arrival_date_admin"),
 		)));
-		
+
 		$t->define_data(array(
 			"amount" => html::strong(t("Kokku:")),
 			"sum" => $totalsum,
@@ -2641,7 +2641,7 @@ class rfp extends class_base
 	{
 		$type = split("[_]",$arr["request"]["group"]);
 		$type = end($type);
-		
+
 		if($type == "prices")
 		{
 			$prop = "final_rooms";
@@ -2711,7 +2711,7 @@ class rfp extends class_base
 	function _get_submission($arr)
 	{
 		$prop = &$arr["prop"];
-		
+
 		$prop["value"] = $this->_get_submission_data($arr);
 	}
 
@@ -2785,11 +2785,11 @@ class rfp extends class_base
 		{
 			return false;
 		}
-		
+
 		// these are for obj prop translations
 		aw_ini_set("user_interface.content_trans", 1);
 		aw_global_set("lang_id", $lang_to["acceptlang"]);
-		
+
 		//$GLOBALS["cfg"]["user_interface"]["full_content_trans"]
 		aw_ini_set("user_interface.full_content_trans", 1);
 		//$GLOBALS["cfg"]["user_interface"]["trans_classes"][$this->class_id()]
@@ -2931,8 +2931,8 @@ class rfp extends class_base
 				$ro = obj($roomid);
 				$ro_trans = $ro->meta("translations");
 				$room = ($_t = $ro_trans[$default_lang]["name"])?$_t:$ro->trans_get_val("name");
-				
-				
+
+
 				// lets check for min hours and its extra prices
 				$new_times = $this->alter_reservation_time_include_extra_min_hours($rv, $mgro);
 
@@ -3027,7 +3027,7 @@ class rfp extends class_base
 						$room_price_oid = key($room_prices);
 					}
 					$unitprice = $prices_for_calculator[$room_price_oid];
-					
+
 				}
 				elseif($sp = $ssum[$currency])
 				{
@@ -3081,9 +3081,9 @@ class rfp extends class_base
 					{
 						$r = obj($rid);
 						$price = $data["prices"][$currency];
-						
+
 						$total = $price*$count;
-						$total = $this->_format_price($total - ($data["discount"]/100)*$total); 
+						$total = $this->_format_price($total - ($data["discount"]/100)*$total);
 						$resources_total += $total;
 						$trans_status = $r->meta("trans_".$default_lang."_status");
 						$name = null;
@@ -3150,7 +3150,7 @@ class rfp extends class_base
 				));
 			}
 			$bron_totalprice += $dat["separate_price"];
-			
+
 			$brons .= $this->parse("BRON");
 		}
 
@@ -3318,6 +3318,7 @@ class rfp extends class_base
 						$pds .= $this->parse("PRODUCT_".($package?"":"NO_")."PACKAGE");
 						$prod_total += $this->_format_price($prod["sum"]);
 					}
+
 					if(!$rv_has_prod)
 					{
 						$room = obj($rv_o->prop("resource"));
@@ -3437,7 +3438,7 @@ class rfp extends class_base
 			$hs_sub = $this->parse("HOUSING");
 			$totalprice += $housing_total;
 		}
-		
+
 		// additional sevices
 		$add_srv = $arr["obj_inst"]->get_additional_services();
 		$as_sub = "";
@@ -3502,7 +3503,7 @@ class rfp extends class_base
 			$pdf."_ONLY" => $this->parse($pdf."_ONLY"),
 			$pdf."_ONLY_2" => $this->parse($pdf."_ONLY_2"),
 		));
-		
+
 		if(count($bronnings))
 		{
 			$tmp = $this->parse("RESERVATIONS");
@@ -3573,7 +3574,7 @@ class rfp extends class_base
 			case "products_tbl":
 				if($this->can("view", $arr["request"]["reservation_oid"]))
 				{
-					$res = get_instance(CL_RESERVATION); 
+					$res = get_instance(CL_RESERVATION);
 					$res->set_products_info($arr["request"]["reservation_oid"], $arr["request"]);
 					$this->update_products_info($arr["request"]["reservation_oid"], $arr["obj_inst"]);
 				}
@@ -3591,7 +3592,7 @@ class rfp extends class_base
 						"discount" => $arr["request"]["resources_total_discount"],
 					));
 				}
-				
+
 				if(count($arr["request"]["resources_total_price"]) && $this->can("view", $arr["request"]["reservation_oid"]))
 				{
 					$res->set_resources_price(array(
@@ -3599,7 +3600,7 @@ class rfp extends class_base
 						"prices" => $arr["request"]["resources_total_price"],
 					));
 				}
-				
+
 				if(count($arr["request"]["resources_info"]) && $this->can("view", $arr["request"]["reservation_oid"]))
 				{
 					foreach($arr["request"]["resources_info"] as $k => $dat)
@@ -3620,7 +3621,7 @@ class rfp extends class_base
 					if($tmp[0] == "discount")
 					{
 						$o = obj($tmp[1]);
-						$o->set_prop("special_discount", $val);	
+						$o->set_prop("special_discount", $val);
 						$o->save();
 					}
 					elseif($tmp[0] == "custom")
@@ -3640,7 +3641,7 @@ class rfp extends class_base
 					}
 				}
 			break;
-	
+
 			// tsiisas, these date thingies are really shitty
 			// this must be the ugliest solution EVER and this may be the ugliest class EVER!!
 			case "data_mf_catering_end":
@@ -3675,7 +3676,7 @@ class rfp extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_mod_reforb($arr)
 	{
@@ -3726,7 +3727,7 @@ class rfp extends class_base
 		}
 		return $value;
 	}
-	
+
 	function _gen_table_additional_dates($data, $t)
 	{
 		$t->define_field(array(
@@ -3806,7 +3807,7 @@ class rfp extends class_base
 			$t->define_data($tmp);
 		}
 	}
-	
+
 	function _gen_table_search_result($data, $t)
 	{
 		$t->define_field(array(
@@ -4001,7 +4002,7 @@ class rfp extends class_base
 					$cfields[] = "`".$f[0]."` ".$f[1];
 					$ifields[] = "`".$f[0]."`";
 				}
-				
+
 				$cfieldsql = implode(", ", $cfields);
 				$ifieldsql = implode(", ", $ifields);
 
@@ -4019,7 +4020,7 @@ class rfp extends class_base
 					}
 					$valuesql = implode(",", $values);
 					$this->db_query("INSERT INTO rfp(`aw_oid`, ".$ifieldsql.") VALUES('".$o->id()."', ".$valuesql.")");
-					
+
 				}
 				return true;
 			}
@@ -4066,7 +4067,7 @@ class rfp extends class_base
 		));
 	}
 
-	/** Callback function to alter reservation name in calendar. Called when reservation calendar is shown and a reservation is found. 
+	/** Callback function to alter reservation name in calendar. Called when reservation calendar is shown and a reservation is found.
 		@attrib name=handle_calendar_show_reservation all_args=1 params=name
 	 **/
 	function handle_calendar_show_reservation(&$arr)
@@ -4143,7 +4144,7 @@ class rfp extends class_base
 				{
 					$o->remove_room_reservation($reservation);
 				}
-			
+
 			}
 		}
 		elseif($arr["group"] == "final_catering")
@@ -4214,7 +4215,7 @@ class rfp extends class_base
 			if($tbl_sum_row)
 			{
 				$total_discount = $arr["obj_inst"]->get_package_custom_discount();
-				
+
 				$room_price = $this->can("view", ($_t = $arr["obj_inst"]->prop("data_gen_package_price")))?$_t:false;
 				$conns = $arr["obj_inst"]->connections_from(array(
 					"type" => "RELTYPE_RESERVATION",
@@ -4310,7 +4311,7 @@ class rfp extends class_base
 					$totprice = $custom;
 					$totprice = ($_t = $total_discount)?(((100-$_t) /100 )* $totprice):$totprice;
 				}
-				
+
 				$t->set_data($tbl_sum_row, array(
 					"total" => number_format($totprice, 2),
 					"custom" => html::strong(t("Kokku:")),
@@ -4414,4 +4415,3 @@ class rfp extends class_base
 		die($j->encode($res));
 	}
 }
-?>

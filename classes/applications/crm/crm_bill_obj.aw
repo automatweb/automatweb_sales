@@ -235,12 +235,12 @@ class crm_bill_obj extends _int_object
 		//
 		$this->set_prop("sum", $this->_calc_sum());
 
-		$rv = parent::save($exclusive, $previous_state);
+		$rv = parent::save($exclusive, $previous_state); //XXX: miks siin vaja awdisableacl ?(taketis nii tehtud)
 
 		///FIXME: doesn't belong here (voldemar 12 nov 2010)
 		if(isset($_SESSION["bill_change_comments"]) && is_array($_SESSION["bill_change_comments"]))
 		{
-			$this->add_comment(join("<br>\n" , $_SESSION["bill_change_comments"]));
+			$this->add_comment(join(html::linebreak(), $_SESSION["bill_change_comments"]));
 			unset($_SESSION["bill_change_comments"]);
 		}
 		///
@@ -629,7 +629,7 @@ class crm_bill_obj extends _int_object
 	public function add_bug_row($bugcomments)
 	{
 		$row = new object();
-		$row->set_class_id(CL_CRM_BILL_ROW);
+		$row->set_class_id(crm_bill_row_obj::CLID);
 		$row->set_name(t("Arve rida"));
 		$row->set_parent($this->id());
 		$row->save();
@@ -869,7 +869,7 @@ class crm_bill_obj extends _int_object
 		else
 		{
 			$br = obj();
-			$br->set_class_id(CL_CRM_BILL_ROW);
+			$br->set_class_id(crm_bill_row_obj::CLID);
 			$br->set_prop("date", date("d.m.Y", time()));
 			if($this->set_crm_settings() && $this->crm_settings->prop("bill_default_unit"))
 			{
@@ -887,6 +887,35 @@ class crm_bill_obj extends _int_object
 		return $br;
 	}
 
+	/** adds new row block to bill
+		@attrib api=1 params=pos
+		@returns CL_CRM_BILL_ROW_BLOCK
+	**/
+	public function add_row_block()
+	{
+		$br = obj(null, array(), crm_bill_row_block_obj::CLID);
+		$br->set_parent($this->id());
+		$br->set_name(t("Uus blokk"));
+		$br->save();
+		$this->connect(array(
+			"to" => $br->id(),
+			"type" => "RELTYPE_ROW_BLOCK"
+		));
+		return $br;
+	}
+
+	/** Returns list of invoice row block objects in this invoice
+		@attrib api=1 params=pos
+		@comment
+		@returns object_list
+		@errors
+	**/
+	public function get_row_blocks()
+	{
+		$list = new object_list($this->connections_from(array("type" => "RELTYPE_ROW_BLOCK")));
+		return $list;
+	}
+
 	/** adds rows to bill
 		@attrib api=1 params=name
 		@param objects optional type=array
@@ -895,10 +924,10 @@ class crm_bill_obj extends _int_object
 	**/
 	public function add_rows($arr)
 	{
-		$seti = get_instance(CL_CRM_SETTINGS);
-		$co_inst = get_instance(CL_CRM_COMPANY);
+		$seti = new crm_settings();
+		$co_inst = new crm_company();
 		$sts = $seti->get_current_settings();
-		define("DEFAULT_TAX", 0.18);
+		define("DEFAULT_TAX", 0.18);//TODO: correct this
 		$bug_rows = array();
 		$task_rows = array();
 		$tasks = array();
@@ -907,7 +936,7 @@ class crm_bill_obj extends _int_object
 			$work = obj($id);
 			switch($work->class_id())
 			{
-				case CL_CRM_BILL_ROW:
+				case crm_bill_row_obj::CLID:
 					$ex_bill = obj($work->parent());
 					$ex_bill->disconnect(array(
 						"from" => $work->id(),
@@ -1319,21 +1348,43 @@ class crm_bill_obj extends _int_object
 	private function get_bill_rows_filter()
 	{
 		$filter = array();
-		$filter["class_id"] = CL_CRM_BILL_ROW;
+		$filter["class_id"] = crm_bill_row_obj::CLID;
 		$filter["CL_CRM_BILL_ROW.RELTYPE_ROW(CL_CRM_BILL)"] = $this->id();
 		$filter["writeoff"] = new obj_predicate_not(1);
 		return $filter;
 	}
 
-	/** returns bill rows data using object data list
+	/** Returns bill rows data using object data list
 		@attrib api=1
+		@returns array
+			array(
+				bill_obj1_id => array(
+					[oid] => ...
+					[name] => ...
+					[parent] => ...
+					[brother_of] => ...
+					[status] => ...
+					[class_id] => ...
+					[acldata] => ...
+					[task_row] => Array(...)
+					[prod] => ...
+					[price] => ...
+					[amt] => ...
+					[has_tax] => ...
+					[tax] => ...
+					[is_oe] => ...
+					[sum] => ...
+					[jrk] => ...
+				),
+				bill_obj2_id...
+			)
 	**/
 	public function get_bill_rows_dat()
 	{
 		$filter = $this->get_bill_rows_filter();
 		$rowsres = array(
-			CL_CRM_BILL_ROW => array(
-				"task_row","prod","price","amt","has_tax","tax"
+			crm_bill_row_obj::CLID => array(
+				"task_row", "prod", "price", "amt", "has_tax", "tax", "is_oe", "jrk"
 			),
 		);
 		$rows_arr = new object_data_list($filter , $rowsres);
@@ -1347,12 +1398,12 @@ class crm_bill_obj extends _int_object
 	public function get_writeoffs_sum()
 	{
 		$filter = array();
-		$filter["class_id"] = CL_CRM_BILL_ROW;
+		$filter["class_id"] = crm_bill_row_obj::CLID;
 		$filter["CL_CRM_BILL_ROW.RELTYPE_ROW(CL_CRM_BILL)"] = $this->id();
 		$filter["writeoff"] = 1;
 
 		$rowsres = array(
-			CL_CRM_BILL_ROW => array(
+			crm_bill_row_obj::CLID => array(
 				"price","amt"
 			),
 		);
@@ -1522,25 +1573,36 @@ class crm_bill_obj extends _int_object
 				"task_rows" => $row->task_rows(),
 			);
 
-			$inf[] = $rd;
+			$inf[$row->id()] = $rd;
 		}
-		usort($inf, array($this, "__br_sort"));
+		uksort($inf, array($this, "__br_sort"));
 		return $inf;
 	}
 
 	private function __br_sort($a, $b)
 	{
-		$a_date = $a["date"];
-		$b_date = $b["date"];
-		list($a_d, $a_m, $a_y) = explode(".", $a_date);
-		list($b_d, $b_m, $b_y) = explode(".", $b_date);
-		$a_tm = mktime(0,0,0, $a_m, $a_d, $a_y);
-		$b_tm = mktime(0,0,0, $b_m, $b_d, $b_y);
+		$a_tm = $b_tm = 0;
+
+		if (!empty($a["date"]))
+		{
+			$a_date = $a["date"];
+			list($a_d, $a_m, $a_y) = explode(".", $a_date);
+			$a_tm = mktime(0,0,0, $a_m, $a_d, $a_y);
+		}
+
+		if (!empty($b["date"]))
+		{
+			$b_date = $b["date"];
+			list($b_d, $b_m, $b_y) = explode(".", $b_date);
+			$b_tm = mktime(0,0,0, $b_m, $b_d, $b_y);
+		}
+
 		if(!(($a["is_oe"] - $b["is_oe"]) == 0))
 		{
 			return $a["is_oe"]- $b["is_oe"];
 		}
-		return  $a["jrk"] < $b["jrk"] ? -1 :
+
+		return $a["jrk"] < $b["jrk"] ? -1 :
 			($a["jrk"] > $b["jrk"] ? 1:
 				($a_tm >  $b_tm ? 1:
 					($a_tm == $b_tm ? ($a["id"] > $b["id"] ? 1 : -1): -1)
@@ -3118,16 +3180,72 @@ class crm_bill_obj extends _int_object
 
 	}
 
+	/** Takes first row in list and merges other rows' data to that
+		@attrib api=1 params=pos
+		@param rows type=object_list
+		@param aggregate_total type=float default=NULL
+			Set sum to this disregarding rows sum
+		@comment
+		@returns void
+		@errors
+	**/
+	public function merge_rows(object_list $rows, $aggregate_total = null)
+	{
+		if (!$rows->count())
+		{
+			return;
+		}
+
+		$first_row = $rows->begin();
+
+		$first_task_row = $first_row->get_first_obj_by_reltype("RELTYPE_TASK_ROW");
+		if(is_object($first_task_row))
+		{
+			$mtrid = $first_task_row->id();
+		}
+
+		if ($aggregate_total !== null)
+		{
+			$first_row->set_prop("price", $aggregate_total);
+		}
+
+		while ($row_o = $rows->next())
+		{
+			$first_row->set_prop("amt", $first_row->prop("amt") + $row_o->prop("amt"));
+			$first_row->set_prop("sum", $first_row->prop("amt") * $first_row->prop("price"));
+			$task_row = $row_o->get_first_obj_by_reltype("RELTYPE_TASK_ROW");
+			if(is_object($task_row))
+			{
+				$task_row->set_meta("parent_row" , $mtrid);
+				$first_row->connect(array(
+					"to" => $task_row->id(),
+					"type" => "RELTYPE_TASK_ROW"
+				));
+				$task_row->save();
+			}
+			$row_o->delete();
+		}
+
+		$first_row->save();
+	}
+
+
 	public function reorder_rows()
 	{
-		$rows = $this->get_bill_rows();//arr($rows);
-		$rows->sort_by_cb(array($this, "__rsorter"));
-		$count = 0;//arr($rows);
-		foreach($rows->arr() as $row)
+		$rows = $this->get_bill_rows();
+		if($rows->count())
 		{
-			$row->set_meta("jrk", $count*10);
-			$row->save();
-			$count++;
+			$rows->sort_by_cb(array($this, "__rsorter"));
+			$count = 1;
+			$row = $rows->begin();
+
+			do
+			{
+				$row->set_meta("jrk", $count*10);
+				$row->save();
+				$count++;
+			}
+			while ($row = $rows->next());
 		}
 	}
 

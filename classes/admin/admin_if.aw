@@ -31,6 +31,7 @@
 
 @groupinfo o caption="Objektid" save=no submit=no
 @groupinfo fu caption="Failide &uuml;leslaadimine"
+
 */
 
 class admin_if extends class_base
@@ -125,9 +126,9 @@ class admin_if extends class_base
 	{
 		$arr["post_ru"] = post_ru();
 
-		if (isset($_GET["parent"]))
+		if (isset($request["parent"]))
 		{
-			$arr["parent"] = $_GET["parent"];
+			$arr["parent"] = $request["parent"];
 		}
 	}
 
@@ -239,7 +240,7 @@ class admin_if extends class_base
 			"url" => obj_link($parent),
 			"img" => "preview.gif",
 		));
-		$file_manager = get_instance("admin/editor/file_manager");
+		$file_manager = new file_manager();
 		$file_manager->add_zip_button(array("tb" => $tb));
 
 		if (aw_ini_get("per_oid"))
@@ -296,7 +297,7 @@ class admin_if extends class_base
 			"has_root" => $this->use_parent ? 0 : 1,
 			"tree_id" => "admin_if",
 			"persist_state" => 1,
-			"root_name" => t("<b>AutomatWeb</b>"),
+			"root_name" => html::bold(t("AutomatWeb")),
 			"root_url" => aw_url_change_var("parent", $admrm, $this->curl),
 			"get_branch_func" => $this->mk_my_orb("gen_folders",array("selp" => $this->selp, "curl" => $this->curl, "period" => $this->period, "parent" => "0")),
 		));
@@ -340,8 +341,6 @@ class admin_if extends class_base
 						"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
 				)
 			)),
-			"site_id" => array(),
-			"lang_id" => array(),
 			"sort_by" => "objects.parent,objects.jrk,objects.created"
 		);
 		$ol = new object_data_list(
@@ -380,7 +379,6 @@ class admin_if extends class_base
 							"CL_MENU.type" => array(MN_CLIENT, MN_ADMIN1)
 					)
 				)),
-				"site_id" => array(),
 				"sort_by" => "objects.parent,objects.jrk,objects.created"
 			), $this->data_list_ot_flds);
 			foreach($ol->arr() as $menu)
@@ -398,7 +396,7 @@ class admin_if extends class_base
 			}
 		}
 
-		$this->tree =& $tree;
+		$this->tree = $tree;
 		if (empty($this->use_parent))
 		{
 			$this->mk_home_folder_new();
@@ -427,7 +425,7 @@ class admin_if extends class_base
 		$this->use_parent = (int)$arr["parent"];
 		$this->_get_o_tree(array(
 			"prop" => array(
-				"vcl_inst" => &$t
+				"vcl_inst" => $t
 			),
 			"request" => $arr
 		));
@@ -533,8 +531,6 @@ class admin_if extends class_base
 			"parent" => aw_ini_get("amenustart"),
 			"status" => STAT_ACTIVE,
 			"CL_MENU.type" => MN_ADMIN1,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"sort_by" => "objects.parent,objects.jrk,objects.created"
 		), $tmp);
 		$rn = empty($this->use_parent) ? aw_ini_get("admin_rootmenu2") : $this->use_parent;
@@ -584,7 +580,7 @@ class admin_if extends class_base
 			"chgbgcolor" => "cutcopied",
 			"caption" => t("Jrk"),
 			"numeric" => "yea",
-			"sortable" => 1,
+			"sortable" => 1
 		));
 
 		$t->define_field(array(
@@ -594,7 +590,7 @@ class admin_if extends class_base
 			"align" => "center",
 			"talign" => "center",
 			"chgbgcolor" => "cutcopied",
-			"sortable" => 1,
+			"sortable" => 1
 		));
 
 		$t->define_field(array(
@@ -604,7 +600,7 @@ class admin_if extends class_base
 			"align" => "center",
 			"talign" => "center",
 			"sortable" => 1,
-			"chgbgcolor" => "cutcopied",
+			"chgbgcolor" => "cutcopied"
 		));
 
 		$t->define_field(array(
@@ -617,7 +613,7 @@ class admin_if extends class_base
 			"format" => "d-M-y / H:i",
 			"sortable" => 1,
 			"numeric" => 1,
-			"chgbgcolor" => "cutcopied",
+			"chgbgcolor" => "cutcopied"
 		));
 
 		$t->define_field(array(
@@ -627,7 +623,7 @@ class admin_if extends class_base
 			"align" => "center",
 			"talign" => "center",
 			"sortable" => 1,
-			"chgbgcolor" => "cutcopied",
+			"chgbgcolor" => "cutcopied"
 		));
 
 		$t->define_field(array(
@@ -636,7 +632,7 @@ class admin_if extends class_base
 			"width" => 30,
 			"align" => "center",
 			"talign" => "center",
-			"chgbgcolor" => "cutcopied",
+			"chgbgcolor" => "cutcopied"
 		));
 
 		$t->define_chooser(array(
@@ -1254,11 +1250,6 @@ class admin_if extends class_base
 		return !empty($return_url) ? $return_url : self::get_link_for_obj($parent,$period);
 	}
 
-	function _check_lock_write()
-	{
-		;
-	}
-
 	function _search_mk_call($params, $login = null)
 	{
 		$_parms = array(
@@ -1404,13 +1395,13 @@ class admin_if extends class_base
 	}
 
 	/** Used from admin_footer so that all texts are translatable. this can't be in admin_footer, cause only files under classes folder are translatable. **/
-	function insert_texts(&$t)
+	function insert_texts($t)
 	{
 		$t->vars(array(
 			"logout_text" => t("Logi v&auml;lja"),
 			"logged_in_text" => t("Kasutaja:"),
 			"location_text" => t("Asukoht:"),
-			"footer_l1" => sprintf(t("AutomatWeb&reg; on Struktuur Meedia registreeritud kaubam&auml;rk. K&otilde;ik &otilde;igused kaitstud, &copy; 1999-%s."), date("Y")),
+			"footer_l1" => sprintf(t("AutomatWeb&reg; on registreeritud kaubam&auml;rk. K&otilde;ik &otilde;igused kaitstud, &copy; 1999-%s."), date("Y")),
 			"footer_l2" => t("Palun k&uuml;lasta meie kodulehek&uuml;lgi:"),
 			"st" => t("Seaded")
 		));
@@ -1446,16 +1437,16 @@ class admin_if extends class_base
 				$zip = aw_ini_get("server.unzip_path");
 				$tn = aw_ini_get("server.tmpdir")."/".gen_uniq_id();
 				mkdir($tn,0777);
-				$cmd = $zip." -d $tn $zf";
+				$cmd = $zip." -d {$tn} {$zf}";
 				$op = shell_exec($cmd);
 
 
 				$files = array();
-				if ($dir = @opendir($tn))
+				if ($dir = opendir($tn))
 				{
 					while (($file = readdir($dir)) !== false)
 					{
-						if (!($file == "." || $file == ".."))
+						if (!($file === "." || $file === ".."))
 						{
 							$files[] = $tn."/".$file;
 						}
@@ -1466,16 +1457,15 @@ class admin_if extends class_base
 
 			foreach($files as $file)
 			{
-				$fuc = get_instance(CL_FILE_UPLOAD_CONFIG);
+				$fuc = new file_upload_config();
 				if (!$fuc->can_upload_file(array("folder" => $arr["request"]["parent"], "file_name" => $file, "file_size" => filesize($file))))
 				{
 					continue;
 				}
-				$fi = get_instance(CL_FILE);
-				$mt = get_instance("core/aw_mime_types");
+				$fi = new file();
 				$rv = $fi->save_file(array(
 					"name" => basename($file),
-					"type" => $mt->type_for_file($file),
+					"type" => aw_mime_types::type_for_file($file),
 					"content" => file_get_contents($file),
 					"parent" => $arr["request"]["parent"]
 				));
@@ -1483,10 +1473,11 @@ class admin_if extends class_base
 				echo $s;
 				$_SESSION["fu_tm_text"] .= $s;
 				flush();
-				@unlink($fp);
+				unlink($fp);
 			}
-			@rmdir($tn);
-			echo "<script language=javascript>window.location='".$arr["request"]["post_ru"]."'</script>";
+
+			rmdir($tn);
+			echo "<script language=\"javascript\">window.location='".$arr["request"]["post_ru"]."'</script>";
 		}
 	}
 
@@ -1518,13 +1509,12 @@ class admin_if extends class_base
 		}
 		if (is_uploaded_file($_FILES["Filedata"]["tmp_name"]))
 		{
-			$fuc = get_instance(CL_FILE_UPLOAD_CONFIG);
+			$fuc = new file_upload_config();
 			if (!$fuc->can_upload_file(array("folder" => $arr["parent"], "file_name" => $_FILES["Filedata"]["name"], "file_size" => $_FILES["Filedata"]["size"])))
 			{
 				continue;
 			}
-			$fi = get_instance(CL_FILE);
-			$mt = get_instance("core/aw_mime_types");
+			$fi = new file();
 			$rv = $fi->save_file(array(
 				"name" => $_FILES["Filedata"]["name"],
 				"type" => $_FILES["Filedata"]["type"],
@@ -1684,7 +1674,7 @@ class admin_if extends class_base
 						"class_id" => CL_USER
 					)
 				));
-			};
+			}
 		}
 
 		if (!empty($_GET["sortby"]))
@@ -1731,7 +1721,7 @@ class admin_if extends class_base
 		extract($arr);
 		$this->mk_path($parent,t("Impordi men&uuml;&uuml;sid"));
 
-		$htmlc = get_instance("cfg/htmlclient");
+		$htmlc = new htmlclient();
 		$htmlc->start_output();
 		$htmlc->add_property(array(
 			"name" => "fail",
@@ -1764,7 +1754,7 @@ class admin_if extends class_base
 			"form_only" => 1
 		));
 
-		$tp = get_instance("vcl/tabpanel");
+		$tp = new tabpanel();
 		$tp->add_tab(array(
 			"active" => true,
 			"caption" => t("Impordi"),
@@ -1799,7 +1789,7 @@ class admin_if extends class_base
 		else
 		{
 			$fail = $_FILES["fail"]["tmp_name"];
-			$f = @fopen($fail, "r");
+			$f = fopen($fail, "r");
 			if ($f)
 			{
 				$d = fread($f,filesize($fail));
@@ -1828,7 +1818,6 @@ class admin_if extends class_base
 		$p_o = obj($parent);
 		$mt = $p_o->prop("type");
 
-		$i = get_instance("core/icons");
 		reset($menus[$i_p]);
 		while (list(,$v) = each($menus[$i_p]))
 		{
@@ -1837,11 +1826,11 @@ class admin_if extends class_base
 			$icon_id = 0;
 			if (is_array($v["icon"]))
 			{
-				$icon_id = $i->get_icon_by_file($v["icon"]["file"]);
+				$icon_id = icons::get_icon_by_file($v["icon"]["file"]);
 				if (!$icon_id)
 				{
 					// not in db, must add
-					$icon_id = $i->add_array($v["icon"]);
+					$icon_id = icons::add_array($v["icon"]);
 				}
 			}
 
@@ -2018,9 +2007,7 @@ class admin_if extends class_base
 		$rc = 0;
 		$period_list = new object_list(array(
 			"class_id" => CL_PERIOD,
-			"sort_by" => "objects.jrk DESC",
-			"lang_id" => array(),
-			"site_id" => array()
+			"sort_by" => "objects.jrk DESC"
 		));
 
 		for ($period_obj = $period_list->begin(); !$period_list->end(); $period_obj = $period_list->next())
