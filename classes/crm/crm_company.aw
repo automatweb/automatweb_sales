@@ -2327,8 +2327,6 @@ class crm_company extends class_base
 			case "proj_search_part":
 			case "customer_toolbar":
 			case "customer_listing_tree":
-			case "customer":
-			case "customer_t":
 				static $cust_impl;
 				if (!$cust_impl)
 				{

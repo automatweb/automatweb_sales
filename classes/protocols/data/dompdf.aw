@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_DOMPDF relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=tarvo
+@classinfo syslog_type=ST_DOMPDF relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_dompdf master_index=brother_of master_table=objects index=aw_oid
 
 @default table=objects
@@ -80,6 +80,7 @@ class dompdf extends class_base
 		$lds .= " -o ".$this->orientation;
 		$hd = aw_ini_get("html2pdf.dompdf_path");
 		$cmdl = "php ".$hd."/dompdf.php ".$lds;
+		// $cmdl = "/usr/local/zend/bin/php ".$hd."/dompdf.php ".$lds; //TODO: tundub, et zend server ce debianis v2hemalt ei pane php binaryt pathi, leida lahendus. ilmselt ini-s m22rata php binary asukoht
 		shell_exec($cmdl);
 		unlink($this->tmpfile);
 	}
@@ -95,5 +96,3 @@ class dompdf extends class_base
 		return $pdf;
 	}
 }
-
-?>

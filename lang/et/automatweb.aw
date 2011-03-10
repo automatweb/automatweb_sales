@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/lang/et/automatweb.aw,v 1.5 2005/05/20 08:19:43 kristo Exp $
+
 // automatwebis kasutatavad teated
 define("E_ORB_CLASS_UNDEF","ORB: class not defined");
 define("E_ORB_ACTION_UNDEF","ORB: action not defined");
@@ -13,7 +13,3 @@ define("E_ORB_LOGIN_REQUIRED","ORB: you have to be logged in to do that");
 define("E_ORB_NOT_INTEGER","ORB: parameter (%s) requires an integer value");
 
 //forms
-
-
-
-?>

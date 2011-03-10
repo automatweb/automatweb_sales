@@ -31,6 +31,8 @@ class html
 		the size of the selection visible
 	@param onblur optional type=string
 		If set, then onblur=$onblur.
+	@param empty_option type=mixed default=null
+		Add empty selection as first option to list. Value of this parameter will be set as the value of the empty selection
 
 	@returns string / html select
 
@@ -103,6 +105,7 @@ class html
 		// build options
 		$optstr = "";
 		$disabled_options = (!empty($args["disabled_options"]) and is_array($args["disabled_options"])) ? $args["disabled_options"] : array();
+		$empty_option = isset($args["empty_option"]) ? self::get_empty_option($args["empty_option"]) : array();
 
 		if (isset($selected) && is_array($selected))
 		{
@@ -119,7 +122,7 @@ class html
 
 		$sel_array = array_flip($sel_array);
 
-		$options = isset($options) ? safe_array($options) : array();
+		$options = isset($options) ? $empty_option + safe_array($options) : $empty_option;
 		foreach($options as $k => $v)
 		{
 			$selected = isset($sel_array[$k]) ? ' selected="selected"' : "";
@@ -150,6 +153,19 @@ class html
 
 		//
 		return "<select name=\"{$name}\" id=\"{$id}\"{$cl}{$sz}{$mz}{$onc}{$disabled}{$onblur}{$ti}{$style}>\n{$optstr}</select>{$post_append_text}\n";
+	}
+
+	/** Returns empty option array (with one element) to be prepended to select element option arrays
+		@attrib api=1 params=pos
+		@param value type=mixed default=""
+			value to be set as the empty/no selection value
+		@comment
+		@returns array
+		@errors
+	**/
+	public static function get_empty_option($value = "")
+	{
+		return array($value => t("-- vali --"));
 	}
 
 	/**
@@ -263,7 +279,7 @@ class html
 		$style = isset($style) ? " style=\"{$style}\"":"";
 		$class = isset($class) ? " class=\"{$class}\"":"";
 
-		if(is_admin() && !empty($autocomplete_class_id))
+		if(!empty($autocomplete_class_id))
 		{
 			$params = array(
 				"id" => automatweb::$request->arg("id"),
@@ -283,7 +299,7 @@ class html
 		}
 
 		### compose autocompletes source url
-		if (is_admin() && (!empty($autocomplete_source) or !empty($options) and is_array($options) or !empty($autocomplete_source_method)))
+		if ((!empty($autocomplete_source) or !empty($options) and is_array($options) or !empty($autocomplete_source_method)))
 		{
 			if (!defined("AW_AUTOCOMPLETE_INITIALIZED"))
 			{
@@ -830,7 +846,7 @@ class html
 	@param type optional type=string
 		button type
 
-	@param value optional type=string
+	@param value type=string default=""
 		button value
 
 	@param class optional type=string
@@ -848,6 +864,9 @@ class html
 	@param id optional type=string
 		button id
 
+	@param image type=string default=""
+		button image url
+
 	@param post_append_text optional type=string
 		any text or html code you want to see after button
 
@@ -864,29 +883,36 @@ class html
 		@param reload.props optional type=array
 		@param reload.params optional type=array
 
-	@returns string/html submit button
+	@returns string/html submit button/image
 	**/
 	public static function button($args = array())
 	{
-		$post_append_text = "";
-		extract($args);
+		$post_append_text = empty($args["post_append_text"]) ? "" : $args["post_append_text"];
+		$disabled = empty($args["disabled"]) ? "" : ' disabled="disabled"';
+		$name = empty($args["name"]) ? "" : " name=\"{$args["name"]}\"";
+		$value = isset($args["value"]) ? " value='{$args["value"]}'" : "";
+		$class = empty($args["class"]) ? "" : " class=\"{$args["class"]}\"";
+		$style = empty($args["style"]) ? "" : " style=\"{$args["style"]}\"";
+		$id = empty($args["id"]) ? "" : " id=\"{$args["id"]}\"";
 
-		// AJAX property/layout reloading stuff
-		if(isset($args["reload"]))
+		if(!empty($args["image"]))
 		{
-//			$onclick = self::handle_reload($args["reload"]);
+			$image_url = new aw_uri($args["image"]);
+			$type = "image";
+			$src = ' src="' . $image_url->get() . '"';
+			$textsize = "";
+			$alt = empty($args["value"]) ? "" : " alt=\"{$args["value"]}\" title=\"{$args["value"]}\"";
+		}
+		else
+		{
+			$src = $alt = $onclick_ret = "";
+			$textsize = !empty($textsize) ? " style=\"font-size: {$textsize};\"" : "";
+			$type = empty($args["type"]) ? "button" : $args["type"];
 		}
 
-		$textsize = !empty($textsize) ? " style=\"font-size: {$textsize};\"" : "";
-		$disabled = !empty($disabled) ? ' disabled="disabled"' : "";
-		$type = empty($type) ? "button" : $type;
-		$name = !empty($name) ? 'name="'.$name.'" ' : "";
-		$class = !empty($class) ? " class=\"{$class}\"" : "";
-		$style = !empty($style) ? " style=\"{$style}\"" : "";
-		$onclick = !empty($onclick) ? " onclick=\"{$onclick}\"" : "";
-		$id = !empty($id) ? " id=\"{$id}\"" : "";
+		$onclick = empty($args["onclick"]) ? "" : " onclick=\"{$args["onclick"]}\"";
 
-		return "<input type='{$type}' {$name}value='{$value}'{$id}{$onclick}{$class}{$disabled}{$textsize}{$style} />{$post_append_text}\n";
+		return "<input type=\"{$type}\"{$name}{$src}{$alt}{$value}{$id}{$onclick}{$class}{$disabled}{$textsize}{$style} />{$post_append_text}\n";
 	}
 
 	/**Time selector
@@ -1839,6 +1865,18 @@ class html
 		$r = <<<ENDJAVASCRIPT
 <script type="text/javascript">{$script}</script>
 ENDJAVASCRIPT;
+	}
+
+	/** Escapes a string to be used with single quotes in javascript
+		@attrib api=1 params=pos
+		@param string type=string
+		@comment
+		@returns string
+		@errors
+	**/
+	public static function quote_js($string)
+	{
+		return addcslashes ($string, "'\\");
 	}
 }
 

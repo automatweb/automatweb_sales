@@ -1,23 +1,37 @@
 <?php
 /*
-@classinfo syslog_type=ST_UNIT relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo syslog_type=ST_UNIT relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
 @default field=meta
 @default method=serialize
 
+@property name_for_1 type=textbox
+@comment &Uuml;hiku nimi k&auml;&auml;ndes kui v&auml;&auml;rtus on 1
+@caption V&auml;&auml;rtuse j&auml;rel (1 ...)
+
+@property name_for_2 type=textbox
+@comment &Uuml;hiku nimi k&auml;&auml;ndes kui v&auml;&auml;rtus on 2
+@caption V&auml;&auml;rtuse j&auml;rel (2 ...)
+
+@property name_for_n type=textbox
+@comment &Uuml;hiku nimi k&auml;&auml;ndes kui v&auml;&auml;rtus on muu
+@caption V&auml;&auml;rtuse j&auml;rel (n ...)
+
 @property unit_code type=textbox
-@caption &Uuml;hiku kood
+@caption &Uuml;hiku t&auml;his
 
 @property unit_sort type=select
-@caption &Uuml;hiku liik
+@comment Suurus, mida &uuml;hik m&otilde;&otilde;dab
+@caption Suurus
+
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
+
 */
 
 class unit extends class_base
@@ -25,7 +39,7 @@ class unit extends class_base
 	function unit()
 	{
 		$this->init(array(
-			"tpldir" => "common//unit",
+			"tpldir" => "common/unit",
 			"clid" => CL_UNIT
 		));
 		$this->trans_props = array(
@@ -33,16 +47,10 @@ class unit extends class_base
 		);
 	}
 
-	function get_property($arr)
+	function _get_unit_sort(&$arr)
 	{
-		$prop = &$arr["prop"];
 		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-			case "unit_sort":
-				$prop["options"] = array(0 => "" , 1 => t("pikkus&uuml;hik"), 2 => t("massi&uuml;hik"), 3 => t("koguse&uuml;hik"), 4 => t("mahu&uuml;hik"), 5 => t("aja&uuml;hik"));
-				break;
-		};
+		$arr["prop"]["options"] = array(0 => "") + unit_obj::quantity_names();
 		return $retval;
 	}
 
@@ -63,7 +71,7 @@ class unit extends class_base
 	{
 		$trc = aw_ini_get("user_interface.trans_classes");
 
-		if ($arr["id"] == "transl" && (aw_ini_get("user_interface.content_trans") != 1 && !$trc[$this->clid]))
+		if ($arr["id"] === "transl" && (aw_ini_get("user_interface.content_trans") != 1 && empty($trc[$this->clid])))
 		{
 			return false;
 		}
@@ -83,9 +91,7 @@ class unit extends class_base
 	function get_unit_list($choose = null)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_UNIT,
-			"lang_id" => array(),
-			"site_id" => array(),
+			"class_id" => CL_UNIT
 		));
 		if($choose)
 		{
@@ -94,4 +100,3 @@ class unit extends class_base
 		return $ol->names();
 	}
 }
-?>

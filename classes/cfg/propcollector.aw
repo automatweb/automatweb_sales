@@ -235,9 +235,9 @@ class propcollector extends aw_template
 				if ($tagname === "comment")
 				{
 					$this->add_comment($tagdata);
-				};
-			};
-		};
+				}
+			}
+		}
 
 		$success = $this->cl_end(0);
 		return $this->cdata;

@@ -44,18 +44,22 @@ if(isset($pdf))
 
 <table class="header">
 <tr>
-	<td width="40%" class="logo"><img src="http://intranet.automatweb.com/img/bill/logo.gif" width="277" height="48"></td>
+	<td class="logo" width="40%">
+		<!-- SUB: HAS_IMPL_LOGO -->
+		<img src="{VAR:impl_logo_url}">
+		<!-- END SUB: HAS_IMPL_LOGO -->
+	</td>
 	<td width="35%">
 		<strong>{VAR:impl_ou} {VAR:impl_name}</strong><br>
 		Reg. nr {VAR:impl_reg_nr}<br>
 		kmkr {VAR:impl_kmk_nr}<br>
-		Swedbank a/a {VAR:acct_no}
+		A/a {VAR:acct_no}
 	</td>
 	<td width="25%">
 		{VAR:impl_street}<br>
 		{VAR:impl_index}, {VAR:impl_city}<br>
-		Tel 6 558 334<br>
-		www.automatweb.com
+		Tel {VAR:impl_phone}<br>
+		{VAR:impl_url}
 	</td>
 </tr>
 <tr>

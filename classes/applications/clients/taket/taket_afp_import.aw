@@ -17,24 +17,6 @@
 @property warehouses_table type=table
 @caption Laod
 
-@property import_link type=text store=no
-@caption Import
-
-@property warehouse type=relpicker reltype=RELTYPE_WAREHOUSE field=meta method=serialize
-@caption Ladu (ilmselt ei peaks siin olema)
-
-@property prod_fld type=relpicker reltype=RELTYPE_PROD_FLD field=meta method=serialize
-@caption Toodete kaust (ilmselt ei peaks siin olema)
-
-@property org_fld type=relpicker reltype=RELTYPE_ORG_FLD field=meta method=serialize
-@caption Organisatsioonide kaust (ilmselt ei peaks siin olema)
-
-@property amount type=textbox field=meta method=serialize default=5000
-@caption Mitu rida korraga importida (ilmselt ei peaks siin olema)
-
-@property code_ctrl type=relpicker reltype=RELTYPE_CODE_CONTROLLER field=meta method=serialize
-@caption L&uuml;hikese koodi kontroller
-
 
 @reltype WAREHOUSE value=1 clid=CL_SHOP_WAREHOUSE
 @caption Ladu
@@ -124,33 +106,6 @@ class taket_afp_import extends class_base implements warehouse_import_if
 
 	}
 
-	function _get_import_link($arr)
-	{
-		$links[] = html::href(array(
-			'caption' => t('K&auml;ivita import'),
-			'url' => $this->mk_my_orb('import_data', array(
-				'id' => $arr['obj_inst']->id(),
-				'return_url' => get_ru()
-			))
-		));
-		$links[] = html::href(array(
-			'caption' => t('Laoseisu import'),
-			'url' => $this->mk_my_orb('import_amounts', array(
-				'id' => $arr['obj_inst']->id(),
-				'return_url' => get_ru()
-			))
-		));
-		$links[] = html::href(array(
-			'caption' => t('Hindade import'),
-			'url' => $this->mk_my_orb('import_prices', array(
-				'id' => $arr['obj_inst']->id(),
-				'return_url' => get_ru()
-			))
-		));
-	
-		$arr['prop']['value'] = implode(' | ', $links);
-	}
-
 	/**
 	@attrib name=import_data all_args=1
 	**/
@@ -158,7 +113,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 	{
 		if($this->can("view", $arr["id"]))
 		{
-			obj($arr["id"])->get_data($arr);
+			obj($arr["id"])->do_import();
 		}
 		return $arr["post_ru"];
 	}
@@ -185,19 +140,6 @@ class taket_afp_import extends class_base implements warehouse_import_if
 			obj($arr["id"])->import_prices($arr);
 		}
 		return $arr["post_ru"];
-	}
-
-	/**
-		@attrib name=get_users_data all_args=1
-	**/
-	function make_master_import_happy($arr)
-	{
-		$data = array();
-		if($this->can("view", $arr["slave_obj_id"]))
-		{
-			$data = obj($arr["slave_obj_id"])->get_users_data($arr);
-		}
-		return $data;
 	}
 
 	function callback_mod_reforb($arr)
@@ -235,7 +177,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		);
 	}
 
-	function fetch_product_xml($import_object, $xml_done_callback_url, $wh_id)
+	function fetch_product_xml($import_object, $xml_done_callback_url, $wh_id, $return_file_name)
 	{
 		$whl = $this->get_warehouse_list();
 		$whd = $whl[$wh_id];
@@ -245,11 +187,11 @@ class taket_afp_import extends class_base implements warehouse_import_if
 
 		$this->print_line("Creating products file ... ", false);
 		$result = file_get_contents($url->get());
-		$this->print_line($result);
+		$this->print_line('['.$result.']');
 		
 
 		$adr = new aw_uri($whd["info"]."/prods.csv");
-		$dest_fld = aw_ini_get('site_basedir').'/files/products.csv';
+		$dest_fld = aw_ini_get('site_basedir').'/files/warehouse_import/products.csv';
 
 		$wget_command = 'wget -O '.$dest_fld.' "'.$adr->get().'"';
 
@@ -258,15 +200,24 @@ class taket_afp_import extends class_base implements warehouse_import_if
 	
 		$this->print_line("[done]");
 
-		$xml_done_callback_url .= "&prod_xml=".$this->generate_products_xml();
-		die("no go here ".html::href(array("url" => $xml_done_callback_url)));
+		$this->print_line("Generate prods XML file ... ", false);
+		$xml_file_name = $this->generate_products_xml();
+		$this->print_line("[done]");
+
+		if ($return_file_name)
+		{
+			return $xml_file_name;
+		}
+
+		$xml_done_callback_url .= "&prod_xml=".$xml_file_name;
+		die("now go here ".html::href(array("url" => $xml_done_callback_url)));
 	}
 
 
 	function generate_products_xml()
 	{
 		// TODO should make it configurable
-		$path = aw_ini_get('site_basedir').'/files/products.csv';
+		$path = aw_ini_get('site_basedir').'/files/warehouse_import/products.csv';
 		$lines = file($path);
 
 	
@@ -292,13 +243,17 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		
 		foreach ($prods as $code => $data)
 		{
+			if (++$counter >= 1000)
+			{
+			//	break;
+			}
 			$product = $xml->addChild('product');
 			foreach ($data as $key => $value)
 			{
 				$product->addChild($key, utf8_encode(str_replace("&", "&amp;", htmlentities($value))));
 			}
 		}
-		$prod_file = aw_ini_get('site_basedir').'/files/products.xml';
+		$prod_file = aw_ini_get('site_basedir').'/files/warehouse_import/products.xml';
 		$xml->asXML($prod_file);
 
 		return $prod_file;
@@ -311,6 +266,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		{
 			echo "<br />\n";
 		}
+		file_put_contents('/tmp/taket_afp_import.log', $str."\n", FILE_APPEND);
 		flush();
 	}
 
@@ -389,7 +345,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		$url->set_arg('create_products_file', 1);
 
 		$this->print_line("Creating products file ... ", false);
-		$result = file_get_contents($url->get());
+	//	$result = file_get_contents($url->get());
 
 
 		$adr = new aw_uri($wl[1]["info"]."/prods.csv");
@@ -398,7 +354,7 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		$wget_command = 'wget -O '.$dest_fld.' "'.$adr->get().'"';
 
 		$this->print_line("Download products file ... ", false);
-		shell_exec($wget_command);
+//		shell_exec($wget_command);
 	
 		$this->print_line("[done]");
 
@@ -412,13 +368,266 @@ class taket_afp_import extends class_base implements warehouse_import_if
 		foreach ($lines as $line)
 		{
 			$fields = explode("\t", $line);
-
 			$p = $xml->addChild("product");
 			$p->addChild("product_code", trim($fields[0]));
 			$p->addChild("price", trim($fields[6]));
 			$p->addChild("special_price", trim($fields[7]));
 		}
 
+		return $xml->asXML();
+	}
+
+	function get_dnotes_xml($wh_id = null)
+	{
+		$wl = $this->get_warehouse_list();
+		$url = $wl[4]["info"];
+
+		// fetch rows data
+		$turl = new aw_uri($url.'/index.php');
+		$turl->set_arg('get_saatelehed_read', 1);
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_temp_read.csv", "w");
+		fwrite($f, get_instance("http")->get($turl->get()));
+		fclose($f);
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_temp_read.csv", "r");
+		$first = true;
+		$rows = array();
+		while (($items = fgetcsv($f, 0, "\t", "\"")) !== false)
+		{
+			if ($first)
+			{
+				$first = false;
+				continue;
+			}
+			$rows[trim($items[0])][] = $items;
+		}
+		fclose($f);
+
+
+		$turl = new aw_uri($url.'/index.php');
+		$turl->set_arg('get_saatelehed', 1);
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_temp.csv", "w");
+		fwrite($f, get_instance("http")->get($turl->get()));
+		fclose($f);
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_temp.csv", "r");
+			
+		$xml = new SimpleXMLElement("<dnotes />");	
+
+		$first = true;
+		while (($items = fgetcsv($f, 0, "\t", "\"")) !== false)
+		{
+//			$items = explode("\t", $line);	
+			if ($first)
+			{
+				$first = false;
+//echo (dbg::dump($items));
+				continue;
+			}
+//echo(dbg::dump($items));
+
+			list($y, $m, $d) = explode("-", trim($items[5]));
+			$deld = mktime(0, 0, 0, $m, $d, $y);
+
+			list($y, $m, $d) = explode("-", trim($items[4]));
+			$eld = mktime(0, 0, 0, $m, $d, $y);
+
+			$p = $xml->addChild("dnote");
+			$p->addChild("number", trim($items[0]));
+			$p->addChild("customer_ext_id", trim($items[1]));
+			$p->addChild("delivery_date", $deld);
+			$p->addChild("enter_date", $eld);
+
+// VALMIS, LASKUTETTU
+
+			if (trim($items[3]) == "VALMIS")
+			{
+				$p->addChild("state", 2);
+			}
+			else
+			if (trim($items[3]) == "LASKUTETTU")
+			{
+				$p->addChild("state", 1);
+			}
+	
+
+			$p->addChild("from_warehouse", 6411);
+			$p->addChild("impl", 131);
+			$p->addChild("currency", currency::find_by_symbol(trim($items[18]))->id());
+
+			foreach(safe_array($rows[trim($items[0])]) as $row)
+			{
+				$xr = $p->addChild("rows");
+				$xr->addChild("prod_code", trim($row[7]));
+				$xr->addChild("price", trim($row[9]));
+				$xr->addChild("warehouse", 6411);
+				$xr->addChild("amount", trim($row[10]));
+			}
+				
+		}
+		return $xml->asXML();
+	}
+
+	public function get_bills_xml($wh_id = null)
+	{
+		$wl = $this->get_warehouse_list();
+		$url = $wl[6]["info"];
+
+		// fetch rows data
+		$turl = new aw_uri($url.'/index.php');
+		$turl->set_arg('get_bill_rows', 1);
+
+/*		$f = fopen(aw_ini_get("cache.page_cache")."/taket_temp_bread.csv", "w");
+		fwrite($f, get_instance("http")->get($turl->get()));
+		fclose($f);*/
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_temp_bread.csv", "r");
+		$first = true;
+		$rows = array();
+		while (($items = fgetcsv($f, 0, "\t", "\"")) !== false)
+		{
+			if ($first)
+			{
+				$first = false;
+				continue;
+			}
+			$rows[trim($items[0])][] = $items;
+		}
+		fclose($f);
+
+
+		$turl = new aw_uri($url.'/index.php');
+		$turl->set_arg('get_bills', 1);
+
+	/*	$f = fopen(aw_ini_get("cache.page_cache")."/taket_btemp.csv", "w");
+		fwrite($f, get_instance("http")->get($turl->get()));
+		fclose($f);*/
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_btemp.csv", "r");
+			
+		$xml = new SimpleXMLElement("<bills />");	
+
+		$first = true;
+		while (($items = fgetcsv($f, 0, "\t", "\"")) !== false)
+		{
+			if ($first)
+			{
+				$first = false;
+				continue;
+			}
+
+			list($y, $m, $d) = explode("-", trim($items[15]));
+			$deld = mktime(0, 0, 0, $m, $d, $y);
+
+			$p = $xml->addChild("bill");
+			
+			$p->addChild("name", trim($items[0]));
+			$p->addChild("bill_no", trim($items[0]));
+			$p->addChild("impl", 131);
+			$p->addChild("bill_date", $deld);
+			$p->addChild("bill_due_date_days", trim($items[21]));
+			$p->addChild("sum", trim($items[11]));
+			$p->addChild("currency", currency::find_by_symbol(trim($items[19]))->id());
+			if (trim($items[11]) > 0)
+			{
+				$p->addChild("disc", (trim($items[12])*100.0) / trim($items[11]));
+			}
+			$p->addChild("approved", 1);
+			$p->addChild("customer_ext_id", trim($items[3]));
+			$p->addChild("warehouse", 6414);
+
+			foreach(safe_array($rows[trim($items[0])]) as $row)
+			{
+				$xr = $p->addChild("rows");
+				$xr->addChild("name", trim($row[1]));
+				$xr->addChild("amt", trim($row[12]));
+				$xr->addChild("prod", trim($row[9]));
+				$xr->addChild("price", trim($row[11]));
+				$xr->addChild("desc", trim($row[10]));
+			}
+				
+		}
+		return $xml->asXML();
+	}
+
+
+	public function get_orders_xml($wh_id = null)
+	{
+		$wl = $this->get_warehouse_list();
+		$url = $wl[6]["info"];
+
+		// fetch rows data
+		$turl = new aw_uri($url.'/index.php');
+		$turl->set_arg('get_tellimused_read', 1);
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_temp_oread.csv", "w");
+		fwrite($f, get_instance("http")->get($turl->get()));
+		fclose($f);
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_temp_oread.csv", "r");
+		$first = true;
+		$rows = array();
+		while (($items = fgetcsv($f, 0, "\t", "\"")) !== false)
+		{
+			if ($first)
+			{
+				$first = false;
+				continue;
+			}
+			$rows[trim($items[0])][] = $items;
+		}
+		fclose($f);
+
+
+		$turl = new aw_uri($url.'/index.php');
+		$turl->set_arg('get_tellimused', 1);
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_otemp.csv", "w");
+		fwrite($f, get_instance("http")->get($turl->get()));
+		fclose($f);
+
+
+		$f = fopen(aw_ini_get("cache.page_cache")."/taket_otemp.csv", "r");
+			
+		$xml = new SimpleXMLElement("<orders />");	
+
+		$first = true;
+		while (($items = fgetcsv($f, 0, "\t", "\"")) !== false)
+		{
+			if ($first)
+			{
+				$first = false;
+				continue;
+			}
+			list($y, $m, $d) = explode("-", trim($items[4]));
+			$deld = mktime(0, 0, 0, $m, $d, $y);
+
+			$p = $xml->addChild("order");
+			
+			$p->addChild("name", trim($items[0]));
+			$p->addChild("number", trim($items[0]));
+			$p->addChild("date", $deld);
+			$p->addChild("deal_date", $deld);
+			$p->addChild("currency", currency::find_by_symbol(trim($items[18]))->id());
+			$p->addChild("warehouse", 6414);
+			$p->addChild("order_status", trim($items[3]) == "HYVÄKSYTTY");
+			$p->addChild("purchaser_ext_id", trim($items[1]));
+
+			foreach(safe_array($rows[trim($items[0])]) as $row)
+			{
+				$xr = $p->addChild("rows");
+				$xr->addChild("name", trim($row[1]));
+				$xr->addChild("prod", trim($row[5]));
+				$xr->addChild("warehouse", 6414);
+				$xr->addChild("date", $deld);
+				$xr->addChild("price", trim($row[7]));
+				$xr->addChild("amount", trim($row[8]));
+				$xr->addChild("prod_name", trim($row[6]));
+			}
+				
+		}
 		return $xml->asXML();
 	}
 }

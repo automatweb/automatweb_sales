@@ -87,9 +87,6 @@
             <value>1</value>
             <field>no_reforb</field>
       </property>
-      <classinfo>
-            <maintainer>markop</maintainer>
-      </classinfo>
       <forminfo>
             <crm_search>
                   <onload>init_search</onload>

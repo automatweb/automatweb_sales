@@ -1100,7 +1100,7 @@ class group extends class_base
 		@comment
 			This is just a wrapper for object adding, nothing special is going on
 	**/
-	function add_group($parent, $name, $type, $priority)
+	public static function add_group($parent, $name, $type, $priority)
 	{
 		$o = obj();
 		$o->set_class_id(CL_GROUP);
@@ -1125,9 +1125,7 @@ class group extends class_base
 	function get_group_picker($arr)
 	{
 		$filt = array(
-			"class_id" => CL_GROUP,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_GROUP
 		);
 		if ($arr["type"])
 		{
@@ -1184,7 +1182,7 @@ class group extends class_base
 			{
 				// create nlg group
 				$grpp = aw_ini_get("groups.tree_root");
-				$nlg_o = obj(get_instance(CL_GROUP)->add_group($grpp, "Sisse logimata kasutajad", group_obj::TYPE_REGULAR, 1));
+				$nlg_o = obj(self::add_group($grpp, "Sisse logimata kasutajad", group_obj::TYPE_REGULAR, 1));
 				$c->set_simple_config("non_logged_in_users_group_oid", $nlg_o->id());
 				$nlg_oid = $nlg_o->id();
 			}

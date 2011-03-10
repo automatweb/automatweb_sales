@@ -56,6 +56,7 @@ class crm_sales_contacts_search
 	private $p_seller;
 	private $p_buyer;
 	private $p_category;
+	private $p_reg_nr;
 	private $p_name;
 	private $p_salesman;
 	private $p_lead_source;
@@ -117,6 +118,15 @@ class crm_sales_contacts_search
 		return $this->$method($order, $direction);
 	}
 
+	/** Retrieves object id-s for customer relations matching search criteria specified. Limits result if requested.
+		@attrib api=1 params=pos
+		@param limit type=obj_predicate_limit default=null
+		@comment
+			This is where actual search is executed
+		@returns array
+			Array with cr oids as values
+		@errors
+	**/
 	public function get_customer_relation_oids(obj_predicate_limit $limit = null)
 	{
 		$method = "search_" . $this->select_search_method();
@@ -174,6 +184,11 @@ class crm_sales_contacts_search
 		}
 
 		$this->p_category = $category->id();
+	}
+
+	private function _set_reg_nr($nr)
+	{
+		$this->p_reg_nr = $nr;
 	}
 
 	private function _set_name($value)
@@ -338,11 +353,22 @@ class crm_sales_contacts_search
 			}
 		}
 
-
 		// category constraint
 		if ($this->p_category)
 		{
 			$filter["CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CATEGORY"] = $this->p_category;
+		}
+
+		// company registration number constraint
+		if ($this->p_reg_nr)
+		{
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array (
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).reg_nr" => "{$this->p_reg_nr}",
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).reg_nr" => "{$this->p_reg_nr}"
+				)
+			));
 		}
 
 		// search params

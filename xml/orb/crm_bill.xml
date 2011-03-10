@@ -15,6 +15,21 @@
 			</function>
 		</action>
 
+		<action name="post_row_block" all_args="1">
+			<function name="post_row_block">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="delete_row_block">
+			<function name="delete_row_block">
+				<arguments>
+					<required name="id" type="oid" acl="view" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="reload_customer_data">
 			<function name="reload_customer_data">
 				<arguments>
@@ -27,6 +42,23 @@
 		<action name="get_row_change_fields" all_args="1">
 			<function name="ajax_get_row_change_fields">
 				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_rowblock_change_contents">
+			<function name="get_rowblock_change_contents">
+				<arguments>
+					<required name="id" type="oid" acl="edit" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="get_rowblock_view_contents">
+			<function name="get_rowblock_view_contents">
+				<arguments>
+					<required name="id" type="oid" acl="view" />
+					<optional name="return" type="bool" default="false" />
 				</arguments>
 			</function>
 		</action>
@@ -88,6 +120,27 @@
 			</function>
 		</action>
 
+		<action name="add_row_block">
+			<function name="add_row_block">
+				<arguments>
+					<required name="id" type="int" acl="edit" />
+					<optional name="sel" type="array" />
+					<optional name="ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="set_row_block">
+			<function name="set_row_block">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+					<required name="row_id" type="int" acl="view" />
+					<required name="block_id" type="int" acl="edit" />
+					<optional name="ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="create_bill">
 			<function name="create_bill">
 				<arguments>
@@ -138,9 +191,13 @@
 			</function>
 		</action>
 
-		<action name="reconcile_rows">
-			<function name="reconcile_rows">
+		<action name="merge_rows">
+			<function name="merge_rows">
 				<arguments>
+					<required name="id" type="oid" />
+					<required name="sel_rows" type="array" />
+					<required name="post_ru" type="string" />
+					<optional name="aggregate_total" type="float" />
 				</arguments>
 			</function>
 		</action>

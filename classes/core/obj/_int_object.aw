@@ -229,12 +229,6 @@ class _int_object
 	{
 		if (empty($this->obj["oid"]))
 		{
-			/*
-			error::raise(array(
-				"id" => "ERR_NO_OBJ",
-				"msg" => t("object::connections_from(): no current object loaded!")
-			));
-			*/
 			return array();
 		}
 
@@ -340,12 +334,6 @@ class _int_object
 	{
 		if (empty($this->obj["oid"]))
 		{
-			/*
-			error::raise(array(
-				"id" => "ERR_NO_OBJ",
-				"msg" => t("object::connections_to(): no current object loaded!")
-			));
-			*/
 			return array();
 		}
 
@@ -694,28 +682,24 @@ class _int_object
 	function set_status($param)
 	{
 		$prev = isset($this->obj["status"]) ? $this->obj["status"] : null;
+		settype($param, "int");
 
-		switch($param)
+		if (object::STAT_ACTIVE === $param)
 		{
-			case object::STAT_DELETED:
-				$this->_int_set_of_value("status", object::STAT_DELETED);
-				return $this->delete();
-				break;
-
-			case object::STAT_ACTIVE:
-				$this->_int_set_of_value("status", object::STAT_ACTIVE);
-				break;
-
-			case object::STAT_NOTACTIVE:
-				$this->_int_set_of_value("status", object::STAT_NOTACTIVE);
-				break;
-
-			default:
-				error::raise(array(
-					"id" => "ERR_STATUS",
-					"msg" => sprintf(t("object::set_status(%s): incorrect status code!"), $param)
-				));
-				return;
+			$this->_int_set_of_value("status", object::STAT_ACTIVE);
+		}
+		elseif (object::STAT_NOTACTIVE === $param)
+		{
+			$this->_int_set_of_value("status", object::STAT_NOTACTIVE);
+		}
+		elseif (object::STAT_DELETED === $param)
+		{
+			$this->_int_set_of_value("status", object::STAT_DELETED);
+			return $this->delete();
+		}
+		else
+		{
+			throw new awex_obj_type("Invalid status parameter '{$param}' for object '{$this->obj["oid"]}'");
 		}
 
 		$this->_int_do_implicit_save();

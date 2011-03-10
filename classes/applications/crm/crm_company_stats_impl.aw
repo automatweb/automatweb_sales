@@ -3296,8 +3296,8 @@ ini_set("memory_limit", "1500M");
 			"cur_year" => t("Jooksev aasta"),
 			"last_year" => t("Eelmine aasta"),
 		);
-		$arr["prop"]["value"] = $arr["request"]["stats_stats_time_sel"];
-		if(!$arr["prop"]["value"] && !$arr["request"]["stats_stats_from"] && !$arr["request"]["stats_stats_to"])
+		$arr["prop"]["value"] = isset($arr["request"]["stats_stats_time_sel"]) ? $arr["request"]["stats_stats_time_sel"] : "";
+		if(empty($arr["prop"]["value"]) && empty($arr["request"]["stats_stats_from"]) && empty($arr["request"]["stats_stats_to"]))
 		{
 			$arr["prop"]["value"] = "cur_mon";
 		}
@@ -3629,25 +3629,27 @@ ini_set("memory_limit", "1500M");
 	}
 
 	function _get_stats_stats_search($arr)
-		{
-		}
+	{
+	}
 
 	function _get_status_chart($arr)
 	{
-		switch($arr["request"]["st"])
+		if (!empty($arr["request"]["st"]))
 		{
-			case "task":
-			case "meeting":
-			case "bug":
-			case "customers":
-				return false;
-				break;
+			switch($arr["request"]["st"])
+			{
+				case "task":
+				case "meeting":
+				case "bug":
+				case "customers":
+					return false;
+					break;
 
+			}
 		}
 
 		aw_set_exec_time(AW_LONG_PROCESS);
-		classload("core/date/date_calc");
-		if($arr["request"]["stats_stats_time_sel"])
+		if(!empty($arr["request"]["stats_stats_time_sel"]))
 		{
 			switch($arr["request"]["stats_stats_time_sel"])
 			{
@@ -3656,39 +3658,39 @@ ini_set("memory_limit", "1500M");
 					$end = time() + 86400*1000;
 					break;
 				case "cur_week":
-					$start = get_week_start();
-					$end = get_week_start()+7*86400-1;
+					$start = date_calc::get_week_start();
+					$end = date_calc::get_week_start()+7*86400-1;
 					break;
 				case "cur_mon":
-					$start = get_month_start();
+					$start = date_calc::get_month_start();
 					$end = mktime(0,0,0,(date("m") + 1) , 1 , date("Y"))-1;
 					break;
 				case "last_mon":
 					$start = mktime(0,0,0,(date("m") - 1) , 1 , date("Y"));
-					$end = get_month_start()-1;
+					$end = date_calc::get_month_start()-1;
 					break;
 				case "last_last_mon":
 					$start = mktime(0,0,0,(date("m") - 2) , 1 , date("Y"));
 					$end = mktime(0,0,0,(date("m") - 1) , 1 , date("Y"))-1;
 					break;
 				case "cur_year":
-					$start = get_year_start();
+					$start = date_calc::get_year_start();
 					$end = mktime(0,0,0,1,1,(date("Y") + 1))-1;
 					break;
 				case "last_year":
 					$start = mktime(0,0,0,1,1,(date("Y") - 1));
-					$end = get_year_start()-1;
+					$end = date_calc::get_year_start()-1;
 					break;
 			}
 		}
-		elseif($arr["request"]["stats_stats_from"])
+		elseif(!empty($arr["request"]["stats_stats_from"]))
 		{
 			$start = date_edit::get_timestamp($arr["request"]["stats_stats_from"]);
 			$end = date_edit::get_timestamp($arr["request"]["stats_stats_to"]);
 		}
 		else
 		{
-			$start = get_month_start();
+			$start = date_calc::get_month_start();
 			$end = mktime(0,0,0,(date("m") + 1) , date("d") , date("Y"));
 		}
 		$between = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING,$start, $end);
@@ -3715,124 +3717,128 @@ ini_set("memory_limit", "1500M");
 		));
 		$times = array();
 		$labels = array();
+		$title = "";
 
-		switch($arr["request"]["st"])
+		if (!empty($arr["request"]["st"]))
 		{
-			case "bills":
-				$c->set_size(array(
-					"width" => 950,
-					"height" => 150,
-				));
-				$bills = $this->get_bills_data(array("between" => $between));
-				foreach($bills as $bill)
-				{
-					$times[$bill["state"]] ++;
-				}
-				$bill_inst = get_instance(CL_CRM_BILL);
-				foreach($times as $status => $count)
-				{
-					$labels[] = $bill_inst->states[$status]." (".$count.")";
-				}
-				$title = t("Arveid staatuste kaupa");
-				break;
-			case "projects":
-				$c->set_size(array(
-					"width" => 950,
-					"height" => 200,
-				));
-				$works = $this->get_rows_data(array("between" => $between));
-				$tasks = array();
-				$works_per_person = array();
-				foreach($works as $row)
-				{
-					$times[reset($row["project"])]+= $row["time_real"];
-				}
-				arsort($times);
-				$count = 0;
-				foreach($times as $project => $hours)
-				{
-					if($count > 18)
+			switch($arr["request"]["st"])
+			{
+				case "bills":
+					$c->set_size(array(
+						"width" => 950,
+						"height" => 150,
+					));
+					$bills = $this->get_bills_data(array("between" => $between));
+					foreach($bills as $bill)
 					{
-						unset($times[$project]);
-						continue;
+						$times[$bill["state"]] ++;
 					}
-					$labels[] = get_name($project)." (".$hours.")";
-					$count++;
-				}
-				$title = t("T&ouml;&ouml;tunde projketide kaupa");
-				break;
-			case "customers":
-				return false;
-				break;
-			case "task":
-				break;
-			case "bug":
-				break;
-			case "meeting":
-				break;
-			case "rows":
-				break;
-			case "call":
-				$calls_data = $this->get_calls_data(array(
-					"from" => $start,
-					"to" => $end
-				));
-				$calls_in = 0;
-				$calls_out = 0;
-				$undef = 0;
-				foreach($calls_data as $dat)
-				{
-					if($dat["promoter"] == 0)
+					$bill_inst = get_instance(CL_CRM_BILL);
+					foreach($times as $status => $count)
 					{
-						$calls_out++;
+						$labels[] = $bill_inst->states[$status]." (".$count.")";
 					}
-					elseif($dat["promoter"] == 1)
+					$title = t("Arveid staatuste kaupa");
+					break;
+				case "projects":
+					$c->set_size(array(
+						"width" => 950,
+						"height" => 200,
+					));
+					$works = $this->get_rows_data(array("between" => $between));
+					$tasks = array();
+					$works_per_person = array();
+					foreach($works as $row)
 					{
-						$calls_in++;
+						$times[reset($row["project"])]+= $row["time_real"];
 					}
-					else
-					$undef++;
+					arsort($times);
+					$count = 0;
+					foreach($times as $project => $hours)
+					{
+						if($count > 18)
+						{
+							unset($times[$project]);
+							continue;
+						}
+						$labels[] = get_name($project)." (".$hours.")";
+						$count++;
+					}
+					$title = t("T&ouml;&ouml;tunde projketide kaupa");
+					break;
+				case "customers":
+					return false;
+					break;
+				case "task":
+					break;
+				case "bug":
+					break;
+				case "meeting":
+					break;
+				case "rows":
+					break;
+				case "call":
+					$calls_data = $this->get_calls_data(array(
+						"from" => $start,
+						"to" => $end
+					));
+					$calls_in = 0;
+					$calls_out = 0;
+					$undef = 0;
+					foreach($calls_data as $dat)
+					{
+						if($dat["promoter"] == 0)
+						{
+							$calls_out++;
+						}
+						elseif($dat["promoter"] == 1)
+						{
+							$calls_in++;
+						}
+						else
+						$undef++;
 
-				}
-				$times[] = $calls_out;
-				$times[] = $calls_in;
-				$times[] = $undef;
-				$labels[] = t("K&otilde;ned v&auml;lja")." (".$calls_out.")";
-				$labels[] = t("K&otilde;ned sisse")." (".$calls_in.")";
-				$labels[] = t("M&auml;&auml;ramata")." (".$undef.")";
-				$title = t("K&otilde;ned jagatuna sisse tulnuteks ja v&auml;lja l&auml;inuteks").". (".t("Kokku").":".(sizeof($calls_data)).")";
+					}
+					$times[] = $calls_out;
+					$times[] = $calls_in;
+					$times[] = $undef;
+					$labels[] = t("K&otilde;ned v&auml;lja")." (".$calls_out.")";
+					$labels[] = t("K&otilde;ned sisse")." (".$calls_in.")";
+					$labels[] = t("M&auml;&auml;ramata")." (".$undef.")";
+					$title = t("K&otilde;ned jagatuna sisse tulnuteks ja v&auml;lja l&auml;inuteks").". (".t("Kokku").":".(sizeof($calls_data)).")";
 
-				break;
-			case "workers":
-				$c->set_colors(array(
-					"660000","3300cc",
-				));
-				if(!$this->stats_rows_data)
-				{
-					$this->stats_rows_data = $this->get_rows_data(array("between" => $between));
-				}
+					break;
+				case "workers":
+					$c->set_colors(array(
+						"660000","3300cc",
+					));
+					if(!$this->stats_rows_data)
+					{
+						$this->stats_rows_data = $this->get_rows_data(array("between" => $between));
+					}
 
-				$tasks = array();
-				$works_per_person = array();
+					$tasks = array();
+					$works_per_person = array();
 
-				$hours_cust = 0;
-				$hours_dev = 0;
-				$u = get_instance(CL_USER);
-				$company = $u->get_current_company();
-				foreach($this->stats_rows_data as $row)
-				{
-					$hours_cust+= (!reset($row["customer"]) || reset($row["customer"]) == $company ? 0 : $row["time_real"]);
-					$hours_dev+= (!reset($row["customer"]) || reset($row["customer"]) == $company ? $row["time_real"] : 0);
-				}
-				$times["dev"] = $hours_dev;
-				$labels[] = t("Arendus")." ".round($hours_dev , 2);
-				$times["cust"] = $hours_cust;
-				$labels[] = t("Kliendile")." ".round($hours_cust , 2);
-				$title = t("T&ouml;&ouml;de jaotus klientide ja oma organisatsiooni vahel").". (".t("Kokku").":".round($hours_cust + $hours_dev , 2).")";
-				break;
-			default:
-				return PROP_IGNORE;
-				break;
+					$hours_cust = 0;
+					$hours_dev = 0;
+					$u = get_instance(CL_USER);
+					$company = $u->get_current_company();
+					foreach($this->stats_rows_data as $row)
+					{
+						$hours_cust+= (!reset($row["customer"]) || reset($row["customer"]) == $company ? 0 : $row["time_real"]);
+						$hours_dev+= (!reset($row["customer"]) || reset($row["customer"]) == $company ? $row["time_real"] : 0);
+					}
+					$times["dev"] = $hours_dev;
+					$labels[] = t("Arendus")." ".round($hours_dev , 2);
+					$times["cust"] = $hours_cust;
+					$labels[] = t("Kliendile")." ".round($hours_cust , 2);
+					$title = t("T&ouml;&ouml;de jaotus klientide ja oma organisatsiooni vahel").". (".t("Kokku").":".round($hours_cust + $hours_dev , 2).")";
+					break;
+				default:
+					return PROP_IGNORE;
+					break;
+			}
 		}
 
 		$c->set_title(array(
@@ -3846,19 +3852,22 @@ ini_set("memory_limit", "1500M");
 
 	function _get_money_chart($arr)
 	{
-		switch($arr["request"]["st"])
+		if (!empty($arr["request"]["st"]))
 		{
-			case "bills":
-			case "projects":
-			case "task":
-			case "call":
-			case "meeting":
-			case "bug":
-				return false;
-				break;
+			switch($arr["request"]["st"])
+			{
+				case "bills":
+				case "projects":
+				case "task":
+				case "call":
+				case "meeting":
+				case "bug":
+					return false;
+					break;
+			}
 		}
-		classload("core/date/date_calc");
-		if($arr["request"]["stats_stats_time_sel"])
+
+		if(!empty($arr["request"]["stats_stats_time_sel"]))
 		{
 			switch($arr["request"]["stats_stats_time_sel"])
 			{
@@ -3867,39 +3876,39 @@ ini_set("memory_limit", "1500M");
 					$end = time() + 86400*1000;
 					break;
 				case "cur_week":
-					$start = get_week_start();
-					$end = get_week_start()+7*86400-1;
+					$start = date_calc::get_week_start();
+					$end = date_calc::get_week_start()+7*86400-1;
 					break;
 				case "cur_mon":
-					$start = get_month_start();
+					$start = date_calc::get_month_start();
 					$end = mktime(0,0,0,(date("m") + 1) , 1 , date("Y"))-1;
 					break;
 				case "last_mon":
 					$start = mktime(0,0,0,(date("m") - 1) , 1 , date("Y"));
-					$end = get_month_start()-1;
+					$end = date_calc::get_month_start()-1;
 					break;
 				case "last_last_mon":
 					$start = mktime(0,0,0,(date("m") - 2) , 1 , date("Y"));
 					$end = mktime(0,0,0,(date("m") - 1) , 1 , date("Y"))-1;
 					break;
 				case "cur_year":
-					$start = get_year_start();
+					$start = date_calc::get_year_start();
 					$end = mktime(0,0,0,1,1,(date("Y") + 1))-1;
 					break;
 				case "last_year":
 					$start = mktime(0,0,0,1,1,(date("Y") - 1));
-					$end = get_year_start()-1;
+					$end = date_calc::get_year_start()-1;
 					break;
 			}
 		}
-		elseif($arr["request"]["stats_stats_from"])
+		elseif(!empty($arr["request"]["stats_stats_from"]))
 		{
 			$start = date_edit::get_timestamp($arr["request"]["stats_stats_from"]);
 			$end = date_edit::get_timestamp($arr["request"]["stats_stats_to"]);
 		}
 		else
 		{
-			$start = get_month_start();
+			$start = date_calc::get_month_start();
 			$end = mktime(0,0,0,(date("m") + 1) , date("d") , date("Y"));
 		}
 		$between = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING,$start, $end);
@@ -3924,101 +3933,106 @@ ini_set("memory_limit", "1500M");
 		));
 		$times = array();
 		$labels = array();
+		$max = 0;
+		$title = "";
 
-		switch($arr["request"]["st"])
+		if (!empty($arr["request"]["st"]))
 		{
-			case "bills":
-				break;
-			case "projects":
-				break;
-			case "customers":
-				$c->set_size(array(
-					"width" => 950,
-					"height" => 150,
-				));
-				$payments = $this->get_payments_data(array("between" => $between));
+			switch($arr["request"]["st"])
+			{
+				case "bills":
+					break;
+				case "projects":
+					break;
+				case "customers":
+					$c->set_size(array(
+						"width" => 950,
+						"height" => 150,
+					));
+					$payments = $this->get_payments_data(array("between" => $between));
 
-				foreach($payments as $payment)
-				{
-					$times[$payment["customer"]]+= $payment["sum"];
-				}
-				arsort($times);
-				$max = 0;
-				$count = 0;
-				$title = t("Raha laekunud klientide kaupa").". (".t("Kokku").":".(array_sum($times)).")";
-				foreach($times as $person => $time)
-				{
-					if($count > 10)
+					foreach($payments as $payment)
 					{
-						unset($times[$person]);
-						continue;
+						$times[$payment["customer"]]+= $payment["sum"];
 					}
-					$times[$person] = round($times[$person] , 2);
-					$p = obj($person);
+					arsort($times);
+					$max = 0;
+					$count = 0;
+					$title = t("Raha laekunud klientide kaupa").". (".t("Kokku").":".(array_sum($times)).")";
+					foreach($times as $person => $time)
+					{
+						if($count > 10)
+						{
+							unset($times[$person]);
+							continue;
+						}
+						$times[$person] = round($times[$person] , 2);
+						$p = obj($person);
 
-					$labels[] = is_object($p) ? ($p->prop("short_name") ? $p->prop("short_name") : substr($p->prop("name") , 0 , 10)) : "";
-					if($max < $time)
-					{
-						$max = $time;
+						$labels[] = is_object($p) ? ($p->prop("short_name") ? $p->prop("short_name") : substr($p->prop("name") , 0 , 10)) : "";
+						if($max < $time)
+						{
+							$max = $time;
+						}
+						$count++;
 					}
-					$count++;
-				}
-				$c->set_bar_sizes(array(
-					"width" => 75,
-					"bar_spacing" => 2,
-		//			"bar_group_spacing" => 8,
-				));
-				break;
-			case "task":
-				break;
-			case "bug":
-				break;
-			case "meeting":
-				break;
-			case "rows":
-				break;
-			case "call":
-				break;
-			case "workers":
-				if(!$this->stats_rows_data)
-				{
-					$this->stats_rows_data = $this->get_rows_data(array("between" => $between));
-				}
+					$c->set_bar_sizes(array(
+						"width" => 75,
+						"bar_spacing" => 2,
+			//			"bar_group_spacing" => 8,
+					));
+					break;
+				case "task":
+					break;
+				case "bug":
+					break;
+				case "meeting":
+					break;
+				case "rows":
+					break;
+				case "call":
+					break;
+				case "workers":
+					if(!$this->stats_rows_data)
+					{
+						$this->stats_rows_data = $this->get_rows_data(array("between" => $between));
+					}
 
-				foreach($this->stats_rows_data as $dat)
-				{
-					$person = reset($dat["impl"]);
-					if($dat["time_real"])
+					foreach($this->stats_rows_data as $dat)
 					{
-						$times[$person]+=$dat["time_real"];
+						$person = reset($dat["impl"]);
+						if($dat["time_real"])
+						{
+							$times[$person]+=$dat["time_real"];
+						}
 					}
-				}
 
-				arsort($times);
-				$max = 0;
-				$count = 0;
-				$title = t("Kirja l&auml;inud t&ouml;&ouml;tunnid inimeste kaupa").". (".t("Kokku").":".(array_sum($times)).")";
-				foreach($times as $person => $time)
-				{
-					if($count > 11)
+					arsort($times);
+					$max = 0;
+					$count = 0;
+					$title = t("Kirja l&auml;inud t&ouml;&ouml;tunnid inimeste kaupa").". (".t("Kokku").":".(array_sum($times)).")";
+					foreach($times as $person => $time)
 					{
-						unset($times[$person]);
-						continue;
-					}
-					$times[$person] = round($time , 2);
-					$p = obj($person);
+						if($count > 11)
+						{
+							unset($times[$person]);
+							continue;
+						}
+						$times[$person] = round($time , 2);
+						$p = obj($person);
 
-					$labels[] = is_object($p) ? $p->prop("firstname") : "";
-					if($max < $time)
-					{
-						$max = $time;
+						$labels[] = is_object($p) ? $p->prop("firstname") : "";
+						if($max < $time)
+						{
+							$max = $time;
+						}
+						$count++;
 					}
-					$count++;
-				}
-				break;
-			default:
-				return PROP_IGNORE;
-				break;
+					break;
+				default:
+					return PROP_IGNORE;
+					break;
+			}
 		}
 
 		$c->add_axis_label(2, $labels);
@@ -4061,8 +4075,7 @@ ini_set("memory_limit", "1500M");
 	function _get_stats_table($arr)
 	{
 		aw_set_exec_time(AW_LONG_PROCESS);
-		classload("core/date/date_calc");
-		if($arr["request"]["stats_stats_time_sel"])
+		if(!empty($arr["request"]["stats_stats_time_sel"]))
 		{
 			switch($arr["request"]["stats_stats_time_sel"])
 			{
@@ -4071,39 +4084,39 @@ ini_set("memory_limit", "1500M");
 					$end = time() + 86400*1000;
 					break;
 				case "cur_week":
-					$start = get_week_start();
-					$end = get_week_start()+7*86400-1;
+					$start = date_calc::get_week_start();
+					$end = date_calc::get_week_start()+7*86400-1;
 					break;
 				case "cur_mon":
-					$start = get_month_start();
+					$start = date_calc::get_month_start();
 					$end = mktime(0,0,0,(date("m") + 1) , 1 , date("Y"))-1;
 					break;
 				case "last_mon":
 					$start = mktime(0,0,0,(date("m") - 1) ,1 , date("Y"));
-					$end = get_month_start()-1;
+					$end = date_calc::get_month_start()-1;
 					break;
 				case "last_last_mon":
 					$start = mktime(0,0,0,(date("m") - 2) , 1 , date("Y"));
 					$end = mktime(0,0,0,(date("m") - 1) , 1 , date("Y"))-1;
 					break;
 				case "cur_year":
-					$start = get_year_start();
+					$start = date_calc::get_year_start();
 					$end = mktime(0,0,0,1,1,(date("Y") + 1))-1;
 					break;
 				case "last_year":
 					$start = mktime(0,0,0,1,1,(date("Y") - 1));
-					$end = get_year_start()-1;
+					$end = date_calc::get_year_start()-1;
 					break;
 			}
 		}
-		elseif($arr["request"]["stats_stats_from"])
+		elseif(!empty($arr["request"]["stats_stats_from"]))
 		{
 			$start = date_edit::get_timestamp($arr["request"]["stats_stats_from"]);
 			$end = date_edit::get_timestamp($arr["request"]["stats_stats_to"]);
 		}
 		else
 		{
-			$start = get_month_start();
+			$start = date_calc::get_month_start();
 			$end = mktime(0,0,0,(date("m") + 1) , 1 , date("Y"))-1;
 		}
 
@@ -4117,60 +4130,63 @@ ini_set("memory_limit", "1500M");
 		$this->_stats_s_from = $start;
 		$this->_stats_s_to = $end;
 
-		switch($arr["request"]["st"])
+		if (!empty($arr["request"]["st"]))
 		{
-			case "bills":
-				$filt = $arr["request"];
-				$this->_get_bills_stats($slaves, $tasks, $filt, $arr["prop"]["vcl_inst"]);
-				break;
-			case "projects":
-//				$arr["request"]["stats_s_res_type"] = "proj";
-//				$this->_get_stats_s_res($arr);
-				$this->_get_stats_projects($arr);
-				break;
-			case "customers":
-//				$arr["request"]["stats_s_res_type"] = "cust";
-//				$this->_get_stats_s_res($arr);
-				$this->_get_stats_customers($arr);
-				break;
-			case "task":
-				$arr["request"]["class_id"] = CL_TASK;
-				$this->_get_stats_different_tasks($arr);
-				break;
-			case "bug":
-				$arr["request"]["stats_s_res_type"] = "bugs";
-				$this->_get_stats_s_res($arr);
-				break;
-			case "meeting":
-				$arr["request"]["class_id"] = CL_CRM_MEETING;
-				$this->_get_stats_different_tasks($arr);
-				break;
-			case "rows":
-				$arr["request"]["stats_s_res_type"] = "rows";
-				$this->_get_stats_s_res($arr);
-				break;
-			case "call":
-				$arr["request"]["class_id"] = CL_CRM_CALL;
-				$this->_get_stats_different_tasks($arr);
-				break;
-			case "workers":
-				$this->_get_stats_workers($arr);
-				break;
-			case "project_managers":
-				$this->_get_stats_project_managers($arr);
-				break;
-			default:
-				$stuff = explode("_" , $arr["request"]["st"]);
-				if($stuff[0] == "customer")
-				{
-					$str = $this->get_customer_detailed_stats(array(
-						"id" => $stuff[1],
-						"request" => $arr["request"],
-					));
-					$arr["prop"]["type"] = "text";
-					$arr["prop"]["value"] = $str;
-				}
-				break;
+			switch($arr["request"]["st"])
+			{
+				case "bills":
+					$filt = $arr["request"];
+					$this->_get_bills_stats($slaves, $tasks, $filt, $arr["prop"]["vcl_inst"]);
+					break;
+				case "projects":
+	//				$arr["request"]["stats_s_res_type"] = "proj";
+	//				$this->_get_stats_s_res($arr);
+					$this->_get_stats_projects($arr);
+					break;
+				case "customers":
+	//				$arr["request"]["stats_s_res_type"] = "cust";
+	//				$this->_get_stats_s_res($arr);
+					$this->_get_stats_customers($arr);
+					break;
+				case "task":
+					$arr["request"]["class_id"] = CL_TASK;
+					$this->_get_stats_different_tasks($arr);
+					break;
+				case "bug":
+					$arr["request"]["stats_s_res_type"] = "bugs";
+					$this->_get_stats_s_res($arr);
+					break;
+				case "meeting":
+					$arr["request"]["class_id"] = CL_CRM_MEETING;
+					$this->_get_stats_different_tasks($arr);
+					break;
+				case "rows":
+					$arr["request"]["stats_s_res_type"] = "rows";
+					$this->_get_stats_s_res($arr);
+					break;
+				case "call":
+					$arr["request"]["class_id"] = CL_CRM_CALL;
+					$this->_get_stats_different_tasks($arr);
+					break;
+				case "workers":
+					$this->_get_stats_workers($arr);
+					break;
+				case "project_managers":
+					$this->_get_stats_project_managers($arr);
+					break;
+				default:
+					$stuff = explode("_" , $arr["request"]["st"]);
+					if($stuff[0] == "customer")
+					{
+						$str = $this->get_customer_detailed_stats(array(
+							"id" => $stuff[1],
+							"request" => $arr["request"],
+						));
+						$arr["prop"]["type"] = "text";
+						$arr["prop"]["value"] = $str;
+					}
+					break;
+			}
 		}
 	}
 

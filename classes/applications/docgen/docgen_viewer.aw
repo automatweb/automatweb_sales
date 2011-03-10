@@ -495,7 +495,7 @@ class docgen_viewer extends class_base
 				do
 				{
 					$this->vars(array(
-						"url" => $this->mk_my_orb("frameset", array(array("id" => $o->id()))),
+						"url" => $this->mk_my_orb("frames", array(array("id" => $o->id()))),
 						"name" => $o->name(),
 						"oid" => $o->id()
 					));
@@ -739,7 +739,7 @@ class docgen_viewer extends class_base
 		}
 		$this->vars(array("HAS_IF" => $hif));
 
-		if (isset($data["extends"]) && $data["extends"] != "")
+		if (!empty($data["extends"]))
 		{
 			$this->_display_extends($data);
 		}
@@ -749,6 +749,7 @@ class docgen_viewer extends class_base
 		{
 			$this->_display_dependencies($data["dependencies"]);
 		}
+
 		if (isset($data["implements"]) && is_array($data["implements"]))
 		{
 			$this->_display_implements($data["implements"]);
@@ -864,6 +865,7 @@ class docgen_viewer extends class_base
 			switch ($impl)
 			{
 				case "aw_exception":
+				case "awex_redundant_instruction":
 					$clf = "/../lib/errorhandling.aw";
 					break;
 
@@ -874,7 +876,7 @@ class docgen_viewer extends class_base
 					}
 					catch (awex_clidx_filesys $e)
 					{
-						die("ex for class $impl ".$e->getMessage());
+						die("'implements' for class $impl ".$e->getMessage());
 					}
 			}
 			$clf = str_replace(aw_ini_get("classdir"), "", $clf);
@@ -971,7 +973,12 @@ class docgen_viewer extends class_base
 			switch ($impl)
 			{
 				case "aw_exception":
+				case "awex_redundant_instruction":
 					$clf = "/../lib/errorhandling.aw";
+					break;
+
+				case "Exception":
+					$clf = "::internal";
 					break;
 
 				default:
@@ -981,7 +988,7 @@ class docgen_viewer extends class_base
 					}
 					catch (awex_clidx_filesys $e)
 					{
-						die("ex for class $impl ".$e->getMessage());
+						die("'throws' for class $impl ".$e->getMessage());
 					}
 			}
 
@@ -1179,20 +1186,25 @@ class docgen_viewer extends class_base
 
 		foreach($dep as $d_class => $d_ar)
 		{
-			switch ($impl)
+			switch ($d_class)//TODO: Replaced variable by name "impl" which wasn't defined anywhere by "d_class". not sure if that's correct
 			{
 				case "aw_exception":
+				case "awex_redundant_instruction":
 					$clf = "/../lib/errorhandling.aw";
+					break;
+
+				case "Exception":
+					$clf = "::internal";
 					break;
 
 				default:
 					try
 					{
-						$clf = class_index::get_file_by_name(basename($impl));
+						$clf = class_index::get_file_by_name(basename($d_class));
 					}
 					catch (awex_clidx_filesys $e)
 					{
-						die("ex for class $impl ".$e->getMessage());
+						die("'dependency' for class $d_class ".$e->getMessage());
 					}
 			}
 			$clf = str_replace(aw_ini_get("classdir"), "", $clf);
@@ -1213,7 +1225,7 @@ class docgen_viewer extends class_base
 	function _display_properties($clid, $data)
 	{
 		$cln = $data["name"];
-		if ($cln == "document" || $cln == "document_brother")
+		if ($cln === "document" || $cln === "document_brother")
 		{
 			$cln = "doc";
 		}
@@ -1241,7 +1253,7 @@ class docgen_viewer extends class_base
 		$i_ri = array();
 		foreach($ri as $ri_v => $ri_d)
 		{
-			if (substr($ri_v, 0, strlen("RELTYPE")) == "RELTYPE")
+			if (substr($ri_v, 0, strlen("RELTYPE")) === "RELTYPE")
 			{
 				$i_ri[$ri_d["value"]]["name"] = $ri_v;
 			}
@@ -1258,7 +1270,7 @@ class docgen_viewer extends class_base
 			$this->vars(array(
 				"name" => $ri_d["name"],
 				"clids" => $this->_get_clid_names($ri_d["clid"]),
-				"comment" => $ri_d["caption"]
+				"comment" => isset($ri_d["caption"]) ? $ri_d["caption"] : ""
 			));
 
 			$s_ri .= $this->parse("RELTYPE");
@@ -1295,7 +1307,7 @@ class docgen_viewer extends class_base
 		do {
 			$level++;
 
-			if ($dat["extends"] == "db_connector")
+			if ($dat["extends"] === "db_connector")
 			{
 				$_extends = "db";
 			}
@@ -1318,6 +1330,7 @@ class docgen_viewer extends class_base
 						break;
 
 					case "aw_exception":
+					case "awex_redundant_instruction":
 						$clf = "/../lib/errorhandling.aw";
 						break;
 
@@ -1329,7 +1342,7 @@ class docgen_viewer extends class_base
 			}
 			catch (awex_clidx_filesys $e)
 			{
-				die("ex for class $_extends ".$e->getMessage());
+				die("'extends' for class $_extends ".$e->getMessage());
 			}
 			$clf = str_replace(aw_ini_get("classdir"), "", $clf);
 

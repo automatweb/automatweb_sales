@@ -5,17 +5,23 @@
 */
 class aw_template extends core
 {
-	/** the main template folder **/
+	/** The main template folder, current instance template directory. Must end with '/' **/
 	public $template_dir = "";
+
+	/** Application server template directory **/
 	public $adm_template_dir = "";
+
+	/** Current site template directory **/
 	public $site_template_dir = "";
-	/** template variable values **/
+
+	/** Template variable values **/
 	public $vars;
 	public $sub_merge;
 	public $template_filename;
 	public $v2_name_map;
 
 	private $debug_mode;
+
 	/** whether to use eval() or preg_replace to render templates **/
 	private $use_eval;
 	public $v2_templates;
@@ -26,7 +32,7 @@ class aw_template extends core
 	/** The derived class should always call this with the template folder as an argument
 		@attrib api=1 params=name
 		@param tpldir required type=string
-			The template folder, relative to basedir/templates
+			The template folder, relative to basedir/templates/
 
 		@example
 			class a extends aw_template
@@ -62,15 +68,20 @@ class aw_template extends core
 			aw_config_init_class($this);
 		}
 
+		if ($basedir and substr($basedir, 0, -1) !== "/")
+		{
+			$basedir .= "/";
+		}
+
 		$site_basedir = aw_ini_get("site_basedir");
 
-		if (substr($basedir,0,1) !== "/" && !preg_match("/^[a-z]:/i", substr($basedir,0,2)))
+		if (substr($basedir, 0, 1) !== "/" && !preg_match("/^[a-z]:/i", substr($basedir, 0, 2)))
 		{
 			if ($has_top_level_folder)
 			{
-				$this->template_dir = "{$site_basedir}/{$basedir}";
+				$this->template_dir = "{$site_basedir}{$basedir}";
 				$this->adm_template_dir = AW_DIR . "{$basedir}";
-				$this->site_template_dir = "{$site_basedir}/{$basedir}";
+				$this->site_template_dir = "{$site_basedir}{$basedir}";
 			}
 			else
 			{
@@ -83,7 +94,7 @@ class aw_template extends core
 					$this->template_dir = $this->_find_site_template_dir() . "/{$basedir}";
 				}
 				$this->adm_template_dir = AW_DIR . "templates/{$basedir}";
-				$this->site_template_dir = $this->_find_site_template_dir()."/".$basedir;
+				$this->site_template_dir = $this->_find_site_template_dir()."/{$basedir}";
 			}
 		}
 		else
@@ -230,8 +241,8 @@ class aw_template extends core
 			{
 				$selected = ($active == $k) ? " selected " : "";
 				$res .= sprintf("<option %s value='%s'>%s</option>\n",$selected,$k,$v);
-			};
-		};
+			}
+		}
 		return $res;
 //		return html::select(array("selected" => $active,"options" => $array));
 	}
@@ -249,13 +260,13 @@ class aw_template extends core
 		if (is_array($active))
 		{
 			$active = array_flip($active);
-		};
+		}
 
 		while(list($k,$v) = each($array))
 		{
 			$selected = isset($active[$k]) ? " selected " : "";
 			$res .= sprintf("<option %s value='%s'>%s</option>\n",$selected,$k,$v);
-		};
+		}
 		return $res;
 //		return html::select(array("selected" => $active,"options" => $array,"multiple" => 1));
 	}
@@ -277,10 +288,10 @@ class aw_template extends core
 	/** reads the template whose name is given.
 		@attrib api=1
 
-		@param name required type=string
+		@param name type=string
 			the name of the template file to load
 
-		@param silent optional
+		@param silent type=bool default=false
 			if set to 1, no error is thrown if template is not found, false is returned instead
 
 		@comment
@@ -308,13 +319,15 @@ class aw_template extends core
 				echo "no template found!";
 			}
 	**/
-	function read_template($name,$silent = 0)
+	function read_template($name, $silent = false)
 	{
-		$this->template_filename = $this->template_dir.$name;
+		if (substr($this->template_dir , -1) != "/") { $this->template_dir.="/"; } //TODO: vaadata kataloogi nimede majandus yle ja eemaldada see kui korras k6ik (/ kataloogidel l6pus)
+
+		$this->template_filename = $this->template_dir . $name;
 
 		if (!file_exists($this->template_filename))
 		{
-			$this->template_filename = $this->adm_template_dir . "/" . $name;
+			$this->template_filename = $this->adm_template_dir . $name;
 			if(function_exists("get_file_version"))
 			{
 				$this->template_filename = get_file_version($this->template_filename);
@@ -350,8 +363,8 @@ class aw_template extends core
 			}
 			else
 			{
-				// raise_error drops out, therefore $retval has no meaning here
-				$this->raise_error("ERR_TPL_NOTPL", sprintf(t("Template '%s' not found"), $this->template_filename),true);
+				$e = new awex_tpl_not_found(sprintf("Template '%s' resolved to '%s' not found", $name, $this->template_filename));
+				$e->tpl = $this->template_filename;
 			}
 		}
 		return $retval;
@@ -438,10 +451,10 @@ class aw_template extends core
 	/**  reads the given template from the site's template folder even if the user is in the admin interface
 		@attrib api=1 params=pos
 
-		@param name required type=string
+		@param name type=string
 			name of the file to load
 
-		@param silent optional
+		@param silent type=bool default=false
 			if set to 1, no errors are thrown, instead false is returned on error
 
 		@errors
@@ -458,7 +471,7 @@ class aw_template extends core
 			));
 			echo $tpl->parse();
 	**/
-	public function read_site_template($name,$silent = 0)
+	public function read_site_template($name,$silent = false)
 	{
 		$retval = true;
 		$this->template_filename = $this->site_template_dir."/".$name;
@@ -485,9 +498,10 @@ class aw_template extends core
 	/** tries to read the given template from the site's template folder even if the user is in the admin interface and if not found in the site folder, tries to read it from the admin templates folder
 		@attrib api=1 params=pos
 
-		@param name required type=string
+		@param name type=string
 			name of the file to load
-		@param silent optional
+
+		@param silent type=bool default=false
 			if set to 1, no errors are thrown, instead false is returned on error
 
 		@errors
@@ -544,7 +558,7 @@ class aw_template extends core
 	/** checks if a SUB with the name given exits in the currently loaded template
 		@attrib api=1
 
-		@param name required type=string
+		@param name type=string
 			name of the SUB to check for
 
 		@errors
@@ -600,7 +614,7 @@ class aw_template extends core
 	/** checks if the template contains the given variable. checks the complete template. slow
 		@attrib api=1
 
-		@param varname required type=string
+		@param varname type=string
 			name of the VAR to check for
 
 		@comment
@@ -1169,3 +1183,12 @@ class awex_bad_file_path extends aw_exception
 		$this->path = $path;
 	}
 }
+
+/** Generic template engine exception **/
+class awex_tpl extends aw_exception
+{
+	public $tpl = "";
+}
+
+/** Template not found **/
+class awex_tpl_not_found extends awex_tpl {}

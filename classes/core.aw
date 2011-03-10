@@ -551,7 +551,7 @@ class core extends acl_base
 		if (!($class === "bugtrack" && $action === "add_error") && aw_ini_get("config.error_log_site"))
 		{
 			// kui viga tuli bugi replikeerimisel, siis 2rme satu l6pmatusse tsyklisse
-			$socket = get_instance("protocols/socket");
+			$socket = new socket();
 			$socket->open(array(
 				"host" => aw_ini_get("config.error_log_site"),
 				"port" => 80,
@@ -1182,8 +1182,6 @@ class core extends acl_base
 	// rootobj - mis objektist alustame
 	function get_menu_list($ignore_langmenus = false,$empty = false,$rootobj = -1, $onlyact = -1, $make_path = true)
 	{
-		enter_function("core::get_menu_list");
-
 		if ($rootobj == -1)
 		{
 			$rootobj = cfg_get_admin_rootmenu2();
@@ -1194,8 +1192,6 @@ class core extends acl_base
 			"parent" => $rootobj,
 			"status" => ($onlyact ? object::STAT_ACTIVE : array(object::STAT_NOTACTIVE, object::STAT_ACTIVE)),
 			"sort_by" => "objects.parent",
-			"lang_id" => array(),
-			"site_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -1228,10 +1224,9 @@ class core extends acl_base
 			if (is_array($_tmp2))
 			{
 				$this->tt = $_tmp2;
-			};
-		};
+			}
+		}
 
-		exit_function("core::get_menu_list");
 		return $this->tt;
 	}
 
@@ -1269,28 +1264,15 @@ class core extends acl_base
 			$arr["class"] = get_class($this);
 		}
 
-		$ob = get_instance("core/orb/orb");
+		$ob = new orb();
 		return $ob->do_method_call($arr);
 	}
 
 	/** this takes an array and goes through it and makes another array that has as keys the values of the given array and also the velues of the given array
-		@attrib api=1
-
+		@attrib api=1 params=pos
 		@param arr required type=array
 			The array to convert.
-
-		@examples
-			$arr = array("a", "b", "c");
-			echo dbg::dump($arr);
-			// echos:
-			array(3) {
-			  [0]=>
-			  string(1) "a"
-			  [1]=>
-			  string(1) "b"
-			  [2]=>
-			  string(1) "c"
-			}
+		@returns array
 	**/
 	function make_keys($arr)
 	{

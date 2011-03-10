@@ -1,12 +1,11 @@
 <?xml version='1.0'?>
 <orb>
 	<class name="docgen_db_writer" folder="applications/docgen" extends="class_base">
-		<action name="do_db_update" nologin="1">
+		<action name="do_db_update">
 			<function name="do_db_update">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
-
 	</class>
 </orb>

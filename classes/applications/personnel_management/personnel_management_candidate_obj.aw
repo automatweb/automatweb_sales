@@ -11,6 +11,13 @@ class personnel_management_candidate_obj extends _int_object
 		}
 		return parent::set_prop($k, $v);
 	}
-}
 
-?>
+	function save($exclusive = false, $previous_state = null)
+	{
+		if (!$this->is_saved()) // new applications are always active, old ones can be archived etc.
+		{
+			$this->set_status(object::STAT_ACTIVE);
+		}
+		parent::save();
+	}
+}

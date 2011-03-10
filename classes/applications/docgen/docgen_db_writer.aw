@@ -9,7 +9,7 @@ aw_da_funcs - data about functions; where defined
 aw_da_func_attribs - all function attributes from doc comments are written here
 
 **/
-class docgen_db_writer extends class_base
+class docgen_db_writer extends db_connector
 {
 	private $handler_classes = array();
 
@@ -20,12 +20,10 @@ class docgen_db_writer extends class_base
 
 	/** updates the class/function definitions in the database
 
-		@attrib name=do_db_update nologin="1"
+		@attrib name=do_db_update
 	**/
-	function do_db_update($arr)
+	function do_db_update()
 	{
-		extract($arr);
-
 		foreach(class_index::get_classes_by_interface("docgen_index_module") as $class_name)
 		{
 			$this->handler_classes[] = get_instance($class_name);
@@ -34,12 +32,14 @@ class docgen_db_writer extends class_base
 
 		$files = array();
 		$p = new parser();
-		$p->_get_class_list($files,$this->cfg["classdir"]);
-		foreach($files as $file)
-		{
-			$da = get_instance("core/aw_code_analyzer/docgen_analyzer_simple_db_writer");
-			$data = $da->analyze_file($file, true);
+		$p->_get_class_list($files, aw_ini_get("classdir"));
 
+		while (count($files))
+		{
+			$file = array_shift($files);
+			$da = new docgen_analyzer_simple_db_writer();
+			$data = $da->analyze_file($file, true);
+			$da = null;
 			$this->_write_one_file($file, $data);
 		}
 
