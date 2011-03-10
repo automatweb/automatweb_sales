@@ -2062,8 +2062,17 @@ class crm_company_cust_impl extends class_base
 		}
 	}
 
-	function _finish_org_tbl($arr, &$customer_list)
+	function _finish_org_tbl($arr, $customer_relations_list)
 	{
+		if ("relorg_s" === $this->use_group)
+		{ // list sellers
+			$customer_relation_type_prop = "seller";
+		}
+		elseif ("relorg_b" === $this->use_group)
+		{ // list buyers
+			$customer_relation_type_prop = "buyer";
+		}
+
 		$tf = $arr["prop"]["vcl_inst"];
 		$org = obj($arr["request"]["id"]);
 		$format = t("%s kliendid");
@@ -2095,6 +2104,19 @@ class crm_company_cust_impl extends class_base
 				$default_cfg = false;
 			}
 		}
+
+		//TODO: teha et ei peaks lugema neid eraldi arraysse vms.
+		//tmp. get and index customers by cro-s
+		$customer_list = array();
+		$idx_cro_by_customer = array();
+		foreach ($customer_relations_list as $cro_oid)
+		{
+			$cro_o = new object($cro_oid);
+			$customer_oid = $cro_o->prop($customer_relation_type_prop);
+			$customer_list[$customer_oid]  = $cro_o->prop($customer_oid);
+			$idx_cro_by_customer[$customer_oid] = $cro_o;
+		}
+		//end tmp
 
 		# some helper data for roles
 		if ($default_cfg or in_array("rollid", $visible_fields))
@@ -2275,16 +2297,18 @@ class crm_company_cust_impl extends class_base
 				$pm = new popup_menu();
 				$pm->begin_menu("org".$o->id());
 				$pm->add_item(array(
-					"text" => t("Vaata"),
+					"text" => t("Vaata klienti"),
 					"link" => $this->mk_my_orb("change", array("id" => $o->id(), "return_url" => get_ru(), "group" => "quick_view"), $o->class_id())
 				));
 				$pm->add_item(array(
-					"text" => t("Muuda"),
+					"text" => t("Muuda klienti"),
 					"link" => html::get_change_url($o->id(), array("return_url" => get_ru()))
 				));
+
+
 				$pm->add_item(array(
 					"text" => t("Muuda kliendisuhet"),
-					"link" => html::get_change_url($o->id(), array("return_url" => get_ru()))
+					"link" => html::get_change_url($idx_cro_by_customer[$o->id()], array("return_url" => get_ru()))
 				));
 
 				if (!empty($arr["request"][crm_company::REQVAR_CATEGORY]))
@@ -2339,7 +2363,7 @@ class crm_company_cust_impl extends class_base
 				$classif1 = t("N/A");
 			}
 
-			//!!! todo: define and get data only for fields configured to be shown in current crm settings.
+			//TODO: define and get data only for fields configured to be shown in current crm settings.
 			$tf->define_data(array(
 				"id" => $o->id(),
 				"name" => $name,
@@ -2366,6 +2390,7 @@ class crm_company_cust_impl extends class_base
 		));
 	}
 
+	//DEPRECATED. no property 'customer' in crmco. leaving intact in case other classes are still using this method
 	function _get_customer(&$arr, $filter = NULL)
 	{
 		if (!empty($arr["request"]["customer_search"]))
@@ -2428,8 +2453,15 @@ class crm_company_cust_impl extends class_base
 			);
 			$this->result_count = reset(reset($t->arr()));
 		}
-
-		$this->_finish_org_tbl($arr, $customer_list);
+//// fix this deprecated method for bc
+$customer_list_cro = array();
+foreach ($customer_list as $key => $c_oid)
+{
+$cust_rel = $arr["obj_inst"]->find_customer_relation(obj($c_oid), false);
+if ($cust_rel) $customer_list_cro = $cust_rel->id();
+}
+////
+		$this->_finish_org_tbl($arr, $customer_list_cro);
 
 		if (!empty($arr["request"]["customer_search_print_view"]))
 		{
@@ -2444,13 +2476,10 @@ class crm_company_cust_impl extends class_base
 			));
 			die($sf->parse());
 		}
-
 	}
 
 	function _get_my_customers_table(&$arr)
-	{
-		//will list the companies from the category
-		//if category is selected
+	{ // lists customers, filters by search parameters
 		$customer_relations_search = new crm_sales_contacts_search();
 
 		if ("relorg_s" === $this->use_group)
@@ -2464,7 +2493,7 @@ class crm_company_cust_impl extends class_base
 
 		if (!empty($arr["request"]["filt_p"]))
 		{
-			$customer_relations_search->name = $arr["request"]["filt_p"] . "%";
+			$customer_relations_search->name = "{$arr["request"]["filt_p"]}%";
 		}
 
 		if (!empty($arr["request"]["cs_n"]))
@@ -2472,9 +2501,9 @@ class crm_company_cust_impl extends class_base
 			$customer_relations_search->name = "%{$arr["request"]["cs_n"]}%";
 		}
 
-		if (!empty($arr["request"]["filt_p"]))
+		if (!empty($arr["request"]["customer_search_reg"]))
 		{
-			$customer_relations_search->name = $arr["request"]["filt_p"] . "%";
+			$customer_relations_search->reg_nr = "{$arr["request"]["customer_search_reg"]}%";
 		}
 
 		$customer_relations_search->set_sort_order("name-asc");
@@ -2492,97 +2521,23 @@ class crm_company_cust_impl extends class_base
 			}
 		}
 
-		$cro_oids = $customer_relations_search->get_customer_relation_oids(new obj_predicate_limit(crm_settings::LIST_LENGTH_DEFAULT));
-		$customer_list = array();
-		foreach($cro_oids as $key => $cro_oid_data)
+		$customer_relations_list = $customer_relations_search->get_customer_relation_oids(new obj_predicate_limit(crm_settings::LIST_LENGTH_DEFAULT));
+		$this->_finish_org_tbl($arr, $customer_relations_list);
+
+		// print table only
+		//TODO: probably needs some style
+		if (!empty($arr["request"]["customer_search_print_view"]))
 		{
-			$cro = obj($cro_oid_data["oid"]);
-			$customer_oid = $cro->prop("buyer");
-			$customer_list[$customer_oid] = $customer_oid;
-		}
-
-		$this->_finish_org_tbl($arr, $customer_list);
-	}
-
-	function _get_my_customers_table_old($arr)
-	{
-		if(!empty($arr["request"]["cs_sbt"]))
-		{
-			$this->_get_customer($arr);
-		}
-		else
-		{
-			$customer_list = array();
-			$category = isset($arr['request'][crm_company::REQVAR_CATEGORY]) ? $arr['request'][crm_company::REQVAR_CATEGORY] : "";
-			$stchk = explode('_', $category);
-			if($stchk[0] === 'st')
-			{
-				$arr["st"] = $stchk[1];
-				$status = obj($stchk[1]);
-				$all_cust_data = new object_list(array(
-					"seller" => $arr['obj_inst']->id(),
-					"class_id" => array(CL_CRM_COMPANY_CUSTOMER_DATA)
-				));
-				$customer_list = array();
-				foreach($all_cust_data->list as $cd)
-				{
-					$cust_data = obj($cd);
-					$cust_st = $cust_data->connections_from(array(
-						"type" => RELTYPE_STATUS,
-						"to" => $status
-					));
-					if(count($cust_st))
-					{
-						$customer_list[$cust_data->prop("buyer")] = $cust_data->prop("buyer");
-					}
-				}
-			}
-			else
-			{
-				//will list the companies from the category
-				//if category is selected
-				$customer_relations_search = new crm_sales_contacts_search();
-
-				if ("relorg_s" === $this->use_group)
-				{ // list sellers
-					$customer_relations_search->buyer = $arr['obj_inst'];
-				}
-				elseif ("relorg_b" === $this->use_group)
-				{ // list buyers
-					$customer_relations_search->seller = $arr['obj_inst'];
-				}
-
-				if (!empty($arr["request"]["filt_p"]))
-				{
-					$customer_relations_search->name = $arr["request"]["filt_p"] . "%";
-				}
-
-				$customer_relations_search->set_sort_order("name-asc");
-
-				if (!empty($category))
-				{
-					try
-					{
-						$category = obj($category, array(), CL_CRM_CATEGORY);
-						$customer_relations_search->category = $category;
-					}
-					catch (Exception $e)
-					{
-						$this->show_error_text(t("Kategooria parameeter ei vasta n&otilde;uetele"));
-					}
-				}
-
-				$cro_oids = $customer_relations_search->get_customer_relation_oids(new obj_predicate_limit(crm_settings::LIST_LENGTH_DEFAULT));
-
-				foreach($cro_oids as $key => $cro_oid_data)
-				{
-					$cro = obj($cro_oid_data["oid"]);
-					$customer_oid = $cro->prop("buyer");
-					$customer_list[$customer_oid] = $customer_oid;
-				}
-			}
-
-			$this->_finish_org_tbl($arr, $customer_list);
+			$sf = new aw_template();
+			$sf->db_init();
+			$sf->tpl_init("automatweb");
+			$sf->read_template("index.tpl");
+			$sf->vars(array(
+				"content"	=> $arr["prop"]["vcl_inst"]->draw(),
+				"uid" => aw_global_get("uid"),
+				"charset" => aw_global_get("charset")
+			));
+			exit($sf->parse());
 		}
 	}
 

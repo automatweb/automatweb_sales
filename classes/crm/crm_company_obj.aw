@@ -1459,6 +1459,9 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $urlid;
 	}
 
+	/** Returns customer's all fax numbers as array
+		@attrib api=1 params=pos
+	**/
 	function get_faxes()
 	{
 		$ret = array();
@@ -1505,6 +1508,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@param crea_if_not_exists type=bool default=false
 			if no customer relation object, makes one
 		@return CL_CRM_COMPANY_CUSTOMER_DATA
+		@qc standard=aw3 status=not_passed
 	**/
 	public function find_customer_relation($my_co = null, $crea_if_not_exists = false)
 	{

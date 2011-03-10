@@ -331,7 +331,9 @@ class image extends class_base
 		}
 		$inplace = '';
 		$force_comments = false;
-		extract($args);
+		extract($args);//TODO: get rid of this
+		$use_style = isset($args["use_style"]) ? $args["use_style"] : "";
+
 		$f = $alias;
 		if (!isset($matches))
 		{
@@ -398,13 +400,13 @@ class image extends class_base
 				$idata["comment"] .= ' ('.$num_comments.' '. ($num_comments == 1 ? t("kommentaar") : t("kommentaari")) .')';
 			}
 
-			$alt = $idata["meta"]["alt"];
+			$alt = htmlspecialchars($idata["meta"]["alt"]);
 
 			$size = array(0 => null, 1 => null);
 			if (!empty($idata["meta"]["file2"]))
 			{
 				$size = getimagesize($idata["meta"]["file2"]);
-			};
+			}
 			if (isset($idata["meta"]["big_flash"]) && $this->can("view", $idata["meta"]["big_flash"]))
 			{
 				$flo = obj($idata["meta"]["big_flash"]);
@@ -426,12 +428,12 @@ class image extends class_base
 			// for case if there is a big pic, a little one is missing. then usual text link is shown with images name
 			if($idata["file"] == "" && $idata["file2"] != "")
 			{
-				if(strlen($idata["meta"]["alt"]))
+				if($alt)
 				{
-					$alt = " alt=\"".$idata["meta"]["alt"]."\"";
+					$alt = " alt=\"{$alt}\"";
 				}
 
-				$replacement = "<a href=\"javascript:void(0)\" onClick=\"$bi_link\"".$alt.">".$idata["name"]."</a>";
+				$replacement = "<a href=\"javascript:void(0)\" onclick=\"{$bi_link}\"{$alt}>{$idata["name"]}</a>";
 				if (isset($tpls["image_text_only"]))
 				{
 					$tpl = "image_text_only";
@@ -522,45 +524,42 @@ class image extends class_base
 			{
 				$replacement = localparse($tpls["image_big_flash"],$vars);
 			}
-			elseif ($idata["link"] != "")
+			elseif (!empty($idata["link"]))
 			{
 				if ($idata["big_url"] != "" && isset($tpls["image_big_linked"]))
 				{
 					$replacement = localparse($tpls["image_big_linked"],$vars);
 				}
-				else
-				if (isset($tpls["image_inplace_linked"]))
+				elseif (isset($tpls["image_inplace_linked"]))
 				{
 					$replacement = localparse($tpls["image_inplace_linked"],$vars);
 					$inplace = "image_inplace_linked";
 				}
-				else
-				if (isset($tpls["image_linked"]))
+				elseif (isset($tpls["image_linked"]))
 				{
 					$replacement = localparse($tpls["image_linked"],$vars);
 				}
-				else
-				if (!aw_ini_get("image.no_default_template"))
+				elseif (!aw_ini_get("image.no_default_template"))
 				{
 					$authortxt = "";
 					if ($idata['meta']['author'] != "")
 					{
 						$authortxt = ' ('.$idata['meta']['author'].')';
 					}
+
 					if ($idata["comment"] != "" || $authortxt != "")
 					{
 						$replacement = sprintf("<table border='0' cellpadding='0' cellspacing='0' %s><tr><td align=\"center\"><a href='%s' %s><img src='%s' border='0' alt='$alt' title='$alt' class='$use_style'$xhtml_slash></a></td></tr><tr><td align=\"center\" class=\"imagecomment\">&nbsp;%s%s</td></tr></table>",$vars["align"],str_replace("&", "&amp;", $idata["link"]),$vars["target"],$idata["url"],$idata["comment"], $authortxt);
 					}
-					else
-					if ($vars["align"] != "")
+					elseif ($vars["align"] != "")
 					{
 						$replacement = sprintf("<table border='0' cellpadding='0' cellspacing='0' %s><tr><td><a href='%s' %s><img src='%s' border='0' alt='$alt' title='$alt' class='$use_style'$xhtml_slash></a></td></tr></table>",$vars['align'],str_replace("&", "&amp;", $idata["link"]),$vars["target"],$idata["url"]);
 					}
 					else
 					{
-						$replacement = sprintf("<a href='%s' %s><img src='%s' border='0' alt='$alt' title='$alt' class='$use_style'$xhtml_slash></a>", str_replace("&", "&amp;", $idata["link"]), $vars["target"], $idata["url"]);
+						$replacement = sprintf("<a href='%s' %s><img src='%s' border='0' alt='$alt' title='$alt' class='{$use_style}'$xhtml_slash></a>", str_replace("&", "&amp;", $idata["link"]), $vars["target"], $idata["url"]);
 					}
-				};
+				}
 			}
 			else
 			{

@@ -57,7 +57,7 @@ if(isset($pdf))
 		{VAR:impl_street}<br>
 		{VAR:impl_index}, {VAR:impl_city}<br>
 		Tel +372 6 558 334<br>
-		www.automatweb.com
+		{VAR:impl_url}
 	</td>
 </tr>
 <tr>

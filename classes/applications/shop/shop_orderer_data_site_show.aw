@@ -1,6 +1,6 @@
 <?php
 /*
-@classinfo syslog_type=ST_SHOP_ORDERER_DATA_SITE_SHOW relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo syslog_type=ST_SHOP_ORDERER_DATA_SITE_SHOW relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_shop_orderer_data_site_show master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_shop_orderer_data_site_show
@@ -35,7 +35,7 @@ class shop_orderer_data_site_show extends class_base
 
 	function _get_template($arr)
 	{
-		$tm = get_instance("templatemgr");
+		$tm = new templatemgr();
 		$arr["prop"]["options"] = $tm->template_picker(array(
 			"folder" => "applications/shop/shop_orderer_data_site_show",//$this->site_template_dir
 		));
@@ -75,7 +75,7 @@ class shop_orderer_data_site_show extends class_base
 	/**
 		@attrib name=parse_alias is_public="1" caption="Change" nologin=1
 	**/
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		$show_params = array(
 			"id" => $arr["alias"]["target"],
@@ -108,5 +108,3 @@ class shop_orderer_data_site_show extends class_base
 		}
 	}
 }
-
-?>

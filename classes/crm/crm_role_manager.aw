@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=markop
-*/
+
 class crm_role_manager extends class_base
 {
 	function crm_role_manager()
@@ -33,7 +31,7 @@ class crm_role_manager extends class_base
 
 			$this->vars(array(
 				"reforb" => $this->mk_reforb("submit_list", $arr)
-			));		
+			));
 		}
 		else
 		{
@@ -41,14 +39,14 @@ class crm_role_manager extends class_base
 			// table on right with persons
 			$this->read_template("show.tpl");
 			$this->_get_tree($arr["from_org"], $arr);
-	
+
 			$this->_get_table($arr["from_org"], $arr);
-	
+
 			$this->_get_tb($arr["from_org"], $arr);
 
 			$this->vars(array(
 				"reforb" => $this->mk_reforb("submit", $arr)
-			));	
+			));
 		}
 
 		return $this->_get_tabs($arr["from_org"], $arr);
@@ -118,7 +116,7 @@ class crm_role_manager extends class_base
 			// persons_f must contain all project team members
 			$pi = get_instance(CL_PROJECT);
 			$persons_f = $pi->get_team($proj);
-			
+
 
 			$filt["project"] = $r["to_project"];
 			$ol = new object_list($filt);
@@ -158,7 +156,7 @@ class crm_role_manager extends class_base
 
 		// re-arrange the table a bit
 		$t->remove_chooser();
-		
+
 		// add column
 		$dat = array();
 		foreach($t->get_data() as $idx => $row)
@@ -234,7 +232,7 @@ class crm_role_manager extends class_base
 
 		$names = $ol->names();
 		//die(dbg::dump($names).dbg::dump($arr));
-		// now, if any of the selected persons were not present, add them 
+		// now, if any of the selected persons were not present, add them
 		// the objects will be added under the client org
 		foreach(safe_array($arr["check"]) as $p_id)
 		{
@@ -419,4 +417,3 @@ class crm_role_manager extends class_base
 		));
 	}
 }
-?>

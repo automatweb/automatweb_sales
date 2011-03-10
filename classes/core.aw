@@ -1264,28 +1264,15 @@ class core extends acl_base
 			$arr["class"] = get_class($this);
 		}
 
-		$ob = get_instance("core/orb/orb");
+		$ob = new orb();
 		return $ob->do_method_call($arr);
 	}
 
 	/** this takes an array and goes through it and makes another array that has as keys the values of the given array and also the velues of the given array
-		@attrib api=1
-
+		@attrib api=1 params=pos
 		@param arr required type=array
 			The array to convert.
-
-		@examples
-			$arr = array("a", "b", "c");
-			echo dbg::dump($arr);
-			// echos:
-			array(3) {
-			  [0]=>
-			  string(1) "a"
-			  [1]=>
-			  string(1) "b"
-			  [2]=>
-			  string(1) "c"
-			}
+		@returns array
 	**/
 	function make_keys($arr)
 	{

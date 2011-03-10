@@ -235,12 +235,12 @@ class crm_bill_obj extends _int_object
 		//
 		$this->set_prop("sum", $this->_calc_sum());
 
-		$rv = parent::save($exclusive, $previous_state);
+		$rv = parent::save($exclusive, $previous_state); //XXX: miks siin vaja awdisableacl ?(taketis nii tehtud)
 
 		///FIXME: doesn't belong here (voldemar 12 nov 2010)
 		if(isset($_SESSION["bill_change_comments"]) && is_array($_SESSION["bill_change_comments"]))
 		{
-			$this->add_comment(join("<br>\n" , $_SESSION["bill_change_comments"]));
+			$this->add_comment(join(html::linebreak(), $_SESSION["bill_change_comments"]));
 			unset($_SESSION["bill_change_comments"]);
 		}
 		///

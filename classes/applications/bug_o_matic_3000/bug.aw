@@ -3236,11 +3236,8 @@ $diff = explode("*" , $result["diff"]);
 		$email = "";
  		if($who = trim($who))
  		{
- 			aw_disable_acl();
  			$ol = new object_list(array(
- 				"class_id" => CL_BUG_TRACKER,
-				"site_id" => array(),
- 				"lang_id" => array(),
+ 				"class_id" => CL_BUG_TRACKER
  			));
  			$users = array();
  			foreach($ol->arr() as $o)
@@ -3278,7 +3275,7 @@ $diff = explode("*" , $result["diff"]);
 			{
 				$email = $who;
 			}
- 			aw_restore_acl();
+
  			$url = "http://autotest.struktuur.ee/?bug=1&email=".$email."&file=".$file;
  			print $url;
 			if($file && (substr_count($file, '.aw') || substr_count($file, '.php')|| substr_count($file, '.xml') || substr_count($file, '.ini')))
@@ -3549,7 +3546,7 @@ $diff = explode("*" , $result["diff"]);
 				$customer = obj($cust, array(), CL_CRM_COMPANY);
 				$section = obj($unit, array(), CL_CRM_SECTION);
 				$work_ol = $customer->get_employees(true, null, $section);
-				$arr["prop"]["options"] = array("" => t("--vali--")) + $work_ol->names();
+				$arr["prop"]["options"] = html::get_empty_option() + $work_ol->names();
 			}
 			catch (awex_obj $e)
 			{
@@ -3600,7 +3597,7 @@ $diff = explode("*" , $result["diff"]);
 
 		if (!isset($arr["prop"]["options"]) or !is_array($arr["prop"]["options"]))
 		{
-			$arr["prop"]["options"] = array("" => t("--vali--"));
+			$arr["prop"]["options"] = html::get_empty_option();
 		}
 
 		if (isset($arr["prop"]["value"]) && !isset($arr["prop"]["options"][$arr["prop"]["value"]]) && $this->can("view", $arr["prop"]["value"]))
@@ -3629,7 +3626,7 @@ $diff = explode("*" , $result["diff"]);
 			}
 		}
 
-		$prop["options"] = array("" => t("--vali--"));
+		$prop["options"] = html::get_empty_option();
 
 		if(!empty($prop["value"]))
 		{
@@ -3638,7 +3635,7 @@ $diff = explode("*" , $result["diff"]);
 
 		if (count($sects))
 		{
-			$ol = new object_list(array("oid" => $sects, "lang_id" => array(), "site_id" => array()));
+			$ol = new object_list(array("oid" => $sects));
 			foreach($ol->arr() as $oid => $o)
 			{
 				$prop["options"][$oid] = $o->name();
@@ -3685,7 +3682,7 @@ $diff = explode("*" , $result["diff"]);
 			// get all ppl for the section
 			$sect = get_instance(CL_CRM_SECTION);
 			$work_ol = $sect->get_section_workers($unit, true);
-			$arr["prop"]["options"] = array("" => t("--vali"));
+			$arr["prop"]["options"] = html::get_empty_option();
 			foreach($work_ol->arr() as $oid => $o)
 			{
 				$arr["prop"]["options"][$oid] =  $o->name();
@@ -4209,7 +4206,7 @@ EOF;
 		{
 			$values[] = t("Kokku:")." ".$total;
 		}
-		return isset($values) ? implode("<br />\n", $values) : "";
+		return isset($values) ? implode(html::linebreak(), $values) : "";
 	}
 
 	function get_finance_types()
