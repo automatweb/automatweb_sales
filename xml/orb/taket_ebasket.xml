@@ -16,6 +16,20 @@
 			</function>
 		</action>
 
+		<action name="getStockUpdate" nologin="1" >
+			<function name="getStockUpdate">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
+		<action name="save_basket">
+			<function name="save_basket">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 		<action name="send_order">
 			<function name="send_order">
 				<arguments>

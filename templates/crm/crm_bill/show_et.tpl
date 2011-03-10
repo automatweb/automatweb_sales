@@ -1,7 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
 <html>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-4">
 	<title>Arve nr {VAR:bill_no}</title>
@@ -43,7 +41,7 @@
 		}
 		#bill tr td.caption{ font-weight: bold; color: #666666; padding: 0.4em 1em 0.4em 0.4em; font-size:12px; }
 		#bill tr td.koostaja {text-align: left; font-size:12px; padding-left:10px; padding:0.4em;}
-    #bill tr td.koostaja div.signature {width: 300px; float:left; border-bottom: 1px solid; font-size:11px;}
+		#bill tr td.koostaja div.signature {width: 300px; float:left; border-bottom: 1px solid; font-size:11px;}
 		#bill tr td.footer { border-top: 1px solid #cccccc; text-align: center; font-size: 11px; color: #666666; vertical-align: bottom; height: 3em; }
 		#bill tr td.footer p { margin-top: 1em; }
 
@@ -79,8 +77,8 @@
 			<p>kmkr {VAR:impl_kmk_nr}</p>
 			<p>Swedbank a/a {VAR:acct_no}</p>
 			<p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city}</p>
-			<p>Tel 6 558 334</p>
-			<p>www.automatweb.com</p>
+			<p>Tel {VAR:impl_phone}</p>
+			<p>{VAR:impl_url}</p>
 		</td>
 	</tr>
 	<tr>
@@ -171,7 +169,7 @@
 	</tr>
 	<tr>
 		<td class="caption">
-		  Arve koostaja:
+			Arve koostaja:
 		</td>
 		<td class="caption">
 			Kliendi kontaktisik:
@@ -200,7 +198,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" class="footer">
-			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | Käibemaksukohuslase nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel 6 558 334 | www.automatweb.com</p>
+			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | Käibemaksukohuslase nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel {VAR:impl_phone} | {VAR:impl_url}</p>
 		</td>
 	</tr>
 </table>
@@ -208,7 +206,7 @@
 <table id="footer" cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		<td>
-			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | Käibemaksukohuslase nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel 6 558 334 | www.automatweb.com</p>
+			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | Käibemaksukohuslase nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel {VAR:impl_phone} | {VAR:impl_url}</p>
 		</td>
 	</tr>
 </table>

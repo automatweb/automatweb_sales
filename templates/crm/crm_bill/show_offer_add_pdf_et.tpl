@@ -54,8 +54,8 @@ if(isset($pdf))
 	<td width="25%">
 		{VAR:impl_street}<br>
 		{VAR:impl_index}, {VAR:impl_city}<br>
-		Tel 6 558 334<br>
-		www.automatweb.com
+		Tel {VAR:impl_phone}<br>
+		{VAR:impl_url}
 	</td>
 </tr>
 <tr>

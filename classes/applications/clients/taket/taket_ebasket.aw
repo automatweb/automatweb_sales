@@ -21,9 +21,9 @@ class taket_ebasket extends class_base
 
 	function taket_ebasket()
 	{
-		$this->ebasket_parent_id = aw_ini_get('taket_ebasket.ebasket_parent_id');
-		$this->ebasket_item_parent_id = aw_ini_get('taket_ebasket.ebasket_item_parent_id');
-		$this->order_item_parent_id = aw_ini_get('taket_order.order_item_parent_id');
+//		$this->ebasket_parent_id = aw_ini_get('taket_ebasket.ebasket_parent_id');
+//		$this->ebasket_item_parent_id = aw_ini_get('taket_ebasket.ebasket_item_parent_id');
+//		$this->order_item_parent_id = aw_ini_get('taket_order.order_item_parent_id');
 		// change this to the folder under the templates folder, where this classes templates will be,
 		// if they exist at all. Or delete it, if this class does not use templates
 		$this->init(array(
@@ -33,14 +33,876 @@ class taket_ebasket extends class_base
 		lc_site_load('taket_ebasket',&$this);
 	}
 
+	function get_receipts($params = array())
+	{
+		$this->load_warehouses();
+		$this->load_company();
+		$code = $this->company->prop("code");
+
+		if(!$code)
+		{
+			print "organisatsioonil pole kliendikoodi";
+			return array();
+		}
+
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$res = array();	
+		foreach($this->warehouses as $wh)
+		{
+			$args = array("ids" => array());
+			foreach($params["ids"] as $id => $w)
+			{
+				if($w == $wh["id"])
+				{
+					$args["ids"][] = $id;
+				}
+			}
+			if(sizeof($args["ids"]))
+			{
+
+				$args["customer"] = $code;
+				$client = new IXR_Client($wh["host"], $wh["path"], $wh["port"]);
+				$query_start_time = $this->microtime_float();
+				$client->query('server.getReceipts',$args);
+				$data2 = $client->getResponse();
+				$getresponse_end_time = $this->microtime_float();
+				foreach($data2 as $data)
+				{
+					$res[] = $data;
+				}
+			}
+		}
+		return $res;
+	}
+
+
+	function get_bills($params = array())
+	{
+		$this->load_warehouses();
+		$this->load_company();
+		$code = $this->company->prop("code");
+
+		if(!$code)
+		{
+			print "organisatsioonil pole kliendikoodi";
+			return array();
+		}
+
+
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$res = array();	
+		foreach($this->warehouses as $wh)
+		{
+			$args = array("ids" => array());
+			foreach($params["ids"] as $id => $w)
+			{
+				if($w == $wh["id"])
+				{
+					$args["ids"][] = $id;
+				}
+			}
+//			arr($args);
+			if(sizeof($args["ids"]))
+			{
+
+				$args["customer"] = $code;
+				$client = new IXR_Client($wh["host"], $wh["path"], $wh["port"]);
+				$query_start_time = $this->microtime_float();
+				$client->query('server.getBills',$args);
+				$data2 = $client->getResponse();
+				$getresponse_end_time = $this->microtime_float();
+	//			print $wh["name"]." - ".($getresponse_end_time - $query_start_time)."<br>";
+				foreach($data2 as $data)
+				{
+					$res[] = $data;
+				}
+			}
+		}
+/*
+		$this->load_warehouses();
+		$wh = reset($this->warehouses);
+		require_once(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$client = new IXR_Client("84.50.96.150", "/xmlrpc/index.php", "8080");//keyword
+		$query_start_time = $this->microtime_float();
+		$client->query('server.getBills',$params);//keyword
+		$query_end_time = $this->microtime_float();
+		$data2 = $client->getResponse();
+
+		$getresponse_end_time = $this->microtime_float();
+		return $data2;*/
+		return $res;
+	}
+
+	function get_notes($params = array())
+	{
+		$this->load_warehouses();
+		$this->load_company();
+		$code = $this->company->prop("code");
+
+		if(!$code)
+		{
+			print "organisatsioonil pole kliendikoodi";
+			return array();
+		}
+
+		$params["customer"] = $code;
+$params["limit"] = "0,20";
+		$this->load_warehouses();
+		$wh = reset($this->warehouses);
+		require_once(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$client = new IXR_Client("84.50.96.150", "/xmlrpc/index.php", "8080");//keyword
+		$query_start_time = $this->microtime_float();
+		$client->query('server.getDeliveryNodes',$params);//keyword
+		$query_end_time = $this->microtime_float();
+		$data2 = $client->getResponse();arr($data2);
+		$getresponse_end_time = $this->microtime_float();
+		return $data2;
+	}
+
+	function get_bill_ids($unpaid)
+	{
+		$this->load_warehouses();
+		$this->load_company();
+		$code = $this->company->prop("code");
+
+		if(!$code)
+		{
+			print "organisatsioonil pole kliendikoodi";
+			return array();
+		}
+		$args = array("customer" => $code, "limit" => "0,20");
+		if($unpaid)
+		{
+			$args["unpaid"] = 1;
+		}
+
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$res = array();	
+		foreach($this->warehouses as $wh)
+		{
+		//	arr($wh);
+			$client = new IXR_Client($wh["host"], $wh["path"], $wh["port"]);
+			$query_start_time = $this->microtime_float();
+			$client->query('server.getBillIds',$args);//keyword
+			$data2 = $client->getResponse();//arr($data2);
+			$getresponse_end_time = $this->microtime_float();
+		//	print $wh["name"]." - ".($getresponse_end_time - $query_start_time)."<br>";
+			foreach($data2 as $data)
+			{
+				if(empty($res[$data]))
+				{
+					$res[$data] = $wh["id"];
+				}
+			}
+		}
+//arr($args);arr($res); die();
+		return $res;
+	}
+
+
+	function get_receipt_ids($unpaid = null)
+	{
+		$this->load_warehouses();
+		$this->load_company();
+		$code = $this->company->prop("code");
+
+		if(!$code)
+		{
+			print "organisatsioonil pole kliendikoodi";
+			return array();
+		}
+		$args = array("customer" => $code, "limit" => "0,20");
+//		if($unpaid)
+//		{
+//			$args["unpaid"] = 1;
+//		}
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$res = array();	
+		foreach($this->warehouses as $wh)
+		{
+			if($wh["id"] != 6411) continue;
+			$client = new IXR_Client($wh["host"], $wh["path"], $wh["port"]);
+			$query_start_time = $this->microtime_float();
+			$client->query('server.getReceiptIds',$args);//keyword
+			$data2 = $client->getResponse();
+			$getresponse_end_time = $this->microtime_float();
+//			print $wh["name"]." - ".($getresponse_end_time - $query_start_time)."<br>";
+
+			foreach($data2 as $data)
+			{
+				if(empty($res[$data]))
+				{
+					$res[$data] = $wh["id"];
+				}
+			}
+		}
+//arr($args);arr($res); die();
+		return $res;
+	}
+
+	function get_bill_items($id)
+	{
+		$this->load_warehouses();
+		$wh = reset($this->warehouses);
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$client = new IXR_Client("84.50.96.150", "/xmlrpc/index.php", "8080");//keyword
+		$query_start_time = $this->microtime_float();
+		$client->query('server.getBillItems',array("bills" => array($id)));//keyword
+		$query_end_time = $this->microtime_float();
+		$getresponse_start_time = $this->microtime_float();
+		$data2 = $client->getResponse();
+		$getresponse_end_time = $this->microtime_float();
+		return $data2;
+	}
+
+
+
 	// !this will be called if the object is put in a document by an alias and the document is being shown
 	// parameters
 	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
-		return $this->show(array("id" => $arr["alias"]["target"]));
+
+//arr($arr);
+		$this->load_user();
+		$this->load_company();
+		$this->load_warehouses();
+		$this->load_transport_types();
+
+		if($arr["alias"]["from"] == "2918878")
+		{
+			$object = $this->company;
+			if(!$this->user->prop("userch1"))
+			{
+				return;
+			}
+		}
+		else
+		{
+			$object = $this->user;
+		}
+
+		if(sizeof($_POST))
+		{
+			$object->set_meta("preferences" , $_POST);
+			aw_disable_acl();
+			$object->save();
+			aw_restore_acl();
+		}
+		$values = $object->meta("preferences");
+
+		$transport = array();
+		foreach($this->transport_types as $trid => $tr)
+		{
+			$transport[$trid] = $tr;
+		}
+
+		$warehouses = array();
+		foreach($this->warehouses as $wh)
+		{
+			$warehouses[$wh["id"]] = $wh["name"];
+		}
+
+		$prefs = array(
+			"lang" => t("Keel"),
+			"logo" => t("Taust"),
+			"search_warehouse" => t("Eelistatud ladu otsingus"),
+			"delivery_warehouse" => t("Kauba k&auml;ttesaamise koht"),
+			"transport" => t("Eelistatud kohaletoimetamise viis"),
+		);
+
+		$li = get_instance("core/languages");
+
+		   $selected_lang = $_COOKIE["ct_lang_lc"];
+
+		$ret = "";
+		$ret.='
+<div class="sisu2"><form method="post" action="'.aw_ini_get("baseurl").'/'.$selected_lang.'/'.$arr["alias"]["from"].'">
+<input type="hidden" name="section" value="'.$arr["alias"]["from"].'">
+
+
+
+';
+		foreach($prefs as $name => $caption)
+		{
+			$ret.='
+	<div class="sisu3">
+		<div class="aw04gridcell_caption">
+			<table width="100%" border="0">
+				<tr>
+					<td width="30%" class="pref_caption">
+						'.$caption.'
+					</td>
+					<td width="70%">';
+					
+			switch($name)
+			{
+				case "logo":
+					$logos = array();
+					foreach(array("&nbsp;Japanparts&nbsp;" , "&nbsp;Taket&nbsp;") as $key => $trans)
+					{
+						$logos[]= html::radiobutton(array(
+							"name" => $name,
+							"value" => $key,
+							"checked" => $values[$name] == $key,
+						))."&nbsp;".$trans;
+					}/*
+					$ret.= html::select(array(
+						"name" => $name,
+						"options" => array("&nbsp;Japanparts&nbsp;" , "&nbsp;Frenchparts&nbsp;"),
+						"value" => $values[$name],
+						"class" => "preferences_select"
+					));*/
+					$ret.= join(", " , $logos);
+					break;
+				case "search_warehouse":
+					$whs = array();
+					foreach($warehouses as $key => $trans)
+					{
+						$whs[]= html::checkbox(array(
+							"name" => $name."[".$key."]",
+							"value" => $key,
+							"checked" => in_array($key, $values[$name]),
+						))."&nbsp;".$trans;
+					}/*
+					$ret.= html::select(array(
+						"name" => $name,
+						"options" => $warehouses,
+						"value" => $values[$name],
+						"class" => "preferences_select",
+						"multiple" => 1
+					));*/
+					$ret.= join(", " , $whs);
+					break;
+				case "delivery_warehouse":
+					$whs = array();
+					foreach($warehouses as $key => $trans)
+					{
+						$whs[]= html::radiobutton(array(
+							"name" => $name,
+							"value" => $key,
+							"checked" => $values[$name] == $key,
+						))."&nbsp;".$trans;
+					}/*
+					$ret.= html::select(array(
+						"name" => $name,
+						"options" => $warehouses,
+						"value" => $values[$name],
+						"class" => "preferences_select"
+					));*/
+					$ret.= join(", " , $whs);
+					break;
+				case "transport":
+					$whs = array();
+					foreach($transport as $key => $trans)
+					{
+						$whs[]= html::radiobutton(array(
+							"name" => $name,
+							"value" => $key,
+							"checked" => $values[$name] == $key,
+						))."&nbsp;".$trans;
+					}
+/*					$ret.= html::radio(array(
+						"name" => $name,
+						"options" => $transport,
+						"value" => $values[$name],
+						"class" => "preferences_select"
+					));*/
+					$ret.= join(", " , $whs);
+					break;
+				case "lang":
+					$whs = array();
+					foreach( $li->get_list() as $key => $trans)
+					{
+						$whs[]= html::radiobutton(array(
+							"name" => $name,
+							"value" => $key,
+							"checked" => $values[$name] == $key,
+						))."&nbsp;".$trans;
+					}/*
+					$ret.= html::select(array(
+						"name" => $name,
+						"options" => $li->get_list(),
+						"value" => $values[$name],
+						"class" => "preferences_select"
+					));*/
+					$ret.= join(", " , $whs);
+					break;
+				default:
+					$ret.='
+					<input type="text" maxlength="255" value="'.$values["name"].'" size="30"  id="'.$name.'">';
+			}
+
+			$ret.='
+					</td>
+				</tr>
+
+
+			</table>
+		</div>
+	</div>';
+		}
+$ret.='
+	<div class="sisu3">
+		<div class="aw04gridcell_caption">
+			<table width="100%" border="0">
+				<tr>
+					<td width="30%" align="right">
+					</td>
+					<td width="70%">
+						<input class="submit" type="submit" onclick="submit_changeform(&quot;&quot;); return false;" accesskey="s" value="Salvesta" name="submit" id="button">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>';
+
+		$ret.='
+</form></div>';
+
+
+	return $ret;
+//		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
 
+	function bnf($number)
+	{
+		$number = (double)trim($number);
+		if($number>0)
+		{
+			return number_format($number , 2 , "." , "");
+		}
+		else
+		{
+			return "-";
+		}
+	}
+
+	function load_warehouses()
+	{
+		if(empty($this->warehouses))
+		{
+			$this->warehouses = array();
+			$ol = new object_list(array(
+				"class_id" => CL_SHOP_WAREHOUSE,	
+				"lang_id" => array(),
+				"status" => 2,
+			));
+			foreach($ol->arr() as $o)
+			{
+				$asd = explode(":" , $o->comment());
+				$psd = explode("/" , $asd[2]);
+				$port = $psd[0];
+				unset($psd[0]);
+				$wh = array(
+					"name" => $o->name(),	
+					"host" => str_replace("/" , "" , $asd[1]),
+					"port" => $port,
+					"path" => "/".join("/", $psd).(sizeof($psd) ? "/" : "")."index.php",
+					"ord" => $o->prop("ord"),
+					"id" => $o->id(),
+					"short" => $o->prop("short_name"),
+					"order_mail" => $o->prop("order_mail"),
+					"status" => $o->prop("status")
+				);
+				$this->warehouses[$o->id] = $wh;
+			}
+		}
+	}
+
+	function init_xmlrpc()
+	{
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+
+
+	}
+
+	function load_user()
+	{
+		if(empty($this->user))
+		{
+			$uol = new object_list(array(
+				"class_id"=> CL_USER,
+				"lang_id" => array(),
+				"site_id" => array(),
+				"uid" => aw_global_get("uid"),
+			));
+			$this->user = $uol->begin();
+		}
+	}
+
+	function load_person()
+	{
+		if(empty($this->person))
+		{
+			$this->person = get_current_person();
+		}
+	}
+
+	function load_users()
+	{
+		if(!is_array($this->users))
+		{
+			$this->load_warehouses();
+			$wh = reset($this->warehouses);
+			require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+			$client = new IXR_Client($wh["host"], $wh["path"], $wh["port"]);
+			$query_start_time = $this->microtime_float();
+			$client->query('server.getUsers',array());
+			arr($client->message->message);
+			$query_end_time = $this->microtime_float();
+			$getresponse_start_time = $this->microtime_float();
+			$data2 = $client->getResponse();
+			$getresponse_end_time = $this->microtime_float();
+			$this->users = $data2;
+		}
+		return $this->users;
+	}
+
+	function load_transport_types()
+	{
+		if(empty($this->transport_types))
+		{
+			$ol = new object_list(array(
+				"class_id" => CL_SHOP_DELIVERY_METHOD,
+			));
+			$this->transport_types = array();
+			foreach($ol->arr() as $o)
+			{
+				$this->transport_types[$o->comment()] = $o->name();
+			}
+		}
+	}
+
+	/**
+		@attrib name=save_basket params=name
+		@param id optional
+		@param product_code optional
+		@param product_name optional
+		@param price optional
+		@param discount optional
+		@param finalprice optional
+		@param quantity optional
+		@param check_all_stocks optional
+	**/
+	function save_basket($arr)
+	{
+//		$_POST=$_GET;
+		if($_POST["id"])
+		{
+			$this->read_template("show.tpl");
+			$order = obj($_POST["id"]);
+			$codes = array();
+			foreach($order->connections_from(array("type" => "RELTYPE_ROW")) as $c)
+			{
+				$row = $c->to();
+				$codes[$row->prop("other_code")] = $row->prop("other_code");
+				if(!$_POST["quantity"][$row->id()])
+				{
+					$row->delete();
+				}
+				else
+				{
+					$row->set_prop("amount" , $_POST["quantity"][$row->id()]);
+					aw_disable_acl();
+					$row->save();
+					aw_restore_acl();
+				}
+			}
+			$this->update_product_amounts($codes);
+			print utf8_encode($this->parse_one_basket($order)); 
+		}
+		die();
+	}
+
+	function update_product_amounts($codes)
+	{
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$this->load_warehouses();
+		$this->load_db();
+		foreach($this->warehouses as $wh)
+		{
+			if($wh["status"] != 2)
+			{
+				continue;
+			}
+			$query_start_time = $this->microtime_float();
+
+//			arr($wh);flush();
+			$client = new IXR_Client($wh["host"], $wh["path"], $wh["port"]);
+
+			$yhendus = $client->query('server.getProductInfoArr', $codes);
+/*			if(!$yhendus)
+			{
+				$w = obj($wh["id"]);
+				$w->set_status(1);
+				$w->save();
+			}
+*/
+			$data = $client->getResponse();
+			if(is_array($data))
+			{
+				foreach($data as $d)
+				{
+					$qstart = $this->microtime_float();
+
+					if($d["product_code"] && strlen($d["inStock"]))
+					{
+						$count = "";
+
+						$count_sql = "SELECT amount FROM amounts WHERE warehouse='".$wh["id"]."' AND code='".$this->fuck($d["product_code"])."' LIMIT 0,1";
+						$result = mysql_query($count_sql);
+						$qend = $this->microtime_float();
+	//					print "<br>".$count_sql."<br>".(float)($qend - $qstart);
+						while ($row = mysql_fetch_assoc($result)) {
+							$count=$row["amount"];
+						}
+
+						$sql = "";
+						if($count == "")
+						{
+							$sql = "INSERT INTO amounts (code, warehouse, amount)
+								VALUES ('".$d["product_code"]."', '".$wh["id"]."', '".$d["inStock"]."') 
+								;";
+						}
+						elseif($count != $d["inStock"])
+						{
+							$sql = "UPDATE amounts 
+								SET amount='".$d["inStock"]."'
+								WHERE code='".$d["product_code"]."' AND warehouse='".$wh["id"]."';";
+						}
+						$qstart = $this->microtime_float();
+
+						if($sql)$this->db->db_query($sql);
+
+					}
+				}
+				$qend = $this->microtime_float();
+//				print "<br>".$sql."<br>".(float)($qend - $qstart);
+
+			}
+			$getresponse_end_time = $this->microtime_float();
+		//	print "aega v]ttis ".(float)($getresponse_end_time - $query_start_time)."<br>".flush();
+//			arr($data);flush();
+		}
+	}
+
+	function fuck($val)
+	{
+		$val = urldecode($val);
+		$val = preg_replace('!\s+!', ' ', $val);
+		$val = addslashes($val);
+		return $val;
+	}
+
+	function load_db()
+	{
+		if(empty($this->db))
+		{
+			$this->db = $GLOBALS["object_loader"]->ds;
+		}
+	}
+
+	function load_discounts($codes,$cust="")
+	{
+		$cust = explode("," , $cust);
+
+		if(!sizeof($codes))
+		{
+			return array();
+		}
+
+		if(sizeof($cust) == 1)
+		{
+			$cust = reset($cust);
+			if(!($cust > 0))
+			{
+				return array();
+			}
+			else
+			{
+				$sql = "SELECT * FROM discount WHERE code in('".join("','" , $codes)."') and customer='".$cust."'";
+			}
+		}
+		else
+		{
+			$sql = "SELECT * FROM discount WHERE code IN('".join("','" , $codes)."') and customer IN('".join("','" , $cust)."')";
+		}
+		$res = array();
+
+		$this->db->db_query($sql);
+		while ($row = $this->db->db_next()) {
+			if(isset($res[$row["code"]]))
+			{
+				if($res[$row["code"]] < $row["discount"])
+				{
+					$res[$row["code"]]=$row["discount"];
+				}
+			}
+			else
+			{
+				$res[$row["code"]]=$row["discount"];
+			}
+		}
+		return $res;
+	}
+
+	function parse_one_basket($o)
+	{
+		$prods = array();
+		$this->load_warehouses();
+		$this->load_person();
+		foreach($o->connections_from(array("type" => "RELTYPE_ROW")) as $c)
+		{
+			$row = $c->to();
+			$prods[$row->prop("other_code")]= "'".$row->prop("other_code")."'";
+		}
+
+		$prod_data = array();
+		$disc_codes = array();
+		if(sizeof($prods))
+		{
+			$this->load_db();
+			$sql = "select * from products where code IN (".join("," , $prods).")";
+			$this->db->db_query($sql);
+			while ($row = $this->db->db_next()){
+				$prod_data[$row["code"]] = $row ;
+				$disc_codes[$row["disc_code"]] =$row["disc_code"];
+			}
+		}
+		$amounts = $this->search_amounts(array_keys($prod_data));
+
+
+
+		$discounts = $this->load_discounts($disc_codes, $this->get_cat());//keyword
+
+		$vat_value = aw_ini_get("vat");
+			$header_warehouses = "";
+			foreach($this->warehouses as $wh)
+			{
+				$this->vars(array("ord" => $wh["ord"]));
+				$header_warehouses.= $this->parse("HEADER_WAREHOUSES");
+			}
+
+			$rows = "";
+			$basket_price = 0;
+			foreach($o->connections_from(array("type" => "RELTYPE_ROW")) as $c)
+			{
+				$discount_per = 0;
+
+				$row = $c->to();
+				if($discounts[$prod_data[$row->prop("other_code")]["disc_code"]])
+				{
+					$discount_per = $discounts[$prod_data[$row->prop("other_code")]["disc_code"]];
+				}
+
+
+				$this->vars($row->properties());
+				$vars = $prod_data[$row->prop("other_code")];
+				$vars["special_price"] = $this->bnf($vars["special_price"]);
+				$real_price = $vars["price"] - $vars["price"] * (0.01 * $discount_per);
+				$vars["price"] = $this->bnf($vars["price"]);
+				$vars["real_price"] = $this->bnf($real_price);
+				$vars["discount"] = $discount_per;
+				$real_price = $vars["price"] - $vars["price"] * (0.01 * $discount_per);
+
+				if($vars["special_price"] > 0)
+				{
+					$basket_price = $basket_price + $vars["special_price"] * $row->prop("amount");
+				}
+				else
+				{
+					$basket_price = $basket_price + $real_price * $row->prop("amount");
+				}
+				$vars["rowid"] = $row->id();
+				$row_amounts = "";
+				foreach($this->warehouses as $wh)
+				{
+					$wa = " - ";
+					if(isset($amounts[$row->prop("other_code")][$wh["id"]]) && $amounts[$row->prop("other_code")][$wh["id"]] >= $row->prop("amount"))
+					{
+						$wa = t("Laos");
+					}
+					elseif(isset($amounts[$row->prop("other_code")][$wh["id"]]))
+					{
+						$wa = t("EI");
+					}
+					$this->vars(array(
+						"warehouse_amount" => $wa,
+					));
+					$row_amounts.= $this->parse("ROW_AMOUNTS");
+				}
+				$vars["ROW_AMOUNTS"] = $row_amounts;
+				$this->vars($vars);
+				$rows.= $this->parse("toode");
+			}
+			$vars = array("toode" => $rows);
+//			$vars["transport_options"] = $transport_options;
+//			$vars["warehouse_options"] = $warehouse_options;
+			$vars["price"] = $this->bnf($basket_price / (1 + $vat_value * 0.01));
+			$vars["vat"] = $this->bnf($basket_price - $basket_price / (1 + $vat_value * 0.01));
+			$vars["vat_value"] = $vat_value;
+
+
+			$vars["HEADER_WAREHOUSES"] = $header_warehouses;
+			
+			$vars["total_price"] = $this->bnf($basket_price);
+//			$vars["phone"] = $user->comment();
+			$vars["real_name"] = utf8_decode($this->person->name());
+			$this->vars($vars);
+			$this->vars($o->properties());
+			$this->vars(array("name" => utf8_decode($o->name())));
+			return $this->parse("basket_table");
+	}
+
+	function get_cat()
+	{
+		$org = get_current_company();
+//		$org = obj(2815516);//keyword
+
+		if(is_object($org))
+		{
+		//	arr($org->get_customer_categories());
+			$cats = $org->get_buyer_cats();
+			$cats = $org->get_buyer_cats();
+			$cat_ids = array();
+			foreach($cats as $cat)
+			{
+				$cat_ids[]=substr($cat , -1 , 1);
+			}
+			$cat_id = join("," , $cat_ids);
+		}
+		return $cat_id;
+	}
+
+	function load_company()
+	{
+		if(empty($this->company))
+		{
+			$this->load_person();
+
+			$this->company = $this->person->company();
+		}
+	}
+
+	function search_amounts($pds)
+	{
+		if(!sizeof($pds))
+		{
+			return array();
+		}
+		$res = array();
+
+		$sql = "
+			SELECT * FROM amounts WHERE code in('".join("','" , $pds)."')";
+//var_dump($sql);
+		$result = mysql_query($sql);
+		while ($row = mysql_fetch_assoc($result)) {
+			$res[$row["code"]][$row["warehouse"]]=$row["amount"];
+		}
+
+		return $res;
+	}
 
 	/**
 		@attrib name=show params=name default="0"
@@ -55,6 +917,267 @@ class taket_ebasket extends class_base
 	**/
 	function show($arr)
 	{
+		if($arr["delete_basket"])
+		{
+			$do = obj($arr["delete_basket"]);
+			$do->delete();
+		}
+
+//arr($arr);
+//die();
+//isik ka aktuaalseks
+		$this->load_person();
+		$this->load_company();
+		$this->load_user();
+
+
+//arr($_POST);
+
+
+		$preferences = array();
+		if(is_array($this->user->meta("preferences")))
+		{
+			$preferences = $this->user->meta("preferences");
+		}
+		elseif(is_object($this->company))
+		{
+			$preferences = $this->company->meta("preferences");
+		}
+
+//lisab tooteid kui on
+		if(!empty($_POST["items"]) && sizeof($_POST["items"]))
+		{
+			$s_options = array(
+				"class_id" => CL_SHOP_SELL_ORDER,
+				"order_status" => "",
+				"lang_id" => array(),
+				"site_id" => array(),
+				new object_list_filter(array(
+					"logic" => "OR",
+					"conditions" => array(
+						"createdby" => aw_global_get("uid"),
+						"CL_SHOP_SELL_ORDER.purchaser" => $this->company->id(),
+					)
+				)),
+			);
+
+			if(!empty($_POST["basket"]))
+			{
+				$s_options["oid"] = $_POST["basket"];
+			}
+			else
+			{
+				$s_options["name"] = $_POST["ebasket_name"];
+			}
+
+			$ol = new object_list($s_options);
+			if($ol->count())
+			{
+				$o = $ol->begin();
+			}
+			else
+			{
+				$o = new object();
+				$o->set_class_id(CL_SHOP_SELL_ORDER);
+				$o->set_parent(aw_ini_get("orders_parent"));//suvalise lao id
+				$o->set_name($_POST["ebasket_name"]);
+				$o->set_prop("buyer_rep" , $this->person->id());
+				if(is_object($this->company)) $o->set_prop("purchaser" , $this->company->id());
+				$o->set_prop("currency" , aw_ini_get("currency"));
+				aw_disable_acl();
+				$o->save();
+				aw_restore_acl();
+			}
+
+		//toodete read tellimusse
+			$added_products = array();
+			foreach($_POST["items"] as $item)
+			{
+				$added_products[]=$item["id"];
+			}
+			$result = array();		
+			$sql = "select code from products where code IN ('".join("','" , $added_products)."')";
+			$this->db = $GLOBALS["object_loader"]->ds;
+			$this->db->db_query($sql);
+			while ($row = $this->db->db_next()){
+				$result[$row["code"]] = 1 ;
+			}		
+
+			foreach($_POST["items"] as $item)
+			{
+				if($result[$item["id"]])
+				{
+					$o->add_row(array(
+						"amount" => $item["amount"],
+						"code" =>$item["id"],
+					));
+				}
+			}		
+		}
+
+//transpordiv]imalused
+		$this->load_transport_types();
+		$transport_options = "";
+		foreach($this->transport_types as $tid => $tt)
+		{
+			$transport_options.= '<option value="'.$tid.'" '.($preferences["transport"] && $preferences["transport"] == $tid ? "SELECTED" : "").'>'.$tt.'</option>
+			';
+		}
+//ladude valik
+		$this->load_warehouses();
+		$warehouse_options = "";
+		foreach($this->warehouses as $id =>$wh)
+		{
+			$warehouse_options.= '
+				<option value="'.$id.'" '.($preferences["delivery_warehouse"] && $preferences["delivery_warehouse"] == $id ? "SELECTED" : "").'>Ladu '.$wh["ord"].' - '.utf8_decode($wh["short"]).'</option>
+			';
+		}
+
+
+//n'itab k]iki ostukorve
+		$filt = array(
+			"class_id" => CL_SHOP_SELL_ORDER,
+			"order_status" => "",
+			"lang_id" => array(),
+			"site_id" => array(),
+		);
+		if($_GET["onlymine"])
+		{
+			$filt["createdby"] = aw_global_get("uid");
+		}
+		else
+		{
+			$filt[]= new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					"createdby" => aw_global_get("uid"),
+					"CL_SHOP_SELL_ORDER.purchaser" => $this->company->id(),
+				)
+			));
+		}
+
+		$ol = new object_list($filt);
+
+
+//k6ikide toodete info
+		$prods = array();
+
+		foreach($ol->arr() as $o)
+		{
+			$rows = "";
+			foreach($o->connections_from(array("type" => "RELTYPE_ROW")) as $c)
+			{
+				$row = $c->to();
+				$prods[$row->prop("other_code")]= "'".$row->prop("other_code")."'";
+			}
+		}
+
+		$prod_data = array();
+		$disc_codes = array();
+		if(sizeof($prods))
+		{
+			$this->db = $GLOBALS["object_loader"]->ds;
+			$sql = "select * from products where code IN (".join("," , $prods).")";
+
+			$this->db->db_query($sql);
+			while ($row = $this->db->db_next()){
+				$prod_data[$row["code"]] = $row ;
+				$disc_codes[$row["disc_code"]] = $row["disc_code"];
+			}
+		}
+
+		$amounts = $this->search_amounts(array_keys($prod_data));
+
+//laeb templeidi
+		$this->read_template("show.tpl");
+
+//inist k'ibemaksu v''rtuse
+		$vat_value = aw_ini_get("vat");
+
+//allahindlused toodetele
+		$discounts = $this->load_discounts($disc_codes, $this->get_cat());
+
+
+		$orders = "";
+		foreach($ol->arr() as $o)
+		{
+			$rows = "";
+			$basket_price = 0;
+			$header_warehouses = "";
+			foreach($this->warehouses as $wh)
+			{
+				$this->vars(array("ord" => $wh["ord"]));
+				$header_warehouses.= $this->parse("HEADER_WAREHOUSES");
+			}
+			foreach($o->connections_from(array("type" => "RELTYPE_ROW")) as $c)
+			{
+				$discount_per = 0;//see peaks kuskilt tulema hakkama
+				$row = $c->to();
+				if(!empty($discounts[$prod_data[$row->prop("other_code")]["disc_code"]]))
+				{
+					$discount_per = $discounts[$prod_data[$row->prop("other_code")]["disc_code"]];
+				}
+
+				$this->vars($row->properties());
+				$vars = $prod_data[$row->prop("other_code")];
+				$vars["rowid"] = $row->id();
+				$vars["special_price"] = $this->bnf($vars["special_price"]);
+				$real_price = $vars["price"] - $vars["price"] * (0.01 * $discount_per);
+				$vars["price"] = $this->bnf($vars["price"]);
+				$vars["real_price"] = $this->bnf($real_price);
+				$vars["discount"] = $discount_per;
+				$real_price = $vars["price"] - $vars["price"] * (0.01 * $discount_per);
+
+				if($vars["special_price"] > 0)
+				{
+					$basket_price = $basket_price + $vars["special_price"] * $row->prop("amount");
+				}
+				else
+				{
+					$basket_price = $basket_price + $real_price * $row->prop("amount");
+				}
+				$row_amounts = "";
+				foreach($this->warehouses as $wh)
+				{
+
+					$wa = " - ";
+					if(isset($amounts[$row->prop("other_code")][$wh["id"]] ) && $amounts[$row->prop("other_code")][$wh["id"]] > $row->prop("amount"))
+					{
+						$wa = t("Laos");
+					}
+					elseif(isset($amounts[$row->prop("other_code")][$wh["id"]]))
+					{
+						$wa = t("EI");
+					}
+					$this->vars(array(
+						"warehouse_amount" => $wa,
+					));
+					$row_amounts.= $this->parse("ROW_AMOUNTS");
+				}
+				$vars["ROW_AMOUNTS"] = $row_amounts;
+				$this->vars($vars);
+				$rows.= $this->parse("toode");
+			}
+			$vars = array("toode" => $rows);
+			$vars["vat_value"] = $vat_value;
+			$vars["transport_options"] = $transport_options;
+			$vars["warehouse_options"] = $warehouse_options;
+			$vars["price"] = $this->bnf($basket_price / (1 + $vat_value * 0.01));
+			$vars["vat"] = $this->bnf($basket_price - $basket_price / (1 + $vat_value * 0.01));
+			$vars["total_price"] = $this->bnf($basket_price);
+			$vars["phone"] = $this->person->get_phone();
+			$vars["real_name"] = utf8_decode($this->person->name());
+			$vars["HEADER_WAREHOUSES"] = $header_warehouses;
+			$this->vars($vars);
+			$this->vars($o->properties());
+			$this->vars(array("name" => utf8_decode($o->name())));
+			$this->vars(array("basket_table" => $this->parse("basket_table")));
+			$orders.= $this->parse("ebasket");
+		}
+
+		$this->vars(array("ebasket" => $orders));
+		print utf8_encode($this->parse()); 
+		die();
 
 		// extended logging means, that almost every step during ebasket saving process, is logged into files/logs directory
 		// log files naming scheme is default (log-YYYY-MM-DD.log)
@@ -672,6 +1795,107 @@ else
 		return $this->parse();
 	}
 
+	function send_order_mail($order)
+	{
+		$ssoi = get_instance('applications/shop/shop_sell_order');
+		$emailContent = $ssoi->show(array(
+			'id' => $order->id(),
+			'template' => 'show_mail.tpl',
+		));
+
+		$this->read_template('shell.tpl');
+		$this->vars($order->meta());
+		$this->vars(array(
+			'content'=> $emailContent
+		));
+
+		$arr['user_id'] = aw_global_get('uid');
+		$this->vars($arr);
+
+		$mails = array();
+//		$mail_to = aw_ini_get('taket.email_address');
+		$person = get_current_person();
+
+		$mails[] = "markopuurmann@hotmail.com";//keyword
+
+		$wh = $this->warehouses[$order->prop("warehouse")];
+		if($wh["order_mail"])
+		{
+			$mails[]=$wh["order_mail"];
+		}
+
+		$mails[] = $person->get_mail();
+		$emailContent = $this->parse();
+		$awm = get_instance("protocols/mail/aw_mail");
+		$awm->create_message(array(
+			"froma" => "tellimine@taket.ee",
+			"fromn" => "Taketi Tellimiskeskus",
+			"subject" => "Tellimus Taketi Tellimiskeskusest",
+			"to" => join(",", $mails),
+			"body" => "tegemist on html kirjaga",
+		));
+		$awm->htmlbodyattach(array(
+			"data" => $emailContent,
+		));
+		$awm->gen_mail();
+	}
+
+	function send_order_afp($order , $prod_data)
+	{
+		$rows = array();
+		$total_price = 0;
+
+		foreach($order->connections_from(array("type" => "RELTYPE_ROW")) as $c)
+		{
+			$o = $c->to();
+			$row = array();
+			$price = $o->prop("price");
+			if($o->meta("discount"))
+			{
+				$price = $price - (0.01*$price*$o->meta("discount"));
+			}
+
+			$prod = $prod_data[$o->prop("other_code")];
+			$row['product_code'] = $o->prop("other_code");
+			$row['quantity'] = $o->prop('amount');
+			$row['product_name'] = urlencode($o->prop('prod_name'));
+			$row['discount'] = $o->meta('discount');
+			$row['price'] = $price * $row['quantity'];
+			$row['supplier_id'] = $prod['supplier_id'];
+			
+			$rows[]= $row;
+			$total_price+= $row['price'];
+		}
+		$wh = $this->warehouses[$order->prop("warehouse")];
+		if(!$wh)
+		{
+			$wh = reset($this->warehouses);
+		}
+		$client = new IXR_Client($wh["host"], $wh["path"], $wh["port"]);
+
+		//info that will go to the AFP order system
+		$toBeSent = array();
+		$toBeSent['data']=$rows;
+		$toBeSent['user']=aw_global_get('uid');
+		$toBeSent['tukkuGrupp']=$_SESSION['TAKET']['tukkuGrupp'];//keyword
+		$toBeSent['price']=$total_price;
+		$toBeSent['order_id']=$order->id();
+		$toBeSent['transport']=$order->meta('transport');
+		$toBeSent['transport_name']=$order->meta('transport_name');
+		$toBeSent['user_info']=$order->meta('info');
+
+//verokanta
+//arr($toBeSent);
+
+		if (!$client->query('server.sendOrder', $toBeSent))
+		{
+			$error_msg = " [Sending order failed: error_code: ".$client->getErrorCode()." error_message: ".$client->getErrorMessage()." ]";
+			die($error_msg);
+		}
+		
+		
+	}
+
 	/**
 
 		@attrib name=send_order params=name default="0"
@@ -690,9 +1914,113 @@ else
 	**/
 	function send_order($arr)
 	{
+		if(!($_POST['kontakttelefon'] && $_POST['eesperenimi']))
+		{
+			return $this->show();
+		}
+	
+		$order = obj($arr["id"]);
+
+//transpordiv]imalused
+		$this->load_transport_types();
+//ladude valik
+		$this->load_warehouses();
+//kasutaja
+		$this->load_user();
+//andmebaasi moodul
+		$this->load_db();
+
+//k6ikide toodete info
+		$prods = array();
+		
+		foreach($order->connections_from(array("type" => "RELTYPE_ROW")) as $c)
+		{
+			$row = $c->to();
+			$prods[$row->prop("other_code")]= "'".$row->prop("other_code")."'";
+		}
+
+		$prod_data = array();
+		$disc_codes = array();
+		if(sizeof($prods))
+		{
+			$sql = "select * from products where code IN (".join("," , $prods).")";
+			$this->db->db_query($sql);
+			while ($row = $this->db->db_next()){
+				$prod_data[$row["code"]] = $row ;
+				$disc_codes[]= $row["disc_code"];
+			}
+		}
+
+//allahindlused
+		$discounts = $this->load_discounts($disc_codes, $this->get_cat());//keyword
+
+
+//paneb tellimusse tooteinfot v]imalikult palju
+		foreach($order->connections_from(array("type" => "RELTYPE_ROW")) as $c)
+		{
+			$row = $c->to();
+
+			$discount = 0;
+			if($discounts[$prod_data[$row->prop("other_code")]["disc_code"]])
+			{
+				$discount = $discounts[$prod_data[$row->prop("other_code")]["disc_code"]];
+			}
+
+			$row->set_prop("prod_name" , $prod_data[$row->prop("other_code")]["name"]);
+			$row->set_prop("prod_name" , $prod_data[$row->prop("other_code")]["name"]);
+			$row->set_prop("amount" , $_POST["quantity"][$row->id()]);
+			$price = 0;
+
+			if($prod_data[$row->prop("other_code")]["special_price"] > 0)
+				$price = $prod_data[$row->prop("other_code")]["special_price"];
+			else
+				$price = $prod_data[$row->prop("other_code")]["price"];
+
+			$row->set_prop("price" , $price);
+			$row->set_meta("discount" ,	$discount);
+			aw_disable_acl();
+			$row->save();
+			aw_restore_acl();
+		}
+
+//kogu l'bu metasse kaasa, et alati k'tte saaks
+		foreach($_POST as $key => $val)
+		{
+			$order->set_meta($key , $val);
+		}
+		$transport = $this->transport_types[$_POST["transport"]];
+		$order->set_meta("transport_name" ,$transport);
+		$order->set_prop("warehouse" ,$_POST["location"]);
+		aw_disable_acl();
+		$order->save();
+		aw_restore_acl();
+
+
+//afidele ka s[steemi tellimus
+		$this->send_order_afp($order, $prod_data);
+
+
+//saadab tellimusmaili
+		$this->send_order_mail($order);
+
+
+//tellimuse staatus saadetuks
+
+		$order->set_comment($_POST["info"]);
+		$order->set_prop("order_status" , 2);
+		aw_disable_acl();
+		$order->save();
+		aw_restore_acl();
+
+		print "<h1>TELLIMUS SAADETUD</h1>";//keyword - miski ilusam asi vaja siia... dokumendi sisu vms kr'pp
+
+		die();
+
+
+
+
 		aw_disable_acl();
 
-		$arr['ebasket_name'] = urldecode($arr['ebasket_name']);
 		//if all the fields weren't filled
 		if(!($arr['kontakttelefon'] && $arr['eesperenimi'] && $arr['transport']))
 		{
@@ -1528,6 +2856,62 @@ else
 		return ((float)$usec + (float)$sec);
 	}
 
+	function getStockUpdate()
+	{//print "asdasd"; die();
+		$this->db = $GLOBALS["object_loader"]->ds;
+		$this->product_codes = array();
+		$sql = "select id,code from products";
+		$this->db->db_query($sql);
+		while ($row = $this->db->db_next()){
+			$this->product_codes[$this->fuck($row["code"])] = $row["id"] ;
+		}
+
+		$this->load_warehouses();
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$args = array();
+		$args["timestamp"] = time() - 60 * 15;
+
+		foreach($this->warehouses as $id => $wh)
+		{
+				$amounts = array();
+				$sql = "select id from amounts where warehouse=".$wh["id"];
+				$this->db->db_query($sql);
+				while ($row = $this->db->db_next()){
+					$amounts[$row["id"]] = $row["id"] ;
+				}
+
+				$client = new IXR_Client($wh["host"], $wh["path"], $wh["port"]);
+				$client->query('server.getStockUpdate',$args);
+				$data2 = $client->getResponse();
+
+				foreach($data2 as $data)
+				{
+					$prodid = $this->product_codes[$this->fuck($data["product_code"])];
+
+					if(!array_key_exists($prodid , $amounts)) //kui ei ole olemas toodet,siis lisab selle
+					{
+						$sql = "INSERT INTO amounts (id, code, warehouse, amount)
+						VALUES ('".$prodid."','".$this->fuck($data["product_code"])."', '".$wh["id"]."', '".$this->fuck($data["new"])."') 
+						;";
+					}
+					else
+					{
+						$sql = "UPDATE amounts 
+							SET amount='".$this->fuck_number($data["new"])."'
+							WHERE id='".$prodid."' AND warehouse='".$wh["id"]."';";
+					}
+					$res = $this->db->db_query($sql);
+				}
+		}
+		die();
+	}
+
+	function fuck_number($val)
+	{
+		$val=trim($val);
+		$val = urldecode($val);
+		return (double)$val;
+	}
 
 }
 ?>

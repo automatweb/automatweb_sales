@@ -15,20 +15,6 @@ class taket_afp_import_obj extends _int_object
 	// this is a cache class, i use it to make db queries
 	private $db_obj; 
 
-	function get_data($arr)
-	{
-		$this->init_vars();
-		$this->print_line("Make a query so the remote files would be created::");
-		$this->create_remote_files();
-
-		$this->print_line("Download files:");
-		$this->download_data_files();
-
-		$this->generate_products_xml();
-
-		exit(1);
-	}
-
 	private function init_vars()
 	{
 		// ERROR REPORTING
@@ -43,118 +29,12 @@ class taket_afp_import_obj extends _int_object
 			$this->controller_inst = get_instance(CL_CFGCONTROLLER);	
 		}
 
-		$this->db_obj = $GLOBALS["object_loader"]->cache;
+		$this->db_obj = $GLOBALS["object_loader"]->ds;
 		
 		$this->warehouses = $this->get_warehouses();
 
 		$this->prod_fld = $this->get_products_folder();
 		$this->org_fld = $this->get_suppliers_folder();
-	}
-
-	public function get_products_folder()
-	{
-		// I actually doubt that it is necessary to have products folder here 
-		// It belongs to this soon-to-come products import to warehouses class
-		// where i can configure how and where the prods will be imported
-		$wh = $this->prop("warehouse");
-
-		if($this->can("view", $wh))
-		{
-			$who = obj($wh);
-			$cid = $who->prop("conf");
-			$this->warehouse = $wh;
-		}
-		if($this->can("view", $cid))
-		{
-			$co = obj($cid);
-			$prod_fld = $co->prop("prod_fld");
-		}
-
-		if(!$prod_fld)
-		{
-			die(t("Lao toodete kataloog on m&auml;&auml;ramata"));
-		}
-		elseif(!$this->can("add", $prod_fld))
-		{
-			die(t("Lao toodete kataloogi alla ei ole &otilde;igusi lisamiseks"));
-		}
-		return $prod_fld;
-	}
-
-	public function get_suppliers_folder()
-	{
-		$org_fld = $this->prop("org_fld");
-
-		if(!$org_fld)
-		{
-			die(t("Organisatsioonide kataloog on m&auml;&auml;ramata"));
-		}
-		elseif(!$this->can("add", $org_fld))
-		{
-			die(t("Organisatsioonide kataloogi alla ei ole &otilde;igusi lisamiseks"));
-		}
-
-		return $org_fld;
-	}
-
-	private function create_remote_files()
-	{
-		$warehouses = $this->get_warehouses();
-
-		// Create products file in first (Kadaka) server
-		// TODO I should make it configurable which warehouse is used to get products from
-		$warehouse = new object(reset($warehouses));
-		$url = new aw_uri($warehouse->comment().'/index.php');
-		$url->set_arg('create_products_file', 1);
-
-		$this->print_line("Creating products file ... ", false);
-		$result = file_get_contents($url->get());
-		$this->print_line($result);
-
-		$urls = array();
-		foreach ($warehouses as $oid)
-		{
-			$warehouse = new object($oid);
-			$url = new aw_uri($warehouse->comment().'/index.php');
-			$url->set_arg('create_amounts_file', 1);
-
-			$urls[] = $url->get();
-		}
-
-		$this->print_line("Create amounts files (parallel)");
-		$res = $this->parallel_url_fetch($urls);
-		arr($res);
-
-		$this->print_line("Remote files created");
-	}
-
-	private function download_data_files() 
-	{
-		$this->print_line("Start downloading files");
-
-		$this->download_products_file();
-
-		$this->download_amounts_file();
-
-		$this->print_line("downloads done");
-	}
-
-	private function download_products_file()
-	{
-		$warehouses = $this->get_warehouses();
-
-		// lets download products file:
-		$wh = new object(reset($warehouses));
-		$adr = new aw_uri($wh->comment()."/prods.csv");
-
-		$dest_fld = aw_ini_get('site_basedir').'/files/products.csv';
-
-		$wget_command = 'wget -O '.$dest_fld.' "'.$adr->get().'"';
-
-		$this->print_line("Download products file ... ", false);
-		shell_exec($wget_command);
-	
-		$this->print_line("[done]");
 	}
 
 	private function download_amounts_file()
@@ -179,94 +59,6 @@ class taket_afp_import_obj extends _int_object
 			file_put_contents($filename, $v);
 			$this->print_line("saved file: ".$filename);
 		}
-	}
-
-	function generate_products_xml()
-	{
-		// TODO should make it configurable
-		$path = aw_ini_get('site_basedir').'/files/products.csv';
-		$lines = file($path);
-
-	
-		$keys = explode("\t", trim($lines[0]));
-		unset($lines[0]);
-
-		foreach ($lines as $line)
-		{
-			$items = explode("\t", $line);
-
-			foreach ($items as $k => $v)
-			{
-				$items[$k] = trim(urldecode($v));
-			}
-
-			$prod = array_combine($keys, $items);
-			$prods[$prod['product_code']] = $prod;
-
-			$suppliers[$prod['supplier_id']] = $prod['supplier_name'];
-		}
-
-		$xml = new SimpleXMLElement("<?xml version='1.0'?><products></products>");
-		
-		foreach ($prods as $code => $data)
-		{
-			$product = $xml->addChild('product');
-			foreach ($data as $key => $value)
-			{
-				$product->addChild($key, utf8_encode(htmlentities($value)));
-			}
-		}
-		$xml->asXML(aw_ini_get('site_basedir').'/files/products.xml');
-	}
-
-	// obsolete
-	public function get_data_from_file($arr)
-	{
-		$this->init_vars();
-
-		// get data files
-		$this->download_data_files();
-
-		if($cid = $this->prop("code_ctrl"))
-		{
-			$ctrli = get_instance(CL_CFGCONTROLLER);	
-		}
-
-		$start = $this->microtime_float();
-
-		aw_set_exec_time(AW_LONG_PROCESS);
-
-		$path = aw_ini_get('site_basedir').'/files/prods.txt';
-
-		$lines = file($path);
-	
-		$keys = explode("\t", trim($lines[0]));
-		unset($lines[0]);
-
-		foreach ($lines as $line)
-		{
-			$items = explode("\t", $line);
-
-			foreach ($items as $k => $v)
-			{
-				$items[$k] = trim(urldecode($v));
-			}
-
-			$prod = array_combine($keys, $items);
-			$prods[$prod['product_code']] = $prod;
-
-			$suppliers[$prod['supplier_id']] = $prod['supplier_name'];
-		}
-
-//		$this->update_suppliers($suppliers);
-
-		$this->update_products($prods);
-
-		$end = $this->microtime_float();
-
-		echo "time: ".(float)($end - $start)." <br /> \n";
-
-		exit();
 	}
 
 	public function get_suppliers()
@@ -316,99 +108,7 @@ class taket_afp_import_obj extends _int_object
 		echo "Suppliers updated<br />\n";
 	}
 
-	private function update_products($data)
-	{
-		$sql = "
-			SELECT
-				objects.oid,
-				objects.name,
-				objects.comment,
-				aw_shop_products.search_term as search_term,
-				aw_shop_products.user1 as replacement_product_code,
-				aw_shop_products.code
-			FROM
-				objects
-				LEFT JOIN aw_shop_products on objects.oid = aw_shop_products.aw_oid
-			WHERE
-				objects.class_id = 295 and
-				objects.status = 1
-		";
-
-		$aw_prods = $this->db_obj->db_fetch_array($sql);
-		echo "About to go over <strong>".count($aw_prods)."</strong> products ... <br />\n";
-		$count = 0;
-		foreach ($aw_prods as $aw_prod)
-		{
-			$code = (empty($aw_prod['comment'])) ? trim($aw_prod['code']) : trim($aw_prod['comment']);
-
-			$prod_data = ( isset( $data[$code] ) ) ? $data[$code] : null;
-			if ( !empty($prod_data) )
-			{
-				if ($this->is_product_changed($aw_prod, $prod_data))
-				{
-					echo "Product is changed - update (".$aw_prod['oid'].")<br />\n";
-					$this->update_product_sql($aw_prod['oid'], $prod_data);
-				}
-				else
-				{
-				//	echo "Product is not changed <br />\n";
-				}
-
-				$this->update_purveyances(array(
-					'product_oid' => $aw_prod['oid'],
-					'product_name' => $prod_data['product_name'],
-				));
-
-				// the product is in aw, so lets remove it from data array:
-				unset($data[$code]);
-			}
-			else
-			{
-				echo "Delete product (".$aw_prod['oid'].") <br />\n";
-				$this->delete_product_sql($aw_prod['oid']);
-			}
-		}
-
-		echo "<pre>";
-		print_r("Prods to insert aw: ".count($data));
-		echo "</pre>";
-
-		foreach ($data as $value)
-		{
-			$new_prod_oid = $this->add_product_sql($value);
-			$this->update_purveyances(array(
-				'product_oid' => $new_prod_oid,
-				'product_name' => $value['product_name'],
-			));
-		}
-
-		echo "<pre>";
-		print_r("prods update done");
-		echo "</pre>";
-	}
-
-	// check if the product is changed or not ...
-	private function is_product_changed($old, $new)
-	{
-		// values to check
-		// old (from db) => new (from file)
-		$check = array(
-			'name' => 'product_name',
-			'code' => 'product_code',
-			'replacement_product_code' => 'replacement_product_code',
-			'search_term' => 'search_term'
-		);
-		
-		foreach ($check as $old_key => $new_key)
-		{
-			if ($old[$old_key] != $new[$new_key])
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
+	// obsolete
 	private function add_product($product)
 	{
 		$code = urldecode($product["product_code"]);
@@ -516,7 +216,7 @@ class taket_afp_import_obj extends _int_object
 				aw_oid = ".$oid.",
 				code = '".addslashes($data['product_code'])."',
 				search_term = '".addslashes($data['search_term'])."',
-				user1 = '".addslashes($data['replacement_product_code'])."',
+				type_code = '".addslashes($data['replacement_product_code'])."',
 				short_code = '".$this->apply_controller($data['product_code'])."'
 		";
 		$this->db_obj->db_query($sql);
@@ -544,7 +244,7 @@ class taket_afp_import_obj extends _int_object
 			SET
 				code = '".addslashes($data['product_code'])."',
 				search_term = '".addslashes($data['search_term'])."',
-				user1 = '".addslashes($data['replacement_product_code'])."',
+				type_code = '".addslashes($data['replacement_product_code'])."',
 				short_code = '".$this->apply_controller($data['product_code'])."'
 			WHERE
 				aw_oid = ".$oid."
@@ -697,6 +397,726 @@ class taket_afp_import_obj extends _int_object
 	
 	}
 
+	private function check_tables()
+	{
+/*		$sql = "DROP TABLE `products`;";
+		$res = $this->db->db_query($sql);
+		$this->print_line("Droppis tabeli");		
+*/
+		$sql = "CREATE TABLE IF NOT EXISTS `products` (
+			id INT NOT NULL AUTO_INCREMENT,
+			code VARCHAR(32),
+			name VARCHAR(128),
+			rep_code VARCHAR(32),
+			short_code VARCHAR(32),
+			short_term VARCHAR(52),
+			search_term VARCHAR(52),
+			price double,
+			special_price double,
+			supplier_id int,
+			disc_code TINYINT,
+			PRIMARY KEY (id)
+		);";
+		$res = $this->db->db_query($sql);
+
+
+/*		$sql = "CREATE INDEX product_search ON products(short_code,short_term);";
+		$res = $this->db->db_query($sql);
+*//*
+		$this->print_line("yritas uut toodete tabelit luua");	
+
+		$sql = "CREATE INDEX code_index ON products(code);";
+		$res = $this->db->db_query($sql);
+		$sql = "CREATE INDEX name_index ON products(name);";
+		$res = $this->db->db_query($sql);
+
+
+		$sql = "CREATE INDEX rep_code_index ON products(rep_code);";
+		$res = $this->db->db_query($sql);
+/*		$sql = "CREATE INDEX short_index ON products(short_code);";
+		$res = $this->db->db_query($sql);
+		$sql = "CREATE INDEX term_index ON products(short_term);";
+		$res = $this->db->db_query($sql);
+		$this->print_line("Indeks valmis");	
+*/
+
+
+
+/*		$sql = "DROP TABLE `amounts`;";
+		$res = $this->db->db_query($sql);
+*/
+		$sql = "CREATE TABLE IF NOT EXISTS `amounts` (
+			id INT,
+			code VARCHAR(32),
+			warehouse INT,
+			amount INT,
+			foreign key (id) references products(id)
+		);";
+		$res = $this->db->db_query($sql);
+/*		$sql = "CREATE INDEX code_index ON amounts(code);";
+		$res = $this->db->db_query($sql);
+		$sql = "CREATE INDEX warehouse_index ON amounts(warehouse,amount);";
+		$res = $this->db->db_query($sql);
+		$sql = "CREATE INDEX amount_index ON amounts(amount,warehouse);";
+		$res = $this->db->db_query($sql);*/
+		//yritas tootekoguste tabelit luua
+
+/*
+		$sql = "ALTER TABLE aw_crm_bill CHANGE aw_bill_no aw_bill_no INT;";
+		$res = $this->db->db_query($sql);
+*/
+		$sql = "CREATE TABLE IF NOT EXISTS `discount` (
+			code TINYINT,
+			customer INT,
+			discount double
+		);";
+		$res = $this->db->db_query($sql);
+	}
+
+	public function do_import()
+	{
+		$this->db = $GLOBALS["object_loader"]->ds;
+		$this->check_tables();
+		$this->product_codes = array();
+
+		$sql = "select id,code from products";
+		$this->db->db_query($sql);
+		while ($row = $this->db->db_next()){
+			$this->product_codes[$this->fuck($row["code"])] = $row["id"] ;
+		}
+		$this->print_line('Products count '.sizeof($this->product_codes));
+
+		$warehouses = $this->warehouse_list();
+		foreach($warehouses as $warehouse)
+		{
+			$this->import_warehouse_data($warehouse);
+		}
+
+		die("valmis");
+	}
+
+	private function import_warehouse_data($whd)
+	{
+		arr("impordib andmeid laost: ".$whd["name"]);
+		if($whd["id"] == aw_ini_get("main_warehouse"))
+		{
+			$this->do_products_import($whd);
+	//		$this->do_delivery_import($whd);
+
+	//		$this->do_discounts_import($whd);
+		//	$this->do_users_import($wd); 
+		}
+	//	$this->do_afp_users_import($whd);
+	
+	//	$this->do_amounts_import($whd);
+
+	}
+
+	function do_afp_users_import($wh)
+	{
+		if($wh["id"] != "6411")
+		{
+			return;
+		}
+		$this->print_line("AFP users import ..... get file" , false);
+		$url = new aw_uri($wh["info"].'/index.php');
+		$url->set_arg('get_afp_users', 1);
+
+		$taket = obj(aw_ini_get("taket_co"));
+		$result = file($url->get());
+//		arr($result);
+		$this->print_line('[done]');
+	//	$result = unserialize($result);
+
+		$count = 0;
+
+		foreach($result as $res)
+		{
+	//		arr($res);
+			$res = str_replace('"' , '' , $res);
+			arr($res);
+			$count++;
+			if($count < 2) continue;
+		//	if($count > 4) break;
+			$data = explode("	" , $res);
+
+			$name = $data[5];
+			$name = utf8_encode($this->fuck($name));
+			$firstname = utf8_encode($this->fuck($data[3]));
+			$lastname = utf8_encode($this->fuck($data[4]));
+
+
+
+			$ol = new object_list(array(
+				"name" => $name,
+				"class_id" => CL_CRM_PERSON,
+				"firstname" => $firstname,
+				"lastname" => $lastname,
+			));
+
+			if($ol->count())
+			{
+				$person = $ol->begin();
+			}
+			else
+			{
+				$person = new object();
+				$person->set_parent($taket->id());
+				$person->set_name($name);
+				$person->set_class_id(CL_CRM_PERSON);
+				$person->set_prop("firstname" , $firstname);
+				$person->set_prop("lastname" , $lastname);
+				$person->save();
+
+				$person->add_work_relation(array(
+					"org" => $taket,
+				));
+
+				$person->set_meta("taket" , $data);
+				$person->add_phone($data[12]);
+				$person->add_address(utf8_encode($this->fuck($data[6])));
+
+				$person->save();
+
+				$user = new object();
+				$user->set_class_id(CL_USER);
+				$user->set_name(utf8_encode($this->fuck($data[0])));
+				$user->set_parent($taket->id());
+				$user->set_prop("uid" , utf8_encode($this->fuck($data[0])));
+				$user->set_password(utf8_encode($this->fuck($data[1])));
+				$user->save();
+	//			$user->add_to_group($group);//keyword
+				$user->connect(array(
+					"to" => $person->id(),
+					"reltype" => "RELTYPE_PERSON"
+				));
+			}
+		}
+	}
+
+/*
+    [0] => MP_KAYTTAJATUNNUS
+    [1] => MP_SALASANA
+    [2] => MP_KAYTTAJATASO
+    [3] => MP_ETUNIMI
+    [4] => MP_SUKUNIMI
+    [5] => MP_KOKONIMI
+    [6] => MP_KATUOSOITE
+    [7] => MP_POSTINUMERO
+    [8] => MP_POSTITOIMIPAIKKA
+    [9] => MP_PUHELIN_TYO
+    [10] => MP_PUHELIN_KOTI
+    [11] => MP_SAHKOPOSTI
+    [12] => MP_PUHELIN_GSM
+    [13] => MP_PUHELIN_FAX
+    [14] => MP_OSASTO
+    [15] => MP_OSASTOKOODI
+*/
+
+	private function do_delivery_import($wh)
+	{
+		require(aw_ini_get("basedir")."addons/ixr/IXR_Library.inc.php");
+		$client = new IXR_Client($wh["host"], $wh["path"], $wh["port"]);
+		$client->query('server.getTransportTypes',array());
+		$data2 = $client->getResponse();
+		$this->transport_types = $data2;
+//		arr($this->transport_types);
+		$ol = new object_list(array(
+			"class_id" => CL_SHOP_DELIVERY_METHOD,
+		));
+
+		$saast = array();
+		foreach($ol->arr() as $o)
+		{
+			$saast[$o->comment()] = $o->id();
+		}
+		foreach($this->transport_types as $type)
+		{
+			if(empty($saast[$type["transport_id"]]))
+			{
+				$o = new object();
+				$o->set_class_id(CL_SHOP_DELIVERY_METHOD);
+				$o->set_parent(aw_ini_get("main_warehouse"));
+				$o->set_name($type["transport_name"]);
+				$o->set_comment($type["transport_id"]);
+				$o->save();
+			}
+		}
+	}
+
+	function do_users_import()
+	{
+
+		$taket = obj(aw_ini_get("taket_co"));
+
+//-------------------- organisatsioonid ------------------ 
+
+		$orgs = array();
+		$gud = file("http://84.50.96.150:8080/xmlrpc/index.php?get_users_data=1");
+		$count = 0;
+
+
+		foreach($gud as $key => $val)
+		{
+			if($count%100 == 0)
+			{
+				print $count."<br>";
+				flush();
+			}
+
+			if($count > 1)
+			{
+				$data = explode("	" , $val);
+				//kategooria
+				$org = $this->add_co_if_no_ex(utf8_encode($data[3]), $taket->id());
+				$count++;
+				if(isset($orgs[$org->id()]))
+				{
+					continue;
+				}
+				$orgs[$org->id()] = 1;
+				$org->set_prop("reg_nr" , $data[20]);
+				$org->set_prop("tax_nr" , $data[19]);
+
+/*				$cat = $taket->add_cat_if_there_is_none($data[18]);
+				$rel = $taket->get_customer_relation(2, $org, true);
+				$rel->add_category(obj($cat));
+				$org->add_phone($data[8]);
+				$org->add_phone($data[9]);
+				$org->add_phone($data[10]);
+				$org->add_phone($data[11]);
+				$org->add_address(array(
+					"use_existing" => 1,
+					"address" => utf8_encode($data[4]),
+					"index" => $data[6],
+					));
+				$org->add_mail($data[7]);
+				$org->add_url($data[12]);
+				$org->set_meta("taket" , $data);
+				$org->set_prop("code" , $data[0]);*/
+				$org->save();
+			}
+			else $count++;
+
+		}
+//------------------------------------------------------- isikud
+/*		$gpd = file("http://88.196.208.74:8888/xmlrpc/index.php?get_persons_data=1");
+
+		$count = 0;
+		foreach($gpd as $key => $val)
+		{
+			if($count%100 == 0)
+			{
+				print $count."<br>";
+				flush();
+			}
+			if(true)// $count > 1)
+			{
+				$data = explode("	" , $val);
+				//kategooria
+				$count++;
+				$person = $this->add_person_if_no_ex($data[0], $taket->id() , utf8_encode($data[4]));
+				$org = $this->get_org_by_code($data[1]);
+
+				$person->add_work_relation(array(
+					"org" => $org,
+					"profession" => utf8_encode($data[5]),
+				));
+
+				$person->set_meta("taket" , $data);
+				$person->add_mail($data[9]);
+				$person->add_phone($data[6]);
+				$person->add_phone($data[7]);
+				$person->set_prop("firstname" , utf8_encode($data[2]));
+				$person->set_prop("lastname" , utf8_encode($data[3]));
+				$person->set_prop("code" , $data[1]);
+				$person->save();
+			}
+			else $count++;
+
+		}
+
+*/
+
+/*		$cl_user_creator = new crm_user_creator();
+
+		
+		$ol = new object_list(array(
+			"class_id" => CL_CRM_PERSON,
+		));
+		$cnt = 0;
+		$group = obj(aw_ini_get("taket_group"));
+arr($ol->count());
+$persons = array();
+		foreach($ol-> arr() as $o)
+		{
+			if(!$o->awobj_get_username())
+			{
+				$co = $o->company_id();
+				if($co)
+				{
+					$company = obj($co);
+					if($company->prop("code"))
+					{
+						$cuol = new object_list(array("class_id" => CL_USER , "name" => $company->prop("code")));
+						if($cuol->count())
+						{
+							$copy_user = $cuol->begin();
+
+							$username = $cl_user_creator->get_uid_for_person($o , false , true);
+							if($username)
+							{
+								$props = $copy_user->properties();
+
+								$user = new object();
+								$user->set_class_id(CL_USER);
+								$user->set_name($username);
+								$user->set_parent($co);
+								$user->set_prop("uid" , $username);
+								$user->set_prop("password" , $props["password"]);
+								$user->set_prop("home_folder" , $props["home_folder"]);
+								$user->save();
+								$user->add_to_group($group);
+								$user->connect(array(
+									"to" => $o->id(),
+									"reltype" => "RELTYPE_PERSON"
+								));
+								$user->set_prop("password" , $props["password"]);
+								$user->save();
+						//	arr($copy_user->properties());
+						//		arr($user->properties());
+						//		arr($o->company_id());
+						arr($username);
+
+							}
+else {$cnt++;arr($o->name());arr($cl_user_creator->get_uid_for_person($o , true));}
+
+	//					arr($o->name());
+
+						}
+					}
+				}
+
+
+			}
+
+*/
+
+		die();
+
+	}
+
+	function get_org_by_code($code)
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_CRM_COMPANY,
+			"code" => $code
+		));
+		$ids = $ol->ids();
+		$id = reset($ids);
+		return $id  ;
+
+	}
+
+	function add_co_if_no_ex($name, $parent)
+	{
+		$ol = new object_list(array(
+			"name" => $name,
+			"class_id" => CL_CRM_COMPANY,
+		));
+		if($ol->count())
+		{
+			return $ol->begin();
+		}
+			else
+		{
+			$o = new object();
+			$o->set_parent($parent);
+			$o->set_name($name);
+			$o->set_class_id(CL_CRM_COMPANY);
+			$o->save($name);
+			return $o;
+		}
+	}
+
+	function add_person_if_no_ex($code, $parent,$name)
+	{
+		$ol = new object_list(array(
+			"external_id" => $code,
+			"class_id" => CL_CRM_PERSON,
+		));
+		if($ol->count())
+		{
+			return $ol->begin();
+		}
+			else
+		{
+			$o = new object();
+			$o->set_parent($parent);
+			$o->set_name($name);
+			$o->set_class_id(CL_CRM_PERSON);
+			$o->set_prop("external_id" , $code);
+			$o->save();
+			return $o;
+		}
+	}
+
+	function do_products_import($wh)
+	{
+		$this->print_line('L2hev toodete importi tegema');
+
+		$dest_fld = aw_ini_get('site_basedir').'/files/warehouse_import/products.csv';
+		
+		$url = new aw_uri($wh["info"].'/index.php');
+		$url->set_arg('create_products_file', 1);
+
+		$this->print_line("Creating products file ... ", false);
+//		$result = file_get_contents($url->get());
+
+		$this->print_line('['.$result.']');
+		$adr = new aw_uri($wh["info"]."/prods.csv");
+
+	//		var_dump($result);die();
+		$wget_command = 'wget -O '.$dest_fld.' "'.$adr->get().'"';
+		$this->print_line("Download products file ... ", false);
+		shell_exec($wget_command);
+		$this->print_line('filesize '.filesize($dest_fld).']');
+		$this->print_line("[done]");
+
+		$file = file($dest_fld);
+//		$max = array();
+//		$strings = array();
+
+		$r = mysql_query("SHOW TABLE STATUS LIKE 'products' ");
+		$row = mysql_fetch_array($r);
+		$Auto_increment = $row['Auto_increment'];
+		mysql_free_result($r);
+
+
+		foreach($file as $linenr => $row)
+		{
+			if($linenr % 10000 == 0) $this->print_line($linenr);
+			if(!$linenr)//esimene rida
+			{
+				continue;
+			}
+
+	//		if($linenr > 15) die();
+			$rowdata = explode("	" , $row);
+
+			$code = $this->fuck($rowdata[0]);
+			$rep_code = $this->fuck($rowdata[1]);
+/*			if($code == $rep_code)
+			{
+				$rep_code = "";
+			}*/
+			$short_term = $this->short_code($rowdata[3]);
+			$short_code = $this->short_code($rowdata[0]);	
+
+			if(!array_key_exists($code , $this->product_codes)) //kui ei ole olemas toodet,siis lisab selle
+			{
+				$sql = "INSERT INTO products (code, name, rep_code, short_code, search_term, short_term, price , special_price , supplier_id, disc_code)
+				VALUES ('".$code."', '".$this->fuck($rowdata[2])."', '".$rep_code."', '".$short_code."', '".$this->fuck($rowdata[3])."', '".$short_term."',    '".$this->fuck($rowdata[6])."', '".$this->fuck($rowdata[7])."', '".$this->fuck($rowdata[4])."' ,'".ord($rowdata[5])."')
+				;";
+
+				$this->product_codes[$code] = $Auto_increment;
+				$Auto_increment++;
+			}
+			else
+			{
+				$sql = "UPDATE products 
+					SET price='".$this->fuck_number($rowdata[6])."', special_price='".$this->fuck_number($rowdata[7])."', search_term='".$this->fuck($rowdata[3])."',
+					short_term='".$short_term."'
+					WHERE id='".$this->product_codes[$code]."';";
+			}
+			$res = $this->db->db_query($sql);
+/* v'ljade pikkused		*/	
+/*			foreach($rowdata as $key => $val)
+			{
+
+
+				if(empty($max[$key]) || $max[$key] < strlen($val))
+				{
+					$max[$key] = strlen($val);
+					$strings[$key] = $val;
+
+				}
+			}*/
+		}
+//		arr($max);
+//		arr($strings);
+
+	}
+
+	function do_amounts_import($wh)
+	{
+		$dest_fld = aw_ini_get('site_basedir').'/files/amounts_'.$wh["id"].'.csv';
+		$url = new aw_uri($wh["info"].'/index.php');
+		$url->set_arg('create_amounts_file', 1);
+		$this->print_line("Creating amounts file ... ");
+		$cont = $url->get();
+		$this->print_line("url: ".$cont);
+
+		$result = file_get_contents($url->get());
+		$this->print_line('['.$result.']');
+		$adr = new aw_uri($wh["info"]."/amounts.csv");
+		$wget_command = 'wget -O '.$dest_fld.' "'.$adr->get().'"';
+		shell_exec($wget_command);
+		$this->print_line("Download amounts file ... ", false);
+		$this->print_line('filesize '.filesize($dest_fld).']');
+		$this->print_line("[done]");
+
+//selle lao olemasolevad
+		$amounts = array();
+		$sql = "select id from amounts where warehouse=".$wh["id"];
+		$this->db->db_query($sql);
+		while ($row = $this->db->db_next()){
+			$amounts[$row["id"]] = $row["id"] ;
+		}
+		$this->print_line('Amounts count '.sizeof($amounts));
+
+
+
+		$file = file($dest_fld);
+		$max = array();
+		$strings = array();
+		$errors = 0;
+$count = 0;
+		foreach($file as $linenr => $row)
+		{
+			$count++;
+			if($linenr % 10000 == 0)$this->print_line($linenr);
+			if(!$linenr)//esimene rida
+			{
+				continue;
+			}
+
+	//		if($linenr > 10) die();
+			$rowdata = explode("	" , $row);
+			$code = $this->fuck($rowdata[0]);
+			$prodid = $this->product_codes[$code];
+			if(!$prodid)
+			{
+//				$this->print_line('ERROR - product code:'.$code);
+//				$this->print_line($row);
+				$errors++;
+				continue;
+			}
+			if(!array_key_exists($prodid , $amounts)) //kui ei ole olemas toodet,siis lisab selle
+			{
+				$sql = "INSERT INTO amounts (id, code, warehouse, amount)
+				VALUES ('".$prodid."','".$code."', '".$wh["id"]."', '".$this->fuck($rowdata[1])."') 
+				;";
+			}
+			else
+			{
+				$sql = "UPDATE amounts 
+					SET amount='".$this->fuck_number($rowdata[1])."'
+					WHERE id='".$prodid."' AND warehouse='".$wh["id"]."';";
+			}
+			$res = $this->db->db_query($sql);
+		}
+		$this->print_line("errors: ".$errors);
+		$this->print_line("Amounts '".$wh["name"]."' done");
+	}
+
+
+	function do_discounts_import($wh)
+	{
+		$this->print_line("Discount rules import ..... get file" , false);
+		$url = new aw_uri($wh["info"].'/index.php');
+		$url->set_arg('get_discount_rules', 1);
+
+		$result = file_get_contents($url->get());
+		$this->print_line('[done]');
+		$result = unserialize($result);
+
+		$discounts = array();
+		$sql = "select * from discount";
+		$this->db->db_query($sql);
+		while ($row = $this->db->db_next()){
+			$discounts[$row["code"]] = $row ;
+		}
+
+		foreach($result as $res)
+		{
+			$x = 0;
+			while($x < 15)
+			{
+				if(isset($res["KAT_ALE".$x]))
+				{
+					if(!isset($discounts[ord($res["KAT_KOODI"])]))
+					{
+						$sql = "INSERT INTO discount (code, customer, discount)
+						VALUES ('".ord($res["KAT_KOODI"])."', '".$x."', '".$res["KAT_ALE".$x]."') 
+						;";
+					}
+					else
+					{
+						$sql = "UPDATE discount
+							SET discount='".$res["KAT_ALE".$x]."'
+							WHERE code='".ord($res["KAT_KOODI"])."' AND customer='".$x."';";
+					}
+					arr($sql);
+					$this->db->db_query($sql);
+				}
+				$x++;
+			}
+		}
+		$this->print_line("Discount rules import finished");
+	}
+
+	function fuck($val)
+	{
+		$val = urldecode($val);
+		$val = preg_replace('!\s+!', ' ', $val);
+		$val = addslashes($val);
+		$val = trim($val);
+		return $val;
+	}
+
+	function fuck_number($val)
+	{
+		$val=trim($val);
+		$val = urldecode($val);
+		return (double)$val;
+	}
+
+	private function short_code($code)
+	{
+		$ret = $code;
+		$ret = str_ireplace(array(" ","-","."), array("","",""), $ret);
+		return $this->fuck($ret);	
+	}
+
+	private function warehouse_list()
+	{
+		$ret = array();
+		$ol = new object_list(array(
+			"class_id" => CL_SHOP_WAREHOUSE,
+			"status" => 2,
+		));
+		foreach($ol->arr() as $o)
+		{
+			$asd = explode(":" , $o->comment());
+			$psd = explode("/" , $asd[2]);
+			$port = $psd[0];
+			unset($psd[0]);
+			$wh = array(
+					"name" => $o->name(),	
+					"host" => str_replace("/" , "" , $asd[1]),
+					"port" => $port,
+					"path" => "/".join("/", $psd).(sizeof($psd) ? "/" : "")."index.php",
+					"ord" => $o->prop("ord"),
+					"id" => $o->id(),
+					"short" => $o->prop("short_name"),
+					"status" => $o->prop("status"),
+					"info" => $o->comment(),
+				);
+			$this->warehouses[$o->id] = $wh;
+		}
+		return $this->warehouses;
+	}
 
 	public function import_amounts($arr, $that)
 	{
@@ -1111,7 +1531,6 @@ class taket_afp_import_obj extends _int_object
 			$this->warehouses[$conn->prop('to')] = $conn->prop('to');
 		}
 		return $this->warehouses;
-		
 	}
 
 	// this is for personnel import and it should return php array with data

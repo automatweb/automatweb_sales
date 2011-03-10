@@ -71,7 +71,6 @@ class site_show extends class_base
 	function site_show()
 	{
 		$this->init("automatweb/menuedit");
-		$this->cache = get_instance("cache");
 		$this->image = get_instance(CL_IMAGE);
 		$this->doc = get_instance(CL_DOCUMENT);
 	}
@@ -396,8 +395,7 @@ class site_show extends class_base
 	{
 		extract($arr);
 		$cur_ip = aw_global_get("REMOTE_ADDR");
-
-		$ipa = get_instance("syslog/ipaddress");
+		$ipa = new ipaddress();
 
 		if (count($allowed) > 0)
 		{
@@ -495,6 +493,7 @@ class site_show extends class_base
 				}
 			}
 		}
+
 		if (is_array($sub_callbacks))
 		{
 			// ok, check if the new and better OO (TM) way exists
@@ -1215,7 +1214,7 @@ class site_show extends class_base
 
 	function detect_country()
 	{
-		$ipl = get_instance("core/util/ip_locator/ip_locator");
+		$ipl = new ip_locator();
 		$v = $ipl->search(get_ip());
 		if ($v == false)
 		{
@@ -1262,7 +1261,7 @@ class site_show extends class_base
 		$blocks = array();
 
 		$section_id = $this->section_obj->id();
-		$tplmgr = get_instance("templatemgr");
+		$tplmgr = new templatemgr();
 		if (is_array($docid))
 		{
 			$template = $tplmgr->get_lead_template($section_id);
@@ -1743,6 +1742,8 @@ class site_show extends class_base
 	// !build "you are here" links from the path
 	function make_yah()
 	{
+		if($this->load_template) { $this->read_template("main.tpl"); }/// FIXME: marko taket dev-st saadud, 'load_template' ei esine mujal senises aw koodis, kontrollida yle kui kogu taket mergetud
+
 		$path = $this->path;
 		$ya = "";
 		$cnt = count($path);

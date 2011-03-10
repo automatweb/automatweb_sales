@@ -565,7 +565,7 @@ class bt_projects_impl extends core
 
 		$ol = new object_list();
 
-		if ($arr["request"]["do_proj_search"] == 1)
+		if (!empty($arr["request"]["do_proj_search"]))
 		{
 			$u = new user();
 			$i = new crm_company_cust_impl();
@@ -588,7 +588,7 @@ class bt_projects_impl extends core
 			}
 			$t->set_caption(t("Projektide otsingu tulemused"));
 		}
-		elseif(!$arr["request"]["filt_type"])
+		elseif(empty($arr["request"]["filt_type"]))
 		{
 			$po = get_current_person();
 			$ol = new object_list(array(
@@ -597,7 +597,7 @@ class bt_projects_impl extends core
 			));
 			$t->set_caption(sprintf(t("Projektid, milles %s on projektijuht"), $po->name()));
 		}
-		elseif($arr["request"]["filt_type"] && $arr["request"]["filt_value"])
+		elseif(!empty($arr["request"]["filt_type"]) && !empty($arr["request"]["filt_value"]))
 		{
 			switch($arr["request"]["filt_type"])
 			{
@@ -700,7 +700,7 @@ class bt_projects_impl extends core
 	{
 		$t = $arr["prop"]["vcl_inst"];
 
-		if(!$arr["request"]["filt_type"] && !$arr["request"]["do_proj_search"])
+		if(empty($arr["request"]["filt_type"]) && empty($arr["request"]["do_proj_search"]))
 		{
 			$po = get_current_person();
 			$conn = $po->connections_to(array(
@@ -795,7 +795,7 @@ class bt_projects_impl extends core
 			"tooltip" => t("Kopeeri"),
 		));
 
-		if($is_cat && ($_SESSION["bt_proj_cut_clip"] || $_SESSION["bt_proj_copy_clip"]))
+		if($is_cat && (!empty($_SESSION["bt_proj_cut_clip"]) || !empty($_SESSION["bt_proj_copy_clip"])))
 		{
 			$tb->add_button(array(
 				"name" => "paste",

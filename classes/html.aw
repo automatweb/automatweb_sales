@@ -279,7 +279,7 @@ class html
 		$style = isset($style) ? " style=\"{$style}\"":"";
 		$class = isset($class) ? " class=\"{$class}\"":"";
 
-		if(is_admin() && !empty($autocomplete_class_id))
+		if(!empty($autocomplete_class_id))
 		{
 			$params = array(
 				"id" => automatweb::$request->arg("id"),
@@ -299,7 +299,7 @@ class html
 		}
 
 		### compose autocompletes source url
-		if (is_admin() && (!empty($autocomplete_source) or !empty($options) and is_array($options) or !empty($autocomplete_source_method)))
+		if ((!empty($autocomplete_source) or !empty($options) and is_array($options) or !empty($autocomplete_source_method)))
 		{
 			if (!defined("AW_AUTOCOMPLETE_INITIALIZED"))
 			{

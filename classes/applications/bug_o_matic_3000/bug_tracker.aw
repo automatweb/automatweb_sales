@@ -13,6 +13,9 @@ define("MENU_ITEM_LENGTH", 20);
 	@property name type=textbox table=objects field=name
 	@caption Nimi
 
+	@property owner type=relpicker reltype=RELTYPE_OWNER table=objects field=meta method=serialize
+	@caption Omanikorganisatsioon
+
 	@property object_type type=relpicker reltype=RELTYPE_OBJECT_TYPE table=objects field=meta method=serialize
 	@caption Bugi objekti t&uuml;&uuml;p
 
@@ -2711,9 +2714,9 @@ class bug_tracker extends class_base
 
 	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["tf"] = automatweb::$request->arg("tf");
+		if (isset($request["tf"])) $arr["tf"] = $request["tf"];
+		if (isset($request["b_id"])) $arr["b_id"] = $request["b_id"];
 		$arr["assign_to"] = 0;
-		$arr["b_id"] = automatweb::$request->arg("b_id");
 		$arr["save_search_name"] = "";
 		$arr["post_ru"] = aw_url_change_var("post_ru", null, post_ru());
 		if($this->use_group === "settings_statuses")
@@ -2731,7 +2734,7 @@ class bug_tracker extends class_base
 
 		if($this->use_group === "projects")
 		{
-			$arr["filt_value"] = $request["filt_value"];
+			if (isset($request["filt_value"])) $arr["filt_value"] = $request["filt_value"];
 		}
 	}
 
@@ -3447,8 +3450,7 @@ class bug_tracker extends class_base
 			$this->combined_priority_formula = $arr["obj_inst"]->prop("combined_priority_formula"); // required by get_undone_bugs_by_p(), __gantt_sort()
 		}
 
-		classload("core/date/date_calc");
-		$range_start = get_day_start();
+		$range_start = date_calc::get_day_start();
 		$range_end = time() + $columns * $col_length;
 
 		$subdivisions = 1;
@@ -3556,7 +3558,7 @@ class bug_tracker extends class_base
 				$tot_len = $length;
 				$length = $sect[$curday]["len"];
 				$remaining_len = $tot_len - $length;
-				$title = parse_obj_name($gt->name())."<br>( ".date("d.m.Y H:i", $this->gt_start)." - ".date("d.m.Y H:i", $this->gt_start + $length)." ) ";
+				$title = parse_obj_name($gt->name()).html::linebreak()."( ".date("d.m.Y H:i", $this->gt_start)." - ".date("d.m.Y H:i", $this->gt_start + $length)." ) ";
 				$bar = array (
 					"id" => $gt->id (),
 					"row" => $gt->id (),
@@ -3576,7 +3578,7 @@ class bug_tracker extends class_base
 					$length = min($remaining_len, $sect[$curday]["len"]);
 					$remaining_len -= $length;
 					$this->gt_start = $this->get_next_avail_time_from($this->gt_start, $this->day2wh);
-					$title = $gt->name()."<br>( ".date("d.m.Y H:i", $this->gt_start)." - ".date("d.m.Y H:i", $this->gt_start + $length)." ) ";
+					$title = $gt->name().html::linebreak()."( ".date("d.m.Y H:i", $this->gt_start)." - ".date("d.m.Y H:i", $this->gt_start + $length)." ) ";
 					$bar = array (
 						"id" => $gt->id (),
 						"row" => $gt->id (),
@@ -3592,7 +3594,7 @@ class bug_tracker extends class_base
 			}
 			else
 			{
-				$title = parse_obj_name($gt->name())."<br>( ".date("d.m.Y H:i", $this->gt_start)." - ".date("d.m.Y H:i", $this->gt_start + $length)." ) ";
+				$title = parse_obj_name($gt->name()).html::linebreak()."( ".date("d.m.Y H:i", $this->gt_start)." - ".date("d.m.Y H:i", $this->gt_start + $length)." ) ";
 				$bar = array (
 					"id" => $gt->id (),
 					"row" => $gt->id (),
@@ -3616,6 +3618,7 @@ class bug_tracker extends class_base
 				return $this->gt_start;
 			}
 		}
+
 		$this->job_end = $this->gt_start;
 		$chart->configure_chart (array (
 			"chart_id" => "bt_gantt",
@@ -3638,7 +3641,7 @@ class bug_tracker extends class_base
 
 		while ($i < $columns)
 		{
-			$day_start = (get_day_start() + ($i * $this->gt_days_in_col * 86400));
+			$day_start = (date_calc::get_day_start() + ($i * $this->gt_days_in_col * 86400));
 			$day = date ("w", $day_start);
 			$date = date ("j/m/Y", $day_start);
 			$uri = aw_url_change_var ("mrp_chart_length", 1);
@@ -3651,7 +3654,7 @@ class bug_tracker extends class_base
 			$i++;
 		}
 
-		$arr["prop"]["value"] = $chart->draw_chart ();
+		$arr["prop"]["value"] = $chart->draw_chart();
 		return $chart;
 	}
 
@@ -4067,9 +4070,7 @@ class bug_tracker extends class_base
 		}
 
 		$ol = new object_list(array(
-			"oid" => $persons,
-			"lang_id" => array(),
-			"site_id" => array()
+			"oid" => $persons
 		));
 		return $ol->names();
 	}
@@ -4101,11 +4102,11 @@ class bug_tracker extends class_base
 	**/
 	function get_node_monitor($arr)
 	{
-		$node_tree = get_instance("vcl/treeview");
+		$node_tree = new treeview();
 		$node_tree->start_tree (array (
 			"type" => TREE_DHTML,
 			"tree_id" => "bug_tree",
-			"branch" => 1,
+			"branch" => 1
 		));
 		$bugi = get_instance(CL_BUG);
 
@@ -4154,7 +4155,7 @@ class bug_tracker extends class_base
 		{
 			if ($_to == $arr["b_mon"])
 			{
-				$_to_name = "<b>".$_to_name."</b>";
+				$_to_name = html::bold($_to_name);
 			}
 			$node_tree->add_item(0, array(
 				"id" => $_to,
@@ -4274,9 +4275,7 @@ class bug_tracker extends class_base
 		$ft = array(
 			"class_id" => CL_BUG,
 			"bug_status" => array(bug::BUG_OPEN, bug::BUG_INPROGRESS, bug::BUG_FATALERROR, bug::BUG_TESTING, bug::BUG_VIEWING),
-			"CL_BUG.who.name" => $p->name(),
-			"lang_id" => array(),
-			"site_id" => array()
+			"CL_BUG.who.name" => $p->name()
 		);
 		$ot = new object_tree($ft);
 		$gt_list = $ot->to_list();
@@ -4284,9 +4283,7 @@ class bug_tracker extends class_base
 		$gt_list->add(new object_list(array(
 			"class_id" => CL_BUG,
 			"bug_status" => array(bug::BUG_FEEDBACK),
-			"CL_BUG.bug_feedback_p.name" => $p->name(),
-			"lang_id" => array(),
-			"site_id" => array()
+			"CL_BUG.bug_feedback_p.name" => $p->name()
 		)));
 
 		$bugs = $gt_list->arr();
@@ -4295,8 +4292,6 @@ class bug_tracker extends class_base
 		$sub_bugs = new object_list(array(
 			"class_id" => CL_BUG,
 			"parent" => $gt_list->ids(),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"bug_status" => new obj_predicate_not(bug::BUG_CLOSED)
 		));
 
@@ -4307,9 +4302,7 @@ class bug_tracker extends class_base
 
 		$gt_list = new object_list();
 		$gt_list->add(array_keys($bugs));
-		$gt_list->sort_by_cb(array(
-			&$this, "__gantt_sort"
-		));
+		$gt_list->sort_by_cb(array($this, "__gantt_sort"));
 
 		$rv = $gt_list->arr();
 		foreach($rv as $idx => $bug)
@@ -4345,7 +4338,7 @@ class bug_tracker extends class_base
 	function nag_about_unestimated_bugs($arr)
 	{
 		// auth as me
-		aw_switch_user(array("uid" => "kix"));
+		// aw_switch_user(array("uid" => "kix"));
 
 		// get list of all users to whom bugs are assigned
 		$c = new connection();
@@ -4390,9 +4383,7 @@ class bug_tracker extends class_base
 		// get all bugs that are needs feedback and send mail to their creators
 		$ol = new object_list(array(
 			"class_id" => CL_BUG,
-			"lang_id" => array(),
-			"site_id" => array(),
-			"bug_status" => bug::BUG_FEEDBACK,
+			"bug_status" => bug::BUG_FEEDBACK
 		));
 
 		$bug2uid = array();
@@ -4468,7 +4459,7 @@ class bug_tracker extends class_base
 		return $nag_about;
 	}
 
-	function _init_unestimated_table(&$t, $p)
+	function _init_unestimated_table($t, $p)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -5351,8 +5342,7 @@ die("a");
 
 	public function _get_s_finance_type($arr)
 	{
-		$arr["prop"]["options"] = array(
-			"" => t("--vali--"),
+		$arr["prop"]["options"] = html::get_empty_option() + array(
 			-1 => t("Valimata"),
 			1 => t("T&ouml;&ouml; l&otilde;ppedes"),
 			2 => t("Projekti l&otilde;ppedes"),
@@ -5367,6 +5357,7 @@ die("a");
 		$conn = $obj_inst->connections_from(array(
 			"type" => "RELTYPE_OWNER",
 		));
+		$owner = null;
 		if(count($conn))
 		{
 			$c = reset($conn);

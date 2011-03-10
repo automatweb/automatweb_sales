@@ -3384,19 +3384,23 @@ class crm_bill extends class_base
 			$vars["impl_name"] = $impl->name();
 			$vars["impl_reg_nr"] = $impl->prop("reg_nr");
 			$vars["impl_kmk_nr"] = $impl->prop("tax_nr");
-			$vars["impl_fax"] = $impl->prop_str("telefax_id");
-			$vars["impl_url"] = $impl->prop_str("url_id");
-			$vars["impl_phone"] = $impl->prop_str("phone_id");
-			$vars["imp_penalty"] = $impl->prop("bill_penalty_pct");
+			$vars["impl_fax"] = $impl->prop_str("telefax_id", true);//TODO: use get_phone(), get_telefax(),... type methods instead -- implementor could be a person. todo: create these methods in crmco crmperson and add them to customerinterface
+			$vars["impl_url"] = $impl->prop_str("url_id", true);
+			$vars["impl_phone"] = $impl->prop_str("phone_id", true);
+			$vars["imp_penalty"] = $impl->prop("bill_penalty_pct");//TODO: belongs to customer relation not crmco
 			$vars["impl_ou"] = $impl->prop("ettevotlusvorm.shortname");
 
 			$impl_logo = $impl->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
 			if ($impl_logo)
 			{
-				$this->vars["impl_logo_url"] = $impl_logo->instance()->get_url_by_id($impl_logo->id());
-				$this->vars(array(
-					"HAS_IMPL_LOGO" => $this->parse("HAS_IMPL_LOGO")
-				));
+				$logo_url = $impl_logo->instance()->get_url_by_id($impl_logo->id());
+				$this->vars["impl_logo_url"] = $logo_url;
+				if ($logo_url)
+				{
+					$this->vars(array(
+						"HAS_IMPL_LOGO" => $this->parse("HAS_IMPL_LOGO")
+					));
+				}
 			}
 
 			$ba = "";
@@ -3451,7 +3455,8 @@ class crm_bill extends class_base
 				{
 					$riik = obj($ct->prop("riik"));
 					$vars["impl_country"] = $riik->name();
-					$vars["impl_phone"] = $riik->prop("area_code")." ".$impl->prop_str("phone_id");
+					//TODO: make sense and order in phone number handling before adding areacode automatically.
+					// $vars["impl_phone"] = $riik->prop("area_code")." ".$impl->prop_str("phone_id");
 					$this->vars(array("HAS_COUNTRY" => $this->parse("HAS_COUNTRY")));
 				}
 			}
@@ -3501,7 +3506,7 @@ class crm_bill extends class_base
 			$tpl .= "_remit";
 		}
 
-		if($arr["pdf"])
+		if(!empty($arr["pdf"]))
 		{
 			$tpl .= "_pdf";
 			$tpl .= "_".$lc;
@@ -3604,6 +3609,7 @@ class crm_bill extends class_base
 			"orderer_country" => $ord_country,
 			"orderer_street" => $this->bill->get_customer_address("street"),
 			"orderer_kmk_nr" => $ord->prop("tax_nr"),
+			"orderer_reg_nr" => $ord->prop("reg_nr"),
 			"bill_no" => $this->bill->prop("bill_no"),
 			"bill_date" => $this->bill->prop("bill_date"),
 			"bill_due" => date("d.m.Y", $this->bill->prop("bill_due_date")),
@@ -4163,6 +4169,7 @@ class crm_bill extends class_base
 			"ord_penalty_pct" => number_format($bpct, 2),
 			"orderer_addr" => $ord_addr,
 			"orderer_kmk_nr" => $ord->prop("tax_nr"),
+			"orderer_reg_nr" => $ord->prop("reg_nr"),
 			"bill_no" => $this->bill->prop("bill_no"),
 			"bill_date" => $this->bill->prop("bill_date"),
 			"payment_due_days" => $this->bill->prop("bill_due_date_days"),
@@ -4342,7 +4349,7 @@ class crm_bill extends class_base
 				$this->vars(array(
 					"unit" => $this->bill->get_unit_name($row["unit"]),
 					"amt" => $this->stats->hours_format($row["amt"]),
-					"price" => number_format($row["price"], 2,".", " "),
+					"price" => number_format((double) $row["price"], 2,".", " "),
 					"sum" => number_format($cur_sum, 2,"." , " "),
 					"desc" => nl2br($row["name"]),
 					"date" => isset($row["date"]) ? $row["date"] : "",

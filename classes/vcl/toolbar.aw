@@ -433,6 +433,11 @@ class toolbar extends aw_template
 						$val["onclick"] = "";
 					}
 
+					if (empty($val["href_class"]))
+					{
+						$val["href_class"] = "";
+					}
+
 					if (empty($val["tooltip"]))
 					{
 						$val["tooltip"] = "";
