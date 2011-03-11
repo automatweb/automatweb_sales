@@ -10,6 +10,7 @@ class aw_table extends aw_template
 	public $rowdefs = array();
 	public $data = array();
 	public $create_rgroup_links = true;
+	public $name = "awTable0";
 
 	////
 	// !constructor - paramaters:
@@ -18,7 +19,6 @@ class aw_table extends aw_template
 	protected $scripts;
 	protected $id = 'table_0';
 	protected $filter_name = "awTblFlt";
-	protected $name = "awTable0";
 
 	protected $parsed_pageselector = '';
 	protected $no_recount;
@@ -3067,7 +3067,7 @@ END;
 		@attrib api=1
 		@param display_titlebar_below required type=bool
 	**/
-	function set_lower_titlebar_display($display_titlebar_below)
+	public function set_lower_titlebar_display($display_titlebar_below)
 	{
 		$this->titlebar_repeat_bottom = $display_titlebar_below;
 	}
@@ -3076,11 +3076,23 @@ END;
 		@attrib api=1
 		@param display_titlebar required type=bool
 	**/
-	function set_titlebar_display($display_titlebar)
+	public function set_titlebar_display($display_titlebar)
 	{
 		$this->titlebar_display = $display_titlebar;
 	}
+
+	public function change_row_group_name($field, $old_name, $new_name)
+	{
+		foreach ($this->data as $nr => $row_data)
+		{
+			if (isset($row_data[$field]) and $row_data[$field] === $old_name)
+			{
+				$this->data[$nr][$field] = $new_name;
+			}
+		}
+	}
 }
+
 
 // this is needed to make this work with get_instance
 class vcl_table extends aw_table
@@ -3395,17 +3407,6 @@ class vcl_table extends aw_table
 			"name" => "sel"
 		));
 		$this->data_from_ol($ol, array("change_col" => "name"));
-	}
-
-	public function change_row_group_name($field, $old_name, $new_name)
-	{
-		foreach ($this->data as $nr => $row_data)
-		{
-			if (isset($row_data[$field]) and $row_data[$field] === $old_name)
-			{
-				$this->data[$nr][$field] = $new_name;
-			}
-		}
 	}
 }
 

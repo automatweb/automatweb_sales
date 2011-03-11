@@ -127,9 +127,8 @@ class project_files_impl extends class_base
 //			$parents[] = $obj->id();
 		}
 		$ol = new object_list(array(
-			"lang_id" => array(),
 			"parent" => $obj->id(),
-			"class_id" => CL_MENU,
+			"class_id" => CL_MENU
 		));
 		$parents[] = $obj->id();
 		foreach($ol->arr() as $folder)
@@ -185,7 +184,7 @@ class project_files_impl extends class_base
 			"url" => aw_url_change_var("tf", "by_type")
 		));
 
-		$types = array(
+		$types = array( //TODO: get names from class list awiniget classes.$clid.name
 			CL_FILE => t("Fail"),
 			CL_CRM_MEMO => t("Memo"),
 			CL_CRM_DOCUMENT => t("CRM Dokument"),
@@ -202,19 +201,32 @@ class project_files_impl extends class_base
 			$filter = array(
 				"class_id" => $clid,
 			);
-			if(in_array($clid ,array(CL_CRM_DOCUMENT,CL_CRM_DEAL,CL_CRM_MEMO,CL_DEVELOPMENT_ORDER)))
+
+			if(in_array($clid ,array(
+				CL_CRM_DOCUMENT,
+				// CL_CRM_DEAL, //XXX: crmdeal doesn't have a property named 'project'
+				CL_CRM_MEMO,
+				CL_DEVELOPMENT_ORDER
+			)))
 			{
 				$filter["project"] = $pr;
 			}
-			if(in_array($clid ,array(CL_FILE,CL_PROJECT_STRAT_GOAL_EVAL_WS,CL_PROJECT_RISK_EVAL_WS,CL_PROJECT_ANALYSIS_WS)))
+
+			if(in_array($clid ,array(
+				CL_FILE,
+				CL_PROJECT_STRAT_GOAL_EVAL_WS,
+				CL_PROJECT_RISK_EVAL_WS,
+				CL_PROJECT_ANALYSIS_WS
+			)))
 			{
 				$filter["parent"] = $parent_folders;
 			}
+
 			$ol = new object_list($filter);
 			$nm = $capt." (".sizeof($ol->ids()).")";
 			if ($otf == $clid)
 			{
-				$nm = "<b>".$nm."</b>";
+				$nm = html::bold($nm);
 			}
 			$arr["prop"]["vcl_inst"]->add_item("by_type", array(
 				"id" => $clid,
@@ -312,7 +324,7 @@ class project_files_impl extends class_base
 		//puust ja igaltpoolt mujalt
 		else
 		{
-			if ($arr["request"]["tf"] == "unsorted")
+			if ($arr["request"]["tf"] === "unsorted")
 			{
 	//			$ot = new object_tree(array("class_id" => CL_MENU, "parent" => $pt, "lang_id" => array(), "site_id" => array()));
 	//			$pt = new obj_predicate_not(array($pt, $pt) + $ot->ids());
@@ -325,7 +337,6 @@ class project_files_impl extends class_base
 				"parent" => $pt,
 	//			"project" => $pr,
 				"class_id" => array(CL_FILE,CL_CRM_DOCUMENT, CL_CRM_DEAL, CL_CRM_MEMO, CL_CRM_OFFER , CL_PROJECT_STRAT_GOAL_EVAL_WS ,CL_PROJECT_RISK_EVAL_WS ,CL_PROJECT_ANALYSIS_WS,CL_DEVELOPMENT_ORDER),
-				"lang_id" => array(),
 			);
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
@@ -343,7 +354,6 @@ class project_files_impl extends class_base
 				$pr = $arr["obj_inst"]->id();
 				$filter = array(
 					"class_id" => $arr["request"]["tf"],
-					"lang_id" => array(),
 				);
 				if(in_array($arr["request"]["tf"] ,array(CL_CRM_DOCUMENT,CL_CRM_DEAL,CL_CRM_MEMO,CL_CRM_OFFER,CL_DEVELOPMENT_ORDER)))
 				{
@@ -361,7 +371,7 @@ class project_files_impl extends class_base
 		$clss = aw_ini_get("classes");
 		foreach($ol->arr() as $o)
 		{
-			$pm = get_instance("vcl/popup_menu");
+			$pm = new popup_menu();
 			$pm->begin_menu("sf".$o->id());
 
 			if ($o->class_id() == CL_FILE)

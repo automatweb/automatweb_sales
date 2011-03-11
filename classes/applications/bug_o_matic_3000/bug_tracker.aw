@@ -726,31 +726,12 @@ class bug_tracker extends class_base
 					1 => 'Alambugidega bugid'
 				);
 				break;
-			case "unset_table":
-				$this->_unestimated_table($arr);
-				break;
-
-			case "bug_tb":
-				$this->_bug_toolbar($arr);
-				break;
-
-			case "bug_tree":
-				$this->_bug_tree($arr);
-				break;
-
-			case "bug_list":
-				$this->_bug_list($arr);
-				break;
 
 			case "cat":
 				if(isset($arr["request"]["cat"]) and $this->can("view", $arr["request"]["cat"]))
 				{
 					$prop["value"] = $arr["request"]["cat"];
 				}
-				break;
-
-			case "search_res":
-				$this->_search_res($arr);
 				break;
 
 			case "s_date_type":
@@ -930,6 +911,7 @@ class bug_tracker extends class_base
 					$prop["value"] = $arr["request"][$prop["name"]];
 				}
 				break;
+
 			case "stat_proj_tasks":
 			case "stat_proj_calls":
 			case "stat_proj_bugs":
@@ -943,17 +925,18 @@ class bug_tracker extends class_base
 					$prop["value"] = $arr["request"][$prop["name"]];
 				}
 				break;
+
 			case "my_bugs_stat_start":
-				classload("core/date/date_calc");
 				if(empty($arr["request"][$prop["name"]]))
 				{
-					$prop["value"] = get_week_start();
+					$prop["value"] = date_calc::get_week_start();
 				}
 				else
 				{
 					$prop["value"] = $arr["request"][$prop["name"]];
 				}
 				break;
+
 			case "my_bugs_stat_end":
 				if(empty($arr["request"][$prop["name"]]))
 				{
@@ -998,9 +981,6 @@ class bug_tracker extends class_base
 					$arr["obj_inst"]->set_meta("gantt_user_ends", $udata);
 					$arr["obj_inst"]->save();
 				}
-				break;
-			case "unset_table":
-				$this->_save_estimates($arr);
 				break;
 
 			case "combined_priority_formula":
@@ -1057,9 +1037,7 @@ class bug_tracker extends class_base
 		$c_ol = new object_list(array(
 			"class_id" => array(CL_TASK_ROW,CL_BUG_COMMENT),
 			"comment" => "%viewcvs.cgi%",
-			"lang_id" => array(),
-			"site_id" => array(),
-			"created" => new obj_predicate_compare(OBJ_COMP_GREATER, $prevm),
+			"created" => new obj_predicate_compare(OBJ_COMP_GREATER, $prevm)
 		));
 		$bug_oids = array();
 		foreach($c_ol->arr() as $c_o)
@@ -1250,8 +1228,6 @@ class bug_tracker extends class_base
 
 	function _get_my_bugs_stat_table($arr)
 	{
-		classload("core/date/date_calc");
-
 		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
@@ -1301,7 +1277,7 @@ class bug_tracker extends class_base
 		}
 		else
 		{
-			$start = get_week_start();
+			$start = date_calc::get_week_start();
 		}
 		if($e = $arr["request"]["my_bugs_stat_end"])
 		{
@@ -1311,10 +1287,9 @@ class bug_tracker extends class_base
 		{
 			$end = time();
 		}
+
 		$bug_comments = new object_list(array(
 			"class_id" => array(CL_TASK_ROW),
-			"lang_id" => array(),
-			"site_id" => array(),
 			"created" => new obj_predicate_compare(OBJ_COMP_BETWEEN, $start, $end),
 			"sort_by" => "objects.createdby, objects.created"
 		));
@@ -1424,11 +1399,11 @@ class bug_tracker extends class_base
 		return PROP_OK;
 	}
 
-	function _bug_toolbar($arr)
+	function _get_bug_toolbar($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
 
-		if ($arr["request"]["group"] == "by_class")
+		if ($arr["request"]["group"] === "by_class")
 		{
 			$pt = $arr["obj_inst"]->prop("bug_by_class_parent");
 		}
@@ -1442,6 +1417,7 @@ class bug_tracker extends class_base
 			"tooltip" => t("Lisa"),
 			"url" => html::get_new_url(CL_BUG, $pt, array(
 				"return_url" => get_ru(),
+				"bt" => $arr["obj_inst"]->id()
 			)),
 			"href_id" => "add_bug_href",
 			"img" => "new.gif",
@@ -1496,7 +1472,7 @@ class bug_tracker extends class_base
 			"name" => "cut",
 			"tooltip" => t("L&otilde;ika"),
 			"img" => "cut.gif",
-//			"onClick" => $cut_js,
+//			"onclick" => $cut_js,
 			"action" => "cut_b",
 		));
 
@@ -1512,9 +1488,6 @@ class bug_tracker extends class_base
 //			"surround_start" => "<span id='paste_button' style='visibility: $vis;'>",
 //			"surround_end" => "</span>"
 			));
-		}
-		if ($vis == "visible")
-		{
 		}
 
 		$tb->add_separator();
@@ -1534,7 +1507,7 @@ class bug_tracker extends class_base
 				"parent" => "assign",
 				"text" => $p_name,
 				"link" => "#",
-				"onClick" => "document.changeform.assign_to.value=$p_oid;submit_changeform('assign_bugs')"
+				"onclick" => "document.changeform.assign_to.value=$p_oid;submit_changeform('assign_bugs')"
 			));
 		}
 
@@ -1554,7 +1527,7 @@ class bug_tracker extends class_base
 				"parent" => "set_status",
 				"text" => $p_name,
 				"link" => "#",
-				"onClick" => "document.changeform.assign_to.value=$p_oid;submit_changeform('set_bug_status')"
+				"onclick" => "document.changeform.assign_to.value=$p_oid;submit_changeform('set_bug_status')"
 			));
 		}
 
@@ -1702,7 +1675,7 @@ class bug_tracker extends class_base
 					"group" => $arr["active_group"],
 					"b_id" => $obj_id,
 				)),
-				"onClick" => "do_bt_table_switch($obj_id, this);return false;",
+				"onclick" => "do_bt_table_switch($obj_id, this);return false;",
 				"alt" => $object->name()
 			));
 
@@ -1711,7 +1684,7 @@ class bug_tracker extends class_base
 				$node_tree->add_item( $obj_id, array(
 					"id" => $sub_id,
 					"name" => $sub_obj->name()." (".html::get_change_url($sub_id, array("return_url" => $arr["set_retu"]), t("<span style='font-size: 8px;'>Muuda</span>")).")",
-					"onClick" => "do_bt_table_switch($sub_id, this);return false;"
+					"onclick" => "do_bt_table_switch($sub_id, this);return false;"
 				));
 			}
 		}
@@ -1923,7 +1896,7 @@ class bug_tracker extends class_base
 		}
 	}
 
-	function _bug_tree($arr)
+	function _get_bug_tree($arr)
 	{
 		$this->tree = new treeview();
 		$this->active_group = $arr["request"]["group"];
@@ -2010,7 +1983,7 @@ class bug_tracker extends class_base
 			$this->tree->add_item($arr["parent"] , array(
 				"id" => $obj_id,
 				"name" => $nm." ".html::get_change_url($obj_id, array("return_url" => get_ru()), t("Muuda")),
-				"onClick" => "do_bt_table_switch($obj_id);return false;"
+				"onclick" => "do_bt_table_switch($obj_id);return false;"
 			));
 		}
 	}
@@ -2176,7 +2149,7 @@ class bug_tracker extends class_base
 			"caption" => t("Prioriteet"),
 			"sortable" => 1,
 			"numeric" => 1,
-			"callback" => array(&$this, "show_priority"),
+			"callback" => array($this, "show_priority"),
 			"callb_pass_row" => 1,
 			"filter" => array(
 				t("1"),
@@ -2191,7 +2164,7 @@ class bug_tracker extends class_base
 			"caption" => t("T&otilde;sidus"),
 			"sortable" => 1,
 			"numeric" => 1,
-			"callback" => array(&$this, "show_severity"),
+			"callback" => array($this, "show_severity"),
 			"callb_pass_row" => 1,
 			"filter" => array(
 				t("1"),
@@ -2223,7 +2196,7 @@ class bug_tracker extends class_base
 			"caption" => t("K"),
 			"sortable" => 1,
 			"numeric" => 1,
-			"callback" => array(&$this,"comment_callback"),
+			"callback" => array($this,"comment_callback"),
 			"callb_pass_row" => 1,
 		));
 
@@ -2233,7 +2206,7 @@ class bug_tracker extends class_base
 		));
 	}
 
-	function _init_bug_list_tbl_no_edit(&$t)
+	function _init_bug_list_tbl_no_edit($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -2277,7 +2250,7 @@ class bug_tracker extends class_base
 			"tooltip" => t("Kombineeritud prioriteet"),
 			"sortable" => 1,
 			"numeric" => 1,
-			"callback" => array(&$this,"sp_callback"),
+			"callback" => array($this,"sp_callback"),
 			"callb_pass_row" => 0
 		));
 
@@ -2325,7 +2298,7 @@ class bug_tracker extends class_base
 			"caption" => t("K"),
 			"sortable" => 1,
 			"numeric" => 1,
-			"callback" => array(&$this,"comment_callback"),
+			"callback" => array($this,"comment_callback"),
 			"callb_pass_row" => 1,
 		));
 
@@ -2335,7 +2308,7 @@ class bug_tracker extends class_base
 		));
 	}
 
-	function _bug_list($arr)
+	function _get_bug_list($arr)
 	{
 		$t = new vcl_table();
 		$this->_init_bug_list_tbl($t);
@@ -2368,7 +2341,7 @@ class bug_tracker extends class_base
 				$closed = 0;
 				foreach($arr["request"] as $r)
 				{
-					if($r == "1,6,Suletud")
+					if($r === "1,6,Suletud")
 						$closed = 1;
 				}
 				if(!$closed)
@@ -2688,7 +2661,7 @@ class bug_tracker extends class_base
 		$arr["args"]["my_bugs_stat_end"] = isset($arr["request"]["my_bugs_stat_end"]) ? $arr["request"]["my_bugs_stat_end"] : "";
 		$arr["args"]["stat_proj_ppl"] = isset($arr["request"]["stat_proj_ppl"]) ? $arr["request"]["stat_proj_ppl"] : "";
 
-		if ("stat_hrs_overview" === $arr["args"]["group"])
+		if ("stat_hrs_overview" === $this->use_group)
 		{
 			$arr["args"]["just_saved"] = null;
 		}
@@ -2836,13 +2809,13 @@ class bug_tracker extends class_base
 		$this->_req_get_struct_xml_level--;
 	}
 
-	function _search_res($arr)
+	function _get_search_res($arr)
 	{
 		if (!$arr["request"]["MAX_FILE_SIZE"])
 		{
 			return;
 		}
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_bug_list_tbl_no_edit($t);
 
 		$search_filt = $this->_get_bug_search_filt($arr["request"]);
@@ -2876,9 +2849,7 @@ class bug_tracker extends class_base
 	function _get_bug_search_filt($r)
 	{
 		$res = array(
-			"class_id" => CL_BUG,
-			"lang_id" => array(),
-			"site_id" => array()
+			"class_id" => CL_BUG
 		);
 
 		$txtf = array("oid", "name", "bug_url", "bug_component", "bug_mail");
@@ -3000,9 +2971,7 @@ class bug_tracker extends class_base
 			// map name to possible persons, get users for those and search by that
 			$ul = new object_list(array(
 				"class_id" => CL_USER,
-				"CL_USER.RELTYPE_PERSON.name" => "%".$r["s_createdby"]."%",
-				"lang_id" => array(),
-				"site_id" => array()
+				"CL_USER.RELTYPE_PERSON.name" => "%".$r["s_createdby"]."%"
 			));
 			if ($ul->count())
 			{
@@ -3063,7 +3032,7 @@ class bug_tracker extends class_base
 			"name" => "save",
 			"tooltip" => t("Salvesta otsing"),
 			"action" => "save_search",
-			"onClick" => "document.changeform.save_search_name.value=prompt('Sisesta nimi');",
+			"onclick" => "document.changeform.save_search_name.value=prompt('Sisesta nimi');",
 			"img" => "save.gif",
 		));
 
@@ -3109,7 +3078,7 @@ class bug_tracker extends class_base
 				"parent" => "assign",
 				"text" => $p_name,
 				"link" => "#",
-				"onClick" => "document.changeform.assign_to.value=$p_oid;submit_changeform('assign_bugs')"
+				"onclick" => "document.changeform.assign_to.value=$p_oid;submit_changeform('assign_bugs')"
 			));
 		}
 	}
@@ -3371,7 +3340,7 @@ class bug_tracker extends class_base
 	function list_only_fetch($arr)
 	{
 		$p = array();
-		$val = $this->_bug_list(array(
+		$val = $this->_get_bug_list(array(
 			"prop" => &$p,
 			"request" => $arr,
 			"obj_inst" => obj($arr["id"]),
@@ -4481,9 +4450,9 @@ class bug_tracker extends class_base
 		}
 	}
 
-	function _unestimated_table($arr)
+	function _get_unset_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$p = get_current_person();
 		if ($arr["request"]["filt_p"])
 		{
@@ -4513,7 +4482,7 @@ class bug_tracker extends class_base
 		$t->set_sortable(false);
 	}
 
-	function _save_estimates($arr)
+	function _set_unset_table($arr)
 	{
 		$cp = get_current_person();
 		$p = $cp->id();
@@ -4549,7 +4518,7 @@ class bug_tracker extends class_base
 
 	function _get_statuses_devo_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "status",
 			"align" => "center",
@@ -4623,7 +4592,7 @@ class bug_tracker extends class_base
 
 	function _get_statuses_bug_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "status",
 			"align" => "center",
@@ -4818,14 +4787,11 @@ class bug_tracker extends class_base
 	**/
 	function disp_wh($arr)
 	{
-		classload("core/date/date_calc");
 		$tmp = mktime(0,0,0,1,1,2007);
 		$coms = new object_list(array(
 			"class_id" => array(CL_TASK_ROW,CL_BUG_COMMENT),
-			"lang_id" => array(),
-			"site_id" => array(),
 			//"created" => new obj_predicate_compare(OBJ_COMP_GREATER, get_week_start()/*-7*3600*24*/),
-			"created" => new obj_predicate_compare(OBJ_COMP_GREATER, $tmp/*-7*3600*24*/),
+			"created" => new obj_predicate_compare(obj_predicate_compare::GREATER, $tmp/*-7*3600*24*/),
 			"sort_by" => "objects.createdby, objects.created"
 		));
 //		echo "com count = ".$coms->count()." <br>";
@@ -4875,6 +4841,7 @@ echo "<div style='font-size: 10px;'>";
 			);
 			$wh[$uid] += $com->prop("add_wh");
 		}
+
 		asort($bs);
 		foreach($bs as $uid => $bgs)
 		{
@@ -4939,8 +4906,6 @@ echo "<div style='font-size: 10px;'>";
 		$pt = $arr["tf"] ? $arr["tf"] : $o->id();
 		$ol = new object_list(array(
 			"class_id" => CL_PROCUREMENT_REQUIREMENT,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"parent" => $pt
 		));
 		$t = new vcl_table();

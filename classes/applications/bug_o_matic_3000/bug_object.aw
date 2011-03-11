@@ -31,6 +31,7 @@ class bug_object extends _int_object
 				}
 			}
 		}
+
 		if($name === "send_bill" && !$this->prop("send_bill"))
 		{
 			$this->set_prop("to_bill_date" , time());
@@ -56,6 +57,7 @@ class bug_object extends _int_object
 			{
 				$sets = $p->prop("org_section");
 			}
+
 			if (is_array($sets))
 			{
 				$sets = reset($sets);
@@ -70,6 +72,7 @@ class bug_object extends _int_object
 				$this->set_prop("orderer_person", $p->id());
 			}
 		}
+
 		if (0 !== $this->prop("send_bill"))
 		{
 			$this->set_prop("send_bill", 1);
@@ -330,6 +333,53 @@ class bug_object extends _int_object
 		}
 
 		return $projects;
+	}
+
+	/** Finds and returns bug tracker associated with this bug
+		@attrib api=1 params=pos
+		@comment
+		@returns CL_BUG_TRACKER|NULL
+			Returns NULL if no bug tracker found
+		@errors
+			throws awex_obj_acl when bt object found but access denied
+	**/
+	public function get_tracker()
+	{
+		$bt = null;
+
+		try
+		{
+			if ($this->prop("tracker"))
+			{
+				$bt = obj($this->prop("tracker"), array(), CL_BUG_TRACKER);
+			}
+			else
+			{
+				$parent = $this->parent() ? $this->parent() : automatweb::$request->arg("parent");
+				if ($parent)
+				{
+					$po = new object($parent);
+					$pt = $po->path();
+					foreach($pt as $pi)
+					{
+						if ($pi->class_id() == CL_BUG_TRACKER)
+						{
+							$bt = $pi;
+							break;
+						}
+					}
+				}
+			}
+		}
+		catch (awex_obj_acl $e)
+		{
+			throw $e;
+		}
+		catch (Exception $e)
+		{
+		}
+
+		return $bt;
 	}
 
 	private function update_all_rows()

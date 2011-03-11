@@ -32,6 +32,7 @@
 
 @groupinfo files caption="Failid" submit=no
 
+// RELTYPES
 @reltype FILE value=1 clid=CL_FILE
 @caption Fail
 

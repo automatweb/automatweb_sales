@@ -1,7 +1,7 @@
 <?php
 /*
 
-@classinfo relationmgr=yes no_comment=1 no_status=1 r2=yes
+@classinfo relationmgr=yes no_comment=1 no_status=1 r2=yes prop_cb=1
 
 @tableinfo aw_bugs index=aw_id master_index=brother_of master_table=objects
 
@@ -40,11 +40,13 @@
 		@property skill_used type=select table=aw_bugs field=skill_used parent=settings_col1 captionside=top
 		@caption Kasutatav P&auml;devus
 
-		@property is_order type=checkbox ch_value=1 parent=settings_col1 no_caption=1
+		@property is_order type=checkbox ch_value=1 parent=settings_col1
 		@caption Arendustellimus
 
-	@layout settings_col2 type=vbox parent=settings
 
+	@layout settings_col2 type=vbox parent=settings
+		@property project type=relpicker reltype=RELTYPE_PROJECT parent=settings_col2 captionside=top
+		@caption Projekt
 
 		@property bug_type type=select table=aw_bugs field=bug_type captionside=top parent=settings_col2
 		@caption T&uuml;&uuml;p
@@ -62,7 +64,6 @@
 		@caption Klassi omadus
 
 	@layout settings_col3 type=vbox parent=settings
-
 		@property monitors type=relpicker reltype=RELTYPE_MONITOR multiple=1 size=5 store=connect parent=settings_col3 captionside=top
 		@caption J&auml;lgijad
 
@@ -86,15 +87,14 @@
 
 	@property vb_d1 type=hidden store=no no_caption=1 parent=settings
 
-@layout url type=vbox closeable=1 area_caption=URL
 
+@layout url type=vbox closeable=1 area_caption=URL
 	@property bug_url type=textbox size=80 no_caption=1 parent=url
 	@caption URL
 
+
 @layout content type=hbox width=20%:80%
-
 	@layout bc type=vbox parent=content closeable=1 area_caption=Sisu
-
 		@layout bc_lay1 parent=bc type=hbox
 
 		@property bug_content type=textarea rows=23 cols=60 parent=bc_lay1 captionside=top no_caption=1
@@ -168,9 +168,6 @@
 
 					@property aw_spec type=relpicker reltype=RELTYPE_AW_SPEC  parent=data_r_bot_left captionside=top
 					@caption Spetsifikatsioon
-
-					@property project type=relpicker reltype=RELTYPE_PROJECT  parent=data_r_bot_left captionside=top
-					@caption Projekt
 
 					@property bug_component type=textbox parent=data_r_bot_left captionside=top size=15
 					@caption Komponent
@@ -256,6 +253,8 @@
 @property to_bill_date type=hidden table=aw_bugs field=aw_to_bill_date
 @caption Arvele m&auml;&auml;ramise kuup&auml;ev
 
+
+// RELTYPES
 @reltype MONITOR value=1 clid=CL_CRM_PERSON
 @caption J&auml;lgija
 
@@ -482,10 +481,12 @@ class bug extends class_base
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
+
 		if($arr["new"] && !empty($this->parent_data[$prop["name"]]))
 		{
 			$prop["value"] = $this->parent_data[$prop["name"]];
 		}
+
 		if($arr["new"] && !empty($this->parent_options[$prop["name"]]))
 		{
 			foreach($this->parent_options[$prop["name"]] as $val => $n)
@@ -493,6 +494,7 @@ class bug extends class_base
 				$prop["options"][$val] = $n;
 			}
 		}
+
 		switch($prop["name"])
 		{
 			case "site_copy":
@@ -892,7 +894,7 @@ class bug extends class_base
 					$link." ".
 					sprintf(t("Vaade avatud: %s"), date("d.m.Y H:i"))." || ".
 					$crea.
-					"<br />".t("Aega kulunud").": ".
+					html::linebreak().t("Aega kulunud").": ".
 					html::span(array(
 						"content" => '<a href="">00:00:00 (0.0000)</a>',
 						"id" => "bug_stopper_watch_time",
@@ -923,7 +925,7 @@ class bug extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$prop["value"] = "<br>".$this->_get_comment_list($arr["obj_inst"], "asc", true, 1, true)."<br>";
+				$prop["value"] = html::linebreak().$this->_get_comment_list($arr["obj_inst"], "asc", true, 1, true).html::linebreak();
 				break;
 
 			case "bug_comments":
@@ -931,7 +933,7 @@ class bug extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$prop["value"] = "<br>".$this->_get_comment_list($arr["obj_inst"])."<br>";
+				$prop["value"] = html::linebreak().$this->_get_comment_list($arr["obj_inst"]).html::linebreak();
 				break;
 
 			case "bug_status":
@@ -951,7 +953,7 @@ class bug extends class_base
 					$o = obj($arr["request"]["parent"]);
 				}
 				$bt = $this->_get_bt($o);
-				$options = array("" => t("--vali--"));
+				$options = html::get_empty_option();
 				if($bt && $f = $bt->prop("bug_type_folder"))
 				{
 					$ol = new object_list(array(
@@ -1020,7 +1022,7 @@ class bug extends class_base
 					}
 				}
 
-				$prop["options"] = array("" => t("--vali--")) + $tmp;
+				$prop["options"] = html::get_empty_option() + $tmp;
 
 				if (!empty($arr["request"]["from_req"]))
 				{
@@ -1077,7 +1079,6 @@ class bug extends class_base
 
 			case "bug_class":
 				$prop["options"] = array("" => "") + $this->get_class_list();
-				$prop["onchange"] = "check_class_maintainer();";
 				break;
 
 			case "project":
@@ -1103,7 +1104,7 @@ class bug extends class_base
 					}
 				}
 
-				$prop["options"] = array("" => t("--vali--")) + $ol->names();
+				$prop["options"] = html::get_empty_option() + $ol->names();
 
 				if (isset($prop["value"]) && !isset($prop["options"][$prop["value"]]) && $this->can("view", $prop["value"]))
 				{
@@ -1137,11 +1138,11 @@ class bug extends class_base
 
 				if (!count($cst))
 				{
-					$prop["options"] = array("" => t("--vali--"));
+					$prop["options"] = html::get_empty_option();
 				}
 				else
 				{
-					$ol = new object_list(array("oid" => $cst, "lang_id" => array(), "site_id" => array()));
+					$ol = new object_list(array("oid" => $cst));
 					$opts = array();
 					foreach($ol->arr() as $_co)
 					{
@@ -1152,7 +1153,7 @@ class bug extends class_base
 						}
 						$opts[$_co->id()] = $nm;
 					}
-					$prop["options"] = array("" => t("--vali--")) + $opts;
+					$prop["options"] = html::get_empty_option() + $opts;
 				}
 
 				if (isset($arr["request"]["alias_to_org"]) && $this->can("view", $arr["request"]["alias_to_org"]))
@@ -1212,7 +1213,7 @@ class bug extends class_base
 					"source_id" => $arr["obj_inst"]->id(),
 					"name" => $arr["obj_inst"]->name()
 				), CL_TASK);
-				$prop["value"] = "<span style=\"font-size: 14px;\">".(isset($prop["value"]) ?  $prop["value"] : 0)."</span> <a href='javascript:void(0)' onClick='aw_popup_scroll(\"$url\",\"aw_timers\",800,600)'>".t("Stopper")."</a><br />\n".(($arr["request"]["action"] === "new") ? "" : $this->get_person_times($arr));
+				$prop["value"] = "<span style=\"font-size: 14px;\">".(isset($prop["value"]) ?  $prop["value"] : 0)."</span> <a href='javascript:void(0)' onClick='aw_popup_scroll(\"{$url}\",\"aw_timers\",800,600)'>".t("Stopper")."</a><br />\n".(($arr["request"]["action"] === "new") ? "" : $this->get_person_times($arr));
 				break;
 
 			case "num_hrs_guess":
@@ -1230,7 +1231,11 @@ class bug extends class_base
 					{
 						$url = "http://" . $url;
 					}
-					$prop["post_append_text"] = ' <a href="' . $url . '" target="_blank">Ava</a>';
+					$prop["post_append_text"] = html::space() . html::href(array(
+						"url" => $url,
+						"caption" => t("Ava"),
+						"target" => "_blank"
+					));
 				}
 				break;
 
@@ -1372,66 +1377,67 @@ class bug extends class_base
 				{
 					return PROP_OK;
 				}
-				else
-				if ($ev > 300 && $ev < date_calc::get_day_start())
+				elseif ($ev > 300 && $ev < date_calc::get_day_start())
 				{
 					$prop["error"] = t("T&auml;htaeg ei tohi olla minevikus!");
 					return PROP_FATAL_ERROR;
 				}
 
-				$bt_i = new bug_tracker();
-				if($arr["request"]["who"])
+				if ($bt)
 				{
-					$arr["obj_inst"]->set_prop("who", $arr["request"]["who"]);
-				}
-				$estend = $bt_i->get_estimated_end_time_for_bug($arr["obj_inst"], $bt);
-				$ovr1 = $bt_i->get_last_estimation_over_deadline_bugs();
-
-				$opv = $arr["obj_inst"]->prop("deadline");
-				$opri = $arr["obj_inst"]->prop("bug_priority");
-				$osev = $arr["obj_inst"]->prop("bug_severity");
-				$arr["obj_inst"]->set_prop("deadline", $ev);
-				$arr["obj_inst"]->set_prop("bug_priority", $arr["request"]["bug_priority"]);
-				$arr["obj_inst"]->set_prop("bug_severity", $arr["request"]["bug_severity"]);
-				if($arr["request"]["bug_status"])
-				{
-					$arr["obj_inst"]->set_prop("bug_status", $arr["request"]["bug_status"]);
-				}
-				$estend = $bt_i->get_estimated_end_time_for_bug($arr["obj_inst"], $bt);
-				$ovr2 = $bt_i->get_last_estimation_over_deadline_bugs();
-
-				$arr["obj_inst"]->set_prop("deadline", $opv);
-				$arr["obj_inst"]->set_prop("bug_priority", $opri);
-				$arr["obj_inst"]->set_prop("bug_severity", $osev);
-
-				$n_ovr = array();
-				foreach($ovr2 as $item)
-				{
-					if (!isset($ovr1[$item->id()]) && $item->id() != $arr["obj_inst"]->id())
+					$bt_i = new bug_tracker();
+					if($arr["request"]["who"])
 					{
-						$n_ovr[] = $item;
+						$arr["obj_inst"]->set_prop("who", $arr["request"]["who"]);
 					}
-				}
+					$estend = $bt_i->get_estimated_end_time_for_bug($arr["obj_inst"], $bt);
+					$ovr1 = $bt_i->get_last_estimation_over_deadline_bugs();
 
-/*
-				if (count($n_ovr) && false) // && false on temp lahendus, eks terryf vaatab &uuml;le kui puhkuselt tuleb
-				{
-					$nms = array();
-					foreach($n_ovr as $item)
+					$opv = $arr["obj_inst"]->prop("deadline");
+					$opri = $arr["obj_inst"]->prop("bug_priority");
+					$osev = $arr["obj_inst"]->prop("bug_severity");
+					$arr["obj_inst"]->set_prop("deadline", $ev);
+					$arr["obj_inst"]->set_prop("bug_priority", $arr["request"]["bug_priority"]);
+					$arr["obj_inst"]->set_prop("bug_severity", $arr["request"]["bug_severity"]);
+					if($arr["request"]["bug_status"])
 					{
-						$nms[] = html::obj_change_url($item);
+						$arr["obj_inst"]->set_prop("bug_status", $arr["request"]["bug_status"]);
 					}
-					$prop["error"] = sprintf(t("Selliste parameetritega ei saa salvestada, kuna see l&uuml;kkaks j&auml;rgnevad bugid &uuml;le t&auml;htaja: %s!"), join("<br>", $nms));
-					return PROP_FATAL_ERROR;
-				}
-*/
+					$estend = $bt_i->get_estimated_end_time_for_bug($arr["obj_inst"], $bt);
+					$ovr2 = $bt_i->get_last_estimation_over_deadline_bugs();
 
-				if ($ev > 100 && $estend > ($ev+24*3600))
-				{
-					$prop["error"] = sprintf(t("Bugi ei ole v&otilde;imalik valmis saada enne %s!"), date("d.m.Y H:i", $estend));
-					$arr["obj_inst"]->set_prop("name", $prop["value"]);
-					$arr["obj_inst"]->save();
-					return PROP_ERROR;
+					$arr["obj_inst"]->set_prop("deadline", $opv);
+					$arr["obj_inst"]->set_prop("bug_priority", $opri);
+					$arr["obj_inst"]->set_prop("bug_severity", $osev);
+
+					$n_ovr = array();
+					foreach($ovr2 as $item)
+					{
+						if (!isset($ovr1[$item->id()]) && $item->id() != $arr["obj_inst"]->id())
+						{
+							$n_ovr[] = $item;
+						}
+					}
+
+					if (count($n_ovr)) //TODO: vaadata mis siin toimub -- && false) // && false on temp lahendus, eks terryf vaatab &uuml;le kui puhkuselt tuleb
+					{
+						$nms = array();
+						foreach($n_ovr as $item)
+						{
+							$nms[] = html::obj_change_url($item);
+						}
+						$prop["error"] = sprintf(t("Selliste parameetritega ei saa salvestada, kuna see l&uuml;kkaks j&auml;rgnevad bugid &uuml;le t&auml;htaja: %s!"), join("<br>", $nms));
+						return PROP_FATAL_ERROR;
+					}
+
+
+					if ($ev > 100 && $estend > ($ev+24*3600))
+					{
+						$prop["error"] = sprintf(t("Bugi ei ole v&otilde;imalik valmis saada enne %s!"), date("d.m.Y H:i", $estend));
+						$arr["obj_inst"]->set_prop("name", $prop["value"]);
+						$arr["obj_inst"]->save();
+						return PROP_ERROR;
+					}
 				}
 				break;
 
@@ -1493,6 +1499,7 @@ class bug extends class_base
 				{
 					break;
 				}
+
 			case "bug_status":
 				if(!empty($arr["request"]["is_order"]))
 				{
@@ -1824,7 +1831,7 @@ class bug extends class_base
 		);
 		$u = get_instance(CL_USER);
 		$us = get_instance("users");
-		if (false && in_array($bug->prop("bug_status"), $states))
+		if (in_array($bug->prop("bug_status"), $states))
 		{
 			$crea = $bug->createdby();
 			$_oid = $us->get_oid_for_uid($crea);
@@ -1870,7 +1877,7 @@ class bug extends class_base
 				}
 			}
 
-			if(stripos($comment, "kellele muudeti") !== false && $bt && $bt->prop("send_newwho_mails"))
+			if(stripos($comment, "kellele muudeti") !== false && $bt && $bt->prop("send_newwho_mails"))//TODO: 'kellele muudeti' ???
 			{
 				$newwho = $bug->prop("who");
 			}
@@ -1952,10 +1959,12 @@ class bug extends class_base
 			{
 				$cont = false;
 			}
+
 			if($cont)
 			{
 				continue;
 			}
+
 			$email = $person_obj->prop("email");
 			if ($this->can("view", $email))
 			{
@@ -1965,9 +1974,10 @@ class bug extends class_base
 				{
 					$adrs[] = $addr;
 					$notify_addresses[] = array("adr" => $addr, "person" => $person_obj);
-				};
+				}
 			}
 		}
+
 		$addrs = explode(",",$bug->prop("bug_mail"));
 		foreach($addrs as $addr)
 		{
@@ -1981,7 +1991,8 @@ class bug extends class_base
 		if (sizeof($notify_addresses) == 0)
 		{
 			return false;
-		};
+		}
+
 		foreach($notify_addresses as $data)
 		{
 			$adr = $data["adr"] ? $data["adr"] : $data;
@@ -3175,10 +3186,11 @@ $diff = explode("*" , $result["diff"]);
 	}
 
 	/**
-		@attrib name=send_commit_mail_to_maintainer nologin=1 all_args=1
+		@attrib name=send_commit_mail_to_maintainer all_args=1
 	**/
 	function send_commit_mail_to_maintainer($arr)
 	{
+return; //TODO: sort out maintainers business first
 		extract($arr);
 		$cmtr = $who;
 		$who = "";
@@ -3954,6 +3966,7 @@ EOF;
 		}
 
 		$maintainers = "";
+/* //TODO: sort out maintainers business first
 		if($bt)
 		{
 			$url = $this->mk_my_orb("maintainer_ajax", array("id" => $bt->id()));
@@ -4012,7 +4025,7 @@ EOF;
 				}
 			}';
 		}
-
+*/
 		if (automatweb::$request->arg("group") === "general" || automatweb::$request->arg("group") == "")
 		{
 			$hide_fb = <<<EOF
@@ -4132,6 +4145,7 @@ EOF;
 	**/
 	function maintainer_ajax($arr)
 	{
+exit; //TODO: sort out maintainers business first
 		$o = obj();
 		$o->set_class_id($arr["clid"]);
 		$dat = $o->get_classinfo();
@@ -4494,7 +4508,7 @@ EOF;
 			"type" => "select",
 			"caption" => t("Klass"),
 			"options" => array("" => "") + $this->get_class_list(),
-			"onchange" => "check_class_maintainer();",
+			// "onchange" => "check_class_maintainer();",//TODO: sort out maintainers business first
 		));
 
 		$htmlc->add_property(array(
