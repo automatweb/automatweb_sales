@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/crm/crm_memo.aw,v 1.13 2007/12/06 14:33:17 kristo Exp $
-// crm_memo.aw - Memo 
+
+// crm_memo.aw - Memo
 /*
 
-@classinfo syslog_type=ST_CRM_MEMO relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=markop
+@classinfo syslog_type=ST_CRM_MEMO relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 
 @default table=objects
 @default group=general
@@ -36,7 +36,7 @@
 
 @default group=files
 
-	@property files type=releditor reltype=RELTYPE_FILE field=meta method=serialize mode=manager props=name,file,type,comment,file_url,newwindow table_fields=name 
+	@property files type=releditor reltype=RELTYPE_FILE field=meta method=serialize mode=manager props=name,file,type,comment,file_url,newwindow table_fields=name
 	@caption Failid
 
 @default group=parts
@@ -46,7 +46,7 @@
 	@property acts type=table store=no no_caption=1
 	@caption Tegevused
 
-	property srch_txt type=text subtitle=1 
+	property srch_txt type=text subtitle=1
 	caption Otsing
 
 	property part_s_person type=textbox store=no
@@ -55,14 +55,14 @@
 	property part_s_co type=textbox store=no
 	caption T&ouml;&ouml;koht
 
-	property parts_s_sbt type=submit 
+	property parts_s_sbt type=submit
 	caption Otsi
 
 @groupinfo files caption="Failid"
-@groupinfo parts caption="Osalejad" 
+@groupinfo parts caption="Osalejad"
 @groupinfo acl caption=&Otilde;igused
 @default group=acl
-	
+
 	@property acl type=acl_manager store=no
 	@caption &Otilde;igused
 
@@ -114,7 +114,7 @@ class crm_memo extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function callback_post_save($arr)
 	{
@@ -123,7 +123,7 @@ class crm_memo extends class_base
 			$arr["obj_inst"]->set_prop("project" , $arr["request"]["project"]);
 		}
 	}
-	
+
 
 	function callback_mod_reforb($arr)
 	{
@@ -134,4 +134,3 @@ class crm_memo extends class_base
 		}
 	}
 }
-?>

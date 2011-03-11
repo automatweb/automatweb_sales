@@ -40,7 +40,7 @@ class mysql_pdo
 			}
 			catch (awex_cfg_key $e)
 			{
-				throw new aw_exception("Incomplete connection parameters for {$cid}: " . $e->getMessage());
+				throw new awex_db_connection_param("Incomplete connection parameters for {$cid}: " . $e->getMessage());
 			}
 		}
 
@@ -50,7 +50,7 @@ class mysql_pdo
 		}
 		catch (Exception $e)
 		{
-			throw new aw_exception("Database connection failed: " . $e->getMessage());
+			throw new awex_db_connection("Database connection failed: " . $e->getMessage());
 		}
 
 		$this->db_base = $base;

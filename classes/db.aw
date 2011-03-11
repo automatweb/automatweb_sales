@@ -136,7 +136,7 @@ class db_connector
 			}
 			else
 			{
-				throw new aw_exception("Database connection data identified by '{$args["cid"]}' not found");
+				throw new awex_db_connection("Database connection data identified by '{$args["cid"]}' not found");
 			}
 
 			if (self::DEFAULT_CID_STR === $cid)
@@ -150,7 +150,7 @@ class db_connector
 
 			if (!in_array($driver, self::$supported_drivers))
 			{
-				throw new aw_exception("Database driver '{$driver}' for cid '{$cid}' not supported");
+				throw new awex_db_driver("Database driver '{$driver}' for cid '{$cid}' not supported");
 			}
 
 			$dc = new $driver();
@@ -161,7 +161,7 @@ class db_connector
 			if (empty($args["driver"]) or empty($args["base"]) or empty($args["username"]))
 			{
 				if (isset($args["password"])) unset($args["password"]);
-				throw new aw_exception("Data connection parameters not correctly specified (password removed from dump): " . var_export($args, true));
+				throw new awex_db_connection_param("Data connection parameters not correctly specified (password removed from dump): " . var_export($args, true));
 			}
 
 			$server = empty($args["server"]) ? "localhost" : $args["server"];
@@ -169,7 +169,7 @@ class db_connector
 			$driver = $args["driver"];
 			if (!in_array($driver, self::$supported_drivers))
 			{
-				throw new aw_exception("Database driver '{$driver}' not supported");
+				throw new awex_db_driver("Database driver '{$driver}' not supported");
 			}
 
 			$dc = new $driver();
@@ -874,3 +874,15 @@ class db_connector
 		$this->dc[$this->default_cid]->db_free_result();
 	}
 }
+
+/** Generic database provider error **/
+class awex_db extends aw_exception {}
+
+/** Database connection error **/
+class awex_db_connection extends awex_db {}
+
+/** Database connection parameters error **/
+class awex_db_connection_param extends awex_db_connection {}
+
+/** Database driver error **/
+class awex_db_driver extends awex_db {}

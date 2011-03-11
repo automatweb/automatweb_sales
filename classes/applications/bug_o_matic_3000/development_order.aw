@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/bug_o_matic_3000/development_order.aw,v 1.30 2009/07/29 12:57:21 instrumental Exp $
-// development_order.aw - Arendustellimus 
+
+// development_order.aw - Arendustellimus
 /*
 
-@classinfo syslog_type=ST_DEVELOPMENT_ORDER relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=robert
+@classinfo syslog_type=ST_DEVELOPMENT_ORDER relationmgr=yes no_comment=1 no_status=1 prop_cb=1
 @tableinfo aw_dev_orders master_table=objects master_index=brother_of index=aw_oid
 @default table=aw_dev_orders
 @default group=general
@@ -13,12 +13,12 @@
 	@layout name type=vbox closeable=1 area_caption=L&uuml;hikirjeldus
 
 		@property name type=textbox table=objects no_caption=1 parent=name
-	
+
 	@layout settings_wrap type=vbox closeable=1 area_caption=M&auml;&auml;rangud
 	@layout settings type=hbox parent=settings_wrap
 
 		@layout settings_col1 type=vbox parent=settings
-		
+
 		@property bug_status type=select parent=settings_col1 captionside=top
 		@caption Staatus
 
@@ -27,10 +27,10 @@
 
 		@property bug_priority type=select parent=settings_col1 captionside=top
 		@caption Prioriteet
-		
+
 		@property bug_type type=classificator store=connect reltype=RELTYPE_BUGTYPE parent=settings_col1 captionside=top
 		@caption T&uuml;&uuml;p
-	
+
 		@property approved type=checkbox ch_value=1 field=meta table=objects method=serialize parent=settings_col1 no_caption=1
 		@caption Kinnitatud
 
@@ -54,11 +54,11 @@
 		@caption Soovitav Live kuup&auml;ev
 
 		@property actual_live_date type=date_select field=meta method=serialize captionside=top table=objects parent=settings_col3
-		@caption Tegelik Live kuup&auml;ev	
+		@caption Tegelik Live kuup&auml;ev
 
 	@layout h_split type=hbox width=50%:50%
 	@layout comments type=vbox parent=h_split closeable=1 area_caption=Sisu
-		
+
 		@property reason type=textarea rows=3 cols=50 field=aw_content parent=comments captionside=top
 		@caption Tellimuse eesm&auml;rk
 
@@ -75,7 +75,7 @@
 
 		@property customer type=relpicker reltype=RELTYPE_CUSTOMER field=aw_customer parent=data
 		@caption Klient
-	
+
 		@property project type=relpicker reltype=RELTYPE_PROJECT field=aw_project parent=data
 		@caption Projekt
 
@@ -84,12 +84,12 @@
 
 		@property orderer_co type=relpicker reltype=RELTYPE_ORDERER_CO field=aw_orderer_co parent=data
 		@caption Tellija organisatsioon
-	
+
 		@property orderer_unit type=relpicker reltype=RELTYPE_UNIT field=aw_orderer_unit parent=data
 		@caption Tellija &uuml;ksus
-	
+
 		@property multifile_upload type=multifile_upload reltype=RELTYPE_FILE parent=data captionside=top store=no
-		@caption Fail 
+		@caption Fail
 
 	@property submit2 type=submit no_caption=1 store=no
 	@caption Salvesta
@@ -110,7 +110,7 @@
 	@property problems_table type=table store=no no_caption=1
 
 @default group=bugs
-	
+
 	@property bugs_tb type=toolbar no_caption=1 store=no
 	@property bugs_table type=table no_caption=1 store=no
 
@@ -391,7 +391,7 @@ class development_order extends class_base
 					$ppl[$orderer] = $ob->name();
 					//$prop["value"][$orderer] = $orderer;
 				}
-				
+
 				$prop["options"] += $ppl;
 				get_instance(CL_BUG)->_sort_bug_ppl(&$arr);
 				break;
@@ -438,7 +438,7 @@ class development_order extends class_base
 				}*/
 				$prop["options"] = $options;
 				break;
-			
+
 			case "bug_priority":
 				$b = get_instance(CL_BUG);
 				$prop["options"] = $b->get_priority_list();
@@ -572,8 +572,8 @@ class development_order extends class_base
 				break;
 		}
 		return $retval;
-	}	
-	
+	}
+
 	function _get_bugs_tb($arr)
 	{
 		$tb = &$arr["prop"]["vcl_inst"];
@@ -1053,4 +1053,3 @@ class development_order extends class_base
 		}';
 	}
 }
-?>

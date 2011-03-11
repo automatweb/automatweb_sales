@@ -419,12 +419,12 @@ $x++;
 
 			$lister = "<span id='cust".$po->id()."' style='display: none;'>";
 
-			$table = new vcl_table;
+			$table = new vcl_table();
 			$table->name = "cust".$po->id();
 			$params = array(
 				"request" => array("proj" => $po->id(), "cust" => $ord),
 				"prop" => array(
-					"vcl_inst" => &$table
+					"vcl_inst" => $table
 				)
 			);
 			$this->_get_bill_task_list($params);
