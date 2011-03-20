@@ -156,9 +156,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 @default group=other_data
-	@property show_oe_add type=checkbox ch_value=1 field=meta method=serialize
-	@caption N&auml;ita arve lisas muid kulusid
-
 	@property rows_different_pages type=text field=meta method=serialize
 	@caption Read erinevatel lehek&uuml;lgedel
 
@@ -210,17 +207,19 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 @default group=rows
-	@property rows_toolbar type=toolbar store=no no_caption=1 editonly=1
-	@caption Arve ridade tegevused
-
-	@layout bill_rows_container type=hbox
+	@layout bill_rows_container type=vbox
 	@layout bill_writeoff_rows_container type=hbox
-		@property bill_rows type=table store=no no_caption=1 editonly=1 parent=bill_rows_container
+		@property rows_toolbar type=toolbar store=no no_caption=1 editonly=1 parent=bill_rows_container
+		@caption Arve ridade tegevused
+
+		@property bill_rows type=text store=no no_caption=1 editonly=1 parent=bill_rows_container
 		@caption Arve read
 
 		@property writeoffs type=table store=no no_caption=1 editonly=1 parent=bill_writeoff_rows_container
 		@caption Mahakantud read
 
+	// placeholder property for js operations with row groups
+	@property group_id type=hidden store=no
 
 
 
@@ -369,7 +368,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 @reltype RECEIVER value=19 clid=CL_CRM_PERSON
 @caption Arve saaja
 
-@reltype ROW_BLOCK value=20 clid=CL_CRM_BILL_ROW_BLOCK
+@reltype ROW_GROUP value=20 clid=CL_CRM_BILL_ROW_GROUP
 @caption Reablokk
 
 */
@@ -380,6 +379,11 @@ class crm_bill extends class_base
 
 	private $tot_amt = 0;
 	private $customer_object;
+
+	private $rows_sum_cache = 0;
+	private $rows_list_cache;
+	private $row_groups_list_cache;
+	private $invoice_group_count_cache = 0;
 
 	function crm_bill()
 	{
@@ -398,6 +402,8 @@ class crm_bill extends class_base
 				$this->customer_object = obj($this->project_object->get_orderer());
 			}
 		}
+
+		load_javascript("reload_properties_layouts.js");
 	}
 
 	function callback_post_save($arr)
@@ -813,18 +819,17 @@ class crm_bill extends class_base
 		$tb->add_menu_item(array(
 			"parent" => "new",
 			"url" => "javascript:void(0);",
-			"text" => t("Lisa reablokk"),
-			"title" => t("Kui on valitud ridu, lisatakse need uue bloki alla"),
-			"onclick" => "crm_bill_add_row_block();",
-		));
-		$tb->add_menu_item(array(
-			"parent" => "new",
-			"url" => "javascript:void(0);",
 			"onclick" => "win = window.open('".$this->mk_my_orb("bug_search", array("is_popup" => "1", "customer" => $this_o->get_bill_customer()), "crm_bill")."','bug_search','width=720,height=600,statusbar=yes, scrollbars=yes ');",
 			"text" => t("Lisa arendus&uuml;lesanne")
 		));
+		$tb->add_menu_separator(array("parent" => "new"));
+		$tb->add_menu_item(array(
+			"parent" => "new",
+			"url" => "javascript:void(0);",
+			"text" => t("Lisa reablokk"),
+			"onclick" => "crm_bill_add_row_group();"
+		));
 
-		$tb->add_save_button();
 		$this->add_sendmail_menu($arr);
 		$this->add_print_menu($arr);
 
@@ -895,6 +900,37 @@ class crm_bill extends class_base
 			"url" => "javascript: var cf = document.forms.changeform; cf.action.value = 'move_rows_to_dn'; cf.dno.value='new'; cf.submit()",
 			"text" => t("Uus saateleht"),
 		));
+
+		// menu for moving rows to row groups
+		if(!$this->row_groups_list_cache) $this->row_groups_list_cache = $arr["obj_inst"]->get_row_groups();
+		if(!$this->invoice_group_count_cache) $this->invoice_group_count_cache = $this->row_groups_list_cache->count();
+		if ($this->invoice_group_count_cache)
+		{
+			$tb->add_menu_button(array(
+				"name" => "add_rows_to_grp",
+				"img" => "group_items.gif",
+				"tooltip" => t("Liiguta valitud read blokki")
+			));
+
+			// for removing rows from group to 'main list'
+			$tb->add_menu_item(array(
+				"parent" => "add_rows_to_grp",
+				"url" => "javascript: var cf = document.forms.changeform; cf.action.value = 'set_row_group'; cf.group_id.value='0'; cf.submit()",
+				"text" => html::italic(t("P&otilde;hiblokk"))
+			));
+
+			$row_group = $this->row_groups_list_cache->begin();
+
+			do
+			{
+				$tb->add_menu_item(array(
+					"parent" => "add_rows_to_grp",
+					"url" => "javascript: var cf = document.forms.changeform; cf.action.value = 'set_row_group'; cf.group_id.value='" . $row_group->id() . "'; cf.submit()",
+					"text" => $row_group->name()
+				));
+			}
+			while ($row_group = $this->row_groups_list_cache->next());
+		}
 
 		return $r;
 	}
@@ -1768,18 +1804,8 @@ class crm_bill extends class_base
 		$t->set_sortable(false);
 
 		$writeoffs = $arr["obj_inst"]->get_writeoff_rows_data();
-		$first_oe = 0;
 		foreach($writeoffs as $row)
 		{
-			//eraldab muid kulusid
-			if(!$first_oe && $row["is_oe"])
-			{
-				$t->define_data(array(
-					"name" => t("Kulud:"),
-				));
-				$first_oe = 1;
-			}
-
 			$id = $row["id"];
 
 			$connect_row_url =  $this->mk_my_orb("add_task_row_to_bill_row", array(
@@ -1906,7 +1932,7 @@ class crm_bill extends class_base
 		return PROP_IGNORE;
 	}
 
-	function _init_bill_rows_t($t, $blocks = 0)
+	private function _init_bill_rows_t($t)
 	{
 		$t->define_field(array(
 			"name" => "sel",
@@ -1957,10 +1983,10 @@ class crm_bill extends class_base
 			"chgbgcolor" => "color"
 		));
 
-		if ($blocks)
+		if ($this->invoice_group_count_cache)
 		{
 			$t->define_field(array(
-				"name" => "block_edit",
+				"name" => "group_edit",
 				"valign" => "top",
 				"align" => "center",
 				"caption" => t("Blokk"),
@@ -1983,7 +2009,56 @@ class crm_bill extends class_base
 			"valign" => "top",
 			"align" => "center"
 		));
+	}
 
+	private function create_rows_table(&$arr, object $row_group = null)
+	{
+		$table = new aw_table();
+		$this->_init_bill_rows_t($table);
+
+		if ($row_group)
+		{ // rows in a group
+			$table->set_caption(sprintf(t("Arve read blokis %s"), $row_group->name()));
+			$rows = $row_group->get_rows();
+
+			// create row group editor
+			$row_group_view = $this->get_rowgroup_view_contents(array("id" => $row_group->id(), "return" => true));
+			$table->set_header($row_group_view);
+			$table->define_header(sprintf(t("Read blokis '%s'"), $row_group->name()));
+		}
+		else
+		{ // other rows
+			$table->set_caption(t("Arve read"));
+			$rows = $this->rows_list_cache;
+		}
+
+		if($rows->count())
+		{
+			$row_o = $rows->begin();
+
+			do
+			{
+				$row_oid = $row_o->id();
+				$table->define_data(array(
+					"name" => $this->get_row_html($row_oid,"name",$arr),
+					"code" => $this->get_row_html($row_oid,"code",$arr),
+					"unit" => $this->get_row_html($row_oid,"unit",$arr),
+					"has_tax" => $this->get_row_html($row_oid,"has_tax",$arr),
+					"prod" => $this->get_row_html($row_oid,"prod",$arr),
+					"project" => $this->get_row_html($row_oid,"project",$arr),
+					"sel" => html::checkbox(array(
+						"name" => "sel_rows[]",
+						"value" => $row_oid
+					)),
+					"jrk" => $row_o->meta("jrk"),
+					"change" => $this->get_row_html($row_oid,"change",$arr),
+					"person" => $this->get_row_html($row_oid,"person",$arr)
+				));
+				$this->rows_list_cache->remove($row_o);
+			}
+			while ($row_o = $rows->next());
+		}
+		return $table;
 	}
 
 	function _get_bill_rows(&$arr)
@@ -1993,297 +2068,80 @@ class crm_bill extends class_base
 			return PROP_IGNORE;
 		}
 
-		$t = $arr["prop"]["vcl_inst"];
+		$invoice_rows_tables = array(); // table objects container variable into which all row and group tables are collected as they're created
 
-		// get row blocks. prepare block select options. index blocks into $blocks_by_row
-		// doing this here, before other things is to get rowblock count to determine if 'block' column needed in table at all
-		$row_blocks = $arr["obj_inst"]->get_row_blocks();
-		$blocks_by_row = array();
-		$row_block_names = html::get_empty_option();
-		if($row_blocks->count())
+		// get rows and row groups
+		if(!$this->rows_list_cache) $this->rows_list_cache = $arr["obj_inst"]->get_bill_rows();
+		if(!$this->row_groups_list_cache) $this->row_groups_list_cache = $arr["obj_inst"]->get_row_groups();
+		if(!$this->invoice_group_count_cache) $this->invoice_group_count_cache = $this->row_groups_list_cache->count();
+
+		// index rows by group into an array
+		// go over all groups and create group table
+		if($this->invoice_group_count_cache)
 		{
-			$row_block = $row_blocks->begin();
+			$row_group = $this->row_groups_list_cache->begin();
+			$i = 0;
 
 			do
 			{
-				$row_block_names[$row_block->id()] =
-					strlen($row_block->name()) > self::SELECT_OPTION_MAXLENGTH ?
-						substr($row_block->name(), 0, self::SELECT_OPTION_MAXLENGTH - 3) . "..." :
-						$row_block->name()
-				;
-				$block_rows = $row_block->get_rows();
-				if($block_rows->count())
-				{
-					$row = $block_rows->begin();
-
-					do
-					{
-						$blocks_by_row[$row->id()] = $row_block->id();
-					}
-					while ($row = $block_rows->next());
-				}
+				$table = $this->create_rows_table($arr, $row_group);
+				$i = $row_group->ord() ? 1000000 + $row_group->ord() : $i + 1; // this program will not work if there are over one million unordered invoice rows!
+				$invoice_rows_tables[$i] = $table;
 			}
-			while ($row_block = $row_blocks->next());
+			while ($row_group = $this->row_groups_list_cache->next());
 		}
 
-		$this->_init_bill_rows_t($t, $row_blocks->count());
-		$t->set_caption(t("Arve read"));
+		// create table for rows not belonging to a group
+		$table = $this->create_rows_table($arr);
+		$invoice_rows_tables[0] = $table; // if there were groups, count started from 1
 
-		$sum = 0;
-
-		$pps = new crm_participant_search();
-		$curr_inst = get_instance(CL_CURRENCY);
-		$task_i = get_instance(CL_TASK);
-		$u = get_instance(CL_USER);
-
-		// get prords from co
-		$prods = html::get_empty_option();
-		$co = obj($u->get_current_company());
-		$ccurrency = $co->prop("currency");
-		$ccurrency_name = $co->prop("currency.name");
-		$quality_options = array("" => "") + $arr["obj_inst"]->get_quality_options();
-		$bcurrency = $arr["obj_inst"]->get_bill_currency_id();
-		$wh = $co->get_first_obj_by_reltype("RELTYPE_WAREHOUSE");
-		if ($wh)
-		{
-			$prods = $prods + $wh->get_packet_list()->names();
-		}
-
-		$rows = $arr["obj_inst"]->get_bill_rows_data();
-		$default_row_jrk = $first_oe = 0;
-
-		foreach($rows as $row_oid => $row)
-		{
-			$row_o = new object($row_oid);
-
-			//eraldab muid kulusid
-			if(!$first_oe && $row["is_oe"])
-			{
-				$t->define_data(array(
-					"name" => t("Kulud:"),
-				));
-				$first_oe = 1;
-			}
-
-			// j2rjekorranuumbrite genereerimine...
-			if($default_row_jrk < $row["jrk"])
-			{
-				$default_row_jrk = $row["jrk"];
-			}
-
-			if(!$row["jrk"])
-			{
-				$row["jrk"] = $default_row_jrk;
-			}
-
-			$block_oid = isset($blocks_by_row[$row_oid]) ? $blocks_by_row[$row_oid] : 0;
-
-			$default_row_jrk+= 10;
-			$connect_row_url =  $this->mk_my_orb("add_task_row_to_bill_row", array(
-				"row" => $row_oid,
-			));
-
-			$connect_row_link = html::href(array(
-				"url" => "javascript:aw_popup_scroll('".$connect_row_url."','".t("Otsing")."',1100,700)",
-				"caption" => t("Lisa toimetuse rida"),
-				"title" => t("Otsi")
-			));
-
-			if ($row_blocks->count())
-			{
-				$block_fields = array(
-					"block" => $block_oid,
-					"block_edit" => html::select(array(
-						"name" => "block_select_{$block_oid}",
-						"options" => $row_block_names,
-						"onchange" => "crm_bill_set_block({$row_oid},this.value);"
-					))
-				);
-			}
-			else
-			{
-				$block_fields = array();
-			}
-
-			$t->define_data(array(
-				"name" => $this->get_row_html($row_oid,"name",$arr),
-				"code" => $this->get_row_html($row_oid,"code",$arr),
-				"unit" => $this->get_row_html($row_oid,"unit",$arr),
-				"has_tax" => $this->get_row_html($row_oid,"has_tax",$arr),
-				"prod" => $this->get_row_html($row_oid,"prod",$arr),
-				"project" => $this->get_row_html($row_oid,"project",$arr),
-				"sel" => html::checkbox(array(
-					"name" => "sel_rows[]",
-					"value" => $row_oid
-				)),
-				"jrk" => $row["jrk"],
-				"change" => $this->get_row_html($row_oid,"change",$arr),
-				"person" => $this->get_row_html($row_oid,"person",$arr)
-			) + $block_fields);
-			$sum += $row_o->prop("sum");
-		}
-
-		if ($arr["obj_inst"]->prop("disc") > 0)
-		{
-			$sum -= $sum * ($arr["obj_inst"]->prop("disc") / 100.0);
-		}
-
-		// create row block editing elements by changing table row group names
-		if($row_blocks->count())
-		{
-			$t->set_rgroupby(array("block" => "block"));
-			$t->sort_by(array(
-				"field" => "block"
-			));
-			$t->create_rgroup_links = false;
-			$t->change_row_group_name("block", 0, " ");
-			$row_block = $row_blocks->begin();
-
-			do
-			{
-				$row_block_view = $this->get_rowblock_view_contents(array("id" => $row_block->id(), "return" => true));
-				$t->change_row_group_name("block", $row_block->id(), $row_block_view);
-			}
-			while ($row_block = $row_blocks->next());
-		}
-		else
-		{
-			$t->sort_by(array(
-				"field" => "jrk"
-			));
-		}
-
-		$t->set_sortable(false);
 
 		///////////////////////////////////////////////
-		// agreement_price is deprecated
-		//kokkuleppe hind , kui igav hakkab, v6iks selle ka yle vaadata... see on yks suur jama kokku
-		$ut = new vcl_table(array("layout" => "generic",));$ut->define_field(array("name" => "field1","caption" => "", "chgbgcolor" => "color" )); $ut->define_field(array( "name" => "field2", "caption" => "", "chgbgcolor" => "color" ));
-		$agreement_prices = safe_array($arr["obj_inst"]->meta("agreement_price"));
+		// agreement_price is deprecated. only display for bc
 		// $agreement_prices[] = array();//agreement_price is a deprecated structure. here disabling it for further use. compatibility preserved with older bills
+		$t = new aw_table();
+		$ut = new vcl_table(array("layout" => "generic",));$ut->define_field(array("name" => "field1","caption" => "", "chgbgcolor" => "color" )); $ut->define_field(array( "name" => "field2", "caption" => "", "chgbgcolor" => "color" ));		$agreement_prices = safe_array($arr["obj_inst"]->meta("agreement_price"));
 		$x = 0;
 		foreach($agreement_prices as $key => $agreement_price)
-		{
-			$sum+= $agreement_price["sum"];
-			if((isset($agreement_price["name"]) && $agreement_price["price"]) || empty($done_new_line))
-			{
-				$price_cc = "";//hind oma organisatsiooni valuutas
-				$sum_cc = "";//summa oma organisatsiooni valuutas
-				if(isset($agreement_price["name"]) && $agreement_price["price"] && $bcurrency && $ccurrency && $ccurrency != $bcurrency)
-				{
-					$cc_price = $curr_inst->convert(array(
-						"from" => $bcurrency,
-						"to" => $ccurrency,
-						"sum" => $agreement_price["price"],
-						"date" =>  $arr["obj_inst"]->prop("bill_date"),
-					));
-					$price_cc = html::linebreak().$cc_price." ".$ccurrency_name;
-					$sum_cc = html::linebreak().$cc_price*$agreement_price["amt"]." ".$ccurrency_name;
-				}
-				$ut->clear_data();
-
-				$unit_id = 0;
-				$unit_name = "";
-				if (isset($agreement_price["unit"]) and is_oid($agreement_price["unit"]))
-				{
-					$unit_obj = obj($agreement_price["unit"], array(), CL_UNIT);
-					$unit_id = $unit_obj->id();
-					$unit_name = $unit_obj->prop("unit_code");
-				}
-				$ut->define_data(array(
-					"field1" => t("&Uuml;hik"),
-					"field2" => html::textbox(array(
-						"name" => "agreement_price[".$x."][unit]",
-						"content" => $unit_name,
-						"value" => $unit_id,
-						"size" => 3,
-						"autocomplete_source" => $this->mk_my_orb("unit_options_autocomplete_source"),
-						"autocomplete_params" => array("agreement_price[".$x."][unit]"),
-						"option_is_tuple" => 1
-					)),
-				));
-				$ut->define_data(array(
-					"field1" => t("Hind"),
-					"field2" => html::textbox(array(
-						"name" => "agreement_price[".$x."][price]",
-						"value" => isset($agreement_price["price"]) ? $agreement_price["price"]: "",
-						"size" => 4
-					)).$price_cc,
-				));
-				$ut->define_data(array(
-					"field1" => t("Kogus"),
-					"field2" => html::textbox(array(
-						"name" => "agreement_price[".$x."][amt]",
-						"value" => isset($agreement_price["amt"]) ? $agreement_price["amt"] : "",
-						"size" => 3
-					)),
-				));
+		{	if((isset($agreement_price["name"]) && $agreement_price["price"]) || empty($done_new_line))
+			{ $price_cc = ""; $sum_cc = "";if(isset($agreement_price["name"]) && $agreement_price["price"] && $bcurrency && $ccurrency && $ccurrency != $bcurrency)
+				{	$cc_price = "";	$price_cc = html::linebreak().$cc_price." ".$ccurrency_name;	$sum_cc = html::linebreak().$cc_price*$agreement_price["amt"]." ".
+					$ccurrency_name;	$ut->clear_data(); $unit_id = 0; $unit_name = ""; if (isset($agreement_price["unit"]) and is_oid($agreement_price["unit"]))
+					{ $unit_obj = obj($agreement_price["unit"], array(), CL_UNIT); $unit_id = $unit_obj->id();$unit_name = $unit_obj->prop("unit_code");}}
+				$ut->define_data(array( "field1" => t("&Uuml;hik"), "field2" => html::textbox(array( "name" => "agreement_price[".$x."][unit]",
+					"content" => $unit_name, "value" => $unit_id, "size" => 3, "autocomplete_source" => $this->mk_my_orb("unit_options_autocomplete_source"),
+					"autocomplete_params" => array("agreement_price[".$x."][unit]"), "option_is_tuple" => 1)),));
+				$ut->define_data(array("field1" => t("Hind"),"field2" => html::textbox(array("name" => "agreement_price[".$x."][price]",
+					"value" => isset($agreement_price["price"]) ? $agreement_price["price"]: "","size" => 4)).$price_cc,));
+				$ut->define_data(array("field1" => t("Kogus"),"field2" => html::textbox(array("name" => "agreement_price[".$x."][amt]",
+					"value" => isset($agreement_price["amt"]) ? $agreement_price["amt"] : "","size" => 3)),));
 				$ut->define_data(array(
 					"field1" => t("Summa"),
 					"field2" => (isset($agreement_price["sum"]) ? $agreement_price["sum"] : "").$sum_cc,
 				));
-
-				$url = $this->mk_my_orb("do_search", array(
-					"pn" => "agreement_price[".$x."][prod]",
-					"clid" => array(
-						CL_SHOP_PRODUCT
-					),
-					"tbl_props" => array("oid", "name", "code", "parent"),
-					"multiple" => 0,
-					"no_submit" => 1,
-				), "shop_product_popup_search");
-				$url = "javascript:aw_popup_scroll('".$url."','".t("Otsi")."',600,500)";
-				$prod_s = html::href(array(
-					"caption" => html::img(array(
-						"url" => "images/icons/search.gif",
-						"border" => 0
-					)),
-					"url" => $url
-				));
 				$t->define_data(array(
-					"name" => t("Kokkuleppehind")." ".($x+1).html::linebreak().html::textbox(array(
-						"name" => "agreement_price[".$x."][date]",
-						"value" => isset($agreement_price["date"]) ? $agreement_price["date"] : "",
-						"size" => 8
-					)).html::linebreak().html::textarea(array(
-						"name" => "agreement_price[".$x."][name]",
-						"value" => isset($agreement_price["name"]) ? $agreement_price["name"] : "",
-						"rows" => 5,
-						"cols" => 40
-					)),
-					"code" => html::textbox(array(
-						"name" => "agreement_price[".$x."][code]",
-						"value" => isset($agreement_price["code"]) ? $agreement_price["code"] : "",
-						"size" => 10
-					)),
+					"name" => t("Kokkuleppehind")." ".(isset($agreement_price["date"]) ? $agreement_price["date"] : "").html::linebreak().(isset($agreement_price["name"]) ? $agreement_price["name"] : ""),
+					"code" => isset($agreement_price["code"]) ? $agreement_price["code"] : "",
 					"unit" => $ut->draw(array("no_titlebar" => 1)),
-					"has_tax" => html::checkbox(array(
-						"name" => "agreement_price[".$x."][has_tax]",
-						"ch_value" => 1,
-						"checked" => empty($agreement_price["has_tax"]) ? false : true
-					)),
-					"prod" => html::textbox(array(
-						"name" => "agreement_price[".$x."][prod]",
-						"size" => 20,
-						"class" => "prod_box",
-					)).$prod_s,
-					"sel" => "", // deprecated, no selecting needed
-					"person" => html::linebreak().$pps->get_popup_search_link(array(
-						"pn" => "agreement_price[".$x."][person]",
-						"multiple" => 1,
-						"clid" => array(CL_CRM_PERSON)
-					))
+					"has_tax" => $agreement_price["has_tax"],
 				));
 				$x++;
-				if(empty($agreement_price["name"]) || empty($agreement_price["price"]))
-				{
-					$done_new_line = 1;
-				}
+				if(empty($agreement_price["name"]) || empty($agreement_price["price"])) {$done_new_line = 1; }
 			}
 		}
+		if ($x) {	$invoice_rows_tables[10000000] = $table; 		}
 		// end agreement price
 		///////////////////////////////////////////////
 
+
+		// complete and draw/render rows and blocks tables
+		$rows_editor = "";
+		ksort($invoice_rows_tables);
+		foreach ($invoice_rows_tables as $table)
+		{
+			$rows_editor .= $table->draw() . html::linebreak();
+		}
+		$arr["prop"]["value"] = $rows_editor;
 		return PROP_OK;
 	}
 
@@ -2298,7 +2156,7 @@ class crm_bill extends class_base
 		}
 
 		$o = obj($arr["id"]);
-		$props = array("name" , "comment", "date", "unit");
+		$props = array("name" , "comment", "date", "unit", "name_group_comment");
 		foreach($props as $prop)
 		{
 			if(isset($arr[$prop]))
@@ -2389,13 +2247,13 @@ class crm_bill extends class_base
 	}
 
 	/**
-		@attrib name=post_row_block all_args=1
+		@attrib name=post_row_group all_args=1
 	**/
-	function post_row_block($arr)
+	function post_row_group($arr)
 	{
 		try
 		{
-			$row_block = obj($arr["id"], array(), crm_bill_row_block_obj::CLID);
+			$row_group = obj($arr["id"], array(), crm_bill_row_group_obj::CLID);
 		}
 		catch (Exception $e)
 		{
@@ -2407,57 +2265,55 @@ class crm_bill extends class_base
 		{
 			if(isset($arr[$prop]))
 			{
-				$row_block->set_prop($prop , iconv("UTF-8", aw_global_get("charset"), $arr[$prop]));
+				$row_group->set_prop($prop , iconv("UTF-8", aw_global_get("charset"), $arr[$prop]));
 			}
 		}
 
 		if(isset($arr["jrk"]))
 		{
-			$row_block->set_ord((int) $arr["jrk"]);
+			$row_group->set_ord((int) $arr["jrk"]);
 		}
 
-		$row_block->save();
+		$row_group->save();
 		exit;
 	}
 
 	/**
-		@attrib name=get_rowblock_view_contents
+		@attrib name=get_rowgroup_view_contents
 		@param id required type=oid acl=view
 		@param return optional type=bool default=false
 	**/
-	function get_rowblock_view_contents($arr)
+	function get_rowgroup_view_contents($arr)
 	{
-		$row_block_oid = $arr["id"];
-		$row_block = obj($row_block_oid, array(), crm_bill_row_block_obj::CLID);
+		$row_group_oid = $arr["id"];
+		$row_group = obj($row_group_oid, array(), crm_bill_row_group_obj::CLID);
 		$edit_button = html::button(array(
-			"name" => "change_row_block",
+			"name" => "change_row_group",
 			"image" => icons::get_std_icon_url("edit"),
 			"value" => t("Muuda blokki"),
-			"onclick" => "crm_bill_edit_row_block('".$row_block->id()."'); return false;",
+			"onclick" => "crm_bill_edit_row_group('".$row_group->id()."'); return false;",
 		));
 		$delete_button = html::button(array(
-			"name" => "delete_row_block",
+			"name" => "delete_row_group",
 			"image" => icons::get_std_icon_url("delete"),
 			"value" => t("Kustuta blokk"),
-			"onclick" => "crm_bill_delete_row_block('".$row_block->id()."'); return false;",
+			"onclick" => "crm_bill_delete_row_group('".$row_group->id()."'); return false;",
 		));
-		$text = array($edit_button . html::space() . $delete_button . html::space() . html::span(array(
-			"content" => ($row_block->ord() ? $row_block->ord() : "") . $row_block->name(),
-			"fontweight" => "normal"
-		)));
+		$text = array($edit_button . html::space() . $delete_button . html::space() . (($row_group->ord() ? $row_group->ord() : "") . $row_group->name()));
 
-		if ($row_block->prop("heading"))
+		if ($row_group->prop("heading"))
 		{
-			$text[] = $row_block->prop("heading");
+			$text[] = html::bold($row_group->prop("heading"));
 		}
 
-		if ($row_block->prop("description"))
+		if ($row_group->prop("description"))
 		{
-			$text[] = html::span(array("content" => $row_block->prop("description"), "fontweight" => "normal"));
+			$text[] = $row_group->prop("description");
 		}
 
 		$r = html::div(array(
-			"id" => "crm_bill_rowblock_" . $row_block->id(),
+			"id" => "crm_bill_rowgroup_" . $row_group->id(),
+			"padding" => "0.1em 0.1em 0.5em 1em",
 			"content" => implode(html::linebreak(), $text)
 		));
 
@@ -2472,58 +2328,58 @@ class crm_bill extends class_base
 	}
 
 	/**
-		@attrib name=get_rowblock_change_contents
+		@attrib name=get_rowgroup_change_contents
 		@param id required type=oid acl=view
 	**/
-	function get_rowblock_change_contents($arr)
+	function get_rowgroup_change_contents($arr)
 	{
-		$row_block_oid = $arr["id"];
-		$row_block = obj($row_block_oid, array(), crm_bill_row_block_obj::CLID);
+		$row_group_oid = $arr["id"];
+		$row_group = obj($row_group_oid, array(), crm_bill_row_group_obj::CLID);
 		$edit_view =
 			html::button(array(
-				"name" => "change_row_block",
+				"name" => "change_row_group",
 				"image" => icons::get_std_icon_url("save"),
 				"value" => t("Salvesta"),
 				"onclick" => "
-					$.post('/automatweb/orb.aw?class=crm_bill&action=post_row_block', {
-						id: {$row_block_oid}
-						, jrk: document.getElementsByName('rowblocks[{$row_block_oid}][jrk]')[0].value
-						, name: document.getElementsByName('rowblocks[{$row_block_oid}][name]')[0].value
-						, heading: document.getElementsByName('rowblocks[{$row_block_oid}][heading]')[0].value
-						, description: document.getElementsByName('rowblocks[{$row_block_oid}][description]')[0].value
+					$.post('/automatweb/orb.aw?class=crm_bill&action=post_row_group', {
+						id: {$row_group_oid}
+						, jrk: document.getElementsByName('rowgroups[{$row_group_oid}][jrk]')[0].value
+						, name: document.getElementsByName('rowgroups[{$row_group_oid}][name]')[0].value
+						, heading: document.getElementsByName('rowgroups[{$row_group_oid}][heading]')[0].value
+						, description: document.getElementsByName('rowgroups[{$row_group_oid}][description]')[0].value
 						}, function(data){ reload_layout('bill_rows_container'); });
 					return false;
 				"
 			)) .
 			html::space() .
 			html::button(array(
-				"name" => "cancel_row_block",
+				"name" => "cancel_row_group",
 				"image" => icons::get_std_icon_url("close"),
 				"value" => t("Katkesta"),
 				"onclick" => "reload_layout('bill_rows_container');return false;"
 			)) .
 			html::space() . t("ID:") . html::space() .
 			html::textbox(array(
-				"name" => "rowblocks[{$row_block_oid}][name]",
-				"value" => $row_block->name(),
+				"name" => "rowgroups[{$row_group_oid}][name]",
+				"value" => $row_group->name(),
 				"size" => 12
 			)) .
 			html::space() . t("Jrk:") . html::space() .
 			html::textbox(array(
-				"name" => "rowblocks[{$row_block_oid}][jrk]",
-				"value" => $row_block->ord(),
+				"name" => "rowgroups[{$row_group_oid}][jrk]",
+				"value" => $row_group->ord(),
 				"size" => 2
 			)) .
 			html::linebreak() .
 			html::textbox(array(
-				"name" => "rowblocks[{$row_block_oid}][heading]",
-				"value" => $row_block->prop("heading"),
+				"name" => "rowgroups[{$row_group_oid}][heading]",
+				"value" => $row_group->prop("heading"),
 				"size" => 70
 			)) .
 			html::linebreak() .
 			html::textarea(array(
-				"name" => "rowblocks[{$row_block_oid}][description]",
-				"value" => $row_block->prop("description"),
+				"name" => "rowgroups[{$row_group_oid}][description]",
+				"value" => $row_group->prop("description"),
 				"rows" => 8,
 				"cols" => 52
 			))
@@ -2564,6 +2420,7 @@ class crm_bill extends class_base
 						, id: ".$id."
 						, people: result
 						, name: document.getElementsByName('rows[".$id."][name]')[0].value
+						, name_group_comment: document.getElementsByName('rows[".$id."][name_group_comment]')[0].value
 						, comment: document.getElementsByName('rows[".$id."][comment]')[0].value
 						, prod: document.getElementsByName('rows[".$id."][prod]')[0].value
 						, unit: document.getElementsByName('rows[".$id."][unit]')[0].value
@@ -2603,7 +2460,7 @@ class crm_bill extends class_base
 				)) .
 				html::linebreak(2).
 				html::button(array(
-					"name" => "cancel_row_block",
+					"name" => "cancel_row_group",
 					"image" => icons::get_std_icon_url("close"),
 					"value" => t("Katkesta"),
 					"onclick" => "reload_layout('bill_rows_container');return false;"
@@ -2634,6 +2491,15 @@ class crm_bill extends class_base
 					"name" => "rows[".$row->id()."][name]",
 					"value" => $row->prop("desc"),
 					"rows" => 8,
+					"cols" => 52
+				)).
+				html::linebreak() .
+				t("Koondkommentaar").
+				html::linebreak() .
+				html::textarea(array(
+					"name" => "rows[".$row->id()."][name_group_comment]",
+					"value" => $row->prop("name_group_comment"),
+					"rows" => 1,
 					"cols" => 52
 				))
 				."</td></tr></table>";
@@ -2912,7 +2778,8 @@ class crm_bill extends class_base
 					($row->meta("jrk") ? sprintf(t("# %s"), $row->meta("jrk")) . html::linebreak() : "").
 					($row->prop("date") ? $row->prop("date") . html::linebreak() : "").
 					($row->prop("comment") ? html::bold($row->prop("comment")) . html::linebreak() : "").
-					($row->prop("desc") ? wordwrap(nl2br(htmlspecialchars(($row->prop("desc")))), 100, html::linebreak(), true) : "").
+					($row->prop("desc") ? wordwrap(nl2br(htmlspecialchars(($row->prop("desc")))), 100, html::linebreak(), true) . html::linebreak() : "").
+					($row->prop("name_group_comment") ? html::italic(wordwrap(nl2br(htmlspecialchars(($row->prop("name_group_comment")))), 100, html::linebreak(), true)) : "").
 					"</div>";
 				break;
 
@@ -3686,11 +3553,6 @@ class crm_bill extends class_base
 
 		foreach($brows as $row)
 		{
-			if (!empty($row["is_oe"]))
-			{
-				continue;
-			}
-
 			$cur_tax = 0;
 			$cur_sum = 0;
 			$tax_rate = isset($row["tax"]) ? ((double) $row["tax"] / 100.0) : 0;
@@ -3773,8 +3635,7 @@ class crm_bill extends class_base
 				{
 					$desc = $grp_row["comment"];
 				}
-				else
-				if ($this->can("view", $prod))
+				elseif ($this->can("view", $prod))
 				{
 					$po = obj($prod);
 					$desc = $po->comment();
@@ -3807,48 +3668,6 @@ class crm_bill extends class_base
 				$rs[] = array("str" => $this->parse("ROW"), "date" => $grp_row["date"] , "jrk" => $grp_row["jrk"] , "id" => $grp_row["id"],);
 
 			}
-		}
-
-		foreach($bill_rows as $row)
-		{
-			if (empty($row["is_oe"]))
-			{
-				continue;
-			}
-			$cur_tax = 0;
-			$cur_sum = 0;
-
-			$tax_rate = (double)$row["tax"] / 100.0;
-
-			if ($tax_rate > 0)
-			{
-				// tax needs to be added
-				$cur_sum = $row["sum"];
-				$cur_tax = ($row["sum"] * $tax_rate);
-				$cur_pr = $this->num($row["price"]);
-			}
-			else
-			{
-				// tax does not need to be added, tax free it seems
-				$cur_sum = $row["sum"];
-				$cur_tax = 0;
-				$cur_pr = $this->num($row["price"]);
-			}
-			$name = $row["comment"];
-			$tax_rows["$tax_rate"] += $cur_tax;
-			$this->vars(array(
-				"unit" => $this->bill->get_unit_name($row["unit"]),
-				"amt" => $stats->hours_format($row["amt"]),
-				"price" => number_format($cur_pr, 2, ".", " "),
-				"sum" => number_format($cur_sum, 2, ".",  " "),
-				"desc" => $name,
-				"date" => $row["date"] ? "(".$row["date"].")" : ""
-			));
-
-			$rs[] = array("str" => $this->parse("ROW"), "date" => $row["date"] , "jrk" => $row["jrk"] , "id" => $grp_row["id"],);
-			$sum_wo_tax += $cur_sum;
-			$tax += $cur_tax;
-			$sum += ($cur_tax+$cur_sum);
 		}
 
 		usort($rs, array($this, "__br_sort"));
@@ -4039,11 +3858,6 @@ class crm_bill extends class_base
 			$b_tm = mktime(0,0,0, $b_m, $b_d, $b_y);
 		}
 
-		if(isset($a["is_oe"]) && isset($b["is_oe"]) && !(($a["is_oe"] - $b["is_oe"]) == 0))
-		{
-			return $a["is_oe"]- $b["is_oe"];
-		}
-
 		return  $a["jrk"] < $b["jrk"] ? -1 :
 			($a["jrk"] > $b["jrk"] ? 1:
 				($a_tm >  $b_tm ? 1:
@@ -4185,9 +3999,21 @@ class crm_bill extends class_base
 		$this->sum = 0;
 
 		$grouped_rows = array();
+		$grouped_rows_comments = array();
 		foreach($bill_rows as $row)
 		{
 			$grouped_rows[$row["comment"]][] = $row;
+			if ($row["name_group_comment"])
+			{
+				$grouped_rows_comments[$row["comment"]][] = html::paragraph(array("content" => nl2br($row["name_group_comment"])));
+			}
+		}
+
+		foreach ($grouped_rows_comments as $capt_key => $name_group_comments)
+		{
+			$name_group_comment = implode("\n", $name_group_comments);
+			$this->vars(array("name_group_comment" => $name_group_comment));
+			$grouped_rows_comments[$capt_key] = $this->parse("HAS_NAME_GROUP_COMMENT");
 		}
 
 		if($this->is_template("GROUP_ROWS"))
@@ -4198,6 +4024,7 @@ class crm_bill extends class_base
 				$rs = $this->parse_preview_add_rows($crows);
 				$this->vars(array(
 					"uniter" => $capt,
+					"HAS_NAME_GROUP_COMMENT" => isset($grouped_rows_comments[$capt]) ? $grouped_rows_comments[$capt] : "",
 					"ROW" => join("", $rs),
 				));
 				$GR.= $this->parse("GROUP_ROWS");
@@ -4317,10 +4144,7 @@ class crm_bill extends class_base
 
 			$row_data["task_row_id"] = empty($row["task_row_id"]) ? (isset($row["id"]) ? $row["id"] : "") : $row["task_row_id"];
 			$row_data["orderer"] = isset($row["orderer"]) ? $row["orderer"] : null;
-			if (!empty($row["is_oe"]))
-			{
-				continue;
-			}
+
 			$tax_rate = isset($row["tax"]) ? ((double) $row["tax"] / 100.0) : 0;
 			$cur_tax = 0;
 			$cur_sum = 0;
@@ -4372,48 +4196,6 @@ class crm_bill extends class_base
 			$unit = $row["unit"];
 			$tot_amt += $row["amt"];
 			$tot_cur_sum += $cur_sum;
-		}
-
-		foreach($bill_rows as $key => $row)
-		{
-			if (!$this->bill->meta("show_oe_add") || !$row["is_oe"])
-			{
-				continue;
-			}
-			$tax_rate = (double)$row["tax"] / 100.0;
-			$cur_tax = 0;
-			$cur_sum = 0;
-
-			if ($tax_rate)
-			{
-				// tax needs to be added
-				$cur_sum = $row["sum"];
-				$cur_tax = ($row["sum"] * $tax_rate);
-				$cur_pr = $this->num($row["price"]);
-
-			}
-			else
-			{
-				// tax does not need to be added, tax free it seems
-				$cur_sum = $row["sum"];
-				$cur_tax = 0;
-				$cur_pr = $this->num($row["price"]);
-			}
-			$this->vars(array(
-				"unit" => $this->bill->get_unit_name($row["unit"]),
-				"amt" => $this->stats->hours_format($row["amt"]),
-				"price" => number_format($cur_pr, 2,".", " "),
-				"sum" => number_format($cur_sum, 2, ".", " "),
-				"desc" => $row["name"],
-				"date" => $row["date"],
-				"row_orderer" => $row["orderer"],
-				"row_tax" => $cur_tax,
-			));
-
-			$rs[] = array("str" => $this->parse("ROW"), "date" => $row["date"] , "jrk" => $row["jrk"], "id" => $row["id"]);
-			$this->sum_wo_tax += $cur_sum;
-			$this->tax += $cur_tax;
-			$this->sum += ($cur_tax+$cur_sum);
 		}
 
 		$this->tot_amt = $tot_amt;
@@ -4546,12 +4328,12 @@ $agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_
 	}
 
 	/**
-		@attrib name=add_row_block
+		@attrib name=add_row_group
 		@param id required type=oid acl=edit
 		@param sel optional type=array
 		@param ru optional type=string
 	**/
-	function add_row_block($arr)
+	function add_row_group($arr)
 	{
 		$this_o = obj($arr["id"], array(), crm_bill_obj::CLID);
 
@@ -4563,40 +4345,34 @@ $agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_
 			}
 		}
 
-		$row_block = $this_o->add_row_block();
-		empty($arr["ru"]) ? exit($row_block->id()) : $arr["ru"];
+		$row_group = $this_o->add_row_group();
+		empty($arr["ru"]) ? exit($row_group->id()) : $arr["ru"];
 	}
 
 	/**
-		@attrib name=set_row_block
+		@attrib name=set_row_group
 		@param id required type=oid acl=view
-		@param row_id required type=oid acl=view
-		@param block_id required type=oid acl=edit
-		@param ru optional type=string
+		@param row_id optional type=oid acl=view
+		@param sel_rows optional type=array
+		@param group_id required type=oid
+		@param post_ru optional type=string
 	**/
-	function set_row_block($arr)
+	function set_row_group($arr)
 	{
+		$c = 0;
+		$group_o = null;
 		try
 		{
 			$this_o = obj($arr["id"], array(), crm_bill_obj::CLID);
-			$row_o = obj($arr["row_id"], array(), crm_bill_row_obj::CLID);
+			$group_o = $arr["group_id"] ? obj($arr["group_id"], array(), crm_bill_row_group_obj::CLID) : null;
+			$row_ids = empty($arr["row_id"]) ? (empty($arr["sel_rows"]) ? array() : safe_array($arr["sel_rows"])) : array($arr["row_id"]);// checkbox selection or row id
 
-			// remove from other blocks
-			$row_blocks = $this_o->get_row_blocks();
-			if($row_blocks->count())
+			foreach ($row_ids as $row_id)
 			{
-				$block_o = $row_blocks->begin();
-
-				do
-				{
-					$block_o->remove_row($row_o);
-				}
-				while ($block_o = $row_blocks->next());
+				$c++;
+				$row_o = obj($row_id, array(), crm_bill_row_obj::CLID);
+				$row_o->set_group($group_o);
 			}
-
-			// add to new block
-			$block_o = obj($arr["block_id"], array(), crm_bill_row_block_obj::CLID);
-			$block_o->add_row($row_o);
 		}
 		catch (awex_obj_type $e)
 		{
@@ -4607,19 +4383,42 @@ $agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_
 			$this->show_error_text(t("Tundmatu viga reabloki muutmisel."));
 		}
 
-		empty($arr["ru"]) ? exit($block_o->id()) : $arr["ru"];
+		if ($c)
+		{
+			if ($group_o)
+			{
+				$this->show_success_text(sprintf(t("%s rida lisatud blokki '%s'"), $c, $group_o->name()));
+			}
+			else
+			{
+				$this->show_success_text(sprintf(t("%s rida viidud p&otilde;hiblokki"), $c));
+			}
+		}
+		else
+		{
+			$this->show_msg_text(t("Read valimata, midagi ei muudetud"));
+		}
+
+		if (empty($arr["post_ru"]))
+		{
+			exit($group_o->id());
+		}
+		else
+		{
+			return $arr["post_ru"];
+		}
 	}
 
 	/**
-		@attrib name=delete_row_block
+		@attrib name=delete_row_group
 		@param id required type=oid acl=delete
 	**/
-	function delete_row_block($arr)
+	function delete_row_group($arr)
 	{
 		try
 		{
-			$row_block_o = obj($arr["id"], array(), crm_bill_row_block_obj::CLID);
-			$row_block_o->delete();
+			$row_group_o = obj($arr["id"], array(), crm_bill_row_group_obj::CLID);
+			$row_group_o->delete();
 		}
 		catch (Exception $e)
 		{
@@ -4651,7 +4450,6 @@ $agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_
 				$br->set_prop("price", $row["price"]);
 				$br->set_prop("unit", $row["unit"]);
 				$br->set_meta("jrk", $row["jrk"]);
-				$br->set_prop("is_oe", $row["is_oe"]);
 				$br->set_prop("has_tax", $row["has_tax"]);
 				$br->set_prop("date", date("d.m.Y", $row["date"]));
 				// get default prod
@@ -4715,7 +4513,7 @@ ENDSCRIPT;
 		}
 		elseif ("rows" === $this->use_group)
 		{
-			$row_block_delete_confirm = t("Kustutada see reablokk?");
+			$row_group_delete_confirm = t("Kustutada see reablokk?");
 			$merge_rows_prompt= html::quote_js(t("Valitud ridade hinnad on erinevad, sisesta palun koondatud rea hind"));
 			$scripts .= <<<ENDSCRIPT
 function merge_rows_prompt() {
@@ -4759,14 +4557,14 @@ function crm_bill_add_row() {
 	});
 }
 
-function crm_bill_add_row_block() {
-	$.get("/automatweb/orb.aw", {class: "crm_bill", action: "add_row_block", id: "{$id}"}, function (html) {
+function crm_bill_add_row_group() {
+	$.get("/automatweb/orb.aw", {class: "crm_bill", action: "add_row_group", id: "{$id}"}, function (html) {
 		reload_layout("bill_rows_container");
 	});
 }
 
-function crm_bill_set_block(row_id, block_id){
-	$.get("/automatweb/orb.aw", {class: "crm_bill", action: "set_row_block", id: "{$id}", row_id: row_id, block_id: block_id}, function (html) {
+function crm_bill_set_group(row_id, group_id){
+	$.get("/automatweb/orb.aw", {class: "crm_bill", action: "set_row_group", id: "{$id}", row_id: row_id, group_id: group_id}, function (html) {
 		reload_layout("bill_rows_container");
 	});
 }
@@ -4795,16 +4593,16 @@ function crm_bill_edit_row(id) {
 		x.innerHTML=html;});
 }
 
-function crm_bill_edit_row_block(id) {
-	$.get("/automatweb/orb.aw", {class: "crm_bill", action: "get_rowblock_change_contents", id: id}, function (html) {
-		x=document.getElementById("crm_bill_rowblock_"+id);
+function crm_bill_edit_row_group(id) {
+	$.get("/automatweb/orb.aw", {class: "crm_bill", action: "get_rowgroup_change_contents", id: id}, function (html) {
+		x=document.getElementById("crm_bill_rowgroup_"+id);
 		x.innerHTML=html;});
 }
 
-function crm_bill_delete_row_block(id){
-	if (confirm("{$row_block_delete_confirm}"))
+function crm_bill_delete_row_group(id){
+	if (confirm("{$row_group_delete_confirm}"))
 	{
-		$.get("/automatweb/orb.aw", {class: "crm_bill", action: "delete_row_block", id: id}, function (html) {
+		$.get("/automatweb/orb.aw", {class: "crm_bill", action: "delete_row_group", id: id}, function (html) {
 			reload_layout("bill_rows_container");
 		});
 	}
@@ -5752,7 +5550,7 @@ ENDSCRIPT;
 		$tb->add_menu_item(array(
 			"parent" => "print",
 			"url" => "#",
-			"onClick" => $onclick_start.$onclick_middle.$onclick_end,
+			"onclick" => $onclick_start.$onclick_middle.$onclick_end,
 			"text" => t("Prindi arve")
 		));
 
@@ -5763,7 +5561,7 @@ ENDSCRIPT;
 		$tb->add_menu_item(array(
 			"parent" => "print",
 			"url" => "#",
-			"onClick" => $onclick_start.$onclick_middle.$onclick_end,
+			"onclick" => $onclick_start.$onclick_middle.$onclick_end,
 			"text" => t("Prindi arve pdf")
 		));
 
@@ -5771,7 +5569,7 @@ ENDSCRIPT;
 		$tb->add_menu_item(array(
 			"parent" => "print",
 			"url" => "#",
-			"onClick" => $onclick_start.$onclick_middle.$onclick_end,
+			"onclick" => $onclick_start.$onclick_middle.$onclick_end,
 			"text" => t("Prindi arve lisa")
 		));
 
@@ -5782,7 +5580,7 @@ ENDSCRIPT;
 		$tb->add_menu_item(array(
 			"parent" => "print",
 			"url" => "#",
-			"onClick" => $onclick_start.$onclick_middle.$onclick_end,
+			"onclick" => $onclick_start.$onclick_middle.$onclick_end,
 			"text" => t("Prindi arve lisa pdf")
 		));
 
@@ -5795,7 +5593,7 @@ ENDSCRIPT;
 		$tb->add_menu_item(array(
 			"parent" => "print",
 			"url" => "#",
-			"onClick" => $onclick_start.$onclick_middle.$onclick_end,
+			"onclick" => $onclick_start.$onclick_middle.$onclick_end,
 			"text" => t("Prindi arve meeldetuletus")
 		));
 
@@ -5808,7 +5606,7 @@ ENDSCRIPT;
 		$tb->add_menu_item(array(
 			"parent" => "print",
 			"url" => "#",
-			"onClick" => $onclick_start.$onclick_middle.$onclick_end,
+			"onclick" => $onclick_start.$onclick_middle.$onclick_end,
 			"text" => t("Prindi arve meeldetuletus pdf")
 		));
 
@@ -5821,7 +5619,7 @@ ENDSCRIPT;
 		$tb->add_menu_item(array(
 			"parent" => "print",
 			"url" => "#",
-			"onClick" => $onclick_start.$onclick_middle.$onclick_end,
+			"onclick" => $onclick_start.$onclick_middle.$onclick_end,
 			"text" => t("Prindi &uuml;leandmis-vastuv&otilde;tmisakt pdf")
 		));
 		$this->set_current_settings();
@@ -5832,7 +5630,7 @@ ENDSCRIPT;
 			$tb->add_menu_item(array(
 				"parent" => "print",
 				"url" => "#",
-				"onClick" => $onclick_start.$onclick_middle.$onclick_end,
+				"onclick" => $onclick_start.$onclick_middle.$onclick_end,
 				"text" => t("Prindi arve koos lisaga")
 			));
 
@@ -5840,7 +5638,7 @@ ENDSCRIPT;
 			$tb->add_menu_item(array(
 				"parent" => "print",
 				"url" => "#",
-				"onClick" => $onclick_start.$onclick_middle.$onclick_end,
+				"onclick" => $onclick_start.$onclick_middle.$onclick_end,
 				"text" => t("Prindi arve koos lisaga pdf")
 			));
 		}

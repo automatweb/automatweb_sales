@@ -1490,6 +1490,28 @@ class html
 		return "<span{$class}{$style}{$id}>{$content}</span>";
 	}
 
+	/** HTML paragraph element
+	@attrib api=1 params=name
+
+	@param id optional type=string
+		id of the p tag
+	@param class optional type=string
+		style class name
+	@param content optional type=string
+		html to insert between span tags
+	@returns string/html
+
+	@comments
+		draws <p class='$class'>$content</p>
+	**/
+	public static function paragraph($arr = array())
+	{
+		$class = (!empty($arr["class"]) ? " class=\"{$arr["class"]}\"" : "");
+		$id = (!empty($arr["id"]) ? " id=\"{$arr["id"]}\"" : "");
+		$content = isset($arr["content"]) ? $arr["content"] : "";
+		return "<p{$class}{$id}>{$content}</p>";
+	}
+
 	/**Link
 	@attrib api=1 params=name
 

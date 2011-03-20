@@ -2828,7 +2828,7 @@ class crm_person extends class_base
 			)
 		);
 		$orgs = array(0 => t("--vali--"));
-		foreach($org_arr->list_data as $lde)
+		foreach($org_arr->arr() as $lde)
 		{
 			$orgs[$lde["oid"]] = $lde["name"];
 		}
@@ -2844,7 +2844,7 @@ class crm_person extends class_base
 			)
 		);
 		$secs = array(0 => t("--vali--"));
-		foreach($sec_arr->list_data as $lde)
+		foreach($sec_arr->arr() as $lde)
 		{
 			$secs[$lde["oid"]] = $lde["name"];
 		}
@@ -2860,7 +2860,7 @@ class crm_person extends class_base
 			)
 		);
 		$pros = array(0 => t("--vali--"));
-		foreach($pro_arr->list_data as $lde)
+		foreach($pro_arr->arr() as $lde)
 		{
 			$pros[$lde["oid"]] = $lde["name"];
 		}

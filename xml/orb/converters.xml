@@ -249,5 +249,12 @@
 			</function>
 		</action>
 
+		<action name="convert_categories_1">
+			<function name="convert_categories_1">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>

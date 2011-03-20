@@ -31,6 +31,13 @@
 		#bill tr td.footer p { margin-top: 1em; }
 
 		#footer { display: none; }
+
+		div.nameGroupComment
+		{
+			font-size: 12px;
+			padding: 0.3em 0 0 0.4em;
+			margin: 0;
+		}
 	</style>
 
 	<style type="text/css" media="print">
@@ -76,7 +83,10 @@
 		<td colspan="2" class="main">
 			<!-- SUB: GROUP_ROWS -->
 			<h2>{VAR:uniter}</h2>
-			<table cellpadding="0" cellspacing="0" border="0">
+			<!-- SUB: HAS_NAME_GROUP_COMMENT -->
+			<div class="nameGroupComment">{VAR:name_group_comment}</div>
+			<!-- END SUB: HAS_NAME_GROUP_COMMENT -->
+			<table cellpadding="0" cellspacing="0" border="0" style="margin-top: 1em;">
 				<tr>
 					<th width="10%">ID</th>
 					<th width="10%">Date</th>

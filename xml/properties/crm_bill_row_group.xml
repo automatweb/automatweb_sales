@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>parent</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>hidden</type>
+            <datatype>int</datatype>
+            <default>0</default>
+      </property>
+      <property>
+            <name>heading</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textbox</type>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>description</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>general</group>
+            <type>textarea</type>
+            <caption>Kirjeldus</caption>
+      </property>
+      <classinfo>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+      </classinfo>
+      <reltypes>
+            <CHILD>
+                  <value>2</value>
+                  <clid>
+                        <num_0>CL_CRM_BILL_ROW</num_0>
+                        <num_1>CL_CRM_BILL_ROW_GROUP</num_1>
+                  </clid>
+                  <caption>Blokki kuuluv rida/alamblokk</caption>
+            </CHILD>
+      </reltypes>
+</properties>
+

@@ -542,7 +542,7 @@ class aw_object_search extends class_base
 			),
 		);
 		$rows_arr = new object_data_list($filter , $rowsres);
-		return $rows_arr->list_data;
+		return $rows_arr->arr();
 	}
 
 	function _s_res($arr)

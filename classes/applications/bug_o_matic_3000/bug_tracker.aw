@@ -3663,8 +3663,6 @@ class bug_tracker extends class_base
 		$filter = array(
 			"class_id" => array(CL_TASK_ROW),
 			"CL_TASK_ROW.task.class_id" => CL_BUG,
-			"lang_id" => array(),
-			"site_id" => array(),
 			//"created" => new obj_predicate_compare(OBJ_COMP_GREATER, $prevm),
 			"sort_by" => "objects.created desc",
 			"impl" => $cur_p->id(),
@@ -3681,7 +3679,7 @@ class bug_tracker extends class_base
 		);
 		$tasks = array();
 		$count = 0;
-		foreach($t->list_data as $data)
+		foreach($t->arr() as $data)
 		{
 			if($count >= 40) break;
 			if(!$tasks[$data["task"]] && $this->can("view" , $data["task"]))

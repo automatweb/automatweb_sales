@@ -394,16 +394,6 @@
             <field>dn_confirm_tbl</field>
       </property>
       <property>
-            <name>show_oe_add</name>
-            <table>objects</table>
-            <group>other_data</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>meta</field>
-            <method>serialize</method>
-            <caption>N&amp;amp;auml;ita arve lisas muid kulusid</caption>
-      </property>
-      <property>
             <name>rows_different_pages</name>
             <table>objects</table>
             <group>other_data</group>
@@ -563,6 +553,7 @@
             <store>no</store>
             <no_caption>1</no_caption>
             <editonly>1</editonly>
+            <parent>bill_rows_container</parent>
             <field>rows_toolbar</field>
             <caption>Arve ridade tegevused</caption>
       </property>
@@ -570,7 +561,7 @@
             <name>bill_rows</name>
             <table>objects</table>
             <group>rows</group>
-            <type>table</type>
+            <type>text</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <editonly>1</editonly>
@@ -589,6 +580,14 @@
             <parent>bill_writeoff_rows_container</parent>
             <field>writeoffs</field>
             <caption>Mahakantud read</caption>
+      </property>
+      <property>
+            <name>group_id</name>
+            <table>objects</table>
+            <group>rows</group>
+            <type>hidden</type>
+            <store>no</store>
+            <field>group_id</field>
       </property>
       <property>
             <name>mail_table</name>
@@ -936,11 +935,11 @@
                   <clid>CL_CRM_PERSON</clid>
                   <caption>Arve saaja</caption>
             </RECEIVER>
-            <ROW_BLOCK>
+            <ROW_GROUP>
                   <value>20</value>
-                  <clid>CL_CRM_BILL_ROW_BLOCK</clid>
+                  <clid>CL_CRM_BILL_ROW_GROUP</clid>
                   <caption>Reablokk</caption>
-            </ROW_BLOCK>
+            </ROW_GROUP>
       </reltypes>
       <layout>
             <main_split>
@@ -1008,7 +1007,7 @@
                   <area_caption></area_caption>
             </bottom_right_right>
             <bill_rows_container>
-                  <type>hbox</type>
+                  <type>vbox</type>
                   <group>rows</group>
                   <area_caption></area_caption>
             </bill_rows_container>

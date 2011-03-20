@@ -2109,11 +2109,11 @@ class crm_company_cust_impl extends class_base
 		//tmp. get and index customers by cro-s
 		$customer_list = array();
 		$idx_cro_by_customer = array();
-		foreach ($customer_relations_list as $cro_oid)
+		foreach ($customer_relations_list as $cro_oid => $cro_data)
 		{
 			$cro_o = new object($cro_oid);
 			$customer_oid = $cro_o->prop($customer_relation_type_prop);
-			$customer_list[$customer_oid]  = $cro_o->prop($customer_oid);
+			$customer_list[]  = $customer_oid;
 			$idx_cro_by_customer[$customer_oid] = $cro_o;
 		}
 		//end tmp
@@ -2159,11 +2159,11 @@ class crm_company_cust_impl extends class_base
 			$page_nr = 0;
 		}
 
-		foreach($customer_list as $org)
+		foreach($customer_list as $customer_oid)
 		{
 			try
 			{
-				$o = obj($org);
+				$o = obj($customer_oid);
 			}
 			catch (Exception $e)
 			{
@@ -2227,7 +2227,7 @@ class crm_company_cust_impl extends class_base
 					));
 				}
 			}
-			elseif ($o->is_a(CL_CRM_PERSON))
+			elseif ($o->is_a(crm_person_obj::CLID))
 			{
 				// e-mail address
 				try
@@ -2783,7 +2783,7 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 				),
 			)
 		);
-		return $t->list_data;
+		return $t->arr();
 	}
 
 	private function all_project_customers()

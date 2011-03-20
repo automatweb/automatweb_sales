@@ -376,10 +376,9 @@ class sys extends aw_template
 					//print_r($donor_struct[$table][$key]);
 					//print "</pre>";
 
-				};
+				}
 			}
-
-		};
+		}
 		print "all done<br />";
 		if (!$args["no_exit"])
 		{

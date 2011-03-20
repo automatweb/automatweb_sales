@@ -2,12 +2,12 @@
 // crm_bill_row.aw - Arve rida
 /*
 
-@classinfo syslog_type=ST_CRM_BILL_ROW relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo syslog_type=ST_CRM_BILL_ROW relationmgr=yes no_status=1 prop_cb=1
+@tableinfo aw_crm_bill_rows index=aw_oid master_index=brother_of master_table=objects
 
 @default table=aw_crm_bill_rows
 @default group=general
 
-@tableinfo aw_crm_bill_rows index=aw_oid master_index=brother_of master_table=objects
 
 @property name type=textarea rows=5 cols=40 table=objects field=name
 @caption Nimi
@@ -30,9 +30,6 @@
 @property unit type=textbox field=aw_unit
 @caption &Uuml;hik
 
-@property is_oe type=checkbox ch_value=1 field=aw_is_oe
-@caption Muu kulu?
-
 @property writeoff type=checkbox ch_value=1 field=aw_writeoff
 @caption Maha kantud
 
@@ -48,6 +45,9 @@
 @property desc type=textarea rows=5 cols=30 field=aw_desc
 @caption Kirjeldus
 
+@property name_group_comment type=textarea rows=2 cols=30 field=aw_name_group_comment
+@caption Koondkommentaar
+
 @property people type=relpicker reltype=RELTYPE_PEOPLE multiple=1 table=objects field=meta method=serialize
 @caption Isikud
 
@@ -58,7 +58,7 @@
 @caption Projekt
 
 // RELTYPES
-@reltype PROD value=1 clid=CL_CHOP_PRODUCT
+@reltype PROD value=1 clid=CL_SHOP_PRODUCT
 @caption Toode
 
 @reltype TASK_ROW value=2 clid=CL_TASK_ROW
@@ -126,8 +126,7 @@ class crm_bill_row extends class_base
 				aw_prod int,
 				aw_price double,
 				aw_unit varchar(100),
-				aw_is_oe int,
-				aw_has_tax int,
+				aw_has_tax tinyint,
 				aw_date varchar(255),
 				aw_writeoff int
 			)");
@@ -151,6 +150,14 @@ class crm_bill_row extends class_base
 					$o->save();
 				}
 				return true;
+
+			case "aw_name_group_comment":
+				$this->db_add_col($table, array(
+					"name" => "aw_name_group_comment",
+					"type" => "text"
+				));
+				return true;
+
 			case "project":
 			case "aw_writeoff":
 				$this->db_add_col($table, array(
@@ -158,6 +165,7 @@ class crm_bill_row extends class_base
 					"type" => "int"
 				));
 				return true;
+
 			case "aw_tax":
 				$this->db_add_col($table, array(
 					"name" => $field,

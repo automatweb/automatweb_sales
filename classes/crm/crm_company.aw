@@ -3,7 +3,6 @@
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_CRM_ADDRESS, on_save_address)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_CRM_ADDRESS, on_save_address)
 HANDLE_MESSAGE_WITH_PARAM(MSG_EVENT_ADD, CL_CRM_PERSON, on_add_event_to_person)
-HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_CRM_CATEGORY, on_create_customer)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_CRM_COMPANY, on_create_company)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_COMPANY, on_delete_company)
 
@@ -6589,62 +6588,6 @@ class crm_company extends class_base
 		if (($o = $s->get_current_settings()))
 		{
 			return $o->prop("s_cfgform");
-		}
-	}
-
-	function on_create_customer($arr)
-	{
-		$conn = $arr["connection"];
-		$buyer_cat = $conn->from();
-
-		// find the company from the category
-		while (1)
-		{
-			$to = $buyer_cat->connections_to(array(
-				"from.class_id" => CL_CRM_COMPANY,
-				"type" => "RELTYPE_CATEGORY"
-			));
-			if (count($to))
-			{
-				$buyer_c = reset($to);
-				$buyer = $buyer_c->from();
-				break;
-			}
-			$to = $buyer_cat->connections_to(array(
-				"from.class_id" => CL_CRM_CATEGORY,
-				"type" => "RELTYPE_CATEGORY"
-			));
-			if (!count($to))
-			{
-				error::raise(array(
-					"id" => "ERR_NO_PREV_CAT",
-					"msg" => sprintf(t("crm_company::on_create_customer(): category %s has no parent company or category!"), $buyer_cat->id())
-				));
-			}
-			$c = reset($to);
-			$buyer_cat = $c->from();
-		}
-
-		$seller = $conn->to();
-		// add customer relation object if it does not exist already
-		if(!empty($_POST["co_is_cust"]))
-		{
-			$ol = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"buyer" => $buyer->id(),
-				"seller" => $seller->id()
-			));
-
-			if (!$ol->count())
-			{
-				$o = obj();
-				$o->set_class_id(CL_CRM_COMPANY_CUSTOMER_DATA);
-				$o->set_name(t("Kliendisuhe ").$buyer->name()." => ".$seller->name());
-				$o->set_parent($buyer->id());
-				$o->set_prop("seller", $buyer->id()); // yes this is correct, cause I'm a lazy iduit
-				$o->set_prop("buyer", $seller->id());
-				$o->save();
-			}
 		}
 	}
 

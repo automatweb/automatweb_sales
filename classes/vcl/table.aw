@@ -74,6 +74,7 @@ class aw_table extends aw_template
 	/* a symbolic name for the table so we can tell it apart from others */
 	protected $prefix = "";
 
+	protected $headerextra = "";
 	protected $headerextrasize = 0;
 	protected $userfields_defined = false;
 

@@ -9,7 +9,7 @@
 	<style type="text/css">
 		body { font-size: 12px; font-family: Arial; margin: 2em 0 2em 0; text-align: center; }
 		h1 { font-size: 16px; color: #05A6E9; padding: 1em 0 0 0.4em; margin: 0; }
-		h2 { font-size: 14px; color: #666666; padding: 2em 0 1em 0.4em; margin: 0; }
+		h2 { font-size: 14px; color: #666666; padding: 2em 0 0 0.4em; margin: 0; }
 		p { margin: 0; }
 
 		#bill { width: 760px; height: 100%; margin: auto; page-break-inside: avoid; }
@@ -31,6 +31,13 @@
 		#bill tr td.footer p { margin-top: 1em; }
 
 		#footer { display: none; }
+
+		div.nameGroupComment
+		{
+			font-size: 12px;
+			padding: 0.3em 0 0 0.4em;
+			margin: 0;
+		}
 	</style>
 
 	<style type="text/css" media="print">
@@ -81,7 +88,10 @@
 		<td colspan="2" class="main">
 			<!-- SUB: GROUP_ROWS -->
 			<h2>{VAR:uniter}</h2>
-			<table cellpadding="0" cellspacing="0" border="0">
+			<!-- SUB: HAS_NAME_GROUP_COMMENT -->
+			<div class="nameGroupComment">{VAR:name_group_comment}</div>
+			<!-- END SUB: HAS_NAME_GROUP_COMMENT -->
+			<table cellpadding="0" cellspacing="0" border="0" style="margin-top: 1em;">
 				<tr>
 					<th width="10%">ID</th>
 					<th width="10%">Kuupäev</th>

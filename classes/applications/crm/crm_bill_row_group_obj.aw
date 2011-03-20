@@ -1,11 +1,11 @@
 <?php
 
-/** Invoice row block is a presentational helper object used to group rows and add properties to those groups (name, description, etc.) **/
-class crm_bill_row_block_obj extends _int_object
+/** Invoice row group is a presentational helper object used to group rows and add properties to those groups (name, description, etc.) **/
+class crm_bill_row_group_obj extends _int_object
 {
 	const CLID = 1781;
 
-	/** Returns rows in this block
+	/** Returns rows in this group
 		@attrib api=1 params=pos
 		@comment
 		@returns object_list
@@ -17,7 +17,7 @@ class crm_bill_row_block_obj extends _int_object
 		return $rows;
 	}
 
-	/** Adds an invoice row to this block
+	/** Adds an invoice row to this group
 		@attrib api=1 params=pos
 		@param row type=CL_CRM_BILL_ROW
 		@returns void
@@ -37,7 +37,7 @@ class crm_bill_row_block_obj extends _int_object
 		));
 	}
 
-	/** Removes an invoice row from this block
+	/** Removes an invoice row from this group
 		@attrib api=1 params=pos
 		@param row type=CL_CRM_BILL_ROW
 		@returns void

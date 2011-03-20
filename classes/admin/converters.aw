@@ -1590,7 +1590,7 @@ class converters extends aw_template
 	function kw_to_reltype($arr)
 	{
 		$c = new connection();
-$GLOBALS["DUKE"] = 1;
+
 		foreach($c->find(array("to.class_id" => CL_KEYWORD, "from.class_id" => array(CL_MENU, CL_DOCUMENT))) as $con)
 		{
 			$c2 = new connection($con["id"]);
@@ -2197,5 +2197,147 @@ echo "mod ".$con["to.name"]."<br>";
 				}
 			}
 		}
+	}
+
+	/**
+		@attrib name=convert_categories_1
+	**/
+	function convert_categories_1($arr)
+	{
+		$objlist_size_limit = aw_ini_get("performance.objlist_size_limit");
+		$page = 0;
+
+		do
+		{
+			$categories = new object_list(array(
+				"class_id" => CL_CRM_CATEGORY,
+				new obj_predicate_limit($objlist_size_limit, $page * $objlist_size_limit)
+			));
+			$countdown = $objlist_size_limit;
+
+			if($categories->count())
+			{
+				$o = $categories->begin();
+
+				do
+				{
+					$this->process_category_object($o);
+					automatweb::$result->sysmsg("Converting category '" . $o->name(). "' id:". $o->id());
+					--$countdown;
+				}
+				while ($o = $categories->next() and $countdown);
+			}
+
+			++$page;
+		}
+		while ($categories->count() === $objlist_size_limit);
+		automatweb::$result->sysmsg("Done");
+		exit;
+	}
+
+	private function process_category_object(object $category)
+	{
+		if (!$category->prop("category_type"))
+		{
+			$category->set_prop("category_type", crm_category_obj::TYPE_GENERIC);
+		}
+
+		// parent category
+		if (!$category->prop("category_type"))
+		{
+			$parent_category_oid = $this->get_category_parent_oid($category, crm_category_obj::CLID);
+			$category->set_prop("parent_category", $parent_category_oid);
+		}
+
+		// category owner
+		$organization_oid = $this->get_category_parent_oid($category, crm_category_obj::CLID);
+
+		if (!$category->prop("organization"))
+		{
+			$category->set_prop("organization", $organization_oid);
+		}
+
+		// relocate customers
+		if ($organization_oid)
+		{
+			// assume that all customers were buyers in old setup
+			$seller = new object($organization_oid);
+
+			// category customers by connection
+			$customers = new object_list($o->connections_from(array(
+				"type" => 3 // reltype CUSTOMER defining customers in this category
+			)));
+
+			if($customers->count())
+			{
+				$customer = $customers->begin();
+
+				do
+				{
+					if ($customer->is_a(crm_company_obj::CLID) or $customer->is_a(crm_person_obj::CLID))
+					{
+						// find customer relation, create if not found
+						$cro = $seller->get_customer_relation(crm_company_obj::CUSTOMER_TYPE_BUYER, $customer, true);
+						$cro->add_category($category);
+					}
+				}
+				while ($customer = $customers->next());
+			}
+		}
+
+		$category->save();
+	}
+
+	private function get_category_parent_oid(object $o, $clid)
+	{
+		$oid = 0;
+		do
+		{
+			$parent_categories = new object_list($o->connections_to(array(
+				"from.class_id" => crm_category_obj::CLID,
+				"type" => 2 // deprecated reltype CATEGORY defining subcategories
+			)));
+			if ($parent_categories->count())
+			{
+				$parent_category = $parent_categories->begin();
+				if (crm_category_obj::CLID == $clid)
+				{
+					$oid = $parent_category->id();
+					$o = null;
+				}
+				else
+				{
+					$oid = 0;
+					$o = $parent_category;
+				}
+			}
+
+			$parent_organizations = new object_list($o->connections_to(array(
+				"from.class_id" => crm_company_obj::CLID,
+				"type" => 30 // reltype CATEGORY defining organization's customer categories
+			)));
+			if ($parent_organizations->count())
+			{
+				$parent_organization = $parent_organizations->begin();
+				if (crm_company_obj::CLID == $clid)
+				{
+					$oid = $parent_organization->id();
+					$o = null;
+				}
+				else
+				{
+					$oid = 0;
+					$o = null;
+				}
+			}
+
+			if (!$parent_categories->count() and !$parent_organizations->count())
+			{
+				$oid = 0;
+				$o = null;
+			}
+		}
+		while ($o);
+		return $oid;
 	}
 }
