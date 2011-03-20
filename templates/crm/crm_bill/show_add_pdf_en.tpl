@@ -16,7 +16,7 @@
 
 	div.nameGroupComment
 	{
-		font-size: 12px;
+		font-size: 9;
 		padding: 0.3em 0 0 0.4em;
 		margin: 0;
 	}
