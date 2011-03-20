@@ -1882,8 +1882,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_COMPANY,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"CL_CRM_COMPANY.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).seller" => $this->id(),
 			"CL_CRM_COMPANY.RELTYPE_BUYER(CL_CRM_COMPANY_CUSTOMER_DATA).buyer" => new obj_predicate_prop("id"),
 		));

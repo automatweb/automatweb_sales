@@ -286,7 +286,7 @@ $x++;
 		);
 		$rows_arr = new object_data_list($rows_filter , $rowsres);
 
-		foreach($rows_arr->list_data as $bcs)
+		foreach($rows_arr->arr() as $bcs)
 		{
 			if($bcs["time_to_cust"])
 			{
@@ -327,7 +327,7 @@ $x++;
 			),
 		);
 		$tasks_arr = new object_data_list($tasks_filter , $tasksres);
-		$tasks_data = $tasks_arr->list_data;
+		$tasks_data = $tasks_arr->arr();
 
 		$tasks_filter = array(
 			"class_id" => array(CL_BUG),
@@ -340,7 +340,7 @@ $x++;
 			),
 		);
 		$tasks_arr = new object_data_list($tasks_filter , $tasksres);
-		$tasks_data+= $tasks_arr->list_data;
+		$tasks_data+= $tasks_arr->arr();
 
 		$tasks_filter = array(
 			"class_id" => array(CL_CRM_MEETING),
@@ -353,7 +353,7 @@ $x++;
 			)
 		);
 		$tasks_arr= new object_data_list($tasks_filter , $tasksres);
-		$tasks_data+= $tasks_arr->list_data;
+		$tasks_data+= $tasks_arr->arr();
 
 		$tasks_filter = array(
 			"class_id" => array(CL_CRM_CALL),
@@ -366,7 +366,7 @@ $x++;
 			)
 		);
 		$tasks_arr = new object_data_list($tasks_filter , $tasksres);
-		$tasks_data+=$tasks_arr->list_data;
+		$tasks_data+=$tasks_arr->arr();
 
 		foreach($tasks_data as $bcs)
 		{
@@ -2779,7 +2779,7 @@ $x++;
 		);
 
 		$count = array();
-		foreach($t->list_data as $data)
+		foreach($t->arr() as $data)
 		{
 			if (!isset($count[$data["state"]]))
 			{
@@ -3365,7 +3365,7 @@ d)
 				),
 			)
 		);
-		return $t->list_data;
+		return $t->arr();
 	}
 
 	private function get_bill_mails($arr)
@@ -3389,7 +3389,7 @@ d)
 				),
 			)
 		);
-		return $t->list_data;
+		return $t->arr();
 	}
 
 	public function all_project_managers()

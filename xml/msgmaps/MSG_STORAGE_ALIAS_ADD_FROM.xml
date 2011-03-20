@@ -15,11 +15,6 @@
       <func>on_add_alias_to_group</func>
       <param>CL_GROUP</param>
 </num_2>
-<num_4>
-      <class>/crm/crm_company</class>
-      <func>on_create_customer</func>
-      <param>CL_CRM_CATEGORY</param>
-</num_4>
 <num_8>
       <class>/crm/crm_phone</class>
       <func>on_connect_work_relation_to_phone</func>

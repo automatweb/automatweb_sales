@@ -244,7 +244,7 @@ class task_object extends _int_object
 			)
 		);
 		$row_arr = new object_data_list($filter , $req);
-		return $row_arr->list_data;
+		return $row_arr->arr();
 	}
 
 	/** makes new task row

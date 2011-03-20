@@ -15,15 +15,15 @@
 			</function>
 		</action>
 
-		<action name="post_row_block" all_args="1">
-			<function name="post_row_block">
+		<action name="post_row_group" all_args="1">
+			<function name="post_row_group">
 				<arguments>
 				</arguments>
 			</function>
 		</action>
 
-		<action name="delete_row_block">
-			<function name="delete_row_block">
+		<action name="delete_row_group">
+			<function name="delete_row_group">
 				<arguments>
 					<required name="id" type="oid" acl="view" />
 				</arguments>
@@ -46,16 +46,16 @@
 			</function>
 		</action>
 
-		<action name="get_rowblock_change_contents">
-			<function name="get_rowblock_change_contents">
+		<action name="get_rowgroup_change_contents">
+			<function name="get_rowgroup_change_contents">
 				<arguments>
 					<required name="id" type="oid" acl="edit" />
 				</arguments>
 			</function>
 		</action>
 
-		<action name="get_rowblock_view_contents">
-			<function name="get_rowblock_view_contents">
+		<action name="get_rowgroup_view_contents">
+			<function name="get_rowgroup_view_contents">
 				<arguments>
 					<required name="id" type="oid" acl="view" />
 					<optional name="return" type="bool" default="false" />
@@ -120,8 +120,8 @@
 			</function>
 		</action>
 
-		<action name="add_row_block">
-			<function name="add_row_block">
+		<action name="add_row_group">
+			<function name="add_row_group">
 				<arguments>
 					<required name="id" type="int" acl="edit" />
 					<optional name="sel" type="array" />
@@ -130,13 +130,14 @@
 			</function>
 		</action>
 
-		<action name="set_row_block">
-			<function name="set_row_block">
+		<action name="set_row_group">
+			<function name="set_row_group">
 				<arguments>
 					<required name="id" type="int" acl="view" />
-					<required name="row_id" type="int" acl="view" />
-					<required name="block_id" type="int" acl="edit" />
-					<optional name="ru" type="string" />
+					<optional name="row_id" type="int" acl="view" />
+					<optional name="sel_rows" type="array" />
+					<required name="group_id" type="int" acl="edit" />
+					<optional name="post_ru" type="string" />
 				</arguments>
 			</function>
 		</action>

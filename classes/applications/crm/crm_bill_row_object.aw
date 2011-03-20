@@ -166,7 +166,6 @@ class crm_bill_row_obj extends _int_object
 	{
 		$bills_list = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
 			"CL_CRM_BILL.RELTYPE_ROW" => $this->id(),
 		));
 		$ids = $bills_list->ids();
@@ -182,8 +181,6 @@ class crm_bill_row_obj extends _int_object
 	{
 		$bills_list = new object_list(array(
 			"class_id" => CL_CRM_BILL,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"CL_CRM_BILL.RELTYPE_ROW" => $this->id(),
 		));
 		return $bills_list->begin();
@@ -469,5 +466,47 @@ class crm_bill_row_obj extends _int_object
 	public function is_writeoff()
 	{
 		return $this->prop("writeoff");
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param group type=CL_CRM_BILL_ROW_GROUP default=NULL
+			If no group given, row will be removed from the group it's in
+		@comment
+		@returns void
+		@errors
+			throws awex_obj_type if $group isn't a row group
+	**/
+	public function set_group(object $group = null)
+	{
+		if ($group and !$group->is_a(crm_bill_row_group_obj::CLID))
+		{
+			throw new awex_obj_type("Invalid row group class" . $group->class_id());
+		}
+
+		// remove from old grp
+		if ($this->meta("row_group_id"))
+		{
+			try
+			{
+				$old_group = new object($this->meta("row_group_id"));
+				$old_group->remove_row($this->ref());
+			}
+			catch (Exception $e)
+			{
+			}
+
+			$new_group_id = null;
+		}
+
+		// set new group
+		if ($group)
+		{
+			$group->add_row($this->ref());
+			$new_group_id = $group->id();
+		}
+
+		$this->set_meta("row_group_id", $new_group_id);
+		$this->save();
 	}
 }

@@ -182,7 +182,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		);
 		$rows_arr = new object_data_list($filter , $bugres);
 
-		return $rows_arr->list_data;
+		return $rows_arr->arr();
 	}
 
 	private function _get_bugs_filter($arr = array())
@@ -253,7 +253,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 			),
 		);
 		$rows_arr = new object_data_list($rows_filter , $rowsres);
-		foreach($rows_arr->list_data as $bcs)
+		foreach($rows_arr->arr() as $bcs)
 		{
 			$bugs[$bcs["task"]] = $bcs["task"];
 		}
@@ -771,7 +771,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		);
 		$rows_arr = new object_data_list($billed_hours_filter , $rowsres);
 		$sum = 0;
-		foreach($rows_arr->list_data as $data)
+		foreach($rows_arr->arr() as $data)
 		{
 			$sum+= $data["time_real"];
 		}
@@ -805,7 +805,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		);
 		$rows_arr = new object_data_list($rows_filter , $rowsres);
 
-		return $rows_arr->list_data;
+		return $rows_arr->arr();
 	}
 
 	function get_billable_task_rows()
@@ -916,7 +916,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 		);
 		$rows_arr = new object_data_list($filter , $bugres);
 
-		return $rows_arr->list_data;
+		return $rows_arr->arr();
 	}
 
 	private function _get_tasks_filter($arr = array())
@@ -1011,7 +1011,7 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 				),
 			);
 			$rows_arr = new object_data_list($rows_filter , $rowsres);
-			foreach($rows_arr->list_data as $bcs)
+			foreach($rows_arr->arr() as $bcs)
 			{
 				$task_ids[$bcs["task"]] = $bcs["task"];
 			}

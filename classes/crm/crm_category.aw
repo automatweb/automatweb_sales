@@ -10,9 +10,19 @@
 	@property jrk type=textbox size=5 table=objects field=jrk
 	@caption J&auml;rjekord
 
+	@property img_upload type=releditor reltype=RELTYPE_IMAGE props=file,file_show
+	@caption Pilt
+
+	@property extern_id type=hidden field=meta method=serialize
 	@property parent_category type=hidden table=aw_crm_category field=aw_parent_category
 	@property category_type type=hidden table=aw_crm_category field=aw_category_type
 	@property organization type=hidden table=aw_crm_category field=aw_organization
+
+
+// RELTYPES
+@reltype IMAGE value=1 clid=CL_IMAGE
+@caption Pilt
+
 
 */
 

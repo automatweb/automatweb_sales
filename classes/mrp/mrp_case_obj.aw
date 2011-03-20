@@ -288,7 +288,7 @@ class mrp_case_obj extends _int_object implements crm_sales_price_component_inte
 			)
 		);
 		$job_nr = 0;
-		foreach ($jobs->list_data as $job) //!!! vaadata miks list_data, see peaks private olema
+		foreach ($jobs->arr() as $job)
 		{
 			$job_nr = max($job_nr, $job["jrk"]);
 		}

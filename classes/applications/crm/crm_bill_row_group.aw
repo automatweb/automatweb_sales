@@ -17,18 +17,18 @@
 @caption Kirjeldus
 
 // RELTYPES
-@reltype CHILD value=2 clid=CL_CRM_BILL_ROW,CL_CRM_BILL_ROW_BLOCK
+@reltype CHILD value=2 clid=CL_CRM_BILL_ROW,CL_CRM_BILL_ROW_GROUP
 @caption Blokki kuuluv rida/alamblokk
 
 */
 
-class crm_bill_row_block extends class_base
+class crm_bill_row_group extends class_base
 {
 	function __construct()
 	{
 		$this->init(array(
-			"tpldir" => "applications/crm/crm_bill_row_block",
-			"clid" => CL_CRM_BILL_ROW_BLOCK
+			"tpldir" => "applications/crm/crm_bill_row_group",
+			"clid" => CL_CRM_BILL_ROW_GROUP
 		));
 	}
 }

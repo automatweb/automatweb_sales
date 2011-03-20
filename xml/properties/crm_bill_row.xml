@@ -63,15 +63,6 @@
             <caption>&amp;amp;Uuml;hik</caption>
       </property>
       <property>
-            <name>is_oe</name>
-            <table>aw_crm_bill_rows</table>
-            <group>general</group>
-            <type>checkbox</type>
-            <ch_value>1</ch_value>
-            <field>aw_is_oe</field>
-            <caption>Muu kulu?</caption>
-      </property>
-      <property>
             <name>writeoff</name>
             <table>aw_crm_bill_rows</table>
             <group>general</group>
@@ -117,6 +108,16 @@
             <caption>Kirjeldus</caption>
       </property>
       <property>
+            <name>name_group_comment</name>
+            <table>aw_crm_bill_rows</table>
+            <group>general</group>
+            <type>textarea</type>
+            <rows>2</rows>
+            <cols>30</cols>
+            <field>aw_name_group_comment</field>
+            <caption>Koondkommentaar</caption>
+      </property>
+      <property>
             <name>people</name>
             <table>objects</table>
             <group>general</group>
@@ -149,7 +150,6 @@
       <classinfo>
             <syslog_type>ST_CRM_BILL_ROW</syslog_type>
             <relationmgr>yes</relationmgr>
-            <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
       </classinfo>
@@ -163,7 +163,7 @@
       <reltypes>
             <PROD>
                   <value>1</value>
-                  <clid>CL_CHOP_PRODUCT</clid>
+                  <clid>CL_SHOP_PRODUCT</clid>
                   <caption>Toode</caption>
             </PROD>
             <TASK_ROW>

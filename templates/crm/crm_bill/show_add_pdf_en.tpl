@@ -13,6 +13,13 @@
 	.data { margin: 3em 0 0 0; }
 	.data td { border: 1px solid white; }
 	.heading { color: #666666; }
+
+	div.nameGroupComment
+	{
+		font-size: 12px;
+		padding: 0.3em 0 0 0.4em;
+		margin: 0;
+	}
 	</style>
 </head>
 
@@ -77,7 +84,12 @@ if(isset($pdf))
 <!-- SUB: GROUP_ROWS -->
 <table class="data" width="100%" cellspacing="0" cellpadding="5">
 <tr>
-	<td colspan="8"><h2>{VAR:uniter}</h2></td>
+	<td colspan="8">
+		<h2>{VAR:uniter}</h2>
+		<!-- SUB: HAS_NAME_GROUP_COMMENT -->
+		<div class="nameGroupComment">{VAR:name_group_comment}</div>
+		<!-- END SUB: HAS_NAME_GROUP_COMMENT -->
+	</td>
 </tr>
 <tr>
 	<td width="5%" class="heading"><strong>ID</strong></td>

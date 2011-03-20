@@ -10,6 +10,27 @@
             <caption>J&amp;amp;auml;rjekord</caption>
       </property>
       <property>
+            <name>img_upload</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>releditor</type>
+            <reltype>RELTYPE_IMAGE</reltype>
+            <props>
+                  <num_0>file</num_0>
+                  <num_1>file_show</num_1>
+            </props>
+            <field>img_upload</field>
+            <caption>Pilt</caption>
+      </property>
+      <property>
+            <name>extern_id</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>hidden</type>
+            <field>meta</field>
+            <method>serialize</method>
+      </property>
+      <property>
             <name>parent_category</name>
             <table>aw_crm_category</table>
             <group>general</group>
@@ -42,5 +63,12 @@
                   <master_table>objects</master_table>
             </aw_crm_category>
       </tableinfo>
+      <reltypes>
+            <IMAGE>
+                  <value>1</value>
+                  <clid>CL_IMAGE</clid>
+                  <caption>Pilt</caption>
+            </IMAGE>
+      </reltypes>
 </properties>
 

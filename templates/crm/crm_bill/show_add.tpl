@@ -28,6 +28,13 @@
 		#bill tr td.main table tr td.words strong { color: #666666; padding-right: 1em; }
 
 		#bill tr td.footer { border-top: 1px solid #cccccc; text-align: center; font-size: 11px; color: #666666; vertical-align: bottom; height: 2em; }
+
+		div.nameGroupComment
+		{
+			font-size: 12px;
+			padding: 0.3em 0 0 0.4em;
+			margin: 0;
+		}
 	</style>
 
 	<style type="text/css" media="print">
@@ -73,7 +80,10 @@
 		<td colspan="2" class="main">
 			<!-- SUB: GROUP_ROWS -->
 			<h2>{VAR:uniter}</h2>
-			<table cellpadding="0" cellspacing="0" border="0">
+			<!-- SUB: HAS_NAME_GROUP_COMMENT -->
+			<div class="nameGroupComment">{VAR:name_group_comment}</div>
+			<!-- END SUB: HAS_NAME_GROUP_COMMENT -->
+			<table cellpadding="0" cellspacing="0" border="0" style="margin-top: 1em;">
 				<tr>
 					<th width="10%">ID</th>
 					<th width="10%">Kuupäev</th>

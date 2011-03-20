@@ -1,9 +1,5 @@
 <?php
 
-/*
-@classinfo  maintainer=voldemar
-*/
-
 require_once "mrp_header.aw";
 
 class mrp_workspace_obj extends _int_object
@@ -69,7 +65,7 @@ class mrp_workspace_obj extends _int_object
 				CL_MRP_CASE=>  array("customer")
 			)
 		);
-		return $t->list_data;
+		return $t->arr();
 	}
 
 	public function set_priors($priors = array())
@@ -114,7 +110,7 @@ class mrp_workspace_obj extends _int_object
 				CL_MATERIAL_EXPENSE=>  array("amount" , "used_amount" , "unit", "product","job","job.resource")
 			)
 		);
-		return $t->list_data;
+		return $t->arr();
 	}
 
 	/** returns material expense data
@@ -366,5 +362,3 @@ class awex_mrp_ws extends awex_mrp {}
 /** Generic workspace scheduling operations error **/
 class awex_mrp_ws_schedule extends awex_mrp_ws {}
 
-
-?>

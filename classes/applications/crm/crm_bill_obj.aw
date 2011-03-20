@@ -887,32 +887,35 @@ class crm_bill_obj extends _int_object
 		return $br;
 	}
 
-	/** adds new row block to bill
+	/** adds new row group to bill
 		@attrib api=1 params=pos
-		@returns CL_CRM_BILL_ROW_BLOCK
+		@returns CL_CRM_BILL_ROW_GROUP
 	**/
-	public function add_row_block()
+	public function add_row_group()
 	{
-		$br = obj(null, array(), crm_bill_row_block_obj::CLID);
+		$row_block_counter = (int) $this->meta("row_block_counter") + 1;
+		$br = obj(null, array(), crm_bill_row_group_obj::CLID);
 		$br->set_parent($this->id());
-		$br->set_name(t("Uus blokk"));
+		$br->set_name(sprintf(t("Blokk %s"), $row_block_counter));
 		$br->save();
 		$this->connect(array(
 			"to" => $br->id(),
-			"type" => "RELTYPE_ROW_BLOCK"
+			"type" => "RELTYPE_ROW_GROUP"
 		));
+		$this->set_meta("row_block_counter", $row_block_counter);
+		$this->save();
 		return $br;
 	}
 
-	/** Returns list of invoice row block objects in this invoice
+	/** Returns list of invoice row group objects in this invoice
 		@attrib api=1 params=pos
 		@comment
 		@returns object_list
 		@errors
 	**/
-	public function get_row_blocks()
+	public function get_row_groups()
 	{
-		$list = new object_list($this->connections_from(array("type" => "RELTYPE_ROW_BLOCK")));
+		$list = new object_list($this->connections_from(array("type" => "RELTYPE_ROW_GROUP")));
 		return $list;
 	}
 
@@ -1031,6 +1034,7 @@ class crm_bill_obj extends _int_object
 						$tasks[] = $work->id();
 					}
 					break;
+
 				case CL_TASK_ROW:
 					if($work->prop("task.class_id") == CL_BUG)
 					{
@@ -1043,6 +1047,7 @@ class crm_bill_obj extends _int_object
 					}
 					$tasks[] = $work->task_id();
 					break;
+
 				case CL_CRM_EXPENSE:
 					$expense = $work;
 					$filt_by_row = $expense->id();
@@ -1058,7 +1063,6 @@ class crm_bill_obj extends _int_object
 					$br->set_prop("comment", $expense->name());
 					$br->set_prop("amt", 1);
 					$br->set_prop("people", $expense->prop("who"));
-					$br->set_prop("is_oe", 1);
 					$date = $expense->prop("date");
 					$br->set_prop("date", date("d.m.Y", mktime(0,0,0, $date["month"], $date["day"], $date["year"])));
 					// get default prod
@@ -1275,7 +1279,7 @@ class crm_bill_obj extends _int_object
 		$sum = 0;
 		foreach($rows as $row)
 		{
-			if(!$row["is_oe"]) $sum+= $row["sum"];
+			$sum+= $row["sum"];
 		}
 		return $sum;
 	}
@@ -1313,7 +1317,7 @@ class crm_bill_obj extends _int_object
 			),
 		);
 		$rows_arr = new object_data_list($rows_filter , $rowsres);
-		return $rows_arr->list_data;
+		return $rows_arr->arr();
 	}
 
 	/** returns task rows
@@ -1361,6 +1365,7 @@ class crm_bill_obj extends _int_object
 				bill_obj1_id => array(
 					[oid] => ...
 					[name] => ...
+					[name_group_comment] => ...
 					[parent] => ...
 					[brother_of] => ...
 					[status] => ...
@@ -1372,7 +1377,6 @@ class crm_bill_obj extends _int_object
 					[amt] => ...
 					[has_tax] => ...
 					[tax] => ...
-					[is_oe] => ...
 					[sum] => ...
 					[jrk] => ...
 				),
@@ -1384,11 +1388,11 @@ class crm_bill_obj extends _int_object
 		$filter = $this->get_bill_rows_filter();
 		$rowsres = array(
 			crm_bill_row_obj::CLID => array(
-				"task_row", "prod", "price", "amt", "has_tax", "tax", "is_oe", "jrk"
+				"task_row", "prod", "price", "amt", "has_tax", "tax", "name_group_comment", "jrk"
 			),
 		);
 		$rows_arr = new object_data_list($filter , $rowsres);
-		return $rows_arr->list_data;
+		return $rows_arr->arr();
 	}
 
 	/** calculates bill writeoff rows sum without tax
@@ -1409,7 +1413,7 @@ class crm_bill_obj extends _int_object
 		);
 		$rows_arr = new object_data_list($filter , $rowsres);
 		$sum = 0;
-		foreach($rows_arr->list_data as $id => $data)
+		foreach($rows_arr->arr() as $id => $data)
 		{
 			$sum+= $data["price"]*$data["amt"];
 		}
@@ -1557,6 +1561,7 @@ class crm_bill_obj extends _int_object
 				"amt" => $row->prop("amt"),
 				"prod" => $row->prop("prod"),
 				"name" => $row->prop("desc"),
+				"name_group_comment" => $row->prop("name_group_comment"),
 				"comment" => $row->prop("comment"),
 				"price" => $row->prop("price"),
 				"sum" => $row->prop("amt") * $row->prop("price"),
@@ -1564,7 +1569,6 @@ class crm_bill_obj extends _int_object
 				"unit" => $row->prop("unit"),
 				"jrk" => $row->meta("jrk"),
 				"id" => $row->id(),
-				"is_oe" => $row->prop("is_oe"),
 				"has_tax" => $row->prop("has_tax"),
 				"tax" => $row->get_row_tax(),
 				"date" => $row->prop("date"),
@@ -1595,11 +1599,6 @@ class crm_bill_obj extends _int_object
 			$b_date = $b["date"];
 			list($b_d, $b_m, $b_y) = explode(".", $b_date);
 			$b_tm = mktime(0,0,0, $b_m, $b_d, $b_y);
-		}
-
-		if(!(($a["is_oe"] - $b["is_oe"]) == 0))
-		{
-			return $a["is_oe"]- $b["is_oe"];
 		}
 
 		return $a["jrk"] < $b["jrk"] ? -1 :
@@ -3050,7 +3049,6 @@ class crm_bill_obj extends _int_object
 				"unit" => $row->prop("unit"),
 				"jrk" => $row->meta("jrk"),
 				"id" => $row->id(),
-				"is_oe" => $row->prop("is_oe"),
 				"has_tax" => $row->prop("has_tax"),
 				"tax" => $row->get_row_tax(),
 				"date" => $row->prop("date"),
@@ -3166,10 +3164,6 @@ class crm_bill_obj extends _int_object
 		list($b_d, $b_m, $b_y) = explode(".", $b_date);
 		$a_tm = mktime(0,0,0, $a_m, $a_d, $a_y);
 		$b_tm = mktime(0,0,0, $b_m, $b_d, $b_y);
-		if(!(($a->prop("is_oe") - $b->prop("is_oe")) == 0))
-		{
-			return $a->prop("is_oe")- $b->prop("is_oe");
-		}
 		if ($a->comment() != $b->comment())
 		{
 			return strcmp($a->comment(), $b->comment());
@@ -3364,7 +3358,6 @@ class crm_bill_obj extends _int_object
 			"transfer_condition",
 			"selling_order",
 			"transfer_address",
-			"show_oe_add",
 			"project",
 		);
 		foreach($save_props as $prop)

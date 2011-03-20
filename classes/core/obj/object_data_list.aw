@@ -6,6 +6,8 @@
 
 class object_data_list
 {
+	private $list_data = array();
+
 	/** Returns object_data_list.
 		@attrib params=pos name=object_data_list api=1
 
@@ -224,7 +226,6 @@ class object_data_list
 			}
 		}
 	}
-
 
 	function _int_init_empty()
 	{

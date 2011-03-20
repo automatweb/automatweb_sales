@@ -2,6 +2,8 @@
 
 class crm_company_customer_data_obj extends _int_object
 {
+	const CLID = 1028;
+
 	const SALESSTATE_NEW = 1;
 	const SALESSTATE_LEAD = 2;
 	const SALESSTATE_NEWCALL = 3;
@@ -77,9 +79,7 @@ class crm_company_customer_data_obj extends _int_object
 		$list = new object_list(array(
 			"class_id" => CL_MRP_CASE,
 			"workspace" => $resource_mgr->id(),
-			"customer_relation" => $this->id(),
-			"site_id" => array(),
-			"lang_id" => array()
+			"customer_relation" => $this->id()
 		));
 
 		if ($list->count() < 1 and $create)
@@ -107,8 +107,6 @@ class crm_company_customer_data_obj extends _int_object
 	{
 		$filter = array(
 			"class_id" => CL_CRM_BILL,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"customer" => $this->prop("buyer"),
 			"CL_CRM_BILL.RELTYPE_IMPL" => $this->prop("seller")
 		);
@@ -119,8 +117,6 @@ class crm_company_customer_data_obj extends _int_object
 	{
 		$filter = array(
 			"class_id" => CL_SHOP_PRICE_LIST,
-			"site_id" => array(),
-			"lang_id" => array(),
 			new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
@@ -136,8 +132,6 @@ class crm_company_customer_data_obj extends _int_object
 	{
 		$filter = array(
 			"class_id" => CL_SHOP_ORDER,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"orderer_company" => $this->prop("buyer"),
 			"seller_company" => $this->prop("seller"),
 		);
@@ -148,8 +142,6 @@ class crm_company_customer_data_obj extends _int_object
 	{
 		$filter = array(
 			"class_id" => CL_SHOP_SELL_ORDER,
-			"site_id" => array(),
-			"lang_id" => array(),
 			"purchaser" => $this->prop("buyer"),
 //			"seller_company" => $this->prop("seller"),
 		);
@@ -201,6 +193,7 @@ class crm_company_customer_data_obj extends _int_object
 			throw new awex_obj_type("Invalid category {$category}");
 		}
 
+		//TODO: mis toimub kui topelt yritada lisada kategooriat?
 		$this->connect(array(
 			"to" => $category,
 			"reltype" => "RELTYPE_CATEGORY"

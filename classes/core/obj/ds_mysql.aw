@@ -1473,7 +1473,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		if ($where != "")
 		{
 			$acld = "";
-			if ($GLOBALS["cfg"]["acl"]["use_new_acl"])
+			if (aw_ini_get("acl.use_new_acl"))
 			{
 				$acld = ", objects.acldata as acldata, objects.parent as parent";
 			}
@@ -2574,6 +2574,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 		// join all other tables from the starting class except the objects table
 		$tmp = $GLOBALS["tableinfo"][$clid];
+
 		unset($tmp["objects"]);
 		foreach($tmp as $tbl => $tbldat)
 		{

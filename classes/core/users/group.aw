@@ -127,9 +127,6 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_DELETE_TO, CL_GROUP, on_remove_alias
 	@property can_search type=checkbox ch_value=1 field=meta table=objects method=serialize
 	@caption Kas saab kasutada otsingut
 
-	@property can_search type=checkbox ch_value=1 field=meta table=objects method=serialize
-	@caption Kas saab kasutada otsingut
-
 	@property default_yah_ct type=textbox field=meta table=objects method=serialize
 	@caption Vaikimisi asukohariba
 

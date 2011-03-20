@@ -1555,7 +1555,7 @@ class reservation extends class_base
 		{
 			$room = obj($arr["obj_inst"]->prop("resource"));
 		}
-		//arr($prod_list);
+
 		$warehouse = obj($room->prop("warehouse"));
 		if(is_oid($warehouse->prop("conf")))
 		{
@@ -1563,6 +1563,22 @@ class reservation extends class_base
 			if($conf->prop("sell_prods"))
 			{
 				$sell_products = 1;
+			}
+		}
+
+		// get rfp currency if exists
+		$mgri = new rfp_manager();
+		$mgrid = $mgri->get_sysdefault();
+		$currency = 0;
+		if ($mgrid)
+		{
+			try
+			{
+				$mgro = obj($mgrid);
+				$currency = $mgro->prop("default_currency");
+			}
+			catch (Exception $e)
+			{
 			}
 		}
 
@@ -1597,7 +1613,7 @@ class reservation extends class_base
 
 			if($sell_products)
 			{
-				$prod_price = $this->get_product_price(array("product" => $prod->id(), "reservation" => $arr["obj_inst"]));
+				$prod_price = $this->get_product_price(array("product" => $prod->id(), "reservation" => $arr["obj_inst"], "curr" => $currency));
 				$prod_sum = $prod_price * $amount[$prod->id()];
 				$prod_sum = $prod_sum - ($prod_sum * $discount[$prod->id()])/100;
 				$t->define_data(array(

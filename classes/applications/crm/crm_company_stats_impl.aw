@@ -910,7 +910,7 @@ class crm_company_stats_impl extends class_base
 				"task", "date"
 			))
 		);
-		foreach($rows_data_list->list_data as $bcs)
+		foreach($rows_data_list->arr() as $bcs)
 		{
 			$this->bug_comments[$bcs["task"]][] = array(
 				"id" => $bcs["oid"],
@@ -5467,7 +5467,7 @@ ini_set("memory_limit", "1500M");
 				"task", "date","time_guess" , "time_real" , "time_to_cust","impl", "bill_id","task.class_id", "customer", "project"
 			))
 		);
-		$cache = $rows_data_list->list_data;
+		$cache = $rows_data_list->arr();
 		return $cache;
 	}
 
@@ -5480,7 +5480,7 @@ ini_set("memory_limit", "1500M");
 				"hr_price"
 			))
 		);
-		return $rows_data_list->list_data;
+		return $rows_data_list->arr();
 	}
 
 	public function get_meetings($arr)
@@ -5512,7 +5512,7 @@ ini_set("memory_limit", "1500M");
 				"hr_price"
 			))
 		);
-		return $rows_data_list->list_data;
+		return $rows_data_list->arr();
 	}
 
 	public function get_tasks($arr)
@@ -5531,7 +5531,7 @@ ini_set("memory_limit", "1500M");
 				"hr_price"
 			))
 		);
-		return $rows_data_list->list_data;
+		return $rows_data_list->arr();
 	}
 
 	private function get_calls_data($arr)
@@ -5543,7 +5543,7 @@ ini_set("memory_limit", "1500M");
 				"hr_price", "promoter"
 			))
 		);
-		return $rows_data_list->list_data;
+		return $rows_data_list->arr();
 	}
 
 	private function get_payments_data($arr)
@@ -5555,7 +5555,7 @@ ini_set("memory_limit", "1500M");
 				"sum", "customer"
 			))
 		);
-		return $rows_data_list->list_data;
+		return $rows_data_list->arr();
 	}
 
 	private function get_payments_filter($arr)
@@ -5579,7 +5579,7 @@ ini_set("memory_limit", "1500M");
 				"sum", "customer","state","project"
 			))
 		);
-		return $rows_data_list->list_data;
+		return $rows_data_list->arr();
 	}
 
 	private function get_bills_rows_data($arr)
@@ -5591,7 +5591,7 @@ ini_set("memory_limit", "1500M");
 				"amt" , "task_row"
 			))
 		);
-		return $rows_data_list->list_data;
+		return $rows_data_list->arr();
 	}
 
 	private function get_bill_rows_filter($arr)
@@ -5616,7 +5616,7 @@ ini_set("memory_limit", "1500M");
 				"amt" , "task_row"
 			))
 		);
-		return $rows_data_list->list_data;
+		return $rows_data_list->arr();
 	}
 
 	private function get_bill_rows_by_tr_filter($arr)
