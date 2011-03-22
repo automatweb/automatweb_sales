@@ -1074,7 +1074,7 @@ class relationmgr extends aw_template
 			$adat["link"] = html::checkbox(array(
 				"name" => "link[".$alias->prop($cn)."]",
 				"value" => 1,
-				"checked" => $alinks[$alias->prop($cn)],
+				"checked" => !empty($alinks[$alias->prop($cn)])
 			));
 
 			$adat["title"] = aw_ini_get("classes.{$aclid}.name");
