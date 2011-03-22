@@ -2204,6 +2204,7 @@ echo "mod ".$con["to.name"]."<br>";
 	**/
 	function convert_categories_1($arr)
 	{
+		//TODO: should be run by root only
 		$objlist_size_limit = aw_ini_get("performance.objlist_size_limit");
 		$page = 0;
 
@@ -2285,7 +2286,7 @@ echo "mod ".$con["to.name"]."<br>";
 			// }
 		}
 
-		// $category->save();
+		$category->save();
 	}
 
 	private function find_category_parent_category(object $category)
