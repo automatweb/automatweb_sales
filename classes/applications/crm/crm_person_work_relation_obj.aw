@@ -10,6 +10,7 @@ class crm_person_work_relation_obj extends _int_object
 	const STATE_NEW = 4;
 
 	private static $state_names = array();
+	private static $_find_prop;
 
 	/** Returns list of state names
 	@attrib api=1 params=pos
@@ -117,6 +118,27 @@ class crm_person_work_relation_obj extends _int_object
 		return $this->prop("state") == self::STATE_ENDED;
 	}
 
+
+	/** Returns professions for work relations for person on given profession
+		@attrib api=1 params=pos
+		@param person type=CL_CRM_PERSON default=NULL
+		@param organization type=CL_CRM_COMPANY|array(CL_CRM_COMPANY)|array(int) default=NULL
+			Employer organization(s), object, array of objects, or array of object id-s
+		@param section type=CL_CRM_SECTION default=NULL
+		@param state type=array default=array(self::STATE_ACTIVE, self::STATE_UNDEFINED)
+			Default value returns "not inactive" relations
+		@return object_list of CL_CRM_PROFESSION
+		@errors
+			throws awex_obj_type when a parameter object is not of correct type
+	**/
+	public static function find_professions(object $person = null, $organization = null, object $section = null, $state = array(self::STATE_ACTIVE, self::STATE_UNDEFINED))
+	{
+		self::$_find_prop = "profession"; // set parameter internally for find() method. Relies on PHP clearing static member value on each request
+		$list = self::find($person, null, $organization, $section, $state);
+		self::$_find_prop = null;
+		return $list;
+	}
+
 	/** Returns work relations for person on given profession
 		@attrib api=1 params=pos
 		@param person type=CL_CRM_PERSON default=NULL
@@ -209,7 +231,13 @@ class crm_person_work_relation_obj extends _int_object
 			$params["state"] = $state;
 		}
 
-		$list = new object_list($params);
+		$load_params = array();
+		if ("profession" === self::$_find_prop)
+		{
+			$load_params["object_id_property"] = "profession";
+		}
+
+		$list = new object_list($params, $load_params);
 		return $list;
 	}
 

@@ -134,7 +134,15 @@ class crm_sales_obj extends _int_object implements application_interface
 	@returns int
 		one of ROLE_... constants
 	@comment
-		role id constant integer values are in priority order. if someone fills many roles, the role with highest priority value will be returned
+		If someone fills many roles, the role with least/lowest access priority will be returned.
+		Role priority order is (lowest first):
+			ROLE_GENERIC
+			ROLE_DATA_ENTRY_CLERK
+			ROLE_TELEMARKETING_SALESMAN
+			ROLE_TELEMARKETING_MANAGER
+			ROLE_SALESMAN
+			ROLE_SALES_MANAGER
+			ROLE_MANAGER
 	**/
 	public function get_current_user_role()
 	{

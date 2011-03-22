@@ -57,6 +57,7 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		if(!is_oid($this->id())) { 	$this->save(); } $o = obj($this->id()); $org_rel = $o->get_first_obj_by_reltype("RELTYPE_CURRENT_JOB"); if (!$org_rel) {$org_rel = obj(); $org_rel->set_class_id(CL_CRM_PERSON_WORK_RELATION); $org_rel->set_parent($o->id()); $org_rel->save(); $o->connect(array( "to" => $org_rel->id(), "type" => "RELTYPE_CURRENT_JOB", )); } $sp = $org_rel->set_prop("profession", $v); $org_rel->save(); return $sp;
 	}
 
+	// DEPRECATED!
 	function get_rank($org = null)
 	{
 		// It won't work with new object, so we need to check the oid.
@@ -101,6 +102,18 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 			}
 		}
 		return $professions;
+	}
+
+	/** Returns list of professions for this person's work relations
+		@attrib api=1 params=pos
+		@param organization type=CL_CRM_COMPANY default=NULL
+		@returns object_list
+		@errors
+			throws awex_obj_type when organization parameter object is not of correct type
+	**/
+	public function get_professions(object $organization = null)
+	{
+		return crm_person_work_relation_obj::find_professions($this->ref(), $organization);
 	}
 
 	function set_name($v)
@@ -1444,23 +1457,6 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 		return $profession_names;
 	}
-
-	/**	Returns object list of all current professions
-		@attrib api=1
-		@returns object_list
-	**/
-	public function get_professions()
-	{
-		$this->set_current_jobs();
-		$professions = new object_list();
-		foreach($this->current_jobs->arr() as $job)
-		{
-			$professions->add($job->prop("profession"));
-		}
-
-		return $professions;
-	}
-
 
 	/** adds new work relation
 		@attrib api=1 params=name
