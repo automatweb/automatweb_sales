@@ -2825,6 +2825,12 @@ SCRIPT;
 		return PROP_OK;
 	}
 
+	function _get_role_profession_manager(&$arr)
+	{
+		$arr["prop"]["options"] = $arr["obj_inst"]->prop("owner")->get_company_professions()->names();
+		return PROP_OK;
+	}
+
 	function _get_role_profession_data_entry_clerk(&$arr)
 	{
 		$arr["prop"]["options"] = $arr["obj_inst"]->prop("owner")->get_company_professions()->names();

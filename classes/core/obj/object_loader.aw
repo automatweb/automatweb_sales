@@ -607,7 +607,18 @@ class _int_object_loader extends core
 		}
 	}
 
-	function resolve_reltype($type, $class_id)
+	/**
+		@attrib api=1 params=pos
+		@param type type=string
+			Relation type name label
+		@param class_id type=int
+			AW class id to look for the relation in
+		@comment
+		@returns int
+			Relation type integer id
+		@errors
+	**/
+	public static function resolve_reltype($type, $class_id)
 	{
 		if (is_array($type))
 		{
@@ -616,7 +627,7 @@ class _int_object_loader extends core
 			{
 				if (!is_numeric($ot) && substr($ot, 0, 7) === "RELTYPE")
 				{
-					$res[] = $this->_resolve_single_rt($ot, $class_id);
+					$res[] = self::_resolve_single_rt($ot, $class_id);
 				}
 				else
 				{
@@ -625,15 +636,14 @@ class _int_object_loader extends core
 			}
 			return $res;
 		}
-		else
-		if (!is_numeric($type) && substr($type, 0, 7) === "RELTYPE")
+		elseif (!is_numeric($type) && substr($type, 0, 7) === "RELTYPE")
 		{
-			return $this->_resolve_single_rt($type, $class_id);
+			return self::_resolve_single_rt($type, $class_id);
 		}
 		return $type;
 	}
 
-	function _resolve_single_rt($type, $class_id)
+	private static function _resolve_single_rt($type, $class_id)
 	{
 		// it is "RELTYPE_FOO"
 		// resolve it to numeric

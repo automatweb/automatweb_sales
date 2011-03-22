@@ -4011,7 +4011,7 @@ class crm_bill extends class_base
 
 		foreach ($grouped_rows_comments as $capt_key => $name_group_comments)
 		{
-			$name_group_comment = implode("\n", $name_group_comments);
+			$name_group_comment = implode("\n", array_reverse($name_group_comments));
 			$this->vars(array("name_group_comment" => $name_group_comment));
 			$grouped_rows_comments[$capt_key] = $this->parse("HAS_NAME_GROUP_COMMENT");
 		}

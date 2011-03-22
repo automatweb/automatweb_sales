@@ -50,9 +50,9 @@ class object_list extends _int_obj_container_base
 				"limit" => "2,6"
 			));
 	**/
-	function object_list($param = NULL, $object_id_property = "oid")
+	function object_list($param = NULL, $load_param = array())
 	{
-		$this->object_id_property = $object_id_property;
+		$this->object_id_property = isset($load_param["object_id_property"]) ? $load_param["object_id_property"] : "oid";
 
 		if ($param != NULL)
 		{
