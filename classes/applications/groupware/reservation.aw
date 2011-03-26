@@ -1933,6 +1933,7 @@ class reservation extends class_base
 
 	function _get_admin_price_view($prod,$sum)
 	{
+		//TODO: mis segadus siin on?
 		//if(aw_global_get("uid") != "struktuur")
 		return number_format($sum, 2); //$prod->prop("price");
 		return number_format($sum, 2).

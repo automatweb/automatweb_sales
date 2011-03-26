@@ -676,9 +676,16 @@ class rfp extends class_base
 							"class_id" => CL_LOCATION,
 							"oid" => $_t,
 						));
+
 						foreach($list->arr() as $obj)
 						{
 							$prop["options"][$obj->id()] = $obj->name();
+						}
+
+						if (empty($prop["value"]))
+						{
+							$o = $list->begin();
+							$prop["value"] = $o->id();
 						}
 					}
 				}
@@ -1940,8 +1947,8 @@ class rfp extends class_base
 			}
 		}
 		$prodvars = $this->get_product_vars(true);
-		classload("vcl/table");
-		$t = new aw_table;
+
+		$t = new aw_table();
 		$t->define_chooser(array(
 			"field" => "product",
 			"name" => "prod_sel",
@@ -2232,7 +2239,7 @@ class rfp extends class_base
 
 	function _get_housing_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "datefrom",
@@ -3246,6 +3253,11 @@ class rfp extends class_base
 					$rv_o = obj($rv_id);
 					foreach($proddata as $prodid => $prod)
 					{
+						if (!$this->can("view", $prodid))
+						{
+							continue;
+						}
+
 						$po = obj($prodid);
 						if($prod["amount"] <= 0)
 						{

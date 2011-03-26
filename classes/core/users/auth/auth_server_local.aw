@@ -2,7 +2,7 @@
 // auth_server_local.aw - Autentimsserver Kohalik
 /*
 
-@classinfo syslog_type=ST_AUTH_SERVER_LOCAL relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_AUTH_SERVER_LOCAL relationmgr=yes no_comment=1 no_status=1
 
 @default table=objects
 @default group=general
@@ -28,11 +28,7 @@ class auth_server_local extends class_base
 		$udata = null;
 		$_uid = $credentials["uid"];
 
-		if (strlen(aw_ini_get("users.root_password")) < 7)
-		{
-			throw new awex_auth_pw("Root password not set or doesn't meet requirements");
-		}
-		elseif (!is_valid("password", $credentials["password"]))
+		if (!is_valid("password", $credentials["password"]))
 		{
 			return array(false, $failure_msg, false);
 		}
@@ -117,5 +113,3 @@ class auth_server_local extends class_base
 }
 
 class awex_auth_pw extends awex_auth {}
-
-?>

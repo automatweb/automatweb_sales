@@ -795,15 +795,11 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		@examples
 			if (is_valid("password",$pass_entered_in_a_form))
 	**/
-	function is_valid($set,$string)
+	function is_valid($set, $string)
 	{
-		if ($set == "password")
-		{
-			return true;
-		}
 		$sets = array(
 			'password' => array(
-				'content' => '1234567890qwertyuiopasdfghjklzxcvbnm_QWERTYUIOPASDFGHJKLZXCVBNM@',
+				'content' => '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM~!@#$%^&*()_+`=-{}[]:";\'|,./<>?¤',
 				'min' => aw_ini_get("users.min_password_length"),
 				'max' => 32),
 			'url' => array(
@@ -814,17 +810,20 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 				'content'	=> '1234567890qwertyuiopasdfghjklzxcvbnm_QWERTYUIOPASDFGHJKLZXCVBNM.@-',
 				'max' => 100,
 				'min' => 2)
-			);
+		);
+
 		// defineerimata character set, bail out
 		if (!isset($sets[$set]))
 		{
 			return false;
-		};
+		}
+
 		$len = strlen($string);
 		if ($len < $sets[$set]['min'] || $len > $sets[$set]['max'])
 		{
 			return false;
 		}
+
 		if (strspn($string,$sets[$set]['content']) != $len)
 		{
 			return false;

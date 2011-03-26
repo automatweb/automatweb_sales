@@ -34,5 +34,3 @@ require_once($ojs_file);
 file_put_contents($ext_index_out_file, var_export($ext_index, true));
 automatweb::shutdown();
 
-
-?>

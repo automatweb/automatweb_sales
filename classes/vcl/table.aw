@@ -2,6 +2,13 @@
 // aw_table.aw - generates the html for tables - you just have to feed it the data
 //
 
+/**
+Table component
+@examples
+	$table = new aw_table();
+	$table->define_field();
+	$table->define_data();
+**/
 class aw_table extends aw_template
 {
 	const DATE_DEFAULT_FORMAT = "dmY";
@@ -295,16 +302,14 @@ class aw_table extends aw_template
 		return $this->table_caption;
 	}
 
-	////
-	// !sisestame andmed
-	/**
+	/** Defines table row
 	@attrib api=1 params=pos
 	@param $row required type=array
 		array(column name => value, column name => value, column name => value , ....)
 	@return False, if filter applying fails, true, if everything is ok.
 	@example ${draw}
 	@comments
-		add's a row to the table
+		Adds a row to the table
 	**/
 	function define_data($row)
 	{
@@ -1977,7 +1982,7 @@ END;
 
 			default:
 				// do nothing
-		}; // end of switch
+		}// end of switch
 	}
 
 	var $filters_updated = false;

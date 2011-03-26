@@ -2,7 +2,7 @@
 // quickmessagebox.aw - Kiirs5numite haldus
 /*
 
-@classinfo syslog_type=ST_QUICKMESSAGEBOX maintainer=voldemar prop_cb=1
+@classinfo syslog_type=ST_QUICKMESSAGEBOX prop_cb=1
 
 @groupinfo message_box caption="Messages" submit=no
 	@groupinfo message_inbox caption="Inbox" parent=message_box submit=no
@@ -72,7 +72,7 @@ class quickmessagebox extends class_base
 
 	function _get_msg_inbox_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->init_msg_tbl($t, "inbox");
 		$cl_user = get_instance(CL_USER);
 
@@ -112,7 +112,7 @@ class quickmessagebox extends class_base
 
 	function _get_msg_outbox_tbl($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->init_msg_tbl($t, "outbox");
 		$cl_user = get_instance(CL_USER);
 
@@ -141,7 +141,7 @@ class quickmessagebox extends class_base
 		return PROP_OK;
 	}
 
-	private function init_msg_tbl(&$t, $type)
+	private function init_msg_tbl($t, $type)
 	{
 		$t->define_chooser(array(
 			"name" => "sel",
@@ -191,7 +191,7 @@ class quickmessagebox extends class_base
 
 	function _get_msg_toolbar($arr)
 	{
-		$toolbar =& $arr["prop"]["vcl_inst"];
+		$toolbar = $arr["prop"]["vcl_inst"];
 
 		$url = $this->mk_my_orb("new", array(
 			"return_url" => get_ru(),
@@ -333,4 +333,3 @@ class quickmessagebox extends class_base
 	}
 }
 
-?>

@@ -11,7 +11,7 @@ EMIT_MESSAGE(MSG_USER_CREATE);
 
 /*
 
-@classinfo relationmgr=yes no_status=1
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 
 @groupinfo chpwd caption="Salas&otilde;na muutmine"
 @groupinfo groups caption=Kasutajagrupid
@@ -309,7 +309,10 @@ class user extends class_base
 				break;
 
 			case "created":
-				$prop['value'] = $this->time2date($prop['value'],2);
+				if (isset($prop['value']))
+				{
+					$prop['value'] = $this->time2date($prop['value'], 2);
+				}
 				break;
 
 			case "base_lang":
@@ -325,11 +328,7 @@ class user extends class_base
 				break;
 
 			case "groups":
-				$prop['value'] = $this->_get_group_membership($arr["obj_inst"], $arr["obj_inst"]->id());
-				break;
-
-			case "stat":
-				$prop["value"] = $this->_get_stat($arr["obj_inst"]->prop("uid"));
+				$prop['value'] = $this->get_group_membership($arr["obj_inst"], $arr["obj_inst"]->id());
 				break;
 
 			case "gen_pwd":
@@ -397,13 +396,6 @@ class user extends class_base
 			case "history_has_folders":
 				$_SESSION["user_history_has_folders"] = $arr["obj_inst"]->prop("history_has_folders");
 				break;
-
-			case "settings_shortcuts_shortcut_sets":
-				$this->_get_settings_shortcuts_shortcut_sets($arr);
-				break;
-			case "settings_shortcuts_settings_shortcuts":
-				$this->_get_settings_shortcuts_settings_shortcuts($arr);
-				break;
 		}
 		return PROP_OK;
 	}
@@ -450,7 +442,7 @@ class user extends class_base
 				$l = new languages();
 				$admin_lang = $prop['value'];
 				$admin_lang_lc = $t->get_langid($admin_lang);
-				setcookie("admin_lang",$admin_lang,time()+24*3600*1000,"/"); //!!! lahendamata probleem #371894, miks valge leht selle func call peale?
+				setcookie("admin_lang",$admin_lang,time()+24*3600*1000,"/"); //FIXME: lahendamata probleem #371894, miks valge leht selle func call peale?
 				setcookie("admin_lang_lc",$admin_lang_lc,time()+24*3600*1000,"/");
 				break;
 
@@ -517,9 +509,6 @@ class user extends class_base
 				$ji->submit_update_form($tmp, array(
 					"uid" => $arr["obj_inst"]->prop("uid")
 				));
-				break;
-			case "settings_shortcuts_settings_shortcuts":
-				$this->_set_settings_shortcuts_settings_shortcuts($arr);
 				break;
 		}
 		return PROP_OK;
@@ -646,14 +635,14 @@ class user extends class_base
 			// get parent for shortcuts
 			{
 				$ol = new object_list(array(
-					"class_id" => CL_MENU,
+					"class_id" => menu_obj::CLID,
 					"parent" => $shortcut_parent,
 					"name" => "shortcuts"
 				));
 				if (count($ol->list)===0)
 				{
 					$o = new object(array(
-						"class_id" => CL_MENU,
+						"class_id" => menu_obj::CLID,
 						"parent" => $shortcut_parent,
 						"name" => "shortcuts"
 					));
@@ -713,7 +702,7 @@ class user extends class_base
 		return $t;
 	}
 
-	function _get_group_membership($o, $id)
+	private function get_group_membership($o, $id)
 	{
 		$group = new group();
 		$gl = $group->get_group_picker(array("type" => array(group_obj::TYPE_REGULAR, group_obj::TYPE_DYNAMIC)));
@@ -1070,19 +1059,21 @@ class user extends class_base
 				// redirect to main user folder
 				header("Location: ".aw_url_change_var("parent", $rm));
 				die();
-
 			}
 		}
-		$o = obj($arr["request"]["id"]);
-		if ($o->id() != $o->brother_of())
+		else
 		{
-			header("Location: ".aw_url_change_var("id", $o->brother_of()));
-			die();
+			$o = obj($arr["request"]["id"]);
+			if ($o->id() != $o->brother_of())
+			{
+				header("Location: ".aw_url_change_var("id", $o->brother_of()));
+				die();
+			}
 		}
 	}
 
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		if (!empty($arr["request"]["edit_acl"]))
 		{
@@ -1273,8 +1264,9 @@ EOF;
 		$c->file_clear_pt("acl");
 	}
 
-	function _get_stat($uid)
+	function _get_stat(&$arr)
 	{
+		$uid = $arr["obj_inst"]->prop("uid");
 		$t = $this->_init_stat_table();
 		//XXX: syslog is disabled. waiting for new implementation
 		// $ts = aw_ini_get('syslog.types');
@@ -1291,7 +1283,7 @@ EOF;
 		$t->set_default_sortby('tm');
 		$t->set_default_sorder('DESC');
 		$t->sort_by();
-		return $t->draw(array(
+		$arr["prop"]["value"] = $t->draw(array(
 			"has_pages" => true,
 			"records_per_page" => 200,
 			"pageselector" => "text"
@@ -1621,11 +1613,15 @@ EOF;
 
 			if ($rn != "")
 			{
-				list($fn, $ln) = explode(" ", $rn);
+				$name_data = explode(" ", $rn);
+				$fn = isset($name_data[0]) ? $name_data[0] : "";
+				$ln = isset($name_data[1]) ? $name_data[1] : "";
 			}
 			else
 			{
-				list($fn, $ln) = explode(".", $uid);
+				$name_data = explode(".", $uid);
+				$fn = isset($name_data[0]) ? $name_data[0] : "";
+				$ln = isset($name_data[1]) ? $name_data[1] : "";
 			}
 
 			$p->set_prop("firstname", $fn);

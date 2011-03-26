@@ -21,7 +21,7 @@ class converters extends aw_template
 	**/
 	function menu_convimages()
 	{
-		$this->db_query("SELECT objects.*,menu.* FROM objects LEFT JOIN menu on menu.id = objects.oid WHERE class_id = ".CL_MENU." AND status != 0");
+		$this->db_query("SELECT objects.*,menu.* FROM objects LEFT JOIN menu on menu.id = objects.oid WHERE class_id = ".menu_obj::CLID." AND status != 0");
 		while ($row = $this->db_next())
 		{
 			$this->save_handle();
@@ -237,7 +237,7 @@ class converters extends aw_template
                 };
 
 		$oldaliases = $obj->connections_from(array(
-			"class" => CL_MENU,
+			"class" => menu_obj::CLID,
 		));
 
                 $flatlist = array();
@@ -732,7 +732,7 @@ class converters extends aw_template
 
 	function _copy_makes_brother_menu()
 	{
-		$this->db_query("SELECT oid FROM objects WHERE class_id = ".CL_MENU." AND status != 0 AND brother_of != oid");
+		$this->db_query("SELECT oid FROM objects WHERE class_id = ".menu_obj::CLID." AND status != 0 AND brother_of != oid");
 		while ($row = $this->db_next())
 		{
 			$this->save_handle();
@@ -828,7 +828,7 @@ class converters extends aw_template
 		echo "converting menu image aliases<br>\n";
 		flush();
 		$ol = new object_list(array(
-			"class_id" => CL_MENU
+			"class_id" => menu_obj::CLID
 		));
 		echo "got list of all menus (".$ol->count().")<br>\n";
 		flush();
@@ -1102,7 +1102,7 @@ class converters extends aw_template
 	function convert_docs_from_menu($arr)
 	{
 		$ol = new object_list(array(
-			"class_id" => CL_MENU
+			"class_id" => menu_obj::CLID
 		));
 		echo "converting docs from menu relations <br>\n";
 		flush();
@@ -1591,10 +1591,10 @@ class converters extends aw_template
 	{
 		$c = new connection();
 
-		foreach($c->find(array("to.class_id" => CL_KEYWORD, "from.class_id" => array(CL_MENU, CL_DOCUMENT))) as $con)
+		foreach($c->find(array("to.class_id" => CL_KEYWORD, "from.class_id" => array(menu_obj::CLID, CL_DOCUMENT))) as $con)
 		{
 			$c2 = new connection($con["id"]);
-			if ($con["from.class_id"] == CL_MENU)
+			if ($con["from.class_id"] == menu_obj::CLID)
 			{
 				$c2->change(array("reltype"  => 23));
 			}

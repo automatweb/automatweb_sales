@@ -71,7 +71,7 @@ class aw_code_analyzer extends core
 	{
 		if (!$is_fp)
 		{
-			$fp = aw_ini_get("basedir")."/classes{$file}";
+			$fp = aw_ini_get("basedir")."/classes/{$file}";
 		}
 		else
 		{
@@ -119,10 +119,14 @@ class aw_code_analyzer extends core
 						break;
 
 					// this handles ${variable}'s in code
-					// case T_DOLLAR_OPEN_CURLY_BRACES:
-						// $this->handle_brace_begin();
-						//$this->handle_variable_ref($token);
-						// break;
+					case T_DOLLAR_OPEN_CURLY_BRACES:
+						$this->handle_brace_begin();
+						break;
+
+					// this handles {$variable} in strings
+					case T_CURLY_OPEN:
+						$this->handle_brace_begin();
+						break;
 
 					case T_STRING:
 						$this->handle_t_string($token);
@@ -324,12 +328,12 @@ class aw_code_analyzer extends core
 		$this->current_class = $name;
 		$this->data["classes"][$name] = array();
 		$this->data["classes"][$name]["name"] = $name;
-		$this->data["classes"][$this->current_class]["start_line"] = $this->get_line();
+		$this->data["classes"][$name]["start_line"] = $this->get_line();
 		$this->data["classes"][$name]["file"] = $this->cur_file;
 		$this->data["classes"][$name]["functions"] = array();
 		if (substr(trim($this->last_comment), 0, 3) == "/**")
 		{
-			$this->data["classes"][$name]["class_comment"] = $this->last_comment;
+			$this->data["classes"][$name]["class_comment"] = substr($this->last_comment, 3, -3);
 		}
 
 		// parse maintainer/cvs version from file cause those apply for all classes in the file
@@ -683,8 +687,7 @@ class aw_code_analyzer extends core
 					$data['params'][$pdat['name']]['comment'] .= "\n".$line;
 				}
 			}
-			else
-			if (substr($line, 0, strlen("@returns")) === "@returns")
+			elseif (substr($line, 0, strlen("@returns")) === "@returns" or substr($line, 0, strlen("@return")) === "@return")
 			{
 				$data["returns"] = trim(substr($line, strlen("@returns")));
 				// now loop, until we find the end or next parameter
@@ -710,10 +713,9 @@ class aw_code_analyzer extends core
 				}
 				$data["returns"] = trim($data["returns"]);
 			}
-			else
-			if (substr($line, 0, strlen("@comment")) === "@comment")
+			elseif (substr($line, 0, strlen("@comment")) === "@comment" or substr($line, 0, strlen("@comments")) === "@comments")
 			{
-				$data["comment"] = trim(substr($line, strlen("@comment")));
+				$data["comment"] = trim(substr($line, strlen("@comments")));
 				// now loop, until we find the end or next parameter
 				while (list(, $line) = each($lines))
 				{
@@ -764,8 +766,7 @@ class aw_code_analyzer extends core
 				$data["errors"] = trim($data["errors"]);
 
 			}
-			else
-			if (substr($line, 0, strlen('@examples')) === '@examples')
+			elseif (substr($line, 0, strlen('@examples')) === '@examples' or substr($line, 0, strlen('@example')) === '@example')
 			{
 				$data['examples'] = trim(substr($line, strlen('@examples')));
 				// now loop, until we find the end or next parameter
@@ -915,14 +916,15 @@ class aw_code_analyzer extends core
 			}
 			else
 			{
-				if ($str{$i} != " ")
+				if ($str{$i} !== " ")
 				{
 					$in_att_name = true;
 					$cur_att_name = $str{$i};
 				}
 			}
 		}
-		if (trim($cur_att_name) != "")
+
+		if (trim($cur_att_name) !== "")
 		{
 			$ret[trim($cur_att_name)] = $cur_att_value;
 		}
@@ -935,7 +937,11 @@ class aw_code_analyzer extends core
 			"name" => "",
 			"req" => ""
 		);
-		list($ret["name"], $ret["req"], $extra) = array_merge(explode(" ", $str, 3), array(NULL, NULL));
+		list($ret["name"], $ret["req"], $extra) = array_merge(preg_split ( "/\s+/", $str, 3), array(NULL, NULL));
+		if ($ret["req"] !== "required" and $ret["req"] !== "optional")
+		{
+			list($ret["name"], $extra) = array_merge(preg_split ( "/\s+/", $str, 2), array(NULL, NULL));
+		}
 
 		// now parse extra params
 		$att = $this->_do_parse_attributes($extra);
@@ -957,7 +963,8 @@ class aw_code_analyzer extends core
 			$o = $this->get();
 			$this->assert_str($o, "(");
 
-			do {
+			do
+			{
 				// variable dependency?
 				$is_var = false;
 

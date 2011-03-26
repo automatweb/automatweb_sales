@@ -174,7 +174,14 @@ class popup_menu extends aw_template
 				<span class="menuItemArrow"><img style="border:0px" src="'.$baseurl.
 				'/automatweb/images/arr.gif" alt=""></span></a>';
 
-		$this->menus[$arr["parent"]] .= $rv;
+		if (isset($this->menus[$arr["parent"]]))
+		{
+			$this->menus[$arr["parent"]] .= $rv;
+		}
+		else
+		{
+			$this->menus[$arr["parent"]] = $rv;
+		}
 	}
 
 	/** Returns the HTML of the popup menu

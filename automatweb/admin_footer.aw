@@ -446,24 +446,18 @@ if (isset($_SESSION["user_history_count"]) and $_SESSION["user_history_count"] >
 			{
 				$_SESSION["user_history"][$bits["class"]] = array();
 			}
+
 			foreach(safe_array($_SESSION["user_history"][$bits["class"]]) as $_url => $_t)
 			{
 				$_pu = parse_url($_url);
 				parse_str($_pu["query"], $_bits);
-				if (empty($_bits["id"]))
-				{
-					$_bits["id"] = "";
-				}
-				if (empty($_bits["class"]))
-				{
-					$_bits["class"] = "";
-				}
-				if (empty($_bits["action"]))
-				{
-					$_bits["action"] = "";
-				}
 
-				if (($_bits["class"] == $bits["class"] && $_bits["id"] == $bits["id"] && $_bits["group"] == $bits["group"]))
+				if (empty($_bits["id"])) $_bits["id"] = "";
+				if (empty($_bits["class"])) $_bits["class"] = "";
+				if (empty($_bits["action"])) $_bits["action"] = "";
+				if (empty($_bits["group"])) $_bits["group"] = "";
+
+				if ($_bits["class"] == $bits["class"] && $_bits["id"] == $bits["id"] && $_bits["group"] == $bits["group"])
 				{
 					$has = true;
 					break;

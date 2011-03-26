@@ -88,7 +88,7 @@ class docgen_viewer extends class_base
 		{
 			case 'refresh_properties':
 				$documenter = new aw_language_documenter;
-				$documenter->parse_files($this->cfg['classdir']);
+				$documenter->parse_files(aw_ini_get('classdir'));
 				$arr['obj_inst']->set_meta('properties_data',serialize($documenter));
 				$arr['obj_inst']->save();
 			break;
@@ -125,10 +125,10 @@ class docgen_viewer extends class_base
 			- terryf.
 		*/
 
-		$this->_req_mk_clf_tree($tv, $this->cfg["classdir"]);
+		$this->_req_mk_clf_tree($tv, aw_ini_get("classdir"));
 
 		$arr["prop"]["value"] = $tv->finalize_tree(array(
-			"rootnode" => $this->cfg["classdir"],
+			"rootnode" => aw_ini_get("classdir"),
 		));
 
 	}
@@ -137,7 +137,6 @@ class docgen_viewer extends class_base
 	function _get_class_inf($arr)
 	{
 		$analyzer = new aw_code_analyzer();
-
 		$data = $analyzer->analyze_file($arr["request"]["tf"]);
 
 		foreach($data["classes"] as $class => $class_data)
@@ -322,16 +321,16 @@ class docgen_viewer extends class_base
 		$classes = array();
 		while ($row = $this->db_next())
 		{
-			$fp = $this->cfg["basedir"].$row["file"];
+			$fp = aw_ini_get("basedir").$row["file"];
 			$classes[$fp][] = $row;
 		}
 
 
-		$this->_req_mk_clf_tree($tv, $this->cfg["classdir"], $classes);
+		$this->_req_mk_clf_tree($tv, aw_ini_get("classdir"), $classes);
 
 		$this->vars(array(
 			"list" => $tv->finalize_tree(array(
-				"rootnode" => $this->cfg["classdir"],
+				"rootnode" => aw_ini_get("classdir"),
 			))
 		));
 
@@ -376,14 +375,14 @@ class docgen_viewer extends class_base
 		foreach($fc as $file)
 		{
 			$fp = $path."/".$file;
-			$awpath = str_replace($this->cfg["classdir"], "", $fp);
+			$awpath = str_replace(aw_ini_get("classdir"), "", $fp);
 			if (automatweb::$request->arg("group") != "")
 			{
-				$url = aw_url_change_var("tf", str_replace($this->cfg["classdir"], "", $fp));
+				$url = aw_url_change_var("tf", str_replace(aw_ini_get("classdir"), "", $fp));
 			}
 			else
 			{
-				$url = $this->mk_my_orb("class_info", array("file" => str_replace($this->cfg["classdir"], "", $fp)));
+				$url = $this->mk_my_orb("class_info", array("file" => str_replace(aw_ini_get("classdir"), "", $fp)));
 			}
 			// if the file only has 1 class in it, direct link to that, else split subs
 			if (!isset($classes[$fp]) || count($classes[$fp]) < 2)
@@ -555,15 +554,25 @@ class docgen_viewer extends class_base
 		}
 
 		$cln = ( !empty($data["name"]) ) ? $data["name"] : "";
-		if ($cln == "document" || $cln == "document_brother")
+		if ($cln === "document" || $cln === "document_brother")
 		{
 			$cln = "doc";
 		}
 		$cfgu = new cfgutils();
-		$props = $cfgu->load_properties(array(
+		if ($cfgu->has_properties(array(
 			"file" => $cln,
 			"clid" => $usage_class
-		));
+		)))
+		{
+			$props = $cfgu->load_properties(array(
+				"file" => $cln,
+				"clid" => $usage_class
+			));
+		}
+		else
+		{
+			$props = array();
+		}
 
 		$f = array(
 			"CB" => "",
@@ -652,6 +661,7 @@ class docgen_viewer extends class_base
 					);
 				}
 			}
+
 			$this->vars(array(
 				"proto" => "function $func()",
 				"name" => $func,
@@ -773,9 +783,10 @@ class docgen_viewer extends class_base
 			"start_line" => $data["start_line"],
 			"LONG_FUNCTION" => $fl,
 			"view_class" => $this->mk_my_orb("view_source", array("file" => $cur_file, "v_class" => $data["name"])),
+			"update_url" => $this->mk_my_orb("do_db_update", array("file" => $cur_file), "docgen_db_writer"),
 			"maintainer" => isset($data["maintainer"]) ? $data["maintainer"] : NULL,
 			"cvs_version" => isset($data["cvs_version"]) ? $data["cvs_version"] : NULL,
-			"file" => substr($cur_file, 1),
+			"file" => $cur_file,
 			"func_count" => count($data["functions"]),
 			"api_func_count" => $api_count,
 			"orb_func_count" => $orb_count,
@@ -1046,7 +1057,7 @@ class docgen_viewer extends class_base
 
 	/** displays information to the user about a class
 
-		@attrib params=name nologin=0 is_public=0 all_args=0 caption="N&auml;ita klassi infot" default=0 name=class_info
+		@attrib params=name all_args=0 caption="N&auml;ita klassi infot" default=0 name=class_info
 
 		@param file required
 		@param api_only optional
@@ -1062,28 +1073,32 @@ class docgen_viewer extends class_base
 	{
 		extract($arr);
 
+		$op = "";
 		$analyzer = new aw_code_analyzer();
-
 		$data = $analyzer->analyze_file($file);
-//die(dbg::dump($data));
-		foreach($data["classes"] as $class => $class_data)
+
+		if (isset($data["classes"]))
 		{
-			if (!empty($arr["disp"]) && $class != $arr["disp"] && !($arr["disp"] == "__outer" && $class == ""))
+			foreach($data["classes"] as $class => $class_data)
 			{
-				continue;
+				if (!empty($arr["disp"]) && $class != $arr["disp"] && !($arr["disp"] == "__outer" && $class == ""))
+				{
+					continue;
+				}
+				$op .= $this->display_class($class_data, $file, array(
+					"api_only" => isset($api_only) ? $api_only : NULL,
+					"defines" => isset($data["defines"]) ? $data["defines"] : NULL,
+					"disp" => isset($arr["disp"]) ? $arr["disp"] : NULL,
+				));
 			}
-			$op .= $this->display_class($class_data, $file, array(
-				"api_only" => isset($api_only) ? $api_only : NULL,
-				"defines" => isset($data["defines"]) ? $data["defines"] : NULL,
-				"disp" => isset($arr["disp"]) ? $arr["disp"] : NULL,
-			));
 		}
+
 		die($this->finish_with_style($op));
 	}
 
 	function _find_clid_for_name($name)
 	{
-		if ($name == "doc")
+		if ($name === "doc")
 		{
 			return CL_DOCUMENT;
 		}
@@ -1138,7 +1153,7 @@ class docgen_viewer extends class_base
 			$end_line = 100000;
 		}
 
-		$fd = file($this->cfg["basedir"]."/classes".$file);
+		$fd = file(aw_ini_get("basedir")."/classes".$file);
 		$line = 1;
 		if ($func)
 		{
@@ -1191,6 +1206,10 @@ class docgen_viewer extends class_base
 				case "aw_exception":
 				case "awex_redundant_instruction":
 					$clf = "/../lib/errorhandling.aw";
+					break;
+
+				case "defs":
+					$clf = "/../lib/defs.aw";
 					break;
 
 				case "Exception":
@@ -1319,7 +1338,7 @@ class docgen_viewer extends class_base
 			// get the file the class is in.
 			// for that we have to load it's orb defs to get the folder below the classes folder
 			$orb_defs = $orb->load_xml_orb_def($_extends);
-			$ex_fname = $this->cfg["basedir"]."/classes/".$orb_defs[$dat["extends"]]["___folder"]."/".$_extends.".".$this->cfg["ext"];
+			$ex_fname = aw_ini_get("basedir")."/classes/".$orb_defs[$dat["extends"]]["___folder"]."/".$_extends.".".AW_FILE_EXT;
 
 			try
 			{
@@ -1404,7 +1423,7 @@ class docgen_viewer extends class_base
 			"url_target" => "list"
 		));
 
-		$this->basedir = $this->cfg["basedir"]."/docs/classes";
+		$this->basedir = aw_ini_get("basedir")."/docs/classes";
 		$this->_req_mk_clfdoc_tree($tv, $this->basedir);
 
 		$str = $tv->finalize_tree(array(
@@ -1473,7 +1492,7 @@ class docgen_viewer extends class_base
 			"url_target" => "list"
 		));
 
-		$this->basedir = $this->cfg["basedir"]."/docs/tutorials";
+		$this->basedir = aw_ini_get("basedir")."/docs/tutorials";
 		$this->_req_mk_clfdoc_tree($tv, $this->basedir);
 
 		$str = $tv->finalize_tree(array(
@@ -1493,13 +1512,13 @@ class docgen_viewer extends class_base
 	{
 		extract($arr);
 		$file = preg_replace("/(\.){2,}/", "", $file);
-		if (file_exists($this->cfg["basedir"]."/docs/classes".$file))
+		if (file_exists(aw_ini_get("basedir")."/docs/classes".$file))
 		{
-			$fp = $this->cfg["basedir"]."/docs/classes".$file;
+			$fp = aw_ini_get("basedir")."/docs/classes".$file;
 		}
 		else
 		{
-			$fp = $this->cfg["basedir"]."/docs/tutorials".$file;
+			$fp = aw_ini_get("basedir")."/docs/tutorials".$file;
 		}
 		$str = $this->get_file(array(
 			"file" => $fp
@@ -1789,8 +1808,8 @@ class docgen_viewer extends class_base
 
 		$this->_req_mk_prop_tree(array(
 			'id' => $arr['id'],
-			'tree' => &$tv,
-			'classdir' => $this->cfg["classdir"],
+			'tree' => $tv,
+			'classdir' => aw_ini_get("classdir"),
 		));
 
 		$this->vars(array(
@@ -1804,7 +1823,7 @@ class docgen_viewer extends class_base
 
 	function _req_mk_prop_tree($arr)
 	{
-		$tree = &$arr['tree'];
+		$tree = $arr['tree'];
 		$obj = new object($arr['id']);
 		$data = unserialize($obj->meta('properties_data'));
 
@@ -1860,31 +1879,31 @@ class docgen_viewer extends class_base
 		$classes = array();
 		while ($row = $this->db_next())
 		{
-			$fp = $this->cfg["basedir"].$row["file"];
+			$fp = aw_ini_get("basedir").$row["file"];
 			$api_files[$fp] = $fp;
 			$classes[$fp][] = $row;
 		}
 
-		$this->_req_mk_clf_api_tree($tv, $this->cfg["classdir"], $api_files, $classes);
+		$this->_req_mk_clf_api_tree($tv, aw_ini_get("classdir"), $api_files, $classes);
 
 		$this->vars(array(
 			"list" => $tv->finalize_tree(array(
-				"rootnode" => $this->cfg["classdir"],
+				"rootnode" => aw_ini_get("classdir"),
 			))
 		));
 
 		die($this->finish_with_style($this->parse()));
 	}
 
-	function _req_mk_clf_api_tree(&$tv, $path, $api_files, $classes)
+	function _req_mk_clf_api_tree($tv, $path, $api_files, $classes)
 	{
 		$dc = array();
 		$fc = array();
 		$dh = opendir($path);
 		while (($file = readdir($dh)) !== false)
 		{
-			$fp = $path."/".$file;
-			if ($file != "." && $file != ".." && $file != "CVS" && substr($file, 0,2) != ".#")
+			$fp = $path.$file;
+			if ($file !== "." && $file != ".." && $file !== "CVS" && substr($file, 0,2) !== ".#")
 			{
 				if (is_dir($fp))
 				{
@@ -1907,7 +1926,7 @@ class docgen_viewer extends class_base
 		$hasf = false;
 		foreach($dc as $file)
 		{
-			$fp = $path."/".$file;
+			$fp = $path.$file."/";
 			$_hasf = $this->_req_mk_clf_api_tree($tv, $fp, $api_files, $classes);
 
 			if ($_hasf)
@@ -1923,8 +1942,8 @@ class docgen_viewer extends class_base
 
 		foreach($fc as $file)
 		{
-			$fp = $path."/".$file;
-			$awpath = str_replace($this->cfg["classdir"], "", $fp);
+			$fp = $path.$file;
+			$awpath = str_replace(aw_ini_get("classdir"), "", $fp);
 
 			// if the file only has 1 class in it, direct link to that, else split subs
 			if (count($classes[$fp]) < 2)
@@ -2017,7 +2036,7 @@ class aw_language_documenter
 		$handle = opendir($dirname);
 		while($file = readdir($handle))
 		{
-			if($file=='.' || $file=='..' || $file=="CVS")
+			if($file==='.' || $file==='..' || $file==="CVS")
 				continue;
 			if(is_dir($dirname.'/'.$file))
 			{
@@ -2082,7 +2101,7 @@ class aw_language_documenter
 			}
 		}
 
-		if ("@property" == $key && isset($attribs["type"]))
+		if ("@property" === $key && isset($attribs["type"]))
 		{
 			$type = $attribs["type"];
 			unset($attribs["type"]);
@@ -2096,7 +2115,7 @@ class aw_language_documenter
 
 	function is_option($string)
 	{
-		if($string{0}=='@')
+		if($string{0}==='@')
 		{
 			return true;
 		}
@@ -2123,7 +2142,7 @@ class aw_language_documenter
 			{
 				$tmp.= '<b>{</b><font color="gray">...</font><b>}</b>&nbsp;';
 			}
-		};
+		}
 		return $tmp;
 	}
 }

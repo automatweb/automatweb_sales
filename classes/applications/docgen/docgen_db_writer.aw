@@ -21,8 +21,11 @@ class docgen_db_writer extends db_connector
 	/** updates the class/function definitions in the database
 
 		@attrib name=do_db_update
+		@param id optional type=oid
+		@param file optional type=string
+			Specific file to update. Path and file name relative to classes directory
 	**/
-	function do_db_update()
+	function do_db_update($arr)
 	{
 		foreach(class_index::get_classes_by_interface("docgen_index_module") as $class_name)
 		{
@@ -30,6 +33,7 @@ class docgen_db_writer extends db_connector
 		}
 		$this->_run_handlers("handle_index_start", array());
 
+		$specified_file = empty($arr["file"]) ? "" : aw_ini_get("classdir") . $arr["file"];
 		$files = array();
 		$p = new parser();
 		$p->_get_class_list($files, aw_ini_get("classdir"));
@@ -37,13 +41,17 @@ class docgen_db_writer extends db_connector
 		while (count($files))
 		{
 			$file = array_shift($files);
+			if ($specified_file and $specified_file !== $file)
+			{
+				continue;
+			}
 			$da = new docgen_analyzer_simple_db_writer();
 			$data = $da->analyze_file($file, true);
 			$da = null;
 			$this->_write_one_file($file, $data);
 		}
 
-		die(t("ALL DONE"));
+		die(t("ALL DONE") . html::linebreak(2) . html::href(array("url" => "javascript: history.go(-1);", "caption" => t("Back"))));
 	}
 
 	private function _run_handlers($func, $params)
@@ -57,8 +65,7 @@ class docgen_db_writer extends db_connector
 
 	private function _write_one_file($file, $data)
 	{
-		$rel_file = str_replace(aw_ini_get("basedir"), "",$file);
-
+		$rel_file = str_replace(aw_ini_get("basedir"), "", $file);
 		$this->_run_handlers("handle_index_file", array($rel_file, $data));
 
 		// write class/func/caller data
