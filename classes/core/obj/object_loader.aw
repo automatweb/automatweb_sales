@@ -561,7 +561,7 @@ class _int_object_loader extends core
 				}
 			}
 
-			if (++$cnt > 100)//!!! move this limit setting to config?
+			if (++$cnt > 100)//TODO: move this limit setting to config?
 			{
 				$this->raise_error("ERR_ACL_EHIER", sprintf(t("object_loader->can(%s, %s): error in object hierarchy, count exceeded!"), $access,$oid),true);
 			}
@@ -702,12 +702,11 @@ class _int_object_loader extends core
 			{
 				foreach($repl as $url)
 				{
-					$this->_do_repl_call($url, $data, $f);
+					$this->_do_repl_call($url, $data, $f, $site_id);
 				}
 				continue;
 			}
-			else
-			if ($site_id == $cur_sid)
+			elseif ($site_id == $cur_sid)
 			{
 				continue;
 			}
@@ -715,12 +714,12 @@ class _int_object_loader extends core
 			{
 				$url = $sl->get_url_for_site($site_id);
 			}
-			$this->_do_repl_call($url, $data, $f);
+			$this->_do_repl_call($url, $data, $f, $site_id);
 		}
 		fclose($f);
 	}
 
-	function _do_repl_call($url, $data, $f)
+	function _do_repl_call($url, $data, $f, $site_id)
 	{
 		fwrite($f, "call {$site_id} => ".dbg::dump($data)." from site {$url}\n\n");
 		fflush($f);

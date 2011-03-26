@@ -21,15 +21,14 @@ class parser extends aw_template
 		{
 			while (($file = readdir($dir)) !== false)
 			{
-				$fn = $classdir."/".$file;
-				if ($file != "." && $file != ".." && $file !== "parser.aw" && $file !== "timer.aw")
+				$fn = $classdir.$file;
+				if ($file !== "." && $file != ".." && $file !== "parser.aw" && $file !== "timer.aw")
 				{
 					if (is_dir($fn))
 					{
-						$this->_get_class_list($files, $fn);
+						$this->_get_class_list($files, $fn."/");
 					}
-					else
-					if (is_file($fn) && substr($file,strlen($file)-3) === ".aw")
+					elseif (is_file($fn) && substr($file,strlen($file)-3) === ".aw")
 					{
 						$files[] = $fn;
 					}
@@ -41,11 +40,7 @@ class parser extends aw_template
 	/** user interface for the parser
 
 		@attrib name=opts params=name default="1"
-
-
 		@returns
-
-
 		@comment
 
 	**/
@@ -80,11 +75,7 @@ class parser extends aw_template
 	/** translate the variables from the parser ui to the parser func
 
 		@attrib name=submit_parse params=name default="0"
-
-
 		@returns
-
-
 		@comment
 
 	**/

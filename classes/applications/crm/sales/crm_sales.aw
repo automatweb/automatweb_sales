@@ -2145,6 +2145,7 @@ SCRIPT;
 			{
 				$selected_categories = $arr["request"]["contact_entry_category"];
 				// remove unselected
+				//TODO: use add_category() method etc.
 				foreach ($customer_relation->connections_from(array("type" => "RELTYPE_CATEGORY")) as $c)
 				{
 					$category = $c->to();

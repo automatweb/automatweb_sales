@@ -615,7 +615,7 @@ class _int_object
 			if ($objdata !== NULL)
 			{
 				$o = obj($parent);
-				if (!($o->class_id() == CL_MENU && $o->prop("type") == MN_CLIENT) && is_numeric($o->site_id()))
+				if (!($o->class_id() == menu_obj::CLID && $o->prop("type") == MN_CLIENT) && is_numeric($o->site_id()))
 				{
 					$this->set_site_id($o->site_id());
 				}

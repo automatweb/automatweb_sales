@@ -1,9 +1,5 @@
 <?php
 
-/*
-@classinfo maintainer=voldemar
-*/
-
 class quickmessagebox_obj extends _int_object
 {
 	// approved_senders property value options
@@ -72,7 +68,6 @@ class quickmessagebox_obj extends _int_object
 
 		return $ol;
 	}
-
 
 	/**
 	@attrib api=1 params=pos
@@ -514,6 +509,3 @@ class awex_qmsg_cfg extends awex_qmsg_box {}
 
 /* Indicates unexpected message counter behaviours */
 class awex_qmsg_counter extends awex_qmsg_box {}
-
-
-?>

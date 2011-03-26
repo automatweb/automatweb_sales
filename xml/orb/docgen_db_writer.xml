@@ -4,6 +4,8 @@
 		<action name="do_db_update">
 			<function name="do_db_update">
 				<arguments>
+					<optional name="id" type="oid" />
+					<optional name="file" type="string" />
 				</arguments>
 			</function>
 		</action>

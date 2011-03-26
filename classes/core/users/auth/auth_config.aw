@@ -202,11 +202,17 @@ class auth_config extends class_base
 
 	/** authenticates the given user agains the given authentication config
 
-		@attrib api=1
+		@attrib api=1 params=pos
+
+		@param auth_id type=int
+		@param credentials type=array
 
 		@comment
 			auth_id - the config id to auth against
 			credentials - array of uid => username, password => password for the user to be authenticated
+
+		@return array
+			array(bool success, string user readable translated error message)
 	**/
 	function check_auth($auth_id, $credentials)
 	{

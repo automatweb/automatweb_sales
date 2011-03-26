@@ -75,14 +75,13 @@ class cfgutils extends aw_template
 		{
 			$fname = basename($args['file']);
 		}
-		else
-		if ($args['clid'])
+		elseif ($args['clid'])
 		{
 			$cldat = aw_ini_get("classes");
 			$fname = basename($cldat[$args['clid']]["file"]);
-		};
+		}
 
-		if ($fname == "document")
+		if ($fname === "document")
 		{
 			return true;
 		}
@@ -234,13 +233,11 @@ class cfgutils extends aw_template
 				{
 					$propkey = $val["tag"];
 				}
-				else
-				if (2 == $val["level"] && "close" == $val["type"] && in_array($val["tag"],$containers))
+				elseif (2 == $val["level"] && "close" == $val["type"] && in_array($val["tag"],$containers))
 				{
 					$propkey = false;
 				}
-				else
-				if ("property" === $propkey && "complete" === $val["type"])
+				elseif ("property" === $propkey && "complete" === $val["type"])
 				{
 					if ("name" === $val["tag"])
 					{

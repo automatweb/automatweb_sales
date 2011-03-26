@@ -1,11 +1,11 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/core/users/user_manager.aw,v 1.21 2009/06/26 11:05:41 instrumental Exp $
-// user_manager.aw - Kasutajate haldus 
+
+// user_manager.aw - Kasutajate haldus
 /*
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_NEW, CL_GROUP, on_create_group)
 HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_USER_MANAGER, on_popup_search_change)
 
-@classinfo syslog_type=ST_USER_MANAGER relationmgr=yes no_comment=1 prop_cb=1 maintainer=kristo
+@classinfo syslog_type=ST_USER_MANAGER relationmgr=yes no_comment=1 prop_cb=1
 
 
 @default table=objects
@@ -23,12 +23,12 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_USER_MANAGER, on_popup_sear
 	@caption Vaikimisi loginmen&uuml;&uuml; uutel gruppidel
 	@comment Seos Loginmen&uuml;&uuml;de juurkaust peab olema loodud
 
-@groupinfo users caption=Kasutajad 
+@groupinfo users caption=Kasutajad
 @default group=users
 
 	@layout hbox_toolbar type=hbox
 
-		@property users_tb type=toolbar store=no no_caption=1 editonly=1 parent=hbox_toolbar 
+		@property users_tb type=toolbar store=no no_caption=1 editonly=1 parent=hbox_toolbar
 
 	@layout hbox_data type=hbox width=20%:80%
 
@@ -68,7 +68,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_USER_MANAGER, on_popup_sear
 	@layout vbox_users_content type=vbox parent=hbox_data
 
 		@property table_users type=table store=no no_caption=1 parent=vbox_users_content
-		@caption Kasutajad 
+		@caption Kasutajad
 
 @groupinfo usergroups caption=Kasutajagrupid
 @default group=usergroups
@@ -84,7 +84,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_POPUP_SEARCH_CHANGE,CL_USER_MANAGER, on_popup_sear
 				@property usergroups_tree type=treeview no_caption=1 store=no parent=vbox_ug_tree
 
 			@layout vbox_ug_search type=vbox parent=ug_left_bit closeable=1 area_caption=Kasutajagruppide&nbsp;otsing
-		
+
 				@layout vbox_ug_search_name type=vbox parent=vbox_ug_search
 
 					@property ug_search_txt type=textbox store=no parent=vbox_ug_search_name size=20 captionside=top
@@ -184,11 +184,11 @@ class user_manager extends class_base
 			'caption' => t("ACL Muutmine"),
 		));
 		$this->permissions_form .= "</p>";
-	
-		// change this to the folder under the templates folder, where this classes templates will be, 
+
+		// change this to the folder under the templates folder, where this classes templates will be,
 		// if they exist at all. Or delete it, if this class does not use templates
 		$this->init(array(
-			"clid" => CL_USER_MANAGER
+			"clid" => user_manager_obj::CLID
 		));
 	}
 
@@ -206,7 +206,7 @@ class user_manager extends class_base
 				{
 					$ot = new object_tree(array(
 						"parent" => $oid,
-						"class_id" => CL_GROUP,
+						"class_id" => group_obj::CLID,
 						"lang_id" => array(),
 						"site_id" => array(),
 					));
@@ -216,7 +216,7 @@ class user_manager extends class_base
 				if(count($ids) > 0)
 				{
 					$ol = new object_list(array(
-						"class_id" => CL_GROUP,
+						"class_id" => group_obj::CLID,
 						"oid" => $ids,
 						"lang_id" => array(),
 						"site_id" => array(),
@@ -321,7 +321,7 @@ class user_manager extends class_base
 				if (is_object($root))
 				{
 					$list = array();
-					
+
 					$kids = new object_list(array(
 						'parent' => $root->id(),
 						'class_id' => CL_MENU,
@@ -331,21 +331,21 @@ class user_manager extends class_base
 					for ($k = $kids->begin(); !$kids->end(); $k = $kids->next())
 					{
 						$prefix = $k->name() . ' &gt; ';
-			
+
 						$grandkids  = new object_list(array(
 							'parent' => $k->id(),
 							'class_id' => CL_MENU,
 							"lang_id" => array(),
 							"site_id" => array(),
 						));
-			
+
 						for ($gk = $grandkids->begin(); !$grandkids->end(); $gk = $grandkids->next())
 						{
 							$list[$gk->id()] = $prefix.$gk->name();
 						}
 					}
 					$prop['options'] = $list;
-				}	
+				}
 
 			break;
 			case 'inactive_period':
@@ -432,7 +432,7 @@ class user_manager extends class_base
 					foreach ($arr['request']['priority'] as $oid => $value)
 					{
 						$o = obj($oid);
-						if (is_numeric($value) && is_oid($oid) && $this->can('edit', $oid) && $o->class_id() == CL_GROUP
+						if (is_numeric($value) && is_oid($oid) && $this->can('edit', $oid) && $o->class_id() == group_obj::CLID
 							&& $o->prop('priority') != $value)
 						{
 							$o->set_prop('priority', $value);
@@ -484,10 +484,10 @@ class user_manager extends class_base
 
 		}
 		return $retval;
-	}	
+	}
 
 	// Carry to POST some variables
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
 		$arr['last_parent'] = $this->parent;
 		$arr['ob_group'] = 'um';
@@ -508,7 +508,7 @@ class user_manager extends class_base
 		$this->parent = $this->find_parent($arr['obj_inst']);
 	}
 
-	function callback_mod_retval ($arr)
+	function callback_mod_retval (&$arr)
 	{
 		$vars = array(
 			"ug_search_txt" => "ug_search_txt",
@@ -533,11 +533,11 @@ class user_manager extends class_base
 	}
 
 	// Adds content to users toolbar
-	function do_users_toolbar(&$tb, $arr)
-	{	
+	function do_users_toolbar($tb, $arr)
+	{
 		if(isset($this->parent))
 		{
-			$tb->add_new_button(array(CL_USER, CL_GROUP), $this->parent);
+			$tb->add_new_button(array(CL_USER, group_obj::CLID), $this->parent);
 			$tb->add_separator();
 		}
 		if(!$arr["request"]["search_button_pressed"])
@@ -556,9 +556,9 @@ class user_manager extends class_base
 
 		// Copypaste buttons
 		$this->do_objectbuffer_toolbar(array(
-			'toolbar' => &$tb,
+			'toolbar' => $tb,
 			'ob_group' => 'um',
-		)); 
+		));
 
 		$tb->add_separator();
 
@@ -567,10 +567,10 @@ class user_manager extends class_base
 			'tooltip' => t("Kustuta valitud"),
 			'img' => 'delete.gif',
 			"url" => "javascript:if(confirm('".t("Kustutada valitud objektid?")."')){submit_changeform('delete')};",
-		));	
+		));
 
 	}
-	
+
 	// Create cut, copy and paste buttons, if needed
 	function do_objectbuffer_toolbar($arr)
 	{
@@ -582,14 +582,14 @@ class user_manager extends class_base
 		$copy_action = isset($arr['copy_action']) ? $arr['copy_action'] : 'ob_copy';
 		$paste_action = isset($arr['paste_action']) ? $arr['paste_action'] : 'ob_paste';
 		$prefix = isset($arr['ob_group']) ? $arr['ob_group'].'_' : '';
-		
-		
-		$tb =& $arr['toolbar'];
+
+
+		$tb = $arr['toolbar'];
 		$tb->add_button(array(
 			'name' => 'cut',
 			'tooltip' => t("L&otilde;ika"),
 			'img' => 'cut.gif',
-			'action' => $cut_action, 
+			'action' => $cut_action,
 		));
 		$tb->add_button(array(
 			'name' => 'copy',
@@ -597,7 +597,7 @@ class user_manager extends class_base
 			'img' => 'copy.gif',
 			'action' => $copy_action,
 		));
-		
+
 		$tooltip = "Ei saa asetada";
 		$disabled = true;
 		if($arr["request"]["group"] == "users")
@@ -636,7 +636,7 @@ class user_manager extends class_base
 			}
 			$disabled = false;
 		}
-		
+
 		if (!$disabled)
 		{
 			$tb->add_button(array(
@@ -645,15 +645,15 @@ class user_manager extends class_base
 				'img' => 'paste.gif',
 				'action' => $paste_action,
 			//	'disabled' => $disabled,
-			));	
+			));
 		}
-		
+
 	}
-	
+
 	/** deletes selected objects
 
 		@attrib name=delete
-		
+
 		@param sel_u optional
 		@param sel_g optional
 		@param post_ru optional
@@ -666,7 +666,7 @@ class user_manager extends class_base
 			obj($oid)->delete();
 		}
 		return $arr['post_ru'];
-	}		
+	}
 
 	/** cuts objects. wrapper.
 
@@ -693,12 +693,12 @@ class user_manager extends class_base
 //			aw_session_del('user_management_copied_groups');
 //			aw_session_set("user_management_groups_cut_from_group", aw_global_get("user_management_last_parent"));
 //			aw_session_set('user_management_cut_groups', $selected);
-			
+
 			$o = get_instance("admin/admin_if");
 			return $o->if_cut(array('sel' => $selected, 'return_url' => $arr['post_ru']));
 		}
 		return $arr["post_ru"];
-	}		
+	}
 
 	/** copies objects. wrapper.
 
@@ -725,7 +725,7 @@ class user_manager extends class_base
 		}
 		return $arr["post_ru"];
 	}
-	
+
 	/** pastes the cut/copied objects. wrapper.
 
 		@attrib name=ob_paste
@@ -733,14 +733,14 @@ class user_manager extends class_base
 	**/
 	function ob_paste($arr)
 	{
-		$gi = get_instance(CL_GROUP);
+		$gi = get_instance(group_obj::CLID);
 		$parent = obj($arr["last_parent"]);
 		$previous_parent = obj(aw_global_get("user_management_users_cut_from_group"));
 		if(!is_oid(ifset($arr,'last_parent')))
 		{
 			return $arr["post_ru"];
 		}
-		
+
 		foreach(safe_array(aw_global_get("user_management_cut_users")) as $oid)
 		{
 			$gi->remove_user_from_group(obj($oid), $previous_parent);
@@ -769,8 +769,8 @@ class user_manager extends class_base
 
 		return $arr["post_ru"];
 	}
-	
-	/** blocks/unblocks a user 
+
+	/** blocks/unblocks a user
 
 		@attrib name=block_u
 
@@ -785,20 +785,16 @@ class user_manager extends class_base
 		$o->save();
 		return $arr['post_ru'];
 	}
-	
-	// Recursively populates groups tree
-	function do_groups_tree(&$tree, $parents, $treeroot = 1)
-	{
-		$ic = get_instance("core/icons");
 
+	// Recursively populates groups tree
+	function do_groups_tree($tree, $parents, $treeroot = 1)
+	{
 		foreach($parents as $parent)
 		{
 			$parent_obj = obj($parent);
 			$treedata = new object_tree(array(
 				'parent' => $parent,
-				'class_id' => CL_GROUP,
-				"lang_id" => array(),
-				"site_id" => array(),
+				'class_id' => group_obj::CLID
 			));
 			$treenames = $treedata->to_list()->names();
 			foreach($treedata->tree as $pt => $items)
@@ -816,7 +812,7 @@ class user_manager extends class_base
 							"layouts" => array("vbox_users_content", "vbox_ug_content"),
 							"params" => array("parent" => $item, "search_button_pressed" => NULL),
 						),
-						"iconurl" => $ic->get_icon_url(CL_GROUP,""),
+						"iconurl" => icons::get_icon_url(group_obj::CLID,""),
 					));
 				}
 			}
@@ -831,13 +827,13 @@ class user_manager extends class_base
 					"layouts" => array("vbox_users_content", "vbox_ug_content"),
 					"params" => array("parent" => $parent),
 				),
-				"iconurl" => $ic->get_icon_url($parent_obj->class_id(),""),
+				"iconurl" => icons::get_icon_url($parent_obj->class_id(),""),
 			));
 		}
 	}
 
 	// Search functionality is in here, too
-	function do_table_selected_groups (&$table, $arr)
+	function do_table_selected_groups ($table, $arr)
 	{
 		if (isset($arr['request']["search_blocked"]) || isset($arr['request']["search_active_time"]) || isset($arr['request']["search_user"]) || isset($arr['request']["search_person"]) || isset($arr['request']["search_groups"])) // This deals with searching
 		{
@@ -848,16 +844,14 @@ class user_manager extends class_base
 			$search = $arr['request']['search_txt'];
 			$parent = $arr['obj_inst']->prop('root');
 			$ol = new object_list(array(
-				'name' => '%'.$search.'%',
-				"lang_id" => array(),
-				"site_id" => array(),
+				'name' => '%'.$search.'%'
 			));
 
 			// Sweep through all found groups, check paths
 			$groups = array();
 			for ($o = $ol->begin(); !$ol->end(); $o = $ol->next())
 			{
-				if ($o->class_id() != CL_GROUP)
+				if ($o->class_id() != group_obj::CLID)
 				{
 					continue;
 				}
@@ -893,7 +887,7 @@ class user_manager extends class_base
 		else if (is_oid($this->parent))
 		{
 			$parent = obj($this->parent);
-			if ($parent->class_id() != CL_GROUP)
+			if ($parent->class_id() != group_obj::CLID)
 			{
 				return;
 			}
@@ -904,7 +898,7 @@ class user_manager extends class_base
 	}
 
 	// Defines and populates users table
-	function do_table_users (&$table, $arr)
+	function do_table_users ($table, $arr)
 	{
 		if ($arr['type'] == 'grouprelated' && (!isset($this->parent) || !is_oid($this->parent)))
 		{
@@ -950,7 +944,7 @@ class user_manager extends class_base
 				'name' => 'groups',
 				'caption' => t("Grupid"),
 			),
-		);	
+		);
 		foreach ($fields as $f)
 		{
 			 // By default fields are sortable and aligned to right
@@ -972,13 +966,13 @@ class user_manager extends class_base
 		{
 			case 'grouprelated':
 				$parent_obj = obj($this->parent);
-				$table->set_caption(sprintf(t("Grupi '%s' kasutajad"), $parent_obj->name).$link);	
+				$table->set_caption(sprintf(t("Grupi '%s' kasutajad"), $parent_obj->name).$link);
 				$g = obj($this->parent);
-				$users = $g->get_group_members()->ids();		
+				$users = $g->get_group_members()->ids();
 			break;
 
 			case 'inactive':
-				$table->set_header(t("Mitteaktiivsed kasutajad").$link);	
+				$table->set_header(t("Mitteaktiivsed kasutajad").$link);
 				// Find period of idleness needed to be listed
 				$period = $arr['obj_inst']->prop('inactive_period');
 				if (empty($period))
@@ -1050,7 +1044,7 @@ class user_manager extends class_base
 					{
 						$ot = new object_tree(array(
 							'parent' => $oid,
-							'class_id' => CL_GROUP,
+							'class_id' => group_obj::CLID,
 							"lang_id" => array(),
 							"site_id" => array(),
 						));
@@ -1084,13 +1078,13 @@ class user_manager extends class_base
 			{
 				continue;
 			}
-			
+
 			$ccp = (isset($_SESSION["copied_objects"][$o->id()]) || isset($_SESSION["cut_objects"][$o->id()]) ? "#E2E2DB" : "");
-		
+
 			// Find user's groups
 			$conns = $o->connections_to(array(
 				'type' => 'RELTYPE_MEMBER',
-				'from.class_id' => CL_GROUP,
+				'from.class_id' => group_obj::CLID,
 			));
 			$groups = array();
 			foreach ($conns as $c)
@@ -1117,10 +1111,10 @@ class user_manager extends class_base
 							'id' => $c,
 							'return_url' => get_ru()
 						), CL_CRM_COMPANY),
-					));		
+					));
 				}
 			}
-		
+
 			$items = array( // Edit-menu items
 				$this->mk_my_orb("change", array(
 						'id' => $o->id(),
@@ -1192,7 +1186,7 @@ class user_manager extends class_base
 	}
 
 	// Defines and populates groups table
-	function do_table_groups (&$table, $arr)
+	function do_table_groups ($table, $arr)
 	{
 		if (!isset($this->parent))
 		{
@@ -1261,7 +1255,7 @@ class user_manager extends class_base
 				'name' => 'loginmenu',
 				'caption' => t("Loginmen&uuml;&uuml;"),
 			),
-		);	
+		);
 		foreach ($fields as $f)
 		{
 			 // By default fields are sortable and aligned to right
@@ -1286,7 +1280,7 @@ class user_manager extends class_base
 
 
 		// Now, find data for the table
-	
+
 		if (isset($arr['groups_list']))
 		{
 			foreach ($arr['groups_list'] as $g)
@@ -1312,9 +1306,7 @@ class user_manager extends class_base
 			{
 				$ot = new object_tree(array(
 					'parent' => $oid,
-					'class_id' => CL_GROUP,
-					"lang_id" => array(),
-					"site_id" => array(),
+					'class_id' => group_obj::CLID
 				));
 				$ids[] = $oid;
 				$ids += $ot->ids();
@@ -1326,9 +1318,7 @@ class user_manager extends class_base
 			else
 			{
 				$ol_args = array(
-					'class_id' => CL_GROUP,
-					"lang_id" => array(),
-					"site_id" => array(),
+					'class_id' => group_obj::CLID
 				);
 
 				if($r["ug_search_txt"])
@@ -1385,13 +1375,11 @@ class user_manager extends class_base
 		{
 			$ol = new object_list(array(
 				'parent' => $this->parent,
-				'class_id' => CL_GROUP,
-				"lang_id" => array(),
-				"site_id" => array(),
+				'class_id' => group_obj::CLID
 			));
 			$target = $ol->arr();
 		}
-		
+
 		if (!count($target) && !isset($arr['title'])) // the title is the message.
 		{
 			//$table = "";
@@ -1400,21 +1388,21 @@ class user_manager extends class_base
 		foreach ($target as $oid => $o)
 		{
 			// Check permissions
-			if (!$this->can('view', $o->id()) || $o->class_id() != CL_GROUP)
+			if (!$this->can('view', $o->id()) || $o->class_id() != group_obj::CLID)
 			{
 				continue;
 			}
-			
+
 			// Copypaste
 			$ccp = (isset($_SESSION["copied_objects"][$o->id()]) || isset($_SESSION["cut_objects"][$o->id()]) ? "#E2E2DB" : "");
-		
+
 			// Find MEMBERS count
 			$conns = $o->connections_from(array(
 				'type' => 'RELTYPE_MEMBER',
 				'class' => CL_USER,
 			));
 			$members = count($conns);
-			
+
 			// Find ROOTFOLDERS
 			$rootfolders = array();
 			$rootmenus = $o->prop('admin_rootmenu2');
@@ -1426,20 +1414,20 @@ class user_manager extends class_base
 					$rootfolders[] = $o_menu->name();
 				}
 			}
-			
+
 			// Deletion url
 			$delurl = $this->mk_my_orb("delete", array(
-				"sel_g[".$o->id()."]" => "1", 
+				"sel_g[".$o->id()."]" => "1",
 				'post_ru' => get_ru(),
 			));
 			$delurl = "javascript:if(confirm('".t("Kustutada valitud objekt?")."')){window.location='$delurl';};";
-			
+
 			// Create links for Rootfolder and Objects popup items
 			$html = $this->permissions_form . html::hidden(array(
 					'name' => 'oid_rootf',
 					'value' => $o->id(),
 				));
-			
+
 			// More crapola to pick new rootfolders in a popup
 			$url_rootfolder = "javascript:aw_popup_scroll('".
 				$this->mk_my_orb("do_search", array(
@@ -1462,20 +1450,20 @@ class user_manager extends class_base
 						"append_html" => (((str_replace("&","%26",str_replace(array("'","\n"),"",($html)))))),
 					), 'popup_search')."','".t("M&auml;&auml;ra &otilde;igused")."',550,500)";
 
-			
+
 			// Edit-menu items
-			$items = array( 
+			$items = array(
 				$this->mk_my_orb("change", array(
 						'id' => $o->id(),
 						'return_url' => get_ru()
-					), CL_GROUP) => t("Muuda"),
+					), group_obj::CLID) => t("Muuda"),
 				$delurl => t("Kustuta"),
 				$this->mk_my_orb("ob_cut", array("sel_g[".$o->id()."]" => 1, "post_ru" => get_ru())) => t("L&otilde;ika"),
 				$this->mk_my_orb("change", array(
 						'id' => $o->id(),
 						'group' => 'import',
 						'return_url' => get_ru()
-					), CL_GROUP) => t("Impordi"),
+					), group_obj::CLID) => t("Impordi"),
 				$url_rootfolder => t("Juurkaust"),
 			//	$url_loginmenu => t("Login men&uuml;&uuml;"),
 				$url_objects => t("Objektid"),
@@ -1489,10 +1477,10 @@ class user_manager extends class_base
 						"id" => $arr["obj_inst"]->id(),
 						"group" => $o->id(),
 					), 'user_manager')."','".t("Vali loginmen&uuml;&uuml;")."',550,500)";
-			
+
 				// Edit-menu items
 				$items[$url_loginmenu] = t("Loginmen&uuml;&uuml;");
-				
+
 				// Find value for table
 				$gid = $o->prop("gid");
 				if (isset($lm[$gid]) && isset($lm[$gid]['menu']) && is_oid($lm[$gid]['menu']))
@@ -1502,7 +1490,7 @@ class user_manager extends class_base
 				}
 
 			}
-		
+
 			// Define a table row
 			$row = array(
 				'gid' => $o->prop('gid'),
@@ -1511,10 +1499,10 @@ class user_manager extends class_base
 					'url' => aw_url_change_var(array("parent" => $o->id(), "search_button_pressed" => 0)),
 				)),
 				'priority' => html::textbox(array(
-					'name' => 'priority['.$o->id().']', 
-					'size' => 6, 
-					'value' => $o->prop('priority'), 
-					'disabled' => $this->can('edit', $o->id()) ? false : true 
+					'name' => 'priority['.$o->id().']',
+					'size' => 6,
+					'value' => $o->prop('priority'),
+					'disabled' => $this->can('edit', $o->id()) ? false : true
 				)),
 				"type" => html::select(array(
 					"name" => "type[".$o->id()."]",
@@ -1540,7 +1528,7 @@ class user_manager extends class_base
 					"value" => object::STAT_ACTIVE,
 					"checked" => $o->prop('status') == object::STAT_ACTIVE,
 				)),
-				'members' => $members, 
+				'members' => $members,
 				'rootfolders' => join(', ', $rootfolders),
 				'action' => $this->_get_menu(array(
 					'id' => $o->id(),
@@ -1559,14 +1547,14 @@ class user_manager extends class_base
 	function find_parent($manager)
 	{
 		$parent = $manager->prop('root');
-		
+
 		if (!$parent)
 		{
 			return null;
 		}
-		
-		if (isset($_GET['parent']) && is_oid($_GET['parent']) && $this->can('view', $_GET['parent']) 
-			&& ($p = obj($_GET['parent'])) && in_array($p->class_id(), array(CL_MENU,CL_GROUP)) )
+
+		if (isset($_GET['parent']) && is_oid($_GET['parent']) && $this->can('view', $_GET['parent'])
+			&& ($p = obj($_GET['parent'])) && in_array($p->class_id(), array(CL_MENU,group_obj::CLID)) )
 		{
 			if(in_array($_GET["parent"], $manager->prop("all_roots")))
 			{
@@ -1585,7 +1573,7 @@ class user_manager extends class_base
 			}
 		}
 
-		if(automatweb::$request->arg("parent") == "root")
+		if(automatweb::$request->arg("parent") === "root")
 		{
 			$parent = "root";
 		}
@@ -1594,7 +1582,7 @@ class user_manager extends class_base
 			$parent = "search";
 		}
 
-		aw_session_set("user_management_last_parent", $parent);	
+		aw_session_set("user_management_last_parent", $parent);
 		return $parent;
 	}
 
@@ -1612,7 +1600,7 @@ class user_manager extends class_base
 			return "";
 		}
 		$items = $arr['items'];
-	
+
 		$this->tpl_init("automatweb/menuedit");
 		$this->read_template("js_popup_menu.tpl");
 
@@ -1620,7 +1608,7 @@ class user_manager extends class_base
 			"menu_id" => "menu-".$arr['id'],
 			"menu_icon" => $this->cfg["baseurl"]."/automatweb/images/blue/obj_settings.gif",
 		));
-	
+
 		$mi = "";
 		foreach($items as $url => $txt)
 		{
@@ -1636,7 +1624,7 @@ class user_manager extends class_base
 		));
 		return $this->parse();
 	}
-	
+
 	/** message handler for the MSG_POPUP_SEARCH_CHANGE message
 	    used for linking root folders to groups and giving rights to objects
 		warning : achtung : following code is an ugly fuck : achtung : warning
@@ -1647,7 +1635,7 @@ class user_manager extends class_base
 		if (isset($arr['oid_rootf']) && is_oid($arr['oid_rootf']) && $this->can('edit', $arr['oid_rootf']) )
 		{
 			$o = obj($arr['oid_rootf']);
-			
+
 			// First find rootmenu active values
 			$m = $o->prop('admin_rootmenu2');
 			$lang = aw_global_get('lang_id');
@@ -1655,8 +1643,8 @@ class user_manager extends class_base
 			{
 				$m[$lang] = array();
 			}
-			
-			
+
+
 			// Create connections from group to objects
 			foreach (safe_array(ifset($arr,'sel')) as $x => $id)
 			{
@@ -1667,7 +1655,7 @@ class user_manager extends class_base
 				$m[$lang][] = $id;
 			}
 			$m[$lang] = array_unique($m[$lang]);
-			
+
 			// Update group rootmenu property
 			$o->set_prop('admin_rootmenu2', $m);
 			$o->save();
@@ -1678,27 +1666,27 @@ class user_manager extends class_base
 		if (isset($arr['oid_objects']) && is_oid($arr['oid_objects']) && $this->can('edit', $arr['oid_objects']) )
 		{
 			$o = obj($arr['oid_objects']);
-			if ($o->class_id() != CL_GROUP)
+			if ($o->class_id() != group_obj::CLID)
 			{
 				return;
 			}
 			$o_i = $o->instance();
  			$gid = $o->prop("gid");
 			$a = $o_i->acl_list_acls();
-			
+
 			$acl = array();
 			// Create ACL settings array
 			foreach ($a as $a_bp => $a_name)
 			{
 				$acl[$a_name] = ifset($arr,'sel_'.$a_name);
 			}
-			// Create connections from selected objects to group 
+			// Create connections from selected objects to group
 			foreach (safe_array(ifset($arr,'sel')) as $x => $id)
 			{
 				$s = obj($id);
 				$s->connect(array(
 					'to' => $o->id(),
-					'reltype' => RELTYPE_ACL, 
+					'reltype' => RELTYPE_ACL,
 				));
 				$s->save();
 				$o_i->add_acl_group_to_obj($gid, $id, $acl);
@@ -1764,28 +1752,24 @@ class user_manager extends class_base
 				"group" => $arr['group'],
 				"menu" => "%s",
 			), 'user_manager');
-		
+
 			$return .= "<h2 class='user_manager_popup'>".t("Vali loginmen&uuml;&uuml;")."</h2>";
-		
+
 			$kids = new object_list(array(
 				'parent' => $rootfolder->id(),
-				'class_id' => CL_MENU,
-				"lang_id" => array(),
-				"site_id" => array(),
+				'class_id' => CL_MENU
 			));
 
 			$return .= "<ul class='user_manager_popup'>";
 			for ($k = $kids->begin(); !$kids->end(); $k = $kids->next())
 			{
 				$return .= "<li>".$k->name();
-			
+
 				$grandkids  = new object_list(array(
 					'parent' => $k->id(),
-					'class_id' => CL_MENU,
-					"lang_id" => array(),
-					"site_id" => array(),
+					'class_id' => CL_MENU
 				));
-			
+
 				$return .= "<ul>";
 				for ($gk = $grandkids->begin(); !$grandkids->end(); $gk = $grandkids->next())
 				{
@@ -1813,12 +1797,10 @@ class user_manager extends class_base
 		{
 			return;
 		}
-		// Find all user_manager objects 
+		// Find all user_manager objects
 		$ol = new object_list(array(
 			'class_id' => CL_USER_MANAGER,
-			'status' => STAT_ACTIVE,
-			"lang_id" => array(),
-			"site_id" => array(),
+			'status' => STAT_ACTIVE
 		));
 		$users = get_instance("users");
 		for ($manager = $ol->begin(); !$ol->end(); $manager = $ol->next())
@@ -1831,7 +1813,7 @@ class user_manager extends class_base
 			{
 				continue;
 			}
-			
+
 			// Create connection to menu
 			if (!$conf->is_connected_to(array('to' => $menu)))
 			{
@@ -1858,7 +1840,7 @@ class user_manager extends class_base
 			));
 			$conf->save();
 			return;
-		}	
+		}
 	}
 
 	function get_user_popupmenu($oid)
@@ -1910,7 +1892,7 @@ class user_manager extends class_base
 
 	function init_packages_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"field" => "oid",
 			"name" => "sel",
@@ -2000,7 +1982,7 @@ class user_manager extends class_base
 
 	function _get_packages_tlb($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_new_button(array(CL_CONTENT_PACKAGE), $arr["obj_inst"]->id());
 		$t->add_save_button();
 		$t->add_delete_button();
@@ -2013,7 +1995,7 @@ class user_manager extends class_base
 
 	function _get_conditions_tree($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		foreach($this->get_content_packages()->arr() as $id => $od)
 		{
 			$t->add_item(0, array(
@@ -2032,9 +2014,7 @@ class user_manager extends class_base
 	{
 		return new object_data_list(
 			array(
-				"class_id" => CL_CONTENT_PACKAGE,
-				"lang_id" => array(),
-				"site_id" => array(),
+				"class_id" => CL_CONTENT_PACKAGE
 			),
 			array(
 				CL_CONTENT_PACKAGE => array("name", "priority", "date_start", "date_end"),
@@ -2057,4 +2037,3 @@ class user_manager extends class_base
 		return get_instance(CL_CONTENT_PACKAGE)->_get_prices_tlb($arr, true);
 	}
 }
-?>

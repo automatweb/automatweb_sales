@@ -9,10 +9,8 @@
 			<tr>
 				<td width="50%">
 					{VAR:type_name} <b>{VAR:name}</b> in file <b><a href='{VAR:file_url}'>{VAR:file}</a></b><br>
-					Maintainer: {VAR:maintainer}<br>
-					CVS Version: <a href='{VAR:cvsweb_url}'>{VAR:cvs_version}</a><br>
 					Methods: {VAR:func_count} total / {VAR:api_func_count} API / {VAR:orb_func_count} ORB<br>
-					View source: <a href="{VAR:view_class}">docgen</a> / <a href="http://dev.struktuur.ee/lxr/source/classes/{VAR:file}">LXR</a>
+					<a href="{VAR:view_class}" target="_blank">view source</a> | <a href="{VAR:update_url}">update doc from file</a>
 				</td>
 				<td valign="top" align="left" width="50%">
 					{VAR:class_comment}
@@ -269,7 +267,7 @@
 	<td class="text" colspan="6">
 		<table border="0" width="100%">
 			<tr>
-				<td class="text"><a name='fn.{VAR:name}'></a><b>{VAR:proto}</b> - <a href='{VAR:view_usage}'>View usage</a> - <a href='{VAR:view_source}'>View source</a> / <a href="http://dev.struktuur.ee/lxr/source/classes{VAR:file}#{VAR:start_line_lxr}">LXR</a></td>
+				<td class="text"><a name='fn.{VAR:name}'></a><b>{VAR:proto}</b> - <a href='{VAR:view_usage}'>View usage</a> - <a href='{VAR:view_source}'>View source</a></td>
 			</tr>
 			<tr>
 				<td class="text">

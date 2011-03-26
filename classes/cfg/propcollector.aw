@@ -296,10 +296,10 @@ class propcollector extends aw_template
 					else
 					{
 						$fields[$fname] = $fvalue;
-					};
-				};
-			};
-		};
+					}
+				}
+			}
+		}
 
 		$this->validate_fields(array(
 			"type" => "property",
@@ -397,11 +397,15 @@ class propcollector extends aw_template
 				{
 					if (strlen($tmp) > 0)
 					{
-						list($_name,$_value) = explode("=",$tmp);
-						if($_name == "caption")
+						$tmp = explode("=",$tmp);
+						$_name = isset($tmp[0]) ? $tmp[0] : "";
+						$_value = isset($tmp[1]) ? $tmp[1] : "";
+
+						if($_name === "caption")
 						{
 							$_value = htmlentities($_value);
 						}
+
 						$this->validate_fields(array(
 							"type" => "groupinfo",
 							"name" => $id,
@@ -424,15 +428,19 @@ class propcollector extends aw_template
 				{
 					$open_token = true;
 				}
-				elseif ($chr == " ")
+				elseif ($chr === " ")
 				{
 					if (strlen($tmp) > 0)
 					{
-						list($_name,$_value) = explode("=",$tmp);
-						if($_name == "caption")
+						$tmp = explode("=",$tmp);
+						$_name = isset($tmp[0]) ? $tmp[0] : "";
+						$_value = isset($tmp[1]) ? $tmp[1] : "";
+
+						if($_name === "caption")
 						{
 							$_value = htmlentities($_value);
 						}
+
 						$this->validate_fields(array(
 							"type" => "groupinfo",
 							"name" => $id,
@@ -441,7 +449,7 @@ class propcollector extends aw_template
 						));
 						$this->groupinfo[$id][$_name] = $_value;
 						$tmp = "";
-					};
+					}
 					$open_token = false;
 				}
 				else
@@ -486,8 +494,7 @@ class propcollector extends aw_template
 			case "layout":
 				$this->layout[$this->name]["caption"] = htmlentities($caption);
 				break;
-
-		};
+		}
 	}
 
 	private function add_comment($comment)
@@ -495,7 +502,7 @@ class propcollector extends aw_template
 		if (isset($this->last_element) && $this->last_element === "property")
 		{
 			$this->properties[$this->name]["comment"] = htmlentities($comment);
-		};
+		}
 	}
 
 	////
@@ -560,7 +567,6 @@ class propcollector extends aw_template
 			if ($write == 1)
 			{
 				$res = $sr->xml_serialize($arr);
-				//print_r($res);
 				$this->put_file(array(
 					"file" => $fullname,
 					"content" => $res,
@@ -572,7 +578,7 @@ class propcollector extends aw_template
 			}
 
 			$success = true;
-		};
+		}
 		return $success;
 	}
 
@@ -622,6 +628,14 @@ class propcollector extends aw_template
 	{
 		$cname = substr(basename($name),0,-3);
 		$this->currentclass = $cname;
+
+		// properties are generated for cb extensions only
+		$tmp = new $this->currentclass();
+		if (!$tmp instanceof class_base)
+		{
+			return false;
+		}
+
 		$targetfile = AW_DIR . "xml/properties/{$cname}.xml";
 		$outdir = AW_DIR . "xml/properties/";
 		$parent_modified = false;

@@ -48,28 +48,66 @@ class users_user extends aw_template
 
 		if (!empty($uid))
 		{
-			$auth_id = $auth->has_config();
+			if ("root" === $uid)
+			{ // user is attempting to log in as root
+				// get root password from aw.ini
+				$root_password = aw_ini_get("users.root_password");
 
-			if ("root" !== $uid and is_oid($auth_id))
-			{
-				list($success, $msg) = $auth->check_auth($auth_id, array(
-					"uid" => &$uid,
-					"password" => $password,
-					"server" => $server
-				));
-
-				if ($success && !empty($server))
+				// check if it meets requirements
+				if (strlen($root_password) < 7)
 				{
-					$uid .= ".".$server;
+					throw new awex_auth_pw("Root password not set or doesn't meet requirements");
+				}
+
+				// compare with what user submitted
+				if ($password === $root_password)
+				{
+					// let in
+					$success = true;
+					$msg = "";
+
+					// create root user if not found
+					if (!strtolower($this->db_fetch_field("SELECT uid FROM users WHERE uid = 'root'", "uid")))
+					{//TODO: tmp lahendus. user::add_USER korda teha ja viia user_manager_obj-i.
+						$_SESSION["uid"] = "root";
+						aw_global_set("uid", "root");
+						$root_user = obj(null, array(), user_obj::CLID);
+						$root_user->set_parent(1);
+						$root_user->set_prop("uid", "root");
+						$root_user->save();
+					}
+				}
+				else
+				{
+					// deny access
+					$success = false;
+					$msg = auth_config::get_login_fail_msg();
 				}
 			}
 			else
 			{
-				$auth = new auth_server_local();
-				list($success, $msg) = $auth->check_auth(NULL, array(
-					"uid" => $uid,
-					"password" => $password
-				));
+				$auth_id = $auth->has_config();
+				if (is_oid($auth_id))
+				{
+					list($success, $msg) = $auth->check_auth($auth_id, array(
+						"uid" => &$uid,
+						"password" => $password,
+						"server" => $server
+					));
+
+					if ($success && !empty($server))
+					{
+						$uid .= ".".$server;
+					}
+				}
+				else
+				{
+					$auth = new auth_server_local();
+					list($success, $msg) = $auth->check_auth(NULL, array(
+						"uid" => $uid,
+						"password" => $password
+					));
+				}
 			}
 		}
 
