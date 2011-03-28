@@ -1813,7 +1813,7 @@ class bug_tracker extends class_base
 		}
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
-			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.RELTYPE_SECTION" => $o->id(),
+			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.RELTYPE_SECTION" => $o->id(),//FIXME: deprecated reltype
 			"CL_CRM_PERSON.RELTYPE_MONITOR(CL_BUG).class_id" => CL_BUG,
 			"CL_CRM_PERSON.RELTYPE_CURRENT_JOB.employer.oid" => $owner->id(),
 		));
@@ -1837,7 +1837,6 @@ class bug_tracker extends class_base
 					), false, $arr["set_retu"]),
 				));
 			}
-
 		}
 	}
 

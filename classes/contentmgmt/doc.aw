@@ -3,7 +3,7 @@
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE, CL_DOCUMENT, on_save_document)
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 
-@classinfo trans=1 no_comment=1 relationmgr=yes syslog_type=ST_DOCUMENT r2=1 maintainer=kristo
+@classinfo trans=1 no_comment=1 relationmgr=yes syslog_type=ST_DOCUMENT r2=1
 
 @default table=documents
 @default group=general
@@ -313,7 +313,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_TO, CL_DOCUMENT, on_add_doc_rel)
 	@caption T&otilde;lgi
 
 @default group=comments
-	
+
 	@property comments_tb type=toolbar store=no no_caption=1 no_rte_button=1
 	@property comments_tbl type=table store=no no_caption=1
 
@@ -487,12 +487,12 @@ class doc extends class_base
 			case "comments_tb":
 				$this->_comments_tb($arr);
 				break;
-				
+
 			case "comments_tbl":
 				$this->_comments_tbl($arr);
 				break;
 		};
-		
+
 		if(in_array($data["name"], array("content", "lead")) && !empty($data["richtext"]))
 		{
 			$cb_nobreaks = $arr["obj_inst"]->meta("cb_nobreaks");
@@ -867,23 +867,23 @@ class doc extends class_base
 		$arg = str_replace("</p>","",$arg);
 		return $arg;
 	}
-	
+
 	// clean word
 	private function _doc_clean_html($html)
 	{
 		$html = ereg_replace("<(/)?(meta|title|style|font|span|del|ins)[^>]*>","",$html);
-		
+
 		// another pass over the html 2x times, removing unwanted attributes
 		//$html = ereg_replace("<([^>]*)(class|lang|size|face)=(\"[^\"]*\"|'[^']*'|[^>]+)([^>]*)>","<\\1>",$html);
 		//$html = ereg_replace("<([^>]*)(class|lang|size|face)=(\"[^\"]*\"|'[^']*'|[^>]+)([^>]*)>","<\\1>",$html);
-		
+
 		// kill table cell style tag
 		preg_match_all("/<td.*>/imsU", $html, $mt);
 		foreach($mt[0] as $key=>$td)
 		{
 			$html = str_replace($td, preg_replace("/^(<td.*)(style=\".*\")(.*>)$/isU","\\1 \\3",$td), $html);
 		}
-		
+
 		// finishing up - maby should make optional
 		$html = preg_replace(
 			array("/<!--.*-->/imsU", "/\<h([0-9])\s*\>/imsU"),
@@ -892,7 +892,7 @@ class doc extends class_base
 		);
 		return $html;
 	}
-	
+
 	private function gen_navtoolbar($arr)
 	{
 		$toolbar = &$arr["prop"]["toolbar"];
@@ -1546,7 +1546,7 @@ class doc extends class_base
 			"name" => "content",
 			"caption" => t("Sisu"),
 		));
-		
+
 		$q = sprintf("SELECT * FROM comments WHERE board_id = '%s' ORDER BY time", $arr["obj_inst"]->id());;
 		$rows = $this->db_fetch_array($q);
 		foreach($rows as $row)
@@ -1802,7 +1802,7 @@ class doc extends class_base
 
 		die();
 	}
-	
+
 	function callback_generate_scripts($arr)
 	{
 $rv = <<<EOF
@@ -1827,4 +1827,3 @@ EOF;
 		return $rv;
 	}
 }
-?>

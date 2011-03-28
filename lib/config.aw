@@ -251,6 +251,7 @@ function load_config ($files = array(), $cache_file = null)
 
 	$GLOBALS["cfg"]["basedir"] = AW_DIR;
 	//TODO: if DOCUMENT_ROOT not available, then site dir set to aw framework code directory files subdir. may not be a good solution. check for errors
+	// str_replace is for windows style paths
 	$site_basedir = empty($_SERVER["DOCUMENT_ROOT"]) ? AW_DIR . "files/" : str_replace("\\", "/", realpath($_SERVER["DOCUMENT_ROOT"]."/../")) . "/";
 	$GLOBALS["cfg"]["site_basedir"] = $site_basedir;
 
@@ -308,7 +309,7 @@ function load_config ($files = array(), $cache_file = null)
 	//selle peab ikka igaltpoolt uuesti saama, muidu ei saa sisev6rgust ja mujalt ligi
 	if (empty($GLOBALS["cfg"]["no_update_baseurl"]) and isset($_SERVER["HTTP_HOST"]))
 	{
-		$baseurl = "http://" . $_SERVER["HTTP_HOST"];
+		$baseurl = "http://" . $_SERVER["HTTP_HOST"] . "/";
 		$GLOBALS["cfg"]["baseurl"] = $baseurl;
 	}
 
@@ -391,6 +392,7 @@ function load_config ($files = array(), $cache_file = null)
 	// and should save us a little memory. -- duke
 	if (empty($_REQUEST["fastcall"]))
 	{
+//TODO:
 /* defining class id-s as global constants is to be taken out of use */
 		if (!empty($GLOBALS["cfg"]["classes"]))
 		{

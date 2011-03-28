@@ -155,8 +155,8 @@ class newsfeed extends class_base
 			"name" => "name",
 			"caption" => t("V&auml;li"),
 		));
-		$cfi = get_instance(CL_CFGFORM);
-		$props = $cfi->get_property_list(CL_DOCUMENT);
+		$cfi = new cfgform();
+		$props = $cfi->get_property_list(doc_obj::CLID);
 		$fields = $arr["obj_inst"]->meta("fields");
 		if(!count($fields))
 		{
@@ -165,6 +165,7 @@ class newsfeed extends class_base
 				"content" => 0,
 			);
 		}
+
 		foreach($props as $prop=>$name)
 		{
 			$t->define_data(array(
@@ -181,7 +182,6 @@ class newsfeed extends class_base
 				"name" => $name,
 			));
 		}
-
 	}
 
 	function do_folders_table($arr)
@@ -248,7 +248,7 @@ class newsfeed extends class_base
 	function callback_post_save($arr)
 	{
 		$re = $arr["request"];
-		if($re["group"] == "fields")
+		if($re["group"] === "fields")
 		{
 			$data = array();
 			foreach($re["jrks"] as $prop=>$jrk)
@@ -278,7 +278,7 @@ class newsfeed extends class_base
 	function request_execute($feedobj)
 	{
 		$parents = array();
-		$classes = array(CL_DOCUMENT);
+		$classes = array(doc_obj::CLID);
 		$sources = $feedobj->connections_from(array(
 			"type" => "RELTYPE_FEED_SOURCE",
 		));
@@ -291,21 +291,19 @@ class newsfeed extends class_base
 			{
 				$tree = new object_tree(array(
 					"parent" => $src_folder,
-					"class_id" => CL_MENU,
-					"site_id" => array(),
+					"class_id" => menu_obj::CLID
 				));
 				$items = $tree->to_list();
 				$parents = array_merge($parents, $items->ids());
-			};
-		};
+			}
+		}
 		$items = array();
-		//arr($o->properties());
 		$res = array();
 
-		$al = get_instance("alias_parser");
+		$al = new alias_parser();
 
 
-		$limittype = $feedobj->prop("limittype") == "days" ? "days" : "last";
+		$limittype = $feedobj->prop("limittype") === "days" ? "days" : "last";
 
 		$use_kws = safe_array($feedobj->meta("use_kws"));
 
@@ -315,15 +313,14 @@ class newsfeed extends class_base
 			if ($count < 1 || $count > 20)
 			{
 				$count = 20;
-			};
+			}
 
 			$kwlist = array();
+			$docid = array();
 			if (count($use_kws))
 			{
 				$kw_ol = new object_list(array(
-					"oid" => array_keys($use_kws),
-					"lang_id" => array(),
-					"site_id" => array()
+					"oid" => array_keys($use_kws)
 				));
 				$kwlist = $kw_ol->names();
 
@@ -331,13 +328,12 @@ class newsfeed extends class_base
 				$doclist = $c->find(array(
 					"to" => $kw_ol->ids(),
 				));
-				$docid = array();
 				$non_docid = array();
 				foreach($doclist as $con)
 				{
-					if ($con["from.class_id"] == CL_DOCUMENT)
+					if ($con["from.class_id"] == doc_obj::CLID)
 					{
-						if ($con["from.status"] == STAT_ACTIVE)
+						if ($con["from.status"] == object::STAT_ACTIVE)
 						{
 							$docid[$con["from"]] = $con["from"];
 						}
@@ -352,12 +348,12 @@ class newsfeed extends class_base
 				{
 					// fetch docs connected to THOSE
 					$doclist = $c->find(array(
-						"from.class_id" => CL_DOCUMENT,
+						"from.class_id" => doc_obj::CLID,
 						"to" => $non_docid
 					));
 					foreach($doclist as $con)
 					{
-						if ($con["from.status"] == STAT_ACTIVE)
+						if ($con["from.status"] == object::STAT_ACTIVE)
 						{
 							$docid[$con["from"]] = $con["from"];
 						}
@@ -368,40 +364,44 @@ class newsfeed extends class_base
 			$cond = array(
 				"parent" => $parents,
 			);
+
 			if (count($docid))
 			{
 				$cond["oid"] = $docid;
 			}
 
 			$_ob = $feedobj->prop("sort_by")." ".$feedobj->prop("sort_ord");
-			if ($feedobj->prop("sort_by") == "documents.modified")
+			if ($feedobj->prop("sort_by") === "documents.modified")
 			{
 				$_ob .= " ,objects.created DESC";
-			};
+			}
 
 			$ol_args = array(
 				"class_id" => $classes,
-				"status" => STAT_ACTIVE,
+				"status" => object::STAT_ACTIVE,
 				new object_list_filter(array(
 					"logic" => "OR",
 					"conditions" => $cond
 				)),
-				new object_list_filter(array("non_filter_classes" => CL_DOCUMENT))
+				new object_list_filter(array("non_filter_classes" => doc_obj::CLID))
 			);
-			if (trim($_ob) != "")
+
+			if (trim($_ob))
 			{
 				$ol_args["sort_by"] = $_ob;
 			}
-			if ($limittype == "last")
+
+			if ($limittype === "last")
 			{
 				$ol_args["limit"] = $count;
-			};
-			if ($limittype == "days")
+			}
+
+			if ($limittype === "days")
 			{
 				$days = $feedobj->prop("days");
 				$start = strtotime("-${days} days");
-				$ol_args["CL_DOCUMENT.doc_modified"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $start);
-			};
+				$ol_args["CL_DOCUMENT.doc_modified"] = new obj_predicate_compare(obj_predicate_compare::GREATER_OR_EQ, $start);
+			}
 
 			$ol_args["site_id"] = array();
 			$ol = new object_list($ol_args);
@@ -410,31 +410,36 @@ class newsfeed extends class_base
 			$source = aw_ini_get("newsfeed.source");
 			$baseurl = aw_ini_get("baseurl");
 			$parse_embed = $feedobj->prop("parse_embed");
-			$di = get_instance("doc_display");
+			$di = new doc_display();
 			foreach($ol->arr() as $o)
 			{
+				$props = array();
 				$mod_date = $o->prop("doc_modified");
 				if ($mod_date < 300)
 				{
 					$mod_date = $o->modified();
 				}
+
 				if ($first == 0)
 				{
 					$first = $mod_date;
-				};
+				}
+
 				$oid = $o->id();
-				$fields = $feedobj->meta("fields");
+				$fields = safe_array($feedobj->meta("fields"));
 				asort($fields);
 				foreach($fields as $prop=>$f)
 				{
 					$props[$prop] = $o->trans_get_val($prop);
 				}
+
 				$title = $o->trans_get_val("title");
 				if($feedobj->prop("folder_name"))
 				{
 					$folder = obj($o->parent());
 					$title .= " - ".$folder->trans_get_val("name");
 				}
+
 				if (1 == $parse_embed)
 				{
 					$si = __get_site_instance();
@@ -457,13 +462,14 @@ class newsfeed extends class_base
 						$props[$prop] = preg_replace("/#(\w+?)(\d+?)(v|k|p|)#/i","",$val);
 						$props[$prop] = preg_replace("/#d#(.*)#\/d#/imsU","\\1",$val);
 					}
+				}
 
-				};
 				$separator = $feedobj->prop("separator");
 				if(!$separator)
 				{
-					$separator = "<br>";
+					$separator = html::linebreak();
 				}
+
 				$description = implode($separator, $props);
 
 				if ($o->prop("alias") != "")
@@ -473,7 +479,7 @@ class newsfeed extends class_base
 						static $ss_i;
 						if (!$ss_i)
 						{
-							$ss_i = get_instance("contentmgmt/site_show");
+							$ss_i = new site_show();
 							$ss_i->_init_path_vars($_GET);
 						}
 						$doc_link = $ss_i->make_menu_link($o);
@@ -519,7 +525,8 @@ class newsfeed extends class_base
 		switch($feedobj->prop("feedtype"))
 		{
 			default:
-				header('Content-Type: text/xml; charset=ISO-8859-1');
+				$charset = aw_global_get("charset");
+				header("Content-Type: text/xml; charset={$charset}");
 				print $this->rss20_encode($data);
 		}
 		exit;
@@ -527,7 +534,8 @@ class newsfeed extends class_base
 
 	function rss20_encode($data)
 	{
-		$res = "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
+		$charset = aw_global_get("charset");
+		$res = "<?xml version=\"1.0\" encoding=\"{$charset}\"?>\n";
 		$res .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' . " \n";
 		$res .= "\t<channel>\n";
 		$rss_url = aw_ini_get("baseurl").aw_url_change_var("");
@@ -542,7 +550,7 @@ class newsfeed extends class_base
 				$val = $this->_encode_rss_string($val);
 			};
 			*/
-			$res .= "\t\t<${key}>" . $val . "</${key}>\n";
+			$res .= "\t\t<{$key}>" . $val . "</{$key}>\n";
 		}
 
 		$encoded_attribs = array("title","link","author","source","art_lead","description","guid");

@@ -107,12 +107,12 @@ class orb extends aw_template
 				$fun = isset($_orb_defs[$clname][$action]) ? $_orb_defs[$clname][$action] : false;
 
 				// XXX: fallback to change for objects which do not have view action
+				///miks?
 				if ( ($action == "view") && (!is_array($fun)) )
 				{
 					$action = "change";
 					$fun = isset($_orb_defs[$clname][$action]) ? $_orb_defs[$clname][$action] : NULL;
 				}
-
 
 				if (is_array($fun))
 				{
@@ -328,9 +328,8 @@ class orb extends aw_template
 
 	function load_xml_orb_def($class)
 	{
-		$fc = get_instance("cache");
-		$fname = "/xml/orb/$class.xml";
-		$fc->get_cached_file(array(
+		$fname = "/xml/orb/{$class}.xml";
+		cache::get_cached_file(array(
 			"fname" => $fname,
 			"unserializer" => array($this, "load_xml_orb_def_file"),
 			"loader" => array($this, "load_serialized_orb_def"),
@@ -542,7 +541,7 @@ class orb extends aw_template
 
 	function try_load_class($class)
 	{
-		if (!is_readable(AW_DIR."xml/orb/{$class}.xml") && !is_readable(aw_ini_get("site_basedir")."/xml/orb/{$class}.xml"))
+		if (!is_readable(AW_DIR."xml/orb/{$class}.xml") && !is_readable(aw_ini_get("site_basedir")."xml/orb/{$class}.xml"))
 		{
 			throw new awex_orb_class("Class '$class' ORB definition not found");
 		}
@@ -873,7 +872,7 @@ class orb extends aw_template
 
 		// klassi definitsioon sisse
 		$xmldef = $this->get_file(array(
-			"file" => $this->cfg["basedir"] . "/xml/interfaces/$ifile"
+			"file" => aw_ini_get("basedir") . "xml/interfaces/$ifile"
 		));
 
 		// loome parseri
@@ -1136,7 +1135,7 @@ class orb extends aw_template
 		}
 
 		$args = self::encode_request_args($args, "");
-		$res = aw_ini_get("baseurl") . "/";
+		$res = aw_ini_get("baseurl");
 		if ($force_admin || $in_admin)
 		{
 			$res .= "automatweb/";

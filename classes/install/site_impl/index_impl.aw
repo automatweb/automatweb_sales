@@ -5,18 +5,18 @@ $section = aw_global_get("section");
 
 if (!empty($_REQUEST["class"])  || !empty($_REQUEST["reforb"]))
 {
-	include(aw_ini_get("classdir")."/".aw_ini_get("site_impl_dir")."/orb_impl_exec.".aw_ini_get("ext"));
+	include(aw_ini_get("classdir").aw_ini_get("site_impl_dir")."orb_impl_exec".AW_FILE_EXT);
 }
 else
 {
 	// if no orb call, do a normal pageview
-	if (file_exists("{$site_basedir}/public/site_header.aw"))
+	if (file_exists("{$site_basedir}public/site_header".AW_FILE_EXT))
 	{
-		include("{$site_basedir}/public/site_header.aw");
+		include("{$site_basedir}public/site_header".AW_FILE_EXT);
 	}
 	else
 	{
-		include(aw_ini_get("classdir")."/".aw_ini_get("site_impl_dir")."/site_header.".aw_ini_get("ext"));
+		include(aw_ini_get("classdir").aw_ini_get("site_impl_dir")."site_header".AW_FILE_EXT);
 	}
 }
 
@@ -44,15 +44,15 @@ if (!aw_global_get("no_menus"))
 }
 
 // and finish gracefully
-if (file_exists("{$site_basedir}/public/site_footer.aw"))
+if (file_exists("{$site_basedir}public/site_footer".AW_FILE_EXT))
 {
-	include("{$site_basedir}/public/site_footer.aw");
+	include("{$site_basedir}public/site_footer".AW_FILE_EXT);
 }
-elseif (file_exists($site_basedir."/htdocs/site_footer.aw"))
+elseif (file_exists("{$site_basedir}htdocs/site_footer".AW_FILE_EXT))
 {
-	 include($site_basedir."/htdocs/site_footer.aw");
+	 include("{$site_basedir}htdocs/site_footer".AW_FILE_EXT);
 }
 else
 {
-	include(aw_ini_get("classdir")."/".aw_ini_get("site_impl_dir")."/site_footer.".aw_ini_get("ext"));
+	include(aw_ini_get("classdir").aw_ini_get("site_impl_dir")."site_footer".AW_FILE_EXT);
 }

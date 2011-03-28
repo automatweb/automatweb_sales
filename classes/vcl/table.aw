@@ -306,8 +306,16 @@ class aw_table extends aw_template
 	@attrib api=1 params=pos
 	@param $row required type=array
 		array(column name => value, column name => value, column name => value , ....)
-	@return False, if filter applying fails, true, if everything is ok.
-	@example ${draw}
+	@return int
+		Added row id
+	@example
+		$table = new aw_table();
+		$table->define_field(array(
+			"name" => "foo"
+		));
+		$table->define_data(array(
+			"foo" => "bar"
+		));
 	@comments
 		Adds a row to the table
 	**/
@@ -358,6 +366,8 @@ class aw_table extends aw_template
 		if($add_data)
 		{
 			$this->data[] = $row;
+			end($this->data);
+			$row_id = key($this->data);
 		}
 		$this->all_data[] = $row;
 
@@ -365,7 +375,7 @@ class aw_table extends aw_template
 		{
 			$this->d_row_cnt++;
 		}
-		return true;
+		return $row_id;
 	}
 
 	/**
@@ -385,7 +395,7 @@ class aw_table extends aw_template
 	/**
 	@attrib api=1
 	@return array(row id => row data, row id => row data, ....)
-	@comments
+	@comment
 		returns all data set for the table
 	**/
 	function get_data()
@@ -393,20 +403,34 @@ class aw_table extends aw_template
 		return $this->data;
 	}
 
-	////
-	// !Clear the data
 	/**
 	@attrib api=1
-	@comments
+	@param row_id type=int default=NULL
+		Clear specific row
+	@return bool
+		TRUE if cleared or no row_id given, FALSE if row_id not found
+	@comment
 		clear the data array
 	**/
-	function clear_data()
+	function clear_data($row_id = null)
 	{
-		$this->data = array();
+		$r = true;
+		if (null === $row_id)
+		{
+			$this->data = array();
+		}
+		elseif (isset($this->data[$row_id]))
+		{
+			unset($this->data[$row_id]);
+		}
+		else
+		{
+			$r = false;
+		}
+
+		return $r;
 	}
 
-	////
-	// !merge the given data with the last data entered
 	// XXX: does not seem to be used?
 	/**
 	@attrib api=1 params=pos

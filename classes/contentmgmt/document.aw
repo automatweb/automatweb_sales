@@ -1,7 +1,5 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
+
 class document extends aw_template
 {
 	var $blocks;
@@ -101,7 +99,7 @@ class document extends aw_template
 	{
 		if ($this->cfg["use_new_parser"])
 		{
-			$d = get_instance("doc_display");
+			$d = new doc_display();
 			return $d->gen_preview($params);
 		}
 
@@ -113,11 +111,8 @@ class document extends aw_template
 		!isset($strip_img) ? $strip_img = 0 : "";
 		!isset($notitleimg) ? $notitleimg = 0 : "";
 
-
-
-		$baseurl = $this->cfg["baseurl"];
-		$ext = $this->cfg["ext"];
-
+		$baseurl = aw_ini_get("baseurl");
+		$ext = AW_FILE_EXT;
 		$lang_id = aw_global_get("lang_id");
 
 		// kysime dokumendi kohta infot
@@ -143,7 +138,7 @@ class document extends aw_template
 			return "";
 		}
 
-		if (!empty($params["no_link_if_not_act"]) && $doc_o->status() == STAT_NOTACTIVE)
+		if (!empty($params["no_link_if_not_act"]) && $doc_o->status() == object::STAT_NOTACTIVE)
 		{
 			$doc["title_clickable"] = 0;
 		}
@@ -312,8 +307,6 @@ class document extends aw_template
 		$loid = aw_global_get("lang_oid");
 		if ($loid)
 		{
-			aw_disable_acl();
-
 // 				$tbl = $this->db_get_table("languages");
 // 				if (!isset($tbl["fields"]["show_others"]))
 // 				{
@@ -324,7 +317,6 @@ class document extends aw_template
 // 				}
 
 			$o = obj($loid);
-			aw_restore_acl();
 			$txts = new aw_array($o->meta("texts"));
 			$this->vars($txts->get());
 		}
@@ -341,6 +333,7 @@ class document extends aw_template
 				"tv_sel" => isset($_GET["tv_sel"]) ? $_GET["tv_sel"] : "",
 				"section" => $docid
 			));
+
 			if (!empty($this->cfg["print_cap"]))
 			{
 				$pc = localparse($this->cfg["print_cap"],array(
@@ -414,7 +407,7 @@ class document extends aw_template
 		// $this->add_hit($docid);
 
 
-		$doc["content"] = str_replace("#nool#", '<IMG SRC="{VAR:baseurl}/img/icon_nool.gif" WIDTH="21" HEIGHT="9" BORDER=0 ALT="">', $doc["content"]);
+		$doc["content"] = str_replace("#nool#", '<IMG SRC="{VAR:baseurl}img/icon_nool.gif" WIDTH="21" HEIGHT="9" BORDER=0 ALT="">', $doc["content"]);
 
 		# translate stuff between #code# and #/code#
 		if (false !== strpos($doc["content"],"#code#"))
@@ -612,7 +605,7 @@ class document extends aw_template
 				if ($boldlead)
 				{
 					$txt .= "</b>";
-				};
+				}
 
 				if (aw_ini_get("content.doctype") == "xhtml")
 				{
@@ -623,16 +616,15 @@ class document extends aw_template
 				{
 					$txt .= ($this->cfg["doc_lead_break"] && $no_doc_lead_break != 1 ? "<br>" : "")."$doc[content]";
 				}
-					$doc["content"] = $txt;
-			};
-		};
+
+				$doc["content"] = $txt;
+			}
+		}
 
 
 		// all the style magic is performed inside the style engine
 		$doc["content"] = $this->parse_text($doc["content"]);
-
-
-		$doc["content"] = preg_replace("/<loe_edasi>(.*)<\/loe_edasi>/isU","<a href='$baseurl/index.$ext/section=$docid'>\\1</a>",$doc["content"]);
+		$doc["content"] = preg_replace("/<loe_edasi>(.*)<\/loe_edasi>/isU","<a href='{$baseurl}index{$ext}/section=$docid'>\\1</a>",$doc["content"]);
 		// sellel real on midagi pistmist WYSIWYG edimisvormiga
 		// and this also means that we can't have xml inside the document. sniff.
 		$doc["content"] = preg_replace("/<\?xml(.*)\/>/imsU","",$doc["content"]);
@@ -963,7 +955,7 @@ class document extends aw_template
 			foreach($conns as $item)
 			{
 				$this->vars(array(
-					"url" => aw_ini_get("baseurl") . "/" . $item->prop("to"),
+					"url" => aw_ini_get("baseurl") . $item->prop("to"),
 					"caption" => $item->prop("to.name"),
 				));
 				$ll .= $this->parse("LINKITEM");
@@ -974,7 +966,7 @@ class document extends aw_template
 			foreach($conns2 as $item)
 			{
 				$this->vars(array(
-					"url" => aw_ini_get("baseurl") . "/" . $item->prop("to"),
+					"url" => aw_ini_get("baseurl") . $item->prop("to"),
 					"caption" => $item->prop("to.name"),
 				));
 				$ll .= $this->parse("LINKITEM");
@@ -1013,7 +1005,7 @@ class document extends aw_template
 			foreach($conns as $item)
 			{
 				$this->vars(array(
-					"url" => aw_ini_get("baseurl") . "/" . $item->prop("to"),
+					"url" => aw_ini_get("baseurl") . $item->prop("to"),
 					"caption" => $item->prop("to.name"),
 				));
 				$ll .= $this->parse("DOCITEM");
@@ -1208,22 +1200,22 @@ class document extends aw_template
 				}
 				if (aw_ini_get("menuedit.language_in_url"))
 				{
-					$document_link = aw_ini_get("baseurl")."/".aw_global_get("ct_lang_lc")."/".join("/", $als);
+					$document_link = aw_ini_get("baseurl").aw_global_get("ct_lang_lc")."/".join("/", $als);
 				}
 				else
 				{
-					$document_link = aw_ini_get("baseurl")."/".join("/", $als);
+					$document_link = aw_ini_get("baseurl").join("/", $als);
 				}
 			}
 			else
 			{
 				if (aw_ini_get("menuedit.language_in_url"))
 				{
-					$document_link = aw_ini_get("baseurl")."/".aw_global_get("ct_lang_lc")."/".$doc_o->alias();
+					$document_link = aw_ini_get("baseurl").aw_global_get("ct_lang_lc")."/".$doc_o->alias();
 				}
 				else
 				{
-					$document_link = aw_ini_get("baseurl")."/".$doc_o->alias();
+					$document_link = aw_ini_get("baseurl").$doc_o->alias();
 				}
 			}
 		}
@@ -1241,7 +1233,7 @@ class document extends aw_template
                                 	break;
                                 }
                         }
-                        $document_link = aw_ini_get("baseurl")."/?section=".$doc_o->id()."&path=".join(",",$new_path).",".$doc_o->id();
+                        $document_link = aw_ini_get("baseurl")."?section=".$doc_o->id()."&path=".join(",",$new_path).",".$doc_o->id();
 		}
 
 		$o_section = new object($doc_o->parent());
@@ -1303,7 +1295,7 @@ class document extends aw_template
 			"lead_br"	=> $s_lead_br,
 			"doc_count" => $this->doc_count++,
 			"title_target" => !empty($doc["newwindow"]) ? "target=\"_blank\"" : "",
-			"title_link"  => (!empty($doc["link_text"]) ? $doc["link_text"] : (isset($GLOBALS["doc_file"]) ? $GLOBALS["doc_file"] :  "index.".$ext."/")."section=".$docid),
+			"title_link"  => (!empty($doc["link_text"]) ? $doc["link_text"] : (isset($GLOBALS["doc_file"]) ? $GLOBALS["doc_file"] :  "index{$ext}/")."section=".$docid),
 			"site_title" => strip_tags($doc["title"]),
 			"link" => "",
 			"user1" => $doc["user1"],
@@ -1548,55 +1540,19 @@ class document extends aw_template
 
 	////
 	// !Send a link to someone
+	//XXX: imelikke saidi id-sid sisaldanud meetod.
 	function send_link()
 	{
 		global $from_name, $from, $section, $copy,$to_name, $to,$comment;
 
-		$baseurl = $this->cfg["baseurl"];
-		$ext = $this->cfg["ext"];
-		$SITE_ID = $this->cfg["site_id"];
+		$baseurl = aw_ini_get("baseurl");
+		$SITE_ID = aw_ini_get("site_id");
+		$ext = AW_FILE_EXT;
 
-		if ($SITE_ID == 5)
-		{
-			$text = "$from_name ($from) soovitab teil vaadata Pere ja Kodu saidile ".$baseurl.",\nt?psemalt linki ".$baseurl."/index.$ext?section=$section\n\n$from_name kommentaar lingile: $comment\n";
+		$text = "$from_name ($from) soovitab teil vaadata saiti ".$baseurl.",\nlinki ".$baseurl."index$ext?section=$section \n\n$from_name kommentaar lingile: $comment\n";
+		if ($copy) $bcc = "\nCc: $copy ";
 
-			if ($copy != "")
-				$bcc = "\nCc: $copy ";
-
-			send_mail("\"$to_name\" <".$to.">","Artikkel saidilt ".$baseurl,$text,"From: \"$from_name\" <".$from.">\nSender: \"$from_name\" <".$from.">\nReturn-path: \"$from_name\" <".$from.">".$bcc."\n\n");
-		}
-		else
-		if ($SITE_ID == 17)
-		{
-			$text = "$from_name ($from) soovitab teil vaadata Ida-Viru investeerimisportaali ".$baseurl.",\nt?psemalt linki ".$baseurl."/index.$ext?section=$section \n\n$from_name kommentaar lingile: $comment\n";
-
-			if ($copy != "")
-				$bcc = "\nCc: $copy ";
-
-			send_mail("\"$to_name\" <".$to.">","Artikkel saidilt ".$baseurl,$text,"From: \"$from_name\" <".$from.">\nSender: \"$from_name\" <".$from.">\nReturn-path: \"$from_name\" <".$from.">".$bcc."\n\n");
-		}
-		else
-		if ($SITE_ID == 71)
-		{
-			$text = "$from_name ($from) soovitab teil vaadata saiti ".$baseurl.",\nt?psemalt linki ".$baseurl."/index.$ext?section=$section \n\n$from_name kommentaar lingile: $comment\n";
-
-			if ($copy != "")
-				$bcc = "\nCc: $copy ";
-
-			send_mail("\"$to_name\" <".$to.">","Artikkel saidilt ".$baseurl,$text,"From: \"$from_name\" <".$from.">\nSender: \"$from_name\" <".$from.">\nReturn-path: \"$from_name\" <".$from.">".$bcc."\n\n");
-		}
-		else
-		{
-			$text = "$from_name ($from) soovitab teil vaadata N?dala saidile www.nadal.ee,\nt?psemalt linki http://www.nadal.ee/index.$ext?section=$section\n\n$from_name kommentaar lingile: $comment\n";
-
-			if ($copy != "")
-			{
-				$bcc = "\nCc: $copy ";
-			}
-
-
-			send_mail("\"$to_name\" <".$to.">",LC_DOCUMENT_ART_FROM_NADAL,$text,"From: \"$from_name\" <".$from.">\nSender: \"$from_name\" <".$from.">\nReturn-path: \"$from_name\" <".$from.">".$bcc."\n\n");
-		}
+		send_mail("\"$to_name\" <".$to.">","Artikkel saidilt ".$baseurl,$text,"From: \"$from_name\" <".$from.">\nSender: \"$from_name\" <".$from.">\nReturn-path: \"$from_name\" <".$from.">".$bcc."\n\n");
 	}
 
 	function telekava_doc($content)
@@ -1666,7 +1622,6 @@ class document extends aw_template
 	**/
 	function change($arr)
 	{
-		$baseurl = $this->cfg["baseurl"];
 		extract($arr);
 
 		$oob = obj($id);
@@ -2399,11 +2354,11 @@ class document extends aw_template
 		{
 			if (aw_ini_get("menuedit.long_section_url"))
 			{
-				$replacement = sprintf("<a class=\"documentlink\" href='%s/?section=%d'>%s</a>",$this->cfg["baseurl"],$d["target"],$d["name"]);
+				$replacement = sprintf("<a class=\"documentlink\" href='%s?section=%d'>%s</a>", aw_ini_get("baseurl"), $d["target"], $d["name"]);
 			}
 			else
 			{
-				$replacement = sprintf("<a class=\"documentlink\" href='%s/%d'>%s</a>",$this->cfg["baseurl"],$d["target"],$d["name"]);
+				$replacement = sprintf("<a class=\"documentlink\" href='%s%d'>%s</a>", aw_ini_get("baseurl"), $d["target"], $d["name"]);
 			}
 		}
 		else
@@ -2531,14 +2486,14 @@ class document extends aw_template
 		}
 
 		$name = $this->db_fetch_field("SELECT name FROM objects WHERE oid = $section ","name");
-		$this->_log(ST_DOCUMENT, SA_SEND, "$from_name  $from saatis dokumendi <a href='".$this->cfg["baseurl"]."/?section=".$section."'>$name</a> $to_name $to  'le",$section);
+		$this->_log(ST_DOCUMENT, SA_SEND, "$from_name  $from saatis dokumendi <a href='".aw_ini_get("baseurl")."?section=".$section."'>$name</a> $to_name $to  'le",$section);
 
 		$si = __get_site_instance();
 		if (method_exists($si, "handle_send_to_friend_redirect"))
 		{
 			return $si->handle_send_to_friend_redirect();
 		}
-		return $this->cfg["baseurl"]."/?section=".$section;
+		return aw_ini_get("baseurl")."?section=".$section;
 	}
 
 	/**
@@ -2682,7 +2637,7 @@ class document extends aw_template
 		extract($arr);
 		ob_start();
 		$dat = $this->get_record("objects","oid",$section);
-		$this->_log(ST_DOCUMENT, SA_PRINT, "$dat[name] ",$section);
+		$this->_log("ST_DOCUMENT", "SA_PRINT", "$dat[name] ",$section);
 		$str = $this->gen_preview(array(
 			"docid" => $section,
 			"tpl" => "print.tpl",
@@ -2707,7 +2662,7 @@ class document extends aw_template
 
 					$a_print_link_replace = array(
 						"href=\"".aw_ini_get("baseurl")."\\1\"\\2>\\3 <span class=\"url\">(".aw_ini_get("baseurl")."\\1)</span><",
-						"href=\"".aw_ini_get("baseurl")."/\\1\"\\2>\\3 <span class=\"url\">(".aw_ini_get("baseurl")."/\\1)</span><",
+						"href=\"".aw_ini_get("baseurl")."\\1\"\\2>\\3 <span class=\"url\">(".aw_ini_get("baseurl")."\\1)</span><",
 					);
 					$tmp = preg_replace ($a_print_link_find, $a_print_link_replace, $a_link_matches[0][$key]);
 					$str = str_replace($a_link_matches[0][$key], $tmp, $str);
@@ -2751,7 +2706,7 @@ class document extends aw_template
 		}
 		echo $str;
 		aw_shutdown();
-		if ($GLOBALS["format"] == "pdf")
+		if (isset($GLOBALS["format"]) and $GLOBALS["format"] === "pdf")
 		{
 			$content = ob_get_contents();
 			ob_end_clean();
@@ -2795,11 +2750,11 @@ class document extends aw_template
 
 			if ($lsu)
 			{
-				$link = $this->cfg["baseurl"]."/index.".$this->cfg["ext"]."/section=".$row["docid"];
+				$link = aw_ini_get("baseurl")."index.".$this->cfg["ext"]."/section=".$row["docid"];
 			}
 			else
 			{
-				$link = $this->cfg["baseurl"]."/".$row["docid"];
+				$link = aw_ini_get("baseurl").$row["docid"];
 			}
 
 			$this->vars(array(
@@ -2827,11 +2782,11 @@ class document extends aw_template
 		$bu = aw_ini_get("baseurl");
 		if ($lsu)
 		{
-			return $bu."/?section=$docid";
+			return $bu."?section=$docid";
 		}
 		else
 		{
-			return $bu."/".$docid;
+			return $bu.$docid;
 		}
 	}
 
@@ -2851,14 +2806,14 @@ class document extends aw_template
 		$obj = obj($id);
 
 		// doc parent
-		$exp->fetch_and_save_page($this->cfg["baseurl"]."/index.".$this->cfg["ext"]."?section=".$obj->parent(), $obj->lang_id(), true);
+		$exp->fetch_and_save_page(aw_ini_get("baseurl")."index.".$this->cfg["ext"]."?section=".$obj->parent(), $obj->lang_id(), true);
 
 		$exp->exp_reset();
 
 		// doc
-		$exp->fetch_and_save_page($this->cfg["baseurl"]."/index.".$this->cfg["ext"]."?section=".$id, $obj->lang_id(), true);
+		$exp->fetch_and_save_page(aw_ini_get("baseurl")."index.".$this->cfg["ext"]."?section=".$id, $obj->lang_id(), true);
 		// print doc
-		$exp->fetch_and_save_page($this->cfg["baseurl"]."/index.".$this->cfg["ext"]."?section=".$id."&print=1", $obj->lang_id(), true);
+		$exp->fetch_and_save_page(aw_ini_get("baseurl")."index.".$this->cfg["ext"]."?section=".$id."&print=1", $obj->lang_id(), true);
 
 
 		// if the document is on the front page, then do the damn
@@ -2866,7 +2821,7 @@ class document extends aw_template
 		$fp = $this->db_fetch_field("SELECT frontpage_left FROM documents WHERE docid = $id", "frontpage_left");
 		if ($fp == 1)
 		{
-			$exp->fetch_and_save_page($this->cfg["baseurl"]."/index.".$this->cfg["ext"]."?section=".aw_ini_get("frontpage"), $obj->lang_id(), true);
+			$exp->fetch_and_save_page(aw_ini_get("baseurl")."index.".$this->cfg["ext"]."?section=".aw_ini_get("frontpage"), $obj->lang_id(), true);
 		}
 
 		ob_end_clean();
@@ -2908,7 +2863,7 @@ class document extends aw_template
 				}
 			}
 
-			if ($ext != "" && $ext != "html")
+			if ($ext && $ext !== "html")
 			{
 				$this->vars(array(
 					"url" => file::get_url($file->id(),$file->name()),
@@ -3468,5 +3423,4 @@ class document extends aw_template
 		return $result;
 	}
 
-};
-?>
+}

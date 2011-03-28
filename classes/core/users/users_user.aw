@@ -165,7 +165,7 @@ class users_user extends aw_template
 
 		if (isset($_SESSION["auth_redir_post"]) && is_array($_SESSION["auth_redir_post"]))
 		{
-			header("Location: ".aw_ini_get("baseurl")."/automatweb/orb.aw");
+			header("Location: ".aw_ini_get("baseurl")."automatweb/orb.aw");
 			die();
 		}
 
@@ -231,12 +231,12 @@ class users_user extends aw_template
 
 		if ($url[0] === "/")
 		{
-			$bits = parse_url($this->cfg["baseurl"]);
+			$bits = parse_url(aw_ini_get("baseurl"));
 			if (!empty($bits["path"]))
 			{
 				$url = str_replace($bits["path"], "", $url);
 			}
-			$url = $this->cfg["baseurl"].$url;
+			$url = aw_ini_get("baseurl").substr($url, 1);
 		}
 
 		return $url;
@@ -269,9 +269,9 @@ class users_user extends aw_template
 				$redir_url = aw_ini_get("users.redir_on_failed_login");
 			}
 
-			if ($redir_url == "")
+			if (!$redir_url)
 			{
-				$redir_url = $this->cfg["baseurl"]."/login" . AW_FILE_EXT;
+				$redir_url = aw_ini_get("baseurl")."login" . AW_FILE_EXT;
 			}
 
 		$si = __get_site_instance();
@@ -306,7 +306,7 @@ class users_user extends aw_template
 		unset($_SESSION["auth_redir_post"]);
 		post_message("MSG_USER_LOGOUT", array("uid" => $uid));
 
-		$url = !empty($arr["redir_to"]) ? $arr["redir_to"] : aw_ini_get("baseurl") . "/automatweb/";
+		$url = !empty($arr["redir_to"]) ? $arr["redir_to"] : aw_ini_get("baseurl") . "automatweb/";
 		return $url;
 	}
 

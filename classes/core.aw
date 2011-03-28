@@ -198,13 +198,12 @@ class core extends acl_base
 			return false;
 		}
 
-		$site_basedir = aw_ini_get('site_basedir');
-		$folder = aw_ini_get('site_basedir').'/files';
+		$folder = aw_ini_get('site_basedir').'files/';
 		if (!is_dir($folder) || !is_writable($folder))
 		{
 			return false;
 		}
-		$folder .= '/logs';
+		$folder .= 'logs';
 		if (!is_dir($folder))
 		{
 			mkdir($folder, 0777); // for some reason, this mode thing doesn't work, need to set permissions separately --dragut
@@ -215,7 +214,7 @@ class core extends acl_base
 			}
 		}
 
-		$filename = $folder.'/log-'.date('Y-m-d').'.log';
+		$filename = $folder.'log-'.date('Y-m-d').'.log';
 
 		$f = fopen($filename, 'a');
 		flock($f, LOCK_EX);
@@ -502,9 +501,9 @@ class core extends acl_base
 		}
 
 		// kui saidi kaustas on fail spam.txt, siis kontrollitakse enne saatmist kirja sisu failis olevate s6nade vastu; spam.txt sisu on yhes reas kujul: /viagra|v1agra|porn|foo/i
-		if ( file_exists(aw_ini_get("site_basedir") . "/spam.txt") && $send_mail)
+		if ( file_exists(aw_ini_get("site_basedir") . "spam.txt") && $send_mail)
 		{
-			$spam = file(aw_ini_get("site_basedir") . "/spam.txt");
+			$spam = file(aw_ini_get("site_basedir") . "spam.txt");
 			if (preg_match($spam[0], $content))
 			{
 				$send_mail = false;
@@ -564,7 +563,7 @@ class core extends acl_base
 			$req.= "&err_uid=".aw_global_get("uid");
 			$req.= "&err_content=".urlencode($content);
 
-			$op = "POST http://".aw_ini_get("config.error_log_site")."/reforb.".aw_ini_get("ext")." HTTP/1.0\r\n";
+			$op = "POST http://".aw_ini_get("config.error_log_site")."/reforb".AW_FILE_EXT." HTTP/1.0\r\n";
 			$op .= "Host: ".aw_ini_get("config.error_log_site")."\r\n";
 			$op .= "Content-type: application/x-www-form-urlencoded\r\n";
 			$op .= "Content-Length: " . strlen($req) . "\r\n\r\n";
@@ -694,7 +693,7 @@ class core extends acl_base
 		}
 
 		$this->process_orb_args("",$arr);
-		$res = aw_ini_get("baseurl") . "/";
+		$res = aw_ini_get("baseurl");
 		if ($force_admin || $in_admin)
 		{
 			$res .= "automatweb/";
@@ -1188,7 +1187,7 @@ class core extends acl_base
 		}
 
 		$ot = new object_tree(array(
-			"class_id" => CL_MENU,
+			"class_id" => menu_obj::CLID,
 			"parent" => $rootobj,
 			"status" => ($onlyact ? object::STAT_ACTIVE : array(object::STAT_NOTACTIVE, object::STAT_ACTIVE)),
 			"sort_by" => "objects.parent",
