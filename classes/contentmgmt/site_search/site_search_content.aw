@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/site_search/site_search_content.aw,v 1.107 2009/02/10 08:52:39 instrumental Exp $
-// site_search_content.aw - Saidi sisu otsing 
+// site_search_content.aw - Saidi sisu otsing
 /*
 
-@classinfo syslog_type=ST_SITE_SEARCH_CONTENT relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_SITE_SEARCH_CONTENT relationmgr=yes
 
 @default table=objects
 @default field=meta
@@ -31,10 +30,10 @@
 
 	@property min_s_len type=textbox size=5
 	@caption Minimaalne otsingus&otilde;na pikkus
-		
+
 	@property max_s_len type=textbox size=5
 	@caption Maksimaalne otsingus&otilde;na pikkus
-		
+
 @default group=keywords
 
 	@property do_keyword_search type=checkbox field=meta method=serialize ch_value=1
@@ -45,13 +44,13 @@
 
 @default group=searchgroups
 
-	@property default_order type=select  
+	@property default_order type=select
 	@caption Vaikimisi sorteeritakse
 
 	@property default_search_opt type=select
 	@caption Vaikimisi otsingu t&uuml;&uuml;p
 
-	@property grpcfg type=table 
+	@property grpcfg type=table
 	@caption Otsingugruppide konfigureerimine
 
 @default group=static
@@ -59,7 +58,7 @@
 	@property reledit type=releditor reltype=RELTYPE_REPEATER use_form=emb rel_id=first
 	@caption Seos
 
-	@property static_gen_link type=text store=no 
+	@property static_gen_link type=text store=no
 	@caption Staatilise genereerimise link
 
 
@@ -71,10 +70,10 @@
 
 @default group=search_simple
 
-	@property str type=textbox 
+	@property str type=textbox
 	@caption Pealkiri/Sisu
 
-	property s_title type=textbox 
+	property s_title type=textbox
 	caption Pealkiri
 
 	property date_from type=date_select
@@ -84,7 +83,7 @@
 	caption Kuni
 
 	@property s_opt type=select
-	@caption Leia 
+	@caption Leia
 
 	property s_seatch_word_part type=checkbox ch_value=1
 	caption Otsi s&otilde;naosa
@@ -95,23 +94,23 @@
 	@property s_limit type=select
 	@caption Mitu tulemust maksimaalselt
 
-	@property search type=submit 
+	@property search type=submit
 	@caption Otsi
 
 	@property results type=text no_caption=1
 	@caption Tulemused
-	
+
 @default group=search_complex
 
 	@property c_srch_els type=callback callback=callback_get_complex_els
 	@caption Komplekotsingu elemendid
 
-	@property c_search type=submit 
+	@property c_search type=submit
 	@caption Otsi
 
 	@property c_results type=text no_caption=1
 	@caption Tulemused
-	
+
 
 @reltype REPEATER value=1 clid=CL_RECURRENCE
 @caption kordus staatilise koopia genereerimiseks
@@ -164,8 +163,8 @@ class site_search_content extends class_base
 		);
 
 		$this->limit_opts = array(
-			"0" => t("K&otilde;ik"), 
-			"20" => "20", 
+			"0" => t("K&otilde;ik"),
+			"20" => "20",
 			"50" => "50",
 			"100" => "100"
 		);
@@ -184,10 +183,10 @@ class site_search_content extends class_base
 					S_ORD_CONTENT => t("Sisu j&auml;rgi"),
 					S_ORD_MATCH => t("T&auml;psuse j&auml;rgi"),
 					S_ORD_POPULARITY => t("Populaarsuse j&auml;rgi"),
-					
+
 				);
 				break;
-				
+
 			case "static_gen_link":
 				$prop['value'] = html::href(array(
 					"url" => $this->mk_my_orb("generate_static", array("id" => $arr["obj_inst"]->id())),
@@ -227,13 +226,13 @@ class site_search_content extends class_base
 					{
 						$arr["request"][$prop["name"]]["day"] = $prop["name"] == "date_from" ? 1 : 31;
 					}
-					
+
 					if ($arr["request"][$prop["name"]]["month"] == "---")
 					{
 						$arr["request"][$prop["name"]]["month"] = $prop["name"] == "date_from" ? 1 : 12;
 					}
 				}
-			
+
 				$prop["year_to"] = 1990;
 				$prop["year_from"] = date("Y");
 				if (!$arr["request"][$prop["name"]])
@@ -258,10 +257,10 @@ class site_search_content extends class_base
 
 			case "s_limit":
 				$prop["options"] = array(
-					"20" => "20", 
+					"20" => "20",
 					"50" => "50",
 					"100" => "100",
-					"500" => "500", 
+					"500" => "500",
 				);
 				$prop["value"] = $arr["request"]["s_limit"] ? $arr["request"]["s_limit"] : 100;
 				break;
@@ -281,14 +280,14 @@ class site_search_content extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				if ($arr["obj_inst"]->prop("min_s_len") && 
+				if ($arr["obj_inst"]->prop("min_s_len") &&
 					strlen($arr["request"]["str"]) < $arr["obj_inst"]->prop("min_s_len") &&
 					$arr["request"]["str"] != "")
 				{
 					$prop["error"] = sprintf(t("Otsingus&otilde;na pikkus peab olema v&auml;hemalt %s t&auml;hem&auml;rki!"), $arr["obj_inst"]->prop("min_s_len"));
 					return PROP_FATAL_ERROR;
 				}
-				if ($arr["obj_inst"]->prop("max_s_len") && 
+				if ($arr["obj_inst"]->prop("max_s_len") &&
 					strlen($arr["request"]["str"]) > $arr["obj_inst"]->prop("max_s_len"))
 				{
 					$prop["error"] = sprintf(t("Otsingus&otilde;na peab olema l&uuml;hem kui %s t&auml;hem&auml;rki!"), $arr["obj_inst"]->prop("max_s_len"));
@@ -312,7 +311,7 @@ class site_search_content extends class_base
 	function do_grpcfg_table($arr)
 	{
 		$o = $arr["obj_inst"];
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "ord",
 			"caption" => t("J&auml;rjekord"),
@@ -333,7 +332,7 @@ class site_search_content extends class_base
 			"name" => "sorder",
 			"caption" => t("Vaikimisi sorteeritakse"),
 		));
-		
+
 		$t->define_field(array(
 			"name" => "caption",
 			"caption" => t("Pealkiri"),
@@ -471,16 +470,16 @@ class site_search_content extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function mk_activity_table($arr)
 	{
-		$table = &$arr["prop"]["vcl_inst"];
+		$table = $arr["prop"]["vcl_inst"];
 		$table->parse_xml_def("activity_list");
 
 		$pl = new object_list(array(
 			"class_id" => CL_SITE_SEARCH_CONTENT
-		));	
+		));
 		for($o = $pl->begin(); !$pl->end(); $o = $pl->next())
 		{
 			$actcheck = checked($o->flag(OBJ_FLAG_IS_SELECTED));
@@ -525,7 +524,7 @@ class site_search_content extends class_base
 	// !this will be called if the object is put in a document by an alias and the document is being shown
 	// parameters
 	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($args)
+	function parse_alias($args = array())
 	{
 		extract($args);
 		return $this->show(array("id" => $alias["target"]));
@@ -533,7 +532,6 @@ class site_search_content extends class_base
 
 	function get_groups($obj)
 	{
-		enter_function("site_search_content::get_groups");
 		$ret = array();
 		$co = $obj->connections_from(array(
 			"type" => 2 //RELTYPE_SEARCH_GRP
@@ -549,14 +547,13 @@ class site_search_content extends class_base
 		}
 
 		usort($ret, create_function('$a,$b', 'if ($a["jrk"] == $b["jrk"]) { return 0;}else if ($a["jrk"] > $b["jrk"]) { return 1;}else{return -1;}'));
-		
+
 		$rret = array();
 		foreach($ret as $v)
 		{
 			$rret[$v["oid"]] = $v["name"];
 		}
 
-		exit_function("site_search_content::get_groups");
 		return $rret;
 	}
 
@@ -587,8 +584,6 @@ class site_search_content extends class_base
 	// !this shows the object. not strictly necessary, but you'll probably need it, it is used by parse_alias
 	function show($arr)
 	{
-		//if(aw_global_get("uid") == "struktuur")arr($arr);
-		enter_function("site_search_content::show");
 		$arr["str"] = str_replace("'", "", $arr["str"]);
 		extract($arr);
 		$ob = new object($id);
@@ -630,8 +625,6 @@ class site_search_content extends class_base
 				{
 					$ol = new object_list(array(
 						"class_id" => constant("CL_CRM_".$LOC),
-						"lang_id" => array(),
-						"site_id" => array(),
 						new obj_predicate_sort(array(
 							"jrk" => "ASC",
 							"name" => "ASC"
@@ -653,13 +646,12 @@ class site_search_content extends class_base
 				}
 			}
 		}
-		
+
 		//paneb default v44rtused
-		// Lase nyyd ikka tyhjaks ka valida! => true ||
-		if(true || is_oid($arr["field"]))
-		{
-			$_SESSION["active_section"] = $arr["field"];
-		}
+		aw_session_set("active_section", $arr["field"]);
+		$sec_opt = "";
+		$parent = 0;
+
 		if($cid && $cid->class_id() == CL_CRM_DB_SEARCH)
 		{
 			$sector_parents = new object_list(array(
@@ -667,7 +659,7 @@ class site_search_content extends class_base
 				"sort_by" => "objects.jrk,objects.name",
 			));
 			$sectors_list = new object_list();
-		
+
 			foreach($sector_parents->ids() as $parent)
 			{
 				$sectors_list->add(new object_list(array(
@@ -676,9 +668,7 @@ class site_search_content extends class_base
 					"class_id" => CL_CRM_SECTOR,
 				)));
 			}
-			$sec_opt = "";
-			$parent = 0;
-		
+
 			foreach($sectors_list->arr() as $sec)
 			{
 				$selected = "";
@@ -692,7 +682,7 @@ class site_search_content extends class_base
 					"selected" => $selected,
 				));
 				$sec_opt.= $this->parse("SEC_OPTION");
-			
+
 				//vahepeal kataloogid ka ritta
 				$child_list = new object_list(array(
 					"parent" => $sec->id(),
@@ -713,7 +703,7 @@ class site_search_content extends class_base
 					));
 					$sec_opt.= $this->parse("SEC_OPTION");
 				}
-			}	
+			}
 		}
 		$keywords_by_parent = array();
 		$keywords = $keywords_by_parent[0] = explode("," , $cid->prop("keywords"));
@@ -739,7 +729,7 @@ class site_search_content extends class_base
 			if($cid->keywords_by_folder && count($keywords_by_parent) > 0)
 			{
 				$kwp_ol = new object_list(array(
-					"class_id" => CL_MENU,
+					"class_id" => menu_obj::CLID,
 					"lang_id" => array(),
 					"site_id" => array(),
 					"oid" => array_keys($keywords_by_parent),
@@ -753,13 +743,13 @@ class site_search_content extends class_base
 			}
 			$keyword_parents[o] = t("V&otilde;tmes&otilde;nad");
 		}
-				
+
 		$key_opt = "";
+		$key_opt_row = "";
 		if($cid->prop("keywords_in_row"))
 		{
 			$in_row = $cid->prop("keywords_in_row");
 			$kw_cnt = 0;
-			$key_opt_row = "";
 			foreach($keyword_parents as $kwp_id => $kwp_name)
 			{
 				$keywords = $keywords_by_parent[$kwp_id];
@@ -819,8 +809,8 @@ class site_search_content extends class_base
 				$key_opt.= $this->parse("KEY_OPTION");
 			}
 		}
-		
-		
+
+
 		$this->_init_trans();
 
 		$gr = $this->get_groups($ob);
@@ -845,8 +835,6 @@ class site_search_content extends class_base
 			$s_gr .= $this->parse("GROUP");
 		}
 
-		load_vcl("date_edit");
-
 		$de = new date_edit();
 		$de->configure(array(
 			"day" => 1,
@@ -869,17 +857,13 @@ class site_search_content extends class_base
 			"str_opts" => $this->picker($opts["str"], $this->search_opts),
 			"date_from" => $de->gen_edit_form("s_date[from]", $date["from"], date("Y")-3, date("Y"), true),
 			"date_to" => $de->gen_edit_form("s_date[to]", $date["to"], date("Y")-3, date("Y"), true),
-			"limit_opts" => $this->picker($opts["limit"], $this->limit_opts)
+			"limit_opts" => $this->picker((isset($opts["limit"]) ? $opts["limit"] : null), $this->limit_opts)
 		));
-/*	if(aw_global_get("uid") == "struktuur")
-	{
-	arr($this->vars);
-	}
-*/		exit_function("site_search_content::show");
+
 		return $this->parse();
 	}
 
-	/** this will get called via scheduler to generate the static content to search from 
+	/** this will get called via scheduler to generate the static content to search from
 		@attrib name=generate_static params=name nologin=1
 		@param id required
 		@returns
@@ -893,7 +877,7 @@ class site_search_content extends class_base
 		extract($arr);
 		$log = fopen("/export/aw/automatweb/new/files/sexp_log.txt", "a");
 		fwrite($log, "export started at ".date("d.m.Y H:i:s")." \n");
-		
+
 		// if we have a scheduler for this thing, then add the next time to the scheduler
 		$o = obj($id);
 		$rep = $o->get_first_obj_by_reltype("RELTYPE_REPEATER");
@@ -922,7 +906,7 @@ class site_search_content extends class_base
 		// if NULL, ignored in searches
 		// id - md5 hash of the url, used in identifying whether we have the entry already or not
 		// created_by - the crawler's id that created the entry, used when deleting removed files.
-		
+
 		// here we can add crawlers for different things. right now, only live site crawler
 		$this->do_crawl_live_site($arr);
 
@@ -931,7 +915,7 @@ class site_search_content extends class_base
 	function do_crawl_live_site($arr)
 	{
 		// right. now we will have to crawl the site and write all the info to a database table
-		// we use export_lite class for this. 
+		// we use export_lite class for this.
 		$ex = get_instance("export/export_lite");
 		$ex->do_crawl();
 	}
@@ -943,14 +927,13 @@ class site_search_content extends class_base
 	//	menus - the menus to search under
 	function fetch_static_search_results($arr)
 	{
-		enter_function("site_search_content::fetch_static_search_results");
 		// rewrite fucked-up letters
 		// IE
 		/*$arr["str"] = str_replace(chr(0x9a), "&#0352;", $arr["str"]);
 		$arr["str"] = str_replace(chr(0x8a), "&#0352;", $arr["str"]);
 		$arr["str"] = str_replace("%9A", "&#0352;", $arr["str"]);
 		$arr["str"] = str_replace("%8A", "&#0352;", $arr["str"]);
-		
+
 		// mozilla
 		$arr["str"] = str_replace(chr(0xa8), "&#0352;", $arr["str"]);
 		$arr["str"] = str_replace("%A8", "&#0352;", $arr["str"]);
@@ -960,12 +943,12 @@ class site_search_content extends class_base
 		$arr["str"] = mb_strtolower($arr["str"], "iso-8859-15");
 		$arr["str"] = str_replace(chr(166), chr(168), $arr["str"]);
 		$str2 = mb_strtoupper($arr["str"], "iso-8859-15");
-		$this->quote(&$str2);
+		$this->quote($str2);
 		extract($arr);
-	
+
 		$ret = array();
 
-		$ams = new aw_array($menus);	
+		$ams = new aw_array($menus);
 		$sections = "";
 		if ($ams->count())
 		{
@@ -986,7 +969,7 @@ class site_search_content extends class_base
 		$fulltext = "";
 		if (aw_ini_get("site_search_content.has_fulltext_index") == 1)
 		{
-			$this->quote(&$str);
+			$this->quote($str);
 			$fts = "MATCH(title,content) AGAINST('\"$str\"')";
 			$fulltext = ", ".$fts;
 			$ob = " ORDER BY $fts DESC ";
@@ -1020,7 +1003,7 @@ class site_search_content extends class_base
 		}
 
 		$this->quote($str);
-		
+
 		$content_s = $this->_get_sstring($str, $opts["str"], "content",true,$arr["s_seatch_word_part"]);
 		$content_s2 = $this->_get_sstring($str2, $opts["str"], "content",true,$arr["s_seatch_word_part"]);
 		if ($content_s == "" && $title_s == "" && $sections == "" && $lang_id == "" && $date_s == "" && $site_id == "")
@@ -1029,23 +1012,20 @@ class site_search_content extends class_base
 		}
 		$content_s = " ($content_s OR $content_s2) ";
 		$sql = "
-			SELECT 
-				url, 
-				title, 
+			SELECT
+				url,
+				title,
 				modified,
 				content,
 				site_id
 				$fulltext
-			FROM 
-				static_content 
-			WHERE 
+			FROM
+				static_content
+			WHERE
 				$content_s $title_s
 				$sections  $lang_id $date_s $site_id $ob $lim
 		";
-		enter_function("site_search_content::fetch_static_search_results::query");
 		$this->db_query($sql);
-		exit_function("site_search_content::fetch_static_search_results::query");
-		enter_function("site_search_content::fetch_static_search_results::q_results");
 		while ($row = $this->db_next())
 		{
 			$ret[] = array(
@@ -1080,8 +1060,6 @@ class site_search_content extends class_base
 				$ret[] = $i;
 			}
 		}
-		exit_function("site_search_content::fetch_static_search_results::q_results");
-		exit_function("site_search_content::fetch_static_search_results");
 		return $ret;
 	}
 
@@ -1093,15 +1071,15 @@ class site_search_content extends class_base
 	//	menus - the menus to search under
 	function fetch_live_search_results($arr)
 	{
-		enter_function("site_search_content::fetch_live_search_results");
 		extract($arr);
-	
+
+		$ids = isset($arr["ids"]) ? $arr["ids"] : ""; ///XXX: teadmata otstarbega muutuja
 		$ret = array();
 
 		$ams = new aw_array($menus);
 
 		$mod = $mod2 = "";
-		
+
 		if ($arr["date"]["from"] > 0)
 		{
 			$mod = "AND ((d.tm > 1 AND d.tm >= ".$arr["date"]["from"].") OR (d.tm < 1 AND o.modified >= ".$arr["date"]["from"]."))";
@@ -1136,11 +1114,12 @@ class site_search_content extends class_base
 			$stat = " o.status > 0 AND ";
 		}
 
+		$kw_limiter = "";
 		if ($this->can("view", $arr["obj"]->prop("search_only_kws")) || (is_array($arr["obj"]->prop("search_only_kws")) && count($arr["obj"]->prop("search_only_kws"))))
 		{
 			$c = new connection();
 			$cs = $c->find(array(
-				"from.class_id" => CL_DOCUMENT,
+				"from.class_id" => doc_obj::CLID,
 				"type" => "RELTYPE_KEYWORD",
 				"to" => $arr["obj"]->prop("search_only_kws")
 			));
@@ -1151,10 +1130,11 @@ class site_search_content extends class_base
 			}
 			$kw_limiter  = " AND o.oid IN (".$lm_dids->to_sql().") ";
 		}
+
 		$sql = "
-			SELECT 
-				o.oid as docid, 
-				d.title as title, 
+			SELECT
+				o.oid as docid,
+				d.title as title,
 				o.modified as modified,
 				d.lead as lead,
 				d.content as content,
@@ -1162,11 +1142,11 @@ class site_search_content extends class_base
 				d.modified as doc_modified,
 				o.site_id as site_id,
 				d.user1 as user1,
-				d.user4 as user4 
-			 FROM 
-				objects o  
-				$joiner
-			WHERE 
+				d.user4 as user4
+			 FROM
+				objects o
+				{$joiner}
+			WHERE
 				(
 					".$this->_get_sstring($str, $opts["str"], "d.content")." OR
 					".$this->_get_sstring($str, $opts["str"], "d.title")." OR
@@ -1174,17 +1154,17 @@ class site_search_content extends class_base
 					".$this->_get_sstring($str, $opts["str"], "d.author")." OR
 					".$this->_get_sstring($str, $opts["str"], "d.photos")." OR
 					".$this->_get_sstring($str, $opts["str"], "d.dcache")."
-				) AND 
+				) AND
 				o.parent IN (".$ams->to_sql().") AND
-				$stat
-				$ids
+				{$stat}
+				{$ids}
 				o.lang_id = '".aw_global_get("lang_id")."' AND
 				d.no_search != 1 AND
-				o.class_id IN (".CL_DOCUMENT.",".CL_BROTHER_DOCUMENT.",".CL_PERIODIC_SECTION.") 
-				$kw_limiter
-				$mod 
-				$mod2
-				$lim
+				o.class_id IN (".doc_obj::CLID.",".CL_BROTHER_DOCUMENT.",".CL_PERIODIC_SECTION.")
+				{$kw_limiter}
+				{$mod}
+				{$mod2}
+				{$lim}
 		";
 		$this->db_query($sql);
 		while ($row = $this->db_next())
@@ -1237,7 +1217,6 @@ class site_search_content extends class_base
 				$ret = $keyresults;
 			}
 		}
-		exit_function("site_search_content::fetch_live_search_results");
 		return $ret;
 	}
 
@@ -1245,7 +1224,6 @@ class site_search_content extends class_base
 	// !merges two result sets together and returns the merged set. results are merged based on titles
 	function merge_result_sets($orig, $add)
 	{
-		enter_function("site_search_content::merge_result_sets");
 		$lut = array();
 		foreach($orig as $i)
 		{
@@ -1261,13 +1239,11 @@ class site_search_content extends class_base
 			}
 		}
 
-		exit_function("site_search_content::merge_result_sets");
 		return $ret;
 	}
-	
+
 	function search_keywords($str, $menus, $obj, $date)
 	{
-		enter_function("site_search_content::search_keywords");
 		$keyword_list = new object_list(array(
 			"class_id" => CL_KEYWORD,
 			"name" => "%$str%",
@@ -1276,56 +1252,53 @@ class site_search_content extends class_base
 		//If keyword not found, no point to process it futher
 		if($keyword_list->count() == 0)
 		{
-			exit_function("site_search_content::search_keywords");
 			return;
 		}
-		
+
 		$classes = $obj->prop("keyword_search_classes");
 		if (!is_array($classes) || count($classes) == 0)
 		{
-			exit_function("site_search_content::search_keywords");
 			return;
 		}
 		$keyword_to_file_conns = new connection();
-		
+
 		$keyword_to_file_conns = $keyword_to_file_conns->find(array(
 			"from" => $keyword_list->ids(),
 			"to.class_id" => $classes,
 		));
-		//arr($keyword_to_file_conns);	
+		//arr($keyword_to_file_conns);
 		if(!$keyword_to_file_conns)
 		{
-			exit_function("site_search_content::search_keywords");
 			//return;
 		}
-			
+
 		$obj2kw = array();
 		foreach($keyword_to_file_conns as $conn)
 		{
 			$ids_list[] = $conn["to"];
 			$obj2kw[$conn["to"]][$conn["from"]] = $conn["from"];
 		}
-		
+
 		//List of files oids
 		//$ids_list[]
-		
+
 		if (count($ids_list))
 		{
 			$aliased_docs_conns = new connection();
 			$aliased_docs_conns = $aliased_docs_conns->find(array(
 				"to" => $ids_list,
-				"from.class_id" => CL_DOCUMENT,
+				"from.class_id" => doc_obj::CLID,
 			));
-			
+
 			foreach ($aliased_docs_conns as $conn)
 			{
-				$doc_ids[] = $conn["from"];	
+				$doc_ids[] = $conn["from"];
 			}
 		}
 		// also, find all docs that are connected to keyword directly
 		$c = new connection();
 		$kw_to_doc_conns = $c->find(array(
-			"from.class_id" => CL_DOCUMENT,
+			"from.class_id" => doc_obj::CLID,
 			"type" => "RELTYPE_KEYWORD",
 			"to" => $keyword_list->ids()
 		));
@@ -1333,10 +1306,9 @@ class site_search_content extends class_base
 		{
 			$doc_ids[] = $con["from"];
 		}
-	
+
 		if(!$doc_ids || !count($doc_ids))
 		{
-			exit_function("site_search_content::search_keywords");
 			return;
 		}
 		$filtr = array(
@@ -1344,8 +1316,8 @@ class site_search_content extends class_base
 			"parent" => $menus,
 		);
 		$ol = new object_list($filtr);
-		
-		$ret = array();	
+
+		$ret = array();
 		foreach ($ol->arr() as $obj)
 		{
 			if ($date["from"] > 1 && $obj->modified() < $date["from"])
@@ -1367,11 +1339,10 @@ class site_search_content extends class_base
 				"keywords" => $obj2kw[$obj->id()]
 			);
 		}
-		exit_function("site_search_content::search_keywords");
 		return $ret;
 	}
-	
-	
+
+
 	////
 	// !returns an array of results matching the search
 	// params:
@@ -1381,7 +1352,6 @@ class site_search_content extends class_base
 	//  opts - search options
 	function fetch_search_results($arr)
 	{
-		enter_function("site_search_content::fetch_search_results");
 		extract($arr);
 		$g = get_instance(CL_SITE_SEARCH_CONTENT_GRP);
 		// sealt tulevad ainult menyyd .. aga ma pean diilima ka teiste asjadega
@@ -1407,7 +1377,7 @@ class site_search_content extends class_base
 		{
 			$go = obj($group);
 			$opts["search_notactive"] = $go->prop("search_notactive");
-			
+
 			$ret = $this->merge_result_sets($ret, $this->fetch_live_search_results(array(
 				"menus" => $ms,
 				"str" => $str,
@@ -1426,7 +1396,6 @@ class site_search_content extends class_base
 			$_ret[mb_strtoupper($d["title"], aw_global_get("charset"))] = $d;
 		}
 
-		exit_function("site_search_content::fetch_search_results");
 		return $_ret;
 	}
 
@@ -1440,13 +1409,13 @@ class site_search_content extends class_base
 		$af = $a["doc_modified"] > 1 ? "doc_modified" : "modified";
 		$bf = $b["doc_modified"] > 1 ? "doc_modified" : "modified";
 
-		if ($a[$af] == $b[$bf]) 
+		if ($a[$af] == $b[$bf])
 		{
         	return 0;
 		}
 		return ($a[$af] > $b[$bf]) ? -1 : 1;
 	}
-	
+
 	function _sort_time_asc($a, $b)
 	{
 		$af = $a["tm"] > 1 ? "tm" : "modified";
@@ -1472,34 +1441,32 @@ class site_search_content extends class_base
 	//	sort_by - the order to sort by
 	function sort_results($arr)
 	{
-		enter_function("site_search_content::sort_results");
 		switch($arr["sort_by"])
 		{
 			case S_ORD_TITLE:
-				usort($arr["results"], array(&$this, "_sort_title"));
+				usort($arr["results"], array($this, "_sort_title"));
 				break;
 
 			case S_ORD_CONTENT:
-				usort($arr["results"], array(&$this, "_sort_content"));
+				usort($arr["results"], array($this, "_sort_content"));
 				break;
-			
+
 			case S_ORD_TIME_ASC:
-				usort($arr["results"], array(&$this, "_sort_time_asc"));
+				usort($arr["results"], array($this, "_sort_time_asc"));
 				break;
 
 			case S_ORD_POPULARITY:
 				// init popularity table
 				$stats = get_instance(CL_DOCUMENT_STATISTICS);
 				$this->_pops = $stats->get_all_doc_stats();
-				usort($arr["results"], array(&$this, "_sort_popularity"));
+				usort($arr["results"], array($this, "_sort_popularity"));
 				break;
 
 			case S_ORD_TIME:
 			default:
-				usort($arr["results"], array(&$this, "_sort_time"));
+				usort($arr["results"], array($this, "_sort_time"));
 				break;
 		}
-		exit_function("site_search_content::sort_results");
 	}
 
 	////
@@ -1509,7 +1476,6 @@ class site_search_content extends class_base
 	//	cur_page - the currently selected page
 	function display_sorting_links($arr)
 	{
-		enter_function("site_search_content::display_sorting_links");
 		extract($arr);
 
 		$params["page"] = $arr["cur_page"];
@@ -1575,7 +1541,6 @@ class site_search_content extends class_base
 			"SORT_POPULARITY" => $so_pl,
 			"SORT_POPULARITY_SEL" => "",
 		));
-		exit_function("site_search_content::display_sorting_links");
 	}
 
 	////
@@ -1587,7 +1552,6 @@ class site_search_content extends class_base
 	//	params - search params, to make the next page link from
 	function display_pageselector($arr)
 	{
-		enter_function("site_search_content::display_pageselector");
 		$page = $arr["cur_page"];
 		$cnt = $arr["num_results"];
 		$per_page = $arr["per_page"];
@@ -1635,15 +1599,15 @@ class site_search_content extends class_base
 		{
 			$prev = $this->parse("PREVIOUS");
 		}
-		
+
 		if (((int)$page) < (((int)$num_pages)-1))
 		{
 			$nxt = $this->parse("NEXT");
 		}
 		$this->vars(array(
-			"PREVIOUS" => $prev, 
+			"PREVIOUS" => $prev,
 			"NEXT" => $nxt,
-			"PAGE" => $pg, 
+			"PAGE" => $pg,
 			"SEL_PAGE" => ""
 		));
 		$this->vars(array(
@@ -1655,7 +1619,6 @@ class site_search_content extends class_base
 			"cur_page" => $arr["cur_page"],
 			"params" => $arr["params"]
 		));
-		exit_function("site_search_content::display_pageselector");
 	}
 
 	function _get_content($ct)
@@ -1676,10 +1639,9 @@ class site_search_content extends class_base
 	//	per_page - number of results to show
 	function display_result_page($arr)
 	{
-		enter_function("site_search_content::display_result_page");
 		extract($arr);
-		
-		// calc the offsets in the array 
+
+		// calc the offsets in the array
 		$from = $page * $per_page;
 		$to = ($page+1) * $per_page;
 		$res = "";
@@ -1690,7 +1652,7 @@ class site_search_content extends class_base
 			$tr[] = $result;
 		}
 		$results = $tr;
-		
+
 		$si = __get_site_instance();
 		$di = get_instance("doc_display");
 
@@ -1714,7 +1676,7 @@ class site_search_content extends class_base
 				$sp[] = $do->id();
 				while ($parent)
 				{
-					// list all brothers that are with the correct site id and if found then 
+					// list all brothers that are with the correct site id and if found then
 					// make path from that
 					$ol = new object_list(array(
 						"brother_of" => $parent,
@@ -1770,7 +1732,6 @@ class site_search_content extends class_base
 		$this->vars(array(
 			"MATCH" => $res
 		));
-		exit_function("site_search_content::display_result_page");
 	}
 
 	////
@@ -1784,31 +1745,29 @@ class site_search_content extends class_base
 	//	params - the parameters to use to make the next/prev page links
 	function display_results($arr)
 	{
-		enter_function("site_search_content::display_results");
 		extract($arr);
 
-		lc_site_load("search_conf", &$this);
-		
-		if (count($results) < 1 && !$multigroups)
+		lc_site_load("search_conf", $this);
+
+		if (count($results) < 1 && empty($multigroups))
 		{
 			$this->read_template("no_results.tpl");
 			$this->vars(array(
 				"str" => $str
 			));
-			exit_function("site_search_content::display_results");
 			return $this->parse();
 		}
 
 		$this->vars(array(
-			"groupname" => $arr["groupname"],
+			"groupname" => isset($arr["groupname"]) ? $arr["groupname"] : "",
 		));
 
 		$this->read_template("search_results.tpl");
 
 		$this->sort_results(array(
-			"results" => &$results, 
+			"results" => &$results,
 			"sort_by" => $sort_by,
-			"grp_by_kw" => $group_by_kw
+			"grp_by_kw" => isset($arr["group_by_kw"]) ? $arr["group_by_kw"] : null
 		));
 
 		// .. and sort order links as well
@@ -1829,26 +1788,26 @@ class site_search_content extends class_base
 		 	"GROUP_SEPARATOR" => $this->parse("GROUP_SEPARATOR")
 		));
 
-		exit_function("site_search_content::display_results");
 		$ret =  $this->parse();
 		return $ret;
 	}
 
-	//// 
+	////
 	// !sets the default values to $arr
 	function set_defaults($arr)
 	{
-		enter_function("site_search_content::set_defaults");
 		$o = obj($arr["id"]);
 
 		if (empty($arr["group"]))
 		{
 			$arr["group"] = $o->meta("default_grp");
 		}
+
 		if (empty($arr["sort_by"]))
 		{
 			$arr["sort_by"] = $o->meta("default_order");
 		}
+
 		if (!$arr["sort_by"])
 		{
 			$arr["sort_by"] = S_ORD_TIME;
@@ -1858,49 +1817,53 @@ class site_search_content extends class_base
 		{
 			$arr["page"] = 0;
 		}
-		
+
+		if (!isset($arr["s_date"])) $arr["s_date"] = array();
+		if (!isset($arr["str"])) $arr["str"] = "";
+		if (!isset($arr["field"])) $arr["field"] = "";
+		if (!isset($arr["keyword"])) $arr["keyword"] = "";
+		if (!isset($arr["area"])) $arr["area"] = "";
+
 		if (empty($arr["opts"]["str"]))
 		{
 			$arr["opts"]["str"] = $o->prop("default_search_opt") ? $o->prop("default_search_opt") : S_OPT_PHRASE;
 		}
 
-		load_vcl("date_edit");
-
 		if (isset($arr["s_date"]["from"]))
 		{
 			$arr["date"]["from"] = date_edit::get_timestamp($arr["s_date"]["from"]);
 		}
+
 		if (isset($arr["s_date"]["to"]))
 		{
 			$arr["date"]["to"] = date_edit::get_timestamp($arr["s_date"]["to"]);
 		}
 
-		if ($arr["date"]["from"] < 1)
+		if (!isset($arr["date"]["from"]) or $arr["date"]["from"] < 1)
 		{
 			$arr["date"]["from"] = -1;
 		}
 
-		if ($arr["date"]["to"] < 1)
+		if (!isset($arr["date"]["to"]) or $arr["date"]["to"] < 1)
 		{
 			$arr["date"]["to"] = -1;
 		}
 
-		exit_function("site_search_content::set_defaults");
 		return $arr;
 	}
 
-	/** 
+	/**
 		@attrib name=do_search_if params=name nologin="1" all_args="1"
 	**/
 	function do_search_if($arr)
 	{
 		return $this->show(array("id" => $arr["id"]));
 	}
-	
-	/**  
-		
-		@attrib name=do_search params=name nologin="1" 
-		
+
+	/**
+
+		@attrib name=do_search params=name nologin=1
+
 		@param id optional
 		@param group optional
 		@param page optional
@@ -1913,16 +1876,15 @@ class site_search_content extends class_base
 		@param county optional
 		@param city optional
 		@param keyword optional
-		
+
 		@returns
-		
-		
+
+
 		@comment
 
 	**/
 	function do_search($arr)
 	{
-		enter_function("site_search_content::do_search");
 		if (!is_oid($arr["id"]))
 		{
 			// see if we got a default
@@ -1951,7 +1913,7 @@ class site_search_content extends class_base
 			"city" => isset($city) ? $city : "",
 		));
 		$results = array();
-		
+
 		// seda peab siis kuidagi filtreerima ka .. et ta ei hakkas mul igasugu ikaldust n2itama
 		if ($str != "" || $area || (is_array($keyword) && sizeof($keyword)) || is_oid($field))
 		{
@@ -1976,7 +1938,7 @@ class site_search_content extends class_base
 					if ($conn->prop("to.class_id") == CL_EVENT_SEARCH)
 					{
 						$t = get_instance(CL_EVENT_SEARCH);
-			
+
 						$clid = $o->class_id();
 						$so = $conn->to();
 						$results = $t->get_search_results(array(
@@ -2022,7 +1984,7 @@ class site_search_content extends class_base
 					}
 				}
 
-				uasort($conns, array(&$this, "__grps"));
+				uasort($conns, array($this, "__grps"));
 
 				foreach($conns as $_idx => $conn)
 				{
@@ -2055,20 +2017,20 @@ class site_search_content extends class_base
 							$tmp = $this->display_results(array(
 								"groupname" => $grpcfg["caption"][$conn->prop("to")],
 								"results" => $results,
-								"obj" => $o, 
-								"str" => $str, 
+								"obj" => $o,
+								"str" => $str,
 								"group" => reset($group),
 								"sort_by" => $grp_sort_by,
 								"str" => $str,
 								"per_page" => ($o->meta("per_page") ? $o->meta("per_page") : 20),
 								"params" => array(
-									"id" => $id, 
-									"str" => $str, 
-									"sort_by" => $sort_by, 
-									"group" => reset($group), 
+									"id" => $id,
+									"str" => $str,
+									"sort_by" => $sort_by,
+									"group" => reset($group),
 									"section" => aw_global_get("section"),
-									"sdate" => $arr["s_date"],
-									"opts" => $arr["opts"],
+									"sdate" => $s_date,
+									"opts" => $opts,
 								),
 								"page" => is_array($page) ? $page[$conn->prop("to")] : $page,
 								"multigroups" => $has_res
@@ -2083,7 +2045,7 @@ class site_search_content extends class_base
 					{
 						break;
 					}
-				};
+				}
 			}
 			else
 			{
@@ -2100,41 +2062,41 @@ class site_search_content extends class_base
 						"area" => $area,
 					));
 				}
+
 				$grp_sort_by = $sort_by;
-				if (!empty($grpcfg["sorder"][$cid]))
+				//XXX: $cid pole siin defineeritud, teadmata funkstionaalsus. parandada v6i kaotada
+/*				if (!empty($grpcfg["sorder"][$cid]))
 				{
 					$grp_sort_by = $sort_by;
 					if (!empty($grpcfg["sorder"][$cid]))
 					{
 						$grp_sort_by = $grpcfg["sorder"][$cid];
-					};
+					}
 				}
-						
+*/
 				$ret .= $this->display_results(array(
-					"groupname" => $grpcfg["caption"][$group],
+					// "groupname" => $grpcfg["caption"][$group],//XXX: ajutiselt ka see v2lja sest grpcfg pole
 					"results" => $results,
-					"obj" => $o, 
-					"str" => $str, 
+					"obj" => $o,
+					"str" => $str,
 					"group" => $group,
 					"sort_by" => $grp_sort_by,
 					"str" => $str,
 					"per_page" => ($o->meta("per_page") ? $o->meta("per_page") : 20),
 					"params" => array(
-						"id" => $id, 
-						"str" => $str, 
-						"sort_by" => $sort_by, 
-						"group" => $group, 
+						"id" => $id,
+						"str" => $str,
+						"sort_by" => $sort_by,
+						"group" => $group,
 						"section" => aw_global_get("section"),
-						"s_date" => $arr["s_date"],
-						"opts" => $arr["opts"],
+						"s_date" => $s_date,
+						"opts" => $opts,
 					),
 					"page" => $page
 				));
-			};
+			}
+		}
 
-		};
-		
-		exit_function("site_search_content::do_search");
 		return $ret;
 	}
 
@@ -2154,7 +2116,7 @@ class site_search_content extends class_base
 		}
 		else
 		{
-			return $this->cfg["baseurl"]."/".$row["docid"];
+			return aw_ini_get("baseurl").$row["docid"];
 		}
 	}
 
@@ -2176,7 +2138,7 @@ class site_search_content extends class_base
 			{
 				case S_OPT_ANY_WORD:
 					// rewrite string
-					
+
 					$str2 = $str;
 					if ($word_part)
 					{
@@ -2185,7 +2147,7 @@ class site_search_content extends class_base
 					}
 					$content_s = " MATCH($fld) AGAINST ('$str2' IN BOOLEAN MODE) ";
 					break;
-					
+
 				case S_OPT_ALL_WORDS:
 					if ($word_part)
 					{
@@ -2198,7 +2160,7 @@ class site_search_content extends class_base
 					}
 					$content_s = "( ".join(" AND ", map("MATCH($fld) AGAINST ('%s' IN BOOLEAN MODE)", $words))." ) ";
 					break;
-					
+
 				case S_OPT_PHRASE:
 					if ($word_part)
 					{
@@ -2269,14 +2231,14 @@ class site_search_content extends class_base
 		return ($a->prop("to.jrk") == $b->prop("to.jrk")) ? 0 : $a->prop("to.jrk") > $b->prop("to.jrk") ? 1 : -1;
 	}
 
-	function _init_s_res_t(&$t)
+	function _init_s_res_t($t)
 	{
 		$t->define_field(array(
 			"name" => "loc",
 			"caption" => t("&nbsp;"),
 			"align" => "center",
 		));
-		
+
 		$t->define_field(array(
 			"name" => "link",
 			"caption" => t("&nbsp;"),
@@ -2321,8 +2283,8 @@ class site_search_content extends class_base
 		{
 			return $this->_search_results_site($arr);
 		}
-		classload("vcl/table");
-		$t =& new aw_table(array("layout" => "generic"));
+
+		$t = new aw_table(array("layout" => "generic"));
 
 		$this->_init_s_res_t($t);
 
@@ -2386,7 +2348,7 @@ class site_search_content extends class_base
 	function _search_results_site($arr)
 	{
 		$this->read_template("site_results.tpl");
-		
+
 		$arr["request"]["s_date"] = array(
 			"from" => $arr["request"]["date_from"],
 			"to" => $arr["request"]["date_to"]
@@ -2398,7 +2360,7 @@ class site_search_content extends class_base
 		{
 			$ol = new object_list($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_SEARCH_GRP")));
 			$settings["s_group"] = $ol->ids();
-		} 
+		}
 		$res = $this->get_multi_search_results($settings);
 		if (count($res) == 0)
 		{
@@ -2407,7 +2369,7 @@ class site_search_content extends class_base
 		}
 		$from = $_GET["page"] * 20;
 		$to = ($_GET["page"]+1) * 20;
-		
+
 		$sort_by = $_GET["sort_by"];
 		if (!$sort_by)
 		{
@@ -2426,10 +2388,10 @@ class site_search_content extends class_base
 		{
 			$res[$idx]["num_reps"] = $this->_get_num_reps($settings["str"], $settings["s_opt"], $entry["content"]);
 		}
-				
+
 		$this->__sort_by = $sort_by;
-		usort($res, array(&$this, "__sby"));
-		
+		usort($res, array($this, "__sby"));
+
 		$num = -1;
 		classload("core/icons");
 		foreach($res as $entry)
@@ -2485,13 +2447,13 @@ class site_search_content extends class_base
 				));
 			}
 		}
-				
+
 		$this->vars(array(
 			"RESULT" => $str,
 			"res_cnt" => count($res),
 			"sort_by" => join(" | ", $sstr)
 		));
-		
+
 		$this->display_pageselector(array(
 			"num_results" => count($res),
 			"cur_page" => $_GET["page"],
@@ -2499,17 +2461,17 @@ class site_search_content extends class_base
 			"params" => $_GET,
 			"link_type" => 1,
 		));
-		
+
 		// sorting links
-		
+
 		$arr["prop"]["value"] = $this->parse();
 	}
-	
+
 	function __sby($a, $b)
 	{
 		$v1 = $a[$this->__sort_by];
 		$v2 = $b[$this->__sort_by];
-		
+
 		if ($this->__sort_by == "title")
 		{
 			return $v1 == $v2 ? 0 : ($v1 > $v2 ? 1 : -1);
@@ -2519,7 +2481,7 @@ class site_search_content extends class_base
 			return $v1 == $v2 ? 0 : ($v1 > $v2 ? -1 : 1);
 		}
 	}
-	
+
 	function get_multi_search_results($arr)
 	{
 		if ($arr["str"] == "" && $arr["s_title"] == "")
@@ -2545,7 +2507,7 @@ class site_search_content extends class_base
 		{
 			$GLOBALS["DUKE"] = 1;
 		}*/
-		
+
 		if (!$arr["s_limit"] || ($o->prop("max_num_results") && $arr["s_limit"] > $o->prop("max_num_results")))
 		{
 			$arr["s_limit"] = $o->prop("max_num_results");
@@ -2574,7 +2536,7 @@ class site_search_content extends class_base
 			$str = substr($c, $_pos, strlen($str)); // get correct-case version
 			return $this->_hgl($c, $str, $_pos);
 		}
-		
+
 		// split by word and try for each
 		$words = explode(" ", $str);
 		$hl = "";
@@ -2590,7 +2552,7 @@ class site_search_content extends class_base
 					if (($_pos = strpos(strtolower($hl), strtolower($nw))) !== false)
 					{
 						$str = substr($hl, $_pos, strlen($nw)); // get correct-case version
-						
+
 						$hl = substr($hl, 0, $_pos)."<span class=\"match\">".$str."</span>".substr($hl, $_pos + strlen($nw));
 					}
 				}
@@ -2600,7 +2562,8 @@ class site_search_content extends class_base
 		{
 			return $hl;
 		}
-		$pos = strpos(trim($c), " ", 200);
+		$c_tmp = trim($c);
+		$pos = strlen($c_tmp) > 200 ? strpos($c_tmp, " ", 200) : 0;
 		if (!$pos)
 		{
 			return $c;
@@ -2610,7 +2573,7 @@ class site_search_content extends class_base
 
 	function _hgl($c, $str, $_pos, $other = array())
 	{
-		// find first space 200 chars before 
+		// find first space 200 chars before
 		$begin = $_pos-200;
 		while($c{$begin} != " " && $begin > 0)
 		{
@@ -2619,24 +2582,24 @@ class site_search_content extends class_base
 
 		// find first space 200 chars after
 		$end = $begin + 400 + strlen($str);
-		
+
 		if ($begin < 0)
 		{
 			$end += (-$begin);
 			$begin = 0;
 		}
-		
+
 		$clen = strlen($c);
 		while ($end < $clen && $c{$end} != " ")
 		{
 			$end++;
 		}
-		
+
 		// show
 		$c =  substr($c, $begin, ($end - $begin));
-		
+
 		$c = str_replace($str, "<span class=\"match\">".$str."</span>", $c);
-		
+
 		if (count($other))
 		{
 			foreach($other as $word)
@@ -2693,22 +2656,22 @@ class site_search_content extends class_base
 
 		return $i->eval_controller($o->id(), $arr["obj_inst"]);
 	}
-	
+
 	function _show_admin_if($arr)
 	{
 		$o = obj($arr["id"]);
 
-		$arr["group"] = $_GET["group"];		
+		$arr["group"] = $_GET["group"];
 		if ($arr["group"] == "")
 		{
 			$arr["group"] = "search_simple";
 		}
 		$props = $this->_get_aif_grp_props($o, $arr["group"]);
-		
+
 		$els = $this->_draw_aif_grp_props($o, $props, $arr["group"]);
 		return $this->_draw_aif_tabs($o, $els, $arr["group"]);
 	}
-	
+
 	function _get_aif_grp_props($o, $grp)
 	{
 		classload("vcl/table");
@@ -2723,7 +2686,7 @@ class site_search_content extends class_base
 		}
 		return $props;
 	}
-	
+
 	function _draw_aif_grp_props($o, $props, $group)
 	{
 		$rd = get_instance(CL_SITE_SEARCH_CONTENT);
@@ -2747,7 +2710,7 @@ class site_search_content extends class_base
 			"method" => "GET",
 			"action" => "do_search_if",
 			"data" => array(
-				"orb_class" => "site_search_content", 
+				"orb_class" => "site_search_content",
 				"id" => $o->id(),
 				"section" => aw_global_get("section"),
 				"group" => $group
@@ -2758,10 +2721,10 @@ class site_search_content extends class_base
 		return $htmlc->get_result(array(
 		));
 	}
-	
+
 	function _draw_aif_tabs($o, $html, $grp)
 	{
-		$tp = get_instance("vcl/tabpanel");
+		$tp = new tabpanel();
 		$tp->add_tab(array(
 			"active" => $grp == "search_simple",
 			"caption" => t("Lihtne otsing"),
@@ -2783,7 +2746,7 @@ class site_search_content extends class_base
 
 	/** Adds a single aw object to the static search index
 		@attrib api=1 params=name
-		@param oid required type=oid 
+		@param oid required type=oid
 			the object to add to the index - currently only CL_FILE type objects are supported
 	**/
 	function add_single_object_to_index($arr)
@@ -2802,4 +2765,3 @@ class site_search_content extends class_base
 		$i->add_single_url_to_index(file::get_url($o->id(), $o->name()));
 	}
 }
-?>

@@ -746,7 +746,7 @@ class file extends class_base
 			}
 
 			$comment = $fi["comment"];
-			if ($comment == "")
+			if (!isset($comment) or !strlen($comment))
 			{
 				$comment = $fi["name"];
 			}
@@ -758,12 +758,11 @@ class file extends class_base
 			else
 			{
 				$url = $this->get_url($alias["target"],$fi["name"]);
-			};
+			}
 
-			classload("core/icons");
 			$icon = icons::get_icon_url(CL_FILE,$fi["name"]);
 
-			if ($tpls["file_inplace"] != "")
+			if (!empty($tpls["file_inplace"]))
 			{
 				$replacement = localparse($tpls["file_inplace"], array(
 					"file_url" => $url,
@@ -776,8 +775,7 @@ class file extends class_base
 				);
 				return $ret;
 			}
-			else
-			if ($tpls["file"] != "")
+			elseif (!empty($tpls["file"]))
 			{
 				$replacement = localparse($tpls["file"], array(
 					"file_url" => $url,
@@ -1916,9 +1914,7 @@ class file extends class_base
 		}
 
 		$ol = new object_list(array(
-			"oid" => $persons,
-			"lang_id" => array(),
-			"site_id" => array()
+			"oid" => $persons
 		));
 		return $ol->names();
 	}

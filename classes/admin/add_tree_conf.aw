@@ -23,6 +23,7 @@ class add_tree_conf extends class_base
 		"config",
 		"objpicker",
 		"relationmgr",
+		"converters",
 		"acl_manager"
 	);
 

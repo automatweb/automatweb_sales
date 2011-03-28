@@ -390,24 +390,24 @@ class doc_display extends aw_template
 	function get_document_text($arr, $doc)
 	{
 		$lead = $doc->trans_get_val("lead");
-		if (!$arr["no_strip_lead"])
+		if (empty($arr["no_strip_lead"]))
 		{
 			$lead = preg_replace("/#pict(\d+?)(v|k|p|)#/i","",$lead);
 			$lead = preg_replace("/#p(\d+?)(v|k|p|)#/i","",$lead);
 		}
 		$content = $doc->trans_get_val("content");
 		$sps = $doc->meta("setps");
-		if ($sps["lead"])
+		if (!empty($sps["lead"]))
 		{
 			$lead = $sps["lead"];
 		}
-		if ($sps["content"])
+		if (!empty($sps["content"]))
 		{
 			$content = $sps["content"];
 		}
 		$content = str_replace("<!--[", "<!-- [", $content);
 		$content = str_replace("]-->","] -->", $content);
-		if ($arr["leadonly"] > -1)
+		if (isset($arr["leadonly"]) and $arr["leadonly"] > -1)
 		{
 			$text = $lead;
 		}
@@ -419,11 +419,12 @@ class doc_display extends aw_template
 				{
 					$lead = "";
 				}
+
 				if ($lead != "")
 				{
 					if (aw_ini_get("document.boldlead"))
 					{
-						$lead = "<b>".$lead."</b>";
+						$lead = html::bold($lead);
 					}
 					$text = $lead.aw_ini_get("document.lead_splitter").$content;
 				}

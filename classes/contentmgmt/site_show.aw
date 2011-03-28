@@ -42,7 +42,7 @@ interface main_subtemplate_handler
 	public function on_get_subtemplate_content($arr);
 }
 
-class site_show extends class_base
+class site_show extends aw_template
 {
 	var $path;				// the path to the selected section
 	var $sel_section;		// the MENU that is selected - section can point to any object below it
@@ -182,7 +182,7 @@ class site_show extends class_base
 		$cnt = count($this->path);
 		for ($i = 0; $i < $cnt; $i++)
 		{
-			if ($this->path[$i]->class_id() == CL_MENU)
+			if ($this->path[$i]->class_id() == menu_obj::CLID)
 			{
 				$last_menu = $this->path[$i]->id();
 			}
@@ -197,7 +197,7 @@ class site_show extends class_base
 	function build_menu_chain($section)
 	{
 		// we will this with properties from the first element in chain who
-		// has thoses
+		// has those
 		$this->properties = array(
 			"tpl_dir"  => "", // prop!
 			"users_only" => 0, // prop!
@@ -228,8 +228,7 @@ class site_show extends class_base
 						$this->properties[$key] = $tipa;
 					}
 				}
-				else
-				if ($key === "ip_denied")
+				elseif ($key === "ip_denied")
 				{
 					$tipa = $obj->meta("ip_deny");
 					if (is_array($tipa) && count($tipa) > 0)
@@ -237,8 +236,7 @@ class site_show extends class_base
 						$this->properties[$key] = $tipa;
 					}
 				}
-				else
-				if ($key === "images")
+				elseif ($key === "images")
 				{
 					$im = $obj->meta("menu_images");
 					for($imn = 0; $imn < $ni; $imn++)
@@ -257,24 +255,28 @@ class site_show extends class_base
 						}
 					}
 				}
-				else
-				if ($key === "tpl_view")
+				elseif ($key === "tpl_view")
 				{
 					if ($i == 0 || !$obj->prop("tpl_view_no_inherit"))
 					{
-						$this->properties[$key] = $obj->prop($key);
+						$this->properties[ "tpl_view"] = $obj->prop( "tpl_view");
 					}
 				}
-				else
-				if ($key === "tpl_lead")
+				elseif ($key === "tpl_lead")
 				{
 					if ($i == 0 || !$obj->prop("tpl_lead_no_inherit"))
 					{
-						$this->properties[$key] = $obj->prop($key);
+						$this->properties["tpl_lead"] = $obj->prop("tpl_lead");
 					}
 				}
-				else
-				if ($key === "keywords" && !isset($this->properties[$key]) && strlen($_t = $obj->trans_get_val($key)))
+				elseif ($key === "tpl_dir")
+				{
+					if (empty($this->properties[$key]) && $obj->class_id() == menu_obj::CLID && $obj->prop("tpl_dir"))
+					{
+						$this->properties["tpl_dir"] = $obj->prop("tpl_dir") . "/";// tpl_dir menu property is a template set name selected from tpl sets defined in ini. Append slash
+					}
+				}
+				elseif ($key === "keywords" && !isset($this->properties[$key]) && strlen($_t = $obj->trans_get_val($key)))
 				{
 					$this->properties[$key] = $_t;
 				}
@@ -282,7 +284,7 @@ class site_show extends class_base
 				{
 					// check whether this object has any properties that
 					// none of the previous ones had
-					if (empty($this->properties[$key]) && ($obj->class_id() == CL_MENU || $key == "users_only") && $obj->prop($key))
+					if (empty($this->properties[$key]) && ($obj->class_id() == menu_obj::CLID || $key == "users_only") && $obj->prop($key))
 					{
 						$this->properties[$key] = $obj->prop($key);
 					}
@@ -357,7 +359,7 @@ class site_show extends class_base
 				// find the first submenu with the correct context
 				$ol = new object_list(array(
 					"parent" => $this->sel_section,
-					"class_id" => CL_MENU,
+					"class_id" => menu_obj::CLID,
 					"CL_MENU.RELTYPE_CTX.name" => $use_ctx,
 					"limit" => 1,
 				));
@@ -365,7 +367,7 @@ class site_show extends class_base
 				{
 					// get the first submenu
 					$ol = new object_list(array(
-						"class_id" => CL_MENU,
+						"class_id" => menu_obj::CLID,
 						"parent" => $this->sel_section,
 						"sort_by" => "objects.jrk",
 						"limit" => 1
@@ -464,7 +466,7 @@ class site_show extends class_base
 			$url = $this->get_cval("orb_err_mustlogin");
 		}
 		aw_session_set("request_uri_before_auth",aw_global_get("REQUEST_URI"));
-		header("Location: ".aw_ini_get("baseurl")."/$url");
+		header("Location: ".aw_ini_get("baseurl").$url);
 		exit;
 	}
 
@@ -581,7 +583,7 @@ class site_show extends class_base
 		{
 			// list all documents that have the same kwywords as this menu.
 			// so first, get this menus keywords
-			$m = get_instance(CL_MENU);
+			$m = get_instance(menu_obj::CLID);
 			if ($_GET["set_kw"])
 			{
 				$kwlist = array($_GET["set_kw"]);
@@ -685,7 +687,7 @@ class site_show extends class_base
 			}
 		}
 
-		aw_set_exec_time(AW_LONG_PROCESS);
+		aw_set_exec_time(AW_LONG_PROCESS);//FIXME: saidis sageli kasutatav meetod ei saa olla long process. uurida miks arvati et kaua v6tab
 
 		$skipfirst = 0;
 
@@ -717,13 +719,13 @@ class site_show extends class_base
 			{
 				$so = obj(aw_global_get("section"));
 				$sections = array(
-					$so->class_id() == CL_MENU ? $so->id() : $so->parent()
+					$so->class_id() == menu_obj::CLID ? $so->id() : $so->parent()
 				);
 			}
 			elseif (!empty($arr["include_submenus"]))
 			{
 				$ot = new object_tree(array(
-					"class_id" => CL_MENU,
+					"class_id" => menu_obj::CLID,
 					"parent" => $obj->id(),
 					"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 					"sort_by" => "objects.parent"
@@ -763,16 +765,16 @@ class site_show extends class_base
 				}
 
 				$lm_sub = $obj->meta("src_submenus");
-				if (is_array($lm) && count($lm) > 0 && ($lm[0] !== 0))
+				if (!empty($lm) && is_array($lm) && (!isset($lm[0]) || $lm[0] !== 0))
 				{
 					$sections = $lm;
 					foreach($sections as $_sm)
 					{
-						if ($lm_sub[$_sm])
+						if (!empty($lm_sub[$_sm]))
 						{
 							// include submenus in document sources
 							$ot = new object_tree(array(
-								"class_id" => CL_MENU,
+								"class_id" => menu_obj::CLID,
 								"parent" => $_sm,
 								"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 								"sort_by" => "objects.parent"
@@ -802,7 +804,7 @@ class site_show extends class_base
 				if ($obj->prop("use_menu_keywords") && $this->sel_section_obj)
 				{
 					//$promo_kws = $this->sel_section_obj->connections_from(array("to.class_id" => CL_KEYWORD, "type" => "RELTYPE_KEYWORD"));
-					$mi = get_instance(CL_MENU);
+					$mi = get_instance(menu_obj::CLID);
 					$kwns = $mi->get_menu_keywords($this->sel_section_obj->id());
 				}
 				else
@@ -856,9 +858,8 @@ class site_show extends class_base
 					if ($gm_subs[$gm_id])
 					{
 						$ot = new object_tree(array(
-							"class_id" => CL_MENU,
+							"class_id" => menu_obj::CLID,
 							"parent" => $gm_id,
-							"site_id" => array(),
 							"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 							"sort_by" => "objects.parent"
 						));
@@ -878,7 +879,7 @@ class site_show extends class_base
 					if ($gm_subs[$gm_id])
 					{
 						$ot = new object_tree(array(
-							"class_id" => CL_MENU,
+							"class_id" => menu_obj::CLID,
 							"parent" => $gm_id,
 							"status" => array(STAT_NOTACTIVE, STAT_ACTIVE),
 							"sort_by" => "objects.parent"
@@ -903,7 +904,7 @@ class site_show extends class_base
 
 			$has_rand = false;
 
-			if (isset($sections) && is_array($sections) && ($sections[0] !== 0) && count($sections) > 0)
+			if (isset($sections) && is_array($sections) && (!isset($sections[0]) || $sections[0] !== 0) && count($sections) > 0)
 			{
 				$nol = true;
 				$filter["parent"] = $sections;
@@ -930,30 +931,30 @@ class site_show extends class_base
 			$cnt = 0;
 			if (empty($ordby))
 			{
-				if ($obj->meta("sort_by") != "")
+				if ($obj->meta("sort_by"))
 				{
 					$ordby = $obj->meta("sort_by");
-					if ($obj->meta("sort_by") == "RAND()")
+					if ($obj->meta("sort_by") === "RAND()")
 					{
 						$has_rand = true;
 					}
-					if ($obj->meta("sort_ord") != "")
+					if ($obj->meta("sort_ord"))
 					{
 						$ordby .= " ".$obj->meta("sort_ord");
 					}
-					if ($obj->meta("sort_by") == "documents.modified")
+					if ($obj->meta("sort_by") === "documents.modified")
 					{
 						$ordby .= ", objects.created DESC";
-					};
+					}
 				}
 				else
 				{
 					$ordby = aw_ini_get("menuedit.document_list_order_by");
 				}
 
-				if ($obj->meta("sort_by2") != "")
+				if ($obj->meta("sort_by2"))
 				{
-					if ($obj->meta("sort_by2") == "RAND()")
+					if ($obj->meta("sort_by2") === "RAND()")
 					{
 						$has_rand = true;
 					}
@@ -962,15 +963,15 @@ class site_show extends class_base
 					{
 						$ordby .= " ".$obj->meta("sort_ord2");
 					}
-					if ($obj->meta("sort_by2") == "documents.modified")
+					if ($obj->meta("sort_by2") === "documents.modified")
 					{
 						$ordby .= ", objects.created DESC";
 					};
 				}
 
-				if ($obj->meta("sort_by3") != "")
+				if ($obj->meta("sort_by3"))
 				{
-					if ($obj->meta("sort_by3") == "RAND()")
+					if ($obj->meta("sort_by3") === "RAND()")
 					{
 						$has_rand = true;
 					}
@@ -979,7 +980,7 @@ class site_show extends class_base
 					{
 						$ordby .= " ".$obj->meta("sort_ord3");
 					}
-					if ($obj->meta("sort_by3") == "documents.modified")
+					if ($obj->meta("sort_by3") === "documents.modified")
 					{
 						$ordby .= ", objects.created DESC";
 					};
@@ -1013,7 +1014,6 @@ class site_show extends class_base
 			$filter["class_id"] = array(CL_DOCUMENT, CL_PERIODIC_SECTION, CL_BROTHER_DOCUMENT);
 			$filter["lang_id"] = $filt_lang_id;
 			$filter["sort_by"] = $ordby;
-			$filter["site_id"] = array();
 
 			// if target audience is to be used, then limid docs by that
 			if ($obj->prop("use_target_audience") == 1)
@@ -1021,8 +1021,6 @@ class site_show extends class_base
 				// get all current target audiences
 				$ta_list = new object_list(array(
 					"class_id" => CL_TARGET_AUDIENCE,
-					"lang_id" => array(),
-					"site_id" => array(),
 					"ugroup" => aw_global_get("gidlist_oid")
 				));
 				if ($ta_list->count())
@@ -1271,7 +1269,7 @@ class site_show extends class_base
 			aw_register_default_class_member("document", "cnt_documents", sizeof($docid));
 
 			$template = $template == "" ? "plain.tpl" : $template;
-			$template2 = file_exists(aw_ini_get("tpldir")."/automatweb/documents/".$template."2") ? $template."2" : $template;
+			$template2 = file_exists(aw_ini_get("tpldir")."automatweb/documents/".$template."2") ? $template."2" : $template;
 
 			$this->vars(array("DOCUMENT_LIST" => $this->parse("DOCUMENT_LIST")));
 			$this->_is_in_document_list = 1;
@@ -1383,8 +1381,8 @@ class site_show extends class_base
 					"content" => $blockdata["content"],
 				));
 				$vars[$blockdata["template"]] .= $this->parse($blockdata["template"]);
-			};
-		};
+			}
+		}
 		$this->vars($vars);
 
 		return $ct;
@@ -1742,7 +1740,7 @@ class site_show extends class_base
 	// !build "you are here" links from the path
 	function make_yah()
 	{
-		if($this->load_template) { $this->read_template("main.tpl"); }/// FIXME: marko taket dev-st saadud, 'load_template' ei esine mujal senises aw koodis, kontrollida yle kui kogu taket mergetud
+		if(isset($this->load_template)) { $this->read_template("main.tpl"); }/// FIXME: marko taket dev-st saadud, 'load_template' ei esine mujal senises aw koodis, kontrollida yle kui kogu taket mergetud
 
 		$path = $this->path;
 		$ya = "";
@@ -1793,18 +1791,18 @@ class site_show extends class_base
 
 				if (aw_ini_get("user_interface.full_content_trans"))
 				{
-					$link = aw_ini_get("baseurl")."/".aw_global_get("ct_lang_lc")."/".$linktext;
+					$link = aw_ini_get("baseurl").aw_global_get("ct_lang_lc")."/".$linktext;
 				}
 				else
 				{
-					$link = aw_ini_get("baseurl")."/".$linktext;
+					$link = aw_ini_get("baseurl").$linktext;
 				}
 			}
 			else
 			{
 				$use_aliases = false;
-				$link = aw_ini_get("baseurl")."/".$ref->id();
-			};
+				$link = aw_ini_get("baseurl").$ref->id();
+			}
 
 			if ($ref->prop("link") != "")
 			{
@@ -1852,7 +1850,7 @@ class site_show extends class_base
 			));
 
 			$show_always = false;
-			if ((($ref->class_id() == CL_MENU && $ref->prop("clickable") == 1) || $ref->class_id() == CL_DOCUMENT || $ref->class_id() == CL_CRM_SECTOR) && $show && $ref->class_id() != CL_DOCUMENT)
+			if ((($ref->class_id() == menu_obj::CLID && $ref->prop("clickable") == 1) || $ref->class_id() == CL_DOCUMENT || $ref->class_id() == CL_CRM_SECTOR) && $show && $ref->class_id() != CL_DOCUMENT)
 			{
 				if ($this->is_template("YAH_LINK_BEGIN") && $ya == "")
 				{
@@ -1988,7 +1986,7 @@ class site_show extends class_base
 				$img_url = $this->image->get_url_by_id($row["meta"]["lang_img"]);
 			}
 
-			$url = aw_ini_get("baseurl") . "/?".$var."=$row[id]";
+			$url = aw_ini_get("baseurl") . "?".$var."=$row[id]";
 			if (!empty($row["meta"]["temp_redir_url"]) && $uid == "")
 			{
 				$url = $row["meta"]["temp_redir_url"];
@@ -2126,7 +2124,7 @@ class site_show extends class_base
 		if($this->can("view" , $a_parent))
 		{
 			$parent_obj = obj($a_parent);
-			if($parent_obj->class_id() == CL_MENU && $parent_obj->prop("submenus_from_cb"))
+			if($parent_obj->class_id() == menu_obj::CLID && $parent_obj->prop("submenus_from_cb"))
 			{
 				return $a_parent;
 			}
@@ -2136,8 +2134,9 @@ class site_show extends class_base
 		{
 			return $a_parent;
 		}
+
 		$pos = array_search($a_parent, $this->path_ids);
-		return $this->path_ids[$pos+($level-1)];
+		return isset($this->path_ids[$pos+($level-1)]) ? $this->path_ids[$pos+($level-1)] : 0;
 	}
 
 	function _helper_get_act_count($ol)
@@ -2186,7 +2185,7 @@ class site_show extends class_base
 		if($this->can("view" , $parent))
 		{
 			$parent_obj = obj($parent);
-			if($parent_obj->class_id() == CL_MENU && $parent_obj->prop("submenus_from_cb"))
+			if($parent_obj->class_id() == menu_obj::CLID && $parent_obj->prop("submenus_from_cb"))
 			{
 				return 1;
 			}
@@ -2238,7 +2237,7 @@ class site_show extends class_base
 				$add = "";
 				if (aw_ini_get("site_show.objlastmod_only_menu"))
 				{
-					$add = " WHERE class_id = ".CL_MENU;
+					$add = " WHERE class_id = ".menu_obj::CLID;
 				}
 				$last_mod = $this->db_fetch_field("SELECT MAX(modified) as m FROM objects".$add, "m");
 				cache::file_set("objlastmod", $last_mod);
@@ -2257,10 +2256,10 @@ class site_show extends class_base
 		}
 		else
 		{
-			$this->read_template("../../".$tpldir."/".$tpl,true);
+			$this->read_template("../../".$tpldir.$tpl,true);
 		}
 
-		if ($filename == "")
+		if (!$filename)
 		{
 			error::raise(array(
 				"id" => ERR_NO_COMPILED,
@@ -2313,7 +2312,7 @@ class site_show extends class_base
 		// go over all class defs and check if that class is the handler for any subtemplates
 		$promo_done = false;
 		$tmp = aw_ini_get("classes");
-		foreach($tmp as $clid => $cldef)
+		foreach($tmp as $clid => $cldef)//TODO: seda k2ivitatakse igal pageview-l? optimeerida.
 		{
 			if (!empty($cldef["subtpl_handler"]))
 			{
@@ -2330,7 +2329,7 @@ class site_show extends class_base
 				if (count($ask_content) > 0)
 				{
 					$inst = get_instance($cldef["file"]);
-					if ($cldef["file"] == "contentmgmt/promo_display")
+					if ($cldef["file"] === "contentmgmt/promo_display")
 					{
 						$promo_done = true;
 					}
@@ -2370,7 +2369,7 @@ class site_show extends class_base
 
 				if ($has_tpl)
 				{
-					$inst = get_instance(CL_PROMO);
+					$inst = new promo();
 					$inst->on_get_subtemplate_content(array(
 						"inst" => $this,
 					));
@@ -2401,26 +2400,25 @@ class site_show extends class_base
 		}
 
 		$banner_server = aw_ini_get("menuedit.banner_server");
-		$ext = $this->cfg["ext"];
 		$uid = aw_global_get("uid");
 
 		reset($banner_defs);
 		while (list($name,$gid) = each($banner_defs))
 		{
-			$htmlf = $banner_server."/banner.$ext?gid=$gid&ba_html=1";
+			$htmlf = $banner_server."banner".AW_FILE_EXT."?gid=$gid&ba_html=1";
 			if ($uid != "")
 			{
 				$htmlf.="&aw_uid=".$uid;
 			}
 			// duhhh!! always check whether fopen succeeds!!
-			$f = @fopen($htmlf,"r");
+			$f = fopen($htmlf,"r");
 			if ($f)
 			{
 				$fc = fread($f,100000);
 				fclose($f);
 
 				$fc = str_replace("[ss]","[ss".$gid."]",$fc);
-			};
+			}
 
 			$this->vars(array(
 				"banner_".$name => $fc
@@ -2449,7 +2447,6 @@ class site_show extends class_base
 		}
 
 		$u = get_instance(CL_USER);
-		aw_disable_acl();
 		$tmp = $u->get_current_person();
 		if (is_oid($tmp))
 		{
@@ -2459,7 +2456,7 @@ class site_show extends class_base
 		{
 			$p = obj();
 		}
-		aw_restore_acl();
+
 		$this->vars(array(
 			"ss" => gen_uniq_id(),		// bannerite jaox
 			"ss2" => gen_uniq_id(),
@@ -2684,8 +2681,7 @@ class site_show extends class_base
 		// I mean we always read information about _all_ the popups
 		$pl = new object_list(array(
 			"status" => STAT_ACTIVE,
-			"class_id" => CL_HTML_POPUP,
-			"site_id" => array(),
+			"class_id" => CL_HTML_POPUP
 		));
 		if (count($pl->ids()) > 0)
 		{
@@ -2738,11 +2734,12 @@ class site_show extends class_base
 	{
 		$this->skip = false;
 		$link = "";
+// /*~AWdbg*/ dbg::d("1", $link);
 		$link_str = $o->trans_get_val("link");
 		if ($this->can("view", $o->meta("linked_obj")) && $o->meta("linked_obj") != $o->id())
 		{
 			$linked_obj = obj($o->meta("linked_obj"));
-			if ($linked_obj->class_id() == CL_MENU)
+			if ($linked_obj->class_id() == menu_obj::CLID)
 			{
 				$link_str = $this->make_menu_link($linked_obj);
 			}
@@ -2762,8 +2759,8 @@ class site_show extends class_base
 			if ($pclass)
 			{
 				list($_cl,$_act) = explode("/",$pclass);
-				$orb = get_instance("core/orb/orb");
-				if ($_cl == "periods")
+				$orb = new orb();
+				if ($_cl === "periods")
 				{
 					$_cl = "period";
 				};
@@ -2776,7 +2773,7 @@ class site_show extends class_base
 					"pgroup" =>  (!empty($pgroup) ? $pgroup : false),
 				));
 				// check acl
-				if ($_act == "new" && !$this->can("add", $meth["values"]["parent"]))
+				if ($_act === "new" && !$this->can("add", $meth["values"]["parent"]))
 				{
 					$this->skip = true;
 				}
@@ -2786,7 +2783,7 @@ class site_show extends class_base
 				}
 				$values = array();
 				$err = false;
-				if ($_act == "change")
+				if ($_act === "change")
 				{
 					$meth["required"]["id"] = "required";
 				}
@@ -2801,8 +2798,8 @@ class site_show extends class_base
 					else
 					{
 						$err = true;
-					};
-				};
+					}
+				}
 
 				$mo = new aw_array($meth["optional"]);
 				foreach($mo->get() as $key => $val)
@@ -2811,12 +2808,12 @@ class site_show extends class_base
 					{
 						$values[$key] = $meth["values"][$key];
 					}
-				};
+				}
 
-				if ($_cl == "menu")
+				if ($_cl === "menu")
 				{
 					$values["parent"] = aw_global_get("section");
-					if ($_act == "change")
+					if ($_act === "change")
 					{
 						$values["id"] = $this->sel_section_obj->id();
 					}
@@ -2827,34 +2824,38 @@ class site_show extends class_base
 					if (!empty($_REQUEST["section"]))
 					{
 						$values["section"] = $_REQUEST["section"];
-					};
-					$link = $this->mk_my_orb($_act,$values,($_cl == "document" ? "doc" : $_cl),$o->meta("pm_url_admin"),!$o->meta("pm_url_menus"));
+					}
+					$link = $this->mk_my_orb($_act,$values,($_cl === "document" ? "doc" : $_cl),$o->meta("pm_url_admin"),!$o->meta("pm_url_menus"));
+// /*~AWdbg*/ dbg::d("2", $link);
 				}
 				else
 				{
 					$this->skip = true;
-				};
+				}
 
 				if ($o->meta("pm_extra_params") != "")
 				{
 					ob_start();
-					eval("?>".$o->meta("pm_extra_params"));
+					eval("?>".$o->meta("pm_extra_params"));//XXX: what is this?
 					$link .= ob_get_contents();
+// /*~AWdbg*/ dbg::d("3", $link);
 					ob_end_clean();
 				}
 			}
 			else
 			{
 				$link = "";
-			};
+// /*~AWdbg*/ dbg::d("4", $link);
+			}
 		}
-		else
-		if (!$this->brother_level_from && $link_str != "")
+		elseif (!$this->brother_level_from && $link_str != "")
 		{
 			$link = $link_str;
+// /*~AWdbg*/ dbg::d("5", $link);
 			if (is_numeric($link)) // link is without preceding /
 			{
 				$link = obj_link($link);
+// /*~AWdbg*/ dbg::d("6", $link);
 			}
 		}
 		else
@@ -2868,26 +2869,33 @@ class site_show extends class_base
 			{
 				$use_trans = false;
 			}
-			$link = aw_ini_get("baseurl") ."/";
+
+			$link = aw_ini_get("baseurl");
+// /*~AWdbg*/ dbg::d("7", $link);
 			if (aw_ini_get("menuedit.language_in_url"))
 			{
 				$link .= $lc."/";
+// /*~AWdbg*/ dbg::d("8", $link);
 			}
+
 			if (aw_ini_get("menuedit.long_section_url"))
 			{
 				if (($use_trans ? $o->trans_get_val("alias") : $o->alias()) != "")
 				{
 					$link .= ($use_trans ? $o->trans_get_val("alias") : $o->alias());
+// /*~AWdbg*/ dbg::d("9", $link);
 				}
 				else
 				{
 					if (aw_ini_get("menuedit.show_real_location"))
 					{
-						$link .= "index.".aw_ini_get("ext")."?section=".$o->brother_of().$this->add_url;
+						$link .= "index".AW_FILE_EXT."?section=".$o->brother_of().$this->add_url;
+// /*~AWdbg*/ dbg::d("10", $link);
 					}
 					else
 					{
-						$link .= "index.".aw_ini_get("ext")."?section=".$o->id().$this->add_url;
+						$link .= "index".AW_FILE_EXT."?section=".$o->id().$this->add_url;
+// /*~AWdbg*/ dbg::d("11", $link);
 					}
 				}
 			}
@@ -2919,10 +2927,12 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 						}
 
 						$link .= join("/",$alp);
+// /*~AWdbg*/ dbg::d("12", $link);
 						if (isset($tmp) && sizeof($tmp) > 0)
 						{
 							$link .= "/";
-						};
+// /*~AWdbg*/ dbg::d("13", $link);
+						}
 					}
 					else
 					{
@@ -2931,10 +2941,12 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 						if(!strlen(trim(($use_trans ? $o->trans_get_val("alias") : $o->alias()))))
 						{
 							$link .= $o->id();
+// /*~AWdbg*/ dbg::d("14", $link);
 						}
 						else
 						{
 							$link .= str_replace("%2F", "/", urlencode(($use_trans ? $o->trans_get_val("alias") : $o->alias())));
+// /*~AWdbg*/ dbg::d("15", $link);
 						}
 					}
 				}
@@ -2943,14 +2955,16 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 					if (($o->is_brother() || $this->brother_level_from) /*&& !aw_ini_get("menuedit.show_real_location")*/)
 					{
 						$link .= "?section=".$o->id()."&path=".join(",", $this->_cur_menu_path);
+// /*~AWdbg*/ dbg::d("16", $link);
 					}
 					else
 					{
 						$oid = ($o->class_id() == 39 || aw_ini_get("menuedit.show_real_location")) ? $o->brother_of() : $o->id();
 						$link .= $oid;
+// /*~AWdbg*/ dbg::d("17", $link);
 					}
-				};
-			};
+				}
+			}
 		}
 
 		$sdct = $o->prop("set_doc_content_type");
@@ -2961,7 +2975,9 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 			$su = aw_url_change_var("clear_doc_content_type", null, $su);
 			$su = aw_url_change_var("docid", null, $su);
 			$link = aw_url_change_var("set_doc_content_type", $sdct, $su);
+// /*~AWdbg*/ dbg::d("18", $link);
 		}
+// /*~AWdbg*/ arr("xxx");
 		return $link;
 	}
 
@@ -2969,16 +2985,16 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 	// !returns the file where the generated code for the template is, if it is in the cache
 	function get_cached_compiled_filename($arr)
 	{
-		$tpl = $arr["tpldir"]."/".$arr["template"];
+		$tpl = $arr["tpldir"].$arr["template"];
 
 		$what_to_replace = array('/','.','\\',':');
 		$str_part = str_replace($what_to_replace, '_', $tpl);
 
 		$fn = cache::get_fqfn("compiled_menu_template-".$str_part."-".aw_global_get("lang_id"));
 
-		if ($tpl[0] != "/")
+		if ($tpl{0} !== "/")
 		{
-			$tpl = aw_ini_get("site_basedir")."/".$tpl;
+			$tpl = aw_ini_get("site_basedir").$tpl;
 		}
 
 		if (file_exists($fn) && is_readable($fn) && filectime($fn) > filectime($tpl))
@@ -2994,7 +3010,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 	{
 		$co = new site_template_compiler();
 		$code = $co->compile($path, $tpl, $mdefs, $no_cache);
-		$tpl = $path."/".$tpl;
+		$tpl = $path.$tpl;
 
 		$what_to_replace = array("\\","/",".",":");
 		$str_part = str_replace($what_to_replace, "_", $tpl);
@@ -3006,13 +3022,13 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 
 	function do_show_template($arr)
 	{
-		$tpldir = str_replace(aw_ini_get("site_basedir")."/", "", aw_ini_get("tpldir"));
-		$tpldir = str_replace(aw_ini_get("site_basedir"), "", $tpldir)."/automatweb/menuedit";
-//FIXME: imelik koht, site_basedir vaja yhtlustada vms.
+		$tpldir = str_replace(aw_ini_get("site_basedir"), "", aw_ini_get("tpldir"));
+		$tpldir = str_replace(aw_ini_get("site_basedir"), "", $tpldir)."/automatweb/menuedit/";
+
 		if (!empty($arr["tpldir"]))
 		{
-			$this->tpl_init(sprintf("../%s/automatweb/menuedit",$arr["tpldir"]));
-			$tpldir = $arr["tpldir"]."/automatweb/menuedit";
+			$this->tpl_init(sprintf("../%s/automatweb/menuedit/",$arr["tpldir"]));
+			$tpldir = $arr["tpldir"]."automatweb/menuedit/";
 		}
 
 		$arr["tpldir"] = $tpldir;
@@ -3029,7 +3045,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 
 		$this->do_sub_callbacks(isset($arr["sub_callbacks"]) ? $arr["sub_callbacks"] : array());
 
-		if (($docc = $this->do_show_documents($arr)) != "")
+		if ($docc = $this->do_show_documents($arr))
 		{
 			return $docc;
 		}
@@ -3073,14 +3089,14 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		else
 		{
 			$this->section_obj = new object();
-			$this->section_obj->set_class_id(CL_MENU);
+			$this->section_obj->set_class_id(menu_obj::CLID);
 		}
 
 		$clss = aw_ini_get("classes");
 
 		if ($this->section_obj->class_id() && isset($clss[$this->section_obj->class_id()]) && empty($_GET["class"]))
 		{
-			if ($this->section_obj->class_id() != CL_MENU) // menu is a large class and this is what it is 99% of the time and it has no handler. so don't load
+			if ($this->section_obj->class_id() != menu_obj::CLID) // menu is a large class and this is what it is 99% of the time and it has no handler. so don't load
 			{
 				$obj_inst = $this->section_obj->instance();
 				if (method_exists($obj_inst, "request_execute"))
@@ -3175,7 +3191,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 			$mdefs = NULL;
 		}
 		$this->_init_path_vars($arr);
-		$tpl_dir = dirname($template);
+		$tpl_dir = dirname($template) . "/";
 		$tpl_fn = basename($template);
 
 		$cname = $this->cache_compile_template($tpl_dir, $tpl_fn, $mdefs, true);
@@ -3250,7 +3266,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 		$pm->begin_menu("site_edit_".$menu->id());
 		if ($this->can("add", $menu->parent()))
 		{
-			$url = $this->mk_my_orb("new", array("parent" => $menu->parent(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_MENU, true);
+			$url = $this->mk_my_orb("new", array("parent" => $menu->parent(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), menu_obj::CLID, true);
 			$pm->add_item(array(
 				"text" => t("Lisa uus k&otilde;rvale"),
 				"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\", 600, 400);",
@@ -3260,7 +3276,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 
 		if ($this->can("add", $menu->id()))
 		{
-			$url = $this->mk_my_orb("new", array("parent" => $menu->id(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_MENU, true);
+			$url = $this->mk_my_orb("new", array("parent" => $menu->id(), "ord_after" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), menu_obj::CLID, true);
 			$pm->add_item(array(
 				"text" => t("Lisa uus alamkaust"),
 				"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\", 600, 400);",
@@ -3270,7 +3286,7 @@ if (!$this->brother_level_from && !$o->is_brother() && ($use_trans ? $o->trans_g
 
 		if ($this->can("change", $menu->id()))
 		{
-			$url = $this->mk_my_orb("change", array("id" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), CL_MENU, true);
+			$url = $this->mk_my_orb("change", array("id" => $menu->id(), "return_url" => get_ru(), "is_sa" => 1), menu_obj::CLID, true);
 			$pm->add_item(array(
 				"text" => t("Muuda"),
 				"onclick" => "aw_popup_scroll(\"{$url}\", \"aw_doc_edit\", 600, 400);",

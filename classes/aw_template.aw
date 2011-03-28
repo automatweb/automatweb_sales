@@ -33,6 +33,7 @@ class aw_template extends core
 		@attrib api=1 params=name
 		@param tpldir required type=string
 			The template folder, relative to basedir/templates/
+			No directory delimiter at end
 
 		@example
 			class a extends aw_template
@@ -51,7 +52,7 @@ class aw_template extends core
 		{
 			if (method_exists($this, "tpl_init"))
 			{
-				$this->tpl_init(isset($args["tpldir"]) ? $args["tpldir"] : "");
+				$this->tpl_init(isset($args["tpldir"]) ? $args["tpldir"]."/" :  "");
 			}
 		}
 		else
@@ -79,9 +80,9 @@ class aw_template extends core
 		{
 			if ($has_top_level_folder)
 			{
-				$this->template_dir = "{$site_basedir}{$basedir}";
-				$this->adm_template_dir = AW_DIR . "{$basedir}";
-				$this->site_template_dir = "{$site_basedir}{$basedir}";
+				$this->template_dir = $site_basedir.$basedir;
+				$this->adm_template_dir = AW_DIR . $basedir;
+				$this->site_template_dir = $site_basedir.$basedir;
 			}
 			else
 			{
@@ -141,7 +142,7 @@ class aw_template extends core
 		{
 			if ($path_item->prop("tpl_dir_applies_to_all") && $path_item->prop("tpl_dir"))
 			{
-				$rv = aw_ini_get("site_basedir")."/".$path_item->prop("tpl_dir");
+				$rv = aw_ini_get("site_basedir").$path_item->prop("tpl_dir");
 			}
 		}
 		return $dir = $rv;
@@ -321,8 +322,6 @@ class aw_template extends core
 	**/
 	function read_template($name, $silent = false)
 	{
-		if (substr($this->template_dir , -1) != "/") { $this->template_dir.="/"; } //TODO: vaadata kataloogi nimede majandus yle ja eemaldada see kui korras k6ik (/ kataloogidel l6pus)
-
 		$this->template_filename = $this->template_dir . $name;
 
 		if (!file_exists($this->template_filename))
@@ -423,7 +422,7 @@ class aw_template extends core
 	public function read_adm_template($name,$silent = 0)
 	{
 		$retval = true;
-		$this->template_filename = $this->adm_template_dir."/".$name;
+		$this->template_filename = $this->adm_template_dir.$name;
 		if(function_exists("get_file_version"))
 		{
 			$this->template_filename = get_file_version($this->template_filename);
@@ -474,7 +473,7 @@ class aw_template extends core
 	public function read_site_template($name,$silent = false)
 	{
 		$retval = true;
-		$this->template_filename = $this->site_template_dir."/".$name;
+		$this->template_filename = $this->site_template_dir.$name;
 		if (file_exists($this->template_filename))
 		{
 			$this->_record_template_load($this->template_filename);
@@ -520,7 +519,7 @@ class aw_template extends core
 	**/
 	public function read_any_template($name, $silent = false)
 	{
-		$this->template_filename = $this->site_template_dir."/".$name;
+		$this->template_filename = $this->site_template_dir.$name;
 		$this->template_filename = trim($this->template_filename);
 		if (file_exists($this->template_filename))
 		{
@@ -529,7 +528,7 @@ class aw_template extends core
 		}
 		else
 		{
-			$this->template_filename = $this->adm_template_dir."/".$name;
+			$this->template_filename = $this->adm_template_dir.$name;
 			if(function_exists("get_file_version"))
 			{
 				$this->template_filename = get_file_version($this->template_filename);
@@ -991,7 +990,7 @@ class aw_template extends core
 		{
 			// this will add link to documentation
 			$pos = strpos($this->template_filename, aw_ini_get("tpldir"));
-			$tpl_doc_link = ($pos === false) ? str_replace(aw_ini_get('basedir')."/templates", "http://dev.struktuur.ee/wiki/index.php/Templates", $this->template_filename) :
+			$tpl_doc_link = ($pos === false) ? str_replace(aw_ini_get('basedir')."templates/", "http://dev.struktuur.ee/wiki/index.php/Templates", $this->template_filename) :
 			str_replace(aw_ini_get("tpldir"), "http://dev.struktuur.ee/wiki/index.php/Templates", $this->template_filename);
 			aw_global_set("TPL=1", aw_global_get("TPL=1").'$_aw_tpl_equals_1["'.$this->template_filename.'"]=array("link"=>"'.$tpl_doc_link.'");$_aw_tpl_equals_1_counter[]="'.$this->template_filename.'";');
 		}
@@ -1165,7 +1164,7 @@ class aw_template extends core
 		/*
 		if (strpos($fn, aw_ini_get("site_basedir")) !== false)
 		{
-			$f = fopen(aw_ini_get("site_basedir")."/files/template_log_".date("Y_m").".log", "a");
+			$f = fopen(aw_ini_get("site_basedir")."files/template_log_".date("Y_m").".log", "a");
 			fwrite($f, time()."|".get_ru()."|".$fn."\n");
 			fclose($f);
 		}

@@ -172,18 +172,18 @@ class users extends users_user implements request_startup
 	}
 
 	/** Handles hash sender submit
-		@attrib name=submit_send_hash params=name nologin="1"
+		@attrib name=submit_send_hash params=name nologin=1
 	**/
 	function submit_send_hash($args = array())
 	{
 		extract($args);
-		if (($type == "uid") && !is_valid("uid",$uid))
+		if (($type === "uid") && !is_valid("uid",$uid))
 		{
 			aw_session_set("status_msg",t("Vigane kasutajanimi"));
 			return $this->mk_my_orb("send_hash",array());
 		}
 
-		if (($type == "email") && !is_email($email))
+		if (($type === "email") && !is_email($email))
 		{
 			aw_session_set("status_msg",t("Vigane e-posti aadress"));
 			return $this->mk_my_orb("send_hash",array());
@@ -191,8 +191,6 @@ class users extends users_user implements request_startup
 
 		$filt = array(
 			"class_id" => CL_USER,
-			"lang_id" => array(),
-			"site_id" => array(),
 			"blocked" => new obj_predicate_not(1),
 			"brother_of" => new obj_predicate_prop("id")
 		);
@@ -789,7 +787,7 @@ class users extends users_user implements request_startup
 
 		if(!$arr["firstname"] || !$arr["lastname"] || !$ik->is_valid())
 		{
-			$url = aw_ini_get("baseurl")."/orb.aw?class=ddoc&action=no_ddoc";
+			$url = aw_ini_get("baseurl")."orb.aw?class=ddoc&action=no_ddoc";
 			$tpl = new aw_template();
 			$tpl->init(array(
 				"tpldir" => "common/digidoc/idErr"
@@ -803,8 +801,6 @@ class users extends users_user implements request_startup
 		$ol = new object_list(array(
 			"class_id" => CL_CRM_PERSON,
 			"personal_id" => $ik->get(),
-			"site_id" => array(),
-			"lang_id" => array(),
 			"status" => new obj_predicate_not(STAT_DELETED)
 		));
 
@@ -966,13 +962,13 @@ class users extends users_user implements request_startup
 				$this->db_query("DELETE FROM user_hashes WHERE hash_time < ".(time() - 60*24*3600));
 
 				$url = ($t = urldecode(aw_global_get("request_uri_before_auth"))) ? $t : aw_ini_get("baseurl");
-				if ($url === aw_ini_get("baseurl")."/login.aw")
+				if ($url === aw_ini_get("baseurl")."login.aw")
 				{
 					$url = aw_ini_get("baseurl");
 				}
 				if ($url{0} === "/")
 				{
-					$url = aw_ini_get("baseurl").$url;
+					$url = aw_ini_get("baseurl").substr($url, 1);
 				}
 				post_message("MSG_USER_LOGIN", array("uid" => $arr["uid"]));
 				return $url;

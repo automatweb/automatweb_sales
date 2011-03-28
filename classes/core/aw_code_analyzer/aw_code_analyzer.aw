@@ -875,8 +875,7 @@ class aw_code_analyzer extends core
 					$cur_att_name .= $str{$i};
 				}
 			}
-			else
-			if ($in_att_value)
+			elseif ($in_att_value)
 			{
 				if ($str{$i} === "\"" && trim($cur_att_value) === "")
 				{
@@ -928,6 +927,7 @@ class aw_code_analyzer extends core
 		{
 			$ret[trim($cur_att_name)] = $cur_att_value;
 		}
+
 		return $ret;
 	}
 
@@ -937,14 +937,24 @@ class aw_code_analyzer extends core
 			"name" => "",
 			"req" => ""
 		);
+		// orb declaration parameter
 		list($ret["name"], $ret["req"], $extra) = array_merge(preg_split ( "/\s+/", $str, 3), array(NULL, NULL));
+
+		// api declaration parameter
 		if ($ret["req"] !== "required" and $ret["req"] !== "optional")
 		{
-			list($ret["name"], $extra) = array_merge(preg_split ( "/\s+/", $str, 2), array(NULL, NULL));
+			$ret["req"] = null;
+			list($ret["name"], $extra) = array_merge(preg_split ( "/\s+/", $str, 2), array(null, null));
 		}
 
 		// now parse extra params
 		$att = $this->_do_parse_attributes($extra);
+
+		// determine if required or optional by checking if 'default' given
+		if ($ret["req"] !== "required" and $ret["req"] !== "optional")
+		{
+			$ret["req"] = empty($att["default"]) ? "required" : "optional";
+		}
 
 		$ret = $ret+$att;
 		return $ret;

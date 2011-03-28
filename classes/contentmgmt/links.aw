@@ -237,7 +237,7 @@ class links extends class_base
 		$link = obj($id);
 		$url = $this->trans_get_val($link, "url");
 
-		if (substr(trim($url), 0, 3) === "www")
+		if (substr(trim($url), 0, 4) === "www.")
 		{
 			$url = "http://{$url}";
 		}
@@ -247,9 +247,9 @@ class links extends class_base
 			$url = "/".$link->prop("docid");
 		}
 
-		if ($url[0] === "/")
+		if ($url{0} === "/")
 		{
-			$url = aw_ini_get("baseurl").$url;
+			$url = aw_ini_get("baseurl").substr($url, 1);
 		}
 
 		if (aw_ini_get("links.use_hit_counter"))
@@ -331,7 +331,7 @@ class links extends class_base
 					$p["post_append_text"] = sprintf(t("Valitud objekt: %s /"), html::obj_change_url($o->meta("linked_obj")));
 					$p["post_append_text"] .= " ".html::href(array(
 						"url" => $this->mk_my_orb("remove_linked", array("id" => $o->id(), "ru" => get_ru()), "menu"),
-						"caption" => html::img(array("url" => aw_ini_get("baseurl")."/automatweb/images/icons/delete.gif", "border" => 0))
+						"caption" => html::img(array("url" => aw_ini_get("baseurl")."automatweb/images/icons/delete.gif", "border" => 0))
 					))." / ";
 				}
 				else
@@ -453,7 +453,7 @@ class links extends class_base
 			));
 
 			die("
-				<script type=\"text/javascript\" src=\"".aw_ini_get("baseurl")."/automatweb/js/aw.js\"></script>
+				<script type=\"text/javascript\" src=\"".aw_ini_get("baseurl")."automatweb/js/aw.js\"></script>
 				<script language='javascript'>
 
 				function SetAttribute( element, attName, attValue )

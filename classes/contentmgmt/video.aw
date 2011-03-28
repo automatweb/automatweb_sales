@@ -202,7 +202,8 @@ class video extends class_base
 		$im = new image();
 
 		$image = "";
-		$imc = reset($ob->connections_from(array("type" => "RELTYPE_IMAGE")));
+		$imc = $ob->connections_from(array("type" => "RELTYPE_IMAGE"));
+		$imc = reset($imc);
 		if ($imc)
 		{
 			$imid = $imc->prop("to");
@@ -246,7 +247,7 @@ class video extends class_base
 		{
 			header("Content-type: video/x-flv");
 			header("Content-length: ".filesize($file));
-			@readfile($file);
+			readfile($file);
 			exit;
 		}
 		else

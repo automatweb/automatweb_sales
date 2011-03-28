@@ -13,10 +13,7 @@ class mysql_pdo
 	const SLOW_QUERY_THRESHOLD = 10; // seconds
 
 	private $db_proc_error_last_fn = "";
-
-	function db_init()
-	{
-	}
+	private $qhandles = array();
 
 	function db_connect($server = "localhost", $base = "", $username = "", $password = "", $cid = db_connector::DEFAULT_CID_STR)
 	{
@@ -76,15 +73,15 @@ class mysql_pdo
 				$eri->raise_error("ERR_DB_NOTCONNECTED", "I'm not connected to the database, cannot perform the requested query. Please report this to site administrator immediately", true, false);
 			}
 		}
-		elseif ($this->qID)
-		{
+		// elseif ($this->qID)
+		// {
 			// $this->db_free_result();//TODO: make it happen. can't right away because of save_handle/restore_handle
-		}
+		// }
 
 		$this->qID = $this->dbh->query($qtext);
 		// $this->log_query($qtext);
 
-		if (!$this->qID )
+		if (!$this->qID)
 		{
 			if ($errors)
 			{
@@ -146,11 +143,6 @@ class mysql_pdo
 	// order, otherwise weird things could happen
 	function save_handle()
 	{
-		if (empty($this->qhandles) || !is_array($this->qhandles))
-		{
-			$this->qhandles = array();
-		}
-
 		array_push($this->qhandles, $this->qID);
 	}
 
@@ -158,7 +150,7 @@ class mysql_pdo
 	// !restores query handle from internal check
 	function restore_handle()
 	{
-		if (is_array($this->qhandles))
+		if (count($this->qhandles))
 		{
 			$this->qID = array_pop($this->qhandles);
 		}

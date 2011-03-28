@@ -302,7 +302,6 @@ class automatweb
 		ini_set("memory_limit", "512M");
 		ini_set("max_execution_time", "2000");
 		$baseurl = aw_ini_get("baseurl");
-		$baseurl .= (("/" === substr($baseurl, -1)) ? "" : "/");
 		$request_uri = $_SERVER["REQUEST_URI"];
 
 		// execute fastcall if requested
@@ -461,7 +460,7 @@ aw_global_set("section", $section);
 			// can't use classload here, cause it will be included from within a function and then all kinds of nasty
 			// scoping rules come into action. blech.
 			$script = basename($_SERVER["SCRIPT_FILENAME"], AW_FILE_EXT);
-			$path = aw_ini_get("classdir") . "/" . aw_ini_get("site_impl_dir") . "/" . $script . "_impl" . AW_FILE_EXT;
+			$path = aw_ini_get("classdir") . aw_ini_get("site_impl_dir") . $script . "_impl" . AW_FILE_EXT;
 			if (file_exists($path))
 			{
 				self::$result->set_data(get_include_contents($path));
@@ -574,12 +573,12 @@ aw_global_set("section", $section);
 							// go to default admin interface
 							include(AW_DIR . "automatweb/admin_header" . AW_FILE_EXT);
 							$id = admin_if::find_admin_if_id();
-							$redirect_url = aw_ini_get("baseurl") . "/automatweb/orb.aw?class=admin_if&action=change&group=o&id={$id}";
+							$redirect_url = aw_ini_get("baseurl") . "automatweb/orb.aw?class=admin_if&action=change&group=o&id={$id}";
 						}
 					}
 					else
 					{ // go to main page
-						$redirect_url = aw_ini_get("baseurl") . "/automatweb/";
+						$redirect_url = aw_ini_get("baseurl") . "automatweb/";
 					}
 
 					aw_redirect(new aw_uri($redirect_url));

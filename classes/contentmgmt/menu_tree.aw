@@ -1,5 +1,4 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/menu_tree.aw,v 1.35 2009/04/15 12:01:53 instrumental Exp $
 // menu_tree.aw - men&uuml;&uuml;puu
 
 /*
@@ -8,8 +7,8 @@
 	@default method=serialize
 	@default group=general
 
-	@classinfo trans=1 syslog_type=ST_MENU_TREE maintainer=kristo
-	@property children_only type=checkbox ch_value=1 trans=1
+	@classinfo trans=1 syslog_type=ST_MENU_TREE
+	@property children_only type=checkbox ch_value=1 trans=1 prop_cb=1
 	@caption Ainult alammen&uuml;&uuml;d
 
 	@property template type=select trans=1
@@ -20,10 +19,10 @@
 
 	@property no_unclickable type=checkbox ch_value=1 default=1
 	@caption &Auml;ra n&auml;ita mitteklikitavaid men&uuml;&uuml;sid
-	
+
 	@property menus type=select multiple=1 size=15 trans=1
 	@caption Men&uuml;&uuml;d
-	
+
 	@property root_menu multiple=1 type=relpicker no_caption=1 reltype=RELTYPE_ROOT_MENU
 
 	@property menu_tb type=toolbar no_caption=1
@@ -56,7 +55,7 @@ class menu_tree extends class_base
 		switch($data["name"])
 		{
 			case "default_table":
-				$this->_get_default_table(&$args);
+				$this->_get_default_table($args);
 			break;
 			case "num_levels":
 				$data["options"] = array(
@@ -81,7 +80,7 @@ class menu_tree extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				
+
 				foreach($data["value"] as $m)
 				{
 					$args["obj_inst"]->connect(array(
@@ -89,9 +88,9 @@ class menu_tree extends class_base
 						"reltype" => "RELTYPE_ROOT_MENU",
 					));
 				}
-				
+
 				$ol = new object_list(array(
-					"class_id" => CL_MENU,
+					"class_id" => menu_obj::CLID,
 					"status" => array(STAT_ACTIVE,STAT_NOTACTIVE),
 					new object_list_filter(array(
 						"logic" => "OR",
@@ -120,7 +119,7 @@ class menu_tree extends class_base
 				break;
 
 			case "template":
-				$tpldir = $this->cfg["site_basedir"] . "/templates/menu_tree";
+				$tpldir = aw_ini_get("site_basedir"). "templates/menu_tree/";
 				$tpls = $this->get_directory(array(
 					"dir" => $tpldir,
 				));
@@ -137,15 +136,15 @@ class menu_tree extends class_base
 		switch($prop["name"])
 		{
 			case "default_table":
-				$this->{"_set_".$prop["name"]}(&$arr);
+				$this->{"_set_".$prop["name"]}($arr);
 				break;
 		}
 		return PROP_OK;
 	}
 
-	function _get_default_table($arr)
+	function _get_default_table(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_header(t("S&uuml;steemi vaikimisi objekt"));
 		$t->define_field(array(
 			"name" => "select",
@@ -244,7 +243,7 @@ class menu_tree extends class_base
 			$to = $c->to();
 			$menus[] = $to->id();
 		}
-	
+
 		if (count($menus) == 0)
 		{
 			$ol = new object_list();
@@ -254,8 +253,7 @@ class menu_tree extends class_base
 			$ol = new object_list(array(
 				"oid" => $menus,
 				"sort_by" => "objects.jrk",
-				"class_id" => CL_MENU,
-				"site_id" => array(),
+				"class_id" => menu_obj::CLID,
 				new object_list_filter(array(
 					"logic" => "OR",
 					"conditions" => array(
@@ -279,7 +277,7 @@ class menu_tree extends class_base
 		$tpl = str_replace("/","",$tpl);
 
 		$folder_list = array();
-		// FIXME: this should use menu cache 
+		// FIXME: this should use menu cache
 		if (is_array($menus))
 		{
 			$this->tpl_name = "content";
@@ -287,13 +285,13 @@ class menu_tree extends class_base
 			$this->sq = 3;
 			$this->add_start_from = true;
 			$this->read_template("menu_tree/" . $tpl);
-			
+
 			if ($this->is_template("item_L1"))
 			{
 				// this type of template can have different subtemplates for different levels..
 				// good if one needs to use more complex designs..
 				// you can also use optional item_Ln_START and item_ln_END subtemplates,
-				// if they exist, then first and last item for a level is drawn using 
+				// if they exist, then first and last item for a level is drawn using
 				// those templates - if they exist, then they _need_ to contain variables
 				// for items
 				$this->layout_mode = 2;
@@ -301,7 +299,7 @@ class menu_tree extends class_base
 			}
 			elseif ($this->is_template("START"))
 			{
-				// this type of template has 3 subs, START, ITEM and END, 
+				// this type of template has 3 subs, START, ITEM and END,
 				// START and END are simply used to start and finish a level, they
 				// cannot contain variables for items
 				// typical usage: nested <ul> list
@@ -326,11 +324,11 @@ class menu_tree extends class_base
 			};
 		};
 		//$fl = str_replace("&", "&amp;", join("",$folder_list));
-		$fl = str_replace(chr(150), "-", join("",$folder_list));	
+		$fl = str_replace(chr(150), "-", join("",$folder_list));
 		return $fl;
-		
+
 	}
-	
+
 	function gen_rec_list($args = array())
 	{
 		extract($args);
@@ -383,7 +381,7 @@ class menu_tree extends class_base
 	function _gen_rec_list($parents = array())
 	{
 		$this->save_handle();
-	
+
 		$nsuo = (aw_global_get("uid") == "" && aw_ini_get("menuedit.no_show_users_only"));
 
 		// go over parents and see if they have sfo settings
@@ -400,7 +398,7 @@ class menu_tree extends class_base
 
 		$hu = aw_ini_get("user_interface.hide_untranslated");
 		$filt = array(
-			"class_id" => CL_MENU,
+			"class_id" => menu_obj::CLID,
 			"parent" => $parents,
 			"status" => $hu && aw_ini_get("languages.default") != aw_global_get("ct_lang_id") ? array(STAT_ACTIVE, STAT_NOTACTIVE) : STAT_ACTIVE,
 			new object_list_filter(array(
@@ -445,7 +443,7 @@ class menu_tree extends class_base
 					$can = false;
 				}
 			}
-			
+
 			if ($can)
 			{
 				$_parents[] = $o->id();
@@ -480,7 +478,7 @@ class menu_tree extends class_base
 			"field" => "oid",
 			"width" => "30px",
 		));
-		
+
 		$cs = $arr["obj_inst"]->connections_from(array(
 			"type" => "RELTYPE_ROOT_MENU",
 		));
@@ -500,10 +498,10 @@ class menu_tree extends class_base
 		$url = $this->mk_my_orb("do_search", array(
 			"pn" => "root_menu",
 			"id" => $arr["obj_inst"]->id(),
-			"clid" => CL_MENU,
+			"clid" => menu_obj::CLID,
 //			"multiple" => 1,
 		), "popup_search");
-		
+
 		$tb->add_button(array(
 			"name" => "search_menu",
 			"tooltip" => t("Lisa men&uuml;&uuml;"),
@@ -564,7 +562,7 @@ class menu_tree extends class_base
 		}
 		$this->_sfo_level--;
 	}
-	
+
 	/////
 	// !Recurse and print object array
 	function _recurse_object_list($args = array())
@@ -590,7 +588,7 @@ class menu_tree extends class_base
 		}
 
 		$this->rec_level++;
-		$ss = get_instance("contentmgmt/site_show");
+		$ss = new site_show();
 		$slicesize = sizeof($slice);
 		$slicecounter = 0;
 		while(list($k,$v) = each($slice))
@@ -604,7 +602,7 @@ class menu_tree extends class_base
 			$id = $v->id();
 			$spacer = str_repeat($this->spacer,$this->level * $this->sq);
 			$name = $spacer . $v->trans_get_val("name");
-				
+
 			if ($this->single_tpl)
 			{
 				$tpl = ($this->tpl_name) ? $this->tpl_name : $this->tlist[1][0];
@@ -651,20 +649,20 @@ class menu_tree extends class_base
 					$id = join("/",$this->alias_stack);
 					$id .= ($id == "" ? "" : "/") . $v->alias();
 				};
-				$id = $this->cfg["baseurl"]."/".$id;
+				$id = aw_ini_get("baseurl").$id;
 			}
 			else
 			{
-				$id = $this->cfg["baseurl"]."/".$id;
-			};
+				$id = aw_ini_get("baseurl").$id;
+			}
 
-			if ($v->prop("link") != "")
+			if ($v->prop("link"))
 			{
 				$url = $v->prop("link");
 				$id = $url;
 			}
 
-			if ($this->sfo_ids[$v->id()])
+			if (!empty($this->sfo_ids[$v->id()]))
 			{
 				$sfo_i = $this->sfo_ids[$v->id()]->instance();
 				$url = $sfo_i->make_menu_link($v, $this->sfo_ids[$v->id()]);
@@ -724,51 +722,50 @@ class menu_tree extends class_base
 					$this->shown[$v->id()] = $id;
 					$item = true;
 				}
-			};
+			}
 
-			$next_slice = $this->object_list[$v->id()];
+			$next_slice = isset($this->object_list[$v->id()]) ? $this->object_list[$v->id()] : null;
 			if (is_array($next_slice) && (sizeof($next_slice) > 0))
 			{
 				if ($v->alias())
 				{
 					array_push($this->alias_stack,$v->alias());
-				};
+				}
 
 				if ($this->layout_mode == 3)
 				{
 					$this->res .= $this->parse("START");
-				};	
-				
+				}
+
 				$this->level++;
 
 				$this->_recurse_object_list(array(
 					"parent" => $v->id(),
 				));
-				
+
 				$this->level--;
 
 				if ($this->layout_mode == 3)
 				{
 					$this->res .= $this->parse("END");
-				};	
+				}
 
 				if ($v->alias())
 				{
 						array_pop($this->alias_stack);
 				};
-			};
+			}
 
 			if ($item && $this->is_template("ITEM_END"))
 			{
 				$this->res .= $this->parse("ITEM_END");
 			}
-		};
+		}
 		$this->rec_level--;
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr)
 	{
 		$arr["root_menu"] = "0";
 	}
 }
-?>

@@ -1,6 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/contentmgmt/site_search/site_search_content_grp.aw,v 1.28 2009/02/11 10:30:39 kristo Exp $
-// site_seaarch_content_grp.aw - Saidi sisu otsingu grupp 
+// site_seaarch_content_grp.aw - Saidi sisu otsingu grupp
 /*
 
 - when a menu is saved, search groups are scanned to see if any of them should display the just-saved menu
@@ -18,7 +17,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_SAVE,CL_SITE_SEARCH_CONTENT_GRP, on_save_g
 HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE,CL_DOCUMENT, on_delete_menu)
 
 
-@classinfo syslog_type=ST_SITE_SEARCH_CONTENT_GRP relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_SITE_SEARCH_CONTENT_GRP relationmgr=yes
 
 @default table=objects
 @default group=general
@@ -77,7 +76,7 @@ class site_search_content_grp extends class_base
 				break;
 		}
 		return $retval;
-	}	
+	}
 
 	function do_submenus($arr)
 	{
@@ -94,7 +93,7 @@ class site_search_content_grp extends class_base
 		$t->define_field(array(
 			"name" => "class",
 			"caption" => t("Klass"),
-		));			
+		));
 		$t->define_field(array(
 			"name" => "oid",
 			"caption" => t("ID"),
@@ -115,7 +114,7 @@ class site_search_content_grp extends class_base
 			"width" => 80,
 			"align" => "center",
 		));
-		
+
 		$t->define_field(array(
 			"name" => "check_na",
 			"caption" => t("mitteaktiivsed"),
@@ -123,7 +122,7 @@ class site_search_content_grp extends class_base
 			"width" => 80,
 			"align" => "center",
 		));
-		
+
 		$clinf = aw_ini_get("classes");
 
 		$conns = $obj->connections_from(array(
@@ -187,7 +186,7 @@ class site_search_content_grp extends class_base
 		foreach($conns as $conn)
 		{
 			$se[] = $conn->prop("to");
-		};
+		}
 
 		$sub = $o->meta("section_include_submenus");
 		$notact = $o->meta("notact");
@@ -198,7 +197,7 @@ class site_search_content_grp extends class_base
 		$ret = array();
 		foreach($se as $m)
 		{
-			if ($sub[$m])
+			if (!empty($sub[$m]))
 			{
 				$ret[$m] = $m;
 				$ot = new object_tree(array(
@@ -206,8 +205,6 @@ class site_search_content_grp extends class_base
 					"parent" => $m,
 					"status" => ($notact[$m] ? array(STAT_ACTIVE,STAT_NOTACTIVE) : STAT_ACTIVE),
 					"sort_by" => "objects.parent",
-					"lang_id" => array(),
-					"site_id" => array(),
 					new object_list_filter(array(
 						"logic" => "OR",
 						"conditions" => array(
@@ -264,7 +261,7 @@ class site_search_content_grp extends class_base
 				}
 			}
 		}
-		
+
 		// if no user is logged on, then filter the list by "users_only"
 		if (aw_global_get("uid") == "")
 		{
@@ -332,7 +329,7 @@ class site_search_content_grp extends class_base
 					}
 				}
 			}
-			
+
 			if ($is_in_grp)
 			{
 				$mt = safe_array($grp->meta("grp_menus"));
@@ -405,7 +402,7 @@ class site_search_content_grp extends class_base
 	function on_delete_menu($arr)
 	{
 		$o = obj($arr["oid"]);
-		
+
 		$grps = new object_list(array(
 			"class_id" => CL_SITE_SEARCH_CONTENT_GRP,
 			"lang_id" => array(),
@@ -419,6 +416,5 @@ class site_search_content_grp extends class_base
 				$this->_regen_grp($grp);
 			}
 		}
-	}	
+	}
 }
-?>
