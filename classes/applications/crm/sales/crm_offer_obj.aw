@@ -75,6 +75,14 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	{
 		$o = obj($this->save_new());
 		$o->set_prop("state", self::STATE_NEW);
+
+		foreach ($this->get_rows() as $row)
+		{
+			$new_row = obj($row->save_new());
+			$new_row->offer = $o->id();
+			$new_row->save();
+		}
+
 		$o->save();
 
 		return $o;
