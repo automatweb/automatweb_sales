@@ -60,8 +60,8 @@
             <reltype>RELTYPE_FOLDER</reltype>
             <clid>CL_MENU</clid>
             <parent>folders_box</parent>
-            <comment>Kaust kuhu salvestatakse ning kust loetakse selle m&amp;amp;uuml;&amp;amp;uuml;gikeskkonna pakkumisobjektid</comment>
-            <caption>Pakkumiste kaust</caption>
+            <comment>Kaust kuhu salvestatakse ning kust loetakse selle m&amp;amp;uuml;&amp;amp;uuml;gikeskkonna pakkumusobjektid</comment>
+            <caption>Pakkumuste kaust</caption>
       </property>
       <property>
             <name>price_components_folder</name>
@@ -1832,7 +1832,7 @@
                   <parent>settings</parent>
             </settings_general>
             <settings_offers>
-                  <caption>Pakkumised</caption>
+                  <caption>Pakkumused</caption>
                   <parent>settings</parent>
             </settings_offers>
             <contacts>
@@ -1894,7 +1894,7 @@
                   <parent>data_entry</parent>
             </data_entry_import>
             <offers>
-                  <caption>Pakkumised</caption>
+                  <caption>Pakkumused</caption>
                   <submit>no</submit>
                   <submit_method>get</submit_method>
             </offers>
@@ -1907,7 +1907,7 @@
                   <submit_method>get</submit_method>
             </statistics_telemarketing>
             <statistics_offers>
-                  <caption>Pakkumised</caption>
+                  <caption>Pakkumused</caption>
                   <parent>statistics</parent>
                   <submit>no</submit>
                   <submit_method>get</submit_method>
@@ -2030,7 +2030,7 @@
             <settings_offers_left>
                   <type>vbox</type>
                   <parent>settings_offers_vsplitbox</parent>
-                  <area_caption>Pakkumiste&amp;amp;nbsp;seaded</area_caption>
+                  <area_caption>Pakkumuste&amp;amp;nbsp;seaded</area_caption>
                   <group>settings_offers</group>
             </settings_offers_left>
             <settings_offers_right>
@@ -2191,28 +2191,28 @@
             <offers_tree_box_state>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;staatuse&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <area_caption>Pakkumuste&amp;amp;nbsp;valik&amp;amp;nbsp;staatuse&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>offers_box</parent>
                   <group>offers</group>
             </offers_tree_box_state>
             <offers_tree_box_timespan>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;perioodi&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <area_caption>Pakkumuste&amp;amp;nbsp;valik&amp;amp;nbsp;perioodi&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>offers_box</parent>
                   <group>offers</group>
             </offers_tree_box_timespan>
             <offers_tree_box_customer_category>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;kliendikategooria&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <area_caption>Pakkumuste&amp;amp;nbsp;valik&amp;amp;nbsp;kliendikategooria&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>offers_box</parent>
                   <group>offers</group>
             </offers_tree_box_customer_category>
             <offers_search_box>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Pakkumiste&amp;amp;nbsp;otsing</area_caption>
+                  <area_caption>Pakkumuste&amp;amp;nbsp;otsing</area_caption>
                   <parent>offers_box</parent>
                   <group>offers</group>
             </offers_search_box>
@@ -2237,21 +2237,21 @@
             <statistics_offers_tree_box_state>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;staatuse&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <area_caption>Pakkumuste&amp;amp;nbsp;valik&amp;amp;nbsp;staatuse&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>statistics_offers_box</parent>
                   <group>statistics_offers</group>
             </statistics_offers_tree_box_state>
             <statistics_offers_tree_box_timespan>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;perioodi&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <area_caption>Pakkumuste&amp;amp;nbsp;valik&amp;amp;nbsp;perioodi&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>statistics_offers_box</parent>
                   <group>statistics_offers</group>
             </statistics_offers_tree_box_timespan>
             <statistics_offers_tree_box_customer_category>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Pakkumiste&amp;amp;nbsp;valik&amp;amp;nbsp;kliendikategooria&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <area_caption>Pakkumuste&amp;amp;nbsp;valik&amp;amp;nbsp;kliendikategooria&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>statistics_offers_box</parent>
                   <group>statistics_offers</group>
             </statistics_offers_tree_box_customer_category>
