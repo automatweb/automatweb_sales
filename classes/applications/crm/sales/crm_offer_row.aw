@@ -8,7 +8,7 @@
 @default group=general
 
 	@property offer type=objpicker clid=CL_CRM_OFFER field=aw_offer
-	@caption Pakkumine
+	@caption Pakkumus
 
 	@property object type=objpicker field=aw_object
 	@caption Objekt
