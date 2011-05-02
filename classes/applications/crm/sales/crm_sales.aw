@@ -7,7 +7,7 @@
 GROUP DECLARATIONS
 @groupinfo settings caption="Seaded"
 @groupinfo settings_general caption="&Uuml;ldine" parent=settings
-@groupinfo settings_offers caption="Pakkumised" parent=settings
+@groupinfo settings_offers caption="Pakkumused" parent=settings
 
 // contacts, presentations and calls tabs/groups are handled by their own separate static view classes
 // respectively crm_sales_contacts_view, ...presentations_view and ...calls_view
@@ -31,12 +31,12 @@ GROUP DECLARATIONS
 @groupinfo data_entry_contact_employee caption="Klientorganisatsiooni kontaktisik" parent=data_entry submit=no
 @groupinfo data_entry_import caption="Import" parent=data_entry
 
-@groupinfo offers caption="Pakkumised" submit=no submit_method=get
+@groupinfo offers caption="Pakkumused" submit=no submit_method=get
 
 // statistics and analysis views. handled by separate static view classes
 @groupinfo statistics caption="&Uuml;levaated"
 @groupinfo statistics_telemarketing caption="Telemarketing" parent=statistics submit_method=get
-@groupinfo statistics_offers caption="Pakkumised" parent=statistics submit=no submit_method=get
+@groupinfo statistics_offers caption="Pakkumused" parent=statistics submit=no submit_method=get
 
 
 
@@ -72,8 +72,8 @@ PROPERTY DECLARATIONS
 	@caption Lepingute kaust
 
 	@property offers_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
-	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna pakkumisobjektid
-	@caption Pakkumiste kaust
+	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna pakkumusobjektid
+	@caption Pakkumuste kaust
 
 	@property price_components_folder type=relpicker reltype=RELTYPE_FOLDER clid=CL_MENU parent=folders_box
 	@comment Kaust kuhu salvestatakse ning kust loetakse selle m&uuml;&uuml;gikeskkonna hinnakomponentide objekte
@@ -226,7 +226,7 @@ PROPERTY DECLARATIONS
 
 	@layout settings_offers_vsplitbox type=hbox width=50%:50%
 
-		@layout settings_offers_left type=vbox parent=settings_offers_vsplitbox area_caption=Pakkumiste&nbsp;seaded
+		@layout settings_offers_left type=vbox parent=settings_offers_vsplitbox area_caption=Pakkumuste&nbsp;seaded
 
 			@property cfgf_offers_hide_mandatory_price_components type=checkbox parent=settings_offers_left
 			@caption Peida kohustuslikud hinnakomponendid
@@ -511,19 +511,19 @@ PROPERTY DECLARATIONS
 
 		@layout offers_box type=vbox parent=offers_vsplitbox
 
-			@layout offers_tree_box_state type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;staatuse&nbsp;j&auml;rgi parent=offers_box
+			@layout offers_tree_box_state type=vbox closeable=1 area_caption=Pakkumuste&nbsp;valik&nbsp;staatuse&nbsp;j&auml;rgi parent=offers_box
 
 				@property offers_tree_state type=treeview store=no no_caption=1 parent=offers_tree_box_state
 
-			@layout offers_tree_box_timespan type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;perioodi&nbsp;j&auml;rgi parent=offers_box
+			@layout offers_tree_box_timespan type=vbox closeable=1 area_caption=Pakkumuste&nbsp;valik&nbsp;perioodi&nbsp;j&auml;rgi parent=offers_box
 
 				@property offers_tree_timespan type=treeview store=no no_caption=1 parent=offers_tree_box_timespan
 
-			@layout offers_tree_box_customer_category type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;kliendikategooria&nbsp;j&auml;rgi parent=offers_box
+			@layout offers_tree_box_customer_category type=vbox closeable=1 area_caption=Pakkumuste&nbsp;valik&nbsp;kliendikategooria&nbsp;j&auml;rgi parent=offers_box
 
 				@property offers_tree_customer_category type=treeview store=no no_caption=1 parent=offers_tree_box_customer_category
 
-		@layout offers_search_box type=vbox closeable=1 area_caption=Pakkumiste&nbsp;otsing parent=offers_box
+		@layout offers_search_box type=vbox closeable=1 area_caption=Pakkumuste&nbsp;otsing parent=offers_box
 
 			@property os_customer_name type=textbox view_element=1 parent=offers_search_box store=no size=20 captionside=top
 			@caption Kliendi nimi
@@ -549,15 +549,15 @@ PROPERTY DECLARATIONS
 
 		@layout statistics_offers_box type=vbox parent=statistics_offers_vsplitbox
 
-			@layout statistics_offers_tree_box_state type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;staatuse&nbsp;j&auml;rgi parent=statistics_offers_box
+			@layout statistics_offers_tree_box_state type=vbox closeable=1 area_caption=Pakkumuste&nbsp;valik&nbsp;staatuse&nbsp;j&auml;rgi parent=statistics_offers_box
 
 				@property statistics_offers_tree_state type=treeview store=no no_caption=1 parent=statistics_offers_tree_box_state
 
-			@layout statistics_offers_tree_box_timespan type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;perioodi&nbsp;j&auml;rgi parent=statistics_offers_box
+			@layout statistics_offers_tree_box_timespan type=vbox closeable=1 area_caption=Pakkumuste&nbsp;valik&nbsp;perioodi&nbsp;j&auml;rgi parent=statistics_offers_box
 
 				@property statistics_offers_tree_timespan type=treeview store=no no_caption=1 parent=statistics_offers_tree_box_timespan
 
-			@layout statistics_offers_tree_box_customer_category type=vbox closeable=1 area_caption=Pakkumiste&nbsp;valik&nbsp;kliendikategooria&nbsp;j&auml;rgi parent=statistics_offers_box
+			@layout statistics_offers_tree_box_customer_category type=vbox closeable=1 area_caption=Pakkumuste&nbsp;valik&nbsp;kliendikategooria&nbsp;j&auml;rgi parent=statistics_offers_box
 
 				@property statistics_offers_tree_customer_category type=treeview store=no no_caption=1 parent=statistics_offers_tree_box_customer_category
 
@@ -730,23 +730,23 @@ class crm_sales extends class_base
 
 		self::$offers_list_views = array(
 			self::OFFERS_DEFAULT => array(
-				"caption" => t("K&otilde;ik pakkumised"),
+				"caption" => t("K&otilde;ik pakkumused"),
 				"in_tree" => true
 			),
 			self::OFFERS_TODAY => array(
-				"caption" => t("T&auml;nased pakkumised"),
+				"caption" => t("T&auml;nased pakkumused"),
 				"in_tree" => true
 			),
 			self::OFFERS_YESTERDAY => array(
-				"caption" => t("Eilsed pakkumised"),
+				"caption" => t("Eilsed pakkumused"),
 				"in_tree" => true
 			),
 			self::OFFERS_THIS_WEEK => array(
-				"caption" => t("K&auml;esoleva n&auml;dala pakkumised"),
+				"caption" => t("K&auml;esoleva n&auml;dala pakkumused"),
 				"in_tree" => true
 			),
 			self::OFFERS_LAST_WEEK => array(
-				"caption" => t("M&ouml;&ouml;dunud n&auml;dala pakkumised"),
+				"caption" => t("M&ouml;&ouml;dunud n&auml;dala pakkumused"),
 				"in_tree" => true
 			),
 			self::OFFERS_SEARCH => array(
