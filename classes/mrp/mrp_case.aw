@@ -3089,7 +3089,8 @@ class mrp_case extends class_base
 				case "order_quantity":
 					$this->db_add_col($table, array(
 						"name" => "order_quantity",
-						"type" => "INT(11) UNSIGNED NOT NULL"
+						"type" => "INT(11) UNSIGNED NOT NULL",
+						"default" => 1,
 					));
 					aw_disable_acl();
 					$prjs = new object_list(array(
