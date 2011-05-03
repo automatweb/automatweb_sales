@@ -891,7 +891,7 @@ class mrp_job_obj extends _int_object implements crm_sales_price_component_inter
 
 			### start job
 			$this->set_prop ("state", self::STATE_INPROGRESS);
-			$this->set_prop ("started", $real_start_time);
+			$this->set_prop ("started", int($real_start_time));
 
 			// update job in project
 			$this->mrp_case->update_progress($this->ref());
