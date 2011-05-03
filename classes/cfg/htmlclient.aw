@@ -301,12 +301,12 @@ class htmlclient extends aw_template
 		@comment
 			Messages get shown if they are pushed before calling htmlclient::get_result()
 	**/
-	public function push_msg($text, $class = "")
+	public function push_msg($text, $class = "", $safe = false)
 	{
 		if (is_string($text) and strlen($text) > 1 and ("" === $class or "OK" === $class or "ERROR" === $class))
 		{
 			$this->vars(array(
-				"text" => htmlspecialchars(aw_html_entity_decode($text)),
+				"text" => $safe ? htmlspecialchars(aw_html_entity_decode($text)) : aw_html_entity_decode($text),
 				"class" => $class
 			));
 			$this->ui_messages[] = $this->parse("MESSAGE");
