@@ -1233,7 +1233,7 @@ class planner extends class_base
 
 					try
 					{
-						$classname = aw_ini_get("classes.{$clid}.name")
+						$classname = aw_ini_get("classes.{$clid}.name");
 					}
 					catch (awex_cfg_key $e)
 					{
