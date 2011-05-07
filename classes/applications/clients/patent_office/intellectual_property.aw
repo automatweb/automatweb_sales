@@ -1094,7 +1094,7 @@ abstract class intellectual_property extends class_base
 		@comment
 			saves the ddoc file (browser save popup)
 	**/
-	function get_file($arr)
+	public static function get_file($arr)
 	{
 		$file_inst = get_instance(CL_FILE);
 		$ddinst = get_instance(CL_DDOC);
