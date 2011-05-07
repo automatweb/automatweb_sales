@@ -88,13 +88,16 @@ class propcollector extends aw_template
 		foreach($files as $key => $name)
 		{
 			$cname = substr(basename($name),0,-3);
-			$this->cl_start($cname);
-			$this->_parse_file ($name);
-			$success = $this->cl_end();
-
-			if ($success)
+			if (!class_index::is_interface($cname))
 			{
-				$this->count_modified++;
+				$this->cl_start($cname);
+				$this->_parse_file($name);
+				$success = $this->cl_end();
+
+				if ($success)
+				{
+					$this->count_modified++;
+				}
 			}
 		}
 
