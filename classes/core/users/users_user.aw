@@ -232,7 +232,7 @@ class users_user extends aw_template
 		if ($url[0] === "/")
 		{
 			$bits = parse_url(aw_ini_get("baseurl"));
-			if (!empty($bits["path"]))
+			if ($bits["path"] !== "/")
 			{
 				$url = str_replace($bits["path"], "", $url);
 			}
