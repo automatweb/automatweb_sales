@@ -1,0 +1,54 @@
+<?xml version='1.0'?>
+<properties>
+      <property>
+            <name>url</name>
+            <table>aw_eesti_ehitusturg</table>
+            <group>general</group>
+            <type>textbox</type>
+            <field>aw_url</field>
+            <caption>URL</caption>
+      </property>
+      <property>
+            <name>browser</name>
+            <table>aw_eesti_ehitusturg</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>browser</field>
+            <caption>Sirvi Eesti Ehitusturgu</caption>
+      </property>
+      <property>
+            <name>email_templates</name>
+            <table>aw_eesti_ehitusturg</table>
+            <group>general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_EMAIL_TEMPLATE</reltype>
+            <multiple>1</multiple>
+            <store>connect</store>
+            <field>email_templates</field>
+            <caption>E-kirjamallid</caption>
+      </property>
+      <classinfo>
+            <syslog_type>ST_EESTI_EHITUSTURG</syslog_type>
+            <relationmgr>yes</relationmgr>
+            <no_comment>1</no_comment>
+            <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
+            <maintainer>instrumental</maintainer>
+      </classinfo>
+      <tableinfo>
+            <aw_eesti_ehitusturg>
+                  <master_index>brother_of</master_index>
+                  <master_table>objects</master_table>
+                  <index>aw_oid</index>
+            </aw_eesti_ehitusturg>
+      </tableinfo>
+      <reltypes>
+            <EMAIL_TEMPLATE>
+                  <value>1</value>
+                  <clid>CL_MESSAGE_TEMPLATE</clid>
+                  <caption>E-kirjamall</caption>
+            </EMAIL_TEMPLATE>
+      </reltypes>
+</properties>
+
