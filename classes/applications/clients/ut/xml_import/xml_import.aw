@@ -121,7 +121,7 @@ echo "ds = ".$obj->prop("datasource")." src = <pre>".htmlentities($src_data)."</
 		$parser = xml_parser_create();
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		// xml data arraysse
-		xml_parse_into_struct($parser,$contents,&$values,&$tags);
+		xml_parse_into_struct($parser,$contents,$values,$tags);
 		if (xml_get_error_code($parser))
 		{
 			$this->bitch_and_die($parser,$contents);
@@ -195,7 +195,7 @@ echo "ds = ".$obj->prop("datasource")." src = <pre>".htmlentities($src_data)."</
 			$this->bitch_and_die($parser,$contents);
 		};
 		// xml data arraysse
-		xml_parse_into_struct($parser,$contents,&$values,&$tags);
+		xml_parse_into_struct($parser,$contents,$values,$tags);
 		// R.I.P. parser
 		xml_parser_free($parser);
 		//$q = "DELETE FROM ut_struktuurid";
@@ -354,7 +354,7 @@ echo "ds = ".$obj->prop("datasource")." src = <pre>".htmlentities($src_data)."</
 		print "<pre>";
 		print_r(htmlspecialchars($contents));
 		print "</pre>";
-		xml_parse_into_struct($parser,$contents,&$values,&$tags);
+		xml_parse_into_struct($parser,$contents,$values,$tags);
 		if (xml_get_error_code($parser))
 		{
 			$this->bitch_and_die($parser,$contents);
@@ -512,7 +512,7 @@ echo "ds = ".$obj->prop("datasource")." src = <pre>".htmlentities($src_data)."</
 				};
 				if (!$row)
 				{
-					$this->quote(&$realkraad);
+					$this->quote($realkraad);
 					$q = "INSERT INTO $tootajad_table (id,enimi,pnimi,email,veeb,ruum,markus,mobiil,sisetel,pritel,kraad,born_year, born_month, born_day, sisetel_nospaces,username) 
 						VALUES ('$tid','$enimi','$pnimi','$email','$veeb','$ruum','$markus','$mobiil','$sisetel','$pritel','$realkraad','$born_year', '$born_month', '$born_day', '$sisetel_nospaces','$uname')";
 					print $q;
@@ -585,8 +585,8 @@ echo "ds = ".$obj->prop("datasource")." src = <pre>".htmlentities($src_data)."</
 								usort($items, create_function('$a,$b','if ($a["jrk"] > $b["jrk"]) return 1; if ($a["jrk"] < $b["jrk"]) return -1; return 0;'));
 								$tmp = $items[0];
 								$info = $ruum = array();
-								array_walk($items,create_function('$val,$key,$info','$info[] = $val["info"];'),&$info);
-								array_walk($items,create_function('$val,$key,$ruum','if (strlen($val["ruum"])) { $ruum[] = $val["ruum"];};'),&$ruum);
+								array_walk($items,create_function('$val,$key,$info','$info[] = $val["info"];'), $info);
+								array_walk($items,create_function('$val,$key,$ruum','if (strlen($val["ruum"])) { $ruum[] = $val["ruum"];};'), $ruum);
 								$tmp["info"] = join(", ",$info);
 								$ruum = array_unique($ruum);
 								$tmp["ruum"] = join(", ",$ruum);
@@ -654,7 +654,7 @@ echo "ds = ".$obj->prop("datasource")." src = <pre>".htmlentities($src_data)."</
 		$parser = xml_parser_create();
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		// xml data arraysse
-		xml_parse_into_struct($parser,$contents,&$values,&$tags);
+		xml_parse_into_struct($parser,$contents,$values,$tags);
 		if (xml_get_error_code($parser))
 		{
 			$this->bitch_and_die($parser,$contents);
@@ -758,7 +758,7 @@ echo "ds = ".$obj->prop("datasource")." src = <pre>".htmlentities($src_data)."</
 		$parser = xml_parser_create();
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		// xml data arraysse
-		xml_parse_into_struct($parser,$contents,&$values,&$tags);
+		xml_parse_into_struct($parser,$contents,$values,$tags);
 		if (xml_get_error_code($parser))
 		{
 			$this->bitch_and_die($parser,$contents);
@@ -811,7 +811,7 @@ ar(255), maht varchar(10), nimetus varchar(255), annotatsioon text, eesmark text
 
                         $parser = xml_parser_create();
                         xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
-                        xml_parse_into_struct($parser,file_get_contents($fn),&$keys,&$values);
+                        xml_parse_into_struct($parser,file_get_contents($fn),$keys,$values);
                         xml_parser_free($parser);
 
                         echo "parsed <Br>\n";
@@ -823,19 +823,19 @@ ar(255), maht varchar(10), nimetus varchar(255), annotatsioon text, eesmark text
                                 if ($entry["tag"] == "aine" && $entry["type"] == "complete")
                                 {
                                         $ainekood = $entry["attributes"]["ainekood"];
-                                        $this->quote(&$ainekood);
+                                        $this->quote($ainekood);
 
                                         $maht = $entry["attributes"]["maht"];
-                                        $this->quote(&$maht);
+                                        $this->quote($maht);
 
                                         $nimetus = $entry["attributes"]["nimetus"];
-                                        $this->quote(&$nimetus);
+                                        $this->quote($nimetus);
 
                                         $anno = $entry["attributes"]["annotatsioon"];
-                                        $this->quote(&$anno);
+                                        $this->quote($anno);
 
                                         $eesm = $entry["attributes"]["eesmark"];
-                                        $this->quote(&$eesm);
+                                        $this->quote($eesm);
 
                                         $this->db_query("INSERT INTO imporditud_oppekavad(ainekood, maht, nimetus, annotatsi
 oon, eesmark) values('$ainekood', '$maht', '$nimetus', '$anno', '$eesm')");
@@ -851,7 +851,7 @@ oon, eesmark) values('$ainekood', '$maht', '$nimetus', '$anno', '$eesm')");
 		$parser = xml_parser_create();
 		xml_parser_set_option($parser,XML_OPTION_CASE_FOLDING,0);
 		// xml data arraysse
-		xml_parse_into_struct($parser,$contents,&$values,&$tags);
+		xml_parse_into_struct($parser,$contents,$values,$tags);
 		if (xml_get_error_code($parser))
 		{
 			$this->bitch_and_die($parser,$contents);

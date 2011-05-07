@@ -20,7 +20,7 @@ class taket_tellimuste_list extends class_base
 			"tpldir" => "taket/taket_tellimuste_list",
 			"clid" => CL_TAKET_TELLIMUSTE_LIST
 		));
-		lc_site_load('taket_tellimuste_list',&$this);
+		lc_site_load('taket_tellimuste_list', $this);
 	}
 
 	// !this will be called if the object is put in a document by an alias and the document is being shown

@@ -56,12 +56,12 @@ class crm_company_overview_impl extends class_base
 
 		$ob = $arr["obj_inst"];
 		$conns = $ob->connections_from($args);
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		exit_function("do_org_actions:1:1");
 
 		enter_function("do_org_actions:1:2");
 		$arr["prop"]["vcl_inst"]->configure(array(
-			"overview_func" => array(&$this,"get_overview"),
+			"overview_func" => array($this,"get_overview"),
 		));
 
 		$p = get_instance(CL_PLANNER);
@@ -333,7 +333,7 @@ class crm_company_overview_impl extends class_base
 
 	function _get_mail_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "subject",
 			"caption" => t("Teema"),
@@ -402,11 +402,11 @@ class crm_company_overview_impl extends class_base
 
 	function _get_mail_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_delete_button();
 	}
 
-	function _init_my_tasks_t(&$t, $data = false, $r = array() , $group = 0)
+	function _init_my_tasks_t($t, $data = false, $r = array() , $group = 0)
 	{
 		if (is_array($data) && $r["act_s_print_view"] != 1)
 		{
@@ -484,7 +484,7 @@ class crm_company_overview_impl extends class_base
 				//"type" => "time",
 				"chgbgcolor" => "col",
 				//"format" => "d.m.Y H:i",
-				"callback" => array(&$this, "_format_deadline"),
+				"callback" => array($this, "_format_deadline"),
 				"callb_pass_row" => 1
 			));
 		}
@@ -600,7 +600,7 @@ class crm_company_overview_impl extends class_base
 		enter_function("get_my_tasks:2:2");
 		if($arr["request"]["group"] != "ovrv_mails")
 		{
-			$ol->sort_by_cb(array(&$this, "__task_sorter"));
+			$ol->sort_by_cb(array($this, "__task_sorter"));
 		}
 		exit_function("get_my_tasks:2:2");
 		exit_function("get_my_tasks:2");
@@ -2251,7 +2251,7 @@ class crm_company_overview_impl extends class_base
 
 	function _get_string_filt($s)
 	{
-		$this->dequote(&$s);
+		$this->dequote($s);
 		// separated by commas delimited by "
 		$p = array();
 		$len = strlen($s);
@@ -2338,7 +2338,7 @@ class crm_company_overview_impl extends class_base
 		return $ret;
 	}
 
-	function _init_task_row_table(&$t)
+	function _init_task_row_table($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
