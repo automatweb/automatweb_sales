@@ -553,7 +553,7 @@ class db_server_explorer extends class_base
 		$db->login_as($ob->meta('db_base'));
 		foreach(safe_array($arr["sel"]) as $table)
 		{
-			$this->quote(&$table);
+			$this->quote($table);
 			$db->db_drop_table($table);
 		}
 		return $arr["post_ru"];

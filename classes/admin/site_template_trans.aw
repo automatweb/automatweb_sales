@@ -110,7 +110,7 @@ class site_template_trans extends class_base
 		}		
 	}
 
-	private function _init_bm_table(&$t)
+	private function _init_bm_table($t)
 	{
 		$t->define_field(array(
 			"name" => "expl",
@@ -135,8 +135,8 @@ class site_template_trans extends class_base
 
 	function _get_bm_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
-		$this->_init_bm_table(&$t);
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_bm_table($t);
 
 		if (!$arr["request"]["tfl"])
 		{

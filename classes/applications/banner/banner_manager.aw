@@ -500,7 +500,7 @@ EOT;
 		));
 	}
 
-	private function get_cont_locs($cont, &$t, $parent, $arr)
+	private function get_cont_locs($cont, $t, $parent, $arr)
 	{
 		classload("core/icons");
 		// get document under promo and list all connections from that to bannerplaces
@@ -610,7 +610,7 @@ EOT;
 			));
 			if($cont->class_id()==CL_PROMO)
 			{
-				$this->get_cont_locs($cont, &$t, $cont->id(), array(
+				$this->get_cont_locs($cont, $t, $cont->id(), array(
 					"active_group"  => $arr["request"]["group"],
 					"tf" => $arr["request"]["tf"],
 					"obj_id" => $oid
@@ -634,7 +634,7 @@ EOT;
 		}
 	}
 
-	private function _init_locs_tbl(&$t)
+	private function _init_locs_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -773,7 +773,7 @@ EOT;
 		}
 	}
 
-	private function _init_bans_t(&$t)
+	private function _init_bans_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
