@@ -95,7 +95,7 @@ class banner extends class_base
 				$this->do_prob_tbl($arr);
 				break;
 			case 'general_toolbar':
-				$this->do_general_toolbar(&$prop['toolbar'], $arr);
+				$this->do_general_toolbar($prop['toolbar'], $arr);
 				break;
 			case 'stats_table':
 				$this->stats_table($arr);
@@ -124,7 +124,7 @@ class banner extends class_base
 
 	private function stats_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$langs = $this->db_fetch_array("SELECT DISTINCT langid FROM banner_views");
 		$lng = get_instance("languages");
 		$langnames = $lng->get_list();
@@ -405,7 +405,7 @@ class banner extends class_base
 	private function add_click($bid)
 	{
 		$langid = $this->get_lang_id();
-		$this->quote(&$ss);
+		$this->quote($ss);
 		$ip = aw_global_get("HTTP_X_FORWARDED_FOR");
 		if ($ip == "" || !(strpos($ip,"unknown") === false))
 		{
@@ -420,7 +420,7 @@ class banner extends class_base
 	private function add_view($bid,$ss,$noview,$clid)
 	{
 		$langid = $this->get_lang_id();
-		$this->quote(&$ss);
+		$this->quote($ss);
 		$this->db_query("INSERT INTO banner_ids(ss,bid,tm,clid) values('$ss','$bid',".time().",'$clid')");
 		if (!$noview)
 		{

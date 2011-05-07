@@ -138,7 +138,7 @@ class calendar_view extends class_base
 			"clid" => CL_CALENDAR_VIEW
 		));
 		$this->event_entry_classes = array(CL_CALENDAR_EVENT,CL_STAGING,CL_CRM_MEETING,CL_TASK,CL_CRM_CALL,CL_PARTY,CL_COMICS);
-		lc_site_load("calendar_view",&$this);
+		lc_site_load("calendar_view", $this);
 	}
 
 	function get_property($arr)
@@ -205,7 +205,7 @@ class calendar_view extends class_base
 
 	function gen_result_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$o = $arr["obj_inst"];
 		$t->define_field(array(
 			"name" => "name",
@@ -332,7 +332,7 @@ class calendar_view extends class_base
 
 		$arr["prop"]["vcl_inst"]->configure(array(
 			//"tasklist_func" => array(&$this,"get_tasklist"),
-			"overview_func" => array(&$this,"get_overview"),
+			"overview_func" => array($this,"get_overview"),
 			"overview_range" => 1,
 			"full_weeks" => 1,
 		));
@@ -342,8 +342,8 @@ class calendar_view extends class_base
 		));
 		$this->obj_inst = $arr["obj_inst"];
 		$this->_export_events(array(
-			"obj_inst" => &$this->obj_inst,
-			"cal_inst" => &$arr["prop"]["vcl_inst"],
+			"obj_inst" => $this->obj_inst,
+			"cal_inst" => $arr["prop"]["vcl_inst"],
 			"range" => $range,
 		));
 	}
@@ -513,7 +513,7 @@ class calendar_view extends class_base
 		if (is_oid($arr["oid"]))
 		{
 			$obj = new object($arr["oid"]);
-			$cal_inst = &$arr["cal_inst"];
+			$cal_inst = $arr["cal_inst"];
 			$first_image = $cal_inst->has_feature("first_image");
 			$project_media = $cal_inst->has_feature("project_media");
 			$events = $this->get_events_from_object(array(
@@ -548,7 +548,7 @@ class calendar_view extends class_base
 			$conns = $arr["obj_inst"]->connections_from(array(
 				"type" => "RELTYPE_EVENT_SOURCE",
 			));
-			$cal_inst = &$arr["cal_inst"];
+			$cal_inst = $arr["cal_inst"];
 			$first_image = $cal_inst->has_feature("first_image");
 			$project_media = $cal_inst->has_feature("project_media");
 
@@ -828,7 +828,7 @@ class calendar_view extends class_base
 
 		if ("futureevents" != $use_template)
 		{
-			$args["overview_func"] = array(&$this,"get_overview");
+			$args["overview_func"] = array($this,"get_overview");
 			$args["overview_range"] = 1;
 		};
 		if($use_template == "relative")
@@ -1078,8 +1078,8 @@ class calendar_view extends class_base
 
 		// ookei .. ma saan template k2est kysida kas mul on vaja grupeerida asju?
 		$exp_args = array(
-			"obj_inst" => &$this->obj_inst,
-			"cal_inst" => &$vcal,
+			"obj_inst" => $this->obj_inst,
+			"cal_inst" => $vcal,
 			"range" => $range,
 			"status" => isset($arr["status"]) ? $arr["status"] : $status,
 		);

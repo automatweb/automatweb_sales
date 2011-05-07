@@ -393,7 +393,7 @@ class development_order extends class_base
 				}
 
 				$prop["options"] += $ppl;
-				get_instance(CL_BUG)->_sort_bug_ppl(&$arr);
+				get_instance(CL_BUG)->_sort_bug_ppl($arr);
 				break;
 
 			case "prognosis":
@@ -576,7 +576,7 @@ class development_order extends class_base
 
 	function _get_bugs_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(array(CL_BUG), $arr["obj_inst"]->id(), '',array(
 			"orderer" => $arr["obj_inst"]->prop("orderer_co"),
 			"bug_status" => $arr["obj_inst"]->prop("bug_status"),
@@ -593,7 +593,7 @@ class development_order extends class_base
 		$tb->add_delete_button();
 	}
 
-	function _init_bugs_table(&$t)
+	function _init_bugs_table($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -627,7 +627,7 @@ class development_order extends class_base
 			"caption" => t("Prioriteet"),
 			"sortable" => 1,
 			"numeric" => 1,
-			"callback" => array(&$this, "show_priority"),
+			"callback" => array($this, "show_priority"),
 			"callb_pass_row" => 1,
 			"filter" => array(
 				t("1"),
@@ -642,7 +642,7 @@ class development_order extends class_base
 			"caption" => t("T&otilde;sidus"),
 			"sortable" => 1,
 			"numeric" => 1,
-			"callback" => array(&$this, "show_severity"),
+			"callback" => array($this, "show_severity"),
 			"callb_pass_row" => 1,
 			"filter" => array(
 				t("1"),
@@ -670,7 +670,7 @@ class development_order extends class_base
 			"caption" => t("K"),
 			"sortable" => 1,
 			"numeric" => 1,
-			"callback" => array(&$this,"comment_callback"),
+			"callback" => array($this,"comment_callback"),
 			"callb_pass_row" => 1,
 		));
 		$t->define_chooser(array(
@@ -681,7 +681,7 @@ class development_order extends class_base
 
 	function _get_bugs_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_bugs_table($t);
 
 		$ol = new object_list(array(
