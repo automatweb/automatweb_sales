@@ -247,7 +247,7 @@ class cb_form_chain extends class_base
 
 	function draw_webforms_toolbar($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->add_button(array(
 			'name' => 'new',
 			'img' => 'new.gif',
@@ -307,7 +307,7 @@ class cb_form_chain extends class_base
 		$arr["post_ru"] = post_ru();
 	}
 
-	function _init_cfs_t(&$t)
+	function _init_cfs_t($t)
 	{
 		$t->define_field(array(
 			"name" => "form",
@@ -446,7 +446,7 @@ class cb_form_chain extends class_base
 		$t->set_sortable(false);
 	}
 
-	function _init_cfs_headers_t(&$t)
+	function _init_cfs_headers_t($t)
 	{
 		$t->define_field(array(
 			"name" => "pg",
@@ -1243,9 +1243,9 @@ class cb_form_chain extends class_base
 				$fc = get_instance(CL_FORM_CONTROLLER);
 				$fc->eval_controller(
 					$o->prop("mail_content_ctr"),
-					&$mailer,
-					&$o,
-					&$entry
+					$mailer,
+					$o,
+					$entry
 				);
 			}
 
@@ -1311,8 +1311,8 @@ class cb_form_chain extends class_base
 				return $fc->eval_controller(
 					$o->prop("confirm_mail_content_ctr"),
 					array("to" => $to, "from" => $from),
-					&$o,
-					&$entry
+					$o,
+					$entry
 				);
 			}
 
@@ -1480,7 +1480,7 @@ class cb_form_chain extends class_base
 		));
 	}
 
-	function _init_entry_table(&$t)
+	function _init_entry_table($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -2221,7 +2221,7 @@ class cb_form_chain extends class_base
 		return max($_GET["edit_num"], 1);
 	}
 
-	function _init_cfs_entry_tbl(&$t)
+	function _init_cfs_entry_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "prop",
@@ -2406,7 +2406,7 @@ class cb_form_chain extends class_base
 		return $ret;
 	}
 
-	function _init_search_res_t(&$t)
+	function _init_search_res_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",

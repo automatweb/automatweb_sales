@@ -592,7 +592,7 @@ class rfp extends class_base
 		return $return;
 	}
 
-	function get_property($arr)
+	function get_property(&$arr)
 	{
 		//$this->db_query("DROP TABLE `rfp`");die();
 		$prop = &$arr["prop"];
@@ -952,7 +952,7 @@ class rfp extends class_base
 				//}
 				break;
 			case "final_add_reservation_tb":
-				$tb = &$prop["vcl_inst"];
+				$tb = $prop["vcl_inst"];
 				$tb->add_menu_button(array(
 					"name" => "add",
 					"img" => "new.gif",
@@ -1063,7 +1063,7 @@ class rfp extends class_base
 			case "products_tree":
 			case "resources_tree":
 			case "prices_tree":
-				$t = &$prop["vcl_inst"];
+				$t = $prop["vcl_inst"];
 				$rooms = $this->get_rooms($arr);
 				foreach($rooms as $room)
 				{
@@ -1130,7 +1130,7 @@ class rfp extends class_base
 						),
 					);
 					$function = "_get_".$arr["prop"]["name"];
-					$inst->$function(&$args);
+					$inst->$function($args);
 					$prop["value"] = $args["prop"]["vcl_inst"]->get_html();
 				}
 				elseif($prop["name"] == "products_tbl")
@@ -1214,8 +1214,8 @@ class rfp extends class_base
 
 				$inst = get_instance(CL_RESERVATION);
 				$function = "_get_".$arr["prop"]["name"];
-				$inst->$function(&$args);
-				$this->_modify_prices_tbl_after(&$arr, &$args["prop"]["vcl_inst"], $inst->prices_tbl_sum_row);
+				$inst->$function($args);
+				$this->_modify_prices_tbl_after($arr, $args["prop"]["vcl_inst"], $inst->prices_tbl_sum_row);
 				$prop["value"] = $args["prop"]["vcl_inst"]->get_html();
 				break;
 
@@ -1291,7 +1291,7 @@ class rfp extends class_base
 							"name" => "ign_".$propname,
 							"value" => $value,
 						);
-						$this->get_property(&$dummy_arr);
+						$this->get_property($dummy_arr);
 						$data[$propname] = $dummy_arr["prop"]["value"];
 					}
 					$t->define_data($data);
@@ -1301,7 +1301,7 @@ class rfp extends class_base
 
 			case "housing_tb":
 			case "services_tb":
-				$tb = &$arr["prop"]["vcl_inst"];
+				$tb = $arr["prop"]["vcl_inst"];
 				$tb->add_save_button();
 				break;
 
@@ -1371,7 +1371,7 @@ class rfp extends class_base
 				classload("vcl/table");
 				$t = new vcl_table();
 				$fun = "_gen_table_".$prop["name"];
-				$this->$fun($data, &$t);
+				$this->$fun($data, $t);
 				$prop["value"] = $t->draw();
 				break;
 			case "pdf":
@@ -1716,7 +1716,7 @@ class rfp extends class_base
 		}
 		if(is_array($add_brons) && count($add_brons))
 		{
-			$t = &$arr["prop"]["vcl_inst"];
+			$t = $arr["prop"]["vcl_inst"];
 			$this->_init_prod_add_bron_tbl($t, $prods);
 			$count = 0;
 			$rooms = $this->get_rooms($arr);
@@ -1863,7 +1863,7 @@ class rfp extends class_base
 		}
 	}
 
-	function _init_prod_add_bron_tbl(&$t, $prods)
+	function _init_prod_add_bron_tbl($t, $prods)
 	{
 		$t->set_header(html::hidden(array(
 			"name" => "rfp_add_bron_tbl_ok",
@@ -2364,7 +2364,7 @@ class rfp extends class_base
 		}
 	}
 
-	function _get_housing_row(&$t, $room = array(), $id = "new", $obj = false)
+	function _get_housing_row($t, $room = array(), $id = "new", $obj = false)
 	{
 		if($obj)
 		{
@@ -2432,9 +2432,9 @@ class rfp extends class_base
 	}
 
 
-	function _init_additional_services_tbl($arr)
+	function _init_additional_services_tbl(&$arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "date",
 			"caption" => t("Kuup&auml;ev"),
@@ -2527,8 +2527,8 @@ class rfp extends class_base
 
 	function _get_additional_services_tbl($arr)
 	{
-		$this->_init_additional_services_tbl(&$arr);
-		$t =& $arr["prop"]["vcl_inst"];
+		$this->_init_additional_services_tbl($arr);
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 		$data = $arr["obj_inst"]->get_additional_services();
 
@@ -3225,8 +3225,8 @@ class rfp extends class_base
 		$prod_conn = $arr["obj_inst"]->connections_from(array(
 			"type" => "RELTYPE_CATERING_RESERVATION",
 		));
-		uasort(&$prod_conn, array($this, "_sort_submission_products2"));
-		uasort(&$prods, array($this, "_sort_submission_products"));
+		uasort($prod_conn, array($this, "_sort_submission_products2"));
+		uasort($prods, array($this, "_sort_submission_products"));
 		$prods = $arr["obj_inst"]->meta("prods");
 		$pd_sub = "";
 
@@ -3865,7 +3865,7 @@ class rfp extends class_base
 
 	function _get_files_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(array(CL_FILE), $arr["obj_inst"]->id(), '', array());
 		$tb->add_search_button(array(
 			"pn" => $arr["obj_inst"]->id(),
@@ -3877,7 +3877,7 @@ class rfp extends class_base
 
 	function _get_files_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$ol = new object_list(array(
 			"class_id" => CL_FILE,
 			"parent" => $arr["obj_inst"]->id(),
@@ -4207,7 +4207,7 @@ class rfp extends class_base
 		return $arr["post_ru"];
 	}
 
-	private function _modify_prices_tbl_after($arr, $t, $tbl_sum_row = false)
+	private function _modify_prices_tbl_after(&$arr, $t, $tbl_sum_row = false)
 	{
 		if($this->can("view", $arr["obj_inst"]->prop("data_gen_package"))) // theres a package selected, we have to add an extra line to table for package discount
 		{

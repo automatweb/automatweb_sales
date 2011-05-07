@@ -437,7 +437,7 @@ class class_designer_manager extends class_base
 		}
 	}
 
-	function _init_mgr_tbl(&$t)
+	function _init_mgr_tbl($t)
 	{
 		$t->define_field(array(
 			"name" => "icon",
@@ -593,7 +593,7 @@ class class_designer_manager extends class_base
 		));
 	}
 
-	function _init_rels_tree(&$t)
+	function _init_rels_tree($t)
 	{
 		$t->define_field(array(
 			"name" => "class_name",
@@ -1431,7 +1431,7 @@ class class_designer_manager extends class_base
 		}
 	}
 
-	private function _init_classes_list_table(&$t, $o)
+	private function _init_classes_list_table($t, $o)
 	{
 		$t->define_chooser(array(
 			"name" => "sel",
@@ -1742,7 +1742,7 @@ window.location.href='".html::get_new_url(CL_SM_CLASS_STATS_GROUP, $pt, array("r
 
 	function _get_cl_usage_props_stats_list($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_cl_usage_props_stats_list($t);
 
 		if (empty($arr["request"]["class_id"]))
@@ -1930,12 +1930,12 @@ window.location.href='".html::get_new_url(CL_SM_CLASS_STATS_GROUP, $pt, array("r
 		$wh = array();
 		if (!empty($arr["request"]["server"]))
 		{
-			$this->quote(&$arr["request"]["server"]);
+			$this->quote($arr["request"]["server"]);
 			$wh[] = " server_id = ".$arr["request"]["server"];
 		}
 		if (!empty($arr["request"]["site"]))
 		{
-			$this->quote(&$arr["request"]["site"]);
+			$this->quote($arr["request"]["site"]);
 			$wh[] = " site_id = ".$arr["request"]["site"];
 		}
 
