@@ -124,7 +124,7 @@ die("done");*/
 			$row = $this->db_fetch_row("SELECT * FROM reval_daily_bookings WHERE conf_no = $entry[Confirmation_No]");
 			if (!$row)
 			{
-				$this->quote(&$entry);
+				$this->quote($entry);
 				$this->db_query("INSERT INTO reval_daily_bookings(conf_no, hotel, name, email, tm) values($entry[Confirmation_No], '$entry[Resort]','".$entry["First"]." ".$entry["Last"]."', '$entry[EMail]',".time().")");
 			}
 			else
