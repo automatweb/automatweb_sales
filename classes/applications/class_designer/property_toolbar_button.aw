@@ -124,7 +124,7 @@ class property_toolbar_button extends class_base
 		return false;
 	}
 
-	function get_button($but, &$tb)
+	function get_button($but, $tb)
 	{
 		switch($but->prop("b_type"))
 		{
@@ -145,7 +145,7 @@ class property_toolbar_button extends class_base
 		}
 	}
 
-	function _get_menu_button($but, &$tb)
+	function _get_menu_button($but, $tb)
 	{
 		$tb->add_menu_button(array(
 			"name" => "0",
@@ -154,11 +154,11 @@ class property_toolbar_button extends class_base
 
 		$items = safe_array($but->meta("but_items"));
 
-		uasort($items, array(&$this, "__itemsorter"));
+		uasort($items, array($this, "__itemsorter"));
 		$this->_req_menu_button($tb, $items, 0);
 	}
 
-	function _req_menu_button(&$tb, $items, $pt)
+	function _req_menu_button($tb, $items, $pt)
 	{
 		$l_items = $this->_get_items_by_parent($items, $pt);
 		foreach($l_items as $nr => $item)
@@ -205,7 +205,7 @@ class property_toolbar_button extends class_base
 		return $ret;
 	}
 
-	function _get_but_button($but, &$tb)
+	function _get_but_button($but, $tb)
 	{
 		$tb->add_button(array(
 			"name" => $but->name(),
@@ -235,7 +235,7 @@ class property_toolbar_button extends class_base
 			"url" => aw_url_change_var ("t_item", $item["id"]),
 		));
 
-		uasort($items, array(&$this, "__itemsorter"));
+		uasort($items, array($this, "__itemsorter"));
 
 		$var = "t_item";
 		foreach($items as $item)
@@ -266,7 +266,7 @@ class property_toolbar_button extends class_base
 		}
 	}
 
-	function _init_men_list_t(&$t)
+	function _init_men_list_t($t)
 	{	
 		$t->define_field(array(
 			"name" => "name",
@@ -305,7 +305,7 @@ class property_toolbar_button extends class_base
 		$this->_init_men_list_t($t);
 
 		$items = safe_array($arr["obj_inst"]->meta("but_items"));
-		uasort($items, array(&$this, "__itemsorter"));
+		uasort($items, array($this, "__itemsorter"));
 
 		$parent = $arr["request"]["t_item"];
 
@@ -510,7 +510,7 @@ class property_toolbar_button extends class_base
 		$ret .= "\n";
 
 		$items = safe_array($but->meta("but_items"));
-		uasort($items, array(&$this, "__itemsorter"));
+		uasort($items, array($this, "__itemsorter"));
 		$this->_req_mc_menu_button($items, 0, $ret);
 
 		return $ret;
@@ -521,7 +521,7 @@ class property_toolbar_button extends class_base
 		$l_items = $this->_get_items_by_parent($items, $pt);
 		foreach($l_items as $nr => $item)
 		{
-			$sub_c = $this->_req_mc_menu_button($items, $nr, &$ret);
+			$sub_c = $this->_req_mc_menu_button($items, $nr, $ret);
 			if ($sub_c > 0)
 			{
 				$ret .= "\t\t\$t->add_sub_menu(array(\n";
