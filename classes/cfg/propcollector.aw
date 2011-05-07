@@ -76,6 +76,9 @@ class propcollector extends aw_template
 	**/
 	public function run($args = array())
 	{
+		// Add include_path for Zend, so that ZendLoader wouldn't fail!
+		set_include_path(get_include_path() . PATH_SEPARATOR . aw_ini_get("basedir")."/addons/");
+
 		$cdir = AW_DIR . "classes";
 		$sdir = AW_DIR . "scripts";
 		$this->files = array();
