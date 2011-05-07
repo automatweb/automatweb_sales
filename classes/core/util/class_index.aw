@@ -494,34 +494,20 @@ class class_index
 		return isset($fc["implemented_by"]) ? safe_array($fc["implemented_by"]) : array();
 	}
 
-	/** Returns true if the given interface name is actually an interface, false otherwise.
+	/** Returns true if the given class can be instantiated, false otherwise.
 		@attrib api=1 params=pos
 
-		@param interface required type=string
-			The name of the interface to search for
+		@param class required type=string
+			The name of the class instantiability is asked for
 
 		@returns
 			Boolean
 	**/
-	public static function is_interface($interface)
+	public static function is_instantiable($class)
 	{
-		$index_dir = AW_DIR . self::INDEX_DIR;
-		$if_file = $index_dir.$interface.".".aw_ini_get("ext");
+		$class = new ReflectionClass($class);
 
-		if (!file_exists($if_file))
-		{
-			self::update(true);
-			if (!file_exists($if_file))
-			{
-				$e = new awex_clidx_filesys("Could not open interface $if_file class index.");
-				$e->clidx_file = $if_file;
-				$e->clidx_op = "file_exists";
-				throw $e;
-			}
-		}
-		$fc = unserialize(file_get_contents($if_file));
-
-		return $fc["type"] === "interface";
+		return $class->isInstantiable();
 	}
 
 	private static function do_post_update_processing()

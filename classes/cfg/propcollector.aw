@@ -91,16 +91,13 @@ class propcollector extends aw_template
 		foreach($files as $key => $name)
 		{
 			$cname = substr(basename($name),0,-3);
-			if (!class_index::is_interface($cname))
-			{
 				$this->cl_start($cname);
-				$this->_parse_file($name);
-				$success = $this->cl_end();
+			$this->_parse_file($name);
+			$success = $this->cl_end();
 
-				if ($success)
-				{
-					$this->count_modified++;
-				}
+			if ($success)
+			{
+				$this->count_modified++;
 			}
 		}
 
@@ -635,8 +632,13 @@ class propcollector extends aw_template
 		$cname = substr(basename($name),0,-3);
 		$this->currentclass = $cname;
 
-		// properties are generated for cb extensions only
+		if (!class_index::is_instantiable($cname))
+		{
+			return false;
+		}
+
 		$tmp = new $this->currentclass();
+		// properties are generated for cb extensions only
 		if (!$tmp instanceof class_base)
 		{
 			return false;
