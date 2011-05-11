@@ -39,16 +39,14 @@ class docgen_search_use_func extends core implements docgen_search_module, docge
 				}
 			}
 
-			if ($row["caller_class"] == "")
-			{
-				$row["caller_class"] = "defs";
-			}
+			$caller_class_file = empty($row["caller_class"]) ? t("n/a") : $this->_r(class_index::get_file_by_name($row["caller_class"]));
+			$callee_class_file = empty($row["callee_class"]) ? t("n/a") : $this->_r(class_index::get_file_by_name($row["callee_class"]));
 
 			$ret[] = sprintf(
 					t("%s::%s on line %s called %s::%s"),
 					html::href(array(
 						"url" => $this->mk_my_orb("class_info", array(
-							"file" => $this->_r(class_index::get_file_by_name($row["caller_class"])),
+							"file" => $caller_class_file,
 							"disp" => $row["caller_class"]
 						), "docgen_viewer"),
 						"target" => "list",
@@ -56,7 +54,7 @@ class docgen_search_use_func extends core implements docgen_search_module, docge
 					)),
 					html::href(array(
 						"url" => $this->mk_my_orb("class_info", array(
-							"file" => $this->_r(class_index::get_file_by_name($row["caller_class"])),
+							"file" => $caller_class_file,
 							"disp" => $row["caller_class"],
 						), "docgen_viewer")."#fn.".$row["caller_func"],
 						"target" => "list",
@@ -64,7 +62,7 @@ class docgen_search_use_func extends core implements docgen_search_module, docge
 					)),
 					html::href(array(
 						"url" => $this->mk_my_orb("view_source", array(
-							"file" => $this->_r(class_index::get_file_by_name($row["caller_class"])),
+							"file" => $caller_class_file,
 							"v_class" => $row["caller_class"],
 							"func" => $row["caller_func"]
 						), "docgen_viewer")."#line.".$row["caller_line"],
@@ -73,7 +71,7 @@ class docgen_search_use_func extends core implements docgen_search_module, docge
 					)),
 					html::href(array(
 						"url" => $this->mk_my_orb("class_info", array(
-							"file" => $this->_r(class_index::get_file_by_name($row["callee_class"])),
+							"file" => $callee_class_file,
 							"disp" => $row["callee_class"]
 						), "docgen_viewer"),
 						"target" => "list",
@@ -81,7 +79,7 @@ class docgen_search_use_func extends core implements docgen_search_module, docge
 					)),
 					html::href(array(
 						"url" => $this->mk_my_orb("class_info", array(
-							"file" => $this->_r(class_index::get_file_by_name($row["callee_class"])),
+							"file" => $callee_class_file,
 							"disp" => $row["callee_class"],
 						), "docgen_viewer")."#fn.".$row["callee_func"],
 						"target" => "list",

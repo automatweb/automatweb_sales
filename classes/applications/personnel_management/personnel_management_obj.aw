@@ -139,7 +139,7 @@ class personnel_management_obj extends _int_object
 		// $parent, $return_as_odl, $childs
 
 		if($childs)
-		{			
+		{
 			$children = new object_tree(array(
 				"lang_id" => array(),
 				"site_id" => array(),
@@ -213,6 +213,56 @@ class personnel_management_obj extends _int_object
 			),
 		);
 	}
+
+	protected static function parse_colleague_mail($pm, $prop, $ol, $from, $public_key)
+	{
+		$tpl = new aw_template();
+		$tpl->use_template($pm->prop("send_to_colleague_tpl.".$prop));
+
+		$public_url = new aw_uri(aw_ini_get("baseurl"));
+		$public_url->set_arg("class", "personnel_management_candidate");
+		$public_url->set_arg("action", "public_show");
+
+		$protected_url = new aw_uri(aw_ini_get("baseurl")."/automatweb");
+
+		$CANDIDATE = $jon = "";
+		if($ol->count())
+		{
+			$o = $ol->begin();
+
+			do
+			{
+				$jon = $o->prop("job_offer.name");
+
+				if("subject" === $prop)
+				{
+					break;
+				}
+
+				$hash = md5(time().$o->id());
+				$o->set_prop("hash", $hash);
+				$o->save();
+
+				$public_url->set_arg("hash", $hash);
+
+				$tpl->vars(array(
+					"job_offer.name" => $o->prop("job_offer.name"),
+					"person.name" => $o->prop("person.name"),
+					"public_view_url" => $public_url->get(),
+					"view_url" => $protected_url->get(),
+				));
+				$CANDIDATE .= $tpl->parse("CANDIDATE");
+			}
+			while ($o = $ol->next());
+		}
+
+		$tpl->vars(array(
+			"job_offer.name" => $jon,
+			"from.name" => $from->prop("name"),
+			"CANDIDATE" => $CANDIDATE,
+		));
+
+		return $tpl->parse();
+	}
 }
 
-?>

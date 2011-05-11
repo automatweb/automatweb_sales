@@ -502,7 +502,7 @@ class users extends users_user implements request_startup
 			// now the only problem is how do I identify the group.
 			// that's gonna be a problem, but I guess the only way is the config table.
 
-			$nlg_o = obj(group::get_non_logged_in_group());
+			$nlg_o = user_manager_obj::get_not_logged_in_group();
 			$nlg = $nlg_o->prop("gid");
 
 			$gidlist = array($nlg => $nlg);

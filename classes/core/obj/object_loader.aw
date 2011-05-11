@@ -11,6 +11,11 @@ EMIT_MESSAGE(MSG_STORAGE_NEW)
 
 */
 
+/**
+Class that provides global object system
+Contains knowledge about and interface to used data sources
+All methods should be static
+**/
 class object_loader
 {
 	private static $instance = false;
@@ -23,16 +28,46 @@ class object_loader
 			$GLOBALS["properties"] = array();
 			$GLOBALS["tableinfo"] = array();
 			$GLOBALS["of2prop"] = array();
-			$GLOBALS["__obj_sys_opts"] = array();
+			$GLOBALS["__obj_sys_opts"] = array(
+				"no_cache" => false
+			);
 			self::$instance = new _int_object_loader();
 		}
 
 		return self::$instance;
 	}
 
-	public static function can($action, $object_id)
+	/** Tells if user can perform operation on object
+		@attrib api=1 params=pos
+		@param operation_id type=string
+		@param object_id type=oid
+		@param user_oid type=oid default=NULL
+			Defaults to current user if not specified
+		@comment
+		@returns bool
+		@errors none
+	**/
+	public static function can($operation_id, $object_id, $user_oid = null)
 	{
-		return false === self::$instance ? false : self::$instance->can($action, $object_id);
+		return false === self::$instance ? false : self::$instance->ds->can($operation_id, $object_id, $user_oid);
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param name type=string
+		@comment
+		@returns mixed
+		@errors
+			throws awex_obj_param if option by $name doesn't exist
+	**/
+	public static function opt($name)
+	{
+		if (!isset($GLOBALS["__obj_sys_opts"][$name]))
+		{
+			throw new awex_obj_param("Object system option '{$name}' doesn't exist");
+		}
+
+		return $GLOBALS["__obj_sys_opts"][$name];
 	}
 }
 
@@ -45,7 +80,6 @@ class _int_object_loader extends core
 	var $cache;					// cache class instance
 	var $__aw_acl_cache;		// acl memory cache
 
-	private $acl_ids;
 	private static $tmp_id_count = 0;
 	private $registered = false;
 	public $obj_inherit_props_conf = array();
@@ -55,7 +89,6 @@ class _int_object_loader extends core
 		$this->init();
 
 		$this->__aw_acl_cache = array();
-		$this->acl_ids = aw_ini_get("acl.ids");
 
 		$this->all_ot_flds = array_flip(array(
 			"parent", "name", "class_id",
@@ -445,143 +478,6 @@ class _int_object_loader extends core
 		$ds->dc[$ds->default_cid] = $new_conn;
 		$this->dc[$ds->default_cid] = $new_conn;
 		return $old;
-	}
-
-	public function can($acl_name, $oid)
-	{
-		$acl_name = "can_" . $acl_name;
-
-		if (!is_oid($oid) or !in_array($acl_name, $this->acl_ids))
-		{
-			return 0;
-		}
-
-		if (!isset($this->__aw_acl_cache[$oid]) || !($max_acl = $this->__aw_acl_cache[$oid]))
-		{
-			$fn = "acl-".$oid."-uid-".(isset($_SESSION["uid"]) ? $_SESSION["uid"] : "");
-			$fn .= "-nliug-".(isset($_SESSION["nliug"]) ? $_SESSION["nliug"] : "");
-			if (empty($GLOBALS["__obj_sys_opts"]["no_cache"]) && ($str_max_acl = cache::file_get_pt_oid("acl", $oid, $fn)) != false)
-			{
-				$max_acl = aw_unserialize($str_max_acl, false, true);
-			}
-
-			if (!isset($max_acl))
-			{
-				$max_acl = $this->_calc_max_acl($oid);
-				if ($max_acl === false)
-				{
-					$max_acl = array_combine($this->acl_ids, array_fill(0, count($this->acl_ids), false));
-				}
-
-				if (empty($GLOBALS["__obj_sys_opts"]["no_cache"]))
-				{
-					cache::file_set_pt_oid("acl", $oid, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
-				}
-			}
-
-			$this->__aw_acl_cache[$oid] = $max_acl;
-		}
-
-		if (!isset($max_acl["can_view"]) && empty($_SESSION["uid"]))
-		{
-			return $GLOBALS["cfg"]["acl"]["default"]; //!!! acl.default setting on array! default on 1 view-l. teistel ini-s m22ramata. parandada!
-		}
-		return (int) isset($max_acl[$acl_name]) ? $max_acl[$acl_name] : 0;
-	}
-
-	private function _calc_max_acl($oid)
-	{
-		$max_priority = -1;
-		$max_acl = $GLOBALS["cfg"]["acl"]["default"];
-
-		$gl = aw_global_get("gidlist_pri_oid");
-		// go through the object tree and find the acl that is of highest priority among the current users group
-		$cur_oid = $oid;
-		$do_orig = false;
-		$cnt = 0;
-		while ($cur_oid > 0)
-		{
-			$tmp = null;
-			if (isset($GLOBALS["__obj_sys_acl_memc"][$cur_oid]) && isset($GLOBALS["__obj_sys_acl_memc"][$cur_oid]["acldata"]))
-			{
-				$tmp = $GLOBALS["__obj_sys_acl_memc"][$cur_oid];
-			}
-			elseif (isset($GLOBALS["__obj_sys_objd_memc"][$cur_oid]) && isset($GLOBALS["__obj_sys_objd_memc"][$cur_oid]["acldata"]))
-			{
-				$tmp = $GLOBALS["__obj_sys_objd_memc"][$cur_oid];
-			}
-			elseif (isset($GLOBALS["objects"][$cur_oid]))
-			{
-				$tmp = $GLOBALS["objects"][$cur_oid]->get_object_data();
-			}
-			else
-			{
-				$tmp = $this->ds->get_objdata($cur_oid, array(
-					"no_errors" => true
-				));
-				if ($tmp !== NULL)
-				{
-					$GLOBALS["__obj_sys_objd_memc"][$cur_oid] = $tmp;
-				}
-			}
-
-			if ($tmp === NULL)
-			{
-				// if any object above the one asked for is deleted, no access
-				return false;
-			}
-
-			// status and brother_of are not set when acl data is read from e.g. acl mem cache
-			if (isset($tmp["status"]))
-			{
-				if ($tmp["status"] == 0)
-				{
-					return false;
-				}
-			}
-
-			if (isset($tmp["brother_of"]) && $cur_oid != $tmp["brother_of"] && $tmp["brother_of"] > 0 && $cur_oid == $oid)
-			{
-				$do_orig = $tmp["brother_of"];
-			}
-
-			$acld = isset($tmp["acldata"]) ? safe_array($tmp["acldata"]) : array();
-
-			// now, iterate over the current acl data with the current gidlist
-			// and find the highest priority acl currently
-			foreach($acld as $g_oid => $g_acld)
-			{
-				// this applies the affects subobjects setting - if the first object has this set, then ignore the acls for that
-				$skip = false; //$cur_oid == $oid && $g_acld["can_subs"] == 1;
-
-				if (isset($gl[$g_oid]) && $gl[$g_oid] > $max_priority && !$skip)
-				{
-					$max_acl = $g_acld;
-					$max_priority = $gl[$g_oid];
-				}
-			}
-
-			if (++$cnt > 100)//TODO: move this limit setting to config?
-			{
-				$this->raise_error("ERR_ACL_EHIER", sprintf(t("object_loader->can(%s, %s): error in object hierarchy, count exceeded!"), $access,$oid),true);
-			}
-
-			// go to parent
-			$cur_oid = $tmp["parent"];
-		}
-
-		// now, we have the result. but for brothers we need to do this again for the original object and only use the can_delete privilege from the brother
-		if ($do_orig !== false)
-		{
-			$rv = $this->_calc_max_acl($do_orig);
-			if ($rv === false)
-			{
-				return false;   // if the original is deleted, then the brother is deleted as well
-			}
-			$rv["can_delete"] = isset($max_acl["can_delete"]) ? (int) $max_acl["can_delete"] : 0;
-			return $rv;
-		}
-		return $max_acl;
 	}
 
 	function _log($new, $oid, $name, $clid = NULL)
