@@ -1,23 +1,23 @@
 <?php
 /*
 @tableinfo banners index=id master_table=objects master_index=brother_of
-@classinfo syslog_type=ST_BANNER relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_BANNER relationmgr=yes
 
 @default table=objects
 @default group=general
 
-	@property general_toolbar type=toolbar no_caption=1 store=no 
+	@property general_toolbar type=toolbar no_caption=1 store=no
 
 	@property name type=textbox
 	@caption Nimi
 
 	@property comment type=textbox
-	@caption Kommentaar 
+	@caption Kommentaar
 
 	@property status type=status
 	@caption Aktiivne
 
-	@property url type=textbox table=banners 
+	@property url type=textbox table=banners
 	@caption URL, kuhu klikkimisel suunatakse
 
 	@property banner_file type=relpicker reltype=RELTYPE_BANNER_FILE table=banners
@@ -34,7 +34,7 @@
 
 @groupinfo display caption="N&auml;itamine"
 
-	@property probability_tbl type=table group=display 
+	@property probability_tbl type=table group=display
 	@caption N&auml;itamise t&otilde;en&auml;osus
 
 	@property probability type=textbox display=none table=banners
@@ -57,7 +57,7 @@
 
 @groupinfo transl caption=T&otilde;lgi
 @default group=transl
-	
+
 	@property transl type=callback callback=callback_get_transl
 	@caption T&otilde;lgi
 
@@ -124,7 +124,7 @@ class banner extends class_base
 
 	private function stats_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$langs = $this->db_fetch_array("SELECT DISTINCT langid FROM banner_views");
 		$lng = get_instance("languages");
 		$langnames = $lng->get_list();
@@ -137,15 +137,21 @@ class banner extends class_base
 			"caption" => t("Kokku")
 		));
 		$t->set_caption(sprintf(t("Banneri %s klikkimise ja vaatamise statistika"), $arr["obj_inst"]->name));
+
 		$clickdata = $this->db_fetch_array("SELECT COUNT(*) as cnt, langid FROM banner_clicks WHERE bid = '".$arr["obj_inst"]->id()."' GROUP BY langid");
 		$viewdata = $this->db_fetch_array("SELECT COUNT(*) as cnt, langid FROM banner_views WHERE bid = '".$arr["obj_inst"]->id()."' GROUP BY langid");
+
+		$this->click_through = $this->views = $this->clicks = 0;
+
 		foreach($clickdata as $click)
 		{
 			if($click["langid"])
 			{
 				$clicks["lang".$click["langid"]] = (int)$click["cnt"];
+				$this->clicks += (int)$click["cnt"];
 			}
 		}
+
 		foreach($viewdata as $view)
 		{
 			if($view["langid"])
@@ -155,24 +161,28 @@ class banner extends class_base
 					"caption" => t($langnames[$view["langid"]])
 				));
 				$views["lang".$view["langid"]] = (int)$view["cnt"];
+				$this->views += (int)$view["cnt"];
 				if(!$clicks["lang".$view["langid"]])
 				{
 					$clicks["lang".$view["langid"]] = 0;
 				}
 			}
 		}
+
 		foreach($views as  $langid => $v)
 		{
 			if ($v > 0)
 			{
-				$cthrough[$langid] = round(($clicks[$langid] / $v) * 100.0, 4)."%";
+				$ct_lang = round(($clicks[$langid] / $v) * 100.0, 4);
+				$cthrough[$langid] = $ct_lang."%";
+				$this->click_through += $ct_lang;
 			}
 			else
 			{
 				$cthrough[$langid] = "0%";
 			}
 		}
-		
+
 		$cthrough["name"] = t("Click-through ratio");
 		$cthrough["total"] = round($this->click_through,4)."%";
 		$t->define_data($cthrough);
@@ -200,7 +210,7 @@ class banner extends class_base
 				$bann->set_prop("probability", $arr["request"]["prob"][$bann->id()]);
 				$bann->save();
 			}
-		}		
+		}
 	}
 
 	// Generates toolbar
@@ -210,15 +220,15 @@ class banner extends class_base
 			'name'=>'add_item',
 			'tooltip'=> t('Uus')
 		));
-	
+
 		$alias_to = $arr['obj_inst']->id();
-		
+
 		$clss = aw_ini_get("classes");
 		foreach(array(CL_IMAGE, CL_FILE, CL_FLASH, CL_EXTLINK, CL_DOCUMENT) as $clid)
 		{
 			$tb->add_menu_item(array(
 				'parent'=>'add_item',
-				'text'=> $clss[$clid]['name'], 
+				'text'=> $clss[$clid]['name'],
 				'link'=>aw_url_change_var(array(
 					'action' => 'new',
 					'parent' => $arr['obj_inst']->id(),
@@ -233,10 +243,10 @@ class banner extends class_base
 		$tb->add_menu_separator(array(
 			'parent' => 'add_item',
 		));
-	
+
 		$tb->add_menu_item(array(
 			'parent'=>'add_item',
-			'text'=> $clss[CL_BANNER_CLIENT]['name'], 
+			'text'=> $clss[CL_BANNER_CLIENT]['name'],
 			'link'=>aw_url_change_var(array(
 				'action' => 'new',
 				'parent' => $arr['obj_inst']->id(),
@@ -268,7 +278,7 @@ class banner extends class_base
 		$t =& $arr["prop"]["vcl_inst"];
 		$this->init_prob_tbl($t);
 
-		// get the location(s) for this banner and then get all banners for that location. stick them into a table 
+		// get the location(s) for this banner and then get all banners for that location. stick them into a table
 		// and let the user enter probabilities
 		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_LOCATION")) as $c)
 		{
@@ -303,7 +313,7 @@ class banner extends class_base
 	{
 		$baids = array();
 		$cnt = 0;
-		// selektime k6ik bannerid selle kliendi kohta. 
+		// selektime k6ik bannerid selle kliendi kohta.
 		$g_obj = obj($gid);
 		$bbs = array();
 		foreach($g_obj->connections_to(array("from.class_id" => CL_BANNER)) as $c)
@@ -327,16 +337,16 @@ class banner extends class_base
 		}
 
 		$q = "
-			SELECT 
+			SELECT
 				banners.id as id,
-				banners.probability as pb 
-			FROM banners 
+				banners.probability as pb
+			FROM banners
 			LEFT JOIN objects ON objects.oid = banners.id
-			WHERE 
-				banners.id IN ($bbs) 
+			WHERE
+				banners.id IN ($bbs)
 				$stat
-				AND (clicks <= max_clicks OR (max_clicks is null OR max_clicks = 0) OR clicks is null) 
-				AND (views <= max_views OR (max_views is null OR max_views = 0) or views is null) 
+				AND (clicks <= max_clicks OR (max_clicks is null OR max_clicks = 0) OR clicks is null)
+				AND (views <= max_views OR (max_views is null OR max_views = 0) or views is null)
 			ORDER BY RAND()
 		";
 		$this->db_query($q);
@@ -376,9 +386,9 @@ class banner extends class_base
 			}
 			else
 			{
-				// select the banner by it's probability. 
-				// probability of every banner = it's % / sum of all % 
-				// banners with 0% have no chance now! (unless all are 0, then previous block runs)	
+				// select the banner by it's probability.
+				// probability of every banner = it's % / sum of all %
+				// banners with 0% have no chance now! (unless all are 0, then previous block runs)
 				$r = rand(1, $sum);
 				$pb = 1;
 				for ($i=1; $i<=$cnt; $i++)
@@ -405,7 +415,7 @@ class banner extends class_base
 	private function add_click($bid)
 	{
 		$langid = $this->get_lang_id();
-		$this->quote(&$ss);
+		$this->quote($ss);
 		$ip = aw_global_get("HTTP_X_FORWARDED_FOR");
 		if ($ip == "" || !(strpos($ip,"unknown") === false))
 		{
@@ -420,7 +430,7 @@ class banner extends class_base
 	private function add_view($bid,$ss,$noview,$clid)
 	{
 		$langid = $this->get_lang_id();
-		$this->quote(&$ss);
+		$this->quote($ss);
 		$this->db_query("INSERT INTO banner_ids(ss,bid,tm,clid) values('$ss','$bid',".time().",'$clid')");
 		if (!$noview)
 		{
@@ -464,10 +474,10 @@ class banner extends class_base
 		return $langid;
 	}
 
-	/** called when user clicks on banner, finds the correct banner according to the session id 
+	/** called when user clicks on banner, finds the correct banner according to the session id
 
-		@comment 
-			also cleans the banner_ids table of all views older than 48 hours	
+		@comment
+			also cleans the banner_ids table of all views older than 48 hours
 	**/
 	private function find_url($ss,$clid)
 	{
@@ -498,7 +508,7 @@ class banner extends class_base
 	}
 
 	/** shows banner
-		
+
 		@attrib name=proc_banner nologin="1"
 
 		@param id optional
@@ -596,7 +606,7 @@ class banner extends class_base
 		{
 			$this->error_banner();
 		}
-		
+
 		$f_o = obj($o->trans_get_val("banner_file"));
 		if ($f_o->class_id() == CL_IMAGE)
 		{
@@ -628,9 +638,9 @@ class banner extends class_base
 			The banner location object oid. If this is given and not the banner, then it fids a banner from the location settings to display
 
 		@param banner optionsl type=oid
-			The oid of the banner to display. If not set, the location must be. If set, the location is ignored and the given banner is used. 
+			The oid of the banner to display. If not set, the location must be. If set, the location is ignored and the given banner is used.
 
-		@returns 
+		@returns
 			The html for the banner
 	**/
 	function get_banner_html($loc, $banner = null, $interval = true)
@@ -713,7 +723,7 @@ class banner extends class_base
 						$l = get_instance("document");
 						$html = $l->gen_preview(array("docid" => $content_o->id(), "leadonly" => 1));
 						break;
-	
+
 					default:
 						$html = "";
 				}
@@ -734,8 +744,8 @@ class banner extends class_base
 	{
 		$html = "<div id=\"bloc$oid\">".$html."</div>";
 
-		$html .= "<script type=\"text/javascript\">function bannerIntervalize".$oid."() 
-		{ 
+		$html .= "<script type=\"text/javascript\">function bannerIntervalize".$oid."()
+		{
 			$.get(\"".$this->mk_my_orb("fetch_banner_content", array("loc" => $oid), "banner_client")."\", {}, function (data) { $(\"#bloc".$oid."\").html(data); setTimeout(\"bannerIntervalize".$oid."()\", ".($interval * 1000).");});
 		} setTimeout(\"bannerIntervalize".$oid."()\", ".($interval * 1000).");</script>";
 		return $html;
@@ -773,4 +783,3 @@ class banner extends class_base
 		return $this->trans_callback($arr, $this->trans_props);
 	}
 }
-?>

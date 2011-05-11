@@ -1196,7 +1196,6 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		}
 		elseif (SERIALIZE_XML === $type)
 		{
-			classload("core/serializers/xml");
 			$ser = new xml($flags);
 			$str = $ser->xml_serialize($arr);
 		}
@@ -1255,8 +1254,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			$magic_bytes = substr($str,0,6);
 			if ($magic_bytes === "<?xml ")
 			{
-				classload("core/serializers/xml");
-				$x = new xml;
+				$x = new xml();
 				$retval = $x->xml_unserialize(array("source" => $str));
 			}
 			elseif ($magic_bytes === "\$arr =")
@@ -1267,7 +1265,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			}
 			elseif ((strlen($str) > 0) && ($str{0} === "<"))
 			{
-				$ser = get_instance("core/orb/xmlrpc");
+				$ser = new xmlrpc();
 				$retval = $ser->xmlrpc_unserialize($str);
 			}
 			elseif (!empty($str))
@@ -1338,7 +1336,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		{
 			return false;
 		}
-		if (!is_array($GLOBALS["__aw_cache"]))
+		if (!isset($GLOBALS["__aw_cache"]) or !is_array($GLOBALS["__aw_cache"]))
 		{
 			$GLOBALS["__aw_cache"] = array($cache => array($key => $val));
 		}
@@ -1348,7 +1346,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			if (empty($GLOBALS["__aw_cache"][$cache]))
 			{
 				$GLOBALS["__aw_cache"][$cache] = "";
-			};
+			}
 
 			if (!is_array($GLOBALS["__aw_cache"][$cache]))
 			{
@@ -1358,7 +1356,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			{
 				$GLOBALS["__aw_cache"][$cache][$key] = $val;
 			}
-		};
+		}
 	}
 
 	/** clears the contents of the given memory cache
@@ -1374,7 +1372,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	**/
 	function aw_cache_flush($cache)
 	{
-		if (!is_array($GLOBALS["__aw_cache"]))
+		if (!isset($GLOBALS["__aw_cache"]) or !is_array($GLOBALS["__aw_cache"]))
 		{
 			$GLOBALS["__aw_cache"] = array();
 		}
@@ -1395,7 +1393,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	**/
 	function aw_cache_get_array($cache)
 	{
-		if (!is_array($GLOBALS["__aw_cache"]))
+		if (!isset($GLOBALS["__aw_cache"]) or !is_array($GLOBALS["__aw_cache"]))
 		{
 			$GLOBALS["__aw_cache"] = array();
 			return false;
@@ -1414,7 +1412,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	**/
 	function aw_cache_set_array($cache,$arr)
 	{
-		if (!is_array($GLOBALS["__aw_cache"]))
+		if (!isset($GLOBALS["__aw_cache"]) or !is_array($GLOBALS["__aw_cache"]))
 		{
 			$GLOBALS["__aw_cache"] = array($cache => $arr);
 		}
@@ -1444,11 +1442,11 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		if (headers_sent())
 		{
 			return false;
-		};
+		}
 		if (empty($value))
 		{
 			return false;
-		};
+		}
 		$GLOBALS[$name] = $value;
 		$_SESSION[$name] = $value;
 		aw_global_set($name,$value);
@@ -1487,7 +1485,7 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 	**/
 	function aw_session_del_patt($pattern)
 	{
-		foreach($GLOBALS["HTTP_SESSION_VARS"] as $vn => $vv)
+		foreach($_SESSION as $vn => $vv)
 		{
 			if (preg_match($pattern, $vn))
 			{

@@ -52,14 +52,7 @@ class _int_object
 
 	function save($exclusive = false, $previous_state = null)
 	{
-		if (!$this->_int_can_save())
-		{
-			error::raise(array(
-				"id" => "ERR_SAVE",
-				"msg" => sprintf(t("object::save(): object (%s) cannot be saved, needed properties are not set (parent, class_id)"), $this->obj["oid"])
-			));
-			return;
-		}
+		$this->_int_can_save();
 		$tmp =  $this->_int_do_save($exclusive, $previous_state);
 		return $tmp;
 	}
@@ -2381,7 +2374,7 @@ class _int_object
 
 	protected function _int_can($param)
 	{
-		return $GLOBALS["object_loader"]->ds->can($param, $this->obj["oid"]);
+		return object_loader::can($param, $this->obj["oid"]);
 	}
 
 	protected function _int_can_save()
@@ -2403,31 +2396,23 @@ class _int_object
 				}
 				else
 				{
-					error::raise(array(
-						"id" => "ERR_ACL",
-						"msg" => sprintf(t("object::save(): no access to edit object %s!"), $this->obj["oid"])
-					));
-					return;
+					throw new awex_obj_acl(sprintf("No access to edit object '%s'", $this->obj["oid"]));
 				}
 			}
 			else
 			{
-				if ($GLOBALS["object_loader"]->ds->can("add", $this->obj["parent"]))
+				if (object_loader::can("add", $this->obj["parent"]))
 				{
 					return true;
 				}
 				else
 				{
-					error::raise(array(
-						"id" => "ERR_ACL",
-						"msg" => sprintf(t("object::save(): no access to add object under folder %s (gidlist = %s)!"), $this->obj["parent"], join(", ", (array) aw_global_get("gidlist")))
-					));
-					return;
+					throw new awex_obj_acl(sprintf("No access to add object under folder '%s' (gidlist = %s)", $this->obj["parent"], join(", ", (array) aw_global_get("gidlist"))));
 				}
 			}
 		}
 
-		return false;
+		throw new awex_obj_acl(sprintf("Object '%s' cannot be saved, needed properties are not set (parent, class_id)"), $this->obj["oid"]);
 	}
 
 	protected function _int_set_of_value($ofield, $val)

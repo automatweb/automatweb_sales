@@ -326,8 +326,8 @@ class project_files_impl extends class_base
 		{
 			if ($arr["request"]["tf"] === "unsorted")
 			{
-	//			$ot = new object_tree(array("class_id" => CL_MENU, "parent" => $pt, "lang_id" => array(), "site_id" => array()));
-	//			$pt = new obj_predicate_not(array($pt, $pt) + $ot->ids());
+				// $ot = new object_tree(array("class_id" => CL_MENU, "parent" => $pt, "lang_id" => array(), "site_id" => array()));
+				// $pt = new obj_predicate_not(array($pt, $pt) + $ot->ids());
 				$pr = $arr["obj_inst"]->id();
 				$pt = new obj_predicate_not($this->_get_parent_folders($arr["obj_inst"]));
 
@@ -335,17 +335,17 @@ class project_files_impl extends class_base
 			$filter = array(
 				$filters,
 				"parent" => $pt,
-	//			"project" => $pr,
+				// "project" => $pr,
 				"class_id" => array(CL_FILE,CL_CRM_DOCUMENT, CL_CRM_DEAL, CL_CRM_MEMO, CL_CRM_OFFER , CL_PROJECT_STRAT_GOAL_EVAL_WS ,CL_PROJECT_RISK_EVAL_WS ,CL_PROJECT_ANALYSIS_WS,CL_DEVELOPMENT_ORDER),
 			);
 			$filter[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-	//				"CL_FILE.project" => $pr, // enne oli r36msalt ka fail sees, kuid ei ole seni faili kuidagi projektiga seostatud.
+					// "CL_FILE.project" => $pr, // enne oli r36msalt ka fail sees, kuid ei ole seni faili kuidagi projektiga seostatud.
 					"CL_CRM_DOCUMENT.project" => $pr,
-					"CL_CRM_DEAL.project" => $pr,
+					// "CL_CRM_DEAL.project" => $pr,
 					"CL_CRM_MEMO.project" => $pr,
-					"CL_CRM_OFFER.project" => $pr,
+					"CL_CRM_OFFER.project" => $pr
 				))
 			);
 
@@ -355,7 +355,14 @@ class project_files_impl extends class_base
 				$filter = array(
 					"class_id" => $arr["request"]["tf"],
 				);
-				if(in_array($arr["request"]["tf"] ,array(CL_CRM_DOCUMENT,CL_CRM_DEAL,CL_CRM_MEMO,CL_CRM_OFFER,CL_DEVELOPMENT_ORDER)))
+				if(in_array($arr["request"]["tf"] ,array(
+					// classes that have property 'project'
+					CL_CRM_DOCUMENT,
+					// CL_CRM_DEAL,
+					CL_CRM_MEMO,
+					// CL_CRM_OFFER,
+					CL_DEVELOPMENT_ORDER
+				)))
 				{
 					$filter["project"] = $pr;
 				}

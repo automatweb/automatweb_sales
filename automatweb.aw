@@ -272,7 +272,7 @@ class automatweb
 			$this->set_request($request);
 		}
 
-		// initiate data source
+		// initiate data source manager
 		if (!aw_global_get("no_db_connection"))
 		{
 			$GLOBALS["object_loader"] = object_loader::instance();
@@ -551,7 +551,7 @@ aw_global_set("section", $section);
 						$users = new users_user();
 						$user = obj(aw_global_get("uid_oid"));
 
-						//!!! TMP teha et oleks olemas see LC
+						//TODO: TMP teha et oleks olemas see LC
 						if (!aw_global_get("LC"))
 						{
 							aw_global_set("LC", "et");
