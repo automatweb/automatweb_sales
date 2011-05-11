@@ -573,7 +573,8 @@ Parimat,
 	{
 		$inst = new crm_offer();
 		return $inst->show(array(
-			"id" => $this->id()
+			"id" => $this->id(),
+			"pdf" => true,
 		));
 	}
 
