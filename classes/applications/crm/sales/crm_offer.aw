@@ -200,9 +200,24 @@ class crm_offer extends class_base
 
 	public function _get_mail_attachments($arr)
 	{
+		$pdf = $arr["obj_inst"]->make_pdf();
+		if ($pdf)
+		{
+			$file_data = $pdf->get_file();
+			$pdf_link = " " . html::href(array(
+				"caption" => html::img(array(
+					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"border" => 0
+				)) . $pdf->name() . " (". filesize($file_data["properties"]["file"])." B)",
+				"url" => $pdf->get_url(),
+			));
+			$value["p"] = "p";
+		}
+
 		$arr["prop"]["options"] = array(
-			"offer" => t("Pakkumuse PDF")
+			"offer" => t("Pakkumuse PDF") . $pdf_link,
 		);
+		$arr["prop"]["value"] = "offer";
 
 		return PROP_OK;
 	}
@@ -1024,7 +1039,7 @@ class crm_offer extends class_base
 
 		$o = new object($arr["id"]);
 
-		$customer = $o->customer();
+		$customer = new object($o->prop("customer"));
 
 		$this->vars(array(
 			"id" => $o->id(),

@@ -411,12 +411,12 @@ Parimat,
 			throw new awex_crm_offer_email("Can't send mail, no recipients specified");
 		}
 		
-//		$offer_pdf = $this->make_pdf();
+		$offer_pdf = $this->make_pdf();
 
-//		if (!is_object($offer_pdf))
-//		{
-//			throw new awex_crm_offer_file("Main invoice file lost or not created. Offer id " . $this->id());
-//		}
+		if (!is_object($offer_pdf))
+		{
+			throw new awex_crm_offer_file("Offer file lost or not created. Offer id " . $this->id());
+		}
 
 		// parse recipients
 		foreach ($to as $email_address => $recipient_name)
@@ -473,26 +473,24 @@ Parimat,
 			"bcc" => $bcc
 		));
 
-/*
 		/// add attachments
 		$success = $awm->fattach(array(
 			"path" => $offer_pdf->prop("file"),
 			"contenttype"=> aw_mime_types::type_for_file($offer_pdf->name()),
 			"name" => $offer_pdf->name(),
 		));
-		$att_comment = html::href(array(
+/*		$att_comment = html::href(array(
 			"caption" => html::img(array(
 				"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
 				"border" => 0,
 			)).$offer_pdf->name(),
 			"url" => $offer_pdf->get_url(),
-		));
+		));*/
 
 		if (!$success)
 		{
-			throw new awex_crm_offer_file("Attaching main invoice file (id: " . $invoice_pdf->id() . ") failed. Bill id " . $this->id());
+			throw new awex_crm_offer_file("Attaching offer file (id: " . $invoice_pdf->id() . ") failed. Offer id " . $this->id());
 		}
-*/
 
 		$awm->htmlbodyattach(array(
 			"data" => $body
@@ -534,6 +532,49 @@ Parimat,
 
 		$this->set_prop("state", self::STATE_SENT);
 		$this->save();
+	}
+
+	public function make_pdf()
+	{
+		$pdf = null;
+		if (is_oid($this->meta("last_pdf_file_oid")))
+		{
+			try
+			{
+				$id = $this->meta("last_pdf_file_oid");
+				if (is_oid($id))
+				{
+					$pdf = obj($id, array(), CL_FILE);
+				}
+			}
+			catch (awex_obj $e)
+			{
+			}
+		}
+
+		if (!$pdf)
+		{
+			$f = new file();
+			$id = $f->create_file_from_string(array(
+				"parent" => $this->id(),
+				"content" => $this->get_pdf(),
+				"name" => t("pakkumus_nr")."_".$this->id().".pdf",
+				"type" => "application/pdf"
+			));
+			$this->set_meta("last_pdf_file_oid", $id);
+			$this->save();
+			$pdf = obj($id, array(), CL_FILE);
+		}
+
+		return $pdf;
+	}
+
+	private function get_pdf()
+	{
+		$inst = new crm_offer();
+		return $inst->show(array(
+			"id" => $this->id()
+		));
 	}
 
 	/**
