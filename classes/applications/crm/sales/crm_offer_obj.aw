@@ -430,7 +430,7 @@ Parimat,
 
 			$to[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
 		}
-		$to = "kaareln@hotmail.com"; #implode(",", $to);
+		$to = implode(",", $to);
 
 		foreach ($cc as $email_address => $recipient_name)
 		{
