@@ -95,7 +95,7 @@ class banner extends class_base
 				$this->do_prob_tbl($arr);
 				break;
 			case 'general_toolbar':
-				$this->do_general_toolbar(&$prop['toolbar'], $arr);
+				$this->do_general_toolbar($prop['toolbar'], $arr);
 				break;
 			case 'stats_table':
 				$this->stats_table($arr);

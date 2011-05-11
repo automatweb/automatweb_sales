@@ -1078,7 +1078,7 @@ class mrp_job extends class_base
 	function create_materials_sel_tbl($arr)
 	{
 		$t = &$arr["prop"]["vcl_inst"];
-		$this->init_materials_tbl(&$t);
+		$this->init_materials_tbl($t);
 		$t->set_caption(sprintf(t("Tooteretsepti x poolt t&ouml;&ouml;s %s kasutatavad materjalid"), $arr["obj_inst"]->name()));
 		$conn = $arr["obj_inst"]->connections_to(array(
 			"from.class_id" => CL_MATERIAL_EXPENSE,
@@ -1116,7 +1116,7 @@ class mrp_job extends class_base
 	function create_materials_tbl($arr)
 	{
 		$t = $arr["prop"]["vcl_inst"];
-		$this->init_materials_tbl(&$t);
+		$this->init_materials_tbl($t);
 		$res = obj($arr["obj_inst"]->prop("resource"));
 		if($res)
 		{

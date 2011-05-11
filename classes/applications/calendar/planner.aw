@@ -1231,6 +1231,16 @@ class planner extends class_base
 						continue;
 					}
 
+					try
+					{
+						$classname = aw_ini_get("classes.{$clid}.name");
+					}
+					catch (awex_cfg_key $e)
+					{
+						// Skip classes deprecated that have been removed.
+						continue;
+					}
+
 					$parent = $this->can("view", $arr["obj_inst"]->prop("event_folder")) ? $arr["obj_inst"]->prop("event_folder") : $id;
 					$preset_time = (isset($arr["request"]["viewtype"]) and "day" === $arr["request"]["viewtype"] and !empty($arr["request"]["date"])) ? self::tm_convert($arr["request"]["date"]) : time();
 					$toolbar->add_menu_item(array(
@@ -1242,7 +1252,7 @@ class planner extends class_base
 							"pt" => $preset_time,
 							"day" => (isset($arr["request"]["viewtype"]) and $arr["request"]["viewtype"] === "day") ? $arr["request"]["date"] : 0
 						), $clid),
-						"text" => aw_ini_get("classes.{$clid}.name")
+						"text" => $classname
 					));
 				}
 			}

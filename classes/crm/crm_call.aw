@@ -1182,9 +1182,13 @@ EOS;
 			));
 			$unfinished_task_list = array();
 
-			foreach ($list->names() as $task_oid => $task_name)
+			foreach ($list->arr() as $task)
 			{
-				$unfinished_task_list[] = "'{$task_name}' (id: {$task_oid})";
+				$task_link = html::href(array(
+					"caption" => $task->id,
+					"url" => html::get_change_url($task->id),
+				));
+				$unfinished_task_list[] = "'{$task->name()}' (id: {$task_link})";
 			}
 			$unfinished_task_list = implode(", ", $unfinished_task_list);
 			$this->show_error_text(sprintf(t("Teie kasutajal on pooleli tegevus(ed) %s. Uut k&otilde;net ei saa alustada."), $unfinished_task_list));

@@ -255,7 +255,7 @@ class config_login_menus extends class_base
 		$o->save();
 
 		$str = aw_serialize($data);
-		$this->quote(&$str);
+		$this->quote($str);
 		$dbi->db_query("INSERT INTO config(ckey,content) values('login_menus_".$ini_opts["site_id"]."','$str')");
 	}
 
@@ -336,7 +336,7 @@ class config_login_menus extends class_base
 		$lm[aw_global_get("lang_id")][$grp_id]["menu"] = $menu_id;
 
 		$str = aw_serialize($lm);
-		$this->quote(&$str);
+		$this->quote($str);
 		$this->set_cval("login_menus_".aw_ini_get("site_id"),$str);
 	}
 

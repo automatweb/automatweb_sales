@@ -7,7 +7,7 @@
 @default group=general
 
 	@property offer type=hidden field=aw_offer
-	@caption Pakkumine
+	@caption Pakkumus
 
 	@property sent_when type=datetime_select field=aw_sent_when default=-1
 	@caption Millal saadetud
@@ -71,7 +71,7 @@ class crm_offer_sent extends class_base
 	{
 		if(!$arr["obj_inst"]->is_saved())
 		{
-			$arr["prop"]["value"] = sprintf(t("Pakkumise nr %u saatmine"), $this->offer->id());
+			$arr["prop"]["value"] = sprintf(t("Pakkumuse nr %u saatmine"), $this->offer->id());
 		}
 	}
 
@@ -95,7 +95,7 @@ class crm_offer_sent extends class_base
 	{
 		if(!$arr["obj_inst"]->is_saved())
 		{
-			$arr["prop"]["value"] = sprintf(t("Pakkumine nr %u"), $this->offer->id());
+			$arr["prop"]["value"] = sprintf(t("Pakkumus nr %u"), $this->offer->id());
 		}
 	}
 
@@ -119,7 +119,7 @@ class crm_offer_sent extends class_base
 	{
 		$arr["prop"]["value"] = 
 			t("Sisus kasutatavad m&auml;rgid:")."<br>".
-			t("#confirmation_url# - URL pakkumise vaatamiseks ja kinnitamiseks")."<br>".
+			t("#confirmation_url# - URL pakkumuse vaatamiseks ja kinnitamiseks")."<br>".
 			t("#client# - kliendi nimi")."<br>";
 	}
 

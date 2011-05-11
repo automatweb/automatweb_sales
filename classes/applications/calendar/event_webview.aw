@@ -37,7 +37,7 @@ class event_webview extends class_base
 			"tpldir" => "applications/calendar/event_webview",
 			"clid" => CL_EVENT_WEBVIEW
 		));
-		lc_site_load("event_webview", &$this);
+		lc_site_load("event_webview", $this);
 	}
 
 	function get_property($arr)

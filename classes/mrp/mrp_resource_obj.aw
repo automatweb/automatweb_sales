@@ -1428,6 +1428,11 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 				$this->remove_thread($id);
 				$this->add_thread();
 			}
+			catch (awex_obj_acl $e)
+			{
+				$this->remove_thread($id);
+				$this->add_thread();
+			}
 		}
 
 		$this->save();

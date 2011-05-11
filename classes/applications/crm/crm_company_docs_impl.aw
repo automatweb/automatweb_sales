@@ -145,7 +145,7 @@ class crm_company_docs_impl extends class_base
 			));
 		}
 		$file_manager = get_instance("admin/file_manager");
-		$file_manager->add_zip_button(array("tb" => &$tb));
+		$file_manager->add_zip_button(array("tb" => $tb));
 	}
 
 	function _get_level_folders_from_fld($fldo, $sel, $get_f)
@@ -489,7 +489,7 @@ class crm_company_docs_impl extends class_base
 		$arr["prop"]["vcl_inst"]->set_selected_item($arr["request"]["tf"]);
 	}
 
-	function _init_docs_tbl(&$t, $r = array())
+	function _init_docs_tbl($t, $r = array())
 	{
 		$t->define_field(array(
 			"caption" => "",
@@ -699,7 +699,7 @@ class crm_company_docs_impl extends class_base
 		{
 			$cl_crm_company = get_instance(CL_CRM_COMPANY);
 			$usecase = $cl_crm_company->get_current_usecase($arr); //$arr["obj_inst"] peab olemas olema.
-			$cl_crm_settings->apply_table_cfg($o, $usecase, $arr["prop"]["name"], &$t);
+			$cl_crm_settings->apply_table_cfg($o, $usecase, $arr["prop"]["name"], $t);
 			$visible_fields = $cl_crm_settings->get_visible_fields($o, $usecase, $arr["prop"]["name"]);
 
 			if (!empty($visible_fields))
@@ -1028,7 +1028,7 @@ class crm_company_docs_impl extends class_base
 
 	}
 
-	function _init_dn_res_t(&$t)
+	function _init_dn_res_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -1152,7 +1152,7 @@ class crm_company_docs_impl extends class_base
 		return $ol;
 	}
 
-	function _init_docs_lmod_t(&$t)
+	function _init_docs_lmod_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",

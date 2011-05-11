@@ -33,7 +33,7 @@ class crm_sales_statistics_offers_view extends crm_sales_offers_view
 
 		$table->define_field(array(
 			"name" => "id",
-			"caption" => t("Pakkumise ID"),
+			"caption" => t("Pakkumuse ID"),
 			"sortable" => true,
 			"numeric" => true,
 		));

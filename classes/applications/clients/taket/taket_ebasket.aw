@@ -30,7 +30,7 @@ class taket_ebasket extends class_base
 			"tpldir" => "taket/taket_ebasket",
 			"clid" => CL_TAKET_EBASKET
 		));
-		lc_site_load('taket_ebasket',&$this);
+		lc_site_load('taket_ebasket', $this);
 	}
 
 	function get_receipts($params = array())

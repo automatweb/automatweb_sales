@@ -66,7 +66,7 @@
 
 	@property confirmations_table type=table store=no no_caption=1 editonly=1
 
-@groupinfo sent caption=Saadetud&nbsp;pakkumised submit=no
+@groupinfo sent caption=Saadetud&nbsp;pakkumused submit=no
 @default group=sent
 
 	@property sent_table type=table store=no no_caption=1 editonly=1
@@ -244,7 +244,7 @@ class crm_offer extends class_base
 		$t->add_menu_button(array(
 			"name" => "content_search",
 			"img" => "search.gif",
-			"tooltip" => t("Lisa pakkumisse artikleid"),
+			"tooltip" => t("Lisa pakkumusse artikleid"),
 		));
 
 		$clids = crm_offer_row_obj::get_applicable_clids();
@@ -474,7 +474,7 @@ class crm_offer extends class_base
 			"price" => "object",
 		));
 
-		$t->set_caption("Pakkumise sisu ja komponentide hinnakujundus");
+		$t->set_caption("Pakkumuse sisu ja komponentide hinnakujundus");
 	}
 
 	public function _set_content_table($arr)

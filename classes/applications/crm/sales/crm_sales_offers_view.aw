@@ -60,7 +60,7 @@ class crm_sales_offers_view
 		));
 
 		$tree->add_item (0, array (
-			"name" => t("K&otilde;ik pakkumised"),
+			"name" => t("K&otilde;ik pakkumused"),
 			"id" => "all",
 			"parent" => 0,
 			"url" => $url->get()
@@ -112,7 +112,7 @@ class crm_sales_offers_view
 		));
 
 		$tree->add_item (0, array (
-			"name" => t("K&otilde;ik pakkumised"),
+			"name" => t("K&otilde;ik pakkumused"),
 			"id" => "all",
 			"parent" => 0,
 			"url" => $url->get()
@@ -160,7 +160,7 @@ class crm_sales_offers_view
 
 				$toolbar->add_menu_item(array(
 					"parent" => "new",
-					"text" => t("T&uuml;hi pakkumine"),
+					"text" => t("T&uuml;hi pakkumus"),
 					"link" => html::get_new_url(CL_CRM_OFFER, $this_o->prop("offers_folder"), array("return_url" => get_ru()))
 				));
 				$tpls = $this_o->get_offer_templates();
@@ -169,7 +169,7 @@ class crm_sales_offers_view
 					$toolbar->add_sub_menu(array(
 						"parent" => "new",
 						"name" => "new_from_tpl",
-						"text" => t("Pakkumine &scaron;ablooni p&otilde;hjal"),
+						"text" => t("Pakkumus &scaron;ablooni p&otilde;hjal"),
 					));
 
 					foreach($tpls->names() as $tpl_oid => $tpl_name)
@@ -370,7 +370,7 @@ class crm_sales_offers_view
 
 		$table->define_field(array(
 			"name" => "id",
-			"caption" => t("Pakkumise ID")
+			"caption" => t("Pakkumuse ID")
 		));
 		$table->define_field(array(
 			"name" => "customer_name",

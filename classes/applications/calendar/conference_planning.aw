@@ -162,7 +162,7 @@ class conference_planning extends class_base
 			"clid" => CL_CONFERENCE_PLANNING
 		));
 
-		lc_site_load("conference_planning_new", &$this);
+		lc_site_load("conference_planning_new", $this);
 
 		$this->wd = array(
 			0 => t("Monday"),
@@ -239,7 +239,7 @@ class conference_planning extends class_base
 
 
 		$this->lc_load("conference_planning", "lc_conference_planning");
-		lc_site_load("conference_planning", &$this);
+		lc_site_load("conference_planning", $this);
 
 
 		$this->trans_props = array(
@@ -526,7 +526,7 @@ class conference_planning extends class_base
 				}
 				break;
 			case "views_tb":
-				$tb = &$prop["vcl_inst"];
+				$tb = $prop["vcl_inst"];
 				$isv = strlen($view_no = $arr["request"]["view_no"]);
 				$ise = strlen($element = $arr["request"]["element"]);
 				$views = aw_unserialize($arr["obj_inst"]->prop("help_views"));
@@ -961,7 +961,7 @@ class conference_planning extends class_base
 				break;
 
 			case "views_tree":
-				$t = &$prop["vcl_inst"];
+				$t = $prop["vcl_inst"];
 				$t->start_tree(array(
 					"tree_id" => "views_tree",
 					"tree_type" => TREE_DHTML,
@@ -1628,7 +1628,7 @@ class conference_planning extends class_base
 				"element" => $data,
 				"prop" => $el_form_data,
 			);
-			$controller = $this->can("view", $data["save_controller"])?$i->check_property($data["save_controller"], "", &$prop, &$arr, "" ,""):array();
+			$controller = $this->can("view", $data["save_controller"])?$i->check_property($data["save_controller"], "", $prop, $arr, "" ,""):array();
 			if($controller == PROP_IGNORE)
 			{
 				continue;
@@ -1886,10 +1886,10 @@ class conference_planning extends class_base
 		return $this->parse();
 	}
 
-	function parse_form_element($el, $view_no, $element, $views, $value, $values, $doc)
+	function parse_form_element(&$el, $view_no, $element, &$views, &$value, &$values, $doc)
 	{
 		$this->_init_vars();
-		lc_site_load("conference_planning_new", &$this);
+		lc_site_load("conference_planning_new", $this);
 		$prop = $this->get_form_elements_data($el["name"]);
 		if(!$prop)
 		{
@@ -1925,7 +1925,7 @@ class conference_planning extends class_base
 			"current_view" => $view_no,
 			"current_element" => $element,
 		);//if($el["show_controller"] == 11440)arr($toprop);
-		$controller = $this->can("view", $el["show_controller"])?$i->check_property($el["show_controller"], $this->cp->id(),&$toprop, $GLOBALS["_GET"],"",""):array();
+		$controller = $this->can("view", $el["show_controller"])?$i->check_property($el["show_controller"], $this->cp->id(),$toprop, $GLOBALS["_GET"],"",""):array();
 
 		if($controller == PROP_IGNORE)
 		{
@@ -2145,7 +2145,7 @@ class conference_planning extends class_base
 
 		foreach($view["elements"] as $elem_id => $el)
 		{
-			$ret .= $this->parse_form_element(&$view["elements"][$elem_id], $act, $elem_id, &$views, &$stored_data[$view["elements"][$elem_id]["wid"]], &$stored_data, $doc);
+			$ret .= $this->parse_form_element($view["elements"][$elem_id], $act, $elem_id, $views, $stored_data[$view["elements"][$elem_id]["wid"]], $stored_data, $doc);
 		}
 		// let's parse errors here as well
 		foreach($errors[$act] as $ctr)
@@ -4074,7 +4074,7 @@ class conference_planning extends class_base
 				$template["oid"] = new obj_predicate_not($ol->ids());
 			}
 			$new_ol = new object_list($template);
-			$new_ol->sort_by_cb(array(&$this, "__search_sort"));
+			$new_ol->sort_by_cb(array($this, "__search_sort"));
 			$new_res = $new_ol->arr();
 			$need = $obj->prop("search_result_max") - count($res);
 			foreach($new_res as $k => $o)

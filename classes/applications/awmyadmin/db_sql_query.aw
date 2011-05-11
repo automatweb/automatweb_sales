@@ -68,7 +68,7 @@ class db_sql_query extends class_base
 	{
 		// do the query and display results
 		$num_rows = 0;
-		$qres = $this->show_query_results($arr["obj_inst"]->meta('db_base'), $arr["obj_inst"]->meta('sql'), &$num_rows, $arr["prop"]["vcl_inst"]);
+		$qres = $this->show_query_results($arr["obj_inst"]->meta('db_base'), $arr["obj_inst"]->meta('sql'), $num_rows, $arr["prop"]["vcl_inst"]);
 	}
 
 	/** Takes a table instance and puts results from the query into that
@@ -100,7 +100,7 @@ class db_sql_query extends class_base
 		$rows_defined = false;
 		if (!$db->db_query($sql,false))
 		{
-			return $this->error_table(&$t,&$db);
+			return $this->error_table($t, $db);
 		}
 		while ($row = $db->db_next())
 		{

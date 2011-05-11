@@ -75,7 +75,7 @@ class ical_export extends class_base
 			"clid" => CL_ICAL_EXPORT
 		));
 		
-		ini_set ("include_path", ".:".aw_ini_get("basedir")."/addons/ZendGdata-1.0.3/library/");
+		set_include_path(get_include_path() . PATH_SEPARATOR . aw_ini_get("basedir")."/addons/");
 		include_once("Zend/Loader.php");
 		Zend_Loader::loadClass('Zend_Gdata');
 		Zend_Loader::loadClass('Zend_Gdata_AuthSub');

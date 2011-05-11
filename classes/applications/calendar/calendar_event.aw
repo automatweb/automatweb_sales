@@ -271,7 +271,7 @@ class calendar_event extends class_base
 			"name", "title",  "short_description", "description", "utextbox1", "utextbox2", "utextbox3", "utextbox4", "utextbox5", "utextbox6", "utextbox7", "utextbox8", "utextbox9", "utextbox10", "utextarea1", "utextarea2", "utextarea3", "utextarea4", "utextarea5"
 		);
 
-		lc_site_load("document", &$this);
+		lc_site_load("document", $this);
 	}
 
 	/**
@@ -586,7 +586,7 @@ class calendar_event extends class_base
 
 	function do_event_time_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "start",
 			"caption" => t("Algus"),
@@ -782,7 +782,7 @@ cal.select(changeform.event_time_new__end_,\'anchornew\',\'dd.MM.yyyy HH:mm\'); 
 						$vco = obj($v_ctr_oid);
 						$vci = $vco->instance();
 						$prop_list[$propname]["value"] = $ob->prop($propname);
-						$ok &= ($vci->check_property(&$prop_list[$propname], $v_ctr_oid, array("obj" => $ob)) == PROP_OK);
+						$ok &= ($vci->check_property($prop_list[$propname], $v_ctr_oid, array("obj" => $ob)) == PROP_OK);
 					}
 				}
 			}
@@ -897,7 +897,7 @@ cal.select(changeform.event_time_new__end_,\'anchornew\',\'dd.MM.yyyy HH:mm\'); 
 
 	function _get_organizer_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_menu_button(array(
 			"name" => "main_menu",
@@ -952,7 +952,7 @@ cal.select(changeform.event_time_new__end_,\'anchornew\',\'dd.MM.yyyy HH:mm\'); 
 
 	function _get_organizer_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "phone",
 			"caption" =>  t("Telefon"),
@@ -1037,7 +1037,7 @@ cal.select(changeform.event_time_new__end_,\'anchornew\',\'dd.MM.yyyy HH:mm\'); 
 
 	function _get_location_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		$tb->add_button(array(
 			"name" => "new",
@@ -1073,7 +1073,7 @@ cal.select(changeform.event_time_new__end_,\'anchornew\',\'dd.MM.yyyy HH:mm\'); 
 
 	function _get_location_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" =>  t("Nimi"),

@@ -59,7 +59,7 @@ class taket_search extends class_base implements main_subtemplate_handler
 			"tpldir" => "taket/taket_search",
 			"clid" => CL_TAKET_SEARCH
 		));
-		lc_site_load('taket_search',&$this);
+		lc_site_load('taket_search', $this);
 	}
 
 	//////
@@ -794,7 +794,7 @@ taket_users_import::update_user_info(array('uid' => aw_global_get('uid')));
 
 	function on_get_subtemplate_content($arr)
 	{
-		$inst= &$arr['inst'];
+		$inst = $arr['inst'];
 	
 		//h6mm main.tpl'i subi TAKET_SEARCH peax vist ikkagi
 		//n2itama antud klassi show.tpl'i	

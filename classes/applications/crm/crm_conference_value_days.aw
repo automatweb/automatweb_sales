@@ -110,7 +110,7 @@ class crm_conference_value_days extends class_base
 		
 		$tpl = $calendar_object->prop("template");
 		$this->read_template($tpl);
-		lc_site_load("conference_calendar", &$this);
+		lc_site_load("conference_calendar", $this);
 		$comment = $GLOBALS["lc_conference_calendar"]["LC_COMMENT"];
 	
 		$n = 0;

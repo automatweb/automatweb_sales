@@ -494,6 +494,22 @@ class class_index
 		return isset($fc["implemented_by"]) ? safe_array($fc["implemented_by"]) : array();
 	}
 
+	/** Returns true if the given class can be instantiated, false otherwise.
+		@attrib api=1 params=pos
+
+		@param class required type=string
+			The name of the class instantiability is asked for
+
+		@returns
+			Boolean
+	**/
+	public static function is_instantiable($class)
+	{
+		$class = new ReflectionClass($class);
+
+		return $class->isInstantiable();
+	}
+
 	private static function do_post_update_processing()
 	{
 		$index_dir = AW_DIR . self::INDEX_DIR;

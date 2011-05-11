@@ -1085,7 +1085,7 @@ class class_base extends aw_template
 		}
 	}
 
-	private static function push_msg($text, $class)
+	private static function push_msg($text, $class, $safe = false)
 	{
 		if (is_string($text) and strlen($text) > 1)
 		{
@@ -1103,13 +1103,18 @@ class class_base extends aw_template
 				$ui_messages = array();
 			}
 
-			if ("DONE" === $class and in_array("DONE", $ui_messages))
+			if ("DONE" === $class)
 			{ // clear previous DONE message
-				$tmp = array_flip($ui_messages);
-				unset($ui_messages[$tmp["DONE"]]);
+				foreach($ui_messages as $ui_message_id => $ui_messages_data)
+				{
+					if ("DONE" === $ui_messages_data["class"])
+					{
+						unset($ui_messages_data[$ui_message_id]);
+					}
+				}
 			}
 
-			$ui_messages[$text] = $class;
+			$ui_messages[$text] = array("class" => $class, "safe" => $safe);
 			aw_session_set("awcb__global_ui_messages", serialize($ui_messages));
 		}
 	}
@@ -2141,33 +2146,33 @@ class class_base extends aw_template
 				$neutral_msgs = array();
 				$positive_msgs = array();
 				$error_msgs = array();
-				foreach ($ui_messages as $text => $class)
+				foreach ($ui_messages as $text => $data)
 				{
-					if ("OK" === $class)
+					if ("OK" === $data["class"])
 					{
-						$positive_msgs[$text] = $class;
+						$positive_msgs[$text] = $data;
 					}
-					elseif ("ERROR" === $class)
+					elseif ("ERROR" === $data["class"])
 					{
-						$error_msgs[$text] = $class;
+						$error_msgs[$text] = $data;
 					}
 					elseif ("" === $class)
 					{
-						$neutral_msgs[$text] = $class;
+						$neutral_msgs[$text] = $data;
 					}
 				}
 
-				foreach ($error_msgs as $text => $class)
+				foreach ($error_msgs as $text => $data)
 				{
-					$this->cli->push_msg($text, "ERROR");
+					$this->cli->push_msg($text, "ERROR", $data["safe"]);
 				}
-				foreach ($positive_msgs as $text => $class)
+				foreach ($positive_msgs as $text => $data)
 				{
-					$this->cli->push_msg($text, "OK");
+					$this->cli->push_msg($text, "OK", $data["safe"]);
 				}
-				foreach ($neutral_msgs as $text => $class)
+				foreach ($neutral_msgs as $text => $data)
 				{
-					$this->cli->push_msg($text, "");
+					$this->cli->push_msg($text, "", $data["safe"]);
 				}
 			}
 			aw_session_del("awcb__global_ui_messages");
