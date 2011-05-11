@@ -9,6 +9,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	protected $row_price_components_loaded = array();
 	protected $salesman_data;
 	protected $all_prerequisites_by_price_component;
+	protected $mail_data = null;
 	protected static $state_names;
 
 	const STATE_NEW = 0;
@@ -89,6 +90,277 @@ class crm_offer_obj extends crm_offer_price_component_handler
 
 		return $o;
 	}
+	
+	/**	Returns temporary (or default value if temporary is not set) value of a given mail property
+		@attrib api=1
+	**/
+	public function get_mail_prop($k)
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before mail data can be accessed!");
+		}
+
+		if($this->mail_data === null)
+		{
+			$this->mail_data = aw_global_get(sprintf("crm_offer_mail_data.%s", $this->id()));
+		}
+
+		return isset($this->mail_data[$k]) ? $this->mail_data[$k] : $this->default_mail_prop($k);
+	}
+
+	protected function default_mail_prop($k)
+	{
+		switch ($k)
+		{
+			case "mail_from":
+				$salesman = obj($this->prop("salesman"));
+				return $salesman->get_mail();
+
+			case "mail_from_name":
+				return $this->prop("salesman.name");
+
+			case "mail_subject":
+				return t("Pakkumus nr #offer_no#");
+
+			case "mail_content":
+				return t("Lugupeetav #customer_name#,
+
+Saadame Teile pakkumuse nr #offer_no#.
+
+Parimat,
+#signature#");
+
+			case "custom_recipients":
+				return array();
+
+			default:
+				return null;
+		}
+	}
+
+	public function set_mail_prop($k, $v)
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before mail data can be stored!");
+		}
+
+		if($this->mail_data === null)
+		{
+			$this->mail_data = safe_array(aw_global_get(sprintf("crm_offer_mail_data.%s", $this->id())));
+		}
+
+		$this->mail_data[$k] = $v;
+		aw_session_set(sprintf("crm_offer_mail_data.%s", $this->id()), $this->mail_data);
+	}
+
+	public function clear_mail_data()
+	{
+		unset($this->mail_data);
+		aw_session_del(sprintf("crm_offer_mail_data.%s", $this->id()));
+	}
+
+	/** Returns offer email recipients data
+		@attrib api=1 params=pos
+		@param type type=array default=array()
+			Type(s) of recipients to return. Empty/default means all.
+			Valid options for array elements:
+				'' -- all recipients
+				'project_managers' -- people associated with this project as project managers
+				'user' -- bill creator and current user
+				'default' -- crm default bill recipients
+				'customer_general' -- general customer email contacts
+				'customer_director' -- customer director email
+				'customer_offer' -- customer offer reception email contacts
+				'custom' -- user defined custom recipients
+		@returns array
+			Associative multidimensional array
+				$string_recipient_email_address => array($string_recipient_oid_or_zero, $string_recipient_name)
+		@errors
+	**/
+	public function get_mail_recipients($type = array())
+	{
+		if (!is_array($type))
+		{
+			throw new awex_obj_type("Invalid type argument " . var_export($type, true));
+		}
+
+		$recipients = array();
+		$customer_oid = $this->prop("customer");
+
+		if (!count($type) or in_array("user", $type))
+		{
+			// add current user
+			if (aw_global_get("uid_oid"))
+			{
+				$user_inst = new user();
+				$u = obj(aw_global_get("uid_oid"));
+				$person = obj($user_inst->get_current_person());
+				$email = $u->get_user_mail_address();
+				if (is_email($email))
+				{
+					$recipients[$email] = array($person->id(), $person->name());
+				}
+			}
+
+			// add offer salesman
+			if ($this->prop("salesman"))
+			{
+				$person = obj($this->prop("salesman"));
+				$email = $person->get_mail($customer_oid);
+				if (is_email($email))
+				{
+					$recipients[$email] = array($person->id(), $person->name());
+				}
+			}
+		}
+
+		if (!count($type) or in_array("customer_general", $type))
+		{
+			$name = $this->prop("customer.name");
+			$oid = $this->prop("customer");
+			foreach($this->get_cust_mails() as $email)
+			{
+				if (is_email($email))
+				{
+					$recipients[$email] = array($oid, $name);
+				}
+			}
+		}
+
+		if (!count($type) or in_array("customer_director", $type))
+		{
+			$director_oid = $this->prop("customer.firmajuht");
+			if (is_oid($director_oid))
+			{
+				$director = obj($director_oid);
+				$email = $director->get_mail($customer_oid);
+				if (is_email($email))
+				{
+					$recipients[$email] = array($director->id(), $director->name());
+				}
+			}
+		}
+
+		if (!count($type) or in_array("custom", $type))
+		{
+			// manually added recipients
+			$custom = $this->get_mail_prop("custom_recipients");
+			foreach ($custom as $email => $person_oid)
+			{
+				if (is_email($email))
+				{
+					if ($person_oid)
+					{
+						$person = new object($person_oid);
+						$recipients[$email]  = array($person->id(), $person->name());
+					}
+					else
+					{
+						$recipients[$email]  = array(0, "");
+					}
+				}
+			}
+
+			// recipients defined by object relation
+			$custom = $this->connections_from(array("type" => "RELTYPE_RECEIVER"));
+			foreach($custom as $c)
+			{
+				$person = $c->to();
+				$email = $person->get_mail();
+				if (is_email($email))
+				{
+					$recipients[$email]  = array($person->id(), $person->name());
+				}
+			}
+		}
+
+		return $recipients;
+	}
+
+	protected function get_cust_mails()
+	{
+		if(!is_oid($this->prop("customer")))
+		{
+			return array();
+		}
+
+		$cust = obj($this->prop("customer"));
+		if($cust->class_id() == CL_CRM_PERSON)
+		{
+			$mails = $cust->emails();
+		}
+		else
+		{
+			$mails = $cust->get_mails(array());
+		}
+
+		$ret = array();
+		$default_mail = null;
+		foreach($mails->arr() as $mail)
+		{
+			if($mail->prop("mail"))
+			{
+				$default_mail = $mail;
+				if($mail->prop("contact_type") == 1)
+				{
+					$ret[$mail->id()]= $mail->prop("mail");
+				}
+			}
+		}
+
+		if(!sizeof($ret) && is_object($default_mail))
+		{
+			$ret[$default_mail->id()]= $default_mail->prop("mail");
+		}
+		return $ret;
+	}
+
+	/** Parses variables in invoice e-mail body or subject text
+		@attrib api=1 params=pos
+		@param text type=string
+			Text to parse variables in
+		@comment
+			Available variables are
+			#offer_no#
+			#customer_name#
+			#contact_person#
+			#signature#
+
+		@returns string
+		@errors
+	**/
+	public function parse_mail_text($text)
+	{
+		$replace = array(
+			"#offer_no#" => $this->id(),
+			"#customer_name#" => $this->prop("customer.name"),
+			"#signature#" => $this->get_sender_signature(),
+		);
+
+		foreach($replace as $key => $val)
+		{
+			$text = str_replace($key, $val , $text);
+		}
+
+		return $text;
+	}
+
+	protected function get_sender_signature()
+	{
+		$ret = array();
+		$u = get_instance(CL_USER);
+		$p = obj($u->get_current_person());
+		$ret[]= $p->name();
+		$names = $p->get_profession_names();
+		$ret[]= reset($names);
+		$names = $p->get_companies()->names();
+		$ret[]= reset($names);
+		$ret[]= $p->get_phone();
+		$ret[]= $p->get_mail();
+		return join("\n" , $ret);
+	}
 
 	/**
 		@attrib api=1
@@ -106,6 +378,162 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		));
 
 		return $ol;
+	}
+
+	/** Sends offer document by e-mail
+		@attrib api=1 params=pos
+		@param to type=array
+			Associative array of email addresses => names to send e-mail to
+		@param subject type=string
+			E-mail subject
+		@param body type=string
+			E-mail body text
+		@param cc type=array
+			Associative array of email addresses => names to send e-mail copy to
+		@param bcc type=array
+			Associative array of email addresses => names to send e-mail blind copy to
+		@param from type=string default=""
+			Sender e-mail address, default means either defined system default or current user e-mail address
+		@param from_name type=string default=""
+			Sender name, default means either defined system default or current user name
+		@comment
+		@returns void
+		@errors
+			throws awex_crm_offer_email if an invalid e-mail address given. awex_crm_offer_email::$email empty if no recipients or the faulty email address if encountered
+			throws awex_crm_offer_send if sending e-mail fails
+			throws awex_crm_offer_file if file attachment fails
+		@qc date=20110512 standard=aw3
+	**/
+	public function send($to, $subject, $body, $cc = array(), $bcc = array(), $from = "", $from_name = "")
+	{
+		if (!count($to) and !count($cc) and !count($bcc))
+		{
+			throw new awex_crm_offer_email("Can't send mail, no recipients specified");
+		}
+		
+//		$offer_pdf = $this->make_pdf();
+
+//		if (!is_object($offer_pdf))
+//		{
+//			throw new awex_crm_offer_file("Main invoice file lost or not created. Offer id " . $this->id());
+//		}
+
+		// parse recipients
+		foreach ($to as $email_address => $recipient_name)
+		{
+			if (!is_email($email_address))
+			{
+				$e = new awex_crm_offer_email("Invalid email address '{$email_address}'. Sending offer " . $this->id());
+				$e->email = $email_address;
+				throw $e;
+			}
+
+			$to[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
+		}
+		$to = "kaareln@hotmail.com"; #implode(",", $to);
+
+		foreach ($cc as $email_address => $recipient_name)
+		{
+			if (!is_email($email_address))
+			{
+				$e = new awex_crm_offer_email("Invalid email address '{$email_address}'. Sending offer " . $this->id());
+				$e->email = $email_address;
+				throw $e;
+			}
+
+			$cc[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
+		}
+		$cc = implode(",", $cc);
+
+		foreach ($bcc as $email_address => $recipient_name)
+		{
+			if (!is_email($email_address))
+			{
+				$e = new awex_crm_offer_email("Invalid email address '{$email_address}'. Sending offer " . $this->id());
+				$e->email = $email_address;
+				throw $e;
+			}
+
+			$bcc[$email_address] = $recipient_name ? "{$recipient_name} <{$email_address}>" : $email_address;
+		}
+		$bcc = implode(",", $bcc);
+
+		// compose mail
+		$from = is_email($from) ? $from : $this->get_mail_from();
+		$from_name = empty($from_name) ? $this->get_mail_from_name() : $from_name;
+
+		$awm = new aw_mail();
+		$awm->create_message(array(
+			"froma" => $from,
+			"fromn" => $from_name,
+			"subject" => $subject,
+			"body" => $body,
+			"to" => $to,
+			"cc" => $cc,
+			"bcc" => $bcc
+		));
+
+/*
+		/// add attachments
+		$success = $awm->fattach(array(
+			"path" => $offer_pdf->prop("file"),
+			"contenttype"=> aw_mime_types::type_for_file($offer_pdf->name()),
+			"name" => $offer_pdf->name(),
+		));
+		$att_comment = html::href(array(
+			"caption" => html::img(array(
+				"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+				"border" => 0,
+			)).$offer_pdf->name(),
+			"url" => $offer_pdf->get_url(),
+		));
+
+		if (!$success)
+		{
+			throw new awex_crm_offer_file("Attaching main invoice file (id: " . $invoice_pdf->id() . ") failed. Bill id " . $this->id());
+		}
+*/
+
+		$awm->htmlbodyattach(array(
+			"data" => $body
+		));
+
+
+		// send mail
+		$mail_sent = $awm->gen_mail();
+
+		if (!$mail_sent)
+		{
+			throw new awex_crm_offer_send ("Sending '".$this->id()."' failed");
+		}
+/*
+		// write log
+		/// mail message object for logging
+		$mail = obj(null, array(), CL_MESSAGE);
+		$mail->set_parent($this->id());
+		$mail->set_name(t("saadetud arve")." ".$this->id()." ".t("kliendile")." ".$this->get_customer_name());
+		$mail->save();
+
+		$attachments = array($invoice_pdf->id());
+		$invoice_pdf ->set_parent($mail->id());
+		$invoice_pdf->save();
+
+		$mail->set_prop("attachments", $attachments);
+		$mail->set_prop("customer", $this->prop("customer"));
+		$mail->set_prop("message", $body);
+		$mail->set_prop("html_mail", 1);
+		$mail->set_prop("mfrom_name", $from_name);
+		$mail->set_prop("mto", $to);
+		$mail->set_prop("cc", $cc);
+		$mail->set_prop("bcc", $bcc);
+		$mail->save();
+
+		$comment = html_entity_decode(sprintf(t("%s saatis arve nr. %s; summa %s; kuup&auml;ev: %s; kellaaeg: %s; aadressidele: %s; koopia aadressidele: %s; tekst: %s; lisatud failid: %s. "), aw_global_get("uid"), $this->prop("bill_no") , $this->prop("sum") , date("d.m.Y") , date("H:i") , htmlspecialchars($to), htmlspecialchars($cc), $body, $att_comment));
+		$this->add_comment($comment);
+*/
+
+		$this->set_prop("state", self::STATUS_SENT);
+		$this->save();
 	}
 
 	/**
@@ -269,7 +697,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 			throw new awex_crm_offer("Offer must be saved before rows can be added!");
 		}
 
-		$row = obj(NULL, array(), CL_CRM_OFFER_ROW);
+		$row = obj(null, array(), CL_CRM_OFFER_ROW);
 		$row->set_parent($this->id());
 		$row->set_prop("offer", $this->id());
 		$row->set_prop("object", $o->id());
@@ -677,5 +1105,20 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	}
 }
 
-/** Generic crm offer error **/
+/** Generic crm_offer exception **/
 class awex_crm_offer extends awex_crm {}
+
+/** E-mail address errors **/
+class awex_crm_offer_email extends awex_crm_offer
+{
+	public $email;
+}
+
+/** E-mail sending errors **/
+class awex_crm_offer_send extends awex_crm_offer {}
+
+/** PDF or other files related errors **/
+class awex_crm_offer_file extends awex_crm_offer {}
+
+/** status related errors **/
+class awex_crm_offer_state extends awex_crm_offer {}

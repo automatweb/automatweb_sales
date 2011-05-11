@@ -29,6 +29,22 @@
 				</arguments>
 			</function>
 		</action>
+		<action name="parse_mail_text">
+			<function name="parse_mail_text">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="text" type="string" />
+				</arguments>
+			</function>
+		</action>
+		<action name="send">
+			<function name="send">
+				<arguments>
+					<required name="id" type="int" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
 	</class>
 </orb>
 		
