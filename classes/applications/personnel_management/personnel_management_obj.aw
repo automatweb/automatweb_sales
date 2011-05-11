@@ -213,7 +213,6 @@ class personnel_management_obj extends _int_object
 			),
 		);
 	}
-}
 
 	protected static function parse_colleague_mail($pm, $prop, $ol, $from, $public_key)
 	{
