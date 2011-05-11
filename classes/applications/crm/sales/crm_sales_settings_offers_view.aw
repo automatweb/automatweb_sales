@@ -6,7 +6,7 @@ class crm_sales_settings_offers_view
 	{
 		$t = $arr["prop"]["vcl_inst"];
 
-		$t->set_caption(t("Pakkumistes kasutatavad hinnakomponendid"));
+		$t->set_caption(t("Pakkumustes kasutatavad hinnakomponendid"));
 
 		$t->define_chooser();
 		$t->define_field(array(

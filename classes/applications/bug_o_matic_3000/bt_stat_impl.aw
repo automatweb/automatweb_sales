@@ -988,7 +988,7 @@ class bt_stat_impl extends core
 				$bugs[$oid]["lastdate"] = $o->prop("date");
 			}
 		}
-		$this->_insert_det_data_from_arr($bugs, &$t);
+		$this->_insert_det_data_from_arr($bugs, $t);
 
 		$u = get_instance(CL_USER);
 		$p = $u->get_person_for_uid($arr["request"]["det_uid"]);

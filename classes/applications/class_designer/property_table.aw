@@ -62,15 +62,15 @@ class property_table extends class_base
 		switch($prop["name"])
 		{
 			case "design_table":
-				$this->generate_design_table(&$arr);
+				$this->generate_design_table($arr);
 				break;
 
 			case "demo_data_table":
-				$this->generate_demo_data_table(&$arr);
+				$this->generate_demo_data_table($arr);
 				break;
 
 			case "demo_rels_data_table":
-				$this->generate_demo_rels_data_table(&$arr);
+				$this->generate_demo_rels_data_table($arr);
 				break;
 
 			case "demo_data_source":
@@ -153,7 +153,7 @@ class property_table extends class_base
 
 	function generate_design_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "ord",
 			"caption" => t("Jrk"),
@@ -197,7 +197,7 @@ class property_table extends class_base
 		foreach($ol->arr() as $o)
 		{
 			$this->_add_row(array(
-				"t" => &$t,
+				"t" => $t,
 				"key" => $o->id(),
 				"name" => $arr["prop"]["name"],
 				"data" => $o->properties(),
@@ -206,7 +206,7 @@ class property_table extends class_base
 		};
 
 		$this->_add_row(array(
-			"t" => &$t,
+			"t" => $t,
 			"key" => "new",
 			"name" => $arr["prop"]["name"],
 			"ol" => $ol
@@ -252,7 +252,7 @@ class property_table extends class_base
 		// needs t 
 		// needs key
 		// needs row values
-		$t = &$arr["t"];
+		$t = $arr["t"];
 		$key = $arr["key"];
 		$name = $arr["name"];
 		//arr($arr["data"]);
@@ -293,7 +293,7 @@ class property_table extends class_base
 
 	function generate_demo_data_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 
 		$ol = new object_list(array(
@@ -391,7 +391,7 @@ class property_table extends class_base
 		));
 		$rv = "\tfunction $name(\$arr)\n";
 		$rv .= "\t{\n";
-		$rv .= "\t\t" . '$t = &$arr["prop"]["vcl_inst"];' . "\n";
+		$rv .= "\t\t" . '$t = $arr["prop"]["vcl_inst"];' . "\n";
 		foreach($els->arr() as $el)
 		{
 			$sys_name = strtolower(preg_replace("/\s/","_",$el->name()));
@@ -598,7 +598,7 @@ class property_table extends class_base
 		return true;
 	}
 
-	function _init_demo_rels_data_t(&$t, $levels)
+	function _init_demo_rels_data_t($t, $levels)
 	{
 		$t->define_field(array(
 			"name" => "col",
@@ -724,7 +724,7 @@ class property_table extends class_base
 		$arr["obj_inst"]->set_meta("col2prop", $res);
 	}
 
-	function _init_vertical_group_t(&$t)
+	function _init_vertical_group_t($t)
 	{
 		$t->define_field(array(
 			"name" => "col",

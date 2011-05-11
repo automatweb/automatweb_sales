@@ -76,6 +76,9 @@ class propcollector extends aw_template
 	**/
 	public function run($args = array())
 	{
+		// Add include_path for Zend, so that ZendLoader wouldn't fail!
+		set_include_path(get_include_path() . PATH_SEPARATOR . aw_ini_get("basedir")."/addons/");
+
 		$cdir = AW_DIR . "classes";
 		$sdir = AW_DIR . "scripts";
 		$this->files = array();
@@ -88,8 +91,8 @@ class propcollector extends aw_template
 		foreach($files as $key => $name)
 		{
 			$cname = substr(basename($name),0,-3);
-			$this->cl_start($cname);
-			$this->_parse_file ($name);
+				$this->cl_start($cname);
+			$this->_parse_file($name);
 			$success = $this->cl_end();
 
 			if ($success)
@@ -629,8 +632,13 @@ class propcollector extends aw_template
 		$cname = substr(basename($name),0,-3);
 		$this->currentclass = $cname;
 
-		// properties are generated for cb extensions only
+		if (!class_index::is_instantiable($cname))
+		{
+			return false;
+		}
+
 		$tmp = new $this->currentclass();
+		// properties are generated for cb extensions only
 		if (!$tmp instanceof class_base)
 		{
 			return false;

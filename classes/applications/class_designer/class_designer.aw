@@ -294,19 +294,19 @@ class class_designer extends class_base
 		switch($prop["name"])
 		{
 			case "designer_toolbar":
-				$this->create_designer_toolbar(&$arr);
+				$this->create_designer_toolbar($arr);
 				break;
 
 			case "planner_toolbar":
-				$this->create_planner_toolbar(&$arr);
+				$this->create_planner_toolbar($arr);
 				break;
 			
 			case "planner_tree":
-				$this->create_planner_tree(&$arr);
+				$this->create_planner_tree($arr);
 				break;
 
 			case "layout_tree":
-				$this->create_layout_tree(&$arr);
+				$this->create_layout_tree($arr);
 				break;
 
 			case "element_list":
@@ -496,7 +496,7 @@ class class_designer extends class_base
 	function create_planner_tree(&$arr)
 	{
 		$o = $arr["obj_inst"];
-		$tree = &$arr["prop"]["vcl_inst"];
+		$tree = $arr["prop"]["vcl_inst"];
 		$oid = $o->id();
 		$tree->add_item(0,array(
 			"name" => $o->name(),
@@ -518,7 +518,7 @@ class class_designer extends class_base
 		$el_list = $el_tree->to_list();
 		$ellist = $el_list->arr();
 		$this->__elord = $o->meta("element_ords");
-		usort($ellist, array(&$this, "__ellist_comp"));
+		usort($ellist, array($this, "__ellist_comp"));
 
 		foreach($ellist as $el)
 		{
@@ -557,7 +557,7 @@ class class_designer extends class_base
 	function create_layout_tree(&$arr)
 	{
 		$o = $arr["obj_inst"];
-		$tree = &$arr["prop"]["vcl_inst"];
+		$tree = $arr["prop"]["vcl_inst"];
 		$oid = $o->id();
 		$tree->add_item(0,array(
 			"name" => $o->name(),
@@ -579,7 +579,7 @@ class class_designer extends class_base
 		$el_list = $el_tree->to_list();
 		$ellist = $el_list->arr();
 		$this->__elord = $o->meta("element_ords");
-		usort($ellist, array(&$this, "__ellist_comp"));
+		usort($ellist, array($this, "__ellist_comp"));
 
 		foreach($ellist as $el)
 		{
@@ -612,7 +612,7 @@ class class_designer extends class_base
 	**/
 	function create_planner_toolbar(&$arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"img" => "new.gif",
@@ -648,7 +648,7 @@ class class_designer extends class_base
 	**/
 	function create_designer_toolbar(&$arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_menu_button(array(
 			"name" => "new",
 			"img" => "new.gif",
@@ -825,7 +825,7 @@ class class_designer extends class_base
 
 	function create_element_list(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "ordbox",
 			"caption" => t("Jrk"),
@@ -1327,7 +1327,7 @@ class class_designer extends class_base
 		
 		$this->__elord = $c->meta("element_ords");
 		$ellist = $cl_list->arr();
-		usort($ellist, array(&$this, "__ellist_comp"));
+		usort($ellist, array($this, "__ellist_comp"));
 
 		$rv = array();
 		
@@ -1834,7 +1834,7 @@ class class_designer extends class_base
 
 		$ol = $ot->to_list();
 		$int_refs = array();
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -1859,7 +1859,7 @@ class class_designer extends class_base
 
 		$ol = $ot->to_list();
 		$int_refs = array();
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -1880,7 +1880,7 @@ class class_designer extends class_base
 
 	function do_el_defs_toolbar(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_button(array(
 			"name" => "save",
 			"tooltip" => t("Salvesta"),
@@ -1891,7 +1891,7 @@ class class_designer extends class_base
 	
 	function do_int_refs_toolbar(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_button(array(
 			"name" => "save",
 			"tooltip" => t("Salvesta"),
@@ -1902,7 +1902,7 @@ class class_designer extends class_base
 	
 	function do_ext_refs_toolbar(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_button(array(
 			"name" => "save",
 			"tooltip" => t("Salvesta"),
@@ -1913,7 +1913,7 @@ class class_designer extends class_base
 
 	function do_el_defs_table(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
@@ -1989,7 +1989,7 @@ class class_designer extends class_base
 
 	function do_planner_list(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "id",
 			"caption" => t("ID"),

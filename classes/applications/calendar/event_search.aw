@@ -126,7 +126,7 @@ class event_search extends class_base
 			"sector",
 			"search_btn"
 		);
-		lc_site_load("event_search", &$this);
+		lc_site_load("event_search", $this);
 	}
 
 	function callback_pre_edit($arr)
@@ -161,8 +161,8 @@ class event_search extends class_base
 	function gen_ftform($arr)
 	{
 		$prop = &$arr["prop"];
-		$o = &$arr["obj_inst"];
-		$t = &$prop["vcl_inst"];
+		$o = $arr["obj_inst"];
+		$t = $prop["vcl_inst"];
 		$formconfig = $o->meta("formconfig");
 		$event_cfgform = $o->prop('event_cfgform');
 		if ($this->can('view', $event_cfgform))
@@ -415,7 +415,7 @@ class event_search extends class_base
 	{
 		$prop = &$arr["prop"];
 		$retval = PROP_OK;
-		$o = &$arr["obj_inst"];
+		$o = $arr["obj_inst"];
 		switch($prop["name"])
 		{
 			case "ftform":
@@ -446,7 +446,7 @@ class event_search extends class_base
 
 	function gen_result_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$o = $arr["obj_inst"];
 		$t->define_field(array(
 			"name" => "name",
@@ -1528,7 +1528,7 @@ class event_search extends class_base
 				$valz = $val;
 				sort($valz);
 
-				$i_arr = $this->find_edata_key(&$edata, $key);
+				$i_arr = $this->find_edata_key($edata, $key);
 				foreach($i_arr as $i)
 				{
 					$edata[$i]["projs"] = array_keys($val);

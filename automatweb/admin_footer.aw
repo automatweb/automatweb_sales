@@ -456,6 +456,8 @@ if (isset($_SESSION["user_history_count"]) and $_SESSION["user_history_count"] >
 				if (empty($_bits["class"])) $_bits["class"] = "";
 				if (empty($_bits["action"])) $_bits["action"] = "";
 				if (empty($_bits["group"])) $_bits["group"] = "";
+				
+				if (empty($bits["group"])) $bits["group"] = "";
 
 				if ($_bits["class"] == $bits["class"] && $_bits["id"] == $bits["id"] && $_bits["group"] == $bits["group"])
 				{

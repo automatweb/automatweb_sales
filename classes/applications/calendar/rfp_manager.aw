@@ -530,7 +530,7 @@ class rfp_manager extends class_base
 				break;
 			case "rfps":
 				$act = ($arr["request"]["group"] == "rfps_active" || $arr["request"]["group"] == "rfps")?true:false;
-				$t = &$prop["vcl_inst"];
+				$t = $prop["vcl_inst"];
 				$t->define_field(array(
 					"name" => "get_pdf",
 					"caption" => t("PDF"),
@@ -710,7 +710,7 @@ class rfp_manager extends class_base
 		return $retval;
 	}
 
-	function _init_pk_products_table(&$t)
+	function _init_pk_products_table($t)
 	{
 		$t->define_field(array(
 			"name" => "var",
@@ -730,7 +730,7 @@ class rfp_manager extends class_base
 
 	function _get_pk_products_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$this->_init_pk_products_table($t);
 		$rfs = $arr["obj_inst"]->prop("prod_vars_folder");
 		if($this->can("view", $rfs))
@@ -864,7 +864,7 @@ class rfp_manager extends class_base
 		));
 	}
 
-	function _get_raports_table($arr)
+	function _get_raports_table(&$arr)
 	{
 		$from = mktime(0, 0, 0, $arr["request"]["raports_search_from_date"]["month"], $arr["request"]["raports_search_from_date"]["day"], $arr["request"]["raports_search_from_date"]["year"]);
 		$to = mktime(0, 0, 0, $arr["request"]["raports_search_until_date"]["month"], $arr["request"]["raports_search_until_date"]["day"], $arr["request"]["raports_search_until_date"]["year"]);
@@ -1275,9 +1275,9 @@ class rfp_manager extends class_base
 		return $this->parse();
 	}
 
-	function _init_rooms_table(&$arr)
+	function _init_rooms_table($arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "room",
 			"caption" => t("Ruum"),
@@ -1369,7 +1369,7 @@ class rfp_manager extends class_base
 
 	function _init_resources_table(&$arr)
 	{
-		$t =& $arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "resource",
 			"caption" => t("Ressurss"),
@@ -1435,7 +1435,7 @@ class rfp_manager extends class_base
 
 	function _get_default_table($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_header(t("S&uuml;steemi vaikimisi objekt"));
 		$t->define_field(array(
 			"name" => "select",
@@ -1547,7 +1547,7 @@ class rfp_manager extends class_base
 
 	function _init_packages_tbl(&$arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		/*
 		$t->define_field(array(
 			"name" => "name",
@@ -1587,7 +1587,7 @@ class rfp_manager extends class_base
 	function _get_packages_tbl($arr)
 	{
 		$this->_init_packages_tbl($arr);
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$pk_fld = $arr["obj_inst"]->prop("packages_folder");
 		$prices = $arr["obj_inst"]->get_packages();
 		$room_price_inst = get_instance(CL_ROOM_PRICE);
@@ -2549,12 +2549,12 @@ class rfp_manager extends class_base
 	function _get_stats_money_chart($arr)
 	{
 		$arr["request"]["stats_chart_filt"] = "money";
-		return $this->_get_stats_chart(&$arr);
+		return $this->_get_stats_chart($arr);
 	}
 
-	function _get_stats_chart($arr)
+	function _get_stats_chart(&$arr)
 	{
-		$c = &$arr["prop"]["vcl_inst"];
+		$c = $arr["prop"]["vcl_inst"];
 		$c->set_type(GCHART_PIE_3D);
 		$c->set_size(array(
 			"width" => 500,
@@ -2667,7 +2667,7 @@ class rfp_manager extends class_base
 
 	function _get_stats_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_save_button();
 		$tb->add_button(array(
 			"name" => "export_stats",
@@ -2679,7 +2679,7 @@ class rfp_manager extends class_base
 
 	function _init_stats_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "general",
 			"caption" => t("&Uuml;ldinfo"),
@@ -2836,7 +2836,7 @@ class rfp_manager extends class_base
 	{
 		if($arr["request"]["stats_filt_start1"] && $arr["request"]["stats_filt_end1"] || $arr["request"]["stats_filt_start2"] && $arr["request"]["stats_filt_end2"])
 		{
-			$t = &$arr["prop"]["vcl_inst"];
+			$t = $arr["prop"]["vcl_inst"];
 			$this->_init_stats_tbl($arr);
 			if(!$this->stats_data)
 			{
@@ -3201,7 +3201,7 @@ class rfp_manager extends class_base
 		}
 		$arr["set_filters"] = true;
 		$arr["with_header_and_footer"] = true;
-		$this->_get_raports_table(&$arr);
+		$this->_get_raports_table($arr);
 		$print = "<script language=javascript>window.print();</script>";
 		die($arr["prop"]["value"].$print);
 	}
@@ -3220,7 +3220,7 @@ class rfp_manager extends class_base
 		}
 		$arr["set_filters"] = true;
 		$arr["with_header_and_footer"] = true;
-		$this->_get_raports_table(&$arr);
+		$this->_get_raports_table($arr);
 		$pdf_gen = get_instance("core/converters/html2pdf");
 		die($pdf_gen->gen_pdf(array(
 			"filename" => t("Raportid"),

@@ -449,7 +449,6 @@ class planner_model extends core
 		{
 			$s_m = date("m", $_start);
 			$e_m = date("m", $_end);
-			$pred = $s_m > $e_m ? "OR" : "AND";
 			$q = "
 				SELECT
 					objects.name as name,
@@ -466,9 +465,9 @@ class planner_model extends core
 			while ($row = $this->db_next())
 			{
 				//$m = date("m", $row["bd"]);
-				list($y, $m, $d) = explode("-", $row["bd"]);
-                                if (($s_m > $e_m ? ($m >= $s_m || $m <= $e_m) : ($m >= $s_m && $m <= $e_m)))
-                                {
+				list($y, $m, $d) = explode("-", $row["bd"]."--");
+				if (($s_m > $e_m ? ($m >= $s_m || $m <= $e_m) : ($m >= $s_m && $m <= $e_m)))
+				{
 					$ds = $obj->prop("day_start");
 					$bs = mktime($ds["hour"], $ds["minute"], 0, $m, $d, date("Y"));
 					$rv[$row["oid"]] = array(
