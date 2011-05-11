@@ -2457,3 +2457,12 @@ class awex_obj_state_new extends awex_obj_state
 {
 	protected $message = "Operation can't be executed on a new object";
 }
+
+/** Indicates that data store integrity is compromised. **/
+class awex_obj_data_integrity extends awex_obj {}
+
+/** Indicates that objects which must have a specific count are in excess or deficiency **/
+class awex_obj_invalid_count extends awex_obj_data_integrity {}
+
+/** Indicates an attempt to violate object system architecture **/
+class awex_obj_system extends awex_obj {}

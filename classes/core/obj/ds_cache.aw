@@ -20,7 +20,7 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 			return $this->contained->get_objdata($oid, $param);
 		}
 
-		if (!empty($GLOBALS["__obj_sys_opts"]["no_cache"]))
+		if (object_loader::opt("no_cache"))
 		{
 			return $this->contained->get_objdata($oid, $param);
 		}
@@ -63,7 +63,7 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 			return $this->contained->get_objdata($oid);
 		}
 
-		if (!empty($GLOBALS["__obj_sys_opts"]["no_cache"]))
+		if (object_loader::opt("no_cache"))
 		{
 			return $this->contained->read_properties($arr);
 		}
@@ -171,7 +171,7 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 
 	function read_connection($id)
 	{
-		if (!empty($GLOBALS["__obj_sys_opts"]["no_cache"]))
+		if (object_loader::opt("no_cache"))
 		{
 			return $this->contained->read_connection($id);
 		}
@@ -261,7 +261,7 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 	// !returns all connections that match filter
 	function find_connections($arr)
 	{
-		if (!empty($GLOBALS["__obj_sys_opts"]["no_cache"]))
+		if (object_loader::opt("no_cache"))
 		{
 			return $this->contained->find_connections($arr);
 		}
@@ -319,7 +319,7 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 
 	function search($params, $to_fetch = NULL)
 	{
-		if (!empty($GLOBALS["__obj_sys_opts"]["no_cache"]))
+		if (object_loader::opt("no_cache"))
 		{
 			return $this->contained->search($params, $to_fetch);
 		}
@@ -361,7 +361,7 @@ class _int_obj_ds_cache extends _int_obj_ds_decorator
 
 	function fetch_list($param)
 	{
-		if (!empty($GLOBALS["__obj_sys_opts"]["no_cache"]))
+		if (object_loader::opt("no_cache"))
 		{
 			return $this->contained->fetch_list($param);
 		}

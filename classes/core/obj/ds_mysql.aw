@@ -843,7 +843,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		// we need to clear the html cache here, not in ds_cache, because ds_cache can be not loaded
 		// even when html caching is turned on
 
-		if (!obj_get_opt("no_cache"))
+		if (!object_loader::opt("no_cache"))
 		{
 			cache::file_clear_pt("html");
 		}
@@ -1145,7 +1145,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 	function save_properties_cache_update($oid)
 	{
-		if (!obj_get_opt("no_cache"))
+		if (!object_loader::opt("no_cache"))
 		{
 			cache::file_clear_pt("html");
 		}
@@ -1235,7 +1235,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 	function save_connection_cache_update($oid)
 	{
-		if (!obj_get_opt("no_cache"))
+		if (!object_loader::opt("no_cache"))
 		{
 			cache::file_clear_pt("html");
 		}
@@ -1249,7 +1249,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 	function delete_connection_cache_update($oid)
 	{
-		if (!obj_get_opt("no_cache"))
+		if (!object_loader::opt("no_cache"))
 		{
 			cache::file_clear_pt("html");
 		}
@@ -1673,7 +1673,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 	function delete_object_cache_update($oid)
 	{
-		if (!obj_get_opt("no_cache"))
+		if (!object_loader::opt("no_cache"))
 		{
 			cache::file_clear_pt_oid("acl", $oid);
 			cache::file_clear_pt("html");
@@ -1685,7 +1685,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 	{
 		$awa = new aw_array($oid_list);
 		$this->db_query("UPDATE objects SET status = '".STAT_DELETED."', modified = ".time().",modifiedby = '".aw_global_get("uid")."' WHERE oid IN(".$awa->to_sql().")");
-		if (!obj_get_opt("no_cache"))
+		if (!object_loader::opt("no_cache"))
 		{
 			cache::file_clear_pt("acl");
 			cache::file_clear_pt("html");
@@ -1736,7 +1736,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 			$this->db_query("DELETE FROM acl WHERE oid = '{$oid}'");
 		}
 
-		if (!obj_get_opt("no_cache"))
+		if (!object_loader::opt("no_cache"))
 		{
 			cache::file_clear_pt("acl");
 			cache::file_clear_pt("html");
@@ -2458,7 +2458,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 
 	function create_brother_cache_update($oid)
 	{
-		if (!obj_get_opt("no_cache"))
+		if (!object_loader::opt("no_cache"))
 		{
 			cache::file_clear_pt("html");
 		}
@@ -3473,7 +3473,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 		unset($this->read_properties_data_cache[$objdata["oid"]]);
 		unset($this->read_properties_data_cache[$objdata["brother_of"]]);
 
-		if (!obj_get_opt("no_cache"))
+		if (!object_loader::opt("no_cache"))
 		{
 			cache::file_clear_pt("html");
 		}

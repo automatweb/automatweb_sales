@@ -1019,16 +1019,14 @@ class aw_template extends core
 			{
 				$cur_src.=$line;
 			}
-			else
-			if (preg_match("/<!-- SUB: (.*) -->/S",$line, $mt))
+			elseif (preg_match("/<!-- SUB: (.*) -->/S",$line, $mt))
 			{
 				// start new subtemplate
 				$this->req_read_tpl($fq_name.".".$mt[1],$mt[1],$cur_name);
 				// add the var def for this sub to this template
 				$cur_src.="{VAR:".$mt[1]."}";
 			}
-			else
-			if (preg_match("/^(.*)<!-- END SUB: (.*) -->/S",$line, $mt))
+			elseif (preg_match("/^(.*)<!-- END SUB: (.*) -->/S",$line, $mt))
 			{
 				/* This avoid obligatory newline after each block, making templates more flexible..
 				/use eg
@@ -1043,8 +1041,8 @@ class aw_template extends core
 				if ($this->use_eval)
 				{
 					$xsrc = str_replace("\"","\\\"",$cur_src);
-					$this->c_templates[$fq_name] = preg_replace("/{VAR:(.+?)}/S","\".(isset(\$vars['\$1']) ? \$vars['\$1'] : null).\"",$xsrc);
-				};
+					$this->c_templates[$fq_name] = preg_replace("/{VAR:(.+?)}/S","\".(isset(\$vars['\$1']) ? \$vars['\$1'] : null).\"", $xsrc);
+				}
 
 				$this->templates[$cur_name] = $cur_src;	// ugh, this line for aliasmanager and image_inplace compatibility :(
 				$this->v2_name_map[$cur_name] = $fq_name;
@@ -1063,7 +1061,7 @@ class aw_template extends core
 		{
 			$xsrc = str_replace("\"","\\\"",$cur_src);
 			$this->c_templates[$fq_name] = preg_replace("/{VAR:(.+?)}/S","\".(isset(\$vars['\$1']) ? \$vars['\$1'] : null).\"",$xsrc);
-		};
+		}
 
 		$this->templates[$cur_name] = $cur_src;	// ugh, this line for aliasmanager and image_inplace compatibility :(
 		$this->v2_name_map[$cur_name] = $fq_name;
@@ -1110,8 +1108,8 @@ class aw_template extends core
 			if (preg_match("/^$regex/",$key,$matches))
 			{
 				$res[] = $matches[1];
-			};
-		};
+			}
+		}
 		return array_unique($res);
 	}
 

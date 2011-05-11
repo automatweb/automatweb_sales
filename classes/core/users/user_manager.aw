@@ -277,7 +277,7 @@ class user_manager extends class_base
 				$this->parent = null;
 			case "usergroups_tb":
 			case 'users_tb':
-				$this->do_users_toolbar(&$prop['toolbar'], $arr);
+				$this->do_users_toolbar($prop['toolbar'], $arr);
 			break;
 			case 'table_selected_groups':
 				$this->do_table_selected_groups($prop['vcl_inst'], $arr);

@@ -229,13 +229,8 @@ class users_user extends aw_template
 			$url = aw_ini_get("baseurl");
 		}
 
-		if ($url[0] === "/")
+		if ($url{0} === "/")
 		{
-			$bits = parse_url(aw_ini_get("baseurl"));
-			if (!empty($bits["path"]))
-			{
-				$url = str_replace($bits["path"], "", $url);
-			}
 			$url = aw_ini_get("baseurl").substr($url, 1);
 		}
 

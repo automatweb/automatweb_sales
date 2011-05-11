@@ -1,0 +1,18 @@
+<?xml version='1.0'?>
+<orb>
+	<class name="eesti_ehitusturg" folder="applications/first_contact" extends="class_base">
+		<action name="browser" all_args="1">
+			<function name="browser">
+				<arguments>
+					<required name="id" type="int" acl="view" />
+				</arguments>
+			</function>
+		</action>
+		<action name="send_spam" nologin="1">
+			<function name="send_spam">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+	</class>
+</orb>

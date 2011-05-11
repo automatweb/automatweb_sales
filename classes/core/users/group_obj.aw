@@ -4,13 +4,20 @@ class group_obj extends _int_object
 {
 	const CLID = 37;
 
-	// group types:
-	// 0 - ordinary, user added group
-	// 1 - user's default group
-	// 2 - dynamic group
+	/** Ordinary, user added group **/
 	const TYPE_REGULAR = 0;
+
+	/** User's default group **/
 	const TYPE_DEFAULT = 1;
+
+	/** Dynamic group **/
 	const TYPE_DYNAMIC = 2;
+
+	/** Not logged in users' group. Special system group. Singular in site scope **/
+	const TYPE_NOT_LOGGED_IN = 3;
+
+	/** Group where all users are members always. Special system group. More than one may exist which means all users are added to all of them **/
+	const TYPE_ALL_USERS = 4;
 
 	function name()
 	{
@@ -38,7 +45,13 @@ class group_obj extends _int_object
 		return parent::set_name($v);
 	}
 
-	function get_member_count()
+	/** Returns member count
+		@attrib api=1 params=pos
+		@comment
+		@returns int
+		@errors
+	**/
+	public function get_member_count()
 	{
 		if (!is_oid($this->id()))
 		{
@@ -48,7 +61,13 @@ class group_obj extends _int_object
 		return $ol->count();
 	}
 
-	function get_group_persons()
+	/** Returns objlist of persons in this group
+		@attrib api=1 params=pos
+		@comment
+		@returns object_list
+		@errors
+	**/
+	public function get_group_persons()
 	{
 		$persons = new object_list();
 		$user_inst = get_instance(user_obj::CLID);
@@ -60,9 +79,15 @@ class group_obj extends _int_object
 		return $persons;
 	}
 
+	/** Members in this group
+		@attrib api=1 params=pos
+		@comment
+		@returns object_list
+		@errors
+	**/
 	public function get_group_members()
 	{
-		if(aw_ini_get("users.use_group_membership") == 1)
+		if(aw_ini_get("users.use_group_membership"))
 		{
 			$ol = new object_list(array(
 				"class_id" => user_obj::CLID,
@@ -92,5 +117,49 @@ class group_obj extends _int_object
 		}
 
 		return $ol;
+	}
+
+	public function save($exclusive = false, $previous_state = null)
+	{
+		if ($this->prop("type") == self::TYPE_NOT_LOGGED_IN)
+		{ // check if the system group already exists
+			$nli_group = user_manager_obj::get_not_logged_in_group(false);
+			if ($nli_group and $nli_group->id() !== $this->id())
+			{
+				throw new awex_obj_system(sprintf("System group for not logged in users already exists (oid: %s), can't create another.", $nli_group->id()));
+			}
+
+			$parent = aw_ini_get("groups.tree_root");
+			$this->set_parent($parent);
+			$this->set_prop("priority", 0);
+			$this->set_status(object::STAT_ACTIVE);
+			$this->set_name(t("Sisselogimata kasutajad"));
+			return parent::save($exclusive, $previous_state);
+		}
+		elseif ($this->prop("type") == self::TYPE_ALL_USERS)
+		{ // check if the system group already exists
+			$all_users_group = user_manager_obj::get_all_users_group(false);
+			if ($all_users_group and $all_users_group->id() !== $this->id())
+			{
+				throw new awex_obj_system(sprintf("System group for all users already exists (oid: %s), can't create another.", $all_users_group->id()));
+			}
+
+			$parent = aw_ini_get("groups.tree_root");
+			$this->set_parent($parent);
+			$this->set_prop("priority", 1);
+			$this->set_status(object::STAT_ACTIVE);
+			$this->set_name(t("K&otilde;ik kasutajad"));
+			return parent::save($exclusive, $previous_state);
+		}
+		else
+		{
+			return parent::save($exclusive, $previous_state);
+		}
+	}
+
+	public function delete($full_delete = false)
+	{
+		// group objects can never be deleted from database, to avoid object id reuse and security issues thereof
+		return parent::delete();
 	}
 }

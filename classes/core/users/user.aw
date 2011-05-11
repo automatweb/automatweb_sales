@@ -838,8 +838,7 @@ class user extends class_base
 			}
 		}
 
-		$c = new cache();
-		$c->file_clear_pt("acl");
+		cache::file_clear_pt("acl");
 	}
 
 	function _start_gm_table()
@@ -1260,8 +1259,8 @@ EOF;
 				}
 			}
 		}
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
+
+		cache::file_clear_pt("acl");
 	}
 
 	function _get_stat(&$arr)
@@ -1382,8 +1381,8 @@ EOF;
 
 				}
 			}
-			$c = get_instance("cache");
-			$c->file_clear_pt("acl");
+
+			cache::file_clear_pt("acl");
 		}
 		elseif ($arr["connection"]->prop("reltype") == 7)// FG_PROFILE
 		{
@@ -2025,7 +2024,6 @@ EOF;
 	}
 
 	/**
-
 		@attrib params=pos api=1
 		@param uid required type=string
 		User id (username, not user object's id)
@@ -2040,7 +2038,7 @@ EOF;
 		{
 			return new object_list();
 		}
-		$groups_list = array();
+		$groups_list = new object_list();
 		$tmp = $this->users->get_oid_for_uid($uid);
 		if ($this->can("view", $tmp))
 		{
@@ -2048,7 +2046,7 @@ EOF;
 			if(aw_ini_get("users.use_group_membership") == 1)
 			{
 				$groups_list = new object_list(array(
-					"class_id" => CL_GROUP,
+					"class_id" => group_obj::CLID,
 					"status" => object::STAT_ACTIVE,
 					"CL_GROUP.RELTYPE_GROUP(CL_GROUP_MEMBERSHIP).RELTYPE_USER" => $tmp,
 					"CL_GROUP.RELTYPE_GROUP(CL_GROUP_MEMBERSHIP).status" => object::STAT_ACTIVE,
@@ -2234,10 +2232,9 @@ EOF;
 		// final delete user object
 		$user->delete(true);
 
-		$c = get_instance("cache");
-		$c->file_clear_pt("acl");
-		$c->file_clear_pt("storage_object_data");
-		$c->file_clear_pt("storage_search");
+		cache::file_clear_pt("acl");
+		cache::file_clear_pt("storage_object_data");
+		cache::file_clear_pt("storage_search");
 	}
 
 	function _object_ex($oid)

@@ -190,7 +190,7 @@ class group extends class_base
 	{
 		$this->init(array(
 			'tpldir' => 'core/users/group',
-			'clid' => CL_GROUP
+			'clid' => group_obj::CLID
 		));
 		$this->users = get_instance("users");
 	}
@@ -257,7 +257,7 @@ class group extends class_base
 				$prop['options'] = array(
 					group_obj::TYPE_REGULAR => t('Tavaline'),
 					group_obj::TYPE_DYNAMIC => t("D&uuml;naamiline"),
-					group_obj::TYPE_DEFAULT => t("Kasutaja")
+					group_obj::TYPE_DEFAULT => t("Kasutaja")//XXX: kas peaks saama seda valida?
 				);
 				break;
 
@@ -266,16 +266,16 @@ class group extends class_base
 				break;
 
 			case "import_desc":
-				$prop['value'] = t("
-					Kasutajate importimise faili formaat on j&auml;rgmine:<br />
-					kasutajanimi,parool,nimi,e-post,aktiivne alates,aktiivne kuni <br />
-					v&auml;ljad on eraldatud komadega, iga kasutaja on eraldi real <br />
-					kuup&auml;evade formaadi t&auml;pne kirjeldus on <a href=\"http://www.gnu.org/software/tar/manual/html_node/tar_109.html\">siin</a> <br />
-					n&auml;ide: <br />
-					kix,parool,Kristo Iila, kristo@struktuur.ee, 2003-09-17, 2005-09-17 <br />
-					<br />
-					v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &auml;ra j&auml;tta<br />
-				");
+				$info = t('Kasutajate importimise faili formaat on j&auml;rgmine:
+kasutajanimi,parool,nimi,e-post,aktiivne alates,aktiivne kuni
+v&auml;ljad on eraldatud komadega, iga kasutaja on eraldi real
+kuup&auml;evade formaadi <a href=\"http://www.gnu.org/software/tar/manual/html_node/tar_109.html\">t&auml;pne kirjeldus</a>
+n&auml;ide:
+kix,parool,Kristo Iila, kristo@struktuur.ee, 2003-09-17, 2005-09-17
+
+v&auml;ljad nimi,email,aktiivne_alates, aktiivne kuni v&otilde;ib soovi korral &auml;ra j&auml;tta');
+
+				$prop['value'] = nl2br($info);
 				break;
 
 			case "editable_settings":
@@ -696,7 +696,7 @@ class group extends class_base
 		// get all subgroups
 		$ot = new object_tree(array(
 			"parent" => $grp_o->id(),
-			"class_id" => CL_GROUP
+			"class_id" => group_obj::CLID
 		));
 		$ol = $ot->to_list();
 		for($item = $ol->begin(); !$ol->end(); $item = $ol->next())
@@ -756,7 +756,7 @@ class group extends class_base
 					continue;
 				}
 
-				if ($p_o->class_id() == CL_GROUP)
+				if ($p_o->class_id() == group_obj::CLID)
 				{
 
 					// add a brother below all parent groups
@@ -897,7 +897,7 @@ class group extends class_base
 		// for each group in path from the to-add group
 		foreach($group->path() as $p_o)
 		{
-			if ($p_o->class_id() != CL_GROUP)
+			if ($p_o->class_id() != group_obj::CLID)
 			{
 				continue;
 			}
@@ -1024,7 +1024,7 @@ class group extends class_base
 		// get all subgroups
 		$ot = new object_tree(array(
 			"parent" => $group->id(),
-			"class_id" => CL_GROUP
+			"class_id" => group_obj::CLID
 		));
 		$ol = $ot->to_list();
 		for($item = $ol->begin(); !$ol->end(); $item = $ol->next())
@@ -1100,7 +1100,7 @@ class group extends class_base
 	public static function add_group($parent, $name, $type, $priority)
 	{
 		$o = obj();
-		$o->set_class_id(CL_GROUP);
+		$o->set_class_id(group_obj::CLID);
 		$o->set_name($name);
 		$o->set_status(STAT_ACTIVE);
 		$o->set_parent($parent);
@@ -1122,7 +1122,7 @@ class group extends class_base
 	function get_group_picker($arr)
 	{
 		$filt = array(
-			"class_id" => CL_GROUP
+			"class_id" => group_obj::CLID
 		);
 		if ($arr["type"])
 		{
@@ -1132,9 +1132,7 @@ class group extends class_base
 		return $ol->names();
 	}
 
-	/** returns the oid for the non logged in group. if it does not exist yet, creates it
-		@attrib api=1
-	**/
+	// DEPRECATED. use user_manager_obj::get_not_logged_in_group()
 	static public function get_non_logged_in_group()
 	{
 		static $cache;
@@ -1161,7 +1159,7 @@ class group extends class_base
 			{
 				// convert to oid and store that
 				$ol = new object_list(array(
-					"class_id" => CL_GROUP,
+					"class_id" => group_obj::CLID,
 					"gid" => $nlg_gid
 				));
 				if ($ol->count())
