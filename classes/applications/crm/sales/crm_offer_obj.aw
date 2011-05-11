@@ -532,7 +532,7 @@ Parimat,
 		$this->add_comment($comment);
 */
 
-		$this->set_prop("state", self::STATUS_SENT);
+		$this->set_prop("state", self::STATE_SENT);
 		$this->save();
 	}
 
