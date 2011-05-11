@@ -9,13 +9,13 @@
             <caption>URL</caption>
       </property>
       <property>
-            <name>browser</name>
+            <name>import</name>
             <table>aw_eesti_ehitusturg</table>
             <group>general</group>
             <type>text</type>
             <store>no</store>
-            <field>browser</field>
-            <caption>Sirvi Eesti Ehitusturgu</caption>
+            <field>import</field>
+            <caption>Impordi Eesti Ehitusturu andmebaas</caption>
       </property>
       <property>
             <name>email_templates</name>

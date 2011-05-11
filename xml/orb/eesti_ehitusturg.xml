@@ -15,8 +15,8 @@
 				</arguments>
 			</function>
 		</action>
-		<action name="send_spam">
-			<function name="send_spam" nologin="1">
+		<action name="load_html">
+			<function name="load_html">
 				<arguments>
 					<required name="id" type="int" />
 				</arguments>
