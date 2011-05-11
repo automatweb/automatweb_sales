@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset={VAR:charset}" />
-	<title>Pakkumine nr {VAR:id}</title>
+	<title>Pakkumus nr {VAR:id}</title>
 
 	<style type="text/css">
 		body { font-size: 12px; font-family: Arial; margin: 2em 0 2em 0; }
@@ -66,7 +66,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" class="heading">
-						<h1>Pakkumine nr {VAR:id}</h1>
+						<h1>Pakkumus nr {VAR:id}</h1>
 					</td>
 				</tr>
 				<tr>
@@ -95,11 +95,11 @@
 					<td class="info">
 						<table cellpadding="0" cellspacing="0" border="0">
 							<tr>
-								<td class="caption">Pakkumise nr:</td>
+								<td class="caption">Pakkumuse nr:</td>
 								<td class="content">{VAR:id}</td>
 							</tr>
 							<tr>
-								<td class="caption">Pakkumise kuup&auml;ev:</td>
+								<td class="caption">Pakkumuse kuup&auml;ev:</td>
 								<td class="content">{DATE:date|d.m.y}</td>
 							</tr>
 						</table>
@@ -178,7 +178,7 @@
 
 				<br /><br />
 
-				<input type="submit" value="Kinnitan pakkumise" id="submit">
+				<input type="submit" value="Kinnitan pakkumuse" id="submit">
 			</form>
 		</td>
 		<!-- END SUB: CONFIRMATION -->
@@ -189,7 +189,7 @@
 $(document).ready(function(){
 	$("#submit").click(function(){
 		if($("input[type=checkbox][name^=contract]").size() - $("input[type=checkbox][name^=contract]:checked").size() > 0){
-			alert("Pakkumise kinnitamiseks peate kinnitama ka lepingu(te) tingimused!");
+			alert("Pakkumuse kinnitamiseks peate kinnitama ka lepingu(te) tingimused!");
 			return false;
 		}
 	});

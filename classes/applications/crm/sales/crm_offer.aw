@@ -1032,10 +1032,11 @@ class crm_offer extends class_base
 			The OID of the crm_offer object to be shown.
 		@param show_confirmation optional type=boolean default=false
 			The OID of the crm_offer object to be shown.
+		@param pdf optional type=boolean default=false
 	**/
 	public function show($arr)
 	{
-		$this->read_template("show.tpl");
+		$this->read_template(empty($arr["pdf"]) ? "show.tpl" : "show_pdf.tpl");
 
 		$o = new object($arr["id"]);
 
@@ -1102,6 +1103,19 @@ class crm_offer extends class_base
 			"sum_text" => aw_locale::get_lc_money_text($o->prop("sum"), $o->currency()),
 			"ROW" => $ROW
 		));
+
+		if(!empty($arr["pdf"]))
+		{
+			$conv = new html2pdf();
+			if($conv->can_convert())
+			{
+				$res = $conv->convert(array(
+					"source" => $res,
+					"filename" => $o->id().".pdf",
+				));
+				return $res;
+			}
+		}
 
 		return $this->parse();
 	}
