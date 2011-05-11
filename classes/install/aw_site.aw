@@ -1,8 +1,7 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/install/aw_site.aw,v 1.60 2009/05/28 08:32:37 dragut Exp $
 /*
 
-@classinfo syslog_type=ST_SITE relationmgr=yes no_comment=1 maintainer=kristo
+@classinfo syslog_type=ST_SITE relationmgr=yes no_comment=1
 
 @groupinfo templates caption=Templated
 @groupinfo db caption=Andmebaas
@@ -334,8 +333,7 @@ class aw_site extends class_base
 			$ob->set_meta("old_site_opts", $site);
 			$ob->save();
 		}
-		else
-		if ($ob->meta('gen_site') && ($arr["request"]["group"] == "general"  || $arr["request"]["group"] == ""))
+		elseif ($ob->meta('gen_site') && ($arr["request"]["group"] == "general"  || $arr["request"]["group"] == ""))
 		{
 			aw_set_exec_time(AW_LONG_PROCESS);
 			obj_set_opt("no_cache", 1);
@@ -965,7 +963,7 @@ flush();
 		{
 			// check if the database exists
 			$dbi = get_instance("class_base");
-	//die(aw_ini_get('install.mysql_user'));		
+	//die(aw_ini_get('install.mysql_user'));
 $dbi->db_connect(array(
 				'driver' => 'mysql',
 				'server' => aw_ini_get('install.mysql_host'),
@@ -1961,4 +1959,3 @@ $dbi->db_connect(array(
 		));
 	}
 }
-?>

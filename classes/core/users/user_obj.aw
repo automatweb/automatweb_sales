@@ -593,6 +593,12 @@ class user_obj extends _int_object
 			return $person_c->prop("to");
 		}
 	}
+
+	public function delete($full_delete = false)
+	{
+		// user objects can never be deleted from database, to avoid object id reuse and security issues thereof
+		return parent::delete();
+	}
 }
 
 /** Generic user exception **/

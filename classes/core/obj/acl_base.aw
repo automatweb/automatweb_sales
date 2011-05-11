@@ -8,6 +8,8 @@ lc_load("definition");
 
 class acl_base extends db_connector
 {
+	private $acl_ids;
+
 	function sql_unpack_string()
 	{
 		// oi kakaja huinja, bljat.
@@ -17,23 +19,19 @@ class acl_base extends db_connector
 		// anyone wanna rewrite it? ;) - terryf
 		$s = '';
 		$qstr = array();
-		if (!is_array($this->cfg["acl"]["ids"]))
-		{
-			$this->cfg["acl"]["ids"] = $GLOBALS["cfg"]["acl"]["ids"];
-		}
 
 		if(strtolower(aw_ini_get('db.driver') === 'mssql'))
 		{
-			reset($this->cfg["acl"]["ids"]);
-			while (list($bitpos, $name) = each($this->cfg["acl"]["ids"]))
+			reset($this->acl_ids);
+			while (list($bitpos, $name) = each($this->acl_ids))
 			{
 				$qstr[] = " ( cast ( (acl / ".pow(2,$bitpos).") as int ) & 3) AS $name";
 			}
 		}
 		else
 		{
-			reset($this->cfg["acl"]["ids"]);
-			while (list($bitpos, $name) = each($this->cfg["acl"]["ids"]))
+			reset($this->acl_ids);
+			while (list($bitpos, $name) = each($this->acl_ids))
 			{
 				$qstr[] = " ((acl >> $bitpos) & 3) AS $name";
 			}
@@ -46,23 +44,26 @@ class acl_base extends db_connector
 	{
 		if (aw_ini_get("acl.use_new_acl"))
 		{
-			return safe_array(aw_unserialize($this->db_fetch_field("SELECT acldata FROM objects WHERE oid = '$oid'", "acldata"), false, true));
+			$ret = safe_array(aw_unserialize($this->db_fetch_field("SELECT acldata FROM objects WHERE oid = '{$oid}'", "acldata"), false, true));
 		}
-		$ret = array();
-		$acls = aw_ini_get("acl.names");
-		$q = "SELECT *,groups.name as name,".$this->sql_unpack_string()."
-					FROM acl LEFT JOIN groups ON groups.gid = acl.gid
-					WHERE acl.oid = $oid";
-		$this->db_query($q);
-		while ($row = $this->db_next())
+		else
 		{
-			//$ret[$row["gid"]] = $row;
-			$inf = array();
-			foreach($acls as $id => $nm)
+			$ret = array();
+			$acls = aw_ini_get("acl.names");
+			$q = "SELECT *,groups.name as name,".$this->sql_unpack_string()."
+						FROM acl LEFT JOIN groups ON groups.gid = acl.gid
+						WHERE acl.oid = $oid";
+			$this->db_query($q);
+			while ($row = $this->db_next())
 			{
-				$inf[$id] = $row[$id];
+				//$ret[$row["gid"]] = $row;
+				$inf = array();
+				foreach($acls as $id => $nm)
+				{
+					$inf[$id] = $row[$id];
+				}
+				$ret[$row["oid"]] = $inf;
 			}
-			$ret[$row["oid"]] = $inf;
 		}
 
 		return $ret;
@@ -197,7 +198,6 @@ class acl_base extends db_connector
 			$GLOBALS["__obj_sys_acl_memc"][$oid]["acldata"][$g_oid] = $ad[$g_oid];
 		}
 
-
 		if ($invd)
 		{
 			aw_session_set("__acl_cache", array());
@@ -227,7 +227,6 @@ class acl_base extends db_connector
 				";
 		$this->db_query($q);
 		$row = $this->db_next();
-
 		return $row;
 	}
 
@@ -276,7 +275,6 @@ class acl_base extends db_connector
 
 	function can_aw($access,$oid)
 	{
-
 		$access="can_".$access;
 
 		//$this->save_handle();
@@ -371,19 +369,33 @@ class acl_base extends db_connector
 		$GLOBALS["object_loader"]->set___aw_acl_cache();
 	}
 
-	// black magic follows.
-	function can($access, $oid)
+	// black magic follows
+	/** Tells if user can perform operation on object
+		@attrib api=1 params=pos
+		@param operation_id type=string
+		@param object_id type=oid
+		@param user_oid type=oid default=NULL
+			Defaults to current user if not specified
+		@comment
+		@returns bool
+		@errors none
+	**/
+	public function can($operation_id, $object_id, $user_oid = null)
 	{
-		if (!is_oid($oid))
+		$operation_id = "can_{$operation_id}";
+
+		if (!is_oid($object_id) or !in_array($operation_id, $this->acl_ids))
 		{
 			return false;
 		}
 
-		if (aw_ini_get("acl.no_check"))
-		{
+		$uid = aw_global_get("uid");
+		//TODO: teostada variant kui antakse root kasutaja user_oid
+		if (aw_ini_get("acl.no_check") or "root" === $uid)
+		{ // check if object record exists and state isn't 'deleted'
 			try
 			{
-				$objdata = $GLOBALS["object_loader"]->ds->get_objdata($oid);
+				$objdata = object_loader::instance()->ds->get_objdata($object_id);
 				return !empty($objdata["oid"]);
 			}
 			catch (awex_obj_na $e)
@@ -396,35 +408,169 @@ class acl_base extends db_connector
 			}
 		}
 
+		$can = false;
+		$user_oid = $user_oid ? $user_oid : aw_global_get("uid_oid");
+
 		if (aw_ini_get("acl.use_new_acl"))
 		{
-			return $GLOBALS["object_loader"]->can($access, $oid);
-		}
-
-		$this->save_handle();
-		if (!($max_acl = aw_cache_get("__aw_acl_cache", $oid)))
-		{
-			$_uid = isset($_SESSION["uid"]) ? $_SESSION["uid"] : "";
-			$fn = "acl-".$oid."-uid-".$_uid;
-			if (($str_max_acl = cache::file_get_pt_oid("acl", $oid, $fn)) == false)
+			if (!isset($this->__aw_acl_cache[$object_id]) || !($max_acl = $this->__aw_acl_cache[$object_id]))
 			{
-				$max_acl = $this->can_aw($access,$oid);
+				$fn = "acl-{$object_id}-uoid-{$user_oid}";
+				$fn .= "-nliug-".(isset($_SESSION["nliug"]) ? $_SESSION["nliug"] : "");//TODO: mitte sessioonist
 
-				cache::file_set_pt_oid("acl", $oid, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
-				aw_cache_set("__aw_acl_cache", $oid, $max_acl);
+				if (!object_loader::opt("no_cache") && ($str_max_acl = cache::file_get_pt_oid("acl", $object_id, $fn)) != false)
+				{
+					$max_acl = aw_unserialize($str_max_acl, false, true);
+				}
+
+				if (!isset($max_acl))
+				{
+					$max_acl = $this->_calc_max_acl($object_id);
+					if ($max_acl === false)
+					{
+						$max_acl = array_combine($this->acl_ids, array_fill(0, count($this->acl_ids), false));
+					}
+
+					if (!object_loader::opt("no_cache"))
+					{
+						cache::file_set_pt_oid("acl", $object_id, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
+					}
+				}
+
+				$this->__aw_acl_cache[$object_id] = $max_acl;
+			}
+
+			if (!isset($max_acl["can_view"]) && !$user_oid)
+			{
+				$can = aw_ini_get("acl.default.{$operation_id}") === aw_ini_get("acl.allowed");
 			}
 			else
 			{
-				$max_acl = aw_unserialize($str_max_acl, false, true);
+				$can = isset($max_acl[$operation_id]) ? (bool) $max_acl[$operation_id] : false;
 			}
 		}
+		else
+		{
+			$this->save_handle();
+			if (!($max_acl = aw_cache_get("__aw_acl_cache", $object_id)))
+			{
+				$fn = "acl-{$object_id}-uid-{user_oid}";
+				if (($str_max_acl = cache::file_get_pt_oid("acl", $object_id, $fn)) == false)
+				{
+					$max_acl = $this->can_aw($operation_id,$object_id);
 
-		$access="can_".$access;
-		$this->restore_handle();
-		return isset($max_acl[$access]) ? $max_acl[$access] : null;
+					cache::file_set_pt_oid("acl", $object_id, $fn, aw_serialize($max_acl, SERIALIZE_NATIVE));
+					aw_cache_set("__aw_acl_cache", $object_id, $max_acl);
+				}
+				else
+				{
+					$max_acl = aw_unserialize($str_max_acl, false, true);
+				}
+			}
+
+			$this->restore_handle();
+			$can = isset($max_acl[$operation_id]) ? $max_acl[$operation_id] : null;
+		}
+
+		return $can;
 	}
 
-	function create_obj_access($oid,$uuid = "")
+	private function _calc_max_acl($oid)
+	{
+		$max_priority = -1;
+		$max_acl = $GLOBALS["cfg"]["acl"]["default"];
+
+		$gl = aw_global_get("gidlist_pri_oid");
+		// go through the object tree and find the acl that is of highest priority among the current users group
+		$cur_oid = $oid;
+		$do_orig = false;
+		$cnt = 0;
+		while ($cur_oid > 0)
+		{
+			$tmp = null;
+			if (isset($GLOBALS["__obj_sys_acl_memc"][$cur_oid]) && isset($GLOBALS["__obj_sys_acl_memc"][$cur_oid]["acldata"]))
+			{
+				$tmp = $GLOBALS["__obj_sys_acl_memc"][$cur_oid];
+			}
+			elseif (isset($GLOBALS["__obj_sys_objd_memc"][$cur_oid]) && isset($GLOBALS["__obj_sys_objd_memc"][$cur_oid]["acldata"]))
+			{
+				$tmp = $GLOBALS["__obj_sys_objd_memc"][$cur_oid];
+			}
+			elseif (isset($GLOBALS["objects"][$cur_oid]))
+			{
+				$tmp = $GLOBALS["objects"][$cur_oid]->get_object_data();
+			}
+			else
+			{
+				$tmp = object_loader::instance()->ds->get_objdata($cur_oid, array( //XXX: TODO: siin peaks ilma objloaderita saama
+					"no_errors" => true
+				));
+				if ($tmp !== NULL)
+				{
+					$GLOBALS["__obj_sys_objd_memc"][$cur_oid] = $tmp;
+				}
+			}
+
+			if ($tmp === NULL)
+			{
+				// if any object above the one asked for is deleted, no access
+				return false;
+			}
+
+			// status and brother_of are not set when acl data is read from e.g. acl mem cache
+			if (isset($tmp["status"]))
+			{
+				if ($tmp["status"] == 0)
+				{
+					return false;
+				}
+			}
+
+			if (isset($tmp["brother_of"]) && $cur_oid != $tmp["brother_of"] && $tmp["brother_of"] > 0 && $cur_oid == $oid)
+			{
+				$do_orig = $tmp["brother_of"];
+			}
+
+			$acld = isset($tmp["acldata"]) ? safe_array($tmp["acldata"]) : array();
+
+			// now, iterate over the current acl data with the current gidlist
+			// and find the highest priority acl currently
+			foreach($acld as $g_oid => $g_acld)
+			{
+				// this applies the affects subobjects setting - if the first object has this set, then ignore the acls for that
+				$skip = false; //$cur_oid == $oid && $g_acld["can_subs"] == 1;
+
+				if (isset($gl[$g_oid]) && $gl[$g_oid] > $max_priority && !$skip)
+				{
+					$max_acl = $g_acld;
+					$max_priority = $gl[$g_oid];
+				}
+			}
+
+			if (++$cnt > 100)//TODO: move this limit setting to config? mis count see on yldse
+			{
+				throw new awex_obj_data_integrity(sprintf("Error in object hierarchy, count exceeded (%s, %s)", $access, $oid));
+			}
+
+			// go to parent
+			$cur_oid = $tmp["parent"];
+		}
+
+		// now, we have the result. but for brothers we need to do this again for the original object and only use the can_delete privilege from the brother
+		if ($do_orig !== false)
+		{
+			$rv = $this->_calc_max_acl($do_orig);
+			if ($rv === false)
+			{
+				return false;   // if the original is deleted, then the brother is deleted as well
+			}
+			$rv["can_delete"] = isset($max_acl["can_delete"]) ? (int) $max_acl["can_delete"] : 0;
+			return $rv;
+		}
+		return $max_acl;
+	}
+
+	function create_obj_access($oid, $uuid = "")
 	{
 		if (aw_global_get("__is_install"))
 		{
@@ -436,17 +582,15 @@ class acl_base extends db_connector
 			$uuid = aw_global_get("uid");
 		}
 
-		$acl_ids = $GLOBALS["cfg"]["acl"]["ids"];
-
 		if ($uuid != "")
 		{
-			reset($acl_ids);
+			reset($this->acl_ids);
 			$aclarr = array();
-			while (list(,$k) = each($acl_ids))
+			while (list(,$k) = each($this->acl_ids))
 			{
-				if ($k != "can_subs")
+				if ($k !== "can_subs")
 				{
-					$aclarr[$k] = $GLOBALS["cfg"]["acl"]["allowed"];
+					$aclarr[$k] = aw_ini_get("acl.allowed");
 				}
 			}
 
@@ -479,12 +623,11 @@ class acl_base extends db_connector
 		{
 			return;
 		}
-		$acl_ids = $GLOBALS["cfg"]["acl"]["ids"];
 
-		reset($acl_ids);
-		while (list(,$k) = each($acl_ids))
+		reset($this->acl_ids);
+		while (list(,$k) = each($this->acl_ids))
 		{
-			$aclarr[$k] = $GLOBALS["cfg"]["acl"]["denied"];
+			$aclarr[$k] = aw_ini_get("acl.denied");
 		}
 
 		$this->add_acl_group_to_obj($all_users_grp, $oid, array(), false);
@@ -515,14 +658,14 @@ class acl_base extends db_connector
 	// !checks if the user has the $right for program $progid
 	function prog_acl($right = "", $progid = "can_admin_interface")
 	{
-		if (aw_global_get("uid") == "")
+		if (!aw_global_get("uid"))
 		{
-			return aw_ini_get("acl.denied");
+			return false;
 		}
 
 		if (aw_ini_get("acl.check_prog") != true)
 		{
-			return aw_ini_get("acl.allowed");
+			return true;
 		}
 		else
 		{
@@ -536,6 +679,7 @@ class acl_base extends db_connector
 
 			$gl = aw_global_get("gidlist_oid");
 			// turn off acl checks for this
+			//XXX: miks?
 			$tmp = $GLOBALS["cfg"]["acl"]["no_check"];
 			$GLOBALS["cfg"]["acl"]["no_check"] = 1;
 			foreach($gl as $g_oid)
@@ -580,7 +724,7 @@ class acl_base extends db_connector
 	// !returns an array of acls in the system as array(bitpos => name)
 	function acl_list_acls()
 	{
-		return $this->cfg["acl"]["ids"];
+		return $this->acl_ids;
 	}
 
 	function acl_get_acls_for_grp($gid,$min,$num)
@@ -650,6 +794,7 @@ class acl_base extends db_connector
 
 	function init($args = array())
 	{
+		$this->acl_ids = aw_ini_get("acl.ids");
 		parent::init($args);
 	}
 
@@ -669,18 +814,17 @@ class acl_base extends db_connector
 
 	function get_acl_value($aclarr)
 	{
-		$acl_ids = $GLOBALS["cfg"]["acl"]["ids"];
-		reset($acl_ids);
+		reset($this->acl_ids);
 		$nd = array();
-		while(list($bitpos,$name) = each($acl_ids))
+		while(list($bitpos,$name) = each($this->acl_ids))
 		{
 			if (isset($aclarr[$name]) && $aclarr[$name] == 1)
 			{
-				$a = $GLOBALS["cfg"]["acl"]["allowed"];
+				$a = aw_ini_get("acl.allowed");
 			}
 			else
 			{
-				$a = $GLOBALS["cfg"]["acl"]["denied"];
+				$a = aw_ini_get("acl.denied");
 			}
 
 			$nd[$name] = isset($aclarr[$name]) ? (int) $aclarr[$name] : 0;
@@ -692,10 +836,9 @@ class acl_base extends db_connector
 
 	function get_acl_value_n($aclarr)
 	{
-		$acl_ids = $GLOBALS["cfg"]["acl"]["ids"];
-		reset($acl_ids);
+		reset($this->acl_ids);
 		$nd = array();
-		while(list($bitpos,$name) = each($acl_ids))
+		while(list($bitpos,$name) = each($this->acl_ids))
 		{
 			$nd[$name] = (int)ifset($aclarr, $name);
 		}
@@ -704,15 +847,13 @@ class acl_base extends db_connector
 
 	function acl_get_default_acl_arr()
 	{
-		$acl_ids = $GLOBALS["cfg"]["acl"]["ids"];
-
-		reset($acl_ids);
+		reset($this->acl_ids);
 		$aclarr = array();
-		while (list(,$k) = each($acl_ids))
+		while (list(,$k) = each($this->acl_ids))
 		{
-			if ($k != "can_subs")
+			if ($k !== "can_subs")
 			{
-				$aclarr[$k] = $GLOBALS["cfg"]["acl"]["allowed"];
+				$aclarr[$k] = aw_ini_get("acl.allowed");
 			}
 		}
 		return $aclarr;

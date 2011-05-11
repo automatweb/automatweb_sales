@@ -18,6 +18,7 @@ class aw_table extends aw_template
 	public $data = array();
 	public $create_rgroup_links = true;
 	public $name = "awTable0";
+	public $non_filtered = false;
 
 	////
 	// !constructor - paramaters:
@@ -36,7 +37,6 @@ class aw_table extends aw_template
 	protected $records_per_page = 0;
 	protected $final_enum;
 	protected $titlebar_repeat_bottom;
-	protected $non_filtered;
 	protected $table_class_id = "awmenuedittabletag";
 	protected $tr_sel;
 	protected $default_field_values = array();
