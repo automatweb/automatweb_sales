@@ -9,8 +9,8 @@
 @property url type=textbox field=aw_url
 @caption URL
 
-@property browser type=text store=no
-@caption Sirvi Eesti Ehitusturgu
+@property import type=text store=no
+@caption Impordi Eesti Ehitusturu andmebaas
 
 @property email_templates type=relpicker reltype=RELTYPE_EMAIL_TEMPLATE multiple=1 store=connect
 @caption E-kirjamallid
@@ -27,7 +27,7 @@ class eesti_ehitusturg extends class_base
 	public function eesti_ehitusturg()
 	{
 		$this->init(array(
-			"tpldir" => "applications/first_contact/eesti_ehitusturg",
+			"tpldir" => "import/eesti_ehitusturg",
 			"clid" => CL_EESTI_EHITUSTURG
 		));
 	}
@@ -36,25 +36,35 @@ class eesti_ehitusturg extends class_base
 	{
 		if(empty($arr["prop"]["value"]))
 		{
-			$arr["prop"]["value"] = "http://www.eesti-ehitusturg.ee/";
+			$arr["prop"]["value"] = "http://eesti-ehitusturg.ee/index.php?leht=9";
 		}
 	}
 
-	public function _get_browser($arr)
+	public function _get_import($arr)
 	{
 		$arr["prop"]["value"] = html::href(array(
-			"caption" => t("K&auml;ivita brauser"),
-			"url" => $this->mk_my_orb("browser", array("id" => automatweb::$request->arg("id"))),
+			"caption" => t("K&auml;ivita import"),
+			"url" => $this->mk_my_orb("import", array("id" => automatweb::$request->arg("id"))),
 		));
 	}
 
 	/**
-		@attrib name=browser all_args=1
-		@param id required type=int acl=view
+		@attrib name=import all_args=1
+		@param id required type=int
 	**/
-	public function browser($arr)
+	public function import($arr)
 	{
-		$html = obj($arr["id"])->get_browser_html();
+		$html = obj($arr["id"])->import();
+		die($html);
+	}
+
+	/**
+		@attrib name=load_html all_args=1
+		@param id required type=int
+	**/
+	public function load_html($arr)
+	{
+		$html = obj($arr["id"])->get_html();
 		die($html);
 	}
 
@@ -80,14 +90,6 @@ class eesti_ehitusturg extends class_base
 				));
 				return true;
 		}
-	}
-
-	/**
-		@attrib name=send_spam nologin=1
-	**/
-	public function send_spam()
-	{
-		return obj(automatweb::$request->arg("id"))->send_spam();
 	}
 }
 
