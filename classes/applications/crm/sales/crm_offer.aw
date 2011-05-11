@@ -8,6 +8,8 @@
 @groupinfo general submit=no caption=&Uuml;ldine
 @default group=general
 
+	@property general_toolbar type=toolbar editonly=1 no_caption=1 store=no
+
 	@property customer_relation type=hidden datatype=int field=aw_customer_relation
 	@caption Kliendisuhe
 
@@ -42,9 +44,6 @@
 		@property save_as_template type=button store=no editonly=1 no_caption=1 parent=buttons
 		@caption Salvesta &scaron;abloonina
 
-		@property send type=button store=no editonly=1 no_caption=1 parent=buttons
-		@caption Saada kliendile
-
 @groupinfo content caption=Sisu
 @default group=content
 
@@ -66,10 +65,54 @@
 
 	@property confirmations_table type=table store=no no_caption=1 editonly=1
 
-@groupinfo sent caption=Saadetud&nbsp;pakkumused submit=no
-@default group=sent
+@groupinfo mail caption="Kirjad"
 
-	@property sent_table type=table store=no no_caption=1 editonly=1
+	@groupinfo send caption="Pakkumuse saatmine" parent=mail confirm_save_data=0
+	@default group=send
+
+		@property send_toolbar type=toolbar store=no no_caption=1
+		@layout send_settings type=hbox closeable=1 area_caption=Kirja&nbsp;seaded width=50%:50%
+		@layout send_sender type=vbox closeable=0 area_caption=Saatja parent=send_settings
+			@property mail_from type=textbox store=no parent=send_sender
+			@caption E-posti aadress
+
+			@property mail_from_name type=textbox store=no parent=send_sender
+			@caption Nimi
+
+		@layout send_attachments type=vbox closeable=0 area_caption=Lisatavad&nbsp;dokumendid parent=send_settings
+			@property mail_attachments type=chooser multiple=1 store=no parent=send_attachments orient=vertical no_caption=1
+
+		@layout send_recipients type=vbox closeable=1 area_caption=Kirja&nbsp;saajad
+			@property mail_recipients type=table store=no parent=send_recipients no_caption=1
+
+			@property recipient_name type=textbox store=no parent=send_recipients
+			@comment Sisesta suvaline kehtiv e-posti aadress
+			@caption Lisa pakkumuse saaja
+
+		@layout send_content type=hbox closeable=1 area_caption=Kirja&nbsp;sisu width=50%:50%
+			@layout send_content_l type=vbox parent=send_content closeable=0 area_caption=Muutmine
+			@layout send_content_r type=vbox parent=send_content closeable=0 area_caption=Eelvaade&nbsp;(kliki&nbsp;tekstil&nbsp;et&nbsp;uuendada)
+
+		@property mail_subject type=textbox parent=send_content_l captionside=top table=objects field=meta method=serialize
+		@caption Pealkiri
+
+		@property mail_content type=textarea rows=20 cols=53 parent=send_content_l captionside=top table=objects field=meta method=serialize
+		@caption Sisu
+
+		@property mail_legend type=text store=no parent=send_content_l captionside=top
+		@comment E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&auml;&auml;rtustega
+		@caption Kasutatavad muutujad
+
+		@property mail_subject_view type=text parent=send_content_r store=no captionside=top
+		@caption Pealkiri
+
+		@property mail_content_view type=text store=no parent=send_content_r store=no captionside=top
+		@caption Sisu
+
+	@groupinfo sent caption="Saadetud kirjad" parent=mail submit=no
+	@default group=sent
+
+		@property sent_table type=table store=no no_caption=1 editonly=1
 
 @reltype CONTRACT value=1 clid=CL_CRM_DEAL
 @caption Leping
@@ -84,6 +127,271 @@ class crm_offer extends class_base
 			"tpldir" => "applications/crm/sales/crm_offer",
 			"clid" => CL_CRM_OFFER
 		));
+	}
+
+	public function _get_general_toolbar(&$arr)
+	{
+		$r = PROP_OK;
+
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->add_save_button();
+		$t->add_button(array(
+			"name" => "send",
+			"img" => "mail_send.gif",
+			"tooltip" => t("Saada pakkumus"),
+			"url" => aw_url_change_var(array("group" => "send")),
+		));
+
+		return $r;
+	}
+
+	public function _get_send_toolbar(&$arr)
+	{
+		$r = PROP_OK;
+		$t = $arr["prop"]["vcl_inst"];
+		$t->add_button(array(
+			"name" => "send",
+			"img" => "mail_send.gif",
+			"tooltip" => t("Saada pakkumus"),
+			"confirm" => t("Oled kindel et soovid pakkumuse saata?"),
+			"action" => "send"
+		));
+
+		$t->add_button(array(
+			"name" => "save",
+			"img" => "save.gif",
+			"tooltip" => t("Salvesta muudatused ajutiselt"),
+			"action" => "submit"
+		));
+
+		return $r;
+	}
+
+	public function get_property(&$arr)
+	{
+		$r = PROP_OK;
+		$prop = &$arr["prop"];
+
+		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content")))
+		{
+			$prop["value"] = $arr["obj_inst"]->get_mail_prop($prop["name"]);
+		}
+		if (in_array($prop["name"], array("mail_subject", "mail_content")))
+		{
+			$prop["onblur"] = "crm_offer_refresh_mail_text();";
+		}
+
+		return $r;
+	}
+
+	public function set_property(&$arr)
+	{
+		$r = PROP_OK;
+		$prop = &$arr["prop"];
+
+		if (in_array($prop["name"], array("mail_from", "mail_from_name", "mail_subject", "mail_content")))
+		{
+			$arr["obj_inst"]->set_mail_prop($prop["name"], $prop["value"]);
+		}
+
+		return $r;
+	}
+
+	public function _get_mail_attachments($arr)
+	{
+		$arr["prop"]["options"] = array(
+			"offer" => t("Pakkumuse PDF")
+		);
+
+		return PROP_OK;
+	}
+
+	public function _get_mail_recipients(&$arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->add_fields(array(
+			"email" => t("E-posti aadress"),
+			"send" => t("Saata"),
+			"name" => t("Nimi"),
+			"rank" => t("Ametinimetus"),
+			"phone" =>  t("Telefon"),
+			"co" => t("Organisatsioon")
+		));
+		$t->set_rgroupby(array("title" => "title"));
+
+		$recipient_types = array(
+			"customer_director" => t("Kliendi juhataja aadress"),
+			"customer_general" => t("Kliendi &uuml;ldaadressid"),
+			"user" => t("Kasutaja"),
+			"custom" => t("Lisaaadressid")
+		);
+
+		foreach($recipient_types as $recipient_type => $recipient_caption)
+		{
+			$recipients = $arr["obj_inst"]->get_mail_recipients(array($recipient_type));
+			if (count($recipients))
+			{
+				foreach ($recipients as $email_address => $data)
+				{
+					$data[2] = "customer";
+					$prop_name = $this->add_recipient_propdefn($t, $email_address, $data, $arr["obj_inst"], $recipient_caption);
+				}
+			}
+		}
+
+		return PROP_OK;
+	}
+
+	protected function add_recipient_propdefn(vcl_table $t, $email_address, $recipient_data, $offer, $title, $disabled = false)
+	{
+		static $i;
+		++$i;
+		$recipient_oid = $recipient_data[0];
+		$name = $recipient_data[1];
+		$phones = $organization = $profession = $chooser = "";
+
+		if ($recipient_oid)
+		{
+			$recipient = new object($recipient_oid);
+
+			if ($recipient->is_a(CL_CRM_PERSON))
+			{
+				if ("customer" === $recipient_data[2])
+				{
+					$organization_o = new object($offer->prop("customer"));
+				}
+				else
+				{
+					$organization_o = new object($recipient->company_id());
+				}
+
+				$organization = html::obj_change_url($organization_o->id(), $organization_o->name());
+				$profession = implode(", " , $recipient->get_profession_names($organization_o));
+				$name = html::obj_change_url($recipient->id(), $recipient->name());
+			}
+			elseif ($recipient->is_a(CL_CRM_COMPANY))
+			{
+				$organization = html::obj_change_url($recipient->id(), $name);
+				$name = "";
+			}
+
+			if ($recipient->has_method("get_phones"))
+			{
+				$phones = implode(", ", $recipient->get_phones());
+			}
+		}
+
+		// recipient selector chooser
+		$checked = array("to" => 0, "cc" => 0, "bcc" => 0);
+		if (!$disabled)
+		{
+			$recipients_tmp = $offer->get_mail_prop("recipients");
+			$checked = array(
+				"to" => !empty($recipients_tmp["{$email_address}-to"]),
+				"cc" => !empty($recipients_tmp["{$email_address}-cc"]),
+				"bcc" => !empty($recipients_tmp["{$email_address}-bcc"]),
+			);
+		}
+
+		$prop_name = "recipient[{$i}]";
+		$chooser = "";
+		$options = array("to" => t("to"), "cc" => t("cc"), "bcc" => t("bcc"));
+		foreach($options as $option => $caption)
+		{
+			$chooser .= " ";
+			$chooser .= html::radiobutton(array(
+				"caption" => $caption,
+				"name" => $prop_name,
+				"checked" => $checked[$option],
+				"value" => "{$email_address}-{$option}",
+				"disabled" => $disabled
+			));
+		}
+		$chooser = html::span(array("content" => $chooser, "nowrap" => 1));
+
+		$t->define_data(array(
+			"title" => $title,
+			"send" => $chooser,
+			"email" => $email_address,
+			"name" => $name,
+			"phone" => $phones,
+			"rank" => $profession,
+			"co" => $organization
+		));
+	}
+
+	function _set_mail_recipients($arr)
+	{
+		if (automatweb::$request->arg_isset("recipient"))
+		{
+			$arr["obj_inst"]->set_mail_prop("recipients", array_flip(automatweb::$request->arg("recipient")));
+		}
+		return PROP_IGNORE;
+	}
+
+	function _get_recipient_name(&$arr)
+	{
+		$arr["prop"]["value"] = "";
+
+		$save_btn = " " . html::href(array(
+			"url" => "javascript:submit_changeform('submit')",
+			"title" => t("Lisa sisestatud e-posti aadress"),
+			"caption" => html::img(array("url" => icons::get_std_icon_url("save")))
+		));
+
+		$arr["prop"]["post_append_text"] = $save_btn;
+
+		return PROP_OK;
+	}
+
+	function _set_recipient_name(&$arr)
+	{
+		$r = PROP_IGNORE;
+		if (!empty($arr["prop"]["value"]))
+		{
+			if(is_email($arr["prop"]["value"]))
+			{
+				$recipients = $arr["obj_inst"]->get_mail_prop("custom_recipients");
+				$recipients[$arr["prop"]["value"]] = null;
+				$arr["obj_inst"]->set_mail_prop("custom_recipients", $recipients);
+			}
+			else
+			{
+				$r = PROP_ERROR;
+				$arr["prop"]["error"] = t("Vigane e-posti aadress");
+			}
+		}
+		return $r;
+	}
+
+	public function _get_mail_legend(&$arr)
+	{
+		$arr["prop"]["value"] = nl2br('#offer_no# => '.t("Pakkumuse number").'
+#customer_name# => '.t("Kliendi nimi").'
+#signature# => '.t("Saatja allkiri").'
+');
+
+		return PROP_OK;
+	}
+
+	public function _get_mail_subject_view(&$arr)
+	{
+		$arr["prop"]["value"] = html::span(array(
+			"content" => $arr["obj_inst"]->parse_mail_text($arr["obj_inst"]->get_mail_prop("mail_subject")),
+			"id" => "mail_subject_text_element"
+		)) . html::linebreak(2);
+		return PROP_OK;
+	}
+
+	public function _get_mail_content_view(&$arr)
+	{
+		$arr["prop"]["value"] = html::span(array(
+			"content" => nl2br($arr["obj_inst"]->parse_mail_text($arr["obj_inst"]->get_mail_prop("mail_content"))),
+			"id" => "mail_content_text_element"
+		));
+		return PROP_OK;
 	}
 
 	protected function define_confirmations_table_header($arr)
@@ -834,6 +1142,118 @@ class crm_offer extends class_base
 		)));
 	}
 
+	/**
+	@attrib name=send all_args=1
+	@param id required type=int
+		offer id
+	@param post_ru required type=string
+	@returns string
+	**/
+	function send($arr)
+	{
+		$r = $arr["post_ru"];
+		try
+		{
+			$this_o = obj($arr["id"], array(), CL_CRM_OFFER);
+		}
+		catch (awex_obj $e)
+		{
+			$this->show_error_text(t("Invalid offer id!"));
+			return $r;
+		}
+
+		if (empty($arr["sendmail_attachments"]) or !is_array($arr["sendmail_attachments"]))
+		{
+//			$this->show_error_text(t("Arvet ei saa saata saadetavat dokumenti valimata."));
+//			return $r;
+		}
+
+		if (empty($arr["recipient"]) or !is_array($arr["recipient"]))
+		{
+			$this->show_error_text(t("No recipients selected!"));
+			return $r;
+		}
+
+		$to = $cc = $bcc = array();
+		$recipients = $this_o->get_mail_recipients();
+		$selected_recipients = array_flip($arr["recipient"]);
+		foreach ($recipients as $email_address => $data)
+		{
+			if (isset($selected_recipients[$email_address . "-to"]))
+			{
+				$to[$email_address] = $data[1] ? $data[1] : "";
+			}
+			elseif (isset($selected_recipients[$email_address . "-cc"]))
+			{
+				$cc[$email_address] = $data[1] ? $data[1] : "";
+			}
+			elseif (isset($selected_recipients[$email_address . "-bcc"]))
+			{
+				$bcc[$email_address] = $data[1] ? $data[1] : "";
+			}
+		}
+
+		$subject = $this_o->parse_mail_text($arr["mail_subject"]);
+		$body = nl2br($this_o->parse_mail_text($arr["mail_content"]));
+//		$reminder = isset($arr["sendmail_attachments"]["r"]);
+//		$appendix = isset($arr["sendmail_attachments"]["a"]);
+		$from = $arr["mail_from"];
+		$from_name = $arr["mail_from_name"];
+
+		try
+		{
+			$this_o->send($to, $subject, $body, $cc, $bcc, $from, $from_name);
+			$this->show_completed_text(t("Pakkumus saadetud."));
+		}
+		catch (awex_crm_offer_email $e)
+		{
+			if ($e->email)
+			{
+				$this->show_error_text(sprintf(t("Pakkumust ei saadetud. Vigane aadress: '%s'"), $e->email));
+			}
+			else
+			{
+				$this->show_error_text(t("Pakkumust ei saa saata saajaid m&auml;&auml;ramata"));
+			}
+		}
+		catch (awex_crm_offer_file $e)
+		{
+			$this->show_error_text(t("Pakkumust ei saadetud. Dokumendi lisamine eba&otilde;nnestus"));
+		}
+		catch (awex_crm_offer_send $e)
+		{
+			$this->show_error_text(t("Pakkumust ei saadetud. Viga t&otilde;en&auml;oliselt serveri meiliseadetes."));
+		}
+		catch (Exception $e)
+		{
+			trigger_error("Caught exception " . get_class($e) . " while sending offer. Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
+			$this->show_error_text(t("Esines vigu. Pakkumust ei saadetud."));
+		}
+
+		// remove temporary changes
+		$this_o->clear_mail_data();
+		$this->show_completed_text(t("Pakkumus edukalt saadetud!"));
+		return $r;
+	}
+
+	/**
+		@attrib name=parse_mail_text
+		@param id required type=int
+		@param text required type=string
+	**/
+	function parse_mail_text($arr)
+	{
+		try
+		{
+			$this_o = obj($arr["id"], array(), CL_CRM_OFFER);
+			echo nl2br($this_o->parse_mail_text($arr["text"]));
+		}
+		catch (Exception $e)
+		{
+		}
+		exit;
+	}
+
 	public function callback_post_save($arr)
 	{
 		if(isset($arr["request"]["content_total_price_components"]["total_price"]))
@@ -903,6 +1323,22 @@ class crm_offer extends class_base
 
 			load_javascript("jquery/plugins/jquery.calculation.js");
 //			load_javascript("jquery/plugins/jquery.numberformatter-1.1.0.js");
+		}
+		elseif("send" == $this->use_group)
+		{
+			$js .= <<<ENDSCRIPT
+function crm_offer_refresh_mail_text() {
+	// subject
+	$.get('/automatweb/orb.aw', {class: 'crm_offer', action: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_subject').val()}, function (html) {
+		$('#mail_subject_text_element').html(html);
+	});
+
+	// body
+	$.get('/automatweb/orb.aw', {class: 'crm_offer', action: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_content').val()}, function (html) {
+		$('#mail_content_text_element').html(html);
+	});
+}
+ENDSCRIPT;
 		}
 
 		if (isset($this->zend_view) && $this->zend_view->dojo()->isEnabled())

@@ -1,6 +1,16 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>general_toolbar</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>toolbar</type>
+            <editonly>1</editonly>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <field>general_toolbar</field>
+      </property>
+      <property>
             <name>customer_relation</name>
             <table>aw_crm_offer</table>
             <group>general</group>
@@ -106,18 +116,6 @@
             <caption>Salvesta &amp;amp;scaron;abloonina</caption>
       </property>
       <property>
-            <name>send</name>
-            <table>aw_crm_offer</table>
-            <group>general</group>
-            <type>button</type>
-            <store>no</store>
-            <editonly>1</editonly>
-            <no_caption>1</no_caption>
-            <parent>buttons</parent>
-            <field>send</field>
-            <caption>Saada kliendile</caption>
-      </property>
-      <property>
             <name>content_add</name>
             <table>aw_crm_offer</table>
             <group>content</group>
@@ -177,6 +175,126 @@
             <field>confirmations_table</field>
       </property>
       <property>
+            <name>send_toolbar</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>send_toolbar</field>
+      </property>
+      <property>
+            <name>mail_from</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>send_sender</parent>
+            <field>mail_from</field>
+            <caption>E-posti aadress</caption>
+      </property>
+      <property>
+            <name>mail_from_name</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>send_sender</parent>
+            <field>mail_from_name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
+            <name>mail_attachments</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>chooser</type>
+            <multiple>1</multiple>
+            <store>no</store>
+            <parent>send_attachments</parent>
+            <orient>vertical</orient>
+            <no_caption>1</no_caption>
+            <field>mail_attachments</field>
+      </property>
+      <property>
+            <name>mail_recipients</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>table</type>
+            <store>no</store>
+            <parent>send_recipients</parent>
+            <no_caption>1</no_caption>
+            <field>mail_recipients</field>
+      </property>
+      <property>
+            <name>recipient_name</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>textbox</type>
+            <store>no</store>
+            <parent>send_recipients</parent>
+            <field>recipient_name</field>
+            <comment>Sisesta suvaline kehtiv e-posti aadress</comment>
+            <caption>Lisa pakkumuse saaja</caption>
+      </property>
+      <property>
+            <name>mail_subject</name>
+            <table>objects</table>
+            <group>send</group>
+            <type>textbox</type>
+            <parent>send_content_l</parent>
+            <captionside>top</captionside>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>mail_content</name>
+            <table>objects</table>
+            <group>send</group>
+            <type>textarea</type>
+            <rows>20</rows>
+            <cols>53</cols>
+            <parent>send_content_l</parent>
+            <captionside>top</captionside>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Sisu</caption>
+      </property>
+      <property>
+            <name>mail_legend</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>send_content_l</parent>
+            <captionside>top</captionside>
+            <field>mail_legend</field>
+            <comment>E-kirja sisus ja pealkirjas kasutatavad muutujad. Asendatakse saatmisel vastavate tegelike v&amp;amp;auml;&amp;amp;auml;rtustega</comment>
+            <caption>Kasutatavad muutujad</caption>
+      </property>
+      <property>
+            <name>mail_subject_view</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>text</type>
+            <parent>send_content_r</parent>
+            <store>no</store>
+            <captionside>top</captionside>
+            <field>mail_subject_view</field>
+            <caption>Pealkiri</caption>
+      </property>
+      <property>
+            <name>mail_content_view</name>
+            <table>aw_crm_offer</table>
+            <group>send</group>
+            <type>text</type>
+            <store>no</store>
+            <parent>send_content_r</parent>
+            <captionside>top</captionside>
+            <field>mail_content_view</field>
+            <caption>Sisu</caption>
+      </property>
+      <property>
             <name>sent_table</name>
             <table>aw_crm_offer</table>
             <group>sent</group>
@@ -208,8 +326,17 @@
                   <caption>Kinnitused</caption>
                   <submit>no</submit>
             </confirmations>
+            <mail>
+                  <caption>Kirjad</caption>
+            </mail>
+            <send>
+                  <caption>Pakkumuse saatmine</caption>
+                  <parent>mail</parent>
+                  <confirm_save_data>0</confirm_save_data>
+            </send>
             <sent>
-                  <caption>Saadetud&amp;amp;nbsp;pakkumused</caption>
+                  <caption>Saadetud kirjad</caption>
+                  <parent>mail</parent>
                   <submit>no</submit>
             </sent>
       </groupinfo>
@@ -233,6 +360,54 @@
                   <group>general</group>
                   <area_caption></area_caption>
             </buttons>
+            <send_settings>
+                  <type>hbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kirja&amp;amp;nbsp;seaded</area_caption>
+                  <width>50%:50%</width>
+                  <group>send</group>
+            </send_settings>
+            <send_sender>
+                  <type>vbox</type>
+                  <closeable>0</closeable>
+                  <area_caption>Saatja</area_caption>
+                  <parent>send_settings</parent>
+                  <group>send</group>
+            </send_sender>
+            <send_attachments>
+                  <type>vbox</type>
+                  <closeable>0</closeable>
+                  <area_caption>Lisatavad&amp;amp;nbsp;dokumendid</area_caption>
+                  <parent>send_settings</parent>
+                  <group>send</group>
+            </send_attachments>
+            <send_recipients>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kirja&amp;amp;nbsp;saajad</area_caption>
+                  <group>send</group>
+            </send_recipients>
+            <send_content>
+                  <type>hbox</type>
+                  <closeable>1</closeable>
+                  <area_caption>Kirja&amp;amp;nbsp;sisu</area_caption>
+                  <width>50%:50%</width>
+                  <group>send</group>
+            </send_content>
+            <send_content_l>
+                  <type>vbox</type>
+                  <parent>send_content</parent>
+                  <closeable>0</closeable>
+                  <area_caption>Muutmine</area_caption>
+                  <group>send</group>
+            </send_content_l>
+            <send_content_r>
+                  <type>vbox</type>
+                  <parent>send_content</parent>
+                  <closeable>0</closeable>
+                  <area_caption>Eelvaade&amp;amp;nbsp;(kliki&amp;amp;nbsp;tekstil&amp;amp;nbsp;et&amp;amp;nbsp;uuendada)</area_caption>
+                  <group>send</group>
+            </send_content_r>
       </layout>
 </properties>
 
