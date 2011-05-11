@@ -84,13 +84,13 @@
             <caption>Kuup&amp;amp;auml;ev</caption>
       </property>
       <property>
-            <name>submit</name>
+            <name>submit_button</name>
             <table>aw_crm_offer</table>
             <group>general</group>
             <type>submit</type>
             <store>no</store>
             <parent>buttons</parent>
-            <field>submit</field>
+            <field>submit_button</field>
             <caption>Salvesta</caption>
       </property>
       <property>
@@ -209,7 +209,7 @@
                   <submit>no</submit>
             </confirmations>
             <sent>
-                  <caption>Saadetud&amp;amp;nbsp;pakkumised</caption>
+                  <caption>Saadetud&amp;amp;nbsp;pakkumused</caption>
                   <submit>no</submit>
             </sent>
       </groupinfo>

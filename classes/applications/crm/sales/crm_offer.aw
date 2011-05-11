@@ -36,7 +36,7 @@
 
 	@layout buttons type=hbox
 
-		@property submit type=submit store=no parent=buttons
+		@property submit_button type=submit store=no parent=buttons
 		@caption Salvesta
 
 		@property save_as_template type=button store=no editonly=1 no_caption=1 parent=buttons
