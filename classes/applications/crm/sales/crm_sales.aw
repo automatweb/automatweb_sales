@@ -7,7 +7,6 @@
 GROUP DECLARATIONS
 @groupinfo settings caption="Seaded"
 @groupinfo settings_general caption="&Uuml;ldine" parent=settings
-@groupinfo settings_offers caption="Pakkumused" parent=settings
 
 // contacts, presentations and calls tabs/groups are handled by their own separate static view classes
 // respectively crm_sales_contacts_view, ...presentations_view and ...calls_view
@@ -31,7 +30,9 @@ GROUP DECLARATIONS
 @groupinfo data_entry_contact_employee caption="Klientorganisatsiooni kontaktisik" parent=data_entry submit=no
 @groupinfo data_entry_import caption="Import" parent=data_entry
 
-@groupinfo offers caption="Pakkumused" submit=no submit_method=get
+@groupinfo offers caption="Pakkumused"
+@groupinfo offers_offers caption="Pakkumused" parent=offers submit=no submit_method=get
+@groupinfo price_components caption="Hinnakomponendid" parent=offers
 
 // statistics and analysis views. handled by separate static view classes
 @groupinfo statistics caption="&Uuml;levaated"
@@ -220,7 +221,7 @@ PROPERTY DECLARATIONS
 	@property cfgf_presentation_manager type=relpicker reltype=RELTYPE_CFGFORM parent=presentation_cfg_box
 	@caption Juht
 
-@default group=settings_offers
+@default group=price_components
 
 	@property cfgf_offers_toolbar type=toolbar store=no no_caption=1
 
@@ -503,7 +504,7 @@ PROPERTY DECLARATIONS
 	@property contact_entry_lead_source_oid type=hidden store=no group=data_entry_contact_co,data_entry_contact_person
 
 --------------------------------------------------------------
-@default group=offers
+@default group=offers_offers
 
 	@property offers_toolbar type=toolbar store=no no_caption=1
 
@@ -1377,7 +1378,7 @@ class crm_sales extends class_base
 				$ret = crm_sales_telemarketing_statistics_view::$method_name($arr);
 			}
 		}
-		elseif ("offers" === $this->use_group)
+		elseif ("offers_offers" === $this->use_group)
 		{
 			$method_name = "_get_{$arr["prop"]["name"]}";
 			if (method_exists("crm_sales_offers_view", $method_name))
@@ -1385,7 +1386,7 @@ class crm_sales extends class_base
 				$ret = crm_sales_offers_view::$method_name($arr);
 			}
 		}
-		elseif ("settings_offers" === $this->use_group)
+		elseif ("price_components" === $this->use_group)
 		{
 			$method_name = "_get_{$arr["prop"]["name"]}";
 			if (method_exists("crm_sales_settings_offers_view", $method_name))
