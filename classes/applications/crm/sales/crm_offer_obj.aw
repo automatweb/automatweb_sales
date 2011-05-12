@@ -347,6 +347,107 @@ Parimat,
 		return $text;
 	}
 
+	public function get_offer_data()
+	{
+		$currency = new object($this->prop("currency"));
+
+		return array(
+			"id" => $this->id(),
+			"date" => $this->prop("date"),
+			"currency" => $currency->name(),
+		);
+	}
+
+	public function get_customer_data()
+	{
+		$customer = new object($this->prop("customer"));
+		$director = new object($customer->prop("firmajuht"));
+
+		$director_profession = "";
+		if($director->is_a(CL_CRM_PERSON))
+		{
+			$director_professions = $director->get_profession_names();
+			$director_profession = reset($director_professions);
+		}
+
+		return array(
+			"customer" => $customer->name(),
+			"customer.mail" => $customer->get_mail(),
+//			"customer.phone" => $customer->get_phone(),
+			"customer.director.name" => $director->name(),
+			"customer.director.profession" => $director_profession,
+		);
+	}
+
+	public function get_salesman_data()
+	{
+		$salesman = new object($this->prop("salesman"));
+		$salesman_professions = $salesman->get_profession_names();
+		$salesman_profession = reset($salesman_professions);
+
+		return array(
+			"salesman.name" => $salesman->name(),
+			"salesman.profession" => $salesman_profession ,
+		);
+	}
+
+	public function get_salesman_data()
+	{
+		$salesorg = new object(automatweb::$request->get_application()->prop("owner"));
+
+		$data = array(
+			"salesorg.name" => $salesorg->name(),
+			"salesorg.reg_nr" => $salesorg->prop("reg_nr"),
+			"salesorg.kmk_nr" => $salesorg->prop("tax_nr"),
+			"salesorg.fax" => $salesorg->prop_str("telefax_id", true),
+			"salesorg.url" => $salesorg->prop_str("url_id", true),
+			"salesorg.phone" => $salesorg->prop_str("phone_id", true),
+			"salesorg.ou" => $salesorg->prop("ettevotlusvorm.shortname"),
+			"bank_accounts" => array(),
+		);
+
+		foreach($salesorg->connections_from(array("type" => "RELTYPE_BANK_ACCOUNT")) as $c)
+		{
+			$acc = $c->to();
+			$bank = obj();
+			if ($this->can("view", $acc->prop("bank")))
+			{
+				$bank = obj($acc->prop("bank"));
+			}
+			$data["salesorg.bank_accounts"][] = array(
+				"salesorg.bank_name" => $bank->name(),
+				"salesorg.acct_no" => $acc->prop("acct_no"),
+				"salesorg.bank_iban" => $acc->prop("iban_code")
+			);
+		}
+
+		if ($this->can("view", $impl->prop("contact")))
+		{
+			$ct = obj($impl->prop("contact"));
+			$ap = array($ct->prop("aadress"));
+			if ($ct->prop("linn"))
+			{
+				$vars["salesorg.address.city"] = $ct->prop_str("linn");
+				$ap[] = $ct->prop_str("linn");
+			}
+			$aps = join(", ", $ap).html::linebreak();
+			$aps .= $ct->prop_str("maakond");
+			$aps .= " ".$ct->prop("postiindeks");
+			$data["salesorg.address.index"] = $ct->prop("postiindeks");
+			$data["salesorg.address.county"] = $ct->prop_str("maakond");
+			$data["salesorg.address.addr"] = $aps;
+			$data["salesorg.address.street"] = $ct->prop("aadress");
+
+			if ($this->can("view", $ct->prop("riik")))
+			{
+				$riik = obj($ct->prop("riik"));
+				$data["salesorg.address.country"] = $riik->name();
+			}
+		}
+		
+		return $data;
+	}
+
 	protected function get_sender_signature()
 	{
 		$ret = array();
