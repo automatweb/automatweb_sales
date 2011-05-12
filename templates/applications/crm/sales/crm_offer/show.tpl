@@ -133,10 +133,10 @@
 							<!-- END SUB: ROW -->
 							<tr>
 								<td colspan="4" class="caption">Summa:</td>
-								<td>{VAR:sum} {VAR:currency}</td>
+								<td>{VAR:total} {VAR:currency}</td>
 							</tr>
 							<tr>
-								<td colspan="5" class="words"><strong>Summa s&otilde;nadega:</strong> {VAR:sum_text}</td>
+								<td colspan="5" class="words"><strong>Summa s&otilde;nadega:</strong> {VAR:total_text}</td>
 							</tr>
 						</table>
 					</td>
