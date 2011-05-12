@@ -71,16 +71,28 @@ if(isset($pdf))
 
 <table class="info" width="100%" cellspacing="0" cellpadding="2">
 <tr>
-	<td width="15%" class="heading"><strong>Tellija andmed:</strong></td>
-	<td width="35%">{VAR:customer}</td>
+	<td width="15%" class="heading"><strong>Kliendi andmed:</strong></td>
+	<td width="35%">{VAR:customer.name}</td>
 	<td width="15%" class="heading"><strong>Pakkumuse nr:</strong></td>
 	<td width="35%">{VAR:id}</td>
 </tr>
 <tr>
 	<td width="15%" class="heading"></td>
-	<td width="35%">{VAR:orderer_street}</td>
+	<td width="35%">{VAR:customer.address.street}</td>
 	<td width="15%" class="heading"><strong>Kuupäev:</strong></td>
 	<td width="35%">{DATE:date|d.m.Y}</td>
+</tr>
+<tr>
+	<td width="15%" class="heading"></td>
+	<td width="35%">{VAR:customer.address.index}, {VAR:customer.address.city}</td>
+	<td width="15%">&nbsp;</td>
+	<td width="35%">&nbsp;</td>
+</tr>
+<tr>
+	<td width="15%" class="heading"></td>
+	<td width="35%">{VAR:customer.address.country}</td>
+	<td width="15%">&nbsp;</td>
+	<td width="35%">&nbsp;</td>
 </tr>
 </table>
 
