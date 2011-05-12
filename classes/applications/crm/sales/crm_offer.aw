@@ -239,7 +239,7 @@ class crm_offer extends class_base
 		$recipient_types = array(
 			"customer_director" => t("Kliendi juhataja aadress"),
 			"customer_general" => t("Kliendi &uuml;ldaadressid"),
-			"user" => t("Kasutaja"),
+			"user" => t("M&uuml;&uuml;giesindaja"),
 			"custom" => t("Lisaaadressid")
 		);
 
@@ -384,7 +384,8 @@ class crm_offer extends class_base
 	public function _get_mail_legend(&$arr)
 	{
 		$arr["prop"]["value"] = nl2br('#offer_no# => '.t("Pakkumuse number").'
-#customer_name# => '.t("Kliendi nimi").'
+#customer.name# => '.t("Kliendi nimi").'
+#customer.director# => '.t("Kliendi juhatuse esimees").'
 #signature# => '.t("Saatja allkiri").'
 ');
 
@@ -1048,14 +1049,14 @@ class crm_offer extends class_base
 		// Parse sales organization's (owner of sales) data
 		$salesorg_data = $o->get_salesorg_data();
 		$this->vars($salesorg_data);
-		$ba = "";
+		$BANK_ACCOUNT = "";
 		foreach($salesorg_data["salesorg.bank_accounts"] as $salesorg_bank_account_data)
 		{
 			$this->vars($salesorg_bank_account_data);
-			$bank_account .= $this->parse("BANK_ACCOUNT");
+			$BANK_ACCOUNT .= $this->parse("BANK_ACCOUNT");
 		}
 		$this->vars(array(
-			"BANK_ACCOUNT" => $ba
+			"BANK_ACCOUNT" => $BANK_ACCOUNT
 		));
 		
 		$this->vars($o->get_customer_data());

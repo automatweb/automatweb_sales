@@ -124,7 +124,7 @@ class crm_offer_obj extends crm_offer_price_component_handler
 				return t("Pakkumus nr #offer_no#");
 
 			case "mail_content":
-				return t("Lugupeetav #customer_name#,
+				return t("Lugupeetav #customer.director#,
 
 Saadame Teile pakkumuse nr #offer_no#.
 
@@ -189,33 +189,6 @@ Parimat,
 		$recipients = array();
 		$customer_oid = $this->prop("customer");
 
-		if (!count($type) or in_array("user", $type))
-		{
-			// add current user
-			if (aw_global_get("uid_oid"))
-			{
-				$user_inst = new user();
-				$u = obj(aw_global_get("uid_oid"));
-				$person = obj($user_inst->get_current_person());
-				$email = $u->get_user_mail_address();
-				if (is_email($email))
-				{
-					$recipients[$email] = array($person->id(), $person->name());
-				}
-			}
-
-			// add offer salesman
-			if ($this->prop("salesman"))
-			{
-				$person = obj($this->prop("salesman"));
-				$email = $person->get_mail($customer_oid);
-				if (is_email($email))
-				{
-					$recipients[$email] = array($person->id(), $person->name());
-				}
-			}
-		}
-
 		if (!count($type) or in_array("customer_general", $type))
 		{
 			$name = $this->prop("customer.name");
@@ -243,8 +216,34 @@ Parimat,
 			}
 		}
 
+		if (!count($type) or in_array("salesman", $type))
+		{
+			if ($this->prop("salesman"))
+			{
+				$person = obj($this->prop("salesman"));
+				$email = $person->get_mail($customer_oid);
+				if (is_email($email))
+				{
+					$recipients[$email] = array($person->id(), $person->name());
+				}
+			}
+		}
+
 		if (!count($type) or in_array("custom", $type))
 		{
+			// add current user
+			if (aw_global_get("uid_oid"))
+			{
+				$user_inst = new user();
+				$u = obj(aw_global_get("uid_oid"));
+				$person = obj($user_inst->get_current_person());
+				$email = $u->get_user_mail_address();
+				if (is_email($email))
+				{
+					$recipients[$email] = array($person->id(), $person->name());
+				}
+			}
+
 			// manually added recipients
 			$custom = $this->get_mail_prop("custom_recipients");
 			foreach ($custom as $email => $person_oid)
@@ -324,8 +323,8 @@ Parimat,
 		@comment
 			Available variables are
 			#offer_no#
-			#customer_name#
-			#contact_person#
+			#customer.name#
+			#customer.director#
 			#signature#
 
 		@returns string
@@ -335,7 +334,8 @@ Parimat,
 	{
 		$replace = array(
 			"#offer_no#" => $this->id(),
-			"#customer_name#" => $this->prop("customer.name"),
+			"#customer.name#" => $this->prop("customer.name"),
+			"#customer.director#" => $this->prop("customer.firmajuht.name"),
 			"#signature#" => $this->get_sender_signature(),
 		);
 
