@@ -812,7 +812,7 @@ class crm_offer extends class_base
 					$row = obj($row_id);
 					$row->set_prop("name", $row_data["name"]);
 					$row->set_prop("comment", $row_data["comment"]);
-					$row->set_prop("unit", $row_data["unit"]);
+					$row->set_prop("unit", isset($row_data["unit"]) ? $row_data["unit"] : null);
 					$row->set_prop("amount", $row_data["amount"]);
 
 					foreach($row_data["price_component"] as $price_component_id => $price_component_data)
@@ -1040,31 +1040,25 @@ class crm_offer extends class_base
 
 		$o = new object($arr["id"]);
 
-		$customer = new object($o->prop("customer"));
-		$director = new object($o->prop("firmajuht"));
-		$director_profession = "";
-		if($director->is_a(CL_CRM_PERSON))
+		// General data, such as id, date, currency
+		$this->vars($o->get_offer_data());
+
+		$this->vars($o->get_salesman_data());
+
+		// Parse sales organization's (owner of sales) data
+		$salesorg_data = $o->get_salesorg_data();
+		$this->vars($salesorg_data);
+		$ba = "";
+		foreach($salesorg_data["salesorg.bank_accounts"] as $salesorg_bank_account_data)
 		{
-			$director_professions = $director->get_profession_names();
-			$director_profession = reset($director_professions);
+			$this->vars($salesorg_bank_account_data);
+			$bank_account .= $this->parse("BANK_ACCOUNT");
 		}
-
-		$salesman = new object($o->prop("salesman"));
-		$salesman_professions = $salesman->get_profession_names();
-		$salesman_profession = reset($salesman_professions);
-
 		$this->vars(array(
-			"id" => $o->id(),
-			"date" => $o->prop("date"),
-			"currency" => obj($o->prop("currency"))->name(), //$o->prop("currency.name"),	// prop.name NOT WORKING IF NOT LOGGED IN!
-			"customer" => $customer->name(),
-			"customer.mail" => $customer->get_mail(),
-//			"customer.phone" => $customer->get_phone(),
-			"customer.director.name" => $director->name(),
-			"customer.director.profession" => $director_profession,
-			"salesman.name" => $salesman->name(),
-			"salesman.profession" => $salesman_profession,
+			"BANK_ACCOUNT" => $ba
 		));
+		
+		$this->vars($o->get_customer_data());
 
 		$ROW = "";
 		foreach($o->get_rows() as $row)
@@ -1133,6 +1127,103 @@ class crm_offer extends class_base
 		}
 
 		return $this->parse();
+	}
+
+	private function parse_sales_org_data($imp)
+	{
+		$vars = array();
+		if ($this->can("view", $imp))
+		{
+			$impl = obj($imp);
+			$vars["impl_name"] = $impl->name();
+			$vars["impl_reg_nr"] = $impl->prop("reg_nr");
+			$vars["impl_kmk_nr"] = $impl->prop("tax_nr");
+			$vars["impl_fax"] = $impl->prop_str("telefax_id", true);//TODO: use get_phone(), get_telefax(),... type methods instead -- implementor could be a person. todo: create these methods in crmco crmperson and add them to customerinterface
+			$vars["impl_url"] = $impl->prop_str("url_id", true);
+			$vars["impl_phone"] = $impl->prop_str("phone_id", true);
+			$vars["imp_penalty"] = $impl->prop("bill_penalty_pct");//TODO: belongs to customer relation not crmco
+			$vars["impl_ou"] = $impl->prop("ettevotlusvorm.shortname");
+
+			$impl_logo = $impl->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
+			if ($impl_logo)
+			{
+				$logo_url = $impl_logo->instance()->get_url_by_id($impl_logo->id());
+				$this->vars["impl_logo_url"] = $logo_url;
+				if ($logo_url)
+				{
+					$this->vars(array(
+						"HAS_IMPL_LOGO" => $this->parse("HAS_IMPL_LOGO")
+					));
+				}
+			}
+
+			$ba = "";
+			foreach($impl->connections_from(array("type" => "RELTYPE_BANK_ACCOUNT")) as $c)
+			{
+				$acc = $c->to();
+				$bank = obj();
+				if ($this->can("view", $acc->prop("bank")))
+				{
+					$bank = obj($acc->prop("bank"));
+				}
+				$this->vars(array(
+					"bank_name" => $bank->name(),
+					"acct_no" => $acc->prop("acct_no"),
+					"bank_iban" => $acc->prop("iban_code")
+				));
+
+				$ba .= $this->parse("BANK_ACCOUNT");
+			}
+			$this->vars(array(
+				"BANK_ACCOUNT" => $ba
+			));
+
+			$logo_o = $impl->get_first_obj_by_reltype("RELTYPE_ORGANISATION_LOGO");
+			if ($logo_o)
+			{
+				$logo_i = $logo_o->instance();
+				$vars["logo"] = $logo_i->make_img_tag_wl($logo_o->id());
+				$vars["logo_url"] = $logo_i->get_url_by_id($logo_o->id());
+			}
+
+
+			$has_country = "";
+			if ($this->can("view", $impl->prop("contact")))
+			{
+				$ct = obj($impl->prop("contact"));
+				$ap = array($ct->prop("aadress"));
+				if ($ct->prop("linn"))
+				{
+					$vars["impl_city"] = $ct->prop_str("linn");
+					$ap[] = $ct->prop_str("linn");
+				}
+				$aps = join(", ", $ap).html::linebreak();
+				$aps .= $ct->prop_str("maakond");
+				$aps .= " ".$ct->prop("postiindeks");
+				$vars["impl_index"] = $ct->prop("postiindeks");
+				$vars["impl_county"] = $ct->prop_str("maakond");
+				$vars["impl_addr"] = $aps;
+				$vars["impl_street"] = $ct->prop("aadress");
+
+				if ($this->can("view", $ct->prop("riik")))
+				{
+					$riik = obj($ct->prop("riik"));
+					$vars["impl_country"] = $riik->name();
+					//TODO: make sense and order in phone number handling before adding areacode automatically.
+					// $vars["impl_phone"] = $riik->prop("area_code")." ".$impl->prop_str("phone_id");
+					$this->vars(array("HAS_COUNTRY" => $this->parse("HAS_COUNTRY")));
+				}
+			}
+
+			if ($this->can("view", $impl->prop("email_id")))
+			{
+				$mail = obj($impl->prop("email_id"));
+				$vars["impl_mail"] = $mail->prop("mail");
+			}
+
+			$this->vars($vars);
+		}
+		return $vars;
 	}
 
 	/**

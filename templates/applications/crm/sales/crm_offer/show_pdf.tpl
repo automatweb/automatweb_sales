@@ -13,6 +13,7 @@
 	.info td { border: 1px solid white; }
 	.data { margin: 3em 0 0 0; }
 	.data td { border: 1px solid white; }
+	.row_comment { font-size: 8px; color: #666666; }
 	.heading { color: #666666; }
 	.bill_text { border-top: 1px solid gray; margin: 2em; }
 	.bill_text_div { padding: 1em; }
@@ -49,14 +50,14 @@ if(isset($pdf))
 		<img src="http://intranet.automatweb.com/img/automatweb.jpg" alt="AutomatWeb" width="277" height="48">
 	</td>
 	<td width="35%">
-		<strong>{VAR:impl_ou} {VAR:impl_name}</strong><br>
-		Reg. nr {VAR:impl_reg_nr}<br>
-		kmkr {VAR:impl_kmk_nr}<br>
-		Swedbank a/a {VAR:acct_no}
+		<strong>{VAR:salesorg.ou} {VAR:salesorg.name}</strong><br>
+		Reg. nr {VAR:salesorg.reg_nr}<br>
+		kmkr {VAR:salesorg.kmk_nr}<br>
+		Swedbank a/a {VAR:salesorg.acct_no}
 	</td>
 	<td width="25%">
-		{VAR:impl_street}<br>
-		{VAR:impl_index}, {VAR:impl_city}<br>
+		{VAR:salesorg.address.street}<br>
+		{VAR:salesorg.address.index}, {VAR:salesorg.address.city}<br>
 		Tel 6 558 334<br>
 		www.automatweb.com
 	</td>
@@ -78,7 +79,7 @@ if(isset($pdf))
 <tr>
 	<td width="15%" class="heading"></td>
 	<td width="35%">{VAR:orderer_street}</td>
-	<td width="15%" class="heading"><strong>Pakkumuse kuupäev:</strong></td>
+	<td width="15%" class="heading"><strong>Kuupäev:</strong></td>
 	<td width="35%">{DATE:date|d.m.Y}</td>
 </tr>
 </table>
@@ -93,7 +94,14 @@ if(isset($pdf))
 </tr>
 <!-- SUB: ROW -->
 <tr bgcolor="#f5f5f5">
-	<td>{VAR:name}&nbsp;</td>
+	<td>
+		{VAR:name}&nbsp;
+		<!-- SUB: ROW_COMMENT -->
+		<div class="row_comment">
+			{VAR:comment}&nbsp;
+		</div>
+		<!-- END SUB: ROW_COMMENT -->
+	</td>
 	<td>{VAR:unit}&nbsp;</td>
 	<td>{VAR:amount}&nbsp;</td>
 	<td>{VAR:price}&nbsp;</td>
@@ -108,12 +116,12 @@ if(isset($pdf))
 	<td colspan="5" class="heading" align="right">&nbsp;</td>
 </tr>
 <tr>
-	<td colspan="4" class="heading" align="right"><strong>Summa koos käibemaksuga:</strong></td>
-	<td>{VAR:total} {VAR:currency}</td>
+	<td colspan="3" class="heading" align="right"><strong>Summa koos käibemaksuga:</strong></td>
+	<td colspan="2">{VAR:total} {VAR:currency}</td>
 </tr>
 <tr>
-	<td colspan="4" class="heading" align="right"><strong>Summa sõnadega:</strong></td>
-	<td>{VAR:total_text}</td>
+	<td colspan="3" class="heading" align="right"><strong>Summa sõnadega:</strong></td>
+	<td colspan="2">{VAR:total_text}</td>
 </tr>
 <table  width="100%" cellspacing="0" cellpadding="5">
   <tr>
