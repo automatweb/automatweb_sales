@@ -371,12 +371,49 @@ Parimat,
 		}
 
 		return array(
-			"customer" => $customer->name(),
+			"customer.name" => $customer->name(),
 			"customer.mail" => $customer->get_mail(),
 //			"customer.phone" => $customer->get_phone(),
+			"customer.kmk_nr" => $customer->prop("tax_nr"),
+			"customer.reg_nr" => $customer->prop("reg_nr"),
+
+			"customer.address.address" => $this->get_customer_address(),
+			"customer.address.city" => $this->get_customer_address("city"),
+			"customer.address.county" => $this->get_customer_address("county"),
+			"customer.address.index" => $this->get_customer_address("index"),
+			"customer.address.country" => $this->get_customer_address("country"),
+			"customer.address.street" => $this->get_customer_address("street"),
+
 			"customer.director.name" => $director->name(),
 			"customer.director.profession" => $director_profession,
 		);
+	}
+
+	public function get_customer_address($prop = "")
+	{
+		$customer = obj($this->prop("customer"));
+		$a = $customer->is_a(CL_CRM_COMPANY) ? "contact" : "address";
+
+		switch($prop)
+		{
+			case "street":
+				return $customer->prop($a.".aadress");
+
+			case "index":
+				return $customer->prop($a.".postiindeks");
+
+			case "country":
+				return $customer->prop($a.".riik.name");
+
+			case "county":
+				return $customer->prop($a.".maakond.name");
+
+			case "city":
+				return $customer->prop($a.".linn.name");
+
+			default:
+				return $customer->prop($a.".name");
+		}
 	}
 
 	public function get_salesman_data()
