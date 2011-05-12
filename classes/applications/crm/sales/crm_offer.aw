@@ -1041,6 +1041,17 @@ class crm_offer extends class_base
 		$o = new object($arr["id"]);
 
 		$customer = new object($o->prop("customer"));
+		$director = new object($o->prop("firmajuht"));
+		$director_profession = "";
+		if($director->is_a(CL_CRM_PERSON))
+		{
+			$director_professions = $director->get_profession_names();
+			$director_profession = reset($director_professions);
+		}
+
+		$salesman = new object($o->prop("salesman"));
+		$salesman_professions = $salesman->get_profession_names();
+		$salesman_profession = reset($salesman_professions);
 
 		$this->vars(array(
 			"id" => $o->id(),
@@ -1049,6 +1060,10 @@ class crm_offer extends class_base
 			"customer" => $customer->name(),
 			"customer.mail" => $customer->get_mail(),
 //			"customer.phone" => $customer->get_phone(),
+			"customer.director.name" => $director->name(),
+			"customer.director.profession" => ,
+			"salesman.name" => $salesman->name(),
+			"salesman.profession" => $salesman_profession,
 		));
 
 		$ROW = "";
@@ -1099,8 +1114,8 @@ class crm_offer extends class_base
 		}
 
 		$this->vars(array(
-			"sum" => number_format($o->prop("sum"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
-			"sum_text" => aw_locale::get_lc_money_text($o->prop("sum"), $o->currency()),
+			"total" => number_format($o->prop("sum"), 2),	// number_format() SHOULD BE DONE ON TPL LEVEL!
+			"total_text" => aw_locale::get_lc_money_text($o->prop("sum"), $o->currency()),
 			"ROW" => $ROW
 		));
 
@@ -1110,7 +1125,7 @@ class crm_offer extends class_base
 			if($conv->can_convert())
 			{
 				$res = $conv->convert(array(
-					"source" => $res,
+					"source" => $this->parse(),
 					"filename" => $o->id().".pdf",
 				));
 				return $res;
