@@ -391,7 +391,7 @@ Parimat,
 		);
 	}
 
-	public function get_salesman_data()
+	public function get_salesorg_data()
 	{
 		$salesorg = new object(automatweb::$request->get_application()->prop("owner"));
 
