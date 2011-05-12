@@ -1,8 +1,17 @@
 <?php
 
-class doc_obj extends _int_object
+class doc_obj extends _int_object implements crm_sales_price_component_interface, crm_offer_row_interface
 {
 	const CLID = 7;
+
+	//	Written solely for testing purposes!
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+		return $ol;
+	}
 
 	public function is_visible_to()
 	{
