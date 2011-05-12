@@ -421,9 +421,9 @@ Parimat,
 			);
 		}
 
-		if ($this->can("view", $impl->prop("contact")))
+		if ($this->can("view", $salesorg->prop("contact")))
 		{
-			$ct = obj($impl->prop("contact"));
+			$ct = obj($salesorg->prop("contact"));
 			$ap = array($ct->prop("aadress"));
 			if ($ct->prop("linn"))
 			{
