@@ -1061,7 +1061,7 @@ class crm_offer extends class_base
 			"customer.mail" => $customer->get_mail(),
 //			"customer.phone" => $customer->get_phone(),
 			"customer.director.name" => $director->name(),
-			"customer.director.profession" => ,
+			"customer.director.profession" => $director_profession,
 			"salesman.name" => $salesman->name(),
 			"salesman.profession" => $salesman_profession,
 		));
