@@ -239,6 +239,7 @@ class crm_offer extends class_base
 		$recipient_types = array(
 			"customer_director" => t("Kliendi juhataja aadress"),
 			"customer_general" => t("Kliendi &uuml;ldaadressid"),
+			"customer_bill" => t("Kliendi arveaadressid"),
 			"user" => t("M&uuml;&uuml;giesindaja"),
 			"custom" => t("Lisaaadressid")
 		);

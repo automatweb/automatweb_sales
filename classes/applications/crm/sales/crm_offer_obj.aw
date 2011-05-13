@@ -188,6 +188,7 @@ Parimat,
 
 		$recipients = array();
 		$customer_oid = $this->prop("customer");
+		$salesorg_oid = automatweb::$request->get_application()->prop("owner");
 
 		if (!count($type) or in_array("customer_general", $type))
 		{
@@ -216,12 +217,37 @@ Parimat,
 			}
 		}
 
+		if (!count($type) or in_array("customer_bill", $type))
+		{
+
+			$cro = $this->get_customer_relation();
+
+			if ($cro !== false)
+			{
+				$bill_person_ol = new object_list($cro->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
+				if($bill_person_ol->count())
+				{
+					$person = $bill_person_ol->begin();
+
+					do
+					{
+						$email = $person->get_mail($customer_oid);
+						if (is_email($email))
+						{
+							$recipients[$email]  = array($person->id(), $person->name());
+						}
+					}
+					while ($person = $bill_person_ol->next());
+				}
+			}
+		}
+
 		if (!count($type) or in_array("salesman", $type))
 		{
 			if ($this->prop("salesman"))
 			{
 				$person = obj($this->prop("salesman"));
-				$email = $person->get_mail($customer_oid);
+				$email = $person->get_mail($salesorg_oid);
 				if (is_email($email))
 				{
 					$recipients[$email] = array($person->id(), $person->name());
@@ -389,7 +415,7 @@ Parimat,
 		);
 	}
 
-	public function get_customer_address($prop = "")
+	protected function get_customer_address($prop = "")
 	{
 		$customer = obj($this->prop("customer"));
 		$a = $customer->is_a(CL_CRM_COMPANY) ? "contact" : "address";
@@ -440,7 +466,7 @@ Parimat,
 			"salesorg.url" => $salesorg->prop_str("url_id", true),
 			"salesorg.phone" => $salesorg->prop_str("phone_id", true),
 			"salesorg.ou" => $salesorg->prop("ettevotlusvorm.shortname"),
-			"bank_accounts" => array(),
+			"salesorg.bank_accounts" => array(),
 		);
 
 		foreach($salesorg->connections_from(array("type" => "RELTYPE_BANK_ACCOUNT")) as $c)
@@ -1280,8 +1306,21 @@ Parimat,
 			{
 				$customer_relation_id = $customer_relation->id();
 				$this->set_prop("customer_relation", $customer_relation_id);
+
+				return $customer_relation;
 			}
 		}
+		return false;
+	}
+
+	protected function get_customer_relation()
+	{
+		$customer_relation = new object($this->prop("customer_relation"));
+		if (!$customer_relation->is_a(CL_CRM_COMPANY_CUSTOMER_DATA))
+		{
+			$customer_relation = $this->set_customer_relation();
+		}
+		return $customer_relation;
 	}
 }
 
