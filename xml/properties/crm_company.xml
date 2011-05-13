@@ -978,7 +978,7 @@
             <no_caption>1</no_caption>
             <store>no</store>
             <field>my_customers_toolbar</field>
-            <caption>&amp;quot;Klientide toolbar&amp;quot;</caption>
+            <caption>Kliendivaate tegevused</caption>
       </property>
       <property>
             <name>tree_search_split_dummy</name>
@@ -1254,9 +1254,23 @@
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>my_cust_bot</parent>
+            <parent>customer_list_container</parent>
             <field>my_customers_table</field>
             <caption>Kliendid</caption>
+      </property>
+      <property>
+            <name>customer_categories_table</name>
+            <table>objects</table>
+            <group>
+                  <num_0>relorg_s</num_0>
+                  <num_1>relorg_b</num_1>
+            </group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>category_list_container</parent>
+            <field>customer_categories_table</field>
+            <caption>Kliendikategooriad</caption>
       </property>
       <property>
             <name>special_offers</name>
@@ -3626,19 +3640,19 @@
             <relorg>
                   <caption>Kliendid</caption>
                   <focus>cs_n</focus>
-                  <save>no</save>
+                  <submit>no</submit>
             </relorg>
             <relorg_b>
                   <caption>Ostjad</caption>
                   <focus>cs_n</focus>
                   <parent>relorg</parent>
-                  <save>no</save>
+                  <submit>no</submit>
             </relorg_b>
             <relorg_s>
                   <caption>M&amp;amp;uuml;&amp;amp;uuml;jad</caption>
                   <focus>cs_n</focus>
                   <parent>relorg</parent>
-                  <save>no</save>
+                  <submit>no</submit>
             </relorg_s>
             <org_images>
                   <caption>Pildid</caption>
@@ -4489,6 +4503,35 @@
                   </group>
                   <area_caption></area_caption>
             </vbox_customers_left_search_btn>
+            <list_container>
+                  <type>vbox</type>
+                  <parent>my_cust_bot</parent>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+                  <area_caption></area_caption>
+            </list_container>
+            <customer_list_container>
+                  <type>vbox</type>
+                  <parent>list_container</parent>
+                  <area_caption>Kliendid</area_caption>
+                  <closeable>1</closeable>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+            </customer_list_container>
+            <category_list_container>
+                  <type>vbox</type>
+                  <parent>list_container</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Kategooriad</area_caption>
+                  <group>
+                        <num_0>relorg_s</num_0>
+                        <num_1>relorg_b</num_1>
+                  </group>
+            </category_list_container>
             <projects_main>
                   <type>hbox</type>
                   <width>20%:80%</width>

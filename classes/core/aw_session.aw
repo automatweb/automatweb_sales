@@ -1,9 +1,6 @@
 <?php
-/*
-@classinfo  maintainer=kristo
-*/
 
-class aw_session 
+class aw_session
 {
 	var $ses_table = "aw_sessions";
 
@@ -113,5 +110,45 @@ class aw_session
 		    return TRUE;
 		}
     }
-};
-?>
+
+	/**
+		@attrib api=1 params=pos
+		@param name type=string
+			Variable name to set
+		@param value type=mixed
+			Value to assign. Array or scalar. Scalar values are converted to strings.
+		@comment
+		@returns void
+		@errors
+	**/
+	public static function set($name, $value)
+	{
+		aw_session_set($name, $value);
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param name type=string
+			Variable name whose value to get
+		@comment
+		@returns mixed
+		@errors
+	**/
+	public static function get($name)
+	{
+		return aw_global_get($name);
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param name type=string
+			Variable name to delete
+		@comment
+		@returns void
+		@errors
+	**/
+	public static function unset($name)
+	{
+		aw_session_del($name);
+	}
+}

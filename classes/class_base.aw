@@ -37,23 +37,10 @@
 	@forminfo edit onload=load_storage_object
 
 */
-// some contants for internal use
 
-// possible return values for set_property
-// everything's ok, property can be saved
-define('PROP_OK',1);
+//DEPRECATED. use class_base::PROP_... instead
+define('PROP_OK',1); define('PROP_IGNORE',2); define('PROP_ERROR',3); define('PROP_FATAL_ERROR',4);
 
-// drop this property from the save queue
-define('PROP_IGNORE',2);
-
-// error occured while saving this property, notify
-// the user, but still save the rest of the
-// object data (if any)
-define('PROP_ERROR',3);
-
-// something went very very wrong,
-// notify the user and DO NOT display the form/save the object
-define('PROP_FATAL_ERROR',4);
 
 // translation
 define('RELTYPE_TRANSLATION',102);
@@ -61,6 +48,24 @@ define('RELTYPE_ORIGINAL',103);
 
 class class_base extends aw_template
 {
+	// possible return values for set_property
+	// ------------------------------------------
+	// everything's ok, property can be saved
+	const PROP_OK = 1;
+
+	// drop this property from the save queue
+	const PROP_IGNORE = 2;
+
+	// error occured while saving this property, notify
+	// the user, but still save the rest of the
+	// object data (if any)
+	const PROP_ERROR = 3;
+
+	// something went very very wrong,
+	// notify the user and DO NOT display the form/save the object
+	const PROP_FATAL_ERROR = 4;
+
+
 	var $id; // loaded storage object id
 	var $clid; // loaded storage object class id
 	var $cli; // output client reference
@@ -6854,3 +6859,5 @@ class awex_cb extends aw_exception {}
 
 /** class related errors **/
 class awex_cb_class extends awex_cb {}
+
+
