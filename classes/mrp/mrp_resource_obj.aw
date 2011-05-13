@@ -53,6 +53,7 @@ class mrp_resource_obj extends _int_object implements crm_sales_price_component_
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_UNIT,
+			"status" => object::STAT_ACTIVE,
 		));
 		return $ol;
 	}
