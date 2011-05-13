@@ -1955,13 +1955,11 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 								$tbl_fld2 = $this->_get_tablefield_from_prop($val->data[1]);
 								$sql[] = " (NOT ($tbl_fld1 >= '".$val->data2[1]."' OR $tbl_fld2 <= '".$val->data2[0]."')) ";
 							}
-							else
-							if ($val->comparator == obj_predicate_compare::NULL)
+							elseif ($val->comparator == obj_predicate_compare::NULL)
 							{
 								$sql[] = $tf." & ".((int)$this->properties[$key]["ch_value"])." IS NULL ";
 							}
-							else
-							if (is_array($v_data))
+							elseif (is_array($v_data))
 							{
 								$tmp = array();
 								foreach($v_data as $d_k)
@@ -2062,7 +2060,7 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 				elseif ($class_name === "obj_predicate_compare")
 				{
 					$v_data = $val->data;
-					if (is_object($val->data) && get_class($val->data) == "aw_array")
+					if (is_object($val->data) && get_class($val->data) === "aw_array")
 					{
 						$v_data = $v_data->get();
 					}
@@ -2139,13 +2137,13 @@ class _int_obj_ds_mysql extends _int_obj_ds_base
 					}
 					else
 					{
-						if(!($val->type === "int"))
+						if($val->type === "int")
 						{
-							$ent = "'";
+							$ent = "";
 						}
 						else
 						{
-							$ent = "";
+							$ent = "'";
 						}
 						$sql[] = "{$tf} {$comparator} {$ent}{$v_data}{$ent} ";
 					}

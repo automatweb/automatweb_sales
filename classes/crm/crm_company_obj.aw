@@ -2161,6 +2161,28 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $co->id();
 	}
 
+	/**
+		@attrib api=1 params=pos
+		@param customer_relation type=CL_CRM_COMPANY_CUSTOMER_DATA
+		@param delete_customer_object type=bool default=FALSE
+			Whether to also delete customer object (company, person)
+		@comment
+		@returns void
+		@errors
+			throws awex_obj if customer or relation object denied
+	**/
+	public function delete_customer(object $customer_relation, $delete_customer_object = false)
+	{
+		if ($delete_customer_object)
+		{
+			$customer_oid = $customer_relation->prop("seller") == $this->id() ? $customer_relation->prop("buyer") : $customer_relation->prop("seller");
+			$customer = new object($customer_oid);
+			$customer->delete();
+		}
+
+		$customer_relation->delete();
+	}
+
 	/** returns company section, adds if none exists
 		@attrib api=1 params=pos
 		@param section optional type=string
@@ -2310,7 +2332,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@attrib params=pos
 		@param root optional type=int acl=view
 			The OID from which to start the customer categories hierarchy
-		@param depth optional type=int
+		@param depth optional type=int default=NULL
 			The maximum depth of the customer categories hierarchy. If not set entire hierarchy will be returned.
 	**/
 	public function get_customer_categories_hierarchy($root = NULL, $depth = NULL)
@@ -2324,17 +2346,18 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $retval;
 	}
 
-	/**
+	/** Returns subcategories under parent
 		@attrib api=1 params=pos
-		@param parent type=CL_CRM_CATEGORY default=NULL
-			category whose subcategories are desired
-		@param types type=array default=array(crm_category_obj::TYPE_GENERIC)
-		@return object_list
+		@param parent type=CL_CRM_CATEGORY,CL_CRM_COMPANY default=NULL
+			Category whose subcategories are desired. To get top level categories, specify owner organization object as parent
+		@param types type=array default=array()
+			Default returns all types
+		@return object_list(CL_CRM_CATEGORY)
 		@errors
 			throws awex_obj_type if given parent is of wrong class
 		@qc date=20101026 standard=aw3
 	**/
-	public function get_customer_categories(object $parent = null, $types = array(crm_category_obj::TYPE_GENERIC))
+	public function get_customer_categories(object $parent = null, $types = array())
 	{
 		if ($this->is_saved())
 		{
@@ -2346,11 +2369,18 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 			if ($parent)
 			{
-				if (!$parent->is_a(crm_category_obj::CLID))
+				if ($parent->is_a(crm_category_obj::CLID))
+				{
+					$filter["parent_category"] = $parent->id();
+				}
+				elseif ($parent->is_a(crm_company_obj::CLID))
+				{
+					$filter["parent_category"] = 0;
+				}
+				else
 				{
 					throw new awex_obj_type("Given category " . $parent->id() . " is not a category object (clid is " . $parent->class_id() . ")");
 				}
-				$filter["parent_category"] = $parent->id();
 			}
 		}
 		else

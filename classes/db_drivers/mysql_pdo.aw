@@ -78,6 +78,8 @@ class mysql_pdo
 			// $this->db_free_result();//TODO: make it happen. can't right away because of save_handle/restore_handle
 		// }
 
+		// arr($qtext); //XXX: teha dbg versioonid
+
 		$this->qID = $this->dbh->query($qtext);
 		// $this->log_query($qtext);
 

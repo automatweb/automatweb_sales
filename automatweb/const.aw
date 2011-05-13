@@ -31,5 +31,3 @@ else
 }
 
 require_once($site_dir . "const.aw");
-
-?>
