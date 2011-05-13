@@ -11,6 +11,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_UNIT,
+			"status" => object::STAT_ACTIVE,
 		));
 		return $ol;
 	}

@@ -51,6 +51,17 @@ class unit_obj extends _int_object
 		return $quantity_names;
 	}
 
+	/** Returns an object_list of all unit objects
+		@attrib api=1
+		@returns object_list
+	**/
+	public static function get_all_units()
+	{
+		return new object_list(array(
+			"class_id" => CL_UNIT,
+		));
+	}
+
 	/** Returns form of unit name for given value
 		@attrib api=1 params=pos
 		@param value type=string
