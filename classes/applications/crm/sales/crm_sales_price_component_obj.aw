@@ -40,6 +40,7 @@ class crm_sales_price_component_obj extends _int_object
 
 	public function awobj_set_value($v)
 	{
+		$this->set_prop("is_ratio", strpos($v, "%") !== false ? 1 : 0);
 		return parent::set_prop("value", aw_math_calc::string2float($v));
 	}
 
