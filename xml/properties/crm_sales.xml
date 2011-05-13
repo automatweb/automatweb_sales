@@ -527,7 +527,7 @@
             <caption>Juht</caption>
       </property>
       <property>
-            <name>cfgf_offers_toolbar</name>
+            <name>price_components_toolbar</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
@@ -537,17 +537,28 @@
             <no_caption>1</no_caption>
       </property>
       <property>
-            <name>cfgf_offers_hide_mandatory_price_components</name>
+            <name>price_component_categories_tree</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>price_components</group>
+            <type>treeview</type>
+            <parent>price_component_categories_tree</parent>
+            <store>no</store>
+      </property>
+      <property>
+            <name>hide_mandatory_price_components</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
             <group>price_components</group>
             <type>checkbox</type>
-            <parent>settings_offers_left</parent>
+            <parent>price_components_settings</parent>
+            <no_caption>1</no_caption>
             <caption>Peida kohustuslikud hinnakomponendid</caption>
       </property>
       <property>
-            <name>cfgf_offers_price_component_categories_table</name>
+            <name>price_component_categories_table</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
@@ -555,10 +566,10 @@
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>settings_offers_right</parent>
+            <parent>price_components_right</parent>
       </property>
       <property>
-            <name>cfgf_offers_price_components_table</name>
+            <name>price_components_table</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
@@ -566,7 +577,7 @@
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>settings_offers_right</parent>
+            <parent>price_components_right</parent>
       </property>
       <property>
             <name>contacts_toolbar</name>
@@ -2025,24 +2036,36 @@
                   <area_caption>Esitlus</area_caption>
                   <group>settings_general</group>
             </presentation_cfg_box>
-            <settings_offers_vsplitbox>
+            <price_components_vsplitbox>
                   <type>hbox</type>
-                  <width>50%:50%</width>
+                  <width>25%:75%</width>
                   <group>price_components</group>
                   <area_caption></area_caption>
-            </settings_offers_vsplitbox>
-            <settings_offers_left>
+            </price_components_vsplitbox>
+            <price_components_left>
                   <type>vbox</type>
-                  <parent>settings_offers_vsplitbox</parent>
-                  <area_caption>Pakkumuste&amp;amp;nbsp;seaded</area_caption>
-                  <group>price_components</group>
-            </settings_offers_left>
-            <settings_offers_right>
-                  <type>vbox</type>
-                  <parent>settings_offers_vsplitbox</parent>
+                  <parent>price_components_vsplitbox</parent>
                   <group>price_components</group>
                   <area_caption></area_caption>
-            </settings_offers_right>
+            </price_components_left>
+            <price_component_categories_tree>
+                  <type>vbox</type>
+                  <parent>price_components_left</parent>
+                  <area_caption>Hinnakomponentide&amp;amp;nbsp;kategooriad</area_caption>
+                  <group>price_components</group>
+            </price_component_categories_tree>
+            <price_components_settings>
+                  <type>vbox</type>
+                  <parent>price_components_left</parent>
+                  <area_caption>Hinnakomponentide&amp;amp;nbsp;seaded</area_caption>
+                  <group>price_components</group>
+            </price_components_settings>
+            <price_components_right>
+                  <type>vbox</type>
+                  <parent>price_components_vsplitbox</parent>
+                  <group>price_components</group>
+                  <area_caption></area_caption>
+            </price_components_right>
             <contacts_vsplitbox>
                   <type>hbox</type>
                   <width>25%:75%</width>
