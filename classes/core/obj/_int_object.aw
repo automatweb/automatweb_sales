@@ -59,13 +59,28 @@ class _int_object
 
 	function save_new()
 	{
-		$this->_int_set_of_value("oid", 0);
-		$this->_int_set_of_value("brother_of", 0);
+		if (!is_oid($this->parent()))
+		{
+			throw new awex_obj_parent("Cannot duplicate object! Parent not set!");
+		}
+
+		if (!is_class_id($this->class_id()))
+		{
+			throw new awex_obj_class("Cannot duplicate object! Class ID not set!");
+		}
+
+		$o = new object();
+		$o->set_class_id($this->class_id());
+		$o->set_parent($this->parent());
+
 		foreach($this->get_property_list() as $pn => $pd)
 		{
-			$this->set_prop($pn, $this->prop($pn));
+			$o->set_prop($pn, $this->prop($pn));
 		}
-		return $this->save();
+
+		$o->save();
+
+		return $o;
 	}
 
 	function set_implicit_save($param)
