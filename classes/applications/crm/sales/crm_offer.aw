@@ -1060,7 +1060,14 @@ class crm_offer extends class_base
 			"BANK_ACCOUNT" => $BANK_ACCOUNT
 		));
 		
-		$this->vars($o->get_customer_data());
+		try
+		{
+			$this->vars($o->get_customer_data());
+		}
+		catch (awex_crm_offer_customer $e)
+		{
+			//	No customer set for the offer.
+		}
 
 		$ROW = "";
 		foreach($o->get_rows() as $row)

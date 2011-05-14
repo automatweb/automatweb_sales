@@ -384,9 +384,19 @@ Parimat,
 		);
 	}
 
+	/**	Returns an parsed array of customer data
+		@attrib api=1
+		@errors
+			throws awex_crm_offer_customer if no customer is set for the offer
+	**/
 	public function get_customer_data()
 	{
-		$customer = new object($this->prop("customer"));
+		if (!is_oid($customer_id = $this->prop("customer")))
+		{
+			throw new awex_crm_offer_customer("No customer set for this offer!");
+		}
+
+		$customer = new object($customer_id);
 		$director = new object($customer->prop("firmajuht"));
 
 		$director_profession = "";
@@ -1326,6 +1336,9 @@ Parimat,
 
 /** Generic crm_offer exception **/
 class awex_crm_offer extends awex_crm {}
+
+/** Customer errors **/
+class awex_crm_offer_customer extends awex_crm {}
 
 /** E-mail address errors **/
 class awex_crm_offer_email extends awex_crm_offer
