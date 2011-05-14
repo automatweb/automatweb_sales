@@ -1132,7 +1132,7 @@ class _int_object
 		$clid = isset($this->obj["class_id"]) ? $this->obj["class_id"] : null; //!!! return default kui clid null
 		$classes = aw_ini_get("classes");
 		$inf = $GLOBALS["object_loader"]->load_properties(array(
-			"file" => ($clid == CL_DOCUMENT ? "doc" : basename($classes[$clid]["file"])),
+			"file" => ($clid == doc_obj::CLID ? "doc" : basename($classes[$clid]["file"])),
 			"clid" => $clid
 
 		));
@@ -1657,7 +1657,7 @@ class _int_object
 		switch($prop)
 		{
 			case "name":
-				if ($this->class_id() == CL_LANGUAGE)
+				if ($this->class_id() == language_obj::CLID)
 				{
 					$val = $this->prop("lang_name");
 					$prop = "lang_name";
@@ -2599,7 +2599,7 @@ class _int_object
 		$user_oid = get_instance("user")->get_current_user();
 
 		$params = array(
-			"class_id" => CL_DRAFT,
+			"class_id" => draft_obj::CLID,
 			"draft_object" => $this->id(),
 			"draft_property" => $prop,
 			"draft_user" => $user_oid,
@@ -2619,7 +2619,7 @@ class _int_object
 		else
 		{
 			$o = obj();
-			$o->set_class_id(CL_DRAFT);
+			$o->set_class_id(draft_obj::CLID);
 			$o->set_parent($user_oid);
 		}
 
@@ -2648,7 +2648,7 @@ class _int_object
 		$user_oid = get_instance("user")->get_current_user();
 
 		$params = array(
-			"class_id" => CL_DRAFT,
+			"class_id" => draft_obj::CLID,
 			"draft_object" => $this->id(),
 			"draft_property" => $prop,
 			"draft_user" => $user_oid,
@@ -2663,7 +2663,7 @@ class _int_object
 		$odl = new object_data_list(
 			$params,
 			array(
-				CL_DRAFT => array("draft_content"),
+				draft_obj::CLID => array("draft_content"),
 			)
 		);
 		if($odl->count() > 0)
