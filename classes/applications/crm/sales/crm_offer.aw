@@ -125,7 +125,7 @@ class crm_offer extends class_base
 	{
 		$this->init(array(
 			"tpldir" => "applications/crm/sales/crm_offer",
-			"clid" => CL_CRM_OFFER
+			"clid" => crm_offer_obj::CLID
 		));
 	}
 
@@ -272,7 +272,7 @@ class crm_offer extends class_base
 		{
 			$recipient = new object($recipient_oid);
 
-			if ($recipient->is_a(CL_CRM_PERSON))
+			if ($recipient->is_a(crm_person_obj::CLID))
 			{
 				if ("customer" === $recipient_data[2])
 				{
@@ -287,7 +287,7 @@ class crm_offer extends class_base
 				$profession = implode(", " , $recipient->get_profession_names($organization_o));
 				$name = html::obj_change_url($recipient->id(), $recipient->name());
 			}
-			elseif ($recipient->is_a(CL_CRM_COMPANY))
+			elseif ($recipient->is_a(crm_company_obj::CLID))
 			{
 				$organization = html::obj_change_url($recipient->id(), $name);
 				$name = "";
@@ -554,7 +554,7 @@ class crm_offer extends class_base
 		}
 
 		$arr["prop"]["class"] = "sbtbutton";
-		$arr["prop"]["onclick"] = sprintf("document.location = '%s'", $this->mk_my_orb("new", array("return_url" => get_ru(), "offer" => $arr["obj_inst"]->id(), "parent" => $arr["obj_inst"]->id()), CL_CRM_OFFER_SENT));
+		$arr["prop"]["onclick"] = sprintf("document.location = '%s'", $this->mk_my_orb("new", array("return_url" => get_ru(), "offer" => $arr["obj_inst"]->id(), "parent" => $arr["obj_inst"]->id()), crm_offer_sent_obj::CLID));
 	}
 
 	public function _get_state($arr)
@@ -1298,7 +1298,7 @@ class crm_offer extends class_base
 		$r = $arr["post_ru"];
 		try
 		{
-			$this_o = obj($arr["id"], array(), CL_CRM_OFFER);
+			$this_o = obj($arr["id"], array(), crm_offer_obj::CLID);
 		}
 		catch (awex_obj $e)
 		{
@@ -1389,7 +1389,7 @@ class crm_offer extends class_base
 	{
 		try
 		{
-			$this_o = obj($arr["id"], array(), CL_CRM_OFFER);
+			$this_o = obj($arr["id"], array(), crm_offer_obj::CLID);
 			echo nl2br($this_o->parse_mail_text($arr["text"]));
 		}
 		catch (Exception $e)

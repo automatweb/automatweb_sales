@@ -2,6 +2,8 @@
 
 class crm_offer_obj extends crm_offer_price_component_handler
 {
+	const CLID = 1703;
+
 	protected $rows;
 	protected $price_components;
 	protected $price_components_loaded = false;
@@ -60,8 +62,8 @@ class crm_offer_obj extends crm_offer_price_component_handler
 			throw new awex_crm_offer("Offer must be saved before it can be saved as a template!");
 		}
 
-		$o = obj();
-		$o->set_class_id(CL_CRM_OFFER_TEMPLATE);
+		$o = new object();
+		$o->set_class_id(crm_offer_template_obj::CLID);
 		$o->set_parent($this->id());
 		$o->set_name($name);
 		$o->set_prop("offer", $this->id());
@@ -74,21 +76,23 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	**/
 	public function duplicate()
 	{
-		$rows = $this->get_rows();
+		$new_offer = new object($this->save_new(), array(), crm_offer_obj::CLID);
+		$new_offer->set_prop("state", self::STATE_NEW);
 
-		$o = obj($this->save_new());
-		$o->set_prop("state", self::STATE_NEW);
+		$this->duplicate_applied_price_components($new_offer);
 
-		foreach ($rows as $row)
+		foreach ($this->get_rows() as $row)
 		{
-			$new_row = obj($row->save_new());
-			$new_row->offer = $o->id();
+			$new_row = new object($row->save_new(), array(), crm_offer_row_obj::CLID);
+			$new_row->set_prop("offer", $new_offer->id());
 			$new_row->save();
+
+			$row->duplicate_applied_price_components($new_row);
 		}
 
-		$o->save();
+		$new_offer->save();
 
-		return $o;
+		return $new_offer;
 	}
 	
 	/**	Returns temporary (or default value if temporary is not set) value of a given mail property
@@ -317,7 +321,7 @@ Parimat,
 		}
 
 		$cust = obj($this->prop("customer"));
-		if($cust->class_id() == CL_CRM_PERSON)
+		if($cust->class_id() == crm_person_obj::CLID)
 		{
 			$mails = $cust->emails();
 		}
@@ -405,7 +409,7 @@ Parimat,
 		$director = new object($customer->prop("firmajuht"));
 
 		$director_profession = "";
-		if($director->is_a(CL_CRM_PERSON))
+		if($director->is_a(crm_person_obj::CLID))
 		{
 			$director_professions = $director->get_profession_names();
 			$director_profession = reset($director_professions);
@@ -433,7 +437,7 @@ Parimat,
 	protected function get_customer_address($prop = "")
 	{
 		$customer = obj($this->prop("customer"));
-		$a = $customer->is_a(CL_CRM_COMPANY) ? "contact" : "address";
+		$a = $customer->is_a(crm_company_obj::CLID) ? "contact" : "address";
 
 		switch($prop)
 		{
@@ -529,7 +533,7 @@ Parimat,
 	protected function get_sender_signature()
 	{
 		$ret = array();
-		$u = get_instance(CL_USER);
+		$u = new user();
 		$p = obj($u->get_current_person());
 		$ret[]= $p->name();
 		$names = $p->get_profession_names();
@@ -552,7 +556,7 @@ Parimat,
 		}
 
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_OFFER_SENT,
+			"class_id" => crm_offer_sent_obj::CLID,
 			"offer" => $this->id(),
 		));
 
@@ -723,7 +727,7 @@ Parimat,
 				$id = $this->meta("last_pdf_file_oid");
 				if (is_oid($id))
 				{
-					$pdf = obj($id, array(), CL_FILE);
+					$pdf = obj($id, array(), file_obj::CLID);
 				}
 			}
 			catch (awex_obj $e)
@@ -742,7 +746,7 @@ Parimat,
 			));
 			$this->set_meta("last_pdf_file_oid", $id);
 			$this->save();
-			$pdf = obj($id, array(), CL_FILE);
+			$pdf = obj($id, array(), file_obj::CLID);
 		}
 
 		return $pdf;
@@ -810,7 +814,7 @@ Parimat,
 	public function awobj_get_contracts()
 	{
 		$ol = $this->is_saved() ? new object_list(array(
-			"class_id" => CL_CRM_DEAL,
+			"class_id" => crm_deal_obj::CLID,
 			"CL_CRM_DEAL.RELTYPE_CONTRACT(CL_CRM_OFFER)" => $this->id(),
 		)) : new object_list();
 		return $ol;
@@ -924,7 +928,7 @@ Parimat,
 			throw new awex_crm_offer("Offer must be saved before rows can be added!");
 		}
 
-		$row = obj(null, array(), CL_CRM_OFFER_ROW);
+		$row = obj(null, array(), crm_offer_row_obj::CLID);
 		$row->set_parent($this->id());
 		$row->set_prop("offer", $this->id());
 		$row->set_prop("object", $o->id());
@@ -1038,9 +1042,9 @@ Parimat,
 
 		$priority_of_current_compulsoriness = 0;
 		$priorities_of_compulsoriness = array(
-			CL_CRM_SECTION => 1,
-			CL_CRM_PROFESSION => 2,
-			CL_CRM_PERSON_WORK_RELATION => 3,
+			crm_section_obj::CLID => 1,
+			crm_profession_obj::CLID => 2,
+			crm_person_work_relation_obj::CLID => 3,
 		);
 
 		foreach($price_component->get_restrictions()->arr() as $restriction)
@@ -1087,9 +1091,9 @@ Parimat,
 
 		$priority_of_current_tolerance = 0;
 		$priorities_of_tolerance = array(
-			CL_CRM_SECTION => 1,
-			CL_CRM_PROFESSION => 2,
-			CL_CRM_PERSON_WORK_RELATION => 3,
+			crm_section_obj::CLID => 1,
+			crm_profession_obj::CLID => 2,
+			crm_person_work_relation_obj::CLID => 3,
 		);
 
 		foreach($price_component->get_restrictions()->arr() as $restriction)
@@ -1166,13 +1170,13 @@ Parimat,
 	{
 		$odl = new object_data_list(
 			array(
-				"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+				"class_id" => crm_sales_price_component_obj::CLID,
 				"type" => array(crm_sales_price_component_obj::TYPE_UNIT, crm_sales_price_component_obj::TYPE_ROW, crm_sales_price_component_obj::TYPE_NET_VALUE),
 				"applicables.id" => $row->prop("object"),
 //				"application" => automatweb::$request->get_application()->id()
 			),
 			array(
-				CL_CRM_SALES_PRICE_COMPONENT => array("applicables")
+				crm_sales_price_component_obj::CLID => array("applicables")
 			)
 		);
 
@@ -1236,7 +1240,7 @@ Parimat,
 		$q = sprintf("
 			SELECT o.oid
 			FROM objects o LEFT JOIN aliases a ON o.oid = a.source AND a.reltype = %u
-			WHERE a.target IS NULL AND o.class_id = %u;", 2 /* RELTYPE_APPLICABLE */, CL_CRM_SALES_PRICE_COMPONENT);
+			WHERE a.target IS NULL AND o.class_id = %u;", 2 /* RELTYPE_APPLICABLE */, crm_sales_price_component_obj::CLID);
 
 		$price_components_without_applicables = array();
 		foreach($this->instance()->db_fetch_array($q) as $row)
@@ -1248,13 +1252,13 @@ Parimat,
 		{
 			$odl = new object_data_list(
 				array(
-					"class_id" => CL_CRM_SALES_PRICE_COMPONENT,
+					"class_id" => crm_sales_price_component_obj::CLID,
 					"oid" => $price_components_without_applicables,
 					"type" => array(crm_sales_price_component_obj::TYPE_UNIT, crm_sales_price_component_obj::TYPE_ROW, crm_sales_price_component_obj::TYPE_TOTAL),
 //					"application" => automatweb::$request->get_application()->id()
 				),
 				array(
-					CL_CRM_SALES_PRICE_COMPONENT => array("type"),
+					crm_sales_price_component_obj::CLID => array("type"),
 				)
 			);
 			$price_component_ids_by_type = array(
@@ -1309,7 +1313,7 @@ Parimat,
 		}
 
 		$ol = new object_list(array(
-			"class_id" => CL_CRM_OFFER_ROW,
+			"class_id" => crm_offer_row_obj::CLID,
 			"offer" => $this->id(),
 		));
 		$this->rows = $ol->arr();
@@ -1323,7 +1327,7 @@ Parimat,
 		}
 
 		$application = automatweb::$request->get_application();
-		if ($application->is_a(CL_CRM_SALES))
+		if ($application->is_a(crm_sales_obj::CLID))
 		{
 			$owner = $application->prop("owner");
 			$customer = new object($this->prop("customer"));
