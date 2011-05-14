@@ -219,26 +219,31 @@ Parimat,
 
 		if (!count($type) or in_array("customer_bill", $type))
 		{
-
-			$cro = $this->get_customer_relation();
-
-			if ($cro !== false)
+			try
 			{
-				$bill_person_ol = new object_list($cro->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
-				if($bill_person_ol->count())
-				{
-					$person = $bill_person_ol->begin();
+				$cro = $this->get_customer_relation();
 
-					do
+				if ($cro !== false)
+				{
+					$bill_person_ol = new object_list($cro->connections_from(array("reltype" => "RELTYPE_BILL_PERSON")));
+					if($bill_person_ol->count())
 					{
-						$email = $person->get_mail($customer_oid);
-						if (is_email($email))
+						$person = $bill_person_ol->begin();
+
+						do
 						{
-							$recipients[$email]  = array($person->id(), $person->name());
+							$email = $person->get_mail($customer_oid);
+							if (is_email($email))
+							{
+								$recipients[$email]  = array($person->id(), $person->name());
+							}
 						}
+						while ($person = $bill_person_ol->next());
 					}
-					while ($person = $bill_person_ol->next());
 				}
+			}
+			catch (awex_crm_offer_customer $e)
+			{
 			}
 		}
 
@@ -851,9 +856,15 @@ Parimat,
 
 	public function save($exclusive = false, $previous_state = null)
 	{
-		if(is_oid($this->prop("customer")))
+		if(!is_oid($this->prop("customer_relation")))
 		{
-			$this->set_customer_relation();
+			try
+			{
+				$this->set_customer_relation();
+			}
+			catch (awex_crm_offer_customer $e)
+			{
+			}
 		}
 
 		return parent::save($exclusive, $previous_state);
@@ -1306,6 +1317,11 @@ Parimat,
 
 	protected function set_customer_relation()
 	{
+		if (!is_oid($this->prop("customer")))
+		{
+			throw new awex_crm_offer_customer("No customer set for this offer!");
+		}
+
 		$application = automatweb::$request->get_application();
 		if ($application->is_a(CL_CRM_SALES))
 		{
@@ -1325,12 +1341,14 @@ Parimat,
 
 	protected function get_customer_relation()
 	{
-		$customer_relation = new object($this->prop("customer_relation"));
-		if (!$customer_relation->is_a(CL_CRM_COMPANY_CUSTOMER_DATA))
+		try
 		{
-			$customer_relation = $this->set_customer_relation();
+			return is_oid($this->prop("customer_relation")) ? new object($this->prop("customer_relation")) : $this->set_customer_relation();
 		}
-		return $customer_relation;
+		catch (awex_crm_offer_customer $e)
+		{
+			throw $e;
+		}
 	}
 }
 
