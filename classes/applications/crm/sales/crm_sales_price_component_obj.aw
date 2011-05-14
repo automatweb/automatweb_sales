@@ -2,6 +2,8 @@
 
 class crm_sales_price_component_obj extends _int_object
 {
+	const CLID = 1712;
+
 	const TYPE_NET_VALUE = 1;
 	const TYPE_UNIT = 2;
 	const TYPE_ROW = 3;
