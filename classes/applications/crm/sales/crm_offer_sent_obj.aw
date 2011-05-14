@@ -2,6 +2,7 @@
 
 class crm_offer_sent_obj extends _int_object
 {
+	const CLID = 1764;
 	/**
 		@attrib api=1
 	**/

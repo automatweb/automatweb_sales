@@ -2,6 +2,8 @@
 
 class crm_sales_obj extends _int_object implements application_interface
 {
+	const CLID = 1347;
+
 	// sales application users are always given a role
 	// roles are determined by binding crm_profession objects to crm_sales_obj through role_profession_* properties
 	// role for a user is thereby defined by their profession
