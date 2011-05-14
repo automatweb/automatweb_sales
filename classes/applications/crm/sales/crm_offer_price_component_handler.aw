@@ -186,6 +186,25 @@ class crm_offer_price_component_handler extends _int_object
 		return $this->applied_price_components[$price_component][$prop];
 	}
 
+	/**	Duplicates
+		@attrib api=1
+		@param object required type=crm_offer_price_component_handler
+	**/
+	public function duplicate_applied_price_components($o)
+	{
+		if ($o->implements_interface("crm_offer_price_component_handler"))
+		{
+			throw new awex_crm_offer_price_component("Object that price components will be duplicated for must implement 'crm_offer_price_component_handler'!");
+		}
+
+		$q = sprintf("INSERT INTO
+			aw_crm_offer_row_price_components (aw_object_id, aw_price_component_id, aw_value, aw_price_change)
+			SELECT
+				%d, aw_price_component_id, aw_value, aw_price_change 
+			FROM aw_crm_offer_row_price_components WHERE aw_object_id = %d", $o->id(), $this->id());
+		$this->instance()->db_query($q);
+	}
+
 	protected function load_applied_price_components()
 	{
 		if (!$this->is_saved())
