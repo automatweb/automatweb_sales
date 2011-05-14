@@ -158,7 +158,7 @@ class crm_sales_settings_offers_view
 	{
 		$t = $arr["prop"]["vcl_inst"];
 
-		$t->set_caption(t("Hinnakomponendide kategooriad"));
+		$t->set_caption(t("Hinnakomponentide kategooriad"));
 
 		$t->define_chooser();
 		$t->define_field(array(
@@ -174,6 +174,25 @@ class crm_sales_settings_offers_view
 			"callb_pass_row" => true,
 			"sortable" => true
 		));
+		$t->define_field(array(
+			"name" => "edit",
+			"caption" => "",
+			"align" => "center",
+			"callback" => array("crm_sales_settings_offers_view", "callback_price_component_categories_table_edit"),
+			"callb_pass_row" => true
+		));
+	}
+
+	public static function callback_price_component_categories_table_edit($row)
+	{
+		$menu = new popup_menu();
+		$menu->begin_menu("edit_{$row["oid"]}");
+		$menu->add_item(array(
+				"text" => t("Muuda"),
+				"link" => html::get_change_url($row["oid"]),
+		));
+
+		return $menu->get_menu();
 	}
 
 	public static function callback_price_component_categories_table_show_in_statistics($row)
@@ -235,12 +254,17 @@ class crm_sales_settings_offers_view
 
 		$show_in_statistics = $arr["obj_inst"]->get_price_components_and_categories_shown_in_statistics();
 		$categories = automatweb::$request->get_application()->get_price_component_category_list();
-		foreach($categories->arr() as $category)
+		$url = automatweb::$request->get_uri();
+		foreach($categories->names() as $category_id => $category_name)
 		{
+			$url->set_arg("crmListCategory", "pc_{$category_id}");
 			$t->define_data(array(
-				"oid" => $category->id(),
-				"name" => html::obj_change_url($category),
-				"show_in_statistics" => in_array($category->id(), $show_in_statistics),
+				"oid" => $category_id,
+				"name" => html::href(array(
+					"caption" => $category_name,
+					"url" => $url->get(),
+				)),
+				"show_in_statistics" => in_array($category_id, $show_in_statistics),
 			));
 		}
 
