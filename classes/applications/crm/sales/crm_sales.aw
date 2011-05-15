@@ -264,6 +264,9 @@ PROPERTY DECLARATIONS
 		@property cts_name type=textbox parent=contacts_search_box store=no size=20 captionside=top
 		@caption Nimi
 
+		@property cts_comment type=textbox parent=contacts_search_box store=no size=20 captionside=top
+		@caption Kommentaar
+
 		@property cts_address type=textbox parent=contacts_search_box store=no size=20 captionside=top
 		@caption Aadress
 
@@ -272,6 +275,9 @@ PROPERTY DECLARATIONS
 
 		@property cts_lead_source type=textbox parent=contacts_search_box store=no size=20 captionside=top
 		@caption Soovitaja
+
+		@property cts_contact type=textbox parent=contacts_search_box store=no size=20 captionside=top
+		@caption Kontaktisik
 
 		@property cts_salesman type=select parent=contacts_search_box store=no captionside=top
 		@caption M&uuml;&uuml;giesindaja
@@ -838,6 +844,8 @@ class crm_sales extends class_base
 				!empty($arr["request"]["cts_lead_source"]) or
 				!empty($arr["request"]["cts_calls"]) or
 				!empty($arr["request"]["cts_salesman"]) or
+				!empty($arr["request"]["cts_comment"]) or
+				!empty($arr["request"]["cts_contact"]) or
 				!empty($arr["request"]["cts_status"])
 			)
 			{
@@ -1548,17 +1556,71 @@ SCRIPTVARIABLES;
 				$js .= file_get_contents(AW_DIR . "classes/applications/crm/sales/crm_sales_person_entry.js");
 			}
 			elseif("contacts" === $this->use_group or "calls" === $this->use_group or "presentations" === $this->use_group)
-			{ // attach table ft_page clearing to search form
+			{
+
+				// attach table ft_page clearing to search form
 				$js .= <<<SCRIPT
+
 $("form[name='changeform']").bind("awbeforesubmit", function() {
 	$("select[name='ft_page']").attr("value", "0");
 	return true;
 });
+
 SCRIPT;
 			}
 		}
 
 		$js .= "})()\n/* END crm_sales scripts */\n\n";
+
+		if ("contacts" === $this->use_group)
+		{
+			// corporate clients contacts row display btn js
+			// doesn't work inside function() {}
+			$js .= <<<SCRIPT
+
+function crm_sales_corporate_customer_contacts_toggle(id, url) {
+	if ((trel = document.getElementById("trows"+id))){
+		if (trel.style.display == "none") {
+			if (navigator.userAgent.toLowerCase().indexOf("msie")>=0) {
+				trel.style.display= "block";
+			}
+			else{
+				trel.style.display= "table-row";
+			}
+		}
+		else {
+			trel.style.display="none";
+		}
+		return false;
+	}
+
+	el=document.getElementById("tnr"+id);
+	td = el.parentNode;
+	tr = td.parentNode;
+
+	tbl = tr;
+	while(tbl.tagName.toLowerCase() != "table") {
+		tbl = tbl.parentNode;
+	}
+
+	p_row = tbl.insertRow(tr.rowIndex+1);
+	p_row.className="awmenuedittablerow";
+	p_row.id="trows"+id;
+	n_td = p_row.insertCell(-1);
+	n_td.className="awmenuedittabletext";
+	n_td.innerHTML="&nbsp;";
+	n_td = p_row.insertCell(-1);
+	n_td.className="awmenuedittabletext";
+	n_td.innerHTML="&nbsp;";
+	n_td = p_row.insertCell(-1);
+	n_td.className="awmenuedittabletext";
+	n_td.innerHTML=aw_get_url_contents(url);
+	n_td.colSpan=9;
+}
+
+SCRIPT;
+		}
+
 		return $js;
 	}
 
@@ -2050,6 +2112,18 @@ SCRIPT;
 			if (!empty($request["cts_status"]))
 			{
 				$search->status = $request["cts_status"];
+				$params_defined = true;
+			}
+
+			if (!empty($request["cts_comment"]))
+			{
+				$search->comment = $request["cts_status"];
+				$params_defined = true;
+			}
+
+			if (!empty($request["cts_contact"]))
+			{
+				$search->contact_name = $request["cts_contact"];
 				$params_defined = true;
 			}
 

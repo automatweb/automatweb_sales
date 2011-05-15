@@ -637,6 +637,19 @@
             <caption>Nimi</caption>
       </property>
       <property>
+            <name>cts_comment</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>contacts</group>
+            <type>textbox</type>
+            <parent>contacts_search_box</parent>
+            <store>no</store>
+            <size>20</size>
+            <captionside>top</captionside>
+            <caption>Kommentaar</caption>
+      </property>
+      <property>
             <name>cts_address</name>
             <table>objects</table>
             <field>meta</field>
@@ -674,6 +687,19 @@
             <size>20</size>
             <captionside>top</captionside>
             <caption>Soovitaja</caption>
+      </property>
+      <property>
+            <name>cts_contact</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>contacts</group>
+            <type>textbox</type>
+            <parent>contacts_search_box</parent>
+            <store>no</store>
+            <size>20</size>
+            <captionside>top</captionside>
+            <caption>Kontaktisik</caption>
       </property>
       <property>
             <name>cts_salesman</name>
