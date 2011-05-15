@@ -2,6 +2,13 @@
 class warehouse_products_import extends warehouse_data_import
 {
 
+
+	var $packets_folder = null;
+	var $products_folder = null;
+	var $categories_folder = null;
+	var $short_code_controller_oid = null;
+	var $short_code_controller_inst = null;
+
 	/*
 		This class should contain the implementation of products import stuff
 		All the general logic of the import process should be implemented in warehouse_data_import class
@@ -80,7 +87,7 @@ class warehouse_products_import extends warehouse_data_import
 			// If the node, in depth 1, is packet or product, then this is root for an item and split it up on that node
 			// actually, for later testing, i don't need to check the node name, it should be enough to use the whatever 
 			// node there is in depth 1 to use as item root
-			if ( ( $r->name == 'packet' || $r->name == 'product' ) && $r->nodeType == XMLReader::ELEMENT && $r->depth == 1)
+			if ( ( $r->name == 'packet' || $r->name == 'product' ) && $r->nodeType == XMLReader::ELEMENT && $r->depth == 1 )
 			{
 				$item = $r->readOuterXML();
 				$this->data[] = $item;
@@ -88,24 +95,57 @@ class warehouse_products_import extends warehouse_data_import
 		}
 	}
 
+	function fill_queue($arr)
+	{
+		$file = $this->get_xml_data($arr['obj_inst']);
+
+		$timestamp = date('Y-m-d H:i:s');
+
+		$r = new XMLReader();
+		$r->open($file);
+
+		while ($r->read())
+		{
+			// If the node, in depth 1, is packet or product, then this is root for an item and split it up on that node
+			// actually, for later testing, i don't need to check the node name, it should be enough to use the whatever 
+			// node there is in depth 1 to use as item root
+			if ( ( $r->name == 'packet' || $r->name == 'product' ) && $r->nodeType == XMLReader::ELEMENT && $r->depth == 1 )
+			{
+				$item = $r->readOuterXML();
+				$this->add_queue_item(array(
+					'status' => 'new',
+					'timestamp' => $timestamp,
+					'data' => $item
+				));
+			}
+		}
+		exit('foo');
+	}
+
 	function process_item($item)
 	{
 		$dom = new DOMDocument();
 		$dom->loadXML($item);
 
-		// First of all I should get all the products from this piece of XML
-	//	$product_nodes = $dom->getElementsByTagName('product');
-
+sleep (1);
+$this->seconds++;
 		$product_codes = $dom->getElementsByTagName('code');
 		foreach ($product_codes as $code)
 		{
 			$product_codes_list[] = $code->nodeValue;
 		}
 
-		$products_ol = new object_list(array(
-			'class_id' => CL_SHOP_PRODUCT,
-			'code' => $product_codes_list
-		));
+		if(is_array($product_codes_list) && sizeof($product_codes_list))
+		{
+			$products_ol = new object_list(array(
+				'class_id' => CL_SHOP_PRODUCT,
+				'code' => $product_codes_list
+			));
+		}
+		else
+		{
+			$products_ol = new object_list();
+		}
 
 		$products_lut = array();	
 		foreach ($products_ol->arr() as $o)
@@ -134,6 +174,7 @@ class warehouse_products_import extends warehouse_data_import
 		{
 			$packets_ol = new object_list(array(
 				'class_id' => CL_SHOP_PACKET,
+				'status' => STAT_ACTIVE,
 				'CL_SHOP_PACKET.RELTYPE_PRODUCT' => $products_lut
 			));
 		}
@@ -142,6 +183,7 @@ class warehouse_products_import extends warehouse_data_import
 		{
 			$packet_obj = new object();
 			$packet_obj->set_class_id(CL_SHOP_PACKET);
+			$packet_obj->set_status(STAT_ACTIVE);
 			$packet_obj->set_parent($this->packets_folder);
 			$packet_obj->save();
 			echo "<strong>Add new packet ( ".$packet_obj->id()." )</strong><br />\n";
@@ -152,9 +194,16 @@ class warehouse_products_import extends warehouse_data_import
 			echo "<strong>Load existing packet ( ".$packet_obj->id()." )</strong><br />\n";
 		}
 
+		$packet_obj->set_status(STAT_ACTIVE);
+
 		$packets = $dom->getElementsByTagName('packet');
 		foreach ($packets as $packet)
 		{
+/*			$query = 'UNLOCK TABLES';
+$result = mysql_query($query) or
+          die('Query failed: ' . mysql_error());*/
+sleep (1);
+$this->seconds++;
 			foreach ($packet->childNodes as $node)
 			{
 				if ($node->nodeName == 'name')
@@ -332,6 +381,9 @@ class warehouse_products_import extends warehouse_data_import
 		{
 			switch ($n->nodeName)
 			{
+				case 'order':
+					$product_obj->set_ord($n->nodeValue);
+					break;
 				case 'type':
 					$product_obj->set_prop('type_code', $n->nodeValue);
 					break;
@@ -362,6 +414,12 @@ class warehouse_products_import extends warehouse_data_import
 				case 'code':
 					$product_obj->set_prop('code', $n->nodeValue);
 					echo " ---- code: ".$n->nodeValue."<br />\n";
+					if (!empty($this->short_code_controller_oid))
+					{
+						$short_code = $this->short_code_controller_inst->check_property($this->short_code_controller_oid, null, $n->nodeValue, null, null, null);
+						$product_obj->set_prop('short_code', $short_code);
+						echo " ---- short code: ".$short_code."<br />\n";
+					}
 					break;
 				case 'images':
 					$image_conns = $product_obj->connections_from(array(
@@ -375,6 +433,7 @@ class warehouse_products_import extends warehouse_data_import
 					}
 					foreach ($n->childNodes as $image_node)
 					{
+						print "image start...";
 						if (pathinfo($image_node->nodeValue, PATHINFO_EXTENSION) == 'jpg')
 						{	
 							$image_name = basename($image_node->nodeValue);
@@ -410,15 +469,24 @@ class warehouse_products_import extends warehouse_data_import
 								'width' => 164
 							);
 						
-							$image_inst->resize_picture(&$resize_params);
-							$image_obj->add_image_big($image_node->nodeValue);
-							$image_obj->save();
+							if(!$image_inst->resize_picture(&$resize_params))
+							{
+								$product_obj->disconnect(array(
+									'from' => $image_oid
+								));
+							}
+							else
+							{
+								$image_obj->add_image_big($image_node->nodeValue);
+								$image_obj->save();
+							}
 							aw_cache_flush('get_image_by_id');
 
 							// Let keep track of those images I have updated
 							unset($existing_images_lut[$image_name]);
 						}
-					
+		
+						print "image end...";			
 					}
 					// I can't delete stuff from product objects that easily
 					// cause there are cases where one product is updated twice 
@@ -461,7 +529,7 @@ class warehouse_products_import extends warehouse_data_import
 						if (!empty($packaging_lut[$size]))
 						{
 							$packaging_object = new object($packaging_lut[$size]);
-							echo " existing (".$packaging_lut[$size].")";
+							echo " existing (".$packaging_lut[$size].")<br />\n";
 						}
 						else
 						{
@@ -505,15 +573,34 @@ class warehouse_products_import extends warehouse_data_import
 
 	function process_packaging($packaging_obj, $node)
 	{
+		$price_oid = $packaging_obj->prop('price_object');
+		$special_price_oid = $packaging_obj->prop('special_price_object');
+
+		// I need to empty the special price value somehow if there is no special price tag anymore in xml
+		// I think the easiest way to do so is to set the special_price_object property value to 0 and if
+		// there is special price in xml, it will get updated anyway
+		$packaging_obj->set_prop('special_price_object', 0);
+
 		foreach ($node->childNodes as $n)
 		{
 			switch ($n->nodeName)
 			{
 				case 'price':
 					$packaging_obj->set_prop('price', $n->nodeValue);
+					$price_obj = $this->get_price_object($packaging_obj, $n, $price_oid);
+					$packaging_obj->set_prop('price_object', $price_obj->id());
+					echo " -------- Update price to ".$n->nodeValue." (price obj: ".$price_obj->id().")<br />\n";
+					break;
+				case 'special_price':
+					$price_obj = $this->get_price_object($packaging_obj, $n, $special_price_oid);
+					$packaging_obj->set_prop('special_price_object', $price_obj->id());
+					echo " -------- Update special price to ".$n->nodeValue." (price obj: ".$price_obj->id().")<br />\n";
 					break;
 				case 'size':
 					$packaging_obj->set_prop('size', $n->nodeValue);
+					break;
+				case 'order':
+					$packaging_obj->set_ord($n->nodeValue);
 					break;
 				case 'type':
 					$packaging_obj->set_comment($n->nodevalue);
@@ -521,6 +608,73 @@ class warehouse_products_import extends warehouse_data_import
 			}
 		}
 		return $packaging_obj->save();
+	}
+
+	function get_price_object($packaging_obj, $n, $price_oid)
+	{
+	//	$price_conns = $packaging_obj->connections_from(array(
+	//		'type' => 'RELTYPE_PRICE'
+	//	));
+		if (empty($price_oid))
+		{
+			$price_obj = new object();
+			$price_obj->set_class_id(CL_SHOP_ITEM_PRICE);
+			$price_obj->set_parent($packaging_obj->id());
+			$price_obj->save();
+			$packaging_obj->connect(array(
+				'type' => 'RELTYPE_PRICE',
+				'to' => $price_obj->id()
+			));
+		}
+		else
+		{
+			// first we should have only one price obj connected to packaging
+			// i think i should define separate reltype for new price ...
+		
+			$price_obj = new object($price_oid);
+		}
+	
+		$price_obj->set_name($n->nodeValue);
+		$price_obj->set_prop('price', $n->nodeValue);
+		$price_obj->save();
+
+		return $price_obj;
+	}
+
+	function update_price($packaging_obj, $n)
+	{
+		$packaging_obj->set_prop('price', $n->nodeValue);
+		echo " -- set price property to ".$n->nodeValue."<br />\n";
+
+		// in addition lets create the price as object as well and connect it to packaging
+		$price_conns = $packaging_obj->connections_from(array(
+			'type' => 'RELTYPE_PRICE'
+		));
+		if (empty($price_conns))
+		{
+			$price_obj = new object();
+			$price_obj->set_class_id(CL_SHOP_ITEM_PRICE);
+			$price_obj->set_parent($packaging_obj->id());
+			$price_obj->save();
+			$packaging_obj->connect(array(
+				'type' => 'RELTYPE_PRICE',
+				'to' => $price_obj->id()
+			));
+		}
+		else
+		{
+			// first we should have only one price obj connected to packaging
+			// i think i should define separate reltype for new price ...
+			$price_conn = reset($price_conns);
+			$price_obj = $price_conn->to();
+		}
+	
+		$price_obj->set_name($n->nodeValue);
+		$price_obj->set_prop('price', $n->nodeValue);
+		$price_obj->save();
+
+		$packaging_obj->set_prop('price_object', $price_obj->id());
+		$packaging_obj->save();
 	}
 
 	function is_new($item)

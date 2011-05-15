@@ -139,6 +139,56 @@ class shop_delivery_method_obj extends shop_matrix_obj
 			// LATER ON SHOULD BE BUILT ON PRICE OBJECTS. I CAN'T UNDERSTAND THE LOGIC BEHIND THOSE AT THE MOMENT -kaarel 30.07.2009
 			$prices[$this->id()] = $this->meta("prices");
 		}
+
+		
+		if(aw_ini_get("site_id") == 484)// keyword
+		{
+			$discount = 0;
+			if($_GET["class"] == "orders_form")
+			{
+				foreach($_SESSION["order"] as $key => $data)
+				{
+					if(substr(trim($data["product_code"]) , 0 , 1) == "V" || substr(trim($data["product_code"]) , 0 , 1) == "v")
+					{
+						$discount = 1;
+					}
+				}
+			}
+			else
+			{
+				foreach($_SESSION["cart"]["items"] as $key => $items)
+				{
+					if(is_oid($key) && $items[0]["items"])
+					{
+						$ol = new object_list(array(
+							"class_id" => CL_SHOP_PRODUCT,
+							"CL_SHOP_PRODUCT.RELTYPE_PACKAGING" => $key,
+							"lang_id" => array(),
+							"site_id" => array(),
+						));
+						foreach($ol->arr() as $o)
+						{
+							if(substr(trim($o->prop("code")) , 0 , 1) == "V" || substr(trim($o->prop("code")) , 0 , 1) == "v")
+							{
+								$discount = 1;
+							}
+						}
+					}
+				}
+			}
+
+			if($discount)
+			{
+				foreach($prices as $id => $asd)
+				{
+					foreach($asd as $curr => $val)
+					{
+						$prices[$id][$curr] = 0;
+					}
+				}
+			}
+		//	arr($prices);
+		}
 		return $prices[$this->id()];
 	}
 
@@ -282,6 +332,11 @@ class shop_delivery_method_obj extends shop_matrix_obj
 		{
 			$sm = smart_post_obj::get_smart_post();
 			$vars["smartpost_sell_place_name"] = $sm->get_place_name_by_id($order_data["smartpost_sell_place"]);
+
+		}
+		elseif($order_data["post_office_sell_place"])
+		{
+			$vars["smartpost_sell_place_name"] = obj($order_data["post_office_sell_place"])->name();
 
 		}
 		return $vars;

@@ -1,26 +1,8 @@
 <?xml version='1.0'?>
 <properties>
-	<property>
-            <name>comment2</name>
-            <table>objects</table>
-            <group>general</group>
-            <type>textbox</type>
-            <field>comment</field>
-            <caption>Kommentaar</caption>
-      </property>
-      <property>
-            <name>shop</name>
-            <table>aw_shop_payment_type</table>
-            <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_SHOP</reltype>
-            <field>aw_shop</field>
-            <no_edit>1</no_edit>
-            <caption>E-pood</caption>
-      </property>
       <property>
             <name>matrix_tlb</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>matrix_show</group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
@@ -29,7 +11,7 @@
       </property>
       <property>
             <name>matrix</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>matrix_show</group>
             <type>table</type>
             <store>no</store>
@@ -38,7 +20,7 @@
       </property>
       <property>
             <name>matrix_col_order</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>matrix_settings</group>
             <type>table</type>
             <store>no</store>
@@ -47,7 +29,7 @@
       </property>
       <property>
             <name>matrix_cols</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>matrix_settings</group>
             <type>text</type>
             <subtitle>1</subtitle>
@@ -57,7 +39,7 @@
       </property>
       <property>
             <name>matrix_customer_categories</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>matrix_settings</group>
             <type>relpicker</type>
             <reltype>RELTYPE_CUSTOMER_CATEGORY</reltype>
@@ -68,7 +50,7 @@
       </property>
       <property>
             <name>matrix_countries</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>matrix_settings</group>
             <type>relpicker</type>
             <reltype>RELTYPE_COUNTRY</reltype>
@@ -79,7 +61,7 @@
       </property>
       <property>
             <name>matrix_rows</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>matrix_settings</group>
             <type>text</type>
             <subtitle>1</subtitle>
@@ -89,7 +71,7 @@
       </property>
       <property>
             <name>matrix_product_categories</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>matrix_settings</group>
             <type>relpicker</type>
             <reltype>RELTYPE_PRODUCT_CATEGORY</reltype>
@@ -100,14 +82,14 @@
       </property>
       <property>
             <name>code</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>matrix_settings</group>
             <type>hidden</type>
             <field>aw_code</field>
       </property>
       <property>
             <name>priorities_customer_categories_tbl</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>priorities_customer_categories</group>
             <type>table</type>
             <no_caption>1</no_caption>
@@ -116,7 +98,7 @@
       </property>
       <property>
             <name>priorities_locations_tbl</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>priorities_locations</group>
             <type>table</type>
             <no_caption>1</no_caption>
@@ -125,7 +107,7 @@
       </property>
       <property>
             <name>priorities_product_categories_tbl</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>priorities_product_categories</group>
             <type>table</type>
             <no_caption>1</no_caption>
@@ -134,7 +116,7 @@
       </property>
       <property>
             <name>al_tree</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>advanced_layer</group>
             <type>treeview</type>
             <parent>advanced_layer_left</parent>
@@ -143,18 +125,18 @@
             <field>al_tree</field>
       </property>
       <property>
-            <name>conditions</name>
-            <table>aw_shop_payment_type</table>
+            <name>rent_conditions</name>
+            <table>aw_shop_rent_configuration</table>
             <group>advanced_layer</group>
             <type>callback</type>
-            <callback>_get_conditions</callback>
+            <callback>_get_rent_conditions</callback>
             <parent>advanced_layer_properties</parent>
             <store>no</store>
-            <field>conditions</field>
+            <field>rent_conditions</field>
       </property>
       <property>
             <name>al_cancel</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>advanced_layer</group>
             <type>button</type>
             <parent>advanced_layer_buttons</parent>
@@ -164,7 +146,7 @@
       </property>
       <property>
             <name>al_delete</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>advanced_layer</group>
             <type>button</type>
             <parent>advanced_layer_buttons</parent>
@@ -174,7 +156,7 @@
       </property>
       <property>
             <name>al_submit</name>
-            <table>aw_shop_payment_type</table>
+            <table>aw_shop_rent_configuration</table>
             <group>advanced_layer</group>
             <type>button</type>
             <parent>advanced_layer_buttons</parent>
@@ -183,7 +165,7 @@
             <caption>Salvesta</caption>
       </property>
       <classinfo>
-            <syslog_type>ST_SHOP_PAYMENT_TYPE</syslog_type>
+            <syslog_type>ST_SHOP_RENT_CONFIGURATION</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
@@ -224,11 +206,11 @@
             </advanced_layer>
       </groupinfo>
       <tableinfo>
-            <aw_shop_payment_type>
+            <aw_shop_rent_configuration>
                   <master_index>brother_of</master_index>
                   <master_table>objects</master_table>
                   <index>aw_oid</index>
-            </aw_shop_payment_type>
+            </aw_shop_rent_configuration>
       </tableinfo>
       <reltypes>
             <CUSTOMER_CATEGORY>
@@ -250,11 +232,6 @@
                   <clid>CL_COUNTRY</clid>
                   <caption>Riik, mida maatriksi veeruna kuvatakse</caption>
             </COUNTRY>
-            <SHOP>
-                  <value>5</value>
-                  <clid>CL_SHOP_ORDER_CENTER</clid>
-                  <caption>E-pood</caption>
-            </SHOP>
       </reltypes>
       <layout>
             <advanced_layer>

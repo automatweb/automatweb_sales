@@ -24,6 +24,7 @@
             <syslog_type>ST_SHOP_WAREHOUSE_EXPORT</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <export>

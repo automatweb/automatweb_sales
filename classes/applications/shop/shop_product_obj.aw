@@ -26,6 +26,20 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 		return $ol;
 	}
 
+	function delete($full_delete = false)
+	{
+		$this->delete_product_show_cache();
+
+		return parent::delete($full_delete);
+	}
+
+	public function save($exclusive = false, $previous_state = null)
+	{
+		$this->delete_product_show_cache();
+
+		return parent::save($exclusive, $previous_state);
+	}
+
 	/** Sets the price for the product by currency
 		@attrib api=1 params=pos
 
@@ -81,7 +95,7 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 		}
 		elseif($this->prop("price"))
 		{
-			$retval = (float)$this->prop("price");
+			$retval = (float)$this->get_price_value();
 		}
 		else
 		{
@@ -89,6 +103,17 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 		}
 		exit_function("shop_product_obj::get_shop_price");
 		return $retval;
+	}
+
+//whata??????
+	function get_shop_special_price()
+	{
+		return $this->get_special_price_value();
+	}
+
+	function get_special_price_value()
+	{
+		return 0;
 	}
 
 	/** edaspidi kasutaks vaid seda, et saaks igale ajahetkele erinevaid hindu panna ja loodetavasti ka hinnaobjektiga mitte metast
@@ -162,6 +187,17 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 		{
 			return $prices;
 		}
+	}
+
+	/** This should probably be something similar to the same function in shop_product_packaging_obj class, but there are much more different kind of prices in shop_product class so I just leave it be for now until there is a concrete need to start using the price objects.
+
+		@attrib name=get_price_value api=1
+
+		@returns Price property value as float.
+	**/
+	public function get_price_value()
+	{
+		return (float)$this->prop('price');
 	}
 
 	function set_prop($k, $v)
@@ -314,7 +350,7 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 			'class_id' => CL_SHOP_PRODUCT,
 			'type_code' => $this->prop('type_code'),
 		));
-
+		
 		// add replacement products via connections
 		$conns = $this->connections_from(array(
 			'type' => 'RELTYPE_REPLACEMENT_PROD'
@@ -323,7 +359,7 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 		{
 			$ol->add($conn->to());
 		}
-		return $ol->arr();
+		return $ol->arr();	
 	}
 
 	/**
@@ -579,7 +615,7 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 		{
 			if(!$size || $pack->prop("size") == $size)
 			{
-				return $pack->get_shop_price($oc);
+				return $pack->get_special_price($oc);
 			}
 		}
 		return null;
@@ -598,30 +634,72 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 		return null;
 	}
 
+	public function get_special_price($oc = null)
+	{
+		if(is_oid($this->prop("special_price_object")))
+		{
+			return $this->prop("special_price_object.price");
+		}
+		else
+		return $this->get_shop_price($oc);
+	}
+
+	public function get_formated_price()
+	{
+		$sum = $this->get_special_price();
+		return number_format($sum,2,".","");
+	}
+
 	public function get_data()
 	{
 		$data = $this->properties();
+		$data["size"] = str_replace('"' , '' ,$data["size"]);
 		$data["id"] = $this->id();
 		$data["image"] = $this->get_product_image();
 		$data["image_url"] = $this->get_product_image_url();
+		$data["purveyance"] = $this->get_purveyance();
 		if($this->class_id() == CL_SHOP_PRODUCT_PACKAGING)
 		{
 			$product = $this->get_product();
 			$data["description"] = $product->prop("description");
-			$data["color"] =  $product->get_color_name();
-					$data["code"] =  $product->prop("code");
-		}
+			$data["color"] =  str_replace('"' , "" , $product->get_color_name());
+			$data["code"] =  $product->prop("code");
+			if (!empty($data['special_price_object']))
+			{
+				$special_price_obj = new object($data['special_price_object']);
+				$data["special_price"] = $special_price_obj->prop('price');
+			}
+		}	
 		else
 		{
-$data["code"] =  $this->prop("code");
+			$data["code"] =  $this->prop("code");
 		}
 		$packet = $this->get_packet();
 		if(is_object($packet))
 		{
 			$data["packet_name"] = $packet->name();
 			$data["brand_name"] = $packet->get_brand();
+//			$packet_data = $packet-> get_data();
 		}
 		return $data;
+	}
+
+	private function get_purveyance()
+	{
+		$ret = array();
+		$conns = connection::find(array(
+			"to" => $this->id(),
+			"from.class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
+			"type" => "RELTYPE_PACKAGING"
+		));
+		foreach($conns as $conn)
+		{
+			$o = obj($conn["from"]);
+			return $o->comment();
+		}				
+
+		return t("Tarneinfo puudub");
+
 	}
 
 	public function get_packet_name()
@@ -707,7 +785,7 @@ $data["code"] =  $this->prop("code");
 			return "";
 		}
 	}
-
+	
 	public function get_product_image_url()
 	{
 		$product = $this->get_product();
@@ -744,7 +822,7 @@ $data["code"] =  $this->prop("code");
 		$product = $this->get_product();
 		$pic = $product->get_first_obj_by_reltype("RELTYPE_IMAGE");
 		if(is_object($pic))
-		{
+		{ 
 			return $pic->get_on_click_js();
 
 		}
@@ -754,12 +832,44 @@ $data["code"] =  $this->prop("code");
 		}
 	}
 
+	public function get_pask()
+	{
+		$packet = $this->get_packet();
+		if(is_object($packet))
+		{
+			$stuff = $packet->get_pask();
+		}
+		if(is_array($stuff))
+		{
+			return reset($stuff);
+		}
+		return null;
+	}
+
 	public function get_packet()
 	{
 		$product = $this->get_product();
 		$ol = $product->get_packets_for_id($product->id());
 //		var_dump($product->id(), $ol);
 		return $ol->begin();
+	}
+
+	public function get_packet_id()
+	{
+		$product = $this->get_product();
+		$ol = $product->get_packets_for_id($product->id());
+		$ids = $ol->ids();
+//		var_dump($product->id(), $ol);
+		return reset($ids);
+	}
+
+	protected function delete_product_show_cache()
+	{
+		$cache_dir = aw_ini_get("cache.page_cache")."/product_show/";
+		foreach(glob(sprintf($cache_dir."*product=%u&*.tpl*", $this->id())) as $file)
+		{
+			unlink($file);
+		}
 	}
 
 }

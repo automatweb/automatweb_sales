@@ -1,5 +1,5 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_packaging.aw,v 1.43 2009/08/26 12:57:45 dragut Exp $
+// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_packaging.aw,v 1.44 2010/01/09 18:16:22 dragut Exp $
 // shop_product_packaging.aw - Toote pakend 
 /*
 
@@ -7,36 +7,43 @@
 @tableinfo aw_shop_packaging index=id master_table=objects master_index=brother_of
 
 @default table=objects
-@default group=general_general
 
 @default table=aw_shop_packaging
 
 @groupinfo general_general parent=general caption=&Uuml;ldine
+@default group=general_general
 
-@property name type=textbox table=objects
-@caption Nimi
+	@property name type=textbox table=objects
+	@caption Nimi
 
-@property comment type=textbox table=objects
-@caption Kommentaar
+	@property comment type=textbox table=objects
+	@caption Kommentaar
 
-@property jrk type=textbox size=5 table=objects field=jrk
-@caption J&auml;rjekord
+	@property jrk type=textbox size=5 table=objects field=jrk
+	@caption J&auml;rjekord
 
-@property product type=hidden field=aw_product
-@caption Toode
+	@property product type=hidden field=aw_product
+	@caption Toode
 
-@property price type=textbox size=5 field=aw_price
-@caption Hind
+	@property price type=textbox size=5 field=aw_price
+	@caption Hind
+
+	@property price_object type=relpicker reltype=RELTYPE_PRICE 
+	@caption Hind (objekt)
 			
-@property content_package_price_condition type=checkbox ch_value=1 disabled=1 table=aw_shop_packaging field=aw_content_package_price_condition
-@caption Sisupaketi hinnatingimuse pakendiobjekt
+	@property special_price_object type=relpicker reltype=RELTYPE_PRICE 
+	@caption Erihind (objekt)
 
-@property price_cur type=table store=no
-@caption Hinnad valuutades
+	@property content_package_price_condition type=checkbox ch_value=1 disabled=1 table=aw_shop_packaging field=aw_content_package_price_condition
+	@caption Sisupaketi hinnatingimuse pakendiobjekt
+
+	@property price_cur type=table store=no
+	@caption Hinnad valuutades
 
 @groupinfo general_time_settings caption="Ajaseaded" parent=general
 @default group=general_time_settings
-@layout gentms_main type=hbox 
+
+	@layout gentms_main type=hbox 
 
 		@layout reservation type=hbox area_caption=Broneeritav&nbsp;aeg closeable=1 parent=gentms_main
 	
@@ -72,115 +79,115 @@
 
 @groupinfo info caption="Lisainfo"
 
-@groupinfo file caption="Failid" parent=info
+	@groupinfo file caption="Failid" parent=info
 
-@property files type=releditor reltype=RELTYPE_FILE table=objects field=meta method=serialize mode=manager props=name,file,type,comment,file_url,newwindow group=file table_fields=name
-@caption Failid
+		@property files type=releditor reltype=RELTYPE_FILE table=objects field=meta method=serialize mode=manager props=name,file,type,comment,file_url,newwindow group=file table_fields=name
+		@caption Failid
 
-@groupinfo img caption=Pildid parent=info
+	@groupinfo img caption=Pildid parent=info
 
-@property images type=releditor reltype=RELTYPE_IMAGE table=objects field=meta method=serialize mode=manager props=name,ord,status,file group=img
-@caption Pildid
+		@property images type=releditor reltype=RELTYPE_IMAGE table=objects field=meta method=serialize mode=manager props=name,ord,status,file group=img
+		@caption Pildid
 
-@groupinfo data caption="Andmed" parent=info
-@default group=data
+	@groupinfo data caption="Andmed" parent=info
+	@default group=data
 
-@property size type=textbox 
-@caption Suurus
+		@property size type=textbox 
+		@caption Suurus
 
-@property user1 type=textbox field=user1 group=data
-@caption User-defined 1
+		@property user1 type=textbox field=user1 group=data
+		@caption User-defined 1
 
-@property user2 type=textbox field=user2 group=data
-@caption User-defined 2
+		@property user2 type=textbox field=user2 group=data
+		@caption User-defined 2
 
-@property user3 type=textbox field=user3 group=data
-@caption User-defined 3
+		@property user3 type=textbox field=user3 group=data
+		@caption User-defined 3
 
-@property user4 type=textbox field=user4 group=data
-@caption User-defined 4
+		@property user4 type=textbox field=user4 group=data
+		@caption User-defined 4
 
-@property user5 type=textbox field=user5 group=data
-@caption User-defined 5
+		@property user5 type=textbox field=user5 group=data
+		@caption User-defined 5
 
-@property user5 type=textbox field=user5 group=data
-@caption User-defined 5
+		@property user5 type=textbox field=user5 group=data
+		@caption User-defined 5
 
-@property user6 type=textbox field=user6 group=data
-@caption User-defined 6
+		@property user6 type=textbox field=user6 group=data
+		@caption User-defined 6
 
-@property user7 type=textbox field=user7 group=data
-@caption User-defined 7
+		@property user7 type=textbox field=user7 group=data
+		@caption User-defined 7
 
-@property user8 type=textbox field=user8 group=data
-@caption User-defined 8
+		@property user8 type=textbox field=user8 group=data
+		@caption User-defined 8
 
-@property user9 type=textbox field=user9 group=data
-@caption User-defined 9
+		@property user9 type=textbox field=user9 group=data
+		@caption User-defined 9
 
-@property user10 type=textbox field=user10 group=data
-@caption User-defined 10
+		@property user10 type=textbox field=user10 group=data
+		@caption User-defined 10
 
-@property user11 type=textbox field=user11 group=data
-@caption User-defined 11
+		@property user11 type=textbox field=user11 group=data
+		@caption User-defined 11
 
-@property user12 type=textbox field=user12 group=data
-@caption User-defined 12
+		@property user12 type=textbox field=user12 group=data
+		@caption User-defined 12
 
-@property user13 type=textbox field=user13 group=data
-@caption User-defined 13
+		@property user13 type=textbox field=user13 group=data
+		@caption User-defined 13
 
-@property user14 type=textbox field=user14 group=data
-@caption User-defined 14
+		@property user14 type=textbox field=user14 group=data
+		@caption User-defined 14
 
-@property user15 type=textbox field=user15 group=data
-@caption User-defined 15
+		@property user15 type=textbox field=user15 group=data
+		@caption User-defined 15
 
-@property userta1 type=textarea field=userta1 group=data
-@caption User-defined ta 1
+		@property userta1 type=textarea field=userta1 group=data
+		@caption User-defined ta 1
 
-@property userta2 type=textarea field=userta2 group=data
-@caption User-defined ta 2
+		@property userta2 type=textarea field=userta2 group=data
+		@caption User-defined ta 2
 
-@property userta3 type=textarea field=userta3 group=data
-@caption User-defined ta 3
+		@property userta3 type=textarea field=userta3 group=data
+		@caption User-defined ta 3
 
-@property userta4 type=textarea field=userta4 group=data
-@caption User-defined ta 4
+		@property userta4 type=textarea field=userta4 group=data
+		@caption User-defined ta 4
 
-@property userta5 type=textarea field=userta5 group=data
-@caption User-defined ta 5
+		@property userta5 type=textarea field=userta5 group=data
+		@caption User-defined ta 5
 
 
-@property uservar1 type=classificator field=uservar1 group=data store=connect reltype=RELTYPE_USERVAR1
-@caption User-defined var 1
+		@property uservar1 type=classificator field=uservar1 group=data store=connect reltype=RELTYPE_USERVAR1
+		@caption User-defined var 1
 
-@property uservar2 type=classificator field=uservar2 group=data store=connect reltype=RELTYPE_USERVAR2
-@caption User-defined var 2
+		@property uservar2 type=classificator field=uservar2 group=data store=connect reltype=RELTYPE_USERVAR2
+		@caption User-defined var 2
 
-@property uservar3 type=classificator field=uservar3 group=data store=connect reltype=RELTYPE_USERVAR3
-@caption User-defined var 3
+		@property uservar3 type=classificator field=uservar3 group=data store=connect reltype=RELTYPE_USERVAR3
+		@caption User-defined var 3
 
-@property uservar4 type=classificator field=uservar4 group=data store=connect reltype=RELTYPE_USERVAR4
-@caption User-defined var 4
+		@property uservar4 type=classificator field=uservar4 group=data store=connect reltype=RELTYPE_USERVAR4
+		@caption User-defined var 4
 
-@property uservar5 type=classificator field=uservar5 group=data store=connect reltype=RELTYPE_USERVAR5
-@caption User-defined var 5
+		@property uservar5 type=classificator field=uservar5 group=data store=connect reltype=RELTYPE_USERVAR5
+		@caption User-defined var 5
 
-@property userch1 type=checkbox ch_value=1  field=userch1 group=data datatype=int
-@caption User-defined checkbox 1
+		@property userch1 type=checkbox ch_value=1  field=userch1 group=data datatype=int
+		@caption User-defined checkbox 1
 
-@property userch2 type=checkbox ch_value=1  field=userch2 group=data datatype=int
-@caption User-defined checkbox 2
+		@property userch2 type=checkbox ch_value=1  field=userch2 group=data datatype=int
+		@caption User-defined checkbox 2
 
-@property userch3 type=checkbox ch_value=1  field=userch3 group=data datatype=int
-@caption User-defined checkbox 3
+		@property userch3 type=checkbox ch_value=1  field=userch3 group=data datatype=int
+		@caption User-defined checkbox 3
 
-@property userch4 type=checkbox ch_value=1  field=userch4 group=data datatype=int
-@caption User-defined checkbox 4
+		@property userch4 type=checkbox ch_value=1  field=userch4 group=data datatype=int
+		@caption User-defined checkbox 4
 
-@property userch5 type=checkbox ch_value=1  field=userch5 group=data datatype=int
-@caption User-defined checkbox 5
+		@property userch5 type=checkbox ch_value=1  field=userch5 group=data datatype=int
+		@caption User-defined checkbox 5
 
 @groupinfo acl caption=&Otilde;igused
 @default group=acl
@@ -200,6 +207,7 @@
 	
 	@property transl type=callback callback=callback_get_transl store=no
 	@caption T&otilde;lgi
+
 
 @reltype IMAGE value=1 clid=CL_IMAGE
 @caption pilt 
@@ -224,6 +232,9 @@
 
 @reltype INHERIT_AML_FROM value=8 clid=CL_SHOP_PRODUCT,CL_SHOP_PRODUCT_PACKAGING
 @caption P&auml;ri kogusepiirangud
+
+@reltype PRICE value=9 clid=CL_SHOP_ITEM_PRICE
+@caption Hind
 
 */
 
@@ -325,7 +336,7 @@ class shop_product_packaging extends class_base
 			$t->define_data(array(
 				"oid" => $o->id(),
 				"name" => html::obj_change_url($o, parse_obj_name($o->name())),
-				"weekday" => $o->prop("weekday") ? aw_locale::get_lc_weekday($o->prop("weekday")) : "",
+				"weekday" => $o->prop("weekday") ? locale::get_lc_weekday($o->prop("weekday")) : "",
 				"company" => html::obj_change_url($o->prop("company"), $o->prop("company.name")),
 				"days" => $o->prop("days"),
 			));
@@ -856,6 +867,8 @@ class shop_product_packaging extends class_base
 
 			case "aw_content_package_price_condition":
 			case "aw_product":
+			case "price_object":
+			case "special_price_object":
 				$this->db_add_col($t, array(
 					"name" => $f,
 					"type" => "int"

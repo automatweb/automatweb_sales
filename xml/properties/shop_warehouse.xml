@@ -86,6 +86,16 @@
             <caption>Laoseisu arvestus</caption>
       </property>
       <property>
+            <name>sold_purveyance_code</name>
+            <table>objects</table>
+            <group>general_settings</group>
+            <type>textbox</type>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>V&amp;amp;auml;ljam&amp;amp;uuml;&amp;amp;uuml;dud kohaletoimetamise kood</caption>
+            <comment>Kohaletoimetamise tingimuse kood, mille puhul toode on v&amp;amp;auml;lja m&amp;amp;uuml;&amp;amp;uuml;dud</comment>
+      </property>
+      <property>
             <name>productgroups_toolbar</name>
             <table>objects</table>
             <group>productgroups</group>
@@ -123,16 +133,6 @@
             <no_caption>1</no_caption>
             <store>no</store>
             <field>product_management_toolbar</field>
-      </property>
-      <property>
-            <name>product_managementtree</name>
-            <table>objects</table>
-            <group>product_management</group>
-            <type>treeview</type>
-            <parent>product_managementtree_lay</parent>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <field>product_managementtree</field>
       </property>
       <property>
             <name>product_management_category_tree</name>
@@ -256,17 +256,6 @@
             <caption>Otsi</caption>
       </property>
       <property>
-            <name>product_management_list</name>
-            <table>objects</table>
-            <group>product_management</group>
-            <type>table</type>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <parent>product_managementright</parent>
-            <field>product_management_list</field>
-            <caption>Toodete nimekiri</caption>
-      </property>
-      <property>
             <name>category_list</name>
             <table>objects</table>
             <group>product_management</group>
@@ -276,6 +265,17 @@
             <parent>product_managementright</parent>
             <field>category_list</field>
             <caption>Kategooriate nimekiri</caption>
+      </property>
+      <property>
+            <name>product_management_list</name>
+            <table>objects</table>
+            <group>product_management</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>product_managementright</parent>
+            <field>product_management_list</field>
+            <caption>Toodete nimekiri</caption>
       </property>
       <property>
             <name>products_toolbar</name>
@@ -470,16 +470,6 @@
             <field>packets_tree</field>
       </property>
       <property>
-            <name>packets_cat_tree</name>
-            <table>objects</table>
-            <group>packets</group>
-            <type>text</type>
-            <parent>packets_tree_lay2</parent>
-            <store>no</store>
-            <no_caption>1</no_caption>
-            <field>packets_cat_tree</field>
-      </property>
-      <property>
             <name>packets_s_name</name>
             <table>objects</table>
             <group>packets</group>
@@ -519,10 +509,11 @@
             <name>packets_s_cat</name>
             <table>objects</table>
             <group>packets</group>
-            <type>select</type>
+            <type>textbox</type>
             <store>no</store>
             <captionside>top</captionside>
             <parent>packets_left_search</parent>
+            <size>30</size>
             <field>packets_s_cat</field>
             <caption>Kategooria</caption>
       </property>
@@ -561,6 +552,39 @@
             <caption>Hinnakiri</caption>
       </property>
       <property>
+            <name>packets_s_created_from</name>
+            <table>objects</table>
+            <group>packets</group>
+            <type>date_select</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>packets_left_search</parent>
+            <field>packets_s_created_from</field>
+            <caption>Loodud alates</caption>
+      </property>
+      <property>
+            <name>packets_s_created_to</name>
+            <table>objects</table>
+            <group>packets</group>
+            <type>date_select</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>packets_left_search</parent>
+            <field>packets_s_created_to</field>
+            <caption>Loodud kuni</caption>
+      </property>
+      <property>
+            <name>packets_s_active</name>
+            <table>objects</table>
+            <group>packets</group>
+            <type>select</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>packets_left_search</parent>
+            <field>packets_s_active</field>
+            <caption>Aktiivsus</caption>
+      </property>
+      <property>
             <name>packets_s_sbt</name>
             <table>objects</table>
             <group>packets</group>
@@ -581,7 +605,7 @@
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>packets_split</parent>
+            <parent>packets_list_lay</parent>
             <field>packets_list</field>
             <caption>Pakettide nimekiri</caption>
       </property>
@@ -1978,7 +2002,7 @@
             <size>30</size>
             <parent>sell_orders_left_search</parent>
             <field>sell_orders_s_buyer</field>
-            <caption>Ostja</caption>
+            <caption>Kliendi nimi</caption>
       </property>
       <property>
             <name>sell_orders_s_number</name>
@@ -1990,7 +2014,31 @@
             <size>30</size>
             <parent>sell_orders_left_search</parent>
             <field>sell_orders_s_number</field>
-            <caption>Number</caption>
+            <caption>Tellimuse number</caption>
+      </property>
+      <property>
+            <name>sell_orders_s_purchaser_id</name>
+            <table>objects</table>
+            <group>sell_orders</group>
+            <type>textbox</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <size>30</size>
+            <parent>sell_orders_left_search</parent>
+            <field>sell_orders_s_purchaser_id</field>
+            <caption>AW kliendikood</caption>
+      </property>
+      <property>
+            <name>sell_orders_s_purchaser_other_id</name>
+            <table>objects</table>
+            <group>sell_orders</group>
+            <type>textbox</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <size>30</size>
+            <parent>sell_orders_left_search</parent>
+            <field>sell_orders_s_purchaser_other_id</field>
+            <caption>Naabri kliendikood</caption>
       </property>
       <property>
             <name>sell_orders_s_status</name>
@@ -2498,6 +2546,32 @@
             <field>clients_alphabet_tree</field>
       </property>
       <property>
+            <name>clients_status_tree</name>
+            <table>objects</table>
+            <group>
+                  <num_0>purchase_clients</num_0>
+                  <num_1>sales_clients</num_1>
+            </group>
+            <type>treeview</type>
+            <no_caption>1</no_caption>
+            <parent>clients_status_lay</parent>
+            <store>no</store>
+            <field>clients_status_tree</field>
+      </property>
+      <property>
+            <name>clients_time_tree</name>
+            <table>objects</table>
+            <group>
+                  <num_0>purchase_clients</num_0>
+                  <num_1>sales_clients</num_1>
+            </group>
+            <type>treeview</type>
+            <no_caption>1</no_caption>
+            <parent>clients_start_lay</parent>
+            <store>no</store>
+            <field>clients_time_tree</field>
+      </property>
+      <property>
             <name>clients_tbl</name>
             <table>objects</table>
             <group>
@@ -2979,7 +3053,9 @@
             <caption>Statistika tabel</caption>
       </property>
       <classinfo>
+            <syslog_type>ST_SHOP_WAREHOUSE</syslog_type>
             <relationmgr>yes</relationmgr>
+            <maintainer>kristo</maintainer>
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
@@ -3022,6 +3098,7 @@
                   <caption>Paketid</caption>
                   <submit>no</submit>
                   <parent>articles</parent>
+                  <submit_method>get</submit_method>
             </packets>
             <brand>
                   <caption>Kaubam&amp;amp;auml;rk</caption>
@@ -3252,17 +3329,10 @@
                   <group>product_management</group>
                   <area_caption></area_caption>
             </product_managementleft>
-            <product_managementtree_lay>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>Tooted</area_caption>
-                  <parent>product_managementleft</parent>
-                  <group>product_management</group>
-            </product_managementtree_lay>
             <product_management_tree_layout2>
                   <type>vbox</type>
                   <closeable>1</closeable>
-                  <area_caption>Kategooriate&amp;amp;nbsp;puu</area_caption>
+                  <area_caption>Kategooriad</area_caption>
                   <parent>product_managementleft</parent>
                   <group>product_management</group>
             </product_management_tree_layout2>
@@ -3348,13 +3418,6 @@
                   <parent>packets_left</parent>
                   <group>packets</group>
             </packets_tree_lay>
-            <packets_tree_lay2>
-                  <type>vbox</type>
-                  <closeable>1</closeable>
-                  <area_caption>Kategooriate&amp;amp;nbsp;t&amp;amp;uuml;&amp;amp;uuml;bid</area_caption>
-                  <parent>packets_left</parent>
-                  <group>packets</group>
-            </packets_tree_lay2>
             <packets_left_search>
                   <type>vbox</type>
                   <parent>packets_left</parent>
@@ -3362,6 +3425,19 @@
                   <closeable>1</closeable>
                   <group>packets</group>
             </packets_left_search>
+            <packets_right>
+                  <type>vbox</type>
+                  <parent>packets_split</parent>
+                  <group>packets</group>
+                  <area_caption></area_caption>
+            </packets_right>
+            <packets_list_lay>
+                  <type>vbox</type>
+                  <closeable>1</closeable>
+                  <parent>packets_right</parent>
+                  <area_caption>Paketid</area_caption>
+                  <group>packets</group>
+            </packets_list_lay>
             <brand_toolbar>
                   <type>vbox</type>
                   <group>brand</group>
@@ -3763,7 +3839,7 @@
             <sell_orders_left_search>
                   <type>vbox</type>
                   <parent>sell_orders_left</parent>
-                  <area_caption>Otsing</area_caption>
+                  <area_caption>Tellimuste&amp;amp;nbsp;otsing</area_caption>
                   <closeable>1</closeable>
                   <group>sell_orders</group>
             </sell_orders_left_search>
@@ -3932,7 +4008,7 @@
             </clients_left>
             <clients_groups_lay>
                   <type>vbox</type>
-                  <area_caption>Filtreeri&amp;amp;nbsp;kliendigrupi&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <area_caption>Kliendigrupp</area_caption>
                   <group>
                         <num_0>purchase_clients</num_0>
                         <num_1>sales_clients</num_1>
@@ -3941,13 +4017,31 @@
             </clients_groups_lay>
             <clients_alphabet_lay>
                   <type>vbox</type>
-                  <area_caption>Filtreeri&amp;amp;nbsp;nime&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
+                  <area_caption>Nimi</area_caption>
                   <group>
                         <num_0>purchase_clients</num_0>
                         <num_1>sales_clients</num_1>
                   </group>
                   <parent>clients_left</parent>
             </clients_alphabet_lay>
+            <clients_status_lay>
+                  <type>vbox</type>
+                  <area_caption>Staatus</area_caption>
+                  <group>
+                        <num_0>purchase_clients</num_0>
+                        <num_1>sales_clients</num_1>
+                  </group>
+                  <parent>clients_left</parent>
+            </clients_status_lay>
+            <clients_start_lay>
+                  <type>vbox</type>
+                  <area_caption>Kliendisuhte&amp;amp;nbsp;algus</area_caption>
+                  <group>
+                        <num_0>purchase_clients</num_0>
+                        <num_1>sales_clients</num_1>
+                  </group>
+                  <parent>clients_left</parent>
+            </clients_start_lay>
             <shop_orders_split>
                   <type>hbox</type>
                   <width>20%:80%</width>

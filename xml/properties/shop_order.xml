@@ -115,6 +115,7 @@
             <syslog_type>ST_SHOP_ORDER</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_status>1</no_status>
+            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <items>

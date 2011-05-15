@@ -32,6 +32,17 @@
             <comment>Kas objekt on aktiivne</comment>
       </property>
       <property>
+            <name>jrk</name>
+            <table>objects</table>
+            <group>general_general</group>
+            <type>textbox</type>
+            <size>5</size>
+            <field>jrk</field>
+            <parent>gen_gen</parent>
+            <caption>J&amp;amp;auml;rjekord</caption>
+            <comment>Objekti j&amp;amp;auml;rjekord</comment>
+      </property>
+      <property>
             <name>description</name>
             <table>aw_shop_products</table>
             <group>general_general</group>
