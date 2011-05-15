@@ -755,9 +755,6 @@ Parimat,
 		$mail->set_prop("bcc", $bcc);
 		$mail->save();
 
-		$comment = html_entity_decode(sprintf(t("%s saatis arve nr. %s; summa %s; kuup&auml;ev: %s; kellaaeg: %s; aadressidele: %s; koopia aadressidele: %s; tekst: %s; lisatud failid: %s. "), aw_global_get("uid"), $this->prop("bill_no") , $this->prop("sum") , date("d.m.Y") , date("H:i") , htmlspecialchars($to), htmlspecialchars($cc), $body, $att_comment));
-		$this->add_comment($comment);
-
 		$this->set_prop("state", self::STATE_SENT);
 		$this->save();
 	}
