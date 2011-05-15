@@ -10727,7 +10727,7 @@ die();
 			if(!empty($arr["request"]["res_filt"]))
 			{
 				$params["RELTYPE_MRP_RESOURCE.oid"] = $arr["request"]["res_filt"];
-				if(new object($arr["request"]["res_filt"])->is_a(menu_obj::CLID))
+				if(obj($arr["request"]["res_filt"])->is_a(menu_obj::CLID))
 				{
 					$ot = new object_tree(array(
 						"class_id" => array(menu_obj::CLID, mrp_resource_obj::CLID),
