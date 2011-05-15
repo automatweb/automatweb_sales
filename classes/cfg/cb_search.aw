@@ -830,7 +830,7 @@ class cb_search extends class_base
 		}
 		foreach(safe_array($this->form_dat[$clid]) as $pn => $pd)
 		{
-			if (!$pd["visible"])
+			if (empty($pd["visible"]))
 			{
 				continue;
 			}
