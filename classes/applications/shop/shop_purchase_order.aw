@@ -163,6 +163,8 @@ class shop_purchase_order extends class_base
 		{
 			$this->_add_extra_rows($add, $arr["obj_inst"]);
 		}
+		
+		
 	}
 
 	function _add_extra_rows($add, $obj)
@@ -280,6 +282,34 @@ class shop_purchase_order extends class_base
 		));
 		$tb->add_save_button();
 		$tb->add_delete_button();
+		
+		
+		$url = $this->mk_my_orb("do_search", array("pn" => "order_rows_to", "clid" => array(CL_CRM_BILL)), "popup_search");
+		$tb->add_button(array(
+			"name" => "rows_to_bill",
+			"tooltip" => t("Tellimusread arvele"),
+			"url" => "javascript:aw_popup_scroll('$url','".t("Otsi")."',550,500)"
+		));
+		
+		
+		
+		/*
+		 * @TODO make buttons and some action for them
+		$url = $this->mk_my_orb("do_search", array("pn" => "order_rows_to", "clid" => array(CL_CRM_BILL), "s" => "bill"), "popup_search");
+		$tb->add_button(array(
+			"name" => "rows_to_send",
+			"tooltip" => t("Tellimusread saatelehele"),
+			"url" => "javascript:aw_popup_scroll('$url','".t("Otsi")."',550,500)"
+		));
+		
+		$url = $this->mk_my_orb("do_search", array("pn" => "order_rows_to", "clid" => array(CL_CRM_BILL), "s" => "bill"), "popup_search");
+		$tb->add_button(array(
+			"name" => "rows_to_back",
+			"tooltip" => t("Tellimusread tagastusele"),
+			"url" => "javascript:aw_popup_scroll('$url','".t("Otsi")."',550,500)"
+		));
+		*/
+		
 	}
 
 	function _set_articles(&$arr)

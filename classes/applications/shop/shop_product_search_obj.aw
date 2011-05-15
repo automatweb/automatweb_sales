@@ -15,14 +15,17 @@ class shop_product_search_obj extends _int_object
 			'class_id' => CL_SHOP_PACKET,
 			"lang_id" => array(),
 			"site_id" => array(),
+			"status" => ($this->prop('find_only_active')) ? STAT_ACTIVE : array(STAT_ACTIVE, STAT_NOTACTIVE),
+			'CL_SHOP_PACKET.RELTYPE_PRODUCT.id' =>	new obj_predicate_compare(OBJ_COMP_GREATER, 0),
 		);
 		if(strlen(automatweb::$request->arg('search_term')) > 0)
 		{
 			$args[] = new object_list_filter(array(
 				"logic" => "OR",
 				"conditions" => array(
-					'name' => '%'.automatweb::$request->arg('search_term').'%',
-					'CL_SHOP_PACKET.RELTYPE_PRODUCT.code' => '%'.automatweb::$request->arg('search_term').'%'
+					'name' => '%'.str_replace(".", "" , automatweb::$request->arg('search_term')).'%',
+					'CL_SHOP_PACKET.RELTYPE_PRODUCT.code' => '%'.str_replace(".", "" , automatweb::$request->arg('search_term')).'%',
+					'CL_SHOP_PACKET.RELTYPE_PRODUCT.short_code' => '%'.str_replace(".", "" , automatweb::$request->arg('search_term')).'%'
 				),
 			));
 		}
@@ -34,6 +37,7 @@ class shop_product_search_obj extends _int_object
 				"site_id" => array(),
 				"parent" => automatweb::$request->arg("search_category"),
 			));
+
 			$search_category_ids = $search_category_tree->ids();
 			if(count($search_category_ids) > 0)
 			{
@@ -66,4 +70,6 @@ class shop_product_search_obj extends _int_object
 		exit_function("shop_product_search_obj::get_search_results");
 		return $products;
 	}
+
+	
 }

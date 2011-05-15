@@ -53,6 +53,15 @@
             <caption>Kui leitakse ainult &amp;amp;uuml;ks toode, suuna detailvaatesse</caption>
       </property>
       <property>
+            <name>find_only_active</name>
+            <group>general</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <caption>Leitakse ainult aktiivseid tooteid</caption>
+      </property>
+      <property>
             <name>fld_tb</name>
             <group>folders</group>
             <table>objects</table>
@@ -90,6 +99,25 @@
             <method>serialize</method>
             <type>textbox</type>
             <caption>Otsi nupu tekst</caption>
+      </property>
+      <property>
+            <name>search_form_elements_toolbar</name>
+            <group>search_form</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>toolbar</type>
+            <store>no</store>
+      </property>
+      <property>
+            <name>search_form_elements</name>
+            <group>search_form</group>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>table</type>
+            <store>no</store>
+            <caption>Otsinguvormi elemendid</caption>
       </property>
       <property>
             <name>s_tbl</name>
@@ -155,6 +183,7 @@
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
             <no_status>1</no_status>
+            <prop_cb>1</prop_cb>
             <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
@@ -164,6 +193,9 @@
             <s_form>
                   <caption>Koosta otsinguvorm</caption>
             </s_form>
+            <search_form>
+                  <caption>Otsinguvorm [dev]</caption>
+            </search_form>
             <s_res>
                   <caption>Koosta tulemuste tabel</caption>
             </s_res>

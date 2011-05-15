@@ -8,6 +8,15 @@
             <field>template</field>
             <caption>Template</caption>
       </property>
+      <property>
+            <name>display_properties_table</name>
+            <table>aw_shop_orderer_data_site_show</table>
+            <group>display_properties</group>
+            <type>table</type>
+            <store>no</store>
+            <field>display_properties_table</field>
+            <caption>N&amp;amp;auml;idatavate omaduste tabel</caption>
+      </property>
       <classinfo>
             <syslog_type>ST_SHOP_ORDERER_DATA_SITE_SHOW</syslog_type>
             <relationmgr>yes</relationmgr>
@@ -16,6 +25,11 @@
             <prop_cb>1</prop_cb>
             <maintainer>markop</maintainer>
       </classinfo>
+      <groupinfo>
+            <display_properties>
+                  <caption>Omadused</caption>
+            </display_properties>
+      </groupinfo>
       <tableinfo>
             <aw_shop_orderer_data_site_show>
                   <master_index>brother_of</master_index>

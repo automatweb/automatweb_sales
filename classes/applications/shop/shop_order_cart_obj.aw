@@ -133,7 +133,7 @@ class shop_order_cart_obj extends _int_object
 	public function get_prod_amount($product)
 	{
 		$cart = $this->get_cart();
-		$items = $cart["items"];
+		$items = safe_array($cart["items"]);
 		foreach($items as $prod => $val)
 		{
 			if($prod = $product)
@@ -225,7 +225,13 @@ class shop_order_cart_obj extends _int_object
 		$warehouse = $this->oc->prop("warehouse");
 		$cart = $this->get_cart();
 		$order_data = $this->get_order_data();
-
+//kui mingi imega suudetakse isikuandmeteta tellimus teha... suuname tagasi
+		if(empty($order_data["email"]) && empty($order_data["fisrsname"]) && empty($order_data["lastname"]))
+		{
+			$return_url = str_replace("final_finish_order" , "orderer_data", $GLOBALS["_SERVER"]["HTTP_REFERER"]);
+			   header( 'Location: '.$return_url);
+			   die();
+		}
 		$o = new object();
 		$o->set_name(t("M&uuml;&uuml;gitellimus")." ".date("d.m.Y H:i"));
 		$o->set_parent($this->oc->id());
@@ -257,6 +263,14 @@ class shop_order_cart_obj extends _int_object
 		$o->set_prop("currency" , $this->oc->get_currency());
 		$o->set_prop("channel" , $this->prop("channel"));
 		$o->set_meta("order_data" , $order_data);
+
+		//seda keele v2rki peaks tegelt kontrollima, et kas niipalju l2bu on ikka vaja... asi selleks, et kirja saadaks vastavas keeles tellijale
+		$lang = aw_global_get("lang_id");
+		$l = get_instance("languages");
+		$o->set_meta("lang" , $lang);
+		$o->set_meta("lang_id" , $_SESSION["ct_lang_id"]);
+		$o->set_meta("lang_lc" , $l->get_langid($_SESSION["ct_lang_id"]));
+
 		$o->save();
 
 		$awa = new aw_array($cart["items"]);
@@ -277,11 +291,20 @@ class shop_order_cart_obj extends _int_object
 					continue;
 				}
 				$product = obj($iid);
-				$sum+= $cart["items"][$iid][$key]["items"] * $product->get_shop_price($this->oc->id());
+				$special_price = $product->get_shop_special_price($this->oc->id());
+				if (!empty($special_price))
+				{
+					$price = $special_price;
+				}
+				else
+				{
+					$price = $product->get_shop_price($this->oc->id());
+				}
+				$sum += $cart["items"][$iid][$key]["items"] * $price;
 				$o->add_row(array(
 					"product" => $iid,
 					"amount" => $cart["items"][$iid][$key]["items"],
-					"price" => $product->get_shop_price($this->oc->id()),
+					"price" => $price,
 				));
 			}
 		}
@@ -330,7 +353,11 @@ class shop_order_cart_obj extends _int_object
 			$person = get_current_person();
 		}
 		//sellisel juhul otsib olemasolevate isikute hulgast, kui on andmeid mille j2rgi otsida
-		if(!empty($data["personalcode"]) || !empty($data["customer_no"]) || (!empty($data["birthday"]) && !empty($data["lastname"])))
+		/*	This is causing incorrect client data to be found if a customer mistypes his/her client code
+		if(
+			!empty($data["personalcode"]) || 
+			!empty($data["customer_no"]) || 
+			(!empty($data["birthday"]) && !empty($data["lastname"])))
 		{
 			$filter = array(
 				"class_id" => CL_CRM_PERSON,
@@ -373,6 +400,7 @@ class shop_order_cart_obj extends _int_object
 				}
 			}
 		}
+		*/
 
 		if(!is_object($person))
 		{
@@ -386,20 +414,22 @@ class shop_order_cart_obj extends _int_object
 			{
 				$person->set_prop("personal_id" , $data["personalcode"]);
 			}
-			if(!empty($data["birthday"]))
-			{
-				if(is_array($data["birthday"]))
-				{
-					$person->set_prop("birthday" , mktime(0,0,0,$data["birthday"]["month"],$data["birthday"]["day"],$data["birthday"]["year"]));
-					//peaks selle ka salvestama
-				}
-			}
+
 			if(!empty($data["customer_no"]))
 			{
 				$person->set_prop("external_id" , $data["customer_no"]);
 			}
-			$person->save();
 		}
+
+		if(!empty($data["birthday"]))
+		{
+			if(is_array($data["birthday"]))
+			{
+				$person->set_prop("birthday" , mktime(0,0,0,$data["birthday"]["month"],$data["birthday"]["day"],$data["birthday"]["year"]));
+			}
+		}
+
+		$person->save();
 
 		if(!empty($data["email"]))
 		{
@@ -442,13 +472,49 @@ class shop_order_cart_obj extends _int_object
 	public function confirm_order()
 	{
 		$order = $this->create_order();
-		$this->reset_cart();
 		$this->set_oc();
 		$order_obj = obj($order);
 		$order_obj->set_prop("order_status" , "5");
 		$order_obj->save();
+
+		if($this->can("view", $this->prop("finish_handler")))
+		{
+			$ctrl = get_instance(CL_FORM_CONTROLLER);
+			$ctrl->eval_controller($this->prop("finish_handler"), &$order_obj, &$this);
+		}
+
 		$this->oc->send_confirm_mail($order);
-		return $order;
+		$this->reset_cart();
+		return $order_obj;
+	}
+
+	public function get_pay_form()
+	{
+		$order = $this->create_order();
+		$this->reset_cart();
+		$oc = $this->get_oc();
+		$order = obj($order);
+		$order->set_prop("order_status" , "0");
+
+		$bank_payment_inst = get_instance(CL_BANK_PAYMENT);
+		$bank_payment = $oc->get_bank_payment_id();
+		$expl = $order->id();
+
+		if($oc->prop("show_prod_and_package"))
+		{
+			$expl = substr($expl." ".join(", " , $order->get_product_names()), 0, 69);
+		}
+		if(strlen($expl." (".$oc->id().")") < 70)
+		{
+			$expl.= " (".$oc->id().")"; //et tellimiskeskkonna objekt ka naha jaaks
+		}
+		return $bank_payment_inst->bank_forms(array(
+			"id" => $bank_payment,
+			"amount" => $order->get_sum(),
+			"reference_nr" => $order->id(),
+			"lang" => empty($order_data["bank_lang"]) ? "" : $order_data["bank_lang"],
+			"expl" => $expl,
+		));
 	}
 
 	public function remove_product($product)

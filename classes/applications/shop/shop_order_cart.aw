@@ -24,7 +24,7 @@
 	@caption Korvi uuendamise kontroller
 
 	@property finish_handler type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize
-	@caption Tellimise kontroller
+	@caption Tellimise kontroller ($form_ref - ostukorvi instants , $entry - loodud tellimus)
 
 	@property order_show_controller type=relpicker reltype=RELTYPE_CONTROLLER field=meta method=serialize
 	@caption Tellimuse n&auml;itamise kontroller
@@ -91,6 +91,7 @@ class shop_order_cart extends class_base
 			"mobilephone" => t("Mobiil"),
 			"work" => t("T&ouml;&ouml;koht"),
 			"workexperience" => t("T&ouml;&ouml;staa"),
+			"wage" => t("T&ouml;&ouml;tasu"),
 			"profession" => t("Amet"),
 			"personalcode" => t("Isikukood"),
 		);
@@ -277,7 +278,6 @@ class shop_order_cart extends class_base
 		{
 			$this->cart = $cart_o = obj($oc->prop("cart"));
 		}
-
 		if(empty($oc))
 		{
 			if(!is_object($oc = $this->cart->get_shop_order_center()))
@@ -302,10 +302,14 @@ class shop_order_cart extends class_base
 
 		$this->add_cart_vars();
 		$this->add_product_vars();
+		$cart_total = $this->cart_sum;
 		$this->add_orderer_vars();
-		$this->add_order_vars();
+		if($oc->prop("show_delivery"))
+		{
+			$this->add_order_vars();
+		}
 
-		$soce = new aw_array(aw_global_get("soc_err"));
+/*		$soce = new aw_array(aw_global_get("soc_err"));
 		$soce_arr = $soce->get();
 		foreach($soce->get() as $prid => $errmsg)
 		{
@@ -331,7 +335,7 @@ class shop_order_cart extends class_base
 		}
 
 		aw_session_del("soc_err");
-
+*/
 		if ($oc->prop("no_show_cart_contents"))
 		{
 			return $this->pre_finish_order($arr);
@@ -344,16 +348,18 @@ class shop_order_cart extends class_base
 //		));
 //		$layout = obj($cart_o->prop("prod_layout"));
 
-		$total = 0;
+		$total = $cart_total;
 		$items = 0;
 		$prod_total = 0;
-		$cart_total = 0;
+//		$cart_total = 0;
 		$str = "";
 		$cart = $this->get_cart($oc);
 		$awa = new aw_array($cart["items"]);
 		$show_info_page = true;
 //		$l_inst = $layout->instance();
 //		$l_inst->read_template($layout->prop("template"));
+
+/*
 
 		 $product_str = "";
 
@@ -405,6 +411,22 @@ class shop_order_cart extends class_base
 						$vars["total_price_without_thousand_separator"] = $total_price;
 						$vars["remove_url"] = $this->mk_my_orb("remove_product" , array("cart" => $cart_o->id(), "product" => $iid));
 						$this->vars($vars);
+						$subs = array();
+						foreach($vars as $key => $val)
+						{
+							if($this->is_template("HAS_".strtoupper($key)))
+							{
+								if($val)
+								{
+									$subs["HAS_".strtoupper($key)] = $this->parse("HAS_".strtoupper($key));
+								}
+								else
+								{
+									$subs["HAS_".strtoupper($key)] = "";
+								}
+							}
+						}
+						$this->vars($subs);
 						$product_str.= $this->parse("PRODUCT");
 						$show_info_page = false;
 						$total += $total_price;
@@ -458,7 +480,15 @@ class shop_order_cart extends class_base
 
 					$product = obj($i);
 					$vars = $product->get_data();
-					$price = $product->get_shop_price($oc->id());
+					$special_price = $product->get_shop_special_price($oc->id());
+					if (!empty($special_price))
+					{
+						$price = $special_price;
+					}
+					else
+					{
+						$price = $product->get_shop_price($oc->id());
+					}
 					$total_price = $quant["items"] * $price;
 
 					$vars["amount"] = $quant["items"];
@@ -467,6 +497,22 @@ class shop_order_cart extends class_base
 					$vars["total_price_without_thousand_separator"] = $total_price;
 					$vars["remove_url"] = $this->mk_my_orb("remove_product" , array("cart" => $cart_o->id(), "product" => $iid));
 					$this->vars($vars);
+						$subs = array();
+						foreach($vars as $key => $val)
+						{
+							if($this->is_template("HAS_".strtoupper($key)))
+							{
+								if($val)
+								{
+									$subs["HAS_".strtoupper($key)] = $this->parse("HAS_".strtoupper($key));
+								}
+								else
+								{
+									$subs["HAS_".strtoupper($key)] = "";
+								}
+							}
+						}
+						$this->vars($subs);
 					$product_str.= $this->parse("PRODUCT");
 
 					$show_info_page = false;
@@ -477,6 +523,7 @@ class shop_order_cart extends class_base
 			}
 		}
 		$this->cart_sum = $cart_total;
+*/
 
 		if ($str == "" && $this->is_template("NO_SHOW_EMPTY"))
 		{
@@ -533,6 +580,8 @@ class shop_order_cart extends class_base
 
 		//$cart_total = $this->get_cart_value();
 		$cart_discount = $cart_total * ($oc->prop("web_discount")/100);
+
+
 		$postal_price = 0;
 
 
@@ -570,25 +619,30 @@ class shop_order_cart extends class_base
 			$postal_price =  $cart_o->prop("postal_price");
 		}
 
-
+		if(aw_global_get("uid") == "struktuur.markop")
+		{
+//$this->cart_sum =$this->cart_sum * 0.9;
+		}
 
 
 
 		$this->vars($delivery_vars + array(
-			"cart_total" => number_format($cart_total, 2),
+			"cart_total" => number_format($this->cart_sum , 2, "." , ""),
+			"unformated_cart_total" => $this->cart_sum,
 			"cart_discount" => number_format($cart_discount, 2),
 			"cart_val_w_disc" => number_format($cart_total - $cart_discount, 2),
 			"user_data_form" => $html,
-			"PROD" => $str,
-			"PRODUCT" => $product_str,
-			"basket_total_price" =>number_format( $cart_total,2),
+//			"PROD" => $str,
+//			"PRODUCT" => $product_str,
+			"basket_total_price" =>number_format($this->cart_sum,2),
 			"total" => number_format($total, 2),
 			"prod_total" => number_format($prod_total, 2),
 			"postal_price" => number_format($postal_price,2),
 			"reforb" => $this->mk_reforb("submit_add_cart", array(
 				"oc" => $oc->id(),
+				"cart" => $cart_o->id(),
 				"update" => 1,
-				"section" => aw_global_get("section"),//$arr["section"]
+				"section" => aw_global_get("section"),
 			)),
 		));
 /*
@@ -611,7 +665,7 @@ class shop_order_cart extends class_base
 			));
 		}
 */
-		if($items && $this->is_template("HAS_PRODUCTS"))
+		if($this->product_count && $this->is_template("HAS_PRODUCTS"))
 		{
 			$this->vars(array(
 				"HAS_PRODUCTS" => $this->parse("HAS_PRODUCTS"),
@@ -633,9 +687,23 @@ class shop_order_cart extends class_base
 			"not_logged" => $lln,
 		));
 */
-		$this->add_bank_vars($oc, empty($cart["user_data"]) ? null : $cart["user_data"]);
+
+		//pangamakse muutujad
+		if($oc->prop("use_bank_payment"))
+		{
+			$this->add_bank_vars($oc, empty($cart["user_data"]) ? null : $cart["user_data"]);
+		}
+
 		$data["cart"] = $cart_o->id();
+		
+		//peale submiti edasi mineku url
+		$data["go_to_after"] = aw_ini_get("baseurl")."/index.aw?action=".($oc->prop("show_delivery") ? "order_data" : "orderer_data")."&class=shop_order_cart&cart=".$cart_o->id()."&section=".aw_global_get("section");
+
+		//kinnitamise url
+		$data["confirm_url"] = aw_ini_get("baseurl")."/index.aw?action=confirm_order&class=shop_order_cart&cart=".$cart_o->id()."&section=".aw_global_get("section");
+
 		$this->vars($data);
+		//k6igi muutujate kohta sub ka selle jaoks, kui on olemas selline muutuja
 		foreach($this->vars as $key => $val)
 		{
 			if($val && $this->is_template("HAS_".strtoupper($key)))
@@ -1076,7 +1144,7 @@ class shop_order_cart extends class_base
 				unset($cart["items"][$iid]);
 			}
 		}
-		//arr($cart);
+		//arr$(cart);
 		$this->set_cart(array(
 			"oc" => $oc,
 			"cart" => $cart,
@@ -1281,11 +1349,11 @@ class shop_order_cart extends class_base
 			{
 				return aw_ini_get("baseurl");
 			}
-			if(is_oid($cart_o->prop("finish_handler")) && $this->can("view", $cart_o->prop("finish_handler")))
-			{
-				$ctr = get_instance(CL_FORM_CONTROLLER);
-				$ctr->do_check($cart_o->prop("finish_handler"), NULL, $cart_o, $oc);
-			}
+//			if(is_oid($cart_o->prop("finish_handler")) && $this->can("view", $cart_o->prop("finish_handler")))
+//			{
+//				$ctr = get_instance(CL_FORM_CONTROLLER);
+//				$ctr->do_check($cart_o->prop("finish_handler"), NULL, $cart_o, $oc);
+//			}
 			aw_session_del("order.accept_cond");
 
 		// There is no such function ?!? --dragut@28.08.2009
@@ -1472,7 +1540,8 @@ class shop_order_cart extends class_base
 				}
 			}
 //------------porno
-			$price = $inst->get_calc_price($i);
+			$price = $i->get_special_price();
+//			$price = $inst->get_calc_price($i);
 			$quantx = new aw_array($quantx);
 			foreach($quantx->get() as $x => $quant)
 			{
@@ -2601,6 +2670,17 @@ class shop_order_cart extends class_base
 		{
 			$product_object = obj($arr["product"]);
 			$vars = $product_object->get_data();
+
+			$vars['special_price_visibility'] = '';
+			$vars['PRODUCT_SPECIAL_PRICE'] = '';
+			if (!empty($vars['special_price']))
+			{
+				$vars['special_price_visibility'] = '_specialPrice';
+				$this->vars(array(
+					'special_price' => number_format($vars['special_price'], 2)
+				));
+				$vars['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
+			}
 		}
 
 		if(!empty($arr["return_url"]))
@@ -2637,7 +2717,10 @@ class shop_order_cart extends class_base
 		$this->add_cart_vars();
 		$this->add_product_vars();
 		$this->add_orderer_vars();
-		$this->add_order_vars();;
+		if($this->oc->prop("show_delivery"))
+		{
+			$this->add_order_vars();
+		}
 
 		$this->vars($arr);
 		return $this->parse();
@@ -2675,9 +2758,16 @@ class shop_order_cart extends class_base
 
 	public function add_orderer_vars()
 	{
+		//load_javascript('validationEngine.jquery.css');
 		$data = $this->cart->get_order_data();
-		$vars = array();
-		foreach($this->orderer_vars as $orderer_var => $caption)
+		$vars = array("ORDERER_DATA" => "");
+		if(!isset($this->oc))
+		{
+			$this->oc = $this->cart->get_oc();
+		}
+		$orderer_vars = $this->oc->get_orderer_vars($this);
+		$this->orderer_vars_meta = $this->oc->meta("orderer_vars");
+		foreach($orderer_vars as $orderer_var => $caption)
 		{
 			$vars[$orderer_var."_value"] = empty($data[$orderer_var]) ? "" : $data[$orderer_var];
 			$vars[$orderer_var."_caption"] = $caption;
@@ -2700,6 +2790,7 @@ class shop_order_cart extends class_base
 					$vars[$orderer_var] = html::textbox(array(
 						"name" => $orderer_var,
 						"value" => $vars[$orderer_var."_value"],
+						"class" => empty($this->orderer_vars_meta["req"][$orderer_var]) ? "" : "validate[required] text",
 					));
 					break;
 				case "birthday":
@@ -2708,10 +2799,29 @@ class shop_order_cart extends class_base
 						$vars["birthday_day_value"] = empty($data[$orderer_var]["day"]) ? t("PP") : $data[$orderer_var]["day"];
 						$vars["birthday_month_value"] = empty($data[$orderer_var]["month"]) ? t("KK") : $data[$orderer_var]["month"];
 						$vars["birthday_year_value"] = empty($data[$orderer_var]["year"]) ? t("AAAA") : $data[$orderer_var]["year"];
-						$vars["birthday_value"] = empty($data[$orderer_var]["day"]) ? "" : date("d.m.Y" , mktime(0,0,0,$data[$orderer_var]["day"],$data[$orderer_var]["month"],$data[$orderer_var]["year"]));
+						$vars["birthday_value"] = empty($data[$orderer_var]["day"]) ? "" : date("d.m.Y" , mktime(0,0,0,$data[$orderer_var]["month"],$data[$orderer_var]["day"],$data[$orderer_var]["year"]));
 					}
 					break;
-			} 
+			}
+			if($this->is_template("ORDERER_DATA") || $this->is_template(strtoupper($orderer_var."_SUB")))
+			{
+				$this->vars(array(
+					"caption" => $caption,
+					"value" => empty($data[$orderer_var]) ? "" : $data[$orderer_var],
+					"var_name" => $orderer_var,
+					"REQUIRED" => empty($this->orderer_vars_meta["req"][$orderer_var]) ? "" : $this->parse("REQUIRED"),
+					"class" => empty($this->orderer_vars_meta["req"][$orderer_var]) ? "" : "validate[required] text",
+				));
+				if($this->is_template(strtoupper($orderer_var."_SUB")))
+				{
+					$this->vars($vars);
+					$vars["ORDERER_DATA"].= $this->parse(strtoupper($orderer_var."_SUB"));
+				}
+				else
+				{
+					$vars["ORDERER_DATA"].= $this->parse("ORDERER_DATA");
+				}
+			}
 		}
 
 
@@ -2731,21 +2841,19 @@ class shop_order_cart extends class_base
 			"currency" => $oc->get_currency(),
 			"product" => array(),
 			"product_packaging" => array(),
+			"validate" => false,
 		));
- 
-			$self_validate_payment_types = $this->cart->prop("show_only_valid_payment_types") ? false : true;
-	                 $payment_types_params = array( 	 
-	                         "sum" => $this->cart_sum,
- 	                         "currency" => $oc->get_currency(), 
-	                         "product" => array(),
-	                         "product_packaging" => array(),
-	                         "validate" => !$self_validate_payment_types,
-	                 ); 	 
-	                 $asd = $oc->get_payment_types($payment_types_params);
 
-
-
-
+		$self_validate_payment_types = $this->cart->prop("show_only_valid_payment_types") ? false : true;
+		$self_validate_delivery_methods = $this->cart->prop("show_only_valid_delivery_methods") ? false : true;
+		$payment_types_params = array( 	 
+			"sum" => $this->cart_sum,
+			"currency" => $oc->get_currency(), 
+			"product" => array(),
+			"product_packaging" => array(),
+			"validate" => !$self_validate_payment_types,
+		); 	 
+		$asd = $oc->get_payment_types($payment_types_params);
 
 		$method_params = array(
 			"product" =>  array_keys($prods["items"]),
@@ -2764,31 +2872,41 @@ class shop_order_cart extends class_base
 
 		$delivery_methods_object_list = $this->cart->delivery_methods($method_params);
 
-
 		foreach($asd->arr() as $a => $o)
 		{
 			$porn = 0;
 			$this->vars(array(
 				"payment_name" => $o->name(),
 				"payment_id" => $a,
+				"comment" => $o->comment(),
 				"payment_checked" => (!empty($data["payment"]) && $data["payment"] == $a) || ($porn==0 && empty($data["payment"])) ? " checked='checked' " : " ",
 			));
 
-                         if($self_validate_payment_types) 	 
-	                         { 	 
-	                                 $payment.= $this->parse("PAYMENT".(is_oid($o->valid_conditions($payment_types_params)) ? "" : "_DISABLED")); 	 
-	                         } 	 
-	                         else 	 
-	                         {	 
- 	                                 $payment.= $this->parse("PAYMENT");
-					$porn++; 	 
-				}
+// 			if($self_validate_payment_types)
+// 			{
+// 				$payment.= $this->parse("PAYMENT".(is_oid($o->valid_conditions($payment_types_params)) ? "" : "_DISABLED")); 
+// 			}
+// 			else
+// 			{
+// 				$payment.= $this->parse("PAYMENT");
+// 				$porn++;
+// 			}
+
 			$condition = $o->valid_conditions(array(
 				"sum" => $this->cart_sum,
 				"currency" => $oc->get_currency(),
 				"product" => array(),
 				"product_packaging" => array(),
 			));
+			if(is_oid($condition))
+			{
+				$payment .= $this->parse("PAYMENT");
+				$porn++;
+			}
+			else
+			{
+				$payment .= $this->parse("PAYMENT_DISABLED");
+			}
 
 			$condition_object = obj($condition);
 			foreach($condition_object->properties() as $key => $prop)
@@ -2809,6 +2927,11 @@ class shop_order_cart extends class_base
 				$DEFERRED_PAYMENT.= $this->parse("DEFERRED_PAYMENT");
 				$min = $min + $step;
 			}
+			$this->vars(array(
+				"deferred_payment_selected" => empty($data["deferred_payment_count"]) ? 'selected="selected"' : "",
+				"value" => ""
+			));
+			$DEFERRED_PAYMENT.= $this->parse("DEFERRED_PAYMENT");
 		}
 		$this->vars(array(
 			"DEFERRED_PAYMENT" => $DEFERRED_PAYMENT,  
@@ -2817,7 +2940,7 @@ class shop_order_cart extends class_base
 			"payment_value" => empty($data["payment"]) ? "" : $data["payment"],
 		));
 
-		$porno = 0;
+		$porno = 0;//lihstalt count
 		foreach($delivery_methods_object_list->arr() as $id => $o)
 		{
 			$sel_delivery = (!empty($data["delivery"]) && $data["delivery"] == $id) || ($porno==0 && empty($data["delivery"]));
@@ -2831,15 +2954,30 @@ class shop_order_cart extends class_base
 			{
 				$this->delivery_sum = $o->get_shop_price($oc);
 			}
-		        if($self_validate_delivery_methods)
-	                { 	 
-	                         $delivery.=$this->parse("DELIVERY".($o->valid($delivery_methods_params) ? "" : "_DISABLED")); 	 
-	                }
+			if($self_validate_delivery_methods)
+			{
+				//misasi see $delivery_methods_params on? (Marko)
+				//	Hea kysimus. Veel parem kysimus on, mis see OLI?
+				//	Sa kirjutasid mu muudatused millalgi yle ja neid taastadedes j2i see j2relikult taastamata.
+				//	Ilmselt on see see sama, millega need k2ttesaamisviisid alguses kysitakse.
+				//	Niiet prolly $delivery_methods_params = $method_params;		-kaarel 15.10.2009
+
+
+//				$delivery.=$this->parse("DELIVERY".($o->valid($delivery_methods_params) ? "" : "_DISABLED"));
+				$delivery .= $this->parse("DELIVERY".($o->valid($method_params) ? "" : "_DISABLED"));
+
+//				if($o->valid($delivery_methods_params))
+				if($o->valid($method_params))
+				{
+					$porno++;
+				}
+			}
 			else 	 
-	                { 	 
-	                         $delivery.=$this->parse("DELIVERY"); 	 
-	                         $porno++; 	 
-	                }
+			{ 	 
+				$delivery.=$this->parse("DELIVERY"); 	
+				$porno++;  
+			}
+
 		}
 
 		$this->vars(array(
@@ -2882,6 +3020,39 @@ class shop_order_cart extends class_base
 			$SMARTPOST_SELL_PLACE.= $this->parse("SMARTPOST_SELL_PLACE");
 		}
 
+		$post_office_list = new object_list(array(
+			"class_id" => CL_POST_OFFICE,
+			new obj_predicate_sort(array(
+				"county.ord" => "asc",
+				"county.name" => "asc",
+				"ord" => "asc",
+				"name" => "asc",
+			)),
+		));
+			
+		$POST_OFFICE_SELL_PLACE = "";
+		$previous_post_office_county = NULL;
+		foreach($post_office_list->arr() as $post_office)
+		{
+			if($previous_post_office_county != $post_office->prop("county"))
+			{
+				$this->vars(array(
+					"post_office_county" => $post_office->prop("county"),
+					"post_office_county_name" => $post_office->prop("county.name")
+				));
+				$previous_post_office_county = $post_office->prop("county");
+				$POST_OFFICE_SELL_PLACE .= $this->parse("POST_OFFICE_SELL_PLACE_NAME");
+			}
+			
+			$this->vars(array(
+				"post_office_value" => $post_office->id(),
+				"post_office_name" => $post_office->prop("name"),
+				"post_office_place_selected" => !empty($data["post_office_sell_place"]) &&  $data["post_office_sell_place"] == $post_office->id() ? 'selected="selected"' : "",
+			));
+			$previous_post_office_county = $post_office->prop("county");
+			$POST_OFFICE_SELL_PLACE .= $this->parse("POST_OFFICE_SELL_PLACE");
+		}
+
 //---------- kui miskit suva porno checkboxi v6i radiobuttoni muutujat vaja kasutada, mis on templeidis, siis siit annaks v22rtus
 
 		$checkbox_vars = array("client_status");
@@ -2893,7 +3064,6 @@ class shop_order_cart extends class_base
 			}
 			else
 			{
-
 				$this->vars(array($checkbox_var."_2_checked"  => "checked=\"checked\""));
 			}
 		}
@@ -2904,6 +3074,8 @@ class shop_order_cart extends class_base
 			"delivery_value" => empty($data["delivery"]) ? "" : $data["delivery"],
 			"COUNTY" => $county,
 			"SMARTPOST_SELL_PLACE" => $SMARTPOST_SELL_PLACE,
+			"POST_OFFICE_SELL_PLACE" => $POST_OFFICE_SELL_PLACE,
+			"POST_OFFICE_SELL_PLACE_NAME" => "",
 		));
 
 		if(isset($data["delivery"]) && $this->can("view" , $data["delivery"]))
@@ -2914,6 +3086,7 @@ class shop_order_cart extends class_base
 
 		//j2relmaksu jaoks SUB
 
+
 		if(!empty($data["payment"]) && $this->can("view" , $data["payment"]))
 		{
 			$payment = obj($data["payment"]);
@@ -2923,7 +3096,7 @@ class shop_order_cart extends class_base
 				"product" => array(),
 				"product_packaging" => array(),
 			));
-			if($this->can("view" , $condition))
+			if(is_oid($condition) && $this->can("view", $condition))
 			{
 				$c = obj($condition);
 				$rent = $c->calculate_rent($this->cart_sum,$data["deferred_payment_count"]);
@@ -2970,20 +3143,70 @@ class shop_order_cart extends class_base
 				$items ++;
 	
 				$vars = $product->get_data();
-				$sum = $quant["items"] * $product->get_shop_price($this->oc->id());
+				$special_price = $product->get_shop_special_price($this->oc->id());
+				$vars['PRODUCT_SPECIAL_PRICE'] = '';
+				$vars['special_price_visibility'] = '';
+				if (!empty($special_price))
+				{
+					$sum = $quant["items"] * $special_price;
+					$vars['special_price_visibility'] = '_specialPrice';
+					$vars['special_price'] = $special_price;
+					$this->vars(array(
+						'special_price' => number_format($special_price, 2),
+						'unformated_special_price' => $special_price
+					));
+					$vars['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
+				}
+				else
+				{
+					$price = $product->get_shop_price($this->oc->id());
+					$sum = $quant["items"] * $price;
+					$vars['special_price_visibility'] = '';
+					$vars['PRODUCT_SPECIAL_PRICE'] = '';
+					$vars['special_price'] = $price;
+				}
+				
 				$vars["amount"] = $quant["items"];
-				$vars["price"] = number_format($product->get_shop_price($this->oc->id()) , 2);
-				$vars["total_price"] = number_format($sum , 2);
+
+				$price = $product->get_shop_price($this->oc->id());
+				$vars["price"] = number_format($price , 2 , "." , "");
+				$vars["unformated_price"] = $price;
+				$vars['unformated_special_price'] = $vars['special_price'];
+				$vars['special_price'] = number_format($vars['special_price'] , 2, "." , "");
+				$vars["unformated_total_price"] = $sum;
+				$vars["total_price"] = number_format($sum , 2, "." , "");
+				$vars["total_price_without_thousand_separator"] = $sum;//see yleliigne vast nyyd
+
 				$vars["remove_url"] = $this->mk_my_orb("remove_product" , array("cart" => $this->cart->id(), "product" => $iid));
 				$this->vars($vars);
+//arr($vars);
+				$subs = array();
+				foreach($vars as $key => $val)
+				{
+					if($this->is_template("HAS_".strtoupper($key)))
+					{
+						if($val)
+						{
+							$subs["HAS_".strtoupper($key)] = $this->parse("HAS_".strtoupper($key));
+						}
+						else
+						{
+							$subs["HAS_".strtoupper($key)] = "";
+						}
+					}
+				}
+				$this->vars($subs);
+
 				$product_str.= $this->parse("PRODUCT");
 				$cart_total += $sum;
 			}
 		}
+		$this->product_count = $items;
 		$this->cart_sum = $cart_total;
 		$this->vars(array(
 			"PRODUCT" => $product_str,
-			"cart_total" => $cart_total,
+			"unformated_cart_total" => $cart_total,
+			"cart_total" => number_format($cart_total , 2, "." , ""),
 		));
 	}
 
@@ -3025,7 +3248,15 @@ class shop_order_cart extends class_base
 			$return_data["confirm_url"] = $arr["confirm_url"];
 		}
 
-		return $this->mk_my_orb($action, $return_data);
+//isikuandmeid jne tihti tahetakse yle ssh, siis t6en2oliselt tahetakse vastust ka selliselt, kud on need isikuandmed tihti n2ha
+		$return = $this->mk_my_orb($action, $return_data);
+		if(substr($_SERVER["SCRIPT_URI"],0,8) == "https://")
+		{
+			$return = str_replace("http://" ,  "https://" , $return);
+		//	if(aw_global_get("uid") == "struktuur.markop"){arr($return);}
+		}
+//if(aw_global_get("uid") == "struktuur.markop"){arr($return);die();}
+		return $return; 
 	}
 
 	/**
@@ -3035,9 +3266,11 @@ class shop_order_cart extends class_base
 	**/
 	public function remove_product($arr)
 	{
+		ignore_user_abort(true);
 		$cart = obj($arr["cart"]);
 		$cart -> remove_product($arr["product"]);
-		die(1);
+		ignore_user_abort(false);
+		die("1");
 	}
 
 	/**
@@ -3047,12 +3280,30 @@ class shop_order_cart extends class_base
 	public function confirm_order($arr)
 	{
 		$cart = obj($arr["cart"]);
-		$order = $cart->confirm_order(); //arr("Location: ".aw_global_get("baseurl")."/".$order);
-		$url = aw_global_get("baseurl")."/".$order;
-		//$url = $this->mk_my_orb("show" , array("id" => $order) , CL_SHOP_SELL_ORDER);
+		$cart-> set_order_data($arr);
+		$order_data = $cart->get_order_data();
+		$oc = $cart->get_oc();
+		if($oc->prop("use_bank_payment"))
+		{
+			if($order_data["bank"])
+			{
+				return $this->pay_cart(array(
+					"oc" => $oc->id(),
+				));
+			}
+			else
+			{
+				return $cart->get_pay_form();
+			}
+		}
+		$order = $cart->confirm_order();
+		$url = aw_global_get("baseurl")."/".$order->id();
+		if(substr($_SERVER["SCRIPT_URI"],0,8) == "https://")
+		{
+			$url = str_replace("http://" ,  "https://" , $url);
+		}
 		header("Location: ".$url);
 		die();
-		return "/".$order;
 	}
 
 

@@ -6,79 +6,89 @@
 @default table=aw_shop_sell_orders
 @default group=general
 
-@property number type=textbox field=aw_number
-@caption Number
+	@property number type=textbox field=aw_number
+	@caption Number
 
-@property purchaser type=relpicker reltype=RELTYPE_PURCHASER field=aw_purchaser
-@caption Tellija
+	@property purchaser type=relpicker reltype=RELTYPE_PURCHASER field=aw_purchaser
+	@caption Tellija
 
-@property job type=relpicker reltype=RELTYPE_JOB field=aw_job
-@caption T&ouml;&ouml;
+	@property job type=relpicker reltype=RELTYPE_JOB field=aw_job
+	@caption T&ouml;&ouml;
 
-@property related_orders type=relpicker multiple=1 reltype=RELTYPE_PURCHASE_ORDER store=connect
-@caption Seotud ostutellimused			
+	@property related_orders type=relpicker multiple=1 reltype=RELTYPE_PURCHASE_ORDER store=connect
+	@caption Seotud ostutellimused			
 
-@property date type=date_select field=aw_date
-@caption Kuup&auml;ev
+	@property date type=date_select field=aw_date
+	@caption Kuup&auml;ev
 
-@property deal_date type=date_select field=aw_deal_date
-@caption Tegelemise kuup&auml;ev
+	@property deal_date type=date_select field=aw_deal_date
+	@caption Tegelemise kuup&auml;ev
 
-@property planned_date type=date_select field=aw_planned_send_date
-@caption Planeeritud saatmise kuup&auml;ev
+	@property planned_date type=date_select field=aw_planned_send_date
+	@caption Planeeritud saatmise kuup&auml;ev
 
-@property buyer_rep type=relpicker reltype=RELTYPE_BUYER_REP field=aw_buyer_rep
-@caption Tellija esindaja
+	@property buyer_rep type=relpicker reltype=RELTYPE_BUYER_REP field=aw_buyer_rep
+	@caption Tellija esindaja
 
-@property our_rep type=relpicker reltype=RELTYPE_OUR_REP field=aw_our_rep
-@caption Meie esindaja
+	@property our_rep type=relpicker reltype=RELTYPE_OUR_REP field=aw_our_rep
+	@caption Meie esindaja
 
-@property trans_cost type=textbox field=aw_trans_cost
-@caption Transpordikulu
+	@property trans_cost type=textbox field=aw_trans_cost
+	@caption Transpordikulu
 
-@property customs_cost type=textbox field=aw_customs_cost datatype=int
-@caption Tollikulu
+	@property customs_cost type=textbox field=aw_customs_cost datatype=int
+	@caption Tollikulu
 
-@property transp_type type=relpicker field=aw_transp_type reltype=RELTYPE_TRANSFER_METHOD
-@caption L&auml;hetusviis
+	@property transp_type type=relpicker field=aw_transp_type reltype=RELTYPE_TRANSFER_METHOD
+	@caption L&auml;hetusviis
 
-@property shop_delivery_type type=relpicker field=aw_delivery_type reltype=RELTYPE_DELIVERY_METHOD
-@caption Poe kohaletoimetamise viis
+	@property shop_delivery_type type=relpicker field=aw_delivery_type reltype=RELTYPE_DELIVERY_METHOD
+	@caption Poe kohaletoimetamise viis
 
-@property currency type=relpicker reltype=RELTYPE_CURRENCY automatic=1 field=aw_currency
-@caption Valuuta
+	@property currency type=relpicker reltype=RELTYPE_CURRENCY automatic=1 field=aw_currency
+	@caption Valuuta
 
-@property warehouse type=relpicker reltype=RELTYPE_WAREHOUSE automatic=1 field=aw_warehouse
-@caption Ladu
+	@property warehouse type=relpicker reltype=RELTYPE_WAREHOUSE automatic=1 field=aw_warehouse
+	@caption Ladu
 
-@property delivery_address type=relpicker reltype=RELTYPE_ADDRESS automatic=1 field=aw_address
-@caption Kohaletoimetamise aadress
-
-
-@property smartpost_sell_place_name type=hidden field=aw_address_text
-@caption Kohaletoimetamise aadress tekstina (postkontorid jne)
-@comment M&otilde;nel kohaletoimetamise viisil on omal aadresside valik kuhu saadetakse kaup (nt. smartpost)
+	@property delivery_address type=relpicker reltype=RELTYPE_ADDRESS field=aw_address
+	@caption Kohaletoimetamise aadress
 
 
+	@property smartpost_sell_place_name type=hidden field=aw_address_text
+	@caption Kohaletoimetamise aadress tekstina (postkontorid jne)
+	@comment M&otilde;nel kohaletoimetamise viisil on omal aadresside valik kuhu saadetakse kaup (nt. smartpost)
 
-@property order_status type=chooser default=0 field=aw_status default=0
-@caption Staatus
 
-@property channel type=relpicker field=aw_channel reltype=RELTYPE_CHANNEL store=connect
-@caption M&uuml;&uuml;gikanal
 
-@property taxed type=chooser field=aw_taxed
-@caption Maks
+	@property order_status type=chooser default=0 field=aw_status default=0
+	@caption Staatus
 
-@property payment_type type=select field=aw_payment_type
-@caption Maksetingimus
+	@property channel type=relpicker field=aw_channel reltype=RELTYPE_CHANNEL store=connect
+	@caption M&uuml;&uuml;gikanal
 
-@property deferred_payment_count type=hidden field=aw_deferred_payment_count
-@caption J&auml;relmaksude arv
+	@property taxed type=chooser field=aw_taxed
+	@caption Maks
 
-@property art_toolbar type=toolbar no_caption=1 store=no
+	@property payment_type type=select field=aw_payment_type
+	@caption Maksetingimus
 
-@property articles type=table store=no no_caption=1
+	@property deferred_payment_count type=hidden field=aw_deferred_payment_count
+	@caption J&auml;relmaksude arv
+
+	@property art_toolbar type=toolbar no_caption=1 store=no
+
+	@property articles type=table store=no no_caption=1
+
+	@property order_rows_to type=hidden store=no no_caption=1
+	@caption Order rows to
+
+@groupinfo preview caption="Eelvaade" submit=no
+@default group=preview
+
+	@property preview type=text no_caption=1 store=no
+
+######
 
 @reltype PURCHASER value=1 clid=CL_CRM_COMPANY,CL_CRM_PERSON
 @caption Hankija
@@ -153,22 +163,144 @@ class shop_sell_order extends class_base
 				if($prop["value"])
 				{
 					$prop["options"] = array($prop["value"] => get_name($prop["value"]));
-
 				}
-	
-				break;
 
+				break;
 		}
 
 		return $retval;
 	}
 
+	public function _get_preview($arr)
+	{
+		if(!is_oid($arr["obj_inst"]->id()))
+		{
+			return PROP_IGNORE;
+		}
 
-
+		$arr["prop"]["value"] = $this->show(array(
+			"id" => $arr["obj_inst"]->id(),
+			//	Next line assumes the shop_order_center is the parent of the shop_sell_order. -kaarel 7.04.2010
+			"template" => $arr["obj_inst"]->prop("parent.mail_template"),
+		));
+		return PROP_OK;
+	}
 
 	function callback_mod_reforb($arr)
 	{
 		return get_instance(CL_SHOP_PURCHASE_ORDER)->callback_mod_reforb(&$arr);
+	}
+	
+	function callback_post_save($arr)
+	{
+		//echo'<pre>';var_dump($arr['request']['order_rows_to']);echo'</pre>';
+		
+		//echo'<pre>';var_dump($arr['request']['sel']);echo'</pre>';
+		if (isset($arr['request']['order_rows_to']) and isset($arr['request']['sel'])) {
+			
+			$this->order_rows_to_bill($arr, $arr['request']['sel'], $arr['request']['order_rows_to']);
+			
+		}
+		
+		
+		
+		
+	}
+	
+	function order_rows_to_bill($arr, $rows, $bill) {
+		
+		echo "alvar";
+		
+		/* @var $bill_obj crm_bill_obj */
+		$bill_obj = obj($bill);
+		
+		foreach ($rows as $order_row_id) {
+			
+			/* @var $bill_row_obj crm_bill_row_object */
+			$bill_row_obj = $bill_obj->add_row();
+			
+			
+			
+			/*
+			$bill_row_obj->connect(array(
+				'to' => $order_row_id,
+				'type' => 'RELTYPE_SHOP_ORDER_ROW'
+			));
+			*/
+			
+			
+			/* @var $order_row_obj shop_order_row */
+			$order_row_obj = obj($order_row_id);
+			
+			
+			//var_dump($order_row_obj);
+			
+			$cons = $order_row_obj->connections_from(array("type" => "RELTYPE_PRODUCT"));
+			foreach ($cons as $con) {
+				
+				/* @var $con connection */
+				
+				//$bla = new c
+				
+				//echo'<pre>';var_dump($con);echo'</pre>';
+				
+				//@todo con on objekt, ära kasuta seda arrayna!
+				
+				
+				//var_dump(get_class_methods(get_class($con)));
+				//var_dump($con->to());
+				
+				
+				//$prod_obj = obj();
+				
+				
+				
+				
+				//$bill_row_obj->set_prop('prod', $con['to']);
+			}
+			
+			
+			
+			/*
+			$ol = new object_list(array(
+					"class_id" => CL_SHOP_PRODUCT,
+					"lang_id" => array(),
+					"site_id" => array(),
+				));
+				
+				var_dump($ol);
+			*/
+			
+			//$this->name()." ".t("rida")
+			//@todo save this :)
+			
+			
+			
+			$bill_row_obj->set_prop('price', 10);
+			$bill_row_obj->set_prop('name', $order_row_obj->name());
+			
+			/*
+			 * lisa ylejäänud asjad samuti
+			 */
+			
+			
+			$bill_row_obj->save();
+			
+			/*
+			$this->connect(array(
+				"to" => $br->id(),
+				"type" => "RELTYPE_ROW"
+			));
+			*/
+			
+			/* @var $order_row_obj shop_order_row_obj */
+			//$order_row_obj = obj($order_row_id);
+			
+			
+			
+		}
+		
+		
 	}
 
 	function _get_taxed($arr)
@@ -270,21 +402,26 @@ class shop_sell_order extends class_base
 	**/
 	public function show($arr)
 	{
+		$is_bonus_discount = 0;
+
 		if(empty($arr["template"]))
 		{
 			$arr["template"] = "show.tpl";
 		}
+		
+	//	echo '<pre>';var_dump($arr);echo '</pre>';
 		$this->read_any_template($arr["template"]);
 		lc_site_load("shop", &$this);
 		$data = array();
 		$o = obj($arr["id"]);
 		$meta = $o->meta("order_data");
 		$this->vars($meta);
+		if(aw_global_get("uid") == "struktuur.markop") arr($meta);
 		foreach($o->get_property_list() as $pn => $pd)
 		{
 			$data[$pn] = $o->prop_str($pn);
 		}
-
+//arr($data);
 		$t = new aw_table();
 		$t->define_field(array(
 			"name" => "prod",
@@ -307,27 +444,58 @@ class shop_sell_order extends class_base
 			"align" => "right"
 		));
 
-		$sum = 0;
+		$sum = $cart_sum = 0;
 		$different_products = 0;
 		$rows = "";
+		$prod_data_keys = array();
 		foreach($o->connections_from(array("type" => "RELTYPE_ROW")) as $c)
 		{
-			
 			$row = $c->to();
-			$c_sum = $row->amount * $row->price;
-			$sum+= $c_sum;
 			$prod_data = array();
-
 			if($this->can("view" , $row->prop("prod")))
 			{
 				$product = obj($row->prop("prod"));
 				$prod_data = $product->get_data();
-				$this->vars($prod_data);
+				$prod_data_keys = array_keys($prod_data);
 			}
+			else
+			{
+				if(sizeof($prod_data_keys))//selleks, et kui yhel real on toode kyljes, ja teisel pole, et siis teisel ei t2idaks eelmiste andmetega muutujaid
+				{
+					foreach($prod_data_keys as $key)
+					{
+						$prod_data[$key] = "";
+					}
+					$prod_data_keys = array();
+				}
+			
+
+				$prod_data["code"] = $row->meta("product_code");
+				$prod_data["size"] = $row->meta("product_size");
+				$prod_data["color"] = $row->meta("product_color");
+				$prod_data["name"] = $row->prop("prod_name");
+				$prod_data["packet_name"] = $row->prop("prod_name");
+			}
+				if(aw_ini_get("site_id") == 484 && (substr(trim($prod_data["code"]) , 0 , 1) == "V" || substr(trim($prod_data["code"]) , 0 , 1) == "v"))//keyword
+				{
+					$is_bonus_discount = 1;
+				}
+			if(!$row->prop("price"))
+			{
+				$price = $prod_data["price"];
+			}
+			else
+			{
+				$price = $row->prop("price");
+			}
+			$c_sum = $row->amount * $price;
+			$sum+= $c_sum;
+
 			$row_data = array(
 				"prod" => $row->prod_name,
 				"amount" => $row->amount,
 				"price" => number_format($row->price , 2),
+				"price_with_zeros" => number_format($row->price , 2),
 				"sum" => number_format($c_sum, 2)
 			);
 			$t->define_data($row_data);
@@ -335,37 +503,74 @@ class shop_sell_order extends class_base
 			{
 				$row_data[$pn] = $row->prop_str($pn);
 			}		
-
-			if(!sizeof($prod_data))
+			foreach($row->meta() as $pn => $pd)
 			{
-				$prod_data["code"] = $row->meta("product_code");
-				$prod_data["size"] = $row->meta("product_size");
-				$prod_data["color"] = $row->meta("product_color");
-				$prod_data["name"] = $row->prop("prod_name");
-				$prod_data["packet_name"] = $row->prop("prod_name");
-				if(!$prod_data["sum"])
-				{
-					$prod_data["sum"] = t("Hinnakirja<br>alusel");
-				}
-			}
+				$row_data[$pn] = $pd;
+			}		
 			$different_products++;
-			$this->vars($row_data);
+
+			//$row_data - muutujad mis tulevad tellimuse reast, $prod_data - need muutujad, mis tulevad toote juurest
 			$this->vars($prod_data);
-			$rows.= $this->parse("ROW");
+			$this->vars($row_data);
 
+			//mingi kamm on nende hindade formaadiga... erinevatest kohtadest tulevad ka teised
+			//ylej22nud v6iks tulevikus eest 2ra kustutada, kuid kindlasti keegi kasutab kuskil neid hetkel,,, kuid l6pus kirjutab yle nyyd
+			$this->vars(array(
+				"unformated_price" => $price,
+				"price" => number_format($price, 2, "." , ""),
+			));
 
+			foreach($prod_data as $key => $val)//v6ibolla peaks samamoobi l2bi laskma ka $row_data muutuja
+			{
+				if($this->is_template("HAS_".strtoupper($key)))
+				{
+					if($val)
+					{
+						$this->vars(array("HAS_".strtoupper($key) => $this->parse("HAS_".strtoupper($key))));
+					}
+					else
+					{
+						$this->vars(array("HAS_".strtoupper($key) => ""));
+					}
+				}
+				
+			}
+			if($this->is_template("ROW_".$prod_data["id"]))
+			{
+				$this->vars(array("ROW_".$prod_data["id"] => $this->parse("ROW_".$prod_data["id"])));
+			}
+			else
+			{
+				$cart_sum+= $c_sum;
+				$rows.= $this->parse("ROW");
+			}
+
+/*if(aw_global_get("uid") == "struktuur.markop")
+		{
+			arr($this->vars); die();
+		}*/
 			foreach($prod_data as $key => $var)
 			{
 				$this->vars(array(
 					$key => "",
 				));
 			}
+
+
+
 		}
-		$data["cart_sum"] = number_format($sum , 2);
+/*
+if(aw_ini_get("site_id") != 484)//true)//aw_global_get("uid") == "struktuur.markop")
+{
+	$sum = 0.9*$sum;
+	$cart_sum = 0.9*$cart_sum;
+}*/
+		$data["cart_sum"] = number_format($cart_sum , 2);
 		if($this->can("view" , $o->prop("payment_type")))
 		{
 			$payment = obj($o->prop("payment_type"));
-
+			$data["payment_name"] = $payment->name();
+			$data["payment"] = $payment->id();
 			$condition = $payment->valid_conditions(array(
 				"sum" => $sum,
 				"currency" => $o->prop("currency"),
@@ -393,21 +598,26 @@ class shop_sell_order extends class_base
 		
 		if($this->can("view" , $o->prop("shop_delivery_type")))
 		{
+
+//-----------------------------
+
+
+//--------------------------------
 			$delivery = obj($o->prop("shop_delivery_type"));
 			$t->define_data(array(
 				"prod" => $delivery->name(),
-				"sum" => $delivery->get_curr_price($o->prop("currency")),
+				"sum" => $is_bonus_discount ? 0 : $delivery->get_curr_price($o->prop("currency")),
 			));
-			$data["delivery_sum"] = $delivery->get_curr_price($o->prop("currency"));
+			$data["delivery_sum"] = $is_bonus_discount ? 0 : $delivery->get_curr_price($o->prop("currency"));
 			$data["delivery_name"] = $delivery->name();
-			$data["delivery_price"] = $delivery->get_curr_price($o->prop("currency"));
-			$sum+= $data["delivery_price"];
+			$data["delivery_price"] = $is_bonus_discount ? 0 : $delivery->get_curr_price($o->prop("currency"));
+
+			if(!$is_bonus_discount)$sum+= $data["delivery_price"];//keyword
 
 			//kohaletoimetamise info muutujad
 //			$this->vars($delivery->get_vars($o->meta("order_data") + $o->properties()));
 		}
 
-		$data["payment_name"] = $o->prop("payment_type.name");
 
 		$data["ROW"] = $rows;
 		$data["id"] = $o->id();
@@ -437,12 +647,15 @@ class shop_sell_order extends class_base
 				$data["firstname"] = $orderer->prop("firstname");
 				$data["lastname"] = $orderer->prop("lastname");
 			}
+			$data["customer_no"] = $orderer->prop("external_id");
 		}
 		$data["channel"] = $o->prop("channel");
-		$data["customer_no"] = $orderer->prop("external_id");
+		$customer_data_ids = shop_sell_order_obj::get_customer_relation_ids_for_purchasers(array($o->prop("purchaser")), obj($o->prop("warehouse.conf.owner")));
+		$data["customer_data_id"] = reset($customer_data_ids);
 
 		$this->vars($data);
 
+//igale muutujale sub selle kohta kas ta on olemas
 		foreach($this->vars as $key => $val)
 		{
 			if($val && $this->is_template("HAS_".strtoupper($key)))
@@ -450,10 +663,21 @@ class shop_sell_order extends class_base
 				$this->vars(array("HAS_".strtoupper($key) => $this->parse("HAS_".strtoupper($key))));
 			}
 		}
+//m6nele muutuja v22rtusele spets sub kujul MUUTUJANIMI_MUUTUJAV22R
+		
+		$sub_vars = array("payment");
+		foreach($sub_vars as $var)
+		{
+			if($this->is_template(strtoupper($var)."_".$data[$var]))
+			{
+				$this->vars(array(strtoupper($var)."_".$data[$var] => $this->parse(strtoupper($var)."_".$data[$var])));
+			}
+		}
+		
+	//	arr(aw_global_get("uid"));
 
 		return $this->parse();
 	}
-
 
 }
 
