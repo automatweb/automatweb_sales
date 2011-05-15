@@ -54,6 +54,7 @@ class shop_order_cart_value extends class_base
 	// !shows the object
 	function show($arr)
 	{
+		enter_function("cart_value::show");
 		$soc = get_instance(CL_SHOP_ORDER_CART);
 
 		$count = 0;
@@ -87,7 +88,9 @@ lc_site_load("shop", &$this);
 				"NO_ITEMS" => $this->parse("NO_ITEMS")
 			));
 		}
-		return $this->parse();
+		$ret = $this->parse();
+		exit_function("cart_value::show");
+		return $ret;
 	}
 }
 ?>

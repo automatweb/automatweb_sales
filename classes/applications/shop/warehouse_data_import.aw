@@ -6,9 +6,7 @@ class warehouse_data_import extends run_in_background
 
 	var $data = array();
 
-	var $packets_folder = null;
-	var $products_folder = null;
-	var $categories_folder = null;
+	var $sdb_handler = null;
 
 	var $debug = true;
 
@@ -225,9 +223,79 @@ class warehouse_data_import extends run_in_background
 		return $fn;
 	}
 
+	function fill_queue($arr)
+	{
+
+		// I think this implementation needs to come from a class inherited from this one: ie. from warehouse_products_import.aw class
+		
+	/*
+		$db = $this->get_data_folder().'/warehouse_products_queue.sdb';
+
+		echo "Filling the queue ... <br />\n";
+		try 
+		{
+			$dbh = new PDO('sqlite:'.$db);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			
+			// if table don't exist, create it
+			$sql = "CREATE TABLE IF NOT EXISTS products_queue ( status TEXT, timestamp default CURRENT_TIMESTAMP, data BLOB)";
+			$dbh->query($sql);
+
+			$insert_statement = $dbh->prepare("INSERT INTO products_queue (status, timestamp, data) VALUES (:status, :timestamp, :data)");
+
+			$dbh = null;
+		}
+		catch (PDOException $e)
+		{
+			echo $e->getMessage();
+		}
+	*/
+	}
+
+	function init_queue()
+	{
+		$db = $this->get_data_folder().'/warehouse_products_queue.sdb';
+
+		try 
+		{
+			$dbh = new PDO('sqlite:'.$db);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			
+			// if table don't exist, create it
+			$sql = "CREATE TABLE IF NOT EXISTS products_queue ( status TEXT, timestamp default CURRENT_TIMESTAMP, data BLOB )";
+			$dbh->query($sql);
+
+			$this->sdb_handler = $dbh;
+
+			$this->insert_statement = $dbh->prepare("INSERT INTO products_queue (status, timestamp, data) VALUES (:status, :timestamp, :data)");
+		}
+		catch (PDOException $e)
+		{
+			echo $e->getMessage();
+			return false;
+		}
+	}
+
+	/**
+		data(
+			'status' => 
+			'timestamp' =>
+			'data' => 
+		);
+	**/
+	function add_queue_item($data)
+	{
+		$this->insert_statement->execute($data);
+		$this->insert_statement->closeCursor();
+	}
+
+	function close_queue()
+	{
+		$this->sdb_handler = null;
+	}
+
 	function get_warehouse($o)
 	{
-		
 		return $o->get_first_obj_by_reltype(10); // 10 - RELTYPE_WAREHOUSE
 	//	return $o->get_first_obj_by_reltype('RELTYPE_WAREHOUSE');
 	}

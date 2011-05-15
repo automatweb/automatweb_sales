@@ -75,7 +75,7 @@ class shop_product_purveyance extends class_base
 				$prop["options"] = array(0 => t("--vali--"));
 				for($i = 1; $i < 8; $i++)
 				{
-					$prop["options"][$i] = aw_locale::get_lc_weekday($i);
+					$prop["options"][$i] = locale::get_lc_weekday($i);
 				}
 				break;
 		}

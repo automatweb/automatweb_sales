@@ -130,7 +130,7 @@ class shop_warehouse_export extends class_base
 		$inf = new aw_array($o->meta("exp_content"));
 		foreach($inf->get() as $id => $prod)
 		{
-			if ($this->can ("view", $id))
+			if (this->can ("view", $id))
 			{
 				$to = obj($id);
 				$prod = new aw_array($prod);
@@ -150,4 +150,3 @@ class shop_warehouse_export extends class_base
 		$o->save();
 	}
 }
-

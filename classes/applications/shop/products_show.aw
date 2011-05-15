@@ -200,9 +200,34 @@ class products_show extends class_base
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
 
+	function set_cache($html)
+	{
+		$cache_dir = aw_ini_get("cache.page_cache")."/product_show";
+		$master_cache = $cache_dir.$_SERVER["REQUEST_URI"].".tpl";
+
+			if(!file_exists($cache_dir))
+			{
+				mkdir($cache_dir);
+			}
+			$fh = fopen($master_cache, 'w');
+			fwrite($fh, $html);
+			fclose($fh);
+	}
+
 	function show($arr)
 	{
-enter_function("products_show::show");
+
+		$cache_dir = aw_ini_get("cache.page_cache")."/product_show";
+		$master_cache = $cache_dir.$_SERVER["REQUEST_URI"].".tpl";
+
+		if(file_exists($master_cache))
+		{
+			$cache = file($master_cache);
+			exit_function("products_show::show");
+			return join ("" , $cache);
+		}
+
+		enter_function("products_show::show");
 		$ob = new object($arr["id"]);
 		if(!empty($_GET["product"]) && $this->can("view" , $_GET["product"]))
 		{
@@ -210,12 +235,14 @@ enter_function("products_show::show");
 			$instance = get_instance($show_product->class_id());
 			$instance->template = $ob->prop("product_template");
 			exit_function("products_show::show");
-			return $instance->show(array(
-				"id" => $_GET["product"],
-				"oc" => $_GET["oc"],
+			$ret =  $instance->show(array(
+				"id" => (int)$_GET["product"],
+				"oc" => (int)$_GET["oc"],
 			));
+			$this->set_cache($ret);
+			return $ret;
 		}
-enter_function("products_show::start");
+		enter_function("products_show::start");
 		$oc = $ob->get_oc();
 		$this->read_template($ob->get_template());
 		$this->vars(array(
@@ -242,6 +269,11 @@ enter_function("products_show::start");
 		$count = $count_all = 0;
 		exit_function("products_show::start");
 		enter_function("products_show::loop");
+		//teeb sorteerimise enne ära
+//		$products->sort_by(array(
+//			"prop" => "changed",
+//			"order" => "desc"
+//		));
 		foreach($products->ids() as $product_id)
 		{
 			$count_all++;
@@ -251,15 +283,38 @@ enter_function("products_show::start");
 			}
 			$product = obj($product_id);
 			$count++;
-			$data_params = array("image_url" => 1 , "min_price" => 1,"product_id" => 1, "brand_name" => 1);
+			$data_params = array("image_url" => 1,
+				"min_price" => 1,
+				"product_id" => 1,
+				"brand_name" => 1,
+			//"special_prices" => 1
+				"min_special_price" => 1
+			);
 			$product_data = $product->get_data($data_params);
+
+			// this one should be coming from the get_data() fn. probably, but i don't know at the moment how to make that object data list query to work
+			// so i just use this one here:
+			$min_special_price = (!empty($product_data['min_special_price'])) && $product_data['min_special_price'] != $product_data['min_price'] ? $product_data['min_special_price'] : 0;
+			$product_data['PRODUCT_SPECIAL_PRICE'] = '';
+			$product_data['special_price_visibility'] = '';
+			if ($min_special_price > 0)
+			{
+				$product_data['special_price_visibility'] = '_specialPrice';
+				$this->vars(array(
+					'min_special_price' => $min_special_price,
+					'min_special_price_without_zeroes' => $this->woz($min_special_price),
+				));
+				$product_data['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
+			}
+$product_data['min_special_price_without_zeroes'] = $this->woz($product_data['min_special_price']); 
+$product_data['min_price_without_zeroes'] = $this->woz($product_data['min_price']); 
 			$product_data["checkbox"] = html::checkbox(array(
 				"name" => "add_to_cart[".$product_data["product_id"]."]",
 				"value" => 1,
 			));
 
-			$product_data["product_link"] = "/".aw_global_get("section")."?product=".$product_data["id"]."&oc=".$oc->id();
-		
+			$product_data["product_link"] = aw_global_get("baseurl")."/".aw_global_get("section")."?product=".$product_data["id"]."&oc=".$oc->id();
+
 			$category = $product->get_first_caregory_id();
 
 			$product_data["menu"] = $ob->get_category_menu($category);
@@ -308,12 +363,12 @@ enter_function("products_show::start");
 		if($products->count() % $per_page) $pages++;
 		if($pages > 1)
 		{
-			if($page > 2)
+			if($page > 0)
 			{
 				$this->vars(array("pager_url" => aw_url_change_var("page", $page - 1)));
 				$this->vars(array("PAGE_PREV" => $this->parse("PAGE_PREV")));
 			}
-			if($page < ($pages-3))
+			if($page < ($pages-1))
 			{
 				$this->vars(array("pager_url" => aw_url_change_var("page", $page + 1)));
 				$this->vars(array("PAGE_NEXT" => $this->parse("PAGE_NEXT")));
@@ -325,6 +380,7 @@ enter_function("products_show::start");
 			$y = 0;
 			if($x+$y > 1)
 			{
+				$this->vars(array("pager_url" => aw_url_change_var("page", 0)));
 				$page_str.= $this->parse("PAGE_SEP");
 			}
 			while($y < 5)
@@ -348,8 +404,9 @@ enter_function("products_show::start");
 				$y++;
 			}
 
-			if($x+$y + 1 < $pages)
+			if($x+$y < $pages)
 			{
+				$this->vars(array("pager_url" => aw_url_change_var("page", ($pages-1))));
 				$page_str.= $this->parse("PAGE_SEP");
 			}
 
@@ -381,8 +438,25 @@ enter_function("products_show::start");
 		$this->vars($data);
 		exit_function("products_show::end");
 		exit_function("products_show::show");
-		return $this->parse();
+		$result = $this->parse();
+
+//cachemine
+		$this->set_cache($result);
+//-------
+		return $result;
 	}
+
+	public function woz($number)
+	{
+		$number = str_replace("," , "" , $number);
+		if(!($number%1 > 0))
+		{
+			return (int)$number;
+		}
+
+		return number_format($number , 2);
+	}
+
 }
 
 ?>

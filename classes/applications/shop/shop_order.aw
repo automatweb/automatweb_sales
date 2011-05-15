@@ -1194,7 +1194,6 @@ class shop_order extends class_base
 	{
 		$o = obj($arr["id"]);
 		$l = get_instance("languages");
-		//arr($o->prop("lang_id")); arr($o->prop("lang_lc"));
 		if($o->meta("lang_id"))
 		{
 			$_SESSION["ct_lang_id"] = $o->meta("lang_id");

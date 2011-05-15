@@ -112,6 +112,17 @@
             <caption>Lao omanik</caption>
       </property>
       <property>
+            <name>delete_all_lower_products</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>checkbox</type>
+            <ch_value>1</ch_value>
+            <parent>left</parent>
+            <caption>Kustuta paketi kustutamisel ka tooted</caption>
+      </property>
+      <property>
             <name>sell_prods</name>
             <table>objects</table>
             <group>general</group>
@@ -188,6 +199,16 @@
             <type>checkbox</type>
             <parent>left</parent>
             <caption>Kuva tarnijaid</caption>
+      </property>
+      <property>
+            <name>csv_file_encoding</name>
+            <table>objects</table>
+            <group>general</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <parent>left</parent>
+            <caption>CSV faili kodeering</caption>
       </property>
       <property>
             <name>prod_fld</name>

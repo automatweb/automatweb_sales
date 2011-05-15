@@ -250,6 +250,12 @@ class shop_price_list extends shop_matrix
 			"structure" => true
 		);
 
+		//need propertid saab ju samas vaates m22rata, kuid kui neid pole, siis annab errorit, - v2ike ebak6la
+		if(!$arr["obj_inst"]->prop("debug_product") && !$arr["obj_inst"]->prop("debug_product_packaging"))
+		{
+			return;
+		}
+
 		$mtime = explode(' ', microtime()); 
 		$starttime = $mtime[1] + $mtime[0];
 		for($i = 0; $i < 1; $i++)

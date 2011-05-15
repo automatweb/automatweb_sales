@@ -8,6 +8,8 @@ class warehouse_import_obj extends _int_object
 	private $prod_fld;
 	private $db_obj;
 
+	private $products_db_file = '/warehouse_products_queue.sdb';
+
 	private function init_vars()
 	{
 		// ERROR REPORTING
@@ -1784,6 +1786,295 @@ echo ("updated order ".html::obj_change_url($o));
                         }
                 }
         }
+
+	// this prepares the data for products import
+	// this should be a pretty generic thing
+	public function prepare_products_data($o)
+	{
+		// things i need to do here
+		// source datasource obj
+		$ds_oid = $this->prop('data_source_object');
+		$ds_obj = new object($ds_oid);
+		$ds_inst = $ds_obj->instance();
+		$xml_file_name = $ds_inst->get_products_xml();
+
+		arr($this->products_db_file);
+		
+		// fill the queue:
+		$this->fill_queue($xml_file_name);
+
+		// ask xml data filename from it
+		// split it up and put it into queue
+		// and finish
+		
+	}
+
+	/** Imports the products data from the queue.
+	**/
+	public function import_products_data($filter)
+	{
+		arr(proc_nice(100));
+		$wh = $this->get_first_obj_by_reltype(10); // RELTYPE_WAREHOUSE
+		arr($wh->name());
+	$query = 'UNLOCK TABLES';
+$result = mysql_query($query) or
+          die('Query failed: ' . mysql_error());	
+		// get the items to import
+		// or don't ask a list of items, rather than one item that matches to some parameters
+		// (timestamp, status has to be new some others)
+		// that way it won't load huge amount of data into memory at once ... i guess it is a 
+		// good thing when we talk about couple hundred thousand items to import
+
+
+		$get_item_filter = array(
+			'status' => 'new',
+			'timestamp' => $filter['timestamp']
+		);
+
+		$wpi = new warehouse_products_import();
+
+		if ($wh_conf = $wh->prop('conf'))
+		{
+			$conf_obj = new object($wh_conf);
+			$wpi->packets_folder = $conf_obj->prop('pkt_fld');
+			$wpi->products_folder = $conf_obj->prop('prod_fld');
+			$wpi->categories_folder = $conf_obj->prop('prod_cat_fld');
+			$wpi->short_code_controller_oid = $conf_obj->prop('short_code_ctrl');
+			$wpi->short_code_controller_inst = new cfgcontroller();
+
+		}
+
+
+		$items = $this->get_queue_items(array(
+			'status' => 'new',
+			'timestamp' => $filter['timestamp']
+		));
+$wpi->seconds = 0;
+		foreach ($items as $item)
+		{
+			$this->set_queue_item_status($item['id'], 'processing');
+			$wpi->process_item($item['data']);
+			$this->set_queue_item_status($item['id'], 'done');
+		}
+arr($wpi->seconds);
+	//	echo "Clearing products show cache: <br />\n";
+	//	$cache = new cache();
+	//	$cache->file_clear_pt('product_show');
+
+		echo "All done<br />\n";
+
+	}
+
+	private function get_data_folder()
+	{
+		$fn = aw_ini_get('site_basedir').'/files/warehouse_import/data';
+		if (file_exists($fn) === false)
+		{
+			// create the directories recursively if they don't exist
+			mkdir($fn, 0777, true);
+		}
+		return $fn;
+	}
+
+	private function get_products_db_file()
+	{
+		return $this->get_data_folder().$this->products_db_file;
+	}
+
+	public function init_queue_table()
+	{
+		$db = $this->get_products_db_file();
+		try 
+		{
+			$dbh = new PDO('sqlite:'.$db);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			
+			// if table don't exist, create it
+			$sql = "CREATE TABLE IF NOT EXISTS products_queue ( status TEXT, timestamp INTEGER, data BLOB )";
+			$dbh->query($sql);
+			$dbh = null;
+		}
+		catch (PDOException $e)
+		{
+			echo $e->getMessage();
+			return false;
+		}
+	
+	}
+
+	private function fill_queue($xml_file_name)
+	{
+		$db = $this->get_products_db_file();
+
+		try 
+		{
+			$dbh = new PDO('sqlite:'.$db);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			$insert_statement = $dbh->prepare("INSERT INTO products_queue (status, timestamp, data) VALUES (:status, :timestamp, :data)");
+
+			$timestamp = time();
+
+			$r = new XMLReader();
+			$r->open($xml_file_name);
+			echo "Start filling the queue <br />\n";
+			$counter = 1;
+			while ($r->read())
+			{
+				// If the node, in depth 1, is packet or product, then this is root for an item and split it up on that node
+				// actually, for later testing, i don't need to check the node name, it should be enough to use the whatever 
+				// node there is in depth 1 to use as item root
+				if ( ( $r->name == 'packet' || $r->name == 'product' ) && $r->nodeType == XMLReader::ELEMENT && $r->depth == 1 )
+				{
+					$item = $r->readOuterXML();
+					$insert_statement->execute(array(
+						'status' => 'new',
+						'timestamp' => $timestamp,
+						'data' => $item
+					));
+					$insert_statement->closeCursor();
+					echo "Add item to queue [count: ".$counter++."]<br />\n";
+				}
+			}
+
+			$clear_statement = $dbh->query("delete from products_queue where timestamp < (select min(timestamp) as min from (select rowid,timestamp from products_queue order by timestamp desc limit 20))");
+		}
+		catch (PDOException $e)
+		{
+			echo $e->getMessage();
+			return false;
+		}
+		$dbh = null;
+		echo "All items added to queue <br />\n";
+	}
+
+	/** Gets the list of items from the queue
+	
+	**/
+	public function get_queue_items($filter)
+	{
+		
+
+		$db = $this->get_products_db_file();
+		try {
+			$dbh = new PDO('sqlite:'.$db);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			$sql = "select rowid as id, timestamp, status, data from products_queue where timestamp = :timestamp";
+
+			$statement = $dbh->prepare($sql);
+			$statement->execute(array(
+				'timestamp' => $filter['timestamp']
+			));
+
+			$result = array();
+			while ($row = $statement->fetch(PDO::FETCH_ASSOC))
+			{
+				$result[] = $row;
+			}
+
+		}
+		catch (PDOException $e)
+		{
+			echo $e->getMessage();
+			return false;
+		}
+		$dbh = null;
+		return $result;
+	}
+
+	public function get_queue_item($filter)
+	{
+		$db = $this->get_products_db_file();
+		try {
+			$dbh = new PDO('sqlite:'.$db);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			$sql = "select rowid as id, timestamp, status, data from products_queue where timestamp = ".$filter['timestamp']." and status = '".$filter['status']."' limit 1";
+
+			$statement = $dbh->prepare($sql);
+			$statement->execute();
+
+			$result = array();
+			while ($row = $statement->fetch(PDO::FETCH_ASSOC))
+			{
+				$result[] = $row;
+			}
+
+		}
+		catch (PDOException $e)
+		{
+			echo $e->getMessage();
+			return false;
+		}
+		$dbh = null;
+		return $result;
+	
+	}
+
+	public function set_queue_item_status($item_id, $status)
+	{
+		$db = $this->get_products_db_file();
+		try {
+			$dbh = new PDO('sqlite:'.$db);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			$sql = "update products_queue set status = '".$status."' where rowid = ".$item_id."";
+
+			$statement = $dbh->prepare($sql);
+			$statement->execute();
+			$statement->closeCursor();
+		}
+		catch (PDOException $e)
+		{
+			echo $e->getMessage();
+			return false;
+		}
+		$dbh = null;
+	}
+
+	public function get_queue_imports()
+	{
+		$db = $this->get_products_db_file();
+		
+		try {
+			$dbh = new PDO('sqlite:'.$db);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			$sql = "select distinct(timestamp) as timestamp from products_queue order by timestamp desc;";
+			
+			$statement = $dbh->prepare($sql);
+			$statement->execute();
+
+			$result = array();
+			while ($row = $statement->fetch(PDO::FETCH_ASSOC))
+			{
+				$result[] = $row;
+			}
+
+		}
+		catch (PDOException $e)
+		{
+			echo $e->getMessage();
+			return false;
+		}
+		$dbh = null;
+		return $result;
+	}
+
+	public function get_selected_timestamp()
+	{
+		$sel_ts = (int)automatweb::$request->arg('sel_ts');
+		if (empty($sel_ts))
+		{
+			$imports = $this->get_queue_imports();
+			if (!empty($imports[0]))
+			{
+				$sel_ts = $imports[0]['timestamp'];
+			}
+		}
+		return $sel_ts;
+	}
 
 }
 

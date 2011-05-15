@@ -27,6 +27,10 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_ALIAS_ADD_FROM, CL_SHOP_PRODUCT, on_add_al
 			@caption Aktiivne
 			@comment Kas objekt on aktiivne
 
+			@property jrk type=textbox size=5 table=objects field=jrk parent=gen_gen
+			@caption J&auml;rjekord
+			@comment Objekti j&auml;rjekord
+
 			@property description type=textarea cols=40 rows=5 table=aw_shop_products parent=gen_gen
 			@caption Kirjeldus
 			@comment Toote kirjeldus
@@ -654,11 +658,15 @@ class shop_product extends class_base
 	}
 
 	function get_property($arr)
-	{
+	{//arr($arr["obj_inst"]->properties()); arr($arr["obj_inst"]->meta());die();
 		$data = &$arr["prop"];
 		$retval = PROP_OK;
 		switch($data["name"])
 		{
+			case "content_package":
+				unset($data["disabled"]);
+				break;
+
 			case "inherit_aml_from":
 				$ol = new object_list(array(
 					"class_id" => array(CL_SHOP_PRODUCT, CL_SHOP_PRODUCT_PACKAGING),
@@ -1579,7 +1587,8 @@ class shop_product extends class_base
 		switch($data["name"])
 		{
 			case "content_package":
-				$retval = PROP_IGNORE;
+
+			//	$retval = PROP_IGNORE;
 				break;
 
 			case "amount_limits":
@@ -3168,9 +3177,13 @@ class shop_product extends class_base
 
 
 
-	private function get_template()
+	private function get_template($ob, $oc)
 	{
-		if($this->template)
+		if ($ob->status() != object::STAT_ACTIVE and $oc->prop("only_active_items"))
+		{
+			return $oc->prop("inactive_item_tpl");
+		}
+		elseif($this->template)
 		{
 			return $this->template;
 		}
@@ -3188,8 +3201,9 @@ class shop_product extends class_base
 		)));
 
 		$ob = new object($arr["id"]);
+		$oc = obj($arr["oc"]);
 
-		$this->read_template($this->get_template());
+		$this->read_template($this->get_template($ob, $oc));
 		$this->vars(array(
 			"name" => $ob->prop("name"),
 		));
@@ -3199,7 +3213,6 @@ class shop_product extends class_base
 
 		$cart_inst = get_instance(CL_SHOP_ORDER_CART);
 
-		$oc = obj($arr["oc"]);
 		$data["oc"] = $arr["oc"];
 		$data["submit"] = html::submit(array(
 			"value" => t("Lisa tooted korvi"),

@@ -2,6 +2,8 @@
 
 class shop_warehouse_obj extends _int_object
 {
+	const CLID = 289;
+
 	const STATCALC_FIFO = 1;
 	const STATCALC_WEIGHTED_AVERAGE = 2;
 
@@ -185,7 +187,7 @@ class shop_warehouse_obj extends _int_object
 		{
 			$filter["code"] = $arr["code"]."%";
 		}
-
+		$filter['limit'] = (automatweb::$request->arg('ft_page') * 10).', '.((automatweb::$request->arg('ft_page') * 10) + 10);
 		return new object_list($filter);
 	}
 
@@ -567,6 +569,25 @@ class shop_warehouse_obj extends _int_object
 
 		return $cats;
 
+	}
+
+
+	public function get_packet_products($packets)
+	{
+		enter_function("packet_obj::get_packets_products");
+			$odl = new object_data_list(
+				array(
+						"class_id" => CL_SHOP_PRODUCT,
+						"lang_id" => array(),
+						"site_id" => array(),
+						"CL_SHOP_PRODUCT.RELTYPE_PRODUCT(CL_SHOP_PACKET)" => $packets
+					),
+				array(
+					CL_SHOP_PRODUCT => array("name"),
+				)
+			);
+		exit_function("packet_obj::get_packets_products");
+		return $odl;
 	}
 
 }

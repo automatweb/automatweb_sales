@@ -107,12 +107,13 @@ class shop_orderer_data_site_show_orders extends shop_orderer_data_site_show
 			$order_vars["number"] = $order->prop("number");
 			$order_vars["currency"] = $order->prop("currency.name");
 			$order_vars["date"] = date("d.m.Y" , $order->prop("date"));
-			$order_vars["status"] = date("d.m.Y" , $order->prop("order_status"));
+			$order_vars["status"] = $order_inst->states[$order->prop("order_status")];
 			$order_vars["sum"] = $order->get_sum();
 			$order_vars["url"] = $order_inst->mk_my_orb("show" , array("id" => $order->id()));
 			$this->vars($order_vars);
-			$rows.=$this->parse("ROW");
+			$rows .= $this->parse("ROW");
 		}
+
 		$vars["ROW"] = $rows;
 		$this->vars($vars);
 		return $this->parse();

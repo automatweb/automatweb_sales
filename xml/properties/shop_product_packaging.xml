@@ -43,6 +43,24 @@
             <caption>Hind</caption>
       </property>
       <property>
+            <name>price_object</name>
+            <table>aw_shop_packaging</table>
+            <group>general_general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PRICE</reltype>
+            <field>price_object</field>
+            <caption>Hind (objekt)</caption>
+      </property>
+      <property>
+            <name>special_price_object</name>
+            <table>aw_shop_packaging</table>
+            <group>general_general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_PRICE</reltype>
+            <field>special_price_object</field>
+            <caption>Erihind (objekt)</caption>
+      </property>
+      <property>
             <name>content_package_price_condition</name>
             <table>aw_shop_packaging</table>
             <group>general_general</group>
@@ -596,6 +614,11 @@
                   </clid>
                   <caption>P&amp;amp;auml;ri kogusepiirangud</caption>
             </INHERIT_AML_FROM>
+            <PRICE>
+                  <value>9</value>
+                  <clid>CL_SHOP_ITEM_PRICE</clid>
+                  <caption>Hind</caption>
+            </PRICE>
       </reltypes>
       <layout>
             <gentms_main>
