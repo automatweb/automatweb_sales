@@ -57,6 +57,9 @@
 	@property presentation_appointment_phone_nr type=text store=no
 	@caption Tel. nr. millel kokku lepiti
 
+	@property offer type=objpicker class_id=CL_CRM_OFFER field=aw_offer
+	@caption Seotud pakkumine
+
 	@property presented_products type=relpicker reltype=RELTYPE_PRESENTED_PRODUCT store=connect size=8 no_edit=1
 	@caption Esitletavad tooted
 
