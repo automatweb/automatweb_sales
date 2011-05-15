@@ -1882,7 +1882,7 @@ class crm_company_cust_impl extends class_base
 				{
 					$ret[] = new object_list_filter(array(
 						"logic" => "OR",
-						"conditions" => array("activity_keywords" => "%," . $keyword . "%")
+						"conditions" => array("activity_keywords" => "%,{$keyword}%")
 					));
 				}
 			}
@@ -2761,6 +2761,8 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 	/**
 		@attrib name=get_cust_contact_table
 		@param id required type=int acl=view
+		@param fields optional type=array
+			options: 'minimal'
 		@param return_url optional
 	**/
 	function get_cust_contact_table($arr)
@@ -2771,6 +2773,7 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 		$t = new vcl_table();
 		$p = array(
 			"vcl_inst" => $t,
+			"fields" => array("name", "phone", "email", "image")
 		);
 		$hr->_get_human_resources(array(
 			"obj_inst" => $o,
