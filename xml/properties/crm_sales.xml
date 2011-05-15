@@ -539,46 +539,57 @@
             <caption>Juht</caption>
       </property>
       <property>
-            <name>cfgf_offers_toolbar</name>
+            <name>price_components_toolbar</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_offers</group>
+            <group>price_components</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
       </property>
       <property>
-            <name>cfgf_offers_hide_mandatory_price_components</name>
+            <name>price_component_categories_tree</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_offers</group>
+            <group>price_components</group>
+            <type>treeview</type>
+            <parent>price_component_categories_tree</parent>
+            <store>no</store>
+      </property>
+      <property>
+            <name>hide_mandatory_price_components</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>price_components</group>
             <type>checkbox</type>
-            <parent>settings_offers_left</parent>
+            <parent>price_components_settings</parent>
+            <no_caption>1</no_caption>
             <caption>Peida kohustuslikud hinnakomponendid</caption>
       </property>
       <property>
-            <name>cfgf_offers_price_component_categories_table</name>
+            <name>price_component_categories_table</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_offers</group>
+            <group>price_components</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>settings_offers_right</parent>
+            <parent>price_components_right</parent>
       </property>
       <property>
-            <name>cfgf_offers_price_components_table</name>
+            <name>price_components_table</name>
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>settings_offers</group>
+            <group>price_components</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>settings_offers_right</parent>
+            <parent>price_components_right</parent>
       </property>
       <property>
             <name>contacts_toolbar</name>
@@ -1715,7 +1726,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers</group>
+            <group>offers_offers</group>
             <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1725,7 +1736,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers</group>
+            <group>offers_offers</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1736,7 +1747,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers</group>
+            <group>offers_offers</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1747,7 +1758,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers</group>
+            <group>offers_offers</group>
             <type>treeview</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1758,7 +1769,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers</group>
+            <group>offers_offers</group>
             <type>textbox</type>
             <view_element>1</view_element>
             <parent>offers_search_box</parent>
@@ -1772,7 +1783,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers</group>
+            <group>offers_offers</group>
             <type>submit</type>
             <value>Otsi</value>
             <view_element>1</view_element>
@@ -1785,7 +1796,7 @@
             <table>objects</table>
             <field>meta</field>
             <method>serialize</method>
-            <group>offers</group>
+            <group>offers_offers</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -1892,10 +1903,6 @@
                   <caption>&amp;amp;Uuml;ldine</caption>
                   <parent>settings</parent>
             </settings_general>
-            <settings_offers>
-                  <caption>Pakkumused</caption>
-                  <parent>settings</parent>
-            </settings_offers>
             <contacts>
                   <caption>Kontaktid</caption>
                   <submit_method>get</submit_method>
@@ -1967,9 +1974,17 @@
             </data_entry_import>
             <offers>
                   <caption>Pakkumused</caption>
+            </offers>
+            <offers_offers>
+                  <caption>Pakkumused</caption>
+                  <parent>offers</parent>
                   <submit>no</submit>
                   <submit_method>get</submit_method>
-            </offers>
+            </offers_offers>
+            <price_components>
+                  <caption>Hinnakomponendid</caption>
+                  <parent>offers</parent>
+            </price_components>
             <statistics>
                   <caption>&amp;amp;Uuml;levaated</caption>
             </statistics>
@@ -2098,24 +2113,36 @@
                   <area_caption>Esitlus</area_caption>
                   <group>settings_general</group>
             </presentation_cfg_box>
-            <settings_offers_vsplitbox>
+            <price_components_vsplitbox>
                   <type>hbox</type>
-                  <width>50%:50%</width>
-                  <group>settings_offers</group>
+                  <width>25%:75%</width>
+                  <group>price_components</group>
                   <area_caption></area_caption>
-            </settings_offers_vsplitbox>
-            <settings_offers_left>
+            </price_components_vsplitbox>
+            <price_components_left>
                   <type>vbox</type>
-                  <parent>settings_offers_vsplitbox</parent>
-                  <area_caption>Pakkumuste&amp;amp;nbsp;seaded</area_caption>
-                  <group>settings_offers</group>
-            </settings_offers_left>
-            <settings_offers_right>
-                  <type>vbox</type>
-                  <parent>settings_offers_vsplitbox</parent>
-                  <group>settings_offers</group>
+                  <parent>price_components_vsplitbox</parent>
+                  <group>price_components</group>
                   <area_caption></area_caption>
-            </settings_offers_right>
+            </price_components_left>
+            <price_component_categories_tree>
+                  <type>vbox</type>
+                  <parent>price_components_left</parent>
+                  <area_caption>Hinnakomponentide&amp;amp;nbsp;kategooriad</area_caption>
+                  <group>price_components</group>
+            </price_component_categories_tree>
+            <price_components_settings>
+                  <type>vbox</type>
+                  <parent>price_components_left</parent>
+                  <area_caption>Hinnakomponentide&amp;amp;nbsp;seaded</area_caption>
+                  <group>price_components</group>
+            </price_components_settings>
+            <price_components_right>
+                  <type>vbox</type>
+                  <parent>price_components_vsplitbox</parent>
+                  <group>price_components</group>
+                  <area_caption></area_caption>
+            </price_components_right>
             <contacts_vsplitbox>
                   <type>hbox</type>
                   <width>25%:75%</width>
@@ -2269,13 +2296,13 @@
             <offers_vsplitbox>
                   <type>hbox</type>
                   <width>25%:75%</width>
-                  <group>offers</group>
+                  <group>offers_offers</group>
                   <area_caption></area_caption>
             </offers_vsplitbox>
             <offers_box>
                   <type>vbox</type>
                   <parent>offers_vsplitbox</parent>
-                  <group>offers</group>
+                  <group>offers_offers</group>
                   <area_caption></area_caption>
             </offers_box>
             <offers_tree_box_state>
@@ -2283,28 +2310,28 @@
                   <closeable>1</closeable>
                   <area_caption>Pakkumuste&amp;amp;nbsp;valik&amp;amp;nbsp;staatuse&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>offers_box</parent>
-                  <group>offers</group>
+                  <group>offers_offers</group>
             </offers_tree_box_state>
             <offers_tree_box_timespan>
                   <type>vbox</type>
                   <closeable>1</closeable>
                   <area_caption>Pakkumuste&amp;amp;nbsp;valik&amp;amp;nbsp;perioodi&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>offers_box</parent>
-                  <group>offers</group>
+                  <group>offers_offers</group>
             </offers_tree_box_timespan>
             <offers_tree_box_customer_category>
                   <type>vbox</type>
                   <closeable>1</closeable>
                   <area_caption>Pakkumuste&amp;amp;nbsp;valik&amp;amp;nbsp;kliendikategooria&amp;amp;nbsp;j&amp;amp;auml;rgi</area_caption>
                   <parent>offers_box</parent>
-                  <group>offers</group>
+                  <group>offers_offers</group>
             </offers_tree_box_customer_category>
             <offers_search_box>
                   <type>vbox</type>
                   <closeable>1</closeable>
                   <area_caption>Pakkumuste&amp;amp;nbsp;otsing</area_caption>
                   <parent>offers_box</parent>
-                  <group>offers</group>
+                  <group>offers_offers</group>
             </offers_search_box>
             <tmstat_control_container>
                   <type>hbox</type>

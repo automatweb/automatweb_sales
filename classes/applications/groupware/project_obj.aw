@@ -1318,5 +1318,12 @@ class project_obj extends _int_object implements crm_sales_price_component_inter
 	}
 
 	//	Written solely for testing purposes!
-	public function get_units(){$ol = new object_list(array("class_id" => CL_UNIT,));return $ol;}
+	public function get_units()
+	{
+		$ol = new object_list(array(
+			"class_id" => CL_UNIT,
+			"status" => object::STAT_ACTIVE,
+		));
+		return $ol;
+	}
 }
