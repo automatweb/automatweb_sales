@@ -246,12 +246,12 @@ class document_brother extends document
 			$se = array();
 			if ($s_name != "")
 			{
-				$this->quote(&$s_name);
+				$this->quote($s_name);
 				$se[] = " name LIKE '%".$s_name."%' ";
 			}
 			if ($s_content != "")
 			{
-				$this->quote(&$s_content);
+				$this->quote($s_content);
 				$se[] = " content LIKE '%".$s_content."%' ";
 			}
 			/* AND (objects.site_id = $SITE_ID OR objects.site_id IS NULL) */
