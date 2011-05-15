@@ -218,6 +218,18 @@
             <caption>Ridu tabelites</caption>
       </property>
       <property>
+            <name>multientry_rows</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>settings_general</group>
+            <type>textbox</type>
+            <default>20</default>
+            <datatype>int</datatype>
+            <parent>folders_box</parent>
+            <caption>Ridu hulgisisestustabelis</caption>
+      </property>
+      <property>
             <name>role_profession_data_entry_clerk</name>
             <table>objects</table>
             <field>meta</field>
@@ -752,6 +764,24 @@
             <parent>contacts_search_box</parent>
             <store>no</store>
             <caption>Otsi</caption>
+      </property>
+      <property>
+            <name>email_templates</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>emails_settings</group>
+            <type>releditor</type>
+            <mode>manager</mode>
+            <store>no</store>
+            <props>
+                  <num_0>name</num_0>
+                  <num_1>legend</num_1>
+                  <num_2>content</num_2>
+            </props>
+            <table_fields>name</table_fields>
+            <reltype>RELTYPE_EMAIL_TEMPATE</reltype>
+            <caption>E-kirjade p&amp;amp;otilde;hjad</caption>
       </property>
       <property>
             <name>calls_toolbar</name>
@@ -1570,6 +1600,37 @@
             <caption>Kliendigrupp</caption>
       </property>
       <property>
+            <name>multientry_toolbar</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_multiple</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>multientry_input_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_multiple</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>multientry_last_entries_table</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>data_entry_multiple</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>multientry_last_entries_container</parent>
+      </property>
+      <property>
             <name>import_toolbar</name>
             <table>objects</table>
             <field>meta</field>
@@ -1846,6 +1907,13 @@
                   <caption>Kontaktid</caption>
                   <submit_method>get</submit_method>
             </contacts>
+            <emails>
+                  <caption>E-kirjad</caption>
+            </emails>
+            <emails_settings>
+                  <caption>Seadistused</caption>
+                  <parent>emails</parent>
+            </emails_settings>
             <calls>
                   <caption>K&amp;amp;otilde;ned</caption>
                   <submit_method>get</submit_method>
@@ -1896,6 +1964,10 @@
                   <parent>data_entry</parent>
                   <submit>no</submit>
             </data_entry_contact_employee>
+            <data_entry_multiple>
+                  <caption>Hulgisisestamine</caption>
+                  <parent>data_entry</parent>
+            </data_entry_multiple>
             <data_entry_import>
                   <caption>Import</caption>
                   <parent>data_entry</parent>
@@ -1974,6 +2046,11 @@
                   <clid>CL_CRM_CATEGORY</clid>
                   <caption>Kliendigrupp (s&amp;amp;uuml;steemisiseseks kasutuseks)</caption>
             </TMP4>
+            <EMAIL_TEMPATE>
+                  <value>9</value>
+                  <clid>CL_MESSAGE_TEMPLATE</clid>
+                  <caption>E-kirja p&amp;amp;otilde;hi</caption>
+            </EMAIL_TEMPATE>
       </reltypes>
       <layout>
             <splitbox1>
@@ -2192,6 +2269,19 @@
                   <parent>de_form_pane</parent>
                   <area_caption></area_caption>
             </contact_entry_form_right>
+            <multientry_container>
+                  <type>vbox</type>
+                  <group>data_entry_multiple</group>
+                  <area_caption></area_caption>
+            </multientry_container>
+            <multientry_last_entries_container>
+                  <type>vbox</type>
+                  <parent>multientry_container</parent>
+                  <closeable>1</closeable>
+                  <area_caption>Viimati&amp;amp;nbsp;sisestatud</area_caption>
+                  <default_state>closed</default_state>
+                  <group>data_entry_multiple</group>
+            </multientry_last_entries_container>
             <contact_entry_buttons>
                   <type>hbox</type>
                   <parent>de_form_box</parent>

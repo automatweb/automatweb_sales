@@ -618,19 +618,23 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 		if (sizeof($arg_list) > 1 && $arg2 !== false)
 		{
 			$arg_list[0] = array($arg1 => $arg2);
-		};
+		}
+
 		if(empty($arg_list[0]["view_property"]))
 		{
 			$arg_list[0]["view_property"] = NULL;
 		}
+
 		if(empty($arg_list[0]["view_layout"]))
 		{
 			$arg_list[0]["view_layout"] = NULL;
 		}
+
 		if (!$url)
 		{
-			$url = aw_global_get("REQUEST_URI");
-		};
+			$url = automatweb::$request->get_uri();
+		}
+
 		foreach($arg_list[0] as $arg1 => $arg2)
 		{
 			// remove old
@@ -639,13 +643,16 @@ EMIT_MESSAGE(MSG_MAIL_SENT)
 			{
 				$url .= (strpos($url,"?") === false ? "?" : "&" ).$arg1."=".urlencode($arg2);
 				$url = preg_replace("/&{2,}/","&",$url);
-			};
-		};
+			}
+		}
+
 		$url = str_replace('&&','&',$url);
+
 		if ($url[strlen($url)-1] == "&")
 		{
 			$url = substr($url, 0, strlen($url)-1);
 		}
+
 		$url = str_replace("?&", "?", $url);
 		return $url;
 	}

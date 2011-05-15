@@ -11,6 +11,8 @@ GROUP DECLARATIONS
 // contacts, presentations and calls tabs/groups are handled by their own separate static view classes
 // respectively crm_sales_contacts_view, ...presentations_view and ...calls_view
 @groupinfo contacts caption="Kontaktid" submit_method=get
+@groupinfo emails caption="E-kirjad"
+	@groupinfo emails_settings caption="Seadistused" parent=emails
 @groupinfo calls caption="K&otilde;ned" submit_method=get
 @groupinfo presentations caption="Esitlused" submit_method=get
 
@@ -28,6 +30,7 @@ GROUP DECLARATIONS
 @groupinfo data_entry_contact_person caption="Kontakt (isik)" parent=data_entry submit=no
 @groupinfo data_entry_contact_co caption="Kontakt (organisatsioon)" parent=data_entry submit=no
 @groupinfo data_entry_contact_employee caption="Klientorganisatsiooni kontaktisik" parent=data_entry submit=no
+@groupinfo data_entry_multiple caption="Hulgisisestamine" parent=data_entry
 @groupinfo data_entry_import caption="Import" parent=data_entry
 
 @groupinfo offers caption="Pakkumused"
@@ -49,6 +52,8 @@ PROPERTY DECLARATIONS
 	@property owner type=relpicker reltype=RELTYPE_OWNER clid=CL_CRM_COMPANY
 	@caption Keskkonna omanik
 
+
+--------------------------------------------------------------
 @default group=settings_general
 	@layout splitbox1 type=hbox width=50%:50% closeable=1 no_caption=1
 	@layout splitbox2 type=vbox closeable=1 area_caption=Kasutajaliidese&nbsp;vaadete&nbsp;konfiguratsioonid&nbsp;rollide&nbsp;kaupa
@@ -126,6 +131,9 @@ PROPERTY DECLARATIONS
 	@property tables_rows_per_page type=textbox default=25 datatype=int parent=folders_box
 	@comment Mitu lehel rida kuvada tabelites
 	@caption Ridu tabelites
+
+	@property multientry_rows type=textbox default=20 datatype=int parent=folders_box
+	@caption Ridu hulgisisestustabelis
 
 	// roles
 	@property role_profession_data_entry_clerk type=relpicker reltype=RELTYPE_ROLE_PROFESSION clid=CL_CRM_PROFESSION parent=roles_box
@@ -290,6 +298,15 @@ PROPERTY DECLARATIONS
 
 
 
+--------------------------------------------------------------
+@default group=emails_settings
+	@property email_templates type=releditor mode=manager store=no props=name,legend,content table_fields=name reltype=RELTYPE_EMAIL_TEMPATE
+	@caption E-kirjade p&otilde;hjad
+
+
+
+
+--------------------------------------------------------------
 @default group=calls
 	@layout calls_vsplitbox type=hbox width=25%:75%
 	@property calls_toolbar type=toolbar store=no no_caption=1
@@ -348,6 +365,7 @@ PROPERTY DECLARATIONS
 
 
 
+--------------------------------------------------------------
 @default group=presentations
 	@layout presentations_vsplitbox type=hbox width=25%:75%
 	@property presentations_toolbar type=toolbar store=no no_caption=1
@@ -490,6 +508,19 @@ PROPERTY DECLARATIONS
 	@property contact_entry_category type=relpicker size=5 multiple=1 store=no group=data_entry_contact_co,data_entry_contact_person parent=contact_entry_form reltype=RELTYPE_TMP4
 	@caption Kliendigrupp
 
+
+--------------------------------------------------------------
+@default group=data_entry_multiple
+	@layout multientry_container type=vbox
+		@property multientry_toolbar type=toolbar store=no no_caption=1
+		@property multientry_input_table type=table store=no no_caption=1
+
+		@layout multientry_last_entries_container type=vbox parent=multientry_container closeable=1 area_caption=Viimati&nbsp;sisestatud default_state=closed
+			@property multientry_last_entries_table type=table store=no no_caption=1 parent=multientry_last_entries_container
+
+
+
+
 --------------------------------------------------------------
 @default group=data_entry_import
 	@property import_toolbar type=toolbar store=no no_caption=1
@@ -508,6 +539,9 @@ PROPERTY DECLARATIONS
 	@property last_entries_list type=table store=no group=data_entry_contact_co,data_entry_contact_person,data_entry_contact_employee no_caption=1 parent=de_table_box
 
 	@property contact_entry_lead_source_oid type=hidden store=no group=data_entry_contact_co,data_entry_contact_person
+
+
+
 
 --------------------------------------------------------------
 @default group=offers_offers
@@ -599,6 +633,9 @@ RELATION TYPE DECLARATIONS
 
 @reltype TMP4 value=6 clid=CL_CRM_CATEGORY
 @caption Kliendigrupp (s&uuml;steemisiseseks kasutuseks)
+
+@reltype EMAIL_TEMPATE value=9 clid=CL_MESSAGE_TEMPLATE
+@caption E-kirja p&otilde;hi
 
 
 */
@@ -1331,20 +1368,21 @@ class crm_sales extends class_base
 	function get_property(&$arr)
 	{
 		$ret = PROP_OK;
+		$prop_name = $arr["prop"]["name"];
 
-		if ("cs_status" === $arr["prop"]["name"] or "cts_status" === $arr["prop"]["name"])
+		if ("cs_status" === $prop_name or "cts_status" === $prop_name)
 		{ // set search status selection options
 			$arr["prop"]["options"] = array("" => "") + crm_company_customer_data_obj::sales_state_names();
 		}
 
 		if ("calls" === $this->use_group)
 		{ // calls view
-			if (self::CALLS_SEARCH === self::$calls_list_view and substr($arr["prop"]["name"], 0, 3) === "cs_" and isset($arr["request"][$arr["prop"]["name"]]))
+			if (self::CALLS_SEARCH === self::$calls_list_view and substr($prop_name, 0, 3) === "cs_" and isset($arr["request"][$prop_name]))
 			{
-				$arr["prop"]["value"] = $arr["request"][$arr["prop"]["name"]];
+				$arr["prop"]["value"] = $arr["request"][$prop_name];
 			}
 
-			$method_name = "_get_{$arr["prop"]["name"]}";
+			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_calls_view", $method_name))
 			{
 				$ret = crm_sales_calls_view::$method_name($arr);
@@ -1352,12 +1390,12 @@ class crm_sales extends class_base
 		}
 		elseif ("contacts" === $this->use_group)
 		{ // contacts view
-			if (self::CONTACTS_SEARCH === self::$contacts_list_view and substr($arr["prop"]["name"], 0, 4) === "cts_" and isset($arr["request"][$arr["prop"]["name"]]))
+			if (self::CONTACTS_SEARCH === self::$contacts_list_view and substr($prop_name, 0, 4) === "cts_" and isset($arr["request"][$prop_name]))
 			{
-				$arr["prop"]["value"] = $arr["request"][$arr["prop"]["name"]];
+				$arr["prop"]["value"] = $arr["request"][$prop_name];
 			}
 
-			$method_name = "_get_{$arr["prop"]["name"]}";
+			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_contacts_view", $method_name))
 			{
 				$ret = crm_sales_contacts_view::$method_name($arr);
@@ -1365,12 +1403,12 @@ class crm_sales extends class_base
 		}
 		elseif ("presentations" === $this->use_group)
 		{ // presentations view
-			if (self::PRESENTATIONS_SEARCH === self::$presentations_list_view and substr($arr["prop"]["name"], 0, 3) === "ps_" and isset($arr["request"][$arr["prop"]["name"]]))
+			if (self::PRESENTATIONS_SEARCH === self::$presentations_list_view and substr($prop_name, 0, 3) === "ps_" and isset($arr["request"][$prop_name]))
 			{
-				$arr["prop"]["value"] = $arr["request"][$arr["prop"]["name"]];
+				$arr["prop"]["value"] = $arr["request"][$prop_name];
 			}
 
-			$method_name = "_get_{$arr["prop"]["name"]}";
+			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_presentations_view", $method_name))
 			{
 				$ret = crm_sales_presentations_view::$method_name($arr);
@@ -1378,7 +1416,7 @@ class crm_sales extends class_base
 		}
 		elseif ("_calendar" === substr($this->use_group, -9))
 		{
-			$method_name = "_get_{$arr["prop"]["name"]}";
+			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_calendar_view", $method_name))
 			{
 				$ret = crm_sales_calendar_view::$method_name($arr);
@@ -1386,7 +1424,7 @@ class crm_sales extends class_base
 		}
 		elseif ("statistics_telemarketing" === $this->use_group)
 		{
-			$method_name = "_get_{$arr["prop"]["name"]}";
+			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_telemarketing_statistics_view", $method_name))
 			{
 				$ret = crm_sales_telemarketing_statistics_view::$method_name($arr);
@@ -1394,7 +1432,7 @@ class crm_sales extends class_base
 		}
 		elseif ("offers_offers" === $this->use_group)
 		{
-			$method_name = "_get_{$arr["prop"]["name"]}";
+			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_offers_view", $method_name))
 			{
 				$ret = crm_sales_offers_view::$method_name($arr);
@@ -1402,7 +1440,7 @@ class crm_sales extends class_base
 		}
 		elseif ("price_components" === $this->use_group)
 		{
-			$method_name = "_get_{$arr["prop"]["name"]}";
+			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_settings_offers_view", $method_name))
 			{
 				$ret = crm_sales_settings_offers_view::$method_name($arr);
@@ -1410,13 +1448,21 @@ class crm_sales extends class_base
 		}
 		elseif ("statistics_offers" === $this->use_group)
 		{
-			$method_name = "_get_{$arr["prop"]["name"]}";
+			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_statistics_offers_view", $method_name))
 			{
 				$ret = crm_sales_statistics_offers_view::$method_name($arr);
 			}
 		}
-		elseif (is_object($this->contact_entry_edit_object) and in_array($arr["prop"]["name"], self::$no_edit_contact_entry_props))
+		elseif ("data_entry_multiple" === $this->use_group)
+		{
+			$method_name = "_get_{$prop_name}";
+			if (method_exists("crm_sales_data_multientry_view", $method_name))
+			{
+				$ret = crm_sales_data_multientry_view::$method_name($arr);
+			}
+		}
+		elseif (is_object($this->contact_entry_edit_object) and in_array($prop_name, self::$no_edit_contact_entry_props))
 		{ // hide properties that aren't editable when editing an added contact in contact entry view
 			$ret = PROP_IGNORE;
 		}
@@ -1427,13 +1473,22 @@ class crm_sales extends class_base
 	function set_property(&$arr)
 	{
 		$ret = PROP_OK;
+		$prop_name = $arr["prop"]["name"];
 
 		if ("price_components" === $this->use_group)
 		{
-			$method_name = "_set_{$arr["prop"]["name"]}";
+			$method_name = "_set_{$prop_name}";
 			if (method_exists("crm_sales_settings_offers_view", $method_name))
 			{
 				$ret = crm_sales_settings_offers_view::$method_name($arr);
+			}
+		}
+		elseif ("data_entry_multiple" === $this->use_group)
+		{
+			$method_name = "_set_{$prop_name}";
+			if (method_exists("crm_sales_data_multientry_view", $method_name))
+			{
+				$ret = crm_sales_data_multientry_view::$method_name($arr);
 			}
 		}
 

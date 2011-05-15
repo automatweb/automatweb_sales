@@ -200,6 +200,34 @@ class crm_company_customer_data_obj extends _int_object
 		));
 	}
 
+	/** Removes a customer category from this customer relation. Customer won't be in that category thereby
+		@attrib api=1 params=pos
+		@param category type=CL_CRM_CATEGORY
+		@returns void
+		@errors
+			awex_obj_state_new if this object not saved
+			awex_obj_type if invalid/unsaved category object given
+		@qc date=20110512 standard=aw3
+	**/
+	public function remove_category(object $category)
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new();
+		}
+
+		if (!$category->is_saved() or !$category->is_a(CL_CRM_CATEGORY))
+		{
+			throw new awex_obj_type("Invalid category {$category}");
+		}
+
+		//TODO: mis toimub kui yritada eemaldada kategooriat milles klient pole?
+		$this->disconnect(array(
+			"from" => $category,
+			"reltype" => "RELTYPE_CATEGORY"
+		));
+	}
+
 	public function get_customer_categories()
 	{
 		if(is_oid($this->prop("buyer")) && is_oid($this->prop("seller")))

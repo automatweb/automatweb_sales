@@ -179,6 +179,25 @@
 			</function>
 		</action>
 
+		<action name="customer_view_cut">
+			<function name="customer_view_cut">
+				<arguments>
+					<required name="check" type="array" />
+					<required name="cs_c" type="string" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="customer_view_paste">
+			<function name="customer_view_paste">
+				<arguments>
+					<required name="cs_c" type="string" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="cut">
 			<function name="cut">
 				<arguments>
