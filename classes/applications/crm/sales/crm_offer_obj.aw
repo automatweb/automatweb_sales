@@ -94,9 +94,47 @@ class crm_offer_obj extends crm_offer_price_component_handler
 
 		return $new_offer;
 	}
+
+	/**	Returns on object_list of operations related to this offer.
+		@attrib api=1 params=pos
+		@param clids type=array default=array()
+			Array of class_id's of operations to be returned. If empty array given, all operations will be returned.
+	**/
+	public function get_related_operations($clids = array())
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before related operations can be queried!");
+		}
+
+		$ol_args = array(
+//			"offer" => $this->id()
+		);
+
+		$possible_clids = array(crm_offer_sent_obj::CLID, crm_call_obj::CLID, crm_presentation_obj::CLID);
+		if (is_array($clids) and count($clids) > 0)
+		{
+			$ol_args["class_id"] = array(-1);
+			foreach($clids as $clid)
+			{
+				if (in_array($clid, $possible_clids))
+				{
+					$ol_args["class_id"][] = $clid;
+				}
+			}
+		}
+		else
+		{
+			$ol_args["class_id"] = $possible_clids;
+		}
+
+		return new object_list($ol_args);
+	}
 	
 	/**	Returns temporary (or default value if temporary is not set) value of a given mail property
 		@attrib api=1
+		@errors
+			Throws awex_crm_offer if this offer is not saved.
 	**/
 	public function get_mail_prop($k)
 	{
@@ -1343,7 +1381,7 @@ Parimat,
 		return false;
 	}
 
-	protected function get_customer_relation()
+	public function get_customer_relation()
 	{
 		try
 		{
