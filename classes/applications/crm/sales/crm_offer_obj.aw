@@ -108,7 +108,14 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		}
 
 		$ol_args = array(
-			"offer" => $this->id()
+			new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					"CL_CRM_OFFER_SENT.offer" => $this->id(),
+					"CL_CRM_CALL.offer" => $this->id(),
+					"CL_CRM_PRESENTATION.offer" => $this->id(),
+				)
+			))
 		);
 
 		$possible_clids = array(crm_offer_sent_obj::CLID, crm_call_obj::CLID, crm_presentation_obj::CLID);
