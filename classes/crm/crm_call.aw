@@ -18,6 +18,7 @@
 	@property hr_schedule_job type=hidden datatype=int
 	@property customer_relation type=hidden datatype=int
 	@property result_task type=hidden datatype=int
+	@property offer type=hidden datatype=int field=aw_offer
 
 @default group=predicates
 	@property predicates type=relpicker multiple=1 reltype=RELTYPE_PREDICATE store=connect table=objects field=meta method=serialize

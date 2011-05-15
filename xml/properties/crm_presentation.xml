@@ -164,6 +164,15 @@
             <caption>Tel. nr. millel kokku lepiti</caption>
       </property>
       <property>
+            <name>offer</name>
+            <table>planner</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <class_id>CL_CRM_OFFER</class_id>
+            <field>aw_offer</field>
+            <caption>Seotud pakkumine</caption>
+      </property>
+      <property>
             <name>presented_products</name>
             <table>planner</table>
             <group>general</group>
