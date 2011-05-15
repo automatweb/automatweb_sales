@@ -393,19 +393,14 @@ class _int_object_loader extends core
 
 		// right. here we need to make a copy BEFORE calling save_new, because
 		// otherwise the previous object will get it's oid ovewritten
-		$t_o = $GLOBALS["objects"][$oid];
-		$t_oid = $t_o->save_new();
-
-		// copy the object to the new place
-		$GLOBALS["objects"][$t_oid] = $t_o;
-		cache::file_set("objlastmod", time());
+		$new_object = $GLOBALS["objects"][$oid]->save_new();
 
 		$params = array(
-			"oid" => $t_oid
+			"oid" => $new_object->id()
 		);
-		post_message_with_param("MSG_STORAGE_SAVE", $GLOBALS["objects"][$t_oid]->class_id(), $params);
+		post_message_with_param("MSG_STORAGE_SAVE", $new_object->class_id(), $params);
 
-		return $t_oid;
+		return $new_object->id();
 	}
 
 	// returns true/false based on whether the parameter is the object class member function

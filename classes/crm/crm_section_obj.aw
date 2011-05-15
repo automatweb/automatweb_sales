@@ -2,6 +2,8 @@
 
 class crm_section_obj extends _int_object
 {
+	const CLID = 321;
+
 	function get_job_offers()
 	{
 		$r = new object_list;

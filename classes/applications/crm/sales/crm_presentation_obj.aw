@@ -48,6 +48,7 @@ class crm_presentation_obj extends task_object implements crm_sales_price_compon
 	{
 		$ol = new object_list(array(
 			"class_id" => CL_UNIT,
+			"status" => object::STAT_ACTIVE,
 		));
 		return $ol;
 	}

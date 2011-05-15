@@ -7,7 +7,6 @@
 GROUP DECLARATIONS
 @groupinfo settings caption="Seaded"
 @groupinfo settings_general caption="&Uuml;ldine" parent=settings
-@groupinfo settings_offers caption="Pakkumused" parent=settings
 
 // contacts, presentations and calls tabs/groups are handled by their own separate static view classes
 // respectively crm_sales_contacts_view, ...presentations_view and ...calls_view
@@ -34,7 +33,9 @@ GROUP DECLARATIONS
 @groupinfo data_entry_multiple caption="Hulgisisestamine" parent=data_entry
 @groupinfo data_entry_import caption="Import" parent=data_entry
 
-@groupinfo offers caption="Pakkumused" submit=no submit_method=get
+@groupinfo offers caption="Pakkumused"
+@groupinfo offers_offers caption="Pakkumused" parent=offers submit=no submit_method=get
+@groupinfo price_components caption="Hinnakomponendid" parent=offers
 
 // statistics and analysis views. handled by separate static view classes
 @groupinfo statistics caption="&Uuml;levaated"
@@ -228,25 +229,28 @@ PROPERTY DECLARATIONS
 	@property cfgf_presentation_manager type=relpicker reltype=RELTYPE_CFGFORM parent=presentation_cfg_box
 	@caption Juht
 
+@default group=price_components
 
---------------------------------------------------------------
-@default group=settings_offers
+	@property price_components_toolbar type=toolbar store=no no_caption=1
 
-	@property cfgf_offers_toolbar type=toolbar store=no no_caption=1
+	@layout price_components_vsplitbox type=hbox width=25%:75%
 
-	@layout settings_offers_vsplitbox type=hbox width=50%:50%
+		@layout price_components_left type=vbox parent=price_components_vsplitbox
 
-		@layout settings_offers_left type=vbox parent=settings_offers_vsplitbox area_caption=Pakkumuste&nbsp;seaded
+			@layout price_component_categories_tree type=vbox parent=price_components_left area_caption=Hinnakomponentide&nbsp;kategooriad
 
-			@property cfgf_offers_hide_mandatory_price_components type=checkbox parent=settings_offers_left
-			@caption Peida kohustuslikud hinnakomponendid
+				@property price_component_categories_tree type=treeview parent=price_component_categories_tree
 
-		@layout settings_offers_right type=vbox parent=settings_offers_vsplitbox
+			@layout price_components_settings type=vbox parent=price_components_left area_caption=Hinnakomponentide&nbsp;seaded
 
-			@property cfgf_offers_price_component_categories_table type=table store=no no_caption=1 parent=settings_offers_right
+				@property hide_mandatory_price_components type=checkbox parent=price_components_settings no_caption=1
+				@caption Peida kohustuslikud hinnakomponendid
 
-			@property cfgf_offers_price_components_table type=table store=no no_caption=1 parent=settings_offers_right
+		@layout price_components_right type=vbox parent=price_components_vsplitbox
 
+			@property price_component_categories_table type=table store=no no_caption=1 parent=price_components_right
+
+			@property price_components_table type=table store=no no_caption=1 parent=price_components_right
 
 @default group=contacts
 	@layout contacts_vsplitbox type=hbox width=25%:75%
@@ -540,7 +544,7 @@ PROPERTY DECLARATIONS
 
 
 --------------------------------------------------------------
-@default group=offers
+@default group=offers_offers
 
 	@property offers_toolbar type=toolbar store=no no_caption=1
 
@@ -669,6 +673,8 @@ class crm_sales extends class_base
 	const OFFERS_THIS_WEEK = 5;
 	const OFFERS_LAST_WEEK = 6;
 
+	const PRICE_COMPONENTS_ALL = "all";
+
 	// colours for different states
 	const COLOUR_CAN_START = "#EFF6D5";
 	const COLOUR_IN_PROGRESS = "#ECD995";
@@ -686,6 +692,8 @@ class crm_sales extends class_base
 
 	public static $offers_list_views = array();
 	public static $offers_list_view = self::OFFERS_THIS_WEEK;
+
+	public static $price_components_list_view = self::PRICE_COMPONENTS_ALL;
 
 	private static $no_edit_contact_entry_props = array(
 		"contact_entry_co_contact_1",
@@ -866,7 +874,7 @@ class crm_sales extends class_base
 				self::$presentations_list_view = self::PRESENTATIONS_SEARCH;
 			}
 		}
-		elseif ("offers" === $this->use_group || "statistics_offers" === $this->use_group)
+		elseif ("offers_offers" === $this->use_group || "statistics_offers" === $this->use_group)
 		{
 			$list_id = isset($arr["request"]["crmListId"]) ? (int) $arr["request"]["crmListId"] : 0;
 			if(isset(self::$offers_list_views[$list_id]))
@@ -877,6 +885,10 @@ class crm_sales extends class_base
 			{
 					self::$offers_list_view = self::OFFERS_SEARCH;
 			}
+		}
+		elseif ("price_components" === $this->use_group)
+		{
+			self::$price_components_list_view = automatweb::$request->arg_isset("crmListCategory") ? automatweb::$request->arg("crmListCategory") : self::PRICE_COMPONENTS_ALL;;
 		}
 		elseif ("data_entry" === substr($this->use_group, 0, 10))
 		{
@@ -1418,7 +1430,7 @@ class crm_sales extends class_base
 				$ret = crm_sales_telemarketing_statistics_view::$method_name($arr);
 			}
 		}
-		elseif ("offers" === $this->use_group)
+		elseif ("offers_offers" === $this->use_group)
 		{
 			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_offers_view", $method_name))
@@ -1426,7 +1438,7 @@ class crm_sales extends class_base
 				$ret = crm_sales_offers_view::$method_name($arr);
 			}
 		}
-		elseif ("settings_offers" === $this->use_group)
+		elseif ("price_components" === $this->use_group)
 		{
 			$method_name = "_get_{$prop_name}";
 			if (method_exists("crm_sales_settings_offers_view", $method_name))
@@ -1463,7 +1475,7 @@ class crm_sales extends class_base
 		$ret = PROP_OK;
 		$prop_name = $arr["prop"]["name"];
 
-		if ("settings_offers" === $this->use_group)
+		if ("price_components" === $this->use_group)
 		{
 			$method_name = "_set_{$prop_name}";
 			if (method_exists("crm_sales_settings_offers_view", $method_name))

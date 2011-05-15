@@ -384,7 +384,7 @@ class acl_base extends db_connector
 	{
 		$operation_id = "can_{$operation_id}";
 
-		if (!is_oid($object_id) or !in_array($operation_id, $this->acl_ids))
+		if (!is_oid($object_id) or !is_array($this->acl_ids) or !in_array($operation_id, $this->acl_ids))
 		{
 			return false;
 		}

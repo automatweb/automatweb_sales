@@ -255,7 +255,8 @@ class object
 			be aborted with an error message
 
 		@errors
-			- if all necessary properties are not set that are needed to create the object,error is thrown
+			throws awex_obj_parent if parent is not set
+			throws awex_obj_class if class id is not set
 			- if the user has no add access to the object's parent, error is thrown
 
 		@returns
@@ -270,7 +271,18 @@ class object
 	function save_new()
 	{
 		$this->_check_lock_write();
-		return $this->oid = $GLOBALS["object_loader"]->save_new($this->oid);
+		try
+		{
+			return $GLOBALS["object_loader"]->save_new($this->oid);
+		}
+		catch (awex_obj_parent $e)
+		{
+			throw $e;
+		}
+		catch (awex_obj_class $e)
+		{
+			throw $e;
+		}
 	}
 
 	/** sets whether the loaded object will be saved whenever a property is changed or only if the save() method is called. the default is off.
@@ -2430,6 +2442,9 @@ class awex_obj_na extends awex_obj
 
 /** Generic property exception **/
 class awex_obj_prop extends awex_obj {}
+
+/** Parent-not-set exception **/
+class awex_obj_parent extends awex_obj {}
 
 /** Property is read-only **/
 class awex_obj_readonly extends awex_obj_prop {}

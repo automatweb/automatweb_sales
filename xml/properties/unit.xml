@@ -1,60 +1,80 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>name_partitive_1</name>
+            <name>name_for_1</name>
             <table>objects</table>
-            <group>general</group>
             <field>meta</field>
             <method>serialize</method>
+            <group>general</group>
             <type>textbox</type>
-            <comment>&amp;amp;Uuml;hiku nimi ainsuse osastavas k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on 1</comment>
-            <caption>Ainsuse partitiiv (1 ...)</caption>
+            <comment>&amp;amp;Uuml;hiku nimi k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on 1</comment>
+            <caption>V&amp;amp;auml;&amp;amp;auml;rtuse j&amp;amp;auml;rel (1 ...)</caption>
       </property>
       <property>
-            <name>name_partitive_2</name>
+            <name>name_for_2</name>
             <table>objects</table>
-            <group>general</group>
             <field>meta</field>
             <method>serialize</method>
+            <group>general</group>
             <type>textbox</type>
-            <comment>&amp;amp;Uuml;hiku nimi ainsuse osastavas k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on 2</comment>
-            <caption>Ainsuse partitiiv (2 ...)</caption>
+            <comment>&amp;amp;Uuml;hiku nimi k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on 2</comment>
+            <caption>V&amp;amp;auml;&amp;amp;auml;rtuse j&amp;amp;auml;rel (2 ...)</caption>
       </property>
       <property>
-            <name>name_partitive</name>
+            <name>name_for_n</name>
             <table>objects</table>
-            <group>general</group>
             <field>meta</field>
             <method>serialize</method>
+            <group>general</group>
             <type>textbox</type>
-            <comment>&amp;amp;Uuml;hiku nimi ainsuse osastavas k&amp;amp;auml;&amp;amp;auml;ndes</comment>
-            <caption>Ainsuse partitiiv (n ...)</caption>
+            <comment>&amp;amp;Uuml;hiku nimi k&amp;amp;auml;&amp;amp;auml;ndes kui v&amp;amp;auml;&amp;amp;auml;rtus on muu</comment>
+            <caption>V&amp;amp;auml;&amp;amp;auml;rtuse j&amp;amp;auml;rel (n ...)</caption>
       </property>
       <property>
             <name>unit_code</name>
             <table>objects</table>
-            <group>general</group>
             <field>meta</field>
             <method>serialize</method>
+            <group>general</group>
             <type>textbox</type>
             <caption>&amp;amp;Uuml;hiku t&amp;amp;auml;his</caption>
       </property>
       <property>
             <name>unit_sort</name>
             <table>objects</table>
-            <group>general</group>
             <field>meta</field>
             <method>serialize</method>
+            <group>general</group>
             <type>select</type>
             <comment>Suurus, mida &amp;amp;uuml;hik m&amp;amp;otilde;&amp;amp;otilde;dab</comment>
             <caption>Suurus</caption>
       </property>
       <property>
-            <name>transl</name>
+            <name>units_tlb</name>
             <table>objects</table>
-            <group>transl</group>
             <field>meta</field>
             <method>serialize</method>
+            <group>units</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>units_tbl</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>units</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>transl</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>transl</group>
             <type>callback</type>
             <callback>callback_get_transl</callback>
             <store>no</store>
@@ -64,10 +84,12 @@
             <syslog_type>ST_UNIT</syslog_type>
             <relationmgr>yes</relationmgr>
             <no_comment>1</no_comment>
-            <no_status>1</no_status>
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
+            <units>
+                  <caption>K&amp;amp;otilde;ik&amp;amp;nbsp;&amp;amp;uuml;hikud</caption>
+            </units>
             <transl>
                   <caption>T&amp;amp;otilde;lgi</caption>
             </transl>

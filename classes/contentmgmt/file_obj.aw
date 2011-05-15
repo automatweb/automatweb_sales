@@ -2,6 +2,8 @@
 
 class file_obj extends _int_object
 {
+	const CLID = 41;
+
 	////
 	// !returns file by id
 	function get_file($fetch_file = true)
