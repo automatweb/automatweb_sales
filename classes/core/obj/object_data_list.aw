@@ -54,40 +54,39 @@ class object_data_list
 				)
 			);
 	**/
-	function object_data_list($param, $props)
+	function object_data_list($param = NULL, $props = NULL)
 	{
 		if (!is_array($param))
 		{
-			error::raise(array(
-				"id" => "ERR_PARAM",
-				"msg" => sprintf(t("object_data_list::object_data_list(%s): parameter must be array!"), $param)
-			));
+			$this->_int_init_empty();
 		}
-
-		error::raise_if(!is_array($props) || count($props) == 0, array(
-			"id" => "ERR_EMPTY_ARRAY",
-			"msg" => t("The fetch parameter can not be empty!")
-		));
-
-		// make sure that internal props are not renamed
-		foreach($props as $clid => $dat)
+		else
 		{
-			if (is_array($dat))
+			error::raise_if(!is_array($props) || count($props) == 0, array(
+				"id" => "ERR_EMPTY_ARRAY",
+				"msg" => t("The fetch parameter can not be empty!")
+			));
+
+			// make sure that internal props are not renamed
+			foreach($props as $clid => $dat)
 			{
-				foreach($dat as $k => $v)
+				if (is_array($dat))
 				{
-					if (!is_numeric($k) && ($k == "oid" || $k == "parent" || $k == "name" || $k == "brother_of" || $k == "status" || $k == "class_id") && $v != $k)
+					foreach($dat as $k => $v)
 					{
-						error::raise(array(
-							"id" => "ERR_INVALID_RENAME",
-							"msg" => sprintf(t("The fields oid,parent,name,brother_of,status,class_id can not be renamed in fetches. Current rename is %s => %s"), $k, $v)
-						));
+						if (!is_numeric($k) && ($k == "oid" || $k == "parent" || $k == "name" || $k == "brother_of" || $k == "status" || $k == "class_id") && $v != $k)
+						{
+							error::raise(array(
+								"id" => "ERR_INVALID_RENAME",
+								"msg" => sprintf(t("The fields oid,parent,name,brother_of,status,class_id can not be renamed in fetches. Current rename is %s => %s"), $k, $v)
+							));
+						}
 					}
 				}
 			}
-		}
 
-		$this->_int_load($param, $props);
+			$this->_int_load($param, $props);
+		}
 	}
 
 	/** Returns an array of all the objects in the list.
