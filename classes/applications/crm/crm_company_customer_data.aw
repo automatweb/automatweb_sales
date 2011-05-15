@@ -4,7 +4,7 @@
 Customer relations are per contract, meaning provision
 and acquisition contracts are represented in separate customer relation objects
 
-@classinfo relationmgr=yes no_comment=1 no_status=1 prop_cb=1
+@classinfo relationmgr=yes no_status=1 prop_cb=1
 
 @tableinfo aw_crm_customer_data index=aw_oid master_index=brother_of master_table=objects
 
@@ -29,14 +29,14 @@ and acquisition contracts are represented in separate customer relation objects
 	@property authorized_person_control table=aw_crm_customer_data field=aw_authorized_person_control type=checkbox
 	@caption Volitatud isiku kontroll
 
-	@property sell_alert type=textarea cols=40 rows=5 table=objects table=aw_crm_customer_data field=aw_sell_alert
-	@caption Hoiatus m&uuml;&uuml;gil
-
 	@property tax_rate type=relpicker reltype=RELTYPE_TAX_RATE store=connect
 	@caption M&uuml;&uuml;gi KM-kood
 
 	@property categories type=relpicker reltype=RELTYPE_CATEGORY store=connect multiple=1 size=7
 	@caption Kliendikategooria(d)
+
+	@property comment type=textarea rows=10 cols=40
+	@caption Kommentaar
 
 	@property show_in_webview type=checkbox ch_value=1 field= table=aw_crm_customer_data field=aw_show_in_webview
 	@caption Kuva veebis
@@ -876,7 +876,7 @@ Aadress: %s
 
 	function _get_recalls_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_field(array(
 			"name" => "name",
@@ -950,13 +950,6 @@ Aadress: %s
 				$this->db_add_col($tbl, array(
 					"name" => $fld,
 					"type" => "int(3)"
-				));
-				return true;
-
-			case "aw_sell_alert":
-				$this->db_add_col($tbl, array(
-					"name" => $fld,
-					"type" => "text"
 				));
 				return true;
 

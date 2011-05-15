@@ -25,6 +25,8 @@ class crm_sales_contacts_view
 						"cts_lead_source",
 						"cts_calls",
 						"cts_address",
+						"cts_comment",
+						"cts_contact",
 						"cts_phone",
 						"cts_sort_mode",
 						"cts_count",
@@ -52,6 +54,8 @@ class crm_sales_contacts_view
 			"cts_lead_source",
 			"cts_calls",
 			"cts_address",
+			"cts_comment",
+			"cts_contact",
 			"cts_phone",
 			"cts_sort_mode",
 			"cts_count",
@@ -208,6 +212,16 @@ class crm_sales_contacts_view
 					$search->address = $arr["request"]["cts_address"];
 				}
 
+				if (!empty($arr["request"]["cts_comment"]))
+				{
+					$search->comment = $arr["request"]["cts_comment"];
+				}
+
+				if (!empty($arr["request"]["cts_contact"]))
+				{
+					$search->contact_name = $arr["request"]["cts_contact"];
+				}
+
 				if (!empty($arr["request"]["cts_status"]))
 				{
 					$search->status = (int) $arr["request"]["cts_status"];
@@ -263,7 +277,6 @@ class crm_sales_contacts_view
 		self::define_contacts_list_tbl_header($arr, $contacts_count);
 		$not_available_str = "";
 		$core = new core();
-
 
 		if (count($contacts_oid_data))
 		{
@@ -422,6 +435,17 @@ class crm_sales_contacts_view
 					"content" => $menu . html::obj_change_url($customer, crm_sales::parse_customer_name($customer)),
 					"nowrap" => true
 				));
+
+				if ($customer->is_a(crm_company_obj::CLID))
+				{
+					$_url = $core->mk_my_orb("get_cust_contact_table", array("id" => $customer->id(), "return_url" => post_ru()), "crm_company_cust_impl");
+					$name_str .= html::href(array(
+						"url" => "javascript:void(0)",
+						"id" => "tnr" . $customer->id(),
+						"caption" => t("(Kontaktid)"),
+						"onclick" => "crm_sales_corporate_customer_contacts_toggle(" . $customer->id() . ",\"{$_url}\");"
+					));
+				}
 
 				// define table row
 				$table->define_data(array(

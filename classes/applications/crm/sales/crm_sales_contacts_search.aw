@@ -53,6 +53,8 @@ class crm_sales_contacts_search
 	const PARAM_BUYER = 12;
 	const PARAM_CATEGORY = 13;
 	const PARAM_CREATEDBY = 14;
+	const PARAM_COMMENT = 15;
+	const PARAM_CONTACT_NAME = 16;
 
 	private $p_seller;
 	private $p_buyer;
@@ -66,6 +68,8 @@ class crm_sales_contacts_search
 	private $p_address;
 	private $p_phone;
 	private $p_createdby;
+	private $p_comment;
+	private $p_contact_name;
 
 	private $sort_order;
 	private $additional_joins = "";
@@ -129,6 +133,9 @@ class crm_sales_contacts_search
 			This is where actual search is executed
 		@returns array
 			Array with cr oids as values
+			array(
+				array("oid" => 69)
+			)
 		@errors
 	**/
 	public function get_customer_relation_oids(obj_predicate_limit $limit = null)
@@ -137,6 +144,8 @@ class crm_sales_contacts_search
 		return $this->$method($limit);
 	}
 
+	// search by direct sql query on special cases when searched exclusively by phone or address only
+	// otherwise select storage search (object data list)
 	private function select_search_method()
 	{
 		if (!$this->search_method)
@@ -266,6 +275,26 @@ class crm_sales_contacts_search
 		$this->p_createdby = self::prepare_search_words($value);
 	}
 
+	private function _set_comment($value)
+	{
+		if (empty($value) or !is_string($value) or strlen($value) < 1)
+		{
+			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for comment parameter", self::PARAM_COMMENT);
+		}
+
+		$this->p_comment = self::prepare_search_words($value);
+	}
+
+	private function _set_contact_name($value)
+	{
+		if (empty($value) or !is_string($value) or strlen($value) < 1)
+		{
+			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for contact_name parameter", self::PARAM_CONTACT_NAME);
+		}
+
+		$this->p_contact_name = self::prepare_search_words($value);
+	}
+
 	private function _set_phone($value)
 	{
 		if (empty($value) or !is_numeric($value) or $value < 0)
@@ -345,7 +374,7 @@ class crm_sales_contacts_search
 	private function search_obj($limit)
 	{
 		$result = array();
-		$filter = array("class_id" => CL_CRM_COMPANY_CUSTOMER_DATA);
+		$filter = array("class_id" => crm_company_customer_data_obj::CLID);
 
 		if ($this->p_seller and $this->p_buyer)
 		{ // search relations where $seller OR $buyer
@@ -413,6 +442,17 @@ class crm_sales_contacts_search
 			));
 		}
 
+		if (!empty($this->p_contact_name))
+		{
+			$filter[] = new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array (
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).firmajuht.name" => "{$this->p_contact_name}",
+					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_CONTACT_PERSON.name" => "{$this->p_contact_name}"
+				)
+			));
+		}
+
 		if (!empty($this->p_salesman))
 		{
 			$filter["salesman"] = $this->p_salesman;
@@ -421,6 +461,11 @@ class crm_sales_contacts_search
 		if (!empty($this->p_createdby))
 		{
 			$filter["createdby"] = $this->p_createdby;
+		}
+
+		if (!empty($this->p_comment))
+		{
+			$filter["comment"] = $this->p_comment;
 		}
 
 		if (!empty($this->p_calls))
@@ -486,7 +531,7 @@ class crm_sales_contacts_search
 					CL_CRM_COMPANY_CUSTOMER_DATA => array("oid")
 				)
 			);
-			$result = $result->get_element_from_all("oid");
+			$result = $result->arr();
 		}
 
 		return $result;

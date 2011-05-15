@@ -366,9 +366,9 @@ class crm_sales_data_multientry_view
 
 		if(count($oids))
 		{
-			foreach ($oids as $cro_oid)
+			foreach ($oids as $data)
 			{
-				$cro = new object($cro_oid);
+				$cro = new object($data["oid"]);
 				$table->define_data(array(
 					"name" => html::obj_change_url($cro->prop("buyer"), ($cro->prop("buyer.name") ? $cro->prop("buyer.name") : t("[Nimetu]"))),
 					"created" => $cro->created()
