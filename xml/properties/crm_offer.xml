@@ -165,14 +165,33 @@
             <field>preview</field>
       </property>
       <property>
-            <name>confirmations_table</name>
+            <name>operations_overview_toolbar</name>
             <table>aw_crm_offer</table>
-            <group>confirmations</group>
-            <type>table</type>
+            <group>operations_overview</group>
+            <type>toolbar</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <editonly>1</editonly>
-            <field>confirmations_table</field>
+            <field>operations_overview_toolbar</field>
+      </property>
+      <property>
+            <name>operations_overview_type_tree</name>
+            <table>aw_crm_offer</table>
+            <group>operations_overview</group>
+            <type>treeview</type>
+            <parent>operations_overview_type_tree</parent>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>operations_overview_type_tree</field>
+      </property>
+      <property>
+            <name>operations_overview_table</name>
+            <table>aw_crm_offer</table>
+            <group>operations_overview</group>
+            <type>table</type>
+            <parent>operations_overview_right</parent>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>operations_overview_table</field>
       </property>
       <property>
             <name>send_toolbar</name>
@@ -322,16 +341,17 @@
             <preview>
                   <caption>Eelvaade</caption>
             </preview>
-            <confirmations>
-                  <caption>Kinnitused</caption>
+            <operations>
+                  <caption>Tegevused</caption>
+            </operations>
+            <operations_overview>
+                  <parent>operations</parent>
+                  <caption>&amp;amp;Uuml;levaade</caption>
                   <submit>no</submit>
-            </confirmations>
-            <mail>
-                  <caption>Kirjad</caption>
-            </mail>
+            </operations_overview>
             <send>
                   <caption>Pakkumuse saatmine</caption>
-                  <parent>mail</parent>
+                  <parent>operations</parent>
                   <confirm_save_data>0</confirm_save_data>
             </send>
             <sent>
@@ -360,6 +380,30 @@
                   <group>general</group>
                   <area_caption></area_caption>
             </buttons>
+            <operations_overview_split>
+                  <type>hbox</type>
+                  <width>20%:80%</width>
+                  <group>operations_overview</group>
+                  <area_caption></area_caption>
+            </operations_overview_split>
+            <operations_overview_left>
+                  <type>vbox</type>
+                  <parent>operations_overview_split</parent>
+                  <group>operations_overview</group>
+                  <area_caption></area_caption>
+            </operations_overview_left>
+            <operations_overview_type_tree>
+                  <type>vbox</type>
+                  <parent>operations_overview_left</parent>
+                  <area_caption>Tegevuse&amp;amp;nbsp;t&amp;amp;uuml;&amp;amp;uuml;bid</area_caption>
+                  <group>operations_overview</group>
+            </operations_overview_type_tree>
+            <operations_overview_right>
+                  <type>vbox</type>
+                  <parent>operations_overview_split</parent>
+                  <group>operations_overview</group>
+                  <area_caption></area_caption>
+            </operations_overview_right>
             <send_settings>
                   <type>hbox</type>
                   <closeable>1</closeable>

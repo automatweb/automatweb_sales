@@ -60,14 +60,31 @@
 
 	@property preview type=text store=no no_caption=1 editonly=1
 
-@groupinfo confirmations caption=Kinnitused submit=no
-@default group=confirmations
+# @groupinfo confirmations caption=Kinnitused submit=no
+# @default group=confirmations
 
-	@property confirmations_table type=table store=no no_caption=1 editonly=1
+#	@property confirmations_table type=table store=no no_caption=1 editonly=1
 
-@groupinfo mail caption="Kirjad"
+@groupinfo operations caption="Tegevused"
 
-	@groupinfo send caption="Pakkumuse saatmine" parent=mail confirm_save_data=0
+	@groupinfo operations_overview parent=operations caption="&Uuml;levaade" submit=no
+	@default group=operations_overview
+
+		@property operations_overview_toolbar type=toolbar store=no no_caption=1
+
+		@layout operations_overview_split type=hbox width=20%:80%
+			
+			@layout operations_overview_left type=vbox parent=operations_overview_split
+				
+				@layout operations_overview_type_tree type=vbox parent=operations_overview_left area_caption=Tegevuse&nbsp;t&uuml;&uuml;bid
+
+					@property operations_overview_type_tree type=treeview parent=operations_overview_type_tree store=no no_caption=1
+			
+			@layout operations_overview_right type=vbox parent=operations_overview_split
+				
+				@property operations_overview_table type=table parent=operations_overview_right store=no no_caption=1
+
+	@groupinfo send caption="Pakkumuse saatmine" parent=operations confirm_save_data=0
 	@default group=send
 
 		@property send_toolbar type=toolbar store=no no_caption=1
@@ -146,6 +163,155 @@ class crm_offer extends class_base
 		return $r;
 	}
 
+	public function _get_operations_overview_toolbar($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$t->add_menu_button(array(
+			"name" => "new",
+		));
+		$url = automatweb::$request->get_uri();
+		$url->set_arg("group", "send");
+		$t->add_menu_item(array(
+			"parent" => "new",
+			"name" => "new_mail",
+			"text" => t("Saada pakkumus kliendile"),
+			"url" => $url->get(),
+		));
+
+		try
+		{
+			$create_args = array(
+				"id" => automatweb::$request->get_application()->id(),
+				"cust_rel" => $arr["obj_inst"]->get_customer_relation()->id(),
+				"offer" => $arr["obj_inst"]->id(),
+				"return_url" => get_ru(),
+			);
+			$t->add_menu_item(array(
+				"parent" => "new",
+				"name" => "new_call",
+				"text" => t("Loo uus k&otilde;ne"),
+				"url" => $this->mk_my_orb("create_call", $create_args, "crm_sales"),
+			));
+			$t->add_menu_item(array(
+				"parent" => "new",
+				"name" => "new_presentation",
+				"text" => t("Loo uus esitlus"),
+				"url" => $this->mk_my_orb("create_presentation", $create_args, "crm_sales"),
+			));
+		}
+		catch(awex_crm_offer_customer $e)
+		{
+		}
+
+		return PROP_OK;
+	}
+
+	public function _get_operations_overview_type_tree($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+
+		$url = automatweb::$request->get_uri();
+
+		$url->unset_arg("operationTypeId");
+		$t->add_item(0, array(
+			"id" => "all",
+			"name" => t("K&otilde;ik tegevused"),
+			"url" => $url->get(),
+		));
+		$operations = array(
+			crm_offer_sent_obj::CLID => "E-kirjad",
+			crm_call_obj::CLID => "K&otilde;ned",
+			crm_presentation_obj::CLID => "Esitlused",
+		);
+		foreach($operations as $clid => $caption)
+		{
+			$url->set_arg("operationTypeId", $key = "ot_".$clid);
+			$t->add_item("all", array(
+				"id" => $key,
+				"name" => $caption,
+				"url" => $url->get(),
+			));
+		}
+
+		$t->set_selected_item(automatweb::$request->arg_isset("operationTypeId") ? automatweb::$request->arg("operationTypeId") : "all");
+		return PROP_OK;
+	}
+
+	public function _get_operations_overview_table($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$this->define_operations_overview_table_header($t);
+
+		
+		$operations = $arr["obj_inst"]->get_related_operations(automatweb::$request->arg_isset("operationTypeId") ? array((int)substr(automatweb::$request->arg("operationTypeId"), 3)) : array());
+
+		if ($operations->count() > 0)
+		{
+			$operation = $operations->begin();
+			do
+			{
+				$t->define_data(array(
+					"name" => html::obj_change_url($operation),
+					"type" => $operation->class_title(),
+					"comment" => $operation->comment(),
+					"created" => $operation->created(),
+					"modified" => $operation->modified(),
+				));
+			}
+			while ($operation = $operations->next());
+		}
+
+		return PROP_OK;
+	}
+
+	protected function define_operations_overview_table_header($t)
+	{
+		$t->set_sortable(true);
+
+		$t->set_default("sortable", true);
+		$t->add_fields(array(
+			"type" => t("T&uuml;&uuml;p"),
+			"name" => t("Nimi"),
+			"comment" => t("Kommentaar"),
+		));
+
+		$t->set_default("width", 120);
+		$t->set_default("align", "center");
+		$t->set_default("type", "time");
+		$t->set_default("format", "d.m.Y H:i");
+		$t->set_default("smart", true);
+		$t->add_fields(array(
+			"created" => t("Loodud"),
+			"modified" => t("Viimati muudetud"),
+		));
+
+		//	operationTypeId is of the form "or_{CLID}"
+		switch(substr(automatweb::$request->arg("operationTypeId"), 3))
+		{
+			case crm_offer_sent_obj::CLID:
+				$caption = t("Pakkumusega seotud e-kirjad");
+				break;
+
+			case crm_call_obj::CLID:
+				$caption = t("Pakkumusega seotud k&otilde;ned");
+				break;
+
+			case crm_presentation_obj::CLID:
+				$caption = t("Pakkumusega seotud esitlused");
+				break;
+
+			default:
+				$caption = t("K&otilde;ik pakkumusega seotud tegevused");
+				break;
+		}
+
+		$t->set_caption($caption);
+
+		$t->set_default_sortby("created");
+		$t->set_default_sorder("desc");
+	}
+
 	public function _get_send_toolbar(&$arr)
 	{
 		$r = PROP_OK;
@@ -155,14 +321,14 @@ class crm_offer extends class_base
 			"img" => "mail_send.gif",
 			"tooltip" => t("Saada pakkumus"),
 			"confirm" => t("Oled kindel et soovid pakkumuse saata?"),
-			"action" => "send"
+			"operation" => "send"
 		));
 
 		$t->add_button(array(
 			"name" => "save",
 			"img" => "save.gif",
 			"tooltip" => t("Salvesta muudatused ajutiselt"),
-			"action" => "submit"
+			"operation" => "submit"
 		));
 
 		return $r;
@@ -1473,12 +1639,12 @@ class crm_offer extends class_base
 			$js .= <<<ENDSCRIPT
 function crm_offer_refresh_mail_text() {
 	// subject
-	$.get('/automatweb/orb.aw', {class: 'crm_offer', action: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_subject').val()}, function (html) {
+	$.get('/automatweb/orb.aw', {class: 'crm_offer', operation: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_subject').val()}, function (html) {
 		$('#mail_subject_text_element').html(html);
 	});
 
 	// body
-	$.get('/automatweb/orb.aw', {class: 'crm_offer', action: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_content').val()}, function (html) {
+	$.get('/automatweb/orb.aw', {class: 'crm_offer', operation: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_content').val()}, function (html) {
 		$('#mail_content_text_element').html(html);
 	});
 }
