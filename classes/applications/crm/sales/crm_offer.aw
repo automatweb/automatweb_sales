@@ -321,14 +321,14 @@ class crm_offer extends class_base
 			"img" => "mail_send.gif",
 			"tooltip" => t("Saada pakkumus"),
 			"confirm" => t("Oled kindel et soovid pakkumuse saata?"),
-			"operation" => "send"
+			"action" => "send"
 		));
 
 		$t->add_button(array(
 			"name" => "save",
 			"img" => "save.gif",
 			"tooltip" => t("Salvesta muudatused ajutiselt"),
-			"operation" => "submit"
+			"action" => "submit"
 		));
 
 		return $r;

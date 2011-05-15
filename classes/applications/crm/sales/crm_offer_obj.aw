@@ -396,7 +396,7 @@ Parimat,
 		return $ret;
 	}
 
-	/** Parses variables in invoice e-mail body or subject text
+	/** Parses variables in offer e-mail body or subject text
 		@attrib api=1 params=pos
 		@param text type=string
 			Text to parse variables in
@@ -717,7 +717,7 @@ Parimat,
 
 		if (!$success)
 		{
-			throw new awex_crm_offer_file("Attaching offer file (id: " . $invoice_pdf->id() . ") failed. Offer id " . $this->id());
+			throw new awex_crm_offer_file("Attaching offer file (id: " . $offer_pdf->id() . ") failed. Offer id " . $this->id());
 		}
 
 		$awm->htmlbodyattach(array(
@@ -732,18 +732,19 @@ Parimat,
 		{
 			throw new awex_crm_offer_send ("Sending '".$this->id()."' failed");
 		}
-/*
+
 		// write log
 		/// mail message object for logging
-		$mail = obj(null, array(), CL_MESSAGE);
+		$mail = obj(null, array(), crm_offer_sent_obj::CLID);
 		$mail->set_parent($this->id());
-		$mail->set_name(t("saadetud arve")." ".$this->id()." ".t("kliendile")." ".$this->get_customer_name());
+		$mail->set_name(sprintf(t("Pakkumus %d kliendile %s"), $this->id(), $this->prop("customer.name")));
+		$mail->set_prop("offer", $this->id());
 		$mail->save();
 
-		$attachments = array($invoice_pdf->id());
-		$invoice_pdf ->set_parent($mail->id());
-		$invoice_pdf->save();
+		$offer_pdf->set_parent($mail->id());
+		$offer_pdf->save();
 
+		$attachments = array($offer_pdf->id());
 		$mail->set_prop("attachments", $attachments);
 		$mail->set_prop("customer", $this->prop("customer"));
 		$mail->set_prop("message", $body);
@@ -756,7 +757,6 @@ Parimat,
 
 		$comment = html_entity_decode(sprintf(t("%s saatis arve nr. %s; summa %s; kuup&auml;ev: %s; kellaaeg: %s; aadressidele: %s; koopia aadressidele: %s; tekst: %s; lisatud failid: %s. "), aw_global_get("uid"), $this->prop("bill_no") , $this->prop("sum") , date("d.m.Y") , date("H:i") , htmlspecialchars($to), htmlspecialchars($cc), $body, $att_comment));
 		$this->add_comment($comment);
-*/
 
 		$this->set_prop("state", self::STATE_SENT);
 		$this->save();
@@ -780,7 +780,8 @@ Parimat,
 			}
 		}
 
-		if (!$pdf)
+		//	TODO: PDF must only be recreated after the contents of the offer is modified!
+		if (true || !$pdf)
 		{
 			$f = new file();
 			$id = $f->create_file_from_string(array(
