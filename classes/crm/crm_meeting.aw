@@ -657,11 +657,11 @@ class crm_meeting extends task
 					}
 				}
 				// also add all workers for my company
-				$u = get_instance(CL_USER);
+				$u = new user();
 				$co = $u->get_current_company();
 				$w = array();
-				$i = get_instance(CL_CRM_COMPANY);
-				$i->get_all_workers_for_company(obj($co), &$w);
+				$i = new crm_company();
+				$i->get_all_workers_for_company(obj($co), $w);
 				foreach($w as $oid)
 				{
 					$o = obj($oid);
@@ -1500,7 +1500,7 @@ class crm_meeting extends task
 			post_message_with_param(
 				MSG_MEETING_DELETE_PARTICIPANTS,
 				CL_CRM_MEETING,
-				&$arr
+				$arr
 			);
 		}
 
