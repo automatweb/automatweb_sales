@@ -51,16 +51,6 @@
             <caption>Volitatud isiku kontroll</caption>
       </property>
       <property>
-            <name>sell_alert</name>
-            <table>aw_crm_customer_data</table>
-            <group>general</group>
-            <type>textarea</type>
-            <cols>40</cols>
-            <rows>5</rows>
-            <field>aw_sell_alert</field>
-            <caption>Hoiatus m&amp;amp;uuml;&amp;amp;uuml;gil</caption>
-      </property>
-      <property>
             <name>tax_rate</name>
             <table>objects</table>
             <group>general</group>
@@ -81,6 +71,16 @@
             <size>7</size>
             <field>categories</field>
             <caption>Kliendikategooria(d)</caption>
+      </property>
+      <property>
+            <name>comment</name>
+            <table>objects</table>
+            <group>general</group>
+            <type>textarea</type>
+            <rows>10</rows>
+            <cols>40</cols>
+            <field>comment</field>
+            <caption>Kommentaar</caption>
       </property>
       <property>
             <name>show_in_webview</name>
@@ -403,7 +403,6 @@
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
-            <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
       </classinfo>
