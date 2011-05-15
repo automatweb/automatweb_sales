@@ -527,4 +527,3 @@ class shop_payment_type extends shop_matrix
 		}
 	}
 }
-

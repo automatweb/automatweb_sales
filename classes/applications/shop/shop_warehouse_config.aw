@@ -46,6 +46,9 @@
 			@property owner type=relpicker reltype=RELTYPE_MANAGER_CO parent=left table=aw_shop_warehouse_config field=aw_owner method=fuck_you_serialize
 			@caption Lao omanik
 
+			@property delete_all_lower_products type=checkbox ch_value=1 parent=left
+			@caption Kustuta paketi kustutamisel ka tooted
+
 			@property sell_prods type=checkbox ch_value=1 parent=left
 			@caption Ladu m&uuml;&uuml;b tooteid, mitte pakendeid
 
@@ -66,6 +69,9 @@
 
 			@property show_purveyance type=checkbox parent=left
 			@caption Kuva tarnijaid
+
+			@property csv_file_encoding type=textbox parent=left
+			@caption CSV faili kodeering
 
 		@layout right type=vbox area_caption=Kaustad closeable=1 parent=split
 

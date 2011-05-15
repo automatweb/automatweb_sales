@@ -18,6 +18,16 @@
             <caption>Andmeallikas</caption>
       </property>
       <property>
+            <name>data_source_object</name>
+            <table>objects</table>
+            <group>general_general</group>
+            <type>relpicker</type>
+            <reltype>RELTYPE_DATASOURCE</reltype>
+            <field>meta</field>
+            <method>serialize</method>
+            <caption>Andmeallika objekt</caption>
+      </property>
+      <property>
             <name>price_list</name>
             <table>objects</table>
             <group>general_general</group>
@@ -161,14 +171,14 @@
             <field>product_status_dev_info</field>
       </property>
       <property>
-            <name>product_status_dev_files</name>
+            <name>product_status_dev_queue</name>
             <table>aw_warehouse_import</table>
             <group>product_status_dev</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
-            <parent>product_status_dev_files_frame</parent>
-            <field>product_status_dev_files</field>
+            <parent>product_status_dev_queue_frame</parent>
+            <field>product_status_dev_queue</field>
       </property>
       <property>
             <name>prices_status</name>
@@ -346,6 +356,11 @@
                   <clid>CL_RECURRENCE</clid>
                   <caption>Tellimuste kordaja</caption>
             </ORDERS_REPEATER>
+            <DATASOURCE>
+                  <value>18</value>
+                  <clid>CL_OTTO_IMPORT</clid>
+                  <caption>Andmeallika objekt</caption>
+            </DATASOURCE>
       </reltypes>
       <layout>
             <timing_prods_lay>
@@ -403,26 +418,33 @@
                   <parent>product_status_dev_frame</parent>
                   <group>product_status_dev</group>
             </product_status_dev_imports_frame>
-            <product_status_dev_left_frame>
-                  <type>vbox</type>
+            <product_status_dev_info_outer_frame>
+                  <type>hbox</type>
+                  <width>50%:50%</width>
                   <parent>product_status_dev_frame</parent>
                   <group>product_status_dev</group>
                   <area_caption></area_caption>
-            </product_status_dev_left_frame>
+            </product_status_dev_info_outer_frame>
+            <product_status_dev_info_left_frame>
+                  <type>vbox</type>
+                  <parent>product_status_dev_info_outer_frame</parent>
+                  <group>product_status_dev</group>
+                  <area_caption></area_caption>
+            </product_status_dev_info_left_frame>
             <product_status_dev_info_frame>
                   <type>vbox</type>
                   <area_caption>Info</area_caption>
                   <closeable>1</closeable>
-                  <parent>product_status_dev_left_frame</parent>
+                  <parent>product_status_dev_info_left_frame</parent>
                   <group>product_status_dev</group>
             </product_status_dev_info_frame>
-            <product_status_dev_files_frame>
+            <product_status_dev_queue_frame>
                   <type>vbox</type>
-                  <area_caption>Impordi&amp;amp;nbsp;failid</area_caption>
+                  <area_caption>J&amp;amp;auml;rjekord</area_caption>
                   <closeable>1</closeable>
-                  <parent>product_status_dev_left_frame</parent>
+                  <parent>product_status_dev_info_left_frame</parent>
                   <group>product_status_dev</group>
-            </product_status_dev_files_frame>
+            </product_status_dev_queue_frame>
             <stat_prices_lay>
                   <type>vbox</type>
                   <area_caption>Hindade&amp;amp;nbsp;impordi&amp;amp;nbsp;staatus</area_caption>

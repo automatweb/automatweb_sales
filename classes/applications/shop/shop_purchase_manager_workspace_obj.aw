@@ -14,11 +14,11 @@ class shop_purchase_manager_workspace_obj extends _int_object
 
 	/**
 		@attrib name=order_products api=1
-
+		
 		@param products required type=array
 		@param date required type=int
 		@param job optional type=oid
-
+	
 		@comment
 			arr[products] is an array of arrays ( product => oid, unit => oid, amount => int )
 			when unit is not defined there, product's default unit is used
@@ -77,7 +77,7 @@ class shop_purchase_manager_workspace_obj extends _int_object
 	}
 
 	private function create_order_row($arr, $o)
-	{
+	{		
 		$row = obj();
 		$row->set_class_id(CL_SHOP_ORDER_ROW);
 		$row->set_parent($o->id());
@@ -131,11 +131,11 @@ class shop_purchase_manager_workspace_obj extends _int_object
 
 	/**
 	@attrib name=get_order_rows
-
+	
 	@param product optional type=int
 	@param date optional type=int
 	@param job optional type=int
-	@param order_type required type=string
+	@param order_type required type=string	
 	@param order_status optional type=int
 
 	@comment
@@ -196,9 +196,10 @@ class shop_purchase_manager_workspace_obj extends _int_object
 			"class_id" => CL_MRP_JOB,
 			"state" => mrp_job_obj::STATE_PLANNED,
 			"RELTYPE_JOB(CL_SHOP_SELL_ORDER).oid" => new obj_predicate_compare(OBJ_COMP_NULL),
+			//"RELTYPE_MRP_RESOURCE.workspace" => $this->prop("mrp_workspace"),
 			"RELTYPE_JOB(CL_MATERIAL_EXPENSE).class_id" => CL_MATERIAL_EXPENSE,
 		));
-
+	arr($ol);die();
 		$ol2 = new object_list(array(
 			"class_id" => CL_MATERIAL_EXPENSE,
 			"job" => $ol->ids(),
@@ -277,10 +278,10 @@ class shop_purchase_manager_workspace_obj extends _int_object
 
 	/**
 	@attrib name=update_job_orders api=1
-
+	
 	@param job required type=object
-
-	@comment
+	
+	@comment 
 		updates the order for a job
 	**/
 	function update_job_order($job)

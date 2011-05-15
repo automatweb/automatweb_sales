@@ -2,6 +2,21 @@
 
 class shop_product_packaging_obj extends shop_product_obj
 {
+
+	function prop($k)
+	{
+
+		$rv = parent::prop($k);
+
+		if ($k == "size")
+		{
+			return str_replace('"' , '' , $rv);
+		}
+
+		return $rv;
+	}
+
+
 	public function save($exclusive = false, $previous_state = null)
 	{
 		$retval = parent::save($exclusive, $previous_state);
@@ -43,12 +58,14 @@ class shop_product_packaging_obj extends shop_product_obj
 	**/
 	function get_price($arr)
 	{
+		$price_value = $this->get_price_value();
+
 		$prices = safe_array($this->meta("cur_prices"));
 		if(isset($arr["shop"]) && is_oid($arr["shop"]) && $this->can("view", $arr["shop"]))
 		{
 			$shop = obj($arr["shop"]);
 			// If no prices are set for any currencies, we presume the price property is set for default currency
-			if(is_oid($shop->default_currency) && $this->prop("price"))
+			if(is_oid($shop->default_currency) && $price_value)
 			{
 				$no_price_set_for_any_currency = true;
 				foreach($prices as $currency => $price)
@@ -61,7 +78,7 @@ class shop_product_packaging_obj extends shop_product_obj
 				}
 				if($no_price_set_for_any_currency)
 				{
-					$prices[$shop->default_currency] = $this->prop("price");
+					$prices[$shop->default_currency] = $price_value;
 				}
 			}
 			return shop_price_list_obj::price(array(
@@ -90,6 +107,46 @@ class shop_product_packaging_obj extends shop_product_obj
 		}
 	}
 	
+	/** To handle the transition from regular price property to price object I make a function which returns the price value from object. If there is no price object, then it returns price property value instead
+		@attrib name=get_price_value api=1
+	**/
+	public function get_price_value()
+	{
+		$value = 0;
+		$price_oid = $this->prop('price_object');
+		if (!empty($price_oid))
+		{
+			$price_obj = new object($price_oid);
+			$value = $price_obj->prop('price');
+		}
+		else
+		{
+			$value = $this->prop('price');
+		}
+
+		return (float)$value;
+	
+	}
+
+	/** Get new price value as float. An packaging can have two prices: One regular and the new one is usually discount price.
+
+		@attrib name=get_special_price api=1
+
+		@returns special_price object's price property value as float
+	**/
+	public function get_special_price_value()
+	{
+		$special_price = 0;
+
+		$special_price_oid = $this->prop('special_price_object');
+		if (!empty($special_price_oid))
+		{
+			$special_price_obj = new object($special_price_oid);
+			$special_price = $special_price_obj->prop('price');
+		}
+		return (float)$special_price;
+	}
+
 	/** returns product color name
 		@attrib api=1
 		@returns string

@@ -26,6 +26,17 @@ class shop_order_center_obj extends _int_object
 		$cart->save();
 		$this->set_prop("cart" , $cart->id());
 		
+		//pangamakse objekt ka suht populaarne
+		$bp = new object();
+		$bp->set_class_id(CL_BANK_PAYMENT);
+		$bp->set_name($this->name() . " " . t("pangamakse"));
+		$bp->set_parent($this->id());
+		$bp->save();
+		$this->set_prop("bank_payment" , $bp->id());
+		
+		//maili v6iks ka kohe saata
+		$this->set_prop("mail_to_client" , 1);
+
 		$warehouses = new object_list(array(
 			"class_id" => CL_SHOP_WAREHOUSE,
 			"site_id" => array(),
@@ -380,9 +391,11 @@ class shop_order_center_obj extends _int_object
 		}
 
 	
-		$order_mails = $wo->get_order_mails();
-		$order_mails[$order_object->get_orderer_mail()] = $order_object->get_orderer_mail();
-
+		$order_mails = $wo->get_order_mails() + $this->get_order_mails();
+		if($this->prop("mail_to_client"))
+		{
+			$order_mails[$order_object->get_orderer_mail()] = $order_object->get_orderer_mail();
+		}
 		if (count($order_mails) > 0)
 		{
 			$awm = get_instance("protocols/mail/aw_mail");
@@ -571,10 +584,111 @@ class shop_order_center_obj extends _int_object
 			{
 				$this->_make_new_struct_leaf($categories , $menu->id());		
 			}
-
 		}
-		
 	}
-	
 
+	private function  __orderer_vars_sorter($a, $b)
+	{
+		if ($this->orderer_vars_meta["jrk"][$a] == $this->orderer_vars_meta["jrk"][$b]) 
+		{
+			return 0;
+		}
+		return ($this->orderer_vars_meta["jrk"][$a] < $this->orderer_vars_meta["jrk"][$b]) ? -1 : 1;
+	}
+
+	public function get_orderer_vars(&$cart_instance)
+	{
+		$orderer_vars = $cart_instance->orderer_vars;
+		$this->orderer_vars_meta = $this->meta("orderer_vars");
+		uksort($orderer_vars, array(&$this, "__orderer_vars_sorter"));
+		return $orderer_vars;
+	}
+
+	public function get_bank_payment_id()
+	{
+		$bp = $this->get_first_obj_by_reltype("RELTYPE_BANK_PAYMENT");
+		if(!is_object($bp))
+		{
+			if($this->prop("use_bank_payment"))
+			{
+				$bp = new object();
+				$bp->set_class_id(CL_BANK_PAYMENT);
+				$bp->set_name($this->name() . " " . t("pangamakse"));
+				$bp->set_parent($this->id());
+				$bp->save();
+				$this->set_prop("bank_payment" , $bp->id());
+				$this->save();
+			}
+			else return null;
+		}
+		return $bp->id();
+	}
+
+	private function get_order_mails()
+	{
+		$ret = array();
+		foreach($this->connections_from(array(
+			"type" => "RELTYPE_MAIL_RECIEVERS",
+	//		"sort_by_num" => "to.jrk"
+		)) as $c)
+		{
+			$o = $c->to();
+			switch($o->class_id())
+			{
+				case CL_CRM_PERSON:
+					$ret[$o->prop("mail")] = $o->get_mail();
+					break;
+				case CL_ML_MEMBER:
+					$ret[$o->prop("mail")] = $o->prop("mail");
+					break;
+			}
+			break;
+		}
+
+
+		return $ret;
+	}
+  
+	public function get_active_products_count()
+	{//CL_SHOP_PRODUCT_PACKAGE.RELTYPE_CATEGORY.
+		$GLOBALS["SLOW_DUKE"] = 1;
+
+		$t = new object_data_list(
+			array(
+				"class_id" => CL_SHOP_PACKET,
+				"site_id" => array(),
+				"lang_id" => array(),
+				"status" => 2,
+//				"CL_SHOP_PACKET.RELTYPE_CATEGORY.RELTYPE_CATEGORY(CL_PRODUCTS_SHOW)" => new obj_predicate_compare(OBJ_COMP_GREATER, 0),
+			),
+			array(
+				CL_SHOP_PACKET =>  array(new obj_sql_func(OBJ_SQL_COUNT,"cnt" , "*"))
+			)
+		);
+
+		$cnt = $t->get_element_from_all("cnt");
+		return reset($cnt);
+
+	}
+
+	public function get_bonus_codes()
+	{
+		$bonus_codes = array();
+
+		$data = $this->meta("bonus_codes");
+		if(is_array($data))
+		{
+			foreach($data as $code => $products)
+			{
+				$bonus_codes[$code] = $products;
+			}
+		}
+
+		return $bonus_codes;
+	}
+
+	public function set_bonus_codes($bonus_codes)
+	{
+		$this->set_meta("bonus_codes", $bonus_codes);
+	}
 }

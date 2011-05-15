@@ -9,6 +9,15 @@
 @property template type=select
 @caption Template
 
+
+
+
+@groupinfo display_properties caption="Omadused"
+@default group=display_properties
+
+	@property display_properties_table type=table store=no
+	@caption N&auml;idatavate omaduste tabel
+
 */
 
 class shop_orderer_data_site_show extends class_base

@@ -9,19 +9,22 @@ class shop_product_category_obj extends _int_object
 	**/
 	public function get_categories($id = NULL)
 	{
+		enter_function("product_management_category_tree4");
+//parentiga oleks tegelt sitaks kiirem... a kui m6lemad on sees, siis umbes 10 korda aeglasem kogu see jama
 		$ol = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
 			"lang_id" => array(),
 			"site_id" => array(),
-			new object_list_filter(array(
-				"logic" => "OR",
-				"conditions" => array(
-					"parent" => is_oid($id) ? $id : $this->id(),
+//			new object_list_filter(array(
+//				"logic" => "OR",
+//				"conditions" => array(
+//					"parent" => is_oid($id) ? $id : $this->id(),
 					"CL_SHOP_PRODUCT_CATEGORY.RELTYPE_CATEGORY" => is_oid($id) ? $id : $this->id(),
-				),
-			)),
+//				),
+//			)),
 			"sort_by" => "jrk asc, name asc",
 		));
+		exit_function("product_management_category_tree4");
 		return $ol;
 	}
 

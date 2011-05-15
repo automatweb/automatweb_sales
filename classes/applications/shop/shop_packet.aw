@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_packet.aw,v 1.32 2009/09/07 14:56:01 markop Exp $
+// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_packet.aw,v 1.38 2010/01/15 12:12:34 dragut Exp $
 // shop_packet.aw - Pakett 
 /*
 
-@classinfo syslog_type=ST_SHOP_PACKET relationmgr=yes no_status=1  maintainer=kristo
+@classinfo syslog_type=ST_SHOP_PACKET relationmgr=yes maintainer=kristo
 @tableinfo aw_shop_packets index=aw_oid master_table=objects master_index=brother_of
 
 @default table=objects
@@ -176,6 +176,12 @@ class shop_packet extends class_base
 		));
 
 		$t->define_field(array(
+			"name" => "ord",
+			"caption" => t("J&auml;rjekord"),
+			"align" => "center"
+		));
+
+		$t->define_field(array(
 			"name" => "count",
 			"caption" => t("Mitu paketis"),
 			"align" => "center"
@@ -200,12 +206,19 @@ class shop_packet extends class_base
 
 	function do_packet_table(&$arr)
 	{
+		$arr['prop']['vcl_inst']->set_sortable(false);
+
 		$pd = $arr["obj_inst"]->meta("packet_content");
 		$pg = $arr["obj_inst"]->meta("packet_groups");
 		$pk = $arr["obj_inst"]->meta("packet_def_pkgs");
 
 		$this->_init_packet_table($arr["prop"]["vcl_inst"]);
-		foreach($arr["obj_inst"]->connections_from(array("type" => "RELTYPE_PRODUCT")) as $c)
+		$connections_to_products = $arr["obj_inst"]->connections_from(array(
+			"type" => "RELTYPE_PRODUCT",
+			"sort_by_num" => "to.jrk",
+			"sort_dir" => "asc"
+		));
+		foreach($connections_to_products as $c)
 		{
 			if(isset($pd[$c->prop("to")]))
 			{
@@ -217,6 +230,11 @@ class shop_packet extends class_base
 			}
 			$arr["prop"]["vcl_inst"]->define_data(array(
 				"name" => html::obj_change_url($c->to()),
+				"ord" => html::textbox(array(
+					"name" => "packet_order[".$c->prop("to")."]",
+					"value" => $c->to()->ord(),
+					"size" => 5
+				)),
 				"count" => html::textbox(array(
 					"name" => "pd[".$c->prop("to")."]",
 					"value" => $value,
@@ -252,6 +270,20 @@ class shop_packet extends class_base
 		$arr["obj_inst"]->set_meta("packet_content", $arr["request"]["pd"]);
 		$arr["obj_inst"]->set_meta("packet_groups", $arr["request"]["pg"]);
 		$arr["obj_inst"]->set_meta("packet_def_pkgs", $arr["request"]["pk"]);
+
+		// if the order is changed, then update the order value in product objects:
+		foreach ($arr['request']['packet_order'] as $product_oid => $product_order)
+		{
+			if ($this->can('view', $product_oid))
+			{
+				$product_obj = new object($product_oid);
+				if ($product_order != $product_obj->ord())
+				{
+					$product_obj->set_ord($product_order);
+					$product_obj->save();
+				}
+			}
+		}
 	}
 
 	function get_price($o)
@@ -672,9 +704,13 @@ class shop_packet extends class_base
 
 	}
 
-	private function get_template()
+	private function get_template($ob, $oc)
 	{
-		if($this->template)
+		if ($ob->status() != object::STAT_ACTIVE and $oc->prop("only_active_items"))
+		{
+			return $oc->prop("inactive_item_tpl");
+		}
+		elseif ($this->template)
 		{
 			return $this->template;
 		}
@@ -686,14 +722,15 @@ class shop_packet extends class_base
 
 	function show($arr)
 	{
-		error::raise_if(!$this->can("view" , $arr["oc"], array(
+		error::raise_if(!$this->can("view" , $arr["oc"]), array(
 			"id" => ERR_NO_OC,
 			"msg" => t("shop_packet::show(): no order center object selected!")
-		)));
+		));
 
+		$oc = obj($arr["oc"]);
 		$ob = new object($arr["id"]);
 
-		$this->read_template($this->get_template());
+		$this->read_template($this->get_template($ob, $oc));
 		$this->vars(array(
 			"name" => $ob->prop("name"),
 		));
@@ -739,17 +776,7 @@ class shop_packet extends class_base
 
 
 		$cart_inst = get_instance(CL_SHOP_ORDER_CART);
- //		$data["submit_url"] = $this->mk_my_orb("submit_add_cart", array(
-//			"oc" => $oc->id(),
-//			"id" => $oc->prop("cart"),
-//		),CL_SHOP_ORDER_CART,false,false,"&amp;");
-//
-//		if(!substr_count("orb.aw" ,$data["submit_url"] ))
-//		{
-//			$data["submit_url"] = str_replace(aw_ini_get("baseurl")."/" ,aw_ini_get("baseurl")."/orb.aw" , $data["submit_url"]);
-//
-//		}
-		$oc = obj($arr["oc"]);
+
 		$data["oc"] = $arr["oc"];
 		$data["submit"] = html::submit(array(
 			"value" => t("Lisa tooted korvi"),
@@ -767,11 +794,13 @@ class shop_packet extends class_base
 		
 		$purveyances_stuff = $this->get_purveyances($data["packages"]);
 		$this->add_purveyances($data["packages"]);
+
 		foreach($data["packages"] as $product => $packages)
 		{
 			$prod_purveyances_ids = array();
 			$prod_sizes = array();
 			$prod_prices = array();
+			$prod_special_prices = array();
 			$prod_ids = array();
 			$prod_purveyances = array();
 			$prod_params[$product] = $product." : { ";
@@ -782,29 +811,33 @@ class shop_packet extends class_base
 			$prod_params[$product].= "sizes : [";
 			$this->vars(array(
 				"color_key" => $product,
-				"color" => $data["colors"][$product],
+				"color" =>str_replace('"' , "" , $data["colors"][$product]),
 			));
 			if($data["colors"][$product])
 			{
 				$clrs = 1;
 			}
 			//arr($data);	
+
 			foreach($packages as $package)
 			{
 				if($data["prices"][$package])
 				{
 
-					$prod_sizes[] = "\"".$data["sizes"][$package]."\"";
+					$prod_sizes[] = "\"".trim($data["sizes"][$package], "\"\n")."\"";
 					$prod_prices[] = $data["prices"][$package];
+					$prod_special_prices[] = $data["special_prices"][$package];
 					$prod_ids[] = $package;
-					$prod_purveyances[] = "'Tarneinfo puudub'";
- 					$prod_purveyances_ids[] = $purveyances_stuff[$package] ? "\"".trim($purveyances_stuff[$package])."\"" : "\"\"";
+					$prod_purveyances[] = !empty($purveyances_stuff[$package]) ? '"'.$purveyances_stuff[$package]['comment'].'"' : '"'.t('Tarneinfo puudub').'"';
+ 					$prod_purveyances_ids[] = !empty($purveyances_stuff[$package]) ? "\"".trim($purveyances_stuff[$package]['code'])."\"" : "\"\"";
 				}
 			}
 
 			$prod_params[$product].=join(",",$prod_sizes);
 			$prod_params[$product].="], prices : [";
 			$prod_params[$product].=join(",",$prod_prices);
+			$prod_params[$product].="], special_prices : [";
+			$prod_params[$product].=join(",",$prod_special_prices);
 			$prod_params[$product].="], ids : [";
 			$prod_params[$product].=join(",",$prod_ids);
 			$prod_params[$product].="], purveyances : [";
@@ -812,10 +845,12 @@ class shop_packet extends class_base
 			$prod_params[$product].="], purveyances_id : [";
 			$prod_params[$product].=join(",",$prod_purveyances_ids);
 			$prod_params[$product].="]}";
+
 			$data["COLORS"].= $this->parse("COLORS");
 
-		}
+		} 
 
+//if(aw_global_get("uid") == "struktuur.markop") arr($prod_params);
 
 		$first_pack = reset($data["packages"]);
 		$n = 0;
@@ -834,7 +869,16 @@ class shop_packet extends class_base
 			$n++;
 		}
 
-		$data["price"] = number_format($data["prices"][reset($first_pack)] , 2);
+		$data["price"] = number_format($data["prices"][reset($first_pack)] , 2, '.', '');
+		$special_price = $data["special_prices"][reset($first_pack)];
+
+		$data["special_price"] = 0;
+		$data["special_price_visibility"] = "";
+		if (!empty($special_price))
+		{
+			$data["special_price"] = number_format($special_price, 2);
+			$data["special_price_visibility"] = "_showSpecialPrice";
+		}
 		
 		$data["product_params"] = "productParams = {\n";
 		$data["product_params"].= join(",\n" , $prod_params);
@@ -873,7 +917,11 @@ class shop_packet extends class_base
 				foreach($conns as $conn)
 				{
 					$o = obj($conn["from"]);
-					$ret[$packaging] = $o->prop("code");
+					$ret[$packaging] = array(
+						'name' => $o->name(),
+						'comment' => $o->comment(),
+						'code' => $o->prop("code")
+					);
 				}				
 
 			}
@@ -889,13 +937,29 @@ class shop_packet extends class_base
 		$show = 0;
 		foreach($packagings as $products => $packaging_array)
 		{
-			foreach($packaging_array as $key => $packaging)
+			$packaging = reset($packaging_array);
+			if(!is_oid($packaging))//kui seda oid'd pole, siis connection find laseb igatahes masina kooma
 			{
+			/*
+			// Marko: vaata see asi yle, et kas sest midagi katki ka v6ib minna et ma selle siit v2lja kommenteerin?
+			// Kui see sisse kommenteerida siis kohati andis vea, sest seda $o muutujat ei olnud olemas ...
+			// Juhul n2iteks kui mingil p6hjusel toote objektil ei ole pakendeid vms. --rain
+				$this->vars(array(
+					"purveyance.comment" => trim($o->comment()),
+					"purveyance.name" =>trim($o->name()),
+					"purveyance.code" =>trim($o->prop("code")),
+				));
+			*/
+				continue;
+			}
+//			foreach($packaging_array as $key => $packaging)
+//			{
 				$conns = connection::find(array(
 					"to" => $packaging,
 					"from.class_id" => CL_SHOP_PRODUCT_PURVEYANCE,
 					"type" => "RELTYPE_PACKAGING"
 				));
+
 				foreach($conns as $conn)
 				{
 					$o = obj($conn["from"]);
@@ -906,7 +970,11 @@ class shop_packet extends class_base
 					));
 					$show = 1;
 				}
-			}
+//			}
+//			if($show)
+//			{
+//				break;
+//			}
 		}
 
 		if($show)

@@ -57,7 +57,7 @@
             <reltype>RELTYPE_CONTROLLER</reltype>
             <field>meta</field>
             <method>serialize</method>
-            <caption>Tellimise kontroller</caption>
+            <caption>Tellimise kontroller ($form_ref - ostukorvi instants , $entry - loodud tellimus)</caption>
       </property>
       <property>
             <name>order_show_controller</name>

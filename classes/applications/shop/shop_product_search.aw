@@ -1,9 +1,9 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_search.aw,v 1.20 2009/08/31 17:40:32 markop Exp $
+// $Header: /home/cvs/automatweb_dev/classes/applications/shop/shop_product_search.aw,v 1.24 2010/02/09 11:07:22 dragut Exp $
 // shop_product_search.aw - Lao toodete otsing 
 /*
 
-@classinfo syslog_type=ST_SHOP_PRODUCT_SEARCH relationmgr=yes no_comment=1 no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_SHOP_PRODUCT_SEARCH relationmgr=yes no_comment=1 no_status=1 prop_cb=1 maintainer=kristo
 
 @default group=general
 @default table=objects
@@ -26,6 +26,9 @@
 	@property forward_single_product_to_detailview type=checkbox
 	@caption Kui leitakse ainult &uuml;ks toode, suuna detailvaatesse
 
+	@property find_only_active type=checkbox
+	@caption Leitakse ainult aktiivseid tooteid
+
 @groupinfo folders caption="Otsingu l&auml;htekohad"
 @default group=folders
 
@@ -39,6 +42,14 @@
 
 	@property search_btn_caption type=textbox 
 	@caption Otsi nupu tekst
+
+@groupinfo search_form caption="Otsinguvorm [dev]"
+@default group=search_form
+
+	@property search_form_elements_toolbar type=toolbar
+
+	@property search_form_elements type=table
+	@caption Otsinguvormi elemendid
 
 @groupinfo s_res caption="Koosta tulemuste tabel"
 @default group=s_res
@@ -158,6 +169,27 @@ class shop_product_search extends class_base
 		return $retval;
 	}	
 
+	function callback_generate_scripts($arr)
+	{
+		$js = "";
+		if(!empty($arr['request']['group']))
+		{
+			switch($arr["request"]["group"])
+			{
+				// mm, not using at the moment, lets try to make a quicker solution to compose the form ... --dragut
+				case "search_form":
+					$js = "
+						function add_form_element(el)
+						{
+							$('#form_elements_table tbody>tr:last').clone(true).insertAfter('#form_elements_table tbody>tr:last');
+						}
+					";
+			}
+		}
+
+		return $js;
+	}
+
 	function callback_mod_reforb($arr)
 	{
 		$arr["add_fld"] = 0;
@@ -176,6 +208,7 @@ class shop_product_search extends class_base
 	**/
 	function show($arr)
 	{
+		enter_function("product_search::show");
 		aw_session_set("no_cache", 1);
 		$o = obj($arr["id"]);
 
@@ -234,6 +267,7 @@ class shop_product_search extends class_base
 		));
 
 
+		exit_function("product_search::show");
 		if (!empty($_GET["die"]))
 		{
 			die($this->parse());
@@ -242,8 +276,9 @@ class shop_product_search extends class_base
 	}
 
 	// this can be called from site.aw as well, to draw simple search form, but it should be more generic solution, which will be able to draw any kind of searchform according to a template
+	// or according to the configuration
 	function draw_search_form($arr)
-	{
+	{		enter_function("product_search::show_form");
 		if (!empty($arr['template']))
 		{
 			$this->read_template($arr['template']);
@@ -274,7 +309,6 @@ class shop_product_search extends class_base
 			'parent' => is_object($root) ? $search_obj->get_first_obj_by_reltype('RELTYPE_SEARCH_CATEGORY_ROOT')->id() : "",
 			'sort_by' => 'objects.jrk'
 		));
-
 		$categories_str = '';
 		foreach ($categories->arr() as $cat_id => $cat)
 		{
@@ -285,10 +319,10 @@ class shop_product_search extends class_base
 			$categories_str .= $this->parse('SEARCH_CATEGORY'.(automatweb::$request->arg("search_category") == $cat_id ? "_SELECTED" : ""));
 		}
 		$this->vars(array(
-			"search_term" => automatweb::$request->arg("search_term"),
+			"search_term" => htmlentities(automatweb::$request->arg("search_term"), ENT_COMPAT, aw_global_get('charset')),
 			'SEARCH_CATEGORY' => $categories_str,
 			"SEARCH_CATEGORY_SELECTED" => "",
-		));
+		));		exit_function("product_search::show_form");
 		return $this->parse();
 	}
 
@@ -451,6 +485,103 @@ class shop_product_search extends class_base
 			}
 		}
 		$t->set_sortable(false);
+	}
+
+	function _get_search_form_elements_toolbar($arr)
+	{
+		$t = &$arr['prop']['vcl_inst'];
+		$t->add_menu_button(array(
+			'name' => 'elements_menu',
+			'tooltip' => t('Elementide men&uuml;&uuml;'),
+			'img' => 'new.gif'
+		));
+		$t->add_menu_item(array(
+			'parent' => 'elements_menu',
+			'text' => t('Tekstikast'),
+			'title' => t('Tekstikast'),
+			'onClick' => 'add_form_element(\'textbox\')',
+			'url' => '#'
+		));
+		$t->add_menu_item(array(
+			'parent' => 'elements_menu',
+			'text' => t('Valik'),
+			'title' => t('Valik'),
+			'onClick' => 'add_form_element(\'select\')',
+			'url' => '#'
+		));
+		return PROP_OK;
+	}
+
+	function _get_search_form_elements($arr)
+	{
+		$t = &$arr['prop']['vcl_inst'];
+		$t->set_dom_id('form_elements_table');
+
+		$t->define_field(array(
+			'name' => 'ord',
+			'caption' => t('Jrk'),
+			'size' => '5%'
+		));
+		$t->define_field(array(
+			'name' => 'form_field',
+			'caption' => t('Vormi v&auml;li'),
+			'size' => '10%'
+		));
+		$t->define_field(array(
+			'name' => 'classes',
+			'caption' => t('Klassid')
+		));
+		$t->define_field(array(
+			'name' => 'obj_fields',
+			'caption' => t('Objektide v&auml;ljad')
+		));
+
+		// add new form element:
+		$classes = array(
+			CL_SHOP_PACKET,
+			CL_SHOP_PRODUCT,
+			CL_SHOP_PRODUCT_PACKAGING,
+			CL_SHOP_COLOUR,
+			CL_SHOP_PRODUCT_PURVEYANCE
+		);
+
+		$t->define_data(array(
+			'ord' => html::textbox(array(
+				'name' => 'form_element[new][ord]',
+				'size' => 5
+			)),
+			'form_field' => html::select(array(
+				'name' => 'form_element[new][form_field]',
+				'options' => array(
+					'textbox' => t('Tekstikast'),
+					'select' => t('Valik')
+				)
+			)),
+			'classes' => html::select(array(
+				'name' => 'form_element[new][obj_fields_class]',
+				'options' => get_class_picker(array('class_ids' => $classes))
+			)),
+			'obj_fields' => ''
+		));
+		return PROP_OK;
+	}
+
+	/** 
+		@attrib name=add_element 
+
+		@param id required type=int acl=view
+
+		@param element required type=string
+	**/
+	function add_element($arr)
+	{
+		arr($arr);
+		arr('lisaks elemendi siis');
+	}
+
+	function _set_search_form_elements($arr)
+	{
+		arr($arr);
 	}
 
 	function _get_prod_props($o)
@@ -1022,28 +1153,7 @@ class shop_product_search extends class_base
 
 	function draw_search_results_with_templates($arr)
 	{
-		// can't use this get_search_results() method here cause it needs a little different composition of object_list params
-		// probably i need to think of some solution to compile those object list params, so i can have such search forms as well
-		// where there are only one input box which content will be searched from different properties + it should be possible to
-		// define, if the props will be AND-ed together or OR-ed.
-	//	$params[295]['code'] = automatweb::$request->arg('search_term'); // code param from shop_product object
-	//	$params[295]['name'] = automatweb::$request->arg('search_term'); // name param from shop_packet object
-	//	$results = $this->get_search_results($arr["obj_inst"], $arr["request"]["s"]);
-	//	$results = $this->get_search_results($arr["obj_inst"], $params);
-	//	$ol = new object_list(array(
-	//		'class_id' => CL_SHOP_PACKET,
-	//		new object_list_filter(array(
-	//			"logic" => "OR",
-	//			"conditions" => array(
-	//				'name' => '%'.automatweb::$request->arg('search_term').'%',
-	//				'CL_SHOP_PACKET.RELTYPE_PRODUCT.name' => '%'.automatweb::$request->arg('search_term').'%'
-	//				)
-	//			))
-	//	));
-
-		$this->read_template('results.tpl');
 		enter_function("products_show::show");
-//		$ob = new object($arr["id"]);
 
 		// get the order center object from shop_product_search
 		$oc = $arr['obj_inst']->get_order_center();
@@ -1058,19 +1168,20 @@ class shop_product_search extends class_base
 
 		// is it required?
 		lc_site_load("shop", &$this);
-/*
-		$products = new object_list(array(
-			'class_id' => CL_SHOP_PRODUCT,
-			new object_list_filter(array(
-				"logic" => "OR",
-				"conditions" => array(
-					'name' => '%'.automatweb::$request->arg('search_term').'%',
-					'code' => '%'.automatweb::$request->arg('search_term').'%'
-					)
-				))
-		));
-*/
+
 		$products = $arr["obj_inst"]->get_search_results();
+		if ($products->count() === 0)
+		{
+			$this->read_template('no_results.tpl');
+			$this->vars(array(
+				'search_term' => htmlentities(automatweb::$request->arg('search_term'), ENT_COMPAT, aw_global_get('charset'))
+			));
+			return $this->parse();
+		}
+		else
+		{
+			$this->read_template('results.tpl');
+		}
 		if($products->count() === 1 && $arr["obj_inst"]->prop("forward_single_product_to_detailview"))
 		{
 			$product = $products->begin();
@@ -1116,8 +1227,22 @@ class shop_product_search extends class_base
 			}
 			$product = obj($product_id);
 			$count++;
-			$data_params = array("image_url" => 1 , "min_price" => 1,"product_id" => 1, "brand_name" => 1);
+			$data_params = array("image_url" => 1 , "min_price" => 1,"product_id" => 1, "brand_name" => 1, "special_prices" => 1);
 			$product_data = $product->get_data($data_params);
+
+			// this one should be coming from the get_data() fn. probably, but i don't know at the moment how to make that object data list query to work
+			// so i just use this one here:
+			$min_special_price = min($product_data['special_prices']);
+			$product_data['PRODUCT_SPECIAL_PRICE'] = '';
+			$product_data['special_price_visibility'] = '';
+			if ($min_special_price > 0)
+			{
+				$product_data['special_price_visibility'] = '_specialPrice';
+				$this->vars(array(
+					'min_special_price' => $min_special_price
+				));
+				$product_data['PRODUCT_SPECIAL_PRICE'] = $this->parse('PRODUCT_SPECIAL_PRICE');
+			}
 
 			$product_data["product_link"] = "/".reset($product->get_pask())."?product=".$product->id()."&oc=".$oc->id();
 			$ids = $product->get_categories()->ids();

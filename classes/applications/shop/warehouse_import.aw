@@ -12,6 +12,9 @@
 	@property data_source type=select table=objects field=meta method=serialize
 	@caption Andmeallikas
 
+	@property data_source_object type=relpicker reltype=RELTYPE_DATASOURCE field=meta method=serialize table=objects
+	@caption Andmeallika objekt
+
 	@property price_list type=select table=objects field=meta method=serialize
 	@caption Hinnakiri
 
@@ -79,13 +82,28 @@ default group=product_status
 		@layout product_status_dev_imports_frame type=vbox area_caption=Impordid closeable=1 parent=product_status_dev_frame
 			@property product_status_dev_imports type=treeview store=no no_caption=1 parent=product_status_dev_imports_frame
 
-		@layout product_status_dev_left_frame type=vbox parent=product_status_dev_frame 
+		@layout product_status_dev_info_outer_frame type=hbox width=50%:50% parent=product_status_dev_frame
 
-			@layout product_status_dev_info_frame type=vbox area_caption=Info closeable=1 parent=product_status_dev_left_frame
-				@property product_status_dev_info type=text store=no no_caption=1 parent=product_status_dev_info_frame
+			@layout product_status_dev_info_left_frame type=vbox parent=product_status_dev_info_outer_frame 
 
-			@layout product_status_dev_files_frame type=vbox area_caption=Impordi&nbsp;failid closeable=1 parent=product_status_dev_left_frame
-				@property product_status_dev_files type=table store=no no_caption=1 parent=product_status_dev_files_frame
+				@layout product_status_dev_info_frame type=vbox area_caption=Info closeable=1 parent=product_status_dev_info_left_frame
+					@property product_status_dev_info type=text store=no no_caption=1 parent=product_status_dev_info_frame
+
+				@layout product_status_dev_queue_frame type=vbox area_caption=J&auml;rjekord closeable=1 parent=product_status_dev_info_left_frame
+					@property product_status_dev_queue type=table store=no no_caption=1 parent=product_status_dev_queue_frame
+
+
+// XXX XXX XXX
+// we'll see about the driver config thing later, if i can make it work here or keep it in separate view
+			layout product_status_dev_info_right_frame type=vbox parent=product_status_dev_info_outer_frame 
+
+				layout product_status_dev_driver_config type=vbox area_caption=Impordi&nbsp;draiver closeable=1 parent=product_status_dev_info_right_frame
+
+					property product_status_dev_driver_config type=text store=no captionside=top parent=product_status_dev_driver_config
+					caption Draiver conf
+// XXX XXX XXX
+
+
 
 @default group=product_prices
 
@@ -165,6 +183,9 @@ default group=product_status
 
 @reltype ORDERS_REPEATER value=17 clid=CL_RECURRENCE
 @caption Tellimuste kordaja
+
+@reltype DATASOURCE value=18 clid=CL_OTTO_IMPORT
+@caption Andmeallika objekt
 
 */
 
@@ -284,6 +305,15 @@ class warehouse_import extends class_base
 	function _set_aw_warehouses($arr)
 	{
 		$arr["obj_inst"]->set_import_matrix($arr["request"]["imp"]);
+	}
+
+	function callback_on_load($arr)
+	{
+		if(is_oid($arr['request']['id']))
+		{
+			$warehouse_import = new object($arr['request']['id']);
+			$warehouse_import->init_queue_table();
+		}
 	}
 
 	function callback_mod_reforb($arr)
@@ -671,7 +701,7 @@ die("meh");*/
 			}
 		}	 
 		$xml = implode("\n", $pretty);	 
-		return ($html_output) ? htmlentities($xml) : $xml;
+		return ($html_output) ? htmlentities($xml, ENT_COMPAT, 'utf-8') : $xml;
  	}
 
 	/**
@@ -880,26 +910,22 @@ die("meh");*/
 			"persist_state" => 1,
 		));
 
-		$import = new warehouse_products_import();
-		$files = $import->get_chunk_files();
+		$sel_ts = $arr['obj_inst']->get_selected_timestamp();
 
-		foreach ($files as $file)
+		$imports = $arr['obj_inst']->get_queue_imports();
+		foreach ($imports as $import)
 		{
-			$parts = explode('_', basename($file));
-			$times[$parts[1]] = $parts[1]; // timestamp part of the filename
-		}
-		rsort($times);
-		foreach ($times as $ts)
-		{
+			$ts = $import['timestamp'];
+			$time_str = date("Y-m-d H:i:s", $ts);
 			$t->add_item(0, array(
 				'id' => $ts,
-				'name' => (automatweb::$request->arg('sel_ts') == $ts) ? html::strong(date('d.m.Y H:i:s', $ts)) : date('d.m.Y H:i:s', $ts),
+				'name' => ($sel_ts == $ts) ? html::strong($time_str) : $time_str,
 				'iconurl' => icons::get_icon_url(CL_MENU),
 				'url' => aw_url_change_var(array(
 						'sel_ts' => $ts
 					))
 			));
-			
+
 		}
 
 		return PROP_OK;
@@ -921,86 +947,220 @@ die("meh");*/
 		}
 		else
 		{
-			$lines = array(
-				html::href(array(
-					'caption' => t('K&auml;ivita toodete import'),
-					'url' => $this->mk_my_orb('bg_control', array('id' => $arr['obj_inst']->id(), 'do' => 'start'), 'warehouse_products_import'),
-				))
-			);
+			$lines = array();
 
 			// tmp OTTO specific stuff here, 
-			$lines[] = '---------------';
 			$ol = new object_list(array(
 				'class_id' => CL_OTTO_IMPORT
 			));
 			$otto_import = $ol->begin();
 			$lines[] = html::href(array(
-				'caption' => t('Seadista mis faile imporditakse'),
+				'caption' => t(' -- Seadista mis faile imporditakse'),
 				'url' => $this->mk_my_orb('change', array('id' => $otto_import->id(), 'group' => 'files', 'return_url' => get_ru()), CL_OTTO_IMPORT)
+			)); 
+			$lines[] = html::href(array(
+				'caption' => t(' -- Valmista andmed impordiks ette'),
+				'url' => $this->mk_my_orb('prepare_products_data', array('id' => $arr['obj_inst']->id(), 'return_url' => get_ru()), CL_WAREHOUSE_IMPORT)
+			)); 
+			$lines[] = html::href(array(
+				'caption' => t(' -- Impordi j&auml;rjekord'),
+				'url' => $this->mk_my_orb('import_products_data', array(
+					'id' => $arr['obj_inst']->id(), 
+					'ts' => $arr['obj_inst']->get_selected_timestamp(),
+					'return_url' => get_ru()
+				), CL_WAREHOUSE_IMPORT)
+			)); 
+			$lines[] = '---------------------------------------------';
+			$lines[] = html::href(array(
+				'caption' => t(' -- T&uuml;hjenda toodete n&auml;itamise cache'),
+				'url' => $this->mk_my_orb('clear_product_show_cache', array('id' => $arr['obj_inst']->id(), 'return_url' => get_ru()), CL_WAREHOUSE_IMPORT)
 			)); 
 		}
 
 		$arr['prop']['value'] = implode("<br />\n", $lines);
 
-
-
 		// if there is something selected from the left pane (sel_ts GET variable has a timestamp) then show info about this import
 	}
 
-	function _get_product_status_dev_files($arr)
+	function _get_product_status_dev_driver_config($arr)
+	{
+		$ds = get_instance($arr['obj_inst']->prop('data_source'));
+		$arr['prop']['value'] = $ds->get_driver_config_form();
+		return PROP_OK;
+	}
+
+	function _get_product_status_dev_queue($arr)
 	{
 		$t = &$arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 
 		$t->define_field(array(
-			'name' => 'count',
-			'caption' => t('Nr'),
+			'name' => 'id',
+			'caption' => t('ID'),
+		));
+
+		$t->define_field(array(
+			'name' => 'time',
+			'caption' => t('Aeg (import)'),
+			'align' => 'center'
 		));
 		
-		$t->define_field(array(
-			'name' => 'filename',
-			'caption' => t('Faili nimi'),
-		));
 		$t->define_field(array(
 			'name' => 'status',
 			'caption' => t('Staatus'),
 			'align' => 'center'
 		));
 
+		$t->define_field(array(
+			'name' => 'content',
+			'caption' => t('Sisu'),
+		));
 
-		$import = new warehouse_products_import();
+		$sel_ts = (int)automatweb::$request->arg('sel_ts');
 
-		$file_ts = automatweb::$request->arg('sel_ts');
-		$files = array();
-		if (empty($file_ts))
+		// if there is no import selected (distincted by timestamps) then take the newest one
+		if (empty($sel_ts))
 		{
-			if ($import->get_import_status() == 'started')
+			$imports = $arr['obj_inst']->get_queue_imports();
+			if (!empty($imports[0]))
 			{
-				$files = $import->get_chunk_files($import->get_import_start_time());
+				$sel_ts = $imports[0]['timestamp'];
 			}
 		}
-		else
+		$data = $arr['obj_inst']->get_queue_items(array(
+			'timestamp' => $sel_ts
+		));
+
+		foreach ($data as $item)
 		{
-			$files = $import->get_chunk_files($file_ts);
+			// I have to do something with the XML junk content cause I can just show the xml ...
+			try 
+			{
+				$sxml = new SimpleXMLElement($item['data']);
+
+				$content_lines = array();
+				$content_lines[] = $sxml->name.' ('.$sxml->page.')';
+				$content_lines[] = $sxml->description;
+
+				$content = $this->draw_packet_data_from_xml($item['data']);
+				
+				$t->define_data(array(
+					'id' => $item['id'],
+					'time' => date("Y-m-d H:i:s", $item['timestamp']),
+					'status' => $item['status'],
+					'content' => $content
+				));
+			} 
+			catch(Exception $e) 
+			{
+			//	echo $e->getMessage();
+			}
 		}
 
-		$sort_files = array();
-		foreach ($files as $file)
+	}
+
+	/** Draws nice html from packet xml
+	**/
+	private function draw_packet_data_from_xml($xml)
+	{
+		$html = '';
+		$lines = array();
+
+		$sxml = new SimpleXMLElement($xml);
+
+		$lines[] = t('Nimetus: ').$sxml->name;
+		$lines[] = t('Kirjeldus: ').$sxml->description;
+
+		$categories = array();
+
+		foreach ($sxml->categories->category as $cat)
 		{
-			$parts = explode('_', basename($file, '.xml'));
-			$sort_files[$parts[2]] = $file;
+			$categories[] = $cat;
 		}
-		ksort($sort_files, SORT_NUMERIC);
-		$counter = 0;
-		foreach ($sort_files as $file)
+		$lines[] = t('Kategooriad: ') . implode(', ', $categories);
+
+		$lines[] = t('Tooted:');
+
+		foreach ($sxml->products->product as $product)
 		{
-			$t->define_data(array(
-				'count' => ++$counter,
-				'filename' => $file,
-				'status' => 'staatus'
-			));
+			$indent = str_repeat("&nbsp;", 4);
+			$lines[] = $indent . t('Tootekood: ') . $product->code;
+			$lines[] = $indent . t('V&auml;rv: ') . $product->color;
+			$lines[] = $indent . t('Jrk: ') . $product->order;
+			$lines[] = $indent . t('Pildid: ');
+			foreach ($product->images->image as $image)
+			{
+				$indent = str_repeat("&nbsp;", 8);
+				$lines[] = $indent . '<img src="' . $image . '" height="200"/>';
+			}
+			$indent = str_repeat("&nbsp;", 4);
+			$lines[] = $indent . t('Pakendid: ');
+			foreach ($product->packagings->packaging as $packaging)
+			{
+				$packaging_data = array();
+				$indent = str_repeat("&nbsp;", 8);
+				$packaging_data[] = t('Suurus: ') . $packaging->size;
+				$packaging_data[] = t('Hind: ') . $packaging->price;
+				$packaging_data[] = t('Jrk: ') . $packaging->order;
+				$packaging_data[] = t('T&uuml;&uuml;p:  ') . $packaging->type;
+				$lines[] = $indent . implode(' | ', $packaging_data);
+			}
 		}
-		return PROP_OK;
+
+		return implode('<br />', $lines);
+	}
+
+	/** Prepares date for warehouse import
+		@attrib name=prepare_products_data
+		@param id required type=int 
+		@param return_url optional 
+	**/
+	function prepare_products_data($arr)
+	{
+		header('Content-type: text/html; charset=UTF-8');
+		// Warehouse import object:
+		$o = new object($arr['id']);
+		
+		echo "Prepare products data for import";
+		$o->prepare_products_data($o);
+
+		return $arr['return_url'];
+	}
+
+	/**
+		@attrib name=import_products_data
+		@param id required type=int acl=view
+		@param ts optional type=int
+		@param return_url optional type=string
+	**/
+	function import_products_data($arr)
+	{
+		header('Content-type: text/html; charset=UTF-8');
+		// Warehouse import object:
+		$o = new object($arr['id']);
+		
+		echo "Import products data (".$arr['ts'].")";
+
+		$o->import_products_data(array(
+			'timestamp' => $arr['ts']
+		));
+		echo "done<br />\n";
+
+		return $arr['return_url'];
+
+	}
+
+	/**
+		@attrib name=clear_product_show_cache
+		@param id required type=int acl=view
+		@param return_url optional type=string
+	**/
+	function clear_product_show_cache($arr)
+	{
+		$cache = new cache();
+		$cache->file_clear_pt('product_show');
+
+		return $arr['return_url'];
 	}
 
 	/**
