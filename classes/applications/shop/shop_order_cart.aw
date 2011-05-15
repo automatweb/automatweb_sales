@@ -118,7 +118,7 @@ class shop_order_cart extends class_base
 
 	public function _get_delivery_method_tlb($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		if($this->can("add", $arr["obj_inst"]->id()))
 		{
 			$t->add_new_button(array(CL_SHOP_DELIVERY_METHOD), $arr["obj_inst"]->id(), 3);
@@ -150,7 +150,7 @@ class shop_order_cart extends class_base
 
 	public function _get_delivery_method_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser();
 		$t->define_field(array(
 			"name" => "jrk",
@@ -298,7 +298,7 @@ class shop_order_cart extends class_base
 		{
 			$this->read_template("show.tpl");
 		}
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		$this->add_cart_vars();
 		$this->add_product_vars();
@@ -1017,7 +1017,7 @@ class shop_order_cart extends class_base
 		if ($oc->prop("show_delivery") and $this->can("view", $oc->prop("delivery_save_controller")))
 		{
 			$ctrl = get_instance(CL_FORM_CONTROLLER);
-			$ctrl->eval_controller($oc->prop("delivery_save_controller"), $oc, &$cart);
+			$ctrl->eval_controller($oc->prop("delivery_save_controller"), $oc, $cart);
 		}
 
 		if (($arr["from"] != "confirm" && $arr["from"] != "") || (is_array($_REQUEST["user_data"]) && count($_REQUEST["user_data"])))
@@ -1658,7 +1658,7 @@ class shop_order_cart extends class_base
 	{
 		extract($arr);
 		$this->read_template("show_pre_finish.tpl");
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		$soce = new aw_array(aw_global_get("soc_err"));
 		$soce_arr = $soce->get();
@@ -1959,7 +1959,7 @@ class shop_order_cart extends class_base
 			$this->read_template("final_finish_order.tpl");
 		}
 
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		// get cart to user from oc
 		if ($arr["id"])
@@ -2151,7 +2151,7 @@ class shop_order_cart extends class_base
 		{
 			$ctrl = get_instance(CL_FORM_CONTROLLER);
 			$arr["cart_val_w_disc"] = $cart_total - $cart_discount;
-			$delivery_vars = $ctrl->eval_controller($oc->prop("delivery_show_controller"), $oc, &$cart, $arr);
+			$delivery_vars = $ctrl->eval_controller($oc->prop("delivery_show_controller"), $oc, $cart, $arr);
 		}
 		else
 		{
@@ -2432,7 +2432,7 @@ class shop_order_cart extends class_base
 		if ($oc->prop("show_delivery") and $this->can("view", $oc->prop("cart_value_controller")))
 		{
 			$ctrl = get_instance(CL_FORM_CONTROLLER);
-			$ctrl->eval_controller($oc->prop("cart_value_controller"), $oc, &$cart, &$real_sum);
+			$ctrl->eval_controller($oc->prop("cart_value_controller"), $oc, $cart, $real_sum);
 		}
 
 		$user_data = $cart["user_data"];
@@ -2663,7 +2663,7 @@ class shop_order_cart extends class_base
 			$template = "show_product.tpl";
 		}
 		$this->read_template($template);
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 		
 		$vars = array();
 		if($this->can("view" , $arr["product"]))
@@ -2712,7 +2712,7 @@ class shop_order_cart extends class_base
 			$template = "orderer_data.tpl";
 		}
 		$this->read_template($template);
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		$this->add_cart_vars();
 		$this->add_product_vars();
@@ -2746,7 +2746,7 @@ class shop_order_cart extends class_base
 			$template = "order_data.tpl";
 		}
 		$this->read_template($template);
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		$this->add_cart_vars();
 		$this->add_product_vars();

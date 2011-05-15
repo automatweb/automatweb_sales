@@ -258,7 +258,7 @@ class shop_delivery_note extends class_base
 		{
 			return ;
 		}
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_button(array(
 			"img" => "delete.gif",
 			"tooltip" => t("Eemalda valitud artiklid"),
@@ -374,8 +374,8 @@ class shop_delivery_note extends class_base
 			$arr["prop"]["error"] = $err;
 			aw_session_del("dn_err");
 		}
-		$t = &$arr["prop"]["vcl_inst"];
-		$this->_init_articles_tbl(&$t);
+		$t = $arr["prop"]["vcl_inst"];
+		$this->_init_articles_tbl($t);
 		if(!$arr["new"])
 		{
 			$data = $arr["obj_inst"]->meta("articles");
@@ -642,7 +642,7 @@ class shop_delivery_note extends class_base
 
 	function _get_bills_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(array(CL_CRM_BILL), $arr["obj_inst"]->id(), 4);
 		$tb->add_search_button(array(
 			"pn" => "add_bill",
@@ -654,7 +654,7 @@ class shop_delivery_note extends class_base
 
 	function _get_bills_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"field" => "oid",
 			"name" => "sel",

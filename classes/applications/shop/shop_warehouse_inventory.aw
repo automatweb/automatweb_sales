@@ -444,7 +444,7 @@ class shop_warehouse_inventory extends class_base
 
 	function _get_warehouse($arr)
 	{
-		if ($arr["request"]["warehouse"])
+		if (!empty($arr["request"]["warehouse"]))
 		{
 			$arr["prop"]["value"] = $arr["request"]["warehouse"];
 			$arr["prop"]["options"][$arr["request"]["warehouse"]] = obj($arr["request"]["warehouse"])->name();

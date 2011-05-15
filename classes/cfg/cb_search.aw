@@ -386,7 +386,6 @@ class cb_search extends class_base
 
 	function callback_gen_search($arr)
 	{
-		enter_function("cb_search::callback_gen_search");
 		// now, get a list of properties in both classes and generate the search form
 		// get a list of properties in both classes
 		$this->_prepare_form_data($arr);
@@ -467,13 +466,11 @@ class cb_search extends class_base
 		};
 
 		uasort($res, create_function('$a,$b','if ($a["ord"] == $b["ord"] ) { return 0; } else { return $a["ord"] > $b["ord"] ? 1 : -1; }'));
-		exit_function("cb_search::callback_gen_search");
 		return $res;
 	}
 
 	private function mod_chooser_prop(&$props, $pn, $clid, $o)
 	{
-		enter_function("cb_search::mod_chooser_prop");
 		// since storage can't do this yet, we gots to do sql here :(
 		$p =& $props[$pn];
 		$opts = array("" => "");
@@ -498,15 +495,12 @@ class cb_search extends class_base
 		{
 			$p["options"] = $opts;
 		}
-		exit_function("cb_search::mod_chooser_prop");
 	}
 
 	private function _prepare_search($arr)
 	{
-		enter_function("cb_search::_prepare_search");
 		if ($this->search_prepared)
 		{
-			exit_function("cb_search::_prepare_search");
 			return false;
 		}
 		$this->search_data = array();
@@ -521,7 +515,6 @@ class cb_search extends class_base
 			};
 		};
 
-		exit_function("cb_search::_prepare_search");
 	}
 
 	function __proptbl_srt($pa, $pb)
@@ -538,7 +531,6 @@ class cb_search extends class_base
 
 	private function mk_result_table($arr)
 	{
-		enter_function("cb_search::mk_result_table");
 		$this->_prepare_form_data($arr);
 		$this->_prepare_search($arr);
 		$t = &$arr["prop"]["vcl_inst"];
@@ -743,7 +735,6 @@ class cb_search extends class_base
 					));
 				}
 				$olist = new object_list($sdata);
-				enter_function("cb_search::mk_result_table::objloop");
 				$res_data = $olist->arr();
 
 				if (($c_o = $arr["obj_inst"]->get_first_obj_by_reltype("RELTYPE_RESULT_CONTROLLER")))
@@ -802,14 +793,10 @@ class cb_search extends class_base
 
 					$t->define_data($row);
 				};
-				exit_function("cb_search::mk_result_table::objloop");
 			};
 		};
 
-		enter_function("cb_search::mk_result_table::sort");
-		$t->sort_by();	
-		exit_function("cb_search::mk_result_table::sort");
-		exit_function("cb_search::mk_result_table");
+		$t->sort_by();
 	}
 				
 	private function _prepare_form_data($arr)
@@ -818,7 +805,6 @@ class cb_search extends class_base
 		{
 			return false;
 		};
-		enter_function("cb_search::_prepare_form_data");
 		$this->prepared = true;
 		$o = $arr["obj_inst"];
 
@@ -904,12 +890,10 @@ class cb_search extends class_base
 
 
 		*/
-		exit_function("cb_search::_prepare_form_data");
 	}
 
 	private function get_props_from_obj($o, $addt = true)
 	{
-		enter_function("cb_search::get_props_from_obj");
 		// get a list of properties in both classes
 		$cfgx = get_instance("cfg/cfgutils");
 		$ret = $cfgx->load_class_properties(array(
@@ -958,11 +942,11 @@ class cb_search extends class_base
 				{
 					foreach($inf as $pn => $propi)
 					{
-						if ($propi["visible"] == 1 && !isset($ret[$pn]))
+						if (!empty($propi["visible"]) and !isset($ret[$pn]))
 						{
 							$cu = get_instance("cfg/cfgutils");
 							$ps = $cu->load_properties(array("clid" => $o->prop("root_class")));
-							$ret[$pn] = $ps[$pn];
+							$ret[$pn] = isset($ps[$pn]) ? $ps[$pn] : null;
 						}
 					}
 				}
@@ -1006,7 +990,7 @@ class cb_search extends class_base
 				"field" => "name",
 			);
 		}
-		exit_function("cb_search::get_props_from_obj");
+
 		return array($ret, $o->prop("root_class"), $cfgx->get_relinfo());
 	}
 
@@ -1137,7 +1121,6 @@ class cb_search extends class_base
 
 	function show($arr)
 	{
-		enter_function("cb_search::show");
 		aw_session_set("no_cache", 1);
 		$ob = new object($arr["id"]);
 		$request = array("s" => $GLOBALS["s"]);
@@ -1242,7 +1225,6 @@ class cb_search extends class_base
 			));
 		}
 
-		exit_function("cb_search::show");
 		return $this->parse();
 	}
 
@@ -1258,15 +1240,13 @@ class cb_search extends class_base
 	**/
 	function get_callback_properties($ob)
 	{
-		enter_function("cb_search::get_callback_properties");
-		$request = array("s" => $GLOBALS["s"]);
-		if ($GLOBALS["search_butt"])
+		$request = array();
+		foreach (array("s", "search_butt", "ft_page") as $key)
 		{
-			$request["search_butt"] = $GLOBALS["search_butt"];
-		}
-		if ($GLOBALS["ft_page"])
-		{
-			$request["ft_page"] = $GLOBALS["ft_page"];
+			if (!empty($GLOBALS[$key]))
+			{
+				$request["search_butt"] = $GLOBALS[$key];
+			}
 		}
 
 		list($props, $clid, $relinfo) = $this->get_props_from_obj($ob);
@@ -1275,7 +1255,7 @@ class cb_search extends class_base
 			"obj_inst" => $ob,
 			"request" => $request
 		));
-		exit_function("cb_search::get_callback_properties");
+
 		return $tmp;
 	}
 
@@ -1325,7 +1305,6 @@ class cb_search extends class_base
 	**/
 	private function proc_syns_in_sdata($o, &$sdata)
 	{
-		enter_function("cb_search::proc_syns_in_sdata");
 		$scs = $o->connections_from(array(
 			"type" => "RELTYPE_SYN"
 		));
@@ -1362,7 +1341,6 @@ class cb_search extends class_base
 				$sdata[$k] = $v;
 			}
 		}
-		exit_function("cb_search::proc_syns_in_sdata");
 	}
 
 	private function proc_perm_str($o, $v, $syns)
@@ -1520,7 +1498,6 @@ class cb_search extends class_base
 
 	private function _add_parent_filter($o, &$sdata)
 	{
-		enter_function("cb_search::_add_parent_filter");
 		$pd = safe_array($o->meta("parents"));
 		$pft = array();
 		foreach($pd as $pid => $dat)
@@ -1546,7 +1523,6 @@ class cb_search extends class_base
 		{
 			$sdata["parent"] = $pft;
 		}
-		exit_function("cb_search::_add_parent_filter");
 	}
 
 	private function _do_submit($o)

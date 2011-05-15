@@ -658,7 +658,7 @@ class shop_product extends class_base
 	}
 
 	function get_property($arr)
-	{//arr($arr["obj_inst"]->properties()); arr($arr["obj_inst"]->meta());die();
+	{
 		$data = &$arr["prop"];
 		$retval = PROP_OK;
 		switch($data["name"])
@@ -751,7 +751,7 @@ class shop_product extends class_base
 		{
 			return PROP_IGNORE;
 		}
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->set_caption(t("&Uuml;hikud"));
 
 		$count = 0;
@@ -792,7 +792,7 @@ class shop_product extends class_base
 
 	function _get_companies_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_search_button(array(
 			"pn" => "add_purveyor",
 			"clid" => CL_CRM_COMPANY,
@@ -803,7 +803,7 @@ class shop_product extends class_base
 
 	function _get_companies_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -853,7 +853,7 @@ class shop_product extends class_base
 
 	function _get_materials_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_new_button(array(CL_SHOP_MATERIAL), $arr["obj_inst"]->id(), 28);
 		$tb->add_search_button(array(
 			"pn" => "add_material",
@@ -865,7 +865,7 @@ class shop_product extends class_base
 
 	function _get_materials_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -908,7 +908,7 @@ class shop_product extends class_base
 
 	function _get_brands_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_search_button(array(
 			"pn" => "add_brand",
 			"clid" => CL_SHOP_BRAND,
@@ -919,7 +919,7 @@ class shop_product extends class_base
 
 	function _get_brands_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -1198,7 +1198,7 @@ class shop_product extends class_base
 
 	function _get_amount_limits_tb($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->add_search_button(array(
 			"pn" => "amount_limits",
 			"multiple" => "1",
@@ -1216,7 +1216,7 @@ class shop_product extends class_base
 
 	function _get_amount_limits_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_chooser(array(
 			"name" => "sel",
 			"field" => "oid",
@@ -1312,7 +1312,7 @@ class shop_product extends class_base
 
 	function _get_replacement_prods_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 
 		// 22 is RELTYPE_REPLACEMENT_PROD relation type
 		$tb->add_new_button(array(CL_SHOP_PRODUCT), $arr['obj_inst']->id(), 22);
@@ -1381,7 +1381,7 @@ class shop_product extends class_base
 
 	function _get_replacement_prods($arr)
 	{
-		$t = &$arr['prop']['vcl_inst'];
+		$t = $arr['prop']['vcl_inst'];
 		$t->set_sortable(false);
 		$t->set_caption(sprintf(t("Toote <strong>%s (%s)</strong> asendustooted"), $arr['obj_inst']->name(), $arr['obj_inst']->prop('code')));
 
@@ -1447,14 +1447,14 @@ class shop_product extends class_base
 
 	function _get_purveyance_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		$tb->add_save_button();
 		$tb->add_delete_button();
 	}
 
 	function _get_purveyance_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		
 		$t->define_chooser(array(
 			"field" => "oid",
@@ -1656,7 +1656,7 @@ class shop_product extends class_base
 		return $tmp;
 	}
 
-	function show_change_button($arr)
+	function show_change_button(&$arr)
 	{
 		$conns = $arr["oc_obj"]->connections_from(array(
 			"type" => "RELTYPE_WAREHOUSE"
@@ -1738,7 +1738,7 @@ class shop_product extends class_base
 		{
 			if($arr["oc_obj"]->prop("no_change_button") != 1)
 			{
-				$show_change_button = $this->show_change_button(&$arr);
+				$show_change_button = $this->show_change_button($arr);
 			}
 		}
 		if (!is_object($layout))
@@ -1760,7 +1760,7 @@ class shop_product extends class_base
 			$l_inst = $layout->instance();
 			$l_inst->read_any_template($layout->prop("template"));
 		}
-		lc_site_load("shop_order_center", &$l_inst);
+		lc_site_load("shop_order_center", $l_inst);
 		$rp = (!empty($arr["price"]) ? number_format($arr["price"], 2) : $this->get_price($prod));
 		$rp_all_cur = "";
 		foreach(safe_array($prod->meta("cur_prices")) as $cur_id => $cur_price)
@@ -1841,7 +1841,7 @@ class shop_product extends class_base
 			$l_inst->vars_safe(array("MENU" => ""));
 		}
 
-		if($show_change_button)
+		if(!empty($show_change_button))
 		{
 			$l_inst->vars_safe(array('show_change' => $l_inst->parse('show_change')));
 		}
@@ -2059,7 +2059,6 @@ class shop_product extends class_base
 				"NO_URL_IN_DATA" => $l_inst->parse("NO_URL_IN_DATA")
 			));
 		}
-		//arr($proc_ivs);
 
 		$conns = $prod->connections_from(array(
 			"type" => array("RELTYPE_FILE", "RELTYPE_DOC", "RELTYPE_LNK"),
@@ -2096,10 +2095,10 @@ class shop_product extends class_base
 				$t2sub[$rt][1] => ($str != "" ? $l_inst->parse($t2sub[$rt][1]) : "")
 			));
 		}
-//arr( $arr["oc_obj"]);
+
 		// if has packagings, draw other products packagings
 		if ($l_inst->is_template("PACKAGING1") || ($has_loop = $l_inst->is_template("PACKAGING_LOOP")))
-		{//arr($prod->id());
+		{
 			$cnt = 1;
 			foreach($prod->connections_from(array("type" => "RELTYPE_PACKAGING")) as $c)
 			{
@@ -2313,7 +2312,7 @@ class shop_product extends class_base
 					"rp_quantity" => $_SESSION["cart"]["items"][$r_prod->id()][$r_prod->id()]["items"],
 					"rp_prod_id" => $r_prod->id(),
 					"rp_prod_parent" => $r_prod->parent(),
-				));//arr($l_inst->template_has_var("rp_image1"));
+				));
 				// if has images
 				if ($l_inst->template_has_var("rp_image1", "MAIN.".$pk_tpl))
 				{
@@ -2375,7 +2374,7 @@ class shop_product extends class_base
 		));
 	}
 
-	function _int_proc_ivs($ivs, &$l_inst)
+	function _int_proc_ivs($ivs, $l_inst)
 	{
 		foreach($ivs as $ivar => $ival)
 		{
@@ -2487,9 +2486,9 @@ class shop_product extends class_base
 
 	function do_db_upgrade($t, $f)
 	{
-		if ("aw_account_balances" == $tbl)
+		if ("aw_account_balances" === $t)
 		{
-			$i = get_instance(CL_CRM_CATEGORY);
+			$i = new crm_category();
 			return $i->do_db_upgrade($t, $f);
 		}
 		switch($f)
@@ -3207,7 +3206,7 @@ class shop_product extends class_base
 		$this->vars(array(
 			"name" => $ob->prop("name"),
 		));
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 
 		$data = $ob->get_data();
 

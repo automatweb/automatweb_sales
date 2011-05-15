@@ -20,13 +20,13 @@ class popup_search extends aw_template
 
 	function init_vcl_property($arr)
 	{
-		if ($arr["property"]["style"] === "relpicker")
+		if (isset($arr["property"]["style"]) && $arr["property"]["style"] === "relpicker")
 		{
 			$i = new relpicker();
 			return $i->init_vcl_property($arr);
 		}
 
-		if ($arr["request"]["action"] === "view")
+		if (isset($arr["request"]["action"]) && $arr["request"]["action"] === "view")
 		{
 			$p = $arr["prop"];
 			$p["type"] = "text";
@@ -99,17 +99,17 @@ class popup_search extends aw_template
 				"id" => $arr["obj_inst"]->id(),
 				"pn" => $tmp["name"],
 				"clid" => $clid,
-				"multiple" => $arr["property"]["multiple"]
+				"multiple" => !empty($arr["property"]["multiple"]) ? 1 : null
 			));
 		}
 
-		if (is_array($tmp["options"]) && count($tmp["options"]))
+		if (isset($tmp["options"]) and is_array($tmp["options"]) and count($tmp["options"]))
 		{
 			$options = $tmp["options"];
 		}
 
-		$sel = $arr["property"]["value"];
-		if ($arr["property"]["multiple"] == 1)
+		$sel = isset($arr["property"]["value"]) ? $arr["property"]["value"] : null;
+		if (!empty($arr["property"]["multiple"]))
 		{
 			if (!(is_array($sel) && count($sel)) && is_object($arr["obj_inst"]))
 			{
@@ -122,7 +122,7 @@ class popup_search extends aw_template
 			$sel =  $arr["obj_inst"]->prop($arr["property"]["name"]);
 		}
 
-		if ($arr["property"]["style"] === "autocomplete")
+		if (isset($arr["property"]["style"]) and $arr["property"]["style"] === "autocomplete")
 		{
 			$selstr = "";
 			if ($this->can("view", $sel))
@@ -160,7 +160,7 @@ class popup_search extends aw_template
 				"name" => $arr["property"]["name"],
 				"options" => array("" => t("--Vali--")) + $options,
 				"selected" => $sel,
-				"multiple" => $arr["property"]["multiple"]
+				"multiple" => !empty($arr["property"]["multiple"])
 			));
 		}
 
@@ -185,9 +185,9 @@ class popup_search extends aw_template
 			// add new
 			$cu = new cfgutils();
 			$pl = $cu->load_properties(array("clid" => $arr["obj_inst"]->class_id()));
-			$rt = $pl[$arr["property"]["name"]]["reltype"];
-			if ($rt)
+			if (!empty($pl[$arr["property"]["name"]]["reltype"]) )
 			{
+				$rt = $pl[$arr["property"]["name"]]["reltype"];
 				$clss = aw_ini_get("classes");
 				$clid = new aw_array($arr["relinfo"][$rt]["clid"]);
 				$rel_val = $arr["relinfo"][$rt]["value"];
