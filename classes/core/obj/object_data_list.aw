@@ -141,6 +141,15 @@ class object_data_list
 		return $this->list_data;
 	}
 
+	/** Returns an array of all the object IDs in the list.
+		@attrib api=1
+	**/
+	function ids()
+	{
+		return array_keys($this->list_data);
+	}
+
+
 	////////// private
 
 	function _int_load($arr, $props)
