@@ -2412,7 +2412,7 @@ class _int_object
 			}
 		}
 
-		throw new awex_obj_acl(sprintf("Object '%s' cannot be saved, needed properties are not set (parent, class_id)"), $this->obj["oid"]);
+		throw new awex_obj_acl(sprintf("Object '%s' cannot be saved, needed properties are not set (parent, class_id)", (isset($this->obj["oid"]) ? $this->obj["oid"] : "NULL")));
 	}
 
 	protected function _int_set_of_value($ofield, $val)

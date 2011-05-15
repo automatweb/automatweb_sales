@@ -454,8 +454,8 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 					@property customer_search_cust_grp type=select store=no parent=vbox_customers_left_top captionside=top
 					@caption Kliendigrupp
 
-					@property customer_search_classif1 type=classificator store=no parent=vbox_customers_left_top captionside=top
-					@caption Asutuse omadused
+					// @property customer_search_classif1 type=classificator store=no parent=vbox_customers_left_top captionside=top
+					// @caption Asutuse omadused
 
 					@property customer_search_insurance_exp type=select store=no parent=vbox_customers_left_top captionside=top
 					@caption Kindlustus aegund
@@ -469,13 +469,14 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 					@caption Otsi
 
 		@layout list_container type=vbox parent=my_cust_bot
-			@layout customer_list_container type=vbox parent=list_container area_caption="Kliendid" closeable=1
+			@layout category_list_container type=vbox parent=list_container closeable=1 area_caption="Kategooriad" no_padding=1 default_state=closed
+				@property customer_categories_table type=table store=no no_caption=1 parent=category_list_container
+				@caption Kliendikategooriad
+
+			@layout customer_list_container type=vbox parent=list_container area_caption="Kliendid" closeable=1 no_padding=1
 				@property my_customers_table type=table store=no no_caption=1 parent=customer_list_container
 				@caption Kliendid
 
-			@layout category_list_container type=vbox parent=list_container closeable=1 area_caption="Kategooriad"
-				@property customer_categories_table type=table store=no no_caption=1 parent=category_list_container
-				@caption Kliendikategooriad
 
 /////end of my_customers
 
@@ -1484,6 +1485,7 @@ groupinfo qv caption="Vaata"  submit=no save=no
 @reltype COMMENT value=73 clid=CL_COMMENT
 @caption Kommentaar
 
+//DEPRECATED, do not use!
 @reltype FIRMAJUHT value=74 clid=CL_CRM_PERSON
 @caption Firmajuht
 

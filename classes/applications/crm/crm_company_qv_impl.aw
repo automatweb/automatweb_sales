@@ -418,11 +418,12 @@ class crm_company_qv_impl extends class_base
 			));
 			$bd = "<span style='font-size: 0px;'>y</span><b>" . t("Arved (10 v&auml;rskemat)") . "</b>";
 		}
+
 		foreach($ol->arr() as $o)
 		{
 			$bi = $o->instance();
-			$sum = $bi->get_sum($o);
-			$rows = $bi->get_bill_rows($o);
+			$sum = $o->get_sum();
+			$rows = $o->get_bill_rows();
 			$hrs = 0;
 			foreach($rows as $row)
 			{

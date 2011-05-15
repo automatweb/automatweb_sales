@@ -364,6 +364,10 @@ class crm_sales_contacts_view
 				$address = $customer->get_first_obj_by_reltype("RELTYPE_ADDRESS_ALT");
 				$address = is_object($address) ? $address->name() : $not_available_str;
 
+				// read email templates
+				$email_templates = array();
+
+				// actions menu
 				$menu = new popup_menu();
 				$menu->begin_menu("customer_menu_" . $customer_relation->id());
 				$menu->add_item(array(
@@ -388,6 +392,30 @@ class crm_sales_contacts_view
 						CL_CRM_SALES
 					)
 				));
+
+				// select template, send mail
+				if ($email_templates)
+				{
+					$menu->add_sub_menu(array(
+						"name" => "send_email",
+						"text" => t("Saada e-kiri")
+					));
+
+					foreach ($email_templates as $email_template)
+					{
+						$menu->add_item(array(
+							"text" => t("Saada e-kiri"),
+							"parent" => "send_email",
+							"link" => $core->mk_my_orb("send_email", array(
+								"id" => $this_o->id(),
+								"cust_rel" => $customer_relation->id(),
+								"return_url" => get_ru()),
+								CL_CRM_SALES
+							)
+						));
+					}
+				}
+
 				$menu = $menu->get_menu();
 
 				$name_str = html::span(array(

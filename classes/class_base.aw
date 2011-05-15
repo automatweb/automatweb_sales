@@ -2161,7 +2161,7 @@ class class_base extends aw_template
 					{
 						$error_msgs[$text] = $data;
 					}
-					elseif ("" === $class)
+					elseif ("" === $data["class"])
 					{
 						$neutral_msgs[$text] = $data;
 					}

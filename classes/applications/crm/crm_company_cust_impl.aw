@@ -505,11 +505,12 @@ class crm_company_cust_impl extends class_base
 			"sortable" => 1
 		));
 
-		$tf->define_field(array(
-			"name" => "classif1",
-			"chgbgcolor" => "cutcopied",
-			"caption" => t("Asutuse omadused")
-		));
+		//XXX: ruumiraiskaja.
+		// $tf->define_field(array(
+			// "name" => "classif1",
+			// "chgbgcolor" => "cutcopied",
+			// "caption" => t("Asutuse omadused")
+		// ));
 
 		$tf->define_field(array(
 			"name" => "address",
@@ -3014,7 +3015,9 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 		}
 		elseif ($parent_category->is_a(crm_category_obj::CLID) or $parent_category->is_a(crm_company_obj::CLID))
 		{
-			$categories = $arr["obj_inst"]->get_customer_categories($parent_category);
+			$types = array(crm_category_obj::TYPE_GENERIC);
+			$types[] = ("relorg_s" === $this->use_group ? crm_category_obj::TYPE_SELLER : crm_category_obj::TYPE_BUYER);
+			$categories = $arr["obj_inst"]->get_customer_categories($parent_category, $types);
 
 			if ($parent_category->is_a(crm_category_obj::CLID))
 			{
