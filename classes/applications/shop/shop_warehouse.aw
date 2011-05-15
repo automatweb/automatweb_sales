@@ -4280,7 +4280,7 @@ class shop_warehouse extends class_base
 						$below_min = 1;
 					}
 				}
-				$prodtotal += isset($prodid][0]) and isset($res["amounts"][$o->id()][$wh][$res["units"][$prodid][0]]) ? $res["amounts"][$o->id()][$wh][$res["units"][$prodid][0]] : 0;
+				$prodtotal += isset($res["units"][$prodid][0]) and isset($res["amounts"][$o->id()][$wh][$res["units"][$prodid][0]]) ? $res["amounts"][$o->id()][$wh][$res["units"][$prodid][0]] : 0;
 			}
 			$a = $prodtotal;
 			if(($q = automatweb::$request->arg($group."_s_count")) and $o->class_id() == CL_SHOP_PRODUCT)
