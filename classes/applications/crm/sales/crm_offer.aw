@@ -406,7 +406,7 @@ class crm_offer extends class_base
 			"customer_director" => t("Kliendi juhataja aadress"),
 			"customer_general" => t("Kliendi &uuml;ldaadressid"),
 			"customer_bill" => t("Kliendi arveaadressid"),
-			"user" => t("M&uuml;&uuml;giesindaja"),
+			"salesman" => t("M&uuml;&uuml;giesindaja"),
 			"custom" => t("Lisaaadressid")
 		);
 
