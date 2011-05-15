@@ -222,44 +222,6 @@ class shop_product_obj extends _int_object implements crm_sales_price_component_
 		return parent::prop($k);
  	}
 
-	/** Get units that can be used to measure product quantity
-		@attrib api=1
-		@returns array of CL_UNIT
-			array(0=> unit1, 1=> unit2, etc).
-			First unit is the default/base unit
-		@comment Some of the results may be undefined, beware of that.//!!!!!! ???
-	**/
-	public function get_units()
-	{
-		if($meta_units = $this->meta("units"))
-		{
-			$units = $meta_units;
-		}
-		else
-		{
-			$cato = false;
-			if($dc = $this->meta("def_cat"))
-			{
-				$cato = obj($dc);
-			}
-			elseif($dco = $this->get_first_obj_by_reltype("RELTYPE_CATEGORY"))
-			{
-				$cato = $dco;
-			}
-			if($cato && $meta_units = $cato->meta("units"))
-			{
-				$units = $meta_units;
-			}
-		}
-
-		if(empty($units))
-		{
-			$units = array();
-		}
-
-		return $units;
-	}
-
 	protected function _get_units()
 	{
 		if($meta_units = $this->meta("units"))
