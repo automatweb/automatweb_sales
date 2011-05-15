@@ -1119,8 +1119,29 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $ret;
 	}
 
-	public function add_mail($address)
+	public function set_default_email_address()
 	{
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param address type=string
+			E-mail address
+		@param save type=bool default=TRUE
+			Whether to save this object after adding the email address
+		@comment
+		@returns oid
+			Added email object id
+		@errors
+			throws awex_obj_param if address isn't a valid e-mail address
+	**/
+	public function add_mail($address, $save = true)
+	{
+		if (!is_email($address))
+		{
+			throw new awex_obj_param("Not a valid e-mail address ({$address})");
+		}
+
 		$mo = new object();
 		$mo->set_class_id(CL_ML_MEMBER);
 		$mo->set_parent($this->id());
@@ -1129,15 +1150,16 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		$mo->save();
 
 		$conns = $this->connections_from(array("type" => "RELTYPE_EMAIL"));
-		if(!sizeof($conns))
+		if(!count($conns))
 		{
 			$this->set_prop("email_id" , $mo->id());
-			$this->save();
+			if ($save)
+			{
+				$this->save();
+			}
 		}
-		if(is_oid($mo->id()))//mul pole hetkel 6rna aimugi miks see m6nikord tyhja tulemuse annab
-		{
-			$this->connect(array("to" =>$mo->id(),  "type" => "RELTYPE_EMAIL"));
-		}
+
+		$this->connect(array("to" =>$mo,  "type" => "RELTYPE_EMAIL"));
 		return $mo->id();
 	}
 
@@ -1152,8 +1174,18 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $mid;
 	}
 
-
-	public function add_phone($phone)
+	/**
+		@attrib api=1 params=pos
+		@param phone type=string
+			phone number
+		@param save type=bool default=TRUE
+			Whether to save this object after adding the phone
+		@comment
+		@returns oid
+			Added phone object id
+		@errors none
+	**/
+	public function add_phone($phone, $save = true)
 	{
 		$mo = new object();
 		$mo->set_class_id(CL_CRM_PHONE);
@@ -1165,7 +1197,10 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		if(!sizeof($conns))
 		{
 			$this->set_prop("phone_id" , $mo->id());
-			$this->save();
+			if ($save)
+			{
+				$this->save();
+			}
 		}
 
 		$this->connect(array("to" =>$mo->id(),  "type" => "RELTYPE_PHONE"));
@@ -1244,6 +1279,8 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@attrib api=1 params=pos
 		@param section type=CL_CRM_SECTION default=NULL
 			Section to add new profession under. Default means top level.
+		@param name type=string default=""
+			New profession name
 		@return CL_CRM_PROFESSION
 			Newly created profession object
 		@errors
@@ -1251,7 +1288,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			throws awex_obj_state_new when this company is not saved yet.
 		@qc date=20101026 standard=aw3
 	**/
-	public function add_profession(object $section = null)
+	public function add_profession(object $section = null, $name = "")
 	{
 		if (!$this->is_saved())
 		{
@@ -1261,6 +1298,11 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		$profession = obj(null, array(), CL_CRM_PROFESSION);
 		$profession->set_parent($this->id());
 		$profession->set_prop("organization", $this->id());
+
+		if ($name)
+		{
+			$profession->set_name($name);
+		}
 
 		if ($section)
 		{
@@ -1584,50 +1626,6 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			);
 		}
 		return $r;
-	}
-
-	/**
-		@attrib api=1 params=pos
-		@param form type=string|int
-			form oid or name
-		@return void
-	**/
-	public function set_legal_form($form)
-	{
-		if(!$form)
-		{
-			return false;
-		}
-
-		if(is_oid($form))
-		{
-			$form_id = $form;
-		}
-		else
-		{
-			$ol = new object_list(array(
-				"class_id" => CL_CRM_CORPFORM,
-				"name" => $form,
-			));
-
-			if($ol->count())
-			{
-				$form_id = reset($ol->ids());
-			}
-			else
-			{
-				$o = new object();
-				$o->set_class_id(CL_CRM_CORPFORM);
-				$o->set_parent($this->parent());
-				$o->set_name($form);
-				$o->save();
-				$form_id = $o->id();
-			}
-		}
-
-		$this->set_prop("ettevotlusvorm" , $form_id);
-		$this->save();
-		return $form_id;
 	}
 
 	/** sets the default email adress content or creates it if needed **/
@@ -2162,6 +2160,28 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $co->id();
 	}
 
+	/**
+		@attrib api=1 params=pos
+		@param customer_relation type=CL_CRM_COMPANY_CUSTOMER_DATA
+		@param delete_customer_object type=bool default=FALSE
+			Whether to also delete customer object (company, person)
+		@comment
+		@returns void
+		@errors
+			throws awex_obj if customer or relation object denied
+	**/
+	public function delete_customer(object $customer_relation, $delete_customer_object = false)
+	{
+		if ($delete_customer_object)
+		{
+			$customer_oid = $customer_relation->prop("seller") == $this->id() ? $customer_relation->prop("buyer") : $customer_relation->prop("seller");
+			$customer = new object($customer_oid);
+			$customer->delete();
+		}
+
+		$customer_relation->delete();
+	}
+
 	/** returns company section, adds if none exists
 		@attrib api=1 params=pos
 		@param section optional type=string
@@ -2311,7 +2331,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		@attrib params=pos
 		@param root optional type=int acl=view
 			The OID from which to start the customer categories hierarchy
-		@param depth optional type=int
+		@param depth optional type=int default=NULL
 			The maximum depth of the customer categories hierarchy. If not set entire hierarchy will be returned.
 	**/
 	public function get_customer_categories_hierarchy($root = NULL, $depth = NULL)
@@ -2325,17 +2345,18 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $retval;
 	}
 
-	/**
+	/** Returns subcategories under parent
 		@attrib api=1 params=pos
-		@param parent type=CL_CRM_CATEGORY default=NULL
-			category whose subcategories are desired
-		@param types type=array default=array(crm_category_obj::TYPE_GENERIC)
-		@return object_list
+		@param parent type=CL_CRM_CATEGORY,CL_CRM_COMPANY default=NULL
+			Category whose subcategories are desired. To get top level categories, specify owner organization object as parent
+		@param types type=array default=array()
+			Default returns all types
+		@return object_list(CL_CRM_CATEGORY)
 		@errors
 			throws awex_obj_type if given parent is of wrong class
 		@qc date=20101026 standard=aw3
 	**/
-	public function get_customer_categories(object $parent = null, $types = array(crm_category_obj::TYPE_GENERIC))
+	public function get_customer_categories(object $parent = null, $types = array())
 	{
 		if ($this->is_saved())
 		{
@@ -2347,11 +2368,18 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 			if ($parent)
 			{
-				if (!$parent->is_a(crm_category_obj::CLID))
+				if ($parent->is_a(crm_category_obj::CLID))
+				{
+					$filter["parent_category"] = $parent->id();
+				}
+				elseif ($parent->is_a(crm_company_obj::CLID))
+				{
+					$filter["parent_category"] = 0;
+				}
+				else
 				{
 					throw new awex_obj_type("Given category " . $parent->id() . " is not a category object (clid is " . $parent->class_id() . ")");
 				}
-				$filter["parent_category"] = $parent->id();
 			}
 		}
 		else
@@ -2395,6 +2423,49 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			)
 		));
 		return $list->arr();
+	}
+
+	/**
+		@attrib api=1 params=pos
+		@param format type=string default='object_list'
+			object_list - returns object list
+			array - id, object name pairs
+			array_abbreviations - id, company form abbreviation pairs
+		@comment
+		@returns array|object_list(CL_CRM_CORPFORM)
+		@errors
+			throws awex_obj_param if format parameter is not valid
+	**/
+	public static function get_company_forms($format = "object_list")
+	{
+		$company_forms_list = new object_list(array("class_id" => CL_CRM_CORPFORM));
+		if ("object_list" === $format)
+		{
+			$company_forms = $company_forms_list;
+		}
+		elseif ("array" === $format)
+		{
+			$company_forms = $company_forms_list->names();
+		}
+		elseif ("array_abbreviations" === $format)
+		{
+			if($company_forms_list->count())
+			{
+				$form = $company_forms_list->begin();
+
+				do
+				{
+					$company_forms[$form->id()] = $form->prop("shortname");
+				}
+				while ($form = $company_forms_list->next());
+			}
+
+		}
+		else
+		{
+			throw new awex_obj_param("Invalid format ({$format}) given");
+		}
+		return $company_forms;
 	}
 }
 

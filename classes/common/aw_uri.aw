@@ -136,7 +136,7 @@ class aw_uri
 
 		if (isset($tmp["path"]))
 		{
-			$this->path = $tmp["path"];
+			$this->path = preg_replace("|/+|", "/", $tmp["path"]);
 		}
 
 		if (isset($tmp["fragment"]))

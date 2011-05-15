@@ -397,14 +397,13 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property personal_candidates_table type=table no_caption=1 parent=personal_hbox_table_cand
 
 
-
 ---------------------------------------------------
 
 /////start of my_customers
 @default group=relorg_s,relorg_b
 
 	@property my_customers_toolbar type=toolbar no_caption=1 store=no
-	@caption "Klientide toolbar"
+	@caption Kliendivaate tegevused
 
 	@layout my_cust_bot type=hbox width=20%:80%
 
@@ -455,8 +454,8 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 					@property customer_search_cust_grp type=select store=no parent=vbox_customers_left_top captionside=top
 					@caption Kliendigrupp
 
-					@property customer_search_classif1 type=classificator store=no parent=vbox_customers_left_top captionside=top
-					@caption Asutuse omadused
+					// @property customer_search_classif1 type=classificator store=no parent=vbox_customers_left_top captionside=top
+					// @caption Asutuse omadused
 
 					@property customer_search_insurance_exp type=select store=no parent=vbox_customers_left_top captionside=top
 					@caption Kindlustus aegund
@@ -469,8 +468,15 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 					@property cs_sbt type=submit size=15 store=no parent=vbox_customers_left_search_btn no_caption=1
 					@caption Otsi
 
-		@property my_customers_table type=table store=no no_caption=1 parent=my_cust_bot
-		@caption Kliendid
+		@layout list_container type=vbox parent=my_cust_bot
+			@layout category_list_container type=vbox parent=list_container closeable=1 area_caption="Kategooriad" no_padding=1 default_state=closed
+				@property customer_categories_table type=table store=no no_caption=1 parent=category_list_container
+				@caption Kliendikategooriad
+
+			@layout customer_list_container type=vbox parent=list_container area_caption="Kliendid" closeable=1 no_padding=1
+				@property my_customers_table type=table store=no no_caption=1 parent=customer_list_container
+				@caption Kliendid
+
 
 /////end of my_customers
 
@@ -1209,10 +1215,10 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 	@groupinfo my_reports caption="Minu raportid" submit=no parent=projs save=no
 	@groupinfo all_reports caption="K&otilde;ik raportid" submit=no parent=projs save=no
 
-@groupinfo relorg caption="Kliendid" focus=cs_n save=no
-	// @groupinfo relorg_t caption="K&otilde;ik" parent=relorg submit=no save=no
-	@groupinfo relorg_b caption="Ostjad" focus=cs_n parent=relorg save=no
-	@groupinfo relorg_s caption="M&uuml;&uuml;jad" focus=cs_n parent=relorg save=no
+@groupinfo relorg caption="Kliendid" focus=cs_n submit=no
+	// @groupinfo relorg_t caption="K&otilde;ik" parent=relorg submit=no submit=no
+	@groupinfo relorg_b caption="Ostjad" focus=cs_n parent=relorg submit=no
+	@groupinfo relorg_s caption="M&uuml;&uuml;jad" focus=cs_n parent=relorg submit=no
 
 
 @groupinfo org_images caption="Pildid" submit=yes parent=general
@@ -1479,6 +1485,7 @@ groupinfo qv caption="Vaata"  submit=no save=no
 @reltype COMMENT value=73 clid=CL_COMMENT
 @caption Kommentaar
 
+//DEPRECATED, do not use!
 @reltype FIRMAJUHT value=74 clid=CL_CRM_PERSON
 @caption Firmajuht
 
@@ -1677,7 +1684,7 @@ class crm_company extends class_base
 			$tree_node_info = array(
 				'id'=>$node_id,
 				'name'=>$name,
-				'url'=>aw_url_change_var(array(
+				'url'=> aw_url_change_var(array(
 					'cat' => NULL,
 					'org_id' => NULL,
 					'cs_sbt' => NULL,
@@ -1923,8 +1930,8 @@ class crm_company extends class_base
 
 	function get_property($arr)
 	{
-		$data = &$arr['prop'];
 		$retval = PROP_OK;
+		$data = &$arr['prop'];
 		$arr["use_group"] = $this->use_group;
 
 		switch($data['name'])
@@ -2312,6 +2319,7 @@ class crm_company extends class_base
 			case "customer_search_is_co":
 			case "my_customers_toolbar":
 			case "my_customers_table":
+			case "customer_categories_table":
 			case "offers_listing_toolbar":
 			case "offers_listing_tree":
 			case "offers_listing_table":
@@ -2334,6 +2342,7 @@ class crm_company extends class_base
 				}
 				$fn = "_get_".$data["name"];
 				return $cust_impl->$fn($arr);
+
 			case "customer_search_cust_grp":
 				if ( aw_global_get('crm_customers_search_mode') != CRM_CUSTOMERS_SEARCH_DETAIL )
 				{
@@ -3022,7 +3031,7 @@ class crm_company extends class_base
 				$procurement_center = new procurement_center();
 				$data["value"] = $procurement_center->_see_all_link($arr);
 				break;
-		};
+		}
 		return $retval;
 	}
 
@@ -3455,35 +3464,35 @@ class crm_company extends class_base
 	**/
 	function remove_delete_cust($arr)
 	{
-		try
+		if (is_array($arr["check"]) and count($arr["check"]))
 		{
-			$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
-		}
-		catch (Exception $e)
-		{
-			$this->show_error_text(t("Organisatsiooniobjekt polnud loetav."));
-			return $arr["post_ru"];
-		}
+			try
+			{
+				$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+			}
+			catch (Exception $e)
+			{
+				$this->show_error_text(t("Organisatsiooniobjekt polnud loetav."));
+				return $arr["post_ru"];
+			}
 
-		if (is_array($arr["check"]))
-		{
-			foreach($arr["check"] as $customer_oid)
+			foreach($arr["check"] as $customer_relation_oid)
 			{
 				try
 				{
-					$customer = obj($value);
-					$this_o->delete_customer($customer, true);
+					$customer_relation_o = obj($customer_relation_oid);
+					$this_o->delete_customer($customer_relation_o, true);
 				}
 				catch (Exception $e)
 				{
-					$errors[] = $customer->name();
+					$errors[] = $customer_relation_o->name();
 				}
 			}
-		}
 
-		if ($errors)
-		{
-			$this->show_error_text(sprintf(t("Kliente %s kustutada ei &otilde;nnestunud."), ("'" . implode("', '", $errors) . "'")));
+			if ($errors)
+			{
+				$this->show_error_text(sprintf(t("Kliente %s kustutada ei &otilde;nnestunud."), ("'" . implode("', '", $errors) . "'")));
+			}
 		}
 
 		return $arr["post_ru"];
@@ -3494,12 +3503,33 @@ class crm_company extends class_base
 	**/
 	function remove_from_category($arr)
 	{
-		if (is_array($arr["check"]) && $this->can("view" , $arr[self::REQVAR_CATEGORY]))
+		if (is_array($arr["check"]) and count($arr["check"]) and is_oid($arr[self::REQVAR_CATEGORY]))
 		{
-			$c = obj($arr[self::REQVAR_CATEGORY]);
-			foreach($arr['check'] as $key => $value)
+			try
 			{
-				$c->disconnect(array('from' => $value));
+				$category = obj($arr[self::REQVAR_CATEGORY]);
+
+				foreach($arr['check'] as $customer_relation_oid)
+				{
+					try
+					{
+						$customer_relation_o = obj($customer_relation_oid);
+						$customer_relation_o->remove_category($category);
+					}
+					catch (Exception $e)
+					{
+						$errors[] = $customer_relation_o->name();
+					}
+				}
+			}
+			catch (Exception $e)
+			{
+				$this->show_error_text(t("Viga kategooria lugemisel"));
+			}
+
+			if ($errors)
+			{
+				$this->show_error_text(sprintf(t("Kliente %s kategooriast eemaldada ei &otilde;nnestunud."), ("'" . implode("', '", $errors) . "'")));
 			}
 		}
 		return $arr["post_ru"];
@@ -3510,26 +3540,37 @@ class crm_company extends class_base
 	**/
 	function remove_cust_relations($arr)
 	{
-		if (is_array($arr["check"]))
+		if (is_array($arr["check"]) and count($arr["check"]))
 		{
-			$id1 = reset($arr["check"]);
-			if(!(is_oid($id1) && $this->can("view" , $id1)))
+			try
 			{
+				$this_o = obj($arr["id"], array(), CL_CRM_COMPANY);
+			}
+			catch (Exception $e)
+			{
+				$this->show_error_text(t("Organisatsiooniobjekt polnud loetav."));
 				return $arr["post_ru"];
 			}
-			$cust_rel_list = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"buyer" => $arr["check"],
-				"seller" => $arr["id"]
-			));
-			$cust_rel_list->delete();
-			$cust_rel_list = new object_list(array(
-				"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-				"buyer" => $arr["id"],
-				"seller" => $arr["check"]
-			));
-			$cust_rel_list->delete();
+
+			foreach($arr["check"] as $customer_relation_oid)
+			{
+				try
+				{
+					$customer_relation_o = obj($customer_relation_oid);
+					$this_o->delete_customer($customer_relation_o);
+				}
+				catch (Exception $e)
+				{
+					$errors[] = $customer_relation_o->name();
+				}
+			}
+
+			if ($errors)
+			{
+				$this->show_error_text(sprintf(t("Kliendisuhteid %s l&otilde;petada ei &otilde;nnestunud."), ("'" . implode("', '", $errors) . "'")));
+			}
 		}
+
 		return $arr["post_ru"];
 	}
 
@@ -4256,12 +4297,12 @@ class crm_company extends class_base
 		}
 	}
 
-
-	/**
-		@attrib name=save_search_results
-	**/
+//XXX: teadmata otstarbega asi
+	// /**
+		// @attrib name=save_search_results
+	// **/
 	function save_search_results($arr)
-	{
+	{exit("N/A");
 		foreach($arr['check'] as $key=>$value)
 		{
 			if(!empty($arr['unit']))
@@ -4550,6 +4591,119 @@ class crm_company extends class_base
 			),
 			CL_CRM_COMPANY
 		);
+	}
+
+	/**
+		@attrib name=customer_view_cut
+		@param check required type=array
+		@param cs_c required type=string
+		@param post_ru required type=string
+	**/
+	function customer_view_cut($arr)
+	{
+		aw_session_set("awcb_customer_selection_clipboard", $arr["check"]);
+		aw_session_set("awcb_category_old_parent", (isset($arr["cs_c"]) ? $arr["cs_c"] : ""));
+		return $arr["post_ru"];
+	}
+
+	/**
+		@attrib name=customer_view_paste
+		@param cs_c required type=string
+		@param post_ru required type=string
+	**/
+	function customer_view_paste($arr)
+	{
+		$errors = array();
+
+		if (aw_global_get("awcb_customer_selection_clipboard"))
+		{
+			try
+			{
+				// get old parent
+				if (is_oid(aw_global_get("awcb_category_old_parent")))
+				{
+					$old_parent = aw_global_get("awcb_category_old_parent");
+					$old_parent = obj($old_parent, array(), crm_category_obj::CLID);
+				}
+				else
+				{
+					$old_parent = null;
+				}
+
+				// find new parent
+				$new_parent = empty($arr["cs_c"]) ? $arr[self::REQVAR_CATEGORY] : $arr["cs_c"];
+				if (is_oid($new_parent))
+				{
+					try
+					{
+						$new_parent = obj($new_parent, array(), crm_category_obj::CLID);
+						$new_parent_oid = $new_parent->id();
+					}
+					catch (awex_obj_class $e)
+					{
+						$new_parent = obj($new_parent, array(), crm_company_obj::CLID);
+						$new_parent = $new_parent_oid = null;
+					}
+				}
+				else
+				{
+					$this->show_error_text(t("Kategooria valimata"));
+					return $arr["post_ru"];
+				}
+
+				// move objects
+				$selected_objects = aw_global_get("awcb_customer_selection_clipboard");
+				foreach ($selected_objects as $oid)
+				{
+					if ($oid)
+					{
+						try
+						{
+							$o = new object($oid);
+							if ($o->is_a(crm_company_customer_data_obj::CLID))
+							{ // move customer to new category
+								if ($old_parent)
+								{
+									$o->remove_category($old_parent);
+								}
+
+								if ($new_parent)
+								{
+									$o->add_category($new_parent);
+								}
+							}
+							elseif ($o->is_a(crm_category_obj::CLID))
+							{ // replace category parent category
+								$o->set_prop("parent_category", $new_parent_oid);
+								$o->save();
+							}
+							else
+							{
+								$errors[] = "({$oid})";
+							}
+						}
+						catch (Exception $e)
+						{
+							$errors[] = $oid;
+						}
+					}
+				}
+
+				aw_session_del("awcb_customer_selection_clipboard");
+				aw_session_del("awcb_category_old_parent");
+			}
+			catch (Exception $e)
+			{
+				$this->show_error_text(t("Kleepimiskoht defineerimata"));
+			}
+		}
+
+		if (count($errors))
+		{
+			$this->show_error_text(sprintf(t("Viga kleebitava(te) objekti(de) lugemisel [%s]"), implode(", ", $errors)));
+		}
+
+		return $arr["post_ru"];
 	}
 
 	/** Returns an array of all sections that the company has

@@ -501,58 +501,70 @@ class crm_company_cust_impl extends class_base
 		$tf->define_field(array(
 			"name" => "name",
 			"caption" => t("Kliendi nimi"),
+			"chgbgcolor" => "cutcopied",
 			"sortable" => 1
 		));
 
-		$tf->define_field(array(
-			"name" => "classif1",
-			"caption" => t("Asutuse omadused")
-		));
+		//XXX: ruumiraiskaja.
+		// $tf->define_field(array(
+			// "name" => "classif1",
+			// "chgbgcolor" => "cutcopied",
+			// "caption" => t("Asutuse omadused")
+		// ));
 
 		$tf->define_field(array(
 			"name" => "address",
+			"chgbgcolor" => "cutcopied",
 			"caption" => t("Aadress")
 		));
 
 		$tf->define_field(array(
 			"name" => "email",
 			"caption" => t("Kontakt"),
+			"chgbgcolor" => "cutcopied",
 			"align" => "center"
 		));
 
 		$tf->define_field(array(
 			"name" => "url",
+			"chgbgcolor" => "cutcopied",
 			"caption" => t("WWW")
 		));
 
 		$tf->define_field(array(
 			"name" => "phone",
+			"chgbgcolor" => "cutcopied",
 			"caption" => t('Telefon')
 		));
 
 		$tf->define_field(array(
 			"name" => "fax",
+			"chgbgcolor" => "cutcopied",
 			"caption" => t('Faks')
 		));
 
 		$tf->define_field(array(
 			"name" => "ceo",
+			"chgbgcolor" => "cutcopied",
 			"caption" => t("Juht")
 		));
 
 		$tf->define_field(array(
 			"name" => "rollid",
+			"chgbgcolor" => "cutcopied",
 			"caption" => t("Rollid")
 		));
 
 		$tf->define_field(array(
 			"name" => "client_manager",
+			"chgbgcolor" => "cutcopied",
 			"caption" => t("Kliendihaldur"),
 			"sortable" => 1,
 		));
 
 		$tf->define_field(array(
 			"name" => "customer_rel_creator",
+			"chgbgcolor" => "cutcopied",
 			"caption" => t("Kliendisuhte looja"),
 			"sortable" => 1
 		));
@@ -769,6 +781,33 @@ class crm_company_cust_impl extends class_base
 
 		$tb->add_separator();
 
+		// cut, copy, paste
+		$tb->add_button(array(
+			"name" => "cut",
+			"tooltip" => t("L&otilde;ika"),
+			"action" => "customer_view_cut",
+			"img" => "cut.gif"
+		));
+		/* implement later
+		$tb->add_button(array(
+			"name"=>"copy",
+			"tooltip"=> t("Kopeeri"),
+			"action" => "copy",
+			"img" => "copy.gif"
+		));
+		*/
+
+		if (aw_global_get("awcb_customer_selection_clipboard"))
+		{
+			$tb->add_button(array(
+				"name"=>"paste",
+				"tooltip"=> t("Kleebi"),
+				"action" => "customer_view_paste",
+				"img" => "paste.gif"
+			));
+		}
+
+
 		//delete button
 		$tb->add_menu_button(array(
 			"name"=>"delete",
@@ -791,7 +830,7 @@ class crm_company_cust_impl extends class_base
 		$tb->add_menu_item(array(
 			"parent"=> "delete",
 			"text" => t("Kustuta l&otilde;plikult"),
-			"action" => "remove_delete_cust"
+			"action" => "delete_objects"
 		));
 
 		////////////////////TODO: viia mujale, myygitarkvarasse n2iteks
@@ -809,16 +848,18 @@ class crm_company_cust_impl extends class_base
 		// }
 	}
 
-	private function _add_categories($arr, treeview $tree_inst)
+	public static function _add_categories($arr, treeview $tree_inst)
 	{
-		$url = new aw_uri($this->mk_my_orb($arr["request"]["action"], array(
+		$core = new core();
+		$url = new aw_uri($core->mk_my_orb($arr["request"]["action"], array(
 			"group" => $arr["request"]["group"],
 			"id" => $arr["request"]["id"],
 		), $arr["request"]["class"]));
 
 		// caption
+		$url->set_arg(crm_company::REQVAR_CATEGORY, $arr['obj_inst']->id());
 		$tree_inst->add_item(0, array(
-			"id" => "categories",
+			"id" => $arr['obj_inst']->id(),
 			"name" => t("Kategooriate j&auml;rgi"),
 			"url" => $url->get()
 		));
@@ -827,25 +868,27 @@ class crm_company_cust_impl extends class_base
 		$categories = $arr['obj_inst']->get_customer_categories();
 		foreach ($categories->arr() as $category)
 		{
-			////////// temporary. a popup menu for editing categories. a not very aesthetic solution
+			$category_id = $category->id();
+
+			////////// a popup menu for editing categories. a not very aesthetic solution
 			$pm = new popup_menu();
-			$pm->begin_menu("custcat".$category->id());
+			$pm->begin_menu("custcat".$category_id);
 			$pm->add_item(array(
 				"text" => t("Muuda"),
-				"link" => $this->mk_my_orb("change", array("id" => $category->id(), "return_url" => get_ru()), "crm_category")
+				"link" => $core->mk_my_orb("change", array("id" => $category->id(), "return_url" => get_ru()), "crm_category")
 			));
 			$pm->add_item(array(
 				"confirm" => t("Kustutada kategooria?"),
 				"text" => t("Kustuta"),
-				"link" => $this->mk_my_orb("delete", array("id" => $category->id(), "return_url" => get_ru()), "crm_category")
+				"link" => $core->mk_my_orb("delete_objects", array("sel" => array($category_id => $category_id), "post_ru" => get_ru()), "crm_category")
 			));
 			//////////
 
-			$parent = $category->prop("parent_category") ? (int) $category->prop("parent_category") : "categories";
-			$url->set_arg(crm_company::REQVAR_CATEGORY, $category->id());
+			$parent = $category->prop("parent_category") ? (int) $category->prop("parent_category") : $arr['obj_inst']->id();
+			$url->set_arg(crm_company::REQVAR_CATEGORY, $category_id);
 			$tree_inst->add_item ($parent, array (
 				"name" => $category->name() . $pm->get_menu(),
-				"id" => $category->id(),
+				"id" => $category_id,
 				"parent" => $parent,
 				"url" => $url->get()
 			));
@@ -2363,10 +2406,13 @@ class crm_company_cust_impl extends class_base
 				$classif1 = t("N/A");
 			}
 
+			$cro_oid = $idx_cro_by_customer[$o->id()]->id();
+
 			//TODO: define and get data only for fields configured to be shown in current crm settings.
 			$tf->define_data(array(
-				"id" => $o->id(),
+				"id" => $cro_oid,
 				"name" => $name,
+				"cutcopied" => !empty($_SESSION["awcb_customer_selection_clipboard"][$cro_oid]) ? "grey" : "",
 				"classif1" => $classif1,
 				"customer_rel_creator" => method_exists($o, "get_cust_rel_creator_name") ? $o->get_cust_rel_creator_name() : "n/a",///!!!! teha korda
 				"reg_nr" => $o->prop("reg_nr"),
@@ -2517,7 +2563,8 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 			}
 			catch (Exception $e)
 			{
-				$this->show_error_text(t("Kategooria parameeter ei vasta n&otilde;uetele"));
+				//XXX: pole vist vaja. veatolerantne.
+				// $this->show_error_text(t("Kategooria parameeter ei vasta n&otilde;uetele"));
 			}
 		}
 
@@ -2952,5 +2999,71 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 				));
 			}
 		}
+	}
+
+	function _get_customer_categories_table(&$arr)
+	{
+		$r = class_base::PROP_OK;
+		$table = $arr["prop"]["vcl_inst"];
+		$this->_customer_categories_table_header($table);
+
+		$parent_category = (!empty($arr["request"][crm_company::REQVAR_CATEGORY]) and is_oid($arr["request"][crm_company::REQVAR_CATEGORY])) ? obj($arr["request"][crm_company::REQVAR_CATEGORY]) : null;
+
+		if (!$parent_category)
+		{
+			$r = class_base::PROP_IGNORE;
+		}
+		elseif ($parent_category->is_a(crm_category_obj::CLID) or $parent_category->is_a(crm_company_obj::CLID))
+		{
+			$types = array(crm_category_obj::TYPE_GENERIC);
+			$types[] = ("relorg_s" === $this->use_group ? crm_category_obj::TYPE_SELLER : crm_category_obj::TYPE_BUYER);
+			$categories = $arr["obj_inst"]->get_customer_categories($parent_category, $types);
+
+			if ($parent_category->is_a(crm_category_obj::CLID))
+			{
+				$table->set_caption(sprintf(t("Kategooriad, mis asuvad kategooria '%s' all"), $parent_category->name()));
+			}
+			elseif ($parent_category->is_a(crm_company_obj::CLID))
+			{
+				$table->set_caption(t("Peataseme kategooriad"));
+			}
+
+			if($categories->count())
+			{
+				$category = $categories->begin();
+
+				do
+				{
+					$table->define_data(array(
+						"oid" => $category->id(),
+						"name" => html::obj_change_url($category)
+					));
+				}
+				while ($category = $categories->next());
+			}
+			else
+			{
+				$r = class_base::PROP_IGNORE;
+			}
+		}
+		else
+		{
+			$this->show_error_text("Kehtetu kategooria");
+		}
+
+		return $r;
+	}
+
+	private function _customer_categories_table_header($table)
+	{
+		$table->define_field(array(
+			"name" => "name",
+			"caption" => t("Nimi"),
+			"sortable" => 1
+		));
+		$table->define_chooser(array(
+			"field" => "oid",
+			"name" => "check"
+		));
 	}
 }
