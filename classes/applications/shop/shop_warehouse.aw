@@ -1430,7 +1430,7 @@ class shop_warehouse extends class_base
 					$prop["value"] = automatweb::$request->arg($prop["name"]);
 				}
 				$prop["format"] = array("day_textbox", "month_textbox", "year_textbox");
-				if(!$prop["value"])
+				if(empty($prop["value"]))
 				{
 					$prop["value"] = -1;
 				}
@@ -3916,6 +3916,9 @@ class shop_warehouse extends class_base
 				));
 				$count = $ol->count();
 				break;
+
+			default:
+				$count = 0;
 		}
 		$tree->add_item(0, array(
 			"url" => $url,
@@ -3930,7 +3933,7 @@ class shop_warehouse extends class_base
 		{
 			$tree->add_item($o->id(), array(
 				"name" => "tmp",
-				"id" => $c->prop("to")."_tmp",
+				"id" => $o->id()."_tmp",
 			));
 		}
 	}
@@ -5211,7 +5214,7 @@ $tb->add_delete_button();
 			$products = array();
 			foreach($o->get_products()->names() as $id => $name)
 			{
-				$products[] = $this->change_link($id , $name);	
+				$products[] = $this->change_link($id , $name);
 //				$products[] = html::obj_change_url($product, $product->name());
 			}
 			exit_function("packet::get_products");
@@ -12978,6 +12981,7 @@ die();
 			}
 		}
 
+		load_javascript("reload_properties_layouts.js");
 	}
 
 	function _get_brand_toolbar($arr)
