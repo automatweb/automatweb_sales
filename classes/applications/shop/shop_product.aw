@@ -726,7 +726,7 @@ class shop_product extends class_base
 					1 => t("Jah"),
 					0 => t("Ei"),
 				);
-				if(!$data["value"])
+				if(empty($data["value"]))
 				{
 					$data["value"] = 0;
 				}
