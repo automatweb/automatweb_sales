@@ -81,6 +81,7 @@ class aw_table extends aw_template
 	/* a symbolic name for the table so we can tell it apart from others */
 	protected $prefix = "";
 
+	protected $headerlinkclassid = "";
 	protected $headerextra = "";
 	protected $headerextrasize = 0;
 	protected $userfields_defined = false;
@@ -515,7 +516,7 @@ class aw_table extends aw_template
 		if ($this->headerlinkclassid)
 		{
 			$hlcl=" class='".$this->headerlinkclassid."' ";
-		};
+		}
 		reset($links);
 		while(list($k,$v) = each($links))
 		{

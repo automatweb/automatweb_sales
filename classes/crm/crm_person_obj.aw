@@ -1875,12 +1875,14 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	/** Sets phone number for person
 		@attrib api=1 params=pos
-		@param phone required type=string
+		@param phone type=string
 			phone number
-		@param type optional type=string default=mobile
+		@param type type=string default=mobile
 			phone number
+		@param save type=bool default=TRUE
+			Whether to save this object after setting
 	**/
-	public function set_phone($phone, $type="mobile")
+	public function set_phone($phone, $type="mobile", $save = true)
 	{
 		$eo = obj();
 		$eo->set_class_id(CL_CRM_PHONE);
@@ -1890,8 +1892,10 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$eo->save();
 
 		$this->set_prop("phone", $eo->id());
-		$this->set_prop("type", $type);
-		$this->save();
+		if ($save)
+		{
+			$this->save();
+		}
 		$this->connect(array(
 			"type" => "RELTYPE_PHONE",
 			"to" => $eo->id()
@@ -1900,10 +1904,12 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 
 	/** Sets e-mail address for person
 		@attrib api=1 params=pos
-		@param mail required type=string
+		@param mail type=string
 			e-mail address
+		@param save type=bool default=TRUE
+			Whether to save this object after setting
 	**/
-	public function set_email($mail)
+	public function set_email($mail, $save = true)
 	{
 		$eo = obj();
 		$eo->set_class_id(CL_ML_MEMBER);
@@ -1913,7 +1919,10 @@ class crm_person_obj extends _int_object implements crm_customer_interface, crm_
 		$eo->save();
 
 		$this->set_prop("email", $eo->id());
-		$this->save();
+		if ($save)
+		{
+			$this->save();
+		}
 		$this->connect(array(
 			"type" => "RELTYPE_EMAIL",
 			"to" => $eo->id()

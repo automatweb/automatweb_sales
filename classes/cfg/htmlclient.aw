@@ -1470,12 +1470,23 @@ class htmlclient extends aw_template
 					"item_width" => $cell_width,
 				));
 				$content .= $this->parse("GRID_HBOX_ITEM");
-			};
+			}
 
 			$closer = $ghc = $gce = "";
 			if (!empty($ldata["area_caption"]))
 			{
 				$state = active_page_data::get_layer_state($this->class_name, $this->use_group, $layout_name);
+				if (!$state and isset($ldata["default_state"]) and $ldata["default_state"] === "closed")
+				{
+					if ($ldata["default_state"] === "closed")
+					{
+						$state = active_page_data::LAYER_CLOSED;
+					}
+					elseif ($ldata["default_state"] === "open")
+					{
+						$state = active_page_data::LAYER_OPEN;
+					}
+				}
 
 				if (!empty($ldata["closeable"]))
 				{
@@ -1549,6 +1560,17 @@ class htmlclient extends aw_template
 			if (!empty($ldata["area_caption"]))
 			{
 				$state = active_page_data::get_layer_state($this->class_name, $this->use_group, $layout_name);
+				if (!$state and isset($ldata["default_state"]) and $ldata["default_state"] === "closed")
+				{
+					if ($ldata["default_state"] === "closed")
+					{
+						$state = active_page_data::LAYER_CLOSED;
+					}
+					elseif ($ldata["default_state"] === "open")
+					{
+						$state = active_page_data::LAYER_OPEN;
+					}
+				}
 
 				if (!empty($ldata["closeable"]))
 				{
@@ -1627,6 +1649,17 @@ class htmlclient extends aw_template
 			if (!empty($ldata["area_caption"]))
 			{
 				$state = active_page_data::get_layer_state($this->class_name, $this->use_group, $layout_name);
+				if (!$state and isset($ldata["default_state"]) and $ldata["default_state"] === "closed")
+				{
+					if ($ldata["default_state"] === "closed")
+					{
+						$state = active_page_data::LAYER_CLOSED;
+					}
+					elseif ($ldata["default_state"] === "open")
+					{
+						$state = active_page_data::LAYER_OPEN;
+					}
+				}
 
 				if (!empty($ldata["closeable"]))
 				{

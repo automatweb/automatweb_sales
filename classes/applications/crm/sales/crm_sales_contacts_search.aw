@@ -52,6 +52,7 @@ class crm_sales_contacts_search
 	const PARAM_SORT = 11;
 	const PARAM_BUYER = 12;
 	const PARAM_CATEGORY = 13;
+	const PARAM_CREATEDBY = 14;
 
 	private $p_seller;
 	private $p_buyer;
@@ -64,6 +65,7 @@ class crm_sales_contacts_search
 	private $p_status;
 	private $p_address;
 	private $p_phone;
+	private $p_createdby;
 
 	private $sort_order;
 	private $additional_joins = "";
@@ -83,7 +85,9 @@ class crm_sales_contacts_search
 		"lead_source-asc",
 		"lead_source-desc",
 		"salesman-asc",
-		"salesman-desc"
+		"salesman-desc",
+		"created-asc",
+		"created-desc"
 	);
 
 	public function __set($name, $value)
@@ -252,6 +256,16 @@ class crm_sales_contacts_search
 		$this->p_address = self::prepare_search_words($value);
 	}
 
+	private function _set_createdby($value)
+	{
+		if (empty($value) or !is_string($value) or strlen($value) < 2)
+		{
+			throw new awex_crm_contacts_search_param("Invalid value '" . var_export($value, true) . "' for createdby parameter", self::PARAM_CREATEDBY);
+		}
+
+		$this->p_createdby = self::prepare_search_words($value);
+	}
+
 	private function _set_phone($value)
 	{
 		if (empty($value) or !is_numeric($value) or $value < 0)
@@ -300,6 +314,10 @@ class crm_sales_contacts_search
 			$additional_joins .= "LEFT JOIN objects lead_source_objects on lead_source_objects.oid=aw_crm_customer_data.aw_lead_source ";
 			$order_by = "ORDER BY lead_source_objects.name {$sort_direction}";
 		}
+		elseif ("created" === $order)
+		{
+			$order_by = "ORDER BY customer_objects.created {$sort_direction}";
+		}
 
 		$this->additional_joins = $additional_joins;
 		$this->sort_order = $order_by;
@@ -316,7 +334,8 @@ class crm_sales_contacts_search
 			"last_call_result" => array(obj_predicate_sort::ASC, "CL_CRM_COMPANY_CUSTOMER_DATA.sales_last_call(CL_CRM_CALL).result"),
 			"last_call_maker" => array(obj_predicate_sort::ASC, "CL_CRM_COMPANY_CUSTOMER_DATA.sales_last_call(CL_CRM_CALL).real_maker"),
 			"calls_made" => array(obj_predicate_sort::ASC, "sales_calls_made"),
-			"salesman" => array(obj_predicate_sort::ASC, "CL_CRM_COMPANY_CUSTOMER_DATA.salesman.name")
+			"salesman" => array(obj_predicate_sort::ASC, "CL_CRM_COMPANY_CUSTOMER_DATA.salesman.name"),
+			"created" => array(obj_predicate_sort::ASC, "created")
 		);
 		$sort_by = $sortable_fields[$order][1];
 
@@ -399,6 +418,11 @@ class crm_sales_contacts_search
 			$filter["salesman"] = $this->p_salesman;
 		}
 
+		if (!empty($this->p_createdby))
+		{
+			$filter["createdby"] = $this->p_createdby;
+		}
+
 		if (!empty($this->p_calls))
 		{
 			$filter["sales_calls_made"] = $this->p_calls;
@@ -462,7 +486,7 @@ class crm_sales_contacts_search
 					CL_CRM_COMPANY_CUSTOMER_DATA => array("oid")
 				)
 			);
-			$result = $result->arr();
+			$result = $result->get_element_from_all("oid");
 		}
 
 		return $result;
