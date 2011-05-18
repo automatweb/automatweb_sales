@@ -2041,6 +2041,9 @@ END;
 
 		@param filter_options optional
 
+		@param width optional type=string
+			Desired row width
+
 		@example ${draw}
 	**/
 	function define_field($args = array())
