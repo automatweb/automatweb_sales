@@ -49,23 +49,23 @@ class shop_warehouse_obj extends _int_object
 			$filter["product.RELTYPE_CATEGORY"] = $arr["category"];
 		}
 		
-		if($arr["after_time"])
+		if(!empty($arr["after_time"]))
 		{
 			$arr["from"] = $arr["to"]+1;
 			$arr["to"] = time()*2;
 		}
 
-		if($arr["from"] && $arr["to"])
+		if(!empty($arr["from"]) and !empty($arr["to"]))
 		{
 			$filter["date"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $arr["from"], $arr["to"]);
 		}
 		else
 		{
-			if($arr["from"])
+			if(!empty($arr["from"]))
 			{
 				$filter["date"] = new obj_predicate_compare(OBJ_COMP_GREATER_OR_EQ, $arr["from"]);
 			}
-			if($arr["to"])
+			if(!empty($arr["to"]))
 			{
 				$filter["date"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ, $arr["to"]);
 
@@ -250,7 +250,7 @@ class shop_warehouse_obj extends _int_object
 	function get_inventories($arr)
 	{
 		extract($arr);
-		if(!$arr["warehouses"])
+		if(empty($arr["warehouses"]))
 		{
 			$arr["warehouses"] = array($this->id());
 		}

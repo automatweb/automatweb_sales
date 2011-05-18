@@ -3057,13 +3057,14 @@ SCRIPT;
 		@attrib name=create_presentation
 		@param id required type=oid
 		@param cust_rel required type=oid
+		@param offer optional type=oid
 		@param return_url optional type=string
 	**/
 	public function create_presentation($arr)
 	{
-		$this_o = obj($arr["id"], array(), CL_CRM_SALES);
-		$cust_rel = obj($arr["cust_rel"], array(), CL_CRM_COMPANY_CUSTOMER_DATA);
-		$presentation = $this_o->create_presentation($cust_rel);
+		$this_o = obj($arr["id"], array(), crm_sales_obj::CLID);
+		$cust_rel = obj($arr["cust_rel"], array(), crm_company_customer_data_obj::CLID);
+		$presentation = $this_o->create_presentation($cust_rel, 0, null, false, !empty($arr["offer"]) ? array("offer" => $arr["offer"]) : null);
 		$params = !empty($arr["return_url"]) ? array("return_url" => $arr["return_url"]) : array();
 		return html::get_change_url($presentation->id(), $params);
 	}
@@ -3072,13 +3073,14 @@ SCRIPT;
 		@attrib name=create_call
 		@param id required type=oid
 		@param cust_rel required type=oid
+		@param offer optional type=oid
 		@param return_url optional type=string
 	**/
 	public function create_call($arr)
 	{
-		$this_o = obj($arr["id"], array(), CL_CRM_SALES);
-		$cust_rel = obj($arr["cust_rel"], array(), CL_CRM_COMPANY_CUSTOMER_DATA);
-		$call = $this_o->create_call($cust_rel);
+		$this_o = obj($arr["id"], array(), crm_sales_obj::CLID);
+		$cust_rel = obj($arr["cust_rel"], array(), crm_company_customer_data_obj::CLID);
+		$call = $this_o->create_call($cust_rel, 0, null, false, !empty($arr["offer"]) ? array("offer" => $arr["offer"]) : null);
 		$params = !empty($arr["return_url"]) ? array("return_url" => $arr["return_url"]) : array();
 		return html::get_change_url($call->id(), $params);
 	}

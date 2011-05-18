@@ -480,7 +480,7 @@ class shop_order_cart_obj extends _int_object
 		if($this->can("view", $this->prop("finish_handler")))
 		{
 			$ctrl = get_instance(CL_FORM_CONTROLLER);
-			$ctrl->eval_controller($this->prop("finish_handler"), &$order_obj, &$this);
+			$ctrl->eval_controller($this->prop("finish_handler"), $order_obj, $this);
 		}
 
 		$this->oc->send_confirm_mail($order);

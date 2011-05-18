@@ -2,6 +2,7 @@
 
 class discount_obj extends _int_object
 {
+	const CLID = 1553;
 
 	public static function get_valid_discount($arr)
 	{
@@ -10,9 +11,7 @@ class discount_obj extends _int_object
 			return 0;
 		}
 		$filter = array(
-			"class_id" => array(CL_DISCOUNT),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => array(self::CLID),
 			"CL_DISCOUNT.object" => $arr["object"],
 		);
 		
@@ -28,9 +27,7 @@ class discount_obj extends _int_object
 		}
 		$coefficient = 0;	
 		$filter = array(
-			"class_id" => array(CL_DISCOUNT),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => array(self::CLID),
 			"CL_DISCOUNT.object" => $arr["object"],
 		);
 
@@ -47,29 +44,27 @@ class discount_obj extends _int_object
 	{
 		$coefficient = 0;	
 		$filter = array(
-			"class_id" => array(CL_DISCOUNT),
-			"site_id" => array(),
-			"lang_id" => array(),
+			"class_id" => array(self::CLID),
 		);
 
-		if($arr["object"])
+		if(!empty($arr["object"]))
 		{
 			$filter["object"] = $arr["object"];
 		}
 
-		if(is_oid($arr["group"]))
+		if(isset($arr["group"]) and is_oid($arr["group"]))
 		{
 			$filter["CL_DISCOUNT.RELTYPE_GROUP"] = $arr["group"];
 		}
 
-		if($arr["from"] > 1)
+		if(isset($arr["from"]) and $arr["from"] > 1)
 		{
-			$filter["to"] = new obj_predicate_compare(OBJ_COMP_GREATER,$arr["from"]);
+			$filter["to"] = new obj_predicate_compare(obj_predicate_compare::GREATER, $arr["from"]);
 		}
 
-		if($arr["to"] > 1)
+		if(isset($arr["to"]) and $arr["to"] > 1)
 		{
-			$filter["from"] = new obj_predicate_compare(OBJ_COMP_LESS_OR_EQ,$arr["to"]);
+			$filter["from"] = new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, $arr["to"]);
 		}
 
 		$ol = new object_list($filter);
@@ -101,7 +96,7 @@ class discount_obj extends _int_object
 			{
 				$o->set_parent($arr["object"]);
 			}
-			$o->set_class_id(CL_DISCOUNT);
+			$o->set_class_id(self::CLID);
 			$o->set_name($arr["name"] ? $arr["name"] : t("Allahindlus " . $arr["discount"] . "%"));
 		}
 

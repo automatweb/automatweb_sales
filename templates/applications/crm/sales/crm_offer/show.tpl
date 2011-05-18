@@ -113,7 +113,7 @@
 								<th width="10%">&Uuml;hik</th>
 								<th width="10%">Kogus</th>
 								<th width="10%">Hind</th>
-								<th width="20%">Summa</th>
+								<th width="20%">Summa ({VAR:currency})</th>
 							</tr>
 							<!-- SUB: ROW -->
 							<tr>
@@ -128,15 +128,15 @@
 								<td>{VAR:unit}&nbsp;</td>
 								<td>{VAR:amount}&nbsp;</td>
 								<td>{VAR:price}&nbsp;</td>
-								<td>{VAR:sum} {VAR:currency}&nbsp;</td>
+								<td>{VAR:sum}&nbsp;</td>
 							</tr>
 							<!-- END SUB: ROW -->
 							<tr>
 								<td colspan="4" class="caption">Summa:</td>
-								<td>{VAR:total} {VAR:currency}</td>
+								<td>{VAR:total}&nbsp;</td>
 							</tr>
 							<tr>
-								<td colspan="5" class="words"><strong>Summa s&otilde;nadega:</strong> {VAR:total_text}</td>
+								<td colspan="5" class="words"><strong>Summa s&otilde;nadega:</strong> {VAR:total_text}&nbsp;</td>
 							</tr>
 						</table>
 					</td>

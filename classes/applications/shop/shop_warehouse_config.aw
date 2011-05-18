@@ -188,10 +188,10 @@ class shop_warehouse_config extends class_base
 			case "prodg_tree":
 				$whi = get_instance(CL_SHOP_WAREHOUSE);
 				$whi->prod_type_fld = $arr["obj_inst"]->prop("prod_type_fld");
-				return $whi->mk_prodg_tree(&$arr);
+				return $whi->mk_prodg_tree($arr);
 
 			case "units_tbl":
-				$this->_units_tbl(&$arr);
+				$this->_units_tbl($arr);
 				break;
 
 			case "has_alternative_units":
@@ -221,19 +221,19 @@ class shop_warehouse_config extends class_base
 		switch($data["name"])
 		{
 			case "units_tbl":
-				$this->_save_units(&$arr);
+				$this->_save_units($arr);
 				break;
 		}
 		return $retval;
 	}	
 
-	function _units_tbl($arr)
+	function _units_tbl(&$arr)
 	{
 		if(!$this->can("view", $arr["request"]["pgtf"]))
 		{
 			return PROP_IGNORE;
 		}
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$units = $arr["obj_inst"]->prop("alternative_unit_levels");
 		$t->define_field(array(
 			"name" => "name",
@@ -276,7 +276,7 @@ class shop_warehouse_config extends class_base
 		}
 	}
 
-	function _save_units($arr)
+	function _save_units(&$arr)
 	{
 		if($units = $arr["request"]["units"])
 		{
