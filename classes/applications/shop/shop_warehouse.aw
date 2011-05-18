@@ -4323,9 +4323,9 @@ class shop_warehouse extends class_base
 			{
 				$short_code = get_instance(CL_CFGCONTROLLER)->check_property($cid, null, $code, null, null, null);
 				$params[] = "(
-					code LIKE '%".$code."%' OR 
-					short_code LIKE '%".$short_code."%' OR 
-					search_term LIKE '%".$code."%' OR 
+					code LIKE '%".$code."%' OR
+					short_code LIKE '%".$short_code."%' OR
+					search_term LIKE '%".$code."%' OR
 					search_term LIKE '%".$short_code."%'
 				)";
 			}
@@ -5173,7 +5173,7 @@ $tb->add_delete_button();
 			$cat_obj = obj(reset($cats));
 			$tb->set_caption(sprintf(t("Kategooriates: %s"), $cat_obj->name()));
 		}
-		
+
 
 
 		// get items
@@ -5183,15 +5183,13 @@ $tb->add_delete_button();
 
 		$ol = new object_list($tree_filter);
 
-//		enter_function("packet::get_products");
 //		$products = array();
 //		$products = $arr["obj_inst"]->get_packet_products($ol->ids());
 //		foreach(get_packet_products() as $data)
 //		{
-//			$products[] = $this->change_link($id , $name);	
+//			$products[] = $this->change_link($id , $name);
 //			$products[] = html::obj_change_url($product, $product->name());
 //		}
-//		exit_function("packet::get_products");
 
 
 		for($o = $ol->begin(); !$ol->end(); $o = $ol->next())
@@ -5213,14 +5211,13 @@ $tb->add_delete_button();
 					"caption" => t("V&otilde;ta laost")
 				));
 			}
-			enter_function("packet::get_products");
+
 			$products = array();
 			foreach($o->get_products()->names() as $id => $name)
 			{
 				$products[] = $this->change_link($id , $name);
 //				$products[] = html::obj_change_url($product, $product->name());
 			}
-			exit_function("packet::get_products");
 
 			$tb->define_data(array(
 				"name" => html::obj_change_url($o, $o->path_str(array("to" => $this->pkt_fld))),
@@ -6788,8 +6785,6 @@ $tb->add_delete_button();
 	**/
 	function get_packet_list($arr)
 	{
-		enter_function("shop_warehouse::get_packet_list");
-
 		$wh = obj($arr["id"]);
 		$conf = obj($wh->prop("conf"));
 
@@ -6831,14 +6826,12 @@ $tb->add_delete_button();
 			$parent = $po->id();
 		}
 
-		enter_function("warehouse::object_list");
 		$ol = new object_list(array(
 			"parent" => $parent,
 			"class_id" => CL_SHOP_PRODUCT,
 			"status" => $status
 		));
 		$ret = array_merge($ret, $ol->arr());
-		exit_function("warehouse::object_list");
 		if(!$conf->prop("sell_prods") and empty($arr["no_subitems"]))
 		{
 			// now, let the classes add sub-items to the list
@@ -6853,7 +6846,6 @@ $tb->add_delete_button();
 			}
 			$ret = $tmp;
 		}
-		exit_function("shop_warehouse::get_packet_list");
 		return $ret;
 	}
 
@@ -7489,7 +7481,7 @@ $tb->add_delete_button();
 		}
 		return $js;
 	}
-							
+
 
 	/** returns a list of config forms that can be used to enter products
 
@@ -7592,7 +7584,7 @@ $tb->add_delete_button();
 
 
 			}
-			
+
 die();
 
 			$arr["sel"] = $ol->ids();
@@ -8498,13 +8490,13 @@ die();
 			"tooltip" => t("Ekspordi CSV"),
 			"text" => "CSV",
 		));
-		
+
 		$tb->add_menu_item(array(
 			"parent" => "csv",
 			"text" => t("Hetkel kuvatavad tellimused"),
 			"link" => aw_url_change_var("action", "csv_export"),
 		));
-		
+
 		$tb->add_menu_item(array(
 			"parent" => "csv",
 			"text" => t("Valitud tellimused"),
@@ -8621,14 +8613,11 @@ die();
 
 	function _get_orders_odl($arr, $additional_properties = array())
 	{
-		enter_function("shop_warehouse::_get_orders_odl");
-
 		$hash = md5(serialize($arr["request"])) . md5(serialize($additional_properties));
 
 		static $odl_by_hash;
 		if(!empty($odl_by_hash[$hash]))
 		{
-			exit_function("shop_warehouse::_get_orders_odl");
 			return $odl_by_hash[$hash];
 		}
 
@@ -8652,7 +8641,6 @@ die();
 		}
 		else
 		{
-			exit_function("shop_warehouse::_get_orders_odl");
 			return $odl;
 		}
 		$params = array();
@@ -8794,17 +8782,14 @@ die();
 			}
 			//$params["warehouse"] = $wh;
 			$params["class_id"] = $class_id;
-			
-			enter_function("shop_warehouse::_get_orders_odl::make_da_odl");
+
 			$odl_by_hash[$hash] = $odl = new object_data_list(
 				$params,
 				array(
 					CL_SHOP_SELL_ORDER => array_merge(array("related_orders", "number", "order_status", "deal_date", "job", "purchaser", "purchaser(CL_CRM_PERSON).name" => "purchaser.name", "purchaser.class_id", "channel", "channel.name", "date", "currency", "order_status", "order_status"), $additional_properties)
 				)
 			);
-			exit_function("shop_warehouse::_get_orders_odl::make_da_odl");
 		}
-		exit_function("shop_warehouse::_get_orders_odl");
 		return $odl;
 	}
 
@@ -8838,7 +8823,6 @@ die();
 		}
 		else
 		{
-			exit_function("shop_warehouse::_get_orders_ol");
 			return $ol;
 		}
 
@@ -8980,12 +8964,9 @@ die();
 			}
 			//$params["warehouse"] = $wh;
 			$params["class_id"] = $class_id;
-			
-			enter_function("shop_warehouse::_get_orders_ol::make_da_ol");
+
 			$ol->add(new object_list($params));
-			exit_function("shop_warehouse::_get_orders_ol::make_da_ol");
 		}
-		exit_function("shop_warehouse::_get_orders_ol");
 		return $ol;
 	}
 
@@ -9021,10 +9002,9 @@ die();
 		$sums_for_orders = shop_sell_order_obj::get_sums_by_ids($odl->ids());
 //		$external_ids = crm_person_obj::get_external_ids_for_person_ids($odl->ids());
 		$purchaser_data = shop_sell_order_obj::get_purchaser_data_by_ids($odl->get_element_from_all("purchaser"))->arr();
-		
+
 		foreach($odl->arr() as $oid => $odata)
 		{
-			enter_function("orders_table_loop");
 			$count++;
 			$other_rels = $odata["related_orders"];
 			$rel_arr = array();
@@ -9040,8 +9020,7 @@ die();
 					$rel_arr[] = html::obj_change_url($so, $cnum ? $cnum : t("(Puudub)"));
 				}
 			}
-			exit_function("orders_table_loop");
-			enter_function("orders_table_loop3");
+
 			$cnum = $odata["number"];
 			$cid = $odata["job"];
 			if($this->can("view", $cid))
@@ -9061,12 +9040,12 @@ die();
 			}
 			$add_row = null;
 			$sum = 0;
-			exit_function("orders_table_loop3");
+
 			if(!empty($sums_for_orders[$oid]))
 			{
 				$sum += $sums_for_orders[$oid];
 			}
-			enter_function("orders_table_loop2");
+
 			$total_sum+=$sum;
 			if(($group === "purchase_orders" and $arr["obj_inst"]->class_id() == CL_SHOP_PURCHASE_MANAGER_WORKSPACE) || ($group === "sell_orders" and $arr["obj_inst"]->class_id() == CL_SHOP_SALES_MANAGER_WORKSPACE))
 			{
@@ -9164,9 +9143,8 @@ die();
 				}
 				//$add_row .= "<br />";
 			}
-			exit_function("orders_table_loop2");
+
 			$cust_code = isset($customer_relation_ids[$odata["purchaser"]]) ? html::get_change_url($customer_relation_ids[$odata["purchaser"]], array(), $customer_relation_ids[$odata["purchaser"]], NULL, CL_CRM_COMPANY_CUSTOMER_DATA) : "";
-			enter_function("orders_table_loop1");
 			$t->define_data(array(
 				"nr" => $count,
 				"number" => html::get_change_url($oid, array(), $cnum ? $cnum : t("(Puudub)"), NULL, CL_SHOP_SELL_ORDER),
@@ -9198,7 +9176,6 @@ die();
 				"now" => $dealnow,
 				"add_row" => $add_row ? array($add_row, array("style" => "background-color: #BBBBBB; height: 12px;")) :"",
 			));
-			exit_function("orders_table_loop1");
 		}
 		//$t->set_lower_titlebar_display(true);
 		$time_capt = "";
@@ -9376,7 +9353,7 @@ die();
 			"sortable" => 1,
 			"align" => "center",
 			"chgbgcolor" => "color",
-			"parent" => "orderer", 
+			"parent" => "orderer",
 		));
 /*		$t->define_field(array(
 			"name" => "purchaser_id",
@@ -9384,7 +9361,7 @@ die();
 			"sortable" => 1,
 			"align" => "center",
 			"chgbgcolor" => "color",
-			"parent" => "orderer", 
+			"parent" => "orderer",
 		));
  */
 		$t->define_field(array(
@@ -9393,7 +9370,7 @@ die();
 			"sortable" => 1,
 			"align" => "center",
 			"chgbgcolor" => "color",
-			"parent" => "orderer", 
+			"parent" => "orderer",
 		));
 
 
@@ -10326,7 +10303,7 @@ die();
 			"iconurl" => icons::get_icon_url(CL_MENU),
 			"url" => aw_url_change_var("filt_time", "thisweek"),
 		));
-		
+
 		if(!in_array($g, array("sell_orders")))
 		{
 			if(!empty($count6))$t->add_item(0, array(
@@ -10348,7 +10325,7 @@ die();
 			"iconurl" => icons::get_icon_url(CL_MENU),
 			"url" => aw_url_change_var("filt_time", "thismonth"),
 		));
-		
+
 		if(!in_array($g, array("sell_orders")))
 		{
 			if(!empty($count9))$t->add_item(0, array(
@@ -12272,7 +12249,7 @@ die();
 				break;
 			default :
 				return array();
-				break;	
+				break;
 		}
 		return array(
 			"from" => $from,
@@ -12502,13 +12479,13 @@ die();
 		}
 
 		$res = $this->db_fetch_array('
-			SELECT 
-				name, 
-				code, 
-				short_code, 
-				search_term, 
-				aw_oid 
-			FROM 
+			SELECT
+				name,
+				code,
+				short_code,
+				search_term,
+				aw_oid
+			FROM
 				aw_shop_products left join objects on oid = aw_oid
 		');
 		foreach ($res as $r)
@@ -12521,12 +12498,12 @@ die();
 			}
 
 			$this->db_query("
-				REPLACE 
-					INTO aw_shop_products_index 
-				SET 
-					code = '".addslashes($r['code'])."', 
-					oid = '".$r['aw_oid']."', 
-					short_code = '".addslashes($r['short_code'])."', 
+				REPLACE
+					INTO aw_shop_products_index
+				SET
+					code = '".addslashes($r['code'])."',
+					oid = '".$r['aw_oid']."',
+					short_code = '".addslashes($r['short_code'])."',
 					search_term = '".addslashes($short_search_term)."',
 					name = '".addslashes($r['name'])."',
 					updated = true
@@ -12536,7 +12513,7 @@ die();
 
 		// now, we need to delete all those lines from the table which weren't updated
 		$this->db_query("DELETE FROM aw_shop_products_index WHERE updated = false");
-		
+
 		// For next import, lets reset the updated bit
 		$this->db_query("UPDATE aw_shop_products_index SET updated = false");
 
@@ -13091,7 +13068,7 @@ die();
 			"reload" => array(
 				"layouts" => array("product_managementright"),
 			        "params" => array("cat" => null)
-			) 
+			)
 		));//print "folder:" ; arr($prod_folder);
 		$cats = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
@@ -13139,9 +13116,6 @@ die();
 
 	function _get_product_management_category_tree($arr)
 	{
-
-		enter_function("product_management_category_tree1");
-
 		$ret = "";
 		$types = $arr["obj_inst"]->get_product_category_types();
 //		if(!$types->count())
@@ -13167,22 +13141,17 @@ die();
 			"reload" => array(
 				"layouts" => array("product_managementright","packets_right"),
 			        "params" => array("cat" => null)
-			) 
+			)
 		));
 
 		//kui keegi n2eb v6imalust, et m6nel inimesel on v2hem 6igusi erinevate tootekategooriate n2gemiseks, siis v6tku see maha
 		//mulle ei tundu aktuaalne igatahes - Marko
-		aw_disable_acl();
-
 		$cats = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
 			"parent" => $prod_folder,
 			"sort_by" => "name asc",
 			"status" => array(object::STAT_NOTACTIVE, object::STAT_ACTIVE),
 		));
-		aw_restore_acl();
-		exit_function("product_management_category_tree1");/*
-		enter_function("product_management_category_tree2");
 		foreach($cats->arr() as $id => $cat)
 		{
 			$tv->add_item($prod_folder,array(
@@ -13209,8 +13178,6 @@ die();
 //-------------------------------- kategooriate tyypide puud
 
 
-		exit_function("product_management_category_tree2");*/
-		enter_function("product_management_category_tree3");
 		foreach($types->arr() as $id => $cat)
 		{
 			$t = new treeview();
@@ -13241,7 +13208,6 @@ die();
 			));
 	//		$ret .= "<div style='border: 1px solid gray; background-color: white;margin:5px;'>".$t->get_html()."</div>";
 		}
-		exit_function("product_management_category_tree3");
 		$arr["prop"]["value"] = $ret;
 		return PROP_OK;
 	}
@@ -13716,7 +13682,7 @@ die();
 			"name" => "name",
 			"caption" => t("Nimi"),
 		));
-		 
+
 		$filter = array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
 		);
