@@ -493,10 +493,10 @@ class crm_company_people_impl extends class_base
 			if($sections->count())
 			{
 				$section = $sections->begin();
-				$section_id = $section->id();
 
 				do
 				{
+					$section_id = $section->id();
 					$ccp = (isset($_SESSION["crm_cut_p"][$section_id]) ? "#E2E2DB" : "");
 					// This produces an error if there are more than 2 words in the name.
 					$table->define_data(array(
@@ -513,10 +513,10 @@ class crm_company_people_impl extends class_base
 			if($professions->count())
 			{
 				$profession = $professions->begin();
-				$profession_id = $profession->id();
 
 				do
 				{
+					$profession_id = $profession->id();
 					$ccp = (isset($_SESSION["crm_cut_p"][$profession_id]) ? "#E2E2DB" : "");
 					// This produces an error if there are more than 2 words in the name.
 					$table->define_data(array(

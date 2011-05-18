@@ -1411,7 +1411,7 @@ END;
 							{
 								$style = (($counter % 2) == 0) ? $this->style2 : $this->style1;
 								$bgcolor = ($counter % 2) ? $this->bgcolor1 : $this->bgcolor2;
-							};
+							}
 						}
 					}
 
@@ -1835,7 +1835,8 @@ END;
 		if (!isset($attrs["value"]))
 		{
 			$attrs["value"] = "";
-		};
+		}
+
 		switch($name)
 		{
 			// vaikimisi m&auml;&auml;ratud sorteerimisj&auml;rjekord
