@@ -94,9 +94,54 @@ class crm_offer_obj extends crm_offer_price_component_handler
 
 		return $new_offer;
 	}
+
+	/**	Returns on object_list of operations related to this offer.
+		@attrib api=1 params=pos
+		@param clids type=array default=array()
+			Array of class_id's of operations to be returned. If empty array given, all operations will be returned.
+	**/
+	public function get_related_operations($clids = array())
+	{
+		if(!$this->is_saved())
+		{
+			throw new awex_crm_offer("Offer must be saved before related operations can be queried!");
+		}
+
+		$ol_args = array(
+			new object_list_filter(array(
+				"logic" => "OR",
+				"conditions" => array(
+					"CL_CRM_OFFER_SENT.offer" => $this->id(),
+					"CL_CRM_CALL.offer" => $this->id(),
+					"CL_CRM_PRESENTATION.offer" => $this->id(),
+				)
+			))
+		);
+
+		$possible_clids = array(crm_offer_sent_obj::CLID, crm_call_obj::CLID, crm_presentation_obj::CLID);
+		if (is_array($clids) and count($clids) > 0)
+		{
+			$ol_args["class_id"] = array(-1);
+			foreach($clids as $clid)
+			{
+				if (in_array($clid, $possible_clids))
+				{
+					$ol_args["class_id"][] = $clid;
+				}
+			}
+		}
+		else
+		{
+			$ol_args["class_id"] = $possible_clids;
+		}
+
+		return new object_list($ol_args);
+	}
 	
 	/**	Returns temporary (or default value if temporary is not set) value of a given mail property
 		@attrib api=1
+		@errors
+			Throws awex_crm_offer if this offer is not saved.
 	**/
 	public function get_mail_prop($k)
 	{
@@ -351,7 +396,7 @@ Parimat,
 		return $ret;
 	}
 
-	/** Parses variables in invoice e-mail body or subject text
+	/** Parses variables in offer e-mail body or subject text
 		@attrib api=1 params=pos
 		@param text type=string
 			Text to parse variables in
@@ -672,7 +717,7 @@ Parimat,
 
 		if (!$success)
 		{
-			throw new awex_crm_offer_file("Attaching offer file (id: " . $invoice_pdf->id() . ") failed. Offer id " . $this->id());
+			throw new awex_crm_offer_file("Attaching offer file (id: " . $offer_pdf->id() . ") failed. Offer id " . $this->id());
 		}
 
 		$awm->htmlbodyattach(array(
@@ -687,18 +732,19 @@ Parimat,
 		{
 			throw new awex_crm_offer_send ("Sending '".$this->id()."' failed");
 		}
-/*
+
 		// write log
 		/// mail message object for logging
-		$mail = obj(null, array(), CL_MESSAGE);
+		$mail = obj(null, array(), crm_offer_sent_obj::CLID);
 		$mail->set_parent($this->id());
-		$mail->set_name(t("saadetud arve")." ".$this->id()." ".t("kliendile")." ".$this->get_customer_name());
+		$mail->set_name(sprintf(t("Pakkumus %d kliendile %s"), $this->id(), $this->prop("customer.name")));
+		$mail->set_prop("offer", $this->id());
 		$mail->save();
 
-		$attachments = array($invoice_pdf->id());
-		$invoice_pdf ->set_parent($mail->id());
-		$invoice_pdf->save();
+		$offer_pdf->set_parent($mail->id());
+		$offer_pdf->save();
 
+		$attachments = array($offer_pdf->id());
 		$mail->set_prop("attachments", $attachments);
 		$mail->set_prop("customer", $this->prop("customer"));
 		$mail->set_prop("message", $body);
@@ -708,10 +754,6 @@ Parimat,
 		$mail->set_prop("cc", $cc);
 		$mail->set_prop("bcc", $bcc);
 		$mail->save();
-
-		$comment = html_entity_decode(sprintf(t("%s saatis arve nr. %s; summa %s; kuup&auml;ev: %s; kellaaeg: %s; aadressidele: %s; koopia aadressidele: %s; tekst: %s; lisatud failid: %s. "), aw_global_get("uid"), $this->prop("bill_no") , $this->prop("sum") , date("d.m.Y") , date("H:i") , htmlspecialchars($to), htmlspecialchars($cc), $body, $att_comment));
-		$this->add_comment($comment);
-*/
 
 		$this->set_prop("state", self::STATE_SENT);
 		$this->save();
@@ -735,7 +777,8 @@ Parimat,
 			}
 		}
 
-		if (!$pdf)
+		//	TODO: PDF must only be recreated after the contents of the offer is modified!
+		if (true || !$pdf)
 		{
 			$f = new file();
 			$id = $f->create_file_from_string(array(
@@ -1343,7 +1386,7 @@ Parimat,
 		return false;
 	}
 
-	protected function get_customer_relation()
+	public function get_customer_relation()
 	{
 		try
 		{

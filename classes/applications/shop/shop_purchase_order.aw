@@ -189,7 +189,7 @@ class shop_purchase_order extends class_base
 
 	function _get_gen_tb($arr)
 	{
-		$tb = &$arr["prop"]["vcl_inst"];
+		$tb = $arr["prop"]["vcl_inst"];
 		if($this->can("view", $arr["obj_inst"]->prop("warehouse")))
 		{
 			$cfgid = obj($arr["obj_inst"]->prop("warehouse"))->prop("conf");
@@ -216,7 +216,7 @@ class shop_purchase_order extends class_base
 		{
 			try
 			{
-				get_instance(CL_CFG_VIEW_CONTROLLER)->check_property(&$mail_url, $cfg->prop("purchase_order_mail_ctrl"), $arr);
+				get_instance(CL_CFG_VIEW_CONTROLLER)->check_property($mail_url, $cfg->prop("purchase_order_mail_ctrl"), $arr);
 			}
 			catch(Exception $e)
 			{

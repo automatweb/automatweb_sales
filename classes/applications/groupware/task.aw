@@ -6157,6 +6157,7 @@ class task extends class_base
 		{
 			switch($f)
 			{
+				case "aw_offer":
 				case "result":
 				case "result_task":
 				case "phone":

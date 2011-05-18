@@ -250,11 +250,13 @@ class crm_sales_obj extends _int_object implements application_interface
 		Tasks (CL_TASK and extensions) that the created call will be the result task for and have it as prerequisites.
 	@param check_existing type=bool default=false
 		Check if an active call to that customer already exists, don't create new call if it does
+	@param properties type=array default=null
+		Array of key-value pairs of properties to be set.
 
 	@returns CL_CRM_CALL
 		Created call object or when $check_existing TRUE newest existing active call if found
 	**/
-	public function create_call(object $customer_relation, $time = 0, object_list $prerequisite_tasks = null, $check_existing = false)
+	public function create_call(object $customer_relation, $time = 0, object_list $prerequisite_tasks = null, $check_existing = false, $properties = null)
 	{
 		// uses only customer relation prop avoid additional connection objects
 		// customer prop is left empty as redundant
@@ -287,6 +289,14 @@ class crm_sales_obj extends _int_object implements application_interface
 			$call->set_name(sprintf(aw_html_entity_decode(t("K&otilde;ne %s kliendile %s")), $this->get_calls_count($customer_relation) + 1, $customer_relation->prop("buyer.name")));
 			$call->set_prop("customer_relation", $customer_relation->id());
 			$this->set_call_time($call, $time);
+
+			if (!empty($properties))
+			{
+				foreach($properties as $k => $v)
+				{
+					$call->set_prop($k, $v);
+				}
+			}
 
 			if (0 === self::$tm_resource_cache)
 			{
@@ -412,11 +422,13 @@ class crm_sales_obj extends _int_object implements application_interface
 		Tasks (CL_TASK and extensions) that the created presentation will be the result task for and have it as prerequisites.
 	@param check_existing type=bool default=false
 		Check if an active presentation to that customer already exists, don't create new presentation if it does
+	@param properties type=array default=null
+		Array of key-value pairs of properties to be set.
 
 	@returns CL_CRM_PRESENTATION
 		Created presentation object or when $check_existing TRUE newest existing active presentation if found
 	**/
-	public function create_presentation(object $customer_relation, $time = 0, object_list $prerequisite_tasks = null, $check_existing = false)
+	public function create_presentation(object $customer_relation, $time = 0, object_list $prerequisite_tasks = null, $check_existing = false, $properties = null)
 	{
 		// uses only customer relation prop avoid additional connection objects
 		// customer prop is left empty as redundant
@@ -451,6 +463,13 @@ class crm_sales_obj extends _int_object implements application_interface
 			$presentation->set_name(sprintf(t("Esitlus %s kliendile %s"), $presentation_nr, $customer_relation->prop("buyer.name")));
 			$presentation->set_prop("customer_relation", $customer_relation->id());
 			$this->set_presentation_time($presentation, $time);
+			if (!empty($properties))
+			{
+				foreach($properties as $k => $v)
+				{
+					$presentation->set_prop($k, $v);
+				}
+			}
 			$company = $this->awobj_get_owner();
 			$profession = new object($this->prop("role_profession_telemarketing_salesman"), array(), CL_CRM_PROFESSION);
 			$human_resources_manager = mrp_workspace_obj::get_hr_manager($company);

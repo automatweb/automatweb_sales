@@ -188,7 +188,7 @@ class shop_sell_order extends class_base
 
 	function callback_mod_reforb($arr)
 	{
-		return get_instance(CL_SHOP_PURCHASE_ORDER)->callback_mod_reforb(&$arr);
+		return get_instance(CL_SHOP_PURCHASE_ORDER)->callback_mod_reforb($arr);
 	}
 	
 	function callback_post_save($arr)
@@ -411,7 +411,7 @@ class shop_sell_order extends class_base
 		
 	//	echo '<pre>';var_dump($arr);echo '</pre>';
 		$this->read_any_template($arr["template"]);
-		lc_site_load("shop", &$this);
+		lc_site_load("shop", $this);
 		$data = array();
 		$o = obj($arr["id"]);
 		$meta = $o->meta("order_data");

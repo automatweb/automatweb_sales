@@ -65,6 +65,7 @@
 				<arguments>
 					<required name="id" type="oid" />
 					<required name="cust_rel" type="oid" />
+					<optional name="offer" type="oid" />
 					<optional name="return_url" type="string" />
 				</arguments>
 			</function>
@@ -74,6 +75,7 @@
 				<arguments>
 					<required name="id" type="oid" />
 					<required name="cust_rel" type="oid" />
+					<optional name="offer" type="oid" />
 					<optional name="return_url" type="string" />
 				</arguments>
 			</function>

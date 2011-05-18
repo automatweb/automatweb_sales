@@ -667,7 +667,7 @@ class mail_message extends class_base
 				break;
 
 			case "mfrom":
-				$this->gen_identities(&$arr);
+				$this->gen_identities($arr);
 				if(is_oid($arr["request"]["mfrom"]))
 				{
 					$prop["value"] = $arr["request"]["mfrom"];
@@ -711,7 +711,7 @@ class mail_message extends class_base
 				break;
 
 			case "edit_toolbar":
-				$this->edit_toolbar(&$prop);
+				$this->edit_toolbar($prop);
 				break;
 
 			case "msgrid":
@@ -928,9 +928,9 @@ arr($row);*/
 	}
 
 
-	function edit_toolbar($arr)
+	function edit_toolbar(&$arr)
 	{
-		$tb = &$arr["toolbar"];
+		$tb = $arr["toolbar"];
 		// now, how do I figure out that the send button was clicked in my set_property calls?
 		// it needs to act exactly like save in every aspect, except that it has to
 		// send the message as well
@@ -964,7 +964,7 @@ arr($row);*/
 
 	function view_toolbar($arr)
 	{
-		$tb = &$arr["prop"]["toolbar"];
+		$tb = $arr["prop"]["toolbar"];
 		$tb->add_button(array(
 			"name" => "reply",
 			"action" => "mail_reply",
@@ -1219,7 +1219,7 @@ arr($row);*/
 		$arr["obj_inst"]->save();
 	}
 
-	function gen_identities($arr)
+	function gen_identities(&$arr)
 	{
 		$rv = &$arr["prop"];
 		// grr, I hate this

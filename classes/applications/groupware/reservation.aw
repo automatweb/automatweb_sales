@@ -1203,7 +1203,7 @@ class reservation extends class_base
 		$room = $this->can("view", $room)?obj($room):false;
 		$currency = $room?$room->prop("currency"):array();
 
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 
 		$t->define_header($arr["obj_inst"]->name());
 		$t->define_field(array(
@@ -1425,7 +1425,7 @@ class reservation extends class_base
 			}
 		}
 		$this->_get_products_tbl(array(
-			"prop" => array("vcl_inst" => &$arr["prop"]["vcl_inst"]),
+			"prop" => array("vcl_inst" => $arr["prop"]["vcl_inst"]),
 			"web" => $arr["web"],
 			"room" => $arr["room"],
 		));
@@ -1510,7 +1510,7 @@ class reservation extends class_base
 		{
 			$is_admin = 1;
 		}
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "picture",
 			"caption" => t("&nbsp"),
@@ -1733,7 +1733,7 @@ class reservation extends class_base
 
 	function _get_prices_tbl($arr)
 	{
-		$t = &$arr["prop"]["vcl_inst"];
+		$t = $arr["prop"]["vcl_inst"];
 		if($arr["obj_inst"])
 		{
 			$rvs[] = $arr["obj_inst"];
@@ -1776,7 +1776,7 @@ class reservation extends class_base
 				"room" => "room",
 			));
 		}
-		usort(&$rvs, array($this, "_sort_by_time"));
+		usort($rvs, array($this, "_sort_by_time"));
 		$t->define_field(array(
 			"name" => "discount",
 			"caption" => t("Soodustus %"),
@@ -2894,7 +2894,7 @@ flush();
 		$tb->add_delete_rels_button();
 	}
 
-	function _init_ppl_t(&$t)
+	function _init_ppl_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -3028,7 +3028,7 @@ flush();
 		$tb->add_delete_button();
 	}
 
-	function _init_recur_t(&$t)
+	function _init_recur_t($t)
 	{
 		$t->define_field(array(
 			"name" => "name",
@@ -3159,7 +3159,7 @@ flush();
 		return $o;
 	}
 
-	function _init_recur_manage_t(&$t)
+	function _init_recur_manage_t($t)
 	{
 		$t->define_field(array(
 			"name" => "from",

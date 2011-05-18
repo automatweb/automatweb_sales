@@ -22,6 +22,13 @@
             <field>result_task</field>
       </property>
       <property>
+            <name>offer</name>
+            <table>planner</table>
+            <type>hidden</type>
+            <datatype>int</datatype>
+            <field>aw_offer</field>
+      </property>
+      <property>
             <name>predicates</name>
             <table>objects</table>
             <group>predicates</group>

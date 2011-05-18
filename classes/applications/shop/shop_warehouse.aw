@@ -1667,7 +1667,7 @@ class shop_warehouse extends class_base
 
 				case "to":
 				case "from":
-					$prop["value"] = date_edit::get_timestamp($arr["request"][$prop["name"]]);
+					$prop["value"] = isset($arr["request"][$prop["name"]]) ? date_edit::get_timestamp($arr["request"][$prop["name"]]) : 0;
 					$prop["format"] = array("day_textbox", "month_textbox", "year_textbox");
 					break;
 
@@ -1677,7 +1677,7 @@ class shop_warehouse extends class_base
 						"class_id" => CL_SHOP_WAREHOUSE,
 					));
 					$prop["options"] += $ol->names();
-					$prop["value"] = ($v = $arr["request"][$prop["name"]])?$v:$arr["obj_inst"]->id();
+					$prop["value"] = !empty($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : $arr["obj_inst"]->id();
 					break;
 
 				case "sales_order_status":
@@ -1704,7 +1704,7 @@ class shop_warehouse extends class_base
 						STORAGE_FILTER_INCOME => t("Sissetulekud"),
 						STORAGE_FILTER_EXPORT => t("V&auml;ljaminekud"),
 					);
-					$prop["value"] = ($val = $arr["request"][$prop["name"]]) ? $val : STORAGE_FILTER_ALL;
+					$prop["value"] = !empty($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : STORAGE_FILTER_ALL;
 					break;
 
 				case "type":
@@ -1713,7 +1713,7 @@ class shop_warehouse extends class_base
 						STORAGE_FILTER_BILLS => t("Arved"),
 						STORAGE_FILTER_DNOTES => t("Saatelehed"),
 					);
-					$prop["value"] = ($val = $arr["request"][$prop["name"]]) ? $val : STORAGE_FILTER_ALL;
+					$prop["value"] = !empty($arr["request"][$prop["name"]]) ? $arr["request"][$prop["name"]] : STORAGE_FILTER_ALL;
 					break;
 
 				case "date":
@@ -1790,18 +1790,21 @@ class shop_warehouse extends class_base
 	{
 		$oc = obj($arr["obj_inst"]->prop("order_center"));
 		$soc = get_instance(CL_SHOP_ORDER_CART);
-		$awa = new aw_array($arr["request"]["quant"]);
-		foreach($awa->get() as $iid => $quantx)
+		if (isset($arr["request"]["quant"]))
 		{
-			$quantx = new aw_array($quantx);
-			foreach($quantx->get() as $x => $quant)
+			$awa = new aw_array($arr["request"]["quant"]);
+			foreach($awa->get() as $iid => $quantx)
 			{
-				$soc->set_item(array(
-					"iid" => $iid,
-					"quant" => $quant,
-					"oc" => $oc,
-					"it" => $x,
-				));
+				$quantx = new aw_array($quantx);
+				foreach($quantx->get() as $x => $quant)
+				{
+					$soc->set_item(array(
+						"iid" => $iid,
+						"quant" => $quant,
+						"oc" => $oc,
+						"it" => $x,
+					));
+				}
 			}
 		}
 
@@ -1868,16 +1871,16 @@ class shop_warehouse extends class_base
 		}
 
 
-		if(!$srch["stats_type"])
+		if(empty($srch["stats_type"]))
 		{
 			$srch["stats_type"] = "all";
 		}
-		if(!$arr["request"]["timespan"])
+		if(empty($arr["request"]["timespan"]))
 		{
 			$arr["request"]["timespan"] = "period_week";
 		}
 		$filter = $this->get_range($arr["request"]["timespan"]);
-		$filter["category"] = $arr["request"]["pgtf"];
+		$filter["category"] = isset($arr["request"]["pgtf"]) ? $arr["request"]["pgtf"] : 0;
 		while($filter["from"] < $filter["to"])
 		{
 			if($filter["from"] > time())
@@ -1931,16 +1934,16 @@ class shop_warehouse extends class_base
 	function _get_stats_balance_table($arr)
 	{
 		$srch = $arr["request"];
-		if(!$srch["stats_type"])
+		if(empty($srch["stats_type"]))
 		{
 			$srch["stats_type"] = "all";
 		}
-		if(!$arr["request"]["timespan"])
+		if(empty($arr["request"]["timespan"]))
 		{
 			$arr["request"]["timespan"] = "period_week";
 		}
 		$filter = $this->get_range($arr["request"]["timespan"]);
-		$filter["category"] = $arr["request"]["pgtf"];
+		$filter["category"] = isset($arr["request"]["pgtf"]) ? $arr["request"]["pgtf"] : null;
 
 		$ol = $arr["obj_inst"] -> get_movements($filter);
 
@@ -2085,12 +2088,12 @@ class shop_warehouse extends class_base
 	{
 		$srch = $arr["request"];
 
-		if(!$srch["stats_type"])
+		if(empty($srch["stats_type"]))
 		{
 			$srch["stats_type"] = "all";
 		}
 
-		if(!$arr["request"]["timespan"])
+		if(empty($arr["request"]["timespan"]))
 		{
 			$arr["request"]["timespan"] = "period_week";
 		}
@@ -2134,7 +2137,7 @@ class shop_warehouse extends class_base
 
 			$start+= 86400;
 		}
-		$filter["category"] = $arr["request"]["pgtf"];
+		$filter["category"] = isset($arr["request"]["pgtf"]) ? $arr["request"]["pgtf"] : null;
 		$filter["action_type"] = $srch["stats_type"];
 		$ol = $arr["obj_inst"] -> get_movements($filter);//		arr($ol);
 		$data = array();
@@ -2188,16 +2191,16 @@ class shop_warehouse extends class_base
 	{
 		$srch = $arr["request"];
 
-		if(!$srch["stats_type"])
+		if(empty($srch["stats_type"]))
 		{
 			$srch["stats_type"] = "all";
 		}
-		if(!$arr["request"]["timespan"])
+		if(empty($arr["request"]["timespan"]))
 		{
 			$arr["request"]["timespan"] = "period_week";
 		}
 		$filter = $this->get_range($arr["request"]["timespan"]);
-		$filter["category"] = $arr["request"]["pgtf"];
+		$filter["category"] = isset($arr["request"]["pgtf"]) ? $arr["request"]["pgtf"] : null;
 
 
 		$t = $arr["prop"]["vcl_inst"];
@@ -2626,7 +2629,7 @@ class shop_warehouse extends class_base
 			"parent" => "create_order",
 			"text" => t("Tellimus"),
 			"link" => $this->mk_my_orb("new", array(
-				"parent" => $this->order_fld,
+				"parent" => isset($this->order_fld) ? $this->order_fld : null,
 				"alias_to" => $arr["obj_inst"]->id(),
 				"reltype" => 5, //RELTYPE_ORDER,
 				"return_url" => get_ru()
@@ -2654,7 +2657,7 @@ class shop_warehouse extends class_base
 
 	function _get_shop_orders_tree($arr)
 	{
-		$s = $arr["request"]["shop_orders_s_status"];
+		$s = automatweb::$request->arg("shop_orders_s_status");
 		$t = $arr["prop"]["vcl_inst"];
 		$t->start_tree(array(
 			"type" => TREE_DHTML,
@@ -2772,32 +2775,32 @@ class shop_warehouse extends class_base
 	function _get_shop_orders_ol($arr)
 	{
 		$s = "shop_orders_s_";
-		if($arr[$s."status"])
+		if(!empty($arr[$s."status"]))
 		{
 			$params["confirmed"] = ($arr[$s."status"] > 0) ? 1 : new obj_predicate_not(1);
 		}
-		if($arr[$s."uname"])
+		if(!empty($arr[$s."uname"]))
 		{
 			$params["orderer_person.RELTYPE_PERSON(CL_USER).name"] = "%".$arr[$s."uname"]."%";
 		}
-		if($arr[$s."pname"])
+		if(!empty($arr[$s."pname"]))
 		{
 			$params["orderer_person.name"] = "%".$arr[$s."pname"]."%";
 		}
-		if($arr[$s."oname"])
+		if(!empty($arr[$s."oname"]))
 		{
 			$params["orderer_company.name"] = "%".$arr[$s."oname"]."%";
 		}
-		if($arr[$s."oid"])
+		if(!empty($arr[$s."oid"]))
 		{
 			$params["oid"] = $arr[$s."oid"];
 		}
-		if($arr[$s."prod"])
+		if(!empty($arr[$s."prod"]))
 		{
 			$params["RELTYPE_PRODUCT.name"] = "%".$arr[$s."prod"]."%";
 		}
-		$f = date_edit::get_timestamp($arr[$s."from"]);
-		$t = date_edit::get_timestamp($arr[$s."to"]);
+		$f = isset($arr[$s."from"]) ? date_edit::get_timestamp($arr[$s."from"]) : 0;
+		$t = isset($arr[$s."to"]) ? date_edit::get_timestamp($arr[$s."to"]) : 0;
 		if($f > 0 and $t > 0)
 		{
 			$params["created"] = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, mktime(0,0,0,date('m', $f),date('d', $f),date('Y', $f)), mktime(23,59,59,date('m', $t),date('d', $t),date('Y', $t)));
@@ -3005,6 +3008,12 @@ class shop_warehouse extends class_base
 
 	function _get_arrival_products_list($arr)
 	{
+		if (!isset($this->config) or !is_object($this->config))
+		{
+			$this->show_error_text(t("VIGA: konfiguratsioon on valimata!"));
+			return PROP_ERROR;
+		}
+
 		$t = $arr["prop"]["vcl_inst"];
 		$t->set_sortable(false);
 
@@ -3144,6 +3153,12 @@ class shop_warehouse extends class_base
 
 	function _get_arrivals_bc_table($arr)
 	{
+		if (!isset($this->config) or !is_object($this->config))
+		{
+			$this->show_error_text(t("VIGA: konfiguratsioon on valimata!"));
+			return PROP_ERROR;
+		}
+
 		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "company",
@@ -3380,7 +3395,7 @@ class shop_warehouse extends class_base
 			"img" => "new.gif",
 			"tooltip" => t("Tootegrupp"),
 			"url" => $this->mk_my_orb("new", array(
-				"parent" => ($p = $prop["request"]["pgtf"])?$p:$this->prod_type_fld,
+				"parent" => !empty($prop["request"]["pgtf"]) ? $prop["request"]["pgtf"] : $this->prod_type_fld,
 				"return_url" => get_ru(),
 				"cfgform" => $this->prod_type_cfgform,
 			), CL_SHOP_PRODUCT_CATEGORY),
@@ -3446,9 +3461,10 @@ class shop_warehouse extends class_base
 		{
 			return PROP_IGNORE;
 		}
+
 		if($arr["obj_inst"]->class_id() == CL_SHOP_WAREHOUSE)
 		{
-			$pt = $this->prod_type_fld;
+			$pt = isset($this->prod_type_fld) ? $this->prod_type_fld : null;
 			$root_name = obj($pt)->name();
 		}
 		else
@@ -3456,6 +3472,12 @@ class shop_warehouse extends class_base
 			$pt = $this->get_warehouse_configs($arr, "prod_type_fld");
 			$root_name = t("Artiklikategooriad");
 		}
+
+		if(empty($pt))
+		{
+			return PROP_IGNORE;
+		}
+
 		$group = $this->get_search_group($arr);
 		$ol = new object_list(array(
 			"parent" => $pt,
@@ -3794,10 +3816,10 @@ class shop_warehouse extends class_base
 			return PROP_IGNORE;
 		}
 
-		$clids = array(CL_MENU);
-		if($arr["obj_inst"]->class_id() == CL_SHOP_WAREHOUSE)
+		$clids = array(menu_obj::CLID);
+		if($arr["obj_inst"]->is_a(shop_warehouse_obj::CLID))
 		{
-			$pt = $this->prod_fld;
+			$pt = isset($this->prod_fld) ? $this->prod_fld : null;
 			$root_name = obj($pt)->name();
 
 			$clids = $this->get_warehouse_configs($arr, "prod_tree_clids");
@@ -3808,6 +3830,10 @@ class shop_warehouse extends class_base
 			$root_name = t("Artiklid");
 		}
 
+		if(empty($pt))
+		{
+			return PROP_IGNORE;
+		}
 		$ol = new object_list(array(
 			"parent" => $pt,
 			"class_id" => $clids,
@@ -3831,7 +3857,7 @@ class shop_warehouse extends class_base
 		$tree->start_tree(array(
 			"has_root" => true,
 			"root_name" => trim(automatweb::$request->arg("ptf")) == $pt ? "<strong>".$root_name."</strong>" : $root_name,
-			"root_url" => aw_url_change_var(array("ptf"=> $this->prod_fld, "pgtf"=>null)),
+			"root_url" => aw_url_change_var(array("ptf"=> isset($this->prod_fld) ? $this->prod_fld : null, "pgtf"=>null)),
 			"root_icon" => icons::get_icon_url(CL_MENU),
 			"type" => TREE_DHTML,
 			"tree_id" => "prod_tree",
@@ -4768,7 +4794,7 @@ class shop_warehouse extends class_base
 			"caption" => t("FIFO"),
 			"align" => "center"
 		));
-		if((!isset($arr["request"][$group."_s_pricelist"]) and $this->def_price_list) || automatweb::$request->arg($group."_s_pricelist"))
+		if((!isset($arr["request"][$group."_s_pricelist"]) and !empty($this->def_price_list)) || automatweb::$request->arg($group."_s_pricelist"))
 		{
 			$t->define_field(array(
 				"sortable" => 1,
@@ -4777,7 +4803,7 @@ class shop_warehouse extends class_base
 				"align" => "center"
 			));
 		}
-		if(!$this->no_count)
+		if(empty($this->no_count))
 		{
 			$levels = 0;
 			$chk = 1;
@@ -4849,7 +4875,7 @@ class shop_warehouse extends class_base
 			));
 		}
 
-		if(!automatweb::$request->arg("pgtf") and automatweb::$request->arg("pgtf") != $this->prod_type_fld and !automatweb::$request->arg($group."_s_cat"))
+		if(!automatweb::$request->arg("pgtf") and !empty($this->prod_type_fld) and !automatweb::$request->arg($group."_s_cat"))
 		{
 			$t->define_field(array(
 				"name" => "cat",
@@ -4924,8 +4950,7 @@ class shop_warehouse extends class_base
 			if($arr["prop"]["type"] === "table" || $arr["prop"]["type"] === "toolbar")
 			{
 				$arr["prop"]["value"] =  null;
-				$arr["prop"]["error"] = $this->err_set?null:t("VIGA: konfiguratsioon on valimata!");
-				$this->err_set = 1;
+				$this->show_error_text(t("VIGA: konfiguratsioon on valimata!"));
 			}
 			return false;
 		}
@@ -5487,11 +5512,11 @@ $tb->add_delete_button();
 	private function _get_storage_ol($arr)
 	{
 		$group = $this->get_search_group($arr);
-		if($arr["request"][$group."_s_type"] == STORAGE_FILTER_BILLS || strpos($group, "bills"))
+		if(isset($arr["request"][$group."_s_type"]) and $arr["request"][$group."_s_type"] == STORAGE_FILTER_BILLS || strpos($group, "bills"))
 		{
 			$bills = 1;
 		}
-		elseif($arr["request"][$group."_s_type"] == STORAGE_FILTER_DNOTES || strpos($group, "notes"))
+		elseif(isset($arr["request"][$group."_s_type"]) and $arr["request"][$group."_s_type"] == STORAGE_FILTER_DNOTES || strpos($group, "notes"))
 		{
 			$dnotes = 1;
 		}
@@ -5500,17 +5525,18 @@ $tb->add_delete_button();
 			$bills = 1;
 			$dnotes = 1;
 		}
-		$f = $arr["request"][$group."_s_from"];
-		if($f)
+		$f = $t = 0;
+		if(!empty($arr["request"][$group."_s_from"]))
 		{
-			$f = mktime(0, 0, 0, $f["month"], $f["day"], $f["year"]);
+			$f_ = $arr["request"][$group."_s_from"];
+			$f = mktime(0, 0, 0, $f_["month"], $f_["day"], $f_["year"]);
 		}
-		$t = $arr["request"][$group."_s_to"];
-		if($t)
+		if(!empty($arr["request"][$group."_s_to"]))
 		{
-			$t = mktime(23, 59, 59, $t["month"], $t["day"], $t["year"]);
+			$t_ = $arr["request"][$group."_s_to"];
+			$t = mktime(23, 59, 59, $t_["month"], $t_["day"], $t_["year"]);
 		}
-		if($t > 1 and $f > 1 and !$arr["request"]["filt_time"])
+		if($t > 1 and $f > 1 and empty($arr["request"]["filt_time"]))
 		{
 			$timefilter = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $f, $t);
 		}
@@ -5522,7 +5548,7 @@ $tb->add_delete_button();
 		{
 			$timefilter = new obj_predicate_compare(OBJ_COMP_LESS, $t);
 		}
-		elseif((strpos($group, "sales") !== false || strpos($group, "purchase") !== false) and $arr["request"]["filt_time"] != "all")
+		elseif((strpos($group, "sales") !== false || strpos($group, "purchase") !== false) and (!isset($arr["request"]["filt_time"]) or $arr["request"]["filt_time"] != "all"))
 		{
 			unset($arr["start"]);
 			unset($arr["end"]);
@@ -5530,7 +5556,7 @@ $tb->add_delete_button();
 			$timefilter = new obj_predicate_compare(OBJ_COMP_BETWEEN_INCLUDING, $v["filt_start"], $v["filt_end"]);
 		}
 		$prod_ol = $this->get_art_filter_ol($arr);
-		if($dnotes)
+		if(!empty($dnotes))
 		{
 			if($arr["request"][$group."_s_status"] == STORAGE_FILTER_CONFIRMED)
 			{
@@ -5617,7 +5643,7 @@ $tb->add_delete_button();
 			$params = array_merge($params, $aparams);
 			$ol = new object_list($params);
 		}
-		if($bills)
+		if(!empty($bills))
 		{
 			unset($params);
 			if($arr["request"][$group."_s_status"])
@@ -5711,7 +5737,7 @@ $tb->add_delete_button();
 				}
 			}
 		}
-		if(!$ol)
+		if(empty($ol))
 		{
 			$ol = new object_list();
 		}
@@ -5760,6 +5786,7 @@ $tb->add_delete_button();
 					}
 					$vals = $high;
 					break;
+
 				default:
 					$vals = array();
 					if($arr["obj_inst"]->class_id() == CL_SHOP_WAREHOUSE)
@@ -5768,7 +5795,7 @@ $tb->add_delete_button();
 						{
 							$vals[$val] = $val;
 						}
-						elseif($val = $this->config->prop($prop))
+						elseif(isset($this->config) && is_object($this->config) and $val = $this->config->prop($prop))
 						{
 							if(is_array($val))
 							{
@@ -5884,7 +5911,7 @@ $tb->add_delete_button();
 			"caption" => t("Number"),
 			"align" => "center",
 		));
-		if(!$arr["request"][$arr["request"]["group"]."_s_type"])
+		if(empty($arr["request"][$arr["request"]["group"]."_s_type"]))
 		{
 			$t->define_field(array(
 				"name" => "type",
@@ -5934,7 +5961,7 @@ $tb->add_delete_button();
 			"sortable" => 1
 		));
 
-		if(!$arr["request"][$arr["request"]["group"]."_s_status"])
+		if(empty($arr["request"][$arr["request"]["group"]."_s_status"]))
 		{
 			$t->define_field(array(
 				"name" => "status",
@@ -6459,7 +6486,7 @@ $tb->add_delete_button();
 			$arr["obj_inst"]->set_meta("order_cur_ud", $arr["request"]["user_data"]);
 		}
 
-		if ($this->upd_ud)
+		if (!empty($this->upd_ud))
 		{
 			$this->do_update_user_data(array(
 				"oid" => $arr["obj_inst"]->id()
@@ -7186,8 +7213,12 @@ $tb->add_delete_button();
 						$arr["filt_res"] = $request["filt_res"];
 					}
 					break;
+
 				case "shop_orders":
-					$arr["shop_orders_s_status"] = $request["shop_orders_s_status"];
+					if(isset($request["shop_orders_s_status"]))
+					{
+						$arr["shop_orders_s_status"] = $request["shop_orders_s_status"];
+					}
 					break;
 			}
 		}
@@ -8012,7 +8043,7 @@ die();
 
 	function _get_storage_movements_s_from($arr)
 	{
-		if(!$arr["request"][$arr["prop"]["name"]])
+		if (empty($arr["request"][$arr["prop"]["name"]]))
 		{
 			$arr["prop"]["value"] = mktime(0, 0, 0, date('m'), 1, date('Y'));
 		}
@@ -8025,7 +8056,7 @@ die();
 
 	function _get_storage_movements_s_to($arr)
 	{
-		if(!$arr["request"][$arr["prop"]["name"]])
+		if (empty($arr["request"][$arr["prop"]["name"]]))
 		{
 			$arr["prop"]["value"] = mktime(0, 0, 0, date('m')+1, 0, date('Y'));
 		}
@@ -8260,7 +8291,7 @@ die();
 			"name" => "create_new",
 			"tooltip" => t("Uus")
 		));
-		if(!$data["warehouses"] and $data["obj_inst"]->class_id() == CL_SHOP_WAREHOUSE)
+		if(empty($data["warehouses"]) and $data["obj_inst"]->is_a(shop_warehouse_obj::CLID))
 		{
 			$whs = array($data["obj_inst"]);
 		}
@@ -8306,7 +8337,7 @@ die();
 
 		$group = $this->get_search_group($arr);
 		$var = $group."_s_status";
-		$disp = $arr["request"][$var];
+		$disp = isset($arr["request"][$var]) ? $arr["request"][$var] : null;
 
 		$arr["request"][$var] = STORAGE_FILTER_UNCONFIRMED;
 		$count1 = $this->_get_inventories_ol($arr)->count();
@@ -8328,7 +8359,7 @@ die();
 
 	function _get_inventories_ol($arr)
 	{
-		if(!$arr["warehouses"] and $arr["obj_inst"]->class_id() == CL_SHOP_WAREHOUSE)
+		if(empty($arr["warehouses"]) and $arr["obj_inst"]->is_a(shop_warehouse_obj::CLID))
 		{
 			$arr["warehouses"] = array($arr["obj_inst"]->id());
 		}
@@ -8337,23 +8368,23 @@ die();
 			"warehouse" => $arr["warehouses"],
 		);
 		$group = $this->get_search_group($arr);
-		if($n = $arr["request"][$group."_s_name"])
+		if(!empty($arr["request"][$group."_s_name"]))
 		{
-			$params["name"] = "%".$n."%";
+			$params["name"] = "%{$arr["request"][$group."_s_name"]}%";
 		}
-		if($s = $arr["request"][$group."_s_status"])
+		if(!empty($arr["request"][$group."_s_status"]))
 		{
-			if($s == STORAGE_FILTER_CONFIRMED)
+			if(STORAGE_FILTER_CONFIRMED == $arr["request"][$group."_s_status"])
 			{
 				$params["confirmed"] = 1;
 			}
-			elseif($s == STORAGE_FILTER_UNCONFIRMED)
+			elseif(STORAGE_FILTER_UNCONFIRMED == $arr["request"][$group."_s_status"])
 			{
 				$params["confirmed"] = new obj_predicate_not(1);
 			}
 		}
-		$from = date_edit::get_timestamp($arr["request"][$group."_s_from"]);
-		$to = date_edit::get_timestamp($arr["request"][$group."_s_to"]);
+		$from = isset($arr["request"][$group."_s_from"]) ? date_edit::get_timestamp($arr["request"][$group."_s_from"]) : 0;
+		$to = isset($arr["request"][$group."_s_to"]) ? date_edit::get_timestamp($arr["request"][$group."_s_to"]) : 0;
 		if($from > 0 and $to > 0)
 		{
 			$to += 24 * 60 * 60 -1;
@@ -8656,12 +8687,12 @@ die();
 		{
 			$params["oid"] = "%".$n."%";
 		}
-		if($purchaser = $arr["request"][$group."_s_purchaser_id"])
+		if(!empty($arr["request"][$group."_s_purchaser_id"]))
 		{
 			$purchaser_ids_odl = new object_data_list(
 				array(
 					"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
-					"oid" => "%".$purchaser."%",
+					"oid" => "%{$arr["request"][$group."_s_purchaser_id"]}%",
 					"buyer" => new obj_predicate_compare(OBJ_COMP_GREATER, 0, NULL, "int"),
 				),
 				array(
@@ -8670,7 +8701,7 @@ die();
 			);
 			$params["purchaser"] = array_merge(array(-1), $purchaser_ids_odl->get_element_from_all("buyer"));
 		}
-		if($purchaser_other = $arr["request"][$group."_s_purchaser_other_id"])
+		if(!empty($arr["request"][$group."_s_purchaser_other_id"]))
 		{
 			/*
 			$params[] = new object_list_filter(array(
@@ -8681,7 +8712,7 @@ die();
 				)
 			));
 			*/
-			$params["purchaser(CL_CRM_PERSON).external_id"] = "%".$purchaser_other."%";
+			$params["purchaser(CL_CRM_PERSON).external_id"] = "%{$arr["request"][$group."_s_purchaser_other_id"]}%";
 		}
 		if(!empty($arr["request"][$group."_s_".$co_filt]) and $co = $arr["request"][$group."_s_".$co_filt])
 		{
@@ -8770,7 +8801,7 @@ die();
 				$params["oid"] = array(-1);
 			}
 		}
-		if(count($params) || $arr["request"]["just_saved"] || $arr["request"]["filt_time"] === "all")
+		if(count($params) or !empty($arr["request"]["just_saved"]) or isset($arr["request"]["filt_time"]) and $arr["request"]["filt_time"] === "all")
 		{
 			if(empty($arr["warehouses"]) and $arr["obj_inst"]->class_id() == CL_SHOP_WAREHOUSE)
 			{
@@ -9511,8 +9542,8 @@ die();
 			"chgbgcolor" => "color",
 		));
 
-		$f = $this->get_range($arr["request"]["timespan"]);
-		if(is_oid($arr["request"]["user_group"]))
+		$f = $this->get_range(isset($arr["request"]["timespan"]) ? $arr["request"]["timespan"] : null);
+		if(isset($arr["request"]["user_group"]) and is_oid($arr["request"]["user_group"]))
 		{
 			$f["group"] = $arr["request"]["user_group"];
 			$t->set_caption(sprintf(t("Valitud ajavahemikul grupile \"%s\" m&otilde;juvad kampaaniad"), get_name($f["group"])));
@@ -9522,7 +9553,7 @@ die();
 			$t->set_caption("Valitud ajavahemikul toimuvad kampaaniad");
 		}
 
-		if(is_oid($arr["request"]["product"]))
+		if(isset($arr["request"]["product"]) and is_oid($arr["request"]["product"]))
 		{
 			$f["object"] = $arr["request"]["user_group"];
 		}
@@ -10976,8 +11007,8 @@ die();
 			"class_id" => CL_SHOP_PRODUCT,
 		);
 
-		$n = $arr["request"]["status_orders_s_name"];
-		$c = $arr["request"]["status_orders_s_code"];
+		$n = isset($arr["request"]["status_orders_s_name"]) ? $arr["request"]["status_orders_s_name"] : false;
+		$c = isset($arr["request"]["status_orders_s_code"]) ? $arr["request"]["status_orders_s_code"] : false;
 		if($n || $c)
 		{
 			if($n)
@@ -10994,14 +11025,9 @@ die();
 			$params["RELTYPE_PRODUCT(CL_MATERIAL_EXPENSE).RELTYPE_JOB"] = $job_ol->count() ? $job_ol->ids() : -1;
 		}
 
-		$g = $arr["request"]["status_orders_s_art_cat"];
-		if(empty($g) and !empty($arr["request"]["pgtf"]))
+		if(!empty($arr["request"]["status_orders_s_art_cat"]) and !empty($arr["request"]["pgtf"]))
 		{
-			$g = $arr["request"]["pgtf"];
-		}
-		if($g)
-		{
-			$params["RELTYPE_CATEGORY.oid"] = $g;
+			$params["RELTYPE_CATEGORY.oid"] = !empty($arr["request"]["status_orders_s_art_cat"]) ? $arr["request"]["status_orders_s_art_cat"] : $arr["request"]["pgtf"];
 		}
 		$prod_ol = new object_list($params);
 
@@ -11384,7 +11410,7 @@ die();
 
 	function callback_post_save($arr)
 	{
-		if($arr["new"] == 1 and !$arr["request"]["no_new_config"])
+		if(!empty($arr["new"]) and empty($arr["request"]["no_new_config"]))
 		{
 			$pt = $arr["obj_inst"]->id();
 			$o = obj();
@@ -11418,7 +11444,7 @@ die();
 
 	function _get_purchase_notes_time_tree(&$arr)
 	{
-		if(!$arr["warehouses"])
+		if(empty($arr["warehouses"]))
 		{
 			$arr["warehouses"] = array($arr["obj_inst"]->id());
 		}
@@ -11428,10 +11454,11 @@ die();
 			"sort_by" => "delivery_date asc",
 			"limit" => "0,1",
 		));
+		$arr["start"] = $arr["end"] = 0;
 		$start_o = $ol->begin();
 		if($start_o)
 		{
-			$start = $start_o->prop("delivery_date");
+			$arr["start"] = $start_o->prop("delivery_date");
 			$ol = new object_list(array(
 				"class_id" => CL_SHOP_DELIVERY_NOTE,
 				($arr["prop"]["name"] === "purchase_notes_time_tree" ? "to_warehouse" : "from_warehouse") => $arr["warehouses"],
@@ -11439,17 +11466,15 @@ die();
 				"limit" => "0,1",
 			));
 			$end_o = $ol->begin();
-			$end = $end_o->prop("delivery_date");
+			$arr["end"] = $end_o->prop("delivery_date");
 		}
-		$arr["start"] = $start;
-		$arr["end"] = $end;
 //		$arr["all"] = true;
 		return $this->_get_status_orders_time_tree($arr);
 	}
 
 	function _get_purchase_bills_time_tree($arr)
 	{
-		if(!$arr["warehouses"])
+		if(empty($arr["warehouses"]))
 		{
 			$arr["warehouses"] = array($arr["obj_inst"]->id());
 		}
@@ -11461,9 +11486,10 @@ die();
 			"limit" => "0,1",
 		));
 		$start_o = $ol->begin();
+		$arr["start"] = $arr["end"] = 0;
 		if($start_o)
 		{
-			$start = $start_o->prop("delivery_date");
+			$arr["start"] = $start_o->prop("delivery_date");
 			$ol = new object_list(array(
 				"class_id" => CL_CRM_BILL,
 				($arr["prop"]["name"] === "purchase_bills_time_tree" ? "customer" : "impl") => $cos,
@@ -11471,10 +11497,8 @@ die();
 				"limit" => "0,1",
 			));
 			$end_o = $ol->begin();
-			$end = $end_o->prop("bill_date");
+			$arr["end"] = $end_o->prop("bill_date");
 		}
-		$arr["start"] = $start;
-		$arr["end"] = $end;
 		$arr["all"] = true;
 		return $this->_get_status_orders_time_tree($arr);
 	}
@@ -11532,7 +11556,7 @@ die();
 	function _get_purchase_cust_groups_tree(&$arr)
 	{
 		$arr["show_subs"] = true;
-		return $this->_get_clients_groups_tree(&$arr);
+		return $this->_get_clients_groups_tree($arr);
 	}
 
 	function _get_purchase_notes_status_tree(&$arr)
@@ -11759,6 +11783,12 @@ die();
 
 	function _get_clients_groups_tree($arr)
 	{
+		if (!isset($this->config) or !is_object($this->config))
+		{
+			$this->show_error_text(t("VIGA: konfiguratsioon on valimata!"));
+			return PROP_ERROR;
+		}
+
 		$owner = $this->config->prop("owner");
 		if(!$this->can("view", $owner))
 		{
@@ -12040,6 +12070,12 @@ die();
 
 	function _get_clients_alphabet_tree($arr)
 	{
+		if (!isset($this->config) or !is_object($this->config))
+		{
+			$this->show_error_text(t("VIGA: konfiguratsioon on valimata!"));
+			return PROP_ERROR;
+		}
+
 		$owner = $this->config->prop("owner");
 		if(!$this->can("view", $owner))
 		{
@@ -12090,6 +12126,12 @@ die();
 
 	function _get_clients_toolbar($arr)
 	{
+		if (!isset($this->config) or !is_object($this->config))
+		{
+			$this->show_error_text(t("VIGA: konfiguratsioon on valimata!"));
+			return PROP_ERROR;
+		}
+
 		$owner = $this->config->prop("owner");
 		if(!$this->can("view", $owner))
 		{
@@ -12286,6 +12328,12 @@ die();
 
 	function _get_clients_tbl($arr)
 	{
+		if (!isset($this->config) or !is_object($this->config))
+		{
+			$this->show_error_text(t("VIGA: konfiguratsioon on valimata!"));
+			return PROP_ERROR;
+		}
+
 		$t = $arr["prop"]["vcl_inst"];
 		$t->define_field(array(
 			"name" => "name",
@@ -12431,10 +12479,11 @@ die();
 			"limit" => "0,1",
 			"date" => new obj_predicate_not(null),
 		));
+		$arr["start"] = $arr["end"]  = 0;
 		$start_o = $ol->begin();
 		if($start_o)
 		{
-			$start = $start_o->prop("date");
+			$arr["start"] = $start_o->prop("date");
 			$ol = new object_list(array(
 				"class_id" => $arr["prop"]["name"] === "sell_orders_time_tree" ? CL_SHOP_SELL_ORDER : CL_SHOP_PURCHASE_ORDER,
 				"sort_by" => "aw_date desc",
@@ -12442,10 +12491,8 @@ die();
 				"date" => new obj_predicate_not(null),
 			));
 			$end_o = $ol->begin();
-			$end = $end_o->prop("date");
+			$arr["end"] = $end_o->prop("date");
 		}
-		$arr["start"] = $start;
-		$arr["end"] = $end;
 		$arr["all"] = true;
 		return $this->_get_status_orders_time_tree($arr);
 	}
@@ -13116,6 +13163,12 @@ die();
 
 	function _get_product_management_category_tree($arr)
 	{
+		if (!isset($this->config) or !is_object($this->config))
+		{
+			$this->show_error_text(t("VIGA: konfiguratsioon on valimata!"));
+			return PROP_ERROR;
+		}
+
 		$ret = "";
 		$types = $arr["obj_inst"]->get_product_category_types();
 //		if(!$types->count())
@@ -13144,39 +13197,12 @@ die();
 			)
 		));
 
-		//kui keegi n2eb v6imalust, et m6nel inimesel on v2hem 6igusi erinevate tootekategooriate n2gemiseks, siis v6tku see maha
-		//mulle ei tundu aktuaalne igatahes - Marko
 		$cats = new object_list(array(
 			"class_id" => CL_SHOP_PRODUCT_CATEGORY,
 			"parent" => $prod_folder,
 			"sort_by" => "name asc",
 			"status" => array(object::STAT_NOTACTIVE, object::STAT_ACTIVE),
 		));
-		foreach($cats->arr() as $id => $cat)
-		{
-			$tv->add_item($prod_folder,array(
-				"name" => $cat->name(),
-				"id" => $id."",
-				"iconurl" => icons::get_icon_url(CL_SHOP_PRODUCT),
-				"reload" => array(
-					"layouts" => array("product_managementright", "packets_right"),
-				        "params" => array("cat" => $id),
-				)
-			));
-
-			$this->add_prod_management_leaf($tv , $id);
-		}
-		$ret .= html::div(array(
-			"content" => $tv->get_html(),
-			"border" => "1px solid gray",
-			"background" => "white",
-			"margin" => "5px",
-		));
-
-//"<div style='border: 1px solid gray; background-color: white;margin:5px;'>".$tv->get_html()."</div>";
-
-//-------------------------------- kategooriate tyypide puud
-
 
 		foreach($types->arr() as $id => $cat)
 		{
@@ -13208,6 +13234,7 @@ die();
 			));
 	//		$ret .= "<div style='border: 1px solid gray; background-color: white;margin:5px;'>".$t->get_html()."</div>";
 		}
+
 		$arr["prop"]["value"] = $ret;
 		return PROP_OK;
 	}
