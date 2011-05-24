@@ -24,13 +24,9 @@ $(document).ready(function(){
 	}
 
 	sectors = {};
-//	companies = {VAR:companies};
-
-//	loadNextCompanyDetails();
-
-	loadSectors();
 
 	log("Alustan importimist...", 2);
+	loadSectors();
 
 	function loadSectors(){
 		log("Laen valdkondi...", 2);
@@ -75,7 +71,7 @@ $(document).ready(function(){
 				break;
 			}
 		}
-		if (false && !foundSectorToLoad) {
+		if (!foundSectorToLoad) {
 			log("<br />Alustan ettev&otilde;tete andmete p&auml;rimist...", 2);
 			loadNextCompanies();
 		}

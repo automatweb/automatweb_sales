@@ -73,8 +73,8 @@ class eesti_ehitusturg_obj extends _int_object
 	public function wget_companies_html()
 	{
 		$dir = aw_ini_get("site_basedir")."/files/eesti_ehitusturg/companies_html";
-		exec("mkdir %s/files/eesti_ehitusturg", aw_ini_get("site_basedir"));
-		exec("mkdir %s/files/eesti_ehitusturg/companies_html", aw_ini_get("site_basedir"));
+		exec(sprintf("mkdir %s/files/eesti_ehitusturg", aw_ini_get("site_basedir")));
+		exec(sprintf("mkdir %s/files/eesti_ehitusturg/companies_html", aw_ini_get("site_basedir")));
 		foreach($this->get_companies() as $company)
 		{
 			exec(sprintf("mkdir %s/%u/; cd %s/%u/; wget http://eesti-ehitusturg.ee/index.php?leht=9&rn=%u", $dir, $company["id"], $dir, $company["id"], $company["id"], $dir, $company["id"]));
@@ -146,6 +146,8 @@ class eesti_ehitusturg_obj extends _int_object
 
 	protected function get_companies()
 	{
+		$this->check_db();
+
 		$companies = array();
 
 		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_companies LIMIT 0, 3;");
