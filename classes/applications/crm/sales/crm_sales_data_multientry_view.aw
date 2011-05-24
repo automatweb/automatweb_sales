@@ -31,7 +31,7 @@ class crm_sales_data_multientry_view
 	}
 
 	private static function _save_multientry_row($data)
-	{arr($data);exit;
+	{
 		$r = false;
 
 		if (isset($data["name"]) and strlen($data["name"]) > 1)
@@ -55,10 +55,24 @@ class crm_sales_data_multientry_view
 			$customer->set_name($data["name"]);
 			$customer->set_parent(self::$owner_organization->id());
 			$customer->set_prop("ettevotlusvorm" , $form_id);
+
+			if (!empty($data["regcode"]))
+			{
+				$customer->set_prop("reg_nr", $data["regcode"]);
+			}
+
 			$customer->save();
 
 			// add as customer, set contact info
-			self::$owner_organization->create_customer_relation(crm_company_obj::CUSTOMER_TYPE_BUYER, $customer);
+			$customer_relation = self::$owner_organization->create_customer_relation(crm_company_obj::CUSTOMER_TYPE_BUYER, $customer);
+
+			// add customer releation comment
+			if (!empty($data["comment"]))
+			{
+				$customer_relation->set_comment($data["comment"]);
+			}
+
+			// contact data
 			$customer->add_mail($data["email"], false);
 			$customer->add_phone($data["phone"], false);
 
@@ -69,6 +83,7 @@ class crm_sales_data_multientry_view
 				$name = explode(" ", $data["contact_person_ceo_name"], 2);
 				if (count($name) === 1)
 				{
+					$firstname = "";
 					$lastname = trim($name[0]);
 				}
 				else
@@ -118,6 +133,7 @@ class crm_sales_data_multientry_view
 				$name = explode(" ", $data["contact_person_other_name"], 2);
 				if (count($name) === 1)
 				{
+					$firstname = "";
 					$lastname = trim($name[0]);
 				}
 				else
@@ -160,7 +176,13 @@ class crm_sales_data_multientry_view
 				$contact_other->save();
 			}
 
-			// save changes to customer company object
+			// add entered contact persons to customer relation
+			$customer_relation->set_prop("buyer_contact_person", $contact_ceo->id());
+			$customer_relation->set_prop("buyer_contact_person2", $contact_other->id());
+			$customer_relation->connect(array("to" => array($contact_ceo, $contact_other), "type" => "RELTYPE_CONTACT_PERSON"));
+
+			// save changes to customer company and customer relateion objects
+			$customer_relation->save();
 			$customer->save();
 			$r = true;
 		}
@@ -179,173 +201,168 @@ class crm_sales_data_multientry_view
 		while ($i--)
 		{
 			$arr[self::DATA_CONTAINER_ID]["id"] = $i;
-			self::add_multientry_row($arr);
+			$table->define_data(array("customer_entry" => self::_multientry_row($arr)));
 		}
 
 		return $r;
 	}
 
-	private static function add_multientry_row($arr)
+	private static function _multientry_row($arr)
 	{
-		$table = $arr["prop"]["vcl_inst"];
-		$table->define_data(array(
-			"name" => self::name_edit($arr),
-			"form" => self::form_edit($arr),
-			"email" => self::email_edit($arr),
-			"contacts" => self::contacts_edit($arr),
-			"phone" => self::phone_edit($arr)
+		$i = $arr[self::DATA_CONTAINER_ID]["id"];
+
+		// insert a table in contacts edit cell
+		$entry_table = new aw_table();
+		$entry_table->set_titlebar_display(false);
+		$entry_table->define_field(array(
+			"name" => "customer_info"
 		));
+		$entry_table->define_field(array(
+			"name" => "customer_co_form"
+		));
+		$entry_table->define_field(array(
+			"name" => "customer_contacts"
+		));
+		$entry_table->define_field(array(
+			"name" => "customer_additional_info"
+		));
+		$entry_table->define_field(array(
+			"name" => "contact_name"
+		));
+		$entry_table->define_field(array(
+			"name" => "contact_position"
+		));
+		$entry_table->define_field(array(
+			"name" => "contact_email"
+		));
+		$entry_table->define_field(array(
+			"name" => "contact_phone"
+		));
+
+		// add first row, ceo edit row
+		$entry_table->define_data(array(
+			"customer_info" => t("Ettev&otilde;tte nimi*: ") . self::name_edit($arr),
+			"customer_co_form" => t("Vorm: ") . self::form_edit($arr),
+			"customer_contacts" => t("E-post: ") . self::email_edit($arr),
+			"customer_additional_info" => t("Kommentaar: ") . self::comment_edit($arr),
+
+			// ceo
+			"contact_name" => html::span(array("content" => html::bold(t("Kontakt 1 (juht) ")) . t("Nimi: "), "nowrap" => true)) . html::textbox(array(
+				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_ceo_name]",
+				"size" => 15
+			)),
+
+			"contact_position" => t("Amet: ") . html::textbox(array(
+				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_ceo_position]",
+				"size" => 10
+			)),
+
+			"contact_email" => t("E-post: ") . html::textbox(array(
+				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_ceo_email]",
+				"size" => 15
+			)),
+
+			"contact_phone" => t("Tel: ") . html::textbox(array(
+				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_ceo_phone]",
+				"size" => 10
+			)),
+		));
+
+		// add second row, other contact person edit row
+		$entry_table->define_data(array(
+			"customer_info" => t("Reg. nr.: ") . self::regcode_edit($arr),
+			"customer_co_form" => "",
+			"customer_contacts" => t("Telefon: ") . self::phone_edit($arr),
+			"customer_additional_info" => "",
+
+			// contact person
+			"contact_name" => html::span(array("content" => html::bold(t("Kontakt 2 ")) . t("Nimi: "), "nowrap" => true)) . html::textbox(array(
+				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_other_name]",
+				"size" => 15
+			)),
+
+			"contact_position" => t("Amet: ") . html::textbox(array(
+				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_other_position]",
+				"size" => 10
+			)),
+
+			"contact_email" => t("E-post: ") . html::textbox(array(
+				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_other_email]",
+				"size" => 15
+			)),
+
+			"contact_phone" => t("Tel: ") . html::textbox(array(
+				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_other_phone]",
+				"size" => 10
+			)),
+		));
+
+		$entry_table->set_sortable(false);
+		return $entry_table->draw();
 	}
 
 	public static function name_edit($arr)
 	{
-		$value = isset($arr[self::DATA_CONTAINER_ID]["name"]) ? $arr[self::DATA_CONTAINER_ID]["name"] : "";
 		$i = $arr[self::DATA_CONTAINER_ID]["id"];
 		return html::textbox(array(
 			"name" => self::DATA_CONTAINER_ID . "[{$i}][name]",
-			"size" => 25,
-			"value" => $value
+			"size" => 20
+		));
+	}
+
+	public static function regcode_edit($arr)
+	{
+		$i = $arr[self::DATA_CONTAINER_ID]["id"];
+		return html::textbox(array(
+			"name" => self::DATA_CONTAINER_ID . "[{$i}][regcode]",
+			"size" => 20
+		));
+	}
+
+	public static function comment_edit($arr)
+	{
+		$i = $arr[self::DATA_CONTAINER_ID]["id"];
+		return html::textbox(array(
+			"name" => self::DATA_CONTAINER_ID . "[{$i}][comment]",
+			"size" => 25
 		));
 	}
 
 	public static function form_edit($arr)
 	{
-		$value = isset($arr[self::DATA_CONTAINER_ID]["form"]) ? $arr[self::DATA_CONTAINER_ID]["form"] : "";
 		$i = $arr[self::DATA_CONTAINER_ID]["id"];
 		return html::select(array(
 			"name" => self::DATA_CONTAINER_ID . "[{$i}][form]",
-			"options" => self::$forms_options_cache,
-			"value" => $value
+			"options" => self::$forms_options_cache
 		));
 	}
 
 	public static function email_edit($arr)
 	{
-		$value = isset($arr[self::DATA_CONTAINER_ID]["email"]) ? $arr[self::DATA_CONTAINER_ID]["email"] : "";
 		$i = $arr[self::DATA_CONTAINER_ID]["id"];
 		return html::textbox(array(
 			"name" => self::DATA_CONTAINER_ID . "[{$i}][email]",
-			"size" => 20,
-			"value" => $value
+			"size" => 15
 		));
 	}
 
 	public static function phone_edit($arr)
 	{
-		$value = isset($arr[self::DATA_CONTAINER_ID]["phone"]) ? $arr[self::DATA_CONTAINER_ID]["phone"] : "";
 		$i = $arr[self::DATA_CONTAINER_ID]["id"];
 		return html::textbox(array(
 			"name" => self::DATA_CONTAINER_ID . "[{$i}][phone]",
-			"size" => 12,
-			"value" => $value
+			"size" => 15
 		));
-	}
-
-	public static function contacts_edit($arr)
-	{
-		$value = isset($arr[self::DATA_CONTAINER_ID]["phone"]) ? $arr[self::DATA_CONTAINER_ID]["phone"] : "";
-		$i = $arr[self::DATA_CONTAINER_ID]["id"];
-
-		// insert a table in contacts edit cell
-		$contacts_table = new aw_table();
-		$contacts_table->set_titlebar_display(false);
-		$contacts_table->define_field(array(
-			"name" => "name"
-		));
-		$contacts_table->define_field(array(
-			"name" => "position"
-		));
-		$contacts_table->define_field(array(
-			"name" => "email"
-		));
-		$contacts_table->define_field(array(
-			"name" => "phone"
-		));
-
-		// add ceo edit row
-		$contacts_table->define_data(array(
-			"name" => html::span(array("content" => html::bold(t("Kontakt 1 (juht) ")) . t("Nimi: "), "nowrap" => true)) . html::textbox(array(
-				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_ceo_name]",
-				"size" => 15,
-				"value" => $value
-			)),
-
-			"position" => t("Amet: ") . html::textbox(array(
-				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_ceo_position]",
-				"size" => 10,
-				"value" => $value
-			)),
-
-			"email" => t("E-post: ") . html::textbox(array(
-				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_ceo_email]",
-				"size" => 15,
-				"value" => $value
-			)),
-
-			"phone" => t("Tel: ") . html::textbox(array(
-				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_ceo_phone]",
-				"size" => 10,
-				"value" => $value
-			)),
-		));
-
-		// add second contact person edit row
-		$contacts_table->define_data(array(
-			"name" => html::span(array("content" => html::bold(t("Kontakt 2 ")) . t("Nimi: "), "nowrap" => true)) . html::textbox(array(
-				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_other_name]",
-				"size" => 15,
-				"value" => $value
-			)),
-
-			"position" => t("Amet: ") . html::textbox(array(
-				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_other_position]",
-				"size" => 10,
-				"value" => $value
-			)),
-
-			"email" => t("E-post: ") . html::textbox(array(
-				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_other_email]",
-				"size" => 15,
-				"value" => $value
-			)),
-
-			"phone" => t("Tel: ") . html::textbox(array(
-				"name" => self::DATA_CONTAINER_ID . "[{$i}][contact_person_other_phone]",
-				"size" => 10,
-				"value" => $value
-			)),
-		));
-
-		return $contacts_table->draw();
 	}
 
 	private static function _multientry_input_table_header($arr)
 	{
 		$table = $arr["prop"]["vcl_inst"];
+		$table->set_layout("cool");
 		$table->define_field(array(
-			"name" => "name",
+			"name" => "customer_entry",
 			"valign" => "top",
-			"caption" => t("Nimi*")
-		));
-		$table->define_field(array(
-			"name" => "form",
-			"valign" => "top",
-			"caption" => t("&Otilde;iguslik vorm")
-		));
-		$table->define_field(array(
-			"name" => "email",
-			"valign" => "top",
-			"caption" => t("&Uuml;ldine e-post")
-		));
-		$table->define_field(array(
-			"name" => "phone",
-			"valign" => "top",
-			"caption" => t("&Uuml;ldtelefon")
-		));
-		$table->define_field(array(
-			"name" => "contacts",
-			"valign" => "top",
-			"caption" => t("Kontaktisikud")
+			"caption" => t("Klientide sisestamine")
 		));
 		$table->set_sortable(false);
 	}

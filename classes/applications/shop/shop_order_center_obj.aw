@@ -25,7 +25,7 @@ class shop_order_center_obj extends _int_object
 		$cart->set_parent($this->id());
 		$cart->save();
 		$this->set_prop("cart" , $cart->id());
-		
+
 		//pangamakse objekt ka suht populaarne
 		$bp = new object();
 		$bp->set_class_id(CL_BANK_PAYMENT);
@@ -33,7 +33,7 @@ class shop_order_center_obj extends _int_object
 		$bp->set_parent($this->id());
 		$bp->save();
 		$this->set_prop("bank_payment" , $bp->id());
-		
+
 		//maili v6iks ka kohe saata
 		$this->set_prop("mail_to_client" , 1);
 
@@ -142,7 +142,8 @@ class shop_order_center_obj extends _int_object
 		$prop_filter_fields = $this->meta("prop_filter_fields");
 
 		$rv = array();
-		$ic_fields = $this->get_integration_class_instance()->get_filterable_fields();
+		$ic_inst = $this->get_integration_class_instance();
+		$ic_fields = $is_inst ? $ic_inst->get_filterable_fields() : array();
 		foreach(safe_array($class_filter_fields) as $field_name => $one)
 		{
 			if ($one == 1)
@@ -161,24 +162,21 @@ class shop_order_center_obj extends _int_object
 		}
 		return $rv;
 	}
-	
+
 	function filter_get_all_values($filter_name)
 	{
 		list($type, $field_name) = explode("::",$filter_name);
 
-		if ($type == "ic")
+		if ($type === "ic")
 		{
-			$inst = $this->get_integration_class_instance();
-			return $inst->get_all_filter_values($field_name);
+			$ic_inst = $this->get_integration_class_instance();
+			return $ic_inst ? $ic_inst->get_all_filter_values($field_name) : array();
 		}
-		else
-		if ($type == "prod")
+		elseif ($type === "prod")
 		{
 			$rv = array();
 			$odl = new object_data_list(
 				array(
-					"lang_id" => array(),
-					"site_id" => array(),
 					"class_id" => CL_SHOP_PRODUCT,
 					"price" => new obj_predicate_not(-1)//see ainult selleks, et toodete tabeli sisse loeks
 				),
@@ -203,8 +201,7 @@ class shop_order_center_obj extends _int_object
 			return null;
 		}
 
-		$clss = aw_ini_get("classes");
-		return get_instance($clss[$ic]["file"]);
+		return get_instance(aw_ini_get("classes.{$ic}.file"));
 	}
 
 	function filter_set_active_by_folder($data)
@@ -329,7 +326,7 @@ class shop_order_center_obj extends _int_object
 		}
 		return $o;
 	}
-	
+
 	public function send_confirm_mail($order , $mail_data = array())
 	{
 		$order_inst = get_instance(CL_SHOP_SELL_ORDER);
@@ -390,7 +387,7 @@ class shop_order_center_obj extends _int_object
 			$email_subj= $mail_data["subject"];
 		}
 
-	
+
 		$order_mails = $wo->get_order_mails() + $this->get_order_mails();
 		if($this->prop("mail_to_client"))
 		{
@@ -582,14 +579,14 @@ class shop_order_center_obj extends _int_object
 			$categories = $cat->get_categories();
 			if($categories->count())
 			{
-				$this->_make_new_struct_leaf($categories , $menu->id());		
+				$this->_make_new_struct_leaf($categories , $menu->id());
 			}
 		}
 	}
 
 	private function  __orderer_vars_sorter($a, $b)
 	{
-		if ($this->orderer_vars_meta["jrk"][$a] == $this->orderer_vars_meta["jrk"][$b]) 
+		if ($this->orderer_vars_meta["jrk"][$a] == $this->orderer_vars_meta["jrk"][$b])
 		{
 			return 0;
 		}
@@ -648,7 +645,7 @@ class shop_order_center_obj extends _int_object
 
 		return $ret;
 	}
-  
+
 	public function get_active_products_count()
 	{//CL_SHOP_PRODUCT_PACKAGE.RELTYPE_CATEGORY.
 		$GLOBALS["SLOW_DUKE"] = 1;

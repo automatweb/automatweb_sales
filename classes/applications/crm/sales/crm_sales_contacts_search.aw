@@ -448,7 +448,7 @@ class crm_sales_contacts_search
 				"logic" => "OR",
 				"conditions" => array (
 					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_COMPANY).firmajuht.name" => "{$this->p_contact_name}",
-					"CL_CRM_COMPANY_CUSTOMER_DATA.buyer(CL_CRM_PERSON).RELTYPE_CONTACT_PERSON.name" => "{$this->p_contact_name}"
+					"CL_CRM_COMPANY_CUSTOMER_DATA.RELTYPE_CONTACT_PERSON.name" => "{$this->p_contact_name}"
 				)
 			));
 		}
