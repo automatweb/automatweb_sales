@@ -15,10 +15,33 @@
 				</arguments>
 			</function>
 		</action>
+		<action name="wget_companies_html">
+			<function name="wget_companies_html">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+		<action name="parse_companies_html">
+			<function name="parse_companies_html">
+				<arguments>
+					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
 		<action name="load_html">
 			<function name="load_html">
 				<arguments>
 					<required name="id" type="int" />
+				</arguments>
+			</function>
+		</action>
+		<action name="import_save">
+			<function name="import_save">
+				<arguments>
+					<required name="id" type="int" />
+					<optional name="sectors" type="array" />
+					<optional name="companies" type="array" />
 				</arguments>
 			</function>
 		</action>

@@ -9,13 +9,31 @@
             <caption>URL</caption>
       </property>
       <property>
-            <name>import</name>
+            <name>import_sectors</name>
             <table>aw_eesti_ehitusturg</table>
             <group>general</group>
             <type>text</type>
             <store>no</store>
-            <field>import</field>
-            <caption>Impordi Eesti Ehitusturu andmebaas</caption>
+            <field>import_sectors</field>
+            <caption>Impordi tegevusalad ja organisatsioonide IDd</caption>
+      </property>
+      <property>
+            <name>import_companies_html</name>
+            <table>aw_eesti_ehitusturg</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>import_companies_html</field>
+            <caption>Impordi organisatsioonide HTML</caption>
+      </property>
+      <property>
+            <name>import_companies_details</name>
+            <table>aw_eesti_ehitusturg</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>import_companies_details</field>
+            <caption>Parsi imporditud HTMLst organisatsioonide andmed</caption>
       </property>
       <property>
             <name>email_templates</name>
@@ -51,3 +69,4 @@
             </EMAIL_TEMPLATE>
       </reltypes>
 </properties>
+
