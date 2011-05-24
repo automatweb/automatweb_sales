@@ -499,6 +499,11 @@ class crm_company_cust_impl extends class_base
 	function _org_table_header($tf)
 	{
 		$tf->define_field(array(
+			"name" => "pop",
+			"caption" => t("&nbsp;")
+		));
+
+		$tf->define_field(array(
 			"name" => "name",
 			"caption" => t("Kliendi nimi"),
 			"chgbgcolor" => "cutcopied",
@@ -567,11 +572,6 @@ class crm_company_cust_impl extends class_base
 			"chgbgcolor" => "cutcopied",
 			"caption" => t("Kliendisuhte looja"),
 			"sortable" => 1
-		));
-
-		$tf->define_field(array(
-			"name" => "pop",
-			"caption" => t("&nbsp;")
 		));
 
 		$tf->define_chooser(array(
@@ -3033,13 +3033,31 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 
 			if($categories->count())
 			{
+				$core = new core();
 				$category = $categories->begin();
+				$url = new aw_uri($core->mk_my_orb($arr["request"]["action"], array(
+					"group" => $arr["request"]["group"],
+					"id" => $arr["request"]["id"],
+				), $arr["request"]["class"]));
 
 				do
 				{
+					$category_id = $category->id();
+					// category popup menu
+					$menu = new popup_menu();
+					$menu->begin_menu("custcattbl".$category_id);
+					$menu->add_item(array(
+						"text" => t("Muuda"),
+						"link" => $core->mk_my_orb("change", array("id" => $category_id, "return_url" => get_ru()), "crm_category")
+					));
+
+					$url->set_arg(crm_company::REQVAR_CATEGORY, $category_id);
 					$table->define_data(array(
 						"oid" => $category->id(),
-						"name" => html::obj_change_url($category)
+						"actions" => $menu->get_menu(),
+						"name" => icons::get_icon(CL_MENU) . html::space() . html::href(array("url" => $url->get(), "caption" => $category->name())),
+						"modified" => $category->modified(),
+						"modifiedby" => $category->modifiedby()
 					));
 				}
 				while ($category = $categories->next());
@@ -3060,12 +3078,34 @@ if ($cust_rel) $customer_list_cro = $cust_rel->id();
 	private function _customer_categories_table_header($table)
 	{
 		$table->define_field(array(
+			"name" => "actions",
+			"width" => "1%",
+			"caption" => ""
+		));
+		$table->define_field(array(
 			"name" => "name",
 			"caption" => t("Nimi"),
 			"sortable" => 1
 		));
+		// $table->define_field(array(
+			// "name" => "name",
+			// "caption" => t("Kliente kategoorias"),
+			// "sortable" => 1
+		// ));
+		$table->define_field(array(
+			"name" => "modified",
+			"type" => "time",
+			"numeric" => 1,
+			"format" => "d.m.Y H:i",
+			"caption" => t("Viimati muudeti")
+		));
+		$table->define_field(array(
+			"name" => "modifiedby",
+			"caption" => t("Muuja")
+		));
 		$table->define_chooser(array(
 			"field" => "oid",
+			"width" => "1%",
 			"name" => "check"
 		));
 	}
