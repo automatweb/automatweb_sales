@@ -38,36 +38,44 @@ class eesti_ehitusturg extends class_base
 		));
 	}
 
-	public function _get_url($arr)
+	public function _get_url(&$arr)
 	{
 		if(empty($arr["prop"]["value"]))
 		{
 			$arr["prop"]["value"] = "http://eesti-ehitusturg.ee/index.php?leht=9";
 		}
+
+		return PROP_OK;
 	}
 
-	public function _get_import_sectors($arr)
+	public function _get_import_sectors(&$arr)
 	{
 		$arr["prop"]["value"] = html::href(array(
 			"caption" => t("K&auml;ivita import"),
 			"url" => $this->mk_my_orb("import", array("id" => automatweb::$request->arg("id"))),
 		));
+
+		return PROP_OK;
 	}
 
-	public function _get_import_companies_html($arr)
+	public function _get_import_companies_html(&$arr)
 	{
 		$arr["prop"]["value"] = html::href(array(
 			"caption" => t("K&auml;ivita import"),
 			"url" => $this->mk_my_orb("wget_companies_html", array("id" => automatweb::$request->arg("id"))),
 		));
+
+		return PROP_OK;
 	}
 
-	public function _get_import_companies_details($arr)
+	public function _get_import_companies_details(&$arr)
 	{
 		$arr["prop"]["value"] = html::href(array(
 			"caption" => t("K&auml;ivita import"),
 			"url" => $this->mk_my_orb("parse_companies_html", array("id" => automatweb::$request->arg("id"))),
 		));
+
+		return PROP_OK;
 	}
 
 	/**
