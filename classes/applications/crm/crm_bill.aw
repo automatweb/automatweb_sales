@@ -42,6 +42,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	// top left lyt
 	@property name type=text table=objects field=name parent=top_left no_caption=1
 
+	@property comment type=textbox table=objects field=comment parent=top_left
+	@caption Arve nimi
+
 	@property bill_no type=textbox table=aw_crm_bill field=aw_bill_no parent=top_left
 	@caption Number
 
@@ -156,11 +159,14 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 @default group=other_data
+	@property bill_text type=textarea rows=15 cols=50 field=meta method=serialize
+	@caption Arve sissejuhatus
+
+	@property bill_appendix_comment type=textarea rows=15 cols=50 table=objects field=meta method=serialize
+	@caption Kommentaar lisale
+
 	@property rows_different_pages type=text field=meta method=serialize
 	@caption Read erinevatel lehek&uuml;lgedel
-
-	@property comment type=textarea rows=15 cols=50 table=objects field=comment
-	@caption Kommentaar lisale
 
 	@property time_spent_desc type=textbox table=aw_crm_bill field=aw_time_spent_desc
 	@caption Kulunud aeg tekstina
@@ -192,14 +198,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property project type=relpicker store=connect reltype=RELTYPE_PROJECT multiple=1
 	@caption Projekt
 
-	@property bill_text type=textarea field=meta method=serialize
-	@caption Arve tekst
-
 	@property comments type=text store=no
 	@caption Kommentaarid
 
-	@property comments_add type=textarea store=no
-	@caption Lisa
+	@property comments_add type=textarea rows=15 cols=50 store=no
+	@caption Lisa kommentaar
 
 	@property mail_receiver type=relpicker store=connect multiple=1 reltype=RELTYPE_RECEIVER
 	@caption Arve e-kirja saaja
@@ -692,25 +695,28 @@ class crm_bill extends class_base
 					$prop["value"] = $sum;
 				}
 
-				$tax_sum = $add_tax = 0;
-				if(($SUM_WT = $arr["obj_inst"]->get_bill_sum()) > $prop["value"])
-				{
-					$tax_sum = $SUM_WT - $prop["value"];
-					$add_tax = 1;
-				}
+				$currency_name = $arr["obj_inst"]->get_bill_currency_name();
+				$table = new aw_table();
+				$table->add_fields(array("name" => "", "value" => ""));
+				$table->set_titlebar_display(false);
 
-				$val = array();
-				$val[] = number_format($prop["value"], 2)." ".$arr["obj_inst"]->get_bill_currency_name();
-				if(!empty($add_tax))
-				{
-					$val[] = t("Summa").": ".$prop["value"]." ".$arr["obj_inst"]->get_bill_currency_name();
-					$val[] = t("KM").": ".number_format($tax_sum, 2)." ".$arr["obj_inst"]->get_bill_currency_name();
-					$val[] = t("Kokku").": ".number_format($SUM_WT, 2)." ".$arr["obj_inst"]->get_bill_currency_name();
-				}
+				$table->define_data(array(
+					"name" => t("Arve summa"),
+					"value" => number_format($arr["obj_inst"]->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2)
+				));
+				$table->define_data(array(
+					"name" => t("K&auml;ibemaks"),
+					"value" => number_format($arr["obj_inst"]->get_bill_sum(crm_bill_obj::BILL_SUM_TAX), 2)
+				));
+				$table->define_data(array(
+					"name" => t("Kokku"),
+					"value" => number_format($arr["obj_inst"]->get_bill_sum(crm_bill_obj::BILL_SUM), 2)
+				));
+				$val = array($table->draw());
 
 				if($writeoffs_sum = $arr["obj_inst"]->get_writeoffs_sum())
 				{
-					$val[] = t("Mahakantud ridade summa:")." ".number_format($writeoffs_sum, 2)." ".$arr["obj_inst"]->get_bill_currency_name();
+					$val[] = t("Mahakantud ridade summa:")." ".number_format($writeoffs_sum, 2)." ".$currency_name;
 				}
 
 				$prop["value"] = join (html::linebreak(), $val);
@@ -1094,6 +1100,24 @@ class crm_bill extends class_base
 				$data[2] = "";
 				$prop_name = $this->add_recipient_propdefn($t, $email_address, $data, $this_o, t("Vaikimisi koopiasaajad"), true);
 			}
+		}
+
+		return $r;
+	}
+
+	function _set_disc(&$arr)
+	{
+		$r = PROP_OK;
+		$discount_pct = aw_math_calc::string2float($arr["prop"]["value"]);
+
+		if ($discount_pct > 100 or $discount_pct < 0)
+		{
+			$arr["prop"]["error"] = t("Allahindluse protsent ei saa olla suurem kui sada ega negatiivne.");
+			$r = PROP_ERROR;
+		}
+		else
+		{
+			$arr["prop"]["value"] = $discount_pct;
 		}
 
 		return $r;
@@ -3486,7 +3510,7 @@ class crm_bill extends class_base
 			"orderer_contact_profession" => $orderer_contact_person_profession,
 			"comment" => $this->bill->comment(),
 			"overdue" => $this->bill->get_overdue_charge(),
-			"bill_text" => $this->bill->get_bill_text(),
+			"bill_text" => nl2br($this->bill->get_bill_text()),
 		));
 
 		if($ord_country)
@@ -3593,7 +3617,7 @@ class crm_bill extends class_base
 			$grp_rows[$row["prod"]][$unp]["sum"] = isset($grp_rows[$row["prod"]][$unp]["sum"]) ? ($grp_rows[$row["prod"]][$unp]["sum"] + $cur_tax + $cur_sum) : ($cur_tax+$cur_sum);
 			$grp_rows[$row["prod"]][$unp]["tot_cur_sum"] = isset($grp_rows[$row["prod"]][$unp]["tot_cur_sum"]) ? ($grp_rows[$row["prod"]][$unp]["tot_cur_sum"] + $cur_sum) : $cur_sum;
 			$grp_rows[$row["prod"]][$unp]["tot_amt"] = isset($grp_rows[$row["prod"]][$unp]["tot_amt"]) ? ($grp_rows[$row["prod"]][$unp]["tot_amt"] + $row["amt"]) : $row["amt"];
-			$grp_rows[$row["prod"]][$unp]["unit"] = empty($row["unit"]) ? "" :$row["unit"];
+			$grp_rows[$row["prod"]][$unp]["unit"] = empty($row["unit"]) ? "" : $row["unit"];
 			$grp_rows[$row["prod"]][$unp]["price"] = empty($row["price"]) ? "" :$row["price"];
 			$grp_rows[$row["prod"]][$unp]["date"] = empty($row["date"]) ? "" :$row["date"];
 			$grp_rows[$row["prod"]][$unp]["jrk"] = empty($row["jrk"]) ? "" :$row["jrk"];
@@ -4208,7 +4232,7 @@ class crm_bill extends class_base
 		return $rs;
 	}
 
-	function get_bill_sum($b, $type = BILL_SUM)//mujal v6idakse veel classbasest v2lja kutsuda... ei viitsi k6ike yles otsida, muidu v6iks 2ra kustutada
+	function get_bill_sum($b, $type = crm_bill_obj::BILL_SUM)//mujal v6idakse veel classbasest v2lja kutsuda... ei viitsi k6ike yles otsida, muidu v6iks 2ra kustutada
 	{
 		return $b->get_bill_sum($type);
 

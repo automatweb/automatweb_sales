@@ -139,7 +139,7 @@
             <method>serialize</method>
             <captionside>top</captionside>
             <parent>settings_col3</parent>
-            <caption>Tegelik Live kuup&amp;amp;auml;ev	</caption>
+            <caption>Tegelik Live kuup&amp;amp;auml;ev</caption>
       </property>
       <property>
             <name>reason</name>
@@ -253,7 +253,7 @@
             <captionside>top</captionside>
             <store>no</store>
             <field>multifile_upload</field>
-            <caption>Fail </caption>
+            <caption>Fail</caption>
       </property>
       <property>
             <name>submit2</name>
@@ -343,7 +343,6 @@
             <no_comment>1</no_comment>
             <no_status>1</no_status>
             <prop_cb>1</prop_cb>
-            <maintainer>robert</maintainer>
       </classinfo>
       <groupinfo>
             <reqs>

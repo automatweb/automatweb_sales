@@ -1,6 +1,8 @@
 <?php
 class rfp_obj extends _int_object
 {
+	const CLID = 1175;
+
 
 	function set_prop($pn, $pv)
 	{

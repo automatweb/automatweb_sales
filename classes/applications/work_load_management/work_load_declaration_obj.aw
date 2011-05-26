@@ -2,6 +2,8 @@
 
 class work_load_declaration_obj extends _int_object
 {
+	const CLID = 1773;
+
 	protected $cache;
 
 	public function get_declaration_entry_for_user()

@@ -2,6 +2,8 @@
 
 class products_show_obj extends _int_object
 {
+	const CLID = 1576;
+
 	/** returns template name
 		@attrib api=1
 		@returns string

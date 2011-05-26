@@ -5,7 +5,7 @@
 
 // also, all view related functions from CL_PLANNER will move over here
 
-@classinfo syslog_type=ST_CALENDAR_VIEW relationmgr=yes no_status=1 maintainer=kristo
+@classinfo syslog_type=ST_CALENDAR_VIEW relationmgr=yes no_status=1
 
 @default table=objects
 @default group=general
@@ -774,7 +774,7 @@ class calendar_view extends class_base
 
 	////
 	//!
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		if ($arr["obj_inst"])
 		{
@@ -789,8 +789,6 @@ class calendar_view extends class_base
 		{
 			$this->target_doc = $this->_get_output_doc($this->obj_inst);
 		}
-
-		classload("vcl/calendar");
 
 		// figure out correct tpldir
 		$tpldir = "calendar/calendar_view";
@@ -1219,4 +1217,3 @@ class calendar_view extends class_base
 	}
 
 }
-?>

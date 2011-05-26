@@ -2,6 +2,8 @@
 
 class sm_site_group_obj extends _int_object
 {
+	const CLID = 1508;
+
 	/** Returns a list of site entry objects in the group
 		@attrib api=1
 	**/

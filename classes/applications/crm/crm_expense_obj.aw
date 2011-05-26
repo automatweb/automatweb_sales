@@ -2,6 +2,8 @@
 
 class crm_expense_obj extends _int_object
 {
+	const CLID = 1144;
+
 	function set_prop($name,$value)
 	{
 		if ($name == "cost")

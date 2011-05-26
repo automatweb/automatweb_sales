@@ -2,6 +2,8 @@
 
 class shop_price_list_obj extends shop_matrix_obj
 {
+	const CLID = 1457;
+
 	/**
 		@attrib params=name
 		@param valid optional type=bool

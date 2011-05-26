@@ -2,6 +2,8 @@
 
 class cfgform_obj extends _int_object
 {
+	const CLID = 119;
+
 	/**
 		@attrib params=pos
 		@param property required type=string/array

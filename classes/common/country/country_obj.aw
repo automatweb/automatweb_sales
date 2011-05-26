@@ -5,6 +5,8 @@
 
 class country_obj extends _int_object
 {
+	const CLID = 949;
+
 	/** Returns currently active administrative structure for this country
 	@attrib api=1 params=pos
 	@errors

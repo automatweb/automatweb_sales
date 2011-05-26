@@ -171,6 +171,29 @@ class aw_uri
 		return $this->host;
 	}
 
+	/** Sets scheme part
+	@attrib api=1 params=pos
+	@param scheme required type=string
+		scheme name
+	@returns void
+	@errors
+		Throws awex_uri_type if $scheme is not a valid URI scheme name.
+	**/
+	public function set_scheme($scheme)
+	{
+		$this->scheme = $scheme;
+		$this->updated = false;
+	}
+
+	/** Returns scheme part
+	@attrib api=1 params=pos
+	@returns string
+	**/
+	public function get_scheme()
+	{
+		return $this->scheme;
+	}
+
 	/**
 	@attrib api=1 params=pos
 	@param name required type=string

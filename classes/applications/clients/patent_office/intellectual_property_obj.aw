@@ -2,6 +2,8 @@
 
 class intellectual_property_obj extends _int_object
 {
+	const CLID = 1441;
+
 	protected static $ip_classes = array(
 		CL_PATENT,
 		CL_PATENT_PATENT,

@@ -7,6 +7,8 @@ require_once(AW_DIR . "classes/common/address/as_header.aw");
 
 class address_object extends _int_object
 {
+	const CLID = 948;
+
 	public static $unit_classes = array (
 		CL_COUNTRY_ADMINISTRATIVE_UNIT,
 		CL_COUNTRY_CITY,

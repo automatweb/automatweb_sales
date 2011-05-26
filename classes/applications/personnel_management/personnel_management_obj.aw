@@ -2,6 +2,8 @@
 
 class personnel_management_obj extends _int_object
 {
+	const CLID = 275;
+
 	function prop($k)
 	{
 		if($k == "perpage" && !is_numeric(parent::prop($k)))

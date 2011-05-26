@@ -7,7 +7,7 @@
             <type>objpicker</type>
             <clid>CL_CRM_OFFER</clid>
             <field>aw_offer</field>
-            <caption>Pakkumine</caption>
+            <caption>Pakkumus</caption>
       </property>
       <property>
             <name>object</name>

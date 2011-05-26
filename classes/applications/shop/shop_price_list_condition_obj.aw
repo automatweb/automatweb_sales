@@ -2,6 +2,8 @@
 
 class shop_price_list_condition_obj extends _int_object
 {
+	const CLID = 1573;
+
 	function save($exclusive = false, $previous_state = null)
 	{
 		if(strlen($this->name()) === 0)

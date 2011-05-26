@@ -5,6 +5,14 @@
 
 class country_administrative_unit_object extends _int_object
 {
+	const CLID = 960;
+
+	const CLID = 959;
+
+	const CLID = 958;
+
+	const CLID = 953;
+
 	function save($exclusive = false, $previous_state = null)
 	{
 		if (!is_oid($this->prop("administrative_structure")))

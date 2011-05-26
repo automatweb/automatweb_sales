@@ -2,6 +2,8 @@
 
 class shop_payment_type_obj extends shop_matrix_obj
 {
+	const CLID = 1577;
+
 	/**
 		@attrib params=name api=1
 		@param row optional

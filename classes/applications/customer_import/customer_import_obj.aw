@@ -2,6 +2,8 @@
 
 class customer_import_obj extends _int_object
 {
+	const CLID = 1541;
+
 ////////////////////////////////////////////////// process management support
 
 	function getpidinfo($pid, $ps_opt="aux")

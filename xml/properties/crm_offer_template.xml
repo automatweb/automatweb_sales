@@ -7,7 +7,7 @@
             <type>objpicker</type>
             <class>CL_CRM_OFFER</class>
             <field>aw_offer</field>
-            <caption>Pakkumine</caption>
+            <caption>Pakkumus</caption>
       </property>
       <classinfo>
             <syslog_type>ST_CRM_OFFER_TEMPLATE</syslog_type>

@@ -2,6 +2,8 @@
 
 class bug_object extends _int_object
 {
+	const CLID = 868;
+
 	function save($exclusive = false, $previous_state = null)
 	{
 		// before saving, set default props if they are not set yet

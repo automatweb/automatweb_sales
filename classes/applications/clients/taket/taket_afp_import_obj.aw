@@ -2,6 +2,8 @@
 
 class taket_afp_import_obj extends _int_object
 {
+	const CLID = 1496;
+
 	private $prod_fld;
 	private $org_fld;
 

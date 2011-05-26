@@ -659,7 +659,7 @@ class user_bookmarks extends class_base
 		}
 	}
 
-	function _shared_tree_recur(&$t, $parent, $bm)
+	function _shared_tree_recur($t, $parent, $bm)
 	{
 		$shared = $bm->meta("shared");
 		if(count($shared))
@@ -685,7 +685,7 @@ class user_bookmarks extends class_base
 		}
 	}
 
-	function _init_shared_table(&$t)
+	function _init_shared_table($t)
 	{
 		$t->define_field(array(
 			"name" => "display",
@@ -896,23 +896,28 @@ class user_bookmarks extends class_base
 			);
 			cache::file_set("bms".$bm->id(), aw_serialize($cd));
 		}
+
 		if($cd && !is_array($cd))
 		{
 			$cd = aw_unserialize($cd);
 		}
+
 		if($cd)
 		{
 			$oids = $cd["listids"];
 			$parents = $cd["parents"];
 		}
+
 		$params["oid"] = -1;
 		if(count($oids))
 		{
 			$params["oid"] = $oids;
 		}
+
 		$params["sort_by"] = "objects.jrk ASC";
 		$list = new object_list($params);
 		$mt = $bm->meta("grp_sets");
+
 		foreach($list->arr() as $li)
 		{
 			$pt = null;
@@ -946,8 +951,7 @@ class user_bookmarks extends class_base
 				}
 				$pm->add_sub_menu($params);
 			}
-			else
-			if ($li->class_id() == CL_EXTLINK)
+			elseif ($li->class_id() == CL_EXTLINK)
 			{
 				$pm->add_item(array(
 					"text" => $li->meta("user_text") != "" ? $li->meta("user_text") : $li->name(),
@@ -998,7 +1002,7 @@ class user_bookmarks extends class_base
 		)));
 	}
 
-	function get_user_bms($bm, &$list, &$parents)
+	function get_user_bms($bm, $list, &$parents)
 	{
 		// now, add items from the bum
 		$ot = new object_tree(array(
@@ -1365,6 +1369,7 @@ class user_bookmarks extends class_base
 				}
 			}
 		}
+
 		if(!$ol)
 		{
 			$ol = new object_list(array(

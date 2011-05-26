@@ -9,6 +9,7 @@ lc_load("definition");
 class acl_base extends db_connector
 {
 	private $acl_ids;
+	private $__aw_acl_cache = array();
 
 	function sql_unpack_string()
 	{

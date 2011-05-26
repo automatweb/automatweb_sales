@@ -2,6 +2,8 @@
 
 class shop_delivery_note_obj extends _int_object
 {
+	const CLID = 1459;
+
 	function awobj_get_delivery_date()
 	{
 		$conn = parent::connections_to(array(

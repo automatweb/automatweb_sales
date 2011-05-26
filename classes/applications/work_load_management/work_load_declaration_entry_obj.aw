@@ -2,6 +2,8 @@
 
 class work_load_declaration_entry_obj extends _int_object
 {
+	const CLID = 1775;
+
 	public function val($k)
 	{
 		$map = array(

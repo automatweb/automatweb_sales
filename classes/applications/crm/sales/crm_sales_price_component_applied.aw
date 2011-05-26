@@ -36,5 +36,3 @@ class crm_sales_price_component_applied
 		return $this->price_change;
 	}
 }
-
-?>

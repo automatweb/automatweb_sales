@@ -2,6 +2,8 @@
 
 class crm_area_obj extends _int_object
 {
+	const CLID = 1107;
+
 
 	/** Returns object list of personnel_management_job_offer objects that are connected to the area.
 

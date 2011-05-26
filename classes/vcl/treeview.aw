@@ -68,14 +68,22 @@ class treeview extends class_base
 	var $rootnode;
 	protected $first_level_menu_is_last;
 
+	////////////// m22rata skoop
+	var $clidlist;
+	var $ic;
+	var $arr = array();
+	var $items = array();
+	var $itemdata = array();
+	var $config = array();
+	var $features = array();
+	//////////////
+
 	function treeview($args = array())
 	{
 		$this->init(array(
 			"tpldir" => "treeview",
 			"clid" => CL_TREEVIEW,
 		));
-
-		$this->features = array();
 	}
 
 	function get_property($args)
@@ -86,7 +94,7 @@ class treeview extends class_base
 			case "treetype":
 				$data["options"] = array("" => "--vali--","dhtml" => "DHTML (Ftiens)");
 				break;
-		};
+		}
 	}
 
 	function init_vcl_property($arr)
@@ -128,10 +136,9 @@ class treeview extends class_base
 		else
 		{
 			$type = "dhtml";
-		};
-		$this->read_template("ftiens.tpl");
-		$this->arr = array();
+		}
 
+		$this->read_template("ftiens.tpl");
 		$this->clidlist = (is_array($args["config"]["clid"])) ? $args["config"]["clid"] : CL_MENU;
 
 

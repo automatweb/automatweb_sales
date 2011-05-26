@@ -2394,13 +2394,15 @@ class _int_object
 
 	protected function _int_can_save()
 	{
+		$clid = $this->obj["class_id"];
+
 		if (isset($this->obj["parent"]) and is_array($this->obj["parent"]))
 		{
 			$this->obj["parent"] = $this->obj["parent"]["oid"];
 		}
 
 		// required params - parent and class_id
-		if (isset($this->obj["parent"]) and $this->obj["parent"] > 0 and isset($this->obj["class_id"]) and $this->obj["class_id"] > 0)
+		if (isset($this->obj["parent"]) and $this->obj["parent"] > 0 and isset($clid) and $clid > 0)
 		{
 			// acl
 			if (!empty($this->obj["oid"]))
@@ -2428,6 +2430,12 @@ class _int_object
 		}
 
 		throw new awex_obj_acl(sprintf("Object '%s' cannot be saved, needed properties are not set (parent, class_id)", (isset($this->obj["oid"]) ? $this->obj["oid"] : "NULL")));
+
+		// security checks
+		if (aw_ini_isset("classes.{$clid}.has_server_access") and aw_ini_get("classes.{$clid}.has_server_access") and aw_ini_get("acl.restrict_server_access"))
+		{
+			throw new awex_obj_acl(sprintf("Object '%s' cannot be saved, server access restriction enabled", (isset($this->obj["oid"]) ? $this->obj["oid"] : "NULL")));
+		}
 	}
 
 	protected function _int_set_of_value($ofield, $val)

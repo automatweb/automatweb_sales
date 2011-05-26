@@ -24,23 +24,16 @@
 		#bill tr td.info table tr td.content { border-bottom: 1px solid #cccccc; padding: 0.4em; }
 		#bill tr td.info table tr td.bottom { border: 0px; }
 
-		#bill tr td.main { vertical-align: top; padding: 3em 0 3em 0; }
+		#bill tr td.main { vertical-align: top; padding: 2em 0 3em 0; }
 		#bill tr td.main table { width: 100%; font-size: 12px; font-family: Arial; }
 		#bill tr td.main table tr th { text-align: left; border-bottom: 1px solid #cccccc; padding: 0.4em; color: #666666; }
 		#bill tr td.main table tr td { border-bottom: 1px solid #cccccc; padding: 0.4em; }
 		#bill tr td.main table tr td.caption { text-align: right; color: #666666; font-weight: bold; padding-right: 1em; border: 0px;}
 		#bill tr td.main table tr td.words { border: 0px; text-align: right; }
 		#bill tr td.main table tr td.words strong { color: #666666; padding-right: 1em; }
-
-		#bill tr td.bill_text  {
-			border-top: 1px solid #cccccc;
-			font-family: Courier New;
-			height: 100%;
-			padding: 1em;
-			vertical-align: top;
-		}
-		#bill tr td.caption{ font-weight: bold; color: #666666; padding: 0.4em 1em 0.4em 0.4em; font-size:12px; }
-		#bill tr td.koostaja {text-align: left; font-size:12px; padding-left:10px; padding:0.4em;}
+		#bill tr td.bill_text { padding-top: 2em; font-size: 12px; }
+		#bill tr td.caption{ font-weight: bold; color: #666666; padding: 0.4em 1em 0.4em 0.4em; font-size: 12px; }
+		#bill tr td.koostaja {text-align: left; font-size:12px; padding: 0.4em 0.4em 3em 10px;}
 		#bill tr td.koostaja div.signature {width: 300px; float:left; border-bottom: 1px solid; font-size:11px;}
 		#bill tr td.footer { border-top: 1px solid #cccccc; text-align: center; font-size: 11px; color: #666666; vertical-align: bottom; height: 3em; }
 		#bill tr td.footer p { margin-top: 1em; }
@@ -129,6 +122,11 @@
 		</td>
 	</tr>
 	<tr>
+		<td colspan="2" class="bill_text">
+			{VAR:bill_text}
+		</td>
+	</tr>
+	<tr>
 		<td colspan="2" class="main">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
@@ -191,11 +189,6 @@
       </div>
     </td>
   </tr>
-	<tr>
-		<td colspan="2" class="bill_text">
-			{VAR:bill_text}
-		</td>
-	</tr>
 	<tr>
 		<td colspan="2" class="footer">
 			<p>{VAR:impl_name} | Reg. nr {VAR:impl_reg_nr} | Käibemaksukohuslase nr {VAR:impl_kmk_nr}</p> <p>{VAR:impl_street} {VAR:impl_index}, {VAR:impl_city} | Tel {VAR:impl_phone} | {VAR:impl_url}</p>

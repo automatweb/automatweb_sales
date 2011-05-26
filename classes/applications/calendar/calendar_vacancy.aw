@@ -1,9 +1,8 @@
 <?php
-// $Header: /home/cvs/automatweb_dev/classes/applications/calendar/calendar_vacancy.aw,v 1.10 2008/11/06 18:51:54 markop Exp $
-// calendar_vacancy.aw - Vakants 
+// calendar_vacancy.aw - Vakants
 /*
 
-@classinfo syslog_type=ST_CALENDAR_VACANCY relationmgr=yes maintainer=kristo
+@classinfo syslog_type=ST_CALENDAR_VACANCY relationmgr=yes
 
 @default table=objects
 @default group=general
@@ -133,7 +132,7 @@ class calendar_vacancy extends class_base
 				{
 					return PROP_IGNORE;
 				}
-				$cal_id = 
+				$cal_id =
 				$prop["value"] = html::href(array(
 					"url" => $this->mk_my_orb("reserve_slot",array(
 						"id" => $vac->id(),
@@ -220,7 +219,7 @@ class calendar_vacancy extends class_base
 						if(strlen($emails))
 						{
 							$prop['value'].=$emails;
-						}						
+						}
 						$prop['value'].='<br>';
 					}
 				}
@@ -259,35 +258,14 @@ class calendar_vacancy extends class_base
 		return $retval;
 	}
 
-	/*
-	function set_property($arr = array())
-	{
-		$prop = &$arr["prop"];
-		$retval = PROP_OK;
-		switch($prop["name"])
-		{
-
-		}
-		return $retval;
-	}	
-	*/
-
-	////////////////////////////////////
-	// the next functions are optional - delete them if not needed
-	////////////////////////////////////
-
-	////
-	// !this will be called if the object is put in a document by an alias and the document is being shown
-	// parameters
-	//    alias - array of alias data, the important bit is $alias[target] which is the id of the object to show
-	function parse_alias($arr)
+	function parse_alias($arr = array())
 	{
 		return $this->show(array("id" => $arr["alias"]["target"]));
 	}
 
 	////
 	// !this shows the object. not strictly necessary, but you'll probably need it, it is used by parse_alias
-	function show($arr)
+	function show($arr = array())
 	{
 		$ob = new object($arr["id"]);
 		$this->read_template("show.tpl");
@@ -297,4 +275,3 @@ class calendar_vacancy extends class_base
 		return $this->parse();
 	}
 }
-?>
