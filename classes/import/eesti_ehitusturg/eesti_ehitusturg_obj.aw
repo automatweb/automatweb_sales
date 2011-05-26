@@ -87,7 +87,7 @@ class eesti_ehitusturg_obj extends _int_object
 	public function parse_companies_html()
 	{
 		$dir = aw_ini_get("site_basedir")."/files/eesti_ehitusturg/companies_html";
-		$htmls = glob($dir . "/*.html")
+		$htmls = glob($dir . "/*.html");
 		foreach($htmls as $html)
 		{
 			arr($html);
