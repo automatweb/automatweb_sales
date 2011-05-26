@@ -77,13 +77,21 @@ class eesti_ehitusturg_obj extends _int_object
 		exec(sprintf("mkdir %s/files/eesti_ehitusturg/companies_html", aw_ini_get("site_basedir")));
 		foreach($this->get_companies() as $company)
 		{
-			exec(sprintf("mkdir %s/%u/; cd %s/%u/; wget http://eesti-ehitusturg.ee/index.php?leht=9&rn=%u", $dir, $company["id"], $dir, $company["id"], $company["id"], $dir, $company["id"]));
+			if (!file_exists($dir."/".$company["id"]))
+			{
+				exec(sprintf("mkdir %s/%u/; cd %s/%u/; wget http://eesti-ehitusturg.ee/index.php?leht=9&rn=%u", $dir, $company["id"], $dir, $company["id"], $company["id"], $dir, $company["id"]));
+			}
 		}
 	}
 
 	public function parse_companies_html()
 	{
 		$dir = aw_ini_get("site_basedir")."/files/eesti_ehitusturg/companies_html";
+		$htmls = glob($dir . "/*.html")
+		foreach($htmls as $html)
+		{
+			arr($html);
+		}
 	}
 
 	protected function save_company($company)
@@ -150,7 +158,7 @@ class eesti_ehitusturg_obj extends _int_object
 
 		$companies = array();
 
-		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_companies LIMIT 0, 3;");
+		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_companies;");
 		foreach($rows as $row)
 		{
 			$row["sectors"] = explode(",", trim($row["sectors"], ","));
