@@ -2,6 +2,8 @@
 
 class mrp_order_obj extends _int_object
 {
+	const CLID = 1519;
+
 	/**
 		@attrib api=1
 	**/

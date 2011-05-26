@@ -2,6 +2,8 @@
 
 class crm_sales_price_component_restriction_obj extends _int_object
 {
+	const CLID = 1725;
+
 	public function prop($k)
 	{
 		switch ($k)

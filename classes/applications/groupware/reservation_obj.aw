@@ -6,6 +6,8 @@
 //maintainer=markop
 class reservation_obj extends _int_object
 {
+	const CLID = 1165;
+
 	function delete($full_delete = false)
 	{
 		$ol = $this->get_other_brons();

@@ -1177,9 +1177,7 @@ class cfgform extends class_base
 
 			$obj->set_meta("cfg_proplist", $this->cfg_proplist);
 			$obj->set_meta("cfg_proplist_format_updated", "1");
-			aw_disable_acl();
 			$obj->save();
-			aw_restore_acl();
 		}
 	}
 
@@ -1199,7 +1197,7 @@ class cfgform extends class_base
 		}
 
 		$inst = get_instance($fl);
-		$this->all_props = $inst->get_all_properties();
+		$this->all_props = $inst->get_all_properties();//XXX: get_all_properties on deprecated meetod
 	}
 
 	function set_property($arr)

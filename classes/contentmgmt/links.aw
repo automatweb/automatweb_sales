@@ -1,7 +1,7 @@
 <?php
 
 /*
-@classinfo no_status=1 syslog_type=ST_LINKS
+@classinfo no_status=1 syslog_type=ST_LINKS prop_cb=1
 @tableinfo extlinks index=id master_table=objects master_index=oid
 
 @default group=general
@@ -171,11 +171,11 @@ class links extends class_base
 				"class_id" => CL_MENU,
 				"name" => "%".$s_name."%"
 			)));
-			for($o =& $sres->begin(); !$sres->end(); $o =& $sres->next())
+			for($o = $sres->begin(); !$sres->end(); $o = $sres->next())
 			{
 				if (aw_ini_get("menuedit.long_section_url"))
 				{
-					$url = "/".$this->cfg["index_file"].".".$this->cfg["ext"]."/section=".$o->id();
+					$url = "/".$this->cfg["index_file"].".".AW_FILE_EXT."/section=".$o->id();
 				}
 				else
 				{
@@ -220,16 +220,10 @@ class links extends class_base
 	}
 
 	/**
-
 		@attrib name=show params=name nologin="1"
-
 		@param id required type=int
-
 		@returns
-
-
 		@comment
-
 	**/
 	function show($arr)
 	{
@@ -395,8 +389,35 @@ class links extends class_base
 				$f->add_upload_image("link_image", $arr['obj_inst']->id(), $old_file);
 				$retval = PROP_IGNORE;
 				break;
-		};
+		}
 		return $retval;
+	}
+
+	function _set_url(&$arr)
+	{
+		$r = class_base::PROP_OK;
+		try
+		{
+			$url = new aw_uri($arr["prop"]["value"]);
+
+			if ("javascript" === $url->get_scheme())
+			{
+				$r = class_base::PROP_ERROR;
+				//XXX: v6ibolla vaja paremat lahendust, sest v6ib vaja olla js linke teha
+				// for security reasons, disallow javascript
+				$arr["prop"]["error"] = t("URI skeem 'javascript' pole lubatud.");
+			}
+			else
+			{
+				$arr["prop"]["value"] = $url->get();
+			}
+		}
+		catch (Exception $e)
+		{
+			$r = class_base::PROP_ERROR;
+			$arr["prop"]["error"] = t("Sisestatud URL on ebakorrektne.");
+		}
+		return $r;
 	}
 
 	////
@@ -412,11 +433,9 @@ class links extends class_base
 	function add_hit($id)
 	{
 		$o = obj($id);
-		aw_disable_acl();
 		$prev = obj_set_opt("no_cache", 1);
 		$o->set_prop("hits", $o->prop("hits")+1);
 		$o->save();
-		aw_restore_acl();
 		obj_set_opt("no_cache", $prev);
 		$this->_log(ST_EXTLINK, SA_CLICK, $o->name(), $id);
 	}
@@ -497,18 +516,18 @@ class links extends class_base
 		nsbt = document.createElement('input');nsbt.name='save_and_doc';nsbt.type='submit';nsbt.id='button';nsbt.value='".t("Salvesta ja paiguta dokumenti")."'; el = document.getElementById('buttons');el.appendChild(nsbt);}";
 	}
 
-	function callback_mod_retval($arr)
+	function callback_mod_retval(&$arr)
 	{
 		$arr["args"]["docid"] = $arr["request"]["docid"];
 	}
 
-	function callback_mod_reforb($arr)
+	function callback_mod_reforb(&$arr, $request)
 	{
-		$arr["ldocid"] = $_GET["ldocid"];
+		$arr["ldocid"] = $request["ldocid"];
 		$arr["link_pops"] = "0";
 	}
 
-	function callback_mod_tab($arr)
+	function callback_mod_tab(&$arr)
 	{
 		if ($_REQUEST["docid"])
 		{

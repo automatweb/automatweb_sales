@@ -2,6 +2,8 @@
 
 class crm_person_language_obj extends _int_object
 {
+	const CLID = 489;
+
 	function set_prop($k, $v)
 	{
 		if($k == "other")

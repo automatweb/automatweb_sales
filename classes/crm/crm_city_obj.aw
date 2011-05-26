@@ -2,6 +2,8 @@
 
 class crm_city_obj extends _int_object
 {
+	const CLID = 139;
+
 	/** Returns object list of personnel_management_job_offer objects that are connected to the city.
 
 		@attrib name=get_job_offers params=name api=1

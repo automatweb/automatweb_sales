@@ -2,6 +2,8 @@
 
 class industrial_design_obj extends intellectual_property_obj
 {
+	const CLID = 1452;
+
 	const APPLICANT_REG_AUTHOR = 1;
 	const APPLICANT_REG_AUTHOR_SUCCESOR = 2;
 	const APPLICANT_REG_EMPLOYER = 3;

@@ -6,6 +6,8 @@
 */
 class package_server_obj extends _int_object
 {
+	const CLID = 1211;
+
 	function add_package($params)
 	{
 		$o = new object();

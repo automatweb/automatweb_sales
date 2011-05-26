@@ -7,6 +7,8 @@ require_once(aw_ini_get("basedir") . "/classes/common/address/as_header.aw");
 
 class country_administrative_structure_object extends _int_object
 {
+	const CLID = 961;
+
 	public static $unit_classes = array (
 		CL_COUNTRY_ADMINISTRATIVE_UNIT,
 		CL_COUNTRY_CITY,

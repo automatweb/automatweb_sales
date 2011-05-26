@@ -2,7 +2,7 @@
 <head>
 	<title>Arve nr {VAR:bill_no}</title>
 	<style>
-	body { font-size: 9; margin: 2em 2em 2em 4em; }
+	body { font-size: 9; margin: 2em 4em 2em 4em; }
 	table { width: 100%; border: 1px solid white; border-collapse: collapse; }
 	h1 { font-size: 14; color: #05A6E9; margin: 0; padding: 2em 0 0 0; }
 	p { width: 100%; margin: 0; }
@@ -14,8 +14,7 @@
 	.data { margin: 3em 0 0 0; }
 	.data td { border: 1px solid white; }
 	.heading { color: #666666; }
-	.bill_text { border-top: 1px solid gray; margin: 2em; }
-	.bill_text_div { padding: 1em; }
+	.bill_text { margin: 2em 0 0 0; }
 	.signature {width: 150px; border-bottom: 0.01em solid; font-size:8px;}
 	.koostaja {padding:0.4em}
 	</style>
@@ -97,6 +96,14 @@ if(isset($pdf))
 </tr>
 </table>
 
+<table class="bill_text" width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td>
+		<div class="bill_text_div">{VAR:bill_text}</div>
+	</td>
+</tr>
+</table>
+
 <table class="data" width="100%" cellspacing="0" cellpadding="5">
 <tr>
 	<td width="40%" class="heading"><strong>Selgitus</strong></td>
@@ -159,15 +166,6 @@ if(isset($pdf))
   </tr>
   </table>
 
-</table>
-
-<table class="bill_text" width="100%" cellspacing="0" cellpadding="0" border="0">
-
-<tr>
-	<td>
-		<div class="bill_text_div">{VAR:bill_text}</div>
-	</td>
-</tr>
 </table>
 
 </div>

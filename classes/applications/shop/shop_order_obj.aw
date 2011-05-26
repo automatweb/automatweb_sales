@@ -2,6 +2,8 @@
 
 class shop_order_obj extends _int_object
 {
+	const CLID = 302;
+
 	function set_prop($name,$value)
 	{
 		parent::set_prop($name,$value);

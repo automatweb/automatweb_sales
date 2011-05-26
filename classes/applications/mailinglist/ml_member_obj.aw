@@ -2,6 +2,8 @@
 
 class ml_member_obj extends _int_object
 {
+	const CLID = 73;
+
 	function prop($name)
 	{
 		//FIXME: konverteerimine viia mujale. kasutada prop_xml-i vms.

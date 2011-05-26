@@ -3,6 +3,10 @@
 // maintainer=markop
 class task_object extends _int_object
 {
+	const CLID = 244;
+
+	const CLID = 224;
+
 	protected $_no_display;
 
 	function get_prop($pn)

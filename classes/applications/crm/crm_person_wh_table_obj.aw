@@ -2,6 +2,8 @@
 
 class crm_person_wh_table_obj extends _int_object
 {
+	const CLID = 1509;
+
 	/** returns object_list of people selected 
 		@attrib api=1
 	**/

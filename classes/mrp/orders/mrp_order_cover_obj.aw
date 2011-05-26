@@ -2,6 +2,8 @@
 
 class mrp_order_cover_obj extends _int_object
 {
+	const CLID = 1523;
+
 	public function get_price_for_order_and_amt($order, $amt)
 	{
 		$cover = 0;

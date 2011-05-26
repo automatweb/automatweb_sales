@@ -2,6 +2,8 @@
 
 class crm_company_customer_data_generator_obj extends _int_object
 {
+	const CLID = 1507;
+
 	public function generate($arr)
 	{
 		$sample_oid = $this->prop("sample_object");

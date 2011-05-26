@@ -4,6 +4,8 @@ require_once "mrp_header.aw";
 
 class mrp_workspace_obj extends _int_object
 {
+	const CLID = 852;
+
 	// resource manager types
 	const MGR_TYPE_MR = 1; // manufacturing resources
 	const MGR_TYPE_HR = 2; // human resources

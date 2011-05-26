@@ -2,6 +2,8 @@
 
 class image_obj extends _int_object
 {
+	const CLID = 6;
+
 	function set_prop($k, $v)
 	{
 		if($k == "file" || $k == "file2")

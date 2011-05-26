@@ -2,6 +2,8 @@
 
 class eesti_ehitusturg_obj extends _int_object
 {
+	const CLID = 1686;
+
 	public function import()
 	{		
 		$i = $this->instance();

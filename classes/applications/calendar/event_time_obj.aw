@@ -2,6 +2,8 @@
 
 class event_time_obj extends _int_object
 {
+	const CLID = 1322;
+
 	function set_prop($name,$value)
 	{
 		switch($name)
