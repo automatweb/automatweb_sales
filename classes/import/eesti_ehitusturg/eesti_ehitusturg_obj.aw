@@ -78,6 +78,8 @@ class eesti_ehitusturg_obj extends _int_object
 		$dir = aw_ini_get("site_basedir")."/files/eesti_ehitusturg/companies_html";
 		exec(sprintf("mkdir %s/files/eesti_ehitusturg", aw_ini_get("site_basedir")));
 		exec(sprintf("mkdir %s/files/eesti_ehitusturg/companies_html", aw_ini_get("site_basedir")));
+		exec(sprintf("mkdir %s/files/eesti_ehitusturg/trash", aw_ini_get("site_basedir")));
+		exec(sprintf("mkdir %s/files/eesti_ehitusturg/trash/companies_html", aw_ini_get("site_basedir")));
 		foreach($this->get_companies() as $company)
 		{
 			if (!file_exists($dir."/".$company["id"]))
@@ -92,6 +94,8 @@ class eesti_ehitusturg_obj extends _int_object
 	public function parse_companies_html()
 	{
 		$dir = aw_ini_get("site_basedir")."/files/eesti_ehitusturg/companies_html";
+		$dir_trash = aw_ini_get("site_basedir")."files/eesti_ehitusturg/trash/companies_html";
+
 		if (false !== ($handle = opendir($dir)))
 		{
 			while (false !== ($company_dir = readdir($handle)))
@@ -122,6 +126,7 @@ class eesti_ehitusturg_obj extends _int_object
 							}
 						}
 					}
+					exec("mv ".$dir."/".$company_dir." ".$dir_trash."/".$company_dir);
 //					exec("rm -rf ".$dir."/".$company_dir);
 				}
 			}
@@ -210,6 +215,13 @@ class eesti_ehitusturg_obj extends _int_object
 		{
 			$i = strpos($html, "=\"top\">", $j) + 7;
 			$company["phone2"] = trim(str_replace("&nbsp;", "", strip_tags(substr($html, $i, strpos($html, "</td>", $i) - $i))));
+		}
+
+		// Get fax:
+		if(false !== ($j = strpos($html, "Faks:")))
+		{
+			$i = strpos($html, "=\"top\">", $j) + 7;
+			$company["fax"] = trim(str_replace("&nbsp;", "", strip_tags(substr($html, $i, strpos($html, "</td>", $i) - $i))));
 		}
 
 		// Get e-mail:
@@ -340,7 +352,8 @@ class eesti_ehitusturg_obj extends _int_object
 			"email" => "str",
 			"web" => "str",
 			"sector" => "int",
-			"emtak" => "str",
+			"emtak_id" => "str",
+			"emtak_name" => "str",
 			"info" => "str",
 			"created" => "int",
 			"view_count" => "int",
@@ -510,7 +523,8 @@ class eesti_ehitusturg_obj extends _int_object
 				email VARCHAR(40),
 				web VARCHAR(40),
 				sector INT,
-				emtak VARCHAR(40),
+				emtak_id VARCHAR(40),
+				emtak_name VARCHAR(200),
 				info TEXT,
 				view_count INT,
 				created INT
