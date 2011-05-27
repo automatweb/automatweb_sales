@@ -15,7 +15,7 @@ class __classname extends class_base
 	{
 		$this->init(array(
 			"tpldir" => "__tplfolder",
-			"clid" => __classdef
+			"clid" => __object_override::CLID
 		));
 	}
 
