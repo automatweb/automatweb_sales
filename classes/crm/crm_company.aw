@@ -2338,6 +2338,7 @@ class crm_company extends class_base
 				if (!$cust_impl)
 				{
 					$cust_impl = new crm_company_cust_impl();
+					$cust_impl->layoutinfo = &$this->layoutinfo;
 					$cust_impl->use_group = $this->use_group;
 				}
 				$fn = "_get_".$data["name"];
@@ -3244,17 +3245,48 @@ class crm_company extends class_base
 	**/
 	function delete_selected_objects($arr)
 	{
-		foreach ($arr["select"] as $deleted_obj_id)
+		$selected_objects = $errors = array();
+		if (!empty($arr["select"]))
 		{
-			$deleted_obj = obj($deleted_obj_id);
-			$deleted_obj->delete();
+			$selected_objects += $arr["select"] ;
 		}
-		return $this->mk_my_orb("change", array(
+
+		if (!empty($arr["cust_check"]))
+		{
+			$selected_objects += $arr["cust_check"] ;
+		}
+
+		if (!empty($arr["cat_check"]))
+		{
+			$selected_objects += $arr["cat_check"] ;
+		}
+
+		foreach ($selected_objects as $delete_obj_id)
+		{
+			if (object_loader::can("delete", $delete_obj_id))
+			{
+				$deleted_obj = obj($delete_obj_id);
+				$deleted_obj->delete();
+			}
+			else
+			{
+				$errors[] = $delete_obj_id;
+			}
+		}
+
+		if (count($errors))
+		{
+			$this->show_error_text(sprintf(t("Objekte %s ei saanud kustutada."), implode(", ", $errors)));
+		}
+
+		// return url
+		$r = empty($arr["post_ru"]) ? $this->mk_my_orb("change", array(
 			"id" => $arr["id"],
 			"group" => $arr["group"],
 			"org_id" => isset($arr["offers_current_org_id"]) ? $arr["offers_current_org_id"] : 0),
 			$arr["class"]
-		);
+		) : $arr["post_ru"];
+		return $r;
 	}
 
 	/**
@@ -3459,12 +3491,12 @@ class crm_company extends class_base
 	/** Delete customer relations and customer objects completely
 		@attrib name=remove_delete_cust
 		@param id required type=oid
-		@param check required type=array
+		@param cust_check required type=array
 		@param post_ru optional type=string
 	**/
 	function remove_delete_cust($arr)
 	{
-		if (is_array($arr["check"]) and count($arr["check"]))
+		if (is_array($arr["cust_check"]) and count($arr["cust_check"]))
 		{
 			try
 			{
@@ -3476,7 +3508,7 @@ class crm_company extends class_base
 				return $arr["post_ru"];
 			}
 
-			foreach($arr["check"] as $customer_relation_oid)
+			foreach($arr["cust_check"] as $customer_relation_oid)
 			{
 				try
 				{
@@ -3503,13 +3535,14 @@ class crm_company extends class_base
 	**/
 	function remove_from_category($arr)
 	{
-		if (is_array($arr["check"]) and count($arr["check"]) and is_oid($arr[self::REQVAR_CATEGORY]))
+		if (is_array($arr["cust_check"]) and count($arr["cust_check"]) and is_oid($arr[self::REQVAR_CATEGORY]))
 		{
+			$errors = array();
 			try
 			{
 				$category = obj($arr[self::REQVAR_CATEGORY]);
 
-				foreach($arr['check'] as $customer_relation_oid)
+				foreach($arr['cust_check'] as $customer_relation_oid)
 				{
 					try
 					{
@@ -3540,7 +3573,7 @@ class crm_company extends class_base
 	**/
 	function remove_cust_relations($arr)
 	{
-		if (is_array($arr["check"]) and count($arr["check"]))
+		if (is_array($arr["cust_check"]) and count($arr["cust_check"]))
 		{
 			try
 			{
@@ -3552,7 +3585,8 @@ class crm_company extends class_base
 				return $arr["post_ru"];
 			}
 
-			foreach($arr["check"] as $customer_relation_oid)
+			$errors = array();
+			foreach($arr["cust_check"] as $customer_relation_oid)
 			{
 				try
 				{
@@ -3648,9 +3682,9 @@ class crm_company extends class_base
 	**/
 	function submit_delete_my_customers_relations($arr)
 	{
-		if (is_array($arr["check"]) && count($arr["check"]))
+		if (is_array($arr["cust_check"]) && count($arr["cust_check"]))
 		{
-			$ol = new object_list(array("oid" => $arr["check"]));
+			$ol = new object_list(array("oid" => $arr["cust_check"]));
 			$ol->delete();
 		}
 
@@ -3665,7 +3699,7 @@ class crm_company extends class_base
 	**/
 	function submit_delete_customer_relations($arr)
 	{
-		if(!is_array($arr['check']))
+		if(!is_array($arr['cust_check']))
 		{
 			return $arr["post_ru"];
 		}
@@ -3676,7 +3710,7 @@ class crm_company extends class_base
 			$main_obj = new object($arr[self::REQVAR_CATEGORY]);
 		}
 
-		foreach($arr['check'] as $key=>$value)
+		foreach($arr['cust_check'] as $key=>$value)
 		{
 			$vo = obj($value);
 			if ($vo->class_id() == CL_CRM_SECTION)
@@ -4595,35 +4629,87 @@ class crm_company extends class_base
 
 	/**
 		@attrib name=customer_view_cut
-		@param check required type=array
+		@param cust_check optional type=array
+		@param cat_check optional type=array
 		@param cs_c required type=string
 		@param post_ru required type=string
 	**/
 	function customer_view_cut($arr)
 	{
-		aw_session_set("awcb_customer_selection_clipboard", $arr["check"]);
-		aw_session_set("awcb_category_old_parent", (isset($arr["cs_c"]) ? $arr["cs_c"] : ""));
+		$check = array();
+
+		if (isset($arr["cust_check"]))
+		{
+			$check += $arr["cust_check"];
+		}
+
+		if (isset($arr["cat_check"]))
+		{
+			$check += $arr["cat_check"];
+		}
+
+		aw_session::set("awcb_clipboard_action", "cut");
+		aw_session::set("awcb_customer_selection_clipboard", $check);
+		aw_session::set("awcb_category_old_parent", (isset($arr["cs_c"]) ? $arr["cs_c"] : ""));
+		return $arr["post_ru"];
+	}
+
+	/**
+		@attrib name=customer_view_copy
+		@param cust_check optional type=array
+		@param cat_check optional type=array
+		@param cs_c required type=string
+		@param post_ru required type=string
+	**/
+	function customer_view_copy($arr)
+	{
+		$check = array();
+
+		if (isset($arr["cust_check"]))
+		{
+			$check = array_merge($check, $arr["cust_check"]);
+		}
+
+		if (isset($arr["cat_check"]))
+		{
+			$check = array_merge($check, $arr["cat_check"]);
+		}
+
+		aw_session::set("awcb_clipboard_action", "copy");
+		aw_session::set("awcb_customer_selection_clipboard", $check);
+		aw_session::set("awcb_category_old_parent", (isset($arr["cs_c"]) ? $arr["cs_c"] : ""));
 		return $arr["post_ru"];
 	}
 
 	/**
 		@attrib name=customer_view_paste
+		@param id required type=oid acl=view
+			This object id
 		@param cs_c required type=string
 		@param post_ru required type=string
 	**/
 	function customer_view_paste($arr)
 	{
 		$errors = array();
+		$action = aw_session::get("awcb_clipboard_action");
+		$this_object = obj($arr["id"], array(), crm_company_obj::CLID);
 
-		if (aw_global_get("awcb_customer_selection_clipboard"))
+		if (aw_session::get("awcb_customer_selection_clipboard"))
 		{
 			try
 			{
 				// get old parent
-				if (is_oid(aw_global_get("awcb_category_old_parent")))
+				if (is_oid(aw_session::get("awcb_category_old_parent")))
 				{
-					$old_parent = aw_global_get("awcb_category_old_parent");
-					$old_parent = obj($old_parent, array(), crm_category_obj::CLID);
+					$old_parent = aw_session::get("awcb_category_old_parent");
+					try
+					{
+						$old_parent = obj($old_parent, array(), crm_category_obj::CLID);
+					}
+					catch (awex_obj_class $e)
+					{
+						$old_parent = null;
+					}
 				}
 				else
 				{
@@ -4641,7 +4727,6 @@ class crm_company extends class_base
 					}
 					catch (awex_obj_class $e)
 					{
-						$new_parent = obj($new_parent, array(), crm_company_obj::CLID);
 						$new_parent = $new_parent_oid = null;
 					}
 				}
@@ -4651,8 +4736,8 @@ class crm_company extends class_base
 					return $arr["post_ru"];
 				}
 
-				// move objects
-				$selected_objects = aw_global_get("awcb_customer_selection_clipboard");
+				// perform action on objects
+				$selected_objects = aw_session::get("awcb_customer_selection_clipboard");
 				foreach ($selected_objects as $oid)
 				{
 					if ($oid)
@@ -4661,9 +4746,9 @@ class crm_company extends class_base
 						{
 							$o = new object($oid);
 							if ($o->is_a(crm_company_customer_data_obj::CLID))
-							{ // move customer to new category
-								if ($old_parent)
-								{
+							{ // move or copy customer to new category
+								if ("cut" === $action  and $old_parent)
+								{ // remove old category since cut
 									$o->remove_category($old_parent);
 								}
 
@@ -4674,6 +4759,13 @@ class crm_company extends class_base
 							}
 							elseif ($o->is_a(crm_category_obj::CLID))
 							{ // replace category parent category
+								if ("copy" === $action)
+								{
+									$category_copy = $this_object->add_customer_category($new_parent, (int) $o->prop("category_type"));
+									$category_copy->set_name($o->name());
+									$o = $category_copy;
+								}
+
 								$o->set_prop("parent_category", $new_parent_oid);
 								$o->save();
 							}
@@ -4684,19 +4776,22 @@ class crm_company extends class_base
 						}
 						catch (Exception $e)
 						{
+							trigger_error("Caught exception " . get_class($e) . ". Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
 							$errors[] = $oid;
 						}
 					}
 				}
-
-				aw_session_del("awcb_customer_selection_clipboard");
-				aw_session_del("awcb_category_old_parent");
 			}
 			catch (Exception $e)
 			{
 				$this->show_error_text(t("Kleepimiskoht defineerimata"));
+				trigger_error("Caught exception " . get_class($e) . ". Thrown in '" . $e->getFile() . "' on line " . $e->getLine() . ": '" . $e->getMessage() . "' <br /> Backtrace:<br />" . dbg::process_backtrace($e->getTrace(), -1, true), E_USER_WARNING);
 			}
 		}
+
+		aw_session::del("awcb_clipboard_action");
+		aw_session::del("awcb_customer_selection_clipboard");
+		aw_session::del("awcb_category_old_parent");
 
 		if (count($errors))
 		{

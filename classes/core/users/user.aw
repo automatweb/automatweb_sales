@@ -1573,7 +1573,7 @@ EOF;
 			return obj();
 		}
 		$tmp = $this->get_person_for_user(obj($oid));
-		if (!$this->can("view", $tmp))
+		if (!object_loader::can("view", $tmp))
 		{
 			$cache[$uid] = obj();
 			return obj();

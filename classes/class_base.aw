@@ -111,6 +111,8 @@ class class_base extends aw_template
 	public $form_only = false;
 	public $no_form = false;
 
+	public $layoutinfo = array();
+
 	protected $_cfg_props;
 	protected $classconfig;
 	protected $name_prefix = "";
@@ -762,7 +764,7 @@ class class_base extends aw_template
 				};
 			}
 
-			$cli->set_layout($tmp);
+			$this->layoutinfo = $tmp;
 		}
 
 		// cb_parts is again used by fixed_toolbar mode
@@ -788,6 +790,8 @@ class class_base extends aw_template
 			"properties" => &$properties,
 			"obj_inst" => $this->obj_inst
 		));
+
+		$cli->set_layout($this->layoutinfo);
 
 		// what exactly is going on with that subgroup stuff?
 		if (isset($resprops["subgroup"]))

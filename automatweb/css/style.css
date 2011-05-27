@@ -902,7 +902,7 @@ text-decoration:underline;
 }
 
 /*.ac_loading {background: white url('indicator.gif') right center no-repeat;}*/
-.ac_odd {background-color: #eee;}
+.ac_odd {background-color: #EEEEEE;}
 .ac_over {background-color: #0A246A; color: white;}
 
 /* templates/gantt_chart/chart_aw.tpl */
@@ -932,7 +932,7 @@ div.jqi{ position: absolute; background-color: #ffffff; width: 400px; font-size:
 div.jqi .jqicontainer{ background-color: #fff;  background: url('http://hannes.dev.struktuur.ee/automatweb/images/aw06/layout_t.gif') repeat-x 0 -5px; padding: 1px; font-weight: bold; }
 div.jqi .jqiclose{ float: right; width: 16px; height: 16px; cursor: default; background: url(http://klient.struktuur.ee/automatweb/intranet/07/img/aw06/aw_close_2.gif) no-repeat; color: transparent; margin: 4px 4px 0 0;}
 div.jqi .jqimessage{ padding: 30px 10px 10px 10px; line-height: 20px; font-size: 11px; color: #333333; }
-div.jqi .jqibuttons{ text-align: right; padding: 4px 0 4px 0; border: solid 1px #eeeeee; background-color: #fff; }
+div.jqi .jqibuttons{ text-align: right; padding: 4px 0 4px 0; border: solid 1px #EEEEEE; background-color: #fff; }
 div.jqi button{background-color:#05A6E9;border-color:#FFFFFF #0373AC #0373AC #FFFFFF;border-style:solid;border-width:1px;color:#FFFFFF;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;padding-bottom:2px;padding-top:3px; margin: 0 5px 0 0;}
 
 #tooltip {
@@ -995,7 +995,7 @@ table.tree_enabled_in_edit .tree_enabled_in_edit_content #sisu .awcbContentTblDe
 
 /* tabel */
 .tabel {
-	background: #e1e1e1;
+	background: #e5e5e5;
 	padding: 0px 1px 1px;
 }
 
@@ -1004,7 +1004,7 @@ table.tree_enabled_in_edit .tree_enabled_in_edit_content #sisu .awcbContentTblDe
 	width: 100%;
 }
 .tabel td {
-	background: #e1e1e1;
+	background: #e5e5e5;
 	padding: 3px 7px;
 }
 .tabel td.pais {
@@ -1155,12 +1155,12 @@ td.awcbPropErr
 }
 
 #vbox .pais {
-	background-color: #e1e1e1;
+	background-color: #E1E1E1;
 	height: 21px;
 }
 
 #vbox .pais .caption {
-	background-color: #e1e1e1;
+	background-color: #E1E1E1;
 	font-family: Tahoma, Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	font-weight: bold;
@@ -1179,21 +1179,21 @@ td.awcbPropErr
 	margin-left: 3px;
 }
 #vbox .sisu {
-	border: solid 1px #e1e1e1;
+	border: solid 1px #EEEEEE;
 	padding: 1px;
-	background-color: #ffffff;
+	background-color: #FFFFFF;
 }
 #vbox .sisu2 {
-	background-color: #e9e9e9;
+	background-color: #EEEEEE;
 	padding: 10px;
 }
 #vbox .sisu2nop {
-	background-color: #e9e9e9;
+	background-color: #EEEEEE;
 	padding: 0px;
 }
 #vbox .sisu2 .sisu3 {
 	padding: 0px;
-	background-color: #e9e9e9;
+	background-color: #EEEEEE;
 }
 
 #vbox_sub {
@@ -1282,7 +1282,7 @@ td.awcbPropErr
 }
 
 .awmenuedittabletext {
-	background: #e1e1e1;
+	background: #EEEEEE;
 	padding: 3px 7px;
 }
 .awmenuedittabletext a {
@@ -1299,7 +1299,7 @@ td.awcbPropErr
 	color: #ffffff;
 }
 .awmenuedittablerow {
-	background: #e1e1e1;
+	background: #EEEEEE;
 	padding: 3px 7px;
 }
 
