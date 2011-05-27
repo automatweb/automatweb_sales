@@ -21,7 +21,7 @@ class crm_company_ownership extends class_base
 	{
 		$this->init(array(
 			"tpldir" => "applications/crm/crm_company_ownership",
-			"clid" => CL_CRM_COMPANY_OWNERSHIP
+			"clid" => crm_company_ownership_obj::CLID
 		));
 	}
 
