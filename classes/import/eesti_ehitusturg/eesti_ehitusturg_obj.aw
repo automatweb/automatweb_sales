@@ -321,7 +321,6 @@ class eesti_ehitusturg_obj extends _int_object
 
 	protected function save_company($company)
 	{
-		/* REMOVE: */ return;
 		$company = self::addslashes($company);
 		!isset($company["parent"]) ? $company["parent"] = "NULL" : "";
 

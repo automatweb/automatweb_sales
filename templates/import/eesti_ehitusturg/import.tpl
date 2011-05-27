@@ -200,7 +200,7 @@ $(document).ready(function(){
 		var as = $("#content").contents().find("a[href^='?leht=9&rn=']");
 		as.each(function(){
 			id = $(this).attr("href").substr(11);
-			subsector.companies[id] = {id: id, sectors: [subsector.id], detailsLoaded: false};
+			subsector.companies[id] = {id: id, sector: subsector.id, detailsLoaded: false};
 		});
 		log("Salvestan leitud organisatsioonide IDd...");
 		$.post("{VAR:save_url}", {companies: subsector.companies}, function(){
