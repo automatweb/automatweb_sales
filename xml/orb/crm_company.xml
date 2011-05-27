@@ -68,7 +68,7 @@
 			<function name="remove_delete_cust">
 				<arguments>
 					<required name="id" type="oid" acl="view" />
-					<required name="check" type="array" />
+					<required name="cust_check" type="array" />
 					<optional name="post_ru" type="string" />
 				</arguments>
 			</function>
@@ -182,9 +182,21 @@
 		<action name="customer_view_cut">
 			<function name="customer_view_cut">
 				<arguments>
-					<required name="check" type="array" />
 					<required name="cs_c" type="string" />
 					<required name="post_ru" type="string" />
+					<optional name="cust_check" type="array" />
+					<optional name="cat_check" type="array" />
+				</arguments>
+			</function>
+		</action>
+
+		<action name="customer_view_copy">
+			<function name="customer_view_copy">
+				<arguments>
+					<required name="cs_c" type="string" />
+					<required name="post_ru" type="string" />
+					<optional name="cust_check" type="array" />
+					<optional name="cat_check" type="array" />
 				</arguments>
 			</function>
 		</action>
@@ -192,6 +204,7 @@
 		<action name="customer_view_paste">
 			<function name="customer_view_paste">
 				<arguments>
+					<required name="id" type="oid" acl="view" />
 					<required name="cs_c" type="string" />
 					<required name="post_ru" type="string" />
 				</arguments>

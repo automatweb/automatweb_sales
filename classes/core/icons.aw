@@ -6,7 +6,7 @@ class icons
 
 	public static function get_std_icon_url($name)
 	{
-		return aw_ini_get("baseurl") . "/automatweb/images/icons/{$name}.gif";
+		return aw_ini_get("icons.server") . "{$name}.png";
 	}
 
 	/** returns the url for the icons for the given class / object name (for file objects)
@@ -41,18 +41,18 @@ class icons
 			{
 				$pi["extension"] = null;
 			}
-			$icon_url = aw_ini_get("icons.server")."/ftype_".strtolower($pi["extension"]).".gif";
+			$icon_url = aw_ini_get("icons.server")."ftype_".strtolower($pi["extension"]).".gif";
 			return $icon_url;
 			// return aw_ini_get("icons.server")."/ftype_".strtolower($pi["extension"]).".gif";
 		}
 		elseif (in_array($clid, self::$icon_other_classes))
 		{
-			return aw_ini_get("icons.server")."/iother_".$clid.".gif";
+			return aw_ini_get("icons.server")."iother_".$clid.".gif";
 		}
 		else
 		{
 			$sufix = !empty($done) ? "_done" : "";
-			return aw_ini_get("icons.server")."/class_".$clid.$sufix.".gif";
+			return aw_ini_get("icons.server")."class_".$clid.$sufix.".gif";
 		}
 	}
 
@@ -68,7 +68,7 @@ class icons
 	**/
 	public static function get_feature_icon_url($fid)
 	{
-		return aw_ini_get("icons.server")."/prog_".$fid.".gif";
+		return aw_ini_get("icons.server")."prog_".$fid.".gif";
 	}
 
 	/**
@@ -94,6 +94,26 @@ class icons
 			"url" => icons::get_icon_url($o),
 			"alt" => sprintf(t("Objekti id on %s"), $o->id()),
 			"title" => sprintf(t("Objekti id on %s"), $o->id()),
+			"border" => 0
+		));
+	}
+
+	/**
+		@attrib params=pos api=1
+		@param name type=string
+			Standard icon name
+		@param alt type=string default=""
+			Image alt text
+		@comment
+			Locates the icon for given name and returns html image tag
+		@returns string
+			<img src="icon_url">
+	**/
+	public static function get_std_icon($name, $alt = "")
+	{
+		return html::img(array(
+			"url" => icons::get_std_icon_url($name),
+			"alt" => $alt,
 			"border" => 0
 		));
 	}

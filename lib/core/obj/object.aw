@@ -147,11 +147,11 @@ function obj($param = null, $constructor_args = array(), $class_id = null, $allo
 		}
 		elseif (!$allow_extensions and (int)$real_clid !== $class_id)
 		{ // existing object loaded
-			throw new awex_obj_class("The object with given oid is not of expected class.");
+			throw new awex_obj_class("The object with given oid ({$param}) is not of expected class ({$class_id}).");
 		}
 		elseif ($allow_extensions and !$o->is_a($class_id))
 		{
-			throw new awex_obj_class("The object with given oid is not of expected class.");
+			throw new awex_obj_class("The object with given oid ({$param}) is not of expected class or subclass ({$class_id}).");
 		}
 
 		return $o;
