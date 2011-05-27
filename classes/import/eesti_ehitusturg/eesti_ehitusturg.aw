@@ -6,8 +6,8 @@
 @default table=aw_eesti_ehitusturg
 @default group=general
 
-@property url type=textbox field=aw_url
-@caption URL
+@property sectors_dir type=objpicker clid=CL_MENU field=aw_sectors_dir
+@caption Tegevusalade kaust
 
 @property import_sectors type=text store=no
 @caption Impordi tegevusalad ja organisatsioonide IDd
@@ -15,16 +15,11 @@
 @property import_companies_html type=text store=no
 @caption Impordi organisatsioonide HTML
 
-@property import_companies_details type=text store=no
+@property parse_companies_details type=text store=no
 @caption Parsi imporditud HTMLst organisatsioonide andmed
 
-@property email_templates type=relpicker reltype=RELTYPE_EMAIL_TEMPLATE multiple=1 store=connect
-@caption E-kirjamallid
-
-###
-
-@reltype EMAIL_TEMPLATE value=1 clid=CL_MESSAGE_TEMPLATE
-@caption E-kirjamall
+@property import_companies_details type=text store=no
+@caption Impordi parsitud andmed AW objektideks
 
 */
 
@@ -68,11 +63,21 @@ class eesti_ehitusturg extends class_base
 		return PROP_OK;
 	}
 
-	public function _get_import_companies_details(&$arr)
+	public function _get_parse_companies_details(&$arr)
 	{
 		$arr["prop"]["value"] = html::href(array(
 			"caption" => t("K&auml;ivita import"),
 			"url" => $this->mk_my_orb("parse_companies_html", array("id" => automatweb::$request->arg("id"))),
+		));
+
+		return PROP_OK;
+	}
+
+	public function _get_import_companies_details(&$arr)
+	{
+		$arr["prop"]["value"] = html::href(array(
+			"caption" => t("K&auml;ivita import"),
+			"url" => $this->mk_my_orb("import_companies_details", array("id" => automatweb::$request->arg("id"))),
 		));
 
 		return PROP_OK;
@@ -108,6 +113,17 @@ class eesti_ehitusturg extends class_base
 	{
 		$o = new object($arr["id"], array(), eesti_ehitusturg_obj::CLID);
 		$o->parse_companies_html();
+		die("DONE!");
+	}
+
+	/**
+		@attrib name=import_companies_details all_args=1
+		@param id required type=int
+	**/
+	public function import_companies_details($arr)
+	{
+		$o = new object($arr["id"], array(), eesti_ehitusturg_obj::CLID);
+		$o->import_companies_details();
 		die("DONE!");
 	}
 
@@ -160,10 +176,10 @@ class eesti_ehitusturg extends class_base
 
 		switch($f)
 		{
-			case "aw_url":
+			case "aw_sectors_dir":
 				$this->db_add_col($t, array(
 					"name" => $f,
-					"type" => "text"
+					"type" => "int default 0"
 				));
 				return true;
 		}
