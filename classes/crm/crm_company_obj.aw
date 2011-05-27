@@ -816,6 +816,61 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		}
 	}
 
+	/** Adds an ownership or modifies an existing one
+		@attrib api=1 params=pos
+		@param owner required type=CL_CRM_PERSON,CL_CRM_COMPANY
+			Person to add as an employee. If none given, a new person is created
+		@param share_percentage type=real default=100
+			The percentage of shares the owner being added owns.
+		@return CL_CRM_COMPANY_OWNERSHIP
+			Created/modified company ownership object
+		@errors
+			throws awex_obj_type if given owner of wrong type
+			throws awex_obj_state_new when this company is not saved yet.
+			throws awex_redundant_instruction if owner already is the owner of the company with given percentage of shares
+		@qc date=20110527 standard=aw3
+	**/
+	public function add_owner(object $owner, real $share_percentage = 100)
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new();
+		}
+		if (!$owner->is_a(crm_person_obj::CLID) and !$owner->is_a(crm_company_obj::CLID) )
+		{
+			throw new awex_obj_type("Given owner (".$owner->id().") of wrong type (".$owner->class_id().") while adding an owner to " . $this->id());
+		}
+
+		$ol = new object_list(array(
+			"class_id" => crm_company_ownership_obj::CLID,
+			"owner" => $owner->id()
+		));
+		if($ol->count() > 0)
+		{
+			$ownership = $ol->begin();
+			if($ownership->prop("share_percentage") == $share_percentage)
+			{
+				throw new awex_redundant_instruction("Owner (" . $owner->id() . ") already owns " . $share_percentage . "% of organization " . $this->id());
+			}
+			else
+			{
+				$ownership->set_prop("share_percentage", $share_percentage);
+				$ownership->save();
+			}
+		}
+		else
+		{			
+			$ownership = new object(null, array(), crm_company_ownership_obj::CLID);
+			$ownership->set_parent($this->id());
+			$ownership->set_name(sprintf("%s omab %f%% organisatsioonist '%s'", $owner->name(), $share_percentage, $this->name()));
+			$ownership->set_prop("owner", $owner->id());
+			$ownership->set_prop("share_percentage", $share_percentage);
+			$ownership->save();
+		}
+
+		return $ownership;
+	}
+
 	/** Adds a new employee, creates a person if none given
 		@attrib api=1 params=pos
 		@param profession type=CL_CRM_PROFESSION default=null
@@ -843,7 +898,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		if ($person)
 		{
-			if (!$person->is_a(CL_CRM_PERSON))
+			if (!$person->is_a(crm_person_obj::CLID))
 			{
 				throw new awex_obj_type("Given person (".$person->id().") of wrong type (".$person->class_id().") while adding an employee to " . $this->id());
 			}
