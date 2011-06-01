@@ -173,7 +173,7 @@ class crm_db extends class_base
 	function crm_db()
 	{
 		$this->init(array(
-			"clid" => CL_CRM_DB,
+			"clid" => crm_db_obj::CLID,
 		));
 		$this->org_tbl_fields = array(
 			"jrk" => t("Jrk"),
