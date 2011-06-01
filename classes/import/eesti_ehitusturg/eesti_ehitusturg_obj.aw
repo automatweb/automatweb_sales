@@ -117,7 +117,6 @@ class eesti_ehitusturg_obj extends _int_object
 							elseif(strpos($company_file, "omanik.php") !== false)
 							{
 								$owners = $this->parse_company_owners($company_id, $html);
-								arr($owners);
 								$this->save_owners($company_id, $owners);
 							}
 							elseif(strpos($company_file, "majandus.php") !== false)
@@ -288,7 +287,6 @@ class eesti_ehitusturg_obj extends _int_object
 
 		foreach($companies as $company)
 		{
-			arr($company);
 			if (empty($company["aw_id"]))
 			{
 				if(!isset($sectors[$company["emtak_id"]]))
@@ -351,7 +349,6 @@ class eesti_ehitusturg_obj extends _int_object
 				// Owners
 				foreach($owners[$company["id"]] as $owner)
 				{
-					arr($owner);
 					$person = $this->get_person($owner["name"], $aw_id);
 					try
 					{
@@ -365,7 +362,6 @@ class eesti_ehitusturg_obj extends _int_object
 				// Annual reports
 				foreach($revenues[$company["id"]] as $revenue)
 				{
-					arr($revenue);
 					$o->add_annual_report($currency, $revenue["year"], array(
 						"value_added_tax" => $revenue["kaibemaks"],
 						"social_security_tax" => $revenue["sotsmaks"],
@@ -379,7 +375,6 @@ class eesti_ehitusturg_obj extends _int_object
 
 				$this->instance()->db_query("UPDATE aw_eesti_ehitusturg_raw_companies SET aw_id = {$aw_id} WHERE external_id = {$company["id"]};");
 			}
-			exit;
 		}
 	}
 
