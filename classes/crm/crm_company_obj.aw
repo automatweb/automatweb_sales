@@ -816,10 +816,55 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		}
 	}
 
+	/** Adds an annual report or modifies an existing one with the save year
+		@attrib api=1 params=pos
+		@param currency type=CL_CURRENCY
+			Currency the figures are given in
+		@param year required type=int
+			Year of the report
+		@param data type=array default=array()
+			Data of the report. For possible keys see properties of CL_CURRENCY
+		@return CL_CRM_COMPANY_ANNUAL_REPORT
+			Created/modified company annual report object
+		@errors
+			throws awex_obj_state_new when this company is not saved yet.
+		@qc date=20110528 standard=aw3
+	**/
+	public function add_annual_report(object $currency = null, int $year, array $data = array())
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new();
+		}
+
+		$report = obj(null, array(), crm_company_annual_report_obj::CLID);
+		$report->set_parent($this->id());
+		$report->set_name(sprintf("Organisatsiooni '%s' %u. aasta majandusaruanne", $this->name(), $year));
+		$report->set_prop("company", $this->id());
+		if ($currency !== null)
+		{
+			if (!$currency->is_a(currency_obj::CLID))
+			{
+				throw new awex_obj_type("Given person (".$person->id().") of wrong type (".$person->class_id().") while adding an employee to " . $this->id());
+			}
+			$report->set_prop("currency", $currency->id());
+		}
+		foreach($data as $key => $val)
+		{
+			if ($report->is_property($key))
+			{
+				$report->set_prop($key, $val);
+			}
+		}
+		$report->save();
+
+		return $report;
+	}
+
 	/** Adds an ownership or modifies an existing one
 		@attrib api=1 params=pos
 		@param owner required type=CL_CRM_PERSON,CL_CRM_COMPANY
-			Person to add as an employee. If none given, a new person is created
+			Person/company to add as an owner.
 		@param share_percentage type=real default=100
 			The percentage of shares the owner being added owns.
 		@return CL_CRM_COMPANY_OWNERSHIP
@@ -830,7 +875,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			throws awex_redundant_instruction if owner already is the owner of the company with given percentage of shares
 		@qc date=20110527 standard=aw3
 	**/
-	public function add_owner(object $owner, real $share_percentage = 100)
+	public function add_owner(object $owner, $share_percentage = 100)
 	{
 		if (!$this->is_saved())
 		{
@@ -860,7 +905,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		}
 		else
 		{			
-			$ownership = new object(null, array(), crm_company_ownership_obj::CLID);
+			$ownership = obj(null, array(), crm_company_ownership_obj::CLID);
 			$ownership->set_parent($this->id());
 			$ownership->set_name(sprintf("%s omab %f%% organisatsioonist '%s'", $owner->name(), $share_percentage, $this->name()));
 			$ownership->set_prop("owner", $owner->id());
