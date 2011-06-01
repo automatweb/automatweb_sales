@@ -830,7 +830,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			throws awex_obj_state_new when this company is not saved yet.
 		@qc date=20110528 standard=aw3
 	**/
-	public function add_annual_report(object $currency = null, int $year, array $data = array())
+	public function add_annual_report(object $currency = null, $year, array $data = array())
 	{
 		if (!$this->is_saved())
 		{
@@ -845,7 +845,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		{
 			if (!$currency->is_a(currency_obj::CLID))
 			{
-				throw new awex_obj_type("Given person (".$person->id().") of wrong type (".$person->class_id().") while adding an employee to " . $this->id());
+				throw new awex_obj_type("Given object (".$currency->id().") of wrong type (".$currency->class_id().") while adding a currency to an anuual report of " . $this->id());
 			}
 			$report->set_prop("currency", $currency->id());
 		}
@@ -1877,7 +1877,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 				"fake_address_address2" => "aadress2"
 			);
 
-			if ($GLOBALS["object_loader"]->cache->can("view", $this->prop("contact")))
+			if (is_oid($this->prop("contact")))
 			{
 				$eo = obj($this->prop("contact"));
 			}
