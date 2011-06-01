@@ -653,7 +653,7 @@ class eesti_ehitusturg_obj extends _int_object
 		$where = array();
 		if ($aw_id_is_null)
 		{
-			$where[] = "aw_id IS NULL AND external_id = 10000952";
+			$where[] = "aw_id IS NULL";
 		}
 		if ($name_not_null)
 		{
