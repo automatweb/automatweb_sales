@@ -281,10 +281,11 @@ class eesti_ehitusturg_obj extends _int_object
 		$this->persons = array();
 		$professions = array();
 
-		$companies = $this->get_companies();
+		$companies = $this->get_companies(true, true);
 		$owners = $this->get_owners();
 		$revenues = $this->get_revenues();
 
+		$count = 0;
 		foreach($companies as $company)
 		{
 			if (empty($company["aw_id"]))
@@ -298,22 +299,59 @@ class eesti_ehitusturg_obj extends _int_object
 				$o = obj(null, array(), crm_company_obj::CLID);
 				$o->set_name($company["name"]);
 				$o->set_parent($sectors[$company["emtak_id"]]);
-				$o->set_comment($company["info"]);
-				$o->set_prop("reg_nr", $company["regnr"]);
-				$o->set_prop("tax_nr", $company["kmknr"]);
-				$o->set_prop("year_founded", $company["established"]);
+				if (!empty($company["info"]))
+				{
+					$o->set_comment($company["info"]);
+				}
+				if (!empty($company["regnr"]))
+				{
+					$o->set_prop("reg_nr", $company["regnr"]);
+				}
+				if (!empty($company["kmknr"]))
+				{
+					$o->set_prop("tax_nr", $company["kmknr"]);
+				}
+				if (!empty($company["established"]))
+				{
+					$o->set_prop("year_founded", $company["established"]);
+				}
 
 				// TODO: Ettev6tlusvormi peaks nimest v2lja yritama parsida.
 //				$o->set_prop("ettevotlusvorm", $company[""]);
 
-				$o->set_prop("fake_url", $company["web"]);
-				$o->set_prop("fake_email", $company["email"]);
-				$o->set_prop("fake_phone", $company["phone"]);
-				$o->set_prop("fake_mobile", $company["phone2"]);
-				$o->set_prop("fake_fax", $company["fax"]);
-				$o->set_prop("fake_address_address", $company["address_street"]);
-				$o->set_prop("fake_address_postal_code", $company["address_postal_code"]);
-				$o->set_prop("fake_address_city", $company["address_city"]);
+				if (!empty($company["web"]))
+				{
+					$o->set_prop("fake_url", $company["web"]);
+				}
+				if (!empty($company["email"]))
+				{
+					$o->set_prop("fake_email", $company["email"]);
+				}
+				if (!empty($company["phone"]))
+				{
+					$o->set_prop("fake_phone", $company["phone"]);
+				}
+				if (!empty($company["phone2"]))
+				{
+					$o->set_prop("fake_mobile", $company["phone2"]);
+				}
+				if (!empty($company["fax"]))
+				{
+					$o->set_prop("fake_fax", $company["fax"]);
+				}
+				if (!empty($company["address_street"]))
+				{
+					$o->set_prop("fake_address_address", $company["address_street"]);
+				}
+				if (!empty($company["address_postal_code"]))
+				{
+					$o->set_prop("fake_address_postal_code", $company["address_postal_code"]);
+				}
+				if (!empty($company["address_city"]))
+				{
+					$o->set_prop("fake_address_city", $company["address_city"]);
+				}
+					
 
 				$o->set_meta("eesti_ehitus_views", $company["view_count"]);
 
@@ -347,33 +385,45 @@ class eesti_ehitusturg_obj extends _int_object
 				}
 
 				// Owners
-				foreach($owners[$company["id"]] as $owner)
+				if(isset($owners[$company["id"]]) and is_array($owners[$company["id"]]))
 				{
-					$person = $this->get_person($owner["name"], $aw_id);
-					try
+					foreach($owners[$company["id"]] as $owner)
 					{
-						$o->add_owner($person, $owner["share"]);
-					}
-					catch (awex_redundant_instruction $e)
-					{
+						$person = $this->get_person($owner["name"], $aw_id);
+
+						try
+						{
+							$o->add_owner($person, $owner["share"]);
+						}
+						catch (awex_redundant_instruction $e)
+						{
+						}
 					}
 				}
 
 				// Annual reports
-				foreach($revenues[$company["id"]] as $revenue)
+				if(isset($revenues[$company["id"]]) and is_array($revenues[$company["id"]]))
 				{
-					$o->add_annual_report($currency, $revenue["year"], array(
-						"value_added_tax" => $revenue["kaibemaks"],
-						"social_security_tax" => $revenue["sotsmaks"],
-						"assets" => $revenue["varad"],
-						"turnover" => $revenue["aritulu"],
-						"profit" => $revenue["puhaskasum"],
-						"employees" => $revenue["tootajaid"],
-						"turnover_per_employee" => $revenue["tootaja_kaive"],
-					));
+					foreach($revenues[$company["id"]] as $revenue)
+					{
+						$o->add_annual_report($currency, $revenue["year"], array(
+							"value_added_tax" => $revenue["kaibemaks"],
+							"social_security_tax" => $revenue["sotsmaks"],
+							"assets" => $revenue["varad"],
+							"turnover" => $revenue["aritulu"],
+							"profit" => $revenue["puhaskasum"],
+							"employees" => $revenue["tootajaid"],
+							"turnover_per_employee" => $revenue["tootaja_kaive"],
+						));
+					}
 				}
 
 				$this->instance()->db_query("UPDATE aw_eesti_ehitusturg_raw_companies SET aw_id = {$aw_id} WHERE external_id = {$company["id"]};");
+				
+				if($count++ > 10)
+				{
+					die("<script type=\"text/javascript\">window.location.reload();</script>");
+				}
 			}
 		}
 	}
@@ -388,6 +438,8 @@ class eesti_ehitusturg_obj extends _int_object
 		{
 			$person = obj(null, array(), crm_person_obj::CLID);
 			$person->set_parent($parent);
+			$person->set_prop("firstname", substr($name, 0, strrpos($name, " ")));
+			$person->set_prop("lastname", substr($name, strrpos($name, " ") + 1));
 			$person->set_name($name);
 			$person->save();
 
@@ -416,7 +468,7 @@ class eesti_ehitusturg_obj extends _int_object
 			$aw_oids[$odata["emtak_2008"]] = $oid;
 		}
 
-		$rows = $this->instance()->db_fetch_array("SELECT DISTINCT(emtak_id), emtak_name FROM aw_eesti_ehitusturg_raw_companies;");
+		$rows = $this->instance()->db_fetch_array("SELECT DISTINCT(emtak_id), emtak_name FROM aw_eesti_ehitusturg_raw_companies WHERE emtak_id IS NOT NULL;");
 		$sectors = array();
 
 		foreach($rows as $row)
@@ -547,9 +599,9 @@ class eesti_ehitusturg_obj extends _int_object
 		}
 		$SET = count($SET) > 0 ? join(", ", $SET) : "";
 
-		$this->instance()->db_query(iconv("UTF-8", "ISO-8859-1//IGNORE", "INSERT INTO aw_eesti_ehitusturg_raw_companies SET 
+		$this->instance()->db_query("INSERT INTO aw_eesti_ehitusturg_raw_companies SET 
 			external_id = {$company["id"]}, {$SET}
-		ON DUPLICATE KEY UPDATE {$SET};"));
+		ON DUPLICATE KEY UPDATE {$SET};");
 	}
 
 	protected function save_owners($id, $owners)
@@ -557,8 +609,8 @@ class eesti_ehitusturg_obj extends _int_object
 		$this->instance()->db_query(sprintf("DELETE FROM aw_eesti_ehitusturg_raw_owners WHERE company_id = %u", $id));
 		foreach($owners as $owner)
 		{
-			$this->instance()->db_query(iconv("UTF-8", "ISO-8859-1//IGNORE", sprintf("INSERT INTO aw_eesti_ehitusturg_raw_owners (company_id, name, share)
-			VALUES (%u, '%s', %f)", $id, self::addslashes($owner["name"]), $owner["share"])));
+			$this->instance()->db_query(sprintf("INSERT INTO aw_eesti_ehitusturg_raw_owners (company_id, name, share)
+			VALUES (%u, '%s', %f)", $id, self::addslashes($owner["name"]), $owner["share"]));
 		}
 	}
 
@@ -593,11 +645,26 @@ class eesti_ehitusturg_obj extends _int_object
 		ON DUPLICATE KEY UPDATE name = '{{$sector["name"]}', external_parent = {$sector["parent"]};");
 	}
 
-	protected function get_companies()
+	protected function get_companies($aw_id_is_null = false, $name_not_null = false)
 	{
 		$companies = array();
 
-		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_companies;");
+		$sql = "SELECT * FROM aw_eesti_ehitusturg_raw_companies";
+		$where = array();
+		if ($aw_id_is_null)
+		{
+			$where[] = "aw_id IS NULL AND external_id = 10000952";
+		}
+		if ($name_not_null)
+		{
+			$where[] = "name IS NOT NULL";
+		}
+		if (count($where) > 0)
+		{
+			$sql .= " WHERE ".join(" AND ", $where);
+		}
+
+		$rows = $this->instance()->db_fetch_array($sql);
 		foreach($rows as $row)
 		{
 			$row["id"] = $row["external_id"];
@@ -629,7 +696,8 @@ class eesti_ehitusturg_obj extends _int_object
 		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_revenue;");
 		foreach($rows as $row)
 		{
-			$revenues[$row["company_id"]] = $row;
+			$revenues[$row["company_id"]] = isset($revenues[$row["company_id"]]) ? $revenues[$row["company_id"]] : array();
+			$revenues[$row["company_id"]][] = $row;
 		}
 
 		return $revenues;
@@ -717,8 +785,8 @@ class eesti_ehitusturg_obj extends _int_object
 				phone VARCHAR(40),
 				phone2 VARCHAR(40),
 				fax VARCHAR(40),
-				email VARCHAR(40),
-				web VARCHAR(40),
+				email VARCHAR(100),
+				web VARCHAR(250),
 				sector INT,
 				emtak_id VARCHAR(40),
 				emtak_name VARCHAR(200),

@@ -9,6 +9,9 @@
 @property sectors_dir type=objpicker clid=CL_MENU field=aw_sectors_dir
 @caption Tegevusalade kaust
 
+@property report_currency type=objpicker clid=CL_CURRENCY field=aw_report_currency
+@caption Majandusaruannete valuuta
+
 @property import_sectors type=text store=no
 @caption Impordi tegevusalad ja organisatsioonide IDd
 
@@ -176,6 +179,7 @@ class eesti_ehitusturg extends class_base
 
 		switch($f)
 		{
+			case "aw_report_currency":
 			case "aw_sectors_dir":
 				$this->db_add_col($t, array(
 					"name" => $f,
