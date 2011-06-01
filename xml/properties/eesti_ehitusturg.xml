@@ -10,6 +10,15 @@
             <caption>Tegevusalade kaust</caption>
       </property>
       <property>
+            <name>report_currency</name>
+            <table>aw_eesti_ehitusturg</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CURRENCY</clid>
+            <field>aw_report_currency</field>
+            <caption>Majandusaruannete valuuta</caption>
+      </property>
+      <property>
             <name>import_sectors</name>
             <table>aw_eesti_ehitusturg</table>
             <group>general</group>
