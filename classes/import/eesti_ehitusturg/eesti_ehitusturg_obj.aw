@@ -16,7 +16,7 @@ class eesti_ehitusturg_obj extends _int_object
 		$i->read_template("import.tpl");
 
 		$i->vars(array(
-			"url" => $this->prop("url"),
+			"url" => "http://eesti-ehitusturg.ee/",
 			"save_url" => $i->mk_my_orb("import_save", array("id" => $this->id())),
 			"load_html_url" => $i->mk_my_orb("load_html", array("id" => $this->id())),
 			"companies" => json_encode($this->get_companies()),
@@ -27,7 +27,7 @@ class eesti_ehitusturg_obj extends _int_object
 
 	public function get_html()
 	{
-		$url = new aw_uri(automatweb::$request->arg_isset("url") ? automatweb::$request->arg("url") : $this->prop("url"));
+		$url = new aw_uri(automatweb::$request->arg_isset("url") ? automatweb::$request->arg("url") : "http://eesti-ehitusturg.ee/");
 		$html = $this->handle_html(file_get_contents($url));
 
 		return $html;
@@ -117,6 +117,7 @@ class eesti_ehitusturg_obj extends _int_object
 							elseif(strpos($company_file, "omanik.php") !== false)
 							{
 								$owners = $this->parse_company_owners($company_id, $html);
+								arr($owners);
 								$this->save_owners($company_id, $owners);
 							}
 							elseif(strpos($company_file, "majandus.php") !== false)
@@ -275,19 +276,20 @@ class eesti_ehitusturg_obj extends _int_object
 
 	public function import_companies_details()
 	{
-//		$sectors = $this->import_emtak_sectors();
+		$currency = obj($this->prop("report_currency", array(), currency_obj::CLID));
+
+		$sectors = $this->import_emtak_sectors();
 		$this->persons = array();
 		$professions = array();
 
 		$companies = $this->get_companies();
 		$owners = $this->get_owners();
-		$revenue = $this->get_revenues();
+		$revenues = $this->get_revenues();
 
 		foreach($companies as $company)
 		{
 			arr($company);
-			exit;
-			if (!isset($company["aw_id"]))
+			if (empty($company["aw_id"]))
 			{
 				if(!isset($sectors[$company["emtak_id"]]))
 				{
@@ -295,7 +297,7 @@ class eesti_ehitusturg_obj extends _int_object
 					continue;
 				}
 
-				$o = new object(null, array(), crm_company_obj::CLID);
+				$o = obj(null, array(), crm_company_obj::CLID);
 				$o->set_name($company["name"]);
 				$o->set_parent($sectors[$company["emtak_id"]]);
 				$o->set_comment($company["info"]);
@@ -325,11 +327,7 @@ class eesti_ehitusturg_obj extends _int_object
 				}
 				else
 				{
-					$person = new object(null, array(), crm_person_obj::CLID);
-					$person->set_parent($aw_id);
-					$person->set_name($company["director_name"]);
-					$person->save();
-
+					$person = $this->get_person($company["director_name"], $aw_id);
 					$persons[$company["director_name"]] = $person;
 				}
 
@@ -339,7 +337,7 @@ class eesti_ehitusturg_obj extends _int_object
 				}
 				else
 				{
-					$profession = $o->add_profession(array("name" => ucfirst($company["director_profession"])));
+					$profession = $o->add_profession(null, ucfirst($company["director_profession"]));
 					$professions[$company["director_profession"]] = $profession;
 				}
 				try
@@ -353,7 +351,8 @@ class eesti_ehitusturg_obj extends _int_object
 				// Owners
 				foreach($owners[$company["id"]] as $owner)
 				{
-					$person = $this->get_person($owner["name"]);
+					arr($owner);
+					$person = $this->get_person($owner["name"], $aw_id);
 					try
 					{
 						$o->add_owner($person, $owner["share"]);
@@ -363,12 +362,28 @@ class eesti_ehitusturg_obj extends _int_object
 					}
 				}
 
+				// Annual reports
+				foreach($revenues[$company["id"]] as $revenue)
+				{
+					arr($revenue);
+					$o->add_annual_report($currency, $revenue["year"], array(
+						"value_added_tax" => $revenue["kaibemaks"],
+						"social_security_tax" => $revenue["sotsmaks"],
+						"assets" => $revenue["varad"],
+						"turnover" => $revenue["aritulu"],
+						"profit" => $revenue["puhaskasum"],
+						"employees" => $revenue["tootajaid"],
+						"turnover_per_employee" => $revenue["tootaja_kaive"],
+					));
+				}
+
 				$this->instance()->db_query("UPDATE aw_eesti_ehitusturg_raw_companies SET aw_id = {$aw_id} WHERE external_id = {$company["id"]};");
 			}
+			exit;
 		}
 	}
 
-	protected function get_person($name)
+	protected function get_person($name, $parent)
 	{
 		if(isset($this->persons[$name]))
 		{
@@ -376,8 +391,8 @@ class eesti_ehitusturg_obj extends _int_object
 		}
 		else
 		{
-			$person = new object(null, array(), crm_person_obj::CLID);
-			$person->set_parent($aw_id);
+			$person = obj(null, array(), crm_person_obj::CLID);
+			$person->set_parent($parent);
 			$person->set_name($name);
 			$person->save();
 
@@ -389,24 +404,45 @@ class eesti_ehitusturg_obj extends _int_object
 
 	public function import_emtak_sectors()
 	{
+		$aw_oids = array();
+
+		$odl = new object_data_list(
+			array(
+				"class_id" => crm_sector_obj::CLID,
+				"parent" => $this->prop("sectors_dir"),
+			),
+			array(
+				crm_sector_obj::CLID => array("emtak_2008")
+			)
+		);
+
+		foreach($odl->arr() as $oid => $odata)
+		{
+			$aw_oids[$odata["emtak_2008"]] = $oid;
+		}
+
 		$rows = $this->instance()->db_fetch_array("SELECT DISTINCT(emtak_id), emtak_name FROM aw_eesti_ehitusturg_raw_companies;");
 		$sectors = array();
 
 		foreach($rows as $row)
 		{
-			$o = new object(null, array(), crm_sector_obj::CLID);
-			$o->set_name($row["emtak_name"]);
-			$o->set_prop("emtak_2008", $row["emtak_id"]);
-			$o->set_parent($this->prop("sectors_parent"));
-			$aw_id = $o->save();
+			$aw_id = isset($aw_oids[$row["emtak_id"]]) ? $aw_oids[$row["emtak_id"]] : null;
+			if (empty($aw_oids[$row["emtak_id"]]))
+			{
+				$o = obj(null, array(), crm_sector_obj::CLID);
+				$o->set_parent($this->prop("sectors_dir"));
+				$o->set_name($row["emtak_name"]);
+				$o->set_prop("emtak_2008", $row["emtak_id"]);
+				$aw_id = $o->save();
+
+				$row["emtak_name"] = self::addslashes($row["emtak_name"]);
+
+				$this->instance()->db_query("INSERT INTO aw_eesti_ehitusturg_raw_emtak(external_id, aw_id, name)
+				VALUES ('{$row["emtak_id"]}', {$aw_id}, '{$row["emtak_name"]}')
+				ON DUPLICATE KEY UPDATE aw_id = {$aw_id}, name = '{$row["emtak_name"]}'
+				");
+			}
 			$sectors[$row["emtak_id"]] = $aw_id;
-
-			$row["emtak_name"] = self::addslashes($row["emtak_name"]);
-
-			$this->instance()->db_query("INSERT INTO aw_eesti_ehitusturg_raw_emtak(external_id, aw_id, name)
-			VALUES ('{$row["emtak_id"]}', {$aw_id}, '{$row["emtak_name"]}')
-			ON DUPLICATE KEY UPDATE aw_id = {$aw_id}, name = '{$row["emtak_name"]}'
-			");
 		}
 
 		return $sectors;
@@ -429,7 +465,7 @@ class eesti_ehitusturg_obj extends _int_object
 			$owners[] = array(
 				"id" => $id,
 				"name" => trim(str_replace("&nbsp;", "", substr($row, $j, strpos($row, "</td>") - $j))),
-				"share" => trim(str_replace("&nbsp;", "", substr($row, $k, strrpos($row, "</td>") - $k))),
+				"share" => aw_math_calc::string2float(trim(str_replace("&nbsp;", "", substr($row, $k, strrpos($row, "</td>") - $k)))),
 			);
 			$i = strpos($html, "<tr>", $i) + 4;
 		}
@@ -458,7 +494,7 @@ class eesti_ehitusturg_obj extends _int_object
 			$j = strpos($row, "<td");
 			while($j !== false)
 			{
-				$revenue[] = trim(str_replace("&nbsp;", "", strip_tags(substr($row, $j, strpos($row, "</td>", $j) - $j))));
+				$revenue[] = aw_math_calc::string2float(trim(str_replace("&nbsp;", "", strip_tags(substr($row, $j, strpos($row, "</td>", $j) - $j)))));
 
 				$j = strpos($row, "<td", $j + 3);
 			}
@@ -527,7 +563,7 @@ class eesti_ehitusturg_obj extends _int_object
 		foreach($owners as $owner)
 		{
 			$this->instance()->db_query(iconv("UTF-8", "ISO-8859-1//IGNORE", sprintf("INSERT INTO aw_eesti_ehitusturg_raw_owners (company_id, name, share)
-			VALUES (%u, '%s', %u)", $id, self::addslashes($owner["name"]), $owner["share"])));
+			VALUES (%u, '%s', %f)", $id, self::addslashes($owner["name"]), $owner["share"])));
 		}
 	}
 
@@ -566,7 +602,7 @@ class eesti_ehitusturg_obj extends _int_object
 	{
 		$companies = array();
 
-		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_companies WHERE aw_id IS NOT NULL;");
+		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_companies;");
 		foreach($rows as $row)
 		{
 			$row["id"] = $row["external_id"];
@@ -584,7 +620,8 @@ class eesti_ehitusturg_obj extends _int_object
 		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_owners;");
 		foreach($rows as $row)
 		{
-			$owners[$row["company_id"]] = $row;
+			$owners[$row["company_id"]] = isset($owners[$row["company_id"]]) ? $owners[$row["company_id"]] : array();
+			$owners[$row["company_id"]][] = $row;
 		}
 
 		return $owners;
@@ -628,7 +665,7 @@ class eesti_ehitusturg_obj extends _int_object
 
 	protected function handle_html($html)
 	{
-		$html = str_ireplace("src=\"", "src=\"".$this->prop("url")."/", $html);
+		$html = str_ireplace("src=\"", "src=\"http://eesti-ehitusturg.ee//", $html);
 		$html = str_replace("href=\"style.css\"", "href=\"".$this->handle_url("style.css")."\"", $html);
 		$html = str_replace("background=\"", "background=\"".$this->prop("url")."/", $html);
 
@@ -637,7 +674,7 @@ class eesti_ehitusturg_obj extends _int_object
 
 	protected function handle_url($url)
 	{
-		return substr($url, 0, 7) == "http://" ? $url : $this->prop("url")."/".$url;
+		return substr($url, 0, 7) == "http://" ? $url : "http://eesti-ehitusturg.ee//".$url;
 	}
 
 	protected function date_to_timestamp($date)
@@ -701,7 +738,7 @@ class eesti_ehitusturg_obj extends _int_object
 			$this->instance()->db_query("CREATE TABLE aw_eesti_ehitusturg_raw_owners(
 				company_id INT NOT NULL,
 				name  VARCHAR(100) NOT NULL,
-				share INT NOT NULL
+				share DECIMAL(10,4) NOT NULL
 			)");
 		}
 
