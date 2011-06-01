@@ -23,7 +23,7 @@
             <group>general</group>
             <type>textbox</type>
             <field>comment</field>
-            <caption>Kommentaar </caption>
+            <caption>Kommentaar</caption>
       </property>
       <property>
             <name>status</name>
@@ -144,7 +144,6 @@
       <classinfo>
             <syslog_type>ST_BANNER</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <groupinfo>
             <display>
