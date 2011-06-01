@@ -79,7 +79,7 @@ class crm_company_annual_report extends class_base
 				));
 				$r = true;
 			}
-			elseif (in_array($field, array("aw_value_added_tax", "aw_social_security_tax", "aw_assets", "aw_turnover", "aw_turnover_per_employee")))
+			elseif (in_array($field, array("aw_value_added_tax", "aw_social_security_tax", "aw_assets", "aw_turnover", "aw_turnover_per_employee", "aw_profit")))
 			{
 				$this->db_add_col("aw_crm_company_annual_report", array(
 					"name" => $field,
