@@ -1262,9 +1262,12 @@ class _int_object
 					{
 						$rt = $GLOBALS["relinfo"][$this->obj["class_id"]][$pd["reltype"]]["value"];
 						$_tmp = array();
-						foreach(safe_array($GLOBALS["read_properties_data_cache_conn"][$this->obj["oid"]][$rt]) as $con)
+						if (isset($GLOBALS["read_properties_data_cache_conn"][$this->obj["oid"]][$rt]) and is_array($GLOBALS["read_properties_data_cache_conn"][$this->obj["oid"]][$rt]))
 						{
-							$_tmp[] = $con["target_name"];
+							foreach($GLOBALS["read_properties_data_cache_conn"][$this->obj["oid"]][$rt] as $con)
+							{
+								$_tmp[] = $con["target_name"];
+							}
 						}
 					}
 					elseif (is_oid($this->id()))
