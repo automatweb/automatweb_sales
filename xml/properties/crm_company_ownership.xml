@@ -1,6 +1,15 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>company</name>
+            <table>aw_crm_company_ownership</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CRM_COMPANY</clid>
+            <field>aw_company</field>
+            <caption>Organisatsioon</caption>
+      </property>
+      <property>
             <name>owner</name>
             <table>aw_crm_company_ownership</table>
             <group>general</group>
