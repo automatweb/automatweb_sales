@@ -1,6 +1,14 @@
 <?xml version='1.0'?>
 <properties>
       <property>
+            <name>name</name>
+            <table>objects</table>
+            <group>config_general</group>
+            <type>textbox</type>
+            <field>name</field>
+            <caption>Nimi</caption>
+      </property>
+      <property>
             <name>owner_org</name>
             <table>objects</table>
             <group>config_general</group>
@@ -164,6 +172,16 @@
             <caption>Kuva k&amp;amp;otilde;iki kontaktandmeid</caption>
       </property>
       <property>
+            <name>display_mode</name>
+            <table>objects</table>
+            <group>config_org</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
+            <orient>vertical</orient>
+            <caption>Kuvatavad organisatsioonid</caption>
+      </property>
+      <property>
             <name>org_tbl_fields</name>
             <table>objects</table>
             <group>config_org</group>
@@ -189,7 +207,7 @@
             <group>org</group>
             <field>meta</field>
             <method>serialize</method>
-            <type>treeview</type>
+            <type>text</type>
             <store>no</store>
             <no_caption>1</no_caption>
             <parent>o_left_top</parent>
@@ -249,6 +267,7 @@
             <field>meta</field>
             <method>serialize</method>
             <type>chooser</type>
+            <orient>vertical</orient>
             <multiple>1</multiple>
             <store>no</store>
             <captionside>top</captionside>
@@ -337,8 +356,6 @@
       </property>
       <classinfo>
             <relationmgr>yes</relationmgr>
-            <syslog_type>ST_CRM_DB</syslog_type>
-            <maintainer>markop</maintainer>
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>

@@ -29,5 +29,12 @@
 			</function>
 		</action>
 
+		<action name="create_customer_data" all_args="1">
+			<function name="create_customer_data">
+				<arguments>
+				</arguments>
+			</function>
+		</action>
+
 	</class>
 </orb>
