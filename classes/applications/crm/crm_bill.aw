@@ -3191,7 +3191,7 @@ class crm_bill extends class_base
 
 	/**
 		@attrib name=_preview_popup
-	/**/
+	**/
 	function _preview_popup($arr)
 	{
 		global $id, $rows_in_page, $page;
@@ -3593,7 +3593,7 @@ class crm_bill extends class_base
 			$grp_rows[$row["prod"]][$unp]["sum"] = isset($grp_rows[$row["prod"]][$unp]["sum"]) ? ($grp_rows[$row["prod"]][$unp]["sum"] + $cur_tax + $cur_sum) : ($cur_tax+$cur_sum);
 			$grp_rows[$row["prod"]][$unp]["tot_cur_sum"] = isset($grp_rows[$row["prod"]][$unp]["tot_cur_sum"]) ? ($grp_rows[$row["prod"]][$unp]["tot_cur_sum"] + $cur_sum) : $cur_sum;
 			$grp_rows[$row["prod"]][$unp]["tot_amt"] = isset($grp_rows[$row["prod"]][$unp]["tot_amt"]) ? ($grp_rows[$row["prod"]][$unp]["tot_amt"] + $row["amt"]) : $row["amt"];
-			$grp_rows[$row["prod"]][$unp]["unit"] = empty($row["unit"]) ? "" :$row["unit"];
+			$grp_rows[$row["prod"]][$unp]["unit"] = empty($row["unit_name"]) ? "" :$row["unit_name"];
 			$grp_rows[$row["prod"]][$unp]["price"] = empty($row["price"]) ? "" :$row["price"];
 			$grp_rows[$row["prod"]][$unp]["date"] = empty($row["date"]) ? "" :$row["date"];
 			$grp_rows[$row["prod"]][$unp]["jrk"] = empty($row["jrk"]) ? "" :$row["jrk"];
