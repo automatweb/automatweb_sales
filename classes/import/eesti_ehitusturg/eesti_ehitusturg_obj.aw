@@ -681,7 +681,7 @@ class eesti_ehitusturg_obj extends _int_object
 		$sql = "SELECT * FROM aw_eesti_ehitusturg_raw_owners";
 		if ($companies !== null)
 		{
-			$sql .= " WHERE company_id IN (" . explode(",", $companies) . ")"
+			$sql .= " WHERE company_id IN (" . explode(",", $companies) . ")";
 		}
 
 		$rows = $this->instance()->db_fetch_array($sql);
@@ -701,7 +701,7 @@ class eesti_ehitusturg_obj extends _int_object
 		$sql = "SELECT * FROM aw_eesti_ehitusturg_raw_revenue";
 		if ($companies !== null)
 		{
-			$sql .= " WHERE company_id IN (" . explode(",", $companies) . ")"
+			$sql .= " WHERE company_id IN (" . explode(",", $companies) . ")";
 		}
 
 		$rows = $this->instance()->db_fetch_array($sql);
