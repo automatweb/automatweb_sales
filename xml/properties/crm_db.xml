@@ -261,6 +261,43 @@
             <caption>Firmajuht</caption>
       </property>
       <property>
+            <name>os_owner</name>
+            <table>objects</table>
+            <group>org</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>o_left_bottom</parent>
+            <caption>Omanik</caption>
+      </property>
+      <property>
+            <name>os_turnover_year</name>
+            <table>objects</table>
+            <group>org</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>textbox</type>
+            <size>10</size>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>o_left_bottom</parent>
+            <caption>K&amp;amp;auml;ibe aasta</caption>
+      </property>
+      <property>
+            <name>os_turnover</name>
+            <table>objects</table>
+            <group>org</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>text</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>o_left_bottom</parent>
+            <caption>K&amp;amp;auml;ibe summa</caption>
+      </property>
+      <property>
             <name>os_legal_form</name>
             <table>objects</table>
             <group>org</group>
@@ -307,31 +344,6 @@
             <parent>o_left_bottom</parent>
             <size>5</size>
             <caption>Linn</caption>
-      </property>
-      <property>
-            <name>os_turnover_year</name>
-            <table>objects</table>
-            <group>org</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>textbox</type>
-            <size>10</size>
-            <store>no</store>
-            <captionside>top</captionside>
-            <parent>o_left_bottom</parent>
-            <caption>K&amp;amp;auml;ibe aasta</caption>
-      </property>
-      <property>
-            <name>os_turnover</name>
-            <table>objects</table>
-            <group>org</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>text</type>
-            <store>no</store>
-            <captionside>top</captionside>
-            <parent>o_left_bottom</parent>
-            <caption>K&amp;amp;auml;ibe summa</caption>
       </property>
       <property>
             <name>os_submit</name>

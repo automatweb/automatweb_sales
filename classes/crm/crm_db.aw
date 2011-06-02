@@ -97,6 +97,15 @@
 				@property os_director type=textbox store=no captionside=top parent=o_left_bottom
 				@caption Firmajuht
 
+				@property os_owner type=textbox store=no captionside=top parent=o_left_bottom
+				@caption Omanik
+
+				@property os_turnover_year type=textbox size=10 store=no captionside=top parent=o_left_bottom
+				@caption K&auml;ibe aasta
+
+				@property os_turnover type=text store=no captionside=top parent=o_left_bottom
+				@caption K&auml;ibe summa
+
 				@property os_legal_form type=chooser orient=vertical multiple=1 store=no captionside=top parent=o_left_bottom
 				@caption Ettev&otilde;lusvorm
 
@@ -105,12 +114,6 @@
 
 				@property os_city type=relpicker reltype=RELTYPE_OS_CITY no_edit=1 automatic=1 multiple=1 store=no captionside=top parent=o_left_bottom size=5
 				@caption Linn
-
-				@property os_turnover_year type=textbox size=10 store=no captionside=top parent=o_left_bottom
-				@caption K&auml;ibe aasta
-
-				@property os_turnover type=text store=no captionside=top parent=o_left_bottom
-				@caption K&auml;ibe summa
 
 				@property os_submit type=submit store=no parent=o_left_bottom
 				@caption Otsi
@@ -318,7 +321,8 @@ class crm_db extends class_base
 			case "os_address":
 			case "os_director":
 			case "os_turnover_year":
-				$prop["value"] = isset($_GET[$prop["name"]]) ? $_GET[$prop["name"]] : NULL;
+			case "os_owner":
+				$prop["value"] = automatweb::$request->arg($prop["name"]);
 				break;
 
 			case "os_turnover":
@@ -997,6 +1001,7 @@ class crm_db extends class_base
 				));
 			}
 		}
+
 		$annual_report_filter = array(
 			"class_id" => crm_company_annual_report_obj::CLID,
 		);
@@ -1028,6 +1033,33 @@ class crm_db extends class_base
 			if ($annual_report_odl->count() > 0)
 			{
 				$vars["oid"] = isset($vars["oid"]) ? $vars["oid"] + $annual_report_odl->get_element_from_all("company"): $annual_report_odl->get_element_from_all("company");
+			}
+			else
+			{
+				return array(new object_list(), array());
+			}
+		}
+
+		if (strlen(automatweb::$request->arg("os_owner")) > 0)
+		{
+			$owner_odl = new object_data_list(
+				array(
+					"class_id" => crm_company_ownership_obj::CLID,
+					new object_list_filter(array(
+						"logic" => "OR",
+						"conditions" => array(
+							"CL_CRM_COMPANY_OWNERSHIP.owner(CL_CRM_PERSON).name" => "%". automatweb::$request->arg("os_owner") ."%",
+							"CL_CRM_COMPANY_OWNERSHIP.owner(CL_CRM_COMPANY).name" => "%". automatweb::$request->arg("os_owner") ."%",
+						),
+					)),
+				),
+				array(
+					crm_company_ownership_obj::CLID => array("company")
+				)
+			);
+			if ($owner_odl->count() > 0)
+			{
+				$vars["oid"] = isset($vars["oid"]) ? $vars["oid"] + $owner_odl->get_element_from_all("company"): $owner_odl->get_element_from_all("company");
 			}
 			else
 			{
