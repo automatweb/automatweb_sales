@@ -993,6 +993,10 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@layout stats_table type=vbox parent=stats_list_r closeable=1
 				@property stats_table type=table store=no no_caption=1 parent=stats_table
 
+@default group=stats_annual_reports
+
+	@property stats_annual_reports_tbl type=table store=no no_caption=1
+
 @default group=stats_s
 
 	@property stats_s_toolbar type=toolbar store=no no_caption=1
@@ -1259,6 +1263,7 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 @groupinfo stats caption="Aruanded" save=no
 
 	@groupinfo stats_stats parent=stats caption="Aruanded" save=no
+	@groupinfo stats_annual_reports parent=stats caption="Majandusaasta aruanded" submit=no save=no
 	@groupinfo stats_s parent=stats caption="Otsi" save=no
 	@groupinfo stats_view parent=stats caption="Salvestatud aruanded" submit=no save=no
 	@groupinfo stats_my parent=stats caption="Minu statistika" submit=no save=no
@@ -2886,6 +2891,7 @@ class crm_company extends class_base
  			case "status_chart":
  			case "money_chart":
  			case "stats_table":
+			case "stats_annual_reports_tbl":
 				static $stats_impl;
 				if (!$stats_impl)
 				{

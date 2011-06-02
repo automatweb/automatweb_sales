@@ -2924,6 +2924,15 @@
             <field>stats_table</field>
       </property>
       <property>
+            <name>stats_annual_reports_tbl</name>
+            <table>objects</table>
+            <group>stats_annual_reports</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <field>stats_annual_reports_tbl</field>
+      </property>
+      <property>
             <name>stats_s_toolbar</name>
             <table>objects</table>
             <group>stats_s</group>
@@ -3755,6 +3764,12 @@
                   <caption>Aruanded</caption>
                   <save>no</save>
             </stats_stats>
+            <stats_annual_reports>
+                  <parent>stats</parent>
+                  <caption>Majandusaasta aruanded</caption>
+                  <submit>no</submit>
+                  <save>no</save>
+            </stats_annual_reports>
             <stats_s>
                   <parent>stats</parent>
                   <caption>Otsi</caption>
