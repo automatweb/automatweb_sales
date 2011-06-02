@@ -24,6 +24,11 @@ class crm_company_stats_impl extends class_base
 		$this->res_types["pers_det"] = t("T&ouml;&ouml;tajad - detailvaade");
 	}
 
+	public function _get_stats_annual_reports_tbl($arr)
+	{
+		$t = $arr["prop"]["vcl_inst"];
+		$t->table_from_ol($arr["obj_inst"]->get_annual_reports(), array("year", "currency", "value_added_tax", "social_security_tax", "assets", "turnover", "profit", "employees", "turnover_per_employee"), crm_company_annual_report_obj::CLID);
+	}
 
 	function _get_project_mgr($arr)
 	{

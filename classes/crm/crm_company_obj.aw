@@ -862,6 +862,24 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $report;
 	}
 
+	/**	Returns objects list of annual report objects for the given company
+		@attrib api=1
+		@errors
+			throws awex_obj_state_new when this company is not saved yet.
+	**/
+	public function get_annual_reports()
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new();
+		}
+
+		return new object_list(array(
+			"class_id" => crm_company_annual_report_obj::CLID,
+			"company" => $this->id(),
+		));
+	}
+
 	/** Adds an ownership or modifies an existing one
 		@attrib api=1 params=pos
 		@param owner required type=CL_CRM_PERSON,CL_CRM_COMPANY
