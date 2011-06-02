@@ -7,6 +7,9 @@
 @default table=aw_crm_company_ownership
 @default group=general
 
+	@property company type=objpicker clid=CL_CRM_COMPANY field=aw_company
+	@caption Organisatsioon
+
 	@property owner type=objpicker clid=CL_CRM_PERSON,CL_CRM_COMPANY field=aw_owner
 	@caption Omanik
 
@@ -39,7 +42,7 @@ class crm_company_ownership extends class_base
 				)");
 				$r = true;
 			}
-			elseif ("aw_owner" === $field)
+			elseif ("aw_owner" === $field or "aw_company" === $field)
 			{
 				$this->db_add_col("aw_crm_company_ownership", array(
 					"name" => $field,

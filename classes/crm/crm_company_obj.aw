@@ -907,7 +907,8 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 
 		$ol = new object_list(array(
 			"class_id" => crm_company_ownership_obj::CLID,
-			"owner" => $owner->id()
+			"owner" => $owner->id(),
+			"company" => $this->id()
 		));
 		if($ol->count() > 0)
 		{
@@ -928,6 +929,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 			$ownership->set_parent($this->id());
 			$ownership->set_name(sprintf("%s omab %f%% organisatsioonist '%s'", $owner->name(), $share_percentage, $this->name()));
 			$ownership->set_prop("owner", $owner->id());
+			$ownership->set_prop("company", $this->id());
 			$ownership->set_prop("share_percentage", $share_percentage);
 			$ownership->save();
 		}
