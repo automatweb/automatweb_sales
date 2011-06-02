@@ -106,8 +106,11 @@
 				@property os_city type=relpicker reltype=RELTYPE_OS_CITY no_edit=1 automatic=1 multiple=1 store=no captionside=top parent=o_left_bottom size=5
 				@caption Linn
 
-				@property os_show_in_webview type=chooser multiple=1 store=no captionside=top parent=o_left_bottom
-				@caption Veebis kuvamine
+				@property os_turnover_year type=textbox size=10 store=no captionside=top parent=o_left_bottom
+				@caption K&auml;ibe aasta
+
+				@property os_turnover type=text store=no captionside=top parent=o_left_bottom
+				@caption K&auml;ibe summa
 
 				@property os_submit type=submit store=no parent=o_left_bottom
 				@caption Otsi
@@ -314,7 +317,20 @@ class crm_db extends class_base
 			case "os_regnr":
 			case "os_address":
 			case "os_director":
+			case "os_turnover_year":
 				$prop["value"] = isset($_GET[$prop["name"]]) ? $_GET[$prop["name"]] : NULL;
+				break;
+
+			case "os_turnover":
+				$prop["value"] = html::textbox(array(
+					"name" => "os_turnover_from",
+					"value" => automatweb::$request->arg("os_turnover_from"),
+					"size" => 15,
+				))." - ".html::textbox(array(
+					"name" => "os_turnover_to",
+					"value" => automatweb::$request->arg("os_turnover_to"),
+					"size" => 15,
+				));
 				break;
 		}
 		return  $retval;
@@ -440,8 +456,8 @@ class crm_db extends class_base
 			$org_leader = "";
 			if(is_oid($ol))
 			{
-				$obj = obj($ol, array(), crm_person_obj::CLID);
-				$org_leader = html::get_change_url($ol, array("return_url" => get_ru()), $ol->name());
+				$ol_obj = obj($ol, array(), crm_person_obj::CLID);
+				$org_leader = html::get_change_url($ol, array("return_url" => get_ru()), $ol_obj->name());
 			}
 			$cr_manager = "";
 			$crm = $com->prop("client_manager.name");
@@ -874,12 +890,6 @@ class crm_db extends class_base
 
 	private function get_orgs($arr, $all_orgs = false)
 	{
-		$oo = $arr["obj_inst"]->owner_org;
-		if(!$this->can("view", $oo))
-		{
-			return array(new object_list(), array());
-		}
-
 		$t = $arr["prop"]["vcl_inst"];
 
 		$vars = array(
@@ -890,7 +900,7 @@ class crm_db extends class_base
 			)),
 		);
 
-		$customer_data = null;
+		$customer_data = array();
 		switch ($arr["obj_inst"]->prop("display_mode"))
 		{
 			case self::ORGS_BY_SECTORS:
@@ -911,7 +921,12 @@ class crm_db extends class_base
 				}
 				break;
 
-			case self::ORGS_BY_CUSTOMER_RELATIONS:				
+			case self::ORGS_BY_CUSTOMER_RELATIONS:
+				$oo = $arr["obj_inst"]->owner_org;
+				if(!$this->can("view", $oo))
+				{
+					return array(new object_list(), array());
+				}
 				$cd_odl = new object_data_list(
 					array(
 						"class_id" => CL_CRM_COMPANY_CUSTOMER_DATA,
@@ -982,15 +997,42 @@ class crm_db extends class_base
 				));
 			}
 		}
-		// Nime algust2he filter
-		if(isset($_GET["letter"]))
+		$annual_report_filter = array(
+			"class_id" => crm_company_annual_report_obj::CLID,
+		);
+		if(automatweb::$request->arg_isset("os_turnover_year"))
 		{
-			$vars[] = new object_list_filter(array(
-				"logic" => "OR",
-				"conditions" => array(
-					"CL_CRM_COMPANY.name" => $_GET["letter"]."%",
+			$annual_report_filter["year"] = automatweb::$request->arg("os_turnover_year");
+		}
+		if(automatweb::$request->arg_isset("os_turnover_from") and automatweb::$request->arg_isset("os_turnover_to"))
+		{
+			$annual_report_filter["turnover"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, automatweb::$request->arg("os_turnover_from"), automatweb::$request->arg("os_turnover_to"), "int");
+		}
+		elseif(automatweb::$request->arg_isset("os_turnover_from"))
+		{
+			$annual_report_filter["turnover"] = new obj_predicate_compare(obj_predicate_compare::GREATER_OR_EQ, automatweb::$request->arg("os_turnover_from"), null, "int");
+		}
+		elseif(automatweb::$request->arg_isset("os_turnover_to"))
+		{
+			$annual_report_filter["turnover"] = new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, automatweb::$request->arg("os_turnover_to"), null, "int");
+		}
+
+		if (count($annual_report_filter) > 1)
+		{
+			$annual_report_odl = new object_data_list(
+				$annual_report_filter,
+				array(
+					crm_company_annual_report_obj::CLID => array("company")
 				)
-			));
+			);
+			if ($annual_report_odl->count() > 0)
+			{
+				$vars["oid"] = isset($vars["oid"]) ? $vars["oid"] + $annual_report_odl->get_element_from_all("company"): $annual_report_odl->get_element_from_all("company");
+			}
+			else
+			{
+				return array(new object_list(), array());
+			}
 		}
 
 		$companies = new object_list($vars);
