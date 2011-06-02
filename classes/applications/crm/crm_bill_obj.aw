@@ -1567,6 +1567,7 @@ class crm_bill_obj extends _int_object
 				"sum" => $row->prop("amt") * $row->prop("price"),
 				"km_code" => $kmk,
 				"unit" => $row->prop("unit"),
+				"unit_name" => $row->prop("unit.name"),
 				"jrk" => $row->meta("jrk"),
 				"id" => $row->id(),
 				"has_tax" => $row->prop("has_tax"),
