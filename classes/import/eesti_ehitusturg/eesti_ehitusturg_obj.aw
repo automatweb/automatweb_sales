@@ -351,21 +351,15 @@ class eesti_ehitusturg_obj extends _int_object
 				{
 					$o->set_prop("fake_address_city", $company["address_city"]);
 				}
-					
 
 				$o->set_meta("eesti_ehitus_views", $company["view_count"]);
+				
+				$person = $this->get_person($company["director_name"], $aw_id);
+				
+				$o->set_prop("firmajuht", $person->id());
+				$o->save();
 
 				$aw_id = $o->save();
-
-				if(isset($persons[$company["director_name"]]))
-				{
-					$person = $persons[$company["director_name"]];
-				}
-				else
-				{
-					$person = $this->get_person($company["director_name"], $aw_id);
-					$persons[$company["director_name"]] = $person;
-				}
 
 				if(isset($professions[$company["director_profession"]]))
 				{
@@ -479,6 +473,7 @@ class eesti_ehitusturg_obj extends _int_object
 				$o = obj(null, array(), crm_sector_obj::CLID);
 				$o->set_parent($this->prop("sectors_dir"));
 				$o->set_name($row["emtak_name"]);
+				$o->set_prop("tegevusala", $row["emtak_name"]);
 				$o->set_prop("emtak_2008", $row["emtak_id"]);
 				$aw_id = $o->save();
 
