@@ -281,9 +281,9 @@ class eesti_ehitusturg_obj extends _int_object
 		$this->persons = array();
 		$professions = array();
 
-		$companies = $this->get_companies(true, true);
-		$owners = $this->get_owners();
-		$revenues = $this->get_revenues();
+		$companies = $this->get_companies(true, true, 15);
+		$owners = $this->get_owners(array_keys($companies));
+		$revenues = $this->get_revenues(array_keys($companies));
 
 		$count = 0;
 		foreach($companies as $company)
@@ -640,7 +640,7 @@ class eesti_ehitusturg_obj extends _int_object
 		ON DUPLICATE KEY UPDATE name = '{{$sector["name"]}', external_parent = {$sector["parent"]};");
 	}
 
-	protected function get_companies($aw_id_is_null = false, $name_not_null = false)
+	protected function get_companies($aw_id_is_null = false, $name_not_null = false, $limit = null)
 	{
 		$companies = array();
 
@@ -658,23 +658,33 @@ class eesti_ehitusturg_obj extends _int_object
 		{
 			$sql .= " WHERE ".join(" AND ", $where);
 		}
+		if ($limit !== null)
+		{
+			$sql .= " LIMIT {$limit}";
+		}
 
 		$rows = $this->instance()->db_fetch_array($sql);
 		foreach($rows as $row)
 		{
 			$row["id"] = $row["external_id"];
 			unset($row["external_id"]);
-			$companies[] = $row;
+			$companies[$row["id"]] = $row;
 		}
 
 		return $companies;
 	}
 
-	protected function get_owners()
+	protected function get_owners($companies = null)
 	{
 		$owners = array();
 
-		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_owners;");
+		$sql = "SELECT * FROM aw_eesti_ehitusturg_raw_owners";
+		if ($companies !== null)
+		{
+			$sql .= " WHERE company_id IN (" . explode(",", $companies) . ")"
+		}
+
+		$rows = $this->instance()->db_fetch_array($sql);
 		foreach($rows as $row)
 		{
 			$owners[$row["company_id"]] = isset($owners[$row["company_id"]]) ? $owners[$row["company_id"]] : array();
@@ -684,11 +694,17 @@ class eesti_ehitusturg_obj extends _int_object
 		return $owners;
 	}
 
-	protected function get_revenues()
+	protected function get_revenues($companies = null)
 	{
 		$revenues = array();
 
-		$rows = $this->instance()->db_fetch_array("SELECT * FROM aw_eesti_ehitusturg_raw_revenue;");
+		$sql = "SELECT * FROM aw_eesti_ehitusturg_raw_revenue";
+		if ($companies !== null)
+		{
+			$sql .= " WHERE company_id IN (" . explode(",", $companies) . ")"
+		}
+
+		$rows = $this->instance()->db_fetch_array($sql);
 		foreach($rows as $row)
 		{
 			$revenues[$row["company_id"]] = isset($revenues[$row["company_id"]]) ? $revenues[$row["company_id"]] : array();
