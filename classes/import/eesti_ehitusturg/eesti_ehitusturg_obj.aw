@@ -354,12 +354,13 @@ class eesti_ehitusturg_obj extends _int_object
 
 				$o->set_meta("eesti_ehitus_views", $company["view_count"]);
 				
-				$person = $this->get_person($company["director_name"], $aw_id);
-				
-				$o->set_prop("firmajuht", $person->id());
-				$o->save();
 
 				$aw_id = $o->save();
+				
+				$person = $this->get_person($company["director_name"], $aw_id);
+
+				$o->set_prop("firmajuht", $person->id());
+				$o->save();
 
 				if(isset($professions[$company["director_profession"]]))
 				{
