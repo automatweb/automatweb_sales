@@ -841,6 +841,7 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		$report->set_parent($this->id());
 		$report->set_name(sprintf("Organisatsiooni '%s' %u. aasta majandusaruanne", $this->name(), $year));
 		$report->set_prop("company", $this->id());
+		$report->set_prop("year", $year);
 		if ($currency !== null)
 		{
 			if (!$currency->is_a(currency_obj::CLID))
