@@ -384,7 +384,7 @@ class treeview extends class_base
 		if ($this->tree_type == TREE_DHTML_WITH_CHECKBOXES)
 		{
 			$this->separator = empty($arr["separator"]) ? "," : $arr["separator"];
-			$this->checked_nodes = $arr["checked_nodes"];
+			$this->checked_nodes = isset($arr["checked_nodes"]) ? $arr["checked_nodes"] : array();
 			$this->checkbox_data_var = empty ($arr["checkbox_data_var"]) ? $arr["tree_id"] : $arr["checkbox_data_var"];
 		}
 
@@ -443,7 +443,7 @@ class treeview extends class_base
 		// that node directly.
 		if($this->item_name_length)
 		{
-			$item["caption"]= substr($item["caption"], 0, $this->item_name_length).(strlen($item["caption"]) > 20 ? "..." : "");
+			$item["name"]= substr($item["name"], 0, $this->item_name_length).(strlen($item["name"]) > $this->item_name_length ? "..." : "");
 		}
 
 		if (!isset($item["id"]) )
@@ -771,7 +771,7 @@ class treeview extends class_base
 		// ja nagu sellest veel kyllalt poleks .. I can have multiple opened nodes. yees!
 		if ($this->has_feature(PERSIST_STATE))
 		{
-			$opened_nodes = explode("^",$_COOKIE[$this->tree_id]);
+			$opened_nodes = isset($_COOKIE[$this->tree_id]) ? explode("^", $_COOKIE[$this->tree_id]) : array();
 			$r_path = array();
 			foreach($opened_nodes as $open_node)
 			{
@@ -1039,7 +1039,7 @@ class treeview extends class_base
 
 	function draw_dhtml_tree_with_checkboxes ($parent)
 	{
-		$data = $this->items[$parent];
+		$data = isset($this->items[$parent]) ? $this->items[$parent] : null;
 
 		if (!is_array($data))
 		{
@@ -1074,7 +1074,7 @@ class treeview extends class_base
 
 			$checkbox_status = "undefined";
 
-			if (($item["checkbox"] === 0) or ($item["checkbox"] === 1))
+			if (isset($item["checkbox"]) and ($item["checkbox"] === 0 or $item["checkbox"] === 1))
 			{
 				if ( (is_array ($this->checked_nodes)) and (in_array ($item["id"], $this->checked_nodes)) )
 				{
@@ -1517,10 +1517,6 @@ class treeview extends class_base
 				$oname = parse_obj_name($o->trans_get_val("name"));
 			}
 
-			if(isset($arr["tree_opts"]["item_name_length"]))
-			{
-				$oname = substr($oname, 0, $arr["tree_opts"]["item_name_length"]).(strlen($oname) > 20 ? "..." : "");
-			}
 			$oid = $o->id();
 			$class_id = $o->class_id();
 
@@ -1530,9 +1526,14 @@ class treeview extends class_base
 				$tv->set_selected_item($oid);
 			}
 
-			if ( ($tv->tree_type == TREE_DHTML_WITH_CHECKBOXES) and is_array ($arr["checkbox_class_filter"]) and in_array ($class_id, $arr["checkbox_class_filter"]) )
+			if (
+				($tv->tree_type == TREE_DHTML_WITH_CHECKBOXES) and 
+				(
+					!isset($arr["checkbox_class_filter"]) or 
+					is_array ($arr["checkbox_class_filter"]) and in_array ($class_id, $arr["checkbox_class_filter"]) 
+				))
 			{
-				if (is_array ($checked_nodes) and in_array ($oid, $checked_nodes))
+				if (isset($checked_nodes) and is_array ($checked_nodes) and in_array ($oid, $checked_nodes))
 				{
 					$checkbox_status = 1;
 				}
@@ -1592,7 +1593,7 @@ class treeview extends class_base
 				"name" => $oname.($show_num_child ? " (".$num_child.")" : "").($add_change_url ? html::obj_change_url($oid, t(" (M)")) : ""),
 				"id" => $oid,
 				"iconurl" => $icon,
-				"checkbox" => $checkbox_status,
+				"checkbox_status" => $checkbox_status,
 			);
 			if($use_reload)
 			{
