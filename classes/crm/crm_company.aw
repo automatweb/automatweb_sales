@@ -369,6 +369,11 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 @property balance type=hidden table=aw_account_balances field=aw_balance
 
+@default group=owners
+	
+	@property owners_toolbar type=toolbar store=no no_caption=1
+
+	@property owners_table type=table store=no no_caption=1
 
 @default group=personal_offers
 -------------- PERSONALI PROPERTID ---------------
@@ -1185,6 +1190,7 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 -------------------------------------------------
 @groupinfo general_sub caption="&Uuml;ldandmed" parent=general
 @groupinfo cedit caption="&Uuml;ldkontaktid" parent=general
+@groupinfo owners caption="Omanikud" parent=general
 @groupinfo org_sections caption="Tegevus" parent=general
 @groupinfo add_info caption="Lisainfo" parent=general
 @groupinfo statuses caption="Staatused" parent=general submit=no
@@ -2073,6 +2079,13 @@ class crm_company extends class_base
 				break;
 
 			// END CEDIT tab
+
+			case "owners_toolbar":
+			case "owners_table":
+				$i = new crm_company_owners_impl();
+				$method = "_get_".$data["name"];
+				$retval = is_callable(array($i, $method)) ? $i->$method($arr) : PROP_IGNORE;
+				break;
 
 			case "comments_display":
 				if(!$arr["obj_inst"]->meta("comments_stored_in_objects"))
