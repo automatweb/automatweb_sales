@@ -937,6 +937,24 @@ class crm_company_obj extends _int_object implements crm_customer_interface, crm
 		return $ownership;
 	}
 
+	/**	Returns an objects list of ownership objects of the given company
+		@attrib api=1
+		@errors
+			throws awex_obj_state_new when this company is not saved yet.
+	**/
+	public function get_ownerships()
+	{
+		if (!$this->is_saved())
+		{
+			throw new awex_obj_state_new();
+		}
+
+		return new object_list(array(
+			"class_id" => crm_company_ownership_obj::CLID,
+			"company" => $this->id(),
+		));
+	}
+
 	/** Adds a new employee, creates a person if none given
 		@attrib api=1 params=pos
 		@param profession type=CL_CRM_PROFESSION default=null
