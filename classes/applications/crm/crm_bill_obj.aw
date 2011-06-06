@@ -1355,6 +1355,7 @@ class crm_bill_obj extends _int_object
 		$filter["class_id"] = crm_bill_row_obj::CLID;
 		$filter["CL_CRM_BILL_ROW.RELTYPE_ROW(CL_CRM_BILL)"] = $this->id();
 		$filter["writeoff"] = new obj_predicate_not(1);
+		$filter[] = new obj_predicate_sort(array("jrk" => "asc"));
 		return $filter;
 	}
 
@@ -1568,7 +1569,7 @@ class crm_bill_obj extends _int_object
 				"km_code" => $kmk,
 				"unit" => $row->prop("unit"),
 				"unit_name" => $row->prop("unit.name"),
-				"jrk" => $row->meta("jrk"),
+				"jrk" => $row->ord(),
 				"id" => $row->id(),
 				"has_tax" => $row->prop("has_tax"),
 				"tax" => $row->get_row_tax(),
@@ -3048,7 +3049,7 @@ class crm_bill_obj extends _int_object
 				"sum" => str_replace(",", ".", $row->prop("amt")) * str_replace(",", ".", $row->prop("price")),
 				"km_code" => $kmk,
 				"unit" => $row->prop("unit"),
-				"jrk" => $row->meta("jrk"),
+				"jrk" => $row->ord(),
 				"id" => $row->id(),
 				"has_tax" => $row->prop("has_tax"),
 				"tax" => $row->get_row_tax(),
@@ -3236,7 +3237,7 @@ class crm_bill_obj extends _int_object
 
 			do
 			{
-				$row->set_meta("jrk", $count*10);
+				$row->set_ord($count*10);
 				$row->save();
 				$count++;
 			}
