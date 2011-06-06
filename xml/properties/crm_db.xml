@@ -298,34 +298,15 @@
             <caption>K&amp;amp;auml;ibe summa</caption>
       </property>
       <property>
-            <name>os_legal_form</name>
-            <table>objects</table>
-            <group>org</group>
-            <field>meta</field>
-            <method>serialize</method>
-            <type>chooser</type>
-            <orient>vertical</orient>
-            <multiple>1</multiple>
-            <store>no</store>
-            <captionside>top</captionside>
-            <parent>o_left_bottom</parent>
-            <caption>Ettev&amp;amp;otilde;lusvorm</caption>
-      </property>
-      <property>
             <name>os_county</name>
             <table>objects</table>
             <group>org</group>
             <field>meta</field>
             <method>serialize</method>
-            <type>relpicker</type>
-            <reltype>RELTYPE_OS_COUNTY</reltype>
-            <no_edit>1</no_edit>
-            <automatic>1</automatic>
-            <multiple>1</multiple>
+            <type>textbox</type>
             <store>no</store>
             <captionside>top</captionside>
             <parent>o_left_bottom</parent>
-            <size>5</size>
             <caption>Maakond</caption>
       </property>
       <property>
@@ -334,16 +315,24 @@
             <group>org</group>
             <field>meta</field>
             <method>serialize</method>
-            <type>relpicker</type>
-            <reltype>RELTYPE_OS_CITY</reltype>
-            <no_edit>1</no_edit>
-            <automatic>1</automatic>
+            <type>textbox</type>
+            <store>no</store>
+            <captionside>top</captionside>
+            <parent>o_left_bottom</parent>
+            <caption>Linn</caption>
+      </property>
+      <property>
+            <name>os_legal_form</name>
+            <table>objects</table>
+            <group>org</group>
+            <field>meta</field>
+            <method>serialize</method>
+            <type>chooser</type>
             <multiple>1</multiple>
             <store>no</store>
             <captionside>top</captionside>
             <parent>o_left_bottom</parent>
-            <size>5</size>
-            <caption>Linn</caption>
+            <caption>Ettev&amp;amp;otilde;lusvorm</caption>
       </property>
       <property>
             <name>os_submit</name>
