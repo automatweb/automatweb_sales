@@ -106,14 +106,14 @@
 				@property os_turnover type=text store=no captionside=top parent=o_left_bottom
 				@caption K&auml;ibe summa
 
-				@property os_legal_form type=chooser orient=vertical multiple=1 store=no captionside=top parent=o_left_bottom
-				@caption Ettev&otilde;lusvorm
-
-				@property os_county type=relpicker reltype=RELTYPE_OS_COUNTY no_edit=1 automatic=1 multiple=1 store=no captionside=top parent=o_left_bottom size=5
+				@property os_county type=textbox store=no captionside=top parent=o_left_bottom
 				@caption Maakond
 
-				@property os_city type=relpicker reltype=RELTYPE_OS_CITY no_edit=1 automatic=1 multiple=1 store=no captionside=top parent=o_left_bottom size=5
+				@property os_city type=textbox store=no captionside=top parent=o_left_bottom
 				@caption Linn
+
+				@property os_legal_form type=chooser multiple=1 store=no captionside=top parent=o_left_bottom
+				@caption Ettev&otilde;lusvorm
 
 				@property os_submit type=submit store=no parent=o_left_bottom
 				@caption Otsi
@@ -281,41 +281,27 @@ class crm_db extends class_base
 				break;
 
 			case "os_legal_form":
-				$ol = new object_list(array(
-					"class_id" => CL_CRM_CORPFORM,
-					"parent" => is_oid($arr["obj_inst"]->dir_ettevotlusvorm) ? $arr["obj_inst"]->dir_ettevotlusvorm : array(),
-					"lang_id" => array(),
-					"site_id" => array(),
-					"sort_by" => "objects.jrk, objects.name",
-				));
-				$prop["options"] = $ol->names();
+				$odl = new object_data_list(
+					array(
+						"class_id" => CL_CRM_CORPFORM,
+						"parent" => is_oid($arr["obj_inst"]->dir_ettevotlusvorm) ? $arr["obj_inst"]->dir_ettevotlusvorm : array(),
+						"lang_id" => array(),
+						"site_id" => array(),
+						new obj_predicate_sort(array(
+							"jrk" => "asc",
+							"shortname" => "asc"
+						)),
+					),
+					array(
+						CL_CRM_CORPFORM => array("shortname"),
+					)
+				);
+				$prop["options"] = $odl->get_element_from_all("shortname");
 				$prop["value"] = isset($_GET[$prop["name"]]) ? $_GET[$prop["name"]] : NULL;
 				break;
 
 			case "os_city":
-				$ol = new object_list(array(
-					"class_id" => CL_CRM_CITY,
-					"parent" => is_oid($arr["obj_inst"]->dir_linn) ? $arr["obj_inst"]->dir_linn : array(),
-					"lang_id" => array(),
-					"site_id" => array(),
-					"sort_by" => "objects.jrk, objects.name",
-				));
-				$prop["options"] = $ol->names();
-				$prop["value"] = isset($_GET[$prop["name"]]) ? $_GET[$prop["name"]] : NULL;
-				break;
-
 			case "os_county":
-				$ol = new object_list(array(
-					"class_id" => CL_CRM_COUNTY,
-					"parent" => is_oid($arr["obj_inst"]->dir_maakond) ? $arr["obj_inst"]->dir_maakond : array(),
-					"lang_id" => array(),
-					"site_id" => array(),
-					"sort_by" => "objects.jrk, objects.name",
-				));
-				$prop["options"] = $ol->names();
-				$prop["value"] = isset($_GET[$prop["name"]]) ? $_GET[$prop["name"]] : NULL;
-				break;
-
 			case "os_name":
 			case "os_regnr":
 			case "os_address":
@@ -504,10 +490,10 @@ class crm_db extends class_base
 			if (!$arr["obj_inst"]->prop("all_ct_data") && $this->can("view", $com->prop("url_id")))
 			{
 				$url = $com->prop("url_id.url");
-				$url = substr($url, strpos($url, "http://"), strlen($url)+1);
+				$url = substr($url, strpos($url, "http://"));
 				if(strlen($url) > 0)
 				{
-					$url = html::href(array("url" => $url, "caption" => $url, "target" => "_blank"));
+					$url = html::href(array("url" => "http://".$url, "caption" => $url, "target" => "_blank"));
 				}
 			}
 			else
@@ -980,13 +966,23 @@ class crm_db extends class_base
 			{
 				$adr_vars["aadress"] = "%".$_GET["os_address"]."%";
 			}
-			if(isset($_GET["os_city"]))
+			if(strlen(automatweb::$request->arg("os_city")) > 0)
 			{
-				$adr_vars["linn"] = $_GET["os_city"];
+				$cities = array();
+				foreach(explode(",", automatweb::$request->arg("os_city")) as $city)
+				{
+					$cities[] = "%".trim($city)."%";
+				}
+				$adr_vars["linn(CL_CRM_CITY).name"] = $cities;
 			}
-			if(isset($_GET["os_county"]))
+			if(strlen(automatweb::$request->arg("os_county")) > 0)
 			{
-				$adr_vars["maakond"] = $_GET["os_county"];
+				$counties = array();
+				foreach(explode(",", automatweb::$request->arg("os_county")) as $county)
+				{
+					$counties[] = "%".trim($county)."%";
+				}
+				$adr_vars["maakond(CL_CRM_COUNTY).name"] = $counties;
 			}
 			if(count($adr_vars) > 0)
 			{
