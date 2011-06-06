@@ -13,7 +13,12 @@ class crm_bill_row_group_obj extends _int_object
 	**/
 	public function get_rows()
 	{
-		$rows = new object_list($this->connections_from(array("type" => "RELTYPE_CHILD", "to.class_id" => crm_bill_row_obj::CLID)));
+//		$rows = new object_list($this->connections_from(array("type" => "RELTYPE_CHILD", "to.class_id" => crm_bill_row_obj::CLID)));
+		$rows = new object_list(array(
+			"class_id" => crm_bill_row_obj::CLID,
+			"CL_CRM_BILL_ROW.RELTYPE_CHILD(CL_CRM_BILL_ROW).oid" => $this->id(),
+			new obj_predicate_sort(array("jrk" => "asc")),
+		));
 		return $rows;
 	}
 

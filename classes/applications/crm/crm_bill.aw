@@ -2050,7 +2050,7 @@ class crm_bill extends class_base
 						"name" => "sel_rows[]",
 						"value" => $row_oid
 					)),
-					"jrk" => $row_o->meta("jrk"),
+					"jrk" => $row_o->ord(),
 					"change" => $this->get_row_html($row_oid,"change",$arr),
 					"person" => $this->get_row_html($row_oid,"person",$arr)
 				));
@@ -2187,7 +2187,7 @@ class crm_bill extends class_base
 
 		if(!empty($arr["jrk"]))
 		{
-			$o->set_meta("jrk" , (int) $arr["jrk"]);
+			$o->set_ord((int) $arr["jrk"]);
 		}
 
 		foreach($o->connections_from(array("type" => "RELTYPE_PEOPLE")) as $c)
@@ -2471,7 +2471,7 @@ class crm_bill extends class_base
 				$ret.="<table><tr><td width=\"400\"> " . t("Jrk.") . " " .
 				html::textbox(array(
 					"name" => "rows[".$row->id()."][jrk]",
-					"value" => $row->meta("jrk"),
+					"value" => $row->ord(),
 					"size" => 3
 				))
 				. " " . t("Kuup&auml;ev") . " " .
@@ -2775,7 +2775,7 @@ class crm_bill extends class_base
 
 			case "name":
 				$ret.="<div>".
-					($row->meta("jrk") ? sprintf(t("# %s"), $row->meta("jrk")) . html::linebreak() : "").
+					($row->ord() ? sprintf(t("# %s"), $row->ord()) . html::linebreak() : "").
 					($row->prop("date") ? $row->prop("date") . html::linebreak() : "").
 					($row->prop("comment") ? html::bold($row->prop("comment")) . html::linebreak() : "").
 					($row->prop("desc") ? wordwrap(nl2br(htmlspecialchars(($row->prop("desc")))), 100, html::linebreak(), true) . html::linebreak() : "").
@@ -4256,7 +4256,7 @@ class crm_bill extends class_base
 			$o->set_prop("comment", $row["comment"]);
 			$o->set_prop("date", $row["date"]);
 			$o->set_prop("unit", $unit);
-			$o->set_meta("jrk", $row["jrk"]);
+			$o->set_ord($row["jrk"]);
 
 			if (isset($row["price"]))
 			{
@@ -4315,7 +4315,7 @@ $agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_
 			if($row["jrk"] > $jrk-10) $jrk = $row["jrk"]+10;
 		}
 		$row = $bill->add_row();
-		$row->set_meta("jrk" , $jrk);
+		$row->set_ord($jrk);
 		$row->save();
 
 		$bill->set_prop("bill_trans_date", time());
@@ -4449,7 +4449,7 @@ $agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_
 				$br->set_prop("prod", $row["prod"]);
 				$br->set_prop("price", $row["price"]);
 				$br->set_prop("unit", $row["unit"]);
-				$br->set_meta("jrk", $row["jrk"]);
+				$br->set_ord($row["jrk"]);
 				$br->set_prop("has_tax", $row["has_tax"]);
 				$br->set_prop("date", date("d.m.Y", $row["date"]));
 				// get default prod
