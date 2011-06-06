@@ -1530,14 +1530,8 @@ class crm_bill_obj extends _int_object
 	{
 		$inf = array();
 
-		$cons = $this->connections_from(array("type" => "RELTYPE_ROW"));
-		foreach($cons as $c)
+		foreach($this->get_bill_rows()->arr() as $row)
 		{
-			$row = $c->to();
-			if($row->prop("writeoff"))
-			{
-				continue;
-			}
 			$kmk = "";
 			if ($GLOBALS["object_loader"]->cache->can("view", $row->prop("prod")))
 			{
