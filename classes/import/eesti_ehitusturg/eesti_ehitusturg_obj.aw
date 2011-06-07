@@ -278,6 +278,7 @@ class eesti_ehitusturg_obj extends _int_object
 		$currency = obj($this->prop("report_currency", array(), currency_obj::CLID));
 
 		$sectors = $this->import_emtak_sectors();
+		exit;
 		$this->persons = array();
 		$professions = array();
 
@@ -444,32 +445,79 @@ class eesti_ehitusturg_obj extends _int_object
 		return $person;
 	}
 
+	protected function import_emtak_from_xml($parent)
+	{
+		$xml = new SimpleXMLElement(file_get_contents("http://metaweb.stat.ee/get_classificator_file.htm?id=2362719&siteLanguage=ee"));
+		foreach($xml->Classification->Item as $item)
+		{
+			$this->handle_emtak_xml_item($item, $parent);
+		}
+	}
+
+	protected function handle_emtak_xml_item($item, $parent)
+	{
+		$id = (string)$item["id"];
+		$name = (string)$item->Label->LabelText;
+
+		if (empty($this->emtak_aw_oids[$id]))
+		{
+			$o = obj(null, array(), crm_sector_obj::CLID);
+			$o->set_parent($parent);
+			$o->set_name($name);
+			$o->set_prop("tegevusala", $name);
+			$o->set_prop("emtak_2008", $id);
+
+			$this->emtak_aw_oids[$id] = $o->save();
+		}
+		else
+		{
+			$o = obj($this->emtak_aw_oids[$id], array(), crm_sector_obj::CLID);
+			$o->set_parent($parent);
+			$o->save();
+		}
+
+		foreach($item->Item as $subitem)
+		{
+			$this->handle_emtak_xml_item($subitem, $this->emtak_aw_oids[$id]);
+		}
+	}
+
 	public function import_emtak_sectors()
 	{
-		$aw_oids = array();
+		$this->emtak_aw_oids = array();
 
-		$odl = new object_data_list(
-			array(
-				"class_id" => crm_sector_obj::CLID,
-				"parent" => $this->prop("sectors_dir"),
-			),
-			array(
-				crm_sector_obj::CLID => array("emtak_2008")
-			)
-		);
-
-		foreach($odl->arr() as $oid => $odata)
+		$parents = array($this->prop("sectors_dir"));
+		while(count($parents) > 0)
 		{
-			$aw_oids[$odata["emtak_2008"]] = $oid;
+			$odl = new object_data_list(
+				array(
+					"class_id" => crm_sector_obj::CLID,
+					"parent" => $parents,
+				),
+				array(
+					crm_sector_obj::CLID => array("emtak_2008")
+				)
+			);
+
+			foreach($odl->arr() as $oid => $odata)
+			{
+				$this->emtak_aw_oids[$odata["emtak_2008"]] = $oid;
+			}
+
+			$parents = $odl->ids();
 		}
+		
+		$this->import_emtak_from_xml($this->prop("sectors_dir"));
+
+		return $this->emtak_aw_oids;
 
 		$rows = $this->instance()->db_fetch_array("SELECT DISTINCT(emtak_id), emtak_name FROM aw_eesti_ehitusturg_raw_companies WHERE emtak_id IS NOT NULL;");
 		$sectors = array();
 
 		foreach($rows as $row)
 		{
-			$aw_id = isset($aw_oids[$row["emtak_id"]]) ? $aw_oids[$row["emtak_id"]] : null;
-			if (empty($aw_oids[$row["emtak_id"]]))
+			$aw_id = isset($this->emtak_aw_oids[$row["emtak_id"]]) ? $this->emtak_aw_oids[$row["emtak_id"]] : null;
+			if (empty($this->emtak_aw_oids[$row["emtak_id"]]))
 			{
 				$o = obj(null, array(), crm_sector_obj::CLID);
 				$o->set_parent($this->prop("sectors_dir"));
