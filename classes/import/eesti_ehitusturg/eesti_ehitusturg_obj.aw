@@ -278,7 +278,6 @@ class eesti_ehitusturg_obj extends _int_object
 		$currency = obj($this->prop("report_currency", array(), currency_obj::CLID));
 
 		$sectors = $this->import_emtak_sectors();
-		exit;
 		$this->persons = array();
 		$professions = array();
 
@@ -457,7 +456,7 @@ class eesti_ehitusturg_obj extends _int_object
 	protected function handle_emtak_xml_item($item, $parent)
 	{
 		$id = (string)$item["id"];
-		$name = (string)$item->Label->LabelText;
+		$name = iconv("UTF-8", aw_global_get("charset"), (string)$item->Label->LabelText);
 
 		if (empty($this->emtak_aw_oids[$id]))
 		{
@@ -472,6 +471,8 @@ class eesti_ehitusturg_obj extends _int_object
 		else
 		{
 			$o = obj($this->emtak_aw_oids[$id], array(), crm_sector_obj::CLID);
+			$o->set_name($name);
+			$o->set_prop("tegevusala", $name);
 			$o->set_parent($parent);
 			$o->save();
 		}
