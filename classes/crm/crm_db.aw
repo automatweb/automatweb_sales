@@ -519,9 +519,8 @@ class crm_db extends class_base
 				)).$sector,
 				"jrk_int" => $jrk,
 				"id" => $com->id(),
-//				"org" => html::get_change_url($com->id(), array("return_url" => get_ru()), strlen($com->name()) ? $com->name() : t("(nimetu)")),
 				"org" => $pm->get_menu(array(
-					"text" => parse_obj_name($com->name()),
+					"text" => parse_obj_name($com->get_title()),
 				)),
 				"field" => $com->prop_str("pohitegevus"),
 				"ettevotlusvorm" => $com->prop_str("ettevotlusvorm"),
