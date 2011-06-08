@@ -272,14 +272,6 @@ class crm_db extends class_base
 				$prop["options"] = array (30 => 30, 60 => 60, 100 => 100);
 				break;
 
-			case "os_show_in_webview":
-				$prop["options"] = array(
-					1 => t("Ei kuvata veebis"),
-					2 => t("Kuvatakse veebis"),
-				);
-				$prop["value"] = isset($_GET[$prop["name"]]) ? $_GET[$prop["name"]] : NULL;
-				break;
-
 			case "os_legal_form":
 				$odl = new object_data_list(
 					array(
@@ -882,7 +874,7 @@ class crm_db extends class_base
 					$parents += $sector_tree->ids();
 				}
 				$vars["parent"] = $parents;
-				if(automatweb::$request->arg_isset("os_sector"))
+				if(strlen(automatweb::$request->arg("os_sector")) > 0)
 				{
 					$parents = $parents_tmp = automatweb::$request->arg("os_sector");
 					while(count($parents_tmp) > 0)
@@ -923,7 +915,7 @@ class crm_db extends class_base
 					return array(new object_list(), array());
 				}
 
-				if(automatweb::$request->arg_isset("os_sector"))
+				if(strlen(automatweb::$request->arg("os_sector")) > 0)
 				{
 					$parents = $parents_tmp = automatweb::$request->arg("os_sector");
 					while(count($parents_tmp) > 0)
@@ -940,26 +932,26 @@ class crm_db extends class_base
 				break;
 		}
 
-		if(!$all_orgs)
+		if (!$all_orgs)
 		{
-			if(isset($_GET["os_name"]))
+			if (strlen(automatweb::$request->arg("os_name")) > 0)
 			{
 				$vars["name"] = "%".$_GET["os_name"]."%";
 			}
-			if(isset($_GET["os_regnr"]))
+			if (strlen(automatweb::$request->arg("os_regnr")) > 0)
 			{
 				$vars["reg_nr"] = "%".$_GET["os_regnr"]."%";
 			}
-			if(isset($_GET["os_legal_form"]))
+			if (strlen(automatweb::$request->arg("os_legal_form")) > 0)
 			{
 				$vars["ettevotlusvorm"] = $_GET["os_legal_form"];
 			}
-			if(isset($_GET["os_director"]))
+			if (strlen(automatweb::$request->arg("os_director")) > 0)
 			{
 				$vars["firmajuht.name"] = "%".$_GET["os_director"]."%";
 			}
 			$adr_vars = array();
-			if(isset($_GET["os_address"]))
+			if (strlen(automatweb::$request->arg("os_address")) > 0)
 			{
 				$adr_vars["aadress"] = "%".$_GET["os_address"]."%";
 			}
@@ -998,19 +990,19 @@ class crm_db extends class_base
 		$annual_report_filter = array(
 			"class_id" => crm_company_annual_report_obj::CLID,
 		);
-		if(automatweb::$request->arg_isset("os_turnover_year"))
+		if(strlen(automatweb::$request->arg("os_turnover_year")) > 0)
 		{
 			$annual_report_filter["year"] = automatweb::$request->arg("os_turnover_year");
 		}
-		if(automatweb::$request->arg_isset("os_turnover_from") and automatweb::$request->arg_isset("os_turnover_to"))
+		if(strlen(automatweb::$request->arg("os_turnover_from")) > 0 and strlen(automatweb::$request->arg("os_turnover_to")) > 0)
 		{
 			$annual_report_filter["turnover"] = new obj_predicate_compare(obj_predicate_compare::BETWEEN_INCLUDING, automatweb::$request->arg("os_turnover_from"), automatweb::$request->arg("os_turnover_to"), "int");
 		}
-		elseif(automatweb::$request->arg_isset("os_turnover_from"))
+		elseif(strlen(automatweb::$request->arg("os_turnover_from")) > 0)
 		{
 			$annual_report_filter["turnover"] = new obj_predicate_compare(obj_predicate_compare::GREATER_OR_EQ, automatweb::$request->arg("os_turnover_from"), null, "int");
 		}
-		elseif(automatweb::$request->arg_isset("os_turnover_to"))
+		elseif(strlen(automatweb::$request->arg("os_turnover_to")) > 0)
 		{
 			$annual_report_filter["turnover"] = new obj_predicate_compare(obj_predicate_compare::LESS_OR_EQ, automatweb::$request->arg("os_turnover_to"), null, "int");
 		}
@@ -1140,39 +1132,58 @@ class crm_db extends class_base
 
 	public function callback_generate_scripts($arr)
 	{
-		load_javascript("jquery/plugins/jsTree/jquery.jstree.js");
-		load_javascript("reload_properties_layouts.js");
+		if("org" === $this->use_group)
+		{
+			load_javascript("jquery/plugins/jsTree/jquery.jstree.js");
+			load_javascript("reload_properties_layouts.js");
 
-		$ajax_url = $this->mk_my_orb("get_org_tree_nodes", array("id" => $arr["obj_inst"]->id()));
+			$ajax_url = $this->mk_my_orb("get_org_tree_nodes", array("id" => $arr["obj_inst"]->id()));
 
-		//	TODO: I shouldn't define the URL of the CSS file!
-		return "
-		$('#org_tree').jstree({
-			'json_data' : {
-				'ajax': {
-					'type': 'GET',
-					'url': '{$ajax_url}',
-					'async': true,
-					'data': function(n) {
-						return { 'node': n.attr ? n.attr('id') : -1 }; 
+			//	TODO: I shouldn't define the URL of the CSS file!
+			return "
+			$('#org_tree').jstree({
+				'json_data' : {
+					'ajax': {
+						'type': 'GET',
+						'url': '{$ajax_url}',
+						'async': true,
+						'data': function(n) {
+							return { 'node': n.attr ? n.attr('id') : -1 }; 
+						}
 					}
-				}
-			},
-			'themes': { 'theme': 'default', 'url': '/automatweb/js/jquery/plugins/jsTree/themes/default/style.css' },
-			'checkbox': { 'override_ui': true },
-			'plugins' : ['json_data','themes','ui','checkbox']
-		});
+				},
+				'themes': { 'theme': 'default', 'url': '/automatweb/js/jquery/plugins/jsTree/themes/default/style.css' },
+				'checkbox': { 'override_ui': true },
+				'plugins' : ['json_data','themes','checkbox','ui']
+			});
 
-		$('input[name=os_submit]').click(function(){
-			var sectors = [];
-			$('#org_tree').jstree('get_checked').each(function(){
-				sectors.push($(this).attr('id'));
+			$('input[name=os_submit]').click(function(){
+				var sectors = [];
+				$('#org_tree').jstree('get_checked').each(function(){
+					sectors.push($(this).attr('id'));
+				});
+				var legal_forms = []
+				$('input[name^=os_legal_form]:checked').each(function(){
+					legal_forms.push($(this).val());
+				});
+				reload_property(['org_tbl'], {
+					os_submit: 1,
+					os_sector: sectors,
+					os_name: $('#os_name').val(),
+					os_regnr: $('#os_regnr').val(),
+					os_address: $('#os_address').val(),
+					os_director: $('#os_director').val(),
+					os_owner: $('#os_owner').val(),
+					os_turnover_year: $('#os_turnover_year').val(),
+					os_turnover: $('#os_turnover').val(),
+					os_county: $('#os_county').val(),
+					os_city: $('#os_city').val(),
+					os_legal_form: legal_forms
+				});
 			});
-			reload_property(['org_tbl'], {
-				os_submit: 1,
-				os_sector: sectors,
-			});
-		});
-		";
+			";
+		}
+
+		return "";
 	}
 }
