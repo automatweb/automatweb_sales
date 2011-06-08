@@ -115,7 +115,7 @@
 				@property os_legal_form type=chooser multiple=1 store=no captionside=top parent=o_left_bottom
 				@caption Ettev&otilde;lusvorm
 
-				@property os_submit type=submit store=no parent=o_left_bottom
+				@property os_submit type=button store=no parent=o_left_bottom
 				@caption Otsi
 
 		@layout o_right type=vbox parent=o_main
@@ -329,33 +329,10 @@ class crm_db extends class_base
 	//	TODO: Put it back to work with customer relations! (Maybe even include the display/don't display in the web division?)
 	function _get_org_tree($arr)
 	{
-		$arr["prop"]["value"] = array();
-		foreach($arr["obj_inst"]->prop("dir_tegevusala") as $sector_dir)
-		{
-			$parent = new object($sector_dir, array(), menu_obj::CLID);
-
-			$treeview = treeview::tree_from_objects(array(
-				"tree_opts" => array(
-					"type" => TREE_DHTML_WITH_CHECKBOXES,
-					"tree_id" => "org_tree_".$parent->id(),
-					"checkbox_data_var" => "os_sector",
-					"persist_state" => true,
-					"url_target" => "",
-					"item_name_length" => 30,
-					"checked_nodes" => explode(",", automatweb::$request->arg("os_sector")),
-				),
-				"root_item" => $parent,
-				"target_url" => "",
-				"class_id" => CL_CRM_SECTOR,
-				"ot" => new object_tree(array(
-					"class_id" => crm_sector_obj::CLID,
-					"parent" => $parent->id()
-				)),
-				"var" => "os_sector",
-			));
-
-			$arr["prop"]["value"] .= $treeview->get_html();
-		}
+		$arr["prop"]["value"] = html::div(array(
+			"id" => "org_tree",
+		));
+		return PROP_OK;
 	}
 
 	function _init_company_table($arr)
@@ -907,7 +884,17 @@ class crm_db extends class_base
 				$vars["parent"] = $parents;
 				if(automatweb::$request->arg_isset("os_sector"))
 				{
-					$vars["parent"] = explode(",", automatweb::$request->arg("os_sector"));
+					$parents = $parents_tmp = automatweb::$request->arg("os_sector");
+					while(count($parents_tmp) > 0)
+					{
+						$ol = new object_list(array(
+							"class_id" => crm_sector_obj::CLID,
+							"parent" => $parents_tmp,
+						));
+						$parents_tmp = array_diff($ol->ids(), $parents);
+						$parents = array_merge($parents, $ol->ids());
+					}
+					$vars["parent"] = $parents;
 				}
 				break;
 
@@ -938,7 +925,17 @@ class crm_db extends class_base
 
 				if(automatweb::$request->arg_isset("os_sector"))
 				{
-					$vars["pohitegevus"] = explode(",", automatweb::$request->arg("os_sector"));
+					$parents = $parents_tmp = automatweb::$request->arg("os_sector");
+					while(count($parents_tmp) > 0)
+					{
+						$ol = new object_list(array(
+							"class_id" => crm_sector_obj::CLID,
+							"parent" => $parents_tmp,
+						));
+						$parents_tmp = array_diff($ol->ids(), $parents);
+						$parents += $ol->ids();
+					}
+					$vars["pohitegevus"] = $parents;
 				}
 				break;
 		}
@@ -1069,14 +1066,7 @@ class crm_db extends class_base
 
 	private function set_org_tbl_caption($arr)
 	{
-		if(isset($_GET["os_sector"]) && !empty($_GET["os_sector"]))
-		{
-			$ol = new object_list(array(
-				"oid" => explode(",", $_GET["os_sector"])
-			));
-			$c = sprintf(t("Organisatsioonid, mille tegevusalade hulgas on \"%s\""), join("\", \"", $ol->names()));
-		}
-		elseif(isset($_GET["os_submit"]))
+		if(isset($_GET["os_submit"]))
 		{
 			$c = t("Otsingutulemused");
 		}
@@ -1120,5 +1110,69 @@ class crm_db extends class_base
 		}
 
 		return $pm;
+	}
+
+	/**
+		@attrib name=get_org_tree_nodes params=pos
+		@param id required
+			The OID of the crm_db object
+		@param node optional default=-1
+			The id of the parent node for which the children will be returned.
+	**/
+	public function get_org_tree_nodes($arr)
+	{
+		$o = obj($arr["id"], array(), crm_db_obj::CLID);
+		$ol = new object_list(array(
+			"class_id" => crm_sector_obj::CLID,
+			"parent" => (isset($arr["node"]) and $arr["node"] > 0) ? $arr["node"] : $o->prop("dir_tegevusala"),
+		));
+		$data = array();
+		foreach($ol->names() as $oid => $name)
+		{
+			$data[] = array(
+				"data" => strlen($name) > 30 ? substr($name, 0, 30)."..." : $name,
+				"attr" => array("id" => $oid),
+				"state" => "closed"
+			);
+		}
+		die(json_encode($data));
+	}
+
+	public function callback_generate_scripts($arr)
+	{
+		load_javascript("jquery/plugins/jsTree/jquery.jstree.js");
+		load_javascript("reload_properties_layouts.js");
+
+		$ajax_url = $this->mk_my_orb("get_org_tree_nodes", array("id" => $arr["obj_inst"]->id()));
+
+		//	TODO: I shouldn't define the URL of the CSS file!
+		return "
+		$('#org_tree').jstree({
+			'json_data' : {
+				'ajax': {
+					'type': 'GET',
+					'url': '{$ajax_url}',
+					'async': true,
+					'data': function(n) {
+						return { 'node': n.attr ? n.attr('id') : -1 }; 
+					}
+				}
+			},
+			'themes': { 'theme': 'default', 'url': '/automatweb/js/jquery/plugins/jsTree/themes/default/style.css' },
+			'checkbox': { 'override_ui': true },
+			'plugins' : ['json_data','themes','ui','checkbox']
+		});
+
+		$('input[name=os_submit]').click(function(){
+			var sectors = [];
+			$('#org_tree').jstree('get_checked').each(function(){
+				sectors.push($(this).attr('id'));
+			});
+			reload_property(['org_tbl'], {
+				os_submit: 1,
+				os_sector: sectors,
+			});
+		});
+		";
 	}
 }

@@ -340,7 +340,7 @@
             <group>org</group>
             <field>meta</field>
             <method>serialize</method>
-            <type>submit</type>
+            <type>button</type>
             <store>no</store>
             <parent>o_left_bottom</parent>
             <caption>Otsi</caption>
