@@ -1122,7 +1122,7 @@ class crm_db extends class_base
 		foreach($ol->names() as $oid => $name)
 		{
 			$data[] = array(
-				"data" => strlen($name) > 30 ? substr($name, 0, 30)."..." : $name,
+				"data" => iconv(aw_global_get("charset"), "utf-8", strlen($name) > 30 ? substr($name, 0, 30)."..." : $name),
 				"attr" => array("id" => $oid),
 				"state" => "closed"
 			);
