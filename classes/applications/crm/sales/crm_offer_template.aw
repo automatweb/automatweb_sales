@@ -42,6 +42,11 @@ class crm_offer_template extends crm_offer
 		return PROP_IGNORE;
 	}
 
+	public function _get_result($arr)
+	{
+		return PROP_IGNORE;
+	}
+
 	public function _get_save_as_template(&$arr)
 	{
 		return PROP_IGNORE;
