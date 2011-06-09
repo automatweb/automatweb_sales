@@ -5,24 +5,16 @@
 @classinfo relationmgr=yes no_status=1 prop_cb=1
 
 GROUP DECLARATIONS
-@groupinfo settings caption="Seaded"
-@groupinfo settings_general caption="&Uuml;ldine" parent=settings
+@groupinfo general_general caption="&Uuml;ldine" parent=general
+@groupinfo settings_general caption="Seaded" parent=general
 
 // contacts, presentations and calls tabs/groups are handled by their own separate static view classes
 // respectively crm_sales_contacts_view, ...presentations_view and ...calls_view
-@groupinfo contacts caption="Kontaktid" submit_method=get
+@groupinfo contacts caption="Kliendid" submit_method=get
 @groupinfo emails caption="E-kirjad"
 	@groupinfo emails_settings caption="Seadistused" parent=emails
 @groupinfo calls caption="K&otilde;ned" submit_method=get
 @groupinfo presentations caption="Esitlused" submit_method=get
-
-// calendar views are intended to show overviewing info about all task objects in a scope (all, only user's own, ...)
-// handled in crm_sales_calendar_view
-@groupinfo calendar caption="Kalender" submit=no
-@groupinfo personal_calendar caption="Minu kalender" submit=no parent=calendar
-@groupinfo general_calendar caption="&Uuml;ldkalender" submit=no parent=calendar
-@groupinfo calls_calendar caption="K&otilde;nede kalender" submit=no parent=calendar
-@groupinfo presentations_calendar caption="Esitluste kalender" submit=no parent=calendar
 
 // data entry forms are constructed with help of releditors but data is processed in
 // releditor property setter callback.
@@ -37,19 +29,36 @@ GROUP DECLARATIONS
 @groupinfo offers_offers caption="Pakkumused" parent=offers submit=no submit_method=get
 @groupinfo offers_templates caption="&Scaron;abloonid" parent=offers submit=no submit_method=get
 @groupinfo price_components caption="Hinnakomponendid" parent=offers
+@groupinfo statistics_offers caption="Tulemused" parent=offers submit=no submit_method=get
 
 // statistics and analysis views. handled by separate static view classes
-@groupinfo statistics caption="&Uuml;levaated"
+@groupinfo statistics caption="Tulemused"
 @groupinfo statistics_telemarketing caption="Telemarketing" parent=statistics submit_method=get
-@groupinfo statistics_offers caption="Pakkumused" parent=statistics submit=no submit_method=get
+
+// calendar views are intended to show overviewing info about all task objects in a scope (all, only user's own, ...)
+// handled in crm_sales_calendar_view
+@groupinfo calendar caption="Kalender" submit=no
+@groupinfo personal_calendar caption="Minu kalender" submit=no parent=calendar
+@groupinfo general_calendar caption="&Uuml;ldkalender" submit=no parent=calendar
+@groupinfo calls_calendar caption="K&otilde;nede kalender" submit=no parent=calendar
+@groupinfo presentations_calendar caption="Esitluste kalender" submit=no parent=calendar
 
 
 
 PROPERTY DECLARATIONS
 @default table=objects
+
+@default group=general_general
+
+	@property name type=textbox
+	@caption Nimi
+
+	@property comment type=textbox
+	@caption Kommentaar
+	
 @default field=meta
 @default method=serialize
-@default group=general
+
 	@property owner type=relpicker reltype=RELTYPE_OWNER clid=CL_CRM_COMPANY
 	@caption Keskkonna omanik
 
