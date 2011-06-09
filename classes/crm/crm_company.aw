@@ -370,7 +370,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 @property balance type=hidden table=aw_account_balances field=aw_balance
 
 @default group=owners
-	
+
 	@property owners_toolbar type=toolbar store=no no_caption=1
 
 	@property owners_table type=table store=no no_caption=1
@@ -734,7 +734,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 		@property bill_proj_list type=table store=no no_caption=1 parent=billable_table
 		@property bill_task_list type=table store=no no_caption=1 parent=billable_table
 
-@default group=bills_monthly
+@default group=invoice_templates
 
 	@property bills_mon_tb type=toolbar no_caption=1 store=no
 
@@ -843,7 +843,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property bill_s_search type=submit store=no parent=bills_list_s captionside=top no_caption=1 group=bills_list
 			@caption Otsi
 
-		@property bills_list type=table store=no no_caption=1 parent=bills_list_box group=bills_list,bills_monthly
+		@property bills_list type=table store=no no_caption=1 parent=bills_list_box group=bills_list,invoice_templates
 
 @default group=bills_quality
 
@@ -1260,7 +1260,7 @@ groupinfo sell_offers caption="M&uuml;&uuml;gipakkumised" parent=documents_all s
 @groupinfo bills caption="Arved" submit=no save=no
 
 	@groupinfo bills_list parent=bills caption="Nimekiri" submit=no save=no
-	@groupinfo bills_monthly parent=bills caption="Kuuarved" submit=no save=no
+	@groupinfo invoice_templates parent=bills caption="Arvep&otilde;hjad" submit=no save=no
 	@groupinfo bills_search parent=bills caption="Otsi toimetusi" submit=no save=no
 	@groupinfo bills_create parent=bills caption="Maksmata t&ouml;&ouml;d" submit=no save=no
 	@groupinfo bill_payments parent=bills caption="Laekumised" submit=no save=no
@@ -6569,12 +6569,12 @@ class crm_company extends class_base
 	}
 
 	/**
-		@attrib name=create_new_monthly_bill
+		@attrib name=create_new_invoice_template
 		@param id required type=int acl=view
 		@param co required type=int acl=view
 		@param post_ru optional
 	**/
-	function create_new_monthly_bill($arr)
+	function create_new_invoice_template($arr)
 	{
 		if (!empty($arr["id"]) && empty($arr["sel"]))
 		{

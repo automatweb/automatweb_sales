@@ -63,7 +63,7 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property bill_due_date_days type=textbox table=aw_crm_bill field=aw_due_date_days size=5 parent=top_left
 	@caption Makset&auml;htaeg (p&auml;evi)
 
-	@property bill_due_date type=datepicker time=0 table=aw_crm_bill field=aw_due_date parent=top_left
+	@property bill_due_date type=text table=aw_crm_bill field=aw_due_date parent=top_left
 	@caption Tasumise kuup&auml;ev
 
 	@property bill_recieved type=datepicker time=0 table=aw_crm_bill field=aw_recieved default=-1 parent=top_left
@@ -174,8 +174,8 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property reminder_text type=textbox table=aw_crm_bill field=aw_reminder_text
 	@caption Arve meeldetuletuse juurde minev tekst
 
-	@property monthly_bill type=checkbox ch_value=1 table=aw_crm_bill field=aw_monthly_bill
-	@caption Kuuarve
+	@property is_invoice_template type=checkbox ch_value=1 table=aw_crm_bill field=aw_is_invoice_template
+	@caption Salvesta arve arvep&otilde;hjana
 
 	@property udef1 type=checkbox ch_value=1 field=meta method=serialize
 	@caption Kasutajadefineeritud muutuja 1
@@ -4982,6 +4982,7 @@ ENDSCRIPT;
 					"type" => "varchar(255)"
 				));
 				return true;
+
 			case "aw_trans_date":
 			case "aw_payment_mode":
 			case "aw_on_demand":
@@ -5001,6 +5002,15 @@ ENDSCRIPT;
 					"type" => "int"
 				));
 				return true;
+
+			case "aw_is_invoice_template":
+				$this->db_add_col($table, array(
+					"name" => "aw_is_invoice_template",
+					"type" => "bool"
+				));
+				$this->db_query("UPDATE aw_crm_bill SET aw_is_invoice_template = aw_montly_bill");
+				return true;
+
 			case "aw_overdue_charge":
 				$this->db_add_col($table, array(
 					"name" => $field,

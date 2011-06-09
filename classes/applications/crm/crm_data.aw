@@ -14,7 +14,7 @@ class crm_data extends class_base
 			co - object of company to return bills for
 			filter - array of bill filters
 				keys:
-					monthly - 1/0 - to return only monthly bills
+					is_template - 1/0 - to return only invoice templates
 					bill_no - bill number to search by
 					bill_date_range - array("from" => time, "to" => time)
 					state - 0 - being created, 1 - sent, 2 - paid
@@ -50,9 +50,9 @@ class crm_data extends class_base
 			{
 				$of["RELTYPE_PROJECT.proj_mgr"] = $filter["project_mgr"];
 			}
-			if (isset($filter["monthly"]))
+			if (isset($filter["is_template"]))
 			{
-				$of["monthly_bill"] = $filter["monthly"];
+				$of["is_invoice_template"] = $filter["is_template"];
 			}
 			if (isset($filter["bill_date_range"]))
 			{

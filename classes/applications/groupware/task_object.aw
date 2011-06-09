@@ -1,11 +1,8 @@
 <?php
 
-// maintainer=markop
 class task_object extends _int_object
 {
 	const CLID = 244;
-
-	const CLID = 224;
 
 	protected $_no_display;
 
@@ -892,4 +889,3 @@ class task_object extends _int_object
 		return $person->is_connected_to(array("to" => $this->id(), "reltype" => "RELTYPE_PERSON_TASK"));
 	}
 }
-?>

@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <orb>
-	<class name="crm_company" folder="www/dev/terryf/automatweb_dev/classes/crm" extends="class_base">
+	<class name="crm_company" folder="classes/crm" extends="class_base">
 		<action name="delete_selected_objects">
 			<function name="delete_selected_objects">
 				<arguments>
@@ -406,8 +406,8 @@
 			</function>
 		</action>
 
-		<action name="create_new_monthly_bill">
-			<function name="create_new_monthly_bill">
+		<action name="create_new_invoice_template">
+			<function name="create_new_invoice_template">
 				<arguments>
 					<required name="id" type="int" acl="view" />
 					<required name="co" type="int" acl="view" />
