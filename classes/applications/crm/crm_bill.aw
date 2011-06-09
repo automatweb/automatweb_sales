@@ -5014,7 +5014,7 @@ ENDSCRIPT;
 					"name" => "aw_is_invoice_template",
 					"type" => "bool"
 				));
-				$this->db_query("UPDATE aw_crm_bill SET aw_is_invoice_template = aw_montly_bill");
+				$this->db_query("UPDATE aw_crm_bill SET aw_is_invoice_template = aw_monthly_bill");
 				return true;
 
 			case "aw_overdue_charge":

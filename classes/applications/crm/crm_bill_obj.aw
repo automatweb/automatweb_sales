@@ -396,7 +396,7 @@ class crm_bill_obj extends _int_object
 		$sum = 0;
 		foreach($this->connections_from(array("type" => "RELTYPE_PAYMENT")) as $conn)
 		{
-			$p = $conn->to();//echo $p->id();
+			$p = $conn->to();
 			if($payment && $payment == $p->id())
 			{
 				if(($bill_sum - $sum) > $p->prop("sum")) // kui arve summa - juba makstud summa on suurem kui antud laekumine , siis tagastaks selle sama laekumise summa, sest rohkem vtta ju pole
