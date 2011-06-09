@@ -23,6 +23,12 @@
 	@property state type=select field=aw_state
 	@caption Staatus
 
+	@property result type=select field=aw_result
+	@caption Tulemus
+
+	@property result_object type=text field=aw_result_object
+	@caption Tulemustegevus
+
 	@property contracts type=chooser multiple=1 orient=vertical store=no
 	@caption Lepingud
 
@@ -149,12 +155,13 @@ class crm_offer extends class_base
 
 	public function _get_template($arr)
 	{
-		if (!is_oid($template = $arr["obj_inst"]->prop("template")))
+		if (!is_oid($template_oid = $arr["obj_inst"]->prop("template")))
 		{
 			return PROP_IGNORE;
 		}
 
-		$arr["prop"]["value"] = html::obj_change_url(obj($template, array(), crm_offer_template_obj::CLID));
+		$template = new object($template_oid);
+		$arr["prop"]["value"] = html::obj_change_url($template);
 		return PROP_OK;
 	}
 
@@ -743,6 +750,42 @@ class crm_offer extends class_base
 	public function _get_state($arr)
 	{
 		$arr["prop"]["options"] = crm_offer_obj::state_names();
+
+		return PROP_OK;
+	}
+
+	public function _get_result($arr)
+	{
+		if ((int)$arr["obj_inst"]->prop("state") === crm_offer_obj::STATE_NEW)
+		{
+			return PROP_IGNORE;
+		}
+
+		$arr["prop"]["options"] = array("" => "") + crm_offer_obj::result_names();
+
+		return PROP_OK;
+	}
+
+	public function _get_result_object($arr)
+	{
+		$result = (int)$arr["obj_inst"]->prop("result");
+		if (crm_offer_obj::RESULT_CALL === $result or crm_offer_obj::RESULT_PRESENTATION === $result or crm_offer_obj::RESULT_NEW_OFFER === $result)
+		{
+			try
+			{
+				$result_object = $arr["obj_inst"]->get_result_object();
+				$arr["prop"]["value"] = html::obj_change_url($result_object);
+				return PROP_OK;
+			}
+			catch (Exception $e)
+			{
+				return PROP_IGNORE;
+			}
+		}
+		else
+		{
+			return PROP_IGNORE;
+		}
 	}
 
 	public function _get_content_toolbar($arr)
@@ -777,6 +820,8 @@ class crm_offer extends class_base
 
 		$t->add_delete_button();
 		$t->add_save_button();
+
+		return PROP_OK;
 	}
 
 	protected function define_content_table_header($arr)
@@ -1701,7 +1746,36 @@ ENDSCRIPT;
 		}
 	}
 
-	function do_db_upgrade($t, $f, $query, $error)
+	public function submit($arr = array())
+	{
+		$r = parent::submit($arr);
+		if ($this->data_processed_successfully())
+		{
+			$offer = new object($arr["id"]);
+			$application = automatweb::$request->get_application();
+
+			if ($application->is_a(crm_sales_obj::CLID))
+			{
+				$result = (int)$offer->prop("result");
+				if (crm_offer_obj::RESULT_CALL === $result or crm_offer_obj::RESULT_PRESENTATION === $result or crm_offer_obj::RESULT_NEW_OFFER === $result)
+				{
+					try
+					{
+						$this->show_msg_text(t("Sisestage k&otilde;ne tulemusena loodud objekti andmed"));
+						$result_object = $offer->get_result_object();
+						$r = html::get_change_url($result_object, array("return_url" => $arr["post_ru"]));
+					}
+					catch (Exception $e)
+					{
+						$this->show_error_text(t("K&otilde;ne tulemuseks olev objekt pole avatav"));
+					}
+				}
+			}
+		}
+		return $r;
+	}
+
+	public function do_db_upgrade($t, $f, $query, $error)
 	{
 		if ("aw_crm_offer" === $t and $f === "")
 		{
@@ -1730,6 +1804,7 @@ ENDSCRIPT;
 			case "aw_currency":
 			case "aw_date":
 			case "aw_template":
+			case "aw_result_object":
 
 			case "aw_offer":
 				$this->db_add_col($t, array(
@@ -1738,6 +1813,7 @@ ENDSCRIPT;
 				));
 				return true;
 
+			case "aw_result":
 			case "aw_state":
 				$this->db_add_col($t, array(
 					"name" => $f,

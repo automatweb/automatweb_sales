@@ -58,6 +58,22 @@
             <caption>Staatus</caption>
       </property>
       <property>
+            <name>result</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>select</type>
+            <field>aw_result</field>
+            <caption>Tulemus</caption>
+      </property>
+      <property>
+            <name>result_object</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>text</type>
+            <field>aw_result_object</field>
+            <caption>Tulemustegevus</caption>
+      </property>
+      <property>
             <name>contracts</name>
             <table>aw_crm_offer</table>
             <group>general</group>
