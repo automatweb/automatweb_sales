@@ -4754,6 +4754,12 @@ ENDSCRIPT;
 		die($xml);
 	}
 
+	public function _get_bill_due_date(&$arr)
+	{
+		$arr["prop"]["value"] = empty($arr["prop"]["value"]) ? "" : aw_locale::get_lc_date($arr["prop"]["value"], aw_locale::DATE_SHORT_FULLYEAR);
+		return class_base::PROP_OK;
+	}
+
 	function _get_bill_tb(&$arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
@@ -4762,7 +4768,7 @@ ENDSCRIPT;
 		$this->add_sendmail_menu($arr);
 		$this->add_print_menu($arr);
 
-		return PROP_OK;
+		return class_base::PROP_OK;
 	}
 
 	function set_current_settings()
