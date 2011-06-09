@@ -25,6 +25,7 @@
 			<function name="new_from_template">
 				<arguments>
 					<required name="tpl" type="int" />
+					<required name="parent" type="int" />
 					<optional name="return_url" type="string" />
 				</arguments>
 			</function>

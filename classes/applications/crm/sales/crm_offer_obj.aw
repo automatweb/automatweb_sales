@@ -62,37 +62,57 @@ class crm_offer_obj extends crm_offer_price_component_handler
 			throw new awex_crm_offer("Offer must be saved before it can be saved as a template!");
 		}
 
-		$o = new object();
-		$o->set_class_id(crm_offer_template_obj::CLID);
+		$o = $this->duplicate(null, crm_offer_template_obj::CLID);
 		$o->set_parent($this->id());
 		$o->set_name($name);
 		$o->set_prop("offer", $this->id());
 		$o->save();
 	}
 
-	/**	Creates duplicate of this crm_offer_obj object and returns the new crm_offer_obj object.
+	/**	Creates duplicate of given object and returns the new object.
 		@attrib api=1
+		@param parent optional
+			Parent the newly created object will be saved under. If not specified, the given object's parent will be used.
+		@param class_id optional default=crm_offer_obj::CLID
+			The class_id of object to be returned. Must be crm_offer_obj::CLID or its subclass!
 		@returns crm_offer_obj object
 	**/
-	public function duplicate()
+	public function duplicate($parent = null, $clid = null)
 	{
-		$new_offer = new object($this->save_new(), array(), crm_offer_obj::CLID);
-		$new_offer->set_prop("state", self::STATE_NEW);
+		//	LAZY: Might not be the fastest and most elegant way of checking if given class is crm_offer_obj::CLID or a subclass.
+		if (is_class_id($clid) and !obj(null, array(), $clid)->is_a(crm_offer_obj::CLID))
+		{
+			throw new awex_crm_offer_duplication("Cannot duplicate object! Given class is not crm_offer_obj::CLID nor a subclass!");
+		}
+		$clid = is_class_id($clid) ? $clid : crm_offer_obj::CLID;
+		$parent = is_oid($parent) ? $parent : $this->parent();
 
-		$this->duplicate_applied_price_components($new_offer);
+		$new_object = obj(null, array(), $clid);
+		$new_object->set_parent($parent);
+		foreach($this->get_property_list() as $pn => $pd)
+		{
+			if($new_object->is_property($pn))
+			{
+				$new_object->set_prop($pn, $this->prop($pn));
+			}
+		}
+		$new_object->set_prop("state", self::STATE_NEW);
+		$new_object->save();
+
+		$this->duplicate_applied_price_components($new_object);
 
 		foreach ($this->get_rows() as $row)
 		{
 			$new_row = new object($row->save_new(), array(), crm_offer_row_obj::CLID);
-			$new_row->set_prop("offer", $new_offer->id());
+			$new_row->set_prop("offer", $new_object->id());
 			$new_row->save();
 
 			$row->duplicate_applied_price_components($new_row);
 		}
 
-		$new_offer->save();
+		$new_object->save();
 
-		return $new_offer;
+		return $new_object;
 	}
 
 	/**	Returns on object_list of operations related to this offer.
@@ -849,6 +869,13 @@ Parimat,
 		return $this->id();
 	}
 
+	/**	Returns name of the object. Used to bypass name overriding by crm_offer_obj::awobj_get_name(). This is to be used by subclasses only!
+	**/
+	protected function __name()
+	{
+		return parent::name();
+	}
+
 	public function awobj_get_sum()
 	{
 		return aw_math_calc::string2float(parent::prop("sum"));
@@ -1401,6 +1428,9 @@ Parimat,
 
 /** Generic crm_offer exception **/
 class awex_crm_offer extends awex_crm {}
+
+/** Duplication crm_offer errors **/
+class awex_crm_offer_duplication extends awex_crm {}
 
 /** Customer errors **/
 class awex_crm_offer_customer extends awex_crm {}
