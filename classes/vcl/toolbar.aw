@@ -852,7 +852,7 @@ class toolbar extends aw_template
 	{
 		$this->add_button(array(
 			"name" => "cut",
-			"img" => "cut.gif",
+			"icon" => "cut",
 			"action" => "generic_cut",
 			"tooltip" => t("L&otilde;ika")
 		));
@@ -870,11 +870,11 @@ class toolbar extends aw_template
 	**/
 	public function add_paste_button($ar)
 	{
-		if (is_array($_SESSION["tb_cuts"][$ar["var"]]) && count($_SESSION["tb_cuts"][$ar["var"]]))
+		if (isset($_SESSION["tb_cuts"][$ar["var"]]) && is_array($_SESSION["tb_cuts"][$ar["var"]]) && count($_SESSION["tb_cuts"][$ar["var"]]))
 		{
 			$this->add_button(array(
 				"name" => "paste",
-				"img" => "paste.gif",
+				"icon" => "paste",
 				"action" => "generic_paste",
 				"tooltip" => t("Kleebi")
 			));
@@ -882,7 +882,7 @@ class toolbar extends aw_template
 		}
 	}
 
-	public function callback_mod_reforb($arr)
+	public function callback_mod_reforb(&$arr)
 	{
 		if (!empty($GLOBALS["tb"]["_add_var"]))
 		{

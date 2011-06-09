@@ -15,6 +15,7 @@ class crm_data extends class_base
 			filter - array of bill filters
 				keys:
 					is_template - 1/0 - to return only invoice templates
+					parent - parent folder
 					bill_no - bill number to search by
 					bill_date_range - array("from" => time, "to" => time)
 					state - 0 - being created, 1 - sent, 2 - paid
@@ -46,14 +47,22 @@ class crm_data extends class_base
 			{
 				$of["bill_no"] = $filter["bill_no"];
 			}
+
 			if (isset($filter["project_mgr"]))
 			{
 				$of["RELTYPE_PROJECT.proj_mgr"] = $filter["project_mgr"];
 			}
+
 			if (isset($filter["is_template"]))
 			{
 				$of["is_invoice_template"] = $filter["is_template"];
 			}
+
+			if (isset($filter["parent"]))
+			{
+				$of["parent"] = (int) $filter["parent"];
+			}
+
 			if (isset($filter["bill_date_range"]))
 			{
 				$r = $filter["bill_date_range"];

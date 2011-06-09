@@ -2074,6 +2074,26 @@
             <field>bills_mon_tb</field>
       </property>
       <property>
+            <name>invoice_template_folders</name>
+            <table>objects</table>
+            <group>invoice_templates</group>
+            <type>treeview</type>
+            <no_caption>1</no_caption>
+            <store>no</store>
+            <parent>template_folders</parent>
+            <field>invoice_template_folders</field>
+      </property>
+      <property>
+            <name>invoice_templates_list</name>
+            <table>objects</table>
+            <group>invoice_templates</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>templates_list_box</parent>
+            <field>invoice_templates_list</field>
+      </property>
+      <property>
             <name>bs_tb</name>
             <table>objects</table>
             <group>bills_search</group>
@@ -2361,10 +2381,7 @@
       <property>
             <name>bills_list</name>
             <table>objects</table>
-            <group>
-                  <num_0>bills_list</num_0>
-                  <num_1>invoice_templates</num_1>
-            </group>
+            <group>bills_list</group>
             <type>table</type>
             <store>no</store>
             <no_caption>1</no_caption>
@@ -4753,6 +4770,19 @@
                   <group>bills_create</group>
                   <area_caption></area_caption>
             </billable_table>
+            <templates_list_box>
+                  <type>hbox</type>
+                  <width>20%:80%</width>
+                  <group>invoice_templates</group>
+                  <area_caption></area_caption>
+            </templates_list_box>
+            <template_folders>
+                  <type>vbox</type>
+                  <parent>templates_list_box</parent>
+                  <closeable>0</closeable>
+                  <area_caption>Arvep&amp;amp;otilde;hjade&amp;amp;nbsp;kaustad</area_caption>
+                  <group>invoice_templates</group>
+            </template_folders>
             <bills_payments_box>
                   <type>hbox</type>
                   <width>20%:80%</width>

@@ -6362,7 +6362,7 @@ class class_base extends aw_template
 		foreach(safe_array($_SESSION["tb_cuts"][$arr["tb_cut_var"]]) as $oid)
 		{
 			$o = obj($oid);
-			$o->set_parent($arr["tb_paste_var"]);
+			$o->set_parent($arr[$arr["tb_paste_var"]]);
 			$o->save();
 		}
 		$_SESSION["tb_cuts"][$arr["tb_cut_var"]] = null;
