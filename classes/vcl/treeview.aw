@@ -69,6 +69,7 @@ class treeview extends class_base
 	protected $first_level_menu_is_last;
 
 	////////////// m22rata skoop
+	var $auto_open_tmp;
 	var $clidlist;
 	var $ic;
 	var $arr = array();
@@ -1534,10 +1535,10 @@ class treeview extends class_base
 			}
 
 			if (
-				($tv->tree_type == TREE_DHTML_WITH_CHECKBOXES) and 
+				($tv->tree_type == TREE_DHTML_WITH_CHECKBOXES) and
 				(
-					!isset($arr["checkbox_class_filter"]) or 
-					is_array ($arr["checkbox_class_filter"]) and in_array ($class_id, $arr["checkbox_class_filter"]) 
+					!isset($arr["checkbox_class_filter"]) or
+					is_array ($arr["checkbox_class_filter"]) and in_array ($class_id, $arr["checkbox_class_filter"])
 				))
 			{
 				if (isset($checked_nodes) and is_array ($checked_nodes) and in_array ($oid, $checked_nodes))

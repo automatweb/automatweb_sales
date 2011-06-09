@@ -277,4 +277,3 @@ class crm_bill_payment_obj extends _int_object
 
 }
 
-?>

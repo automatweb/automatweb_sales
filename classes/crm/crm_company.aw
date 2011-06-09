@@ -6571,10 +6571,27 @@ class crm_company extends class_base
 	/**
 		@attrib name=create_new_invoice_template
 		@param id required type=int acl=view
+		@param post_ru required type=string
+	**/
+	function create_new_invoice_template($arr)
+	{
+		$invoice_template = obj(null, array(), crm_bill_obj::CLID);
+		$invoice_template->set_parent($arr["id"]);
+		$invoice_template->set_prop("is_invoice_template", 1);
+		$invoice_template->save();
+		return $this->mk_my_orb("change", array(
+			"id" => $invoice_template->id(),
+			"return_url" => $arr["post_ru"]
+		), "crm_bill");
+	}
+
+	/**
+		@attrib name=create_invoice_from_template
+		@param id required type=int acl=view
 		@param co required type=int acl=view
 		@param post_ru optional
 	**/
-	function create_new_invoice_template($arr)
+	function create_invoice_from_template($arr)
 	{
 		if (!empty($arr["id"]) && empty($arr["sel"]))
 		{
@@ -6586,8 +6603,7 @@ class crm_company extends class_base
 			$b = obj($bill_id);
 
 			/// copy
-			$n = obj();
-			$n->set_class_id(CL_CRM_BILL);
+			$n = obj(null, array(), crm_bill_obj::CLID);
 			$n->set_parent($b->parent());
 			$n->save();
 			$ser = get_instance(CL_CRM_NUMBER_SERIES);
@@ -6616,7 +6632,7 @@ class crm_company extends class_base
 					$br = $con->to();
 					$nbr = new object();
 					$nbr->set_name($br->name());
-					$nbr->set_class_id(CL_CRM_BILL_ROW);
+					$nbr->set_class_id(crm_bill_row_obj::CLID);
 					$nbr->set_parent($n->id());
 					foreach($br->properties() as $prop => $val)
 					{
@@ -6669,9 +6685,7 @@ class crm_company extends class_base
 		{
 			$i = $o->instance();
 			$i->_gen_company_code($o);
-			aw_disable_acl();
 			$o->save();
-			aw_restore_acl();
 		}
 	}
 
