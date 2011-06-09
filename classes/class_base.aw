@@ -211,7 +211,8 @@ class class_base extends aw_template
 				if (aw_ini_isset("classes.{$clid}.object_override"))
 				{
 					$obj_class_name = basename(aw_ini_get("classes.{$clid}.object_override"));
-					$clid = $obj_class_name::CLID;
+					// $clid = $obj_class_name::CLID; //XXX: start using when migrating to php >=5.3
+					$clid = constant($obj_class_name."::CLID");//XXX: compatibility w php <5.3
 				}
 
 				if ($this->obj_inst->class_id() != $clid)
