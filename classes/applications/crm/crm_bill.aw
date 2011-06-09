@@ -42,6 +42,9 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	// top left lyt
 	@property name type=text table=objects field=name parent=top_left no_caption=1
 
+	@property comment type=textbox table=objects field=comment parent=top_left
+	@caption Arve nimi
+
 	@property bill_no type=textbox table=aw_crm_bill field=aw_bill_no parent=top_left
 	@caption Number
 
@@ -156,11 +159,14 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 
 
 @default group=other_data
+	@property bill_text type=textarea rows=15 cols=50 field=meta method=serialize
+	@caption Arve sissejuhatus
+
+	@property bill_appendix_comment type=textarea rows=15 cols=50 table=objects field=meta method=serialize
+	@caption Kommentaar lisale
+
 	@property rows_different_pages type=text field=meta method=serialize
 	@caption Read erinevatel lehek&uuml;lgedel
-
-	@property comment type=textarea rows=15 cols=50 table=objects field=comment
-	@caption Kommentaar lisale
 
 	@property time_spent_desc type=textbox table=aw_crm_bill field=aw_time_spent_desc
 	@caption Kulunud aeg tekstina
@@ -192,14 +198,11 @@ HANDLE_MESSAGE_WITH_PARAM(MSG_STORAGE_DELETE, CL_CRM_BILL, on_delete_bill)
 	@property project type=relpicker store=connect reltype=RELTYPE_PROJECT multiple=1
 	@caption Projekt
 
-	@property bill_text type=textarea field=meta method=serialize
-	@caption Arve tekst
-
 	@property comments type=text store=no
 	@caption Kommentaarid
 
-	@property comments_add type=textarea store=no
-	@caption Lisa
+	@property comments_add type=textarea rows=15 cols=50 store=no
+	@caption Lisa kommentaar
 
 	@property mail_receiver type=relpicker store=connect multiple=1 reltype=RELTYPE_RECEIVER
 	@caption Arve e-kirja saaja
@@ -569,7 +572,7 @@ class crm_bill extends class_base
 					)).
 					" ".html::href(array(
 						"url" => "javascript:aw_popup_scroll('".$url."','Otsing', 550, 500)",
-						"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0>",
+						"caption" => "<img src='".aw_ini_get("baseurl")."automatweb/images/icons/search.gif' border=0>",
 						"title" => t("Otsi")
 					)) . html::linebreak();
 				}
@@ -635,12 +638,12 @@ class crm_bill extends class_base
 				{
 					$edit_button = " " . html::href(array(
 						"url" => html::get_change_url($arr["obj_inst"]->prop("customer"), array("return_url" => get_ru())),
-						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "/automatweb/images/icons/edit.gif"))
+						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "automatweb/images/icons/edit.gif"))
 					));
 					$reload_button = " " . html::href(array(
 						"url" => "javascript:;",
 						"onclick" => "if(!confirm(\"{$confirm}\")) { return false; }; submit_changeform(\"reload_customer_data\");",
-						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "/automatweb/images/icons/refresh.gif"))
+						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "automatweb/images/icons/refresh.gif"))
 					));
 				}
 				else
@@ -692,25 +695,28 @@ class crm_bill extends class_base
 					$prop["value"] = $sum;
 				}
 
-				$tax_sum = $add_tax = 0;
-				if(($SUM_WT = $arr["obj_inst"]->get_bill_sum()) > $prop["value"])
-				{
-					$tax_sum = $SUM_WT - $prop["value"];
-					$add_tax = 1;
-				}
+				$currency_name = $arr["obj_inst"]->get_bill_currency_name();
+				$table = new aw_table();
+				$table->add_fields(array("name" => "", "value" => ""));
+				$table->set_titlebar_display(false);
 
-				$val = array();
-				$val[] = number_format($prop["value"], 2)." ".$arr["obj_inst"]->get_bill_currency_name();
-				if(!empty($add_tax))
-				{
-					$val[] = t("Summa").": ".$prop["value"]." ".$arr["obj_inst"]->get_bill_currency_name();
-					$val[] = t("KM").": ".number_format($tax_sum, 2)." ".$arr["obj_inst"]->get_bill_currency_name();
-					$val[] = t("Kokku").": ".number_format($SUM_WT, 2)." ".$arr["obj_inst"]->get_bill_currency_name();
-				}
+				$table->define_data(array(
+					"name" => t("Arve summa"),
+					"value" => number_format($arr["obj_inst"]->get_bill_sum(crm_bill_obj::BILL_SUM_WO_TAX), 2)
+				));
+				$table->define_data(array(
+					"name" => t("K&auml;ibemaks"),
+					"value" => number_format($arr["obj_inst"]->get_bill_sum(crm_bill_obj::BILL_SUM_TAX), 2)
+				));
+				$table->define_data(array(
+					"name" => t("Kokku"),
+					"value" => number_format($arr["obj_inst"]->get_bill_sum(crm_bill_obj::BILL_SUM), 2)
+				));
+				$val = array($table->draw());
 
 				if($writeoffs_sum = $arr["obj_inst"]->get_writeoffs_sum())
 				{
-					$val[] = t("Mahakantud ridade summa:")." ".number_format($writeoffs_sum, 2)." ".$arr["obj_inst"]->get_bill_currency_name();
+					$val[] = t("Mahakantud ridade summa:")." ".number_format($writeoffs_sum, 2)." ".$currency_name;
 				}
 
 				$prop["value"] = join (html::linebreak(), $val);
@@ -1099,6 +1105,24 @@ class crm_bill extends class_base
 		return $r;
 	}
 
+	function _set_disc(&$arr)
+	{
+		$r = PROP_OK;
+		$discount_pct = aw_math_calc::string2float($arr["prop"]["value"]);
+
+		if ($discount_pct > 100 or $discount_pct < 0)
+		{
+			$arr["prop"]["error"] = t("Allahindluse protsent ei saa olla suurem kui sada ega negatiivne.");
+			$r = PROP_ERROR;
+		}
+		else
+		{
+			$arr["prop"]["value"] = $discount_pct;
+		}
+
+		return $r;
+	}
+
 	private function add_recipient_propdefn(vcl_table $t, $email_address, $recipient_data, $this_o, $title, $disabled = false)
 	{
 		static $i;
@@ -1257,7 +1281,7 @@ class crm_bill extends class_base
 			$file_data = $invoice_pdf_o->get_file();
 			$invoice_pdf_link = " " . html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 					"border" => 0
 				)) . $invoice_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $invoice_pdf_o->get_url(),
@@ -1269,7 +1293,7 @@ class crm_bill extends class_base
 			$file_data = $reminder_pdf_o->get_file();
 			$reminder_pdf_link = " " . html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 					"border" => 0
 				)) . $reminder_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $reminder_pdf_o->get_url(),
@@ -1282,7 +1306,7 @@ class crm_bill extends class_base
 			$file_data = $appendix_pdf_o->get_file();
 			$appendix_pdf_link = " " . html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 					"border" => 0
 				)) . $appendix_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $appendix_pdf_o->get_url(),
@@ -3486,7 +3510,7 @@ class crm_bill extends class_base
 			"orderer_contact_profession" => $orderer_contact_person_profession,
 			"comment" => $this->bill->comment(),
 			"overdue" => $this->bill->get_overdue_charge(),
-			"bill_text" => $this->bill->get_bill_text(),
+			"bill_text" => nl2br($this->bill->get_bill_text()),
 		));
 
 		if($ord_country)
@@ -3998,16 +4022,24 @@ class crm_bill extends class_base
 		$this->tax = 0;
 		$this->sum = 0;
 
-		$grouped_rows = array();
-		$grouped_rows_comments = array();
+		$grouped_rows = $grouped_rows_order = $grouped_rows_comments = array();
+		$i = -10000000; // some rows may have empty ordering number, start from minus million to minimize risk of interfering with defined row orders
 		foreach($bill_rows as $row)
 		{
+			// collocated rows ordering helper
+			$i = $row["jrk"] ? $row["jrk"] : $i++;
+			$grouped_rows_order[$row["comment"]] = $i;
+
+			//...
 			$grouped_rows[$row["comment"]][] = $row;
 			if ($row["name_group_comment"])
 			{
 				$grouped_rows_comments[$row["comment"]][] = html::paragraph(array("content" => nl2br($row["name_group_comment"])));
 			}
 		}
+
+		// sort the grouped/collocated rows helper array
+		asort ($grouped_rows_order);
 
 		foreach ($grouped_rows_comments as $capt_key => $name_group_comments)
 		{
@@ -4019,7 +4051,8 @@ class crm_bill extends class_base
 		if($this->is_template("GROUP_ROWS"))
 		{
 			$GR = "";
-			foreach($grouped_rows as $capt => $crows)
+			// go over ordering helper array and find row groups data from $grouped_rows and $grouped_rows_comments by $capt
+			foreach ($grouped_rows_order as $capt => $idx)
 			{
 				$rs = $this->parse_preview_add_rows($crows);
 				$this->vars(array(
@@ -4208,7 +4241,7 @@ class crm_bill extends class_base
 		return $rs;
 	}
 
-	function get_bill_sum($b, $type = BILL_SUM)//mujal v6idakse veel classbasest v2lja kutsuda... ei viitsi k6ike yles otsida, muidu v6iks 2ra kustutada
+	function get_bill_sum($b, $type = crm_bill_obj::BILL_SUM)//mujal v6idakse veel classbasest v2lja kutsuda... ei viitsi k6ike yles otsida, muidu v6iks 2ra kustutada
 	{
 		return $b->get_bill_sum($type);
 
@@ -5357,7 +5390,7 @@ ENDSCRIPT;
 					$file_data = $o->get_file();
 					$data["attachments"].= html::linebreak().html::href(array(
 						"caption" => html::img(array(
-							"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+							"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 							"border" => 0,
 						)).$o->name()." (".filesize($file_data["properties"]["file"])." B)",
 						"url" => $o->get_url(),
