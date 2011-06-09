@@ -739,9 +739,12 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 	@property bills_mon_tb type=toolbar no_caption=1 store=no
 
-	@layout templates_list_box type=hbox width=20%:80%
-		@layout template_folders type=vbox parent=templates_list_box closeable=0 area_caption=Arvep&otilde;hjade&nbsp;kaustad
+	@layout templates_container type=hbox width=20%:80%
+		@layout template_folders type=vbox parent=templates_container closeable=0 area_caption=Arvep&otilde;hjade&nbsp;kaustad
+		@layout templates_list_box type=vbox parent=templates_container closeable=0 no_padding=1
+		@layout folders_list_box type=vbox parent=templates_list_box closeable=1 no_padding=1 default_state=closed area_caption=Arvep&otilde;hjade&nbsp;kaustad
 			@property invoice_template_folders type=treeview no_caption=1 store=no parent=template_folders
+			@property invoice_folders_list type=table store=no no_caption=1 parent=folders_list_box
 			@property invoice_templates_list type=table store=no no_caption=1 parent=templates_list_box
 
 
@@ -2833,6 +2836,7 @@ class crm_company extends class_base
 			case 'bills_mon_tb':
 			case 'invoice_template_folders':
 			case 'invoice_templates_list':
+			case 'invoice_folders_list':
 			case "bill_s_client_mgr":
 			case "bill_s_status":
 			case "bill_s_with_tax":
@@ -2846,6 +2850,8 @@ class crm_company extends class_base
 				if (!$bills_impl)
 				{
 					$bills_impl = new crm_company_bills_impl();
+					$bills_impl->layoutinfo = &$this->layoutinfo;
+					$bills_impl->use_group = $this->use_group;
 				}
 				$fn = "_get_".$data["name"];
 				return $bills_impl->$fn($arr);
@@ -6587,12 +6593,14 @@ class crm_company extends class_base
 	/**
 		@attrib name=create_new_invoice_folder
 		@param invoice_folder_parent required type=int acl=view
+		@param id optional type=int acl=view
 		@param post_ru required type=string
 	**/
 	function create_new_invoice_folder($arr)
 	{
 		$invoice_folder = obj(null, array(), crm_invoice_folder_obj::CLID);
-		$invoice_folder->set_parent($arr["invoice_folder_parent"]);
+		$parent = empty($arr["invoice_folder_parent"]) ? $arr["id"] : $arr["invoice_folder_parent"];
+		$invoice_folder->set_parent($parent);
 		$invoice_folder->save();
 		return $this->mk_my_orb("change", array(
 			"id" => $invoice_folder->id(),
