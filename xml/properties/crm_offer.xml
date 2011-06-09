@@ -69,6 +69,14 @@
             <caption>Lepingud</caption>
       </property>
       <property>
+            <name>template</name>
+            <table>aw_crm_offer</table>
+            <group>general</group>
+            <type>text</type>
+            <field>aw_template</field>
+            <caption>&amp;amp;Scaron;abloon, millest pakkumus genereeriti</caption>
+      </property>
+      <property>
             <name>template_name</name>
             <table>aw_crm_offer</table>
             <group>general</group>

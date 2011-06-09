@@ -339,6 +339,7 @@ class crm_sales_offers_view
 					"id" => $offer_id,
 					"modified" => $modified,
 					"modified_timestamp" => $offer->prop("modified"),
+					"template" => $offer->prop("template") ? html::obj_change_url(obj($offer->prop("template"), array(), crm_offer_template_obj::CLID)) : "",
 				));
 			}
 			while ($offer = $offers->next());
@@ -387,6 +388,10 @@ class crm_sales_offers_view
 		$table->define_field(array(
 			"name" => "state",
 			"caption" => t("Staatus")
+		));
+		$table->define_field(array(
+			"name" => "template",
+			"caption" => t("&Scaron;abloon")
 		));
 		$table->define_field(array(
 			"name" => "modified",

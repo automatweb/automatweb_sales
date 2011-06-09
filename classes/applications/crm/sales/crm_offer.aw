@@ -28,6 +28,9 @@
 	@property contracts type=chooser multiple=1 orient=vertical store=no
 	@caption Lepingud
 
+	@property template type=text field=aw_template
+	@caption &Scaron;abloon, millest pakkumus genereeriti
+
 	@property template_name type=hidden store=no editonly=1
 
 	@property sum type=hidden field=aw_sum
@@ -144,6 +147,22 @@ class crm_offer extends class_base
 			"tpldir" => "applications/crm/sales/crm_offer",
 			"clid" => crm_offer_obj::CLID
 		));
+	}
+
+	public function _get_template($arr)
+	{
+		if (!is_oid($template = $arr["obj_inst"]->prop("template")))
+		{
+			return PROP_IGNORE;
+		}
+
+		$arr["prop"]["value"] = html::obj_change_url(obj($template, array(), crm_offer_template_obj::CLID));
+		return PROP_OK;
+	}
+
+	public function _set_template($arr)
+	{
+		return PROP_IGNORE;
 	}
 
 	public function _get_general_toolbar(&$arr)
@@ -1403,12 +1422,14 @@ class crm_offer extends class_base
 
 	/**
 		@attrib name=new_from_template
+		@param tpl required type=int
+		@param parent required type=int
+		@param return_url optional type=string
 	**/
 	public function new_from_template($arr)
 	{
-		$tpl = obj($arr["tpl"]);
-		$old_offer = obj($tpl->offer);
-		$new_offer = $old_offer->duplicate();
+		$template = obj($arr["tpl"]);
+		$new_offer = $template->create_offer_from_template($arr["parent"]);
 
 		return html::get_change_url($new_offer->id(), array("return_url" => $arr["return_url"]));
 	}
@@ -1682,7 +1703,7 @@ ENDSCRIPT;
 		}
 	}
 
-	public function do_db_upgrade($t, $f)
+	function do_db_upgrade($t, $f, $query, $error)
 	{
 		if ("aw_crm_offer" === $t and $f === "")
 		{
@@ -1710,6 +1731,7 @@ ENDSCRIPT;
 			case "aw_customer":
 			case "aw_currency":
 			case "aw_date":
+			case "aw_template":
 
 			case "aw_offer":
 				$this->db_add_col($t, array(
