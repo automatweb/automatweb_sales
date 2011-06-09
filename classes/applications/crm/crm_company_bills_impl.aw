@@ -2,6 +2,8 @@
 
 class crm_company_bills_impl extends class_base
 {
+	const INVOICE_TEMPLATE_FOLDERS_VAR = "i_fldr";
+
 	private $show_bill_balance = false;
 
 	function crm_company_bills_impl()
@@ -44,6 +46,28 @@ class crm_company_bills_impl extends class_base
 			"valign" => "top",
 			"width" => "50%"
 		));
+	}
+
+	public function _get_invoice_templates_list(&$arr)
+	{
+		return $this->_get_bills_list($arr);
+	}
+
+	public function _get_invoice_template_folders(&$arr)
+	{
+		$invoice_template_folders = new object_tree(array(
+			"parent" => $arr["obj_inst"],
+			"class_id" => array(
+				crm_invoice_folder_obj::CLID
+			)
+		));
+		$params = array(
+			"root_item" => $arr["obj_inst"],
+			"var" => self::INVOICE_TEMPLATE_FOLDERS_VAR,
+			"ot" => $invoice_template_folders
+		);
+		$arr["prop"]["vcl_inst"] = treeview::tree_from_objects($params);
+		return class_base::PROP_OK;
 	}
 
 	function _get_bill_proj_list($arr)
@@ -1540,7 +1564,8 @@ $x++;
 
 		if ($arr["request"]["group"] === "invoice_templates")
 		{
-			$bills = $d->get_bills_by_co($arr["obj_inst"], array("is_template" => 1));
+			$parent = $arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR];
+			$bills = $d->get_bills_by_co($arr["obj_inst"], array("is_template" => 1, "parent" => $parent));
 			$format = t('%s arvep&otilde;hjad');
 		}
 		else
@@ -2061,6 +2086,8 @@ $x++;
 			'action' => 'create_new_invoice_folder',
 			'text' => t('Arvep&otilde;hjade kaust')
 		));
+		$tb->add_cut_button(array("var" => "invoice_templates_cut"));
+		$tb->add_paste_button(array("var" => "invoice_templates_cut", "folder_var" => self::INVOICE_TEMPLATE_FOLDERS_VAR));
 		$tb->add_button(array(
 			'name' => 'del',
 			'img' => 'delete.gif',

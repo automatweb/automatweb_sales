@@ -57,7 +57,6 @@
       <classinfo>
             <syslog_type>ST_CALENDAR_REMINDER</syslog_type>
             <relationmgr>yes</relationmgr>
-            <maintainer>kristo</maintainer>
       </classinfo>
       <tableinfo>
             <reminders>

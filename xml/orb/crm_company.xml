@@ -425,6 +425,15 @@
 			</function>
 		</action>
 
+		<action name="create_new_invoice_folder">
+			<function name="create_new_invoice_folder">
+				<arguments>
+					<required name="invoice_folder_parent" type="int" acl="view" />
+					<required name="post_ru" type="string" />
+				</arguments>
+			</function>
+		</action>
+
 		<action name="cut_docs">
 			<function name="cut_docs">
 				<arguments>

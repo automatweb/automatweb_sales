@@ -734,9 +734,17 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 		@property bill_proj_list type=table store=no no_caption=1 parent=billable_table
 		@property bill_task_list type=table store=no no_caption=1 parent=billable_table
 
+
 @default group=invoice_templates
 
 	@property bills_mon_tb type=toolbar no_caption=1 store=no
+
+	@layout templates_list_box type=hbox width=20%:80%
+		@layout template_folders type=vbox parent=templates_list_box closeable=0 area_caption=Arvep&otilde;hjade&nbsp;kaustad
+			@property invoice_template_folders type=treeview no_caption=1 store=no parent=template_folders
+			@property invoice_templates_list type=table store=no no_caption=1 parent=templates_list_box
+
+
 
 @default group=bills_search
 
@@ -815,7 +823,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 
 			@property bill_s_bill_no type=textbox size=15 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Arve nr alates
-'
+
 			@property bill_s_bill_to type=textbox size=15 store=no parent=bills_list_s captionside=top group=bills_list
 			@caption Arve nr kuni
 
@@ -843,7 +851,7 @@ Vaikimisi eesti keel. Keelele peab saama m22rata, milline on systeemi default. V
 			@property bill_s_search type=submit store=no parent=bills_list_s captionside=top no_caption=1 group=bills_list
 			@caption Otsi
 
-		@property bills_list type=table store=no no_caption=1 parent=bills_list_box group=bills_list,invoice_templates
+		@property bills_list type=table store=no no_caption=1 parent=bills_list_box group=bills_list
 
 @default group=bills_quality
 
@@ -2823,6 +2831,8 @@ class crm_company extends class_base
 			case 'bills_time_tree':
 			case 'bills_tb':
 			case 'bills_mon_tb':
+			case 'invoice_template_folders':
+			case 'invoice_templates_list':
 			case "bill_s_client_mgr":
 			case "bill_s_status":
 			case "bill_s_with_tax":
@@ -3807,6 +3817,12 @@ class crm_company extends class_base
 		if(isset($request['set_buyer_status']) && $request['action'] === 'new')
 		{
 			$arr["set_buyer_status"] = $request['set_buyer_status'];
+		}
+
+		if($this->use_group === "invoice_templates" and !empty($request[crm_company_bills_impl::INVOICE_TEMPLATE_FOLDERS_VAR]))
+		{
+			$arr["invoice_folder_parent"] = $request[crm_company_bills_impl::INVOICE_TEMPLATE_FOLDERS_VAR];
+			$arr[crm_company_bills_impl::INVOICE_TEMPLATE_FOLDERS_VAR] = $request[crm_company_bills_impl::INVOICE_TEMPLATE_FOLDERS_VAR];
 		}
 
 		if($this->use_group === "stats_stats" || $this->use_group === "stats")
@@ -6566,6 +6582,22 @@ class crm_company extends class_base
 			}
 		}
 		return $arr["post_ru"];
+	}
+
+	/**
+		@attrib name=create_new_invoice_folder
+		@param invoice_folder_parent required type=int acl=view
+		@param post_ru required type=string
+	**/
+	function create_new_invoice_folder($arr)
+	{
+		$invoice_folder = obj(null, array(), crm_invoice_folder_obj::CLID);
+		$invoice_folder->set_parent($arr["invoice_folder_parent"]);
+		$invoice_folder->save();
+		return $this->mk_my_orb("change", array(
+			"id" => $invoice_folder->id(),
+			"return_url" => $arr["post_ru"]
+		), "crm_invoice_folder");
 	}
 
 	/**
