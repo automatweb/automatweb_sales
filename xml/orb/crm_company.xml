@@ -429,6 +429,7 @@
 			<function name="create_new_invoice_folder">
 				<arguments>
 					<required name="invoice_folder_parent" type="int" acl="view" />
+					<optional name="id" type="int" acl="view" />
 					<required name="post_ru" type="string" />
 				</arguments>
 			</function>

@@ -2084,6 +2084,16 @@
             <field>invoice_template_folders</field>
       </property>
       <property>
+            <name>invoice_folders_list</name>
+            <table>objects</table>
+            <group>invoice_templates</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>folders_list_box</parent>
+            <field>invoice_folders_list</field>
+      </property>
+      <property>
             <name>invoice_templates_list</name>
             <table>objects</table>
             <group>invoice_templates</group>
@@ -4770,19 +4780,36 @@
                   <group>bills_create</group>
                   <area_caption></area_caption>
             </billable_table>
-            <templates_list_box>
+            <templates_container>
                   <type>hbox</type>
                   <width>20%:80%</width>
                   <group>invoice_templates</group>
                   <area_caption></area_caption>
-            </templates_list_box>
+            </templates_container>
             <template_folders>
                   <type>vbox</type>
-                  <parent>templates_list_box</parent>
+                  <parent>templates_container</parent>
                   <closeable>0</closeable>
                   <area_caption>Arvep&amp;amp;otilde;hjade&amp;amp;nbsp;kaustad</area_caption>
                   <group>invoice_templates</group>
             </template_folders>
+            <templates_list_box>
+                  <type>vbox</type>
+                  <parent>templates_container</parent>
+                  <closeable>0</closeable>
+                  <no_padding>1</no_padding>
+                  <group>invoice_templates</group>
+                  <area_caption></area_caption>
+            </templates_list_box>
+            <folders_list_box>
+                  <type>vbox</type>
+                  <parent>templates_list_box</parent>
+                  <closeable>1</closeable>
+                  <no_padding>1</no_padding>
+                  <default_state>closed</default_state>
+                  <area_caption>Arvep&amp;amp;otilde;hjade&amp;amp;nbsp;kaustad</area_caption>
+                  <group>invoice_templates</group>
+            </folders_list_box>
             <bills_payments_box>
                   <type>hbox</type>
                   <width>20%:80%</width>

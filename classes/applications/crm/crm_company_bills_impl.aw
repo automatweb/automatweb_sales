@@ -48,6 +48,106 @@ class crm_company_bills_impl extends class_base
 		));
 	}
 
+	public function _get_invoice_folders_list(&$arr)
+	{
+		$r = class_base::PROP_OK;
+		$invoice_folders_table = $arr["prop"]["vcl_inst"];
+		$this->define_invoice_folders_list($invoice_folders_table);
+		try
+		{
+			$parent_o = empty($arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR]) ? $arr["obj_inst"] : obj((int) $arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR], array(), crm_invoice_folder_obj::CLID);
+			$parent = $parent_o->id();
+			$folders = new object_list(array(
+				"class_id" => crm_invoice_folder_obj::CLID,
+				"parent" => $parent
+			));
+			$core = new core();
+
+			if($folders->count())
+			{
+				$folder = $folders->begin();
+				$url = new aw_uri($core->mk_my_orb($arr["request"]["action"], array(
+					"group" => $arr["request"]["group"],
+					"id" => $arr["request"]["id"],
+				), $arr["request"]["class"]));
+
+				do
+				{
+					$folder_id = $folder->id();
+					// actions menu
+					$menu = new popup_menu();
+					$menu->begin_menu("invoicefldtbl".$folder_id);
+					$menu->add_item(array(
+						"text" => t("Muuda"),
+						"link" => $core->mk_my_orb("change", array("id" => $folder_id, "return_url" => get_ru()), "crm_invoice_folder")
+					));
+					$menu->add_item(array(
+						"text" => t("Kustuta"),
+						"link" => $core->mk_my_orb("delete_objects", array("id" => $folder_id, "post_ru" => get_ru(), "sel" => array($folder_id => $folder_id)), "crm_invoice_folder")
+					));
+
+					// link to open folder
+					$url->set_arg(self::INVOICE_TEMPLATE_FOLDERS_VAR, $folder_id);
+
+					//
+					$invoice_folders_table->define_data(array(
+						"oid" => $folder_id,
+						"actions" => $menu->get_menu(),
+						"name" => icons::get_std_icon("folder") . html::space() . html::href(array("url" => $url->get(), "caption" => $folder->name())),
+						"modified" => $folder->modified(),
+					));
+				}
+				while ($folder = $folders->next());
+
+				// set layout name
+				if ($parent_o->is_a(crm_invoice_folder_obj::CLID))
+				{
+					$this->layoutinfo["folders_list_box"]["area_caption"] = sprintf(t("Kaustad '%s' all"), $parent_o->name());
+				}
+				elseif ($parent_o->is_a(crm_company_obj::CLID))
+				{
+					$this->layoutinfo["folders_list_box"]["area_caption"] = t("Peataseme kaustad");
+				}
+			}
+			else
+			{
+				$r = class_base::PROP_IGNORE;
+				unset($this->layoutinfo["folders_list_box"]);
+			}
+		}
+		catch (Exception $e)
+		{
+			$r = class_base::PROP_IGNORE;
+		}
+
+		return $r;
+	}
+
+	private function define_invoice_folders_list($invoice_folders_table)
+	{
+		$invoice_folders_table->define_field(array(
+			"name" => "actions",
+			"sortable" => 0
+		));
+		$invoice_folders_table->define_field(array(
+			"caption" => t("Kausta nimi"),
+			"name" => "name",
+			"sortable" => 1
+		));
+		$invoice_folders_table->define_field(array(
+			"name" => "modified",
+			"type" => "time",
+			"numeric" => 1,
+			"format" => "d.m.Y H:i",
+			"caption" => t("Viimati muudeti")
+		));
+		$invoice_folders_table->define_chooser(array(
+			"field" => "oid",
+			"width" => "1%",
+			"name" => "check"
+		));
+	}
+
 	public function _get_invoice_templates_list(&$arr)
 	{
 		return $this->_get_bills_list($arr);
@@ -1564,7 +1664,7 @@ $x++;
 
 		if ($arr["request"]["group"] === "invoice_templates")
 		{
-			$parent = $arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR];
+			$parent = isset($arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR]) ? $arr["request"][self::INVOICE_TEMPLATE_FOLDERS_VAR] : null;
 			$bills = $d->get_bills_by_co($arr["obj_inst"], array("is_template" => 1, "parent" => $parent));
 			$format = t('%s arvep&otilde;hjad');
 		}
