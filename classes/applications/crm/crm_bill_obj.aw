@@ -15,6 +15,9 @@ class crm_bill_obj extends _int_object
 	const BILL_SUM_WO_TAX = 2;
 	const BILL_SUM_TAX = 3;
 	const BILL_AMT = 4;
+	const BILL_SUM_WO_DISCOUNT = 5;
+	const BILL_SUM_TAX_WO_DISCOUNT = 6;
+	const BILL_SUM_WO_TAX_WO_DISCOUNT = 7;
 
 	const STATUS_DRAFT = 0;
 	const STATUS_READY = 8;
@@ -159,18 +162,18 @@ class crm_bill_obj extends _int_object
 
 	function save($exclusive = false, $previous_state = null)
 	{
-		if(!is_oid($this->id()))
+		if(!$this->is_saved())
 		{
-			if(!$this->prop("bill_accounting_date"))
+			// set bill dates to current if not specified
+			$time = time();
+			if(!$this->prop("bill_date"))
 			{
-				if($this->prop("bill_date"))
-				{
-					$this->set_prop("bill_accounting_date" , $this->prop("bill_date"));
+				$this->set_prop("bill_date" , $time);
 				}
-				else
+
+			if(!$this->prop("bill_accounting_date"))
 				{
-					$this->set_prop("bill_accounting_date" , time());
-				}
+				$this->set_prop("bill_accounting_date" , $time);
 			}
 
 			unset($_SESSION["bill_change_comments"]);
@@ -388,7 +391,6 @@ class crm_bill_obj extends _int_object
 	**/
 	public function get_bill_needs_payment($arr = null)
 	{
-
 		$payment = empty($arr["payment"]) ? "" : $arr["payment"];
 		$bill_sum = $this->get_bill_sum();
 		$sum = 0;
@@ -1436,9 +1438,7 @@ class crm_bill_obj extends _int_object
 		}
 
 		$rs = "";
-		$sum_wo_tax = $tot_amt = $tot_cur_sum = 0;
-		$tax = 0;
-		$sum = 0;
+		$sum_wo_tax = $tot_amt = $tot_cur_sum = $tax = $sum = 0;
 
 		$agreement_price = $this->get_agreement_price();
 		if(is_array($agreement_price) && isset($agreement_price[0]["price"]) && strlen($agreement_price[0]["name"]) > 0)
@@ -1460,7 +1460,7 @@ class crm_bill_obj extends _int_object
 			$cur_sum = 0;
 			$cur_pr = 0;
 			$row["sum"] = $row["price"] * $row["amt"];
-			if ($GLOBALS["object_loader"]->cache->can("view", $row["prod"]))
+			if (object_loader::can("view", $row["prod"]))
 			{
 				$set = false;
 				// get tax from prod
@@ -1508,19 +1508,36 @@ class crm_bill_obj extends _int_object
 			$tot_cur_sum += $cur_sum;
 		}
 
-		switch($type)
+		// determine discount
+		if (
+			self::BILL_SUM_WO_DISCOUNT === $type or
+			self::BILL_SUM_TAX_WO_DISCOUNT === $type or
+			self::BILL_SUM_WO_TAX_WO_DISCOUNT === $type
+		)
 		{
-			case self::BILL_SUM_TAX:
-				return $tax;
-
-			case self::BILL_SUM_WO_TAX:
-				return $sum_wo_tax;
-
-			case self::BILL_AMT:
-				return $tot_amt;
+			$discount_factor = 1;
 		}
-		return $sum;
-	}
+		else
+		{
+			$discount_factor = 1 - ($this->prop("disc") / 100);
+		}
+
+		// select desired output
+		if (self::BILL_SUM_TAX === $type or self::BILL_SUM_TAX_WO_DISCOUNT === $type)
+		{
+			$sum = $tax;
+		}
+		elseif (self::BILL_SUM_WO_TAX === $type or self::BILL_SUM_WO_TAX_WO_DISCOUNT === $type)
+		{
+			$sum = $sum_wo_tax;
+		}
+		elseif (self::BILL_AMT === $type)
+		{
+			$sum = $tot_amt;
+		}
+
+		return $sum * $discount_factor;
+		}
 
 	//selle asemel kasuta get_bill_rows_dat funktsiooni... iganenud on
 	/** returns bill rows data
@@ -2666,7 +2683,7 @@ class crm_bill_obj extends _int_object
 		));
 		$att_comment .= html::href(array(
 			"caption" => html::img(array(
-				"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+				"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 				"border" => 0,
 			)).$invoice_pdf->name(),
 			"url" => $invoice_pdf->get_url(),
@@ -2687,7 +2704,7 @@ class crm_bill_obj extends _int_object
 			));
 			$att_comment .= html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 					"border" => 0,
 				)) . $appendix_pdf->name(),
 				"url" => $appendix_pdf->get_url(),
@@ -2801,7 +2818,7 @@ class crm_bill_obj extends _int_object
 		));
 		$att_comment.= html::href(array(
 			"caption" => html::img(array(
-				"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+				"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 				"border" => 0,
 			)).$to_o->name(),
 			"url" => $to_o->get_url(),
@@ -2821,7 +2838,7 @@ class crm_bill_obj extends _int_object
 			));
 			$att_comment.= html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 					"border" => 0,
 				)).$to_o->name(),
 				"url" => $to_o->get_url(),
@@ -3785,14 +3802,17 @@ class crm_bill_obj extends _int_object
 	**/
 	public function get_bill_text()
 	{
+		$bill_text = "";
 		if($this->prop("bill_text"))
 		{
-			return $this->prop("bill_text");
+			$bill_text = $this->prop("bill_text");
 		}
-		if($this->set_crm_settings() && $this->crm_settings->prop("bill_text"))
+		elseif($this->set_crm_settings() && $this->crm_settings->prop("bill_text"))
 		{
-			return  $this->crm_settings->prop("bill_text");
+			$bill_text = $this->crm_settings->prop("bill_text");
 		}
+
+		return $bill_text;
 	}
 
 	 /** returns unit name
@@ -3801,7 +3821,7 @@ class crm_bill_obj extends _int_object
 	**/
 	public function get_unit_name($unit)
 	{
-		if($GLOBALS["object_loader"]->cache->can("view", $unit))
+		if(object_loader::can("view", $unit))
 		{
 			$uo = obj($unit);
 			$u_trans = $uo->meta("translations");
