@@ -256,7 +256,7 @@ class crm_sector extends class_base
 			case "aw_emtak_2008":
 				$this->db_add_col($tbl, array(
 					"name" => $field,
-					"type" => "int"
+					"type" => "varchar(5)"
 				));
 				return true;
 

@@ -13,11 +13,18 @@ class crm_offer_obj extends crm_offer_price_component_handler
 	protected $all_prerequisites_by_price_component;
 	protected $mail_data = null;
 	protected static $state_names;
+	protected static $result_names;
 
 	const STATE_NEW = 0;
 	const STATE_SENT = 1;
 	const STATE_CONFIRMED = 2;
 	const STATE_CANCELLED = 3;
+	const STATE_REJECTED = 4;
+
+	const RESULT_REJECTED = 1;
+	const RESULT_CALL = 2;
+	const RESULT_PRESENTATION = 3;
+	const RESULT_NEW_OFFER = 4;
 
 	public static function state_names($state = null)
 	{
@@ -27,7 +34,8 @@ class crm_offer_obj extends crm_offer_price_component_handler
 				self::STATE_NEW => t("Koostamisel"),
 				self::STATE_SENT => t("Saadetud"),
 				self::STATE_CONFIRMED => t("Kinnitatud"),
-				self::STATE_CANCELLED => t("T&uuml;histatud")
+				self::STATE_CANCELLED => t("T&uuml;histatud"),
+				self::STATE_REJECTED => t("Tagasi l&uuml;katud"),
 			);
 		}
 
@@ -49,6 +57,36 @@ class crm_offer_obj extends crm_offer_price_component_handler
 		}
 	}
 
+	public static function result_names($result = null)
+	{
+		if (0 === count(self::$result_names))
+		{
+			self::$result_names = array(
+				self::RESULT_REJECTED => t("Tagasi l&uuml;katud"),
+				self::RESULT_CALL => t("K&otilde;ne"),
+				self::RESULT_PRESENTATION => t("Visiit"),
+				self::RESULT_NEW_OFFER => t("Uus pakkumus"),
+			);
+		}
+
+		if (isset($result))
+		{
+			if (isset(self::$result_names[$result]))
+			{
+				$result_names = array($result => self::$result_names[$result]);
+			}
+			else
+			{
+				$result_names = array();
+			}
+			return $result_names;
+		}
+		else
+		{
+			return self::$result_names;
+		}
+	}
+
 	/**	Creates crm_offer_template object enabling user to use this crm_offer as a template when creating new ones
 		@attrib api=1 params=pos
 		@param name required type=string
@@ -62,37 +100,57 @@ class crm_offer_obj extends crm_offer_price_component_handler
 			throw new awex_crm_offer("Offer must be saved before it can be saved as a template!");
 		}
 
-		$o = new object();
-		$o->set_class_id(crm_offer_template_obj::CLID);
+		$o = $this->duplicate(null, crm_offer_template_obj::CLID);
 		$o->set_parent($this->id());
 		$o->set_name($name);
 		$o->set_prop("offer", $this->id());
 		$o->save();
 	}
 
-	/**	Creates duplicate of this crm_offer_obj object and returns the new crm_offer_obj object.
+	/**	Creates duplicate of given object and returns the new object.
 		@attrib api=1
+		@param parent optional
+			Parent the newly created object will be saved under. If not specified, the given object's parent will be used.
+		@param class_id optional default=crm_offer_obj::CLID
+			The class_id of object to be returned. Must be crm_offer_obj::CLID or its subclass!
 		@returns crm_offer_obj object
 	**/
-	public function duplicate()
+	public function duplicate($parent = null, $clid = null)
 	{
-		$new_offer = new object($this->save_new(), array(), crm_offer_obj::CLID);
-		$new_offer->set_prop("state", self::STATE_NEW);
+		//	LAZY: Might not be the fastest and most elegant way of checking if given class is crm_offer_obj::CLID or a subclass.
+		if (is_class_id($clid) and !obj(null, array(), $clid)->is_a(crm_offer_obj::CLID))
+		{
+			throw new awex_crm_offer_duplication("Cannot duplicate object! Given class is not crm_offer_obj::CLID nor a subclass!");
+		}
+		$clid = is_class_id($clid) ? $clid : crm_offer_obj::CLID;
+		$parent = is_oid($parent) ? $parent : $this->parent();
 
-		$this->duplicate_applied_price_components($new_offer);
+		$new_object = obj(null, array(), $clid);
+		$new_object->set_parent($parent);
+		foreach($this->get_property_list() as $pn => $pd)
+		{
+			if($new_object->is_property($pn) and !in_array($pn, array("state", "result", "result_object")))
+			{
+				$new_object->set_prop($pn, $this->prop($pn));
+			}
+		}
+		$new_object->set_prop("state", self::STATE_NEW);
+		$new_object->save();
+
+		$this->duplicate_applied_price_components($new_object);
 
 		foreach ($this->get_rows() as $row)
 		{
 			$new_row = new object($row->save_new(), array(), crm_offer_row_obj::CLID);
-			$new_row->set_prop("offer", $new_offer->id());
+			$new_row->set_prop("offer", $new_object->id());
 			$new_row->save();
 
 			$row->duplicate_applied_price_components($new_row);
 		}
 
-		$new_offer->save();
+		$new_object->save();
 
-		return $new_offer;
+		return $new_object;
 	}
 
 	/**	Returns on object_list of operations related to this offer.
@@ -429,7 +487,7 @@ Parimat,
 
 	public function get_offer_data()
 	{
-		$currency = new object($this->prop("currency"));
+		$currency = obj($this->prop("currency"), array(), currency_obj::CLID);
 
 		return array(
 			"id" => $this->id(),
@@ -849,9 +907,29 @@ Parimat,
 		return $this->id();
 	}
 
+	public function name()
+	{
+		return $this->awobj_get_name();
+	}
+
+	/**	Returns name of the object. Used to bypass name overriding by crm_offer_obj::awobj_get_name(). This is to be used by subclasses only!
+	**/
+	protected function __name()
+	{
+		return parent::name();
+	}
+
 	public function awobj_get_sum()
 	{
 		return aw_math_calc::string2float(parent::prop("sum"));
+	}
+
+	/**	Returns sum with currency symbol
+		@attrib api=1
+	**/
+	public function sum_with_currency()
+	{
+		return is_oid($this->prop("currency")) ? obj($this->prop("currency"), array(), currency_obj::CLID)->sum_with_currency($this->awobj_get_sum()) : number_format($this->awobj_get_sum(), 2);
 	}
 
 	public function awobj_get_contracts()
@@ -903,7 +981,7 @@ Parimat,
 
 	public function save($exclusive = false, $previous_state = null)
 	{
-		if(!is_oid($this->prop("customer_relation")))
+		if (!is_oid($this->prop("customer_relation")))
 		{
 			try
 			{
@@ -912,6 +990,15 @@ Parimat,
 			catch (awex_crm_offer_customer $e)
 			{
 			}
+		}
+
+		try
+		{
+			$this->handle_result();
+		}
+		catch (awex_crm_offer_customer $e)
+		{
+			// No crm_call / crm_presentation was created, because of a missing customer relation. We should prolly somehow notify the user of this?
 		}
 
 		return parent::save($exclusive, $previous_state);
@@ -1348,6 +1435,46 @@ Parimat,
 		$this->rows = $rows;
 	}
 
+	/**	Returns the result object if one exists, throws an exception otherwise.
+		@attrib api=1
+		@returns CL_CRM_CALL or CL_CRM_PRESENTATION or CL_CRM_OFFER
+		@errors
+			throws awex_obj_na if object with stored result_object OID doesn't exist
+			throws awex_crm_offer_result if no result_object OID is stored
+	**/
+	public function get_result_object()
+	{
+		$result_oid = $this->prop("result_object");
+
+		if (!is_oid($result_oid))
+		{
+			throw new awex_crm_offer_result("No result_object OID stored for offer " + $this->id() + "!");
+		}
+		
+		try
+		{
+			$result_object = new object($result_oid);
+		}
+		catch (awex_obj_na $e)
+		{
+			throw $e;
+		}
+
+		return $result_object;
+	}
+
+	public function get_customer_relation()
+	{
+		try
+		{
+			return is_oid($this->prop("customer_relation")) ? new object($this->prop("customer_relation")) : $this->set_customer_relation();
+		}
+		catch (awex_crm_offer_customer $e)
+		{
+			throw $e;
+		}
+	}
+
 	protected function load_rows()
 	{
 		if(!$this->is_saved())
@@ -1386,21 +1513,68 @@ Parimat,
 		return false;
 	}
 
-	public function get_customer_relation()
+	protected function handle_result()
 	{
-		try
+		$result = (int) $this->prop("result");
+
+		if (self::RESULT_REJECTED === $result)
 		{
-			return is_oid($this->prop("customer_relation")) ? new object($this->prop("customer_relation")) : $this->set_customer_relation();
+			$this->set_prop("state", self::STATE_REJECTED);
 		}
-		catch (awex_crm_offer_customer $e)
+		else
 		{
-			throw $e;
+			try
+			{
+				$result_object = $this->get_result_object();
+			}
+			catch(Exception $e)
+			{
+				if (self::RESULT_CALL === $result)
+				{
+					$application = automatweb::$request->get_application();
+					if ($application->is_a(crm_sales_obj::CLID))
+					{
+						if (!is_oid($this->prop("customer_relation")))
+						{
+							throw new awex_crm_offer_customer("Result object cannot be created - no customer relation for this offer!");
+						}
+						$customer_relation = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
+						$result_object = $application->create_call($customer_relation);
+						$this->set_prop("result_object", $result_object->id());
+					}
+				}
+				elseif (self::RESULT_PRESENTATION === $result)
+				{
+					$application = automatweb::$request->get_application();
+					if ($application->is_a(crm_sales_obj::CLID))
+					{
+						if (!is_oid($this->prop("customer_relation")))
+						{
+							throw new awex_crm_offer_customer("Result object cannot be created - no customer relation for this offer!");
+						}
+						$customer_relation = obj($this->prop("customer_relation"), array(), crm_company_customer_data_obj::CLID);
+						$result_object = $application->create_presentation($customer_relation);
+						$this->set_prop("result_object", $result_object->id());
+					}
+				}
+				elseif (self::RESULT_NEW_OFFER === $result)
+				{
+					$result_object = $this->duplicate();
+					$result_object->set_prop("template", $this->id());
+					$result_object->save();
+
+					$this->set_prop("result_object", $result_object->id());
+				}
+			}
 		}
 	}
 }
 
 /** Generic crm_offer exception **/
 class awex_crm_offer extends awex_crm {}
+
+/** Duplication crm_offer errors **/
+class awex_crm_offer_duplication extends awex_crm {}
 
 /** Customer errors **/
 class awex_crm_offer_customer extends awex_crm {}
@@ -1419,3 +1593,6 @@ class awex_crm_offer_file extends awex_crm_offer {}
 
 /** status related errors **/
 class awex_crm_offer_state extends awex_crm_offer {}
+
+/** result related errors **/
+class awex_crm_offer_result extends awex_crm_offer {}

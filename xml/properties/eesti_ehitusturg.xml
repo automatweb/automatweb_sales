@@ -1,32 +1,58 @@
 <?xml version='1.0'?>
 <properties>
       <property>
-            <name>url</name>
+            <name>sectors_dir</name>
             <table>aw_eesti_ehitusturg</table>
             <group>general</group>
-            <type>textbox</type>
-            <field>aw_url</field>
-            <caption>URL</caption>
+            <type>objpicker</type>
+            <clid>CL_MENU</clid>
+            <field>aw_sectors_dir</field>
+            <caption>Tegevusalade kaust</caption>
       </property>
       <property>
-            <name>import</name>
+            <name>report_currency</name>
+            <table>aw_eesti_ehitusturg</table>
+            <group>general</group>
+            <type>objpicker</type>
+            <clid>CL_CURRENCY</clid>
+            <field>aw_report_currency</field>
+            <caption>Majandusaruannete valuuta</caption>
+      </property>
+      <property>
+            <name>import_sectors</name>
             <table>aw_eesti_ehitusturg</table>
             <group>general</group>
             <type>text</type>
             <store>no</store>
-            <field>import</field>
-            <caption>Impordi Eesti Ehitusturu andmebaas</caption>
+            <field>import_sectors</field>
+            <caption>Impordi tegevusalad ja organisatsioonide IDd</caption>
       </property>
       <property>
-            <name>email_templates</name>
+            <name>import_companies_html</name>
             <table>aw_eesti_ehitusturg</table>
             <group>general</group>
-            <type>relpicker</type>
-            <reltype>RELTYPE_EMAIL_TEMPLATE</reltype>
-            <multiple>1</multiple>
-            <store>connect</store>
-            <field>email_templates</field>
-            <caption>E-kirjamallid</caption>
+            <type>text</type>
+            <store>no</store>
+            <field>import_companies_html</field>
+            <caption>Impordi organisatsioonide HTML</caption>
+      </property>
+      <property>
+            <name>parse_companies_details</name>
+            <table>aw_eesti_ehitusturg</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>parse_companies_details</field>
+            <caption>Parsi imporditud HTMLst organisatsioonide andmed</caption>
+      </property>
+      <property>
+            <name>import_companies_details</name>
+            <table>aw_eesti_ehitusturg</table>
+            <group>general</group>
+            <type>text</type>
+            <store>no</store>
+            <field>import_companies_details</field>
+            <caption>Impordi parsitud andmed AW objektideks</caption>
       </property>
       <classinfo>
             <syslog_type>ST_EESTI_EHITUSTURG</syslog_type>
@@ -43,11 +69,5 @@
                   <index>aw_oid</index>
             </aw_eesti_ehitusturg>
       </tableinfo>
-      <reltypes>
-            <EMAIL_TEMPLATE>
-                  <value>1</value>
-                  <clid>CL_MESSAGE_TEMPLATE</clid>
-                  <caption>E-kirjamall</caption>
-            </EMAIL_TEMPLATE>
-      </reltypes>
 </properties>
+

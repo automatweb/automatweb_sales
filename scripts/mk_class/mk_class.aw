@@ -249,6 +249,7 @@ $fc = str_replace("__name", $class['name'], $fc);
 $fc = str_replace("__classname", $class['file'], $fc);
 $fc = str_replace("__table_name", "aw_".$class['file'], $fc);
 $fc = str_replace("__maintainer", get_current_user(), $fc);
+$fc = str_replace("__object_override", $class['file']."_obj", $fc);
 
 _file_put_contents(($args_from_caller ? AW_DIR : "") . "classes/$clnf",$fc);
 echo "created classes/$clnf...\n";

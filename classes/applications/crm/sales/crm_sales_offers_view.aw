@@ -48,7 +48,8 @@ class crm_sales_offers_view
 			crm_offer_obj::STATE_NEW,
 			crm_offer_obj::STATE_SENT,
 			crm_offer_obj::STATE_CONFIRMED,
-			crm_offer_obj::STATE_CANCELLED
+			crm_offer_obj::STATE_CANCELLED,
+			crm_offer_obj::STATE_REJECTED
 		);
 
 		$url = automatweb::$request->get_uri();
@@ -291,6 +292,7 @@ class crm_sales_offers_view
 		$not_available_str = html::italic(t("M&auml;&auml;ramata"));
 		$role = automatweb::$request->get_application()->get_current_user_role();
 		$offer_state_names = crm_offer_obj::state_names();
+		$offer_result_names = crm_offer_obj::result_names();
 
 		if ($offers->count())
 		{
@@ -325,9 +327,28 @@ class crm_sales_offers_view
 
 				$modified = aw_locale::get_lc_date($offer->prop("modified"), aw_locale::DATETIME_SHORT_FULLYEAR);
 
-				$sum = $offer->prop("sum");
+				$sum = $offer->sum_with_currency();
 
 				$state = $offer_state_names[$offer->state];
+				
+				if (isset($offer_result_names[$offer->result]))
+				{
+					try
+					{
+						$result_object = $offer->get_result_object();
+						$result = html::get_change_url($result_object, array("return_url" => get_ru()), $offer_result_names[$offer->result]);
+					}
+					catch (Exception $e)
+					{
+						$result = $offer_result_names[$offer->result];
+					}
+				}
+				else
+				{
+					$result = $not_available_str;
+				}
+
+				$template = new object($offer->prop("template"));
 
 				// define table row
 				$table->define_data(array(
@@ -335,10 +356,12 @@ class crm_sales_offers_view
 					"salesman_name" => $salesman,
 					"sum" => $sum,
 					"state" => $state,
+					"result" => $result,
 					"oid" => $oid,
 					"id" => $offer_id,
 					"modified" => $modified,
 					"modified_timestamp" => $offer->prop("modified"),
+					"template" => $offer->prop("template") ? html::obj_change_url($template) : "",
 				));
 			}
 			while ($offer = $offers->next());
@@ -389,6 +412,14 @@ class crm_sales_offers_view
 			"caption" => t("Staatus")
 		));
 		$table->define_field(array(
+			"name" => "result",
+			"caption" => t("Tulemus")
+		));
+		$table->define_field(array(
+			"name" => "template",
+			"caption" => t("&Scaron;abloon")
+		));
+		$table->define_field(array(
 			"name" => "modified",
 			"sortable" => 1,
 			"sorting_field" => "modified_timestamp",
@@ -408,5 +439,3 @@ class crm_sales_offers_view
 
 	}
 }
-
-?>

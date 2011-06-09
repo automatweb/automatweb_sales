@@ -572,7 +572,7 @@ class crm_bill extends class_base
 					)).
 					" ".html::href(array(
 						"url" => "javascript:aw_popup_scroll('".$url."','Otsing', 550, 500)",
-						"caption" => "<img src='".aw_ini_get("baseurl")."/automatweb/images/icons/search.gif' border=0>",
+						"caption" => "<img src='".aw_ini_get("baseurl")."automatweb/images/icons/search.gif' border=0>",
 						"title" => t("Otsi")
 					)) . html::linebreak();
 				}
@@ -638,12 +638,12 @@ class crm_bill extends class_base
 				{
 					$edit_button = " " . html::href(array(
 						"url" => html::get_change_url($arr["obj_inst"]->prop("customer"), array("return_url" => get_ru())),
-						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "/automatweb/images/icons/edit.gif"))
+						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "automatweb/images/icons/edit.gif"))
 					));
 					$reload_button = " " . html::href(array(
 						"url" => "javascript:;",
 						"onclick" => "if(!confirm(\"{$confirm}\")) { return false; }; submit_changeform(\"reload_customer_data\");",
-						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "/automatweb/images/icons/refresh.gif"))
+						"caption" => html::img(array("url" => aw_ini_get("baseurl") . "automatweb/images/icons/refresh.gif"))
 					));
 				}
 				else
@@ -1281,7 +1281,7 @@ class crm_bill extends class_base
 			$file_data = $invoice_pdf_o->get_file();
 			$invoice_pdf_link = " " . html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 					"border" => 0
 				)) . $invoice_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $invoice_pdf_o->get_url(),
@@ -1293,7 +1293,7 @@ class crm_bill extends class_base
 			$file_data = $reminder_pdf_o->get_file();
 			$reminder_pdf_link = " " . html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 					"border" => 0
 				)) . $reminder_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $reminder_pdf_o->get_url(),
@@ -1306,7 +1306,7 @@ class crm_bill extends class_base
 			$file_data = $appendix_pdf_o->get_file();
 			$appendix_pdf_link = " " . html::href(array(
 				"caption" => html::img(array(
-					"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+					"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 					"border" => 0
 				)) . $appendix_pdf_o->name() . " (". filesize($file_data["properties"]["file"])." B)",
 				"url" => $appendix_pdf_o->get_url(),
@@ -2074,7 +2074,7 @@ class crm_bill extends class_base
 						"name" => "sel_rows[]",
 						"value" => $row_oid
 					)),
-					"jrk" => $row_o->meta("jrk"),
+					"jrk" => $row_o->ord(),
 					"change" => $this->get_row_html($row_oid,"change",$arr),
 					"person" => $this->get_row_html($row_oid,"person",$arr)
 				));
@@ -2211,7 +2211,7 @@ class crm_bill extends class_base
 
 		if(!empty($arr["jrk"]))
 		{
-			$o->set_meta("jrk" , (int) $arr["jrk"]);
+			$o->set_ord((int) $arr["jrk"]);
 		}
 
 		foreach($o->connections_from(array("type" => "RELTYPE_PEOPLE")) as $c)
@@ -2495,7 +2495,7 @@ class crm_bill extends class_base
 				$ret.="<table><tr><td width=\"400\"> " . t("Jrk.") . " " .
 				html::textbox(array(
 					"name" => "rows[".$row->id()."][jrk]",
-					"value" => $row->meta("jrk"),
+					"value" => $row->ord(),
 					"size" => 3
 				))
 				. " " . t("Kuup&auml;ev") . " " .
@@ -2799,7 +2799,7 @@ class crm_bill extends class_base
 
 			case "name":
 				$ret.="<div>".
-					($row->meta("jrk") ? sprintf(t("# %s"), $row->meta("jrk")) . html::linebreak() : "").
+					($row->ord() ? sprintf(t("# %s"), $row->ord()) . html::linebreak() : "").
 					($row->prop("date") ? $row->prop("date") . html::linebreak() : "").
 					($row->prop("comment") ? html::bold($row->prop("comment")) . html::linebreak() : "").
 					($row->prop("desc") ? wordwrap(nl2br(htmlspecialchars(($row->prop("desc")))), 100, html::linebreak(), true) . html::linebreak() : "").
@@ -3215,7 +3215,7 @@ class crm_bill extends class_base
 
 	/**
 		@attrib name=_preview_popup
-	/**/
+	**/
 	function _preview_popup($arr)
 	{
 		global $id, $rows_in_page, $page;
@@ -3617,7 +3617,7 @@ class crm_bill extends class_base
 			$grp_rows[$row["prod"]][$unp]["sum"] = isset($grp_rows[$row["prod"]][$unp]["sum"]) ? ($grp_rows[$row["prod"]][$unp]["sum"] + $cur_tax + $cur_sum) : ($cur_tax+$cur_sum);
 			$grp_rows[$row["prod"]][$unp]["tot_cur_sum"] = isset($grp_rows[$row["prod"]][$unp]["tot_cur_sum"]) ? ($grp_rows[$row["prod"]][$unp]["tot_cur_sum"] + $cur_sum) : $cur_sum;
 			$grp_rows[$row["prod"]][$unp]["tot_amt"] = isset($grp_rows[$row["prod"]][$unp]["tot_amt"]) ? ($grp_rows[$row["prod"]][$unp]["tot_amt"] + $row["amt"]) : $row["amt"];
-			$grp_rows[$row["prod"]][$unp]["unit"] = empty($row["unit"]) ? "" : $row["unit"];
+			$grp_rows[$row["prod"]][$unp]["unit"] = empty($row["unit_name"]) ? "" :$row["unit_name"];
 			$grp_rows[$row["prod"]][$unp]["price"] = empty($row["price"]) ? "" :$row["price"];
 			$grp_rows[$row["prod"]][$unp]["date"] = empty($row["date"]) ? "" :$row["date"];
 			$grp_rows[$row["prod"]][$unp]["jrk"] = empty($row["jrk"]) ? "" :$row["jrk"];
@@ -4022,16 +4022,24 @@ class crm_bill extends class_base
 		$this->tax = 0;
 		$this->sum = 0;
 
-		$grouped_rows = array();
-		$grouped_rows_comments = array();
+		$grouped_rows = $grouped_rows_order = $grouped_rows_comments = array();
+		$i = -10000000; // some rows may have empty ordering number, start from minus million to minimize risk of interfering with defined row orders
 		foreach($bill_rows as $row)
 		{
+			// collocated rows ordering helper
+			$i = $row["jrk"] ? $row["jrk"] : $i++;
+			$grouped_rows_order[$row["comment"]] = $i;
+
+			//...
 			$grouped_rows[$row["comment"]][] = $row;
 			if ($row["name_group_comment"])
 			{
 				$grouped_rows_comments[$row["comment"]][] = html::paragraph(array("content" => nl2br($row["name_group_comment"])));
 			}
 		}
+
+		// sort the grouped/collocated rows helper array
+		asort ($grouped_rows_order);
 
 		foreach ($grouped_rows_comments as $capt_key => $name_group_comments)
 		{
@@ -4043,7 +4051,8 @@ class crm_bill extends class_base
 		if($this->is_template("GROUP_ROWS"))
 		{
 			$GR = "";
-			foreach($grouped_rows as $capt => $crows)
+			// go over ordering helper array and find row groups data from $grouped_rows and $grouped_rows_comments by $capt
+			foreach ($grouped_rows_order as $capt => $idx)
 			{
 				$rs = $this->parse_preview_add_rows($crows);
 				$this->vars(array(
@@ -4280,7 +4289,7 @@ class crm_bill extends class_base
 			$o->set_prop("comment", $row["comment"]);
 			$o->set_prop("date", $row["date"]);
 			$o->set_prop("unit", $unit);
-			$o->set_meta("jrk", $row["jrk"]);
+			$o->set_ord($row["jrk"]);
 
 			if (isset($row["price"]))
 			{
@@ -4339,7 +4348,7 @@ $agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_
 			if($row["jrk"] > $jrk-10) $jrk = $row["jrk"]+10;
 		}
 		$row = $bill->add_row();
-		$row->set_meta("jrk" , $jrk);
+		$row->set_ord($jrk);
 		$row->save();
 
 		$bill->set_prop("bill_trans_date", time());
@@ -4473,7 +4482,7 @@ $agreement_price = array(); if(isset($arr["request"]["agreement_price"]) and is_
 				$br->set_prop("prod", $row["prod"]);
 				$br->set_prop("price", $row["price"]);
 				$br->set_prop("unit", $row["unit"]);
-				$br->set_meta("jrk", $row["jrk"]);
+				$br->set_ord($row["jrk"]);
 				$br->set_prop("has_tax", $row["has_tax"]);
 				$br->set_prop("date", date("d.m.Y", $row["date"]));
 				// get default prod
@@ -5381,7 +5390,7 @@ ENDSCRIPT;
 					$file_data = $o->get_file();
 					$data["attachments"].= html::linebreak().html::href(array(
 						"caption" => html::img(array(
-							"url" => aw_ini_get("baseurl")."/automatweb/images/icons/pdf_upload.gif",
+							"url" => aw_ini_get("baseurl")."automatweb/images/icons/pdf_upload.gif",
 							"border" => 0,
 						)).$o->name()." (".filesize($file_data["properties"]["file"])." B)",
 						"url" => $o->get_url(),
