@@ -1703,12 +1703,12 @@ class crm_offer extends class_base
 			$js .= <<<ENDSCRIPT
 function crm_offer_refresh_mail_text() {
 	// subject
-	$.get('/automatweb/orb.aw', {class: 'crm_offer', operation: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_subject').val()}, function (html) {
+	$.get('/automatweb/orb.aw', {class: 'crm_offer', action: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_subject').val()}, function (html) {
 		$('#mail_subject_text_element').html(html);
 	});
 
 	// body
-	$.get('/automatweb/orb.aw', {class: 'crm_offer', operation: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_content').val()}, function (html) {
+	$.get('/automatweb/orb.aw', {class: 'crm_offer', action: 'parse_mail_text', id: '{$arr["obj_inst"]->id()}', text: $('#mail_content').val()}, function (html) {
 		$('#mail_content_text_element').html(html);
 	});
 }
