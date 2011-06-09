@@ -2067,7 +2067,7 @@
       <property>
             <name>bills_mon_tb</name>
             <table>objects</table>
-            <group>bills_monthly</group>
+            <group>invoice_templates</group>
             <type>toolbar</type>
             <no_caption>1</no_caption>
             <store>no</store>
@@ -2363,7 +2363,7 @@
             <table>objects</table>
             <group>
                   <num_0>bills_list</num_0>
-                  <num_1>bills_monthly</num_1>
+                  <num_1>invoice_templates</num_1>
             </group>
             <type>table</type>
             <store>no</store>
@@ -3747,12 +3747,12 @@
                   <submit>no</submit>
                   <save>no</save>
             </bills_list>
-            <bills_monthly>
+            <invoice_templates>
                   <parent>bills</parent>
-                  <caption>Kuuarved</caption>
+                  <caption>Arvep&amp;amp;otilde;hjad</caption>
                   <submit>no</submit>
                   <save>no</save>
-            </bills_monthly>
+            </invoice_templates>
             <bills_search>
                   <parent>bills</parent>
                   <caption>Otsi toimetusi</caption>

@@ -114,8 +114,7 @@
             <name>bill_due_date</name>
             <table>aw_crm_bill</table>
             <group>general_data</group>
-            <type>datepicker</type>
-            <time>0</time>
+            <type>text</type>
             <field>aw_due_date</field>
             <parent>top_left</parent>
             <caption>Tasumise kuup&amp;amp;auml;ev</caption>
@@ -450,13 +449,13 @@
             <caption>Arve meeldetuletuse juurde minev tekst</caption>
       </property>
       <property>
-            <name>monthly_bill</name>
+            <name>is_invoice_template</name>
             <table>aw_crm_bill</table>
             <group>other_data</group>
             <type>checkbox</type>
             <ch_value>1</ch_value>
-            <field>aw_monthly_bill</field>
-            <caption>Kuuarve</caption>
+            <field>aw_is_invoice_template</field>
+            <caption>Salvesta arve arvep&amp;amp;otilde;hjana</caption>
       </property>
       <property>
             <name>udef1</name>

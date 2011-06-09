@@ -1,7 +1,4 @@
 <?php
-/*
-@classinfo  maintainer=voldemar
-*/
 
 class country_obj extends _int_object
 {
@@ -44,5 +41,3 @@ class awex_as_country extends awex_as {}
 /** Country administrative error **/
 class awex_as_country_admin_structure extends awex_as_country {}
 
-
-?>

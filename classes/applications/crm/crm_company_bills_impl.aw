@@ -1297,22 +1297,31 @@ $x++;
 
 	function _init_bills_list_t($t, $r)
 	{
-		$t->define_field(array(
-			"name" => "bill_no",
-			"caption" => t("Number"),
-			"sortable" => 1,
-			"numeric" => 1,
-			"chgbgcolor" => "color",
-		));
-
-		if ($r["group"] === "bills_monthly")
+		if ($r["group"] === "invoice_templates")
 		{
+			$t->define_field(array(
+				"name" => "bill_name",
+				"caption" => t("Nimetus"),
+				"sortable" => 1,
+				"chgbgcolor" => "color"
+			));
+
 			$t->define_field(array(
 				"name" => "create_new",
 				"caption" => t("Loo uus"),
 				"sortable" => 1,
 				"numeric" => 1,
-			"chgbgcolor" => "color",
+				"chgbgcolor" => "color"
+			));
+		}
+		else
+		{
+			$t->define_field(array(
+				"name" => "bill_no",
+				"caption" => t("Number"),
+				"sortable" => 1,
+				"numeric" => 1,
+				"chgbgcolor" => "color"
 			));
 		}
 
@@ -1323,23 +1332,27 @@ $x++;
 			"format" => "d.m.Y",
 			"numeric" => 1,
 			"sortable" => 1,
-			"chgbgcolor" => "color",
+			"chgbgcolor" => "color"
 		));
-		$t->define_field(array(
-			"name" => "bill_due_date",
-			"caption" => t("Makset&auml;htaeg"),
-			"type" => "time",
-			"format" => "d.m.Y",
-			"numeric" => 1,
-			"sortable" => 1,
-			"chgbgcolor" => "color",
-		));
-		$t->define_field(array(
-			"name" => "payment_over_date",
-			"caption" => t("<a href='javascript:void(0)' alt='Maksega hilinenud p&auml;evade arv' title='Maksega hilinenud p&auml;evade arv'>MHPA</a>"),
-			"align" => "center",
-			"chgbgcolor" => "color",
-		));
+
+		if ($r["group"] !== "invoice_templates")
+		{
+			$t->define_field(array(
+				"name" => "bill_due_date",
+				"caption" => t("Makset&auml;htaeg"),
+				"type" => "time",
+				"format" => "d.m.Y",
+				"numeric" => 1,
+				"sortable" => 1,
+				"chgbgcolor" => "color"
+			));
+			$t->define_field(array(
+				"name" => "payment_over_date",
+				"caption" => t("<a href='javascript:void(0)' alt='Maksega hilinenud p&auml;evade arv' title='Maksega hilinenud p&auml;evade arv'>MHPA</a>"),
+				"align" => "center",
+				"chgbgcolor" => "color"
+			));
+		}
 /*
 		$t->define_field(array(
 			"name" => "payment_date",
@@ -1418,7 +1431,7 @@ $x++;
 			"align" => "right"
 		));
 */
-		if ($r["group"] !== "bills_monthly")
+		if ($r["group"] !== "invoice_templates")
 		{
 			$t->define_field(array(
 				"name" => "state",
@@ -1525,10 +1538,10 @@ $x++;
 		$co_stat_inst = new crm_company_stats_impl();
 		$pop = new popup_menu();
 
-		if ($arr["request"]["group"] === "bills_monthly")
+		if ($arr["request"]["group"] === "invoice_templates")
 		{
-			$bills = $d->get_bills_by_co($arr["obj_inst"], array("monthly" => 1));
-			$format = t('%s kuuarved');
+			$bills = $d->get_bills_by_co($arr["obj_inst"], array("is_template" => 1));
+			$format = t('%s arvep&otilde;hjad');
 		}
 		else
 		{
@@ -1750,9 +1763,10 @@ $x++;
 				$partial = '<br>'.t("osaliselt");
 			}
 			$bill_data = array(
+				"bill_name" => html::get_change_url($bill->id(), array("return_url" => get_ru()), $bill->comment()),
 				"bill_no" => html::get_change_url($bill->id(), array("return_url" => get_ru()), parse_obj_name($bill->prop("bill_no"))),
 				"create_new" => html::href(array(
-					"url" => $this->mk_my_orb("create_new_monthly_bill", array(
+					"url" => $this->mk_my_orb("create_new_invoice_template", array(
 						"id" => $bill->id(),
 						"co" => $arr["obj_inst"]->id(),
 						"post_ru" => get_ru()
@@ -2030,18 +2044,29 @@ $x++;
 	function _get_bills_mon_tb($arr)
 	{
 		$tb = $arr["prop"]["vcl_inst"];
-		$tb->add_button(array(
-			'name' => 'save',
-			'img' => 'save.gif',
-			'tooltip' => t('Salvesta'),
-			'action' => 'create_new_monthly_bill',
+		$tb->add_menu_button(array(
+			'name' => 'create',
+			'icon' => 'add',
+			'tooltip' => t('Loo uus')
+		));
+		$tb->add_menu_item(array(
+			'name' => 'create_template',
+			'parent' => 'create',
+			'action' => 'create_new_invoice_template',
+			'text' => t('Arvep&otilde;hi')
+		));
+		$tb->add_menu_item(array(
+			'name' => 'create_folder',
+			'parent' => 'create',
+			'action' => 'create_new_invoice_folder',
+			'text' => t('Arvep&otilde;hjade kaust')
 		));
 		$tb->add_button(array(
 			'name' => 'del',
 			'img' => 'delete.gif',
-			'tooltip' => t('Kustuta valitud arved'),
-			"confirm" => t("Oled kindel et soovid valitud arved kustutada?"),
-			'action' => 'delete_bills',
+			'tooltip' => t('Kustuta valitud arvep&otilde;hjad'),
+			"confirm" => t("Oled kindel et soovid valitud arvep&otilde;hjad kustutada?"),
+			'action' => 'delete_bills'
 		));
 	}
 
