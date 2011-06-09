@@ -1829,6 +1829,27 @@
             <parent>offers_vsplitbox</parent>
       </property>
       <property>
+            <name>offer_templates_toolbar</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>offers_templates</group>
+            <type>toolbar</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+      </property>
+      <property>
+            <name>offer_templates_list</name>
+            <table>objects</table>
+            <field>meta</field>
+            <method>serialize</method>
+            <group>offers_templates</group>
+            <type>table</type>
+            <store>no</store>
+            <no_caption>1</no_caption>
+            <parent>offer_templates_vsplitbox</parent>
+      </property>
+      <property>
             <name>tmstat_display_table</name>
             <table>objects</table>
             <field>meta</field>
@@ -2007,6 +2028,12 @@
                   <submit>no</submit>
                   <submit_method>get</submit_method>
             </offers_offers>
+            <offers_templates>
+                  <caption>&amp;amp;Scaron;abloonid</caption>
+                  <parent>offers</parent>
+                  <submit>no</submit>
+                  <submit_method>get</submit_method>
+            </offers_templates>
             <price_components>
                   <caption>Hinnakomponendid</caption>
                   <parent>offers</parent>
@@ -2359,6 +2386,18 @@
                   <parent>offers_box</parent>
                   <group>offers_offers</group>
             </offers_search_box>
+            <offer_templates_vsplitbox>
+                  <type>hbox</type>
+                  <width>25%:75%</width>
+                  <group>offers_templates</group>
+                  <area_caption></area_caption>
+            </offer_templates_vsplitbox>
+            <offer_templates_box>
+                  <type>vbox</type>
+                  <parent>offer_templates_vsplitbox</parent>
+                  <group>offers_templates</group>
+                  <area_caption></area_caption>
+            </offer_templates_box>
             <tmstat_control_container>
                   <type>hbox</type>
                   <width>50:50</width>

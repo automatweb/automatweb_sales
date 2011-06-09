@@ -4,8 +4,6 @@
 @tableinfo aw_crm_offer master_index=brother_of master_table=objects index=aw_oid
 
 @default table=aw_crm_offer
-
-@groupinfo general submit=no caption=&Uuml;ldine
 @default group=general
 
 	@property general_toolbar type=toolbar editonly=1 no_caption=1 store=no

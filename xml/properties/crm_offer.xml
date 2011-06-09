@@ -339,10 +339,6 @@
             <prop_cb>1</prop_cb>
       </classinfo>
       <groupinfo>
-            <general>
-                  <submit>no</submit>
-                  <caption>&amp;amp;Uuml;ldine</caption>
-            </general>
             <content>
                   <caption>Sisu</caption>
             </content>

@@ -27,6 +27,16 @@ class crm_offer_template extends crm_offer
 		));
 	}
 
+	public function _get_offer($arr)
+	{
+		return PROP_IGNORE;
+	}
+
+	public function _set_offer($arr)
+	{
+		return PROP_IGNORE;
+	}
+
 	public function _get_state($arr)
 	{
 		return PROP_IGNORE;

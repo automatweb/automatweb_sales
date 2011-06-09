@@ -449,7 +449,7 @@ Parimat,
 
 	public function get_offer_data()
 	{
-		$currency = new object($this->prop("currency"));
+		$currency = obj($this->prop("currency"), array(), currency_obj::CLID);
 
 		return array(
 			"id" => $this->id(),
@@ -879,6 +879,14 @@ Parimat,
 	public function awobj_get_sum()
 	{
 		return aw_math_calc::string2float(parent::prop("sum"));
+	}
+
+	/**	Returns sum with currency symbol
+		@attrib api=1
+	**/
+	public function sum_with_currency()
+	{
+		return is_oid($this->prop("currency")) ? obj($this->prop("currency"), array(), currency_obj::CLID)->sum_with_currency($this->awobj_get_sum()) : number_format($this->awobj_get_sum(), 2);
 	}
 
 	public function awobj_get_contracts()
