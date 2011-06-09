@@ -348,10 +348,6 @@
             <syslog_type>ST_CRM_OFFER_TEMPLATE</syslog_type>
       </classinfo>
       <groupinfo>
-            <general>
-                  <submit>no</submit>
-                  <caption>&amp;amp;Uuml;ldine</caption>
-            </general>
             <content>
                   <caption>Sisu</caption>
             </content>

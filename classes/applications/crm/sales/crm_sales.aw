@@ -35,6 +35,7 @@ GROUP DECLARATIONS
 
 @groupinfo offers caption="Pakkumused"
 @groupinfo offers_offers caption="Pakkumused" parent=offers submit=no submit_method=get
+@groupinfo offers_templates caption="&Scaron;abloonid" parent=offers submit=no submit_method=get
 @groupinfo price_components caption="Hinnakomponendid" parent=offers
 
 // statistics and analysis views. handled by separate static view classes
@@ -579,6 +580,16 @@ PROPERTY DECLARATIONS
 			@caption Otsi
 
 		@property offers_list type=table store=no no_caption=1 parent=offers_vsplitbox
+		
+@default group=offers_templates
+
+	@property offer_templates_toolbar type=toolbar store=no no_caption=1
+
+	@layout offer_templates_vsplitbox type=hbox width=25%:75%
+
+		@layout offer_templates_box type=vbox parent=offer_templates_vsplitbox
+
+		@property offer_templates_list type=table store=no no_caption=1 parent=offer_templates_vsplitbox
 
 
 @default group=statistics_telemarketing
@@ -1444,6 +1455,14 @@ class crm_sales extends class_base
 			if (method_exists("crm_sales_offers_view", $method_name))
 			{
 				$ret = crm_sales_offers_view::$method_name($arr);
+			}
+		}
+		elseif ("offers_templates" === $this->use_group)
+		{
+			$method_name = "_get_{$prop_name}";
+			if (method_exists("crm_sales_offers_templates_view", $method_name))
+			{
+				$ret = crm_sales_offers_templates_view::$method_name($arr);
 			}
 		}
 		elseif ("price_components" === $this->use_group)

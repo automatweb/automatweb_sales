@@ -413,5 +413,3 @@ class crm_sales_offers_view
 
 	}
 }
-
-?>
